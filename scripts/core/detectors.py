@@ -217,6 +217,185 @@ class HebrewWordDetector:
 
 
 # ----------------------------------------------------------------------
+# Greek word detector (χ.1)
+# ----------------------------------------------------------------------
+
+# Curated map of theologically-loaded biblical Greek (NT) terms.
+# Format: english_keyword → strongs_number (G-prefixed).
+# Same shape and rationale as ``HEBREW_KEYWORD_MAP`` above — a small
+# curated set for the MVP; extending the map widens detector coverage
+# without code changes.
+
+GREEK_KEYWORD_MAP: dict[str, str] = {
+    # Johannine + Pauline core vocabulary
+    "word": "G3056",  # logos — Word; the Logos in John 1
+    "love": "G26",  # agape — distinctive NT love (vs philia, eros)
+    "loved": "G25",  # agapao
+    "faith": "G4102",  # pistis — covenantal trust
+    "believe": "G4100",  # pisteuo
+    "believed": "G4100",
+    "lord": "G2962",  # kyrios — Lord (also LXX rendering of YHWH)
+    "christ": "G5547",  # christos — anointed; LXX/NT rendering of mashiach
+    "god": "G2316",  # theos
+    "spirit": "G4151",  # pneuma — spirit/wind/breath
+    "holy spirit": "G4151",
+    "flesh": "G4561",  # sarx — Pauline anthropology
+    "body": "G4983",  # soma
+    "soul": "G5590",  # psyche
+    "life": "G2222",  # zoe — esp. eternal life in John
+    # Soteriological core
+    "glory": "G1391",  # doxa
+    "grace": "G5485",  # charis
+    "peace": "G1515",  # eirene — LXX rendering of shalom
+    "hope": "G1680",  # elpis
+    "righteousness": "G1343",  # dikaiosyne
+    "righteous": "G1342",  # dikaios
+    "salvation": "G4991",  # soteria
+    "saved": "G4982",  # sozo
+    "save": "G4982",
+    "resurrection": "G386",  # anastasis
+    "judgment": "G2920",  # krisis
+    "kingdom": "G932",  # basileia
+    "church": "G1577",  # ekklesia — assembly / called-out
+    "assembly": "G1577",
+    "gospel": "G2098",  # evangelion — good news
+    "mystery": "G3466",  # musterion
+    "covenant": "G1242",  # diatheke — also "testament"
+    "testament": "G1242",
+    # Christological + relational
+    "son": "G5207",  # huios
+    "father": "G3962",  # pater
+    "sin": "G266",  # hamartia
+    "ransom": "G3083",  # lutron
+    "redemption": "G629",  # apolytrosis
+    "eternal": "G166",  # aionios — age-long / eternal
+    "everlasting": "G166",
+    "coming": "G3952",  # parousia — Christ's return
+    "season": "G2540",  # kairos — appointed time
+    "name": "G3686",  # onoma
+    "truth": "G225",  # aletheia
+    "true": "G228",  # alethinos
+    "way": "G3598",  # hodos
+    "light": "G5457",  # phos — NT counterpart of Hebrew or
+    "darkness": "G4655",  # skotos
+    "blood": "G129",  # haima — NT counterpart of Hebrew dam
+    "blessed": "G3107",  # makarios — Beatitudes vocabulary
+    "heart": "G2588",  # kardia
+    "mind": "G3563",  # nous
+    "knowledge": "G1108",  # gnosis
+    "wisdom": "G4678",  # sophia
+    "fear": "G5401",  # phobos
+    "perfect": "G5046",  # teleios — completeness, maturity
+    "holy": "G40",  # hagios
+    # Christ-incarnation specific
+    "lamb": "G721",  # arnion — esp. Revelation
+    "sheep": "G4263",  # probaton
+    "shepherd": "G4166",  # poimen
+    "vine": "G288",  # ampelos
+    "bread": "G740",  # artos
+    "rock": "G4073",  # petra — Matt 16
+    "stone": "G3037",  # lithos
+    "temple": "G3485",  # naos — inner sanctuary
+}
+
+
+class GreekWordDetector:
+    """Generate ``lang-greek`` candidates from theologically-loaded
+    English keywords backed by Strong's Greek lexical data.
+
+    Mirror of :class:`HebrewWordDetector` for NT verses. Returns ``[]``
+    for OT books — the LXX is also Greek, but tagging LXX/Apocrypha is
+    out of scope for χ.1 (the KJV translation data ships only the
+    Reformed canon, and the Apocrypha translation set is sparse). A
+    future χ.* phase can extend this to LXX/Apocrypha by removing the
+    ``not in NT_BOOKS`` filter and expanding the keyword map."""
+
+    name = "GreekWordDetector"
+    kind = "lang-greek"
+
+    # Verses in NT only — Greek lexicon applies to NT (and LXX, deferred).
+    NT_BOOKS = {
+        "mat", "mrk", "luk", "jhn", "act", "rom", "1co", "2co", "gal",
+        "eph", "php", "col", "1th", "2th", "1ti", "2ti", "tit", "phm",
+        "heb", "jas", "1pe", "2pe", "1jn", "2jn", "3jn", "jud", "rev",
+    }
+
+    def __init__(self) -> None:
+        self.lex = sources.strongs_greek()
+
+    def detect(
+        self, book: str, chapter: int, verse: int, verse_text: str
+    ) -> list[Candidate]:
+        if book not in self.NT_BOOKS:
+            return []
+        out = []
+        text = verse_text.lower()
+        seen_strongs = set()
+        for kw, strongs_num in GREEK_KEYWORD_MAP.items():
+            if strongs_num in seen_strongs:
+                continue
+            # Whole-word match, case-insensitive
+            if not re.search(rf"\b{re.escape(kw)}\b", text):
+                continue
+            entry = self.lex.get(strongs_num)
+            if not entry:
+                continue
+            seen_strongs.add(strongs_num)
+            # Confidence: weight Johannine + Pauline core terms in their
+            # most theologically loaded contexts. Conservative ceiling
+            # because keyword matching is necessarily lossy (English
+            # ambiguity around "word", "love", "lord" etc.).
+            conf = 0.85 if (book in {"jhn", "rom"} and chapter <= 8) else 0.65
+
+            body = self._format_body(kw, entry, verse_text)
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor=self._find_anchor(kw, verse_text),
+                    confidence=conf,
+                    source_name=entry.number,
+                    source_attribution=entry.attribution,
+                    draft_title="Greek",
+                    draft_label="Greek.",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Strong's gives the lexical baseline. Add the "
+                        "interpretive substance — context, theological "
+                        "stakes, parallels — before promoting."
+                    ),
+                )
+            )
+        return out
+
+    @staticmethod
+    def _find_anchor(keyword: str, verse_text: str) -> str:
+        """Locate the keyword in the verse to use as the anchor.
+        Returns the actual cased substring from the verse."""
+        m = re.search(rf"\b{re.escape(keyword)}\b", verse_text, re.IGNORECASE)
+        return m.group(0) if m else ""
+
+    @staticmethod
+    def _format_body(_keyword: str, entry, _verse_text: str) -> str:
+        """Compose the draft note body — a stub the user fleshes out.
+        ``_keyword`` and ``_verse_text`` are kept for signature parity
+        with ``HebrewWordDetector._format_body``; unused here."""
+        lemma_part = (
+            f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
+        )
+        xlit_part = entry.xlit or "—"
+        return (
+            f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> "
+            f"{entry.definition.strip().rstrip('.')}. "
+            f"<em>[Reviewer: extend this with context, theological "
+            f"reading, and any cross-canon resonance before promoting.]</em>"
+        )
+
+
+# ----------------------------------------------------------------------
 # TSK cross-reference detector
 # ----------------------------------------------------------------------
 
@@ -369,6 +548,7 @@ class NaveTopicalDetector:
 # are broken by detector order.
 ALL_DETECTORS = [
     HebrewWordDetector,
+    GreekWordDetector,
     CrossRefDetector,
     NaveTopicalDetector,
 ]

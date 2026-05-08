@@ -1,15 +1,18 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after ψ.13 design-system foundation shipped
-(continuous-go batch 9: scope-expansion → ν.2.9+ψ.10 → ξ.4 → ω.8 →
-ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13). 9 implementation phases this
-session; v1.0 progress at 9 of 14 phases.
+**Updated:** 2026-05-08, after χ.1 Strong's Greek + GreekWordDetector
+infrastructure shipped. Session arc so far (continuous-go): scope
+expansion → ν.2.9+ψ.10 → ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 →
+ψ.13 → **χ.1**. Ten implementation phases shipped this session;
+v1.0 progress now at 10 of 14 phases (χ.1 infrastructure done; the
++5-10K corpus delta remains user-side until the fetch + batch promote
+runs from a network-permitted env).
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
 the inventory below and the root-level `save.cmd` / `save.ps1`
 helpers. Each commit runs the pre-commit hook
-(`scripts/lint_rules.py` 8/8 must pass).
+(`scripts/lint_rules.py` 10/10 must pass).
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -23,24 +26,67 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 577 tests · 10/10 linter · 5 editions · 15,925 notes
+13 consoles · 596 tests · 10/10 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
              Tier 2 (corpus growth via χ cluster) UNDERWAY:
-               χ.6 done (xref + hebrew via existing detectors)
+               χ.6 done  (xref + hebrew via existing detectors)
                χ.7 INFRA done; data fetch is user-side
-               χ.1 next (Strong's Greek — needs new lexicon + detector)
+               χ.1 INFRA done; data fetch is user-side
+               (next pre-v1.0 platform phase per PLAN: ψ.8 cross-denom
+                compare apparatus — the v1.0 differentiator)
 
-CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session)
-             χ.7 expected to add ~2-3K topic-nave notes once the
-             source JSON lands in content/sources/.
-             χ.1 (Greek) still expected to add ~5-10K lang-greek.
+CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
+             χ.1 + χ.7 user-side fetches together expected to add ~7-13K
+             once they land).
 ```
 
 ---
 
-## Current phase: υ.1 /sources console upgrade shipped
+## Current phase: χ.1 Strong's Greek + GreekWordDetector shipped
+
+Mirror of HebrewWordDetector for NT verses, applying the §9 χ-cluster
+pattern for the third time (after χ.6 hebrew and χ.7 naves). Source
+loader + detector class + at-scale driver + tests are in place; the
+fetch + batch promote remain user-side, identical to χ.7's contract.
+
+```
+✓ content/sources/_fetchers.json   strongs_greek source declared
+                                   (required, parser strongs-greek-js,
+                                   openscriptures Greek dump).
+✓ scripts/core/fetcher_config.py   KNOWN_PARSERS adds strongs-greek-js.
+✓ scripts/fetch_sources.py         _parse_strongs_greek_js + PARSERS
+                                   entry. Mirror of the Hebrew parser;
+                                   different JS variable name.
+✓ scripts/core/sources.py          StrongsGreekEntry + StrongsGreek
+                                   loader + strongs_greek() singleton.
+                                   Tolerates both `xlit` and `translit`
+                                   field names — openscriptures' Greek
+                                   dump uses translit historically.
+✓ scripts/core/detectors.py        GREEK_KEYWORD_MAP (~60 entries) +
+                                   GreekWordDetector + ALL_DETECTORS
+                                   registration. NT-only filter
+                                   (mirror of Hebrew's NT-skip, flipped).
+✓ scripts/run_greek_at_scale.py    new driver iterating
+                                   content/translations/kjv/<book>.py
+                                   for NT books only. Appends to
+                                   existing chapter files; idempotent
+                                   on re-run.
+```
+
+**+19 tests** across four classes (`TestStrongsGreekSourceLoader` 3 ·
+`TestGreekWordDetector` 7 · `TestStrongsGreekFetchUtilities` 5 ·
+`TestRunGreekAtScaleDriver` 4). All synthetic fixtures — no network.
+
+**User-side completion (parked):** run
+`python scripts/fetch_sources.py` from a network-permitted env (or
+upload via `/sources`) to populate `strongs_greek.json`, then
+`python scripts/run_greek_at_scale.py` to write candidates, then
+`python scripts/batch_promote_xrefs.py --kind lang-greek` to promote
+(~5-10K notes expected).
+
+## Prior phase: υ.1 /sources console upgrade shipped
 
 The `/sources` console now hosts a Public-domain source cache section
 above the existing per-book note-attribution navigator. Reads
@@ -538,14 +584,15 @@ HOUSEKEEPING:
   tests/fixtures.py (ω.0.3 — shared test fixtures)
 
 CORPUS GROWTH PIPELINE (χ cluster — pattern proven repeatable
-across 3 detectors now):
+across 4 detectors now):
   scripts/run_xref_at_scale.py    (χ.6  — TSK xrefs at scale)
   scripts/run_hebrew_at_scale.py  (χ.6+ — HebrewWord at scale; OT only)
   scripts/run_naves_at_scale.py   (χ.7  — Nave's Topical at scale)
+  scripts/run_greek_at_scale.py   (χ.1  — GreekWord at scale; NT only)
   scripts/batch_promote_xrefs.py  (χ.6  — generic in-process batch
                                           promoter; --kind filter)
 
-  Pattern for future χ.* phases (χ.1 Greek, χ.2-5 commentaries):
+  Pattern for future χ.* phases (χ.2-5 commentaries):
     write detector class → write driver script iterating cached
     source data → run → batch_promote_xrefs.py --kind X.
 
@@ -571,8 +618,10 @@ CONSOLES (web UI) — all 13 cross-linked per Rule §6.2:
 ## In-flight notes
 
 - **IN_FLIGHT.md is `idle`** at the time of this snapshot —
-  χ.7 infrastructure is fully shipped; what remains is data
-  fetch + promote on the user side, not Claude work.
+  χ.1 infrastructure is fully shipped (mirror of χ.6 / χ.7);
+  what remains is the user-side fetch + promote, not Claude work.
+  Next pre-v1.0 platform phase per PLAN is ψ.8 cross-denom compare
+  apparatus (the v1.0 differentiator; ~2-3 sessions; schema change).
 - **Preflight FAILs on cover paths** — placeholder paths in
   seeded editions.yaml. Fixable via /covers upload or /customize
   blank.

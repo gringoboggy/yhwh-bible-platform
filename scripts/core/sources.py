@@ -7,6 +7,7 @@ public API is read-only; ``fetch_sources.py`` is the only writer.
 
 Public API:
     StrongsHebrew()         — entries keyed by H-number
+    StrongsGreek()          — entries keyed by G-number  (Phase χ.1)
     Tsk()                   — cross-refs keyed by (book, chapter, verse)
     NavesTopical()          — topical-concordance hits, both directions
                               (Phase χ.7)
@@ -86,6 +87,81 @@ class StrongsHebrew:
             number=num,
             lemma=d.get("lemma", ""),
             xlit=d.get("xlit", ""),
+            pron=d.get("pron", ""),
+            derivation=d.get("derivation", ""),
+            definition=d.get("strongs_def", ""),
+            kjv_def=d.get("kjv_def", ""),
+        )
+
+
+# ----------------------------------------------------------------------
+# Strong's Greek (χ.1)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class StrongsGreekEntry:
+    """One Strong's Greek dictionary entry. Mirror of ``StrongsEntry``
+    with the same field set; openscriptures' Greek dump uses ``translit``
+    where the Hebrew dump uses ``xlit``, so the loader normalises both
+    onto ``xlit``. Public-domain source; ``attribution`` returns the
+    citation string."""
+    number: str  # e.g. "G3056"
+    lemma: str  # Greek lemma
+    xlit: str  # transliteration
+    pron: str  # pronunciation
+    derivation: str
+    definition: str  # Strong's definition (the substantive entry)
+    kjv_def: str  # short KJV usage summary
+
+    @property
+    def attribution(self) -> str:
+        return (
+            f"Strong's {self.number}, A Concise Dictionary of the Words "
+            f"in the Greek Testament, James Strong (1894). PD."
+        )
+
+
+class StrongsGreek:
+    """Lazy loader for the Strong's Greek lexicon (cached on first read).
+
+    Raises ``SourceMissingError`` if the JSON cache hasn't been
+    populated yet. Use ``get(num)`` to look up a single entry —
+    returns ``None`` if the number is unknown.
+
+    Field naming: openscriptures' Greek dump uses ``translit`` where
+    the Hebrew dump uses ``xlit``. The loader accepts both so future
+    upstream renames don't break the platform; consumers always see
+    the entry's transliteration via ``StrongsGreekEntry.xlit``."""
+
+    PATH = _SOURCES / "strongs_greek.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Strong's Greek not cached. "
+                f"Run: python3 scripts/fetch_sources.py"
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            self._data = json.load(f)
+
+    def __contains__(self, num: str) -> bool:
+        return num in self._data
+
+    def __len__(self) -> int:
+        return len(self._data)
+
+    def get(self, num: str) -> Optional[StrongsGreekEntry]:
+        d = self._data.get(num)
+        if not d:
+            return None
+        # Tolerate either field name; openscriptures uses ``translit``
+        # for Greek, ``xlit`` for Hebrew. Normalise here.
+        xlit = d.get("xlit") or d.get("translit") or ""
+        return StrongsGreekEntry(
+            number=num,
+            lemma=d.get("lemma", ""),
+            xlit=xlit,
             pron=d.get("pron", ""),
             derivation=d.get("derivation", ""),
             definition=d.get("strongs_def", ""),
@@ -252,6 +328,12 @@ class NavesTopical:
 def strongs_hebrew() -> StrongsHebrew:
     """Return the singleton StrongsHebrew instance (lazy-loaded once)."""
     return StrongsHebrew()
+
+
+@lru_cache(maxsize=1)
+def strongs_greek() -> StrongsGreek:
+    """Return the singleton StrongsGreek instance (lazy-loaded once)."""
+    return StrongsGreek()
 
 
 @lru_cache(maxsize=1)

@@ -92,6 +92,31 @@ def _parse_strongs_hebrew_js(url: str) -> dict | None:
 
 
 # ----------------------------------------------------------------------
+# Strong's Greek Dictionary (χ.1)
+# ----------------------------------------------------------------------
+
+
+def _parse_strongs_greek_js(url: str) -> dict | None:
+    """Strip the JS wrapper around openscriptures' Strong's Greek dump
+    and return the dictionary keyed by G-number.
+
+    Mirror of ``_parse_strongs_hebrew_js`` — same upstream repo, same
+    JS-variable shape, just a different variable name
+    (``strongsGreekDictionary``). The cached JSON is consumed by
+    ``scripts.core.sources.StrongsGreek``."""
+    text = _http.get(url).decode("utf-8")  # ω.10 — retry+timeout
+    m = re.search(r"strongsGreekDictionary\s*=\s*(\{.*\})", text, re.DOTALL)
+    if not m:
+        return None
+    raw_json = m.group(1).rstrip().rstrip(";")
+    try:
+        data = json.loads(raw_json)
+    except json.JSONDecodeError:
+        return None
+    return data if isinstance(data, dict) else None
+
+
+# ----------------------------------------------------------------------
 # Treasury of Scripture Knowledge
 # ----------------------------------------------------------------------
 
@@ -335,6 +360,7 @@ def _parse_ccel_text(url: str) -> dict | None:
 
 PARSERS: dict[str, callable] = {
     "strongs-hebrew-js": _parse_strongs_hebrew_js,
+    "strongs-greek-js": _parse_strongs_greek_js,
     "tsk-zip-tsv": _parse_tsk_zip_tsv,
     "json-topic-to-refs": _parse_naves_json_topic_to_refs,
     "openbible-topics-tsv": _parse_naves_openbible_tsv,

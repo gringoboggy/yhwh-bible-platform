@@ -6,6 +6,116 @@
 
 ---
 
+## 2026-05-08 — session — χ.1 Strong's Greek + GreekWordDetector
+
+**Phases shipped:** χ.1 (infrastructure — source loader + detector +
+driver + tests; data fetch + batch promote remain user-side, identical
+to χ.6 / χ.7).
+**Test delta:** +19 (577 → 596).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`content/sources/_fetchers.json`** — added `strongs_greek` source
+  (required, openscriptures Greek dump, parser kind `strongs-greek-js`).
+- **`scripts/core/fetcher_config.py`** — `KNOWN_PARSERS` now includes
+  `strongs-greek-js`. Adding the parser kind is the single point of
+  entry; both the JSON config validator and the runtime parser
+  registry are kept in sync via this set.
+- **`scripts/fetch_sources.py`** — `_parse_strongs_greek_js` (mirror of
+  the Hebrew parser; same upstream repo, different JS variable name)
+  and registration in `PARSERS`. The `write_attributions` helper picks
+  up the new source automatically because the attribution body is
+  composed from the loaded config (per υ.7), so `ATTRIBUTIONS.md`
+  surfaces the Greek section without any code change there.
+- **`scripts/core/sources.py`** — new `StrongsGreekEntry` dataclass +
+  `StrongsGreek` loader + `strongs_greek()` lru-cached singleton.
+  Mirrors `StrongsHebrew` with one tolerance: openscriptures' Greek
+  dump uses `translit` where Hebrew uses `xlit`; the loader normalises
+  both onto `StrongsGreekEntry.xlit`.
+- **`scripts/core/detectors.py`** — `GREEK_KEYWORD_MAP` (~60 entries:
+  Johannine + Pauline core vocabulary, soteriological terms,
+  Christological + relational, incarnation imagery), `GreekWordDetector`
+  class, registration in `ALL_DETECTORS`. Symmetric to
+  `HebrewWordDetector` with the NT-vs-OT predicate flipped: returns
+  `[]` for OT books. LXX/Apocrypha tagging is explicitly out of scope
+  for χ.1 — a future χ.* phase can extend the detector by removing
+  the NT-only filter once the LXX translation set lands.
+- **`scripts/run_greek_at_scale.py`** — new driver mirroring
+  `run_hebrew_at_scale.py`. Iterates NT books from
+  `content/translations/kjv/`, runs the detector chapter-by-chapter,
+  writes prospect-format candidate JSON to `content/candidates/`.
+  Appends to existing chapter files (so xref + hebrew + naves + greek
+  candidates coexist for the same chapter), and is idempotent on
+  re-run (drops prior `lang-greek` entries before writing the new
+  set, keeping non-greek candidates intact).
+- **+19 tests** across four classes:
+  - `TestStrongsGreekSourceLoader` (3) — missing-cache error shape;
+    synthetic-fixture round trip with both `xlit` and `translit`
+    field names accepted; lru-cached singleton identity.
+  - `TestGreekWordDetector` (7) — registration in `ALL_DETECTORS`;
+    kind = `lang-greek`; OT-book skip; happy-path candidate emission
+    with cased-anchor extraction; intra-verse Strong's-number
+    deduplication; NT_BOOKS membership sanity; confidence calibration
+    (Johannine/Pauline core highest).
+  - `TestStrongsGreekFetchUtilities` (5) — `strongs-greek-js` in
+    `KNOWN_PARSERS` and `PARSERS`; parser extracts the dictionary
+    from a synthetic JS-wrapped JSON payload; parser returns `None`
+    on unrecognised payload; `_fetchers.json` declares the source
+    correctly; `ATTRIBUTIONS.md` surfaces the Greek section after
+    `write_attributions`.
+  - `TestRunGreekAtScaleDriver` (4) — driver skips OT books with the
+    documented `reason`; prospect-format output for an NT book
+    (skips gracefully if the keyword map happens not to match the
+    sample chapter — the contract is "shape", not "count");
+    append-not-clobber when a prior at-scale driver already wrote
+    candidates for the chapter; idempotent re-run drops prior
+    `lang-greek` entries.
+
+User-side completion (parked, identical to χ.6 / χ.7):
+
+- Run `python scripts/fetch_sources.py` from a network-permitted env
+  to populate `content/sources/strongs_greek.json` (~3 MB), or upload
+  a pre-built JSON via the `/sources` console (the υ.1 Upload-JSON
+  affordance handles strongs_greek alongside Naves's Topical).
+- Then `python scripts/run_greek_at_scale.py` to produce the
+  candidate JSON files (~5-10K candidates expected across the 27 NT
+  books).
+- Then `python scripts/batch_promote_xrefs.py --kind lang-greek` to
+  promote into real notes. Idempotent + dedupes against existing
+  notes per the χ-cluster pattern.
+
+Notable decisions:
+
+- **Tolerate `translit` as well as `xlit` in the loader.** The
+  openscriptures Greek dump historically uses `translit` while the
+  Hebrew dump uses `xlit`. Tolerating both costs nothing and shields
+  the platform from a future upstream rename in either direction.
+- **NT-only for χ.1.** The LXX is also Greek and would push corpus
+  count higher, but tagging LXX/Apocrypha verses needs the
+  translation set to ship first — the KJV bundled with the platform
+  has the Reformed canon only. Splitting LXX into a future χ.* phase
+  keeps χ.1 single-session-sized and risk-low.
+- **Detector confidence calibrated to Johannine + Pauline core.**
+  The keyword map's most-loaded terms (logos, agape, pistis, sarx)
+  hit hardest in those corpora; the confidence ceiling rewards
+  matches there with 0.85, others with 0.65. Mirrors the Hebrew
+  detector's "Genesis 1-3 = high-confidence" calibration.
+
+Continuity pointers:
+
+- §9 "Add a new corpus-growth phase (the χ cluster pattern)" — this
+  is the third instance applying that template (after χ.6 hebrew and
+  χ.7 naves); the recipe holds without revision.
+- `dev/SCOPE_2026-05-08.md` §3 corpus-growth column — χ.1
+  infrastructure now ships; the count update awaits the user-side
+  fetch + promote.
+- `dev/PLAN_2026-05-08.md` Tier B item 7 (χ.1) — moves from "next
+  for Claude" to "infra DONE, fetch user-side". Next Tier B item is
+  ψ.8 cross-denom compare apparatus (the v1.0 differentiator).
+
+---
+
 ## 2026-05-08 — session — ψ.13 design-system foundation (continuous-go batch 9)
 
 **Phases shipped:** ψ.13 (foundation; the 13-console migration sweep

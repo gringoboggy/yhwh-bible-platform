@@ -4,7 +4,18 @@
 
 ## Active task
 
-*(none — tracker is idle. Scope refresh + close-out shipped 2026-05-08:
+*(none — tracker is idle. χ.1 Strong's Greek + GreekWordDetector
+infrastructure shipped 2026-05-08: source loader, detector, at-scale
+driver, +19 tests across 4 classes; 596 tests green, 10/10 linter
+clean. Source-data fetch + batch promote are user-side, identical to
+χ.7's contract — run `python scripts/fetch_sources.py` (or upload
+JSON via `/sources`) to populate strongs_greek.json, then
+`python scripts/run_greek_at_scale.py`, then
+`python scripts/batch_promote_xrefs.py --kind lang-greek` for the
+~5-10K corpus delta. Next pre-v1.0 platform phase per PLAN is **ψ.8
+cross-denom compare apparatus** — the v1.0 differentiator;
+~2-3 sessions; spec at
+dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md.)*
 SCOPE_2026-05-08.md and PLAN_2026-05-08.md are now the active master
 docs; SCOPE_2026-05-07.md and PLAN_2026-05-07.md moved to dev/archive/;
 CLAUDE_PROJECT_RULES §0 bootstrap protocol updated to point at the new

@@ -54,6 +54,7 @@ CONFIG_VERSION = 1
 # becomes an issue.
 KNOWN_PARSERS: frozenset[str] = frozenset({
     "strongs-hebrew-js",
+    "strongs-greek-js",
     "tsk-zip-tsv",
     "json-topic-to-refs",
     "openbible-topics-tsv",

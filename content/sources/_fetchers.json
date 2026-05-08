@@ -15,6 +15,19 @@
       ]
     },
     {
+      "id": "strongs_greek",
+      "name": "Strong's Greek Dictionary",
+      "cache_path": "strongs_greek.json",
+      "required": true,
+      "license": "Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.",
+      "candidates": [
+        {
+          "url": "https://raw.githubusercontent.com/openscriptures/strongs/master/greek/strongs-greek-dictionary.js",
+          "parser": "strongs-greek-js"
+        }
+      ]
+    },
+    {
       "id": "tsk",
       "name": "Treasury of Scripture Knowledge",
       "cache_path": "tsk_xrefs.json",
