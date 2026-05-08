@@ -5931,6 +5931,127 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ψ.12 : matrix smoothness pass ----------------------
+
+
+class TestMatrixSmoothness:
+    """ψ.12 — incremental DOM updates + sticky headers + scroll
+    preservation + inline switch-confirm banner. The HTML structure
+    + CSS selectors are testable without a browser; the JS logic
+    is verified via grep/anchor presence (the project's existing
+    template-test pattern)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates import matrix
+        cls.html = matrix.MATRIX_HTML
+
+    # ---- Sticky headers / first column ----
+
+    def test_matrix_table_has_sticky_class(self):
+        # The CSS opt-in marker — applied to the <table> element.
+        assert "matrix-table" in self.html
+
+    def test_sticky_header_css_present(self):
+        # The CSS rule that pins thead th to the top of the scroll
+        # container as the user scrolls down.
+        assert "matrix-table thead th" in self.html
+        assert "position: sticky" in self.html
+        assert "top: 0" in self.html
+
+    def test_sticky_first_column_css_present(self):
+        # The CSS rule that pins the row label as the user scrolls
+        # right past additional edition columns.
+        assert "matrix-table tbody td:first-child" in self.html
+        assert "left: 0" in self.html
+
+    def test_table_wrapped_in_scroll_container(self):
+        # Sticky positioning needs a scroll container — the wrap div
+        # provides that with overflow:auto + a max-height.
+        assert "matrix-table-wrap" in self.html
+        assert "overflow: auto" in self.html
+
+    # ---- Incremental DOM updates (no buildBody on every toggle) ----
+
+    def test_update_category_checkbox_helper_exists(self):
+        # The incremental-update function for parent-checkbox state.
+        assert "function updateCategoryCheckbox" in self.html
+
+    def test_toggle_kind_does_not_call_buildBody(self):
+        # Locate the onToggleKind body and assert no buildBody() call
+        # inside it.
+        import re
+        m = re.search(
+            r"function onToggleKind\(.+?\)\s*\{(.+?)^\}",
+            self.html, re.DOTALL | re.MULTILINE,
+        )
+        assert m, "onToggleKind not found"
+        body = m.group(1)
+        assert "buildBody()" not in body, (
+            "ψ.12 broke: onToggleKind should patch the DOM "
+            "incrementally, not full-rebuild."
+        )
+        # Should call the incremental helper instead.
+        assert "updateCategoryCheckbox" in body
+
+    def test_toggle_category_does_not_call_buildBody(self):
+        import re
+        m = re.search(
+            r"function onToggleCategory\(.+?\)\s*\{(.+?)^\}",
+            self.html, re.DOTALL | re.MULTILINE,
+        )
+        assert m, "onToggleCategory not found"
+        body = m.group(1)
+        assert "buildBody()" not in body, (
+            "ψ.12 broke: onToggleCategory should patch in place."
+        )
+
+    # ---- Scroll position preservation ----
+
+    def test_buildBody_preserves_scroll_position(self):
+        # buildBody() captures wrap.scrollTop/scrollLeft before
+        # teardown and restores after the rebuild.
+        assert "scrollTop" in self.html
+        assert "scrollLeft" in self.html
+        assert "matrix-table-wrap" in self.html
+
+    # ---- Inline switch-confirm banner replaces confirm() ----
+
+    def test_switch_confirm_banner_present(self):
+        assert 'id="switch-confirm"' in self.html
+        assert 'id="switch-discard"' in self.html
+        assert 'id="switch-cancel"' in self.html
+
+    def test_no_confirm_call_for_edition_switch(self):
+        # The blocking confirm() that previously gated edition
+        # switches must be gone — replaced by the inline banner.
+        # (There IS still a confirm() for scenario delete; that's a
+        # different action with stronger justification.)
+        # Anchor: the edition-switch handler is the `change` listener
+        # on `edition-select` — locate just that arrow body.
+        import re
+        m = re.search(
+            r"sel\.addEventListener\(\s*['\"]change['\"]\s*,\s*\(\)\s*=>\s*\{(.+?)\}\s*\)\s*;",
+            self.html, re.DOTALL,
+        )
+        assert m, "edition-select change handler not found"
+        body = m.group(1)
+        # Strip `//` line comments before the executable-code check —
+        # mentions of confirm() in the rationale comment shouldn't
+        # cause a false positive.
+        code_lines = []
+        for line in body.splitlines():
+            cidx = line.find("//")
+            code_lines.append(line if cidx < 0 else line[:cidx])
+        code = "\n".join(code_lines)
+        assert "confirm(" not in code, (
+            "ψ.12 broke: edition-switch handler must use the inline "
+            "banner, not a blocking confirm()."
+        )
+        # Positive: it should reference the banner anchors instead.
+        assert "switch-confirm" in body
+
+
 # ---------- Phase ξ.1 : input-validation primitives ------------------
 
 

@@ -22,6 +22,25 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   .count-disabled { color: #fbbf24; font-style: italic; }
   .count-ok { color: #1f2937; }
   .pill { display: inline-block; padding: 0.1em 0.6em; border-radius: 9999px; font-size: 0.75em; }
+  /* ψ.12 — sticky column headers + first-column row labels.
+     Without this, scrolling right (with many editions) loses the
+     column headers and scrolling down loses the row labels. */
+  .matrix-table thead th {
+    position: sticky;
+    top: 0;
+    background: #f8fafc;
+    z-index: 2;
+  }
+  .matrix-table tbody td:first-child,
+  .matrix-table thead th:first-child {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 1;
+  }
+  .matrix-table thead th:first-child { background: #f8fafc; z-index: 3; }
+  .matrix-table tbody tr.cat-row td:first-child { background: #fafafa; }
+  .matrix-table-wrap { max-height: 75vh; overflow: auto; }
   details > summary { list-style: none; }
   details > summary::-webkit-details-marker { display: none; }
   details > summary::before { content: "▸"; display: inline-block; width: 1em; transition: transform 0.15s; color: #94a3b8; }
@@ -87,7 +106,17 @@ MATRIX_HTML = r"""<!DOCTYPE html>
           <span class="count-zero">●</span> no notes
         </div>
       </div>
-      <table class="w-full text-sm">
+      <!-- ψ.12 — inline switch-confirm banner replaces a blocking
+           confirm() that was easy to dismiss accidentally. -->
+      <div id="switch-confirm" class="hidden mx-4 my-2 px-3 py-2 rounded border border-amber-300 bg-amber-50 text-sm text-amber-900 flex items-center justify-between gap-3">
+        <span>You have unsaved changes. Switching editions will discard them.</span>
+        <span class="flex items-center gap-2">
+          <button type="button" id="switch-discard" class="text-xs px-3 py-1 rounded bg-amber-600 text-white hover:bg-amber-700">Discard &amp; switch</button>
+          <button type="button" id="switch-cancel" class="text-xs px-3 py-1 rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
+        </span>
+      </div>
+      <div class="matrix-table-wrap">
+      <table class="w-full text-sm matrix-table">
         <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
           <tr id="header-row">
             <th class="text-left px-3 py-2 w-72">
@@ -98,6 +127,7 @@ MATRIX_HTML = r"""<!DOCTYPE html>
         </thead>
         <tbody id="body"></tbody>
       </table>
+      </div>
     </section>
 
     <!-- RIGHT: active edition panel -->
@@ -171,7 +201,14 @@ function buildHeader() {
 
 function kindIsEnabledLocally(code) { return LOCAL_ENABLED.has(code); }
 
+// ψ.12 — preserve scroll position across the rare buildBody() rebuilds
+// (reset, edition switch, initial render). Toggle paths now patch
+// the DOM in place via incremental handlers below — they don't call
+// buildBody at all.
 function buildBody() {
+  const wrap = document.querySelector('.matrix-table-wrap');
+  const scrollTop = wrap ? wrap.scrollTop : 0;
+  const scrollLeft = wrap ? wrap.scrollLeft : 0;
   const tbody = document.getElementById('body');
   tbody.innerHTML = '';
   const cats = [...DATA.categories].sort((a, b) => a.sort_order - b.sort_order);
@@ -238,6 +275,29 @@ function buildBody() {
       tbody.appendChild(kRow);
     }
   }
+  // ψ.12 — restore scroll position after the rebuild.
+  if (wrap) {
+    wrap.scrollTop = scrollTop;
+    wrap.scrollLeft = scrollLeft;
+  }
+}
+
+// ψ.12 — incremental update for one category's parent-checkbox state.
+// Called from the toggle handlers instead of a full buildBody() rebuild.
+// Recomputes allEnabled / someEnabled for `catId`'s kinds (using the
+// current LOCAL_ENABLED set) and patches the parent checkbox + its
+// indeterminate marker IN PLACE. No DOM teardown; no scroll-jump; no
+// re-attachment of every kind row's event listener.
+function updateCategoryCheckbox(catId) {
+  const catCheckbox = document.querySelector(
+    `.cat-toggle[data-cat="${catId}"]`
+  );
+  if (!catCheckbox) return;
+  const kindsInCat = DATA.kinds.filter(k => k.category === catId);
+  const allEnabled = kindsInCat.every(k => kindIsEnabledLocally(k.code));
+  const someEnabled = kindsInCat.some(k => kindIsEnabledLocally(k.code));
+  catCheckbox.checked = allEnabled;
+  catCheckbox.indeterminate = someEnabled && !allEnabled;
 }
 
 function formatCount(enabled, potential) {
@@ -262,19 +322,35 @@ function formatCount(enabled, potential) {
 function onToggleKind(code, on) {
   if (on) LOCAL_ENABLED.add(code);
   else LOCAL_ENABLED.delete(code);
+  // ψ.12 — incremental: just patch the parent category checkbox's
+  // indeterminate state. The toggled kind's checkbox is already in
+  // its target visual state (the user clicked it).
+  const kind = DATA.kinds.find(k => k.code === code);
+  if (kind) updateCategoryCheckbox(kind.category);
   refreshDirtyBanner();
-  // Refresh just the category checkbox state for the parent
-  buildBody();  // simplest: full rebuild — fast at this scale
 }
 
 function onToggleCategory(catId, on) {
+  // ψ.12 — incremental: walk every kind-row checkbox in this
+  // category and set its checked state directly. No tbody teardown,
+  // no listener re-attachment, no scroll jump.
   const kinds = DATA.kinds.filter(k => k.category === catId);
   for (const k of kinds) {
     if (on) LOCAL_ENABLED.add(k.code);
     else LOCAL_ENABLED.delete(k.code);
+    const kc = document.querySelector(
+      `.kind-toggle[data-kind="${k.code}"]`
+    );
+    if (kc) kc.checked = on;
   }
+  // The category's own indeterminate is now resolved one way or
+  // the other; the checkbox's `change` event already set its
+  // own .checked, so nothing more to do for the parent.
+  const catCheckbox = document.querySelector(
+    `.cat-toggle[data-cat="${catId}"]`
+  );
+  if (catCheckbox) catCheckbox.indeterminate = false;
   refreshDirtyBanner();
-  buildBody();
 }
 
 function refreshDirtyBanner() {
@@ -311,14 +387,30 @@ function buildEditionSelector() {
   }
   sel.value = ACTIVE_EDITION;
   sel.addEventListener('change', () => {
+    // ψ.12 — replace the blocking confirm() with an inline banner.
+    // Dirty? Show the banner and revert the picker until the user
+    // explicitly clicks Discard or Cancel.
     if (symmetricDiff(LOCAL_ENABLED, SERVER_ENABLED).size > 0) {
-      if (!confirm('You have unsaved changes — discard and switch edition?')) {
-        sel.value = ACTIVE_EDITION;
-        return;
-      }
+      const banner = document.getElementById('switch-confirm');
+      banner.dataset.target = sel.value;
+      banner.classList.remove('hidden');
+      sel.value = ACTIVE_EDITION;  // visual revert until decided
+      return;
     }
     ACTIVE_EDITION = sel.value;
     refreshActiveEdition();
+  });
+  document.getElementById('switch-discard').addEventListener('click', () => {
+    const banner = document.getElementById('switch-confirm');
+    const target = banner.dataset.target;
+    if (!target) return;
+    ACTIVE_EDITION = target;
+    sel.value = target;
+    banner.classList.add('hidden');
+    refreshActiveEdition();
+  });
+  document.getElementById('switch-cancel').addEventListener('click', () => {
+    document.getElementById('switch-confirm').classList.add('hidden');
   });
   document.getElementById('save-btn').addEventListener('click', saveActiveEdition);
   document.getElementById('reset-btn').addEventListener('click', () => {

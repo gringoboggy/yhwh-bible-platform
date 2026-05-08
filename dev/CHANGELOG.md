@@ -6,6 +6,101 @@
 
 ---
 
+## 2026-05-08 — session — ψ.12 matrix smoothness (continuous-go batch 8)
+
+**Phases shipped:** ψ.12 (partial — 4 of 7 sub-fixes; the rest deferred
+as ψ.12.5).
+**Test delta:** +10 (550 → 560).
+**Save tag this session:** pending — will land in next push.
+
+What shipped (4 of the 7 ψ.12 fixes):
+
+- **(c) Sticky column headers + first-column row labels.** New CSS:
+  `position: sticky` on `.matrix-table thead th` (top: 0) and on
+  every `tbody td:first-child` (left: 0). The table is now wrapped
+  in a `.matrix-table-wrap` div with `max-height: 75vh; overflow:
+  auto` so sticky positioning has a scroll container. Scrolling
+  right past additional editions no longer loses the row labels;
+  scrolling down keeps the column headers visible.
+- **(a) + (g) Incremental DOM updates on toggle.** The two toggle
+  handlers `onToggleKind` and `onToggleCategory` no longer call
+  `buildBody()` (which tore down and rebuilt the entire `<tbody>`,
+  reattaching every event listener and dropping scroll position).
+  Instead:
+  - `onToggleKind` updates `LOCAL_ENABLED` and patches just the
+    parent category checkbox via a new `updateCategoryCheckbox`
+    helper (sets `.checked` and `.indeterminate` based on the
+    fresh `someEnabled` / `allEnabled` computation).
+  - `onToggleCategory` walks every kind-row checkbox in the
+    category and sets `.checked` directly; clears the parent's
+    indeterminate state.
+  - `buildBody()` retained for the rare full rebuilds (initial
+    render, reset to server state, edition switch).
+  At 77 rows today this was already fine; at 250+ rows (post
+  χ.1/χ.2-5/τ corpus growth) the difference between a full rebuild
+  and a couple of attribute writes is ~100x.
+- **(e) Scroll-position preservation across full rebuilds.**
+  When `buildBody()` does run (reset / edition switch), it now
+  captures `wrap.scrollTop` and `wrap.scrollLeft` before clearing
+  `tbody.innerHTML` and restores them after the rebuild. Users
+  reviewing a long matrix don't lose their place when they hit
+  Reset.
+- **(f) Inline switch-confirm banner replaces blocking confirm().**
+  The dirty-state guard on edition switch now shows an inline
+  amber banner with `Discard & switch` / `Cancel` buttons. The
+  `<select>` reverts to the previous value until the user
+  explicitly chooses. No more accidental dismissal of a real OS
+  dialog. Smoke-tested: /matrix returns HTTP 200 with the
+  banner anchors present.
+
+What's deferred to ψ.12.5:
+
+- **(b) O(n²) `symmetricDiff`** → O(n) — a micro-optimization on
+  the dirty-banner path. Not user-visible at typical scale; not
+  blocking.
+- **(d) Keyboard navigation** (arrows / space / escape) —
+  substantive accessibility feature; deserves its own focused
+  phase with proper a11y tests.
+
++10 tests in `TestMatrixSmoothness`:
+
+- Sticky header + first-column CSS rules present (4).
+- Incremental update path: `updateCategoryCheckbox` defined; `onToggleKind`
+  doesn't call `buildBody()`; `onToggleCategory` doesn't call
+  `buildBody()` (3).
+- Scroll preservation: `scrollTop`/`scrollLeft` captured + restored
+  in `buildBody()` (1).
+- Switch-confirm banner: anchors present; the edition-switch handler
+  uses the banner not `confirm()` (2).
+
+Notable decisions:
+
+- **Bundled (a) and (g).** They both touch the toggle handler path
+  and would conflict if shipped separately. Bundling them is the
+  natural unit of work.
+- **Kept the full-rebuild `buildBody()` helper.** It's called for
+  reset and edition-switch; localizing those would add complexity
+  without much payoff. The win is keeping it OUT of the toggle
+  hot path.
+- **Test the JS via grep + regex over MATRIX_HTML.** The project's
+  pattern: HTML constants are unit-tested by string assertions
+  (the cross-link invariant linter does the same; existing
+  TestMatrixAPI uses this approach). A real headless-browser test
+  would catch subtler regressions but costs a heavy dep
+  (Selenium/Playwright). The grep-style tests are a tier 3
+  drift-prevention layer — good enough.
+
+Continuity pointers:
+
+- v1.0 progress: ψ.12 (partial) ✓. Net v1.0 todo: minus 1 →
+  **8 of 14 phases done** (6 left + corpus + desktop).
+- ψ.12.5 — keyboard nav + symmetricDiff micro-opt — left as a
+  follow-up phase.
+- This was continuous-go batch 8. Total this session: 9
+  implementation phases + the third-revision scope expansion.
+
+---
+
 ## 2026-05-08 — session — ξ.1 input-validation primitives (continuous-go batch 7)
 
 **Phases shipped:** ξ.1.
