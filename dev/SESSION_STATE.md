@@ -1,8 +1,9 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after ω.10 retry/timeout policy shipped
-(continuous-go batch 6: scope-expansion → ν.2.9+ψ.10 → ξ.4 → ω.8 →
-ω.9 → ξ.2 → ω.10). Hardening trio (ξ.4 + ω.8/9/10 + ξ.2) now done.
+**Updated:** 2026-05-08, after ξ.1 input-validation primitives
+shipped (continuous-go batch 7: scope-expansion → ν.2.9+ψ.10 → ξ.4
+→ ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1). Pre-v1.0 security cluster (ξ.1/2/4)
+plus pre-v1.0 robustness trio (ω.8/9/10) all done.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
@@ -22,7 +23,7 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 512 tests · 10/10 linter · 5 editions · 15,925 notes
+13 consoles · 550 tests · 10/10 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.

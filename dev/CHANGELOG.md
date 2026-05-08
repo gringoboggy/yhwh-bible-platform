@@ -6,6 +6,84 @@
 
 ---
 
+## 2026-05-08 — session — ξ.1 input-validation primitives (continuous-go batch 7)
+
+**Phases shipped:** ξ.1.
+**Test delta:** +38 (512 → 550).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **`scripts/core/validation.py`** (new, ~155 lines) — shared
+  primitive validators for API input shapes. Public API:
+  - `ValidationError` — raised on shape failure; message is
+    user-safe and goes straight into a 400 payload.
+  - `require_string` / `require_short_string` — type + length
+    checks; rejects None, non-strings, oversized.
+  - `validate_book_code` — matches books.yaml shape (1-4
+    lowercase alphanumerics).
+  - `validate_edition_id` / `validate_kind_code` — match
+    editions.yaml / kinds.yaml id shapes (lowercase letters +
+    hyphens, leading letter, ≤64 chars).
+  - `validate_path_segment` — single safe filename
+    (alphanumerics + dot/dash/underscore); explicit
+    rejection of `.` and `..`.
+  - `validate_chapter` / `validate_verse` — int (or string-int)
+    in scripture-plus-margin ranges; rejects bool, garbage
+    strings, negative, oversized.
+  - `to_error_dict(exc, http=400)` — translates a
+    ValidationError into the §9 dict-shape contract; one line
+    in every endpoint that wants a clean 400 response.
+- **+38 tests in `TestValidation`** covering: 7 string-primitive
+  cases (None, int, empty, oversized, opt-in-empty, short-string
+  cap); 6 book-code (gen, 1ki, uppercase reject, length reject,
+  traversal-attempt reject, empty); 5 edition-id (real values,
+  underscore, leading-digit, uppercase, traversal); 3 kind-code
+  (real values, uppercase, dot); 7 path-segment (filename, slash,
+  backslash, `.`, `..`, NUL byte); 7 chapter (int, string-int,
+  zero, negative, oversized, bool, garbage-string); 1 verse
+  (Psalm 119:176); 2 to_error_dict (default 400, custom 422).
+
+Notable decisions:
+
+- **Patterns lifted from real content/.** Book-code shape
+  verified against the actual `content/books.yaml` (every entry
+  matches `[a-z0-9]{1,4}`). Edition-id verified against
+  `content/editions.yaml`. Kind-code verified against
+  `content/kinds.yaml`. The validators reject things the project
+  doesn't actually use, not things some abstract spec
+  hypothetically forbids.
+- **Bool rejected for chapter/verse.** Python's bool-is-int
+  surprise (`True == 1`) means `validate_chapter(True)` would
+  silently succeed without an explicit type check. Caught here.
+- **Generous numeric bounds.** Chapter 1-200 / verse 1-200
+  exceed actual scripture (Psalm 117 = shortest, Psalm 119:176 =
+  longest). Tightening to actual canonical bounds was tempting
+  but the platform may legitimately host non-canonical apparatus
+  (e.g. lectionary numbering schemes); validation's job is to
+  reject attack payloads and absurd values, not enforce theology.
+- **Did NOT spot-migrate endpoints** in this commit. The deliverable
+  was the module + tests; per-endpoint migration is a separate
+  audit with real risk of behavior change. The §9 pure-function
+  pattern's existing input checks already cover newer endpoints;
+  validation.py is the canonical place to migrate older inline
+  checks toward as the project touches them. Parked as a
+  follow-up.
+
+Continuity pointers:
+
+- v1.0 progress: ξ.1 ✓. **Pre-v1.0 security cluster (ξ.1/2/4) and
+  robustness trio (ω.8/9/10) are now both 100% complete.**
+  Net v1.0 todo: minus 1 → **7 of 14 phases done** (8 left).
+- This was continuous-go batch 7. Total this session: 8
+  implementation phases (ν.2.9 + ψ.10 + ξ.4 + ω.8 + ω.9 + ξ.2 +
+  ω.10 + ξ.1) plus the third-revision scope expansion.
+- Next continuous-go batch: ψ.12 matrix smoothness (next-biggest
+  UX win, killer-rated) OR ψ.13 design-system foundation
+  (foundation for buyer-arc polish).
+
+---
+
 ## 2026-05-08 — session — ω.10 retry/timeout policy (continuous-go batch 6)
 
 **Phases shipped:** ω.10.

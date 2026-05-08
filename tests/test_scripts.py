@@ -5931,6 +5931,280 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ξ.1 : input-validation primitives ------------------
+
+
+class TestValidation:
+    """ξ.1 — scripts/core/validation.py is the shared place for
+    input-shape validators. Tests cover every validator's happy path
+    + every rejection class."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import validation
+        cls.v = validation
+
+    # ---- require_string / require_short_string ----
+
+    def test_require_string_passes_normal(self):
+        assert self.v.require_string("hello", name="x") == "hello"
+
+    def test_require_string_rejects_none(self):
+        try:
+            self.v.require_string(None, name="x")
+        except self.v.ValidationError as e:
+            assert "required" in str(e)
+            return
+        assert False, "expected ValidationError"
+
+    def test_require_string_rejects_int(self):
+        try:
+            self.v.require_string(42, name="x")
+        except self.v.ValidationError as e:
+            assert "must be a string" in str(e)
+            return
+        assert False, "expected ValidationError"
+
+    def test_require_string_rejects_empty_by_default(self):
+        try:
+            self.v.require_string("", name="x")
+        except self.v.ValidationError:
+            return
+        assert False, "expected ValidationError"
+
+    def test_require_string_allows_empty_when_opted_in(self):
+        assert self.v.require_string("", name="x", allow_empty=True) == ""
+
+    def test_require_string_rejects_oversized(self):
+        try:
+            self.v.require_string("a" * 9999, name="x", max_len=100)
+        except self.v.ValidationError as e:
+            assert "too long" in str(e)
+            return
+        assert False, "expected ValidationError"
+
+    def test_require_short_string_caps_at_256(self):
+        try:
+            self.v.require_short_string("a" * 257, name="x")
+        except self.v.ValidationError:
+            return
+        assert False, "expected ValidationError"
+
+    # ---- validate_book_code ----
+
+    def test_book_code_accepts_gen(self):
+        assert self.v.validate_book_code("gen") == "gen"
+
+    def test_book_code_accepts_numeric_prefix(self):
+        assert self.v.validate_book_code("1ki") == "1ki"
+        assert self.v.validate_book_code("3jn") == "3jn"
+
+    def test_book_code_rejects_uppercase(self):
+        try:
+            self.v.validate_book_code("Gen")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_book_code_rejects_too_long(self):
+        try:
+            self.v.validate_book_code("genesis")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_book_code_rejects_path_traversal_attempt(self):
+        try:
+            self.v.validate_book_code("../etc")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_book_code_rejects_empty(self):
+        try:
+            self.v.validate_book_code("")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    # ---- validate_edition_id ----
+
+    def test_edition_id_accepts_real_values(self):
+        for eid in ("ethiopian-tewahedo", "catholic-study",
+                    "evangelical-reformed", "jewish-study",
+                    "scholarly-academic"):
+            assert self.v.validate_edition_id(eid) == eid
+
+    def test_edition_id_rejects_underscore(self):
+        try:
+            self.v.validate_edition_id("foo_bar")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_edition_id_rejects_leading_digit(self):
+        try:
+            self.v.validate_edition_id("1edition")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_edition_id_rejects_uppercase(self):
+        try:
+            self.v.validate_edition_id("Catholic-Study")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_edition_id_rejects_path_traversal(self):
+        try:
+            self.v.validate_edition_id("../foo")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    # ---- validate_kind_code ----
+
+    def test_kind_code_accepts_real_values(self):
+        for kc in ("lang-hebrew", "lang-greek", "comm-doctrine",
+                   "xref-citation", "topic-nave"):
+            assert self.v.validate_kind_code(kc) == kc
+
+    def test_kind_code_rejects_uppercase(self):
+        try:
+            self.v.validate_kind_code("Lang-Hebrew")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_kind_code_rejects_dot(self):
+        try:
+            self.v.validate_kind_code("lang.hebrew")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    # ---- validate_path_segment ----
+
+    def test_path_segment_accepts_filename(self):
+        assert self.v.validate_path_segment("cover.jpg") == "cover.jpg"
+        assert self.v.validate_path_segment("file_1.txt") == "file_1.txt"
+
+    def test_path_segment_rejects_slash(self):
+        try:
+            self.v.validate_path_segment("a/b")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_path_segment_rejects_backslash(self):
+        try:
+            self.v.validate_path_segment("a\\b")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_path_segment_rejects_dot(self):
+        try:
+            self.v.validate_path_segment(".")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_path_segment_rejects_dotdot(self):
+        try:
+            self.v.validate_path_segment("..")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_path_segment_rejects_nul(self):
+        try:
+            self.v.validate_path_segment("foo\x00.txt")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    # ---- chapter / verse ----
+
+    def test_chapter_accepts_int(self):
+        assert self.v.validate_chapter(1) == 1
+        assert self.v.validate_chapter(150) == 150
+
+    def test_chapter_accepts_string_int(self):
+        assert self.v.validate_chapter("42") == 42
+
+    def test_chapter_rejects_zero(self):
+        try:
+            self.v.validate_chapter(0)
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_chapter_rejects_negative(self):
+        try:
+            self.v.validate_chapter(-1)
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_chapter_rejects_oversized(self):
+        try:
+            self.v.validate_chapter(99999)
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_chapter_rejects_bool(self):
+        # bool is a subclass of int but treating True as chapter 1
+        # would be a footgun.
+        try:
+            self.v.validate_chapter(True)
+        except self.v.ValidationError as e:
+            assert "bool" in str(e)
+            return
+        assert False
+
+    def test_chapter_rejects_garbage_string(self):
+        try:
+            self.v.validate_chapter("not-a-number")
+        except self.v.ValidationError:
+            return
+        assert False
+
+    def test_verse_accepts_int(self):
+        assert self.v.validate_verse(1) == 1
+        assert self.v.validate_verse(176) == 176  # Psalm 119
+
+    def test_verse_rejects_zero(self):
+        try:
+            self.v.validate_verse(0)
+        except self.v.ValidationError:
+            return
+        assert False
+
+    # ---- to_error_dict ----
+
+    def test_to_error_dict_shape(self):
+        try:
+            self.v.validate_chapter(-1)
+        except self.v.ValidationError as e:
+            d = self.v.to_error_dict(e)
+            assert d["status"] == "error"
+            assert d["code"] == "validation_error"
+            assert d["http"] == 400
+            assert "out of range" in d["message"]
+            return
+        assert False
+
+    def test_to_error_dict_custom_http(self):
+        try:
+            self.v.validate_chapter(-1)
+        except self.v.ValidationError as e:
+            d = self.v.to_error_dict(e, http=422)
+            assert d["http"] == 422
+
+
 # ---------- Phase ω.10 : retry & timeout policy ----------------------
 
 
