@@ -6,6 +6,79 @@
 
 ---
 
+## 2026-05-08 — session — ω.6 verified baseline shipped
+
+**Phases shipped:** ω.6.
+**Test delta:** 0 (393 → 393 — verification phase, no new tests).
+**Save tag this session:** pending — will land in next push after this
+entry is written.
+
+What shipped:
+
+- **393/393 tests pass** on the local Windows install when invoked
+  with `PYTHONUTF8=1 python3 -m pytest`. The number matches what
+  SESSION_STATE has been claiming for several sessions; we now have
+  Tier-1 evidence rather than just the linter's collected-count.
+- **14/14 routes return HTTP 200** on `scripts/web.py` (default
+  `127.0.0.1:8765`). The 14 = 13 cross-linked consoles plus the `/`
+  editor. Each rendered with a non-empty title and 12-55 KB of
+  content. Routes probed: `/`, `/matrix`, `/sources`, `/export`,
+  `/customize`, `/audit`, `/publisher`, `/wizard`, `/diff`,
+  `/compare`, `/covers`, `/preflight`, `/apihelp`, `/ops`.
+- **8/8 linter still passes** post-baseline. No regressions from the
+  scope expansion or this verification run.
+- **/api/preflight** returns the expected 5 pass · 2 warn · 1 fail
+  shape (the 1 fail is "Main covers per edition" — already noted in
+  SESSION_STATE as a pre-existing placeholder-path issue; the 2 warns
+  are also pre-existing and non-blocking).
+
+What was caught (the actual ω.6 deliverable):
+
+- **Encoding gotcha — Python on Windows defaults to cp1252.**
+  Without `PYTHONUTF8=1`, 72 tests fail with
+  `UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in
+  position 23588`. The project uses `open(path)` without an explicit
+  `encoding=` argument throughout, which works on Linux/macOS where
+  the default is UTF-8. ω.7 will set `PYTHONUTF8=1` as a user-scope
+  env var so it's permanent on this machine. The proper fix —
+  sweeping every `open()` call to add `encoding="utf-8"` — is parked
+  as a low-priority follow-up; the env-var workaround is fine for
+  single-developer use, and the sweep would touch ~50+ files. If a
+  collaborator on a different OS ever joins, the sweep moves up the
+  priority list.
+- **Missing dependency: `reportlab`.** Required by
+  `scripts/print_cover.py:122` for PDF cover generation; one test
+  (`TestPrintCover::test_generate_cover_pdf_smoke`) failed without
+  it. Installed via `pip install reportlab`. Note: print POD is
+  on the indefinitely-deferred list per PLAN, but the test exercising
+  the path was still in the suite. Either keep the dep installed or
+  mark the test as skip-when-reportlab-absent — left as-is for now
+  since the dep is installed and harmless.
+
+Notable decisions:
+
+- **Did not patch source for the cp1252 issue.** The proper fix
+  (sweep `open()` calls) was deliberately deferred. Reasoning:
+  (a) the project rules emphasize minimal surgery in maintenance
+  phases ("Don't add features, refactor, or introduce abstractions
+  beyond what the task requires"); (b) the env-var workaround is
+  one-line; (c) ω.6's scope is "verify the baseline", not "fix
+  every cross-platform paper-cut". The encoding fix is now a
+  named follow-up so it doesn't get forgotten.
+- **Preflight FAIL on covers is documented, not fixed.** The user
+  hasn't uploaded covers yet, and the placeholder paths come from
+  the seeded editions.yaml. Fix is one-click via /covers or one-
+  edit via /customize — explicitly not part of ω.6.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` Tier A line 2 (ω.6) → line 3 (ω.7 next).
+- `dev/SESSION_STATE.md` LOCAL DEV ENVIRONMENT inventory section now
+  documents the PYTHONUTF8=1 requirement, pip dependencies, server
+  invocation, and the known pre-existing preflight conditions.
+
+---
+
 ## 2026-05-08 — session — scope expansion (free-only): ψ.8 + ρ.1 + ω.6 + ω.7
 
 **Phases shipped:** none (scope expansion, not implementation).

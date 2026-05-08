@@ -1,8 +1,9 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after σ.3 GitHub backup workflow shipped.
-**Save tag:** initial git push (`ea0fbeb`) + tooling fix (`3f014c0`)
-to `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
+**Updated:** 2026-05-08, after ω.6 verified baseline shipped.
+**Save tag:** σ.3 + scope expansion + ω.6 baseline run (commit
+chain `ea0fbeb` → `3f014c0` → `26e59a2` → `c714932` → ω.6 ship)
+on `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
 now git pushes, not zips — see "GIT BACKUP" in the inventory below
 and the root-level `save.cmd` / `save.ps1` helpers.
 
@@ -35,31 +36,54 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session)
 
 ---
 
-## Current phase: σ.3 GitHub backup workflow shipped
+## Current phase: ω.6 verified baseline shipped
 
-The project is now backed up on GitHub at
-`https://github.com/bridge4kaladin-collab/yhwh-bible-platform`
-(PRIVATE; no collaborators; default branch `main`). Initial push:
-1668 files, 653,880 lines, commit `ea0fbeb`. From this point forward
-"save" means "git push", not "build zip" — per PLAN_2026-05-08 σ.3.
-Two one-command wrappers at the repo root:
-`./save.cmd "what changed"` (preferred — works under default Windows
-PowerShell execution policy) or `./save.ps1 "what changed"` (only
-works if execution policy is RemoteSigned/Bypass; .cmd shells out
-to PowerShell with `-ExecutionPolicy Bypass`). Both run
-add + commit + push end-to-end; default message is a timestamp.
-New session: `git pull` first.
+Local Windows install confirmed clean against the project's claimed
+baselines:
 
-`.claude/` was added to `.gitignore` (per-machine permission cache,
-not portable). 393 tests still green; nothing in the runtime changed.
+```
+✓ 393/393 tests pass     (with PYTHONUTF8=1 — see encoding note below)
+✓ 14/14 routes return 200 (the 13 consoles + the / editor)
+  /, /matrix, /sources, /export, /customize, /audit, /publisher,
+  /wizard, /diff, /compare, /covers, /preflight, /apihelp, /ops
+✓ 8/8 linter checks pass
+~ /api/preflight: 5 pass · 2 warn · 1 fail
+  fail = "Main covers per edition" — pre-existing, documented
+  warn = "Popup translation per edition", "Kind utilization"
+```
 
-**Prior phase:** χ.7 Nave's Topical infrastructure (16 new tests,
-0 corpus notes — data fetch + promote remain user-side, blocked on
-network egress to archive.org / openbible.info).
+**Encoding gotcha caught:** Python's default file-read codec on
+Windows is `cp1252`; without `PYTHONUTF8=1`, 72 tests fail with
+`UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d`. The
+project's source uses `open(path)` without an explicit encoding,
+which works on Linux/Mac (UTF-8 default) but breaks on Windows.
+Workaround for now: always run pytest with `PYTHONUTF8=1` set.
+ω.7 will set this as a user-scope environment variable so it's
+permanent. The proper fix (sweep `open()` calls to add
+`encoding="utf-8"`) is parked as a low-priority follow-up — the
+env-var workaround is fine for single-developer use.
+
+**Dependency installed:** `reportlab` (was missing; print-cover
+PDF generation requires it). Installed via pip into the local
+Python; not committed since it's environment, not source.
+
+**Prior phases this session:**
+- σ.3 — GitHub backup workflow (initial push, save.cmd/.ps1
+  wrappers, `.claude/` in `.gitignore`).
+- Scope expansion — ψ.8 cross-denom + ρ.1 audio + ω.6/ω.7
+  added to PLAN; v1.0 terminus updated to include ψ.8; two
+  new SCOPE addenda written.
+- χ.7 Nave's Topical infrastructure (16 new tests, 0 corpus
+  notes — data fetch + promote remain user-side, blocked on
+  network egress to archive.org / openbible.info).
 
 **Cumulative this session:**
 ```
-σ.3:         repo init + private push (no test delta)
+ω.6:         baseline verification (393/393 tests, 14/14 routes,
+             8/8 linter; encoding workaround documented;
+             reportlab installed)
+σ.3:         repo init + private push + save.cmd/.ps1 wrappers
+Scope exp:   ψ.8 + ρ.1 + ω.6 + ω.7 added to PLAN; 2 new addenda
 χ.7 infra:   16 new tests, 0 corpus notes (fetch is user-side)
 End state:   393 tests, 8/8 linter, 15,925 notes
 ```
@@ -100,15 +124,19 @@ and `dev/SCOPE_2026-05-08-addendum-audio-epubs.md` for ρ.1 spec.
 queue right now:
 
 ```
-ω.6  Verified baseline                  NEXT (zero-risk; ~10 min)
-     Run pytest once on this Windows install; smoke-test the
-     web server's 13 consoles. Proves the baseline works before
-     any new feature changes touch it.
+ω.6  Verified baseline                  ✓ SHIPPED 2026-05-08
+     393/393 tests, 14/14 routes, 8/8 linter all green on the
+     local Windows install. Encoding workaround (PYTHONUTF8=1)
+     and reportlab install documented above. ω.7 picks up the
+     PYTHONUTF8=1 persistence.
 
-ω.7  Persistent dev ergonomics          AFTER ω.6 (~30 min)
-     (a) Add C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
+ω.7  Persistent dev ergonomics          NEXT (~30 min)
+     (a) Set PYTHONUTF8=1 as a user environment variable so
+         every new shell inherits it (makes pytest + scripts
+         work without inline env-var fiddling). Caught by ω.6.
+     (b) Add C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
          Scripts to user PATH so `pytest` works without `python3 -m`.
-     (b) Install `.git/hooks/pre-commit` running `lint_rules.py`
+     (c) Install `.git/hooks/pre-commit` running `lint_rules.py`
          so save.cmd can never push something failing 8/8 linter.
          Tracked-in-repo template at `dev/git-hooks/pre-commit`
          + `dev/install_hooks.cmd` so future machines replicate
@@ -183,6 +211,29 @@ GIT BACKUP (σ.3 — shipped 2026-05-08):
   Excluded:  .claude/ (per-machine), plus everything in .gitignore.
   GitHub CLI lives at: C:\Program Files\GitHub CLI\gh.exe
   gh authed as: bridge4kaladin-collab (HTTPS, keyring-stored token).
+
+LOCAL DEV ENVIRONMENT (ω.6 — verified 2026-05-08):
+  Python 3.14.4 at C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
+  Scripts dir (NOT yet on PATH): ...\pythoncore-3.14-64\Scripts\
+                                  (ω.7 will add to user PATH)
+  pip-installed: pytest, pyyaml, reportlab.
+  Test invocation:  PYTHONUTF8=1 python3 -m pytest
+                    PYTHONUTF8=1 is REQUIRED on this Windows install:
+                    Python's default file codec is cp1252 here, and
+                    72 tests fail with UnicodeDecodeError on byte 0x9d
+                    if it isn't set. ω.7 will make this permanent via
+                    user-scope env var.
+  Web server:       PYTHONUTF8=1 python3 scripts/web.py
+                    Default: 127.0.0.1:8765 (the editor at /, plus
+                    13 cross-linked consoles)
+  Linter:           PYTHONUTF8=1 python3 scripts/lint_rules.py
+                    8 checks; pre-commit hook installer ships in ω.7.
+  Known pre-existing /api/preflight conditions:
+    fail "Main covers per edition"     placeholder paths in seeded
+                                        editions.yaml — fix via
+                                        /covers upload or /customize blank
+    warn "Popup translation per edition"  pre-existing; not blocking
+    warn "Kind utilization"             pre-existing; not blocking
 
 INGESTION INFRA — already complete as CLI:
   scripts/fetch_sources.py / scripts/core/sources.py
