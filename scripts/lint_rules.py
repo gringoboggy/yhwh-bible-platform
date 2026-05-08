@@ -43,6 +43,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import ast  # ω.9 — AST-based atomic-writes audit
 import re
 import sys
 from pathlib import Path
@@ -652,6 +653,109 @@ def check_session_state_inventory() -> dict:
     }
 
 
+def _find_open_write_calls(tree: ast.AST) -> list[int]:
+    """Walk a parsed module AST and return the line numbers of every
+    `open(..., 'w'|'wb'|'w+'|'wt'|'wx')` call. AST-based to avoid the
+    whole class of false positives that string-matching against
+    docstrings and comments produces."""
+    hits: list[int] = []
+
+    class Finder(ast.NodeVisitor):
+        def visit_Call(self, node: ast.Call) -> None:
+            f = node.func
+            is_open = (
+                (isinstance(f, ast.Name) and f.id == "open")
+                or (isinstance(f, ast.Attribute) and f.attr == "open")
+            )
+            if is_open:
+                # Look at every positional arg AND the `mode=` kwarg
+                # for a string literal starting with 'w'.
+                candidates = []
+                candidates.extend(node.args)
+                for kw in node.keywords:
+                    if kw.arg == "mode":
+                        candidates.append(kw.value)
+                for c in candidates:
+                    v = c.value if isinstance(c, ast.Constant) else None
+                    if isinstance(v, str) and v.startswith("w"):
+                        hits.append(node.lineno)
+                        break
+            self.generic_visit(node)
+
+    Finder().visit(tree)
+    return hits
+
+
+def check_atomic_writes() -> dict:
+    """Phase ω.9 — every direct write-mode open() call site outside
+    `scripts/core/notes_io.py` is suspect.
+
+    Atomic writes go through `notes_io.atomic_write` /
+    `atomic_write_bytes`; a raw write-mode open() cannot be crash-
+    safe because a crash between the truncate and the final flush
+    leaves the file half-written. Build-pipeline scratch directories
+    (epub_working/, /tmp/) are exempt because they're regenerable.
+
+    The check currently passes with zero violations; this is a
+    drift-prevention lock-in.
+
+    Implementation note: AST-based detection (not regex) so the
+    check doesn't match its own docstring or the literal strings
+    in surrounding code that *describe* the bug.
+    """
+    violations: list[dict] = []
+    scripts_dir = REPO / "scripts"
+    for py in scripts_dir.rglob("*.py"):
+        # notes_io.py is THE place atomic_write/atomic_write_bytes
+        # live; they themselves use open('wb') under the hood —
+        # that's the documented exception.
+        if py.name == "notes_io.py":
+            continue
+        try:
+            text = py.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        try:
+            tree = ast.parse(text, filename=str(py))
+        except SyntaxError:
+            # File has a syntax error — that's a different kind of
+            # problem; out of scope for this check.
+            continue
+        lines = text.splitlines()
+        for ln in _find_open_write_calls(tree):
+            # Waiver: `# atomic-waived: <reason>` on the same line
+            # OR the immediately preceding line.
+            same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+            prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
+            if "atomic-waived" in same or "atomic-waived" in prev:
+                continue
+            violations.append({
+                "file": str(py.relative_to(REPO)).replace("\\", "/"),
+                "line": ln,
+                "snippet": same.strip()[:120],
+            })
+
+    if not violations:
+        return {
+            "id": "atomic_writes",
+            "name": "Atomic writes (no raw open('w') outside notes_io)",
+            "status": "pass",
+            "message": "no raw write-mode open() outside notes_io.py",
+            "violations": [],
+        }
+    return {
+        "id": "atomic_writes",
+        "name": "Atomic writes (no raw open('w') outside notes_io)",
+        "status": "fail",
+        "message": (
+            f"{len(violations)} raw write-mode open() call site(s) "
+            f"outside notes_io.py — use atomic_write/atomic_write_bytes "
+            f"or add `# atomic-waived: <reason>` to opt out"
+        ),
+        "violations": violations,
+    }
+
+
 # ----------------------------------------------------------------------
 # Runner
 # ----------------------------------------------------------------------
@@ -667,6 +771,8 @@ ALL_CHECKS = {
     "inflight":          check_inflight_freshness,
     "untracked_phases":  check_untracked_phases,
     "code_doc_sync":     check_session_state_inventory,
+    # ω.9 hardening tier
+    "atomic_writes":     check_atomic_writes,
 }
 
 

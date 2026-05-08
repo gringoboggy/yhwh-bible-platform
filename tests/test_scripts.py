@@ -5931,6 +5931,69 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ω.9 : atomic-write audit linter check --------------
+
+
+class TestAtomicWritesLint:
+    """ω.9 — `check_atomic_writes` is a Tier-3 drift-prevention lint
+    that catches any raw `open(..., 'w')` introduced outside
+    `scripts/core/notes_io.py`. These tests verify the check passes
+    on the current codebase AND that it actually flags violations
+    when one exists (testing the negative path is essential — a
+    silently-no-op linter would be worse than no linter)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import lint_rules
+        cls.lint = lint_rules
+
+    def test_currently_passes(self):
+        """Today's codebase has zero raw write-mode opens outside
+        notes_io.py. If this regresses, the check should fire."""
+        result = self.lint.check_atomic_writes()
+        assert result["status"] == "pass", result.get("violations")
+
+    def test_check_in_run_all_registry(self):
+        """The check must appear in ALL_CHECKS so run_all() picks it
+        up. Otherwise the linter would silently drop the new check."""
+        assert "atomic_writes" in self.lint.ALL_CHECKS
+
+    def test_detects_violation_in_synthetic_repo(self, tmp_path, monkeypatch):
+        """Plant a raw `open('w')` in a synthetic 'scripts/' tree and
+        verify the check fails with a violation. Uses monkeypatch to
+        redirect REPO at the lint module so we don't actually scan
+        the live codebase."""
+        # Build a fake scripts/ dir
+        synth_scripts = tmp_path / "scripts"
+        synth_scripts.mkdir()
+        (synth_scripts / "core").mkdir()
+        # notes_io.py is the documented exception — must NOT be flagged
+        (synth_scripts / "core" / "notes_io.py").write_text(
+            "with open('x.json', 'w') as f: f.write('ok')\n",
+            encoding="utf-8",
+        )
+        # Top-level scripts/foo.py — DOES get flagged
+        (synth_scripts / "foo.py").write_text(
+            "def bad():\n    with open('x.json', 'w') as f:\n        f.write('!')\n",
+            encoding="utf-8",
+        )
+        # Top-level scripts/bar.py — has the waiver comment
+        (synth_scripts / "bar.py").write_text(
+            "def waived():\n"
+            "    # atomic-waived: regenerable build artifact\n"
+            "    with open('x.json', 'w') as f: f.write('!')\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(self.lint, "REPO", tmp_path)
+        result = self.lint.check_atomic_writes()
+        assert result["status"] == "fail"
+        # foo.py is the only violation; notes_io.py exempted; bar.py waived.
+        files = {v["file"] for v in result["violations"]}
+        assert "scripts/foo.py" in files
+        assert "scripts/core/notes_io.py" not in files
+        assert "scripts/bar.py" not in files
+
+
 # ---------- Phase ω.8 : top-level request error boundary --------------
 
 

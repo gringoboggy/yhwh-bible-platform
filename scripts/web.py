@@ -2349,7 +2349,11 @@ def api_clone_edition(payload: dict) -> dict:
                     rel_new = _covers.storage_path_for_main(new_id, fmt)
                     abs_new = REPO / "content" / rel_new
                     abs_new.parent.mkdir(parents=True, exist_ok=True)
-                    abs_new.write_bytes(src_path.read_bytes())
+                    # ω.9 — atomic copy: never leave a half-written
+                    # cloned cover image on a crash.
+                    notes_io.atomic_write_bytes(
+                        abs_new, src_path.read_bytes()
+                    )
                     copied.append(abs_new)
                     new_main_path = rel_new
             # Per-book covers
@@ -2373,7 +2377,8 @@ def api_clone_edition(payload: dict) -> dict:
                 rel_new = _covers.storage_path_for_book(new_id, code, fmt)
                 abs_new = REPO / "content" / rel_new
                 abs_new.parent.mkdir(parents=True, exist_ok=True)
-                abs_new.write_bytes(src_path.read_bytes())
+                # ω.9 — atomic copy (same rationale as main cover).
+                notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
                 copied.append(abs_new)
                 new_per_book[code] = rel_new
             new_book_covers_encoded = _covers.encode_book_covers(
@@ -3720,8 +3725,11 @@ def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
     if abs_path.is_file():
         pre_restore_backup = notes_io.ensure_backup(abs_path)
     # Step 2: write the captured snapshot bytes to the source file.
+    # ω.9 — atomic write: a crash here leaves either the previous
+    # file (just backed up by ensure_backup above) or the new
+    # snapshot bytes, never a half-restored corrupt state.
     abs_path.parent.mkdir(parents=True, exist_ok=True)
-    abs_path.write_bytes(snapshot_bytes)
+    notes_io.atomic_write_bytes(abs_path, snapshot_bytes)
     # Step 3: invalidate any cached parse of this file.
     notes_io.clear_load_notes_cache()
 

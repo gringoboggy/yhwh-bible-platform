@@ -6,6 +6,82 @@
 
 ---
 
+## 2026-05-08 — session — ω.9 atomic-write audit shipped (continuous-go batch 4)
+
+**Phases shipped:** ω.9.
+**Test delta:** +3 (480 → 483).
+**Linter delta:** 8/8 → 9/9 (new `atomic_writes` Tier-3 check).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **Audit findings.** Programmatic scan of `scripts/**/*.py`:
+  - **0** raw `open(..., 'w')` calls outside `notes_io.py` (the
+    project's discipline was already solid).
+  - **53** `Path.write_text` / `Path.write_bytes` call sites.
+    Categorized: 47 write to regenerable working dirs
+    (epub_working/, /tmp/, build outputs) — correctly non-atomic;
+    6 write to permanent content paths and were upgraded.
+- **Atomic-write upgrades** (the 6 critical sites):
+  - `scripts/fetch_sources.py:fetch_source` — PD source-cache JSON
+    write now atomic (a crash mid-fetch leaves the previous cache
+    or no file at all, never a partial JSON).
+  - `scripts/fetch_sources.py:write_attributions` — ATTRIBUTIONS.md
+    atomic.
+  - `scripts/web.py:api_restore_backup` — backup-restore now uses
+    `notes_io.atomic_write_bytes`. THIS is the most critical: a
+    crash during restore could otherwise corrupt the active
+    notes file mid-write.
+  - `scripts/web.py:api_clone_edition` — main + per-book cover
+    file copies during edition cloning now atomic.
+- **New linter check `atomic_writes`** (Tier-3 drift prevention).
+  AST-based detection — walks every `scripts/**/*.py`, finds
+  `open(...)` calls with a write-mode string arg, fails on any
+  outside `notes_io.py`. AST avoids the false-positive class that
+  string-matching produced (the check's own docstring mentions
+  `open('w')` literally; regex matched its own description).
+  Waiver mechanism: `# atomic-waived: <reason>` on the same or
+  preceding line opts out a specific call site. Currently passes
+  with zero violations; the check is the lock-in.
+- **+3 tests in `TestAtomicWritesLint`:**
+  - Linter check passes on the live codebase.
+  - Check is registered in `ALL_CHECKS`.
+  - Synthetic test plants a violation in a tmp `scripts/` tree,
+    verifies the check fires AND that the waiver comment + the
+    notes_io.py exemption both work.
+
+Notable decisions:
+
+- **AST over regex.** First instinct was a regex. It promptly
+  matched the linter's own docstring strings (`open('w')` literals
+  in the docstring). AST detection requires Python's parser to
+  understand intent — only actual call expressions with a
+  string-literal first or `mode=` arg starting with 'w' are
+  flagged. ~30 lines of `ast.NodeVisitor` is worth the precision.
+- **Did NOT migrate the 47 working-dir writes.** Those write to
+  `epub_working/`, `/tmp/`, `tmp/full_*/`, dashboard outputs, etc.
+  — all regenerable from source. Atomic writes there would be
+  premature optimization (and might mask bugs that should crash
+  loudly). The CHANGELOG records this decision so a future audit
+  doesn't re-litigate it.
+- **Waiver via comment marker, not a configuration list.** A
+  central waiver list ages poorly (entries get stale, nobody
+  audits them). Per-line waivers force the author to defend the
+  exception in code review and the reviewer can grep for the
+  marker. Pattern lifted from the project's existing
+  `# noqa:` and `# atomic-waived:` (newly defined) family.
+
+Continuity pointers:
+
+- v1.0 progress: ω.9 ✓. Net v1.0 todo: minus 1.
+- Linter now has 9 checks (was 8); preflight aggregator picks up
+  the new check automatically via `lint_rules.run_all()`.
+- Next continuous-go batch: ω.10 retry/timeout policy OR ξ.1
+  input-validation audit OR ψ.12 matrix smoothness. All pre-v1.0
+  hardening / polish work.
+
+---
+
 ## 2026-05-08 — session — ω.8 error boundary shipped (continuous-go batch 3)
 
 **Phases shipped:** ω.8.

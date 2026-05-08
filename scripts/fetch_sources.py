@@ -51,6 +51,7 @@ from scripts.core.fetcher_config import (  # noqa: E402
     Source,
     load_fetcher_config,
 )
+from scripts.core.notes_io import atomic_write  # noqa: E402  (ω.9)
 
 SOURCES_DIR = REPO_ROOT / "content" / "sources"
 
@@ -376,9 +377,11 @@ def fetch_source(source: Source, force: bool = False) -> bool:
         if not data:
             continue
         SOURCES_DIR.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(
+        # ω.9 — atomic write; a crash mid-fetch leaves the previous
+        # cache (or no file at all), never a partial JSON.
+        atomic_write(
+            cache_path,
             json.dumps(data, ensure_ascii=False, separators=(",", ":")),
-            encoding="utf-8",
         )
         kb = cache_path.stat().st_size / 1024
         # Pull a meta-line if the parser returned one (Nave's format has
@@ -422,6 +425,8 @@ def fetch_source(source: Source, force: bool = False) -> bool:
 def write_attributions(config: FetcherConfig) -> None:
     SOURCES_DIR.mkdir(parents=True, exist_ok=True)
     attr_path = SOURCES_DIR / "ATTRIBUTIONS.md"
+    # ω.9 — atomic write so a crash mid-write leaves the prior
+    # ATTRIBUTIONS.md intact (or absent), never half-rendered.
     parts = [
         "# Source attributions\n\n"
         "This directory caches public-domain reference works used by "
@@ -441,7 +446,7 @@ def write_attributions(config: FetcherConfig) -> None:
             for c in s.candidates:
                 parts.append(f"- <{c.url}> *(parser: `{c.parser}`)*\n")
             parts.append("\n")
-    attr_path.write_text("".join(parts), encoding="utf-8")
+    atomic_write(attr_path, "".join(parts))
 
 
 # ----------------------------------------------------------------------
