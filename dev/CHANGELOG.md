@@ -6,6 +6,162 @@
 
 ---
 
+## 2026-05-08 — session — scope expansion (free-only): ψ.8 + ρ.1 + ω.6 + ω.7
+
+**Phases shipped:** none (scope expansion, not implementation).
+**Test delta:** 0 (393 → 393).
+**Save tag this session:** pending — will land in next push after this
+entry is written.
+
+What happened:
+
+The user, after the σ.3 GitHub-backup ship, asked two questions:
+"anything else needed?" and "anything to make it unique or ultra
+awesome?" My answer surfaced three unique-feature ideas (cross-denom
+compare apparatus, audio-augmented EPUBs, AI-augmented cross-references)
+plus four tooling-readiness items (test baseline run, web server
+smoke test, Scripts/ on PATH, pre-commit hook installer).
+
+The user came back with a directive: **"add everything to scope that
+doesn't cost me money and do everything in the most logical way, redo
+order for the plan to finish if need be."** This session is the
+execution of that directive at the *scope* layer — no implementation,
+just planning + spec writing + reordering.
+
+What's now in scope (free items):
+
+- **ψ.8 Cross-denominational compare apparatus** — promoted to the
+  v1.0 terminus alongside θ.2 and χ.1. The single most distinctive
+  thing the platform can ship; one popup, hovering one verse, surfaces
+  notes from every tradition (Catholic / Protestant / Orthodox /
+  Jewish / Tewahedo + cross-tradition) the publisher chose. Full spec
+  at `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` (~250
+  lines: schema axis, backfill plan, build-pipeline change, UI design,
+  tests, sub-phasing, tradeoffs).
+- **ρ.1 Audio-augmented EPUBs via LibriVox PD recordings** — buyers
+  get a study Bible + audiobook in one .epub via EPUB 3 native
+  `<audio>` embed. Spec at
+  `dev/SCOPE_2026-05-08-addendum-audio-epubs.md` (~190 lines:
+  pipeline, schema, UI, tradeoffs, ρ.2-ρ.5 future audio extensions).
+- **ω.6 Verified baseline** — run pytest once on this Windows install
+  + smoke-test the web server's 13 consoles. Zero-risk verification
+  before any new feature work touches the corpus.
+- **ω.7 Persistent dev ergonomics** — add Python's user `Scripts/`
+  directory to PATH; install `.git/hooks/pre-commit` that runs
+  `lint_rules.py` so `save.cmd` can never push something failing
+  8/8 linter. Tracked-in-repo template + one-command installer for
+  future machines.
+
+What's now explicitly out of scope (paid):
+
+- AI-augmented cross-references (would mirror the χ-cluster pipeline
+  with an LLM-backed detector for thematic / typological / idiomatic
+  links). Recurring API cost (~$30-80 to canvas the 15K-corpus once)
+  was the only thing currently gated on dollars; user can opt in any
+  session by lifting the gate. The feature is documented in
+  PLAN_2026-05-08 under "Indefinitely deferred" with an explicit
+  rationale and a sketch of what the integration would look like.
+
+Master sequence reordered (PLAN_2026-05-08.md):
+
+The plan now carries 22 numbered phases (was 17). New order, with
+the sequencing-rule justification per CLAUDE_PROJECT_RULES §3:
+
+```
+Tier A — Foundations (zero-risk before any new feature)
+  1. σ.3   ✓ shipped
+  2. ω.6   verified baseline (zero-risk verification)
+  3. ω.7   persistent dev ergonomics (PATH + pre-commit hook)
+  4. υ.7   pluggable fetcher config
+  5. υ.1   /sources console upgrade
+
+Tier B — Corpus + uniqueness levers
+  6. χ.7   user-side finalization (Nave's promote)
+  7. χ.1   Strong's Greek + GreekWordDetector  (+5-10K notes)
+  8. ψ.8   cross-denom compare apparatus       (THE v1.0 differentiator)
+  9. ρ.1   LibriVox audio-augmented EPUBs      (uniqueness lever 2)
+ 10. ω.5   per-user data location refactor
+
+Tier C — Desktop binary
+ 11. θ.1   launcher
+ 12. θ.2   native shell
+       ─── v1.0 candidate ───
+
+Tier D — Post-v1.0 (independently deliverable)
+ 13. ψ.1   live EPUB preview
+ 14-17. χ.2-χ.5 commentary ingestors (auto-tradition-tagged via ψ.8)
+ 18-19. θ.3-θ.4  desktop polish
+ 20. υ.2-υ.6 console surfacings
+ 21. ψ.7   edition template starter packs
+ 22. ρ.2-ρ.5 audio extensions (SMIL / TTS / multi-translation /
+                                multi-language)
+```
+
+Decisions worth recording:
+
+- **ψ.8 promoted to the v1.0 terminus** rather than staying a
+  post-v1.0 polish phase. Reasoning: without ψ.8 the platform is
+  "yet another edition factory"; with it, it's "the only Bible
+  publishing platform with cross-denominational apparatus." That's
+  a v1.0-defining differentiator, not a v1.1 nice-to-have.
+- **χ.1 ordered before ψ.8** despite ψ.8 being the bigger buyer-demo
+  win. Rationale: §3 rule 1 (safest first) — χ.1 is a proven-pattern
+  mirror of HebrewWordDetector, ψ.8 is a schema change. Doing the
+  schema work after the safe corpus growth means fewer rebases.
+- **ω.5 ordered after ψ.8 + ρ.1**, despite the original plan placing
+  it earlier. Rationale: ψ.8 and ρ.1 want to read/write `content/`,
+  and changing the path resolver under them mid-flight invites bugs.
+  ω.5 is foundational for desktop (θ) but doesn't need to land
+  before the differentiator features.
+- **AI-augmented cross-references kept on the deferred list with
+  an explicit re-opt-in path.** The user explicitly excluded paid
+  features for now; documenting the spec sketch under "Indefinitely
+  deferred" keeps the door open without committing dollars.
+- **Tooling readiness (ω.6, ω.7) added as discrete phases** rather
+  than absorbed into σ.3's bookkeeping. Reasoning: each is ~10-30
+  minutes of distinct work, gets its own CHANGELOG entry when shipped,
+  and (especially ω.7's hook installer) produces a tracked-in-repo
+  artifact that future machines benefit from.
+
+Files written this session:
+
+- `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` — new (250 lines)
+- `dev/SCOPE_2026-05-08-addendum-audio-epubs.md` — new (190 lines)
+- `dev/PLAN_2026-05-08.md` — extensive restructure (header, north
+  star, Tier A insertions, Tier B reorder, Tier D extensions,
+  deferred section update, addenda list)
+- `dev/SESSION_STATE.md` — "What's next" rewritten around new sequence
+- `dev/CHANGELOG.md` — this entry
+
+Retrospective (§12 trigger fired — scope clarification):
+
+- **Scope clarification recorded:** the v1.0 terminus changed from
+  "θ.2 + χ.1 + corpus ≥ 25K" to "θ.2 + χ.1 + ψ.8 + corpus ≥ 25K".
+  This is the kind of north-star change CLAUDE_PROJECT_RULES §1
+  treats as foundational — recorded here per §12 trigger 5.
+- **Pattern recognized: "delegated scope expansion."** When the user
+  delegates feature selection to me with a budget constraint
+  ("everything that doesn't cost money"), the right shape is:
+  (a) re-list the candidate features with their tradeoffs,
+  (b) apply the budget filter explicitly,
+  (c) integrate the in-budget items into the existing PLAN with
+       proper sub-phasing,
+  (d) write addenda for the meaty ones,
+  (e) update the v1.0 terminus if any new item rises to that level.
+  The same shape will apply if a future user does the equivalent
+  with a different budget ("only items < 1 session", "only items
+  that don't change schema", etc.). Worth codifying as a §9 mental
+  model the next time the rules doc is touched.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` Tier A line 1 (σ.3 already ✓) through
+  Tier D line 22 (audio extensions deferred).
+- `dev/SCOPE_2026-05-08.md` — base scope still authoritative; the
+  two new addenda are addenda *to* it, not replacements.
+
+---
+
 ## 2026-05-08 — session — σ.3 GitHub backup workflow shipped
 
 **Phases shipped:** σ.3.

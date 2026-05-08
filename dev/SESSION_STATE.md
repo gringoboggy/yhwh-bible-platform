@@ -86,41 +86,71 @@ End state:   393 tests, 8/8 linter, 15,925 notes
 ## What's next per `dev/PLAN_2026-05-08.md` (the new master sequence)
 
 The 05-08 scope refresh re-shaped the sequence around a v1.0
-terminus (`θ.2 + χ.1 + corpus ≥ 25K = v1.0`). See
-`dev/SCOPE_2026-05-08.md` for the matrix-change rationale and
-`dev/PLAN_2026-05-08.md` for the full 12-phase order. Top of
+terminus, and the 2026-05-08 *scope expansion* (cross-denom compare
+apparatus + audio EPUBs) promoted ψ.8 into the v1.0 definition:
+
+```
+v1.0 = θ.2 + χ.1 + ψ.8 + corpus ≥ 25K notes
+```
+
+See `dev/SCOPE_2026-05-08.md` for the base refresh,
+`dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` for ψ.8 spec,
+and `dev/SCOPE_2026-05-08-addendum-audio-epubs.md` for ρ.1 spec.
+`dev/PLAN_2026-05-08.md` carries the full 22-phase order. Top of
 queue right now:
 
 ```
-υ.7  Pluggable fetcher config           NEXT FOR CLAUDE
+ω.6  Verified baseline                  NEXT (zero-risk; ~10 min)
+     Run pytest once on this Windows install; smoke-test the
+     web server's 13 consoles. Proves the baseline works before
+     any new feature changes touch it.
+
+ω.7  Persistent dev ergonomics          AFTER ω.6 (~30 min)
+     (a) Add C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
+         Scripts to user PATH so `pytest` works without `python3 -m`.
+     (b) Install `.git/hooks/pre-commit` running `lint_rules.py`
+         so save.cmd can never push something failing 8/8 linter.
+         Tracked-in-repo template at `dev/git-hooks/pre-commit`
+         + `dev/install_hooks.cmd` so future machines replicate
+         with one command.
+
+υ.7  Pluggable fetcher config           AFTER ω cluster
      content/sources/_fetchers.json — declarative URL +
      parser-kind list. Lets fetch_sources.py read its source
      list from config rather than Python constants.
-     Deliverables: _fetchers.json schema, loader, migration
-                   of existing NAVES_CANDIDATE_SOURCES into it,
-                   tests for the schema.
-     Risk: LOW (pure refactor, additive)
 
 υ.1  /sources console upgrade           AFTER υ.7
      Real source-management page: status grid, "Fetch this" /
-     "Fetch all" buttons, paste-a-URL override, drag-and-drop
-     file upload. Permanently closes source-fetch friction.
+     "Fetch all" buttons, drag-drop file upload. Permanently
+     closes source-fetch friction; subsumes the parked χ.7
+     finalization step into a UI button.
 
-χ.7 USER-SIDE COMPLETION (still parked, no Claude needed):
-   1. Run `python3 scripts/fetch_sources.py` from a network-permitted
-      env (or drop a pre-built naves_topical.json into content/sources/).
-   2. `python3 scripts/run_naves_at_scale.py` → writes candidates JSON.
-   3. `python3 scripts/batch_promote_xrefs.py --kind topic-nave` →
-      promotes to real notes.
-   4. Tell Claude the new corpus total; SESSION_STATE updates accordingly.
-   υ.1 will subsume this into a UI button.
+χ.7 USER-SIDE COMPLETION (parked):
+     User runs fetch_sources.py + run_naves_at_scale.py +
+     batch_promote_xrefs.py --kind topic-nave from a network env
+     (+2-3K topic-nave notes). Likely subsumed by υ.1.
 
-χ.1  Strong's Greek + GreekWordDetector  AFTER υ cluster
-     Parallels existing HebrewWordDetector exactly:
-       • fetch Strong's Greek lexicon (PD, openscriptures)
-       • write GreekWordDetector (mirror HebrewWordDetector)
-       • driver reads NT books from KJV translation
-     Expected: 5-10K lang-greek notes
+χ.1  Strong's Greek + GreekWordDetector
+     Parallels existing HebrewWordDetector exactly. ~5-10K
+     lang-greek notes. Risk: LOW (proven pattern).
+
+ψ.8  Cross-denominational compare apparatus    THE v1.0 DIFFERENTIATOR
+     Single popup, side-by-side notes from Catholic /
+     Protestant / Orthodox / Jewish / Tewahedo + cross-tradition.
+     ~2-3 sessions; schema change. Spec in
+     dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md.
+
+ρ.1  Audio-augmented EPUBs (LibriVox)
+     EPUB 3 native <audio> embed; PD recordings.
+     ~1-2 sessions. Spec in
+     dev/SCOPE_2026-05-08-addendum-audio-epubs.md.
+
+ω.5  Per-user data location refactor
+     Path resolver into user_data_dir() — must precede θ.
+     ~1-2 sessions.
+
+θ.1, θ.2  Desktop binary
+     Launcher + native shell. Reaches v1.0 candidate.
 ```
 
 ---
