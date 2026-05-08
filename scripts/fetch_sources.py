@@ -52,6 +52,7 @@ from scripts.core.fetcher_config import (  # noqa: E402
     load_fetcher_config,
 )
 from scripts.core.notes_io import atomic_write  # noqa: E402  (ω.9)
+from scripts.core import http as _http  # noqa: E402  (ω.10)
 
 SOURCES_DIR = REPO_ROOT / "content" / "sources"
 
@@ -78,8 +79,7 @@ RESET = "\033[0m"
 def _parse_strongs_hebrew_js(url: str) -> dict | None:
     """Strip the JS wrapper around openscriptures' Strong's Hebrew dump
     and return the dictionary keyed by H-number."""
-    with urllib.request.urlopen(url, timeout=30) as r:
-        text = r.read().decode("utf-8")
+    text = _http.get(url).decode("utf-8")  # ω.10 — retry+timeout
     m = re.search(r"strongsHebrewDictionary\s*=\s*(\{.*\})", text, re.DOTALL)
     if not m:
         return None
@@ -139,8 +139,7 @@ def _parse_tsk_zip_tsv(url: str) -> dict | None:
     """Download openbible.info's cross-references ZIP and build the
     nested {book: {chapter: {verse: [(target_book, ch, vs, votes), ...]}}}
     cache structure consumed by scripts.core.sources.Tsk."""
-    with urllib.request.urlopen(url, timeout=30) as r:
-        zip_bytes = r.read()
+    zip_bytes = _http.get(url)  # ω.10 — retry+timeout
     with zipfile.ZipFile(BytesIO(zip_bytes)) as z:
         text = z.read("cross_references.txt").decode("utf-8")
     index: dict = {}
@@ -287,8 +286,7 @@ def _build_naves_indices(forward: dict[str, list]) -> dict:
 
 def _parse_naves_json_topic_to_refs(url: str) -> dict | None:
     """Parser for {"Topic": ["Gen 1:1", ...] | [["gen",1,1], ...]} JSON."""
-    with urllib.request.urlopen(url, timeout=30) as r:
-        raw = r.read().decode("utf-8")
+    raw = _http.get(url).decode("utf-8")  # ω.10 — retry+timeout
     forward = json.loads(raw)
     if not isinstance(forward, dict):
         return None
@@ -299,8 +297,7 @@ def _parse_naves_openbible_tsv(url: str) -> dict | None:
     """Parser for openbible.info topic-votes zipped TSV (topic\tref\tvotes).
     Uses only the topic+ref columns; votes are not stored (Nave's model
     is unweighted)."""
-    with urllib.request.urlopen(url, timeout=30) as r:
-        zip_bytes = r.read()
+    zip_bytes = _http.get(url)  # ω.10 — retry+timeout
     forward: dict[str, list] = {}
     with zipfile.ZipFile(BytesIO(zip_bytes)) as z:
         names = [n for n in z.namelist() if n.lower().endswith(".txt")]

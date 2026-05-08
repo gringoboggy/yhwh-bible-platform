@@ -6,6 +6,85 @@
 
 ---
 
+## 2026-05-08 — session — ω.10 retry/timeout policy (continuous-go batch 6)
+
+**Phases shipped:** ω.10.
+**Test delta:** +12 (500 → 512).
+**Linter delta:** 9/9 → 10/10 (new `external_http` Tier-3 check).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **`scripts/core/http.py`** (new, ~125 lines) — single funnel for
+  outbound HTTP with consistent retry+timeout policy. Public API:
+  `get(url, **kwargs) -> bytes`, `get_json(url, **kwargs) -> dict`,
+  `HttpError` raised after retries exhausted.
+- **Retry policy:**
+  - Retries on URLError, TimeoutError, OSError, and HTTP 5xx
+    (default: 500/502/503/504).
+  - Does NOT retry on HTTP 4xx (caller's request was wrong;
+    retrying won't fix it) or unexpected exceptions.
+  - Exponential backoff: `backoff ** attempt` seconds between
+    tries. Default base 1.5; default total attempts 3 (1 + 2
+    retries).
+- **Injectable `urlopen` and `sleep_fn` parameters** so tests
+  exercise every retry/backoff path without real network calls or
+  real waits — 12 new tests run in ~1 second.
+- **Migrated all 4 fetch_sources.py parsers** from raw
+  `urllib.request.urlopen(url, timeout=30)` to `_http.get(url)`.
+  Fetchers now inherit the retry policy automatically; transient
+  network blips during PD-source fetching no longer fail the whole
+  operation.
+- **New linter check `external_http`** (Tier-3 drift prevention).
+  AST-based scan for any `urlopen(...)` call outside
+  `scripts/core/http.py`. Currently passes; would fire if a future
+  fetcher (LibriVox audio for ρ.1, χ.2-5 commentary ingests)
+  bypasses the wrapper. Same `# http-waived: <reason>` opt-out as
+  `# atomic-waived` from ω.9.
+- **+12 tests in `TestHttpRetryWrapper`** covering: 3 happy-path
+  (bytes, JSON, timeout-passed-through); 3 transient-failure
+  retries (URLError, 503, TimeoutError); 2 no-retry on 4xx (404,
+  400); 2 retry-exhaustion paths; 1 backoff-exponential property;
+  1 HttpError carries the underlying cause.
+
+Notable decisions:
+
+- **Centralize via injection, not import.** The wrapper accepts
+  `urlopen` and `sleep_fn` as keyword args defaulting to the real
+  implementations. This is the §9 "injectable-callable variant"
+  applied to network IO — tests stub everything; production calls
+  the real thing.
+- **Retry only on transient classes, not on every exception.**
+  4xx codes mean the caller's request was wrong; retrying spams
+  the upstream. URLError/TimeoutError/OSError are network-level
+  transients worth retrying. Other Python exceptions surface
+  immediately (a TypeError in the fetcher is a programmer bug,
+  not a network issue).
+- **Exponential, not linear, backoff.** A persistent failure
+  surfaces fast (3 attempts × 1.5+2.25s = ~3.75s total) but a
+  truly transient blip gets enough wiggle room. Linear backoff
+  would either be too aggressive or too slow.
+- **HardenING trio complete.** ξ.4 (XSS) + ω.8 (error boundaries)
+  + ω.9 (atomic writes) + ω.10 (retry/timeout) + ξ.2 (path
+  traversal) — the five pre-v1.0 hardening phases all shipped in
+  this continuous-go session. Net effect: every entry point and
+  every external boundary has a single, tested wrapper. Future
+  features inherit safety by using the helpers; the linters lock
+  it in.
+
+Continuity pointers:
+
+- v1.0 progress: ω.10 ✓. Net v1.0 todo: minus 1 → **6 of 14
+  phases done** for v1.0.
+- Linter now has 10 checks (was 9). Preflight aggregator picks
+  up the new check automatically.
+- Next continuous-go batch (when triggered): ξ.1 input-validation
+  audit (last security item) OR ψ.12 matrix smoothness
+  (next-biggest UX win) OR ψ.13 design-system foundation
+  (foundation for the buyer-arc polish).
+
+---
+
 ## 2026-05-08 — session — ξ.2 path-traversal hardening (continuous-go batch 5)
 
 **Phases shipped:** ξ.2.

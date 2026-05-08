@@ -686,6 +686,88 @@ def _find_open_write_calls(tree: ast.AST) -> list[int]:
     return hits
 
 
+def _find_urlopen_calls(tree: ast.AST) -> list[int]:
+    """Return line numbers of any `urllib.request.urlopen(...)` or
+    `urlopen(...)` (when imported directly) call in the AST."""
+    hits: list[int] = []
+
+    class Finder(ast.NodeVisitor):
+        def visit_Call(self, node: ast.Call) -> None:
+            f = node.func
+            is_urlopen = False
+            if isinstance(f, ast.Attribute) and f.attr == "urlopen":
+                is_urlopen = True
+            elif isinstance(f, ast.Name) and f.id == "urlopen":
+                is_urlopen = True
+            if is_urlopen:
+                hits.append(node.lineno)
+            self.generic_visit(node)
+
+    Finder().visit(tree)
+    return hits
+
+
+def check_external_http() -> dict:
+    """Phase ω.10 — every outbound HTTP call must go through the
+    retry+timeout wrapper at `scripts/core/http.py`. Raw
+    `urllib.request.urlopen` calls outside that file get flagged.
+
+    Drift signal: a future fetcher (LibriVox audio for ρ.1, or one
+    of the χ.2-5 commentary ingestors) hits the network without
+    inheriting the retry/timeout policy and a transient blip silently
+    fails.
+
+    Same waiver mechanism as ω.9: `# http-waived: <reason>` on the
+    same or preceding line opts a call site out.
+    """
+    violations: list[dict] = []
+    scripts_dir = REPO / "scripts"
+    for py in scripts_dir.rglob("*.py"):
+        # http.py itself wraps urlopen — that's the documented
+        # exception.
+        if py.name == "http.py" and py.parent.name == "core":
+            continue
+        try:
+            text = py.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        try:
+            tree = ast.parse(text, filename=str(py))
+        except SyntaxError:
+            continue
+        lines = text.splitlines()
+        for ln in _find_urlopen_calls(tree):
+            same = lines[ln - 1] if 0 < ln <= len(lines) else ""
+            prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
+            if "http-waived" in same or "http-waived" in prev:
+                continue
+            violations.append({
+                "file": str(py.relative_to(REPO)).replace("\\", "/"),
+                "line": ln,
+                "snippet": same.strip()[:120],
+            })
+
+    if not violations:
+        return {
+            "id": "external_http",
+            "name": "External HTTP (no raw urlopen outside core/http.py)",
+            "status": "pass",
+            "message": "no raw urlopen() outside scripts/core/http.py",
+            "violations": [],
+        }
+    return {
+        "id": "external_http",
+        "name": "External HTTP (no raw urlopen outside core/http.py)",
+        "status": "fail",
+        "message": (
+            f"{len(violations)} raw urlopen() call site(s) outside "
+            f"scripts/core/http.py — use the retry+timeout wrapper or "
+            f"add `# http-waived: <reason>` to opt out"
+        ),
+        "violations": violations,
+    }
+
+
 def check_atomic_writes() -> dict:
     """Phase ω.9 — every direct write-mode open() call site outside
     `scripts/core/notes_io.py` is suspect.
@@ -771,8 +853,9 @@ ALL_CHECKS = {
     "inflight":          check_inflight_freshness,
     "untracked_phases":  check_untracked_phases,
     "code_doc_sync":     check_session_state_inventory,
-    # ω.9 hardening tier
+    # ω.9 + ω.10 hardening tier
     "atomic_writes":     check_atomic_writes,
+    "external_http":     check_external_http,
 }
 
 

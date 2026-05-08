@@ -5931,6 +5931,252 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ω.10 : retry & timeout policy ----------------------
+
+
+class TestHttpRetryWrapper:
+    """ω.10 — scripts/core/http.py centralizes outbound HTTP with a
+    consistent retry+timeout policy. Tests stub urlopen and sleep
+    so they run instantly and deterministically."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import http
+        cls.http = http
+
+    # ---- happy path ----
+
+    def test_get_returns_bytes_on_success(self):
+        class FakeResp:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+            def read(self): return b"hello"
+        def fake_open(url, timeout):
+            return FakeResp()
+        out = self.http.get(
+            "https://x.org",
+            urlopen=fake_open,
+            sleep_fn=lambda s: None,
+        )
+        assert out == b"hello"
+
+    def test_get_json_parses_payload(self):
+        class FakeResp:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+            def read(self): return b'{"k":"v","n":[1,2]}'
+        out = self.http.get_json(
+            "https://x.org",
+            urlopen=lambda url, timeout: FakeResp(),
+            sleep_fn=lambda s: None,
+        )
+        assert out == {"k": "v", "n": [1, 2]}
+
+    def test_timeout_is_passed_to_urlopen(self):
+        seen = []
+        class FakeResp:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+            def read(self): return b""
+        def fake(url, timeout):
+            seen.append(timeout)
+            return FakeResp()
+        self.http.get(
+            "https://x.org",
+            timeout=7,
+            urlopen=fake,
+            sleep_fn=lambda s: None,
+        )
+        assert seen == [7]
+
+    # ---- retry on transient failure ----
+
+    def test_retries_on_url_error_then_succeeds(self):
+        import urllib.error
+        attempts = [0]
+        sleeps = []
+        class FakeResp:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+            def read(self): return b"after-retry"
+        def flaky(url, timeout):
+            attempts[0] += 1
+            if attempts[0] < 3:
+                raise urllib.error.URLError("connection reset")
+            return FakeResp()
+        out = self.http.get(
+            "https://x.org",
+            retries=2,
+            urlopen=flaky,
+            sleep_fn=lambda s: sleeps.append(s),
+        )
+        assert out == b"after-retry"
+        assert attempts[0] == 3  # 1 initial + 2 retries
+        # Two sleeps between three attempts; backoff exponential.
+        assert len(sleeps) == 2
+        assert sleeps[0] < sleeps[1]  # exponential growth
+
+    def test_retries_on_5xx_then_succeeds(self):
+        import urllib.error
+        attempts = [0]
+        class FakeResp:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+            def read(self): return b"recovered"
+        def flaky(url, timeout):
+            attempts[0] += 1
+            if attempts[0] == 1:
+                raise urllib.error.HTTPError(
+                    url, 503, "Service Unavailable", {}, None,
+                )
+            return FakeResp()
+        out = self.http.get(
+            "https://x.org",
+            retries=2,
+            urlopen=flaky,
+            sleep_fn=lambda s: None,
+        )
+        assert out == b"recovered"
+        assert attempts[0] == 2
+
+    def test_retries_on_timeout(self):
+        attempts = [0]
+        class FakeResp:
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+            def read(self): return b"finally"
+        def flaky(url, timeout):
+            attempts[0] += 1
+            if attempts[0] == 1:
+                raise TimeoutError("read timed out")
+            return FakeResp()
+        out = self.http.get(
+            "https://x.org",
+            urlopen=flaky,
+            sleep_fn=lambda s: None,
+        )
+        assert out == b"finally"
+
+    # ---- no-retry on 4xx ----
+
+    def test_does_not_retry_on_404(self):
+        import urllib.error
+        attempts = [0]
+        def fail(url, timeout):
+            attempts[0] += 1
+            raise urllib.error.HTTPError(
+                url, 404, "Not Found", {}, None,
+            )
+        try:
+            self.http.get(
+                "https://x.org",
+                retries=2,
+                urlopen=fail,
+                sleep_fn=lambda s: None,
+            )
+        except self.http.HttpError as e:
+            assert e.attempts == 1  # NO retries on a 4xx
+            assert e.last_exc.code == 404
+            return
+        assert False, "expected HttpError"
+
+    def test_does_not_retry_on_400(self):
+        import urllib.error
+        attempts = [0]
+        def fail(url, timeout):
+            attempts[0] += 1
+            raise urllib.error.HTTPError(url, 400, "Bad", {}, None)
+        try:
+            self.http.get(
+                "https://x.org",
+                retries=5,
+                urlopen=fail,
+                sleep_fn=lambda s: None,
+            )
+        except self.http.HttpError as e:
+            assert e.attempts == 1
+            return
+        assert False, "expected HttpError"
+
+    # ---- exhausting retries ----
+
+    def test_exhausts_retries_then_raises(self):
+        import urllib.error
+        def always_fail(url, timeout):
+            raise urllib.error.URLError("connection refused")
+        try:
+            self.http.get(
+                "https://x.org",
+                retries=2,
+                urlopen=always_fail,
+                sleep_fn=lambda s: None,
+            )
+        except self.http.HttpError as e:
+            # Total attempts = retries + 1 = 3
+            assert e.attempts == 3
+            assert "URLError" in str(e)
+            assert e.url == "https://x.org"
+            return
+        assert False, "expected HttpError"
+
+    def test_exhausts_retries_on_persistent_5xx(self):
+        import urllib.error
+        def always_503(url, timeout):
+            raise urllib.error.HTTPError(url, 503, "down", {}, None)
+        try:
+            self.http.get(
+                "https://x.org",
+                retries=1,
+                urlopen=always_503,
+                sleep_fn=lambda s: None,
+            )
+        except self.http.HttpError as e:
+            assert e.attempts == 2  # 1 initial + 1 retry
+            return
+        assert False, "expected HttpError"
+
+    def test_backoff_is_exponential(self):
+        """Three attempts (retries=2) → two sleeps with exponentially
+        growing durations. The exact ratio is `backoff` (default 1.5)."""
+        import urllib.error
+        sleeps = []
+        def fail(url, timeout):
+            raise urllib.error.URLError("flaky")
+        try:
+            self.http.get(
+                "https://x.org",
+                retries=2,
+                backoff=2.0,
+                urlopen=fail,
+                sleep_fn=lambda s: sleeps.append(s),
+            )
+        except self.http.HttpError:
+            pass
+        # Two sleeps between three attempts; second is twice the first
+        # (because backoff base is 2.0 → 2^1 = 2, 2^2 = 4).
+        assert len(sleeps) == 2
+        assert sleeps[1] == sleeps[0] * 2
+
+    # ---- HttpError carries the underlying cause ----
+
+    def test_http_error_carries_underlying_exception(self):
+        import urllib.error
+        def fail(url, timeout):
+            raise urllib.error.URLError("boom")
+        try:
+            self.http.get(
+                "https://x.org",
+                retries=0,
+                urlopen=fail,
+                sleep_fn=lambda s: None,
+            )
+        except self.http.HttpError as e:
+            assert isinstance(e.last_exc, urllib.error.URLError)
+            assert e.__cause__ is e.last_exc  # `raise … from …`
+            return
+        assert False, "expected HttpError"
+
+
 # ---------- Phase ξ.2 : path-traversal hardening --------------------
 
 
