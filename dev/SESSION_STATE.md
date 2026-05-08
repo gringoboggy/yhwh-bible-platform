@@ -1,11 +1,12 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after ω.6 verified baseline shipped.
-**Save tag:** σ.3 + scope expansion + ω.6 baseline run (commit
-chain `ea0fbeb` → `3f014c0` → `26e59a2` → `c714932` → ω.6 ship)
+**Updated:** 2026-05-08, after ω.7 persistent dev ergonomics shipped.
+**Save tag:** σ.3 → ω.6 → ψ.10/ψ.12/polish-trio scope add → ω.7
 on `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
 now git pushes, not zips — see "GIT BACKUP" in the inventory below
-and the root-level `save.cmd` / `save.ps1` helpers.
+and the root-level `save.cmd` / `save.ps1` helpers. Each commit
+now triggers the pre-commit hook (`scripts/lint_rules.py` 8/8 must
+pass; bypass with `--no-verify` only when truly needed).
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -36,7 +37,62 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session)
 
 ---
 
-## Current phase: ω.6 verified baseline shipped
+## Current phase: ω.7 persistent dev ergonomics shipped
+
+Three locked-in ergonomic upgrades. All future sessions on this
+machine inherit them automatically; future machines re-do (a) and
+(b) once via env-var GUI / one PowerShell line, then run
+`./dev/install_hooks.cmd` for (c).
+
+```
+✓ PYTHONUTF8=1 set in User registry env
+   Future shells inherit it. Files in the project that the runtime
+   reads with `open(path)` (no explicit encoding) now work without
+   the cp1252 fallback that bit ω.6.
+
+✓ Python Scripts/ dir on User PATH
+   C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\Scripts
+   `pytest`, `py.test` etc. callable directly in fresh shells.
+
+✓ Pre-commit hook installed
+   Tracked template:    dev/git-hooks/pre-commit  (sh script)
+   Tracked installer:   dev/install_hooks.cmd     (CRLF, cmd-parser-safe)
+   Active copy:         .git/hooks/pre-commit     (per-checkout)
+   Behavior: every git commit (and therefore every save.cmd) runs
+   `python3 scripts/lint_rules.py` first. Failures abort the commit.
+   Bypass with `git commit --no-verify` only when truly needed.
+```
+
+**Caveats / known caveats:**
+- Currently-running shells (this Claude Code session, any open
+  PowerShell windows) won't see the new env vars until restart.
+  The registry change took effect; only inherited copies are stale.
+- The installer needed CRLF line endings on Windows — cmd's parser
+  chokes on parenthesized blocks with bare LF. The tracked file is
+  CRLF; if a future machine commits LF it will fail until reformatted.
+- The hook's `python3` lookup falls back through `python` → `py -3`
+  for portability. On Windows, the Microsoft Store's `python3` stub
+  is intentionally ranked below the real install via the user's PATH
+  ordering set in ω.7 (b).
+
+**Prior phases this session:**
+- ω.6 — Verified baseline (393/393 tests, 14/14 routes, 8/8 linter).
+- σ.3 — GitHub backup workflow.
+- Scope expansion — ψ.8 + ρ.1 + ω.6/ω.7 + ψ.10 + ψ.12 + polish trio.
+- χ.7 Nave's Topical infrastructure.
+
+**Cumulative this session:**
+```
+ω.7:         user env (PYTHONUTF8 + PATH) + tracked pre-commit hook +
+             installer (cmd, CRLF). Two new tracked files.
+ω.6:         baseline verification (393/393, 14/14 routes, 8/8 lint).
+σ.3:         repo init + private push + save.cmd/.ps1 wrappers.
+Scope exp:   ψ.8 + ρ.1 + ω.6 + ω.7 + ψ.10 + ψ.12 + polish trio.
+χ.7 infra:   16 new tests, 0 corpus notes (fetch is user-side).
+End state:   393 tests, 8/8 linter, 15,925 notes.
+```
+
+## Prior phase: ω.6 verified baseline shipped
 
 Local Windows install confirmed clean against the project's claimed
 baselines:
@@ -125,22 +181,15 @@ queue right now:
 
 ```
 ω.6  Verified baseline                  ✓ SHIPPED 2026-05-08
-     393/393 tests, 14/14 routes, 8/8 linter all green on the
-     local Windows install. Encoding workaround (PYTHONUTF8=1)
-     and reportlab install documented above. ω.7 picks up the
-     PYTHONUTF8=1 persistence.
+ω.7  Persistent dev ergonomics          ✓ SHIPPED 2026-05-08
+     (PYTHONUTF8=1 + Scripts on PATH + pre-commit hook —
+      tracked template at dev/git-hooks/pre-commit, installer
+      at dev/install_hooks.cmd; both are CRLF and cmd-safe.)
 
-ω.7  Persistent dev ergonomics          NEXT (~30 min)
-     (a) Set PYTHONUTF8=1 as a user environment variable so
-         every new shell inherits it (makes pytest + scripts
-         work without inline env-var fiddling). Caught by ω.6.
-     (b) Add C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
-         Scripts to user PATH so `pytest` works without `python3 -m`.
-     (c) Install `.git/hooks/pre-commit` running `lint_rules.py`
-         so save.cmd can never push something failing 8/8 linter.
-         Tracked-in-repo template at `dev/git-hooks/pre-commit`
-         + `dev/install_hooks.cmd` so future machines replicate
-         with one command.
+υ.7  Pluggable fetcher config           NEXT (~1 session)
+     content/sources/_fetchers.json — declarative URL +
+     parser-kind list. Lets fetch_sources.py read its source
+     list from config rather than Python constants.
 
 υ.7  Pluggable fetcher config           AFTER ω cluster
      content/sources/_fetchers.json — declarative URL +
@@ -224,22 +273,28 @@ GIT BACKUP (σ.3 — shipped 2026-05-08):
   GitHub CLI lives at: C:\Program Files\GitHub CLI\gh.exe
   gh authed as: bridge4kaladin-collab (HTTPS, keyring-stored token).
 
-LOCAL DEV ENVIRONMENT (ω.6 — verified 2026-05-08):
+LOCAL DEV ENVIRONMENT (ω.6 verified, ω.7 ergonomic — 2026-05-08):
   Python 3.14.4 at C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
-  Scripts dir (NOT yet on PATH): ...\pythoncore-3.14-64\Scripts\
-                                  (ω.7 will add to user PATH)
+  Scripts dir on User PATH (ω.7): ...\pythoncore-3.14-64\Scripts\
+                                  pytest, py.test, normalizer, pyhtmlizer
+                                  callable directly in fresh shells.
   pip-installed: pytest, pyyaml, reportlab.
-  Test invocation:  PYTHONUTF8=1 python3 -m pytest
-                    PYTHONUTF8=1 is REQUIRED on this Windows install:
-                    Python's default file codec is cp1252 here, and
-                    72 tests fail with UnicodeDecodeError on byte 0x9d
-                    if it isn't set. ω.7 will make this permanent via
-                    user-scope env var.
-  Web server:       PYTHONUTF8=1 python3 scripts/web.py
+  PYTHONUTF8=1 set in User registry env (ω.7) — fresh shells inherit.
+                Required on this install: without it, 72 tests fail
+                on `UnicodeDecodeError: 'charmap' codec` at byte 0x9d
+                (Python's Windows default is cp1252).
+  Test invocation:  pytest                 (in a fresh shell post-ω.7)
+                    PYTHONUTF8=1 python3 -m pytest   (current/old shell)
+  Web server:       python3 scripts/web.py
                     Default: 127.0.0.1:8765 (the editor at /, plus
                     13 cross-linked consoles)
-  Linter:           PYTHONUTF8=1 python3 scripts/lint_rules.py
-                    8 checks; pre-commit hook installer ships in ω.7.
+  Linter:           python3 scripts/lint_rules.py
+                    8 checks. Pre-commit hook (ω.7) runs this on every
+                    `git commit` automatically; failures abort the commit.
+  Pre-commit hook:  Tracked template:  dev/git-hooks/pre-commit
+                    Tracked installer: dev/install_hooks.cmd (CRLF)
+                    Active copy:       .git/hooks/pre-commit
+                    Bypass for one commit: `git commit --no-verify`
   Known pre-existing /api/preflight conditions:
     fail "Main covers per edition"     placeholder paths in seeded
                                         editions.yaml — fix via

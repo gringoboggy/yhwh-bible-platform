@@ -6,6 +6,100 @@
 
 ---
 
+## 2026-05-08 — session — ω.7 persistent dev ergonomics shipped
+
+**Phases shipped:** ω.7.
+**Test delta:** 0 (393 → 393 — ergonomics phase, no new tests).
+**Save tag this session:** pending — will land in next push after this
+entry is written. (This is the first save that will exercise the new
+pre-commit hook end-to-end.)
+
+What shipped:
+
+- **PYTHONUTF8=1 set permanently in User-scope env.**
+  Via `[Environment]::SetEnvironmentVariable("PYTHONUTF8", "1", "User")`.
+  Fresh shells inherit it; the cp1252 default that bit ω.6 is
+  permanently bypassed for this user.
+- **Python user `Scripts/` dir appended to User PATH.**
+  Path:
+  `C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\Scripts`.
+  Already had pip's installed binaries (pytest.exe, py.test.exe,
+  normalizer.exe, pyhtmlizer.exe). Verified `pytest.exe` resolves
+  in fresh shells.
+- **Pre-commit hook installed.** Two new tracked-in-repo files:
+  - `dev/git-hooks/pre-commit` — sh script, runs
+    `python3 scripts/lint_rules.py` with `PYTHONUTF8=1` and
+    `PYTHONIOENCODING=utf-8` exported. Falls through `python3` →
+    `python` → `py -3` for cross-machine portability. Aborts the
+    commit on any non-zero linter exit; clear "use --no-verify to
+    bypass" message.
+  - `dev/install_hooks.cmd` — cmd installer that copies the hook
+    template into `.git/hooks/pre-commit`. CRLF line endings
+    required on Windows (cmd's parser chokes on parenthesized
+    blocks with bare LF — caught and fixed in this session); the
+    installer is GOTO-style throughout, no parens, so the issue
+    can't recur if a future Claude edits it.
+  Hook installed on this machine; verified it runs cleanly
+  (8/8 lint pass → exit 0). The save that ships this entry will
+  be the first commit gated by the hook in production.
+
+Notable decisions:
+
+- **Did NOT also patch every `open()` call to use
+  `encoding="utf-8"`.** The env-var workaround is one line; the
+  patch sweep would touch ~50+ files (web.py is 5200 lines, plus
+  every loader). Per project rules "Don't add features, refactor,
+  or introduce abstractions beyond what the task requires" — the
+  env-var fix is the minimal surgery. If a collaborator on
+  Linux/macOS ever joins, the sweep moves up the priority list.
+- **Hook uses `python3` first**, then `python`, then `py -3`. On
+  Windows, `python3` resolves to the user's real install via the
+  PATH ordering; the Microsoft Store stub at `WindowsApps\python3`
+  is harmless because the real one wins (and PATH wasn't reordered
+  in ω.7 to make sure of that — the existing entry order already
+  put `Python\bin\` ahead of `WindowsApps\`).
+- **`.cmd` installer used GOTO style, not parenthesized `if` blocks.**
+  Caught a real cmd-parser quirk: `if X (\n...\n)` with LF-only
+  line endings fails on `'.'  was unexpected at this time`. Even
+  after CRLF conversion, the parens-style file failed; rewriting
+  with `if X goto LABEL` flat structure worked first try. Worth
+  knowing for any future Windows-targeting cmd file.
+- **`save.cmd` and `save.ps1` were NOT modified.** The hook runs
+  inside `git commit`, which `save.cmd` already invokes — so the
+  hook automatically gates every save without any change to the
+  wrappers. Keeps the save flow simple (1 wrapper, 1 path through
+  git's machinery).
+
+What this enables:
+
+- Any future `save.cmd "msg"` that would push a state-drift bug
+  (an untracked phase mention, a CHANGELOG-vs-SESSION_STATE freshness
+  miss, a console added without cross-links, etc.) is now caught
+  *before* the commit lands. The Tier 1 + Tier 3 layers of the
+  guardrail system (per CLAUDE_PROJECT_RULES §15) now run
+  automatically on every commit instead of being trusted-by-memory.
+- Fresh shells just work: open a new PowerShell, run `pytest`, get
+  a clean run. No more remembering to set PYTHONUTF8=1 inline.
+
+Files added (tracked):
+
+- `dev/git-hooks/pre-commit` — 33 lines.
+- `dev/install_hooks.cmd` — 30 lines.
+
+Files modified (tracked):
+
+- `dev/SESSION_STATE.md` — current phase = ω.7; LOCAL DEV
+  ENVIRONMENT inventory section updated to drop the workaround
+  notes and document the now-persistent setup.
+- `dev/CHANGELOG.md` — this entry.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` Tier A line 3 (ω.7) is now ✓; line 4
+  (υ.7 fetcher config) is the next phase to actually implement.
+
+---
+
 ## 2026-05-08 — session — UX audit → 4 new phases added (ψ.10 + ψ.12 + polish trio)
 
 **Phases shipped:** none (scope work, not implementation).

@@ -1,0 +1,37 @@
+#!/bin/sh
+# Pre-commit hook — runs scripts/lint_rules.py before allowing the commit.
+#
+# Installed by dev/install_hooks.cmd. To bypass for a single commit (only
+# when you really know what you're doing), pass --no-verify:
+#   git commit --no-verify -m "..."
+#
+# This file is the tracked-in-repo template. Editing the working copy at
+# .git/hooks/pre-commit only affects this checkout — for changes meant
+# to apply to every machine, edit dev/git-hooks/pre-commit and re-run
+# dev/install_hooks.cmd.
+
+export PYTHONUTF8=1
+export PYTHONIOENCODING=utf-8
+
+if command -v python3 >/dev/null 2>&1; then
+    PY=python3
+elif command -v python >/dev/null 2>&1; then
+    PY=python
+elif command -v py >/dev/null 2>&1; then
+    PY="py -3"
+else
+    echo "pre-commit: no Python interpreter found on PATH; skipping lint."
+    exit 0
+fi
+
+$PY scripts/lint_rules.py
+status=$?
+
+if [ $status -ne 0 ]; then
+    echo ""
+    echo "Pre-commit blocked: scripts/lint_rules.py reported failures."
+    echo "Fix the issues above, or run 'git commit --no-verify' to bypass."
+    exit $status
+fi
+
+exit 0
