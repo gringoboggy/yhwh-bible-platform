@@ -5817,9 +5817,14 @@ class TestNavesFetchSourceUtilities:
 
     def test_naves_appears_in_attribution_doc(self, tmp_path, monkeypatch):
         """write_attributions includes the Nave's section so the
-        attribution audit picks it up."""
+        attribution audit picks it up.
+
+        Updated for υ.7: write_attributions now takes a FetcherConfig;
+        we pass the loaded default config (which already names Nave's)."""
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
         monkeypatch.setattr(self.fs, "SOURCES_DIR", tmp_path)
-        self.fs.write_attributions()
+        self.fs.write_attributions(cfg)
         attrs = (tmp_path / "ATTRIBUTIONS.md").read_text(encoding="utf-8")
         assert "Nave's Topical Bible" in attrs
         assert "Orville J. Nave" in attrs
@@ -5909,3 +5914,329 @@ class TestRunNavesAtScaleDriver:
         assert merged["n_candidates"] == 2
         kinds = [c["kind"] for c in merged["candidates"]]
         assert "xref-citation" in kinds and "topic-nave" in kinds
+
+
+# ---------- Phase υ.7 : pluggable fetcher config ----------------------
+
+
+class TestFetcherConfig:
+    """Validates the JSON-driven source list at content/sources/_fetchers.json
+    plus its loader at scripts/core/fetcher_config.py and the parser
+    registry it dispatches into in scripts/fetch_sources.py.
+
+    Phase υ.7 (2026-05-08) moved the URL + parser-kind table out of
+    Python constants and into JSON. These tests guard the schema and
+    the registry/config-name invariant.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import fetcher_config as fc
+        from scripts import fetch_sources as fs
+        cls.fc = fc
+        cls.fs = fs
+
+    # ---- Default config (the one shipped with the repo) ----
+
+    def test_default_config_loads_clean(self):
+        cfg = self.fc.load_fetcher_config()
+        assert cfg.version == 1
+        ids = [s.id for s in cfg.sources]
+        # The platform's three required PD corpora as of υ.7 ship:
+        assert "strongs_hebrew" in ids
+        assert "tsk" in ids
+        assert "naves_topical" in ids
+
+    def test_default_config_field_invariants(self):
+        cfg = self.fc.load_fetcher_config()
+        for s in cfg.sources:
+            assert s.cache_path.endswith(".json"), s.id
+            assert s.license, s.id
+            assert s.candidates, f"{s.id} has no candidates"
+            for c in s.candidates:
+                assert c.url.startswith("http"), c.url
+                assert c.parser in self.fc.KNOWN_PARSERS, c.parser
+
+    def test_naves_is_optional_others_required(self):
+        cfg = self.fc.load_fetcher_config()
+        by_id = {s.id: s for s in cfg.sources}
+        assert by_id["strongs_hebrew"].required is True
+        assert by_id["tsk"].required is True
+        assert by_id["naves_topical"].required is False
+
+    def test_find_returns_source_or_none(self):
+        cfg = self.fc.load_fetcher_config()
+        assert cfg.find("strongs_hebrew") is not None
+        assert cfg.find("strongs_hebrew").id == "strongs_hebrew"
+        assert cfg.find("does_not_exist") is None
+
+    # ---- Registry / config name sync ----
+
+    def test_every_parser_in_config_is_in_registry(self):
+        cfg = self.fc.load_fetcher_config()
+        used = {c.parser for s in cfg.sources for c in s.candidates}
+        for name in used:
+            assert name in self.fs.PARSERS, (
+                f"parser {name!r} referenced in _fetchers.json but missing "
+                f"from fetch_sources.PARSERS"
+            )
+
+    def test_known_parsers_matches_registry(self):
+        # Every parser name the config validator accepts must have a
+        # callable in the registry, and vice versa. Drift here means
+        # either a parser shipped without being declared or a declared
+        # parser is unimplemented.
+        assert set(self.fs.PARSERS.keys()) == set(self.fc.KNOWN_PARSERS), (
+            f"PARSERS keys = {sorted(self.fs.PARSERS.keys())}, "
+            f"KNOWN_PARSERS = {sorted(self.fc.KNOWN_PARSERS)}"
+        )
+
+    # ---- Rejection paths ----
+
+    def test_rejects_missing_file(self, tmp_path):
+        missing = tmp_path / "no_such.json"
+        try:
+            self.fc.load_fetcher_config(path=missing)
+        except self.fc.FetcherConfigError as e:
+            assert "_fetchers.json" in str(e) or "not found" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_invalid_json(self, tmp_path):
+        p = tmp_path / "_fetchers.json"
+        p.write_text("{not json", encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "JSON" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_wrong_version(self, tmp_path):
+        p = tmp_path / "_fetchers.json"
+        p.write_text(json.dumps({"version": 999, "sources": []}),
+                     encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "version" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_unknown_parser(self, tmp_path):
+        p = tmp_path / "_fetchers.json"
+        p.write_text(json.dumps({
+            "version": 1,
+            "sources": [{
+                "id": "x", "name": "X", "cache_path": "x.json",
+                "required": True, "license": "PD",
+                "candidates": [{"url": "https://x", "parser": "nonexistent"}],
+            }],
+        }), encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "nonexistent" in str(e) or "unknown parser" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_duplicate_id(self, tmp_path):
+        p = tmp_path / "_fetchers.json"
+        p.write_text(json.dumps({
+            "version": 1,
+            "sources": [
+                {"id": "dupe", "name": "A", "cache_path": "a.json",
+                 "required": True, "license": "PD",
+                 "candidates": [{"url": "https://a", "parser": "tsk-zip-tsv"}]},
+                {"id": "dupe", "name": "B", "cache_path": "b.json",
+                 "required": False, "license": "PD",
+                 "candidates": [{"url": "https://b", "parser": "tsk-zip-tsv"}]},
+            ],
+        }), encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "duplicate" in str(e).lower()
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_empty_candidates(self, tmp_path):
+        p = tmp_path / "_fetchers.json"
+        p.write_text(json.dumps({
+            "version": 1,
+            "sources": [{
+                "id": "x", "name": "X", "cache_path": "x.json",
+                "required": True, "license": "PD",
+                "candidates": [],
+            }],
+        }), encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "candidates" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_missing_required_field(self, tmp_path):
+        # No 'license' on the source.
+        p = tmp_path / "_fetchers.json"
+        p.write_text(json.dumps({
+            "version": 1,
+            "sources": [{
+                "id": "x", "name": "X", "cache_path": "x.json",
+                "required": True,
+                "candidates": [{"url": "https://x", "parser": "tsk-zip-tsv"}],
+            }],
+        }), encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "license" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    def test_rejects_non_bool_required(self, tmp_path):
+        p = tmp_path / "_fetchers.json"
+        p.write_text(json.dumps({
+            "version": 1,
+            "sources": [{
+                "id": "x", "name": "X", "cache_path": "x.json",
+                "required": "yes", "license": "PD",
+                "candidates": [{"url": "https://x", "parser": "tsk-zip-tsv"}],
+            }],
+        }), encoding="utf-8")
+        try:
+            self.fc.load_fetcher_config(path=p)
+        except self.fc.FetcherConfigError as e:
+            assert "required" in str(e) and "bool" in str(e)
+            return
+        assert False, "expected FetcherConfigError"
+
+    # ---- Dispatcher integration ----
+
+    def test_fetch_source_uses_dispatch_table(self, tmp_path, monkeypatch):
+        """fetch_source(src) should call the parser registered for the
+        candidate's parser kind and write the returned dict to the cache."""
+        from scripts.core.fetcher_config import Source, Candidate
+
+        synthetic = {"_meta": {"n_topics": 1, "n_refs": 1,
+                                "source": "synthetic"}, "topics": {},
+                     "verses": {}}
+
+        def stub_parser(url):
+            assert url == "https://stub.test/data"
+            return synthetic
+
+        monkeypatch.setitem(self.fs.PARSERS, "json-topic-to-refs", stub_parser)
+        monkeypatch.setattr(self.fs, "SOURCES_DIR", tmp_path)
+
+        src = Source(
+            id="syn", name="Synthetic", cache_path="syn.json",
+            required=False, license="PD",
+            candidates=(Candidate(url="https://stub.test/data",
+                                  parser="json-topic-to-refs"),),
+        )
+        ok = self.fs.fetch_source(src)
+        assert ok is True
+        out = tmp_path / "syn.json"
+        assert out.is_file()
+        assert json.loads(out.read_text(encoding="utf-8")) == synthetic
+
+    def test_fetch_source_falls_through_failures(self, tmp_path, monkeypatch):
+        """If the first candidate's parser returns None, the next is tried."""
+        from scripts.core.fetcher_config import Source, Candidate
+
+        good = {"_meta": {"n_topics": 0, "n_refs": 0, "source": "ok"},
+                "topics": {}, "verses": {}}
+
+        calls = []
+
+        def fail_parser(url):
+            calls.append(("fail", url))
+            return None
+
+        def good_parser(url):
+            calls.append(("good", url))
+            return good
+
+        monkeypatch.setitem(self.fs.PARSERS, "json-topic-to-refs", fail_parser)
+        monkeypatch.setitem(self.fs.PARSERS, "openbible-topics-tsv", good_parser)
+        monkeypatch.setattr(self.fs, "SOURCES_DIR", tmp_path)
+
+        src = Source(
+            id="syn", name="Synthetic", cache_path="syn.json",
+            required=False, license="PD",
+            candidates=(
+                Candidate(url="https://first", parser="json-topic-to-refs"),
+                Candidate(url="https://second", parser="openbible-topics-tsv"),
+            ),
+        )
+        ok = self.fs.fetch_source(src)
+        assert ok is True
+        assert calls == [("fail", "https://first"), ("good", "https://second")]
+        assert (tmp_path / "syn.json").is_file()
+
+    def test_fetch_source_returns_false_when_all_candidates_fail(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import Source, Candidate
+
+        def always_none(url):
+            return None
+
+        monkeypatch.setitem(self.fs.PARSERS, "ccel-text", always_none)
+        monkeypatch.setattr(self.fs, "SOURCES_DIR", tmp_path)
+
+        src = Source(
+            id="syn", name="Synthetic", cache_path="syn.json",
+            required=True, license="PD",
+            candidates=(Candidate(url="https://x", parser="ccel-text"),),
+        )
+        ok = self.fs.fetch_source(src)
+        assert ok is False
+        assert not (tmp_path / "syn.json").is_file()
+
+    def test_fetch_source_skips_when_cached_and_not_forced(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import Source, Candidate
+
+        cache = tmp_path / "syn.json"
+        cache.write_text('{"already":"there"}', encoding="utf-8")
+        monkeypatch.setattr(self.fs, "SOURCES_DIR", tmp_path)
+
+        called = []
+
+        def parser(url):
+            called.append(url)
+            return {"new": "data"}
+
+        monkeypatch.setitem(self.fs.PARSERS, "ccel-text", parser)
+
+        src = Source(
+            id="syn", name="Synthetic", cache_path="syn.json",
+            required=True, license="PD",
+            candidates=(Candidate(url="https://x", parser="ccel-text"),),
+        )
+        ok = self.fs.fetch_source(src, force=False)
+        assert ok is True
+        assert called == [], "parser should not have been called"
+        # Cache content unchanged
+        assert json.loads(cache.read_text(encoding="utf-8")) == {"already": "there"}
+
+    def test_fetch_source_force_reruns_parser(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import Source, Candidate
+
+        cache = tmp_path / "syn.json"
+        cache.write_text('{"old":"data"}', encoding="utf-8")
+        monkeypatch.setattr(self.fs, "SOURCES_DIR", tmp_path)
+
+        def parser(url):
+            return {"fresh": "data"}
+
+        monkeypatch.setitem(self.fs.PARSERS, "ccel-text", parser)
+
+        src = Source(
+            id="syn", name="Synthetic", cache_path="syn.json",
+            required=True, license="PD",
+            candidates=(Candidate(url="https://x", parser="ccel-text"),),
+        )
+        ok = self.fs.fetch_source(src, force=True)
+        assert ok is True
+        assert json.loads(cache.read_text(encoding="utf-8")) == {"fresh": "data"}

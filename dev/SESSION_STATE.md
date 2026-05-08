@@ -1,12 +1,11 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after ω.7 persistent dev ergonomics shipped.
-**Save tag:** σ.3 → ω.6 → ψ.10/ψ.12/polish-trio scope add → ω.7
-on `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
+**Updated:** 2026-05-08, after υ.7 pluggable fetcher config shipped.
+**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 on
+`bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
 now git pushes, not zips — see "GIT BACKUP" in the inventory below
 and the root-level `save.cmd` / `save.ps1` helpers. Each commit
-now triggers the pre-commit hook (`scripts/lint_rules.py` 8/8 must
-pass; bypass with `--no-verify` only when truly needed).
+runs the pre-commit hook (`scripts/lint_rules.py` 8/8 must pass).
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -20,7 +19,7 @@ pass; bypass with `--no-verify` only when truly needed).
 ## Status snapshot
 
 ```
-13 consoles · 393 tests · 8/8 linter · 5 editions · 15,925 notes
+13 consoles · 412 tests · 8/8 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -37,7 +36,69 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session)
 
 ---
 
-## Current phase: ω.7 persistent dev ergonomics shipped
+## Current phase: υ.7 pluggable fetcher config shipped
+
+The PD-source list moved from Python constants in
+`scripts/fetch_sources.py` to declarative JSON in
+`content/sources/_fetchers.json`, loaded and validated by a new
+typed module `scripts/core/fetcher_config.py`. Adding a new PD
+source is now: (a) write a parser in `scripts/fetch_sources.py`,
+(b) register its name in
+`fetcher_config.KNOWN_PARSERS` and `fetch_sources.PARSERS`,
+(c) add a `sources[]` entry to `_fetchers.json`. No constants need
+touching, and the schema validator catches drift between the two.
+
+```
+✓ content/sources/_fetchers.json   schema v1; 3 sources declared
+                                   (strongs_hebrew, tsk required;
+                                    naves_topical optional with 4
+                                    candidate URLs).
+✓ scripts/core/fetcher_config.py   typed dataclasses (Source,
+                                   Candidate, FetcherConfig);
+                                   FetcherConfigError on any
+                                   validation failure.
+✓ scripts/fetch_sources.py          parsers registered in
+                                   PARSERS dict; main() iterates
+                                   loaded config; write_attributions
+                                   now assembles its body from the
+                                   config so adding a source auto-
+                                   includes its license notice.
+```
+
+**+19 tests:** TestFetcherConfig in tests/test_scripts.py covers
+the schema validator (default config loads, rejects 7 distinct
+malformed shapes including unknown parser / duplicate id / wrong
+version / empty candidates / non-bool required / missing license)
+and the dispatcher (synthetic-parser stubbed via monkeypatch — no
+network — verifying happy path, fall-through-on-failure,
+all-candidates-failed, cached-skip, force-rerun).
+
+**One existing test repaired:**
+`TestNavesFetchSourceUtilities::test_naves_appears_in_attribution_doc`
+called `write_attributions()` with no args; updated to load the
+default config and pass it.
+
+**Prior phases this session:**
+- ω.7 — Persistent dev ergonomics (PYTHONUTF8=1 + Scripts on PATH +
+  pre-commit hook + .gitattributes).
+- ω.6 — Verified baseline (393/393 tests, 14/14 routes, 8/8 linter).
+- σ.3 — GitHub backup workflow.
+- Scope expansion — ψ.8 + ρ.1 + ω.6/ω.7 + ψ.10 + ψ.12 + polish trio.
+- χ.7 Nave's Topical infrastructure.
+
+**Cumulative this session:**
+```
+υ.7:         _fetchers.json + fetcher_config.py + parser registry
+             refactor; +19 tests, 1 test repaired.
+ω.7:         user env + tracked pre-commit hook + .gitattributes.
+ω.6:         baseline verification (393/393, 14/14 routes, 8/8 lint).
+σ.3:         repo init + private push + save.cmd/.ps1 wrappers.
+Scope exp:   ψ.8 + ρ.1 + ω.6 + ω.7 + ψ.10 + ψ.12 + polish trio.
+χ.7 infra:   16 new tests, 0 corpus notes.
+End state:   412 tests, 8/8 linter, 15,925 notes.
+```
+
+## Prior phase: ω.7 persistent dev ergonomics shipped
 
 Three locked-in ergonomic upgrades. All future sessions on this
 machine inherit them automatically; future machines re-do (a) and
@@ -182,14 +243,16 @@ queue right now:
 ```
 ω.6  Verified baseline                  ✓ SHIPPED 2026-05-08
 ω.7  Persistent dev ergonomics          ✓ SHIPPED 2026-05-08
-     (PYTHONUTF8=1 + Scripts on PATH + pre-commit hook —
-      tracked template at dev/git-hooks/pre-commit, installer
-      at dev/install_hooks.cmd; both are CRLF and cmd-safe.)
+υ.7  Pluggable fetcher config           ✓ SHIPPED 2026-05-08
+     (_fetchers.json + fetcher_config.py + parser registry; the
+      `/sources` console upgrade in υ.1 will read/write this file.)
 
-υ.7  Pluggable fetcher config           NEXT (~1 session)
-     content/sources/_fetchers.json — declarative URL +
-     parser-kind list. Lets fetch_sources.py read its source
-     list from config rather than Python constants.
+υ.1  /sources console upgrade           NEXT (~1 session)
+     Real source-management page: status grid, "Fetch this" /
+     "Fetch all" buttons, paste-a-URL override, drag-and-drop
+     file upload to drop a pre-built JSON directly into
+     content/sources/. Now has υ.7's typed config to read/write
+     against. Permanently closes source-fetch friction.
 
 υ.7  Pluggable fetcher config           AFTER ω cluster
      content/sources/_fetchers.json — declarative URL +
@@ -303,7 +366,10 @@ LOCAL DEV ENVIRONMENT (ω.6 verified, ω.7 ergonomic — 2026-05-08):
     warn "Kind utilization"             pre-existing; not blocking
 
 INGESTION INFRA — already complete as CLI:
-  scripts/fetch_sources.py / scripts/core/sources.py
+  scripts/fetch_sources.py        (υ.7: declarative; reads _fetchers.json)
+  scripts/core/fetcher_config.py  (υ.7: schema + loader + validator)
+  content/sources/_fetchers.json  (υ.7: source list, schema v1)
+  scripts/core/sources.py         (cache loaders for parsed data)
   scripts/core/detectors.py (HebrewWordDetector, CrossRefDetector,
                               NaveTopicalDetector — χ.7)
   scripts/prospect.py / scripts/promote.py

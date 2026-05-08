@@ -6,6 +6,108 @@
 
 ---
 
+## 2026-05-08 — session — υ.7 pluggable fetcher config shipped
+
+**Phases shipped:** υ.7.
+**Test delta:** +19 (393 → 412).
+**Save tag this session:** pending — will land in next push after this
+entry is written.
+
+What shipped:
+
+- **`content/sources/_fetchers.json`** — schema v1 declarative source
+  list. Three sources: `strongs_hebrew` (required), `tsk` (required),
+  `naves_topical` (optional, four candidate URLs). Each source carries
+  id, name, cache_path, required-bool, license string, and a non-empty
+  list of {url, parser} candidates. The same shape `/sources` (υ.1) will
+  read/write against.
+- **`scripts/core/fetcher_config.py`** — typed loader + validator. Frozen
+  dataclasses (`Candidate`, `Source`, `FetcherConfig`); `KNOWN_PARSERS`
+  frozenset that mirrors the parser registry; `FetcherConfigError`
+  raised on any malformation (missing file, bad JSON, wrong version,
+  unknown parser, duplicate id, empty candidates, missing required
+  field, non-bool `required`). 198 lines total.
+- **`scripts/fetch_sources.py` refactor** — the URL/path/license
+  constants are gone; per-source `fetch_*` functions are gone;
+  parsers are pure URL→dict transforms in a `PARSERS` registry; one
+  generic `fetch_source(src)` does cache-skip / dispatch / candidate
+  fall-through / atomic write. `write_attributions()` now assembles
+  the doc body from the loaded config so adding a source auto-records
+  its license. Net change: -45 / +95 lines on a 556-line file; the
+  parser internals (Strong's JS strip, TSK ZIP/TSV index, Nave's
+  candidate fall-through, the two big book-remap dicts) are preserved
+  byte-for-byte.
+- **+19 tests** in `TestFetcherConfig`:
+  - 6 happy-path: default config loads clean; field invariants
+    (cache_path ends `.json`, license non-empty, every candidate
+    parser is in KNOWN_PARSERS); Nave's optional / others required;
+    `find()` returns Source-or-None; every parser used in the config
+    is in `fetch_sources.PARSERS`; `KNOWN_PARSERS` and `PARSERS.keys()`
+    are equal sets (drift guard).
+  - 8 rejection-path: missing file, invalid JSON, wrong version,
+    unknown parser, duplicate id, empty candidates, missing license,
+    non-bool required.
+  - 5 dispatcher integration (synthetic parser stubbed via
+    monkeypatch — no network): happy path; fall-through on first-
+    candidate failure; all-candidates-failed → False; cached and
+    not forced → skip parser; force=True → re-parse and overwrite.
+- **One existing test repaired:**
+  `TestNavesFetchSourceUtilities::test_naves_appears_in_attribution_doc`
+  was calling `write_attributions()` with no args; updated to load the
+  default config and pass it. The test's assertion (Nave's section
+  appears in ATTRIBUTIONS.md) still holds; the calling convention is
+  what changed.
+
+Notable decisions:
+
+- **Parser registry / KNOWN_PARSERS sync as a hard invariant.** The
+  config validator rejects any parser name not in `KNOWN_PARSERS`,
+  and one of the new tests asserts `set(PARSERS.keys()) ==
+  KNOWN_PARSERS`. Either set being out of sync is a test failure.
+  This is the cheapest way to catch the future bug "added a parser
+  but forgot to register it" / "removed a parser but a config still
+  references it."
+- **Book-remap dicts kept in Python, not migrated to JSON.** They're
+  parser-implementation details (~150 entries combined for TSK +
+  Nave's), not deployment config. A future PD source with its own
+  remap should ship its own dict beside its parser.
+- **Each parser is a pure `(url) -> dict | None`** with no
+  side-effects (no file I/O, no logging beyond exceptions). The
+  generic `fetch_source` does the I/O. This is the "pure function +
+  thin route adapter" pattern from §9 applied to the fetcher pipeline.
+- **`_meta` summary in fetch output is parser-agnostic.** The generic
+  fetch flow extracts `n_topics` / `n_refs` from the returned dict
+  if present, else falls back to `len(data)` for top-level dicts
+  (Strong's-style) or just file size. Means new parsers don't need
+  to add custom logging; the framework reads what they returned.
+- **Did NOT renumber existing tests for υ.7.** The new class
+  `TestFetcherConfig` lives at the end of `tests/test_scripts.py`
+  next to `TestRunNavesAtScaleDriver` — feature-grouped, not
+  alphabetical, matching the file's existing organization.
+
+Pattern recognition (§12 retrospective trigger):
+
+- **The "config-as-data" refactor pattern is now visible twice.** First
+  instance was the per-edition meta-yaml (popup languages, covers,
+  reader experience — content-driven not code-driven). Second is
+  `_fetchers.json` here. Common shape: extract a list of
+  {endpoint, handler-kind, metadata} tuples from Python constants;
+  put them in JSON/YAML; write a typed loader/validator with a
+  frozenset of valid handler-kinds; assert handler-registry and
+  config-known-set are the same set. Worth codifying as a §9
+  mental model the next time the rules doc is touched, especially
+  if a third instance appears (likely χ.* commentary ingestors —
+  each commentary's source config could go in `_commentaries.json`
+  with the same shape).
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` Tier A line 4 (υ.7) is now ✓; line 5
+  (υ.1 sources console upgrade) is the next phase to implement,
+  and now has υ.7's typed config to read/write against.
+
+---
+
 ## 2026-05-08 — session — ω.7 persistent dev ergonomics shipped
 
 **Phases shipped:** ω.7.

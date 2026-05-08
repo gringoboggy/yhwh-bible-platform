@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "strongs_hebrew",
+      "name": "Strong's Hebrew Dictionary",
+      "cache_path": "strongs_hebrew.json",
+      "required": true,
+      "license": "Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.",
+      "candidates": [
+        {
+          "url": "https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js",
+          "parser": "strongs-hebrew-js"
+        }
+      ]
+    },
+    {
+      "id": "tsk",
+      "name": "Treasury of Scripture Knowledge",
+      "cache_path": "tsk_xrefs.json",
+      "required": true,
+      "license": "Treasury of Scripture Knowledge (Canne, Browne, Blayney, Scott et al., 1830s). Public domain. Digital edition by openbible.info, CC-BY 4.0.",
+      "candidates": [
+        {
+          "url": "https://a.openbible.info/data/cross-references.zip",
+          "parser": "tsk-zip-tsv"
+        }
+      ]
+    },
+    {
+      "id": "naves_topical",
+      "name": "Nave's Topical Bible",
+      "cache_path": "naves_topical.json",
+      "required": false,
+      "license": "Nave's Topical Bible, Orville J. Nave (1896). Public domain (US copyright lapsed; author died 1917, work first published 1896).",
+      "candidates": [
+        {
+          "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases_extras/main/naves/naves.json",
+          "parser": "json-topic-to-refs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/openbibleinfo/Topical-Bible/main/naves.json",
+          "parser": "json-topic-to-refs"
+        },
+        {
+          "url": "https://a.openbible.info/data/topic-votes.txt.zip",
+          "parser": "openbible-topics-tsv"
+        },
+        {
+          "url": "https://www.ccel.org/n/nave/topical/topical.txt",
+          "parser": "ccel-text"
+        }
+      ]
+    }
+  ]
+}

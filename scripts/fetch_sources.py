@@ -3,27 +3,17 @@
 fetch_sources.py — Build the local public-domain reference corpus used
 by ``prospect.py`` to draft candidate notes.
 
-The data we cache lives under ``content/sources/`` and is loaded by
-``scripts/core/sources.py``. All sources here are explicitly PD or CC-BY,
-and each cached file carries an attribution header in its companion
-``ATTRIBUTIONS.md``.
+Phase υ.7 (2026-05-08): the source list — URLs, parser kinds, license
+strings, "required vs best-effort" — is now declarative in
+``content/sources/_fetchers.json`` and loaded by
+``scripts.core.fetcher_config``. To add a new source: drop a parser
+into ``PARSERS`` below, register its name in
+``scripts.core.fetcher_config.KNOWN_PARSERS``, and add a `sources[]`
+entry to ``_fetchers.json``. No constants need touching here.
 
-Currently fetched:
-
-  1. Strong's Hebrew Dictionary (1894, PD; openscriptures CC-BY-SA derivation)
-     ~2 MB — keyed by Strong's number (H1..H8674), each entry has lemma,
-     transliteration, derivation, and definition.
-
-  2. Treasury of Scripture Knowledge (1830s, PD; openbible.info CC-BY)
-     ~1.9 MB compressed — tab-separated cross-reference index, ~340K
-     directional links, scored by community-vote intensity.
-
-  3. Nave's Topical Bible (1896, PD; phase χ.7) — topical concordance
-     by Orville J. Nave with ~20K topics and ~100K verse references.
-     Best-effort fetch from a list of upstream mirrors; if all fail,
-     the platform remains usable and the user can drop a pre-built
-     ``naves_topical.json`` of the documented shape into
-     ``content/sources/`` directly.
+The cache files live under ``content/sources/`` and are loaded by
+``scripts/core/sources.py``. All sources are explicitly PD or CC-BY,
+with attribution recorded in the companion ``ATTRIBUTIONS.md``.
 
 Run once after first checkout, or whenever the upstream sources publish
 a new version. Idempotent; existing files are kept unless ``--force``.
@@ -34,9 +24,10 @@ Examples:
     python3 scripts/fetch_sources.py --list     # list what's available
 
 Exit codes:
-    0  all sources present (or fetched ok)
-    1  one or more fetches failed
-    2  setup error
+    0  all required sources present (or fetched ok)
+    1  one or more REQUIRED fetches failed (best-effort sources don't
+       affect exit code; the platform stays usable without them)
+    2  setup error (e.g. _fetchers.json missing or malformed)
 """
 
 import argparse
@@ -48,7 +39,19 @@ import zipfile
 from io import BytesIO
 from pathlib import Path
 
+# sys.path bootstrap so this script runs both as `python3 scripts/fetch_sources.py`
+# and as `python3 -m scripts.fetch_sources`.
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.core.fetcher_config import (  # noqa: E402
+    FetcherConfig,
+    FetcherConfigError,
+    Source,
+    load_fetcher_config,
+)
+
 SOURCES_DIR = REPO_ROOT / "content" / "sources"
 
 GREEN = "\033[92m"
@@ -59,66 +62,38 @@ BOLD = "\033[1m"
 RESET = "\033[0m"
 
 
+# ======================================================================
+# PARSERS — each takes a URL, returns a JSON-ready dict or None on
+# failure. The dict is the cache shape the corresponding loader in
+# scripts/core/sources.py expects.
+# ======================================================================
+
+
 # ----------------------------------------------------------------------
 # Strong's Hebrew Dictionary
 # ----------------------------------------------------------------------
 
-STRONGS_HEBREW_URL = (
-    "https://raw.githubusercontent.com/openscriptures/strongs/master/"
-    "hebrew/strongs-hebrew-dictionary.js"
-)
 
-STRONGS_HEBREW_PATH = SOURCES_DIR / "strongs_hebrew.json"
-STRONGS_HEBREW_LICENCE = (
-    "Strong's Exhaustive Concordance of the Bible, James Strong (1894). "
-    "Public domain. Digital edition by Open Scriptures, CC-BY-SA."
-)
-
-
-def fetch_strongs_hebrew(force: bool = False) -> bool:
-    if STRONGS_HEBREW_PATH.is_file() and not force:
-        print(f"  {DIM}strongs_hebrew.json already present{RESET}")
-        return True
-    print(f"  {DIM}fetching Strong's Hebrew dictionary…{RESET}")
-    try:
-        with urllib.request.urlopen(STRONGS_HEBREW_URL, timeout=30) as r:
-            text = r.read().decode("utf-8")
-    except Exception as e:
-        print(f"  {RED}✗ download failed: {e}{RESET}", file=sys.stderr)
-        return False
-
-    # Strip JS wrapper: `var strongsHebrewDictionary = {...};`
+def _parse_strongs_hebrew_js(url: str) -> dict | None:
+    """Strip the JS wrapper around openscriptures' Strong's Hebrew dump
+    and return the dictionary keyed by H-number."""
+    with urllib.request.urlopen(url, timeout=30) as r:
+        text = r.read().decode("utf-8")
     m = re.search(r"strongsHebrewDictionary\s*=\s*(\{.*\})", text, re.DOTALL)
     if not m:
-        print(f"  {RED}✗ unexpected format — no dictionary object found{RESET}", file=sys.stderr)
-        return False
+        return None
     raw_json = m.group(1).rstrip().rstrip(";")
     try:
         data = json.loads(raw_json)
-    except json.JSONDecodeError as e:
-        print(f"  {RED}✗ JSON parse failed: {e}{RESET}", file=sys.stderr)
-        return False
-
-    SOURCES_DIR.mkdir(parents=True, exist_ok=True)
-    STRONGS_HEBREW_PATH.write_text(
-        json.dumps(data, indent=None, ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
-    )
-    print(f"  {GREEN}✓{RESET} strongs_hebrew.json  {DIM}({len(data):,} entries, "
-          f"{STRONGS_HEBREW_PATH.stat().st_size / 1024:.0f} KB){RESET}")
-    return True
+    except json.JSONDecodeError:
+        return None
+    return data if isinstance(data, dict) else None
 
 
 # ----------------------------------------------------------------------
 # Treasury of Scripture Knowledge
 # ----------------------------------------------------------------------
 
-TSK_URL = "https://a.openbible.info/data/cross-references.zip"
-TSK_PATH = SOURCES_DIR / "tsk_xrefs.json"
-TSK_LICENCE = (
-    "Treasury of Scripture Knowledge (Canne, Browne, Blayney, Scott et al., "
-    "1830s). Public domain. Digital edition by openbible.info, CC-BY 4.0."
-)
 
 # Map openbible.info book codes to our internal codes (mostly identical
 # but a few differ; we keep the canonical-3-letter form).
@@ -159,29 +134,15 @@ def _parse_tsk_ref(s: str) -> tuple | None:
         return None
 
 
-def fetch_tsk(force: bool = False) -> bool:
-    if TSK_PATH.is_file() and not force:
-        print(f"  {DIM}tsk_xrefs.json already present{RESET}")
-        return True
-    print(f"  {DIM}fetching Treasury of Scripture Knowledge…{RESET}")
-    try:
-        with urllib.request.urlopen(TSK_URL, timeout=30) as r:
-            zip_bytes = r.read()
-    except Exception as e:
-        print(f"  {RED}✗ download failed: {e}{RESET}", file=sys.stderr)
-        return False
-
-    try:
-        with zipfile.ZipFile(BytesIO(zip_bytes)) as z:
-            text = z.read("cross_references.txt").decode("utf-8")
-    except Exception as e:
-        print(f"  {RED}✗ unzip failed: {e}{RESET}", file=sys.stderr)
-        return False
-
-    # Build {book: {chapter: {verse: [(target_book, ch, vs, votes), ...]}}}
+def _parse_tsk_zip_tsv(url: str) -> dict | None:
+    """Download openbible.info's cross-references ZIP and build the
+    nested {book: {chapter: {verse: [(target_book, ch, vs, votes), ...]}}}
+    cache structure consumed by scripts.core.sources.Tsk."""
+    with urllib.request.urlopen(url, timeout=30) as r:
+        zip_bytes = r.read()
+    with zipfile.ZipFile(BytesIO(zip_bytes)) as z:
+        text = z.read("cross_references.txt").decode("utf-8")
     index: dict = {}
-    n_links = 0
-    n_skipped = 0
     for line in text.splitlines():
         if not line or line.startswith("#") or line.startswith("From"):
             continue
@@ -191,7 +152,6 @@ def fetch_tsk(force: bool = False) -> bool:
         src = _parse_tsk_ref(parts[0])
         dst = _parse_tsk_ref(parts[1])
         if not src or not dst:
-            n_skipped += 1
             continue
         try:
             votes = int(parts[2])
@@ -202,66 +162,12 @@ def fetch_tsk(force: bool = False) -> bool:
         index.setdefault(sb, {}).setdefault(sc, {}).setdefault(sv, []).append(
             [db, dc, dv, votes]
         )
-        n_links += 1
-
-    SOURCES_DIR.mkdir(parents=True, exist_ok=True)
-    TSK_PATH.write_text(
-        json.dumps(index, ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
-    )
-    print(f"  {GREEN}✓{RESET} tsk_xrefs.json  {DIM}({n_links:,} links across "
-          f"{sum(len(c) for c in index.values()):,} chapters, "
-          f"{TSK_PATH.stat().st_size / 1024:.0f} KB; skipped {n_skipped} unparseable){RESET}")
-    return True
+    return index if index else None
 
 
 # ----------------------------------------------------------------------
 # Nave's Topical Bible (Phase χ.7)
 # ----------------------------------------------------------------------
-
-# Nave's Topical Bible (Orville J. Nave, 1896) is firmly in the public
-# domain. The challenge is finding a clean structured digital edition.
-# We try a list of candidate URLs in order; the user can prepend their
-# own (e.g., a local mirror, a curated GitHub fork) by editing this list.
-#
-# Expected upstream shape (whichever URL succeeds, the parser detects
-# the format and normalises to the JSON cache structure documented on
-# ``scripts/core/sources.py:NavesTopical``).
-
-NAVES_PATH = SOURCES_DIR / "naves_topical.json"
-NAVES_LICENCE = (
-    "Nave's Topical Bible, Orville J. Nave (1896). Public domain "
-    "(US copyright lapsed; author died 1917, work first published 1896)."
-)
-
-# Best-effort mirror list. Each entry is (url, parser_kind). Parsers:
-#   "openbible-topics-tsv" — openbible.info-style topic-votes.txt format
-#   "json-topic-to-verses" — direct {"Topic": [["book", ch, vs], ...]}
-#   "json-topic-to-refs"   — {"Topic": ["Gen 1:1", "Heb 11:3", ...]}
-#   "ccel-text"            — ccel.org plain-text dump (most fragile)
-NAVES_CANDIDATE_SOURCES: list[tuple[str, str]] = [
-    # GitHub mirrors (most stable when they exist):
-    (
-        "https://raw.githubusercontent.com/scrollmapper/bible_databases_extras/"
-        "main/naves/naves.json",
-        "json-topic-to-refs",
-    ),
-    (
-        "https://raw.githubusercontent.com/openbibleinfo/Topical-Bible/"
-        "main/naves.json",
-        "json-topic-to-refs",
-    ),
-    # openbible.info zipped TSV (their topic-votes data, when reachable):
-    (
-        "https://a.openbible.info/data/topic-votes.txt.zip",
-        "openbible-topics-tsv",
-    ),
-    # CCEL fallback (HTML; the plain-text dump path isn't always present):
-    (
-        "https://www.ccel.org/n/nave/topical/topical.txt",
-        "ccel-text",
-    ),
-]
 
 
 # Reuse the openbible-style 3-letter book codes already mapped for TSK.
@@ -341,8 +247,7 @@ def _build_naves_indices(forward: dict[str, list]) -> dict:
     {topic: [(book, ch, vs), ...]}. Builds the reverse index (verses)
     and the meta block.
 
-    Tolerates ref tuples or list-of-3 elements.
-    """
+    Tolerates ref tuples or list-of-3 elements."""
     topics = {}
     verses: dict = {}
     n_refs = 0
@@ -379,8 +284,8 @@ def _build_naves_indices(forward: dict[str, list]) -> dict:
     }
 
 
-def _fetch_naves_json_topic_to_refs(url: str) -> dict | None:
-    """Fetcher for {"Topic": ["Gen 1:1", ...] | [["gen",1,1], ...]} JSON."""
+def _parse_naves_json_topic_to_refs(url: str) -> dict | None:
+    """Parser for {"Topic": ["Gen 1:1", ...] | [["gen",1,1], ...]} JSON."""
     with urllib.request.urlopen(url, timeout=30) as r:
         raw = r.read().decode("utf-8")
     forward = json.loads(raw)
@@ -389,15 +294,14 @@ def _fetch_naves_json_topic_to_refs(url: str) -> dict | None:
     return _build_naves_indices(forward)
 
 
-def _fetch_naves_openbible_tsv(url: str) -> dict | None:
-    """Fetcher for openbible.info topic-votes zipped TSV (topic\tref\tvotes).
+def _parse_naves_openbible_tsv(url: str) -> dict | None:
+    """Parser for openbible.info topic-votes zipped TSV (topic\tref\tvotes).
     Uses only the topic+ref columns; votes are not stored (Nave's model
     is unweighted)."""
     with urllib.request.urlopen(url, timeout=30) as r:
         zip_bytes = r.read()
     forward: dict[str, list] = {}
     with zipfile.ZipFile(BytesIO(zip_bytes)) as z:
-        # Take the first .txt member
         names = [n for n in z.namelist() if n.lower().endswith(".txt")]
         if not names:
             return None
@@ -419,90 +323,125 @@ def _fetch_naves_openbible_tsv(url: str) -> dict | None:
     return _build_naves_indices(forward)
 
 
-def fetch_naves_topical(force: bool = False) -> bool:
-    """Try each NAVES_CANDIDATE_SOURCES URL in order; first success wins.
+def _parse_ccel_text(url: str) -> dict | None:
+    """Placeholder for the CCEL plain-text dump. The path is fragile and
+    parser-heavy; left as a known-not-quite-implemented fallback. Returns
+    None so the dispatcher tries the next candidate."""
+    return None
 
-    On success, writes ``content/sources/naves_topical.json`` in the
-    canonical shape consumed by ``scripts.core.sources.NavesTopical``.
 
-    On total failure, prints a clear next-step (the user can drop a
-    pre-built ``naves_topical.json`` of the documented shape into
-    ``content/sources/`` manually).
-    """
-    if NAVES_PATH.is_file() and not force:
-        print(f"  {DIM}naves_topical.json already present{RESET}")
+# ----------------------------------------------------------------------
+# Parser registry — names must match scripts.core.fetcher_config.KNOWN_PARSERS
+# ----------------------------------------------------------------------
+
+
+PARSERS: dict[str, callable] = {
+    "strongs-hebrew-js": _parse_strongs_hebrew_js,
+    "tsk-zip-tsv": _parse_tsk_zip_tsv,
+    "json-topic-to-refs": _parse_naves_json_topic_to_refs,
+    "openbible-topics-tsv": _parse_naves_openbible_tsv,
+    "ccel-text": _parse_ccel_text,
+}
+
+
+# ======================================================================
+# Generic fetch flow — iterates a Source's candidates, writes the cache
+# ======================================================================
+
+
+def fetch_source(source: Source, force: bool = False) -> bool:
+    """Fetch one configured source. Returns True on success (file present
+    or freshly written), False on failure.
+
+    Caller's responsibility to translate False → exit code based on
+    ``source.required``."""
+    cache_path = SOURCES_DIR / source.cache_path
+    if cache_path.is_file() and not force:
+        print(f"  {DIM}{source.cache_path} already present{RESET}")
         return True
-    print(f"  {DIM}fetching Nave's Topical Bible…{RESET}")
 
-    for url, kind in NAVES_CANDIDATE_SOURCES:
+    print(f"  {DIM}fetching {source.name}…{RESET}")
+
+    for c in source.candidates:
+        parser = PARSERS.get(c.parser)
+        if parser is None:
+            # The config validator should reject this; defensive skip.
+            continue
         try:
-            if kind == "json-topic-to-refs":
-                idx = _fetch_naves_json_topic_to_refs(url)
-            elif kind == "openbible-topics-tsv":
-                idx = _fetch_naves_openbible_tsv(url)
-            elif kind == "ccel-text":
-                # The CCEL plain-text path is fragile and parser-heavy;
-                # left as a known-not-quite-implemented fallback. Skip
-                # gracefully so we move to the next candidate.
-                continue
-            else:
-                continue
+            data = parser(c.url)
         except Exception as e:
-            print(f"  {DIM}  · {url[:60]}… → {type(e).__name__}: "
+            print(f"  {DIM}  · {c.url[:60]}… → {type(e).__name__}: "
                   f"{str(e)[:50]}{RESET}", file=sys.stderr)
             continue
-        if idx and idx.get("topics"):
-            SOURCES_DIR.mkdir(parents=True, exist_ok=True)
-            NAVES_PATH.write_text(
-                json.dumps(idx, ensure_ascii=False, separators=(",", ":")),
-                encoding="utf-8",
-            )
-            meta = idx["_meta"]
-            kb = NAVES_PATH.stat().st_size / 1024
-            print(f"  {GREEN}✓{RESET} naves_topical.json  "
-                  f"{DIM}({meta['n_topics']:,} topics, "
-                  f"{meta['n_refs']:,} refs, {kb:.0f} KB){RESET}")
-            return True
+        if not data:
+            continue
+        SOURCES_DIR.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(
+            json.dumps(data, ensure_ascii=False, separators=(",", ":")),
+            encoding="utf-8",
+        )
+        kb = cache_path.stat().st_size / 1024
+        # Pull a meta-line if the parser returned one (Nave's format has
+        # _meta with n_topics/n_refs); otherwise just file size.
+        meta_extra = ""
+        if isinstance(data, dict):
+            meta = data.get("_meta") if isinstance(data.get("_meta"), dict) else None
+            if meta:
+                bits = []
+                if "n_topics" in meta:
+                    bits.append(f"{meta['n_topics']:,} topics")
+                if "n_refs" in meta:
+                    bits.append(f"{meta['n_refs']:,} refs")
+                if bits:
+                    meta_extra = ", ".join(bits) + ", "
+            elif data and not meta:
+                # Strong's: top-level dict of entries
+                meta_extra = f"{len(data):,} entries, "
+        print(f"  {GREEN}✓{RESET} {source.cache_path}  "
+              f"{DIM}({meta_extra}{kb:.0f} KB){RESET}")
+        return True
 
-    # Everything failed.
-    print(f"  {YELLOW}–{RESET} naves_topical.json  "
-          f"{DIM}(no upstream reachable; place a pre-built file at "
-          f"{NAVES_PATH.relative_to(REPO_ROOT)} matching the shape "
-          f"documented in scripts/core/sources.py:NavesTopical){RESET}",
-          file=sys.stderr)
+    # All candidates exhausted.
+    if source.required:
+        print(f"  {RED}✗{RESET} {source.cache_path}  "
+              f"{DIM}(no upstream reachable; required source missing){RESET}",
+              file=sys.stderr)
+    else:
+        print(f"  {YELLOW}–{RESET} {source.cache_path}  "
+              f"{DIM}(no upstream reachable; optional, platform stays usable){RESET}",
+              file=sys.stderr)
     return False
 
 
 # ----------------------------------------------------------------------
-# Attribution file
+# Attribution file — assembled from the loaded config so adding a new
+# source automatically gets its license recorded.
 # ----------------------------------------------------------------------
 
 
-def write_attributions() -> None:
+def write_attributions(config: FetcherConfig) -> None:
     SOURCES_DIR.mkdir(parents=True, exist_ok=True)
     attr_path = SOURCES_DIR / "ATTRIBUTIONS.md"
-    attr_path.write_text(
+    parts = [
         "# Source attributions\n\n"
         "This directory caches public-domain reference works used by "
         "`scripts/prospect.py` to draft candidate notes. Every fetched "
         "source is named below with its licence; the cached files are "
         "redistributable under those terms.\n\n"
-        "## Strong's Hebrew Dictionary\n\n"
-        f"{STRONGS_HEBREW_LICENCE}\n\n"
-        "Source: <https://github.com/openscriptures/strongs>\n\n"
-        "## Treasury of Scripture Knowledge\n\n"
-        f"{TSK_LICENCE}\n\n"
-        "Source: <https://www.openbible.info/labs/cross-references/>\n\n"
-        "## Nave's Topical Bible\n\n"
-        f"{NAVES_LICENCE}\n\n"
-        "Source: see `scripts/fetch_sources.py:NAVES_CANDIDATE_SOURCES` "
-        "for the upstream URL list tried at fetch time. The original 1896 "
-        "edition is hosted on the Internet Archive "
-        "(<https://archive.org/details/topicalbibledige00naveuoft>); "
-        "structured digital editions are aggregated from CCEL and "
-        "openbible.info topic data.\n",
-        encoding="utf-8",
-    )
+        "The source list is declarative — see "
+        "`content/sources/_fetchers.json` for the URL + parser-kind table "
+        "and `scripts/core/fetcher_config.py` for the loader/schema.\n\n"
+    ]
+    for s in config.sources:
+        parts.append(f"## {s.name}\n\n{s.license}\n\n")
+        if len(s.candidates) == 1:
+            parts.append(f"Source URL: <{s.candidates[0].url}>\n\n")
+        else:
+            parts.append("Source URLs (tried in order):\n\n")
+            for c in s.candidates:
+                parts.append(f"- <{c.url}> *(parser: `{c.parser}`)*\n")
+            parts.append("\n")
+    attr_path.write_text("".join(parts), encoding="utf-8")
 
 
 # ----------------------------------------------------------------------
@@ -510,18 +449,17 @@ def write_attributions() -> None:
 # ----------------------------------------------------------------------
 
 
-def cmd_list() -> None:
-    sources = [
-        ("Strong's Hebrew", STRONGS_HEBREW_PATH),
-        ("TSK Cross-references", TSK_PATH),
-        ("Nave's Topical Bible", NAVES_PATH),
-    ]
-    for name, path in sources:
+def cmd_list(config: FetcherConfig) -> None:
+    for s in config.sources:
+        path = SOURCES_DIR / s.cache_path
+        suffix = "" if s.required else f" {DIM}(optional){RESET}"
         if path.is_file():
             kb = path.stat().st_size / 1024
-            print(f"  {GREEN}✓{RESET} {name:30s} {DIM}{kb:.0f} KB{RESET}")
+            print(f"  {GREEN}✓{RESET} {s.name:30s} "
+                  f"{DIM}{kb:.0f} KB{RESET}{suffix}")
         else:
-            print(f"  {YELLOW}–{RESET} {name:30s} {DIM}not fetched{RESET}")
+            print(f"  {YELLOW}–{RESET} {s.name:30s} "
+                  f"{DIM}not fetched{RESET}{suffix}")
 
 
 def main() -> None:
@@ -532,23 +470,33 @@ def main() -> None:
     p.add_argument("--list", action="store_true", help="list source status and exit")
     args = p.parse_args()
 
+    try:
+        config = load_fetcher_config()
+    except FetcherConfigError as e:
+        print(f"  {RED}✗ fetcher config error:{RESET} {e}", file=sys.stderr)
+        sys.exit(2)
+
     if args.list:
-        cmd_list()
+        cmd_list(config)
         sys.exit(0)
 
     print(f"\n{BOLD}fetch_sources{RESET}")
-    ok = fetch_strongs_hebrew(force=args.force)
-    ok &= fetch_tsk(force=args.force)
-    # Nave's is best-effort: a failed fetch doesn't cause a non-zero exit
-    # because the platform stays usable (NaveTopicalDetector skips
-    # gracefully when the source is missing — see prospect.py and §χ.7).
-    fetch_naves_topical(force=args.force)
-    write_attributions()
+
+    overall_ok = True
+    for src in config.sources:
+        ok = fetch_source(src, force=args.force)
+        if src.required and not ok:
+            overall_ok = False
+        # Best-effort sources don't affect overall_ok — by design (e.g.
+        # NaveTopicalDetector skips gracefully when its source is absent
+        # per prospect.py's resilient instantiation, χ.7).
+
+    write_attributions(config)
 
     print()
-    cmd_list()
+    cmd_list(config)
     print()
-    sys.exit(0 if ok else 1)
+    sys.exit(0 if overall_ok else 1)
 
 
 if __name__ == "__main__":
