@@ -1,11 +1,10 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after χ.7 Nave's Topical infrastructure
-+ scope refresh + close-out.
-**Save tag:** YHWH v2.4-full (χ.7 infra + new SCOPE_2026-05-08 +
-PLAN_2026-05-08 + bootstrap-protocol pointer flip + linter hardening
-+ old top-level 05-07 docs archived; addenda kept; 393 tests · 8/8
-linter · 15,925 notes).
+**Updated:** 2026-05-08, after σ.3 GitHub backup workflow shipped.
+**Save tag:** initial git push (commit `ea0fbeb` to
+`bridge4kaladin-collab/yhwh-bible-platform`, private). Saves are now
+git pushes, not zips — see "GIT BACKUP" in the inventory below
+and the root-level `save.ps1` helper.
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -36,17 +35,27 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session)
 
 ---
 
-## Current phase: χ.7 Nave's Topical infrastructure shipped
+## Current phase: σ.3 GitHub backup workflow shipped
 
-The χ-cluster pipeline pattern (driver iterating cached source data
-+ batch promote with `--kind` filter) was extended to a third
-detector. All code, tests, and docs are in place; the only blocker
-to corpus growth is reaching a PD upstream for the source JSON
-(archive.org / openbible.info egress is blocked from the
-development sandbox).
+The project is now backed up on GitHub at
+`https://github.com/bridge4kaladin-collab/yhwh-bible-platform`
+(PRIVATE; no collaborators; default branch `main`). Initial push:
+1668 files, 653,880 lines, commit `ea0fbeb`. From this point forward
+"save" means "git push", not "build zip" — per PLAN_2026-05-08 σ.3.
+The root-level `save.ps1` is a one-command wrapper:
+`./save.ps1 "what changed"` runs add + commit + push end-to-end
+(default message is a timestamp). New session: `git pull` first.
+
+`.claude/` was added to `.gitignore` (per-machine permission cache,
+not portable). 393 tests still green; nothing in the runtime changed.
+
+**Prior phase:** χ.7 Nave's Topical infrastructure (16 new tests,
+0 corpus notes — data fetch + promote remain user-side, blocked on
+network egress to archive.org / openbible.info).
 
 **Cumulative this session:**
 ```
+σ.3:         repo init + private push (no test delta)
 χ.7 infra:   16 new tests, 0 corpus notes (fetch is user-side)
 End state:   393 tests, 8/8 linter, 15,925 notes
 ```
@@ -79,20 +88,34 @@ terminus (`θ.2 + χ.1 + corpus ≥ 25K = v1.0`). See
 queue right now:
 
 ```
-χ.7 USER-SIDE COMPLETION (no Claude needed):
+υ.7  Pluggable fetcher config           NEXT FOR CLAUDE
+     content/sources/_fetchers.json — declarative URL +
+     parser-kind list. Lets fetch_sources.py read its source
+     list from config rather than Python constants.
+     Deliverables: _fetchers.json schema, loader, migration
+                   of existing NAVES_CANDIDATE_SOURCES into it,
+                   tests for the schema.
+     Risk: LOW (pure refactor, additive)
+
+υ.1  /sources console upgrade           AFTER υ.7
+     Real source-management page: status grid, "Fetch this" /
+     "Fetch all" buttons, paste-a-URL override, drag-and-drop
+     file upload. Permanently closes source-fetch friction.
+
+χ.7 USER-SIDE COMPLETION (still parked, no Claude needed):
    1. Run `python3 scripts/fetch_sources.py` from a network-permitted
       env (or drop a pre-built naves_topical.json into content/sources/).
    2. `python3 scripts/run_naves_at_scale.py` → writes candidates JSON.
    3. `python3 scripts/batch_promote_xrefs.py --kind topic-nave` →
       promotes to real notes.
    4. Tell Claude the new corpus total; SESSION_STATE updates accordingly.
+   υ.1 will subsume this into a UI button.
 
-χ.1  Strong's Greek + GreekWordDetector  NEXT FOR CLAUDE
+χ.1  Strong's Greek + GreekWordDetector  AFTER υ cluster
      Parallels existing HebrewWordDetector exactly:
        • fetch Strong's Greek lexicon (PD, openscriptures)
        • write GreekWordDetector (mirror HebrewWordDetector)
        • driver reads NT books from KJV translation
-     Risk: LOW (clear parallel to existing code)
      Expected: 5-10K lang-greek notes
 ```
 
@@ -116,6 +139,16 @@ queue right now:
 ## Inventory pointers (where things live)
 
 ```
+GIT BACKUP (σ.3 — shipped 2026-05-08):
+  Remote:    https://github.com/bridge4kaladin-collab/yhwh-bible-platform (private)
+  Default branch: main
+  Save command:  ./save.ps1 "<message>"   (PowerShell wrapper)
+                 or: git add -A; git commit -m "<msg>"; git push
+  Pull command:  git pull                 (start of fresh session)
+  Excluded:  .claude/ (per-machine), plus everything in .gitignore.
+  GitHub CLI lives at: C:\Program Files\GitHub CLI\gh.exe
+  gh authed as: bridge4kaladin-collab (HTTPS, keyring-stored token).
+
 INGESTION INFRA — already complete as CLI:
   scripts/fetch_sources.py / scripts/core/sources.py
   scripts/core/detectors.py (HebrewWordDetector, CrossRefDetector,

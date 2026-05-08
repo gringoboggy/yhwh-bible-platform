@@ -6,6 +6,90 @@
 
 ---
 
+## 2026-05-08 — session — σ.3 GitHub backup workflow shipped
+
+**Phases shipped:** σ.3.
+**Test delta:** 0 (393 → 393 — no runtime change).
+**Save tag this session:** initial git push, commit `ea0fbeb` to
+`bridge4kaladin-collab/yhwh-bible-platform` (PRIVATE).
+
+What shipped:
+
+- Installed GitHub CLI 2.92.0 via `winget install GitHub.cli` (admin
+  UAC required; succeeded on second prompt).
+- Authenticated `gh` against `github.com` as
+  `bridge4kaladin-collab` via the device-code web flow.
+  Scopes: `gist`, `read:org`, `repo`. Token stored in Windows
+  Credential Manager (keyring).
+- `git init --initial-branch=main` in the project root.
+- Added `.claude/` to `.gitignore` — Claude Code's per-machine
+  permission cache and runtime lock are not portable.
+- Initial commit `ea0fbeb`: 1668 files, 653,880 insertions, message
+  "Initial commit: YHWH Bible publishing platform v2.4".
+- `gh repo create yhwh-bible-platform --private --source=. --push`
+  — repo created PRIVATE, no collaborators, default branch `main`,
+  push completed.
+- New file: `save.ps1` at repo root — one-command wrapper for
+  add+commit+push. `./save.ps1 "what changed"` from PowerShell;
+  default message is a timestamp; no-op if nothing changed; clear
+  red error message if push fails (commit stays local).
+
+User-facing handoff:
+
+- Save: `./save.ps1 "<message>"` (or raw `git add -A; git commit -m
+  "<msg>"; git push`).
+- Start of fresh session: `git pull`.
+- Repo URL: https://github.com/bridge4kaladin-collab/yhwh-bible-platform.
+
+Notable decisions:
+
+- Used the gh device-code flow (`gh auth login --hostname github.com
+  --git-protocol https --web`) rather than asking the user to
+  generate a PAT manually. The first attempt timed out while the
+  user was unblocking iCloud's spam filtering for GitHub's 2FA
+  email; the second attempt succeeded after GitHub eventually
+  delivered the verification code.
+- `.claude/` added to `.gitignore` rather than committed. The local
+  permissions allowlist accumulates per-session and is bound to a
+  specific Windows install (e.g. paths like `C:\Program Files\
+  GitHub CLI`); committing it would only create cross-machine
+  noise. The `settings.local.json` filename suffix is the
+  documented convention for "do not share" anyway.
+- Skipped `gh repo create --confirm` interactive flag in favor of
+  `--source=. --push`, which is one command and idempotent in
+  intent. No collaborators flag passed (the `--add-collaborator`
+  flag was deliberately not used; user requested no collaborators).
+
+Retrospective (§12 trigger fired — new pattern shipped):
+
+- **Pattern recognized:** "non-developer GitHub onboarding via gh
+  device-code flow, with a tiny PowerShell save-wrapper as the
+  durable affordance." The user is the persona this pattern is
+  optimized for. If the same flow is needed again (e.g. a
+  collaborator's machine), the steps are: winget install → device
+  code login (warn about 2FA email, especially iCloud spam) →
+  gitignore .claude/ → init → commit → `gh repo create --private
+  --source=. --push` → drop a `save.ps1`. Worth codifying as a §9
+  mental model the next time the rules doc is touched, especially
+  if a second machine/user joins.
+- **Inventory pointer added:** "GIT BACKUP" section at the top of
+  the inventory in SESSION_STATE.md — names the remote, the save
+  and pull commands, and where gh.exe lives.
+- **Working agreement carried over from PLAN:** zips are no longer
+  the save medium. The /save = present-zip rule (CLAUDE_PROJECT_
+  RULES §4) is now superseded for this project by `save.ps1` /
+  `git push`. The rules doc still describes the zip flow because
+  it predates σ.3 — leaving it there as a fallback for offline
+  scenarios; if zips never come back, prune that section in a
+  future rules-doc pass.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` Tier A line 1 (σ.3 spec).
+- `dev/CLAUDE_PROJECT_RULES.md` §4 (save semantics — pre-σ.3 baseline).
+
+---
+
 ## 2026-05-08 — session — scope refresh + close-out (post-crash recovery)
 
 **Phases shipped:** none (meta-document refresh, not a phase ship).
