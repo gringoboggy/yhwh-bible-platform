@@ -6240,3 +6240,295 @@ class TestFetcherConfig:
         ok = self.fs.fetch_source(src, force=True)
         assert ok is True
         assert json.loads(cache.read_text(encoding="utf-8")) == {"fresh": "data"}
+
+
+# ---------- Phase υ.1 : /sources console PD-cache management --------
+
+
+class TestSourcesCacheUI:
+    """End-to-end-ish coverage of the υ.1 endpoints that surface the
+    υ.7 fetcher config to the /sources console as a status grid +
+    fetch / upload / clear actions. Tests run without network: the
+    fetch flow is exercised via injectable fetch_fn or monkeypatched
+    PARSERS; uploads use synthetic multipart bodies.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import web as w
+        cls.w = w
+
+    # ---- Status grid ----
+
+    def test_status_returns_one_entry_per_configured_source(self):
+        result = self.w.api_sources_cache_status()
+        assert result["status"] == "ok"
+        ids = {s["id"] for s in result["sources"]}
+        # Default config ships these three (υ.7).
+        assert "strongs_hebrew" in ids
+        assert "tsk" in ids
+        assert "naves_topical" in ids
+
+    def test_status_each_entry_has_expected_fields(self):
+        result = self.w.api_sources_cache_status()
+        required_fields = {"id", "name", "cache_path", "required",
+                            "license", "cached", "size_bytes", "size_kb",
+                            "mtime_iso", "candidates"}
+        for s in result["sources"]:
+            assert required_fields.issubset(s.keys()), (
+                f"missing fields on {s.get('id')}: "
+                f"{required_fields - set(s.keys())}"
+            )
+            assert isinstance(s["candidates"], list)
+            for c in s["candidates"]:
+                assert "url" in c and "parser" in c
+
+    def test_status_reports_cached_false_for_missing_file(self, tmp_path, monkeypatch):
+        # Point cache dir at an empty tmp_path; every source becomes uncached.
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        result = self.w.api_sources_cache_status()
+        for s in result["sources"]:
+            assert s["cached"] is False
+            assert s["size_kb"] == 0.0
+            assert s["mtime_iso"] is None
+
+    def test_status_reports_cached_true_with_size_when_present(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # Drop a synthetic file at the first source's cache_path
+        src = cfg.sources[0]
+        (tmp_path / src.cache_path).write_text('{"x":1}', encoding="utf-8")
+        result = self.w.api_sources_cache_status()
+        match = next(s for s in result["sources"] if s["id"] == src.id)
+        assert match["cached"] is True
+        assert match["size_bytes"] >= 7
+        assert match["mtime_iso"]  # non-empty ISO string
+
+    # ---- Fetch dispatcher ----
+
+    def test_fetch_unknown_source_returns_404(self):
+        result = self.w.api_sources_cache_fetch("does-not-exist")
+        assert result["status"] == "error"
+        assert result["http"] == 404
+        assert "unknown source" in result["message"]
+
+    def test_fetch_uses_injectable_fetch_fn(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        sid = cfg.sources[0].id
+
+        # Make the post-fetch stat check see a "freshly written" file
+        # in tmp_path so api_sources_cache_fetch reports cached=True.
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        (tmp_path / cfg.sources[0].cache_path).write_text('{"ok":1}', encoding="utf-8")
+
+        calls = []
+        def stub_fetch(src, force):
+            calls.append((src.id, force))
+            return True
+
+        result = self.w.api_sources_cache_fetch(sid, force=True, fetch_fn=stub_fetch)
+        assert result["status"] == "ok"
+        assert result["ok"] is True
+        assert result["cached"] is True
+        assert calls == [(sid, True)]
+
+    def test_fetch_url_override_replaces_candidates(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        sid = cfg.sources[0].id
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+
+        seen_urls = []
+        def stub_fetch(src, force):
+            seen_urls.extend(c.url for c in src.candidates)
+            return False  # don't actually create a file
+
+        result = self.w.api_sources_cache_fetch(
+            sid, url_override="https://my-mirror/example.json",
+            fetch_fn=stub_fetch,
+        )
+        assert seen_urls == ["https://my-mirror/example.json"]
+        # ok=False because stub returned False
+        assert result["ok"] is False
+
+    def test_fetch_rejects_non_http_url_override(self):
+        result = self.w.api_sources_cache_fetch(
+            "strongs_hebrew",
+            url_override="ftp://foo.example/x",
+            fetch_fn=lambda *a: True,
+        )
+        assert result["status"] == "error"
+        assert result["http"] == 400
+        assert "url_override" in result["message"]
+
+    def test_fetch_rejects_unknown_parser_override(self):
+        result = self.w.api_sources_cache_fetch(
+            "strongs_hebrew",
+            url_override="https://x/y",
+            parser_override="nonexistent",
+            fetch_fn=lambda *a: True,
+        )
+        assert result["status"] == "error"
+        assert result["http"] == 400
+        assert "unknown parser" in result["message"]
+
+    def test_fetch_all_iterates_every_source(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+
+        called_ids = []
+        def stub_fetch(src, force):
+            called_ids.append(src.id)
+            return True
+
+        # Pre-populate cache files so the post-fetch stat sees them.
+        for s in cfg.sources:
+            (tmp_path / s.cache_path).write_text("{}", encoding="utf-8")
+
+        result = self.w.api_sources_cache_fetch_all(fetch_fn=stub_fetch)
+        assert result["status"] == "ok"
+        assert result["ok"] is True
+        assert called_ids == [s.id for s in cfg.sources]
+        assert len(result["results"]) == len(cfg.sources)
+
+    def test_fetch_all_overall_ok_false_when_required_fails(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+
+        # All optional ones win; required ones fail.
+        def stub_fetch(src, force):
+            return not src.required
+
+        result = self.w.api_sources_cache_fetch_all(fetch_fn=stub_fetch)
+        assert result["ok"] is False
+        # But every source is still reported.
+        assert len(result["results"]) == len(cfg.sources)
+
+    # ---- Upload (multipart) ----
+
+    def _multipart_body(self, filename: str, file_bytes: bytes,
+                          field: str = "file"):
+        """Build a minimal RFC 7578 multipart body for tests."""
+        boundary = b"BOUNDARY-XYZ"
+        crlf = b"\r\n"
+        part = (
+            b"--" + boundary + crlf +
+            f'Content-Disposition: form-data; name="{field}"; filename="{filename}"'.encode() + crlf +
+            b"Content-Type: application/json" + crlf + crlf +
+            file_bytes + crlf +
+            b"--" + boundary + b"--" + crlf
+        )
+        return part, b"multipart/form-data; boundary=" + boundary
+
+    def test_upload_happy_path(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        sid = cfg.sources[0].id
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+
+        body, ct = self._multipart_body("payload.json", b'{"hello":"world"}')
+        result = self.w.api_sources_cache_upload(sid, body, ct.decode())
+        assert result["status"] == "ok"
+        assert result["ok"] is True
+        out = tmp_path / cfg.sources[0].cache_path
+        assert out.is_file()
+        assert json.loads(out.read_text(encoding="utf-8")) == {"hello": "world"}
+
+    def test_upload_rejects_unknown_source(self):
+        body, ct = self._multipart_body("p.json", b'{}')
+        result = self.w.api_sources_cache_upload("nope", body, ct.decode())
+        assert result["status"] == "error"
+        assert result["http"] == 404
+
+    def test_upload_rejects_missing_boundary(self):
+        result = self.w.api_sources_cache_upload(
+            "strongs_hebrew", b"some body", "multipart/form-data"
+        )
+        assert result["status"] == "error"
+        assert result["code"] == "missing_boundary"
+        assert result["http"] == 400
+
+    def test_upload_rejects_missing_file_part(self):
+        # Form-encoded, no filename part
+        boundary = b"BOUND"
+        body = (
+            b"--" + boundary + b"\r\n"
+            b'Content-Disposition: form-data; name="other"\r\n\r\n'
+            b"text\r\n"
+            b"--" + boundary + b"--\r\n"
+        )
+        ct = "multipart/form-data; boundary=BOUND"
+        result = self.w.api_sources_cache_upload("strongs_hebrew", body, ct)
+        assert result["status"] == "error"
+        assert result["code"] == "no_file_part"
+
+    def test_upload_rejects_invalid_json(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        body, ct = self._multipart_body("bad.json", b"not json {")
+        result = self.w.api_sources_cache_upload("strongs_hebrew", body, ct.decode())
+        assert result["status"] == "error"
+        assert result["code"] == "invalid_json"
+        # Disk untouched on validation failure (§9 binary-asset rule)
+        assert not (tmp_path / "strongs_hebrew.json").is_file()
+
+    def test_upload_rejects_non_dict_top_level(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        body, ct = self._multipart_body("arr.json", b"[1,2,3]")
+        result = self.w.api_sources_cache_upload("strongs_hebrew", body, ct.decode())
+        assert result["status"] == "error"
+        assert result["code"] == "wrong_shape"
+        assert not (tmp_path / "strongs_hebrew.json").is_file()
+
+    def test_upload_rejects_too_large(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # Build a body larger than the configured cap.
+        big_body = b"x" * (self.w.SOURCES_UPLOAD_MAX_BYTES + 1)
+        result = self.w.api_sources_cache_upload(
+            "strongs_hebrew", big_body, "multipart/form-data; boundary=B"
+        )
+        assert result["status"] == "error"
+        assert result["code"] == "too_large"
+        assert result["http"] == 413
+
+    # ---- Clear ----
+
+    def test_clear_removes_existing_file(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        sid = cfg.sources[0].id
+        cache_path = tmp_path / cfg.sources[0].cache_path
+        cache_path.write_text('{"some":"data"}', encoding="utf-8")
+        result = self.w.api_sources_cache_clear(sid)
+        assert result["status"] == "ok"
+        assert result["ok"] is True
+        assert not cache_path.is_file()
+
+    def test_clear_when_missing_is_no_op_ok(self, tmp_path, monkeypatch):
+        from scripts.core.fetcher_config import load_fetcher_config
+        cfg = load_fetcher_config()
+        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        sid = cfg.sources[0].id
+        result = self.w.api_sources_cache_clear(sid)
+        assert result["status"] == "ok"
+        assert result["ok"] is True
+        assert "nothing to clear" in result["message"]
+
+    def test_clear_unknown_source_404(self):
+        result = self.w.api_sources_cache_clear("nope")
+        assert result["status"] == "error"
+        assert result["http"] == 404
+
+    # ---- HTML page wiring ----
+
+    def test_sources_html_contains_pd_cache_section(self):
+        from scripts.templates.sources import SOURCES_HTML
+        # The new section's anchors must render so the IIFE can find them.
+        assert 'id="pd-cache-grid"' in SOURCES_HTML
+        assert 'id="pd-cache-section"' in SOURCES_HTML
+        assert 'id="pd-fetch-all"' in SOURCES_HTML
+        assert "/api/sources/cache" in SOURCES_HTML

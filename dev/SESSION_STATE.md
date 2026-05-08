@@ -1,7 +1,7 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after υ.7 pluggable fetcher config shipped.
-**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 on
+**Updated:** 2026-05-08, after υ.1 /sources console upgrade shipped.
+**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 on
 `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
 now git pushes, not zips — see "GIT BACKUP" in the inventory below
 and the root-level `save.cmd` / `save.ps1` helpers. Each commit
@@ -19,7 +19,7 @@ runs the pre-commit hook (`scripts/lint_rules.py` 8/8 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 412 tests · 8/8 linter · 5 editions · 15,925 notes
+13 consoles · 434 tests · 8/8 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -36,7 +36,72 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session)
 
 ---
 
-## Current phase: υ.7 pluggable fetcher config shipped
+## Current phase: υ.1 /sources console upgrade shipped
+
+The `/sources` console now hosts a Public-domain source cache section
+above the existing per-book note-attribution navigator. Reads
+`_fetchers.json` via the υ.7 loader; supports per-source Fetch / Force
+re-fetch / Upload-pre-built-JSON / Clear, plus a top-level Fetch all /
+Force re-fetch all. The χ.7 user-side completion (drop a pre-built
+`naves_topical.json`) is now a one-click Upload JSON action in the UI
+rather than a CLI dance.
+
+```
+✓ /api/sources/cache (GET)        status grid: cached, size_kb,
+                                  mtime, candidates per source
+✓ /api/sources/cache/<id>/fetch    POST {force, url_override?,
+                                  parser_override?} — single source
+                                  via injectable fetch_fn (testable)
+✓ /api/sources/cache/_all/fetch    POST {force} — iterate every source
+✓ /api/sources/cache/<id>/upload   POST multipart — JSON validated
+                                  + atomic write + ensure_backup;
+                                  disk untouched on validation failure
+                                  (§9 binary-asset pattern)
+✓ /api/sources/cache/<id>          DELETE — backup + unlink
+✓ /sources HTML                    new <details> section above the
+                                  per-book navigator; Tailwind only;
+                                  no build step; cross-link invariant
+                                  unchanged (no new console).
+```
+
+**+22 tests:** TestSourcesCacheUI in tests/test_scripts.py covers status
+grid (4), fetch dispatch with injectable fetch_fn including url_override
+and parser_override paths (5), fetch_all aggregation (2), upload happy
++ 6 rejection paths (multipart parser, JSON validity, dict shape, size
+cap, missing file part, unknown source), clear (3), HTML wiring (1).
+All synthetic — no network.
+
+**Naming-collision avoided:** the existing `/api/sources/*` endpoints
+remain about *note attribution* (per-book / per-note source strings).
+The new endpoints live under `/api/sources/cache/*`. The `/sources`
+HTML page hosts both as sibling sections under one page, preserving
+the §6.2 cross-link invariant (no new console added; no other console's
+nav block touched).
+
+**Prior phases this session:**
+- υ.7 — Pluggable fetcher config (declarative `_fetchers.json` loaded
+  by `scripts/core/fetcher_config.py`).
+- ω.7 — Persistent dev ergonomics (PYTHONUTF8=1 + Scripts on PATH +
+  pre-commit hook + `.gitattributes`).
+- ω.6 — Verified baseline (393/393 tests, 14/14 routes, 8/8 linter).
+- σ.3 — GitHub backup workflow.
+- Scope expansion — ψ.8 + ρ.1 + ω.6/ω.7 + ψ.10 + ψ.12 + polish trio.
+- χ.7 Nave's Topical infrastructure.
+
+**Cumulative this session:**
+```
+υ.1:         /api/sources/cache/* + /sources page extension; +22 tests.
+υ.7:         _fetchers.json + fetcher_config.py + parser registry;
+             +19 tests; 1 existing test repaired.
+ω.7:         user env + tracked pre-commit hook + .gitattributes.
+ω.6:         baseline verification (393/393, 14/14 routes, 8/8 lint).
+σ.3:         repo init + private push + save.cmd/.ps1 wrappers.
+Scope exp:   ψ.8 + ρ.1 + ω.6 + ω.7 + ψ.10 + ψ.12 + polish trio.
+χ.7 infra:   16 new tests, 0 corpus notes.
+End state:   434 tests, 8/8 linter, 15,925 notes.
+```
+
+## Prior phase: υ.7 pluggable fetcher config shipped
 
 The PD-source list moved from Python constants in
 `scripts/fetch_sources.py` to declarative JSON in
@@ -244,15 +309,17 @@ queue right now:
 ω.6  Verified baseline                  ✓ SHIPPED 2026-05-08
 ω.7  Persistent dev ergonomics          ✓ SHIPPED 2026-05-08
 υ.7  Pluggable fetcher config           ✓ SHIPPED 2026-05-08
-     (_fetchers.json + fetcher_config.py + parser registry; the
-      `/sources` console upgrade in υ.1 will read/write this file.)
+υ.1  /sources console upgrade           ✓ SHIPPED 2026-05-08
+     (Public-domain source cache section on /sources: status grid,
+      Fetch / Force / Upload JSON / Clear per source, plus a top-
+      level Fetch all. Wraps υ.7's config; subsumes the parked
+      χ.7 user-side completion into a single Upload action.)
 
-υ.1  /sources console upgrade           NEXT (~1 session)
-     Real source-management page: status grid, "Fetch this" /
-     "Fetch all" buttons, paste-a-URL override, drag-and-drop
-     file upload to drop a pre-built JSON directly into
-     content/sources/. Now has υ.7's typed config to read/write
-     against. Permanently closes source-fetch friction.
+— END OF TIER A FOUNDATIONS —
+
+Tier B is next: corpus growth + uniqueness levers (χ.1 Greek,
+ψ.10 popup polish, ψ.12 matrix smoothness, ψ.8 cross-denom
+compare apparatus, ρ.1 LibriVox audio, ω.5 path refactor).
 
 υ.7  Pluggable fetcher config           AFTER ω cluster
      content/sources/_fetchers.json — declarative URL +
@@ -365,7 +432,7 @@ LOCAL DEV ENVIRONMENT (ω.6 verified, ω.7 ergonomic — 2026-05-08):
     warn "Popup translation per edition"  pre-existing; not blocking
     warn "Kind utilization"             pre-existing; not blocking
 
-INGESTION INFRA — already complete as CLI:
+INGESTION INFRA — already complete as CLI + UI:
   scripts/fetch_sources.py        (υ.7: declarative; reads _fetchers.json)
   scripts/core/fetcher_config.py  (υ.7: schema + loader + validator)
   content/sources/_fetchers.json  (υ.7: source list, schema v1)
@@ -374,6 +441,10 @@ INGESTION INFRA — already complete as CLI:
                               NaveTopicalDetector — χ.7)
   scripts/prospect.py / scripts/promote.py
   scripts/add_note.py / scripts/inject.py
+  /sources console PD-cache section (υ.1)  Fetch / Force / Upload
+                                           JSON / Clear per source +
+                                           top-level Fetch all
+  /api/sources/cache (GET) + /api/sources/cache/<id>/* (POST/DELETE)
 
 PD CORPORA cached locally:
   content/sources/strongs_hebrew.json   (populated)

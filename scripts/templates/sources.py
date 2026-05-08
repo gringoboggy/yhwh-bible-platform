@@ -66,6 +66,35 @@ SOURCES_HTML = r"""<!DOCTYPE html>
 </script>
 
 
+<!-- Phase υ.1 — Public-domain source cache management.
+     Sits above the per-book navigator. Reads /api/sources/cache for
+     status; uses POST/DELETE on the same path family to fetch / clear
+     / upload pre-built JSON. Schema source-of-truth is
+     content/sources/_fetchers.json (υ.7). -->
+<section class="max-w-7xl mx-auto px-6 pt-6">
+  <details id="pd-cache-section" class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden" open>
+    <summary class="px-4 py-3 border-b border-slate-200 flex items-center justify-between cursor-pointer select-none">
+      <div>
+        <h2 class="font-semibold text-base">Public-domain source cache</h2>
+        <div class="text-xs text-slate-500">files in <code>content/sources/</code> the detectors read from — fetch, upload, or clear them here</div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="pd-fetch-all" type="button"
+          class="text-sm px-3 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50">
+          Fetch all
+        </button>
+        <button id="pd-fetch-all-force" type="button"
+          class="text-sm px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-50 disabled:opacity-50"
+          title="Re-fetch every source even if cached (use after upstream updates)">
+          Force re-fetch all
+        </button>
+      </div>
+    </summary>
+    <div id="pd-cache-status" class="text-xs text-slate-500 px-4 py-2 border-b border-slate-100">loading…</div>
+    <div id="pd-cache-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4"></div>
+  </details>
+</section>
+
 <main class="grid grid-cols-1 lg:grid-cols-[20rem_1fr] gap-6 p-6 max-w-7xl mx-auto">
 
   <!-- LEFT: book index -->
@@ -371,6 +400,233 @@ function truncateHTML(html, n) {
 init().catch(e => {
   document.getElementById('book-list').innerHTML = `<div class="text-red-600 p-4">${e.message}</div>`;
 });
+
+// =====================================================================
+// Phase υ.1 — PD source cache management widget
+// Self-contained IIFE so it shares no globals with the navigator init()
+// above. Reads /api/sources/cache (status grid) and uses POST/DELETE
+// against the same path family for actions.
+// =====================================================================
+(function () {
+  const grid = document.getElementById('pd-cache-grid');
+  const statusEl = document.getElementById('pd-cache-status');
+  const fetchAllBtn = document.getElementById('pd-fetch-all');
+  const fetchAllForceBtn = document.getElementById('pd-fetch-all-force');
+  if (!grid || !statusEl) return;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c]);
+  }
+
+  function setBusy(busy, msg) {
+    fetchAllBtn.disabled = !!busy;
+    fetchAllForceBtn.disabled = !!busy;
+    statusEl.textContent = msg || (busy ? 'working…' : '');
+    statusEl.className = busy
+      ? 'text-xs text-blue-700 bg-blue-50 px-4 py-2 border-b border-slate-100'
+      : 'text-xs text-slate-500 px-4 py-2 border-b border-slate-100';
+  }
+
+  function setError(msg) {
+    statusEl.textContent = msg;
+    statusEl.className = 'text-xs text-red-700 bg-red-50 px-4 py-2 border-b border-slate-100';
+  }
+
+  function setOk(msg) {
+    statusEl.textContent = msg;
+    statusEl.className = 'text-xs text-green-700 bg-green-50 px-4 py-2 border-b border-slate-100';
+  }
+
+  function cardHtml(s) {
+    const badge = s.required
+      ? '<span class="text-xs px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 ml-2">required</span>'
+      : '<span class="text-xs px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 ml-2">optional</span>';
+    const status = s.cached
+      ? `<span class="text-green-700">✓ cached</span> <span class="text-slate-500">${s.size_kb} KB · ${(s.mtime_iso||'').replace('T',' ').slice(0,16)}</span>`
+      : '<span class="text-amber-700">— not fetched</span>';
+    const candList = s.candidates.map(c =>
+      `<li class="text-xs text-slate-500 truncate" title="${escapeHtml(c.url)}">
+         <span class="text-slate-400">[${escapeHtml(c.parser)}]</span>
+         <span class="break-all">${escapeHtml(c.url)}</span>
+       </li>`
+    ).join('');
+    return `
+      <div class="border border-slate-200 rounded p-3 flex flex-col gap-2"
+           data-source-id="${escapeHtml(s.id)}">
+        <div class="flex items-baseline justify-between flex-wrap">
+          <h3 class="font-medium text-sm">${escapeHtml(s.name)}${badge}</h3>
+        </div>
+        <div class="text-xs text-slate-600">${status}</div>
+        <div class="text-xs text-slate-400 font-mono">${escapeHtml(s.cache_path)}</div>
+        <details class="text-xs">
+          <summary class="cursor-pointer text-slate-500 hover:text-slate-700">${s.candidates.length} candidate${s.candidates.length===1?'':'s'}</summary>
+          <ul class="mt-1 ml-2 space-y-1">${candList}</ul>
+        </details>
+        <div class="flex flex-wrap gap-1 mt-1">
+          <button type="button" data-action="fetch"
+                  class="text-xs px-2 py-1 rounded border border-slate-300 hover:bg-slate-50">
+            Fetch
+          </button>
+          <button type="button" data-action="force-fetch"
+                  class="text-xs px-2 py-1 rounded border border-slate-300 hover:bg-slate-50"
+                  title="Re-fetch even if cached">
+            Force
+          </button>
+          <label class="text-xs px-2 py-1 rounded border border-slate-300 hover:bg-slate-50 cursor-pointer">
+            Upload JSON
+            <input type="file" accept=".json,application/json" class="hidden" data-action="upload">
+          </label>
+          ${s.cached
+            ? '<button type="button" data-action="clear" class="text-xs px-2 py-1 rounded border border-slate-300 text-red-700 hover:bg-red-50">Clear</button>'
+            : ''}
+        </div>
+        <div class="text-xs text-slate-500" data-role="row-status"></div>
+      </div>
+    `;
+  }
+
+  async function refresh() {
+    try {
+      const r = await fetch('/api/sources/cache');
+      const data = await r.json();
+      if (data.status !== 'ok') {
+        setError(data.message || 'failed to load source-cache status');
+        grid.innerHTML = '';
+        return;
+      }
+      grid.innerHTML = data.sources.map(cardHtml).join('');
+      const cached = data.sources.filter(s => s.cached).length;
+      const total = data.sources.length;
+      setOk(`${cached} of ${total} sources cached`);
+      attachRowHandlers();
+    } catch (e) {
+      setError('network error: ' + e.message);
+    }
+  }
+
+  function rowStatus(card, msg, kind) {
+    const el = card.querySelector('[data-role="row-status"]');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'text-xs ' + (
+      kind === 'error' ? 'text-red-700' :
+      kind === 'ok'    ? 'text-green-700' :
+                         'text-slate-500'
+    );
+  }
+
+  async function doFetch(card, sourceId, force) {
+    rowStatus(card, 'fetching…');
+    try {
+      const r = await fetch(`/api/sources/cache/${encodeURIComponent(sourceId)}/fetch`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({force}),
+      });
+      const data = await r.json();
+      if (r.ok && data.ok) {
+        rowStatus(card, data.message || 'fetched', 'ok');
+      } else {
+        rowStatus(card, data.message || data.error || 'fetch failed', 'error');
+      }
+    } catch (e) {
+      rowStatus(card, 'network error: ' + e.message, 'error');
+    }
+    await refresh();
+  }
+
+  async function doUpload(card, sourceId, file) {
+    if (!file) return;
+    rowStatus(card, `uploading ${file.name}…`);
+    const fd = new FormData();
+    fd.append('file', file);
+    try {
+      const r = await fetch(`/api/sources/cache/${encodeURIComponent(sourceId)}/upload`, {
+        method: 'POST',
+        body: fd,
+      });
+      const data = await r.json();
+      if (r.ok && data.ok) {
+        rowStatus(card, data.message || 'uploaded', 'ok');
+      } else {
+        rowStatus(card, data.message || data.error || 'upload failed', 'error');
+      }
+    } catch (e) {
+      rowStatus(card, 'network error: ' + e.message, 'error');
+    }
+    await refresh();
+  }
+
+  async function doClear(card, sourceId) {
+    if (!confirm('Clear cached file for this source? A backup is kept under .backups/.')) return;
+    rowStatus(card, 'clearing…');
+    try {
+      const r = await fetch(`/api/sources/cache/${encodeURIComponent(sourceId)}`, {
+        method: 'DELETE',
+      });
+      const data = await r.json();
+      if (r.ok && data.ok) {
+        rowStatus(card, data.message || 'cleared', 'ok');
+      } else {
+        rowStatus(card, data.message || data.error || 'clear failed', 'error');
+      }
+    } catch (e) {
+      rowStatus(card, 'network error: ' + e.message, 'error');
+    }
+    await refresh();
+  }
+
+  function attachRowHandlers() {
+    grid.querySelectorAll('[data-source-id]').forEach(card => {
+      const sid = card.getAttribute('data-source-id');
+      card.querySelectorAll('button[data-action]').forEach(btn => {
+        const action = btn.getAttribute('data-action');
+        btn.addEventListener('click', () => {
+          if (action === 'fetch')        doFetch(card, sid, false);
+          else if (action === 'force-fetch') doFetch(card, sid, true);
+          else if (action === 'clear')   doClear(card, sid);
+        });
+      });
+      const fileInput = card.querySelector('input[type="file"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', e => {
+          const file = e.target.files && e.target.files[0];
+          if (file) doUpload(card, sid, file);
+          e.target.value = '';
+        });
+      }
+    });
+  }
+
+  async function fetchAll(force) {
+    setBusy(true, force ? 're-fetching all sources…' : 'fetching missing sources…');
+    try {
+      const r = await fetch('/api/sources/cache/_all/fetch', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({force}),
+      });
+      const data = await r.json();
+      if (r.ok && data.ok) {
+        setOk(`fetched ${data.results.filter(x=>x.ok).length} of ${data.results.length} sources`);
+      } else {
+        const fails = (data.results||[]).filter(x=>!x.ok).map(x=>x.id).join(', ');
+        setError(`some sources failed: ${fails || (data.message||'unknown')}`);
+      }
+    } catch (e) {
+      setError('network error: ' + e.message);
+    }
+    setBusy(false);
+    await refresh();
+  }
+
+  fetchAllBtn.addEventListener('click', () => fetchAll(false));
+  fetchAllForceBtn.addEventListener('click', () => fetchAll(true));
+
+  refresh();
+})();
 </script>
 
 <!-- ω.0.6 — UI defense prelude — START -->

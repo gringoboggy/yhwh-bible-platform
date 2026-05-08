@@ -6,6 +6,116 @@
 
 ---
 
+## 2026-05-08 — session — υ.1 /sources console upgrade shipped (Tier A done)
+
+**Phases shipped:** υ.1.
+**Test delta:** +22 (412 → 434).
+**Save tag this session:** pending — will land in next push after this
+entry is written.
+
+What shipped:
+
+- **PD source-cache management UI on `/sources`.** A new collapsible
+  section above the existing per-book note-attribution navigator.
+  Per-source cards show: name + required/optional badge, cached vs
+  not + size + last-fetched, the cache_path filename, an expandable
+  candidate-URL list (with parser kind per URL), and four action
+  buttons: `Fetch`, `Force` re-fetch, `Upload JSON` (drag-drop or
+  picker for a pre-built file), and `Clear` (delete cache file with
+  ensure_backup snapshot first). Top of section: `Fetch all` /
+  `Force re-fetch all`. All Tailwind via CDN, plain ES6, no build
+  step — matches the project's existing console style.
+- **Five new HTTP endpoints** (all under `/api/sources/cache/*` to
+  avoid colliding with the existing `/api/sources/*` family that
+  navigates note attribution):
+  - `GET  /api/sources/cache` — status grid for every source in
+    `_fetchers.json`.
+  - `POST /api/sources/cache/<id>/fetch` — JSON body
+    `{force, url_override?, parser_override?}`. Single-source fetch.
+  - `POST /api/sources/cache/_all/fetch` — JSON body `{force}`.
+    Iterates every source; required-source failures are reported
+    but don't short-circuit.
+  - `POST /api/sources/cache/<id>/upload` — multipart JSON drop.
+    Validates: parse → JSON → top-level dict; size cap
+    (`SOURCES_UPLOAD_MAX_BYTES = 50 MB`); atomic write with
+    `ensure_backup`. Disk untouched on validation failure.
+  - `DELETE /api/sources/cache/<id>` — ensure_backup + unlink.
+- **Five pure-function APIs in `scripts/web.py`** (the §9 "pure
+  function + thin route adapter" pattern), each returning a
+  `{status, code?, http?, message?, ...}` dict. The route adapters
+  use a new shared `_send_dict_result` helper that translates that
+  shape into HTTP — extracted because three of the five endpoints
+  needed the same translation logic.
+- **Injectable `fetch_fn` parameter** on `api_sources_cache_fetch`
+  and `api_sources_cache_fetch_all` per the §9 injectable-callable
+  variant — defaults to production `scripts.fetch_sources.fetch_source`,
+  but tests pass a stub so the test suite never makes a real network
+  request. All 22 new tests run in <1 second total.
+- **`url_override` + `parser_override`** on the single-source fetch
+  endpoint. The user can paste a custom URL into the UI (e.g. a
+  local mirror of Nave's that the dev sandbox can reach when the
+  declared candidates are blocked) without editing
+  `_fetchers.json`. Internally builds a one-off `Source` with a
+  single override candidate and dispatches via the same flow.
+- **+22 tests in `TestSourcesCacheUI`** covering: status grid (4
+  tests including monkeypatched cache dir for cached/uncached
+  branches); fetch dispatcher (5: unknown source 404, injectable
+  fetch_fn, url_override path, non-http rejection, unknown parser
+  override); fetch_all (2: iterate-every-source, required-failure
+  semantics); upload (7: happy path, unknown source, missing
+  boundary, missing file part, invalid JSON, non-dict top-level,
+  size cap); clear (3); HTML wiring (1: anchor IDs present).
+- **Tier A foundations done.** σ.3 → ω.6 → ω.7 → υ.7 → υ.1 is the
+  full Tier A sequence per PLAN_2026-05-08; everything zero-risk
+  and foundational has shipped. Next phase advances into Tier B
+  (corpus + uniqueness levers).
+
+Notable decisions:
+
+- **Did NOT add a new console.** The "/sources" name was already
+  taken by the per-book note-attribution navigator (a legitimate,
+  in-use UI). Two options were considered: (a) split into
+  `/sources` + `/source-cache` (would require touching every other
+  console's nav block to keep the §6.2 cross-link invariant), or
+  (b) host both as sibling sections under one page. Picked (b)
+  because it's the less invasive change and the two surfaces
+  *are* related (note attribution navigator + the PD cache that
+  feeds the detectors that produce those notes). The new section
+  is a `<details open>` block above the existing split-pane, so
+  the original navigator is unchanged below.
+- **Endpoint family `/api/sources/cache/*` rather than
+  `/api/source-cache/*`.** Keeps everything sources-related under
+  one URL prefix; the trailing `/cache` segment disambiguates from
+  the note-attribution endpoints at `/api/sources` and
+  `/api/sources/<book>`.
+- **`_send_dict_result` extracted as a Handler method.** This is
+  the fourth instance of the §9 dict-shape-to-HTTP pattern; three
+  separate copies of the same translation lived in `do_POST`
+  before. Extracted now while we have a quiet moment; future
+  endpoints following the §9 shape can reuse it.
+- **Upload path uses the existing `_parse_multipart` +
+  `_extract_boundary` from the cover-upload work (π.4-B).** Same
+  parser; we're just routing JSON file bodies through it instead
+  of image bodies. The §9 binary-asset pattern fully applies:
+  validate → backup → atomic_write → no disk mutation on failure.
+- **Did NOT add per-edition or per-user permissions.** The auth
+  gate (ω.4) is deferred until the platform leaves single-user
+  desktop mode, per PLAN.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` Tier A line 5 (υ.1) is now ✓; the next
+  phase to implement is **χ.7 user-side finalization** (now a
+  one-click upload through the new UI rather than a CLI dance) or
+  **χ.1 Strong's Greek** (Tier B head). With Tier A complete the
+  sequence pivots into corpus + uniqueness work.
+- The new `/api/sources/cache/*` family is the first endpoint group
+  that exercises every layer of υ.7's typed config + parser
+  registry, validating that the υ.7 schema design holds up under
+  real callers. No schema bumps needed.
+
+---
+
 ## 2026-05-08 — session — υ.7 pluggable fetcher config shipped
 
 **Phases shipped:** υ.7.
