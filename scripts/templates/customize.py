@@ -290,7 +290,10 @@ function renderEditions() {
       </details>
 
       <div class="mt-2 flex items-center gap-3">
-        <button class="ed-save text-xs px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white opacity-50" disabled>Save edition</button>
+        <button class="ed-save text-xs px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white opacity-50 inline-flex items-center gap-1.5" disabled>
+          <span>Save edition</span>
+          <span class="ed-save-count hidden text-[10px] leading-none px-1.5 py-0.5 rounded-full bg-white/25 font-semibold tabular-nums" title="unsaved changes on this edition"></span>
+        </button>
         <button class="ed-preview text-xs px-3 py-1 rounded border border-slate-300 hover:border-blue-500 hover:text-blue-700 text-slate-700 opacity-50 disabled:cursor-not-allowed" title="Preview exactly what will change before committing (Phase ν.5)" disabled>Preview changes</button>
         <button class="ed-history text-xs text-slate-500 hover:text-blue-700 hover:underline" title="View backup snapshots (Phase ω.1)">Version history</button>
         <span class="ed-status text-xs"></span>
@@ -305,18 +308,32 @@ function renderEditions() {
       const original = inp.type === 'checkbox' ? String(inp.checked) : inp.value;
       inp.dataset.original = original;
       const handler = () => {
-        let dirty = false;
+        // Count individual dirty inputs for the ν.2.9 save-pending
+        // badge — knowing "N changes" at a glance is the affordance.
+        let dirtyCount = 0;
         inputs.forEach(i => {
           const cur = i.type === 'checkbox' ? String(i.checked) : i.value;
-          if (cur !== i.dataset.original) dirty = true;
+          if (cur !== i.dataset.original) dirtyCount++;
         });
         // The popup-language section maintains its own dirty flag
         // (see wirePopupLanguageSection) — fold it into the overall
         // edition dirty state so the Save button reflects every kind
-        // of change the publisher might have made.
-        if (box.dataset.popupLangsDirty === '1') dirty = true;
+        // of change the publisher might have made. We count it as
+        // one logical "change" for the badge.
+        if (box.dataset.popupLangsDirty === '1') dirtyCount++;
+        const dirty = dirtyCount > 0;
         btn.disabled = !dirty;
         btn.classList.toggle('opacity-50', !dirty);
+        // ν.2.9 save-pending badge — chip on the Save button itself
+        const badge = btn.querySelector('.ed-save-count');
+        if (badge) {
+          if (dirty) {
+            badge.textContent = String(dirtyCount);
+            badge.classList.remove('hidden');
+          } else {
+            badge.classList.add('hidden');
+          }
+        }
         // Phase ν.5 — preview button enables together with save
         if (previewBtn) {
           previewBtn.disabled = !dirty;
@@ -585,6 +602,9 @@ async function saveEdition(box) {
     setTimeout(() => box.classList.remove('saved'), 1200);
     btn.disabled = true;
     btn.classList.add('opacity-50');
+    // ν.2.9 — clear the save-pending badge after a successful save
+    const badge = btn.querySelector('.ed-save-count');
+    if (badge) badge.classList.add('hidden');
     // Phase ν.5 — also disable the preview button (no changes left)
     if (previewBtn) {
       previewBtn.disabled = true;

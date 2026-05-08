@@ -6,6 +6,77 @@
 
 ---
 
+## 2026-05-08 — session — ν.2.9 + ψ.10 shipped (continuous-go batch 1)
+
+**Phases shipped:** ν.2.9, ψ.10.
+**Test delta:** +4 (434 → 438).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **ν.2.9 — customize save-pending badge.** Each Save edition button
+  now carries a small chip (e.g. `Save edition  3`) showing the
+  count of unsaved changes when the edition is dirty; hidden when
+  clean. Trivial CSS + a tiny JS counter inside the existing dirty-
+  detection handler. Multi-edition saves are now scannable at a
+  glance — the publisher sees exactly which editions have pending
+  work without having to inspect each card.
+  Files: `scripts/templates/customize.py` — added `<span
+  class="ed-save-count">` inside the Save button; the existing
+  dirty handler now counts dirty inputs and updates the chip.
+  Test: `TestEditionMeta::test_customize_html_has_save_pending_badge`.
+
+- **ψ.10 — verse-popup typography polish.** Theme-aware CSS pass
+  on the `.vnote` popup aside in the EPUB. Container gets a left-
+  border + background tint + sensible padding; per-language
+  treatment differentiates English (clean), Hebrew (RTL +
+  slightly-larger), and Greek (italic). Subtle dotted dividers
+  between language paragraphs. Source-label styling for alternate
+  translations. Pre-declared selectors for the ψ.8 tradition stack
+  so the schema-change phase only adds HTML, not CSS. Dark-mode
+  awareness via `prefers-color-scheme`. CSS-only — no HTML changes;
+  readers that don't render asides as popups (older Kindle) get a
+  quiet inline block instead of a visual mess.
+  Files: `scripts/apply_style.py:render_managed_css()` — added a
+  new `vnote_block` to the managed-region output. The block lands
+  in `epub_working/stylesheet.css` between the existing sentinels
+  on next `apply_style.py` run.
+  Tests: new `TestApplyStyleVnoteCss` class (3 tests covering
+  presence of polish markers, idempotency, sentinel correctness).
+
+Notable decisions:
+
+- **ψ.10 forward-compatible with ψ.8.** The new CSS pre-declares
+  `.vnote-tradition` and `.vnote-tradition-label` selectors that
+  match nothing today (no HTML emits those classes). When ψ.8 ships
+  the tradition stack, it can emit the new HTML structure without
+  needing to also touch the stylesheet — the styling is already
+  there. Worth the 8 lines of forward-compatible CSS to avoid
+  styling-twice.
+- **Bundled ν.2.9 + ψ.10 in one commit.** Both are small,
+  independently-testable, and share no code. Bundling reduces
+  ceremony (one CHANGELOG entry, one save, one pre-commit hook
+  run) without obscuring the change history — the diff cleanly
+  splits between `customize.py` and `apply_style.py`.
+- **ν.2.9 counts the popup-language section as +1 dirty unit, not
+  N units.** The popup-language matrix maintains its own dirty
+  flag; folding its internal change-count into the badge would mean
+  inspecting two different state shapes. Treating the section as
+  one logical unit keeps the count meaningful (you have N "things
+  changed" to save) and the implementation simple.
+
+Continuity pointers:
+
+- v1.0 progress: ψ.10 was on the v1.0 set per the third-revision
+  expansion. ν.2.9 was post-v1.0 polish — pulled forward this
+  session because it was trivial and shipped in the same touch as
+  the customize template work. Net v1.0 todo count: same minus 1
+  (ψ.10 done).
+- Next implementation phases: continuous-go batch 2 — ω.8 error
+  boundaries OR ξ.4 XSS sweep, depending on token budget.
+
+---
+
 ## 2026-05-08 — session — third-revision scope expansion (ψ.13-17, ω.8-13, ξ.1-7)
 
 **Phases shipped:** none (scope expansion; implementation continues

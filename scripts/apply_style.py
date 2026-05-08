@@ -115,7 +115,95 @@ p.verse-p, p.verse-p-flush {
 }}
 """
 
-    blocks = [b for b in (embed_block, margin_block, font_block, flow_block) if b]
+    # Phase ψ.10 — verse-popup typography polish.
+    # Theme-aware container styling for the .vnote popup aside, plus
+    # per-language treatment so the stacked English / Hebrew / Greek
+    # paragraphs read distinctly. CSS-only; no HTML changes.
+    # Designed to be neutral enough that any reader theme picks up
+    # sensibly; readers that don't render asides as popups (older
+    # Kindle, etc.) just see a quietly-styled inline block.
+    vnote_block = """\
+/* ψ.10 — verse popup container */
+aside.vnote, .vnote {
+  background: rgba(248, 250, 252, 0.65);
+  border-left: 3px solid rgba(100, 116, 139, 0.45);
+  border-radius: 2px;
+  padding: 0.55em 0.85em 0.55em 0.95em;
+  margin: 0.4em 0;
+  line-height: 1.5;
+  font-size: 0.94em;
+}
+aside.vnote > p, .vnote > p {
+  margin: 0.3em 0;
+}
+aside.vnote > p:first-child, .vnote > p:first-child { margin-top: 0; }
+aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
+
+/* per-language treatment */
+.vnote-text {
+  /* English / publisher-chosen primary translation */
+  color: #1f2937;
+}
+.vnote-hebrew {
+  /* Right-to-left, slightly larger so the Hebrew lettering reads */
+  direction: rtl;
+  text-align: right;
+  font-size: 1.08em;
+  line-height: 1.45;
+  padding-top: 0.15em;
+  border-top: 1px dotted rgba(100, 116, 139, 0.25);
+  color: #1e293b;
+}
+.vnote-greek {
+  /* Italic to distinguish from the English; slightly looser tracking */
+  font-style: italic;
+  letter-spacing: 0.01em;
+  border-top: 1px dotted rgba(100, 116, 139, 0.25);
+  padding-top: 0.15em;
+  color: #1e293b;
+}
+
+/* Source label (when an alternate translation is shown) */
+.vnote-source-label {
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(71, 85, 105, 0.85);
+  margin-bottom: 0.2em !important;
+}
+
+/* When the popup hosts notes from multiple traditions (post-ψ.8),
+   each tradition block gets a subtle divider — pre-declared here so
+   ψ.8.2 inherits the styling and only adds the HTML structure.
+   Until ψ.8 ships, these selectors match nothing. */
+.vnote-tradition {
+  border-top: 1px dotted rgba(100, 116, 139, 0.25);
+  padding-top: 0.3em;
+  margin-top: 0.3em;
+}
+.vnote-tradition-label {
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(71, 85, 105, 0.85);
+  margin-bottom: 0.15em !important;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  aside.vnote, .vnote {
+    background: rgba(30, 41, 59, 0.55);
+    border-left-color: rgba(148, 163, 184, 0.45);
+  }
+  .vnote-text, .vnote-hebrew, .vnote-greek {
+    color: #e2e8f0;
+  }
+  .vnote-source-label, .vnote-tradition-label {
+    color: rgba(148, 163, 184, 0.85);
+  }
+}"""
+
+    blocks = [b for b in (embed_block, margin_block, font_block, flow_block, vnote_block) if b]
     return CSS_BEGIN + "\n" + "\n\n".join(blocks) + "\n" + CSS_END
 
 

@@ -1,9 +1,8 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after third-revision scope expansion
-(prettification ψ.13-17 + robustness ω.8-13 + security ξ.1-7
-clusters scoped). Implementation kicking off in same session per
-user's "make yourself go continuously" directive.
+**Updated:** 2026-05-08, after third-revision scope expansion +
+ψ.10 popup typography polish + ν.2.9 save-pending badge shipped.
+Continuous-go mode active per user directive.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
@@ -23,7 +22,7 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 434 tests · 8/8 linter · 5 editions · 15,925 notes
+13 consoles · 438 tests · 8/8 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.

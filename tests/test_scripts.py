@@ -1940,6 +1940,21 @@ class TestEditionMeta:
         assert "popup_languages_default" in html
         assert "popup_languages_per_book" in html
 
+    def test_customize_html_has_save_pending_badge(self):
+        """ν.2.9 — the Save edition button carries a badge span that
+        the UI populates with the count of unsaved changes. Anchors
+        must exist for the per-edition save-status JS to find them."""
+        html = self.web.CUSTOMIZE_HTML
+        # The badge container span — hidden until dirty.
+        assert "ed-save-count" in html
+        # The badge is inside the .ed-save button.
+        assert 'class="ed-save' in html
+        # The handler updates badge.textContent with the count
+        # and toggles the 'hidden' class via classList — the
+        # template-string for that toggle uses the bare class name.
+        assert "classList.add('hidden')" in html
+        assert "classList.remove('hidden')" in html
+
     def test_customize_html_uses_canonical_book_order(self):
         """The matrix must source its book order from DATA.books_canonical
         (which the API derives from books.yaml). The UI must NOT sort
@@ -5914,6 +5929,58 @@ class TestRunNavesAtScaleDriver:
         assert merged["n_candidates"] == 2
         kinds = [c["kind"] for c in merged["candidates"]]
         assert "xref-citation" in kinds and "topic-nave" in kinds
+
+
+# ---------- Phase ψ.10 : popup typography polish ---------------------
+
+
+class TestApplyStyleVnoteCss:
+    """The ψ.10 polish lives in apply_style.render_managed_css() so it
+    re-renders on every call and idempotently replaces the managed
+    region in epub_working/stylesheet.css. These tests confirm the
+    CSS block is present and shaped correctly without exercising the
+    full epub_working build."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import apply_style
+        cls.apply_style = apply_style
+
+    def test_managed_css_contains_vnote_polish(self):
+        css = self.apply_style.render_managed_css()
+        # ψ.10 marker comment so future readers can find this block.
+        assert "ψ.10" in css
+        # Container styling
+        assert "aside.vnote" in css
+        assert "border-left" in css
+        assert "padding" in css
+        # Per-language treatment
+        assert ".vnote-text" in css
+        assert ".vnote-hebrew" in css
+        assert ".vnote-greek" in css
+        # Hebrew gets RTL
+        assert "direction: rtl" in css
+        # Greek gets italic
+        assert "italic" in css
+        # Source label styling shows up
+        assert ".vnote-source-label" in css
+        # ψ.8 forward-compatibility selectors are pre-declared
+        assert ".vnote-tradition" in css
+        assert ".vnote-tradition-label" in css
+        # Dark-mode awareness
+        assert "prefers-color-scheme: dark" in css
+
+    def test_managed_css_is_idempotent(self):
+        # Calling render twice produces identical output (no random
+        # iteration, no timestamps).
+        a = self.apply_style.render_managed_css()
+        b = self.apply_style.render_managed_css()
+        assert a == b
+
+    def test_managed_css_has_sentinels(self):
+        css = self.apply_style.render_managed_css()
+        assert self.apply_style.CSS_BEGIN in css
+        assert self.apply_style.CSS_END in css
 
 
 # ---------- Phase υ.7 : pluggable fetcher config ----------------------
