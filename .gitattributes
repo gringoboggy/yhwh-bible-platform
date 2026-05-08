@@ -1,0 +1,25 @@
+# Default: let git autodetect, but normalize line endings on commit.
+* text=auto
+
+# Windows shell scripts MUST be CRLF on disk — cmd's parser breaks on
+# parenthesized blocks with bare LF and is finicky elsewhere.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# POSIX shell scripts (including git hooks) MUST be LF — git's bundled
+# bash on Windows runs the hook through `sh`, which doesn't tolerate
+# CRLF inside a script body.
+*.sh text eol=lf
+dev/git-hooks/* text eol=lf
+
+# Treat known binary types as binary so git doesn't normalize them.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.epub binary
+*.mp3 binary
+*.ogg binary
+*.zip binary
