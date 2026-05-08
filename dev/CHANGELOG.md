@@ -29,15 +29,25 @@ What shipped:
 - `gh repo create yhwh-bible-platform --private --source=. --push`
   — repo created PRIVATE, no collaborators, default branch `main`,
   push completed.
-- New file: `save.ps1` at repo root — one-command wrapper for
-  add+commit+push. `./save.ps1 "what changed"` from PowerShell;
-  default message is a timestamp; no-op if nothing changed; clear
-  red error message if push fails (commit stays local).
+- New files at repo root for one-command save:
+  - `save.ps1` — PowerShell wrapper for add+commit+push.
+  - `save.cmd` — cmd.exe shim that runs save.ps1 with
+    `-ExecutionPolicy Bypass`. Needed because Windows's default
+    PowerShell execution policy (`Restricted`) blocks .ps1 files
+    until the user runs `Set-ExecutionPolicy`. Caught immediately
+    on first user-test of save.ps1; .cmd was added in the same
+    session as the workaround so the non-developer path is
+    "double-click or `./save.cmd \"msg\"`" with no policy fiddling.
+  Both default to a timestamp message; both no-op if nothing
+  changed; both print a red "push failed" line if the network
+  blocks (commit still saved locally).
 
 User-facing handoff:
 
-- Save: `./save.ps1 "<message>"` (or raw `git add -A; git commit -m
-  "<msg>"; git push`).
+- Save (preferred): `./save.cmd "<message>"` from PowerShell or cmd.
+- Save (PS-direct): `./save.ps1 "<message>"` only if execution
+  policy is RemoteSigned or Bypass.
+- Save (raw): `git add -A; git commit -m "<msg>"; git push`.
 - Start of fresh session: `git pull`.
 - Repo URL: https://github.com/bridge4kaladin-collab/yhwh-bible-platform.
 

@@ -1,10 +1,10 @@
 # Session state — current snapshot
 
 **Updated:** 2026-05-08, after σ.3 GitHub backup workflow shipped.
-**Save tag:** initial git push (commit `ea0fbeb` to
-`bridge4kaladin-collab/yhwh-bible-platform`, private). Saves are now
-git pushes, not zips — see "GIT BACKUP" in the inventory below
-and the root-level `save.ps1` helper.
+**Save tag:** initial git push (`ea0fbeb`) + tooling fix (`3f014c0`)
+to `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
+now git pushes, not zips — see "GIT BACKUP" in the inventory below
+and the root-level `save.cmd` / `save.ps1` helpers.
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -42,9 +42,13 @@ The project is now backed up on GitHub at
 (PRIVATE; no collaborators; default branch `main`). Initial push:
 1668 files, 653,880 lines, commit `ea0fbeb`. From this point forward
 "save" means "git push", not "build zip" — per PLAN_2026-05-08 σ.3.
-The root-level `save.ps1` is a one-command wrapper:
-`./save.ps1 "what changed"` runs add + commit + push end-to-end
-(default message is a timestamp). New session: `git pull` first.
+Two one-command wrappers at the repo root:
+`./save.cmd "what changed"` (preferred — works under default Windows
+PowerShell execution policy) or `./save.ps1 "what changed"` (only
+works if execution policy is RemoteSigned/Bypass; .cmd shells out
+to PowerShell with `-ExecutionPolicy Bypass`). Both run
+add + commit + push end-to-end; default message is a timestamp.
+New session: `git pull` first.
 
 `.claude/` was added to `.gitignore` (per-machine permission cache,
 not portable). 393 tests still green; nothing in the runtime changed.
@@ -142,8 +146,9 @@ queue right now:
 GIT BACKUP (σ.3 — shipped 2026-05-08):
   Remote:    https://github.com/bridge4kaladin-collab/yhwh-bible-platform (private)
   Default branch: main
-  Save command:  ./save.ps1 "<message>"   (PowerShell wrapper)
-                 or: git add -A; git commit -m "<msg>"; git push
+  Save command:  ./save.cmd "<message>"   (preferred Windows wrapper)
+                 ./save.ps1 "<message>"   (needs PS execution policy)
+                 raw: git add -A; git commit -m "<msg>"; git push
   Pull command:  git pull                 (start of fresh session)
   Excluded:  .claude/ (per-machine), plus everything in .gitignore.
   GitHub CLI lives at: C:\Program Files\GitHub CLI\gh.exe
