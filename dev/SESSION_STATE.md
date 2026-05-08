@@ -1,8 +1,9 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after υ.1 /sources console upgrade shipped.
-**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 on
-`bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
+**Updated:** 2026-05-08, after τ cluster scope addendum landed
+(scope-only — no implementation).
+**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope
+on `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
 now git pushes, not zips — see "GIT BACKUP" in the inventory below
 and the root-level `save.cmd` / `save.ps1` helpers. Each commit
 runs the pre-commit hook (`scripts/lint_rules.py` 8/8 must pass).
@@ -320,6 +321,12 @@ queue right now:
 Tier B is next: corpus growth + uniqueness levers (χ.1 Greek,
 ψ.10 popup polish, ψ.12 matrix smoothness, ψ.8 cross-denom
 compare apparatus, ρ.1 LibriVox audio, ω.5 path refactor).
+
+Post-v1.0 polish includes the τ cluster (PD translation expansion):
+τ.1 WEB → τ.2 Douay-Rheims → τ.3 Vulgate → τ.4 Brenton LXX →
+τ.5 JPS+WLC → τ.6 Ge'ez Tewahedo → τ.7 Greek NT → τ.8 Geneva →
+τ.9 ASV+YLT → τ.10 non-English → τ.11 Reformation partials.
+Spec: dev/SCOPE_2026-05-08-addendum-pd-translations.md.
 
 υ.7  Pluggable fetcher config           AFTER ω cluster
      content/sources/_fetchers.json — declarative URL +

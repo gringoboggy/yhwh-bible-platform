@@ -6,6 +6,127 @@
 
 ---
 
+## 2026-05-08 — session — τ cluster scoped (PD translation expansion)
+
+**Phases shipped:** none (scope work, no implementation).
+**Test delta:** 0 (434 → 434).
+**Save tag this session:** pending — will land in next push after this
+entry is written.
+
+What happened:
+
+User asked: *"scope a τ cluster for PD translation expansion."*
+Tier A foundations had just shipped, so the platform is at a clean
+breakpoint and ready to absorb cluster-scale scope work without
+disrupting in-flight implementation.
+
+What's now in scope (a new addendum, 11 new sub-phases under τ):
+
+- `dev/SCOPE_2026-05-08-addendum-pd-translations.md` — full τ
+  cluster spec (~280 lines). Two concerns the cluster covers
+  (under one shared infrastructure):
+  (a) **primary-translation alternatives** — today every edition's
+      English text is KJV because that's the only translation
+      extracted; τ.1 WEB through τ.9 ASV+YLT add alternatives the
+      publisher can pick.
+  (b) **language-axis popup slot fill** — `POPUP_LANGUAGES` already
+      declares `geez, latin, coptic, syriac, aramaic` as valid axes
+      (per ν.2.7) but ships zero source data for them; τ.3 Vulgate,
+      τ.5-B WLC, τ.6 Ge'ez, τ.7 Greek NT fill those slots.
+- 11 sub-phases ordered buyer-demo + edition-synergy first:
+
+  ```
+  τ.1   WEB                        modern English baseline
+  τ.2   Douay-Rheims               Catholic primary text
+  τ.3   Latin Vulgate              `latin` popup slot
+  τ.4   Brenton LXX (English)      Orthodox primary text
+  τ.5   JPS 1917 + WLC             Jewish primary + `hebrew` slot
+  τ.6   Ge'ez Tewahedo             Tewahedo flagship native ★
+  τ.7   Greek NT (Stephanus/WH)    `greek` popup slot
+  τ.8   Geneva 1599                Protestant historical
+  τ.9   ASV + YLT (bundle)         academic English angles
+  τ.10  Reina-Valera, Luther,
+        Louis Segond, Russian
+        Synodal, Statenvertaling   non-English PD majors
+  τ.11  Wycliffe + Tyndale         Reformation-era partials
+  ```
+
+  Each phase is ~1 session, mirroring the existing §9 "Add a new
+  translation" recipe (source → `extract_translation.py` →
+  per-book `<book>.py` files → _meta.yaml). No new schema; no new
+  cluster-level abstraction (per the project's "two-instances-then-
+  abstract" rule, τ.1 ships first to establish the test/ingest
+  pattern that subsequent phases mirror).
+
+Notable decisions:
+
+- **τ is post-v1.0.** The v1.0 terminus stays
+  `θ.2 + χ.1 + ψ.8 + corpus ≥ 25K`. Justification: the buyer demo
+  works with KJV-only; τ phases are uniqueness multipliers, not
+  gates. Each τ phase ships independently as a v1.1+ point release.
+  Individual phases CAN be pulled forward if a specific buyer ask
+  needs them (e.g. a Catholic publisher → τ.2 + τ.3 jump ahead).
+- **τ.6 Ge'ez flagged as the most distinctive single phase** in
+  the cluster. It's the only PD translation in the project that
+  matches the Tewahedo flagship's actual liturgical language; no
+  commercial publisher offers customizable Ge'ez Bible editions
+  at any price point. Higher effort (Unicode/font/sparser sources)
+  but the highest uniqueness payoff.
+- **τ.10 lumped major non-English PDs together** rather than
+  breaking each into its own letter-numbered phase. Reasoning:
+  (a) all share the same USFM ingest path; (b) priority within
+  τ.10 is regional (Reina-Valera first, Russian second, etc.) —
+  ordering within a single phase is enough resolution. If during
+  implementation one becomes meaningfully different (say, Russian
+  Synodal needs Cyrillic-specific extraction), it can split out.
+- **AI-translated content explicitly excluded.** The cluster is
+  PD-only by definition. No NIV / ESV / NRSV (still copyrighted)
+  and no LLM-generated translations. If a future cluster wants
+  modern translations, it'll need explicit license-tracking
+  infrastructure — that's separate scope.
+
+Pattern recognition (§12 retrospective trigger):
+
+- **Cluster-shape work followed the existing χ-cluster template
+  cleanly.** χ (corpus growth, detector-driven), ρ (audio,
+  binary-asset uploads + EPUB embed), and now τ (PD translation
+  ingest) all fit "a series of similar phases following one shared
+  pattern, each adding one shippable thing." The §9 mental model
+  for the χ-cluster is already codified; τ doesn't need its own
+  §9 entry because the existing "Add a new translation" recipe in
+  §9 IS the τ pattern. Scoping it as a cluster is just numbering
+  the recipe instances.
+- **The "scope-only" workflow is now stable.** σ.3 → ω.6 → ω.7 →
+  υ.7 → υ.1 alternated implementation phases with scope-expansion
+  turns; this τ work is a pure scope turn. The project's continuity
+  protocol (§11 SESSION_STATE updates, §12 CHANGELOG entries) makes
+  scope-only sessions look just like implementation sessions in the
+  history — no special treatment, just a "phases shipped: none /
+  test delta: 0" header that tells the reader this was scope work.
+
+Files written:
+
+- `dev/SCOPE_2026-05-08-addendum-pd-translations.md` — new (~280 lines).
+
+Files modified:
+
+- `dev/PLAN_2026-05-08.md` — Tier D gets a new sub-section "17.5 τ
+  cluster" with all 11 sub-phases listed; the active-addenda block
+  gains the new addendum reference.
+- `dev/SESSION_STATE.md` — header timestamp; the post-Tier-A
+  forward-looking block now lists the τ sequence; bookkeeping that
+  τ is in scope without claiming it's started.
+- `dev/CHANGELOG.md` — this entry.
+
+Continuity pointers:
+
+- `dev/SCOPE_2026-05-08-addendum-pd-translations.md` — full spec.
+- `dev/PLAN_2026-05-08.md` line 17.5 — sequence position.
+- `dev/CLAUDE_PROJECT_RULES.md` §9 "Add a new translation" — the
+  per-phase implementation recipe each τ.N follows.
+
+---
+
 ## 2026-05-08 — session — υ.1 /sources console upgrade shipped (Tier A done)
 
 **Phases shipped:** υ.1.
