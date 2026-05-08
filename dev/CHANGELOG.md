@@ -6,6 +6,79 @@
 
 ---
 
+## 2026-05-08 — session — ξ.2 path-traversal hardening (continuous-go batch 5)
+
+**Phases shipped:** ξ.2.
+**Test delta:** +17 (483 → 500).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **`scripts/core/safe_path.py`** (new, ~140 lines) — shared
+  helper for sandboxing user-supplied path inputs against a known-
+  safe root. Public API: `resolve_under(safe_root, user_path) ->
+  Path`; raises `SafePathError` on any violation.
+- **Defense layers (per the §9 "Add a new static-file route" recipe):**
+  1. **String-level rejection** of empty input, oversized strings,
+     control characters / NUL bytes, absolute paths (POSIX `/foo`
+     and Windows drive-letter `C:\\foo`), UNC paths (`//host/...`),
+     `..` segments, hidden segments (`.git`, `.ssh`, etc.).
+  2. **Filesystem `resolve()`** to canonicalize.
+  3. **`Path.relative_to(safe_root)` final containment check** —
+     defense against symlink trickery (Windows symlinks especially).
+- **Existing `/content/covers/<path>` route migrated to use the
+  helper.** Was a hand-rolled inline string-check + Path.resolve()
+  + relative_to() that worked but was duplicated logic. Now one
+  function call.
+- **+17 tests in `TestSafePath`** covering: 3 happy-path
+  (relative file, subdir, backslash separator); 11 rejection
+  classes (empty, non-string, oversized, `..`, deeper `..`,
+  POSIX absolute, Windows drive-letter, UNC, hidden segment,
+  hidden-in-middle, NUL byte, other control char); 2 edge cases
+  (non-existent file resolves safely; missing safe_root raises).
+
+Notable decisions:
+
+- **String-level checks BEFORE filesystem resolve().** Cheap,
+  catches obvious attack payloads, and protects against
+  pathological input that could confuse `Path.resolve()` itself
+  (a known Windows symlink quirk). Defense-in-depth, not
+  redundancy.
+- **403 instead of 404 on traversal violation.** The route
+  doesn't disclose which check failed — the caller catches
+  `SafePathError` and returns a generic 403. Information
+  disclosure (e.g. "this file exists but you can't access it"
+  vs "this file doesn't exist") is itself a security signal we
+  don't want to leak.
+- **Helper raises, doesn't return None.** `resolve_under()` is
+  expected to succeed in normal operation; failure is
+  exceptional and the caller wants a meaningful error message
+  (which goes to the operator log, not the client). Matches the
+  fetcher_config pattern from υ.7.
+- **Did NOT migrate every path-resolution site.** Only the
+  user-controllable static-file route was migrated. The other
+  Path uses are programmer-controlled (fixed strings like
+  "editions.yaml" or already-validated paths from the
+  cover-upload pipeline). The §9 recipe documents which sites
+  need the safe_path treatment.
+
+What's deferred from the ξ.2 spec:
+
+- **Audit / migration of the cover-upload paths** — the existing
+  `_validate_cover_path` in scripts/web.py still does its own
+  inline checks. It's pre-existing, well-tested, and overlaps
+  with safe_path. Migration is mechanical but adds risk; parked
+  as a follow-up unless a specific cover-path bug surfaces.
+
+Continuity pointers:
+
+- v1.0 progress: ξ.2 ✓. Net v1.0 todo: minus 1.
+- Five implementation phases shipped this session
+  (ν.2.9 + ψ.10 + ξ.4 + ω.8 + ω.9 + ξ.2 = 6 actually) plus the
+  third-revision scope expansion. All free, all pre-v1.0.
+
+---
+
 ## 2026-05-08 — session — ω.9 atomic-write audit shipped (continuous-go batch 4)
 
 **Phases shipped:** ω.9.

@@ -5157,18 +5157,19 @@ class Handler(BaseHTTPRequestHandler):
         # tries to escape (.., absolute, hidden) is rejected with 404.
         # Read-only — uploads go through POST /api/covers/...
         if path.startswith("/content/covers/"):
-            rel = path[len("/content/"):]   # 'covers/...'
-            # Defensive path-safety check, even though the route prefix
-            # already constrains to /content/covers/.
-            if ".." in rel or rel.startswith("/") or any(
-                seg.startswith(".") for seg in rel.split("/")
-            ):
-                return self._send_json({"error": "forbidden"}, status=403)
-            file_path = (REPO / "content" / rel).resolve()
-            covers_root = (REPO / "content" / "covers").resolve()
+            # ξ.2 — sandbox via shared safe_path helper. The string
+            # after the route prefix is treated as a path RELATIVE
+            # TO content/covers/.
+            rel = path[len("/content/covers/"):]
+            from scripts.core.safe_path import (
+                SafePathError, resolve_under,
+            )
+            covers_root = REPO / "content" / "covers"
             try:
-                file_path.relative_to(covers_root)
-            except ValueError:
+                file_path = resolve_under(covers_root, rel)
+            except SafePathError:
+                # 403/404-equivalent — don't disclose which check
+                # failed. The §9 route-recipe convention.
                 return self._send_json({"error": "forbidden"}, status=403)
             if not file_path.is_file():
                 return self._send_json({"error": "not found"}, status=404)

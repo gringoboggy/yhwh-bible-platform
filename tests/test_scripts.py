@@ -5931,6 +5931,162 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ξ.2 : path-traversal hardening --------------------
+
+
+class TestSafePath:
+    """Shared helper for sandboxing user-supplied paths against a known-
+    safe root. Replaces inline string-checks + Path.relative_to() that
+    were duplicated across routes."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import safe_path
+        cls.mod = safe_path
+
+    def setup_method(self, method):
+        # Each test gets its own scratch root + a real file under it
+        # so resolve_under can canonicalize successfully.
+        import tempfile, os
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        (self.root / "ok.txt").write_text("hi", encoding="utf-8")
+        os.makedirs(self.root / "sub", exist_ok=True)
+        (self.root / "sub" / "deep.txt").write_text("d", encoding="utf-8")
+
+    def teardown_method(self, method):
+        self._tmp.cleanup()
+
+    # ---- happy path ----
+
+    def test_simple_relative_resolves(self):
+        out = self.mod.resolve_under(self.root, "ok.txt")
+        assert out.name == "ok.txt"
+        assert out.is_file()
+
+    def test_subdir_relative_resolves(self):
+        out = self.mod.resolve_under(self.root, "sub/deep.txt")
+        assert out.name == "deep.txt"
+        assert out.is_file()
+
+    def test_backslash_separator_accepted(self):
+        # Windows-style separator works the same as POSIX.
+        out = self.mod.resolve_under(self.root, "sub\\deep.txt")
+        assert out.is_file()
+
+    # ---- string-level rejection ----
+
+    def test_rejects_empty(self):
+        try:
+            self.mod.resolve_under(self.root, "")
+        except self.mod.SafePathError as e:
+            assert "empty" in str(e).lower()
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_non_string(self):
+        try:
+            self.mod.resolve_under(self.root, 42)
+        except self.mod.SafePathError:
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_oversized(self):
+        try:
+            self.mod.resolve_under(self.root, "a" * 2000)
+        except self.mod.SafePathError as e:
+            assert "long" in str(e).lower()
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_dotdot(self):
+        try:
+            self.mod.resolve_under(self.root, "../escaped")
+        except self.mod.SafePathError as e:
+            assert ".." in str(e)
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_dotdot_deeper(self):
+        try:
+            self.mod.resolve_under(self.root, "sub/../../escaped")
+        except self.mod.SafePathError:
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_absolute_posix(self):
+        try:
+            self.mod.resolve_under(self.root, "/etc/passwd")
+        except self.mod.SafePathError as e:
+            assert "absolute" in str(e).lower()
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_absolute_windows_drive(self):
+        try:
+            self.mod.resolve_under(self.root, "C:/Windows/System32/cmd.exe")
+        except self.mod.SafePathError as e:
+            assert "absolute" in str(e).lower()
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_unc(self):
+        try:
+            self.mod.resolve_under(self.root, "//host/share/foo")
+        except self.mod.SafePathError:
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_hidden_segment(self):
+        try:
+            self.mod.resolve_under(self.root, ".git/HEAD")
+        except self.mod.SafePathError as e:
+            assert "hidden" in str(e).lower()
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_hidden_segment_in_middle(self):
+        try:
+            self.mod.resolve_under(self.root, "sub/.hidden/file")
+        except self.mod.SafePathError:
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_nul_byte(self):
+        try:
+            self.mod.resolve_under(self.root, "ok.txt\x00.evil")
+        except self.mod.SafePathError as e:
+            assert "control" in str(e).lower()
+            return
+        assert False, "expected SafePathError"
+
+    def test_rejects_other_control_char(self):
+        try:
+            self.mod.resolve_under(self.root, "ok\x01.txt")
+        except self.mod.SafePathError:
+            return
+        assert False, "expected SafePathError"
+
+    # ---- non-existent file is fine; existence is the caller's check ----
+
+    def test_resolves_nonexistent_path_safely(self):
+        # The point of resolve_under is path safety, not existence.
+        # Caller checks .is_file() / .exists().
+        out = self.mod.resolve_under(self.root, "nope.txt")
+        assert not out.exists()
+        assert out.parent == self.root.resolve()
+
+    # ---- safe_root validation ----
+
+    def test_rejects_missing_safe_root(self, tmp_path):
+        nope = tmp_path / "does-not-exist"
+        try:
+            self.mod.resolve_under(nope, "ok.txt")
+        except self.mod.SafePathError:
+            return
+        assert False, "expected SafePathError"
+
+
 # ---------- Phase ω.9 : atomic-write audit linter check --------------
 
 
