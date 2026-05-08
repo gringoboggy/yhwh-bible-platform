@@ -138,14 +138,22 @@ def build_marker(kind: str, full_id: str) -> str:
 
 
 def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
-    """The `<aside class="note">…</aside>` element for the notes-section."""
+    """The `<aside class="note">…</aside>` element for the notes-section.
+
+    Phase ξ.4: body_html is sanitized at the build boundary. Notes
+    legitimately contain inline markup (em / strong / a / sup /
+    span etc.) so we whitelist; <script>, on* handlers, javascript:
+    URLs, etc. are stripped. See scripts/core/html_sanitize.py for
+    the threat model and whitelist."""
+    from scripts.core.html_sanitize import sanitize_html
     glyph = glyph_for(kind)
+    safe_body = sanitize_html(body_html)
     return (
         f'<aside class="note note-{kind}" id="note-{full_id}" '
         f'epub:type="footnote">\n'
         f'  <p><a href="#ref-{full_id}" class="note-back" title="Back">'
         f'{glyph}</a> <span class="note-label">{label}</span> '
-        f'{body_html}</p>\n'
+        f'{safe_body}</p>\n'
         f'</aside>\n'
     )
 

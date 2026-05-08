@@ -5931,6 +5931,279 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ξ.4 : XSS prevention (HTML sanitizer) ---------------
+
+
+class TestHtmlSanitize:
+    """Whitelist-based HTML sanitizer for note bodies. Defends against
+    the XSS classes in the OWASP cheat sheet plus a few project-
+    specific ones. Tests cover happy-path preservation of legitimate
+    rich apparatus AND aggressive rejection of every disallowed
+    construct.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import html_sanitize
+        cls.mod = html_sanitize
+
+    def sanitize(self, text):
+        return self.mod.sanitize_html(text)
+
+    # ---- happy-path: legitimate apparatus passes through ----
+
+    def test_plain_text_passes_through(self):
+        assert self.sanitize("Hello, world.") == "Hello, world."
+
+    def test_basic_inline_tags_pass(self):
+        out = self.sanitize("<p><em>In</em> the <strong>beginning</strong></p>")
+        assert out == "<p><em>In</em> the <strong>beginning</strong></p>"
+
+    def test_safe_anchor_passes(self):
+        out = self.sanitize('<a href="https://example.org" title="ref">x</a>')
+        assert '<a href="https://example.org" title="ref">x</a>' == out
+
+    def test_relative_anchor_passes(self):
+        out = self.sanitize('<a href="#footnote-1">[1]</a>')
+        assert '<a href="#footnote-1">[1]</a>' == out
+
+    def test_mailto_passes(self):
+        out = self.sanitize('<a href="mailto:x@example.org">x</a>')
+        assert "mailto:x@example.org" in out
+
+    def test_class_lang_dir_pass(self):
+        out = self.sanitize('<span class="hebrew" lang="he" dir="rtl">בְּרֵאשִׁית</span>')
+        assert 'class="hebrew"' in out
+        assert 'lang="he"' in out
+        assert 'dir="rtl"' in out
+
+    # ---- XSS classes — every payload's executable bits must be stripped ----
+
+    def test_drops_script_tag_and_contents(self):
+        out = self.sanitize('<p>Hi <script>alert(1)</script> there.</p>')
+        assert "<script" not in out
+        assert "alert(1)" not in out
+        # The text outside the script survives.
+        assert "Hi" in out and "there" in out
+
+    def test_strips_onclick_handler(self):
+        out = self.sanitize('<a href="https://x.org" onclick="alert(1)">x</a>')
+        assert "onclick" not in out.lower()
+        assert "alert" not in out
+
+    def test_strips_onerror_handler(self):
+        out = self.sanitize('<a onerror="alert(1)">x</a>')
+        assert "onerror" not in out.lower()
+
+    def test_javascript_url_in_href_rejected(self):
+        out = self.sanitize('<a href="javascript:alert(1)">x</a>')
+        assert "javascript:" not in out.lower()
+        # The text is preserved; the unsafe href is dropped.
+        assert ">x</a>" in out
+
+    def test_data_url_in_href_rejected(self):
+        out = self.sanitize('<a href="data:text/html,<script>alert(1)</script>">x</a>')
+        assert "data:" not in out.lower()
+
+    def test_vbscript_url_in_href_rejected(self):
+        out = self.sanitize('<a href="vbscript:msgbox(1)">x</a>')
+        assert "vbscript:" not in out.lower()
+
+    def test_iframe_dropped_entirely(self):
+        out = self.sanitize('hello <iframe src="https://evil.example/"></iframe> world')
+        assert "iframe" not in out.lower()
+        assert "evil.example" not in out
+        assert "hello" in out and "world" in out
+
+    def test_svg_with_onload_dropped(self):
+        out = self.sanitize('text <svg onload="alert(1)"></svg> after')
+        assert "<svg" not in out.lower()
+        assert "onload" not in out.lower()
+        assert "alert" not in out
+
+    def test_style_tag_dropped(self):
+        out = self.sanitize('<style>body{display:none}</style><p>visible</p>')
+        assert "<style" not in out.lower()
+        # Critically: the CSS body is dropped, not preserved as text.
+        assert "display:none" not in out
+        assert "<p>visible</p>" in out
+
+    def test_style_attribute_dropped(self):
+        out = self.sanitize('<p style="color:red">red</p>')
+        assert "style=" not in out.lower()
+        assert "<p>red</p>" == out
+
+    def test_form_input_button_dropped(self):
+        out = self.sanitize('<form><input name=x><button>go</button></form>after')
+        assert "<form" not in out.lower()
+        assert "<input" not in out.lower()
+        assert "<button" not in out.lower()
+        assert "after" in out
+
+    def test_meta_refresh_dropped(self):
+        out = self.sanitize('<meta http-equiv="refresh" content="0;url=javascript:alert(1)"><p>x</p>')
+        assert "<meta" not in out.lower()
+        assert "javascript" not in out.lower()
+        assert "<p>x</p>" == out
+
+    def test_link_rel_stylesheet_dropped(self):
+        out = self.sanitize('<link rel="stylesheet" href="javascript:alert(1)"><p>x</p>')
+        assert "<link" not in out.lower()
+        assert "javascript" not in out.lower()
+
+    def test_object_embed_dropped(self):
+        out = self.sanitize('<object data="x"></object><embed src="x">text')
+        assert "<object" not in out.lower()
+        assert "<embed" not in out.lower()
+        assert "text" in out
+
+    def test_html_comment_with_conditional_script_dropped(self):
+        # `<!--[if IE]><script>...<![endif]-->` — IE-style; comments
+        # are always stripped regardless of payload.
+        out = self.sanitize('before<!--[if IE]><script>alert(1)</script><![endif]-->after')
+        assert "<!--" not in out
+        assert "script" not in out.lower()
+        assert "before" in out and "after" in out
+
+    def test_doctype_stripped(self):
+        out = self.sanitize('<!DOCTYPE html><p>x</p>')
+        assert "DOCTYPE" not in out
+        assert "<p>x</p>" == out
+
+    def test_processing_instruction_stripped(self):
+        # Even though html.parser handles PIs idiosyncratically on
+        # some inputs, the sanitizer must drop them.
+        out = self.sanitize('<?xml version="1.0"?><p>x</p>')
+        assert "?xml" not in out
+
+    def test_unknown_tag_is_transparent(self):
+        # An unknown tag (not in ALLOWED_TAGS, not in
+        # TAGS_DROP_CONTENT) drops the tag but keeps the inner text.
+        out = self.sanitize("<bogus>kept</bogus>")
+        assert out == "kept"
+
+    def test_target_blank_gets_rel_noopener(self):
+        out = self.sanitize('<a href="https://x.org" target="_blank">x</a>')
+        assert 'target="_blank"' in out
+        assert 'rel="noopener noreferrer"' in out
+
+    def test_target_other_value_dropped(self):
+        out = self.sanitize('<a href="https://x.org" target="parent">x</a>')
+        assert "target=" not in out
+        # rel is only auto-added when target is preserved.
+        assert "rel=" not in out
+
+    # ---- attribute splitting / scheme-evasion attempts ----
+
+    def test_javascript_url_with_leading_whitespace_rejected(self):
+        out = self.sanitize('<a href="\tjavascript:alert(1)">x</a>')
+        assert "javascript" not in out.lower()
+
+    def test_javascript_url_with_uppercase_rejected(self):
+        out = self.sanitize('<a href="JaVaScRiPt:alert(1)">x</a>')
+        assert "javascript" not in out.lower()
+        assert "alert" not in out
+
+    # ---- escaping in text and attributes ----
+
+    def test_special_chars_escaped_in_text(self):
+        out = self.sanitize("<p>1 < 2 & 3 > 0</p>")
+        assert "<p>1 &lt; 2 &amp; 3 &gt; 0</p>" == out
+
+    def test_quotes_escaped_in_attr(self):
+        # Use a properly-quoted source: a title containing a quote
+        # entity. The sanitizer must round-trip it (decoded by
+        # html.parser, re-escaped on emit).
+        out = self.sanitize('<a title="he said &quot;hi&quot;" href="https://x.org">x</a>')
+        assert "&quot;" in out
+        # And no broken-out attribute.
+        assert "<script" not in out.lower()
+
+    # ---- structural ----
+
+    def test_empty_input(self):
+        assert self.sanitize("") == ""
+        assert self.sanitize(None) == ""
+
+    def test_idempotent(self):
+        nasty = (
+            '<p>Hi <script>alert(1)</script>'
+            '<a href="javascript:alert(2)" onclick="alert(3)">x</a>'
+            '<style>body{display:none}</style></p>'
+        )
+        once = self.sanitize(nasty)
+        twice = self.sanitize(once)
+        assert once == twice
+
+    def test_void_tags_self_close(self):
+        out = self.sanitize("line1<br>line2")
+        assert "<br />" in out
+
+    def test_nested_allowed_tags_preserved(self):
+        src = "<blockquote><p><em>quote</em> per <cite>source</cite></p></blockquote>"
+        out = self.sanitize(src)
+        # All four tags survive in their original nesting.
+        assert "<blockquote>" in out
+        assert "<p>" in out
+        assert "<em>" in out
+        assert "<cite>" in out
+
+    def test_drops_nested_disallowed_inside_disallowed(self):
+        # `<script>` inside `<style>` — both dropped; no leakage.
+        out = self.sanitize('<style><script>x</script></style>after')
+        assert "x" not in out.replace("after", "")
+        assert "after" in out
+
+    def test_id_attr_coerced_to_safe_shape(self):
+        out = self.sanitize('<p id="evil-id&quot;=alert(1)">x</p>')
+        # The id is rendered as a plain attribute value with no
+        # executable context — the security property is "no quote /
+        # equals / paren broke out into a new attribute or attribute
+        # value", not "the substring is squeaky-clean."
+        assert '<p id=' in out
+        # The dangerous bits — `=`, `(`, `)` — are stripped.
+        assert "=alert" not in out
+        assert "(1)" not in out
+        # No quote-broken-out attribute.
+        assert "<script" not in out.lower()
+
+    def test_image_tag_excluded(self):
+        # Inline images are intentionally not whitelisted; the tag
+        # drops but the alt-text-style content (none here) doesn't.
+        out = self.sanitize('text <img src="x" onerror="alert(1)"> more')
+        assert "<img" not in out.lower()
+        assert "onerror" not in out.lower()
+        assert "text" in out and "more" in out
+
+    # ---- integration: build_aside actually sanitizes ----
+
+    def test_build_aside_strips_malicious_body(self):
+        """The §9 build-pipeline integration point: inject.build_aside
+        sanitizes body_html before emitting the <aside>. This is the
+        actual XSS defense that ships in EPUBs."""
+        from scripts.inject import build_aside
+        nasty = (
+            '<strong>Title.</strong> '
+            '<script>alert(1)</script>'
+            '<a href="javascript:alert(2)" onclick="alert(3)">click</a>'
+        )
+        out = build_aside("comm", "gen-1-1-1", "Note 1", nasty)
+        # Title preserved
+        assert "<strong>Title.</strong>" in out
+        # script gone
+        assert "<script" not in out
+        assert "alert(1)" not in out
+        # javascript: href stripped
+        assert "javascript:" not in out.lower()
+        # onclick stripped
+        assert "onclick" not in out.lower()
+        # The link text "click" survives
+        assert ">click</a>" in out
+        # The aside structure intact
+        assert 'class="note note-comm"' in out
+        assert 'id="note-gen-1-1-1"' in out
+
+
 # ---------- Phase ψ.10 : popup typography polish ---------------------
 
 

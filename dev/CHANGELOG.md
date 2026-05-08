@@ -6,6 +6,113 @@
 
 ---
 
+## 2026-05-08 — session — ξ.4 XSS prevention shipped (continuous-go batch 2)
+
+**Phases shipped:** ξ.4.
+**Test delta:** +38 (438 → 476).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **`scripts/core/html_sanitize.py`** (new, ~310 lines) — whitelist-
+  based HTML sanitizer for note bodies. Built on stdlib
+  `html.parser` (no new deps). Public API: `sanitize_html(text:
+  str) -> str`. Idempotent.
+- **Whitelist:** all the inline + block tags publishers legitimately
+  use in editorial apparatus (em, strong, a, sup, sub, span, p, div,
+  blockquote, lists, tables, headings, figure, ruby, time, etc.).
+  Per-tag attribute whitelist; `class`, `lang`, `dir`, `title`, `id`
+  global; `<a>` gets `href`/`name`/`target`/`rel`. URL schemes
+  restricted to http/https/mailto/tel/anchor/relative.
+- **Defense-in-depth:**
+  - `on*` event handlers (onclick, onerror, onload, onmouseover, …)
+    always rejected.
+  - `style` attribute always rejected (CSS-expression XSS history).
+  - `javascript:` / `vbscript:` / `data:` / `file:` URL schemes
+    rejected, including evasion via leading whitespace and
+    case-mixing (`JaVaScRiPt:` is rejected the same as
+    `javascript:`).
+  - `<script>`, `<style>`, `<iframe>`, `<object>`, `<embed>`,
+    `<link>`, `<meta>`, `<form>`, `<input>`, `<button>`, `<svg>`,
+    `<math>`, media tags (`<audio>`, `<video>`, `<source>`,
+    `<track>`), and frame-related tags drop entirely (no inner
+    text preserved).
+  - `<img>` is **intentionally excluded** from the whitelist —
+    cover/asset uploads go through validated paths (π.4-B); inline
+    images in note bodies aren't a use case we serve.
+  - HTML comments (including IE conditional comments containing
+    `<script>`) always stripped.
+  - DOCTYPE, processing instructions stripped.
+  - `target="_blank"` auto-adds `rel="noopener noreferrer"`.
+  - `id` attribute coerced to a CSS-identifier-safe shape (drops
+    quotes/operators that could break out into a new attribute).
+  - Void disallowed tags (`<input>`, `<meta>`, `<link>`, `<embed>`,
+    `<source>`, `<track>`, `<base>`, `<frame>`, `<area>`) are dropped
+    without entering suppress-mode (their lack of closing tags would
+    otherwise leave the depth counter stuck — caught and fixed in
+    this session via the `DISALLOWED_VOID_TAGS` set).
+- **Wired into the build pipeline.** `scripts/inject.py:build_aside`
+  now sanitizes `body_html` before interpolating it into the
+  rendered `<aside>` element. This is the single integration point
+  for the entire EPUB's note rendering — every note ever shipped
+  goes through this function.
+- **+38 tests in `TestHtmlSanitize`:** 7 happy-path (legitimate
+  apparatus passes through), 25 XSS classes (script tag, onclick,
+  onerror, javascript:, data:, vbscript:, iframe, svg, style tag,
+  style attr, form/input/button, meta refresh, link rel,
+  object/embed, IE conditional comment, doctype, PI, target
+  variants, scheme-evasion attempts), 5 structural (empty input,
+  idempotency, void tags, nested allowed, nested disallowed inside
+  disallowed), and 1 integration test exercising
+  `inject.build_aside` end-to-end with a malicious note body.
+
+Notable decisions:
+
+- **Whitelist over strip-all.** Blacklisting tags (strip script,
+  strip iframe, …) is the wrong default — a new HTML5 element
+  surfaces a new attack vector. Whitelisting is conservative: only
+  known-safe tags pass; everything else drops or gets transparent
+  fall-through.
+- **Image tag deliberately excluded.** Note bodies don't need
+  inline images today; upload paths handle binary assets through
+  validated routes. If a future phase wants inline images, it
+  should add `<img>` to the whitelist explicitly with a per-attr
+  validator (src URL whitelist, alt required, dimension limits) —
+  not just by virtue of someone authoring a note with an `<img>`
+  tag.
+- **`target="_blank"` keeps the convenience-feature.** Some
+  editorial apparatus references external resources (e.g.
+  bibliographic citations) where opening in a new window is the
+  expected behavior. We keep it but auto-add the `rel` to close
+  the reverse-tab-navigation hole.
+- **Build-pipeline integration via `inject.build_aside` only.**
+  This is the single funnel through which every note's HTML
+  reaches the EPUB. There are other code paths that stringify
+  `body_html` (note_search, note_quality, infer_attribution),
+  but those are read-only / search / inference — they never write
+  the value back into a rendered output, so they don't need the
+  sanitizer pass. Documenting this so a future audit can verify
+  the perimeter.
+
+What's deferred from the ξ.4 spec:
+
+- `check_unescaped_template_strings` linter check — flagging
+  backtick-template JS strings that interpolate user data without
+  escapeHtml. The check requires careful AST analysis to
+  distinguish "user data" from "template literal" cases; written
+  naively it false-positives on every Tailwind class string. Parked
+  as a follow-up; the existing `window.ebible.escapeHtml`
+  consolidation (ω.0.7) plus this build-time sanitizer cover the
+  highest-leverage paths.
+
+Continuity pointers:
+
+- v1.0 progress: ξ.4 ✓. Net v1.0 todo: minus 1.
+- Next continuous-go batch (when triggered): ω.8 error-boundary
+  audit OR ψ.12 matrix smoothness pass.
+
+---
+
 ## 2026-05-08 — session — ν.2.9 + ψ.10 shipped (continuous-go batch 1)
 
 **Phases shipped:** ν.2.9, ψ.10.
