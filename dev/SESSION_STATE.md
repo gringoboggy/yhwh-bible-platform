@@ -1,10 +1,9 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after ψ.12 matrix smoothness shipped
-(continuous-go batch 8: scope-expansion → ν.2.9+ψ.10 → ξ.4 → ω.8 →
-ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12). Hardening trio + security trio +
-matrix smoothness all done; only the UI-polish + corpus-push +
-desktop tiers left for v1.0.
+**Updated:** 2026-05-08, after ψ.13 design-system foundation shipped
+(continuous-go batch 9: scope-expansion → ν.2.9+ψ.10 → ξ.4 → ω.8 →
+ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13). 9 implementation phases this
+session; v1.0 progress at 9 of 14 phases.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
@@ -24,7 +23,7 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 560 tests · 10/10 linter · 5 editions · 15,925 notes
+13 consoles · 577 tests · 10/10 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.

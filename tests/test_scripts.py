@@ -5931,6 +5931,125 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ψ.13 : design-system foundation --------------------
+
+
+class TestDesignSystem:
+    """ψ.13 — scripts/templates/_design.py is the canonical source for
+    button class strings, badges, status banners, header nav, and
+    empty/loading state markup. Each console template imports what
+    it needs and embeds via Python f-strings."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates import _design
+        cls.d = _design
+
+    # ---- Class-name token presence ----
+
+    def test_button_tokens_exist(self):
+        for tok in ("BTN_PRIMARY", "BTN_SECONDARY", "BTN_GHOST",
+                     "BTN_DANGER", "BTN_SMALL"):
+            v = getattr(self.d, tok, None)
+            assert isinstance(v, str) and v, f"{tok} missing or empty"
+
+    def test_badge_tokens_exist(self):
+        for tok in ("BADGE_REQUIRED", "BADGE_OPTIONAL", "BADGE_NEUTRAL"):
+            v = getattr(self.d, tok)
+            assert isinstance(v, str) and "rounded" in v
+
+    def test_card_tokens_exist(self):
+        assert "rounded-lg" in self.d.CARD_SECTION
+        assert "shadow-sm" in self.d.CARD_SECTION_PADDED
+
+    def test_status_class_tokens(self):
+        assert "blue" in self.d.STATUS_INFO
+        assert "emerald" in self.d.STATUS_SUCCESS
+        assert "amber" in self.d.STATUS_WARN
+        assert "red" in self.d.STATUS_ERROR
+
+    # ---- Console list ----
+
+    def test_consoles_list_complete(self):
+        # Every console known to scripts/web.py should appear here.
+        # The 13 consoles plus the editor at "/" — 14 entries.
+        routes = {r for r, _ in self.d.CONSOLES}
+        for expected in ("/", "/matrix", "/sources", "/export",
+                          "/customize", "/audit", "/publisher",
+                          "/wizard", "/diff", "/compare", "/covers",
+                          "/preflight", "/ops", "/apihelp"):
+            assert expected in routes, f"{expected} missing from CONSOLES"
+
+    def test_consoles_no_duplicates(self):
+        routes = [r for r, _ in self.d.CONSOLES]
+        assert len(routes) == len(set(routes)), "CONSOLES has duplicate routes"
+
+    # ---- HEADER_NAV builder ----
+
+    def test_header_nav_contains_every_console_link(self):
+        html = self.d.HEADER_NAV(current="/matrix")
+        for route, label in self.d.CONSOLES:
+            assert f'href="{route}"' in html
+            assert label in html
+
+    def test_header_nav_marks_current_with_font_semibold(self):
+        html = self.d.HEADER_NAV(current="/customize")
+        # The current console's link gets the "font-semibold" class
+        # (no underline = "you are here").
+        assert 'href="/customize" class="font-semibold"' in html
+        # Every other link gets the blue-link class.
+        assert 'href="/matrix" class="text-blue-600 hover:underline"' in html
+
+    def test_header_nav_with_no_current(self):
+        # current="" — every link is rendered as a normal blue link.
+        html = self.d.HEADER_NAV()
+        assert "font-semibold" not in html
+        for route, _ in self.d.CONSOLES:
+            assert f'href="{route}"' in html
+
+    # ---- STATUS_BANNER ----
+
+    def test_status_banner_info(self):
+        html = self.d.STATUS_BANNER("info", "Heads up.")
+        assert "blue" in html
+        assert "Heads up." in html
+
+    def test_status_banner_warn(self):
+        html = self.d.STATUS_BANNER("warn", "Careful.")
+        assert "amber" in html
+
+    def test_status_banner_error(self):
+        html = self.d.STATUS_BANNER("error", "Boom.")
+        assert "red" in html
+
+    def test_status_banner_hidden_flag(self):
+        html = self.d.STATUS_BANNER("info", "x", hidden=True)
+        assert "hidden" in html
+
+    def test_status_banner_rejects_unknown_kind(self):
+        try:
+            self.d.STATUS_BANNER("debug", "nope")
+        except ValueError as e:
+            assert "unknown status kind" in str(e)
+            return
+        assert False, "expected ValueError"
+
+    # ---- Placeholder states ----
+
+    def test_empty_state_default(self):
+        html = self.d.EMPTY_STATE()
+        assert "Nothing here yet" in html
+        assert "text-slate-400" in html
+
+    def test_empty_state_custom_label(self):
+        html = self.d.EMPTY_STATE("No editions in this canon.")
+        assert "No editions in this canon." in html
+
+    def test_loading_state_animates(self):
+        html = self.d.LOADING_STATE()
+        assert "animate-pulse" in html
+
+
 # ---------- Phase ψ.12 : matrix smoothness pass ----------------------
 
 

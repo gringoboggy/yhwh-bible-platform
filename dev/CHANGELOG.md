@@ -6,6 +6,95 @@
 
 ---
 
+## 2026-05-08 — session — ψ.13 design-system foundation (continuous-go batch 9)
+
+**Phases shipped:** ψ.13 (foundation; the 13-console migration sweep
+deferred as ψ.13.5).
+**Test delta:** +17 (560 → 577).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **`scripts/templates/_design.py`** (new, ~155 lines) — canonical
+  Python-side source for shared design-system tokens + builders.
+  No new runtime dependencies; templates import what they need
+  and embed via Python f-strings.
+- **CSS class-name tokens (15 total):**
+  - Buttons: `BTN_PRIMARY`, `BTN_SECONDARY`, `BTN_GHOST`,
+    `BTN_DANGER`, `BTN_SMALL`.
+  - Badges: `BADGE_REQUIRED`, `BADGE_OPTIONAL`, `BADGE_NEUTRAL`.
+  - Cards: `CARD_SECTION`, `CARD_SECTION_PADDED`.
+  - Inputs: `INPUT_TEXT`, `INPUT_SELECT`.
+  - Status: `STATUS_INFO`, `STATUS_SUCCESS`, `STATUS_WARN`,
+    `STATUS_ERROR`.
+- **`CONSOLES`** — single-source-of-truth list of `(route, label)`
+  for every console. Adding a new console becomes one entry here
+  + the route in `scripts/web.py`. The §6.2 cross-link invariant
+  linter still runs on the rendered output of `HEADER_NAV`.
+- **`HEADER_NAV(current=...)`** builder — produces the cross-link
+  nav block that all 13 consoles share today as inline duplicates.
+  Marks the current console with `font-semibold` (the visual "you
+  are here") and every other as a blue-link.
+- **`STATUS_BANNER(kind, message, hidden=False)`** — info / success
+  / warn / error banner builder. Validates `kind` against the four
+  known values; `hidden=True` opts in to a `hidden` class so JS
+  can show/hide later.
+- **`EMPTY_STATE(label)`** + **`LOADING_STATE(label)`** — small
+  placeholder builders so empty/loading panels look consistent
+  across consoles instead of each reinventing.
+- **+17 tests in `TestDesignSystem`** covering: every CSS token
+  exists and contains the expected utility class shape; CONSOLES
+  has every known route + no duplicates; HEADER_NAV contains every
+  console link with correct current-marking + with no current
+  marker when called bare; STATUS_BANNER for each kind; bad-kind
+  rejection; hidden flag; EMPTY_STATE default + custom label;
+  LOADING_STATE animates.
+
+What's deferred to ψ.13.5:
+
+- **Migrate the 13 console templates to use `_design.py`.** The
+  module is the foundation; the actual replacement of inline
+  `bg-blue-600 hover:bg-blue-700 ...` strings with `{BTN_PRIMARY}`
+  interpolations across 13 files is a separate phase with real
+  regression risk per file. Doing it inline here would have
+  meant 13 simultaneous template rewrites — better to ship the
+  foundation and migrate one console at a time as future
+  prettify phases (ψ.14, ψ.17) touch each surface.
+
+Notable decisions:
+
+- **Python-side tokens, not a CSS file.** The project's no-build-step
+  rule rules out a separate stylesheet-of-tokens pattern. Python
+  constants embedded in templates via f-strings is the closest
+  equivalent that keeps the existing pipeline.
+- **Builders return strings, not template fragments.** Every
+  builder returns a plain `str` of HTML. Templates concatenate via
+  f-strings; no new templating engine, no new escape semantics.
+  Caller is responsible for not interpolating untrusted content
+  (the §9 input-validation pattern + ξ.4 sanitizer cover those
+  paths upstream).
+- **`HEADER_NAV` accepts `current=""` for "no current marker."**
+  Useful for the editor (`/`) which historically has no nav
+  block, or for any future surface that wants the cross-link
+  list without the you-are-here highlighting.
+- **Tokens describe intent, not appearance.** `BTN_PRIMARY` not
+  `BTN_BLUE` — when a future theme refresh changes the
+  primary-button color, only this file changes. Same logic for
+  `BADGE_REQUIRED` vs `BADGE_GREY`, etc.
+
+Continuity pointers:
+
+- v1.0 progress: ψ.13 ✓. Net v1.0 todo: minus 1 → **9 of 14
+  phases done** (5 + corpus + desktop left).
+- ψ.13.5 (the 13-console migration sweep) is parked. ψ.14 (buyer-
+  arc polish) and ψ.17 (reader-EPUB polish) will use the new
+  tokens as they touch the relevant consoles.
+- Next continuous-go batch: ψ.14 buyer-arc polish (next-biggest
+  pre-v1.0 prettify item) OR pivot to ψ.8 cross-denom compare
+  apparatus (THE differentiator, ~2-3 sessions).
+
+---
+
 ## 2026-05-08 — session — ψ.12 matrix smoothness (continuous-go batch 8)
 
 **Phases shipped:** ψ.12 (partial — 4 of 7 sub-fixes; the rest deferred
