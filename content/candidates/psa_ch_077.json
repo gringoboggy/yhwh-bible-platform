@@ -1,0 +1,23 @@
+{
+  "book": "psa",
+  "chapter": 77,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "psa-77-11-001",
+      "verse": 11,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.595,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-psa-143-5\">Psa 143:5</a> · <a href=\"#vnote-psa-105-5\">Psa 105:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 19. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

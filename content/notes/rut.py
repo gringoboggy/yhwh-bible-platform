@@ -1,0 +1,232 @@
+"""
+Notes for The Book of Ruth (rut).
+
+Migrated to content/notes/ in the Phase-1 refactor (2026-05-05). This is the
+canonical home; legacy locations remain in place but should be considered frozen.
+
+Format (each tuple): (chapter, verse, suffix, anchor, kind, title, label, body_html [, attribution])
+The 9th field (attribution) is optional during the v28a-* migration; identifies
+the source / provenance of the note (e.g. "User original", "Strong's H7779 (PD)",
+"Paraphrase summarising Westermann, Genesis 1-11 (1984)"). After migration
+completes, validate_taxonomy.py will require it on every note.
+See content/kinds.yaml for legal `kind` values; content/books.yaml for id_prefix.
+"""
+
+NOTES = [
+    # ---- ch 1 ----
+    (
+        1,
+        1,
+        "",
+        "In the days when the judges judged",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>Ruth as counterweight to Judges.</strong> The book opens by anchoring itself to the same era as Judges — but its register is opposite: domestic, pastoral, quiet, ending in a marriage and a baby rather than civil war and a dismembered body. In the Jewish canon Ruth is one of the Five Megillot among the Writings (read on Shavuot, the harvest festival); in the Christian canon Ruth follows Judges, completing the Judges-era picture. The Megillot placement emphasizes Ruth’s liturgical and harvest themes; the Christian placement emphasizes the chronology and the bridge to David.",
+        'User original',
+    ),
+    (
+        1, 1, 'a', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-gen-12-10">Gen 12:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        1,
+        16,
+        "",
+        "Your people will be my people, and your God my God",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>Ruth’s declaration.</strong> One of the most-quoted lines in scripture, often used in Christian wedding liturgies though originally addressed by a daughter-in-law to a mother-in-law. The Moabite woman’s commitment is total: people, place, God, even burial ground. In rabbinic tradition Ruth’s declaration is taken as the paradigmatic conversion formula — an outsider who joins Israel by binding her fate to a particular family and to YHWH. Hesed (covenant loyalty) is the book’s central virtue, and Ruth embodies it: the foreigner outdoes the natives in covenantal fidelity.",
+        'User original',
+    ),
+    (
+        1, 16, 'a', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-2sa-15-21">2Sa 15:21</a> · <a href="#vnote-rut-2-11">Rut 2:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        1, 16, 'b', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-2sa-15-21">2Sa 15:21</a> · <a href="#vnote-rut-2-11">Rut 2:11</a> · <a href="#vnote-2ki-2-2">2Ki 2:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        2, 4, '', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-psa-129-7">Psa 129:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    # ---- ch 2 ----
+    (
+        2,
+        12,
+        "",
+        "under whose wings you have come to take refuge",
+        "word",
+        "Hebrew",
+        "Hebrew",
+        "<strong>Kanaf (<em>כָּנָף</em>) — “wing, corner of a garment.”</strong> The same word is used metaphorically here (refuge under God’s wings) and literally in 3:9 when Ruth asks Boaz to spread his <em>kanaf</em> over her — the marriage-protection idiom. The doubled use is intentional: Boaz invokes God’s sheltering wing in chapter 2; Ruth in chapter 3 invites Boaz to embody it. The book’s theological elegance is built on small verbal hooks like this.",
+        'User original',
+    ),
+    (
+        2, 12, 'a', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-psa-36-7">Psa 36:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        2, 12, 'b', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-psa-36-7">Psa 36:7</a> · <a href="#vnote-psa-91-4">Psa 91:4</a> · <a href="#vnote-psa-63-7">Psa 63:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        3, 1, '', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-rut-1-9">Rut 1:9</a> · <a href="#vnote-1ti-5-8">1Ti 5:8</a> · <a href="#vnote-psa-128-2">Psa 128:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    # ---- ch 3 ----
+    (
+        3,
+        9,
+        "",
+        "spread the corner of your garment over your servant",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The threshing-floor scene.</strong> The chapter is masterfully ambiguous. Naomi’s instructions (uncover his feet — possibly a euphemism — and lie down) and Ruth’s execution of them have invited centuries of debate about exactly what passes between Ruth and Boaz that night. The text is reticent on purpose: what matters is that Ruth, again, takes the initiative; Boaz, again, blesses her for <em>hesed</em>; and the narrative resolves toward marriage rather than scandal. The scene is one of the few in the Hebrew Bible where a woman engineers her own legal status with full agency, and the narrator reports it approvingly.",
+        'User original',
+    ),
+    (
+        3, 9, 'a', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-ezk-16-8">Ezk 16:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        3, 11, '', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-pro-31-29">Pro 31:29</a> · <a href="#vnote-pro-31-10">Pro 31:10</a> · <a href="#vnote-pro-12-4">Pro 12:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        3, 18, '', '',
+        'xref-citation', 'Cross-ref',
+        'Cite.',
+        '<strong>Cross-references.</strong> <a href="#vnote-psa-37-3">Psa 37:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
+        'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    # ---- ch 4 ----
+    (
+        4,
+        7,
+        "",
+        "a man took off his sandal",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The sandal transaction.</strong> The narrator pauses to explain a custom no longer current in his own day — “Now this was the custom in former time in Israel” — preserving an archaic legal procedure for the reader. The same custom appears in the leviratic obligation of Deut 25:5–10 in a more shaming form (the rejected widow removes the sandal of the brother who refuses to marry her, and spits in his face). Here the sandal is a quiet contractual seal, not a shaming gesture. The detail is one of the book’s many quiet markers of antiquity, suggesting a final composition some distance from the era it depicts.",
+        'User original',
+    ),
+    (
+        4,
+        17,
+        "",
+        "He is the father of Jesse, the father of David",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The David connection.</strong> The book’s most surprising move comes in its final five verses. The whole pastoral domestic narrative is revealed to have been about David’s great-grandmother — a Moabite woman whose people, by the strict reading of Deut 23:3, were excluded from the assembly of Yahweh. Yet she stands at the head of the Davidic line, and so (Matt 1:5) of Jesus’ genealogy. The book is making a quiet but radical theological argument: covenantal belonging is determined by <em>hesed</em>, not ancestry. The book’s placement at the threshold of the monarchy reframes everything that follows.",
+        'User original',
+    ),
+    # ---- expansion (May 2026) ----
+    (
+        2,
+        3,
+        "",
+        "she happened to come to the portion of the field belonging to Boaz",
+        "word",
+        "Hebrew",
+        "Hebrew",
+        "<strong>Vayiqer miqreha (<em>וַיִּקֶר</em> <em>מִקְרֶהָ</em>).</strong> A doubled root: literally “her chance chanced upon her.” The narrator’s tongue is in his cheek — what looks like coincidence in the field is, by the book’s end, the providential arc that will produce King David. The Hebrew flagrantly highlights the chance-language at exactly the moment the reader is meant to see through it. Rabbinic and Christian commentary both seize on this verse as a programmatic statement of hidden providence.",
+        'User original',
+    ),
+    (
+        2,
+        20,
+        "",
+        "one of our near kinsmen",
+        "word",
+        "Hebrew",
+        "Hebrew",
+        "<strong>Go’el (<em>גֹּאֵל</em>) — “redeemer, near kinsman.”</strong> The technical legal term first introduced here. The <em>go’el</em> is the male relative responsible for redeeming alienated property (Lev 25:25), avenging shed blood (Num 35:19), and — by extension — perpetuating a brother’s line (Deut 25:5–10). Naomi’s announcement that Boaz is <em>go’el</em> reframes the entire next two chapters as a legal drama. The same word becomes the dominant metaphor for God in Isaiah 40–55 — Yahweh as the kinsman-redeemer of exiled Israel.",
+        'User original',
+    ),
+    (
+        3,
+        12,
+        "",
+        "there is a  kinsman nearer than I",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The nearer kinsman.</strong> A narrative complication that exposes the legal stakes — Boaz cannot simply act on his own desire; the law has an order of precedence, and a closer relative has first refusal. The chapter ends in suspense; chapter 4 opens with the resolution. The careful legal procedure that follows is part of the book’s argument: hesed and law are not opposed, they reinforce each other. Boaz embodies covenantal kindness within the discipline of legal form.",
+        'User original',
+    ),
+    (
+        4,
+        1,
+        "",
+        "the gate",
+        "comm",
+        "Note",
+        "Note",
+        "<strong>The city gate as courtroom.</strong> The gate of an Israelite town was the standard place for legal transactions — its bench seats, public visibility, and ten-elder quorum (4:2) made it the equivalent of a court of record. Modern excavations at Iron Age sites (Beersheba, Dan, Gezer) have uncovered the multi-chambered gate complexes assumed by texts like this. Amos 5:15 (“establish justice in the gate”) takes the institution as so basic that it can stand for the entire judicial order.",
+        'User original',
+    ),
+        (
+        1, 16, 'm', '',
+        'comm-ethiopian', 'Note',
+        'Note',
+        '<strong>Ruth’s vow.</strong> One of the great speeches in scripture. A Moabite woman binds herself to her widowed Israelite mother-in-law in language that echoes covenant formulas: "your people will be my people; your God, my God." The verse has become foundational in conversion liturgies in many Jewish traditions — Ruth as the model proselyte. The Ethiopian Tewahedo and Eastern traditions read her as a paradigm of faithfulness across ethnic boundaries.',
+        'User original',
+    ),
+    (
+        2,
+        12,
+        "m",
+        "",
+        "comm",
+        "Note",
+        "Note",
+        """<strong>Wings of refuge.</strong> Boaz blesses Ruth using the image of God’s wings (<em>k’nafav</em>) — the metaphor that runs from Pss 17:8, 36:7, 57:1, 91:4 to Jesus’s lament over Jerusalem ("how often I would have gathered your children, as a hen gathers her chicks under her wings," Matt 23:37). The cherubim’s wings cover the ark; God’s presence is wing-shaped.""",
+        'User original',
+    ),
+    (
+        4,
+        13,
+        "m",
+        "",
+        "comm",
+        "Note",
+        "Note",
+        """<strong>The line of David.</strong> The closing genealogy (4:18–22) ties Ruth into the Davidic line and, through Matthew 1:5, into the line of Christ. Ruth is one of four women named in Matthew’s genealogy (with Tamar, Rahab, Bathsheba) — each carries a story of irregular sexuality or ethnic outsider status that yet becomes part of Israel’s salvation history. The book makes a quiet but radical theological claim: a Moabite great-grandmother sits in the Davidic line, and through her in the messianic line.""",
+        'User original',
+    ),
+]
+
+NOTES_RUT = NOTES  # backward-compat alias

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# ebible — repo-root wrapper for scripts/ebible.py
+# Symlink-friendly: works from any cwd inside the repo.
+set -e
+exec python3 "$(dirname "$(readlink -f "$0")")/scripts/ebible.py" "$@"

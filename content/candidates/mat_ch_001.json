@@ -1,0 +1,68 @@
+{
+  "book": "mat",
+  "chapter": 1,
+  "generated_at": "2026-05-08T14:31:42+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "mat-1-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.645,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-rom-1-3\">Rom 1:3</a> · <a href=\"#vnote-gen-22-18\">Gen 22:18</a> · <a href=\"#vnote-gal-3-16\">Gal 3:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 29. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mat-1-18-002",
+      "verse": 18,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-gal-4-4\">Gal 4:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 24. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mat-1-21-003",
+      "verse": 21,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.78,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-act-13-23\">Act 13:23</a> · <a href=\"#vnote-act-4-12\">Act 4:12</a> · <a href=\"#vnote-jhn-1-29\">Jhn 1:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 56. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mat-1-23-004",
+      "verse": 23,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-isa-7-14\">Isa 7:14</a> · <a href=\"#vnote-isa-9-6\">Isa 9:6</a> · <a href=\"#vnote-psa-46-11\">Psa 46:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 180. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "book": "mrk",
+  "chapter": 5,
+  "generated_at": "2026-05-08T14:31:42+00:00",
+  "n_candidates": 5,
+  "candidates": [
+    {
+      "id": "mrk-5-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.605,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-luk-8-26\">Luk 8:26</a> · <a href=\"#vnote-mat-8-28\">Mat 8:28</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 21. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-5-19-002",
+      "verse": 19,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.58,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-psa-66-16\">Psa 66:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 16. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-5-25-003",
+      "verse": 25,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-lev-15-25\">Lev 15:25</a> · <a href=\"#vnote-luk-8-43\">Luk 8:43</a> · <a href=\"#vnote-mat-9-20\">Mat 9:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 24. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-5-34-004",
+      "verse": 34,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.63,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-luk-8-48\">Luk 8:48</a> · <a href=\"#vnote-mat-9-22\">Mat 9:22</a> · <a href=\"#vnote-luk-7-50\">Luk 7:50</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 26. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-5-36-005",
+      "verse": 36,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.615,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-luk-8-50\">Luk 8:50</a> · <a href=\"#vnote-mat-9-28\">Mat 9:28</a> · <a href=\"#vnote-jhn-11-40\">Jhn 11:40</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 23. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

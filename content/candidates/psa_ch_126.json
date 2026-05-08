@@ -1,0 +1,68 @@
+{
+  "book": "psa",
+  "chapter": 126,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "psa-126-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.625,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-hos-6-11\">Hos 6:11</a> · <a href=\"#vnote-jol-3-1\">Jol 3:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 25. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-126-3-002",
+      "verse": 3,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.58,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-luk-1-49\">Luk 1:49</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 16. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-126-5-003",
+      "verse": 5,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.73,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-gal-6-9\">Gal 6:9</a> · <a href=\"#vnote-isa-35-10\">Isa 35:10</a> · <a href=\"#vnote-jhn-16-20\">Jhn 16:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 46. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-126-6-004",
+      "verse": 6,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.585,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-gal-6-7\">Gal 6:7</a> · <a href=\"#vnote-isa-9-2\">Isa 9:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 17. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

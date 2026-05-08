@@ -1,0 +1,53 @@
+{
+  "book": "act",
+  "chapter": 5,
+  "generated_at": "2026-05-08T14:31:38+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "act-5-29-001",
+      "verse": 29,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.67,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-act-4-19\">Act 4:19</a> · <a href=\"#vnote-1sa-15-24\">1Sa 15:24</a> · <a href=\"#vnote-mrk-7-7\">Mrk 7:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 34. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "act-5-39-002",
+      "verse": 39,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.615,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-pro-21-30\">Pro 21:30</a> · <a href=\"#vnote-isa-46-10\">Isa 46:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 23. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "act-5-41-003",
+      "verse": 41,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.6,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-jas-1-2\">Jas 1:2</a> · <a href=\"#vnote-1pe-4-13\">1Pe 4:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 20. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

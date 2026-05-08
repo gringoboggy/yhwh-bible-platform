@@ -1,0 +1,38 @@
+{
+  "book": "est",
+  "chapter": 7,
+  "generated_at": "2026-05-08T14:38:35+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "est-7-5-001",
+      "verse": 5,
+      "kind": "lang-hebrew",
+      "anchor": "heart",
+      "confidence": 0.65,
+      "source_name": "H3820",
+      "source_attribution": "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "est-7-9-002",
+      "verse": 9,
+      "kind": "lang-hebrew",
+      "anchor": "good",
+      "confidence": 0.65,
+      "source_name": "H2896",
+      "source_attribution": "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    }
+  ]
+}

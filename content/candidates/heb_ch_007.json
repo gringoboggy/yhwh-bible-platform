@@ -1,0 +1,68 @@
+{
+  "book": "heb",
+  "chapter": 7,
+  "generated_at": "2026-05-08T14:31:40+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "heb-7-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.605,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-gen-14-18\">Gen 14:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 21. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-7-17-002",
+      "verse": 17,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.575,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-psa-110-4\">Psa 110:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 15. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-7-21-003",
+      "verse": 21,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.605,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-psa-110-4\">Psa 110:4</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 21. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-7-25-004",
+      "verse": 25,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.76,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-rom-8-34\">Rom 8:34</a> · <a href=\"#vnote-1jn-2-1\">1Jn 2:1</a> · <a href=\"#vnote-1ti-2-5\">1Ti 2:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 52. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "book": "2jn",
+  "chapter": 1,
+  "generated_at": "2026-05-08T14:31:38+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "2jn-1-6-001",
+      "verse": 6,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.63,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-1jn-5-3\">1Jn 5:3</a> · <a href=\"#vnote-jhn-15-10\">Jhn 15:10</a> · <a href=\"#vnote-1jn-2-24\">1Jn 2:24</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 26. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "2jn-1-8-002",
+      "verse": 8,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.6,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-heb-10-35\">Heb 10:35</a> · <a href=\"#vnote-rev-3-11\">Rev 3:11</a> · <a href=\"#vnote-1co-3-14\">1Co 3:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 20. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "2jn-1-9-003",
+      "verse": 9,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.625,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-jhn-7-16\">Jhn 7:16</a> · <a href=\"#vnote-col-3-16\">Col 3:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 25. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "2jn-1-10-004",
+      "verse": 10,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.585,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-tit-3-10\">Tit 3:10</a> · <a href=\"#vnote-rom-16-17\">Rom 16:17</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 17. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+# categories.yaml — top-level groupings of annotation kinds.
+#
+# Each category bundles a family of related kinds. The category provides:
+#   * symbol — the inline marker glyph (shared by all kinds in the family)
+#   * label  — short human-readable category name
+#   * description — for authoring guidance
+#   * sort_order — display order in the UI / dashboard
+#
+# Edition profiles in editions.yaml can include or exclude entire categories.
+# Sub-kind differentiation (e.g. Patristic vs Rabbinic within `comm`) happens
+# via per-kind CSS classes and tooltips, not separate symbols.
+
+categories:
+  - id: lang
+    label: "Linguistic"
+    symbol: "⌘"
+    description: "Original-language word studies, grammar, translation choices"
+    sort_order: 1
+
+  - id: text
+    label: "Textual / Critical"
+    symbol: "✧"
+    description: "Variant readings, manuscript witnesses, scribal traditions"
+    sort_order: 2
+
+  - id: xref
+    label: "Cross-references"
+    symbol: "‖"
+    description: "Internal parallels, OT-in-NT citations, allusions, echoes"
+    sort_order: 3
+
+  - id: hist
+    label: "Historical / Cultural"
+    symbol: "⌂"
+    description: "ANE parallels, Greco-Roman context, geography, archaeology"
+    sort_order: 4
+
+  - id: lit
+    label: "Literary"
+    symbol: "⌇"
+    description: "Structure, source / form / redaction / narrative criticism"
+    sort_order: 5
+
+  - id: comm
+    label: "Commentary / Tradition"
+    symbol: "◇"
+    description: "Interpretive readings from Patristic, Rabbinic, Reformation, modern, and other traditions"
+    sort_order: 6
+
+  - id: compare
+    label: "Comparative Religion"
+    symbol: "☩"
+    description: "Pseudepigraphic, Quranic, Gnostic, and other religious-text parallels"
+    sort_order: 7
+
+  - id: dev
+    label: "Devotional / Applied"
+    symbol: "✶"
+    description: "Spiritual reading, prayer prompts, meditation, life application"
+    sort_order: 8
+
+  - id: liturgy
+    label: "Liturgical"
+    symbol: "☧"
+    description: "Christian-year, Torah-portion, Ethiopian Tewahedo, sacramental use"
+    sort_order: 9
+
+  - id: apol
+    label: "Apologetic"
+    symbol: "⚖"
+    description: "Harmonization, alleged contradictions, historicity, inerrancy"
+    sort_order: 10
+
+  - id: modern
+    label: "Modern Issues"
+    symbol: "⊛"
+    description: "Ethics, science and faith, gender / sexuality, contemporary application"
+    sort_order: 11
+
+  - id: ped
+    label: "Pedagogical"
+    symbol: "◯"
+    description: "Summary statements, hard-passage flags, memory verses, outlines"
+    sort_order: 12
+
+  - id: vis
+    label: "Visual / Media"
+    symbol: "❑"
+    description: "Maps, genealogies, charts, diagrams"
+    sort_order: 13
+
+  - id: dist
+    label: "Edition-Distinctive"
+    symbol: "❖"
+    description: "Mariological, typological, allegorical, mystical, saints — readings characteristic of specific traditions"
+    sort_order: 14
+
+  - id: topic
+    label: "Topical"
+    symbol: "✦"
+    description: "Topical-concordance groupings: every verse on a theme (faith, prayer, judgement, names of God, etc.). Phase χ.7."
+    sort_order: 15

@@ -1,0 +1,23 @@
+{
+  "book": "psa",
+  "chapter": 111,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "psa-111-10-001",
+      "verse": 10,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.65,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-pro-1-7\">Pro 1:7</a> · <a href=\"#vnote-pro-9-10\">Pro 9:10</a> · <a href=\"#vnote-job-28-28\">Job 28:28</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 30. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

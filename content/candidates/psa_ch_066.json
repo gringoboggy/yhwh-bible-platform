@@ -1,0 +1,38 @@
+{
+  "book": "psa",
+  "chapter": 66,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "psa-66-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.58,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-1ch-16-23\">1Ch 16:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 16. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-66-18-002",
+      "verse": 18,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.685,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-jhn-9-31\">Jhn 9:31</a> · <a href=\"#vnote-pro-28-9\">Pro 28:9</a> · <a href=\"#vnote-pro-15-29\">Pro 15:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 37. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

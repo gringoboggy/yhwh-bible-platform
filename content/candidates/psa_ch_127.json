@@ -1,0 +1,53 @@
+{
+  "book": "psa",
+  "chapter": 127,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "psa-127-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-pro-16-9\">Pro 16:9</a> · <a href=\"#vnote-1co-3-7\">1Co 3:7</a> · <a href=\"#vnote-pro-21-30\">Pro 21:30</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 130. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-127-2-002",
+      "verse": 2,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-ecc-5-12\">Ecc 5:12</a> · <a href=\"#vnote-psa-4-8\">Psa 4:8</a> · <a href=\"#vnote-job-11-18\">Job 11:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 24. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-127-3-003",
+      "verse": 3,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.71,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-psa-128-3\">Psa 128:3</a> · <a href=\"#vnote-deu-28-4\">Deu 28:4</a> · <a href=\"#vnote-1sa-1-27\">1Sa 1:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 42. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

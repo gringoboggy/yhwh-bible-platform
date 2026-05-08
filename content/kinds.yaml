@@ -1,0 +1,721 @@
+# kinds.yaml v2 — registry of commentary note kinds.
+#
+# Each kind has:
+#   code         — short stable identifier used in note tuples
+#   category     — id from categories.yaml (lang, text, xref, hist, lit, comm,
+#                  compare, dev, liturgy, apol, modern, ped, vis, dist)
+#   symbol       — inline marker glyph (default: inherits from category)
+#   note_class   — CSS class for the rendered <aside> body
+#   marker_class — CSS class for the inline marker
+#   label        — short label shown next to the marker
+#   title_attr   — HTML title= attribute / hover tooltip
+#   description  — author-facing guidance: when to use this kind
+#   phase        — "legacy" | "mvp" | "phase2" | "phase3"
+#
+# Legacy codes (word, comm, source, parallel) are preserved verbatim for
+# backward compatibility with the existing 1,371 notes. New kinds use
+# category-prefixed codes (lang-hebrew, comm-patristic, etc.).
+#
+# Authors can use either form: `comm` for a generic note, `comm-patristic`
+# when the note specifically represents a patristic-tradition reading.
+
+kinds:
+  # ──────────────────────────────────────────────────────────────────
+  # LANGUAGE  ⌘
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: word
+    category: lang
+    symbol: "⌘"
+    note_class: "note-word"
+    marker_class: "marker-word"
+    label: "Hebrew"
+    title_attr: "Hebrew"
+    description: "Legacy generic Hebrew word study. New notes prefer lang-hebrew."
+    phase: legacy
+
+  - code: lang-hebrew
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-hebrew"
+    marker_class: "marker-lang-hebrew"
+    label: "Hebrew"
+    title_attr: "Hebrew word study"
+    description: "Hebrew lexical, semantic, or root-level discussion."
+    phase: mvp
+
+  - code: lang-greek
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-greek"
+    marker_class: "marker-lang-greek"
+    label: "Greek"
+    title_attr: "Greek word study"
+    description: "Greek lexical or semantic discussion (NT, LXX, Apocrypha)."
+    phase: mvp
+
+  - code: lang-aramaic
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-aramaic"
+    marker_class: "marker-lang-aramaic"
+    label: "Aramaic"
+    title_attr: "Aramaic word study"
+    description: "Aramaic in Daniel, Ezra, and elsewhere."
+    phase: mvp
+
+  - code: lang-geez
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-geez"
+    marker_class: "marker-lang-geez"
+    label: "Ge'ez"
+    title_attr: "Ge'ez word study"
+    description: "Ethiopian classical-language discussion. Critical for the Ethiopian Tewahedo edition."
+    phase: mvp
+
+  - code: lang-grammar
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-grammar"
+    marker_class: "marker-lang-grammar"
+    label: "Grammar"
+    title_attr: "Grammatical observation"
+    description: "Verb forms, syntax, mood, voice — when grammar shapes meaning."
+    phase: phase2
+
+  - code: lang-translation
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-translation"
+    marker_class: "marker-lang-translation"
+    label: "Rendering"
+    title_attr: "Translation choice"
+    description: "Why the WEB renders this phrase the way it does; alternative renderings."
+    phase: phase2
+
+  - code: lang-latin
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-latin"
+    marker_class: "marker-lang-latin"
+    label: "Latin"
+    title_attr: "Latin word study"
+    description: "Vulgate rendering or Latin lexical/theological discussion. Important for the Catholic edition and Western textual tradition."
+    phase: phase2
+
+  - code: lang-syriac
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-syriac"
+    marker_class: "marker-lang-syriac"
+    label: "Syriac"
+    title_attr: "Syriac word study"
+    description: "Peshitta rendering or Syriac lexical discussion. Eastern Christian textual tradition; relevant alongside Ethiopic for non-Greek/non-Latin readings."
+    phase: phase2
+
+  - code: lang-amharic
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-amharic"
+    marker_class: "marker-lang-amharic"
+    label: "Amharic"
+    title_attr: "Amharic word study"
+    description: "Modern Ethiopian commentary tradition (Andemta), often Amharic rendering of Ge'ez. Distinctive for the Ethiopian Tewahedo edition."
+    phase: mvp
+
+  - code: lang-arabic
+    category: lang
+    symbol: "⌘"
+    note_class: "note-lang-arabic"
+    marker_class: "marker-lang-arabic"
+    label: "Arabic"
+    title_attr: "Arabic word study"
+    description: "Christian Arabic textual tradition or Qur'anic comparative reference. Useful for medieval Eastern Christian sources and comparative-religion notes."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # TEXTUAL CRITICISM  ✧
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: source
+    category: text
+    symbol: "✧"
+    note_class: "note-source"
+    marker_class: "marker-source"
+    label: "Variant"
+    title_attr: "Variant"
+    description: "Legacy generic variant reading. Preserved for backward compat."
+    phase: legacy
+
+  - code: text-dss
+    category: text
+    symbol: "✧"
+    note_class: "note-text-dss"
+    marker_class: "marker-text-dss"
+    label: "DSS"
+    title_attr: "Dead Sea Scrolls variant"
+    description: "Where Qumran witnesses differ from MT/LXX — esp. 1QIsaa, 4QSama, etc."
+    phase: mvp
+
+  - code: text-lxx
+    category: text
+    symbol: "✧"
+    note_class: "note-text-lxx"
+    marker_class: "marker-text-lxx"
+    label: "LXX"
+    title_attr: "Septuagint variant"
+    description: "LXX rendering differs from MT — translation choice or different Vorlage."
+    phase: mvp
+
+  - code: text-samaritan
+    category: text
+    symbol: "✧"
+    note_class: "note-text-samaritan"
+    marker_class: "marker-text-samaritan"
+    label: "SamPent"
+    title_attr: "Samaritan Pentateuch"
+    description: "Samaritan-Pentateuch variant readings — relevant in Pentateuch only."
+    phase: phase2
+
+  - code: text-ethiopic
+    category: text
+    symbol: "✧"
+    note_class: "note-text-ethiopic"
+    marker_class: "marker-text-ethiopic"
+    label: "Ethiopic"
+    title_attr: "Ethiopic textual tradition"
+    description: "Distinctive readings of the Ge'ez Bible (often preserves older LXX traditions)."
+    phase: mvp
+
+  - code: text-conjecture
+    category: text
+    symbol: "✧"
+    note_class: "note-text-conjecture"
+    marker_class: "marker-text-conjecture"
+    label: "Emend."
+    title_attr: "Conjectural emendation"
+    description: "Where modern editors propose an emendation against all witnesses."
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # CROSS-REFERENCES  ‖
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: parallel
+    category: xref
+    symbol: "‖"
+    note_class: "note-parallel"
+    marker_class: "marker-parallel"
+    label: "Parallel"
+    title_attr: "Parallel passage"
+    description: "Internal Bible parallel — same event, doublet, or thematic echo."
+    phase: legacy
+
+  - code: xref-citation
+    category: xref
+    symbol: "‖"
+    note_class: "note-xref-citation"
+    marker_class: "marker-xref-citation"
+    label: "Cite"
+    title_attr: "Direct citation"
+    description: "Explicit quotation — typically OT in NT (with introductory formula)."
+    phase: mvp
+
+  - code: xref-allusion
+    category: xref
+    symbol: "‖"
+    note_class: "note-xref-allusion"
+    marker_class: "marker-xref-allusion"
+    label: "Allude"
+    title_attr: "Allusion / echo"
+    description: "Allusion or echo (no introductory formula). Hays-style intertextuality."
+    phase: mvp
+
+  - code: xref-inner-biblical
+    category: xref
+    symbol: "‖"
+    note_class: "note-xref-inner-biblical"
+    marker_class: "marker-xref-inner-biblical"
+    label: "Inner-bib."
+    title_attr: "Inner-biblical exegesis"
+    description: "One biblical text reusing or reinterpreting another (e.g. Chr referring to Sam-Kgs)."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # HISTORICAL / CULTURAL  ⌂
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: hist-ane
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-ane"
+    marker_class: "marker-hist-ane"
+    label: "ANE"
+    title_attr: "Ancient Near Eastern parallel"
+    description: "Mesopotamian, Ugaritic, Egyptian, Hittite parallels in myth, law, ritual."
+    phase: mvp
+
+  - code: hist-greco-roman
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-greco-roman"
+    marker_class: "marker-hist-greco-roman"
+    label: "Greco-Rom."
+    title_attr: "Greco-Roman context"
+    description: "Greco-Roman background for NT, late-prophetic, and apocalyptic texts."
+    phase: phase2
+
+  - code: hist-geographic
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-geographic"
+    marker_class: "marker-hist-geographic"
+    label: "Place"
+    title_attr: "Geography"
+    description: "Where is this place? Modern site? Significance?"
+    phase: mvp
+
+  - code: hist-person
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-person"
+    marker_class: "marker-hist-person"
+    label: "Person"
+    title_attr: "Biblical person"
+    description: "Identity, characterization, or historical-context note on a biblical person."
+    phase: mvp
+
+  - code: hist-archaeological
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-archaeological"
+    marker_class: "marker-hist-archaeological"
+    label: "Archaeo."
+    title_attr: "Archaeological evidence"
+    description: "Material evidence — inscriptions, ostraca, excavation data."
+    phase: phase2
+
+  - code: hist-cultural
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-cultural"
+    marker_class: "marker-hist-cultural"
+    label: "Culture"
+    title_attr: "Custom / material culture"
+    description: "Customs, dress, food, kinship, slavery, marriage, agriculture."
+    phase: mvp
+
+  - code: hist-chronology
+    category: hist
+    symbol: "⌂"
+    note_class: "note-hist-chronology"
+    marker_class: "marker-hist-chronology"
+    label: "Chrono."
+    title_attr: "Chronology / dating"
+    description: "Dating, regnal years, synchronisms, calendar systems."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # LITERARY  ⌇
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: lit-chiasm
+    category: lit
+    symbol: "⌇"
+    note_class: "note-lit-chiasm"
+    marker_class: "marker-lit-chiasm"
+    label: "Chiasm"
+    title_attr: "Chiastic / structural"
+    description: "Chiasms, inclusios, panel structures, recurrence patterns."
+    phase: mvp
+
+  - code: lit-narrative
+    category: lit
+    symbol: "⌇"
+    note_class: "note-lit-narrative"
+    marker_class: "marker-lit-narrative"
+    label: "Narrative"
+    title_attr: "Narrative criticism"
+    description: "Characterization, plot, pacing, point of view, narrative gaps."
+    phase: mvp
+
+  - code: lit-genre
+    category: lit
+    symbol: "⌇"
+    note_class: "note-lit-genre"
+    marker_class: "marker-lit-genre"
+    label: "Genre"
+    title_attr: "Genre / form"
+    description: "Genre identification — covenant treaty, lament psalm, parable, etc."
+    phase: phase2
+
+  - code: lit-source
+    category: lit
+    symbol: "⌇"
+    note_class: "note-lit-source"
+    marker_class: "marker-lit-source"
+    label: "Source-crit."
+    title_attr: "Source criticism"
+    description: "JEDP, two-source hypothesis, redactional layers."
+    phase: phase2
+
+  - code: lit-poetry
+    category: lit
+    symbol: "⌇"
+    note_class: "note-lit-poetry"
+    marker_class: "marker-lit-poetry"
+    label: "Poetry"
+    title_attr: "Poetic device"
+    description: "Parallelism, meter, wordplay, acrostic, alliteration."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # COMMENTARY / TRADITION  ◇
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: comm
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm"
+    marker_class: "marker-comm"
+    label: "Note"
+    title_attr: "Note"
+    description: "Legacy generic commentary. New notes prefer a specific tradition tag."
+    phase: legacy
+
+  - code: comm-patristic
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-patristic"
+    marker_class: "marker-comm-patristic"
+    label: "Patristic"
+    title_attr: "Patristic interpretation"
+    description: "Augustine, Origen, Chrysostom, Basil, Jerome, etc."
+    phase: mvp
+
+  - code: comm-rabbinic
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-rabbinic"
+    marker_class: "marker-comm-rabbinic"
+    label: "Rabbinic"
+    title_attr: "Rabbinic interpretation"
+    description: "Talmud, Midrash Rabbah, Rashi, Maimonides, Targumim."
+    phase: mvp
+
+  - code: comm-orthodox
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-orthodox"
+    marker_class: "marker-comm-orthodox"
+    label: "Orthodox"
+    title_attr: "Eastern Orthodox interpretation"
+    description: "Greek/Russian/Ethiopian Orthodox theological readings."
+    phase: phase2
+
+  - code: comm-catholic
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-catholic"
+    marker_class: "marker-comm-catholic"
+    label: "Catholic"
+    title_attr: "Roman Catholic interpretation"
+    description: "Magisterial readings, papal documents, Catholic biblical commission."
+    phase: phase2
+
+  - code: comm-reformation
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-reformation"
+    marker_class: "marker-comm-reformation"
+    label: "Reformation"
+    title_attr: "Reformation-era interpretation"
+    description: "Luther, Calvin, Zwingli, Anabaptist readings."
+    phase: phase2
+
+  - code: comm-modern-critical
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-modern-critical"
+    marker_class: "marker-comm-modern-critical"
+    label: "Modern"
+    title_attr: "Modern critical scholarship"
+    description: "Westermann, Wenham, Brueggemann, von Rad, Childs, etc."
+    phase: mvp
+
+  - code: comm-ethiopian
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-ethiopian"
+    marker_class: "marker-comm-ethiopian"
+    label: "Ethiopian"
+    title_attr: "Ethiopian Tewahedo tradition"
+    description: "Distinctively Ethiopian readings — Andemta commentary, Synaxarium, Fetha Nagast."
+    phase: mvp
+
+  - code: comm-contextual
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-contextual"
+    marker_class: "marker-comm-contextual"
+    label: "Contextual"
+    title_attr: "Contextual hermeneutics"
+    description: "Liberation, feminist, womanist, postcolonial readings."
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # COMPARATIVE RELIGION  ☩
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: compare-pseudepigrapha
+    category: compare
+    symbol: "☩"
+    note_class: "note-compare-pseudepigrapha"
+    marker_class: "marker-compare-pseudepigrapha"
+    label: "Pseud."
+    title_attr: "Pseudepigraphic / Second Temple parallel"
+    description: "1 Enoch, Jubilees, 4 Ezra, 2 Baruch, Apoc. of Abraham. Critical for Ethiopian Tewahedo edition."
+    phase: mvp
+
+  - code: compare-quran
+    category: compare
+    symbol: "☩"
+    note_class: "note-compare-quran"
+    marker_class: "marker-compare-quran"
+    label: "Qur'an"
+    title_attr: "Qur'anic parallel"
+    description: "Where the Qur'an narrates / interprets the same person or event."
+    phase: phase2
+
+  - code: compare-nag-hammadi
+    category: compare
+    symbol: "☩"
+    note_class: "note-compare-nag-hammadi"
+    marker_class: "marker-compare-nag-hammadi"
+    label: "Gnostic"
+    title_attr: "Gnostic / Nag Hammadi parallel"
+    description: "Gospel of Thomas, Apocryphon of John, etc."
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # DEVOTIONAL / APPLIED  ✶
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: dev-application
+    category: dev
+    symbol: "✶"
+    note_class: "note-dev-application"
+    marker_class: "marker-dev-application"
+    label: "Apply"
+    title_attr: "Life application"
+    description: "How this passage has been applied in Christian / devotional life."
+    phase: phase2
+
+  - code: dev-prayer
+    category: dev
+    symbol: "✶"
+    note_class: "note-dev-prayer"
+    marker_class: "marker-dev-prayer"
+    label: "Prayer"
+    title_attr: "Prayer prompt"
+    description: "Prayer prompt drawn from the passage — for devotional editions."
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # LITURGICAL  ☧
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: liturgy-ethiopian
+    category: liturgy
+    symbol: "☧"
+    note_class: "note-liturgy-ethiopian"
+    marker_class: "marker-liturgy-ethiopian"
+    label: "Eth.lit."
+    title_attr: "Ethiopian Tewahedo liturgical use"
+    description: "Synaxarium readings, Ge'ez calendar, Tewahedo lectionary placement."
+    phase: mvp
+
+  - code: liturgy-christian-year
+    category: liturgy
+    symbol: "☧"
+    note_class: "note-liturgy-christian-year"
+    marker_class: "marker-liturgy-christian-year"
+    label: "Lit.yr."
+    title_attr: "Christian liturgical year"
+    description: "Western lectionary placements (RCL, Catholic, Orthodox)."
+    phase: phase2
+
+  - code: liturgy-torah-portion
+    category: liturgy
+    symbol: "☧"
+    note_class: "note-liturgy-torah-portion"
+    marker_class: "marker-liturgy-torah-portion"
+    label: "Parashah"
+    title_attr: "Torah portion / Haftarah"
+    description: "Jewish parashot weekly cycle, Haftarah pairings."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # APOLOGETIC  ⚖
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: apol-harmonization
+    category: apol
+    symbol: "⚖"
+    note_class: "note-apol-harmonization"
+    marker_class: "marker-apol-harmonization"
+    label: "Harmoniz."
+    title_attr: "Harmonization"
+    description: "Reconciles apparent contradiction with other passages."
+    phase: phase2
+
+  - code: apol-difficulty
+    category: apol
+    symbol: "⚖"
+    note_class: "note-apol-difficulty"
+    marker_class: "marker-apol-difficulty"
+    label: "Difficulty"
+    title_attr: "Alleged contradiction"
+    description: "Addresses an alleged difficulty or contradiction directly."
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # MODERN ISSUES  ⊛
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: modern-ethics
+    category: modern
+    symbol: "⊛"
+    note_class: "note-modern-ethics"
+    marker_class: "marker-modern-ethics"
+    label: "Ethics"
+    title_attr: "Ethical / moral issue"
+    description: "War, slavery, sexuality, gender — contemporary ethical engagement."
+    phase: phase2
+
+  - code: modern-science
+    category: modern
+    symbol: "⊛"
+    note_class: "note-modern-science"
+    marker_class: "marker-modern-science"
+    label: "Science"
+    title_attr: "Science and faith"
+    description: "Cosmology, evolution, age of universe, miracle, intelligent design."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # PEDAGOGICAL  ◯
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: ped-summary
+    category: ped
+    symbol: "◯"
+    note_class: "note-ped-summary"
+    marker_class: "marker-ped-summary"
+    label: "Summary"
+    title_attr: "Section summary"
+    description: "Summary statement of a passage's argument or narrative."
+    phase: phase3
+
+  - code: ped-difficulty
+    category: ped
+    symbol: "◯"
+    note_class: "note-ped-difficulty"
+    marker_class: "marker-ped-difficulty"
+    label: "Hard"
+    title_attr: "Hard passage"
+    description: "Marker that this passage is traditionally difficult; signals 'read carefully.'"
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # EDITION-DISTINCTIVE  ❖
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: dist-typological
+    category: dist
+    symbol: "❖"
+    note_class: "note-dist-typological"
+    marker_class: "marker-dist-typological"
+    label: "Type"
+    title_attr: "Christological / typological reading"
+    description: "OT figure read as type of Christ. Standard in patristic and evangelical traditions."
+    phase: phase2
+
+  - code: dist-allegorical
+    category: dist
+    symbol: "❖"
+    note_class: "note-dist-allegorical"
+    marker_class: "marker-dist-allegorical"
+    label: "Allegory"
+    title_attr: "Allegorical reading"
+    description: "Medieval-style allegorical interpretation (Origen, Cassian, four senses)."
+    phase: phase3
+
+  - code: dist-mariological
+    category: dist
+    symbol: "❖"
+    note_class: "note-dist-mariological"
+    marker_class: "marker-dist-mariological"
+    label: "Marian"
+    title_attr: "Marian reading"
+    description: "Marian typology / devotion. Catholic, Orthodox, Ethiopian Tewahedo editions."
+    phase: phase2
+
+  - code: dist-mystical
+    category: dist
+    symbol: "❖"
+    note_class: "note-dist-mystical"
+    marker_class: "marker-dist-mystical"
+    label: "Mystical"
+    title_attr: "Mystical / contemplative reading"
+    description: "Mystical / contemplative tradition — Pseudo-Dionysius, Eckhart, John of the Cross."
+    phase: phase3
+
+  # ──────────────────────────────────────────────────────────────────
+  # VISUAL / MEDIA  ❑
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: vis-map
+    category: vis
+    symbol: "❑"
+    note_class: "note-vis-map"
+    marker_class: "marker-vis-map"
+    label: "Map"
+    title_attr: "Map"
+    description: "Embedded map — geographic context, journey routes, regional borders."
+    phase: phase2
+
+  - code: vis-genealogy
+    category: vis
+    symbol: "❑"
+    note_class: "note-vis-genealogy"
+    marker_class: "marker-vis-genealogy"
+    label: "Genealogy"
+    title_attr: "Genealogy chart"
+    description: "Genealogical chart — Adam to Noah, patriarchs, Davidic line, Jesus' lineage."
+    phase: phase2
+
+  - code: vis-chart
+    category: vis
+    symbol: "❑"
+    note_class: "note-vis-chart"
+    marker_class: "marker-vis-chart"
+    label: "Chart"
+    title_attr: "Chart / table"
+    description: "Tabular chart — chronologies, kings of Israel/Judah, Pauline timeline."
+    phase: phase2
+
+  # ──────────────────────────────────────────────────────────────────
+  # TOPICAL  ✦   (phase χ.7 — Nave's Topical and successors)
+  # ──────────────────────────────────────────────────────────────────
+
+  - code: topic-nave
+    category: topic
+    symbol: "✦"
+    note_class: "note-topic-nave"
+    marker_class: "marker-topic-nave"
+    label: "Topic"
+    title_attr: "Nave's Topical Bible — topics this verse appears under"
+    description: "Topical groupings drawn from Nave's Topical Bible (1896, PD). One verse appears under multiple topics; the candidate aggregates the top topics."
+    phase: phase2

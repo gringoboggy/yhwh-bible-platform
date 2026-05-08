@@ -1,0 +1,930 @@
+# books.yaml — single source of truth for the 87-book Ethiopian Tewahedo canon.
+# Generated from kings_session/book_meta.py + source_archive/add_commentary.py BOOK_META,
+# patched with the corrected b41/b45/b46/b47 metadata for lje/paz/sus/bel.
+#
+# Edit here; downstream scripts read from this file.
+
+books:
+  - code: gen
+    title: "The First Book of Moses, Genesis"
+    bxx: "b00"
+    bp: "bp-00"
+    next_bp: "bp-01"
+    ch_count: 50
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "g"
+    files:
+      - "index_split_000.html"
+      - "index_split_001.html"
+      - "index_split_002.html"
+
+  - code: exo
+    title: "The Second Book of Moses, Exodus"
+    bxx: "b01"
+    bp: "bp-01"
+    next_bp: "bp-02"
+    ch_count: 40
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "e"
+    files:
+      - "index_split_003.html"
+      - "index_split_004.html"
+      - "index_split_005.html"
+
+  - code: lev
+    title: "The Third Book of Moses, Leviticus"
+    bxx: "b02"
+    bp: "bp-02"
+    next_bp: "bp-03"
+    ch_count: 27
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "l"
+    files:
+      - "index_split_005.html"
+      - "index_split_006.html"
+
+  - code: num
+    title: "The Fourth Book of Moses, Numbers"
+    bxx: "b03"
+    bp: "bp-03"
+    next_bp: "bp-04"
+    ch_count: 36
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "n"
+    files:
+      - "index_split_007.html"
+      - "index_split_008.html"
+
+  - code: deu
+    title: "The Fifth Book of Moses, Deuteronomy"
+    bxx: "b04"
+    bp: "bp-04"
+    next_bp: "bp-05"
+    ch_count: 34
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "d"
+    files:
+      - "index_split_008.html"
+      - "index_split_009.html"
+
+  - code: jos
+    title: "The Book of Joshua"
+    bxx: "b05"
+    bp: "bp-05"
+    next_bp: "bp-06"
+    ch_count: 24
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "j"
+    files:
+      - "index_split_009.html"
+
+  - code: jdg
+    title: "The Book of Judges"
+    bxx: "b06"
+    bp: "bp-06"
+    next_bp: "bp-07"
+    ch_count: 21
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "jg"
+    files:
+      - "index_split_009.html"
+      - "index_split_010.html"
+
+  - code: rut
+    title: "The Book of Ruth"
+    bxx: "b07"
+    bp: "bp-07"
+    next_bp: "bp-08"
+    ch_count: 4
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "r"
+    files:
+      - "index_split_010.html"
+
+  - code: 1sa
+    title: "The First Book of Samuel"
+    bxx: "b08"
+    bp: "bp-08"
+    next_bp: "bp-09"
+    ch_count: 31
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "sa"
+    files:
+      - "index_split_010.html"
+      - "index_split_011.html"
+
+  - code: 2sa
+    title: "The Second Book of Samuel"
+    bxx: "b09"
+    bp: "bp-09"
+    next_bp: "bp-10"
+    ch_count: 24
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "sb"
+    files:
+      - "index_split_011.html"
+      - "index_split_012.html"
+
+  - code: 1ki
+    title: "The First Book of Kings"
+    bxx: "b10"
+    bp: "bp-10"
+    next_bp: "bp-11"
+    ch_count: 22
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "1k"
+    files:
+      - "index_split_012.html"
+      - "index_split_013.html"
+      - "index_split_014.html"
+
+  - code: 2ki
+    title: "The Second Book of Kings"
+    bxx: "b11"
+    bp: "bp-11"
+    next_bp: "bp-12"
+    ch_count: 25
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "2k"
+    files:
+      - "index_split_015.html"
+
+  - code: 1ch
+    title: "The First Book of Chronicles"
+    bxx: "b12"
+    bp: "bp-12"
+    next_bp: "bp-13"
+    ch_count: 29
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "1c"
+    files:
+      - "index_split_015.html"
+      - "index_split_016.html"
+
+  - code: 2ch
+    title: "The Second Book of Chronicles"
+    bxx: "b13"
+    bp: "bp-13"
+    next_bp: "bp-14"
+    ch_count: 36
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_017.html"
+
+  - code: man
+    title: "The Prayer of Manasses"
+    bxx: "b14"
+    bp: "bp-14"
+    next_bp: "bp-15"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_018.html"
+
+  - code: jub
+    title: "The Book of Jubilees, or The Little Genesis"
+    bxx: "b15"
+    bp: "bp-15"
+    next_bp: "bp-16"
+    ch_count: 50
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_019.html"
+      - "index_split_020.html"
+
+  - code: 1en
+    title: "The Book of Enoch"
+    bxx: "b16"
+    bp: "bp-16"
+    next_bp: "bp-17"
+    ch_count: 108
+    strategy: "A"   # A = deep-link verse anchors, B = plain vn spans
+    id_prefix: "1e"
+    files:
+      - "index_split_020.html"
+      - "index_split_021.html"
+      - "index_split_022.html"
+
+  - code: 2en
+    title: "The Second Book of Enoch, or Slavonic Enoch, or The Book of the Secrets of Enoch"
+    bxx: "b17"
+    bp: "bp-17"
+    next_bp: "bp-18"
+    ch_count: 68
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_022.html"
+      - "index_split_023.html"
+      - "index_split_024.html"
+
+  - code: ezr
+    title: "The Book of Ezra"
+    bxx: "b18"
+    bp: "bp-18"
+    next_bp: "bp-19"
+    ch_count: 10
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_024.html"
+
+  - code: neh
+    title: "The Book of Nehemiah"
+    bxx: "b19"
+    bp: "bp-19"
+    next_bp: "bp-20"
+    ch_count: 13
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_025.html"
+
+  - code: 1es
+    title: "The First Book of Esdras, or Ezra Kali"
+    bxx: "b20"
+    bp: "bp-20"
+    next_bp: "bp-21"
+    ch_count: 9
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_025.html"
+
+  - code: 2es
+    title: "The Second Book of Esdras, or Ezra Sutu'el"
+    bxx: "b21"
+    bp: "bp-21"
+    next_bp: "bp-22"
+    ch_count: 16
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_025.html"
+      - "index_split_026.html"
+
+  - code: tob
+    title: "The Book of Tobit"
+    bxx: "b22"
+    bp: "bp-22"
+    next_bp: "bp-23"
+    ch_count: 14
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_026.html"
+
+  - code: jdt
+    title: "The Book of Judith"
+    bxx: "b23"
+    bp: "bp-23"
+    next_bp: "bp-24"
+    ch_count: 16
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_027.html"
+
+  - code: est
+    title: "The Book of Esther"
+    bxx: "b24"
+    bp: "bp-24"
+    next_bp: "bp-25"
+    ch_count: 10
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_027.html"
+      - "index_split_028.html"
+
+  - code: aes
+    title: "Additions to Esther, translated from the Greek Septuagint"
+    bxx: "b25"
+    bp: "bp-25"
+    next_bp: "bp-26"
+    ch_count: 10
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_028.html"
+
+  - code: mq1
+    title: "The Book of Meqabyan I"
+    bxx: "b26"
+    bp: "bp-26"
+    next_bp: "bp-27"
+    ch_count: 36
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_028.html"
+      - "index_split_029.html"
+
+  - code: mq2
+    title: "The Book of Meqabyan II"
+    bxx: "b27"
+    bp: "bp-27"
+    next_bp: "bp-28"
+    ch_count: 21
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_029.html"
+
+  - code: mq3
+    title: "The Book of Meqabyan III"
+    bxx: "b28"
+    bp: "bp-28"
+    next_bp: "bp-29"
+    ch_count: 10
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_029.html"
+
+  - code: job
+    title: "The Book of Job"
+    bxx: "b29"
+    bp: "bp-29"
+    next_bp: "bp-30"
+    ch_count: 42
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_030.html"
+      - "index_split_031.html"
+      - "index_split_032.html"
+
+  - code: psa
+    title: "The Psalms"
+    bxx: "b30"
+    bp: "bp-30"
+    next_bp: "bp-32"
+    ch_count: 151
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_032.html"
+      - "index_split_033.html"
+      - "index_split_034.html"
+      - "index_split_035.html"
+
+  - code: pro
+    title: "The Proverbs"
+    bxx: "b32"
+    bp: "bp-32"
+    next_bp: "bp-33"
+    ch_count: 31
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_035.html"
+      - "index_split_036.html"
+
+  - code: wis
+    title: "The Wisdom of Solomon"
+    bxx: "b33"
+    bp: "bp-33"
+    next_bp: "bp-34"
+    ch_count: 19
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_036.html"
+      - "index_split_037.html"
+
+  - code: ecc
+    title: "Ecclesiastes or, The Preacher"
+    bxx: "b34"
+    bp: "bp-34"
+    next_bp: "bp-35"
+    ch_count: 12
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_037.html"
+
+  - code: sng
+    title: "The Song of Songs, or Song of Solomon"
+    bxx: "b35"
+    bp: "bp-35"
+    next_bp: "bp-36"
+    ch_count: 8
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_037.html"
+
+  - code: sir
+    title: "The Wisdom of Jesus the Son of Sirach, or Ecclesiasticus"
+    bxx: "b36"
+    bp: "bp-36"
+    next_bp: "bp-37"
+    ch_count: 51
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_037.html"
+      - "index_split_038.html"
+
+  - code: isa
+    title: "The Book of the Prophet Isaiah"
+    bxx: "b37"
+    bp: "bp-37"
+    next_bp: "bp-38"
+    ch_count: 66
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_039.html"
+      - "index_split_040.html"
+
+  - code: jer
+    title: "The Book of Jeremiah"
+    bxx: "b38"
+    bp: "bp-38"
+    next_bp: "bp-39"
+    ch_count: 52
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_041.html"
+      - "index_split_042.html"
+
+  - code: lam
+    title: "The Lamentations of Jeremiah"
+    bxx: "b39"
+    bp: "bp-39"
+    next_bp: "bp-40"
+    ch_count: 5
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_043.html"
+      - "index_split_044.html"
+
+  - code: bar
+    title: "The Book of Baruch"
+    bxx: "b40"
+    bp: "bp-40"
+    next_bp: "bp-41"
+    ch_count: 5
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_044.html"
+
+  - code: lje
+    title: "The Letter of Jeremiah"
+    bxx: "b41"
+    bp: "bp-41"
+    next_bp: "bp-42"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_044.html"
+
+  - code: 4ba
+    title: "4 Baruch, or Paralipomena of Jeremiah"
+    bxx: "b42"
+    bp: "bp-42"
+    next_bp: "bp-43"
+    ch_count: 9
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_045.html"
+
+  - code: eze
+    title: "The Book of Ezekiel"
+    bxx: "b43"
+    bp: "bp-43"
+    next_bp: "bp-44"
+    ch_count: 48
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_045.html"
+      - "index_split_046.html"
+
+  - code: dan
+    title: "The Book of Daniel"
+    bxx: "b44"
+    bp: "bp-44"
+    next_bp: "bp-45"
+    ch_count: 12
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_047.html"
+
+  - code: paz
+    title: "The Song of the Three Holy Children, or The Prayer of Azariah"
+    bxx: "b45"
+    bp: "bp-45"
+    next_bp: "bp-46"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_047.html"
+
+  - code: sus
+    title: "The History of Susanna"
+    bxx: "b46"
+    bp: "bp-46"
+    next_bp: "bp-47"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_048.html"
+
+  - code: bel
+    title: "Bel and the Dragon"
+    bxx: "b47"
+    bp: "bp-47"
+    next_bp: "bp-48"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_049.html"
+
+  - code: hos
+    title: "The Book of Hosea"
+    bxx: "b48"
+    bp: "bp-48"
+    next_bp: "bp-49"
+    ch_count: 14
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_049.html"
+      - "index_split_050.html"
+
+  - code: joe
+    title: "The Book of Joel"
+    bxx: "b49"
+    bp: "bp-49"
+    next_bp: "bp-50"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_050.html"
+
+  - code: amo
+    title: "The Book of Amos"
+    bxx: "b50"
+    bp: "bp-50"
+    next_bp: "bp-51"
+    ch_count: 9
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_050.html"
+
+  - code: oba
+    title: "The Book of Obadiah"
+    bxx: "b51"
+    bp: "bp-51"
+    next_bp: "bp-52"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_050.html"
+
+  - code: jon
+    title: "The Book of Jonah"
+    bxx: "b52"
+    bp: "bp-52"
+    next_bp: "bp-53"
+    ch_count: 4
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_050.html"
+      - "index_split_051.html"
+
+  - code: mic
+    title: "The Book of Micah"
+    bxx: "b53"
+    bp: "bp-53"
+    next_bp: "bp-54"
+    ch_count: 7
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: nah
+    title: "The Book of Nahum"
+    bxx: "b54"
+    bp: "bp-54"
+    next_bp: "bp-55"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: hab
+    title: "The Book of Habakkuk"
+    bxx: "b55"
+    bp: "bp-55"
+    next_bp: "bp-56"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: zep
+    title: "The Book of Zephaniah"
+    bxx: "b56"
+    bp: "bp-56"
+    next_bp: "bp-57"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: hag
+    title: "The Book of Haggai"
+    bxx: "b57"
+    bp: "bp-57"
+    next_bp: "bp-58"
+    ch_count: 2
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: zec
+    title: "The Book of Zechariah"
+    bxx: "b58"
+    bp: "bp-58"
+    next_bp: "bp-59"
+    ch_count: 14
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: mal
+    title: "The Book of Malachi"
+    bxx: "b59"
+    bp: "bp-59"
+    next_bp: "bp-60"
+    ch_count: 4
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+
+  - code: mat
+    title: "The Good News According to Matthew"
+    bxx: "b60"
+    bp: "bp-60"
+    next_bp: "bp-61"
+    ch_count: 28
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_051.html"
+      - "index_split_052.html"
+
+  - code: mrk
+    title: "The Good News According to Mark"
+    bxx: "b61"
+    bp: "bp-61"
+    next_bp: "bp-62"
+    ch_count: 16
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_052.html"
+
+  - code: luk
+    title: "The Good News According to Luke"
+    bxx: "b62"
+    bp: "bp-62"
+    next_bp: "bp-63"
+    ch_count: 24
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_053.html"
+      - "index_split_054.html"
+
+  - code: jhn
+    title: "The Good News According to John"
+    bxx: "b63"
+    bp: "bp-63"
+    next_bp: "bp-64"
+    ch_count: 21
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_054.html"
+
+  - code: act
+    title: "The Acts of the Apostles"
+    bxx: "b64"
+    bp: "bp-64"
+    next_bp: "bp-65"
+    ch_count: 28
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_055.html"
+
+  - code: rom
+    title: "Paul’s Letter to the Romans"
+    bxx: "b65"
+    bp: "bp-65"
+    next_bp: "bp-66"
+    ch_count: 16
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_056.html"
+
+  - code: 1co
+    title: "Paul’s First Letter to the Corinthians"
+    bxx: "b66"
+    bp: "bp-66"
+    next_bp: "bp-67"
+    ch_count: 16
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_056.html"
+      - "index_split_057.html"
+
+  - code: 2co
+    title: "Paul’s Second Letter to the Corinthians"
+    bxx: "b67"
+    bp: "bp-67"
+    next_bp: "bp-68"
+    ch_count: 13
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_057.html"
+      - "index_split_058.html"
+
+  - code: gal
+    title: "Paul’s Letter to the Galatians"
+    bxx: "b68"
+    bp: "bp-68"
+    next_bp: "bp-69"
+    ch_count: 6
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+
+  - code: eph
+    title: "Paul’s Letter to the Ephesians"
+    bxx: "b69"
+    bp: "bp-69"
+    next_bp: "bp-70"
+    ch_count: 6
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+
+  - code: phi
+    title: "Paul’s Letter to the Philippians"
+    bxx: "b70"
+    bp: "bp-70"
+    next_bp: "bp-71"
+    ch_count: 4
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+
+  - code: col
+    title: "Paul’s Letter to the Colossians"
+    bxx: "b71"
+    bp: "bp-71"
+    next_bp: "bp-72"
+    ch_count: 4
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+
+  - code: 1th
+    title: "Paul’s First Letter to the Thessalonians"
+    bxx: "b72"
+    bp: "bp-72"
+    next_bp: "bp-73"
+    ch_count: 5
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+
+  - code: 2th
+    title: "Paul’s Second Letter to the Thessalonians"
+    bxx: "b73"
+    bp: "bp-73"
+    next_bp: "bp-74"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+
+  - code: 1ti
+    title: "Paul’s First Letter to Timothy"
+    bxx: "b74"
+    bp: "bp-74"
+    next_bp: "bp-75"
+    ch_count: 6
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_058.html"
+      - "index_split_059.html"
+
+  - code: 2ti
+    title: "Paul’s Second Letter to Timothy"
+    bxx: "b75"
+    bp: "bp-75"
+    next_bp: "bp-76"
+    ch_count: 4
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: tit
+    title: "Paul’s Letter to Titus"
+    bxx: "b76"
+    bp: "bp-76"
+    next_bp: "bp-77"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: phm
+    title: "Paul’s Letter to Philemon"
+    bxx: "b77"
+    bp: "bp-77"
+    next_bp: "bp-78"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: heb
+    title: "The Letter to the Hebrews"
+    bxx: "b78"
+    bp: "bp-78"
+    next_bp: "bp-79"
+    ch_count: 13
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: jam
+    title: "The Letter from James"
+    bxx: "b79"
+    bp: "bp-79"
+    next_bp: "bp-80"
+    ch_count: 5
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: 1pe
+    title: "Peter’s First Letter"
+    bxx: "b80"
+    bp: "bp-80"
+    next_bp: "bp-81"
+    ch_count: 5
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: 2pe
+    title: "Peter’s Second Letter"
+    bxx: "b81"
+    bp: "bp-81"
+    next_bp: "bp-82"
+    ch_count: 3
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: 1jn
+    title: "John’s First Letter"
+    bxx: "b82"
+    bp: "bp-82"
+    next_bp: "bp-83"
+    ch_count: 5
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: 2jn
+    title: "John’s Second Letter"
+    bxx: "b83"
+    bp: "bp-83"
+    next_bp: "bp-84"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: 3jn
+    title: "John’s Third Letter"
+    bxx: "b84"
+    bp: "bp-84"
+    next_bp: "bp-85"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: jud
+    title: "The Letter from Jude"
+    bxx: "b85"
+    bp: "bp-85"
+    next_bp: "bp-86"
+    ch_count: 1
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+
+  - code: rev
+    title: "Revelation"
+    bxx: "b86"
+    bp: "bp-86"
+    next_bp: "bp-87"
+    ch_count: 22
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_059.html"
+      - "index_split_060.html"
+
+  - code: 1cl
+    title: "The First Epistle of Clement to the Corinthians"
+    bxx: "b87"
+    bp: "bp-87"
+    ch_count: 65
+    strategy: "B"   # A = deep-link verse anchors, B = plain vn spans
+    files:
+      - "index_split_060.html"

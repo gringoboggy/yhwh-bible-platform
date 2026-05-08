@@ -1,0 +1,53 @@
+{
+  "book": "jhn",
+  "chapter": 18,
+  "generated_at": "2026-05-08T14:31:41+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "jhn-18-9-001",
+      "verse": 9,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.615,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-jhn-17-12\">Jhn 17:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 23. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-18-36-002",
+      "verse": 36,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.595,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-luk-17-20\">Luk 17:20</a> · <a href=\"#vnote-col-1-12\">Col 1:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 19. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-18-37-003",
+      "verse": 37,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.635,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-jhn-8-47\">Jhn 8:47</a> · <a href=\"#vnote-1jn-4-6\">1Jn 4:6</a> · <a href=\"#vnote-jhn-8-14\">Jhn 8:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 27. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

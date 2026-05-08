@@ -1,0 +1,38 @@
+{
+  "book": "isa",
+  "chapter": 56,
+  "generated_at": "2026-05-08T14:31:40+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "isa-56-1-001",
+      "verse": 1,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.585,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-rom-13-11\">Rom 13:11</a> · <a href=\"#vnote-psa-85-9\">Psa 85:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 17. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-56-7-002",
+      "verse": 7,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.615,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-mrk-11-17\">Mrk 11:17</a> · <a href=\"#vnote-isa-2-2\">Isa 2:2</a> · <a href=\"#vnote-mal-1-11\">Mal 1:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 23. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

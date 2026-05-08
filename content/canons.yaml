@@ -1,0 +1,439 @@
+# canons.yaml — canon → books mapping for edition-level book filtering.
+# ----------------------------------------------------------------------
+# The build pipeline (build_edition.py) reads this to determine which
+# books appear in each edition's EPUB. Books outside an edition's canon
+# are spliced out of the master HTML, manifest, spine, and TOC.
+#
+# Conventions:
+#   - Each canon lists the BOOK CODES (matching content/books.yaml)
+#     that belong to it.
+#   - A book may appear in multiple canons (most do).
+#   - The Ethiopian canon is the broadest and acts as the master superset;
+#     all other canons are subsets of it.
+#
+# Where the underlying WEB text uses Christian split numbering (e.g.
+# 1 Sam + 2 Sam are two book files), both halves are listed even for
+# canons that count them as one book (Tanakh counts Shmuel as one book
+# but our HTML splits it; we keep both halves for that canon).
+#
+# Books deliberately NOT yet present in our corpus (and therefore
+# absent from the canons that would otherwise include them):
+#   - 1 Maccabees, 2 Maccabees    (Catholic + Orthodox + Ethiopian)
+#   - 3 Maccabees                  (Orthodox + Ethiopian)
+#   - 4 Maccabees                  (Orthodox appendix; some Ethiopian)
+#   - Psalm 151                    (Orthodox + Ethiopian; some traditions
+#                                    embed it inside Psalms file already)
+# When these texts are added to the corpus, update both books.yaml AND
+# the relevant canons here.
+
+canons:
+
+  # ──────────────────────────────────────────────────────────────────
+  # TANAKH — Hebrew Bible (24 books in Jewish numbering; ~39 in
+  # Christian split). No deuterocanonicals, no additions to Esther
+  # or Daniel, no NT.
+  # ──────────────────────────────────────────────────────────────────
+  tanakh:
+    label: "Hebrew Bible (Tanakh)"
+    description: "24 books — Torah, Nevi'im, Ketuvim. No deuteros, no additions, no NT."
+    books:
+      # Torah
+      - gen
+      - exo
+      - lev
+      - num
+      - deu
+      # Nevi'im (Former Prophets)
+      - jos
+      - jdg
+      - 1sa
+      - 2sa
+      - 1ki
+      - 2ki
+      # Nevi'im (Latter Prophets — major)
+      - isa
+      - jer
+      - eze
+      # Nevi'im (Latter Prophets — Twelve)
+      - hos
+      - joe
+      - amo
+      - oba
+      - jon
+      - mic
+      - nah
+      - hab
+      - zep
+      - hag
+      - zec
+      - mal
+      # Ketuvim
+      - psa
+      - pro
+      - job
+      - sng
+      - rut
+      - lam
+      - ecc
+      - est
+      - dan
+      - ezr
+      - neh
+      - 1ch
+      - 2ch
+
+  # ──────────────────────────────────────────────────────────────────
+  # PROTESTANT — 66 books (39 OT + 27 NT). Tanakh + New Testament.
+  # No deuterocanonical OT books.
+  # ──────────────────────────────────────────────────────────────────
+  protestant:
+    label: "Protestant Bible (66 books)"
+    description: "Tanakh + New Testament. No Apocrypha/deuterocanonicals."
+    books:
+      # OT — same as Tanakh
+      - gen
+      - exo
+      - lev
+      - num
+      - deu
+      - jos
+      - jdg
+      - rut
+      - 1sa
+      - 2sa
+      - 1ki
+      - 2ki
+      - 1ch
+      - 2ch
+      - ezr
+      - neh
+      - est
+      - job
+      - psa
+      - pro
+      - ecc
+      - sng
+      - isa
+      - jer
+      - lam
+      - eze
+      - dan
+      - hos
+      - joe
+      - amo
+      - oba
+      - jon
+      - mic
+      - nah
+      - hab
+      - zep
+      - hag
+      - zec
+      - mal
+      # NT — 27 books
+      - mat
+      - mrk
+      - luk
+      - jhn
+      - act
+      - rom
+      - 1co
+      - 2co
+      - gal
+      - eph
+      - phi
+      - col
+      - 1th
+      - 2th
+      - 1ti
+      - 2ti
+      - tit
+      - phm
+      - heb
+      - jam
+      - 1pe
+      - 2pe
+      - 1jn
+      - 2jn
+      - 3jn
+      - jud
+      - rev
+
+  # ──────────────────────────────────────────────────────────────────
+  # CATHOLIC — Protestant + 7 deuterocanonical OT books +
+  # additions to Esther + Greek additions to Daniel +
+  # Letter of Jeremiah (which Catholic Bibles attach to Baruch as ch 6).
+  # NOTE: 1 + 2 Maccabees are part of the Catholic canon but are not
+  # present in our underlying corpus yet.
+  # ──────────────────────────────────────────────────────────────────
+  catholic:
+    label: "Catholic Bible (73 books in standard count; 71 in this corpus until 1+2 Macc are added)"
+    description: "Protestant canon + deuterocanonicals + additions to Esther/Daniel."
+    books:
+      # Protestant base — repeated explicitly for auditability
+      - gen
+      - exo
+      - lev
+      - num
+      - deu
+      - jos
+      - jdg
+      - rut
+      - 1sa
+      - 2sa
+      - 1ki
+      - 2ki
+      - 1ch
+      - 2ch
+      - ezr
+      - neh
+      - est
+      - job
+      - psa
+      - pro
+      - ecc
+      - sng
+      - isa
+      - jer
+      - lam
+      - eze
+      - dan
+      - hos
+      - joe
+      - amo
+      - oba
+      - jon
+      - mic
+      - nah
+      - hab
+      - zep
+      - hag
+      - zec
+      - mal
+      # Deuterocanonical OT additions
+      - tob
+      - jdt
+      - wis
+      - sir
+      - bar
+      - lje                  # Letter of Jeremiah (Baruch ch 6 in many Cath. editions)
+      # Greek additions to Esther + Daniel
+      - aes                  # Additions to Esther
+      - paz                  # Prayer of Azariah / Song of the Three
+      - sus                  # Susanna
+      - bel                  # Bel and the Dragon
+      # NT
+      - mat
+      - mrk
+      - luk
+      - jhn
+      - act
+      - rom
+      - 1co
+      - 2co
+      - gal
+      - eph
+      - phi
+      - col
+      - 1th
+      - 2th
+      - 1ti
+      - 2ti
+      - tit
+      - phm
+      - heb
+      - jam
+      - 1pe
+      - 2pe
+      - 1jn
+      - 2jn
+      - 3jn
+      - jud
+      - rev
+
+  # ──────────────────────────────────────────────────────────────────
+  # ORTHODOX (Eastern) — Catholic + 1 Esdras + Prayer of Manasseh.
+  # Also typically includes 3+4 Maccabees + Psalm 151; those are
+  # absent from this corpus and will be added later.
+  # ──────────────────────────────────────────────────────────────────
+  orthodox:
+    label: "Eastern Orthodox Bible"
+    description: "Catholic + 1 Esdras + Prayer of Manasseh. (3+4 Macc + Ps 151 pending.)"
+    books:
+      # Catholic base
+      - gen
+      - exo
+      - lev
+      - num
+      - deu
+      - jos
+      - jdg
+      - rut
+      - 1sa
+      - 2sa
+      - 1ki
+      - 2ki
+      - 1ch
+      - 2ch
+      - ezr
+      - neh
+      - est
+      - job
+      - psa
+      - pro
+      - ecc
+      - sng
+      - isa
+      - jer
+      - lam
+      - eze
+      - dan
+      - hos
+      - joe
+      - amo
+      - oba
+      - jon
+      - mic
+      - nah
+      - hab
+      - zep
+      - hag
+      - zec
+      - mal
+      - tob
+      - jdt
+      - wis
+      - sir
+      - bar
+      - lje
+      - aes
+      - paz
+      - sus
+      - bel
+      # Orthodox additions to Catholic
+      - 1es                  # 1 Esdras (LXX numbering)
+      - man                  # Prayer of Manasseh
+      # NT
+      - mat
+      - mrk
+      - luk
+      - jhn
+      - act
+      - rom
+      - 1co
+      - 2co
+      - gal
+      - eph
+      - phi
+      - col
+      - 1th
+      - 2th
+      - 1ti
+      - 2ti
+      - tit
+      - phm
+      - heb
+      - jam
+      - 1pe
+      - 2pe
+      - 1jn
+      - 2jn
+      - 3jn
+      - jud
+      - rev
+
+  # ──────────────────────────────────────────────────────────────────
+  # ETHIOPIAN — broadest canon. The full 87-book corpus.
+  # ──────────────────────────────────────────────────────────────────
+  ethiopian:
+    label: "Ethiopian Tewahedo Bible (Broader Canon)"
+    description: "All 87 books. Includes 1+2 Enoch, Jubilees, Meqabyan I-III, 4 Baruch, 1 Clement, 2 Esdras."
+    books:
+      # All 87 books in canonical order
+      - gen
+      - exo
+      - lev
+      - num
+      - deu
+      - jos
+      - jdg
+      - rut
+      - 1sa
+      - 2sa
+      - 1ki
+      - 2ki
+      - 1ch
+      - 2ch
+      - man
+      - jub
+      - 1en
+      - 2en
+      - ezr
+      - neh
+      - 1es
+      - 2es
+      - tob
+      - jdt
+      - est
+      - aes
+      - mq1
+      - mq2
+      - mq3
+      - job
+      - psa
+      - pro
+      - wis
+      - ecc
+      - sng
+      - sir
+      - isa
+      - jer
+      - lam
+      - bar
+      - lje
+      - 4ba
+      - eze
+      - dan
+      - paz
+      - sus
+      - bel
+      - hos
+      - joe
+      - amo
+      - oba
+      - jon
+      - mic
+      - nah
+      - hab
+      - zep
+      - hag
+      - zec
+      - mal
+      - mat
+      - mrk
+      - luk
+      - jhn
+      - act
+      - rom
+      - 1co
+      - 2co
+      - gal
+      - eph
+      - phi
+      - col
+      - 1th
+      - 2th
+      - 1ti
+      - 2ti
+      - tit
+      - phm
+      - heb
+      - jam
+      - 1pe
+      - 2pe
+      - 1jn
+      - 2jn
+      - 3jn
+      - jud
+      - rev
+      - 1cl

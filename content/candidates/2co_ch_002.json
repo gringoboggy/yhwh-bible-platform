@@ -1,0 +1,68 @@
+{
+  "book": "2co",
+  "chapter": 2,
+  "generated_at": "2026-05-08T14:31:37+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "2co-2-11-001",
+      "verse": 11,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.705,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-1pe-5-8\">1Pe 5:8</a> · <a href=\"#vnote-eph-6-11\">Eph 6:11</a> · <a href=\"#vnote-2co-11-3\">2Co 11:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 41. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-2-14-002",
+      "verse": 14,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.66,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-eph-5-2\">Eph 5:2</a> · <a href=\"#vnote-rom-8-37\">Rom 8:37</a> · <a href=\"#vnote-2co-2-15\">2Co 2:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 32. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-2-15-003",
+      "verse": 15,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.67,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-eph-5-2\">Eph 5:2</a> · <a href=\"#vnote-1co-1-18\">1Co 1:18</a> · <a href=\"#vnote-ezk-20-41\">Ezk 20:41</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 34. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-2-17-004",
+      "verse": 17,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.605,
+      "source_name": "TSK (1 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-2co-4-2\">2Co 4:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 21. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

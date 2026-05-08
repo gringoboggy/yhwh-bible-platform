@@ -1,0 +1,38 @@
+{
+  "book": "rev",
+  "chapter": 18,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "rev-18-4-001",
+      "verse": 4,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-isa-52-11\">Isa 52:11</a> · <a href=\"#vnote-2co-6-17\">2Co 6:17</a> · <a href=\"#vnote-jer-51-6\">Jer 51:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 24. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-18-7-002",
+      "verse": 7,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.625,
+      "source_name": "TSK (2 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-isa-47-7\">Isa 47:7</a> · <a href=\"#vnote-zep-2-15\">Zep 2:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 25. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "book": "psa",
+  "chapter": 54,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "psa-54-4-001",
+      "verse": 4,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.625,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-heb-13-6\">Heb 13:6</a> · <a href=\"#vnote-psa-118-6\">Psa 118:6</a> · <a href=\"#vnote-isa-41-10\">Isa 41:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 25. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

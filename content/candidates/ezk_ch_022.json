@@ -1,0 +1,23 @@
+{
+  "book": "ezk",
+  "chapter": 22,
+  "generated_at": "2026-05-08T14:31:40+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "ezk-22-30-001",
+      "verse": 30,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.76,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-isa-59-16\">Isa 59:16</a> · <a href=\"#vnote-jer-5-1\">Jer 5:1</a> · <a href=\"#vnote-psa-106-23\">Psa 106:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 52. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

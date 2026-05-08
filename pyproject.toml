@@ -1,0 +1,64 @@
+# Ethiopian Tewahedo Bible EPUB — codebase configuration.
+#
+# Ruff handles both linting and formatting. Run:
+#   ruff check .          # find issues
+#   ruff check --fix .    # apply auto-fixable
+#   ruff format .         # normalise style
+#
+# Style decisions:
+#   - Line length 100 (black-default 88 is tight; 100 catches real outliers
+#     while leaving long HTML-string templates untouched).
+#   - Double quotes throughout (PEP 8 / black default).
+#   - 4-space indent.
+#   - sys.path manipulation pattern is permitted before project imports
+#     (E402 silenced inside scripts/ and source_archive/ where this is the
+#     established pattern).
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = [
+    "epub_working",
+    "content/notes.backup_*",
+    "scripts.backup_*",
+    "source_archive.backup_*",
+    "_audit_state.json",
+]
+
+[tool.ruff.lint]
+# Pyflakes (F), pycodestyle (E, W), bugbear (B), pyupgrade (UP),
+# flake8-simplify (SIM), pep8-naming (N), mccabe complexity (C90).
+select = ["E", "W", "F", "B", "UP", "SIM", "N", "C90"]
+# Allow long lines in docstrings/comments at the module level (we sometimes
+# embed example HTML which breaks across lines awkwardly).
+ignore = []
+# Mccabe complexity threshold — default 10 is reasonable; some legacy
+# functions in source_archive/ exceed this and are flagged.
+mccabe.max-complexity = 12
+
+[tool.ruff.lint.per-file-ignores]
+# `sys.path.insert(0, REPO_ROOT)` before project imports is the established
+# bootstrap pattern in CLI entry-points (audit.py at root has all imports
+# at the top of the file, so it does not need this exemption).
+"scripts/*.py" = ["E402"]
+"source_archive/*.py" = ["E402"]
+# phase_c9_expansion.py is a data dump — note bodies are inherently 400+
+# characters and cannot meaningfully be wrapped.
+"source_archive/phase_c9_expansion.py" = ["E402", "E501"]
+# content/notes/*.py are pure data files — every entry is a tuple containing
+# a long HTML body string. E501 (line-too-long) is intrinsic to the format.
+# N999 (invalid module name) fires on books like "1ch.py" / "2ki.py" because
+# Python module names cannot start with a digit; the project loads these
+# explicitly via importlib so the strict naming rule is moot.
+"content/notes/*.py" = ["E501", "N999"]
+# kings_session/ is legacy code retained as a fallback. Some files predate
+# the modern style sweep and use the same long-data-tuple pattern as
+# content/notes/.
+"kings_session/*.py" = ["E402", "E501", "N999"]
+"kings_session/**/*.py" = ["E402", "E501", "N999"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = false
+skip-magic-trailing-comma = false

@@ -1,0 +1,30 @@
+# themes.yaml — pre-built CSS themes for editions.
+#
+# Each theme has a short CSS override file in content/themes/<id>.css
+# that gets appended to the base stylesheet at build time.
+#
+# To add a new theme:
+#   1. Add an entry below
+#   2. Create content/themes/<id>.css with override rules
+#   3. The /customize page picks it up automatically
+
+themes:
+  - id: classic
+    name: "Classic"
+    description: "Traditional Bible house style — serif, justified, dense."
+
+  - id: modern
+    name: "Modern"
+    description: "Clean sans-serif, looser line-height, blue accents."
+
+  - id: scholarly
+    name: "Scholarly"
+    description: "Denser type, smaller body, optimized for footnote-heavy reading."
+
+  - id: devotional
+    name: "Devotional"
+    description: "Warmer palette, generous spacing, italic headings for reflective reading."
+
+  - id: school
+    name: "School / Classroom"
+    description: "High-readability sans, larger type, color callouts for note boxes."

@@ -1,0 +1,34 @@
+cover:
+  global_default: null
+  edition_overrides: null
+book_title_pages:
+  global_default:
+    layout: null
+  book_defaults: {}
+  edition_overrides: {}
+print_covers:
+  variants:
+  - profile: kdp-6x9
+    enabled: false
+    trim_width_in: 6.0
+    trim_height_in: 9.0
+    bleed_in: 0.125
+    paper: white-50lb
+    include_back_blurb: true
+    isbn_barcode: true
+  - profile: ingramspark-7x10
+    enabled: false
+    trim_width_in: 7.0
+    trim_height_in: 10.0
+    bleed_in: 0.125
+    paper: cream-55lb
+    include_back_blurb: true
+    isbn_barcode: true
+  - profile: kdp-paperback-5x8
+    enabled: false
+    trim_width_in: 5.0
+    trim_height_in: 8.0
+    bleed_in: 0.125
+    paper: white-50lb
+    include_back_blurb: true
+    isbn_barcode: true

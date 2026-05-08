@@ -1,0 +1,18 @@
+/* Theme: school — high-readability sans, larger type, generous spacing
+ * for classroom worksheets and student copies. */
+body {
+  font-family: "Verdana", "Trebuchet MS", "Segoe UI", sans-serif;
+  font-size: 1.08em;
+  line-height: 1.75;
+  color: #1f2937;
+  text-align: left;
+  hyphens: none;
+}
+h1, h2, h3 {
+  font-family: "Verdana", "Segoe UI", sans-serif;
+  color: #1d4ed8;
+  font-weight: bold;
+  text-align: left;
+}
+.note { background: #fffbeb; border-left: 4px solid #d97706; padding: 0.5em; }
+.verse-num { color: #1d4ed8; font-weight: bold; }

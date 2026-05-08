@@ -1,0 +1,23 @@
+{
+  "book": "jos",
+  "chapter": 16,
+  "generated_at": "2026-05-08T14:38:37+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "jos-16-1-001",
+      "verse": 1,
+      "kind": "lang-hebrew",
+      "anchor": "water",
+      "confidence": 0.65,
+      "source_name": "H4325",
+      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    }
+  ]
+}

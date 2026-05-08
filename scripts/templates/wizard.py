@@ -1,0 +1,776 @@
+"""HTML for /wizard console — extracted from scripts/web.py
+during the web.py split refactor (2026-05-07).
+
+Re-imported by scripts/web.py for back-compat with existing
+`from scripts.web import WIZARD_HTML` callers.
+"""
+
+WIZARD_HTML = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bible Builder · E-Bible</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  .step-dot {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2rem; height: 2rem; border-radius: 9999px;
+    background: #e2e8f0; color: #64748b; font-weight: 600; font-size: 0.875rem;
+    transition: all 0.25s ease;
+  }
+  .step-dot.active { background: #2563eb; color: white; transform: scale(1.1); }
+  .step-dot.done { background: #10b981; color: white; }
+  .step-line { flex: 1; height: 2px; background: #e2e8f0; transition: background 0.25s; }
+  .step-line.done { background: #10b981; }
+  .step-pane { display: none; animation: fade-in 0.3s ease; }
+  .step-pane.active { display: block; }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .field-input {
+    width: 100%; border: 1px solid #cbd5e1; border-radius: 4px;
+    padding: 0.5rem 0.75rem; font-size: 0.95rem;
+  }
+  .field-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px #dbeafe; }
+  .label-text { font-size: 0.75rem; font-weight: 600; color: #475569;
+                text-transform: uppercase; letter-spacing: 0.03em;
+                margin-bottom: 0.25rem; display: block; }
+  .pick-card {
+    border: 2px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;
+    cursor: pointer; transition: all 0.2s; background: white;
+  }
+  .pick-card:hover { border-color: #93c5fd; }
+  .pick-card.picked { border-color: #2563eb; background: #eff6ff; }
+  .theme-preview {
+    border: 1px solid #cbd5e1; border-radius: 0.375rem; padding: 0.6rem;
+    font-size: 0.875rem; background: white; min-height: 4em;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    padding: 0.2em 0.7em; border-radius: 9999px; font-size: 0.8em;
+    background: #f1f5f9; border: 1px solid #cbd5e1;
+  }
+  .pill-x { cursor: pointer; opacity: 0.5; padding-left: 0.3em; }
+  .pill-x:hover { opacity: 1; color: #dc2626; }
+  .kind-row { padding: 0.5rem 0.75rem; border-radius: 0.375rem;
+              transition: background 0.15s; cursor: pointer; user-select: none; }
+  .kind-row:hover { background: #f1f5f9; }
+  .build-progress {
+    background: linear-gradient(90deg, #2563eb 0%, #3b82f6 50%, #2563eb 100%);
+    background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 200% 0; }
+    50%      { background-position: -200% 0; }
+  }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+  <div>
+    <h1 class="text-xl font-bold tracking-tight">Bible Builder</h1>
+    <p class="text-xs text-slate-500">click a few buttons → walk away with your Bible</p>
+  </div>
+  <div class="flex items-center gap-4 text-xs">
+    <a href="/" class="text-blue-600 hover:underline">note editor</a>
+    <a href="/matrix" class="text-blue-600 hover:underline">matrix</a>
+    <a href="/sources" class="text-blue-600 hover:underline">sources</a>
+    <a href="/export" class="text-blue-600 hover:underline">export</a>
+    <a href="/customize" class="text-blue-600 hover:underline">customize</a>
+    <a href="/audit" class="text-blue-600 hover:underline">audit</a>
+    <a href="/publisher" class="text-blue-600 hover:underline">publisher</a>
+    <a href="/wizard" class="font-semibold">wizard</a>
+    <a href="/diff" class="text-blue-600 hover:underline">diff</a>
+    <a href="/compare" class="text-blue-600 hover:underline">compare</a>
+    <a href="/covers" class="text-blue-600 hover:underline">covers</a>
+    <a href="/preflight" class="text-blue-600 hover:underline">preflight</a>
+
+    <a href="/ops" class="text-blue-600 hover:underline">ops</a>
+    <a href="/apihelp" class="text-blue-600 hover:underline">apihelp</a>
+    <span id="corpus-progress" class="ml-auto text-xs text-slate-500" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
+  </div>
+</header>
+<script>
+// Phase ψ.3 — corpus progress widget. Cheap fetch + DOM update;
+// silently no-ops on failure so a stale browser tab never breaks
+// because the API endpoint changed shape.
+(function () {
+  fetch('/api/corpus-progress').then(function (r) { return r.json(); })
+    .then(function (d) {
+      var el = document.getElementById('corpus-progress');
+      if (!el) return;
+      var cur = (d.current || 0).toLocaleString();
+      var tgt = (d.target || 0).toLocaleString();
+      var pct = (typeof d.percent === 'number') ? d.percent.toFixed(1) : '0.0';
+      el.textContent = cur + ' / ' + tgt + ' · ' + pct + '%';
+    })
+    .catch(function () {});
+})();
+</script>
+
+
+<main class="p-6 max-w-4xl mx-auto">
+
+  <!-- Step indicator -->
+  <div class="flex items-center mb-8 gap-2">
+    <div id="dot-1" class="step-dot active">1</div><div id="line-1" class="step-line"></div>
+    <div id="dot-2" class="step-dot">2</div><div id="line-2" class="step-line"></div>
+    <div id="dot-3" class="step-dot">3</div><div id="line-3" class="step-line"></div>
+    <div id="dot-4" class="step-dot">4</div><div id="line-4" class="step-line"></div>
+    <div id="dot-5" class="step-dot">5</div><div id="line-5" class="step-line"></div>
+    <div id="dot-6" class="step-dot">6</div>
+  </div>
+
+  <div id="loading" class="text-center text-slate-400 py-20">loading editions…</div>
+
+  <div id="wizard-content" class="hidden bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+
+    <!-- ───────── Step 1: Start from ───────── -->
+    <section id="step-1" class="step-pane active">
+      <h2 class="text-2xl font-bold mb-1">1. Start from a profile</h2>
+      <p class="text-slate-600 mb-5">Pick a Bible profile to start with. You can change anything in the next steps.</p>
+      <div id="start-cards" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+      <div class="mt-6 flex justify-end">
+        <button id="next-1" class="px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium opacity-50" disabled>Next →</button>
+      </div>
+    </section>
+
+    <!-- ───────── Step 2: Branding ───────── -->
+    <section id="step-2" class="step-pane">
+      <h2 class="text-2xl font-bold mb-1">2. Brand your edition</h2>
+      <p class="text-slate-600 mb-5">Title, publisher, ISBN, copyright. These appear on the copyright page and in store listings.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="md:col-span-2">
+          <label class="label-text">Title</label>
+          <input id="w-title" class="field-input" maxlength="200">
+        </div>
+        <div>
+          <label class="label-text">Publisher / Imprint</label>
+          <input id="w-publisher_name" class="field-input" maxlength="200">
+        </div>
+        <div>
+          <label class="label-text">Publisher URL</label>
+          <input id="w-publisher_url" class="field-input" maxlength="500" placeholder="https://...">
+        </div>
+        <div>
+          <label class="label-text">ISBN (EPUB)</label>
+          <input id="w-isbn_epub" class="field-input" maxlength="40" placeholder="978-1-XXXXX-XXX-X">
+        </div>
+        <div>
+          <label class="label-text">ISBN (Print)</label>
+          <input id="w-isbn_print" class="field-input" maxlength="40">
+        </div>
+        <div>
+          <label class="label-text">Copyright year</label>
+          <input id="w-copyright_year" class="field-input" maxlength="10">
+        </div>
+        <div>
+          <label class="label-text">Copyright holder</label>
+          <input id="w-copyright_holder" class="field-input" maxlength="200">
+        </div>
+        <div class="md:col-span-2">
+          <label class="label-text">Authors (one per line, "Name (role)")</label>
+          <textarea id="w-authors" rows="3" class="field-input font-mono text-sm" placeholder="Dr. Jane Editor (editor)&#10;Bishop John Smith (foreword)"></textarea>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-between">
+        <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
+        <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Next →</button>
+      </div>
+    </section>
+
+    <!-- ───────── Step 3: Theme ───────── -->
+    <section id="step-3" class="step-pane">
+      <h2 class="text-2xl font-bold mb-1">3. Pick a visual theme</h2>
+      <p class="text-slate-600 mb-5">Each theme is a typography + color treatment. The same notes; different feel.</p>
+      <div id="theme-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+      <div class="mt-6 flex justify-between">
+        <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
+        <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Next →</button>
+      </div>
+    </section>
+
+    <!-- ───────── Step 4: Content ───────── -->
+    <section id="step-4" class="step-pane">
+      <h2 class="text-2xl font-bold mb-1">4. Choose your note categories</h2>
+      <p class="text-slate-600 mb-5">Click categories to include or exclude entire families of notes. Per-note tweaks happen in <a href="/sources" class="text-blue-600 underline">Sources</a> later.</p>
+      <div id="cat-cards" class="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
+      <div class="mt-4 text-sm text-slate-500" id="cat-summary"></div>
+      <div class="mt-6 flex justify-between">
+        <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
+        <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Next →</button>
+      </div>
+    </section>
+
+    <!-- ───────── Step 5: Review ───────── -->
+    <section id="step-5" class="step-pane">
+      <h2 class="text-2xl font-bold mb-1">5. Review before building</h2>
+      <p class="text-slate-600 mb-5">Last chance to go back and tweak.</p>
+      <div id="review-pane" class="space-y-4"></div>
+      <div class="mt-6 flex justify-between">
+        <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
+        <button class="next-btn px-5 py-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-medium">Build my Bible →</button>
+      </div>
+    </section>
+
+    <!-- ───────── Step 6: Build & Download ───────── -->
+    <section id="step-6" class="step-pane">
+      <div id="build-stage" class="text-center py-8">
+        <div class="text-5xl mb-4">📖</div>
+        <h2 class="text-2xl font-bold mb-2">Building your Bible…</h2>
+        <p class="text-slate-600 mb-6" id="build-status">Saving your settings…</p>
+        <div class="max-w-md mx-auto h-2 rounded-full overflow-hidden bg-slate-200">
+          <div class="h-full build-progress" style="width: 100%;"></div>
+        </div>
+      </div>
+      <div id="done-stage" class="hidden text-center py-8">
+        <div class="text-6xl mb-4">✓</div>
+        <h2 class="text-2xl font-bold text-emerald-700 mb-2">Your Bible is ready</h2>
+        <p class="text-slate-600 mb-2" id="done-summary"></p>
+        <p class="text-xs text-slate-400 mb-6" id="done-filename"></p>
+        <a id="download-link" class="inline-block px-8 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-lg shadow" download>⬇  Download EPUB</a>
+        <div class="mt-8">
+          <button id="restart-btn" class="text-sm text-slate-500 hover:text-slate-700 underline">Build another</button>
+        </div>
+      </div>
+      <div id="error-stage" class="hidden text-center py-8">
+        <div class="text-5xl mb-4">⚠</div>
+        <h2 class="text-2xl font-bold text-red-700 mb-2">Build failed</h2>
+        <p class="text-slate-600 mb-4" id="error-message"></p>
+        <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+const STATE = {
+  step: 1,
+  edition_id: null,           // chosen starting edition
+  // Branding fields (Step 2)
+  title: '', publisher_name: '', publisher_url: '',
+  isbn_epub: '', isbn_print: '',
+  copyright_year: String(new Date().getFullYear()),
+  copyright_holder: '',
+  authors: [],                 // list of "Name (role)"
+  // Theme (Step 3)
+  theme: 'classic',
+  // Disabled categories computed via DATA (Step 4)
+  enabled_cats: new Set(),
+};
+let DATA = null;
+
+async function init() {
+  const [c, m] = await Promise.all([
+    fetch('/api/customize').then(r => r.json()),
+    fetch('/api/matrix').then(r => r.json()),
+  ]);
+  DATA = {customize: c, matrix: m};
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('wizard-content').classList.remove('hidden');
+  renderStep1();
+  renderStep3();
+  renderStep4();
+  // Wire navigation
+  document.getElementById('next-1').addEventListener('click', () => goto(2));
+  document.querySelectorAll('.back-btn').forEach(b =>
+    b.addEventListener('click', () => goto(STATE.step - 1)));
+  document.querySelectorAll('.next-btn').forEach(b =>
+    b.addEventListener('click', () => {
+      if (STATE.step === 5) {
+        startBuild();
+      } else {
+        goto(STATE.step + 1);
+      }
+    }));
+  document.getElementById('restart-btn').addEventListener('click', () => {
+    location.reload();
+  });
+}
+
+function goto(step) {
+  if (step < 1 || step > 6) return;
+  if (step === 5) renderReview();
+  document.querySelectorAll('.step-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById(`step-${step}`).classList.add('active');
+  // Step indicators
+  for (let i = 1; i <= 6; i++) {
+    const dot = document.getElementById(`dot-${i}`);
+    const line = document.getElementById(`line-${i}`);
+    dot.classList.remove('active', 'done');
+    if (i < step) dot.classList.add('done');
+    else if (i === step) dot.classList.add('active');
+    if (line) {
+      line.classList.toggle('done', i < step);
+    }
+  }
+  STATE.step = step;
+  // When entering Step 2, populate from chosen edition
+  if (step === 2 && STATE.edition_id) populateBranding();
+  if (step === 3) refreshThemeSelection();
+  if (step === 4) refreshCategorySelection();
+}
+
+// ───────── Step 1 ─────────
+function renderStep1() {
+  const wrap = document.getElementById('start-cards');
+  wrap.innerHTML = DATA.customize.editions.map(e => `
+    <div class="pick-card" data-edition="${e.id}">
+      <div class="font-semibold mb-1">${esc(e.title)}</div>
+      <div class="text-xs text-slate-500 mb-2 font-mono">${e.id}</div>
+      <div class="text-sm text-slate-600">${esc(e.target_audience || 'No audience description.')}</div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('.pick-card').forEach(c => {
+    c.addEventListener('click', () => {
+      wrap.querySelectorAll('.pick-card').forEach(o => o.classList.remove('picked'));
+      c.classList.add('picked');
+      STATE.edition_id = c.dataset.edition;
+      const btn = document.getElementById('next-1');
+      btn.disabled = false;
+      btn.classList.remove('opacity-50');
+    });
+  });
+}
+
+// ───────── Step 2 ─────────
+async function populateBranding() {
+  // Pull current values from the chosen edition
+  const ed = DATA.customize.editions.find(e => e.id === STATE.edition_id);
+  const pub = await fetch('/api/publisher').then(r => r.json());
+  const pubEd = pub.editions.find(e => e.id === STATE.edition_id);
+  // Apply if state empty (don't clobber user edits)
+  STATE.title = STATE.title || ed.title || '';
+  STATE.theme = STATE.theme === 'classic' ? (ed.theme || 'classic') : STATE.theme;
+  for (const f of ['publisher_name','publisher_url','isbn_epub','isbn_print',
+                    'copyright_year','copyright_holder']) {
+    if (!STATE[f]) STATE[f] = pubEd[f] || '';
+  }
+  if (!STATE.authors.length) STATE.authors = [...(pubEd.authors || [])];
+  // Sync to inputs
+  document.getElementById('w-title').value = STATE.title;
+  for (const f of ['publisher_name','publisher_url','isbn_epub','isbn_print',
+                    'copyright_year','copyright_holder']) {
+    document.getElementById(`w-${f}`).value = STATE[f];
+  }
+  document.getElementById('w-authors').value = STATE.authors.join('\n');
+  // Wire inputs to STATE
+  document.getElementById('w-title').oninput = ev => STATE.title = ev.target.value;
+  for (const f of ['publisher_name','publisher_url','isbn_epub','isbn_print',
+                    'copyright_year','copyright_holder']) {
+    document.getElementById(`w-${f}`).oninput = ev => STATE[f] = ev.target.value;
+  }
+  document.getElementById('w-authors').oninput = ev =>
+    STATE.authors = ev.target.value.split('\n').map(s => s.trim()).filter(Boolean);
+}
+
+// ───────── Step 3 ─────────
+function renderStep3() {
+  const wrap = document.getElementById('theme-cards');
+  wrap.innerHTML = (DATA.customize.themes || []).map(t => `
+    <div class="pick-card" data-theme="${t.id}">
+      <div class="font-semibold mb-1">${esc(t.name)}</div>
+      <div class="text-xs text-slate-500 mb-2">${esc(t.description || '')}</div>
+      <div class="theme-preview theme-${t.id}">
+        <strong>Genesis 1:1.</strong> In the beginning, God created the heavens and the earth.
+      </div>
+    </div>
+  `).join('');
+  // Apply mini theme previews via inline styles
+  wrap.querySelectorAll('.theme-classic').forEach(p => p.style.fontFamily = 'Georgia, serif');
+  wrap.querySelectorAll('.theme-modern').forEach(p => {
+    p.style.fontFamily = 'system-ui, sans-serif'; p.style.color = '#1a202c';
+  });
+  wrap.querySelectorAll('.theme-scholarly').forEach(p => {
+    p.style.fontFamily = 'Charter, Palatino, serif'; p.style.fontSize = '0.82em';
+  });
+  wrap.querySelectorAll('.theme-devotional').forEach(p => {
+    p.style.fontFamily = 'Iowan Old Style, Palatino, serif';
+    p.style.background = '#fffbf3'; p.style.color = '#2c1810';
+    p.style.fontStyle = 'italic';
+  });
+  wrap.querySelectorAll('.theme-school').forEach(p => {
+    p.style.fontFamily = 'Verdana, sans-serif'; p.style.fontSize = '1.05em';
+  });
+  wrap.querySelectorAll('.pick-card').forEach(c => {
+    c.addEventListener('click', () => {
+      wrap.querySelectorAll('.pick-card').forEach(o => o.classList.remove('picked'));
+      c.classList.add('picked');
+      STATE.theme = c.dataset.theme;
+    });
+  });
+}
+
+function refreshThemeSelection() {
+  document.querySelectorAll('#theme-cards .pick-card').forEach(c => {
+    c.classList.toggle('picked', c.dataset.theme === STATE.theme);
+  });
+}
+
+// ───────── Step 4 ─────────
+function renderStep4() {
+  const wrap = document.getElementById('cat-cards');
+  const cats = (DATA.matrix.categories || []).slice().sort((a,b) => a.sort_order - b.sort_order);
+  // Pre-populate from chosen edition's enabled categories
+  if (STATE.enabled_cats.size === 0 && STATE.edition_id) {
+    const ed = DATA.customize.editions.find(e => e.id === STATE.edition_id);
+    const enabled = (DATA.matrix.editions || []).find(e => e.id === STATE.edition_id);
+    if (enabled) {
+      STATE.enabled_cats = new Set(
+        cats.filter(c => (enabled.cells[c.id] || {}).any_enabled).map(c => c.id)
+      );
+    }
+  }
+  wrap.innerHTML = cats.map(c => {
+    const checked = STATE.enabled_cats.has(c.id);
+    const kindCount = (DATA.matrix.kinds || []).filter(k => k.category === c.id).length;
+    return `
+      <div class="kind-row pick-card !p-3" data-cat="${c.id}">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" ${checked ? 'checked' : ''} class="w-4 h-4 cursor-pointer pointer-events-none">
+          <div class="flex-1">
+            <div class="font-semibold">${esc(c.symbol)} <span class="ml-1">${esc(c.label)}</span></div>
+            <div class="text-xs text-slate-500">${esc(c.description || '')} · ${kindCount} note kind${kindCount === 1 ? '' : 's'}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  wrap.querySelectorAll('.kind-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const id = row.dataset.cat;
+      if (STATE.enabled_cats.has(id)) STATE.enabled_cats.delete(id);
+      else STATE.enabled_cats.add(id);
+      const cb = row.querySelector('input[type="checkbox"]');
+      cb.checked = STATE.enabled_cats.has(id);
+      row.classList.toggle('picked', STATE.enabled_cats.has(id));
+      renderCatSummary();
+    });
+  });
+  refreshCategorySelection();
+}
+
+function refreshCategorySelection() {
+  document.querySelectorAll('#cat-cards .kind-row').forEach(row => {
+    const id = row.dataset.cat;
+    const on = STATE.enabled_cats.has(id);
+    row.classList.toggle('picked', on);
+    const cb = row.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = on;
+  });
+  renderCatSummary();
+}
+
+function renderCatSummary() {
+  const n = STATE.enabled_cats.size;
+  document.getElementById('cat-summary').textContent =
+    `${n} of ${(DATA.matrix.categories || []).length} categories enabled`;
+}
+
+// ───────── Step 5 ─────────
+function renderReview() {
+  const cats = (DATA.matrix.categories || []).filter(c => STATE.enabled_cats.has(c.id));
+  const themeName = (DATA.customize.themes || []).find(t => t.id === STATE.theme)?.name || STATE.theme;
+  const ed = DATA.customize.editions.find(e => e.id === STATE.edition_id);
+  document.getElementById('review-pane').innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-slate-50 border border-slate-200 rounded p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Edition</div>
+        <div class="font-semibold">${esc(STATE.title || ed.title)}</div>
+        <div class="text-xs text-slate-500 font-mono mt-1">based on: ${esc(STATE.edition_id)}</div>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Branding</div>
+        <div>${esc(STATE.publisher_name || 'Independent')}</div>
+        <div class="text-xs text-slate-500">ISBN: ${esc(STATE.isbn_epub || '—')}</div>
+        <div class="text-xs text-slate-500">© ${esc(STATE.copyright_year)} ${esc(STATE.copyright_holder || '—')}</div>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Theme</div>
+        <div class="font-semibold">${esc(themeName)}</div>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded p-4">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Categories enabled</div>
+        <div class="text-sm">${cats.map(c => `<span class="pill mr-1 mb-1">${esc(c.symbol)} ${esc(c.label)}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="bg-amber-50 border border-amber-200 rounded p-3 mt-4 text-sm">
+      <strong>Note:</strong> clicking <em>Build my Bible</em> will save these settings to <code class="font-mono">${esc(STATE.edition_id)}</code> and produce a fresh EPUB. The corpus itself is not modified.
+    </div>
+  `;
+}
+
+// ───────── Step 6: Build ─────────
+async function startBuild() {
+  goto(6);
+  document.getElementById('build-stage').classList.remove('hidden');
+  document.getElementById('done-stage').classList.add('hidden');
+  document.getElementById('error-stage').classList.add('hidden');
+  const status = document.getElementById('build-status');
+
+  try {
+    // 1. Save edition meta (title, theme)
+    status.textContent = 'Saving your branding…';
+    const editionMeta = {title: STATE.title, theme: STATE.theme};
+    const r1 = await fetch(`/api/edition-meta/${encodeURIComponent(STATE.edition_id)}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(editionMeta),
+    });
+    if (!r1.ok) throw new Error('failed to save edition meta');
+
+    // 2. Save publisher fields
+    status.textContent = 'Saving publisher info…';
+    const pubMeta = {
+      publisher_name: STATE.publisher_name,
+      publisher_url: STATE.publisher_url,
+      isbn_epub: STATE.isbn_epub,
+      isbn_print: STATE.isbn_print,
+      copyright_year: STATE.copyright_year,
+      copyright_holder: STATE.copyright_holder,
+      authors: STATE.authors,
+    };
+    const r2 = await fetch(`/api/publisher/${encodeURIComponent(STATE.edition_id)}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(pubMeta),
+    });
+    if (!r2.ok) throw new Error('failed to save publisher info');
+
+    // 3. Build the EPUB
+    status.textContent = 'Building EPUB (this can take a minute)…';
+    const r3 = await fetch(`/api/export/build/${encodeURIComponent(STATE.edition_id)}`, {
+      method: 'PUT',
+    });
+    const data = await r3.json();
+    if (!r3.ok || !data.ok) throw new Error(data.error || 'build failed');
+
+    // Done
+    document.getElementById('build-stage').classList.add('hidden');
+    document.getElementById('done-stage').classList.remove('hidden');
+    document.getElementById('done-summary').textContent =
+      `${esc(STATE.title || STATE.edition_id)} — ${data.size_mb} MB`;
+    document.getElementById('done-filename').textContent = data.filename;
+    document.getElementById('download-link').href = data.download_url;
+  } catch (err) {
+    document.getElementById('build-stage').classList.add('hidden');
+    document.getElementById('error-stage').classList.remove('hidden');
+    document.getElementById('error-message').textContent = err.message || String(err);
+  }
+}
+
+function esc(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+init().catch(e => {
+  document.getElementById('loading').textContent = 'failed to load: ' + e.message;
+});
+</script>
+
+<!-- ω.0.6 — UI defense prelude — START -->
+<!-- Re-injecting / refreshing this block uses
+     scripts/bulk_inject.py replace --open-marker "ω.0.6 — UI defense prelude — START"
+     ...                          --close-marker "ω.0.6 — UI defense prelude — END"
+     The markers are stable contracts; do not change without a coordinated migration. -->
+<script>
+(function () {
+  'use strict';
+
+  // -------------------------------------------------------------------
+  // Tier 4 — Global error backstop. Catches anything that escapes
+  // the other tiers (null-pointer accesses, unhandled rejections,
+  // syntax errors in inline scripts) and shows a soft red banner
+  // instead of leaving the page frozen.
+  // -------------------------------------------------------------------
+
+  function ensureErrorBanner() {
+    var banner = document.getElementById('ebible-error-banner');
+    if (banner) return banner;
+    banner = document.createElement('div');
+    banner.id = 'ebible-error-banner';
+    banner.setAttribute('role', 'alert');
+    banner.setAttribute('aria-live', 'polite');
+    banner.style.cssText =
+      'position:fixed;top:0;left:0;right:0;z-index:9999;' +
+      'background:#dc2626;color:#fff;padding:8px 16px;font-size:13px;' +
+      'font-family:system-ui,sans-serif;display:none;' +
+      'box-shadow:0 2px 4px rgba(0,0,0,0.1)';
+    banner.innerHTML =
+      '<div style="max-width:72rem;margin:0 auto;display:flex;' +
+      'align-items:center;justify-content:space-between;gap:12px">' +
+      '<span class="ebible-error-text" style="flex:1;min-width:0;' +
+      'overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>' +
+      '<button type="button" class="ebible-error-dismiss" ' +
+      'style="background:none;border:1px solid rgba(255,255,255,0.4);' +
+      'color:#fff;padding:2px 10px;border-radius:4px;cursor:pointer;' +
+      'font-size:12px">Dismiss</button></div>';
+    if (document.body) {
+      document.body.appendChild(banner);
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        document.body.appendChild(banner);
+      });
+    }
+    banner.querySelector('.ebible-error-dismiss')
+      .addEventListener('click', function () { banner.style.display = 'none'; });
+    return banner;
+  }
+
+  function showErrorBanner(message) {
+    try {
+      var banner = ensureErrorBanner();
+      var text = banner.querySelector('.ebible-error-text');
+      if (text) text.textContent = message;
+      banner.style.display = 'block';
+    } catch (e) {
+      // If even the banner fails, log to console as last resort
+      try { console.error('[ebible] error banner failed:', e, message); }
+      catch (_) {}
+    }
+  }
+
+  // Install global error handlers
+  window.addEventListener('error', function (ev) {
+    var msg = (ev && ev.message) ? ev.message : 'Script error';
+    // Filter out "Script error." with no info — usually cross-origin
+    // loaded resources, nothing actionable for us
+    if (msg === 'Script error.') return;
+    showErrorBanner('Something went wrong: ' + msg);
+    try { console.error('[ebible global error]', ev.error || msg); }
+    catch (_) {}
+  });
+  window.addEventListener('unhandledrejection', function (ev) {
+    var reason = ev && ev.reason;
+    var msg = (reason && reason.message) ? reason.message : String(reason);
+    showErrorBanner('Background task failed: ' + msg);
+    try { console.error('[ebible unhandled rejection]', reason); }
+    catch (_) {}
+  });
+
+  // -------------------------------------------------------------------
+  // Tier 2 — safeFetch wrapper. Standard helper for every API call.
+  // Throws on non-OK status, parses JSON safely, surfaces failures
+  // via the banner. Re-throws so callers can do feature-specific
+  // handling on top.
+  // -------------------------------------------------------------------
+
+  async function safeFetch(url, opts) {
+    opts = opts || {};
+    let response;
+    try {
+      response = await fetch(url, opts);
+    } catch (netErr) {
+      // Network drop, DNS fail, fetch aborted, etc.
+      const msg = (netErr && netErr.message) ? netErr.message : 'network error';
+      showErrorBanner('Network error: ' + msg + ' (' + url + ')');
+      throw netErr;
+    }
+    if (!response.ok) {
+      let errMsg = response.status + ' ' + response.statusText;
+      try {
+        const text = await response.text();
+        if (text) {
+          try {
+            const parsed = JSON.parse(text);
+            if (parsed && parsed.error) errMsg = parsed.error;
+          } catch (_) {
+            // Not JSON; use text snippet
+            errMsg = text.slice(0, 200);
+          }
+        }
+      } catch (_) {}
+      showErrorBanner('API ' + response.status + ': ' + errMsg);
+      const err = new Error(errMsg);
+      err.status = response.status;
+      throw err;
+    }
+    // Parse response. If empty body, return null (DELETE often is).
+    const text = await response.text();
+    if (!text) return null;
+    try {
+      return JSON.parse(text);
+    } catch (parseErr) {
+      showErrorBanner('Server returned invalid JSON from ' + url);
+      throw parseErr;
+    }
+  }
+
+  // -------------------------------------------------------------------
+  // Tier 3 — DOM null-safe helpers. querySelector / querySelectorAll
+  // wrappers that don't throw on missing elements. Opt-in: existing
+  // code keeps working; new code can adopt these.
+  // -------------------------------------------------------------------
+
+  function safe$(selector, parent) {
+    try {
+      return (parent || document).querySelector(selector);
+    } catch (e) {
+      // Invalid selector syntax → log and return null instead of crash
+      try { console.warn('[safe$] invalid selector:', selector, e); }
+      catch (_) {}
+      return null;
+    }
+  }
+
+  function safe$$(selector, parent) {
+    try {
+      return Array.from((parent || document).querySelectorAll(selector));
+    } catch (e) {
+      try { console.warn('[safe$$] invalid selector:', selector, e); }
+      catch (_) {}
+      return [];
+    }
+  }
+
+  // -------------------------------------------------------------------
+  // ω.0.7 — Shared escape helpers. Eleven separate definitions of
+  // essentially the same HTML-escaping logic existed across the
+  // consoles before this consolidation. New code should use
+  // window.ebible.escapeHtml (or the bare alias). Existing call
+  // sites can migrate incrementally.
+  // -------------------------------------------------------------------
+
+  var ESCAPE_HTML_MAP = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+
+  function escapeHtml(s) {
+    if (s === null || s === undefined) return '';
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ESCAPE_HTML_MAP[c] || c;
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // Public surface — attach to window.ebible namespace
+  // -------------------------------------------------------------------
+
+  window.ebible = window.ebible || {};
+  window.ebible.showErrorBanner = showErrorBanner;
+  window.ebible.safeFetch = safeFetch;
+  window.ebible.safe$ = safe$;
+  window.ebible.safe$$ = safe$$;
+  window.ebible.escapeHtml = escapeHtml;
+  // Convenience aliases for less typing in inline scripts
+  window.safeFetch = safeFetch;
+  window.safe$ = safe$;
+  window.safe$$ = safe$$;
+  window.escapeHtml = escapeHtml;
+})();
+</script>
+<!-- ω.0.6 — UI defense prelude — END -->
+
+</body>
+</html>
+"""

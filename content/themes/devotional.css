@@ -1,0 +1,14 @@
+/* Theme: devotional — warmer palette, generous spacing for reflection. */
+body {
+  font-family: "Iowan Old Style", "Palatino", "Cambria", serif;
+  line-height: 1.75;
+  color: #2c1810;
+  background: #fffbf3;
+}
+h1, h2, h3 {
+  font-family: "Iowan Old Style", "Palatino", serif;
+  color: #7c4a26;
+  font-style: italic;
+  font-weight: normal;
+}
+.note { background: #faf2e3; border-left: 3px solid #c4914d; }

@@ -1,0 +1,23 @@
+{
+  "book": "ezk",
+  "chapter": 1,
+  "generated_at": "2026-05-08T14:31:40+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "ezk-1-24-001",
+      "verse": 24,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.67,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-ezk-43-2\">Ezk 43:2</a> · <a href=\"#vnote-dan-10-6\">Dan 10:6</a> · <a href=\"#vnote-psa-29-3\">Psa 29:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 34. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

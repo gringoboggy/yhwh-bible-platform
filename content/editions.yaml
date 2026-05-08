@@ -1,0 +1,195 @@
+# editions.yaml — edition profiles for the multi-SKU build pipeline.
+#
+# Each edition specifies which kinds / categories of notes appear in its
+# build. The build pipeline (build_epub.py --edition <id>) filters notes
+# by these rules to produce a market-tuned EPUB from the single master
+# corpus.
+#
+# Conflict-handling posture (project-wide): ACADEMIC.
+#   We show all major traditions' views per edition, clearly labeled
+#   by their `comm-*` sub-kind. Each edition's distinctive readings sit
+#   alongside the others, not replacing them. The edition tunes which
+#   FAMILIES are included, not which views within a family.
+#
+# Filter semantics:
+#   - enabled_categories: list of category ids that are included by default
+#   - enabled_kinds:      explicit kind codes to ADD even if their category
+#                         is not in enabled_categories
+#   - disabled_kinds:     explicit kind codes to REMOVE even if their
+#                         category is enabled
+#
+# Phase tags are also respected: an edition can opt out of `phase3` kinds
+# entirely with `max_phase: phase2`.
+
+editions:
+
+  # ──────────────────────────────────────────────────────────────────
+  # First commercial SKU. Distinctive market — Tewahedo Orthodox
+  # readers, Coptic / Eritrean parallels, scholarly Ethiopians abroad.
+  # Includes the broader 87-book canon (already in this project).
+  # ──────────────────────────────────────────────────────────────────
+  - id: ethiopian-tewahedo
+    canon: ethiopian
+    title: "The Ethiopian Tewahedo Study Bible"
+    short_title: "Ethiopian Tewahedo SB"
+    isbn: "978-XXX-XXXXX-XX-X"
+    target_audience: "Ethiopian Tewahedo, Coptic, Eritrean Orthodox; scholars of the Ethiopian canon"
+    enabled_categories:
+      - lang
+      - text
+      - xref
+      - hist
+      - lit
+      - comm
+      - compare
+      - liturgy
+    enabled_kinds:
+      - dist-typological
+      - dist-mariological
+    disabled_kinds:
+      - comm-reformation
+      - comm-contextual
+    max_phase: mvp
+    cover_image: "covers/ethiopian-tewahedo.jpg"
+    notes: "Leads with comm-ethiopian and liturgy-ethiopian; foregrounds compare-pseudepigrapha (1 Enoch and Jubilees are canonical here)."
+
+  # ──────────────────────────────────────────────────────────────────
+  # Largest English-speaking religious market. Magisterial-friendly,
+  # includes deuterocanonical content, foregrounds Marian and patristic
+  # readings.
+  # ──────────────────────────────────────────────────────────────────
+    popup_languages_default:
+      - "english"
+      - "hebrew"
+      - "greek"
+
+  - id: catholic-study
+    canon: catholic
+    popup_translation: ""
+    title: "The Catholic Study Bible — Ethiopian Edition"
+    short_title: "Catholic SB Ethiopian"
+    isbn: "978-XXX-XXXXX-XX-Y"
+    target_audience: "Roman Catholic readers interested in the broader canon"
+    enabled_categories:
+      - lang
+      - text
+      - xref
+      - hist
+      - lit
+      - comm
+      - compare
+      - liturgy
+      - dist
+    disabled_kinds:
+      - comm-reformation
+    max_phase: phase2
+    cover_image: ""
+    notes: "Foregrounds comm-patristic, comm-catholic, dist-mariological, dist-typological, liturgy-christian-year."
+
+  # ──────────────────────────────────────────────────────────────────
+  # Largest study-Bible-buying market. Foregrounds typological readings,
+  # modern critical scholarship, and direct application.
+  # ──────────────────────────────────────────────────────────────────
+    popup_languages_default:
+      - "english"
+      - "hebrew"
+      - "greek"
+    book_covers: []
+
+  - id: evangelical-reformed
+    canon: protestant
+    title: "The Reformed Study Bible — Expanded Canon"
+    short_title: "Reformed SB"
+    isbn: "978-XXX-XXXXX-XX-Z"
+    target_audience: "Evangelical / Reformed readers"
+    enabled_categories:
+      - lang
+      - text
+      - xref
+      - hist
+      - lit
+      - comm
+      - dev
+      - apol
+      - dist
+    disabled_kinds:
+      - comm-catholic
+      - comm-orthodox
+      - comm-ethiopian
+      - dist-mariological
+      - dist-mystical
+      - dist-allegorical
+    max_phase: phase2
+    cover_image: "covers/evangelical-reformed.jpg"
+    notes: "Foregrounds comm-reformation, comm-modern-critical, dist-typological, dev-application."
+
+  # ──────────────────────────────────────────────────────────────────
+  # Sophisticated, less competition. Foregrounds rabbinic, Hebrew,
+  # parashot. Excludes NT and Christian-distinctive content.
+  # ──────────────────────────────────────────────────────────────────
+    popup_languages_default:
+      - "english"
+      - "greek"
+
+  - id: jewish-study
+    canon: tanakh
+    title: "The Jewish Study Tanakh — Expanded"
+    short_title: "Jewish Tanakh"
+    isbn: "978-XXX-XXXXX-XX-W"
+    target_audience: "Jewish readers, academic scholars of Hebrew Bible"
+    enabled_categories:
+      - lang
+      - text
+      - xref
+      - hist
+      - lit
+      - comm
+      - compare
+      - liturgy
+    disabled_kinds:
+      - comm-patristic
+      - comm-orthodox
+      - comm-catholic
+      - comm-reformation
+      - comm-ethiopian
+      - dist-typological
+      - dist-mariological
+      - liturgy-christian-year
+      - liturgy-ethiopian
+    max_phase: phase2
+    cover_image: "covers/jewish-study.jpg"
+    notes: "Foregrounds comm-rabbinic, lang-hebrew, liturgy-torah-portion. Does not include NT books in build manifest (handled at book level, not kind level)."
+
+  # ──────────────────────────────────────────────────────────────────
+  # Smallest market, highest prestige. Includes everything; no
+  # tradition-leveling. The 'Oxford Annotated' position.
+  # ──────────────────────────────────────────────────────────────────
+    popup_languages_default:
+      - "english"
+      - "hebrew"
+
+  - id: scholarly-academic
+    canon: ethiopian
+    title: "The Annotated Ethiopian Bible — Scholar's Edition"
+    short_title: "Scholar's Edition"
+    isbn: "978-XXX-XXXXX-XX-V"
+    target_audience: "Academic scholars, libraries, seminaries"
+    enabled_categories:
+      - lang
+      - text
+      - xref
+      - hist
+      - lit
+      - comm
+      - compare
+      - apol
+      - modern
+      - dist
+    max_phase: phase3
+    cover_image: "covers/scholarly-academic.jpg"
+    notes: "Includes everything available. The current project state is closest to this edition."
+    popup_languages_default:
+      - "english"
+      - "hebrew"
+      - "greek"
+

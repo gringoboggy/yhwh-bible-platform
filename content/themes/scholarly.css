@@ -1,0 +1,17 @@
+/* Theme: scholarly — denser, smaller, footnote-friendly. */
+body {
+  font-family: "Charter", "Palatino", "Iowan Old Style",
+                "Liberation Serif", serif;
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #14110b;
+}
+h1, h2, h3 {
+  font-family: "Charter", "Palatino", serif;
+  color: #4a3a1f;
+  font-weight: bold;
+  text-align: left;
+}
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.25em; }
+.note { font-size: 0.88em; line-height: 1.45; color: #2d2418; }

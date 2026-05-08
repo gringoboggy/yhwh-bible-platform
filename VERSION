@@ -1,0 +1,45 @@
+YHWH v2.2 (full) — corpus-jump milestone
+========================================
+
+Lineage: v1.0 → v1.2 → v1.4 → v1.6 → v1.8 → v2.0 → v2.2
+
+═══ FOR FUTURE CLAUDE — START HERE ═══
+
+If you're a fresh Claude instance opening this save:
+  1. READ dev/CLAUDE_PROJECT_RULES.md  conventions + §9 mental models
+  2. READ dev/SESSION_STATE.md         current state + what's next
+  3. READ dev/PLAN_2026-05-07.md       sequence forward
+  4. PEEK dev/IN_FLIGHT.md             TRACKER-STATE marker
+
+§14 audit BEFORE any new code: check IN_FLIGHT marker, run tests,
+check git status. State drift between conversation context and
+reality has happened — the audit catches it.
+
+═══ THE BIG STORY THIS SESSION ═══
+
+CORPUS:    1,381 → 15,925 notes  (10.4× growth, 45.5% of 35K target)
+
+  via χ.6 (TSK xrefs) + χ.6+ (HebrewWord at scale), both using
+  the same pipeline pattern now codified as §9 mental model
+  "Add a new corpus-growth phase".
+
+NEW SCRIPTS (the χ cluster pattern):
+  scripts/run_xref_at_scale.py       driver for CrossRefDetector
+  scripts/run_hebrew_at_scale.py     driver for HebrewWordDetector
+  scripts/batch_promote_xrefs.py     in-process batch promoter
+
+ALSO SHIPPED:
+  §9     pure-function-API codification (6-instance retrospective)
+  ω.3    /apihelp console (13th)
+  ω.0.8  web.py split (12,784 → 5,211 lines, 60% reduction)
+  Tier 1 (debt + refactor): COMPLETE
+
+═══ STATE ═══
+
+Tests: 377 passing · Linter: 8/8 · 13 consoles · 5 editions
+Tier 1 DONE · Tier 2 underway (χ.7 next, χ.1 after, then χ.2-5)
+
+═══ EXCLUDED (regenerate on demand) ═══
+
+exports/ · epub_working/ · builds/ · __pycache__/ · .backups/ · .git/
+

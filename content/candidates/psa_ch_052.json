@@ -1,0 +1,23 @@
+{
+  "book": "psa",
+  "chapter": 52,
+  "generated_at": "2026-05-08T14:31:43+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "psa-52-8-001",
+      "verse": 8,
+      "kind": "xref-citation",
+      "anchor": "",
+      "confidence": 0.645,
+      "source_name": "TSK (3 refs)",
+      "source_attribution": "Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.",
+      "draft_title": "Cross-ref",
+      "draft_label": "Cite.",
+      "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-psa-92-12\">Psa 92:12</a> · <a href=\"#vnote-psa-1-3\">Psa 1:3</a> · <a href=\"#vnote-hos-14-6\">Hos 14:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
+      "detector": "CrossRefDetector",
+      "reviewer_notes": "TSK community-scored. Top vote count: 29. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    }
+  ]
+}

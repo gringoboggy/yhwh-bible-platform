@@ -1,0 +1,1307 @@
+# Claude project rules — the Bible publishing platform
+
+**Last updated:** 2026-05-07 after φ.1.
+**Purpose:** the durable, in-repo reference for how any Claude
+(or returning-user) should think about working on this project.
+Memory comes and goes; this doc is the source of truth.
+
+If anything in this doc conflicts with a one-off instruction from the
+user, the user wins for that turn — but the rule stays as written.
+
+---
+
+## 0. Bootstrap protocol — read these three files first
+
+Every fresh session begins by reading, in this order:
+
+```
+1. dev/CLAUDE_PROJECT_RULES.md   (this file — rules + conventions)
+2. dev/SESSION_STATE.md          (live snapshot — what just shipped,
+                                  what's next, current test count)
+3. dev/PLAN_2026-05-08.md        (master sequence doc with phase IDs)
+```
+
+Then optionally — only when the user's ask implies them:
+- `dev/CHANGELOG.md` for chronological history of what shipped
+  when (skim it when the user references "last session" or
+  "earlier work" without specifying)
+- `dev/SCOPE_2026-05-07-addendum-*.md` for the specific feature spec
+- `HANDOFF_README_v7.md` for deep architecture context (large; only
+  when needed)
+- `scripts/README.md` for tool reference
+- The relevant `content/notes/<book>.py` or `content/candidates/<…>.json`
+  for note-level work
+
+After those 3 files, Claude is fully oriented: knows the rules, knows
+the state, knows the sequence. **Total ~700-900 lines** — minimum
+bandwidth orientation by design.
+
+Never dump status to the user after orientation. Confirm in one line
+("Read state, current at φ.1, next is π.4-B — proceeding") and
+proceed to the actual request.
+
+---
+
+## 1. The north star
+
+The buyer demo. End-to-end:
+
+```
+1. Open /wizard
+2. "Make a Catholic study Bible" (or pick another starting edition)
+3. Step through ~8 cards: canon, kinds, theme, publisher meta,
+   per-note tweaks, popup languages, preview
+4. Click BUILD → an EPUB downloads with that publisher's imprint,
+   ISBN, copyright, theme, only their picked notes, and verse
+   popups in the languages they configured
+5. Buyer says "wow, that's it?" — yes, that's it.
+```
+
+### Corpus depth target
+
+The Ethiopian Tewahedo edition is the **superset** that all other
+editions filter from. **Target corpus size: 35,000–40,000 notes** in
+the Ethiopian flagship, drawn from public-domain sources via the
+existing `prospect → promote` pipeline. Other editions are subsets;
+their note counts fall out automatically from canon + kind filtering.
+
+Today's count: **1,381 notes** (handed-authored + sample seeds).
+Closing the gap to the 35–40K target is the **largest single piece
+of remaining work** and is owned by the χ cluster (corpus + detector
+expansion). Every shipped χ.* phase moves the corpus closer; the
+buyer demo's perceived depth is a direct function of this number.
+
+Every change should make the demo better, simpler, deeper, or
+more impressive. If a change doesn't serve the demo, it should be
+explicitly deferred unless the user pulled it forward.
+
+## 2. Universal principles (from SCOPE_2026-05-08.md, carried verbatim from 05-07)
+
+1. **Fully customizable.** Every UI element, symbol, marker, kind
+   name, category, color, label — assume the user will want to
+   change it. Defaults exist; nothing is hard-coded.
+
+2. **Easy.** No YAML hand-editing required. No CLI knowledge
+   required. No build-pipeline knowledge required. The dev tools
+   should let a schoolteacher or parish priest produce their own
+   edition.
+
+3. **Verifiable by book/chapter order.** Every browsing /
+   management UI defaults to organizing content in canonical
+   reading order — Genesis → Exodus → … → Revelation, with
+   chapters within a book numbered ascending. This is a *hard*
+   requirement, not a stylistic preference. See §6.
+
+## 3. Sequencing rules
+
+When the user delegates ordering ("do it all", "you decide",
+"push", "whatever order"), Claude picks the sequence using these
+priorities, in order:
+
+1. **Safest / most-foundational first.** Additive changes over
+   destructive. Defaults that preserve existing behavior. Schema
+   migrations that produce byte-identical builds when the new
+   field is unset.
+
+2. **Buyer-demo value.** Phases that unlock or polish the demo
+   come before phases that don't. Corpus depth (χ) is high-value.
+
+3. **Pair related phases.** If two phases are obviously tied
+   (schema + backend + UI for one feature), bundle them into one
+   batch even if they ship as separate commits.
+
+4. **Logical seams over arbitrary cutoffs.** Stop at a place
+   where another Claude (or future-self) could pick up cleanly,
+   not mid-function.
+
+5. **The 7-minute budget.** Pause before crossing it. Better to
+   stop, summarize where things stand, and resume next turn
+   than push through and lose progress.
+
+6. **Bandwidth-aware**. Re-reading existing infrastructure is
+   cheaper than rebuilding it. Always inventory before scoping
+   new work; always check whether a CLI tool already does the
+   thing the user is asking for. The 47-script CLI surface is
+   the source of truth — web consoles WRAP it, never replicate.
+
+When a task could be sequenced multiple reasonable ways, **pick
+the most logical one for the project as a whole**, even if the
+user's casual phrasing suggests a different order. The user has
+delegated this judgment; exercise it.
+
+## 4. Save semantics
+
+- "Save" means **present the zip via the `present_files` tool**.
+  Building the zip on disk alone is not a save. Surface it for
+  download.
+- **Every save updates dev/SESSION_STATE.md** to reflect the
+  current state — last shipped phase, next phase, test count,
+  and any in-flight notes. This is non-negotiable for
+  continuity. See §11 (Continuity protocol).
+- Always ask slim-or-full before building, unless the user has
+  already specified one in the current turn.
+- **Slim** zip excludes regenerable artifacts:
+  `content/translations/sources/`, `epub_working/.backups/`,
+  `__pycache__/`, `.pytest_cache/`, `*.bak`, `*.tmp`, `.git/`.
+- **Full** zip is everything in the working tree. (If a prior
+  full save was much larger than the current full would be,
+  that's worth flagging — likely a missing `exports/`
+  directory.)
+- "Continue", "proceed", "go ahead", "push" are **not** save
+  commands. Don't auto-zip at the end of a phase or commit.
+
+### Checkpoint saves (added after a real instance)
+
+A save can be issued *mid-task* when the user explicitly asks for
+one. This is a **checkpoint save** and is a valid pattern, not an
+error. At checkpoint time:
+
+- IN_FLIGHT.md should be `<!-- TRACKER-STATE: active -->` with the
+  current task's progress documented (what's done, what's pending).
+  This is honest and matches the Tier-2 contract.
+- SESSION_STATE.md should reflect that the save happened *during*
+  the in-flight task. The next save tag captures the same task,
+  fully shipped or further checkpointed.
+- The linter's `inflight_freshness` check will show
+  `active for X.Xh (fresh)` rather than `idle` — that's
+  correct for a checkpoint; not a bug.
+
+Why this matters: a checkpoint save preserves user-visible work
+without forcing premature completion. The user might want a
+zip "right now" even though the feature isn't done — to share,
+to test offline, to back up before the next risky change. The
+guardrail system (Tiers 1-4) accommodates this honestly rather
+than pretending the task is finished.
+
+First instance: v28a-64-full was issued mid-ψ.3 (corpus widget).
+Second: v28a-65-full was issued mid-ν.5 customize wiring. Both
+captured the partial state with IN_FLIGHT correctly active.
+
+## 5. Phase / commit tracking
+
+- The Greek-letter phase system: α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π
+  ρ σ τ. Sub-phases use dotted suffixes: `ν.2.5-A`, `ν.2.5-B`,
+  `ν.2.7-A`. Letter assignments are sticky — a feature lives
+  with one letter forever.
+- `dev/PLAN_<date>.md` is the master sequence doc. Every new
+  phase gets inserted in the right position there.
+- `dev/SCOPE_<date>-addendum-<topic>.md` for major feature
+  specs that need more than a paragraph.
+- Each shipped phase corresponds to a `v28a-NN` build tag.
+
+## 6. UI conventions
+
+### 6.1 Book/Chapter order is canonical
+
+Any UI that lists books — pickers, matrices, summaries,
+audits, diff views — uses the order from `content/books.yaml`.
+That order is Genesis → Exodus → … → Revelation, then
+Apocrypha / deutero in their canonical positions, then any
+Ethiopian-only books at the end. **Do not sort books
+alphabetically.** Do not sort by note count. Do not sort by
+"importance". Reading order is the only correct order.
+
+Where chapters are listed inside a book, sort ascending by
+chapter number. Where verses are listed inside a chapter, sort
+ascending by verse number.
+
+Where a UI must show a different order (e.g. an audit sorted
+by problem severity), the canonical order must remain *one
+click away* — provide a "sort by canonical" button or default.
+
+### 6.2 Cross-linking
+
+Every console header links to every other console. The current
+console is `font-semibold`; the others are
+`text-blue-600 hover:underline`. New consoles must add their
+link to every existing console's header AND list every existing
+console in their own header.
+
+The cross-link invariant is enforced by `scripts/lint_rules.py`
+(check id `6.2`) and surfaced in the `/preflight` dashboard as
+the **Rules compliance** check. When the linter complains, fix
+it before saving — drift here only gets harder to fix later.
+
+**Pre-existing exception** — the consoles' "matrix" nav link
+points to `/` rather than `/matrix`. This is project-old
+technical debt: `/` actually serves the note editor (INDEX_HTML),
+not MATRIX_HTML. The display text "matrix" was chosen when the
+editor was understood as the home view. The linter accepts both
+`/` and `/matrix` as valid cross-link targets for the matrix
+cluster. When this gets cleaned up, do it cross-cuttingly across
+all console nav blocks at once and update the linter's
+`matrix_aliases` set.
+
+### 6.3 Styling
+
+- Tailwind via CDN (`https://cdn.tailwindcss.com`). No other CSS
+  frameworks. Don't introduce a build step for CSS.
+- Inline `<style>` blocks for truly per-page touches; Tailwind
+  utility classes for everything else.
+- No JavaScript build step. Plain ES6 in `<script>` tags.
+
+### 6.4 Reactivity & forms
+
+When a console renders form fields, both `<input>` and
+`<select>` (and `<textarea>` if added later) must participate in
+the dirty-check + save logic. The pattern is
+`box.querySelectorAll('input, select')` — never just `'input'`.
+
+### 6.5 Defaults for additive features
+
+A new UI control that adds a feature should default to the
+"don't change anything" position. Publishers opt *in*, not *out*.
+
+## 7. Code conventions
+
+### 7.1 Backend
+
+- One BaseHTTPRequestHandler in `scripts/web.py`. `/foo` for
+  HTML, `/api/foo` for JSON. New routes add an `if path == …`
+  branch in `do_GET` / `do_POST` / `do_PUT`.
+- YAML for config (editions, kinds, canons, themes, _meta).
+  Python files with tuple data for bulk content (notes,
+  translations).
+- Loading data files: `ast.literal_eval` only — never `exec`.
+  Translation modules and notes modules look like Python but
+  must not be executable. A corrupted or hostile data file
+  must not run code.
+- Cache file reads with `lru_cache` keyed on `(path, mtime_ns)`
+  so on-disk edits auto-invalidate. See
+  `scripts.core.notes_io.load_notes` for the canonical pattern.
+- Writes go through `notes_io.atomic_write`. Bulk or
+  destructive writes go through `notes_io.ensure_backup` first.
+
+### 7.2 Schema migrations
+
+- Adding a field is **always** a no-op when the field is unset.
+  Builds with the field unset must be byte-identical to builds
+  before the field existed.
+- New required fields are forbidden. If a field "must" be set,
+  pick a sensible default and document it.
+- The `_patch_yaml_entry` and `_patch_yaml_list_field` helpers
+  in `scripts/web.py` are how you write YAML edits — they
+  preserve comments, ordering, and surrounding structure. Don't
+  rewrite YAML files with `yaml.dump`; that loses comments.
+
+### 7.3 Project structure
+
+Books use lowercase 3-letter codes: `gen`, `exo`, `1ki`, `tob`,
+`lje`, `2es`, etc. The 87-book Ethiopian Tewahedo set is the
+superset; smaller canons are subsets defined in
+`content/canons.yaml`.
+
+## 8. Testing conventions
+
+- pytest classes named `TestX` per feature. Live in
+  `tests/test_scripts.py` (most things) or `tests/test_core.py`
+  (core modules).
+- Both unit (helpers, parsers) and integration (against real
+  on-disk data) where each pulls weight.
+- A new feature isn't done until it has tests that would catch
+  the demo breaking.
+- Tests should restore any global state they mutate (use
+  `tmp_path` and `shutil.copy` to back up files before edits;
+  restore in `finally`).
+- **State-aware over default-assumed.** A test that depends on
+  the world being in a specific state (e.g., "IN_FLIGHT marker is
+  idle") should *parse the actual state* and verify the
+  contract-against-that-state, not assume the default. Default-
+  assumed tests pass when the feature ships and silently break
+  later when the world is legitimately not in default state
+  (e.g., during in-flight work). The pattern: read the relevant
+  marker first, branch on its value, assert the appropriate
+  invariant for each branch. Caught when ψ.3's mid-task work
+  flipped IN_FLIGHT to `active` and broke a test that assumed
+  it was always `idle`.
+
+## 9. Mental models for common tasks
+
+### "Add a new edition feature"
+
+1. Schema: add field(s) to `editions.yaml`, default to back-compat.
+2. Loader: surface the field in `api_customize_data` (and
+   `api_publisher_data` if it's a publishing field).
+3. Validator: extend `api_save_edition_meta` to accept and
+   validate the field.
+4. UI: add the form control in the right console, in
+   Book/Chapter order if it's a per-book matrix.
+5. Build pipeline: read the field in `build_one`; default behavior
+   when unset.
+6. Tests: round-trip + invalid-input + back-compat + UI present.
+
+### "Add a new translation"
+
+1. Source data → `content/translations/sources/<id>/`.
+2. Run `scripts/extract_translation.py <id>`.
+3. Verify with the resolver:
+   `from scripts.core import translations as t; t.list_translations()`.
+4. The customize console picks it up automatically — no UI work
+   needed unless the new translation has special metadata.
+
+### "Add a new popup language"
+
+1. Find PD source data; place under
+   `content/translations/sources/<lang_id>/` or similar.
+2. Add a CSS class (`vnote-<lang>`) to the source HTML
+   generation pipeline.
+3. Register the language in
+   `scripts.build_edition.POPUP_LANGUAGES`.
+4. Update the populated test data on each shipping edition's
+   `popup_languages_default` if the new language should be
+   default-on.
+5. The `/customize` per-book matrix picks it up automatically
+   from `POPUP_LANGUAGES`.
+
+### "Add a new per-book asset (covers, etc.)"
+
+This is the same pattern used for `popup_languages_per_book` —
+the project's custom YAML parser doesn't do nested mappings, so
+per-book maps live as flat lists of `"<book_code>=<value>"`
+strings on disk and decode to dicts in the API/UI layer.
+
+1. Schema: add `<asset>_per_book` (list of strings) to
+   `editions.yaml`. Default = absent / empty.
+2. Encoder + decoder (mirror `encode_per_book_languages` /
+   `decode_per_book_languages` in `scripts/build_edition.py`).
+   Encoder MUST sort by canonical book order (Rule §6.1).
+3. Filter by canon when surfacing in the API. If a book is not
+   in the edition's canon, do NOT show a slot for it. (Tanakh
+   shows 39, Reformed 66, Ethiopian 87.)
+4. UI lists books in canonical order — read from `books_canonical`
+   in `api_customize_data` (or a similar canonical-list field).
+   Never sort books client-side.
+5. If the asset is a file (cover image, etc.), the upload backend
+   validates size, dimensions, MIME type, and aspect ratio
+   BEFORE writing to disk; failed uploads must not mutate state.
+   Use `notes_io.atomic_write` + `notes_io.ensure_backup`.
+
+### "Add an uploadable binary asset (image, PDF, audio, etc.)"
+
+Codified after the cover-upload pipeline shipped (π.4-B).
+Reusable for any future binary upload surface.
+
+1. **Validate first, write never until clean.** Define a
+   `validate_upload_<thing>(bytes) → (ok, error, meta)` in
+   `scripts/core/<asset>.py`. Order checks cheap-to-expensive:
+   size cap → format magic-bytes → structural validity →
+   semantic checks (dimensions, duration, aspect, etc.).
+2. **Detect format from magic bytes, never the filename.**
+   The filename is user-controllable; the bytes aren't.
+3. **One canonical storage-path helper per asset** in the same
+   module (see `storage_path_for_main` / `storage_path_for_book`).
+   Future migrations consume this helper, never duplicate paths.
+4. **Multipart parsing**: use `_parse_multipart` and
+   `_extract_boundary` in `scripts/web.py`. Don't reach for
+   `cgi.FieldStorage` (deprecated in 3.13) or pull in Werkzeug
+   etc. The focused parser is one place to fix bugs.
+5. **HTTP layer**: route POST to a dedicated `_handle_<asset>_upload`
+   method on the request handler. Cap `Content-Length` at 2× the
+   per-file limit so a hostile client can't tie up the server.
+6. **Transactional write**: validate → `ensure_backup` existing
+   file → `atomic_write_bytes` new file → save the YAML field
+   pointing at the new path → on YAML-save failure, **roll back
+   the file write** (unlink). Disk and YAML must never disagree.
+7. **The `api_save_edition_meta` path validator** rejects
+   absolute paths, `..`, hidden segments, and disallowed
+   extensions; reuse it rather than invent per-asset rules.
+8. **DELETE flow**: clear YAML first, then back up + unlink the
+   file. If YAML clear fails, the file stays — partial state is
+   detectable and recoverable, total state loss is not.
+9. **Tests cover**: happy path round trip, every rejection path
+   in the validator, "no file part" and "missing boundary" HTTP
+   edge cases, "no disk write on validation failure", and DELETE
+   leaves both YAML and disk clean.
+
+### "Add a new static-file route (serve a directory back to the browser)"
+
+Codified after π.4-B UI shipped — the `/content/covers/<...>`
+route that serves uploaded covers back as `<img src=...>`.
+Reusable for any future asset-serving route (built EPUBs, PDFs,
+audio samples, etc.).
+
+1. **Sandbox to a known-safe root.** Resolve the user-supplied
+   path inside the safe directory; reject anything that escapes.
+   The pattern:
+   ```python
+   file_path = (REPO / "content" / rel).resolve()
+   safe_root = (REPO / "content" / "covers").resolve()
+   try:
+       file_path.relative_to(safe_root)
+   except ValueError:
+       return self._send_json({"error": "forbidden"}, status=403)
+   ```
+2. **Defensive rejection BEFORE the resolve check** — also block
+   `..`, absolute paths, and hidden segments at the string level.
+   Cheap, catches typos, and protects against `.resolve()` weirdness
+   on platforms with symlink trickery.
+3. **Use `_send_file`** in `scripts/web.py` — handles content-type
+   from extension, sets a short `Cache-Control: public, max-age=60`
+   so navigations between consoles don't re-fetch every image.
+4. **Do NOT** add a write/upload path to a static-file route. Reads
+   and writes live on different routes; the static-file route is
+   read-only. Uploads always go through validated POST endpoints.
+5. **Tests cover**: 200 on valid path, 404 on missing file, 403/404
+   on `../` traversal, 403/404 on hidden-dir access. The route is
+   security-critical; tests are non-optional.
+
+### "Add a meta-tool that integrates with the preflight dashboard"
+
+Codified after the rules linter shipped (ω.0.1). Reusable for any
+future check / scanner / validator that should be both a CLI and a
+visible signal in the readiness dashboard.
+
+1. **CLI module first.** Put the tool in `scripts/<name>.py` with a
+   pure `run_all() -> dict` API and a `main()` entrypoint. Standard
+   shape for the dict:
+   ```
+   {
+     "checks": [
+       {"id": str, "name": str, "status": "pass"|"warn"|"fail",
+        "message": str, "violations": list},
+       ...
+     ],
+     "summary": {"total": int, "pass": int, "warn": int, "fail": int,
+                 "clean": bool},
+   }
+   ```
+2. **CLI exit codes.** `main()` returns 0 on clean, 1 on any failure.
+   Suitable for pre-commit hooks and CI without further glue.
+3. **Preflight composition.** In `_compute_preflight_uncached()` in
+   `scripts/web.py`, append a check that imports `run_all` and folds
+   the meta-tool's verdict into the dashboard:
+   - status: `fail` if any sub-check fails, `warn` if any warn,
+     `pass` otherwise
+   - details: list of failing/warning sub-checks (don't dump the
+     passing ones — readers want what's wrong)
+   - jump_to: usually `/preflight` for code-level issues, or the
+     specific console where the issue gets fixed
+4. **Wrap the import in try/except** — if the meta-tool blows up,
+   the dashboard should still render (with a `warn` for the missing
+   check), not 500.
+5. **Tests cover**: the CLI module imports cleanly; `run_all()` runs
+   without raising on the current codebase; the preflight aggregator
+   surfaces the check under its expected id.
+
+### "Add a new aggregate API: compose, don't recompute"
+
+Codified after the second instance of this pattern (ψ.3 corpus
+progress widget composing api_attribution_audit; the first was
+the preflight aggregator composing run_all + 7 other sub-checks).
+
+When adding a new endpoint that summarizes data already produced
+by another endpoint, **compose** the existing one rather than
+re-walking the data:
+
+1. Find the cheapest existing endpoint that already produces the
+   raw counts you need. For corpus-totals, that's
+   `api_attribution_audit()` (cached behind `_files_signature`).
+2. Call it from the new endpoint. The cache makes repeated calls
+   free.
+3. Compute only the *derived* fields locally (deficits, percents,
+   ranges).
+4. Document in the docstring: "composes X; no new file scanning."
+
+Why this matters: the project does many file-walks (87 books × N
+note-files per edition). A second walk for "the same numbers"
+doubles the cost on every page render and hides cache invalidation
+bugs. One source of truth per kind of data.
+
+Anti-pattern: writing a new `_count_all_notes()` helper when
+`api_attribution_audit().counts.total` already exists.
+
+### "Add a new feature endpoint: pure function + thin route adapter"
+
+Codified after the sixth instance of this pattern (ν.5 customize
+preview, ψ.5 sample-chapter export, ω.0.2 console scaffold,
+ω.1 backup restore, ψ.6 ops dashboard, ω.2 build-all). Every
+new feature endpoint we've added in the last two weeks has the
+same shape and the pattern reliably produces tests that don't
+need an HTTP server.
+
+The shape:
+
+```python
+# Pure function — testable without HTTP
+def api_x(arg1, arg2, *, kwarg=default) -> dict:
+    """Returns {"status": "ok"|"error", "code": str?, "http": int?, ...}.
+    No global state. No HTTP. No subprocess if avoidable."""
+    if not arg1:
+        return {"status": "error", "code": "invalid_input",
+                "http": 400, "message": "..."}
+    # ... real work ...
+    return {"status": "ok", "data": ...}
+
+
+# Thin route adapter — translates dict to HTTP
+if path == "/api/x":
+    result = api_x(arg1, arg2)
+    if result.get("status") == "ok":
+        return self._send_json(result)
+    http_code = result.get("http") or 500
+    return self._send_json({
+        "error": result.get("code") or "internal_error",
+        "message": result.get("message") or "",
+    }, status=http_code)
+```
+
+Three rules:
+
+1. **The pure function returns a dict, never raises for expected
+   errors.** Validation failures, not-found, etc. all become
+   `{"status": "error", "code": "...", "http": 4xx, "message": ...}`.
+   Reserve raising for genuinely unexpected conditions.
+
+2. **The route adapter does ONLY translation.** No business
+   logic. No conditional fallbacks. If you find yourself writing
+   `if/else` in the route block, push it back into the pure
+   function.
+
+3. **All inputs are explicit kwargs.** No `request.GET` reading
+   inside the pure function. Parse the request in the route, pass
+   plain Python values to the pure function. Tests construct the
+   pure function call directly.
+
+#### The injectable-callable variant (for orchestration)
+
+When the pure function orchestrates a slow or environment-dependent
+operation (subprocess, network, large compute), make the operation
+itself an injectable callable parameter:
+
+```python
+def api_build_all_editions(*, version: str = "v28a",
+                            build_one=None) -> dict:
+    if build_one is None:
+        build_one = api_export_build  # production default
+    for ed_id in edition_ids:
+        result = build_one(ed_id, version=version)
+        # ... aggregate ...
+```
+
+Tests pass a fast mock instead of running real builds:
+
+```python
+def mock_build(edition_id, version="v28a"):
+    return {"ok": True, "filename": f"mock_{edition_id}.epub"}
+
+result = api_build_all_editions(build_one=mock_build)
+```
+
+Existing instances using this variant: `apply_plan(plan,
+target_file=...)` from ω.0.2; `api_build_all_editions(*, build_one)`
+from ω.2. Pattern instances of this exact shape: 2 of 6 (the
+others use the basic shape because their work is light enough that
+real calls are fine in tests).
+
+Why this matters:
+
+- **Tests stay fast.** ω.2's orchestration is exercised in 4
+  tests, none of which run a real subprocess EPUB build.
+- **The shape is uniform.** Future Claude (or future dev) can
+  read the route block and immediately know where the logic
+  lives. No surprise behaviour stuffed into the HTTP layer.
+- **Errors degrade gracefully.** The dict-not-raise contract
+  means a buggy validator can't take down the server with an
+  uncaught exception — the error becomes a 500-with-message
+  instead of a stack trace in the wfile.
+
+Anti-pattern: writing logic inside the route handler that calls
+`self._send_json(...)` mid-function. If you do this, the function
+is no longer testable without an HTTP server and the test suite
+will pull in `http.server` machinery for what should have been a
+plain function call.
+
+### "Add a new corpus-growth phase (the χ cluster pattern)"
+
+Codified after χ.6 shipped twice (CrossRefDetector + HebrewWord-
+Detector). Each new corpus-growth phase (χ.7 Nave's Topical, χ.1
+Strong's Greek, χ.2-5 commentaries) follows this exact shape and
+ships in roughly one focused turn. Don't re-derive — follow the
+template.
+
+**The pipeline shape:**
+
+```
+PD source data        →  Detector class               →  Candidates JSON         →  Promoted notes
+(content/sources/        (scripts/core/detectors.py)     (content/candidates/        (content/notes/<book>.py)
+ or content/                                              <book>_ch_<NNN>.json
+ translations/)                                           — prospect.py format)
+```
+
+**Steps:**
+
+1. **Acquire / verify the source data.** Check `content/sources/`
+   first — TSK and Strong's Hebrew already cache there. New
+   corpora go in the same directory or under `content/<source>/`.
+   Add to `scripts/core/sources.py` if a loader is needed.
+   Update `content/sources/ATTRIBUTIONS.md` with the PD/CC notice.
+
+2. **Add the kind code** to `content/kinds.yaml` if the new
+   detector produces a category-prefixed kind not already there
+   (e.g. `topic-nave`, `lang-greek`). Existing detectors reuse
+   existing kind codes (`xref-citation`, `lang-hebrew`).
+
+3. **Write the detector class** in `scripts/core/detectors.py`,
+   mirroring `CrossRefDetector` (no verse text needed) or
+   `HebrewWordDetector` (verse text required). Both extend the
+   base `Candidate` dataclass return shape. Add to
+   `ALL_DETECTORS` if it should run via `prospect.py`.
+
+4. **Write the driver script** at `scripts/run_<kind>_at_scale.py`,
+   modeled on `scripts/run_xref_at_scale.py` (no verse text
+   needed) or `scripts/run_hebrew_at_scale.py` (reads verse text
+   from `content/translations/kjv/<book>.py`). Both bypass
+   `prospect.py`'s EPUB-build dependency by iterating cached
+   source data directly. The driver writes candidates JSON in
+   prospect's exact format so `promote.py` works unchanged.
+
+5. **Run the driver.** First on a small book as smoke test
+   (`--books jud` or similar). Inspect a sample candidate JSON.
+   Then full corpus: `python3 scripts/run_<kind>_at_scale.py`.
+   For threshold-based detectors (TSK has `--min-votes`), start
+   conservative; lower if needed for more candidates.
+
+6. **Batch promote** with `python3 scripts/batch_promote_xrefs.py
+   --kind <kind>`. The `--kind` filter prevents accidentally
+   promoting candidates of mixed kinds. The batch promoter is
+   in-process (avoids per-file subprocess overhead) and
+   idempotent (dedup against existing notes).
+
+7. **Verify**: `pytest` passes (the `>= 1381` corpus floors
+   absorb growth), `lint_rules.py` passes, attribution audit
+   shows the new notes attributed.
+
+8. **CHANGELOG entry** with cumulative corpus math:
+   `Was: N notes → Now: M notes (+delta · X% of 35K target)`.
+
+**Why this works:**
+
+- **Pure-function-API + thin route adapter** at the detector
+  level (per the §9 pattern just above).
+- **Compose, don't recompute**: the driver composes existing
+  detector classes; the batch promoter composes existing
+  `promote.promote_candidate`. Zero re-implementation.
+- **Idempotent**: re-running the driver produces a superset of
+  the previous candidates; dedup in promote skips already-
+  shipped notes. Safe to re-run with different thresholds.
+
+**Anti-pattern**: rebuilding `prospect.py` to bypass the EPUB
+dependency. The driver script *uses* the existing detector class
+and writes the same JSON format `prospect.py` would write — it's
+just a different iteration source. `prospect.py` itself stays
+unchanged. (See ω.0.7 "compose, don't recompute".)
+
+**Anti-pattern**: subprocess-looping `promote.py` per file. The
+in-process `batch_promote_xrefs.py` is ~80 lines and runs in
+seconds where the loop would take minutes.
+
+**Existing instances:**
+- χ.6 (CrossRefDetector + run_xref_at_scale.py): +6,127 notes
+- χ.6+ HebrewWord (HebrewWordDetector + run_hebrew_at_scale.py):
+  +8,412 notes
+- Together: 1,381 → 15,925 in one session via this pattern.
+
+### "Build a defensive system: use the four-tier shape"
+
+Codified after the second instance of this pattern: §15
+(backend drift detection) and ω.0.6 (frontend crash defense)
+both arrived at the same four-tier structure independently.
+The shape generalizes — when the next defensive system is
+needed (input-validation hardening, content-security policy,
+data-integrity auditing, whatever), follow this template
+instead of inventing a new arrangement.
+
+#### The four tiers
+
+```
+TIER 4  Behavioral / protocol         FIRST line of defense
+        (rule that Claude or a         The cheapest layer:
+         human follows by              just judgment + a
+         convention)                   small protocol doc.
+
+TIER 1  Per-action audit              SECOND line
+        (cheap programmatic check      A short script or
+         right before the action       checklist that runs at
+         completes)                    each commit / response.
+
+TIER 2  State of record               PERSISTS across turns
+        (a small visible file that     Survives compaction.
+         declares "what's open")       If T1 missed, T2 still
+                                       shows the open loop.
+
+TIER 3  Continuous automated check    FINAL backstop
+        (linter / preflight check      Runs on every preflight.
+         that surfaces drift to        The auditable
+         humans)                       "did anything escape?"
+```
+
+Why this specific shape: each tier covers a failure mode that
+the others can't catch as cheaply. T4 is free per-turn but
+relies on memory; T1 is cheap automation but only fires once;
+T2 is a state record but doesn't enforce; T3 is enforcement
+but expensive to add. Together they form defense in depth.
+
+#### When to reach for this template
+
+You're building a new defensive system if any of these are true:
+
+- Multiple distinct failure modes need different detection
+  methods
+- Failures can leak across turns / sessions / pages
+- A single check would have to run at multiple times to be
+  effective
+- There's a gradient of cost: cheap-but-fallible vs
+  expensive-but-thorough
+
+If none of these are true, **don't tier**. Single-purpose tools
+(like `scripts/cleanup.py`) are correctly structured as one-pass
+operations. Tiering them would be over-engineering. The audit
+question to ask: "is there a failure mode that escapes the
+single layer?" If no, single-layer is correct.
+
+#### How to map a new defense to the four tiers
+
+For each failure mode the new system must catch:
+
+1. **Identify the canonical drift signature** — what does the
+   failure look like in the world?
+2. **Pick a primary tier** — usually the cheapest tier that
+   can detect that drift mode. (T4 if it's a discipline issue,
+   T3 if it's a structural invariant.)
+3. **Pick a backstop tier** — usually one tier later in the
+   chain so the check still runs even if the primary slips.
+4. **Document in the system's CHANGELOG entry** which tier
+   owns which drift mode, like §15's coverage matrix:
+   ```
+                          drift class A   drift class B   ...
+   TIER 1 audit            PRIMARY         backstop
+   TIER 2 state record     no              PRIMARY
+   TIER 3 linter           backstop        backstop
+   TIER 4 protocol         no              no
+   ```
+
+The matrix forces explicit thinking about coverage gaps. Any
+column without a PRIMARY is a hole; any row without a PRIMARY
+is a tier that's not pulling its weight.
+
+#### Two existing instances (for reference)
+
+- **§15 — Backend drift detection.** Built ω.0.4. Catches the
+  "code shipped but not journaled" failure class. Primary
+  tiers: T4 §13/§14 protocols, T1 §12 footnote audit,
+  T2 IN_FLIGHT.md, T3 lint_rules.py.
+- **ω.0.6 — Frontend crash defense.** Built one turn after the
+  meta-pattern crystallized. Catches null-pointer / unexpected-
+  exception / API-failure / unguarded-DOM-query failure classes.
+  Primary tiers: T4 (graceful degradation discipline),
+  T1 (input validation), T2 (safeFetch wrapper), T3 (browser
+  DOM helpers + Tier 4 backstop).
+
+A third instance applying this template would confirm it as a
+durable pattern; until then it's two examples and a recipe.
+
+### "Surface a developer-only style knob as a per-edition option"
+
+Codified after ν.6 (reader experience) shipped. The project has a
+long tail of style knobs in `scripts/style_config.py` and adjacent
+modules that were originally developer-only constants. As publishers
+need finer control, each gets surfaced individually following this
+pattern.
+
+1. **Schema first.** Add the new field to `editions.yaml`-style
+   records via `api_save_edition_meta`'s `EDITABLE_TEXT` /
+   `EDITABLE_BOOL` sets. Default value MUST preserve current
+   behavior — additive features should never alter existing builds
+   unless the publisher opts in.
+2. **Validate enumerations.** If the field accepts a fixed set of
+   values, define the set as a module-level constant in
+   `scripts/build_edition.py` (e.g. `CHAPTER_NUMBER_FORMATS`) and
+   reject unknown values from `api_save_edition_meta` with a clear
+   error message that lists the valid options.
+3. **Apply in build pipeline.** Add a per-edition pass in the
+   `build_edition()` flow, between filter passes and packaging. The
+   default (no-op) path must skip the file scan entirely so editions
+   that don't use the feature build byte-identically.
+4. **Idempotency.** The build pass runs over generated HTML; design
+   the rewrite so running it twice produces the same output (e.g.
+   regex matches digits, decorated output contains words → no
+   re-match on second run). This protects against pipeline reruns.
+5. **UI: collapsible card on /customize.** Group related knobs in a
+   `<details>` block with a clear summary line. Stamp a small italic
+   note under the controls if any setting "applies on next BUILD"
+   so the publisher's mental model matches the actual flow.
+6. **Tests cover**: each enumerated value renders correctly in
+   isolation; the build-pipeline pass is a no-op for default
+   settings; happy-path round trip via `api_save_edition_meta`;
+   rejection of unknown values.
+7. **Existing infrastructure check** — before scoping a new style
+   knob, search `scripts/style_config.py`, `scripts/apply_style.py`,
+   and `scripts/set_reader_toc.py` for the toggle. Many of the most
+   useful knobs already exist as developer-only constants and just
+   need surfacing through the schema + UI; reinventing them is the
+   anti-pattern this rule guards against.
+
+## 10. What this project is NOT
+
+- Not a learning management system. Schools are an audience,
+  not a feature category.
+- Not a multi-language UI. The editorial apparatus is English.
+  Bible *content* in many languages is the whole point;
+  *interface* in many languages is out of scope.
+- Not a print-on-demand pipeline. Focus is digital retail.
+  Print PDF (σ.4) is in the deferred list; not blocking the
+  demo.
+- Not a real-time collab tool. One editor at a time. Git
+  history covers the audit trail.
+- Not Flask / FastAPI / Django. Standard library only on the
+  backend; Tailwind CDN on the frontend. No build step.
+
+## 11. Continuity protocol — keep dev/SESSION_STATE.md current
+
+**The point of this protocol:** the user pays for tokens. Future
+Claude orienting via grep + read-everything is wasted bandwidth.
+SESSION_STATE.md is a tight ~150-line snapshot that any Claude
+can read in seconds and be fully oriented.
+
+### When to update SESSION_STATE.md
+
+Always update it when:
+
+1. **A phase ships** — record the new "last shipped" entry, bump
+   the test count, refresh "next up".
+2. **A save is requested** — verify SESSION_STATE.md is current
+   BEFORE building the zip. If the save is full and the doc is
+   stale, the doc gets fixed first.
+3. **A scope change happens** — corpus goal, north-star
+   clarification, deferral or reactivation of a phase, etc.
+4. **An external dependency or assumption shifts** — e.g. a
+   source corpus is fetched, a new translation lands, a CLI tool
+   is added.
+
+Optional/nice but not required: update on every push turn. Don't
+trip on this — phase-ship + save-time covers most cases.
+
+### What SESSION_STATE.md must contain
+
+Required sections (kept short — every line earns its place):
+
+- **Current phase** — what just shipped, plus its v28a-NN tag
+  if assigned.
+- **Test count** — total + delta from last save.
+- **Next up** — the single most-likely next phase, with a
+  one-liner on why it's next per §3 sequencing rules.
+- **In-flight notes** — anything mid-stream that future Claude
+  needs to know to continue cleanly. Empty is fine.
+- **Inventory pointers** — short references to "where things
+  live" so future Claude doesn't have to grep (e.g.
+  "popup languages live in scripts/build_edition.py around
+  line 1100; per-book covers in scripts/core/covers.py").
+- **Active rules / scopes** — links to the addenda that
+  actively apply to current work.
+
+### What it must NOT contain
+
+- Long narrative recaps. CLAUDE_PROJECT_RULES.md and the addenda
+  are the long form.
+- Code snippets. They drift; rely on the actual code.
+- Decisions Claude could re-derive. The doc is for things that
+  cost tokens to re-discover.
+
+### Update etiquette
+
+- Edit in place; don't append-only. The whole doc is a snapshot,
+  not a journal.
+- Keep it under ~150 lines. If it grows past that, the rules
+  doc or the plan probably needs the overflow.
+- When the user is on mobile and sends a save command, the
+  SESSION_STATE update can be inline with the save turn —
+  just do it before zipping. Don't ask permission.
+
+## 12. Retrospective protocol — keep CHANGELOG.md and the rules current
+
+The chronological progress log lives in `dev/CHANGELOG.md`. It is
+**append-only**, with new entries at the top, one block per
+session. Anyone can scroll through it to review the project's
+history without reading the codebase: future-self, an auditor,
+a buyer's tech-due-diligence reviewer, a future Claude trying to
+understand why a decision was made.
+
+### When to write a CHANGELOG entry
+
+Always:
+- **At the end of any session that shipped ≥1 phase**, before
+  pausing or saving. Even a one-line entry is fine if the
+  session was small.
+- **Before any save command surfaces a zip**, ensure the entry
+  for that session exists.
+
+What goes in an entry: see § "Entry format" below.
+
+### When to additionally run a retrospective
+
+A retrospective is a brief self-review beyond just logging. Run
+one when **any** of these triggers fire after work ships:
+
+1. **A new architectural pattern appeared** — e.g. the encoder/
+   decoder pair for per-book maps; the validate-then-write upload
+   pipeline. If this pattern is likely to recur, codify it as a
+   mental model in §9.
+
+2. **Existing infrastructure was discovered mid-work** — i.e.
+   you almost reinvented something. Add or sharpen an inventory
+   pointer in SESSION_STATE.md so future Claude finds it without
+   the same surprise.
+
+3. **A rule wobbled or had to be invented on the fly** — e.g.
+   you had to choose between two reasonable interpretations of
+   §3 sequencing. If the resolution was good, codify it as a
+   refinement to the rule. If bad, document the lesson.
+
+4. **A memory rule needed updating** — the in-memory rules
+   (1–6 today) are the cheapest possible reminder system; if a
+   new pattern justifies a 7th rule, add it.
+
+5. **A scope clarification happened** — the north star, corpus
+   target, or any §1–§2 universal principle shifted. Update the
+   rules and SESSION_STATE.md accordingly; CHANGELOG.md captures
+   the change moment.
+
+If none of those fire, just log and move on. Retrospection is a
+tool, not a tax — don't run one for ritual's sake.
+
+### Entry format
+
+Each entry is a self-contained block, readable without context:
+
+```
+## YYYY-MM-DD — session-N — <one-line headline>
+
+**Phases shipped:** ν.2.7-A, ν.2.7-B, π.4-A, φ.1, …
+**Test delta:** +N (was M, now M+N)
+**Save tag:** v28a-NN-{slim|full} (or "no save" / "pending")
+
+What shipped (concrete, scannable):
+- one bullet per concrete thing
+- avoid prose; readers want the list
+
+Notable decisions (only if any):
+- the choice and the alternative considered, in 1–2 lines
+
+Retrospective (only when triggered, see §12):
+- pattern recognized: <description>; codified in §9 of rules
+- inventory pointer added: <name>; see SESSION_STATE.md
+- rule refined: <ref>; lesson was <one line>
+
+Continuity pointers (links to relevant addenda or rule sections):
+- dev/SCOPE_2026-05-07-addendum-...
+- §6.1 (canonical book order rule)
+```
+
+### What CHANGELOG.md is NOT
+
+- Not a replacement for git history (git is mechanical, this is
+  editorial — what shipped *and why*).
+- Not a replacement for SESSION_STATE.md (that's the *current*
+  snapshot; this is the *journal*).
+- Not for blow-by-blow micro-edits. One entry per *session*, not
+  per *commit*.
+- Not for retrospection that didn't happen. If §12 triggers
+  didn't fire, don't fabricate them.
+
+### Footnote — pre-summary audit (Tier 1, added after a real drift catch)
+
+Before claiming "shipped X" in any user-facing summary, run a
+4-point audit. Each item takes seconds; together they catch the
+drift class the user previously had to catch manually.
+
+1. **Test count reconcile** — run
+   `pytest --collect-only -q | tail -1` and verify the number
+   matches what the summary will claim. A divergence is almost
+   always a sign that work was shipped without being tracked.
+2. **Phase mention scan** — every Phase letter mentioned in the
+   summary must appear in `dev/CHANGELOG.md` (this turn or
+   earlier). If a phase letter shows up only in code/tests but
+   not in CHANGELOG, you missed an entry.
+3. **In-flight marker check** — `dev/IN_FLIGHT.md` should show
+   `<!-- TRACKER-STATE: idle -->` if you're about to summarize a
+   completed ship. If it's still `active`, either the work isn't
+   done or you forgot to flip it.
+4. **Linter ack** — run `python3 scripts/lint_rules.py`; for
+   ship summaries, every check should be `pass` (or have a known,
+   acknowledged warn). Don't ship over a `fail`.
+
+Why these four specifically: each catches a different drift mode.
+Tests vs claim catches **counted-but-not-recorded** work. Phase
+mentions catch **shipped-but-not-journaled** work. In-flight
+catches **task-left-open**. Linter catches **structural drift**
+(cross-link, encoder order, doc references).
+
+The user caught me on (1) once and that was enough; the other
+three are preventive layers.
+
+---
+
+## 13. Topic-shift protocol — audit before pivoting
+
+The single most expensive failure mode of this conversation has
+been **topic-shift drift**: I'm mid-task on feature A, the user
+asks an unrelated question about B, I respond to B without first
+recording where I was on A, and A's work gets orphaned in the
+codebase. This was confirmed in a real drift event on
+2026-05-07 — ν.6 chapter labels shipped fully but never landed
+in the addenda; the user caught it manually by auditing test
+counts.
+
+The fix is a behavioral rule: **when the user pivots topic, the
+pivot is a signal to close the loop, not to abandon it.**
+
+### When the topic-shift protocol fires
+
+The trigger is a new user message that is substantially
+**off-topic from the immediately-prior assistant message**.
+"Substantially" means:
+
+- different phase / feature / system area
+- different artifact (was code, now docs; was UI, now data)
+- different mode (was building, now discussing)
+
+A clarifying question on the same topic is NOT a topic shift.
+"Push" / "Continue" / "Save" are NOT topic shifts.
+
+### What the protocol says to do
+
+Before responding to the new topic:
+
+1. **Read `dev/IN_FLIGHT.md`** — is the marker `idle` or `active`?
+2. **Check working-tree state** — `git status --short` if available;
+   look for modified or new files that aren't yet documented.
+3. **Run the linter** — `python3 scripts/lint_rules.py` surfaces
+   any drift the user wouldn't catch manually.
+
+If any of those signal in-flight work, **the first part of the
+response is reconciling that work**. Either:
+
+- finish it now (preferred — the pivot can wait one turn)
+- explicitly note "I was mid-task on X; pausing it to address
+  your new question; here's where it stood so I can resume"
+- archive it as abandoned with a CHANGELOG note (rare; only when
+  the pivot makes the in-flight work irrelevant)
+
+Then engage with the new topic.
+
+### Why this can't be fully automated
+
+The linter's `check_inflight_freshness` and `check_untracked_phases`
+catch *symptoms* of drift after the fact. They don't catch the
+*moment* of topic shift, because that's a content-level
+judgment about the user's message — and "are these two messages
+about the same thing" is a question only a human-or-LLM-level
+reader can answer.
+
+So this rule is a behavioral commitment: notice topic shifts,
+treat them as audit triggers. The automated checks are the
+backstop for when this rule slips.
+
+### What good adherence looks like
+
+Bad (what happened on 2026-05-07):
+> Me: [shipped ν.6 chapter labels via 7 tests + UI but didn't
+> update CHANGELOG]
+> User: "Should the book ToC have a square pill or no pill?"
+> Me: "Great question, here's my opinion on pills... [pivots]"
+> [ν.6 ships orphaned; user catches it 3 turns later]
+
+Good (what would have prevented it):
+> Me: [shipped ν.6 — but before any further response, runs the
+> linter, sees CHANGELOG/SESSION_STATE haven't caught up, says:]
+> "Before answering: I just shipped ν.6 chapter labels. Let me
+> log that first, then I'll address pills."
+
+The cost of the audit is small (one linter run, one CHANGELOG
+update). The cost of skipping it is large (orphaned work, manual
+audit by the user later).
+
+
+## 14. Session-resume / state-uncertainty audit
+
+A close cousin of §13. Where §13 fires on **the user pivoting**,
+this one fires on **Claude being uncertain about state**. Different
+trigger, same defense.
+
+### When this protocol fires
+
+Any time Claude has reason to think the working tree might be
+in a different state than its in-context mental model:
+
+- A `[NOTE: This conversation was successfully compacted...]`
+  marker at the top of context — long stretches of work were
+  summarized away
+- A long stretch of session has elapsed since the last `view` or
+  `bash_tool` call against a file
+- An IN_FLIGHT or SESSION_STATE edit fails because the file's
+  current content differs from what Claude expected
+- A test count, file list, or grep result returns numbers Claude
+  doesn't recognize from this turn's context
+- An str_replace fails because the "old_str" isn't there anymore
+
+### What this protocol says to do
+
+**Before acting**, audit the actual state:
+
+1. **Read `dev/IN_FLIGHT.md`** — what does the marker say? what
+   does the active-task block describe?
+2. **Grep for the phase / feature** Claude was about to work on —
+   `grep -rn "ν\.5\|preview_impact" scripts/ tests/` — and check
+   if it's already shipped
+3. **Run `pytest --collect-only -q | tail -1`** — does the test
+   count match the last claimed number?
+4. **Run `python3 scripts/lint_rules.py`** — any warnings or
+   failures?
+
+If any of these surface state Claude didn't expect, **revise the
+plan**. The user might think Claude is starting work that's
+already shipped. Saying so explicitly ("I was about to start ν.5,
+but the audit shows it's already shipped in PUBLISHER_HTML; the
+remaining work is the CUSTOMIZE wiring") is honest and saves
+both sides a wasted turn.
+
+### Why this is separate from §13
+
+§13 is about the **user's** signal (a topic pivot in their message).
+§14 is about Claude's **own** signal (uncertainty in its mental
+model). The protocols are similar — audit before acting — but the
+trigger sources are different, so the cues to watch for are
+different. A user pivot is rare (a few per session); state
+uncertainty after compaction is common (every long session).
+
+### Real instance
+
+On 2026-05-07, after a context compaction, I was about to start
+ν.5 (change-impact preview) from scratch. The IN_FLIGHT.md file
+showed unexpected content I didn't write — "ν.5 change-impact
+preview shipped 2026-05-07 in PUBLISHER_HTML; CUSTOMIZE_HTML
+wiring is the natural follow-up." Treating this as a §14
+trigger, I audited (`grep -n "ν\.5\|preview_impact" scripts/web.py`
+showed extensive existing implementation; tests had 7 new tests
+in `# ---------- Phase ν.5 :` block; CHANGELOG had a full ν.5
+entry). The correct task was the customize-wiring follow-up,
+not a from-scratch build. The audit caught it before any
+duplicated work.
+
+
+## 15. Chain of command — the tier hierarchy as a matrix
+
+The drift-detection guardrails are organized as **four tiers**.
+This section documents how they relate: which one fires first,
+which catches what, and how they escalate when one slips.
+
+### The two axes
+
+There's a **chain** (precedence — who acts first) and a **matrix**
+(coverage — what each tier specializes in catching). They're
+orthogonal: the same tier appears in the chain at one position
+and in the matrix specialized for one drift class.
+
+### The chain — escalation order
+
+```
+TIER 4  Behavioral protocols      ← FIRST line of defense
+        (§13 topic-shift,           Catches drift before it
+         §14 state-uncertainty)     happens. If perfect, no
+                                    other tier needs to fire.
+
+TIER 1  Per-turn pre-summary      ← SECOND line
+        audit (§12 footnote,        Catches drift before the
+         4-point checklist)         user reads the response.
+
+TIER 2  IN_FLIGHT.md tracker       ← STATE OF RECORD
+        (§11, §4 checkpoint        Persistent evidence across
+         saves)                     turns. Survives compaction.
+                                    If T1 missed, T2 still
+                                    shows what was open.
+
+TIER 3  Continuous linter          ← FINAL backstop
+        (scripts/lint_rules.py,     Surfaces drift to humans
+         8 invariant checks)        on every preflight run.
+                                    The auditable "did
+                                    anything escape?"
+```
+
+The order matters: **earlier tiers are cheaper and prevent
+later tiers from needing to fire**. Tier 4 is just human
+judgment (free per-turn). Tier 1 is one shell command. Tier 2
+is a file edit. Tier 3 is the same shell command but
+broader-scoped. If you must pay any of these costs, pay the
+earliest one.
+
+### The matrix — what each tier catches first
+
+```
+                       drift class
+                       ─────────────────────────────────────────
+                       counted-but-  task-left-  structural   pivot/
+                       not-recorded  open        invariant    state-uncertain
+                       ─────────────────────────────────────────
+TIER 1 audit           PRIMARY       secondary   no           no
+TIER 2 IN_FLIGHT       no            PRIMARY     no           secondary
+TIER 3 linter          backstop      backstop    PRIMARY      no
+TIER 4 protocols       no            no          no           PRIMARY
+```
+
+Read this as: each drift class has one **primary** owner (the
+tier that catches it earliest in its lifecycle) and possibly
+one or more **secondary/backstop** owners.
+
+- **counted-but-not-recorded** (e.g., test count claimed wrongly)
+  → Tier 1 catches it before the user sees the wrong number
+- **task-left-open** (e.g., shipped but undocumented)
+  → Tier 2 catches it because the marker stays `active`
+- **structural invariant** (e.g., a console without cross-links)
+  → Tier 3's lint check catches it on the next preflight
+- **pivot / state-uncertain** (e.g., resuming after compaction)
+  → Tier 4's behavioral protocol catches it before any code runs
+
+### When to escalate
+
+If a tier's PRIMARY ownership of a drift class slips, the
+**backstop** tier covers — but there's a cost. The cost shows
+up later, the user might catch it manually, and trust suffers.
+Treat each escape (a thing the linter caught that the protocols
+should have caught earlier) as a §12 retrospective trigger:
+either the protocol needs sharpening, or the rule needs a
+better automated backstop.
+
+### Real example of the chain in action
+
+The original drift event (early 2026-05-07): I shipped ν.6
+chapter labels (code, tests, UI all complete) but never updated
+CHANGELOG. The user caught it manually with a test-count
+audit ("you claimed 262 tests, actual is 269"). At that point:
+
+- Tier 4 had failed (I didn't audit before pivoting topics)
+- Tier 1 didn't exist yet
+- Tier 2 didn't exist yet
+- Tier 3's `untracked_phases` check didn't exist yet
+
+So the user was the de-facto Tier 5. After the catch, all
+four tiers were built in one push (ω.0.4). Now if Tier 4
+slips again, Tier 1 would catch the test-count mismatch
+before claiming ship; if Tier 1 slips, Tier 2's stale-marker
+check would surface in the next linter run; if Tier 2 slips
+because the marker was never flipped, Tier 3's
+`check_untracked_phases` flags the phase mention without a
+CHANGELOG entry.
+
+Four levels, one task: keep drift visible.
+
+
+
+```
+dev/PLAN_<date>.md                          master sequence doc
+dev/SCOPE_<date>.md                         original scope statement
+dev/SCOPE_<date>-addendum-<topic>.md        major feature specs
+dev/ROADMAP_FUTURE.md                       deferred ideas
+dev/SPEC_MU_SYMBOL_TOGGLE.md                symbol toggle (μ phase)
+content/translations/<id>/_meta.yaml        per-translation metadata
+HANDOFF_README_v7.md                        deep architecture handoff
+```
