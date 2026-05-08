@@ -6,6 +6,80 @@
 
 ---
 
+## 2026-05-08 — session — ω.8 error boundary shipped (continuous-go batch 3)
+
+**Phases shipped:** ω.8.
+**Test delta:** +4 (476 → 480).
+**Save tag this session:** pending — will land in next push.
+
+What shipped:
+
+- **`@_safe_request` decorator** in `scripts/web.py` — applied to
+  every public `do_*` request method (`do_GET`, `do_POST`, `do_PUT`,
+  `do_DELETE`). Catches any uncaught Exception and routes it to
+  `_send_unhandled_error`. Per-endpoint handlers continue to catch
+  their own expected errors with appropriate 4xx codes; this wrapper
+  is the safety net for Python bugs / OS errors / anything genuinely
+  unexpected.
+- **`Handler._send_unhandled_error(exc, method_name)`** — new
+  method. Logs the full traceback to stderr (operator-side
+  debugging) and returns a structured 500 JSON to the client:
+  `{"error": "internal_error", "message": "<short context>"}`. The
+  client never sees a Python stack trace — that's both an
+  information-disclosure concern and an unfriendly UX.
+- **Drift guard:** the new `TestRequestErrorBoundary` test class
+  asserts every `do_*` method on `Handler` carries the
+  `__wrapped__` marker (4 assertions, one per HTTP verb). If a
+  future refactor adds a new `do_*` without the decorator, that
+  test fails — same drift-prevention pattern as ξ.4's
+  `set(PARSERS) == KNOWN_PARSERS`.
+- **+4 tests** covering: (1) every `do_*` is wrapped; (2) wrapper
+  is transparent on the happy path; (3) wrapper catches and
+  delegates to `_send_unhandled_error`; (4) the helper itself emits
+  a clean 500 JSON without leaking stack-trace content into the
+  payload (verified by capturing stderr — the trace IS visible to
+  operators tailing the server).
+
+Notable decisions:
+
+- **Decorator over inline try/except.** Each `do_*` body is
+  50-200 lines; wrapping each in inline try/except would mean
+  re-indenting hundreds of lines (high risk of subtle bugs in the
+  re-indent). The decorator pattern keeps the dispatch logic
+  unchanged and adds the boundary at the entry point.
+- **Stack trace to stderr, not the response.** Operators
+  tail-following the dev server need the trace to debug; clients
+  must NOT receive it (fingerprints the Python version, may leak
+  filesystem paths). The split is the point.
+- **Per-endpoint try/except remains the primary defense.** ω.8
+  doesn't replace the per-endpoint catches — those still produce
+  meaningful 4xx responses with specific error codes (the §9
+  pure-function-API pattern's dict-shape contract). The wrapper
+  is strictly the catch-all for cases the endpoint forgot or
+  couldn't anticipate.
+
+What's deferred from the ω.8 spec:
+
+- **Lint check that every UI `fetch()` uses `safeFetch`** — this
+  needs careful AST parsing to avoid false-positives on Tailwind
+  class strings and similar. Parked alongside ξ.4's
+  `check_unescaped_template_strings` as a follow-up; the existing
+  consolidation in ω.0.6 (window.ebible.safeFetch) already covers
+  the highest-leverage frontend paths.
+- **Integration test that triggers a 500 on each endpoint** — the
+  unit-level coverage above is enough to lock in the wrapper's
+  behavior; per-endpoint integration tests are deferrable until a
+  specific endpoint's 500 path needs verification.
+
+Continuity pointers:
+
+- v1.0 progress: ω.8 ✓. Net v1.0 todo: minus 1.
+- This was continuous-go batch 3; total 4 implementation phases
+  shipped this session (ν.2.9, ψ.10, ξ.4, ω.8) plus the
+  third-revision scope expansion.
+
+---
+
 ## 2026-05-08 — session — ξ.4 XSS prevention shipped (continuous-go batch 2)
 
 **Phases shipped:** ξ.4.

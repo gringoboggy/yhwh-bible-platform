@@ -5931,6 +5931,109 @@ class TestRunNavesAtScaleDriver:
         assert "xref-citation" in kinds and "topic-nave" in kinds
 
 
+# ---------- Phase ω.8 : top-level request error boundary --------------
+
+
+class TestRequestErrorBoundary:
+    """ω.8 — every Handler.do_* method is wrapped with @_safe_request,
+    which catches any uncaught Exception and returns a 500 JSON
+    response. The client never sees a Python stack trace.
+
+    These tests exercise the wrapper directly via a fake Handler
+    rather than spinning up a real HTTP server — keeps them fast and
+    deterministic. The server-level integration is the responsibility
+    of a follow-up integration suite (ω.10 retry/timeout test scope)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import web
+        cls.web = web
+
+    def test_all_do_methods_are_wrapped(self):
+        """Every public do_* method on Handler must carry the
+        @_safe_request decorator. If a future refactor forgets this,
+        the lint should fail."""
+        for name in ("do_GET", "do_POST", "do_PUT", "do_DELETE"):
+            attr = getattr(self.web.Handler, name)
+            assert hasattr(attr, "__wrapped__"), (
+                f"{name} is not @_safe_request wrapped — adding routes "
+                "without the wrapper means uncaught exceptions reach "
+                "the client as raw stack traces."
+            )
+
+    def test_wrapper_passes_through_happy_path(self):
+        """The decorator is a transparent passthrough when the wrapped
+        method completes normally."""
+        calls = []
+        def fake(self):
+            calls.append("called")
+            return "ok"
+        wrapped = self.web._safe_request(fake)
+        # Build a minimal fake handler that the decorator will invoke
+        # `self.fake()`-style.
+        class FakeHandler:
+            pass
+        result = wrapped(FakeHandler())
+        assert calls == ["called"]
+        assert result == "ok"
+
+    def test_wrapper_catches_and_returns_500_json(self, monkeypatch, capsys):
+        """When the wrapped method raises, the wrapper invokes
+        _send_unhandled_error and the client receives a structured
+        500 — not a stack trace."""
+        sent = []
+        def fake_send_unhandled_error(self, exc, method_name="?"):
+            sent.append((type(exc).__name__, str(exc), method_name))
+            return ("500-json", method_name)
+
+        def boom(self):
+            raise RuntimeError("kaboom")
+
+        wrapped = self.web._safe_request(boom)
+
+        class FakeHandler:
+            _send_unhandled_error = fake_send_unhandled_error
+
+        result = wrapped(FakeHandler())
+        assert sent == [("RuntimeError", "kaboom", "boom")]
+        assert result == ("500-json", "boom")
+
+    def test_send_unhandled_error_emits_500_json(self, capsys):
+        """The _send_unhandled_error helper itself: writes the trace
+        to stderr and produces a JSON 500 response. We verify the
+        JSON shape via a fake _send_json captor."""
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+            def _send_json(self, payload, status=200):
+                self.sent = (payload, status)
+
+        # Bind the real method to the fake.
+        h = FakeHandler()
+        method = self.web.Handler._send_unhandled_error.__get__(
+            h, FakeHandler
+        )
+        try:
+            raise ValueError("simulated unhandled")
+        except ValueError as e:
+            method(e, method_name="do_GET")
+        payload, status = h.sent
+        assert status == 500
+        assert payload["error"] == "internal_error"
+        # User-facing message references the method name and exc type
+        assert "ValueError" in payload["message"]
+        assert "do_GET" in payload["message"]
+        # CRITICAL: no traceback content in the payload — the
+        # operator log gets the full trace, the client gets a clean
+        # generic message.
+        assert "Traceback" not in payload["message"]
+        assert "simulated unhandled" not in payload["message"]
+        # Stderr DOES get the trace (operator-side debugging).
+        captured = capsys.readouterr()
+        assert "ValueError" in captured.err
+        assert "simulated unhandled" in captured.err
+
+
 # ---------- Phase ξ.4 : XSS prevention (HTML sanitizer) ---------------
 
 

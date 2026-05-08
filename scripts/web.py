@@ -4767,6 +4767,26 @@ def _compute_edition_diff_uncached(a_id: str, b_id: str) -> dict:
 # ============================================================
 
 
+def _safe_request(method):
+    """Phase ω.8 — top-level error boundary for do_* request methods.
+    Any uncaught Exception becomes a 500 JSON response instead of a
+    stack trace dumped to the response stream. Per-endpoint handlers
+    still catch their own expected errors with appropriate 4xx codes;
+    this wrapper is the safety net for genuinely unexpected
+    conditions (Python bugs, OS errors, etc.).
+
+    Used as a decorator on Handler.do_GET / do_POST / do_PUT /
+    do_DELETE."""
+    def wrapper(self):
+        try:
+            return method(self)
+        except Exception as e:
+            return self._send_unhandled_error(e, method.__name__)
+    wrapper.__name__ = method.__name__
+    wrapper.__wrapped__ = method
+    return wrapper
+
+
 class Handler(BaseHTTPRequestHandler):
     def _send_json(self, payload, status=200):
         body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
@@ -4776,6 +4796,34 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.end_headers()
         self.wfile.write(body)
+
+    def _send_unhandled_error(self, exc: Exception, method_name: str = "?"):
+        """ω.8 — last-resort error path. Logs the traceback to stderr
+        for the operator (the existing log_message convention) and
+        returns a structured 500 JSON to the client. Critically, the
+        client never sees a Python stack trace — that's both an
+        information-disclosure concern and an unfriendly UX."""
+        import traceback
+        # Log full detail to stderr — useful for operators tailing
+        # the dev server; the existing log_message format is short
+        # so we drop straight to stderr for tracebacks.
+        sys.stderr.write(
+            f"  [unhandled {method_name}] "
+            f"{type(exc).__name__}: {exc}\n"
+        )
+        traceback.print_exc(file=sys.stderr)
+        try:
+            return self._send_json({
+                "error": "internal_error",
+                "message": (
+                    f"unhandled {type(exc).__name__} in {method_name}; "
+                    "see server log for details"
+                ),
+            }, status=500)
+        except Exception:
+            # If even the JSON send fails (broken pipe, etc.), there's
+            # nothing else to do — the request is gone.
+            pass
 
     def _send_dict_result(self, result: dict):
         """§9 'pure function + thin route adapter' — translate a
@@ -4876,6 +4924,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # -------- routes --------
 
+    @_safe_request
     def do_GET(self):
         url = urllib.parse.urlparse(self.path)
         path = url.path
@@ -5127,6 +5176,7 @@ class Handler(BaseHTTPRequestHandler):
 
         self._send_json({"error": "not found", "path": path}, status=404)
 
+    @_safe_request
     def do_PUT(self):
         if not self._check_admin_auth():
             return
@@ -5251,6 +5301,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json({"error": str(e)}, status=400)
         return self._send_json({"error": "not found"}, status=404)
 
+    @_safe_request
     def do_DELETE(self):
         if not self._check_admin_auth():
             return
@@ -5296,6 +5347,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_dict_result(result)
         return self._send_json({"error": "not found"}, status=404)
 
+    @_safe_request
     def do_POST(self):
         if not self._check_admin_auth():
             return
