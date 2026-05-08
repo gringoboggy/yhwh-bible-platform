@@ -162,6 +162,18 @@ queue right now:
      Parallels existing HebrewWordDetector exactly. ~5-10K
      lang-greek notes. Risk: LOW (proven pattern).
 
+ψ.10 Popup typography polish                  PRECURSOR TO ψ.8
+     Theme-aware CSS-only pass on the .vnote popup so the
+     ψ.8 tradition stack inherits styling instead of being
+     designed twice. ~½ session.
+
+ψ.12 Matrix smoothness pass                   PRECURSOR TO ψ.8
+     Surfaced by 2026-05-08 audit. Bundle of 7 fixes in
+     scripts/templates/matrix.py: incremental DOM patching
+     (killer at scale), sticky headers, keyboard nav, scroll
+     preservation, dismissable banner, etc. Lands BEFORE ψ.8
+     adds the tradition data axis. ~1 session.
+
 ψ.8  Cross-denominational compare apparatus    THE v1.0 DIFFERENTIATOR
      Single popup, side-by-side notes from Catholic /
      Protestant / Orthodox / Jewish / Tewahedo + cross-tradition.

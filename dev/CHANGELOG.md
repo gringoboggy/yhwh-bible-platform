@@ -6,6 +6,124 @@
 
 ---
 
+## 2026-05-08 — session — UX audit → 4 new phases added (ψ.10 + ψ.12 + polish trio)
+
+**Phases shipped:** none (scope work, not implementation).
+**Test delta:** 0 (393 → 393).
+**Save tag this session:** pending — will land in next push after this
+entry is written.
+
+What happened:
+
+The user, after ω.6 baseline verification, asked two questions back
+to back: (1) "can we prettify the popups in the EPUB reader?" and
+(2) "look for any more prettifying opportunities + check whether the
+matrix can be made smoother." Both were exploratory, so per the
+project's exploratory-question rule the right shape was: ground in
+real code, recommend tightly, let the user pick.
+
+Round 1 — popup polish:
+
+I found the current popup styling is just a font-family override
+(no padding, border, language-aware spacing, or typography hierarchy
+between body text and apparatus). Since ψ.8 is going to add a
+tradition stack on top of the existing language stack, doing the
+styling work twice would be wasted effort. Recommended a small
+precursor phase **ψ.10 — Popup typography polish** so ψ.8.2
+inherits the styling. User accepted; ψ.10 placed at PLAN line 7.5
+(immediately before ψ.8 in Tier B).
+
+Round 2 — broader UX audit:
+
+Spawned an Explore agent with a focused prompt covering: visual
+surfaces across the 13 consoles + reader EPUB output, then a
+matrix-specific smoothness audit. Agent returned a 16-item report;
+filtered to value ≥ medium yields 4 worth scoping:
+
+- **ν.2.8 — Customize console visual sections** (HIGH, short).
+  Today the form-grid runs metadata + theme + popup-langs +
+  reader experience + covers + (post ψ.8) traditions all into one
+  undifferentiated block. Card boundaries with proper spacing
+  give each section a visual anchor.
+- **ν.2.9 — Customize pending-save badge** (MEDIUM, trivial).
+  Edition "dirty" state is a faint background tint today;
+  multi-edition saves get lost. A small chip on the Save button
+  ("● 2 changes") fixes it.
+- **ψ.11 — Wizard step UX polish** (MEDIUM, short). Step dots
+  show .done / .active but don't communicate reversibility or
+  unsaved-changes-on-this-step. Plus better field grouping in
+  the branding step.
+- **ψ.12 — Matrix smoothness pass** (KILLER, 1 session medium).
+  Bundle of 7 issues in scripts/templates/matrix.py. The killer
+  is the full `buildBody()` rerender on every toggle — fine at
+  77 rows today, noticeably laggy at the target 250+ rows once
+  χ.* phases ship. Better to fix BEFORE ψ.8 adds the tradition
+  axis (another data dimension the matrix renders). Other issues
+  in the bundle: O(n²) symmetricDiff → O(n); sticky column headers;
+  keyboard nav (arrows + space); scroll position preserved on
+  rerender; replace blocking confirm() with inline banner; keep
+  parent-checkbox indeterminate state in sync with child toggles.
+
+Items deliberately left off scope despite agent surfacing them:
+export/audit stat-card hierarchy and wizard-branding spacing
+(both LOW value, paper-cut territory; if a user notices either
+later, they can be added one-shot).
+
+Phase placement decisions:
+
+```
+Tier B (revised again):
+  6. χ.7 finalisation
+  7. χ.1 Strong's Greek
+  7.5 ψ.10 Popup typography polish    ← precursor to ψ.8
+  7.6 ψ.12 Matrix smoothness pass      ← precursor to ψ.8
+  8. ψ.8 Cross-denom compare apparatus
+  9. ρ.1 LibriVox audio
+  10. ω.5 Per-user data refactor
+
+Tier D — polish trio (post-v1.0, v1.1+):
+  12.5 ν.2.8 + ν.2.9 + ψ.11
+```
+
+ψ.10 and ψ.12 are deliberately ordered BEFORE ψ.8 (per §3 sequencing
+rule 1, safest first): both are cheap and prevent re-doing styling
+or chasing matrix regressions when ψ.8 lands. The polish trio
+(ν.2.8/2.9/ψ.11) is post-v1.0 because none of it blocks the v1.0
+terminus or the buyer demo arc.
+
+Path to v1.0 updated to reflect the two new precursor phases —
+v1.0 sessions estimate is now 12 (was 12; ω.6 already shipped so
+the count holds despite adding ψ.10 and ψ.12, which displace one
+session of slack each).
+
+Notable decisions:
+
+- **Audit delegated to an Explore agent**, not done in-thread.
+  Reasoning: the audit spans the whole codebase (13 consoles +
+  reader output + matrix internals). An agent with read-only tools
+  and a tight 80-line cap returned a focused report in one round
+  trip. Doing it inline would have been ~10x the tool calls. This
+  is the third clear instance of "spawn an Explore agent for
+  cross-codebase audits" — pattern is solidifying.
+- **Bundled the matrix issues into ONE phase** (ψ.12) rather than
+  splitting into 7. They all touch the same ~250-line
+  `scripts/templates/matrix.py` template; one focused pass is
+  faster and produces fewer commits than seven independent fixes.
+- **Skipped LOW-value items** despite the user's "look for any
+  more" framing. Reasoning: a phase is real engineering overhead
+  (CHANGELOG entry, tests, ship audit). Items the agent flagged
+  with LOW value don't earn that overhead; they're inline fixes
+  if and when someone notices.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-08.md` — Tier B has new lines 7.5 (ψ.10) and
+  7.6 (ψ.12); Tier D has new line 12.5 (polish trio).
+- `dev/SESSION_STATE.md` next-up section names ψ.10 and ψ.12 as
+  ψ.8 precursors.
+
+---
+
 ## 2026-05-08 — session — ω.6 verified baseline shipped
 
 **Phases shipped:** ω.6.
