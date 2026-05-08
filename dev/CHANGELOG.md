@@ -6,6 +6,105 @@
 
 ---
 
+## 2026-05-08 — session — third-revision scope expansion (ψ.13-17, ω.8-13, ξ.1-7)
+
+**Phases shipped:** none (scope expansion; implementation continues
+in same session per user's continuous-go directive).
+**Test delta:** 0 (434 → 434).
+**Save tag this session:** pending — first save will follow this
+entry; subsequent implementation phases will save individually.
+
+What happened:
+
+User directive — *"prettify the program itself and make it easy to
+use… unbreakable as much as a program can be… as unhackable as it
+can be… maximum everything in the most logical and professional way…
+make yourself go continuously"*. Translates to three new clusters
+of scope expanding what v1.0 must include before shipping a desktop
+binary.
+
+Three new SCOPE addenda added:
+
+- `dev/SCOPE_2026-05-08-addendum-prettification.md` — ψ.13-17.
+  Design system foundation → buyer-arc polish → reader-EPUB polish
+  + operator-console + status-dashboard polish (the last two
+  parked v1.1+).
+- `dev/SCOPE_2026-05-08-addendum-robustness.md` — ω.8-13.
+  Error boundaries → atomic-write audit → retry/timeout policy
+  + recovery doc + crash-safe state + perf budgets (last three
+  parked v1.1+).
+- `dev/SCOPE_2026-05-08-addendum-security.md` — ξ.1-7.
+  XSS sweep → input validation → path traversal hardening + CSP
+  + dependency hygiene + secrets management + auth re-eval (last
+  four parked v1.1+). New Greek-letter cluster: ξ (xi).
+
+v1.0 terminus updated — was:
+```
+v1.0 = θ.2 + χ.1 + ψ.8 + corpus ≥ 25K
+```
+now:
+```
+v1.0 = θ.2 + χ.1 + ψ.8 + ψ.10 + ψ.12 + ψ.13 + ψ.14 + ψ.17
+       + ω.8 + ω.9 + ω.10 + ξ.1 + ξ.2 + ξ.4 + corpus ≥ 25K
+```
+
+Adds 9 phases to the v1.0 set. Justification: shipping a desktop
+binary with rough UI / unhandled error paths / un-sanitized HTML
+would not feel like a commercial product. The user explicitly asked
+for "no stone left unturned"; v1.0 grew accordingly. Each promoted
+phase is independently audited and shippable; the v1.0 candidate is
+just the concatenation.
+
+PLAN reordered: a new Tier B.5 (hardening) and Tier B.6
+(prettification) sit between Tier B (corpus + uniqueness) and Tier
+C (desktop). Operator polish + crash-safety + perf-budgets +
+remaining ξ items fall to Tier D as "12.4 ξ + ω + ψ post-v1.0
+carry-over."
+
+Pattern recognition (§12 retrospective trigger):
+
+- **The "promote-into-v1.0 if professional-product framing demands
+  it" decision** is the third instance of v1.0 terminus growth this
+  session: ψ.8 was the first (cross-denom = uniqueness lever); the
+  three clusters added today are the second through eighth phases
+  (UI polish + robustness + security as professionalism floors).
+  Worth codifying as a §3 sequencing-rule corollary the next time
+  the rules doc is touched: *"if a phase's absence would break the
+  professional-product framing, it's pre-v1.0; if its presence
+  merely adds depth, it's post-v1.0."*
+- **Continuous-execution mode established.** This save is the scope-
+  setting save; subsequent saves in the same session will be
+  per-implementation-phase. The CHANGELOG entries from those will
+  be implementation-specific, not scope. Documenting the workflow
+  here so future Claude knows it's a valid pattern.
+
+Files written:
+
+- `dev/SCOPE_2026-05-08-addendum-prettification.md` — new (~165 lines).
+- `dev/SCOPE_2026-05-08-addendum-robustness.md` — new (~170 lines).
+- `dev/SCOPE_2026-05-08-addendum-security.md` — new (~210 lines).
+
+Files modified:
+
+- `dev/PLAN_2026-05-08.md` — north-star v1.0 terminus updated; new
+  Tier B.5 + B.6 sections inserted; Tier D opens with a
+  carry-over block; addenda list gains three new entries.
+- `dev/SESSION_STATE.md` — header timestamp + scope-tag list +
+  forward-looking block now references the three new clusters.
+- `dev/CHANGELOG.md` — this entry.
+
+Continuity pointers:
+
+- The three new addenda for full per-phase specs.
+- `dev/PLAN_2026-05-08.md` Tier B.5 / B.6 for the in-sequence
+  phase listing.
+- Implementation kicking off after this save: ψ.10 popup typography
+  → ν.2.9 save-pending badge → ξ.4 XSS sweep → ω.8 error
+  boundaries → ψ.13 design system → … as far as token budget
+  allows in this session.
+
+---
+
 ## 2026-05-08 — session — τ cluster scoped (PD translation expansion)
 
 **Phases shipped:** none (scope work, no implementation).

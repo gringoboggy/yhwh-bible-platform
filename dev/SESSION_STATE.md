@@ -1,12 +1,15 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after τ cluster scope addendum landed
-(scope-only — no implementation).
-**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope
-on `bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are
-now git pushes, not zips — see "GIT BACKUP" in the inventory below
-and the root-level `save.cmd` / `save.ps1` helpers. Each commit
-runs the pre-commit hook (`scripts/lint_rules.py` 8/8 must pass).
+**Updated:** 2026-05-08, after third-revision scope expansion
+(prettification ψ.13-17 + robustness ω.8-13 + security ξ.1-7
+clusters scoped). Implementation kicking off in same session per
+user's "make yourself go continuously" directive.
+**Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
+3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
+private. Saves are now git pushes, not zips — see "GIT BACKUP" in
+the inventory below and the root-level `save.cmd` / `save.ps1`
+helpers. Each commit runs the pre-commit hook
+(`scripts/lint_rules.py` 8/8 must pass).
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -327,6 +330,16 @@ Post-v1.0 polish includes the τ cluster (PD translation expansion):
 τ.5 JPS+WLC → τ.6 Ge'ez Tewahedo → τ.7 Greek NT → τ.8 Geneva →
 τ.9 ASV+YLT → τ.10 non-English → τ.11 Reformation partials.
 Spec: dev/SCOPE_2026-05-08-addendum-pd-translations.md.
+
+The third-revision (2026-05-08) scope expansion promoted ξ.1/2/4
+(security: input validation, path traversal, XSS), ω.8/9/10
+(robustness: error boundaries, atomic writes, retry/timeout), and
+ψ.13/14/17 (prettification: design system, buyer arc, reader EPUB)
+into the v1.0 terminus. Specs:
+  dev/SCOPE_2026-05-08-addendum-security.md
+  dev/SCOPE_2026-05-08-addendum-robustness.md
+  dev/SCOPE_2026-05-08-addendum-prettification.md
+Operator-facing polish and other softer items stay v1.1+.
 
 υ.7  Pluggable fetcher config           AFTER ω cluster
      content/sources/_fetchers.json — declarative URL +
