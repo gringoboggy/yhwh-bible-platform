@@ -4,8 +4,55 @@
 
 ## Active task
 
-*(none — tracker is idle. **ω.15.2 exhaustive plan audit + matrix
-flow restructure** shipped 2026-05-09. User-directive completeness
+*(none — tracker is idle. **ψ.7-B edition template starter packs**
+shipped 2026-05-09. 7 partial-edition templates + loader/cloner +
+2 API surfaces + wizard "Start from template…" button + modal +
+21 tests. Cloned editions are real editions.yaml entries —
+indistinguishable from hand-crafted ones once created. End state:
+1018 tests, 11/11 linter, 9 editions, 7 templates, 51,394 notes.
+
+Spec: `dev/SCOPE_2026-05-09-addendum-edition-templates.md` §2.
+The shipped surface:
+
+1. **`content/edition_templates/`** — folder of 7 partial-edition
+   YAML records: monastic-daily-office, school-friendly-nrsv,
+   children, family-devotional, scholarly-academic-with-apparatus,
+   anglican-bcp (mirror), lutheran-confessional (mirror).
+2. **`scripts/core/edition_templates.py`** — `load_templates()`
+   loader + `create_from_template()` clone-and-validate helper.
+3. **`scripts/web.py`** — `api_edition_templates_list()` (GET) +
+   `api_create_edition_from_template()` (POST). Both pure
+   functions per the §9 mental model; thin route adapters
+   translate to HTTP.
+4. **`scripts/templates/wizard.py`** — "Start from template…"
+   button on step 1 + modal listing templates with label +
+   description + canon badge.
+5. **Tests** — TestPsi7BEditionTemplates (16): count = 7, all
+   expected ids, sorted, required template + edition fields,
+   each canon defined, get_template by id, api_*list shape +
+   sorting, every rejection path (unknown / invalid / missing /
+   duplicate), happy-path clone via tmp_path, template
+   metadata stripped from cloned edition.
+   TestPsi7BWizardTemplateButton (5): button + modal markup,
+   form fields, JS function names, API routes referenced.
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /wizard step 1; click "✨ Start from template…";
+    # pick one; supply new id + title; submit; verify the new
+    # edition appears in /customize, /publisher, /matrix.
+
+Next per the recommended 5-session sequence: **ψ.16**
+status-dashboard polish (HEADER_NAV_LINKS + BUYER_ARC_POLISH_CSS
+applied to /audit, /preflight, /ops, /diff, /apihelp + /index).
+
+---
+
+## Prior task
+
+**ω.15.2 exhaustive plan audit + matrix flow restructure**
+shipped 2026-05-09. User-directive completeness
 audit produced 32 new phases + 1 structural restructure
 (MATRIX-SIDEBAR → MATRIX-VIEW + MATRIX-EDIT cluster split). Open
 ledger grew 52 → 84 phases. plan_coherence linter tracks 29

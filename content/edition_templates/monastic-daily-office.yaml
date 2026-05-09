@@ -1,0 +1,46 @@
+# ψ.7-B edition template — Monastic daily office.
+#
+# Use case: religious orders, oblates, lay practitioners of the
+# canonical hours. Brevity-focused; ascetic / contemplative
+# commentary lens.
+
+template_id: monastic-daily-office
+template_label: "Monastic daily office"
+template_description: >
+  Daily office reading order. Brevity-focused apparatus suitable
+  for religious orders, oblates, and lay practitioners of the
+  canonical hours. Apocrypha included; commentary leans ascetic
+  / contemplative.
+
+# Below: same shape as an editions.yaml entry. Used as defaults
+# when a new edition is cloned from this template; the user
+# overrides id + title + isbn at clone time.
+canon: catholic
+title: "Monastic Daily Office Bible"
+short_title: "MDO Bible"
+isbn: "978-XXX-XXXXX-XX-X"
+target_audience: "Religious orders, oblates, lay practitioners of the canonical hours"
+enabled_categories:
+  - text
+  - xref
+  - hist
+  - lit
+  - comm
+  - liturgy
+enabled_kinds:
+  - comm-patristic
+disabled_kinds:
+  - comm-evangelical
+  - comm-reformation
+  - comm-modern-critical
+  - comm-rabbinic
+  - dist-allegorical
+  - dist-mariological
+  - dist-mystical
+max_phase: mvp
+cover_image: ""
+notes: "Compact daily-office layout. Defer non-essential apparatus. Foregrounds comm-patristic + liturgy-christian-year for the canonical hours framing."
+popup_languages_default:
+  - "english"
+  - "latin"
+popup_translation: ""

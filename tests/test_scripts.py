@@ -13613,3 +13613,251 @@ class TestPsi7ANewBuiltInEditions:
         assert len(api["editions"]) == 9
 
 
+class TestPsi7BEditionTemplates:
+    """ψ.7-B — edition starter-pack templates.
+
+    Templates live in `content/edition_templates/*.yaml` as
+    partial-edition records. They surface via
+    api_edition_templates_list (GET /api/edition-templates) and
+    are cloned into editions.yaml via
+    api_create_edition_from_template (POST /api/editions/from-template).
+
+    Spec: dev/SCOPE_2026-05-09-addendum-edition-templates.md §2."""
+
+    EXPECTED_TEMPLATES = (
+        "anglican-bcp",
+        "children",
+        "family-devotional",
+        "lutheran-confessional",
+        "monastic-daily-office",
+        "scholarly-academic-with-apparatus",
+        "school-friendly-nrsv",
+    )
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import edition_templates as et
+        if hasattr(et.load_templates, "cache_clear"):
+            et.load_templates.cache_clear()
+        cls.et = et
+        cls.templates = et.load_templates()
+        cls.templates_by_id = {t["template_id"]: t for t in cls.templates}
+
+    def test_template_count(self):
+        # All 7 expected templates load
+        assert len(self.templates) == 7, (
+            f"expected 7 templates, found {len(self.templates)}"
+        )
+
+    def test_all_expected_templates_present(self):
+        for tid in self.EXPECTED_TEMPLATES:
+            assert tid in self.templates_by_id, (
+                f"template {tid!r} not found"
+            )
+
+    def test_templates_sorted_alphabetically(self):
+        ids = [t["template_id"] for t in self.templates]
+        assert ids == sorted(ids), (
+            f"templates not sorted: {ids}"
+        )
+
+    def test_each_template_has_required_template_fields(self):
+        # template_id, template_label, template_description
+        for t in self.templates:
+            assert t.get("template_id"), f"missing template_id"
+            assert t.get("template_label"), (
+                f"{t['template_id']}: missing template_label"
+            )
+            assert t.get("template_description"), (
+                f"{t['template_id']}: missing template_description"
+            )
+
+    def test_each_template_has_required_edition_fields(self):
+        # canon, title, short_title, target_audience,
+        # enabled_categories, max_phase, popup_languages_default
+        required = {
+            "canon", "title", "short_title", "target_audience",
+            "enabled_categories", "max_phase",
+            "popup_languages_default",
+        }
+        for t in self.templates:
+            missing = required - set(t.keys())
+            assert not missing, (
+                f"{t['template_id']}: missing edition fields {missing}"
+            )
+
+    def test_each_template_canon_is_defined(self):
+        # Template canon must point to a real canon in canons.yaml.
+        import yaml
+        from pathlib import Path
+        canons_path = (
+            Path(__file__).resolve().parent.parent
+            / "content" / "canons.yaml"
+        )
+        canons = (yaml.safe_load(canons_path.read_text(encoding="utf-8"))
+                  or {}).get("canons", {})
+        for t in self.templates:
+            assert t["canon"] in canons, (
+                f"{t['template_id']}: canon {t['canon']!r} not "
+                f"in canons.yaml"
+            )
+
+    def test_get_template_by_id(self):
+        t = self.et.get_template("children")
+        assert t is not None
+        assert t["template_id"] == "children"
+        assert self.et.get_template("does-not-exist") is None
+
+    def test_api_edition_templates_list_shape(self):
+        from scripts.web import api_edition_templates_list
+        out = api_edition_templates_list()
+        assert "templates" in out
+        assert isinstance(out["templates"], list)
+        assert len(out["templates"]) == 7
+        for t in out["templates"]:
+            assert set(t.keys()) >= {
+                "template_id", "label", "description", "canon",
+                "target_audience",
+            }
+
+    def test_api_edition_templates_list_sorted(self):
+        from scripts.web import api_edition_templates_list
+        out = api_edition_templates_list()
+        ids = [t["template_id"] for t in out["templates"]]
+        assert ids == sorted(ids)
+
+    # --- create_from_template rejection paths ---
+
+    def test_create_rejects_unknown_template(self):
+        from scripts.web import api_create_edition_from_template
+        r = api_create_edition_from_template(
+            "does-not-exist", "test-clone", "Test Clone"
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "unknown_template"
+        assert r["http"] == 404
+
+    def test_create_rejects_invalid_new_id(self):
+        from scripts.web import api_create_edition_from_template
+        for bad_id in ("BAD ID", "with space", "Caps", "trailing-",
+                        "-leading", "1starts-with-digit"):
+            r = api_create_edition_from_template(
+                "children", bad_id, "Test Clone"
+            )
+            assert r["status"] == "error", (
+                f"id {bad_id!r} should be rejected"
+            )
+            assert r["code"] == "invalid_new_id", (
+                f"id {bad_id!r}: expected invalid_new_id, got {r['code']}"
+            )
+
+    def test_create_rejects_missing_new_id(self):
+        from scripts.web import api_create_edition_from_template
+        r = api_create_edition_from_template("children", "", "Test Clone")
+        assert r["status"] == "error"
+        assert r["code"] == "missing_new_id"
+
+    def test_create_rejects_missing_new_title(self):
+        from scripts.web import api_create_edition_from_template
+        r = api_create_edition_from_template("children", "test-clone", "")
+        assert r["status"] == "error"
+        assert r["code"] == "missing_new_title"
+
+    def test_create_rejects_duplicate_id(self):
+        from scripts.web import api_create_edition_from_template
+        # catholic-study is a built-in edition; trying to clone
+        # with that id must fail
+        r = api_create_edition_from_template(
+            "children", "catholic-study", "Duplicate Test"
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "duplicate_id"
+        assert r["http"] == 409
+
+    # --- create_from_template happy path (sandbox via tmp file) ---
+
+    def test_create_happy_path_returns_ok(self, tmp_path):
+        # Use a temp editions.yaml so we don't pollute the real one.
+        # Copy the real file's structure and verify the clone lands.
+        import shutil
+        from pathlib import Path
+        from scripts.core import edition_templates as et
+        real_path = (Path(__file__).resolve().parent.parent
+                     / "content" / "editions.yaml")
+        tmp_editions = tmp_path / "editions.yaml"
+        shutil.copy(real_path, tmp_editions)
+
+        # Patch the module-level path + clear caches
+        original_path = et.EDITIONS_PATH
+        original_load = None
+        try:
+            r = et.create_from_template(
+                "children",
+                new_id="test-children-clone",
+                new_title="Test Children's Clone",
+                editions_path=tmp_editions,
+            )
+        finally:
+            # Always revert any cache pollution from the test
+            et.load_templates.cache_clear()
+            from scripts.core import config
+            if hasattr(config.load_editions, "cache_clear"):
+                config.load_editions.cache_clear()
+
+        assert r["status"] == "ok", r
+        assert r["edition_id"] == "test-children-clone"
+        assert r["edition"]["title"] == "Test Children's Clone"
+        # Verify the new edition was actually appended
+        text = tmp_editions.read_text(encoding="utf-8")
+        assert "test-children-clone" in text
+        assert "Test Children's Clone" in text
+
+    def test_template_does_not_carry_template_fields(self):
+        # The cloned edition must NOT have template_id /
+        # template_label / template_description in it — those are
+        # template-only metadata.
+        from scripts.core import edition_templates as et
+        t = et.get_template("children")
+        cloned = et._strip_template_fields(t)
+        for k in ("template_id", "template_label",
+                  "template_description"):
+            assert k not in cloned, (
+                f"cloned edition still has {k}"
+            )
+
+
+class TestPsi7BWizardTemplateButton:
+    """ψ.7-B — wizard step 1 'Start from template…' UI presence."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.wizard import WIZARD_HTML
+        cls.html = WIZARD_HTML
+
+    def test_from_template_button_present(self):
+        assert 'id="from-template-btn"' in self.html
+
+    def test_template_modal_present(self):
+        assert 'id="template-modal"' in self.html
+        assert 'id="template-list"' in self.html
+        assert 'id="template-form"' in self.html
+
+    def test_modal_fields_present(self):
+        assert 'id="template-new-id"' in self.html
+        assert 'id="template-new-title"' in self.html
+        assert 'id="template-error"' in self.html
+
+    def test_modal_handlers_present(self):
+        # JS function names referenced
+        for fn in (
+            "openTemplatePicker",
+            "closeTemplatePicker",
+            "createFromTemplate",
+        ):
+            assert fn in self.html, f"missing JS function {fn}"
+
+    def test_modal_calls_correct_api_routes(self):
+        assert "/api/edition-templates" in self.html
+        assert "/api/editions/from-template" in self.html
+
+

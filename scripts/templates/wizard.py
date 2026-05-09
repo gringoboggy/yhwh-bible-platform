@@ -128,11 +128,50 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     <section id="step-1" class="step-pane active">
       <h2 class="text-2xl font-bold mb-1">1. Start from a profile</h2>
       <p class="text-slate-600 mb-5">Pick a Bible profile to start with. You can change anything in the next steps.</p>
+
+      <!-- ψ.7-B — starter-pack template entry point -->
+      <div class="mb-5 flex items-center gap-3 text-sm">
+        <button id="from-template-btn" type="button"
+                class="px-3 py-2 rounded border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 font-medium">
+          ✨ Start from template…
+        </button>
+        <span class="text-slate-500">or pick an existing edition profile below.</span>
+      </div>
+
       <div id="start-cards" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
       <div class="mt-6 flex justify-end">
         <button id="next-1" class="px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium opacity-50" disabled>Next →</button>
       </div>
     </section>
+
+    <!-- ψ.7-B — Template picker modal (hidden by default; opened
+         by from-template-btn). Lists every edition_template, lets
+         the user pick one + supply new_id + new_title, then calls
+         POST /api/editions/from-template. -->
+    <div id="template-modal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4">
+      <div class="bg-white rounded-lg shadow-xl border border-slate-200 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+          <h3 class="text-lg font-bold">Start from template</h3>
+          <button id="template-modal-close" class="text-slate-400 hover:text-slate-700 text-2xl leading-none" aria-label="Close">×</button>
+        </div>
+        <div class="px-5 py-4">
+          <p class="text-sm text-slate-600 mb-4">Templates are partial edition configurations you can clone and tweak. The new edition appears in /customize, /publisher, and /matrix immediately.</p>
+          <div id="template-list" class="space-y-2"></div>
+          <div id="template-form" class="hidden mt-5 pt-4 border-t border-slate-200">
+            <div class="text-xs text-slate-500 mb-2">Cloning from template: <span id="template-form-id" class="font-mono text-slate-700"></span></div>
+            <label class="block text-xs font-medium text-slate-600 mb-1">New edition id <span class="text-slate-400">(lowercase, hyphenated — e.g. "my-school-bible")</span></label>
+            <input id="template-new-id" type="text" maxlength="60" pattern="[a-z][a-z0-9]*(-[a-z0-9]+)*" placeholder="my-new-edition" class="w-full border border-slate-300 rounded px-2 py-1.5 text-sm mb-3 font-mono">
+            <label class="block text-xs font-medium text-slate-600 mb-1">New title <span class="text-slate-400">(shown to readers)</span></label>
+            <input id="template-new-title" type="text" maxlength="200" placeholder="My New Study Bible" class="w-full border border-slate-300 rounded px-2 py-1.5 text-sm mb-3">
+            <div id="template-error" class="hidden text-sm text-red-700 mb-3"></div>
+            <div class="flex justify-end gap-2">
+              <button id="template-form-cancel" type="button" class="px-3 py-1.5 rounded border border-slate-300 text-sm hover:bg-slate-50">Cancel</button>
+              <button id="template-form-create" type="button" class="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium">Create edition</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ───────── Step 2: Branding ───────── -->
     <section id="step-2" class="step-pane">
@@ -396,7 +435,130 @@ function renderStep1() {
       btn.classList.remove('opacity-50');
     });
   });
+  // ψ.7-B — wire up "Start from template" button
+  const tplBtn = document.getElementById('from-template-btn');
+  if (tplBtn && !tplBtn.dataset.bound) {
+    tplBtn.dataset.bound = '1';
+    tplBtn.addEventListener('click', openTemplatePicker);
+  }
 }
+
+// ψ.7-B — Template picker modal helpers.
+let TEMPLATE_PICK = null;  // currently-picked template id
+
+async function openTemplatePicker() {
+  const modal = document.getElementById('template-modal');
+  const list  = document.getElementById('template-list');
+  const form  = document.getElementById('template-form');
+  if (!modal || !list || !form) return;
+  list.innerHTML = '<div class="text-sm text-slate-400 italic">loading…</div>';
+  form.classList.add('hidden');
+  modal.classList.remove('hidden');
+  let data;
+  try {
+    const r = await fetch('/api/edition-templates');
+    data = await r.json();
+  } catch (_) {
+    list.innerHTML = '<div class="text-sm text-red-700">Failed to load templates.</div>';
+    return;
+  }
+  const templates = (data && data.templates) || [];
+  if (!templates.length) {
+    list.innerHTML = '<div class="text-sm text-slate-400 italic">No templates installed.</div>';
+    return;
+  }
+  list.innerHTML = templates.map(t => `
+    <div class="template-row border border-slate-200 rounded p-3 hover:bg-slate-50 cursor-pointer" data-template="${esc(t.template_id)}">
+      <div class="flex items-center justify-between mb-1">
+        <div class="font-semibold text-slate-700">${esc(t.label)}</div>
+        <div class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">${esc(t.canon)}</div>
+      </div>
+      <div class="text-xs text-slate-500 mb-1">${esc(t.target_audience || '')}</div>
+      <div class="text-sm text-slate-600">${esc(t.description || '')}</div>
+    </div>
+  `).join('');
+  list.querySelectorAll('.template-row').forEach(row => {
+    row.addEventListener('click', () => {
+      list.querySelectorAll('.template-row').forEach(r =>
+        r.classList.remove('ring-2', 'ring-blue-400'));
+      row.classList.add('ring-2', 'ring-blue-400');
+      TEMPLATE_PICK = row.dataset.template;
+      document.getElementById('template-form-id').textContent = TEMPLATE_PICK;
+      form.classList.remove('hidden');
+      // Suggest a default new_id from the template id + "-mine"
+      const idIn = document.getElementById('template-new-id');
+      if (!idIn.value) idIn.value = TEMPLATE_PICK + '-mine';
+      idIn.focus();
+    });
+  });
+}
+
+function closeTemplatePicker() {
+  const modal = document.getElementById('template-modal');
+  if (modal) modal.classList.add('hidden');
+  TEMPLATE_PICK = null;
+  const errEl = document.getElementById('template-error');
+  if (errEl) errEl.classList.add('hidden');
+}
+
+async function createFromTemplate() {
+  const idIn = document.getElementById('template-new-id');
+  const titleIn = document.getElementById('template-new-title');
+  const errEl = document.getElementById('template-error');
+  errEl.classList.add('hidden');
+  if (!TEMPLATE_PICK) {
+    errEl.textContent = 'Pick a template first.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  const new_id = (idIn.value || '').trim();
+  const new_title = (titleIn.value || '').trim();
+  if (!new_id || !new_title) {
+    errEl.textContent = 'Both new id and new title are required.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  try {
+    const r = await fetch('/api/editions/from-template', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        template_id: TEMPLATE_PICK,
+        new_id: new_id,
+        new_title: new_title,
+      }),
+    });
+    const data = await r.json();
+    if (!r.ok || data.error) {
+      errEl.textContent = data.message || data.error || 'Failed to create edition.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+    closeTemplatePicker();
+    // Hard-refresh so the new edition appears in DATA.customize.editions
+    window.location.reload();
+  } catch (e) {
+    errEl.textContent = 'Network error: ' + (e && e.message || e);
+    errEl.classList.remove('hidden');
+  }
+}
+
+// Bind modal close + create handlers once on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const closeBtn = document.getElementById('template-modal-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeTemplatePicker);
+  const cancelBtn = document.getElementById('template-form-cancel');
+  if (cancelBtn) cancelBtn.addEventListener('click', closeTemplatePicker);
+  const createBtn = document.getElementById('template-form-create');
+  if (createBtn) createBtn.addEventListener('click', createFromTemplate);
+  // ESC closes modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('template-modal');
+      if (modal && !modal.classList.contains('hidden')) closeTemplatePicker();
+    }
+  });
+});
 
 // ───────── Step 2 ─────────
 async function populateBranding() {

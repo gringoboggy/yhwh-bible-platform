@@ -1,0 +1,52 @@
+# ψ.7-B edition template — Children's Bible.
+#
+# Use case: family / Sunday school. Large fonts, illustration
+# slot, simplified commentary, family-rhythm chapter pacing.
+
+template_id: children
+template_label: "Children's Bible"
+template_description: >
+  Large fonts, illustration slot, simplified commentary,
+  family-rhythm chapter pacing. Suitable for family / Sunday
+  school use; emphasis on narrative and devotional warmth.
+
+canon: protestant
+title: "Children's Bible"
+short_title: "Kids' Bible"
+isbn: "978-XXX-XXXXX-XX-X"
+target_audience: "Family / Sunday school / children's ministry"
+enabled_categories:
+  - text
+  - xref
+  - hist
+  - lit
+  - dev
+enabled_kinds:
+  - ped-summary
+  - ped-difficulty
+disabled_kinds:
+  - lang-hebrew
+  - lang-greek
+  - lang-aramaic
+  - lang-syriac
+  - lang-amharic
+  - lang-arabic
+  - lang-grammar
+  - lang-translation
+  - lang-latin
+  - text-dss
+  - text-conjecture
+  - text-witness
+  - comm-rabbinic
+  - comm-reformation
+  - comm-modern-critical
+  - dist-allegorical
+  - dist-mariological
+  - dist-mystical
+  - apol-difficulty
+max_phase: mvp
+cover_image: ""
+notes: "Foregrounds dev-application, dev-prayer, ped-summary, ped-difficulty (graduated-difficulty study aids). Hides anything that would distract a young reader."
+popup_languages_default:
+  - "english"
+popup_translation: ""

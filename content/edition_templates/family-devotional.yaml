@@ -1,0 +1,49 @@
+# ψ.7-B edition template — Family devotional.
+#
+# Use case: lay families reading together. Q&A-style apparatus,
+# mid-density, family-reading rhythm.
+
+template_id: family-devotional
+template_label: "Family devotional"
+template_description: >
+  Q&A-style apparatus, mid-density, family-reading rhythm.
+  Each chapter has a short summary, 2-3 discussion questions,
+  and a meditation prompt. Suitable for lay families wanting
+  to read together regularly without seminary-level density.
+
+canon: protestant
+title: "Family Devotional Bible"
+short_title: "Family Devotional"
+isbn: "978-XXX-XXXXX-XX-X"
+target_audience: "Lay families wanting to read scripture together"
+enabled_categories:
+  - text
+  - xref
+  - hist
+  - lit
+  - comm
+  - dev
+  - ped
+disabled_kinds:
+  - lang-hebrew
+  - lang-greek
+  - lang-aramaic
+  - lang-syriac
+  - lang-grammar
+  - lang-translation
+  - lang-latin
+  - text-dss
+  - text-conjecture
+  - text-witness
+  - comm-rabbinic
+  - comm-modern-critical
+  - dist-allegorical
+  - dist-mariological
+  - dist-mystical
+  - apol-difficulty
+max_phase: mvp
+cover_image: ""
+notes: "Foregrounds dev-application, dev-prayer, ped-summary, comm-patristic (light), comm-evangelical (where available). Mid-density: more than children's edition, less than scholarly."
+popup_languages_default:
+  - "english"
+popup_translation: ""

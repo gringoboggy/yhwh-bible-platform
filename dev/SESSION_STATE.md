@@ -1,7 +1,21 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ω.15.2 exhaustive plan audit**
-shipped — completeness audit per user direction; found 32 missing
+**Updated:** 2026-05-09, after **ψ.7-B edition template starter
+packs** shipped — folder of 7 partial-edition starter packs
+(`content/edition_templates/*.yaml`: monastic-daily-office,
+school-friendly-nrsv, children, family-devotional,
+scholarly-academic-with-apparatus, anglican-bcp mirror,
+lutheran-confessional mirror) + new `scripts/core/edition_templates.py`
+loader/cloner module + `api_edition_templates_list` (GET) +
+`api_create_edition_from_template` (POST) + wizard step 1 "Start
+from template…" button + modal. Buyers can clone any template
+into a fresh edition with a custom id + title in three clicks;
+cloned editions are real editions.yaml entries indistinguishable
+from hand-crafted ones once created. +21 tests across 2 new
+classes (TestPsi7BEditionTemplates + TestPsi7BWizardTemplateButton).
+**1018 / 1018 tests green; 11/11 linter clean.**
+
+Prior ship: **ω.15.2 exhaustive plan audit** — completeness audit per user direction; found 32 missing
 improvement opportunities across 4 families and folded them all
 into PLAN_2026-05-09.md. Plus structural restructure: split
 MATRIX-SIDEBAR cluster into **MATRIX-VIEW** (visualization:
@@ -275,7 +289,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 997 tests · 11/11 linter · 9 editions · 51,394 notes (v1.0 floor met)
+13 consoles · 1018 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -302,7 +316,59 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ω.15.2 exhaustive plan audit + 32 new phases
+## Current phase: ψ.7-B edition template starter packs
+
+7 named templates ride the existing editions.yaml mutation
+pattern. Buyers clone via the wizard's new "Start from template…"
+button; cloned editions are real editions.yaml entries that any
+of the 13 consoles operate on identically to the 9 built-ins.
+
+```
+✓ content/edition_templates/            7 starter packs:
+                                        - monastic-daily-office
+                                        - school-friendly-nrsv
+                                        - children
+                                        - family-devotional
+                                        - scholarly-academic-with-apparatus
+                                        - anglican-bcp (mirror)
+                                        - lutheran-confessional (mirror)
+✓ scripts/core/edition_templates.py     ~210 lines pure functions:
+                                        load_templates() (sorted,
+                                        lru_cached, lenient on
+                                        malformed files);
+                                        get_template(id);
+                                        create_from_template(id,
+                                        new_id, new_title) →
+                                        §9 dict shape with
+                                        atomic write + cache
+                                        invalidation.
+✓ scripts/web.py                        api_edition_templates_list
+                                        + api_create_edition_from_template
+                                        + GET /api/edition-templates
+                                        + POST /api/editions/from-template.
+✓ scripts/templates/wizard.py           "✨ Start from template…"
+                                        button on step 1 + modal
+                                        with template list +
+                                        new_id/new_title form +
+                                        ESC/close handlers.
+✓ tests/test_scripts.py                 +21 tests across 2 classes:
+                                        - TestPsi7BEditionTemplates (16)
+                                        - TestPsi7BWizardTemplateButton (5)
+~ Corpus delta                          0 — pure UI/API infra.
+                                        Visual review on user:
+                                        open /wizard step 1,
+                                        click "✨ Start from
+                                        template…", pick one,
+                                        supply id+title, see
+                                        new edition appear in
+                                        /customize.
+```
+
+Next per the recommended 5-session sequence: **ψ.16**
+status-dashboard polish (HEADER_NAV_LINKS + BUYER_ARC_POLISH_CSS
+applied to /audit, /preflight, /ops, /diff, /apihelp + /index).
+
+## Prior phase: ω.15.2 exhaustive plan audit + 32 new phases
 
 User directive: "make sure the plan and scope don't allow for
 further improvement of the matrix or any tools/security

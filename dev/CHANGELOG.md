@@ -6,6 +6,147 @@
 
 ---
 
+## 2026-05-09 — session — ψ.7-B edition template starter packs
+
+**Phases shipped:** ψ.7-B — folder of 7 partial-edition starter
+packs (`content/edition_templates/*.yaml`) + new
+`scripts/core/edition_templates.py` loader/cloner module + two
+new API surfaces (`api_edition_templates_list` GET +
+`api_create_edition_from_template` POST) + wizard step 1 "Start
+from template…" button + modal. Buyers can now clone any of 7
+named starting points into a fresh edition with a custom id +
+title in three clicks.
+**Test delta:** +21 (1018 vs 997).
+**Corpus delta:** 0 — pure UI / API infrastructure. Each cloned
+edition filters the existing 51,394-note corpus through the
+template's canon ∩ kind combination.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`content/edition_templates/`** — 7 starter-pack templates:
+
+| template_id | canon | use case |
+|---|---|---|
+| `monastic-daily-office` | catholic | religious orders, oblates, canonical hours |
+| `school-friendly-nrsv` | protestant | K-12 schools, large fonts, no Hebrew/Greek popups |
+| `children` | protestant | family / Sunday school, illustrated, simplified |
+| `family-devotional` | protestant | lay families, Q&A apparatus, mid-density |
+| `scholarly-academic-with-apparatus` | ethiopian | academic publishers, full apparatus mirror |
+| `anglican-bcp` | catholic | Anglican publishers (mirror of ψ.7-A built-in) |
+| `lutheran-confessional` | protestant | confessional Lutheran (mirror of ψ.7-A) |
+
+  Each YAML has the editions.yaml field shape plus three
+  template-specific fields (`template_id`, `template_label`,
+  `template_description`). Cloners typically retitle + set a
+  real ISBN; everything else carries through as defaults.
+
+- **`scripts/core/edition_templates.py`** (~210 lines, pure
+  functions) — `load_templates()` (lru_cached, sorted by
+  template_id, skips malformed files rather than aborting),
+  `get_template(id)`, `create_from_template(template_id, *,
+  new_id, new_title, editions_path=None)` returning the §9
+  standard `{status, code, http, message}` dict shape. Handles:
+    - Validates template_id exists → 404 unknown_template
+    - Validates new_id matches `^[a-z][a-z0-9]*(-[a-z0-9]+)*$` →
+      400 invalid_new_id
+    - Validates new_id is not a duplicate → 409 duplicate_id
+    - Validates new_title is non-empty → 400 missing_new_title
+    - Strips template_* metadata fields from the cloned edition
+    - Atomic write via notes_io.atomic_write + ensure_backup
+    - Cache invalidation on config.load_editions and matrix
+
+- **`scripts/web.py`** — two new API functions:
+    - `api_edition_templates_list()` (read-only, GET handler) —
+      returns `{templates: [{template_id, label, description,
+      canon, target_audience}, ...]}` sorted by template_id.
+      Surfaced at `GET /api/edition-templates`.
+    - `api_create_edition_from_template(template_id, new_id,
+      new_title)` (mutation, POST handler) — surfaced at
+      `POST /api/editions/from-template`. Composes
+      `edition_templates.create_from_template`; route adapter
+      translates dict → HTTP per the §9 mental model.
+
+- **`scripts/templates/wizard.py`** — step 1 enhancements:
+    - **"✨ Start from template…" button** added above the
+      existing edition-cards picker. Same step; doesn't change
+      the cards-pick flow.
+    - **Modal markup** — fixed-position overlay listing every
+      template with label + canon badge + description, plus a
+      form for `new_id` + `new_title`, plus inline error
+      surface for validation feedback.
+    - **JS handlers**: `openTemplatePicker()` fetches
+      /api/edition-templates and renders rows; selecting a row
+      shows the form; `createFromTemplate()` POSTs to
+      /api/editions/from-template, on success reloads the page
+      so the new edition appears in the cards picker.
+    - **ESC key + close button** dismiss the modal.
+
+- **`tests/test_scripts.py`** — 2 new test classes:
+    - **`TestPsi7BEditionTemplates`** (16 tests): template count
+      = 7, all 7 expected ids present, sorted alphabetically,
+      each template has required template + edition fields,
+      each canon is defined in canons.yaml, get_template by id,
+      api_edition_templates_list shape + sorted, every rejection
+      path (unknown template / invalid new_id / missing fields /
+      duplicate id), happy-path clone via tmp_path with
+      injectable editions_path, template metadata fields don't
+      carry into cloned editions.
+    - **`TestPsi7BWizardTemplateButton`** (5 tests): button
+      present, modal markup present, fields wired, JS handler
+      names referenced, modal calls correct API routes.
+
+End state: **1018 tests green, 11/11 linter clean, 51,394 notes,
+9 editions** (more available via templates).
+
+Notable decisions:
+
+- **Templates ride on the existing editions.yaml mutation
+  pattern** rather than a separate templates registry. The
+  cloned edition becomes a real `editions:` entry in
+  editions.yaml on disk; the publisher then edits it freely
+  through /customize, /publisher, or further wizard steps.
+  This means:
+    - No separate "is this a templated edition?" flag — once
+      cloned, indistinguishable from a hand-crafted edition.
+    - All existing back-compat machinery (api_save_edition_meta,
+      ν.4 cloning, etc.) works on cloned editions for free.
+    - Templates can be edited or removed from the templates/
+      folder without affecting already-cloned editions.
+
+- **Page reload on success** rather than client-side state
+  injection. The wizard's `DATA.customize.editions` array
+  populates from /api/customize on first load; reloading is the
+  simplest path to refresh that array. Mid-wizard clone is
+  expected to be rare (most users clone-then-walk-the-wizard
+  fresh); a more sophisticated re-render flow can come later if
+  the pattern emerges.
+
+- **template_id is the natural URL slug** for cloned editions —
+  the wizard suggests `<template_id>-mine` as the default new_id
+  when the user picks a template. Easy to remember; clearly
+  derived.
+
+- **id_re bans starting digits** so cloned ids start with a
+  letter: matches the existing 9 built-in editions' shape and
+  avoids ambiguity in YAML / route paths / JS object access.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.1 ψ.7-B (entry; now in §7's
+  shipped block)
+- `dev/SCOPE_2026-05-09-addendum-edition-templates.md` §2 (full
+  spec this phase implements)
+- `dev/CLAUDE_PROJECT_RULES.md` §9 "Add a new edition feature"
+  (the mental model the cloned editions inherit from)
+
+Next session: **ψ.16** status-dashboard polish (next on SHORT
+track per recommended sequence — applies HEADER_NAV_LINKS +
+BUYER_ARC_POLISH_CSS to the 5 remaining consoles, lands all 13
+on a single design-system source of truth).
+
+---
+
 ## 2026-05-09 — session — ω.15.2 exhaustive plan audit + 32 new phases
 
 **Phases shipped:** ω.15.2 — exhaustive completeness audit per

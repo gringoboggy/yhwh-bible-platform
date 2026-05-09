@@ -1,0 +1,40 @@
+# ψ.7-B edition template — Scholarly academic with full apparatus.
+#
+# Use case: academic publishers wanting a clone-and-tweak baseline
+# matching the existing scholarly-academic built-in edition.
+
+template_id: scholarly-academic-with-apparatus
+template_label: "Scholarly / academic (full apparatus)"
+template_description: >
+  Mirrors the existing scholarly-academic built-in edition.
+  Suitable for academic publishers wanting a clone-and-tweak
+  baseline. Full apparatus, every kind enabled, every phase
+  active. Intended for libraries and seminaries.
+
+canon: ethiopian
+title: "The Annotated Bible — Academic Edition"
+short_title: "Academic Edition"
+isbn: "978-XXX-XXXXX-XX-X"
+target_audience: "Academic scholars, libraries, seminaries"
+enabled_categories:
+  - lang
+  - text
+  - xref
+  - hist
+  - lit
+  - comm
+  - compare
+  - apol
+  - modern
+  - dist
+  - dev
+  - ped
+  - liturgy
+max_phase: phase3
+cover_image: ""
+notes: "Full apparatus mirroring the scholarly-academic built-in edition. Cloners typically retitle, set a real ISBN, and possibly disable a small number of kinds for their imprint's house style."
+popup_languages_default:
+  - "english"
+  - "hebrew"
+  - "greek"
+popup_translation: ""

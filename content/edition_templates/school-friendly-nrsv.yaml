@@ -1,0 +1,47 @@
+# ψ.7-B edition template — School-friendly NRSV-style.
+#
+# Use case: K-12 schools, students. Large fonts, simplified
+# commentary, no Hebrew/Greek popups (keeps the page clean).
+
+template_id: school-friendly-nrsv
+template_label: "School-friendly (NRSV-style)"
+template_description: >
+  Large fonts, simplified commentary, no Hebrew/Greek popups.
+  Suitable for K-12 schools and students approaching scripture
+  for the first time. Academic-neutral framing.
+
+canon: protestant
+title: "Student Study Bible"
+short_title: "Student SB"
+isbn: "978-XXX-XXXXX-XX-X"
+target_audience: "K-12 schools, students approaching scripture for the first time"
+enabled_categories:
+  - text
+  - xref
+  - hist
+  - lit
+  - ped
+enabled_kinds:
+  - dev-application
+disabled_kinds:
+  - lang-hebrew
+  - lang-greek
+  - lang-aramaic
+  - lang-syriac
+  - lang-amharic
+  - lang-arabic
+  - lang-grammar
+  - lang-translation
+  - lang-latin
+  - text-dss
+  - text-conjecture
+  - text-witness
+  - dist-mariological
+  - dist-allegorical
+  - dist-mystical
+max_phase: mvp
+cover_image: ""
+notes: "Foregrounds ped-summary, ped-difficulty (graduated-difficulty study aids), dev-application. Disables every lang-* kind so popups stay simple."
+popup_languages_default:
+  - "english"
+popup_translation: ""

@@ -359,6 +359,56 @@ def api_template(kind: str) -> dict:
     return {"label": label, "body": body, "attribution": attribution}
 
 
+def api_edition_templates_list() -> dict:
+    """ψ.7-B — List every edition starter-pack template, sorted by
+    template_id. Read-only.
+
+    Returns:
+        {"templates": [{template_id, label, description, canon,
+                        target_audience}, ...]}
+
+    Surfaced at GET /api/edition-templates. Used by the wizard's
+    Step 1 "Start from template…" picker.
+    """
+    from scripts.core import edition_templates as et
+    out = []
+    for t in et.load_templates():
+        out.append({
+            "template_id":   t["template_id"],
+            "label":         t.get("template_label", t["template_id"]),
+            "description":   t.get("template_description", ""),
+            "canon":         t.get("canon", ""),
+            "target_audience": t.get("target_audience", ""),
+        })
+    return {"templates": out}
+
+
+def api_create_edition_from_template(
+    template_id: str,
+    new_id: str,
+    new_title: str,
+) -> dict:
+    """ψ.7-B — Clone a template into editions.yaml as a new edition.
+
+    Returns the §9 standard dict shape:
+      {"status": "ok", "edition_id": new_id, "edition": {...}}
+      {"status": "error", "code": "...", "http": 4xx, "message": "..."}
+
+    Surfaced at POST /api/editions/from-template with body
+    {template_id, new_id, new_title}. Validates template exists,
+    new_id format + uniqueness, new_title non-empty.
+
+    Composes scripts.core.edition_templates.create_from_template,
+    which handles atomic write + cache invalidation.
+    """
+    from scripts.core import edition_templates as et
+    return et.create_from_template(
+        template_id,
+        new_id=new_id,
+        new_title=new_title,
+    )
+
+
 def api_matrix() -> dict:
     """Return the symbol-toggle count grid as JSON. Read-only (μ.1)."""
     from scripts.core import matrix as matrix_mod
@@ -5458,6 +5508,10 @@ class Handler(BaseHTTPRequestHandler):
         if m:
             return self._send_json(api_template(m.group(1)))
 
+        # ψ.7-B — list edition starter-pack templates
+        if path == "/api/edition-templates":
+            return self._send_json(api_edition_templates_list())
+
         self._send_json({"error": "not found", "path": path}, status=404)
 
     @_safe_request
@@ -5581,6 +5635,24 @@ class Handler(BaseHTTPRequestHandler):
                 result = api_save_publisher_meta(m.group(1), payload)
                 status = 200 if result.get("ok") else 400
                 return self._send_json(result, status=status)
+            except Exception as e:
+                return self._send_json({"error": str(e)}, status=400)
+        # ψ.7-B — clone an edition starter-pack template
+        if self.path == "/api/editions/from-template":
+            try:
+                payload = self._read_body() or {}
+                result = api_create_edition_from_template(
+                    payload.get("template_id", ""),
+                    payload.get("new_id", ""),
+                    payload.get("new_title", ""),
+                )
+                if result.get("status") == "ok":
+                    return self._send_json(result, status=200)
+                http_code = result.get("http") or 500
+                return self._send_json({
+                    "error": result.get("code") or "internal_error",
+                    "message": result.get("message") or "",
+                }, status=http_code)
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
         return self._send_json({"error": "not found"}, status=404)
