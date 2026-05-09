@@ -1,7 +1,7 @@
 {
   "book": "1ki",
   "chapter": 8,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:21+00:00",
   "n_candidates": 110,
   "candidates": [
     {
@@ -35,7 +35,22 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-1-003",
+      "id": "1ki-8-40-110",
+      "verse": 40,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> imile of the whole of this MS. has just been published. M. Codex Coislinianus, at Paris ; a handsome MS. of the seventh century, containing the earlier books of the Old Testament, from Genesis to 1 Kings 8. 40, though mutilated in places. This MS. belongs to the same class as G, containing a Hexaplar text. X. Codex Basiliano-Vaticanus, at Eome and Venice ; written in sloping uncials of the eighth or <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-1-004",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-1-004",
+      "id": "1ki-8-1-005",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -60,21 +75,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-4-005",
-      "verse": 4,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -83,6 +83,21 @@
       "id": "1ki-8-4-006",
       "verse": 4,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-4-007",
+      "verse": 4,
+      "kind": "lang-hebrew",
       "anchor": "holy",
       "confidence": 0.65,
       "source_name": "H6918",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-6-007",
+      "id": "1ki-8-6-008",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-6-008",
+      "id": "1ki-8-6-009",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-6-009",
+      "id": "1ki-8-6-010",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-8-010",
+      "id": "1ki-8-8-011",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-9-011",
+      "id": "1ki-8-9-012",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-9-012",
+      "id": "1ki-8-9-013",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-9-013",
+      "id": "1ki-8-9-014",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-10-014",
+      "id": "1ki-8-10-015",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-10-015",
+      "id": "1ki-8-10-016",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-11-016",
+      "id": "1ki-8-11-017",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-11-017",
+      "id": "1ki-8-11-018",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "glory",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-12-018",
+      "id": "1ki-8-12-019",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-12-019",
+      "id": "1ki-8-12-020",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-15-020",
+      "id": "1ki-8-15-021",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-15-021",
+      "id": "1ki-8-15-022",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -315,21 +330,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-17-022",
-      "verse": 17,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -338,6 +338,21 @@
       "id": "1ki-8-17-023",
       "verse": 17,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-17-024",
+      "verse": 17,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-17-024",
+      "id": "1ki-8-17-025",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-18-025",
+      "id": "1ki-8-18-026",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-18-026",
+      "id": "1ki-8-18-027",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-20-027",
+      "id": "1ki-8-20-028",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-20-028",
+      "id": "1ki-8-20-029",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-21-029",
+      "id": "1ki-8-21-030",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-21-030",
+      "id": "1ki-8-21-031",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-21-031",
+      "id": "1ki-8-21-032",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-22-032",
+      "id": "1ki-8-22-033",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-22-033",
+      "id": "1ki-8-22-034",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-034",
+      "id": "1ki-8-23-035",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-035",
+      "id": "1ki-8-23-036",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -530,7 +545,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-036",
+      "id": "1ki-8-23-037",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -545,7 +560,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-037",
+      "id": "1ki-8-23-038",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-038",
+      "id": "1ki-8-23-039",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-039",
+      "id": "1ki-8-23-040",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-23-040",
+      "id": "1ki-8-23-041",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "mercy",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-25-041",
+      "id": "1ki-8-25-042",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-25-042",
+      "id": "1ki-8-25-043",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-25-043",
+      "id": "1ki-8-25-044",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-26-044",
+      "id": "1ki-8-26-045",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -665,7 +680,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-27-045",
+      "id": "1ki-8-27-046",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -680,7 +695,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-27-046",
+      "id": "1ki-8-27-047",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "heavens",
@@ -695,23 +710,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-27-047",
+      "id": "1ki-8-27-048",
       "verse": 27,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-28-048",
-      "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
@@ -728,6 +728,21 @@
       "id": "1ki-8-28-049",
       "verse": 28,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-28-050",
+      "verse": 28,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -740,7 +755,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-30-050",
+      "id": "1ki-8-30-051",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -755,7 +770,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-31-051",
+      "id": "1ki-8-31-052",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -770,7 +785,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-32-052",
+      "id": "1ki-8-32-053",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -785,7 +800,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-32-053",
+      "id": "1ki-8-32-054",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "righteousness",
@@ -800,7 +815,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-34-054",
+      "id": "1ki-8-34-055",
       "verse": 34,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -810,21 +825,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-34-055",
-      "verse": 34,
-      "kind": "lang-hebrew",
-      "anchor": "heaven",
-      "confidence": 0.65,
-      "source_name": "H8064",
-      "source_attribution": "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -833,6 +833,21 @@
       "id": "1ki-8-34-056",
       "verse": 34,
       "kind": "lang-hebrew",
+      "anchor": "heaven",
+      "confidence": 0.65,
+      "source_name": "H8064",
+      "source_attribution": "Strong's H8064, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Shâmayim (<em>שָׁמַיִם</em>).</strong> the sky (as aloft; the dual perhaps alluding to the visible arch in which the clouds move, as well as to the higher ether where the celestial bodies revolve). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-34-057",
+      "verse": 34,
+      "kind": "lang-hebrew",
       "anchor": "sin",
       "confidence": 0.65,
       "source_name": "H2403",
@@ -845,7 +860,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-35-057",
+      "id": "1ki-8-35-058",
       "verse": 35,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -860,7 +875,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-35-058",
+      "id": "1ki-8-35-059",
       "verse": 35,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -875,7 +890,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-36-059",
+      "id": "1ki-8-36-060",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -890,7 +905,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-36-060",
+      "id": "1ki-8-36-061",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -905,7 +920,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-36-061",
+      "id": "1ki-8-36-062",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -920,7 +935,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-36-062",
+      "id": "1ki-8-36-063",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -935,7 +950,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-37-063",
+      "id": "1ki-8-37-064",
       "verse": 37,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -950,7 +965,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-38-064",
+      "id": "1ki-8-38-065",
       "verse": 38,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -965,7 +980,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-38-065",
+      "id": "1ki-8-38-066",
       "verse": 38,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -980,7 +995,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-39-066",
+      "id": "1ki-8-39-067",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -995,7 +1010,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-39-067",
+      "id": "1ki-8-39-068",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -1010,7 +1025,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-39-068",
+      "id": "1ki-8-39-069",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -1025,7 +1040,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-40-069",
+      "id": "1ki-8-40-070",
       "verse": 40,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -1040,7 +1055,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-40-070",
+      "id": "1ki-8-40-071",
       "verse": 40,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -1055,7 +1070,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-43-071",
+      "id": "1ki-8-43-072",
       "verse": 43,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1070,7 +1085,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-43-072",
+      "id": "1ki-8-43-073",
       "verse": 43,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -1085,7 +1100,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-43-073",
+      "id": "1ki-8-43-074",
       "verse": 43,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -1100,7 +1115,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-44-074",
+      "id": "1ki-8-44-075",
       "verse": 44,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1115,7 +1130,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-45-075",
+      "id": "1ki-8-45-076",
       "verse": 45,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -1130,7 +1145,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-46-076",
+      "id": "1ki-8-46-077",
       "verse": 46,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -1145,7 +1160,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-46-077",
+      "id": "1ki-8-46-078",
       "verse": 46,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -1160,7 +1175,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-46-078",
+      "id": "1ki-8-46-079",
       "verse": 46,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -1175,23 +1190,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-47-079",
+      "id": "1ki-8-47-080",
       "verse": 47,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-48-080",
-      "verse": 48,
       "kind": "lang-hebrew",
       "anchor": "land",
       "confidence": 0.65,
@@ -1208,6 +1208,21 @@
       "id": "1ki-8-48-081",
       "verse": 48,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-48-082",
+      "verse": 48,
+      "kind": "lang-hebrew",
       "anchor": "soul",
       "confidence": 0.65,
       "source_name": "H5315",
@@ -1220,7 +1235,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-48-082",
+      "id": "1ki-8-48-083",
       "verse": 48,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -1235,7 +1250,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-49-083",
+      "id": "1ki-8-49-084",
       "verse": 49,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -1250,7 +1265,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-53-084",
+      "id": "1ki-8-53-085",
       "verse": 53,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1265,7 +1280,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-53-085",
+      "id": "1ki-8-53-086",
       "verse": 53,
       "kind": "lang-hebrew",
       "anchor": "GOD",
@@ -1280,7 +1295,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-53-086",
+      "id": "1ki-8-53-087",
       "verse": 53,
       "kind": "lang-hebrew",
       "anchor": "Lord",
@@ -1295,7 +1310,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-54-087",
+      "id": "1ki-8-54-088",
       "verse": 54,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -1310,7 +1325,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-54-088",
+      "id": "1ki-8-54-089",
       "verse": 54,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1325,7 +1340,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-56-089",
+      "id": "1ki-8-56-090",
       "verse": 56,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -1340,7 +1355,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-56-090",
+      "id": "1ki-8-56-091",
       "verse": 56,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1355,7 +1370,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-57-091",
+      "id": "1ki-8-57-092",
       "verse": 57,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1370,7 +1385,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-57-092",
+      "id": "1ki-8-57-093",
       "verse": 57,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1380,21 +1395,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-59-093",
-      "verse": 59,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -1403,6 +1403,21 @@
       "id": "1ki-8-59-094",
       "verse": 59,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-59-095",
+      "verse": 59,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -1415,7 +1430,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-60-095",
+      "id": "1ki-8-60-096",
       "verse": 60,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1430,7 +1445,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-60-096",
+      "id": "1ki-8-60-097",
       "verse": 60,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1445,7 +1460,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-60-097",
+      "id": "1ki-8-60-098",
       "verse": 60,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1455,21 +1470,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-61-098",
-      "verse": 61,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -1478,6 +1478,21 @@
       "id": "1ki-8-61-099",
       "verse": 61,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-61-100",
+      "verse": 61,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -1490,7 +1505,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-61-100",
+      "id": "1ki-8-61-101",
       "verse": 61,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -1505,23 +1520,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-62-101",
+      "id": "1ki-8-62-102",
       "verse": 62,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-63-102",
-      "verse": 63,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -1538,6 +1538,21 @@
       "id": "1ki-8-63-103",
       "verse": 63,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-63-104",
+      "verse": 63,
+      "kind": "lang-hebrew",
       "anchor": "peace",
       "confidence": 0.65,
       "source_name": "H7965",
@@ -1550,7 +1565,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-64-104",
+      "id": "1ki-8-64-105",
       "verse": 64,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1565,7 +1580,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-64-105",
+      "id": "1ki-8-64-106",
       "verse": 64,
       "kind": "lang-hebrew",
       "anchor": "peace",
@@ -1580,7 +1595,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-65-106",
+      "id": "1ki-8-65-107",
       "verse": 65,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1595,23 +1610,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-8-65-107",
+      "id": "1ki-8-65-108",
       "verse": 65,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-66-108",
-      "verse": 66,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -1628,6 +1628,21 @@
       "id": "1ki-8-66-109",
       "verse": 66,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-8-66-110",
+      "verse": 66,
+      "kind": "lang-hebrew",
       "anchor": "heart",
       "confidence": 0.65,
       "source_name": "H3820",
@@ -1637,21 +1652,6 @@
       "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-8-40-110",
-      "verse": 40,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> imile of the whole of this MS. has just been published. M. Codex Coislinianus, at Paris ; a handsome MS. of the seventh century, containing the earlier books of the Old Testament, from Genesis to 1 Kings 8. 40, though mutilated in places. This MS. belongs to the same class as G, containing a Hexaplar text. X. Codex Basiliano-Vaticanus, at Eome and Venice ; written in sloping uncials of the eighth or <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

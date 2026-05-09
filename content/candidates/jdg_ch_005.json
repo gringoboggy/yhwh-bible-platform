@@ -1,11 +1,26 @@
 {
   "book": "jdg",
   "chapter": 5,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:34+00:00",
   "n_candidates": 27,
   "candidates": [
     {
-      "id": "jdg-5-2-001",
+      "id": "jdg-5-30-027",
+      "verse": 30,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> come down to us. The student of the Variorum Bible will find many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represe <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "jdg-5-2-002",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -20,7 +35,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-3-002",
+      "id": "jdg-5-3-003",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-3-003",
+      "id": "jdg-5-3-004",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-4-004",
+      "id": "jdg-5-4-005",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-4-005",
+      "id": "jdg-5-4-006",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "heavens",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-4-006",
+      "id": "jdg-5-4-007",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-4-007",
+      "id": "jdg-5-4-008",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-5-008",
+      "id": "jdg-5-5-009",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -125,23 +140,8 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-5-009",
+      "id": "jdg-5-5-010",
       "verse": 5,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "jdg-5-9-010",
-      "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -158,6 +158,21 @@
       "id": "jdg-5-9-011",
       "verse": 9,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "jdg-5-9-012",
+      "verse": 9,
+      "kind": "lang-hebrew",
       "anchor": "heart",
       "confidence": 0.65,
       "source_name": "H3820",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-11-012",
+      "id": "jdg-5-11-013",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-11-013",
+      "id": "jdg-5-11-014",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-11-014",
+      "id": "jdg-5-11-015",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "righteous",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-13-015",
+      "id": "jdg-5-13-016",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-15-016",
+      "id": "jdg-5-15-017",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-16-017",
+      "id": "jdg-5-16-018",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-19-018",
+      "id": "jdg-5-19-019",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-20-019",
+      "id": "jdg-5-20-020",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-21-020",
+      "id": "jdg-5-21-021",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-23-021",
+      "id": "jdg-5-23-022",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-25-022",
+      "id": "jdg-5-25-023",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-30-023",
+      "id": "jdg-5-30-024",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-31-024",
+      "id": "jdg-5-31-025",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-31-025",
+      "id": "jdg-5-31-026",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "jdg-5-31-026",
+      "id": "jdg-5-31-027",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "love",
@@ -392,21 +407,6 @@
       "draft_body": "<strong>ʼâhab (<em>אָהַב</em>).</strong> to have affection for (sexually or otherwise). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "jdg-5-30-027",
-      "verse": 30,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> come down to us. The student of the Variorum Bible will find many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represe <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

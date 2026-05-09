@@ -1,7 +1,7 @@
 {
   "book": "exo",
   "chapter": 2,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:28+00:00",
   "n_candidates": 20,
   "candidates": [
     {
@@ -65,7 +65,22 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-1-005",
+      "id": "exo-2-14-020",
+      "verse": 14,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> Massorah is without them in some places, but in others, contrary to the usual practice, it has them. The passage shown in the plate is the end of Genesis and the beginning of Exodus (Gen. 50. 23--Exod. 2. 14). The oldest manuscript containing a precise statement of its date which can be trusted is the St. Petersburg manuscript of the Prophets. This was written in the year 916, and contains the \" Later <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-2-1-006",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-2-006",
+      "id": "exo-2-2-007",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-9-007",
+      "id": "exo-2-9-008",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-10-008",
+      "id": "exo-2-10-009",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-12-009",
+      "id": "exo-2-12-010",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-15-010",
+      "id": "exo-2-15-011",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-16-011",
+      "id": "exo-2-16-012",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-19-012",
+      "id": "exo-2-19-013",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-20-013",
+      "id": "exo-2-20-014",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-21-014",
+      "id": "exo-2-21-015",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-22-015",
+      "id": "exo-2-22-016",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -230,23 +245,8 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-23-016",
+      "id": "exo-2-23-017",
       "verse": 23,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "exo-2-24-017",
-      "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
@@ -263,21 +263,6 @@
       "id": "exo-2-24-018",
       "verse": 24,
       "kind": "lang-hebrew",
-      "anchor": "covenant",
-      "confidence": 0.65,
-      "source_name": "H1285",
-      "source_attribution": "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "exo-2-25-019",
-      "verse": 25,
-      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
       "source_name": "H430",
@@ -290,18 +275,33 @@
       "status": "pending"
     },
     {
-      "id": "exo-2-14-020",
-      "verse": 14,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> Massorah is without them in some places, but in others, contrary to the usual practice, it has them. The passage shown in the plate is the end of Genesis and the beginning of Exodus (Gen. 50. 23--Exod. 2. 14). The oldest manuscript containing a precise statement of its date which can be trusted is the St. Petersburg manuscript of the Prophets. This was written in the year 916, and contains the \" Later <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "id": "exo-2-24-019",
+      "verse": 24,
+      "kind": "lang-hebrew",
+      "anchor": "covenant",
+      "confidence": 0.65,
+      "source_name": "H1285",
+      "source_attribution": "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-2-25-020",
+      "verse": 25,
+      "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
     }
   ]

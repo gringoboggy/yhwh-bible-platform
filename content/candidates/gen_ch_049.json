@@ -1,7 +1,7 @@
 {
   "book": "gen",
   "chapter": 49,
-  "generated_at": "2026-05-09T01:11:10+00:00",
+  "generated_at": "2026-05-09T05:19:32+00:00",
   "n_candidates": 16,
   "candidates": [
     {
@@ -20,7 +20,22 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-4-002",
+      "id": "gen-49-5-001",
+      "verse": 5,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> t \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" those that slew him \" ; and see Gen. 49. 5 and Judg. 7. 1 3 for more extensive variations due to the same cause. Besides the vowel points, accents are also added, to indicate 26 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. the rhythmical pronunc <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-49-4-003",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-6-003",
+      "id": "gen-49-6-004",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-6-004",
+      "id": "gen-49-6-005",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-11-005",
+      "id": "gen-49-11-006",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-15-006",
+      "id": "gen-49-15-007",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-15-007",
+      "id": "gen-49-15-008",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-17-008",
+      "id": "gen-49-17-009",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "serpent",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-18-009",
+      "id": "gen-49-18-010",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-18-010",
+      "id": "gen-49-18-011",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "salvation",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-24-011",
+      "id": "gen-49-24-012",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-25-012",
+      "id": "gen-49-25-013",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-25-013",
+      "id": "gen-49-25-014",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "deep",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-25-014",
+      "id": "gen-49-25-015",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-49-30-015",
+      "id": "gen-49-30-016",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -227,21 +242,6 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-49-5-001",
-      "verse": 5,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> t \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" those that slew him \" ; and see Gen. 49. 5 and Judg. 7. 1 3 for more extensive variations due to the same cause. Besides the vowel points, accents are also added, to indicate 26 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. the rhythmical pronunc <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

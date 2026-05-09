@@ -1,7 +1,7 @@
 {
   "book": "isa",
   "chapter": 9,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:33+00:00",
   "n_candidates": 25,
   "candidates": [
     {
@@ -65,23 +65,23 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-1-005",
-      "verse": 1,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "id": "isa-9-3-025",
+      "verse": 3,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> learn the improvements which might be introduced by a freer use of the ancient versions must be referred to the notes in the Variorum Bible. A * well known example of an altered reading occurs in Isa. 9. 3 (the first lesson for Christmas Day), \" Thou hast multiplied the people and not increased the joy ; they joy before thee according to the joy in harvest,\" etc. ; the marginal reading being to him. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     },
     {
-      "id": "isa-9-2-006",
-      "verse": 2,
+      "id": "isa-9-1-006",
+      "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "land",
       "confidence": 0.65,
@@ -98,6 +98,21 @@
       "id": "isa-9-2-007",
       "verse": 2,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-9-2-008",
+      "verse": 2,
+      "kind": "lang-hebrew",
       "anchor": "darkness",
       "confidence": 0.65,
       "source_name": "H2822",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-2-008",
+      "id": "isa-9-2-009",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-5-009",
+      "id": "isa-9-5-010",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-6-010",
+      "id": "isa-9-6-011",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-6-011",
+      "id": "isa-9-6-012",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "Peace",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-7-012",
+      "id": "isa-9-7-013",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-7-013",
+      "id": "isa-9-7-014",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "peace",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-8-014",
+      "id": "isa-9-8-015",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "Lord",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-9-015",
+      "id": "isa-9-9-016",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-11-016",
+      "id": "isa-9-11-017",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-13-017",
+      "id": "isa-9-13-018",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-14-018",
+      "id": "isa-9-14-019",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-17-019",
+      "id": "isa-9-17-020",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "Lord",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-17-020",
+      "id": "isa-9-17-021",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "mercy",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-19-021",
+      "id": "isa-9-19-022",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-19-022",
+      "id": "isa-9-19-023",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-19-023",
+      "id": "isa-9-19-024",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-9-20-024",
+      "id": "isa-9-20-025",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -362,21 +377,6 @@
       "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "isa-9-3-025",
-      "verse": 3,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> learn the improvements which might be introduced by a freer use of the ancient versions must be referred to the notes in the Variorum Bible. A * well known example of an altered reading occurs in Isa. 9. 3 (the first lesson for Christmas Day), \" Thou hast multiplied the people and not increased the joy ; they joy before thee according to the joy in harvest,\" etc. ; the marginal reading being to him. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

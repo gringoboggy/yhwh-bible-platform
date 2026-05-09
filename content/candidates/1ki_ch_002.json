@@ -1,11 +1,26 @@
 {
   "book": "1ki",
   "chapter": 2,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:21+00:00",
   "n_candidates": 42,
   "candidates": [
     {
-      "id": "1ki-2-2-001",
+      "id": "1ki-2-29-042",
+      "verse": 29,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> the Massoretic text ; the student of the Variorum Bible may be referred for examples to 1 Sam. 4. 1 ; 5. 6 ; 10. 1 ; 13. 1, 15 ; 14. 24, 41 ; 15. 13 ; 2 Sam. 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are especially striking; for the best MSS. of the Septuagint omit 1 Sam. 17. 12-31, 41, 50, 55-58, together with 18. 1- <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-2-2-002",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -20,7 +35,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-2-002",
+      "id": "1ki-2-2-003",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-3-003",
+      "id": "1ki-2-3-004",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -50,23 +65,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-3-004",
+      "id": "1ki-2-3-005",
       "verse": 3,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-2-4-005",
-      "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -83,6 +83,21 @@
       "id": "1ki-2-4-006",
       "verse": 4,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-2-4-007",
+      "verse": 4,
+      "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
       "source_name": "H120",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-4-007",
+      "id": "1ki-2-4-008",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-4-008",
+      "id": "1ki-2-4-009",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-5-009",
+      "id": "1ki-2-5-010",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -140,23 +155,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-5-010",
+      "id": "1ki-2-5-011",
       "verse": 5,
-      "kind": "lang-hebrew",
-      "anchor": "peace",
-      "confidence": 0.65,
-      "source_name": "H7965",
-      "source_attribution": "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-2-6-011",
-      "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "peace",
       "confidence": 0.65,
@@ -173,6 +173,21 @@
       "id": "1ki-2-6-012",
       "verse": 6,
       "kind": "lang-hebrew",
+      "anchor": "peace",
+      "confidence": 0.65,
+      "source_name": "H7965",
+      "source_attribution": "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-2-6-013",
+      "verse": 6,
+      "kind": "lang-hebrew",
       "anchor": "wisdom",
       "confidence": 0.65,
       "source_name": "H2451",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-8-013",
+      "id": "1ki-2-8-014",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-9-014",
+      "id": "1ki-2-9-015",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-9-015",
+      "id": "1ki-2-9-016",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-15-016",
+      "id": "1ki-2-15-017",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-23-017",
+      "id": "1ki-2-23-018",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-23-018",
+      "id": "1ki-2-23-019",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-24-019",
+      "id": "1ki-2-24-020",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-26-020",
+      "id": "1ki-2-26-021",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "GOD",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-26-021",
+      "id": "1ki-2-26-022",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "Lord",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-27-022",
+      "id": "1ki-2-27-023",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-28-023",
+      "id": "1ki-2-28-024",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-29-024",
+      "id": "1ki-2-29-025",
       "verse": 29,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-30-025",
+      "id": "1ki-2-30-026",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-31-026",
+      "id": "1ki-2-31-027",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-32-027",
+      "id": "1ki-2-32-028",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-32-028",
+      "id": "1ki-2-32-029",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-32-029",
+      "id": "1ki-2-32-030",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "righteous",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-33-030",
+      "id": "1ki-2-33-031",
       "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-33-031",
+      "id": "1ki-2-33-032",
       "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-33-032",
+      "id": "1ki-2-33-033",
       "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "peace",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-37-033",
+      "id": "1ki-2-37-034",
       "verse": 37,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-38-034",
+      "id": "1ki-2-38-035",
       "verse": 38,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-38-035",
+      "id": "1ki-2-38-036",
       "verse": 38,
       "kind": "lang-hebrew",
       "anchor": "lord",
@@ -530,7 +545,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-42-036",
+      "id": "1ki-2-42-037",
       "verse": 42,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -545,7 +560,7 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-42-037",
+      "id": "1ki-2-42-038",
       "verse": 42,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -560,23 +575,8 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-43-038",
+      "id": "1ki-2-43-039",
       "verse": 43,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-2-44-039",
-      "verse": 44,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -593,21 +593,6 @@
       "id": "1ki-2-44-040",
       "verse": 44,
       "kind": "lang-hebrew",
-      "anchor": "heart",
-      "confidence": 0.65,
-      "source_name": "H3820",
-      "source_attribution": "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1ki-2-45-041",
-      "verse": 45,
-      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -620,18 +605,33 @@
       "status": "pending"
     },
     {
-      "id": "1ki-2-29-042",
-      "verse": 29,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> the Massoretic text ; the student of the Variorum Bible may be referred for examples to 1 Sam. 4. 1 ; 5. 6 ; 10. 1 ; 13. 1, 15 ; 14. 24, 41 ; 15. 13 ; 2 Sam. 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are especially striking; for the best MSS. of the Septuagint omit 1 Sam. 17. 12-31, 41, 50, 55-58, together with 18. 1- <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "id": "1ki-2-44-041",
+      "verse": 44,
+      "kind": "lang-hebrew",
+      "anchor": "heart",
+      "confidence": 0.65,
+      "source_name": "H3820",
+      "source_attribution": "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-2-45-042",
+      "verse": 45,
+      "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
     }
   ]

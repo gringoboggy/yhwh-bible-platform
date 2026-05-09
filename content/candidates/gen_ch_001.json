@@ -1,7 +1,7 @@
 {
   "book": "gen",
   "chapter": 1,
-  "generated_at": "2026-05-09T01:11:10+00:00",
+  "generated_at": "2026-05-09T05:19:31+00:00",
   "n_candidates": 100,
   "candidates": [
     {
@@ -200,7 +200,22 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-1-014",
+      "id": "gen-1-1-100",
+      "verse": 1,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> n Library at Eome. It con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-1-1-015",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "created",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-1-015",
+      "id": "gen-1-1-016",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-1-016",
+      "id": "gen-1-1-017",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-1-017",
+      "id": "gen-1-1-018",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-018",
+      "id": "gen-1-2-019",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-019",
+      "id": "gen-1-2-020",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "Spirit",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-020",
+      "id": "gen-1-2-021",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "void",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-021",
+      "id": "gen-1-2-022",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-022",
+      "id": "gen-1-2-023",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "deep",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-023",
+      "id": "gen-1-2-024",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-2-024",
+      "id": "gen-1-2-025",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-3-025",
+      "id": "gen-1-3-026",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-3-026",
+      "id": "gen-1-3-027",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-4-027",
+      "id": "gen-1-4-028",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-4-028",
+      "id": "gen-1-4-029",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-4-029",
+      "id": "gen-1-4-030",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-4-030",
+      "id": "gen-1-4-031",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-5-031",
+      "id": "gen-1-5-032",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-5-032",
+      "id": "gen-1-5-033",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-5-033",
+      "id": "gen-1-5-034",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-6-034",
+      "id": "gen-1-6-035",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-6-035",
+      "id": "gen-1-6-036",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -525,21 +540,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-1-7-036",
-      "verse": 7,
-      "kind": "lang-hebrew",
-      "anchor": "waters",
-      "confidence": 0.85,
-      "source_name": "H4325",
-      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -548,6 +548,21 @@
       "id": "gen-1-7-037",
       "verse": 7,
       "kind": "lang-hebrew",
+      "anchor": "waters",
+      "confidence": 0.85,
+      "source_name": "H4325",
+      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-1-7-038",
+      "verse": 7,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.85,
       "source_name": "H430",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-8-038",
+      "id": "gen-1-8-039",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "Heaven",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-8-039",
+      "id": "gen-1-8-040",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-9-040",
+      "id": "gen-1-9-041",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-9-041",
+      "id": "gen-1-9-042",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-9-042",
+      "id": "gen-1-9-043",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-9-043",
+      "id": "gen-1-9-044",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-10-044",
+      "id": "gen-1-10-045",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "Earth",
@@ -665,7 +680,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-10-045",
+      "id": "gen-1-10-046",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -680,7 +695,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-10-046",
+      "id": "gen-1-10-047",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -695,7 +710,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-10-047",
+      "id": "gen-1-10-048",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -705,21 +720,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-1-11-048",
-      "verse": 11,
-      "kind": "lang-hebrew",
-      "anchor": "earth",
-      "confidence": 0.85,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -728,6 +728,21 @@
       "id": "gen-1-11-049",
       "verse": 11,
       "kind": "lang-hebrew",
+      "anchor": "earth",
+      "confidence": 0.85,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-1-11-050",
+      "verse": 11,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.85,
       "source_name": "H430",
@@ -740,7 +755,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-12-050",
+      "id": "gen-1-12-051",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -755,7 +770,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-12-051",
+      "id": "gen-1-12-052",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -770,7 +785,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-12-052",
+      "id": "gen-1-12-053",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -785,7 +800,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-14-053",
+      "id": "gen-1-14-054",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -800,7 +815,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-14-054",
+      "id": "gen-1-14-055",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -815,7 +830,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-15-055",
+      "id": "gen-1-15-056",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -830,7 +845,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-15-056",
+      "id": "gen-1-15-057",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -845,23 +860,8 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-15-057",
+      "id": "gen-1-15-058",
       "verse": 15,
-      "kind": "lang-hebrew",
-      "anchor": "light",
-      "confidence": 0.85,
-      "source_name": "H216",
-      "source_attribution": "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-1-16-058",
-      "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "light",
       "confidence": 0.85,
@@ -878,6 +878,21 @@
       "id": "gen-1-16-059",
       "verse": 16,
       "kind": "lang-hebrew",
+      "anchor": "light",
+      "confidence": 0.85,
+      "source_name": "H216",
+      "source_attribution": "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-1-16-060",
+      "verse": 16,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.85,
       "source_name": "H430",
@@ -890,7 +905,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-17-060",
+      "id": "gen-1-17-061",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -905,7 +920,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-17-061",
+      "id": "gen-1-17-062",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -920,7 +935,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-17-062",
+      "id": "gen-1-17-063",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -935,7 +950,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-17-063",
+      "id": "gen-1-17-064",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -950,7 +965,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-18-064",
+      "id": "gen-1-18-065",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -965,7 +980,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-18-065",
+      "id": "gen-1-18-066",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -980,7 +995,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-18-066",
+      "id": "gen-1-18-067",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -995,7 +1010,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-18-067",
+      "id": "gen-1-18-068",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1010,7 +1025,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-20-068",
+      "id": "gen-1-20-069",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1025,7 +1040,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-20-069",
+      "id": "gen-1-20-070",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -1040,7 +1055,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-20-070",
+      "id": "gen-1-20-071",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -1055,7 +1070,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-20-071",
+      "id": "gen-1-20-072",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1070,7 +1085,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-21-072",
+      "id": "gen-1-21-073",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "created",
@@ -1085,7 +1100,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-21-073",
+      "id": "gen-1-21-074",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -1095,21 +1110,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-1-21-074",
-      "verse": 21,
-      "kind": "lang-hebrew",
-      "anchor": "good",
-      "confidence": 0.85,
-      "source_name": "H2896",
-      "source_attribution": "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -1118,6 +1118,21 @@
       "id": "gen-1-21-075",
       "verse": 21,
       "kind": "lang-hebrew",
+      "anchor": "good",
+      "confidence": 0.85,
+      "source_name": "H2896",
+      "source_attribution": "Strong's H2896, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-1-21-076",
+      "verse": 21,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.85,
       "source_name": "H430",
@@ -1130,7 +1145,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-22-076",
+      "id": "gen-1-22-077",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1145,7 +1160,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-22-077",
+      "id": "gen-1-22-078",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -1160,7 +1175,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-22-078",
+      "id": "gen-1-22-079",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1175,7 +1190,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-24-079",
+      "id": "gen-1-24-080",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1190,7 +1205,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-24-080",
+      "id": "gen-1-24-081",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1205,7 +1220,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-25-081",
+      "id": "gen-1-25-082",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1220,7 +1235,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-25-082",
+      "id": "gen-1-25-083",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -1235,7 +1250,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-25-083",
+      "id": "gen-1-25-084",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1250,7 +1265,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-26-084",
+      "id": "gen-1-26-085",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1265,7 +1280,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-26-085",
+      "id": "gen-1-26-086",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1280,7 +1295,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-26-086",
+      "id": "gen-1-26-087",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -1295,7 +1310,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-26-087",
+      "id": "gen-1-26-088",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "image",
@@ -1310,7 +1325,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-26-088",
+      "id": "gen-1-26-089",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "likeness",
@@ -1325,7 +1340,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-27-089",
+      "id": "gen-1-27-090",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "created",
@@ -1340,7 +1355,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-27-090",
+      "id": "gen-1-27-091",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1355,7 +1370,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-27-091",
+      "id": "gen-1-27-092",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -1370,7 +1385,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-27-092",
+      "id": "gen-1-27-093",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "image",
@@ -1385,7 +1400,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-28-093",
+      "id": "gen-1-28-094",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1400,7 +1415,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-28-094",
+      "id": "gen-1-28-095",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1410,21 +1425,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-1-29-095",
-      "verse": 29,
-      "kind": "lang-hebrew",
-      "anchor": "earth",
-      "confidence": 0.85,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -1433,6 +1433,21 @@
       "id": "gen-1-29-096",
       "verse": 29,
       "kind": "lang-hebrew",
+      "anchor": "earth",
+      "confidence": 0.85,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-1-29-097",
+      "verse": 29,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.85,
       "source_name": "H430",
@@ -1445,7 +1460,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-30-097",
+      "id": "gen-1-30-098",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1460,7 +1475,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-31-098",
+      "id": "gen-1-31-099",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -1475,7 +1490,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-1-31-099",
+      "id": "gen-1-31-100",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1487,21 +1502,6 @@
       "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-1-1-100",
-      "verse": 1,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> n Library at Eome. It con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

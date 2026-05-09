@@ -1,11 +1,26 @@
 {
   "book": "gen",
   "chapter": 46,
-  "generated_at": "2026-05-09T01:11:10+00:00",
+  "generated_at": "2026-05-09T05:19:32+00:00",
   "n_candidates": 13,
   "candidates": [
     {
-      "id": "gen-46-1-001",
+      "id": "gen-46-28-001",
+      "verse": 28,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> common property of all scholars. The Codex Vaticanus originally contained the entire Greek Bible, but it has suffered not a little from the ravages of time. The beginning has been lost, as far as Gen. 46. 28 ; in the middle, Psalms 106-138 have dropped out ; at the end, the latter part of Hebrews (from Chap. 9/4), the Catholic Epistles, and the whole of the Apocalypse have disappeared.* Each page measure <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-46-1-002",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -20,23 +35,8 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-2-002",
+      "id": "gen-46-2-003",
       "verse": 2,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-46-3-003",
-      "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
@@ -53,6 +53,21 @@
       "id": "gen-46-3-004",
       "verse": 3,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-46-3-005",
+      "verse": 3,
+      "kind": "lang-hebrew",
       "anchor": "fear",
       "confidence": 0.65,
       "source_name": "H3374",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-6-005",
+      "id": "gen-46-6-006",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-10-006",
+      "id": "gen-46-10-007",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-12-007",
+      "id": "gen-46-12-008",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-20-008",
+      "id": "gen-46-20-009",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-28-009",
+      "id": "gen-46-28-010",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-29-010",
+      "id": "gen-46-29-011",
       "verse": 29,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-31-011",
+      "id": "gen-46-31-012",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-46-34-012",
+      "id": "gen-46-34-013",
       "verse": 34,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -182,21 +197,6 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-46-28-001",
-      "verse": 28,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> common property of all scholars. The Codex Vaticanus originally contained the entire Greek Bible, but it has suffered not a little from the ravages of time. The beginning has been lost, as far as Gen. 46. 28 ; in the middle, Psalms 106-138 have dropped out ; at the end, the latter part of Hebrews (from Chap. 9/4), the Catholic Epistles, and the whole of the Apocalypse have disappeared.* Each page measure <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

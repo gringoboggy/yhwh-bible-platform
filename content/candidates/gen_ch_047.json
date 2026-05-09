@@ -1,11 +1,26 @@
 {
   "book": "gen",
   "chapter": 47,
-  "generated_at": "2026-05-09T01:11:10+00:00",
+  "generated_at": "2026-05-09T05:19:32+00:00",
   "n_candidates": 18,
   "candidates": [
     {
-      "id": "gen-47-1-001",
+      "id": "gen-47-1-018",
+      "verse": 1,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> e seen that the three 48 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. columns are all in the same style of writing, but each contains a different dialect. The right-hand column contains the Hebrew text of Gen. 47. 1-6, as preserved among the Samaritans ; it is, in fact, what is commonly called the Samaritan Version, and what we have been describing above. The left-hand column contains a Samaritan Targum, or para <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-47-1-002",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -20,7 +35,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-4-002",
+      "id": "gen-47-4-003",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-6-003",
+      "id": "gen-47-6-004",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-11-004",
+      "id": "gen-47-11-005",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-13-005",
+      "id": "gen-47-13-006",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-14-006",
+      "id": "gen-47-14-007",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-15-007",
+      "id": "gen-47-15-008",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-18-008",
+      "id": "gen-47-18-009",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "lord",
@@ -125,23 +140,8 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-19-009",
+      "id": "gen-47-19-010",
       "verse": 19,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-47-20-010",
-      "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "land",
       "confidence": 0.65,
@@ -158,6 +158,21 @@
       "id": "gen-47-20-011",
       "verse": 20,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-47-20-012",
+      "verse": 20,
+      "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
       "source_name": "H120",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-22-012",
+      "id": "gen-47-22-013",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-23-013",
+      "id": "gen-47-23-014",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-25-014",
+      "id": "gen-47-25-015",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "lord",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-26-015",
+      "id": "gen-47-26-016",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-27-016",
+      "id": "gen-47-27-017",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-47-28-017",
+      "id": "gen-47-28-018",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -257,21 +272,6 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-47-1-018",
-      "verse": 1,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> e seen that the three 48 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. columns are all in the same style of writing, but each contains a different dialect. The right-hand column contains the Hebrew text of Gen. 47. 1-6, as preserved among the Samaritans ; it is, in fact, what is commonly called the Samaritan Version, and what we have been describing above. The left-hand column contains a Samaritan Targum, or para <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

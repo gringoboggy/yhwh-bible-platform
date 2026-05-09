@@ -1,11 +1,26 @@
 {
   "book": "num",
   "chapter": 5,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:39+00:00",
   "n_candidates": 49,
   "candidates": [
     {
-      "id": "num-5-1-001",
+      "id": "num-5-6-049",
+      "verse": 6,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> the fourth century, in a beautiful uncial hand ; and it is extremely unfortunate that so much of the Old Testament has been lost. The parts which survive include fragments of Genesis 23, 24, and of Num. 5, 6, 7 ; 1 Chron. 9. 27--19. 17 ; 2 Esdras [i.e. canonical Ezra] 9. 9 to end ; Nehemiah, Esther, Tobit, -- Judith, 1 Mace, 4 Mace, Isaiah, Jeremiah, Lament. 1. 1 2. 20, Joel, Obadiah, Jonah, Nahum to <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "num-5-1-002",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -20,7 +35,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-4-002",
+      "id": "num-5-4-003",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -35,23 +50,8 @@
       "status": "pending"
     },
     {
-      "id": "num-5-5-003",
+      "id": "num-5-5-004",
       "verse": 5,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "num-5-6-004",
-      "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -68,6 +68,21 @@
       "id": "num-5-6-005",
       "verse": 6,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "num-5-6-006",
+      "verse": 6,
+      "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
       "source_name": "H120",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-6-006",
+      "id": "num-5-6-007",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-6-007",
+      "id": "num-5-6-008",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-7-008",
+      "id": "num-5-7-009",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-8-009",
+      "id": "num-5-8-010",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-8-010",
+      "id": "num-5-8-011",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-8-011",
+      "id": "num-5-8-012",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "atonement",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-9-012",
+      "id": "num-5-9-013",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-10-013",
+      "id": "num-5-10-014",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-11-014",
+      "id": "num-5-11-015",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-12-015",
+      "id": "num-5-12-016",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-13-016",
+      "id": "num-5-13-017",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-14-017",
+      "id": "num-5-14-018",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "spirit",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-15-018",
+      "id": "num-5-15-019",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-16-019",
+      "id": "num-5-16-020",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-17-020",
+      "id": "num-5-17-021",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-17-021",
+      "id": "num-5-17-022",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "dust",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-17-022",
+      "id": "num-5-17-023",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-18-023",
+      "id": "num-5-18-024",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-18-024",
+      "id": "num-5-18-025",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-18-025",
+      "id": "num-5-18-026",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-19-026",
+      "id": "num-5-19-027",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-19-027",
+      "id": "num-5-19-028",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-19-028",
+      "id": "num-5-19-029",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-20-029",
+      "id": "num-5-20-030",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-21-030",
+      "id": "num-5-21-031",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-21-031",
+      "id": "num-5-21-032",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-22-032",
+      "id": "num-5-22-033",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-22-033",
+      "id": "num-5-22-034",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -500,23 +515,8 @@
       "status": "pending"
     },
     {
-      "id": "num-5-23-034",
+      "id": "num-5-23-035",
       "verse": 23,
-      "kind": "lang-hebrew",
-      "anchor": "water",
-      "confidence": 0.65,
-      "source_name": "H4325",
-      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "num-5-24-035",
-      "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "water",
       "confidence": 0.65,
@@ -533,6 +533,21 @@
       "id": "num-5-24-036",
       "verse": 24,
       "kind": "lang-hebrew",
+      "anchor": "water",
+      "confidence": 0.65,
+      "source_name": "H4325",
+      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "num-5-24-037",
+      "verse": 24,
+      "kind": "lang-hebrew",
       "anchor": "woman",
       "confidence": 0.65,
       "source_name": "H802",
@@ -545,7 +560,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-25-037",
+      "id": "num-5-25-038",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-25-038",
+      "id": "num-5-25-039",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-26-039",
+      "id": "num-5-26-040",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-26-040",
+      "id": "num-5-26-041",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -600,21 +615,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "num-5-27-041",
-      "verse": 27,
-      "kind": "lang-hebrew",
-      "anchor": "water",
-      "confidence": 0.65,
-      "source_name": "H4325",
-      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -623,6 +623,21 @@
       "id": "num-5-27-042",
       "verse": 27,
       "kind": "lang-hebrew",
+      "anchor": "water",
+      "confidence": 0.65,
+      "source_name": "H4325",
+      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "num-5-27-043",
+      "verse": 27,
+      "kind": "lang-hebrew",
       "anchor": "woman",
       "confidence": 0.65,
       "source_name": "H802",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-28-043",
+      "id": "num-5-28-044",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-30-044",
+      "id": "num-5-30-045",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "spirit",
@@ -665,7 +680,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-30-045",
+      "id": "num-5-30-046",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -680,7 +695,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-30-046",
+      "id": "num-5-30-047",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -695,7 +710,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-31-047",
+      "id": "num-5-31-048",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -710,7 +725,7 @@
       "status": "pending"
     },
     {
-      "id": "num-5-31-048",
+      "id": "num-5-31-049",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -722,21 +737,6 @@
       "draft_body": "<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "num-5-6-049",
-      "verse": 6,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> the fourth century, in a beautiful uncial hand ; and it is extremely unfortunate that so much of the Old Testament has been lost. The parts which survive include fragments of Genesis 23, 24, and of Num. 5, 6, 7 ; 1 Chron. 9. 27--19. 17 ; 2 Esdras [i.e. canonical Ezra] 9. 9 to end ; Nehemiah, Esther, Tobit, -- Judith, 1 Mace, 4 Mace, Isaiah, Jeremiah, Lament. 1. 1 2. 20, Joel, Obadiah, Jonah, Nahum to <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

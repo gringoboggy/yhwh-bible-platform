@@ -1,11 +1,26 @@
 {
   "book": "job",
   "chapter": 30,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:37+00:00",
   "n_candidates": 14,
   "candidates": [
     {
-      "id": "job-30-3-001",
+      "id": "job-30-8-014",
+      "verse": 8,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> n, the first (at Eome) contains from Lev. 13. 59 to the end of Chronicles (with some lacunas), -- 2 Esdras {i.e. the canonical Ezra) 5. 10 Xeh. 7. 3, and Esther ; the second (at Venice) begins with Job 30. 8, and contains the rest of Job, Proverbs, Ecclesiastes, Song of Solomon, \"Wisdom, Ecclesiasti- cus. Minor Prophets, Major Prophets, Tobit, Judith, and the four books of the Maccabees. Until quite r <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "job-30-3-002",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "waste",
@@ -20,7 +35,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-6-002",
+      "id": "job-30-6-003",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-8-003",
+      "id": "job-30-8-004",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-14-004",
+      "id": "job-30-14-005",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-15-005",
+      "id": "job-30-15-006",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "wind",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-15-006",
+      "id": "job-30-15-007",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-16-007",
+      "id": "job-30-16-008",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-19-008",
+      "id": "job-30-19-009",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "dust",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-22-009",
+      "id": "job-30-22-010",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "wind",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-25-010",
+      "id": "job-30-25-011",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-26-011",
+      "id": "job-30-26-012",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-26-012",
+      "id": "job-30-26-013",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "job-30-26-013",
+      "id": "job-30-26-014",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -197,21 +212,6 @@
       "draft_body": "<strong>Ṭôwb (<em>טוֹב</em>).</strong> good (as an adjective) in the widest sense; used likewise as a noun, both in the masculine and the feminine, the singular and the plural (good, a good or good thing, a good man or woman; the good, goods or good things, good men or women), also as an adverb (well). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "job-30-8-014",
-      "verse": 8,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> n, the first (at Eome) contains from Lev. 13. 59 to the end of Chronicles (with some lacunas), -- 2 Esdras {i.e. the canonical Ezra) 5. 10 Xeh. 7. 3, and Esther ; the second (at Venice) begins with Job 30. 8, and contains the rest of Job, Proverbs, Ecclesiastes, Song of Solomon, \"Wisdom, Ecclesiasti- cus. Minor Prophets, Major Prophets, Tobit, Judith, and the four books of the Maccabees. Until quite r <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

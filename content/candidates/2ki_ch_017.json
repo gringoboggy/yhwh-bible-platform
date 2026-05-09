@@ -1,11 +1,26 @@
 {
   "book": "2ki",
   "chapter": 17,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:25+00:00",
   "n_candidates": 52,
   "candidates": [
     {
-      "id": "2ki-17-2-001",
+      "id": "2ki-17-24-052",
+      "verse": 24,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> ephus, was Manasseh. This Manasseh, in indigna- tion at his expulsion, took refuge among the Samaritans, and set up among them a rival worehip to that at Jerusalem. The Samaritans, whom we know from 2 Kings 17. 24-41 to have been foreigners imported into the country of the Ten Tribes by the king of Assyria, and there, presumably, to have mingled with the scanty remnant of Israelites, had at first incorporated <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-17-2-002",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -20,23 +35,8 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-5-002",
+      "id": "2ki-17-5-003",
       "verse": 5,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-17-7-003",
-      "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "land",
       "confidence": 0.65,
@@ -53,6 +53,21 @@
       "id": "2ki-17-7-004",
       "verse": 7,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-17-7-005",
+      "verse": 7,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
       "source_name": "H430",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-7-005",
+      "id": "2ki-17-7-006",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-8-006",
+      "id": "2ki-17-8-007",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-9-007",
+      "id": "2ki-17-9-008",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-9-008",
+      "id": "2ki-17-9-009",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-11-009",
+      "id": "2ki-17-11-010",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-12-010",
+      "id": "2ki-17-12-011",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-13-011",
+      "id": "2ki-17-13-012",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-14-012",
+      "id": "2ki-17-14-013",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -185,23 +200,8 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-14-013",
+      "id": "2ki-17-14-014",
       "verse": 14,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-17-15-014",
-      "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -218,6 +218,21 @@
       "id": "2ki-17-15-015",
       "verse": 15,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-17-15-016",
+      "verse": 15,
+      "kind": "lang-hebrew",
       "anchor": "covenant",
       "confidence": 0.65,
       "source_name": "H1285",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-16-016",
+      "id": "2ki-17-16-017",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-16-017",
+      "id": "2ki-17-16-018",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-16-018",
+      "id": "2ki-17-16-019",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-17-019",
+      "id": "2ki-17-17-020",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-18-020",
+      "id": "2ki-17-18-021",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-19-021",
+      "id": "2ki-17-19-022",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-19-022",
+      "id": "2ki-17-19-023",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -335,23 +350,8 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-20-023",
+      "id": "2ki-17-20-024",
       "verse": 20,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-17-21-024",
-      "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -368,6 +368,21 @@
       "id": "2ki-17-21-025",
       "verse": 21,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-17-21-026",
+      "verse": 21,
+      "kind": "lang-hebrew",
       "anchor": "sin",
       "confidence": 0.65,
       "source_name": "H2403",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-23-026",
+      "id": "2ki-17-23-027",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-23-027",
+      "id": "2ki-17-23-028",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-25-028",
+      "id": "2ki-17-25-029",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-26-029",
+      "id": "2ki-17-26-030",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-26-030",
+      "id": "2ki-17-26-031",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -450,21 +465,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-17-27-031",
-      "verse": 27,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -473,6 +473,21 @@
       "id": "2ki-17-27-032",
       "verse": 27,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-17-27-033",
+      "verse": 27,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
       "source_name": "H430",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-28-033",
+      "id": "2ki-17-28-034",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-28-034",
+      "id": "2ki-17-28-035",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-32-035",
+      "id": "2ki-17-32-036",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -530,23 +545,8 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-33-036",
+      "id": "2ki-17-33-037",
       "verse": 33,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-17-34-037",
-      "verse": 34,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -563,6 +563,21 @@
       "id": "2ki-17-34-038",
       "verse": 34,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-17-34-039",
+      "verse": 34,
+      "kind": "lang-hebrew",
       "anchor": "fear",
       "confidence": 0.65,
       "source_name": "H3374",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-35-039",
+      "id": "2ki-17-35-040",
       "verse": 35,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-35-040",
+      "id": "2ki-17-35-041",
       "verse": 35,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-35-041",
+      "id": "2ki-17-35-042",
       "verse": 35,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-36-042",
+      "id": "2ki-17-36-043",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-36-043",
+      "id": "2ki-17-36-044",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-36-044",
+      "id": "2ki-17-36-045",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -665,7 +680,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-37-045",
+      "id": "2ki-17-37-046",
       "verse": 37,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -680,7 +695,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-38-046",
+      "id": "2ki-17-38-047",
       "verse": 38,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -695,7 +710,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-38-047",
+      "id": "2ki-17-38-048",
       "verse": 38,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -710,7 +725,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-39-048",
+      "id": "2ki-17-39-049",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -725,7 +740,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-39-049",
+      "id": "2ki-17-39-050",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -740,7 +755,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-39-050",
+      "id": "2ki-17-39-051",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -755,7 +770,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-17-41-051",
+      "id": "2ki-17-41-052",
       "verse": 41,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -767,21 +782,6 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-17-24-052",
-      "verse": 24,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> ephus, was Manasseh. This Manasseh, in indigna- tion at his expulsion, took refuge among the Samaritans, and set up among them a rival worehip to that at Jerusalem. The Samaritans, whom we know from 2 Kings 17. 24-41 to have been foreigners imported into the country of the Ten Tribes by the king of Assyria, and there, presumably, to have mingled with the scanty remnant of Israelites, had at first incorporated <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

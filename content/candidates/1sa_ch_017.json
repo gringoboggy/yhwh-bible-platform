@@ -1,7 +1,7 @@
 {
   "book": "1sa",
   "chapter": 17,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:22+00:00",
   "n_candidates": 29,
   "candidates": [
     {
@@ -65,7 +65,22 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-8-005",
+      "id": "1sa-17-12-029",
+      "verse": 12,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are especially striking; for the best MSS. of the Septuagint omit 1 Sam. 17. 12-31, 41, 50, 55-58, together with 18. 1-5, 9-11, 17-19, and the rest of the references to Merab. In the Book of Job there is good reason to believe that the original text of the Septuagint omitted <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-17-8-006",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-10-006",
+      "id": "1sa-17-10-007",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-12-007",
+      "id": "1sa-17-12-008",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-24-008",
+      "id": "1sa-17-24-009",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-25-009",
+      "id": "1sa-17-25-010",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-26-010",
+      "id": "1sa-17-26-011",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-26-011",
+      "id": "1sa-17-26-012",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-27-012",
+      "id": "1sa-17-27-013",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-28-013",
+      "id": "1sa-17-28-014",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-32-014",
+      "id": "1sa-17-32-015",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-32-015",
+      "id": "1sa-17-32-016",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-33-016",
+      "id": "1sa-17-33-017",
       "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-36-017",
+      "id": "1sa-17-36-018",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-37-018",
+      "id": "1sa-17-37-019",
       "verse": 37,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-41-019",
+      "id": "1sa-17-41-020",
       "verse": 41,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-45-020",
+      "id": "1sa-17-45-021",
       "verse": 45,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-45-021",
+      "id": "1sa-17-45-022",
       "verse": 45,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-46-022",
+      "id": "1sa-17-46-023",
       "verse": 46,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-46-023",
+      "id": "1sa-17-46-024",
       "verse": 46,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-46-024",
+      "id": "1sa-17-46-025",
       "verse": 46,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-47-025",
+      "id": "1sa-17-47-026",
       "verse": 47,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-49-026",
+      "id": "1sa-17-49-027",
       "verse": 49,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-55-027",
+      "id": "1sa-17-55-028",
       "verse": 55,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-17-58-028",
+      "id": "1sa-17-58-029",
       "verse": 58,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -422,21 +437,6 @@
       "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-17-12-029",
-      "verse": 12,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are especially striking; for the best MSS. of the Septuagint omit 1 Sam. 17. 12-31, 41, 50, 55-58, together with 18. 1-5, 9-11, 17-19, and the rest of the references to Merab. In the Book of Job there is good reason to believe that the original text of the Septuagint omitted <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

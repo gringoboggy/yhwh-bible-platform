@@ -1,7 +1,7 @@
 {
   "book": "mic",
   "chapter": 5,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:39+00:00",
   "n_candidates": 14,
   "candidates": [
     {
@@ -20,7 +20,22 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-4-002",
+      "id": "mic-5-2-014",
+      "verse": 2,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> ; seeing that the same identification is repeated in four other places, including the much more strongly Messianic passage in Micah 5. 2, the omission in Joshua alone would be perfectly useless for party purposes, and may much more fairly be explained as an accident. It is needless to add that the greater prophecies of the Messiah, <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "mic-5-4-003",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-4-003",
+      "id": "mic-5-4-004",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-4-004",
+      "id": "mic-5-4-005",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-5-005",
+      "id": "mic-5-5-006",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-5-006",
+      "id": "mic-5-5-007",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-5-007",
+      "id": "mic-5-5-008",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "peace",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-6-008",
+      "id": "mic-5-6-009",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-6-009",
+      "id": "mic-5-6-010",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "waste",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-7-010",
+      "id": "mic-5-7-011",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-7-011",
+      "id": "mic-5-7-012",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-10-012",
+      "id": "mic-5-10-013",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "mic-5-11-013",
+      "id": "mic-5-11-014",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -197,21 +212,6 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "mic-5-2-014",
-      "verse": 2,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> ; seeing that the same identification is repeated in four other places, including the much more strongly Messianic passage in Micah 5. 2, the omission in Joshua alone would be perfectly useless for party purposes, and may much more fairly be explained as an accident. It is needless to add that the greater prophecies of the Messiah, <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

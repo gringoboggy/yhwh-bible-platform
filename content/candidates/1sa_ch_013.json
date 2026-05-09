@@ -1,7 +1,7 @@
 {
   "book": "1sa",
   "chapter": 13,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:22+00:00",
   "n_candidates": 15,
   "candidates": [
     {
@@ -20,7 +20,22 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-2-002",
+      "id": "1sa-13-21-015",
+      "verse": 21,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> er of places noted in W'hich the reading of the Septuagint makes better sense than that of the Hebrew. In not a few passages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. In other places <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-13-2-003",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-3-003",
+      "id": "1sa-13-3-004",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-7-004",
+      "id": "1sa-13-7-005",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-9-005",
+      "id": "1sa-13-9-006",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "peace",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-12-006",
+      "id": "1sa-13-12-007",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-13-007",
+      "id": "1sa-13-13-008",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -110,23 +125,8 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-13-008",
+      "id": "1sa-13-13-009",
       "verse": 13,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-13-14-009",
-      "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -143,6 +143,21 @@
       "id": "1sa-13-14-010",
       "verse": 14,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-13-14-011",
+      "verse": 14,
+      "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
       "source_name": "H120",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-14-011",
+      "id": "1sa-13-14-012",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-17-012",
+      "id": "1sa-13-17-013",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-19-013",
+      "id": "1sa-13-19-014",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-13-20-014",
+      "id": "1sa-13-20-015",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -212,21 +227,6 @@
       "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-13-21-015",
-      "verse": 21,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> er of places noted in W'hich the reading of the Septuagint makes better sense than that of the Hebrew. In not a few passages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. In other places <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

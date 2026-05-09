@@ -1,7 +1,7 @@
 {
   "book": "jer",
   "chapter": 17,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:35+00:00",
   "n_candidates": 35,
   "candidates": [
     {
@@ -110,7 +110,22 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-1-008",
+      "id": "jer-17-1-035",
+      "verse": 1,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> r short inscriptions, such as Jeremiah was thinking of when he said \" The sin of Judah is written with a pen of iron, and with the point of a diamond ; it is graven upon the table of their heart\" (Jer. 17. 1), and it was upon a \"great tablet\" (Isa. 8. 1, R.V.) that Isaiah wrote the words \" For Maher- shalal-hash-baz \" ; but it was a \" roll of a book \" which Jeremiah took in order that Baruch might write <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "jer-17-1-009",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-1-009",
+      "id": "jer-17-1-010",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-3-010",
+      "id": "jer-17-3-011",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-4-011",
+      "id": "jer-17-4-012",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-5-012",
+      "id": "jer-17-5-013",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-5-013",
+      "id": "jer-17-5-014",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-5-014",
+      "id": "jer-17-5-015",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-6-015",
+      "id": "jer-17-6-016",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-6-016",
+      "id": "jer-17-6-017",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-7-017",
+      "id": "jer-17-7-018",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-7-018",
+      "id": "jer-17-7-019",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-8-019",
+      "id": "jer-17-8-020",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-9-020",
+      "id": "jer-17-9-021",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-10-021",
+      "id": "jer-17-10-022",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-10-022",
+      "id": "jer-17-10-023",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-10-023",
+      "id": "jer-17-10-024",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-13-024",
+      "id": "jer-17-13-025",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-13-025",
+      "id": "jer-17-13-026",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-13-026",
+      "id": "jer-17-13-027",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-14-027",
+      "id": "jer-17-14-028",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-15-028",
+      "id": "jer-17-15-029",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-19-029",
+      "id": "jer-17-19-030",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-20-030",
+      "id": "jer-17-20-031",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-21-031",
+      "id": "jer-17-21-032",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-24-032",
+      "id": "jer-17-24-033",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-26-033",
+      "id": "jer-17-26-034",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "jer-17-26-034",
+      "id": "jer-17-26-035",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -512,21 +527,6 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "jer-17-1-035",
-      "verse": 1,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> r short inscriptions, such as Jeremiah was thinking of when he said \" The sin of Judah is written with a pen of iron, and with the point of a diamond ; it is graven upon the table of their heart\" (Jer. 17. 1), and it was upon a \"great tablet\" (Isa. 8. 1, R.V.) that Isaiah wrote the words \" For Maher- shalal-hash-baz \" ; but it was a \" roll of a book \" which Jeremiah took in order that Baruch might write <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

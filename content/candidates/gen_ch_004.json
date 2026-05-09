@@ -1,7 +1,7 @@
 {
   "book": "gen",
   "chapter": 4,
-  "generated_at": "2026-05-09T01:11:10+00:00",
+  "generated_at": "2026-05-09T05:19:31+00:00",
   "n_candidates": 30,
   "candidates": [
     {
@@ -65,7 +65,22 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-1-005",
+      "id": "gen-4-8-001",
+      "verse": 8,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> thirty- five variations of the Samaritan text in the five books of the Pentateuch as being either equal or superior to the Hebrew readings. Among these may be mentioned, for the sake of example, Gen. 4. 8, where the Samaritan has \" Cain said to Abel his brother, Let us go into the field\"; 47. 21, \"As for the people he made slaves of them,\" instead of \"he removed them to cities \" ; Exod. 12. 40, the <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-4-1-006",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-1-006",
+      "id": "gen-4-1-007",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-1-007",
+      "id": "gen-4-1-008",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "Eve",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-2-008",
+      "id": "gen-4-2-009",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-3-009",
+      "id": "gen-4-3-010",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-3-010",
+      "id": "gen-4-3-011",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-4-011",
+      "id": "gen-4-4-012",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-6-012",
+      "id": "gen-4-6-013",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-7-013",
+      "id": "gen-4-7-014",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-9-014",
+      "id": "gen-4-9-015",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-10-015",
+      "id": "gen-4-10-016",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-10-016",
+      "id": "gen-4-10-017",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -240,21 +255,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-4-11-017",
-      "verse": 11,
-      "kind": "lang-hebrew",
-      "anchor": "earth",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -263,6 +263,21 @@
       "id": "gen-4-11-018",
       "verse": 11,
       "kind": "lang-hebrew",
+      "anchor": "earth",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-4-11-019",
+      "verse": 11,
+      "kind": "lang-hebrew",
       "anchor": "blood",
       "confidence": 0.65,
       "source_name": "H1818",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-12-019",
+      "id": "gen-4-12-020",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-12-020",
+      "id": "gen-4-12-021",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-13-021",
+      "id": "gen-4-13-022",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-14-022",
+      "id": "gen-4-14-023",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-15-023",
+      "id": "gen-4-15-024",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-16-024",
+      "id": "gen-4-16-025",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-16-025",
+      "id": "gen-4-16-026",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-23-026",
+      "id": "gen-4-23-027",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-25-027",
+      "id": "gen-4-25-028",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-25-028",
+      "id": "gen-4-25-029",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "Adam",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "gen-4-26-029",
+      "id": "gen-4-26-030",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -437,21 +452,6 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "gen-4-8-001",
-      "verse": 8,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> thirty- five variations of the Samaritan text in the five books of the Pentateuch as being either equal or superior to the Hebrew readings. Among these may be mentioned, for the sake of example, Gen. 4. 8, where the Samaritan has \" Cain said to Abel his brother, Let us go into the field\"; 47. 21, \"As for the people he made slaves of them,\" instead of \"he removed them to cities \" ; Exod. 12. 40, the <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

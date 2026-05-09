@@ -1,7 +1,7 @@
 {
   "book": "deu",
   "chapter": 32,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:28+00:00",
   "n_candidates": 45,
   "candidates": [
     {
@@ -110,7 +110,22 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-1-008",
+      "id": "deu-32-35-045",
+      "verse": 35,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> s are added at the end of the verse, \" And they shall take a cloth of purple, and cover the laver and his foot, and put it into a covering of seals' skins, and shall put them upon a frame \" ; and in Dent. 32. 35 the first half of the verse runs \" against the day of vengeance and recom- pence ; against the time when their foot shall slip.\" These are perhaps the most notable of the Samaritan variants, and it <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-32-1-009",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-1-009",
+      "id": "deu-32-1-010",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "heavens",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-3-010",
+      "id": "deu-32-3-011",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-3-011",
+      "id": "deu-32-3-012",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-4-012",
+      "id": "deu-32-4-013",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-6-013",
+      "id": "deu-32-6-014",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-8-014",
+      "id": "deu-32-8-015",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "Adam",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-9-015",
+      "id": "deu-32-9-016",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-10-016",
+      "id": "deu-32-10-017",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-10-017",
+      "id": "deu-32-10-018",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "waste",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-12-018",
+      "id": "deu-32-12-019",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "god",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-12-019",
+      "id": "deu-32-12-020",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-13-020",
+      "id": "deu-32-13-021",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-14-021",
+      "id": "deu-32-14-022",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-15-022",
+      "id": "deu-32-15-023",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-15-023",
+      "id": "deu-32-15-024",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "salvation",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-17-024",
+      "id": "deu-32-17-025",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-18-025",
+      "id": "deu-32-18-026",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-19-026",
+      "id": "deu-32-19-027",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-21-027",
+      "id": "deu-32-21-028",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-22-028",
+      "id": "deu-32-22-029",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-24-029",
+      "id": "deu-32-24-030",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "dust",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-25-030",
+      "id": "deu-32-25-031",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-27-031",
+      "id": "deu-32-27-032",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-28-032",
+      "id": "deu-32-28-033",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "void",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-30-033",
+      "id": "deu-32-30-034",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-36-034",
+      "id": "deu-32-36-035",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-39-035",
+      "id": "deu-32-39-036",
       "verse": 39,
       "kind": "lang-hebrew",
       "anchor": "god",
@@ -530,7 +545,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-40-036",
+      "id": "deu-32-40-037",
       "verse": 40,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -545,7 +560,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-42-037",
+      "id": "deu-32-42-038",
       "verse": 42,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-43-038",
+      "id": "deu-32-43-039",
       "verse": 43,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-43-039",
+      "id": "deu-32-43-040",
       "verse": 43,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-47-040",
+      "id": "deu-32-47-041",
       "verse": 47,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-48-041",
+      "id": "deu-32-48-042",
       "verse": 48,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-49-042",
+      "id": "deu-32-49-043",
       "verse": 49,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-51-043",
+      "id": "deu-32-51-044",
       "verse": 51,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-32-52-044",
+      "id": "deu-32-52-045",
       "verse": 52,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -662,21 +677,6 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-32-35-045",
-      "verse": 35,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> s are added at the end of the verse, \" And they shall take a cloth of purple, and cover the laver and his foot, and put it into a covering of seals' skins, and shall put them upon a frame \" ; and in Dent. 32. 35 the first half of the verse runs \" against the day of vengeance and recom- pence ; against the time when their foot shall slip.\" These are perhaps the most notable of the Samaritan variants, and it <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

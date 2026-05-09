@@ -1,7 +1,7 @@
 {
   "book": "1sa",
   "chapter": 2,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:22+00:00",
   "n_candidates": 58,
   "candidates": [
     {
@@ -110,7 +110,22 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-1-008",
+      "id": "1sa-2-1-058",
+      "verse": 1,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> 151st), which is found in some other early manuscripts, and a number of canticles, or chants, extracted from other parts of the Bible (for instance, the songs of Moses, in Deut. 32, of Hannah, in 1 Sam. 2. 1-10, and the Magni- ficat) which were used in the services of the Church, The apo- cryphal Psalms of Solomon were originally added at the end of the New Testament, but the leaves containing them hav <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-2-1-009",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-1-009",
+      "id": "1sa-2-1-010",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-1-010",
+      "id": "1sa-2-1-011",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "salvation",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-2-011",
+      "id": "1sa-2-2-012",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-2-012",
+      "id": "1sa-2-2-013",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-2-013",
+      "id": "1sa-2-2-014",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-3-014",
+      "id": "1sa-2-3-015",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-3-015",
+      "id": "1sa-2-3-016",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-6-016",
+      "id": "1sa-2-6-017",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-7-017",
+      "id": "1sa-2-7-018",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-8-018",
+      "id": "1sa-2-8-019",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-8-019",
+      "id": "1sa-2-8-020",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-8-020",
+      "id": "1sa-2-8-021",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "dust",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-8-021",
+      "id": "1sa-2-8-022",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "glory",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-9-022",
+      "id": "1sa-2-9-023",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-9-023",
+      "id": "1sa-2-9-024",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-10-024",
+      "id": "1sa-2-10-025",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-10-025",
+      "id": "1sa-2-10-026",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-10-026",
+      "id": "1sa-2-10-027",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-10-027",
+      "id": "1sa-2-10-028",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "anointed",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-11-028",
+      "id": "1sa-2-11-029",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-12-029",
+      "id": "1sa-2-12-030",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-13-030",
+      "id": "1sa-2-13-031",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -455,23 +470,8 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-15-031",
+      "id": "1sa-2-15-032",
       "verse": 15,
-      "kind": "lang-hebrew",
-      "anchor": "man",
-      "confidence": 0.65,
-      "source_name": "H120",
-      "source_attribution": "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-2-16-032",
-      "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
@@ -488,6 +488,21 @@
       "id": "1sa-2-16-033",
       "verse": 16,
       "kind": "lang-hebrew",
+      "anchor": "man",
+      "confidence": 0.65,
+      "source_name": "H120",
+      "source_attribution": "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-2-16-034",
+      "verse": 16,
+      "kind": "lang-hebrew",
       "anchor": "soul",
       "confidence": 0.65,
       "source_name": "H5315",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-17-034",
+      "id": "1sa-2-17-035",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-17-035",
+      "id": "1sa-2-17-036",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -530,23 +545,8 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-18-036",
+      "id": "1sa-2-18-037",
       "verse": 18,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-2-20-037",
-      "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -563,6 +563,21 @@
       "id": "1sa-2-20-038",
       "verse": 20,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-2-20-039",
+      "verse": 20,
+      "kind": "lang-hebrew",
       "anchor": "woman",
       "confidence": 0.65,
       "source_name": "H802",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-21-039",
+      "id": "1sa-2-21-040",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-24-040",
+      "id": "1sa-2-24-041",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -605,23 +620,8 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-24-041",
+      "id": "1sa-2-24-042",
       "verse": 24,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-2-25-042",
-      "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -638,6 +638,21 @@
       "id": "1sa-2-25-043",
       "verse": 25,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-2-25-044",
+      "verse": 25,
+      "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
       "source_name": "H120",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-25-044",
+      "id": "1sa-2-25-045",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "sin",
@@ -665,7 +680,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-26-045",
+      "id": "1sa-2-26-046",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -680,7 +695,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-27-046",
+      "id": "1sa-2-27-047",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -695,7 +710,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-27-047",
+      "id": "1sa-2-27-048",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -710,7 +725,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-27-048",
+      "id": "1sa-2-27-049",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -725,7 +740,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-30-049",
+      "id": "1sa-2-30-050",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -740,7 +755,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-30-050",
+      "id": "1sa-2-30-051",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -755,7 +770,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-31-051",
+      "id": "1sa-2-31-052",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -770,7 +785,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-32-052",
+      "id": "1sa-2-32-053",
       "verse": 32,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -785,23 +800,8 @@
       "status": "pending"
     },
     {
-      "id": "1sa-2-32-053",
+      "id": "1sa-2-32-054",
       "verse": 32,
-      "kind": "lang-hebrew",
-      "anchor": "man",
-      "confidence": 0.65,
-      "source_name": "H120",
-      "source_attribution": "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-2-33-054",
-      "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
@@ -818,20 +818,20 @@
       "id": "1sa-2-33-055",
       "verse": 33,
       "kind": "lang-hebrew",
-      "anchor": "heart",
+      "anchor": "man",
       "confidence": 0.65,
-      "source_name": "H3820",
-      "source_attribution": "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "source_name": "H120",
+      "source_attribution": "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
-      "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
     },
     {
-      "id": "1sa-2-35-056",
-      "verse": 35,
+      "id": "1sa-2-33-056",
+      "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "heart",
       "confidence": 0.65,
@@ -848,6 +848,21 @@
       "id": "1sa-2-35-057",
       "verse": 35,
       "kind": "lang-hebrew",
+      "anchor": "heart",
+      "confidence": 0.65,
+      "source_name": "H3820",
+      "source_attribution": "Strong's H3820, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-2-35-058",
+      "verse": 35,
+      "kind": "lang-hebrew",
       "anchor": "anointed",
       "confidence": 0.65,
       "source_name": "H4899",
@@ -857,21 +872,6 @@
       "draft_body": "<strong>Mâshîyach (<em>מָשִׁיחַ</em>).</strong> anointed; usually a consecrated person (as a king, priest, or saint); specifically, the Messiah. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-2-1-058",
-      "verse": 1,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> 151st), which is found in some other early manuscripts, and a number of canticles, or chants, extracted from other parts of the Bible (for instance, the songs of Moses, in Deut. 32, of Hannah, in 1 Sam. 2. 1-10, and the Magni- ficat) which were used in the services of the Church, The apo- cryphal Psalms of Solomon were originally added at the end of the New Testament, but the leaves containing them hav <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

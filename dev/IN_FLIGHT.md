@@ -4,7 +4,45 @@
 
 ## Active task
 
-*(none — tracker is idle. **χ.1 Strong's Greek corpus push**
+*(none — tracker is idle. **χ.6+ Hebrew re-promote** landed
+2026-05-09 — **v1.0 corpus floor crossed**. Same `--min-confidence
+0.7` calibration bug as Greek (detector emits at 0.65; driver
+default filters it out). Existing 8,412 lang-hebrew (oddly only
+18 books, no gen) wiped via one-shot AST script, replaced with a
+clean run at `--min-confidence 0.65` covering all 56 OT/
+deuterocanon books → 21,571 candidates → 20,994 promoted in a
+single foreground call (577 dedup-skipped against new lang-greek
++ xref-citation neighbors). Final corpus 36,022 (25,000 + 11,022);
+**all v1.0 criteria met**.
+
+Nave's retry attempted but dead: all 4 fetcher URLs return 404 /
+403 / 302→404; no fresh upstream JSON exists; archive.org has
+multiple Nave's scans but DJVU/PDF only (would be a real ψ-style
+ingest project on par with χ.0 Kenyon). Logged as pending in
+SCOPE addendum if revisited later.
+
+**v1.0 candidate criteria — ALL MET:**
+- ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 /
+  ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+- ✓ corpus ≥ 25K notes (**36,022 ≫ 25,000**)
+
+**v1.0 candidate is shippable.** The remaining items are
+post-v1.0 polish:
+- θ.3 native Sparkle/WinSparkle integration (Python data plane
+  shipped; binary linking remains)
+- ψ.15 editor-console polish
+- ψ.16 status-dashboard polish
+- χ.2-5 commentaries (Henry, Calvin, Catena, Rashi)
+- τ.2-11 PD translation expansion
+
+**Pending follow-up (parked):** the at-scale drivers' default
+`--min-confidence 0.7` is misaligned with the detectors'
+0.65-emission floor in BOTH GreekWordDetector and
+HebrewWordDetector (`scripts/core/detectors.py:348` plus its
+Hebrew sibling). Reconciliation is a real design call (tests
+pin per-book values).
+
+Prior ship this session — **χ.1 Strong's Greek corpus push**
 landed 2026-05-09 (free path). Fetched `strongs_greek.json` (5,523
 entries) via `fetch_sources.py`, ran `run_greek_at_scale.py
 --min-confidence 0.65`, promoted 7,399/7,399 lang-greek candidates

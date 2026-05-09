@@ -1,7 +1,7 @@
 {
   "book": "psa",
   "chapter": 50,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:42+00:00",
   "n_candidates": 23,
   "candidates": [
     {
@@ -50,7 +50,22 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-1-004",
+      "id": "psa-50-20-023",
+      "verse": 20,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> , and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testament, which have been lost through accidental mutila- tion. It includes all four books of the Maccabees, for which it is the principal authority. Before the <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-50-1-005",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-1-005",
+      "id": "psa-50-1-006",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-1-006",
+      "id": "psa-50-1-007",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-2-007",
+      "id": "psa-50-2-008",
       "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-3-008",
+      "id": "psa-50-3-009",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-4-009",
+      "id": "psa-50-4-010",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-4-010",
+      "id": "psa-50-4-011",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "heavens",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-5-011",
+      "id": "psa-50-5-012",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-6-012",
+      "id": "psa-50-6-013",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "heavens",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-6-013",
+      "id": "psa-50-6-014",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-6-014",
+      "id": "psa-50-6-015",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "righteousness",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-7-015",
+      "id": "psa-50-7-016",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-13-016",
+      "id": "psa-50-13-017",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -245,23 +260,8 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-14-017",
+      "id": "psa-50-14-018",
       "verse": 14,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "psa-50-16-018",
-      "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
@@ -278,21 +278,6 @@
       "id": "psa-50-16-019",
       "verse": 16,
       "kind": "lang-hebrew",
-      "anchor": "covenant",
-      "confidence": 0.65,
-      "source_name": "H1285",
-      "source_attribution": "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "psa-50-22-020",
-      "verse": 22,
-      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
       "source_name": "H430",
@@ -305,8 +290,23 @@
       "status": "pending"
     },
     {
-      "id": "psa-50-23-021",
-      "verse": 23,
+      "id": "psa-50-16-020",
+      "verse": 16,
+      "kind": "lang-hebrew",
+      "anchor": "covenant",
+      "confidence": 0.65,
+      "source_name": "H1285",
+      "source_attribution": "Strong's H1285, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Bᵉrîyth (<em>בְּרִית</em>).</strong> a compact (because made by passing between pieces of flesh). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-50-22-021",
+      "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
@@ -323,6 +323,21 @@
       "id": "psa-50-23-022",
       "verse": 23,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-50-23-023",
+      "verse": 23,
+      "kind": "lang-hebrew",
       "anchor": "salvation",
       "confidence": 0.65,
       "source_name": "H3444",
@@ -332,21 +347,6 @@
       "draft_body": "<strong>Yᵉshûwʻâh (<em>יְשׁוּעָה</em>).</strong> something saved, i.e. (abstractly) deliverance; hence, aid, victory, prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "psa-50-20-023",
-      "verse": 20,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> , and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testament, which have been lost through accidental mutila- tion. It includes all four books of the Maccabees, for which it is the principal authority. Before the <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

@@ -1,11 +1,26 @@
 {
   "book": "1sa",
   "chapter": 4,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:22+00:00",
   "n_candidates": 29,
   "candidates": [
     {
-      "id": "1sa-4-3-001",
+      "id": "1sa-4-1-029",
+      "verse": 1,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> in the Hebrew or in the Greek. But in the Books of Samuel and Kings, the Septuagint departs frequently from the Massoretic text ; the student of the Variorum Bible may be referred for examples to 1 Sam. 4. 1 ; 5. 6 ; 10. 1 ; 13. 1, 15 ; 14. 24, 41 ; 15. 13 ; 2 Sam. 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are espec <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-4-3-002",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -20,7 +35,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-3-002",
+      "id": "1sa-4-3-003",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -35,7 +50,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-4-003",
+      "id": "1sa-4-4-004",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-4-004",
+      "id": "1sa-4-4-005",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-4-005",
+      "id": "1sa-4-4-006",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-5-006",
+      "id": "1sa-4-5-007",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-5-007",
+      "id": "1sa-4-5-008",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-5-008",
+      "id": "1sa-4-5-009",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-6-009",
+      "id": "1sa-4-6-010",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-7-010",
+      "id": "1sa-4-7-011",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-10-011",
+      "id": "1sa-4-10-012",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-11-012",
+      "id": "1sa-4-11-013",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-12-013",
+      "id": "1sa-4-12-014",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-12-014",
+      "id": "1sa-4-12-015",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-13-015",
+      "id": "1sa-4-13-016",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-13-016",
+      "id": "1sa-4-13-017",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-13-017",
+      "id": "1sa-4-13-018",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-14-018",
+      "id": "1sa-4-14-019",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-16-019",
+      "id": "1sa-4-16-020",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -290,23 +305,8 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-17-020",
+      "id": "1sa-4-17-021",
       "verse": 17,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-4-18-021",
-      "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
@@ -323,6 +323,21 @@
       "id": "1sa-4-18-022",
       "verse": 18,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-4-18-023",
+      "verse": 18,
+      "kind": "lang-hebrew",
       "anchor": "man",
       "confidence": 0.65,
       "source_name": "H120",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-19-023",
+      "id": "1sa-4-19-024",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-20-024",
+      "id": "1sa-4-20-025",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "Fear",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-21-025",
+      "id": "1sa-4-21-026",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "1sa-4-21-026",
+      "id": "1sa-4-21-027",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "glory",
@@ -390,21 +405,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-4-22-027",
-      "verse": 22,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -413,6 +413,21 @@
       "id": "1sa-4-22-028",
       "verse": 22,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1sa-4-22-029",
+      "verse": 22,
+      "kind": "lang-hebrew",
       "anchor": "glory",
       "confidence": 0.65,
       "source_name": "H3519",
@@ -422,21 +437,6 @@
       "draft_body": "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "1sa-4-1-029",
-      "verse": 1,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> in the Hebrew or in the Greek. But in the Books of Samuel and Kings, the Septuagint departs frequently from the Massoretic text ; the student of the Variorum Bible may be referred for examples to 1 Sam. 4. 1 ; 5. 6 ; 10. 1 ; 13. 1, 15 ; 14. 24, 41 ; 15. 13 ; 2 Sam. 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are espec <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

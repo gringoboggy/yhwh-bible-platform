@@ -1,24 +1,9 @@
 {
   "book": "jos",
   "chapter": 16,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:37+00:00",
   "n_candidates": 2,
   "candidates": [
-    {
-      "id": "jos-16-1-001",
-      "verse": 1,
-      "kind": "lang-hebrew",
-      "anchor": "water",
-      "confidence": 0.65,
-      "source_name": "H4325",
-      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
     {
       "id": "jos-16-59-002",
       "verse": 59,
@@ -32,6 +17,21 @@
       "draft_body": "<strong>Manuscript witness.</strong> that they had never formed part of it, and were never quoted or used on the same level as the books recognised as inspired. It is true that one verse has dropped out of a long list of towns (after Josh. 16. 59), in which was contained (as the Septuagint shows see Variorum ; fo <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
       "detector": "KenyonReferenceDetector",
       "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "jos-16-1-002",
+      "verse": 1,
+      "kind": "lang-hebrew",
+      "anchor": "water",
+      "confidence": 0.65,
+      "source_name": "H4325",
+      "source_attribution": "Strong's H4325, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Mayim (<em>מַיִם</em>).</strong> water; figuratively, juice; by euphemism, urine, semen. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
     }
   ]

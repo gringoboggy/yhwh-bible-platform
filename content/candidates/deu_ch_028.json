@@ -1,7 +1,7 @@
 {
   "book": "deu",
   "chapter": 28,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:28+00:00",
   "n_candidates": 101,
   "candidates": [
     {
@@ -155,7 +155,22 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-1-011",
+      "id": "deu-28-22-101",
+      "verse": 22,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> in some cases the sense of the passage would not show for certain which way was i-ight. A glance at the notes of the Variorum Bible will show that this danger is far from being imaginary; e.g., in Deut. 28. 22, either \" sword \" or '� drought \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-1-012",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-1-012",
+      "id": "deu-28-1-013",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-1-013",
+      "id": "deu-28-1-014",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -195,21 +210,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-2-014",
-      "verse": 2,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -218,6 +218,21 @@
       "id": "deu-28-2-015",
       "verse": 2,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-2-016",
+      "verse": 2,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-4-016",
+      "id": "deu-28-4-017",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-7-017",
+      "id": "deu-28-7-018",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-8-018",
+      "id": "deu-28-8-019",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-8-019",
+      "id": "deu-28-8-020",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-8-020",
+      "id": "deu-28-8-021",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -300,21 +315,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-9-021",
-      "verse": 9,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -323,6 +323,21 @@
       "id": "deu-28-9-022",
       "verse": 9,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-9-023",
+      "verse": 9,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-9-023",
+      "id": "deu-28-9-024",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-10-024",
+      "id": "deu-28-10-025",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-10-025",
+      "id": "deu-28-10-026",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-11-026",
+      "id": "deu-28-11-027",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-11-027",
+      "id": "deu-28-11-028",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-11-028",
+      "id": "deu-28-11-029",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-12-029",
+      "id": "deu-28-12-030",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-12-030",
+      "id": "deu-28-12-031",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-12-031",
+      "id": "deu-28-12-032",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-12-032",
+      "id": "deu-28-12-033",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-13-033",
+      "id": "deu-28-13-034",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-13-034",
+      "id": "deu-28-13-035",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -510,21 +525,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-15-035",
-      "verse": 15,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -533,6 +533,21 @@
       "id": "deu-28-15-036",
       "verse": 15,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-15-037",
+      "verse": 15,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -545,7 +560,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-18-037",
+      "id": "deu-28-18-038",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-20-038",
+      "id": "deu-28-20-039",
       "verse": 20,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-21-039",
+      "id": "deu-28-21-040",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-21-040",
+      "id": "deu-28-21-041",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-22-041",
+      "id": "deu-28-22-042",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-23-042",
+      "id": "deu-28-23-043",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-23-043",
+      "id": "deu-28-23-044",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-24-044",
+      "id": "deu-28-24-045",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -665,7 +680,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-24-045",
+      "id": "deu-28-24-046",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -680,7 +695,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-24-046",
+      "id": "deu-28-24-047",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -695,7 +710,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-24-047",
+      "id": "deu-28-24-048",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "dust",
@@ -710,7 +725,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-25-048",
+      "id": "deu-28-25-049",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -725,7 +740,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-25-049",
+      "id": "deu-28-25-050",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -740,7 +755,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-26-050",
+      "id": "deu-28-26-051",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -755,7 +770,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-26-051",
+      "id": "deu-28-26-052",
       "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -770,23 +785,8 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-27-052",
+      "id": "deu-28-27-053",
       "verse": 27,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-28-053",
-      "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -803,6 +803,21 @@
       "id": "deu-28-28-054",
       "verse": 28,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-28-055",
+      "verse": 28,
+      "kind": "lang-hebrew",
       "anchor": "heart",
       "confidence": 0.65,
       "source_name": "H3820",
@@ -815,7 +830,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-29-055",
+      "id": "deu-28-29-056",
       "verse": 29,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -830,7 +845,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-29-056",
+      "id": "deu-28-29-057",
       "verse": 29,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -845,7 +860,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-30-057",
+      "id": "deu-28-30-058",
       "verse": 30,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -860,7 +875,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-33-058",
+      "id": "deu-28-33-059",
       "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -875,7 +890,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-35-059",
+      "id": "deu-28-35-060",
       "verse": 35,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -890,7 +905,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-36-060",
+      "id": "deu-28-36-061",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -905,7 +920,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-37-061",
+      "id": "deu-28-37-062",
       "verse": 37,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -920,7 +935,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-42-062",
+      "id": "deu-28-42-063",
       "verse": 42,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -935,7 +950,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-45-063",
+      "id": "deu-28-45-064",
       "verse": 45,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -950,7 +965,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-45-064",
+      "id": "deu-28-45-065",
       "verse": 45,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -960,21 +975,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-47-065",
-      "verse": 47,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -983,6 +983,21 @@
       "id": "deu-28-47-066",
       "verse": 47,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-47-067",
+      "verse": 47,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -995,7 +1010,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-47-067",
+      "id": "deu-28-47-068",
       "verse": 47,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -1010,7 +1025,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-48-068",
+      "id": "deu-28-48-069",
       "verse": 48,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1025,7 +1040,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-49-069",
+      "id": "deu-28-49-070",
       "verse": 49,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1040,7 +1055,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-49-070",
+      "id": "deu-28-49-071",
       "verse": 49,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1055,23 +1070,8 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-51-071",
+      "id": "deu-28-51-072",
       "verse": 51,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-52-072",
-      "verse": 52,
       "kind": "lang-hebrew",
       "anchor": "land",
       "confidence": 0.65,
@@ -1088,6 +1088,21 @@
       "id": "deu-28-52-073",
       "verse": 52,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-52-074",
+      "verse": 52,
+      "kind": "lang-hebrew",
       "anchor": "God",
       "confidence": 0.65,
       "source_name": "H430",
@@ -1100,7 +1115,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-52-074",
+      "id": "deu-28-52-075",
       "verse": 52,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1115,7 +1130,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-53-075",
+      "id": "deu-28-53-076",
       "verse": 53,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1130,7 +1145,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-53-076",
+      "id": "deu-28-53-077",
       "verse": 53,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1145,7 +1160,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-54-077",
+      "id": "deu-28-54-078",
       "verse": 54,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -1160,7 +1175,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-56-078",
+      "id": "deu-28-56-079",
       "verse": 56,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -1175,7 +1190,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-56-079",
+      "id": "deu-28-56-080",
       "verse": 56,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -1190,7 +1205,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-58-080",
+      "id": "deu-28-58-081",
       "verse": 58,
       "kind": "lang-hebrew",
       "anchor": "GOD",
@@ -1205,7 +1220,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-58-081",
+      "id": "deu-28-58-082",
       "verse": 58,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1220,7 +1235,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-58-082",
+      "id": "deu-28-58-083",
       "verse": 58,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -1235,7 +1250,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-59-083",
+      "id": "deu-28-59-084",
       "verse": 59,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1250,7 +1265,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-61-084",
+      "id": "deu-28-61-085",
       "verse": 61,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1265,7 +1280,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-62-085",
+      "id": "deu-28-62-086",
       "verse": 62,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -1280,7 +1295,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-62-086",
+      "id": "deu-28-62-087",
       "verse": 62,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1295,7 +1310,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-62-087",
+      "id": "deu-28-62-088",
       "verse": 62,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1310,7 +1325,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-63-088",
+      "id": "deu-28-63-089",
       "verse": 63,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -1325,7 +1340,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-63-089",
+      "id": "deu-28-63-090",
       "verse": 63,
       "kind": "lang-hebrew",
       "anchor": "good",
@@ -1340,7 +1355,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-63-090",
+      "id": "deu-28-63-091",
       "verse": 63,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1355,7 +1370,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-64-091",
+      "id": "deu-28-64-092",
       "verse": 64,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -1370,23 +1385,8 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-64-092",
+      "id": "deu-28-64-093",
       "verse": 64,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-65-093",
-      "verse": 65,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -1403,6 +1403,21 @@
       "id": "deu-28-65-094",
       "verse": 65,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-65-095",
+      "verse": 65,
+      "kind": "lang-hebrew",
       "anchor": "heart",
       "confidence": 0.65,
       "source_name": "H3820",
@@ -1415,7 +1430,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-66-095",
+      "id": "deu-28-66-096",
       "verse": 66,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -1430,7 +1445,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-67-096",
+      "id": "deu-28-67-097",
       "verse": 67,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -1445,7 +1460,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-67-097",
+      "id": "deu-28-67-098",
       "verse": 67,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -1460,7 +1475,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-67-098",
+      "id": "deu-28-67-099",
       "verse": 67,
       "kind": "lang-hebrew",
       "anchor": "fear",
@@ -1475,7 +1490,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-68-099",
+      "id": "deu-28-68-100",
       "verse": 68,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -1490,7 +1505,7 @@
       "status": "pending"
     },
     {
-      "id": "deu-28-68-100",
+      "id": "deu-28-68-101",
       "verse": 68,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -1502,21 +1517,6 @@
       "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "deu-28-22-101",
-      "verse": 22,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> in some cases the sense of the passage would not show for certain which way was i-ight. A glance at the notes of the Variorum Bible will show that this danger is far from being imaginary; e.g., in Deut. 28. 22, either \" sword \" or '� drought \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

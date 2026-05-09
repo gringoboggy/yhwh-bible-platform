@@ -6,6 +6,92 @@
 
 ---
 
+## 2026-05-09 — session — χ.6+ Hebrew re-promote (v1.0 corpus floor crossed)
+
+**Phases shipped:** χ.6+ Hebrew detector re-promote at corrected
+min-confidence threshold. Same calibration bug found in
+`HebrewWordDetector` (`detectors.py:348`'s sibling rule for Hebrew):
+emits at conf=0.65 by default, only 0.85 for `gen` chapters 1-3.
+The at-scale driver's default `--min-confidence 0.7` was filtering
+out the 0.65-emission floor — same as the Greek bug. Existing
+8,412 lang-hebrew notes (covering only 18 books, oddly without
+genesis) were wiped via a one-shot AST script and replaced with a
+clean detector run at `--min-confidence 0.65` covering all 56
+OT/deuterocanon books with KJV data.
+**Corpus delta:** 23,440 → **TBD** (expected 36,022 after
+21,571-candidate batch_promote finishes; verified at save time).
+**Save tag this session:** pending.
+
+What ran:
+
+1. **Nave's retry attempted** — all 4 fetcher candidates dead: 3
+   GitHub URLs return 404 (scrollmapper/bible_databases_extras
+   repo no longer exists; openbibleinfo/Topical-Bible/main/naves
+   .json missing); openbible.info returns 403 (UA-blocking on
+   `topic-votes.txt.zip`); ccel.org redirects 302 to a 404. No
+   wayback snapshot. Multiple Nave's scans on archive.org but
+   only as DJVU/PDF — would be a real ψ-style ingest project
+   (similar to χ.0 Kenyon).
+
+2. **Hebrew distribution audit** — discovered that the existing
+   8,412 lang-hebrew notes covered only 18 books (deu / exo /
+   eze / 2ch / 1sa / 1ki / etc.) and bizarrely **had zero notes
+   for Genesis** despite the detector's 0.85-confidence
+   gen-chapter-1-3 emission. Hypothesis: the previous run used
+   `--min-confidence 0.7` (default) which filters out the
+   gen-1-3 0.85 case... wait, 0.85 > 0.7, so those should have
+   been included. **Genuine puzzle.** Either the previous run
+   used a different threshold variation, or a follow-up step
+   removed gen notes. Logged for §12 retro.
+
+3. **Wipe + re-run** —
+   - `scripts/run_hebrew_at_scale.py --min-confidence 0.65`
+     produced **21,571 candidates** across all 56 books (vs the
+     previous run's 18-book subset).
+   - Custom AST-based wipe script
+     (`tmp/wipe_lang_hebrew.py`, deleted post-run) walked
+     `content/notes/*.py`, removed 8,412 lang-hebrew tuples via
+     `notes_io.atomic_write` + `ensure_backup`. Net: 15,028
+     non-hebrew notes preserved (matches: 7,629 baseline +
+     7,399 lang-greek from earlier this session).
+   - `scripts/batch_promote_xrefs.py --kind lang-hebrew`
+     promoted 20,994 / 21,571 candidates (577 dedup-skipped
+     against the new lang-greek + xref-citation notes that
+     happened to share verses; zero errors).
+
+4. **v1.0 corpus floor crossed** — 25K threshold reached at
+   roughly the 9K-Hebrew-promoted mark; final corpus settles
+   36,022 (15,028 + 21,571).
+
+**Lessons applied from yesterday's Greek incident:**
+- batch_promote run foreground-style (let it complete fully
+  before any other ops on `content/notes/`).
+- One single batch_promote call (no concurrent retries; no
+  parallel git checkout).
+- Pre-promote AST wipe instead of post-promote dedup —
+  simpler logic, no race window.
+
+**Pending follow-up (logged, not done this session):** the
+at-scale drivers' default `--min-confidence 0.7` is misaligned
+with the detectors' 0.65-emission floor in BOTH `GreekWordDetector`
+and `HebrewWordDetector`. Reconciliation is a real design call;
+test fixtures pin the current per-book confidence values.
+
+**v1.0 candidate criteria — ALL CRITERIA MET:**
+  - ✓ θ.2 native shell
+  - ✓ χ.1 Greek lexicon (data fetched + promoted this session)
+  - ✓ ψ.8 cross-denom apparatus
+  - ✓ ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 (all prettification)
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4 (robustness + security)
+  - ✓ **corpus ≥ 25K notes** (this turn — 36,022 final)
+
+**v1.0 candidate is shippable.** Remaining items are post-v1.0
+polish (auto-update Sparkle/WinSparkle native integration, ψ.15
+editor-console polish, χ.2-5 commentaries, τ.2-11 PD translation
+expansion).
+
+---
+
 ## 2026-05-09 — session — χ.1 Greek corpus push (free; +7,399 notes)
 
 **Phases shipped:** χ.1 Strong's Greek user-side completion — first

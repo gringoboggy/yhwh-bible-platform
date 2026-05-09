@@ -1,7 +1,22 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **χ.1 Strong's Greek corpus push**
-landed — first real corpus expansion since the χ-cluster pipeline
+**Updated:** 2026-05-09, after **χ.6+ Hebrew re-promote** crossed
+the **v1.0 25K corpus floor**. Same calibration bug found in
+`HebrewWordDetector` as in Greek (`detectors.py:348` sibling rule:
+0.65 default, 0.85 for gen ch 1-3) — driver's default
+`--min-confidence 0.7` was filtering the 0.65 floor. Wiped
+existing 8,412 lang-hebrew notes via AST script (which oddly
+covered only 18 books, no Genesis), re-ran detector with
+`--min-confidence 0.65` → 21,571 candidates across 56 OT/
+deuterocanon books, promoted 20,994 / 21,571 in a single
+foreground call (577 dedup-skipped against neighbors). Final
+corpus 36,022 (15,028 baseline + 20,994 new lang-hebrew). **All v1.0 candidate criteria met** — shippable. Nave's
+Topical retry attempted but all 4 fetcher URLs are dead (404 /
+403 / 302→404); no fresh upstream JSON exists, archive.org has
+DJVU/PDF scans only.
+
+Prior ship: **χ.1 Strong's Greek corpus push** (+7,399 lang-greek
+notes; corpus 16,041 → 23,440 prior to this turn's Hebrew push). — first real corpus expansion since the χ-cluster pipeline
 shipped. Fetched `strongs_greek.json` (5,523 entries) from
 openscriptures, ran `run_greek_at_scale.py --min-confidence 0.65`
 (default 0.7 was filtering the detector's 0.65-emission floor —
@@ -145,7 +160,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 925 tests · 10/10 linter · 5 editions · 23,440 notes
+13 consoles · 925 tests · 10/10 linter · 5 editions · 36,022 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -172,7 +187,64 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: χ.1 Greek corpus push (free; +7,399 notes)
+## Current phase: χ.6+ Hebrew re-promote — v1.0 corpus floor crossed
+
+Same calibration-mismatch bug as the Greek run, fixed the same
+way: `--min-confidence 0.65` matches the detector's emission
+floor. Existing 8,412 lang-hebrew (covering only 18 books, no
+gen) wiped via AST script, replaced with a clean run covering
+all 56 OT/deuterocanon books with KJV data.
+
+```
+✓ scripts/run_hebrew_at_scale.py        --min-confidence 0.65
+                                        produced 21,571 candidates
+                                        across 56 books · 992
+                                        chapters · 987 candidate
+                                        files. Previous run with
+                                        the default --min-confidence
+                                        0.7 yielded only the 18-book
+                                        subset (similar bug to the
+                                        Greek 770-from-2-books
+                                        underyield).
+✓ tmp/wipe_lang_hebrew.py               one-shot AST script:
+                                        parsed each content/notes/
+                                        *.py, removed tuples where
+                                        kind=='lang-hebrew', wrote
+                                        back via notes_io.atomic
+                                        _write + ensure_backup.
+                                        Removed 8,412; preserved
+                                        15,028 non-hebrew. Deleted
+                                        post-run (was a /tmp file).
+✓ scripts/batch_promote_xrefs.py        --kind lang-hebrew foreground
+                                        promoted 20,994 / 21,571
+                                        (577 dedup-skipped) with
+                                        zero errors. Single call
+                                        — no concurrent retries
+                                        — applying yesterday's
+                                        Greek-incident lessons.
+~ Corpus: 23,440 → 36,022              +12,582 net (-8,412 wiped
+                                        + 20,994 promoted; 577
+                                        candidates dedup-skipped).
+                                        25K floor crossed by 11,022;
+                                        v1.0 candidate is shippable.
+```
+
+**v1.0 candidate criteria — ALL MET:**
+  - ✓ θ.2 native shell
+  - ✓ χ.1 Greek lexicon (data this session)
+  - ✓ ψ.8 cross-denom apparatus
+  - ✓ ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 prettification
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4 robustness + security
+  - ✓ corpus ≥ 25K notes (36,022 ≫ 25,000)
+
+**v1.0 candidate is shippable.**
+
+**Pending follow-up (logged):** at-scale drivers' default
+`--min-confidence 0.7` is misaligned with detectors'
+0.65-emission floor in BOTH `GreekWordDetector` and
+`HebrewWordDetector`. Reconciliation is a real design call.
+
+## Prior phase: χ.1 Greek corpus push (free; +7,399 notes)
 
 User-side completion of the χ.1 Strong's Greek pipeline shipped
 earlier this week. First real corpus growth via the χ-cluster

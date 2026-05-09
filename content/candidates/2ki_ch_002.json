@@ -1,11 +1,26 @@
 {
   "book": "2ki",
   "chapter": 2,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:24+00:00",
   "n_candidates": 32,
   "candidates": [
     {
-      "id": "2ki-2-1-001",
+      "id": "2ki-2-5-032",
+      "verse": 5,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> t con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original cont <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-2-1-002",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -20,23 +35,8 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-1-002",
+      "id": "2ki-2-1-003",
       "verse": 1,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-2-2-003",
-      "verse": 2,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -53,21 +53,6 @@
       "id": "2ki-2-2-004",
       "verse": 2,
       "kind": "lang-hebrew",
-      "anchor": "soul",
-      "confidence": 0.65,
-      "source_name": "H5315",
-      "source_attribution": "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-2-3-005",
-      "verse": 3,
-      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -75,6 +60,21 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-2-2-005",
+      "verse": 2,
+      "kind": "lang-hebrew",
+      "anchor": "soul",
+      "confidence": 0.65,
+      "source_name": "H5315",
+      "source_attribution": "Strong's H5315, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Nephesh (<em>נֶפֶשׁ</em>).</strong> properly, a breathing creature, i.e. animal of (abstractly) vitality; used very widely in a literal, accommodated or figurative sense (bodily or mental). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -83,21 +83,6 @@
       "id": "2ki-2-3-006",
       "verse": 3,
       "kind": "lang-hebrew",
-      "anchor": "peace",
-      "confidence": 0.65,
-      "source_name": "H7965",
-      "source_attribution": "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-2-4-007",
-      "verse": 4,
-      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -105,6 +90,21 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-2-3-007",
+      "verse": 3,
+      "kind": "lang-hebrew",
+      "anchor": "peace",
+      "confidence": 0.65,
+      "source_name": "H7965",
+      "source_attribution": "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -113,6 +113,21 @@
       "id": "2ki-2-4-008",
       "verse": 4,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "2ki-2-4-009",
+      "verse": 4,
+      "kind": "lang-hebrew",
       "anchor": "soul",
       "confidence": 0.65,
       "source_name": "H5315",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-5-009",
+      "id": "2ki-2-5-010",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-5-010",
+      "id": "2ki-2-5-011",
       "verse": 5,
       "kind": "lang-hebrew",
       "anchor": "peace",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-6-011",
+      "id": "2ki-2-6-012",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-6-012",
+      "id": "2ki-2-6-013",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-8-013",
+      "id": "2ki-2-8-014",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-8-014",
+      "id": "2ki-2-8-015",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-9-015",
+      "id": "2ki-2-9-016",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "spirit",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-11-016",
+      "id": "2ki-2-11-017",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "heaven",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-14-017",
+      "id": "2ki-2-14-018",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-14-018",
+      "id": "2ki-2-14-019",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-14-019",
+      "id": "2ki-2-14-020",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-15-020",
+      "id": "2ki-2-15-021",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "spirit",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-15-021",
+      "id": "2ki-2-15-022",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-16-022",
+      "id": "2ki-2-16-023",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "Spirit",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-16-023",
+      "id": "2ki-2-16-024",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-19-024",
+      "id": "2ki-2-19-025",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-19-025",
+      "id": "2ki-2-19-026",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "lord",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-19-026",
+      "id": "2ki-2-19-027",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "ground",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-21-027",
+      "id": "2ki-2-21-028",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-21-028",
+      "id": "2ki-2-21-029",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-21-029",
+      "id": "2ki-2-21-030",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-22-030",
+      "id": "2ki-2-22-031",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "waters",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "2ki-2-24-031",
+      "id": "2ki-2-24-032",
       "verse": 24,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -467,21 +482,6 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "2ki-2-5-032",
-      "verse": 5,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> t con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original cont <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

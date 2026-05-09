@@ -1,7 +1,7 @@
 {
   "book": "isa",
   "chapter": 49,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:34+00:00",
   "n_candidates": 48,
   "candidates": [
     {
@@ -140,7 +140,22 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-1-010",
+      "id": "isa-49-5-048",
+      "verse": 5,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> nd many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represent, we know that it was a text accepted by the leaders of <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-49-1-011",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-4-011",
+      "id": "isa-49-4-012",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "God",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-4-012",
+      "id": "isa-49-4-013",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -180,21 +195,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "isa-49-5-013",
-      "verse": 5,
-      "kind": "lang-hebrew",
-      "anchor": "God",
-      "confidence": 0.65,
-      "source_name": "H430",
-      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -203,6 +203,21 @@
       "id": "isa-49-5-014",
       "verse": 5,
       "kind": "lang-hebrew",
+      "anchor": "God",
+      "confidence": 0.65,
+      "source_name": "H430",
+      "source_attribution": "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼĕlôhîym (<em>אֱלֹהִים</em>).</strong> gods in the ordinary sense; but specifically used (in the plural thus, especially with the article) of the supreme God; occasionally applied by way of deference to magistrates; and sometimes as a superlative. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-49-5-015",
+      "verse": 5,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-6-015",
+      "id": "isa-49-6-016",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-6-016",
+      "id": "isa-49-6-017",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "light",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-6-017",
+      "id": "isa-49-6-018",
       "verse": 6,
       "kind": "lang-hebrew",
       "anchor": "salvation",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-7-018",
+      "id": "isa-49-7-019",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -275,7 +290,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-7-019",
+      "id": "isa-49-7-020",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -290,7 +305,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-7-020",
+      "id": "isa-49-7-021",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "Holy",
@@ -305,7 +320,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-8-021",
+      "id": "isa-49-8-022",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-8-022",
+      "id": "isa-49-8-023",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-8-023",
+      "id": "isa-49-8-024",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "covenant",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-8-024",
+      "id": "isa-49-8-025",
       "verse": 8,
       "kind": "lang-hebrew",
       "anchor": "salvation",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-9-025",
+      "id": "isa-49-9-026",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "darkness",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-10-026",
+      "id": "isa-49-10-027",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-10-027",
+      "id": "isa-49-10-028",
       "verse": 10,
       "kind": "lang-hebrew",
       "anchor": "mercy",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-12-028",
+      "id": "isa-49-12-029",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-13-029",
+      "id": "isa-49-13-030",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-13-030",
+      "id": "isa-49-13-031",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "heavens",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-13-031",
+      "id": "isa-49-13-032",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-13-032",
+      "id": "isa-49-13-033",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "mercy",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-14-033",
+      "id": "isa-49-14-034",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-15-034",
+      "id": "isa-49-15-035",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "woman",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-17-035",
+      "id": "isa-49-17-036",
       "verse": 17,
       "kind": "lang-hebrew",
       "anchor": "waste",
@@ -530,7 +545,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-18-036",
+      "id": "isa-49-18-037",
       "verse": 18,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -545,7 +560,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-19-037",
+      "id": "isa-49-19-038",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-19-038",
+      "id": "isa-49-19-039",
       "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "waste",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-21-039",
+      "id": "isa-49-21-040",
       "verse": 21,
       "kind": "lang-hebrew",
       "anchor": "heart",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-22-040",
+      "id": "isa-49-22-041",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "GOD",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-22-041",
+      "id": "isa-49-22-042",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "Lord",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-23-042",
+      "id": "isa-49-23-043",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "earth",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-23-043",
+      "id": "isa-49-23-044",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-23-044",
+      "id": "isa-49-23-045",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "dust",
@@ -665,23 +680,8 @@
       "status": "pending"
     },
     {
-      "id": "isa-49-25-045",
+      "id": "isa-49-25-046",
       "verse": 25,
-      "kind": "lang-hebrew",
-      "anchor": "LORD",
-      "confidence": 0.65,
-      "source_name": "H136",
-      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "isa-49-26-046",
-      "verse": 26,
       "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
@@ -698,6 +698,21 @@
       "id": "isa-49-26-047",
       "verse": 26,
       "kind": "lang-hebrew",
+      "anchor": "LORD",
+      "confidence": 0.65,
+      "source_name": "H136",
+      "source_attribution": "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-49-26-048",
+      "verse": 26,
+      "kind": "lang-hebrew",
       "anchor": "blood",
       "confidence": 0.65,
       "source_name": "H1818",
@@ -707,21 +722,6 @@
       "draft_body": "<strong>Dâm (<em>דָּם</em>).</strong> blood (as that which when shed causes death) of man or an animal; by analogy, the juice of the grape; figuratively (especially in the plural) bloodshed (i.e. drops of blood). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "isa-49-5-048",
-      "verse": 5,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> nd many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represent, we know that it was a text accepted by the leaders of <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

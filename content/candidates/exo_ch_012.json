@@ -1,7 +1,7 @@
 {
   "book": "exo",
   "chapter": 12,
-  "generated_at": "2026-05-09T01:12:39+00:00",
+  "generated_at": "2026-05-09T05:19:29+00:00",
   "n_candidates": 45,
   "candidates": [
     {
@@ -35,7 +35,22 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-1-003",
+      "id": "exo-12-40-045",
+      "verse": 40,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> example, Gen. 4. 8, where the Samaritan has \" Cain said to Abel his brother, Let us go into the field\"; 47. 21, \"As for the people he made slaves of them,\" instead of \"he removed them to cities \" ; Exod. 12. 40, the 430 years of the sojourning of the children of Israel are said to have been in Egypt and in Canaan (thus agreeing with Gal. 3. 17), instead of in Egypt only ; Num. 4. 14, the following words a <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-12-1-004",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -50,7 +65,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-1-004",
+      "id": "exo-12-1-005",
       "verse": 1,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -65,7 +80,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-3-005",
+      "id": "exo-12-3-006",
       "verse": 3,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -80,7 +95,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-4-006",
+      "id": "exo-12-4-007",
       "verse": 4,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -95,7 +110,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-7-007",
+      "id": "exo-12-7-008",
       "verse": 7,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -110,7 +125,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-9-008",
+      "id": "exo-12-9-009",
       "verse": 9,
       "kind": "lang-hebrew",
       "anchor": "water",
@@ -125,7 +140,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-11-009",
+      "id": "exo-12-11-010",
       "verse": 11,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -140,7 +155,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-12-010",
+      "id": "exo-12-12-011",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -155,7 +170,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-12-011",
+      "id": "exo-12-12-012",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -170,7 +185,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-12-012",
+      "id": "exo-12-12-013",
       "verse": 12,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -185,7 +200,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-13-013",
+      "id": "exo-12-13-014",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -200,7 +215,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-13-014",
+      "id": "exo-12-13-015",
       "verse": 13,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -215,7 +230,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-14-015",
+      "id": "exo-12-14-016",
       "verse": 14,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -230,7 +245,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-15-016",
+      "id": "exo-12-15-017",
       "verse": 15,
       "kind": "lang-hebrew",
       "anchor": "soul",
@@ -245,7 +260,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-16-017",
+      "id": "exo-12-16-018",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -260,7 +275,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-16-018",
+      "id": "exo-12-16-019",
       "verse": 16,
       "kind": "lang-hebrew",
       "anchor": "holy",
@@ -275,23 +290,8 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-17-019",
+      "id": "exo-12-17-020",
       "verse": 17,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "exo-12-19-020",
-      "verse": 19,
       "kind": "lang-hebrew",
       "anchor": "land",
       "confidence": 0.65,
@@ -308,6 +308,21 @@
       "id": "exo-12-19-021",
       "verse": 19,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-12-19-022",
+      "verse": 19,
+      "kind": "lang-hebrew",
       "anchor": "soul",
       "confidence": 0.65,
       "source_name": "H5315",
@@ -320,7 +335,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-22-022",
+      "id": "exo-12-22-023",
       "verse": 22,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -335,7 +350,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-23-023",
+      "id": "exo-12-23-024",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -350,7 +365,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-23-024",
+      "id": "exo-12-23-025",
       "verse": 23,
       "kind": "lang-hebrew",
       "anchor": "blood",
@@ -365,7 +380,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-25-025",
+      "id": "exo-12-25-026",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -380,7 +395,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-25-026",
+      "id": "exo-12-25-027",
       "verse": 25,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -395,7 +410,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-27-027",
+      "id": "exo-12-27-028",
       "verse": 27,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -410,7 +425,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-28-028",
+      "id": "exo-12-28-029",
       "verse": 28,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -425,7 +440,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-29-029",
+      "id": "exo-12-29-030",
       "verse": 29,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -440,7 +455,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-29-030",
+      "id": "exo-12-29-031",
       "verse": 29,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -455,7 +470,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-31-031",
+      "id": "exo-12-31-032",
       "verse": 31,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -470,7 +485,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-33-032",
+      "id": "exo-12-33-033",
       "verse": 33,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -485,7 +500,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-36-033",
+      "id": "exo-12-36-034",
       "verse": 36,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -500,7 +515,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-41-034",
+      "id": "exo-12-41-035",
       "verse": 41,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -515,7 +530,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-41-035",
+      "id": "exo-12-41-036",
       "verse": 41,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -525,21 +540,6 @@
       "draft_title": "Hebrew",
       "draft_label": "Hebrew.",
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
-      "detector": "HebrewWordDetector",
-      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "exo-12-42-036",
-      "verse": 42,
-      "kind": "lang-hebrew",
-      "anchor": "land",
-      "confidence": 0.65,
-      "source_name": "H776",
-      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
-      "draft_title": "Hebrew",
-      "draft_label": "Hebrew.",
-      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
       "status": "pending"
@@ -548,6 +548,21 @@
       "id": "exo-12-42-037",
       "verse": 42,
       "kind": "lang-hebrew",
+      "anchor": "land",
+      "confidence": 0.65,
+      "source_name": "H776",
+      "source_attribution": "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+      "draft_title": "Hebrew",
+      "draft_label": "Hebrew.",
+      "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
+      "detector": "HebrewWordDetector",
+      "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-12-42-038",
+      "verse": 42,
+      "kind": "lang-hebrew",
       "anchor": "LORD",
       "confidence": 0.65,
       "source_name": "H136",
@@ -560,7 +575,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-43-038",
+      "id": "exo-12-43-039",
       "verse": 43,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -575,7 +590,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-44-039",
+      "id": "exo-12-44-040",
       "verse": 44,
       "kind": "lang-hebrew",
       "anchor": "man",
@@ -590,7 +605,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-48-040",
+      "id": "exo-12-48-041",
       "verse": 48,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -605,7 +620,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-48-041",
+      "id": "exo-12-48-042",
       "verse": 48,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -620,7 +635,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-50-042",
+      "id": "exo-12-50-043",
       "verse": 50,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -635,7 +650,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-51-043",
+      "id": "exo-12-51-044",
       "verse": 51,
       "kind": "lang-hebrew",
       "anchor": "land",
@@ -650,7 +665,7 @@
       "status": "pending"
     },
     {
-      "id": "exo-12-51-044",
+      "id": "exo-12-51-045",
       "verse": 51,
       "kind": "lang-hebrew",
       "anchor": "LORD",
@@ -662,21 +677,6 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
-      "status": "pending"
-    },
-    {
-      "id": "exo-12-40-045",
-      "verse": 40,
-      "kind": "text-witness",
-      "anchor": "",
-      "confidence": 0.55,
-      "source_name": "Kenyon 1895",
-      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
-      "draft_title": "Witness",
-      "draft_label": "MS.",
-      "draft_body": "<strong>Manuscript witness.</strong> example, Gen. 4. 8, where the Samaritan has \" Cain said to Abel his brother, Let us go into the field\"; 47. 21, \"As for the people he made slaves of them,\" instead of \"he removed them to cities \" ; Exod. 12. 40, the 430 years of the sojourning of the children of Israel are said to have been in Egypt and in Canaan (thus agreeing with Gal. 3. 17), instead of in Egypt only ; Num. 4. 14, the following words a <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
-      "detector": "KenyonReferenceDetector",
-      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]
