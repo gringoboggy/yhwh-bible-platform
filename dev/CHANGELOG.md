@@ -6,6 +6,107 @@
 
 ---
 
+## 2026-05-09 — session — v1.0.0 release prep
+
+**Phases shipped:** v1.0.0 prep — final session in the recommended
+5-session sequence. All v1.0 candidate criteria are met (51,394
+notes ≫ 25K floor; θ.2 + χ.1 + ψ.8 + ψ.10/12/13/13.5/14/15/16/17/18/18.1
++ ω.8/9/10 + ξ.1/2/4 + ψ.7-A built-in editions + ψ.7-B template
+starter packs + ν.2.8 + ψ.11 polish all shipped).
+
+The actual git tag is user-side per project convention; this
+entry covers the prep deliverables.
+
+**Test delta:** 0 (still 1048).
+**Linter delta:** still 11/11; plan_coherence now tracks 115
+shipped + 79 open + 29 Depends references.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`VERSION`** — replaced legacy session-handoff text (the
+  `YHWH v2.2 (full) — corpus-jump milestone` snapshot from the
+  pre-σ.3 era) with clean semver. Line 1 is now `1.0.0`. The
+  build scripts (`dev/build_dmg.sh`, `dev/installer.iss` via
+  `dev/build_msi.cmd`, `dev/build_appimage.sh`) and
+  `dev/generate_appcast.py` all read line 1 only; the rest of
+  the file is human-readable metadata describing what v1.0.0
+  ships + the user-side git tag command.
+
+- **`dev/RELEASE_NOTES_v1.0.0.md`** — forward-facing release
+  notes (~5 KB). Sections: what v1.0.0 is + the buyer demo arc;
+  headline numbers (corpus 51,394, 9 editions, 7 templates, 13
+  consoles, 1048 tests, 11/11 linter); buyer-facing surface;
+  operator-facing surface; infrastructure surface; distribution
+  posture (unsigned by default, signing opt-in via env vars);
+  what's user-side after the tag (binary build per platform,
+  visual QA, optional paid χ-AI-xrefs run, optional signing
+  certs); v1.x roadmap highlights (selected from PLAN §7's 84
+  open phases).
+
+- **`dev/PLAN_2026-05-09.md`** — §7 ledger updated:
+    - `v1.0.0` moved from RELEASE OPEN to the shipped block.
+    - The RELEASE TRACK note clarifies "(v1.0.0 prep ✓ shipped;
+      user-side tag pending)".
+
+End state: **1048 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates, v1.0.0 prep complete**.
+
+User-side completion (the actual release motion):
+
+```
+# Tag the release (Claude does NOT run this — user-controlled):
+git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate"
+git push origin v1.0.0
+
+# Build per-platform binaries:
+pip install pyinstaller pywebview
+pyinstaller dev/launcher.spec     # → dist/YHWH.{exe,app}
+./dev/build_dmg.sh                # macOS DMG
+dev\build_msi.cmd                 # Windows installer (needs Inno Setup 6)
+./dev/build_appimage.sh           # Linux AppImage
+
+# Visual QA: open browser to each of 13 consoles + a freshly-
+# built EPUB in Apple Books / Calibre / Kobo / Kindle. File
+# `v1.0.1` patch fixes for any rough edges.
+```
+
+Notable decisions:
+
+- **Did NOT run `git tag` ourselves.** Per
+  CLAUDE_PROJECT_RULES §0 (executing actions with care): tagging
+  is a publishing action that the user controls. Our prep
+  finishes everything except the literal `git tag` invocation;
+  the tag command is provided in three places (`VERSION`,
+  `RELEASE_NOTES_v1.0.0.md`, here) so the user can copy-paste
+  it from whichever surface they hit first.
+- **Did NOT delete the legacy VERSION content; replaced it with
+  a clean semver + metadata block.** The legacy free-form text
+  was redundant with what's in CHANGELOG.md; preserving it would
+  have either (a) broken the build scripts (which read line 1
+  only) or (b) required a workaround (e.g. moving the metadata
+  to a different file just to keep the legacy text). Cleaner
+  to do the obvious thing.
+- **RELEASE_NOTES is forward-facing, not chronological.** The
+  CHANGELOG is the editorial journal (what shipped + when +
+  why). RELEASE_NOTES is for the *next person* who downloads
+  v1.0.0 — what does this product do, what's user-side, what's
+  the v1.x roadmap.
+
+Continuity pointers:
+
+- `dev/RELEASE_NOTES_v1.0.0.md` (release surface)
+- `dev/PLAN_2026-05-09.md` §7 ledger (v1.0.0 in shipped block)
+- `VERSION` (semver source for build tooling)
+
+The recommended 5-session sequence is **complete**. The next
+unshipped phase per PLAN §6 ordering is choose-your-own — every
+SHORT-track v1.x phase is now available + the MEDIUM-track ones
+that have specs ready (ψ.1 live preview, ρ.1 audio, χ.2-5
+commentaries).
+
+---
+
 ## 2026-05-09 — session — ν.2.8 + ψ.11 + ψ.13.5 (Session N+4 batch)
 
 **Phases shipped:** Three SHORT-track phases bundled in one

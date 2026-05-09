@@ -1,7 +1,23 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ν.2.8 + ψ.11 + ψ.13.5 batch**
-shipped — three SHORT-track phases bundled per the recommended
+**Updated:** 2026-05-09, after **v1.0.0 release prep** shipped
+— final session in the recommended 5-session sequence.
+**`VERSION`** replaced with clean semver (line 1 = `1.0.0`; rest
+is metadata read by humans). New
+**`dev/RELEASE_NOTES_v1.0.0.md`** captures what ships, what's
+user-side, and v1.x roadmap highlights. PLAN §7 ledger marks
+v1.0.0 as ✓ shipped (prep complete; user-side tag pending).
+The actual git tag is user-controlled per project convention:
+
+    git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate"
+    git push origin v1.0.0
+
+End state: **1048 / 1048 tests green; 11/11 linter clean;
+51,394 notes; 9 editions; 7 templates; v1.0.0 prep complete**.
+The 5-session sequence (ψ.7-A → ψ.7-B → ψ.16 → N+4 batch →
+v1.0.0 prep) is finished.
+
+Prior ship: **ν.2.8 + ψ.11 + ψ.13.5 batch** — three SHORT-track phases bundled per the recommended
 5-session sequence: **ν.2.8** customize visual sections (CSS-only
 `<section class="ed-section">` boundaries + dynamic counts on
 section headings replacing hard-coded `(5)/(14)/(63)`); **ψ.11**
@@ -341,7 +357,50 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ν.2.8 + ψ.11 + ψ.13.5 (Session N+4 batch)
+## Current phase: v1.0.0 release prep
+
+Final session of the recommended 5-session sequence. All v1.0
+candidate criteria met. Prep deliverables shipped Claude-side;
+git tag is user-controlled.
+
+```
+✓ VERSION                               replaced legacy session-
+                                        handoff text with clean
+                                        semver. Line 1 = "1.0.0".
+                                        Rest of file is metadata
+                                        + human-readable description
+                                        + the user-side tag command.
+                                        Build scripts (build_dmg.sh
+                                        / installer.iss / build_appimage.sh)
+                                        + generate_appcast.py all
+                                        read line 1 only.
+✓ dev/RELEASE_NOTES_v1.0.0.md           ~5 KB forward-facing release
+                                        notes: what v1.0.0 ships,
+                                        buyer/operator/infrastructure
+                                        surfaces, distribution
+                                        posture (unsigned by default),
+                                        what's user-side after the
+                                        tag, v1.x roadmap highlights.
+✓ dev/PLAN_2026-05-09.md                §7 ledger: v1.0.0 moved
+                                        from RELEASE open to shipped
+                                        block. RELEASE track note
+                                        clarifies "prep ✓ shipped;
+                                        user-side tag pending".
+~ Tests / lint / corpus                 unchanged: 1048 tests,
+                                        11/11 linter clean,
+                                        51,394 notes.
+~ Git tag                               USER-SIDE. Command:
+                                        git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate"
+                                        git push origin v1.0.0
+```
+
+**5-session sequence complete:** ψ.7-A → ψ.7-B → ψ.16 → ν.2.8 +
+ψ.11 + ψ.13.5 → v1.0.0 prep. The next phase is choose-your-own
+from PLAN §6 ordering — every SHORT-track v1.x phase is
+available; MEDIUM-track ψ.1 live preview / ρ.1 LibriVox audio /
+χ.2-5 commentaries all have specs ready.
+
+## Prior phase: ν.2.8 + ψ.11 + ψ.13.5 (Session N+4 batch)
 
 Three SHORT-track phases bundled in one session per the
 recommended 5-session sequence to v1.0 release.

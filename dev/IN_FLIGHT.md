@@ -4,8 +4,70 @@
 
 ## Active task
 
-*(none — tracker is idle. **Session N+4 batch (ν.2.8 + ψ.11 +
-ψ.13.5)** shipped 2026-05-09. Three SHORT-track phases bundled in
+*(none — tracker is idle. **v1.0.0 release prep** shipped
+2026-05-09 — final session in the recommended 5-session sequence. All v1.0 candidate criteria
+are met (51,394 notes ≫ 25K floor; θ.2 + χ.1 + ψ.8 +
+ψ.10/12/13/13.5/14/15/16/17/18/18.1 + ω.8/9/10 + ξ.1/2/4 all
+shipped; plus ψ.7-A built-in editions + ψ.7-B template starter
+packs + ν.2.8 + ψ.11 polish from this session arc).
+
+Prep deliverables (Claude side; user runs the final tag + binary
+build):
+
+1. **`VERSION`** — replace legacy session-handoff text with clean
+   semver `1.0.0`. The build scripts (build_dmg.sh / build_msi.cmd
+   via installer.iss / build_appimage.sh) read line 1 as the
+   version string for installer filenames.
+2. **`dev/RELEASE_NOTES_v1.0.0.md`** — forward-facing release
+   notes: what v1.0.0 ships (corpus, editions, templates, design
+   system, infrastructure, security/robustness, desktop binary
+   chain), what it's for, what's user-side, what the v1.x
+   roadmap looks like.
+3. **`dev/PLAN_2026-05-09.md`** — mark v1.0.0 as `✓ shipped` in
+   §7 ledger (the prep is shipped; user-runs the tag).
+4. **`dev/CHANGELOG.md`** — v1.0.0 release entry summarizing
+   the entire session arc.
+5. **Provide the user with `git tag v1.0.0` command.** Tagging is
+   user-side per project rules (the user controls the published
+   release).
+
+**5-session sequence complete:** ψ.7-A → ψ.7-B → ψ.16 →
+ν.2.8 + ψ.11 + ψ.13.5 → v1.0.0 prep.
+
+End state: **1048 tests, 11/11 linter, 9 editions, 7 templates,
+51,394 notes, v1.0.0 prep shipped**.
+
+**User-side completion** (the actual release motion):
+
+    git tag -a v1.0.0 -m "v1.0.0 — first commercial release candidate"
+    git push origin v1.0.0
+
+Then per-platform binary build:
+
+    pip install pyinstaller pywebview
+    pyinstaller dev/launcher.spec     # → dist/YHWH.{exe,app}
+    ./dev/build_dmg.sh                # macOS DMG
+    dev\build_msi.cmd                 # Windows installer (Inno Setup 6)
+    ./dev/build_appimage.sh           # Linux AppImage
+
+Plus visual QA: open browser to each of 13 consoles + a freshly-
+built EPUB in Apple Books / Calibre / Kobo / Kindle. File
+`v1.0.1` patch fixes for any rough edges.
+
+**Optional paid completions** (any time, any session):
+- χ-AI-xrefs full pass (~$72) for ~5K thematic xref-* notes
+- Apple Developer ID + Authenticode for signed distribution
+
+**Next phase is choose-your-own** from PLAN §6 ordering. Every
+SHORT-track v1.x phase is available; MEDIUM-track ψ.1 live
+preview / ρ.1 LibriVox audio / χ.2-5 commentaries all have specs
+ready.
+
+---
+
+## Prior task
+
+**Session N+4 batch (ν.2.8 + ψ.11 + ψ.13.5)** shipped 2026-05-09. Three SHORT-track phases bundled in
 one save:
 
 - **ν.2.8** — `<section class="ed-section">` visual boundaries
