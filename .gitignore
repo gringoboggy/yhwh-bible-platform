@@ -40,7 +40,13 @@ Thumbs.db
 .vscode/
 
 # --- Claude Code local state (per-machine permissions, runtime locks) ---
-.claude/
+# Ignore .claude/ contents (not the dir itself) so a negation can re-include
+# the project-scoped allowlist below; git can't re-include a file if its
+# parent directory is excluded.
+.claude/*
+# Carve-out: project-scoped allowlist (narrow patterns; safe to share)
+# travels with the repo. Per-machine settings.local.json stays ignored.
+!.claude/settings.json
 
 # --- Build / temp artifacts ---
 /tmp/
