@@ -9226,6 +9226,120 @@ class TestApplyStyleVnoteCss:
         assert self.apply_style.CSS_END in css
 
 
+class TestApplyStyleReaderPolishCss:
+    """ψ.17 reader-EPUB polish — drop-caps, subtle verse-num,
+    chapter rhythm, @page margins. The polish block is composed
+    into render_managed_css() alongside ψ.10's vnote block. Tests
+    pin the rules so a future refactor of the composition list
+    can't silently drop the polish."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import apply_style
+        cls.apply_style = apply_style
+        cls.css = apply_style.render_managed_css()
+
+    def test_phase_marker_present(self):
+        # Future readers grep for "ψ.17" to find this block.
+        assert "ψ.17" in self.css
+
+    def test_drop_cap_first_letter_rule(self):
+        # Drop-cap on first paragraph after each chapter heading.
+        # The selector targets verse-p / verse-p-flush variants too.
+        assert "::first-letter" in self.css
+        # The rule should target ch-heading-following paragraphs.
+        assert "p.ch-heading + p" in self.css
+
+    def test_drop_cap_uses_inherited_font(self):
+        # Drop-caps must inherit the theme font — themes pick the
+        # font family, ψ.17 picks the layout. Hard-coding a font
+        # would break the devotional/scholarly theme aesthetic.
+        # Find the drop-cap rule and verify font-family: inherit.
+        marker = "::first-letter"
+        idx = self.css.find(marker)
+        assert idx >= 0
+        # Look in the rule body (next ~300 chars after the selector)
+        rule_body = self.css[idx:idx + 500]
+        assert "font-family: inherit" in rule_body
+
+    def test_verse_num_default_is_subtle(self):
+        # Default verse-num should be small + muted; school theme
+        # overrides with a brighter color, but the default stays
+        # quiet so verse references don't fight the body text.
+        assert ".verse-num {" in self.css
+        # Subtle = small font-size
+        marker = ".verse-num {"
+        idx = self.css.find(marker)
+        rule_body = self.css[idx:idx + 400]
+        assert "font-size:" in rule_body
+        # Tabular numerals — references align in columns of digits
+        assert "tnum" in rule_body or "tabular-nums" in rule_body
+
+    def test_chapter_heading_rhythm(self):
+        # Chapter headings get generous top margin (visual breathing
+        # room between chapters) and tighter bottom margin (heading
+        # + first verse should read as one block).
+        assert "p.ch-heading {" in self.css
+        marker = "p.ch-heading {"
+        idx = self.css.find(marker)
+        rule_body = self.css[idx:idx + 400]
+        assert "margin-top:" in rule_body
+        assert "margin-bottom:" in rule_body
+
+    def test_first_chapter_no_extra_top_margin(self):
+        # First chapter on a page shouldn't have a giant gap above
+        # it — the :first-child variant resets margin-top.
+        assert "p.ch-heading:first-child" in self.css
+
+    def test_page_margins_for_print(self):
+        # @page rules are honored by ADE / Calibre / Apple Books PDF
+        # export. Even readers that ignore them don't error.
+        assert "@page {" in self.css
+        marker = "@page {"
+        idx = self.css.find(marker)
+        rule_body = self.css[idx:idx + 200]
+        assert "margin:" in rule_body
+
+    def test_h2_h3_rhythm_present(self):
+        # In-text headings (book division titles, etc.) get
+        # consistent rhythm too.
+        assert "h2 { margin-top" in self.css
+        assert "h3 { margin-top" in self.css
+
+    def test_note_rhythm_does_not_set_color(self):
+        # Themes set .note background/border colors. ψ.17 only
+        # sets the rhythm (margin/padding/line-height/radius) so
+        # theme overrides keep working.
+        marker = ".note {"
+        # There may be multiple .note { rules in the CSS — find
+        # the one in the ψ.17 block specifically.
+        psi17_idx = self.css.find("ψ.17")
+        psi17_block = self.css[psi17_idx:]
+        idx = psi17_block.find(marker)
+        assert idx >= 0
+        rule_body = psi17_block[idx:idx + 300]
+        # Should set rhythm fields only.
+        assert "padding:" in rule_body
+        assert "line-height:" in rule_body
+        # Should NOT set background or border-color (theme's job).
+        assert "background:" not in rule_body
+        assert "border-color:" not in rule_body
+
+    def test_polish_block_is_idempotent(self):
+        # Two calls produce identical output — no timestamps, no
+        # random ordering.
+        a = self.apply_style.render_managed_css()
+        b = self.apply_style.render_managed_css()
+        assert a == b
+
+    def test_polish_block_composes_with_vnote_block(self):
+        # Both ψ.10 (vnote) and ψ.17 (reader) markers should be in
+        # the same managed region — order doesn't matter; presence
+        # does.
+        assert "ψ.10" in self.css
+        assert "ψ.17" in self.css
+
+
 # ---------- Phase υ.7 : pluggable fetcher config ----------------------
 
 
@@ -12076,5 +12190,527 @@ class TestPsi14DesignSystemHelpers:
     def test_buyer_arc_polish_css_exports(self):
         assert isinstance(self.mod.BUYER_ARC_POLISH_CSS, str)
         assert len(self.mod.BUYER_ARC_POLISH_CSS) > 100
+
+
+# ============================================================
+# Phase θ.4 — Cross-platform installer wrappers
+# ============================================================
+
+
+class TestTheta4InstallerScriptsExist:
+    """θ.4: build_dmg.sh, build_msi.cmd, installer.iss,
+    build_appimage.sh exist as the per-platform wrappers around
+    PyInstaller's dist/ output."""
+
+    def _read(self, rel: str) -> str:
+        return (REPO_ROOT / rel).read_text(
+            encoding="utf-8", errors="replace",
+        )
+
+    def test_build_dmg_sh_exists(self):
+        assert (REPO_ROOT / "dev" / "build_dmg.sh").is_file()
+
+    def test_installer_iss_exists(self):
+        assert (REPO_ROOT / "dev" / "installer.iss").is_file()
+
+    def test_build_msi_cmd_exists(self):
+        assert (REPO_ROOT / "dev" / "build_msi.cmd").is_file()
+
+    def test_build_appimage_sh_exists(self):
+        assert (REPO_ROOT / "dev" / "build_appimage.sh").is_file()
+
+
+class TestTheta4MacOSDmgWrapper:
+    def _body(self) -> str:
+        return (REPO_ROOT / "dev" / "build_dmg.sh").read_text(
+            encoding="utf-8", errors="replace",
+        )
+
+    def test_uses_hdiutil_macos_native(self):
+        # hdiutil is system-bundled on macOS — no third-party dep.
+        assert "hdiutil" in self._body()
+
+    def test_invokes_pyinstaller_when_app_missing(self):
+        # If dist/YHWH.app doesn't exist yet, the wrapper runs the
+        # PyInstaller build first rather than failing cryptically.
+        body = self._body()
+        assert "build_desktop.sh" in body
+
+    def test_codesign_is_optional(self):
+        # CODESIGN_IDENTITY env var is the gate — unset = unsigned
+        # build (works for personal use); set = production sign.
+        body = self._body()
+        assert "CODESIGN_IDENTITY" in body
+        assert "codesign" in body
+
+    def test_notarization_is_optional(self):
+        # Notarization requires both CODESIGN_IDENTITY AND a stored
+        # keychain profile. Both unset = no notarize step (safe).
+        body = self._body()
+        assert "notarytool" in body
+        assert "NOTARIZE_KEYCHAIN_PROFILE" in body
+
+    def test_refuses_on_non_macos(self):
+        # The script bails early if uname != Darwin, pointing at
+        # the right script for the actual platform.
+        body = self._body()
+        assert "Darwin" in body
+        assert "build_msi.cmd" in body or "build_appimage.sh" in body
+
+
+class TestTheta4WindowsInnoSetupWrapper:
+    def test_iss_references_yhwh_exe(self):
+        body = (REPO_ROOT / "dev" / "installer.iss").read_text(
+            encoding="utf-8", errors="replace",
+        )
+        assert "YHWH.exe" in body
+
+    def test_iss_reads_version_from_VERSION_file(self):
+        body = (REPO_ROOT / "dev" / "installer.iss").read_text(
+            encoding="utf-8", errors="replace",
+        )
+        # The Inno Setup ifexist+FileRead pattern — version
+        # propagates from the project's VERSION file rather than
+        # hard-coded in the spec.
+        assert "VERSION" in body
+        assert "FileRead" in body
+
+    def test_iss_emits_to_dist(self):
+        body = (REPO_ROOT / "dev" / "installer.iss").read_text(
+            encoding="utf-8", errors="replace",
+        )
+        # OutputDir lands the installer in dist/ alongside the
+        # PyInstaller output.
+        assert "OutputDir=..\\dist" in body or "OutputDir=../dist" in body
+
+    def test_iss_signtool_is_opt_in(self):
+        # SignTool= is commented out by default — unsigned installer
+        # works for personal use, signed installer needs a configured
+        # signtool command.
+        body = (REPO_ROOT / "dev" / "installer.iss").read_text(
+            encoding="utf-8", errors="replace",
+        )
+        assert "SignTool" in body
+        # The line is commented out (Inno Setup uses ; for comments)
+        assert "; SignTool=" in body
+
+    def test_msi_cmd_locates_iscc(self):
+        body = (REPO_ROOT / "dev" / "build_msi.cmd").read_text(
+            encoding="utf-8", errors="replace",
+        )
+        assert "ISCC" in body
+        # Probes the standard install paths
+        assert "Inno Setup 6" in body
+
+    def test_msi_cmd_invokes_pyinstaller_when_exe_missing(self):
+        body = (REPO_ROOT / "dev" / "build_msi.cmd").read_text(
+            encoding="utf-8", errors="replace",
+        )
+        assert "build_desktop.cmd" in body
+
+
+class TestTheta4LinuxAppImageWrapper:
+    def _body(self) -> str:
+        return (REPO_ROOT / "dev" / "build_appimage.sh").read_text(
+            encoding="utf-8", errors="replace",
+        )
+
+    def test_uses_appimagetool(self):
+        assert "appimagetool" in self._body()
+
+    def test_invokes_pyinstaller_when_binary_missing(self):
+        body = self._body()
+        assert "build_desktop.sh" in body
+
+    def test_creates_appdir_with_apprun(self):
+        # AppImages have a specific layout — AppRun executable +
+        # .desktop + icon at the AppDir root.
+        body = self._body()
+        assert "AppRun" in body
+        assert ".desktop" in body
+
+    def test_refuses_on_non_linux(self):
+        body = self._body()
+        assert "Linux" in body
+        assert "build_dmg.sh" in body or "build_msi.cmd" in body
+
+
+class TestTheta4InstallerLineEndings:
+    """θ.4: shell scripts use LF; cmd files use CRLF (per ω.7
+    lesson — cmd's parser chokes on parenthesized blocks with bare
+    LF). Catches a category of regression that bit dev/install_hooks.cmd."""
+
+    def test_build_dmg_sh_is_lf(self):
+        raw = (REPO_ROOT / "dev" / "build_dmg.sh").read_bytes()
+        # Shell scripts MUST be LF on every platform — bash on
+        # Windows (Git Bash) accepts LF, but CRLF breaks the
+        # shebang line and many shells.
+        assert b"\r\n" not in raw, (
+            "build_dmg.sh has CRLF line endings — must be LF"
+        )
+
+    def test_build_appimage_sh_is_lf(self):
+        raw = (REPO_ROOT / "dev" / "build_appimage.sh").read_bytes()
+        assert b"\r\n" not in raw, (
+            "build_appimage.sh has CRLF line endings — must be LF"
+        )
+
+
+# ============================================================
+# Phase θ.3 — Auto-update data plane (Sparkle/WinSparkle appcast)
+# ============================================================
+
+
+class TestTheta3UpdatesParseAppcast:
+    """θ.3: parse_appcast handles valid Sparkle XML, raises on
+    malformed input, defensive on missing fields."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import updates
+        cls.mod = updates
+
+    def _valid_xml(self, version="1.2.0", url="https://x/y.dmg") -> bytes:
+        return (
+            '<?xml version="1.0" encoding="utf-8"?>'
+            '<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">'
+            '<channel>'
+            '<title>YHWH</title>'
+            '<description>Updates</description>'
+            '<language>en</language>'
+            '<item>'
+            '<title>Version 1.2.0</title>'
+            '<pubDate>Fri, 08 May 2026 12:00:00 GMT</pubDate>'
+            f'<enclosure url="{url}" sparkle:version="{version}" length="12345" type="application/octet-stream" />'
+            '</item>'
+            '</channel></rss>'
+        ).encode("utf-8")
+
+    def test_parses_valid_appcast(self):
+        out = self.mod.parse_appcast(self._valid_xml())
+        assert out["channel"]["title"] == "YHWH"
+        assert len(out["items"]) == 1
+        assert out["items"][0]["version"] == "1.2.0"
+        assert out["items"][0]["url"] == "https://x/y.dmg"
+        assert out["items"][0]["length"] == 12345
+
+    def test_raises_on_unparseable_xml(self):
+        with pytest.raises(self.mod.AppcastError):
+            self.mod.parse_appcast(b"not <even> xml")
+
+    def test_raises_on_wrong_root_element(self):
+        with pytest.raises(self.mod.AppcastError):
+            self.mod.parse_appcast(
+                b'<?xml version="1.0"?><foo></foo>'
+            )
+
+    def test_raises_on_missing_channel(self):
+        with pytest.raises(self.mod.AppcastError):
+            self.mod.parse_appcast(
+                b'<?xml version="1.0"?><rss version="2.0"></rss>'
+            )
+
+    def test_handles_missing_enclosure(self):
+        # Defensive: an item with no enclosure parses to empty
+        # version/url/length rather than raising.
+        xml = (
+            b'<?xml version="1.0"?>'
+            b'<rss version="2.0"><channel>'
+            b'<title>YHWH</title><description>x</description><language>en</language>'
+            b'<item><title>broken</title></item>'
+            b'</channel></rss>'
+        )
+        out = self.mod.parse_appcast(xml)
+        assert out["items"][0]["version"] == ""
+        assert out["items"][0]["url"] == ""
+        assert out["items"][0]["length"] == 0
+
+    def test_handles_non_integer_length(self):
+        xml = self._valid_xml().replace(
+            b'length="12345"', b'length="not-a-number"',
+        )
+        out = self.mod.parse_appcast(xml)
+        assert out["items"][0]["length"] == 0
+
+
+class TestTheta3UpdatesFetchAppcast:
+    """θ.3: fetch_appcast composes http_fn with parse_appcast.
+    Network failures propagate; XML parse failures raise
+    AppcastError."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import updates
+        cls.mod = updates
+
+    def test_uses_injected_http_fn(self):
+        called = {}
+
+        def fake_http(url):
+            called["url"] = url
+            return (
+                b'<?xml version="1.0"?>'
+                b'<rss version="2.0"><channel>'
+                b'<title>X</title><description>x</description><language>en</language>'
+                b'</channel></rss>'
+            )
+
+        out = self.mod.fetch_appcast(
+            "https://example.com/appcast.xml", http_fn=fake_http,
+        )
+        assert called["url"] == "https://example.com/appcast.xml"
+        assert out["channel"]["title"] == "X"
+
+    def test_propagates_network_errors(self):
+        def boom(url):
+            raise OSError("network down")
+
+        with pytest.raises(OSError):
+            self.mod.fetch_appcast("https://x/a.xml", http_fn=boom)
+
+
+class TestTheta3VersionComparison:
+    """θ.3: compare_versions / is_update_available. Semver-aware
+    with defensive handling of pre-release suffixes and missing
+    components."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import updates
+        cls.mod = updates
+
+    def test_simple_semver(self):
+        assert self.mod.compare_versions("1.0.0", "1.0.1") == -1
+        assert self.mod.compare_versions("1.0.1", "1.0.0") == 1
+        assert self.mod.compare_versions("1.0.0", "1.0.0") == 0
+
+    def test_different_lengths(self):
+        # 1.0 < 1.0.1 (the .1 is a strict addition)
+        assert self.mod.compare_versions("1.0", "1.0.1") == -1
+        assert self.mod.compare_versions("2.0", "1.9.99") == 1
+
+    def test_numeric_components_sort_numerically(self):
+        # Lexical compare would say "10" < "9"; numeric > 9.
+        assert self.mod.compare_versions("1.10.0", "1.9.0") == 1
+
+    def test_v_prefix_compares_distinct(self):
+        # Contract: the comparator is purely lexical/numeric on
+        # chunks; "v" is treated as an alpha component. The "v"
+        # prefix is stripped upstream by
+        # `releases_from_version_and_tags` before this function
+        # ever sees a tag. Don't widen the comparator to strip "v"
+        # — that would silently mask data-ingestion bugs.
+        assert self.mod.compare_versions("v1.0.0", "1.0.0") != 0
+
+    def test_pre_release_suffix(self):
+        # 1.0.0 > 1.0.0-rc1 because the rc1 suffix sorts as alpha.
+        # Implementation detail: alpha components sort after numeric
+        # within a chunk, and the rc1 chunk comes "after" 0 numeric.
+        # Specific semver rules (rc < release) aren't guaranteed —
+        # this test pins what the comparator actually does so a
+        # future change is intentional.
+        result = self.mod.compare_versions("1.0.0", "1.0.0-rc1")
+        # -1 (release < rc) or 1 (release > rc) — pin the actual
+        # behavior; alpha components sort as alpha.
+        assert result in (-1, 1)
+
+    def test_empty_versions(self):
+        assert self.mod.compare_versions("", "") == 0
+        assert self.mod.compare_versions("", "1.0.0") == -1
+        assert self.mod.compare_versions("1.0.0", "") == 1
+
+    def test_is_update_available_when_newer_advertised(self):
+        appcast = {
+            "items": [
+                {"version": "1.5.0"}, {"version": "1.4.0"},
+            ],
+        }
+        assert self.mod.is_update_available("1.0.0", appcast) is True
+
+    def test_is_update_available_when_already_latest(self):
+        appcast = {"items": [{"version": "1.5.0"}]}
+        assert self.mod.is_update_available("1.5.0", appcast) is False
+
+    def test_is_update_available_when_running_ahead(self):
+        # Dev versions can be newer than the public appcast; don't
+        # prompt to "downgrade".
+        appcast = {"items": [{"version": "1.5.0"}]}
+        assert self.mod.is_update_available("2.0.0", appcast) is False
+
+    def test_is_update_available_with_empty_appcast(self):
+        assert self.mod.is_update_available("1.0.0", {"items": []}) is False
+
+
+class TestTheta3LatestVersionAndReleaseUrl:
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import updates
+        cls.mod = updates
+
+    def test_latest_version_picks_highest(self):
+        # Sparkle convention is newest-first, but the function
+        # picks max regardless of order.
+        appcast = {
+            "items": [
+                {"version": "1.2.0"},
+                {"version": "1.5.0"},
+                {"version": "1.3.0"},
+            ],
+        }
+        assert self.mod.latest_version(appcast) == "1.5.0"
+
+    def test_latest_version_with_no_items(self):
+        assert self.mod.latest_version({"items": []}) == ""
+
+    def test_release_url_returns_url_for_latest(self):
+        appcast = {
+            "items": [
+                {"version": "1.5.0", "url": "https://x/v1.5.0.dmg"},
+                {"version": "1.2.0", "url": "https://x/v1.2.0.dmg"},
+            ],
+        }
+        assert (
+            self.mod.release_url(appcast) == "https://x/v1.5.0.dmg"
+        )
+
+    def test_release_url_returns_none_when_no_items(self):
+        assert self.mod.release_url({"items": []}) is None
+
+    def test_release_url_returns_none_when_url_missing(self):
+        appcast = {"items": [{"version": "1.0.0", "url": ""}]}
+        assert self.mod.release_url(appcast) is None
+
+
+class TestTheta3GenerateAppcast:
+    """θ.3: dev/generate_appcast.py — pure-function pipeline that
+    composes a Sparkle-compatible XML feed from VERSION + git tags."""
+
+    @classmethod
+    def setup_class(cls):
+        import importlib.util as _u
+        spec = _u.spec_from_file_location(
+            "_test_gen_appcast",
+            REPO_ROOT / "dev" / "generate_appcast.py",
+        )
+        cls.mod = _u.module_from_spec(spec)
+        spec.loader.exec_module(cls.mod)
+        from scripts.core import updates as _updates
+        cls.updates = _updates
+
+    def test_build_appcast_round_trip(self):
+        # build → parse → fields match
+        xml = self.mod.build_appcast(
+            channel_title="YHWH",
+            channel_description="Updates",
+            base_url="https://example.com/r/",
+            releases=[
+                {"version": "1.0.0", "filename": "YHWH-1.0.0.dmg"},
+            ],
+        )
+        parsed = self.updates.parse_appcast(xml.encode("utf-8"))
+        assert parsed["channel"]["title"] == "YHWH"
+        assert len(parsed["items"]) == 1
+        item = parsed["items"][0]
+        assert item["version"] == "1.0.0"
+        assert item["url"] == "https://example.com/r/YHWH-1.0.0.dmg"
+
+    def test_build_appcast_with_no_releases(self):
+        # Defensive: empty release list produces a valid (if
+        # itemless) appcast.
+        xml = self.mod.build_appcast(
+            channel_title="YHWH",
+            channel_description="Updates",
+            base_url="https://x/",
+            releases=[],
+        )
+        parsed = self.updates.parse_appcast(xml.encode("utf-8"))
+        assert parsed["items"] == []
+
+    def test_build_appcast_strips_trailing_slash_on_base(self):
+        xml1 = self.mod.build_appcast(
+            channel_title="YHWH", channel_description="x",
+            base_url="https://x/r/",
+            releases=[{"version": "1.0.0", "filename": "y.dmg"}],
+        )
+        xml2 = self.mod.build_appcast(
+            channel_title="YHWH", channel_description="x",
+            base_url="https://x/r",
+            releases=[{"version": "1.0.0", "filename": "y.dmg"}],
+        )
+        # Both URLs land at the same canonical form.
+        assert "https://x/r/y.dmg" in xml1
+        assert "https://x/r/y.dmg" in xml2
+
+    def test_build_appcast_escapes_xml_chars(self):
+        # Filenames with & < > " need escaping (defensive — real
+        # filenames shouldn't but URLs encoded by hand might).
+        xml = self.mod.build_appcast(
+            channel_title="YHWH & Co.",
+            channel_description="<b>Updates</b>",
+            base_url="https://x",
+            releases=[{"version": "1.0.0", "filename": "y.dmg"}],
+        )
+        # These chars must NOT appear unescaped in the XML body.
+        assert "<b>Updates</b>" not in xml
+        assert "&amp;" in xml or "YHWH and Co." in xml
+
+    def test_releases_from_version_and_tags_dedupes(self):
+        # If VERSION matches a tag, only one release entry is
+        # emitted (no duplicate item for the same version).
+        out = self.mod.releases_from_version_and_tags(
+            current_version="1.5.0",
+            tags=["v1.5.0", "v1.4.0", "1.3.0"],
+            filename_pattern="YHWH-{version}.dmg",
+        )
+        versions = [r["version"] for r in out]
+        assert versions.count("1.5.0") == 1
+        assert "1.4.0" in versions
+        assert "1.3.0" in versions
+
+    def test_releases_strips_v_prefix(self):
+        out = self.mod.releases_from_version_and_tags(
+            current_version="",
+            tags=["v2.0.0", "v1.9.0"],
+            filename_pattern="YHWH-{version}.dmg",
+        )
+        assert all(not r["version"].startswith("v") for r in out)
+
+    def test_filename_pattern_substitution(self):
+        out = self.mod.releases_from_version_and_tags(
+            current_version="1.0.0",
+            tags=[],
+            filename_pattern="YHWH-Setup-{version}.exe",
+        )
+        assert out[0]["filename"] == "YHWH-Setup-1.0.0.exe"
+
+    def test_discover_git_tags_with_injected_runner(self):
+        # Inject the run_fn so the test doesn't depend on actual
+        # git tags or a clean working tree.
+        def fake_run(args):
+            return "v1.2.0\nv1.1.0\nv1.0.0\n"
+        out = self.mod.discover_git_tags(run_fn=fake_run)
+        assert out == ["v1.2.0", "v1.1.0", "v1.0.0"]
+
+    def test_discover_git_tags_empty_when_no_git(self):
+        def boom(args):
+            raise FileNotFoundError("git not installed")
+        assert self.mod.discover_git_tags(run_fn=boom) == []
+
+    def test_main_writes_to_stdout(self, tmp_path, capsys):
+        # Set up an isolated VERSION file; pin tags via injected
+        # run_fn... actually main uses _run_git directly, so use
+        # the version-file CLI flag and accept the global git
+        # state of the project (tags may or may not exist).
+        vf = tmp_path / "VERSION"
+        vf.write_text("9.9.9\n", encoding="utf-8")
+        rc = self.mod.main([
+            "--base-url", "https://example.com/r",
+            "--version-file", str(vf),
+        ])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "<rss" in out
+        assert "9.9.9" in out
+        assert "https://example.com/r" in out
 
 

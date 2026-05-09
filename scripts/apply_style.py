@@ -203,7 +203,90 @@ aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
   }
 }"""
 
-    blocks = [b for b in (embed_block, margin_block, font_block, flow_block, vnote_block) if b]
+    # Phase ψ.17 — reader-EPUB polish.
+    # Tasteful defaults so a freshly-built edition looks publishable
+    # without per-publisher fiddling. CSS-only; no HTML changes.
+    # All rules are font-family-agnostic (inherit from theme) and
+    # are scoped narrowly enough that themes can override.
+    #
+    # The drop-cap uses ::first-letter, which is widely supported
+    # (Apple Books, Kobo, Calibre, ADE, modern Kindle). Older Kindle
+    # devices that don't honor ::first-letter quietly ignore it; the
+    # paragraph still renders correctly with no fallback artifacts.
+    #
+    # Verse-number treatment is subtle on purpose — the verse number
+    # is reference apparatus, not body text. The school theme
+    # overrides this with a brighter blue (already shipping in
+    # content/themes/school.css); ψ.17 sets the default for the
+    # other themes.
+    reader_polish_block = """\
+/* ψ.17 — reader-EPUB polish (drop-caps, verse-num, page margins) */
+
+/* Drop-cap on the first paragraph of each chapter. Inherits theme
+   font; sized to ~3 lines via float + line-height. */
+p.ch-heading + p.verse-p::first-letter,
+p.ch-heading + p.verse-p-flush::first-letter,
+p.ch-heading + p::first-letter {
+  font-size: 3.2em;
+  line-height: 0.85;
+  float: left;
+  margin: 0.06em 0.08em -0.05em 0;
+  font-weight: 700;
+  font-family: inherit;
+}
+
+/* Subtle verse-number default (school theme overrides this). */
+.verse-num {
+  font-size: 0.72em;
+  color: #6b7280; /* slate-500 */
+  vertical-align: 0.3em;
+  font-feature-settings: "tnum" 1, "lnum" 1; /* tabular lining nums */
+  margin-right: 0.15em;
+  font-weight: normal;
+  font-family: inherit;
+}
+
+/* Chapter heading rhythm — generous top margin so chapters feel
+   distinct, tighter bottom margin so the heading + first verse
+   read as one block. */
+p.ch-heading {
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
+  text-align: center;
+  font-size: 1.35em;
+  letter-spacing: 0.02em;
+}
+p.ch-heading:first-child {
+  margin-top: 0;
+}
+
+/* h2/h3 spacing rhythm for any in-text headings. */
+h2 { margin-top: 1.8em; margin-bottom: 0.5em; }
+h3 { margin-top: 1.4em; margin-bottom: 0.4em; }
+
+/* Print-quality page margins (@page rules — honored by ADE,
+   Calibre, Apple Books PDF export). */
+@page {
+  margin: 2.2cm 1.6cm 2.4cm 1.6cm;
+}
+
+/* Note typography — slightly looser line-height makes apparatus
+   easier to scan against body text. Themes override colors;
+   ψ.17 just sets the rhythm. */
+.note {
+  margin: 0.9em 0;
+  padding: 0.55em 0.9em;
+  line-height: 1.55;
+  font-size: 0.92em;
+  border-radius: 2px;
+}
+.note > p:first-child { margin-top: 0; }
+.note > p:last-child { margin-bottom: 0; }"""
+
+    blocks = [b for b in (
+        embed_block, margin_block, font_block, flow_block,
+        vnote_block, reader_polish_block,
+    ) if b]
     return CSS_BEGIN + "\n" + "\n\n".join(blocks) + "\n" + CSS_END
 
 

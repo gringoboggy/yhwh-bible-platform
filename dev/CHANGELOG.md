@@ -6,6 +6,345 @@
 
 ---
 
+## 2026-05-08 — session — θ.3 auto-update data plane
+
+**Phases shipped:** θ.3 auto-update — Python-side data plane for
+Sparkle (macOS) / WinSparkle (Windows). Both native frameworks
+consume a `appcast.xml` feed; this phase ships the **fetcher +
+parser + version comparator + appcast generator**. The native
+binary integration (Sparkle/WinSparkle linking at PyInstaller
+bundle time) is user-side once they have the binary signing infra
+— same ship-infra-user-runs pattern as θ.1 / θ.2 / θ.4.
+**Test delta:** +33 (892 → 925).
+**Corpus delta:** 0 — pure infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/updates.py`** — pure-function module:
+  - `parse_appcast(xml_bytes) -> dict` — Sparkle XML parser;
+    raises `AppcastError` (subclass of `ValueError`) on malformed
+    input. Defensive on missing fields (empty string / 0 default
+    rather than KeyError).
+  - `fetch_appcast(url, *, http_fn=None)` — composes parse with
+    http; production default routes through `scripts.core.http
+    .get` (honors ω.10 retry/timeout policy + the linter's
+    external-HTTP rule). Injectable `http_fn` for tests.
+  - `latest_version(appcast)` — returns the highest semver among
+    items, regardless of feed order.
+  - `release_url(appcast)` — download URL of the latest item, or
+    None if the feed has no items / no enclosure URL.
+  - `compare_versions(a, b) -> int` — semver-aware (-1 / 0 / 1).
+    Numeric components sort numerically (`1.10 > 1.9`); alpha
+    components sort lexically. Empty strings compare equal to
+    each other, less than non-empty.
+  - `is_update_available(current, appcast) -> bool` — strict
+    "newer advertised" check; returns False when running ahead
+    of the published feed (don't prompt to "downgrade").
+
+- **`dev/generate_appcast.py`** — CLI tool to produce the feed:
+  - `build_appcast(*, channel_title, channel_description,
+    base_url, releases) -> str` — pure XML builder. Each release
+    needs `version` + `filename`; optional `pub_date`, `length`,
+    `mime`, `title`. Strips trailing slash on `base_url`. XML-
+    escapes channel title / description.
+  - `releases_from_version_and_tags(*, current_version, tags,
+    filename_pattern)` — composes release dicts from the
+    project's VERSION + git tags. Strips leading `v` on tag
+    names (so `v1.5.0` and `1.5.0` aren't both emitted as
+    duplicate releases).
+  - `discover_git_tags(*, run_fn=None)` — injects subprocess
+    runner for tests; returns reverse-chronological tag list or
+    empty if not a git repo.
+  - `main(argv)` — thin CLI: `--base-url` (required),
+    `--filename-pattern` (default macOS DMG; `YHWH-Setup-{version}
+    .exe` for Windows or `YHWH-{version}-x86_64.AppImage` for
+    Linux), `--title` / `--description` / `--language` /
+    `--version-file`. Writes XML to stdout.
+
+- **+33 tests across 5 new classes:**
+  - `TestTheta3UpdatesParseAppcast` (6) — valid parse;
+    unparseable XML; wrong root; missing channel; missing
+    enclosure; non-integer length.
+  - `TestTheta3UpdatesFetchAppcast` (2) — injected http_fn;
+    network errors propagate.
+  - `TestTheta3VersionComparison` (10) — simple semver; different
+    lengths; numeric vs lexical (1.10 > 1.9); v-prefix
+    distinct (data-ingestion boundary handles stripping); pre-
+    release suffix; empty versions; is_update_available branches.
+  - `TestTheta3LatestVersionAndReleaseUrl` (5) — picks highest
+    regardless of order; no items; URL for latest; None when
+    empty / URL missing.
+  - `TestTheta3GenerateAppcast` (10) — round-trip build → parse;
+    no releases; trailing slash; XML escape; v-prefix dedup;
+    filename pattern substitution; injected git runner; main()
+    writes valid XML to stdout.
+
+**Sparkle/WinSparkle wiring** (user-side, when the binary build
+pipeline is ready):
+
+1. **macOS:** linkable Sparkle.framework into the app bundle
+   (PyInstaller spec needs `Sparkle.framework` added to
+   `Tree(...)`); set `SUFeedURL` in Info.plist to the
+   appcast.xml URL; sign the app + DSA-sign the appcast (or
+   use EdDSA per Sparkle 2.x). Sparkle handles the prompt-to-
+   update UI.
+2. **Windows:** integrate `WinSparkle.dll` (or build the C# /
+   .NET wrapper); call `win_sparkle_set_appcast_url(...)` +
+   `win_sparkle_init()` from launcher startup (via ctypes
+   bindings). WinSparkle handles the modal dialog.
+3. **Lighter-weight path** (no native framework): the launcher
+   imports `scripts.core.updates`, calls `fetch_appcast` on
+   startup, and surfaces "update available" via a PyWebView
+   toast or browser-tab banner. No DLL linking; no signing.
+
+**v1.0 candidate criteria status (unchanged — corpus floor still
+the only blocker):**
+  - ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (16,042 — 8,958-note gap)
+
+θ.3 wasn't in the v1.0 terminus; it's the polish that makes the
+desktop binary self-updating once shipped. Combined with θ.1 /
+θ.2 / θ.4, the **entire θ desktop cluster is now shipped** at
+the infrastructure level — only the actual binary build (paid
+signing + a release host for the appcast) is user-side.
+
+**Generate the feed (one-liner):**
+
+    python3 dev/generate_appcast.py --base-url \
+        https://yhwh.example/releases/ > dist/appcast.xml
+
+**Next per most-logical-path:**
+- **Run paid χ-AI-xrefs (~$72)** — the v1.0 corpus gap closer.
+- **τ.1 user-side WEB translation extract** — free; +~31K verses.
+- **Visual QA** — open consoles + EPUB in browser/e-reader.
+
+---
+
+## 2026-05-08 — session — θ.4 cross-platform installers (infrastructure)
+
+**Phases shipped:** θ.4 cross-platform installers — wrappers around
+PyInstaller's `dist/` output that produce native installers for
+each platform: DMG (macOS), Inno Setup `.exe` (Windows — packaged
+under the "MSI" spec name for parity), AppImage (Linux). Same
+pattern as χ.7 / χ.1 / θ.1 / θ.2: ship infrastructure; user runs
+the packaging step on the target platform when they have the tools.
+**Test delta:** +21 (871 → 892).
+**Corpus delta:** 0 — pure infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`dev/build_dmg.sh`** (macOS only — guards on `uname -s ==
+  Darwin`): wraps `dist/YHWH.app` into `dist/YHWH-<version>.dmg`
+  using `hdiutil` (macOS-native). Reads version from `VERSION`.
+  Auto-runs `dev/build_desktop.sh` if `dist/YHWH.app` is missing.
+  **Code-signing + notarization opt-in via env vars** (`CODESIGN_
+  IDENTITY` for the certificate name, `NOTARIZE_KEYCHAIN_PROFILE`
+  for stored notary credentials) — both unset = unsigned DMG that
+  works for personal/dev use; both set = production-grade signed
+  + notarized + stapled DMG. Apple Developer ID cert required only
+  for the signed path.
+
+- **`dev/installer.iss`** (Inno Setup script): defines a
+  click-through Windows installer with Start Menu + optional
+  Desktop shortcuts, uninstaller, version pulled from `VERSION`,
+  output to `dist/YHWH-Setup-<version>.exe`. Inno Setup is free,
+  industry-standard, and lighter than MSI. `SignTool=signtool`
+  line is commented out — uncomment + configure in IDE for signed
+  installers (requires Authenticode cert).
+
+- **`dev/build_msi.cmd`** (Windows): orchestration wrapper. Auto-
+  runs `dev/build_desktop.cmd` if `dist/YHWH.exe` is missing.
+  Locates `ISCC.exe` at the standard install paths (`%ProgramFiles
+  (x86)%\Inno Setup 6` / `%ProgramFiles%\Inno Setup 6`); env-var
+  override (`set ISCC=path`) for non-standard installs. Compiles
+  `dev/installer.iss`. Despite the `.msi` name (kept for parity
+  with the spec's DMG/MSI/AppImage trio), the actual output is an
+  Inno Setup `.exe` installer — far more common in the Windows
+  ecosystem.
+
+- **`dev/build_appimage.sh`** (Linux only — guards on `uname -s ==
+  Linux`): wraps `dist/YHWH` into `dist/YHWH-<version>-<arch>.
+  AppImage`. AppImages don't need code-signing — they're portable
+  by design. Downloads `appimagetool` to `/tmp` on first run
+  (cached). Builds the AppDir layout (AppRun entry point, .desktop
+  file, icon at root) and invokes `appimagetool`. Falls back to
+  generating a placeholder PNG icon if `content/covers/icon.png`
+  is absent — real branding belongs at that path before
+  distribution.
+
+- **+21 tests across 5 new classes:**
+  - `TestTheta4InstallerScriptsExist` (4) — all four files exist.
+  - `TestTheta4MacOSDmgWrapper` (5) — uses hdiutil; runs PyInstaller
+    when missing; codesign + notarization both opt-in via env
+    vars; refuses on non-macOS.
+  - `TestTheta4WindowsInnoSetupWrapper` (6) — references YHWH.exe;
+    reads VERSION; emits to dist/; SignTool line commented out;
+    locates ISCC; runs PyInstaller when missing.
+  - `TestTheta4LinuxAppImageWrapper` (4) — uses appimagetool;
+    runs PyInstaller when missing; AppDir + AppRun + .desktop
+    layout; refuses on non-Linux.
+  - `TestTheta4InstallerLineEndings` (2) — .sh files are LF (per
+    ω.7 lesson — bash on Windows accepts LF, CRLF breaks the
+    shebang).
+
+**Signing licenses (flagged per memory `feedback_license_flagging
+.md`):** load-bearing only for SIGNED distribution; unsigned
+installers build fine. For production:
+- **Apple Developer ID Application certificate** ($99/year, Apple
+  Developer Program enrollment) — required to bypass macOS
+  Gatekeeper warnings on first launch. Production DMGs additionally
+  benefit from notarization (free, requires Dev ID).
+- **Windows Authenticode code-signing certificate** ($200-400/year
+  from DigiCert / Sectigo / Comodo / etc) — required to bypass
+  SmartScreen download warnings.
+- **Linux** — AppImages need no signing.
+
+**v1.0 candidate criteria status (unchanged — corpus floor still
+the only blocker):**
+  - ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (16,042 — 8,958-note gap)
+
+θ.4 wasn't in the v1.0 terminus; it's distribution polish for
+v1.0+. With the installer infrastructure in place, the binary
+shipping path is now: `pyinstaller dev/launcher.spec` → run the
+appropriate `dev/build_<platform>` wrapper → distributable.
+
+**User-side completion (parked, per platform):**
+
+macOS:
+    pip install pyinstaller pywebview
+    ./dev/build_dmg.sh                              # unsigned dev DMG
+    # OR (signed + notarized — needs Apple Dev ID):
+    export CODESIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+    export NOTARIZE_KEYCHAIN_PROFILE="AC_PROFILE"
+    ./dev/build_dmg.sh
+
+Windows (Inno Setup 6 from https://jrsoftware.org/isdl.php):
+    pip install pyinstaller pywebview
+    dev\\build_msi.cmd                               # unsigned dev installer
+    # Signed installers: configure SignTool in Inno Setup IDE +
+    #                    uncomment SignTool= in installer.iss
+
+Linux:
+    pip install pyinstaller pywebview
+    ./dev/build_appimage.sh                          # portable AppImage
+
+**Next per most-logical-path:**
+- **Run paid χ-AI-xrefs (~$72)** — the v1.0 corpus gap closer.
+- **Visual QA** — open consoles in browser + EPUB in e-reader.
+- **τ.1 user-side WEB translation extract** — free, +1 PD
+  translation (~31K verses).
+- **θ.3 auto-update (Sparkle / winsparkle)** — post-v1.0 polish,
+  the missing piece in the desktop story.
+
+---
+
+## 2026-05-08 — session — ψ.17 reader-EPUB polish
+
+**Phases shipped:** ψ.17 reader-EPUB polish — added a
+`reader_polish_block` to `apply_style.render_managed_css()` so every
+freshly-built edition lands with sensible typographic defaults
+without per-publisher fiddling.
+**Test delta:** +11 (860 → 871).
+**Corpus delta:** 0 — pure CSS infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/apply_style.py:render_managed_css()`** gained a new
+  `reader_polish_block` that ships in the managed region of every
+  built edition's `stylesheet.css`. Composes alongside the existing
+  ψ.10 vnote polish, the embed/margin/font/flow blocks, and the
+  page-break rules. The block is theme-agnostic (no fonts or
+  colors hard-coded — all `inherit`) so the existing five themes'
+  character is preserved.
+
+  Rules added:
+  - **Drop-cap on first paragraph of each chapter.** Selector:
+    `p.ch-heading + p.verse-p::first-letter`,
+    `p.ch-heading + p.verse-p-flush::first-letter`, and the
+    generic `p.ch-heading + p::first-letter` fallback.
+    `font-size: 3.2em; line-height: 0.85; float: left;
+    font-family: inherit`. Widely supported (Apple Books, Kobo,
+    Calibre, ADE, modern Kindle); older Kindle quietly ignores
+    `::first-letter` with no fallback artifacts.
+  - **Subtle verse-number default.** `.verse-num { font-size:
+    0.72em; color: #6b7280; vertical-align: 0.3em;
+    font-feature-settings: "tnum" 1, "lnum" 1; }`. Tabular
+    lining numerals so verse references align in columns. The
+    school theme overrides this with a brighter blue (already
+    shipping); other themes get the quiet default.
+  - **Chapter heading rhythm.** `p.ch-heading` gets generous
+    `margin-top: 2.2em` (visual breathing room between chapters)
+    + `text-align: center; font-size: 1.35em; letter-spacing:
+    0.02em`. `p.ch-heading:first-child` resets `margin-top: 0`
+    so the first chapter on a page doesn't have a giant gap.
+  - **h2/h3 rhythm.** Consistent `margin-top` / `margin-bottom`
+    on in-text headings (book division titles, etc.).
+  - **Print-quality page margins.** `@page { margin: 2.2cm 1.6cm
+    2.4cm 1.6cm; }`. Honored by ADE / Calibre / Apple Books
+    PDF export; readers that ignore `@page` don't error.
+  - **Note rhythm.** `.note { margin: 0.9em 0; padding: 0.55em
+    0.9em; line-height: 1.55; font-size: 0.92em; border-radius:
+    2px; }`. Sets only spacing/sizing — colors stay theme's job.
+    `.note > p:first-child / :last-child` reset margins so the
+    note container isn't padded by orphan paragraph margins.
+
+- **+11 tests in `TestApplyStyleReaderPolishCss`:** marker
+  present; drop-cap selector targets ch-heading-following
+  paragraphs; drop-cap inherits theme font; verse-num is subtle
+  with tabular numerals; ch-heading rhythm rules present;
+  first-child reset; @page rule with margin; h2/h3 rhythm;
+  note block sets only spacing (not color); idempotent;
+  composes with ψ.10 vnote block.
+
+**Visual review still required from the user:** open a freshly-
+built EPUB in an e-reader and compare against a commercial study
+Bible. The CSS rules are testable but the typographic-care
+evaluation needs human eyes. Suggested check:
+
+    python3 scripts/build_edition.py kjv-66
+    # Inspect exports/<...>.epub in Apple Books / Calibre / Kobo
+
+Look for:
+- Drop-cap renders cleanly on Genesis 1:1, John 1:1, Psalm 1:1
+- Verse numbers are subtle but legible
+- Chapter spacing reads as intentional, not cramped or yawning
+- @page margins look appropriate when previewing PDF export
+
+If any rule needs tweaking, the constants are at the top of
+`reader_polish_block` in `scripts/apply_style.py:render_managed_css`.
+
+**v1.0 candidate criteria status (updated):**
+  - ✓ θ.2 native shell
+  - ✓ χ.1 Greek lexicon (infrastructure; data fetch user-side)
+  - ✓ ψ.8 cross-denom apparatus
+  - ✓ ψ.10 popup typography
+  - ✓ ψ.12 matrix smoothness
+  - ✓ ψ.13 design system foundation
+  - ✓ ψ.14 buyer-arc polish (structural + CSS-only this session)
+  - ✓ ψ.17 reader-EPUB polish (this turn)
+  - ✓ ω.8 / ω.9 / ω.10
+  - ✓ ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (16,042 — paid χ-AI-xrefs run still
+    pending; closes ~5K notes)
+
+Once corpus crosses 25K (via χ-AI-xrefs / χ.7 / χ.1 / τ.1 user-
+side runs), the **v1.0 candidate is shippable**.
+
+**Next per most-logical-path:**
+- **Visual QA** — user opens freshly-built EPUBs and either
+  signs off or files specific tweak requests to the polish CSS.
+- **Run paid χ-AI-xrefs (~$72)** — closes the corpus gap.
+- **θ.4 cross-platform installers** — Apple Developer ID
+  becomes load-bearing here; signed binaries.
+
+---
+
 ## 2026-05-08 — session — ψ.14 buyer-arc polish (structural + CSS-only)
 
 **Phases shipped:** ψ.14 buyer-arc polish — applied the ψ.13 design

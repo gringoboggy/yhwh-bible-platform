@@ -1,8 +1,54 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after **ψ.14 buyer-arc polish (structural
-+ CSS-only)** shipped — applied the ψ.13 design system to /wizard,
-/export, /compare. Added two helpers to `scripts/templates/_design
+**Updated:** 2026-05-08, after **θ.3 auto-update data plane**
+shipped — Python-side infrastructure for Sparkle (macOS) /
+WinSparkle (Windows). New `scripts/core/updates.py` (parse_appcast
++ fetch_appcast with injectable http_fn + latest_version +
+release_url + compare_versions + is_update_available); routes
+through ω.10's `scripts.core.http.get` for outbound HTTP. New
+`dev/generate_appcast.py` produces Sparkle-compatible appcast.xml
+from VERSION + git tags + base_url. The native binary integration
+(Sparkle/WinSparkle linking at PyInstaller bundle time) is user-
+side once they have signing infra; a lighter-weight fallback
+(launcher polls appcast on startup, surfaces toast via PyWebView)
+is straightforward to add. **Entire θ desktop cluster now shipped
+at infrastructure level** (θ.1 launcher / θ.2 native shell / θ.3
+auto-update data plane / θ.4 cross-platform installers). +33 tests
+across 5 classes; 925 tests / 10/10 linter / 16,042 notes.
+
+Prior ship: **θ.4 cross-platform installers (infrastructure)** —
+wrappers around PyInstaller's dist/ output — wrappers around PyInstaller's
+`dist/` output that produce native installers per platform: DMG
+(macOS, hdiutil), Inno Setup .exe (Windows), AppImage (Linux).
+Same ship-infra-user-runs pattern as χ.7 / χ.1 / θ.1 / θ.2. Code-
+signing + notarization opt-in via env vars; unsigned builds work
+for personal/dev use. Apple Developer ID ($99/yr) becomes load-
+bearing only for SIGNED macOS distribution; Windows Authenticode
+($200-400/yr) only for SIGNED Windows distribution; Linux
+AppImage needs no signing. +21 tests across 5 new classes; 892
+tests / 10/10 linter / 16,042 notes. With θ.4 shipped, the
+desktop binary shipping path is complete: `pyinstaller dev/
+launcher.spec` → `dev/build_<platform>` wrapper → distributable.
+
+Prior ship: **ψ.17 reader-EPUB polish** — added a
+`reader_polish_block` to `apply_style.render_managed_css()`
+— added a `reader_polish_block` to `apply_style.render_managed_css()`
+so every freshly-built edition lands with sensible typographic
+defaults: drop-caps on chapter openings (theme-font-inherited via
+`::first-letter`, ~3-line height float-left), subtle verse-number
+treatment (small / muted / tabular-lining numerals — school theme
+override preserved), chapter heading rhythm (generous top margin,
+centered, 1.35em with 0.02em letter-spacing; `:first-child` resets
+margin-top), h2/h3 rhythm, `@page` margins for print readers /
+Calibre / Apple Books PDF export (2.2cm × 1.6cm), `.note`
+spacing-only rules (themes still own colors). +11 tests in
+TestApplyStyleReaderPolishCss; **871 tests / 10/10 linter / 16,042
+notes**. With ψ.17 shipped, **all v1.0 prettification phases are
+done** — only the corpus-floor gap (16,042 / 25K) remains for v1.0
+candidate.
+
+Prior ship: **ψ.14 buyer-arc polish (structural + CSS-only)** —
+applied the ψ.13 design system to /wizard, /export, /compare. Added two helpers to `scripts/templates/_design
 .py`: `HEADER_NAV_LINKS(current)` (just the `<a>` tags, no wrapping
 div) and `BUYER_ARC_POLISH_CSS` (focus rings, 150ms transitions,
 `:active` scale-down click feedback, `.psi14-pending` dirty-state
@@ -86,7 +132,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 860 tests · 10/10 linter · 5 editions · 16,042 notes
+13 consoles · 925 tests · 10/10 linter · 5 editions · 16,042 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -113,7 +159,229 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.14 buyer-arc polish shipped (structural + CSS-only)
+## Current phase: θ.3 auto-update data plane shipped
+
+Python-side infrastructure for Sparkle (macOS) / WinSparkle
+(Windows) auto-update. Both native frameworks consume an
+appcast.xml feed; this phase ships the fetcher + parser + version
+comparator + appcast generator. Native binary integration is
+user-side.
+
+```
+✓ scripts/core/updates.py               parse_appcast (Sparkle XML
+                                        parser, raises AppcastError
+                                        on malformed input);
+                                        fetch_appcast(url, *, http_fn)
+                                        with injectable http for
+                                        tests, production default
+                                        routes through
+                                        scripts.core.http.get
+                                        (ω.10 retry/timeout policy +
+                                        external-HTTP linter rule);
+                                        latest_version (max semver
+                                        regardless of feed order);
+                                        release_url (None when feed
+                                        empty or URL missing);
+                                        compare_versions (numeric
+                                        components sort numerically
+                                        — 1.10 > 1.9 — alpha sort
+                                        lexically; empty == empty);
+                                        is_update_available (strict
+                                        newer-only; running ahead
+                                        returns False — no
+                                        downgrade prompts).
+✓ dev/generate_appcast.py               build_appcast (pure XML
+                                        composer; XML-escapes title
+                                        + description; trailing
+                                        slash on base_url is
+                                        optional); releases_from
+                                        _version_and_tags (composes
+                                        from VERSION + git tags;
+                                        strips leading 'v'; dedupes
+                                        if VERSION matches a tag);
+                                        discover_git_tags (injectable
+                                        run_fn; empty list when git
+                                        absent); main(--base-url
+                                        --filename-pattern --title
+                                        --description --version-file
+                                        → stdout).
+✓ tests/test_scripts.py                 +33 tests across 5 classes:
+                                        - TestTheta3UpdatesParseAppcast (6)
+                                        - TestTheta3UpdatesFetchAppcast (2)
+                                        - TestTheta3VersionComparison (10)
+                                        - TestTheta3LatestVersionAndReleaseUrl (5)
+                                        - TestTheta3GenerateAppcast (10)
+~ Corpus delta                          0 — pure infrastructure.
+                                        User-side completion:
+                                          # Generate the feed
+                                          python3 dev/generate_appcast.py \\
+                                              --base-url https://yhwh.example/releases/ \\
+                                              > dist/appcast.xml
+                                          # Upload appcast.xml + binaries
+                                          # to the release host. Sparkle/
+                                          # WinSparkle in the bundled binary
+                                          # polls the URL on startup.
+```
+
+**θ desktop cluster status — entire cluster now shipped at
+infrastructure level:**
+- ✓ θ.1 launcher (PyInstaller entry)
+- ✓ θ.2 native shell (PyWebView wrapper)
+- ✓ θ.3 auto-update data plane (this turn)
+- ✓ θ.4 cross-platform installers (DMG / Inno Setup / AppImage)
+
+The actual binary build + hosted appcast endpoint + signing
+certs are user-side (paid licenses for signed distribution).
+
+**v1.0 candidate criteria status (unchanged):**
+  - ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (16,042 — 8,958 short)
+
+**Corpus floor remains the only blocker on the v1.0 candidate.**
+
+## Prior phase: θ.4 cross-platform installers shipped (infrastructure)
+
+Wrappers around PyInstaller's dist/ output that produce native
+installers per platform. Same ship-infra-user-runs pattern: I
+write the build scripts; the user runs them on the target
+platform when they want to distribute.
+
+```
+✓ dev/build_dmg.sh                      macOS-only (uname guard).
+                                        Wraps dist/YHWH.app via
+                                        hdiutil into dist/YHWH-
+                                        <version>.dmg. Auto-runs
+                                        build_desktop.sh if app is
+                                        missing. CODESIGN_IDENTITY
+                                        env var = signed; +
+                                        NOTARIZE_KEYCHAIN_PROFILE
+                                        = full signed+notarized+
+                                        stapled. Both unset = clean
+                                        unsigned dev DMG.
+✓ dev/installer.iss                     Inno Setup 6 spec for
+                                        Windows. Click-through
+                                        installer with Start Menu
+                                        + optional Desktop shortcut,
+                                        uninstaller, version from
+                                        VERSION file. Output:
+                                        dist/YHWH-Setup-<v>.exe.
+                                        SignTool= line commented
+                                        out (uncomment + configure
+                                        in IDE for signed builds).
+✓ dev/build_msi.cmd                     Windows orchestrator.
+                                        Auto-runs build_desktop.cmd
+                                        if YHWH.exe missing. Locates
+                                        ISCC.exe at standard install
+                                        paths or via env-var
+                                        override (set ISCC=...).
+                                        Compiles installer.iss.
+✓ dev/build_appimage.sh                 Linux-only (uname guard).
+                                        Wraps dist/YHWH into
+                                        dist/YHWH-<v>-<arch>.AppImage.
+                                        Downloads appimagetool to
+                                        /tmp on first run (cached).
+                                        Builds AppDir + AppRun +
+                                        .desktop + icon.png. No
+                                        signing — AppImages are
+                                        portable by design.
+✓ tests/test_scripts.py                 +21 tests across 5 classes:
+                                        - TestTheta4InstallerScriptsExist (4)
+                                        - TestTheta4MacOSDmgWrapper (5)
+                                        - TestTheta4WindowsInnoSetupWrapper (6)
+                                        - TestTheta4LinuxAppImageWrapper (4)
+                                        - TestTheta4InstallerLineEndings (2)
+~ Corpus delta                          0 — pure infrastructure.
+                                        User-side completion is
+                                        per-platform: run the
+                                        appropriate wrapper script
+                                        on the target OS with the
+                                        platform's tooling installed.
+```
+
+**Signing licenses (flagged but not blocking):**
+- Apple Developer ID Application cert ($99/yr) — load-bearing
+  for signed macOS DMG. Unsigned dev DMGs build fine.
+- Windows Authenticode cert ($200-400/yr) — load-bearing for
+  signed Windows installer. Unsigned installers work for
+  personal use.
+- Linux — AppImage needs no signing.
+
+**v1.0 candidate criteria status (unchanged — corpus floor still
+the only blocker):**
+  - ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (16,042 — 8,958 short)
+
+θ.4 wasn't in the v1.0 terminus; it's distribution polish that
+makes the binary user-friendly to install. The v1.0 candidate
+ships once the corpus floor is reached.
+
+## Prior phase: ψ.17 reader-EPUB polish shipped
+
+Added a `reader_polish_block` to `render_managed_css()` so every
+freshly-built edition's `stylesheet.css` lands with sensible
+typographic defaults. Theme-agnostic (everything `inherit`s) so
+the existing 5 themes' character is preserved.
+
+```
+✓ scripts/apply_style.py                new reader_polish_block
+                                        composed alongside the
+                                        existing ψ.10 vnote / margin
+                                        / font / flow / embed blocks.
+                                        Drop-caps on chapter openings
+                                        (p.ch-heading + p::first-letter,
+                                        font-size 3.2em, line-height
+                                        0.85, float left, font-family
+                                        inherit so themes pick the
+                                        face). Subtle .verse-num
+                                        default (font-size 0.72em,
+                                        slate-500 color, vertical-
+                                        align 0.3em, tabular lining
+                                        numerals). p.ch-heading rhythm
+                                        (margin-top 2.2em, centered,
+                                        1.35em font, 0.02em letter-
+                                        spacing; :first-child resets
+                                        margin-top). h2/h3 spacing
+                                        rhythm. @page { margin: 2.2cm
+                                        1.6cm 2.4cm 1.6cm } for print
+                                        / PDF export. .note rhythm-
+                                        only rules (themes still
+                                        own colors).
+✓ tests/test_scripts.py                 +11 tests in
+                                        TestApplyStyleReaderPolishCss:
+                                        - phase marker present
+                                        - drop-cap selector targets
+                                          ch-heading-following p
+                                        - drop-cap inherits theme font
+                                        - verse-num is subtle + tabular
+                                        - ch-heading rhythm
+                                        - first-child margin-top reset
+                                        - @page rule + margin
+                                        - h2/h3 rhythm
+                                        - .note block sets only
+                                          spacing (not color)
+                                        - render is idempotent
+                                        - composes with ψ.10 vnote
+~ Corpus delta                          0 — pure CSS infrastructure.
+                                        Visual review on user (open
+                                        a freshly-built EPUB in an
+                                        e-reader; compare against a
+                                        commercial study Bible).
+```
+
+**v1.0 candidate criteria status:**
+  - ✓ θ.2 native shell
+  - ✓ χ.1 Greek lexicon (infrastructure)
+  - ✓ ψ.8 cross-denom apparatus
+  - ✓ ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 (all prettification done)
+  - ✓ ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (16,042 — 8,958-note gap; user-side
+    paid χ-AI-xrefs run + free χ.7 / χ.1 / τ.1 close it)
+
+**v1.0 candidate is shippable** once the corpus floor is reached.
+
+## Prior phase: ψ.14 buyer-arc polish shipped (structural + CSS-only)
 
 Applied the ψ.13 design system to /wizard, /export, /compare via
 single-source-of-truth nav substitution + a shared polish CSS
