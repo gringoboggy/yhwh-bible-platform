@@ -71,6 +71,61 @@ PHASE_ORDER = ["legacy", "mvp", "phase2", "phase3"]
 # ----------------------------------------------------------------------
 
 
+def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
+    """Phase ψ.8.2-A — return the set of HTML ref-ids whose note tradition
+    is NOT in ``edition["traditions_default"]``.
+
+    When ``traditions_default`` is missing or empty, returns an empty
+    set (no filtering — pre-ψ.8 build behaviour preserved per
+    CLAUDE_PROJECT_RULES §7.2).
+
+    The output set is unioned into ``disabled_html_ref_ids`` in
+    ``build_one()``; ``filter_html()`` then strips the matching
+    markers + asides from the rendered HTML alongside the existing
+    kind-based and per-note-id filters. The id format mirrors the
+    Phase ρ.1 path exactly: ``ref-{prefix}{ch:02d}{vs:02d}{suffix}``.
+    """
+    enabled = list(edition.get("traditions_default") or [])
+    if not enabled:
+        return set()
+    enabled_set = set(enabled)
+
+    # Defer notes_io import to inside the function so build_edition can
+    # be imported in environments without the full content tree (CI
+    # docs build, etc.). Same pattern build_one uses.
+    from scripts.core.notes_io import load_notes
+    from scripts.core.traditions import note_tradition
+
+    books_idx = config.books_by_code()
+    notes_dir = REPO_ROOT / "content" / "notes"
+    out: set[str] = set()
+    for book_path in sorted(notes_dir.glob("*.py")):
+        if book_path.stem == "__init__" or book_path.stem.startswith("_"):
+            continue
+        book_code = book_path.stem
+        book = books_idx.get(book_code) or {}
+        prefix = book.get("id_prefix")
+        if not prefix:
+            continue
+        notes = load_notes(book_path) or []
+        for tup in notes:
+            if not isinstance(tup, tuple) or len(tup) < 8:
+                continue
+            tradition = note_tradition(tup)
+            if tradition in enabled_set:
+                continue
+            ch = tup[0]
+            vs = tup[1]
+            suffix = tup[2] or ""
+            try:
+                ch_i = int(ch)
+                vs_i = int(vs)
+            except (TypeError, ValueError):
+                continue
+            out.add(f"ref-{prefix}{ch_i:02d}{vs_i:02d}{suffix}")
+    return out
+
+
 def compute_enabled_kinds(edition: dict, all_kinds: list[dict]) -> tuple[set, set]:
     """Returns (enabled_codes, disabled_codes) for this edition."""
     enabled_categories = set(edition.get("enabled_categories") or [])
@@ -1743,6 +1798,11 @@ def build_one(
             vs = int(m.group(3))
             suffix = m.group(4)
             disabled_html_ref_ids.add(f"ref-{prefix}{ch:02d}{vs:02d}{suffix}")
+
+    # Phase ψ.8.2-A: tradition-based filtering. When the edition declares
+    # `traditions_default`, every note whose tradition isn't in that
+    # list joins the disabled set. Empty/unset → no-op (set is empty).
+    disabled_html_ref_ids |= compute_tradition_disabled_html_ref_ids(edition)
 
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
     output_path = output_dir / f"Ethiopian_Bible_{edition_id}_{version}_{timestamp}.epub"

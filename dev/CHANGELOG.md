@@ -6,6 +6,335 @@
 
 ---
 
+## 2026-05-08 — session — ω.14 epubcheck preflight validation gate
+
+**Phases shipped:** ω.14 (W3C/IDPF epubcheck wired into the preflight
+readiness dashboard).
+**Test delta:** +18 (649 → 667).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/epubcheck.py`** (new, ~265 lines) — pure-function
+  Python wrapper around the W3C/IDPF epubcheck Java tool. Public API:
+  `is_available()`, `run_epubcheck(path)`, `run_epubcheck_on_dir(dir)`.
+  The wrapper bundles the JAR via the `epubcheck` PyPI package
+  (installed in this turn — pulled in `tablib`, `xlrd`, `xlwt` as
+  transitive deps for epubcheck's report-rendering features, none
+  of which we use). Java is probed at first call and the result is
+  memoized; `reset_probe_cache()` lets tests reset.
+- **Graceful-fallback contract** — when Java is missing (which is
+  the case on the user's current dev machine), the wrapper returns
+  `{"status": "unavailable", "explanation": "..."}` rather than
+  raising. The preflight dashboard maps this to `warn` so the rest
+  of the platform stays usable.
+- **Subprocess-based JAR call** — the wrapper avoids the PyPI
+  package's class-construction-time autorun. We invoke
+  `java -jar <jar> <epub> --json -` directly via `subprocess.run`
+  with a 60s timeout per file. JSON output is parsed into a
+  normalised message list. Malformed output → empty messages,
+  status='pass' (the JAR completed).
+- **`_compute_preflight_uncached()` extension in `scripts/web.py`** —
+  new check id `epubcheck`. Runs `run_epubcheck_on_dir(REPO/exports)`,
+  surfaces aggregate status. Empty exports/ → `pass` (info-style,
+  no built EPUBs to validate yet). Java missing but EPUBs present
+  → `warn` with install hint. Errors found → `fail` with the first
+  10 failing EPUBs in the details list. Exception during the check
+  → `warn` (graceful degradation; the rest of the dashboard still
+  renders).
+- **+18 tests** across two classes:
+  - `TestEpubcheckWrapper` (15) — availability probe paths (Java
+    missing, JAR missing, both present); cache-reset semantics;
+    structured response shapes for unavailable / missing-EPUB /
+    timeout / malformed-JSON paths; subprocess output parsing for
+    error-only / warning-only / clean cases; aggregate status
+    classification (worst-of across files); empty-dir / nonexistent
+    -dir / no-EPUBs paths; per-file unavailability when Java missing.
+  - `TestPreflightEpubcheck` (3) — aggregator includes the new check
+    by id; canonical preflight check shape (id/name/status/message/
+    details/jump_to); empty-exports/-no-Java path doesn't fail.
+
+User-side completion (parked, optional):
+
+- **Install Java** (OpenJDK 8+) on the dev/build machine to lift the
+  wrapper from `unavailable` to active. Without Java, the check
+  simply degrades to a `warn` with install hint; with Java, every
+  built EPUB gets validated by the W3C reference implementation
+  before it can be marked ready-to-ship. Recommended once a real
+  EPUB build cycle is happening (today exports/ is empty so the
+  check is a no-op either way).
+
+Notable decisions:
+
+- **Subprocess invocation, not the PyPI class.** The `epubcheck`
+  Python package's `EpubCheck(path, autorun=True)` constructor runs
+  the JAR synchronously and stores results on the instance. That's
+  fine for one-off use, but it makes mocking awkward — tests would
+  need to patch the constructor. The subprocess path lets tests
+  monkeypatch `subprocess.run` directly, the same pattern other
+  meta-tools in `scripts/core/` use.
+- **Empty exports/ is `pass`, not `warn`.** A fresh checkout has no
+  built EPUBs; surfacing that as a "warn" would clutter the
+  dashboard with a permanent yellow flag for the entire pre-build
+  phase of every project. Treating empty as informational keeps
+  the dashboard's noise floor low.
+- **Java-missing maps to `warn`, not `fail`.** Per the
+  CLAUDE_PROJECT_RULES philosophy of degrading gracefully, a missing
+  optional tool shouldn't block readiness. The install hint shows
+  in the message so the publisher sees what to do; the rest of the
+  ready-to-ship gates are unaffected.
+- **EPUBCHECK_JAR env override.** Lets future setups (CI, alternate
+  installs) point at a system-wide JAR without reinstalling the
+  PyPI package.
+
+Continuity pointers:
+
+- `scripts/core/epubcheck.py` is the only new module; mirrors the
+  shape of `scripts/core/http.py` (ω.10) — opaque external tool
+  wrapped behind a focused pure-function API.
+- `scripts/web.py::_compute_preflight_uncached` adds check #9 in
+  the dashboard's check list. The cross-link invariant is unchanged
+  (no new console).
+- The `epubcheck` PyPI package was added to the dev environment
+  (not committed to a requirements file — the project doesn't have
+  one yet; ξ.5 in the deferred list owns that). When ξ.5 ships,
+  add `epubcheck>=5.1` to `requirements-dev.txt` (it's a quality
+  tool, not a runtime dep).
+
+---
+
+## 2026-05-08 — session — ψ.8.1 + ψ.8.2-A tradition schema field + filter
+
+**Phases shipped:** ψ.8.1 (`traditions_default` validator + customize
+API exposure + traditions registry); ψ.8.2-A (build-pipeline filter
+via existing disabled_html_ref_ids mechanism). The popup-redesign
+half of ψ.8.2 (collapsible tradition stack) is reserved as ψ.8.2-B
+and lands with ψ.8.3 (customize Traditions card UI) in the next batch.
+**Test delta:** +16 (633 → 649).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`api_save_edition_meta` validator** for `traditions_default` —
+  list of strings, each in `CANONICAL_TRADITIONS`, normalised to
+  dedupe-while-preserving-order. Whitespace-only items dropped;
+  `None` treated as empty (clear). Mirror of the
+  `popup_languages_default` validator established by ν.2.7-B.
+- **`api_customize_data` exposure** — every edition's response now
+  carries `traditions_default` (list, defensive-filtered against
+  `TRADITION_IDS`), and the top-level response carries a new
+  `traditions` registry: list of `{id, label}` dicts in canonical
+  popup-stack order. The future ψ.8.3 customize UI iterates this
+  list to render its checkboxes — single source of truth, no
+  hard-coded tradition set in the HTML.
+- **`compute_tradition_disabled_html_ref_ids(edition)` helper** in
+  `scripts/build_edition.py` — walks every notes file, computes the
+  derived tradition for each tuple via
+  `scripts.core.traditions.note_tradition()`, and returns the set of
+  HTML ref-ids whose tradition isn't in
+  `edition["traditions_default"]`. When `traditions_default` is
+  empty/absent → returns `set()` (no filtering, byte-identical
+  builds preserved per CLAUDE_PROJECT_RULES §7.2).
+- **`build_one()` integration** — the new helper's set is unioned
+  into `disabled_html_ref_ids` BEFORE the existing per-note-id
+  filter runs, so `filter_html()` strips tradition-mismatched notes
+  alongside the kind-based and per-note-id filters that were
+  already there. No new HTML class needed; the existing ref-id
+  marker mechanism does the work.
+- **Defensive `_filter_traditions_default(raw)` helper** in
+  `scripts/web.py` — guards against the project's tiny YAML
+  parser's known limitation: writing `traditions_default: []` and
+  re-reading it produces the literal two-char list `['[', ']']`.
+  The helper filters anything that isn't a valid tradition id, so
+  the API surface stays clean even when on-disk YAML round-trips
+  imperfectly.
+- **+16 tests** across two classes:
+  - `TestTraditionsCustomizeAPI` (9) — registry exposed in canonical
+    order; registry carries labels for all 6 traditions;
+    `traditions_default` exposed per edition (every value is a valid
+    tradition id); save round-trip; dedupe-preserving-order;
+    rejects unknown tradition ids; rejects non-list payload;
+    rejects non-string list items; `None` clears the field.
+  - `TestTraditionFilterBuildPipeline` (7) — empty/absent
+    `traditions_default` → no filtering (no-op); cross-only filter
+    keeps the entire current corpus (every note resolves to cross);
+    catholic-only filter strips the entire current corpus (no
+    notes are catholic today); idempotency under repeat calls;
+    invalid tradition ids in the list silently strip everything
+    (defensive); cross+catholic filter still keeps the current
+    corpus; smoke test confirming `build_one` wires the helper into
+    the disabled-ref-ids path.
+
+What's deferred to ψ.8.2-B + ψ.8.3:
+
+- **Popup HTML redesign — the "tradition stack."** Spec §"Build
+  pipeline change" describes a collapsible per-tradition section
+  in the verse popup with first-80-char preview. The current ship
+  filters notes BY tradition but doesn't yet group them by
+  tradition in the rendered popup. Rendering a tradition stack
+  requires reworking the vnote-aside HTML structure; that's
+  ψ.8.2-B and lands with ψ.8.3 (so the UI can drive it end-to-end).
+- **Customize Traditions card.** The ψ.8.3 card on `/customize`
+  uses the registry that's already exposed by api_customize_data
+  to render six checkboxes in canonical order, with a per-book
+  override matrix mirroring ν.2.7's pattern. Schema field is
+  ready; just needs HTML wiring.
+
+Notable decisions:
+
+- **No new HTML class for tradition filtering.** The existing
+  per-note-id filter (Phase ρ.1) already strips notes by ref-id;
+  reusing that path means tradition filtering is a 30-line helper
+  rather than a renderer rewrite. The downside (the popup doesn't
+  yet GROUP notes by tradition) is honestly captured as ψ.8.2-B —
+  the FILTER is the immediate user-visible value, the GROUPING is
+  the visual differentiator.
+- **API surface filters the YAML round-trip junk.** The tiny YAML
+  parser has a known limitation around bare `[]`; the alternative
+  (fixing the parser) is a much larger surgery with broader risk.
+  The defensive filter is one helper, well-scoped, documented in
+  the helper's docstring.
+- **Build helper queries notes_io directly.** `build_edition.py`
+  currently reads notes through several entry points; calling
+  `load_notes()` per book file is cache-warm via the lru_cache on
+  `_load_notes_cached`, so subsequent build_one runs in the same
+  process avoid the disk re-read.
+
+Continuity pointers:
+
+- `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` §"Build
+  pipeline change" — ψ.8.2-B owes the tradition-stack popup
+  rendering; this ship covers ψ.8.2's filter axis only.
+- `scripts/core/traditions.py::CANONICAL_TRADITIONS` is the source
+  of truth for the registry exposed in api_customize_data. The UI
+  (ψ.8.3) reads from that response and never hard-codes.
+- The `disabled_html_ref_ids` mechanism (Phase ρ.1) now carries
+  three sources of truth: explicit per-note disable list,
+  kind-based disable, and (new) tradition-based disable. They
+  union additively in `build_one()` before `filter_html()` strips
+  the rendered HTML.
+
+---
+
+## 2026-05-08 — session — ψ.8.0 tradition schema foundation
+
+**Phases shipped:** ψ.8.0 (schema + resolver + audit script + tests).
+ψ.8.1 / ψ.8.2 / ψ.8.3 / ψ.8.4 are referenced as forward sub-phases —
+the build pipeline integration, customize UI, per-book overrides, and
+wizard step land in subsequent batches per the spec sub-phasing.
+**Test delta:** +37 (596 → 633).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/traditions.py`** (new, ~210 lines) — closed
+  `CANONICAL_TRADITIONS` ordered tuple of 6 (id, label) pairs:
+  catholic, protestant, orthodox, jewish, tewahedo, cross. The order
+  is fixed by editorial convention (no alphabetic / size sort, since
+  ordering implies ranking and the platform stays neutral on which
+  tradition is "correct"); `cross` is last because the popup
+  rendering will place it ABOVE the tradition stack — linguistic and
+  structural notes belong above theological readings, not below.
+- **`note_tradition(tup)` resolver** — three-step derivation:
+  (1) explicit 10th tuple field if present and valid, (2) derived
+  from attribution prefix (TSK / Strong's H / Strong's G / Nave's →
+  cross), (3) `DEFAULT_TRADITION` (= cross) fallback. Pure function;
+  never raises; always returns a valid tradition id.
+- **`edition_to_tradition(edition_id)` lookup** — reads
+  `content/traditions.yaml` (or accepts an explicit mapping); unknown
+  ids fall through to `cross`.
+- **`with_tradition(tup, tradition)` stamping helper** — emits a
+  10-tuple with attribution slot padded if absent. Rejects unknown
+  tradition ids with `ValueError`.
+- **Tiny YAML parser** — flat-mapping subset sufficient for
+  `traditions.yaml`. Mirrors `scripts.core.config`'s pattern; no new
+  external dep introduced. Defensive: invalid tradition values in the
+  YAML are silently skipped, so a typo can't poison the lookup.
+- **`content/traditions.yaml`** (new) — `edition_to_tradition`
+  mapping for the 5 seeded editions, using the ACTUAL edition ids
+  from `editions.yaml` (the spec's hypothetical mapping was off):
+  ethiopian-tewahedo→tewahedo, catholic-study→catholic,
+  evangelical-reformed→protestant, jewish-study→jewish,
+  scholarly-academic→cross (the academic edition is denominationally
+  neutral — its notes are typically Westermann / Brueggemann /
+  Wenham).
+- **`scripts/backfill_traditions.py`** (new) — audit/migration
+  script. Walks every `content/notes/<book>.py`, runs the resolver
+  on each tuple, reports per-book + aggregate counts. Default mode
+  is dry-run; `--apply` is reserved for ψ.8.0.1 (the AST-aware
+  rewriter) and currently emits a guard message rather than writing.
+  **Today's audit confirms all 15,925 notes resolve to `cross`** —
+  the corpus is exclusively χ-cluster output (TSK / Hebrew / Greek
+  / Naves), all neutral. The rewriter lands once χ.2-χ.5 ship
+  tradition-tagged content (Henry / Calvin → protestant; Catena
+  Aurea → orthodox; Rashi → jewish).
+- **+37 tests** across three classes:
+  - `TestTraditionsModule` (25) — constants shape; `cross` is last
+    in canonical order; `TRADITION_IDS` matches CANONICAL; default;
+    `valid_tradition` accepts/rejects; resolver malformed-input
+    safety; resolver explicit-field path; resolver invalid-explicit
+    fallthrough; resolver derivation rules for TSK / Hebrew / Greek
+    / Naves attributions; resolver fallback for unknown / 8-tuple /
+    empty-attribution; edition lookup with explicit mapping; lookup
+    fallback; lookup using default YAML; invalid-tradition silent
+    skip; `with_tradition` pads + preserves attribution; round-trips
+    via resolver; rejects unknown tradition; rejects short tuple.
+  - `TestTraditionsYaml` (5) — loads default file; missing file
+    returns `{}`; parser strips comments; invalid traditions silently
+    dropped; blank lines tolerated.
+  - `TestBackfillTraditionsScript` (7) — `discover_books` sorted +
+    contains canonical books; missing-book returns `missing=True`;
+    real-book scan counts ≥ floor + all `cross`; aggregate run sums
+    correctly; audit is idempotent (pure read; no side effects);
+    `_explicit_tradition` helper handles 8/9/10-tuple shapes;
+    subset-of-books scoping works.
+
+Notable decisions:
+
+- **Cross is the sentinel, not a separate "no tradition" value.**
+  Since the resolver always returns a valid id, every note has a
+  tradition — the question is only whether it's denominationally
+  loaded. `cross` cleanly carries the "neutral" semantic without
+  introducing an `Optional[str]` that would force every consumer
+  to handle a None case.
+- **Stamp only the non-default.** Per CLAUDE_PROJECT_RULES §7.2,
+  the migration writes the explicit field ONLY where derived ≠ cross.
+  This keeps diffs minimal: today's corpus is all-cross, so today's
+  migration is a no-op (zero file rewrites). When χ.2-χ.5 ship
+  tradition-tagged content, those new notes' tuples will carry the
+  10th field directly via the χ-cluster pipeline; the backfill stays
+  a safety net rather than a routine bulk-rewrite tool.
+- **Scholarly-academic edition resolves to `cross`, not "protestant" or
+  "academic"**. The seeded edition's character is critical /
+  text-historical scholarship (Westermann / Wenham / Brueggemann),
+  which the platform's apparatus categorises as cross-tradition. A
+  buyer wanting a strictly Protestant academic edition would clone
+  scholarly-academic and override.
+- **YAML parser stays tiny** — flat mapping under named sections, no
+  nesting, no list values. The project's no-build-step rule + the
+  small surface area of `traditions.yaml` mean adding PyYAML for
+  this file alone would be over-engineering.
+
+Continuity pointers:
+
+- §9 "Add a new edition feature" mental model — ψ.8.0 follows step 1
+  (schema). Steps 2-6 (loader + validator + UI + build pipeline +
+  tests) land across ψ.8.1 + ψ.8.2 + ψ.8.3 as a single batch.
+- `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` — full
+  ψ.8 spec; ψ.8.0 is "Sub-phasing" item #1 in that doc. The spec's
+  ordering puts backfill before schema, which is logically circular
+  — this ship's pragmatic shape collapses the schema constants +
+  resolver + audit into ψ.8.0 (since schema is needed for migration
+  to mean anything).
+- `scripts/core/traditions.py::CANONICAL_TRADITIONS` is the fixed
+  popup-order source of truth. The ψ.8.2 build-pipeline pass will
+  iterate it in this order; the ψ.8.3 customize UI will list its
+  checkboxes in this order; the future ψ.8.2 linter check
+  `check_canonical_order_encoders` will assert the encoder produces
+  this order.
+
+---
+
 ## 2026-05-08 — session — χ.1 Strong's Greek + GreekWordDetector
 
 **Phases shipped:** χ.1 (infrastructure — source loader + detector +

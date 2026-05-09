@@ -1,12 +1,13 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after χ.1 Strong's Greek + GreekWordDetector
-infrastructure shipped. Session arc so far (continuous-go): scope
-expansion → ν.2.9+ψ.10 → ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 →
-ψ.13 → **χ.1**. Ten implementation phases shipped this session;
-v1.0 progress now at 10 of 14 phases (χ.1 infrastructure done; the
-+5-10K corpus delta remains user-side until the fetch + batch promote
-runs from a network-permitted env).
+**Updated:** 2026-05-08, after ω.14 epubcheck preflight validation
+gate shipped (W3C/IDPF EPUB validator wired into the readiness
+dashboard). Session arc so far (continuous-go): scope expansion →
+ν.2.9+ψ.10 → ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13 →
+χ.1 → ψ.8.0 → ψ.8.1+8.2-A → **ω.14**. Thirteen implementation
+phases this session. v1.0 progress: 12 of 14 named pre-v1.0 phases;
+ω.14 is a quality-of-shipping additive ahead of the deferred
+ω.11-13 carry-overs.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
@@ -26,7 +27,7 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 596 tests · 10/10 linter · 5 editions · 15,925 notes
+13 consoles · 667 tests · 10/10 linter · 5 editions · 15,925 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -34,17 +35,121 @@ PLATFORM:    Feature-complete for the buyer demo.
                χ.6 done  (xref + hebrew via existing detectors)
                χ.7 INFRA done; data fetch is user-side
                χ.1 INFRA done; data fetch is user-side
-               (next pre-v1.0 platform phase per PLAN: ψ.8 cross-denom
-                compare apparatus — the v1.0 differentiator)
+             Tier B (v1.0 differentiator) UNDERWAY:
+               ψ.8.0 schema foundation DONE
+               ψ.8.1 + ψ.8.2-A schema field + filter DONE (this turn)
+               ψ.8.2-B + ψ.8.3 popup redesign + customize UI — next
+               ψ.8.4 per-book overrides; ψ.8.5 wizard step — after
 
 CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
-             χ.1 + χ.7 user-side fetches together expected to add ~7-13K
-             once they land).
+             AI-augmented xrefs unblocked on user funding 2026-05-08;
+             slotted as a v1.x χ-cluster phase post-v1.0).
 ```
 
 ---
 
-## Current phase: χ.1 Strong's Greek + GreekWordDetector shipped
+## Current phase: ω.14 epubcheck preflight validation gate shipped
+
+Wired the W3C/IDPF epubcheck Java tool into the readiness dashboard
+as check #9. Real EPUB validation, gracefully degraded when Java is
+absent — once OpenJDK 8+ lands on the build machine and a real
+build cycle runs, this becomes a hard shipping gate.
+
+```
+✓ scripts/core/epubcheck.py        is_available() + run_epubcheck() +
+                                   run_epubcheck_on_dir() pure-function
+                                   wrapper around the bundled JAR.
+                                   Subprocess-based to avoid the PyPI
+                                   package's eager constructor.
+                                   Probe cache + reset_probe_cache().
+✓ scripts/web.py · _compute_       new check id 'epubcheck' surfaces
+  preflight_uncached()             the aggregate validator status.
+                                   Empty exports/ → pass (info), Java
+                                   missing → warn (install hint),
+                                   errors → fail with details.
+✓ epubcheck (PyPI 5.1.0)            installed in the dev env. Ships
+                                   the W3C reference JAR. Java
+                                   runtime not yet installed on this
+                                   machine — graceful-fallback path
+                                   exercised today.
+✓ tests/test_scripts.py             +18 tests across 2 classes —
+                                   TestEpubcheckWrapper (15),
+                                   TestPreflightEpubcheck (3).
+```
+
+## Prior phase: ψ.8.1 + ψ.8.2-A traditions schema field + filter shipped
+
+The first half of the ψ.8.1+8.2+8.3 batch from the spec's sub-phasing.
+Splits at a clean seam — the schema/validator/API + a working
+build-pipeline filter ship now (publishers can manually edit
+editions.yaml and see filtered EPUBs). The popup redesign + UI ship
+in the next batch (ψ.8.2-B + ψ.8.3).
+
+```
+✓ scripts/web.py · api_save_edition_meta   traditions_default validator
+                                            (mirrors popup_languages_default;
+                                             list of strings, each in
+                                             TRADITION_IDS; dedupe; reject
+                                             unknown / non-string).
+✓ scripts/web.py · api_customize_data      `traditions_default` exposed per
+                                            edition (defensive-filtered);
+                                            new top-level `traditions`
+                                            registry — [{id, label}, …]
+                                            in CANONICAL_TRADITIONS order.
+✓ scripts/web.py · _filter_traditions_default
+                                            defensive helper for the YAML-
+                                            round-trip-junk corner case.
+✓ scripts/build_edition.py                  compute_tradition_disabled_html_ref_ids
+                                            walks notes, derives tradition,
+                                            returns the ref-id set whose
+                                            tradition isn't in the edition's
+                                            traditions_default. Empty list →
+                                            empty set (no-op, §7.2).
+                                            build_one unions into existing
+                                            disabled_html_ref_ids before
+                                            filter_html runs.
+✓ tests/test_scripts.py                     +16 tests across 2 classes —
+                                            TestTraditionsCustomizeAPI (9),
+                                            TestTraditionFilterBuildPipeline (7).
+```
+
+## Prior phase: ψ.8.0 tradition schema foundation shipped
+
+The first sub-phase of ψ.8 (the v1.0 differentiator). Establishes the
+tradition axis as a typed schema + lookup module + idempotent audit
+script, without touching the build pipeline or any UI (those are
+ψ.8.1 / ψ.8.2 / ψ.8.3, the next batch).
+
+```
+✓ scripts/core/traditions.py        CANONICAL_TRADITIONS (closed
+                                    ordered set: catholic, protestant,
+                                    orthodox, jewish, tewahedo, cross)
+                                    + note_tradition() resolver
+                                    + edition_to_tradition() lookup
+                                    + with_tradition() stamping helper
+                                    + tiny YAML parser
+✓ content/traditions.yaml           edition_to_tradition mapping for
+                                    the 5 seeded editions (using actual
+                                    edition ids — the spec mapping was
+                                    aspirational and slightly off).
+✓ scripts/backfill_traditions.py    audit + (parked) migration script.
+                                    Today: dry-run only, confirms all
+                                    15,925 notes resolve to `cross`.
+                                    --apply reserved for ψ.8.0.1 (the
+                                    AST-aware rewriter, lands when
+                                    χ.2-χ.5 ship tradition-tagged
+                                    commentary content).
+✓ tests/test_scripts.py              +37 tests across 3 classes —
+                                    TestTraditionsModule (25),
+                                    TestTraditionsYaml (5),
+                                    TestBackfillTraditionsScript (7).
+```
+
+**Audit result this ship:** all 15,925 notes → `cross` (as expected
+— the corpus is exclusively χ-cluster output: TSK / Strong's H /
+Strong's G / Nave's, all denominationally neutral).
+
+## Prior phase: χ.1 Strong's Greek + GreekWordDetector shipped
 
 Mirror of HebrewWordDetector for NT verses, applying the §9 χ-cluster
 pattern for the third time (after χ.6 hebrew and χ.7 naves). Source
@@ -617,11 +722,16 @@ CONSOLES (web UI) — all 13 cross-linked per Rule §6.2:
 
 ## In-flight notes
 
-- **IN_FLIGHT.md is `idle`** at the time of this snapshot —
-  χ.1 infrastructure is fully shipped (mirror of χ.6 / χ.7);
-  what remains is the user-side fetch + promote, not Claude work.
-  Next pre-v1.0 platform phase per PLAN is ψ.8 cross-denom compare
-  apparatus (the v1.0 differentiator; ~2-3 sessions; schema change).
+- **IN_FLIGHT.md is `idle`** at the time of this snapshot — ω.14
+  epubcheck preflight gate shipped (18 tests, wrapper + dashboard
+  integration). Java not yet installed on this machine; the gate
+  degrades gracefully to a warn until the user installs OpenJDK 8+
+  and runs a real EPUB build. Next ψ-cluster sub-phase batch is
+  **ψ.8.2-B + ψ.8.3**: popup HTML redesign + customize Traditions
+  card UI. χ.1 + χ.7 infrastructure also shipped this session;
+  user-side fetch + promote pending for both corpus deltas.
+  AI-augmented xrefs unblocked on user funding 2026-05-08; slotted
+  as a v1.x χ-cluster phase post-v1.0.
 - **Preflight FAILs on cover paths** — placeholder paths in
   seeded editions.yaml. Fixable via /covers upload or /customize
   blank.

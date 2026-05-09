@@ -4,7 +4,48 @@
 
 ## Active task
 
-*(none — tracker is idle. χ.1 Strong's Greek + GreekWordDetector
+*(none — tracker is idle. ω.14 epubcheck preflight validation gate
+shipped 2026-05-08: scripts/core/epubcheck.py wrapper +
+_compute_preflight_uncached integration + 18 tests across 2 classes;
+667 tests green, 10/10 linter clean. The W3C/IDPF EPUB validator is
+now wired into the readiness dashboard. Java is missing on the
+user's current machine, so the check degrades gracefully to a warn
+with an install hint; once Java is installed (OpenJDK 8+) and a
+real EPUB build runs, the check becomes a real shipping gate.
+
+Next ψ-cluster batch is **ψ.8.2-B + ψ.8.3** — popup HTML redesign
+(collapsible tradition stack with first-80-char preview) +
+customize Traditions card UI (driven by the `traditions` registry
+already exposed by api_customize_data). Spec at
+dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md.)*
+`traditions_default` validator + customize API exposure +
+`compute_tradition_disabled_html_ref_ids` build-pipeline filter
++ 16 tests; 649 tests green, 10/10 linter clean. Publishers can
+now manually set `traditions_default` in editions.yaml and the
+build pipeline silently filters non-matching notes from the EPUB.
+
+Next ψ.8 sub-phase batch is **ψ.8.2-B + ψ.8.3** — popup HTML
+redesign (collapsible tradition stack with first-80-char preview
+per spec §"Build pipeline change") + customize Traditions card UI
+(checkboxes driven by the `traditions` registry already exposed
+by api_customize_data, plus the per-book override matrix
+mirroring ν.2.7's pattern).
+
+Spec at dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md.)*
+
+## Earlier idle context (kept for §14 audit reference)
+
+ψ.8.0 tradition schema foundation shipped
+2026-05-08: scripts/core/traditions.py + content/traditions.yaml +
+scripts/backfill_traditions.py + 37 tests across 3 classes; 633 tests
+green, 10/10 linter clean. The audit confirms all 15,925 existing
+notes resolve to the default `cross` tradition — the `--apply`
+rewriter is reserved for ψ.8.0.1 (lands when χ.2-χ.5 ship
+tradition-tagged commentary content). Next ψ.8 sub-phase is the
+**ψ.8.1 + ψ.8.2 + ψ.8.3 batch**: editions.yaml `traditions_default`
+schema field + build-pipeline tradition stack in popup HTML +
+customize Traditions card UI. Spec at
+dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md.)*
 infrastructure shipped 2026-05-08: source loader, detector, at-scale
 driver, +19 tests across 4 classes; 596 tests green, 10/10 linter
 clean. Source-data fetch + batch promote are user-side, identical to

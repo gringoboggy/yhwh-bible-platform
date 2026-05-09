@@ -1,0 +1,36 @@
+# traditions.yaml — Edition → tradition mapping for the cross-denom
+# compare apparatus (Phase ψ.8).
+#
+# Each shipping edition declares its denominational identity here.
+# This mapping is read by `scripts/core/traditions.py` and powers:
+#   * the `note_tradition()` derivation rule for notes that live in
+#     edition-specific seed trees (currently none — all 15,925 notes
+#     live in the shared `content/notes/<book>.py` corpus and resolve
+#     to `cross`).
+#   * the default value of an edition's `traditions_default` field
+#     (added in ψ.8.1).
+#
+# Valid tradition ids (closed set defined in
+# scripts/core/traditions.py::CANONICAL_TRADITIONS):
+#
+#     catholic     — Catholic
+#     protestant   — Protestant
+#     orthodox     — Eastern Orthodox
+#     jewish       — Jewish
+#     tewahedo     — Ethiopian Tewahedo
+#     cross        — Cross-tradition (linguistic / structural / xref —
+#                    denominationally neutral)
+#
+# Editions absent from this map fall through to `cross`. Adding a
+# new edition is one line here; no code change required.
+
+edition_to_tradition:
+  ethiopian-tewahedo: tewahedo
+  catholic-study: catholic
+  evangelical-reformed: protestant
+  jewish-study: jewish
+  # Scholarly / academic edition is intentionally neutral — its notes
+  # are typically Westermann / Brueggemann / Wenham (modern critical),
+  # which the apparatus categorises as cross-tradition rather than
+  # tied to any single denominational reading.
+  scholarly-academic: cross

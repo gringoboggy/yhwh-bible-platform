@@ -1639,6 +1639,14 @@ def api_customize_data() -> dict:
                 "popup_languages_per_book": decode_per_book_languages(
                     e.get("popup_languages_per_book")
                 ),
+                # Phase ψ.8.1 — list of tradition ids enabled for this
+                # edition. Empty list (or absent) → include all
+                # traditions (no-op, pre-ψ.8 build behavior preserved
+                # per §7.2). Filter against TRADITION_IDS defensively
+                # via _filter_traditions_default(); see that helper for
+                # the YAML round-trip caveat.
+                "traditions_default":
+                    _filter_traditions_default(e.get("traditions_default")),
                 "theme": e.get("theme", "classic"),
                 "notes": e.get("notes", ""),
             }
@@ -1647,9 +1655,43 @@ def api_customize_data() -> dict:
         "themes": themes,
         "translations": translations_list,
         "popup_languages": popup_languages_registry,
+        # Phase ψ.8.1 — traditions registry for the customize UI. The
+        # ψ.8.3 Traditions card iterates this list (in this exact
+        # order — the canonical popup-stack order from
+        # scripts/core/traditions.py) to render its checkboxes.
+        # Single source of truth; UI never hard-codes the set.
+        "traditions": [
+            {"id": tid, "label": label}
+            for tid, label in _traditions_canonical_for_api()
+        ],
         "books_canonical": books_canonical,
         "edition_canon_books": edition_canon_books,
     }
+
+
+def _traditions_canonical_for_api() -> tuple[tuple[str, str], ...]:
+    """Indirection for tests — exposes CANONICAL_TRADITIONS as a tuple
+    of (id, label) pairs in canonical order. Tests can monkeypatch
+    this without touching the underlying constant."""
+    from scripts.core.traditions import CANONICAL_TRADITIONS
+    return CANONICAL_TRADITIONS
+
+
+def _filter_traditions_default(raw) -> list[str]:
+    """Return ``raw`` as a list of valid tradition ids, dropping anything
+    that isn't a known id.
+
+    Defensive: the project's tiny YAML parser writes ``traditions_default:
+    []`` for an explicit-empty list and re-reads that as the literal
+    two-char list ``['[', ']']``. We filter that junk out here so the
+    API surface stays clean. Also covers the case where editions.yaml
+    is hand-edited with a typo'd tradition value — the bad entry just
+    doesn't surface in the customize data; the validator catches it
+    on the next save."""
+    from scripts.core.traditions import TRADITION_IDS
+    if not raw:
+        return []
+    return [t for t in raw if isinstance(t, str) and t in TRADITION_IDS]
 
 
 def _load_themes() -> list[dict]:
@@ -2007,6 +2049,90 @@ def _compute_preflight_uncached() -> dict:
         "message": msg,
         "details": details,
         "jump_to": "/preflight",   # nowhere better to jump — fix in code
+    })
+
+    # 9. epubcheck — W3C/IDPF EPUB validator (Phase ω.14)
+    #    Runs against built EPUBs in exports/. The check stays
+    #    informational when no EPUBs exist yet (info, not warn) so a
+    #    fresh checkout doesn't show a red flag for "not validated".
+    #    When Java is unavailable, surfaces as 'warn' with a clear
+    #    install hint — the platform stays usable without it.
+    try:
+        from scripts.core import epubcheck as _ec
+        ec_result = _ec.run_epubcheck_on_dir(REPO / "exports")
+        ec_status = ec_result["status"]
+        if ec_status == "pass":
+            msg = (
+                f"all {ec_result['n_epubs']} EPUB(s) validate cleanly"
+            )
+            details = []
+        elif ec_status == "warn":
+            t = ec_result["totals"]
+            msg = (
+                f"epubcheck: {t['warnings']} warning(s) across "
+                f"{ec_result['n_epubs']} EPUB(s) (no errors)"
+            )
+            details = [
+                {
+                    "epub": r["epub"],
+                    "errors": r["errors"],
+                    "warnings": r["warnings"],
+                    "first_message":
+                        (r["messages"][0]["message"]
+                         if r["messages"] else ""),
+                }
+                for r in ec_result["results"]
+                if r["status"] != "pass"
+            ][:10]
+        elif ec_status == "fail":
+            t = ec_result["totals"]
+            msg = (
+                f"epubcheck: {t['errors']} error(s), {t['warnings']} "
+                f"warning(s) across {ec_result['n_epubs']} EPUB(s)"
+            )
+            details = [
+                {
+                    "epub": r["epub"],
+                    "errors": r["errors"],
+                    "warnings": r["warnings"],
+                    "first_message":
+                        (r["messages"][0]["message"]
+                         if r["messages"] else ""),
+                }
+                for r in ec_result["results"]
+                if r["status"] == "fail"
+            ][:10]
+        elif ec_status == "unavailable":
+            # Java missing or JAR absent. Surface as warn with the
+            # install hint; the rest of the platform stays usable.
+            ec_status = "warn"
+            msg = ec_result.get(
+                "explanation", "epubcheck unavailable"
+            )
+            details = []
+        else:  # 'empty'
+            ec_status = "info"
+            msg = ec_result.get(
+                "explanation",
+                "no built EPUBs to validate yet — run "
+                "`python scripts/build_edition.py <id>`",
+            )
+            details = []
+    except Exception as e:
+        ec_status = "warn"
+        msg = f"epubcheck check failed to run: {e}"
+        details = []
+    # The dashboard's status set is {pass, warn, fail}; map 'info'
+    # to 'pass' for the summary tally but keep the message
+    # informational so the UI can render it differently if it wants.
+    summary_status = "pass" if ec_status == "info" else ec_status
+    checks.append({
+        "id": "epubcheck",
+        "name": "EPUB validation (W3C epubcheck)",
+        "status": summary_status,
+        "message": msg,
+        "details": details,
+        "jump_to": "/export",
     })
 
     # Summary
@@ -2743,6 +2869,36 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if s not in cleaned:
                 cleaned.append(s)
         list_field_updates["popup_languages_default"] = cleaned
+
+    # Phase ψ.8.1 — traditions_default validator. Mirror of
+    # popup_languages_default: list of tradition ids, each in
+    # CANONICAL_TRADITIONS. Empty list (or absent) means "include all
+    # traditions" — byte-identical pre-ψ.8.2 build behavior.
+    if "traditions_default" in payload:
+        from scripts.core.traditions import TRADITION_IDS
+        v = payload["traditions_default"]
+        if v is None:
+            v = []
+        if not isinstance(v, list):
+            return {"error":
+                    "traditions_default must be a list of tradition ids"}
+        cleaned: list[str] = []
+        for item in v:
+            if not isinstance(item, str):
+                return {"error": "traditions_default items must be strings"}
+            s = item.strip()
+            if not s:
+                continue
+            if s not in TRADITION_IDS:
+                return {
+                    "error": (
+                        f"unknown tradition: {s!r}; "
+                        f"available: {sorted(TRADITION_IDS)}"
+                    )
+                }
+            if s not in cleaned:
+                cleaned.append(s)
+        list_field_updates["traditions_default"] = cleaned
 
     if "popup_languages_per_book" in payload:
         v = payload["popup_languages_per_book"]
