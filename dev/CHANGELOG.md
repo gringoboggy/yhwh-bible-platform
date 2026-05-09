@@ -6,6 +6,169 @@
 
 ---
 
+## 2026-05-09 — session — ω.15.1 plan additions: 17 new phases + θ.5 lift
+
+**Phases shipped:** ω.15.1 — folded 17 new "neat feature" phases
+into PLAN_2026-05-09.md per user direction (chose maximally-broad
+fold-in option). Also lifted θ.5 localized UI from "indefinitely
+deferred" to LONG TRACK open. Pure planning work, no code change;
+plan-coherence linter still clean (4/4 sub-checks).
+**Test delta:** 0 (still 984).
+**Linter delta:** still 11/11 (no new check; new phases just
+extend the ledgers the existing plan_coherence check verifies).
+**Save tag this session:** pending.
+
+What landed in PLAN_2026-05-09.md:
+
+### SHORT TRACK additions (5 phases, 1 session each):
+
+- **ψ.20** Note-density heat-map on /matrix — visual signal for
+  corpus density gaps. At 51K notes some books are dense and some
+  sparse; heat-map turns "where do I add notes?" from grep into a
+  glance. Composes ψ.18 + ψ.18.1's existing per_book / per_chapter
+  surfaces.
+- **ψ.21** One-click sample export (5-chapter PDF) — sales-call
+  affordance. /export gets a Sample button that exports Gen 1, Ps
+  1, Mat 1, Jhn 1, Rev 22 with full apparatus + publisher imprint.
+- **υ.3** Search across editions in /sources — operators currently
+  grep on disk. In-app search is faster + composable.
+- **υ.8** Verse-of-the-day JSON / RSS feed — marketing artifact;
+  embed in church websites; SEO funnel.
+- **ψ.25** "Diff between editions" view — extends /diff to compare
+  two configured editions (note count delta, kind delta, canon delta).
+
+### MEDIUM TRACK additions (7 phases, 1-2 sessions each):
+
+- **ψ.19** Reading plans (chronological / one-year / M'Cheyne /
+  lectionary-rcl / lectionary-roman / monthly-psalms /
+  biblical-feasts) — every commercial study Bible has them; ours
+  doesn't yet. Per-edition opt-in via `enabled_reading_plans`.
+- **ω.16** Edition snapshots — immutable v-tagged retail snapshots
+  for audit trail. Cloning a snapshot creates the natural v1.1
+  development path.
+- **π.6** Cover designer (text + gradient + font) — extends π.4
+  cover system. Generates from text input for buyers without
+  graphic-design skills.
+- **χ.10** Geographic atlas integration — place name → coords; map
+  links in popups. Source: openbible.info PD atlas data. New
+  ATLAS cluster.
+- **χ.11** Calendrical / liturgical-year apparatus — feast days,
+  fast days, lectionary positions. ψ.7-A's eastern-orthodox /
+  anglican-bcp / coptic-orthodox / lutheran-confessional editions
+  are the natural primary consumers. New LITURGICAL cluster.
+- **ψ.24** Daily devotional generator (verse + notes → 30-day
+  PDF). Marketing artifact ("free 30-day devotional with every
+  Bible").
+- **τ.12** Modern critical text (NA28 / SBLGNT when rights are
+  diligenced).
+
+### LONG TRACK additions (4 phases, 2-3 sessions each):
+
+- **χ-AI-notes** AI-augmented note generation (build-time) —
+  extends χ-AI-xrefs investment from corpus-time xref proposing
+  to build-time per-edition note drafting. Cost-gated, mirrors
+  χ-AI-xrefs's confirm-cost guards.
+- **ψ.22** Multi-format export (PDF / MOBI / HTML / TXT alongside
+  EPUB) — Kindle/KDP submission needs MOBI; PDF for print;
+  HTML/TXT for accessibility. New BUILD-FORMATS cluster.
+- **ψ.23** Reverse-interlinear popups (Hebrew / Greek word-by-
+  word with English alignment) — academic / seminary market's
+  expected feature. Source: Berean Interlinear Bible (PD).
+- **θ.5** Localized UI (Spanish / Portuguese / French / German) —
+  **LIFTED from indefinitely deferred**. CLAUDE_PROJECT_RULES §10
+  "Not a multi-language UI" stance updated. Order of priority by
+  buyer-market size: Spanish → Portuguese → French → German.
+  New I18N cluster.
+
+### HARDENING TRACK addition (1 phase):
+
+- **ω.17** Crash reporting (Sentry-style, opt-in) — captures
+  Python traceback + OS / version metadata; no PII / no content;
+  first-launch dialog defaults to No. Ships with PRIVACY.md.
+
+### New clusters added to §8 cluster matrix:
+
+- **ATLAS** — χ.10
+- **LITURGICAL** — χ.11
+- **BUILD-FORMATS** — ψ.22
+- **COVERS** — π.4 + π.6 (existing covers cluster surfaced)
+- **SOURCES** — υ.3 + υ.8 (existing sources cluster surfaced)
+- **I18N** — θ.5
+
+### §10 of CLAUDE_PROJECT_RULES.md updated:
+
+The "Not a multi-language UI" stance is now `~~struck through~~`
+with a note pointing to PLAN θ.5 — interface in many languages
+joins the long-tail roadmap rather than being out of scope.
+
+### Ledger update in §7:
+
+Open block grew from 26 → 53 phases:
+
+```
+SHORT       12 phases  (was 7, +5)
+MEDIUM      24 phases  (was 16, +7; also expanded τ.2-11 range to
+                        explicit ids so plan_depends linter
+                        validates τ.5-B / τ.7 / τ.10 references)
+LONG        11 phases  (was 6, +4 + ρ.2-5 expanded)
+HARDENING    7 phases  (was 6, +1)
+RELEASE      1 phase   (unchanged)
+```
+
+### Pre-session ordering table extensions:
+
+§6's ordering table grew by 14 rows — every new phase + several
+re-organized existing entries. Each row maps "if session
+bandwidth is X" to a concrete phase candidate.
+
+End state: **984 tests green, 11/11 linter clean, 51,394 notes**.
+Plan-coherence linter shows: 108 shipped phases backed by
+CHANGELOG; 53 open phases confirmed not in CHANGELOG; 18 Depends:
+references all resolve.
+
+Notable findings during the brainstorm:
+
+- **Several "neat features" mapped onto existing partial work** —
+  ψ.21 sample export composes ψ.5 (✓ shipped); π.6 cover designer
+  composes π.4 (✓ shipped); χ-AI-notes mirrors χ-AI-xrefs (◐
+  infra). Lower-effort than greenfield.
+- **The localized UI lift was the only stance reversal.** Other
+  20+ phases were additions, not policy changes. CLAUDE_PROJECT_RULES
+  §10's update is the only place rules-doc semantics changed.
+- **Cluster matrix now has 16 clusters** (was 11). Phases
+  spreading across more clusters reflects the project's surface
+  area growing — but no cluster has more than 5 active phases, so
+  bundling stays tractable.
+
+Notable decisions:
+
+- **Did NOT spec the new phases inline.** Each new phase has a
+  one-paragraph description in §5 with Status / Depends / Unblocks
+  / Effort / Files / Cluster fields. Full SCOPE_*.md addenda are
+  optional and will be written when each phase actually ships
+  (matching the project's existing convention — most ψ.* / ω.*
+  phases ship without standalone SCOPE docs).
+- **Expanded the τ.2-τ.11 range to explicit ids** in §7's open
+  ledger (was "τ.2-τ.11 (10 phases bundled)"). The plan_depends
+  linter sub-check needs concrete ids to validate τ.5-B / τ.7 /
+  τ.10 references in the new MEDIUM-track phases. Same for
+  ρ.2-ρ.5 in LONG track.
+- **θ.5 is the only "stance reversal".** All other 17 phases were
+  forward-additive. CLAUDE_PROJECT_RULES §10 stance lift on
+  multi-language UI is the only doctrine change.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5 (open phases), §6 (ordering),
+  §7 (ledger), §8 (cluster matrix)
+- `dev/CLAUDE_PROJECT_RULES.md` §10 (stance lift on i18n)
+
+Next session: **ψ.7-A** — 4 new built-in editions per the SHORT
+TRACK ordering. Spec ready at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md`.
+
+---
+
 ## 2026-05-09 — session — ω.15 plan restructure + plan-coherence linter
 
 **Phases shipped:** ω.15 — full restructure of the master plan from

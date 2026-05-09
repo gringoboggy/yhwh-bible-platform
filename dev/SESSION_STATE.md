@@ -1,19 +1,32 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ω.15 plan restructure +
-plan-coherence linter** shipped — full step-back audit of the whole
-project per user ask. Replaced `dev/PLAN_2026-05-08.md` (now in
-`dev/archive/`) with `dev/PLAN_2026-05-09.md` (~530 lines,
-Track-based with explicit Depends/Unblocks/Files/Cluster per open
-phase). Lifted ψ.7-A (4 new built-in editions: eastern-orthodox /
-anglican-bcp / lutheran-confessional / coptic-orthodox) and ψ.7-B
-(starter-pack templates) to front of SHORT TRACK with full spec at
-`dev/SCOPE_2026-05-09-addendum-edition-templates.md`. New
-`scripts/lint_plan.py` enforces plan/CHANGELOG/Depends coherence;
+**Updated:** 2026-05-09, after **ω.15.1 plan additions** shipped —
+folded 17 new "neat feature" phases into PLAN_2026-05-09.md per
+user direction (chose maximally-broad fold-in option). Open ledger
+grew 26 → 53 phases. Phases added: SHORT (ψ.20 heat-map, ψ.21
+sample PDF, υ.3 search-across-editions, υ.8 verse-of-day feed,
+ψ.25 edition diff); MEDIUM (ψ.19 reading plans, ω.16 edition
+snapshots, π.6 cover designer, χ.10 atlas, χ.11 liturgical, ψ.24
+devotional, τ.12 modern critical text); LONG (χ-AI-notes,
+ψ.22 multi-format export, ψ.23 reverse-interlinear, θ.5
+localized UI); HARDENING (ω.17 crash reporting). Plus 6 new
+cluster types in §8 (ATLAS, LITURGICAL, BUILD-FORMATS, COVERS,
+SOURCES, I18N). Plus §10 of CLAUDE_PROJECT_RULES.md updated
+to lift the "Not a multi-language UI" stance (θ.5 made open
+contingent on real buyer ask). Pure planning work; no code
+change; plan_coherence linter still 4/4 clean. **984 / 984 tests
+green; 11/11 linter clean.**
+
+Prior ship: **ω.15 plan restructure + plan-coherence linter** —
+full step-back audit of the whole project per user ask. Replaced
+`dev/PLAN_2026-05-08.md` (now in `dev/archive/`) with
+`dev/PLAN_2026-05-09.md` (Track-based with explicit Depends/Unblocks/
+Files/Cluster per open phase). Lifted ψ.7-A (4 new built-in editions)
+and ψ.7-B (starter-pack templates) to front of SHORT TRACK with
+full spec at `dev/SCOPE_2026-05-09-addendum-edition-templates.md`.
+New `scripts/lint_plan.py` enforces plan/CHANGELOG/Depends coherence;
 composed into `lint_rules.py:check_plan_coherence` as the 11th
-master check. Bootstrap pointer (CLAUDE_PROJECT_RULES §0 +
-memory/reference_bootstrap.md) now points at PLAN_2026-05-09.md.
-+13 tests; 984 / 984 green; 11/11 linter clean.
+master check. +13 tests; 984 / 984 green; 11/11 linter clean.
 
 Prior ship: **ψ.15 editor-console polish** — applied the ψ.13
 design system (`HEADER_NAV_LINKS` from `_design.CONSOLES`) + ψ.14
@@ -254,7 +267,54 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ω.15 plan restructure + plan-coherence linter
+## Current phase: ω.15.1 plan additions (17 phases + θ.5 lift)
+
+User reviewed PLAN_2026-05-09.md and asked for "neat features"
+to add. Chose maximally-broad fold-in option: all 8 strong + all
+8 interesting + lift θ.5 from deferred to open.
+
+```
+✓ dev/PLAN_2026-05-09.md                §5 OPEN PHASES grew from
+                                        12 to 29 sub-sections
+                                        across SHORT/MEDIUM/LONG/
+                                        HARDENING. §6 ordering
+                                        table grew by 14 rows.
+                                        §7 ledger Open block grew
+                                        26 → 53 phases. §8
+                                        cluster matrix: 11 → 16
+                                        clusters (added ATLAS,
+                                        LITURGICAL, BUILD-FORMATS,
+                                        COVERS, SOURCES, I18N).
+✓ dev/CLAUDE_PROJECT_RULES.md           §10 "Not a multi-language
+                                        UI" stance struck through
+                                        (lifted to LONG-track open
+                                        as θ.5 contingent on real
+                                        buyer ask).
+~ Tests / lint                          unchanged: 984 tests; 11/11
+                                        linter clean (incl. the
+                                        plan-coherence sub-check
+                                        all 4/4: plan_singular /
+                                        plan_shipped (108) /
+                                        plan_open (53) /
+                                        plan_depends (18 valid).
+~ Corpus delta                          0 — pure planning work.
+
+Phases added by track:
+
+  SHORT     ψ.20  ψ.21  υ.3  υ.8  ψ.25
+  MEDIUM    ψ.19  ω.16  π.6  χ.10  χ.11  ψ.24  τ.12
+  LONG      χ-AI-notes  ψ.22  ψ.23  θ.5
+  HARDENING ω.17
+
+  + τ.2-11 / ρ.2-5 ranges expanded to explicit phase ids in §7
+    so plan_depends linter validates τ.5-B / τ.7 / τ.10 refs.
+```
+
+Next: **ψ.7-A** (4 new built-in editions) per the recommended
+5-session sequence. Spec at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md`.
+
+## Prior phase: ω.15 plan restructure + plan-coherence linter
 
 Step-back audit of the whole project. New PLAN_2026-05-09.md
 replaces 2026-05-08 with Track-based organization (RELEASE / SHORT

@@ -847,9 +847,13 @@ pattern.
 
 - Not a learning management system. Schools are an audience,
   not a feature category.
-- Not a multi-language UI. The editorial apparatus is English.
-  Bible *content* in many languages is the whole point;
-  *interface* in many languages is out of scope.
+- ~~Not a multi-language UI.~~ Lifted 2026-05-09 (PLAN θ.5).
+  The editorial apparatus baseline is English; localized UI
+  shells (Spanish, Portuguese, French, German) are now in scope
+  for the LONG TRACK once a real buyer ask materializes. Bible
+  *content* in many languages remains the whole point;
+  *interface* in many languages joins it as a long-tail roadmap
+  item rather than out of scope.
 - Not a print-on-demand pipeline. Focus is digital retail.
   Print PDF (σ.4) is in the deferred list; not blocking the
   demo.

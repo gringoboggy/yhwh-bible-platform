@@ -4,8 +4,36 @@
 
 ## Active task
 
-*(none — tracker is idle. **ω.15 plan restructure + plan-coherence
-linter** shipped 2026-05-09. New plan + new linter + new addendum +
+*(none — tracker is idle. **ω.15.1 plan additions** shipped
+2026-05-09. Folded 17 new phases into PLAN_2026-05-09.md per user's
+"all strong + all interesting + lift θ.5" choice. Open ledger grew
+26 → 53. New clusters: ATLAS, LITURGICAL, BUILD-FORMATS, COVERS,
+SOURCES, I18N. §10 multi-language UI stance lifted.
+
+End state: 984 tests green, 11/11 linter clean (incl. all 4
+plan-coherence sub-checks), 51,394 notes.
+
+Phases added:
+- **SHORT** (5): ψ.20 heat-map, ψ.21 sample PDF, υ.3 search,
+  υ.8 verse-of-day, ψ.25 edition diff
+- **MEDIUM** (7): ψ.19 reading plans, ω.16 snapshots, π.6 cover
+  designer, χ.10 atlas, χ.11 liturgical, ψ.24 devotional, τ.12
+  modern critical text
+- **LONG** (4): χ-AI-notes, ψ.22 multi-format export, ψ.23
+  reverse-interlinear, θ.5 localized UI (LIFTED)
+- **HARDENING** (1): ω.17 crash reporting
+
+Next per the recommended 5-session sequence: **ψ.7-A** — 4 new
+built-in editions (eastern-orthodox + anglican-bcp +
+lutheran-confessional + coptic-orthodox). Spec ready at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md`. Pure
+data-only edits to content/editions.yaml; ~1 session, LOW risk.
+
+---
+
+## Prior task
+
+**ω.15 plan restructure + plan-coherence linter** shipped 2026-05-09. New plan + new linter + new addendum +
 +13 tests + bootstrap pointer updates. End state: 984 tests green,
 11/11 linter clean, 51,394 notes. Three deliverables:
 
