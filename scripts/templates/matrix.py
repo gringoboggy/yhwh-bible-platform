@@ -66,6 +66,32 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   details.psi181-drilldown[open] > summary .psi181-arrow {
     transform: rotate(90deg);
   }
+  /* ψ.20 — heat-map cells. Aspect-1 squares with smooth color
+     transitions on toggle-driven re-renders. */
+  .psi20-cell {
+    aspect-ratio: 1 / 1;
+    border-radius: 3px;
+    cursor: default;
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    line-height: 1;
+    padding-top: 2px;
+    overflow: hidden;
+    transition: background 200ms ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .psi20-cell.empty {
+    color: #94a3b8;
+    background: #e2e8f0;
+  }
+  .psi20-legend-cell {
+    width: 1em;
+    height: 0.7em;
+    border-radius: 2px;
+    display: inline-block;
+  }
 </style>
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
@@ -181,6 +207,31 @@ MATRIX_HTML = r"""<!DOCTYPE html>
         <div id="totals-list" class="space-y-2"></div>
         <div class="text-xs text-slate-400 mt-3 leading-relaxed">
           Sparkline shows note distribution across the edition's books in canonical order. Hover for per-book counts.
+        </div>
+      </section>
+
+      <!-- ψ.20 — note-density heat-map. Per-book grid colored by
+           note-count percentile. Reuses Matrix.per_book data;
+           respects LOCAL_ENABLED so the visual updates as the
+           operator toggles kinds. -->
+      <section class="bg-white rounded-lg shadow-sm border border-slate-200 p-4" id="psi20-heatmap-section">
+        <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-2">Density heat-map</h3>
+        <div class="text-xs text-slate-400 mb-3">
+          Per-book note count for currently-enabled kinds. Greener = denser; redder = sparse. Hover for the exact count.
+        </div>
+        <div id="psi20-heatmap-grid" class="grid gap-1"
+             style="grid-template-columns: repeat(auto-fill, minmax(2.4em, 1fr));">
+          <!-- JS-populated cells -->
+        </div>
+        <div class="flex items-center justify-between text-[0.65rem] text-slate-500 mt-3 leading-tight gap-1">
+          <span class="psi20-legend-cell" style="background:#dc2626"></span>
+          <span class="flex-1 text-center">sparse</span>
+          <span class="psi20-legend-cell" style="background:#f59e0b"></span>
+          <span class="flex-1 text-center">mid</span>
+          <span class="psi20-legend-cell" style="background:#16a34a"></span>
+          <span class="flex-1 text-center">dense</span>
+          <span class="psi20-legend-cell" style="background:#e2e8f0"></span>
+          <span class="flex-1 text-center">empty</span>
         </div>
       </section>
     </aside>
@@ -757,6 +808,76 @@ function renderSymbolTotals() {
       </div>
     </details>
   `;}).join('');
+
+  // ψ.20 — render the density heat-map alongside the symbol
+  // totals. Same data source (m.per_book), same toggle semantics
+  // (sums across LOCAL_ENABLED).
+  renderDensityHeatmap();
+}
+
+// ψ.20 — note-density heat-map. Cells are colored by percentile
+// rank within the visible-book range; greener = denser, redder =
+// sparser. Empty books (no notes for any enabled kind) get a
+// muted gray cell so they're still visible in the canon order.
+function renderDensityHeatmap() {
+  const m = DATA.matrix[ACTIVE_EDITION];
+  const grid = document.getElementById('psi20-heatmap-grid');
+  if (!m || !m.per_book || !grid) return;
+  const canon = m.canon_book_order || [];
+  if (canon.length === 0) {
+    grid.innerHTML = '<div class="text-xs text-slate-400">no books in canon</div>';
+    return;
+  }
+  // Per-book sum across LOCAL_ENABLED kinds.
+  const perBook = m.per_book;
+  const enabled = LOCAL_ENABLED;
+  const counts = canon.map(code => {
+    let total = 0;
+    for (const kindCode of enabled) {
+      const bookCounts = perBook[kindCode];
+      if (bookCounts && bookCounts[code]) {
+        total += bookCounts[code];
+      }
+    }
+    return {code, count: total};
+  });
+  // Find max for percentile coloring.
+  const max = counts.reduce((a, c) => Math.max(a, c.count), 0);
+  const cells = counts.map(({code, count}) => {
+    if (count === 0) {
+      return `<div class="psi20-cell empty" title="${escapeAttr(code)}: 0">${escapeText(code)}</div>`;
+    }
+    // Linear interpolation across red → amber → green based on
+    // percentile rank against `max` (clamped to >= 1 so a single
+    // book with notes doesn't divide by zero).
+    const denom = Math.max(max, 1);
+    const pct = count / denom;  // 0..1
+    const color = psi20HeatColor(pct);
+    return `<div class="psi20-cell" style="background:${color}" title="${escapeAttr(code)}: ${count.toLocaleString()} note${count === 1 ? '' : 's'}">${escapeText(code)}</div>`;
+  }).join('');
+  grid.innerHTML = cells;
+}
+
+// Linear interpolation across the red-amber-green stops. Returns
+// an "rgb(r,g,b)" string. Uses Tailwind's red-600 (#dc2626),
+// amber-500 (#f59e0b), green-600 (#16a34a) as endpoints.
+function psi20HeatColor(pct) {
+  // Two segments: 0..0.5 → red→amber; 0.5..1 → amber→green.
+  const stops = [
+    [0.0, 220, 38, 38],   // red-600
+    [0.5, 245, 158, 11],  // amber-500
+    [1.0, 22, 163, 74],   // green-600
+  ];
+  let i = 0;
+  while (i < stops.length - 1 && pct > stops[i + 1][0]) i++;
+  const [t0, r0, g0, b0] = stops[i];
+  const [t1, r1, g1, b1] = stops[i + 1] || stops[i];
+  const span = (t1 - t0) || 1;
+  const f = Math.max(0, Math.min(1, (pct - t0) / span));
+  const r = Math.round(r0 + (r1 - r0) * f);
+  const g = Math.round(g0 + (g1 - g0) * f);
+  const b = Math.round(b0 + (b1 - b0) * f);
+  return `rgb(${r},${g},${b})`;
 }
 
 function escapeText(s) {

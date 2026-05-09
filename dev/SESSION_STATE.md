@@ -1,7 +1,18 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.1.2 wizard preview iframe**
-shipped — third and final sub-phase of the ψ.1 live EPUB preview
+**Updated:** 2026-05-09, after **ψ.20 note-density heat-map**
+shipped — per-book heat-map in /matrix sidebar (third panel
+after Symbol totals + Categories breakdown). Color-graded
+red-600 → amber-500 → green-600 on note-count percentile
+within visible-book range. Empty books get muted slate-200
+cells with slate-400 text so they stay visible in canon order.
+Reuses Matrix.per_book data from ψ.18 — no new API endpoint,
+no server-side change. Triggered from renderSymbolTotals so
+the heatmap stays in sync with toggle-driven re-renders.
++10 tests in TestPsi20DensityHeatmap. **1093 / 1093 tests green;
+11/11 linter clean.**
+
+Prior ship: **ψ.1.2 wizard preview iframe** — — third and final sub-phase of the ψ.1 live EPUB preview
 cluster. Adds a live preview iframe to /wizard step 6 (Review)
 plumbed to the same `/api/preview/` endpoint as ψ.1.1's modal.
 Same iframe sandbox + debounce + localStorage pattern as ψ.1.1.
@@ -374,7 +385,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 1083 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
+13 consoles · 1093 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -401,7 +412,49 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.1.2 wizard preview iframe (closes ψ.1 cluster)
+## Current phase: ψ.20 note-density heat-map
+
+Third panel in the /matrix sidebar (after Symbol totals + Categories
+breakdown). Per-book grid colored red→amber→green by note-count
+percentile across the visible-book range. Reuses Matrix.per_book
+data flow from ψ.18 — single render path covers all three panels.
+
+```
+✓ scripts/templates/matrix.py           <section id="psi20-heatmap-
+                                        section"> with 4-level
+                                        legend; .psi20-cell CSS
+                                        with 200ms color transition;
+                                        renderDensityHeatmap()
+                                        function reads m.per_book
+                                        + LOCAL_ENABLED;
+                                        psi20HeatColor() interp
+                                        across red-600 / amber-500
+                                        / green-600 anchor stops;
+                                        triggered from
+                                        renderSymbolTotals so all
+                                        three sidebar panels stay
+                                        in sync.
+✓ tests/test_scripts.py                 +10 tests in
+                                        TestPsi20DensityHeatmap
+                                        (section + grid + legend +
+                                        renderer + color interp +
+                                        trigger from totals + reads
+                                        per_book + canon order +
+                                        empty-cell styling +
+                                        tooltip).
+~ Corpus delta                          0 — pure UI.
+                                        Visual review on user:
+                                        open /matrix; verify the
+                                        heatmap shows 87 cells in
+                                        canon order; toggle kinds
+                                        to see colors update.
+```
+
+Next: pick any v1.x phase from PLAN §6 — ρ.1 LibriVox audio,
+χ.2 Matthew Henry, ψ.21 sample PDF, ω.18 lint --fix, υ.3
+search-across-editions, etc.
+
+## Prior phase: ψ.1.2 wizard preview iframe (closes ψ.1 cluster)
 
 Final sub-phase of ψ.1. The ψ.1 cluster (composer + customize
 modal + wizard iframe) is now complete.

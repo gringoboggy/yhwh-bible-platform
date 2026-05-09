@@ -14546,3 +14546,80 @@ class TestPsi12WizardPreviewIframe:
         assert "persisted state" in self.html.lower() or \
             "Wizard edits apply on Build" in self.html
 
+
+class TestPsi20DensityHeatmap:
+    """ψ.20 — note-density heat-map on /matrix sidebar. Per-book
+    grid colored green→amber→red on note-count percentile within
+    the visible-book range. Reuses Matrix.per_book data; respects
+    LOCAL_ENABLED so the visual updates as kinds toggle."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.matrix import MATRIX_HTML
+        cls.html = MATRIX_HTML
+
+    def test_heatmap_section_present(self):
+        assert 'id="psi20-heatmap-section"' in self.html
+        assert 'id="psi20-heatmap-grid"' in self.html
+
+    def test_heatmap_section_label(self):
+        assert "Density heat-map" in self.html
+
+    def test_heatmap_legend_present(self):
+        # 4-level legend: sparse / mid / dense / empty
+        for label in ("sparse", "mid", "dense", "empty"):
+            assert label in self.html, f"missing legend label {label}"
+
+    def test_renderer_function_present(self):
+        assert "function renderDensityHeatmap" in self.html
+
+    def test_color_interpolation_function_present(self):
+        # The red→amber→green linear interp helper
+        assert "function psi20HeatColor" in self.html
+        # Anchor stops (Tailwind red-600 / amber-500 / green-600)
+        assert "220, 38, 38" in self.html or "220,38,38" in self.html
+        assert "245, 158, 11" in self.html or "245,158,11" in self.html
+        assert "22, 163, 74" in self.html or "22,163,74" in self.html
+
+    def test_renderer_called_from_render_symbol_totals(self):
+        # ψ.18's renderSymbolTotals() now also calls
+        # renderDensityHeatmap() so the heatmap stays in sync with
+        # the symbol-totals data — both share the same data flow.
+        idx = self.html.find("function renderSymbolTotals")
+        assert idx >= 0
+        body = self.html[idx:idx + 8000]
+        assert "renderDensityHeatmap()" in body
+
+    def test_renderer_reads_per_book_data(self):
+        # The heatmap reads m.per_book (already surfaced by
+        # /api/matrix per ψ.18) — no new API endpoint needed.
+        idx = self.html.find("function renderDensityHeatmap")
+        body = self.html[idx:idx + 3000]
+        assert "m.per_book" in body
+        assert "LOCAL_ENABLED" in body
+
+    def test_renderer_respects_canon_order(self):
+        # Cells are emitted in m.canon_book_order order, matching
+        # the project's §6.1 canonical book order rule.
+        idx = self.html.find("function renderDensityHeatmap")
+        body = self.html[idx:idx + 3000]
+        assert "canon_book_order" in body
+
+    def test_empty_book_styling(self):
+        # Books with zero notes-of-enabled-kinds get a muted gray
+        # cell (psi20-cell.empty) — visible in canon order but
+        # distinguishable from low-density.
+        assert ".psi20-cell.empty" in self.html
+        # The renderer produces a class="psi20-cell empty" branch
+        idx = self.html.find("function renderDensityHeatmap")
+        body = self.html[idx:idx + 3000]
+        assert 'psi20-cell empty' in body
+
+    def test_cell_tooltip_includes_count(self):
+        # Hover reveals exact count via title= attribute.
+        idx = self.html.find("function renderDensityHeatmap")
+        body = self.html[idx:idx + 3000]
+        assert "title=" in body
+        # Per-cell tooltip pattern: book code + count.
+        assert "toLocaleString" in body
+

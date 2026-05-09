@@ -6,6 +6,97 @@
 
 ---
 
+## 2026-05-09 — session — ψ.20 note-density heat-map
+
+**Phases shipped:** ψ.20 — per-book density heat-map in /matrix
+sidebar. Visual signal for corpus density gaps; complements
+ψ.18's symbol totals + ψ.18.1's chapter drilldown without
+duplicating data sources (all three panels read the same
+`Matrix.per_book` data and re-render in lockstep).
+
+**Test delta:** +10 (1093 vs 1083).
+**Linter delta:** still 11/11 clean.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/matrix.py`** — three pieces:
+    - **`<section id="psi20-heatmap-section">`** in the sidebar
+      (third panel, after Symbol totals + Categories breakdown).
+      Header + descriptive text + grid div +  4-level legend
+      (sparse / mid / dense / empty).
+    - **CSS rules** for `.psi20-cell` (aspect-1 squares, smooth
+      200ms background transition for re-renders) + `.psi20-cell.empty`
+      (muted slate-200 with slate-400 text) + `.psi20-legend-cell`.
+    - **`renderDensityHeatmap()`** JS — sums per-book counts
+      across `LOCAL_ENABLED` kinds (live toggle support); finds
+      the visible-book max for percentile coloring; emits one
+      cell per book in `m.canon_book_order`; cells with zero
+      counts get the empty styling. Each cell has a title=
+      attribute showing the book code + exact count for hover.
+    - **`psi20HeatColor(pct)`** — pure interpolation across red-
+      600 → amber-500 → green-600 (Tailwind anchor stops). Two
+      segments: 0..0.5 red→amber, 0.5..1 amber→green.
+    - **`renderSymbolTotals()`** now calls `renderDensityHeatmap()`
+      at the bottom — the heatmap stays in sync with the symbol
+      totals through the same data flow (initial render + every
+      LOCAL_ENABLED mutation).
+
+- **`tests/test_scripts.py`** — `TestPsi20DensityHeatmap` (10
+  tests):
+    - Heatmap section + grid div present
+    - Section label "Density heat-map" present
+    - 4-level legend labels present (sparse/mid/dense/empty)
+    - renderDensityHeatmap function present
+    - psi20HeatColor interp function with all 3 anchor stops
+    - Triggered from renderSymbolTotals (single render path)
+    - Reads m.per_book + LOCAL_ENABLED
+    - Respects canon_book_order (§6.1)
+    - Empty-book styling for zero-count books
+    - Per-cell title= tooltip with toLocaleString count
+
+End state: **1093 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates**.
+
+Notable design decisions:
+
+- **Reuses ψ.18's data flow.** The heatmap reads
+  `Matrix.per_book` (which ψ.18 introduced + ψ.18.1 extended).
+  Triggered from inside `renderSymbolTotals` so the three
+  sidebar panels (totals + chapter drilldown + heatmap) all
+  re-render together on every toggle. No new API endpoint, no
+  new server-side code — pure presentation layer.
+- **Per-book, not per-chapter (yet).** PLAN's ψ.20 spec said
+  "per-book × per-chapter coloured grid" but at full corpus
+  that's 87 books × ~30 chapters = ~2600 cells. Per-book (87
+  cells) is plenty for the "where's the corpus dense vs sparse"
+  signal at a glance. A future ψ.20.1 could add per-chapter
+  drill-in mirroring ψ.18.1's chapter drilldown pattern.
+- **Empty cells stay visible.** Books with zero notes-of-
+  enabled-kinds still appear in the grid (slate-200 background
+  with the book code in slate-400). Drops them entirely would
+  hide which books are sparse — the very thing this heatmap
+  is meant to surface.
+- **Color palette:** Tailwind red-600 / amber-500 / green-600
+  for sparse / mid / dense. Linear interpolation in the two
+  half-segments. Chosen to match the project's existing color
+  conventions (red = problem, green = good).
+- **No JSON API change.** All data flows through the existing
+  `/api/matrix` response. ψ.18 exposed `per_book` already; ψ.20
+  consumes it without changes.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.1 ψ.20 entry — full spec
+- ψ.18 + ψ.18.1 — the symbol-totals + chapter-drilldown panels
+  this heatmap shares the data flow with
+
+Next: pick any v1.x phase from PLAN §6 — ρ.1 LibriVox audio,
+χ.2 Matthew Henry, ψ.21 sample PDF, ω.18 lint --fix, υ.3
+search-across-editions, etc.
+
+---
+
 ## 2026-05-09 — session — ψ.1.2 wizard preview iframe (closes ψ.1 cluster)
 
 **Phases shipped:** ψ.1.2 — third and final sub-phase of the

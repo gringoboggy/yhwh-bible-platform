@@ -4,8 +4,31 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.1.2 wizard preview iframe** shipped
-2026-05-09 — third and final sub-phase of the ψ.1 cluster. Adds a live preview iframe to /wizard step 6 (Review) plumbed to
+*(none — tracker is idle. **ψ.20 note-density heat-map** shipped
+2026-05-09. Per-book heat-map in /matrix sidebar (third panel after Symbol
+totals + Categories breakdown). Color-graded red-600 → amber-500
+→ green-600 on note-count percentile across visible-book range.
+Empty books get muted slate-200 cells. Reuses Matrix.per_book
+data — no new API endpoint. Triggered from renderSymbolTotals so
+all three sidebar panels stay in sync. +10 tests. End state:
+1093 tests, 11/11 linter, 51,394 notes.
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /matrix; verify the heatmap shows 87 cells in canon
+    # order in the sidebar (third panel below Symbol totals).
+    # Toggle kinds and watch the colors update. Hover any cell
+    # for the exact count.
+
+Next: pick any v1.x phase from PLAN §6.
+
+---
+
+## Prior task
+
+**ψ.1.2 wizard preview iframe** shipped 2026-05-09 — third and
+final sub-phase of the ψ.1 cluster. Adds a live preview iframe to /wizard step 6 (Review) plumbed to
 the same `/api/preview/` endpoint as ψ.1.1's modal. Same iframe
 sandbox + 300ms debounce + localStorage pattern. Honest status
 strip about persisted-state rendering (live form-state preview
