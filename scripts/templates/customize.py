@@ -12,6 +12,7 @@ inlined from `_design`, mirroring the ψ.14 buyer-arc pattern.
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 CUSTOMIZE_HTML = r"""<!DOCTYPE html>
@@ -38,6 +39,17 @@ CUSTOMIZE_HTML = r"""<!DOCTYPE html>
   }
   .dirty { background: #fef3c7; }
   .saved { background: #d1fae5; transition: background 1s; }
+  /* ν.2.8 — visual section boundaries within an edition card.
+     Each <section class="ed-section"> gets a thin top border so the
+     identity row, metadata row, and accordion zones read as
+     distinct chunks instead of one undifferentiated grid. */
+  .ed-section { padding-top: 0.75rem; padding-bottom: 0.5rem;
+                border-top: 1px solid #e2e8f0; }
+  .ed-section:first-of-type { border-top: 0; padding-top: 0; }
+  .ed-section-label { display: block; font-size: 0.65rem;
+                      text-transform: uppercase; letter-spacing: 0.05em;
+                      color: #94a3b8; margin-bottom: 0.5rem;
+                      font-weight: 600; }
 </style>
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
@@ -83,7 +95,7 @@ CUSTOMIZE_HTML = r"""<!DOCTYPE html>
 
   <section class="bg-white rounded-lg shadow-sm border border-slate-200 mb-6">
     <div class="px-4 py-3 border-b border-slate-200">
-      <h2 class="font-semibold">Editions <span class="text-xs text-slate-500 font-normal">(5)</span></h2>
+      <h2 class="font-semibold">Editions <span id="editions-count" class="text-xs text-slate-500 font-normal"></span></h2>
       <p class="text-xs text-slate-500">title · audience · verse-popup behavior · custom verse marker</p>
     </div>
     <div id="ed-body" class="divide-y divide-slate-100"></div>
@@ -91,7 +103,7 @@ CUSTOMIZE_HTML = r"""<!DOCTYPE html>
 
   <section class="bg-white rounded-lg shadow-sm border border-slate-200 mb-6">
     <div class="px-4 py-3 border-b border-slate-200">
-      <h2 class="font-semibold">Categories <span class="text-xs text-slate-500 font-normal">(14)</span></h2>
+      <h2 class="font-semibold">Categories <span id="categories-count" class="text-xs text-slate-500 font-normal"></span></h2>
       <p class="text-xs text-slate-500">the inline glyph + family label for each category</p>
     </div>
     <table class="w-full text-sm">
@@ -109,7 +121,7 @@ CUSTOMIZE_HTML = r"""<!DOCTYPE html>
 
   <section class="bg-white rounded-lg shadow-sm border border-slate-200 mb-6">
     <div class="px-4 py-3 border-b border-slate-200">
-      <h2 class="font-semibold">Kinds <span class="text-xs text-slate-500 font-normal">(63 — grouped by category)</span></h2>
+      <h2 class="font-semibold">Kinds <span id="kinds-count" class="text-xs text-slate-500 font-normal"></span></h2>
       <p class="text-xs text-slate-500">label-level customization per kind · symbol inherits from category by default</p>
     </div>
     <div id="kinds-body" class="p-2"></div>
@@ -128,47 +140,62 @@ async function init() {
   renderEditions();
   renderCategories();
   renderKinds();
+  // ν.2.8 — update section counts dynamically (was hard-coded
+  // (5) / (14) / (63) — broke after ψ.7-A added 4 editions)
+  const setCount = (id, n, suffix) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '(' + n + (suffix ? ' ' + suffix : '') + ')';
+  };
+  setCount('editions-count',   (DATA.editions   || []).length, '');
+  setCount('categories-count', (DATA.categories || []).length, '');
+  setCount('kinds-count',      (DATA.kinds      || []).length, '— grouped by category');
 }
 
 function renderEditions() {
   const wrap = document.getElementById('ed-body');
   wrap.innerHTML = DATA.editions.map(e => `
     <div class="p-4" data-edition="${e.id}">
-      <div class="flex items-baseline justify-between mb-2 flex-wrap gap-2">
-        <div class="flex items-baseline gap-2">
-          <span class="font-mono text-xs text-slate-400">${e.id}</span>
-          <input class="label-input flex-1 min-w-72" data-field="title" value="${escapeAttr(e.title)}" maxlength="200" placeholder="title">
+      <section class="ed-section ed-identity">
+        <span class="ed-section-label">Identity &amp; appearance</span>
+        <div class="flex items-baseline justify-between mb-2 flex-wrap gap-2">
+          <div class="flex items-baseline gap-2">
+            <span class="font-mono text-xs text-slate-400">${e.id}</span>
+            <input class="label-input flex-1 min-w-72" data-field="title" value="${escapeAttr(e.title)}" maxlength="200" placeholder="title">
+          </div>
+          <div class="flex items-center gap-3 flex-wrap">
+            <label class="text-xs flex items-center gap-1.5 cursor-pointer select-none">
+              <input type="checkbox" data-field="verse_popups" ${e.verse_popups ? 'checked' : ''}>
+              verse-popup translations
+            </label>
+            <label class="text-xs flex items-center gap-1.5">
+              <span>show:</span>
+              <select class="label-input" data-field="popup_translation" title="which translation appears in verse-number popups (Phase τ.1.5)">
+                <option value="" ${!e.popup_translation ? 'selected' : ''}>(default)</option>
+                ${(DATA.translations || []).map(t => `<option value="${t.id}" ${e.popup_translation === t.id ? 'selected' : ''} title="${escapeAttr(t.title)} — ${escapeAttr(t.license)}">${escapeAttr(t.short_title)}</option>`).join('')}
+              </select>
+            </label>
+            <label class="text-xs flex items-center gap-1.5">
+              <span>marker:</span>
+              <input class="symbol-input" data-field="verse_marker_glyph" value="${escapeAttr(e.verse_marker_glyph)}" maxlength="4" placeholder="·" title="leave empty for default verse number">
+            </label>
+            <label class="text-xs flex items-center gap-1.5">
+              <span>theme:</span>
+              <select class="label-input" data-field="theme">
+                ${(DATA.themes || []).map(t => `<option value="${t.id}" ${e.theme === t.id ? 'selected' : ''} title="${escapeAttr(t.description)}">${escapeAttr(t.name)}</option>`).join('')}
+              </select>
+            </label>
+          </div>
         </div>
-        <div class="flex items-center gap-3 flex-wrap">
-          <label class="text-xs flex items-center gap-1.5 cursor-pointer select-none">
-            <input type="checkbox" data-field="verse_popups" ${e.verse_popups ? 'checked' : ''}>
-            verse-popup translations
-          </label>
-          <label class="text-xs flex items-center gap-1.5">
-            <span>show:</span>
-            <select class="label-input" data-field="popup_translation" title="which translation appears in verse-number popups (Phase τ.1.5)">
-              <option value="" ${!e.popup_translation ? 'selected' : ''}>(default)</option>
-              ${(DATA.translations || []).map(t => `<option value="${t.id}" ${e.popup_translation === t.id ? 'selected' : ''} title="${escapeAttr(t.title)} — ${escapeAttr(t.license)}">${escapeAttr(t.short_title)}</option>`).join('')}
-            </select>
-          </label>
-          <label class="text-xs flex items-center gap-1.5">
-            <span>marker:</span>
-            <input class="symbol-input" data-field="verse_marker_glyph" value="${escapeAttr(e.verse_marker_glyph)}" maxlength="4" placeholder="·" title="leave empty for default verse number">
-          </label>
-          <label class="text-xs flex items-center gap-1.5">
-            <span>theme:</span>
-            <select class="label-input" data-field="theme">
-              ${(DATA.themes || []).map(t => `<option value="${t.id}" ${e.theme === t.id ? 'selected' : ''} title="${escapeAttr(t.description)}">${escapeAttr(t.name)}</option>`).join('')}
-            </select>
-          </label>
+      </section>
+      <section class="ed-section ed-meta">
+        <span class="ed-section-label">Metadata</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <input class="label-input" data-field="short_title" value="${escapeAttr(e.short_title)}" maxlength="100" placeholder="short title">
+          <input class="label-input" data-field="isbn" value="${escapeAttr(e.isbn)}" maxlength="40" placeholder="ISBN">
+          <input class="label-input md:col-span-2" data-field="target_audience" value="${escapeAttr(e.target_audience)}" maxlength="500" placeholder="target audience">
+          <input class="label-input md:col-span-2" data-field="notes" value="${escapeAttr(e.notes)}" maxlength="500" placeholder="editorial notes">
         </div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-        <input class="label-input" data-field="short_title" value="${escapeAttr(e.short_title)}" maxlength="100" placeholder="short title">
-        <input class="label-input" data-field="isbn" value="${escapeAttr(e.isbn)}" maxlength="40" placeholder="ISBN">
-        <input class="label-input md:col-span-2" data-field="target_audience" value="${escapeAttr(e.target_audience)}" maxlength="500" placeholder="target audience">
-        <input class="label-input md:col-span-2" data-field="notes" value="${escapeAttr(e.notes)}" maxlength="500" placeholder="editorial notes">
-      </div>
+      </section>
 
       <details class="popup-langs-section mt-3 border border-slate-200 rounded bg-slate-50">
         <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
@@ -1492,12 +1519,5 @@ init().catch(e => {
 """
 
 
-# ψ.15: substitute the canonical nav link list from _design.CONSOLES.
-CUSTOMIZE_HTML = CUSTOMIZE_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/customize"),
-)
-CUSTOMIZE_HTML = CUSTOMIZE_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+CUSTOMIZE_HTML = apply_design_system(CUSTOMIZE_HTML, "/customize")

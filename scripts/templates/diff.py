@@ -12,6 +12,7 @@ substituted from `_design.HEADER_NAV_LINKS("/diff")` and
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 DIFF_HTML = r"""<!DOCTYPE html>
@@ -565,12 +566,5 @@ fetchDiff().catch(e => {
 """
 
 
-# ψ.16: substitute the canonical nav link list from _design.CONSOLES.
-DIFF_HTML = DIFF_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/diff"),
-)
-DIFF_HTML = DIFF_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+DIFF_HTML = apply_design_system(DIFF_HTML, "/diff")

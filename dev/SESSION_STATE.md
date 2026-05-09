@@ -1,7 +1,21 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.16 status-dashboard polish**
-shipped — applied the ψ.13 design system + ψ.14 buyer-arc polish
+**Updated:** 2026-05-09, after **ν.2.8 + ψ.11 + ψ.13.5 batch**
+shipped — three SHORT-track phases bundled per the recommended
+5-session sequence: **ν.2.8** customize visual sections (CSS-only
+`<section class="ed-section">` boundaries + dynamic counts on
+section headings replacing hard-coded `(5)/(14)/(63)`); **ψ.11**
+wizard step 2 polish (reversibility hint + 4 fieldset groups +
+label/for accessibility associations); **ψ.13.5** design-system
+consolidation (new `_design.apply_design_system(html, route)`
+helper replaces 13 per-template two-replace blocks with one
+helper call). Pure UX/refactor work; no API/data change. Pragmatic
+helper consolidation chosen over original "f-string sweep" idea
+because embedded JS/CSS braces would require escaping nightmare.
++20 tests across 3 new classes. **1048 / 1048 tests green; 11/11
+linter clean.**
+
+Prior ship: **ψ.16 status-dashboard polish** — applied the ψ.13 design system + ψ.14 buyer-arc polish
 CSS to /audit, /preflight, /ops, /diff, /apihelp (the 5 remaining
 status/dashboard consoles). Same substitution pattern as ψ.14
 (buyer-arc) and ψ.15 (editor consoles). With ψ.16 landed, **all
@@ -300,7 +314,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 1028 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
+13 consoles · 1048 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -327,7 +341,61 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.16 status-dashboard polish
+## Current phase: ν.2.8 + ψ.11 + ψ.13.5 (Session N+4 batch)
+
+Three SHORT-track phases bundled in one session per the
+recommended 5-session sequence to v1.0 release.
+
+```
+✓ scripts/templates/customize.py        ν.2.8: <section class=
+                                        "ed-section"> boundaries
+                                        on edition cards + dynamic
+                                        counts on section headings
+                                        (Editions/Categories/Kinds).
+                                        Hard-coded (5)/(14)/(63)
+                                        replaced with span ids that
+                                        init() fills from DATA.
+✓ scripts/templates/wizard.py           ψ.11: emerald-tinted
+                                        reversibility hint at top
+                                        of step 2; 4 fieldset
+                                        groups (Identity, Publisher
+                                        / imprint, ISBN, Copyright
+                                        & authors); label for=
+                                        attributes on all 8 inputs.
+✓ scripts/templates/_design.py          ψ.13.5: new
+                                        apply_design_system(html,
+                                        route) helper. Idempotent.
+                                        Future markers land in one
+                                        place.
+✓ 13 templates refactored               compare, wizard, export,
+                                        customize, publisher,
+                                        covers, matrix, sources,
+                                        audit, preflight, ops, diff,
+                                        apihelp — each replaced
+                                        per-file two-replace block
+                                        with single helper call.
+                                        Net delta: -104 boilerplate
+                                        + 1 helper.
+✓ tests/test_scripts.py                 +20 tests across 3 classes:
+                                        - TestNu28CustomizeVisualSections (7)
+                                        - TestPsi11WizardBrandingPolish (5)
+                                        - TestPsi135DesignSystemConsolidation (8)
+~ Corpus delta                          0 — pure UX/refactor.
+                                        Visual review on user:
+                                        open /customize (verify
+                                        section borders + correct
+                                        counts (9)/(14)/(67)),
+                                        open /wizard step 2
+                                        (verify reversibility hint
+                                        + 4 fieldset groups +
+                                        label clicks focus inputs).
+```
+
+Next per the recommended 5-session sequence: **v1.0.0** RELEASE
+motion (visual QA + binary build + git tag). All v1.0 candidate
+criteria are met.
+
+## Prior phase: ψ.16 status-dashboard polish
 
 All 12 cross-linked consoles now share `_design.HEADER_NAV_LINKS`
 for nav + `_design.BUYER_ARC_POLISH_CSS` for polish. Total tally

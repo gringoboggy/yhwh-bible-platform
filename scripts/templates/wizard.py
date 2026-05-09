@@ -11,6 +11,7 @@ Re-imported by scripts/web.py for back-compat with existing
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 WIZARD_HTML = r"""<!DOCTYPE html>
@@ -45,6 +46,15 @@ WIZARD_HTML = r"""<!DOCTYPE html>
   .label-text { font-size: 0.75rem; font-weight: 600; color: #475569;
                 text-transform: uppercase; letter-spacing: 0.03em;
                 margin-bottom: 0.25rem; display: block; }
+  /* ψ.11 — branding-step fieldset rhythm */
+  .psi11-group { border: 1px solid #e2e8f0; border-radius: 0.5rem;
+                 padding: 1rem 1.25rem 1.25rem; background: #fafbfc; }
+  .psi11-legend { font-size: 0.7rem; font-weight: 700; color: #475569;
+                  text-transform: uppercase; letter-spacing: 0.05em;
+                  background: white; padding: 0 0.5rem;
+                  border: 1px solid #e2e8f0; border-radius: 9999px;
+                  display: inline-block; margin-left: -0.25rem;
+                  margin-bottom: 0.25rem; }
   .pick-card {
     border: 2px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem;
     cursor: pointer; transition: all 0.2s; background: white;
@@ -176,42 +186,75 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     <!-- ───────── Step 2: Branding ───────── -->
     <section id="step-2" class="step-pane">
       <h2 class="text-2xl font-bold mb-1">2. Brand your edition</h2>
-      <p class="text-slate-600 mb-5">Title, publisher, ISBN, copyright. These appear on the copyright page and in store listings.</p>
+      <p class="text-slate-600 mb-3">Title, publisher, ISBN, copyright. These appear on the copyright page and in store listings.</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="md:col-span-2">
-          <label class="label-text">Title</label>
-          <input id="w-title" class="field-input" maxlength="200">
+      <!-- ψ.11 — reversibility hint. Going back preserves entries
+           in JS state until the user explicitly resets / closes
+           the tab. Nothing is persisted to disk until BUILD. -->
+      <p class="text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 rounded px-3 py-2 mb-5 flex items-center gap-2">
+        <span aria-hidden="true">↶</span>
+        <span>You can move between steps freely — entries on this page (and every page) survive navigation. Nothing is saved until you click <strong>BUILD</strong> on the final step.</span>
+      </p>
+
+      <!-- ψ.11 — fields grouped into 4 visual blocks: identity,
+           publisher, ISBN, copyright + authors. Each fieldset gets
+           a small uppercase label so the rhythm reads like a real
+           form rather than a flat field list. -->
+      <fieldset class="psi11-group mb-4">
+        <legend class="psi11-legend">Identity</legend>
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <label class="label-text" for="w-title">Title</label>
+            <input id="w-title" class="field-input" maxlength="200">
+          </div>
         </div>
-        <div>
-          <label class="label-text">Publisher / Imprint</label>
-          <input id="w-publisher_name" class="field-input" maxlength="200">
+      </fieldset>
+
+      <fieldset class="psi11-group mb-4">
+        <legend class="psi11-legend">Publisher / imprint</legend>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="label-text" for="w-publisher_name">Publisher name</label>
+            <input id="w-publisher_name" class="field-input" maxlength="200">
+          </div>
+          <div>
+            <label class="label-text" for="w-publisher_url">Publisher URL</label>
+            <input id="w-publisher_url" class="field-input" maxlength="500" placeholder="https://...">
+          </div>
         </div>
-        <div>
-          <label class="label-text">Publisher URL</label>
-          <input id="w-publisher_url" class="field-input" maxlength="500" placeholder="https://...">
+      </fieldset>
+
+      <fieldset class="psi11-group mb-4">
+        <legend class="psi11-legend">ISBN</legend>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="label-text" for="w-isbn_epub">EPUB ISBN</label>
+            <input id="w-isbn_epub" class="field-input" maxlength="40" placeholder="978-1-XXXXX-XXX-X">
+          </div>
+          <div>
+            <label class="label-text" for="w-isbn_print">Print ISBN <span class="text-slate-400 normal-case font-normal">(optional)</span></label>
+            <input id="w-isbn_print" class="field-input" maxlength="40">
+          </div>
         </div>
-        <div>
-          <label class="label-text">ISBN (EPUB)</label>
-          <input id="w-isbn_epub" class="field-input" maxlength="40" placeholder="978-1-XXXXX-XXX-X">
+      </fieldset>
+
+      <fieldset class="psi11-group mb-4">
+        <legend class="psi11-legend">Copyright &amp; authors</legend>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="label-text" for="w-copyright_year">Copyright year</label>
+            <input id="w-copyright_year" class="field-input" maxlength="10">
+          </div>
+          <div>
+            <label class="label-text" for="w-copyright_holder">Copyright holder</label>
+            <input id="w-copyright_holder" class="field-input" maxlength="200">
+          </div>
+          <div class="md:col-span-2">
+            <label class="label-text" for="w-authors">Authors <span class="text-slate-400 normal-case font-normal">(one per line, "Name (role)")</span></label>
+            <textarea id="w-authors" rows="3" class="field-input font-mono text-sm" placeholder="Dr. Jane Editor (editor)&#10;Bishop John Smith (foreword)"></textarea>
+          </div>
         </div>
-        <div>
-          <label class="label-text">ISBN (Print)</label>
-          <input id="w-isbn_print" class="field-input" maxlength="40">
-        </div>
-        <div>
-          <label class="label-text">Copyright year</label>
-          <input id="w-copyright_year" class="field-input" maxlength="10">
-        </div>
-        <div>
-          <label class="label-text">Copyright holder</label>
-          <input id="w-copyright_holder" class="field-input" maxlength="200">
-        </div>
-        <div class="md:col-span-2">
-          <label class="label-text">Authors (one per line, "Name (role)")</label>
-          <textarea id="w-authors" rows="3" class="field-input font-mono text-sm" placeholder="Dr. Jane Editor (editor)&#10;Bishop John Smith (foreword)"></textarea>
-        </div>
-      </div>
+      </fieldset>
 
       <div class="mt-6 flex justify-between">
         <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
@@ -1069,12 +1112,5 @@ init().catch(e => {
 """
 
 
-# ψ.14: substitute the canonical nav link list from _design.CONSOLES.
-WIZARD_HTML = WIZARD_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/wizard"),
-)
-WIZARD_HTML = WIZARD_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+WIZARD_HTML = apply_design_system(WIZARD_HTML, "/wizard")

@@ -11,6 +11,7 @@ Re-imported by scripts/web.py for back-compat with existing
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 COMPARE_HTML = r"""<!DOCTYPE html>
@@ -436,12 +437,7 @@ COMPARE_HTML = r"""<!DOCTYPE html>
 """
 
 
-# ψ.14: substitute the canonical nav link list from _design.CONSOLES.
-COMPARE_HTML = COMPARE_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/compare"),
-)
-COMPARE_HTML = COMPARE_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution. Equivalent to
+# the prior two-replace sequence but routed through one helper so
+# new markers land in exactly one place going forward.
+COMPARE_HTML = apply_design_system(COMPARE_HTML, "/compare")

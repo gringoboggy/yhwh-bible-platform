@@ -14,6 +14,7 @@ sibling stay in the template (console-specific).
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 EXPORT_HTML = r"""<!DOCTYPE html>
@@ -689,11 +690,5 @@ init().catch(e => {
 # ψ.14: substitute the canonical nav link list from _design.CONSOLES.
 # Single source of truth — adding a console or renaming a label flows
 # through every consumer automatically.
-EXPORT_HTML = EXPORT_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/export"),
-)
-EXPORT_HTML = EXPORT_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+EXPORT_HTML = apply_design_system(EXPORT_HTML, "/export")

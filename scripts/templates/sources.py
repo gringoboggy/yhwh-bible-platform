@@ -12,6 +12,7 @@ inlined from `_design`, mirroring the ψ.14 buyer-arc pattern.
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 SOURCES_HTML = r"""<!DOCTYPE html>
@@ -827,12 +828,5 @@ init().catch(e => {
 """
 
 
-# ψ.15: substitute the canonical nav link list from _design.CONSOLES.
-SOURCES_HTML = SOURCES_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/sources"),
-)
-SOURCES_HTML = SOURCES_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+SOURCES_HTML = apply_design_system(SOURCES_HTML, "/sources")

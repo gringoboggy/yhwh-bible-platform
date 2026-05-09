@@ -6,6 +6,159 @@
 
 ---
 
+## 2026-05-09 — session — ν.2.8 + ψ.11 + ψ.13.5 (Session N+4 batch)
+
+**Phases shipped:** Three SHORT-track phases bundled in one
+session per the recommended 5-session sequence. They share the
+TEMPLATES + UX-MICRO clusters and don't conflict, so one save tag
+covers all three.
+
+  - **ν.2.8** — visual section boundaries on /customize via
+    `<section class="ed-section">` wrappers + dynamic counts on
+    Editions / Categories / Kinds headings (was hard-coded `(5)`
+    `(14)` `(63)` — broke after ψ.7-A added 4 editions).
+  - **ψ.11** — wizard step 2 (branding) gets reversibility hint
+    + 4 fieldset groups (Identity / Publisher / ISBN / Copyright
+    & authors) + label/for accessibility associations.
+  - **ψ.13.5** — design-system consolidation. New
+    `_design.apply_design_system(html, route)` helper replaces
+    13 per-template two-replace blocks with one helper call.
+
+**Test delta:** +20 (1048 vs 1028).
+**Linter delta:** still 11/11 clean.
+**Save tag this session:** pending.
+
+What shipped:
+
+### ν.2.8 — customize visual sections
+
+- **`scripts/templates/customize.py`**:
+  - New `.ed-section` CSS class: `padding-top: 0.75rem;
+    padding-bottom: 0.5rem; border-top: 1px solid #e2e8f0;` plus
+    `:first-of-type { border-top: 0; padding-top: 0; }` for the
+    no-top-border first section.
+  - New `.ed-section-label` CSS class — small uppercase pill
+    label (font-size 0.65rem, slate-400, letter-spacing 0.05em).
+  - `renderEditions()` JS template wraps the header row in
+    `<section class="ed-section ed-identity">` with label
+    "Identity & appearance"; wraps the 2-col metadata grid in
+    `<section class="ed-section ed-meta">` with label "Metadata".
+    No JS-state changes; pure markup re-organization.
+  - **Dynamic counts**: hard-coded `(5)`, `(14)`, `(63 — grouped
+    by category)` in section headings replaced with
+    `<span id="editions-count">`, `<span id="categories-count">`,
+    `<span id="kinds-count">` placeholders that `init()` fills
+    in from the API payload. Future ψ.* phases that add editions
+    no longer need to chase the literal number through the file.
+
+### ψ.11 — wizard step 2 polish
+
+- **`scripts/templates/wizard.py`**:
+  - **Reversibility hint** — small emerald-tinted callout at the
+    top of step 2 reassures the user that going Back preserves
+    entries and that nothing is saved until BUILD on the final
+    step.
+  - **4 fieldsets** wrap the 8 inputs into named groups
+    (Identity / Publisher / imprint / ISBN / Copyright & authors).
+    Each `<fieldset>` gets `class="psi11-group"` with light gray
+    background + rounded border; each `<legend>` is rendered as
+    a small pill label via `.psi11-legend` CSS (white background,
+    border, uppercase label).
+  - **Label `for` associations** added on every `<label>` element
+    (8 inputs × 1 label each = 8 new `for=` attributes). Screen
+    readers now correctly bind labels to their inputs; this also
+    makes clicking the label focus the input.
+
+### ψ.13.5 — design-system consolidation
+
+- **`scripts/templates/_design.py`**: new
+  `apply_design_system(html, current_route) -> str` helper. Runs
+  both substitutions (`HEADER_NAV_LINKS` + `BUYER_ARC_POLISH_CSS`)
+  in one call. Idempotent (running on already-substituted HTML is
+  a no-op). Future design-system markers land in one place.
+- **All 13 design-system-consuming templates** refactored from
+  the per-file two-replace pattern:
+
+  ```python
+  # before
+  XXXX_HTML = XXXX_HTML.replace(
+      "    <!-- HEADER_NAV_LINKS -->",
+      HEADER_NAV_LINKS("/route"),
+  )
+  XXXX_HTML = XXXX_HTML.replace(
+      "<!-- BUYER_ARC_POLISH_CSS -->",
+      BUYER_ARC_POLISH_CSS,
+  )
+
+  # after
+  XXXX_HTML = apply_design_system(XXXX_HTML, "/route")
+  ```
+
+  Templates touched: compare, wizard, export, customize, publisher,
+  covers, matrix, sources, audit, preflight, ops, diff, apihelp.
+- Each template adds `apply_design_system` to its existing
+  `from scripts.templates._design import (...)` line.
+- **Net delta**: −104 lines of per-template substitution
+  boilerplate, +1 helper. Each template now has one substitution
+  line instead of two `.replace()` blocks.
+
+### Tests
+
+  - `TestNu28CustomizeVisualSections` (7 tests): CSS rule for
+    `.ed-section` + `.ed-section-label`; identity + metadata
+    sections appear in renderEditions; dynamic-count placeholder
+    ids present; init JS reads DATA.editions/categories/kinds;
+    old hard-coded counts removed.
+  - `TestPsi11WizardBrandingPolish` (5 tests): reversibility
+    hint markup + green tint + BUILD reference; psi11-group +
+    psi11-legend CSS; 4 fieldset legends present; all 8 input
+    ids preserved; all 8 labels have `for=` attribute.
+  - `TestPsi135DesignSystemConsolidation` (8 tests): helper
+    exists in `_design`; substitutes HEADER_NAV_LINKS marker
+    correctly; substitutes BUYER_ARC_POLISH_CSS marker
+    correctly; idempotent on re-run; passes through HTML with no
+    markers; every one of 13 templates imports the helper; every
+    template's self-link is correctly font-semibold; no template
+    has lingering markers.
+
+End state: **1048 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates**.
+
+Notable decisions:
+
+- **Helper consolidation, not f-string conversion.** The original
+  ψ.13.5 spec said "f-string sweep". In practice, every template
+  contains heavy inline JS + CSS with `{...}` braces; converting
+  to f-strings would require escaping every brace as `{{...}}` —
+  a high-risk mass diff with no user-visible benefit. The helper
+  achieves the same single-source-of-truth goal (adding a new
+  design-system marker is now a one-place edit) without the
+  brace-escaping cost. Documented in the helper's docstring.
+- **`.ed-section` boundaries are CSS-only.** No JS state change;
+  the renderer's existing data flow is unchanged. The visual
+  improvement is purely additive — a publisher who liked the
+  prior layout sees the same fields, just with subtle separator
+  lines between zones.
+- **Dynamic counts surfaced ν.2.8's natural follow-on.** While
+  fixing the visual sections, the hard-coded `(5)` count was
+  obviously stale (had been since ψ.7-A). Folded the fix into
+  ν.2.8 since it's a one-line render addition that shares the
+  same template.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.1 (these 3 phases now in §7's
+  shipped block)
+- `dev/SCOPE_2026-05-08-addendum-prettification.md` (the ψ.11
+  + ψ.13 ancestor spec)
+
+Next session: **v1.0.0** RELEASE motion (visual QA + binary
+build + git tag) per the recommended 5-session sequence. All
+v1.0 candidate criteria are met (51,394 notes ≫ 25K floor; all
+ψ.10/12/13/14/15/16/17/18 + ω.8/9/10 + ξ.1/2/4 shipped).
+
+---
+
 ## 2026-05-09 — session — ψ.16 status-dashboard polish
 
 **Phases shipped:** ψ.16 — applied the ψ.13 design system

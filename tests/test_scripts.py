@@ -13997,4 +13997,226 @@ class TestPsi16StatusDashboardPolishCSS:
             )
 
 
+class TestNu28CustomizeVisualSections:
+    """ν.2.8 — /customize edition cards split into <section>
+    boundaries: Identity & appearance, Metadata. Plus dynamic
+    counts on Editions / Categories / Kinds headings (was hard-
+    coded `(5)` / `(14)` / `(63)` — broke after ψ.7-A added 4
+    editions)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.customize import CUSTOMIZE_HTML
+        cls.html = CUSTOMIZE_HTML
+
+    def test_ed_section_class_in_css(self):
+        # CSS rule for the new section boundary must exist.
+        assert ".ed-section {" in self.html
+        assert ".ed-section:first-of-type" in self.html
+
+    def test_ed_section_label_class_in_css(self):
+        assert ".ed-section-label {" in self.html
+
+    def test_identity_section_in_renderer(self):
+        # The renderEditions JS template must wrap the header row
+        # in <section class="ed-section ed-identity">.
+        assert "ed-section ed-identity" in self.html
+        assert "Identity &amp; appearance" in self.html
+
+    def test_metadata_section_in_renderer(self):
+        assert "ed-section ed-meta" in self.html
+        assert ">Metadata<" in self.html
+
+    def test_dynamic_count_ids_present(self):
+        # The hard-coded (5)/(14)/(63) counts are replaced with
+        # span placeholders that JS fills in.
+        assert 'id="editions-count"' in self.html
+        assert 'id="categories-count"' in self.html
+        assert 'id="kinds-count"' in self.html
+
+    def test_dynamic_count_js_present(self):
+        # The init() function should populate the count placeholders.
+        assert "editions-count" in self.html
+        assert "DATA.editions" in self.html
+        assert "DATA.categories" in self.html
+        assert "DATA.kinds" in self.html
+
+    def test_old_hardcoded_counts_removed(self):
+        # The literal `(5)` / `(14)` / `(63 — grouped...)` strings
+        # in the section headings are gone.
+        assert 'font-normal">(5)<' not in self.html
+        assert 'font-normal">(14)<' not in self.html
+        assert "(63 — grouped by category)" not in self.html
+
+
+class TestPsi11WizardBrandingPolish:
+    """ψ.11 — wizard step 2 branding form gets reversibility hint
+    + 4 fieldset groups (Identity, Publisher, ISBN, Copyright &
+    authors) for better field-grouping rhythm."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.wizard import WIZARD_HTML
+        cls.html = WIZARD_HTML
+
+    def test_reversibility_hint_present(self):
+        # The emerald-tinted reversibility hint sits at the top of
+        # step 2's body and reassures the user that going back
+        # preserves entries.
+        assert "bg-emerald-50" in self.html
+        assert "survive navigation" in self.html
+        assert "<strong>BUILD</strong>" in self.html
+
+    def test_psi11_group_class_in_css(self):
+        assert ".psi11-group {" in self.html
+        assert ".psi11-legend {" in self.html
+
+    def test_four_fieldset_groups_present(self):
+        # All 4 group legends rendered in step 2 body.
+        for legend in ("Identity", "Publisher / imprint",
+                        ">ISBN<", "Copyright &amp; authors"):
+            assert legend in self.html, f"missing legend {legend!r}"
+
+    def test_branding_fields_still_present_under_fieldsets(self):
+        # The original 8 input ids must still be in the rendered
+        # HTML — fieldset wrap is purely structural.
+        for input_id in (
+            "w-title", "w-publisher_name", "w-publisher_url",
+            "w-isbn_epub", "w-isbn_print",
+            "w-copyright_year", "w-copyright_holder", "w-authors",
+        ):
+            assert f'id="{input_id}"' in self.html, (
+                f"missing input {input_id} after fieldset refactor"
+            )
+
+    def test_label_for_attribute_associations(self):
+        # ψ.11 added `for=` attributes on every label so screen-
+        # readers correctly bind labels to inputs.
+        for input_id in (
+            "w-title", "w-publisher_name", "w-publisher_url",
+            "w-isbn_epub", "w-isbn_print",
+            "w-copyright_year", "w-copyright_holder", "w-authors",
+        ):
+            assert f'for="{input_id}"' in self.html, (
+                f"missing label for={input_id}"
+            )
+
+
+class TestPsi135DesignSystemConsolidation:
+    """ψ.13.5 — all 13 design-system-consuming templates use the
+    new `_design.apply_design_system(html, route)` helper instead
+    of per-file two-replace blocks."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates._design import (
+            apply_design_system, HEADER_NAV_LINKS, BUYER_ARC_POLISH_CSS,
+        )
+        cls.apply_design_system = staticmethod(apply_design_system)
+        cls.HEADER_NAV_LINKS = HEADER_NAV_LINKS
+        cls.BUYER_ARC_POLISH_CSS = BUYER_ARC_POLISH_CSS
+
+    def test_helper_exists(self):
+        from scripts.templates import _design
+        assert hasattr(_design, "apply_design_system")
+        assert callable(_design.apply_design_system)
+
+    def test_helper_substitutes_header_nav_marker(self):
+        html = (
+            'before\n    <!-- HEADER_NAV_LINKS -->\nafter\n'
+        )
+        out = self.apply_design_system(html, "/customize")
+        assert "<!-- HEADER_NAV_LINKS -->" not in out
+        # The substituted nav must contain the canonical links
+        assert 'href="/customize" class="font-semibold"' in out
+
+    def test_helper_substitutes_polish_css_marker(self):
+        html = "before <!-- BUYER_ARC_POLISH_CSS --> after"
+        out = self.apply_design_system(html, "/customize")
+        assert "<!-- BUYER_ARC_POLISH_CSS -->" not in out
+        assert "focus-visible" in out
+
+    def test_helper_is_idempotent(self):
+        # Running on already-substituted HTML is a no-op.
+        html = "before <!-- HEADER_NAV_LINKS --> after"
+        once = self.apply_design_system(html, "/customize")
+        twice = self.apply_design_system(once, "/customize")
+        assert once == twice
+
+    def test_helper_handles_html_with_no_markers(self):
+        # No-marker input passes through unchanged.
+        html = "<html><body>nothing here</body></html>"
+        out = self.apply_design_system(html, "/customize")
+        assert out == html
+
+    def test_all_13_templates_import_helper(self):
+        # Every design-system-consuming template imports
+        # apply_design_system from _design.
+        import importlib
+        templates = (
+            "compare", "wizard", "export",
+            "customize", "publisher", "covers", "matrix", "sources",
+            "audit", "preflight", "ops", "diff", "apihelp",
+        )
+        for name in templates:
+            mod = importlib.import_module(f"scripts.templates.{name}")
+            assert hasattr(mod, "apply_design_system"), (
+                f"{name}: doesn't import apply_design_system"
+            )
+
+    def test_all_13_templates_have_correct_self_links(self):
+        # Smoke: each rendered template's nav has its own route
+        # marked font-semibold (the "you are here" indicator).
+        from scripts.templates.compare import COMPARE_HTML
+        from scripts.templates.wizard import WIZARD_HTML
+        from scripts.templates.export import EXPORT_HTML
+        from scripts.templates.customize import CUSTOMIZE_HTML
+        from scripts.templates.publisher import PUBLISHER_HTML
+        from scripts.templates.covers import COVERS_HTML
+        from scripts.templates.matrix import MATRIX_HTML
+        from scripts.templates.sources import SOURCES_HTML
+        from scripts.templates.audit import AUDIT_HTML
+        from scripts.templates.preflight import PREFLIGHT_HTML
+        from scripts.templates.ops import OPS_HTML
+        from scripts.templates.diff import DIFF_HTML
+        from scripts.templates.apihelp import APIHELP_HTML
+        cases = (
+            (COMPARE_HTML,   "/compare"),
+            (WIZARD_HTML,    "/wizard"),
+            (EXPORT_HTML,    "/export"),
+            (CUSTOMIZE_HTML, "/customize"),
+            (PUBLISHER_HTML, "/publisher"),
+            (COVERS_HTML,    "/covers"),
+            (MATRIX_HTML,    "/matrix"),
+            (SOURCES_HTML,   "/sources"),
+            (AUDIT_HTML,     "/audit"),
+            (PREFLIGHT_HTML, "/preflight"),
+            (OPS_HTML,       "/ops"),
+            (DIFF_HTML,      "/diff"),
+            (APIHELP_HTML,   "/apihelp"),
+        )
+        for html, route in cases:
+            assert f'href="{route}" class="font-semibold"' in html, (
+                f"{route}: self-link missing font-semibold marker"
+            )
+
+    def test_all_13_templates_have_no_lingering_markers(self):
+        # Every template's HEADER_NAV_LINKS + BUYER_ARC_POLISH_CSS
+        # markers must be replaced post-import.
+        import importlib
+        templates = (
+            "compare", "wizard", "export",
+            "customize", "publisher", "covers", "matrix", "sources",
+            "audit", "preflight", "ops", "diff", "apihelp",
+        )
+        for name in templates:
+            mod = importlib.import_module(f"scripts.templates.{name}")
+            attr = name.upper() + "_HTML"
+            html = getattr(mod, attr)
+            assert "<!-- HEADER_NAV_LINKS -->" not in html, (
+                f"{name}: lingering HEADER_NAV_LINKS marker"
+            )
+            assert "<!-- BUYER_ARC_POLISH_CSS -->" not in html, (
+                f"{name}: lingering BUYER_ARC_POLISH_CSS marker"
+            )
 

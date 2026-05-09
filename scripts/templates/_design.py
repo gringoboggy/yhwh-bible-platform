@@ -272,3 +272,65 @@ def LOADING_STATE(label: str = "Loading…") -> str:
         f'{label}'
         '</div>'
     )
+
+
+# ----------------------------------------------------------------------
+# ψ.13.5 — design-system substitution helper.
+# ----------------------------------------------------------------------
+#
+# Phases ψ.14 / ψ.15 / ψ.16 each landed a per-template idiom:
+#
+#     XXXX_HTML = XXXX_HTML.replace(
+#         "    <!-- HEADER_NAV_LINKS -->",
+#         HEADER_NAV_LINKS("/route"),
+#     )
+#     XXXX_HTML = XXXX_HTML.replace(
+#         "<!-- BUYER_ARC_POLISH_CSS -->",
+#         BUYER_ARC_POLISH_CSS,
+#     )
+#
+# Repeated in 13 templates. ψ.13.5 consolidates them into one
+# helper so future substitutions (additional design-system markers)
+# land in exactly one place.
+#
+# Why a helper instead of f-string conversion (per the original
+# ψ.13.5 spec): the templates contain heavy inline JS + CSS with
+# `{...}` braces; converting to f-strings would require escaping
+# every brace as `{{...}}` — a high-risk mass diff with no
+# user-visible benefit. The helper achieves the same single-source-
+# of-truth goal without the brace-escaping cost.
+#
+# Templates use:
+#
+#     XXXX_HTML = apply_design_system(XXXX_HTML, "/route")
+#
+# in place of the two .replace() blocks at the bottom of the file.
+
+def apply_design_system(html: str, current_route: str) -> str:
+    """Substitute every design-system marker in the rendered HTML.
+
+    Replaces:
+      - `    <!-- HEADER_NAV_LINKS -->`  → HEADER_NAV_LINKS(current_route)
+      - `<!-- BUYER_ARC_POLISH_CSS -->`  → BUYER_ARC_POLISH_CSS
+
+    The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
+    template — that's the existing convention from ψ.14/15/16. The
+    BUYER_ARC_POLISH_CSS marker has no leading whitespace.
+
+    Idempotent: running on a string that already had its markers
+    replaced is a no-op (the replace just doesn't find anything).
+    Tests rely on this idempotence to avoid double-substitution.
+
+    Adding a new design-system marker (e.g. a future GLOBAL_FOOTER):
+    add a `.replace(...)` line here and add the marker placement
+    in each template. Single edit; uniform rollout.
+    """
+    html = html.replace(
+        "    <!-- HEADER_NAV_LINKS -->",
+        HEADER_NAV_LINKS(current_route),
+    )
+    html = html.replace(
+        "<!-- BUYER_ARC_POLISH_CSS -->",
+        BUYER_ARC_POLISH_CSS,
+    )
+    return html

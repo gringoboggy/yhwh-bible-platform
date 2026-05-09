@@ -12,6 +12,7 @@ substituted from `_design.HEADER_NAV_LINKS("/audit")` and
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 AUDIT_HTML = r"""<!DOCTYPE html>
@@ -452,12 +453,5 @@ init().catch(e => {
 """
 
 
-# ψ.16: substitute the canonical nav link list from _design.CONSOLES.
-AUDIT_HTML = AUDIT_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/audit"),
-)
-AUDIT_HTML = AUDIT_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+AUDIT_HTML = apply_design_system(AUDIT_HTML, "/audit")

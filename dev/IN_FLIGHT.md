@@ -4,7 +4,44 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.16 status-dashboard polish** shipped
+*(none — tracker is idle. **Session N+4 batch (ν.2.8 + ψ.11 +
+ψ.13.5)** shipped 2026-05-09. Three SHORT-track phases bundled in
+one save:
+
+- **ν.2.8** — `<section class="ed-section">` visual boundaries
+  on /customize edition cards + dynamic section heading counts
+  replacing hard-coded `(5)/(14)/(63)` with API-fed placeholders.
+- **ψ.11** — wizard step 2 reversibility hint + 4 fieldset
+  groups + label/for accessibility associations.
+- **ψ.13.5** — new `_design.apply_design_system(html, route)`
+  helper replaces 13 per-template two-replace blocks with one
+  helper call. Pragmatic consolidation chosen over original
+  "f-string sweep" idea (embedded JS/CSS braces would have
+  required escape nightmare).
+
++20 tests across 3 new classes. Net code change: −104 boilerplate
+lines + 1 helper. End state: 1048 tests, 11/11 linter, 9
+editions, 7 templates, 51,394 notes.
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /customize: verify section borders between Identity
+    #   & appearance and Metadata zones; verify section heading
+    #   counts read (9), (14), (67).
+    # Open /wizard step 2: verify emerald reversibility hint at
+    #   top; verify 4 fieldset groups; click each label to verify
+    #   `for=` association focuses the input.
+
+Next per the recommended 5-session sequence: **v1.0.0** RELEASE
+motion (visual QA + binary build + git tag). All v1.0 candidate
+criteria are met.
+
+---
+
+## Prior task
+
+**ψ.16 status-dashboard polish** shipped
 2026-05-09. 5 templates substituted (/audit, /preflight, /ops,
 /diff, /apihelp), all 12 cross-linked consoles now share one
 source of truth for nav + polish CSS. /index intentionally exempt

@@ -12,6 +12,7 @@ substituted from `_design.HEADER_NAV_LINKS("/preflight")` and
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 PREFLIGHT_HTML = r"""<!DOCTYPE html>
@@ -385,12 +386,5 @@ loadPreflight();
 """
 
 
-# ψ.16: substitute the canonical nav link list from _design.CONSOLES.
-PREFLIGHT_HTML = PREFLIGHT_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/preflight"),
-)
-PREFLIGHT_HTML = PREFLIGHT_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+PREFLIGHT_HTML = apply_design_system(PREFLIGHT_HTML, "/preflight")

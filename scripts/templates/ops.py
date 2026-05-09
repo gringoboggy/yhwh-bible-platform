@@ -12,6 +12,7 @@ substituted from `_design.HEADER_NAV_LINKS("/ops")` and
 from scripts.templates._design import (  # noqa: E402
     BUYER_ARC_POLISH_CSS,
     HEADER_NAV_LINKS,
+    apply_design_system,
 )
 
 OPS_HTML = r"""<!DOCTYPE html>
@@ -447,12 +448,5 @@ OPS_HTML = r"""<!DOCTYPE html>
 """
 
 
-# ψ.16: substitute the canonical nav link list from _design.CONSOLES.
-OPS_HTML = OPS_HTML.replace(
-    "    <!-- HEADER_NAV_LINKS -->",
-    HEADER_NAV_LINKS("/ops"),
-)
-OPS_HTML = OPS_HTML.replace(
-    "<!-- BUYER_ARC_POLISH_CSS -->",
-    BUYER_ARC_POLISH_CSS,
-)
+# ψ.13.5: consolidated design-system substitution.
+OPS_HTML = apply_design_system(OPS_HTML, "/ops")
