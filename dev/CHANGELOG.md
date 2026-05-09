@@ -6,6 +6,331 @@
 
 ---
 
+## 2026-05-08 — session — χ-AI-xrefs hardening (audit + tune sweep)
+
+**Phases shipped:** χ-AI-xrefs hardening — full audit + tune sweep
+of `scripts/core/sources.py:AnthropicXrefClient` against the
+project-resident Anthropic SDK skill's best-practice rules. Same χ
+phase letter as the prior infrastructure ship; this is a maintenance
+ship that protects the upcoming paid 31K-verse run.
+**Test delta:** +6 (838 → 844).
+**Corpus delta:** 0 — pure infrastructure hardening.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **🔴 CRITICAL fix — silent prompt-cache invalidator.** Haiku 4.5
+  has a 4096-token minimum cacheable prefix; the prior system
+  prompt was ~700 tokens. The `cache_control` marker was a no-op
+  — `cache_creation_input_tokens` would have been 0 on every
+  call. The cost model assumed caching worked but it didn't, and
+  there was no error to detect the issue. Fix: padded
+  `AI_XREF_SYSTEM_PROMPT` to ~5000 tokens (~18.5K chars) with
+  worked typology/thematic/idiomatic examples, anti-patterns,
+  per-genre guidance, and confidence-calibration anchors. Pinned
+  by a test (`test_system_prompt_meets_haiku_4_5_cache_minimum`)
+  so future shortenings fail loudly before the next paid run
+  discovers the regression the expensive way.
+
+- **Structured outputs via `output_config.format`.** Replaced the
+  regex-strip-code-fences + `json.loads()` hack with a json_schema
+  passed to `client.messages.create(output_config={...})`. The
+  model is forced to emit valid JSON of the documented shape
+  (`AI_XREF_OUTPUT_SCHEMA` constant) with `additionalProperties:
+  false`. Eliminates the brittleness *and* the bare
+  `except Exception` swallowing.
+
+- **Cached SDK client at module level.** New `_anthropic_client()`
+  helper with `lru_cache(maxsize=1)`. Was constructing
+  `anthropic.Anthropic()` per call (31K constructions on the full
+  pass).
+
+- **Tightened exception handling.** `propose_xrefs` now catches
+  only `json.JSONDecodeError`, `ValueError`, `OSError`, and
+  exceptions whose `__module__` starts with `"anthropic"` (catches
+  SDK errors without hard-importing the SDK at module top).
+  Programming errors (`TypeError`, `KeyError`, etc.) propagate
+  so they surface in tests rather than silently producing empty
+  output at scale.
+
+- **Cache-hit telemetry via `client.last_usage`.** The default
+  completion path now populates a `last_usage` attribute after
+  each call: `{input_tokens, output_tokens,
+  cache_creation_input_tokens, cache_read_input_tokens,
+  request_id}`. Lets the at-scale driver verify `cache_read >
+  0` after the first few calls — confirms caching is engaging
+  before paying for the full 31K-verse run.
+
+- **`max_tokens` 512 → 2048.** The prior 512 was tight for 3
+  proposals with 1-2 sentence reasoning each.
+
+- **Model ID alias.** `DEFAULT_AI_XREF_MODEL` switched from dated
+  `"claude-haiku-4-5-20251001"` to alias `"claude-haiku-4-5"`
+  per the skill's recommendation — capability updates land
+  without code changes.
+
+- **Cache TTL 5min → 1h** (`AI_XREF_CACHE_TTL = "1h"`). 1h costs
+  2× to write but covers the ~30+ minute wall-clock of the full
+  pass. Break-even is 3 reads; we get 31,000.
+
+- **Cost projection re-baselined.** `COST_PER_VERSE_USD` updated
+  from $0.00092 → $0.0023 in `run_ai_xrefs_at_scale.py`. The
+  prior number assumed caching worked on the 700-token prompt —
+  it didn't, and the padded prompt at ~5K tokens shifts the
+  numbers anyway. Driver docstring rewrites the cost table:
+  ~$0.23/100v → ~$11.50/5K → **~$72 full 31K-verse pass**
+  (vs the prior $28 estimate that assumed a working cache that
+  wasn't engaging). Real cost without my fix would have been
+  ~$37; with the fix it's ~$72 — predictable, with materially
+  better proposals.
+
+- **+6 tests across `TestAnthropicXrefClient`:**
+  - `test_propose_xrefs_propagates_programming_errors` — bug
+    fixtures surface, not silently degrade
+  - `test_system_prompt_meets_haiku_4_5_cache_minimum` — pins
+    the 4096-token contract so future shortenings fail loudly
+  - `test_default_model_uses_alias_not_dated_id` — alias contract
+  - `test_cache_ttl_is_one_hour` — TTL contract
+  - `test_output_schema_locks_proposal_shape` — json_schema shape
+  - `test_last_usage_starts_unset` — telemetry contract
+  - Updated `test_propose_xrefs_returns_empty_on_malformed_response`
+    — replaced the `RuntimeError` stub with realistic
+    `json.JSONDecodeError`, `OSError`, and a fake-anthropic-named
+    exception (programming errors no longer caught here)
+
+**Why this matters now:** the user lifted the cost gate on
+χ-AI-xrefs 2026-05-08. Without the silent-cache fix, the next
+paid run was a budget surprise waiting to happen — quoted $28,
+real cost without working cache ~$37, real cost with broken
+cache after my prompt-padding ~$72. The padding is also
+genuinely better prompt engineering (richer guidance on typology
+vs thematic vs idiomatic, anti-patterns, confidence anchors)
+which produces better proposals at the same dollar cost.
+
+**Next per most-logical-path:** the paid χ-AI-xrefs run can
+proceed safely now (`pip install anthropic && export
+ANTHROPIC_API_KEY=... && python3 scripts/run_ai_xrefs_at_scale.py
+--books jhn --max-verses 50`). Closes ~5K notes of the 8,958-note
+gap to the v1.0 corpus floor. Or continue with ψ.14 buyer-arc
+polish / θ.4 cross-platform installers per the prior queue.
+
+---
+
+## 2026-05-08 — session — θ.2 native desktop shell
+
+**Phases shipped:** θ.2 native shell — PyWebView wrapper around
+the consoles. Built `scripts/desktop_shell.py` (lazy pywebview
+import + cached availability check + mode resolver + window-config
+helper + injectable shell opener) and wired a `--shell
+{auto,native,browser}` flag into `scripts/launcher.py` with a clean
+split between native mode (server in daemon thread, webview blocks
+main thread) and browser mode (existing flow unchanged). Updated
+`dev/launcher.spec` to list `webview` in hiddenimports.
+With θ.1 + θ.2 shipped, the desktop binary now opens in a real
+native window instead of a browser tab — the **v1.0 candidate**
+desktop story is feature-complete pending corpus growth (≥25K
+notes) and signing (θ.4 / Apple Dev ID — flag again when θ.4
+starts; not load-bearing for θ.2 itself since unsigned binaries
+build fine for personal/dev use).
+**Test delta:** +25 (813 → 838).
+**Corpus delta:** 0 — pure infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/desktop_shell.py`** — pure helpers + injectable
+  collaborators (per §9 mental model):
+  - `is_pywebview_available()` — `lru_cache`'d try/except on
+    `import webview`. Catches `ImportError` AND any other
+    import-time failure (broken backend on partial install).
+    Tests can `cache_clear()` to flip behavior.
+  - `select_shell_mode(*, frozen, available, force=None)` —
+    precedence: explicit `force="native"|"browser"` wins; else
+    auto: native iff frozen AND pywebview available, else
+    browser. Dev environments (not frozen) always pick browser
+    even when pywebview is available — devtools, copy/paste
+    URL sharing, etc.
+  - `window_config(url, *, title, width, height, min_size,
+    resizable)` — pure function returning the kwargs dict
+    passed to `webview.create_window`. Defaults: 1280×900,
+    min 960×600, resizable. Exists so tests assert defaults
+    without depending on PyWebView's API.
+  - `open_in_native_shell(url, *, title, webview_module=None,
+    debug=False)` — creates window + blocks on `webview.start()`.
+    `webview_module` is injectable for tests; production default
+    is `import webview`. Raises `RuntimeError` with a helpful
+    message ("install with `pip install pywebview`") if pywebview
+    is missing AND no substitute injected — fail loudly rather
+    than silently fall back since `select_shell_mode` should
+    have caught this upstream.
+
+- **`scripts/launcher.py`** — `main()` extended with
+  `--shell {auto,native,browser}` and `--debug`. The native /
+  browser branches now live in `_run_native(server, url, *,
+  debug, shell_fn)` and `_run_browser(server, url, *, no_browser,
+  opener, serve_fn)` for clarity. Native flow:
+  1. Start `server.serve_forever` in a daemon thread.
+  2. Call `shell_fn(url)` (default
+     `desktop_shell.open_in_native_shell`) on the main thread —
+     blocks until the user closes the native window.
+  3. `finally:` `server.shutdown()` + brief
+     `serve_thread.join(timeout=2.0)`.
+  All five collaborators (server factory, browser opener,
+  migrate fn, serve fn, shell fn) remain injectable.
+
+- **`dev/launcher.spec`** — added `"webview"` to `hiddenimports`
+  so PyInstaller picks up the package + its platform backends.
+
+- **+25 tests across 5 new classes:**
+  - `TestDesktopShellAvailability` (3) — bool return, ImportError
+    + RuntimeError robustness.
+  - `TestDesktopShellSelectShellMode` (6) — every precedence branch
+    (force-native / force-browser / dev-auto / frozen-auto-with-pywebview
+    / frozen-auto-without-pywebview / unknown-force).
+  - `TestDesktopShellWindowConfig` (6) — defaults + overrides.
+  - `TestDesktopShellOpenInNativeShell` (4) — injection happy path,
+    debug flag, title passthrough, RuntimeError when missing.
+  - `TestLauncherShellModeIntegration` (5) — force-browser path,
+    force-native shell_fn + shutdown, server-runs-in-thread,
+    auto-in-dev → browser, exception-still-shuts-down.
+  - `TestLauncherSpecPywebview` (1) — spec lists hiddenimport.
+
+**Run (development):**
+
+    python3 scripts/launcher.py --shell browser     # default in dev
+    python3 scripts/launcher.py --shell native      # force PyWebView
+    python3 scripts/launcher.py --shell native --debug
+
+**Build (one-time, user-side):**
+
+    pip install pyinstaller pywebview
+    pyinstaller dev/launcher.spec     # produces dist/YHWH(.exe)
+    # frozen binary auto-selects native shell
+
+**Apple Developer ID flag (deferred to θ.4):** unsigned `.app` /
+`.exe` builds work fine for personal / development use. Code
+signing + notarization land in **θ.4 cross-platform installers**
+where Apple Developer ID becomes load-bearing for distribution.
+Per memory `feedback_license_flagging.md` — flag again at θ.4.
+
+**v1.0 candidate criteria status:**
+  - θ.2 native shell: ✓ shipped this turn.
+  - χ.1 Greek lexicon: ✓ infrastructure shipped (data fetch
+    user-side).
+  - ψ.8 cross-denom: ✓ shipped 2026-05-08 (cluster complete).
+  - ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 polish: partial; ψ.14
+    + ψ.17 still parked.
+  - ω.8 / ω.9 / ω.10: shipped this session.
+  - ξ.1 / ξ.2 / ξ.4: shipped this session.
+  - Corpus ≥ 25K notes: ✗ at 16,042 (8,958-note gap);
+    user-side runs of χ-AI-xrefs / χ.7 / χ.1 close it.
+
+**Next per most-logical-path:** the remaining v1.0 polish (ψ.14
+buyer-arc + ψ.17 reader-EPUB) or θ.4 cross-platform installers,
+depending on whether the user wants to ship signed binaries or
+finalize buyer-facing surfaces first. Corpus growth remains
+user-side (paid χ-AI-xrefs run + free χ.7/χ.1 fetches).
+
+---
+
+## 2026-05-08 — session — θ.1 desktop launcher
+
+**Phases shipped:** θ.1 desktop launcher (PyInstaller-bundle entry).
+Builds on ω.5's path resolver: `scripts/launcher.py` is the single
+entry the desktop binary runs, and it composes
+`scripts.migrate_to_user_data.perform_migration` for first-run
+bootstrap when running frozen. Plus `dev/launcher.spec` (PyInstaller
+spec) and the `dev/build_desktop.{sh,cmd}` cross-platform build
+wrappers.
+**Test delta:** +30 (783 → 813).
+**Corpus delta:** 0 — pure infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/launcher.py`** — the desktop entry. Pure helpers wired
+  through a thin `main()` orchestrator (per §9 "pure function +
+  thin route adapter" mental model):
+  - `is_frozen()` reads `sys.frozen` (PyInstaller bootloader sets it).
+  - `find_free_port(preferred, host)` returns the preferred port if
+    bindable, otherwise an OS-assigned free port. The TOCTOU window
+    between probe + real bind is acceptable for a single-user desktop
+    launcher.
+  - `should_run_first_run_migration()` returns True iff frozen AND
+    user-data `content/editions.yaml` is missing.
+  - `bootstrap_user_data(*, migrate_fn=None)` defaults to
+    `scripts.migrate_to_user_data.perform_migration` and accepts an
+    injectable callable for tests.
+  - `build_url(host, port)` displays `0.0.0.0` as `localhost` so the
+    browser can navigate.
+  - `start_server(host, port, *, server_factory=None)` defaults to
+    `ThreadingHTTPServer((host, port), scripts.web.Handler)`.
+  - `schedule_browser_open(url, *, delay=0.5, opener=None)` spawns a
+    daemon `threading.Timer`.
+  - `main(argv, *, server_factory=None, opener=None,
+    migrate_fn=None, serve_fn=None)` orchestrates: bootstrap →
+    free-port discovery → server bind → browser open → block on
+    `serve_forever()`. All four collaborators are injectable so tests
+    can exercise the full happy path without binding a real socket.
+
+- **`dev/launcher.spec`** — PyInstaller spec; bundles `scripts/`,
+  `scripts/templates/`, and `content/` (the read-only template the
+  first-run migrator copies to `user_data_root`). `console=False` —
+  GUI shells get no terminal window. Hidden imports listed
+  defensively for `ALL_DETECTORS` and the migration helper that
+  PyInstaller's static analyzer can miss.
+
+- **`dev/build_desktop.sh`** — POSIX wrapper: installs PyInstaller
+  if missing, cleans `build/` + `dist/`, runs
+  `pyinstaller dev/launcher.spec --noconfirm`. Output: `dist/YHWH`
+  on Linux / `dist/YHWH.app` on macOS.
+
+- **`dev/build_desktop.cmd`** — Windows equivalent. Output:
+  `dist\YHWH.exe`.
+
+- **+30 tests across 9 new classes:**
+  - `TestLauncherIsFrozen` (3) — sys.frozen handling.
+  - `TestLauncherFreePortDiscovery` (3) — preferred-port + fallback.
+  - `TestLauncherShouldRunFirstRunMigration` (3) — dev / frozen-no-marker
+    / frozen-already-migrated.
+  - `TestLauncherBuildUrl` (3) — localhost / 0.0.0.0 display / arbitrary port.
+  - `TestLauncherBootstrap` (2) — injection + production composition.
+  - `TestLauncherScheduleBrowserOpen` (2) — Timer fires + daemon flag.
+  - `TestLauncherStartServer` (2) — factory injection + real
+    ThreadingHTTPServer bind on port 0.
+  - `TestLauncherMain` (7) — argv + bootstrap branches + KeyboardInterrupt
+    shutdown + port-fallback message.
+  - `TestLauncherSpecAndBuildScripts` (5) — shipping artifacts exist
+    and reference the launcher entry.
+
+**Run (development):**
+
+    python3 scripts/launcher.py             # auto-find free port, open browser
+    python3 scripts/launcher.py --port 9000
+    python3 scripts/launcher.py --no-browser
+
+**Build (one-time, user-side):**
+
+    pip install pyinstaller
+    pyinstaller dev/launcher.spec           # produces dist/YHWH(.exe)
+
+The build itself is environment-side (mirrors the χ.7 / χ.1 /
+χ-AI-xrefs pattern: infrastructure ships in-tree, the user runs the
+external tool). PyInstaller is not pinned in `pyproject.toml` because
+the v1.0 path goes through θ.2 native shell + θ.4 cross-platform
+installers, which will pick a different bundler.
+
+**Next per most-logical-path:** θ.2 native shell (PyWebView around
+the consoles for a real native window + menu bar + file dialogs).
+Apple Developer ID becomes load-bearing at θ.2 per memory
+`feedback_license_flagging.md`.
+
+ω.5.1+ rolling call-site migrations + corpus-growth user-side
+free-roll runs (χ.7 Nave's, χ.1 Greek, χ-AI-xrefs) remain available
+in parallel.
+
+---
+
 ## 2026-05-08 — session — ω.5 paths-resolver foundation
 
 **Phases shipped:** ω.5 foundation (`scripts/core/paths.py` + the

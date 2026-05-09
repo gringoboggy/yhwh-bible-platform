@@ -4,9 +4,139 @@
 
 ## Active task
 
-*(none — tracker is idle. **ω.5 paths-resolver foundation**
-shipped 2026-05-08. Built `scripts/core/paths.py` as the single
-source of truth for project paths:
+*(none — tracker is idle. **χ-AI-xrefs hardening sweep** shipped
+2026-05-08. Full audit + tune of `scripts/core/sources.py:Anthropic
+XrefClient` against the project-resident Anthropic SDK skill.
+Headline finding: prior `cache_control` marker was a silent no-op
+because the 700-token system prompt was below Haiku 4.5's
+4096-token minimum cacheable prefix. Quoted $28 cost would have
+been ~$37 in reality (caching never engaged).
+
+Fixed:
+
+- Padded `AI_XREF_SYSTEM_PROMPT` to ~5000 tokens with worked
+  typology / thematic / idiomatic examples, anti-patterns, per-
+  genre guidance (narrative / wisdom / prophecy / epistles /
+  apocalyptic), and confidence-calibration anchors. Pinned by
+  test (`test_system_prompt_meets_haiku_4_5_cache_minimum`).
+- Switched JSON output to `output_config.format` json_schema
+  via new `AI_XREF_OUTPUT_SCHEMA` constant (eliminated the
+  regex-strip-code-fences hack and the bare `except Exception`).
+- Added module-level `_anthropic_client()` lru_cache singleton
+  (was constructing `anthropic.Anthropic()` per call — 31K
+  constructions on the full pass).
+- Tightened exception handling — only `json.JSONDecodeError`,
+  `ValueError`, `OSError`, and anthropic-named exceptions
+  degrade defensively; programming errors propagate.
+- Added `client.last_usage` telemetry attribute populated by
+  the default completion path: `{input_tokens, output_tokens,
+  cache_creation_input_tokens, cache_read_input_tokens,
+  request_id}`. Lets the driver verify cache engagement before
+  paying for the full run.
+- Bumped `max_tokens` 512 → 2048 (3 proposals × 1-2 sentence
+  reasoning was tight at 512).
+- Switched `DEFAULT_AI_XREF_MODEL` from dated
+  `"claude-haiku-4-5-20251001"` to alias `"claude-haiku-4-5"`
+  (capability updates without code changes).
+- `AI_XREF_CACHE_TTL = "1h"` (covers full ~30+min run; 5min
+  ephemeral would repeatedly invalidate).
+- Re-baselined `COST_PER_VERSE_USD` 0.00092 → 0.0023; full
+  31K-verse pass projection $28 → ~$72 (predictable, real
+  caching engaged, materially better proposals).
+
++6 tests across `TestAnthropicXrefClient` + 1 updated test.
+End state: **844 tests green, 10/10 linter clean, 16,042 notes**.
+
+User-side completion (paid, parked):
+
+1. `pip install anthropic` + `export ANTHROPIC_API_KEY=...`
+2. Smoke: `python3 scripts/run_ai_xrefs_at_scale.py --books jhn
+   --max-verses 50` (~$0.12). Verify `client.last_usage[
+   "cache_read_input_tokens"] > 0` after the second call —
+   confirms caching engages.
+3. Pauline slice: `python3 scripts/run_ai_xrefs_at_scale.py
+   --books rom,gal,eph,php,col,heb --max-verses 1000
+   --confirm-cost` (~$2.30).
+4. Full pass: `python3 scripts/run_ai_xrefs_at_scale.py
+   --max-verses 31000 --confirm-cost` (~$72).
+5. `python3 scripts/batch_promote_xrefs.py --kind xref-thematic`
+   to promote (reviewer-curated; conservative yield ~5K notes
+   alone closes ≈half of the 8,958-note v1.0 corpus floor gap).
+
+Next per most-logical-path options:
+- **Run χ-AI-xrefs (paid, ~$72)** — closes ~5K of 8,958-note
+  v1.0 gap. Now safe to execute.
+- **ψ.14 buyer-arc polish + ψ.17 reader-EPUB polish** —
+  remaining v1.0 prettification carry-over.
+- **θ.4 cross-platform installers** — DMG / MSI / AppImage with
+  signing. Apple Developer ID becomes load-bearing here.
+
+Prior ship this session — **θ.2 native desktop shell** shipped
+2026-05-08. Built `scripts/desktop_shell.py` as a thin PyWebView
+wrapper composed of pure helpers + injectable collaborators:
+
+- `is_pywebview_available()` — `lru_cache`'d try/except on
+  `import webview`; catches `ImportError` AND any other
+  import-time failure (broken backend on partial install).
+- `select_shell_mode(*, frozen, available, force=None)` —
+  precedence: explicit `force="native"|"browser"` wins; auto picks
+  native iff frozen AND pywebview importable, else browser. Dev
+  always prefers browser (devtools, copy/paste URL).
+- `window_config(url, *, title, width, height, min_size, resizable)`
+  — pure function returning kwargs dict for
+  `webview.create_window`. Defaults 1280×900, min 960×600.
+- `open_in_native_shell(url, *, title, webview_module=None,
+  debug=False)` — creates window + blocks on `webview.start()`.
+  webview_module is injectable; production default is
+  `import webview`. Raises `RuntimeError` with a helpful message
+  ("install with `pip install pywebview`") if missing AND no
+  substitute injected.
+
+Wired a `--shell {auto,native,browser}` flag + `--debug` into
+`scripts/launcher.py`. The native / browser branches now live in
+`_run_native(server, url, *, debug, shell_fn)` (server in daemon
+thread, shell_fn blocks main thread, shutdown in `finally`) and
+`_run_browser(server, url, *, no_browser, opener, serve_fn)`
+(existing flow unchanged). The shell_fn collaborator is injected
+into `main()` alongside the existing 4. Updated `dev/launcher.spec`
+to list `"webview"` in `hiddenimports` so the bundled binary picks
+up pywebview + its platform-specific backends.
+
++25 tests across 6 new classes (TestDesktopShellAvailability,
+TestDesktopShellSelectShellMode, TestDesktopShellWindowConfig,
+TestDesktopShellOpenInNativeShell, TestLauncherShellModeIntegration,
+TestLauncherSpecPywebview). End state: **838 tests green, 10/10
+linter clean, 16,042 notes**.
+
+With θ.1 + θ.2 shipped, the desktop binary now opens in a real
+native window — the **v1.0 candidate** desktop story is
+feature-complete pending corpus growth (≥25K notes; 8,958 short)
+and signing (θ.4 / Apple Dev ID — flag again at θ.4 per memory
+`feedback_license_flagging.md`).
+
+User-side completion (parked, environment-side):
+
+1. `pip install pyinstaller pywebview` (one-time)
+2. From repo root: `pyinstaller dev/launcher.spec`
+   (or `dev/build_desktop.cmd` / `.sh`)
+3. Run `dist/YHWH.exe` / `.app` / `YHWH`. Frozen binary
+   auto-selects native shell; pass `--shell browser` to override.
+
+Next per most-logical-path options:
+- **ψ.14 buyer-arc polish** + **ψ.17 reader-EPUB polish** —
+  remaining v1.0 prettification carry-over.
+- **θ.4 cross-platform installers** — DMG / MSI / AppImage with
+  signing. Apple Developer ID becomes load-bearing here.
+- **Corpus push (user-side)** — paid χ-AI-xrefs run + free χ.7
+  Nave's + χ.1 Greek; closes the 8,958-note gap to v1.0 floor.
+
+Prior ship this session — **θ.1 desktop launcher** (PyInstaller
+entry; `scripts/launcher.py` + `dev/launcher.spec` +
+`dev/build_desktop.{sh,cmd}`; +30 tests).
+
+Pre-θ ship this session — **ω.5 paths-resolver foundation**.
+Built `scripts/core/paths.py` as the single source of truth for
+project paths:
 - `repo_root()` — read-only resource path (parent of scripts/);
   bundled into the desktop binary as a read-only template.
 - `content_root()` — resolver with precedence: testing override

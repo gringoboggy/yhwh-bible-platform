@@ -1,35 +1,60 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after **ω.5 (foundation)** shipped — the
-per-user data location resolver. Built `scripts/core/paths.py`
-(repo_root + user_data_root + content_root resolver with in-tree
-dev-mode fallback + sub-path helpers + cache invalidation hooks),
-migrated the 5 `scripts/core/` consumers (sources, translations,
-config, covers, traditions) to expose paths-resolver entrypoints
-without removing back-compat constants, and wrote
-`scripts/migrate_to_user_data.py` as the one-shot bootstrap helper.
-Remaining 41 call-site files (web.py + at-scale drivers + CLI
-tools) become rolling sub-phases ω.5.1+ — the in-tree fallback
-keeps them working unchanged during the rolling migration.
+**Updated:** 2026-05-08, after **χ-AI-xrefs hardening sweep**
+shipped — full audit + tune of `scripts/core/sources.py:Anthropic
+XrefClient` against the project-resident Anthropic SDK skill.
+**Headline finding:** the prior `cache_control` marker on the
+700-token system prompt was a silent no-op (Haiku 4.5 minimum
+cacheable prefix is 4096 tokens). Quoted cost of $28 for the full
+31K-verse pass would have been ~$37 in reality. Fix: padded
+system prompt to ~5000 tokens with worked typology/thematic/
+idiomatic examples, anti-patterns, and confidence-calibration
+anchors. New cost projection ~$72 (predictable, real caching
+engaged, materially better proposals). Plus: structured outputs
+via `output_config.format` json_schema (no more regex-strip-fences
++ json.loads), cached SDK client (was 31K constructions on full
+pass), tightened exception handling (programming errors propagate,
+SDK errors degrade), `client.last_usage` telemetry to verify cache
+hits before paying for the full run, max_tokens 512→2048, alias
+model ID `claude-haiku-4-5` (was dated form), 1h cache TTL.
+
+Prior ship: **θ.2 native desktop shell** —
+PyWebView wrapper around the consoles. Built
+`scripts/desktop_shell.py` (lazy pywebview import + cached
+availability check + mode resolver + window-config helper +
+injectable shell opener with RuntimeError-on-missing) and wired a
+`--shell {auto,native,browser}` flag into `scripts/launcher.py`.
+Native mode runs `server.serve_forever` in a daemon thread while
+`webview.start()` blocks the main thread; closing the window
+triggers `server.shutdown()` + a brief join. Browser mode is the
+existing flow unchanged. Auto picks native iff frozen AND pywebview
+importable, else browser (dev always prefers browser for devtools /
+URL copy/paste). Updated `dev/launcher.spec` to list `"webview"` in
+`hiddenimports` so PyInstaller picks up the package + its
+platform-specific backends. With θ.1 + θ.2 shipped, the desktop
+binary now opens in a real native window — the **v1.0 candidate**
+desktop story is feature-complete; signing (Apple Dev ID) is
+deferred to θ.4 cross-platform installers per memory
+`feedback_license_flagging.md`.
 Session arc so far (continuous-go): scope expansion → ν.2.9+ψ.10
 → ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13 → χ.1 → ψ.8.0
 → ψ.8.1+8.2-A → ω.14 → ψ.8.2-B+ψ.8.3 → ψ.8.4 → ψ.8.5 → χ.0 →
-χ-AI-xrefs → τ.1 WEB + χ.0+ scope → **ω.5 foundation**. Twenty
-implementation phases this session. ω.5 unblocks the desktop
-binary (θ.1/θ.2) — bundled .app/.exe payloads can now find their
-user-mutable data in the platform user-data dir while keeping
-read-only resources in the bundle. Corpus growth remains the
-largest v1.0 gap (16,042 / 25K floor); the unlock paths
-(χ-AI-xrefs paid + χ.7/χ.1 free + τ.1 WEB free) are all parked
-on user-side runs. Next per the most-logical-path is **θ.1
-launcher → θ.2 shell** for the v1.0 candidate; ω.5.1+ rolling
-call-site migrations ship in parallel as needed.
+χ-AI-xrefs → τ.1 WEB + χ.0+ scope → ω.5 foundation → θ.1 launcher
+→ **θ.2 native shell**. Twenty-two implementation phases this
+session. The binary build itself remains user-side
+(`pyinstaller dev/launcher.spec`; PyWebView is `pip install
+pywebview`). Corpus growth remains the largest v1.0 gap (16,042 /
+25K floor); the unlock paths (χ-AI-xrefs paid + χ.7/χ.1 free + τ.1
+WEB free) are all parked on user-side runs. Next per the
+most-logical-path: either remaining v1.0 polish (**ψ.14**
+buyer-arc + **ψ.17** reader-EPUB) or **θ.4** cross-platform
+installers — flag Apple Developer ID at θ.4 start.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
-3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
-private. Saves are now git pushes, not zips — see "GIT BACKUP" in
-the inventory below and the root-level `save.cmd` / `save.ps1`
-helpers. Each commit runs the pre-commit hook
-(`scripts/lint_rules.py` 10/10 must pass).
+3rd-rev scope → … → ω.5 → θ.1 → **θ.2** on
+`bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are now
+git pushes, not zips — see "GIT BACKUP" in the inventory below and
+the root-level `save.cmd` / `save.ps1` helpers. Each commit runs
+the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 
 > 📖 **First time reading this?** Then go read
 > `dev/CLAUDE_PROJECT_RULES.md` first, then come back here, then
@@ -43,7 +68,7 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 783 tests · 10/10 linter · 5 editions · 16,042 notes
+13 consoles · 844 tests · 10/10 linter · 5 editions · 16,042 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -70,7 +95,190 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ω.5 paths-resolver foundation shipped
+## Current phase: χ-AI-xrefs hardening sweep shipped
+
+Audit + tune of the existing `AnthropicXrefClient` against the
+project-resident Anthropic SDK skill. Same χ phase letter as the
+prior infrastructure ship — this is a maintenance ship that
+protects the upcoming paid 31K-verse run.
+
+```
+✓ scripts/core/sources.py               AI_XREF_SYSTEM_PROMPT padded
+                                        ~700 → ~5000 tokens (clears
+                                        Haiku 4.5's 4096-token
+                                        minimum cacheable prefix —
+                                        prior marker was silent no-op);
+                                        new AI_XREF_OUTPUT_SCHEMA
+                                        constant; output via
+                                        output_config.format
+                                        json_schema (no more
+                                        regex-strip-fences hack);
+                                        AI_XREF_CACHE_TTL = "1h";
+                                        new _anthropic_client()
+                                        lru_cache singleton (was
+                                        constructing per call);
+                                        last_usage attr exposes
+                                        per-call cache telemetry;
+                                        DEFAULT_AI_XREF_MODEL alias
+                                        "claude-haiku-4-5" (was
+                                        dated form);
+                                        max_tokens 512 → 2048;
+                                        propose_xrefs catches only
+                                        json.JSONDecodeError /
+                                        ValueError / OSError /
+                                        anthropic-named exceptions
+                                        (programming errors propagate).
+✓ scripts/run_ai_xrefs_at_scale.py      COST_PER_VERSE_USD 0.00092
+                                        → 0.0023 (re-baselined now
+                                        that caching engages); cost
+                                        comments updated; full pass
+                                        projection $28 → ~$72.
+✓ tests/test_scripts.py                 +6 tests + 1 updated test:
+                                        - test_propose_xrefs_propagates
+                                          _programming_errors
+                                        - test_system_prompt_meets
+                                          _haiku_4_5_cache_minimum
+                                        - test_default_model_uses_alias
+                                          _not_dated_id
+                                        - test_cache_ttl_is_one_hour
+                                        - test_output_schema_locks
+                                          _proposal_shape
+                                        - test_last_usage_starts_unset
+                                        - (updated)
+                                          test_propose_xrefs_returns
+                                          _empty_on_malformed_response
+                                          → realistic SDK errors
+                                          replace RuntimeError stub
+~ Corpus delta                          0 — pure infrastructure
+                                        hardening. The paid 31K-verse
+                                        run is now safe to execute
+                                        (cost predictable, caching
+                                        verified, structured output
+                                        guaranteed). Re-baseline by
+                                        running 50-verse smoke test
+                                        first; check
+                                        client.last_usage["cache_read
+                                        _input_tokens"] > 0.
+```
+
+## Prior phase: θ.2 native desktop shell shipped
+
+PyWebView wrapper. The launcher now picks between a native
+PyWebView window and a browser tab via `--shell
+{auto,native,browser}`. Native mode runs the HTTP server in a
+daemon thread while `webview.start()` blocks the main thread;
+closing the window triggers `server.shutdown()`. Mirrors the §9
+"pure function + injectable collaborator" pattern — full happy
+path tested without depending on PyWebView being installed.
+
+```
+✓ scripts/desktop_shell.py              is_pywebview_available
+                                        (lru_cache + ImportError +
+                                        catch-all robustness),
+                                        select_shell_mode(*, frozen,
+                                        available, force) with
+                                        explicit-force-wins precedence
+                                        and dev-prefers-browser default,
+                                        window_config (1280x900 default,
+                                        min 960x600), open_in_native_shell
+                                        (webview_module injectable;
+                                        RuntimeError with helpful msg
+                                        when missing).
+✓ scripts/launcher.py                   added --shell {auto,native,
+                                        browser} + --debug flags;
+                                        _run_native (server in daemon
+                                        thread, shell_fn blocks main
+                                        thread, shutdown in finally) +
+                                        _run_browser (existing flow
+                                        unchanged) split out for
+                                        clarity. shell_fn injected into
+                                        main() alongside the existing
+                                        4 collaborators.
+✓ dev/launcher.spec                     hiddenimports gained "webview"
+                                        so the bundled binary finds
+                                        pywebview + its platform-
+                                        specific backends.
+✓ tests/test_scripts.py                 +25 tests across 6 new classes:
+                                        - TestDesktopShellAvailability (3)
+                                        - TestDesktopShellSelectShellMode (6)
+                                        - TestDesktopShellWindowConfig (6)
+                                        - TestDesktopShellOpenInNativeShell (4)
+                                        - TestLauncherShellModeIntegration (5)
+                                        - TestLauncherSpecPywebview (1)
+~ Corpus delta                          0 — pure infrastructure.
+                                        User-side completion:
+                                        `pip install pywebview`
+                                        (in addition to pyinstaller),
+                                        then `pyinstaller dev/launcher.spec`.
+                                        Frozen binary auto-selects native.
+```
+
+**Apple Developer ID flag (deferred):** unsigned `.app` / `.exe`
+builds work fine for personal / dev use; signing + notarization
+land at **θ.4 cross-platform installers** where Apple Dev ID
+becomes load-bearing. Per `feedback_license_flagging.md` — flag
+again when θ.4 starts.
+
+**v1.0 candidate criteria status:**
+  - ✓ θ.2 native shell (this turn)
+  - ✓ χ.1 Greek lexicon (infrastructure; data fetch user-side)
+  - ✓ ψ.8 cross-denom apparatus (cluster complete)
+  - partial ψ-polish (ψ.10 / ψ.12 / ψ.13 done; ψ.14 + ψ.17 parked)
+  - ✓ ω.8 / ω.9 / ω.10 (this session)
+  - ✓ ξ.1 / ξ.2 / ξ.4 (this session)
+  - ✗ corpus ≥ 25K notes (16,042; 8,958 short — user-side runs
+    of χ-AI-xrefs / χ.7 / χ.1 close it)
+
+## Prior phase: θ.1 desktop launcher shipped
+
+The PyInstaller-bundle entry. `scripts/launcher.py` is the single
+entry the desktop binary executes; it composes ω.5's migrator for
+first-run bootstrap, discovers a free port, starts
+`ThreadingHTTPServer` with `scripts.web.Handler`, opens the
+browser, and blocks on `serve_forever()`. The actual `dist/YHWH(.exe)`
+build is environment-side (`pyinstaller dev/launcher.spec`).
+
+```
+✓ scripts/launcher.py                   pure helpers + thin main():
+                                        is_frozen / find_free_port /
+                                        should_run_first_run_migration /
+                                        bootstrap_user_data / build_url /
+                                        start_server / schedule_browser_open /
+                                        main(argv, *, server_factory,
+                                        opener, migrate_fn, serve_fn).
+                                        All 4 collaborators are injectable
+                                        so tests exercise the full happy
+                                        path without binding a real socket.
+✓ dev/launcher.spec                     PyInstaller spec; bundles content/
+                                        + scripts/templates/; hidden
+                                        imports defensively listed for
+                                        ALL_DETECTORS + migrator;
+                                        console=False (no terminal in GUI).
+✓ dev/build_desktop.sh                  POSIX wrapper: pip-installs
+                                        PyInstaller if missing; cleans
+                                        build/ + dist/; runs spec.
+✓ dev/build_desktop.cmd                 Windows equivalent (CRLF line
+                                        endings; cmd-parser-safe).
+✓ tests/test_scripts.py                 +30 tests across 9 new classes:
+                                        - TestLauncherIsFrozen (3)
+                                        - TestLauncherFreePortDiscovery (3)
+                                        - TestLauncherShouldRunFirstRunMigration (3)
+                                        - TestLauncherBuildUrl (3)
+                                        - TestLauncherBootstrap (2)
+                                        - TestLauncherScheduleBrowserOpen (2)
+                                        - TestLauncherStartServer (2)
+                                        - TestLauncherMain (7)
+                                        - TestLauncherSpecAndBuildScripts (5)
+~ Corpus delta                          0 — pure infrastructure.
+                                        User-side completion:
+                                        `pip install pyinstaller`
+                                        `pyinstaller dev/launcher.spec`
+                                        Output: dist/YHWH.exe (Windows),
+                                        dist/YHWH.app (macOS),
+                                        dist/YHWH (Linux).
+```
+
+## Prior phase: ω.5 paths-resolver foundation shipped
 
 Foundation-only ship. The new `scripts/core/paths.py` is the single
 source of truth for project paths; the 5 `scripts/core/` modules

@@ -19,9 +19,27 @@ Usage:
     python3 scripts/run_ai_xrefs_at_scale.py --max-verses 5000 --confirm-cost
     python3 scripts/run_ai_xrefs_at_scale.py --books rom,gal,heb --max-verses 500
 
-Cost model (``claude-haiku-4-5-20251001``, prompt-cached system prompt):
-    ~$0.00092 per verse → $0.09 per 100 verses → $4.60 per 5K verses
-    → $28.61 per full 31K-verse pass.
+Cost model (``claude-haiku-4-5``, prompt-cached system prompt at 1h TTL).
+The system prompt was expanded 2026-05-08 to ≥4096 tokens (Haiku 4.5's
+minimum cacheable prefix — under that, ``cache_control`` silently does
+nothing). Padded prompt is ~5000 tokens; output averages ~350 tokens
+across 3 proposals.
+
+    Per verse with cache hit: 5000 read tokens × $0.10/1M
+                              + ~50 user tokens × $1.00/1M
+                              + ~350 output tokens × $5.00/1M
+                              ≈ $0.0023 per verse.
+    First call pays cache-write premium (5000 × $2.00/1M ≈ $0.01).
+    1h TTL refreshes mid-run; budget ~$0.01 per cache rewrite.
+
+    ~$0.23 per 100 verses → $11.50 per 5K verses → $72 per full
+    31K-verse pass (vs the broken-cache state which would have been
+    ~$37 — caching wasn't actually engaging on the prior 700-token
+    prompt despite the cache_control marker).
+
+Re-baseline by running 50-100 verses with --dry-run-after-first to
+confirm cache_read_input_tokens > 0; ``client.last_usage`` exposes
+the per-call telemetry.
 
 Output:
     content/candidates/<book>_ch_<NNN>.json — per-chapter, merge-not-
@@ -55,10 +73,14 @@ RED = "\033[91m"
 DIM = "\033[2m"
 RESET = "\033[0m"
 
-# Cost per verse, in USD. Updated 2026-05-08 with Haiku 4.5 pricing.
-# Approximation: ~150 input tokens (cached after first call) + ~200
-# output tokens. Used for --dry-run and the confirm-cost guard.
-COST_PER_VERSE_USD = 0.00092
+# Cost per verse, in USD. Re-baselined 2026-05-08 after the
+# system-prompt padding fix (5000 cached tokens at 1h TTL +
+# ~50 user tokens + ~350 output tokens). The prior 0.00092
+# estimate assumed caching worked on a 700-token prompt — it
+# didn't (Haiku 4.5 minimum cacheable prefix is 4096 tokens).
+# Real cost on a full 31K-verse pass is ~$72; under a strict
+# budget, dial back top_n in propose_xrefs() or use --max-verses.
+COST_PER_VERSE_USD = 0.0023
 
 # Above this, the driver requires --confirm-cost to proceed. Keeps an
 # accidental full-corpus pass from costing $28 by surprise.
