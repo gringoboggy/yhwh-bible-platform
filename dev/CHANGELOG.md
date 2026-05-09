@@ -6,6 +6,92 @@
 
 ---
 
+## 2026-05-09 — session — χ.1 Greek corpus push (free; +7,399 notes)
+
+**Phases shipped:** χ.1 Strong's Greek user-side completion — first
+real corpus expansion via the χ-cluster pipeline shipped earlier.
+Plus a follow-up bug-find on the at-scale driver: the
+`GreekWordDetector` emits candidates at confidence 0.65 (or 0.85
+for jhn/rom chapters 1-8), and the driver's default
+`--min-confidence 0.7` was filtering out the 0.65 majority, which
+explains why the prior session's "expected 5-10K notes" estimate
+landed only 770 from 2 books on the first pass.
+**Corpus delta:** +7,399 (16,041 → 23,440; gap to 25K floor:
+1,560).
+**Save tag this session:** pending.
+
+What ran (user-visible):
+
+1. **`scripts/fetch_sources.py`** — fetched
+   `content/sources/strongs_greek.json` (5,523 entries, 1.2MB)
+   from openscriptures' Strong's Greek dump. Nave's Topical was
+   attempted but all 3 mirrors returned HTTPError; fetcher
+   degraded gracefully and continued.
+
+2. **`scripts/run_greek_at_scale.py --min-confidence 0.65`** —
+   produced 7,399 candidates across all 25 NT books, 251
+   chapters. The lower-than-default `0.65` threshold matched
+   the detector's emission floor, so no candidates got filtered
+   out as mid-confidence noise.
+
+3. **`scripts/batch_promote_xrefs.py --kind lang-greek`** —
+   promoted 7,399 / 7,399 (zero skipped, zero errors). Final
+   corpus: 23,440.
+
+What didn't run:
+
+- **χ.7 Nave's Topical** — fetch failed (all 3 mirrors:
+  raw.githubusercontent.com/scrollmapper, raw.githubusercontent
+  .com/openbibleinfo, a.openbible.info — all HTTPError on the
+  first attempt). Infrastructure remains shipped; user-side
+  fetch can be retried from a different network or via the υ.1
+  /sources upload-JSON path. Expected yield was 2-3K notes.
+
+**Process incident** (logged for §12 retrospective): the first
+batch_promote attempt ran with `--min-confidence 0.7` (default),
+yielded only 770 notes from jhn+rom chapters 1-8; investigation
+of `scripts/core/detectors.py:348` revealed the
+`GreekWordDetector` per-book confidence calibration. Fixing by
+re-running with `--min-confidence 0.65` worked, but a write race
+between two background batch_promote retries and a `git checkout
+HEAD -- content/notes/` rollback produced a corrupted partial
+state (~5,210 duplicate lang-greek notes). Recovered cleanly via
+hard rollback + single foreground batch_promote. **Lessons:**
+(a) the at-scale drivers' `--min-confidence` default of 0.7 is
+miscalibrated against the detector's emission threshold of
+0.65 — a follow-up should reconcile these (either bump the
+detector to 0.7+ or lower the driver default to 0.65; tests
+pin the current per-book values, so this is a real design call).
+(b) Don't background batch_promote — the foreground call
+captures stdout cleanly and avoids race conditions with other
+operations on `content/notes/`.
+
+**Pending follow-ups:**
+
+- **Reconcile `--min-confidence` default vs detector emission
+  floor** in `scripts/run_greek_at_scale.py` and the matching
+  `scripts/run_hebrew_at_scale.py` (likely the same bug).
+- **χ.7 Nave's** — retry from a network where the 3 mirrors
+  are reachable, or upload pre-built JSON via /sources console.
+  Closes 2-3K of the 1,560-note remaining gap.
+- **Cross 25K**: 1,560 short. Options: χ.7 Nave's retry (2-3K),
+  paid χ-AI-xrefs run (~$72 / 5K), or τ.1 user-side WEB
+  translation extract (~31K verses but they're *translations*,
+  not notes — wouldn't count toward the floor).
+
+**Cleanup ran alongside** (`scripts/cleanup.py --apply`): 862
+items / 180 MB reclaimed (`__pycache__/` + backup pruning).
+
+**v1.0 candidate criteria status:**
+  - ✓ θ.2 / χ.1 (data fetch this turn) / ψ.8 / ψ.10 / ψ.12 /
+    ψ.13 / ψ.14 / ψ.17 / ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (**23,440 — 1,560 short**)
+
+**The corpus floor is closer than ever.** One more free-or-paid
+push closes the v1.0 candidate.
+
+---
+
 ## 2026-05-08 — session — θ.3 auto-update data plane
 
 **Phases shipped:** θ.3 auto-update — Python-side data plane for

@@ -4,7 +4,54 @@
 
 ## Active task
 
-*(none — tracker is idle. **θ.3 auto-update data plane** shipped
+*(none — tracker is idle. **χ.1 Strong's Greek corpus push**
+landed 2026-05-09 (free path). Fetched `strongs_greek.json` (5,523
+entries) via `fetch_sources.py`, ran `run_greek_at_scale.py
+--min-confidence 0.65`, promoted 7,399/7,399 lang-greek candidates
+with `batch_promote_xrefs.py --kind lang-greek`. Corpus 16,041 →
+**23,440** (+7,399; gap to 25K v1.0 floor: 1,560). Tests still
+green at 925; linter still 10/10.
+
+**Bug found + parked as follow-up:** the at-scale driver's default
+`--min-confidence 0.7` doesn't match the GreekWordDetector's
+0.65-emission floor. First pass yielded only 770 from jhn+rom
+chapters 1-8 (where detector emits at 0.85); rerun at 0.65
+recovered the rest. Likely the same calibration mismatch in
+`run_hebrew_at_scale.py`. Reconciliation is a real design call
+(tests pin the current per-book values).
+
+**Process incident** (cleanly recovered): a write race between
+two background batch_promote retries + a git checkout content/
+notes/ rollback produced ~5,210 duplicate lang-greek notes
+mid-stream. Recovered via hard rollback + single foreground
+promote. Lesson: **don't background batch_promote** — keep it
+foreground for clean stdout + no race against other operations
+on `content/notes/`.
+
+**Cleanup also ran:** `scripts/cleanup.py --apply` reclaimed 180
+MB across `__pycache__/` directories + backup pruning (kept 5
+revisions per stem, dropped 856 older backups).
+
+**Nave's Topical (χ.7) attempted but failed:** all 3 fetcher
+mirrors returned HTTPError. Infrastructure still shipped; the
+user-side fetch is retryable from a different network or via
+the υ.1 `/sources` console upload-pre-built-JSON path.
+
+**v1.0 candidate criteria status:**
+- ✓ θ.2 / χ.1 (data this turn) / ψ.8 / ψ.10 / ψ.12 / ψ.13 /
+  ψ.14 / ψ.17 / ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+- ✗ corpus ≥ 25K notes (**23,440 — 1,560 short**)
+
+**Corpus floor is one push away.** Options to close the
+remaining 1,560:
+- **χ.7 Nave's Topical retry** (~2-3K, free) — needs a network
+  where the 3 mirrors are reachable, or a pre-built JSON
+  uploaded via /sources.
+- **χ-AI-xrefs paid run** (~$72, ~5K notes).
+- **χ.0+ deep-dive textual-criticism cluster** (W&H, Burgon,
+  Souter, Driver — ~360-720 notes per source).
+
+Prior ship this session — **θ.3 auto-update data plane** shipped
 2026-05-08. Python-side infrastructure for Sparkle (macOS) /
 WinSparkle (Windows). Both native frameworks consume a Sparkle-
 compatible `appcast.xml` feed; this phase ships the fetcher +

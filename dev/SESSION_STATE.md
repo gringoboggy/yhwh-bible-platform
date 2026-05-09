@@ -1,7 +1,20 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after **θ.3 auto-update data plane**
-shipped — Python-side infrastructure for Sparkle (macOS) /
+**Updated:** 2026-05-09, after **χ.1 Strong's Greek corpus push**
+landed — first real corpus expansion since the χ-cluster pipeline
+shipped. Fetched `strongs_greek.json` (5,523 entries) from
+openscriptures, ran `run_greek_at_scale.py --min-confidence 0.65`
+(default 0.7 was filtering the detector's 0.65-emission floor —
+this is why prior runs landed only 770 notes from 2 books),
+promoted 7,399/7,399 candidates with `batch_promote_xrefs.py
+--kind lang-greek`. Corpus 16,041 → **23,440** (+7,399; gap to
+25K floor: 1,560). Cleanup ran alongside: 180MB reclaimed via
+scripts/cleanup.py. Nave's Topical (χ.7) attempted but all 3
+mirrors returned HTTPError — infra still shipped; user-side
+fetch retryable from a different network or via /sources upload.
+
+Prior ship: **θ.3 auto-update data plane** — Python-side
+infrastructure for Sparkle (macOS) / WinSparkle (Windows). — Python-side infrastructure for Sparkle (macOS) /
 WinSparkle (Windows). New `scripts/core/updates.py` (parse_appcast
 + fetch_appcast with injectable http_fn + latest_version +
 release_url + compare_versions + is_update_available); routes
@@ -132,7 +145,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 925 tests · 10/10 linter · 5 editions · 16,042 notes
+13 consoles · 925 tests · 10/10 linter · 5 editions · 23,440 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -159,7 +172,57 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: θ.3 auto-update data plane shipped
+## Current phase: χ.1 Greek corpus push (free; +7,399 notes)
+
+User-side completion of the χ.1 Strong's Greek pipeline shipped
+earlier this week. First real corpus growth via the χ-cluster
+pattern in this session arc.
+
+```
+✓ content/sources/strongs_greek.json    fetched via fetch_sources.py
+                                        (5,523 Greek lexicon entries,
+                                        1.2MB, openscriptures dump).
+✓ content/notes/<NT-book>.py            +7,399 lang-greek notes
+                                        across 25 NT books, 251
+                                        chapters. All promoted via
+                                        batch_promote_xrefs.py
+                                        --kind lang-greek with zero
+                                        skips, zero errors.
+~ Corpus: 16,041 → 23,440               +7,399 (gap to 25K floor:
+                                        1,560 notes).
+```
+
+**Lesson from this push** (write up as §12 retro candidate):
+the at-scale driver's default `--min-confidence 0.7` filters
+out the GreekWordDetector's 0.65-emission floor. First pass
+yielded only 770 notes from jhn+rom chapters 1-8 (the only
+chapters where the detector emits at 0.85). Running with
+`--min-confidence 0.65` recovered the missing 6,629 candidates.
+Reconcile this calibration mismatch as a follow-up: either
+bump the detector to 0.7+ or lower the driver default; both
+options change pinned tests.
+
+**Process incident** (cleanly recovered): a write race between
+two background batch_promote retries + a `git checkout HEAD --
+content/notes/` rollback produced ~5,210 duplicate lang-greek
+notes mid-stream. Recovered via hard rollback + single
+foreground promote. Final result is clean (7,399 unique).
+
+**v1.0 candidate criteria status:**
+  - ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 /
+    ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✗ corpus ≥ 25K notes (**23,440 — 1,560 short**)
+
+**Corpus floor is one push away.** Options to close:
+- **χ.7 Nave's Topical retry** (~2-3K, free) — fetcher needs
+  network where the 3 mirrors are reachable; υ.1 `/sources`
+  console accepts pre-built JSON upload as fallback.
+- **χ-AI-xrefs paid run** (~$72, ~5K notes).
+- **χ.0+ extended textual-criticism deep-dive** (W&H, Burgon,
+  Souter, Driver — ~360-720 notes per source; spec at
+  `dev/SCOPE_2026-05-08-addendum-textcrit-deep-dive.md`).
+
+## Prior phase: θ.3 auto-update data plane shipped
 
 Python-side infrastructure for Sparkle (macOS) / WinSparkle
 (Windows) auto-update. Both native frameworks consume an
