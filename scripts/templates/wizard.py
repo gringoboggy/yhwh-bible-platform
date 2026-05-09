@@ -121,7 +121,8 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     <div id="dot-3" class="step-dot">3</div><div id="line-3" class="step-line"></div>
     <div id="dot-4" class="step-dot">4</div><div id="line-4" class="step-line"></div>
     <div id="dot-5" class="step-dot">5</div><div id="line-5" class="step-line"></div>
-    <div id="dot-6" class="step-dot">6</div>
+    <div id="dot-6" class="step-dot">6</div><div id="line-6" class="step-line"></div>
+    <div id="dot-7" class="step-dot">7</div>
   </div>
 
   <div id="loading" class="text-center text-slate-400 py-20">loading editions…</div>
@@ -207,9 +208,27 @@ WIZARD_HTML = r"""<!DOCTYPE html>
       </div>
     </section>
 
-    <!-- ───────── Step 5: Review ───────── -->
+    <!-- ───────── Step 5: Traditions (Phase ψ.8.5) ───────── -->
     <section id="step-5" class="step-pane">
-      <h2 class="text-2xl font-bold mb-1">5. Review before building</h2>
+      <h2 class="text-2xl font-bold mb-1">5. Pick traditions to include</h2>
+      <p class="text-slate-600 mb-5">
+        Notes are tagged by tradition. Choose which denominational lenses
+        appear in this edition's popups; <em>Cross-tradition</em> covers
+        linguistic and cross-reference apparatus that's denominationally
+        neutral. We've pre-selected a sensible default for the profile
+        you started from — change anything.
+      </p>
+      <div id="tradition-cards" class="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
+      <div class="mt-4 text-sm text-slate-500" id="trad-summary"></div>
+      <div class="mt-6 flex justify-between">
+        <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
+        <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Next →</button>
+      </div>
+    </section>
+
+    <!-- ───────── Step 6: Review ───────── -->
+    <section id="step-6" class="step-pane">
+      <h2 class="text-2xl font-bold mb-1">6. Review before building</h2>
       <p class="text-slate-600 mb-5">Last chance to go back and tweak.</p>
       <div id="review-pane" class="space-y-4"></div>
       <div class="mt-6 flex justify-between">
@@ -218,8 +237,8 @@ WIZARD_HTML = r"""<!DOCTYPE html>
       </div>
     </section>
 
-    <!-- ───────── Step 6: Build & Download ───────── -->
-    <section id="step-6" class="step-pane">
+    <!-- ───────── Step 7: Build & Download ───────── -->
+    <section id="step-7" class="step-pane">
       <div id="build-stage" class="text-center py-8">
         <div class="text-5xl mb-4">📖</div>
         <h2 class="text-2xl font-bold mb-2">Building your Bible…</h2>
@@ -263,6 +282,11 @@ const STATE = {
   theme: 'classic',
   // Disabled categories computed via DATA (Step 4)
   enabled_cats: new Set(),
+  // Phase ψ.8.5 — Traditions (Step 5). Empty Set = "no tradition
+  // filter" (pre-ψ.8 build behaviour). Pre-populated when entering
+  // step 5 from the chosen profile's edition_to_tradition mapping.
+  traditions: new Set(),
+  traditions_initialized: false,  // flag so back→forward keeps user edits
 };
 let DATA = null;
 
@@ -277,13 +301,14 @@ async function init() {
   renderStep1();
   renderStep3();
   renderStep4();
+  renderStep5();
   // Wire navigation
   document.getElementById('next-1').addEventListener('click', () => goto(2));
   document.querySelectorAll('.back-btn').forEach(b =>
     b.addEventListener('click', () => goto(STATE.step - 1)));
   document.querySelectorAll('.next-btn').forEach(b =>
     b.addEventListener('click', () => {
-      if (STATE.step === 5) {
+      if (STATE.step === 6) {
         startBuild();
       } else {
         goto(STATE.step + 1);
@@ -295,12 +320,12 @@ async function init() {
 }
 
 function goto(step) {
-  if (step < 1 || step > 6) return;
-  if (step === 5) renderReview();
+  if (step < 1 || step > 7) return;
+  if (step === 6) renderReview();
   document.querySelectorAll('.step-pane').forEach(p => p.classList.remove('active'));
   document.getElementById(`step-${step}`).classList.add('active');
   // Step indicators
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 7; i++) {
     const dot = document.getElementById(`dot-${i}`);
     const line = document.getElementById(`line-${i}`);
     dot.classList.remove('active', 'done');
@@ -315,6 +340,45 @@ function goto(step) {
   if (step === 2 && STATE.edition_id) populateBranding();
   if (step === 3) refreshThemeSelection();
   if (step === 4) refreshCategorySelection();
+  // Phase ψ.8.5 — when first entering Step 5, seed sensible defaults
+  // from the profile's tradition; thereafter preserve user edits.
+  if (step === 5) {
+    if (!STATE.traditions_initialized) {
+      seedTraditionDefaultsFromProfile();
+      STATE.traditions_initialized = true;
+    }
+    refreshTraditionSelection();
+  }
+}
+
+// Phase ψ.8.5 — map from starting profile to a sensible tradition
+// default. Mirror of the catholic-study → ["catholic","cross"] etc.
+// pattern. Falls back to ["cross"] for unknown editions; the user
+// can always override on the step itself.
+const PROFILE_TO_TRADITIONS = {
+  'catholic-study':       ['catholic', 'cross'],
+  'reformed':             ['protestant', 'cross'],
+  'reformed-study':       ['protestant', 'cross'],
+  'evangelical-reformed': ['protestant', 'cross'],
+  'orthodox-study':       ['orthodox', 'cross'],
+  'orthodox':             ['orthodox', 'cross'],
+  'jewish-study':         ['jewish', 'cross'],
+  'jewish':               ['jewish', 'cross'],
+  'ethiopian-tewahedo':   ['tewahedo', 'cross'],
+  'tewahedo':             ['tewahedo', 'cross'],
+};
+
+function seedTraditionDefaultsFromProfile() {
+  // 1. If the picked edition already has traditions_default set (e.g.
+  //    a user-customized edition the wizard is re-running on), respect it.
+  const ed = DATA.customize.editions.find(e => e.id === STATE.edition_id);
+  if (ed && Array.isArray(ed.traditions_default) && ed.traditions_default.length) {
+    STATE.traditions = new Set(ed.traditions_default);
+    return;
+  }
+  // 2. Otherwise pick from the profile-id map.
+  const seed = PROFILE_TO_TRADITIONS[STATE.edition_id] || ['cross'];
+  STATE.traditions = new Set(seed);
 }
 
 // ───────── Step 1 ─────────
@@ -473,11 +537,71 @@ function renderCatSummary() {
     `${n} of ${(DATA.matrix.categories || []).length} categories enabled`;
 }
 
-// ───────── Step 5 ─────────
+// ───────── Step 5: Traditions (Phase ψ.8.5) ─────────
+function renderStep5() {
+  const wrap = document.getElementById('tradition-cards');
+  const traditions = DATA.customize.traditions || [];
+  wrap.innerHTML = traditions.map(t => `
+    <div class="kind-row pick-card !p-3" data-tradition="${t.id}">
+      <div class="flex items-center gap-3">
+        <input type="checkbox" class="w-4 h-4 cursor-pointer pointer-events-none">
+        <div class="flex-1">
+          <div class="font-semibold">${esc(t.label)}</div>
+          <div class="text-xs text-slate-500 font-mono">${esc(t.id)}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('.kind-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const id = row.dataset.tradition;
+      if (STATE.traditions.has(id)) STATE.traditions.delete(id);
+      else STATE.traditions.add(id);
+      const cb = row.querySelector('input[type="checkbox"]');
+      cb.checked = STATE.traditions.has(id);
+      row.classList.toggle('picked', STATE.traditions.has(id));
+      renderTraditionSummary();
+    });
+  });
+  refreshTraditionSelection();
+}
+
+function refreshTraditionSelection() {
+  document.querySelectorAll('#tradition-cards .kind-row').forEach(row => {
+    const id = row.dataset.tradition;
+    const on = STATE.traditions.has(id);
+    row.classList.toggle('picked', on);
+    const cb = row.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = on;
+  });
+  renderTraditionSummary();
+}
+
+function renderTraditionSummary() {
+  const n = STATE.traditions.size;
+  const total = (DATA.customize.traditions || []).length;
+  const el = document.getElementById('trad-summary');
+  if (!el) return;
+  if (n === 0) {
+    el.textContent =
+      `0 of ${total} selected — no tradition filter (every note survives)`;
+  } else {
+    el.textContent = `${n} of ${total} traditions enabled`;
+  }
+}
+
+// ───────── Step 6 ─────────
 function renderReview() {
   const cats = (DATA.matrix.categories || []).filter(c => STATE.enabled_cats.has(c.id));
   const themeName = (DATA.customize.themes || []).find(t => t.id === STATE.theme)?.name || STATE.theme;
   const ed = DATA.customize.editions.find(e => e.id === STATE.edition_id);
+  // Phase ψ.8.5 — tradition labels for the review chip row, in
+  // canonical order (the registry is already canonical).
+  const tradList = (DATA.customize.traditions || [])
+    .filter(t => STATE.traditions.has(t.id));
+  const tradHtml = tradList.length
+    ? tradList.map(t => `<span class="pill mr-1 mb-1">${esc(t.label)}</span>`).join('')
+    : '<span class="text-slate-400 italic text-sm">no tradition filter — every note survives</span>';
   document.getElementById('review-pane').innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="bg-slate-50 border border-slate-200 rounded p-4">
@@ -499,6 +623,10 @@ function renderReview() {
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Categories enabled</div>
         <div class="text-sm">${cats.map(c => `<span class="pill mr-1 mb-1">${esc(c.symbol)} ${esc(c.label)}</span>`).join('')}</div>
       </div>
+      <div class="bg-slate-50 border border-slate-200 rounded p-4 md:col-span-2">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Traditions (popup filter)</div>
+        <div class="text-sm">${tradHtml}</div>
+      </div>
     </div>
     <div class="bg-amber-50 border border-amber-200 rounded p-3 mt-4 text-sm">
       <strong>Note:</strong> clicking <em>Build my Bible</em> will save these settings to <code class="font-mono">${esc(STATE.edition_id)}</code> and produce a fresh EPUB. The corpus itself is not modified.
@@ -506,18 +634,26 @@ function renderReview() {
   `;
 }
 
-// ───────── Step 6: Build ─────────
+// ───────── Step 7: Build ─────────
 async function startBuild() {
-  goto(6);
+  goto(7);
   document.getElementById('build-stage').classList.remove('hidden');
   document.getElementById('done-stage').classList.add('hidden');
   document.getElementById('error-stage').classList.add('hidden');
   const status = document.getElementById('build-status');
 
   try {
-    // 1. Save edition meta (title, theme)
+    // 1. Save edition meta (title, theme, traditions_default)
     status.textContent = 'Saving your branding…';
-    const editionMeta = {title: STATE.title, theme: STATE.theme};
+    // Phase ψ.8.5 — fold the wizard's tradition picks into the same
+    // edition-meta save so the build pipeline picks up the filter on
+    // the very next /api/export/build call. Empty Set sends an empty
+    // list, which the validator translates to "no filter" (§7.2 no-op).
+    const editionMeta = {
+      title: STATE.title,
+      theme: STATE.theme,
+      traditions_default: [...STATE.traditions],
+    };
     const r1 = await fetch(`/api/edition-meta/${encodeURIComponent(STATE.edition_id)}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},

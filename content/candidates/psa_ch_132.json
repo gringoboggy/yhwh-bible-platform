@@ -1,0 +1,23 @@
+{
+  "book": "psa",
+  "chapter": 132,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "psa-132-6-001",
+      "verse": 6,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> orum ; footnote) the name of \" Ephratah, which is Bethlehem,\" by the help of which the reference to Ephratah in Psalm 132. 6 might be CONDITION OF THE OLD TESTAMENT TEXT. 91 interpreted as a prophecy of our Lord's birth at Bethlehem <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    }
+  ]
+}

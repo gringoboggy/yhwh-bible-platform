@@ -327,6 +327,13 @@ NOTES = [
         "Strong's H3444, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        2, 1, 'e', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> 151st), which is found in some other early manuscripts, and a number of canticles, or chants, extracted from other parts of the Bible (for instance, the songs of Moses, in Deut. 32, of Hannah, in 1 Sam. 2. 1-10, and the Magni- ficat) which were used in the services of the Church, The apo- cryphal Psalms of Solomon were originally added at the end of the New Testament, but the leaves containing them hav <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         2, 2, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -876,6 +883,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        4, 1, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> in the Hebrew or in the Greek. But in the Books of Samuel and Kings, the Septuagint departs frequently from the Massoretic text ; the student of the Variorum Bible may be referred for examples to 1 Sam. 4. 1 ; 5. 6 ; 10. 1 ; 13. 1, 15 ; 14. 24, 41 ; 15. 13 ; 2 Sam. 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are espec <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         4, 3, '', 'LORD',
@@ -2490,6 +2504,13 @@ NOTES = [
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        13, 21, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> er of places noted in W'hich the reading of the Septuagint makes better sense than that of the Hebrew. In not a few passages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. In other places <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         14, 1, '', 'man',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -3395,6 +3416,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        17, 12, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> 4. 6-7 ; 11. 23 ; 17. 3 ; 20. 18, 19 ; 1 Kings 2. 29 ; 8. 1 ; 12. 2, 3, 4-24. In the narrative of David and Goliath the variations are especially striking; for the best MSS. of the Septuagint omit 1 Sam. 17. 12-31, 41, 50, 55-58, together with 18. 1-5, 9-11, 17-19, and the rest of the references to Merab. In the Book of Job there is good reason to believe that the original text of the Septuagint omitted <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         17, 24, '', 'man',

@@ -71,6 +71,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        1, 20, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ; 15. 18, 34 ; 18. 5, 17, 21 ; 20. 15 ; 24. 6-8 ; 28. 16, 29. Rom, 3. 9 ; 4. 19 ; 7. 6 ; 8. 1 ; 9, 28 ; 10. 15 ; 11. 6 ; 14. 6 ; 16. 5, 24. 1 Cor. 2. 1 ; 6. 20 ; 8. 7 ; 11. 24, 29 ; 15. 47. 2 Cor. 1. 20 ; 12. 1. Gal. 3. 1, 17; 4. 7 ; 5. 1. Eph. 3. 9, 14; 5. 30. Phil. 1. 16, 17. Col. 1. 2, 14; 2. 2, 18. 1 Thess. 1. 1. 1 Tim. 3. 3, 16 ; 6. 5, 19. 2 Tim. 1. 11. Heb. 7. 21. 1 Peter 4. 14. 1 John 4. 3 ; <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         1, 21, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -314,6 +321,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-psa-116-10">Psa 116:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 13, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> her with leaves containing John 6. 50 8. .52 (where, however, the number of pages missing shows that the doubtful passage, -- 7. 53 8. 11, cannot have been present when the MS. was perfect), -- and 2 Cor. 4. 13 12. 6, one leaf of the first Epistle of Clement and the greater part of the second. The leaves measure 12 inches by 10 , having two columns to each page, written in a large and well-formed hand o <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         4, 16, '', '',
@@ -678,6 +692,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-psa-112-9">Psa 112:9</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        9, 9, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> 2 Cor. 9. 9, alms, do �* not sound a trumpet before <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         9, 10, '', '',

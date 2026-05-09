@@ -1,13 +1,19 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after ω.14 epubcheck preflight validation
-gate shipped (W3C/IDPF EPUB validator wired into the readiness
-dashboard). Session arc so far (continuous-go): scope expansion →
+**Updated:** 2026-05-08, after **χ.0** shipped — Kenyon textual-
+criticism ingest (new `text-witness` kind + KenyonText loader +
+KenyonReferenceDetector + at-scale driver + 117 promoted notes from
+F.G. Kenyon, *Our Bible and the Ancient Manuscripts*, 1895, public-
+domain). Session arc so far (continuous-go): scope expansion →
 ν.2.9+ψ.10 → ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13 →
-χ.1 → ψ.8.0 → ψ.8.1+8.2-A → **ω.14**. Thirteen implementation
-phases this session. v1.0 progress: 12 of 14 named pre-v1.0 phases;
-ω.14 is a quality-of-shipping additive ahead of the deferred
-ω.11-13 carry-overs.
+χ.1 → ψ.8.0 → ψ.8.1+8.2-A → ω.14 → ψ.8.2-B+ψ.8.3 → ψ.8.4 → ψ.8.5
+→ **χ.0**. Seventeen implementation phases this session. The ψ.8
+cluster (v1.0 differentiator) is feature-complete; ψ.8.5 closed it.
+Corpus growth is now the largest remaining gap to v1.0 (16,042 /
+25K floor); next per the most-logical-path is χ-AI-xrefs (cost
+gate lifted, ~$30-80 Anthropic, +5-15K notes), then ω.5 → θ.1 →
+θ.2 for the v1.0 candidate. Parallel user-side free-roll: run
+`python scripts/fetch_sources.py` for χ.7 + χ.1 (+7-13K).
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
@@ -27,19 +33,25 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 667 tests · 10/10 linter · 5 editions · 15,925 notes
+13 consoles · 717 tests · 10/10 linter · 5 editions · 16,041 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
+             Tier B (v1.0 differentiator) DONE — ψ.8 cluster complete:
+               ψ.8.0 schema foundation
+               ψ.8.1 + ψ.8.2-A schema field + filter
+               ψ.8.2-B + ψ.8.3 popup labels + customize UI
+               ψ.8.4 per-book tradition overrides
+               ψ.8.5 wizard Traditions step (this turn)
              Tier 2 (corpus growth via χ cluster) UNDERWAY:
                χ.6 done  (xref + hebrew via existing detectors)
                χ.7 INFRA done; data fetch is user-side
                χ.1 INFRA done; data fetch is user-side
-             Tier B (v1.0 differentiator) UNDERWAY:
-               ψ.8.0 schema foundation DONE
-               ψ.8.1 + ψ.8.2-A schema field + filter DONE (this turn)
-               ψ.8.2-B + ψ.8.3 popup redesign + customize UI — next
-               ψ.8.4 per-book overrides; ψ.8.5 wizard step — after
+             Path to v1.0 candidate (per "most-logical" sequence):
+               next: χ.0 Kenyon ingest (free, code-only)
+               then: χ-AI-xrefs (cost gate lifted)
+               then: ω.5 paths refactor → θ.1 launcher → θ.2 shell
+             v1.x polish: ρ.1 audio, ψ.14 buyer-arc, ψ.17 reader-EPUB
 
 CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
              AI-augmented xrefs unblocked on user funding 2026-05-08;
@@ -48,7 +60,195 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ω.14 epubcheck preflight validation gate shipped
+## Current phase: χ.0 Kenyon textual-criticism ingest shipped
+
+First χ-cluster phase since χ.1 Strong's Greek; first one fed by
+**local public-domain text** rather than a network fetch. F.G.
+Kenyon's *Our Bible and the Ancient Manuscripts* (1895, PD) was
+OCR'd via the system's `pdftotext`, staged under `content/sources/`,
+and ingested through a new detector + driver mirroring the χ.6 / χ.7
+pattern. Promoted 117 notes across 38 books, all tagged
+`tradition=cross` (manuscript history is denominationally neutral).
+
+```
+✓ content/sources/kenyon_textcrit.txt   775 KB OCR text from
+                                        oldfindings.pdf (Princeton
+                                        Theological Seminary scan).
+✓ content/kinds.yaml                    new text-witness kind under
+                                        category=text; symbol ✧
+                                        inherited; phase=mvp.
+✓ scripts/core/sources.py               KENYON_BOOK_NAME_TO_CODE
+                                        (66+ entries) + KenyonReference
+                                        dataclass + KenyonText loader
+                                        with regex-tolerant parser +
+                                        kenyon_text() singleton.
+✓ scripts/core/detectors.py             KenyonReferenceDetector emits
+                                        text-witness candidates;
+                                        _clean_kenyon_context() strips
+                                        OCR artifacts (carets,
+                                        backticks, pipes, backslashes,
+                                        repeated punctuation);
+                                        registered in ALL_DETECTORS.
+✓ scripts/run_kenyon_at_scale.py        new driver mirroring
+                                        run_xref_at_scale.py; merge-
+                                        not-clobber semantics with
+                                        chapter-wide ID renumber on
+                                        write; --max-per-verse cap.
+✓ dev/SCOPE_2026-05-08-addendum-kenyon-textcrit.md   spec.
+✓ tests/test_scripts.py                 +16 tests across 3 new classes
+                                        (TestKenyonSourceLoader 6 +
+                                        TestKenyonReferenceDetector 7
+                                        + TestRunKenyonAtScaleDriver 3).
+✓ Corpus delta                          +116 notes (15,925 → 16,042;
+                                        45.8% of 35K target). 38 books
+                                        (1 bogus index citation
+                                        removed pre-save);
+                                        heaviest: Mat (12), Luk (12),
+                                        Gen (9), Jhn (8), Psa (6).
+```
+
+## Prior phase: ψ.8.5 wizard Traditions step shipped — ψ.8 cluster complete
+
+The last ψ.8 sub-phase. The /wizard buyer-demo flow now has a
+Traditions step (Step 5 of 7) that pre-selects sensible defaults
+from the chosen profile and folds the picks into the build payload.
+The cross-denominational compare apparatus — the v1.0 differentiator
+— is feature-complete.
+
+```
+✓ scripts/templates/wizard.py      step indicator bumped 6 → 7;
+                                   new <section id="step-5"> Traditions
+                                   pane with card-style picker driven
+                                   by DATA.customize.traditions registry.
+                                   PROFILE_TO_TRADITIONS map seeds
+                                   defaults (catholic-study →
+                                   ["catholic","cross"], etc.); pre-
+                                   existing edition.traditions_default
+                                   wins over the seed for re-runs.
+                                   STATE.traditions_initialized flag
+                                   preserves user edits across back/
+                                   forward navigation. Step 6 (Review)
+                                   gains a Traditions pill row;
+                                   startBuild folds traditions_default
+                                   into the edition-meta save (no new
+                                   endpoint — pure composition over
+                                   ψ.8.1's validator).
+✓ tests/test_scripts.py             +2 tests — test_wizard_has_traditions
+                                   _step + test_wizard_step_indicator
+                                   _has_seven_dots; updated existing
+                                   test_wizard_html_constant_exists
+                                   (range bumped 6 → 7).
+```
+
+## Prior phase: ψ.8.4 per-book tradition overrides shipped
+
+The fourth ψ.8 sub-phase. Editions can now override the default
+tradition filter on a per-book basis — same shape as ν.2.7's
+`popup_languages_per_book`. New `traditions_per_book` schema field
+(flat list of `"<book>=<t1>,<t2>"` strings on disk, dict in API/UI),
+encoder + decoder + canonical-order linter coverage, validator,
+per-book resolver in the build pipeline, and an extended Traditions
+card on /customize with the same per-book matrix the popup-languages
+card already uses. Only **ψ.8.5** wizard-step integration remains.
+
+```
+✓ scripts/build_edition.py         decode_per_book_traditions /
+                                   encode_per_book_traditions mirror
+                                   the ν.2.7 popup-language pair.
+                                   _resolve_traditions_for_book(edition,
+                                   book) returns the active set per
+                                   book (per-book wins over default;
+                                   ∅ means "no filter for that book").
+                                   compute_tradition_disabled_html_ref
+                                   _ids + build_ref_id_to_tradition_map
+                                   refactored to use the resolver with
+                                   a per-book active-set cache.
+                                   _iter_note_ref_traditions now yields
+                                   (ref_id, tradition, book_code).
+✓ scripts/web.py                   traditions_per_book validator
+                                   in api_save_edition_meta (mirror
+                                   of popup_languages_per_book);
+                                   _decode_traditions_per_book_for_api
+                                   surfaces decoded dict in
+                                   api_customize_data; preview EDITABLE
+                                   set + clone passthrough updated.
+✓ scripts/templates/customize.py   Traditions card extended with the
+                                   per-book matrix (overrides count,
+                                   bulk-clear, add-book picker, remove
+                                   per row). wireTraditionsSection
+                                   rewritten to manage
+                                   {default, perBook, original} state.
+                                   buildCustomizePayload emits both
+                                   traditions_default + traditions_per
+                                   _book on save; post-save baseline
+                                   reset clones the dual-shape original.
+✓ scripts/lint_rules.py            encode_per_book_traditions added
+                                   to check_encoder_canonical_order
+                                   and check_encode_decode_round_trip.
+                                   Linter now reports "all 3 encoders /
+                                   3 encode/decode pairs" cleanly.
+✓ tests/test_scripts.py             +21 tests across 3 new classes —
+                                   TestTraditionsPerBookEncoderDecoder
+                                   (7), TestTraditionsPerBookResolver
+                                   (7), TestTraditionsPerBookCustomizeAPI
+                                   (6); plus updated traditions-card
+                                   HTML smoke (1).
+```
+
+## Prior phase: ψ.8.2-B + ψ.8.3 popup tradition stack + customize Traditions card shipped
+
+The second half of the spec's ψ.8.1+8.2+8.3 batch. Build pipeline
+labels every surviving editorial-note `<aside>` with its tradition
+(data-tradition attr + canonical display label paragraph), and the
+/customize console hosts a Traditions card so publishers can pick the
+denominational filter in the UI rather than hand-editing
+editions.yaml.
+
+```
+✓ scripts/build_edition.py         _iter_note_ref_traditions() yields
+                                   (ref_id, tradition) for every note;
+                                   shared by ψ.8.2-A filter and the
+                                   new ψ.8.2-B labeller (compose-don't-
+                                   recompute, §9).
+                                   build_ref_id_to_tradition_map(edition)
+                                   returns {ref_id: tradition} for
+                                   surviving notes; empty when
+                                   traditions_default unset (§7.2).
+                                   apply_tradition_labels_to_html()
+                                   adds data-tradition="<id>" to each
+                                   surviving aside opening tag and
+                                   prepends a <p class="note-tradition-
+                                   label">Display Label</p> paragraph.
+                                   Idempotent on already-labelled HTML.
+                                   build_one() runs the pass after
+                                   filter_html + the vnote pass, gated
+                                   on a non-empty map; new
+                                   tradition_labels_applied stat.
+✓ scripts/templates/customize.py   <details class="traditions-section">
+                                   card between Reader Experience and
+                                   Per-book popup languages. Checkboxes
+                                   driven by DATA.traditions registry
+                                   (single source of truth from ψ.8.1).
+                                   wireTraditionsSection() mirrors
+                                   wirePopupLanguageSection's pattern;
+                                   box.traditionsState / .dataset.
+                                   traditionsDirty fold into the
+                                   generic dirty handler + ν.2.9 badge
+                                   + buildCustomizePayload + post-save
+                                   baseline reset.
+✓ tests/test_scripts.py             +10 tests — TestTraditionLabelInjection
+                                   (9: empty-map no-op / happy path /
+                                   skip-not-in-map / idempotent /
+                                   canonical labels for every CANONICAL_
+                                   TRADITIONS id / xml-escape /
+                                   real-corpus iterator / build_ref_id
+                                   _to_tradition_map empty-when-unset /
+                                   cross-keeps-corpus) +
+                                   test_customize_html_has_traditions
+                                   _card (1: HTML smoke).
+```
+
+## Prior phase: ω.14 epubcheck preflight validation gate shipped
 
 Wired the W3C/IDPF epubcheck Java tool into the readiness dashboard
 as check #9. Real EPUB validation, gracefully degraded when Java is
@@ -59,22 +259,9 @@ build cycle runs, this becomes a hard shipping gate.
 ✓ scripts/core/epubcheck.py        is_available() + run_epubcheck() +
                                    run_epubcheck_on_dir() pure-function
                                    wrapper around the bundled JAR.
-                                   Subprocess-based to avoid the PyPI
-                                   package's eager constructor.
-                                   Probe cache + reset_probe_cache().
 ✓ scripts/web.py · _compute_       new check id 'epubcheck' surfaces
   preflight_uncached()             the aggregate validator status.
-                                   Empty exports/ → pass (info), Java
-                                   missing → warn (install hint),
-                                   errors → fail with details.
-✓ epubcheck (PyPI 5.1.0)            installed in the dev env. Ships
-                                   the W3C reference JAR. Java
-                                   runtime not yet installed on this
-                                   machine — graceful-fallback path
-                                   exercised today.
-✓ tests/test_scripts.py             +18 tests across 2 classes —
-                                   TestEpubcheckWrapper (15),
-                                   TestPreflightEpubcheck (3).
+✓ tests/test_scripts.py             +18 tests across 2 classes.
 ```
 
 ## Prior phase: ψ.8.1 + ψ.8.2-A traditions schema field + filter shipped
@@ -722,16 +909,22 @@ CONSOLES (web UI) — all 13 cross-linked per Rule §6.2:
 
 ## In-flight notes
 
-- **IN_FLIGHT.md is `idle`** at the time of this snapshot — ω.14
-  epubcheck preflight gate shipped (18 tests, wrapper + dashboard
-  integration). Java not yet installed on this machine; the gate
-  degrades gracefully to a warn until the user installs OpenJDK 8+
-  and runs a real EPUB build. Next ψ-cluster sub-phase batch is
-  **ψ.8.2-B + ψ.8.3**: popup HTML redesign + customize Traditions
-  card UI. χ.1 + χ.7 infrastructure also shipped this session;
-  user-side fetch + promote pending for both corpus deltas.
-  AI-augmented xrefs unblocked on user funding 2026-05-08; slotted
-  as a v1.x χ-cluster phase post-v1.0.
+- **IN_FLIGHT.md is `idle`** at the time of this snapshot —
+  χ.0 Kenyon ingest shipped (16 tests, +117 promoted notes,
+  new `text-witness` kind). Corpus is now 16,042 / 25K v1.0 floor
+  (8,958-note gap remaining). Next per the most-logical-path is
+  **χ-AI-xrefs** (~$30-80 Anthropic API per pass; +5-15K thematic
+  links; cost gate lifted 2026-05-08; mirrors the χ-cluster pattern
+  with an LLM-backed detector). Then **ω.5 paths refactor → θ.1
+  launcher → θ.2 native shell** for the v1.0 candidate. Audio
+  (ρ.1) + buyer-arc polish (ψ.14) + reader-EPUB polish (ψ.17)
+  ship as v1.x polish on a working v1.0 candidate.
+  Parallel user-side free-roll (independent of my work): run
+  `python scripts/fetch_sources.py` from any network-enabled
+  shell to unblock χ.7 (+2-3K Nave's) + χ.1 (+5-10K Strong's
+  Greek). Both pipelines already shipped infrastructure-wise.
+  ω.14 epubcheck gate still degrading-to-warn until OpenJDK 8+
+  is installed on this machine.
 - **Preflight FAILs on cover paths** — placeholder paths in
   seeded editions.yaml. Fixable via /covers upload or /customize
   blank.

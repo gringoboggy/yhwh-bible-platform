@@ -1,8 +1,8 @@
 {
   "book": "jhn",
   "chapter": 5,
-  "generated_at": "2026-05-08T14:31:41+00:00",
-  "n_candidates": 14,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 15,
   "candidates": [
     {
       "id": "jhn-5-8-001",
@@ -212,6 +212,21 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-deu-18-15\">Deu 18:15</a> · <a href=\"#vnote-deu-18-18\">Deu 18:18</a> · <a href=\"#vnote-jhn-1-45\">Jhn 1:45</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 73. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-5-4-015",
+      "verse": 4,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> so is the word from the Cross, \" Father, forgive them,\" in 23. 34 ; the mention of the descent of an angel to cause the moving of the waters of Bethesda is entirely absent from the oldest copies of John 5. 4, and all the best authorities omit the incident of the woman taken in adultery in 7. 53-8. 11. Besides the larger discrepancies, such as these, there is scarcely a verse in which there is not some <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

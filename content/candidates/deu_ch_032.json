@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 32,
-  "generated_at": "2026-05-08T14:38:35+00:00",
-  "n_candidates": 44,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 45,
   "candidates": [
     {
       "id": "deu-32-2-001",
@@ -662,6 +662,21 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-32-35-045",
+      "verse": 35,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> s are added at the end of the verse, \" And they shall take a cloth of purple, and cover the laver and his foot, and put it into a covering of seals' skins, and shall put them upon a frame \" ; and in Dent. 32. 35 the first half of the verse runs \" against the day of vengeance and recom- pence ; against the time when their foot shall slip.\" These are perhaps the most notable of the Samaritan variants, and it <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

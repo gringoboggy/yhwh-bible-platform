@@ -288,6 +288,13 @@ NOTES = [
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        2, 5, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> t con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original cont <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         2, 6, '', 'LORD',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -3067,6 +3074,13 @@ NOTES = [
         'User original',
     ),
     (
+        17, 24, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ephus, was Manasseh. This Manasseh, in indigna- tion at his expulsion, took refuge among the Samaritans, and set up among them a rival worehip to that at Jerusalem. The Samaritans, whom we know from 2 Kings 17. 24-41 to have been foreigners imported into the country of the Ten Tribes by the king of Assyria, and there, presumably, to have mingled with the scanty remnant of Israelites, had at first incorporated <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         17, 25, '', 'LORD',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -3997,6 +4011,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        22, 8, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> gs to be thus accepted. In the days of the kings it was possible for the " book of the Law " (perhaps meaning our Deuteronomy) to be lost and forgotten, and to be recovered as it were by accident (2 Kings 22. 8) ; but the Captivity taught the Jews to be careful of their Scriptures, and the Canon of the Law may be taken as fixed about the time of the return from exile, possibly under the guidance of Ezra, <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         22, 9, '', 'LORD',

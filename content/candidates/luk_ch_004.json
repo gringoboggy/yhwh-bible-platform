@@ -1,8 +1,8 @@
 {
   "book": "luk",
   "chapter": 4,
-  "generated_at": "2026-05-08T14:31:42+00:00",
-  "n_candidates": 10,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 11,
   "candidates": [
     {
       "id": "luk-4-1-001",
@@ -152,6 +152,21 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-mrk-1-34\">Mrk 1:34</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 16. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-4-32-011",
+      "verse": 32,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> is in the great Lauren- tian Library at Florence. It is a huge volume, each leaf measure- ing 19 in. by 13 in., written in large and beautifully clear -- letters. The passage shown in the Plate is Luke 4. 32 5. 6. An example of a correction may be seen in col. 2., 13 lines from the bottom, where tlie singulur imperative laxa has been altered by a corrector to the plural Jaxafe, which corresponds more e <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

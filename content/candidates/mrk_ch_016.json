@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 16,
-  "generated_at": "2026-05-08T14:31:42+00:00",
-  "n_candidates": 7,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 8,
   "candidates": [
     {
       "id": "mrk-16-7-001",
@@ -107,6 +107,21 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-1co-2-4\">1Co 2:4</a> · <a href=\"#vnote-act-14-3\">Act 14:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 21. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-16-9-008",
+      "verse": 9,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> rations are more extensive. The earliest Greek translation of the Old Testament contains several passages in the books of Esther and Daniel which are not found in the Hebrew. -- The long passages, Mark 16. 9-20 and John 7. 53 8. 11, which are absent from the oldest manuscripts of the New Testament, must have been either omitted in these or inserted in the others intentionally. If, as is more probably <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

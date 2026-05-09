@@ -57,6 +57,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        5, 2, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ; seeing that the same identification is repeated in four other places, including the much more strongly Messianic passage in Micah 5. 2, the omission in Joshua alone would be perfectly useless for party purposes, and may much more fairly be explained as an accident. It is needless to add that the greater prophecies of the Messiah, <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         6, 1, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',

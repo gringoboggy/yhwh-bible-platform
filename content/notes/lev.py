@@ -165,6 +165,13 @@ NOTES = [
         '<strong>Cross-references.</strong> <a href="#vnote-lev-11-44">Lev 11:44</a> · <a href="#vnote-exo-20-2">Exo 20:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
+    (
+        13, 59, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> in sloping uncials of the eighth or ninth century. It consists of two volumes, both of which have, unfortunately, been much mutilated. In their present condition, the first (at Eome) contains from Lev. 13. 59 to the end of Chronicles (with some lacunas), -- 2 Esdras {i.e. the canonical Ezra) 5. 10 Xeh. 7. 3, and Esther ; the second (at Venice) begins with Job 30. 8, and contains the rest of Job, Prover <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
     # ---- ch 16 ----
     (
         16,

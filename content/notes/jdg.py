@@ -84,6 +84,13 @@ NOTES = [
         "<strong>Em b’Yisra’el (<em>אֵם</em> <em>בְּיִשְׂרָאֵל</em>).</strong> Deborah’s self-designation. The phrase appears only twice in the Bible — here and 2 Sam 20:19, where the wise woman of Abel describes her own city as “a mother in Israel.” The image is of a city or person who safeguards covenant continuity. Deborah claims the title not as biological mother but as a leader whose authority stabilizes Israel in crisis.",
         'User original',
     ),
+    (
+        5, 30, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> come down to us. The student of the Variorum Bible will find many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represe <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
     # ---- ch 6 ----
     (
         6,
@@ -116,6 +123,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-gen-22-14">Gen 22:14</a> · <a href="#vnote-exo-17-15">Exo 17:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        7, 1, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> , according to the vowels supplied ; in Judg. 15. 16, "heaps upon heaps " or " I have flayed them " ; in Isa. 27. 7, " them that are slain by him " or " those that slew him " ; and see Gen. 49. 5 and Judg. 7. 1 3 for more extensive variations due to the same cause. Besides the vowel points, accents are also added, to indicate 26 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. the rhythmical pronunciation of each <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         7, 2, '', '',
@@ -190,6 +204,13 @@ NOTES = [
         'Note',
         '<strong>Samson’s riddle.</strong> One of the few preserved examples of an ancient Near Eastern wedding-feast riddle. The structure — a riddle staked on a wager, betrayal by a wife, retaliation — is folkloric in shape and recurs across cultures. The riddle is unfair (no one but Samson could solve it from public knowledge), and the narrative turns on the unfairness: Samson’s rage is theological as well as personal, since the betrayal sets in motion his first conflict with the Philistines.',
         'User original',
+    ),
+    (
+        15, 16, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> at the notes of the Variorum Bible will show that this danger is far from being imaginary; e.g., in Deut. 28. 22, either \" sword \" or '� drought \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" those that slew him \" ; and see Gen. 49. 5 and Judg. 7. 1 3 for more extensive variations due to th <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     # ---- ch 16 ----
     (

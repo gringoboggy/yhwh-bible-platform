@@ -198,6 +198,16 @@ kinds:
     description: "Where modern editors propose an emendation against all witnesses."
     phase: phase3
 
+  - code: text-witness
+    category: text
+    symbol: "✧"
+    note_class: "note-text-witness"
+    marker_class: "marker-text-witness"
+    label: "Witness"
+    title_attr: "Manuscript-witness commentary"
+    description: "Textual-critical commentary on manuscript / version witnesses to a verse, drawn from PD textual-criticism literature (Kenyon 1895, etc.)."
+    phase: mvp
+
   # ──────────────────────────────────────────────────────────────────
   # CROSS-REFERENCES  ‖
   # ──────────────────────────────────────────────────────────────────

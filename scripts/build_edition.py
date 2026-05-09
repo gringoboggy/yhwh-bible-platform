@@ -71,34 +71,26 @@ PHASE_ORDER = ["legacy", "mvp", "phase2", "phase3"]
 # ----------------------------------------------------------------------
 
 
-def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
-    """Phase ψ.8.2-A — return the set of HTML ref-ids whose note tradition
-    is NOT in ``edition["traditions_default"]``.
+def _iter_note_ref_traditions():
+    """Walk every note tuple on disk and yield
+    ``(ref_id, tradition, book_code)``.
 
-    When ``traditions_default`` is missing or empty, returns an empty
-    set (no filtering — pre-ψ.8 build behaviour preserved per
-    CLAUDE_PROJECT_RULES §7.2).
+    Used by ``compute_tradition_disabled_html_ref_ids`` (ψ.8.2-A —
+    filtering), ``apply_tradition_labels_to_html`` (ψ.8.2-B — label
+    injection), and the per-book resolver (ψ.8.4 — overrides).
+    Centralising the iteration here keeps every pass reading the same
+    canonical mapping; future detectors that add tradition tags only
+    need to update ``note_tradition``.
 
-    The output set is unioned into ``disabled_html_ref_ids`` in
-    ``build_one()``; ``filter_html()`` then strips the matching
-    markers + asides from the rendered HTML alongside the existing
-    kind-based and per-note-id filters. The id format mirrors the
-    Phase ρ.1 path exactly: ``ref-{prefix}{ch:02d}{vs:02d}{suffix}``.
+    Yields tuples like ``("ref-g0101a", "catholic", "gen")``. Notes
+    whose chapter/verse aren't integers are silently skipped
+    (defensive — the note-tuple shape is owned by the corpus).
     """
-    enabled = list(edition.get("traditions_default") or [])
-    if not enabled:
-        return set()
-    enabled_set = set(enabled)
-
-    # Defer notes_io import to inside the function so build_edition can
-    # be imported in environments without the full content tree (CI
-    # docs build, etc.). Same pattern build_one uses.
     from scripts.core.notes_io import load_notes
     from scripts.core.traditions import note_tradition
 
     books_idx = config.books_by_code()
     notes_dir = REPO_ROOT / "content" / "notes"
-    out: set[str] = set()
     for book_path in sorted(notes_dir.glob("*.py")):
         if book_path.stem == "__init__" or book_path.stem.startswith("_"):
             continue
@@ -111,9 +103,6 @@ def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
         for tup in notes:
             if not isinstance(tup, tuple) or len(tup) < 8:
                 continue
-            tradition = note_tradition(tup)
-            if tradition in enabled_set:
-                continue
             ch = tup[0]
             vs = tup[1]
             suffix = tup[2] or ""
@@ -122,8 +111,270 @@ def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
                 vs_i = int(vs)
             except (TypeError, ValueError):
                 continue
-            out.add(f"ref-{prefix}{ch_i:02d}{vs_i:02d}{suffix}")
+            ref_id = f"ref-{prefix}{ch_i:02d}{vs_i:02d}{suffix}"
+            yield ref_id, note_tradition(tup), book_code
+
+
+# ---- Phase ψ.8.4: per-book tradition overrides ----------------------
+#
+# Mirrors the ν.2.7-A popup_languages_per_book pattern. Editions can
+# specify which traditions appear, with two levels of resolution:
+#
+#   traditions_default      list[str]   per-edition default
+#   traditions_per_book     dict[code → list[str]]    overrides
+#
+# Resolution at filter / label time (per book):
+#   if book in per_book:    raw = per_book[book]
+#   else:                   raw = traditions_default
+#   active = {t for t in raw if t in TRADITION_IDS}
+#   active==∅ ⇒ no filter for that book (every tradition survives)
+#   active≠∅ ⇒ filter — drop notes whose tradition isn't in active
+#
+# An explicit empty list at either level (default OR per-book) means
+# "no tradition filter" — the §7.2 byte-identical guarantee is preserved
+# whenever every book resolves to ∅.
+
+
+def decode_per_book_traditions(raw) -> dict[str, list[str]]:
+    """Decode the on-disk format for ``traditions_per_book``.
+
+    Same indirection as ``decode_per_book_languages`` — flat list of
+    ``"<book_code>=<t1>,<t2>"`` strings on disk because the project's
+    custom YAML parser supports list fields but not nested mappings.
+    Empty value (``"gen="``) is meaningful: "this book gets no
+    tradition filter" (an explicit override of the default, distinct
+    from absence-of-key which means "fall through to default").
+
+    Accepts:
+      - None / [] / {}  → {}
+      - list[str]       → decoded
+      - dict            → returned as-is (UI/JSON path)
+
+    Returns ``{book_code: [tradition_id, …]}``.
+    """
+    if raw is None or raw == [] or raw == {}:
+        return {}
+    if isinstance(raw, dict):
+        return {str(k): list(v or []) for k, v in raw.items()}
+    out: dict[str, list[str]] = {}
+    for entry in raw:
+        if not isinstance(entry, str):
+            continue
+        if "=" not in entry:
+            continue
+        code, blob = entry.split("=", 1)
+        code = code.strip()
+        if not code:
+            continue
+        if not blob.strip():
+            out[code] = []
+            continue
+        out[code] = [s.strip() for s in blob.split(",") if s.strip()]
     return out
+
+
+def encode_per_book_traditions(per_book: dict[str, list[str]]) -> list[str]:
+    """Inverse of decode_per_book_traditions — write the on-disk format.
+
+    Output is sorted by canonical book order (Genesis → … → Revelation
+    → Ethiopian tail) per CLAUDE_PROJECT_RULES.md §6.1, so editions.yaml
+    diffs stay clean. Unknown tradition ids are filtered out — same
+    defensive policy as decode, so the round trip is clean.
+    """
+    if not per_book:
+        return []
+    from scripts.core import config as _cfg
+    from scripts.core.traditions import TRADITION_IDS
+    book_order = list(_cfg.books_by_code().keys())
+    rank = {code: i for i, code in enumerate(book_order)}
+
+    def _sort_key(item):
+        code = item[0]
+        return (rank.get(code, len(book_order) + 1), code)
+
+    out: list[str] = []
+    for code, traditions in sorted(per_book.items(), key=_sort_key):
+        traditions = list(traditions or [])
+        clean = [t for t in traditions if t in TRADITION_IDS]
+        out.append(f"{code}={','.join(clean)}")
+    return out
+
+
+def _resolve_traditions_for_book(edition: dict, book_code: str) -> set[str]:
+    """Active tradition set for one (edition, book).
+
+    Empty set means "no tradition filter for this book". Per-book
+    overrides take precedence over the per-edition default; absence
+    of an override falls through to the default.
+
+    Unknown tradition ids are PRESERVED (not filtered out) — they
+    simply won't match any note's tradition, which is the safer
+    behaviour when editions.yaml contains a typo. The validator at
+    the API layer is responsible for rejecting unknowns at write
+    time; the build pipeline trusts whatever's on disk and lets a
+    config bug yield "no notes survive" rather than silently
+    "every note survives".
+    """
+    per_book = decode_per_book_traditions(edition.get("traditions_per_book"))
+    if book_code in per_book:
+        raw = per_book[book_code]
+    else:
+        raw = edition.get("traditions_default") or []
+    return {t for t in (raw or []) if isinstance(t, str)}
+
+
+def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
+    """Phase ψ.8.2-A (+ ψ.8.4 per-book overrides) — return the set of
+    HTML ref-ids whose note tradition isn't allowed for that note's
+    book in this edition.
+
+    Resolution is per-book: ``traditions_per_book[book]`` if set, else
+    ``traditions_default``. Either resolving to an empty list means
+    "no filter for that book" (every note survives — pre-ψ.8 behaviour
+    per §7.2). When neither default nor any per-book entry is set, this
+    short-circuits to an empty set without walking the corpus.
+
+    The output set is unioned into ``disabled_html_ref_ids`` in
+    ``build_one()``; ``filter_html()`` then strips the matching
+    markers + asides. id format: ``ref-{prefix}{ch:02d}{vs:02d}{suffix}``.
+    """
+    has_default = bool(edition.get("traditions_default"))
+    per_book = decode_per_book_traditions(edition.get("traditions_per_book"))
+    if not has_default and not per_book:
+        return set()
+
+    out: set[str] = set()
+    book_active_cache: dict[str, set[str]] = {}
+    for ref_id, tradition, book_code in _iter_note_ref_traditions():
+        active = book_active_cache.get(book_code)
+        if active is None:
+            active = _resolve_traditions_for_book(edition, book_code)
+            book_active_cache[book_code] = active
+        if not active:
+            # No filter for this book — note survives.
+            continue
+        if tradition not in active:
+            out.add(ref_id)
+    return out
+
+
+def build_ref_id_to_tradition_map(edition: dict) -> dict[str, str]:
+    """Phase ψ.8.2-B (+ ψ.8.4) — ``{ref_id: tradition}`` for every note
+    that survived the per-book tradition filter.
+
+    Empty when no edition-level filter is active (no
+    ``traditions_default`` and no ``traditions_per_book``). The build
+    pipeline only runs the label-injection pass when this dict is
+    non-empty, so pre-ψ.8 builds remain byte-identical (§7.2).
+    """
+    has_default = bool(edition.get("traditions_default"))
+    per_book = decode_per_book_traditions(edition.get("traditions_per_book"))
+    if not has_default and not per_book:
+        return {}
+
+    out: dict[str, str] = {}
+    book_active_cache: dict[str, set[str]] = {}
+    for ref_id, tradition, book_code in _iter_note_ref_traditions():
+        active = book_active_cache.get(book_code)
+        if active is None:
+            active = _resolve_traditions_for_book(edition, book_code)
+            book_active_cache[book_code] = active
+        if not active:
+            # No filter for this book — labelling would mean "every
+            # tradition is allowed", which is essentially pre-ψ.8 build
+            # behaviour for that book. Skip the label so default-on-no-
+            # filter books don't pick up data-tradition attributes.
+            continue
+        if tradition in active:
+            out[ref_id] = tradition
+    return out
+
+
+# Pattern that matches one ``<aside class="note note-X" id="note-…"``
+# editorial-note element (the per-note popup, not the per-verse vnote).
+# Captures: (1) full opening tag, (2) ref-id (the note-{full_id}), (3)
+# inner body, (4) closing tag.
+_NOTE_ASIDE_RE = re.compile(
+    r'(<aside\s+class="note\s+note-[a-z][a-z0-9-]*"\s+id="(note-[^"]+)"[^>]*>)'
+    r'(.*?)'
+    r'(</aside>)',
+    re.DOTALL,
+)
+
+
+def apply_tradition_labels_to_html(
+    html_text: str,
+    ref_id_to_tradition: dict[str, str],
+) -> tuple[str, dict]:
+    """Phase ψ.8.2-B — label every surviving editorial-note ``<aside>``
+    with its tradition.
+
+    For each ``<aside class="note note-X" id="note-…">…</aside>`` whose
+    corresponding ref-id is in ``ref_id_to_tradition``, we:
+
+      1. Add ``data-tradition="<tradition_id>"`` to the opening tag
+         (after the existing ``id="…"`` attribute, so the canonical
+         tradition CSS selector ``aside.note[data-tradition=…]`` works
+         in any reader that supports CSS attribute selectors).
+      2. Prepend a ``<p class="note-tradition-label">…</p>`` paragraph
+         inside the aside body, carrying the canonical display label
+         (e.g. ``"Catholic"``, ``"Cross-tradition"``).
+
+    Both rewrites are skipped if the aside already carries a
+    ``data-tradition`` attribute (idempotent — re-running this pass
+    over already-labelled HTML is a no-op).
+
+    Returns ``(new_html, stats)`` where ``stats = {"labeled": N,
+    "skipped_already_labeled": M, "skipped_no_tradition": K}``.
+    """
+    from scripts.core.traditions import CANONICAL_TRADITIONS
+
+    label_for = {tid: lbl for tid, lbl in CANONICAL_TRADITIONS}
+    stats = {"labeled": 0, "skipped_already_labeled": 0, "skipped_no_tradition": 0}
+
+    if not ref_id_to_tradition:
+        return html_text, stats
+
+    def _replace(m: re.Match) -> str:
+        opening = m.group(1)
+        note_id = m.group(2)  # "note-XXXX"
+        body = m.group(3)
+        closing = m.group(4)
+
+        # ref-id (the marker) is the same suffix as note-id (the aside).
+        ref_id = "ref-" + note_id[len("note-"):]
+
+        tradition = ref_id_to_tradition.get(ref_id)
+        if tradition is None:
+            stats["skipped_no_tradition"] += 1
+            return m.group(0)
+
+        if 'data-tradition=' in opening:
+            stats["skipped_already_labeled"] += 1
+            return m.group(0)
+
+        display = label_for.get(tradition, tradition)
+
+        # Inject data-tradition="…" right after the id="…" attribute so
+        # the opening tag stays diff-friendly (existing attributes keep
+        # their relative order; only one new attribute is added).
+        new_opening = re.sub(
+            r'(id="note-[^"]+")',
+            rf'\1 data-tradition="{tradition}"',
+            opening,
+            count=1,
+        )
+
+        label_para = (
+            f'\n  <p class="note-tradition-label" '
+            f'data-tradition-id="{tradition}">'
+            f'{_xml_escape_text(display)}</p>'
+        )
+        stats["labeled"] += 1
+        return new_opening + label_para + body + closing
+
+    new_html = _NOTE_ASIDE_RE.sub(_replace, html_text)
+    return new_html, stats
 
 
 def compute_enabled_kinds(edition: dict, all_kinds: list[dict]) -> tuple[set, set]:
@@ -1804,6 +2055,12 @@ def build_one(
     # list joins the disabled set. Empty/unset → no-op (set is empty).
     disabled_html_ref_ids |= compute_tradition_disabled_html_ref_ids(edition)
 
+    # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
+    # map for the notes that SURVIVED the ψ.8.2-A filter. Empty when
+    # `traditions_default` is unset/empty — the label-injection pass is
+    # then skipped entirely so pre-ψ.8 builds stay byte-identical (§7.2).
+    ref_id_to_tradition = build_ref_id_to_tradition_map(edition)
+
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M%SZ")
     output_path = output_dir / f"Ethiopian_Bible_{edition_id}_{version}_{timestamp}.epub"
 
@@ -1823,6 +2080,7 @@ def build_one(
         "vnote_translations_replaced": 0,
         "vnote_translations_missed": 0,
         "vnote_language_paragraphs_stripped": 0,
+        "tradition_labels_applied": 0,
         "output_path": output_path,
         "size_mb": 0.0,
         "skipped": False,
@@ -1926,6 +2184,15 @@ def build_one(
                 stats["vnote_language_paragraphs_stripped"] += (
                     vp_counts["language_paragraphs_stripped"]
                 )
+
+            # Phase ψ.8.2-B — label surviving editorial-note asides with
+            # their tradition. Skipped entirely when the edition has no
+            # `traditions_default` (the map is empty), preserving §7.2.
+            if ref_id_to_tradition:
+                new_text, t_counts = apply_tradition_labels_to_html(
+                    new_text, ref_id_to_tradition,
+                )
+                stats["tradition_labels_applied"] += t_counts["labeled"]
 
             if new_text != text:
                 f.write_text(new_text, encoding="utf-8")

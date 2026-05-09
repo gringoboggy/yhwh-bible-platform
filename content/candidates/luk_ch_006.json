@@ -1,8 +1,8 @@
 {
   "book": "luk",
   "chapter": 6,
-  "generated_at": "2026-05-08T14:31:42+00:00",
-  "n_candidates": 17,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 19,
   "candidates": [
     {
       "id": "luk-6-3-001",
@@ -257,6 +257,36 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-1co-3-10\">1Co 3:10</a> · <a href=\"#vnote-mat-7-25\">Mat 7:25</a> · <a href=\"#vnote-psa-62-2\">Psa 62:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 24. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-6-4-018",
+      "verse": 4,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> und after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-6-48-019",
+      "verse": 48,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> on of Man, am I see Mark 8. 27, Luke 9. 18.\" In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li\\ Luke 6. 48 the concluding / VARIATIONS IN THE BIBLE TEXT. words of the parable of the house built on the rock, \"because it had been well builded,\" have been altered in \"many ancient authorities\" in acc <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

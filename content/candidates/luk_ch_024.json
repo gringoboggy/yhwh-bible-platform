@@ -1,8 +1,8 @@
 {
   "book": "luk",
   "chapter": 24,
-  "generated_at": "2026-05-08T14:31:42+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 9,
   "candidates": [
     {
       "id": "luk-24-6-001",
@@ -122,6 +122,21 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-act-1-8\">Act 1:8</a> · <a href=\"#vnote-act-1-4\">Act 1:4</a> · <a href=\"#vnote-jol-2-28\">Jol 2:28</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 26. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-24-6-009",
+      "verse": 6,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> the same authorities and the Old Syriac omit the second mention of the cup in the in- stitution of the Sacrament of the Lord's Supper, thus reversing the D order of administration of the elements. In Luke 24. 6, and the Old Latin omit the words \" He is not here, but is risen\" ; they omit the whole of v. 12, with Peter's entry into the sepulchre ; they omit in v. 36 \" and saith unto them. Peace be unto you <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

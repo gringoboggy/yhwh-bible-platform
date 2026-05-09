@@ -199,6 +199,7 @@ def check_encoder_canonical_order() -> dict:
     # (module_path, encoder_name) pairs to check
     encoders = [
         ("scripts.build_edition", "encode_per_book_languages"),
+        ("scripts.build_edition", "encode_per_book_traditions"),
         ("scripts.core.covers",   "encode_book_covers"),
     ]
 
@@ -219,6 +220,8 @@ def check_encoder_canonical_order() -> dict:
         # in the project's 87-book superset.
         if fn_name == "encode_per_book_languages":
             sample = {"mat": ["english"], "tob": ["english"], "gen": ["english"]}
+        elif fn_name == "encode_per_book_traditions":
+            sample = {"mat": ["catholic"], "tob": ["cross"], "gen": ["protestant"]}
         else:
             sample = {"mat": "x", "tob": "y", "gen": "z"}
         try:
@@ -258,6 +261,9 @@ def check_encode_decode_round_trip() -> dict:
         ("scripts.build_edition",
          "encode_per_book_languages", "decode_per_book_languages",
          {"gen": ["english", "hebrew"], "mat": ["english"], "tob": []}),
+        ("scripts.build_edition",
+         "encode_per_book_traditions", "decode_per_book_traditions",
+         {"gen": ["catholic", "cross"], "mat": ["protestant"], "tob": []}),
         ("scripts.core.covers",
          "encode_book_covers", "decode_book_covers",
          {"gen": "covers/x/gen.jpg", "mat": "covers/x/mat.png", "tob": ""}),

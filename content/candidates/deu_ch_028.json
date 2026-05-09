@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 28,
-  "generated_at": "2026-05-08T14:38:35+00:00",
-  "n_candidates": 100,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 101,
   "candidates": [
     {
       "id": "deu-28-1-001",
@@ -1502,6 +1502,21 @@
       "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-28-22-101",
+      "verse": 22,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> in some cases the sense of the passage would not show for certain which way was i-ight. A glance at the notes of the Variorum Bible will show that this danger is far from being imaginary; e.g., in Deut. 28. 22, either \" sword \" or '� drought \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

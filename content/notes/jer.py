@@ -337,6 +337,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        17, 1, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> r short inscriptions, such as Jeremiah was thinking of when he said " The sin of Judah is written with a pen of iron, and with the point of a diamond ; it is graven upon the table of their heart" (Jer. 17. 1), and it was upon a "great tablet" (Isa. 8. 1, R.V.) that Isaiah wrote the words " For Maher- shalal-hash-baz " ; but it was a " roll of a book " which Jeremiah took in order that Baruch might write <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         17, 5, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -832,6 +839,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-jhn-10-10">Jhn 10:10</a> · <a href="#vnote-isa-30-26">Isa 30:26</a> · <a href="#vnote-tit-3-5">Tit 3:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        36, 2, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> order that Baruch might write therein with ink the words which the Lord had spoken against Israel, and which Jehoiakim cut with a penknife and burnt in the fire that was in the brasier before him (Jer. 36. 2, 18, 23).* It was a " roll of a book " which was spread before Ezekiel, written within and without with lamen- tations and mourning and woe (Ezek. 2. 9, 10). The material of * There can be lit <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         51, 20, '', '',

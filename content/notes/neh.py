@@ -78,6 +78,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        8, 1, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> the common folk. Hence arose the necessity of paraphrasing the Scriptures into the cui-rent Aramaic tongue. At first these paraphrases were simply given by word of mouth, as in the scene described in Neh. 8. 1-8, when Ezra read the book of the Law before the people, "and Jeshua and Bani and Sherebiah . the Levites, caused the people to understand the Law " ; but subsequently the method of interpretati <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         8, 10, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',

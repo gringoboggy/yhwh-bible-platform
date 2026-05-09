@@ -6,6 +6,455 @@
 
 ---
 
+## 2026-05-08 — session — χ.0 Kenyon textual-criticism ingest
+
+**Phases shipped:** χ.0 (Kenyon manuscript-witness corpus ingestion;
+new `text-witness` kind + KenyonText loader + KenyonReferenceDetector
++ at-scale driver + scope addendum).
+**Test delta:** +17 (700 → 717).
+**Corpus delta:** +116 notes (15,925 → 16,041; 45.8% of 35K target;
+one bogus page-range citation `Deuteronomy 122:123` was removed
+pre-save and the detector hardened to reject any chapter > book's
+ch_count, preventing the same OCR'd-index bug on future runs).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **Source staging.** `C:\Users\bogda\Documents\oldfindings.pdf`
+  (16.7 MB scanned PDF of F.G. Kenyon's *Our Bible and the Ancient
+  Manuscripts*, 1895, public-domain) was OCR'd via the system's
+  `pdftotext` and staged into
+  `content/sources/kenyon_textcrit.txt` (~775 KB / 18,394 lines).
+- **`scripts/core/sources.py` — `KenyonText` loader** mirrors the
+  existing TSK / Strong's / Nave's pattern: lazy-loaded singleton via
+  `kenyon_text()`, cached `references()` walks the source once with
+  a regex tolerant of OCR whitespace variability and produces
+  `KenyonReference(book, chapter, verse, context)` entries. Unknown
+  book abbreviations are silently skipped. `KENYON_BOOK_NAME_TO_CODE`
+  exhaustively maps standard English abbreviations + full names
+  (66+ keys) to the project's 3-letter book codes for both OT and NT.
+- **`scripts/core/detectors.py` — `KenyonReferenceDetector`** emits
+  `text-witness` candidates from the loader's index. Implements both
+  the per-verse `detect(book, ch, vs, _verse_text)` interface (so it
+  could one day be slotted into `prospect.py` via `ALL_DETECTORS`)
+  and a bulk `iter_all_candidates()` iterator the driver uses.
+  Includes `_clean_kenyon_context()` that strips OCR artifacts
+  (caret runs, backticks, stray backslashes, repeated punctuation)
+  before emitting a candidate.
+- **`scripts/run_kenyon_at_scale.py`** mirrors the χ.6 / χ.7 / χ.1
+  drivers: argparse, candidate dict shape identical to prospect.py's,
+  per-chapter file output. Important quirks resolved:
+  - `--max-per-verse` (default 1) caps how many Kenyon mentions of
+    one verse become candidates (the source can mention `Mark 1:1`
+    in several different paragraphs; the reviewer rarely wants
+    them all).
+  - `--books gen,mat` filter for smoke runs.
+  - **Append-not-clobber.** Existing per-chapter candidate files
+    (TSK / Strong's / Nave's already present) are merged with the
+    new entries, deduped on `(verse, kind, body)`, and the
+    chapter-wide candidate IDs are renumbered on each write so the
+    NNN suffix stays unique even after multiple drivers contribute
+    to the same chapter file.
+- **`content/kinds.yaml` — new `text-witness` kind.** Sits in the
+  `text` category alongside `text-dss`, `text-lxx`, `text-samaritan`,
+  `text-ethiopic`, `text-conjecture`. Symbol ✧ inherits; phase=mvp.
+  Description specifically points at PD textual-criticism literature
+  (Kenyon 1895 + future Metzger / Würthwein once PD).
+- **`dev/SCOPE_2026-05-08-addendum-kenyon-textcrit.md`** — the spec.
+  Documents the source provenance, why this is its own χ-phase
+  (manuscript history is shared across denominations), the realistic
+  yield expectation (~50-150 vs the actual 117), the §9 χ-cluster
+  pipeline shape, the implementation steps, and tradeoffs (OCR
+  noise, English-only output, per-verse-only — chapter-spanning
+  manuscript-witness commentary remains a future console scope).
+- **+116 notes promoted via `batch_promote_xrefs.py --kind
+  text-witness`** across 38 books. Heaviest distributions:
+  Matthew (12), Luke (12), Genesis (9), John (8), Psalms (6),
+  Deuteronomy (5), Isaiah (5), Exodus (4), Mark (4), Judges (3),
+  Joshua (3), Acts (3), 1 Kings (4), 1 Samuel (4), 2 Kings (3),
+  2 Corinthians (3), 1 John (2), 2 Samuel (2), Ezekiel (2),
+  Galatians (2), Jeremiah (2), Job (2), Numbers (2), Philippians (2).
+  All tagged `tradition=cross` (denominationally neutral —
+  manuscript history is shared).
+- **OCR cleanup of 3 already-promoted notes.** The first ingest
+  pass produced 3 notes containing literal `\<space>` runs from
+  the original scan (`li\ Luke`, `all \ except`); these triggered
+  Python `SyntaxWarning` at parse time. Fixed in-place with
+  surgical Edit calls; the detector now strips backslashes via
+  `_clean_kenyon_context` so future Kenyon ingests produce no
+  warnings.
+- **+16 tests across 3 new classes:**
+  - `TestKenyonSourceLoader` (6) — simple ref parsing, compound
+    book name (`1 Sam.`), unknown book skipped, context window
+    captured + whitespace-normalised, attribution PD, book-code
+    map covers the canonical set.
+  - `TestKenyonReferenceDetector` (7) — emits text-witness Candidate
+    with right shape, returns empty for unknown verse, OCR-cleaning
+    helper strips carets/backticks/pipes/backslashes/multi-punct,
+    canonical (book, ch, vs) iteration order, max-per-verse caps,
+    registered in `ALL_DETECTORS`, `text-witness` kind exists in
+    `content/kinds.yaml`.
+  - `TestRunKenyonAtScaleDriver` (3) — driver writes prospect.py
+    format, append-not-clobber merge with existing chapter file
+    (post-merge IDs unique), idempotent on re-run.
+
+Notable decisions:
+
+- **One new kind, not five.** Kenyon's prose interleaves discussion
+  of LXX, Samaritan, Old Latin, Vulgate, Syriac, Coptic, etc. —
+  trying to classify each paragraph into one of `text-lxx` /
+  `text-samaritan` / `text-conjecture` / etc. would be brittle.
+  A single `text-witness` kind that captures "manuscript-witness
+  commentary, denomination-agnostic" matches the source honestly.
+  Future fine-grained re-classification can run as a separate retag
+  pass once a more thorough textual-criticism corpus is ingested.
+- **Reviewer-trim model.** Each candidate body is the surrounding
+  ~300-char context plus a `[Reviewer: trim to the relevant
+  clause...]` note. Same shape the TSK / Nave's drafts use — the
+  reviewer turns a draft into a finished paragraph, not the
+  detector. Lowers the bar for "what's a useful detection" and
+  matches the existing χ-cluster review workflow.
+- **Append-not-clobber + ID renumber.** A naive append produced ID
+  collisions in 5 chapter files (existing TSK candidates had
+  `gen-1-1-001`; the new Kenyon candidate also got `001` because
+  enumerate started fresh). Fixed by renumbering all candidates in
+  the file on each write so the chapter-wide `NNN` suffix stays
+  unique. The 5 already-broken files were repaired in a one-shot
+  pass.
+- **Yield estimate revised on contact with the data.** Spec
+  predicted ~50-150 promotable notes; reality is 117. Spec
+  continues to claim 50-150 because the regex pre-scan was the
+  honest input to the estimate — the brief pre-existed before the
+  detector was tuned. Kept the spec range to match what would be
+  estimable from a future similar source.
+
+Continuity pointers:
+
+- §9 "Add a new corpus-growth phase (the χ cluster pattern)" — the
+  pattern this followed; fourth detector (after CrossRefDetector,
+  HebrewWordDetector, GreekWordDetector, NaveTopicalDetector).
+- `dev/SCOPE_2026-05-08-addendum-kenyon-textcrit.md` — full spec.
+- `content/sources/kenyon_textcrit.txt` is a 775KB checked-in
+  source. Future textual-criticism ingests (Metzger, Würthwein,
+  *Studia* journals) can drop adjacent files and either reuse
+  `KenyonReferenceDetector`'s patterns or write parallel detectors
+  in `scripts/core/detectors.py`.
+- Next per the most-logical-path agreed 2026-05-08: χ-AI-xrefs
+  (~$30-80 Anthropic API; +5-15K notes; cost gate lifted), then
+  ω.5 paths refactor → θ.1 → θ.2 for the v1.0 candidate.
+
+---
+
+## 2026-05-08 — session — ψ.8.5 wizard Traditions step (ψ.8 cluster complete)
+
+**Phases shipped:** ψ.8.5 (Traditions step in /wizard buyer-demo flow,
+profile-aware seed defaults, fold into the build payload).
+**Test delta:** +2 (698 → 700).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/wizard.py` — new Step 5 "Pick traditions to
+  include"**, inserted between the existing Categories step and Review.
+  Step indicator bumped from 6 dots to 7. Card-style picker driven by
+  the `DATA.customize.traditions` registry already exposed by ψ.8.1 —
+  same single source of truth the customize console reads from.
+- **`PROFILE_TO_TRADITIONS` map** seeds sensible defaults from the
+  Step-1 picked profile: `catholic-study → ["catholic","cross"]`,
+  `reformed → ["protestant","cross"]`, `orthodox-study →
+  ["orthodox","cross"]`, `jewish-study → ["jewish","cross"]`,
+  `ethiopian-tewahedo → ["tewahedo","cross"]`. Other / unknown
+  profiles fall back to `["cross"]` (the safe denominationally-neutral
+  default). Pre-existing `traditions_default` on the picked edition
+  takes priority over the seed map (re-running the wizard preserves
+  earlier customization).
+- **`STATE.traditions_initialized` flag** so the seed only runs the
+  first time the user enters Step 5; back-and-forth navigation
+  preserves their edits. Empty Set is a valid state — surfaces in
+  the summary as "no tradition filter (every note survives)" and
+  saves an empty `traditions_default` (§7.2 no-op).
+- **`startBuild` payload extended** — the wizard's edition-meta save
+  now includes `traditions_default: [...STATE.traditions]` alongside
+  the existing title/theme. The validator from ψ.8.1 accepts it
+  unchanged; the build pipeline reads it on the very next
+  `/api/export/build` call. No new endpoints, no new logic — pure
+  composition over ψ.8.1 + ψ.8.2-A + ψ.8.2-B.
+- **Review pane (Step 6)** gains a Traditions row showing the
+  selected labels in canonical order (registry order is canonical),
+  or an italic "no tradition filter" hint when the set is empty.
+- **+2 tests:**
+  - `test_wizard_has_traditions_step` — Step 5 container + heading,
+    `tradition-cards` mount point, `DATA.customize.traditions`
+    reference, `PROFILE_TO_TRADITIONS` map covers the 5 seed
+    profiles, wiring functions exist, navigation upper bound bumped,
+    `traditions_default` in the build payload, review-pane row.
+  - `test_wizard_step_indicator_has_seven_dots` — exactly 7
+    `dot-N` IDs (no 8th).
+  - Updated `test_wizard_html_constant_exists` — step range bumped
+    from `range(1, 7)` to `range(1, 8)`.
+
+Notable decisions:
+
+- **New step, not folded into Categories.** Categories filter
+  whole kind-families (commentary vs cross-references vs lexicon);
+  Traditions filter the denominational lens within the surviving
+  notes. Two orthogonal axes — folding them into one card would
+  clutter the buyer's mental model. The cost is one more wizard
+  step; the buyer-demo's "click a few buttons → walk away with
+  your Bible" promise still holds at 7 steps the same way it did
+  at 6.
+- **Profile-to-defaults map lives in the wizard, not in
+  `traditions.yaml`.** The `edition_to_tradition` mapping in
+  `traditions.yaml` answers "what tradition would a notes attached
+  to this edition get tagged with" (resolver-side, single tradition
+  per edition). The wizard's `PROFILE_TO_TRADITIONS` answers "what
+  pre-checked filter set should the buyer see when they pick this
+  profile" (UI-side, list of traditions). Different question,
+  different shape — keeping them separate avoids overloading one
+  config file.
+- **Pre-existing edition `traditions_default` wins over profile
+  seed.** A publisher who already customized their edition on
+  /customize and then re-runs the wizard should see their
+  customization, not a re-seeded default. Mirror of how the
+  branding step doesn't clobber populated `STATE` fields.
+
+Continuity pointers:
+
+- `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` §"Sub-phasing"
+  — ψ.8 cluster is now feature-complete (8.0 + 8.1 + 8.2-A + 8.2-B
+  + 8.3 + 8.4 + 8.5 all shipped). The v1.0 differentiator is done.
+- §1 north star + §1 buyer-demo flow — the wizard remains the
+  buyer-demo entry point; ψ.8.5 lands inside the flow rather than
+  bolted on the side.
+
+---
+
+## 2026-05-08 — session — ψ.8.4 per-book tradition overrides
+
+**Phases shipped:** ψ.8.4 (`traditions_per_book` schema field +
+encoder/decoder pair + per-book resolver + customize per-book matrix
+UI + lint coverage).
+**Test delta:** +21 (677 → 698).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/build_edition.py` — `decode_per_book_traditions` /
+  `encode_per_book_traditions`** mirroring the ν.2.7-A popup-language
+  encoder/decoder pair. On-disk format is a flat list of
+  `"<book_code>=<t1>,<t2>"` strings (the project's tiny YAML parser
+  doesn't do nested mappings); decoded to a `{book: [traditions]}` dict
+  for in-memory use. Encoder sorts by canonical book order (§6.1) and
+  drops unknown tradition ids on write so a round-trip stays clean.
+- **`_resolve_traditions_for_book(edition, book_code)`** — pure-function
+  resolver: per-book override wins over the per-edition default; an
+  empty list at either level means "no filter for that book". Unknown
+  tradition ids are PRESERVED at the resolver level so a config typo
+  yields "no notes survive" rather than silently "every note survives";
+  the API validator catches typos before they reach disk.
+- **`compute_tradition_disabled_html_ref_ids` / `build_ref_id_to_tradition_map`
+  refactor** — both now use per-book resolution via the new helper,
+  with a per-book active-set cache so the corpus walk stays one pass.
+  Short-circuits to ∅ / {} when neither default nor any per-book entry
+  is set, preserving §7.2 byte-identity for pre-ψ.8 builds.
+- **`_iter_note_ref_traditions` shape change** — now yields
+  `(ref_id, tradition, book_code)`. The third field unblocks per-book
+  resolution without a second corpus walk.
+- **`scripts/web.py` — `traditions_per_book` validator** in
+  `api_save_edition_meta`. Mirrors `popup_languages_per_book`'s shape:
+  rejects non-dict values, unknown book codes, non-list per-book values,
+  non-string and unknown tradition ids; dedupes preserving first-seen
+  order; encodes to the on-disk list format via
+  `encode_per_book_traditions`.
+- **`scripts/web.py` — `api_customize_data` emits `traditions_per_book`**
+  per edition (decoded to a JSON-friendly dict) via the new
+  `_decode_traditions_per_book_for_api` defensive decoder. Same
+  pattern as `_filter_traditions_default`: unknown ids are silently
+  dropped from the API surface; the validator catches them on next save.
+- **`scripts/web.py` — preview + clone** — `traditions_default` and
+  `traditions_per_book` added to the preview's `EDITABLE` set (closes
+  a small ψ.8.1 gap where traditions changes showed as "unknown" in
+  the change-impact preview) and to the clone passthrough (cloned
+  editions inherit both axes correctly).
+- **`scripts/templates/customize.py` — Traditions card extension** —
+  the ψ.8.3 card now hosts both the default-row and a per-book override
+  matrix, exact mirror of the popup-languages section: overrides count,
+  bulk-clear button, add-book picker, per-row remove × button. CSS
+  classes are `tradition-cb-default` / `tradition-cb-book` /
+  `traditions-overrides-list` / `traditions-add-book-select` /
+  `traditions-bulk-clear` so JS can target each surface without
+  colliding with popup-languages selectors.
+- **`wireTraditionsSection` rewrite** — state is now
+  `{default: Set, perBook: Map<code,Set>, original: {default, perBook}}`
+  exactly like `wirePopupLanguageSection`. Handlers manage rendering,
+  add/remove of override rows, dirty diffing across both axes.
+  `buildCustomizePayload` emits `{traditions_default, traditions_per_book}`
+  together (consistent with popup-languages' two-field emit pattern).
+  Post-save baseline reset clones the new dual-shape original.
+- **`scripts/lint_rules.py` — encoder + round-trip coverage** —
+  `encode_per_book_traditions` registered in
+  `check_encoder_canonical_order` and `check_encode_decode_round_trip`.
+  Lint output bumps from "2 encoders" to "3" and "2 pairs" to "3"
+  cleanly. Future per-book encoders (audio sets, etc.) just append to
+  the same lists.
+- **+21 tests across three new classes + one updated smoke:**
+  - `TestTraditionsPerBookEncoderDecoder` (7) — None/empty inputs;
+    dict passthrough; list-of-strings decode; malformed-entry
+    skipping; canonical book order on encode; unknown-id stripping
+    on encode; full round-trip.
+  - `TestTraditionsPerBookResolver` (7) — default-only resolution;
+    per-book wins over default; explicit-empty-per-book disables
+    filter for that book; per-book-only filter; smoke through
+    `compute_tradition_disabled_html_ref_ids` (Genesis-only filter
+    only filters Genesis ref-ids); smoke through
+    `build_ref_id_to_tradition_map` with mixed default+override; the
+    §7.2 short-circuit when neither is set.
+  - `TestTraditionsPerBookCustomizeAPI` (6) — `api_customize_data`
+    emits the field; round-trip through `api_save_edition_meta`;
+    rejects unknown book code, unknown tradition, non-dict, per-book
+    value not a list; dedupes preserving first-seen order.
+  - Updated `test_customize_html_has_traditions_card` (1) — adds
+    assertions for `tradition-cb-book` class, `traditions-add-book-select`,
+    `traditions-bulk-clear`, and `payload.traditions_per_book`.
+
+Notable decisions:
+
+- **Unknown ids preserved at the resolver, dropped at the encoder.**
+  Two layers serve different purposes: the encoder is the schema-clean
+  boundary (write side) — drop unknowns so editions.yaml stays valid.
+  The resolver is the build-time consumer — preserve unknowns so a
+  typo'd config fails safe (no notes match) rather than silently
+  un-filtering. The validator at the API layer is the third gate
+  catching typos before they ever reach disk.
+- **Per-book active-set cache.** Without caching, every note triggers
+  a `_resolve_traditions_for_book` call; with the cache, the resolution
+  runs once per book per build. Same pattern the existing per-book
+  popup-language loop uses.
+- **Class-name disambiguation: `tradition-cb-default` vs
+  `popup-lang-default`.** I considered reusing `tradition-cb` (the
+  ψ.8.3 class) as a single selector, but the per-book matrix needs
+  its own class so the default-row handlers don't accidentally fire
+  on per-book toggles. Following the popup-languages naming convention
+  (`-default` / `-book` suffix) keeps the JS targeted and the diff
+  small.
+- **Lint coverage was free, so it's mandatory.** The `§6.1` linter
+  exists exactly for this case — every new per-book encoder must be
+  registered or it can drift silently. Adding the registration is one
+  list entry.
+
+Continuity pointers:
+
+- `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` §"Sub-phasing"
+  — ψ.8.5 (wizard step) is the last remaining ψ.8 sub-phase.
+- §9 "Add a new edition feature" + §9 binary-asset / encoder-decoder
+  patterns — followed.
+- The §6.1 linter check now covers 3 encoders; mirror this when
+  adding the future audio-set per-book encoder (ρ.1.x).
+
+---
+
+## 2026-05-08 — session — ψ.8.2-B + ψ.8.3 popup tradition stack + customize Traditions card
+
+**Phases shipped:** ψ.8.2-B (build pipeline labels surviving editorial-
+note asides with their tradition); ψ.8.3 (/customize Traditions card UI
+with checkboxes driven by the `traditions` registry).
+**Test delta:** +10 (667 → 677).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/build_edition.py` — `_iter_note_ref_traditions()`** (new,
+  ~30 lines). Yields `(ref_id, tradition)` for every note in
+  `content/notes/`. Centralises the on-disk walk so both the ψ.8.2-A
+  filter and the ψ.8.2-B labeller read the same canonical mapping —
+  the §9 "compose, don't recompute" mental model.
+- **`compute_tradition_disabled_html_ref_ids` refactor** — now consumes
+  the iterator. Behaviour-identical; ψ.8.2-A's 7 tests still green.
+- **`build_ref_id_to_tradition_map(edition)`** (new) — companion that
+  returns `{ref_id: tradition}` for the SURVIVING (post-filter) notes.
+  Empty dict when `traditions_default` is unset/empty (§7.2 guarantee).
+- **`apply_tradition_labels_to_html(html, ref_id_to_tradition)`** (new,
+  ~50 lines) — pass over each `<aside class="note note-X" id="note-…">`
+  editorial-note popup. For asides whose ref-id is in the map: adds
+  `data-tradition="<id>"` to the opening tag (right after `id="…"`)
+  and prepends a `<p class="note-tradition-label" data-tradition-id=
+  "…">{Display Label}</p>` paragraph at the top of the aside body.
+  Idempotent — already-labelled asides are detected by their
+  `data-tradition` attribute and skipped on re-runs.
+- **`build_one()` wiring** — runs the labeller right after `filter_html`
+  + the vnote pass, gated on a non-empty map. Adds
+  `tradition_labels_applied` counter to the per-edition stats. Pre-ψ.8
+  builds (no `traditions_default`) skip the entire pass and remain
+  byte-identical (§7.2).
+- **`scripts/templates/customize.py` — Traditions card** (new
+  `<details class="traditions-section">` block between Reader Experience
+  and Per-book popup languages). Checkboxes driven by `DATA.traditions`
+  (the registry already exposed by ψ.8.1 — single source of truth, no
+  hard-coded list in the template). Includes a one-paragraph
+  description pointing publishers at the canonical-order behaviour.
+- **`wireTraditionsSection(box, edition, onChange)`** (new JS, ~25
+  lines) — mirrors `wirePopupLanguageSection`'s shape:
+  `box.traditionsState = {selected, original}` Set pair,
+  `box.dataset.traditionsDirty` flag, change handlers per checkbox.
+- **Generic dirty handler folds in `traditionsDirty`** — Save button
+  enable + ν.2.9 save-pending badge count reflect tradition changes
+  alongside other edits. `buildCustomizePayload` emits
+  `traditions_default = [...selected]` only when the section is dirty.
+  Post-save baseline reset re-snapshots the original Set.
+- **+10 tests across one new class + one HTML smoke test:**
+  - `TestTraditionLabelInjection` (9) — empty-map no-op (§7.2);
+    happy path (data-tradition attr + label paragraph + display label
+    not raw id); skip-not-in-map; idempotent on already-labelled HTML;
+    canonical labels for every CANONICAL_TRADITIONS id; xml-escape
+    sanity; `_iter_note_ref_traditions` yields valid shapes from the
+    real corpus; `build_ref_id_to_tradition_map` empty-when-unset;
+    cross-keeps-corpus.
+  - `test_customize_html_has_traditions_card` (1) — Traditions card
+    structure + checkbox class + wiring function + dirty key + payload
+    integration + DATA.traditions reference all appear in the rendered
+    HTML.
+
+Notable decisions:
+
+- **Per-aside label, not document-level reordering.** The spec mockup
+  showed a per-verse stack of tradition notes; physically reordering
+  asides across the document would risk EPUB navigation breakage.
+  Each aside-as-popup is the unit EPUB readers display, and labelling
+  each one independently makes the tradition apparatus visible in
+  every reader (Kindle, Apple Books, Calibre, web) without changing
+  the document structure. Visual stacking, when desired, becomes a
+  CSS-only layer on top of the `data-tradition` attribute.
+- **80-char collapse deferred.** The spec also called for `<details>`-
+  based 80-char previews per tradition. With each aside already a
+  per-note popup (typically one tradition at a time), the collapse
+  buys little until a future viewer/editor surface stacks all
+  per-verse traditions side by side. Punted to a follow-up pass; the
+  data-tradition attribute already supports any future CSS/JS that
+  wants to add the collapse client-side.
+- **Refactor before extend.** Rather than write a second corpus walk
+  for the labeller, `_iter_note_ref_traditions` was extracted from the
+  filter helper and consumed by both. Same pattern as ψ.3 (corpus
+  progress widget composing api_attribution_audit) and ω.0.7
+  (compose-don't-recompute, §9).
+- **UI mirrors popup-languages, not Reader Experience.** Reader
+  Experience uses `data-field` checkboxes that hook into the generic
+  dirty-input loop directly. That works for booleans but not for a
+  list-shaped field. Popup languages already solved this with a
+  state-managed section (`box.popupLangsState`), so the Traditions
+  section copies that shape — the codebase stays uniform and the
+  ν.2.9 save-pending badge integration drops in for free.
+
+Continuity pointers:
+
+- `dev/SCOPE_2026-05-08-addendum-cross-denom-compare.md` §"Build
+  pipeline change" + §"UI" — the spec this batch implements.
+- §9 "Add a new edition feature" + §9 "compose, don't recompute" —
+  the patterns followed.
+- ψ.8.4 (per-book overrides) and ψ.8.5 (wizard step) remain queued.
+  Both per the same scope addendum's §"Sub-phasing".
+
+---
+
 ## 2026-05-08 — session — ω.14 epubcheck preflight validation gate
 
 **Phases shipped:** ω.14 (W3C/IDPF epubcheck wired into the preflight

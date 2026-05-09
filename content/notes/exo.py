@@ -212,6 +212,13 @@ NOTES = [
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        2, 14, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> Massorah is without them in some places, but in others, contrary to the usual practice, it has them. The passage shown in the plate is the end of Genesis and the beginning of Exodus (Gen. 50. 23--Exod. 2. 14). The oldest manuscript containing a precise statement of its date which can be trusted is the St. Petersburg manuscript of the Prophets. This was written in the year 916, and contains the " Later <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         2, 15, '', 'land',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -2810,6 +2817,13 @@ NOTES = [
         'User paraphrase; references LXX, Septuagint',
     ),
     (
+        12, 40, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> example, Gen. 4. 8, where the Samaritan has " Cain said to Abel his brother, Let us go into the field"; 47. 21, "As for the people he made slaves of them," instead of "he removed them to cities " ; Exod. 12. 40, the 430 years of the sojourning of the children of Israel are said to have been in Egypt and in Canaan (thus agreeing with Gal. 3. 17), instead of in Egypt only ; Num. 4. 14, the following words a <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         12, 41, '', 'land',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -2955,6 +2969,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        13, 8, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> py of the Bible in any language of which the exact date is known. It was written in the year 464, and contains the Books of Genesis, Exodus, Numbers, and Deuteronomy; the part here reproduced being Exod. 13.8-17. We thus have direct evidence of the text of this version in the fifth century, and in the century before that we find copious quotations from it in the writings of two Syrian Fathers, Ephrem <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         13, 9, '', 'LORD',
@@ -3282,6 +3303,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼôwr (<em>אוֹר</em>).</strong> illumination or (concrete) luminary (in every sense, including lightning, happiness, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H216, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        14, 20, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> iderable number of places noted in W'hich the reading of the Septuagint makes better sense than that of the Hebrew. In not a few passages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     # ---- ch 14 ----
     (

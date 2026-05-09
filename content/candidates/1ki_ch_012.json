@@ -1,8 +1,8 @@
 {
   "book": "1ki",
   "chapter": 12,
-  "generated_at": "2026-05-08T14:38:34+00:00",
-  "n_candidates": 12,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 13,
   "candidates": [
     {
       "id": "1ki-12-7-001",
@@ -182,6 +182,21 @@
       "draft_body": "<strong>Lêb (<em>לֵב</em>).</strong> the heart; also used (figuratively) very widely for the feelings, the will and even the intellect; likewise for the centre of anything. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "1ki-12-20-013",
+      "verse": 20,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> alf of the fifth century, and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testament, which have been lost through accidental mutila- tion. It includes all four books of the Maccabees, for which it is the principal a <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

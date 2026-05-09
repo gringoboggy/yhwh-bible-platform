@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 14,
-  "generated_at": "2026-05-08T14:38:36+00:00",
-  "n_candidates": 10,
+  "generated_at": "2026-05-09T01:11:10+00:00",
+  "n_candidates": 11,
   "candidates": [
     {
       "id": "gen-14-18-001",
@@ -152,6 +152,21 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-14-14-001",
+      "verse": 14,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> most valuable manuscript is given in Plate YIII. A. Codex Alexandrinus, in the British Museum. This was probably written in the first half of the fifth century, and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testa <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

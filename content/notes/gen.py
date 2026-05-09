@@ -46,6 +46,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        1, 1, 'd', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> n Library at Eome. It con- tains the whole Bible, written in the fourth century, and is at once the oldest and probably the best extant copy of the Septuagint. -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         1, 1, 's',
         '',
         'hist-ane',
@@ -1082,6 +1089,13 @@ NOTES = [
         'Parallel: 1 John 3:12 / Matt 23:35 / Jude 11',
         '<strong>Three NT readings of Cain.</strong> <a href="index_split_059.html#ch-b82-c3">1 John 3:12</a> uses Cain as the type of hatred: "we should not be like Cain, who was of the evil one and murdered his brother." <a href="index_split_052.html#ch-b60-c23">Matthew 23:35</a> places Abel as the first martyr in the arc that ends with Zechariah. <a href="index_split_059.html#ch-b85-c1">Jude 11</a> makes "the way of Cain" a paradigm of false teachers. Together they form a triple typology: Cain as type of hatred, of false religion, and of opposition to the righteous.',
         'User original',
+    ),
+    (
+        4, 8, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> thirty- five variations of the Samaritan text in the five books of the Pentateuch as being either equal or superior to the Hebrew readings. Among these may be mentioned, for the sake of example, Gen. 4. 8, where the Samaritan has " Cain said to Abel his brother, Let us go into the field"; 47. 21, "As for the people he made slaves of them," instead of "he removed them to cities " ; Exod. 12. 40, the <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         4, 9, '',
@@ -2546,6 +2560,13 @@ NOTES = [
         'User paraphrase; summarises von Rad',
     ),
     (
+        14, 14, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> most valuable manuscript is given in Plate YIII. A. Codex Alexandrinus, in the British Museum. This was probably written in the first half of the fifth century, and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testa <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         14, 18, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3386,6 +3407,13 @@ NOTES = [
         'User original',
     ),
     (
+        23, 24, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> nuscript was written in the fourth century, in a beautiful uncial hand ; and it is extremely unfortunate that so much of the Old Testament has been lost. The parts which survive include fragments of Genesis 23, 24, and of Num. 5, 6, 7 ; 1 Chron. 9. 27--19. 17 ; 2 Esdras [i.e. canonical Ezra] 9. 9 to end ; Nehemiah, Esther, Tobit, -- Judith, 1 Mace, 4 Mace, Isaiah, Jeremiah, Lament. 1. 1 2. 20, Joel, Obadiah <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         24, 2, '',
         'put your hand under my thigh',
         'comm',
@@ -3886,6 +3914,13 @@ NOTES = [
         'Note',
         '<strong>Jacob’s peeled rods.</strong> Jacob’s scheme to acquire the speckled and striped sheep involves peeling stripes into branches and placing them in the watering-troughs while the flocks breed, on the assumption that visual exposure during conception affects offspring patterning. The technique reflects pre-genetic ANE agricultural folk-belief — the same belief underwrites a number of ancient breeding practices. Modern readers tend to ask whether the technique "really worked"; the narrator’s answer is theologically located: the breeding succeeds because Yahweh prospers Jacob (cf. 31:9, "God has taken away your father’s livestock and given them to me"; 31:11–12, the angelic dream confirming divine-orchestrated breeding outcomes). The chapter is doing two things at once: portraying Jacob’s ANE-typical pre-scientific practice and asserting that the success comes from divine intervention rather than from the practice itself. The verse offers one of the OT’s most striking cases of folk-technology framed within providence-theology.',
         'User original',
+    ),
+    (
+        31, 15, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ilan. "Written in the fifth century, with three columns to the page, and having (what is very unusual in early manuscripts) punctuation, accents, and breathings by the -- original scribe. It contains Gen. 31. 15 Josh. 12. 12, with many losses, however, from mutilation, and small fragments of Isaiah A and Malachi. Its evidence is valuable, and where and B differ it generally agrees with A. G. Codex Sarr <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         31, 19, '',
@@ -4824,6 +4859,13 @@ NOTES = [
         'User paraphrase; references LXX',
     ),
     (
+        46, 28, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> common property of all scholars. The Codex Vaticanus originally contained the entire Greek Bible, but it has suffered not a little from the ravages of time. The beginning has been lost, as far as Gen. 46. 28 ; in the middle, Psalms 106-138 have dropped out ; at the end, the latter part of Hebrews (from Chap. 9/4), the Catholic Epistles, and the whole of the Apocalypse have disappeared.* Each page measure <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         46, 29, '',
         'fell on his neck, and wept on his neck a good while',
         'comm',
@@ -4840,6 +4882,13 @@ NOTES = [
         'Note',
         '<strong>Shepherd abomination.</strong> The Egyptian disgust for shepherds reflects historical context. Egyptian sources (esp. from the Middle Kingdom) record contempt for nomadic herders, possibly intensified by the experience of the Hyksos — Asiatic shepherd-rulers who controlled Egypt c. 1650–1550 BCE. Joseph’s strategy of placing the family in Goshen (the Nile Delta) keeps them physically separated from Egyptian society — preserving distinct identity through geographic concentration. The same separation becomes the precondition for Israel’s later coherent slave-experience and group-Exodus rather than dispersed assimilation.',
         'User original',
+    ),
+    (
+        47, 1, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> e seen that the three 48 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. columns are all in the same style of writing, but each contains a different dialect. The right-hand column contains the Hebrew text of Gen. 47. 1-6, as preserved among the Samaritans ; it is, in fact, what is commonly called the Samaritan Version, and what we have been describing above. The left-hand column contains a Samaritan Targum, or para <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         47, 6, '',
@@ -4977,6 +5026,13 @@ NOTES = [
         'User original',
     ),
     (
+        49, 5, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> t " may be read, according to the vowels supplied ; in Judg. 15. 16, "heaps upon heaps " or " I have flayed them " ; in Isa. 27. 7, " them that are slain by him " or " those that slew him " ; and see Gen. 49. 5 and Judg. 7. 1 3 for more extensive variations due to the same cause. Besides the vowel points, accents are also added, to indicate 26 OUR BIBLE AND THE ANCIENT MANUSCRIPTS. the rhythmical pronunc <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         49, 7, '',
         'I will divide them in Jacob',
         'comm',
@@ -5077,6 +5133,13 @@ NOTES = [
         'Note',
         '<strong>The theological summit of Genesis.</strong> Joseph’s farewell to his brothers compresses the whole cycle into one sentence. "You meant evil… God meant it for good" articulates the Bible’s most distinctive claim about divine providence — that God works through, not around, human agency, including human evil, without endorsing or causing it. Romans 8:28 reactivates the same theology. The Joseph cycle, the most novelistic narrative in the Pentateuch, ends with its most theological line.',
         'User original',
+    ),
+    (
+        50, 23, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> accents ; the Massorah is without them in some places, but in others, contrary to the usual practice, it has them. The passage shown in the plate is the end of Genesis and the beginning of Exodus (Gen. 50. 23--Exod. 2. 14). The oldest manuscript containing a precise statement of its date which can be trusted is the St. Petersburg manuscript of the Prophets. This was written in the year 916, and contain <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         50, 24, '',

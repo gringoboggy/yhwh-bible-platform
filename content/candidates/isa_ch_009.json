@@ -1,8 +1,8 @@
 {
   "book": "isa",
   "chapter": 9,
-  "generated_at": "2026-05-08T14:38:36+00:00",
-  "n_candidates": 24,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 25,
   "candidates": [
     {
       "id": "isa-9-1-001",
@@ -362,6 +362,21 @@
       "draft_body": "<strong>ʼâdâm (<em>אָדָם</em>).</strong> ruddy i.e. a human being (an individual or the species, mankind, etc.). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-9-3-025",
+      "verse": 3,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> learn the improvements which might be introduced by a freer use of the ancient versions must be referred to the notes in the Variorum Bible. A * well known example of an altered reading occurs in Isa. 9. 3 (the first lesson for Christmas Day), \" Thou hast multiplied the people and not increased the joy ; they joy before thee according to the joy in harvest,\" etc. ; the marginal reading being to him. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

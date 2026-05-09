@@ -78,6 +78,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        3, 14, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> assages the Hebrew gives no natural meaning at all ; for instance, Ex. 14. 20 ; 1 Sam. 13. 21 ; 27. 10 (where even the Authorised Version departs from the Massoretic text) ; much of 1 Kings 6 &amp; 7 ; Job 3. 14 ; 35. 15, and many other passages indicated in the Variorum Bible. In other places verses are sup- plied by the Septuagint which are not in the Hebrew ; in these it will be a matter for critics to <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         4, 6, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -356,6 +363,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-psa-111-10">Psa 111:10</a> · <a href="#vnote-pro-1-7">Pro 1:7</a> · <a href="#vnote-pro-9-10">Pro 9:10</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        30, 8, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> n, the first (at Eome) contains from Lev. 13. 59 to the end of Chronicles (with some lacunas), -- 2 Esdras {i.e. the canonical Ezra) 5. 10 Xeh. 7. 3, and Esther ; the second (at Venice) begins with Job 30. 8, and contains the rest of Job, Proverbs, Ecclesiastes, Song of Solomon, "Wisdom, Ecclesiasti- cus. Minor Prophets, Major Prophets, Tobit, Judith, and the four books of the Maccabees. Until quite r <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         31, 1, '', '',

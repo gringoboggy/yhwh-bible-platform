@@ -64,6 +64,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        1, 28, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ; 11. 23 ; 17. 21 ; 18. 11 ; 19. 17 ; 20. 22 ; 23. 14 ; 24, 36 ; 27. 35. Mark 7. 19 ; 9. 44, 46, 49 ; 16. 28 ; 16. 9-20. Luke 1. 28 ; 2. 14 ; 9. 35, 54, 55 ; 11. 2-4 ; 17. 36 ; 23. 15, 17. John 4. 42 <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         1, 30, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -484,6 +491,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        4, 32, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> is in the great Lauren- tian Library at Florence. It is a huge volume, each leaf measure- ing 19 in. by 13 in., written in large and beautifully clear -- letters. The passage shown in the Plate is Luke 4. 32 5. 6. An example of a correction may be seen in col. 2., 13 lines from the bottom, where tlie singulur imperative laxa has been altered by a corrector to the plural Jaxafe, which corresponds more e <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         4, 40, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -540,6 +554,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        5, 38, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> d above (p. 110), is the free addition, and occasionally omission, of words, sentences, and even incidents. One of these will be found in the page of the MS. reproduced in our Plate XII., containing Luke 5. 38 -- 6. 9. The first word on the page shows that this manuscript contains the last words of verse 38, " and both are preserved," which are omitted by K, B, and L, and after them by Tischendorf, Wes <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         6, 3, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -552,6 +573,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-1sa-21-3">1Sa 21:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        6, 4, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> und after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         6, 12, '', '',
@@ -722,6 +750,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        6, 48, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> on of Man, am I see Mark 8. 27, Luke 9. 18." In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li Luke 6. 48 the concluding / VARIATIONS IN THE BIBLE TEXT. words of the parable of the house built on the rock, "because it had been well builded," have been altered in "many ancient authorities" in acc <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         7, 13, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -748,6 +783,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mal-3-1">Mal 3:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        7, 35, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> he Variorum Bible or the Revised Version will note many instances where this has happened. Thus in Matt. 11. 19 the Authorised Version has " But wisdom is justified of her children," as in Luke 7. 35 ; but the Revised Version tells us that the original text had " works " instead of " children " here, the truth being that the copyists of all \ except the earliest extant manuscripts have <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         7, 47, '', '',
@@ -825,6 +867,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-jhn-14-12">Jhn 14:12</a> · <a href="#vnote-luk-10-19">Luk 10:19</a> · <a href="#vnote-mat-16-19">Mat 16:19</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        9, 18, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ion runs (in the r.v.) "Who do f I men say that the Son of Man is ? " and the margin tells us that " Many ancient authorities read that /, the Son of Man, am I see Mark 8. 27, Luke 9. 18." In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li Luke 6. 48 the concluding / VARIATIONS IN THE <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         9, 20, '', '',
@@ -1030,6 +1079,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        10, 42, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> e. Go up higher ; and this shall be advantageous for thee." Matt. 21. 44 ("and whosoever shall fall on this stone," etc.) is omitted by D, one cursive (33), and the best copies of the Old D Latin. In Luke 10. 42, and the Old Latin omit the words, " one thing is needful, and." In Luke 22. 19, 20 the same authorities and the Old Syriac omit the second mention of the cup in the in- stitution of the Sacrament o <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         11, 2, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1042,6 +1098,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mat-6-6">Mat 6:6</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        11, 2, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> nstitution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection ; the version of the Lord's Prayer in Luke 11. 2-4 is much abbreviated in many copies ; the incident of the Bloody Sweat is omitted in 22. 43, 44, as also is the word from the Cross, \" Father, forgive them,\" in 23. 34 ; the mention of the descent <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         11, 3, '', '',
@@ -1870,6 +1933,20 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        22, 19, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> er by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it alters the account of the institution of the Lord's Supper in Luke 22. 19, 20, and omits altogether Peter's visit to the sepulchre in 24. 12, and several other details of the Resurrection ; the version of the Lord's Prayer in Luke 11. 2-4 is much abbreviated in many cop <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
+        22, 20, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> dy of the facsimile page will show something of the way ir which manuscripts were written and corrected, besides providing K a specimen of the readings of in an important passage. The page contains Luke 22. 20-52, though it has been necessary to omit eight lines from the top of each column in the plate. In K V. '2,2 (the first line of the plate), has \" for \" (ox*) in place of the received text \" and \" ; <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         22, 31, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1980,6 +2057,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mat-17-22">Mat 17:22</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        24, 6, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> the same authorities and the Old Syriac omit the second mention of the cup in the in- stitution of the Sacrament of the Lord's Supper, thus reversing the D order of administration of the elements. In Luke 24. 6, and the Old Latin omit the words \" He is not here, but is risen\" ; they omit the whole of v. 12, with Peter's entry into the sepulchre ; they omit in v. 36 \" and saith unto them. Peace be unto you <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         24, 27, '', '',

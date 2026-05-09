@@ -477,6 +477,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        11, 2, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ncluded. Written in the seventh century, and often agrees with the readings A of in doubtful passages. U. Papyrus Psalter, in the British Museum ; thirty-two leaves -- -- of papyrus, containing Ps. 11. 2 19. 6 ; 21. 14 35. 6, written in a sloping hand, probably of the seventh century. Its readings are often unique, and sometimes agree with the Hebrew against all other MSS. of the Septuagint. V. C <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         11, 3, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2591,6 +2598,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        50, 20, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> , and contains the whole Bible, except Gen. 14. 14-17; 15. 1-5, lG-19 ; 16. G-9 ; 1 Kings 12. 20--14. 9 ; Ps. 50. 20--80. 11, and some parts of the New Testament, which have been lost through accidental mutila- tion. It includes all four books of the Maccabees, for which it is the principal authority. Before the <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         50, 23, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -4026,6 +4040,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        100, 3, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> Bible will find many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represent, we know that it was a text accepted by th <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         100, 4, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -4320,6 +4341,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        106, 27, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> -- It is nearly perfect, wanting only Gen. 1. 1 46. 28 : 2 Kings 2. 5-7, -- THE SEPTUAGINT. 61 10-13 Ps. 106. 27 133. 6 of its original contents, so far as the ; Old Testament is concerned ; bat the Prayer of Manasses and the books of Maccabees were never included in it. The t <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         107, 1, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -4437,6 +4465,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-isa-26-3">Isa 26:3</a> · <a href="#vnote-pro-1-33">Pro 1:33</a> · <a href="#vnote-psa-57-7">Psa 57:7</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        112, 9, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> 13. them : otherwise ye have no reward 3 of Ps. 112. 9. your Father which is in heaven. of your Father which is in heaven. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         113, 3, '', '',
@@ -5312,6 +5347,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-rom-12-16">Rom 12:16</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        132, 6, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> orum ; footnote) the name of \" Ephratah, which is Bethlehem,\" by the help of which the reference to Ephratah in Psalm 132. 6 might be CONDITION OF THE OLD TESTAMENT TEXT. 91 interpreted as a prophecy of our Lord's birth at Bethlehem <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         133, 1, '', '',

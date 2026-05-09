@@ -541,6 +541,131 @@ class NaveTopicalDetector:
 
 
 # ----------------------------------------------------------------------
+# Kenyon textual-criticism detector (Phase χ.0)
+# ----------------------------------------------------------------------
+
+
+# OCR artifacts in the 1914-stamped Kenyon scan show up as caret runs
+# (`^^^`), stray `^TM`, isolated punctuation tokens, and stray
+# backslashes. We strip the worst of these from the context window
+# before emitting a candidate; what remains is still draft prose for a
+# reviewer, not finished copy. Backslashes specifically must go because
+# a stored literal `\<space>` triggers a SyntaxWarning when notes are
+# parsed via ast.literal_eval (e.g. `li\ Luke 6. 48` from p.124 of the
+# scan).
+_KENYON_OCR_ARTIFACT_RE = re.compile(r"\^+|[`~|\\]")
+_KENYON_MULTI_PUNCT_RE = re.compile(r"([.,;:!?]){3,}")
+
+
+def _clean_kenyon_context(s: str) -> str:
+    """Strip the loudest OCR artifacts from one Kenyon context window.
+    Conservative — only removes characters that are unambiguously
+    scanner noise; legitimate punctuation is preserved."""
+    s = _KENYON_OCR_ARTIFACT_RE.sub(" ", s)
+    s = _KENYON_MULTI_PUNCT_RE.sub(r"\1", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+class KenyonReferenceDetector:
+    """Generate ``text-witness`` candidates from Kenyon's PD textual-
+    criticism prose (*Our Bible and the Ancient Manuscripts*, 1895).
+
+    Unlike the per-verse detectors above, this one walks the cached
+    source text once via ``KenyonText.references()`` and yields all
+    candidates flat — the driver then groups by (book, chapter) before
+    writing per-chapter candidate JSON.
+
+    Per-verse interface is preserved for parity with the χ-cluster
+    pattern (so this can be used as a drop-in via
+    ``ALL_DETECTORS`` if a future caller needs verse-keyed access).
+    Implementation: an in-memory index built once on first ``detect()``
+    call.
+    """
+
+    name = "KenyonReferenceDetector"
+    kind = "text-witness"
+
+    def __init__(self, *, max_candidates_per_verse: int = 1) -> None:
+        self.max_candidates_per_verse = max_candidates_per_verse
+        # Lazy index: built on first detect() / iter_candidates() call
+        self._index: dict[tuple[str, int, int], list[str]] | None = None
+
+    def _build_index(self) -> dict[tuple[str, int, int], list[str]]:
+        kenyon = sources.kenyon_text()
+        idx: dict[tuple[str, int, int], list[str]] = {}
+        for ref in kenyon.references():
+            key = (ref.book, ref.chapter, ref.verse)
+            idx.setdefault(key, []).append(_clean_kenyon_context(ref.context))
+        return idx
+
+    def detect(
+        self, book: str, chapter: int, verse: int, _verse_text: str
+    ) -> list[Candidate]:
+        if self._index is None:
+            self._index = self._build_index()
+        contexts = self._index.get((book, chapter, verse), [])
+        if not contexts:
+            return []
+        out: list[Candidate] = []
+        for context in contexts[: self.max_candidates_per_verse]:
+            attribution = (
+                "Frederic G. Kenyon, *Our Bible and the Ancient "
+                "Manuscripts* (Eyre & Spottiswoode, London, 1895). "
+                "Public domain."
+            )
+            body = (
+                f"<strong>Manuscript witness.</strong> "
+                f"{_xml_escape_text_for_kenyon(context)} "
+                f"<em>[Reviewer: trim to the relevant clause; the "
+                f"surrounding context is provided so you can judge "
+                f"which version / witness Kenyon is discussing.]</em>"
+            )
+            out.append(Candidate(
+                book=book,
+                chapter=chapter,
+                verse=verse,
+                kind=self.kind,
+                anchor="",
+                confidence=0.55,  # draft-quality; reviewer trims
+                source_name="Kenyon 1895",
+                source_attribution=attribution,
+                draft_title="Witness",
+                draft_label="MS.",
+                draft_body=body,
+                detector=self.name,
+                reviewer_notes=(
+                    "Kenyon's textual-criticism prose. Don't paste the "
+                    "raw context — pick the clause that names the "
+                    "witness (Codex, Old Latin, LXX, Peshitto, etc.) "
+                    "and write a 1-2 sentence note on what that "
+                    "witness does for this verse."
+                ),
+            ))
+        return out
+
+    def iter_all_candidates(self):
+        """Bulk iteration — yields every candidate the detector would
+        emit across the entire Kenyon corpus, in (book, chapter, verse)
+        order. Used by ``run_kenyon_at_scale.py`` to avoid the per-verse
+        loop overhead and to expose a stable order for testing."""
+        if self._index is None:
+            self._index = self._build_index()
+        for key in sorted(self._index.keys()):
+            book, chapter, verse = key
+            for c in self.detect(book, chapter, verse, _verse_text=""):
+                yield c
+
+
+def _xml_escape_text_for_kenyon(s: str) -> str:
+    """Escape `&`, `<`, `>` for safe inclusion in HTML body text. Local
+    helper (mirror of the same-named one in build_edition); kept here
+    so detectors.py doesn't need a cross-module import for one trivial
+    string transform."""
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+# ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
 
@@ -551,4 +676,5 @@ ALL_DETECTORS = [
     GreekWordDetector,
     CrossRefDetector,
     NaveTopicalDetector,
+    KenyonReferenceDetector,
 ]

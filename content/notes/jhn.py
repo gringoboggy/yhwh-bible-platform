@@ -547,6 +547,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        4, 9, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ; the whole of V. 40, " And when he had thus spoken, he showed them his hands and his feet" ; in v. 51 the words "and was carried up into heaven " ; and in v. 52 the words " worshipped him and." In John 4. 9 the same authorities omit " for the Jews have no dealings with the Samaritans " ; this time with the support of X. D In Acts 15. 20 omits "and from things strangled," and adds at the end of the ver <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         4, 10, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -636,6 +643,20 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-1jn-4-14">1Jn 4:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 42, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> , 49 ; 16. 28 ; 16. 9-20. Luke 1. 28 ; 2. 14 ; 9. 35, 54, 55 ; 11. 2-4 ; 17. 36 ; 23. 15, 17. John 4. 42 ; 6. 3, 4 ; 6. 69 ; 7. 58--8. 11 ; 8. 59. Acts 4. 25 ; 8. 37 ; 9. 5 <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
+        5, 4, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> so is the word from the Cross, " Father, forgive them," in 23. 34 ; the mention of the descent of an angel to cause the moving of the waters of Bethesda is entirely absent from the oldest copies of John 5. 4, and all the best authorities omit the incident of the woman taken in adultery in 7. 53-8. 11. Besides the larger discrepancies, such as these, there is scarcely a verse in which there is not some <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         5, 8, '', '',
@@ -890,6 +911,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        6, 50, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> e slight mutilations, which have been described already ; the New Testament more seriously, since the whole of St. Matthew's Gospel, as far as ch. 25. 6, is lost, -- together with leaves containing John 6. 50 8. .52 (where, however, the number of pages missing shows that the doubtful passage, -- 7. 53 8. 11, cannot have been present when the MS. was perfect), -- and 2 Cor. 4. 13 12. 6, one leaf of the f <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         6, 51, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1007,6 +1035,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mic-5-2">Mic 5:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        7, 53, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> extensive. The earliest Greek translation of the Old Testament contains several passages in the books of Esther and Daniel which are not found in the Hebrew. -- The long passages, Mark 16. 9-20 and John 7. 53 8. 11, which are absent from the oldest manuscripts of the New Testament, must have been either omitted in these or inserted in the others intentionally. If, as is more probably the case, they hav <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         8, 5, '', '',
@@ -2388,11 +2423,25 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        16, 23, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> al in the Western Church, namely, Matthew, John, Luke, Mark. It is written in silver letters, in very naiTow columns, on extremely thin vellum stained with purple. The passage shown in the Plate is John 16. 23-30. In verse 25 this MS. has a curious reading, which is found nowhere else ; instead of " Ye shall ask in my name ; and I say not unto you that I will pray the Father for you," it has "ask in my <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         16, 24, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mat-7-7">Mat 7:7</a> · <a href="#vnote-jas-4-2">Jas 4:2</a> · <a href="#vnote-jhn-15-11">Jhn 15:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        16, 27, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> king of the Codex Sinaiticus ; others will be found recorded in the notes to the "Variorum Bible, or in any critical edition of the Greek New Testament. The page exhibited in our facsimile contains John 16. 27 17. 21. Six lines have been omitted from the top of the plate. It was chosen especially as showing a good example of the untouched writing of the MS., as described above ; but it also contains se <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         16, 32, '', '',
@@ -2512,6 +2561,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-jhn-17-16">Jhn 17:16</a> · <a href="#vnote-jhn-15-18">Jhn 15:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        17, 14, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> r " damna- tion," and " love " for " charity " (notably in 1 Cor. 13). Others are attempts at slightly greater accuracy in reproducing the pre- cise tenses of the verbs used in the Greek, as when in John 17. 14 " the world hated them " is substituted for " the world hath hated them." Others, again, are due to the attempt made to represent the same Greek word, wherever it occurs, by the same English word, so <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         17, 15, '', '',

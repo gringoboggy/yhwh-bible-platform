@@ -299,6 +299,13 @@ NOTES = [
         "Strong's H430, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        9, 27, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ury, in a beautiful uncial hand ; and it is extremely unfortunate that so much of the Old Testament has been lost. The parts which survive include fragments of Genesis 23, 24, and of Num. 5, 6, 7 ; 1 Chron. 9. 27--19. 17 ; 2 Esdras [i.e. canonical Ezra] 9. 9 to end ; Nehemiah, Esther, Tobit, -- Judith, 1 Mace, 4 Mace, Isaiah, Jeremiah, Lament. 1. 1 2. 20, Joel, Obadiah, Jonah, Nahum to Malachi, Psalms, Pro <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         10, 9, '', 'land',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',

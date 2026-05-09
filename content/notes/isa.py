@@ -274,6 +274,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        8, 1, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> nking of when he said " The sin of Judah is written with a pen of iron, and with the point of a diamond ; it is graven upon the table of their heart" (Jer. 17. 1), and it was upon a "great tablet" (Isa. 8. 1, R.V.) that Isaiah wrote the words " For Maher- shalal-hash-baz " ; but it was a " roll of a book " which Jeremiah took in order that Baruch might write therein with ink the words which the Lord ha <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         8, 10, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -349,6 +356,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mat-4-16">Mat 4:16</a> · <a href="#vnote-eph-5-8">Eph 5:8</a> · <a href="#vnote-jhn-8-12">Jhn 8:12</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        9, 3, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> learn the improvements which might be introduced by a freer use of the ancient versions must be referred to the notes in the Variorum Bible. A * well known example of an altered reading occurs in Isa. 9. 3 (the first lesson for Christmas Day), " Thou hast multiplied the people and not increased the joy ; they joy before thee according to the joy in harvest," etc. ; the marginal reading being to him. <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         9, 6, '', '',
@@ -645,6 +659,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        27, 7, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> far from being imaginary; e.g., in Deut. 28. 22, either \" sword \" or '� drought \" may be read, according to the vowels supplied ; in Judg. 15. 16, \"heaps upon heaps \" or \" I have flayed them \" ; in Isa. 27. 7, \" them that are slain by him \" or \" those that slew him \" ; and see Gen. 49. 5 and Judg. 7. 1 3 for more extensive variations due to the same cause. Besides the vowel points, accents are also added <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         28, 11, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -790,6 +811,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-ezk-36-35">Ezk 36:35</a> · <a href="#vnote-isa-51-3">Isa 51:3</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        35, 1, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> ; Wycliife or one of his unnamed assistants. EABLIER VEKSION. LATEE VERSION. Isaiah 35. 1-6. Isaiah 35, 1-6. Griaden shal desert and the -with The forsakun Judee and with outen oute weie, and ful out shal io en the "weie schal be glad, and wildirn <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         35, 4, '', '',
@@ -1574,6 +1602,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-jer-1-5">Jer 1:5</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        49, 5, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> nd many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text which they represent, we know that it was a text accepted by the leaders of <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         49, 6, '', '',

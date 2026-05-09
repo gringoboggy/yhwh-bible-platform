@@ -239,6 +239,66 @@ function renderEditions() {
         </div>
       </details>
 
+      <details class="traditions-section mt-3 border border-slate-200 rounded bg-slate-50">
+        <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
+          Traditions
+          <span class="text-slate-400 normal-case font-normal ml-2">
+            which denominational notes appear in popups (Phase ψ.8)
+          </span>
+        </summary>
+        <div class="p-3 traditions-body" data-edition-id="${e.id}">
+          <p class="text-xs text-slate-500 mb-2">
+            Notes are tagged by tradition (Catholic, Protestant, Eastern
+            Orthodox, Jewish, Ethiopian Tewahedo, plus the denominationally
+            neutral <em>Cross-tradition</em> bucket for linguistic and
+            cross-reference apparatus). Selecting traditions here filters
+            which notes survive into this edition's EPUB; popups render
+            them in canonical order.
+          </p>
+
+          <div class="text-xs text-slate-500 mb-2">
+            <strong>Default for all books:</strong>
+            <span class="text-slate-400">applies to every book in the canon unless overridden below</span>
+          </div>
+          <div class="traditions-default-row flex flex-wrap gap-3 mb-3 p-2 bg-white border border-slate-200 rounded">
+            ${(DATA.traditions || []).map(T => `
+              <label class="text-sm flex items-center gap-1.5">
+                <input type="checkbox" class="tradition-cb-default" data-tradition="${T.id}">
+                ${escapeAttr(T.label)}
+              </label>
+            `).join('')}
+          </div>
+
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-xs text-slate-500">
+              <strong>Per-book overrides:</strong>
+              <span class="traditions-overrides-count text-slate-400">0 customized</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <button type="button" class="traditions-bulk-clear px-2 py-1 rounded border border-slate-300 bg-white hover:bg-slate-100" title="Remove all per-book tradition overrides; every book inherits the default">
+                ↺ apply default to all
+              </button>
+            </div>
+          </div>
+
+          <div class="traditions-overrides-list space-y-1"></div>
+
+          <div class="traditions-add-book-row mt-2 flex items-center gap-2">
+            <select class="traditions-add-book-select label-input flex-1" style="max-width: 28em">
+              <option value="">+ add a book to customize…</option>
+            </select>
+          </div>
+
+          <p class="text-xs text-slate-400 mt-3 italic">
+            Leaving every default box unchecked means "no tradition filter"
+            for any book without an override — pre-ψ.8 behaviour preserved
+            per §7.2. Books listed in canonical Book/Chapter order; only
+            books in <span class="traditions-canon-name font-medium">this edition's canon</span>
+            appear.
+          </p>
+        </div>
+      </details>
+
       <details class="popup-langs-section mt-3 border border-slate-200 rounded bg-slate-50">
         <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
           Per-book popup languages
@@ -321,6 +381,8 @@ function renderEditions() {
         // of change the publisher might have made. We count it as
         // one logical "change" for the badge.
         if (box.dataset.popupLangsDirty === '1') dirtyCount++;
+        // ψ.8.3 — same fold-in for the Traditions section.
+        if (box.dataset.traditionsDirty === '1') dirtyCount++;
         const dirty = dirtyCount > 0;
         btn.disabled = !dirty;
         btn.classList.toggle('opacity-50', !dirty);
@@ -349,6 +411,12 @@ function renderEditions() {
     wirePopupLanguageSection(box, ed, () => {
       // When the section reports a change, recompute dirty state
       // by triggering the standard input handler.
+      const evt = new Event('change', {bubbles: true});
+      const anyInput = box.querySelector('input, select');
+      if (anyInput) anyInput.dispatchEvent(evt);
+    });
+    // Phase ψ.8.3 — wire the Traditions section the same way.
+    wireTraditionsSection(box, ed, () => {
       const evt = new Event('change', {bubbles: true});
       const anyInput = box.querySelector('input, select');
       if (anyInput) anyInput.dispatchEvent(evt);
@@ -548,6 +616,172 @@ function markPopupLangsDirty(box, state) {
   box.dataset.popupLangsDirty = dirty ? '1' : '0';
 }
 
+// =====================================================================
+// Phase ψ.8.3 + ψ.8.4 — Traditions section
+//
+// Mirror of wirePopupLanguageSection: per-edition default + per-book
+// overrides. State on the edition card:
+//   box.traditionsState = {
+//     default:  Set<tradition_id>,
+//     perBook:  Map<book_code, Set<tradition_id>>,    only customized
+//     original: { default, perBook }                  for dirty diff
+//   }
+//   box.dataset.traditionsDirty = '0' | '1'
+// =====================================================================
+
+function wireTraditionsSection(box, edition, onChange) {
+  const body = box.querySelector('.traditions-body');
+  if (!body) return;
+
+  const canonBooks = (DATA.edition_canon_books || {})[edition.id] || [];
+  const canonSet = new Set(canonBooks);
+
+  const initialDefault = new Set(edition.traditions_default || []);
+  const initialPerBook = new Map();
+  for (const [code, traditions] of Object.entries(edition.traditions_per_book || {})) {
+    if (canonSet.has(code)) initialPerBook.set(code, new Set(traditions));
+  }
+
+  const state = {
+    default: new Set(initialDefault),
+    perBook: new Map(initialPerBook),
+    original: {
+      default: new Set(initialDefault),
+      perBook: new Map([...initialPerBook].map(([k, v]) => [k, new Set(v)])),
+    },
+  };
+  box.traditionsState = state;
+
+  // Populate the canon name + filter book list to canonical order ∩ canon
+  const canonNameEl = body.querySelector('.traditions-canon-name');
+  if (canonNameEl) {
+    canonNameEl.textContent = edition.canon
+      ? `${edition.canon} (${canonBooks.length} books)`
+      : `(${canonBooks.length} books)`;
+  }
+  const booksInCanon = (DATA.books_canonical || []).filter(b => canonSet.has(b.code));
+
+  // Default-row checkboxes
+  body.querySelectorAll('.tradition-cb-default').forEach(cb => {
+    cb.checked = state.default.has(cb.dataset.tradition);
+    cb.addEventListener('change', () => {
+      if (cb.checked) state.default.add(cb.dataset.tradition);
+      else state.default.delete(cb.dataset.tradition);
+      markTraditionsDirty(box, state);
+      onChange && onChange();
+    });
+  });
+
+  function renderOverrides() {
+    const list = body.querySelector('.traditions-overrides-list');
+    list.innerHTML = '';
+    const canonRank = new Map(booksInCanon.map((b, i) => [b.code, i]));
+    const codes = [...state.perBook.keys()]
+      .filter(c => canonSet.has(c))
+      .sort((a, b) => canonRank.get(a) - canonRank.get(b));
+
+    body.querySelector('.traditions-overrides-count').textContent =
+      `${codes.length} customized of ${booksInCanon.length}`;
+
+    if (codes.length === 0) {
+      list.innerHTML = `<p class="text-xs text-slate-400 italic px-1">
+        no per-book overrides yet — every book uses the default above.
+        Use the dropdown to customize a specific book.
+      </p>`;
+    } else {
+      for (const code of codes) {
+        const title = booksInCanon.find(b => b.code === code)?.title || code;
+        const traditions = state.perBook.get(code) || new Set();
+        const row = document.createElement('div');
+        row.className = 'traditions-override-row flex flex-wrap items-center gap-3 p-2 bg-white border border-slate-200 rounded';
+        row.dataset.book = code;
+        row.innerHTML = `
+          <div class="flex items-baseline gap-2 min-w-48">
+            <span class="font-mono text-xs text-slate-400 w-12">${code}</span>
+            <span class="text-sm font-medium truncate">${escapeAttr(title)}</span>
+          </div>
+          <div class="flex flex-wrap gap-3 flex-1">
+            ${(DATA.traditions || []).map(T => `
+              <label class="text-sm flex items-center gap-1">
+                <input type="checkbox" class="tradition-cb-book" data-tradition="${T.id}"
+                  ${traditions.has(T.id) ? 'checked' : ''}>
+                ${escapeAttr(T.label)}
+              </label>
+            `).join('')}
+          </div>
+          <button type="button" class="traditions-remove-override text-slate-400 hover:text-red-600 px-1" title="revert to default — remove this override">×</button>
+        `;
+        row.querySelectorAll('.tradition-cb-book').forEach(cb => {
+          cb.addEventListener('change', () => {
+            const set = state.perBook.get(code);
+            if (cb.checked) set.add(cb.dataset.tradition);
+            else set.delete(cb.dataset.tradition);
+            markTraditionsDirty(box, state);
+            onChange && onChange();
+          });
+        });
+        row.querySelector('.traditions-remove-override').addEventListener('click', () => {
+          state.perBook.delete(code);
+          renderOverrides();
+          renderAddBookSelect();
+          markTraditionsDirty(box, state);
+          onChange && onChange();
+        });
+        list.appendChild(row);
+      }
+    }
+  }
+
+  function renderAddBookSelect() {
+    const sel = body.querySelector('.traditions-add-book-select');
+    const customized = new Set(state.perBook.keys());
+    const options = booksInCanon
+      .filter(b => !customized.has(b.code))
+      .map(b => `<option value="${b.code}">${b.code} — ${escapeAttr(b.title)}</option>`)
+      .join('');
+    sel.innerHTML = `<option value="">+ add a book to customize…</option>${options}`;
+  }
+
+  body.querySelector('.traditions-add-book-select').addEventListener('change', (ev) => {
+    const code = ev.target.value;
+    if (!code) return;
+    state.perBook.set(code, new Set(state.default));
+    renderOverrides();
+    renderAddBookSelect();
+    ev.target.value = '';
+    markTraditionsDirty(box, state);
+    onChange && onChange();
+  });
+
+  body.querySelector('.traditions-bulk-clear').addEventListener('click', () => {
+    if (state.perBook.size === 0) return;
+    state.perBook.clear();
+    renderOverrides();
+    renderAddBookSelect();
+    markTraditionsDirty(box, state);
+    onChange && onChange();
+  });
+
+  renderOverrides();
+  renderAddBookSelect();
+  markTraditionsDirty(box, state);
+}
+
+function markTraditionsDirty(box, state) {
+  const o = state.original;
+  const sameSet = (a, b) => a.size === b.size && [...a].every(x => b.has(x));
+  let dirty = false;
+  if (!sameSet(state.default, o.default)) dirty = true;
+  if (state.perBook.size !== o.perBook.size) dirty = true;
+  if (!dirty) {
+    for (const [code, traditions] of state.perBook) {
+      const orig = o.perBook.get(code);
+      if (!orig || !sameSet(traditions, orig)) { dirty = true; break; }
+    }
+  }
+  box.dataset.traditionsDirty = dirty ? '1' : '0';
+}
+
 // Phase ν.5 — shared payload builder. Used by both saveEdition()
 // and previewEdition() so the two compute identical payloads by
 // construction. Returns an object containing only fields that have
@@ -571,6 +805,14 @@ function buildCustomizePayload(box) {
     const s = box.popupLangsState;
     payload.popup_languages_default = [...s.default];
     payload.popup_languages_per_book = Object.fromEntries(
+      [...s.perBook].map(([k, v]) => [k, [...v]])
+    );
+  }
+  // Phase ψ.8.3 + ψ.8.4 — include traditions state if the section changed
+  if (box.dataset.traditionsDirty === '1' && box.traditionsState) {
+    const s = box.traditionsState;
+    payload.traditions_default = [...s.default];
+    payload.traditions_per_book = Object.fromEntries(
       [...s.perBook].map(([k, v]) => [k, [...v]])
     );
   }
@@ -621,6 +863,15 @@ async function saveEdition(box) {
         perBook: new Map([...s.perBook].map(([k, v]) => [k, new Set(v)])),
       };
       box.dataset.popupLangsDirty = '0';
+    }
+    // Phase ψ.8.3 + ψ.8.4 — re-baseline traditions snapshot
+    if (box.traditionsState) {
+      const s = box.traditionsState;
+      s.original = {
+        default: new Set(s.default),
+        perBook: new Map([...s.perBook].map(([k, v]) => [k, new Set(v)])),
+      };
+      box.dataset.traditionsDirty = '0';
     }
   } catch (e) {
     status.innerHTML = `<span class="text-red-600">✗ ${e.message}</span>`;

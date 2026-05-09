@@ -232,6 +232,13 @@ NOTES = [
         "Strong's H120, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        2, 9, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> the fire that was in the brasier before him (Jer. 36. 2, 18, 23).* It was a " roll of a book " which was spread before Ezekiel, written within and without with lamen- tations and mourning and woe (Ezek. 2. 9, 10). The material of * There can be little doubt that the alternative rendering, " columns," instead of "leaves," given in the E.V. and the Variorum Bible, is right. The knife which the king us <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         3, 1, '', 'man',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -713,6 +720,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        6, 12, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> her with readings from Aquila, Symmachus, and Theodotion. Plate YI. gives a repre- sentation of a page of this manuscript (the whole of which has been published in a photographic facsimile) containing Ezek. 6. 12-17.* In the margin will be seen several asterisks, which are repeated in the line itself at the point at w hich the insertion begins (f. ., lines 6, 10), and before the beginning of each line of t <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         6, 13, '', 'LORD',

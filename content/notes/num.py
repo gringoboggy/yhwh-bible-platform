@@ -48,6 +48,13 @@ NOTES = [
         "<strong>Levites as substitutionary firstborn.</strong> A foundational concept: God claims every firstborn male of Israel because he spared them at Passover (Exod 13:2, 13:15), and now accepts the entire tribe of Levi as substitution for all those firstborn (Num 3:40–51). The exact arithmetic — 22,273 firstborn vs. 22,000 Levites — leaves a 273-person remainder that must be redeemed at five shekels each. The book is unusually concrete about its accounting.",
         'User original',
     ),
+    (
+        4, 14, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> d them to cities \" ; Exod. 12. 40, the 430 years of the sojourning of the children of Israel are said to have been in Egypt and in Canaan (thus agreeing with Gal. 3. 17), instead of in Egypt only ; Num. 4. 14, the following words are added at the end of the verse, \" And they shall take a cloth of purple, and cover the laver and his foot, and put it into a covering of seals' skins, and shall put them upo <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
     # ---- ch 5 ----
     (
         5,
@@ -59,6 +66,13 @@ NOTES = [
         "Hebrew",
         "<strong>Tzaru‘a (<em>צָרוּעַ</em>) — usually rendered “leper.”</strong> The Hebrew term <em>tzara‘at</em> covers a range of skin afflictions and even mold-like blights on garments and houses (Lev 13–14). Modern medical leprosy (Hansen’s disease) is almost certainly NOT in view; the conditions described do not match its presentation. Most contemporary translations now use “skin disease” or “defiling skin condition.” The category is ritual, not medical.",
         'User original',
+    ),
+    (
+        5, 6, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> the fourth century, in a beautiful uncial hand ; and it is extremely unfortunate that so much of the Old Testament has been lost. The parts which survive include fragments of Genesis 23, 24, and of Num. 5, 6, 7 ; 1 Chron. 9. 27--19. 17 ; 2 Esdras [i.e. canonical Ezra] 9. 9 to end ; Nehemiah, Esther, Tobit, -- Judith, 1 Mace, 4 Mace, Isaiah, Jeremiah, Lament. 1. 1 2. 20, Joel, Obadiah, Jonah, Nahum to <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
         (
         5, 18, '', 'water of bitterness',

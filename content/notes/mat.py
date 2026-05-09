@@ -22,6 +22,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        1, 1, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> rejudice in either direction (and it must not be supposed that all prejudice is on the side of orthodoxy), such a contention will appear quite uncritical. It is true that the genealogy of our Lord in Matt. 1. 1-16 was probably copied from a contemporary record, and that in such a record our Lord would undoubtedly have been described as the son of Joseph. But in any case the conclusion of the document (with <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         1, 18, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -55,6 +62,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-isa-7-14">Isa 7:14</a> · <a href="#vnote-isa-9-6">Isa 9:6</a> · <a href="#vnote-psa-46-11">Psa 46:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        1, 25, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> as of first-rate importance. The chief of these have been referred to on p. 3, but the reader who wishes for a fuller list may compare the Authorised and Revised readings in such passages as : Matt. 1. 25 ; 5. 44 ; 6. 13; 10. 3 ; 11. 23 ; 17. 21 ; 18. 11 ; 19. 17 ; 20. 22 ; 23. 14 ; 24, 36 ; 27. 35. Mark <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         2, 1, '', '',
@@ -624,6 +638,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        5, 18, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> bite Stone C'iiv. b.c. 890. (Original height, about i feet.) THE HEBREW TEXT. 25 the Hebrew alphabet) to indicate a very small object (as in Matt. 5. 18) would only be possible after the adoption of the square characters, since in the earlier alphabet yod was by no means the smallest letter. The language in which the manuscripts we are examining <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         5, 19, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1007,6 +1028,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-1co-10-13">1Co 10:13</a> · <a href="#vnote-jhn-17-15">Jhn 17:15</a> · <a href="#vnote-rev-7-14">Rev 7:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        6, 13, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> d. will take, for the moment, the Gos- of important ' ' pels alone. The Doxology of the Lord's Prayer is omitted in the oldest copies of Matt. 6. 13 several copies omit Matt. 16. 2, 3 altogether ; a long additional passage is sometimes found after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         6, 14, '', '',
@@ -1926,6 +1954,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        11, 19, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> rds of the one version to make them the same as A those of the other. careful reader of the Variorum Bible or the Revised Version will note many instances where this has happened. Thus in Matt. 11. 19 the Authorised Version has " But wisdom is justified of her children," as in Luke 7. 35 ; but the Revised Version tells us that the original text had " works " instead of " children " here <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         11, 25, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2430,6 +2465,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        16, 2, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> e Gos- of important ' ' pels alone. The Doxology of the Lord's Prayer is omitted in the oldest copies of Matt. 6. 13 several copies omit Matt. 16. 2, 3 altogether ; a long additional passage is sometimes found after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one ver <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         16, 4, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2442,6 +2484,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-luk-9-18">Luk 9:18</a> · <a href="#vnote-mrk-8-27">Mrk 8:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        16, 13, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> f \" children \" here, the truth being that the copyists of all except the earliest extant manuscripts have altered it, so as to ! make it correspond with the account in St. Luke. Similarly in Matt. 16. 13, our Lord's question runs (in the r.v.) \"Who do f I men say that the Son of Man is ? \" and the margin tells us that \" Many ancient authorities read that /, the Son of Man, am I <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         16, 16, '', '',
@@ -2801,6 +2850,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        19, 17, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> he several Bible� TM \" 0 6 *' authorities \" quoted separately whenever there is any important conflict of evidence as to the exact reading of any passage. Thus at Matt. 19. 17, to the words \"Why callest thou Me good ? \" there is the following note : \" So C A, Pesh. Theh. Mel. r marg. ; \"Why askest thou me con- cerning the good ? B D L, Z. La. Ti. Tr. We. WH. r.\" The <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         19, 21, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2857,6 +2913,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        20, 16, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> t agi*ees with the Neutral group of manuscripts, sometimes with the Western, not unfrequently with the Alexandrian, and perhaps oftenest with the Syrian. The page exhibited in Plate XI. con- tains Matt. 20. 16-34 (eight lines being omitted from the bottom of the page), and a reference to the notes in the Variorum Bible will show that its readings here are of some interest. In '. 16 it is the chief autho <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         20, 25, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2883,6 +2946,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-luk-22-27">Luk 22:27</a> · <a href="#vnote-heb-9-28">Heb 9:28</a> · <a href="#vnote-tit-2-14">Tit 2:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        20, 28, 'b', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> ne. The Doxology of the Lord's Prayer is omitted in the oldest copies of Matt. 6. 13 several copies omit Matt. 16. 2, 3 altogether ; a long additional passage is sometimes found after Matt. 20. 28\" ; the last twelve verses of St. Mark are omitted altogether by the two oldest copies of the original Greek ; one very ancient authority inserts an addi- tional incident after Luke 6. 4, while it a <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         21, 4, '', '',
@@ -3002,6 +3072,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-isa-8-14">Isa 8:14</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        21, 44, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> be ashamed. But if thou sittest down in the worse place, and one worse than thee come in afterwards, then he that bade thee will say to thee. Go up higher ; and this shall be advantageous for thee." Matt. 21. 44 ("and whosoever shall fall on this stone," etc.) is omitted by D, one cursive (33), and the best copies of the Old D Latin. In Luke 10. 42, and the Old Latin omit the words, " one thing is needful, <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         22, 14, '', '',
@@ -3128,6 +3205,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-luk-11-52">Luk 11:52</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        23, 14, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> e r.v.) "Who do f I men say that the Son of Man is ? " and the margin tells us that " Many ancient authorities read that /, the Son of Man, am I see Mark 8. 27, Luke 9. 18." In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li\ Luke 6. 48 the concluding / VARIATIONS IN THE BIBLE TEXT. words <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         23, 23, '', '',

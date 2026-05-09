@@ -78,6 +78,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        3, 2, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> entury. It is now in the British Museum (MS. Or. 4717 (10) ). Unfortunately, it is only a fragment con- sisting of four pages. The page exhibited, which is reproduced in its original size, contains 2 Thess. 3. 2-11. No imjwrtant variations of reading occur in this passage. The remaining Coptic versions may be dismissed very briefly. They have only recently been discovered, they are known as yet only in <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         3, 3, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',

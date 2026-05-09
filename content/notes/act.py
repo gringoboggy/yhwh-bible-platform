@@ -442,6 +442,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        4, 25, 'a', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> 11. 2-4 ; 17. 36 ; 23. 15, 17. John 4. 42 ; 6. 3, 4 ; 6. 69 ; 7. 58--8. 11 ; 8. 59. Acts 4. 25 ; 8. 37 ; 9. 5 ; 15. 18, 34 ; 18. 5, 17, 21 ; 20. 15 ; 24. 6-8 ; 28. 16, 29. Rom, 3. 9 ; 4. 1 <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         4, 26, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -848,6 +855,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        15, 20, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> up into heaven \" ; and in v. 52 the words \" worshipped him and.\" In John 4. 9 the same authorities omit \" for the Jews have no dealings with the Samaritans \" ; this time with the support of X. D In Acts 15. 20 omits \"and from things strangled,\" and adds at the end of the verse \" and that they should not do to others what they would not have done to themselves.\" In the narrative of St. Paul's missionary jo <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         15, 29, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1084,6 +1098,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-1pe-2-9">1Pe 2:9</a> · <a href="#vnote-eph-1-18">Eph 1:18</a> · <a href="#vnote-eph-5-8">Eph 5:8</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        26, 28, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> changes introduced by the Revisers are of this class, * The most striking single passage in the New Testament where the Revised Version has altered the interpretation of the Authorised Version is Acts 26. 28, where for the familiar "almost thou persuadest me to be a Christian" we find -- " With but little persuasion thou wouldest fain make me a Christian,"- un- questionably a more correct translation <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         27, 25, '', '',

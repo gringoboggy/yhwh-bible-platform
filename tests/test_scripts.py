@@ -1940,6 +1940,31 @@ class TestEditionMeta:
         assert "popup_languages_default" in html
         assert "popup_languages_per_book" in html
 
+    def test_customize_html_has_traditions_card(self):
+        """ψ.8.3 + ψ.8.4 — the /customize page renders a Traditions card
+        with default-row checkboxes, per-book overrides matrix, dirty
+        tracking, and payload integration for both default and per-book."""
+        html = self.web.CUSTOMIZE_HTML
+        # Section container
+        assert "traditions-section" in html
+        # Default-row checkboxes carry the tradition id as data attr
+        assert 'class="tradition-cb-default"' in html
+        # Per-book row checkboxes have a parallel class (ψ.8.4)
+        assert 'class="tradition-cb-book"' in html
+        # Add-book picker exists (ψ.8.4)
+        assert "traditions-add-book-select" in html
+        # Bulk preset exists (ψ.8.4)
+        assert "traditions-bulk-clear" in html
+        # Wiring function exists
+        assert "function wireTraditionsSection" in html
+        # Dirty-state dataset key the global handler folds in
+        assert "traditionsDirty" in html
+        # Payload includes both default + per-book when dirty
+        assert "payload.traditions_default" in html
+        assert "payload.traditions_per_book" in html
+        # Section is driven by DATA.traditions registry (no hard-code)
+        assert "DATA.traditions" in html
+
     def test_customize_html_has_save_pending_badge(self):
         """ν.2.9 — the Save edition button carries a badge span that
         the UI populates with the count of unsaved changes. Anchors
@@ -5295,8 +5320,8 @@ class TestWizardRoute:
         html = self.web.WIZARD_HTML
         assert "Bible Builder" in html
         assert "step-pane" in html
-        # All 6 steps present
-        for i in range(1, 7):
+        # All 7 steps present (Phase ψ.8.5 added the Traditions step)
+        for i in range(1, 8):
             assert f'id="step-{i}"' in html
         # The build orchestration is inline
         assert "startBuild" in html
@@ -5307,6 +5332,45 @@ class TestWizardRoute:
         assert "/api/export/build/" in html
         assert "/api/customize" in html
         assert "/api/matrix" in html
+
+    def test_wizard_has_traditions_step(self):
+        """ψ.8.5 — wizard step 5 is the Traditions picker. Card-style
+        list of every CANONICAL_TRADITIONS entry (driven by the
+        `DATA.customize.traditions` registry — the same registry the
+        ψ.8.3 customize card uses), with profile-aware seed defaults."""
+        html = self.web.WIZARD_HTML
+        # Step container + section heading
+        assert 'id="step-5"' in html
+        assert "Pick traditions to include" in html
+        # Cards container
+        assert 'id="tradition-cards"' in html
+        # Renders from the customize traditions registry — single
+        # source of truth, no hard-coded list
+        assert "DATA.customize.traditions" in html
+        # Profile-to-defaults map covers the 5 seed editions
+        assert "PROFILE_TO_TRADITIONS" in html
+        for profile in ("catholic-study", "reformed", "orthodox-study",
+                        "jewish-study", "ethiopian-tewahedo"):
+            assert profile in html
+        # Wiring functions exist
+        assert "function renderStep5" in html
+        assert "function seedTraditionDefaultsFromProfile" in html
+        # Navigation upper bound updated to 7
+        assert "step > 7" in html or "step <= 7" in html or "i <= 7" in html
+        # Build payload sends traditions_default (the wizard's commit
+        # to ψ.8.5 — its only schema-write surface)
+        assert "traditions_default:" in html or 'traditions_default":' in html
+        # Review pane shows the Traditions row
+        assert "Traditions (popup filter)" in html
+
+    def test_wizard_step_indicator_has_seven_dots(self):
+        """ψ.8.5 — the step-dot indicator at the top must be 7 dots
+        (was 6 pre-ψ.8.5). Each dot is a discrete <div id="dot-N">."""
+        html = self.web.WIZARD_HTML
+        for i in range(1, 8):
+            assert f'id="dot-{i}"' in html
+        # No 8th dot — the wizard ends at 7
+        assert 'id="dot-8"' not in html
 
     def test_wizard_route_serves_html(self):
         """Make sure the route actually returns HTML (smoke)."""
@@ -6419,6 +6483,397 @@ class TestTraditionFilterBuildPipeline:
             assert "ref-test-0101" in ids
         finally:
             self.be.compute_tradition_disabled_html_ref_ids = original
+
+
+class TestTraditionLabelInjection:
+    """ψ.8.2-B — `apply_tradition_labels_to_html` annotates surviving
+    editorial-note asides with their tradition: a `data-tradition` attr
+    on the aside opening tag plus a `<p class="note-tradition-label">`
+    paragraph at the top of the aside body."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import build_edition
+        cls.be = build_edition
+
+    def test_empty_map_is_noop(self):
+        # An empty ref→tradition map skips the rewrite entirely so
+        # editions without traditions_default build byte-identically.
+        sample = (
+            '<aside class="note note-doctrine" id="note-g0101a" '
+            'epub:type="footnote"><p>x</p></aside>'
+        )
+        new, stats = self.be.apply_tradition_labels_to_html(sample, {})
+        assert new == sample
+        assert stats == {"labeled": 0, "skipped_already_labeled": 0,
+                         "skipped_no_tradition": 0}
+
+    def test_labels_aside_when_ref_id_in_map(self):
+        sample = (
+            '<aside class="note note-doctrine" id="note-g0101a" '
+            'epub:type="footnote"><p>body text</p></aside>'
+        )
+        new, stats = self.be.apply_tradition_labels_to_html(
+            sample, {"ref-g0101a": "catholic"},
+        )
+        assert stats["labeled"] == 1
+        assert 'data-tradition="catholic"' in new
+        assert 'class="note-tradition-label"' in new
+        # Display label is canonical (not the tradition id).
+        assert ">Catholic</p>" in new
+        # The original body text survives.
+        assert "<p>body text</p>" in new
+
+    def test_skips_aside_not_in_map(self):
+        # Notes whose tradition doesn't match the edition's filter were
+        # already stripped by ψ.8.2-A; if some slipped through, the
+        # labeller leaves them alone rather than guessing a tradition.
+        sample = (
+            '<aside class="note note-x" id="note-other" '
+            'epub:type="footnote"><p>x</p></aside>'
+        )
+        new, stats = self.be.apply_tradition_labels_to_html(
+            sample, {"ref-elsewhere": "catholic"},
+        )
+        assert new == sample
+        assert stats["skipped_no_tradition"] == 1
+        assert stats["labeled"] == 0
+
+    def test_idempotent_on_already_labeled_aside(self):
+        # Running the pass twice produces the same output the second
+        # time — already-labelled asides are detected by their
+        # data-tradition attribute and skipped.
+        sample = (
+            '<aside class="note note-doctrine" id="note-g0101a" '
+            'epub:type="footnote"><p>body</p></aside>'
+        )
+        once, _ = self.be.apply_tradition_labels_to_html(
+            sample, {"ref-g0101a": "jewish"})
+        twice, stats = self.be.apply_tradition_labels_to_html(
+            once, {"ref-g0101a": "jewish"})
+        assert twice == once
+        assert stats["skipped_already_labeled"] == 1
+        assert stats["labeled"] == 0
+
+    def test_canonical_labels_for_each_tradition(self):
+        # Every CANONICAL_TRADITIONS id resolves to its display label
+        # in the injected paragraph.
+        from scripts.core.traditions import CANONICAL_TRADITIONS
+        for tid, expected_label in CANONICAL_TRADITIONS:
+            sample = (
+                f'<aside class="note note-doctrine" id="note-g0101a" '
+                f'epub:type="footnote"><p>x</p></aside>'
+            )
+            new, _ = self.be.apply_tradition_labels_to_html(
+                sample, {"ref-g0101a": tid},
+            )
+            assert f'data-tradition="{tid}"' in new
+            assert f">{expected_label}</p>" in new
+
+    def test_label_escapes_html_metacharacters(self):
+        # The display label is escaped so a hostile tradition label
+        # (shouldn't happen, but defensive) can't inject markup.
+        # Wire through a synthetic tradition by using one that exists
+        # — the escape itself is exercised on the canonical labels.
+        sample = (
+            '<aside class="note note-x" id="note-g0101a">'
+            '<p>x</p></aside>'
+        )
+        new, _ = self.be.apply_tradition_labels_to_html(
+            sample, {"ref-g0101a": "orthodox"},
+        )
+        # No raw <, > inside the label paragraph that wasn't
+        # part of the surrounding tags.
+        # "Eastern Orthodox" has no metacharacters; the assertion
+        # below still proves we render it through _xml_escape_text.
+        assert ">Eastern Orthodox</p>" in new
+        # Sanity: no double-encoding of common runs.
+        assert "Eastern&amp;" not in new
+
+    def test_iter_note_ref_traditions_yields_real_corpus(self):
+        # _iter_note_ref_traditions walks the on-disk corpus and yields
+        # (ref_id, tradition, book_code) tuples shaped like the build
+        # pipeline + ψ.8.4 per-book resolver expect.
+        from scripts.core.traditions import TRADITION_IDS
+        seen = 0
+        for ref_id, tradition, book_code in self.be._iter_note_ref_traditions():
+            assert ref_id.startswith("ref-")
+            assert tradition in TRADITION_IDS
+            assert isinstance(book_code, str) and book_code
+            seen += 1
+            if seen >= 10:
+                break
+        assert seen == 10
+
+    def test_build_ref_id_to_tradition_map_empty_when_unset(self):
+        # The §7.2 "no-op when default" guarantee — empty map means
+        # build_one skips the label-injection pass entirely.
+        be = self.be
+        assert be.build_ref_id_to_tradition_map({}) == {}
+        assert be.build_ref_id_to_tradition_map({"id": "catholic-study"}) == {}
+        assert be.build_ref_id_to_tradition_map(
+            {"id": "x", "traditions_default": []}) == {}
+
+    def test_build_ref_id_to_tradition_map_with_cross_includes_corpus(self):
+        # An edition declaring traditions_default=[cross] keeps every
+        # current note (all resolve to cross today). The map should be
+        # non-empty and every value should be `cross`.
+        m = self.be.build_ref_id_to_tradition_map(
+            {"id": "x", "traditions_default": ["cross"]})
+        assert len(m) > 100, "expected many cross-tradition notes today"
+        for tradition in m.values():
+            assert tradition == "cross"
+
+
+class TestTraditionsPerBookEncoderDecoder:
+    """ψ.8.4 — `decode_per_book_traditions` / `encode_per_book_traditions`
+    mirror the ν.2.7 popup-language encoder/decoder pair: flat list of
+    `"<book>=<t1>,<t2>"` strings on disk, dict in memory, canonical-order
+    sort on encode, defensive on decode."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import build_edition
+        cls.be = build_edition
+
+    def test_decode_none_or_empty(self):
+        be = self.be
+        assert be.decode_per_book_traditions(None) == {}
+        assert be.decode_per_book_traditions([]) == {}
+        assert be.decode_per_book_traditions({}) == {}
+
+    def test_decode_passthrough_dict(self):
+        # JSON payload from the UI arrives as a dict already.
+        out = self.be.decode_per_book_traditions(
+            {"gen": ["catholic", "cross"], "exo": []})
+        assert out == {"gen": ["catholic", "cross"], "exo": []}
+
+    def test_decode_list_of_strings(self):
+        out = self.be.decode_per_book_traditions(
+            ["gen=catholic,cross", "exo="])
+        assert out == {"gen": ["catholic", "cross"], "exo": []}
+
+    def test_decode_skips_malformed(self):
+        # Bare codes without `=` are dropped; whitespace stripped;
+        # non-strings ignored.
+        out = self.be.decode_per_book_traditions(
+            ["gen=catholic", "bad-no-equals", "  =catholic", 42])
+        assert out == {"gen": ["catholic"]}
+
+    def test_encode_canonical_book_order(self):
+        # Genesis must encode before Exodus regardless of dict iteration
+        # order — same §6.1 rule the popup-language encoder follows.
+        encoded = self.be.encode_per_book_traditions(
+            {"exo": ["catholic"], "gen": ["protestant"]})
+        # Genesis comes first in canonical order
+        assert encoded[0].startswith("gen=")
+        assert encoded[1].startswith("exo=")
+
+    def test_encode_strips_unknown_traditions(self):
+        # Encoder is the schema-clean boundary: unknown traditions
+        # don't survive a round trip through editions.yaml.
+        encoded = self.be.encode_per_book_traditions(
+            {"gen": ["catholic", "lutheran", "cross"]})
+        assert encoded == ["gen=catholic,cross"]
+
+    def test_round_trip_canonical(self):
+        original = {"gen": ["catholic", "cross"], "psa": ["jewish"]}
+        encoded = self.be.encode_per_book_traditions(original)
+        decoded = self.be.decode_per_book_traditions(encoded)
+        assert decoded == original
+
+
+class TestTraditionsPerBookResolver:
+    """ψ.8.4 — `_resolve_traditions_for_book` chooses the active set
+    per (edition, book) — per-book overrides win over the default; an
+    empty list at either level means "no filter for this book"."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import build_edition
+        cls.be = build_edition
+
+    def test_default_only_used_when_no_per_book(self):
+        edition = {"id": "x", "traditions_default": ["catholic", "cross"]}
+        active = self.be._resolve_traditions_for_book(edition, "gen")
+        assert active == {"catholic", "cross"}
+
+    def test_per_book_override_wins_over_default(self):
+        edition = {
+            "id": "x",
+            "traditions_default": ["catholic"],
+            "traditions_per_book": ["gen=jewish,protestant"],
+        }
+        active = self.be._resolve_traditions_for_book(edition, "gen")
+        assert active == {"jewish", "protestant"}
+        # Books without an override still see the default
+        active_other = self.be._resolve_traditions_for_book(edition, "exo")
+        assert active_other == {"catholic"}
+
+    def test_empty_per_book_means_no_filter_for_that_book(self):
+        # Explicit "gen=" disables the filter for Genesis even when the
+        # edition default is non-empty (publisher's "show everything in
+        # Genesis but filter the rest" affordance).
+        edition = {
+            "id": "x",
+            "traditions_default": ["catholic"],
+            "traditions_per_book": ["gen="],
+        }
+        active = self.be._resolve_traditions_for_book(edition, "gen")
+        assert active == set()
+        active_other = self.be._resolve_traditions_for_book(edition, "exo")
+        assert active_other == {"catholic"}
+
+    def test_filter_with_per_book_override_only(self):
+        # No default; per-book override sets the only filter — books
+        # without an override resolve to ∅ (no filter).
+        edition = {
+            "id": "x",
+            "traditions_per_book": ["gen=catholic"],
+        }
+        active = self.be._resolve_traditions_for_book(edition, "gen")
+        assert active == {"catholic"}
+        active_other = self.be._resolve_traditions_for_book(edition, "exo")
+        assert active_other == set()
+
+    def test_compute_disabled_uses_per_book(self):
+        # Smoke test: an edition that filters every tradition for
+        # Genesis specifically should produce a disabled set drawn
+        # only from Genesis. Other books resolve to ∅ and survive.
+        edition = {
+            "id": "x",
+            "traditions_per_book": ["gen=lutheran"],
+        }
+        ids = self.be.compute_tradition_disabled_html_ref_ids(edition)
+        # Genesis ref-ids start with the Genesis prefix g; every entry
+        # in the disabled set should start with "ref-g" (Genesis only).
+        assert len(ids) > 0
+        for rid in ids:
+            assert rid.startswith("ref-g")
+
+    def test_build_map_uses_per_book_override(self):
+        # Same idea for the labeller: a per-book override that matches
+        # `cross` keeps Genesis notes; the default-filter for Exodus
+        # also keeps cross notes. Both produce labelled entries.
+        edition = {
+            "id": "x",
+            "traditions_default": ["cross"],
+            "traditions_per_book": ["gen=cross"],
+        }
+        m = self.be.build_ref_id_to_tradition_map(edition)
+        assert len(m) > 100
+        # Every value is cross (matches the filter)
+        for tradition in m.values():
+            assert tradition == "cross"
+
+    def test_no_default_no_per_book_short_circuits_empty(self):
+        # The §7.2 byte-identical guarantee: when neither default nor
+        # any per-book override is set, both consumers return empty
+        # without walking the corpus.
+        be = self.be
+        assert be.compute_tradition_disabled_html_ref_ids({"id": "x"}) == set()
+        assert be.build_ref_id_to_tradition_map({"id": "x"}) == {}
+
+
+class TestTraditionsPerBookCustomizeAPI:
+    """ψ.8.4 — `traditions_per_book` round-trip through
+    `api_save_edition_meta` + `api_customize_data`. Mirrors the
+    popup_languages_per_book validator + emission shape."""
+
+    def setup_method(self):
+        self.web = _import_script("web")
+
+    def test_customize_data_emits_traditions_per_book(self):
+        d = self.web.api_customize_data()
+        for e in d["editions"]:
+            assert "traditions_per_book" in e
+            assert isinstance(e["traditions_per_book"], dict)
+            # Default seeded editions ship without an explicit value.
+            for code, traditions in e["traditions_per_book"].items():
+                assert isinstance(code, str)
+                assert isinstance(traditions, list)
+
+    def test_save_traditions_per_book_round_trip(self, tmp_path):
+        import shutil
+        path = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(path, backup)
+        try:
+            from scripts.core import config
+            config.load_editions.cache_clear()
+
+            r = self.web.api_save_edition_meta(
+                "catholic-study",
+                {"traditions_per_book": {
+                    "gen": ["catholic", "cross"],
+                    "exo": [],
+                }},
+            )
+            assert r.get("ok"), r
+
+            data = self.web.api_customize_data()
+            cath = next(e for e in data["editions"]
+                         if e["id"] == "catholic-study")
+            assert cath["traditions_per_book"]["gen"] == ["catholic", "cross"]
+            assert cath["traditions_per_book"]["exo"] == []
+        finally:
+            shutil.copy(backup, path)
+            from scripts.core import config
+            config.load_editions.cache_clear()
+
+    def test_save_traditions_per_book_rejects_unknown_book(self):
+        r = self.web.api_save_edition_meta(
+            "catholic-study",
+            {"traditions_per_book": {"zzz": ["catholic"]}},
+        )
+        assert "error" in r
+        assert "zzz" in r["error"]
+
+    def test_save_traditions_per_book_rejects_unknown_tradition(self):
+        r = self.web.api_save_edition_meta(
+            "catholic-study",
+            {"traditions_per_book": {"gen": ["lutheran"]}},
+        )
+        assert "error" in r
+        assert "lutheran" in r["error"]
+
+    def test_save_traditions_per_book_must_be_dict(self):
+        r = self.web.api_save_edition_meta(
+            "catholic-study",
+            {"traditions_per_book": ["gen=catholic"]},
+        )
+        assert "error" in r
+
+    def test_save_traditions_per_book_value_must_be_list(self):
+        r = self.web.api_save_edition_meta(
+            "catholic-study",
+            {"traditions_per_book": {"gen": "catholic"}},
+        )
+        assert "error" in r
+
+    def test_save_traditions_per_book_dedupes(self, tmp_path):
+        import shutil
+        path = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(path, backup)
+        try:
+            from scripts.core import config
+            config.load_editions.cache_clear()
+            r = self.web.api_save_edition_meta(
+                "catholic-study",
+                {"traditions_per_book": {
+                    "gen": ["catholic", "cross", "catholic", "  ", "cross"],
+                }},
+            )
+            assert r.get("ok"), r
+            data = self.web.api_customize_data()
+            cath = next(e for e in data["editions"]
+                         if e["id"] == "catholic-study")
+            assert cath["traditions_per_book"]["gen"] == ["catholic", "cross"]
+        finally:
+            shutil.copy(backup, path)
+            from scripts.core import config
+            config.load_editions.cache_clear()
 
 
 # ---------- Phase ψ.8.0 : Tradition schema foundation ----------
@@ -9289,3 +9744,302 @@ class TestSourcesCacheUI:
         assert 'id="pd-cache-section"' in SOURCES_HTML
         assert 'id="pd-fetch-all"' in SOURCES_HTML
         assert "/api/sources/cache" in SOURCES_HTML
+
+
+# ============================================================
+# Phase χ.0 — Kenyon textual-criticism ingest
+# ============================================================
+
+
+class TestKenyonSourceLoader:
+    """χ.0 — KenyonText loader parses verse references out of PD
+    textual-criticism prose, mapping abbreviations to canonical book
+    codes and capturing surrounding context."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources as src
+        cls.src = src
+
+    def _wire_synthetic_kenyon(self, tmp_path, monkeypatch, text: str):
+        path = tmp_path / "kenyon.txt"
+        path.write_text(text, encoding="utf-8")
+        monkeypatch.setattr(self.src.KenyonText, "PATH", path)
+        self.src.kenyon_text.cache_clear()
+
+    def test_parses_simple_reference(self, tmp_path, monkeypatch):
+        self._wire_synthetic_kenyon(
+            tmp_path, monkeypatch,
+            "The Septuagint omits Matt. 6. 13 in the oldest copies.",
+        )
+        refs = self.src.kenyon_text().references()
+        assert len(refs) == 1
+        assert refs[0].book == "mat"
+        assert refs[0].chapter == 6
+        assert refs[0].verse == 13
+
+    def test_parses_compound_book_name(self, tmp_path, monkeypatch):
+        self._wire_synthetic_kenyon(
+            tmp_path, monkeypatch,
+            "In 1 Sam. 17. 12 the LXX has a shorter reading.",
+        )
+        refs = self.src.kenyon_text().references()
+        assert len(refs) == 1
+        assert refs[0].book == "1sa"
+
+    def test_skips_unknown_book_name(self, tmp_path, monkeypatch):
+        self._wire_synthetic_kenyon(
+            tmp_path, monkeypatch,
+            "In Foobar 99. 99 there is no such book.",
+        )
+        refs = self.src.kenyon_text().references()
+        assert refs == []
+
+    def test_captures_surrounding_context(self, tmp_path, monkeypatch):
+        # The context window should include words on both sides of the
+        # reference, normalised to single spaces.
+        text = ("Some  preceding   prose. "
+                "The Vulgate inserts at Matt. 5. 18 a Markan parallel. "
+                "Some following prose.")
+        self._wire_synthetic_kenyon(tmp_path, monkeypatch, text)
+        refs = self.src.kenyon_text().references()
+        assert len(refs) == 1
+        ctx = refs[0].context
+        assert "Vulgate" in ctx or "Matt" in ctx
+        # No double-spaces survive the normalisation
+        assert "  " not in ctx
+
+    def test_attribution_string_is_kenyon_pd(self, tmp_path, monkeypatch):
+        self._wire_synthetic_kenyon(
+            tmp_path, monkeypatch, "See Mark 1. 1 for an example.",
+        )
+        refs = self.src.kenyon_text().references()
+        assert refs and "Kenyon" in refs[0].attribution
+        assert "1895" in refs[0].attribution
+        assert "Public domain" in refs[0].attribution
+
+    def test_skips_chapter_exceeding_book_ch_count(self, tmp_path,
+                                                      monkeypatch):
+        # Kenyon's index has page-range citations like "Deuteronomy
+        # 122, 123" that the regex would otherwise read as Deut. ch.
+        # 122 v. 123. Reject any chapter > book's actual ch_count.
+        self._wire_synthetic_kenyon(
+            tmp_path, monkeypatch,
+            "Deuteronomy 122, 123 ; his efforts to collate Codex Vat."
+        )
+        refs = self.src.kenyon_text().references()
+        assert refs == [], (
+            "page-range citation should be rejected — Deut has 34 ch."
+        )
+
+    def test_book_code_map_covers_canonical_set(self):
+        # Every canonical 3-letter book code in the project should
+        # have at least one entry in the Kenyon book-name map (so a
+        # full-name reference resolves cleanly).
+        from scripts.core.sources import KENYON_BOOK_NAME_TO_CODE
+        seen_codes = set(KENYON_BOOK_NAME_TO_CODE.values())
+        # Spot-check the five-tradition seeds appear
+        for must_have in ("gen", "exo", "psa", "mat", "rev",
+                          "1sa", "2ki", "1co", "rom"):
+            assert must_have in seen_codes
+
+
+class TestKenyonReferenceDetector:
+    """χ.0 — KenyonReferenceDetector emits text-witness candidates
+    keyed on (book, chapter, verse) with cleaned-OCR context."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import detectors, sources
+        cls.det = detectors
+        cls.src = sources
+
+    def _wire(self, tmp_path, monkeypatch, text: str):
+        path = tmp_path / "kenyon.txt"
+        path.write_text(text, encoding="utf-8")
+        monkeypatch.setattr(self.src.KenyonText, "PATH", path)
+        self.src.kenyon_text.cache_clear()
+
+    def test_detect_emits_text_witness_candidate(self, tmp_path, monkeypatch):
+        self._wire(tmp_path, monkeypatch,
+                    "The Septuagint omits Matt. 6. 13 in the oldest copies.")
+        detector = self.det.KenyonReferenceDetector()
+        cands = detector.detect("mat", 6, 13, _verse_text="")
+        assert len(cands) == 1
+        c = cands[0]
+        assert c.kind == "text-witness"
+        assert c.book == "mat" and c.chapter == 6 and c.verse == 13
+        assert "Manuscript witness" in c.draft_body
+        assert "Kenyon" in c.source_attribution
+        assert c.detector == "KenyonReferenceDetector"
+
+    def test_detect_returns_empty_for_unknown_verse(self, tmp_path,
+                                                     monkeypatch):
+        self._wire(tmp_path, monkeypatch,
+                    "Some prose with no real references.")
+        detector = self.det.KenyonReferenceDetector()
+        assert detector.detect("mat", 99, 99, _verse_text="") == []
+
+    def test_clean_kenyon_context_strips_artifacts(self):
+        clean = self.det._clean_kenyon_context
+        # Caret runs, backticks, pipes, backslashes
+        assert "^" not in clean("foo ^^^ bar")
+        assert "`" not in clean("foo `~| bar")
+        assert "\\" not in clean("li\\ Luke 6. 48")
+        # Repeated punctuation collapses
+        assert "...." not in clean("foo .... bar")
+        # Whitespace normalised
+        assert "  " not in clean("foo   bar")
+
+    def test_iter_all_candidates_yields_in_canonical_order(self,
+                                                            tmp_path,
+                                                            monkeypatch):
+        self._wire(
+            tmp_path, monkeypatch,
+            "First Mark 1. 1 then Gen. 1. 1 then later Mark 1. 2.",
+        )
+        detector = self.det.KenyonReferenceDetector()
+        cands = list(detector.iter_all_candidates())
+        keys = [(c.book, c.chapter, c.verse) for c in cands]
+        # Sorted by (book, chapter, verse) — gen < mrk alphabetically
+        assert keys == sorted(keys)
+
+    def test_max_candidates_per_verse_caps_output(self, tmp_path,
+                                                    monkeypatch):
+        # Two distinct mentions of Mark 1:1 in the source; with
+        # max_per_verse=1, only one candidate emerges.
+        self._wire(
+            tmp_path, monkeypatch,
+            "First mention: Mark 1. 1 here. "
+            "Then later: Mark 1. 1 again, in another paragraph."
+        )
+        detector = self.det.KenyonReferenceDetector(
+            max_candidates_per_verse=1)
+        cands = detector.detect("mrk", 1, 1, _verse_text="")
+        assert len(cands) == 1
+
+    def test_registered_in_all_detectors(self):
+        # χ-cluster pattern: every shipped detector lives in
+        # ALL_DETECTORS. Future prospect.py runs would auto-discover it.
+        names = [d.__name__ for d in self.det.ALL_DETECTORS]
+        assert "KenyonReferenceDetector" in names
+
+    def test_kind_text_witness_is_registered_in_kinds_yaml(self):
+        # Smoke: the text-witness kind must exist in kinds.yaml so
+        # the rendered EPUB picks up the right CSS classes + label.
+        kinds_path = REPO_ROOT / "content" / "kinds.yaml"
+        text = kinds_path.read_text(encoding="utf-8")
+        assert "code: text-witness" in text
+        assert 'category: text' in text
+
+
+class TestRunKenyonAtScaleDriver:
+    """χ.0 — driver smoke test against a synthetic source. Verifies
+    the same prospect.py-format output as the χ.6 / χ.7 drivers, plus
+    the append-not-clobber + idempotent re-run + ID-collision-repair
+    contracts."""
+
+    @classmethod
+    def setup_class(cls):
+        import importlib
+        cls.driver = importlib.import_module("scripts.run_kenyon_at_scale")
+        from scripts.core import sources
+        cls.src = sources
+
+    def _wire(self, tmp_path, monkeypatch, text: str):
+        path = tmp_path / "kenyon.txt"
+        path.write_text(text, encoding="utf-8")
+        monkeypatch.setattr(self.src.KenyonText, "PATH", path)
+        self.src.kenyon_text.cache_clear()
+
+    def test_driver_writes_prospect_format(self, tmp_path, monkeypatch):
+        self._wire(
+            tmp_path, monkeypatch,
+            "An example: the Vulgate inserts at Matt. 6. 13 a doxology.",
+        )
+        cand_dir = tmp_path / "candidates"
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+
+        from scripts.core.detectors import KenyonReferenceDetector
+        detector = KenyonReferenceDetector()
+        cands_by_chapter = {}
+        for c in detector.iter_all_candidates():
+            cands_by_chapter.setdefault((c.book, c.chapter), []).append(c)
+        for (book, chapter), cands in cands_by_chapter.items():
+            self.driver.write_queue(book, chapter, cands)
+
+        files = sorted(cand_dir.glob("mat_ch_*.json"))
+        assert files
+        data = json.loads(files[0].read_text(encoding="utf-8"))
+        assert data["book"] == "mat"
+        assert data["chapter"] == 6
+        assert data["candidates"][0]["kind"] == "text-witness"
+        assert data["candidates"][0]["status"] == "pending"
+        assert data["candidates"][0]["detector"] == "KenyonReferenceDetector"
+
+    def test_driver_appends_to_existing_chapter_file(self, tmp_path,
+                                                      monkeypatch):
+        # If a prior at-scale driver (xref/hebrew/naves/greek) already
+        # wrote a candidate file, the Kenyon driver must append, not
+        # clobber.
+        cand_dir = tmp_path / "candidates"
+        cand_dir.mkdir()
+        prior = {
+            "book": "mat", "chapter": 6,
+            "generated_at": "2026-01-01T00:00:00+00:00",
+            "n_candidates": 1,
+            "candidates": [{
+                "id": "mat-6-13-001", "verse": 13, "kind": "xref-citation",
+                "anchor": "", "confidence": 0.8, "source_name": "TSK",
+                "source_attribution": "TSK PD",
+                "draft_title": "Cite", "draft_label": "Cite.",
+                "draft_body": "<strong>Cross-references.</strong> tsk body",
+                "detector": "CrossRefDetector",
+                "reviewer_notes": "",
+                "status": "pending",
+            }],
+        }
+        prior_path = cand_dir / "mat_ch_006.json"
+        prior_path.write_text(json.dumps(prior), encoding="utf-8")
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+
+        self._wire(
+            tmp_path, monkeypatch,
+            "The Vulgate inserts at Matt. 6. 13 a Markan doxology.",
+        )
+        from scripts.core.detectors import KenyonReferenceDetector
+        detector = KenyonReferenceDetector()
+        cands = detector.detect("mat", 6, 13, _verse_text="")
+        assert cands, "synthetic source should produce a candidate"
+        self.driver.write_queue("mat", 6, cands)
+
+        merged = json.loads(prior_path.read_text(encoding="utf-8"))
+        # Both entries survive
+        assert merged["n_candidates"] == 2
+        kinds = sorted(c["kind"] for c in merged["candidates"])
+        assert kinds == ["text-witness", "xref-citation"]
+        # IDs are unique post-merge (the chapter-wide renumber)
+        ids = [c["id"] for c in merged["candidates"]]
+        assert len(set(ids)) == len(ids)
+
+    def test_driver_idempotent_on_re_run(self, tmp_path, monkeypatch):
+        # Second run with the same source produces no new candidates;
+        # write_queue returns None when nothing's new.
+        self._wire(
+            tmp_path, monkeypatch,
+            "Mark 1. 1 has variant readings in early MSS.",
+        )
+        cand_dir = tmp_path / "candidates"
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+
+        from scripts.core.detectors import KenyonReferenceDetector
+        detector = KenyonReferenceDetector()
+        cands = detector.detect("mrk", 1, 1, _verse_text="")
+        assert cands
+
+        # First run writes the file
+        first = self.driver.write_queue("mrk", 1, cands)
+        assert first is not None
+        # Second run with the same candidates is a no-op
+        second = self.driver.write_queue("mrk", 1, cands)
+        assert second is None

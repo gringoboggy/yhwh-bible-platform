@@ -16,6 +16,7 @@ Public API:
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -346,4 +347,194 @@ def tsk() -> Tsk:
 def naves_topical() -> NavesTopical:
     """Return the singleton NavesTopical instance (lazy-loaded once)."""
     return NavesTopical()
+
+
+# ----------------------------------------------------------------------
+# Kenyon textual-criticism source (Phase χ.0)
+# ----------------------------------------------------------------------
+
+
+# Standard book-name → canonical 3-letter code mapping for parsing
+# verse references in Kenyon-style PD textual-criticism prose. Both
+# the abbreviation (with optional trailing dot) AND the full name
+# resolve to the same code. Numeric prefixes ("1 Sam.", "2 Cor.") are
+# normalised in the regex; the leading digit is concatenated to the
+# leading letters of the abbreviation here.
+KENYON_BOOK_NAME_TO_CODE: dict[str, str] = {
+    # OT
+    "gen": "gen", "genesis": "gen",
+    "exod": "exo", "exodus": "exo", "ex": "exo",
+    "lev": "lev", "leviticus": "lev",
+    "num": "num", "numbers": "num", "numb": "num",
+    "deut": "deu", "deuteronomy": "deu", "dent": "deu",  # OCR variant
+    "josh": "jos", "joshua": "jos",
+    "judg": "jdg", "judges": "jdg",
+    "ruth": "rut",
+    "1sam": "1sa", "1samuel": "1sa", "isam": "1sa",      # OCR i/1
+    "2sam": "2sa", "2samuel": "2sa", "iisam": "2sa",
+    "1kin": "1ki", "1kings": "1ki", "1kgs": "1ki",
+    "2kin": "2ki", "2kings": "2ki", "2kgs": "2ki",
+    "1chr": "1ch", "1chron": "1ch", "1chronicles": "1ch",
+    "2chr": "2ch", "2chron": "2ch", "2chronicles": "2ch",
+    "ezra": "ezr",
+    "neh": "neh", "nehemiah": "neh",
+    "esth": "est", "esther": "est",
+    "job": "job",
+    "ps": "psa", "psa": "psa", "psalm": "psa", "psalms": "psa",
+    "prov": "pro", "proverbs": "pro",
+    "eccl": "ecc", "ecclesiastes": "ecc", "eccles": "ecc",
+    "song": "sng", "songofsolomon": "sng", "cant": "sng",
+    "isa": "isa", "isaiah": "isa",
+    "jer": "jer", "jeremiah": "jer",
+    "lam": "lam", "lamentations": "lam",
+    "ezek": "eze", "ezekiel": "eze",
+    "dan": "dan", "daniel": "dan",
+    "hos": "hos", "hosea": "hos",
+    "joel": "jol",
+    "amos": "amo",
+    "obad": "oba", "obadiah": "oba",
+    "jon": "jon", "jonah": "jon",
+    "mic": "mic", "micah": "mic",
+    "nah": "nah", "nahum": "nah",
+    "hab": "hab", "habakkuk": "hab",
+    "zeph": "zep", "zephaniah": "zep",
+    "hag": "hag", "haggai": "hag",
+    "zech": "zec", "zechariah": "zec",
+    "mal": "mal", "malachi": "mal",
+    # NT
+    "matt": "mat", "matthew": "mat",
+    "mark": "mrk", "mk": "mrk",
+    "luke": "luk", "lk": "luk",
+    "john": "jhn", "jn": "jhn",
+    "acts": "act",
+    "rom": "rom", "romans": "rom",
+    "1cor": "1co", "1corinthians": "1co",
+    "2cor": "2co", "2corinthians": "2co",
+    "gal": "gal", "galatians": "gal",
+    "eph": "eph", "ephesians": "eph",
+    "phil": "php", "philippians": "php",
+    "col": "col", "colossians": "col",
+    "1thess": "1th", "1thessalonians": "1th", "1thes": "1th",
+    "2thess": "2th", "2thessalonians": "2th", "2thes": "2th",
+    "1tim": "1ti", "1timothy": "1ti",
+    "2tim": "2ti", "2timothy": "2ti",
+    "tit": "tit", "titus": "tit",
+    "phlm": "phm", "philemon": "phm",
+    "heb": "heb", "hebrews": "heb",
+    "jas": "jas", "james": "jas",
+    "1pet": "1pe", "1peter": "1pe",
+    "2pet": "2pe", "2peter": "2pe",
+    "1john": "1jn", "1jn": "1jn",
+    "2john": "2jn", "2jn": "2jn",
+    "3john": "3jn", "3jn": "3jn",
+    "jude": "jud",
+    "rev": "rev", "revelation": "rev", "apoc": "rev",
+}
+
+
+@dataclass(frozen=True)
+class KenyonReference:
+    """One verse reference parsed out of Kenyon's PD textual-criticism
+    prose, paired with its surrounding context window. Public-domain
+    text (F.G. Kenyon, *Our Bible and the Ancient Manuscripts*, 1895)."""
+    book: str       # canonical 3-letter code (e.g. "mat")
+    chapter: int
+    verse: int
+    context: str    # surrounding ~300 chars from the source
+
+    @property
+    def attribution(self) -> str:
+        return (
+            "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* "
+            "(Eyre & Spottiswoode, London, 1895). Public domain."
+        )
+
+
+class KenyonText:
+    """Lazy loader for the Kenyon textual-criticism corpus. Reads the
+    cached `content/sources/kenyon_textcrit.txt` once; produces a list
+    of `KenyonReference` entries via `references()`.
+
+    Mirrors the §9 χ-cluster pattern (TSK / Strong's / Nave's): the
+    detector walks this index rather than recomputing the regex pass.
+
+    Phase χ.0 (2026-05-08)."""
+
+    PATH = _SOURCES / "kenyon_textcrit.txt"
+    # [1-3]?[ -]? prefix tolerates "1 Sam.", "2 Sam.", "1Sam." (OCR
+    # whitespace variability); [A-Z][a-zA-Z]{1,12} catches abbreviations
+    # and full names; \.?\s+\d+\s*[\.,:]\s*\d+ catches "Matt. 19. 17",
+    # "Matt 19:17", "Matt. 19, 17" — all OCR-tolerant.
+    REF_RE = re.compile(
+        r"\b([1-3])?\s*([A-Z][a-zA-Z]{1,12})\.?\s+(\d+)\s*[\.,:]\s*(\d+)\b"
+    )
+    CONTEXT_RADIUS = 200  # chars on each side of a match
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Kenyon source not staged at {self.PATH}. "
+                "Stage from oldfindings.txt: cp <txt> "
+                "content/sources/kenyon_textcrit.txt"
+            )
+        self._text = self.PATH.read_text(encoding="utf-8", errors="replace")
+        self._refs: list[KenyonReference] | None = None
+
+    def references(self) -> list[KenyonReference]:
+        """Parsed verse references with surrounding context. Cached on
+        first call. Unknown book names are silently skipped, as are
+        chapter numbers that exceed the book's ch_count (those are
+        page-range citations from Kenyon's index, not verse refs —
+        e.g. ``Deuteronomy 122, 123`` in his back-matter)."""
+        if self._refs is not None:
+            return self._refs
+
+        # Lazy import: keeps sources.py importable in environments
+        # without the full content tree (CI doc builds, etc.).
+        from . import config as _cfg
+        ch_counts = {
+            code: int(meta.get("ch_count") or 0)
+            for code, meta in _cfg.books_by_code().items()
+        }
+
+        refs: list[KenyonReference] = []
+        for m in self.REF_RE.finditer(self._text):
+            num_prefix = (m.group(1) or "").strip()
+            book_name = m.group(2).strip()
+            try:
+                chapter = int(m.group(3))
+                verse = int(m.group(4))
+            except ValueError:
+                continue
+            # Build the lookup key: lowercased name with numeric prefix
+            # concatenated. "1 Sam" → "1sam"; "Matt" → "matt".
+            key = (num_prefix + book_name).lower()
+            book_code = KENYON_BOOK_NAME_TO_CODE.get(key)
+            if book_code is None:
+                continue
+            # Reject chapter numbers that exceed the book's actual
+            # ch_count — these are page-range citations from Kenyon's
+            # index/back-matter masquerading as verse refs. Also
+            # rejects chapter == 0 / negative (defensive).
+            max_ch = ch_counts.get(book_code, 0)
+            if chapter < 1 or (max_ch and chapter > max_ch):
+                continue
+            # Context window — ±CONTEXT_RADIUS around the match
+            start = max(0, m.start() - self.CONTEXT_RADIUS)
+            end = min(len(self._text), m.end() + self.CONTEXT_RADIUS)
+            context = self._text[start:end]
+            # Normalise whitespace so the body renders cleanly in HTML
+            context = re.sub(r"\s+", " ", context).strip()
+            refs.append(KenyonReference(
+                book=book_code, chapter=chapter, verse=verse, context=context,
+            ))
+
+        self._refs = refs
+        return refs
+
+
+@lru_cache(maxsize=1)
+def kenyon_text() -> KenyonText:
+    """Return the singleton KenyonText instance (lazy-loaded once)."""
+    return KenyonText()
 

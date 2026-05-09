@@ -227,6 +227,13 @@ NOTES = [
         '<strong>The Ebal altar.</strong> Joshua follows the Deuteronomic command (Deut 27:4–8) to build an altar on Mount Ebal upon entering the land. Adam Zertal’s excavations on Mount Ebal in the 1980s uncovered a large rectangular stone structure dated to the early Iron Age, which he identified as Joshua’s altar. The identification remains contested — alternative readings have been proposed (a watchtower, a different cultic installation) — but the site has become a focal point in the archaeology of early Israelite religion. A small lead curse tablet (the “Mount Ebal lead tablet,” published 2022) was recovered nearby, with a contested early Hebrew inscription invoking divine curse.',
         'User original',
     ),
+    (
+        9, 4, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> hat which has come down to us. The student of the Variorum Bible will find many passages in which they are quoted as differing fi'om the received text, sometimes for the better ; e.g. Deut. 33. 26 ; Josh. 9. 4 ; Judg. 5. 30 ; 2 Sam. 18. 13 ; 1 Kin. 13. 12 ; Ps. 100. 3 ; Isa. 49. 5 ; etc. They have this advantage at least over most of the other versions, that whenever we can be sure of the Hebrew text whic <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
     # ---- ch 10 ----
     (
         10,
@@ -245,6 +252,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-hab-3-11">Hab 3:11</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        12, 12, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> en in the fifth century, with three columns to the page, and having (what is very unusual in early manuscripts) punctuation, accents, and breathings by the -- original scribe. It contains Gen. 31. 15 Josh. 12. 12, with many losses, however, from mutilation, and small fragments of Isaiah A and Malachi. Its evidence is valuable, and where and B differ it generally agrees with A. G. Codex Sarravianus, at L <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     # ---- ch 13 ----
     (
@@ -281,6 +295,13 @@ NOTES = [
         "Note",
         "<strong>The Jebusite remnant.</strong> Jerusalem is named, but it is not yet Israelite. The text matter-of-factly admits that Judah did not dispossess the city’s inhabitants. The capture of Jerusalem is delayed until David’s reign (2 Sam 5:6–9) — a foundational narrative in the Israelite monarchy. The “to this day” formula occurs ~80 times in the Deuteronomistic History; it almost always points to a state of affairs the editor wants the reader to understand as ongoing in their own time, providing internal evidence for the date of redaction.",
         'User original',
+    ),
+    (
+        16, 59, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> that they had never formed part of it, and were never quoted or used on the same level as the books recognised as inspired. It is true that one verse has dropped out of a long list of towns (after Josh. 16. 59), in which was contained (as the Septuagint shows see Variorum ; fo <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     # ---- ch 20 ----
     (

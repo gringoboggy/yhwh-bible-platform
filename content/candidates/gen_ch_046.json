@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 46,
-  "generated_at": "2026-05-08T14:38:36+00:00",
-  "n_candidates": 12,
+  "generated_at": "2026-05-09T01:11:10+00:00",
+  "n_candidates": 13,
   "candidates": [
     {
       "id": "gen-46-1-001",
@@ -182,6 +182,21 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-46-28-001",
+      "verse": 28,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> common property of all scholars. The Codex Vaticanus originally contained the entire Greek Bible, but it has suffered not a little from the ravages of time. The beginning has been lost, as far as Gen. 46. 28 ; in the middle, Psalms 106-138 have dropped out ; at the end, the latter part of Hebrews (from Chap. 9/4), the Catholic Epistles, and the whole of the Apocalypse have disappeared.* Each page measure <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

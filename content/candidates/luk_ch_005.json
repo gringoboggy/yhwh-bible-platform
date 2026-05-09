@@ -1,8 +1,8 @@
 {
   "book": "luk",
   "chapter": 5,
-  "generated_at": "2026-05-08T14:31:42+00:00",
-  "n_candidates": 5,
+  "generated_at": "2026-05-09T01:12:39+00:00",
+  "n_candidates": 6,
   "candidates": [
     {
       "id": "luk-5-1-001",
@@ -77,6 +77,21 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-luk-19-10\">Luk 19:10</a> · <a href=\"#vnote-luk-15-10\">Luk 15:10</a> · <a href=\"#vnote-1ti-1-15\">1Ti 1:15</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 27. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-5-38-006",
+      "verse": 38,
+      "kind": "text-witness",
+      "anchor": "",
+      "confidence": 0.55,
+      "source_name": "Kenyon 1895",
+      "source_attribution": "Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.",
+      "draft_title": "Witness",
+      "draft_label": "MS.",
+      "draft_body": "<strong>Manuscript witness.</strong> d above (p. 110), is the free addition, and occasionally omission, of words, sentences, and even incidents. One of these will be found in the page of the MS. reproduced in our Plate XII., containing Luke 5. 38 -- 6. 9. The first word on the page shows that this manuscript contains the last words of verse 38, \" and both are preserved,\" which are omitted by K, B, and L, and after them by Tischendorf, Wes <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+      "detector": "KenyonReferenceDetector",
+      "reviewer_notes": "Kenyon's textual-criticism prose. Don't paste the raw context — pick the clause that names the witness (Codex, Old Latin, LXX, Peshitto, etc.) and write a 1-2 sentence note on what that witness does for this verse.",
       "status": "pending"
     }
   ]

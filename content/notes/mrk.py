@@ -274,6 +274,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        7, 19, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> at the evidence of the uncials shall not be overborne by the numerical preponderance of late cursives, a mere statement of the authorities on either side will often be decisive. Thus, if we find in Mark 7. 19 that eight of the later uncials and hundreds of cursives have the received reading, " purging all meats," while 5 , A, B, E, F, G, H, L, S, X, A, and three Fathers have a slight variety Avhich giv <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         7, 21, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -300,6 +307,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-act-28-26">Act 28:26</a> · <a href="#vnote-mat-13-14">Mat 13:14</a> · <a href="#vnote-jer-5-21">Jer 5:21</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        8, 27, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        "<strong>Manuscript witness.</strong> Lord's question runs (in the r.v.) \"Who do f I men say that the Son of Man is ? \" and the margin tells us that \" Many ancient authorities read that /, the Son of Man, am I see Mark 8. 27, Luke 9. 18.\" In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li Luke 6. 48 the concluding / VARIAT <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>",
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         8, 34, '', '',
@@ -764,6 +778,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        15, 28, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> read that /, the Son of Man, am I see Mark 8. 27, Luke 9. 18." In Matt. 23. 14 a whole verse has probably been inserted from the parallel passages in Mark and Luke ; and so with Mark 15. 28. li Luke 6. 48 the concluding / VARIATIONS IN THE BIBLE TEXT. words of the parable of the house built on the rock, "because it had been well builded," have been altered in "many ancient aut <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
+    ),
+    (
         15, 33, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -783,6 +804,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-mrk-14-28">Mrk 14:28</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        16, 9, '', '',
+        'text-witness', 'Witness',
+        'MS.',
+        '<strong>Manuscript witness.</strong> rations are more extensive. The earliest Greek translation of the Old Testament contains several passages in the books of Esther and Daniel which are not found in the Hebrew. -- The long passages, Mark 16. 9-20 and John 7. 53 8. 11, which are absent from the oldest manuscripts of the New Testament, must have been either omitted in these or inserted in the others intentionally. If, as is more probably <em>[Reviewer: trim to the relevant clause; the surrounding context is provided so you can judge which version / witness Kenyon is discussing.]</em>',
+        'Frederic G. Kenyon, *Our Bible and the Ancient Manuscripts* (Eyre & Spottiswoode, London, 1895). Public domain.',
     ),
     (
         16, 15, '', '',

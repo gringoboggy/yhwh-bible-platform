@@ -1647,6 +1647,12 @@ def api_customize_data() -> dict:
                 # the YAML round-trip caveat.
                 "traditions_default":
                     _filter_traditions_default(e.get("traditions_default")),
+                # Phase ψ.8.4 — per-book tradition overrides, decoded
+                # to a JSON-friendly dict for the UI; on-disk this is a
+                # list of "code=t1,t2" strings.
+                "traditions_per_book": _decode_traditions_per_book_for_api(
+                    e.get("traditions_per_book")
+                ),
                 "theme": e.get("theme", "classic"),
                 "notes": e.get("notes", ""),
             }
@@ -1675,6 +1681,22 @@ def _traditions_canonical_for_api() -> tuple[tuple[str, str], ...]:
     this without touching the underlying constant."""
     from scripts.core.traditions import CANONICAL_TRADITIONS
     return CANONICAL_TRADITIONS
+
+
+def _decode_traditions_per_book_for_api(raw) -> dict[str, list[str]]:
+    """Phase ψ.8.4 — decode the on-disk ``traditions_per_book`` list-of-
+    strings into a JSON-friendly ``{book_code: [tradition_ids]}`` dict.
+
+    Same defensive policy as ``_filter_traditions_default``: unknown
+    tradition ids are silently dropped from the per-book lists so the
+    UI never sees junk; the validator catches the typo on next save."""
+    from scripts.build_edition import decode_per_book_traditions
+    from scripts.core.traditions import TRADITION_IDS
+    decoded = decode_per_book_traditions(raw)
+    return {
+        code: [t for t in traditions if isinstance(t, str) and t in TRADITION_IDS]
+        for code, traditions in decoded.items()
+    }
 
 
 def _filter_traditions_default(raw) -> list[str]:
@@ -2621,6 +2643,14 @@ def _append_cloned_edition(
     if plpb:
         # Already in encoded list form
         list_fields.append(("popup_languages_per_book", list(plpb)))
+    # Phase ψ.8 — traditions axis (default + per-book) carries through
+    # an edition clone. Already in encoded list form on disk.
+    td = src.get("traditions_default")
+    if td:
+        list_fields.append(("traditions_default", list(td)))
+    tpb = src.get("traditions_per_book")
+    if tpb:
+        list_fields.append(("traditions_per_book", list(tpb)))
 
     # book_covers: prefer override (when clone_files=True), else copy
     if override_book_covers is not None:
@@ -2684,6 +2714,8 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         "cover_image", "verse_popups",
         # Phase ν.2.7 popup languages
         "popup_languages_default", "popup_languages_per_book",
+        # Phase ψ.8 cross-denominational compare apparatus
+        "traditions_default", "traditions_per_book",
         # Phase π.4-A covers
         "book_covers",
         # Phase ν.6 reader experience
@@ -2843,6 +2875,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     list_field_updates: dict[str, list[str]] = {}
     from scripts.build_edition import (
         ALL_POPUP_LANGUAGES, encode_per_book_languages, decode_per_book_languages,
+        encode_per_book_traditions,
     )
     valid_langs = set(ALL_POPUP_LANGUAGES)
 
@@ -2899,6 +2932,62 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if s not in cleaned:
                 cleaned.append(s)
         list_field_updates["traditions_default"] = cleaned
+
+    # Phase ψ.8.4 — traditions_per_book validator. Mirror of
+    # popup_languages_per_book: dict of {book_code: [tradition_ids]}.
+    # Empty list per book = "no tradition filter for this book"
+    # (explicit override of the default, distinct from absence).
+    if "traditions_per_book" in payload:
+        from scripts.core.traditions import TRADITION_IDS
+        v = payload["traditions_per_book"]
+        if v is None:
+            v = {}
+        if not isinstance(v, dict):
+            return {
+                "error": (
+                    "traditions_per_book must be a mapping "
+                    "of book_code → list-of-tradition-ids"
+                )
+            }
+        valid_books = set(config.books_by_code().keys())
+        cleaned_dict: dict[str, list[str]] = {}
+        for code, traditions in v.items():
+            if not isinstance(code, str) or not code.strip():
+                return {"error":
+                        "traditions_per_book book codes must be non-empty strings"}
+            code = code.strip()
+            if code not in valid_books:
+                return {"error": f"unknown book code: {code!r}"}
+            if traditions is None:
+                traditions = []
+            if not isinstance(traditions, list):
+                return {
+                    "error": (
+                        f"traditions_per_book[{code!r}] must be a list "
+                        f"of tradition ids"
+                    )
+                }
+            book_traditions: list[str] = []
+            for t in traditions:
+                if not isinstance(t, str):
+                    return {"error":
+                            f"tradition id in {code!r} must be a string"}
+                s = t.strip()
+                if not s:
+                    continue
+                if s not in TRADITION_IDS:
+                    return {
+                        "error": (
+                            f"unknown tradition in {code!r}: {s!r}; "
+                            f"available: {sorted(TRADITION_IDS)}"
+                        )
+                    }
+                if s not in book_traditions:
+                    book_traditions.append(s)
+            cleaned_dict[code] = book_traditions
+        list_field_updates["traditions_per_book"] = encode_per_book_traditions(
+            cleaned_dict
+        )
 
     if "popup_languages_per_book" in payload:
         v = payload["popup_languages_per_book"]
