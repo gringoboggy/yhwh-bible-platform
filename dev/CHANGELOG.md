@@ -6,6 +6,106 @@
 
 ---
 
+## 2026-05-09 — session — ψ.1.2 wizard preview iframe (closes ψ.1 cluster)
+
+**Phases shipped:** ψ.1.2 — third and final sub-phase of the
+live EPUB preview cluster. Adds a live preview iframe to /wizard
+step 6 (Review) plumbed to the same `/api/preview/` endpoint as
+ψ.1.1's modal. The buyer-demo arc is now end-to-end:
+**pick → customize → review (with live preview) → build**.
+
+With ψ.1.2 landed the **ψ.1 cluster is complete** (composer in
+ψ.1.0, customize modal in ψ.1.1, wizard iframe in ψ.1.2).
+
+**Test delta:** +10 (1083 vs 1073).
+**Linter delta:** still 11/11 clean.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/wizard.py`** — three pieces:
+    - **Live preview section** appended to the renderReview()
+      output (step 6's review-pane). Header strip: book picker
+      (filtered to `STATE.edition_id`'s canon) + chapter input +
+      Refresh button. Status strip below: loading state + verse
+      / note counts after each fetch + honesty note ("Showing
+      the persisted state of <code>{edition_id}</code>. Wizard
+      edits apply on Build."). Iframe with
+      `sandbox="allow-same-origin"` (same pattern as ψ.1.1).
+    - **`initPsi12Preview()`** — populates the book picker from
+      `DATA.customize.edition_canon_books[STATE.edition_id]` ∩
+      `DATA.customize.books_canonical`. Defaults to last-used
+      via `localStorage` per edition, else "jhn" 1 if in canon,
+      else first canon book. Binds change handler on book picker
+      (re-fetch) + 300ms-debounced input handler on chapter
+      number. Kicks off the initial fetch.
+    - **`refreshPsi12Preview()`** — fetches `/api/preview/<ed>/<book>/<ch>`,
+      sets `iframe.srcdoc = data.html`, updates status strip on
+      success/error.
+    - **Trigger from renderReview**: `initPsi12Preview()` is
+      called at the bottom of renderReview() so entering step 6
+      auto-loads the iframe.
+
+- **`tests/test_scripts.py`** — `TestPsi12WizardPreviewIframe`
+  (10 tests):
+    - Iframe element present with canonical id
+    - All 4 form elements present (book / chapter / refresh /
+      status)
+    - Iframe has sandbox flag
+    - Both handler functions present
+    - Calls /api/preview/ correctly
+    - renderReview triggers initPsi12Preview
+    - Chapter input debounces 300ms
+    - localStorage persists last-used per edition
+    - Reads from DATA.customize.edition_canon_books +
+      DATA.customize.books_canonical (different shape from
+      ψ.1.1 — wizard nests customize data under DATA.customize)
+    - Honest status strip explains persisted-state rendering
+
+End state: **1083 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates, ψ.1 cluster complete**.
+
+The ψ.1 cluster's three sub-phases:
+
+| Sub-phase | What it ships | Where |
+|---|---|---|
+| ψ.1.0 (✓) | render_chapter_preview composer + api_preview wrapper + GET /api/preview/ route | scripts/core/preview.py + scripts/web.py |
+| ψ.1.1 (✓) | /customize per-edition Preview button + body-level modal | scripts/templates/customize.py |
+| ψ.1.2 (✓ this turn) | /wizard step 6 review-pane preview iframe | scripts/templates/wizard.py |
+
+Notable design decisions:
+
+- **Step 6 placement** chosen for the iframe — that's the
+  "review before building" moment where the user has finished
+  wizard input and wants to see the result before committing.
+  Earlier steps (theme, content, traditions) directly affect
+  what shows up but the user is mid-edit; step 6 is the natural
+  "did I get it right?" inspection moment.
+- **Same persisted-state honesty as ψ.1.1.** The wizard's STATE
+  holds in-progress edits that haven't yet been saved to
+  editions.yaml. The iframe renders the saved state of
+  STATE.edition_id (the starting-from edition), and the status
+  strip explicitly says so. Live-form-state preview is a future
+  ψ.1.x sub-phase that requires api_preview to accept overrides;
+  ψ.1.2 ships the persisted-state path.
+- **DATA.customize.* prefix** — wizard.py loads its data via
+  api_customize, but nests the response under `DATA.customize`
+  (not flat at `DATA.*` like /customize itself). Code reads
+  `DATA.customize.edition_canon_books` and
+  `DATA.customize.books_canonical`. Tests pin the access pattern.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.2 ψ.1 entry — full cluster spec
+- `scripts/core/preview.py` (ψ.1.0)
+- `scripts/templates/customize.py` (ψ.1.1)
+
+The buyer-demo arc is now visibly complete. Next session: pick
+any v1.x phase from PLAN §6 — ρ.1 LibriVox audio, χ.2 Matthew
+Henry, ψ.20 heat-map, ψ.21 sample PDF, ω.18 lint --fix, etc.
+
+---
+
 ## 2026-05-09 — session — ψ.1.1 customize Preview modal
 
 **Phases shipped:** ψ.1.1 — second sub-phase of the live EPUB

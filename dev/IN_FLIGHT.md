@@ -4,8 +4,37 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.1.1 /customize Preview modal**
-shipped 2026-05-09. Per-edition Preview button + body-level
+*(none — tracker is idle. **ψ.1.2 wizard preview iframe** shipped
+2026-05-09 — third and final sub-phase of the ψ.1 cluster. Adds a live preview iframe to /wizard step 6 (Review) plumbed to
+the same `/api/preview/` endpoint as ψ.1.1's modal. Same iframe
+sandbox + 300ms debounce + localStorage pattern. Honest status
+strip about persisted-state rendering (live form-state preview
+deferred to a future ψ.1.x sub-phase).
+
+The ψ.1 cluster (composer + customize modal + wizard iframe)
+is now complete. +10 tests in TestPsi12WizardPreviewIframe.
+End state: 1083 tests, 11/11 linter, 9 editions, 7 templates,
+51,394 notes.
+
+The buyer-demo arc is end-to-end:
+**pick → customize (with Preview modal) → review (with live
+preview) → build**.
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # /wizard: walk steps 1-6 with any edition. At step 6,
+    # verify the preview iframe loads with the chosen edition's
+    # chapter (default jhn 1 or last-used). Change book +
+    # chapter; verify 300ms-debounced refresh.
+
+Next: pick any v1.x phase from PLAN §6.
+
+---
+
+## Prior task
+
+**ψ.1.1 /customize Preview modal** shipped 2026-05-09. Per-edition Preview button + body-level
 modal with book picker + chapter input + iframe srcdoc + 300ms
 debounce + localStorage persistence + Esc dismiss. +11 tests.
 End state: 1073 tests, 11/11 linter, 9 editions, 7 templates.

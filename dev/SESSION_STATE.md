@@ -1,7 +1,20 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.1.1 /customize Preview modal**
-shipped — second sub-phase of the live EPUB preview cluster.
+**Updated:** 2026-05-09, after **ψ.1.2 wizard preview iframe**
+shipped — third and final sub-phase of the ψ.1 live EPUB preview
+cluster. Adds a live preview iframe to /wizard step 6 (Review)
+plumbed to the same `/api/preview/` endpoint as ψ.1.1's modal.
+Same iframe sandbox + debounce + localStorage pattern as ψ.1.1.
+Honest status strip: "Showing the persisted state of <ed>.
+Wizard edits apply on Build."
+
+With ψ.1.2 landed the **ψ.1 cluster is complete** — buyer-demo
+arc is end-to-end: pick → customize (with Preview modal) →
+review (with live preview) → build. +10 tests in
+TestPsi12WizardPreviewIframe. **1083 / 1083 tests green;
+11/11 linter clean.**
+
+Prior ship: **ψ.1.1 /customize Preview modal** — — second sub-phase of the live EPUB preview cluster.
 Per-edition Preview button on /customize opens a modal with book
 picker (filtered to edition's canon) + chapter number input +
 iframe srcdoc rendering ψ.1.0's api_preview output. Sandbox flag
@@ -361,7 +374,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 1073 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
+13 consoles · 1083 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -388,7 +401,54 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.1.1 /customize Preview modal
+## Current phase: ψ.1.2 wizard preview iframe (closes ψ.1 cluster)
+
+Final sub-phase of ψ.1. The ψ.1 cluster (composer + customize
+modal + wizard iframe) is now complete.
+
+```
+✓ scripts/templates/wizard.py           Live preview section
+                                        appended to renderReview()
+                                        (step 6); book picker
+                                        filtered to STATE.edition
+                                        canon; chapter input with
+                                        300ms debounce; iframe
+                                        sandbox=allow-same-origin;
+                                        initPsi12Preview() called
+                                        from renderReview() so
+                                        entering step 6 auto-loads
+                                        the iframe.
+✓ tests/test_scripts.py                 +10 tests in
+                                        TestPsi12WizardPreviewIframe
+                                        (iframe + form elements +
+                                        sandbox + handlers + route +
+                                        renderReview triggers init +
+                                        debounce + localStorage +
+                                        DATA.customize.* access +
+                                        honest status strip).
+~ Corpus delta                          0 — pure UI/integration.
+                                        Visual review on user:
+                                        walk wizard 1-6 (any
+                                        edition), verify the iframe
+                                        loads at step 6 with the
+                                        chosen edition's chapter,
+                                        change book/chapter watch
+                                        debounced refresh.
+```
+
+The ψ.1 cluster's three sub-phases (all ✓):
+- ψ.1.0 — render_chapter_preview composer + api_preview wrapper
+- ψ.1.1 — /customize per-edition Preview button + modal
+- ψ.1.2 — /wizard step 6 review-pane preview iframe
+
+Buyer-demo arc end-to-end: **pick → customize → review (with
+live preview) → build**.
+
+Next: pick any v1.x phase from PLAN §6 — ρ.1 LibriVox audio,
+χ.2 Matthew Henry, ψ.20 heat-map, ψ.21 sample PDF, ω.18 lint
+--fix, etc.
+
+## Prior phase: ψ.1.1 /customize Preview modal
 
 Second sub-phase of ψ.1. Per-edition Preview button + modal +
 iframe srcdoc rendering api_preview output. Buyer-demo flow:

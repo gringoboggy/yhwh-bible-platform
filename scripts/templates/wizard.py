@@ -831,7 +831,115 @@ function renderReview() {
     <div class="bg-amber-50 border border-amber-200 rounded p-3 mt-4 text-sm">
       <strong>Note:</strong> clicking <em>Build my Bible</em> will save these settings to <code class="font-mono">${esc(STATE.edition_id)}</code> and produce a fresh EPUB. The corpus itself is not modified.
     </div>
+
+    <!-- ψ.1.2 — live preview iframe. Reads /api/preview rendering
+         the persisted state of STATE.edition_id (the wizard's
+         in-progress edits aren't saved until Build, so the preview
+         shows the starting-from edition's spec). The status strip
+         makes that explicit. -->
+    <div class="bg-white border border-slate-200 rounded mt-4">
+      <div class="px-4 py-3 border-b border-slate-200 flex items-center gap-3 flex-wrap">
+        <h3 class="font-semibold text-slate-700 flex-1">
+          👁 Live preview
+          <span class="text-xs font-normal text-slate-400 ml-2">— see the chapter rendered</span>
+        </h3>
+        <label class="text-xs flex items-center gap-1.5">
+          <span>book:</span>
+          <select id="psi12-preview-book" class="field-input" style="padding:0.25rem 0.5rem; font-size:0.85rem; min-width:9rem;"></select>
+        </label>
+        <label class="text-xs flex items-center gap-1.5">
+          <span>chapter:</span>
+          <input id="psi12-preview-chapter" type="number" min="1" value="1" class="field-input" style="padding:0.25rem 0.5rem; font-size:0.85rem; width:4rem;">
+        </label>
+        <button id="psi12-preview-refresh" type="button" class="px-2 py-1 rounded border border-slate-300 text-xs hover:bg-slate-50">↻ Refresh</button>
+      </div>
+      <div class="px-4 py-2 text-xs text-slate-500 bg-slate-50 border-b border-slate-200 flex items-center gap-3 flex-wrap">
+        <span id="psi12-preview-status">loading…</span>
+        <span class="text-slate-400">·</span>
+        <span class="italic">Showing the persisted state of <code class="font-mono">${esc(STATE.edition_id)}</code>. Wizard edits apply on Build.</span>
+      </div>
+      <iframe id="psi12-preview-iframe" sandbox="allow-same-origin" style="border:0; width:100%; min-height:50vh; background:white;"></iframe>
+    </div>
   `;
+  // ψ.1.2 — wire the preview iframe handlers + initial fetch.
+  initPsi12Preview();
+}
+
+// ─── ψ.1.2 — wizard preview iframe ────────────────────────────
+function initPsi12Preview() {
+  const bookSel = document.getElementById('psi12-preview-book');
+  const chInp = document.getElementById('psi12-preview-chapter');
+  const refreshBtn = document.getElementById('psi12-preview-refresh');
+  if (!bookSel || !chInp || !refreshBtn) return;
+  // Populate book picker from the edition's canon.
+  const canonBooks = (DATA.customize.edition_canon_books || {})[STATE.edition_id] || [];
+  const booksByCode = {};
+  for (const b of (DATA.customize.books_canonical || [])) booksByCode[b.code] = b;
+  bookSel.innerHTML = canonBooks.map(code => {
+    const b = booksByCode[code] || {code, title: code};
+    return `<option value="${code}">${esc(b.title || code)}</option>`;
+  }).join('');
+  // Default: last-used per-edition via localStorage, else jhn 1
+  // if in canon, else first canon book.
+  const lastKey = 'psi12-last-' + STATE.edition_id;
+  let lastVal;
+  try { lastVal = localStorage.getItem(lastKey); } catch (_) { lastVal = null; }
+  if (lastVal) {
+    const [bc, ch] = lastVal.split(':');
+    if (canonBooks.includes(bc)) {
+      bookSel.value = bc;
+      if (ch) chInp.value = ch;
+    }
+  } else {
+    if (canonBooks.includes('jhn')) bookSel.value = 'jhn';
+    chInp.value = 1;
+  }
+  // Bind once per renderReview call (cleared on re-render via
+  // innerHTML replacement, so no dataset.bound dance needed).
+  refreshBtn.addEventListener('click', refreshPsi12Preview);
+  bookSel.addEventListener('change', refreshPsi12Preview);
+  let timer = null;
+  chInp.addEventListener('input', () => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(refreshPsi12Preview, 300);
+  });
+  // Kick off the initial fetch.
+  refreshPsi12Preview();
+}
+
+async function refreshPsi12Preview() {
+  if (!STATE.edition_id) return;
+  const bookSel = document.getElementById('psi12-preview-book');
+  const chInp = document.getElementById('psi12-preview-chapter');
+  const status = document.getElementById('psi12-preview-status');
+  const iframe = document.getElementById('psi12-preview-iframe');
+  if (!bookSel || !chInp || !status || !iframe) return;
+  const bookCode = bookSel.value;
+  const ch = parseInt(chInp.value, 10) || 1;
+  if (!bookCode) {
+    status.textContent = 'pick a book to preview';
+    return;
+  }
+  try { localStorage.setItem('psi12-last-' + STATE.edition_id, bookCode + ':' + ch); } catch (_) {}
+  status.textContent = 'loading ' + bookCode + ' ' + ch + '…';
+  try {
+    const r = await fetch('/api/preview/' + encodeURIComponent(STATE.edition_id)
+                          + '/' + encodeURIComponent(bookCode)
+                          + '/' + encodeURIComponent(ch));
+    const data = await r.json();
+    if (!r.ok || data.status !== 'ok') {
+      const msg = (data.message || data.error || 'preview failed');
+      status.innerHTML = '<span class="text-red-700">✗ ' + esc(msg) + '</span>';
+      return;
+    }
+    iframe.srcdoc = data.html;
+    status.textContent = bookCode + ' ' + ch + ' · '
+      + data.verse_count + ' verses · '
+      + data.notes_shown + ' notes shown';
+  } catch (e) {
+    status.innerHTML = '<span class="text-red-700">✗ network error: '
+      + esc(String(e && e.message || e)) + '</span>';
+  }
 }
 
 // ───────── Step 7: Build ─────────

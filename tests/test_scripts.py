@@ -14479,5 +14479,70 @@ class TestPsi11CustomizePreviewModal:
         assert "'jhn'" in self.html or '"jhn"' in self.html
 
 
+class TestPsi12WizardPreviewIframe:
+    """ψ.1.2 — /wizard step 6 (Review) gets a live preview iframe
+    plumbed to /api/preview. Closes the ψ.1 cluster after ψ.1.0
+    (composer) and ψ.1.1 (customize modal)."""
 
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.wizard import WIZARD_HTML
+        cls.html = WIZARD_HTML
+
+    def test_preview_iframe_present(self):
+        assert 'id="psi12-preview-iframe"' in self.html
+
+    def test_preview_form_elements_present(self):
+        for elem_id in (
+            "psi12-preview-book",
+            "psi12-preview-chapter",
+            "psi12-preview-refresh",
+            "psi12-preview-status",
+        ):
+            assert f'id="{elem_id}"' in self.html, (
+                f"missing wizard preview element {elem_id}"
+            )
+
+    def test_iframe_uses_sandbox(self):
+        # Sandbox flag matches ψ.1.1's pattern.
+        assert 'sandbox="allow-same-origin"' in self.html
+
+    def test_handler_functions_present(self):
+        for fn in ("initPsi12Preview", "refreshPsi12Preview"):
+            assert fn in self.html, f"missing wizard JS function {fn}"
+
+    def test_calls_api_preview_route(self):
+        # Wizard preview hits the same /api/preview/<ed>/<book>/<ch>
+        # route as the customize modal.
+        assert "/api/preview/" in self.html
+
+    def test_init_called_from_render_review(self):
+        # renderReview() must trigger initPsi12Preview() so the
+        # iframe loads when the user reaches step 6.
+        # Find renderReview body and verify the call appears.
+        idx = self.html.find("function renderReview")
+        assert idx >= 0
+        # The function spans ~3000 chars; scan that range.
+        body = self.html[idx:idx + 5000]
+        assert "initPsi12Preview()" in body
+
+    def test_chapter_input_debounces(self):
+        # Same 300ms debounce pattern as ψ.1.1.
+        assert "setTimeout(refreshPsi12Preview, 300)" in self.html
+
+    def test_localstorage_persists_per_edition(self):
+        assert "psi12-last-" in self.html
+        assert "localStorage" in self.html
+
+    def test_uses_data_customize_book_canon(self):
+        # The wizard's DATA holds customize fields under
+        # DATA.customize.* (different shape from /customize itself).
+        assert "DATA.customize.edition_canon_books" in self.html
+        assert "DATA.customize.books_canonical" in self.html
+
+    def test_status_strip_explains_persisted_state(self):
+        # Honesty: the iframe shows the persisted edition state,
+        # not the in-progress wizard edits. The strip says so.
+        assert "persisted state" in self.html.lower() or \
+            "Wizard edits apply on Build" in self.html
 
