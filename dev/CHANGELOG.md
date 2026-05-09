@@ -6,6 +6,369 @@
 
 ---
 
+## 2026-05-08 — session — ω.5 paths-resolver foundation
+
+**Phases shipped:** ω.5 foundation (`scripts/core/paths.py` + the
+`scripts/core/` consumer migration: sources / translations / config
+/ covers / traditions all expose a paths-resolver entrypoint).
+Plus `scripts/migrate_to_user_data.py` one-shot bootstrap helper.
+The remaining 41 call-site files (web.py + at-scale drivers + CLI
+tools) get migrated as rolling sub-phases **ω.5.1, ω.5.2, …, ω.5.x**
+on whatever cadence makes sense — the in-tree fallback means
+un-migrated call sites continue working unchanged during the roll.
+**Test delta:** +32 (751 → 783).
+**Corpus delta:** 0 — pure infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/paths.py`** — single source of truth for project
+  paths. Two roots:
+  - `repo_root()` — the read-only resource path (parent of
+    `scripts/`); compiled into the desktop binary as a bundled
+    template.
+  - `content_root()` — resolver with precedence:
+    1. Testing override via `set_content_root_for_testing(p)`.
+    2. `YHWH_CONTENT_ROOT` env var (`~` expanded).
+    3. In-tree `<repo>/content/` IFF the `editions.yaml` marker
+       file exists (dev mode).
+    4. Platform `user_data_root()` (installed mode).
+  - Platform-specific `user_data_root()`:
+    - Windows: `%APPDATA%\YHWH` (defaults to `C:\Users\<u>\AppData\Roaming\YHWH`)
+    - macOS: `~/Library/Application Support/YHWH`
+    - Linux: `$XDG_DATA_HOME/YHWH` if set, else `~/.local/share/YHWH`
+  - Sub-path helpers cascade from `content_root()`:
+    `notes_dir / candidates_dir / sources_dir / translations_dir /
+    covers_dir / audio_dir / books_yaml / kinds_yaml /
+    categories_yaml / themes_yaml / canons_yaml / editions_yaml /
+    traditions_yaml`.
+  - Build-output siblings cascade from `content_root().parent`:
+    `exports_dir / epub_working_dir / builds_dir / backups_dir`
+    (preserves today's repo-root layout in dev; lands next to
+    content/ in user_data in installed mode).
+  - Cache via `lru_cache(maxsize=1)` on the resolver; tests use
+    `reset_content_root()` to bust it after env changes; the
+    test override bypasses the cache entirely.
+
+- **`scripts/core/` consumer migration (foundation only).** Each of
+  the 5 core modules grows a `_<thing>_path()` helper that
+  delegates to `paths.<thing>()`:
+  - `sources._sources_dir()` → `paths.sources_dir()`
+  - `translations._translations_dir()` → `paths.translations_dir()`
+  - `covers._covers_dir()` → `paths.covers_dir()`
+  - `traditions._traditions_yaml_path()` → `paths.traditions_yaml()`
+  - `config._books_yaml_path()` → `paths.books_yaml()`
+  Existing module-level constants (`_SOURCES`, `TRANSLATIONS_DIR`,
+  `CONTENT`, `DEFAULT_TRADITIONS_YAML`, `_CONTENT`) are preserved
+  byte-identically for back-compat with every existing test that
+  monkeypatches them. New code prefers the helper functions.
+
+- **`scripts/migrate_to_user_data.py`** — one-shot bootstrap.
+  - Pure functions: `plan_migration(src, dst)` reports file count +
+    bytes; `perform_migration(src, dst, *, force)` does the copy.
+  - CLI: `--dry-run` (preview), `--force` (overwrite), default
+    skips files that already exist in destination (idempotent).
+  - Refuses if source `content/` is missing.
+  - Reports "Already migrated" + exit 0 when destination has the
+    `editions.yaml` marker (so the launcher can call this on every
+    boot without harm).
+  - Detects via `paths.user_data_root()` so the bootstrap target
+    matches what the resolver picks up.
+
+- **+32 tests** across 5 new classes:
+  - `TestPathsRepoAndUserData` (7): `repo_root()` invariants;
+    `user_data_root()` per-platform behavior (Windows APPDATA,
+    macOS Library/Application Support, Linux XDG_DATA_HOME +
+    .local/share fallback).
+  - `TestPathsContentRootResolver` (6): in-tree dev mode default;
+    testing override priority; env-var override; `~` expansion;
+    in-tree detection requires the `editions.yaml` marker (bare
+    empty content/ dir falls back to user-data).
+  - `TestPathsSubPathHelpers` (4): all sub-paths inherit from
+    `content_root()`; YAML helpers; build-output dirs are siblings
+    not children; dev-mode helpers resolve to actual files on disk.
+  - `TestPathsCacheBehavior` (2): `reset_content_root()` invalidates
+    cache; setting test override invalidates immediately.
+  - `TestCoreModulesUsePathsResolver` (5): each migrated core
+    module's helper function honors the test override.
+  - `TestMigrateToUserData` (8): plan_migration counts files;
+    handles missing source; perform copies all files; idempotent
+    skip-existing; force overwrites; main `--dry-run` writes
+    nothing; main short-circuits on already-migrated; main refuses
+    on missing source.
+
+User-side completion (parked, free):
+
+```
+1. Build a θ.1 launcher binary that calls:
+       python3 scripts/migrate_to_user_data.py
+   on first run (idempotent — safe to call every boot).
+2. The resolver picks up the new location automatically once the
+   in-tree content/ is removed, OR set YHWH_CONTENT_ROOT to pin
+   the location explicitly.
+3. Existing dev workflow is unchanged: in-tree content/ wins as
+   long as the editions.yaml marker exists.
+```
+
+Notable decisions:
+
+- **Foundation-only scope this turn.** The spec says ω.5 is "1-2
+  sessions"; it would have been ~3 sessions to migrate every one
+  of the 97 occurrences across 42 files in one go. Splitting
+  cleanly: this turn ships the resolver + the 5 `scripts/core/`
+  consumers (which are the modules everyone else imports);
+  remaining call sites flow through over **ω.5.1+ rolling
+  sub-phases**. The in-tree fallback in the resolver means
+  un-migrated call sites continue to work without any code change
+  — they just don't yet honor `YHWH_CONTENT_ROOT` or the test
+  override.
+- **In-tree marker = `editions.yaml`.** A bare empty `content/`
+  dir at the repo root would otherwise shadow a real user-data
+  install. Requiring the marker file makes the dev/installed
+  distinction unambiguous and survives accidental empty-dir
+  creation (e.g. by a test).
+- **Build-output dirs (exports/, epub_working/, builds/) live
+  next to content/, not inside it.** Matches today's repo-root
+  layout for dev; in installed mode they land next to the
+  user-data content/ dir. Keeping them parallel rather than
+  nested means publishers can wipe `builds/` or `exports/`
+  without risking content loss, and the cleanup script's prune
+  semantics stay correct.
+- **Back-compat preserved at every boundary.** Every existing
+  module constant (`TRANSLATIONS_DIR`, `_SOURCES`, etc.) survives
+  unchanged so the existing test contracts that monkeypatch those
+  constants continue to work. The new helper functions are
+  additive; modules grow a second resolver path without removing
+  the first.
+
+Continuity pointers:
+- §9 "Add a new feature endpoint" pattern in dev/CLAUDE_PROJECT_RULES.md
+  (pure-function + thin route adapter — paths.py follows this exactly)
+- ω.5.1+ rolling sub-phase tracking: each sub-phase migrates one
+  cluster of call sites (e.g. ω.5.1 = at-scale drivers; ω.5.2 =
+  scripts/web.py content references; ω.5.3 = remaining CLI tools).
+
+---
+
+## 2026-05-08 — session — τ.1 WEB infrastructure + χ.0+ deep-dive scope
+
+**Phases shipped:** τ.1 WEB (extract_translation.py generalised
+behind a TRANSLATIONS registry; WEB entry registered + tests).
+Plus a scope-only addition: dev/SCOPE_2026-05-08-addendum-textcrit-
+deep-dive.md staging the next 3-4 χ.0 textual-criticism sources
+(W&H 1881, Burgon 1883, Souter 1913, Driver 1890).
+**Test delta:** +7 (744 → 751).
+**Corpus delta:** 0 — infrastructure only; data fetch (the
+eng-web_vpl.zip download from eBible.org) is user-side, mirroring
+the χ.7 / χ.1 / χ-AI-xrefs contract.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/extract_translation.py`** — generalised. The
+  hard-coded `if translation_id == "kjv":` meta-write block is
+  replaced by a `TRANSLATIONS: dict[str, dict]` registry at module
+  top + a `meta_for(translation_id, stats)` helper. KJV's existing
+  metadata moves into the registry verbatim (back-compat: the
+  re-extracted KJV `_meta.yaml` is byte-identical to the prior
+  one, modulo the regenerated `fetched` date). New τ phases now
+  add a registry entry and the rest of the pipeline (parse_vpl,
+  BAR-split, write_book_module, write_meta_yaml) works unchanged.
+  The fall-back stub for unregistered ids lets authors iterate on
+  ad-hoc sources before promoting them to a full TRANSLATIONS
+  entry.
+- **`TRANSLATIONS["web"]`** — World English Bible registered as
+  the first non-KJV τ phase. Source: `https://eBible.org/eng-web/`,
+  package `eng-web_vpl.zip`. Notes capture the BAR-split rule
+  applicability (only for the Apocrypha-included package) and the
+  ρ.1 audio synergy (LibriVox WEB recordings).
+- **`extract_translation.py --list`** — new CLI flag. Prints all
+  registered translations with their short title, source URL, and
+  fetch package. Useful for the user-side completion dance:
+  `python3 scripts/extract_translation.py --list` → pick id →
+  download the zip → unzip into
+  `content/translations/sources/<id>/` → re-run without `--list`.
+- **`dev/SCOPE_2026-05-08-addendum-textcrit-deep-dive.md`** —
+  scope-only deliverable. Stages χ.0.1 W&H 1881, χ.0.2 Burgon
+  1883, χ.0.3 Souter 1913, χ.0.4 Driver 1890 as the next four
+  textual-criticism ingest sub-phases. Each ~1 session, mirrors
+  χ.0 exactly, reuses the `text-witness` kind and the
+  `KenyonReferenceDetector` pattern. Conservative cumulative yield
+  ~360-720 promoted notes after reviewer curation. Per-source
+  shipping (omnibus rejected) so the reviewer can tune confidence
+  floors between sources.
+- **+7 tests** in TestTranslationsRegistry: kjv registered; web
+  registered with correct license/url/package; list_registered
+  stable order; meta_for kjv reads from registry; meta_for web
+  reads from registry with correct stats; meta_for unregistered id
+  returns stub with helpful "promote to registry" note;
+  end-to-end extraction smoke against synthetic WEB VPL fixture
+  (verifies adding a TRANSLATIONS entry is sufficient — no other
+  code change for future τ phases).
+
+User-side completion (parked, free):
+
+```
+1. Visit https://eBible.org/eng-web/ and download eng-web_vpl.zip
+2. mkdir content/translations/sources/web
+3. unzip eng-web_vpl.zip into content/translations/sources/web/
+4. python3 scripts/extract_translation.py web --report
+   (writes content/translations/web/{<book>.py, _meta.yaml})
+5. The customize console picks WEB up automatically as a
+   primary-translation alternative; existing build pipeline's
+   swap_english_text supports it via the same path that handles KJV.
+```
+
+Notable decisions:
+
+- **Registry pattern over per-translation script.** Could have
+  scaffolded `scripts/extract_web.py` etc. — rejected because
+  every τ phase shares 95% of the parsing/emission logic; only
+  the metadata differs. The registry is one line of code per
+  future τ phase versus a 360-line script copy.
+- **Stub fallback for unregistered ids.** Lets authors smoke-test
+  a new source before adding it to the registry; lower friction
+  than failing hard. The stub's `notes` field explicitly says
+  "add a TRANSLATIONS entry before publishing" so it can't slip
+  into production unattended.
+- **WEB before τ.2-τ.11.** Per dev/SCOPE_2026-05-08-addendum-pd-
+  translations.md sequencing: WEB is the pattern-establishing,
+  highest-leverage single add (modern PD English baseline; ρ.1
+  audio synergy). The other 10 τ phases ship as v1.x point releases
+  per their existing spec.
+
+Continuity pointers:
+- dev/SCOPE_2026-05-08-addendum-pd-translations.md (τ cluster spec)
+- dev/SCOPE_2026-05-08-addendum-textcrit-deep-dive.md (χ.0+ spec)
+- §9 "Add a new translation" recipe in dev/CLAUDE_PROJECT_RULES.md
+
+---
+
+## 2026-05-08 — session — χ-AI-xrefs infrastructure (LLM-backed thematic xrefs)
+
+**Phases shipped:** χ-AI-xrefs (infrastructure: AnthropicXrefClient
+source loader + AIXrefDetector + at-scale driver with cost guards
++ new `xref-thematic` kind + scope addendum).
+**Test delta:** +28 (716 → 744).
+**Corpus delta:** 0 — infrastructure only; data fetch is a paid
+user-side step (~$0.09 per 100 verses; ~$28 full 31K-verse pass).
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`content/kinds.yaml` — new kind `xref-thematic`** under category
+  `xref` (symbol `‖`). Distinct from the existing `xref-citation` /
+  `xref-allusion` / `xref-inner-biblical` kinds: this one captures
+  AI-proposed thematic, typological, or idiomatic links — the class
+  TSK and Strong's miss. Phase: `mvp`.
+- **`scripts/core/sources.py` — `AnthropicXrefClient`**. The first
+  source loader backed by an API rather than a cached JSON file.
+  Lazy + injectable: `__init__(*, model=DEFAULT_AI_XREF_MODEL,
+  completion_fn=None)`. Without an injected `completion_fn`, the
+  constructor checks `ANTHROPIC_API_KEY` env var + tries
+  `import anthropic` and raises `SourceMissingError` if either is
+  missing — same graceful-degrade contract as `NaveTopical` when
+  its JSON cache is absent (`prospect.py`'s resilient instantiation
+  catches and skips). Singleton via `anthropic_xref_client()` lru_cache.
+  Default real-SDK call path uses prompt caching on the system
+  prompt so repeated per-verse calls only pay for the per-verse
+  user message after the first call (~10× cost cut).
+  `propose_xrefs(book, chapter, verse, verse_text, *, top_n=3)`
+  validates each model proposal: target book code must be in
+  `config.books_by_code()`, chapter/verse coerced to int ≥ 1,
+  confidence clamped to [0,1], unknown subclass falls back to
+  `thematic`. Malformed completion / network blip → `[]` (defensive).
+- **`scripts/core/detectors.py` — `AIXrefDetector`**. Emits
+  `xref-thematic` candidates from `AnthropicXrefClient`. Mirrors
+  the χ-cluster detector pattern (verse-text-driven; lazy source;
+  registered in `ALL_DETECTORS`). Constructor accepts optional
+  `client=` for tests; otherwise uses the singleton. Filters
+  proposals below `min_confidence` (default 0.7) and caps at
+  `top_n` (default 3). Body composition: target verse link +
+  subclass label + model reasoning + explicit `[Reviewer:
+  AI-proposed]` flag. Source attribution string contains
+  "Claude AI" — provenance invariant.
+- **`scripts/run_ai_xrefs_at_scale.py`** — driver mirroring
+  `run_greek_at_scale.py` (NT-only there → all-66 here) with cost
+  guards layered on top:
+  - `--max-verses N` (default 100) — hard cap on API calls.
+  - `--dry-run` — print projected verse count + cost, exit 0,
+    no API call.
+  - `--confirm-cost` — required when `--max-verses > 200`
+    (`CONFIRM_COST_THRESHOLD`); driver refuses with explanatory
+    message otherwise.
+  - `--min-confidence X` (default 0.7) and `--top-n N` (default 3)
+    passthrough to detector.
+  - `--model M` passthrough (default `claude-haiku-4-5-20251001`
+    — the cost/quality sweet spot for this volume).
+  - Output is `content/candidates/<book>_ch_<NNN>.json` in
+    prospect.py's exact format; merge-not-clobber against prior
+    detector output (filters existing `kind != xref-thematic`,
+    appends new entries with chapter-wide ID re-numbering).
+- **`dev/SCOPE_2026-05-08-addendum-ai-xrefs.md`** — full spec.
+- **+28 tests** across 3 new classes:
+  - `TestAnthropicXrefClient` (8): construct without key + no
+    completion_fn → SourceMissingError; constructs with injected
+    completion_fn; valid response parses correctly; unknown book
+    codes silently dropped; confidence clamped to [0,1]; malformed
+    response → []; top_n cap honored; invalid chapter/verse dropped.
+  - `TestAIXrefDetector` (9): kind = xref-thematic; min_confidence
+    floor; top_n passthrough; "Claude AI" attribution invariant;
+    body contains reasoning + reviewer note + target-verse link;
+    unknown subclass → thematic fallback; registered in
+    ALL_DETECTORS; xref-thematic in kinds.yaml; SourceMissingError
+    propagates from default-client construction.
+  - `TestRunAIXrefsAtScaleDriver` (10): --dry-run writes nothing;
+    --confirm-cost guard above threshold; --max-verses cap honored;
+    skips books without KJV data; writes prospect format; merges
+    with existing chapter file (Kenyon survives); idempotent re-run
+    (xref-thematic not duplicated); cost estimate scales linearly;
+    resolve_books default = canonical-KJV intersection (gen first);
+    explicit --books arg passes through.
+
+Notable decisions:
+
+- **Model choice: Haiku 4.5.** ~$0.00092/verse (~$28 full pass) vs
+  ~$0.01/verse for Sonnet 4.6 (~$300 full pass). Per-verse task
+  (propose 3 thematic xrefs) is well within Haiku's range; --model
+  flag handles re-runs at higher quality if the first pass warrants.
+- **Prompt caching on the system prompt.** Saves ~10× on the
+  per-verse cost since the system prompt (~150 tokens) is the bulk
+  of input; per-verse user message is ~50 tokens. `cache_control:
+  ephemeral` honored across the session; first call pays full cost,
+  subsequent calls pay user-message-only.
+- **Cost guard: --confirm-cost above 200 verses.** The default
+  `--max-verses 100` is conservative; large runs require explicit
+  acknowledgement so an accidental full-corpus pass doesn't cost
+  $28 by surprise.
+- **Same prospect.py output format.** No new promote.py work; the
+  existing `batch_promote_xrefs.py --kind xref-thematic` filter
+  works unchanged.
+
+User-side completion (parked, paid):
+
+- Set `ANTHROPIC_API_KEY` and `pip install anthropic` (a one-time
+  setup for this machine).
+- `python3 scripts/run_ai_xrefs_at_scale.py --dry-run` to see the
+  projected cost.
+- Smoke run: `python3 scripts/run_ai_xrefs_at_scale.py --books jhn
+  --max-verses 50` (~$0.05).
+- Wider Pauline slice: `python3 scripts/run_ai_xrefs_at_scale.py
+  --books rom,gal,eph,php,col,heb --max-verses 1000 --confirm-cost`
+  (~$0.92).
+- Full pass: `python3 scripts/run_ai_xrefs_at_scale.py
+  --max-verses 31000 --confirm-cost` (~$28).
+- Then: `python3 scripts/batch_promote_xrefs.py --kind
+  xref-thematic` to promote (reviewer-curated; conservative yield
+  ~5K notes alone closes ≈half of the v1.0 corpus floor gap).
+
+Continuity pointers:
+- dev/SCOPE_2026-05-08-addendum-ai-xrefs.md
+- §9 χ-cluster pattern in dev/CLAUDE_PROJECT_RULES.md
+- memory: `project_ai_xrefs_unfunded.md` (cost gate lifted 2026-05-08)
+
+---
+
 ## 2026-05-08 — session — χ.0 Kenyon textual-criticism ingest
 
 **Phases shipped:** χ.0 (Kenyon manuscript-witness corpus ingestion;

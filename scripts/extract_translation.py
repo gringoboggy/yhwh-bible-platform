@@ -1,5 +1,5 @@
 """scripts/extract_translation.py — parse a public-domain Bible into the
-project's translation store (Phase τ.1).
+project's translation store (τ cluster).
 
 Input:  content/translations/sources/<id>/eng-<id>_vpl.txt
         eBible.org's "Verse Per Line" text format. One verse per line,
@@ -24,13 +24,21 @@ Why .py and not .yaml/.json:
         verses. lru_cache-friendly.
 
 Usage:
+    python scripts/extract_translation.py --list   # show registered τ ids
     python scripts/extract_translation.py kjv
     python scripts/extract_translation.py kjv --dry-run
     python scripts/extract_translation.py kjv --report
+    python scripts/extract_translation.py web                # τ.1 (PD)
+
+Adding a new translation: add an entry to ``TRANSLATIONS`` below; then
+the user runs::
+
+    1. Download eng-<id>_vpl.zip from the configured source URL
+    2. unzip into content/translations/sources/<id>/
+    3. python3 scripts/extract_translation.py <id> --report
 
 Standalone — does not import any of the project's other modules so it
-remains usable as a one-shot ingestion tool even before τ.1.5 wires
-the runtime query API.
+remains usable as a one-shot ingestion tool.
 """
 from __future__ import annotations
 
@@ -98,6 +106,79 @@ EBIBLE_VPL_TO_PROJECT: dict[str, str] = {
 PROJECT_BOOKS_OUTSIDE_KJV = {
     "jub", "1en", "2en", "mq1", "mq2", "mq3", "4ba", "1cl",
 }
+
+
+# ----------------------------------------------------------------------
+# Translation registry — one entry per τ-cluster phase
+# ----------------------------------------------------------------------
+#
+# Each entry carries the metadata that gets written to
+# content/translations/<id>/_meta.yaml after extraction. The
+# `source.fetched` field is filled at extract time (not stored here),
+# so the same entry is reusable across re-fetches of the same source.
+#
+# Adding a new τ phase:
+#   1. Pick the project's translation slug (lowercase id like "web")
+#   2. Add a TRANSLATIONS[id] = {...} entry below
+#   3. Document the user-side fetch step in the entry's `notes` field
+#   4. The user downloads the source ZIP, unpacks to
+#      content/translations/sources/<id>/, then runs this script.
+#
+# Translations not in the registry can still extract — they get a
+# stub _meta.yaml with placeholder license/source fields. The
+# registry is the right place to document license + provenance for
+# the τ-cluster phases we ship infrastructure for.
+
+TRANSLATIONS: dict[str, dict] = {
+    "kjv": {
+        "title": "King James Version + Apocrypha",
+        "short_title": "KJV",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "eBible.org",
+            "url": "https://eBible.org/eng-kjv/",
+            "package": "eng-kjv_vpl.zip",
+            "source_date": "2025-11-27",
+        },
+        "notes": (
+            "King James Version (1769 Blayney standardized text) "
+            "with Apocrypha. Letter of Jeremiah (project book "
+            "'lje') is split out of eBible's BAR chapter 6, "
+            "matching the project's separate-book convention. "
+            "1 Maccabees and 2 Maccabees are emitted at "
+            "content/translations/kjv/{1ma,2ma}.py for "
+            "forward-compatibility, even though books.yaml "
+            "doesn't list them yet."
+        ),
+    },
+    "web": {
+        "title": "World English Bible (with Apocrypha)",
+        "short_title": "WEB",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "eBible.org",
+            "url": "https://eBible.org/eng-web/",
+            "package": "eng-web_vpl.zip",
+            "source_date": None,  # filled at extract time
+        },
+        "notes": (
+            "World English Bible — modern Public Domain English "
+            "translation derived from the 1901 ASV. Phase τ.1 "
+            "primary-translation alternative to the KJV's archaic "
+            "register. Synergy with ρ.1 (LibriVox audio): WEB "
+            "recordings are widely available for the audio-EPUB "
+            "build pass. Letter of Jeremiah split rule (BAR ch 6 "
+            "→ lje ch 1) applies if the WEB-with-Apocrypha "
+            "package is the source; the WEB-66 package skips "
+            "Apocrypha entirely."
+        ),
+    },
+}
+
+
+def list_registered() -> list[str]:
+    """Return the registered translation ids, in registration order."""
+    return list(TRANSLATIONS.keys())
 
 
 # ----------------------------------------------------------------------
@@ -302,20 +383,39 @@ def extract(translation_id: str, dry_run: bool = False, report: bool = False) ->
         write_book_module(out_dir / f"{proj_code}.py",
                           translation_id, proj_code, verses)
 
-    # Write _meta.yaml — KJV-specific defaults; tweak when extending
-    # this script to other translations later.
-    if translation_id == "kjv":
-        meta = {
-            "id": "kjv",
-            "title": "King James Version + Apocrypha",
-            "short_title": "KJV",
-            "license": "Public Domain",
+    # Write _meta.yaml — driven by the TRANSLATIONS registry. Falls
+    # back to a minimal stub when the translation is not yet
+    # registered (allows ad-hoc extraction of new sources before
+    # promoting them to a full τ phase).
+    write_meta_yaml(
+        out_dir / "_meta.yaml",
+        meta_for(translation_id, stats),
+    )
+
+    return stats
+
+
+def meta_for(translation_id: str, stats: dict) -> dict:
+    """Compose the _meta.yaml dict for ``translation_id``, filling in
+    ``stats`` and the live ``fetched`` date. Looks up ``TRANSLATIONS``
+    and falls back to a placeholder stub for unregistered ids."""
+    today = _dt.date.today().isoformat()
+    entry = TRANSLATIONS.get(translation_id)
+    if entry is None:
+        # Unregistered translation — write a stub so the customize
+        # console doesn't error on missing _meta.yaml. Author can
+        # promote it to a full TRANSLATIONS entry later.
+        return {
+            "id": translation_id,
+            "title": translation_id.upper(),
+            "short_title": translation_id.upper(),
+            "license": "Unknown — review before publishing",
             "source": {
-                "publisher": "eBible.org",
-                "url": "https://eBible.org/eng-kjv/",
-                "package": "eng-kjv_vpl.zip",
-                "fetched": _dt.date.today().isoformat(),
-                "source_date": "2025-11-27",
+                "publisher": "",
+                "url": "",
+                "package": "",
+                "fetched": today,
+                "source_date": today,
             },
             "stats": {
                 "books": stats["project_books_emitted"],
@@ -323,30 +423,54 @@ def extract(translation_id: str, dry_run: bool = False, report: bool = False) ->
                 "books_outside_kjv": len(PROJECT_BOOKS_OUTSIDE_KJV),
             },
             "notes": (
-                "King James Version (1769 Blayney standardized text) "
-                "with Apocrypha. Letter of Jeremiah (project book "
-                "'lje') is split out of eBible's BAR chapter 6, "
-                "matching the project's separate-book convention. "
-                "1 Maccabees and 2 Maccabees are emitted at "
-                "content/translations/kjv/{1ma,2ma}.py for "
-                "forward-compatibility, even though books.yaml "
-                "doesn't list them yet."
+                f"Ad-hoc extraction; not in TRANSLATIONS registry. "
+                f"Add a TRANSLATIONS['{translation_id}'] entry to "
+                f"scripts/extract_translation.py before publishing."
             ),
         }
-        write_meta_yaml(out_dir / "_meta.yaml", meta)
-
-    return stats
+    src = entry["source"]
+    return {
+        "id": translation_id,
+        "title": entry["title"],
+        "short_title": entry["short_title"],
+        "license": entry["license"],
+        "source": {
+            "publisher": src.get("publisher", ""),
+            "url": src.get("url", ""),
+            "package": src.get("package", ""),
+            "fetched": today,
+            "source_date": src.get("source_date") or today,
+        },
+        "stats": {
+            "books": stats["project_books_emitted"],
+            "verses": stats["total_verses"],
+            "books_outside_kjv": len(PROJECT_BOOKS_OUTSIDE_KJV),
+        },
+        "notes": entry.get("notes", ""),
+    }
 
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("translation_id",
+    p.add_argument("translation_id", nargs="?",
                    help="translation slug; expects sources/<id>/*_vpl.txt")
     p.add_argument("--dry-run", action="store_true",
                    help="parse and report, but do not write output files")
     p.add_argument("--report", action="store_true",
                    help="print a coverage report after extraction")
+    p.add_argument("--list", action="store_true",
+                   help="list registered translation ids and exit")
     args = p.parse_args()
+    if args.list:
+        for tid in list_registered():
+            entry = TRANSLATIONS[tid]
+            print(f"  {tid:8s} {entry['short_title']:5s} "
+                  f"{entry['title']}")
+            print(f"  {'':8s} {'':5s} → {entry['source'].get('url', '')}")
+            print(f"  {'':8s} {'':5s} fetch: {entry['source'].get('package', '')}")
+        return 0
+    if not args.translation_id:
+        p.error("translation_id is required (or pass --list)")
     stats = extract(args.translation_id, dry_run=args.dry_run, report=args.report)
     if not args.report:
         print(

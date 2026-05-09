@@ -1,19 +1,29 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after **χ.0** shipped — Kenyon textual-
-criticism ingest (new `text-witness` kind + KenyonText loader +
-KenyonReferenceDetector + at-scale driver + 117 promoted notes from
-F.G. Kenyon, *Our Bible and the Ancient Manuscripts*, 1895, public-
-domain). Session arc so far (continuous-go): scope expansion →
-ν.2.9+ψ.10 → ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13 →
-χ.1 → ψ.8.0 → ψ.8.1+8.2-A → ω.14 → ψ.8.2-B+ψ.8.3 → ψ.8.4 → ψ.8.5
-→ **χ.0**. Seventeen implementation phases this session. The ψ.8
-cluster (v1.0 differentiator) is feature-complete; ψ.8.5 closed it.
-Corpus growth is now the largest remaining gap to v1.0 (16,042 /
-25K floor); next per the most-logical-path is χ-AI-xrefs (cost
-gate lifted, ~$30-80 Anthropic, +5-15K notes), then ω.5 → θ.1 →
-θ.2 for the v1.0 candidate. Parallel user-side free-roll: run
-`python scripts/fetch_sources.py` for χ.7 + χ.1 (+7-13K).
+**Updated:** 2026-05-08, after **ω.5 (foundation)** shipped — the
+per-user data location resolver. Built `scripts/core/paths.py`
+(repo_root + user_data_root + content_root resolver with in-tree
+dev-mode fallback + sub-path helpers + cache invalidation hooks),
+migrated the 5 `scripts/core/` consumers (sources, translations,
+config, covers, traditions) to expose paths-resolver entrypoints
+without removing back-compat constants, and wrote
+`scripts/migrate_to_user_data.py` as the one-shot bootstrap helper.
+Remaining 41 call-site files (web.py + at-scale drivers + CLI
+tools) become rolling sub-phases ω.5.1+ — the in-tree fallback
+keeps them working unchanged during the rolling migration.
+Session arc so far (continuous-go): scope expansion → ν.2.9+ψ.10
+→ ξ.4 → ω.8 → ω.9 → ξ.2 → ω.10 → ξ.1 → ψ.12 → ψ.13 → χ.1 → ψ.8.0
+→ ψ.8.1+8.2-A → ω.14 → ψ.8.2-B+ψ.8.3 → ψ.8.4 → ψ.8.5 → χ.0 →
+χ-AI-xrefs → τ.1 WEB + χ.0+ scope → **ω.5 foundation**. Twenty
+implementation phases this session. ω.5 unblocks the desktop
+binary (θ.1/θ.2) — bundled .app/.exe payloads can now find their
+user-mutable data in the platform user-data dir while keeping
+read-only resources in the bundle. Corpus growth remains the
+largest v1.0 gap (16,042 / 25K floor); the unlock paths
+(χ-AI-xrefs paid + χ.7/χ.1 free + τ.1 WEB free) are all parked
+on user-side runs. Next per the most-logical-path is **θ.1
+launcher → θ.2 shell** for the v1.0 candidate; ω.5.1+ rolling
+call-site migrations ship in parallel as needed.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
 3rd-rev scope on `bridge4kaladin-collab/yhwh-bible-platform`,
 private. Saves are now git pushes, not zips — see "GIT BACKUP" in
@@ -33,7 +43,7 @@ helpers. Each commit runs the pre-commit hook
 ## Status snapshot
 
 ```
-13 consoles · 717 tests · 10/10 linter · 5 editions · 16,041 notes
+13 consoles · 783 tests · 10/10 linter · 5 editions · 16,042 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -60,7 +70,213 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: χ.0 Kenyon textual-criticism ingest shipped
+## Current phase: ω.5 paths-resolver foundation shipped
+
+Foundation-only ship. The new `scripts/core/paths.py` is the single
+source of truth for project paths; the 5 `scripts/core/` modules
+that the rest of the project imports now expose paths-resolver
+entrypoints. Remaining 41 call-site files migrate as rolling
+sub-phases ω.5.1+ — the in-tree fallback in the resolver keeps
+un-migrated sites working unchanged during the roll.
+
+```
+✓ scripts/core/paths.py                 repo_root() + user_data_root()
+                                        (Win/macOS/Linux platform-
+                                        aware) + content_root()
+                                        resolver: testing override
+                                        > YHWH_CONTENT_ROOT env var
+                                        > in-tree dev (requires
+                                        editions.yaml marker) >
+                                        user_data_root() installed.
+                                        Sub-path helpers
+                                        (notes/candidates/sources/
+                                        translations/covers/audio +
+                                        7 yaml helpers); build-
+                                        output siblings (exports/
+                                        epub_working/builds/
+                                        backups). lru_cache + reset
+                                        + set-for-testing hooks.
+✓ scripts/core/{sources,translations,   each grew a paths-resolver
+  config,covers,traditions}.py          entrypoint helper function
+                                        (_sources_dir, _translations
+                                        _dir, _books_yaml_path,
+                                        _covers_dir, _traditions_
+                                        yaml_path). Existing module
+                                        constants preserved verbatim
+                                        for back-compat with every
+                                        existing PATH-monkeypatch
+                                        test.
+✓ scripts/migrate_to_user_data.py        one-shot bootstrap copies
+                                        in-tree content/ →
+                                        user_data_root/content/.
+                                        Idempotent (skips existing
+                                        unless --force); --dry-run
+                                        previews; refuses on missing
+                                        source; short-circuits with
+                                        "Already migrated" when
+                                        destination has the marker.
+✓ tests/test_scripts.py                 +32 tests across 5 new
+                                        classes:
+                                        - TestPathsRepoAndUserData (7)
+                                        - TestPathsContentRootResolver (6)
+                                        - TestPathsSubPathHelpers (4)
+                                        - TestPathsCacheBehavior (2)
+                                        - TestCoreModulesUsePathsResolver (5)
+                                        - TestMigrateToUserData (8)
+~ Corpus delta                          0 — pure infrastructure.
+```
+
+Rolling migration parked as **ω.5.1+ sub-phases** (each migrates
+one cluster of call sites; in-tree fallback means un-migrated
+files continue to work):
+```
+ω.5.1   at-scale drivers (run_*_at_scale.py)
+ω.5.2   scripts/web.py content references (~41 occurrences)
+ω.5.3   remaining CLI tools (promote, prospect, attribute, etc.)
+```
+
+## Prior phase: τ.1 WEB infrastructure + χ.0+ scope shipped
+
+Two-part ship: τ.1 WEB lays the groundwork for the entire τ cluster
+(11 PD-translation extensions parked in Tier D); the χ.0+ scope
+addendum stages the next four textual-criticism ingests after χ.0
+Kenyon. Both are infrastructure / spec — corpus delta is 0.
+
+```
+✓ scripts/extract_translation.py        TRANSLATIONS registry +
+                                        meta_for() helper; KJV
+                                        moved into the registry
+                                        verbatim (back-compat
+                                        byte-identical _meta.yaml
+                                        modulo regenerated date).
+                                        New τ phases now register
+                                        an entry; rest of the
+                                        pipeline works unchanged.
+                                        --list flag dumps the
+                                        registered translations
+                                        with URLs + fetch packages.
+                                        Unregistered ids fall back
+                                        to a stub _meta.yaml with
+                                        an explicit "promote to
+                                        registry before publishing"
+                                        notes field.
+✓ TRANSLATIONS["web"]                   World English Bible
+                                        registered. Source:
+                                        https://eBible.org/eng-web/
+                                        package eng-web_vpl.zip
+                                        (PD; modern English; ρ.1
+                                        audio synergy via LibriVox
+                                        WEB recordings).
+✓ dev/SCOPE_2026-05-08-addendum-       χ.0.1 W&H 1881 + χ.0.2
+  textcrit-deep-dive.md                 Burgon 1883 + χ.0.3 Souter
+                                        1913 + χ.0.4 Driver 1890
+                                        as next textual-criticism
+                                        ingests. Each ~1 session,
+                                        mirrors χ.0; reuses the
+                                        text-witness kind +
+                                        KenyonReferenceDetector
+                                        pattern. Conservative
+                                        cumulative yield ~360-720
+                                        promoted notes. Per-source
+                                        shipping (omnibus rejected
+                                        so reviewer can tune
+                                        confidence floors between
+                                        sources).
+✓ tests/test_scripts.py                 +7 tests in
+                                        TestTranslationsRegistry
+                                        (kjv registered; web
+                                        registered; list_registered
+                                        stable; meta_for kjv +
+                                        web from registry; meta_for
+                                        unregistered → stub;
+                                        end-to-end synthetic-VPL
+                                        WEB extraction smoke).
+~ Corpus delta                          0 (infrastructure-only).
+                                        τ.1 user-side completion:
+                                        download eng-web_vpl.zip
+                                        from eBible, unzip into
+                                        content/translations/
+                                        sources/web/, run
+                                        `python3 scripts/extract_
+                                        translation.py web --report`.
+                                        χ.0+ data fetch: PDFs
+                                        from archive.org per the
+                                        addendum's links.
+```
+
+## Prior phase: χ-AI-xrefs infrastructure shipped
+
+First χ-cluster phase backed by an API rather than a static cached
+source. The infrastructure is feature-complete and tested; the data
+fetch is paid + user-side, identical contract to χ.7 / χ.1's
+"infrastructure-shipped, fetch-pending" parking pattern but with a
+real cost dial.
+
+```
+✓ content/kinds.yaml                    new `xref-thematic` kind
+                                        under category=xref;
+                                        symbol ‖ inherited; phase=mvp.
+✓ scripts/core/sources.py               AnthropicXrefClient (lazy +
+                                        injectable completion_fn);
+                                        SourceMissingError when no
+                                        ANTHROPIC_API_KEY + no
+                                        injected fn (mirror of
+                                        NaveTopical's contract).
+                                        Singleton via
+                                        anthropic_xref_client().
+                                        Default real-SDK call uses
+                                        prompt caching on the
+                                        system prompt (~10× cost
+                                        cut). DEFAULT_AI_XREF_MODEL
+                                        = claude-haiku-4-5-20251001.
+                                        propose_xrefs() validates
+                                        target book against
+                                        config.books_by_code(),
+                                        clamps confidence to [0,1],
+                                        defensively returns [] on
+                                        any malformed completion.
+✓ scripts/core/detectors.py             AIXrefDetector emits
+                                        xref-thematic candidates;
+                                        registered in ALL_DETECTORS;
+                                        attribution mentions
+                                        "Claude AI"; body composes
+                                        target-link + reasoning +
+                                        explicit [Reviewer:] flag.
+✓ scripts/run_ai_xrefs_at_scale.py       new driver mirroring
+                                        run_greek_at_scale.py with
+                                        cost guards: --dry-run
+                                        prints projected cost & exits
+                                        without API call;
+                                        --max-verses N default 100;
+                                        --confirm-cost required
+                                        when --max-verses > 200
+                                        (CONFIRM_COST_THRESHOLD);
+                                        --model passthrough;
+                                        merge-not-clobber output.
+✓ dev/SCOPE_2026-05-08-addendum-ai-xrefs.md   spec.
+✓ tests/test_scripts.py                 +28 tests across 3 new classes
+                                        (TestAnthropicXrefClient 8 +
+                                        TestAIXrefDetector 9 +
+                                        TestRunAIXrefsAtScaleDriver 10
+                                        + 1 kind-yaml smoke).
+~ Corpus delta                          0 (infrastructure-only;
+                                        data fetch is paid + user-
+                                        side: ~$0.09/100v; ~$28
+                                        full 31K-verse pass).
+```
+
+User-side completion (parked, paid):
+```
+1. export ANTHROPIC_API_KEY=...   (one-time)
+   pip install anthropic           (one-time)
+2. python3 scripts/run_ai_xrefs_at_scale.py --dry-run
+3. python3 scripts/run_ai_xrefs_at_scale.py --books jhn --max-verses 50
+4. (when ready) python3 scripts/run_ai_xrefs_at_scale.py \
+       --max-verses 31000 --confirm-cost
+5. python3 scripts/batch_promote_xrefs.py --kind xref-thematic
+```
+
+## Prior phase: χ.0 Kenyon textual-criticism ingest shipped
 
 First χ-cluster phase since χ.1 Strong's Greek; first one fed by
 **local public-domain text** rather than a network fetch. F.G.

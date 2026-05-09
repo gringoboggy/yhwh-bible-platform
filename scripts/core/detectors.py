@@ -666,6 +666,112 @@ def _xml_escape_text_for_kenyon(s: str) -> str:
 
 
 # ----------------------------------------------------------------------
+# AI-backed thematic xref detector (Phase χ-AI-xrefs)
+# ----------------------------------------------------------------------
+
+
+# Display labels for the kind_subclass field on the rendered note body.
+# Kept here (not on the model side) so the body's prose stays consistent
+# regardless of the model's exact wording.
+_AI_XREF_SUBCLASS_LABEL = {
+    "typological": "Typological",
+    "thematic": "Thematic",
+    "idiomatic": "Idiomatic",
+}
+
+
+class AIXrefDetector:
+    """Generate ``xref-thematic`` candidates from an LLM proposer
+    (``sources.AnthropicXrefClient``).
+
+    Phase χ-AI-xrefs (2026-05-08). The first χ-cluster detector backed
+    by an API rather than a static cached source; otherwise mirrors the
+    existing pattern (verse-text-driven, lazy source via the singleton,
+    SourceMissingError on construction propagates to ``prospect.py``'s
+    resilient instantiation handler — same graceful-degrade contract
+    as ``NaveTopicalDetector`` when its JSON cache is absent).
+
+    The detector caps proposals at ``top_n`` per verse and filters
+    below ``min_confidence`` before returning. Cost-conscious by
+    design: the cap + floor + the driver's ``--max-verses`` together
+    bound the API spend.
+    """
+
+    name = "AIXrefDetector"
+    kind = "xref-thematic"
+
+    def __init__(
+        self,
+        *,
+        client=None,
+        top_n: int = 3,
+        min_confidence: float = 0.7,
+    ) -> None:
+        if client is None:
+            client = sources.anthropic_xref_client()
+        self.client = client
+        self.top_n = top_n
+        self.min_confidence = min_confidence
+
+    def detect(
+        self, book: str, chapter: int, verse: int, verse_text: str
+    ) -> list[Candidate]:
+        proposals = self.client.propose_xrefs(
+            book, chapter, verse, verse_text, top_n=self.top_n,
+        )
+        out: list[Candidate] = []
+        for p in proposals:
+            confidence = float(p.get("confidence", 0.0))
+            if confidence < self.min_confidence:
+                continue
+            target_book = p["target_book"]
+            target_chapter = p["target_chapter"]
+            target_verse = p["target_verse"]
+            subclass = p.get("kind_subclass", "thematic")
+            subclass_label = _AI_XREF_SUBCLASS_LABEL.get(
+                subclass, "Thematic")
+            reasoning = p.get("reasoning", "")
+
+            target_link = (
+                f"<a href=\"#vnote-{target_book}-{target_chapter}-"
+                f"{target_verse}\">{target_book.title()} "
+                f"{target_chapter}:{target_verse}</a>"
+            )
+            body = (
+                f"<strong>{subclass_label} cross-reference.</strong> "
+                f"{target_link}. {_xml_escape_text_for_kenyon(reasoning)} "
+                f"<em>[Reviewer: AI-proposed; verify the link is sound, "
+                f"trim the reasoning, and decide whether to keep before "
+                f"promoting.]</em>"
+            )
+
+            out.append(Candidate(
+                book=book,
+                chapter=chapter,
+                verse=verse,
+                kind=self.kind,
+                anchor="",
+                confidence=confidence,
+                source_name=(
+                    f"AI: {target_book} {target_chapter}:{target_verse} "
+                    f"({subclass})"
+                ),
+                source_attribution=self.client.attribution,
+                draft_title="Thematic",
+                draft_label=f"{subclass_label[:5]}.",
+                draft_body=body,
+                detector=self.name,
+                reviewer_notes=(
+                    f"AI-proposed {subclass} link with confidence "
+                    f"{confidence:.2f}. The model's reasoning is a draft, "
+                    f"not the final note — rewrite in the project's voice "
+                    f"and discard if the connection is too thin."
+                ),
+            ))
+        return out
+
+
+# ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
 
@@ -677,4 +783,5 @@ ALL_DETECTORS = [
     CrossRefDetector,
     NaveTopicalDetector,
     KenyonReferenceDetector,
+    AIXrefDetector,
 ]

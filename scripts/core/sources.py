@@ -11,19 +11,36 @@ Public API:
     Tsk()                   — cross-refs keyed by (book, chapter, verse)
     NavesTopical()          — topical-concordance hits, both directions
                               (Phase χ.7)
+    KenyonText()            — PD textual-criticism prose (Phase χ.0)
+    AnthropicXrefClient()   — LLM-backed xref proposer (Phase χ-AI-xrefs)
 """
 
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _SOURCES = _REPO_ROOT / "content" / "sources"
+
+
+def _sources_dir() -> Path:
+    """Resolve the sources/ directory through the ω.5 paths resolver
+    (in-tree wins for dev; user_data_dir for installed builds; honors
+    YHWH_CONTENT_ROOT and the testing override).
+
+    Existing loader classes keep their PATH class attribute pointing
+    at ``_SOURCES / "<file>.json"`` for back-compat with tests that
+    monkeypatch PATH; ω.5.1+ rolling migration switches each loader
+    to call ``_sources_dir()`` lazily so the resolver flows through.
+    """
+    from . import paths
+    return paths.sources_dir()
 
 
 class SourceMissingError(RuntimeError):
@@ -537,4 +554,252 @@ class KenyonText:
 def kenyon_text() -> KenyonText:
     """Return the singleton KenyonText instance (lazy-loaded once)."""
     return KenyonText()
+
+
+# ----------------------------------------------------------------------
+# Anthropic-backed thematic xref client (Phase χ-AI-xrefs)
+# ----------------------------------------------------------------------
+
+
+# Default model for the AI xref pass. Haiku 4.5 is the cost/quality
+# sweet spot for this volume (31K verses); Sonnet 4.6 / Opus 4.7 are
+# overkill for proposing 3 thematic links per verse and 10-30× more
+# expensive. The driver's --model flag overrides for re-runs.
+DEFAULT_AI_XREF_MODEL = "claude-haiku-4-5-20251001"
+
+
+# System prompt for the xref proposer. Tightly templated so the model
+# returns a strict JSON shape; prompt-cached so repeated per-verse calls
+# only pay for the per-verse user message after the first call.
+AI_XREF_SYSTEM_PROMPT = """You are a biblical cross-reference proposer.
+
+Given one Bible verse (book, chapter, verse, KJV text), propose up to
+N thematic, typological, or idiomatic cross-references — the kind a
+careful pastor or scholar would notice on a re-read but a static
+keyword/citation index (TSK, Strong's, Nave's) misses.
+
+Focus on:
+- Typology (Adam→Christ; Joseph→Christ; brazen serpent→Jn 3:14)
+- Thematic resonance across canon (remnant theology; wilderness trope;
+  covenant renewal; suffering servant)
+- Idiomatic / phraseological echoes (Hebrew/Greek figures of speech
+  that survive translation)
+
+Avoid:
+- Direct citations already obvious (TSK has them).
+- Single-keyword matches (Strong's has them).
+- Topical groupings (Nave's has them).
+- Speculative or fanciful links — be conservative.
+
+Return STRICT JSON only, no prose. Shape:
+
+{
+  "proposals": [
+    {
+      "target_book": "<3-letter canonical code>",
+      "target_chapter": <int>,
+      "target_verse": <int>,
+      "kind_subclass": "typological" | "thematic" | "idiomatic",
+      "reasoning": "<1-2 sentences explaining the link>",
+      "confidence": <float 0.0..1.0>
+    },
+    ...
+  ]
+}
+
+If no strong proposals exist, return {"proposals": []}.
+
+Canonical 3-letter book codes (use exactly these — do not invent
+others): gen exo lev num deu jos jdg rut 1sa 2sa 1ki 2ki 1ch 2ch ezr
+neh est job psa pro ecc sng isa jer lam eze dan hos joe amo oba jon
+mic nah hab zep hag zec mal mat mrk luk jhn act rom 1co 2co gal eph
+phi col 1th 2th 1ti 2ti tit phm heb jam 1pe 2pe 1jn 2jn 3jn jud rev
+
+Deuterocanon (only if relevant): tob jdt wis sir bar lje paz sus bel
+1es 2es man 1ma 2ma aes mq1 mq2 mq3 jub 1en 2en 4ba 1cl
+"""
+
+
+class AnthropicXrefClient:
+    """LLM-backed proposer for thematic / typological / idiomatic
+    cross-references. Phase χ-AI-xrefs (2026-05-08).
+
+    Construction contract mirrors the static-source loaders: raises
+    ``SourceMissingError`` when neither a real Anthropic SDK + API key
+    nor an injected ``completion_fn`` is available. ``prospect.py``'s
+    resilient detector instantiation catches that and skips the
+    detector silently — same graceful-degrade contract as
+    ``NaveTopical`` when its JSON cache is absent.
+
+    The injected ``completion_fn(system_prompt, user_message, *,
+    model)`` returns the parsed completion as a Python dict matching
+    the documented shape. Tests pass a stub fn so no real network
+    calls are made.
+
+    The default ``completion_fn`` uses the ``anthropic`` SDK with
+    prompt caching on the system prompt — repeated per-verse calls
+    only pay for the per-verse user message after the first call,
+    cutting cost roughly 10×.
+    """
+
+    def __init__(
+        self,
+        *,
+        model: str = DEFAULT_AI_XREF_MODEL,
+        completion_fn: Optional[Callable] = None,
+    ) -> None:
+        self.model = model
+        if completion_fn is not None:
+            self._completion_fn = completion_fn
+        else:
+            # Validate the real-SDK preconditions before locking in the
+            # default fn — fail at construction time, not on first call.
+            if not os.environ.get("ANTHROPIC_API_KEY"):
+                raise SourceMissingError(
+                    "ANTHROPIC_API_KEY environment variable not set. "
+                    "Set it (export ANTHROPIC_API_KEY=...) or pass an "
+                    "injected completion_fn."
+                )
+            try:
+                import anthropic  # noqa: F401
+            except ImportError as e:
+                raise SourceMissingError(
+                    "The 'anthropic' Python SDK is not installed. "
+                    "Install it (pip install anthropic) or pass an "
+                    "injected completion_fn."
+                ) from e
+            self._completion_fn = self._default_completion_fn
+
+        # Validation set: only book codes the platform actually has are
+        # accepted from the model. Built lazily because importing
+        # config at module-load time would be heavier than necessary.
+        self._valid_book_codes: Optional[set[str]] = None
+
+    @property
+    def attribution(self) -> str:
+        return (
+            f"Claude AI ({self.model}, Anthropic, 2026); "
+            "reviewer-curated."
+        )
+
+    def _valid_codes(self) -> set[str]:
+        if self._valid_book_codes is None:
+            from . import config as _cfg
+            self._valid_book_codes = set(_cfg.books_by_code().keys())
+        return self._valid_book_codes
+
+    def propose_xrefs(
+        self,
+        book: str,
+        chapter: int,
+        verse: int,
+        verse_text: str,
+        *,
+        top_n: int = 3,
+    ) -> list[dict]:
+        """Ask the model for up to ``top_n`` thematic xref proposals
+        for the given verse. Returns a list of dicts with fields
+        ``target_book``, ``target_chapter``, ``target_verse``,
+        ``kind_subclass``, ``reasoning``, ``confidence``. Defensive
+        against malformed model output (returns ``[]``)."""
+        user_message = (
+            f"Propose up to {top_n} cross-references for:\n"
+            f"  Book:    {book}\n"
+            f"  Chapter: {chapter}\n"
+            f"  Verse:   {verse}\n"
+            f"  Text:    {verse_text}\n"
+        )
+        try:
+            parsed = self._completion_fn(
+                AI_XREF_SYSTEM_PROMPT,
+                user_message,
+                model=self.model,
+            )
+        except Exception:
+            # Network blip / SDK exception / parse fail — defensively
+            # degrade to no proposals rather than abort the driver.
+            return []
+
+        if not isinstance(parsed, dict):
+            return []
+        proposals = parsed.get("proposals")
+        if not isinstance(proposals, list):
+            return []
+
+        valid = self._valid_codes()
+        out: list[dict] = []
+        for p in proposals[:top_n]:
+            if not isinstance(p, dict):
+                continue
+            target_book = p.get("target_book")
+            if not isinstance(target_book, str) or target_book not in valid:
+                continue
+            try:
+                target_chapter = int(p.get("target_chapter"))
+                target_verse = int(p.get("target_verse"))
+            except (TypeError, ValueError):
+                continue
+            if target_chapter < 1 or target_verse < 1:
+                continue
+            try:
+                confidence = float(p.get("confidence", 0.0))
+            except (TypeError, ValueError):
+                continue
+            # Clamp confidence into [0, 1]
+            confidence = max(0.0, min(1.0, confidence))
+            kind_subclass = p.get("kind_subclass") or "thematic"
+            if kind_subclass not in ("typological", "thematic", "idiomatic"):
+                kind_subclass = "thematic"
+            reasoning = p.get("reasoning") or ""
+            if not isinstance(reasoning, str):
+                reasoning = ""
+            out.append({
+                "target_book": target_book,
+                "target_chapter": target_chapter,
+                "target_verse": target_verse,
+                "kind_subclass": kind_subclass,
+                "reasoning": reasoning.strip(),
+                "confidence": confidence,
+            })
+        return out
+
+    def _default_completion_fn(
+        self,
+        system_prompt: str,
+        user_message: str,
+        *,
+        model: str,
+    ) -> dict:
+        """Real SDK call. Only reached when the constructor confirmed
+        the SDK + API key are available. Uses prompt caching on the
+        system prompt so repeated per-verse calls only pay for the
+        per-verse user message after the first call."""
+        import anthropic
+        client = anthropic.Anthropic()
+        msg = client.messages.create(
+            model=model,
+            max_tokens=512,
+            system=[
+                {
+                    "type": "text",
+                    "text": system_prompt,
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ],
+            messages=[{"role": "user", "content": user_message}],
+        )
+        # Concatenate text blocks; the model is instructed to return
+        # strict JSON, but it occasionally wraps with code fences.
+        text = "".join(
+            getattr(block, "text", "") for block in msg.content
+        ).strip()
+        text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.MULTILINE)
+        return json.loads(text)
+
+
+@lru_cache(maxsize=1)
+def anthropic_xref_client() -> AnthropicXrefClient:
+    """Return the singleton AnthropicXrefClient (lazy-loaded once).
+    Raises ``SourceMissingError`` if the SDK/API key are unavailable."""
+    return AnthropicXrefClient()
 

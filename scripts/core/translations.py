@@ -35,6 +35,15 @@ REPO = Path(__file__).resolve().parent.parent.parent
 TRANSLATIONS_DIR = REPO / "content" / "translations"
 
 
+def _translations_dir() -> Path:
+    """ω.5 paths-resolver entrypoint. Existing ``TRANSLATIONS_DIR``
+    constant is preserved for back-compat; new call sites should
+    prefer this function so they pick up dev/installed/test-override
+    resolution automatically."""
+    from . import paths
+    return paths.translations_dir()
+
+
 # ----------------------------------------------------------------------
 # Per-book loading
 # ----------------------------------------------------------------------

@@ -5590,6 +5590,104 @@ class TestTranslationExtractor:
         assert not unmapped, f"eBible codes missing from map: {sorted(unmapped)}"
 
 
+class TestTranslationsRegistry:
+    """τ.1 — TRANSLATIONS registry generalisation. The extractor's
+    meta-yaml writer is now driven by a registry rather than hard-
+    coded for KJV; new τ phases register their metadata there. WEB
+    ships as the first non-KJV registered entry (infrastructure-only
+    — data fetch is user-side, mirroring the χ.7/χ.1 contract)."""
+
+    def setup_method(self):
+        self.mod = _import_script("extract_translation")
+
+    def test_kjv_registered(self):
+        assert "kjv" in self.mod.TRANSLATIONS
+        kjv = self.mod.TRANSLATIONS["kjv"]
+        assert kjv["short_title"] == "KJV"
+        assert kjv["license"] == "Public Domain"
+        assert kjv["source"]["publisher"] == "eBible.org"
+
+    def test_web_registered(self):
+        # τ.1 WEB infrastructure ship: the entry is in the registry
+        # even if the source ZIP hasn't been downloaded yet (matches
+        # the χ.7/χ.1 infra-shipped/data-pending pattern).
+        assert "web" in self.mod.TRANSLATIONS
+        web = self.mod.TRANSLATIONS["web"]
+        assert web["short_title"] == "WEB"
+        assert web["license"] == "Public Domain"
+        assert web["source"]["publisher"] == "eBible.org"
+        assert "eng-web_vpl.zip" in web["source"]["package"]
+        assert "World English Bible" in web["title"]
+
+    def test_list_registered_is_stable_order(self):
+        ids = self.mod.list_registered()
+        # KJV registered first; WEB second; both present
+        assert ids[0] == "kjv"
+        assert "web" in ids
+
+    def test_meta_for_kjv_uses_registry(self):
+        stats = {"project_books_emitted": 81, "total_verses": 36822}
+        meta = self.mod.meta_for("kjv", stats)
+        assert meta["id"] == "kjv"
+        assert meta["title"] == "King James Version + Apocrypha"
+        assert meta["license"] == "Public Domain"
+        assert meta["stats"]["books"] == 81
+        assert meta["stats"]["verses"] == 36822
+        assert meta["source"]["fetched"]  # filled at extract time
+
+    def test_meta_for_web_uses_registry(self):
+        stats = {"project_books_emitted": 66, "total_verses": 31102}
+        meta = self.mod.meta_for("web", stats)
+        assert meta["id"] == "web"
+        assert "World English Bible" in meta["title"]
+        assert meta["short_title"] == "WEB"
+        assert meta["license"] == "Public Domain"
+        assert meta["source"]["url"] == "https://eBible.org/eng-web/"
+        assert meta["source"]["package"] == "eng-web_vpl.zip"
+        assert meta["stats"]["verses"] == 31102
+
+    def test_meta_for_unregistered_returns_stub(self):
+        # Ad-hoc extraction of an unregistered slug must succeed
+        # (returns a stub) so authors can iterate before promoting
+        # to a full TRANSLATIONS entry.
+        stats = {"project_books_emitted": 27, "total_verses": 7956}
+        meta = self.mod.meta_for("adhoc-test", stats)
+        assert meta["id"] == "adhoc-test"
+        assert "Unknown" in meta["license"]
+        assert "TRANSLATIONS registry" in meta["notes"]
+
+    def test_extract_writes_meta_for_web(self, tmp_path, monkeypatch):
+        # End-to-end extraction smoke test using a synthetic WEB-style
+        # VPL fixture. Verifies that adding a TRANSLATIONS entry is
+        # sufficient to make extract_translation work for that id —
+        # no other code changes needed for future τ phases.
+        translations_dir = tmp_path / "translations"
+        sources_dir = translations_dir / "sources" / "web"
+        sources_dir.mkdir(parents=True)
+        vpl = sources_dir / "eng-web_vpl.txt"
+        vpl.write_text(
+            "GEN 1:1 In the beginning God created the heavens.\n"
+            "JOH 3:16 For God so loved the world.\n"
+            "REV 22:21 The grace of the Lord Jesus be with all.\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(self.mod, "TRANSLATIONS_DIR", translations_dir)
+
+        stats = self.mod.extract("web", dry_run=False, report=False)
+        assert stats["project_books_emitted"] == 3
+
+        out_dir = translations_dir / "web"
+        assert (out_dir / "gen.py").is_file()
+        assert (out_dir / "jhn.py").is_file()
+        assert (out_dir / "rev.py").is_file()
+
+        meta_text = (out_dir / "_meta.yaml").read_text(encoding="utf-8")
+        assert 'id: web' in meta_text
+        assert 'short_title: "WEB"' in meta_text
+        assert 'license: "Public Domain"' in meta_text
+        assert 'eng-web_vpl.zip' in meta_text
+
+
 class TestKJVExtractedData:
     """Integration tests against the actually-extracted KJV data on disk.
     Skipped automatically if the data hasn't been generated yet."""
@@ -10043,3 +10141,867 @@ class TestRunKenyonAtScaleDriver:
         # Second run with the same candidates is a no-op
         second = self.driver.write_queue("mrk", 1, cands)
         assert second is None
+
+
+# ============================================================
+# χ-AI-xrefs — AnthropicXrefClient + AIXrefDetector + driver
+# (LLM-backed thematic cross-reference proposals; first χ-cluster
+# detector backed by an API rather than a static cached source.)
+# ============================================================
+
+
+class TestAnthropicXrefClient:
+    """Source-loader-level checks for the AI xref client. All tests
+    use the injected ``completion_fn`` so no real network call is
+    made; the real-SDK construction path is exercised only by the
+    SourceMissingError checks."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources as src
+        cls.src = src
+
+    def test_construct_raises_when_no_api_key_and_no_completion_fn(
+        self, monkeypatch,
+    ):
+        # Both env var and SDK absent (or env var absent alone is
+        # enough since we check it first) → SourceMissingError.
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        with pytest.raises(self.src.SourceMissingError) as ei:
+            self.src.AnthropicXrefClient()
+        assert "ANTHROPIC_API_KEY" in str(ei.value)
+
+    def test_construct_succeeds_with_injected_completion_fn(self):
+        def stub_fn(system, user, *, model):
+            return {"proposals": []}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        assert client.model == self.src.DEFAULT_AI_XREF_MODEL
+        assert "Claude AI" in client.attribution
+
+    def test_propose_xrefs_parses_valid_response(self):
+        def stub_fn(system, user, *, model):
+            return {"proposals": [
+                {
+                    "target_book": "isa",
+                    "target_chapter": 53,
+                    "target_verse": 5,
+                    "kind_subclass": "typological",
+                    "reasoning": "Suffering servant figure prefigures...",
+                    "confidence": 0.85,
+                },
+            ]}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        out = client.propose_xrefs(
+            "mrk", 15, 24, "And they crucified him,", top_n=3,
+        )
+        assert len(out) == 1
+        p = out[0]
+        assert p["target_book"] == "isa"
+        assert p["target_chapter"] == 53
+        assert p["target_verse"] == 5
+        assert p["kind_subclass"] == "typological"
+        assert p["confidence"] == 0.85
+
+    def test_propose_xrefs_drops_unknown_book_codes(self):
+        def stub_fn(system, user, *, model):
+            return {"proposals": [
+                {"target_book": "isa", "target_chapter": 1, "target_verse": 1,
+                 "kind_subclass": "thematic", "reasoning": "", "confidence": 0.8},
+                {"target_book": "xyz", "target_chapter": 1, "target_verse": 1,
+                 "kind_subclass": "thematic", "reasoning": "", "confidence": 0.8},
+                {"target_book": "fakeBook", "target_chapter": 1,
+                 "target_verse": 1, "kind_subclass": "thematic",
+                 "reasoning": "", "confidence": 0.8},
+            ]}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        out = client.propose_xrefs("gen", 1, 1, "In the beginning")
+        assert len(out) == 1
+        assert out[0]["target_book"] == "isa"
+
+    def test_propose_xrefs_clamps_confidence_to_unit_interval(self):
+        def stub_fn(system, user, *, model):
+            return {"proposals": [
+                {"target_book": "psa", "target_chapter": 1, "target_verse": 1,
+                 "kind_subclass": "thematic", "reasoning": "x",
+                 "confidence": 1.7},
+                {"target_book": "psa", "target_chapter": 1, "target_verse": 2,
+                 "kind_subclass": "thematic", "reasoning": "x",
+                 "confidence": -0.3},
+            ]}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        out = client.propose_xrefs("gen", 1, 1, "x")
+        confidences = sorted(p["confidence"] for p in out)
+        assert confidences == [0.0, 1.0]
+
+    def test_propose_xrefs_returns_empty_on_malformed_response(self):
+        # Non-dict response, non-list proposals, raised exception —
+        # all degrade defensively to [].
+        for stub in (
+            lambda s, u, *, model: "not a dict",
+            lambda s, u, *, model: {"proposals": "not a list"},
+            lambda s, u, *, model: {"proposals": [None, "string", 42]},
+            lambda s, u, *, model: (_ for _ in ()).throw(RuntimeError("net")),
+        ):
+            client = self.src.AnthropicXrefClient(completion_fn=stub)
+            assert client.propose_xrefs("gen", 1, 1, "x") == []
+
+    def test_propose_xrefs_caps_at_top_n(self):
+        def stub_fn(system, user, *, model):
+            return {"proposals": [
+                {"target_book": "psa", "target_chapter": i,
+                 "target_verse": 1, "kind_subclass": "thematic",
+                 "reasoning": "", "confidence": 0.8}
+                for i in range(1, 11)
+            ]}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        out = client.propose_xrefs("gen", 1, 1, "x", top_n=2)
+        assert len(out) == 2
+
+    def test_propose_xrefs_drops_invalid_chapter_or_verse(self):
+        def stub_fn(system, user, *, model):
+            return {"proposals": [
+                {"target_book": "psa", "target_chapter": 0,
+                 "target_verse": 1, "kind_subclass": "thematic",
+                 "reasoning": "", "confidence": 0.8},
+                {"target_book": "psa", "target_chapter": 1,
+                 "target_verse": "x", "kind_subclass": "thematic",
+                 "reasoning": "", "confidence": 0.8},
+                {"target_book": "psa", "target_chapter": 1,
+                 "target_verse": 1, "kind_subclass": "thematic",
+                 "reasoning": "", "confidence": 0.8},
+            ]}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        out = client.propose_xrefs("gen", 1, 1, "x")
+        assert len(out) == 1
+        assert out[0]["target_chapter"] == 1
+
+
+class TestAIXrefDetector:
+    """Detector-level checks for AIXrefDetector. Stubbed clients —
+    no real API calls."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import detectors as det
+        from scripts.core import sources as src
+        cls.det = det
+        cls.src = src
+
+    def _stub_client(self, proposals):
+        def stub_fn(system, user, *, model):
+            return {"proposals": proposals}
+        return self.src.AnthropicXrefClient(completion_fn=stub_fn)
+
+    def test_detect_emits_candidates_with_correct_kind(self):
+        client = self._stub_client([
+            {"target_book": "isa", "target_chapter": 53,
+             "target_verse": 5, "kind_subclass": "typological",
+             "reasoning": "Suffering servant.", "confidence": 0.85},
+        ])
+        detector = self.det.AIXrefDetector(client=client, min_confidence=0.7)
+        cands = detector.detect("mrk", 15, 24, "they crucified him")
+        assert len(cands) == 1
+        c = cands[0]
+        assert c.kind == "xref-thematic"
+        assert c.book == "mrk"
+        assert c.chapter == 15
+        assert c.verse == 24
+        assert c.detector == "AIXrefDetector"
+
+    def test_detect_filters_below_min_confidence(self):
+        client = self._stub_client([
+            {"target_book": "isa", "target_chapter": 1, "target_verse": 1,
+             "kind_subclass": "thematic", "reasoning": "weak",
+             "confidence": 0.5},
+            {"target_book": "isa", "target_chapter": 1, "target_verse": 2,
+             "kind_subclass": "thematic", "reasoning": "strong",
+             "confidence": 0.9},
+        ])
+        detector = self.det.AIXrefDetector(client=client, min_confidence=0.7)
+        cands = detector.detect("gen", 1, 1, "x")
+        assert len(cands) == 1
+        assert cands[0].confidence == 0.9
+
+    def test_detect_passes_top_n_to_client(self):
+        captured = {}
+        def stub_fn(system, user, *, model):
+            return {"proposals": []}
+        client = self.src.AnthropicXrefClient(completion_fn=stub_fn)
+        # Wrap propose_xrefs to capture the top_n it received
+        orig = client.propose_xrefs
+        def spy(*a, **kw):
+            captured["top_n"] = kw.get("top_n")
+            return orig(*a, **kw)
+        client.propose_xrefs = spy
+        detector = self.det.AIXrefDetector(client=client, top_n=5)
+        detector.detect("gen", 1, 1, "x")
+        assert captured["top_n"] == 5
+
+    def test_attribution_mentions_claude_ai(self):
+        client = self._stub_client([
+            {"target_book": "psa", "target_chapter": 1, "target_verse": 1,
+             "kind_subclass": "thematic", "reasoning": "x",
+             "confidence": 0.8},
+        ])
+        detector = self.det.AIXrefDetector(client=client)
+        cands = detector.detect("gen", 1, 1, "x")
+        assert "Claude AI" in cands[0].source_attribution
+
+    def test_body_includes_reasoning_and_reviewer_note(self):
+        client = self._stub_client([
+            {"target_book": "isa", "target_chapter": 53, "target_verse": 5,
+             "kind_subclass": "typological",
+             "reasoning": "The servant's wounds prefigure the cross.",
+             "confidence": 0.85},
+        ])
+        detector = self.det.AIXrefDetector(client=client)
+        cands = detector.detect("mrk", 15, 24, "they crucified him")
+        body = cands[0].draft_body
+        assert "Typological" in body
+        assert "prefigure the cross" in body
+        assert "Reviewer" in body
+        # link is to the target verse
+        assert "vnote-isa-53-5" in body
+
+    def test_kind_subclass_unknown_falls_back_to_thematic(self):
+        client = self._stub_client([
+            {"target_book": "isa", "target_chapter": 1, "target_verse": 1,
+             "kind_subclass": "weirdsubclass", "reasoning": "x",
+             "confidence": 0.8},
+        ])
+        detector = self.det.AIXrefDetector(client=client)
+        cands = detector.detect("gen", 1, 1, "x")
+        # The client normalises unknown subclass to 'thematic'
+        assert "Thematic" in cands[0].draft_body
+
+    def test_registered_in_ALL_DETECTORS(self):
+        assert self.det.AIXrefDetector in self.det.ALL_DETECTORS
+
+    def test_kind_xref_thematic_in_kinds_yaml(self):
+        kinds_path = REPO_ROOT / "content" / "kinds.yaml"
+        text = kinds_path.read_text(encoding="utf-8")
+        assert "code: xref-thematic" in text
+        assert "category: xref" in text
+
+    def test_construct_without_client_propagates_source_missing(
+        self, monkeypatch,
+    ):
+        # Real-default construction path: when no env key + no client,
+        # __init__ must surface SourceMissingError so prospect.py's
+        # resilient instantiation handler catches it.
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        self.src.anthropic_xref_client.cache_clear()
+        with pytest.raises(self.src.SourceMissingError):
+            self.det.AIXrefDetector()
+
+
+class TestRunAIXrefsAtScaleDriver:
+    """Driver-level checks. The driver imports translations + config
+    for verse iteration; tests inject a fixture iterator + stub
+    detector to avoid real KJV scans where convenient."""
+
+    @classmethod
+    def setup_class(cls):
+        import importlib
+        cls.driver = importlib.import_module("scripts.run_ai_xrefs_at_scale")
+        from scripts.core import detectors as det
+        from scripts.core import sources as src
+        cls.det = det
+        cls.src = src
+
+    def _stub_detector_factory(self, proposals_per_verse=None):
+        """Returns a callable that constructs a detector wired to a
+        stub client; ``proposals_per_verse`` is a callable
+        (book,ch,vs,text) -> list[dict] for fine-grained control."""
+        if proposals_per_verse is None:
+            proposals_per_verse = lambda b, c, v, t: [
+                {"target_book": "isa", "target_chapter": 1,
+                 "target_verse": v, "kind_subclass": "thematic",
+                 "reasoning": "stub", "confidence": 0.8},
+            ]
+
+        def factory():
+            class StubClient:
+                attribution = "Claude AI (stub)."
+                def propose_xrefs(self_inner, b, c, v, t, *, top_n=3):
+                    return proposals_per_verse(b, c, v, t)[:top_n]
+            return self.det.AIXrefDetector(
+                client=StubClient(), top_n=3, min_confidence=0.7,
+            )
+        return factory
+
+    def test_dry_run_writes_nothing_and_exits_zero(
+        self, tmp_path, monkeypatch, capsys,
+    ):
+        cand_dir = tmp_path / "candidates"
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+        # No API key needed because we never reach the construction path.
+        rc = self.driver.main([
+            "--dry-run", "--books", "jhn", "--max-verses", "10",
+        ])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "Projected cost" in out
+        assert "dry-run" in out
+        assert not cand_dir.exists()
+
+    def test_confirm_cost_required_above_threshold(
+        self, tmp_path, monkeypatch, capsys,
+    ):
+        cand_dir = tmp_path / "candidates"
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+        threshold = self.driver.CONFIRM_COST_THRESHOLD
+        rc = self.driver.main([
+            "--books", "jhn", "--max-verses", str(threshold + 1),
+        ])
+        assert rc == 1
+        out = capsys.readouterr().out
+        assert "REFUSING" in out
+        assert "--confirm-cost" in out
+        assert not cand_dir.exists()
+
+    def test_max_verses_caps_iteration(self, monkeypatch):
+        # Use the real iter_target_verses against the real KJV data
+        # and verify the cap is honored.
+        verses = list(self.driver.iter_target_verses(
+            ["jhn"], max_verses=5,
+        ))
+        assert len(verses) == 5
+        for (book, _ch, _vs, _text) in verses:
+            assert book == "jhn"
+
+    def test_iter_target_verses_skips_books_without_kjv(self):
+        # 'fakebook' doesn't exist in KJV — it should be skipped silently.
+        verses = list(self.driver.iter_target_verses(
+            ["fakebook", "jhn"], max_verses=3,
+        ))
+        assert len(verses) == 3
+        for (book, _ch, _vs, _text) in verses:
+            assert book == "jhn"
+
+    def test_run_ai_xrefs_writes_prospect_format(self, tmp_path, monkeypatch):
+        cand_dir = tmp_path / "candidates"
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+        factory = self._stub_detector_factory()
+        stats = self.driver.run_ai_xrefs(
+            ["jhn"], max_verses=3, min_confidence=0.7,
+            top_n=3, model="stub-model",
+            detector_factory=factory,
+        )
+        assert stats["verses_processed"] == 3
+        assert stats["candidates_written"] >= 1
+        files = sorted(cand_dir.glob("jhn_ch_*.json"))
+        assert files
+        data = json.loads(files[0].read_text(encoding="utf-8"))
+        assert data["book"] == "jhn"
+        assert any(c["kind"] == "xref-thematic"
+                   for c in data["candidates"])
+
+    def test_run_ai_xrefs_merges_with_existing_chapter_file(
+        self, tmp_path, monkeypatch,
+    ):
+        # Pre-existing Kenyon candidate must survive the AI driver's
+        # merge-not-clobber pass; only kind=xref-thematic gets replaced.
+        cand_dir = tmp_path / "candidates"
+        cand_dir.mkdir()
+        prior = {
+            "book": "jhn", "chapter": 1,
+            "generated_at": "2026-01-01T00:00:00+00:00",
+            "n_candidates": 1,
+            "candidates": [{
+                "id": "jhn-1-1-001", "verse": 1, "kind": "text-witness",
+                "anchor": "", "confidence": 0.55,
+                "source_name": "Kenyon 1895",
+                "source_attribution": "Kenyon PD",
+                "draft_title": "Witness", "draft_label": "MS.",
+                "draft_body": "<strong>x</strong>",
+                "detector": "KenyonReferenceDetector",
+                "reviewer_notes": "",
+                "status": "pending",
+            }],
+        }
+        prior_path = cand_dir / "jhn_ch_001.json"
+        prior_path.write_text(json.dumps(prior), encoding="utf-8")
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+
+        # Stub the detector so it produces one candidate for jhn 1:1.
+        factory = self._stub_detector_factory(
+            proposals_per_verse=lambda b, c, v, t: (
+                [{"target_book": "isa", "target_chapter": 53,
+                  "target_verse": 5, "kind_subclass": "typological",
+                  "reasoning": "x", "confidence": 0.85}]
+                if (b, c, v) == ("jhn", 1, 1) else []
+            ),
+        )
+        stats = self.driver.run_ai_xrefs(
+            ["jhn"], max_verses=1, min_confidence=0.7,
+            top_n=3, model="stub", detector_factory=factory,
+        )
+        assert stats["candidates_written"] >= 1
+
+        merged = json.loads(prior_path.read_text(encoding="utf-8"))
+        kinds = sorted(c["kind"] for c in merged["candidates"])
+        assert "text-witness" in kinds  # prior survives
+        assert "xref-thematic" in kinds  # new added
+        ids = [c["id"] for c in merged["candidates"]]
+        assert len(set(ids)) == len(ids)  # unique IDs
+
+    def test_run_ai_xrefs_replaces_existing_xref_thematic_only(
+        self, tmp_path, monkeypatch,
+    ):
+        # Re-running the driver must replace existing xref-thematic
+        # entries (idempotent), not duplicate them.
+        cand_dir = tmp_path / "candidates"
+        cand_dir.mkdir()
+        monkeypatch.setattr(self.driver, "CANDIDATES_DIR", cand_dir)
+        factory = self._stub_detector_factory(
+            proposals_per_verse=lambda b, c, v, t: (
+                [{"target_book": "isa", "target_chapter": 1,
+                  "target_verse": 1, "kind_subclass": "thematic",
+                  "reasoning": "x", "confidence": 0.85}]
+                if (b, c, v) == ("jhn", 1, 1) else []
+            ),
+        )
+
+        self.driver.run_ai_xrefs(
+            ["jhn"], max_verses=1, min_confidence=0.7,
+            top_n=3, model="stub", detector_factory=factory,
+        )
+        first = json.loads(
+            (cand_dir / "jhn_ch_001.json").read_text(encoding="utf-8"))
+        n_first = sum(1 for c in first["candidates"]
+                      if c["kind"] == "xref-thematic")
+
+        self.driver.run_ai_xrefs(
+            ["jhn"], max_verses=1, min_confidence=0.7,
+            top_n=3, model="stub", detector_factory=factory,
+        )
+        second = json.loads(
+            (cand_dir / "jhn_ch_001.json").read_text(encoding="utf-8"))
+        n_second = sum(1 for c in second["candidates"]
+                       if c["kind"] == "xref-thematic")
+        assert n_second == n_first  # not duplicated
+
+    def test_estimate_cost_scales_linearly(self):
+        per_verse = self.driver.COST_PER_VERSE_USD
+        assert self.driver.estimate_cost(0) == 0
+        assert self.driver.estimate_cost(100) == per_verse * 100
+        assert self.driver.estimate_cost(1000) == per_verse * 1000
+
+    def test_resolve_books_default_is_canonical_kjv_intersection(self):
+        books = self.driver.resolve_books(None)
+        # Must include core books like Genesis and John, in canonical
+        # order (Genesis first).
+        assert "gen" in books
+        assert "jhn" in books
+        assert books.index("gen") < books.index("jhn")
+
+    def test_resolve_books_explicit_arg_passes_through(self):
+        books = self.driver.resolve_books("rom,gal,heb")
+        assert books == ["rom", "gal", "heb"]
+
+
+# ============================================================
+# ω.5 — paths.py: per-user data location resolver. Single source
+# of truth for content/ + build-output dirs; in-tree wins for
+# dev, user_data_dir for installed binaries.
+# ============================================================
+
+
+class TestPathsRepoAndUserData:
+    """Tests for the foundation resolvers: repo_root() and
+    user_data_root(). These are platform-aware but stable; they
+    don't depend on any cached state."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import paths as p
+        cls.p = p
+
+    def test_repo_root_is_parent_of_scripts_dir(self):
+        rr = self.p.repo_root()
+        assert (rr / "scripts").is_dir()
+        assert (rr / "scripts" / "core" / "paths.py").is_file()
+
+    def test_repo_root_is_stable_across_calls(self):
+        # Pure function — same answer every call. Important because
+        # this is the read-only resource path in installed builds.
+        assert self.p.repo_root() == self.p.repo_root()
+
+    def test_user_data_root_returns_path_under_home_or_appdata(
+        self, monkeypatch,
+    ):
+        # Don't try to verify the *exact* dir per platform — this
+        # test runs cross-platform and the env vars are real on each.
+        # Just verify the result is a Path that ends with "YHWH" so
+        # accidental refactors that point at the wrong root surface.
+        udr = self.p.user_data_root()
+        assert udr.name == "YHWH"
+
+    def test_user_data_root_uses_appdata_on_windows(self, monkeypatch):
+        monkeypatch.setattr(self.p.sys, "platform", "win32")
+        monkeypatch.setenv("APPDATA", "C:\\synthetic\\AppData\\Roaming")
+        udr = self.p.user_data_root()
+        # Path normalisation: "\\" or "/" separators both fine
+        assert udr.name == "YHWH"
+        assert "AppData" in str(udr) or "synthetic" in str(udr)
+
+    def test_user_data_root_uses_app_support_on_macos(self, monkeypatch):
+        monkeypatch.setattr(self.p.sys, "platform", "darwin")
+        udr = self.p.user_data_root()
+        assert "Library" in str(udr)
+        assert "Application Support" in str(udr)
+        assert udr.name == "YHWH"
+
+    def test_user_data_root_respects_xdg_data_home_on_linux(
+        self, monkeypatch, tmp_path,
+    ):
+        monkeypatch.setattr(self.p.sys, "platform", "linux")
+        monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path / "xdg"))
+        udr = self.p.user_data_root()
+        assert udr == tmp_path / "xdg" / "YHWH"
+
+    def test_user_data_root_falls_back_to_local_share_on_linux(
+        self, monkeypatch,
+    ):
+        monkeypatch.setattr(self.p.sys, "platform", "linux")
+        monkeypatch.delenv("XDG_DATA_HOME", raising=False)
+        udr = self.p.user_data_root()
+        assert ".local" in str(udr) and "share" in str(udr)
+        assert udr.name == "YHWH"
+
+
+class TestPathsContentRootResolver:
+    """Resolution order: testing override > env var > in-tree (dev)
+    > user_data_root (installed)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import paths as p
+        cls.p = p
+
+    def teardown_method(self):
+        # Always clear test-state contamination — cached _content_root
+        # would otherwise leak between tests.
+        self.p.set_content_root_for_testing(None)
+
+    def test_content_root_returns_in_tree_in_dev(self):
+        # The repo's own content/editions.yaml exists, so dev mode
+        # is detected automatically.
+        cr = self.p.content_root()
+        assert cr == self.p.repo_root() / "content"
+        assert (cr / "editions.yaml").is_file()
+
+    def test_set_content_root_for_testing_overrides_resolution(
+        self, tmp_path,
+    ):
+        synthetic = tmp_path / "synthetic_content"
+        synthetic.mkdir()
+        self.p.set_content_root_for_testing(synthetic)
+        assert self.p.content_root() == synthetic
+
+    def test_set_content_root_for_testing_none_clears_override(
+        self, tmp_path,
+    ):
+        self.p.set_content_root_for_testing(tmp_path / "nope")
+        assert self.p.content_root() == tmp_path / "nope"
+        self.p.set_content_root_for_testing(None)
+        # Now back to dev resolution
+        assert self.p.content_root() == self.p.repo_root() / "content"
+
+    def test_env_var_overrides_in_tree(self, tmp_path, monkeypatch):
+        synthetic = tmp_path / "env_content"
+        synthetic.mkdir()
+        monkeypatch.setenv("YHWH_CONTENT_ROOT", str(synthetic))
+        # Env var only takes effect after cache reset
+        self.p.reset_content_root()
+        assert self.p.content_root() == synthetic
+
+    def test_env_var_expands_user(self, tmp_path, monkeypatch):
+        # ~ expansion is a usability nicety — verify it works.
+        monkeypatch.setenv("YHWH_CONTENT_ROOT", "~/synthetic_path")
+        self.p.reset_content_root()
+        cr = self.p.content_root()
+        assert "~" not in str(cr)
+        assert cr.name == "synthetic_path"
+
+    def test_in_tree_detection_requires_editions_yaml_marker(
+        self, tmp_path, monkeypatch,
+    ):
+        # Mock repo_root() to point at a dir without editions.yaml;
+        # in_tree detection should fail and fall back to user_data.
+        monkeypatch.setattr(self.p, "repo_root", lambda: tmp_path)
+        monkeypatch.delenv("YHWH_CONTENT_ROOT", raising=False)
+        self.p.reset_content_root()
+        cr = self.p.content_root()
+        assert cr == self.p.user_data_root()
+
+
+class TestPathsSubPathHelpers:
+    """Sub-path helpers cascade from content_root() so a single
+    override point updates every downstream consumer."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import paths as p
+        cls.p = p
+
+    def teardown_method(self):
+        self.p.set_content_root_for_testing(None)
+
+    def test_all_sub_paths_inherit_from_content_root(self, tmp_path):
+        self.p.set_content_root_for_testing(tmp_path)
+        assert self.p.notes_dir() == tmp_path / "notes"
+        assert self.p.candidates_dir() == tmp_path / "candidates"
+        assert self.p.sources_dir() == tmp_path / "sources"
+        assert self.p.translations_dir() == tmp_path / "translations"
+        assert self.p.covers_dir() == tmp_path / "covers"
+        assert self.p.audio_dir() == tmp_path / "audio"
+
+    def test_all_yaml_helpers_inherit_from_content_root(self, tmp_path):
+        self.p.set_content_root_for_testing(tmp_path)
+        assert self.p.editions_yaml() == tmp_path / "editions.yaml"
+        assert self.p.books_yaml() == tmp_path / "books.yaml"
+        assert self.p.kinds_yaml() == tmp_path / "kinds.yaml"
+        assert self.p.categories_yaml() == tmp_path / "categories.yaml"
+        assert self.p.themes_yaml() == tmp_path / "themes.yaml"
+        assert self.p.canons_yaml() == tmp_path / "canons.yaml"
+        assert self.p.traditions_yaml() == tmp_path / "traditions.yaml"
+
+    def test_build_output_dirs_are_siblings_of_content_root(
+        self, tmp_path,
+    ):
+        # exports/, builds/, epub_working/ live next to content/, not
+        # inside it — preserves today's repo layout in dev and the
+        # user-data layout for installed builds.
+        synthetic_content = tmp_path / "content"
+        synthetic_content.mkdir()
+        self.p.set_content_root_for_testing(synthetic_content)
+        assert self.p.exports_dir() == tmp_path / "exports"
+        assert self.p.epub_working_dir() == tmp_path / "epub_working"
+        assert self.p.builds_dir() == tmp_path / "builds"
+        assert self.p.backups_dir() == tmp_path / "epub_working" / ".backups"
+
+    def test_dev_mode_yaml_helpers_resolve_to_real_files(self):
+        # Sanity: in dev mode (no override), the YAML helpers point
+        # at files that actually exist on disk. Catches regressions
+        # where a helper accidentally points at the wrong filename.
+        assert self.p.editions_yaml().is_file()
+        assert self.p.books_yaml().is_file()
+        assert self.p.kinds_yaml().is_file()
+
+
+class TestPathsCacheBehavior:
+    """The _content_root_cached lru_cache speeds up repeated lookups
+    but must invalidate cleanly when state changes mid-process."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import paths as p
+        cls.p = p
+
+    def teardown_method(self):
+        self.p.set_content_root_for_testing(None)
+
+    def test_reset_invalidates_cache(self, tmp_path, monkeypatch):
+        # First call caches the dev-mode answer
+        baseline = self.p.content_root()
+        # Then change env, but cache means content_root() doesn't see it
+        monkeypatch.setenv("YHWH_CONTENT_ROOT", str(tmp_path))
+        # Without reset, content_root() returns the cached baseline
+        assert self.p.content_root() == baseline
+        # After reset, env var wins
+        self.p.reset_content_root()
+        assert self.p.content_root() == tmp_path
+
+    def test_set_test_override_invalidates_cache(self, tmp_path):
+        # First call caches dev-mode
+        baseline = self.p.content_root()
+        # Setting the override should immediately take effect
+        self.p.set_content_root_for_testing(tmp_path)
+        assert self.p.content_root() == tmp_path
+        # Clearing should immediately fall back to dev resolution
+        self.p.set_content_root_for_testing(None)
+        assert self.p.content_root() == baseline
+
+
+class TestCoreModulesUsePathsResolver:
+    """ω.5 migration verification: scripts/core/ modules that import
+    from paths.py must use the resolver, not hardcode their own
+    ``Path(__file__).resolve().parent.parent / "content"``."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import paths as p
+        cls.p = p
+
+    def teardown_method(self):
+        self.p.set_content_root_for_testing(None)
+        # Bust per-module path-derived caches that may have been
+        # populated against the override.
+        from scripts.core import sources, translations, covers, traditions
+        for mod in (sources, translations, covers, traditions):
+            for name in ("strongs_hebrew", "strongs_greek", "tsk",
+                          "naves_topical", "kenyon_text",
+                          "anthropic_xref_client"):
+                fn = getattr(mod, name, None)
+                if fn is not None and hasattr(fn, "cache_clear"):
+                    fn.cache_clear()
+
+    def test_sources_module_uses_paths_resolver(self, tmp_path):
+        # Override content_root to a fresh temp dir, then
+        # re-import the path constants the module exposes. Verifies
+        # the module is actually composing through paths.py.
+        synthetic = tmp_path / "alt_content"
+        synthetic.mkdir()
+        (synthetic / "sources").mkdir()
+        self.p.set_content_root_for_testing(synthetic)
+
+        # sources.SourceMissingError-derived classes resolve their
+        # PATH lazily from the resolver, so a fresh instance must
+        # look in the override.
+        from scripts.core import sources
+        assert sources._sources_dir() == synthetic / "sources"
+
+    def test_translations_module_uses_paths_resolver(self, tmp_path):
+        synthetic = tmp_path / "alt_content"
+        synthetic.mkdir()
+        self.p.set_content_root_for_testing(synthetic)
+
+        from scripts.core import translations
+        assert translations._translations_dir() == synthetic / "translations"
+
+    def test_covers_module_uses_paths_resolver(self, tmp_path):
+        synthetic = tmp_path / "alt_content"
+        synthetic.mkdir()
+        self.p.set_content_root_for_testing(synthetic)
+
+        from scripts.core import covers
+        assert covers._covers_dir() == synthetic / "covers"
+
+    def test_traditions_module_uses_paths_resolver(self, tmp_path):
+        synthetic = tmp_path / "alt_content"
+        synthetic.mkdir()
+        self.p.set_content_root_for_testing(synthetic)
+
+        from scripts.core import traditions
+        assert traditions._traditions_yaml_path() == synthetic / "traditions.yaml"
+
+    def test_config_module_uses_paths_resolver(self, tmp_path):
+        synthetic = tmp_path / "alt_content"
+        synthetic.mkdir()
+        self.p.set_content_root_for_testing(synthetic)
+
+        from scripts.core import config
+        assert config._books_yaml_path() == synthetic / "books.yaml"
+
+
+class TestMigrateToUserData:
+    """ω.5 migration helper: copy in-tree content/ → user_data_root/content."""
+
+    @classmethod
+    def setup_class(cls):
+        import importlib
+        cls.mod = importlib.import_module("scripts.migrate_to_user_data")
+
+    def _seed_src(self, src: Path):
+        """Build a minimal in-tree-style content/ fixture."""
+        src.mkdir(parents=True)
+        (src / "editions.yaml").write_text("editions: []\n", encoding="utf-8")
+        (src / "books.yaml").write_text("books: []\n", encoding="utf-8")
+        notes = src / "notes"
+        notes.mkdir()
+        (notes / "gen.py").write_text("NOTES = ()\n", encoding="utf-8")
+        sources = src / "sources"
+        sources.mkdir()
+        (sources / "ATTRIBUTIONS.md").write_text("# attr\n", encoding="utf-8")
+
+    def test_plan_migration_counts_files(self, tmp_path):
+        src = tmp_path / "src"
+        self._seed_src(src)
+        plan = self.mod.plan_migration(src, tmp_path / "dst")
+        assert plan["src_exists"]
+        assert len(plan["files"]) == 4
+        assert plan["total_bytes"] > 0
+
+    def test_plan_migration_handles_missing_source(self, tmp_path):
+        plan = self.mod.plan_migration(
+            tmp_path / "nope", tmp_path / "dst",
+        )
+        assert plan["src_exists"] is False
+        assert plan["files"] == []
+
+    def test_perform_migration_copies_all_files(self, tmp_path):
+        src = tmp_path / "src"
+        dst = tmp_path / "dst"
+        self._seed_src(src)
+        result = self.mod.perform_migration(src, dst)
+        assert result["copied"] == 4
+        assert result["skipped"] == 0
+        assert not result["errors"]
+        assert (dst / "editions.yaml").is_file()
+        assert (dst / "notes" / "gen.py").is_file()
+        assert (dst / "sources" / "ATTRIBUTIONS.md").is_file()
+
+    def test_perform_migration_idempotent_skips_existing(self, tmp_path):
+        src = tmp_path / "src"
+        dst = tmp_path / "dst"
+        self._seed_src(src)
+        first = self.mod.perform_migration(src, dst)
+        assert first["copied"] == 4
+        # Second run: everything skipped
+        second = self.mod.perform_migration(src, dst)
+        assert second["copied"] == 0
+        assert second["skipped"] == 4
+
+    def test_perform_migration_force_overwrites(self, tmp_path):
+        src = tmp_path / "src"
+        dst = tmp_path / "dst"
+        self._seed_src(src)
+        self.mod.perform_migration(src, dst)
+        # Modify destination, re-run with force, verify overwrite
+        (dst / "editions.yaml").write_text("# stale\n", encoding="utf-8")
+        result = self.mod.perform_migration(src, dst, force=True)
+        assert result["copied"] == 4
+        assert (dst / "editions.yaml").read_text(encoding="utf-8") == "editions: []\n"
+
+    def test_main_dry_run_writes_nothing(self, tmp_path, monkeypatch, capsys):
+        src = tmp_path / "src"
+        dst = tmp_path / "dst"
+        self._seed_src(src)
+        monkeypatch.setattr(self.mod, "_src_content", lambda: src)
+        monkeypatch.setattr(self.mod, "_dst_content", lambda: dst)
+        rc = self.mod.main(["--dry-run"])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "dry-run" in out
+        assert not dst.exists()
+
+    def test_main_already_migrated_short_circuits(
+        self, tmp_path, monkeypatch, capsys,
+    ):
+        src = tmp_path / "src"
+        dst = tmp_path / "dst"
+        self._seed_src(src)
+        # Pre-create destination with the editions.yaml marker
+        dst.mkdir()
+        (dst / "editions.yaml").write_text("editions: []\n", encoding="utf-8")
+        monkeypatch.setattr(self.mod, "_src_content", lambda: src)
+        monkeypatch.setattr(self.mod, "_dst_content", lambda: dst)
+        rc = self.mod.main([])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "Already migrated" in out
+
+    def test_main_refuses_when_source_missing(
+        self, tmp_path, monkeypatch, capsys,
+    ):
+        monkeypatch.setattr(self.mod, "_src_content",
+                            lambda: tmp_path / "nope")
+        monkeypatch.setattr(self.mod, "_dst_content",
+                            lambda: tmp_path / "dst")
+        rc = self.mod.main([])
+        assert rc == 1
+        out = capsys.readouterr().out
+        assert "REFUSING" in out
+

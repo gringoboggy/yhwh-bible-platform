@@ -252,6 +252,16 @@ kinds:
     description: "One biblical text reusing or reinterpreting another (e.g. Chr referring to Sam-Kgs)."
     phase: phase2
 
+  - code: xref-thematic
+    category: xref
+    symbol: "‖"
+    note_class: "note-xref-thematic"
+    marker_class: "marker-xref-thematic"
+    label: "Thematic"
+    title_attr: "AI-proposed thematic / typological cross-reference"
+    description: "LLM-proposed thematic, typological, or idiomatic cross-reference (the class TSK and Strong's miss). Drafted by Claude AI; trimmed and rewritten by a reviewer before promotion."
+    phase: mvp
+
   # ──────────────────────────────────────────────────────────────────
   # HISTORICAL / CULTURAL  ⌂
   # ──────────────────────────────────────────────────────────────────

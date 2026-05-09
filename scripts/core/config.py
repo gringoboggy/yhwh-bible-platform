@@ -49,6 +49,15 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _CONTENT = _REPO_ROOT / "content"
 
 
+def _books_yaml_path() -> Path:
+    """ω.5 paths-resolver entrypoint for content/books.yaml. Existing
+    ``_CONTENT`` constant is preserved for back-compat with sibling
+    YAML lookups; new call sites should prefer this function so they
+    pick up dev/installed/test-override resolution automatically."""
+    from . import paths
+    return paths.books_yaml()
+
+
 # ----------------------------------------------------------------------
 # Note tuple schema (v28a-4 onwards: 9-field with optional attribution)
 # ----------------------------------------------------------------------

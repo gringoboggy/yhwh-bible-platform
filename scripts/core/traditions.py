@@ -32,6 +32,15 @@ from typing import Optional
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DEFAULT_TRADITIONS_YAML = _REPO_ROOT / "content" / "traditions.yaml"
 
+
+def _traditions_yaml_path() -> Path:
+    """ω.5 paths-resolver entrypoint. Existing ``DEFAULT_TRADITIONS_YAML``
+    constant is preserved for back-compat; new call sites should
+    prefer this function so they pick up dev/installed/test-override
+    resolution automatically."""
+    from . import paths
+    return paths.traditions_yaml()
+
 # CANONICAL_TRADITIONS is the **ordered** list used in popup rendering
 # (ψ.8.2). The order is fixed by editorial convention — alphabetical or
 # size-based ordering would imply ranking, which the platform explicitly

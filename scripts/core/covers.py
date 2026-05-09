@@ -38,6 +38,15 @@ REPO = Path(__file__).resolve().parent.parent.parent
 CONTENT = REPO / "content"
 
 
+def _covers_dir() -> Path:
+    """ω.5 paths-resolver entrypoint for content/covers/. Existing
+    ``CONTENT`` constant is preserved for back-compat; new call
+    sites should prefer this function so they pick up
+    dev/installed/test-override resolution automatically."""
+    from . import paths
+    return paths.covers_dir()
+
+
 # ----------------------------------------------------------------------
 # encode / decode for book_covers (list-of-strings on disk → dict in API)
 # ----------------------------------------------------------------------
