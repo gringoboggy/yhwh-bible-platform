@@ -903,6 +903,20 @@ NOTES = [
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        5, 13, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GENESIS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        5, 14, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: EXODUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 17, '', 'LORD',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -2985,6 +2999,13 @@ NOTES = [
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        13, 10, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: EXODUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         13, 11, '', 'land',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -5008,6 +5029,13 @@ NOTES = [
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        20, 23, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: EXODUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         20, 24, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -5034,6 +5062,13 @@ NOTES = [
         'Hebrew.',
         '<strong>Shâlôwm (<em>שָׁלוֹם</em>).</strong> safe, i.e. (figuratively) well, happy, friendly; also (abstractly) welfare, i.e. health, prosperity, peace. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H7965, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        20, 24, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: GO'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         21, 5, '', 'love',
@@ -5836,6 +5871,20 @@ NOTES = [
         'Hebrew.',
         '<strong>Qâdôwsh (<em>קָדוֹשׁ</em>).</strong> sacred (ceremonially or morally); (as noun) God (by eminence), an angel, a saint, a sanctuary. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H6918, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        28, 4, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: GO'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        28, 5, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: GO'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         28, 12, '', 'LORD',
@@ -7263,6 +7312,13 @@ NOTES = [
         "Strong's H1818, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        34, 25, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: GO'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         34, 26, '', 'land',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -7282,6 +7338,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        34, 26, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: GO'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         34, 27, '', 'LORD',

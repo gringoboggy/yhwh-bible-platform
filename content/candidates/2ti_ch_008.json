@@ -1,0 +1,23 @@
+{
+  "book": "2ti",
+  "chapter": 8,
+  "generated_at": "2026-05-09T06:06:26+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "2ti-8-16-001",
+      "verse": 16,
+      "kind": "topic-nave",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Nave: WORD OF GOD",
+      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "NaveTopicalDetector",
+      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    }
+  ]
+}

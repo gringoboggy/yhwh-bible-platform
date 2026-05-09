@@ -36,6 +36,13 @@ NOTES = [
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 1, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: TO SFECIAJ, PAUL, CONTRASTED WITH THE WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 2, '', 'Lord',
         'lang-greek', 'Greek',
         'Greek.',
@@ -127,6 +134,13 @@ NOTES = [
         "Strong's G3107, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 3, 'g', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ATONEMENT, GOD, JESUS, PRAISE, SALVATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 4, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -155,6 +169,13 @@ NOTES = [
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 4, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ELECTION, HOLINESS TO THE LORD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 5, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -176,6 +197,13 @@ NOTES = [
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 5, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: OF CHILDREN, GOZAX. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 6, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -195,6 +223,13 @@ NOTES = [
         'Greek.',
         '<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        1, 6, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         1, 7, '', '',
@@ -232,11 +267,25 @@ NOTES = [
         "Strong's G129, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 7, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ATONEMENT, OF SACRIFICES, REDEMPTION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 8, '', 'wisdom',
         'lang-greek', 'Greek',
         'Greek.',
         '<strong>Sophía (<em>σοφία</em>).</strong> wisdom (higher or lower, worldly or spiritual). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G4678, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        1, 8, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, UNCHANGEABLE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         1, 9, '', '',
@@ -251,6 +300,13 @@ NOTES = [
         'Greek.',
         '<strong>Mystḗrion (<em>μυστήριον</em>).</strong> a secret or "mystery" (through the idea of silence imposed by initiation into religious rites). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3466, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        1, 9, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: MYSTERIES, SALVATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         1, 10, '', '',
@@ -274,6 +330,13 @@ NOTES = [
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 10, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, CHURCH, JESUS, JESUS, TIME. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 11, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -288,6 +351,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        1, 11, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: INHERITANCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 12, '', 'Christ',
         'lang-greek', 'Greek',
         'Greek.',
@@ -300,6 +370,13 @@ NOTES = [
         'Greek.',
         '<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G1391, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        1, 12, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: FAITH, WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         1, 13, '', '',
@@ -365,6 +442,13 @@ NOTES = [
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 13, 'i', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: FAITH, GOSPEL, GOSPEL, GOSPEL, RIGHTEOUSNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 14, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -393,6 +477,13 @@ NOTES = [
         "Strong's G629, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 14, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: EARNEST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 15, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -419,6 +510,20 @@ NOTES = [
         'Greek.',
         '<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        1, 15, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: INTERCESSION, PKAYEKFULNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        1, 16, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: THANKFULNESS, WISDOM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         1, 17, '', '',
@@ -491,6 +596,13 @@ NOTES = [
         "Strong's G4678, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 17, 'j', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 18, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -519,6 +631,13 @@ NOTES = [
         "Strong's G1680, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 18, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HEAVEN, HOPE, PROMISES TO. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 19, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -540,11 +659,25 @@ NOTES = [
         "Strong's G4100, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 19, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, POWER, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 20, '', 'Christ',
         'lang-greek', 'Greek',
         'Greek.',
         '<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        1, 20, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ANGEL, JESUS, JESUS, JESUS, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         1, 21, '', '',
@@ -575,6 +708,13 @@ NOTES = [
         "Strong's G1577, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 22, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: CHURCH, CIIURC'II. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 23, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -589,6 +729,13 @@ NOTES = [
         "Strong's G4983, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 23, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 1, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -601,6 +748,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-col-2-13">Col 2:13</a> · <a href="#vnote-eph-2-5">Eph 2:5</a> · <a href="#vnote-col-3-1">Col 3:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        2, 1, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JEWS, DEPRAVITY OF MAN, GOD, QUICKENING, REGENCY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         2, 2, '', '',
@@ -624,6 +778,13 @@ NOTES = [
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 2, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: SATAN, SATAN, SATAN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 3, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -643,6 +804,13 @@ NOTES = [
         'Greek.',
         '<strong>Noûs (<em>νοῦς</em>).</strong> the intellect, i.e. mind (divine or human; in thought, feeling, or will); by implication, meaning. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3563, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        2, 3, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HEREDITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         2, 4, '', '',
@@ -678,6 +846,13 @@ NOTES = [
         'Greek.',
         '<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        2, 4, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: LONGSUFFERING OF, SALVATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         2, 5, '', '',
@@ -750,6 +925,13 @@ NOTES = [
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 7, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 8, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -792,6 +974,13 @@ NOTES = [
         "Strong's G4982, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 8, 'f', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: BOASTING, FAITH, GIDEON I, GOZAX, AVOUDS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 9, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -827,6 +1016,13 @@ NOTES = [
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 10, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHAPITER, CROSS, ELECTION, GOD, OBEDIENCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 11, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -839,6 +1035,13 @@ NOTES = [
         'Greek.',
         '<strong>Sárx (<em>σάρξ</em>).</strong> flesh (as stripped of the skin), i.e. (strictly) the meat of an animal (as food), or (by extension) the body (as opposed to the soul (or spirit), or as the symbol of what is external, or as the means of kindred), or (by implication) human nature (with its frailties (physically or morally) and passions), or (specially), a human being (as such). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G4561, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        2, 11, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CIRCUMCISION, CIRCUMCISION, FOREIGNER, UNCIKCUMCISION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         2, 12, '', '',
@@ -869,6 +1072,13 @@ NOTES = [
         "Strong's G1680, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 12, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GENNESARET, HOPE, NATURALIZATION, WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 13, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -897,6 +1107,13 @@ NOTES = [
         "Strong's G129, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 13, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ATONEMENT, OF SACRIFICES, GOD, GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 14, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -918,6 +1135,13 @@ NOTES = [
         "Strong's G1515, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 14, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CATHOLICITY, CHURCH, ICS, PEACE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 15, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -937,6 +1161,13 @@ NOTES = [
         'Greek.',
         '<strong>Eirḗnē (<em>εἰρήνη</em>).</strong> peace (literally or figuratively); by implication, prosperity. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G1515, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        2, 15, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: LAW, INSUFFICIENCY OF, RECONCILIATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         2, 16, '', '',
@@ -995,6 +1226,13 @@ NOTES = [
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 18, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, PRAYER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 19, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1016,6 +1254,13 @@ NOTES = [
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 19, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, LOYAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 20, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1035,6 +1280,13 @@ NOTES = [
         'Greek.',
         '<strong>Líthos (<em>λίθος</em>).</strong> a stone (literally or figuratively). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3037, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        2, 20, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHRISTIAN, CHURCH, CHURCH, CORNER STONE, HOUSE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         2, 21, '', '',
@@ -1065,6 +1317,13 @@ NOTES = [
         "Strong's G3485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 21, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: ARCHITECTURE, CHURCH, CIIURC'II, HOLINESS TO THE LORD, TEMPLE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         2, 22, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1086,11 +1345,25 @@ NOTES = [
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        2, 22, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 1, '', 'Christ',
         'lang-greek', 'Greek',
         'Greek.',
         '<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 1, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: CIIURC'II, PROMISES TO, SALVATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 2, '', 'God',
@@ -1107,6 +1380,13 @@ NOTES = [
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 2, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOSPEL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 3, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1119,6 +1399,13 @@ NOTES = [
         'Greek.',
         '<strong>Mystḗrion (<em>μυστήριον</em>).</strong> a secret or "mystery" (through the idea of silence imposed by initiation into religious rites). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3466, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 3, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: MYSTERIES, WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 4, '', 'Christ',
@@ -1142,6 +1429,13 @@ NOTES = [
         "Strong's G1108, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 4, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOSPEL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 5, '', 'Spirit',
         'lang-greek', 'Greek',
         'Greek.',
@@ -1154,6 +1448,13 @@ NOTES = [
         'Greek.',
         '<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 5, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HOLY SPIRIT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 6, '', '',
@@ -1184,6 +1485,13 @@ NOTES = [
         "Strong's G2098, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 6, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: OF CHILDREN, CHURCH, SALVATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 7, '', 'God',
         'lang-greek', 'Greek',
         'Greek.',
@@ -1196,6 +1504,13 @@ NOTES = [
         'Greek.',
         '<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 7, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: MINISTER, MINISTER, POWER, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 8, '', '',
@@ -1217,6 +1532,13 @@ NOTES = [
         'Greek.',
         '<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 8, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: UNCHANGEABLE, GOSPEL, HUMILITY, JESUS, MINISTER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 9, '', '',
@@ -1247,6 +1569,13 @@ NOTES = [
         "Strong's G3466, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 9, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 10, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1273,6 +1602,13 @@ NOTES = [
         'Greek.',
         '<strong>Sophía (<em>σοφία</em>).</strong> wisdom (higher or lower, worldly or spiritual). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G4678, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 10, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ANGEL, GOD, UNCHANGEABLE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 11, '', '',
@@ -1303,6 +1639,13 @@ NOTES = [
         "Strong's G166, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 11, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: PRAYER, PREDESTINATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 12, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1317,11 +1660,25 @@ NOTES = [
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 12, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ASSURANCE, FAITH, GOD, GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 13, '', 'glory',
         'lang-greek', 'Greek',
         'Greek.',
         '<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G1391, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 13, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GLORY, JESUS, LOVE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 14, '', '',
@@ -1352,6 +1709,20 @@ NOTES = [
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 14, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, INTERCESSION, JESUS, WISDOM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        3, 15, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 16, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1378,6 +1749,13 @@ NOTES = [
         'Greek.',
         '<strong>Dóxa (<em>δόξα</em>).</strong> glory (as very apparent), in a wide application (literal or figurative, objective or subjective). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G1391, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 16, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GLORY, GOZAX, MAN, POWER, SPIRIT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 17, '', '',
@@ -1413,6 +1791,13 @@ NOTES = [
         'Greek.',
         '<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        3, 17, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS, LOVE, PARADOX, CONTRASTED WITH THE WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 18, '', '',
@@ -1471,6 +1856,13 @@ NOTES = [
         "Strong's G1108, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 19, 'f', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: SANCTIFICATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 20, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1483,6 +1875,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-2co-9-8">2Co 9:8</a> · <a href="#vnote-rom-4-21">Rom 4:21</a> · <a href="#vnote-jer-32-27">Jer 32:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        3, 20, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: SPIKITIAL, GOD, PRAISE, PRAYER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 21, '', '',
@@ -1520,6 +1919,13 @@ NOTES = [
         "Strong's G1577, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        3, 21, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, GOD, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 1, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1541,6 +1947,13 @@ NOTES = [
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 1, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CALL, COMMANDMENTS, COMMUNION, LONGSUFFERING, MEEKNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 2, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1560,6 +1973,13 @@ NOTES = [
         'Greek.',
         '<strong>Agápē (<em>ἀγάπη</em>).</strong> love, i.e. affection or benevolence; specially (plural) a love-feast. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 2, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HUMILITY, LOVE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 3, '', '',
@@ -1590,6 +2010,13 @@ NOTES = [
         "Strong's G1515, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 3, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HOLY SPIRIT, PEACE, SLANDER, UNITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 4, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1618,6 +2045,13 @@ NOTES = [
         "Strong's G1680, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 4, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, HOPE, MAN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 5, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1637,6 +2071,13 @@ NOTES = [
         'Greek.',
         '<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 5, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: BAPTISM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 6, '', '',
@@ -1660,6 +2101,13 @@ NOTES = [
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 6, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOD, GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 7, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1681,6 +2129,13 @@ NOTES = [
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 7, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GIDEON I, GOZAX, REGENCY, RESPONSIBILITY, SANCTIFICATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 8, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1695,11 +2150,25 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        4, 8, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CAPTIVITY, JESUS, JESUS, JESUS, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 9, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-jhn-3-13">Jhn 3:13</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 10, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 11, '', '',
@@ -1714,6 +2183,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-jer-3-15">Jer 3:15</a> · <a href="#vnote-1co-12-28">1Co 12:28</a> · <a href="#vnote-eph-2-20">Eph 2:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 11, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, GOVERNMENT OF, INSTRUCTION, MINISTER, MINISTER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 12, '', '',
@@ -1786,6 +2262,13 @@ NOTES = [
         "Strong's G5046, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 13, 'g', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: FAITH, JESUS, CONTRASTED WITH THE WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 14, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1798,6 +2281,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-heb-13-9">Heb 13:9</a> · <a href="#vnote-rom-16-17">Rom 16:17</a> · <a href="#vnote-1co-14-20">1Co 14:20</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 14, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: DEFAMATION OF, DECEIT, DECEPTION, DOCTRINES, INSTABILITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 15, '', '',
@@ -1835,6 +2325,13 @@ NOTES = [
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 15, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, CHURCH, LOVE, REPROOF. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 16, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1861,6 +2358,13 @@ NOTES = [
         'Greek.',
         '<strong>Sōma (<em>σῶμα</em>).</strong> the body (as a sound whole), used in a very wide application, literally or figuratively. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G4983, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 16, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: PHYSIOLOGY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 17, '', '',
@@ -1891,6 +2395,13 @@ NOTES = [
         "Strong's G3563, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 17, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ADULTERY, ADULTERY, PLEASURES, CONSCIENCE, DEPRAVITY OF MAN. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 18, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1919,6 +2430,20 @@ NOTES = [
         "Strong's G2588, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 18, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: BLINDNESS, CHAPITER, CHAPITER, JEWS, GODLESSNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        4, 19, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHAPITER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 20, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -1931,6 +2456,13 @@ NOTES = [
         'Greek.',
         '<strong>Christós (<em>Χριστός</em>).</strong> anointed, i.e. the Messiah, an epithet of Jesus. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5547, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 20, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HOLINESS TO THE LORD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 21, '', 'truth',
@@ -1952,6 +2484,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-rom-6-6">Rom 6:6</a> · <a href="#vnote-jas-1-21">Jas 1:21</a> · <a href="#vnote-heb-12-1">Heb 12:1</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 22, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHAPITER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 23, '', '',
@@ -1980,6 +2519,13 @@ NOTES = [
         'Greek.',
         '<strong>Noûs (<em>νοῦς</em>).</strong> the intellect, i.e. mind (divine or human; in thought, feeling, or will); by implication, meaning. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3563, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 23, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HEART, LUST. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 24, '', '',
@@ -2017,6 +2563,13 @@ NOTES = [
         "Strong's G228, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 24, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: IMAGE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 25, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2036,6 +2589,13 @@ NOTES = [
         'Greek.',
         '<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 25, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, SPEAKING. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 26, '', '',
@@ -2059,6 +2619,13 @@ NOTES = [
         "Strong's G266, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 26, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ANGEK, ZEAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 27, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2073,11 +2640,25 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        4, 27, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: SATAN, TEMPTATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 28, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-1ti-6-18">1Ti 6:18</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 28, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: FRUGALITY, INDUSTRY, LIBERALITY, POOR, THEFT AND THIEVES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 29, '', '',
@@ -2099,6 +2680,13 @@ NOTES = [
         'Greek.',
         '<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        4, 29, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CONVENTION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 30, '', '',
@@ -2143,6 +2731,13 @@ NOTES = [
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 30, 'f', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GRIEF, HOLY SPIRIT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         4, 31, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2155,6 +2750,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-col-3-8">Col 3:8</a> · <a href="#vnote-ecc-7-9">Ecc 7:9</a> · <a href="#vnote-tit-3-2">Tit 3:2</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        4, 31, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HATRED, MALICE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 32, '', '',
@@ -2185,6 +2787,13 @@ NOTES = [
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        4, 32, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHARITABLENESS, FORGIVENESS, HEART, JESUS, KINDNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 1, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2204,6 +2813,13 @@ NOTES = [
         'Greek.',
         '<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 1, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHRIST, COMMANDMENTS, HOLINESS TO THE LORD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 2, '', '',
@@ -2248,6 +2864,13 @@ NOTES = [
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 2, 'f', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ATONEMENT, ICS, GOD, JESUS, JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 3, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2262,6 +2885,13 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        5, 3, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ADULTERY, CHASTITY, COVETOUSNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 4, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2274,6 +2904,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-col-3-8">Col 3:8</a> · <a href="#vnote-eph-4-29">Eph 4:29</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        5, 4, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESSE, SPEAKING, SPEAKING. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 5, '', '',
@@ -2304,6 +2941,13 @@ NOTES = [
         "Strong's G932, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 5, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ADULTERY, HEAVEN, LASCIVIOUSNESS, WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 6, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2316,6 +2960,13 @@ NOTES = [
         'Greek.',
         '<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 6, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: COMPANY, DECEIT, AVOUDS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 8, '', '',
@@ -2353,6 +3004,13 @@ NOTES = [
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 8, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: BLINDNESS, DARKNESS, LIGHT, CONTRASTED WITH THE WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 9, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2379,6 +3037,13 @@ NOTES = [
         'Greek.',
         '<strong>Alḗtheia (<em>ἀλήθεια</em>).</strong> truth. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 9, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HOLY SPIRIT, RIGHTEOUSNESS, TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 10, '', '',
@@ -2416,6 +3081,20 @@ NOTES = [
         "Strong's G4655, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 11, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: COMMUNION, ICS, REPROOF, WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        5, 12, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: FROM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 13, '', 'light',
         'lang-greek', 'Greek',
         'Greek.',
@@ -2451,6 +3130,13 @@ NOTES = [
         "Strong's G5457, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 14, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: REGENCY, REPENTANCE, SALVATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 15, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2463,6 +3149,13 @@ NOTES = [
         'Cite.',
         '<strong>Cross-references.</strong> <a href="#vnote-col-4-5">Col 4:5</a> · <a href="#vnote-jas-3-13">Jas 3:13</a> · <a href="#vnote-php-1-27">Php 1:27</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>',
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
+    ),
+    (
+        5, 15, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: WATCHFULNESS, WISDOM, ZEAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 16, '', '',
@@ -2514,6 +3207,13 @@ NOTES = [
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 18, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: DRUNKENNESS, JOY, WINE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 19, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2540,6 +3240,13 @@ NOTES = [
         'Greek.',
         '<strong>Kardía (<em>καρδία</em>).</strong> the heart, i.e. (figuratively) the thoughts or feelings (mind); also (by analogy) the middle. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2588, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 19, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: MUSIC, SONG, TESTIMONY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 20, '', '',
@@ -2591,6 +3298,13 @@ NOTES = [
         "Strong's G3686, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 20, 'g', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS, JKSUS, SYENE, THANKFULNESS, THANKFULNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 21, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2610,6 +3324,13 @@ NOTES = [
         'Greek.',
         '<strong>Phóbos (<em>φόβος</em>).</strong> alarm or fright. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5401, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 21, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: FEAR OF GOD, HUMILITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 22, '', '',
@@ -2633,6 +3354,13 @@ NOTES = [
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 22, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHURCH, GOOD, AVIFE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 23, '', 'Christ',
         'lang-greek', 'Greek',
         'Greek.',
@@ -2652,6 +3380,13 @@ NOTES = [
         'Greek.',
         '<strong>Ekklēsía (<em>ἐκκλησία</em>).</strong> a calling out, i.e. (concretely) a popular meeting, especially a religious congregation (Jewish synagogue, or Christian community of members on earth or saints in heaven or both). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G1577, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 23, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: CHURCH, CIIURC'II, HUSBAND, JKSUS, JKSUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 24, '', 'Christ',
@@ -2710,6 +3445,13 @@ NOTES = [
         "Strong's G1577, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 25, 'f', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: SANCTIFICATION, ISS'-'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 26, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2731,6 +3473,13 @@ NOTES = [
         "Strong's G3056, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 26, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        "<strong>Topics.</strong> This verse appears under: ABLUTION, BAPTISM, WASHING, WORD OF GOD, ISS'-'. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 27, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2750,6 +3499,13 @@ NOTES = [
         'Greek.',
         '<strong>Hágios (<em>ἅγιος</em>).</strong> sacred (physically, pure, morally blameless or religious, ceremonially, consecrated). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G40, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 27, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: BLEMISH, CHURCH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 28, '', '',
@@ -2815,6 +3571,13 @@ NOTES = [
         "Strong's G4983, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 30, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ASSURANCE, CHURCH, ICS, MARRIAGE, UNITY OF. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         5, 31, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2834,6 +3597,13 @@ NOTES = [
         'Greek.',
         '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        5, 31, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: IN THE NEW TESTAMENT FROM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         5, 32, '', 'Christ',
@@ -2864,6 +3634,13 @@ NOTES = [
         "Strong's G26, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        5, 39, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: PRAISE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 1, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2885,6 +3662,13 @@ NOTES = [
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 1, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: REWARD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 2, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2904,6 +3688,13 @@ NOTES = [
         'Greek.',
         '<strong>Patḗr (<em>πατήρ</em>).</strong> a "father" (literally or figuratively, near or more remote). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 2, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CHILDREN, CHILDREN, MOTHER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 3, '', '',
@@ -2941,6 +3732,13 @@ NOTES = [
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 4, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: INSTRUCTION, PARENTS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 5, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -2976,6 +3774,13 @@ NOTES = [
         "Strong's G5401, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 5, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HEART, SINCERITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 6, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3004,6 +3809,13 @@ NOTES = [
         "Strong's G2588, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 6, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HEART, INTEGRITY, OBEDIENCE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 7, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3018,11 +3830,32 @@ NOTES = [
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 7, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JUDGING. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 8, '', 'Lord',
         'lang-greek', 'Greek',
         'Greek.',
         '<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 8, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: EDGK OK, LIBERTY, RESPECT OF PERSONS, SERVANT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        6, 9, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS, MASTER, SERVANT. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 10, '', '',
@@ -3046,6 +3879,13 @@ NOTES = [
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 10, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: COMMANDMENTS, GOZAX, POWER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 11, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3065,6 +3905,13 @@ NOTES = [
         'Greek.',
         '<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 11, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ARMOR, SATAN, TEMPTATION, WALLS, WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 12, '', '',
@@ -3102,6 +3949,13 @@ NOTES = [
         "Strong's G129, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 12, 'e', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: DARKNESS, SATAN, WALLS, WRESTLING. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 13, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3121,6 +3975,13 @@ NOTES = [
         'Greek.',
         '<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 13, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: DECEPTION, WALLS, WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 14, '', '',
@@ -3151,6 +4012,13 @@ NOTES = [
         "Strong's G225, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 14, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: ARMOR, BREASTPLATE, GILEAD, JUSTIFICATION, TRUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 15, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3179,6 +4047,13 @@ NOTES = [
         "Strong's G2098, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 15, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOSPEL, GOSPEL, WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 16, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3198,6 +4073,13 @@ NOTES = [
         'Greek.',
         '<strong>Pístis (<em>πίστις</em>).</strong> persuasion, i.e. credence; moral conviction (of religious truth, or the truthfulness of God or a religious teacher), especially reliance upon Christ for salvation; abstractly, constancy in such profession; by extension, the system of religious (Gospel) truth itself. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G4102, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 16, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: DART, FAITH, WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 17, '', '',
@@ -3242,6 +4124,13 @@ NOTES = [
         "Strong's G4991, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 17, 'f', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HELMET, HOLY SPIRIT, POWER, SALUTATIONS, WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 18, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3261,6 +4150,13 @@ NOTES = [
         'Greek.',
         "<strong>Pneûma (<em>πνεῦμα</em>).</strong> a current of air, i.e. breath (blast) or a breeze; by analogy or figuratively, a spirit, i.e. (human) the rational soul, (by implication) vital principle, mental disposition, etc., or (superhuman) an angel, demon, or (divine) God, Christ's spirit, the Holy Spirit. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
         "Strong's G4151, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 18, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: CONSTANCY, INTERCESSION, PRAYER FOR, PRAYER, PRAYER. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 19, '', '',
@@ -3284,6 +4180,13 @@ NOTES = [
         "Strong's G3466, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 19, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GOSPEL, INTERCESSION, MYSTERIES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 20, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -3291,11 +4194,32 @@ NOTES = [
         'Treasury of Scripture Knowledge (1830s). PD. Digital edition by openbible.info, CC-BY 4.0.',
     ),
     (
+        6, 20, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: AMBASSADORS, MINISTER, ZEAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 21, '', 'Lord',
         'lang-greek', 'Greek',
         'Greek.',
         '<strong>Kýrios (<em>κύριος</em>).</strong> supreme in authority, i.e. (as noun) controller; by implication, Master (as a respectful title). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 21, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: TWINS, TWINS, ZEAL. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        6, 22, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: LOVE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         6, 23, '', 'love',
@@ -3347,6 +4271,13 @@ NOTES = [
         "Strong's G3962, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        6, 23, 'g', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         6, 24, '', 'love',
         'lang-greek', 'Greek',
         'Greek.',
@@ -3373,6 +4304,20 @@ NOTES = [
         'Greek.',
         '<strong>Cháris (<em>χάρις</em>).</strong> graciousness (as gratifying), of manner or act (abstract or concrete; literal, figurative or spiritual; especially the divine influence upon the heart, and its reflection in the life; including gratitude). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G5485, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        6, 24, 'd', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: LOVE, SINCERITY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
+        8, 1, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: GENTILES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),
 ]

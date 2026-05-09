@@ -811,11 +811,25 @@ NOTES = [
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        3, 17, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: RUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 18, '', 'woman',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
         '<strong>ʼishshâh (<em>אִשָּׁה</em>).</strong> a woman. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H802, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        3, 18, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: RUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         3, 19, '', 'woman',
@@ -2127,6 +2141,13 @@ NOTES = [
         "Strong's H776, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        9, 13, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: RUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         9, 15, '', 'LORD',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
@@ -3311,6 +3332,13 @@ NOTES = [
         'Hebrew.',
         '<strong>Chaṭṭâʼâh (<em>חַטָּאָה</em>).</strong> an offence (sometimes habitual sinfulness), and its penalty, occasion, sacrifice, or expiation; also (concretely) an offender. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H2403, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        15, 34, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: RUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         16, 1, '', 'LORD',
@@ -4669,11 +4697,25 @@ NOTES = [
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        22, 19, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: RUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         22, 20, '', 'LORD',
         'lang-hebrew', 'Hebrew',
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        22, 20, 'a', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: RUTH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         22, 21, '', 'spirit',

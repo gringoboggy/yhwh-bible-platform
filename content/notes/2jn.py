@@ -148,6 +148,13 @@ NOTES = [
         "Strong's G4561, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
     ),
     (
+        1, 7, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: JESUS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         1, 8, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -209,6 +216,13 @@ NOTES = [
         'Greek.',
         '<strong>Theós (<em>θεός</em>).</strong> figuratively, a magistrate; by Hebraism, very. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's G2316, A Concise Dictionary of the Words in the Greek Testament, James Strong (1894). PD.",
+    ),
+    (
+        10, 34, '', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: IN THE NEW TESTAMENT FROM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     # (ch, v, suf, anchor, kind, title, label, body_html),
 ]

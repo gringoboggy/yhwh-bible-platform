@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 69,
-  "generated_at": "2026-05-08T14:31:43+00:00",
-  "n_candidates": 3,
+  "generated_at": "2026-05-09T06:06:28+00:00",
+  "n_candidates": 4,
   "candidates": [
     {
       "id": "psa-69-9-001",
@@ -47,6 +47,21 @@
       "draft_body": "<strong>Cross-references.</strong> <a href=\"#vnote-mat-27-34\">Mat 27:34</a> · <a href=\"#vnote-luk-23-36\">Luk 23:36</a> · <a href=\"#vnote-mrk-15-23\">Mrk 15:23</a>. <em>[Reviewer: select 1–3 most relevant; rewrite as a thematic note rather than a list before promoting.]</em>",
       "detector": "CrossRefDetector",
       "reviewer_notes": "TSK community-scored. Top vote count: 22. Don't paste the link list as the final note — explain the thematic connection.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-69-1-004",
+      "verse": 1,
+      "kind": "topic-nave",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Nave: PSALMS",
+      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: PSALMS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "NaveTopicalDetector",
+      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
       "status": "pending"
     }
   ]

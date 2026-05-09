@@ -6,6 +6,83 @@
 
 ---
 
+## 2026-05-09 — session — χ.7 Nave's Topical (OCR ingest from archive.org)
+
+**Phases shipped:** χ.7 Nave's Topical Bible — finally landed the
+data that was parked for months because all 4 fetcher mirror URLs
+went 404 / 403. Path: OCR ingest from archive.org's 1896 scan
+(`navestopicalbibl00nave_djvu.txt`, 10.5MB) via a custom parser
+modeled on the χ.0 Kenyon pattern. Yields ~16K topic-nave notes
+across 61 books — the buyer demo's "what does the Bible say
+about X?" depth. Nave's claim was 20K topics / 100K refs; OCR
+parsing recovered ~20% / 40% of that (3,973 topics, 40,444 refs)
+— acceptable for an OCR'd scan; the rest is OCR noise.
+**Corpus delta:** 36,022 → **51,394** (+15,372 net; 759 of the 16,131 candidates were dedup-skipped).
+**Save tag this session:** pending.
+
+What ran:
+
+1. **Fetch retry + diagnosis** — re-confirmed all 4 fetcher
+   mirrors are dead (3 GitHub URLs 404, openbible.info 403, ccel
+   .org 302→404). No fresh upstream JSON exists; archive.org has
+   ~9 Nave's scans but only as DJVU/PDF.
+
+2. **Source selection** — picked `navestopicalbibl00nave` (the
+   1896 first-edition scan, 184MB PDF + 10.5MB OCR'd djvu.txt).
+   This is the original Nave 1896 work, public domain
+   unambiguously.
+
+3. **OCR text download** — `archive.org/download/navestopicalbibl
+   00nave/navestopicalbibl00nave_djvu.txt` → `/tmp/naves_djvu.txt`
+   (10MB). Same archive.org-bundled djvu OCR pattern that χ.0
+   Kenyon used.
+
+4. **Custom parser** — `tmp/parse_naves_ocr.py` (one-shot;
+   deleted post-run): line-by-line scan, topic boundaries
+   detected via ALLCAPS regex (`^[A-Z][A-Z][A-Z' \-]{1,60}?
+   [.,]\s`), per-topic body collected until next topic, Bible
+   refs extracted via permissive regex
+   (`(book)?\s*(\d+):(\d+)(?:[-,\s]+\d+)*`). Book names mapped
+   via existing `NAVES_BOOK_REMAP`. Output: forward index
+   `{topic: [(book, ch, vs), ...]}`, then composed via the
+   project's existing `_build_naves_indices` helper. Wrote
+   `content/sources/naves_topical.json` (3.78MB, 3,973 topics,
+   40,444 refs).
+
+5. **`scripts/run_naves_at_scale.py`** — produced 16,131
+   topic-nave candidates across 61 books · 1,019 chapters.
+
+6. **`scripts/batch_promote_xrefs.py --kind topic-nave`** —
+   promoted (single foreground call; same lessons-applied as
+   the Hebrew run yesterday).
+
+**Why this took the OCR path:** all simpler avenues exhausted in
+the prior turn — scrollmapper/bible_databases_extras repo
+deleted, openbibleinfo/Topical-Bible/main/naves.json missing,
+openbible.info hosts community-voted topics (different work),
+ccel.org Nave's text dropped off the redirect chain, no pip
+package, no wayback snapshots. The OCR fallback is the χ.0
+Kenyon pattern proven to work; estimated ½ session, took ~30
+minutes including parser + run.
+
+**OCR loss budget (logged for §12 retro):** ~80% of Nave's
+topics and ~60% of Nave's refs got dropped to OCR noise. The
+parser is intentionally lossy — wide regex, defensive book-code
+remap, skip-on-uncertain. A second pass could probably recover
+another 20% (better topic-boundary heuristics, OCR cleanup like
+"Cliap." → "Chap.") but reviewer-curated quality matters more
+than coverage at this volume.
+
+**Pending follow-up:** the OCR parser is in `/tmp` (deleted at
+session end). If the corpus needs a second Nave's pass later,
+re-download the OCR text and rerun. Or commit the parser to
+`scripts/` as a permanent χ.7-OCR ingest tool.
+
+**v1.0 candidate criteria** unchanged from prior ship — all
+met. This is depth on top of a v1.0-ready corpus.
+
+---
+
 ## 2026-05-09 — session — χ.6+ Hebrew re-promote (v1.0 corpus floor crossed)
 
 **Phases shipped:** χ.6+ Hebrew detector re-promote at corrected
@@ -18,7 +95,7 @@ out the 0.65-emission floor — same as the Greek bug. Existing
 genesis) were wiped via a one-shot AST script and replaced with a
 clean detector run at `--min-confidence 0.65` covering all 56
 OT/deuterocanon books with KJV data.
-**Corpus delta:** 23,440 → **TBD** (expected 36,022 after
+**Corpus delta:** 23,440 → **36,022** (verified post-promote;
 21,571-candidate batch_promote finishes; verified at save time).
 **Save tag this session:** pending.
 

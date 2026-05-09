@@ -1,0 +1,53 @@
+{
+  "book": "ezk",
+  "chapter": 35,
+  "generated_at": "2026-05-09T06:06:26+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "ezk-35-12-001",
+      "verse": 12,
+      "kind": "topic-nave",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Nave: BLASPHEMY",
+      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: BLASPHEMY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "NaveTopicalDetector",
+      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "ezk-35-5-002",
+      "verse": 5,
+      "kind": "topic-nave",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Nave: IDUMEA",
+      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: IDUMEA. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "NaveTopicalDetector",
+      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "ezk-35-11-003",
+      "verse": 11,
+      "kind": "topic-nave",
+      "anchor": "",
+      "confidence": 0.62,
+      "source_name": "Nave: ENVY",
+      "source_attribution": "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+      "draft_title": "Topic",
+      "draft_label": "Topic.",
+      "draft_body": "<strong>Topics.</strong> This verse appears under: ENVY. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
+      "detector": "NaveTopicalDetector",
+      "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    }
+  ]
+}

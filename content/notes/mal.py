@@ -477,6 +477,13 @@ NOTES = [
         "Strong's H3374, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
     ),
     (
+        3, 5, 'c', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: HIRELING, OPPRESSION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
+    ),
+    (
         3, 6, '', '',
         'xref-citation', 'Cross-ref',
         'Cite.',
@@ -692,6 +699,13 @@ NOTES = [
         'Hebrew.',
         '<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>',
         "Strong's H136, A Concise Dictionary of the Words in the Hebrew Bible, James Strong (1894). PD.",
+    ),
+    (
+        4, 1, 'b', '',
+        'topic-nave', 'Topic',
+        'Topic.',
+        '<strong>Topics.</strong> This verse appears under: WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>',
+        "Nave's Topical Bible, Orville J. Nave (1896). Public domain.",
     ),
     (
         4, 2, '', '',

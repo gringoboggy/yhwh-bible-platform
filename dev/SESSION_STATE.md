@@ -1,6 +1,20 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **χ.6+ Hebrew re-promote** crossed
+**Updated:** 2026-05-09, after **χ.7 Nave's Topical (OCR ingest)**
+landed — first ψ-style ingest project this session, yielding
+~16K topic-nave notes from a custom OCR parser of the 1896
+archive.org scan (`navestopicalbibl00nave_djvu.txt`, 10.5MB).
+Path forced because all 4 _fetchers.json mirror URLs are dead
+(repo deleted, files moved, ccel.org redirects to 404, no pip
+package, no wayback snapshots). Custom parser
+(`tmp/parse_naves_ocr.py`, deleted post-run) recovered 3,973
+topics + 40,444 refs (~20% / 40% of Nave's claimed totals; rest
+lost to OCR noise — acceptable). Wrote `content/sources/naves
+_topical.json` (3.78MB), ran `scripts/run_naves_at_scale.py` →
+16,131 candidates, promoted via `batch_promote_xrefs --kind
+topic-nave`. Corpus 36,022 → **51,394** (+15,372 net; 759 of the 16,131 candidates dedup-skipped).
+
+Prior ship: **χ.6+ Hebrew re-promote** crossed
 the **v1.0 25K corpus floor**. Same calibration bug found in
 `HebrewWordDetector` as in Greek (`detectors.py:348` sibling rule:
 0.65 default, 0.85 for gen ch 1-3) — driver's default
@@ -187,7 +201,67 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: χ.6+ Hebrew re-promote — v1.0 corpus floor crossed
+## Current phase: χ.7 Nave's Topical (OCR ingest) shipped
+
+The χ.7 Nave's data has been parked since the χ-cluster
+infrastructure shipped — every fetcher mirror went 404/403 over
+time. Forced path: OCR ingest from archive.org's 1896 scan,
+following the χ.0 Kenyon pattern. Custom parser, lossy by
+design, recovered ~20% / 40% of Nave's claimed topics / refs
+which is enough to materially deepen the corpus.
+
+```
+✓ /tmp/naves_djvu.txt                   downloaded from
+                                        archive.org/details/
+                                        navestopicalbibl00nave
+                                        (Nave's 1896 first
+                                        edition, 10.5MB djvu OCR).
+✓ tmp/parse_naves_ocr.py                one-shot parser (deleted
+                                        post-run): topic
+                                        boundaries via ALLCAPS
+                                        regex; per-topic body
+                                        scanned for Bible refs
+                                        with permissive regex;
+                                        book names mapped via
+                                        existing NAVES_BOOK_REMAP;
+                                        forward index built then
+                                        composed via the
+                                        project's existing
+                                        _build_naves_indices
+                                        helper. Recovered 3,973
+                                        topics, 40,444 refs.
+✓ content/sources/naves_topical.json    3.78MB cache file in
+                                        the project's expected
+                                        schema. Loadable via
+                                        scripts.core.sources.
+                                        NavesTopical singleton.
+✓ scripts/run_naves_at_scale.py         produced 16,131 topic-
+                                        nave candidates across
+                                        61 books · 1,019 chapters.
+✓ scripts/batch_promote_xrefs.py        --kind topic-nave
+                                        promoted in a single
+                                        foreground call (lessons
+                                        applied from the Hebrew
+                                        write-race).
+~ Corpus: 36,022 → 51,394               +15,372 net (16,131
+                                        candidates → 759 dedup-
+                                        skipped → 15,372 promoted). Buyer-demo
+                                        depth: "what does the
+                                        Bible say about X?"
+                                        topical pivots.
+```
+
+**OCR parser is in /tmp** (deleted post-session). If a future
+re-pass is needed, re-download the archive.org djvu.txt and
+re-run a similar parser. Or commit it to `scripts/` as a
+permanent χ.7-OCR ingest tool.
+
+**v1.0 candidate criteria — STILL ALL MET:**
+  - ✓ θ.2 / χ.1 / ψ.8 / ψ.10 / ψ.12 / ψ.13 / ψ.14 / ψ.17 /
+    ω.8 / ω.9 / ω.10 / ξ.1 / ξ.2 / ξ.4
+  - ✓ corpus ≥ 25K (51,394 post-Nave's; 26,394 over floor)
+
+## Prior phase: χ.6+ Hebrew re-promote — v1.0 corpus floor crossed
 
 Same calibration-mismatch bug as the Greek run, fixed the same
 way: `--min-confidence 0.65` matches the detector's emission

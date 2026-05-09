@@ -4,7 +4,33 @@
 
 ## Active task
 
-*(none — tracker is idle. **χ.6+ Hebrew re-promote** landed
+*(none — tracker is idle. **χ.7 Nave's Topical (OCR ingest)**
+landed 2026-05-09 — final piece of the χ-cluster pipeline.
+Forced OCR path because all 4 _fetchers.json mirrors are dead
+(404 / 403 / 302→404; no pip package; no wayback snapshots).
+Followed the χ.0 Kenyon precedent: download archive.org's
+1896 first-edition scan (`navestopicalbibl00nave_djvu.txt`,
+10.5MB), write a custom OCR parser (one-shot in /tmp,
+deleted post-run) that handles ALLCAPS topic boundaries +
+permissive Bible-ref regex + existing book-name remap,
+recover 3,973 topics + 40,444 refs (~20% / 40% of Nave's
+claimed totals; the rest is OCR noise, acceptable). Build
+`content/sources/naves_topical.json` (3.78MB) via existing
+`_build_naves_indices` helper. Run
+`run_naves_at_scale.py` → 16,131 candidates → 15,372
+promoted via `batch_promote_xrefs --kind topic-nave` in a
+single foreground call (759 dedup-skipped against neighbors;
+zero errors; lessons applied from the Hebrew write-race
+incident).
+
+Final corpus: 51,394 (16,131 candidates → 759 dedup-skipped → 15,372 promoted). Buyer-demo
+depth meaningfully improved by topical pivots ("what does
+the Bible say about X?").
+
+**v1.0 candidate criteria still all met** — this is depth on
+top of a v1.0-ready corpus, not floor-crossing.
+
+Prior ship this session — **χ.6+ Hebrew re-promote** landed
 2026-05-09 — **v1.0 corpus floor crossed**. Same `--min-confidence
 0.7` calibration bug as Greek (detector emits at 0.65; driver
 default filters it out). Existing 8,412 lang-hebrew (oddly only
