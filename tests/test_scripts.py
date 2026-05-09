@@ -14388,3 +14388,96 @@ class TestPsi1LiveEpubPreview:
         assert "([a-z0-9-]+)/([a-z0-9]+)/(\\d+)" in text
 
 
+class TestPsi11CustomizePreviewModal:
+    """ψ.1.1 — /customize Preview modal. Per-edition button opens a
+    modal that renders the ψ.1.0 api_preview output via iframe
+    srcdoc. Shows the persisted edition state (post-Save).
+
+    Live-form-state rendering is a future sub-phase that requires
+    api_preview to accept overrides; this phase ships the
+    persisted-state path."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.customize import CUSTOMIZE_HTML
+        cls.html = CUSTOMIZE_HTML
+
+    def test_preview_button_in_renderer(self):
+        # The renderEditions JS template emits a Preview button
+        # with class psi11-preview-btn + data-edition attribute.
+        assert "psi11-preview-btn" in self.html
+        assert 'data-edition="${e.id}"' in self.html
+
+    def test_preview_modal_markup_present(self):
+        # Modal exists at body-level with the canonical id.
+        assert 'id="psi11-preview-modal"' in self.html
+        # Hidden by default (modal hidden class appears with the id)
+        modal_idx = self.html.find('id="psi11-preview-modal"')
+        modal_chunk = self.html[modal_idx:modal_idx + 200]
+        assert "hidden" in modal_chunk
+
+    def test_modal_has_book_picker_chapter_input_iframe(self):
+        for elem_id in (
+            "psi11-preview-title",
+            "psi11-preview-book",
+            "psi11-preview-chapter",
+            "psi11-preview-iframe",
+            "psi11-preview-status",
+            "psi11-preview-refresh",
+            "psi11-preview-close",
+        ):
+            assert f'id="{elem_id}"' in self.html, (
+                f"missing modal element {elem_id}"
+            )
+
+    def test_iframe_uses_sandbox_and_srcdoc(self):
+        # The iframe is sandboxed (allow-same-origin so the inline
+        # styles work; no JS / no top navigation by default).
+        # srcdoc is set in JS via .srcdoc = data.html.
+        assert 'sandbox="allow-same-origin"' in self.html
+        assert ".srcdoc = " in self.html or ".srcdoc=" in self.html
+
+    def test_handler_functions_present(self):
+        for fn in (
+            "openPsi11Preview",
+            "closePsi11Preview",
+            "refreshPsi11Preview",
+            "initPsi11Preview",
+        ):
+            assert fn in self.html, f"missing JS function {fn}"
+
+    def test_handler_calls_correct_api_route(self):
+        assert "/api/preview/" in self.html
+
+    def test_modal_uses_data_books_canonical(self):
+        # The book picker reads from DATA.edition_canon_books +
+        # DATA.books_canonical (both surfaced by api_customize).
+        assert "DATA.edition_canon_books" in self.html
+        assert "DATA.books_canonical" in self.html
+
+    def test_chapter_input_debounces(self):
+        # The chapter input refreshes 300ms after typing (so
+        # typing "12" doesn't fetch ch 1 then ch 12).
+        assert "setTimeout(refreshPsi11Preview, 300)" in self.html
+
+    def test_esc_key_closes_modal(self):
+        # ESC dismisses the modal.
+        assert "ev.key !== 'Escape'" in self.html or \
+            "ev.key === 'Escape'" in self.html
+        assert "closePsi11Preview" in self.html
+
+    def test_last_used_persists_via_localstorage(self):
+        # The modal remembers last-picked book/chapter per edition
+        # so reopening preserves the user's place.
+        assert "localStorage" in self.html
+        assert "psi11-last-" in self.html
+
+    def test_default_book_is_jhn_when_in_canon(self):
+        # If the edition's canon includes "jhn" (Gospel of John),
+        # default to it. Otherwise fall back to the first canon
+        # book.
+        assert "'jhn'" in self.html or '"jhn"' in self.html
+
+
+
+

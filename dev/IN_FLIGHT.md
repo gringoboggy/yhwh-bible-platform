@@ -4,8 +4,36 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.1.0 live EPUB preview
-infrastructure** shipped 2026-05-09 — first sub-phase of ψ.1. Per PLAN
+*(none — tracker is idle. **ψ.1.1 /customize Preview modal**
+shipped 2026-05-09. Per-edition Preview button + body-level
+modal with book picker + chapter input + iframe srcdoc + 300ms
+debounce + localStorage persistence + Esc dismiss. +11 tests.
+End state: 1073 tests, 11/11 linter, 9 editions, 7 templates.
+
+The buyer-demo flow is now: pick edition → customize → save →
+click Preview to see the chapter rendered per the spec.
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /customize. Click Preview on each of 9 editions.
+    # Change book + chapter; verify the iframe updates with the
+    # 300ms debounce. Verify Esc dismisses the modal. Verify
+    # last-used book/chapter persists across reopens.
+
+**Sub-phasing forward** (ψ.1.2 still open in PLAN):
+- ψ.1.2 — /wizard iframe slot on relevant steps (probably step
+  6+ where edition spec is concrete enough for meaningful preview).
+
+After ψ.1.2 the ψ.1 cluster is complete. Next: ψ.1.2 OR pick
+another v1.x phase from PLAN §6.
+
+---
+
+## Prior task
+
+**ψ.1.0 live EPUB preview infrastructure** shipped 2026-05-09 —
+first sub-phase of ψ.1. Per PLAN
 §5.2 MEDIUM-track entry. User picked this as the v1.x next-step
 ("biggest 'wow' demo upgrade"). Sub-phasing:
 
@@ -20,40 +48,11 @@ infrastructure** shipped 2026-05-09 — first sub-phase of ψ.1. Per PLAN
   - **ψ.1.2** — /wizard iframe slot on relevant steps. (Future
     session.)
 
-**What ψ.1.0 shipped:**
-
-- `scripts/core/preview.py` — `render_chapter_preview(edition_id,
-  book_code, chapter, *, translation_id="kjv")` returns a
-  self-contained HTML page suitable for iframe srcdoc.
-- `scripts/web.py` — `api_preview` wrapper + GET
-  `/api/preview/<edition>/<book>/<chapter>?translation=<id>` route.
-- +14 tests in TestPsi1LiveEpubPreview covering happy path,
-  rejection paths, kind-filter respects edition, XSS safety,
-  route-pattern pin.
-- End state: 1062 tests, 11/11 linter, 51,394 notes.
-
-**Composer design:** separate rendering path from
-build_edition.py (full build reads pre-built HTML from
-epub_working/ + filters; preview reads corpus + translations
-directly + composes fresh). Tradeoff: not byte-identical to
-EPUB, but works on a fresh checkout where epub_working/ is
-absent. Per spec — "rendering one chapter as the reader sees it"
-— close-enough is fine for live preview.
-
-**Sub-phasing forward** (open in PLAN as ψ.1.1 + ψ.1.2):
-- ψ.1.1 — /customize iframe slot + Preview button + debounced
-  refresh on form changes (300ms)
-- ψ.1.2 — /wizard iframe slot on relevant steps
-
-Next session: ψ.1.1 UI integration OR pick another v1.x phase
-from PLAN §6.
-
 ---
 
 ## Prior task
 
-**v1.0.0 release prep** shipped 2026-05-09 — final session in
-the recommended 5-session sequence. All v1.0 candidate criteria
+**ψ.1.0 live EPUB preview infrastructure** shipped 2026-05-09. All v1.0 candidate criteria
 are met (51,394 notes ≫ 25K floor; θ.2 + χ.1 + ψ.8 +
 ψ.10/12/13/13.5/14/15/16/17/18/18.1 + ω.8/9/10 + ξ.1/2/4 all
 shipped; plus ψ.7-A built-in editions + ψ.7-B template starter

@@ -6,6 +6,122 @@
 
 ---
 
+## 2026-05-09 — session — ψ.1.1 customize Preview modal
+
+**Phases shipped:** ψ.1.1 — second sub-phase of the live EPUB
+preview cluster. Adds a per-edition Preview button on /customize
+that opens a modal with book picker + chapter input + iframe
+srcdoc rendering the ψ.1.0 api_preview output.
+
+**Test delta:** +11 (1073 vs 1062).
+**Linter delta:** still 11/11 clean.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/customize.py`** — three pieces:
+    - **Preview button** added to each edition card's identity
+      section (next to the theme dropdown). Class
+      `psi11-preview-btn`, `data-edition="<id>"`. Blue tint to
+      distinguish from save/reset buttons.
+    - **Modal markup** at body-level (hidden by default). Header
+      strip has: edition title, book picker (filtered to the
+      edition's canon), chapter number input, Refresh button,
+      close ×. Below header: status strip (loading state +
+      verse/note counts after each fetch). Body: `<iframe>`
+      with `sandbox="allow-same-origin"` (allows the inline
+      theme CSS to work; blocks JS / top navigation).
+    - **JS handlers** (~120 new lines):
+      - `initPsi11Preview()` — wires delegated click handler on
+        the editions wrapper for the Preview buttons; binds the
+        modal's close + refresh + book-change + chapter-input
+        listeners; sets up Esc-to-dismiss.
+      - `openPsi11Preview(edition_id)` — populates the book
+        picker from `DATA.edition_canon_books[edition_id]` ∩
+        `DATA.books_canonical` (already surfaced by api_customize);
+        defaults the picker to last-used per-edition via
+        `localStorage` OR to "jhn" (Gospel of John ch 1) if in
+        canon, else first canon book. Shows the modal, fetches.
+      - `refreshPsi11Preview()` — fetches `/api/preview/<ed>/<book>/<ch>`,
+        sets `iframe.srcdoc = data.html`, updates status strip.
+        On error: red status text, no iframe update.
+      - `closePsi11Preview()` — hides the modal, clears
+        `iframe.srcdoc` (frees memory), clears state.
+    - **Chapter input debounces 300ms** — typing "12" doesn't
+      fetch ch 1 then ch 12.
+    - **localStorage persistence** of last-used book + chapter
+      per edition (`psi11-last-<edition>` key, `bookCode:ch`
+      value) so reopening the modal preserves the user's place.
+
+- **`tests/test_scripts.py`** — `TestPsi11CustomizePreviewModal`
+  (11 tests):
+    - Preview button rendered with the canonical class +
+      data-edition attribute
+    - Modal markup at body-level + hidden by default
+    - All 7 modal element ids present
+    - iframe uses sandbox + JS sets srcdoc
+    - All 4 handler functions present
+    - Calls /api/preview/ correctly
+    - Reads from DATA.edition_canon_books + DATA.books_canonical
+    - Chapter input debounces 300ms
+    - Esc key dismisses modal
+    - localStorage persists last-used per edition
+    - Default book is "jhn" when in canon
+
+End state: **1073 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates**.
+
+Notable design decisions:
+
+- **Modal, not sticky sidebar.** /customize is content-heavy
+  with many editions × many fields; a sticky sidebar would
+  shrink the form below the comfortable-edit threshold.
+  Modal-on-demand keeps the editor at full width when not
+  previewing, then offers a 5xl-wide preview surface when the
+  user explicitly asks.
+- **Persisted edition state, not live form state.** The
+  api_preview reads from disk via config.editions_by_id (cached
+  on editions.yaml mtime). Form-field changes don't reflect
+  until Save. The status strip says: "Showing the persisted
+  edition state. Save edits to see them in the preview."
+  Live-form-state is a future ψ.1.x sub-phase that requires
+  api_preview to accept overrides.
+- **Default to jhn 1 when in canon.** Gospel of John chapter 1
+  has 51 verses — short enough to load fast, long enough to
+  show real apparatus, broad enough that almost every edition's
+  canon includes it. Falls back to the first canon book if not
+  available (jewish-study has 39 OT books only; defaults to gen 1).
+- **iframe sandbox="allow-same-origin"** — allows the inline
+  CSS to work (otherwise srcdoc would be opaque); blocks JS,
+  top-level navigation, form submission. Defense-in-depth: even
+  if a future translation/note injects a `<script>`, the iframe
+  blocks it.
+
+Sub-phasing forward:
+- **ψ.1.0** (✓) — render_chapter_preview composer + api_preview
+  wrapper + route + 14 tests.
+- **ψ.1.1** (this turn) — /customize Preview modal + 11 tests.
+- **ψ.1.2** (future) — /wizard iframe slot on relevant steps
+  (probably step 6+ where edition spec is concrete enough for
+  meaningful preview).
+
+The buyer-demo flow is now:
+  1. Wizard step 1: pick a tradition / clone a template
+  2. Wizard step 2-N: customize the edition
+  3. Click Save on /customize → state persists to editions.yaml
+  4. Click Preview → modal shows the chapter rendered per the
+     edition's spec, with theme + apparatus + filtered traditions
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.2 ψ.1 entry — full spec
+- `scripts/core/preview.py` (ψ.1.0) — composer this modal consumes
+
+Next session: **ψ.1.2** /wizard iframe integration OR pick a
+different v1.x phase from PLAN §6.
+
+---
+
 ## 2026-05-09 — session — ψ.1.0 live EPUB preview infrastructure
 
 **Phases shipped:** ψ.1.0 — first sub-phase of the live EPUB

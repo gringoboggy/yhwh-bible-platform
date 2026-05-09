@@ -1,7 +1,22 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.1.0 live EPUB preview
-infrastructure** shipped — first sub-phase of ψ.1 (the v1.x
+**Updated:** 2026-05-09, after **ψ.1.1 /customize Preview modal**
+shipped — second sub-phase of the live EPUB preview cluster.
+Per-edition Preview button on /customize opens a modal with book
+picker (filtered to edition's canon) + chapter number input +
+iframe srcdoc rendering ψ.1.0's api_preview output. Sandbox flag
+keeps the iframe safe (allow-same-origin only). Chapter input
+debounces 300ms; last-used book/chapter persisted per edition
+via localStorage; defaults to "jhn" 1 when in canon. Status
+strip shows verse + note counts after each fetch. Modal dismiss:
+× / Esc / click outside. +11 tests in
+TestPsi11CustomizePreviewModal. **1073 / 1073 tests green;
+11/11 linter clean.**
+
+The buyer-demo flow is now: pick edition → customize → save →
+click Preview to see the chapter rendered per the spec.
+
+Prior ship: **ψ.1.0 live EPUB preview infrastructure** — — first sub-phase of ψ.1 (the v1.x
 "biggest 'wow' demo upgrade"). New `scripts/core/preview.py`
 (`render_chapter_preview(edition_id, book_code, chapter)`)
 composes existing surfaces (config + notes_io + translations +
@@ -346,7 +361,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 1062 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
+13 consoles · 1073 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -373,7 +388,54 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.1.0 live EPUB preview infrastructure
+## Current phase: ψ.1.1 /customize Preview modal
+
+Second sub-phase of ψ.1. Per-edition Preview button + modal +
+iframe srcdoc rendering api_preview output. Buyer-demo flow:
+pick → customize → save → click Preview.
+
+```
+✓ scripts/templates/customize.py        Preview button on each
+                                        edition card (identity
+                                        section); body-level
+                                        modal markup with title +
+                                        book picker + chapter
+                                        input + iframe + status;
+                                        ~120 new lines of JS
+                                        handling open/close/refresh,
+                                        chapter-input debounce
+                                        300ms, localStorage
+                                        persistence per edition,
+                                        Esc-to-dismiss.
+✓ tests/test_scripts.py                 +11 tests in
+                                        TestPsi11CustomizePreviewModal:
+                                        - Preview button rendered
+                                        - modal markup + 7 elements
+                                        - iframe sandbox + srcdoc
+                                        - 4 handler functions present
+                                        - calls /api/preview/
+                                        - reads DATA.edition_canon_books
+                                          + DATA.books_canonical
+                                        - debounces 300ms
+                                        - Esc dismisses
+                                        - localStorage persists
+                                        - defaults to jhn when in canon
+~ Corpus delta                          0 — pure UI infra.
+                                        Visual review on user:
+                                        open /customize, click
+                                        Preview on each of 9
+                                        editions, change book +
+                                        chapter, watch iframe
+                                        update with debounce.
+```
+
+Sub-phasing forward: **ψ.1.2** /wizard iframe slot on relevant
+steps. Then ψ.1 cluster is complete.
+
+Next: **ψ.1.2** wizard iframe (one session) OR pick another
+v1.x phase from PLAN §6.
+
+## Prior phase: ψ.1.0 live EPUB preview infrastructure
 
 First sub-phase of ψ.1 (the v1.x "biggest 'wow' demo upgrade"
 per PLAN §6). Ships the API + composer; iframe UI integration

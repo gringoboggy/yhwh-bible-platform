@@ -130,6 +130,35 @@ CUSTOMIZE_HTML = r"""<!DOCTYPE html>
   <div id="loading" class="text-center text-slate-400 py-20">loading …</div>
 </main>
 
+<!-- ψ.1.1 — preview modal. Hidden by default; opened by per-
+     edition Preview buttons in the identity section. Renders the
+     ψ.1.0 api_preview output via iframe srcdoc=. -->
+<div id="psi11-preview-modal" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4 py-6">
+  <div class="bg-white rounded-lg shadow-2xl border border-slate-200 max-w-5xl w-full max-h-[95vh] flex flex-col">
+    <div class="px-5 py-3 border-b border-slate-200 flex items-center gap-3 flex-wrap">
+      <h3 class="text-lg font-bold flex-1">
+        Preview: <span id="psi11-preview-title" class="text-slate-700"></span>
+      </h3>
+      <label class="text-xs flex items-center gap-1.5">
+        <span>book:</span>
+        <select id="psi11-preview-book" class="label-input"></select>
+      </label>
+      <label class="text-xs flex items-center gap-1.5">
+        <span>chapter:</span>
+        <input id="psi11-preview-chapter" type="number" min="1" value="1" class="symbol-input" style="width:4em;">
+      </label>
+      <button id="psi11-preview-refresh" type="button" class="px-2 py-1 rounded border border-slate-300 text-xs hover:bg-slate-50">↻ Refresh</button>
+      <button id="psi11-preview-close" type="button" class="text-slate-400 hover:text-slate-700 text-2xl leading-none ml-2" aria-label="Close">×</button>
+    </div>
+    <div class="px-5 py-2 text-xs text-slate-500 bg-slate-50 border-b border-slate-200 flex items-center gap-3 flex-wrap">
+      <span id="psi11-preview-status">loading…</span>
+      <span class="text-slate-400">·</span>
+      <span class="italic">Showing the persisted edition state. Save edits to see them in the preview.</span>
+    </div>
+    <iframe id="psi11-preview-iframe" class="flex-1 w-full bg-white" sandbox="allow-same-origin" style="border:0; min-height:60vh;"></iframe>
+  </div>
+</div>
+
 <script>
 let DATA = null;
 
@@ -149,6 +178,146 @@ async function init() {
   setCount('editions-count',   (DATA.editions   || []).length, '');
   setCount('categories-count', (DATA.categories || []).length, '');
   setCount('kinds-count',      (DATA.kinds      || []).length, '— grouped by category');
+  // ψ.1.1 — wire Preview-modal handlers (one-time after first render)
+  initPsi11Preview();
+}
+
+// ─── ψ.1.1 — preview modal ───────────────────────────────────
+let PSI11_EDITION = null;  // currently-previewed edition id
+
+function initPsi11Preview() {
+  // Delegated click handler for the per-edition Preview buttons
+  // (rebound on every renderEditions; idempotent via dataset flag).
+  const wrap = document.getElementById('ed-body');
+  if (wrap && !wrap.dataset.psi11Bound) {
+    wrap.dataset.psi11Bound = '1';
+    wrap.addEventListener('click', (ev) => {
+      const btn = ev.target.closest('.psi11-preview-btn');
+      if (!btn) return;
+      ev.preventDefault();
+      openPsi11Preview(btn.dataset.edition);
+    });
+  }
+  const closeBtn = document.getElementById('psi11-preview-close');
+  if (closeBtn && !closeBtn.dataset.bound) {
+    closeBtn.dataset.bound = '1';
+    closeBtn.addEventListener('click', closePsi11Preview);
+  }
+  const refreshBtn = document.getElementById('psi11-preview-refresh');
+  if (refreshBtn && !refreshBtn.dataset.bound) {
+    refreshBtn.dataset.bound = '1';
+    refreshBtn.addEventListener('click', refreshPsi11Preview);
+  }
+  const bookSel = document.getElementById('psi11-preview-book');
+  const chInp = document.getElementById('psi11-preview-chapter');
+  if (bookSel && !bookSel.dataset.bound) {
+    bookSel.dataset.bound = '1';
+    bookSel.addEventListener('change', refreshPsi11Preview);
+  }
+  if (chInp && !chInp.dataset.bound) {
+    chInp.dataset.bound = '1';
+    let timer = null;
+    chInp.addEventListener('input', () => {
+      // Debounce 300ms — typing "12" shouldn't fetch ch 1 then ch 12.
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(refreshPsi11Preview, 300);
+    });
+  }
+  // ESC closes the modal
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key !== 'Escape') return;
+    const modal = document.getElementById('psi11-preview-modal');
+    if (modal && !modal.classList.contains('hidden')) {
+      closePsi11Preview();
+    }
+  });
+}
+
+function openPsi11Preview(edition_id) {
+  if (!edition_id) return;
+  PSI11_EDITION = edition_id;
+  const ed = (DATA.editions || []).find(e => e.id === edition_id);
+  if (!ed) return;
+  // Update title
+  const titleEl = document.getElementById('psi11-preview-title');
+  if (titleEl) {
+    titleEl.textContent = ed.title || edition_id;
+  }
+  // Populate book picker from the edition's canon (DATA.edition_canon_books)
+  const bookSel = document.getElementById('psi11-preview-book');
+  const canonBooks = (DATA.edition_canon_books || {})[edition_id] || [];
+  const booksByCode = {};
+  for (const b of (DATA.books_canonical || [])) booksByCode[b.code] = b;
+  bookSel.innerHTML = canonBooks.map(code => {
+    const b = booksByCode[code] || {code, title: code};
+    return `<option value="${code}">${escapeAttr(b.title || code)}</option>`;
+  }).join('');
+  // Default: first canon book (Genesis if applicable, else first)
+  // Or persisted last-used per edition via localStorage.
+  const lastKey = 'psi11-last-' + edition_id;
+  let lastVal;
+  try { lastVal = localStorage.getItem(lastKey); } catch (_) { lastVal = null; }
+  if (lastVal) {
+    const [bc, ch] = lastVal.split(':');
+    if (canonBooks.includes(bc)) {
+      bookSel.value = bc;
+      const chInp = document.getElementById('psi11-preview-chapter');
+      if (chInp && ch) chInp.value = ch;
+    }
+  } else {
+    // Default to "jhn" (Gospel of John ch 1) if available — short
+    // chapters, recognizable opening, broad-translation coverage.
+    if (canonBooks.includes('jhn')) bookSel.value = 'jhn';
+    const chInp = document.getElementById('psi11-preview-chapter');
+    if (chInp) chInp.value = 1;
+  }
+  document.getElementById('psi11-preview-modal').classList.remove('hidden');
+  refreshPsi11Preview();
+}
+
+function closePsi11Preview() {
+  PSI11_EDITION = null;
+  document.getElementById('psi11-preview-modal').classList.add('hidden');
+  const iframe = document.getElementById('psi11-preview-iframe');
+  if (iframe) iframe.srcdoc = '';
+  const status = document.getElementById('psi11-preview-status');
+  if (status) status.textContent = '';
+}
+
+async function refreshPsi11Preview() {
+  if (!PSI11_EDITION) return;
+  const bookSel = document.getElementById('psi11-preview-book');
+  const chInp = document.getElementById('psi11-preview-chapter');
+  const status = document.getElementById('psi11-preview-status');
+  const iframe = document.getElementById('psi11-preview-iframe');
+  if (!bookSel || !chInp || !iframe) return;
+  const bookCode = bookSel.value;
+  const ch = parseInt(chInp.value, 10) || 1;
+  if (!bookCode) {
+    status.textContent = 'pick a book to preview';
+    return;
+  }
+  // Persist last-used per edition
+  try { localStorage.setItem('psi11-last-' + PSI11_EDITION, bookCode + ':' + ch); } catch (_) {}
+  status.textContent = 'loading ' + bookCode + ' ' + ch + '…';
+  try {
+    const r = await fetch('/api/preview/' + encodeURIComponent(PSI11_EDITION)
+                          + '/' + encodeURIComponent(bookCode)
+                          + '/' + encodeURIComponent(ch));
+    const data = await r.json();
+    if (!r.ok || data.status !== 'ok') {
+      const msg = (data.message || data.error || 'preview failed');
+      status.innerHTML = '<span class="text-red-700">✗ ' + escapeAttr(msg) + '</span>';
+      return;
+    }
+    iframe.srcdoc = data.html;
+    status.textContent = bookCode + ' ' + ch + ' · '
+      + data.verse_count + ' verses · '
+      + data.notes_shown + ' notes shown';
+  } catch (e) {
+    status.innerHTML = '<span class="text-red-700">✗ network error: '
+      + escapeAttr(String(e && e.message || e)) + '</span>';
+  }
 }
 
 function renderEditions() {
@@ -184,6 +353,9 @@ function renderEditions() {
                 ${(DATA.themes || []).map(t => `<option value="${t.id}" ${e.theme === t.id ? 'selected' : ''} title="${escapeAttr(t.description)}">${escapeAttr(t.name)}</option>`).join('')}
               </select>
             </label>
+            <button type="button" class="psi11-preview-btn px-2 py-1 rounded border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-medium" data-edition="${e.id}" title="ψ.1.1 — preview one chapter rendered per this edition's spec">
+              👁 Preview
+            </button>
           </div>
         </div>
       </section>
