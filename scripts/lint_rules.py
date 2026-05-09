@@ -71,20 +71,42 @@ def check_cross_link_invariant() -> dict:
     consoles: dict[str, str] = {}
     templates_dir = REPO / "scripts" / "templates"
     if templates_dir.is_dir():
-        # Post-split: one constant per file in templates/
+        # Post-split: one constant per file in templates/.
+        # ψ.14 (2026-05-08): some templates substitute HEADER_NAV_LINKS
+        # at module load (single-source-of-truth nav). Import the
+        # module so the linter sees the post-substitution HTML — what
+        # the browser actually receives — instead of the raw source
+        # with placeholder comments.
+        import importlib
+        import sys as _sys
+        if str(REPO) not in _sys.path:
+            _sys.path.insert(0, str(REPO))
         for py in sorted(templates_dir.glob("*.py")):
-            if py.name == "__init__.py":
+            if py.name in ("__init__.py", "_design.py"):
                 continue
-            text = py.read_text(encoding="utf-8")
-            for m in re.finditer(
-                r'^([A-Z_]+_HTML)\s*=\s*r"""', text, re.MULTILINE,
-            ):
-                name = m.group(1)
-                start = m.end()
-                end = text.find('"""', start)
-                if end < 0:
-                    continue
-                consoles[name] = text[start:end]
+            modname = f"scripts.templates.{py.stem}"
+            try:
+                mod = importlib.import_module(modname)
+            except Exception:
+                # Fall back to raw-source regex for any module that
+                # fails to import — keeps the linter robust if a
+                # template has an import-time error.
+                text = py.read_text(encoding="utf-8")
+                for m in re.finditer(
+                    r'^([A-Z_]+_HTML)\s*=\s*r"""', text, re.MULTILINE,
+                ):
+                    name = m.group(1)
+                    start = m.end()
+                    end = text.find('"""', start)
+                    if end < 0:
+                        continue
+                    consoles[name] = text[start:end]
+                continue
+            for attr in dir(mod):
+                if attr.endswith("_HTML") and isinstance(
+                    getattr(mod, attr), str,
+                ):
+                    consoles[attr] = getattr(mod, attr)
     else:
         # Pre-split fallback
         web_py = (REPO / "scripts" / "web.py").read_text(encoding="utf-8")

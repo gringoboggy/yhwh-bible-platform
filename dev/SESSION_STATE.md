@@ -1,8 +1,26 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-08, after **χ-AI-xrefs hardening sweep**
-shipped — full audit + tune of `scripts/core/sources.py:Anthropic
-XrefClient` against the project-resident Anthropic SDK skill.
+**Updated:** 2026-05-08, after **ψ.14 buyer-arc polish (structural
++ CSS-only)** shipped — applied the ψ.13 design system to /wizard,
+/export, /compare. Added two helpers to `scripts/templates/_design
+.py`: `HEADER_NAV_LINKS(current)` (just the `<a>` tags, no wrapping
+div) and `BUYER_ARC_POLISH_CSS` (focus rings, 150ms transitions,
+`:active` scale-down click feedback, `.psi14-pending` dirty-state
+pill, step-fade-in keyframe). Each of the 3 buyer-arc templates now
+substitutes those at module load via `.replace()` — no f-string
+conversion (ψ.13's spec deferred that as ψ.13.5 for regression
+risk). Single source of truth: adding a console or renaming a
+label in `_design.CONSOLES` propagates everywhere automatically.
+Updated `scripts/lint_rules.py:check_cross_link_invariant` to
+import each template module so it sees the post-substitution HTML
+rather than the placeholder comment markers. Subjective typography
+tuning + visual "looks like a commercial product" QA are deferred
+to a session where the user can iterate in a browser. +16 tests
+across 3 new classes; 860 tests / 10/10 linter / 16,042 notes.
+
+Prior ship: **χ-AI-xrefs hardening sweep** — full audit + tune of
+`scripts/core/sources.py:AnthropicXrefClient` against the project-
+resident Anthropic SDK skill.
 **Headline finding:** the prior `cache_control` marker on the
 700-token system prompt was a silent no-op (Haiku 4.5 minimum
 cacheable prefix is 4096 tokens). Quoted cost of $28 for the full
@@ -68,7 +86,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 844 tests · 10/10 linter · 5 editions · 16,042 notes
+13 consoles · 860 tests · 10/10 linter · 5 editions · 16,042 notes
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -95,7 +113,66 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: χ-AI-xrefs hardening sweep shipped
+## Current phase: ψ.14 buyer-arc polish shipped (structural + CSS-only)
+
+Applied the ψ.13 design system to /wizard, /export, /compare via
+single-source-of-truth nav substitution + a shared polish CSS
+layer. No f-string conversion (ψ.13 deferred that for regression
+risk); .replace()-based substitution at module load keeps the
+diff inspectable.
+
+```
+✓ scripts/templates/_design.py          new HEADER_NAV_LINKS(current)
+                                        helper (just <a> tags, no
+                                        wrapping div — for templates
+                                        with corpus-progress siblings);
+                                        new BUYER_ARC_POLISH_CSS
+                                        constant: 150ms transitions,
+                                        :focus-visible outlines (kbd
+                                        nav), :active scale-down click
+                                        feedback, .psi14-pending pill
+                                        for future ψ.15 dirty-state,
+                                        psi14StepFadeIn keyframe.
+✓ scripts/templates/wizard.py +         each imports HEADER_NAV_LINKS
+  scripts/templates/export.py +         + BUYER_ARC_POLISH_CSS;
+  scripts/templates/compare.py          places <!-- HEADER_NAV_LINKS -->
+                                        and <!-- BUYER_ARC_POLISH_CSS -->
+                                        markers in the raw r"" template;
+                                        substitutes at module bottom
+                                        via .replace(). Single source
+                                        of truth — adding a console or
+                                        renaming a label in
+                                        _design.CONSOLES propagates
+                                        everywhere automatically.
+✓ scripts/lint_rules.py                 check_cross_link_invariant
+                                        now imports each template
+                                        module instead of regex-
+                                        scanning the raw source.
+                                        Without this fix the linter
+                                        would see only the placeholder
+                                        markers and false-flag every
+                                        console. Falls back to raw
+                                        scan if a module fails to
+                                        import (defensive).
+✓ tests/test_scripts.py                 +16 tests across 3 new classes:
+                                        - TestPsi14HeaderNavSubstitution (6)
+                                        - TestPsi14BuyerArcPolishCSS (5)
+                                        - TestPsi14DesignSystemHelpers (5)
+~ Corpus delta                          0 — pure UI infrastructure.
+                                        Visual review still required
+                                        from the user (open the 3
+                                        consoles in a browser; tab
+                                        through; sign off or file
+                                        tweaks).
+```
+
+**Deferred to a browser-iteration session:**
+- Subjective typography hierarchy (h1/h2/h3 sizing, line heights)
+- Inline `_design.BTN_PRIMARY`/`BTN_SECONDARY` token sweep across
+  the templates' buttons (currently still ad-hoc Tailwind)
+- "Feels like a commercial product" QA pass
+
+## Prior phase: χ-AI-xrefs hardening sweep shipped
 
 Audit + tune of the existing `AnthropicXrefClient` against the
 project-resident Anthropic SDK skill. Same χ phase letter as the

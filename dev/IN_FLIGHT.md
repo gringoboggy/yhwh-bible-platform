@@ -4,7 +4,64 @@
 
 ## Active task
 
-*(none — tracker is idle. **χ-AI-xrefs hardening sweep** shipped
+*(none — tracker is idle. **ψ.14 buyer-arc polish (structural +
+CSS-only)** shipped 2026-05-08. Applied the ψ.13 design system to
+/wizard, /export, /compare:
+
+- New `HEADER_NAV_LINKS(current)` helper in `_design.py` (just
+  `<a>` tags, no wrapping `<div>` — for templates with sibling
+  elements like corpus-progress badge).
+- New `BUYER_ARC_POLISH_CSS` constant: 150ms transitions on
+  buttons/links/inputs, `*:focus-visible` outline rings (visible
+  keyboard nav for buyer demos via Tab), `button:active:not(:
+  disabled) transform: scale(0.98)` (75ms tactile click feedback),
+  `.psi14-pending` dirty-state pill (amber "● unsaved" badge —
+  available for future ψ.15 editor consoles), `psi14StepFadeIn`
+  keyframe.
+- Each of the 3 buyer-arc templates imports both helpers, places
+  `<!-- HEADER_NAV_LINKS -->` and `<!-- BUYER_ARC_POLISH_CSS -->`
+  markers in the raw `r"""..."""` template, and substitutes at
+  module bottom via `.replace()`. **No f-string conversion** —
+  ψ.13's spec deferred that to ψ.13.5 for regression risk; this
+  approach keeps the diff inspectable while delivering the same
+  single-source-of-truth benefit.
+- `scripts/lint_rules.py:check_cross_link_invariant` now imports
+  each template module rather than regex-scanning raw source —
+  necessary because the post-substitution HTML is what the
+  browser receives, and the raw source only contains placeholder
+  comments.
+
++16 tests across 3 new classes (TestPsi14HeaderNavSubstitution,
+TestPsi14BuyerArcPolishCSS, TestPsi14DesignSystemHelpers).
+End state: **860 tests green, 10/10 linter clean, 16,042 notes**.
+
+**Deferred to a session where the user can iterate visually:**
+- Subjective typography hierarchy (h1/h2/h3 sizing, line heights)
+- Sweep button/input markup in the 3 consoles to use
+  `_design.BTN_PRIMARY`/`BTN_SECONDARY` tokens (still ad-hoc
+  Tailwind today)
+- "Looks like a commercial product" QA pass — user opens the
+  3 consoles in a browser, walks the buyer flow, signs off
+
+Visual review steps:
+
+    python3 scripts/launcher.py --shell browser --port 8765
+    # Open http://localhost:8765/wizard, /export, /compare
+    # Tab through to verify focus rings.
+    # Click buttons to feel the 75ms :active scale-down.
+    # Resize narrow to confirm flex-wrap on the nav.
+
+Next per most-logical-path options:
+- **ψ.17 reader-EPUB polish** — drop caps, ToC ornaments,
+  verse-number treatment, section spacing rhythm. The actual
+  EPUB output buyers' readers open. Per spec: side-by-side
+  comparison against a commercial study Bible.
+- **Visual QA of ψ.14** — open the 3 consoles in a browser
+  and sign off / file specific tweaks.
+- **Run paid χ-AI-xrefs (~$72)** — closes ~5K notes of the
+  8,958-note v1.0 corpus floor gap.
+
+Prior ship this session — **χ-AI-xrefs hardening sweep** shipped
 2026-05-08. Full audit + tune of `scripts/core/sources.py:Anthropic
 XrefClient` against the project-resident Anthropic SDK skill.
 Headline finding: prior `cache_control` marker was a silent no-op

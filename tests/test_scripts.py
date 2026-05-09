@@ -11895,3 +11895,186 @@ class TestLauncherSpecPywebview:
         assert '"webview"' in spec or "'webview'" in spec
 
 
+# ============================================================
+# Phase ψ.14 — Buyer-arc polish
+# ============================================================
+
+
+class TestPsi14HeaderNavSubstitution:
+    """ψ.14: the cross-link nav in /wizard, /export, /compare is now
+    sourced from `_design.HEADER_NAV_LINKS()` at module load. Verify
+    the substitution actually fires and produces canonical labels."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.wizard import WIZARD_HTML
+        from scripts.templates.export import EXPORT_HTML
+        from scripts.templates.compare import COMPARE_HTML
+        from scripts.templates._design import (
+            HEADER_NAV_LINKS, BUYER_ARC_POLISH_CSS, CONSOLES,
+        )
+        cls.htmls = {
+            "wizard": WIZARD_HTML,
+            "export": EXPORT_HTML,
+            "compare": COMPARE_HTML,
+        }
+        cls.HEADER_NAV_LINKS = HEADER_NAV_LINKS
+        cls.BUYER_ARC_POLISH_CSS = BUYER_ARC_POLISH_CSS
+        cls.CONSOLES = CONSOLES
+
+    def test_marker_is_fully_replaced(self):
+        # If the substitution failed for any reason, the literal HTML
+        # comment marker would still be in the rendered string.
+        for name, html in self.htmls.items():
+            assert "<!-- HEADER_NAV_LINKS -->" not in html, (
+                f"{name}: HEADER_NAV_LINKS marker not substituted"
+            )
+
+    def test_polish_css_marker_is_replaced(self):
+        for name, html in self.htmls.items():
+            assert "<!-- BUYER_ARC_POLISH_CSS -->" not in html, (
+                f"{name}: BUYER_ARC_POLISH_CSS marker not substituted"
+            )
+
+    def test_canonical_label_apihelp_present(self):
+        # Each console's nav lists every other route. "apihelp" was
+        # already there pre-ψ.14; this test guards against a future
+        # regression where the substitution silently emits an empty
+        # link list (the marker is gone but no links were inserted).
+        for name, html in self.htmls.items():
+            assert 'href="/apihelp"' in html, (
+                f"{name}: missing apihelp link after substitution"
+            )
+
+    def test_current_console_marked_font_semibold(self):
+        # The console rendering its own page should mark its own link
+        # with font-semibold (the "you are here" indicator).
+        cases = {
+            "wizard":  '<a href="/wizard" class="font-semibold">',
+            "export":  '<a href="/export" class="font-semibold">',
+            "compare": '<a href="/compare" class="font-semibold">',
+        }
+        for name, expected in cases.items():
+            assert expected in self.htmls[name], (
+                f"{name}: missing self-link with font-semibold"
+            )
+
+    def test_other_consoles_marked_text_blue_600(self):
+        # Non-current links use the underline-on-hover style.
+        # Wizard's nav should NOT mark /export with font-semibold
+        # (only /wizard).
+        wizard = self.htmls["wizard"]
+        assert (
+            '<a href="/export" class="text-blue-600 hover:underline">'
+            in wizard
+        )
+        # Mirror check for compare.
+        compare = self.htmls["compare"]
+        assert (
+            '<a href="/wizard" class="text-blue-600 hover:underline">'
+            in compare
+        )
+
+    def test_substitution_includes_all_consoles(self):
+        # Every console route in the canonical CONSOLES list should
+        # appear as an href in each substituted template.
+        for name, html in self.htmls.items():
+            for route, _label in self.CONSOLES:
+                assert f'href="{route}"' in html, (
+                    f"{name}: missing href={route} after substitution"
+                )
+
+
+class TestPsi14BuyerArcPolishCSS:
+    """ψ.14: polish CSS layer (focus rings, transitions, click feedback,
+    dirty-state pill) is injected into the 3 buyer-arc consoles."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.wizard import WIZARD_HTML
+        from scripts.templates.export import EXPORT_HTML
+        from scripts.templates.compare import COMPARE_HTML
+        from scripts.templates._design import BUYER_ARC_POLISH_CSS
+        cls.htmls = {
+            "wizard": WIZARD_HTML, "export": EXPORT_HTML,
+            "compare": COMPARE_HTML,
+        }
+        cls.css = BUYER_ARC_POLISH_CSS
+
+    def test_polish_css_block_substituted(self):
+        # The polish block opens with <style> — verify each console
+        # contains the unique-to-polish keyframe name so we know the
+        # actual polish CSS landed (not just any <style> block).
+        for name, html in self.htmls.items():
+            assert "psi14StepFadeIn" in html, (
+                f"{name}: BUYER_ARC_POLISH_CSS not present"
+            )
+
+    def test_focus_visible_outline_present(self):
+        for name, html in self.htmls.items():
+            assert ":focus-visible" in html, (
+                f"{name}: missing :focus-visible focus-ring rule"
+            )
+
+    def test_active_press_feedback_present(self):
+        for name, html in self.htmls.items():
+            assert "button:active" in html, (
+                f"{name}: missing :active press-feedback rule"
+            )
+
+    def test_dirty_state_pill_class_available(self):
+        # The .psi14-pending class doesn't have to be USED in any
+        # console for ψ.14, but it must be defined in the CSS so
+        # ψ.15 (editor-console polish) can hook into it without
+        # re-declaring it.
+        for name, html in self.htmls.items():
+            assert ".psi14-pending" in html, (
+                f"{name}: missing .psi14-pending dirty-state rule"
+            )
+
+    def test_polish_css_constant_has_style_tags(self):
+        # The constant returns a complete <style>...</style> block —
+        # templates substitute the marker with the whole thing.
+        assert self.css.strip().startswith("<style>")
+        assert self.css.strip().endswith("</style>")
+
+
+class TestPsi14DesignSystemHelpers:
+    """ψ.14: HEADER_NAV_LINKS / BUYER_ARC_POLISH_CSS are exposed
+    helpers in `_design.py`."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates import _design
+        cls.mod = _design
+
+    def test_header_nav_links_returns_string_without_div(self):
+        # HEADER_NAV_LINKS is the inner-content variant — no
+        # wrapping <div>. Useful when a console wants to add
+        # sibling elements (corpus-progress badge) inside its nav.
+        out = self.mod.HEADER_NAV_LINKS("/wizard")
+        assert "<a href=" in out
+        assert not out.lstrip().startswith("<div")
+
+    def test_header_nav_wraps_links_in_div(self):
+        # HEADER_NAV is the full block, including the wrapping div.
+        out = self.mod.HEADER_NAV("/export")
+        assert out.lstrip().startswith("<div")
+        assert "</div>" in out
+        assert "<a href=" in out
+
+    def test_header_nav_links_marks_current_console(self):
+        out = self.mod.HEADER_NAV_LINKS("/compare")
+        assert '<a href="/compare" class="font-semibold">' in out
+
+    def test_header_nav_links_unknown_route_marks_no_current(self):
+        # Defensive: passing a route that isn't in CONSOLES means
+        # nothing is marked current. Should not raise.
+        out = self.mod.HEADER_NAV_LINKS("/nonexistent")
+        assert 'class="font-semibold"' not in out
+
+    def test_buyer_arc_polish_css_exports(self):
+        assert isinstance(self.mod.BUYER_ARC_POLISH_CSS, str)
+        assert len(self.mod.BUYER_ARC_POLISH_CSS) > 100
+
+

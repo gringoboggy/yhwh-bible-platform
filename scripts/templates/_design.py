@@ -78,6 +78,78 @@ STATUS_ERROR = "px-3 py-2 rounded border border-red-300 bg-red-50 text-red-900 t
 
 
 # ----------------------------------------------------------------------
+# ψ.14 buyer-arc polish — CSS layer that overlays Tailwind utilities.
+# Substituted into the buyer-arc consoles (/wizard, /export, /compare)
+# at module load via `.replace("<!-- BUYER_ARC_POLISH_CSS -->", ...)`.
+# Keeps the polish source-of-truth here so a future tweak doesn't
+# require finding three near-identical inline blocks.
+#
+# What this gives the consoles:
+#   - Visible focus rings on :focus-visible (keyboard navigation)
+#   - 150ms transitions on color/opacity/shadow for hover smoothness
+#   - .psi14-pending pill — small "● unsaved" badge for dirty-state
+#   - .psi14-step-fade-in animation for wizard step transitions
+#
+# Color values are inlined (rgb()) rather than Tailwind utilities
+# because pseudo-element ::after content can't be styled by Tailwind.
+# ----------------------------------------------------------------------
+
+BUYER_ARC_POLISH_CSS = """<style>
+  /* ψ.14: smoother transitions on interactive elements */
+  button, a, input, select, textarea {
+    transition: background-color 150ms ease,
+                color 150ms ease,
+                border-color 150ms ease,
+                opacity 150ms ease,
+                box-shadow 150ms ease;
+  }
+  /* ψ.14: visible keyboard-focus rings (buyers may demo via tab) */
+  *:focus-visible {
+    outline: 2px solid rgb(37 99 235); /* blue-600 */
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid rgb(37 99 235);
+    outline-offset: 2px;
+  }
+  /* ψ.14: tactile click feedback for buttons (subtle scale-down) */
+  button:active:not(:disabled) {
+    transform: scale(0.98);
+    transition-duration: 75ms;
+  }
+  /* ψ.14: dirty-state pill — append to a Save/Build button's parent */
+  .psi14-pending::after {
+    content: "● unsaved";
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgb(254 243 199); /* amber-100 */
+    color: rgb(146 64 14); /* amber-800 */
+    border: 1px solid rgb(252 211 77); /* amber-300 */
+    border-radius: 9999px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  /* ψ.14: subtle fade-in for wizard step transitions */
+  .psi14-step-fade-in {
+    animation: psi14StepFadeIn 200ms ease-out;
+  }
+  @keyframes psi14StepFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>"""
+
+
+# ----------------------------------------------------------------------
 # Console list — single source of truth for the cross-link nav.
 # Adding a new console means appending here AND adding the route in
 # scripts/web.py. The §6.2 cross-link invariant linter then verifies
@@ -106,6 +178,29 @@ CONSOLES: list[tuple[str, str]] = [
 ]
 
 
+def HEADER_NAV_LINKS(current: str = "") -> str:
+    """Return just the cross-link `<a>` tags, no wrapping `<div>`.
+
+    Useful when a console wants to append additional elements
+    (corpus-progress badge, save-pending indicator, etc.) inside
+    its own nav container. The wrapping `<div>` flex container is
+    the caller's responsibility.
+
+    `current` is the route of the calling console — that link gets
+    rendered as `font-semibold` (the "you are here" marker)."""
+    parts = []
+    for route, label in CONSOLES:
+        if route == current:
+            parts.append(
+                f'    <a href="{route}" class="font-semibold">{label}</a>'
+            )
+        else:
+            parts.append(
+                f'    <a href="{route}" class="text-blue-600 hover:underline">{label}</a>'
+            )
+    return "\n".join(parts)
+
+
 def HEADER_NAV(current: str = "") -> str:
     """Return the cross-link nav block — the row of route links that
     every console renders in its header.
@@ -119,19 +214,9 @@ def HEADER_NAV(current: str = "") -> str:
     responsibility (each console's title + description is
     console-specific).
     """
-    parts = []
-    for route, label in CONSOLES:
-        if route == current:
-            parts.append(
-                f'    <a href="{route}" class="font-semibold">{label}</a>'
-            )
-        else:
-            parts.append(
-                f'    <a href="{route}" class="text-blue-600 hover:underline">{label}</a>'
-            )
     return (
         '<div class="flex items-center gap-4 text-xs flex-wrap">\n'
-        + "\n".join(parts)
+        + HEADER_NAV_LINKS(current)
         + "\n  </div>"
     )
 

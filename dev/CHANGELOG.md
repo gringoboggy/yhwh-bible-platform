@@ -6,6 +6,104 @@
 
 ---
 
+## 2026-05-08 — session — ψ.14 buyer-arc polish (structural + CSS-only)
+
+**Phases shipped:** ψ.14 buyer-arc polish — applied the ψ.13 design
+system to the three buyer-demo consoles (/wizard, /export, /compare).
+This is the **structural + CSS-only portion** of ψ.14. Subjective
+typography tuning, micro-interaction QA, and the "looks like a
+commercial product" review are deferred to a session where the
+user can iterate visually in a browser.
+**Test delta:** +16 (844 → 860).
+**Corpus delta:** 0 — pure UI infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/_design.py`** gained two new helpers:
+  - `HEADER_NAV_LINKS(current="")` — returns just the `<a>` tags
+    for the cross-link nav, without the wrapping `<div>`. Used
+    when a console's nav has sibling elements (corpus-progress
+    badge); the wrapping div + sibling stay in the template.
+  - `BUYER_ARC_POLISH_CSS` constant — a `<style>` block providing:
+    - 150ms transitions on `background-color`, `color`,
+      `border-color`, `opacity`, `box-shadow` for buttons / links
+      / inputs (smoother hover feel)
+    - `*:focus-visible` outline rings (visible keyboard
+      navigation — buyers may demo via Tab)
+    - `button:active:not(:disabled)` `transform: scale(0.98)` —
+      tactile click feedback (75ms)
+    - `.psi14-pending::after` dirty-state pill ("● unsaved" amber
+      badge) — class available for future ψ.15 editor consoles
+    - `.psi14-step-fade-in` keyframe animation (available for
+      step transitions)
+
+- **`scripts/templates/wizard.py`**, **`export.py`**, **`compare.py`**:
+  each now imports `HEADER_NAV_LINKS` and `BUYER_ARC_POLISH_CSS`
+  from `_design`, places markers `<!-- HEADER_NAV_LINKS -->` and
+  `<!-- BUYER_ARC_POLISH_CSS -->` in the raw `r"""..."""` template,
+  and substitutes them at module load via `.replace()`. **No
+  conversion to f-strings** — keeps regression risk low (ψ.13
+  spec explicitly deferred f-string conversion to a future
+  ψ.13.5 sweep). Single source of truth: adding a console or
+  renaming a label in `_design.CONSOLES` propagates to all three
+  buyer-arc consoles automatically.
+
+  Renamed labels reaching these consoles via the canonical list:
+  - "matrix" → "symbol matrix" (per CONSOLES)
+  - The `flex-wrap` utility now applied to the nav container
+    (handles narrow viewports gracefully)
+
+- **`scripts/lint_rules.py` `check_cross_link_invariant`** updated
+  to import each template module rather than regex-scan the raw
+  source. Without this, the linter would see only the
+  `<!-- HEADER_NAV_LINKS -->` placeholder and false-flag every
+  console as missing cross-links. Falls back to raw-source scan
+  if a template module fails to import (defensive).
+
+- **+16 tests across 3 new classes:**
+  - `TestPsi14HeaderNavSubstitution` (6) — markers replaced;
+    apihelp link present; current console marked font-semibold;
+    other consoles marked text-blue-600; every CONSOLES route
+    appears as href.
+  - `TestPsi14BuyerArcPolishCSS` (5) — polish block injected
+    (unique `psi14StepFadeIn` keyframe present); :focus-visible
+    rule; :active rule; .psi14-pending class defined; constant
+    has `<style>` tags.
+  - `TestPsi14DesignSystemHelpers` (5) — HEADER_NAV_LINKS shape
+    contract; HEADER_NAV wraps with div; current-console
+    marking; unknown route doesn't raise; constant exports.
+
+**What's deferred (requires browser-based visual review):**
+- Subjective typography hierarchy tuning (h1/h2/h3 sizing, line
+  heights, letter spacing). The current sizes are functional but
+  may not be optimal at the buyer-demo polish bar.
+- Inline button/input styles in each console — these still use
+  ad-hoc Tailwind classes rather than `_design.BTN_PRIMARY`/
+  `BTN_SECONDARY`. The full design-token sweep is a separate
+  task (per ψ.13's deferred ψ.13.5).
+- "Feels like a commercial product" QA — the user opens the
+  three consoles in a browser, walks the buyer flow, and signs
+  off (or files specific tweak requests).
+
+**Run for visual review:**
+
+    python3 scripts/launcher.py --shell browser --port 8765
+    # Open http://localhost:8765/wizard, /export, /compare
+    # Tab through to verify focus rings.
+    # Click buttons to feel the :active scale-down.
+
+**Next per most-logical-path:** **ψ.17 reader-EPUB polish** (drop
+caps, ToC ornaments, verse-number treatment, section spacing
+rhythm) — the actual EPUB output buyers' readers open. Per the
+spec: "a freshly-built KJV EPUB rendered side-by-side against a
+commercial study Bible — same level of typographic care."
+Alternatively: visual QA of ψ.14 in a browser, or run the paid
+χ-AI-xrefs corpus push (~$72, closes ~5K notes of the v1.0
+floor gap).
+
+---
+
 ## 2026-05-08 — session — χ-AI-xrefs hardening (audit + tune sweep)
 
 **Phases shipped:** χ-AI-xrefs hardening — full audit + tune sweep
