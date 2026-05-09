@@ -1,7 +1,20 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **χ.7 Nave's Topical (OCR ingest)**
-landed — first ψ-style ingest project this session, yielding
+**Updated:** 2026-05-09, after **ψ.18 matrix-totals sidebar**
+shipped — user-requested feature to "keep count of how many of
+each symbol they have selected in each chapter / book / whole
+book". Lands whole-edition + per-book levels via a new
+`Matrix.per_book` field (per-edition / per-kind / per-book
+counts) populated in `compute_matrix()`'s existing single-pass
+loop, surfaced via `/api/matrix`'s extended response, rendered
+on /matrix's empty sidebar slot as a per-symbol list with
+9-level Unicode block-character sparklines (one column per
+canon book). Live-updates as user toggles kinds — JS sums
+across LOCAL_ENABLED so no server round-trip per toggle.
++17 tests; 942 / 942 green; 10/10 linter clean.
+
+Prior ship: **χ.7 Nave's Topical (OCR ingest)** — first ψ-style
+ingest project this session, yielding — first ψ-style ingest project this session, yielding
 ~16K topic-nave notes from a custom OCR parser of the 1896
 archive.org scan (`navestopicalbibl00nave_djvu.txt`, 10.5MB).
 Path forced because all 4 _fetchers.json mirror URLs are dead
@@ -201,7 +214,65 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: χ.7 Nave's Topical (OCR ingest) shipped
+## Current phase: ψ.18 matrix-totals sidebar shipped
+
+User-requested feature: see per-symbol counts at the whole-
+edition + per-book levels with a per-book sparkline. Lives on
+/matrix's previously-empty sidebar slot (next to "Categories
+breakdown"); updates live as user toggles kinds without a
+server round-trip.
+
+```
+✓ scripts/core/matrix.py                Matrix dataclass gained
+                                        a `per_book` field
+                                        (ed → kind → book →
+                                        count, potential scope).
+                                        compute_matrix() populates
+                                        it in the existing single-
+                                        pass loop — no extra book
+                                        I/O. Books with zero
+                                        notes-of-this-kind are
+                                        absent (not stored as 0).
+✓ scripts/web.py                        api_matrix() surfaces
+                                        per_book + canon_book_order
+                                        per edition (both follow
+                                        §6.1 canonical book order).
+✓ scripts/templates/matrix.py           new <section id="totals-
+                                        section"> sidebar slot;
+                                        renderSymbolTotals() JS
+                                        iterates LOCAL_ENABLED,
+                                        sums per_book per kind,
+                                        renders symbol + label +
+                                        count + 9-level Unicode
+                                        sparkline (' ▁▂▃▄▅▆▇█').
+                                        Hooked into all four
+                                        LOCAL_ENABLED-mutation
+                                        paths (refresh / kind
+                                        toggle / category toggle /
+                                        reset / scenario-load).
+                                        XSS-hardened with
+                                        escapeText / escapeAttr.
+✓ tests/test_scripts.py                 +17 tests across 3 classes:
+                                        - TestPsi18MatrixPerBookField (6)
+                                        - TestPsi18ApiMatrixPerBookSurface (4)
+                                        - TestPsi18MatrixHtmlSidebar (7)
+~ Corpus delta                          0 — pure UI infrastructure.
+                                        Visual review on user:
+                                        open /matrix in browser,
+                                        toggle kinds, watch
+                                        Symbol totals panel
+                                        update live; hover
+                                        sparklines for per-book
+                                        counts.
+```
+
+**User asked for chapter / book / whole-book levels.** This ship
+delivers the whole-edition + per-book levels (chapter-level rolls
+up via per-book totals). Per-chapter as a 4th dimension is parked
+as a follow-up — current `per_book` is ~5K entries; per-chapter
+would be ~50-100K and warrants a deliberate scope decision.
+
+## Prior phase: χ.7 Nave's Topical (OCR ingest) shipped
 
 The χ.7 Nave's data has been parked since the χ-cluster
 infrastructure shipped — every fetcher mirror went 404/403 over

@@ -4,7 +4,43 @@
 
 ## Active task
 
-*(none — tracker is idle. **χ.7 Nave's Topical (OCR ingest)**
+*(none — tracker is idle. **ψ.18 matrix-totals sidebar** shipped
+2026-05-09 — user-requested feature to "keep count of how many of
+each symbol they have selected in each chapter / book / whole
+book". Lands the whole-edition + per-book levels via:
+
+- **`scripts/core/matrix.py:Matrix`** gained a `per_book` field
+  (`ed → kind → book → count`, scope = potential, populated in
+  the existing single-pass loop in `compute_matrix()` — no extra
+  book I/O). Books with zero notes-of-this-kind are absent.
+- **`scripts/web.py:api_matrix()`** surfaces `per_book` +
+  `canon_book_order` per edition.
+- **`scripts/templates/matrix.py`** populates the previously-
+  empty sidebar slot with a per-symbol totals list. JS function
+  `renderSymbolTotals()` iterates `LOCAL_ENABLED`, sums across
+  per_book, renders one row per kind: symbol glyph + label +
+  count + 9-level Unicode sparkline (`' ▁▂▃▄▅▆▇█'`, one column
+  per canon book). Hooked into all 4 LOCAL_ENABLED-mutation
+  paths (refresh, kind toggle, category toggle, reset / scenario
+  load). XSS-hardened via `escapeText` / `escapeAttr` helpers.
+- +17 tests across 3 new classes.
+
+End state: **942 tests green, 10/10 linter clean, 51,394 notes**.
+
+**Per-chapter level parked**: user asked for 3 levels
+(chapter / book / whole). This ship delivers 2 (book + whole-
+edition). Per-chapter requires the matrix to track at chapter
+granularity — current `per_book` is ~5K entries; per-chapter
+would be ~50-100K and is a deliberate scope decision worth
+discussing before shipping.
+
+**Visual review on user** (per the ψ.14 / ψ.17 precedent):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /matrix; toggle kinds; verify Symbol totals panel
+    # updates live; hover sparkline for per-book counts.
+
+Prior ship this session — **χ.7 Nave's Topical (OCR ingest)**
 landed 2026-05-09 — final piece of the χ-cluster pipeline.
 Forced OCR path because all 4 _fetchers.json mirrors are dead
 (404 / 403 / 302→404; no pip package; no wayback snapshots).

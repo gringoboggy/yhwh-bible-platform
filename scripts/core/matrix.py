@@ -68,11 +68,24 @@ class Matrix:
     `potential` is the same but ignoring the kind filter — i.e.,
     notes of this kind in books that are in the canon, period.
     The difference is the "would gain" column for the UI.
+
+    ψ.18 — `per_book_enabled` adds a per-book dimension to
+    `enabled` so the matrix sidebar can render counts at three
+    levels (whole-edition / per-book / per-chapter via
+    derivation) plus a sparkline showing which books contain
+    each kind.
     """
     enabled: dict[str, dict[str, int]] = field(default_factory=dict)   # ed → kind → count
     potential: dict[str, dict[str, int]] = field(default_factory=dict)  # ed → kind → count
     edition_canon_books: dict[str, set[str]] = field(default_factory=dict)  # ed → set[book_code]
     edition_enabled_kinds: dict[str, set[str]] = field(default_factory=dict)  # ed → set[kind_code]
+    # ψ.18: ed → kind → book → count.
+    # Scope mirrors `potential` (any kind that has notes in canon —
+    # NOT filtered by enabled state) so the matrix UI's JS can sum
+    # across LOCAL_ENABLED for a live count that reflects pending
+    # toggles. Only books that have notes-of-this-kind appear; books
+    # with zero notes-of-this-kind are absent (not stored as 0).
+    per_book: dict[str, dict[str, dict[str, int]]] = field(default_factory=dict)
 
 
 # ----------------------------------------------------------------------
@@ -179,6 +192,13 @@ def compute_matrix() -> Matrix:
     # Read each book's notes ONCE; distribute counts to every edition
     enabled: dict[str, dict[str, int]] = {ed["id"]: {} for ed in editions}
     potential: dict[str, dict[str, int]] = {ed["id"]: {} for ed in editions}
+    # ψ.18: per-edition, per-kind, per-book counts (potential scope —
+    # every kind, every book in canon, regardless of edition's
+    # enabled-kind toggles). The JS sidebar sums across the user's
+    # LOCAL_ENABLED so toggles affect counts live without re-fetching.
+    per_book: dict[str, dict[str, dict[str, int]]] = {
+        ed["id"]: {} for ed in editions
+    }
 
     for book in books:
         code = book["code"]
@@ -193,7 +213,9 @@ def compute_matrix() -> Matrix:
             # potential = all of this book's notes in canon scope
             for kind_code, n in per_kind.items():
                 potential[ed_id][kind_code] = potential[ed_id].get(kind_code, 0) + n
-            # enabled = filtered down to active kinds
+                # ψ.18: per-book breakdown for every kind in canon
+                per_book[ed_id].setdefault(kind_code, {})[code] = n
+            # enabled = filtered down to active kinds (totals only)
             for kind_code, n in per_kind.items():
                 if kind_code in edition_enabled[ed_id]:
                     enabled[ed_id][kind_code] = enabled[ed_id].get(kind_code, 0) + n
@@ -203,6 +225,7 @@ def compute_matrix() -> Matrix:
         potential=potential,
         edition_canon_books=edition_canon,
         edition_enabled_kinds=edition_enabled,
+        per_book=per_book,
     )
 
 

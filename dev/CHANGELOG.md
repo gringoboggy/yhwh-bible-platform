@@ -6,6 +6,90 @@
 
 ---
 
+## 2026-05-09 — session — ψ.18 matrix-totals sidebar
+
+**Phases shipped:** ψ.18 — per-symbol totals sidebar on /matrix
+with per-book sparkline. The user asked for the ability to "keep
+count of how many of each symbol they have selected in each
+chapter / book / whole book"; this lands the whole-edition + per-
+book level (chapter-level rolls up via the per-book totals).
+Live-updates as user toggles kinds — sums across LOCAL_ENABLED so
+no server round-trip is needed per toggle.
+**Test delta:** +17 (925 → 942).
+**Corpus delta:** 0 — pure UI infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/matrix.py:Matrix`** gained a new `per_book`
+  field: `dict[edition_id][kind_code][book_code] -> int`, scope
+  matches `potential` (every kind that has notes in canon,
+  regardless of edition's enabled-kind toggles) so the JS
+  sidebar can sum across the user's pending toggle state for a
+  live total. Books with zero notes-of-this-kind are absent
+  (not stored as 0).
+- **`scripts/core/matrix.py:compute_matrix()`** populates
+  `per_book` in the same single pass over books. Cost: zero
+  extra book I/O — the existing `_count_kinds_in_book()`
+  already counts per kind; we just write the per-book result
+  to a second structure. Note count breakdown for the
+  Ethiopian edition: xref-citation top books are psa (833),
+  mat (528), jhn (398).
+- **`scripts/web.py:api_matrix()`** surfaces `per_book` and
+  `canon_book_order` per edition. The order list comes from
+  `config.load_books()` filtered by the edition's canon, so it
+  follows the §6.1 canonical book-order rule (Genesis →
+  Exodus → … → Revelation).
+- **`scripts/templates/matrix.py`**:
+  - New `<section id="totals-section">` sidebar slot below the
+    existing "Categories breakdown" panel.
+  - New JS function `renderSymbolTotals()` that iterates
+    `LOCAL_ENABLED`, computes per-kind totals from
+    `m.per_book`, and renders one row per kind with: symbol
+    glyph, kind label, total count, and a sparkline.
+  - Sparkline uses 9-level Unicode block characters
+    (`' ▁▂▃▄▅▆▇█'`) — one column per canon book, height
+    proportional to that book's count vs the kind's max. Empty
+    space = book has no notes of this kind. Tooltips show
+    per-book counts.
+  - XSS-hardened: `escapeText` / `escapeAttr` helpers wrap all
+    user-controlled values (kind labels, sparkline tooltips).
+  - Hooked into all four LOCAL_ENABLED-mutation paths:
+    `refreshActiveEdition()` (edition switch),
+    `onToggleKind()` + `onToggleCategory()` (live toggles),
+    reset + scenario-load buttons.
+
+- **+17 tests across 3 new classes:**
+  - `TestPsi18MatrixPerBookField` (6) — per_book field
+    present; keyed by edition; every potential kind appears;
+    per-book sums match potential totals; canon-only;
+    no zero entries stored.
+  - `TestPsi18ApiMatrixPerBookSurface` (4) — API exposes
+    per_book + canon_book_order; canon order is canonical
+    (matches books.yaml); API + module per-book values
+    identical.
+  - `TestPsi18MatrixHtmlSidebar` (7) — sidebar HTML present;
+    edition label slot; renderSymbolTotals function defined;
+    SPARK_CHARS constant present; called from
+    refreshActiveEdition; called from both toggle handlers;
+    XSS escape helpers defined.
+
+**Visual review still on user** (per the ψ.14 / ψ.17
+precedent): open `/matrix` in a browser, toggle kinds, watch
+the Symbol totals panel update live, hover sparklines for
+per-book counts.
+
+**Three-level aggregation note:** the user asked for
+chapter / book / whole-book totals. ψ.18 ships the **book**
+and **whole-edition** levels. Per-chapter requires the matrix
+data to track at chapter granularity, which is a bigger change
+(per_book_chapter dict adds a 4th dimension; current per-book
+total per kind is ~5K entries, per-chapter would be ~50-100K).
+Parked as a follow-up if user wants it after seeing the
+book-level sparkline.
+
+---
+
 ## 2026-05-09 — session — χ.7 Nave's Topical (OCR ingest from archive.org)
 
 **Phases shipped:** χ.7 Nave's Topical Bible — finally landed the

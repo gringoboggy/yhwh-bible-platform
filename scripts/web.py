@@ -406,6 +406,17 @@ def api_matrix() -> dict:
                 "canon_books_count": len(m.edition_canon_books[ed_id]),
                 "enabled_kinds_count": len(m.edition_enabled_kinds[ed_id]),
                 "enabled_kinds_set": sorted(m.edition_enabled_kinds[ed_id]),
+                # ψ.18: per-kind, per-book counts (potential scope —
+                # all kinds in canon, regardless of enabled state).
+                # The JS sidebar sums across LOCAL_ENABLED for a
+                # live total, and renders the per-book counts as
+                # sparklines.
+                "per_book": m.per_book.get(ed_id, {}),
+                # Canon book order (for sparkline column ordering)
+                "canon_book_order": [
+                    b["code"] for b in config.load_books()
+                    if b["code"] in m.edition_canon_books[ed_id]
+                ],
             }
             for ed_id in m.enabled
         },

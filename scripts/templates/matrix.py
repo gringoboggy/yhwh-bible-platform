@@ -165,6 +165,16 @@ MATRIX_HTML = r"""<!DOCTYPE html>
         <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-2">Categories breakdown</h3>
         <div id="breakdown"></div>
       </section>
+
+      <!-- ψ.18 — per-symbol totals + per-book sparkline -->
+      <section class="bg-white rounded-lg shadow-sm border border-slate-200 p-4" id="totals-section">
+        <h3 class="text-xs uppercase tracking-wide text-slate-500 mb-2">Symbol totals</h3>
+        <div id="totals-edition" class="text-xs text-slate-400 mb-2">whole edition</div>
+        <div id="totals-list" class="space-y-2"></div>
+        <div class="text-xs text-slate-400 mt-3 leading-relaxed">
+          Sparkline shows note distribution across the edition's books in canonical order. Hover for per-book counts.
+        </div>
+      </section>
     </aside>
 
   </div>
@@ -328,6 +338,8 @@ function onToggleKind(code, on) {
   const kind = DATA.kinds.find(k => k.code === code);
   if (kind) updateCategoryCheckbox(kind.category);
   refreshDirtyBanner();
+  // ψ.18 — re-render totals so per-symbol counts reflect the toggle.
+  renderSymbolTotals();
 }
 
 function onToggleCategory(catId, on) {
@@ -351,6 +363,8 @@ function onToggleCategory(catId, on) {
   );
   if (catCheckbox) catCheckbox.indeterminate = false;
   refreshDirtyBanner();
+  // ψ.18 — re-render totals so per-symbol counts reflect the bulk toggle.
+  renderSymbolTotals();
 }
 
 function refreshDirtyBanner() {
@@ -417,6 +431,7 @@ function buildEditionSelector() {
     LOCAL_ENABLED = new Set(SERVER_ENABLED);
     buildBody();
     refreshDirtyBanner();
+    renderSymbolTotals();   // ψ.18 — sidebar reflects reverted state
     document.getElementById('save-status').textContent = 'reverted to last-saved state';
   });
   document.getElementById('save-as-btn').addEventListener('click', saveAsScenario);
@@ -495,6 +510,7 @@ async function loadScenario(name) {
     LOCAL_ENABLED = new Set(data.scenario.enabled_kinds || []);
     buildBody();
     refreshDirtyBanner();
+    renderSymbolTotals();   // ψ.18 — sidebar reflects loaded scenario
     document.getElementById('save-status').innerHTML =
       `<span class="text-blue-700">✓ loaded scenario "${name}" (preview only — Save to commit to active edition, or Save As to keep separate)</span>`;
   } catch (e) {
@@ -575,6 +591,100 @@ function refreshActiveEdition() {
         </div>
       </div>`;
   }).filter(Boolean).join('');
+
+  // ψ.18 — Symbol totals sidebar with per-book sparklines.
+  renderSymbolTotals();
+}
+
+
+// ψ.18 — Render the per-symbol totals + per-book sparkline panel.
+// Reads from m.per_book + m.canon_book_order; iterates LOCAL_ENABLED
+// so live toggles update the totals without a server round-trip.
+//
+// Sparkline encoding: 8-level Unicode block characters
+// (' ▁▂▃▄▅▆▇█') one per book in canonical order. Empty = book
+// has no notes of this kind; full block = book has the most.
+const SPARK_CHARS = ' ▁▂▃▄▅▆▇█';
+
+function renderSymbolTotals() {
+  const m = DATA.matrix[ACTIVE_EDITION];
+  if (!m || !m.per_book) return;
+  const list = document.getElementById('totals-list');
+  if (!list) return;
+
+  const perBook = m.per_book;
+  const canon = m.canon_book_order || [];
+  // Sum across LOCAL_ENABLED (the user's pending toggle state) so
+  // the panel reflects what the edition would ship right now.
+  const enabled = LOCAL_ENABLED;
+  const rows = [];
+
+  // Index kinds by category for grouping; sort by count desc within.
+  const kindRows = [];
+  for (const k of DATA.kinds) {
+    if (!enabled.has(k.code)) continue;
+    const bookCounts = perBook[k.code] || {};
+    let total = 0;
+    let max = 0;
+    for (const c of canon) {
+      const v = bookCounts[c] || 0;
+      total += v;
+      if (v > max) max = v;
+    }
+    if (total === 0) continue;
+    const cat = DATA.categories.find(cc => cc.id === k.category);
+    const symbol = (cat && cat.symbol) || '?';
+    // Build sparkline string (one char per canon book)
+    const chars = [];
+    const tooltips = [];
+    for (const code of canon) {
+      const v = bookCounts[code] || 0;
+      let level = 0;
+      if (max > 0 && v > 0) {
+        // Map 1..max to 1..8 (skip the empty space char)
+        level = Math.min(8, 1 + Math.floor((v / max) * 7));
+      }
+      chars.push(SPARK_CHARS[level]);
+      tooltips.push(`${code}: ${v}`);
+    }
+    kindRows.push({
+      code: k.code,
+      label: k.label,
+      symbol,
+      total,
+      max,
+      sparkline: chars.join(''),
+      tooltip: tooltips.join('  '),
+    });
+  }
+  kindRows.sort((a, b) => b.total - a.total);
+
+  if (kindRows.length === 0) {
+    list.innerHTML = '<div class="text-xs text-slate-400">no kinds enabled</div>';
+    document.getElementById('totals-edition').textContent = 'whole edition';
+    return;
+  }
+
+  document.getElementById('totals-edition').textContent =
+    `whole edition · ${m.total_enabled.toLocaleString()} notes shipping`;
+
+  list.innerHTML = kindRows.map(r => `
+    <div class="flex items-center gap-2 text-xs" title="${escapeAttr(r.tooltip)}">
+      <span class="symbol text-slate-700" style="font-size:1.1em">${r.symbol}</span>
+      <span class="flex-1 truncate text-slate-700" title="${escapeAttr(r.code)}">${escapeText(r.label)}</span>
+      <span class="font-mono text-slate-600 tabular-nums">${r.total.toLocaleString()}</span>
+    </div>
+    <div class="font-mono text-slate-400 leading-none whitespace-nowrap overflow-hidden" title="${escapeAttr(r.tooltip)}" style="font-size:0.7rem;letter-spacing:-0.05em">${escapeText(r.sparkline)}</div>
+  `).join('');
+}
+
+function escapeText(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function escapeAttr(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 }
 
 async function saveActiveEdition() {

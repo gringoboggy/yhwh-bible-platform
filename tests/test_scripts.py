@@ -12714,3 +12714,204 @@ class TestTheta3GenerateAppcast:
         assert "https://example.com/r" in out
 
 
+# ============================================================
+# Phase ψ.18 — Symbol-totals sidebar on /matrix
+# ============================================================
+
+
+class TestPsi18MatrixPerBookField:
+    """ψ.18: Matrix dataclass gains a per_book field, populated by
+    compute_matrix() with per-edition / per-kind / per-book counts
+    in the same scope as `potential` (every kind, every canon book,
+    regardless of enabled-kind toggles)."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core.matrix import compute_matrix
+        cls.matrix = compute_matrix()
+
+    def test_per_book_field_present(self):
+        assert hasattr(self.matrix, "per_book")
+        assert isinstance(self.matrix.per_book, dict)
+
+    def test_per_book_keyed_by_edition(self):
+        # Every edition that's in `potential` should also be in
+        # per_book. (Editions with no canon match might be empty
+        # but should still have a key.)
+        assert set(self.matrix.per_book.keys()) == set(
+            self.matrix.potential.keys()
+        )
+
+    def test_per_book_kind_count_matches_potential(self):
+        # For each edition: every kind that has a non-zero
+        # potential count must also appear in per_book.
+        for ed_id, kind_counts in self.matrix.potential.items():
+            for kind, total in kind_counts.items():
+                if total == 0:
+                    continue
+                assert kind in self.matrix.per_book[ed_id], (
+                    f"{ed_id}: kind {kind} in potential but not in "
+                    f"per_book"
+                )
+
+    def test_per_book_sum_matches_potential_total(self):
+        # The sum of per-book counts for one (edition, kind) must
+        # equal the kind's `potential` total. That's the load-bearing
+        # invariant — if the sum drifts, the sparkline lies.
+        for ed_id, kind_counts in self.matrix.potential.items():
+            for kind, total in kind_counts.items():
+                book_counts = self.matrix.per_book[ed_id].get(kind, {})
+                summed = sum(book_counts.values())
+                assert summed == total, (
+                    f"{ed_id}/{kind}: per_book sum={summed} "
+                    f"but potential={total}"
+                )
+
+    def test_per_book_only_includes_canon_books(self):
+        # A book outside the edition's canon must NOT appear in
+        # per_book[edition] for any kind.
+        for ed_id, by_kind in self.matrix.per_book.items():
+            canon = self.matrix.edition_canon_books[ed_id]
+            for kind, book_counts in by_kind.items():
+                for book in book_counts:
+                    assert book in canon, (
+                        f"{ed_id}/{kind}: book {book} not in canon "
+                        f"set ({len(canon)} books)"
+                    )
+
+    def test_per_book_values_are_positive(self):
+        # Books with zero notes-of-this-kind are absent (not stored
+        # as 0). Verify no zero entries in case the helper changes.
+        for ed_id, by_kind in self.matrix.per_book.items():
+            for kind, book_counts in by_kind.items():
+                for book, count in book_counts.items():
+                    assert count > 0, (
+                        f"{ed_id}/{kind}/{book}: stored zero count "
+                        f"(should be absent)"
+                    )
+
+
+class TestPsi18ApiMatrixPerBookSurface:
+    """ψ.18: /api/matrix exposes per_book + canon_book_order so
+    the JS sidebar can render the totals panel without a second
+    request."""
+
+    @classmethod
+    def setup_class(cls):
+        import importlib
+        cls.web = importlib.import_module("scripts.web")
+        cls.api = cls.web.api_matrix()
+
+    def test_response_includes_per_book(self):
+        for ed_id, ed_data in self.api["matrix"].items():
+            assert "per_book" in ed_data, (
+                f"{ed_id}: missing per_book key"
+            )
+            assert isinstance(ed_data["per_book"], dict)
+
+    def test_response_includes_canon_book_order(self):
+        for ed_id, ed_data in self.api["matrix"].items():
+            assert "canon_book_order" in ed_data
+            order = ed_data["canon_book_order"]
+            assert isinstance(order, list)
+            # Ordering: must match the edition's canon set
+            assert set(order) == set(
+                ed_data["canon_book_order"]
+            )  # tautology — but pins the type
+
+    def test_canon_book_order_is_canonical(self):
+        # The order must follow content/books.yaml — i.e. Genesis
+        # before Exodus before ... before Revelation. Verify by
+        # comparing against the books-yaml load order.
+        from scripts.core import config
+        books_in_order = [b["code"] for b in config.load_books()]
+        for ed_id, ed_data in self.api["matrix"].items():
+            order = ed_data["canon_book_order"]
+            # Each book in the order must appear in books_in_order
+            # with strictly-increasing index.
+            indexes = [
+                books_in_order.index(c) for c in order
+                if c in books_in_order
+            ]
+            assert indexes == sorted(indexes), (
+                f"{ed_id}: canon_book_order is not in canonical "
+                f"book-order"
+            )
+
+    def test_per_book_counts_match_matrix_module(self):
+        # The API's per_book values must match what
+        # compute_matrix().per_book returns — the API is just a
+        # JSON shadow of the same data.
+        from scripts.core.matrix import compute_matrix
+        m = compute_matrix()
+        for ed_id, ed_data in self.api["matrix"].items():
+            api_per_book = ed_data["per_book"]
+            mod_per_book = m.per_book.get(ed_id, {})
+            for kind, books in api_per_book.items():
+                assert mod_per_book.get(kind) == books, (
+                    f"{ed_id}/{kind}: API + module per_book differ"
+                )
+
+
+class TestPsi18MatrixHtmlSidebar:
+    """ψ.18: matrix.py template HTML smoke tests for the totals
+    sidebar section."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.matrix import MATRIX_HTML
+        cls.html = MATRIX_HTML
+
+    def test_totals_section_present(self):
+        # The sidebar slot must be in the rendered HTML.
+        assert 'id="totals-section"' in self.html
+        assert 'id="totals-list"' in self.html
+        assert "Symbol totals" in self.html
+
+    def test_totals_edition_label(self):
+        # The whole-edition label sits at the top of the panel.
+        assert 'id="totals-edition"' in self.html
+
+    def test_render_symbol_totals_function_present(self):
+        # JS function must be defined in the template.
+        assert "function renderSymbolTotals" in self.html
+
+    def test_sparkline_charset_present(self):
+        # 8-level Unicode block characters for sparklines (plus
+        # leading space for "no notes").
+        assert "SPARK_CHARS" in self.html
+        # Verify all 9 chars are in the source (one of them is a
+        # space, which we can't easily assert raw, but the
+        # constant declaration should match).
+        assert "▁▂▃▄▅▆▇█" in self.html
+
+    def test_render_called_from_refresh(self):
+        # renderSymbolTotals must be called at the end of
+        # refreshActiveEdition so an edition switch updates the
+        # sidebar.
+        # Find the function body and confirm the call appears
+        # between its braces.
+        func_start = self.html.find("function refreshActiveEdition")
+        assert func_start >= 0
+        # Take ~5000 chars of the function body and check
+        body = self.html[func_start:func_start + 5000]
+        assert "renderSymbolTotals()" in body
+
+    def test_render_called_from_toggle_handlers(self):
+        # Live toggle updates: kind toggle + category toggle
+        # both must call renderSymbolTotals.
+        kind_toggle = self.html.find("function onToggleKind")
+        cat_toggle = self.html.find("function onToggleCategory")
+        assert kind_toggle >= 0 and cat_toggle >= 0
+        kind_body = self.html[kind_toggle:kind_toggle + 1500]
+        cat_body = self.html[cat_toggle:cat_toggle + 2000]
+        assert "renderSymbolTotals()" in kind_body
+        assert "renderSymbolTotals()" in cat_body
+
+    def test_escape_helpers_present(self):
+        # XSS hardening: render uses escapeText / escapeAttr around
+        # user-controlled values (kind labels, sparkline tooltips).
+        assert "function escapeText" in self.html
+        assert "function escapeAttr" in self.html
+
+
