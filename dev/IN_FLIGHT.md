@@ -4,8 +4,46 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.7-A four new built-in editions**
-shipped 2026-05-09. Pure data-only edits to `content/editions.yaml`;
+*(none — tracker is idle. **ω.15.2 exhaustive plan audit + matrix
+flow restructure** shipped 2026-05-09. User-directive completeness
+audit produced 32 new phases + 1 structural restructure
+(MATRIX-SIDEBAR → MATRIX-VIEW + MATRIX-EDIT cluster split). Open
+ledger grew 52 → 84 phases. plan_coherence linter tracks 29
+Depends references with zero drift.
+
+End state: 997 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 84 open phases.
+
+**Audit produced 32 new phases across 4 families:**
+
+- **Matrix flow** (8 phases ψ.26-33) — bulk ops, scenarios/presets,
+  search/filter, undo/redo + keyboard help, accessibility/mobile,
+  per-book overrides UI integration, compare-editions view,
+  print/PDF view + save-diff-preview
+- **Security depth** (8 phases ξ.8-15) — rate limiting, SRI for
+  CDN, SSRF allowlist, pip-audit, bandit SAST, audit log, OS
+  keychain, AI content sandboxing
+- **Tools** (8 phases ω.18-25) — lint --fix, schema validator,
+  build cache, watch mode, migration framework, lint perf,
+  prospect REPL, bulk rename
+- **Cleanup** (8 phases ω.26-33) — dead code, test consolidation,
+  backup retention, content health checker, cache audit, mypy,
+  docstring coverage, ruff format
+
+**Structural restructure:** split MATRIX-SIDEBAR cluster into
+MATRIX-VIEW (visualization surface: ψ.18.2, ψ.20, ψ.33) and new
+MATRIX-EDIT (interaction flow: ψ.26-32). Future Claude planning a
+matrix session can pick a cluster and stay bandwidth-efficient.
+
+Next per the recommended 5-session sequence: **ψ.7-B** template
+starter packs. Spec at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md` §2.
+
+---
+
+## Prior task
+
+**ψ.7-A four new built-in editions** shipped 2026-05-09. Pure data-only edits to `content/editions.yaml`;
 dropdown grew 5 → 9 traditions. Each new edition yields 32K-36K
 enabled notes from the existing 51,394-note corpus through new
 canon ∩ kind combinations.

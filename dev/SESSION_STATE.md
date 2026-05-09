@@ -1,7 +1,28 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.7-A four new built-in editions**
-shipped — added eastern-orthodox, anglican-bcp,
+**Updated:** 2026-05-09, after **ω.15.2 exhaustive plan audit**
+shipped — completeness audit per user direction; found 32 missing
+improvement opportunities across 4 families and folded them all
+into PLAN_2026-05-09.md. Plus structural restructure: split
+MATRIX-SIDEBAR cluster into **MATRIX-VIEW** (visualization:
+ψ.18.2, ψ.20, ψ.33) and **MATRIX-EDIT** (interaction flow:
+ψ.26-32). Open ledger grew 52 → **84 phases**. Phases added:
+**Matrix flow** (8: ψ.26 bulk ops, ψ.27 scenarios, ψ.28 search,
+ψ.29 undo+keyboard help, ψ.30 a11y+mobile, ψ.31 per-book overrides,
+ψ.32 compare-editions, ψ.33 print PDF + save-diff preview);
+**Security depth** (8: ξ.8 rate limiting, ξ.9 SRI, ξ.10 SSRF
+allowlist, ξ.11 pip-audit, ξ.12 bandit, ξ.13 audit log, ξ.14 OS
+keychain, ξ.15 AI content sandbox); **Tools** (8: ω.18 lint --fix,
+ω.19 schema validator, ω.20 build cache, ω.21 watch, ω.22 migrations
+framework, ω.23 lint --profile, ω.24 prospect REPL, ω.25 bulk
+rename); **Cleanup** (8: ω.26 dead code, ω.27 test split, ω.28
+backup retention, ω.29 content health, ω.30 cache audit, ω.31
+mypy, ω.32 docstring coverage, ω.33 ruff format). Pure planning
+work; no code change. plan_coherence linter tracks 29 Depends
+references — all resolve. **997 / 997 tests green; 11/11 linter
+clean.**
+
+Prior ship: **ψ.7-A four new built-in editions** — added eastern-orthodox, anglican-bcp,
 lutheran-confessional, coptic-orthodox to `content/editions.yaml`.
 The dropdown grows from 5 → 9 traditions. Pure data-only edits
 per CLAUDE_PROJECT_RULES §9 "Add a new edition feature"; existing
@@ -281,7 +302,66 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.7-A four new built-in editions
+## Current phase: ω.15.2 exhaustive plan audit + 32 new phases
+
+User directive: "make sure the plan and scope don't allow for
+further improvement of the matrix or any tools/security
+measures/cleanup... on all levels of the matrix... and then if
+there are opportunities of improving the flow of the matrix —
+recalculate plan structure again". Audit produced 32 missing
+phases + 1 structural restructure (cluster split).
+
+```
+✓ dev/PLAN_2026-05-09.md                Open ledger grew 52 → 84
+                                        phases. §6 ordering table
+                                        ~50 rows. §8 cluster
+                                        matrix grew from 16 → 17
+                                        with MATRIX-SIDEBAR split
+                                        into MATRIX-VIEW +
+                                        MATRIX-EDIT.
+✓ Matrix flow phases shipped to plan    8 new phases (ψ.26-33)
+                                        addressing real
+                                        interaction-design gaps:
+                                        bulk ops (ψ.26),
+                                        scenarios (ψ.27),
+                                        search/filter (ψ.28),
+                                        undo + keyboard help
+                                        (ψ.29), accessibility +
+                                        mobile (ψ.30), per-book
+                                        overrides UI (ψ.31),
+                                        compare-editions (ψ.32),
+                                        print/PDF + save-diff
+                                        preview (ψ.33).
+✓ Security depth phases                 8 new ξ.* phases (ξ.8-15):
+                                        rate limit, SRI, SSRF,
+                                        pip-audit, bandit, audit
+                                        log, OS keychain, AI
+                                        content sandbox.
+✓ Tools phases                          8 new ω.* phases (ω.18-25):
+                                        lint --fix, schema
+                                        validator, build cache,
+                                        watch mode, migrations
+                                        framework, lint perf,
+                                        prospect REPL, bulk rename.
+✓ Cleanup phases                        8 new ω.* phases (ω.26-33):
+                                        dead code, test split,
+                                        backup retention, content
+                                        health, cache audit,
+                                        mypy, docstring coverage,
+                                        ruff format.
+~ Tests / lint                          unchanged: 997 tests,
+                                        11/11 linter clean.
+                                        plan_coherence sub-checks
+                                        all pass with 84 open + 29
+                                        Depends references all
+                                        resolved.
+~ Corpus delta                          0 — pure planning + audit.
+```
+
+Next per the recommended 5-session sequence: **ψ.7-B** template
+starter packs (now next on SHORT track after ψ.7-A shipped).
+
+## Prior phase: ψ.7-A four new built-in editions
 
 The dropdown grows from 5 → 9 traditions. Pure data-only edits
 to `content/editions.yaml`; the existing 5 editions stay unchanged.

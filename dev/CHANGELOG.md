@@ -6,6 +6,213 @@
 
 ---
 
+## 2026-05-09 — session — ω.15.2 exhaustive plan audit + 32 new phases
+
+**Phases shipped:** ω.15.2 — exhaustive completeness audit per
+user direction ("make sure the new final product plan and scope
+don't allow for further improvement of the matrix or any tools /
+security measures / cleanup... on all levels"). Found 32 missing
+improvement opportunities, all folded into PLAN_2026-05-09.md.
+Plus structural restructure: split MATRIX-SIDEBAR cluster into
+**MATRIX-VIEW** (visualization) and **MATRIX-EDIT** (interaction
+flow) since the matrix has enough flow improvements that
+treating them as one cluster would obscure the bandwidth-batching
+the cluster matrix is meant to enable.
+**Test delta:** 0 (still 997).
+**Linter delta:** still 11/11; plan_coherence now tracks 84 open
+phases (was 52) and 29 Depends references (was 18), all resolved.
+**Save tag this session:** pending.
+
+What landed in PLAN_2026-05-09.md:
+
+### Matrix flow phases (8 — restructured into new MATRIX-EDIT cluster)
+
+- **ψ.26** Matrix bulk operations — Shift+click range select +
+  drag-select + per-kind "apply to all editions" button. Solves
+  the 9-edition-scaling friction (toggling one kind across 9
+  editions is currently 9 clicks).
+- **ψ.27** Matrix scenarios + import/export YAML — promotes the
+  minimal scenario-load infra to first-class. 7 named built-in
+  scenarios (minimal, devotional, academic, scholarly, mvp-launch,
+  full-corpus, family) plus YAML export/import for portability.
+- **ψ.28** Matrix search-and-filter — type-ahead filter over
+  60+ kinds. `/` keyboard shortcut focuses the input.
+- **ψ.29** Matrix undo/redo + keyboard help overlay — Cmd+Z
+  stack bounded at 50 entries; `?` shows shortcut reference.
+- **ψ.30** Matrix accessibility + mobile responsive — ARIA
+  roles + screen-reader navigation; tablet workflow via
+  per-edition tabbed view at narrow viewports.
+- **ψ.31** Matrix per-book overrides UI integration — bring
+  /customize per-book overrides into /matrix as a fourth
+  dimension on the existing kind cells.
+- **ψ.32** Matrix compare-editions side-by-side — pick 2
+  editions, see only their differences. Powers retail decisions
+  ("we already ship X; would adding Y duplicate effort?").
+- **ψ.33** Matrix print/PDF view + save-diff preview — render
+  matrix to PDF for editorial sign-off; pre-save modal shows
+  what's about to change. (MATRIX-VIEW cluster — visualization
+  surface, not interaction.)
+
+### Security depth phases (8)
+
+- **ξ.8** Rate limiting on API endpoints (forward-looking for
+  cloud era; no-op on localhost desktop).
+- **ξ.9** Subresource integrity for Tailwind CDN — SRI hashes
+  on every console template's `<script src="...">`.
+- **ξ.10** SSRF / outbound URL allowlist on
+  scripts.core.http.get — declared per call site.
+- **ξ.11** Dependency vulnerability scan via pip-audit in
+  pre-commit; .audit-waivers.yaml for known-acceptable transitives.
+- **ξ.12** SAST static analysis via bandit; explicit
+  `# nosec: <reason>` on legitimate uses.
+- **ξ.13** Audit log — append-only NDJSON of every mutation
+  (timestamp + endpoint + diff hash). Pairs with ω.16 snapshots.
+- **ξ.14** OS keychain for ANTHROPIC_API_KEY — keyring library
+  wrapper; env var fallback preserved.
+- **ξ.15** AI-generated content sandboxing — strict allowlist
+  HTML sanitizer for χ-AI-notes output. Companion safety phase
+  to χ-AI-notes itself.
+
+### Tools phases (8)
+
+- **ω.18** Lint auto-fix mode — `lint_rules.py --fix` auto-
+  corrects safe drift (cross-link gaps, encoder order, freshness
+  stamps, plan-open-but-shipped, doc references).
+- **ω.19** Schema validator CLI — Pydantic-style spec for every
+  YAML in content/. Composed into pre-commit.
+- **ω.20** Build cache / incremental rebuild — content-addressable
+  hash key per edition. Saves 30-90s/edition on multi-edition
+  builds when only one changed.
+- **ω.21** Watch mode — watchdog-based file watcher for the dev
+  loop; runs lint + cached rebuild on save.
+- **ω.22** Migration scripts framework — versioned, idempotent,
+  reversible migrations under scripts/migrations/. Backfills the
+  existing migrate_to_user_data.py + backfill_traditions.py as
+  0001 + 0002.
+- **ω.23** Lint perf profile — `--profile` flag reports per-check
+  timing.
+- **ω.24** Interactive prospect REPL — terminal Q&A wizard for
+  candidate creation; companion to /sources web upload.
+- **ω.25** Bulk rename / refactor tool — atomic kind-code or
+  category-id renames across content/ + kinds.yaml + editions.yaml +
+  templates.
+
+### Cleanup phases (8)
+
+- **ω.26** Dead code removal sweep — vulture + unused-imports
+  audit; cleanup PR.
+- **ω.27** Test fixture consolidation — split tests/test_scripts.py
+  (13K+ lines) into tests/test_<area>.py files. ~4-5 PRs by
+  coherent area.
+- **ω.28** Backup retention policy — per-category retention
+  windows in `content/.backup_retention.yaml`.
+- **ω.29** Content directory health checker — every notes/*.py
+  parses; every translations/*/_meta.yaml is valid; every
+  cover_image referenced exists.
+- **ω.30** Cache invalidation audit — every `@lru_cache` in
+  scripts/ has a documented clear path + correct key shape.
+- **ω.31** Type-checking sweep (mypy or pyright) — strict-optional
+  + no-untyped-defs initial pass; pre-commit gates new errors in
+  changed files.
+- **ω.32** Docstring coverage — interrogate-based audit; pin
+  ≥80% on scripts/core/ + scripts/web.py.
+- **ω.33** Format consistency (ruff format) — single one-shot
+  format pass; pre-commit keeps it stable. Use `git blame`
+  ignore-revs for the format commit.
+
+### Structural restructure: MATRIX-SIDEBAR → MATRIX-VIEW + MATRIX-EDIT
+
+The matrix has enough flow improvements that treating them as one
+cluster obscures the natural batching boundary. Split:
+
+  - **MATRIX-VIEW** (visualization surface): ψ.18.2, ψ.20, ψ.33
+    — sidebar panels, density visuals, print/export. Touches
+    `scripts/templates/matrix.py` (sidebar) + `scripts/core/matrix.py`
+    + `scripts/web.py:api_matrix`.
+  - **MATRIX-EDIT** (interaction flow): ψ.26, ψ.27, ψ.28, ψ.29,
+    ψ.30, ψ.31, ψ.32 — selection state, scenarios, search,
+    undo, accessibility, per-book overrides, compare. Touches
+    `scripts/templates/matrix.py` (handlers + ARIA) + new YAML
+    config + new API surfaces.
+
+A future Claude planning a matrix-related session can pick a
+cluster (visualization vs interaction) and stay bandwidth-efficient.
+
+### §6 ordering table — 32 new rows
+
+Each new phase has a one-line entry in §6 mapping
+session-bandwidth → phase. Total table now ~50 rows; reading
+chronologically gives the current full surface.
+
+### Ledger updates in §7
+
+  - Open block grew **52 → 84 phases** (+32):
+    SHORT  17 (was 12, +5 matrix flow)
+    MEDIUM 27 (was 24, +3 matrix flow)
+    LONG   11 (unchanged)
+    HARDENING 29 (was 7, +8 ξ + 8 tools + 8 cleanup = +24)
+    RELEASE 1 (unchanged)
+  - All 29 Depends: references in the new entries resolve to
+    known phase ids per the plan_depends linter.
+
+End state: **997 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 84 open phases tracked**.
+
+Notable findings during the audit:
+
+- **The matrix had ~17 flow improvement opportunities** — not
+  just feature gaps but real interaction-design gaps (no undo, no
+  bulk apply, no search). Bundled into 8 phases (ψ.26-33) with
+  natural sub-clustering.
+- **Security had 8 real depth gaps** that the existing ξ.1/2/4
+  basics didn't cover (rate limiting, SRI, SSRF, deps audit, SAST,
+  audit log, secrets, AI sandbox). Each is a 0.5-1 session phase.
+- **The codebase has matured enough that cleanup phases
+  (ω.26-33) are warranted.** Test file is 13K lines; would benefit
+  from area-based splitting. mypy/pyright would catch a class
+  of bugs the test suite misses. Ruff format would fix the
+  long-tail consistency drift.
+- **The plan-coherence linter pulled its weight again** — caught
+  the v1.0.0 Depends-not-resolving issue immediately when the
+  phase was renamed; flagged ψ.7-A's open→shipped move minutes
+  after the ship; now tracks 29 Depends references with zero
+  drift.
+
+Notable decisions:
+
+- **Did NOT spec the new phases inline.** Each new phase has
+  its full entry in §5 with Status / Depends / Unblocks /
+  Effort / Files / Cluster fields. Per the project convention
+  (most ψ.* / ω.* / ξ.* phases ship without standalone SCOPE
+  docs), addenda will be written when each phase actually
+  ships.
+- **Added MATRIX-EDIT as a new cluster** rather than expanding
+  MATRIX-SIDEBAR. The two surfaces differ structurally:
+  MATRIX-VIEW touches sidebar HTML + view-side data shapes;
+  MATRIX-EDIT touches handler logic + selection state + new
+  API endpoints. Distinct file overlaps; distinct natural
+  bundle boundaries.
+- **Some cleanup phases (ω.31 mypy, ω.27 test split) are MED
+  risk** because they involve mass changes. Each documented
+  with a risk-mitigation strategy (ship as dedicated PR with
+  zero logic changes; use git blame ignore-revs for format
+  commits; etc.).
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5 (84 open phase entries),
+  §7 (cluster matrix with MATRIX-VIEW + MATRIX-EDIT split),
+  §8 (every cluster + its files)
+- `dev/SCOPE_2026-05-09-addendum-edition-templates.md` — ψ.7-A/B
+  spec (sibling)
+- `dev/SCOPE_2026-05-09-addendum-ai-notes.md` — χ-AI-notes spec
+  (gives ξ.15 something to sandbox)
+
+Next session per the recommended sequence: **ψ.7-B** template
+starter packs.
+
+---
+
 ## 2026-05-09 — session — ψ.7-A four new built-in editions
 
 **Phases shipped:** ψ.7-A — added 4 new built-in editions to
