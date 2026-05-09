@@ -1,17 +1,43 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.18 matrix-totals sidebar**
-shipped — user-requested feature to "keep count of how many of
-each symbol they have selected in each chapter / book / whole
-book". Lands whole-edition + per-book levels via a new
-`Matrix.per_book` field (per-edition / per-kind / per-book
-counts) populated in `compute_matrix()`'s existing single-pass
-loop, surfaced via `/api/matrix`'s extended response, rendered
-on /matrix's empty sidebar slot as a per-symbol list with
-9-level Unicode block-character sparklines (one column per
-canon book). Live-updates as user toggles kinds — JS sums
-across LOCAL_ENABLED so no server round-trip per toggle.
-+17 tests; 942 / 942 green; 10/10 linter clean.
+**Updated:** 2026-05-09, after **ψ.15 editor-console polish**
+shipped — applied the ψ.13 design system (`HEADER_NAV_LINKS`
+from `_design.CONSOLES`) + ψ.14 buyer-arc polish CSS (focus
+rings, 150ms transitions, button :active scale-down, dirty
+pill, step fade-in) to the 5 editor consoles: /customize,
+/publisher, /covers, /matrix, /sources. Same substitution
+pattern as ψ.14 — markers in raw template + `.replace()` at
+module bottom. With ψ.15 landed, all 8 ψ.13/ψ.14 consumers
+share a single source of truth for cross-link nav + buyer-arc
+polish. Side-effect: nav labels uniform across all 13 consoles
+(was hand-rolled "matrix" inline, now "symbol matrix" via
+_design). +11 tests; 971 / 971 green; 10/10 linter clean.
+
+Prior ship: **ψ.18.1 matrix-totals chapter drilldown** —
+finishes the third level of the user's "chapter / book /
+whole-book" ask from ψ.18 (which delivered only two). Each
+kind row in the totals sidebar is now a clickable `<details>`
+drilldown that expands to show top-5 books with full-width
+per-chapter sparklines + a "X chapters · Y books" stat. New
+`Matrix.per_chapter` field (per-edition / per-kind / per-book
+/ per-chapter counts) populated in the same single-pass loop
+in `compute_matrix()` (zero extra book I/O). `/api/matrix`
+surfaces `per_chapter` + new `book_chapter_counts` so the
+chapter sparkline knows each book's full width from books.yaml's
+ch_count. +18 tests; 960 / 960 green; 10/10 linter clean.
+
+Prior ship: **ψ.18 matrix-totals sidebar** — user-requested
+feature to "keep count of how many of each symbol they have
+selected in each chapter / book / whole book". Lands whole-
+edition + per-book levels via a new `Matrix.per_book` field
+(per-edition / per-kind / per-book counts) populated in
+`compute_matrix()`'s existing single-pass loop, surfaced via
+`/api/matrix`'s extended response, rendered on /matrix's empty
+sidebar slot as a per-symbol list with 9-level Unicode block-
+character sparklines (one column per canon book). Live-updates
+as user toggles kinds — JS sums across LOCAL_ENABLED so no
+server round-trip per toggle. +17 tests; 942 / 942 green; 10/10
+linter clean.
 
 Prior ship: **χ.7 Nave's Topical (OCR ingest)** — first ψ-style
 ingest project this session, yielding — first ψ-style ingest project this session, yielding
@@ -187,7 +213,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 925 tests · 10/10 linter · 5 editions · 36,022 notes (v1.0 floor met)
+13 consoles · 971 tests · 10/10 linter · 5 editions · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -214,7 +240,89 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.18 matrix-totals sidebar shipped
+## Current phase: ψ.15 editor-console polish shipped
+
+Applied the ψ.13 design system + ψ.14 buyer-arc polish CSS to
+the 5 editor consoles (/customize, /publisher, /covers, /matrix,
+/sources). All 8 ψ.13/ψ.14 consumers now share one source of
+truth for cross-link nav + buyer-arc polish.
+
+```
+✓ scripts/templates/customize.py        imports HEADER_NAV_LINKS
+                                        + BUYER_ARC_POLISH_CSS
+                                        from _design; markers
+                                        substituted at module
+                                        bottom; flex-wrap added.
+✓ scripts/templates/publisher.py        same pattern.
+✓ scripts/templates/covers.py           same pattern; preserved
+                                        the console-specific
+                                        max-w-6xl wrapper +
+                                        E-Bible brand strong.
+✓ scripts/templates/matrix.py           same pattern alongside
+                                        ψ.18 totals + ψ.18.1
+                                        drilldown (no interaction).
+✓ scripts/templates/sources.py          same pattern.
+✓ tests/test_scripts.py                 +11 tests across 2 classes:
+                                        - TestPsi15EditorConsoleHeaderNavSubstitution (7)
+                                        - TestPsi15EditorConsoleBuyerArcPolishCSS (4)
+~ Side-effect                           nav labels uniform — was
+                                        "matrix" hand-rolled, now
+                                        "symbol matrix" via
+                                        _design.CONSOLES.
+~ Corpus delta                          0 — pure UI infrastructure.
+                                        Visual review on user:
+                                        tab through nav rings,
+                                        click buttons for :active
+                                        scale, resize narrow for
+                                        flex-wrap.
+```
+
+## Prior phase: ψ.18.1 matrix-totals chapter drilldown shipped
+
+Closes the loop on the user's "chapter / book / whole-book"
+ask from ψ.18: the third resolution (per-chapter) is now live
+as a clickable drilldown in each kind row. Top-5 books per kind
+get full-width chapter sparklines plus a "X chapters · Y books"
+stat. Closed kind rows look identical to ψ.18; the drilldown
+is opt-in.
+
+```
+✓ scripts/core/matrix.py                Matrix dataclass gained
+                                        a per_chapter field
+                                        (ed → kind → book → ch
+                                        → count, potential scope).
+                                        _count_kinds_in_book now
+                                        returns (totals, per_chapter)
+                                        — zero extra book I/O.
+✓ scripts/web.py                        api_matrix() surfaces
+                                        per_chapter + book_chapter
+                                        _counts (from books.yaml's
+                                        ch_count, scoped to canon).
+✓ scripts/templates/matrix.py           kind rows wrapped in
+                                        <details class="psi181-
+                                        drilldown">; body shows
+                                        top-5 books with full-
+                                        width chapter sparklines
+                                        (1..book_chapter_counts);
+                                        "+ N more books" line for
+                                        kinds spanning >5 books;
+                                        CSS suppresses global
+                                        ::before arrow + rotates
+                                        inline .psi181-arrow
+                                        on [open].
+✓ tests/test_scripts.py                 +18 tests across 3 classes:
+                                        - TestPsi181MatrixPerChapterField (7)
+                                        - TestPsi181ApiMatrixPerChapterSurface (4)
+                                        - TestPsi181MatrixHtmlChapterDrilldown (7)
+~ Corpus delta                          0 — pure UI infrastructure.
+                                        Visual review on user:
+                                        open /matrix in browser,
+                                        toggle kinds, expand a
+                                        kind row to see chapter
+                                        sparklines and stat.
+```
+
+## Prior phase: ψ.18 matrix-totals sidebar shipped
 
 User-requested feature: see per-symbol counts at the whole-
 edition + per-book levels with a per-book sparkline. Lives on

@@ -6,6 +6,168 @@
 
 ---
 
+## 2026-05-09 — session — ψ.15 editor-console polish
+
+**Phases shipped:** ψ.15 — applied the ψ.13 design system
+(`HEADER_NAV_LINKS` from `_design.CONSOLES`) and ψ.14 buyer-arc
+polish CSS (focus rings, 150ms transitions, button :active
+scale-down, .psi14-pending dirty pill, step fade-in keyframe) to
+the 5 editor consoles: /customize, /publisher, /covers, /matrix,
+/sources. Same substitution pattern as ψ.14's three buyer-arc
+consoles — `<!-- HEADER_NAV_LINKS -->` and `<!-- BUYER_ARC_POLISH_CSS -->`
+markers in raw template, replaced at module bottom. With ψ.15
+landed, all 8 ψ.13 design-system + ψ.14 polish consumers (compare,
+wizard, export, customize, publisher, covers, matrix, sources)
+share a single source of truth for their cross-link nav and
+buyer-arc polish.
+**Test delta:** +11 (960 → 971).
+**Corpus delta:** 0 — pure UI infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/customize.py`** — imports `HEADER_NAV_LINKS`
+  + `BUYER_ARC_POLISH_CSS` from `_design`. Hand-rolled 13-link
+  nav (with the empty line between /preflight and /ops) replaced
+  by `    <!-- HEADER_NAV_LINKS -->` marker; `</style>` block
+  followed by `<!-- BUYER_ARC_POLISH_CSS -->` marker. Module-bottom
+  `.replace()` substitutes the marker with the canonical link
+  list at import time. Outer flex div gained `flex-wrap` so the
+  longer nav wraps gracefully on narrow viewports.
+- **`scripts/templates/publisher.py`** — same pattern as customize.
+- **`scripts/templates/covers.py`** — same pattern; preserved
+  the console-specific structural `<strong class="text-base">E-Bible</strong>`
+  brand mark + `max-w-6xl mx-auto` wrapper width. Note: covers
+  previously had no /matrix link (used `/` for matrix per the
+  §6.2 documented exception). Substitution adds the canonical
+  /matrix link too — matches the linter's expectation that every
+  console's nav references every other.
+- **`scripts/templates/matrix.py`** — same pattern; sits alongside
+  ψ.18 totals-section + ψ.18.1 chapter drilldown (no interaction
+  between phases — ψ.15 only touches header nav + body polish CSS).
+- **`scripts/templates/sources.py`** — same pattern.
+- **Side-effect: nav labels become uniform**. Previously
+  customize/publisher/covers used `<a>...matrix</a>` (4 chars);
+  now all 8 ψ.13-consuming consoles use `>symbol matrix<` per
+  `_design.CONSOLES`. The hand-rolled font-semibold span on
+  /covers (`<span class="font-semibold">covers</span>`) is now a
+  proper `<a>` tag with the same visual weight.
+- **`tests/test_scripts.py`** — +11 tests across 2 new classes:
+  `TestPsi15EditorConsoleHeaderNavSubstitution` (7) covers marker
+  replacement, polish-CSS marker replacement, current-console
+  font-semibold marker, other-console text-blue-600 styling,
+  every-console route present, canonical "symbol matrix" label
+  rides through, and the import surface (HEADER_NAV_LINKS +
+  BUYER_ARC_POLISH_CSS imported from _design);
+  `TestPsi15EditorConsoleBuyerArcPolishCSS` (4) covers focus-visible
+  outline, button :active scale feedback, .psi14-pending pill,
+  psi14StepFadeIn keyframe.
+- **`scripts/lint_rules.py`** — no change needed. The cross-link
+  invariant linter already iterates `_design.CONSOLES` (per ψ.14),
+  and now finds 8 consoles using the same source-of-truth instead
+  of 3.
+
+End state: **971 tests green, 10/10 linter clean, 51,394 notes**.
+
+Visual review on user (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /customize, /publisher, /covers, /matrix, /sources.
+    # Tab through to verify focus rings.
+    # Click buttons to feel the 75ms :active scale-down.
+    # Resize narrow to confirm flex-wrap on the longer navs.
+    # Verify the nav order matches across all 13 consoles.
+
+Notable decisions:
+
+- **Did NOT do f-string conversion** (ψ.13.5's deferred work).
+  Kept the same `r"""..."""` raw-string template + `.replace()`
+  approach as ψ.14 — diff stays inspectable; regression risk
+  stays low. ψ.13.5 remains the natural follow-up if the user
+  wants a denser interpolation surface across all consumers.
+- **covers.py's structural difference preserved.** Other editor
+  consoles use `flex items-center justify-between`; covers uses
+  `max-w-6xl mx-auto px-4 py-3 flex items-baseline gap-4`. The
+  baseline/center alignment + width difference is intentional
+  (the brand strong + smaller header reads as a different surface
+  type — covers is more of an asset gallery than an editor).
+  ψ.15 added `flex-wrap` to the wrapper but kept the rest.
+
+---
+
+## 2026-05-09 — session — ψ.18.1 matrix-totals chapter drilldown
+
+**Phases shipped:** ψ.18.1 — finishes the third level of the user's
+"chapter / book / whole-book" ask from ψ.18 (which delivered only
+two). Each kind row in the totals sidebar is now a `<details>`
+drilldown — click to expand and see top-5 books with full-width
+per-chapter sparklines, plus a "X chapters · Y books" stat.
+**Test delta:** +18 (942 → 960).
+**Corpus delta:** 0 — pure UI infrastructure.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/matrix.py:Matrix`** gained a `per_chapter` field:
+  `dict[edition_id][kind_code][book_code][chapter_int] -> int`.
+  Same `potential` scope as `per_book` so the JS can drill down
+  without a round-trip. Chapters with zero notes-of-this-kind are
+  absent (not stored as 0). Chapter keys are ints in Python; JSON
+  serialization promotes them to strings (the JS handles both).
+- **`scripts/core/matrix.py:_count_kinds_in_book()`** now returns
+  a `(totals, per_chapter)` tuple instead of just totals. The
+  helper already iterates every note tuple — adding the
+  per-chapter accumulator is zero extra I/O. `compute_matrix()`
+  is the only caller; tuple-unpack handles it.
+- **`scripts/web.py:api_matrix()`** surfaces `per_chapter` and a
+  new `book_chapter_counts` dict (`book_code -> ch_count`,
+  scoped to the edition's canon, sourced from books.yaml's
+  `ch_count`) so the chapter sparkline knows each book's full
+  width and renders accurate trailing zeros.
+- **`scripts/templates/matrix.py`** — sidebar `renderSymbolTotals()`:
+  - Each kind row is now wrapped in
+    `<details class="psi181-drilldown">`. The summary keeps the
+    existing layout (arrow + symbol + label + total + per-book
+    sparkline); the body shows top-5 books with chapter
+    sparklines plus a "X chapters · Y books" stat.
+  - Chapter sparkline iterates `1..book_chapter_counts[code]` so
+    trailing chapters with no notes still render as empty cells —
+    visual rhythm matches the book's actual length.
+  - "+ N more books" italic line appears when a kind spans more
+    than 5 books (avoids unbounded sidebar growth).
+  - CSS suppresses the global `details > summary::before` arrow
+    for `.psi181-drilldown` (which conflicts with the inline
+    flex-item arrow) and rotates the inline `.psi181-arrow` span
+    on `[open]`.
+- **`tests/test_scripts.py`** — +18 tests across 3 new classes:
+  `TestPsi181MatrixPerChapterField` (7) covers field presence,
+  edition-key parity, per_book/per_chapter book-set subset,
+  chapter-sum-equals-book-total invariant (load-bearing — drift
+  here means the drilldown lies), int-key invariant, positive-
+  values invariant, canon-respect; `TestPsi181ApiMatrixPerChapterSurface`
+  (4) covers API key presence, book_chapter_counts shape, JSON-
+  shadow equivalence, books.yaml cross-check;
+  `TestPsi181MatrixHtmlChapterDrilldown` (7) covers drilldown
+  CSS class presence, global-arrow suppression rule, inline-arrow
+  rotation rule, renderer-consumes-per_chapter, book ch_count
+  iteration, summary-stat presence, top-N constant pinned.
+
+End state: **960 tests green, 10/10 linter clean, 51,394 notes**.
+
+User asked for three resolution levels (chapter / book / whole-
+book); ψ.18 + ψ.18.1 together deliver all three. ψ.18.1 keeps the
+existing ψ.18 layout intact — kind rows look the same closed; the
+drilldown is opt-in.
+
+Visual review on user (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /matrix; expand a kind row to see chapter sparklines.
+    # Verify spark fills 1..ch_count for each top-5 book.
+    # Verify "+ N more books" appears for kinds that span many books.
+
+---
+
 ## 2026-05-09 — session — ψ.18 matrix-totals sidebar
 
 **Phases shipped:** ψ.18 — per-symbol totals sidebar on /matrix

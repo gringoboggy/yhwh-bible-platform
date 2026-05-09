@@ -366,6 +366,12 @@ def api_matrix() -> dict:
     cats = config.load_categories()
     kinds = config.load_kinds()
     editions = config.load_editions()
+    # ψ.18.1: per-book chapter counts (from books.yaml's ch_count)
+    # so the JS sidebar can render full-width chapter sparklines.
+    book_ch_counts = {
+        b["code"]: int(b.get("ch_count") or 0)
+        for b in config.load_books()
+    }
     return {
         "categories": [
             {
@@ -412,11 +418,24 @@ def api_matrix() -> dict:
                 # live total, and renders the per-book counts as
                 # sparklines.
                 "per_book": m.per_book.get(ed_id, {}),
+                # ψ.18.1: per-kind, per-book, per-chapter counts —
+                # third drilldown level on the totals sidebar. Same
+                # potential scope as per_book; chapter keys ride out
+                # as JSON strings (JavaScript object keys).
+                "per_chapter": m.per_chapter.get(ed_id, {}),
                 # Canon book order (for sparkline column ordering)
                 "canon_book_order": [
                     b["code"] for b in config.load_books()
                     if b["code"] in m.edition_canon_books[ed_id]
                 ],
+                # ψ.18.1: per-book chapter counts so the chapter
+                # sparkline knows the book's full width. Flat dict
+                # is fine — every edition shares the same book set.
+                "book_chapter_counts": {
+                    code: book_ch_counts[code]
+                    for code in m.edition_canon_books[ed_id]
+                    if code in book_ch_counts
+                },
             }
             for ed_id in m.enabled
         },

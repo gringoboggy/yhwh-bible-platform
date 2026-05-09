@@ -3,7 +3,16 @@ during the web.py split refactor (2026-05-07).
 
 Re-imported by scripts/web.py for back-compat with existing
 `from scripts.web import SOURCES_HTML` callers.
+
+ψ.15 editor-console polish (2026-05-09): cross-link nav substituted
+from `_design.HEADER_NAV_LINKS("/sources")` and `BUYER_ARC_POLISH_CSS`
+inlined from `_design`, mirroring the ψ.14 buyer-arc pattern.
 """
+
+from scripts.templates._design import (  # noqa: E402
+    BUYER_ARC_POLISH_CSS,
+    HEADER_NAV_LINKS,
+)
 
 SOURCES_HTML = r"""<!DOCTYPE html>
 <html lang="en">
@@ -20,6 +29,7 @@ SOURCES_HTML = r"""<!DOCTYPE html>
   .verse-anchor { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
   mark { background: #fef08a; padding: 0 1px; border-radius: 2px; }
 </style>
+<!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="bg-slate-50 text-slate-800">
 
@@ -28,22 +38,8 @@ SOURCES_HTML = r"""<!DOCTYPE html>
     <h1 class="text-xl font-bold tracking-tight">Sources Navigator</h1>
     <p class="text-xs text-slate-500">browse every note by book/chapter — verify what each edition will claim, and where each claim is sourced</p>
   </div>
-  <div class="flex items-center gap-4 text-xs">
-    <a href="/" class="text-blue-600 hover:underline">note editor</a>
-    <a href="/matrix" class="text-blue-600 hover:underline">symbol matrix</a>
-    <a href="/sources" class="font-semibold">sources</a>
-    <a href="/export" class="text-blue-600 hover:underline">export</a>
-    <a href="/customize" class="text-blue-600 hover:underline">customize</a>
-    <a href="/audit" class="text-blue-600 hover:underline">audit</a>
-    <a href="/publisher" class="text-blue-600 hover:underline">publisher</a>
-    <a href="/wizard" class="text-blue-600 hover:underline">wizard</a>
-    <a href="/diff" class="text-blue-600 hover:underline">diff</a>
-    <a href="/compare" class="text-blue-600 hover:underline">compare</a>
-    <a href="/covers" class="text-blue-600 hover:underline">covers</a>
-    <a href="/preflight" class="text-blue-600 hover:underline">preflight</a>
-
-    <a href="/ops" class="text-blue-600 hover:underline">ops</a>
-    <a href="/apihelp" class="text-blue-600 hover:underline">apihelp</a>
+  <div class="flex items-center gap-4 text-xs flex-wrap">
+    <!-- HEADER_NAV_LINKS -->
     <span id="corpus-progress" class="ml-auto text-xs text-slate-500" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
   </div>
 </header>
@@ -829,3 +825,14 @@ init().catch(e => {
 </body>
 </html>
 """
+
+
+# ψ.15: substitute the canonical nav link list from _design.CONSOLES.
+SOURCES_HTML = SOURCES_HTML.replace(
+    "    <!-- HEADER_NAV_LINKS -->",
+    HEADER_NAV_LINKS("/sources"),
+)
+SOURCES_HTML = SOURCES_HTML.replace(
+    "<!-- BUYER_ARC_POLISH_CSS -->",
+    BUYER_ARC_POLISH_CSS,
+)

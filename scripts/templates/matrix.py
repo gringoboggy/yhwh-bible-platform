@@ -3,7 +3,16 @@ during the web.py split refactor (2026-05-07).
 
 Re-imported by scripts/web.py for back-compat with existing
 `from scripts.web import MATRIX_HTML` callers.
+
+ψ.15 editor-console polish (2026-05-09): cross-link nav substituted
+from `_design.HEADER_NAV_LINKS("/matrix")` and `BUYER_ARC_POLISH_CSS`
+inlined from `_design`, mirroring the ψ.14 buyer-arc pattern.
 """
+
+from scripts.templates._design import (  # noqa: E402
+    BUYER_ARC_POLISH_CSS,
+    HEADER_NAV_LINKS,
+)
 
 MATRIX_HTML = r"""<!DOCTYPE html>
 <html lang="en">
@@ -45,7 +54,19 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   details > summary::-webkit-details-marker { display: none; }
   details > summary::before { content: "▸"; display: inline-block; width: 1em; transition: transform 0.15s; color: #94a3b8; }
   details[open] > summary::before { transform: rotate(90deg); }
+  /* ψ.18.1 — drilldown rows put the arrow inline as a flex item
+     instead of relying on the ::before pseudo (which doesn't sit
+     beside the row's flex layout). Suppress the pseudo for this
+     class and rotate the inline span instead. */
+  details.psi181-drilldown > summary::before { content: none; }
+  details.psi181-drilldown > summary .psi181-arrow {
+    display: inline-block; transition: transform 0.15s;
+  }
+  details.psi181-drilldown[open] > summary .psi181-arrow {
+    transform: rotate(90deg);
+  }
 </style>
+<!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="bg-slate-50 text-slate-800">
 
@@ -54,22 +75,8 @@ MATRIX_HTML = r"""<!DOCTYPE html>
     <h1 class="text-xl font-bold tracking-tight">Symbol Toggle Matrix</h1>
     <p class="text-xs text-slate-500">read-only · Phase μ.1</p>
   </div>
-  <div class="flex items-center gap-4 text-xs">
-    <a href="/" class="text-blue-600 hover:underline">note editor</a>
-    <a href="/matrix" class="font-semibold">symbol matrix</a>
-    <a href="/sources" class="text-blue-600 hover:underline">sources</a>
-    <a href="/export" class="text-blue-600 hover:underline">export</a>
-    <a href="/customize" class="text-blue-600 hover:underline">customize</a>
-    <a href="/audit" class="text-blue-600 hover:underline">audit</a>
-    <a href="/publisher" class="text-blue-600 hover:underline">publisher</a>
-    <a href="/wizard" class="text-blue-600 hover:underline">wizard</a>
-    <a href="/diff" class="text-blue-600 hover:underline">diff</a>
-    <a href="/compare" class="text-blue-600 hover:underline">compare</a>
-    <a href="/covers" class="text-blue-600 hover:underline">covers</a>
-    <a href="/preflight" class="text-blue-600 hover:underline">preflight</a>
-
-    <a href="/ops" class="text-blue-600 hover:underline">ops</a>
-    <a href="/apihelp" class="text-blue-600 hover:underline">apihelp</a>
+  <div class="flex items-center gap-4 text-xs flex-wrap">
+    <!-- HEADER_NAV_LINKS -->
     <span id="corpus-progress" class="ml-auto text-xs text-slate-500" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
   </div>
 </header>
@@ -613,11 +620,12 @@ function renderSymbolTotals() {
   if (!list) return;
 
   const perBook = m.per_book;
+  const perChapter = m.per_chapter || {};        // ψ.18.1
+  const bookChCounts = m.book_chapter_counts || {};  // ψ.18.1
   const canon = m.canon_book_order || [];
   // Sum across LOCAL_ENABLED (the user's pending toggle state) so
   // the panel reflects what the edition would ship right now.
   const enabled = LOCAL_ENABLED;
-  const rows = [];
 
   // Index kinds by category for grouping; sort by count desc within.
   const kindRows = [];
@@ -634,7 +642,7 @@ function renderSymbolTotals() {
     if (total === 0) continue;
     const cat = DATA.categories.find(cc => cc.id === k.category);
     const symbol = (cat && cat.symbol) || '?';
-    // Build sparkline string (one char per canon book)
+    // Build per-book sparkline string (one char per canon book)
     const chars = [];
     const tooltips = [];
     for (const code of canon) {
@@ -647,6 +655,54 @@ function renderSymbolTotals() {
       chars.push(SPARK_CHARS[level]);
       tooltips.push(`${code}: ${v}`);
     }
+    // ψ.18.1 — chapter-level drilldown payload. Top N books by
+    // count get a chapter sparkline (one char per chapter).
+    const chapterByBook = perChapter[k.code] || {};
+    const bookTotals = Object.entries(bookCounts)
+      .map(([bc, n]) => ({code: bc, count: n}))
+      .sort((a, b) => b.count - a.count);
+    const chapterRows = [];
+    let chaptersWithNotes = 0;
+    for (const bc in chapterByBook) {
+      chaptersWithNotes += Object.keys(chapterByBook[bc]).length;
+    }
+    const TOP_N_BOOKS = 5;
+    for (const br of bookTotals.slice(0, TOP_N_BOOKS)) {
+      const chCount = bookChCounts[br.code] || 0;
+      const byCh = chapterByBook[br.code] || {};
+      // Find max for this book's scaling
+      let bookMax = 0;
+      for (const v of Object.values(byCh)) {
+        if (v > bookMax) bookMax = v;
+      }
+      // Build chapter spark; iterate 1..ch_count from books.yaml
+      // (or fall back to max chapter key seen if ch_count is 0).
+      let upper = chCount;
+      if (upper <= 0) {
+        for (const ch of Object.keys(byCh)) {
+          const ci = parseInt(ch, 10);
+          if (ci > upper) upper = ci;
+        }
+      }
+      const chChars = [];
+      const chTooltips = [];
+      for (let ci = 1; ci <= upper; ci++) {
+        const v = byCh[ci] || byCh[String(ci)] || 0;
+        let lvl = 0;
+        if (bookMax > 0 && v > 0) {
+          lvl = Math.min(8, 1 + Math.floor((v / bookMax) * 7));
+        }
+        chChars.push(SPARK_CHARS[lvl]);
+        if (v > 0) chTooltips.push(`ch ${ci}: ${v}`);
+      }
+      chapterRows.push({
+        code: br.code,
+        count: br.count,
+        chapters: Object.keys(byCh).length,
+        spark: chChars.join(''),
+        tooltip: chTooltips.join('  ') || `${br.code}: no chapter data`,
+      });
+    }
     kindRows.push({
       code: k.code,
       label: k.label,
@@ -655,6 +711,10 @@ function renderSymbolTotals() {
       max,
       sparkline: chars.join(''),
       tooltip: tooltips.join('  '),
+      chaptersWithNotes,
+      booksWithNotes: bookTotals.length,
+      chapterRows,
+      hiddenBooks: Math.max(0, bookTotals.length - TOP_N_BOOKS),
     });
   }
   kindRows.sort((a, b) => b.total - a.total);
@@ -668,14 +728,34 @@ function renderSymbolTotals() {
   document.getElementById('totals-edition').textContent =
     `whole edition · ${m.total_enabled.toLocaleString()} notes shipping`;
 
-  list.innerHTML = kindRows.map(r => `
-    <div class="flex items-center gap-2 text-xs" title="${escapeAttr(r.tooltip)}">
-      <span class="symbol text-slate-700" style="font-size:1.1em">${r.symbol}</span>
-      <span class="flex-1 truncate text-slate-700" title="${escapeAttr(r.code)}">${escapeText(r.label)}</span>
-      <span class="font-mono text-slate-600 tabular-nums">${r.total.toLocaleString()}</span>
-    </div>
-    <div class="font-mono text-slate-400 leading-none whitespace-nowrap overflow-hidden" title="${escapeAttr(r.tooltip)}" style="font-size:0.7rem;letter-spacing:-0.05em">${escapeText(r.sparkline)}</div>
-  `).join('');
+  list.innerHTML = kindRows.map(r => {
+    const drilldown = r.chapterRows.map(br => `
+      <div class="flex items-baseline gap-2 mt-1" title="${escapeAttr(br.tooltip)}">
+        <span class="font-mono text-slate-500 text-[0.7rem] w-10 truncate">${escapeText(br.code)}</span>
+        <span class="font-mono text-slate-400 leading-none flex-1 whitespace-nowrap overflow-hidden" style="font-size:0.7rem;letter-spacing:-0.05em">${escapeText(br.spark)}</span>
+        <span class="font-mono text-slate-500 text-[0.7rem] tabular-nums">${br.count.toLocaleString()}<span class="text-slate-400"> · ${br.chapters}ch</span></span>
+      </div>`).join('');
+    const hiddenNote = r.hiddenBooks > 0
+      ? `<div class="text-[0.65rem] text-slate-400 mt-1 italic">+ ${r.hiddenBooks} more book${r.hiddenBooks === 1 ? '' : 's'}</div>`
+      : '';
+    return `
+    <details class="psi181-drilldown">
+      <summary class="cursor-pointer list-none">
+        <div class="flex items-center gap-2 text-xs" title="${escapeAttr(r.tooltip)}">
+          <span class="text-slate-400 text-[0.6rem] select-none psi181-arrow">▸</span>
+          <span class="symbol text-slate-700" style="font-size:1.1em">${r.symbol}</span>
+          <span class="flex-1 truncate text-slate-700" title="${escapeAttr(r.code)}">${escapeText(r.label)}</span>
+          <span class="font-mono text-slate-600 tabular-nums">${r.total.toLocaleString()}</span>
+        </div>
+        <div class="font-mono text-slate-400 leading-none whitespace-nowrap overflow-hidden ml-3" title="${escapeAttr(r.tooltip)}" style="font-size:0.7rem;letter-spacing:-0.05em">${escapeText(r.sparkline)}</div>
+      </summary>
+      <div class="mt-2 ml-3 pl-2 border-l border-slate-200">
+        <div class="text-[0.65rem] text-slate-400 mb-1">${r.chaptersWithNotes.toLocaleString()} chapter${r.chaptersWithNotes === 1 ? '' : 's'} · ${r.booksWithNotes} book${r.booksWithNotes === 1 ? '' : 's'}</div>
+        ${drilldown}
+        ${hiddenNote}
+      </div>
+    </details>
+  `;}).join('');
 }
 
 function escapeText(s) {
@@ -920,3 +1000,14 @@ loadMatrix().then(() => refreshScenarioList()).catch(e => {
 </body>
 </html>
 """
+
+
+# ψ.15: substitute the canonical nav link list from _design.CONSOLES.
+MATRIX_HTML = MATRIX_HTML.replace(
+    "    <!-- HEADER_NAV_LINKS -->",
+    HEADER_NAV_LINKS("/matrix"),
+)
+MATRIX_HTML = MATRIX_HTML.replace(
+    "<!-- BUYER_ARC_POLISH_CSS -->",
+    BUYER_ARC_POLISH_CSS,
+)

@@ -69,11 +69,15 @@ class Matrix:
     notes of this kind in books that are in the canon, period.
     The difference is the "would gain" column for the UI.
 
-    ψ.18 — `per_book_enabled` adds a per-book dimension to
-    `enabled` so the matrix sidebar can render counts at three
-    levels (whole-edition / per-book / per-chapter via
-    derivation) plus a sparkline showing which books contain
-    each kind.
+    ψ.18 — `per_book` adds a per-book dimension to the count grid
+    so the matrix sidebar can render whole-edition + per-book
+    levels with a sparkline.
+
+    ψ.18.1 — `per_chapter` adds the third level: ed → kind → book
+    → chapter → count. Same scope as `per_book` (potential — every
+    kind in canon, regardless of enabled toggles) so the JS can
+    drill down from a kind row into its chapter distribution
+    without a server round-trip.
     """
     enabled: dict[str, dict[str, int]] = field(default_factory=dict)   # ed → kind → count
     potential: dict[str, dict[str, int]] = field(default_factory=dict)  # ed → kind → count
@@ -86,6 +90,11 @@ class Matrix:
     # toggles. Only books that have notes-of-this-kind appear; books
     # with zero notes-of-this-kind are absent (not stored as 0).
     per_book: dict[str, dict[str, dict[str, int]]] = field(default_factory=dict)
+    # ψ.18.1: ed → kind → book → chapter → count.
+    # Same scope as per_book; chapters with zero notes-of-this-kind
+    # are absent. Chapter keys are ints in Python; JSON serialization
+    # promotes them to strings (the JS sidebar handles either).
+    per_chapter: dict[str, dict[str, dict[str, dict[int, int]]]] = field(default_factory=dict)
 
 
 # ----------------------------------------------------------------------
@@ -137,24 +146,38 @@ def _canon_books_for_edition(edition: dict, canons: dict) -> set[str]:
     return set(canon_def.get("books") or [])
 
 
-def _count_kinds_in_book(notes_path: Path) -> dict[str, int]:
-    """Read one book's notes file and return {kind_code: count}.
+def _count_kinds_in_book(
+    notes_path: Path,
+) -> tuple[dict[str, int], dict[str, dict[int, int]]]:
+    """Read one book's notes file and return per-kind counts plus
+    per-kind chapter distributions.
+
+    Returns ``(totals, per_chapter)`` where:
+        - ``totals``     = {kind_code: total_count_in_book}
+        - ``per_chapter`` = {kind_code: {chapter_int: count}}
 
     Uses notes_io.load_notes which is LRU-cached on (path, mtime).
     Tuple shape: (chapter, verse, suffix, anchor, kind, label, title, body, attr).
-    Kind is at index 4.
+    Chapter is at index 0; kind at index 4.
+
+    ψ.18.1 — extended to return per-chapter distribution alongside
+    totals so the matrix sidebar can drill down to chapter level.
     """
     if not notes_path.is_file():
-        return {}
+        return {}, {}
     notes = notes_io.load_notes(notes_path)
     if not notes:
-        return {}
-    counts: dict[str, int] = {}
+        return {}, {}
+    totals: dict[str, int] = {}
+    per_chapter: dict[str, dict[int, int]] = {}
     for tup in notes:
         if len(tup) >= 5:
+            ch = tup[0]
             kind = tup[4]
-            counts[kind] = counts.get(kind, 0) + 1
-    return counts
+            totals[kind] = totals.get(kind, 0) + 1
+            chap_dict = per_chapter.setdefault(kind, {})
+            chap_dict[ch] = chap_dict.get(ch, 0) + 1
+    return totals, per_chapter
 
 
 # ----------------------------------------------------------------------
@@ -199,10 +222,17 @@ def compute_matrix() -> Matrix:
     per_book: dict[str, dict[str, dict[str, int]]] = {
         ed["id"]: {} for ed in editions
     }
+    # ψ.18.1: third level — per-chapter breakdown. Same scope; lets
+    # the sidebar drill from a kind row into chapter distribution.
+    per_chapter: dict[str, dict[str, dict[str, dict[int, int]]]] = {
+        ed["id"]: {} for ed in editions
+    }
 
     for book in books:
         code = book["code"]
-        per_kind = _count_kinds_in_book(notes_dir / f"{code}.py")
+        per_kind, per_kind_chapters = _count_kinds_in_book(
+            notes_dir / f"{code}.py"
+        )
         if not per_kind:
             continue
         # Distribute this book's counts to every edition that includes it
@@ -215,6 +245,14 @@ def compute_matrix() -> Matrix:
                 potential[ed_id][kind_code] = potential[ed_id].get(kind_code, 0) + n
                 # ψ.18: per-book breakdown for every kind in canon
                 per_book[ed_id].setdefault(kind_code, {})[code] = n
+                # ψ.18.1: per-chapter breakdown; copy to detach from
+                # the helper's local dict so future calls can't mutate
+                # cached state.
+                chap_counts = per_kind_chapters.get(kind_code)
+                if chap_counts:
+                    per_chapter[ed_id].setdefault(kind_code, {})[code] = dict(
+                        chap_counts
+                    )
             # enabled = filtered down to active kinds (totals only)
             for kind_code, n in per_kind.items():
                 if kind_code in edition_enabled[ed_id]:
@@ -226,6 +264,7 @@ def compute_matrix() -> Matrix:
         edition_canon_books=edition_canon,
         edition_enabled_kinds=edition_enabled,
         per_book=per_book,
+        per_chapter=per_chapter,
     )
 
 
