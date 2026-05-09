@@ -13277,3 +13277,110 @@ class TestPsi15EditorConsoleBuyerArcPolishCSS:
             )
 
 
+class TestOmega15PlanLinter:
+    """ω.15 — plan-coherence linter. Verifies the active PLAN_*.md
+    stays coherent with CHANGELOG and Depends references."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts import lint_plan
+        cls.mod = lint_plan
+
+    def test_phase_id_re_matches_greek_letters(self):
+        # Spot-check the regex: Greek-letter phases match.
+        text = "ψ.18 ψ.18.1 χ.7 ω.0.1 ν.2.7-A"
+        ids = self.mod.PHASE_ID_RE.findall(text)
+        for expected in ("ψ.18", "ψ.18.1", "χ.7", "ω.0.1", "ν.2.7-A"):
+            assert expected in ids, f"missed {expected}"
+
+    def test_phase_id_re_matches_named_composites(self):
+        text = "the χ-AI-xrefs detector"
+        ids = self.mod.PHASE_ID_RE.findall(text)
+        assert "χ-AI-xrefs" in ids
+
+    def test_phase_id_re_matches_release_tags(self):
+        text = "ship v1.0.0 then v1.1.0"
+        ids = self.mod.PHASE_ID_RE.findall(text)
+        assert "v1.0.0" in ids
+        assert "v1.1.0" in ids
+
+    def test_phase_id_re_rejects_two_part_versions(self):
+        # "v1.0" appears in prose like "v1.0 candidate criteria" —
+        # not a release tag, shouldn't match. Three-part required.
+        text = "the v1.0 candidate criteria are met"
+        ids = self.mod.PHASE_ID_RE.findall(text)
+        assert "v1.0" not in ids
+
+    def test_active_plan_picks_latest(self):
+        # Picks lexicographically latest PLAN_*.md.
+        plan = self.mod._active_plan()
+        assert plan is not None
+        assert plan.name.startswith("PLAN_")
+        assert plan.suffix == ".md"
+
+    def test_changelog_shipped_phases_uses_phases_shipped_lines(self):
+        # The shipped set must come from `**Phases shipped:**` lines
+        # only — not arbitrary mentions. Spot-check a known shipped
+        # phase from this session is recognized.
+        shipped = self.mod._changelog_shipped_phases()
+        assert "ψ.18" in shipped, "ψ.18 missing from shipped set"
+        assert "ψ.15" in shipped, "ψ.15 missing from shipped set"
+
+    def test_changelog_shipped_excludes_scope_only_mentions(self):
+        # ρ.1 was added to the plan in a 2026-05-08 scope-expansion
+        # session but never shipped. The shipped set must NOT
+        # include it (regression for the false-positive that the
+        # session-header heuristic produced).
+        shipped = self.mod._changelog_shipped_phases()
+        assert "ρ.1" not in shipped, (
+            "ρ.1 incorrectly classified as shipped (was scope-only)"
+        )
+
+    def test_check_plan_singular_passes(self):
+        # On the current repo, exactly one active PLAN_*.md should
+        # be in dev/ (others archived).
+        result = self.mod.check_plan_singular()
+        assert result["status"] == "pass", result["message"]
+
+    def test_check_plan_status_shipped_passes(self):
+        # Every PLAN-claimed-shipped phase backs to CHANGELOG.
+        result = self.mod.check_plan_status_shipped()
+        assert result["status"] == "pass", (
+            f"{result['message']}: {result.get('violations')}"
+        )
+
+    def test_check_plan_status_open_passes(self):
+        # No PLAN-open phase has shipped yet.
+        result = self.mod.check_plan_status_open()
+        assert result["status"] == "pass", (
+            f"{result['message']}: {result.get('violations')}"
+        )
+
+    def test_check_plan_depends_valid_passes(self):
+        # All Depends: refs resolve to known phase ids.
+        result = self.mod.check_plan_depends_valid()
+        assert result["status"] == "pass", (
+            f"{result['message']}: {result.get('violations')}"
+        )
+
+    def test_run_all_returns_clean(self):
+        out = self.mod.run_all()
+        assert out["summary"]["clean"] is True, out["summary"]
+        assert out["summary"]["fail"] == 0
+        assert out["summary"]["total"] == 4
+
+    def test_lint_rules_composes_plan_check(self):
+        # ω.15 wires lint_plan into lint_rules.run_all() as
+        # `plan_coherence`. Verify the master linter sees it.
+        from scripts.lint_rules import run_all
+        out = run_all()
+        ids = {c["id"] for c in out["checks"]}
+        assert "plan_coherence" in ids, (
+            "plan_coherence sub-check not surfaced in lint_rules"
+        )
+        plan_check = next(
+            c for c in out["checks"] if c["id"] == "plan_coherence"
+        )
+        assert plan_check["status"] == "pass", plan_check["message"]
+
+

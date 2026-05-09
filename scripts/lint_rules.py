@@ -871,6 +871,65 @@ def check_atomic_writes() -> dict:
 # ----------------------------------------------------------------------
 
 
+def check_plan_coherence() -> dict:
+    """ω.15 — compose scripts.lint_plan.run_all() into the master
+    rules check. Surfaces plan/CHANGELOG/Depends drift alongside
+    the existing 10 invariant checks per the §9 meta-tool pattern.
+
+    Folds the four sub-checks (plan_singular, plan_shipped,
+    plan_open, plan_depends) into one rolled-up status: fail if any
+    sub-check fails, warn if any warns, pass otherwise.
+    """
+    try:
+        from scripts import lint_plan
+    except ImportError as e:
+        return {
+            "id": "plan_coherence",
+            "name": "Plan coherence (ω.15 sub-tool)",
+            "status": "warn",
+            "message": f"lint_plan import failed: {e}",
+            "violations": [],
+        }
+    try:
+        sub = lint_plan.run_all()
+    except Exception as e:
+        return {
+            "id": "plan_coherence",
+            "name": "Plan coherence (ω.15 sub-tool)",
+            "status": "warn",
+            "message": f"lint_plan raised: {e}",
+            "violations": [],
+        }
+    summary = sub.get("summary", {})
+    if summary.get("fail", 0) > 0:
+        rolled_status = "fail"
+    elif summary.get("warn", 0) > 0:
+        rolled_status = "warn"
+    else:
+        rolled_status = "pass"
+    violations = []
+    for c in sub.get("checks", []):
+        if c.get("status") != "pass":
+            violations.append({
+                "sub_check": c.get("id"),
+                "status": c.get("status"),
+                "message": c.get("message"),
+            })
+    msg = (
+        f"{summary.get('pass', 0)}/{summary.get('total', 0)} sub-checks pass"
+        if rolled_status != "pass" else
+        f"all {summary.get('total', 0)} sub-checks pass "
+        f"(plan_singular, plan_shipped, plan_open, plan_depends)"
+    )
+    return {
+        "id": "plan_coherence",
+        "name": "Plan coherence (PLAN ↔ CHANGELOG ↔ Depends)",
+        "status": rolled_status,
+        "message": msg,
+        "violations": violations,
+    }
+
+
 ALL_CHECKS = {
     "6.1":               check_encoder_canonical_order,
     "6.2":               check_cross_link_invariant,
@@ -884,6 +943,8 @@ ALL_CHECKS = {
     # ω.9 + ω.10 hardening tier
     "atomic_writes":     check_atomic_writes,
     "external_http":     check_external_http,
+    # ω.15 plan-coherence tier
+    "plan_coherence":    check_plan_coherence,
 }
 
 

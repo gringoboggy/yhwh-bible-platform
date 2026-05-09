@@ -1,16 +1,30 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.15 editor-console polish**
-shipped — applied the ψ.13 design system (`HEADER_NAV_LINKS`
-from `_design.CONSOLES`) + ψ.14 buyer-arc polish CSS (focus
-rings, 150ms transitions, button :active scale-down, dirty
-pill, step fade-in) to the 5 editor consoles: /customize,
-/publisher, /covers, /matrix, /sources. Same substitution
-pattern as ψ.14 — markers in raw template + `.replace()` at
-module bottom. With ψ.15 landed, all 8 ψ.13/ψ.14 consumers
-share a single source of truth for cross-link nav + buyer-arc
-polish. Side-effect: nav labels uniform across all 13 consoles
-(was hand-rolled "matrix" inline, now "symbol matrix" via
+**Updated:** 2026-05-09, after **ω.15 plan restructure +
+plan-coherence linter** shipped — full step-back audit of the whole
+project per user ask. Replaced `dev/PLAN_2026-05-08.md` (now in
+`dev/archive/`) with `dev/PLAN_2026-05-09.md` (~530 lines,
+Track-based with explicit Depends/Unblocks/Files/Cluster per open
+phase). Lifted ψ.7-A (4 new built-in editions: eastern-orthodox /
+anglican-bcp / lutheran-confessional / coptic-orthodox) and ψ.7-B
+(starter-pack templates) to front of SHORT TRACK with full spec at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md`. New
+`scripts/lint_plan.py` enforces plan/CHANGELOG/Depends coherence;
+composed into `lint_rules.py:check_plan_coherence` as the 11th
+master check. Bootstrap pointer (CLAUDE_PROJECT_RULES §0 +
+memory/reference_bootstrap.md) now points at PLAN_2026-05-09.md.
++13 tests; 984 / 984 green; 11/11 linter clean.
+
+Prior ship: **ψ.15 editor-console polish** — applied the ψ.13
+design system (`HEADER_NAV_LINKS` from `_design.CONSOLES`) + ψ.14
+buyer-arc polish CSS (focus rings, 150ms transitions, button
+:active scale-down, dirty pill, step fade-in) to the 5 editor
+consoles: /customize, /publisher, /covers, /matrix, /sources. Same
+substitution pattern as ψ.14 — markers in raw template +
+`.replace()` at module bottom. With ψ.15 landed, all 8 ψ.13/ψ.14
+consumers share a single source of truth for cross-link nav +
+buyer-arc polish. Side-effect: nav labels uniform across all 13
+consoles (was hand-rolled "matrix" inline, now "symbol matrix" via
 _design). +11 tests; 971 / 971 green; 10/10 linter clean.
 
 Prior ship: **ψ.18.1 matrix-totals chapter drilldown** —
@@ -213,7 +227,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 971 tests · 10/10 linter · 5 editions · 51,394 notes (v1.0 floor met)
+13 consoles · 984 tests · 11/11 linter · 5 editions · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -240,7 +254,65 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.15 editor-console polish shipped
+## Current phase: ω.15 plan restructure + plan-coherence linter
+
+Step-back audit of the whole project. New PLAN_2026-05-09.md
+replaces 2026-05-08 with Track-based organization (RELEASE / SHORT
+/ MEDIUM / LONG / HARDENING / USER-SIDE / PARKED) and explicit
+Depends/Unblocks/Files/Cluster per open phase. ψ.7-A/B lifted to
+front per user ask. New plan-coherence linter wired in as the 11th
+master check.
+
+```
+✓ dev/PLAN_2026-05-09.md                ~530 lines. Replaces
+                                        2026-05-08. §3 Track
+                                        structure + §4 RELEASE
+                                        + §5 OPEN with explicit
+                                        Status/Depends/Unblocks/
+                                        Effort/Files/Cluster +
+                                        §6 pre-session ordering
+                                        + §7 phase ledger (108
+                                        shipped / 26 open / 5
+                                        partial / 5 parked / 5
+                                        deferred) + §8 cluster
+                                        matrix + §11 addenda
+                                        index.
+✓ dev/archive/PLAN_2026-05-08.md        old plan moved via git mv.
+✓ dev/SCOPE_2026-05-09-addendum-edition-templates.md
+                                        full spec for ψ.7-A
+                                        (4 new built-in editions
+                                        with per-edition kind
+                                        tuning) + ψ.7-B (template
+                                        format + API contracts +
+                                        wizard integration +
+                                        tests). ψ.7-C parked.
+✓ scripts/lint_plan.py                  ~370 lines, 4 sub-checks:
+                                        plan_singular,
+                                        plan_shipped, plan_open,
+                                        plan_depends. Pure
+                                        run_all() per §9 meta
+                                        pattern.
+✓ scripts/lint_rules.py                 +check_plan_coherence
+                                        composes lint_plan.run_all()
+                                        into the master linter as
+                                        the 11th check.
+✓ tests/test_scripts.py                 +13 tests in
+                                        TestOmega15PlanLinter
+                                        covering PHASE_ID_RE,
+                                        active_plan resolution,
+                                        shipped-set classification,
+                                        each sub-check, run_all,
+                                        master-linter integration.
+✓ Bootstrap pointer                     CLAUDE_PROJECT_RULES §0,
+                                        memory/reference_bootstrap.md,
+                                        and memory/MEMORY.md all
+                                        now reference
+                                        PLAN_2026-05-09.md.
+~ Corpus delta                          0 — pure planning + tooling.
+                                        No user-visible UI change.
+```
+
+## Prior phase: ψ.15 editor-console polish shipped
 
 Applied the ψ.13 design system + ψ.14 buyer-arc polish CSS to
 the 5 editor consoles (/customize, /publisher, /covers, /matrix,

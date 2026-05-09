@@ -6,6 +6,156 @@
 
 ---
 
+## 2026-05-09 — session — ω.15 plan restructure + plan-coherence linter
+
+**Phases shipped:** ω.15 — full restructure of the master plan from
+2026-05-08 → 2026-05-09 + new plan-coherence linter wired into the
+master rules check. User asked for a step-back audit of the whole
+project, restructured plan for max efficiency, and any tools needed
+along the way; this session lands all three deliverables. The new
+PLAN replaces Tier A/B/C grouping (which described the path TO
+v1.0) with a Track-based organization (RELEASE / SHORT / MEDIUM /
+LONG / HARDENING / USER-SIDE / PARKED) and surfaces explicit
+Depends: / Unblocks: / Files: / Cluster: per open phase. Plus the
+new linter (`scripts/lint_plan.py` composed into `lint_rules.py`)
+catches plan/CHANGELOG/Depends drift on every preflight run.
+
+Also lifts ψ.7-A (4 new built-in editions: eastern-orthodox /
+anglican-bcp / lutheran-confessional / coptic-orthodox) and ψ.7-B
+(starter-pack templates) to the front of the SHORT TRACK per the
+user's "add more editions" ask, with a full spec at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md`. ψ.7-C
+(template marketplace) parked as speculative post-v1.x. θ.3.1
+(native auto-update binary linking) added to LONG TRACK.
+
+**Test delta:** +13 (971 → 984).
+**Linter delta:** 10 → 11 checks (added `plan_coherence`).
+**Corpus delta:** 0 — pure planning + tooling.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`dev/PLAN_2026-05-09.md`** — new master plan (~530 lines).
+  Replaces `dev/PLAN_2026-05-08.md` (now in `dev/archive/`). Key
+  structural changes:
+    - **§3 Track structure** — six tracks ordered by bandwidth
+      cost: RELEASE (one-time motion to declare v1.0 shipped),
+      SHORT (1-session phases), MEDIUM (1-2 sessions, needs spec
+      read), LONG (multi-session strategic), HARDENING (audit-style,
+      runs alongside any track), USER-SIDE (no my-session bandwidth),
+      PARKED (design call needed).
+    - **§4 RELEASE TRACK** — explicit v1.0.0 phase with binary
+      build + visual QA + git tag. Decouples "candidate met" from
+      "release shipped".
+    - **§5 OPEN PHASES** — every open phase gets explicit Status,
+      Depends, Unblocks, Effort, Files, Cluster, plus prose. Was
+      implicit before.
+    - **§6 Pre-session ordering** — table of "if session bandwidth
+      is X, ship Y". Plus a recommended 5-session sequence to v1.0
+      release.
+    - **§7 Phase ledger** — every phase letter family with status:
+      ✓ shipped (108), ◐ shipped-infrastructure (5), ◯ open (26),
+      △ parked (5), ✗ deferred (5).
+    - **§8 Cluster matrix** — phases that touch the same files
+      surfaced for batching efficiency (EDITIONS / TEMPLATES /
+      MATRIX-SIDEBAR / PREVIEW / AUDIO / CORPUS / TRANSLATIONS /
+      SECURITY / ROBUSTNESS / DESKTOP-UPDATE / UX-MICRO).
+    - **§11 Active scope addenda index** — every SCOPE_*.md with
+      its phase and status.
+- **`dev/archive/PLAN_2026-05-08.md`** — old plan moved here via
+  `git mv` to preserve history.
+- **`dev/SCOPE_2026-05-09-addendum-edition-templates.md`** — full
+  spec for ψ.7-A (4 new built-in editions with per-edition kind
+  tuning, schema strategy, build-pipeline impact, tests, rollback)
+  and ψ.7-B (template format + API contracts + wizard integration
+  + tests). ψ.7-C deferred to post-v1.x.
+- **`scripts/lint_plan.py`** — new plan-coherence CLI module
+  (~370 lines). Pure-function `run_all()` returning the §9
+  meta-tool dict shape. Four sub-checks:
+    - `plan_singular` — exactly one PLAN_*.md at the top level
+      of dev/ (older plans must live in archive/).
+    - `plan_shipped` — every PLAN-claimed-shipped phase appears
+      in CHANGELOG.md.
+    - `plan_open` — no PLAN-open phase has actually shipped (the
+      mirror direction of the existing `untracked_phases` check).
+      Tightened to only count `**Phases shipped:**` lines so that
+      scope-expansion sessions don't false-positive.
+    - `plan_depends` — every `**Depends:**` reference resolves to
+      a known phase id (catches typos that silently break the
+      dependency graph).
+- **`scripts/lint_rules.py:check_plan_coherence`** — composes
+  `lint_plan.run_all()` into the master linter as the 11th check.
+  Rolls up the four sub-checks into one status (fail if any sub
+  fails, warn if any warns, pass otherwise) per the §9 meta-tool
+  composition pattern. Listed in `ALL_CHECKS` as `plan_coherence`.
+- **`tests/test_scripts.py:TestOmega15PlanLinter`** — 13 tests:
+  PHASE_ID_RE matches Greek-letter / named-composite / release-tag
+  patterns; rejects two-part versions like "v1.0" so prose doesn't
+  trigger false matches; `_active_plan()` picks the latest;
+  `_changelog_shipped_phases()` uses Phases-shipped lines only;
+  scope-only mentions excluded (regression for the ρ.1 false
+  positive); each of the four sub-checks passes on the current
+  repo; `run_all()` returns clean with 4/4 sub-checks; the master
+  `lint_rules.run_all()` exposes `plan_coherence`.
+- **Bootstrap pointer updates:**
+    - `dev/CLAUDE_PROJECT_RULES.md` §0 — points at PLAN_2026-05-09.md
+    - `memory/reference_bootstrap.md` — same
+    - `memory/MEMORY.md` — same
+
+End state: **984 tests green, 11/11 linter clean, 51,394 notes**.
+
+Notable findings during the inventory:
+
+- **108 phases shipped** across the project's history. The CHANGELOG
+  ledger plus the §7 PLAN ledger now agree (verified by
+  plan_shipped check).
+- **26 open phases** organized into 6 tracks. SHORT track has 7
+  bundled phases (each ~1 session); MEDIUM has 16 (4 in χ.2-5
+  bundle + 10 in τ.2-11 bundle + ψ.1 + ρ.1); LONG has 6 (θ.3.1
+  + ρ.2-5 + ψ.7-C); HARDENING has 6; PARKED has 5; INDEFINITELY
+  DEFERRED has 5.
+- **ν.2.9 was already shipped** but the 2026-05-08 PLAN had carried
+  it as upcoming. Caught by the new plan_open linter check;
+  corrected in the new plan. This is exactly the drift class the
+  linter was built to surface.
+- **The `orthodox` canon (78 books) was defined but unused** — five
+  editions in editions.yaml but none used the orthodox canon. The
+  ψ.7-A `eastern-orthodox` edition is one YAML edit away from
+  putting that canon to work.
+
+Notable decisions:
+
+- **Tightened `_changelog_shipped_phases` to only count
+  `**Phases shipped:**` lines.** Initial implementation also
+  counted session-header lines, but those false-positive on
+  scope-expansion sessions ("scope expansion (free-only): ψ.8 +
+  ρ.1 + ω.6 + ω.7" had ρ.1 in the header but ρ.1 didn't ship).
+  The `**Phases shipped:**` line is the canonical project
+  convention; restricting to it eliminates the ambiguity.
+- **PHASE_ID_RE requires three-part version tags** (`v1.0.0`, not
+  `v1.0`). Prose like "v1.0 candidate criteria" shouldn't match;
+  release tags must explicitly use the v.MAJOR.MINOR.PATCH form.
+- **Did NOT remove the existing `untracked_phases` check** — it
+  catches CODE-side drift (phase mentioned in scripts/tests but
+  missing from CHANGELOG). The new `plan_open` check catches
+  PLAN-side drift (phase in PLAN's open block but actually shipped).
+  They're complementary; both stay.
+- **Wrote the addendum stub up front.** PLAN's §11 references
+  `dev/SCOPE_2026-05-09-addendum-edition-templates.md`; not having
+  it on disk would trigger the `docs` linter check. Wrote the
+  full spec now so the doc cross-reference invariant holds and so
+  the next session that ships ψ.7-A doesn't have to do scope work.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` — this restructure
+- `dev/SCOPE_2026-05-09-addendum-edition-templates.md` — ψ.7-A/B spec
+- `dev/archive/PLAN_2026-05-08.md` — superseded plan
+- §6.2 (Cross-link invariant), §3 (Sequencing rules), §6 (Pre-session
+  ordering — new in PLAN_2026-05-09)
+
+---
+
 ## 2026-05-09 — session — ψ.15 editor-console polish
 
 **Phases shipped:** ψ.15 — applied the ψ.13 design system

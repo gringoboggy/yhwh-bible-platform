@@ -4,7 +4,67 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.15 editor-console polish** shipped
+*(none — tracker is idle. **ω.15 plan restructure + plan-coherence
+linter** shipped 2026-05-09. New plan + new linter + new addendum +
++13 tests + bootstrap pointer updates. End state: 984 tests green,
+11/11 linter clean, 51,394 notes. Three deliverables:
+
+1. **`dev/PLAN_2026-05-09.md`** — new master plan replacing the
+   2026-05-08 doc. Restructured by:
+   - Track (Release / Short / Medium / Long / Hardening / User-side)
+     instead of Tier A/B/C
+   - Explicit `Depends:` and `Unblocks:` per phase (was implicit prose)
+   - File-overlap clusters surfaced (phases that touch the same files
+     are bundled — e.g. all 5 templates batch under one polish cluster)
+   - "Done" tier listed up front so future Claude sees what's already
+     shipped before scoping new work
+   - User-side phases marked distinctly so they don't compete for my
+     session bandwidth
+   - ψ.7-A (3-4 new built-in editions: eastern-orthodox / anglican-bcp
+     / lutheran-confessional / coptic-orthodox) and ψ.7-B (template
+     starter packs) lifted to the front of SHORT TRACK per user ask
+
+2. **`scripts/lint_plan.py`** — plan-coherence linter shipped (~370
+   lines). 4 sub-checks (plan_singular, plan_shipped, plan_open,
+   plan_depends). Composed into `scripts/lint_rules.py:check_plan_coherence`
+   as the 11th master check. PHASE_ID_RE handles Greek-letter
+   families, named composites (χ-AI-xrefs), and 3-part release tags
+   (v1.0.0, not v1.0).
+
+3. **`dev/archive/PLAN_2026-05-08.md`** — old plan archived via git
+   mv. Bootstrap §0 now points unambiguously to PLAN_2026-05-09.md.
+
+Plus: `dev/SCOPE_2026-05-09-addendum-edition-templates.md` written
+in full (covers ψ.7-A 4 new built-in editions + ψ.7-B starter packs);
+`dev/CLAUDE_PROJECT_RULES.md` §0 + `memory/reference_bootstrap.md` +
+`memory/MEMORY.md` all updated; `tests/test_scripts.py` +
+TestOmega15PlanLinter (13 tests covering PHASE_ID_RE, plan
+extraction, each sub-check, run_all, master-linter integration);
+CHANGELOG entry; SESSION_STATE refreshed.
+
+Notable findings during the inventory:
+
+- **108 phases shipped** across project history. Confirmed via the
+  new linter (plan_shipped pass).
+- **ν.2.9 was already shipped** but the 2026-05-08 PLAN had carried
+  it as upcoming — exactly the drift class plan_open was built to
+  catch. Caught + corrected.
+- **The `orthodox` canon (78 books) was defined but unused** — five
+  built-in editions in editions.yaml but none used the orthodox
+  canon. ψ.7-A's `eastern-orthodox` is one YAML edit away from
+  putting that canon to work.
+
+**Next per most-logical-path options:**
+- **ψ.7-A** (4 new built-in editions) — spec ready at
+  `dev/SCOPE_2026-05-09-addendum-edition-templates.md`; data-only
+  edits to editions.yaml; ~1 session, LOW risk.
+- **ψ.7-B** (starter-pack templates) — depends on ψ.7-A; ~1
+  session.
+- **v1.0.0 release motion** — visual QA + binary build + git tag.
+- **ψ.16** (status-dashboard polish) — finish design-system
+  rollout to 13/13 consoles.
+
+Prior ship this session — **ψ.15 editor-console polish**
 2026-05-09 — applied the ψ.13 design system (`HEADER_NAV_LINKS`
 from `_design.CONSOLES`) + ψ.14 buyer-arc polish CSS (focus rings,
 150ms transitions, button :active scale-down, dirty pill, step
