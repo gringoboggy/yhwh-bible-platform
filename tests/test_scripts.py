@@ -14220,3 +14220,171 @@ class TestPsi135DesignSystemConsolidation:
                 f"{name}: lingering BUYER_ARC_POLISH_CSS marker"
             )
 
+
+class TestPsi1LiveEpubPreview:
+    """ψ.1.0 — render_chapter_preview composes corpus + edition spec
+    into a self-contained one-chapter HTML page suitable for iframe
+    srcdoc consumption.
+
+    Spec: dev/PLAN_2026-05-09.md §5.2 ψ.1 entry."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import preview
+        cls.preview = preview
+
+    def test_happy_path_returns_ok_with_html(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 1,
+        )
+        assert r["status"] == "ok", r
+        assert "html" in r
+        assert r["html"].startswith("<!DOCTYPE html>")
+        assert r["html"].rstrip().endswith("</html>")
+        assert r["verse_count"] >= 30  # Genesis 1 has 31 verses
+        assert r["notes_shown"] > 0
+        assert r["edition_id"] == "catholic-study"
+        assert r["book_code"] == "gen"
+        assert r["chapter"] == 1
+        assert r["translation_id"] == "kjv"
+
+    def test_html_includes_book_title_and_chapter_in_header(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "jhn", 1,
+        )
+        assert r["status"] == "ok"
+        # The book's full title (or at least the key word) should
+        # appear in the rendered <h1>.
+        assert "John" in r["html"] or "Johannes" in r["html"]
+        assert " 1<" in r["html"] or " 1</" in r["html"]
+
+    def test_html_inlines_theme_css(self):
+        # The output is self-contained; theme CSS is embedded
+        # inline (no <link rel=stylesheet>).
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 1,
+        )
+        assert r["status"] == "ok"
+        assert "<style>" in r["html"]
+        assert "</style>" in r["html"]
+        # No external stylesheets — must be self-contained for
+        # iframe srcdoc.
+        assert '<link rel="stylesheet"' not in r["html"]
+
+    def test_html_renders_verse_numbers(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 1,
+        )
+        assert r["status"] == "ok"
+        # Verse-number spans with the verse-num class
+        assert 'class="verse-num"' in r["html"]
+        # First verse number "1" must appear
+        assert ">1<" in r["html"]
+
+    def test_html_renders_note_markers(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 1,
+        )
+        assert r["status"] == "ok"
+        assert "note-ref" in r["html"]
+        assert 'class="note ' in r["html"]
+
+    def test_kind_filter_respects_edition(self):
+        # jewish-study disables comm-patristic / comm-orthodox /
+        # dist-mariological / etc. Compare it to scholarly-academic
+        # (everything enabled) on the same chapter — scholarly
+        # should yield ≥ jewish in note count.
+        r_jewish = self.preview.render_chapter_preview(
+            "jewish-study", "gen", 1,
+        )
+        r_scholarly = self.preview.render_chapter_preview(
+            "scholarly-academic", "gen", 1,
+        )
+        assert r_jewish["status"] == "ok"
+        assert r_scholarly["status"] == "ok"
+        # scholarly-academic has the broadest kind filter; should
+        # show >= jewish-study's count.
+        assert r_scholarly["notes_shown"] >= r_jewish["notes_shown"], (
+            f"scholarly={r_scholarly['notes_shown']} but "
+            f"jewish={r_jewish['notes_shown']}"
+        )
+
+    def test_rejects_unknown_edition(self):
+        r = self.preview.render_chapter_preview(
+            "does-not-exist", "gen", 1,
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "unknown_edition"
+        assert r["http"] == 404
+
+    def test_rejects_unknown_book(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "xxx", 1,
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "unknown_book"
+        assert r["http"] == 404
+
+    def test_rejects_chapter_out_of_range(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 999,
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "chapter_out_of_range"
+        assert r["http"] == 400
+
+    def test_rejects_invalid_chapter(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", "not-an-int",
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "invalid_chapter"
+        assert r["http"] == 400
+
+    def test_chapter_1_is_lower_bound(self):
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 0,
+        )
+        assert r["status"] == "error"
+        assert r["code"] == "chapter_out_of_range"
+
+    def test_html_xss_safe_for_verse_text(self):
+        # Verse text passes through html.escape; no raw <script>
+        # injection vector. Check the output doesn't contain a
+        # raw <script> tag inside the verse stream (the preview
+        # renders no buyer-supplied content, just public-domain
+        # KJV verses, so this is regression-only).
+        r = self.preview.render_chapter_preview(
+            "catholic-study", "gen", 1,
+        )
+        assert r["status"] == "ok"
+        # The KJV verses don't contain "<script", but if a future
+        # translation injects one we'd want it escaped.
+        verse_section = r["html"].split('class="verse"')
+        for chunk in verse_section[1:]:
+            # Only check the first ~500 chars after each verse-class
+            # marker to avoid false positives from the notes block
+            # (which trusts publisher-authored content per ξ.4).
+            head = chunk[:500]
+            assert "<script" not in head.lower(), (
+                f"unescaped <script> in verse section: {head[:100]!r}"
+            )
+
+    def test_api_preview_wrapper_in_web_module(self):
+        # The web.py wrapper exists and surfaces the same dict.
+        from scripts.web import api_preview
+        r = api_preview("catholic-study", "gen", 1)
+        assert r["status"] == "ok"
+        assert "html" in r
+
+    def test_api_preview_route_pattern_pinned(self):
+        # The HTTP route uses /api/preview/<edition>/<book>/<chapter>.
+        # Pin the regex for stability — if it changes the wizard
+        # iframe integration in ψ.1.1+ needs updating too.
+        from pathlib import Path
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        assert "/api/preview/" in text
+        assert "([a-z0-9-]+)/([a-z0-9]+)/(\\d+)" in text
+
+

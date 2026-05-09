@@ -1,6 +1,22 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **v1.0.0 release prep** shipped
+**Updated:** 2026-05-09, after **ψ.1.0 live EPUB preview
+infrastructure** shipped — first sub-phase of ψ.1 (the v1.x
+"biggest 'wow' demo upgrade"). New `scripts/core/preview.py`
+(`render_chapter_preview(edition_id, book_code, chapter)`)
+composes existing surfaces (config + notes_io + translations +
+build_edition's enabled-kinds + tradition resolvers + theme CSS)
+into a self-contained one-chapter HTML page suitable for iframe
+srcdoc. New `api_preview` wrapper in scripts.web + GET
+`/api/preview/<edition>/<book>/<chapter>?translation=<id>` route.
+Doesn't depend on `epub_working/` (regenerable artifact often
+absent). +14 tests in TestPsi1LiveEpubPreview. **1062 / 1062
+tests green; 11/11 linter clean.**
+
+UI integration (iframe slot on /customize + /wizard) rides
+ψ.1.1 + ψ.1.2 in future sessions.
+
+Prior ship: **v1.0.0 release prep** —
 — final session in the recommended 5-session sequence.
 **`VERSION`** replaced with clean semver (line 1 = `1.0.0`; rest
 is metadata read by humans). New
@@ -330,7 +346,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 1048 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
+13 consoles · 1062 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -357,7 +373,55 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: v1.0.0 release prep
+## Current phase: ψ.1.0 live EPUB preview infrastructure
+
+First sub-phase of ψ.1 (the v1.x "biggest 'wow' demo upgrade"
+per PLAN §6). Ships the API + composer; iframe UI integration
+rides ψ.1.1 + ψ.1.2 next sessions.
+
+```
+✓ scripts/core/preview.py               new module ~340 lines.
+                                        render_chapter_preview()
+                                        composes config + notes_io +
+                                        translations + build_edition
+                                        helpers + theme CSS into a
+                                        self-contained <html> page.
+                                        No EPUB packaging, no file
+                                        write, no subprocess. No
+                                        dependency on epub_working/.
+✓ scripts/web.py                        api_preview wrapper +
+                                        GET /api/preview/<edition>/
+                                        <book>/<chapter>?translation=
+                                        <id> route.
+✓ tests/test_scripts.py                 +14 tests in TestPsi1LiveEpubPreview:
+                                        - happy path returns ok with
+                                          self-contained HTML
+                                        - header has book + chapter
+                                        - theme CSS inlined (no <link>)
+                                        - verse-num spans rendered
+                                        - note markers + asides rendered
+                                        - kind filter respects edition
+                                          (jewish ≤ scholarly count)
+                                        - all 4 rejection paths
+                                        - chapter ≥ 1 lower bound
+                                        - XSS-safe verse text
+                                        - api_preview wrapper exists
+                                        - route pattern pinned
+~ Corpus delta                          0 — pure infra/API.
+                                        Visual review on user (after
+                                        ψ.1.1 ships the iframe slot):
+                                        curl http://localhost:8765/api/preview/catholic-study/jhn/1
+                                        | head -200
+```
+
+Sub-phasing forward: **ψ.1.1** /customize iframe slot +
+debounced refresh on form changes; **ψ.1.2** /wizard iframe slot
+on relevant steps.
+
+Next: **ψ.1.1** UI integration (one session) OR pick another
+v1.x phase from PLAN §6.
+
+## Prior phase: v1.0.0 release prep
 
 Final session of the recommended 5-session sequence. All v1.0
 candidate criteria met. Prep deliverables shipped Claude-side;

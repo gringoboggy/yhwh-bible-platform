@@ -6,6 +6,128 @@
 
 ---
 
+## 2026-05-09 — session — ψ.1.0 live EPUB preview infrastructure
+
+**Phases shipped:** ψ.1.0 — first sub-phase of the live EPUB
+preview cluster. Ships the API + composer; iframe UI integration
+on /customize and /wizard rides ψ.1.1 + ψ.1.2 in future sessions.
+
+The composer (`scripts/core/preview.py`,
+`render_chapter_preview(edition_id, book_code, chapter)`) renders
+one chapter as a self-contained HTML page suitable for iframe
+srcdoc consumption. Composes existing surfaces (config +
+notes_io + translations + build_edition's enabled-kinds +
+tradition resolvers + theme CSS) without going through the EPUB
+build pipeline. Doesn't depend on `epub_working/` (which is a
+regenerable artifact often absent).
+
+**Test delta:** +14 (1062 vs 1048).
+**Linter delta:** still 11/11 clean.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/core/preview.py`** (~340 lines, pure functions).
+  Public surface: `render_chapter_preview(edition_id, book_code,
+  chapter, *, translation_id="kjv") -> dict`. Returns the §9
+  standard dict shape: `{"status": "ok", "html": "<full HTML>",
+  "verse_count": int, "notes_shown": int, ...}` on success;
+  `{"status": "error", "code": ..., "http": 4xx, "message": ...}`
+  on validation failure. Composes:
+    - `config.editions_by_id` for the edition record + theme
+    - `config.load_books` for book metadata (title, ch_count)
+    - `config.load_kinds` + `config.load_categories` for kind
+      → category → symbol resolution
+    - `notes_io.load_notes` for the book's notes
+    - `translations.get_chapter` for verses
+    - `build_edition.compute_enabled_kinds` for the kind filter
+    - `build_edition._resolve_traditions_for_book` for the
+      tradition filter (per ψ.8.4 per-book resolver)
+    - `content/themes/<id>.css` read directly for theme overrides
+  - The output is a self-contained HTML page: `<!DOCTYPE html>` +
+    `<head>` with inline `<style>` + `<body>` with header +
+    verses + apparatus (notes shown as asides at the bottom of
+    the chapter).
+  - No external stylesheets / scripts / fonts — fully embeddable
+    via iframe `srcdoc=`.
+
+- **`scripts/web.py`** — new `api_preview(edition_id, book_code,
+  chapter, *, translation_id="kjv")` thin wrapper + GET
+  `/api/preview/<edition_id>/<book>/<chapter>?translation=<id>`
+  route. Translation defaults to KJV. Route adapter follows the
+  §9 "pure function + thin route adapter" pattern: pure function
+  returns dict, route translates to HTTP.
+
+- **`tests/test_scripts.py`** — `TestPsi1LiveEpubPreview` (14
+  tests):
+    - Happy-path returns ok with self-contained HTML
+    - Header includes book title + chapter number
+    - Theme CSS inlined (no `<link rel="stylesheet">`)
+    - Verse-num spans rendered with the verse-num class
+    - Note markers + asides rendered with note-ref / note classes
+    - Kind filter respects edition (jewish-study count ≤
+      scholarly-academic count on same chapter)
+    - Rejection paths: unknown_edition (404), unknown_book (404),
+      chapter_out_of_range (400), invalid_chapter (400),
+      chapter ≥ 1 lower bound enforced
+    - XSS-safe: verse text passes through html.escape
+    - api_preview wrapper exists in scripts.web
+    - Route pattern pinned for ψ.1.1+ iframe integration
+
+End state: **1062 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates, ψ.1.0 shipped**.
+
+Notable design decisions:
+
+- **Separate rendering path from build_edition.py**, not a hook
+  into it. The full build reads pre-built HTML from
+  `epub_working/` and runs filter passes; the preview reads from
+  the corpus + translations directly. Tradeoff: not byte-
+  identical to the EPUB output, but close enough for "what the
+  reader sees" + works on a fresh checkout where epub_working/
+  doesn't exist. Per the spec: "rendering one chapter as the
+  reader sees it" — close-enough is fine for a live preview.
+- **Kind filter is the primary surface; tradition filter is
+  permissive.** ψ.1.0 trusts the kind filter to do most of the
+  work. Tradition filtering activates only when the edition has
+  a non-empty `traditions_default` or `traditions_per_book`, and
+  notes without an explicit tradition tag (i.e. the cross-
+  tradition default) always pass. This matches ψ.8.0 backfill
+  semantics: pre-ψ.8 corpus is all "cross", and the tradition
+  filter is additive depth that materializes once χ.2-5
+  commentaries land tradition-tagged content.
+- **No EPUB packaging, no file write, no subprocess.** Purely a
+  function over the corpus + edition spec. Calling
+  `render_chapter_preview()` 100×/second is fine — the cost is
+  bounded by `notes_io.load_notes` (lru-cached on mtime) and
+  `translations._load_book` (also lru-cached).
+- **Note bodies pass through unescaped.** Per CLAUDE_PROJECT_RULES
+  §7.1 + the existing build pipeline, note bodies can contain
+  minimal HTML (`<em>`, `<a href>`) emitted by PD-source
+  detectors. They're publisher-trusted content. ξ.15 (open
+  phase) tightens this for future AI-generated notes.
+
+Sub-phasing:
+- **ψ.1.0** (this session) — render_chapter_preview composer +
+  api_preview wrapper + route + 14 tests. UI integration is the
+  iframe consumer, not the producer; ships next session.
+- **ψ.1.1** (future session) — /customize iframe slot + Preview
+  button + debounced refresh on form changes (300ms).
+- **ψ.1.2** (future session) — /wizard iframe slot on relevant
+  steps (probably step 6+ where edition spec is concrete enough
+  for a meaningful preview).
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.2 ψ.1 entry — full spec
+- `dev/SCOPE_2026-05-08-addendum-prettification.md` — ancestor
+  spec for the live-preview vision
+
+Next session: **ψ.1.1** (UI integration) OR pick another v1.x
+phase from PLAN §6.
+
+---
+
 ## 2026-05-09 — session — v1.0.0 release prep
 
 **Phases shipped:** v1.0.0 prep — final session in the recommended

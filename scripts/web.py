@@ -409,6 +409,36 @@ def api_create_edition_from_template(
     )
 
 
+def api_preview(
+    edition_id: str,
+    book_code: str,
+    chapter,
+    *,
+    translation_id: str = "kjv",
+) -> dict:
+    """ψ.1.0 — Live one-chapter preview.
+
+    Returns the §9 standard dict shape:
+      {"status": "ok", "html": "<full standalone HTML>",
+       "verse_count": int, "notes_shown": int, ...}
+      {"status": "error", "code": "...", "http": 4xx, "message": "..."}
+
+    Surfaced at GET /api/preview/<edition_id>/<book>/<chapter>
+    (translation_id optional via ?translation=<id>; defaults to KJV).
+
+    Composes scripts.core.preview.render_chapter_preview which
+    composes (config + notes_io + translations + build_edition's
+    enabled-kinds + tradition resolvers + theme CSS).
+    """
+    from scripts.core import preview
+    return preview.render_chapter_preview(
+        edition_id,
+        book_code,
+        chapter,
+        translation_id=translation_id,
+    )
+
+
 def api_matrix() -> dict:
     """Return the symbol-toggle count grid as JSON. Read-only (μ.1)."""
     from scripts.core import matrix as matrix_mod
@@ -5511,6 +5541,35 @@ class Handler(BaseHTTPRequestHandler):
         # ψ.7-B — list edition starter-pack templates
         if path == "/api/edition-templates":
             return self._send_json(api_edition_templates_list())
+
+        # ψ.1.0 — live one-chapter preview
+        # /api/preview/<edition>/<book>/<chapter>?translation=<id>
+        m = re.match(
+            r"^/api/preview/([a-z0-9-]+)/([a-z0-9]+)/(\d+)$", path,
+        )
+        if m:
+            from urllib.parse import parse_qs, urlparse
+            edition_id = m.group(1)
+            book_code = m.group(2)
+            try:
+                chapter_int = int(m.group(3))
+            except ValueError:
+                return self._send_json(
+                    {"error": "invalid_chapter"}, status=400,
+                )
+            qs = parse_qs(urlparse(self.path).query)
+            translation_id = (qs.get("translation") or ["kjv"])[0]
+            result = api_preview(
+                edition_id, book_code, chapter_int,
+                translation_id=translation_id,
+            )
+            if result.get("status") == "ok":
+                return self._send_json(result)
+            http_code = result.get("http") or 500
+            return self._send_json({
+                "error": result.get("code") or "internal_error",
+                "message": result.get("message") or "",
+            }, status=http_code)
 
         self._send_json({"error": "not found", "path": path}, status=404)
 
