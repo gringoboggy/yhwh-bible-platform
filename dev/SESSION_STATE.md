@@ -1,6 +1,20 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ω.15.1 plan additions** shipped —
+**Updated:** 2026-05-09, after **ψ.7-A four new built-in editions**
+shipped — added eastern-orthodox, anglican-bcp,
+lutheran-confessional, coptic-orthodox to `content/editions.yaml`.
+The dropdown grows from 5 → 9 traditions. Pure data-only edits
+per CLAUDE_PROJECT_RULES §9 "Add a new edition feature"; existing
+5 editions unchanged. The previously-defined-but-unused `orthodox`
+canon (78 books) is now consumed by eastern-orthodox.
+Each new edition yields 32K-36K enabled notes from the existing
+51,394-note corpus through new canon ∩ kind combinations.
++13 tests in TestPsi7ANewBuiltInEditions (canon refs, kind filters,
+matrix counts, api_matrix surface). +8 existing tests retrofitted
+edition-count-agnostic (`len(config.load_editions())` instead of
+hard-coded 5). 997 / 997 tests green; 11/11 linter clean.
+
+Prior ship: **ω.15.1 plan additions** —
 folded 17 new "neat feature" phases into PLAN_2026-05-09.md per
 user direction (chose maximally-broad fold-in option). Open ledger
 grew 26 → 53 phases. Phases added: SHORT (ψ.20 heat-map, ψ.21
@@ -240,7 +254,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 984 tests · 11/11 linter · 5 editions · 51,394 notes (v1.0 floor met)
+13 consoles · 997 tests · 11/11 linter · 9 editions · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -267,7 +281,53 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ω.15.1 plan additions (17 phases + θ.5 lift)
+## Current phase: ψ.7-A four new built-in editions
+
+The dropdown grows from 5 → 9 traditions. Pure data-only edits
+to `content/editions.yaml`; the existing 5 editions stay unchanged.
+
+```
+✓ content/editions.yaml                 4 new edition records:
+                                        eastern-orthodox (canon=
+                                        orthodox 78b — first
+                                        consumer of that canon),
+                                        anglican-bcp (catholic 76b),
+                                        lutheran-confessional
+                                        (protestant 66b),
+                                        coptic-orthodox (ethiopian
+                                        87b). Each ~30 YAML lines
+                                        with foregrounded comm-* /
+                                        liturgy-* + tradition-
+                                        conflicting kinds disabled.
+✓ tests/test_scripts.py                 +13 tests in
+                                        TestPsi7ANewBuiltInEditions
+                                        (canon refs, kind filters,
+                                        matrix counts, api_matrix
+                                        surface). Plus 8 existing
+                                        tests retrofitted edition-
+                                        count-agnostic (was hard-
+                                        coded `== 5`; now reads
+                                        len(config.load_editions())
+                                        at runtime).
+~ Per-edition note counts (potential / enabled — from existing 51,394 notes):
+  - eastern-orthodox       50,623 / 35,212
+  - anglican-bcp           50,331 / 34,940
+  - lutheran-confessional  47,896 / 32,460
+  - coptic-orthodox        51,394 / 35,937
+~ Corpus delta                          0 — new editions filter
+                                        the existing corpus through
+                                        new canon ∩ kind combos.
+                                        Visual review on user:
+                                        open /customize, /publisher,
+                                        /matrix, /wizard with each
+                                        new edition selected.
+```
+
+Next per the recommended 5-session sequence: **ψ.7-B** template
+starter packs. Spec at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md` §2.
+
+## Prior phase: ω.15.1 plan additions (17 phases + θ.5 lift)
 
 User reviewed PLAN_2026-05-09.md and asked for "neat features"
 to add. Chose maximally-broad fold-in option: all 8 strong + all

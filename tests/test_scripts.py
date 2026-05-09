@@ -1071,11 +1071,16 @@ class TestMatrix:
 
     def test_compute_matrix_returns_matrix_object(self):
         m = self.mod.compute_matrix()
-        # Must have all 5 editions as keys
-        assert set(m.enabled.keys()) == {
+        # Must include the 5 original editions plus the 4 ψ.7-A
+        # additions (eastern-orthodox, anglican-bcp,
+        # lutheran-confessional, coptic-orthodox).
+        expected = {
             "ethiopian-tewahedo", "catholic-study", "evangelical-reformed",
             "jewish-study", "scholarly-academic",
+            "eastern-orthodox", "anglican-bcp",
+            "lutheran-confessional", "coptic-orthodox",
         }
+        assert set(m.enabled.keys()) == expected
         assert set(m.potential.keys()) == set(m.enabled.keys())
 
     def test_scholarly_edition_counts_full_corpus(self):
@@ -1587,7 +1592,8 @@ class TestEditionMeta:
     def test_customize_data_includes_editions(self):
         d = self.web.api_customize_data()
         assert "editions" in d
-        assert len(d["editions"]) == 5
+        # 5 original + 4 ψ.7-A additions = 9
+        assert len(d["editions"]) == 9
         for e in d["editions"]:
             for f in ("id", "title", "verse_popups", "verse_marker_glyph"):
                 assert f in e
@@ -4032,8 +4038,12 @@ class TestEditionMeta:
 
     def test_api_build_all_all_success(self):
         """When every build succeeds, returns ok=True with a zip
-        containing all 5 editions."""
+        containing every edition (5 original + 4 ψ.7-A = 9)."""
         from scripts.web import api_build_all_editions, EXPORTS_DIR
+        from scripts.core import config
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
+        n_editions = len(config.load_editions())
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         created = []
 
@@ -4048,18 +4058,18 @@ class TestEditionMeta:
         try:
             r = api_build_all_editions(build_one=mock_build)
             assert r["ok"] is True
-            assert r["success_count"] == 5  # 5 editions in editions.yaml
+            assert r["success_count"] == n_editions
             assert r["fail_count"] == 0
-            assert r["total_count"] == 5
+            assert r["total_count"] == n_editions
             assert r["zip_filename"] is not None
             assert all(p["ok"] for p in r["per_edition"])
 
-            # Verify the zip actually contains all 5 files
+            # Verify the zip actually contains every edition
             import zipfile
             zip_path = EXPORTS_DIR / r["zip_filename"]
             with zipfile.ZipFile(zip_path) as zf:
                 names = zf.namelist()
-            assert len(names) == 5
+            assert len(names) == n_editions
             for f in created:
                 assert f.name in names
         finally:
@@ -4072,13 +4082,17 @@ class TestEditionMeta:
         """Per-edition failures must NOT abort the batch (spec).
         Only the successful editions land in the zip."""
         from scripts.web import api_build_all_editions, EXPORTS_DIR
+        from scripts.core import config
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
+        n_editions = len(config.load_editions())
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         created = []
         counter = {"i": 0}
 
         def mock_build(edition_id, version="v28a"):
             counter["i"] += 1
-            # Fail editions #2 and #4
+            # Fail editions #2 and #4 — works for any n >= 4
             if counter["i"] in (2, 4):
                 return {"error": f"simulated failure for {edition_id}"}
             fname = f"mock_{edition_id}_{version}.epub"
@@ -4091,9 +4105,9 @@ class TestEditionMeta:
         try:
             r = api_build_all_editions(build_one=mock_build)
             assert r["ok"] is False  # not all succeeded
-            assert r["success_count"] == 3
+            assert r["success_count"] == n_editions - 2
             assert r["fail_count"] == 2
-            assert r["total_count"] == 5
+            assert r["total_count"] == n_editions
             # Zip exists for the successful 3
             assert r["zip_filename"] is not None
             assert r["zip_size_mb"] is not None
@@ -4115,6 +4129,10 @@ class TestEditionMeta:
         (nothing to download), per-edition list still surfaces
         the errors."""
         from scripts.web import api_build_all_editions
+        from scripts.core import config
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
+        n_editions = len(config.load_editions())
 
         def mock_build(edition_id, version="v28a"):
             return {"error": "every edition fails"}
@@ -4122,7 +4140,7 @@ class TestEditionMeta:
         r = api_build_all_editions(build_one=mock_build)
         assert r["ok"] is False
         assert r["success_count"] == 0
-        assert r["fail_count"] == 5
+        assert r["fail_count"] == n_editions
         assert r["zip_filename"] is None
         assert r["download_url"] is None
         # All per-edition entries have errors
@@ -4135,6 +4153,10 @@ class TestEditionMeta:
         that's caught and reported as a per-edition failure rather
         than aborting the batch."""
         from scripts.web import api_build_all_editions
+        from scripts.core import config
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
+        n_editions = len(config.load_editions())
 
         counter = {"i": 0}
         def mock_build(edition_id, version="v28a"):
@@ -4145,8 +4167,8 @@ class TestEditionMeta:
 
         r = api_build_all_editions(build_one=mock_build)
         # No edition succeeded but the exception didn't break
-        # the batch — we still got 5 per-edition entries
-        assert len(r["per_edition"]) == 5
+        # the batch — we still got n_editions per-edition entries
+        assert len(r["per_edition"]) == n_editions
         # The crashed edition has the exception in its error
         crashed = [p for p in r["per_edition"]
                    if p["error"] and "exception" in p["error"]]
@@ -4196,7 +4218,10 @@ class TestEditionMeta:
                          "total_count", "per_edition"):
                 assert key in data, f"missing key: {key}"
             assert isinstance(data["per_edition"], list)
-            assert data["total_count"] == 5
+            from scripts.core import config
+            if hasattr(config.load_editions, "cache_clear"):
+                config.load_editions.cache_clear()
+            assert data["total_count"] == len(config.load_editions())
         finally:
             srv.shutdown()
 
@@ -13382,5 +13407,209 @@ class TestOmega15PlanLinter:
             c for c in out["checks"] if c["id"] == "plan_coherence"
         )
         assert plan_check["status"] == "pass", plan_check["message"]
+
+
+class TestPsi7ANewBuiltInEditions:
+    """ψ.7-A — four new built-in editions added to content/editions.yaml:
+    eastern-orthodox, anglican-bcp, lutheran-confessional, coptic-orthodox.
+    Per CLAUDE_PROJECT_RULES §9 'Add a new edition feature' the additions
+    are schema-additive; existing 5 editions remain unchanged.
+
+    Spec: dev/SCOPE_2026-05-09-addendum-edition-templates.md §1."""
+
+    NEW_EDITIONS = (
+        "eastern-orthodox",
+        "anglican-bcp",
+        "lutheran-confessional",
+        "coptic-orthodox",
+    )
+
+    EXPECTED_CANON = {
+        "eastern-orthodox":      "orthodox",
+        "anglican-bcp":          "catholic",
+        "lutheran-confessional": "protestant",
+        "coptic-orthodox":       "ethiopian",
+    }
+
+    EXISTING_EDITIONS = (
+        "ethiopian-tewahedo",
+        "catholic-study",
+        "evangelical-reformed",
+        "jewish-study",
+        "scholarly-academic",
+    )
+
+    @classmethod
+    def setup_class(cls):
+        import yaml
+        from pathlib import Path
+        from scripts.core import config
+        from scripts.core import matrix as matrix_mod
+        # Caches may carry stale data from prior tests; reset
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
+        matrix_mod.compute_matrix.cache_clear()
+        cls.editions = config.load_editions()
+        cls.editions_by_id = {e["id"]: e for e in cls.editions}
+        # canons.yaml is loaded directly via the matrix module's
+        # private helper; replicate inline to avoid private-API churn
+        canons_path = (
+            Path(__file__).resolve().parent.parent
+            / "content" / "canons.yaml"
+        )
+        canons_data = yaml.safe_load(
+            canons_path.read_text(encoding="utf-8")
+        ) or {}
+        cls.canons = canons_data.get("canons", {}) or {}
+        cls.matrix = matrix_mod.compute_matrix()
+
+    def test_total_edition_count_is_nine(self):
+        # 5 existing + 4 new = 9
+        assert len(self.editions) == 9, (
+            f"expected 9 editions, found {len(self.editions)}"
+        )
+
+    def test_existing_editions_still_present(self):
+        for ed_id in self.EXISTING_EDITIONS:
+            assert ed_id in self.editions_by_id, (
+                f"existing edition {ed_id} disappeared"
+            )
+
+    def test_new_editions_loaded(self):
+        for ed_id in self.NEW_EDITIONS:
+            assert ed_id in self.editions_by_id, (
+                f"new edition {ed_id} not loaded"
+            )
+
+    def test_each_new_edition_has_canon_field(self):
+        for ed_id in self.NEW_EDITIONS:
+            ed = self.editions_by_id[ed_id]
+            assert ed.get("canon") == self.EXPECTED_CANON[ed_id], (
+                f"{ed_id}: canon={ed.get('canon')!r} but expected "
+                f"{self.EXPECTED_CANON[ed_id]!r}"
+            )
+
+    def test_each_new_edition_canon_is_defined(self):
+        # The canon field must point to a real canon in canons.yaml.
+        for ed_id in self.NEW_EDITIONS:
+            ed = self.editions_by_id[ed_id]
+            canon_id = ed["canon"]
+            assert canon_id in self.canons, (
+                f"{ed_id}: canon {canon_id!r} not in canons.yaml"
+            )
+
+    def test_each_new_edition_has_required_fields(self):
+        # Per §9 mental model — every edition has these fields.
+        required = {"id", "canon", "title", "short_title",
+                    "target_audience", "enabled_categories",
+                    "max_phase", "notes"}
+        for ed_id in self.NEW_EDITIONS:
+            ed = self.editions_by_id[ed_id]
+            missing = required - set(ed.keys())
+            assert not missing, (
+                f"{ed_id}: missing required fields {missing}"
+            )
+
+    def test_each_new_edition_yields_nonzero_potential_notes(self):
+        # If an edition's canon ∩ enabled_kinds yields no notes, the
+        # edition won't render anything useful — fail loudly.
+        for ed_id in self.NEW_EDITIONS:
+            potential_total = sum(
+                self.matrix.potential.get(ed_id, {}).values()
+            )
+            assert potential_total > 0, (
+                f"{ed_id}: potential count is 0; canon ∩ kinds yields nothing"
+            )
+
+    def test_each_new_edition_yields_nonzero_enabled_notes(self):
+        # The edition's enabled-kind filter should yield SOME notes
+        # — if disabled_kinds + canon together strip everything,
+        # the edition is misconfigured.
+        for ed_id in self.NEW_EDITIONS:
+            enabled_total = sum(
+                self.matrix.enabled.get(ed_id, {}).values()
+            )
+            assert enabled_total > 0, (
+                f"{ed_id}: enabled count is 0; check disabled_kinds "
+                f"isn't stripping every kind"
+            )
+
+    def test_eastern_orthodox_uses_previously_unused_orthodox_canon(self):
+        # The orthodox canon was defined in canons.yaml but not used
+        # by any edition pre-ψ.7-A. Verify eastern-orthodox is now
+        # the (sole) consumer.
+        orthodox_users = [
+            e["id"] for e in self.editions
+            if e.get("canon") == "orthodox"
+        ]
+        assert orthodox_users == ["eastern-orthodox"], (
+            f"expected exactly [eastern-orthodox], got {orthodox_users}"
+        )
+
+    def test_each_new_edition_disables_conflicting_kinds(self):
+        # Each new edition has explicit disabled_kinds — verify the
+        # tradition-conflict invariant. eastern-orthodox should
+        # disable comm-reformation; anglican-bcp should disable
+        # dist-mariological per 39 Articles posture; lutheran should
+        # disable comm-orthodox; coptic should disable comm-rabbinic.
+        cases = {
+            "eastern-orthodox":      "comm-reformation",
+            "anglican-bcp":          "dist-mariological",
+            "lutheran-confessional": "comm-orthodox",
+            "coptic-orthodox":       "comm-rabbinic",
+        }
+        for ed_id, expected_disabled in cases.items():
+            ed = self.editions_by_id[ed_id]
+            disabled = set(ed.get("disabled_kinds") or [])
+            assert expected_disabled in disabled, (
+                f"{ed_id}: expected {expected_disabled!r} in "
+                f"disabled_kinds, got {sorted(disabled)}"
+            )
+
+    def test_canon_book_counts_match_expectation(self):
+        # eastern-orthodox: orthodox canon (78 books)
+        # anglican-bcp: catholic canon (76 books)
+        # lutheran-confessional: protestant canon (66 books)
+        # coptic-orthodox: ethiopian canon (87 books)
+        expected = {
+            "eastern-orthodox":      78,
+            "anglican-bcp":          76,
+            "lutheran-confessional": 66,
+            "coptic-orthodox":       87,
+        }
+        for ed_id, expected_count in expected.items():
+            book_set = self.matrix.edition_canon_books.get(ed_id, set())
+            assert len(book_set) == expected_count, (
+                f"{ed_id}: canon has {len(book_set)} books "
+                f"(expected {expected_count})"
+            )
+
+    def test_new_editions_have_isbn_placeholders(self):
+        # Per spec, ISBN values are placeholders the buyer fills in.
+        # Each new edition's ISBN should be the standard
+        # "978-XXX-XXXXX-XX-X" placeholder shape, not blank.
+        for ed_id in self.NEW_EDITIONS:
+            ed = self.editions_by_id[ed_id]
+            isbn = ed.get("isbn") or ""
+            assert isbn.startswith("978-"), (
+                f"{ed_id}: ISBN {isbn!r} not in placeholder format"
+            )
+
+    def test_new_editions_appear_in_api_matrix_response(self):
+        # End-to-end: api_matrix() should surface all 9 editions.
+        from scripts.core import matrix as matrix_mod
+        from scripts.core import config
+        if hasattr(config.load_editions, "cache_clear"):
+            config.load_editions.cache_clear()
+        matrix_mod.compute_matrix.cache_clear()
+        import importlib
+        web = importlib.import_module("scripts.web")
+        api = web.api_matrix()
+        ed_ids = {e["id"] for e in api["editions"]}
+        for ed_id in self.NEW_EDITIONS:
+            assert ed_id in ed_ids, (
+                f"{ed_id} missing from api_matrix() response"
+            )
+        assert len(api["editions"]) == 9
 
 

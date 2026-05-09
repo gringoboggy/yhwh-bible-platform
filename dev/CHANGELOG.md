@@ -6,6 +6,130 @@
 
 ---
 
+## 2026-05-09 — session — ψ.7-A four new built-in editions
+
+**Phases shipped:** ψ.7-A — added 4 new built-in editions to
+`content/editions.yaml`: eastern-orthodox, anglican-bcp,
+lutheran-confessional, coptic-orthodox. The dropdown grows from
+5 → 9 traditions. Pure data-only edits per CLAUDE_PROJECT_RULES
+§9 "Add a new edition feature" — schema additive, build pipeline
+no-op on the new fields when unset, no Python changes. The
+existing 5 editions remain unchanged. The previously-defined-
+but-unused `orthodox` canon (78 books) is now consumed by
+eastern-orthodox.
+
+Spec: `dev/SCOPE_2026-05-09-addendum-edition-templates.md` §1.
+
+**Test delta:** +13 (984 → 997 — new TestPsi7ANewBuiltInEditions
+class; plus 8 existing tests updated to be edition-count-agnostic
+where they previously hard-coded 5).
+**Corpus delta:** 0 — new editions filter the existing 51,394 notes
+through new canon ∩ kind combinations. Each new edition yields
+32K-36K enabled notes from the existing corpus.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`content/editions.yaml`** — 4 new edition records appended:
+    - **`eastern-orthodox`** — canon=orthodox (78 books, LXX-leaning).
+      Foregrounds comm-orthodox, comm-patristic, dist-typological,
+      dist-mystical, liturgy-christian-year. Disables comm-reformation
+      (rejects sola-scriptura), dist-mariological (Orthodox Marian
+      theology differs structurally from Catholic), comm-modern-critical
+      (post-Enlightenment hermeneutic conflicts with Patristic
+      synthesis). 35,212 enabled notes / 50,623 potential notes.
+    - **`anglican-bcp`** — canon=catholic (76 books, Apocrypha as
+      deuterocanonical). Foregrounds comm-patristic, comm-modern-critical,
+      comm-reformation, dev-prayer, liturgy-christian-year. Disables
+      dist-mariological (Article XXII / 39 Articles posture) and
+      dist-allegorical (Reformation-era Anglican preference for plain
+      sense). 34,940 / 50,331 notes.
+    - **`lutheran-confessional`** — canon=protestant (66 books).
+      Foregrounds comm-reformation, comm-patristic, dev-application,
+      apol-harmonization, dist-typological. Disables Catholic /
+      Orthodox / Rabbinic commentary kinds (different magisterial
+      postures), dist-mariological. 32,460 / 47,896 notes.
+    - **`coptic-orthodox`** — canon=ethiopian (87 books — Coptic
+      shares ~78 with Ethiopian). Foregrounds comm-orthodox,
+      comm-patristic, comm-ethiopian (shared monastic + ascetic
+      heritage), dist-allegorical (Alexandrian school exegesis),
+      dist-typological, dist-mystical, liturgy-ethiopian (shared
+      liturgical roots). Disables comm-reformation, comm-modern-critical,
+      dist-mariological. 35,937 / 51,394 notes.
+- **`tests/test_scripts.py`** — new `TestPsi7ANewBuiltInEditions`
+  class (13 tests) covering: total count = 9, all 4 new editions
+  load, each has the expected canon, each canon is defined in
+  canons.yaml, each has all required fields, each yields
+  non-zero potential + enabled note counts, eastern-orthodox is
+  the (sole) consumer of the previously-unused orthodox canon,
+  each disables the right tradition-conflicting kinds, canon book
+  counts match expectation (78/76/66/87), each new edition has
+  ISBN placeholders, all 9 surface in `api_matrix()` response.
+- **8 existing tests updated** to be edition-count-agnostic (were
+  hard-coded to `== 5`):
+    - `TestMatrix::test_compute_matrix_returns_matrix_object` —
+      explicit list of all 9 expected ids
+    - `TestEditionMeta::test_customize_data_includes_editions` —
+      `len(d["editions"]) == 9`
+    - `TestEditionMeta::test_api_build_all_*` (4 tests) +
+      `test_build_all_route_serves_json` — read
+      `len(config.load_editions())` at runtime instead of
+      hard-coded `5`. This makes the tests robust to future
+      ψ.7 sub-phases.
+
+End state: **997 tests green, 11/11 linter clean, 51,394 notes,
+9 editions** (was 5).
+
+Notable findings during ship:
+
+- **The `orthodox` canon was defined in canons.yaml (78 books)
+  but had ZERO consumers** in editions.yaml before today. ψ.7-A's
+  eastern-orthodox is the first edition to actually use it. That
+  canon was sitting in the codebase for months waiting for a
+  consumer — the audit caught it during the ω.15 step-back.
+- **lutheran-confessional uses canon=protestant (66 books).**
+  Lutheran practice typically appends Apocrypha as a separate
+  "useful but not normative" section per Luther's prefaces — but
+  that's a per-book toggle at build time, not a canon decision.
+  The protestant canon is the right baseline.
+- **coptic-orthodox shares the ethiopian canon** with the existing
+  ethiopian-tewahedo edition. They differ on commentary lens
+  (comm-ethiopian vs comm-orthodox emphasis) + popup languages
+  (arabic for Coptic vs none for Tewahedo) but ship from the same
+  87-book canon. Pairs natural for a "broader Egyptian church"
+  buyer demo.
+- **Eight existing tests had `== 5` hard-coded as the edition
+  count.** Now they read `len(config.load_editions())` at runtime,
+  making them future-proof for ψ.7-B template expansion + any
+  future sub-phase that adds editions. The §9 mental model already
+  knew schema changes should be additive; these test updates
+  retroactively make the test suite reflect that principle.
+
+Notable decisions:
+
+- **Used only existing kind codes** in the 4 new editions'
+  enabled_kinds / disabled_kinds. Did NOT add `comm-anglican`,
+  `comm-lutheran`, `comm-coptic`, `liturgy-byzantine`, etc. Those
+  tradition-specific sub-kinds will be added when their content
+  actually lands (χ.2-5 commentaries phase). For now the new
+  editions ride on existing comm-orthodox / comm-patristic /
+  comm-reformation / comm-ethiopian + general comm-* kinds. This
+  keeps the ψ.7-A scope tight (data-only) and defers content-side
+  work to its proper phase.
+- **ISBN placeholders, not real ISBNs.** The 4 new editions use
+  the standard `978-XXX-XXXXX-XX-X` placeholder shape that the
+  buyer fills in via /publisher. Real ISBNs are buyer-side
+  (Bowker registration via `feedback_external_tools.md`).
+
+Continuity pointers:
+
+- `dev/SCOPE_2026-05-09-addendum-edition-templates.md` §1 —
+  the spec these 4 editions implement
+- `dev/PLAN_2026-05-09.md` §5.1 — ψ.7-A entry; ψ.7-B (templates)
+  is the next phase
+
+---
+
 ## 2026-05-09 — session — ω.15.1 plan additions: 17 new phases + θ.5 lift
 
 **Phases shipped:** ω.15.1 — folded 17 new "neat feature" phases

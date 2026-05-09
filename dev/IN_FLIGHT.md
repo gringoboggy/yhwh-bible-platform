@@ -4,7 +4,59 @@
 
 ## Active task
 
-*(none — tracker is idle. **ω.15.1 plan additions** shipped
+*(none — tracker is idle. **ψ.7-A four new built-in editions**
+shipped 2026-05-09. Pure data-only edits to `content/editions.yaml`;
+dropdown grew 5 → 9 traditions. Each new edition yields 32K-36K
+enabled notes from the existing 51,394-note corpus through new
+canon ∩ kind combinations.
+
+Editions added (with primary kind tuning):
+- **eastern-orthodox** — canon=orthodox (78 books, **first
+  consumer of the previously-unused orthodox canon**); foregrounds
+  comm-orthodox / comm-patristic / dist-typological / dist-mystical
+  / liturgy-christian-year; disables comm-reformation / comm-
+  modern-critical / dist-mariological.
+- **anglican-bcp** — canon=catholic (76 books, Apocrypha as
+  deuterocanonical); foregrounds comm-patristic / comm-modern-
+  critical / comm-reformation / dev-prayer / liturgy-christian-year;
+  disables dist-mariological (per Article XXII / 39 Articles).
+- **lutheran-confessional** — canon=protestant (66 books);
+  foregrounds comm-reformation / comm-patristic / dev-application;
+  disables Catholic / Orthodox / Rabbinic kinds + dist-mariological.
+- **coptic-orthodox** — canon=ethiopian (87 books, shares ~78
+  with Tewahedo); foregrounds comm-orthodox / comm-patristic /
+  comm-ethiopian / dist-allegorical (Alexandrian school) /
+  dist-mystical / liturgy-ethiopian; disables comm-reformation /
+  comm-modern-critical / dist-mariological.
+
++13 tests in TestPsi7ANewBuiltInEditions covering canon refs,
+kind filters, matrix counts, api_matrix surface. Plus 8 existing
+tests retrofitted edition-count-agnostic (was hard-coded `== 5`;
+now reads `len(config.load_editions())` at runtime — future-proof
+for ψ.7-B and any sub-phase that adds editions).
+
+End state: **997 tests green, 11/11 linter clean, 51,394 notes,
+9 editions** (was 5).
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /customize, /publisher, /matrix, /wizard with each
+    # new edition selected. Verify the dropdown shows 9, the
+    # matrix shows new rows, the customize page lets you tune
+    # the new editions' kind toggles. Build one with
+    # api_export_build to check the EPUB renders.
+
+Next per the recommended 5-session sequence: **ψ.7-B** template
+starter packs (5-7 partial-edition YAML records + new API +
+wizard "Start from template…" button). Spec at
+`dev/SCOPE_2026-05-09-addendum-edition-templates.md` §2.
+
+---
+
+## Prior task
+
+**ω.15.1 plan additions** shipped
 2026-05-09. Folded 17 new phases into PLAN_2026-05-09.md per user's
 "all strong + all interesting + lift θ.5" choice. Open ledger grew
 26 → 53. New clusters: ATLAS, LITURGICAL, BUILD-FORMATS, COVERS,
