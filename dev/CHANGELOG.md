@@ -6,6 +6,103 @@
 
 ---
 
+## 2026-05-09 — session — ψ.16 status-dashboard polish
+
+**Phases shipped:** ψ.16 — applied the ψ.13 design system
+(`HEADER_NAV_LINKS` from `_design.CONSOLES`) + ψ.14 buyer-arc
+polish CSS (focus rings, 150ms transitions, button :active
+scale-down, dirty pill, step fade-in keyframe) to the 5 remaining
+status/dashboard consoles: /audit, /preflight, /ops, /diff,
+/apihelp. Lands all 12 cross-linked consoles on a single source of
+truth. (/index — the note editor at `/` — is intentionally exempt
+from the cross-link invariant per §6.2 lint logic; different
+header layout entirely.)
+
+With ψ.16 shipped, **all design-system-eligible consoles share
+the same nav source + buyer-arc polish CSS**:
+
+  - ψ.14: compare, wizard, export
+  - ψ.15: customize, publisher, covers, matrix, sources
+  - ψ.16: audit, preflight, ops, diff, apihelp
+
+That's 13 of 13 (12 consumers + /index exempt).
+
+**Test delta:** +10 (1028 vs 1018).
+**Linter delta:** still 11/11; cross-link invariant still passes
+13/13 consoles.
+**Save tag this session:** pending.
+
+What shipped:
+
+- **`scripts/templates/audit.py`** — same substitution pattern
+  as ψ.15 templates: import `HEADER_NAV_LINKS` +
+  `BUYER_ARC_POLISH_CSS` from `_design`; replace the hand-rolled
+  14-link nav with `<!-- HEADER_NAV_LINKS -->` marker; add
+  `<!-- BUYER_ARC_POLISH_CSS -->` after `</style>`; module-bottom
+  `.replace()` substitutes both at module load. Outer flex div
+  gained `flex-wrap`.
+- **`scripts/templates/preflight.py`** — same pattern; preserved
+  the console-specific `max-w-5xl mx-auto` wrapper width + brand
+  strong + `flex-wrap` from prior. Hand-rolled
+  `<span class="font-semibold">preflight</span>` self-link
+  becomes a proper `<a>` tag via the substitution.
+- **`scripts/templates/ops.py`** — same pattern.
+- **`scripts/templates/diff.py`** — same pattern.
+- **`scripts/templates/apihelp.py`** — same pattern.
+- **Side-effect: nav labels still uniform across all 13.** The
+  ψ.15 side-effect (was hand-rolled "matrix", now "symbol matrix"
+  via _design.CONSOLES) propagates through these 5 too.
+- **`tests/test_scripts.py`** — +10 tests across 2 new classes:
+    - `TestPsi16StatusDashboardSubstitution` (6) covers marker
+      replacement, polish-CSS marker replacement, current-console
+      font-semibold marker, other-console text-blue-600 styling,
+      every-console route present, and the import surface
+      (HEADER_NAV_LINKS + BUYER_ARC_POLISH_CSS imported from
+      _design).
+    - `TestPsi16StatusDashboardPolishCSS` (4) covers focus-visible
+      outline, button :active scale feedback, .psi14-pending
+      pill, psi14StepFadeIn keyframe.
+
+End state: **1028 tests green, 11/11 linter clean, 51,394 notes,
+9 editions, 7 templates**.
+
+Notable findings during ship:
+
+- **/index is exempt by design.** Its dark-mode header
+  (`bg-slate-900 text-white`) doesn't have a console-style nav
+  row at all. The cross-link linter explicitly skips
+  `INDEX_HTML` per its 2026-05-07 design ("the editor (INDEX)
+  has a different layout (no console-style nav) and is exempt").
+  Folding /index into the design system would require a separate
+  layout decision (does the editor get a top nav? where?); not in
+  scope for ψ.16 since the existing layout is intentional.
+- **Five-not-six.** The PLAN said "5 status consoles" — initial
+  ψ.16 scoping considered 6 (including /index) but the linter
+  exclusion makes 5 the correct count.
+
+Notable decisions:
+
+- **No f-string conversion** (still parked as ψ.13.5). Same
+  reasoning as ψ.14/ψ.15: the `r"""..."""` raw template +
+  `.replace()` pattern is the agreed-upon mechanism until
+  ψ.13.5 ships its sweep across all 12 templates.
+- **preflight + apihelp + diff + ops** preserved their
+  console-specific wrapper widths (max-w-5xl, max-w-6xl, etc.).
+  Each template has its own width constraint that suits its
+  content density — not all consoles want a full-width nav row.
+
+Continuity pointers:
+
+- `dev/PLAN_2026-05-09.md` §5.1 ψ.16 (entry; now in §7's
+  shipped block)
+- §6.2 (the cross-link invariant /index is exempt from)
+
+Next session per the recommended sequence: **ν.2.8 + ψ.11 duo +
+ψ.13.5 f-string sweep** (the SHORT-track UX-MICRO + TEMPLATES
+cluster batch).
+
+---
+
 ## 2026-05-09 — session — ψ.7-B edition template starter packs
 
 **Phases shipped:** ψ.7-B — folder of 7 partial-edition starter

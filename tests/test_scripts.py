@@ -13861,3 +13861,140 @@ class TestPsi7BWizardTemplateButton:
         assert "/api/editions/from-template" in self.html
 
 
+class TestPsi16StatusDashboardSubstitution:
+    """ψ.16 — cross-link nav in /audit, /preflight, /ops, /diff,
+    /apihelp is sourced from `_design.HEADER_NAV_LINKS()` at module
+    load — same pattern as ψ.14 (compare/wizard/export) and ψ.15
+    (customize/publisher/covers/matrix/sources).
+
+    With ψ.16 landed, all 12 cross-linked consoles share a single
+    source of truth for nav + buyer-arc polish CSS. (/index is
+    intentionally exempt per §6.2 lint logic — different layout.)"""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.audit import AUDIT_HTML
+        from scripts.templates.preflight import PREFLIGHT_HTML
+        from scripts.templates.ops import OPS_HTML
+        from scripts.templates.diff import DIFF_HTML
+        from scripts.templates.apihelp import APIHELP_HTML
+        from scripts.templates._design import (
+            HEADER_NAV_LINKS, BUYER_ARC_POLISH_CSS, CONSOLES,
+        )
+        cls.htmls = {
+            "audit":     AUDIT_HTML,
+            "preflight": PREFLIGHT_HTML,
+            "ops":       OPS_HTML,
+            "diff":      DIFF_HTML,
+            "apihelp":   APIHELP_HTML,
+        }
+        cls.HEADER_NAV_LINKS = HEADER_NAV_LINKS
+        cls.BUYER_ARC_POLISH_CSS = BUYER_ARC_POLISH_CSS
+        cls.CONSOLES = CONSOLES
+
+    def test_marker_is_fully_replaced(self):
+        for name, html in self.htmls.items():
+            assert "<!-- HEADER_NAV_LINKS -->" not in html, (
+                f"{name}: HEADER_NAV_LINKS marker not substituted"
+            )
+
+    def test_polish_css_marker_is_replaced(self):
+        for name, html in self.htmls.items():
+            assert "<!-- BUYER_ARC_POLISH_CSS -->" not in html, (
+                f"{name}: BUYER_ARC_POLISH_CSS marker not substituted"
+            )
+
+    def test_current_console_marked_font_semibold(self):
+        cases = {
+            "audit":     '<a href="/audit" class="font-semibold">',
+            "preflight": '<a href="/preflight" class="font-semibold">',
+            "ops":       '<a href="/ops" class="font-semibold">',
+            "diff":      '<a href="/diff" class="font-semibold">',
+            "apihelp":   '<a href="/apihelp" class="font-semibold">',
+        }
+        for name, expected in cases.items():
+            assert expected in self.htmls[name], (
+                f"{name}: missing self-link with font-semibold"
+            )
+
+    def test_other_consoles_marked_text_blue_600(self):
+        # Sample one cross-pair per console.
+        cases = {
+            "audit":     '<a href="/sources" class="text-blue-600 hover:underline">',
+            "preflight": '<a href="/customize" class="text-blue-600 hover:underline">',
+            "ops":       '<a href="/wizard" class="text-blue-600 hover:underline">',
+            "diff":      '<a href="/compare" class="text-blue-600 hover:underline">',
+            "apihelp":   '<a href="/matrix" class="text-blue-600 hover:underline">',
+        }
+        for name, expected in cases.items():
+            assert expected in self.htmls[name], (
+                f"{name}: missing cross-link"
+            )
+
+    def test_substitution_includes_all_consoles(self):
+        for name, html in self.htmls.items():
+            for route, _label in self.CONSOLES:
+                assert f'href="{route}"' in html, (
+                    f"{name}: missing href={route} after substitution"
+                )
+
+    def test_design_module_imported(self):
+        import importlib
+        for name in self.htmls:
+            mod = importlib.import_module(f"scripts.templates.{name}")
+            assert hasattr(mod, "HEADER_NAV_LINKS"), (
+                f"{name}: HEADER_NAV_LINKS not imported"
+            )
+            assert hasattr(mod, "BUYER_ARC_POLISH_CSS"), (
+                f"{name}: BUYER_ARC_POLISH_CSS not imported"
+            )
+
+
+class TestPsi16StatusDashboardPolishCSS:
+    """ψ.16 — BUYER_ARC_POLISH_CSS is injected into all 5 status
+    dashboard consoles."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.templates.audit import AUDIT_HTML
+        from scripts.templates.preflight import PREFLIGHT_HTML
+        from scripts.templates.ops import OPS_HTML
+        from scripts.templates.diff import DIFF_HTML
+        from scripts.templates.apihelp import APIHELP_HTML
+        cls.htmls = {
+            "audit":     AUDIT_HTML,
+            "preflight": PREFLIGHT_HTML,
+            "ops":       OPS_HTML,
+            "diff":      DIFF_HTML,
+            "apihelp":   APIHELP_HTML,
+        }
+
+    def test_focus_visible_outline_present(self):
+        for name, html in self.htmls.items():
+            assert "*:focus-visible" in html, (
+                f"{name}: missing focus-visible outline rule"
+            )
+
+    def test_button_active_scale_feedback(self):
+        for name, html in self.htmls.items():
+            assert "button:active:not(:disabled)" in html, (
+                f"{name}: missing button :active feedback"
+            )
+            assert "scale(0.98)" in html, (
+                f"{name}: missing button scale-down rule"
+            )
+
+    def test_psi14_pending_pill_class(self):
+        for name, html in self.htmls.items():
+            assert ".psi14-pending::after" in html, (
+                f"{name}: missing .psi14-pending pill rule"
+            )
+
+    def test_step_fade_in_keyframes(self):
+        for name, html in self.htmls.items():
+            assert "@keyframes psi14StepFadeIn" in html, (
+                f"{name}: missing psi14StepFadeIn keyframe"
+            )
+
+
+

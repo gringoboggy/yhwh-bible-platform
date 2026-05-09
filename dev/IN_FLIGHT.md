@@ -4,8 +4,51 @@
 
 ## Active task
 
-*(none — tracker is idle. **ψ.7-B edition template starter packs**
-shipped 2026-05-09. 7 partial-edition templates + loader/cloner +
+*(none — tracker is idle. **ψ.16 status-dashboard polish** shipped
+2026-05-09. 5 templates substituted (/audit, /preflight, /ops,
+/diff, /apihelp), all 12 cross-linked consoles now share one
+source of truth for nav + polish CSS. /index intentionally exempt
+(different dark-mode header layout; linter skips it).
++10 tests. End state: 1028 tests, 11/11 linter, 9 editions, 7
+templates, 51,394 notes.
+
+The shipped surface (5 templates, same substitution pattern):
+
+- Each imports `HEADER_NAV_LINKS` + `BUYER_ARC_POLISH_CSS` from
+  `_design`.
+- Each replaces hand-rolled 14-link nav with
+  `<!-- HEADER_NAV_LINKS -->` marker + `flex-wrap` on outer div.
+- Each adds `<!-- BUYER_ARC_POLISH_CSS -->` after `</style>`.
+- Module-bottom `.replace()` substitutes both at module load.
+
+Special notes:
+- preflight + apihelp + diff + ops preserved their console-
+  specific wrapper widths (max-w-5xl, max-w-6xl).
+- preflight's hand-rolled `<span class="font-semibold">preflight
+  </span>` self-link became a proper `<a>` tag.
+
+**Visual review on user** (per project rules on UI changes):
+
+    python3 scripts/launcher.py --shell browser
+    # Open /audit, /preflight, /ops, /diff, /apihelp.
+    # Tab through to verify focus rings.
+    # Click buttons to feel the 75ms :active scale-down.
+    # Resize narrow to confirm flex-wrap on the navs.
+
+Next per the recommended 5-session sequence: **ν.2.8 + ψ.11 duo +
+ψ.13.5 f-string sweep**. ν.2.8 visual sections + ψ.11 wizard
+reversibility hints in one PR (UX-MICRO cluster); ψ.13.5 sweeps
+the 12 ψ.13/14/15/16 consumers from `r"""..."""` + `.replace()`
+to f-string interpolation in a focused diff.
+
+After that: **v1.0.0** RELEASE motion (visual QA + binary build +
+git tag). All v1.0 candidate criteria met.
+
+---
+
+## Prior task
+
+**ψ.7-B edition template starter packs** shipped 2026-05-09. 7 partial-edition templates + loader/cloner +
 2 API surfaces + wizard "Start from template…" button + modal +
 21 tests. Cloned editions are real editions.yaml entries —
 indistinguishable from hand-crafted ones once created. End state:

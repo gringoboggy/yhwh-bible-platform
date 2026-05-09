@@ -1,7 +1,18 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.7-B edition template starter
-packs** shipped — folder of 7 partial-edition starter packs
+**Updated:** 2026-05-09, after **ψ.16 status-dashboard polish**
+shipped — applied the ψ.13 design system + ψ.14 buyer-arc polish
+CSS to /audit, /preflight, /ops, /diff, /apihelp (the 5 remaining
+status/dashboard consoles). Same substitution pattern as ψ.14
+(buyer-arc) and ψ.15 (editor consoles). With ψ.16 landed, **all
+12 cross-linked consoles share a single source of truth** for
+nav + polish CSS. (/index — note editor at `/` — exempt from
+cross-link invariant by design; different header layout.) +10
+tests across 2 new classes (TestPsi16StatusDashboardSubstitution
++ TestPsi16StatusDashboardPolishCSS). 1028 / 1028 tests green;
+11/11 linter clean.
+
+Prior ship: **ψ.7-B edition template starter packs** — folder of 7 partial-edition starter packs
 (`content/edition_templates/*.yaml`: monastic-daily-office,
 school-friendly-nrsv, children, family-devotional,
 scholarly-academic-with-apparatus, anglican-bcp mirror,
@@ -289,7 +300,7 @@ the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 ## Status snapshot
 
 ```
-13 consoles · 1018 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
+13 consoles · 1028 tests · 11/11 linter · 9 editions · 7 templates · 51,394 notes (v1.0 floor met)
 
 PLATFORM:    Feature-complete for the buyer demo.
              Tier 1 (debt + refactor) DONE.
@@ -316,7 +327,40 @@ CORPUS:      15,925 notes (45.5% of 35K target — unchanged this session;
 
 ---
 
-## Current phase: ψ.7-B edition template starter packs
+## Current phase: ψ.16 status-dashboard polish
+
+All 12 cross-linked consoles now share `_design.HEADER_NAV_LINKS`
+for nav + `_design.BUYER_ARC_POLISH_CSS` for polish. Total tally
+of design-system consumers: 12 of 13 (/index exempt by design).
+
+```
+✓ scripts/templates/audit.py            substituted; flex-wrap added.
+✓ scripts/templates/preflight.py        substituted; preserved
+                                        max-w-5xl wrapper + brand
+                                        strong; <span>preflight
+                                        </span> self-link → <a>.
+✓ scripts/templates/ops.py              substituted.
+✓ scripts/templates/diff.py             substituted.
+✓ scripts/templates/apihelp.py          substituted; flex-wrap added.
+✓ tests/test_scripts.py                 +10 tests across 2 classes:
+                                        - TestPsi16StatusDashboardSubstitution (6)
+                                        - TestPsi16StatusDashboardPolishCSS (4)
+~ /index                                exempt by design (different
+                                        dark-mode header layout;
+                                        cross-link linter skips it).
+~ Corpus delta                          0 — pure UI infra.
+                                        Visual review on user:
+                                        tab through nav rings on
+                                        /audit / /preflight / /ops
+                                        / /diff / /apihelp; click
+                                        buttons for :active scale.
+```
+
+Next per the recommended 5-session sequence: **ν.2.8 + ψ.11 duo
++ ψ.13.5 f-string sweep** (SHORT-track UX-MICRO + TEMPLATES
+batch).
+
+## Prior phase: ψ.7-B edition template starter packs
 
 7 named templates ride the existing editions.yaml mutation
 pattern. Buyers clone via the wizard's new "Start from template…"
