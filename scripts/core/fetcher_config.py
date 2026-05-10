@@ -52,14 +52,16 @@ CONFIG_VERSION = 1
 # registered in scripts.fetch_sources.PARSERS. Keep this list and that
 # registry in sync — the linter could enforce it as a follow-up if drift
 # becomes an issue.
-KNOWN_PARSERS: frozenset[str] = frozenset({
-    "strongs-hebrew-js",
-    "strongs-greek-js",
-    "tsk-zip-tsv",
-    "json-topic-to-refs",
-    "openbible-topics-tsv",
-    "ccel-text",
-})
+KNOWN_PARSERS: frozenset[str] = frozenset(
+    {
+        "strongs-hebrew-js",
+        "strongs-greek-js",
+        "tsk-zip-tsv",
+        "json-topic-to-refs",
+        "openbible-topics-tsv",
+        "ccel-text",
+    }
+)
 
 
 class FetcherConfigError(ValueError):
@@ -70,6 +72,7 @@ class FetcherConfigError(ValueError):
 @dataclass(frozen=True)
 class Candidate:
     """One upstream URL and the parser kind that knows how to ingest it."""
+
     url: str
     parser: str
 
@@ -82,6 +85,7 @@ class Source:
     keeps the first that succeeds. ``required=False`` means the platform
     stays usable without this source (Nave's Topical is the existing
     instance — its absence just disables NaveTopicalDetector)."""
+
     id: str
     name: str
     cache_path: str  # filename under content/sources/, not absolute
@@ -112,8 +116,7 @@ def load_fetcher_config(path: Path | None = None) -> FetcherConfig:
     p = path or DEFAULT_FETCHER_CONFIG_PATH
     if not p.is_file():
         raise FetcherConfigError(
-            f"_fetchers.json not found at {p}. "
-            f"Add it (see scripts/core/fetcher_config.py for the schema)."
+            f"_fetchers.json not found at {p}. Add it (see scripts/core/fetcher_config.py for the schema)."
         )
     try:
         with p.open(encoding="utf-8") as f:
@@ -130,9 +133,7 @@ def _validate_and_build(raw: object) -> FetcherConfig:
 
     version = raw.get("version")
     if version != CONFIG_VERSION:
-        raise FetcherConfigError(
-            f"unsupported version {version!r} (this loader supports {CONFIG_VERSION})"
-        )
+        raise FetcherConfigError(f"unsupported version {version!r} (this loader supports {CONFIG_VERSION})")
 
     sources_raw = raw.get("sources")
     if not isinstance(sources_raw, list):
@@ -150,9 +151,27 @@ def _validate_and_build(raw: object) -> FetcherConfig:
         for field in ("id", "name", "cache_path", "license"):
             val = s.get(field)
             if not isinstance(val, str) or not val:
-                raise FetcherConfigError(
-                    f"{ctx}: missing or empty string field {field!r}"
-                )
+                raise FetcherConfigError(f"{ctx}: missing or empty string field {field!r}")
+
+        # ξ.17 SEC-004 — `cache_path` flows into write paths
+        # (`api_sources_cache_upload`, `api_sources_cache_clear`). A
+        # tampered `_fetchers.json` (delivered via scenario bundle,
+        # restore from backup, hand-edit) could otherwise direct
+        # writes anywhere reachable from the cache dir. Validate
+        # that the cache_path is a plain relative filename — no
+        # path separators, no `..`, no absolute prefix, no
+        # drive-letter prefix, no leading `~`. The same rule
+        # `safe_path._check_string_safety` applies. Empty strings
+        # already rejected above.
+        cp = s["cache_path"]
+        if "/" in cp or "\\" in cp:
+            raise FetcherConfigError(f"{ctx}: cache_path must be a bare filename (got {cp!r})")
+        if cp.startswith("~") or cp == "." or cp == "..":
+            raise FetcherConfigError(f"{ctx}: cache_path may not be {cp!r}")
+        if len(cp) >= 2 and cp[1] == ":" and cp[0].isalpha():
+            raise FetcherConfigError(f"{ctx}: cache_path may not have a drive-letter prefix")
+        if any(ord(c) < 0x20 for c in cp):
+            raise FetcherConfigError(f"{ctx}: cache_path may not contain control characters")
 
         sid: str = s["id"]
         if sid in seen_ids:
@@ -164,9 +183,7 @@ def _validate_and_build(raw: object) -> FetcherConfig:
 
         cands_raw = s.get("candidates")
         if not isinstance(cands_raw, list) or not cands_raw:
-            raise FetcherConfigError(
-                f'{ctx}: "candidates" must be a non-empty list'
-            )
+            raise FetcherConfigError(f'{ctx}: "candidates" must be a non-empty list')
 
         cands: list[Candidate] = []
         for j, c in enumerate(cands_raw):
@@ -176,23 +193,20 @@ def _validate_and_build(raw: object) -> FetcherConfig:
             for field in ("url", "parser"):
                 val = c.get(field)
                 if not isinstance(val, str) or not val:
-                    raise FetcherConfigError(
-                        f"{cctx}: missing or empty string field {field!r}"
-                    )
+                    raise FetcherConfigError(f"{cctx}: missing or empty string field {field!r}")
             if c["parser"] not in KNOWN_PARSERS:
-                raise FetcherConfigError(
-                    f"{cctx}: unknown parser {c['parser']!r}; "
-                    f"known: {sorted(KNOWN_PARSERS)}"
-                )
+                raise FetcherConfigError(f"{cctx}: unknown parser {c['parser']!r}; known: {sorted(KNOWN_PARSERS)}")
             cands.append(Candidate(url=c["url"], parser=c["parser"]))
 
-        sources.append(Source(
-            id=sid,
-            name=s["name"],
-            cache_path=s["cache_path"],
-            required=s["required"],
-            license=s["license"],
-            candidates=tuple(cands),
-        ))
+        sources.append(
+            Source(
+                id=sid,
+                name=s["name"],
+                cache_path=s["cache_path"],
+                required=s["required"],
+                license=s["license"],
+                candidates=tuple(cands),
+            )
+        )
 
     return FetcherConfig(version=version, sources=tuple(sources))

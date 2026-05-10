@@ -225,8 +225,7 @@ def main() -> None:
         type=Path,
         help="path to .epub (default: most recent *.epub in repo root)",
     )
-    p.add_argument("--editions-dir", type=Path,
-                   help="run against every .epub in this directory")
+    p.add_argument("--editions-dir", type=Path, help="run against every .epub in this directory")
     p.add_argument("--jar", help="explicit path to epubcheck.jar")
     p.add_argument("--strict", action="store_true", help="fail on warnings as well as errors")
     p.add_argument(
@@ -265,8 +264,7 @@ def main() -> None:
                 total_e += errors + fatals
                 total_w += warnings
         glyph = GREEN + "✓" if total_e == 0 else RED + "✗"
-        print(f"{glyph} epubcheck (batch): {len(epubs)} edition(s) · "
-              f"errors={total_e} · warnings={total_w}{RESET}")
+        print(f"{glyph} epubcheck (batch): {len(epubs)} edition(s) · errors={total_e} · warnings={total_w}{RESET}")
         sys.exit(0 if total_e == 0 else 1)
 
     # Single-file mode (original behaviour)

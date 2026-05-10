@@ -19,6 +19,7 @@ import re
 from dataclasses import dataclass, field
 
 from . import sources
+from .html_sandbox import sandbox_ai_html
 
 
 # ----------------------------------------------------------------------
@@ -138,17 +139,39 @@ class HebrewWordDetector:
 
     # Verses in OT only — Hebrew lexicon doesn't apply to NT.
     NT_BOOKS = {
-        "mat", "mrk", "luk", "jhn", "act", "rom", "1co", "2co", "gal",
-        "eph", "php", "col", "1th", "2th", "1ti", "2ti", "tit", "phm",
-        "heb", "jas", "1pe", "2pe", "1jn", "2jn", "3jn", "jud", "rev",
+        "mat",
+        "mrk",
+        "luk",
+        "jhn",
+        "act",
+        "rom",
+        "1co",
+        "2co",
+        "gal",
+        "eph",
+        "php",
+        "col",
+        "1th",
+        "2th",
+        "1ti",
+        "2ti",
+        "tit",
+        "phm",
+        "heb",
+        "jas",
+        "1pe",
+        "2pe",
+        "1jn",
+        "2jn",
+        "3jn",
+        "jud",
+        "rev",
     }
 
     def __init__(self) -> None:
         self.lex = sources.strongs_hebrew()
 
-    def detect(
-        self, book: str, chapter: int, verse: int, verse_text: str
-    ) -> list[Candidate]:
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
         if book in self.NT_BOOKS:
             return []
         out = []
@@ -204,9 +227,7 @@ class HebrewWordDetector:
         """Compose the draft note body — a stub the user fleshes out.
         ``_keyword`` and ``_verse_text`` are kept for signature parity with
         sibling detector formatters; they're unused in this implementation."""
-        lemma_part = (
-            f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
-        )
+        lemma_part = f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
         xlit_part = entry.xlit or "—"
         return (
             f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> "
@@ -315,17 +336,39 @@ class GreekWordDetector:
 
     # Verses in NT only — Greek lexicon applies to NT (and LXX, deferred).
     NT_BOOKS = {
-        "mat", "mrk", "luk", "jhn", "act", "rom", "1co", "2co", "gal",
-        "eph", "php", "col", "1th", "2th", "1ti", "2ti", "tit", "phm",
-        "heb", "jas", "1pe", "2pe", "1jn", "2jn", "3jn", "jud", "rev",
+        "mat",
+        "mrk",
+        "luk",
+        "jhn",
+        "act",
+        "rom",
+        "1co",
+        "2co",
+        "gal",
+        "eph",
+        "php",
+        "col",
+        "1th",
+        "2th",
+        "1ti",
+        "2ti",
+        "tit",
+        "phm",
+        "heb",
+        "jas",
+        "1pe",
+        "2pe",
+        "1jn",
+        "2jn",
+        "3jn",
+        "jud",
+        "rev",
     }
 
     def __init__(self) -> None:
         self.lex = sources.strongs_greek()
 
-    def detect(
-        self, book: str, chapter: int, verse: int, verse_text: str
-    ) -> list[Candidate]:
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
         if book not in self.NT_BOOKS:
             return []
         out = []
@@ -383,9 +426,7 @@ class GreekWordDetector:
         """Compose the draft note body — a stub the user fleshes out.
         ``_keyword`` and ``_verse_text`` are kept for signature parity
         with ``HebrewWordDetector._format_body``; unused here."""
-        lemma_part = (
-            f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
-        )
+        lemma_part = f" (<em>{entry.lemma}</em>)" if entry.lemma else ""
         xlit_part = entry.xlit or "—"
         return (
             f"<strong>{xlit_part.capitalize()}{lemma_part}.</strong> "
@@ -412,12 +453,8 @@ class CrossRefDetector:
         self.min_votes = min_votes
         self.top_n = top_n
 
-    def detect(
-        self, book: str, chapter: int, verse: int, _verse_text: str
-    ) -> list[Candidate]:
-        refs = self.tsk.refs_for(
-            book, chapter, verse, min_votes=self.min_votes, top_n=self.top_n
-        )
+    def detect(self, book: str, chapter: int, verse: int, _verse_text: str) -> list[Candidate]:
+        refs = self.tsk.refs_for(book, chapter, verse, min_votes=self.min_votes, top_n=self.top_n)
         if not refs:
             return []
 
@@ -425,8 +462,8 @@ class CrossRefDetector:
         target_lines = []
         for r in refs:
             target_lines.append(
-                f"<a href=\"#vnote-{r.target_book}-{r.target_chapter}-"
-                f"{r.target_verse}\">{r.target_book.title()} "
+                f'<a href="#vnote-{r.target_book}-{r.target_chapter}-'
+                f'{r.target_verse}">{r.target_book.title()} '
                 f"{r.target_chapter}:{r.target_verse}</a>"
             )
         targets_str = " · ".join(target_lines)
@@ -491,9 +528,7 @@ class NaveTopicalDetector:
         self.top_n = top_n
         self.min_topics = min_topics
 
-    def detect(
-        self, book: str, chapter: int, verse: int, _verse_text: str
-    ) -> list[Candidate]:
+    def detect(self, book: str, chapter: int, verse: int, _verse_text: str) -> list[Candidate]:
         topics = self.naves.topics_for(book, chapter, verse, top_n=self.top_n)
         if len(topics) < self.min_topics:
             return []
@@ -505,9 +540,7 @@ class NaveTopicalDetector:
 
         topics_str = ", ".join(topics)
         primary = topics[0]
-        attribution = (
-            "Nave's Topical Bible, Orville J. Nave (1896). Public domain."
-        )
+        attribution = "Nave's Topical Bible, Orville J. Nave (1896). Public domain."
         body = (
             f"<strong>Topics.</strong> This verse appears under: "
             f"{topics_str}. "
@@ -524,8 +557,7 @@ class NaveTopicalDetector:
                 kind=self.kind,
                 anchor="",
                 confidence=confidence,
-                source_name=f"Nave: {primary}"
-                + (f" (+{len(topics)-1} more)" if len(topics) > 1 else ""),
+                source_name=f"Nave: {primary}" + (f" (+{len(topics) - 1} more)" if len(topics) > 1 else ""),
                 source_attribution=attribution,
                 draft_title="Topic",
                 draft_label="Topic.",
@@ -599,9 +631,7 @@ class KenyonReferenceDetector:
             idx.setdefault(key, []).append(_clean_kenyon_context(ref.context))
         return idx
 
-    def detect(
-        self, book: str, chapter: int, verse: int, _verse_text: str
-    ) -> list[Candidate]:
+    def detect(self, book: str, chapter: int, verse: int, _verse_text: str) -> list[Candidate]:
         if self._index is None:
             self._index = self._build_index()
         contexts = self._index.get((book, chapter, verse), [])
@@ -621,27 +651,29 @@ class KenyonReferenceDetector:
                 f"surrounding context is provided so you can judge "
                 f"which version / witness Kenyon is discussing.]</em>"
             )
-            out.append(Candidate(
-                book=book,
-                chapter=chapter,
-                verse=verse,
-                kind=self.kind,
-                anchor="",
-                confidence=0.55,  # draft-quality; reviewer trims
-                source_name="Kenyon 1895",
-                source_attribution=attribution,
-                draft_title="Witness",
-                draft_label="MS.",
-                draft_body=body,
-                detector=self.name,
-                reviewer_notes=(
-                    "Kenyon's textual-criticism prose. Don't paste the "
-                    "raw context — pick the clause that names the "
-                    "witness (Codex, Old Latin, LXX, Peshitto, etc.) "
-                    "and write a 1-2 sentence note on what that "
-                    "witness does for this verse."
-                ),
-            ))
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",
+                    confidence=0.55,  # draft-quality; reviewer trims
+                    source_name="Kenyon 1895",
+                    source_attribution=attribution,
+                    draft_title="Witness",
+                    draft_label="MS.",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Kenyon's textual-criticism prose. Don't paste the "
+                        "raw context — pick the clause that names the "
+                        "witness (Codex, Old Latin, LXX, Peshitto, etc.) "
+                        "and write a 1-2 sentence note on what that "
+                        "witness does for this verse."
+                    ),
+                )
+            )
         return out
 
     def iter_all_candidates(self):
@@ -713,11 +745,13 @@ class AIXrefDetector:
         self.top_n = top_n
         self.min_confidence = min_confidence
 
-    def detect(
-        self, book: str, chapter: int, verse: int, verse_text: str
-    ) -> list[Candidate]:
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
         proposals = self.client.propose_xrefs(
-            book, chapter, verse, verse_text, top_n=self.top_n,
+            book,
+            chapter,
+            verse,
+            verse_text,
+            top_n=self.top_n,
         )
         out: list[Candidate] = []
         for p in proposals:
@@ -728,13 +762,12 @@ class AIXrefDetector:
             target_chapter = p["target_chapter"]
             target_verse = p["target_verse"]
             subclass = p.get("kind_subclass", "thematic")
-            subclass_label = _AI_XREF_SUBCLASS_LABEL.get(
-                subclass, "Thematic")
+            subclass_label = _AI_XREF_SUBCLASS_LABEL.get(subclass, "Thematic")
             reasoning = p.get("reasoning", "")
 
             target_link = (
-                f"<a href=\"#vnote-{target_book}-{target_chapter}-"
-                f"{target_verse}\">{target_book.title()} "
+                f'<a href="#vnote-{target_book}-{target_chapter}-'
+                f'{target_verse}">{target_book.title()} '
                 f"{target_chapter}:{target_verse}</a>"
             )
             body = (
@@ -745,30 +778,168 @@ class AIXrefDetector:
                 f"promoting.]</em>"
             )
 
-            out.append(Candidate(
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",
+                    confidence=confidence,
+                    source_name=(f"AI: {target_book} {target_chapter}:{target_verse} ({subclass})"),
+                    source_attribution=self.client.attribution,
+                    draft_title="Thematic",
+                    draft_label=f"{subclass_label[:5]}.",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        f"AI-proposed {subclass} link with confidence "
+                        f"{confidence:.2f}. The model's reasoning is a draft, "
+                        f"not the final note — rewrite in the project's voice "
+                        f"and discard if the connection is too thin."
+                    ),
+                )
+            )
+        return out
+
+
+# ----------------------------------------------------------------------
+# AI-backed first-draft note generator (Phase χ-AI-notes)
+# ----------------------------------------------------------------------
+
+
+# Display labels for the kind_class field on the rendered note body.
+# Mirrors AIXrefDetector's _AI_XREF_SUBCLASS_LABEL pattern: kept here
+# (not on the model side) so the rendered prose stays consistent
+# regardless of the model's exact wording.
+_AI_NOTE_CLASS_LABEL = {
+    "explanatory": "Background",
+    "study": "Study",
+    "translation": "Translation",
+}
+
+
+class AINoteDetector:
+    """Generate ``comm-ai`` candidates from an LLM note drafter
+    (``sources.AnthropicNoteClient``).
+
+    Phase χ-AI-notes (2026-05-10). Sibling of ``AIXrefDetector``;
+    same lazy-source-via-singleton pattern, same SourceMissingError
+    propagation contract, same min_confidence floor. Distinct from
+    AIXrefDetector in what it emits — first-draft *note prose* for
+    a verse, not links between verses.
+
+    Reviewer-flag invariant: every emitted candidate carries an
+    explicit ``[Reviewer: AI-generated, requires human approval]``
+    flag in the body so a draft can never be confused with a
+    reviewed note in the editor / preview surface.
+
+    ξ.15 sandbox: every model-emitted ``body_html`` and ``label`` is
+    run through ``html_sandbox.sandbox_ai_html`` before being woven
+    into the candidate body. The sandbox is a strict subset of
+    publisher-grade ``sanitize_html`` — only ``em``, ``strong``,
+    ``b``, ``i``, ``sup``, ``sub``, ``code``, ``br``, ``span``, ``p``
+    and in-document anchors on ``<a>`` survive. Anything else is
+    stripped (inner text preserved). A second sandbox pass also
+    fires in ``promote.promote_candidate`` for kinds in
+    ``matrix.AI_DRAFTED_KINDS`` — defense in depth.
+    """
+
+    name = "AINoteDetector"
+    kind = "comm-ai"
+
+    def __init__(
+        self,
+        *,
+        client=None,
+        min_confidence: float = 0.65,
+        tradition: str | None = None,
+    ) -> None:
+        if client is None:
+            client = sources.anthropic_note_client()
+        self.client = client
+        self.min_confidence = min_confidence
+        self.tradition = tradition
+
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
+        draft = self.client.draft_note(
+            book,
+            chapter,
+            verse,
+            verse_text,
+            tradition=self.tradition,
+        )
+        if draft is None:
+            return []
+        confidence = float(draft.get("confidence", 0.0))
+        if confidence < self.min_confidence:
+            return []
+
+        kind_class = draft.get("kind_class", "explanatory")
+        class_label = _AI_NOTE_CLASS_LABEL.get(kind_class, "Note")
+        label = (draft.get("label") or "").strip()
+        body_html = (draft.get("body_html") or "").strip()
+        flags = draft.get("reviewer_flags") or []
+
+        # ξ.15 sandbox: pass every model-emitted string through the
+        # AI-strict allowlist BEFORE composition into the final body.
+        # Drops <script>, <iframe>, javascript: URLs, on* handlers,
+        # and any tag outside the strict AI allowlist. Idempotent;
+        # safe to re-apply. If the sandbox empties the body, we still
+        # emit the candidate with the reviewer flag so the queue
+        # surfaces the empty draft for human attention rather than
+        # silently swallowing it.
+        label = sandbox_ai_html(label)
+        body_html = sandbox_ai_html(body_html)
+
+        # Reviewer-flag invariant: every AI note draft carries an
+        # explicit AI-generated flag so the editor / preview cannot
+        # mistake it for a reviewed note. The label is bolded by the
+        # renderer so we don't bold it again here — match the
+        # existing AIXrefDetector body shape.
+        body = (
+            f"<strong>{label}</strong> {body_html} "
+            f"<em>[Reviewer: AI-generated, requires human approval. "
+            f"Edit freely; discard if the draft does not earn its "
+            f"place. Class: {class_label}.]</em>"
+        )
+
+        # Reviewer notes — separate from the body, surfaced in the
+        # candidate JSON for the queue. Includes the model's
+        # self-flagged concerns + sources_consulted + the standing
+        # AI-draft warning. The reviewer reads this BEFORE looking at
+        # the body, so it tells them what to focus on.
+        reviewer_lines = [
+            f"AI-generated first-draft note (class: {class_label}, "
+            f"confidence {confidence:.2f}). Reviewer must verify the "
+            f"substance, edit the prose into the project's voice, "
+            f"and discard if the draft does not warrant a note.",
+        ]
+        if draft.get("sources_consulted"):
+            sources_list = ", ".join(draft["sources_consulted"])
+            reviewer_lines.append(f"Sources consulted by drafter: {sources_list}.")
+        for flag in flags:
+            if isinstance(flag, str) and flag.strip():
+                reviewer_lines.append(f"AI-flagged: {flag.strip()}")
+        reviewer_notes = " ".join(reviewer_lines)
+
+        return [
+            Candidate(
                 book=book,
                 chapter=chapter,
                 verse=verse,
                 kind=self.kind,
                 anchor="",
                 confidence=confidence,
-                source_name=(
-                    f"AI: {target_book} {target_chapter}:{target_verse} "
-                    f"({subclass})"
-                ),
+                source_name=f"AI: {class_label} draft for {book} {chapter}:{verse}",
                 source_attribution=self.client.attribution,
-                draft_title="Thematic",
-                draft_label=f"{subclass_label[:5]}.",
+                draft_title=class_label,
+                draft_label=label,
                 draft_body=body,
                 detector=self.name,
-                reviewer_notes=(
-                    f"AI-proposed {subclass} link with confidence "
-                    f"{confidence:.2f}. The model's reasoning is a draft, "
-                    f"not the final note — rewrite in the project's voice "
-                    f"and discard if the connection is too thin."
-                ),
-            ))
-        return out
+                reviewer_notes=reviewer_notes,
+            )
+        ]
 
 
 # ----------------------------------------------------------------------
@@ -784,4 +955,5 @@ ALL_DETECTORS = [
     NaveTopicalDetector,
     KenyonReferenceDetector,
     AIXrefDetector,
+    AINoteDetector,
 ]

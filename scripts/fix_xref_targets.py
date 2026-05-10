@@ -114,8 +114,9 @@ def build_chapter_index(epub_dir: Path, books_meta) -> dict[str, str]:
     return fallback
 
 
-def rewrite_rendered(text: str, this_file_ids: set[str], vnote_index: dict[str, str],
-                     chapter_fallback: dict[str, str] | None = None):
+def rewrite_rendered(
+    text: str, this_file_ids: set[str], vnote_index: dict[str, str], chapter_fallback: dict[str, str] | None = None
+):
     """Surgical: only rewrite refs whose target id is NOT in the current file.
     For Strategy-B targets that lack per-verse vnote anchors, fall back to
     the chapter heading anchor."""
@@ -145,8 +146,7 @@ def rewrite_rendered(text: str, this_file_ids: set[str], vnote_index: dict[str, 
     return new_text, n_resolved, n_already_ok, unresolved, n_fallback
 
 
-def rewrite_source(text: str, vnote_index: dict[str, str],
-                   chapter_fallback: dict[str, str] | None = None):
+def rewrite_source(text: str, vnote_index: dict[str, str], chapter_fallback: dict[str, str] | None = None):
     """For source notes: always rewrite resolvable refs to cross-file form,
     with Strategy-B chapter fallback for late-canon targets."""
     n_resolved = 0
@@ -197,6 +197,7 @@ def main() -> None:
         print("indexing Strategy-B chapter anchors as fallback targets …")
     sys.path.insert(0, str(EPUB_DIR.parent))
     from scripts.core import config as _config
+
     chapter_fallback = build_chapter_index(EPUB_DIR, _config.load_books())
     if not args.quiet:
         print(f"  {len(chapter_fallback):,} potential Strategy-B chapter targets")
@@ -214,7 +215,8 @@ def main() -> None:
             if "#vnote-" not in text:
                 continue
             new_text, n_res, n_ok, un, n_fb = rewrite_rendered(
-                text, file_ids.get(f.name, set()), vnote_index, chapter_fallback)
+                text, file_ids.get(f.name, set()), vnote_index, chapter_fallback
+            )
             all_unresolved.update(un)
             total_resolved += n_res
             total_already_ok += n_ok

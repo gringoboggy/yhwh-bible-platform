@@ -38,6 +38,7 @@ Sub-phasing:
   - **ψ.1.1** (future) /customize iframe slot + debounced refresh
   - **ψ.1.2** (future) /wizard iframe slot on relevant steps
 """
+
 from __future__ import annotations
 
 import html
@@ -122,9 +123,7 @@ def _render_note_aside(note: tuple, idx: int, kind_symbol: str) -> str:
 
     pieces = []
     if title:
-        pieces.append(
-            f'<strong class="note-title">{html.escape(title)}</strong>'
-        )
+        pieces.append(f'<strong class="note-title">{html.escape(title)}</strong>')
     if body:
         # Body can already contain HTML (some PD-source detectors
         # emit minimal markup like <em>, <a>); pass through but
@@ -132,16 +131,14 @@ def _render_note_aside(note: tuple, idx: int, kind_symbol: str) -> str:
         # the project's threat model (§7.1 "loading data files").
         pieces.append(f'<div class="note-body">{body}</div>')
     if attr:
-        pieces.append(
-            f'<div class="note-attr">— {html.escape(attr)}</div>'
-        )
+        pieces.append(f'<div class="note-attr">— {html.escape(attr)}</div>')
     inner = "".join(pieces)
     return (
         f'<aside class="note note-{html.escape(kind)}" '
         f'id="preview-note-{idx}" data-kind="{html.escape(kind)}">'
         f'<span class="note-symbol">{html.escape(kind_symbol)}</span> '
-        f'{inner}'
-        f'</aside>'
+        f"{inner}"
+        f"</aside>"
     )
 
 
@@ -304,10 +301,7 @@ def render_chapter_preview(
             "status": "error",
             "code": "chapter_out_of_range",
             "http": 400,
-            "message": (
-                f"{book_code} chapter {chapter_int} out of range "
-                f"(book has {ch_count} chapters)"
-            ),
+            "message": (f"{book_code} chapter {chapter_int} out of range (book has {ch_count} chapters)"),
         }
 
     # Filter notes by enabled_kinds (per the matrix's ship rules)
@@ -316,16 +310,13 @@ def render_chapter_preview(
         compute_enabled_kinds,
         _resolve_traditions_for_book,
     )
-    enabled_kinds, _disabled_kinds = compute_enabled_kinds(
-        edition, config.load_kinds()
-    )
+
+    enabled_kinds, _disabled_kinds = compute_enabled_kinds(edition, config.load_kinds())
     active_traditions = _resolve_traditions_for_book(edition, book_code)
     # Empty active_traditions = no tradition filter for this book.
 
     notes = _load_book_notes(book_code)
-    chapter_notes = _filter_chapter_notes(
-        notes, chapter_int, enabled_kinds
-    )
+    chapter_notes = _filter_chapter_notes(notes, chapter_int, enabled_kinds)
 
     # If a tradition filter is active, drop notes whose
     # tradition isn't in the active set. Notes carry tradition in
@@ -336,14 +327,18 @@ def render_chapter_preview(
     # to be the primary surface; tradition filtering adds visible
     # value once χ.2-5 commentaries land tradition-tagged content.
     if active_traditions:
-        # Conservative: only filter when notes' attribution mentions
-        # an explicit tradition tag. Untagged (cross-tradition) notes
-        # always pass.
-        from scripts.core.traditions import canonical_tradition_id
+        # Conservative: only filter when notes resolve to an explicit
+        # tradition tag. Untagged (cross-tradition) notes always pass.
+        # ω.31 — fixed a latent ImportError: prior code imported
+        # `canonical_tradition_id` (doesn't exist; never executed
+        # because no edition has populated `active_traditions` yet
+        # in the production corpus). Replaced with `note_tradition`,
+        # which is the project's standard tuple-shaped resolver.
+        from scripts.core.traditions import note_tradition
+
         filtered = []
         for note in chapter_notes:
-            attr = note[_NOTE_ATTR] if len(note) > _NOTE_ATTR else ""
-            tag = canonical_tradition_id(attr or "") or "cross"
+            tag = note_tradition(note) or "cross"
             if tag == "cross" or tag in active_traditions:
                 filtered.append(note)
         chapter_notes = filtered
@@ -376,17 +371,13 @@ def render_chapter_preview(
             verse_pieces.append(
                 f'<a class="note-ref" href="#preview-note-{note_idx}" '
                 f'data-kind="{html.escape(note[_NOTE_KIND])}">'
-                f'{html.escape(sym)}</a>'
+                f"{html.escape(sym)}</a>"
             )
             note_aside_parts.append(_render_note_aside(note, note_idx, sym))
-        verse_html_parts.append(
-            f'<p class="verse" id="preview-v-{vnum}">'
-            f'{"".join(verse_pieces)}'
-            f'</p>'
-        )
+        verse_html_parts.append(f'<p class="verse" id="preview-v-{vnum}">{"".join(verse_pieces)}</p>')
 
     # Theme metadata for the header chip.
-    theme_id = (edition.get("theme") or "classic")
+    theme_id = edition.get("theme") or "classic"
     theme_css = _read_theme_css(theme_id)
 
     # Edition + book + theme labels for the header strip.
@@ -396,11 +387,11 @@ def render_chapter_preview(
     if not verses:
         body_html = (
             '<div class="preview-empty">'
-            f'No verses available for {html.escape(book_code.upper())} '
-            f'chapter {chapter_int} in translation '
-            f'<code>{html.escape(translation_id)}</code>. '
-            'Check that the translation has this book extracted.'
-            '</div>'
+            f"No verses available for {html.escape(book_code.upper())} "
+            f"chapter {chapter_int} in translation "
+            f"<code>{html.escape(translation_id)}</code>. "
+            "Check that the translation has this book extracted."
+            "</div>"
         )
         notes_block = ""
     else:
@@ -409,40 +400,40 @@ def render_chapter_preview(
             notes_block = (
                 '<section class="notes-block" aria-label="Editorial apparatus">'
                 + "\n".join(note_aside_parts)
-                + '</section>'
+                + "</section>"
             )
         else:
             notes_block = ""
 
     # Compose the final standalone document.
     full_html = (
-        '<!DOCTYPE html>\n'
+        "<!DOCTYPE html>\n"
         '<html lang="en">\n'
-        '<head>\n'
+        "<head>\n"
         f'<meta charset="utf-8">\n'
-        f'<title>Preview · {html.escape(edition_title)} · '
-        f'{html.escape(book_title)} {chapter_int}</title>\n'
-        f'<style>{_BASE_CSS}{theme_css}</style>\n'
-        '</head>\n'
-        '<body>\n'
-        '<header>\n'
-        f'<h1>{html.escape(book_title)} {chapter_int}</h1>\n'
+        f"<title>Preview · {html.escape(edition_title)} · "
+        f"{html.escape(book_title)} {chapter_int}</title>\n"
+        f"<style>{_BASE_CSS}{theme_css}</style>\n"
+        "</head>\n"
+        "<body>\n"
+        "<header>\n"
+        f"<h1>{html.escape(book_title)} {chapter_int}</h1>\n"
         '<div class="preview-meta">'
-        f'{html.escape(edition_title)} · '
-        f'theme <strong>{html.escape(theme_id)}</strong> · '
-        f'translation <strong>{html.escape(translation_id)}</strong> · '
-        f'{len(verses)} verse{"s" if len(verses) != 1 else ""} · '
-        f'{note_idx} note{"s" if note_idx != 1 else ""}'
-        '</div>\n'
-        '</header>\n'
-        f'{body_html}\n'
-        f'{notes_block}\n'
+        f"{html.escape(edition_title)} · "
+        f"theme <strong>{html.escape(theme_id)}</strong> · "
+        f"translation <strong>{html.escape(translation_id)}</strong> · "
+        f"{len(verses)} verse{'s' if len(verses) != 1 else ''} · "
+        f"{note_idx} note{'s' if note_idx != 1 else ''}"
+        "</div>\n"
+        "</header>\n"
+        f"{body_html}\n"
+        f"{notes_block}\n"
         '<div class="preview-fineprint">'
-        'Live preview · ψ.1.0 · render_chapter_preview() composes '
-        'corpus + edition spec; not byte-identical to a full EPUB build.'
-        '</div>\n'
-        '</body>\n'
-        '</html>\n'
+        "Live preview · ψ.1.0 · render_chapter_preview() composes "
+        "corpus + edition spec; not byte-identical to a full EPUB build."
+        "</div>\n"
+        "</body>\n"
+        "</html>\n"
     )
 
     return {

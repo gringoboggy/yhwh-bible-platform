@@ -11,6 +11,7 @@ Usage:
     python3 scripts/matrix.py --kinds          # kind × edition table (longer)
     python3 scripts/matrix.py --edition <id>   # detail view for one edition
 """
+
 from __future__ import annotations
 
 import argparse
@@ -24,8 +25,7 @@ from scripts.core import config, matrix  # noqa: E402
 from scripts.core.ui import GREEN, RED, YELLOW, DIM, BOLD, RESET  # noqa: E402
 
 
-def _category_table(m: matrix.Matrix, editions: list[dict],
-                     categories: list[dict]) -> None:
+def _category_table(m: matrix.Matrix, editions: list[dict], categories: list[dict]) -> None:
     """Print a 14 × 5 grid: categories down, editions across."""
     cat_ids = [c["id"] for c in categories]
     cat_symbols = {c["id"]: c.get("symbol", "?") for c in categories}
@@ -75,8 +75,7 @@ def _category_table(m: matrix.Matrix, editions: list[dict],
     print()
 
 
-def _kind_table(m: matrix.Matrix, editions: list[dict],
-                 kinds: list[dict]) -> None:
+def _kind_table(m: matrix.Matrix, editions: list[dict], kinds: list[dict]) -> None:
     """Full kind × edition grid — longer, scrollable."""
     print()
     print(f"  {BOLD}symbol-toggle matrix · kinds × editions{RESET}")
@@ -115,9 +114,11 @@ def _kind_table(m: matrix.Matrix, editions: list[dict],
                     row += f" {DIM}{'·':>9}{RESET}"
             print(row)
     print()
-    print(f"  {GREEN}green{RESET} = enabled count   "
-          f"{YELLOW}yellow ({{N}}){RESET} = potential if toggled on   "
-          f"{DIM}·{RESET} = no notes available")
+    print(
+        f"  {GREEN}green{RESET} = enabled count   "
+        f"{YELLOW}yellow ({{N}}){RESET} = potential if toggled on   "
+        f"{DIM}·{RESET} = no notes available"
+    )
     print()
 
 
@@ -142,8 +143,10 @@ def _edition_detail(edition_id: str) -> None:
     print(f"    canon books:       {len(canon_books)}")
     print(f"    enabled kinds:     {len(enabled_kinds)} of {len(config.load_kinds())}")
     print(f"    notes shipping:    {BOLD}{total_enabled:,}{RESET}")
-    print(f"    notes potential:   {total_potential:,} "
-          f"({DIM}+{total_potential - total_enabled} would be added if all kinds enabled{RESET})")
+    print(
+        f"    notes potential:   {total_potential:,} "
+        f"({DIM}+{total_potential - total_enabled} would be added if all kinds enabled{RESET})"
+    )
     print()
 
     # Sorted by count, descending
@@ -168,10 +171,8 @@ def _edition_detail(edition_id: str) -> None:
 
 def main() -> int:
     p = argparse.ArgumentParser(description="Print the symbol-toggle count grid")
-    p.add_argument("--kinds", action="store_true",
-                   help="show full kind × edition grid (longer)")
-    p.add_argument("--edition", metavar="ID",
-                   help="show detailed breakdown for one edition")
+    p.add_argument("--kinds", action="store_true", help="show full kind × edition grid (longer)")
+    p.add_argument("--edition", metavar="ID", help="show detailed breakdown for one edition")
     args = p.parse_args()
 
     editions = config.load_editions()

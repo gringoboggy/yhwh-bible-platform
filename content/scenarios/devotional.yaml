@@ -1,0 +1,16 @@
+label: Family Devotional
+notes: |
+  Designed for family / small-group reading. Commentary +
+  applied / pastoral notes + liturgical apparatus; hides the
+  technical layers (lang-, hist-, lit-, text-) that aren't load-
+  bearing for a devotional reading.
+based_on: null
+builtin: true
+recipe:
+  enabled_categories:
+    - comm
+    - dev
+    - liturgy
+  enabled_kinds:
+    - xref-citation
+  disabled_kinds: []

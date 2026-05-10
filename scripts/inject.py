@@ -52,7 +52,9 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.core import config  # noqa: E402
 from scripts.core.notes_io import (  # noqa: E402
-    atomic_write, ensure_backup, load_notes,
+    atomic_write,
+    ensure_backup,
+    load_notes,
 )
 
 EPUB_DIR = REPO_ROOT / "epub_working"
@@ -77,6 +79,7 @@ KIND_TO_GLYPH = {
     "parallel": "‖",
     "comm": "◇",
 }
+
 
 # Sub-kind families inherit glyph from their family prefix
 def glyph_for(kind: str) -> str:
@@ -146,6 +149,7 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
     URLs, etc. are stripped. See scripts/core/html_sanitize.py for
     the threat model and whitelist."""
     from scripts.core.html_sanitize import sanitize_html
+
     glyph = glyph_for(kind)
     safe_body = sanitize_html(body_html)
     return (
@@ -153,8 +157,8 @@ def build_aside(kind: str, full_id: str, label: str, body_html: str) -> str:
         f'epub:type="footnote">\n'
         f'  <p><a href="#ref-{full_id}" class="note-back" title="Back">'
         f'{glyph}</a> <span class="note-label">{label}</span> '
-        f'{safe_body}</p>\n'
-        f'</aside>\n'
+        f"{safe_body}</p>\n"
+        f"</aside>\n"
     )
 
 
@@ -167,7 +171,8 @@ def find_verse_region(html: str, book_code: str, ch: int, v: int) -> tuple[int, 
     """Strategy-A verse region locator. See find_verse_region_b for late-canon."""
     # Match this verse's vn-link element fully
     this_anchor_re = re.compile(
-        r'<a\s+class="vn-link"\s+id="v-' + re.escape(f"{book_code}-{ch}-{v}")
+        r'<a\s+class="vn-link"\s+id="v-'
+        + re.escape(f"{book_code}-{ch}-{v}")
         + r'"[^>]*>\s*<span\s+class="vn">\d+</span>\s*</a>',
         re.DOTALL,
     )
@@ -258,11 +263,7 @@ def ensure_notes_section_b(text: str) -> tuple[str, tuple[int, int]] | None:
     body_close = text.rfind("</body>")
     if body_close == -1:
         return None
-    block_open = (
-        "\n" + section_open + "\n"
-        '<hr class="notes-rule"/>\n'
-        '<h3 class="notes-heading">Notes</h3>\n'
-    )
+    block_open = "\n" + section_open + '\n<hr class="notes-rule"/>\n<h3 class="notes-heading">Notes</h3>\n'
     block_close = "</aside>\n"
     new_text = text[:body_close] + block_open + block_close + text[body_close:]
     inside_start = body_close + len(block_open)
@@ -308,7 +309,7 @@ def find_marker_insertion_point(verse_html: str, anchor: str) -> int | None:
             depth -= 1
         elif depth == 0:
             # We're in text content. Try matching anchor here.
-            if verse_html[i:i + len(target)] == target:
+            if verse_html[i : i + len(target)] == target:
                 return i + len(target)
         i += 1
     return None
@@ -333,7 +334,7 @@ def find_notes_section_for_chapter(html: str, ch: int) -> tuple[int, int] | None
     # Find the first notes-section after the chapter heading
     section_open = re.search(
         r'<aside\s+class="notes-section"[^>]*>',
-        html[m.end():],
+        html[m.end() :],
     )
     if not section_open:
         return None
@@ -361,8 +362,7 @@ def find_notes_section_for_chapter(html: str, ch: int) -> tuple[int, int] | None
     return None
 
 
-def find_aside_insertion_point(html: str, section: tuple[int, int],
-                                ch: int, v: int, suffix: str, prefix: str) -> int:
+def find_aside_insertion_point(html: str, section: tuple[int, int], ch: int, v: int, suffix: str, prefix: str) -> int:
     """Inside the chapter's notes-section, find the byte offset to insert
     a new aside such that asides remain in (verse, suffix) order. Returns
     the offset just before the first existing aside whose (v, s) is
@@ -372,8 +372,7 @@ def find_aside_insertion_point(html: str, section: tuple[int, int],
     region = html[inside_start:inside_end]
     # All existing aside ids: id="note-{prefix}{cc}{vv}{s}"
     existing_re = re.compile(
-        r'<aside\s+class="note\s+[^"]+"\s+id="note-' + re.escape(prefix)
-        + r'(\d{2})(\d{2})([a-z]?)"',
+        r'<aside\s+class="note\s+[^"]+"\s+id="note-' + re.escape(prefix) + r'(\d{2})(\d{2})([a-z]?)"',
     )
     target = (v, suffix or "")
     insertion = inside_start  # default: just inside opening tag
@@ -422,14 +421,12 @@ def inject_book(book: dict, dry_run: bool) -> dict:
     if strategy == "A":
         if not prefix:
             if not notes:
-                return {"scanned": 0, "injected": 0, "already_in": 0,
-                        "skipped_reason": "Strategy A but no id_prefix"}
+                return {"scanned": 0, "injected": 0, "already_in": 0, "skipped_reason": "Strategy A but no id_prefix"}
             return {"error": f"book {code}: Strategy A but no id_prefix in metadata"}
     elif strategy == "B":
         if not bxx:
             if not notes:
-                return {"scanned": 0, "injected": 0, "already_in": 0,
-                        "skipped_reason": "Strategy B but no bxx"}
+                return {"scanned": 0, "injected": 0, "already_in": 0, "skipped_reason": "Strategy B but no bxx"}
             return {"error": f"book {code}: Strategy B but no bxx in metadata"}
         if not prefix:
             # For Strategy-B id construction, fall back to bxx-as-prefix
@@ -441,8 +438,14 @@ def inject_book(book: dict, dry_run: bool) -> dict:
     if not files:
         return {"error": f"book {code} missing files in metadata"}
 
-    stats = {"scanned": 0, "injected": 0, "already_in": 0, "missing_anchor": [],
-             "missing_section": 0, "files_changed": []}
+    stats = {
+        "scanned": 0,
+        "injected": 0,
+        "already_in": 0,
+        "missing_anchor": [],
+        "missing_section": 0,
+        "files_changed": [],
+    }
 
     # Load all book HTML files into memory once
     file_texts = {}
@@ -512,8 +515,7 @@ def inject_book(book: dict, dry_run: bool) -> dict:
         # Locate marker insertion point
         ins = find_marker_insertion_point(verse_html, anchor or "")
         if ins is None:
-            stats["missing_anchor"].append(
-                f"{ch}:{v}{suffix} anchor={anchor!r} not found in verse text")
+            stats["missing_anchor"].append(f"{ch}:{v}{suffix} anchor={anchor!r} not found in verse text")
             continue
 
         # Build marker
@@ -533,50 +535,27 @@ def inject_book(book: dict, dry_run: bool) -> dict:
             target_text, section = ensured
 
         # Locate aside insertion point in document order
-        aside_insertion = find_aside_insertion_point(
-            target_text, section, ch, v, suffix or "", prefix
-        )
+        aside_insertion = find_aside_insertion_point(target_text, section, ch, v, suffix or "", prefix)
 
         # Build aside
         aside_html = "  " + build_aside(kind, full_id, label, body)
 
-        # Apply insertions in REVERSE byte-order so positions stay valid
+        # Apply insertions in REVERSE byte-order so positions stay valid.
+        # ω.26 — removed a refactor-leftover dead branch above this line
+        # (an `if aside_insertion > marker_pos_abs:` block that computed a
+        # `new_text` whose value was always discarded by the `>=` block
+        # below; vulture flagged it as an unsatisfiable ternary).
         marker_pos_abs = v_start + ins
-        # First insert aside (later in file usually), then marker
-        if aside_insertion > marker_pos_abs:
-            new_text = (
-                target_text[:aside_insertion]
-                + aside_html
-                + target_text[aside_insertion:marker_pos_abs - 0 if False else aside_insertion]
-            )
-            # ^ that line was wrong; simpler approach below
-        # Simpler: rebuild manually
         if aside_insertion >= marker_pos_abs:
             # aside comes later → insert aside first (no offset shift for marker)
-            new_text = (
-                target_text[:aside_insertion]
-                + aside_html
-                + target_text[aside_insertion:]
-            )
+            new_text = target_text[:aside_insertion] + aside_html + target_text[aside_insertion:]
             # then insert marker (its offset still valid)
-            new_text = (
-                new_text[:marker_pos_abs]
-                + marker_html
-                + new_text[marker_pos_abs:]
-            )
+            new_text = new_text[:marker_pos_abs] + marker_html + new_text[marker_pos_abs:]
         else:
             # marker comes later → insert marker first
-            new_text = (
-                target_text[:marker_pos_abs]
-                + marker_html
-                + target_text[marker_pos_abs:]
-            )
+            new_text = target_text[:marker_pos_abs] + marker_html + target_text[marker_pos_abs:]
             shifted_aside = aside_insertion  # earlier than marker, unchanged
-            new_text = (
-                new_text[:shifted_aside]
-                + aside_html
-                + new_text[shifted_aside:]
-            )
+            new_text = new_text[:shifted_aside] + aside_html + new_text[shifted_aside:]
 
         # Write back
         file_texts[target_fname] = new_text
@@ -604,25 +583,19 @@ def inject_book(book: dict, dry_run: bool) -> dict:
 
 def main() -> None:
     p = argparse.ArgumentParser(
-        description="Strategy-A note injector — bridges source notes "
-                    "to rendered HTML.",
+        description="Strategy-A note injector — bridges source notes to rendered HTML.",
     )
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--book", help="single book code (e.g. 'gen')")
     g.add_argument("--all-books", action="store_true", help="every book")
-    p.add_argument("--dry-run", action="store_true",
-                   help="show what would change, don't write")
+    p.add_argument("--dry-run", action="store_true", help="show what would change, don't write")
     args = p.parse_args()
 
-    books = (
-        [config.get_book(args.book)] if args.book else config.load_books()
-    )
+    books = [config.get_book(args.book)] if args.book else config.load_books()
 
-    print(f"\n{BOLD}inject{RESET} {DIM}{len(books)} book(s)"
-          f"{'  (dry-run)' if args.dry_run else ''}{RESET}\n")
+    print(f"\n{BOLD}inject{RESET} {DIM}{len(books)} book(s){'  (dry-run)' if args.dry_run else ''}{RESET}\n")
 
-    grand = {"scanned": 0, "injected": 0, "already_in": 0,
-             "missing_anchor": 0, "missing_section": 0}
+    grand = {"scanned": 0, "injected": 0, "already_in": 0, "missing_anchor": 0, "missing_section": 0}
     files_changed: set = set()
     failed = []
 
@@ -646,8 +619,7 @@ def main() -> None:
         ms = stats.get("missing_section", 0)
         flag = GREEN + "✓" if inj or ai else DIM + "○"
         verb = "would inject" if args.dry_run else "injected"
-        msg = (f"  {flag}{RESET} {code:6}  {s:>4} src · {inj:>3} {verb} · "
-               f"{ai:>4} already in HTML")
+        msg = f"  {flag}{RESET} {code:6}  {s:>4} src · {inj:>3} {verb} · {ai:>4} already in HTML"
         if ma:
             msg += f" · {YELLOW}{ma} anchor-not-found{RESET}"
         if ms:
@@ -659,19 +631,21 @@ def main() -> None:
         grand["missing_anchor"] += len(stats.get("missing_anchor", []))
         files_changed.update(stats["files_changed"])
 
-    print(f"\n  {BOLD}TOTAL{RESET}: "
-          f"{grand['scanned']} scanned · "
-          f"{grand['injected']} {'would-inject' if args.dry_run else 'injected'} · "
-          f"{grand['already_in']} already in HTML")
+    print(
+        f"\n  {BOLD}TOTAL{RESET}: "
+        f"{grand['scanned']} scanned · "
+        f"{grand['injected']} {'would-inject' if args.dry_run else 'injected'} · "
+        f"{grand['already_in']} already in HTML"
+    )
     if grand["missing_anchor"]:
-        print(f"  {YELLOW}{grand['missing_anchor']} note(s) had anchor text "
-              f"not found in verse text — left untouched{RESET}")
+        print(
+            f"  {YELLOW}{grand['missing_anchor']} note(s) had anchor text "
+            f"not found in verse text — left untouched{RESET}"
+        )
     if grand["missing_section"]:
-        print(f"  {RED}{grand['missing_section']} note(s) couldn't locate "
-              f"their chapter's notes-section{RESET}")
+        print(f"  {RED}{grand['missing_section']} note(s) couldn't locate their chapter's notes-section{RESET}")
     if files_changed:
-        print(f"  {len(files_changed)} HTML file(s) "
-              f"{'would be' if args.dry_run else ''} modified")
+        print(f"  {len(files_changed)} HTML file(s) {'would be' if args.dry_run else ''} modified")
     print()
     sys.exit(1 if failed else 0)
 

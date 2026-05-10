@@ -75,16 +75,53 @@ RESET = "\033[0m"
 # academic-standard fair use. We document the citation explicitly so the
 # reader can audit it.
 MODERN_SCHOLARS = [
-    "Westermann", "Wenham", "Brueggemann", "von Rad", "Childs",
-    "Walton", "Sailhamer", "Sarna", "Fox", "Levenson", "Kugel",
-    "Alter", "Goldingay", "Bauckham", "Hays", "Levine", "Dunn",
-    "Witherington", "Carson", "Beale", "Sanders", "Hahn",
-    "Pannenberg", "Moltmann", "Ratzinger", "Schnackenburg",
-    "N.T. Wright", "Tom Wright", "G.E. Wright",
-    "Davies", "Stuhlmacher", "Fitzmyer", "Brown", "Meyers",
-    "Collins", "Coogan", "Knoppers", "Cogan", "Tadmor",
-    "Milgrom", "Sarna", "Schiffman", "VanderKam", "Nickelsburg",
-    "Stuckenbruck", "Charlesworth", "Sparks",
+    "Westermann",
+    "Wenham",
+    "Brueggemann",
+    "von Rad",
+    "Childs",
+    "Walton",
+    "Sailhamer",
+    "Sarna",
+    "Fox",
+    "Levenson",
+    "Kugel",
+    "Alter",
+    "Goldingay",
+    "Bauckham",
+    "Hays",
+    "Levine",
+    "Dunn",
+    "Witherington",
+    "Carson",
+    "Beale",
+    "Sanders",
+    "Hahn",
+    "Pannenberg",
+    "Moltmann",
+    "Ratzinger",
+    "Schnackenburg",
+    "N.T. Wright",
+    "Tom Wright",
+    "G.E. Wright",
+    "Davies",
+    "Stuhlmacher",
+    "Fitzmyer",
+    "Brown",
+    "Meyers",
+    "Collins",
+    "Coogan",
+    "Knoppers",
+    "Cogan",
+    "Tadmor",
+    "Milgrom",
+    "Sarna",
+    "Schiffman",
+    "VanderKam",
+    "Nickelsburg",
+    "Stuckenbruck",
+    "Charlesworth",
+    "Sparks",
 ]
 
 # Pre-1928 / public-domain authors and sources. Mentions here are
@@ -92,36 +129,99 @@ MODERN_SCHOLARS = [
 # scholarly tradition.
 PD_SOURCES = [
     # Patristic
-    "Augustine", "Origen", "Jerome", "Chrysostom", "Aquinas",
-    "Basil", "Tertullian", "Irenaeus", "Cyprian", "Athanasius",
-    "Cyril", "Theodoret", "Bede", "Anselm", "Bonaventure",
-    "Gregory of Nyssa", "Gregory of Nazianzus", "Pseudo-Dionysius",
-    "Eusebius", "Ambrose", "Hilary", "Lactantius",
+    "Augustine",
+    "Origen",
+    "Jerome",
+    "Chrysostom",
+    "Aquinas",
+    "Basil",
+    "Tertullian",
+    "Irenaeus",
+    "Cyprian",
+    "Athanasius",
+    "Cyril",
+    "Theodoret",
+    "Bede",
+    "Anselm",
+    "Bonaventure",
+    "Gregory of Nyssa",
+    "Gregory of Nazianzus",
+    "Pseudo-Dionysius",
+    "Eusebius",
+    "Ambrose",
+    "Hilary",
+    "Lactantius",
     # Reformation
-    "Luther", "Calvin", "Zwingli", "Melanchthon",
-    "Wycliffe", "Tyndale",
+    "Luther",
+    "Calvin",
+    "Zwingli",
+    "Melanchthon",
+    "Wycliffe",
+    "Tyndale",
     # Jewish — medieval
-    "Rashi", "Maimonides", "Rambam", "Ibn Ezra", "Nachmanides",
-    "Ramban", "Sforno", "Saadia", "Rashbam", "Radak",
+    "Rashi",
+    "Maimonides",
+    "Rambam",
+    "Ibn Ezra",
+    "Nachmanides",
+    "Ramban",
+    "Sforno",
+    "Saadia",
+    "Rashbam",
+    "Radak",
     # Jewish — Second Temple / rabbinic
-    "Targum", "Targumim", "Onqelos", "Pseudo-Jonathan",
-    "Talmud", "Mishnah", "Midrash", "Genesis Rabbah", "Tanhuma",
-    "Pirke Avot", "Tosefta", "Mekhilta", "Sifra", "Sifre",
-    "Philo", "Josephus",
+    "Targum",
+    "Targumim",
+    "Onqelos",
+    "Pseudo-Jonathan",
+    "Talmud",
+    "Mishnah",
+    "Midrash",
+    "Genesis Rabbah",
+    "Tanhuma",
+    "Pirke Avot",
+    "Tosefta",
+    "Mekhilta",
+    "Sifra",
+    "Sifre",
+    "Philo",
+    "Josephus",
     # Pseudepigrapha (PD via Charles 1913)
-    "1 Enoch", "Jubilees", "4 Ezra", "2 Baruch",
-    "Apocalypse of Abraham", "Testament of",
+    "1 Enoch",
+    "Jubilees",
+    "4 Ezra",
+    "2 Baruch",
+    "Apocalypse of Abraham",
+    "Testament of",
     # Versions
-    "Septuagint", "LXX", "Vulgate", "Peshitta", "Old Latin",
-    "Aquila", "Symmachus", "Theodotion",
+    "Septuagint",
+    "LXX",
+    "Vulgate",
+    "Peshitta",
+    "Old Latin",
+    "Aquila",
+    "Symmachus",
+    "Theodotion",
     # ANE primary sources (PD)
-    "Enuma Elish", "Gilgamesh", "Atrahasis",
-    "Code of Hammurabi", "Hammurabi", "Sumerian", "Akkadian text",
-    "Ugaritic", "Baal Cycle", "Ras Shamra",
+    "Enuma Elish",
+    "Gilgamesh",
+    "Atrahasis",
+    "Code of Hammurabi",
+    "Hammurabi",
+    "Sumerian",
+    "Akkadian text",
+    "Ugaritic",
+    "Baal Cycle",
+    "Ras Shamra",
     # Ethiopian distinctive
-    "Andemta", "Synaxarium", "Fetha Nagast", "Kebra Nagast",
+    "Andemta",
+    "Synaxarium",
+    "Fetha Nagast",
+    "Kebra Nagast",
     # Other early Christian / Gnostic
-    "Gospel of Thomas", "Nag Hammadi", "Apocryphon",
+    "Gospel of Thomas",
+    "Nag Hammadi",
+    "Apocryphon",
 ]
 
 
@@ -200,11 +300,11 @@ def _q(s: str) -> str:
 
 def attribute_book(book_path: Path, dry_run: bool) -> dict:
     """Process one book file. Returns stats dict with keys:
-        scanned        — total tuples in the file
-        already_attr   — tuples that already had a 9th field (skipped)
-        attributed     — tuples newly attributed (changed)
-        skipped        — tuples skipped because of unparseable shape
-        breakdown      — {'User original': N, 'User paraphrase; …': N, …}
+    scanned        — total tuples in the file
+    already_attr   — tuples that already had a 9th field (skipped)
+    attributed     — tuples newly attributed (changed)
+    skipped        — tuples skipped because of unparseable shape
+    breakdown      — {'User original': N, 'User paraphrase; …': N, …}
     """
     text = book_path.read_text(encoding="utf-8")
     try:
@@ -327,10 +427,8 @@ def main() -> None:
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--book", help="single book code (e.g. 'gen', '1ki')")
     g.add_argument("--all-books", action="store_true", help="every book in canonical order")
-    p.add_argument("--dry-run", action="store_true",
-                   help="show what would change, don't write")
-    p.add_argument("--interactive", action="store_true",
-                   help="prompt per book before applying")
+    p.add_argument("--dry-run", action="store_true", help="show what would change, don't write")
+    p.add_argument("--interactive", action="store_true", help="prompt per book before applying")
     args = p.parse_args()
 
     if args.book:
@@ -375,22 +473,26 @@ def main() -> None:
 
         s, aa, a, sk = stats["scanned"], stats["already_attr"], stats["attributed"], stats["skipped"]
         verb = "would attribute" if args.dry_run else "attributed"
-        print(f"  {GREEN}✓{RESET} {code:6}  "
-              f"{s:>4} scanned · "
-              f"{a:>4} {verb} · "
-              f"{aa:>3} already had attribution · "
-              f"{sk:>3} skipped")
+        print(
+            f"  {GREEN}✓{RESET} {code:6}  "
+            f"{s:>4} scanned · "
+            f"{a:>4} {verb} · "
+            f"{aa:>3} already had attribution · "
+            f"{sk:>3} skipped"
+        )
 
         for k in ("scanned", "already_attr", "attributed", "skipped"):
             grand_total[k] += stats.get(k, 0)
         for k, v in stats.get("breakdown", {}).items():
             grand_breakdown[k] = grand_breakdown.get(k, 0) + v
 
-    print(f"\n  {BOLD}TOTAL{RESET}: "
-          f"{grand_total['scanned']} scanned · "
-          f"{grand_total['attributed']} {'would-attribute' if args.dry_run else 'attributed'} · "
-          f"{grand_total['already_attr']} already · "
-          f"{grand_total['skipped']} skipped")
+    print(
+        f"\n  {BOLD}TOTAL{RESET}: "
+        f"{grand_total['scanned']} scanned · "
+        f"{grand_total['attributed']} {'would-attribute' if args.dry_run else 'attributed'} · "
+        f"{grand_total['already_attr']} already · "
+        f"{grand_total['skipped']} skipped"
+    )
 
     if grand_breakdown:
         print(f"\n  Attribution breakdown:")

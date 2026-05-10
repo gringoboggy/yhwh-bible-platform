@@ -154,9 +154,7 @@ def main() -> None:
 
     for f in files:
         old = f.read_text(encoding="utf-8")
-        new, n = apply_replace(
-            old, args.pattern, args.replacement, args.regex, args.case_insensitive
-        )
+        new, n = apply_replace(old, args.pattern, args.replacement, args.regex, args.case_insensitive)
         if n > 0 and new != old:
             files_changed.append((f, old, new, n))
             total_repls += n
@@ -165,10 +163,7 @@ def main() -> None:
     if not args.quiet:
         for f, old, new, n in files_changed:
             verb = "would change" if not args.apply else "changed"
-            print(
-                f"\n{YELLOW}{f.relative_to(REPO_ROOT)}{RESET}: "
-                f"{verb} {n} occurrence{'s' if n != 1 else ''}"
-            )
+            print(f"\n{YELLOW}{f.relative_to(REPO_ROOT)}{RESET}: {verb} {n} occurrence{'s' if n != 1 else ''}")
             show_diff(f.name, old, new, args.context)
 
     # Apply
@@ -185,15 +180,14 @@ def main() -> None:
     color, sym = (GREEN, "✓") if args.apply else (YELLOW, "⚠")
     action = "applied" if args.apply else "dry-run"
     print(
-        f"\n{color}{sym} bulk_edit ({action}): {total_repls} replacement(s) "
-        f"across {len(files_changed)} file(s){RESET}"
+        f"\n{color}{sym} bulk_edit ({action}): {total_repls} replacement(s) across {len(files_changed)} file(s){RESET}"
     )
 
     # Auto-verify after apply
     if args.apply and not args.no_verify:
         print(f"\n{DIM}running verify.py …{RESET}")
         result = subprocess.run(
-            ["python3", str(REPO_ROOT / "scripts" / "verify.py"), "--quiet"],
+            [sys.executable, str(REPO_ROOT / "scripts" / "verify.py"), "--quiet"],
             cwd=str(REPO_ROOT),
         )
         if result.returncode != 0:

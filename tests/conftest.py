@@ -19,18 +19,19 @@ def repo_root() -> Path:
 def sample_note_tuple():
     """A representative NOTES tuple for testing parsers / quality checks."""
     return (
-        3, 15, '',
-        'bruise',
-        'comm-rabbinic',
-        'Curse on the serpent',
-        'Note.',
-        '<strong>Curse on the serpent.</strong> The serpent receives the only '
-        'direct curse in the Eden narrative — neither the woman nor Adam is '
-        'cursed; only the ground and the serpent.',
+        3,
+        15,
+        "",
+        "bruise",
+        "comm-rabbinic",
+        "Curse on the serpent",
+        "Note.",
+        "<strong>Curse on the serpent.</strong> The serpent receives the only "
+        "direct curse in the Eden narrative — neither the woman nor Adam is "
+        "cursed; only the ground and the serpent.",
         {
-            'sources': [{'author': 'Rashi', 'title': 'Commentary on the Torah',
-                         'year': 1090, 'license': 'PD'}],
-            'voice': 'rabbinic',
+            "sources": [{"author": "Rashi", "title": "Commentary on the Torah", "year": 1090, "license": "PD"}],
+            "voice": "rabbinic",
         },
     )
 
@@ -73,9 +74,9 @@ def sample_html_with_marker():
     NB: filter_html's regex requires `class="..."` to be the FIRST attribute
     of the <a> and <aside>, mirroring the production HTML layout.
     """
-    return '''<html><body>
+    return """<html><body>
 <p>Verse 1 text <a class="note-ref note-comm" id="ref-c001a" href="#note-c001a">◇</a></p>
 <aside class="note note-comm" id="note-c001a" epub:type="footnote">
 <p><a href="#ref-c001a" class="note-back">◇</a> <strong>A note.</strong> Body text here.</p>
 </aside>
-</body></html>'''
+</body></html>"""

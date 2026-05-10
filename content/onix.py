@@ -22,63 +22,54 @@ REFERENCE:
 
 DEFAULTS = {
     # Publisher / imprint
-    "publisher": "TODO_PUBLISHER_NAME",       # Legal entity publishing the work
-    "imprint": "",                             # Often same as publisher; leave empty if so
-    "publisher_country": "US",                 # ISO 3166-1 alpha-2
-
+    "publisher": "TODO_PUBLISHER_NAME",  # Legal entity publishing the work
+    "imprint": "",  # Often same as publisher; leave empty if so
+    "publisher_country": "US",  # ISO 3166-1 alpha-2
     # Primary contributor (the editor of the apparatus)
     "contributor": {
-        "role": "B01",                         # ONIX list 17. B01=Edited by; A01=Author
+        "role": "B01",  # ONIX list 17. B01=Edited by; A01=Author
         "name": "TODO_CONTRIBUTOR_FULL_NAME",
-        "name_inverted": "TODO_LAST, First",   # "Last, First" — required for catalog sorting
+        "name_inverted": "TODO_LAST, First",  # "Last, First" — required for catalog sorting
         "biographical_note": "",
     },
-
     # Languages — ISO 639-2/B 3-letter codes
     "language": {
-        "primary": "eng",                      # English (base translation + apparatus)
-        "secondary": [                         # Auxiliary languages used in apparatus
-            "heb",                             # Hebrew (with vowel-pointing)
-            "grc",                             # Ancient Greek (LXX, NT)
-            "gez",                             # Ge'ez (classical Ethiopic)
-            "amh",                             # Amharic (modern Ethiopic)
+        "primary": "eng",  # English (base translation + apparatus)
+        "secondary": [  # Auxiliary languages used in apparatus
+            "heb",  # Hebrew (with vowel-pointing)
+            "grc",  # Ancient Greek (LXX, NT)
+            "gez",  # Ge'ez (classical Ethiopic)
+            "amh",  # Amharic (modern Ethiopic)
         ],
     },
-
     # Publication
-    "publication_date": "TODO_YYYYMMDD",       # ONIX requires 8-digit YYYYMMDD
+    "publication_date": "TODO_YYYYMMDD",  # ONIX requires 8-digit YYYYMMDD
     "copyright_year": "TODO_YYYY",
-    "edition_type": "REV",                     # ONIX list 21. REV=Revised; CRI=Critical; SCH=Scholarly
-
+    "edition_type": "REV",  # ONIX list 21. REV=Revised; CRI=Critical; SCH=Scholarly
     # Audience
     "audience": {
-        "code": "04",                          # ONIX list 28. 04=Professional/scholarly
+        "code": "04",  # ONIX list 28. 04=Professional/scholarly
         "description": (
-            "Scholarly readers, clergy, students of biblical languages "
-            "and traditions, and serious lay readers."
+            "Scholarly readers, clergy, students of biblical languages and traditions, and serious lay readers."
         ),
     },
-
     # Product form (digital ebook)
-    "product_form": "EB",                      # ONIX list 150. EB=E-publication
-    "product_form_detail": "E101",             # ONIX list 175. E101=EPUB
-
+    "product_form": "EB",  # ONIX list 150. EB=E-publication
+    "product_form_detail": "E101",  # ONIX list 175. E101=EPUB
     # Approximate measure (87-book corpus + apparatus)
-    "word_count": 950000,                      # Order-of-magnitude; refine if desired
-
+    "word_count": 950000,  # Order-of-magnitude; refine if desired
     # Sales rights — start worldwide non-exclusive; tighten per-territory later
     "sales_rights": {
-        "type": "01",                          # ONIX list 46. 01=Sale w/ non-exclusive rights
-        "territory": "WORLD",                  # ONIX uses "WORLD" or ISO country lists
+        "type": "01",  # ONIX list 46. 01=Sale w/ non-exclusive rights
+        "territory": "WORLD",  # ONIX uses "WORLD" or ISO country lists
     },
-
     # Default supplier / availability stub (each retailer can override)
     "supply": {
-        "role": "01",                          # ONIX list 93. 01=Publisher to end-customers
-        "availability": "20",                  # ONIX list 65. 20=Available
+        "role": "01",  # ONIX list 93. 01=Publisher to end-customers
+        "availability": "20",  # ONIX list 65. 20=Available
         "price": {
-            "type": "02",                      # ONIX list 58. 02=RRP excluding tax
-            "amount": "TODO_PRICE_USD",        # Decimal e.g. "29.99"
+            "type": "02",  # ONIX list 58. 02=RRP excluding tax
+            "amount": "TODO_PRICE_USD",  # Decimal e.g. "29.99"
             "currency": "USD",
         },
     },
@@ -90,14 +81,11 @@ DEFAULTS = {
 # ──────────────────────────────────────────────────────────────────
 
 EDITIONS = [
-
     {
         "id": "ethiopian-tewahedo",
         "isbn": "TODO_ISBN_13_ETHIOPIAN",
         "title_full": "The Ethiopian Tewahedo Bible — Scholar's Edition",
-        "title_subtitle": (
-            "The 87-Book Canon with Andemta Tradition Apparatus"
-        ),
+        "title_subtitle": ("The 87-Book Canon with Andemta Tradition Apparatus"),
         "description": (
             "The complete Ethiopian Tewahedo canon — the broadest "
             "scriptural canon of any Christian tradition, comprising 87 "
@@ -109,19 +97,16 @@ EDITIONS = [
             "I-III with full cross-canon parallel references."
         ),
         "bisac": [
-            "REL049000",   # Christianity / Orthodox
-            "REL006040",   # Biblical Studies / Old Testament / General
-            "REL006400",   # Biblical Studies / Bible Reference
+            "REL049000",  # Christianity / Orthodox
+            "REL006040",  # Biblical Studies / Old Testament / General
+            "REL006400",  # Biblical Studies / Bible Reference
         ],
     },
-
     {
         "id": "catholic-study",
         "isbn": "TODO_ISBN_13_CATHOLIC",
         "title_full": "The Catholic Study Bible — Annotated Edition",
-        "title_subtitle": (
-            "The Deuterocanonical Canon with Patristic and Magisterial Apparatus"
-        ),
+        "title_subtitle": ("The Deuterocanonical Canon with Patristic and Magisterial Apparatus"),
         "description": (
             "The Catholic deuterocanonical canon presented with a study "
             "apparatus drawing on the Church Fathers (Augustine, Jerome, "
@@ -133,19 +118,16 @@ EDITIONS = [
             "Esther)."
         ),
         "bisac": [
-            "REL006020",   # Biblical Studies / Bible / Catholic
+            "REL006020",  # Biblical Studies / Bible / Catholic
             "REL006040",
             "REL006400",
         ],
     },
-
     {
         "id": "evangelical-reformed",
         "isbn": "TODO_ISBN_13_EVANGELICAL",
         "title_full": "The Reformed Study Bible — Annotated Edition",
-        "title_subtitle": (
-            "The Protestant Canon with Reformation and Modern Critical Apparatus"
-        ),
+        "title_subtitle": ("The Protestant Canon with Reformation and Modern Critical Apparatus"),
         "description": (
             "The 66-book Protestant canon with a study apparatus rooted "
             "in the Reformed tradition — Calvin, Luther, the Westminster "
@@ -155,19 +137,16 @@ EDITIONS = [
             "cross-canon parallels, and biblical theology."
         ),
         "bisac": [
-            "REL006080",   # Biblical Studies / Bible / Protestant
+            "REL006080",  # Biblical Studies / Bible / Protestant
             "REL006400",
-            "REL082000",   # Theology
+            "REL082000",  # Theology
         ],
     },
-
     {
         "id": "jewish-study",
         "isbn": "TODO_ISBN_13_JEWISH",
         "title_full": "The Tanakh Study Bible — Critical Edition",
-        "title_subtitle": (
-            "Hebrew Scripture with Rabbinic, Targumic, and Modern Apparatus"
-        ),
+        "title_subtitle": ("Hebrew Scripture with Rabbinic, Targumic, and Modern Apparatus"),
         "description": (
             "The Tanakh in its traditional tripartite order (Torah, "
             "Nevi'im, Ketuvim) with a study apparatus drawing on classical "
@@ -177,19 +156,16 @@ EDITIONS = [
             "lexical analysis with vowel-pointing and grammatical notes."
         ),
         "bisac": [
-            "REL040040",   # Judaism / Sacred Writings
+            "REL040040",  # Judaism / Sacred Writings
             "REL006040",
-            "REL040000",   # Judaism / General
+            "REL040000",  # Judaism / General
         ],
     },
-
     {
         "id": "scholarly-academic",
         "isbn": "TODO_ISBN_13_ACADEMIC",
         "title_full": "The Critical Study Bible — Comprehensive Scholarly Edition",
-        "title_subtitle": (
-            "All Canons, Full Apparatus — Hebrew, Greek, Ge'ez, ANE Context"
-        ),
+        "title_subtitle": ("All Canons, Full Apparatus — Hebrew, Greek, Ge'ez, ANE Context"),
         "description": (
             "The most comprehensive scholarly edition: all 87 books of the "
             "Ethiopian Tewahedo canon with the full apparatus across every "
@@ -204,7 +180,7 @@ EDITIONS = [
         "bisac": [
             "REL006400",
             "REL006040",
-            "REL006700",   # Biblical Studies / Exegesis & Hermeneutics
+            "REL006700",  # Biblical Studies / Exegesis & Hermeneutics
         ],
     },
 ]

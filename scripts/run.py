@@ -62,9 +62,9 @@ def injector_cmd(book, dry_run):
     strategy = book["strategy"]
     epub = str(REPO_ROOT / "epub_working")
     if strategy == "A":
-        cmd = ["python3", "source_archive/add_commentary.py", "--book", code, "--epub-dir", epub]
+        cmd = [sys.executable, "source_archive/add_commentary.py", "--book", code, "--epub-dir", epub]
     else:
-        cmd = ["python3", "kings_session/strategy_b_inject.py", "--code", code, "--epub-dir", epub]
+        cmd = [sys.executable, "kings_session/strategy_b_inject.py", "--code", code, "--epub-dir", epub]
     if dry_run:
         cmd.append("--dry-run")
     return cmd
@@ -115,7 +115,7 @@ def main():  # noqa: C901  (legacy; refactor risk > benefit)
     # 1. Initial audit
     if not args.skip_initial_audit:
         info("\n=== Initial audit ===", "\033[1m")
-        result = run(["python3", "scripts/verify.py", "--quiet"])
+        result = run([sys.executable, "scripts/verify.py", "--quiet"])
         print(result.stdout, end="")
         if result.returncode != 0:
             info("\nInitial audit reports errors — investigate before proceeding.", "\033[91m")
@@ -167,7 +167,7 @@ def main():  # noqa: C901  (legacy; refactor risk > benefit)
 
     # 5. Re-audit
     info("\n=== Final audit ===", "\033[1m")
-    result = run(["python3", "scripts/verify.py"])
+    result = run([sys.executable, "scripts/verify.py"])
     print(result.stdout, end="")
     sys.exit(result.returncode)
 

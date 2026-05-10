@@ -55,6 +55,7 @@ def _books_yaml_path() -> Path:
     YAML lookups; new call sites should prefer this function so they
     pick up dev/installed/test-override resolution automatically."""
     from . import paths
+
     return paths.books_yaml()
 
 
@@ -156,6 +157,14 @@ def _parse_value(s):
         s = s[:cut].rstrip()
     if s == "" or s == "null":
         return None
+    # ω.19.1 — recognise the inline empty-list literal so
+    # `field: []` round-trips as an empty list rather than the
+    # literal string "[]". `_patch_yaml_list_field` writes this
+    # form when a list field becomes empty; without this branch
+    # the string survives back into editions.yaml and
+    # downstream consumers see a broken value.
+    if s == "[]":
+        return []
     if s.startswith('"'):
         return json.loads(s)
     try:
@@ -433,4 +442,4 @@ if __name__ == "__main__":
     print(f"  by phase: {by_phase}")
     print(f"\nEditions:   {len(ee)} loaded")
     for e in ee:
-        print(f"  {e.get('id'):20}  {e.get('title','')}")
+        print(f"  {e.get('id'):20}  {e.get('title', '')}")

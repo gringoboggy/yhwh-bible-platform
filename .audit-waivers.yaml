@@ -1,0 +1,25 @@
+# ξ.11.1 — pip-audit waiver allowlist (2026-05-10).
+#
+# Each entry below is a deliberate "this CVE is acceptable for this
+# project" decision. pip-audit's standard format is followed so a future
+# wiring of `audit_deps.py --waivers .audit-waivers.yaml` (defer to
+# ξ.11.2 if/when needed) can consume this directly.
+#
+# Format:
+#   waivers:
+#     - id: GHSA-XXXX-XXXX-XXXX  # or CVE-YYYY-NNNNN
+#       package: <pypi-package>
+#       reason: |
+#         Free-form rationale. Why is this CVE acceptable for the
+#         project? Common reasons: vulnerable code path not used;
+#         dev-only dep with no production exposure; upstream fix
+#         pending and risk is bounded.
+#       expires: 2026-12-31  # YYYY-MM-DD; revisit by this date.
+#
+# Today's project has only ONE mandatory runtime dep (PyYAML per ξ.5)
+# plus a small set of dev-only tools (pytest, ruff, vulture, mypy,
+# pip-audit). No CVEs are currently waived — pip-audit reports clean
+# on the production tree. This file exists as the convention so future
+# waivers land in one auditable place.
+
+waivers: []

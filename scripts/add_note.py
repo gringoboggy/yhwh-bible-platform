@@ -231,7 +231,7 @@ def run_injector(book):
     if strategy == "A":
         # add_commentary.py uses --book
         cmd = [
-            "python3",
+            sys.executable,
             "source_archive/add_commentary.py",
             "--book",
             code,
@@ -241,7 +241,7 @@ def run_injector(book):
     else:
         # strategy_b_inject.py uses --code (different convention)
         cmd = [
-            "python3",
+            sys.executable,
             "kings_session/strategy_b_inject.py",
             "--code",
             code,
@@ -257,7 +257,7 @@ def run_injector(book):
 
 def run_audit():
     print("\n→ running audit ...")
-    result = subprocess.run(["python3", "audit.py", "--quiet"], cwd=str(REPO_ROOT), capture_output=True, text=True)
+    result = subprocess.run([sys.executable, "audit.py", "--quiet"], cwd=str(REPO_ROOT), capture_output=True, text=True)
     print(result.stdout)
     if "ERROR" in result.stdout or result.returncode != 0:
         err("audit reported new errors — investigate before proceeding")
@@ -338,8 +338,15 @@ def main():
 
     # 4. Format the tuple
     tup_text = format_tuple(
-        args.ch, args.v, suffix, args.anchor, args.kind,
-        args.title, label, args.body, args.attribution,
+        args.ch,
+        args.v,
+        suffix,
+        args.anchor,
+        args.kind,
+        args.title,
+        label,
+        args.body,
+        args.attribution,
     )
     print(f"\nNew tuple:\n{tup_text}")
 

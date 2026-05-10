@@ -8,6 +8,7 @@ Usage:
     python3 scripts/batch_promote_xrefs.py
     python3 scripts/batch_promote_xrefs.py --kind xref-citation
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -24,10 +25,10 @@ CANDIDATES_DIR = REPO_ROOT / "content" / "candidates"
 
 def main() -> int:
     p = argparse.ArgumentParser(description="Batch-promote candidate notes.")
-    p.add_argument("--kind", default=None,
-                    help="only promote candidates of this kind (e.g. xref-citation)")
-    p.add_argument("--max-per-file", type=int, default=None,
-                    help="cap how many candidates to promote per file (default: no cap)")
+    p.add_argument("--kind", default=None, help="only promote candidates of this kind (e.g. xref-citation)")
+    p.add_argument(
+        "--max-per-file", type=int, default=None, help="cap how many candidates to promote per file (default: no cap)"
+    )
     args = p.parse_args()
 
     files = sorted(CANDIDATES_DIR.glob("*.json"))

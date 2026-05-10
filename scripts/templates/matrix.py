@@ -66,6 +66,40 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   details.psi181-drilldown[open] > summary .psi181-arrow {
     transform: rotate(90deg);
   }
+  /* ψ.18.2 — nested expand-all for the long tail of books beyond
+     the top-5. Lazy-rendered on first toggle so kinds spanning
+     60+ books don't balloon the sidebar at first paint. Same
+     suppress-pseudo + inline-arrow pattern as psi181. */
+  details.psi182-rest > summary::before { content: none; }
+  details.psi182-rest > summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  details.psi182-rest > summary .psi182-arrow {
+    display: inline-block; transition: transform 0.15s;
+  }
+  details.psi182-rest[open] > summary .psi182-arrow {
+    transform: rotate(90deg);
+  }
+  /* ψ.26 — bulk-op visual cues. When a drag-select is in progress,
+     hovered kind rows get a subtle highlight so the operator can
+     see which rows are about to be toggled. The cursor switches to
+     row-resize during a drag. */
+  body.psi26-dragging { cursor: ns-resize; }
+  body.psi26-dragging .kind-row.psi26-drag-touched {
+    background: #eff6ff;
+  }
+  /* "↗ all" inline button per kind row — small, low-emphasis. */
+  .psi26-applyall-btn {
+    font-size: 0.65rem;
+    color: #2563eb;
+    margin-left: 0.5em;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .psi26-applyall-btn:hover { text-decoration: underline; }
   /* ψ.20 — heat-map cells. Aspect-1 squares with smooth color
      transitions on toggle-driven re-renders. */
   .psi20-cell {
@@ -105,6 +139,10 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   <div class="flex items-center gap-4 text-xs flex-wrap">
     <!-- HEADER_NAV_LINKS -->
     <span id="corpus-progress" class="ml-auto text-xs text-slate-500" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
+    <!-- ψ.29 — keyboard help affordance. Same modal opens via `?`. -->
+    <button type="button" id="psi29-help-btn"
+      class="w-6 h-6 rounded-full border border-slate-300 text-slate-500 hover:text-slate-800 hover:border-slate-400 flex items-center justify-center"
+      aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)">?</button>
   </div>
 </header>
 <script>
@@ -149,6 +187,18 @@ MATRIX_HTML = r"""<!DOCTYPE html>
           <button type="button" id="switch-cancel" class="text-xs px-3 py-1 rounded border border-slate-300 hover:bg-slate-50">Cancel</button>
         </span>
       </div>
+      <!-- ψ.28 — kind search-and-filter. Type-ahead hides non-matching
+           kind rows; matches kind code / label / category id, label,
+           symbol. `/` focuses; Esc clears + blurs. -->
+      <div class="px-4 py-2 border-b border-slate-200 flex items-center gap-2">
+        <input id="psi28-kind-filter" type="search"
+          placeholder="Filter kinds — code, label, category, symbol  (press / to focus)"
+          class="flex-1 border border-slate-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-blue-200"
+          autocomplete="off" spellcheck="false">
+        <button type="button" id="psi28-clear-filter"
+          class="hidden text-xs text-blue-600 hover:underline">clear</button>
+        <span id="psi28-filter-status" class="text-[0.65rem] text-slate-400 tabular-nums whitespace-nowrap"></span>
+      </div>
       <div class="matrix-table-wrap">
       <table class="w-full text-sm matrix-table">
         <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
@@ -178,6 +228,17 @@ MATRIX_HTML = r"""<!DOCTYPE html>
             <button id="save-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-3 py-1.5 rounded disabled:opacity-50 disabled:cursor-not-allowed" disabled>Save</button>
             <button id="reset-btn" class="px-3 py-1.5 text-sm border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-50" disabled>Reset</button>
           </div>
+          <!-- ψ.29 — undo/redo affordance. Cmd/Ctrl+Z and
+               Cmd+Shift+Z / Ctrl+Y also drive these. Stack
+               clears on edition switch / reset / save. -->
+          <div class="flex gap-2 mt-2">
+            <button type="button" id="psi29-undo-btn"
+              class="flex-1 px-3 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
+              title="Undo last toggle (Cmd/Ctrl + Z)" disabled>↶ Undo</button>
+            <button type="button" id="psi29-redo-btn"
+              class="flex-1 px-3 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
+              title="Redo (Cmd+Shift+Z / Ctrl+Y)" disabled>↷ Redo</button>
+          </div>
           <button id="save-as-btn" class="w-full mt-2 px-3 py-1.5 text-sm border border-slate-300 rounded hover:bg-slate-50 text-slate-700">
             Save As Scenario…
           </button>
@@ -186,12 +247,16 @@ MATRIX_HTML = r"""<!DOCTYPE html>
       </section>
 
       <section class="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-        <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center justify-between mb-2 flex-wrap gap-1">
           <h3 class="text-xs uppercase tracking-wide text-slate-500">Saved scenarios</h3>
-          <button id="refresh-scenarios" class="text-xs text-blue-600 hover:underline">refresh</button>
+          <div class="flex items-center gap-2">
+            <!-- ψ.27 — paste-textarea import for portability -->
+            <button id="psi27-import-btn" class="text-xs text-blue-600 hover:underline">Import YAML…</button>
+            <button id="refresh-scenarios" class="text-xs text-blue-600 hover:underline">refresh</button>
+          </div>
         </div>
         <div id="scenarios-list" class="space-y-1.5 text-sm">
-          <div class="text-xs text-slate-400">no scenarios yet — use Save As to create one</div>
+          <div class="text-xs text-slate-400">loading scenarios…</div>
         </div>
       </section>
 
@@ -239,688 +304,161 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   </div>
 </main>
 
-<script>
-let DATA = null;
-let ACTIVE_EDITION = null;
-let LOCAL_ENABLED = new Set();   // unsaved client state for ACTIVE_EDITION
-let SERVER_ENABLED = new Set();  // last-known server state for diff
-
-async function loadMatrix() {
-  const res = await fetch('/api/matrix');
-  DATA = await res.json();
-  ACTIVE_EDITION = DATA.editions[0]?.id;
-  document.getElementById('loading').classList.add('hidden');
-  document.getElementById('content').classList.remove('hidden');
-  buildHeader();
-  buildBody();
-  buildEditionSelector();
-  refreshActiveEdition();
-}
-
-function buildHeader() {
-  const tr = document.getElementById('header-row');
-  for (const ed of DATA.editions) {
-    const th = document.createElement('th');
-    th.className = 'count-cell text-right text-xs uppercase tracking-wide text-slate-500 py-2';
-    th.title = ed.title;
-    th.textContent = ed.short_title || ed.id.split('-')[0];
-    tr.appendChild(th);
-  }
-}
-
-function kindIsEnabledLocally(code) { return LOCAL_ENABLED.has(code); }
-
-// ψ.12 — preserve scroll position across the rare buildBody() rebuilds
-// (reset, edition switch, initial render). Toggle paths now patch
-// the DOM in place via incremental handlers below — they don't call
-// buildBody at all.
-function buildBody() {
-  const wrap = document.querySelector('.matrix-table-wrap');
-  const scrollTop = wrap ? wrap.scrollTop : 0;
-  const scrollLeft = wrap ? wrap.scrollLeft : 0;
-  const tbody = document.getElementById('body');
-  tbody.innerHTML = '';
-  const cats = [...DATA.categories].sort((a, b) => a.sort_order - b.sort_order);
-  for (const cat of cats) {
-    const kindsInCat = DATA.kinds.filter(k => k.category === cat.id);
-    const catRow = document.createElement('tr');
-    catRow.className = 'cat-row border-t border-slate-100';
-    const allEnabled = kindsInCat.every(k => kindIsEnabledLocally(k.code));
-    const someEnabled = kindsInCat.some(k => kindIsEnabledLocally(k.code));
-    catRow.innerHTML = `
-      <td class="px-3 py-2 font-medium">
-        <details>
-          <summary>
-            <input type="checkbox" class="cat-toggle mr-1.5" data-cat="${cat.id}"
-              ${allEnabled ? 'checked' : ''} ${someEnabled && !allEnabled ? 'data-indeterminate="1"' : ''}>
-            <span class="symbol" style="color:#475569">${cat.symbol}</span>
-            <span>${cat.label}</span>
-            <span class="text-xs text-slate-400 ml-1">(${kindsInCat.length})</span>
-          </summary>
-        </details>
-      </td>
-    `;
-    // Set indeterminate visually on category checkboxes that are partial
-    const catCheckbox = catRow.querySelector('.cat-toggle');
-    if (someEnabled && !allEnabled) catCheckbox.indeterminate = true;
-    catCheckbox.addEventListener('change', () => onToggleCategory(cat.id, catCheckbox.checked));
-    catCheckbox.addEventListener('click', e => e.stopPropagation());
-
-    // Per-edition counts (sum across kinds in this category)
-    for (const ed of DATA.editions) {
-      const td = document.createElement('td');
-      td.className = 'count-cell';
-      const m = DATA.matrix[ed.id];
-      let enabled = 0, potential = 0;
-      for (const k of kindsInCat) {
-        enabled += m.enabled[k.code] || 0;
-        potential += m.potential[k.code] || 0;
-      }
-      td.append(formatCount(enabled, potential));
-      catRow.appendChild(td);
-    }
-    tbody.appendChild(catRow);
-
-    // Kind sub-rows
-    for (const k of kindsInCat) {
-      const kRow = document.createElement('tr');
-      kRow.className = 'kind-row text-slate-600 border-t border-slate-50';
-      const isOn = kindIsEnabledLocally(k.code);
-      kRow.innerHTML = `
-        <td class="px-3 py-1 font-mono text-xs">
-          <input type="checkbox" class="kind-toggle mr-1.5 ml-6" data-kind="${k.code}" ${isOn ? 'checked' : ''}>
-          ${k.code}
-        </td>
-      `;
-      const kc = kRow.querySelector('.kind-toggle');
-      kc.addEventListener('change', () => onToggleKind(k.code, kc.checked));
-      for (const ed of DATA.editions) {
-        const td = document.createElement('td');
-        td.className = 'count-cell text-xs';
-        const m = DATA.matrix[ed.id];
-        td.append(formatCount(m.enabled[k.code] || 0, m.potential[k.code] || 0));
-        kRow.appendChild(td);
-      }
-      tbody.appendChild(kRow);
-    }
-  }
-  // ψ.12 — restore scroll position after the rebuild.
-  if (wrap) {
-    wrap.scrollTop = scrollTop;
-    wrap.scrollLeft = scrollLeft;
-  }
-}
-
-// ψ.12 — incremental update for one category's parent-checkbox state.
-// Called from the toggle handlers instead of a full buildBody() rebuild.
-// Recomputes allEnabled / someEnabled for `catId`'s kinds (using the
-// current LOCAL_ENABLED set) and patches the parent checkbox + its
-// indeterminate marker IN PLACE. No DOM teardown; no scroll-jump; no
-// re-attachment of every kind row's event listener.
-function updateCategoryCheckbox(catId) {
-  const catCheckbox = document.querySelector(
-    `.cat-toggle[data-cat="${catId}"]`
-  );
-  if (!catCheckbox) return;
-  const kindsInCat = DATA.kinds.filter(k => k.category === catId);
-  const allEnabled = kindsInCat.every(k => kindIsEnabledLocally(k.code));
-  const someEnabled = kindsInCat.some(k => kindIsEnabledLocally(k.code));
-  catCheckbox.checked = allEnabled;
-  catCheckbox.indeterminate = someEnabled && !allEnabled;
-}
-
-function formatCount(enabled, potential) {
-  const wrap = document.createElement('span');
-  if (enabled === 0 && potential === 0) {
-    wrap.className = 'count-zero';
-    wrap.textContent = '·';
-  } else if (enabled === 0 && potential > 0) {
-    wrap.className = 'count-disabled';
-    wrap.textContent = `(${potential.toLocaleString()})`;
-    wrap.title = `${potential} potential note(s) — kind disabled in this edition.`;
-  } else {
-    wrap.className = 'count-ok font-medium';
-    wrap.textContent = enabled.toLocaleString();
-    if (potential > enabled) {
-      wrap.title = `${enabled} shipping; ${potential - enabled} more would ship if all kinds in this category were enabled.`;
-    }
-  }
-  return wrap;
-}
-
-function onToggleKind(code, on) {
-  if (on) LOCAL_ENABLED.add(code);
-  else LOCAL_ENABLED.delete(code);
-  // ψ.12 — incremental: just patch the parent category checkbox's
-  // indeterminate state. The toggled kind's checkbox is already in
-  // its target visual state (the user clicked it).
-  const kind = DATA.kinds.find(k => k.code === code);
-  if (kind) updateCategoryCheckbox(kind.category);
-  refreshDirtyBanner();
-  // ψ.18 — re-render totals so per-symbol counts reflect the toggle.
-  renderSymbolTotals();
-}
-
-function onToggleCategory(catId, on) {
-  // ψ.12 — incremental: walk every kind-row checkbox in this
-  // category and set its checked state directly. No tbody teardown,
-  // no listener re-attachment, no scroll jump.
-  const kinds = DATA.kinds.filter(k => k.category === catId);
-  for (const k of kinds) {
-    if (on) LOCAL_ENABLED.add(k.code);
-    else LOCAL_ENABLED.delete(k.code);
-    const kc = document.querySelector(
-      `.kind-toggle[data-kind="${k.code}"]`
-    );
-    if (kc) kc.checked = on;
-  }
-  // The category's own indeterminate is now resolved one way or
-  // the other; the checkbox's `change` event already set its
-  // own .checked, so nothing more to do for the parent.
-  const catCheckbox = document.querySelector(
-    `.cat-toggle[data-cat="${catId}"]`
-  );
-  if (catCheckbox) catCheckbox.indeterminate = false;
-  refreshDirtyBanner();
-  // ψ.18 — re-render totals so per-symbol counts reflect the bulk toggle.
-  renderSymbolTotals();
-}
-
-function refreshDirtyBanner() {
-  const dirty = symmetricDiff(LOCAL_ENABLED, SERVER_ENABLED);
-  const banner = document.getElementById('dirty-banner');
-  const saveBtn = document.getElementById('save-btn');
-  const resetBtn = document.getElementById('reset-btn');
-  if (dirty.size > 0) {
-    banner.classList.remove('hidden');
-    document.getElementById('dirty-count').textContent = dirty.size;
-    saveBtn.disabled = false;
-    resetBtn.disabled = false;
-  } else {
-    banner.classList.add('hidden');
-    saveBtn.disabled = true;
-    resetBtn.disabled = true;
-  }
-}
-
-function symmetricDiff(a, b) {
-  const out = new Set();
-  for (const x of a) if (!b.has(x)) out.add(x);
-  for (const x of b) if (!a.has(x)) out.add(x);
-  return out;
-}
-
-function buildEditionSelector() {
-  const sel = document.getElementById('edition-select');
-  for (const ed of DATA.editions) {
-    const o = document.createElement('option');
-    o.value = ed.id;
-    o.textContent = ed.title;
-    sel.appendChild(o);
-  }
-  sel.value = ACTIVE_EDITION;
-  sel.addEventListener('change', () => {
-    // ψ.12 — replace the blocking confirm() with an inline banner.
-    // Dirty? Show the banner and revert the picker until the user
-    // explicitly clicks Discard or Cancel.
-    if (symmetricDiff(LOCAL_ENABLED, SERVER_ENABLED).size > 0) {
-      const banner = document.getElementById('switch-confirm');
-      banner.dataset.target = sel.value;
-      banner.classList.remove('hidden');
-      sel.value = ACTIVE_EDITION;  // visual revert until decided
-      return;
-    }
-    ACTIVE_EDITION = sel.value;
-    refreshActiveEdition();
-  });
-  document.getElementById('switch-discard').addEventListener('click', () => {
-    const banner = document.getElementById('switch-confirm');
-    const target = banner.dataset.target;
-    if (!target) return;
-    ACTIVE_EDITION = target;
-    sel.value = target;
-    banner.classList.add('hidden');
-    refreshActiveEdition();
-  });
-  document.getElementById('switch-cancel').addEventListener('click', () => {
-    document.getElementById('switch-confirm').classList.add('hidden');
-  });
-  document.getElementById('save-btn').addEventListener('click', saveActiveEdition);
-  document.getElementById('reset-btn').addEventListener('click', () => {
-    LOCAL_ENABLED = new Set(SERVER_ENABLED);
-    buildBody();
-    refreshDirtyBanner();
-    renderSymbolTotals();   // ψ.18 — sidebar reflects reverted state
-    document.getElementById('save-status').textContent = 'reverted to last-saved state';
-  });
-  document.getElementById('save-as-btn').addEventListener('click', saveAsScenario);
-  document.getElementById('refresh-scenarios').addEventListener('click', refreshScenarioList);
-}
-
-async function saveAsScenario() {
-  const status = document.getElementById('save-status');
-  const name = prompt('Scenario name (lowercase letters, digits, - or _):');
-  if (!name) return;
-  const label = prompt('Human-readable label (optional):', name) || name;
-  const notesText = prompt('Notes / description (optional):', '') || '';
-  status.textContent = 'saving scenario …';
-  try {
-    const r = await fetch(`/api/scenarios/${encodeURIComponent(name)}`, {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        based_on: ACTIVE_EDITION,
-        label: label,
-        notes: notesText,
-        enabled_kinds: [...LOCAL_ENABLED],
-      }),
-    });
-    const result = await r.json();
-    if (!r.ok || result.error) {
-      status.innerHTML = `<span class="text-red-600">✗ ${result.error || 'save failed'}</span>`;
-      return;
-    }
-    status.innerHTML = `<span class="text-emerald-700">✓ scenario "${name}" saved</span>`;
-    refreshScenarioList();
-  } catch (e) {
-    status.innerHTML = `<span class="text-red-600">✗ ${e.message}</span>`;
-  }
-}
-
-async function refreshScenarioList() {
-  const list = document.getElementById('scenarios-list');
-  try {
-    const r = await fetch('/api/scenarios');
-    const data = await r.json();
-    if (!data.scenarios?.length) {
-      list.innerHTML = '<div class="text-xs text-slate-400">no scenarios yet — use Save As to create one</div>';
-      return;
-    }
-    list.innerHTML = data.scenarios.map(s => `
-      <div class="flex items-center justify-between gap-2 border border-slate-200 rounded px-2 py-1.5">
-        <div class="min-w-0 flex-1">
-          <div class="font-medium truncate" title="${(s.notes || '').replace(/"/g, '&quot;')}">${s.label || s.name}</div>
-          <div class="text-xs text-slate-500 font-mono truncate">${s.name} · from ${s.based_on || '—'} · ${(s.enabled_kinds || []).length} kinds</div>
-        </div>
-        <button data-scenario-load="${s.name}" class="text-xs text-blue-600 hover:underline">load</button>
-        <button data-scenario-del="${s.name}" class="text-xs text-red-600 hover:underline">×</button>
-      </div>
-    `).join('');
-    // Wire load + delete buttons
-    list.querySelectorAll('[data-scenario-load]').forEach(b => {
-      b.addEventListener('click', () => loadScenario(b.dataset.scenarioLoad));
-    });
-    list.querySelectorAll('[data-scenario-del]').forEach(b => {
-      b.addEventListener('click', () => deleteScenario(b.dataset.scenarioDel));
-    });
-  } catch (e) {
-    list.innerHTML = `<div class="text-xs text-red-600">failed: ${e.message}</div>`;
-  }
-}
-
-async function loadScenario(name) {
-  try {
-    const r = await fetch(`/api/scenarios/${encodeURIComponent(name)}`);
-    const data = await r.json();
-    if (data.error) {
-      document.getElementById('save-status').innerHTML = `<span class="text-red-600">✗ ${data.error}</span>`;
-      return;
-    }
-    LOCAL_ENABLED = new Set(data.scenario.enabled_kinds || []);
-    buildBody();
-    refreshDirtyBanner();
-    renderSymbolTotals();   // ψ.18 — sidebar reflects loaded scenario
-    document.getElementById('save-status').innerHTML =
-      `<span class="text-blue-700">✓ loaded scenario "${name}" (preview only — Save to commit to active edition, or Save As to keep separate)</span>`;
-  } catch (e) {
-    document.getElementById('save-status').innerHTML = `<span class="text-red-600">✗ ${e.message}</span>`;
-  }
-}
-
-async function deleteScenario(name) {
-  if (!confirm(`Delete scenario "${name}"?`)) return;
-  try {
-    const r = await fetch(`/api/scenarios/${encodeURIComponent(name)}`, {method: 'DELETE'});
-    const data = await r.json();
-    if (data.error) {
-      document.getElementById('save-status').innerHTML = `<span class="text-red-600">✗ ${data.error}</span>`;
-      return;
-    }
-    refreshScenarioList();
-  } catch (e) {
-    document.getElementById('save-status').innerHTML = `<span class="text-red-600">✗ ${e.message}</span>`;
-  }
-}
-
-function refreshActiveEdition() {
-  const ed = DATA.editions.find(e => e.id === ACTIVE_EDITION);
-  const m = DATA.matrix[ACTIVE_EDITION];
-  if (!ed || !m) return;
-
-  SERVER_ENABLED = new Set(m.enabled_kinds_set);
-  LOCAL_ENABLED = new Set(SERVER_ENABLED);
-
-  document.getElementById('save-controls').classList.remove('hidden');
-  document.getElementById('save-status').textContent = '';
-
-  const info = document.getElementById('edition-info');
-  const blocked = m.total_potential - m.total_enabled;
-  info.innerHTML = `
-    <div class="flex justify-between"><span class="text-slate-500">canon</span>
-      <span class="font-medium">${ed.canon || '—'}</span></div>
-    <div class="flex justify-between"><span class="text-slate-500">books</span>
-      <span class="font-mono">${m.canon_books_count}</span></div>
-    <div class="flex justify-between"><span class="text-slate-500">enabled kinds</span>
-      <span class="font-mono">${m.enabled_kinds_count} / ${DATA.kinds.length}</span></div>
-    <div class="flex justify-between mt-3 text-base">
-      <span class="font-semibold">notes shipping</span>
-      <span class="font-bold text-emerald-700">${m.total_enabled.toLocaleString()}</span>
+<!-- ψ.26 — Apply-to-all-editions confirmation modal. Triggered by
+     the "↗ all" button on each kind row. Shows the current
+     per-edition state for that kind so the operator knows what
+     they're about to change. -->
+<div id="psi26-applyall-overlay"
+  class="hidden fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center"
+  role="dialog" aria-modal="true" aria-labelledby="psi26-applyall-title"
+  aria-hidden="true">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-5">
+    <div class="flex items-center justify-between mb-3">
+      <h2 id="psi26-applyall-title" class="text-lg font-semibold">Apply to all editions</h2>
+      <button type="button" id="psi26-applyall-close"
+        class="text-slate-400 hover:text-slate-700 text-xl leading-none px-2"
+        aria-label="Close">&times;</button>
     </div>
-    <div class="flex justify-between text-xs text-slate-500">
-      <span>potential (all kinds on)</span>
-      <span>${m.total_potential.toLocaleString()}</span>
+    <p class="text-sm text-slate-700 mb-1">Kind: <span id="psi26-applyall-kind" class="font-mono"></span></p>
+    <p id="psi26-applyall-summary" class="text-xs text-slate-500 mb-3"></p>
+    <div id="psi26-applyall-perlist" class="text-xs text-slate-500 mb-3 max-h-40 overflow-y-auto border border-slate-200 rounded p-2"></div>
+    <div class="flex gap-2 flex-wrap">
+      <button type="button" id="psi26-applyall-enable"
+        class="px-3 py-1.5 text-sm rounded bg-emerald-600 text-white hover:bg-emerald-700">Enable in all</button>
+      <button type="button" id="psi26-applyall-disable"
+        class="px-3 py-1.5 text-sm rounded border border-rose-300 text-rose-700 hover:bg-rose-50">Disable in all</button>
+      <button type="button" id="psi26-applyall-cancel"
+        class="px-3 py-1.5 text-sm border border-slate-300 rounded hover:bg-slate-50 ml-auto">Cancel</button>
     </div>
-    ${blocked > 0 ? `<div class="text-xs text-amber-600">+${blocked} blocked by kind filter</div>` : ''}
-  `;
+    <p id="psi26-applyall-feedback" class="text-xs mt-3"></p>
+    <p class="text-[0.65rem] text-slate-400 mt-2">Saves directly to editions.yaml — bypasses the per-edition Save button. Undo history is cleared.</p>
+  </div>
+</div>
 
-  buildBody();
-  refreshDirtyBanner();
+<!-- ψ.27 — Export YAML modal. Surfaces the raw scenario YAML as a
+     read-only textarea + Copy + Download buttons. Opens from the
+     per-scenario "export" link. -->
+<div id="psi27-export-overlay"
+  class="hidden fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center"
+  role="dialog" aria-modal="true" aria-labelledby="psi27-export-title"
+  aria-hidden="true">
+  <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-5">
+    <div class="flex items-center justify-between mb-3">
+      <h2 id="psi27-export-title" class="text-lg font-semibold">Export scenario</h2>
+      <button type="button" id="psi27-export-close"
+        class="text-slate-400 hover:text-slate-700 text-xl leading-none px-2"
+        aria-label="Close">&times;</button>
+    </div>
+    <p class="text-xs text-slate-500 mb-2"><span id="psi27-export-name" class="font-mono"></span> — copy the YAML below or download the file.</p>
+    <textarea id="psi27-export-yaml" readonly
+      class="w-full h-64 border border-slate-300 rounded p-2 text-xs font-mono bg-slate-50"
+      spellcheck="false"></textarea>
+    <div class="flex gap-2 mt-3 flex-wrap">
+      <button type="button" id="psi27-export-copy"
+        class="px-3 py-1.5 text-sm rounded bg-blue-600 text-white hover:bg-blue-700">Copy to clipboard</button>
+      <a id="psi27-export-download" download class="hidden"></a>
+      <button type="button" id="psi27-export-download-btn"
+        class="px-3 py-1.5 text-sm border border-slate-300 rounded hover:bg-slate-50">Download .yaml</button>
+      <span id="psi27-export-feedback" class="text-xs text-emerald-700 ml-auto self-center"></span>
+    </div>
+  </div>
+</div>
 
-  const breakdown = {};
-  for (const [kindCode, count] of Object.entries(m.enabled)) {
-    const k = DATA.kinds.find(kk => kk.code === kindCode);
-    if (!k) continue;
-    breakdown[k.category] = (breakdown[k.category] || 0) + count;
-  }
-  const cats = [...DATA.categories].sort((a, b) => (breakdown[b.id] || 0) - (breakdown[a.id] || 0));
-  const total = m.total_enabled || 1;
-  const breakdownEl = document.getElementById('breakdown');
-  breakdownEl.innerHTML = cats.map(c => {
-    const n = breakdown[c.id] || 0;
-    const pct = (n / total * 100).toFixed(1);
-    if (n === 0) return '';
-    return `
-      <div class="mb-1.5">
-        <div class="flex justify-between text-xs">
-          <span><span class="symbol text-slate-500">${c.symbol}</span> ${c.label}</span>
-          <span class="font-mono text-slate-500">${n.toLocaleString()} <span class="text-slate-400">(${pct}%)</span></span>
-        </div>
-        <div class="h-1.5 bg-slate-100 rounded overflow-hidden">
-          <div class="h-full bg-blue-400" style="width:${pct}%"></div>
-        </div>
-      </div>`;
-  }).filter(Boolean).join('');
+<!-- ψ.27 — Import YAML modal. Paste-textarea + name input. Reports
+     parse / unknown-kind / conflict errors inline. -->
+<div id="psi27-import-overlay"
+  class="hidden fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center"
+  role="dialog" aria-modal="true" aria-labelledby="psi27-import-title"
+  aria-hidden="true">
+  <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full mx-4 p-5">
+    <div class="flex items-center justify-between mb-3">
+      <h2 id="psi27-import-title" class="text-lg font-semibold">Import scenario from YAML</h2>
+      <button type="button" id="psi27-import-close"
+        class="text-slate-400 hover:text-slate-700 text-xl leading-none px-2"
+        aria-label="Close">&times;</button>
+    </div>
+    <label class="block text-xs uppercase tracking-wide text-slate-500 mb-1">Scenario name</label>
+    <input type="text" id="psi27-import-name" maxlength="41"
+      placeholder="lowercase a–z, 0–9, _ or -"
+      class="w-full border border-slate-300 rounded px-2 py-1 text-sm mb-3">
+    <label class="block text-xs uppercase tracking-wide text-slate-500 mb-1">YAML body</label>
+    <textarea id="psi27-import-yaml"
+      class="w-full h-56 border border-slate-300 rounded p-2 text-xs font-mono"
+      spellcheck="false"
+      placeholder="label: My Scenario&#10;based_on: null&#10;enabled_kinds:&#10;  - lang-hebrew&#10;  - xref-citation"></textarea>
+    <label class="flex items-center gap-2 text-xs text-slate-600 mt-2">
+      <input type="checkbox" id="psi27-import-overwrite"> overwrite if a scenario by that name already exists
+    </label>
+    <div class="flex gap-2 mt-3 flex-wrap items-center">
+      <button type="button" id="psi27-import-submit"
+        class="px-3 py-1.5 text-sm rounded bg-emerald-600 text-white hover:bg-emerald-700">Import</button>
+      <button type="button" id="psi27-import-cancel"
+        class="px-3 py-1.5 text-sm border border-slate-300 rounded hover:bg-slate-50">Cancel</button>
+      <span id="psi27-import-feedback" class="text-xs ml-auto"></span>
+    </div>
+  </div>
+</div>
 
-  // ψ.18 — Symbol totals sidebar with per-book sparklines.
-  renderSymbolTotals();
-}
-
-
-// ψ.18 — Render the per-symbol totals + per-book sparkline panel.
-// Reads from m.per_book + m.canon_book_order; iterates LOCAL_ENABLED
-// so live toggles update the totals without a server round-trip.
-//
-// Sparkline encoding: 8-level Unicode block characters
-// (' ▁▂▃▄▅▆▇█') one per book in canonical order. Empty = book
-// has no notes of this kind; full block = book has the most.
-const SPARK_CHARS = ' ▁▂▃▄▅▆▇█';
-
-function renderSymbolTotals() {
-  const m = DATA.matrix[ACTIVE_EDITION];
-  if (!m || !m.per_book) return;
-  const list = document.getElementById('totals-list');
-  if (!list) return;
-
-  const perBook = m.per_book;
-  const perChapter = m.per_chapter || {};        // ψ.18.1
-  const bookChCounts = m.book_chapter_counts || {};  // ψ.18.1
-  const canon = m.canon_book_order || [];
-  // Sum across LOCAL_ENABLED (the user's pending toggle state) so
-  // the panel reflects what the edition would ship right now.
-  const enabled = LOCAL_ENABLED;
-
-  // Index kinds by category for grouping; sort by count desc within.
-  const kindRows = [];
-  for (const k of DATA.kinds) {
-    if (!enabled.has(k.code)) continue;
-    const bookCounts = perBook[k.code] || {};
-    let total = 0;
-    let max = 0;
-    for (const c of canon) {
-      const v = bookCounts[c] || 0;
-      total += v;
-      if (v > max) max = v;
-    }
-    if (total === 0) continue;
-    const cat = DATA.categories.find(cc => cc.id === k.category);
-    const symbol = (cat && cat.symbol) || '?';
-    // Build per-book sparkline string (one char per canon book)
-    const chars = [];
-    const tooltips = [];
-    for (const code of canon) {
-      const v = bookCounts[code] || 0;
-      let level = 0;
-      if (max > 0 && v > 0) {
-        // Map 1..max to 1..8 (skip the empty space char)
-        level = Math.min(8, 1 + Math.floor((v / max) * 7));
-      }
-      chars.push(SPARK_CHARS[level]);
-      tooltips.push(`${code}: ${v}`);
-    }
-    // ψ.18.1 — chapter-level drilldown payload. Top N books by
-    // count get a chapter sparkline (one char per chapter).
-    const chapterByBook = perChapter[k.code] || {};
-    const bookTotals = Object.entries(bookCounts)
-      .map(([bc, n]) => ({code: bc, count: n}))
-      .sort((a, b) => b.count - a.count);
-    const chapterRows = [];
-    let chaptersWithNotes = 0;
-    for (const bc in chapterByBook) {
-      chaptersWithNotes += Object.keys(chapterByBook[bc]).length;
-    }
-    const TOP_N_BOOKS = 5;
-    for (const br of bookTotals.slice(0, TOP_N_BOOKS)) {
-      const chCount = bookChCounts[br.code] || 0;
-      const byCh = chapterByBook[br.code] || {};
-      // Find max for this book's scaling
-      let bookMax = 0;
-      for (const v of Object.values(byCh)) {
-        if (v > bookMax) bookMax = v;
-      }
-      // Build chapter spark; iterate 1..ch_count from books.yaml
-      // (or fall back to max chapter key seen if ch_count is 0).
-      let upper = chCount;
-      if (upper <= 0) {
-        for (const ch of Object.keys(byCh)) {
-          const ci = parseInt(ch, 10);
-          if (ci > upper) upper = ci;
-        }
-      }
-      const chChars = [];
-      const chTooltips = [];
-      for (let ci = 1; ci <= upper; ci++) {
-        const v = byCh[ci] || byCh[String(ci)] || 0;
-        let lvl = 0;
-        if (bookMax > 0 && v > 0) {
-          lvl = Math.min(8, 1 + Math.floor((v / bookMax) * 7));
-        }
-        chChars.push(SPARK_CHARS[lvl]);
-        if (v > 0) chTooltips.push(`ch ${ci}: ${v}`);
-      }
-      chapterRows.push({
-        code: br.code,
-        count: br.count,
-        chapters: Object.keys(byCh).length,
-        spark: chChars.join(''),
-        tooltip: chTooltips.join('  ') || `${br.code}: no chapter data`,
-      });
-    }
-    kindRows.push({
-      code: k.code,
-      label: k.label,
-      symbol,
-      total,
-      max,
-      sparkline: chars.join(''),
-      tooltip: tooltips.join('  '),
-      chaptersWithNotes,
-      booksWithNotes: bookTotals.length,
-      chapterRows,
-      hiddenBooks: Math.max(0, bookTotals.length - TOP_N_BOOKS),
-    });
-  }
-  kindRows.sort((a, b) => b.total - a.total);
-
-  if (kindRows.length === 0) {
-    list.innerHTML = '<div class="text-xs text-slate-400">no kinds enabled</div>';
-    document.getElementById('totals-edition').textContent = 'whole edition';
-    return;
-  }
-
-  document.getElementById('totals-edition').textContent =
-    `whole edition · ${m.total_enabled.toLocaleString()} notes shipping`;
-
-  list.innerHTML = kindRows.map(r => {
-    const drilldown = r.chapterRows.map(br => `
-      <div class="flex items-baseline gap-2 mt-1" title="${escapeAttr(br.tooltip)}">
-        <span class="font-mono text-slate-500 text-[0.7rem] w-10 truncate">${escapeText(br.code)}</span>
-        <span class="font-mono text-slate-400 leading-none flex-1 whitespace-nowrap overflow-hidden" style="font-size:0.7rem;letter-spacing:-0.05em">${escapeText(br.spark)}</span>
-        <span class="font-mono text-slate-500 text-[0.7rem] tabular-nums">${br.count.toLocaleString()}<span class="text-slate-400"> · ${br.chapters}ch</span></span>
-      </div>`).join('');
-    const hiddenNote = r.hiddenBooks > 0
-      ? `<div class="text-[0.65rem] text-slate-400 mt-1 italic">+ ${r.hiddenBooks} more book${r.hiddenBooks === 1 ? '' : 's'}</div>`
-      : '';
-    return `
-    <details class="psi181-drilldown">
-      <summary class="cursor-pointer list-none">
-        <div class="flex items-center gap-2 text-xs" title="${escapeAttr(r.tooltip)}">
-          <span class="text-slate-400 text-[0.6rem] select-none psi181-arrow">▸</span>
-          <span class="symbol text-slate-700" style="font-size:1.1em">${r.symbol}</span>
-          <span class="flex-1 truncate text-slate-700" title="${escapeAttr(r.code)}">${escapeText(r.label)}</span>
-          <span class="font-mono text-slate-600 tabular-nums">${r.total.toLocaleString()}</span>
-        </div>
-        <div class="font-mono text-slate-400 leading-none whitespace-nowrap overflow-hidden ml-3" title="${escapeAttr(r.tooltip)}" style="font-size:0.7rem;letter-spacing:-0.05em">${escapeText(r.sparkline)}</div>
-      </summary>
-      <div class="mt-2 ml-3 pl-2 border-l border-slate-200">
-        <div class="text-[0.65rem] text-slate-400 mb-1">${r.chaptersWithNotes.toLocaleString()} chapter${r.chaptersWithNotes === 1 ? '' : 's'} · ${r.booksWithNotes} book${r.booksWithNotes === 1 ? '' : 's'}</div>
-        ${drilldown}
-        ${hiddenNote}
+<!-- ψ.29 — keyboard shortcuts help modal. Opens via `?` key or
+     the header help button. Closes via Esc, click outside, or X. -->
+<div id="psi29-help-overlay"
+  class="hidden fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center"
+  role="dialog" aria-modal="true" aria-labelledby="psi29-help-title"
+  aria-hidden="true">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full mx-4 p-5">
+    <div class="flex items-center justify-between mb-3">
+      <h2 id="psi29-help-title" class="text-lg font-semibold">Keyboard shortcuts</h2>
+      <button type="button" id="psi29-help-close"
+        class="text-slate-400 hover:text-slate-700 text-xl leading-none px-2"
+        aria-label="Close">&times;</button>
+    </div>
+    <dl class="text-sm">
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt><kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">/</kbd></dt>
+        <dd class="text-slate-600">Focus the kind filter</dd>
       </div>
-    </details>
-  `;}).join('');
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt><kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Esc</kbd></dt>
+        <dd class="text-slate-600">Clear filter / close help</dd>
+      </div>
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt><kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">?</kbd></dt>
+        <dd class="text-slate-600">Show this help</dd>
+      </div>
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt><kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Tab</kbd></dt>
+        <dd class="text-slate-600">Move focus to next checkbox</dd>
+      </div>
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt><kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Space</kbd></dt>
+        <dd class="text-slate-600">Toggle the focused checkbox</dd>
+      </div>
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt class="space-x-1">
+          <kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Cmd</kbd>/<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Z</kbd>
+        </dt>
+        <dd class="text-slate-600">Undo last toggle</dd>
+      </div>
+      <div class="flex items-center justify-between py-1.5 border-b border-slate-100">
+        <dt class="space-x-1">
+          <kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Cmd</kbd>+<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Shift</kbd>+<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Z</kbd>
+          <span class="text-slate-400">/</span>
+          <kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Y</kbd>
+        </dt>
+        <dd class="text-slate-600">Redo</dd>
+      </div>
+      <div class="flex items-center justify-between py-1.5">
+        <dt class="space-x-1">
+          <kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Cmd</kbd>/<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 border border-slate-300 rounded bg-slate-50 font-mono text-xs">S</kbd>
+        </dt>
+        <dd class="text-slate-600">Save the active edition</dd>
+      </div>
+    </dl>
+    <p class="text-xs text-slate-400 mt-3">Undo history clears on edition switch, reset, and save.</p>
+  </div>
+</div>
 
-  // ψ.20 — render the density heat-map alongside the symbol
-  // totals. Same data source (m.per_book), same toggle semantics
-  // (sums across LOCAL_ENABLED).
-  renderDensityHeatmap();
-}
-
-// ψ.20 — note-density heat-map. Cells are colored by percentile
-// rank within the visible-book range; greener = denser, redder =
-// sparser. Empty books (no notes for any enabled kind) get a
-// muted gray cell so they're still visible in the canon order.
-function renderDensityHeatmap() {
-  const m = DATA.matrix[ACTIVE_EDITION];
-  const grid = document.getElementById('psi20-heatmap-grid');
-  if (!m || !m.per_book || !grid) return;
-  const canon = m.canon_book_order || [];
-  if (canon.length === 0) {
-    grid.innerHTML = '<div class="text-xs text-slate-400">no books in canon</div>';
-    return;
-  }
-  // Per-book sum across LOCAL_ENABLED kinds.
-  const perBook = m.per_book;
-  const enabled = LOCAL_ENABLED;
-  const counts = canon.map(code => {
-    let total = 0;
-    for (const kindCode of enabled) {
-      const bookCounts = perBook[kindCode];
-      if (bookCounts && bookCounts[code]) {
-        total += bookCounts[code];
-      }
-    }
-    return {code, count: total};
-  });
-  // Find max for percentile coloring.
-  const max = counts.reduce((a, c) => Math.max(a, c.count), 0);
-  const cells = counts.map(({code, count}) => {
-    if (count === 0) {
-      return `<div class="psi20-cell empty" title="${escapeAttr(code)}: 0">${escapeText(code)}</div>`;
-    }
-    // Linear interpolation across red → amber → green based on
-    // percentile rank against `max` (clamped to >= 1 so a single
-    // book with notes doesn't divide by zero).
-    const denom = Math.max(max, 1);
-    const pct = count / denom;  // 0..1
-    const color = psi20HeatColor(pct);
-    return `<div class="psi20-cell" style="background:${color}" title="${escapeAttr(code)}: ${count.toLocaleString()} note${count === 1 ? '' : 's'}">${escapeText(code)}</div>`;
-  }).join('');
-  grid.innerHTML = cells;
-}
-
-// Linear interpolation across the red-amber-green stops. Returns
-// an "rgb(r,g,b)" string. Uses Tailwind's red-600 (#dc2626),
-// amber-500 (#f59e0b), green-600 (#16a34a) as endpoints.
-function psi20HeatColor(pct) {
-  // Two segments: 0..0.5 → red→amber; 0.5..1 → amber→green.
-  const stops = [
-    [0.0, 220, 38, 38],   // red-600
-    [0.5, 245, 158, 11],  // amber-500
-    [1.0, 22, 163, 74],   // green-600
-  ];
-  let i = 0;
-  while (i < stops.length - 1 && pct > stops[i + 1][0]) i++;
-  const [t0, r0, g0, b0] = stops[i];
-  const [t1, r1, g1, b1] = stops[i + 1] || stops[i];
-  const span = (t1 - t0) || 1;
-  const f = Math.max(0, Math.min(1, (pct - t0) / span));
-  const r = Math.round(r0 + (r1 - r0) * f);
-  const g = Math.round(g0 + (g1 - g0) * f);
-  const b = Math.round(b0 + (b1 - b0) * f);
-  return `rgb(${r},${g},${b})`;
-}
-
-function escapeText(s) {
-  return String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-function escapeAttr(s) {
-  return String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-}
-
-async function saveActiveEdition() {
-  const status = document.getElementById('save-status');
-  const saveBtn = document.getElementById('save-btn');
-  saveBtn.disabled = true;
-  status.textContent = 'saving …';
-  try {
-    const r = await fetch(`/api/edition/${ACTIVE_EDITION}`, {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({enabled_kinds: [...LOCAL_ENABLED]}),
-    });
-    const result = await r.json();
-    if (!r.ok || result.error) {
-      status.innerHTML = `<span class="text-red-600">✗ ${result.error || 'save failed'}</span>`;
-      saveBtn.disabled = false;
-      return;
-    }
-    status.innerHTML = `<span class="text-emerald-700">✓ saved · ${result.enabled_total} kinds enabled</span>`;
-    // Re-fetch the matrix so counts reflect the saved state
-    const fresh = await fetch('/api/matrix').then(r => r.json());
-    DATA = fresh;
-    refreshActiveEdition();
-  } catch (e) {
-    status.innerHTML = `<span class="text-red-600">✗ ${e.message}</span>`;
-    saveBtn.disabled = false;
-  }
-}
-
-loadMatrix().then(() => refreshScenarioList()).catch(e => {
-  document.getElementById('loading').textContent = 'Failed to load matrix: ' + e.message;
-});
-</script>
+<script src="/static/matrix.js" defer></script>
 
 <!-- ω.0.6 — UI defense prelude — START -->
 <!-- Re-injecting / refreshing this block uses

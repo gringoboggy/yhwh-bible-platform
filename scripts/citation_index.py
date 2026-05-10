@@ -73,7 +73,6 @@ HREF_RE = re.compile(r'href="(?:[^"]*?#)?vnote-([a-z0-9]+)-(\d+)-(\d+)([a-z]?)"'
 # ----------------------------------------------------------------------
 
 
-
 def build_graph(book_filter: str | None = None):
     """Return (citations, totals).
 

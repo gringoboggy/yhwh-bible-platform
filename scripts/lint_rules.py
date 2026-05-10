@@ -39,14 +39,18 @@ a CI pre-commit gate AND for composition into the ψ.2 preflight
 console (the api_preflight aggregator imports run_all() to surface
 results in the buyer-demo dashboard).
 """
+
 from __future__ import annotations
 
 import argparse
 import json
 import ast  # ω.9 — AST-based atomic-writes audit
+import os  # ω.18 — os.utime for the freshness fixer
 import re
 import sys
+import time  # ω.23 — per-check timing for the --profile flag
 from pathlib import Path
+from typing import Callable, Optional
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -79,6 +83,7 @@ def check_cross_link_invariant() -> dict:
         # with placeholder comments.
         import importlib
         import sys as _sys
+
         if str(REPO) not in _sys.path:
             _sys.path.insert(0, str(REPO))
         for py in sorted(templates_dir.glob("*.py")):
@@ -93,7 +98,9 @@ def check_cross_link_invariant() -> dict:
                 # template has an import-time error.
                 text = py.read_text(encoding="utf-8")
                 for m in re.finditer(
-                    r'^([A-Z_]+_HTML)\s*=\s*r"""', text, re.MULTILINE,
+                    r'^([A-Z_]+_HTML)\s*=\s*r"""',
+                    text,
+                    re.MULTILINE,
                 ):
                     name = m.group(1)
                     start = m.end()
@@ -104,14 +111,17 @@ def check_cross_link_invariant() -> dict:
                 continue
             for attr in dir(mod):
                 if attr.endswith("_HTML") and isinstance(
-                    getattr(mod, attr), str,
+                    getattr(mod, attr),
+                    str,
                 ):
                     consoles[attr] = getattr(mod, attr)
     else:
         # Pre-split fallback
         web_py = (REPO / "scripts" / "web.py").read_text(encoding="utf-8")
         for m in re.finditer(
-            r'^([A-Z_]+_HTML)\s*=\s*r"""', web_py, re.MULTILINE,
+            r'^([A-Z_]+_HTML)\s*=\s*r"""',
+            web_py,
+            re.MULTILINE,
         ):
             name = m.group(1)
             start = m.end()
@@ -126,26 +136,26 @@ def check_cross_link_invariant() -> dict:
     # but the SECOND check below also verifies that every newly-added
     # *_HTML has a route. For now, hardcoded mapping.
     route_for_constant = {
-        "INDEX_HTML":    "/",
-        "MATRIX_HTML":   "/matrix",
-        "SOURCES_HTML":  "/sources",
-        "EXPORT_HTML":   "/export",
-        "CUSTOMIZE_HTML":"/customize",
-        "AUDIT_HTML":    "/audit",
-        "PUBLISHER_HTML":"/publisher",
-        "WIZARD_HTML":   "/wizard",
-        "DIFF_HTML":     "/diff",
-        "COVERS_HTML":   "/covers",
-        "PREFLIGHT_HTML":"/preflight",
+        "INDEX_HTML": "/",
+        "MATRIX_HTML": "/matrix",
+        "SOURCES_HTML": "/sources",
+        "EXPORT_HTML": "/export",
+        "CUSTOMIZE_HTML": "/customize",
+        "AUDIT_HTML": "/audit",
+        "AUDIT_LOG_HTML": "/audit-log",
+        "PUBLISHER_HTML": "/publisher",
+        "WIZARD_HTML": "/wizard",
+        "DIFF_HTML": "/diff",
+        "COVERS_HTML": "/covers",
+        "PREFLIGHT_HTML": "/preflight",
         "APIHELP_HTML": "/apihelp",
         "OPS_HTML": "/ops",
-        "COMPARE_HTML":  "/compare",
+        "COMPARE_HTML": "/compare",
     }
 
     # Filter consoles to ones we have routes for — the editor (INDEX)
     # has a different layout (no console-style nav) and is exempt.
-    expected_routes = [r for c, r in route_for_constant.items()
-                        if c in consoles and c != "INDEX_HTML"]
+    expected_routes = [r for c, r in route_for_constant.items() if c in consoles and c != "INDEX_HTML"]
 
     # Per project convention, the nav link to the matrix cluster
     # uses href="/" (the editor route) with display text "matrix".
@@ -159,47 +169,49 @@ def check_cross_link_invariant() -> dict:
     violations: list[dict] = []
     for name, body in consoles.items():
         if name == "INDEX_HTML":
-            continue   # exempt — different layout
+            continue  # exempt — different layout
         my_route = route_for_constant.get(name)
         if not my_route:
             # Console exists but no route mapping — missing from the
             # table above. Treat as a violation so the linter forces
             # the table to be updated.
-            violations.append({
-                "console": name,
-                "issue": "no route mapping in lint_rules.py",
-            })
+            violations.append(
+                {
+                    "console": name,
+                    "issue": "no route mapping in lint_rules.py",
+                }
+            )
             continue
         for r in expected_routes:
             if r == my_route:
-                continue   # self-link is via active-page span, not nav
+                continue  # self-link is via active-page span, not nav
             # If checking the matrix route, accept either "/" or "/matrix"
             if r == "/matrix":
-                if not any(
-                    f'"{a}"' in body or f"'{a}'" in body
-                    for a in matrix_aliases
-                ):
-                    violations.append({
-                        "console": name,
-                        "missing_link_to": "/matrix or /",
-                    })
+                if not any(f'"{a}"' in body or f"'{a}'" in body for a in matrix_aliases):
+                    violations.append(
+                        {
+                            "console": name,
+                            "missing_link_to": "/matrix or /",
+                        }
+                    )
                 continue
             # Check for the link. Accept either href="r" or href='r'.
             if f'"{r}"' not in body and f"'{r}'" not in body:
-                violations.append({
-                    "console": name,
-                    "missing_link_to": r,
-                })
+                violations.append(
+                    {
+                        "console": name,
+                        "missing_link_to": r,
+                    }
+                )
 
     return {
         "id": "6.2",
         "name": "Cross-link invariant",
         "status": "fail" if violations else "pass",
         "message": (
-            f"{len(violations)} missing cross-links across "
-            f"{len(consoles) - 1} consoles"
-            if violations else
-            f"all {len(consoles) - 1} consoles cross-link to each other"
+            f"{len(violations)} missing cross-links across {len(consoles) - 1} consoles"
+            if violations
+            else f"all {len(consoles) - 1} consoles cross-link to each other"
         ),
         "violations": violations,
     }
@@ -222,7 +234,7 @@ def check_encoder_canonical_order() -> dict:
     encoders = [
         ("scripts.build_edition", "encode_per_book_languages"),
         ("scripts.build_edition", "encode_per_book_traditions"),
-        ("scripts.core.covers",   "encode_book_covers"),
+        ("scripts.core.covers", "encode_book_covers"),
     ]
 
     violations: list[dict] = []
@@ -231,10 +243,12 @@ def check_encoder_canonical_order() -> dict:
             mod = __import__(mod_name, fromlist=[fn_name])
             fn = getattr(mod, fn_name)
         except (ImportError, AttributeError) as e:
-            violations.append({
-                "encoder": f"{mod_name}.{fn_name}",
-                "issue": f"could not import: {e}",
-            })
+            violations.append(
+                {
+                    "encoder": f"{mod_name}.{fn_name}",
+                    "issue": f"could not import: {e}",
+                }
+            )
             continue
         # Pick three book codes in deliberately non-canonical order.
         # Canonical order has `gen` (very early) and `mat` (NT, late).
@@ -249,19 +263,23 @@ def check_encoder_canonical_order() -> dict:
         try:
             encoded = fn(sample)
         except Exception as e:
-            violations.append({
-                "encoder": f"{mod_name}.{fn_name}",
-                "issue": f"raised on sample input: {e}",
-            })
+            violations.append(
+                {
+                    "encoder": f"{mod_name}.{fn_name}",
+                    "issue": f"raised on sample input: {e}",
+                }
+            )
             continue
         codes = [s.split("=")[0] for s in encoded]
         expected = sorted(codes, key=lambda c: rank.get(c, len(book_order)))
         if codes != expected:
-            violations.append({
-                "encoder": f"{mod_name}.{fn_name}",
-                "got_order": codes,
-                "expected_order": expected,
-            })
+            violations.append(
+                {
+                    "encoder": f"{mod_name}.{fn_name}",
+                    "got_order": codes,
+                    "expected_order": expected,
+                }
+            )
 
     return {
         "id": "6.1",
@@ -269,8 +287,8 @@ def check_encoder_canonical_order() -> dict:
         "status": "fail" if violations else "pass",
         "message": (
             f"{len(violations)} encoder(s) produce non-canonical order"
-            if violations else
-            f"all {len(encoders)} encoders produce canonical order"
+            if violations
+            else f"all {len(encoders)} encoders produce canonical order"
         ),
         "violations": violations,
     }
@@ -280,15 +298,24 @@ def check_encode_decode_round_trip() -> dict:
     """Every (encode, decode) pair should round-trip cleanly."""
     sys.path.insert(0, str(REPO))
     pairs = [
-        ("scripts.build_edition",
-         "encode_per_book_languages", "decode_per_book_languages",
-         {"gen": ["english", "hebrew"], "mat": ["english"], "tob": []}),
-        ("scripts.build_edition",
-         "encode_per_book_traditions", "decode_per_book_traditions",
-         {"gen": ["catholic", "cross"], "mat": ["protestant"], "tob": []}),
-        ("scripts.core.covers",
-         "encode_book_covers", "decode_book_covers",
-         {"gen": "covers/x/gen.jpg", "mat": "covers/x/mat.png", "tob": ""}),
+        (
+            "scripts.build_edition",
+            "encode_per_book_languages",
+            "decode_per_book_languages",
+            {"gen": ["english", "hebrew"], "mat": ["english"], "tob": []},
+        ),
+        (
+            "scripts.build_edition",
+            "encode_per_book_traditions",
+            "decode_per_book_traditions",
+            {"gen": ["catholic", "cross"], "mat": ["protestant"], "tob": []},
+        ),
+        (
+            "scripts.core.covers",
+            "encode_book_covers",
+            "decode_book_covers",
+            {"gen": "covers/x/gen.jpg", "mat": "covers/x/mat.png", "tob": ""},
+        ),
     ]
     violations: list[dict] = []
     for mod_name, enc_name, dec_name, sample in pairs:
@@ -297,21 +324,21 @@ def check_encode_decode_round_trip() -> dict:
             enc = getattr(mod, enc_name)
             dec = getattr(mod, dec_name)
         except (ImportError, AttributeError) as e:
-            violations.append({"pair": f"{enc_name}/{dec_name}",
-                                "issue": str(e)})
+            violations.append({"pair": f"{enc_name}/{dec_name}", "issue": str(e)})
             continue
         try:
             recovered = dec(enc(sample))
         except Exception as e:
-            violations.append({"pair": f"{enc_name}/{dec_name}",
-                                "issue": f"raised: {e}"})
+            violations.append({"pair": f"{enc_name}/{dec_name}", "issue": f"raised: {e}"})
             continue
         if recovered != sample:
-            violations.append({
-                "pair": f"{enc_name}/{dec_name}",
-                "input": sample,
-                "round_tripped": recovered,
-            })
+            violations.append(
+                {
+                    "pair": f"{enc_name}/{dec_name}",
+                    "input": sample,
+                    "round_tripped": recovered,
+                }
+            )
 
     return {
         "id": "encode_decode",
@@ -319,8 +346,8 @@ def check_encode_decode_round_trip() -> dict:
         "status": "fail" if violations else "pass",
         "message": (
             f"{len(violations)} pairs do not round-trip cleanly"
-            if violations else
-            f"all {len(pairs)} encode/decode pairs round-trip"
+            if violations
+            else f"all {len(pairs)} encode/decode pairs round-trip"
         ),
         "violations": violations,
     }
@@ -336,16 +363,13 @@ def check_doc_cross_references() -> dict:
     if no date-stamped file is present.
     """
     plan_files = sorted((REPO / "dev").glob("PLAN_*.md"))
-    plan_path = plan_files[-1] if plan_files else (
-        REPO / "dev" / "PLAN_2026-05-07.md"
-    )
+    plan_path = plan_files[-1] if plan_files else (REPO / "dev" / "PLAN_2026-05-07.md")
     plan = plan_path.read_text(encoding="utf-8")
     session = (REPO / "dev" / "SESSION_STATE.md").read_text(encoding="utf-8")
     referenced_text = plan + "\n" + session
 
     # Find every "dev/SCOPE_..." reference in the PLAN+SESSION
-    referenced = set(re.findall(r"dev/SCOPE_[A-Za-z0-9_\-]+\.md",
-                                  referenced_text))
+    referenced = set(re.findall(r"dev/SCOPE_[A-Za-z0-9_\-]+\.md", referenced_text))
 
     # Actual addendum files in dev/
     actual = set()
@@ -357,11 +381,9 @@ def check_doc_cross_references() -> dict:
 
     violations: list[dict] = []
     for ref in sorted(missing_on_disk):
-        violations.append({"issue": "referenced but missing on disk",
-                            "doc": ref})
+        violations.append({"issue": "referenced but missing on disk", "doc": ref})
     for f in sorted(orphan_files):
-        violations.append({"issue": "exists but not referenced anywhere",
-                            "doc": f})
+        violations.append({"issue": "exists but not referenced anywhere", "doc": f})
 
     return {
         "id": "docs",
@@ -369,8 +391,8 @@ def check_doc_cross_references() -> dict:
         "status": "warn" if violations else "pass",
         "message": (
             f"{len(violations)} doc reference issue(s)"
-            if violations else
-            f"all {len(actual)} scope addenda referenced consistently"
+            if violations
+            else f"all {len(actual)} scope addenda referenced consistently"
         ),
         "violations": violations,
     }
@@ -380,8 +402,8 @@ def check_session_state_freshness() -> dict:
     """SESSION_STATE.md should be no more than ~1 day stale relative
     to the most recent CHANGELOG entry. A larger gap suggests the
     continuity protocol (Rule §11) has slipped."""
-    changelog = (REPO / "dev" / "CHANGELOG.md")
-    session = (REPO / "dev" / "SESSION_STATE.md")
+    changelog = REPO / "dev" / "CHANGELOG.md"
+    session = REPO / "dev" / "SESSION_STATE.md"
     if not changelog.exists() or not session.exists():
         return {
             "id": "freshness",
@@ -401,14 +423,13 @@ def check_session_state_freshness() -> dict:
             "id": "freshness",
             "name": "SESSION_STATE freshness",
             "status": "warn",
-            "message": (
-                f"CHANGELOG and SESSION_STATE diverge by "
-                f"{int(delta/3600)} hours"
-            ),
-            "violations": [{
-                "changelog_mtime": cl_mtime,
-                "session_state_mtime": ss_mtime,
-            }],
+            "message": (f"CHANGELOG and SESSION_STATE diverge by {int(delta / 3600)} hours"),
+            "violations": [
+                {
+                    "changelog_mtime": cl_mtime,
+                    "session_state_mtime": ss_mtime,
+                }
+            ],
         }
     return {
         "id": "freshness",
@@ -451,18 +472,13 @@ def check_inflight_freshness() -> dict:
             "violations": [{"missing": "dev/IN_FLIGHT.md"}],
         }
     text = path.read_text(encoding="utf-8")
-    marker_match = re.search(
-        r"<!--\s*TRACKER-STATE:\s*(idle|active)\s*-->", text
-    )
+    marker_match = re.search(r"<!--\s*TRACKER-STATE:\s*(idle|active)\s*-->", text)
     if not marker_match:
         return {
             "id": "inflight_freshness",
             "name": "In-flight task tracker",
             "status": "warn",
-            "message": (
-                "IN_FLIGHT.md has no <!-- TRACKER-STATE: ... --> "
-                "marker; cannot determine state"
-            ),
+            "message": ("IN_FLIGHT.md has no <!-- TRACKER-STATE: ... --> marker; cannot determine state"),
             "violations": [],
         }
     state = marker_match.group(1)
@@ -476,6 +492,7 @@ def check_inflight_freshness() -> dict:
         }
     # state == "active": compare mtime against CHANGELOG mtime.
     import time
+
     inflight_mtime = path.stat().st_mtime
     changelog = REPO / "dev" / "CHANGELOG.md"
     cl_mtime = changelog.stat().st_mtime if changelog.exists() else 0
@@ -490,20 +507,19 @@ def check_inflight_freshness() -> dict:
                 "been updated since — task probably shipped; "
                 "reset marker to idle"
             ),
-            "violations": [{
-                "inflight_mtime": inflight_mtime,
-                "changelog_mtime": cl_mtime,
-            }],
+            "violations": [
+                {
+                    "inflight_mtime": inflight_mtime,
+                    "changelog_mtime": cl_mtime,
+                }
+            ],
         }
     if age_hours > 4:
         return {
             "id": "inflight_freshness",
             "name": "In-flight task tracker",
             "status": "fail",
-            "message": (
-                f"in-flight task is {age_hours:.1f}h old with no "
-                f"CHANGELOG update — likely orphaned"
-            ),
+            "message": (f"in-flight task is {age_hours:.1f}h old with no CHANGELOG update — likely orphaned"),
             "violations": [{"age_hours": round(age_hours, 1)}],
         }
     return {
@@ -522,16 +538,21 @@ def check_inflight_freshness() -> dict:
 # rather than per-phase entries. Allowlist them so the untracked-
 # phases check doesn't fire on legacy code.
 LEGACY_PHASES_PRE_CHANGELOG = {
-    "β.1", "β.2",       # phase β early infrastructure
-    "ν.2.5",            # mid-ν customization (pre-popup-langs)
-    "ξ.5",              # ξ sales tool extensions
-    "τ.1", "τ.1.5",     # KJV translation extractor + per-edition picker
-    "α.1",              # earliest setup
-    "γ.1", "γ.2",       # any other early ones
-    "δ.1", "δ.2",
+    "β.1",
+    "β.2",  # phase β early infrastructure
+    "ν.2.5",  # mid-ν customization (pre-popup-langs)
+    "ξ.5",  # ξ sales tool extensions
+    "τ.1",
+    "τ.1.5",  # KJV translation extractor + per-edition picker
+    "α.1",  # earliest setup
+    "γ.1",
+    "γ.2",  # any other early ones
+    "δ.1",
+    "δ.2",
     "ε.1",
     "ζ.1",
-    "η.2", "η.3",
+    "η.2",
+    "η.3",
 }
 
 
@@ -539,9 +560,9 @@ LEGACY_PHASES_PRE_CHANGELOG = {
 # throughout this codebase (ν.6.1, π.4-B, ω.0.1, etc.). Only catches
 # letter+digit forms; arbitrary letters or words won't match.
 _PHASE_RE = re.compile(
-    r"(?<![A-Za-z])"                   # not preceded by a letter
-    r"([νπωψχφυσρτθικλμηξζεδγβα])"     # any greek lowercase
-    r"\.\d+"                            # mandatory .N
+    r"(?<![A-Za-z])"  # not preceded by a letter
+    r"([νπωψχφυσρτθικλμηξζεδγβα])"  # any greek lowercase
+    r"\.\d+"  # mandatory .N
     r"(?:\.\d+|\.[A-Za-z](?:\.\d+)?|-[A-Za-z](?:\.\d+)?)?"  # optional .N / .X / -A.N
 )
 
@@ -592,20 +613,14 @@ def check_untracked_phases() -> dict:
             "id": "untracked_phases",
             "name": "Phase mentions tracked in CHANGELOG",
             "status": "pass",
-            "message": (
-                f"all {len(code_phases)} non-legacy phase mention(s) "
-                f"in code appear in CHANGELOG.md"
-            ),
+            "message": (f"all {len(code_phases)} non-legacy phase mention(s) in code appear in CHANGELOG.md"),
             "violations": [],
         }
     return {
         "id": "untracked_phases",
         "name": "Phase mentions tracked in CHANGELOG",
         "status": "warn",
-        "message": (
-            f"{len(untracked)} phase(s) mentioned in code but not in "
-            f"CHANGELOG — likely undocumented ship"
-        ),
+        "message": (f"{len(untracked)} phase(s) mentioned in code but not in CHANGELOG — likely undocumented ship"),
         "violations": [{"phase": p} for p in untracked[:20]],
     }
 
@@ -639,14 +654,10 @@ def check_session_state_inventory() -> dict:
             if py.name == "__init__.py":
                 continue
             text = py.read_text(encoding="utf-8")
-            html_constants.extend(re.findall(
-                r"^([A-Z_]+_HTML)\s*=\s*r\"\"\"", text, re.MULTILINE
-            ))
+            html_constants.extend(re.findall(r"^([A-Z_]+_HTML)\s*=\s*r\"\"\"", text, re.MULTILINE))
     else:
         web_py = (REPO / "scripts" / "web.py").read_text(encoding="utf-8")
-        html_constants = re.findall(
-            r"^([A-Z_]+_HTML)\s*=\s*r\"\"\"", web_py, re.MULTILINE
-        )
+        html_constants = re.findall(r"^([A-Z_]+_HTML)\s*=\s*r\"\"\"", web_py, re.MULTILINE)
     # Editor (INDEX_HTML) is exempt — it's the original /, predates
     # the consoles concept, and is intentionally not surfaced as a
     # "console" in the inventory.
@@ -664,19 +675,14 @@ def check_session_state_inventory() -> dict:
             "id": "code_doc_sync",
             "name": "SESSION_STATE inventory matches consoles",
             "status": "pass",
-            "message": (
-                f"SESSION_STATE references all "
-                f"{len(html_constants)} consoles"
-            ),
+            "message": (f"SESSION_STATE references all {len(html_constants)} consoles"),
             "violations": [],
         }
     return {
         "id": "code_doc_sync",
         "name": "SESSION_STATE inventory matches consoles",
         "status": "warn",
-        "message": (
-            f"{len(missing_consoles)} console(s) not in inventory"
-        ),
+        "message": (f"{len(missing_consoles)} console(s) not in inventory"),
         "violations": [{"missing_console": c} for c in missing_consoles],
     }
 
@@ -691,9 +697,8 @@ def _find_open_write_calls(tree: ast.AST) -> list[int]:
     class Finder(ast.NodeVisitor):
         def visit_Call(self, node: ast.Call) -> None:
             f = node.func
-            is_open = (
-                (isinstance(f, ast.Name) and f.id == "open")
-                or (isinstance(f, ast.Attribute) and f.attr == "open")
+            is_open = (isinstance(f, ast.Name) and f.id == "open") or (
+                isinstance(f, ast.Attribute) and f.attr == "open"
             )
             if is_open:
                 # Look at every positional arg AND the `mode=` kwarg
@@ -735,6 +740,56 @@ def _find_urlopen_calls(tree: ast.AST) -> list[int]:
     return hits
 
 
+# ω.23.1 — shared read+parse cache for the two AST-walk checks
+# (`check_atomic_writes` + `check_external_http`). Both glob the
+# same scripts/ tree; before this cache they each did the same read
+# and the same ast.parse. Profile (ω.23) showed the duplication
+# was ~87% of total lint wall time. Cache is module-level rather
+# than functools.lru_cache because we need an explicit clear hook
+# for run_all() to call between back-to-back invocations.
+_PARSE_CACHE: dict[str, tuple[Optional["ast.Module"], list[str]]] = {}
+
+
+def _load_parsed_python(
+    path: Path,
+) -> tuple[Optional["ast.Module"], list[str]]:
+    """Read + parse a Python file, returning ``(tree, lines)``.
+
+    Returns ``(None, [])`` on read failure (`UnicodeDecodeError`,
+    `OSError`) or parse failure (`SyntaxError`). The two checks
+    that consume this both want both pieces — `tree` for the AST
+    walk + `lines` for waiver-comment detection — so we cache the
+    pair together to avoid splitting files between calls.
+
+    Memoised on the resolved path string so the same file accessed
+    via different `Path` instances still hits.
+    """
+    key = str(path.resolve())
+    if key in _PARSE_CACHE:
+        return _PARSE_CACHE[key]
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (UnicodeDecodeError, OSError):
+        _PARSE_CACHE[key] = (None, [])
+        return _PARSE_CACHE[key]
+    try:
+        tree = ast.parse(text, filename=str(path))
+    except SyntaxError:
+        _PARSE_CACHE[key] = (None, [])
+        return _PARSE_CACHE[key]
+    _PARSE_CACHE[key] = (tree, text.splitlines())
+    return _PARSE_CACHE[key]
+
+
+def _clear_parse_cache() -> None:
+    """Drop the AST cache. Called at the top of `run_all()` so a
+    second invocation re-reads the tree on disk — important for
+    tests that mutate fixtures between calls and for any future
+    long-running consumer (a server that calls `run_all()` repeatedly
+    after edits)."""
+    _PARSE_CACHE.clear()
+
+
 def check_external_http() -> dict:
     """Phase ω.10 — every outbound HTTP call must go through the
     retry+timeout wrapper at `scripts/core/http.py`. Raw
@@ -755,25 +810,22 @@ def check_external_http() -> dict:
         # exception.
         if py.name == "http.py" and py.parent.name == "core":
             continue
-        try:
-            text = py.read_text(encoding="utf-8")
-        except (UnicodeDecodeError, OSError):
+        # ω.23.1 — shared with check_atomic_writes via _PARSE_CACHE.
+        tree, lines = _load_parsed_python(py)
+        if tree is None:
             continue
-        try:
-            tree = ast.parse(text, filename=str(py))
-        except SyntaxError:
-            continue
-        lines = text.splitlines()
         for ln in _find_urlopen_calls(tree):
             same = lines[ln - 1] if 0 < ln <= len(lines) else ""
             prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
             if "http-waived" in same or "http-waived" in prev:
                 continue
-            violations.append({
-                "file": str(py.relative_to(REPO)).replace("\\", "/"),
-                "line": ln,
-                "snippet": same.strip()[:120],
-            })
+            violations.append(
+                {
+                    "file": str(py.relative_to(REPO)).replace("\\", "/"),
+                    "line": ln,
+                    "snippet": same.strip()[:120],
+                }
+            )
 
     if not violations:
         return {
@@ -821,17 +873,13 @@ def check_atomic_writes() -> dict:
         # that's the documented exception.
         if py.name == "notes_io.py":
             continue
-        try:
-            text = py.read_text(encoding="utf-8")
-        except (UnicodeDecodeError, OSError):
+        # ω.23.1 — shared with check_external_http via _PARSE_CACHE.
+        # Files with read or parse failures return (None, []); the
+        # check skips them silently the same way the inline read+parse
+        # used to.
+        tree, lines = _load_parsed_python(py)
+        if tree is None:
             continue
-        try:
-            tree = ast.parse(text, filename=str(py))
-        except SyntaxError:
-            # File has a syntax error — that's a different kind of
-            # problem; out of scope for this check.
-            continue
-        lines = text.splitlines()
         for ln in _find_open_write_calls(tree):
             # Waiver: `# atomic-waived: <reason>` on the same line
             # OR the immediately preceding line.
@@ -839,11 +887,13 @@ def check_atomic_writes() -> dict:
             prev = lines[ln - 2] if 1 < ln <= len(lines) else ""
             if "atomic-waived" in same or "atomic-waived" in prev:
                 continue
-            violations.append({
-                "file": str(py.relative_to(REPO)).replace("\\", "/"),
-                "line": ln,
-                "snippet": same.strip()[:120],
-            })
+            violations.append(
+                {
+                    "file": str(py.relative_to(REPO)).replace("\\", "/"),
+                    "line": ln,
+                    "snippet": same.strip()[:120],
+                }
+            )
 
     if not violations:
         return {
@@ -910,16 +960,17 @@ def check_plan_coherence() -> dict:
     violations = []
     for c in sub.get("checks", []):
         if c.get("status") != "pass":
-            violations.append({
-                "sub_check": c.get("id"),
-                "status": c.get("status"),
-                "message": c.get("message"),
-            })
+            violations.append(
+                {
+                    "sub_check": c.get("id"),
+                    "status": c.get("status"),
+                    "message": c.get("message"),
+                }
+            )
     msg = (
         f"{summary.get('pass', 0)}/{summary.get('total', 0)} sub-checks pass"
-        if rolled_status != "pass" else
-        f"all {summary.get('total', 0)} sub-checks pass "
-        f"(plan_singular, plan_shipped, plan_open, plan_depends)"
+        if rolled_status != "pass"
+        else f"all {summary.get('total', 0)} sub-checks pass (plan_singular, plan_shipped, plan_open, plan_depends)"
     )
     return {
         "id": "plan_coherence",
@@ -931,21 +982,183 @@ def check_plan_coherence() -> dict:
 
 
 ALL_CHECKS = {
-    "6.1":               check_encoder_canonical_order,
-    "6.2":               check_cross_link_invariant,
-    "encode_decode":     check_encode_decode_round_trip,
-    "docs":              check_doc_cross_references,
-    "freshness":         check_session_state_freshness,
+    "6.1": check_encoder_canonical_order,
+    "6.2": check_cross_link_invariant,
+    "encode_decode": check_encode_decode_round_trip,
+    "docs": check_doc_cross_references,
+    "freshness": check_session_state_freshness,
     # Drift-catching tier (added after a real drift event)
-    "inflight":          check_inflight_freshness,
-    "untracked_phases":  check_untracked_phases,
-    "code_doc_sync":     check_session_state_inventory,
+    "inflight": check_inflight_freshness,
+    "untracked_phases": check_untracked_phases,
+    "code_doc_sync": check_session_state_inventory,
     # ω.9 + ω.10 hardening tier
-    "atomic_writes":     check_atomic_writes,
-    "external_http":     check_external_http,
+    "atomic_writes": check_atomic_writes,
+    "external_http": check_external_http,
     # ω.15 plan-coherence tier
-    "plan_coherence":    check_plan_coherence,
+    "plan_coherence": check_plan_coherence,
 }
+
+
+# ----------------------------------------------------------------------
+# ω.18 — Auto-fix mode
+#
+# Most lint failures need human judgment: code review (atomic_writes,
+# external_http), template understanding (cross_link, encoders), or
+# substantive content writes (CHANGELOG entries, addenda). Auto-fixing
+# those would either mask real drift or produce malformed output.
+#
+# Only `freshness` has a deterministic, single-step fix (touch
+# SESSION_STATE.md's mtime to match CHANGELOG.md's). Even that has a
+# caveat — if SESSION_STATE was actually forgotten, the fix masks
+# the drift instead of revealing it. The fixer's `message` flags
+# this so the user knows what they're agreeing to.
+#
+# Future ω.18.x phases can add more fixers. Each new fixer is its
+# own ledger entry so the safety review happens at fixer-grain.
+# ----------------------------------------------------------------------
+
+
+def _fix_freshness(
+    check_result: dict,
+    *,
+    dry_run: bool = False,
+) -> dict:
+    """Sync SESSION_STATE.md's mtime with CHANGELOG.md's.
+
+    The freshness check warns when the two diverge by > 6h. This
+    fixer ONLY fixes the mtime — if SESSION_STATE.md's content is
+    actually stale, the fix masks the drift. The returned message
+    spells this out explicitly.
+
+    Reversible via `git restore` (the file's content is unchanged;
+    only the filesystem timestamp shifts).
+    """
+    changelog = REPO / "dev" / "CHANGELOG.md"
+    session = REPO / "dev" / "SESSION_STATE.md"
+    if not changelog.is_file() or not session.is_file():
+        return {
+            "ok": False,
+            "applied": False,
+            "message": ("freshness: cannot fix — CHANGELOG.md or SESSION_STATE.md is missing"),
+            "changes": [],
+        }
+    cl_mtime = changelog.stat().st_mtime
+    ss_mtime = session.stat().st_mtime
+    if abs(cl_mtime - ss_mtime) <= 6 * 3600:
+        return {
+            "ok": True,
+            "applied": False,
+            "message": ("freshness: already in sync; nothing to do"),
+            "changes": [],
+        }
+    if dry_run:
+        return {
+            "ok": True,
+            "applied": False,
+            "message": (
+                f"freshness [dry-run]: would sync SESSION_STATE.md "
+                f"mtime to CHANGELOG.md (currently "
+                f"{int(abs(cl_mtime - ss_mtime) / 3600)}h apart). "
+                f"NOTE: this only fixes the timestamp — if "
+                f"SESSION_STATE's content was forgotten, you still "
+                f"need to update it manually."
+            ),
+            "changes": [
+                {
+                    "file": "dev/SESSION_STATE.md",
+                    "field": "mtime",
+                    "from": ss_mtime,
+                    "to": cl_mtime,
+                }
+            ],
+        }
+    os.utime(session, (cl_mtime, cl_mtime))
+    return {
+        "ok": True,
+        "applied": True,
+        "message": (
+            f"freshness: synced SESSION_STATE.md mtime to "
+            f"CHANGELOG.md. NOTE: if SESSION_STATE's CONTENT was "
+            f"actually forgotten, this masks the drift; the fix "
+            f"is timestamp-only."
+        ),
+        "changes": [
+            {
+                "file": "dev/SESSION_STATE.md",
+                "field": "mtime",
+                "from": ss_mtime,
+                "to": cl_mtime,
+            }
+        ],
+    }
+
+
+# Registry: check_id → fixer callable. Functions matching the
+# `(check_result, *, dry_run) -> dict` shape can be plugged in
+# safely. Empty entries are intentional — most checks need human
+# review and the right answer is "no auto-fix available."
+FIXERS: dict[str, Callable[..., dict]] = {
+    "freshness": _fix_freshness,
+}
+
+
+def run_fixers(
+    *,
+    check_ids: Optional[list[str]] = None,
+    dry_run: bool = False,
+) -> dict:
+    """Run fixers for any failing/warning checks that have one
+    registered. Returns ``{checks: [...], summary: {...}}`` where
+    each per-check entry surfaces either the fixer's output or a
+    "no auto-fix available" stub for unregistered checks.
+
+    Pure dispatcher — checks themselves run via ``run_all``. We
+    only fix things the linter is ALREADY flagging; clean checks
+    are left alone."""
+    lint = run_all(check_ids)
+    out_checks: list[dict] = []
+    applied = 0
+    refused = 0
+    skipped_clean = 0
+    for c in lint["checks"]:
+        cid = c["id"]
+        if c["status"] == "pass":
+            skipped_clean += 1
+            continue
+        fixer = FIXERS.get(cid)
+        if fixer is None:
+            refused += 1
+            out_checks.append(
+                {
+                    "id": cid,
+                    "name": c["name"],
+                    "status": "refused",
+                    "message": (f"no auto-fix available for {cid!r}: {c['message']}"),
+                    "changes": [],
+                }
+            )
+            continue
+        result = fixer(c, dry_run=dry_run)
+        if result.get("applied"):
+            applied += 1
+        out_checks.append(
+            {
+                "id": cid,
+                "name": c["name"],
+                "status": "fixed" if result.get("applied") else ("ready" if result.get("ok") else "failed"),
+                "message": result.get("message", ""),
+                "changes": result.get("changes", []),
+            }
+        )
+    return {
+        "checks": out_checks,
+        "summary": {
+            "applied": applied,
+            "refused": refused,
+            "skipped_clean": skipped_clean,
+            "dry_run": dry_run,
+        },
+    }
 
 
 def run_all(check_ids: list[str] | None = None) -> dict:
@@ -954,29 +1167,48 @@ def run_all(check_ids: list[str] | None = None) -> dict:
     Used both by the CLI entrypoint AND by api_preflight() in
     scripts/web.py (which calls run_all() and folds the result into
     the readiness dashboard).
+
+    ω.23 — every per-check dict gains a ``duration_ms`` field
+    (float, ms) timed via ``time.perf_counter``. Aggregate
+    summary gains ``total_ms`` (sum of per-check durations).
+    Both fields are additive — existing consumers (api_preflight,
+    test assertions) ignore unknown keys.
     """
+    # ω.23.1 — drop the AST cache between back-to-back run_all()
+    # calls so consumers (tests, api_preflight) don't accidentally
+    # see stale parse trees when files have changed on disk.
+    _clear_parse_cache()
     selected = check_ids or list(ALL_CHECKS.keys())
     results = []
     for cid in selected:
         if cid not in ALL_CHECKS:
-            results.append({
-                "id": cid,
-                "name": cid,
-                "status": "fail",
-                "message": "unknown check id",
-                "violations": [],
-            })
+            results.append(
+                {
+                    "id": cid,
+                    "name": cid,
+                    "status": "fail",
+                    "message": "unknown check id",
+                    "violations": [],
+                    "duration_ms": 0.0,
+                }
+            )
             continue
+        t0 = time.perf_counter()
         try:
-            results.append(ALL_CHECKS[cid]())
+            check_result = ALL_CHECKS[cid]()
         except Exception as e:
-            results.append({
+            check_result = {
                 "id": cid,
                 "name": cid,
                 "status": "fail",
                 "message": f"linter check raised: {e}",
                 "violations": [],
-            })
+            }
+        check_result["duration_ms"] = round(
+            (time.perf_counter() - t0) * 1000.0,
+            3,
+        )
+        results.append(check_result)
     summary = {
         "total": len(results),
         "pass": sum(1 for r in results if r["status"] == "pass"),
@@ -984,25 +1216,68 @@ def run_all(check_ids: list[str] | None = None) -> dict:
         "fail": sum(1 for r in results if r["status"] == "fail"),
     }
     summary["clean"] = summary["fail"] == 0
+    summary["total_ms"] = round(
+        sum(r.get("duration_ms", 0.0) for r in results),
+        3,
+    )
     return {"checks": results, "summary": summary}
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    p.add_argument("--check", action="append",
-                    help="run only the named check(s); repeat for multiple")
-    p.add_argument("--json", action="store_true",
-                    help="machine-readable JSON output")
-    args = p.parse_args()
+    p.add_argument("--check", action="append", help="run only the named check(s); repeat for multiple")
+    p.add_argument("--json", action="store_true", help="machine-readable JSON output")
+    p.add_argument(
+        "--profile",
+        action="store_true",
+        help=(
+            "ω.23 — sort checks by duration descending and print "
+            "per-check timing. Useful for spotting which check is "
+            "the bottleneck as the suite grows."
+        ),
+    )
+    p.add_argument(
+        "--fix",
+        action="store_true",
+        help=(
+            "ω.18 — auto-fix safe drift. Most checks need human "
+            "review and surface 'no auto-fix available'. Use "
+            "--dry-run to preview without applying."
+        ),
+    )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help=(
+            "ω.18 — when paired with --fix, preview what would change without writing anything. No-op without --fix."
+        ),
+    )
+    args = p.parse_args(argv)
+
+    if args.fix:
+        return _run_fix_cli(args)
 
     out = run_all(args.check)
 
     if args.json:
         print(json.dumps(out, indent=2))
     else:
-        for c in out["checks"]:
+        # ω.23 — when --profile is set, sort checks by duration
+        # descending so the slowest is the first thing the operator
+        # sees. Default ordering preserves the natural check sequence.
+        ordered = (
+            sorted(
+                out["checks"],
+                key=lambda c: c.get("duration_ms", 0.0),
+                reverse=True,
+            )
+            if args.profile
+            else out["checks"]
+        )
+        for c in ordered:
             icon = {"pass": "✓", "warn": "⚠", "fail": "✗"}[c["status"]]
-            print(f"  {icon} {c['name']:35s}  {c['message']}")
+            timing = f"  [{c.get('duration_ms', 0.0):>7.1f} ms]" if args.profile else ""
+            print(f"  {icon} {c['name']:35s}{timing}  {c['message']}")
             if c["violations"] and c["status"] != "pass":
                 for v in c["violations"][:5]:
                     print(f"      · {v}")
@@ -1010,9 +1285,45 @@ def main() -> int:
                     print(f"      … and {len(c['violations']) - 5} more")
         s = out["summary"]
         verdict = "CLEAN" if s["clean"] else "VIOLATIONS"
-        print(f"\n  {verdict}: {s['pass']} pass · {s['warn']} warn · {s['fail']} fail")
+        if args.profile:
+            print(
+                f"\n  {verdict}: {s['pass']} pass · {s['warn']} warn · "
+                f"{s['fail']} fail · {s.get('total_ms', 0.0):.1f} ms total"
+            )
+        else:
+            print(f"\n  {verdict}: {s['pass']} pass · {s['warn']} warn · {s['fail']} fail")
 
     return 0 if out["summary"]["clean"] else 1
+
+
+def _run_fix_cli(args) -> int:
+    """ω.18 — render the fix-mode output. Always exits 0 unless a
+    fixer hard-failed; "refused" entries (no fixer registered) are
+    informational and don't fail the run, since the underlying
+    `lint_rules.py` invocation (without --fix) is what catches
+    those for CI."""
+    out = run_fixers(check_ids=args.check, dry_run=args.dry_run)
+    if args.json:
+        print(json.dumps(out, indent=2))
+        return 0
+    icons = {
+        "fixed": "✓",
+        "ready": "→",  # dry-run preview
+        "refused": "·",
+        "failed": "✗",
+    }
+    if not out["checks"]:
+        print("  (no failing checks; nothing to fix)")
+    for c in out["checks"]:
+        icon = icons.get(c["status"], "?")
+        print(f"  {icon} {c['name']:35s}  {c['message']}")
+    s = out["summary"]
+    label = "DRY-RUN" if s["dry_run"] else "APPLIED"
+    print(f"\n  {label}: {s['applied']} applied · {s['refused']} refused · {s['skipped_clean']} clean")
+    # Exit 1 only if a fixer that was supposed to apply something
+    # hard-failed (e.g. write error). "Refused" is informational.
+    failed = sum(1 for c in out["checks"] if c["status"] == "failed")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

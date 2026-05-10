@@ -30,8 +30,10 @@ import argparse
 import re
 import shutil
 import sys
+import time
 from collections import defaultdict
 from pathlib import Path
+from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -51,8 +53,7 @@ def find_pycache(root: Path) -> tuple[list[Path], list[Path]]:
     separately would cause double-delete errors during apply.
     """
     # Skip the giant system-level dirs we never want to touch
-    skip = {".cache", ".local", ".npm", ".npm-global", ".tools", ".config",
-            "node_modules"}
+    skip = {".cache", ".local", ".npm", ".npm-global", ".tools", ".config", "node_modules"}
     cache_dirs: list[Path] = []
     pyc_files: list[Path] = []
     for p in root.rglob("*"):
@@ -93,8 +94,7 @@ def find_backup_files(root: Path) -> dict[Path, list[Path]]:
         if not p.is_dir():
             continue
         # Skip system-level paths (defensive)
-        if any(part.startswith(".") and part not in (".backups",)
-               for part in p.relative_to(root).parts[:-1]):
+        if any(part.startswith(".") and part not in (".backups",) for part in p.relative_to(root).parts[:-1]):
             continue
         for f in p.iterdir():
             if f.is_file():
@@ -116,6 +116,132 @@ def stem_of(backup_file: Path) -> str:
     # Strip the ISO-like timestamp segment .YYYYMMDDTHHMMSSZ.
     name = re.sub(r"\.\d{8}T\d{6}Z(?=\.\w+$)", "", name)
     return name
+
+
+# ----------------------------------------------------------------------
+# ω.28 — Per-pattern backup retention policy
+# ----------------------------------------------------------------------
+#
+# Today cleanup.py keeps 5 revisions per stem uniformly across the tree.
+# That's right for low-volume stems (.backups/editions.20260509T*.bak)
+# but too aggressive for high-volume stems (every notes-rewrite touches
+# .backups/<book>.<ts>.py.bak; 5 revisions disappears in one batch
+# attribution run).
+#
+# `content/.backup_retention.yaml` overrides per file pattern. Each
+# rule has either `keep_revisions: N` (count-based) OR `keep_days: N`
+# (time-based). First matching rule wins; default applies otherwise.
+# Defaults preserve the current 5-revision behavior so absence of the
+# config file is a no-op shift.
+#
+# Pattern matching uses `pathlib.PurePath.match(pattern)` against the
+# ORIGINAL file path (recovered from each backup via `stem_of(file)`
+# joined to `backup_dir.parent`). PurePath.match is right-anchored,
+# so `Path("content/editions.yaml").match("editions.yaml")` returns
+# True without needing the full path.
+
+
+_DEFAULT_RETENTION = {
+    "rules": [
+        {"pattern": "content/notes/*.py", "keep_revisions": 10},
+        {"pattern": "editions.yaml", "keep_days": 30},
+        {"pattern": "kinds.yaml", "keep_days": 30},
+        {"pattern": "categories.yaml", "keep_days": 30},
+        {"pattern": "epub_working/**", "keep_revisions": 3},
+    ],
+    "default": {"keep_revisions": 5},
+}
+
+
+def load_retention_policy(
+    config_path: Optional[Path] = None,
+) -> dict:
+    """Load `content/.backup_retention.yaml` (or another location for
+    tests) and merge over `_DEFAULT_RETENTION`. Missing file or
+    corrupt YAML → defaults; the runner is opinionated about not
+    failing the cleanup just because the config drifted.
+
+    Returns ``{rules: [...], default: {...}}`` where each rule has a
+    ``pattern`` plus exactly one of ``keep_revisions`` /
+    ``keep_days``.
+    """
+    path = config_path or (REPO_ROOT / "content" / ".backup_retention.yaml")
+    if not path.is_file():
+        return _DEFAULT_RETENTION
+    try:
+        import yaml
+    except ImportError:
+        return _DEFAULT_RETENTION
+    try:
+        raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except Exception:
+        return _DEFAULT_RETENTION
+    if not isinstance(raw, dict):
+        return _DEFAULT_RETENTION
+    rules = raw.get("rules") if isinstance(raw.get("rules"), list) else []
+    default = raw["default"] if isinstance(raw.get("default"), dict) else _DEFAULT_RETENTION["default"]
+    # Filter rules to ones with a pattern + exactly one of the two
+    # retention keys; corrupt entries silently dropped.
+    clean_rules: list[dict] = []
+    for r in rules:
+        if not isinstance(r, dict) or not isinstance(r.get("pattern"), str):
+            continue
+        has_revs = isinstance(r.get("keep_revisions"), int)
+        has_days = isinstance(r.get("keep_days"), int)
+        if has_revs ^ has_days:  # exactly one
+            clean_rules.append(
+                {
+                    "pattern": r["pattern"],
+                    **({"keep_revisions": r["keep_revisions"]} if has_revs else {}),
+                    **({"keep_days": r["keep_days"]} if has_days else {}),
+                }
+            )
+    return {"rules": clean_rules, "default": default}
+
+
+def select_rule(file_path: Path, policy: dict) -> dict:
+    """Return the first rule whose pattern matches ``file_path``, or
+    the policy's default. ``file_path`` is the original (non-backup)
+    file path, relative to repo root."""
+    for rule in policy.get("rules") or []:
+        pat = rule.get("pattern")
+        if not pat:
+            continue
+        try:
+            if file_path.match(pat):
+                return rule
+        except (ValueError, OSError):
+            continue
+    return policy.get("default") or _DEFAULT_RETENTION["default"]
+
+
+def _backups_to_prune(
+    backup_files: list[Path],
+    rule: dict,
+    *,
+    now: Optional[float] = None,
+) -> list[Path]:
+    """Apply one rule to a list of backup files (already filtered to
+    one stem). Returns the subset that should be deleted.
+
+    `keep_revisions: N` — sort newest-first; delete past index N.
+    `keep_days: N` — delete files older than ``now - N*86400``.
+    """
+    if not backup_files:
+        return []
+    if "keep_revisions" in rule:
+        n = max(0, int(rule["keep_revisions"]))
+        sorted_files = sorted(
+            backup_files,
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        return sorted_files[n:]
+    if "keep_days" in rule:
+        days = max(0, int(rule["keep_days"]))
+        cutoff = (now if now is not None else time.time()) - days * 86400
+        return [f for f in backup_files if f.stat().st_mtime < cutoff]
+    return []
 
 
 def human_bytes(n: int) -> str:
@@ -162,9 +288,36 @@ def plan_npm_logs(logs: list[Path]) -> tuple[list[Path], int]:
     return targets, bytes_total
 
 
-def plan_backups(grouped: dict[Path, list[Path]], keep: int) -> tuple[list[Path], int]:
-    """For each .backups/ dir, group files by stem, keep most recent N
-    per stem, mark rest for deletion."""
+def plan_backups(
+    grouped: dict[Path, list[Path]],
+    keep: Optional[int] = None,
+    *,
+    policy: Optional[dict] = None,
+    now: Optional[float] = None,
+) -> tuple[list[Path], int]:
+    """For each .backups/ dir, group files by stem, mark old/excess
+    backups for deletion.
+
+    Two modes:
+      - ``keep`` (legacy/CLI override): single ``keep_revisions`` rule
+        applied uniformly to every stem. Back-compat with the
+        original signature.
+      - ``policy`` (ω.28): per-pattern dispatch via
+        ``load_retention_policy`` shape. Each stem's original file
+        path picks a rule via ``select_rule``; the rule is then
+        applied via ``_backups_to_prune``.
+
+    When both are provided, ``keep`` wins (CLI override). When
+    neither is provided, fall back to ``_DEFAULT_RETENTION``.
+    """
+    if keep is not None:
+        effective_policy = {
+            "rules": [],
+            "default": {"keep_revisions": int(keep)},
+        }
+    else:
+        effective_policy = policy or _DEFAULT_RETENTION
+
     bytes_total = 0
     targets: list[Path] = []
     for bdir, files in grouped.items():
@@ -172,9 +325,21 @@ def plan_backups(grouped: dict[Path, list[Path]], keep: int) -> tuple[list[Path]
         for f in files:
             per_stem[stem_of(f)].append(f)
         for stem, group in per_stem.items():
-            # Sort newest-first by mtime
-            group.sort(key=lambda p: p.stat().st_mtime, reverse=True)
-            for f in group[keep:]:
+            # Recover the original (non-backup) file path so we can
+            # match it against policy patterns. The backups live at
+            # `<original_dir>/.backups/<stem>.<ts>.<ext>.bak`, so the
+            # original is `<original_dir>/<stem>` — i.e. `bdir.parent
+            # / stem`. NOTE: we do NOT `.resolve()` here. On
+            # case-insensitive filesystems (Windows) and inside test
+            # tmp_paths, .resolve() can canonicalize the path in ways
+            # that don't match REPO_ROOT, breaking relative_to.
+            original = bdir.parent / stem
+            try:
+                rel = original.relative_to(REPO_ROOT)
+            except ValueError:
+                rel = Path(stem)
+            rule = select_rule(rel, effective_policy)
+            for f in _backups_to_prune(group, rule, now=now):
                 try:
                     bytes_total += f.stat().st_size
                     targets.append(f)
@@ -213,50 +378,67 @@ def main() -> None:
     p = argparse.ArgumentParser(
         description="Repeatable project cruft cleanup. Dry-run by default.",
     )
-    p.add_argument("--apply", action="store_true",
-                   help="actually delete (default is dry-run)")
-    p.add_argument("--keep", type=int, default=5,
-                   help="how many recent backups to keep per stem (default: 5)")
-    p.add_argument("--pycache-only", action="store_true",
-                   help="only clean __pycache__ + *.pyc")
-    p.add_argument("--no-backups", action="store_true",
-                   help="skip backup pruning")
-    p.add_argument("--no-npm-logs", action="store_true",
-                   help="skip npm debug log pruning")
+    p.add_argument("--apply", action="store_true", help="actually delete (default is dry-run)")
+    p.add_argument(
+        "--keep",
+        type=int,
+        default=None,
+        help=(
+            "legacy: keep N most-recent backups per stem uniformly; "
+            "overrides per-pattern policy. Default: use the policy "
+            "in content/.backup_retention.yaml (or the built-in "
+            "defaults if absent — ω.28)."
+        ),
+    )
+    p.add_argument("--pycache-only", action="store_true", help="only clean __pycache__ + *.pyc")
+    p.add_argument("--no-backups", action="store_true", help="skip backup pruning")
+    p.add_argument("--no-npm-logs", action="store_true", help="skip npm debug log pruning")
     args = p.parse_args()
 
-    if args.keep < 0:
+    if args.keep is not None and args.keep < 0:
         print(f"{RED}✗ --keep must be ≥ 0{RESET}", file=sys.stderr)
         sys.exit(2)
 
+    # ω.28 — load policy from disk unless --keep overrides it.
+    if args.keep is not None:
+        retention_label = f"keep={args.keep} per stem (CLI override)"
+        policy_for_plan = None
+    else:
+        policy = load_retention_policy()
+        n_rules = len(policy.get("rules") or [])
+        retention_label = f"per-pattern policy ({n_rules} rule(s) + default)"
+        policy_for_plan = policy
+
     mode = "APPLY" if args.apply else "DRY-RUN"
-    print(f"\n{BOLD}cleanup{RESET}  {DIM}{mode} · keep={args.keep} per stem{RESET}\n")
+    print(f"\n{BOLD}cleanup{RESET}  {DIM}{mode} · {retention_label}{RESET}\n")
 
     # Build the plan
     sections: list[tuple[str, list[Path], int]] = []
 
     cache_dirs, pyc_files = find_pycache(REPO_ROOT)
     targets, bytes_ = plan_pycache(cache_dirs, pyc_files)
-    sections.append(
-        (f"__pycache__/ + *.pyc  ({len(cache_dirs)} dirs, {len(pyc_files)} files)",
-         targets, bytes_)
-    )
+    sections.append((f"__pycache__/ + *.pyc  ({len(cache_dirs)} dirs, {len(pyc_files)} files)", targets, bytes_))
 
     if not args.pycache_only:
         if not args.no_npm_logs:
             logs = find_npm_logs(REPO_ROOT)
             targets, bytes_ = plan_npm_logs(logs)
-            sections.append(
-                (f"npm debug logs  ({len(logs)} files)", targets, bytes_)
-            )
+            sections.append((f"npm debug logs  ({len(logs)} files)", targets, bytes_))
         if not args.no_backups:
             grouped = find_backup_files(REPO_ROOT)
-            targets, bytes_ = plan_backups(grouped, args.keep)
+            targets, bytes_ = plan_backups(
+                grouped,
+                args.keep,
+                policy=policy_for_plan,
+            )
             total_backup_files = sum(len(v) for v in grouped.values())
+            label_suffix = f"keep {args.keep} per stem" if args.keep is not None else "per-pattern policy"
             sections.append(
-                (f"backup pruning  ({total_backup_files} backup files across "
-                 f"{len(grouped)} dir(s); keep {args.keep} per stem)",
-                 targets, bytes_)
+                (
+                    f"backup pruning  ({total_backup_files} backup files across {len(grouped)} dir(s); {label_suffix})",
+                    targets,
+                    bytes_,
+                )
             )
 
     # Render plan
@@ -276,12 +458,10 @@ def main() -> None:
         print(f"  {GREEN}{BOLD}✓ nothing to clean — already tidy.{RESET}\n")
         sys.exit(0)
 
-    print(f"  {BOLD}TOTAL: {len(grand_targets)} item(s), "
-          f"{human_bytes(grand_bytes)} to reclaim{RESET}\n")
+    print(f"  {BOLD}TOTAL: {len(grand_targets)} item(s), {human_bytes(grand_bytes)} to reclaim{RESET}\n")
 
     if not args.apply:
-        print(f"  {DIM}Dry-run only. Re-run with {BOLD}--apply{RESET}{DIM} "
-              f"to actually delete.{RESET}\n")
+        print(f"  {DIM}Dry-run only. Re-run with {BOLD}--apply{RESET}{DIM} to actually delete.{RESET}\n")
         sys.exit(0)
 
     n, errors = delete(grand_targets)
@@ -293,8 +473,7 @@ def main() -> None:
             print(f"    {DIM}... and {len(errors) - 5} more{RESET}")
         print()
         sys.exit(1)
-    print(f"  {GREEN}{BOLD}✓ deleted {n} item(s), reclaimed "
-          f"{human_bytes(grand_bytes)}{RESET}\n")
+    print(f"  {GREEN}{BOLD}✓ deleted {n} item(s), reclaimed {human_bytes(grand_bytes)}{RESET}\n")
     sys.exit(0)
 
 

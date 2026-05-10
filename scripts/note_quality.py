@@ -103,7 +103,6 @@ VOID_TAGS = {
 }
 
 
-
 def word_count(html: str) -> int:
     return len(re.findall(r"\S+", strip_tags(html)))
 
@@ -182,32 +181,29 @@ def load_notes(path: Path):
 
 KIND_BUDGETS: dict[str, tuple[int, int]] = {
     # Lexical / language family — terse by nature
-    "lang-hebrew":          (8, 150),
-    "lang-aramaic":         (8, 150),
-    "lang-greek":           (8, 150),
-    "lang-amharic":         (8, 150),
-    "lang-geez":            (8, 150),
-    "lang-latin":           (8, 150),
-    "lang-syriac":          (8, 150),
-    "lang-arabic":          (8, 150),
-    "word":                 (5, 100),
-
+    "lang-hebrew": (8, 150),
+    "lang-aramaic": (8, 150),
+    "lang-greek": (8, 150),
+    "lang-amharic": (8, 150),
+    "lang-geez": (8, 150),
+    "lang-latin": (8, 150),
+    "lang-syriac": (8, 150),
+    "lang-arabic": (8, 150),
+    "word": (5, 100),
     # Parallel / cross-reference — short with framing
-    "parallel":             (15, 350),
-
+    "parallel": (15, 350),
     # Source-critical / textual variant
-    "source":               (10, 250),
-
+    "source": (10, 250),
     # Commentary family — substantive
-    "comm":                 (20, 500),
-    "comm-ethiopian":       (30, 600),
-    "comm-rabbinic":        (30, 600),
-    "comm-catholic":        (30, 600),
-    "comm-orthodox":        (30, 600),
-    "comm-reformation":     (30, 600),
-    "comm-patristic":       (30, 600),
+    "comm": (20, 500),
+    "comm-ethiopian": (30, 600),
+    "comm-rabbinic": (30, 600),
+    "comm-catholic": (30, 600),
+    "comm-orthodox": (30, 600),
+    "comm-reformation": (30, 600),
+    "comm-patristic": (30, 600),
     "comm-modern-critical": (30, 700),
-    "comm-contextual":      (30, 700),
+    "comm-contextual": (30, 700),
 }
 
 
@@ -225,8 +221,7 @@ def budget_for(kind: str, default_min: int, default_max: int) -> tuple[int, int]
     return (default_min, default_max)
 
 
-def run_checks(book_code: str, notes, min_words: int, max_words: int,
-               per_kind: bool = True):
+def run_checks(book_code: str, notes, min_words: int, max_words: int, per_kind: bool = True):
     """Yield finding tuples: (book, ch, v, suffix, kind, check_name, detail, excerpt)."""
     for tup in notes:
         if not isinstance(tup, tuple) or len(tup) < 8:
@@ -252,25 +247,34 @@ def run_checks(book_code: str, notes, min_words: int, max_words: int,
         else:
             if post_opener_words(body) <= 5:
                 yield (
-                    book_code, ch, v, suffix, kind,
-                    "topic-only", f"{post_opener_words(body)} words after opener", excerpt,
+                    book_code,
+                    ch,
+                    v,
+                    suffix,
+                    kind,
+                    "topic-only",
+                    f"{post_opener_words(body)} words after opener",
+                    excerpt,
                 )
 
         wc = word_count(body)
-        kind_min, kind_max = (budget_for(kind, min_words, max_words)
-                              if per_kind else (min_words, max_words))
+        kind_min, kind_max = budget_for(kind, min_words, max_words) if per_kind else (min_words, max_words)
         if wc < kind_min:
-            yield (book_code, ch, v, suffix, kind, "too-short",
-                   f"{wc} words (kind budget: {kind_min}+)", excerpt)
+            yield (book_code, ch, v, suffix, kind, "too-short", f"{wc} words (kind budget: {kind_min}+)", excerpt)
         elif wc > kind_max:
-            yield (book_code, ch, v, suffix, kind, "too-long",
-                   f"{wc} words (kind budget: ≤{kind_max})", excerpt)
+            yield (book_code, ch, v, suffix, kind, "too-long", f"{wc} words (kind budget: ≤{kind_max})", excerpt)
 
         pres = _presentational_tags(body)
         if pres:
             yield (
-                book_code, ch, v, suffix, kind,
-                "presentational-tags", f"uses <{'>, <'.join(pres)}>", excerpt,
+                book_code,
+                ch,
+                v,
+                suffix,
+                kind,
+                "presentational-tags",
+                f"uses <{'>, <'.join(pres)}>",
+                excerpt,
             )
 
 
@@ -288,8 +292,9 @@ def main() -> None:
     p.add_argument("--check", choices=CHECKS, help="run only one check")
     p.add_argument("--min-words", type=int, default=50, help="too-short threshold (default 50)")
     p.add_argument("--max-words", type=int, default=200, help="too-long threshold (default 200)")
-    p.add_argument("--no-per-kind", action="store_true",
-                   help="use global --min/--max-words instead of per-kind budgets")
+    p.add_argument(
+        "--no-per-kind", action="store_true", help="use global --min/--max-words instead of per-kind budgets"
+    )
     p.add_argument("--strict", action="store_true", help="fail on WARN as well as ERROR")
     p.add_argument("--quiet", action="store_true", help="only print the summary line")
     p.add_argument("--verbose", action="store_true", help="show all findings, not first --max-show")
@@ -317,8 +322,7 @@ def main() -> None:
             parse_failures.append(code)
             continue
         total_notes += len(notes)
-        for f in run_checks(code, notes, args.min_words, args.max_words,
-                            per_kind=not args.no_per_kind):
+        for f in run_checks(code, notes, args.min_words, args.max_words, per_kind=not args.no_per_kind):
             if args.check and f[5] != args.check:
                 continue
             findings.append(f)

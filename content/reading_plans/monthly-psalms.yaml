@@ -1,0 +1,217 @@
+id: monthly-psalms
+label: Monthly Psalter
+description: |
+  Read all 150 Psalms in 30 days — five psalms per day.
+  Used by monastic daily-office traditions for centuries; pairs
+  well with the Coverdale Psalter division.
+entries:
+  - day: 1
+    verses:
+      - 'psa 1'
+      - 'psa 2'
+      - 'psa 3'
+      - 'psa 4'
+      - 'psa 5'
+  - day: 2
+    verses:
+      - 'psa 6'
+      - 'psa 7'
+      - 'psa 8'
+      - 'psa 9'
+      - 'psa 10'
+  - day: 3
+    verses:
+      - 'psa 11'
+      - 'psa 12'
+      - 'psa 13'
+      - 'psa 14'
+      - 'psa 15'
+  - day: 4
+    verses:
+      - 'psa 16'
+      - 'psa 17'
+      - 'psa 18'
+      - 'psa 19'
+      - 'psa 20'
+  - day: 5
+    verses:
+      - 'psa 21'
+      - 'psa 22'
+      - 'psa 23'
+      - 'psa 24'
+      - 'psa 25'
+  - day: 6
+    verses:
+      - 'psa 26'
+      - 'psa 27'
+      - 'psa 28'
+      - 'psa 29'
+      - 'psa 30'
+  - day: 7
+    verses:
+      - 'psa 31'
+      - 'psa 32'
+      - 'psa 33'
+      - 'psa 34'
+      - 'psa 35'
+  - day: 8
+    verses:
+      - 'psa 36'
+      - 'psa 37'
+      - 'psa 38'
+      - 'psa 39'
+      - 'psa 40'
+  - day: 9
+    verses:
+      - 'psa 41'
+      - 'psa 42'
+      - 'psa 43'
+      - 'psa 44'
+      - 'psa 45'
+  - day: 10
+    verses:
+      - 'psa 46'
+      - 'psa 47'
+      - 'psa 48'
+      - 'psa 49'
+      - 'psa 50'
+  - day: 11
+    verses:
+      - 'psa 51'
+      - 'psa 52'
+      - 'psa 53'
+      - 'psa 54'
+      - 'psa 55'
+  - day: 12
+    verses:
+      - 'psa 56'
+      - 'psa 57'
+      - 'psa 58'
+      - 'psa 59'
+      - 'psa 60'
+  - day: 13
+    verses:
+      - 'psa 61'
+      - 'psa 62'
+      - 'psa 63'
+      - 'psa 64'
+      - 'psa 65'
+  - day: 14
+    verses:
+      - 'psa 66'
+      - 'psa 67'
+      - 'psa 68'
+      - 'psa 69'
+      - 'psa 70'
+  - day: 15
+    verses:
+      - 'psa 71'
+      - 'psa 72'
+      - 'psa 73'
+      - 'psa 74'
+      - 'psa 75'
+  - day: 16
+    verses:
+      - 'psa 76'
+      - 'psa 77'
+      - 'psa 78'
+      - 'psa 79'
+      - 'psa 80'
+  - day: 17
+    verses:
+      - 'psa 81'
+      - 'psa 82'
+      - 'psa 83'
+      - 'psa 84'
+      - 'psa 85'
+  - day: 18
+    verses:
+      - 'psa 86'
+      - 'psa 87'
+      - 'psa 88'
+      - 'psa 89'
+      - 'psa 90'
+  - day: 19
+    verses:
+      - 'psa 91'
+      - 'psa 92'
+      - 'psa 93'
+      - 'psa 94'
+      - 'psa 95'
+  - day: 20
+    verses:
+      - 'psa 96'
+      - 'psa 97'
+      - 'psa 98'
+      - 'psa 99'
+      - 'psa 100'
+  - day: 21
+    verses:
+      - 'psa 101'
+      - 'psa 102'
+      - 'psa 103'
+      - 'psa 104'
+      - 'psa 105'
+  - day: 22
+    verses:
+      - 'psa 106'
+      - 'psa 107'
+      - 'psa 108'
+      - 'psa 109'
+      - 'psa 110'
+  - day: 23
+    verses:
+      - 'psa 111'
+      - 'psa 112'
+      - 'psa 113'
+      - 'psa 114'
+      - 'psa 115'
+  - day: 24
+    verses:
+      - 'psa 116'
+      - 'psa 117'
+      - 'psa 118'
+      - 'psa 119'
+      - 'psa 120'
+  - day: 25
+    verses:
+      - 'psa 121'
+      - 'psa 122'
+      - 'psa 123'
+      - 'psa 124'
+      - 'psa 125'
+  - day: 26
+    verses:
+      - 'psa 126'
+      - 'psa 127'
+      - 'psa 128'
+      - 'psa 129'
+      - 'psa 130'
+  - day: 27
+    verses:
+      - 'psa 131'
+      - 'psa 132'
+      - 'psa 133'
+      - 'psa 134'
+      - 'psa 135'
+  - day: 28
+    verses:
+      - 'psa 136'
+      - 'psa 137'
+      - 'psa 138'
+      - 'psa 139'
+      - 'psa 140'
+  - day: 29
+    verses:
+      - 'psa 141'
+      - 'psa 142'
+      - 'psa 143'
+      - 'psa 144'
+      - 'psa 145'
+  - day: 30
+    verses:
+      - 'psa 146'
+      - 'psa 147'
+      - 'psa 148'
+      - 'psa 149'
+      - 'psa 150'

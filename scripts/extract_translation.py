@@ -40,6 +40,7 @@ the user runs::
 Standalone — does not import any of the project's other modules so it
 remains usable as a one-shot ingestion tool.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -60,43 +61,90 @@ TRANSLATIONS_DIR = REPO / "content" / "translations"
 # codes mostly aligned with eBible's VPL — only the cells below differ.
 EBIBLE_VPL_TO_PROJECT: dict[str, str] = {
     # Old Testament — 39 books, all just lowercased
-    "GEN": "gen", "EXO": "exo", "LEV": "lev", "NUM": "num", "DEU": "deu",
-    "JOS": "jos", "JDG": "jdg", "RUT": "rut",
-    "1SA": "1sa", "2SA": "2sa", "1KI": "1ki", "2KI": "2ki",
-    "1CH": "1ch", "2CH": "2ch",
-    "EZR": "ezr", "NEH": "neh", "EST": "est",
-    "JOB": "job", "PSA": "psa", "PRO": "pro", "ECC": "ecc",
-    "SOL": "sng",        # Song of Solomon → Song of Songs
-    "ISA": "isa", "JER": "jer", "LAM": "lam",
-    "EZE": "eze", "DAN": "dan",
-    "HOS": "hos", "JOE": "joe", "AMO": "amo", "OBA": "oba", "JON": "jon",
-    "MIC": "mic", "NAH": "nah", "HAB": "hab", "ZEP": "zep",
-    "HAG": "hag", "ZEC": "zec", "MAL": "mal",
-
+    "GEN": "gen",
+    "EXO": "exo",
+    "LEV": "lev",
+    "NUM": "num",
+    "DEU": "deu",
+    "JOS": "jos",
+    "JDG": "jdg",
+    "RUT": "rut",
+    "1SA": "1sa",
+    "2SA": "2sa",
+    "1KI": "1ki",
+    "2KI": "2ki",
+    "1CH": "1ch",
+    "2CH": "2ch",
+    "EZR": "ezr",
+    "NEH": "neh",
+    "EST": "est",
+    "JOB": "job",
+    "PSA": "psa",
+    "PRO": "pro",
+    "ECC": "ecc",
+    "SOL": "sng",  # Song of Solomon → Song of Songs
+    "ISA": "isa",
+    "JER": "jer",
+    "LAM": "lam",
+    "EZE": "eze",
+    "DAN": "dan",
+    "HOS": "hos",
+    "JOE": "joe",
+    "AMO": "amo",
+    "OBA": "oba",
+    "JON": "jon",
+    "MIC": "mic",
+    "NAH": "nah",
+    "HAB": "hab",
+    "ZEP": "zep",
+    "HAG": "hag",
+    "ZEC": "zec",
+    "MAL": "mal",
     # Apocrypha / Deuterocanon
-    "TOB": "tob", "JDT": "jdt",
-    "ESG": "aes",        # Esther Greek additions → project's `aes`
-    "WIS": "wis", "SIR": "sir",
-    "BAR": "bar",        # SPECIAL: ch 6 is split out below into `lje`
-    "PRA": "paz",        # Prayer of Azariah / Song of 3 Holy Children
-    "SUS": "sus", "BEL": "bel",
-    "1MA": "1ma", "2MA": "2ma",   # forward-compat: project lacks books.yaml
-                                    # entries for these yet but the data
-                                    # lands here for when they're added
+    "TOB": "tob",
+    "JDT": "jdt",
+    "ESG": "aes",  # Esther Greek additions → project's `aes`
+    "WIS": "wis",
+    "SIR": "sir",
+    "BAR": "bar",  # SPECIAL: ch 6 is split out below into `lje`
+    "PRA": "paz",  # Prayer of Azariah / Song of 3 Holy Children
+    "SUS": "sus",
+    "BEL": "bel",
+    "1MA": "1ma",
+    "2MA": "2ma",  # forward-compat: project lacks books.yaml
+    # entries for these yet but the data
+    # lands here for when they're added
     "1ES": "1es",
-    "PRM": "man",        # Prayer of Manasses
-    "4ES": "2es",        # 4 Esdras (Latin) = project's `2es`
-
+    "PRM": "man",  # Prayer of Manasses
+    "4ES": "2es",  # 4 Esdras (Latin) = project's `2es`
     # New Testament
-    "MAT": "mat", "MAR": "mrk", "LUK": "luk", "JOH": "jhn",
+    "MAT": "mat",
+    "MAR": "mrk",
+    "LUK": "luk",
+    "JOH": "jhn",
     "ACT": "act",
-    "ROM": "rom", "1CO": "1co", "2CO": "2co",
-    "GAL": "gal", "EPH": "eph", "PHI": "phi", "COL": "col",
-    "1TH": "1th", "2TH": "2th", "1TI": "1ti", "2TI": "2ti",
-    "TIT": "tit", "PHM": "phm", "HEB": "heb",
-    "JAM": "jam", "1PE": "1pe", "2PE": "2pe",
-    "1JO": "1jn", "2JO": "2jn", "3JO": "3jn",
-    "JUD": "jud", "REV": "rev",
+    "ROM": "rom",
+    "1CO": "1co",
+    "2CO": "2co",
+    "GAL": "gal",
+    "EPH": "eph",
+    "PHI": "phi",
+    "COL": "col",
+    "1TH": "1th",
+    "2TH": "2th",
+    "1TI": "1ti",
+    "2TI": "2ti",
+    "TIT": "tit",
+    "PHM": "phm",
+    "HEB": "heb",
+    "JAM": "jam",
+    "1PE": "1pe",
+    "2PE": "2pe",
+    "1JO": "1jn",
+    "2JO": "2jn",
+    "3JO": "3jn",
+    "JUD": "jud",
+    "REV": "rev",
 }
 
 # Books in the project canon for which KJV+Apocrypha provides no text
@@ -104,7 +152,14 @@ EBIBLE_VPL_TO_PROJECT: dict[str, str] = {
 # Apocrypha): jub, 1en, 2en, mq1-3, 4ba, 1cl. Recorded for reporting
 # only; the absence is expected and not an error.
 PROJECT_BOOKS_OUTSIDE_KJV = {
-    "jub", "1en", "2en", "mq1", "mq2", "mq3", "4ba", "1cl",
+    "jub",
+    "1en",
+    "2en",
+    "mq1",
+    "mq2",
+    "mq3",
+    "4ba",
+    "1cl",
 }
 
 
@@ -212,9 +267,7 @@ def parse_vpl(vpl_path: Path) -> dict[str, list[tuple[int, int, str]]]:
             book, ch, vs, text = m.groups()
             out[book].append((int(ch), int(vs), text.strip()))
     if skipped_malformed:
-        sys.stderr.write(
-            f"  warning: {skipped_malformed} malformed VPL line(s) skipped\n"
-        )
+        sys.stderr.write(f"  warning: {skipped_malformed} malformed VPL line(s) skipped\n")
     return dict(out)
 
 
@@ -251,8 +304,7 @@ def _py_repr_text(s: str) -> str:
     return repr(s)
 
 
-def write_book_module(out_path: Path, translation: str, book_code: str,
-                       verses: list[tuple[int, int, str]]) -> None:
+def write_book_module(out_path: Path, translation: str, book_code: str, verses: list[tuple[int, int, str]]) -> None:
     """Emit one ``content/translations/<id>/<book>.py`` module.
 
     The file is regenerable — a header banner notes that hand edits
@@ -262,19 +314,19 @@ def write_book_module(out_path: Path, translation: str, book_code: str,
     out_path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         f'"""Translation: {translation} · Book: {book_code}',
-        '',
-        'AUTO-GENERATED by scripts/extract_translation.py.',
-        'Do not edit by hand — re-run extraction to regenerate.',
+        "",
+        "AUTO-GENERATED by scripts/extract_translation.py.",
+        "Do not edit by hand — re-run extraction to regenerate.",
         '"""',
         f'TRANSLATION = "{translation}"',
         f'BOOK = "{book_code}"',
-        'VERSES = [',
+        "VERSES = [",
     ]
     # Verses sorted by (chapter, verse) for deterministic output
     for c, v, t in sorted(verses, key=lambda r: (r[0], r[1])):
-        lines.append(f'    ({c}, {v}, {_py_repr_text(t)}),')
-    lines.append(']')
-    lines.append('')
+        lines.append(f"    ({c}, {v}, {_py_repr_text(t)}),")
+    lines.append("]")
+    lines.append("")
     out_path.write_text("\n".join(lines), encoding="utf-8")
 
 
@@ -295,20 +347,20 @@ def write_meta_yaml(meta_path: Path, info: dict) -> None:
         "# (the source archive in ./sources/ is the canonical record;",
         "# this file is a convenience summary)",
         "",
-        f'id: {info["id"]}',
-        f'title: {_q(info["title"])}',
-        f'short_title: {_q(info["short_title"])}',
-        f'license: {_q(info["license"])}',
+        f"id: {info['id']}",
+        f"title: {_q(info['title'])}",
+        f"short_title: {_q(info['short_title'])}",
+        f"license: {_q(info['license'])}",
         "source:",
-        f'  publisher: {_q(info["source"]["publisher"])}',
-        f'  url: {_q(info["source"]["url"])}',
-        f'  package: {_q(info["source"]["package"])}',
-        f'  fetched: {info["source"]["fetched"]}',
-        f'  source_date: {info["source"]["source_date"]}',
+        f"  publisher: {_q(info['source']['publisher'])}",
+        f"  url: {_q(info['source']['url'])}",
+        f"  package: {_q(info['source']['package'])}",
+        f"  fetched: {info['source']['fetched']}",
+        f"  source_date: {info['source']['source_date']}",
         "stats:",
-        f'  books: {info["stats"]["books"]}',
-        f'  verses: {info["stats"]["verses"]}',
-        f'  books_outside_kjv: {info["stats"]["books_outside_kjv"]}',
+        f"  books: {info['stats']['books']}",
+        f"  verses: {info['stats']['verses']}",
+        f"  books_outside_kjv: {info['stats']['books_outside_kjv']}",
     ]
     if info.get("notes"):
         lines.extend(["notes: |"] + ["  " + ln for ln in info["notes"].split("\n")])
@@ -380,8 +432,7 @@ def extract(translation_id: str, dry_run: bool = False, report: bool = False) ->
     out_dir = TRANSLATIONS_DIR / translation_id
     out_dir.mkdir(parents=True, exist_ok=True)
     for proj_code, verses in sorted(by_project_book.items()):
-        write_book_module(out_dir / f"{proj_code}.py",
-                          translation_id, proj_code, verses)
+        write_book_module(out_dir / f"{proj_code}.py", translation_id, proj_code, verses)
 
     # Write _meta.yaml — driven by the TRANSLATIONS registry. Falls
     # back to a minimal stub when the translation is not yet
@@ -452,20 +503,15 @@ def meta_for(translation_id: str, stats: dict) -> dict:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("translation_id", nargs="?",
-                   help="translation slug; expects sources/<id>/*_vpl.txt")
-    p.add_argument("--dry-run", action="store_true",
-                   help="parse and report, but do not write output files")
-    p.add_argument("--report", action="store_true",
-                   help="print a coverage report after extraction")
-    p.add_argument("--list", action="store_true",
-                   help="list registered translation ids and exit")
+    p.add_argument("translation_id", nargs="?", help="translation slug; expects sources/<id>/*_vpl.txt")
+    p.add_argument("--dry-run", action="store_true", help="parse and report, but do not write output files")
+    p.add_argument("--report", action="store_true", help="print a coverage report after extraction")
+    p.add_argument("--list", action="store_true", help="list registered translation ids and exit")
     args = p.parse_args()
     if args.list:
         for tid in list_registered():
             entry = TRANSLATIONS[tid]
-            print(f"  {tid:8s} {entry['short_title']:5s} "
-                  f"{entry['title']}")
+            print(f"  {tid:8s} {entry['short_title']:5s} {entry['title']}")
             print(f"  {'':8s} {'':5s} → {entry['source'].get('url', '')}")
             print(f"  {'':8s} {'':5s} fetch: {entry['source'].get('package', '')}")
         return 0
@@ -473,11 +519,7 @@ def main() -> int:
         p.error("translation_id is required (or pass --list)")
     stats = extract(args.translation_id, dry_run=args.dry_run, report=args.report)
     if not args.report:
-        print(
-            f"{stats['translation']}: "
-            f"{stats['project_books_emitted']} books, "
-            f"{stats['total_verses']:,} verses"
-        )
+        print(f"{stats['translation']}: {stats['project_books_emitted']} books, {stats['total_verses']:,} verses")
     return 0
 
 

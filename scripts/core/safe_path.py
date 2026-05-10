@@ -54,9 +54,7 @@ def _check_string_safety(user_path: str) -> None:
     payloads BEFORE Path.resolve() (which could itself misbehave on
     pathological input)."""
     if not isinstance(user_path, str):
-        raise SafePathError(
-            f"path must be a string, got {type(user_path).__name__}"
-        )
+        raise SafePathError(f"path must be a string, got {type(user_path).__name__}")
     if not user_path:
         raise SafePathError("path must not be empty")
     if len(user_path) > 1024:
@@ -66,8 +64,7 @@ def _check_string_safety(user_path: str) -> None:
     bad = [c for c in user_path if c in _FORBIDDEN_CHARS]
     if bad:
         raise SafePathError(
-            f"path contains control character(s) (codepoints "
-            f"{', '.join(str(ord(c)) for c in bad[:3])})"
+            f"path contains control character(s) (codepoints {', '.join(str(ord(c)) for c in bad[:3])})"
         )
 
     # Normalize separators: accept both `/` and `\`, store/check as
@@ -76,33 +73,23 @@ def _check_string_safety(user_path: str) -> None:
 
     # Absolute paths — POSIX or Windows drive-letter form.
     if norm.startswith("/"):
-        raise SafePathError(
-            f"path must be relative, not absolute: {user_path!r}"
-        )
+        raise SafePathError(f"path must be relative, not absolute: {user_path!r}")
     # Windows drive-letter (e.g. `C:/foo`).
     if len(norm) >= 2 and norm[1] == ":":
-        raise SafePathError(
-            f"path must be relative, not absolute: {user_path!r}"
-        )
+        raise SafePathError(f"path must be relative, not absolute: {user_path!r}")
 
     # UNC-style paths — `//host/share/...` already caught by the
     # leading-slash check above; explicit just in case.
     if norm.startswith("//"):
-        raise SafePathError(
-            f"UNC paths are not allowed: {user_path!r}"
-        )
+        raise SafePathError(f"UNC paths are not allowed: {user_path!r}")
 
     parts = [p for p in norm.split("/") if p]
     if any(p == ".." for p in parts):
-        raise SafePathError(
-            f"path may not contain '..': {user_path!r}"
-        )
+        raise SafePathError(f"path may not contain '..': {user_path!r}")
     # Hidden segments — `.git`, `.ssh`, dotfile-by-mistake. The
     # current `.` segment is implicitly stripped by the filter above.
     if any(p.startswith(".") for p in parts):
-        raise SafePathError(
-            f"path may not contain hidden segments: {user_path!r}"
-        )
+        raise SafePathError(f"path may not contain hidden segments: {user_path!r}")
 
 
 def resolve_under(safe_root: Path | str, user_path: str) -> Path:
@@ -134,9 +121,7 @@ def resolve_under(safe_root: Path | str, user_path: str) -> Path:
         # is a programmer error (calling code passed a bogus root),
         # not a user error — still raise SafePathError so the route
         # can return 500 cleanly.
-        raise SafePathError(
-            f"safe_root does not exist: {safe_root_resolved}"
-        )
+        raise SafePathError(f"safe_root does not exist: {safe_root_resolved}")
 
     candidate = (safe_root_resolved / user_path).resolve()
 
@@ -147,8 +132,6 @@ def resolve_under(safe_root: Path | str, user_path: str) -> Path:
     try:
         candidate.relative_to(safe_root_resolved)
     except ValueError:
-        raise SafePathError(
-            f"resolved path escapes safe_root: {user_path!r}"
-        ) from None
+        raise SafePathError(f"resolved path escapes safe_root: {user_path!r}") from None
 
     return candidate

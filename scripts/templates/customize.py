@@ -494,6 +494,46 @@ function renderEditions() {
         </div>
       </details>
 
+      <!-- ψ.19 — reading plans card. ψ.19.1 wired the build-pipeline
+           ToC integration; opting in now produces a Reading-Plans
+           section in the EPUB output. -->
+      <details class="reading-plans-section mt-3 border border-slate-200 rounded bg-slate-50" data-edition-id="${e.id}">
+        <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
+          Reading plans
+          <span class="text-slate-400 normal-case font-normal ml-2">
+            (Phase ψ.19 / ψ.19.1 — opt your edition into daily reading schedules)
+          </span>
+        </summary>
+        <div class="p-3 reading-plans-body">
+          <p class="text-xs text-slate-500 mb-2">
+            Pick the daily / monthly reading plans this edition's readers
+            should see. Each plan ships as a YAML file in
+            <code class="font-mono">content/reading_plans/</code>; opt-in
+            here is per-edition. The build pipeline emits a
+            Reading-plan section in the EPUB ToC for every enabled plan.
+          </p>
+          <div class="reading-plans-list flex flex-col gap-2">
+            ${(DATA.reading_plans || []).map(rp => `
+              <label class="flex items-start gap-2 p-2 bg-white border border-slate-200 rounded text-sm cursor-pointer hover:border-blue-300">
+                <input type="checkbox" class="reading-plan-cb mt-0.5" data-plan-id="${escapeAttr(rp.id)}">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-baseline gap-2 flex-wrap">
+                    <span class="font-medium">${escapeAttr(rp.label)}</span>
+                    <span class="font-mono text-xs text-slate-400">${escapeAttr(rp.id)}</span>
+                    <span class="text-xs text-slate-500">· ${rp.entry_count} entries</span>
+                  </div>
+                  ${rp.description ? `<div class="text-xs text-slate-500 mt-0.5">${escapeAttr(rp.description.split('\\n')[0])}</div>` : ''}
+                </div>
+              </label>
+            `).join('') || '<div class="text-xs text-slate-400 italic">no reading plans on disk yet — drop YAML files into content/reading_plans/</div>'}
+          </div>
+          <p class="text-xs text-slate-400 mt-2 italic">
+            Leaving every box unchecked means "no reading plan ToC section"
+            for this edition — pre-ψ.19 build behaviour preserved.
+          </p>
+        </div>
+      </details>
+
       <details class="popup-langs-section mt-3 border border-slate-200 rounded bg-slate-50">
         <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
           Per-book popup languages
@@ -612,6 +652,14 @@ function renderEditions() {
     });
     // Phase ψ.8.3 — wire the Traditions section the same way.
     wireTraditionsSection(box, ed, () => {
+      const evt = new Event('change', {bubbles: true});
+      const anyInput = box.querySelector('input, select');
+      if (anyInput) anyInput.dispatchEvent(evt);
+    });
+    // ψ.19 — wire the Reading-plans toggle list. Same pattern as
+    // popup-langs / traditions: state on the box, dirty flag on
+    // box.dataset, change events bubble out via a synthetic event.
+    wireReadingPlansSection(box, ed, () => {
       const evt = new Event('change', {bubbles: true});
       const anyInput = box.querySelector('input, select');
       if (anyInput) anyInput.dispatchEvent(evt);
@@ -809,6 +857,49 @@ function markPopupLangsDirty(box, state) {
     }
   }
   box.dataset.popupLangsDirty = dirty ? '1' : '0';
+}
+
+// =====================================================================
+// ψ.19 — Reading plans section
+//
+// Per-edition opt-in toggles for `enabled_reading_plans`. State on
+// the box:
+//   box.readingPlansState = {
+//     enabled:  Set<plan_id>,
+//     original: Set<plan_id>,
+//   }
+//   box.dataset.readingPlansDirty = '0' | '1'
+//
+// Schema-only for now; the build pipeline ToC integration ships in
+// ψ.19.1.
+// =====================================================================
+
+function wireReadingPlansSection(box, edition, onChange) {
+  const body = box.querySelector('.reading-plans-body');
+  if (!body) return;
+  const initial = new Set(edition.enabled_reading_plans || []);
+  const state = {
+    enabled: new Set(initial),
+    original: new Set(initial),
+  };
+  box.readingPlansState = state;
+  body.querySelectorAll('.reading-plan-cb').forEach(cb => {
+    cb.checked = state.enabled.has(cb.dataset.planId);
+    cb.addEventListener('change', () => {
+      if (cb.checked) state.enabled.add(cb.dataset.planId);
+      else state.enabled.delete(cb.dataset.planId);
+      markReadingPlansDirty(box, state);
+      onChange && onChange();
+    });
+  });
+  box.dataset.readingPlansDirty = '0';
+}
+
+function markReadingPlansDirty(box, state) {
+  const o = state.original;
+  const e = state.enabled;
+  const sameSet = (a, b) => a.size === b.size && [...a].every(x => b.has(x));
+  box.dataset.readingPlansDirty = sameSet(e, o) ? '0' : '1';
 }
 
 // =====================================================================
@@ -1010,6 +1101,10 @@ function buildCustomizePayload(box) {
     payload.traditions_per_book = Object.fromEntries(
       [...s.perBook].map(([k, v]) => [k, [...v]])
     );
+  }
+  // ψ.19 — include reading-plans state if the section changed.
+  if (box.dataset.readingPlansDirty === '1' && box.readingPlansState) {
+    payload.enabled_reading_plans = [...box.readingPlansState.enabled];
   }
   return payload;
 }

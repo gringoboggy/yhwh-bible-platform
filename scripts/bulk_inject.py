@@ -41,15 +41,17 @@ HTML_CONSTANT_RE = re.compile(
     re.MULTILINE | re.DOTALL,
 )
 
-DEFAULT_EXEMPT = frozenset({
-    # The editor at / has a different chrome and is intentionally
-    # not part of the consoles cluster. Same exemption pattern as
-    # ψ.3 (corpus widget) and ω.0.6 (UI defense prelude).
-    "INDEX_HTML",
-    # The shared prelude constant is itself an HTML-ish string but
-    # not a console; never inject into it.
-    "UI_DEFENSE_PRELUDE",
-})
+DEFAULT_EXEMPT = frozenset(
+    {
+        # The editor at / has a different chrome and is intentionally
+        # not part of the consoles cluster. Same exemption pattern as
+        # ψ.3 (corpus widget) and ω.0.6 (UI defense prelude).
+        "INDEX_HTML",
+        # The shared prelude constant is itself an HTML-ish string but
+        # not a console; never inject into it.
+        "UI_DEFENSE_PRELUDE",
+    }
+)
 
 
 def insert(
@@ -89,12 +91,10 @@ def insert(
         for py in sorted(p.glob("*.py")):
             if py.name == "__init__.py":
                 continue
-            sub = insert(py, content, before=before,
-                          marker=marker, exempt=exempt)
+            sub = insert(py, content, before=before, marker=marker, exempt=exempt)
             total_modified += sub["modified"]
             total_skipped += sub["skipped"]
-        return {"modified": total_modified, "skipped": total_skipped,
-                "file": str(p)}
+        return {"modified": total_modified, "skipped": total_skipped, "file": str(p)}
 
     text = p.read_text()
 
@@ -110,7 +110,10 @@ def insert(
     def _transform(match: re.Match) -> str:
         nonlocal modified, skipped
         head, name, body, tail = (
-            match.group(1), match.group(2), match.group(3), match.group(4),
+            match.group(1),
+            match.group(2),
+            match.group(3),
+            match.group(4),
         )
         if name in exempt:
             skipped += 1
@@ -165,12 +168,15 @@ def replace_between_markers(
             if py.name == "__init__.py":
                 continue
             sub = replace_between_markers(
-                py, open_marker, close_marker, new_content, exempt=exempt,
+                py,
+                open_marker,
+                close_marker,
+                new_content,
+                exempt=exempt,
             )
             total_modified += sub["modified"]
             total_skipped += sub["skipped"]
-        return {"modified": total_modified, "skipped": total_skipped,
-                "file": str(p)}
+        return {"modified": total_modified, "skipped": total_skipped, "file": str(p)}
 
     text = p.read_text()
 
@@ -180,7 +186,10 @@ def replace_between_markers(
     def _transform(match: re.Match) -> str:
         nonlocal modified, skipped
         head, name, body, tail = (
-            match.group(1), match.group(2), match.group(3), match.group(4),
+            match.group(1),
+            match.group(2),
+            match.group(3),
+            match.group(4),
         )
         if name in exempt:
             skipped += 1
@@ -240,8 +249,7 @@ def find_template_files(repo_root: Path | str) -> list[Path]:
     root = Path(repo_root)
     templates_dir = root / "scripts" / "templates"
     if templates_dir.is_dir():
-        return sorted(p for p in templates_dir.glob("*.py")
-                       if p.name != "__init__.py")
+        return sorted(p for p in templates_dir.glob("*.py") if p.name != "__init__.py")
     # Pre-split fallback
     web_py = root / "scripts" / "web.py"
     return [web_py] if web_py.is_file() else []
@@ -254,20 +262,19 @@ def main(argv: list[str] | None = None) -> int:
         description="Bulk-modify *_HTML constants in a Python file.",
     )
     parser.add_argument(
-        "file", type=Path,
+        "file",
+        type=Path,
         help="Python file containing the *_HTML constants",
     )
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_insert = sub.add_parser("insert", help="Insert content idempotently")
-    p_insert.add_argument("--content-file", type=Path, required=True,
-                           help="path to file whose contents are the snippet to insert")
-    p_insert.add_argument("--before", required=True,
-                           help="literal substring to anchor before (e.g. '</body>')")
-    p_insert.add_argument("--marker", required=True,
-                           help="idempotency marker (must be inside the snippet)")
-    p_insert.add_argument("--exempt", action="append", default=[],
-                           help="constant names to skip (repeatable)")
+    p_insert.add_argument(
+        "--content-file", type=Path, required=True, help="path to file whose contents are the snippet to insert"
+    )
+    p_insert.add_argument("--before", required=True, help="literal substring to anchor before (e.g. '</body>')")
+    p_insert.add_argument("--marker", required=True, help="idempotency marker (must be inside the snippet)")
+    p_insert.add_argument("--exempt", action="append", default=[], help="constant names to skip (repeatable)")
 
     p_replace = sub.add_parser("replace", help="Replace between markers")
     p_replace.add_argument("--content-file", type=Path, required=True)
@@ -295,8 +302,11 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
         result = insert(
-            args.file, content,
-            before=args.before, marker=args.marker, exempt=exempt,
+            args.file,
+            content,
+            before=args.before,
+            marker=args.marker,
+            exempt=exempt,
         )
         print(f"insert: modified={result['modified']} skipped={result['skipped']}")
         return 0
@@ -305,7 +315,9 @@ def main(argv: list[str] | None = None) -> int:
         new_content = args.content_file.read_text()
         result = replace_between_markers(
             args.file,
-            args.open_marker, args.close_marker, new_content,
+            args.open_marker,
+            args.close_marker,
+            new_content,
             exempt=exempt,
         )
         print(f"replace: modified={result['modified']} skipped={result['skipped']}")

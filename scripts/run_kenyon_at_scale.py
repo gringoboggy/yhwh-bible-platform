@@ -24,6 +24,7 @@ Output:
     when an existing file is present; merged on (id) with the
     existing entries to keep idempotency).
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -82,8 +83,7 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         except (OSError, json.JSONDecodeError):
             existing = []
 
-    seen = {(c.get("verse"), c.get("kind"), c.get("draft_body"))
-            for c in existing}
+    seen = {(c.get("verse"), c.get("kind"), c.get("draft_body")) for c in existing}
     new_dicts = []
     # Continue ID numbering from where existing left off; the NNN
     # suffix in candidate IDs is chapter-file-wide sequential, not
@@ -115,22 +115,21 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         "n_candidates": len(all_cands),
         "candidates": all_cands,
     }
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False),
-                        encoding="utf-8")
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out_path
 
 
 def main() -> int:
     p = argparse.ArgumentParser(
-        description=("Run KenyonReferenceDetector at scale via direct "
-                     "iteration of the cached Kenyon source text."),
+        description=("Run KenyonReferenceDetector at scale via direct iteration of the cached Kenyon source text."),
     )
-    p.add_argument("--books",
-                    help="comma-separated list of books to keep "
-                         "(default: all books found in Kenyon)")
-    p.add_argument("--max-per-verse", type=int, default=1,
-                    help="cap candidates per verse (default 1; raise to "
-                         "see every Kenyon mention)")
+    p.add_argument("--books", help="comma-separated list of books to keep (default: all books found in Kenyon)")
+    p.add_argument(
+        "--max-per-verse",
+        type=int,
+        default=1,
+        help="cap candidates per verse (default 1; raise to see every Kenyon mention)",
+    )
     args = p.parse_args()
 
     book_filter = None
@@ -140,9 +139,11 @@ def main() -> int:
     detector = KenyonReferenceDetector(
         max_candidates_per_verse=args.max_per_verse,
     )
-    print(f"Running KenyonReferenceDetector "
-          f"(max-per-verse={args.max_per_verse}"
-          f"{', books=' + ','.join(sorted(book_filter)) if book_filter else ''})")
+    print(
+        f"Running KenyonReferenceDetector "
+        f"(max-per-verse={args.max_per_verse}"
+        f"{', books=' + ','.join(sorted(book_filter)) if book_filter else ''})"
+    )
     print()
 
     # Group by (book, chapter)
@@ -167,12 +168,10 @@ def main() -> int:
         print(f"  {GREEN}✓{RESET} {book:5s} {n:3d} candidates")
 
     print()
-    print(f"TOTAL: {len(by_book)} books · {total_candidates} new "
-          f"candidates · {total_files} candidate files updated")
+    print(f"TOTAL: {len(by_book)} books · {total_candidates} new candidates · {total_files} candidate files updated")
     print(f"Files written under: {CANDIDATES_DIR}")
     print()
-    print(f"{DIM}Next: python3 scripts/batch_promote_xrefs.py "
-          f"--kind text-witness{RESET}")
+    print(f"{DIM}Next: python3 scripts/batch_promote_xrefs.py --kind text-witness{RESET}")
     return 0
 
 

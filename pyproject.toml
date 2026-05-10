@@ -62,3 +62,52 @@ quote-style = "double"
 indent-style = "space"
 docstring-code-format = false
 skip-magic-trailing-comma = false
+
+# ω.31 — mypy configuration. Conservative defaults: scope to scripts/core/
+# initially (the most disciplined corner of the codebase). The wider sweep
+# happens in future ω.31.x as call-site annotations land. `ignore_missing_
+# imports = true` papers over PyYAML / pywebview / pyinstaller stubs we
+# don't care to chase.
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+# Don't fail on optional fields not yet annotated. Tightening to
+# strict_optional + no_untyped_defs is a future ω.31.x decision once the
+# call sites have annotations.
+check_untyped_defs = false
+disallow_untyped_defs = false
+strict_optional = false
+# Per-package overrides — start from scripts/core/ and expand outward.
+files = ["scripts/core", "scripts/build_edition.py"]
+
+[[tool.mypy.overrides]]
+module = "scripts.*"
+ignore_errors = false
+
+# ω.34 — pytest configuration. Default invocation `pytest` runs
+# everything serially. For faster local iteration, use:
+#
+#     pytest -n auto --dist=loadfile
+#
+# `loadfile` keeps every test in the same file on the same worker —
+# tests in `tests/test_scripts.py` (the YAML-mutator monolith) all
+# run on one worker, eliminating intra-file races on the shared
+# `content/editions.yaml` and other shared state. Other test files
+# (`test_core.py`, `test_audit_*`, etc.) parallelise across workers.
+# Empirically: 219s → ~60s wall-time on a 6-core laptop.
+[tool.pytest.ini_options]
+markers = [
+    "serial: test must run serially (mutates shared on-disk state — content/editions.yaml, scenarios, etc.)",
+]
+# pytest-xdist's `loadfile` distribution is the right default IF
+# `-n` is passed. We don't make `-n auto` the default itself — it
+# changes output formatting in ways that hurt single-test debug.
+# Devs opt in: `pytest -n auto --dist=loadfile`.
+filterwarnings = [
+    # Tolerate the `\` SyntaxWarnings emitted by `content/notes/*.py`
+    # PD-source bodies. These are data files; rewriting backslashes
+    # in 50K notes is not the right cost/benefit.
+    "ignore::SyntaxWarning",
+]

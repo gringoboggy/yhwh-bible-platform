@@ -60,12 +60,13 @@ LANG_TEMPLATE = (
 
 PARALLEL_TEMPLATE = (
     "Parallel: TODO_REF.",
-    "<strong>TODO_TOPIC.</strong> TODO_BRIEF_FRAMING. <a href=\"#vnote-TODO\">"
+    '<strong>TODO_TOPIC.</strong> TODO_BRIEF_FRAMING. <a href="#vnote-TODO">'
     "TODO_REF</a> picks up TODO_THEMATIC_LINK. The connection illuminates "
     "TODO_INSIGHT.",
     {
-        "sources": [{"editor": "TODO_COMPILER", "title": "Treasury of Scripture Knowledge",
-                     "year": 1834, "license": "PD"}],
+        "sources": [
+            {"editor": "TODO_COMPILER", "title": "Treasury of Scripture Knowledge", "year": 1834, "license": "PD"}
+        ],
         "license": "PD",
         "voice": "cross-canon",
     },
@@ -78,8 +79,7 @@ SOURCE_TEMPLATE = (
     "TODO_INTERPRETIVE_WEIGHT.",
     {
         "sources": [
-            {"author": "TODO_EDITOR", "title": "TODO_CRITICAL_EDITION",
-             "year": 0, "license": "TODO_PD_OR_LICENSED"}
+            {"author": "TODO_EDITOR", "title": "TODO_CRITICAL_EDITION", "year": 0, "license": "TODO_PD_OR_LICENSED"}
         ],
         "voice": "text-critical",
     },
@@ -94,8 +94,12 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "TODO_AGGADAH.",
         {
             "sources": [
-                {"author": "Rashi (Shlomo Yitzhaki)", "title": "Commentary on the Torah",
-                 "year": 1090, "license": "PD"},
+                {
+                    "author": "Rashi (Shlomo Yitzhaki)",
+                    "title": "Commentary on the Torah",
+                    "year": 1090,
+                    "license": "PD",
+                },
             ],
             "voice": "rabbinic",
         },
@@ -107,8 +111,7 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "anticipates the later TODO_LATER_DEVELOPMENT.",
         {
             "sources": [
-                {"author": "TODO_FATHER (e.g. Augustine of Hippo)",
-                 "title": "TODO_WORK", "year": 0, "license": "PD"},
+                {"author": "TODO_FATHER (e.g. Augustine of Hippo)", "title": "TODO_WORK", "year": 0, "license": "PD"},
             ],
             "voice": "patristic",
         },
@@ -120,8 +123,12 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "associates TODO_FIGURE_OR_THEME. TODO_GE'EZ_LINGUISTIC_NOTE.",
         {
             "sources": [
-                {"editor": "Andemta tradition", "title": "Andemta — traditional commentary",
-                 "year": 0, "license": "PD-tradition"},
+                {
+                    "editor": "Andemta tradition",
+                    "title": "Andemta — traditional commentary",
+                    "year": 0,
+                    "license": "PD-tradition",
+                },
             ],
             "voice": "ethiopian",
         },
@@ -133,8 +140,12 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "The Westminster divines (Confession TODO_CH) systematise TODO.",
         {
             "sources": [
-                {"author": "Calvin, John", "title": "Institutes of the Christian Religion",
-                 "year": 1559, "license": "PD"},
+                {
+                    "author": "Calvin, John",
+                    "title": "Institutes of the Christian Religion",
+                    "year": 1559,
+                    "license": "PD",
+                },
             ],
             "voice": "reformation",
         },
@@ -147,8 +158,7 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "argues TODO.",
         {
             "sources": [
-                {"author": "TODO_SCHOLAR", "title": "TODO_WORK",
-                 "year": 0, "license": "TODO_QUOTED_OR_PARAPHRASED"},
+                {"author": "TODO_SCHOLAR", "title": "TODO_WORK", "year": 0, "license": "TODO_QUOTED_OR_PARAPHRASED"},
             ],
             "voice": "modern-critical",
         },
@@ -161,8 +171,7 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "Genesis reframes TODO_THEOLOGICAL_DELTA.",
         {
             "sources": [
-                {"editor": "TODO_TRANSLATOR", "title": "TODO_ANE_TEXT",
-                 "year": 0, "license": "TODO"},
+                {"editor": "TODO_TRANSLATOR", "title": "TODO_ANE_TEXT", "year": 0, "license": "TODO"},
             ],
             "voice": "contextual",
         },
@@ -174,8 +183,12 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "Magisterial documents (TODO_ENCYCLICAL) develop TODO.",
         {
             "sources": [
-                {"editor": "Catholic Church", "title": "Catechism of the Catholic Church",
-                 "year": 1992, "license": "TODO_QUOTED_FAIR_USE"},
+                {
+                    "editor": "Catholic Church",
+                    "title": "Catechism of the Catholic Church",
+                    "year": 1992,
+                    "license": "TODO_QUOTED_FAIR_USE",
+                },
             ],
             "voice": "catholic",
         },
@@ -187,8 +200,7 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
         "it in TODO. The Philokalia tradition (TODO_VOLUME) develops TODO.",
         {
             "sources": [
-                {"author": "TODO_FATHER (e.g. Gregory Palamas)",
-                 "title": "TODO_WORK", "year": 0, "license": "PD"},
+                {"author": "TODO_FATHER (e.g. Gregory Palamas)", "title": "TODO_WORK", "year": 0, "license": "PD"},
             ],
             "voice": "orthodox",
         },
@@ -197,12 +209,10 @@ COMM_TEMPLATES: dict[str, tuple[str, str, dict]] = {
 
 DEFAULT_COMM_TEMPLATE = (
     "Note.",
-    "<strong>TODO_TOPIC.</strong> TODO_OPENING_FRAME. TODO_DEVELOPMENT. "
-    "TODO_THEOLOGICAL_OR_CONTEXTUAL_PAYOFF.",
+    "<strong>TODO_TOPIC.</strong> TODO_OPENING_FRAME. TODO_DEVELOPMENT. TODO_THEOLOGICAL_OR_CONTEXTUAL_PAYOFF.",
     {
         "sources": [
-            {"author": "TODO_AUTHOR", "title": "TODO_WORK",
-             "year": 0, "license": "PD"},
+            {"author": "TODO_AUTHOR", "title": "TODO_WORK", "year": 0, "license": "PD"},
         ],
         "voice": "editorial",
     },
@@ -216,10 +226,14 @@ def template_for(kind: str) -> tuple[str, str, dict]:
     if kind.startswith("lang-"):
         # Customise label per language family
         lang_label = {
-            "lang-hebrew": "Hebrew.", "lang-aramaic": "Aramaic.",
-            "lang-greek": "Greek.", "lang-amharic": "Amharic.",
-            "lang-geez": "Ge'ez.", "lang-latin": "Latin.",
-            "lang-syriac": "Syriac.", "lang-arabic": "Arabic.",
+            "lang-hebrew": "Hebrew.",
+            "lang-aramaic": "Aramaic.",
+            "lang-greek": "Greek.",
+            "lang-amharic": "Amharic.",
+            "lang-geez": "Ge'ez.",
+            "lang-latin": "Latin.",
+            "lang-syriac": "Syriac.",
+            "lang-arabic": "Arabic.",
         }.get(kind, "Word.")
         return (lang_label, LANG_TEMPLATE[1], LANG_TEMPLATE[2])
     if kind == "parallel" or kind.startswith("xref-") or kind.startswith("parallel-"):
@@ -238,8 +252,18 @@ def template_for(kind: str) -> tuple[str, str, dict]:
 # ----------------------------------------------------------------------
 
 
-def render_tuple(_book_code: str, ch: int, v: int, suffix: str, anchor: str,
-                 kind: str, label: str, title: str, body: str, attribution: dict) -> str:
+def render_tuple(
+    _book_code: str,
+    ch: int,
+    v: int,
+    suffix: str,
+    anchor: str,
+    kind: str,
+    label: str,
+    title: str,
+    body: str,
+    attribution: dict,
+) -> str:
     """Format a NOTES tuple as Python source ready to paste into the
     book's content/notes/<code>.py."""
 
@@ -285,14 +309,10 @@ def main() -> None:
     p.add_argument("book", help="book code (e.g. 'gen', 'rev', '1en')")
     p.add_argument("chapter", type=int)
     p.add_argument("verse", type=int)
-    p.add_argument("--suffix", default="",
-                   help="single lowercase letter for multiple notes on same verse")
-    p.add_argument("--kind", required=True,
-                   help="note kind (e.g. lang-hebrew, comm-rabbinic, parallel)")
-    p.add_argument("--anchor", default="",
-                   help="anchor text within verse (where marker attaches)")
-    p.add_argument("--title", default="",
-                   help="popover title (often the same as label or empty)")
+    p.add_argument("--suffix", default="", help="single lowercase letter for multiple notes on same verse")
+    p.add_argument("--kind", required=True, help="note kind (e.g. lang-hebrew, comm-rabbinic, parallel)")
+    p.add_argument("--anchor", default="", help="anchor text within verse (where marker attaches)")
+    p.add_argument("--title", default="", help="popover title (often the same as label or empty)")
     args = p.parse_args()
 
     # Validate book
@@ -307,8 +327,16 @@ def main() -> None:
     title = args.title or label.rstrip(".")
 
     rendered = render_tuple(
-        args.book, args.chapter, args.verse, args.suffix, args.anchor,
-        args.kind, label, title, body, attribution,
+        args.book,
+        args.chapter,
+        args.verse,
+        args.suffix,
+        args.anchor,
+        args.kind,
+        label,
+        title,
+        body,
+        attribution,
     )
 
     print()

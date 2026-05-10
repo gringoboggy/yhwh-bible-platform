@@ -92,6 +92,47 @@ SOURCES_HTML = r"""<!DOCTYPE html>
   </details>
 </section>
 
+<!-- υ.3 — Cross-edition note search. Sits between the PD source
+     cache and the per-book navigator. Composes /api/search-notes
+     (which composes scripts.core.note_search.search_notes — itself
+     a thin wrapper over notes_io.load_notes' mtime-cached reads). -->
+<section class="max-w-7xl mx-auto px-6 pt-6">
+  <details id="ups3-search-section" class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+    <summary class="px-4 py-3 border-b border-slate-200 flex items-center justify-between cursor-pointer select-none">
+      <div>
+        <h2 class="font-semibold text-base">Search across editions</h2>
+        <div class="text-xs text-slate-500">grep every note's label / title / kind / body / attribution — replaces the on-disk grep workflow</div>
+      </div>
+      <span id="ups3-result-count" class="text-xs text-slate-500 tabular-nums whitespace-nowrap"></span>
+    </summary>
+    <div class="p-4 space-y-3">
+      <div class="flex items-center gap-2 flex-wrap">
+        <input id="ups3-query" type="search"
+          placeholder="Search every note (label, title, kind, body, attribution)…"
+          class="flex-1 min-w-[18rem] border border-slate-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+          autocomplete="off" spellcheck="false" maxlength="500">
+        <select id="ups3-edition-filter" class="text-sm border border-slate-300 rounded px-2 py-1.5"
+          title="Restrict matches to kinds enabled in this edition (and its canon books)">
+          <option value="">all editions</option>
+        </select>
+        <select id="ups3-kind-filter" class="text-sm border border-slate-300 rounded px-2 py-1.5"
+          title="Restrict to one kind code">
+          <option value="">all kinds</option>
+        </select>
+        <select id="ups3-book-filter" class="text-sm border border-slate-300 rounded px-2 py-1.5"
+          title="Restrict to one book">
+          <option value="">all books</option>
+        </select>
+        <button type="button" id="ups3-clear" class="hidden text-xs text-blue-600 hover:underline">clear</button>
+      </div>
+      <div id="ups3-results" class="text-sm text-slate-500">
+        Type a query above to search every note across the corpus. Results rank
+        label / title matches above body matches.
+      </div>
+    </div>
+  </details>
+</section>
+
 <main class="grid grid-cols-1 lg:grid-cols-[20rem_1fr] gap-6 p-6 max-w-7xl mx-auto">
 
   <!-- LEFT: book index -->
@@ -158,6 +199,165 @@ async function init() {
     await reloadDisabledSet();
     renderNotes();
   });
+  setupCrossEditionSearch();  // υ.3
+}
+
+// υ.3 — Cross-edition note search. Debounced fetch on input;
+// populates the filter dropdowns from /api/customize + /api/matrix
+// + /api/sources. Empty query → empty results panel + "type to
+// search" placeholder restored. Click a result → loads the book
+// and scrolls into the per-book panel.
+let UPS3_DEBOUNCE = null;
+async function setupCrossEditionSearch() {
+  const q = document.getElementById('ups3-query');
+  const ed = document.getElementById('ups3-edition-filter');
+  const kf = document.getElementById('ups3-kind-filter');
+  const bf = document.getElementById('ups3-book-filter');
+  const clearBtn = document.getElementById('ups3-clear');
+  if (!q) return;
+  // Populate filter dropdowns. Editions reuse /api/customize (already
+  // fetched once for the per-book editor); kinds reuse the matrix
+  // dropdown shape so codes match; books come from /api/sources we
+  // already fetched in `init`.
+  try {
+    const cr = await fetch('/api/customize');
+    const cd = await cr.json();
+    for (const e of (cd.editions || [])) {
+      const o = document.createElement('option');
+      o.value = e.id;
+      o.textContent = e.short_title || e.title || e.id;
+      ed.appendChild(o);
+    }
+  } catch (e) { /* non-fatal */ }
+  try {
+    const mr = await fetch('/api/matrix');
+    const md = await mr.json();
+    const cats = (md.categories || []).slice().sort((a, b) => a.sort_order - b.sort_order);
+    for (const c of cats) {
+      const og = document.createElement('optgroup');
+      og.label = `${c.symbol} ${c.label}`;
+      for (const k of (md.kinds || []).filter(k => k.category === c.id)) {
+        const o = document.createElement('option');
+        o.value = k.code;
+        o.textContent = k.code;
+        og.appendChild(o);
+      }
+      kf.appendChild(og);
+    }
+  } catch (e) { /* non-fatal */ }
+  for (const b of BOOKS) {
+    const o = document.createElement('option');
+    o.value = b.code;
+    o.textContent = `${b.title} (${b.code})`;
+    bf.appendChild(o);
+  }
+
+  const trigger = () => {
+    if (UPS3_DEBOUNCE) clearTimeout(UPS3_DEBOUNCE);
+    UPS3_DEBOUNCE = setTimeout(runCrossEditionSearch, 200);
+  };
+  q.addEventListener('input', trigger);
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      q.value = '';
+      runCrossEditionSearch();
+      q.blur();
+    }
+  });
+  ed.addEventListener('change', trigger);
+  kf.addEventListener('change', trigger);
+  bf.addEventListener('change', trigger);
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    q.value = '';
+    ed.value = '';
+    kf.value = '';
+    bf.value = '';
+    runCrossEditionSearch();
+    q.focus();
+  });
+}
+
+async function runCrossEditionSearch() {
+  const q = document.getElementById('ups3-query');
+  const ed = document.getElementById('ups3-edition-filter');
+  const kf = document.getElementById('ups3-kind-filter');
+  const bf = document.getElementById('ups3-book-filter');
+  const out = document.getElementById('ups3-results');
+  const count = document.getElementById('ups3-result-count');
+  const clearBtn = document.getElementById('ups3-clear');
+  const query = (q.value || '').trim();
+  // Show clear button whenever any field has content.
+  const hasAny = !!(query || ed.value || kf.value || bf.value);
+  if (clearBtn) clearBtn.classList.toggle('hidden', !hasAny);
+  if (!query) {
+    if (count) count.textContent = '';
+    out.innerHTML = `<div class="text-slate-400">Type a query above to search every note across the corpus. Results rank label / title matches above body matches.</div>`;
+    return;
+  }
+  out.innerHTML = `<div class="text-slate-400">searching …</div>`;
+  const params = new URLSearchParams();
+  params.set('q', query);
+  if (ed.value) params.set('edition_id', ed.value);
+  if (kf.value) params.set('kind', kf.value);
+  if (bf.value) params.set('book', bf.value);
+  params.set('limit', '100');
+  let data;
+  try {
+    const r = await fetch(`/api/search-notes?${params.toString()}`);
+    data = await r.json();
+  } catch (e) {
+    out.innerHTML = `<div class="text-red-600">search failed: ${e.message}</div>`;
+    return;
+  }
+  if (data.error) {
+    out.innerHTML = `<div class="text-red-600">${escapeHTML(data.error)}: ${escapeHTML(data.message || '')}</div>`;
+    return;
+  }
+  const hits = data.hits || [];
+  if (count) count.textContent = `${hits.length}${hits.length >= (data.limit || 100) ? '+' : ''} match${hits.length === 1 ? '' : 'es'}`;
+  if (hits.length === 0) {
+    out.innerHTML = `<div class="text-slate-400">no matches.</div>`;
+    return;
+  }
+  out.innerHTML = hits.map(h => `
+    <div class="ups3-hit border-b border-slate-100 py-2 cursor-pointer hover:bg-slate-50 -mx-4 px-4"
+         data-book="${escapeHTML(h.book_code)}" data-anchor="${escapeHTML(h.anchor || '')}">
+      <div class="flex items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="symbol text-slate-500" title="${escapeHTML(h.category_label)}">${escapeHTML(h.category_symbol)}</span>
+          <span class="font-mono text-slate-700">${escapeHTML(h.book_code)} ${h.chapter}:${h.verse}${escapeHTML(h.suffix || '')}</span>
+          <span class="text-slate-400 font-mono">${escapeHTML(h.kind)}</span>
+          <span class="text-slate-700 truncate">${escapeHTML(h.label || h.title || '')}</span>
+        </div>
+        <span class="text-slate-400 tabular-nums whitespace-nowrap">score ${h.score}</span>
+      </div>
+      <div class="text-xs text-slate-500 mt-1">${highlightExcerpt(h.excerpt, query)}</div>
+    </div>
+  `).join('');
+  // Click a result → jump to the book in the per-book navigator.
+  out.querySelectorAll('.ups3-hit').forEach(el => {
+    el.addEventListener('click', () => {
+      const code = el.dataset.book;
+      if (code) {
+        loadBook(code);
+        // Scroll the per-book panel into view.
+        const main = document.querySelector('main');
+        if (main && main.scrollIntoView) main.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    });
+  });
+}
+
+// υ.3 — highlight every (case-insensitive) occurrence of `query` in
+// the excerpt without losing the original casing. Uses the existing
+// module-level `escapeHTML` defined further below; the two `function`
+// declarations are hoisted so order doesn't matter.
+function highlightExcerpt(excerpt, query) {
+  if (!excerpt) return '';
+  const safe = escapeHTML(excerpt);
+  if (!query) return safe;
+  const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return safe.replace(new RegExp(q, 'gi'), m => `<mark>${m}</mark>`);
 }
 
 async function populateEditionPicker() {

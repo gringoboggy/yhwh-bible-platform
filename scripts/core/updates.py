@@ -30,6 +30,7 @@ Sparkle XML reference:
 Network calls go through ``scripts.core.http.get`` to honor the
 ω.10 retry/timeout policy and the linter's external-HTTP rule.
 """
+
 from __future__ import annotations
 
 import re
@@ -70,9 +71,7 @@ def parse_appcast(xml_bytes: bytes) -> dict:
     except ET.ParseError as e:
         raise AppcastError(f"appcast XML did not parse: {e}") from e
     if root.tag != "rss":
-        raise AppcastError(
-            f"appcast root must be <rss>, got <{root.tag}>"
-        )
+        raise AppcastError(f"appcast root must be <rss>, got <{root.tag}>")
     channel = root.find("channel")
     if channel is None:
         raise AppcastError("appcast missing <channel>")
@@ -98,11 +97,7 @@ def _parse_item(item: ET.Element) -> dict:
     if enclosure is not None:
         # Sparkle conventionally puts the version on the
         # <enclosure> element via the sparkle: namespace attribute.
-        version = (
-            enclosure.get(f"{{{SPARKLE_NS}}}version")
-            or enclosure.get("sparkle:version", "")
-            or ""
-        )
+        version = enclosure.get(f"{{{SPARKLE_NS}}}version") or enclosure.get("sparkle:version", "") or ""
         url = enclosure.get("url", "")
         try:
             length = int(enclosure.get("length", "0"))
@@ -139,8 +134,18 @@ def fetch_appcast(
     through ``http.HttpError``; XML parse failures raise
     ``AppcastError``."""
     if http_fn is None:
-        from scripts.core.http import get as http_get
-        http_fn = http_get
+        # ξ.10 — pin appcast egress to the desktop-update allowlist
+        # (GitHub Releases hosting). Other call sites use their own
+        # allowlist groups.
+        from scripts.core.http import (
+            get as http_get,
+            DEFAULT_DESKTOP_UPDATE_ALLOWLIST,
+        )
+
+        http_fn = lambda u: http_get(  # noqa: E731
+            u,
+            allowlist=DEFAULT_DESKTOP_UPDATE_ALLOWLIST,
+        )
     xml_bytes = http_fn(url)
     return parse_appcast(xml_bytes)
 

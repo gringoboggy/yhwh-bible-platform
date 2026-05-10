@@ -53,7 +53,9 @@ from __future__ import annotations
 BTN_PRIMARY = "px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
 BTN_SECONDARY = "px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-50 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
 BTN_GHOST = "px-3 py-1.5 rounded text-slate-700 hover:text-blue-700 hover:underline text-sm"
-BTN_DANGER = "px-3 py-1.5 rounded border border-slate-300 text-red-700 hover:bg-red-50 text-sm font-medium disabled:opacity-50"
+BTN_DANGER = (
+    "px-3 py-1.5 rounded border border-slate-300 text-red-700 hover:bg-red-50 text-sm font-medium disabled:opacity-50"
+)
 BTN_SMALL = "px-2 py-1 rounded border border-slate-300 hover:bg-slate-50 text-xs"
 
 # Badges (small inline pills used for required/optional/status).
@@ -161,20 +163,21 @@ BUYER_ARC_POLISH_CSS = """<style>
 # exception per the rules doc); both `/` and `/matrix` are accepted
 # by the linter.
 CONSOLES: list[tuple[str, str]] = [
-    ("/",            "note editor"),
-    ("/matrix",      "symbol matrix"),
-    ("/sources",     "sources"),
-    ("/export",      "export"),
-    ("/customize",   "customize"),
-    ("/audit",       "audit"),
-    ("/publisher",   "publisher"),
-    ("/wizard",      "wizard"),
-    ("/diff",        "diff"),
-    ("/compare",     "compare"),
-    ("/covers",      "covers"),
-    ("/preflight",   "preflight"),
-    ("/ops",         "ops"),
-    ("/apihelp",     "apihelp"),
+    ("/", "note editor"),
+    ("/matrix", "symbol matrix"),
+    ("/sources", "sources"),
+    ("/export", "export"),
+    ("/customize", "customize"),
+    ("/audit", "audit"),
+    ("/audit-log", "audit log"),
+    ("/publisher", "publisher"),
+    ("/wizard", "wizard"),
+    ("/diff", "diff"),
+    ("/compare", "compare"),
+    ("/covers", "covers"),
+    ("/preflight", "preflight"),
+    ("/ops", "ops"),
+    ("/apihelp", "apihelp"),
 ]
 
 
@@ -191,13 +194,9 @@ def HEADER_NAV_LINKS(current: str = "") -> str:
     parts = []
     for route, label in CONSOLES:
         if route == current:
-            parts.append(
-                f'    <a href="{route}" class="font-semibold">{label}</a>'
-            )
+            parts.append(f'    <a href="{route}" class="font-semibold">{label}</a>')
         else:
-            parts.append(
-                f'    <a href="{route}" class="text-blue-600 hover:underline">{label}</a>'
-            )
+            parts.append(f'    <a href="{route}" class="text-blue-600 hover:underline">{label}</a>')
     return "\n".join(parts)
 
 
@@ -214,11 +213,7 @@ def HEADER_NAV(current: str = "") -> str:
     responsibility (each console's title + description is
     console-specific).
     """
-    return (
-        '<div class="flex items-center gap-4 text-xs flex-wrap">\n'
-        + HEADER_NAV_LINKS(current)
-        + "\n  </div>"
-    )
+    return '<div class="flex items-center gap-4 text-xs flex-wrap">\n' + HEADER_NAV_LINKS(current) + "\n  </div>"
 
 
 def STATUS_BANNER(kind: str, message: str, *, hidden: bool = False) -> str:
@@ -234,17 +229,14 @@ def STATUS_BANNER(kind: str, message: str, *, hidden: bool = False) -> str:
     should use window.ebible.escapeHtml on the JS side.
     """
     cls_map = {
-        "info":    STATUS_INFO,
+        "info": STATUS_INFO,
         "success": STATUS_SUCCESS,
-        "warn":    STATUS_WARN,
-        "error":   STATUS_ERROR,
+        "warn": STATUS_WARN,
+        "error": STATUS_ERROR,
     }
     cls = cls_map.get(kind)
     if cls is None:
-        raise ValueError(
-            f"unknown status kind: {kind!r}; "
-            f"expected info/success/warn/error"
-        )
+        raise ValueError(f"unknown status kind: {kind!r}; expected info/success/warn/error")
     hidden_cls = " hidden" if hidden else ""
     return f'<div class="{cls}{hidden_cls}">{message}</div>'
 
@@ -254,11 +246,7 @@ def EMPTY_STATE(label: str = "Nothing here yet.") -> str:
     muted-gray message inside a card-style box. Use anywhere a list
     or table might be empty (no notes, no editions, no candidates,
     etc.) — better than a silent blank panel."""
-    return (
-        '<div class="text-center text-sm text-slate-400 py-8">'
-        f'{label}'
-        '</div>'
-    )
+    return f'<div class="text-center text-sm text-slate-400 py-8">{label}</div>'
 
 
 def LOADING_STATE(label: str = "Loading…") -> str:
@@ -267,11 +255,7 @@ def LOADING_STATE(label: str = "Loading…") -> str:
     fetches async data renders this initially, then replaces it
     with the real content (or with EMPTY_STATE if the data is
     empty)."""
-    return (
-        '<div class="text-center text-sm text-slate-500 py-8 animate-pulse">'
-        f'{label}'
-        '</div>'
-    )
+    return f'<div class="text-center text-sm text-slate-500 py-8 animate-pulse">{label}</div>'
 
 
 # ----------------------------------------------------------------------
@@ -305,6 +289,7 @@ def LOADING_STATE(label: str = "Loading…") -> str:
 #     XXXX_HTML = apply_design_system(XXXX_HTML, "/route")
 #
 # in place of the two .replace() blocks at the bottom of the file.
+
 
 def apply_design_system(html: str, current_route: str) -> str:
     """Substitute every design-system marker in the rendered HTML.

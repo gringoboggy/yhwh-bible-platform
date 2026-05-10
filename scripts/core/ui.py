@@ -15,9 +15,19 @@ from __future__ import annotations
 import sys
 
 __all__ = [
-    "GREEN", "RED", "YELLOW", "BLUE", "CYAN", "MAGENTA",
-    "DIM", "BOLD", "RESET",
-    "err", "info", "ok", "warn",
+    "GREEN",
+    "RED",
+    "YELLOW",
+    "BLUE",
+    "CYAN",
+    "MAGENTA",
+    "DIM",
+    "BOLD",
+    "RESET",
+    "err",
+    "info",
+    "ok",
+    "warn",
 ]
 
 GREEN = "\033[92m"

@@ -68,10 +68,7 @@ class ValidationError(ValueError):
 # ----------------------------------------------------------------------
 
 
-def require_string(value: object, *,
-                   name: str,
-                   max_len: int = DEFAULT_STRING_MAX,
-                   allow_empty: bool = False) -> str:
+def require_string(value: object, *, name: str, max_len: int = DEFAULT_STRING_MAX, allow_empty: bool = False) -> str:
     """Return value as a string after type + length checks.
 
     Reject non-string inputs (None, int, list, dict). Reject strings
@@ -82,26 +79,23 @@ def require_string(value: object, *,
     if value is None:
         raise ValidationError(f"{name}: required (got None)")
     if not isinstance(value, str):
-        raise ValidationError(
-            f"{name}: must be a string, got {type(value).__name__}"
-        )
+        raise ValidationError(f"{name}: must be a string, got {type(value).__name__}")
     if not allow_empty and not value:
         raise ValidationError(f"{name}: must not be empty")
     if len(value) > max_len:
-        raise ValidationError(
-            f"{name}: too long ({len(value)} chars; max {max_len})"
-        )
+        raise ValidationError(f"{name}: too long ({len(value)} chars; max {max_len})")
     return value
 
 
-def require_short_string(value: object, *, name: str,
-                          allow_empty: bool = False) -> str:
+def require_short_string(value: object, *, name: str, allow_empty: bool = False) -> str:
     """Like require_string but with the SHORT_STRING_MAX cap (256).
     Use for labels, short titles, ids — anything that should never
     legitimately be a paragraph. Body-text fields use
     require_string."""
     return require_string(
-        value, name=name, max_len=SHORT_STRING_MAX,
+        value,
+        name=name,
+        max_len=SHORT_STRING_MAX,
         allow_empty=allow_empty,
     )
 
@@ -115,9 +109,7 @@ def validate_book_code(value: object, *, name: str = "book_code") -> str:
     """Match the books.yaml `code` field shape (e.g. 'gen', '1ki')."""
     s = require_short_string(value, name=name)
     if not _BOOK_CODE_RE.match(s):
-        raise ValidationError(
-            f"{name}: must be 1-4 lowercase alphanumeric chars; got {s!r}"
-        )
+        raise ValidationError(f"{name}: must be 1-4 lowercase alphanumeric chars; got {s!r}")
     return s
 
 
@@ -145,21 +137,17 @@ def validate_kind_code(value: object, *, name: str = "kind_code") -> str:
     return s
 
 
-def validate_path_segment(value: object, *,
-                           name: str = "path_segment") -> str:
+def validate_path_segment(value: object, *, name: str = "path_segment") -> str:
     """Match a single safe filename: alphanumerics, dot, dash,
     underscore. NO slashes (single segment only). For multi-segment
     paths, use scripts/core/safe_path.resolve_under instead."""
     s = require_short_string(value, name=name)
     if not _PATH_SEGMENT_RE.match(s):
         raise ValidationError(
-            f"{name}: must be a single safe filename (alphanumerics, "
-            f"dot, dash, underscore only); got {s!r}"
+            f"{name}: must be a single safe filename (alphanumerics, dot, dash, underscore only); got {s!r}"
         )
     if s in (".", ".."):
-        raise ValidationError(
-            f"{name}: must not be '.' or '..'; got {s!r}"
-        )
+        raise ValidationError(f"{name}: must not be '.' or '..'; got {s!r}")
     return s
 
 
@@ -180,29 +168,21 @@ def _coerce_int(value: object, *, name: str) -> int:
         try:
             return int(value)
         except ValueError:
-            raise ValidationError(
-                f"{name}: not an integer; got {value!r}"
-            ) from None
-    raise ValidationError(
-        f"{name}: must be an integer; got {type(value).__name__}"
-    )
+            raise ValidationError(f"{name}: not an integer; got {value!r}") from None
+    raise ValidationError(f"{name}: must be an integer; got {type(value).__name__}")
 
 
 def validate_chapter(value: object, *, name: str = "chapter") -> int:
     n = _coerce_int(value, name=name)
     if not (CHAPTER_MIN <= n <= CHAPTER_MAX):
-        raise ValidationError(
-            f"{name}: out of range [{CHAPTER_MIN}-{CHAPTER_MAX}]; got {n}"
-        )
+        raise ValidationError(f"{name}: out of range [{CHAPTER_MIN}-{CHAPTER_MAX}]; got {n}")
     return n
 
 
 def validate_verse(value: object, *, name: str = "verse") -> int:
     n = _coerce_int(value, name=name)
     if not (VERSE_MIN <= n <= VERSE_MAX):
-        raise ValidationError(
-            f"{name}: out of range [{VERSE_MIN}-{VERSE_MAX}]; got {n}"
-        )
+        raise ValidationError(f"{name}: out of range [{VERSE_MIN}-{VERSE_MAX}]; got {n}")
     return n
 
 

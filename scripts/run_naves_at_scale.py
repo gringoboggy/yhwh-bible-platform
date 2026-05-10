@@ -17,6 +17,7 @@ Usage:
     python3 scripts/run_naves_at_scale.py --top-n 3      # tighter cap
     python3 scripts/run_naves_at_scale.py --min-topics 2 # only multi-topic
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -74,14 +75,11 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
     existing: list[dict] = []
     if out_path.is_file():
         try:
-            existing = json.loads(out_path.read_text(encoding="utf-8")).get(
-                "candidates", []
-            )
+            existing = json.loads(out_path.read_text(encoding="utf-8")).get("candidates", [])
         except Exception:
             existing = []
 
-    new_dicts = [candidate_to_dict(c, len(existing) + i)
-                 for i, c in enumerate(candidates, start=1)]
+    new_dicts = [candidate_to_dict(c, len(existing) + i) for i, c in enumerate(candidates, start=1)]
     payload = {
         "book": book,
         "chapter": chapter,
@@ -89,13 +87,11 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         "n_candidates": len(existing) + len(new_dicts),
         "candidates": existing + new_dicts,
     }
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False),
-                        encoding="utf-8")
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out_path
 
 
-def run_naves_for_book(book: str, *, min_confidence: float = 0.5,
-                        top_n: int = 5, min_topics: int = 1) -> dict:
+def run_naves_for_book(book: str, *, min_confidence: float = 0.5, top_n: int = 5, min_topics: int = 1) -> dict:
     """Iterate the Nave's reverse index for one book, run
     NaveTopicalDetector per verse, write per-chapter candidates JSON.
     Returns stats."""
@@ -137,16 +133,11 @@ def run_naves_for_book(book: str, *, min_confidence: float = 0.5,
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(
-        description="Run NaveTopicalDetector at scale via direct Nave's iteration."
-    )
-    p.add_argument("--books",
-                    help="comma-separated list of books (default: all in Nave's)")
+    p = argparse.ArgumentParser(description="Run NaveTopicalDetector at scale via direct Nave's iteration.")
+    p.add_argument("--books", help="comma-separated list of books (default: all in Nave's)")
     p.add_argument("--min-confidence", type=float, default=0.5)
-    p.add_argument("--top-n", type=int, default=5,
-                    help="top N topics per verse (default 5)")
-    p.add_argument("--min-topics", type=int, default=1,
-                    help="skip verses with fewer than N topics (default 1)")
+    p.add_argument("--top-n", type=int, default=5, help="top N topics per verse (default 5)")
+    p.add_argument("--min-topics", type=int, default=1, help="skip verses with fewer than N topics (default 1)")
     args = p.parse_args()
 
     if not NAVES_PATH.is_file():
@@ -165,9 +156,11 @@ def main() -> int:
     else:
         books = sorted(naves._verses.keys())
 
-    print(f"Running NaveTopicalDetector across {len(books)} books "
-          f"(min-conf={args.min_confidence}, top-n={args.top_n}, "
-          f"min-topics={args.min_topics})")
+    print(
+        f"Running NaveTopicalDetector across {len(books)} books "
+        f"(min-conf={args.min_confidence}, top-n={args.top_n}, "
+        f"min-topics={args.min_topics})"
+    )
     print(f"Source: {naves.n_topics:,} topics · {naves.n_refs:,} refs")
     print()
 
@@ -182,23 +175,25 @@ def main() -> int:
             min_topics=args.min_topics,
         )
         if stats["candidates_written"]:
-            print(f"  {GREEN}✓{RESET} {book:5s} "
-                  f"{stats['chapters_processed']:3d} chapters "
-                  f"→ {stats['candidates_written']:5d} candidates "
-                  f"({stats['files_written']} files)")
+            print(
+                f"  {GREEN}✓{RESET} {book:5s} "
+                f"{stats['chapters_processed']:3d} chapters "
+                f"→ {stats['candidates_written']:5d} candidates "
+                f"({stats['files_written']} files)"
+            )
         else:
-            print(f"  {DIM}-{RESET} {book:5s} "
-                  f"{stats['chapters_processed']:3d} chapters → 0 candidates")
+            print(f"  {DIM}-{RESET} {book:5s} {stats['chapters_processed']:3d} chapters → 0 candidates")
         total_chapters += stats["chapters_processed"]
         total_candidates += stats["candidates_written"]
         total_files += stats["files_written"]
 
     print()
-    print(f"TOTAL: {len(books)} books · {total_chapters} chapters · "
-          f"{total_candidates} candidates · {total_files} candidate files")
+    print(
+        f"TOTAL: {len(books)} books · {total_chapters} chapters · "
+        f"{total_candidates} candidates · {total_files} candidate files"
+    )
     print(f"Files written under: {CANDIDATES_DIR}")
-    print(f"Next step:  python3 scripts/batch_promote_xrefs.py "
-          f"--kind topic-nave")
+    print(f"Next step:  python3 scripts/batch_promote_xrefs.py --kind topic-nave")
     return 0
 
 

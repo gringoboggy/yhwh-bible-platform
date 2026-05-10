@@ -1,0 +1,20 @@
+label: Academic
+notes: |
+  Seminary / academic preset. Full commentary + history + literary
+  + language + comparative-religion + apologetic apparatus. Skips
+  devotional and liturgical layers (publishers can re-add these
+  per edition).
+based_on: null
+builtin: true
+recipe:
+  enabled_categories:
+    - comm
+    - hist
+    - lit
+    - lang
+    - compare
+    - apol
+    - text
+    - xref
+  enabled_kinds: []
+  disabled_kinds: []

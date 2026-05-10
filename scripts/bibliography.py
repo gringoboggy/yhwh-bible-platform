@@ -151,19 +151,13 @@ SOURCES: dict[str, list[tuple[str, str]]] = {
 # ----------------------------------------------------------------------
 
 
-
-
 def scan(book_filter: str | None = None):
     """Return (counts, citations).
 
     counts:    {(category, label): count}
     citations: {(category, label): [(book, ch, v, suffix), …]}
     """
-    compiled = {
-        (cat, label): re.compile(pat, re.UNICODE)
-        for cat, items in SOURCES.items()
-        for label, pat in items
-    }
+    compiled = {(cat, label): re.compile(pat, re.UNICODE) for cat, items in SOURCES.items() for label, pat in items}
     counts: Counter = Counter()
     citations: dict = defaultdict(list)
 
@@ -257,10 +251,12 @@ def cmd_html(counts: Counter, citations: dict, out_path: Path) -> None:
                 f'<td class="cite">{html.escape(sample)}{html.escape(more)}</td></tr>'
             )
         if cat_rows:
-            rows.append(f'<h2>{html.escape(category)}</h2><table>'
-                        '<thead><tr><th>source</th><th>mentions</th>'
-                        '<th>notes</th><th>citations</th></tr></thead>'
-                        f'<tbody>{"".join(cat_rows)}</tbody></table>')
+            rows.append(
+                f"<h2>{html.escape(category)}</h2><table>"
+                "<thead><tr><th>source</th><th>mentions</th>"
+                "<th>notes</th><th>citations</th></tr></thead>"
+                f"<tbody>{''.join(cat_rows)}</tbody></table>"
+            )
 
     css = """
     :root {
@@ -329,8 +325,7 @@ def main() -> None:
 
     if args.category and args.category not in SOURCES:
         print(
-            f"{RED}ERROR: unknown category {args.category!r}. "
-            f"Known: {', '.join(SOURCES)}{RESET}",
+            f"{RED}ERROR: unknown category {args.category!r}. Known: {', '.join(SOURCES)}{RESET}",
             file=sys.stderr,
         )
         sys.exit(2)

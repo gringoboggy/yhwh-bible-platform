@@ -74,92 +74,204 @@ RESET = "\033[0m"
 # ----------------------------------------------------------------------
 
 SUBKIND_PRIORITY: list[tuple[str, list[str]]] = [
-    ("comm-ethiopian", [
-        r"\bAndemta\b", r"\bSynaxarium\b", r"\bFetha Nagast\b",
-        r"\bKebra Nagast\b", r"\bTewahedo\b", r"\bMäshafä\b",
-        r"\bGädlä\b", r"\bDäbrä\b",
-    ]),
-    ("comm-rabbinic", [
-        r"\bRashi\b", r"\bMaimonides\b", r"\bRambam\b",
-        r"\bIbn Ezra\b", r"\bNachmanides\b", r"\bRamban\b",
-        r"\bSforno\b", r"\bRashbam\b", r"\bRadak\b", r"\bSaadia\b",
-        r"\bTargum\b", r"\bTargumim\b", r"\bOnqelos\b",
-        r"\bPseudo-Jonathan\b",
-        r"\bTalmud\b", r"\bMishnah\b", r"\bMishnaic\b",
-        r"\bMidrash\b", r"\bGenesis Rabbah\b", r"\bExodus Rabbah\b",
-        r"\bLeviticus Rabbah\b", r"\bNumbers Rabbah\b",
-        r"\bDeuteronomy Rabbah\b", r"\bTanhuma\b",
-        r"\bPirke Avot\b", r"\bTosefta\b", r"\bMekhilta\b",
-        r"\bSifra\b", r"\bSifre\b",
-        r"\bPhilo\b",
-    ]),
-    ("comm-catholic", [
-        r"\bAquinas\b", r"\bThomistic\b",
-        r"\bCatholic Catechism\b", r"\bCatechism of the Catholic\b",
-        r"\bCouncil of Trent\b", r"\bTridentine\b",
-        r"\bSecond Vatican\b", r"\bVatican II\b",
-        r"\bMagisterium\b", r"\bencyclical\b", r"\bpapal\b",
-        r"\bMariological\b", r"\bAssumption of Mary\b",
-        r"\bImmaculate Conception\b",
-        r"\bRatzinger\b", r"\bBenedict XVI\b",
-        r"\bvon Balthasar\b", r"\bde Lubac\b", r"\bRahner\b",
-        r"\bHahn\b",  # Scott Hahn (Catholic biblical theologian)
-    ]),
-    ("comm-orthodox", [
-        r"\bEastern Orthodox\b", r"\bByzantine\b",
-        r"\bPalamas\b", r"\bGregory Palamas\b",
-        r"\bJohn of Damascus\b", r"\bDamascene\b",
-        r"\bHesychasm\b", r"\bHesychast\b",
-        r"\bSymeon the New Theologian\b", r"\bCabasilas\b",
-        r"\bMaximus the Confessor\b", r"\bPhilokalia\b",
-        r"\bSynodicon\b", r"\bAthonite\b",
-    ]),
-    ("comm-reformation", [
-        r"\bLuther\b", r"\bLutheran\b",
-        r"\bCalvin\b", r"\bCalvinist\b", r"\bCalvin's\b",
-        r"\bZwingli\b", r"\bMelanchthon\b",
-        r"\bTyndale\b", r"\bWycliffe\b",
-        r"\bWestminster Confession\b",
-    ]),
-    ("comm-patristic", [
-        r"\bAugustine\b", r"\bAugustinian\b",
-        r"\bOrigen\b", r"\bJerome\b", r"\bChrysostom\b",
-        r"\bEusebius\b", r"\bBasil\b",
-        r"\bTertullian\b", r"\bIrenaeus\b", r"\bCyprian\b",
-        r"\bAthanasius\b", r"\bCyril of Alexandria\b",
-        r"\bCyril of Jerusalem\b", r"\bTheodoret\b",
-        r"\bAmbrose\b", r"\bHilary of Poitiers\b",
-        r"\bLactantius\b", r"\bClement of Alexandria\b",
-        r"\bClement of Rome\b",
-        r"\bGregory of Nyssa\b", r"\bGregory of Nazianzus\b",
-        r"\bPseudo-Dionysius\b", r"\bAnselm\b", r"\bBonaventure\b",
-        r"\bBede\b", r"\bIsaac of Nineveh\b",
-    ]),
-    ("comm-modern-critical", [
-        r"\bWestermann\b", r"\bWalton\b", r"\bBrueggemann\b",
-        r"\bvon Rad\b", r"\bChilds\b",
-        r"\bSailhamer\b", r"\bSarna\b", r"\bFox\b",
-        r"\bLevenson\b", r"\bKugel\b", r"\bAlter\b",
-        r"\bGoldingay\b", r"\bBauckham\b", r"\bHays\b",
-        r"\bLevine\b", r"\bDunn\b", r"\bWitherington\b",
-        r"\bCarson\b", r"\bBeale\b", r"\bSanders\b",
-        r"\bPannenberg\b", r"\bMoltmann\b",
-        r"\bSchnackenburg\b", r"\bN\.T\. Wright\b",
-        r"\bTom Wright\b", r"\bMilgrom\b",
-        r"\bFitzmyer\b", r"\bMeyers\b", r"\bSchiffman\b",
-        r"\bVanderKam\b", r"\bNickelsburg\b",
-        r"\bStuckenbruck\b", r"\bCharlesworth\b",
-    ]),
-    ("comm-contextual", [
-        r"\bEnuma Elish\b", r"\bGilgamesh\b", r"\bAtrahasis\b",
-        r"\bCode of Hammurabi\b", r"\bHammurabi\b",
-        r"\bUgaritic\b", r"\bBaal Cycle\b", r"\bRas Shamra\b",
-        r"\bSumerian\b", r"\bAkkadian\b",
-        r"\b[Aa]rchaeolog(?:y|ical)\b",
-        r"\bMesopotamian\b", r"\bEgyptian execration\b",
-        r"\bAmarna\b", r"\bMari texts\b", r"\bNuzi\b",
-        r"\bAncient Near East(?:ern)?\b",
-    ]),
+    (
+        "comm-ethiopian",
+        [
+            r"\bAndemta\b",
+            r"\bSynaxarium\b",
+            r"\bFetha Nagast\b",
+            r"\bKebra Nagast\b",
+            r"\bTewahedo\b",
+            r"\bMäshafä\b",
+            r"\bGädlä\b",
+            r"\bDäbrä\b",
+        ],
+    ),
+    (
+        "comm-rabbinic",
+        [
+            r"\bRashi\b",
+            r"\bMaimonides\b",
+            r"\bRambam\b",
+            r"\bIbn Ezra\b",
+            r"\bNachmanides\b",
+            r"\bRamban\b",
+            r"\bSforno\b",
+            r"\bRashbam\b",
+            r"\bRadak\b",
+            r"\bSaadia\b",
+            r"\bTargum\b",
+            r"\bTargumim\b",
+            r"\bOnqelos\b",
+            r"\bPseudo-Jonathan\b",
+            r"\bTalmud\b",
+            r"\bMishnah\b",
+            r"\bMishnaic\b",
+            r"\bMidrash\b",
+            r"\bGenesis Rabbah\b",
+            r"\bExodus Rabbah\b",
+            r"\bLeviticus Rabbah\b",
+            r"\bNumbers Rabbah\b",
+            r"\bDeuteronomy Rabbah\b",
+            r"\bTanhuma\b",
+            r"\bPirke Avot\b",
+            r"\bTosefta\b",
+            r"\bMekhilta\b",
+            r"\bSifra\b",
+            r"\bSifre\b",
+            r"\bPhilo\b",
+        ],
+    ),
+    (
+        "comm-catholic",
+        [
+            r"\bAquinas\b",
+            r"\bThomistic\b",
+            r"\bCatholic Catechism\b",
+            r"\bCatechism of the Catholic\b",
+            r"\bCouncil of Trent\b",
+            r"\bTridentine\b",
+            r"\bSecond Vatican\b",
+            r"\bVatican II\b",
+            r"\bMagisterium\b",
+            r"\bencyclical\b",
+            r"\bpapal\b",
+            r"\bMariological\b",
+            r"\bAssumption of Mary\b",
+            r"\bImmaculate Conception\b",
+            r"\bRatzinger\b",
+            r"\bBenedict XVI\b",
+            r"\bvon Balthasar\b",
+            r"\bde Lubac\b",
+            r"\bRahner\b",
+            r"\bHahn\b",  # Scott Hahn (Catholic biblical theologian)
+        ],
+    ),
+    (
+        "comm-orthodox",
+        [
+            r"\bEastern Orthodox\b",
+            r"\bByzantine\b",
+            r"\bPalamas\b",
+            r"\bGregory Palamas\b",
+            r"\bJohn of Damascus\b",
+            r"\bDamascene\b",
+            r"\bHesychasm\b",
+            r"\bHesychast\b",
+            r"\bSymeon the New Theologian\b",
+            r"\bCabasilas\b",
+            r"\bMaximus the Confessor\b",
+            r"\bPhilokalia\b",
+            r"\bSynodicon\b",
+            r"\bAthonite\b",
+        ],
+    ),
+    (
+        "comm-reformation",
+        [
+            r"\bLuther\b",
+            r"\bLutheran\b",
+            r"\bCalvin\b",
+            r"\bCalvinist\b",
+            r"\bCalvin's\b",
+            r"\bZwingli\b",
+            r"\bMelanchthon\b",
+            r"\bTyndale\b",
+            r"\bWycliffe\b",
+            r"\bWestminster Confession\b",
+        ],
+    ),
+    (
+        "comm-patristic",
+        [
+            r"\bAugustine\b",
+            r"\bAugustinian\b",
+            r"\bOrigen\b",
+            r"\bJerome\b",
+            r"\bChrysostom\b",
+            r"\bEusebius\b",
+            r"\bBasil\b",
+            r"\bTertullian\b",
+            r"\bIrenaeus\b",
+            r"\bCyprian\b",
+            r"\bAthanasius\b",
+            r"\bCyril of Alexandria\b",
+            r"\bCyril of Jerusalem\b",
+            r"\bTheodoret\b",
+            r"\bAmbrose\b",
+            r"\bHilary of Poitiers\b",
+            r"\bLactantius\b",
+            r"\bClement of Alexandria\b",
+            r"\bClement of Rome\b",
+            r"\bGregory of Nyssa\b",
+            r"\bGregory of Nazianzus\b",
+            r"\bPseudo-Dionysius\b",
+            r"\bAnselm\b",
+            r"\bBonaventure\b",
+            r"\bBede\b",
+            r"\bIsaac of Nineveh\b",
+        ],
+    ),
+    (
+        "comm-modern-critical",
+        [
+            r"\bWestermann\b",
+            r"\bWalton\b",
+            r"\bBrueggemann\b",
+            r"\bvon Rad\b",
+            r"\bChilds\b",
+            r"\bSailhamer\b",
+            r"\bSarna\b",
+            r"\bFox\b",
+            r"\bLevenson\b",
+            r"\bKugel\b",
+            r"\bAlter\b",
+            r"\bGoldingay\b",
+            r"\bBauckham\b",
+            r"\bHays\b",
+            r"\bLevine\b",
+            r"\bDunn\b",
+            r"\bWitherington\b",
+            r"\bCarson\b",
+            r"\bBeale\b",
+            r"\bSanders\b",
+            r"\bPannenberg\b",
+            r"\bMoltmann\b",
+            r"\bSchnackenburg\b",
+            r"\bN\.T\. Wright\b",
+            r"\bTom Wright\b",
+            r"\bMilgrom\b",
+            r"\bFitzmyer\b",
+            r"\bMeyers\b",
+            r"\bSchiffman\b",
+            r"\bVanderKam\b",
+            r"\bNickelsburg\b",
+            r"\bStuckenbruck\b",
+            r"\bCharlesworth\b",
+        ],
+    ),
+    (
+        "comm-contextual",
+        [
+            r"\bEnuma Elish\b",
+            r"\bGilgamesh\b",
+            r"\bAtrahasis\b",
+            r"\bCode of Hammurabi\b",
+            r"\bHammurabi\b",
+            r"\bUgaritic\b",
+            r"\bBaal Cycle\b",
+            r"\bRas Shamra\b",
+            r"\bSumerian\b",
+            r"\bAkkadian\b",
+            r"\b[Aa]rchaeolog(?:y|ical)\b",
+            r"\bMesopotamian\b",
+            r"\bEgyptian execration\b",
+            r"\bAmarna\b",
+            r"\bMari texts\b",
+            r"\bNuzi\b",
+            r"\bAncient Near East(?:ern)?\b",
+        ],
+    ),
 ]
 
 # Pre-compile patterns
@@ -239,8 +351,10 @@ def retag_book(book_path: Path, dry_run: bool) -> dict:
         return {"error": "no NOTES list"}
 
     stats = {
-        "scanned": 0, "comm_count": 0,
-        "retagged": 0, "kept_legacy": 0,
+        "scanned": 0,
+        "comm_count": 0,
+        "retagged": 0,
+        "kept_legacy": 0,
         "breakdown": {},
     }
 
@@ -324,10 +438,8 @@ def main() -> None:
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--book", help="single book code (e.g. 'gen', '1ki')")
     g.add_argument("--all-books", action="store_true", help="every book")
-    p.add_argument("--dry-run", action="store_true",
-                   help="show what would change, don't write")
-    p.add_argument("--interactive", action="store_true",
-                   help="prompt per book before applying")
+    p.add_argument("--dry-run", action="store_true", help="show what would change, don't write")
+    p.add_argument("--interactive", action="store_true", help="prompt per book before applying")
     args = p.parse_args()
 
     if args.book:
@@ -340,8 +452,7 @@ def main() -> None:
     else:
         targets = [b["code"] for b in config.load_books()]
 
-    print(f"\n{BOLD}retag{RESET} {DIM}{len(targets)} book(s)"
-          f"{'  (dry-run)' if args.dry_run else ''}{RESET}\n")
+    print(f"\n{BOLD}retag{RESET} {DIM}{len(targets)} book(s){'  (dry-run)' if args.dry_run else ''}{RESET}\n")
 
     grand = {"scanned": 0, "comm_count": 0, "retagged": 0, "kept_legacy": 0}
     grand_breakdown: dict = {}
@@ -378,21 +489,20 @@ def main() -> None:
         if c == 0:
             print(f"  {DIM}○ {code:6}  no legacy comm notes{RESET}")
         else:
-            print(f"  {GREEN}✓{RESET} {code:6}  "
-                  f"{c:>4} comm scanned · "
-                  f"{r:>4} {verb} · "
-                  f"{k:>4} kept as legacy comm")
+            print(f"  {GREEN}✓{RESET} {code:6}  {c:>4} comm scanned · {r:>4} {verb} · {k:>4} kept as legacy comm")
 
         for key in ("scanned", "comm_count", "retagged", "kept_legacy"):
             grand[key] += stats.get(key, 0)
         for k_, v in stats.get("breakdown", {}).items():
             grand_breakdown[k_] = grand_breakdown.get(k_, 0) + v
 
-    print(f"\n  {BOLD}TOTAL{RESET}: "
-          f"{grand['scanned']} notes scanned · "
-          f"{grand['comm_count']} legacy comm · "
-          f"{grand['retagged']} {'would-retag' if args.dry_run else 'retagged'} · "
-          f"{grand['kept_legacy']} kept as legacy comm")
+    print(
+        f"\n  {BOLD}TOTAL{RESET}: "
+        f"{grand['scanned']} notes scanned · "
+        f"{grand['comm_count']} legacy comm · "
+        f"{grand['retagged']} {'would-retag' if args.dry_run else 'retagged'} · "
+        f"{grand['kept_legacy']} kept as legacy comm"
+    )
 
     if grand_breakdown:
         print(f"\n  Sub-kind breakdown:")

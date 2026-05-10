@@ -90,9 +90,15 @@ def audit_book(book_code: str) -> dict:
     """
     path = NOTES_DIR / f"{book_code}.py"
     if not path.is_file():
-        return {"book": book_code, "missing": True, "n_total": 0,
-                "n_default": 0, "n_explicit_match": 0,
-                "n_would_rewrite": 0, "by_tradition": Counter()}
+        return {
+            "book": book_code,
+            "missing": True,
+            "n_total": 0,
+            "n_default": 0,
+            "n_explicit_match": 0,
+            "n_would_rewrite": 0,
+            "by_tradition": Counter(),
+        }
 
     notes = load_notes(path) or []
     by_tradition: Counter = Counter()
@@ -133,10 +139,7 @@ def audit_book(book_code: str) -> dict:
 
 def discover_books() -> list[str]:
     """Sorted list of all book codes that have a notes module."""
-    return sorted(
-        p.stem for p in NOTES_DIR.glob("*.py")
-        if p.stem != "__init__" and not p.stem.startswith("_")
-    )
+    return sorted(p.stem for p in NOTES_DIR.glob("*.py") if p.stem != "__init__" and not p.stem.startswith("_"))
 
 
 def run_audit(books: Iterable[str]) -> dict:
@@ -171,12 +174,11 @@ def _print_audit(report: dict) -> None:
     """Print a compact human-readable audit summary."""
     print(f"\n{DIM}─── ψ.8 tradition backfill audit ───{RESET}\n")
     print(f"  notes scanned:           {report['n_total']:6d}")
-    print(f"  default-resolving:       {report['n_default']:6d} "
-          f"{DIM}(no rewrite needed){RESET}")
-    print(f"  explicit field matches:  {report['n_explicit_match']:6d} "
-          f"{DIM}(already stamped, idempotent){RESET}")
-    print(f"  would rewrite:           {report['n_would_rewrite']:6d} "
-          f"{DIM}(derived ≠ cross AND not yet stamped){RESET}")
+    print(f"  default-resolving:       {report['n_default']:6d} {DIM}(no rewrite needed){RESET}")
+    print(f"  explicit field matches:  {report['n_explicit_match']:6d} {DIM}(already stamped, idempotent){RESET}")
+    print(
+        f"  would rewrite:           {report['n_would_rewrite']:6d} {DIM}(derived ≠ cross AND not yet stamped){RESET}"
+    )
     print()
     print(f"  by tradition:")
     for tid in sorted(report["by_tradition"]):
@@ -188,30 +190,32 @@ def _print_audit(report: dict) -> None:
 
 def main() -> int:
     p = argparse.ArgumentParser(
-        description="Audit + (optionally) backfill the ψ.8 tradition "
-                     "field on every note in content/notes/.",
+        description="Audit + (optionally) backfill the ψ.8 tradition field on every note in content/notes/.",
     )
-    p.add_argument("--apply", action="store_true",
-                    help="rewrite notes whose derived tradition differs "
-                         "from the explicit field. Default is dry-run.")
-    p.add_argument("--books",
-                    help="comma-separated subset of book codes to audit "
-                         "(default: every book in content/notes/)")
+    p.add_argument(
+        "--apply",
+        action="store_true",
+        help="rewrite notes whose derived tradition differs from the explicit field. Default is dry-run.",
+    )
+    p.add_argument(
+        "--books", help="comma-separated subset of book codes to audit (default: every book in content/notes/)"
+    )
     args = p.parse_args()
 
-    books = (args.books.split(",") if args.books else discover_books())
+    books = args.books.split(",") if args.books else discover_books()
 
     report = run_audit(books)
     _print_audit(report)
 
     if report["n_would_rewrite"] == 0:
-        print(f"  {GREEN}✓{RESET} no rewrites needed — every note "
-              f"already resolves correctly.")
+        print(f"  {GREEN}✓{RESET} no rewrites needed — every note already resolves correctly.")
         return 0
 
     if not args.apply:
-        print(f"  {YELLOW}!{RESET} {report['n_would_rewrite']} note(s) "
-              f"would be rewritten — re-run with --apply to commit.")
+        print(
+            f"  {YELLOW}!{RESET} {report['n_would_rewrite']} note(s) "
+            f"would be rewritten — re-run with --apply to commit."
+        )
         return 1
 
     # Rewrite path. Reaching here means at least one note has a
@@ -225,9 +229,11 @@ def main() -> int:
     # mirroring scripts/attribute.py. ψ.8.0 ships the schema +
     # resolver + audit; the writer lands once there's actual content
     # to migrate.
-    print(f"  {YELLOW}!{RESET} --apply is reserved for ψ.8.0.1 "
-          f"(AST-aware rewriter); see CHANGELOG ψ.8.0 entry for "
-          f"context. Audit-only ship.")
+    print(
+        f"  {YELLOW}!{RESET} --apply is reserved for ψ.8.0.1 "
+        f"(AST-aware rewriter); see CHANGELOG ψ.8.0 entry for "
+        f"context. Audit-only ship."
+    )
     return 1
 
 

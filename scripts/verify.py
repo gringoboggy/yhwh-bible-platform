@@ -29,7 +29,7 @@ def main():
     p.add_argument("--strict", action="store_true", help="exit non-zero on WARN as well as ERROR")
     args = p.parse_args()
 
-    cmd = ["python3", "audit.py"]
+    cmd = [sys.executable, "audit.py"]
     if args.category:
         cmd += ["--category", args.category]
     if args.quiet:

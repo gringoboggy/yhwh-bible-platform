@@ -46,6 +46,7 @@ Output:
     clobber against prior detector output (TSK / Hebrew / Greek /
     Nave / Kenyon).
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -118,17 +119,10 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
     if out_path.exists():
         try:
             existing = json.loads(out_path.read_text(encoding="utf-8"))
-            existing_candidates = [
-                c for c in existing.get("candidates", [])
-                if c.get("kind") != "xref-thematic"
-            ]
+            existing_candidates = [c for c in existing.get("candidates", []) if c.get("kind") != "xref-thematic"]
         except Exception:
             pass
-    new_dicts = [
-        candidate_to_dict(c, i)
-        for i, c in enumerate(
-            candidates, start=len(existing_candidates) + 1)
-    ]
+    new_dicts = [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=len(existing_candidates) + 1)]
     all_candidates = existing_candidates + new_dicts
     payload = {
         "book": book,
@@ -190,6 +184,7 @@ def run_ai_xrefs(
         per_book{book: {verses, candidates}}.
     """
     if detector_factory is None:
+
         def detector_factory():  # noqa: E306
             return AIXrefDetector(
                 client=AnthropicXrefClient(model=model),
@@ -206,7 +201,8 @@ def run_ai_xrefs(
     per_book: dict[str, dict] = {}
 
     for book, chapter, verse_num, verse_text in iter_target_verses(
-        books, max_verses,
+        books,
+        max_verses,
     ):
         verses_processed += 1
         per_book.setdefault(book, {"verses": 0, "candidates": 0})
@@ -238,44 +234,49 @@ def estimate_cost(n_verses: int) -> float:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description=("Run AIXrefDetector at scale via direct KJV "
-                     "iteration with cost guards."),
+        description=("Run AIXrefDetector at scale via direct KJV iteration with cost guards."),
     )
     p.add_argument(
         "--books",
-        help=("comma-separated list of canonical 3-letter book codes "
-              "(default: all books with KJV data)"),
+        help=("comma-separated list of canonical 3-letter book codes (default: all books with KJV data)"),
     )
     p.add_argument(
-        "--max-verses", type=int, default=100,
-        help=("hard cap on API calls per run (default 100). The "
-              "driver refuses to run more than "
-              f"{CONFIRM_COST_THRESHOLD} verses without "
-              "--confirm-cost."),
+        "--max-verses",
+        type=int,
+        default=100,
+        help=(
+            "hard cap on API calls per run (default 100). The "
+            "driver refuses to run more than "
+            f"{CONFIRM_COST_THRESHOLD} verses without "
+            "--confirm-cost."
+        ),
     )
     p.add_argument(
-        "--min-confidence", type=float, default=0.7,
+        "--min-confidence",
+        type=float,
+        default=0.7,
         help=("drop AI proposals below this confidence (default 0.7)"),
     )
     p.add_argument(
-        "--top-n", type=int, default=3,
-        help=("ask the model for up to N proposals per verse "
-              "(default 3)"),
+        "--top-n",
+        type=int,
+        default=3,
+        help=("ask the model for up to N proposals per verse (default 3)"),
     )
     p.add_argument(
-        "--model", default=DEFAULT_AI_XREF_MODEL,
-        help=("Anthropic model id (default: "
-              f"{DEFAULT_AI_XREF_MODEL})"),
+        "--model",
+        default=DEFAULT_AI_XREF_MODEL,
+        help=(f"Anthropic model id (default: {DEFAULT_AI_XREF_MODEL})"),
     )
     p.add_argument(
-        "--dry-run", action="store_true",
-        help=("print projected verse count and cost, then exit. No "
-              "API calls made."),
+        "--dry-run",
+        action="store_true",
+        help=("print projected verse count and cost, then exit. No API calls made."),
     )
     p.add_argument(
-        "--confirm-cost", action="store_true",
-        help=("explicit acknowledgement of cost; required when "
-              f"--max-verses > {CONFIRM_COST_THRESHOLD}."),
+        "--confirm-cost",
+        action="store_true",
+        help=(f"explicit acknowledgement of cost; required when --max-verses > {CONFIRM_COST_THRESHOLD}."),
     )
     return p.parse_args(argv)
 
@@ -299,25 +300,25 @@ def main(argv: list[str] | None = None) -> int:
     n_verses = sum(1 for _ in iter_target_verses(books, args.max_verses))
     cost_usd = estimate_cost(n_verses)
 
-    print(f"Target: {n_verses} verses across {len(books)} books "
-          f"(model={args.model}, top-n={args.top_n}, "
-          f"min-conf={args.min_confidence}).")
-    print(f"Projected cost: ~${cost_usd:.2f} USD "
-          f"(@ ${COST_PER_VERSE_USD:.5f}/verse).")
+    print(
+        f"Target: {n_verses} verses across {len(books)} books "
+        f"(model={args.model}, top-n={args.top_n}, "
+        f"min-conf={args.min_confidence})."
+    )
+    print(f"Projected cost: ~${cost_usd:.2f} USD (@ ${COST_PER_VERSE_USD:.5f}/verse).")
     print()
 
     if args.dry_run:
-        print(f"{DIM}--dry-run: nothing written; no API calls "
-              f"made.{RESET}")
+        print(f"{DIM}--dry-run: nothing written; no API calls made.{RESET}")
         return 0
 
-    if (args.max_verses > CONFIRM_COST_THRESHOLD
-            and not args.confirm_cost):
-        print(f"{RED}REFUSING:{RESET} --max-verses ({args.max_verses}) "
-              f"exceeds the {CONFIRM_COST_THRESHOLD}-verse "
-              f"confirm-cost threshold.")
-        print(f"  Re-run with {YELLOW}--confirm-cost{RESET} to proceed, "
-              f"or lower --max-verses.")
+    if args.max_verses > CONFIRM_COST_THRESHOLD and not args.confirm_cost:
+        print(
+            f"{RED}REFUSING:{RESET} --max-verses ({args.max_verses}) "
+            f"exceeds the {CONFIRM_COST_THRESHOLD}-verse "
+            f"confirm-cost threshold."
+        )
+        print(f"  Re-run with {YELLOW}--confirm-cost{RESET} to proceed, or lower --max-verses.")
         print(f"  Projected spend: ${cost_usd:.2f} USD.")
         return 1
 
@@ -349,17 +350,17 @@ def main(argv: list[str] | None = None) -> int:
     for book in sorted(stats["per_book"].keys()):
         s = stats["per_book"][book]
         marker = GREEN + "✓" + RESET if s["candidates"] else DIM + "-" + RESET
-        print(f"  {marker} {book:5s} "
-              f"{s['verses']:4d} verses → {s['candidates']:3d} candidates")
+        print(f"  {marker} {book:5s} {s['verses']:4d} verses → {s['candidates']:3d} candidates")
 
     print()
-    print(f"TOTAL: {stats['verses_processed']} verses processed · "
-          f"{stats['candidates_written']} candidates · "
-          f"{stats['files_written']} candidate files updated")
+    print(
+        f"TOTAL: {stats['verses_processed']} verses processed · "
+        f"{stats['candidates_written']} candidates · "
+        f"{stats['files_written']} candidate files updated"
+    )
     print(f"Files written under: {CANDIDATES_DIR}")
     print()
-    print(f"{DIM}Next: python3 scripts/batch_promote_xrefs.py "
-          f"--kind xref-thematic{RESET}")
+    print(f"{DIM}Next: python3 scripts/batch_promote_xrefs.py --kind xref-thematic{RESET}")
     return 0
 
 

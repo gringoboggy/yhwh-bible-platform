@@ -126,12 +126,13 @@ EPUB_DIR = ROOT / "epub_working"
 # → scripts/inject.py, build_toc.py + build_book_title_pages.py output is
 # already baked into epub_working/). Auto-discovers current state.
 SCRIPTS = sorted([p for p in (ROOT / "scripts").glob("*.py") if p.is_file()])
-SCRIPTS.extend(sorted([p for p in (ROOT / "scripts" / "core").glob("*.py")
-                        if p.is_file() and p.name != "__init__.py"]))
-SCRIPTS.extend([
-    ROOT / "kings_session" / "book_meta.py",
-    ROOT / "kings_session" / "strategy_b_inject.py",
-])
+SCRIPTS.extend(sorted([p for p in (ROOT / "scripts" / "core").glob("*.py") if p.is_file() and p.name != "__init__.py"]))
+SCRIPTS.extend(
+    [
+        ROOT / "kings_session" / "book_meta.py",
+        ROOT / "kings_session" / "strategy_b_inject.py",
+    ]
+)
 
 
 # ============================================================================
@@ -218,7 +219,7 @@ def fix_remove_import_name(s: Path, line: int, name: str):
         names = [n.strip() for n in names_part.split(",")]
         kept = [n for n in names if n.split(" as ")[0].strip() != name]
         if kept and len(kept) < len(names):
-            new_line = prefix + ", ".join(kept) + target[len(stripped):]
+            new_line = prefix + ", ".join(kept) + target[len(stripped) :]
             lines[line - 1] = new_line
             s.write_text("".join(lines))
             return

@@ -46,11 +46,11 @@ class TestNotesIO:
         assert result is None
 
     def test_load_notes_from_text_parses_NOTES(self):
-        src = '''
+        src = """
 NOTES = [
     (1, 1, '', 'a', 'comm', 'T', 'L.', '<p>body</p>', {}),
 ]
-'''
+"""
         notes = notes_io.load_notes_from_text(src)
         assert isinstance(notes, list)
         assert len(notes) == 1
@@ -62,8 +62,7 @@ NOTES = [
     def test_load_notes_from_text_returns_None_on_syntax_error(self):
         assert notes_io.load_notes_from_text("def NOTES(") is None
 
-    def test_load_notes_caching_invalidates_on_mtime_change(
-            self, sample_notes_module: Path):
+    def test_load_notes_caching_invalidates_on_mtime_change(self, sample_notes_module: Path):
         """The mtime-aware LRU cache must observe file rewrites."""
         notes_io.clear_load_notes_cache()
         first = notes_io.load_notes(sample_notes_module)
@@ -161,8 +160,13 @@ class TestConfig:
         eds = config.load_editions()
         ids = {e.get("id") for e in eds}
         # The 5 retail SKUs the project ships
-        expected = {"ethiopian-tewahedo", "catholic-study",
-                    "evangelical-reformed", "jewish-study", "scholarly-academic"}
+        expected = {
+            "ethiopian-tewahedo",
+            "catholic-study",
+            "evangelical-reformed",
+            "jewish-study",
+            "scholarly-academic",
+        }
         assert expected.issubset(ids)
 
 
@@ -171,6 +175,7 @@ class TestCovers:
 
     def setup_method(self):
         from scripts.core import covers
+
         self.mod = covers
 
     # ---------- encode / decode ----------
@@ -186,7 +191,7 @@ class TestCovers:
         assert out == {
             "gen": "covers/eth/gen.jpg",
             "mat": "covers/eth/mat.png",
-            "tob": "",   # explicit empty preserved
+            "tob": "",  # explicit empty preserved
         }
 
     def test_decode_passes_through_dict(self):
@@ -223,6 +228,7 @@ class TestCovers:
         We synthesize a 4x6 PNG by hand-crafting the header — no Pillow
         dependency, just the IHDR chunk every PNG must start with."""
         import struct, zlib
+
         # 8-byte signature
         sig = b"\x89PNG\r\n\x1a\n"
         # IHDR chunk: length(4) + 'IHDR' + width(4) + height(4) + 5 bytes
@@ -251,13 +257,14 @@ class TestCovers:
         # SOI(0xFFD8) + SOF0(0xFFC0) length=11, precision=8, height=200,
         # width=300, components=1, sample=0x11, qtable=0 + EOI(0xFFD9)
         import struct
+
         soi = b"\xff\xd8"
         sof_payload = (
-            b"\x08"                     # precision
-            + struct.pack(">H", 200)    # height
-            + struct.pack(">H", 300)    # width
-            + b"\x01"                   # 1 component
-            + b"\x01\x11\x00"           # component spec
+            b"\x08"  # precision
+            + struct.pack(">H", 200)  # height
+            + struct.pack(">H", 300)  # width
+            + b"\x01"  # 1 component
+            + b"\x01\x11\x00"  # component spec
         )
         sof = b"\xff\xc0" + struct.pack(">H", 2 + len(sof_payload)) + sof_payload
         eoi = b"\xff\xd9"
@@ -292,6 +299,7 @@ class TestCovers:
         existing call sites (self._make_png(...)) keep working.
         Phase ω.0.3 hoisted the body to tests/fixtures.py."""
         from tests.fixtures import make_png
+
         return make_png(w, h)
 
     def test_validate_upload_accepts_proper_cover(self):
@@ -338,12 +346,9 @@ class TestCovers:
     def test_storage_paths_match_spec(self):
         """Storage paths must match the layout specified in the
         covers scope addendum so future migrations stay deterministic."""
-        assert self.mod.storage_path_for_main("catholic-study", "jpeg") == \
-            "covers/catholic-study/main.jpg"
-        assert self.mod.storage_path_for_main("catholic-study", "png") == \
-            "covers/catholic-study/main.png"
-        assert self.mod.storage_path_for_book("catholic-study", "gen", "webp") == \
-            "covers/catholic-study/books/gen.webp"
+        assert self.mod.storage_path_for_main("catholic-study", "jpeg") == "covers/catholic-study/main.jpg"
+        assert self.mod.storage_path_for_main("catholic-study", "png") == "covers/catholic-study/main.png"
+        assert self.mod.storage_path_for_book("catholic-study", "gen", "webp") == "covers/catholic-study/books/gen.webp"
 
     def test_read_webp_dimensions_vp8x(self):
         """Hand-crafted VP8X (extended container) WebP."""
@@ -353,10 +358,13 @@ class TestCovers:
         #                  + width-1 (3 LE) + height-1 (3 LE)
         riff = b"RIFF" + b"\x00\x00\x00\x00" + b"WEBP"
         # canvas is 1200x1800 → width-1 = 1199 = 0x4AF, height-1 = 1799 = 0x707
-        vp8x = (b"VP8X" + b"\x0a\x00\x00\x00"  # chunk size = 10
-                + b"\x00\x00\x00\x00"           # flags + reserved
-                + bytes([1199 & 0xFF, (1199 >> 8) & 0xFF, (1199 >> 16) & 0xFF])
-                + bytes([1799 & 0xFF, (1799 >> 8) & 0xFF, (1799 >> 16) & 0xFF]))
+        vp8x = (
+            b"VP8X"
+            + b"\x0a\x00\x00\x00"  # chunk size = 10
+            + b"\x00\x00\x00\x00"  # flags + reserved
+            + bytes([1199 & 0xFF, (1199 >> 8) & 0xFF, (1199 >> 16) & 0xFF])
+            + bytes([1799 & 0xFF, (1799 >> 8) & 0xFF, (1799 >> 16) & 0xFF])
+        )
         webp = riff + vp8x
         dims = self.mod._read_webp_dimensions(webp)
         assert dims == (1200, 1800)

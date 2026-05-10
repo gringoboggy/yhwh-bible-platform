@@ -171,13 +171,9 @@ def write_queue(book: str, chapter: int, candidates: list[Candidate]) -> Path:
         "chapter": chapter,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "n_candidates": len(candidates),
-        "candidates": [
-            candidate_to_dict(c, i) for i, c in enumerate(candidates, start=1)
-        ],
+        "candidates": [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=1)],
     }
-    out_path.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out_path
 
 
@@ -211,8 +207,7 @@ def prospect_chapter(
             detectors.append(d())
         except SourceMissingError as e:
             print(
-                f"  {YELLOW}! detector {d.__name__} skipped — "
-                f"source not cached: {e}{RESET}",
+                f"  {YELLOW}! detector {d.__name__} skipped — source not cached: {e}{RESET}",
                 file=sys.stderr,
             )
 
@@ -227,8 +222,7 @@ def prospect_chapter(
                 cands = det.detect(book, chapter, v, vtext)
             except Exception as e:
                 print(
-                    f"  {YELLOW}! detector {det.name} crashed on "
-                    f"{book} {chapter}:{v}: {e}{RESET}",
+                    f"  {YELLOW}! detector {det.name} crashed on {book} {chapter}:{v}: {e}{RESET}",
                     file=sys.stderr,
                 )
                 cands = []
@@ -309,15 +303,14 @@ def main() -> None:
     try:
         book_meta = config.get_book(args.book)
     except KeyError:
-        print(
-            f"{RED}✗ unknown book {args.book!r}{RESET}", file=sys.stderr
-        )
+        print(f"{RED}✗ unknown book {args.book!r}{RESET}", file=sys.stderr)
         sys.exit(2)
 
     # Sources available?
     try:
         # Touch loaders early — fail fast with a clean message
         from scripts.core import sources
+
         sources.strongs_hebrew()
         sources.tsk()
     except SourceMissingError as e:
@@ -338,8 +331,7 @@ def main() -> None:
     else:
         chapters = [args.chapter]
 
-    print(f"\n{BOLD}prospect{RESET} {DIM}book={args.book} "
-          f"chapters={len(chapters)}{RESET}")
+    print(f"\n{BOLD}prospect{RESET} {DIM}book={args.book} chapters={len(chapters)}{RESET}")
 
     total_candidates = 0
     total_deduped = 0

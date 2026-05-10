@@ -41,8 +41,13 @@ RESET = "\033[0m"
 
 VALID_PHASES = {"legacy", "mvp", "phase2", "phase3"}
 KIND_REQUIRED_FIELDS = {
-    "code", "category", "symbol", "note_class",
-    "marker_class", "label", "title_attr",
+    "code",
+    "category",
+    "symbol",
+    "note_class",
+    "marker_class",
+    "label",
+    "title_attr",
 }
 CATEGORY_REQUIRED_FIELDS = {"id", "label", "symbol", "description", "sort_order"}
 
@@ -107,21 +112,15 @@ def check_editions(editions, kinds_by_code, categories_by_id, errors, warnings):
         # Validate enabled_categories
         for cat in e.get("enabled_categories") or []:
             if cat not in categories_by_id:
-                errors.append(
-                    f"edition {eid!r}: enabled_categories references missing category {cat!r}"
-                )
+                errors.append(f"edition {eid!r}: enabled_categories references missing category {cat!r}")
         # Validate enabled_kinds
         for kc in e.get("enabled_kinds") or []:
             if kc not in kinds_by_code:
-                errors.append(
-                    f"edition {eid!r}: enabled_kinds references missing kind {kc!r}"
-                )
+                errors.append(f"edition {eid!r}: enabled_kinds references missing kind {kc!r}")
         # Validate disabled_kinds
         for kc in e.get("disabled_kinds") or []:
             if kc not in kinds_by_code:
-                warnings.append(
-                    f"edition {eid!r}: disabled_kinds references missing kind {kc!r}"
-                )
+                warnings.append(f"edition {eid!r}: disabled_kinds references missing kind {kc!r}")
         # max_phase
         mp = e.get("max_phase")
         if mp and mp not in VALID_PHASES:
@@ -140,6 +139,7 @@ def check_existing_notes_use_known_kinds(kinds_by_code, errors, warnings):
     non-empty attribution. Missing attribution emits an error.
     """
     import ast
+
     notes_dir = REPO_ROOT / "content" / "notes"
     used: Counter = Counter()
     unknown: Counter = Counter()
@@ -175,11 +175,7 @@ def check_existing_notes_use_known_kinds(kinds_by_code, errors, warnings):
                                 # Attribution check (9th field)
                                 book_total += 1
                                 attr_stats["total"] += 1
-                                attribution_present = (
-                                    len(tup) >= 9
-                                    and isinstance(tup[8], str)
-                                    and tup[8].strip()
-                                )
+                                attribution_present = len(tup) >= 9 and isinstance(tup[8], str) and tup[8].strip()
                                 if attribution_present:
                                     attr_stats["attributed"] += 1
                                     book_attributed += 1
@@ -239,15 +235,10 @@ def main() -> None:
             pct = (a / t * 100) if t else 0
             colour = GREEN if m == 0 else (YELLOW if m < t * 0.5 else RED)
             sym = "✓" if m == 0 else "⚠"
-            print(f"\n  {BOLD}Attribution coverage{RESET}  "
-                  f"{colour}{sym} {a}/{t} ({pct:.1f}%){RESET}")
+            print(f"\n  {BOLD}Attribution coverage{RESET}  {colour}{sym} {a}/{t} ({pct:.1f}%){RESET}")
             if m and not args.quiet:
                 # Show worst-covered books (those with missing > 0)
-                missing_books = [
-                    (b, attr, total)
-                    for b, (attr, total) in attr_stats["by_book"].items()
-                    if attr < total
-                ]
+                missing_books = [(b, attr, total) for b, (attr, total) in attr_stats["by_book"].items() if attr < total]
                 missing_books.sort(key=lambda x: x[1] / max(x[2], 1))
                 for b, attr, total in missing_books[:5]:
                     print(f"    {RED}✗{RESET} {b:6}  {attr}/{total} attributed")

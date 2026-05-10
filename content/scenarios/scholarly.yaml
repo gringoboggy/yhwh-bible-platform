@@ -1,0 +1,27 @@
+label: Scholarly Library
+notes: |
+  Every category enabled — designed for a seminary library or
+  scholar's-shelf edition. Equivalent to enabling every kind
+  in the matrix today; recipe-form so it auto-includes future
+  categories without re-saving.
+based_on: null
+builtin: true
+recipe:
+  enabled_categories:
+    - text
+    - xref
+    - lang
+    - hist
+    - lit
+    - comm
+    - dev
+    - compare
+    - liturgy
+    - apol
+    - modern
+    - ped
+    - vis
+    - dist
+    - topic
+  enabled_kinds: []
+  disabled_kinds: []

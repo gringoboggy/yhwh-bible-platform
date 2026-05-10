@@ -39,13 +39,16 @@ Exit codes:
 """
 
 import argparse
+import json
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -185,6 +188,7 @@ def encode_per_book_traditions(per_book: dict[str, list[str]]) -> list[str]:
         return []
     from scripts.core import config as _cfg
     from scripts.core.traditions import TRADITION_IDS
+
     book_order = list(_cfg.books_by_code().keys())
     rank = {code: i for i, code in enumerate(book_order)}
 
@@ -296,8 +300,8 @@ def build_ref_id_to_tradition_map(edition: dict) -> dict[str, str]:
 # inner body, (4) closing tag.
 _NOTE_ASIDE_RE = re.compile(
     r'(<aside\s+class="note\s+note-[a-z][a-z0-9-]*"\s+id="(note-[^"]+)"[^>]*>)'
-    r'(.*?)'
-    r'(</aside>)',
+    r"(.*?)"
+    r"(</aside>)",
     re.DOTALL,
 )
 
@@ -342,14 +346,14 @@ def apply_tradition_labels_to_html(
         closing = m.group(4)
 
         # ref-id (the marker) is the same suffix as note-id (the aside).
-        ref_id = "ref-" + note_id[len("note-"):]
+        ref_id = "ref-" + note_id[len("note-") :]
 
         tradition = ref_id_to_tradition.get(ref_id)
         if tradition is None:
             stats["skipped_no_tradition"] += 1
             return m.group(0)
 
-        if 'data-tradition=' in opening:
+        if "data-tradition=" in opening:
             stats["skipped_already_labeled"] += 1
             return m.group(0)
 
@@ -366,9 +370,7 @@ def apply_tradition_labels_to_html(
         )
 
         label_para = (
-            f'\n  <p class="note-tradition-label" '
-            f'data-tradition-id="{tradition}">'
-            f'{_xml_escape_text(display)}</p>'
+            f'\n  <p class="note-tradition-label" data-tradition-id="{tradition}">{_xml_escape_text(display)}</p>'
         )
         stats["labeled"] += 1
         return new_opening + label_para + body + closing
@@ -493,8 +495,8 @@ def _disable_vn_links(html_text: str) -> tuple[str, int]:
 # (5), and closing tag (6) so we can rewrite just the inner body.
 _VNOTE_ASIDE_RE = re.compile(
     r'(<aside\s+class="vnote"\s+id="vnote-([a-z0-9]+)-(\d+)-(\d+)"[^>]*>)'
-    r'(.*?)'
-    r'(</aside>)',
+    r"(.*?)"
+    r"(</aside>)",
     re.DOTALL,
 )
 
@@ -626,16 +628,11 @@ POPUP_LANGUAGES: dict[str, dict] = {
     # Future, no source data yet — declared so the schema validator
     # accepts them and the stripper handles them gracefully when the
     # data eventually lands.
-    "aramaic": {"label": "Aramaic", "content_class": "vnote-aramaic",
-                "has_label_para": True},
-    "geez":    {"label": "Ge'ez",   "content_class": "vnote-geez",
-                "has_label_para": True},
-    "latin":   {"label": "Latin",   "content_class": "vnote-latin",
-                "has_label_para": True},
-    "coptic":  {"label": "Coptic",  "content_class": "vnote-coptic",
-                "has_label_para": True},
-    "syriac":  {"label": "Syriac",  "content_class": "vnote-syriac",
-                "has_label_para": True},
+    "aramaic": {"label": "Aramaic", "content_class": "vnote-aramaic", "has_label_para": True},
+    "geez": {"label": "Ge'ez", "content_class": "vnote-geez", "has_label_para": True},
+    "latin": {"label": "Latin", "content_class": "vnote-latin", "has_label_para": True},
+    "coptic": {"label": "Coptic", "content_class": "vnote-coptic", "has_label_para": True},
+    "syriac": {"label": "Syriac", "content_class": "vnote-syriac", "has_label_para": True},
 }
 
 ALL_POPUP_LANGUAGES: tuple[str, ...] = tuple(POPUP_LANGUAGES.keys())
@@ -654,6 +651,7 @@ def _resolve_popup_languages(edition: dict, book_code: str) -> set[str]:
     language we haven't registered yet).
     """
     per_book = decode_per_book_languages(edition.get("popup_languages_per_book"))
+    raw: list[str] | None
     if book_code in per_book:
         raw = per_book[book_code]
     elif edition.get("popup_languages_default") is not None:
@@ -704,9 +702,7 @@ def decode_per_book_languages(raw) -> dict[str, list[str]]:
         if not langs_blob.strip():
             out[code] = []
             continue
-        out[code] = [
-            s.strip() for s in langs_blob.split(",") if s.strip()
-        ]
+        out[code] = [s.strip() for s in langs_blob.split(",") if s.strip()]
     return out
 
 
@@ -723,6 +719,7 @@ def encode_per_book_languages(per_book: dict[str, list[str]]) -> list[str]:
     # Lazy import here to avoid a circular dep when this module is
     # loaded by core/config-adjacent code at startup.
     from scripts.core import config as _cfg
+
     book_order = list(_cfg.books_by_code().keys())
     rank = {code: i for i, code in enumerate(book_order)}
 
@@ -802,13 +799,13 @@ def _apply_popup_languages_and_translation(
     from scripts.core import translations as _tx
 
     stats = {
-        "replaced": 0, "missed": 0, "skipped_no_text_para": 0,
+        "replaced": 0,
+        "missed": 0,
+        "skipped_no_text_para": 0,
         "language_paragraphs_stripped": 0,
         "asides_seen": 0,
     }
-    short_label = translation_short or (
-        translation_id.upper() if translation_id else ""
-    )
+    short_label = translation_short or (translation_id.upper() if translation_id else "")
 
     def _process(m: re.Match) -> str:
         opening = m.group(1)
@@ -829,12 +826,14 @@ def _apply_popup_languages_and_translation(
             if verse_text is not None:
                 new_para = (
                     f'<p class="vnote-source-label">'
-                    f'English ({_xml_escape_text(short_label)})</p>'
+                    f"English ({_xml_escape_text(short_label)})</p>"
                     f'<p class="vnote-text">'
-                    f'{_xml_escape_text(verse_text)}</p>'
+                    f"{_xml_escape_text(verse_text)}</p>"
                 )
                 new_body, n = _VNOTE_TEXT_PARA_RE.subn(
-                    new_para, body, count=1,
+                    new_para,
+                    body,
+                    count=1,
                 )
                 if n:
                     body = new_body
@@ -857,9 +856,9 @@ def _apply_popup_languages_and_translation(
     return new_html, stats
 
 
-def filter_html(html_text: str, disabled_kinds: set,
-                disabled_html_ref_ids: set | None = None,
-                verse_popups_enabled: bool = True) -> tuple[str, dict]:
+def filter_html(
+    html_text: str, disabled_kinds: set, disabled_html_ref_ids: set | None = None, verse_popups_enabled: bool = True
+) -> tuple[str, dict]:
     """Strip note markers + asides whose kind is disabled OR whose ref-id is
     in the per-edition disabled-notes set. Returns (new_html, counts).
 
@@ -871,8 +870,7 @@ def filter_html(html_text: str, disabled_kinds: set,
     (Phase ν.2.5-A — honors the flag from editions.yaml). Default True
     leaves the EPUB unchanged, preserving every prior build's bytes.
     """
-    counts = {"markers": 0, "asides": 0, "id_markers": 0, "id_asides": 0,
-              "vn_links_disabled": 0}
+    counts = {"markers": 0, "asides": 0, "id_markers": 0, "id_asides": 0, "vn_links_disabled": 0}
     new_text = html_text
 
     # ---- Phase λ: filter by KIND (whole categories of notes)
@@ -945,8 +943,7 @@ def _resolve_publishing(edition: dict) -> dict:
         "isbn_epub": "",
         "isbn_print": "",
         "cover_credit": "",
-        "source_text_credit":
-            "Scripture text based on the World English Bible (public domain).",
+        "source_text_credit": "Scripture text based on the World English Bible (public domain).",
     }
     out = {}
     for k, v in DEFAULTS.items():
@@ -958,10 +955,7 @@ def _resolve_publishing(edition: dict) -> dict:
 
 def _xml_escape(s: str) -> str:
     """Escape a string for safe inclusion in XML text or attribute."""
-    return (s.replace("&", "&amp;")
-             .replace("<", "&lt;")
-             .replace(">", "&gt;")
-             .replace('"', "&quot;"))
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 
 def _parse_author(author_str: str) -> tuple[str, str]:
@@ -975,15 +969,23 @@ def _parse_author(author_str: str) -> tuple[str, str]:
     """
     s = author_str.strip()
     role_map = {
-        "author": "aut", "aut": "aut",
-        "editor": "edt", "edt": "edt",
-        "translator": "trl", "trl": "trl",
-        "illustrator": "ill", "ill": "ill",
-        "foreword": "fwd", "fwd": "fwd",
-        "compiler": "com", "com": "com",
-        "introduction": "win", "win": "win",
+        "author": "aut",
+        "aut": "aut",
+        "editor": "edt",
+        "edt": "edt",
+        "translator": "trl",
+        "trl": "trl",
+        "illustrator": "ill",
+        "ill": "ill",
+        "foreword": "fwd",
+        "fwd": "fwd",
+        "compiler": "com",
+        "com": "com",
+        "introduction": "win",
+        "win": "win",
         "preface": "win",
-        "afterword": "aft", "aft": "aft",
+        "afterword": "aft",
+        "aft": "aft",
     }
     m = re.match(r"^(.+?)\s*\(([^)]+)\)\s*$", s)
     if m:
@@ -1053,13 +1055,13 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     )
     new_text = re.sub(
         r'(<meta refines="#creator" property="role" scheme="marc:relators">)[^<]*(</meta>)',
-        rf'\g<1>{primary_role}\g<2>',
+        rf"\g<1>{primary_role}\g<2>",
         new_text,
         count=1,
     )
     new_text = re.sub(
         r'(<meta refines="#creator" property="file-as">)[^<]*(</meta>)',
-        rf'\g<1>{_xml_escape(primary_author)}\g<2>',
+        rf"\g<1>{_xml_escape(primary_author)}\g<2>",
         new_text,
         count=1,
     )
@@ -1072,15 +1074,17 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     bcp47 = primary_lang if "-" in primary_lang else f"{primary_lang}-US"
     new_text = re.sub(
         r"<dc:language>en</dc:language>",
-        (f"<dc:language>{_xml_escape(bcp47)}</dc:language>\n"
-         "    <dc:language>hbo</dc:language>"
-         "<!-- Biblical Hebrew (transliterations + script in lang-* notes) -->\n"
-         "    <dc:language>grc</dc:language>"
-         "<!-- Koine Greek -->\n"
-         "    <dc:language>arc</dc:language>"
-         "<!-- Aramaic -->\n"
-         "    <dc:language>gez</dc:language>"
-         "<!-- Ge'ez (Ethiopian liturgical) -->"),
+        (
+            f"<dc:language>{_xml_escape(bcp47)}</dc:language>\n"
+            "    <dc:language>hbo</dc:language>"
+            "<!-- Biblical Hebrew (transliterations + script in lang-* notes) -->\n"
+            "    <dc:language>grc</dc:language>"
+            "<!-- Koine Greek -->\n"
+            "    <dc:language>arc</dc:language>"
+            "<!-- Aramaic -->\n"
+            "    <dc:language>gez</dc:language>"
+            "<!-- Ge'ez (Ethiopian liturgical) -->"
+        ),
         new_text,
         count=1,
     )
@@ -1093,7 +1097,7 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     # Build the additional contributor block (authors beyond the primary)
     contributor_meta = ""
     for i, (name, role) in enumerate(additional):
-        cid = f"contributor-{i+2}"  # the existing one is "contributor"
+        cid = f"contributor-{i + 2}"  # the existing one is "contributor"
         contributor_meta += (
             f'    <dc:contributor id="{cid}">{_xml_escape(name)}</dc:contributor>\n'
             f'    <meta refines="#{cid}" property="role" scheme="marc:relators">{role}</meta>\n'
@@ -1103,27 +1107,27 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     # Build the rights block from copyright fields
     rights_text = pub["copyright_notice"]
     if pub["copyright_year"] or pub["copyright_holder"]:
-        rights_text = (f"Copyright © {pub['copyright_year']} "
-                       f"{pub['copyright_holder']}. {pub['copyright_notice']}").strip()
-    rights_meta = (
-        f'    <dc:rights>{_xml_escape(rights_text)}</dc:rights>\n'
-    )
+        rights_text = (
+            f"Copyright © {pub['copyright_year']} {pub['copyright_holder']}. {pub['copyright_notice']}"
+        ).strip()
+    rights_meta = f"    <dc:rights>{_xml_escape(rights_text)}</dc:rights>\n"
 
     # Build BISAC subjects (in addition to the LCSH subjects below)
     bisac_meta = ""
     for code in pub["bisac_codes"]:
         bisac_meta += (
-            f'    <dc:subject>{_xml_escape(code)}</dc:subject>\n'
+            f"    <dc:subject>{_xml_escape(code)}</dc:subject>\n"
             f'    <meta refines="#bisac-{_xml_escape(code)}" '
             f'property="authority">BISAC</meta>\n'
-        ).replace(f'<dc:subject>{_xml_escape(code)}</dc:subject>',
-                   f'<dc:subject id="bisac-{_xml_escape(code)}">'
-                   f'{_xml_escape(code)}</dc:subject>')
+        ).replace(
+            f"<dc:subject>{_xml_escape(code)}</dc:subject>",
+            f'<dc:subject id="bisac-{_xml_escape(code)}">{_xml_escape(code)}</dc:subject>',
+        )
 
     # WCAG 2.1 AA accessibility declarations + BCP-47 + DOI placeholder + LCSH
     edition_meta = (
         f'    <meta property="dcterms:isVersionOf">'
-        f'ethiopian-bible-master/{version}</meta>\n'
+        f"ethiopian-bible-master/{version}</meta>\n"
         f'    <meta property="dcterms:variant">{edition["id"]}</meta>\n'
         # Rights (Phase π.2)
         + rights_meta
@@ -1143,10 +1147,10 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         # BISAC subjects from publishing block (Phase π.2)
         + bisac_meta
         # LCSH subject classifications
-        + f'    <dc:subject>Bible -- Commentaries</dc:subject>\n'
-        f'    <dc:subject>Bible. Old Testament -- Commentaries</dc:subject>\n'
-        f'    <dc:subject>Bible. New Testament -- Commentaries</dc:subject>\n'
-        f'    <dc:subject>Ethiopian Orthodox Tewahedo Church -- Doctrines</dc:subject>\n'
+        + f"    <dc:subject>Bible -- Commentaries</dc:subject>\n"
+        f"    <dc:subject>Bible. Old Testament -- Commentaries</dc:subject>\n"
+        f"    <dc:subject>Bible. New Testament -- Commentaries</dc:subject>\n"
+        f"    <dc:subject>Ethiopian Orthodox Tewahedo Church -- Doctrines</dc:subject>\n"
         # WCAG 2.1 Level AA conformance declarations
         f'    <link rel="dcterms:conformsTo" '
         f'href="http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-aa"/>\n'
@@ -1162,12 +1166,12 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         f'    <meta property="schema:accessibilityHazard">none</meta>\n'
         f'    <meta property="schema:accessibilityAPI">ARIA</meta>\n'
         f'    <meta property="schema:accessibilitySummary">'
-        f'This publication conforms to WCAG 2.1 Level AA. It includes a structured '
-        f'table of contents, semantic reading order, structural navigation by book and '
-        f'chapter, alt text on the cover image, and BCP-47 language tags for the '
-        f'cross-script content (Hebrew, Greek, Aramaic, Ge\u2019ez transliterations). '
-        f'There are no known accessibility hazards. The text is unlocked (no DRM).'
-        f'</meta>\n'
+        f"This publication conforms to WCAG 2.1 Level AA. It includes a structured "
+        f"table of contents, semantic reading order, structural navigation by book and "
+        f"chapter, alt text on the cover image, and BCP-47 language tags for the "
+        f"cross-script content (Hebrew, Greek, Aramaic, Ge\u2019ez transliterations). "
+        f"There are no known accessibility hazards. The text is unlocked (no DRM)."
+        f"</meta>\n"
         f'    <meta property="schema:typicalAgeRange">18-</meta>\n'
     )
     new_text = re.sub(
@@ -1222,7 +1226,7 @@ def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
 <body epub:type="copyright-page">
   <section class="copyright-page" epub:type="copyright-page">
     <h1 class="copyright-title">{edition_title}</h1>
-    {f'<p class="copyright-subtitle">{edition_subtitle}</p>' if edition_subtitle else ''}
+    {f'<p class="copyright-subtitle">{edition_subtitle}</p>' if edition_subtitle else ""}
 
     <hr class="copyright-rule"/>
 
@@ -1244,7 +1248,7 @@ def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
     <p><strong>Build:</strong> {version}</p>
     <p><strong>Publication date:</strong> {pdate}</p>
 
-    {f'<h2 class="copyright-heading">About</h2><p>{description}</p>' if description else ''}
+    {f'<h2 class="copyright-heading">About</h2><p>{description}</p>' if description else ""}
 
     <hr class="copyright-rule"/>
 
@@ -1275,21 +1279,21 @@ def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
 # Names follow the pattern <FAMILY>_<VARIANT>; values match the
 # "format" / "decoration" string values stored in editions.yaml.
 CHAPTER_NUMBER_FORMATS = {
-    "digit",         # 42
-    "word",          # Forty-Two
+    "digit",  # 42
+    "word",  # Forty-Two
     "word_chapter",  # Chapter Forty-Two
 }
 CHAPTER_NUMBER_DECORATIONS = {
-    "plain":        ("",            ""),
-    "dashes":       ("— ",         " —"),
-    "em_dashes":    ("———— ",      " ————"),
-    "stars":        ("✦ ",          " ✦"),
-    "asterisks":    ("**** ",       " ****"),
-    "bullets":      ("• • • ",      " • • •"),
-    "ornament":     ("❦ ",          " ❦"),
-    "fleurons":     ("❧ ",          " ❧"),
-    "wave":         ("～ ",          " ～"),
-    "double_lines": ("══ ",         " ══"),
+    "plain": ("", ""),
+    "dashes": ("— ", " —"),
+    "em_dashes": ("———— ", " ————"),
+    "stars": ("✦ ", " ✦"),
+    "asterisks": ("**** ", " ****"),
+    "bullets": ("• • • ", " • • •"),
+    "ornament": ("❦ ", " ❦"),
+    "fleurons": ("❧ ", " ❧"),
+    "wave": ("～ ", " ～"),
+    "double_lines": ("══ ", " ══"),
 }
 
 # Phase ν.6.1 — book ToC ornaments. Small visual marker that
@@ -1316,26 +1320,47 @@ CHAPTER_NUMBER_DECORATIONS = {
 #     unicode placeholder; the build-pipeline phase will replace
 #     this with a proper SVG so Ethiopian editions look right
 BOOK_TOC_ORNAMENTS = {
-    "none":           ("",   "no ornament (classic)"),
-    "square":         ("▪",  "small filled square"),
-    "cross_latin":    ("✝",  "Latin cross (Catholic / Reformed / Evangelical)"),
-    "cross_lalibela": ("✛",  "Lalibela cross (Ethiopian Tewahedo)"),
-    "star_david":     ("✡",  "Star of David (Jewish / Hebrew Bible)"),
-    "fleur":          ("⚜",  "fleur-de-lis (decorative / scholarly)"),
+    "none": ("", "no ornament (classic)"),
+    "square": ("▪", "small filled square"),
+    "cross_latin": ("✝", "Latin cross (Catholic / Reformed / Evangelical)"),
+    "cross_lalibela": ("✛", "Lalibela cross (Ethiopian Tewahedo)"),
+    "star_david": ("✡", "Star of David (Jewish / Hebrew Bible)"),
+    "fleur": ("⚜", "fleur-de-lis (decorative / scholarly)"),
 }
 
 # Cardinal English number names for chapters 1..150. Bible chapters
 # don't go higher (Psalm 150 is the longest book at 150 chapters).
 _NUMBER_WORDS_ONES = {
-    0: "Zero", 1: "One", 2: "Two", 3: "Three", 4: "Four",
-    5: "Five", 6: "Six", 7: "Seven", 8: "Eight", 9: "Nine",
-    10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen",
-    14: "Fourteen", 15: "Fifteen", 16: "Sixteen", 17: "Seventeen",
-    18: "Eighteen", 19: "Nineteen",
+    0: "Zero",
+    1: "One",
+    2: "Two",
+    3: "Three",
+    4: "Four",
+    5: "Five",
+    6: "Six",
+    7: "Seven",
+    8: "Eight",
+    9: "Nine",
+    10: "Ten",
+    11: "Eleven",
+    12: "Twelve",
+    13: "Thirteen",
+    14: "Fourteen",
+    15: "Fifteen",
+    16: "Sixteen",
+    17: "Seventeen",
+    18: "Eighteen",
+    19: "Nineteen",
 }
 _NUMBER_WORDS_TENS = {
-    20: "Twenty", 30: "Thirty", 40: "Forty", 50: "Fifty",
-    60: "Sixty", 70: "Seventy", 80: "Eighty", 90: "Ninety",
+    20: "Twenty",
+    30: "Thirty",
+    40: "Forty",
+    50: "Fifty",
+    60: "Sixty",
+    70: "Seventy",
+    80: "Eighty",
+    90: "Ninety",
 }
 
 
@@ -1363,10 +1388,7 @@ def chapter_number_to_word(n: int) -> str:
     ones = rest % 10
     if ones == 0:
         return f"One Hundred {_NUMBER_WORDS_TENS[tens]}"
-    return (
-        f"One Hundred {_NUMBER_WORDS_TENS[tens]}-"
-        f"{_NUMBER_WORDS_ONES[ones].lower()}"
-    )
+    return f"One Hundred {_NUMBER_WORDS_TENS[tens]}-{_NUMBER_WORDS_ONES[ones].lower()}"
 
 
 def format_chapter_label(num: int, format_style: str) -> str:
@@ -1383,9 +1405,7 @@ def format_chapter_label(num: int, format_style: str) -> str:
 
 def decorate_chapter_label(label: str, decoration_style: str) -> str:
     """Wrap a chapter label with the chosen decorative affixes."""
-    prefix, suffix = CHAPTER_NUMBER_DECORATIONS.get(
-        decoration_style, ("", "")
-    )
+    prefix, suffix = CHAPTER_NUMBER_DECORATIONS.get(decoration_style, ("", ""))
     return f"{prefix}{label}{suffix}"
 
 
@@ -1393,9 +1413,7 @@ def decorate_chapter_label(label: str, decoration_style: str) -> str:
 # inner text. The marker is intentionally narrow (matches only the
 # specific span class used by the body chapter heading); incidental
 # `bold-num` uses elsewhere are not affected.
-_CHAPTER_NUM_RE = re.compile(
-    r'(<span class="bold-num">)(\d+)(</span>)'
-)
+_CHAPTER_NUM_RE = re.compile(r'(<span class="bold-num">)(\d+)(</span>)')
 
 
 def apply_chapter_decoration(tmp: Path, edition: dict) -> dict:
@@ -1476,10 +1494,10 @@ def apply_chapter_decoration(tmp: Path, edition: dict) -> dict:
 # format documented in ν.6.1 scope addendum.
 _TOC_BOOK_BLOCK_RE = re.compile(
     r'(<li class="toc-book">\s*)'
-    r'(<details(?:\s[^>]*)?>)'
-    r'(\s*<summary>\s*)'
-    r'(<a\s[^>]*>[^<]*</a>)'
-    r'(\s*</summary>.*?</details>\s*</li>)',
+    r"(<details(?:\s[^>]*)?>)"
+    r"(\s*<summary>\s*)"
+    r"(<a\s[^>]*>[^<]*</a>)"
+    r"(\s*</summary>.*?</details>\s*</li>)",
     re.DOTALL,
 )
 
@@ -1494,7 +1512,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
     """
     collapsible = edition.get("reader_toc_collapsible")
     if collapsible is None:
-        collapsible = True   # default: keep collapsible
+        collapsible = True  # default: keep collapsible
     default_open = bool(edition.get("reader_toc_default_open", False))
     ornament_code = (edition.get("book_toc_ornament") or "").strip()
     ornament_glyph = ""
@@ -1545,9 +1563,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
         if ornament_glyph:
             # Single space after the closing </span> matches the
             # spacing convention the existing toc-chapters block uses.
-            ornament_html = (
-                f'<span class="toc-ornament">{ornament_glyph}</span> '
-            )
+            ornament_html = f'<span class="toc-ornament">{ornament_glyph}</span> '
             ornaments_inserted += 1
 
         if collapsible:
@@ -1555,12 +1571,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
             # inject ornament inside <summary> before the <a>.
             if default_open:
                 defaults_opened += 1
-            return (
-                f'{li_open}'
-                f'{new_details_open}'
-                f'{summary_open}{ornament_html}{anchor}'
-                f'{tail}'
-            )
+            return f"{li_open}{new_details_open}{summary_open}{ornament_html}{anchor}{tail}"
         else:
             # Strip <details>/</details> wrappers; the <summary>
             # becomes a flat label, chapter list follows directly.
@@ -1571,17 +1582,12 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
             # chapter list, then closes </details></li>. We need to
             # extract everything between </summary> and </details>.
             inner = re.sub(
-                r'^\s*</summary>(.*?)</details>\s*</li>\s*$',
-                r'\1',
+                r"^\s*</summary>(.*?)</details>\s*</li>\s*$",
+                r"\1",
                 tail,
                 flags=re.DOTALL,
             )
-            return (
-                f'{li_open}'
-                f'<p class="toc-book-label">{ornament_html}{anchor}</p>'
-                f'{inner}'
-                f'</li>'
-            )
+            return f'{li_open}<p class="toc-book-label">{ornament_html}{anchor}</p>{inner}</li>'
 
     for fpath in sorted(tmp.glob("*.html")):
         text = fpath.read_text(encoding="utf-8")
@@ -1609,15 +1615,19 @@ def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
     defaults: dict = {}
     if onix_py.is_file():
         import importlib.util
+
         spec = importlib.util.spec_from_file_location("_onix_cfg_b", onix_py)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        defaults = getattr(mod, "DEFAULTS", {})
-        # If editions are also defined there, prefer the matching one's data
-        for ed in getattr(mod, "EDITIONS", []):
-            if ed.get("id") == edition.get("id"):
-                edition = {**edition, **ed}
-                break
+        # spec_from_file_location returns Optional[ModuleSpec]; treat
+        # None as "no defaults to load" rather than crashing the build.
+        if spec is not None and spec.loader is not None:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            defaults = getattr(mod, "DEFAULTS", {})
+            # If editions are also defined there, prefer the matching one's data
+            for ed in getattr(mod, "EDITIONS", []):
+                if ed.get("id") == edition.get("id"):
+                    edition = {**edition, **ed}
+                    break
 
     # 1) Write the page
     html = render_copyright_page(edition, defaults, version)
@@ -1631,12 +1641,11 @@ def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
             opf = opf.replace(
                 '<item id="titlepage" href="titlepage.xhtml"',
                 '<item id="copyright" href="copyright.xhtml" media-type="application/xhtml+xml"/>\n    '
-                '<item id="titlepage" href="titlepage.xhtml"'
+                '<item id="titlepage" href="titlepage.xhtml"',
             )
             # Spine: after titlepage
             opf = opf.replace(
-                '<itemref idref="titlepage"/>',
-                '<itemref idref="titlepage"/>\n    <itemref idref="copyright"/>'
+                '<itemref idref="titlepage"/>', '<itemref idref="titlepage"/>\n    <itemref idref="copyright"/>'
             )
             opf_path.write_text(opf, encoding="utf-8")
 
@@ -1646,11 +1655,164 @@ def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
         nav = nav_path.read_text(encoding="utf-8")
         if 'href="copyright.xhtml"' not in nav:
             nav = nav.replace(
-                '<ol>\n      <li>',
+                "<ol>\n      <li>",
                 '<ol>\n      <li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>\n      <li>',
                 1,
             )
             nav_path.write_text(nav, encoding="utf-8")
+
+
+# ----------------------------------------------------------------------
+# ψ.19.1 — reading-plan EPUB ToC integration
+#
+# Companion to ψ.19's loader infrastructure. When an edition opts into
+# one or more reading plans via `enabled_reading_plans`, we render a
+# `reading_plans.xhtml` page (one section per enabled plan, one
+# `<li>` per day with the verse refs as plain-text), register it in
+# the OPF manifest + spine, and add a ToC entry to nav.xhtml. No-op
+# when the edition has no plans enabled — back-compat per §6.5.
+# ----------------------------------------------------------------------
+
+
+def render_reading_plans_page(edition: dict, plans: list) -> str:
+    """Render the XHTML page bundling every enabled plan's day-by-day
+    schedule.
+
+    `plans` is a list of `ReadingPlan` records (from
+    scripts.core.reading_plans.load_plan); the caller is responsible
+    for filtering to the edition's `enabled_reading_plans` list. The
+    output is the full XHTML document including doctype + head, ready
+    to write to ``tmp/reading_plans.xhtml``.
+
+    Verse refs render as plain text (no in-EPUB deep links for v1);
+    a future ψ.19.2 could resolve refs to chapter HTML anchors.
+    """
+    edition_title = edition.get("title", "Untitled")
+    sections = []
+    for plan in plans:
+        entry_lines = []
+        for entry in plan.entries:
+            verses_text = " · ".join(_xml_escape_text(v) for v in entry.verses)
+            entry_lines.append(
+                f'      <li class="reading-plan-day">'
+                f'<span class="reading-plan-day-number">Day {entry.day}</span>'
+                f' — <span class="reading-plan-refs">{verses_text}</span>'
+                f"</li>"
+            )
+        entries_html = "\n".join(entry_lines)
+        description_html = ""
+        if plan.description:
+            # Trim to first paragraph for the section header; full
+            # description may be long-form Markdown-style.
+            first_para = plan.description.strip().split("\n\n")[0]
+            description_html = f'<p class="reading-plan-description">{_xml_escape_text(first_para)}</p>'
+        sections.append(
+            f'<section class="reading-plan" id="reading-plan-{_xml_escape_text(plan.id)}">\n'
+            f'  <h2 class="reading-plan-title">{_xml_escape_text(plan.label)}</h2>\n'
+            f"  {description_html}\n"
+            f'  <ol class="reading-plan-days">\n'
+            f"{entries_html}\n"
+            f"  </ol>\n"
+            f"</section>"
+        )
+    body_sections = (
+        "\n\n".join(sections)
+        if sections
+        else ('<p class="reading-plans-empty">No reading plans enabled for this edition.</p>')
+    )
+    return f"""<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+  <title>Reading Plans</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body epub:type="frontmatter">
+  <section class="reading-plans-page" epub:type="frontmatter">
+    <h1 class="reading-plans-page-title">Reading Plans</h1>
+    <p class="reading-plans-page-intro">Daily reading schedules for <em>{_xml_escape_text(edition_title)}</em>. Verse references follow the canonical book / chapter / verse format used throughout the apparatus.</p>
+    <hr class="reading-plans-rule"/>
+{body_sections}
+  </section>
+</body>
+</html>
+"""
+
+
+def inject_reading_plans_page(tmp: Path, edition: dict) -> dict:
+    """Render + write the reading-plans page; patch OPF + nav.xhtml.
+
+    Returns ``{"plans_written": int, "skipped_reason": str | None}``
+    so the build_one stats accumulator can record what happened.
+    No-op when:
+      - the edition's `enabled_reading_plans` is empty / absent
+      - none of the listed plan ids resolve to a real file (the
+        validator usually catches this on save, but the build is
+        defensive)
+    """
+    enabled_ids = list(edition.get("enabled_reading_plans") or [])
+    if not enabled_ids:
+        return {"plans_written": 0, "skipped_reason": "no plans enabled"}
+
+    # Lazy import — keeps the module's import surface clean for
+    # consumers that don't trigger the build pipeline.
+    from scripts.core.reading_plans import load_plan
+
+    plans = []
+    for pid in enabled_ids:
+        try:
+            plan = load_plan(pid)
+        except ValueError:
+            continue
+        if plan is None:
+            continue
+        plans.append(plan)
+    if not plans:
+        return {"plans_written": 0, "skipped_reason": "no plans loaded"}
+
+    html = render_reading_plans_page(edition, plans)
+    out_path = tmp / "reading_plans.xhtml"
+    out_path.write_text(html, encoding="utf-8")
+
+    # Patch OPF — add manifest item + insert into spine after the
+    # copyright page (so the order is title → copyright → reading
+    # plans → main matter).
+    opf_path = tmp / "content.opf"
+    if opf_path.is_file():
+        opf = opf_path.read_text(encoding="utf-8")
+        if "reading_plans.xhtml" not in opf:
+            opf = opf.replace(
+                '<item id="copyright" href="copyright.xhtml"',
+                '<item id="readingplans" href="reading_plans.xhtml" media-type="application/xhtml+xml"/>\n    '
+                '<item id="copyright" href="copyright.xhtml"',
+            )
+            opf = opf.replace(
+                '<itemref idref="copyright"/>',
+                '<itemref idref="copyright"/>\n    <itemref idref="readingplans"/>',
+            )
+            opf_path.write_text(opf, encoding="utf-8")
+
+    # Patch nav.xhtml — append a ToC entry after the Copyright link.
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        nav = nav_path.read_text(encoding="utf-8")
+        if 'href="reading_plans.xhtml"' not in nav:
+            anchor = '<li><a href="copyright.xhtml">Copyright &amp; Credits</a></li>'
+            if anchor in nav:
+                nav = nav.replace(
+                    anchor,
+                    anchor + '\n      <li><a href="reading_plans.xhtml">Reading Plans</a></li>',
+                    1,
+                )
+                nav_path.write_text(nav, encoding="utf-8")
+
+    return {
+        "plans_written": len(plans),
+        "skipped_reason": None,
+        "plan_ids": [p.id for p in plans],
+        "total_days": sum(len(p.entries) for p in plans),
+    }
 
 
 def is_output_current(output_dir: Path, edition_id: str, version: str) -> Path | None:
@@ -1685,6 +1847,7 @@ def load_canons() -> dict:
     if not canons_path.is_file():
         return {}
     import yaml
+
     data = yaml.safe_load(canons_path.read_text(encoding="utf-8")) or {}
     return data.get("canons", {}) or {}
 
@@ -1694,7 +1857,7 @@ def load_canons() -> dict:
 # us which book this segment is.
 _BOOK_SEGMENT_RE = re.compile(
     r'<div class="book-title-page"[^>]*id="bp-(\d+)"[^>]*>'
-    r'.*?'
+    r".*?"
     r'(?=<div class="book-title-page"|</body>|\Z)',
     re.DOTALL,
 )
@@ -1727,7 +1890,13 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
 
     book_codes = {b["code"] for b in all_books}
     dropped = book_codes - canon_books
-    stats = {
+    # Mixed-type stats dict: ints + a list. `dict[str, Any]` lets
+    # mypy accept both `+= 1` on counter keys and `.append(...)` on
+    # the `files_touched` list. A TypedDict would be more precise
+    # but adds boilerplate the call sites don't need (ω.31).
+    from typing import Any as _Any
+
+    stats: dict[str, _Any] = {
         "dropped_books": len(dropped),
         "files_removed": 0,
         "segments_spliced": 0,
@@ -1843,7 +2012,9 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             if n > 0 and new_text != text:
                 f.write_text(new_text, encoding="utf-8")
                 stats.setdefault("toc_blocks_removed", 0)
-                stats["toc_blocks_removed"] += text.count('<li class="toc-book">') - new_text.count('<li class="toc-book">')
+                stats["toc_blocks_removed"] += text.count('<li class="toc-book">') - new_text.count(
+                    '<li class="toc-book">'
+                )
 
     # Pass 2: strip <a href="..."> wrappers pointing to anchors / files
     # that no longer exist after the canon splice. Keeps the visible text
@@ -1867,13 +2038,9 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             id_inventory[f.name] = set(re.findall(r'\bid="([^"]+)"', text))
 
         # Generic dangling-anchor link pattern. Captures: file (optional) + anchor.
-        link_re = re.compile(
-            r'<a\s+href="([^"#]*)#([^"]+)"[^>]*>([^<]+)</a>'
-        )
+        link_re = re.compile(r'<a\s+href="([^"#]*)#([^"]+)"[^>]*>([^<]+)</a>')
         # Also handle file-only refs (no #fragment) to dropped files.
-        file_only_re = re.compile(
-            r'<a\s+href="([^"#]+)"[^>]*>([^<]+)</a>'
-        )
+        file_only_re = re.compile(r'<a\s+href="([^"#]+)"[^>]*>([^<]+)</a>')
 
         for f in tmp.glob("*.html"):
             text = f.read_text(encoding="utf-8")
@@ -1941,8 +2108,7 @@ def patch_opf_canon(opf_text: str, dropped_files: set[str]) -> str:
     return opf_text
 
 
-def patch_nav_canon(nav_text: str, dropped_files: set[str],
-                     dropped_book_bp_indices: set[int]) -> str:
+def patch_nav_canon(nav_text: str, dropped_files: set[str], dropped_book_bp_indices: set[int]) -> str:
     """Remove TOC entries pointing to dropped files OR dropped book bp-anchors.
 
     `dropped_book_bp_indices` is a set of integers — the bp-NN values
@@ -1981,7 +2147,7 @@ def patch_ncx_canon(ncx_text: str, id_inventory: dict[str, set[str]]) -> str:
     whole navPoint removed. After pruning, playOrder is renumbered
     contiguously to satisfy EPUB 2 spec (no gaps allowed).
     """
-    navpoint_re = re.compile(r'<navPoint\b[^>]*>.*?</navPoint>\s*', re.DOTALL)
+    navpoint_re = re.compile(r"<navPoint\b[^>]*>.*?</navPoint>\s*", re.DOTALL)
     src_re = re.compile(r'<content\s+src="([^"#]*)(?:#([^"]+))?"\s*/>')
 
     def _check_navpoint(m: re.Match) -> str:
@@ -2011,6 +2177,52 @@ def patch_ncx_canon(ncx_text: str, id_inventory: dict[str, set[str]]) -> str:
     return pruned
 
 
+# Phase ω.20-C — companion stats sidecar so api_export_build (and any
+# operator tooling) can tell whether the EPUB was served from cache or
+# freshly built. The sidecar lives at `<output_path>.stats.json` —
+# adjacent to its EPUB, easy to find by string-replace, easy to clean
+# up via `glob("*.stats.json")` alongside the existing `glob("*.epub")`.
+def _write_stats_sidecar(
+    output_path: Path,
+    stats: dict,
+    build_seconds: float,
+) -> Optional[Path]:
+    """Write a small JSON sidecar capturing build outcome metadata.
+
+    The sidecar is a buyer-facing surface (api_export_build folds it
+    into the response payload) so it stays minimal: edition_id,
+    version, cache_hit, skipped, size_mb, build_seconds. Operator-
+    facing stats (enabled_kinds, markers_removed, etc.) stay in the
+    in-memory dict and are NOT serialized — different audience.
+
+    Sidecar writes are best-effort; failures (read-only disk, etc.)
+    return None and don't propagate. The EPUB itself is always the
+    primary artifact.
+    """
+    try:
+        from scripts.core import notes_io
+    except Exception:
+        return None
+    payload = {
+        "edition_id": stats.get("edition_id"),
+        "version": stats.get("version"),
+        "cache_hit": bool(stats.get("cache_hit", False)),
+        "skipped": bool(stats.get("skipped", False)),
+        "size_mb": float(stats.get("size_mb", 0.0)),
+        "build_seconds": round(float(build_seconds), 3),
+        "filename": output_path.name,
+    }
+    sidecar = output_path.with_suffix(output_path.suffix + ".stats.json")
+    try:
+        notes_io.atomic_write(
+            sidecar,
+            json.dumps(payload, indent=2, ensure_ascii=False),
+        )
+    except Exception:
+        return None
+    return sidecar
+
+
 def build_one(
     edition_id: str,
     output_dir: Path,
@@ -2019,6 +2231,11 @@ def build_one(
     dry_run: bool = False,
     force: bool = False,
 ) -> dict:
+    # ω.20-C — wall-clock timing for the build_seconds field of the
+    # stats sidecar. Captured at function entry so the value covers
+    # cache-lookup time on hits and full-pipeline time on misses.
+    _t0 = time.perf_counter()
+
     eds = config.editions_by_id()
     if edition_id not in eds:
         raise ValueError(f"unknown edition {edition_id!r}; known: {sorted(eds)}")
@@ -2033,9 +2250,7 @@ def build_one(
     disabled_html_ref_ids: set[str] = set()
     if disabled_note_ids:
         books_idx = config.books_by_code()
-        _NOTE_ID_RE = re.compile(
-            r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$"
-        )
+        _NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
         for nid in disabled_note_ids:
             m = _NOTE_ID_RE.match(nid)
             if not m:
@@ -2066,6 +2281,7 @@ def build_one(
 
     stats = {
         "edition_id": edition_id,
+        "version": version,
         "title": edition.get("title", ""),
         "enabled_kinds": len(enabled),
         "disabled_kinds": len(disabled),
@@ -2098,6 +2314,7 @@ def build_one(
     popup_translation_short = ""
     if popup_translation_id and verse_popups_enabled:
         from scripts.core import translations as _tx
+
         meta = _tx.translation_meta(popup_translation_id) or {}
         popup_translation_short = meta.get("short_title", popup_translation_id.upper())
 
@@ -2112,6 +2329,45 @@ def build_one(
         or bool(edition.get("popup_languages_per_book"))
     )
 
+    # Phase ω.20-B — content-addressable cache key. Computed once per
+    # build_one call; reused for the lookup-on-entry below and the
+    # store-after-success at the bottom of the function. None when the
+    # cache module can't compute a key (e.g. the edition record has a
+    # non-JSON-serializable field) — in that case the cache is bypassed
+    # silently and the existing mtime cache remains the only fast path.
+    cache_key: Optional[str] = None
+    if not dry_run:
+        try:
+            from scripts.core import build_cache as _bc
+
+            cache_key = _bc.compute_cache_key(
+                edition_id,
+                version=version,
+            )
+        except Exception:
+            cache_key = None
+
+    # Phase ω.20-B — content cache hit short-circuit. Runs BEFORE the
+    # legacy mtime-based check because content-addressable hits even
+    # when the output file in `output_dir` is missing (deleted, moved,
+    # cleaned). On a cache hit, copy the cached EPUB into `output_dir`
+    # so callers get a real artifact to download/inspect at the
+    # expected path — same surface as the mtime branch.
+    if cache_key and not dry_run and not force:
+        from scripts.core import build_cache as _bc
+        from scripts.core import notes_io as _io
+
+        cached = _bc.cache_lookup(cache_key)
+        if cached is not None:
+            output_dir.mkdir(parents=True, exist_ok=True)
+            _io.atomic_write_bytes(output_path, cached.read_bytes())
+            stats["output_path"] = output_path
+            stats["size_mb"] = output_path.stat().st_size / (1024 * 1024)
+            stats["skipped"] = True
+            stats["cache_hit"] = True
+            _write_stats_sidecar(output_path, stats, time.perf_counter() - _t0)
+            return stats
+
     # Incremental: skip if a current build already exists for this version
     if not dry_run and not force:
         existing = is_output_current(output_dir, edition_id, version)
@@ -2119,6 +2375,7 @@ def build_one(
             stats["output_path"] = existing
             stats["size_mb"] = existing.stat().st_size / (1024 * 1024)
             stats["skipped"] = True
+            _write_stats_sidecar(existing, stats, time.perf_counter() - _t0)
             return stats
 
     if dry_run:
@@ -2126,7 +2383,9 @@ def build_one(
         for f in EPUB_DIR.glob("*.html"):
             text = f.read_text(encoding="utf-8")
             _, counts = filter_html(
-                text, disabled, disabled_html_ref_ids,
+                text,
+                disabled,
+                disabled_html_ref_ids,
                 verse_popups_enabled=verse_popups_enabled,
             )
             stats["markers_removed"] += counts["markers"]
@@ -2138,11 +2397,13 @@ def build_one(
 
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp = Path(tmpdir) / "build"
+
         # Ignore dotfile directories (e.g. .backups/) and editor cruft.
         # Without this, ensure_backup() snapshots in epub_working/.backups/
         # would be packaged into every per-edition EPUB, doubling its size.
         def _ignore(_d, names):
             return [n for n in names if n.startswith(".") or n.endswith(".bak")]
+
         shutil.copytree(EPUB_DIR, tmp, ignore=_ignore)
 
         # Apply theme override (Phase ν.3) — append the chosen theme's CSS
@@ -2152,15 +2413,17 @@ def build_one(
         theme_css = REPO_ROOT / "content" / "themes" / f"{theme_id}.css"
         css_path = tmp / "stylesheet.css"
         if theme_css.is_file() and css_path.is_file():
-            with css_path.open("a", encoding="utf-8") as f:
-                f.write(f"\n\n/* === theme: {theme_id} === */\n")
-                f.write(theme_css.read_text(encoding="utf-8"))
+            with css_path.open("a", encoding="utf-8") as theme_handle:
+                theme_handle.write(f"\n\n/* === theme: {theme_id} === */\n")
+                theme_handle.write(theme_css.read_text(encoding="utf-8"))
             stats["theme_applied"] = theme_id
 
-        for f in tmp.glob("*.html"):
-            text = f.read_text(encoding="utf-8")
+        for html_path in tmp.glob("*.html"):
+            text = html_path.read_text(encoding="utf-8")
             new_text, counts = filter_html(
-                text, disabled, disabled_html_ref_ids,
+                text,
+                disabled,
+                disabled_html_ref_ids,
                 verse_popups_enabled=verse_popups_enabled,
             )
             stats["markers_removed"] += counts["markers"]
@@ -2181,26 +2444,24 @@ def build_one(
                 )
                 stats["vnote_translations_replaced"] += vp_counts["replaced"]
                 stats["vnote_translations_missed"] += vp_counts["missed"]
-                stats["vnote_language_paragraphs_stripped"] += (
-                    vp_counts["language_paragraphs_stripped"]
-                )
+                stats["vnote_language_paragraphs_stripped"] += vp_counts["language_paragraphs_stripped"]
 
             # Phase ψ.8.2-B — label surviving editorial-note asides with
             # their tradition. Skipped entirely when the edition has no
             # `traditions_default` (the map is empty), preserving §7.2.
             if ref_id_to_tradition:
                 new_text, t_counts = apply_tradition_labels_to_html(
-                    new_text, ref_id_to_tradition,
+                    new_text,
+                    ref_id_to_tradition,
                 )
                 stats["tradition_labels_applied"] += t_counts["labeled"]
 
             if new_text != text:
-                f.write_text(new_text, encoding="utf-8")
+                html_path.write_text(new_text, encoding="utf-8")
 
         # Canon filter — drop books not in this edition's canon
         canon_id = edition.get("canon")
-        canon_stats: dict = {"dropped_books": 0, "files_removed": 0,
-                              "cross_refs_stripped": 0, "files_touched": []}
+        canon_stats: dict = {"dropped_books": 0, "files_removed": 0, "cross_refs_stripped": 0, "files_touched": []}
         dropped_files: set[str] = set()
         dropped_bp_indices: set[int] = set()
         if canon_id:
@@ -2239,8 +2500,7 @@ def build_one(
         nav = tmp / "nav.xhtml"
         if nav.is_file() and (dropped_files or dropped_bp_indices):
             nav.write_text(
-                patch_nav_canon(nav.read_text(encoding="utf-8"),
-                                dropped_files, dropped_bp_indices),
+                patch_nav_canon(nav.read_text(encoding="utf-8"), dropped_files, dropped_bp_indices),
                 encoding="utf-8",
             )
 
@@ -2276,10 +2536,17 @@ def build_one(
         # Inject per-edition copyright/credits page
         inject_copyright_page(tmp, edition, version)
 
+        # ψ.19.1 — inject the per-edition reading-plans page (no-op
+        # when `enabled_reading_plans` is empty, preserving pre-ψ.19.1
+        # build-byte behavior per §6.5).
+        rp_stats = inject_reading_plans_page(tmp, edition)
+        stats["reading_plans_written"] = rp_stats.get("plans_written", 0)
+        stats["reading_plans_total_days"] = rp_stats.get("total_days", 0)
+
         # Build EPUB
         result = subprocess.run(
             [
-                "python3",
+                sys.executable,
                 str(REPO_ROOT / "scripts" / "build_epub.py"),
                 str(output_path),
                 "--epub-dir",
@@ -2293,6 +2560,22 @@ def build_one(
             raise RuntimeError(f"build_epub failed:\n{result.stderr or result.stdout}")
 
         stats["size_mb"] = output_path.stat().st_size / (1024 * 1024)
+
+    # Phase ω.20-B — warm the content cache after a successful build.
+    # Opportunistic: failures here (read-only disk, full disk) MUST NOT
+    # fail the build itself — the artifact at output_path is still
+    # valid; the next run will just rebuild from scratch.
+    if cache_key:
+        try:
+            from scripts.core import build_cache as _bc
+
+            _bc.cache_store(cache_key, output_path)
+        except Exception:
+            pass
+
+    # ω.20-C — write the stats sidecar for the freshly-built EPUB.
+    _write_stats_sidecar(output_path, stats, time.perf_counter() - _t0)
+
     return stats
 
 
@@ -2329,10 +2612,10 @@ def main() -> None:
     p.add_argument("--output-dir", type=Path, default=REPO_ROOT, help="output directory")
     p.add_argument("--version", default="v27", help="version label (default: v27)")
     p.add_argument("--dry-run", action="store_true", help="report filter stats, don't build")
-    p.add_argument("--no-parallel", action="store_true",
-                   help="build editions sequentially (default is parallel for --all)")
-    p.add_argument("--force", action="store_true",
-                   help="rebuild editions even when an existing build is current")
+    p.add_argument(
+        "--no-parallel", action="store_true", help="build editions sequentially (default is parallel for --all)"
+    )
+    p.add_argument("--force", action="store_true", help="rebuild editions even when an existing build is current")
     args = p.parse_args()
 
     eds = config.load_editions()
@@ -2360,12 +2643,12 @@ def main() -> None:
     # + a subprocess call to build_epub.py, both of which release the GIL).
     if not args.dry_run and len(targets) > 1 and not args.no_parallel:
         from concurrent.futures import ThreadPoolExecutor, as_completed
+
         failures = 0
         results: dict[str, dict] = {}
         with ThreadPoolExecutor(max_workers=min(len(targets), 5)) as pool:
             future_to_id = {
-                pool.submit(build_one, ed_id, args.output_dir, args.version,
-                            all_kinds, args.dry_run, args.force): ed_id
+                pool.submit(build_one, ed_id, args.output_dir, args.version, all_kinds, args.dry_run, args.force): ed_id
                 for ed_id in targets
             }
             for fut in as_completed(future_to_id):
@@ -2381,15 +2664,10 @@ def main() -> None:
                 continue
             stats = results[ed_id]
             print(f"\n{BOLD}{ed_id}{RESET}")
-            print(
-                f"  {DIM}{stats['enabled_kinds']} kinds enabled, "
-                f"{stats['disabled_kinds']} disabled{RESET}"
-            )
-            print(f"  {DIM}filtered: {stats['markers_removed']} markers + "
-                  f"{stats['asides_removed']} asides{RESET}")
-            tag = f" {DIM}(cached){RESET}" if stats.get('skipped') else ""
-            print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  "
-                  f"{DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
+            print(f"  {DIM}{stats['enabled_kinds']} kinds enabled, {stats['disabled_kinds']} disabled{RESET}")
+            print(f"  {DIM}filtered: {stats['markers_removed']} markers + {stats['asides_removed']} asides{RESET}")
+            tag = f" {DIM}(cached){RESET}" if stats.get("skipped") else ""
+            print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  {DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
         print()
         sys.exit(1 if failures else 0)
 
@@ -2404,16 +2682,10 @@ def main() -> None:
             failures += 1
             continue
 
-        print(
-            f"  {DIM}{stats['enabled_kinds']} kinds enabled, "
-            f"{stats['disabled_kinds']} disabled{RESET}"
-        )
-        print(
-            f"  {DIM}filtered: {stats['markers_removed']} markers + "
-            f"{stats['asides_removed']} asides{RESET}"
-        )
+        print(f"  {DIM}{stats['enabled_kinds']} kinds enabled, {stats['disabled_kinds']} disabled{RESET}")
+        print(f"  {DIM}filtered: {stats['markers_removed']} markers + {stats['asides_removed']} asides{RESET}")
         if not args.dry_run:
-            tag = f" {DIM}(cached){RESET}" if stats.get('skipped') else ""
+            tag = f" {DIM}(cached){RESET}" if stats.get("skipped") else ""
         print(f"  {GREEN}✓{RESET} {stats['output_path'].name}  {DIM}({stats['size_mb']:.2f} MB){RESET}{tag}")
 
     sys.exit(0 if failures == 0 else 1)

@@ -56,7 +56,6 @@ RESET = "\033[0m"
 # ----------------------------------------------------------------------
 
 
-
 # Match the standard word-kind opener:
 #   <strong>TRANSLIT (<em>ORIGINAL</em>)? — 'gloss' . </strong>
 # The <em>ORIGINAL</em> portion is optional in some notes (e.g. opener using
@@ -114,9 +113,7 @@ def parse_opener(body: str) -> dict | None:
 
 def gather(book_filter: str | None = None) -> dict:
     """Return {(lang, translit_lower): {translit, original, gloss, lang, refs:[…]}}."""
-    entries: dict = defaultdict(
-        lambda: {"translit": "", "original": "", "gloss": "", "lang": "", "refs": []}
-    )
+    entries: dict = defaultdict(lambda: {"translit": "", "original": "", "gloss": "", "lang": "", "refs": []})
 
     for f in sorted(NOTES_DIR.glob("*.py")):
         if f.name == "__init__.py":
@@ -191,11 +188,7 @@ def cmd_search(entries: dict, query: str) -> None:
     q = query.lower()
     hits = []
     for ent in entries.values():
-        if (
-            q in ent["translit"].lower()
-            or q in ent["gloss"].lower()
-            or q in ent["original"]
-        ):
+        if q in ent["translit"].lower() or q in ent["gloss"].lower() or q in ent["original"]:
             hits.append(ent)
     if not hits:
         print(f"  {DIM}no matches for {query!r}{RESET}")
@@ -224,10 +217,7 @@ def cmd_html(entries: dict, out_path: Path) -> None:
             continue
         rows = []
         for ent in items:
-            refs_html = ", ".join(
-                f"{html.escape(b)} {c}:{v}{html.escape(s or '')}"
-                for b, c, v, s in ent["refs"]
-            )
+            refs_html = ", ".join(f"{html.escape(b)} {c}:{v}{html.escape(s or '')}" for b, c, v, s in ent["refs"])
             translit_html = html.escape(ent["translit"])
             orig_html = html.escape(ent["original"])
             gloss_html = html.escape(ent["gloss"])
@@ -235,7 +225,7 @@ def cmd_html(entries: dict, out_path: Path) -> None:
                 f'<tr><td class="translit">{translit_html}</td>'
                 f'<td class="orig" lang="{"he" if lang == "Hebrew" else ("el" if lang == "Greek" else "und")}"'
                 f' dir="{"rtl" if lang == "Hebrew" else "ltr"}">{orig_html}</td>'
-                f"<td class=\"gloss\">{gloss_html}</td>"
+                f'<td class="gloss">{gloss_html}</td>'
                 f'<td class="refs">{refs_html}</td></tr>'
             )
         sections.append(
@@ -311,10 +301,7 @@ def main() -> None:
         cmd_html(entries, args.html)
         size_kb = args.html.stat().st_size / 1024
         n = len(entries)
-        print(
-            f"\033[92m✓ glossary:\033[0m wrote {args.html} "
-            f"({size_kb:.1f} KB · {n} entries)"
-        )
+        print(f"\033[92m✓ glossary:\033[0m wrote {args.html} ({size_kb:.1f} KB · {n} entries)")
         sys.exit(0)
 
     if args.search:

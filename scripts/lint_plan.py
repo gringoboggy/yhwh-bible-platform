@@ -39,6 +39,7 @@ into ``scripts/lint_rules.py:run_all()`` per the §9 "meta-tool"
 mental model so the preflight dashboard surfaces plan drift
 alongside the existing 10 invariant checks.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -55,9 +56,9 @@ REPO = Path(__file__).resolve().parent.parent
 PHASE_ID_RE = re.compile(
     r"(?<![A-Za-z])"
     r"(?:"
-    r"[α-ω]\.\d+(?:\.\d+(?:\.\d+)?)?(?:-[A-Z])?"   # Greek letter family
-    r"|χ-AI-xrefs"                                  # named composite
-    r"|v\d+\.\d+\.\d+"                              # release tag (3-part)
+    r"[α-ω]\.\d+(?:\.\d+(?:\.\d+)?)?(?:-[A-Z])?"  # Greek letter family
+    r"|χ-AI-xrefs"  # named composite
+    r"|v\d+\.\d+\.\d+"  # release tag (3-part)
     r")"
     r"(?![A-Za-z0-9])"
 )
@@ -234,24 +235,28 @@ def check_plan_singular() -> dict:
     top_level = sorted((REPO / "dev").glob("PLAN_*.md"))
     violations: list[dict] = []
     if len(top_level) == 0:
-        violations.append({
-            "issue": "no PLAN_*.md found in dev/ — bootstrap will fail",
-            "found": [],
-        })
+        violations.append(
+            {
+                "issue": "no PLAN_*.md found in dev/ — bootstrap will fail",
+                "found": [],
+            }
+        )
     elif len(top_level) > 1:
         for p in top_level[:-1]:
-            violations.append({
-                "issue": "older PLAN should be in dev/archive/",
-                "file": str(p.relative_to(REPO)),
-            })
+            violations.append(
+                {
+                    "issue": "older PLAN should be in dev/archive/",
+                    "file": str(p.relative_to(REPO)),
+                }
+            )
     return {
         "id": "plan_singular",
         "name": "Plan singular (one active PLAN_*.md)",
         "status": "fail" if violations else "pass",
         "message": (
             f"{len(top_level)} active PLAN file(s) found"
-            if violations else
-            f"exactly one active plan: {top_level[-1].name}"
+            if violations
+            else f"exactly one active plan: {top_level[-1].name}"
         ),
         "violations": violations,
     }
@@ -273,19 +278,15 @@ def check_plan_status_shipped() -> dict:
     plan_shipped = _extract_shipped_ledger(plan_text)
     chl_mentions = _changelog_phase_mentions()
     missing = plan_shipped - chl_mentions
-    violations = [
-        {"issue": "PLAN says shipped but no CHANGELOG entry",
-         "phase": ph}
-        for ph in sorted(missing)
-    ]
+    violations = [{"issue": "PLAN says shipped but no CHANGELOG entry", "phase": ph} for ph in sorted(missing)]
     return {
         "id": "plan_shipped",
         "name": "Plan-claimed shipped phases backed by CHANGELOG",
         "status": "fail" if violations else "pass",
         "message": (
             f"{len(violations)} shipped-ledger phase(s) missing from CHANGELOG"
-            if violations else
-            f"all {len(plan_shipped)} shipped phase(s) backed by CHANGELOG"
+            if violations
+            else f"all {len(plan_shipped)} shipped phase(s) backed by CHANGELOG"
         ),
         "violations": violations,
     }
@@ -308,19 +309,15 @@ def check_plan_status_open() -> dict:
     plan_open = _extract_open_ledger(plan_text)
     chl_shipped = _changelog_shipped_phases()
     stale = plan_open & chl_shipped
-    violations = [
-        {"issue": "PLAN says open but CHANGELOG has shipped entry",
-         "phase": ph}
-        for ph in sorted(stale)
-    ]
+    violations = [{"issue": "PLAN says open but CHANGELOG has shipped entry", "phase": ph} for ph in sorted(stale)]
     return {
         "id": "plan_open",
         "name": "Plan-claimed open phases not yet shipped",
         "status": "warn" if violations else "pass",
         "message": (
             f"{len(violations)} open-ledger phase(s) appear shipped"
-            if violations else
-            f"all {len(plan_open)} open phase(s) confirmed not in CHANGELOG"
+            if violations
+            else f"all {len(plan_open)} open phase(s) confirmed not in CHANGELOG"
         ),
         "violations": violations,
     }
@@ -341,19 +338,15 @@ def check_plan_depends_valid() -> dict:
     refs = _extract_depends_refs(plan_text)
     known = _all_known_phase_ids(plan_text)
     unknown = refs - known
-    violations = [
-        {"issue": "Depends: references unknown phase id",
-         "phase": ph}
-        for ph in sorted(unknown)
-    ]
+    violations = [{"issue": "Depends: references unknown phase id", "phase": ph} for ph in sorted(unknown)]
     return {
         "id": "plan_depends",
         "name": "Plan Depends: graph references valid phases",
         "status": "fail" if violations else "pass",
         "message": (
             f"{len(violations)} Depends: reference(s) point to unknown phases"
-            if violations else
-            f"all {len(refs)} Depends: reference(s) resolve to known phases"
+            if violations
+            else f"all {len(refs)} Depends: reference(s) resolve to known phases"
         ),
         "violations": violations,
     }
@@ -366,9 +359,9 @@ def check_plan_depends_valid() -> dict:
 
 ALL_CHECKS = {
     "plan_singular": check_plan_singular,
-    "plan_shipped":  check_plan_status_shipped,
-    "plan_open":     check_plan_status_open,
-    "plan_depends":  check_plan_depends_valid,
+    "plan_shipped": check_plan_status_shipped,
+    "plan_open": check_plan_status_open,
+    "plan_depends": check_plan_depends_valid,
 }
 
 
@@ -379,24 +372,28 @@ def run_all(check_ids: list[str] | None = None) -> dict:
     results = []
     for cid in selected:
         if cid not in ALL_CHECKS:
-            results.append({
-                "id": cid,
-                "name": cid,
-                "status": "fail",
-                "message": "unknown check id",
-                "violations": [],
-            })
+            results.append(
+                {
+                    "id": cid,
+                    "name": cid,
+                    "status": "fail",
+                    "message": "unknown check id",
+                    "violations": [],
+                }
+            )
             continue
         try:
             results.append(ALL_CHECKS[cid]())
         except Exception as e:
-            results.append({
-                "id": cid,
-                "name": cid,
-                "status": "fail",
-                "message": f"linter check raised: {e}",
-                "violations": [],
-            })
+            results.append(
+                {
+                    "id": cid,
+                    "name": cid,
+                    "status": "fail",
+                    "message": f"linter check raised: {e}",
+                    "violations": [],
+                }
+            )
     summary = {
         "total": len(results),
         "pass": sum(1 for r in results if r["status"] == "pass"),
@@ -409,10 +406,8 @@ def run_all(check_ids: list[str] | None = None) -> dict:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    p.add_argument("--check", action="append",
-                    help="run only the named check(s); repeat for multiple")
-    p.add_argument("--json", action="store_true",
-                    help="machine-readable JSON output")
+    p.add_argument("--check", action="append", help="run only the named check(s); repeat for multiple")
+    p.add_argument("--json", action="store_true", help="machine-readable JSON output")
     args = p.parse_args()
 
     out = run_all(args.check)

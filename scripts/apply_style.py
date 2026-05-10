@@ -283,10 +283,18 @@ h3 { margin-top: 1.4em; margin-bottom: 0.4em; }
 .note > p:first-child { margin-top: 0; }
 .note > p:last-child { margin-bottom: 0; }"""
 
-    blocks = [b for b in (
-        embed_block, margin_block, font_block, flow_block,
-        vnote_block, reader_polish_block,
-    ) if b]
+    blocks = [
+        b
+        for b in (
+            embed_block,
+            margin_block,
+            font_block,
+            flow_block,
+            vnote_block,
+            reader_polish_block,
+        )
+        if b
+    ]
     return CSS_BEGIN + "\n" + "\n\n".join(blocks) + "\n" + CSS_END
 
 

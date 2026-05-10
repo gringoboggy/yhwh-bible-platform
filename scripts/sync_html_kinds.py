@@ -110,8 +110,11 @@ def sync_book(book: dict, dry_run: bool) -> dict:
     if not prefix:
         if not notes:
             return {
-                "scanned": 0, "already_ok": 0, "updated": 0,
-                "not_found": [], "files_changed": [],
+                "scanned": 0,
+                "already_ok": 0,
+                "updated": 0,
+                "not_found": [],
+                "files_changed": [],
                 "skipped_reason": f"strategy {strategy} (no id_prefix)",
             }
         return {
@@ -174,7 +177,9 @@ def sync_book(book: dict, dry_run: bool) -> dict:
                     stats["already_ok"] += 1
                 else:
                     text = ref_re.sub(
-                        lambda mm: f'{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}{new_marker_class}{mm.group(6)}',
+                        lambda mm: (
+                            f"{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}{new_marker_class}{mm.group(6)}"
+                        ),
                         text,
                         count=1,
                     )
@@ -182,9 +187,7 @@ def sync_book(book: dict, dry_run: bool) -> dict:
 
             # Same for the corresponding <aside>
             aside_re = re.compile(
-                r'(<aside\s+class="note\s+)(note-[a-z0-9-]+)(")([^>]*\bid="note-'
-                + re.escape(full_id)
-                + r'")'
+                r'(<aside\s+class="note\s+)(note-[a-z0-9-]+)(")([^>]*\bid="note-' + re.escape(full_id) + r'")'
             )
             ma = aside_re.search(text)
             if ma:
@@ -192,7 +195,7 @@ def sync_book(book: dict, dry_run: bool) -> dict:
                 old = ma.group(2)
                 if old != new_note_class:
                     text = aside_re.sub(
-                        lambda mm: f'{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}',
+                        lambda mm: f"{mm.group(1)}{new_note_class}{mm.group(3)}{mm.group(4)}",
                         text,
                         count=1,
                     )
@@ -213,16 +216,12 @@ def main() -> None:
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--book", help="single book code (e.g. 'gen')")
     g.add_argument("--all-books", action="store_true", help="every book in canon")
-    p.add_argument("--dry-run", action="store_true",
-                   help="show what would change, don't write")
+    p.add_argument("--dry-run", action="store_true", help="show what would change, don't write")
     args = p.parse_args()
 
-    books = (
-        [config.get_book(args.book)] if args.book else config.load_books()
-    )
+    books = [config.get_book(args.book)] if args.book else config.load_books()
 
-    print(f"\n{BOLD}sync-html-kinds{RESET} {DIM}{len(books)} book(s)"
-          f"{'  (dry-run)' if args.dry_run else ''}{RESET}\n")
+    print(f"\n{BOLD}sync-html-kinds{RESET} {DIM}{len(books)} book(s){'  (dry-run)' if args.dry_run else ''}{RESET}\n")
 
     grand = {"scanned": 0, "already_ok": 0, "updated": 0, "not_found": 0}
     files_changed: set = set()
@@ -249,22 +248,25 @@ def main() -> None:
         if s == 0:
             continue
         flag = GREEN + "✓" if not nf else YELLOW + "⚠"
-        print(f"  {flag}{RESET} {code:6}  "
-              f"{s:>4} src · "
-              f"{u:>4} {verb} · "
-              f"{ok:>4} already ok"
-              + (f" · {RED}{nf} not found in HTML{RESET}" if nf else ""))
+        print(
+            f"  {flag}{RESET} {code:6}  "
+            f"{s:>4} src · "
+            f"{u:>4} {verb} · "
+            f"{ok:>4} already ok" + (f" · {RED}{nf} not found in HTML{RESET}" if nf else "")
+        )
         grand["scanned"] += s
         grand["updated"] += u
         grand["already_ok"] += ok
         grand["not_found"] += nf
         files_changed.update(stats["files_changed"])
 
-    print(f"\n  {BOLD}TOTAL{RESET}: "
-          f"{grand['scanned']} src · "
-          f"{grand['updated']} {'would-update' if args.dry_run else 'updated'} · "
-          f"{grand['already_ok']} already ok · "
-          f"{grand['not_found']} not found")
+    print(
+        f"\n  {BOLD}TOTAL{RESET}: "
+        f"{grand['scanned']} src · "
+        f"{grand['updated']} {'would-update' if args.dry_run else 'updated'} · "
+        f"{grand['already_ok']} already ok · "
+        f"{grand['not_found']} not found"
+    )
     if files_changed:
         print(f"  files {'would be' if args.dry_run else ''} modified: {len(files_changed)}")
     print()

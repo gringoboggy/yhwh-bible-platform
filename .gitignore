@@ -66,9 +66,13 @@ content/notes/.manifest.json
 # --- Outputs directory (delivery zips, not source-tracked) ---
 /mnt/user-data/outputs/
 
-# --- Sensitive / per-environment ---
+# --- Sensitive / per-environment (ξ.6) ---
+# `.env` and any `*.env` file — never commit real secrets.
+.env
 *.env
 .env.local
+# Carve-out: `.env.example` is the documented skeleton (committed).
+!.env.example
 secrets/
 credentials/
 

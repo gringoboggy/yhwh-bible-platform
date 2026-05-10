@@ -71,8 +71,7 @@ def main(apply: bool) -> int:
     # Build the imports block to insert in web.py (alphabetical by source path)
     template_names = sorted([(template_filename(n), n) for n, _, _, _ in constants])
     imports_block = "\n".join(
-        f"from scripts.templates.{fname} import {const_name}"
-        for fname, const_name in template_names
+        f"from scripts.templates.{fname} import {const_name}" for fname, const_name in template_names
     )
 
     if not apply:
@@ -94,12 +93,12 @@ def main(apply: bool) -> int:
     if not init_path.exists():
         init_path.write_text(
             '"""Template HTML modules — extracted from scripts/web.py\n'
-            'during the web.py split refactor (2026-05-07).\n'
-            '\n'
-            'Each module exports a single <NAME>_HTML constant. The\n'
-            'parent scripts/web.py re-imports them so existing\n'
-            '`from scripts.web import <NAME>_HTML` call sites continue\n'
-            'to work without modification.\n'
+            "during the web.py split refactor (2026-05-07).\n"
+            "\n"
+            "Each module exports a single <NAME>_HTML constant. The\n"
+            "parent scripts/web.py re-imports them so existing\n"
+            "`from scripts.web import <NAME>_HTML` call sites continue\n"
+            "to work without modification.\n"
             '"""\n'
         )
 
@@ -109,12 +108,12 @@ def main(apply: bool) -> int:
         out_path = TEMPLATES_DIR / f"{fname}.py"
         out_path.write_text(
             f'"""HTML for /{fname} console — extracted from scripts/web.py\n'
-            f'during the web.py split refactor (2026-05-07).\n'
-            f'\n'
-            f'Re-imported by scripts/web.py for back-compat with existing\n'
-            f'`from scripts.web import {name}` callers.\n'
+            f"during the web.py split refactor (2026-05-07).\n"
+            f"\n"
+            f"Re-imported by scripts/web.py for back-compat with existing\n"
+            f"`from scripts.web import {name}` callers.\n"
             f'"""\n'
-            f'\n'
+            f"\n"
             f'{name} = r"""{body}"""\n',
             encoding="utf-8",
         )
@@ -138,7 +137,7 @@ def main(apply: bool) -> int:
     if anchor_pos == -1:
         # Fallback: find end of imports block
         # Insert after last `import ` line at module top
-        m = re.search(r'^(import|from)\s.*\n(?!(import|from))', new_text, re.MULTILINE)
+        m = re.search(r"^(import|from)\s.*\n(?!(import|from))", new_text, re.MULTILINE)
         if not m:
             raise RuntimeError("can't locate insertion point")
         anchor_pos = m.end()
@@ -150,7 +149,7 @@ def main(apply: bool) -> int:
             raise RuntimeError("UI_DEFENSE_PRELUDE not closed")
         insert_at = prelude_close + 3
         # Skip past trailing newlines so block lands on its own
-        while insert_at < len(new_text) and new_text[insert_at] == '\n':
+        while insert_at < len(new_text) and new_text[insert_at] == "\n":
             insert_at += 1
 
     block = (
@@ -164,8 +163,7 @@ def main(apply: bool) -> int:
     new_text = new_text[:insert_at] + block + new_text[insert_at:]
 
     WEB_PY.write_text(new_text, encoding="utf-8")
-    print(f"\n  wrote scripts/web.py: removed {sum(c[2]-c[1] for c in constants)} bytes,"
-          f" inserted {len(block)} bytes")
+    print(f"\n  wrote scripts/web.py: removed {sum(c[2] - c[1] for c in constants)} bytes, inserted {len(block)} bytes")
     print(f"  template files: {len(constants)}")
     return 0
 

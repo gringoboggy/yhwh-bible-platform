@@ -348,10 +348,7 @@ def main() -> None:
         color, sym = YELLOW, "⚠"
     else:
         color, sym = GREEN, "✓"
-    print(
-        f"\n{color}{sym} check_a11y: "
-        f"files={len(files)}  errors={n_err}  warnings={n_warn}{RESET}"
-    )
+    print(f"\n{color}{sym} check_a11y: files={len(files)}  errors={n_err}  warnings={n_warn}{RESET}")
     if findings:
         by_check = Counter(f[0] for f in findings)
         parts = [f"{c}: {n}" for c, n in by_check.most_common()]

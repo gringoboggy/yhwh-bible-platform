@@ -66,10 +66,10 @@ editions:
   - id: catholic-study
     canon: catholic
     popup_translation: ""
-    title: "The Catholic Study Bible — Ethiopian Edition"
-    short_title: "Catholic SB Ethiopian"
-    isbn: "978-XXX-XXXXX-XX-Y"
-    target_audience: "Roman Catholic readers interested in the broader canon"
+    title: The Catholic Study Bible — Ethiopian Edition
+    short_title: Catholic SB Ethiopian
+    isbn: 978-XXX-XXXXX-XX-Y
+    target_audience: Roman Catholic readers interested in the broader canon
     enabled_categories:
       - lang
       - text
@@ -84,18 +84,12 @@ editions:
       - comm-reformation
     max_phase: phase2
     cover_image: ""
-    notes: "Foregrounds comm-patristic, comm-catholic, dist-mariological, dist-typological, liturgy-christian-year."
-
-  # ──────────────────────────────────────────────────────────────────
-  # Largest study-Bible-buying market. Foregrounds typological readings,
-  # modern critical scholarship, and direct application.
-  # ──────────────────────────────────────────────────────────────────
+    notes: Foregrounds comm-patristic, comm-catholic, dist-mariological, dist-typological, liturgy-christian-year.
     popup_languages_default:
-      - "english"
-      - "hebrew"
-      - "greek"
-    book_covers: []
-
+      - english
+      - hebrew
+      - greek
+    enabled_reading_plans:
   - id: evangelical-reformed
     canon: protestant
     title: "The Reformed Study Bible — Expanded Canon"

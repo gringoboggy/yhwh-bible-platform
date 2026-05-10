@@ -132,12 +132,9 @@ def main() -> None:
         description="SHA-256 integrity manifest for content/notes/.",
     )
     g = p.add_mutually_exclusive_group(required=True)
-    g.add_argument("--build", action="store_true",
-                   help="compute fresh manifest and write to .manifest.json")
-    g.add_argument("--verify", action="store_true",
-                   help="verify current files against stored manifest (verbose)")
-    g.add_argument("--status", action="store_true",
-                   help="quick verification summary, exits non-zero on drift")
+    g.add_argument("--build", action="store_true", help="compute fresh manifest and write to .manifest.json")
+    g.add_argument("--verify", action="store_true", help="verify current files against stored manifest (verbose)")
+    g.add_argument("--status", action="store_true", help="quick verification summary, exits non-zero on drift")
     args = p.parse_args()
 
     if args.build:
@@ -159,10 +156,12 @@ def main() -> None:
         if report["ok"] and not report["added"]:
             print(f"{GREEN}✓{RESET} manifest clean ({report['checked']} files match)")
             sys.exit(0)
-        print(f"{RED}✗{RESET} manifest drift: "
-              f"{len(report['drift'])} modified, "
-              f"{len(report['missing'])} missing, "
-              f"{len(report['added'])} new (not in manifest)")
+        print(
+            f"{RED}✗{RESET} manifest drift: "
+            f"{len(report['drift'])} modified, "
+            f"{len(report['missing'])} missing, "
+            f"{len(report['added'])} new (not in manifest)"
+        )
         sys.exit(1)
 
     # --verify: full report

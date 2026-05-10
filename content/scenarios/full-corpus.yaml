@@ -1,0 +1,19 @@
+label: Full Corpus (every kind)
+notes: |
+  Enables every kind currently in kinds.yaml — the superset
+  edition. Useful as a starting point for custom editions that
+  will subtract from the full set. Contrast with `scholarly`,
+  which enables every category but also picks up new categories
+  if added; this one is explicit.
+based_on: null
+builtin: true
+recipe:
+  enabled_categories: []
+  enabled_kinds: ALL
+  disabled_kinds: []
+  # χ-AI-notes — the "Full Corpus" scenario means every kind in the
+  # registry, including AI-drafted ones (currently just `comm-ai`).
+  # Without this opt-in, the AI_DRAFTED_KINDS second-gate in
+  # _enabled_kinds_for_edition would strip comm-ai from the resolved
+  # set even though the ALL shorthand asked for everything.
+  enable_ai_notes: true

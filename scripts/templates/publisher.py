@@ -126,7 +126,187 @@ function render() {
     // Phase ν.5 — preview button (sibling of save-btn)
     const pbtn = box.querySelector('.preview-btn');
     if (pbtn) pbtn.addEventListener('click', () => previewEdition(box));
+    // ω.16 — snapshots block: load list + wire Take-snapshot button
+    const snapBlock = box.querySelector('[data-snapshots-block]');
+    if (snapBlock) {
+      const createBtn = snapBlock.querySelector('.snapshot-create-btn');
+      if (createBtn) {
+        createBtn.addEventListener('click', () => createSnapshot(box));
+      }
+      refreshSnapshotList(box);
+    }
   });
+}
+
+// ω.16 — snapshot helpers per edition card. Each card renders its
+// own list independently; calls scoped via the box selector to
+// avoid cross-edition wire-up bugs.
+async function refreshSnapshotList(box) {
+  const edId = box.dataset.edition;
+  const list = box.querySelector('.snapshot-list');
+  if (!list) return;
+  try {
+    const r = await fetch(`/api/snapshots/${encodeURIComponent(edId)}`);
+    const data = await r.json();
+    if (data.error) {
+      list.innerHTML = `<span class="text-red-600">${esc(data.error)}: ${esc(data.message || '')}</span>`;
+      return;
+    }
+    const snaps = data.snapshots || [];
+    if (snaps.length === 0) {
+      list.innerHTML = '<span class="text-slate-400 italic">no snapshots yet</span>';
+      return;
+    }
+    list.innerHTML = snaps.map(s => `
+      <div class="flex items-center justify-between gap-2 py-1 border-t border-slate-100 first:border-t-0">
+        <div class="min-w-0 flex-1">
+          <span class="font-mono">${esc(s.version)}</span>
+          <span class="text-slate-500"> · ${esc(s.label || s.version)}</span>
+          <span class="text-slate-400 ml-2">${esc((s.created || '').slice(0, 10))}</span>
+        </div>
+        <button class="snapshot-diff-btn text-blue-600 hover:underline" data-version="${esc(s.version)}">diff</button>
+        <button class="snapshot-restore-btn text-amber-700 hover:underline" data-version="${esc(s.version)}">restore</button>
+        <button class="snapshot-delete-btn text-red-600 hover:underline" data-version="${esc(s.version)}" title="Delete snapshot">×</button>
+      </div>
+    `).join('');
+    list.querySelectorAll('.snapshot-diff-btn').forEach(b => {
+      b.addEventListener('click', () => diffSnapshot(box, b.dataset.version));
+    });
+    list.querySelectorAll('.snapshot-restore-btn').forEach(b => {
+      b.addEventListener('click', () => restoreSnapshot(box, b.dataset.version));
+    });
+    list.querySelectorAll('.snapshot-delete-btn').forEach(b => {
+      b.addEventListener('click', () => deleteSnapshot(box, b.dataset.version));
+    });
+  } catch (e) {
+    list.innerHTML = `<span class="text-red-600">failed: ${esc(e.message)}</span>`;
+  }
+}
+
+async function createSnapshot(box) {
+  const edId = box.dataset.edition;
+  const versionEl = box.querySelector('.snapshot-version-input');
+  const labelEl = box.querySelector('.snapshot-label-input');
+  const status = box.querySelector('.snapshot-status');
+  const version = (versionEl.value || '').trim();
+  const label = (labelEl.value || '').trim();
+  if (!version) {
+    status.className = 'snapshot-status text-xs mt-2 text-red-600';
+    status.textContent = 'version is required (e.g. v1.0, before-cover-redesign)';
+    return;
+  }
+  status.className = 'snapshot-status text-xs mt-2 text-slate-500';
+  status.textContent = 'snapshotting…';
+  try {
+    const r = await fetch(`/api/snapshots/${encodeURIComponent(edId)}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({version, label: label || undefined}),
+    });
+    const data = await r.json();
+    if (!r.ok || data.error) {
+      status.className = 'snapshot-status text-xs mt-2 text-red-600';
+      status.textContent = `${data.error || ('http ' + r.status)}: ${data.message || ''}`;
+      return;
+    }
+    status.className = 'snapshot-status text-xs mt-2 text-emerald-700';
+    status.textContent = `✓ snapshot ${version} created`;
+    versionEl.value = '';
+    labelEl.value = '';
+    refreshSnapshotList(box);
+  } catch (e) {
+    status.className = 'snapshot-status text-xs mt-2 text-red-600';
+    status.textContent = `error: ${e.message}`;
+  }
+}
+
+async function diffSnapshot(box, version) {
+  const edId = box.dataset.edition;
+  const status = box.querySelector('.snapshot-status');
+  status.className = 'snapshot-status text-xs mt-2 text-slate-500';
+  status.textContent = `comparing ${version} vs current…`;
+  try {
+    const r = await fetch(`/api/snapshots/${encodeURIComponent(edId)}/${encodeURIComponent(version)}/diff`);
+    const data = await r.json();
+    if (!r.ok || data.error) {
+      status.className = 'snapshot-status text-xs mt-2 text-red-600';
+      status.textContent = `${data.error || ('http ' + r.status)}: ${data.message || ''}`;
+      return;
+    }
+    if (data.identical) {
+      status.className = 'snapshot-status text-xs mt-2 text-emerald-700';
+      status.textContent = `✓ ${version} is identical to current`;
+      return;
+    }
+    const parts = [];
+    const a = Object.keys(data.added || {}).length;
+    const c = Object.keys(data.changed || {}).length;
+    const r2 = Object.keys(data.removed || {}).length;
+    if (a) parts.push(`${a} added`);
+    if (c) parts.push(`${c} changed`);
+    if (r2) parts.push(`${r2} removed`);
+    const fields = [
+      ...Object.keys(data.added || {}),
+      ...Object.keys(data.changed || {}),
+      ...Object.keys(data.removed || {}),
+    ];
+    status.className = 'snapshot-status text-xs mt-2 text-amber-700';
+    status.textContent = `${parts.join(' · ')} between ${version} and current — fields: ${fields.slice(0, 8).join(', ')}${fields.length > 8 ? '…' : ''}`;
+  } catch (e) {
+    status.className = 'snapshot-status text-xs mt-2 text-red-600';
+    status.textContent = `error: ${e.message}`;
+  }
+}
+
+async function restoreSnapshot(box, version) {
+  const edId = box.dataset.edition;
+  const status = box.querySelector('.snapshot-status');
+  if (!confirm(`Restore "${edId}" from snapshot "${version}"? Current edition record will be backed up + replaced.`)) {
+    return;
+  }
+  status.className = 'snapshot-status text-xs mt-2 text-slate-500';
+  status.textContent = 'restoring…';
+  try {
+    const r = await fetch(`/api/snapshots/${encodeURIComponent(edId)}/${encodeURIComponent(version)}/restore`, {
+      method: 'POST',
+    });
+    const data = await r.json();
+    if (!r.ok || data.error) {
+      status.className = 'snapshot-status text-xs mt-2 text-red-600';
+      status.textContent = `${data.error || ('http ' + r.status)}: ${data.message || ''}`;
+      return;
+    }
+    status.className = 'snapshot-status text-xs mt-2 text-emerald-700';
+    status.textContent = `✓ restored from ${version} — reload to see updated fields`;
+  } catch (e) {
+    status.className = 'snapshot-status text-xs mt-2 text-red-600';
+    status.textContent = `error: ${e.message}`;
+  }
+}
+
+async function deleteSnapshot(box, version) {
+  const edId = box.dataset.edition;
+  const status = box.querySelector('.snapshot-status');
+  if (!confirm(`Delete snapshot "${version}"? Files are backed up before removal but the snapshot won't appear in the list.`)) {
+    return;
+  }
+  try {
+    const r = await fetch(`/api/snapshots/${encodeURIComponent(edId)}/${encodeURIComponent(version)}`, {
+      method: 'DELETE',
+    });
+    const data = await r.json();
+    if (!r.ok || data.error) {
+      status.className = 'snapshot-status text-xs mt-2 text-red-600';
+      status.textContent = `${data.error || ('http ' + r.status)}: ${data.message || ''}`;
+      return;
+    }
+    status.className = 'snapshot-status text-xs mt-2 text-slate-500';
+    status.textContent = `removed snapshot ${version}`;
+    refreshSnapshotList(box);
+  } catch (e) {
+    status.className = 'snapshot-status text-xs mt-2 text-red-600';
+    status.textContent = `error: ${e.message}`;
+  }
 }
 
 function editionCard(e) {
@@ -235,6 +415,22 @@ function editionCard(e) {
             <input class="field-input" data-field="source_text_credit" value="${escAttr(e.source_text_credit)}" maxlength="500">
           </div>
         </div>
+      </fieldset>
+
+      <!-- ω.16 — edition snapshots. Frozen point-in-time records
+           saved to content/snapshots/<id>/<version>/. v1 supports
+           Take Snapshot + Restore + Diff vs current; cloning a
+           snapshot to a new edition is a future follow-on phase. -->
+      <fieldset class="md:col-span-2 border-l-4 border-purple-200 pl-3" data-snapshots-block>
+        <legend class="text-sm font-semibold text-purple-700 mb-2">Snapshots</legend>
+        <p class="text-xs text-slate-500 mb-2">Frozen point-in-time records of this edition. Useful for v1.0 retail audit trails — snapshot, then keep editing freely; the snapshot stays reproducible.</p>
+        <div class="flex items-center gap-2 flex-wrap mb-2">
+          <input class="field-input snapshot-version-input" type="text" maxlength="41" placeholder="version (e.g. v1.0, before-isbn-fix)" style="max-width:18rem">
+          <input class="field-input snapshot-label-input" type="text" maxlength="200" placeholder="label (optional)" style="max-width:14rem">
+          <button type="button" class="snapshot-create-btn text-xs px-3 py-1.5 rounded bg-purple-600 hover:bg-purple-700 text-white">Take snapshot</button>
+        </div>
+        <div class="snapshot-list text-xs text-slate-500">loading…</div>
+        <p class="snapshot-status text-xs mt-2"></p>
       </fieldset>
     </div>
   </section>`;

@@ -61,7 +61,7 @@ RESET = "\033[0m"
 def run_verify() -> tuple[int, int, int, int]:
     """Return (errors, warnings, info, paired). Paired is 0 if not parsed."""
     r = subprocess.run(
-        ["python3", str(SCRIPTS / "verify.py"), "--quiet"],
+        [sys.executable, str(SCRIPTS / "verify.py"), "--quiet"],
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
@@ -77,7 +77,7 @@ def run_verify() -> tuple[int, int, int, int]:
 def run_epubcheck(epub_path: Path) -> tuple[int, int] | None:
     """Return (errors, warnings) or None if epubcheck unavailable."""
     r = subprocess.run(
-        ["python3", str(SCRIPTS / "epubcheck.py"), str(epub_path), "--quiet"],
+        [sys.executable, str(SCRIPTS / "epubcheck.py"), str(epub_path), "--quiet"],
         cwd=str(REPO_ROOT),
         capture_output=True,
         text=True,
@@ -117,6 +117,7 @@ def parse_last_paired_from_ledger(handoff_text: str) -> tuple[str | None, int]:
 def count_source_notes() -> int:
     """Walk content/notes/*.py and count total tuples (AST, no exec)."""
     import ast as _ast
+
     total = 0
     notes_dir = REPO_ROOT / "content" / "notes"
     for f in sorted(notes_dir.glob("*.py")):
@@ -157,10 +158,10 @@ def render_ledger_row(version: str, date: str, summary: str, delta: int, paired:
     return f"| {version} | {date} | {summary} | {delta_str} | {paired} | {epub_mb:.2f} MB |"
 
 
-def render_appendix_stub(version: str, date: str, summary: str, paired: int, epubcheck_errors: int | None, epub_mb: float) -> str:
-    epubcheck_line = (
-        f"`epubcheck`: {epubcheck_errors} errors  " if epubcheck_errors is not None else ""
-    )
+def render_appendix_stub(
+    version: str, date: str, summary: str, paired: int, epubcheck_errors: int | None, epub_mb: float
+) -> str:
+    epubcheck_line = f"`epubcheck`: {epubcheck_errors} errors  " if epubcheck_errors is not None else ""
     return (
         f"\n#### {version} — {summary} ({date})\n"
         "\n"
@@ -263,7 +264,7 @@ def main() -> None:
     if args.apply and not args.no_build:
         print(f"  {DIM}building EPUB → {epub_path.name} …{RESET}")
         r = subprocess.run(
-            ["python3", str(SCRIPTS / "build_epub.py"), str(epub_path)],
+            [sys.executable, str(SCRIPTS / "build_epub.py"), str(epub_path)],
             cwd=str(REPO_ROOT),
         )
         if r.returncode != 0:

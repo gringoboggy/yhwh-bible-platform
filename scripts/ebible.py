@@ -55,8 +55,7 @@ def run_script(name: str, *extra_args: str, capture: bool = False) -> subprocess
 
 def git(*args: str, capture: bool = True) -> str:
     try:
-        r = subprocess.run(["git", *args], cwd=REPO, capture_output=capture,
-                           text=True, timeout=10)
+        r = subprocess.run(["git", *args], cwd=REPO, capture_output=capture, text=True, timeout=10)
         return r.stdout.strip() if capture else ""
     except Exception:
         return ""
@@ -64,8 +63,7 @@ def git(*args: str, capture: bool = True) -> str:
 
 def find_latest_editions_dir() -> Path | None:
     """Return the most-recent /tmp/editions_v28a-* dir or REPO/editions if it exists."""
-    candidates = sorted(Path("/tmp").glob("editions_v28a*"),
-                        key=lambda p: p.stat().st_mtime, reverse=True)
+    candidates = sorted(Path("/tmp").glob("editions_v28a*"), key=lambda p: p.stat().st_mtime, reverse=True)
     for c in candidates:
         if c.is_dir() and any(c.glob("*.epub")):
             return c
@@ -110,7 +108,7 @@ def cmd_status(_args) -> int:
         total_size = sum(p.stat().st_size for p in epubs) / 1024 / 1024
         latest = max(p.stat().st_mtime for p in epubs)
         age_min = (time.time() - latest) / 60
-        age_str = f"{age_min:.0f}m ago" if age_min < 60 else f"{age_min/60:.1f}h ago"
+        age_str = f"{age_min:.0f}m ago" if age_min < 60 else f"{age_min / 60:.1f}h ago"
         print(f"  {BOLD}Editions{RESET}   {len(epubs)} EPUBs · {total_size:.2f} MB total · built {age_str}")
         print(f"    {DIM}{eds_dir}{RESET}")
     else:
@@ -154,8 +152,7 @@ def cmd_doctor(_args) -> int:
 
     # 1. uncommitted changes? note them but don't block (they may be in progress)
     dirty = git("status", "--porcelain")
-    notes_dirty = bool([line for line in dirty.splitlines()
-                        if "content/notes/" in line])
+    notes_dirty = bool([line for line in dirty.splitlines() if "content/notes/" in line])
 
     # 2. Master HTML newer than editions?
     eds_dir = find_latest_editions_dir()
@@ -173,8 +170,7 @@ def cmd_doctor(_args) -> int:
     r = run_script("ship-check.py", capture=True)
     sc_passed = r.returncode == 0
     sc_summary = (r.stdout or "").splitlines()
-    fail_lines = [line for line in sc_summary
-                  if "✗" in line and "CHECK(S) FAILED" not in line]
+    fail_lines = [line for line in sc_summary if "✗" in line and "CHECK(S) FAILED" not in line]
 
     # 4. Pending ONIX TODOs?
     onix_text = (REPO / "content" / "onix.py").read_text()
@@ -375,8 +371,7 @@ def cmd_watch(_args) -> int:
         while True:
             time.sleep(1.5)
             current = snapshot()
-            changed = [p for p, m in current.items()
-                       if last.get(p, 0) != m]
+            changed = [p for p, m in current.items() if last.get(p, 0) != m]
             if changed:
                 print(f"{BLUE}↻{RESET} change detected:")
                 for p in changed:
@@ -416,31 +411,27 @@ def cmd_web(args) -> int:
 
 
 HELP_EXAMPLES: dict[str, list[str]] = {
-    "status":   ["ebible status"],
-    "doctor":   ["ebible doctor"],
-    "add":      ["ebible add gen 3 15 --kind comm-rabbinic --anchor 'serpent'",
-                 "ebible add 1en 6 1 --kind comm-ethiopian --suffix a"],
-    "inject":   ["ebible inject --all-books",
-                 "ebible inject --book gen --dry-run"],
-    "build":    ["ebible build",
-                 "ebible build --version v28a-26",
-                 "ebible build --force --no-parallel"],
-    "ship":     ["ebible ship",
-                 "ebible ship --retail --verbose"],
-    "test":     ["ebible test",
-                 "ebible test --verbose"],
-    "repl":     ["ebible repl  # then: book_notes('gen')[0]"],
-    "watch":    ["ebible watch  # edits to content/notes/*.py auto-rebuild"],
-    "web":      ["ebible web                          # localhost:8765",
-                 "ebible web --port 9000 --no-browser",
-                 "ebible web --host 0.0.0.0           # LAN access (be careful)"],
-    "manifest": ["ebible manifest --status",
-                 "ebible manifest --build"],
-    "search":   ["ebible search 'serpent' --kind comm-rabbinic",
-                 "ebible search --book gen --chapter 3"],
-    "quality":  ["ebible quality",
-                 "ebible quality --book gen --no-per-kind"],
-    "epubcheck":["ebible epubcheck --editions-dir /tmp/editions_v28a25"],
+    "status": ["ebible status"],
+    "doctor": ["ebible doctor"],
+    "add": [
+        "ebible add gen 3 15 --kind comm-rabbinic --anchor 'serpent'",
+        "ebible add 1en 6 1 --kind comm-ethiopian --suffix a",
+    ],
+    "inject": ["ebible inject --all-books", "ebible inject --book gen --dry-run"],
+    "build": ["ebible build", "ebible build --version v28a-26", "ebible build --force --no-parallel"],
+    "ship": ["ebible ship", "ebible ship --retail --verbose"],
+    "test": ["ebible test", "ebible test --verbose"],
+    "repl": ["ebible repl  # then: book_notes('gen')[0]"],
+    "watch": ["ebible watch  # edits to content/notes/*.py auto-rebuild"],
+    "web": [
+        "ebible web                          # localhost:8765",
+        "ebible web --port 9000 --no-browser",
+        "ebible web --host 0.0.0.0           # LAN access (be careful)",
+    ],
+    "manifest": ["ebible manifest --status", "ebible manifest --build"],
+    "search": ["ebible search 'serpent' --kind comm-rabbinic", "ebible search --book gen --chapter 3"],
+    "quality": ["ebible quality", "ebible quality --book gen --no-per-kind"],
+    "epubcheck": ["ebible epubcheck --editions-dir /tmp/editions_v28a25"],
 }
 
 
@@ -472,28 +463,28 @@ def cmd_help(args) -> int:
 
 
 PASS_THROUGHS: dict[str, str] = {
-    "inject":     "inject.py",
-    "manifest":   "manifest.py",
-    "quality":    "note_quality.py",
-    "search":     "note_search.py",
-    "diff":       "note_diff.py",
-    "bulk-edit":  "bulk_edit.py",
-    "dashboard":  "dashboard.py",
-    "epubcheck":  "epubcheck.py",
-    "cleanup":    "cleanup.py",
-    "fix-xrefs":  "fix_xref_targets.py",
-    "verify":     "verify.py",
-    "taxonomy":   "validate_taxonomy.py",
-    "customize":  "customize.py",
-    "print":      "print_cover.py",
+    "inject": "inject.py",
+    "manifest": "manifest.py",
+    "quality": "note_quality.py",
+    "search": "note_search.py",
+    "diff": "note_diff.py",
+    "bulk-edit": "bulk_edit.py",
+    "dashboard": "dashboard.py",
+    "epubcheck": "epubcheck.py",
+    "cleanup": "cleanup.py",
+    "fix-xrefs": "fix_xref_targets.py",
+    "verify": "verify.py",
+    "taxonomy": "validate_taxonomy.py",
+    "customize": "customize.py",
+    "print": "print_cover.py",
     # Discoverable wrappers for previously-orphan tools (λ.4)
-    "add-kind":      "add_kind.py",
-    "bibliography":  "bibliography.py",
-    "a11y":          "check_a11y.py",
-    "check":         "check_manifest.py",
-    "preview":       "preview_server.py",
+    "add-kind": "add_kind.py",
+    "bibliography": "bibliography.py",
+    "a11y": "check_a11y.py",
+    "check": "check_manifest.py",
+    "preview": "preview_server.py",
     # Symbol-toggle dev tool data layer (μ.0)
-    "matrix":        "matrix.py",
+    "matrix": "matrix.py",
 }
 
 
@@ -503,15 +494,16 @@ PASS_THROUGHS: dict[str, str] = {
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(prog="ebible",
-                                description="Unified CLI for the E-Bible platform")
+    p = argparse.ArgumentParser(prog="ebible", description="Unified CLI for the E-Bible platform")
     subs = p.add_subparsers(dest="cmd", required=False)
 
     subs.add_parser("status", help="health dashboard")
     subs.add_parser("doctor", help="suggest next action")
 
     a = subs.add_parser("add", help="scaffold a new note (wraps new_note.py)")
-    a.add_argument("book"); a.add_argument("chapter", type=int); a.add_argument("verse", type=int)
+    a.add_argument("book")
+    a.add_argument("chapter", type=int)
+    a.add_argument("verse", type=int)
     a.add_argument("--kind", required=True)
     a.add_argument("--anchor", default="")
     a.add_argument("--suffix", default="")
@@ -554,8 +546,7 @@ def main() -> int:
 
     # Register stub subparsers so --help still lists them
     for name, _ in PASS_THROUGHS.items():
-        subs.add_parser(name, help=f"→ scripts/{PASS_THROUGHS[name]}",
-                        add_help=False)
+        subs.add_parser(name, help=f"→ scripts/{PASS_THROUGHS[name]}", add_help=False)
 
     if pass_through_cmd is not None:
         return run_script(PASS_THROUGHS[pass_through_cmd], *pass_through_args).returncode
@@ -566,9 +557,15 @@ def main() -> int:
         return cmd_help(argparse.Namespace(subcommand=None))
 
     handlers = {
-        "status": cmd_status, "doctor": cmd_doctor, "add": cmd_add,
-        "build": cmd_build, "ship": cmd_ship, "test": cmd_test,
-        "repl": cmd_repl, "watch": cmd_watch, "web": cmd_web,
+        "status": cmd_status,
+        "doctor": cmd_doctor,
+        "add": cmd_add,
+        "build": cmd_build,
+        "ship": cmd_ship,
+        "test": cmd_test,
+        "repl": cmd_repl,
+        "watch": cmd_watch,
+        "web": cmd_web,
         "help": cmd_help,
     }
     return handlers[args.cmd](args)

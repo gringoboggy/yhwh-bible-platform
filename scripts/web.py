@@ -57,7 +57,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
-from scripts.core import config, html_utils, notes_io  # noqa: E402
+from scripts.core import audit_log, config, html_utils, notes_io  # noqa: E402
 
 NOTES_DIR = REPO / "content" / "notes"
 SCENARIOS_DIR = REPO / "content" / "scenarios"
@@ -84,19 +84,22 @@ SCENARIOS_DIR = REPO / "content" / "scenarios"
 
 import functools  # used by the lru_cache decorators below
 
-@functools.lru_cache(maxsize=1024)
+
 def _files_signature(*paths) -> tuple:
-    """Return a stable (path, mtime_ns) tuple for a set of paths.
+    """Return a (path, mtime_ns) tuple for a set of paths.
 
-    Missing files contribute (path, 0) so disappearance also invalidates
-    the cache. NOT lru_cached — must read fresh mtimes each call,
-    otherwise an in-process write wouldn't be picked up by the
-    derived-endpoint caches.
+    Missing files contribute (path, 0) so disappearance also
+    invalidates derived caches. NOT lru_cached — must read fresh
+    mtimes each call, otherwise an in-process write wouldn't be
+    picked up by the derived-endpoint caches.
+
+    ω.30 — collapsed a misleading decorator/rebinding pair: the
+    function previously had `@lru_cache` plus a later `_files_
+    signature = _files_signature_impl` rebinding to override it.
+    The decorator was dead code (the rebinding made it unreachable).
+    The rename + decorator removal here makes the call shape
+    unambiguous: this function reads fresh mtimes every call.
     """
-    return _files_signature_impl(*paths)
-
-
-def _files_signature_impl(*paths) -> tuple:
     sig = []
     for p in paths:
         path = Path(p)
@@ -105,11 +108,6 @@ def _files_signature_impl(*paths) -> tuple:
         except OSError:
             sig.append((str(path), 0))
     return tuple(sig)
-
-
-# Override: the public name should NOT be lru_cached; rebind to the
-# impl so callers pick up fresh mtimes each call.
-_files_signature = _files_signature_impl
 
 
 def _notes_dir_signature() -> tuple:
@@ -138,14 +136,16 @@ def _notes_dir_signature() -> tuple:
 def _cached_attribution_audit(notes_sig, kinds_sig, cats_sig, books_sig):
     return _compute_attribution_audit_uncached()
 
+
 @functools.lru_cache(maxsize=16)
-def _cached_edition_diff(a_id, b_id, eds_sig, kinds_sig, cats_sig,
-                          canons_sig, books_sig, notes_sig):
+def _cached_edition_diff(a_id, b_id, eds_sig, kinds_sig, cats_sig, canons_sig, books_sig, notes_sig):
     return _compute_edition_diff_uncached(a_id, b_id)
+
 
 @functools.lru_cache(maxsize=4)
 def _cached_publisher_data(eds_sig):
     return _compute_publisher_data_uncached()
+
 
 @functools.lru_cache(maxsize=4)
 def _cached_covers(eds_sig, books_sig, notes_sig):
@@ -159,8 +159,8 @@ def _cached_covers(eds_sig, books_sig, notes_sig):
 # Lazy import note_quality + new_note (they're scripts, not modules)
 def _load_note_quality_helpers():
     import importlib.util
-    spec = importlib.util.spec_from_file_location(
-        "_note_quality", REPO / "scripts" / "note_quality.py")
+
+    spec = importlib.util.spec_from_file_location("_note_quality", REPO / "scripts" / "note_quality.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
@@ -168,8 +168,8 @@ def _load_note_quality_helpers():
 
 def _load_new_note_helpers():
     import importlib.util
-    spec = importlib.util.spec_from_file_location(
-        "_new_note", REPO / "scripts" / "new_note.py")
+
+    spec = importlib.util.spec_from_file_location("_new_note", REPO / "scripts" / "new_note.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
@@ -203,9 +203,13 @@ def tuple_to_dict(tup) -> dict:
     pad = list(tup) + [None] * (9 - len(tup))
     ch, v, suffix, anchor, kind, title, label, body, attribution = pad[:9]
     return {
-        "ch": ch, "v": v, "suffix": suffix or "",
-        "anchor": anchor or "", "kind": kind or "",
-        "title": title or "", "label": label or "",
+        "ch": ch,
+        "v": v,
+        "suffix": suffix or "",
+        "anchor": anchor or "",
+        "kind": kind or "",
+        "title": title or "",
+        "label": label or "",
         "body": body or "",
         "attribution": attribution or {},
     }
@@ -214,7 +218,8 @@ def tuple_to_dict(tup) -> dict:
 def dict_to_tuple(d: dict) -> tuple:
     """Inverse: API JSON object → NOTES tuple."""
     return (
-        int(d["ch"]), int(d["v"]),
+        int(d["ch"]),
+        int(d["v"]),
         d.get("suffix", "") or "",
         d.get("anchor", "") or "",
         d["kind"],
@@ -237,8 +242,7 @@ def write_book(book_code: str, notes: list[tuple]) -> None:
     if path.is_file():
         try:
             tree = ast.parse(path.read_text(encoding="utf-8"))
-            if tree.body and isinstance(tree.body[0], ast.Expr) \
-               and isinstance(tree.body[0].value, ast.Constant):
+            if tree.body and isinstance(tree.body[0], ast.Expr) and isinstance(tree.body[0].value, ast.Constant):
                 ds = tree.body[0].value.value
                 if isinstance(ds, str):
                     header = f'"""{ds}"""\n\n'
@@ -282,9 +286,7 @@ def quality_for(book_code: str, tup) -> dict:
         "word_count": wc,
         "budget": [lo, hi],
         "in_budget": lo <= wc <= hi,
-        "findings": [
-            {"check": f[5], "detail": f[6]} for f in findings
-        ],
+        "findings": [{"check": f[5], "detail": f[6]} for f in findings],
     }
 
 
@@ -305,15 +307,17 @@ def api_books() -> dict:
         for tup in notes:
             if isinstance(tup, tuple) and len(tup) >= 5:
                 kinds[tup[4]] = kinds.get(tup[4], 0) + 1
-        out.append({
-            "code": b["code"],
-            "name": b.get("name", b["code"]),
-            "bxx": b.get("bxx", ""),
-            "strategy": b.get("strategy", ""),
-            "ch_count": b.get("ch_count", 0),
-            "note_count": len(notes),
-            "kinds": kinds,
-        })
+        out.append(
+            {
+                "code": b["code"],
+                "name": b.get("name", b["code"]),
+                "bxx": b.get("bxx", ""),
+                "strategy": b.get("strategy", ""),
+                "ch_count": b.get("ch_count", 0),
+                "note_count": len(notes),
+                "kinds": kinds,
+            }
+        )
     return {"books": out}
 
 
@@ -342,14 +346,16 @@ def api_kinds() -> dict:
     for k in kinds:
         code = k["code"]
         lo, hi = nq.budget_for(code, 50, 200)
-        out.append({
-            "code": code,
-            "category": k.get("category", ""),
-            "label": k.get("label", code),
-            "phase": k.get("phase", ""),
-            "description": k.get("description", ""),
-            "budget": [lo, hi],
-        })
+        out.append(
+            {
+                "code": code,
+                "category": k.get("category", ""),
+                "label": k.get("label", code),
+                "phase": k.get("phase", ""),
+                "description": k.get("description", ""),
+                "budget": [lo, hi],
+            }
+        )
     return {"kinds": out}
 
 
@@ -371,18 +377,22 @@ def api_edition_templates_list() -> dict:
     Step 1 "Start from template…" picker.
     """
     from scripts.core import edition_templates as et
+
     out = []
     for t in et.load_templates():
-        out.append({
-            "template_id":   t["template_id"],
-            "label":         t.get("template_label", t["template_id"]),
-            "description":   t.get("template_description", ""),
-            "canon":         t.get("canon", ""),
-            "target_audience": t.get("target_audience", ""),
-        })
+        out.append(
+            {
+                "template_id": t["template_id"],
+                "label": t.get("template_label", t["template_id"]),
+                "description": t.get("template_description", ""),
+                "canon": t.get("canon", ""),
+                "target_audience": t.get("target_audience", ""),
+            }
+        )
     return {"templates": out}
 
 
+@audit_log.audit_endpoint(action="create_edition_from_template")
 def api_create_edition_from_template(
     template_id: str,
     new_id: str,
@@ -402,6 +412,7 @@ def api_create_edition_from_template(
     which handles atomic write + cache invalidation.
     """
     from scripts.core import edition_templates as et
+
     return et.create_from_template(
         template_id,
         new_id=new_id,
@@ -431,6 +442,7 @@ def api_preview(
     enabled-kinds + tradition resolvers + theme CSS).
     """
     from scripts.core import preview
+
     return preview.render_chapter_preview(
         edition_id,
         book_code,
@@ -442,16 +454,14 @@ def api_preview(
 def api_matrix() -> dict:
     """Return the symbol-toggle count grid as JSON. Read-only (μ.1)."""
     from scripts.core import matrix as matrix_mod
+
     m = matrix_mod.compute_matrix()
     cats = config.load_categories()
     kinds = config.load_kinds()
     editions = config.load_editions()
     # ψ.18.1: per-book chapter counts (from books.yaml's ch_count)
     # so the JS sidebar can render full-width chapter sparklines.
-    book_ch_counts = {
-        b["code"]: int(b.get("ch_count") or 0)
-        for b in config.load_books()
-    }
+    book_ch_counts = {b["code"]: int(b.get("ch_count") or 0) for b in config.load_books()}
     return {
         "categories": [
             {
@@ -505,16 +515,13 @@ def api_matrix() -> dict:
                 "per_chapter": m.per_chapter.get(ed_id, {}),
                 # Canon book order (for sparkline column ordering)
                 "canon_book_order": [
-                    b["code"] for b in config.load_books()
-                    if b["code"] in m.edition_canon_books[ed_id]
+                    b["code"] for b in config.load_books() if b["code"] in m.edition_canon_books[ed_id]
                 ],
                 # ψ.18.1: per-book chapter counts so the chapter
                 # sparkline knows the book's full width. Flat dict
                 # is fine — every edition shares the same book set.
                 "book_chapter_counts": {
-                    code: book_ch_counts[code]
-                    for code in m.edition_canon_books[ed_id]
-                    if code in book_ch_counts
+                    code: book_ch_counts[code] for code in m.edition_canon_books[ed_id] if code in book_ch_counts
                 },
             }
             for ed_id in m.enabled
@@ -522,9 +529,7 @@ def api_matrix() -> dict:
     }
 
 
-def _patch_edition_kind_lists(text: str, edition_id: str,
-                                enabled_kinds: list[str],
-                                disabled_kinds: list[str]) -> str:
+def _patch_edition_kind_lists(text: str, edition_id: str, enabled_kinds: list[str], disabled_kinds: list[str]) -> str:
     """Targeted regex update of one edition's enabled_kinds + disabled_kinds
     blocks in editions.yaml — preserves all comments, ordering, and other
     fields outside those blocks.
@@ -539,9 +544,9 @@ def _patch_edition_kind_lists(text: str, edition_id: str,
     # the body matches across newlines including 4-space scalars and
     # 6-space list items both.
     block_re = re.compile(
-        rf'(^  - id: {re.escape(edition_id)}\n)'
-        rf'(.*?)'
-        rf'(?=^  - id:|\Z)',
+        rf"(^  - id: {re.escape(edition_id)}\n)"
+        rf"(.*?)"
+        rf"(?=^  - id:|\Z)",
         re.MULTILINE | re.DOTALL,
     )
     m = block_re.search(text)
@@ -572,7 +577,7 @@ def _patch_edition_kind_lists(text: str, edition_id: str,
         )
         cm = cats_re.search(block_body)
         if cm:
-            new_body = block_body[:cm.end()] + new_enabled + block_body[cm.end():]
+            new_body = block_body[: cm.end()] + new_enabled + block_body[cm.end() :]
         else:
             new_body = new_enabled + block_body
 
@@ -592,13 +597,14 @@ def _patch_edition_kind_lists(text: str, edition_id: str,
         )
         em = ek_re.search(new_body)
         if em:
-            new_body = new_body[:em.end()] + new_disabled + new_body[em.end():]
+            new_body = new_body[: em.end()] + new_disabled + new_body[em.end() :]
         else:
             new_body = new_body + new_disabled
 
     return text[:block_start] + m.group(1) + new_body + text[block_end:]
 
 
+@audit_log.audit_endpoint(action="save_edition")
 def api_save_edition(edition_id: str, payload: dict) -> dict:
     """Persist a new enabled-kind state for one edition (μ.2).
 
@@ -609,8 +615,7 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
     preserves the YAML's authorial intent.
     """
     new_enabled_set = set(payload.get("enabled_kinds") or [])
-    if not isinstance(new_enabled_set, set) or not all(
-            isinstance(x, str) for x in new_enabled_set):
+    if not isinstance(new_enabled_set, set) or not all(isinstance(x, str) for x in new_enabled_set):
         return {"error": "enabled_kinds must be a list of strings"}
 
     editions_path = REPO / "content" / "editions.yaml"
@@ -631,10 +636,7 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
 
     # Compute the category baseline (kinds enabled by category membership)
     enabled_cats = set(edition.get("enabled_categories") or [])
-    baseline = {
-        k["code"] for k in config.load_kinds()
-        if k.get("category") in enabled_cats
-    }
+    baseline = {k["code"] for k in config.load_kinds() if k.get("category") in enabled_cats}
     # Minimal explicit lists
     new_enabled_kinds = sorted(new_enabled_set - baseline)
     new_disabled_kinds = sorted(baseline - new_enabled_set)
@@ -642,9 +644,7 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
     # Patch the file
     text = editions_path.read_text(encoding="utf-8")
     try:
-        new_text = _patch_edition_kind_lists(
-            text, edition_id, new_enabled_kinds, new_disabled_kinds
-        )
+        new_text = _patch_edition_kind_lists(text, edition_id, new_enabled_kinds, new_disabled_kinds)
     except ValueError as e:
         return {"error": str(e)}
 
@@ -655,6 +655,7 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
     # Invalidate caches so the next /api/matrix shows the change
     config.load_editions.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
 
     return {
@@ -666,6 +667,259 @@ def api_save_edition(edition_id: str, payload: dict) -> dict:
     }
 
 
+# ---------------------------------------------------------------------
+# ψ.19 — reading plans: list + summary endpoints
+# ---------------------------------------------------------------------
+
+
+def api_reading_plans_list() -> dict:
+    """Return a summary of every reading plan in
+    ``content/reading_plans/``.
+
+    Each plan is summarized to ``{id, label, description,
+    entry_count, first_day, last_day}`` so the /customize card
+    doesn't ship the full per-day verse lists.
+    """
+    from scripts.core.reading_plans import list_plans, plan_summary
+
+    plans = list_plans()
+    return {
+        "status": "ok",
+        "plans": [plan_summary(p) for p in plans],
+    }
+
+
+def api_reading_plan_get(plan_id: str) -> dict:
+    """Return one plan's full record (every entry's verses).
+
+    Used by the build pipeline integration (ψ.19.1, deferred) and
+    by future preview / UI surfaces that want to inspect a plan
+    in detail.
+    """
+    from scripts.core.reading_plans import load_plan
+
+    try:
+        plan = load_plan(plan_id)
+    except ValueError as e:
+        return {"status": "error", "code": "invalid_plan", "http": 400, "message": str(e)}
+    if plan is None:
+        return {"status": "error", "code": "not_found", "http": 404, "message": f"plan {plan_id!r} not found"}
+    return {"status": "ok", "plan": plan.to_dict()}
+
+
+# ---------------------------------------------------------------------
+# ω.16 — edition snapshots: thin route wrappers over scripts.core.snapshots
+# ---------------------------------------------------------------------
+
+
+def api_snapshot_list(edition_id: str) -> dict:
+    """List every snapshot for `edition_id` (newest first by name).
+
+    Snapshot names are alphanumeric so version-string sorting is
+    stable enough for retail use; the UI can render them however
+    it prefers.
+    """
+    from scripts.core import snapshots as snap_mod
+
+    try:
+        snaps = snap_mod.list_snapshots(edition_id)
+    except ValueError as e:
+        return {"status": "error", "code": "invalid_name", "http": 400, "message": str(e)}
+    return {
+        "status": "ok",
+        "edition_id": edition_id,
+        "snapshots": [s.to_dict() for s in snaps],
+    }
+
+
+def api_snapshot_get(edition_id: str, version: str) -> dict:
+    from scripts.core import snapshots as snap_mod
+
+    try:
+        snap = snap_mod.read_snapshot(edition_id, version)
+    except ValueError as e:
+        return {"status": "error", "code": "invalid_name", "http": 400, "message": str(e)}
+    if snap is None:
+        return {
+            "status": "error",
+            "code": "not_found",
+            "http": 404,
+            "message": f"snapshot {edition_id!r}/{version!r} not found",
+        }
+    return {"status": "ok", **snap}
+
+
+@audit_log.audit_endpoint(action="snapshot_create")
+def api_snapshot_create(edition_id: str, payload: dict) -> dict:
+    from scripts.core import snapshots as snap_mod
+
+    if not isinstance(payload, dict):
+        return {"status": "error", "code": "invalid_input", "http": 400, "message": "payload must be a JSON object"}
+    version = payload.get("version") or ""
+    label = payload.get("label") or None
+    notes = payload.get("notes") or None
+    overwrite = bool(payload.get("overwrite"))
+    return snap_mod.create_snapshot(
+        edition_id,
+        version,
+        label=label,
+        notes=notes,
+        overwrite=overwrite,
+    )
+
+
+def api_snapshot_diff(
+    edition_id: str,
+    version: str,
+    *,
+    against_version: str | None = None,
+) -> dict:
+    from scripts.core import snapshots as snap_mod
+
+    return snap_mod.diff_snapshot(
+        edition_id,
+        version,
+        against_version=against_version,
+    )
+
+
+@audit_log.audit_endpoint(action="snapshot_restore")
+def api_snapshot_restore(edition_id: str, version: str) -> dict:
+    from scripts.core import snapshots as snap_mod
+
+    return snap_mod.restore_snapshot(edition_id, version)
+
+
+@audit_log.audit_endpoint(action="snapshot_delete")
+def api_snapshot_delete(edition_id: str, version: str) -> dict:
+    from scripts.core import snapshots as snap_mod
+
+    return snap_mod.delete_snapshot(edition_id, version)
+
+
+# ---------------------------------------------------------------------
+# ψ.26 — bulk apply: enable/disable one kind across every edition
+# ---------------------------------------------------------------------
+
+
+@audit_log.audit_endpoint(action="apply_kind_to_all_editions")
+def api_apply_kind_to_all_editions(kind_code: str, *, enable: bool) -> dict:
+    """Enable or disable `kind_code` in every edition in editions.yaml.
+
+    Composes `api_save_edition` per edition (so each underlying write
+    is atomic + backed up + cache-invalidated the same way it would
+    be from the per-edition save flow). The aggregate is best-effort:
+    we validate the kind code up front, then iterate. If any
+    individual write fails (e.g. a hand-edit broke the YAML for one
+    edition), we keep going for the rest and return the partial
+    result map; the caller can retry the failed editions.
+
+    Returns:
+        ``{"status": "ok", "kind": ..., "enable": bool, "total": int,
+            "changed": int, "noop": int, "results": [{...}],
+            "failures": [{"edition_id": ..., "error": ...}]}``
+        on success (no failures).
+
+        ``{"status": "error", "code": ..., "http": ..., ...}`` on bad
+        input.
+
+        Mixed-result case: returns ``status: "ok"`` with a non-empty
+        ``failures`` list — caller should check both.
+    """
+    if not isinstance(kind_code, str) or not kind_code:
+        return {"status": "error", "code": "invalid_input", "http": 400, "message": "kind_code is required"}
+    known_kinds = {k["code"] for k in config.load_kinds()}
+    if kind_code not in known_kinds:
+        return {"status": "error", "code": "unknown_kind", "http": 400, "message": f"unknown kind: {kind_code}"}
+    if not isinstance(enable, bool):
+        return {"status": "error", "code": "invalid_input", "http": 400, "message": "enable must be a boolean"}
+
+    editions = config.load_editions()
+    if not editions:
+        return {"status": "error", "code": "no_editions", "http": 503, "message": "no editions in editions.yaml"}
+
+    from scripts.core.matrix import _enabled_kinds_for_edition
+
+    all_kinds = config.load_kinds()
+
+    # Plan first (read-only) — collect per-edition diffs without
+    # writing anything yet. This lets the caller see the no-op count
+    # before we start mutating, and it ensures unknown-edition
+    # entries (corrupted YAML?) error out before any write.
+    plan = []
+    for ed in editions:
+        if not isinstance(ed, dict):
+            continue
+        ed_id = ed.get("id")
+        if not ed_id:
+            continue
+        current = _enabled_kinds_for_edition(ed, all_kinds)
+        was_enabled = kind_code in current
+        new_set = (current | {kind_code}) if enable else (current - {kind_code})
+        plan.append(
+            {
+                "edition_id": ed_id,
+                "was_enabled": was_enabled,
+                "now_enabled": kind_code in new_set,
+                "new_set": new_set,
+                "noop": was_enabled == (kind_code in new_set),
+            }
+        )
+
+    # Apply each change one by one via api_save_edition (which already
+    # handles atomic write + backup + cache invalidation).
+    results = []
+    failures = []
+    for p in plan:
+        if p["noop"]:
+            results.append(
+                {
+                    "edition_id": p["edition_id"],
+                    "ok": True,
+                    "noop": True,
+                    "was_enabled": p["was_enabled"],
+                    "now_enabled": p["now_enabled"],
+                }
+            )
+            continue
+        r = api_save_edition(
+            p["edition_id"],
+            {"enabled_kinds": sorted(p["new_set"])},
+        )
+        if r.get("ok"):
+            results.append(
+                {
+                    "edition_id": p["edition_id"],
+                    "ok": True,
+                    "noop": False,
+                    "was_enabled": p["was_enabled"],
+                    "now_enabled": p["now_enabled"],
+                }
+            )
+        else:
+            err = r.get("error") or "unknown error"
+            failures.append({"edition_id": p["edition_id"], "error": err})
+            results.append(
+                {
+                    "edition_id": p["edition_id"],
+                    "ok": False,
+                    "error": err,
+                }
+            )
+
+    return {
+        "status": "ok",
+        "kind": kind_code,
+        "enable": enable,
+        "total": len(plan),
+        "changed": sum(1 for r in results if r.get("ok") and not r.get("noop")),
+        "noop": sum(1 for r in results if r.get("noop")),
+        "results": results,
+        "failures": failures,
+    }
+
+
+@audit_log.audit_endpoint(action="save_note")
 def api_save(book_code: str, payload: dict) -> dict:
     """Replace one note (by index) or insert a new note (index=null)."""
     path = NOTES_DIR / f"{book_code}.py"
@@ -684,10 +938,10 @@ def api_save(book_code: str, payload: dict) -> dict:
         notes[idx] = new_tup
         new_index = idx
     write_book(book_code, notes)
-    return {"ok": True, "index": new_index,
-            "quality": quality_for(book_code, new_tup)}
+    return {"ok": True, "index": new_index, "quality": quality_for(book_code, new_tup)}
 
 
+@audit_log.audit_endpoint(action="delete_note")
 def api_delete(book_code: str, index: int) -> dict:
     """Delete a note. Backup is created automatically."""
     path = NOTES_DIR / f"{book_code}.py"
@@ -712,37 +966,91 @@ _SCENARIO_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,40}$")
 def _scenario_path(name: str) -> Path:
     """Resolve a scenario name to its file path, validating safety."""
     if not _SCENARIO_NAME_RE.match(name):
-        raise ValueError(
-            f"invalid scenario name {name!r} — "
-            f"use lowercase a-z, 0-9, -, _ (max 41 chars)"
-        )
+        raise ValueError(f"invalid scenario name {name!r} — use lowercase a-z, 0-9, -, _ (max 41 chars)")
     return SCENARIOS_DIR / f"{name}.yaml"
 
 
+# ψ.27 — recipe resolver. Built-in scenarios store
+# `recipe: {enabled_categories, enabled_kinds, disabled_kinds}` instead
+# of an explicit `enabled_kinds` list, so they pick up future kinds in
+# their categories automatically. The resolver materializes the recipe
+# to a flat list at read time using the same precedence the build
+# pipeline applies to editions (via core/matrix._enabled_kinds_for_edition).
+def _resolve_scenario_recipe(data: dict) -> list[str]:
+    """If the scenario has a `recipe` field, resolve it to a flat
+    enabled_kinds list against the current kinds.yaml. Otherwise
+    return the explicit `enabled_kinds` field unchanged. Empty list
+    if neither is set."""
+    recipe = data.get("recipe")
+    if isinstance(recipe, dict):
+        from scripts.core.matrix import _enabled_kinds_for_edition
+
+        all_kinds = config.load_kinds()
+        # `enabled_kinds: ALL` shorthand → every kind in the registry.
+        explicit = recipe.get("enabled_kinds")
+        if isinstance(explicit, str) and explicit.upper() == "ALL":
+            explicit = [k["code"] for k in all_kinds]
+        # Build a synthetic edition-shape dict for the resolver. The
+        # `enable_ai_notes` flag is passed through so scenarios can
+        # express the χ-AI-notes opt-in the same way editions do —
+        # "Full Corpus (every kind)" should literally mean every
+        # kind, including AI-drafted ones, when the recipe says so.
+        synth = {
+            "enabled_categories": recipe.get("enabled_categories") or [],
+            "enabled_kinds": explicit or [],
+            "disabled_kinds": recipe.get("disabled_kinds") or [],
+            "enable_ai_notes": bool(recipe.get("enable_ai_notes", False)),
+        }
+        return sorted(_enabled_kinds_for_edition(synth, all_kinds))
+    explicit = data.get("enabled_kinds") or []
+    return sorted(set(explicit))
+
+
 def api_list_scenarios() -> dict:
-    """List saved scenarios with their metadata."""
+    """List saved scenarios with their metadata.
+
+    ψ.27 — surfaces the `builtin` flag so the UI can group built-in
+    presets separately from user-saved scenarios. Each scenario's
+    `enabled_kinds` is materialized through the recipe resolver so
+    consumers see the same flat shape regardless of storage format.
+    """
     if not SCENARIOS_DIR.is_dir():
         return {"scenarios": []}
     import yaml
+
     out = []
     for f in sorted(SCENARIOS_DIR.glob("*.yaml")):
         try:
             data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         except yaml.YAMLError:
             continue
-        out.append({
-            "name": f.stem,
-            "based_on": data.get("based_on"),
-            "label": data.get("label", f.stem),
-            "notes": data.get("notes", ""),
-            "enabled_kinds": data.get("enabled_kinds") or [],
-            "created": data.get("created"),
-        })
+        resolved_kinds = _resolve_scenario_recipe(data)
+        out.append(
+            {
+                "name": f.stem,
+                "based_on": data.get("based_on"),
+                "label": data.get("label", f.stem),
+                "notes": data.get("notes", ""),
+                "enabled_kinds": resolved_kinds,
+                "created": data.get("created"),
+                "builtin": bool(data.get("builtin")),
+                "has_recipe": isinstance(data.get("recipe"), dict),
+            }
+        )
+    # Built-ins first, then user-saved alphabetically (current
+    # secondary sort comes from the glob — file system order; we
+    # apply a stable explicit sort for clarity).
+    out.sort(key=lambda s: (0 if s["builtin"] else 1, s["name"]))
     return {"scenarios": out}
 
 
 def api_get_scenario(name: str) -> dict:
-    """Return one scenario's full record."""
+    """Return one scenario's full record.
+
+    ψ.27 — also returns `enabled_kinds_resolved` (recipe materialized
+    to flat list) so the /matrix Load button can apply the scenario
+    without re-resolving on the client.
+    """
     try:
         path = _scenario_path(name)
     except ValueError as e:
@@ -750,13 +1058,23 @@ def api_get_scenario(name: str) -> dict:
     if not path.is_file():
         return {"error": f"scenario {name!r} not found"}
     import yaml
+
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     except yaml.YAMLError as e:
         return {"error": f"corrupt scenario file: {e}"}
-    return {"ok": True, "scenario": {"name": name, **data}}
+    resolved = _resolve_scenario_recipe(data)
+    return {
+        "ok": True,
+        "scenario": {
+            "name": name,
+            **data,
+            "enabled_kinds_resolved": resolved,
+        },
+    }
 
 
+@audit_log.audit_endpoint(action="save_scenario")
 def api_save_scenario(name: str, payload: dict) -> dict:
     """Create or overwrite a named scenario from the current toggle state.
 
@@ -777,8 +1095,7 @@ def api_save_scenario(name: str, payload: dict) -> dict:
         return {"error": str(e)}
 
     enabled_kinds = payload.get("enabled_kinds") or []
-    if not isinstance(enabled_kinds, list) or not all(
-            isinstance(x, str) for x in enabled_kinds):
+    if not isinstance(enabled_kinds, list) or not all(isinstance(x, str) for x in enabled_kinds):
         return {"error": "enabled_kinds must be a list of strings"}
 
     based_on = payload.get("based_on")
@@ -791,6 +1108,7 @@ def api_save_scenario(name: str, payload: dict) -> dict:
         return {"error": f"unknown kind(s): {sorted(unknown)}"}
 
     from datetime import datetime, timezone
+
     record = {
         "based_on": based_on,
         "label": payload.get("label") or name,
@@ -804,8 +1122,8 @@ def api_save_scenario(name: str, payload: dict) -> dict:
     # Use plain text rendering so we don't need ruamel; PyYAML's default
     # output is fine for these simple records (no comments to preserve).
     import yaml
-    text = yaml.safe_dump(record, sort_keys=False, allow_unicode=True,
-                          default_flow_style=False)
+
+    text = yaml.safe_dump(record, sort_keys=False, allow_unicode=True, default_flow_style=False)
     if path.is_file():
         notes_io.ensure_backup(path)
     notes_io.atomic_write(path, text)
@@ -813,14 +1131,215 @@ def api_save_scenario(name: str, payload: dict) -> dict:
     return {"ok": True, "name": name, "path": str(path.relative_to(REPO))}
 
 
+# ψ.27 — YAML export + import. Lets a user copy a scenario between
+# machines / publishers / dev <-> prod by paste-and-load.
+def api_export_scenario_yaml(name: str) -> dict:
+    """Return the raw YAML text of a scenario for download / clipboard.
+
+    Returns ``{"status": "ok", "yaml": str, "name": str}`` on success.
+    Built-in scenarios export their recipe form; user-saved export
+    their stored explicit `enabled_kinds`.
+    """
+    try:
+        path = _scenario_path(name)
+    except ValueError as e:
+        return {"status": "error", "code": "invalid_name", "http": 400, "message": str(e)}
+    if not path.is_file():
+        return {"status": "error", "code": "not_found", "http": 404, "message": f"scenario {name!r} not found"}
+    return {
+        "status": "ok",
+        "name": name,
+        "yaml": path.read_text(encoding="utf-8"),
+    }
+
+
+@audit_log.audit_endpoint(action="import_scenario_yaml")
+def api_import_scenario_yaml(yaml_text: str, *, name: str | None = None, overwrite: bool = False) -> dict:
+    """Parse YAML text and persist as a scenario file.
+
+    `name` may be supplied explicitly; otherwise we try to derive it
+    from a top-level `name:` field in the YAML (fallback: error). If
+    the resulting file already exists and `overwrite` is False, returns
+    a ``conflict`` error so the UI can prompt for a rename.
+
+    The imported record may use either the explicit
+    `enabled_kinds` form or the recipe form. Either way we validate
+    against the kinds registry before writing — unknown kind codes
+    or unknown category ids are rejected with a clear message.
+    """
+    if not isinstance(yaml_text, str) or not yaml_text.strip():
+        return {"status": "error", "code": "empty_input", "http": 400, "message": "yaml text is required"}
+    if len(yaml_text) > 64_000:
+        return {"status": "error", "code": "too_large", "http": 413, "message": "yaml text must be ≤ 64KB"}
+    # ξ.17 SEC-011 — guard against the YAML billion-laughs class:
+    # PyYAML's `safe_load` is safe vs arbitrary code execution but
+    # NOT vs anchor-aliased blowup. 64 KB of nested aliases can
+    # consume seconds of CPU and many GB of RAM. Pre-scan for
+    # unusual `&`/`*` anchor density; reject anything beyond a
+    # reasonable threshold. Legitimate scenario YAML has at most a
+    # handful of anchors (often zero).
+    anchor_count = yaml_text.count("&")
+    alias_count = yaml_text.count("*")
+    if anchor_count > 50 or alias_count > 50:
+        return {
+            "status": "error",
+            "code": "yaml_anchor_density",
+            "http": 400,
+            "message": (
+                f"YAML rejected: {anchor_count} anchors / {alias_count} aliases "
+                "exceeds the safety threshold (50 each). Anchor expansion can "
+                "consume unbounded resources; legitimate scenario YAML uses "
+                "few or no anchors."
+            ),
+        }
+    import yaml
+
+    try:
+        data = yaml.safe_load(yaml_text)
+    except yaml.YAMLError as e:
+        return {"status": "error", "code": "parse_error", "http": 400, "message": f"invalid YAML: {e}"}
+    if not isinstance(data, dict):
+        return {
+            "status": "error",
+            "code": "shape_error",
+            "http": 400,
+            "message": "YAML must be a mapping (key: value pairs)",
+        }
+
+    # Derive the scenario name.
+    candidate_name = name or data.get("name") or data.get("id")
+    if not candidate_name or not isinstance(candidate_name, str):
+        return {
+            "status": "error",
+            "code": "missing_name",
+            "http": 400,
+            "message": "scenario name required (pass name= or include `name:` in YAML)",
+        }
+    try:
+        path = _scenario_path(candidate_name)
+    except ValueError as e:
+        return {"status": "error", "code": "invalid_name", "http": 400, "message": str(e)}
+
+    if path.is_file() and not overwrite:
+        return {
+            "status": "error",
+            "code": "conflict",
+            "http": 409,
+            "message": f"scenario {candidate_name!r} already exists; pass overwrite=true to replace",
+        }
+
+    # Validate the resolved kind set + based_on (if set).
+    based_on = data.get("based_on")
+    if based_on is not None and based_on not in config.editions_by_id():
+        return {
+            "status": "error",
+            "code": "unknown_based_on",
+            "http": 400,
+            "message": f"unknown based_on edition: {based_on}",
+        }
+
+    known_kinds = {k["code"] for k in config.load_kinds()}
+    known_cats = {c["id"] for c in config.load_categories()}
+
+    recipe = data.get("recipe")
+    if isinstance(recipe, dict):
+        cats = recipe.get("enabled_categories") or []
+        ek = recipe.get("enabled_kinds")
+        dk = recipe.get("disabled_kinds") or []
+        if not isinstance(cats, list) or not all(isinstance(x, str) for x in cats):
+            return {
+                "status": "error",
+                "code": "shape_error",
+                "http": 400,
+                "message": "recipe.enabled_categories must be a list of strings",
+            }
+        bad_cats = set(cats) - known_cats
+        if bad_cats:
+            return {
+                "status": "error",
+                "code": "unknown_category",
+                "http": 400,
+                "message": f"unknown category id(s): {sorted(bad_cats)}",
+            }
+        if isinstance(ek, str) and ek.upper() == "ALL":
+            pass  # sentinel; resolves to all kinds at read time
+        elif ek is None or (isinstance(ek, list) and all(isinstance(x, str) for x in ek)):
+            bad_k = set(ek or []) - known_kinds
+            if bad_k:
+                return {
+                    "status": "error",
+                    "code": "unknown_kind",
+                    "http": 400,
+                    "message": f"unknown kind code(s): {sorted(bad_k)}",
+                }
+        else:
+            return {
+                "status": "error",
+                "code": "shape_error",
+                "http": 400,
+                "message": "recipe.enabled_kinds must be a list of strings or the literal 'ALL'",
+            }
+        if not isinstance(dk, list) or not all(isinstance(x, str) for x in dk):
+            return {
+                "status": "error",
+                "code": "shape_error",
+                "http": 400,
+                "message": "recipe.disabled_kinds must be a list of strings",
+            }
+    else:
+        ek_flat = data.get("enabled_kinds") or []
+        if not isinstance(ek_flat, list) or not all(isinstance(x, str) for x in ek_flat):
+            return {
+                "status": "error",
+                "code": "shape_error",
+                "http": 400,
+                "message": "enabled_kinds must be a list of strings",
+            }
+        bad = set(ek_flat) - known_kinds
+        if bad:
+            return {
+                "status": "error",
+                "code": "unknown_kind",
+                "http": 400,
+                "message": f"unknown kind code(s): {sorted(bad)}",
+            }
+
+    SCENARIOS_DIR.mkdir(parents=True, exist_ok=True)
+    if path.is_file():
+        notes_io.ensure_backup(path)
+    notes_io.atomic_write(path, yaml_text if yaml_text.endswith("\n") else yaml_text + "\n")
+    return {
+        "status": "ok",
+        "name": candidate_name,
+        "path": str(path.relative_to(REPO)),
+        "overwritten": overwrite and path.is_file(),
+    }
+
+
+@audit_log.audit_endpoint(action="delete_scenario")
 def api_delete_scenario(name: str) -> dict:
-    """Remove a saved scenario file."""
+    """Remove a saved scenario file.
+
+    ψ.27 — built-in scenarios are protected from deletion so the
+    preset library stays intact across checkouts. The user can
+    delete user-saved scenarios as before.
+    """
     try:
         path = _scenario_path(name)
     except ValueError as e:
         return {"error": str(e)}
     if not path.is_file():
         return {"error": f"scenario {name!r} not found"}
+    import yaml
+
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        data = {}
+    if data.get("builtin"):
+        return {
+            "error": f"scenario {name!r} is a built-in preset and cannot be deleted",
+        }
     notes_io.ensure_backup(path)
     path.unlink()
     return {"ok": True, "removed": name}
@@ -842,15 +1361,17 @@ def api_sources_index() -> dict:
     for b in books:
         path = NOTES_DIR / f"{b['code']}.py"
         notes = notes_io.load_notes(path) if path.is_file() else []
-        out.append({
-            "code": b["code"],
-            "title": b.get("title", b["code"]),
-            "abbrev": b.get("abbrev", b["code"]),
-            "section": b.get("section", ""),
-            "ch_count": b.get("ch_count", 0),
-            "note_count": len(notes or []),
-            "sort_order": b.get("sort_order", 9999),
-        })
+        out.append(
+            {
+                "code": b["code"],
+                "title": b.get("title", b["code"]),
+                "abbrev": b.get("abbrev", b["code"]),
+                "section": b.get("section", ""),
+                "ch_count": b.get("ch_count", 0),
+                "note_count": len(notes or []),
+                "sort_order": b.get("sort_order", 9999),
+            }
+        )
     return {"books": out}
 
 
@@ -885,23 +1406,25 @@ def api_sources_for_book(book_code: str) -> dict:
         cat_def = cats_idx.get(cat_id, {})
         # ρ.1 stable note ID — used by the per-note disable feature
         note_id = note_id_from_tuple(book_code, tup)
-        out.append({
-            "index": i,
-            "note_id": note_id,
-            "chapter": ch,
-            "verse": vs,
-            "suffix": suffix or "",
-            "anchor": anchor or "",
-            "kind": kind,
-            "kind_label": kind_def.get("label", kind),
-            "category": cat_id,
-            "category_label": cat_def.get("label", cat_id),
-            "category_symbol": cat_def.get("symbol", "?"),
-            "label": label,
-            "title": title,
-            "body": body,
-            "attribution": attribution or "",
-        })
+        out.append(
+            {
+                "index": i,
+                "note_id": note_id,
+                "chapter": ch,
+                "verse": vs,
+                "suffix": suffix or "",
+                "anchor": anchor or "",
+                "kind": kind,
+                "kind_label": kind_def.get("label", kind),
+                "category": cat_id,
+                "category_label": cat_def.get("label", cat_id),
+                "category_symbol": cat_def.get("symbol", "?"),
+                "label": label,
+                "title": title,
+                "body": body,
+                "attribution": attribution or "",
+            }
+        )
     # Already in canonical order in NOTES list, but enforce defensively
     out.sort(key=lambda n: (n["chapter"], n["verse"], n["suffix"]))
     return {
@@ -910,6 +1433,206 @@ def api_sources_for_book(book_code: str) -> dict:
         "ch_count": book.get("ch_count", 0),
         "notes": out,
     }
+
+
+# ---------------------------------------------------------------------
+# υ.3 — search across editions (used by the /sources console)
+# ---------------------------------------------------------------------
+
+
+def api_search_notes(
+    query: str,
+    *,
+    edition_id: str | None = None,
+    kind: str | None = None,
+    book: str | None = None,
+    limit: int = 100,
+) -> dict:
+    """Pure-function wrapper around `scripts.core.note_search.search_notes`.
+
+    Translates `SearchHit` records to JSON-friendly dicts and adds
+    kind/category labels so the UI can render results without a
+    second round-trip to /api/matrix.
+
+    Returns:
+        ``{"status": "ok", "query": str, "filters": {...},
+           "total": int, "hits": [{...}, ...]}`` on success.
+        ``{"status": "error", "code": ..., "http": 400, "message": ...}``
+        on bad input.
+    """
+    from scripts.core.note_search import search_notes
+
+    q = (query or "").strip()
+    if not q:
+        return {
+            "status": "ok",
+            "query": "",
+            "filters": {
+                "edition_id": edition_id,
+                "kind": kind,
+                "book": book,
+            },
+            "total": 0,
+            "hits": [],
+        }
+    if len(q) > 500:
+        return {
+            "status": "error",
+            "code": "query_too_long",
+            "http": 400,
+            "message": "query must be ≤ 500 characters",
+        }
+    try:
+        cap = int(limit)
+    except (TypeError, ValueError):
+        cap = 100
+    cap = max(1, min(cap, 500))
+
+    hits = search_notes(
+        q,
+        edition_id=edition_id or None,
+        kind=kind or None,
+        book=book or None,
+        limit=cap,
+    )
+
+    kinds_idx = config.kinds_by_code()
+    cats_idx = config.categories_by_id()
+
+    enriched = []
+    for h in hits:
+        kind_def = kinds_idx.get(h.kind, {})
+        cat_id = kind_def.get("category", "?")
+        cat_def = cats_idx.get(cat_id, {})
+        d = h.to_dict()
+        d["kind_label"] = kind_def.get("label", h.kind)
+        d["category"] = cat_id
+        d["category_label"] = cat_def.get("label", cat_id)
+        d["category_symbol"] = cat_def.get("symbol", "?")
+        enriched.append(d)
+
+    return {
+        "status": "ok",
+        "query": q,
+        "filters": {
+            "edition_id": edition_id,
+            "kind": kind,
+            "book": book,
+        },
+        "limit": cap,
+        "total": len(enriched),
+        "hits": enriched,
+    }
+
+
+# ---------------------------------------------------------------------
+# υ.8 — verse-of-the-day JSON / RSS feed
+# ---------------------------------------------------------------------
+
+
+def api_verse_of_day(
+    date_iso: str | None = None,
+    *,
+    edition_id: str | None = None,
+) -> dict:
+    """Pure-function wrapper around `scripts.core.verse_of_day`.
+    Returns the JSON-friendly payload for /api/verse-of-day.json.
+
+    Returns:
+        ``{"status": "ok", ...verse...}`` on success.
+        ``{"status": "error", "code": ..., "http": ..., "message": ...}``
+        on bad inputs or empty corpus (defensive — corpus is always
+        populated in production).
+    """
+    from scripts.core.verse_of_day import verse_of_day
+
+    if edition_id and edition_id not in config.editions_by_id():
+        return {
+            "status": "error",
+            "code": "unknown_edition",
+            "http": 400,
+            "message": f"unknown edition: {edition_id}",
+        }
+    payload = verse_of_day(date_iso, edition_id=edition_id or None)
+    if payload is None:
+        return {
+            "status": "error",
+            "code": "no_notes",
+            "http": 503,
+            "message": "no notes in corpus",
+        }
+    return {"status": "ok", **payload}
+
+
+def api_verse_of_day_rss(
+    *,
+    days: int = 7,
+    base_url: str = "",
+    edition_id: str | None = None,
+) -> tuple:
+    """Return ``(xml_text, content_type)`` for /api/verse-of-day.rss.
+
+    Always returns a string (never raises) — feed consumers should
+    never see a 500 on a transient edge case.
+    """
+    from scripts.core.verse_of_day import rss_feed
+
+    try:
+        days_i = int(days)
+    except (TypeError, ValueError):
+        days_i = 7
+    days_i = max(1, min(days_i, 60))
+    xml = rss_feed(
+        days=days_i,
+        base_url=base_url or "",
+        edition_id=(edition_id or None) if (edition_id and edition_id in config.editions_by_id()) else None,
+    )
+    return xml, "application/rss+xml; charset=utf-8"
+
+
+def _safe_rss_base_url(proto_header: str, host_header: str) -> str:
+    """ξ.16 SEC-003 — sanitize the (proto, host) pair into a base URL
+    that's safe to interpolate into RSS link tags.
+
+    Trust order:
+      1. ``YHWH_PUBLIC_BASE_URL`` env var (operator-set; authoritative).
+         Empty / unset means fall through.
+      2. ``Host`` header IFF it matches a strict localhost allowlist
+         (``localhost``, ``127.0.0.1``, ``[::1]``, optionally with a
+         port). Anything else — including domains with embedded
+         colons, backslash characters, scheme-like prefixes, or
+         non-ASCII — is rejected.
+      3. Hardcoded ``http://localhost``.
+
+    The proto header is similarly clamped to ``http`` or ``https``;
+    anything else falls back to ``http``.
+    """
+    import os
+    import re
+
+    configured = (os.environ.get("YHWH_PUBLIC_BASE_URL") or "").strip()
+    if configured:
+        # Operator opted in. Trust it but still strip any trailing slash.
+        return configured.rstrip("/")
+
+    # Proto: only "http" or "https" — anything else (`javascript`,
+    # `data`, malformed) falls back to http.
+    proto = (proto_header or "http").strip().lower()
+    if proto not in ("http", "https"):
+        proto = "http"
+
+    # Host: strict allowlist. Match `localhost`, `127.0.0.1`, or
+    # `[::1]`, optionally suffixed `:<port>` where port is digits.
+    # Anything else → fallback.
+    host = (host_header or "").strip()
+    # Defensive: reject control chars, whitespace, and non-ASCII.
+    if not host or any(ord(c) < 0x21 or ord(c) > 0x7E for c in host):
+        return "http://localhost"
+    # Allow `host[:port]`. Port must be 1-5 digits.
+    pattern = re.compile(r"^(localhost|127\.0\.0\.1|\[::1\])(:\d{1,5})?$")
+    if not pattern.match(host):
+        return "http://localhost"
+    return f"{proto}://{host}"
 
 
 def api_sources_summary() -> dict:
@@ -953,9 +1676,7 @@ def api_sources_summary() -> dict:
         "notes_with_attribution": notes_with_attribution,
         "by_section": by_book_section,
         "by_kind": dict(sorted(by_kind.items(), key=lambda x: -x[1])[:20]),
-        "top_attribution_strings": [
-            {"source": s, "count": n} for s, n in top_sources
-        ],
+        "top_attribution_strings": [{"source": s, "count": n} for s, n in top_sources],
     }
 
 
@@ -986,6 +1707,7 @@ def _sources_cache_dir() -> Path:
 def _datetime_iso(ts: float) -> str:
     """Format a unix timestamp as a short ISO string for the UI grid."""
     import datetime
+
     return datetime.datetime.fromtimestamp(ts).isoformat(timespec="seconds")
 
 
@@ -1004,11 +1726,11 @@ def api_sources_cache_status() -> dict:
         FetcherConfigError,
         load_fetcher_config,
     )
+
     try:
         cfg = load_fetcher_config()
     except FetcherConfigError as e:
-        return {"status": "error", "code": "config_error",
-                "http": 500, "message": str(e), "sources": []}
+        return {"status": "error", "code": "config_error", "http": 500, "message": str(e), "sources": []}
 
     cache_dir = _sources_cache_dir()
     out = []
@@ -1039,9 +1761,7 @@ def api_sources_cache_status() -> dict:
                 "size_kb": 0.0,
                 "mtime_iso": None,
             }
-        entry["candidates"] = [
-            {"url": c.url, "parser": c.parser} for c in s.candidates
-        ]
+        entry["candidates"] = [{"url": c.url, "parser": c.parser} for c in s.candidates]
         out.append(entry)
     return {
         "status": "ok",
@@ -1049,11 +1769,15 @@ def api_sources_cache_status() -> dict:
     }
 
 
-def api_sources_cache_fetch(source_id: str, *,
-                             force: bool = False,
-                             url_override: str | None = None,
-                             parser_override: str | None = None,
-                             fetch_fn=None) -> dict:
+@audit_log.audit_endpoint(action="sources_cache_fetch")
+def api_sources_cache_fetch(
+    source_id: str,
+    *,
+    force: bool = False,
+    url_override: str | None = None,
+    parser_override: str | None = None,
+    fetch_fn=None,
+) -> dict:
     """Fetch one configured source. Returns the post-fetch status entry
     for that source plus an `ok` flag and a `message`.
 
@@ -1077,29 +1801,40 @@ def api_sources_cache_fetch(source_id: str, *,
     try:
         cfg = load_fetcher_config()
     except FetcherConfigError as e:
-        return {"status": "error", "code": "config_error",
-                "http": 500, "message": str(e)}
+        return {"status": "error", "code": "config_error", "http": 500, "message": str(e)}
 
     src = cfg.find(source_id)
     if src is None:
-        return {"status": "error", "code": "unknown_source",
-                "http": 404,
-                "message": f"unknown source id: {source_id!r}"}
+        return {
+            "status": "error",
+            "code": "unknown_source",
+            "http": 404,
+            "message": f"unknown source id: {source_id!r}",
+        }
 
     if url_override is not None:
         if not isinstance(url_override, str) or not url_override.startswith(("http://", "https://")):
-            return {"status": "error", "code": "invalid_url",
-                    "http": 400,
-                    "message": "url_override must be an http(s) URL"}
+            return {
+                "status": "error",
+                "code": "invalid_url",
+                "http": 400,
+                "message": "url_override must be an http(s) URL",
+            }
         parser_kind = parser_override or src.candidates[0].parser
         if parser_kind not in KNOWN_PARSERS:
-            return {"status": "error", "code": "unknown_parser",
-                    "http": 400,
-                    "message": f"unknown parser: {parser_kind!r}"}
+            return {
+                "status": "error",
+                "code": "unknown_parser",
+                "http": 400,
+                "message": f"unknown parser: {parser_kind!r}",
+            }
         # Build a one-off Source with only the override candidate.
         src = Source(
-            id=src.id, name=src.name, cache_path=src.cache_path,
-            required=src.required, license=src.license,
+            id=src.id,
+            name=src.name,
+            cache_path=src.cache_path,
+            required=src.required,
+            license=src.license,
             candidates=(Candidate(url=url_override, parser=parser_kind),),
         )
 
@@ -1115,13 +1850,11 @@ def api_sources_cache_fetch(source_id: str, *,
         "id": src.id,
         "cached": cached,
         "size_kb": round(cache_path.stat().st_size / 1024, 1) if cached else 0.0,
-        "message": (
-            f"fetched {src.cache_path}" if ok
-            else f"all candidates failed for {src.cache_path}"
-        ),
+        "message": (f"fetched {src.cache_path}" if ok else f"all candidates failed for {src.cache_path}"),
     }
 
 
+@audit_log.audit_endpoint(action="sources_cache_fetch_all")
 def api_sources_cache_fetch_all(*, force: bool = False, fetch_fn=None) -> dict:
     """Fetch every configured source in order. Required-source failure
     is reported but doesn't short-circuit (so the user sees the full
@@ -1130,11 +1863,11 @@ def api_sources_cache_fetch_all(*, force: bool = False, fetch_fn=None) -> dict:
         FetcherConfigError,
         load_fetcher_config,
     )
+
     try:
         cfg = load_fetcher_config()
     except FetcherConfigError as e:
-        return {"status": "error", "code": "config_error",
-                "http": 500, "message": str(e), "results": []}
+        return {"status": "error", "code": "config_error", "http": 500, "message": str(e), "results": []}
 
     results = []
     overall_ok = True
@@ -1150,8 +1883,8 @@ def api_sources_cache_fetch_all(*, force: bool = False, fetch_fn=None) -> dict:
     }
 
 
-def api_sources_cache_upload(source_id: str, body: bytes,
-                              content_type: str) -> dict:
+@audit_log.audit_endpoint(action="sources_cache_upload")
+def api_sources_cache_upload(source_id: str, body: bytes, content_type: str) -> dict:
     """Drag-drop upload of a pre-built JSON cache file.
 
     Validates: multipart parse → JSON parse → top-level shape
@@ -1163,53 +1896,59 @@ def api_sources_cache_upload(source_id: str, body: bytes,
         FetcherConfigError,
         load_fetcher_config,
     )
+
     try:
         cfg = load_fetcher_config()
     except FetcherConfigError as e:
-        return {"status": "error", "code": "config_error",
-                "http": 500, "message": str(e)}
+        return {"status": "error", "code": "config_error", "http": 500, "message": str(e)}
 
     src = cfg.find(source_id)
     if src is None:
-        return {"status": "error", "code": "unknown_source",
-                "http": 404,
-                "message": f"unknown source id: {source_id!r}"}
+        return {
+            "status": "error",
+            "code": "unknown_source",
+            "http": 404,
+            "message": f"unknown source id: {source_id!r}",
+        }
 
     if len(body) > SOURCES_UPLOAD_MAX_BYTES:
-        return {"status": "error", "code": "too_large",
-                "http": 413,
-                "message": f"upload exceeds {SOURCES_UPLOAD_MAX_BYTES} bytes"}
+        return {
+            "status": "error",
+            "code": "too_large",
+            "http": 413,
+            "message": f"upload exceeds {SOURCES_UPLOAD_MAX_BYTES} bytes",
+        }
 
     boundary = _extract_boundary(content_type)
     if boundary is None:
-        return {"status": "error", "code": "missing_boundary",
-                "http": 400,
-                "message": "Content-Type header must include boundary=..."}
+        return {
+            "status": "error",
+            "code": "missing_boundary",
+            "http": 400,
+            "message": "Content-Type header must include boundary=...",
+        }
 
     parts = _parse_multipart(body, boundary)
     file_part = next((p for p in parts if p.get("filename")), None)
     if file_part is None:
-        return {"status": "error", "code": "no_file_part",
-                "http": 400,
-                "message": "no file part in upload"}
+        return {"status": "error", "code": "no_file_part", "http": 400, "message": "no file part in upload"}
 
     payload = file_part["data"]
     try:
         text = payload.decode("utf-8")
     except UnicodeDecodeError:
-        return {"status": "error", "code": "not_utf8",
-                "http": 400,
-                "message": "uploaded file is not valid UTF-8"}
+        return {"status": "error", "code": "not_utf8", "http": 400, "message": "uploaded file is not valid UTF-8"}
     try:
         parsed = json.loads(text)
     except json.JSONDecodeError as e:
-        return {"status": "error", "code": "invalid_json",
-                "http": 400,
-                "message": f"not valid JSON: {e}"}
+        return {"status": "error", "code": "invalid_json", "http": 400, "message": f"not valid JSON: {e}"}
     if not isinstance(parsed, dict):
-        return {"status": "error", "code": "wrong_shape",
-                "http": 400,
-                "message": "top-level JSON must be an object (dict)"}
+        return {
+            "status": "error",
+            "code": "wrong_shape",
+            "http": 400,
+            "message": "top-level JSON must be an object (dict)",
+        }
 
     cache_dir = _sources_cache_dir()
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -1230,6 +1969,7 @@ def api_sources_cache_upload(source_id: str, body: bytes,
     }
 
 
+@audit_log.audit_endpoint(action="sources_cache_clear")
 def api_sources_cache_clear(source_id: str) -> dict:
     """Delete the cache file for one source. Backs it up first via
     ensure_backup; the .backups/ directory keeps a copy so a
@@ -1238,27 +1978,28 @@ def api_sources_cache_clear(source_id: str) -> dict:
         FetcherConfigError,
         load_fetcher_config,
     )
+
     try:
         cfg = load_fetcher_config()
     except FetcherConfigError as e:
-        return {"status": "error", "code": "config_error",
-                "http": 500, "message": str(e)}
+        return {"status": "error", "code": "config_error", "http": 500, "message": str(e)}
 
     src = cfg.find(source_id)
     if src is None:
-        return {"status": "error", "code": "unknown_source",
-                "http": 404,
-                "message": f"unknown source id: {source_id!r}"}
+        return {
+            "status": "error",
+            "code": "unknown_source",
+            "http": 404,
+            "message": f"unknown source id: {source_id!r}",
+        }
 
     cache_path = _sources_cache_dir() / src.cache_path
     if not cache_path.is_file():
-        return {"status": "ok", "ok": True, "id": src.id,
-                "cached": False, "message": "nothing to clear"}
+        return {"status": "ok", "ok": True, "id": src.id, "cached": False, "message": "nothing to clear"}
 
     notes_io.ensure_backup(cache_path)
     cache_path.unlink()
-    return {"status": "ok", "ok": True, "id": src.id,
-            "cached": False, "message": f"cleared {src.cache_path}"}
+    return {"status": "ok", "ok": True, "id": src.id, "cached": False, "message": f"cleared {src.cache_path}"}
 
 
 # ============================================================
@@ -1277,6 +2018,7 @@ def api_export_preview(edition_id: str) -> dict:
     consistent with what the build will actually emit.
     """
     from scripts.core import matrix as matrix_mod
+
     eds = config.editions_by_id()
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}
@@ -1293,12 +2035,14 @@ def api_export_preview(edition_id: str) -> dict:
     cat_breakdown = []
     for cid in sorted(breakdown, key=lambda x: -breakdown[x]):
         c = cats_idx.get(cid, {})
-        cat_breakdown.append({
-            "id": cid,
-            "label": c.get("label", cid),
-            "symbol": c.get("symbol", "?"),
-            "count": breakdown[cid],
-        })
+        cat_breakdown.append(
+            {
+                "id": cid,
+                "label": c.get("label", cid),
+                "symbol": c.get("symbol", "?"),
+                "count": breakdown[cid],
+            }
+        )
 
     filtered_out_kinds = []
     for kind_code, n in potential.items():
@@ -1308,8 +2052,7 @@ def api_export_preview(edition_id: str) -> dict:
 
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
     pattern = f"Ethiopian_Bible_{edition_id}_*.epub"
-    existing = sorted(EXPORTS_DIR.glob(pattern),
-                      key=lambda p: p.stat().st_mtime, reverse=True)
+    existing = sorted(EXPORTS_DIR.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
     last_build = None
     if existing:
         f = existing[0]
@@ -1343,6 +2086,7 @@ def api_export_preview(edition_id: str) -> dict:
     }
 
 
+@audit_log.audit_endpoint(action="export_build")
 def api_export_build(edition_id: str, version: str = "v28a") -> dict:
     """Run the build pipeline for `edition_id` and return a downloadable
     file reference. Wraps scripts/build_edition.py as a subprocess —
@@ -1358,15 +2102,52 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
     import subprocess
+
+    # Phase ω.20-B — drop the legacy `--force` so build_one's
+    # content-addressable cache (ω.20-A) can short-circuit a rebuild
+    # when no inputs have changed. Identical buyer-facing artifact;
+    # ~30-90s saved per untouched edition. A future ω.20-C can surface
+    # cache_hit in the response payload via a stats sidecar.
     cmd = [
         sys.executable,
         str(REPO / "scripts" / "build_edition.py"),
         edition_id,
-        "--output-dir", str(EXPORTS_DIR),
-        "--version", version,
-        "--force",
+        "--output-dir",
+        str(EXPORTS_DIR),
+        "--version",
+        version,
     ]
-    proc = subprocess.run(cmd, capture_output=True, text=True, cwd=str(REPO))
+    # ξ.16 SEC-006 — bound build time so a stuck build_edition.py
+    # (origin-fetch hang, malformed input loop, runaway disk write)
+    # doesn't pin the only HTTP thread indefinitely. 5-minute cap is
+    # generous: a full clean build of the largest edition completes
+    # in ~90s on dev hardware. Cache-hit builds finish in seconds.
+    # Operator override via YHWH_BUILD_TIMEOUT_SECONDS for unusual
+    # hardware.
+    import os as _os
+
+    try:
+        timeout_s = int(_os.environ.get("YHWH_BUILD_TIMEOUT_SECONDS") or "300")
+    except ValueError:
+        timeout_s = 300
+    try:
+        proc = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            cwd=str(REPO),
+            timeout=timeout_s,
+        )
+    except subprocess.TimeoutExpired as e:
+        return {
+            "error": "build timed out",
+            "code": "build_timeout",
+            "http": 504,
+            "timeout_seconds": timeout_s,
+            "stderr": (e.stderr or b"")[-2000:].decode("utf-8", errors="replace")
+            if isinstance(e.stderr, bytes)
+            else (e.stderr or "")[-2000:],
+        }
     if proc.returncode != 0:
         return {
             "error": "build failed",
@@ -1376,14 +2157,13 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
         }
 
     pattern = f"Ethiopian_Bible_{edition_id}_{version}_*.epub"
-    candidates = sorted(EXPORTS_DIR.glob(pattern),
-                        key=lambda p: p.stat().st_mtime, reverse=True)
+    candidates = sorted(EXPORTS_DIR.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
     if not candidates:
         return {"error": "build reported success but no EPUB found"}
 
     out = candidates[0]
     st = out.stat()
-    return {
+    response = {
         "ok": True,
         "filename": out.name,
         "size_kb": round(st.st_size / 1024),
@@ -1391,6 +2171,26 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
         "download_url": f"/api/export/download/{out.name}",
         "build_log_tail": proc.stdout[-300:] if proc.stdout else "",
     }
+
+    # Phase ω.20-C — fold the build_one stats sidecar into the response
+    # so the UI can render a "served from cache (instant)" vs
+    # "rebuilt (took 23s)" badge. Sidecar lives at <out>.stats.json,
+    # written by `_write_stats_sidecar` in build_edition.py. Missing /
+    # corrupt sidecar degrades silently — the EPUB is the contract;
+    # the badge fields are nice-to-have.
+    sidecar = out.with_suffix(out.suffix + ".stats.json")
+    if sidecar.is_file():
+        try:
+            import json as _json
+
+            data = _json.loads(sidecar.read_text(encoding="utf-8"))
+            for field in ("cache_hit", "skipped", "build_seconds"):
+                if field in data:
+                    response[field] = data[field]
+        except Exception:
+            pass
+
+    return response
 
 
 # Phase ω.2 — Build-all-editions one-click. The buyer-demo arc:
@@ -1403,6 +2203,8 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
 # Pattern: pure-function-API + thin route adapter (6th instance —
 # §9 codification well overdue at this point).
 
+
+@audit_log.audit_endpoint(action="build_all_editions")
 def api_build_all_editions(
     *,
     version: str = "v28a",
@@ -1450,28 +2252,39 @@ def api_build_all_editions(
         except Exception as e:
             # Defensive: if build_one itself raises (e.g. internal
             # bug), log and continue. Don't abort the batch.
-            per_edition.append({
-                "edition_id": ed_id, "ok": False,
-                "filename": None, "size_mb": None,
-                "error": f"exception: {type(e).__name__}: {e}",
-            })
+            per_edition.append(
+                {
+                    "edition_id": ed_id,
+                    "ok": False,
+                    "filename": None,
+                    "size_mb": None,
+                    "error": f"exception: {type(e).__name__}: {e}",
+                }
+            )
             continue
         if result.get("ok"):
-            per_edition.append({
-                "edition_id": ed_id, "ok": True,
-                "filename": result.get("filename"),
-                "size_mb": result.get("size_mb"),
-                "error": None,
-            })
+            per_edition.append(
+                {
+                    "edition_id": ed_id,
+                    "ok": True,
+                    "filename": result.get("filename"),
+                    "size_mb": result.get("size_mb"),
+                    "error": None,
+                }
+            )
             fp = EXPORTS_DIR / result.get("filename", "")
             if fp.is_file():
                 successful_files.append(fp)
         else:
-            per_edition.append({
-                "edition_id": ed_id, "ok": False,
-                "filename": None, "size_mb": None,
-                "error": result.get("error", "build failed"),
-            })
+            per_edition.append(
+                {
+                    "edition_id": ed_id,
+                    "ok": False,
+                    "filename": None,
+                    "size_mb": None,
+                    "error": result.get("error", "build failed"),
+                }
+            )
 
     success_count = sum(1 for p in per_edition if p["ok"])
     fail_count = len(per_edition) - success_count
@@ -1484,6 +2297,7 @@ def api_build_all_editions(
     if successful_files:
         import zipfile
         from datetime import datetime, timezone
+
         ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         zip_name = f"All_Editions_{version}_{ts}.zip"
         zip_path = EXPORTS_DIR / zip_name
@@ -1514,8 +2328,7 @@ def api_download_export(filename: str) -> tuple[bytes, str] | dict:
     Validates that the filename matches the expected build pattern so
     we never serve files outside the exports dir.
     """
-    if not re.match(r"^Ethiopian_Bible_[a-z0-9-]+_[a-z0-9]+_[\dT\-:Z]+\.epub$",
-                     filename):
+    if not re.match(r"^Ethiopian_Bible_[a-z0-9-]+_[a-z0-9]+_[\dT\-:Z]+\.epub$", filename):
         return {"error": "invalid export filename"}
     path = EXPORTS_DIR / filename
     if not path.is_file():
@@ -1528,8 +2341,7 @@ def api_download_export(filename: str) -> tuple[bytes, str] | dict:
 # ============================================================
 
 
-def _patch_yaml_entry(text: str, key_field: str, key_value: str,
-                       updates: dict[str, str]) -> str:
+def _patch_yaml_entry(text: str, key_field: str, key_value: str, updates: dict[str, str]) -> str:
     """Targeted regex update of one entry in a YAML list-of-dicts.
 
     Generic helper used for BOTH categories.yaml (key_field='id') and
@@ -1542,49 +2354,51 @@ def _patch_yaml_entry(text: str, key_field: str, key_value: str,
     ends just before the next `  - <key_field>:` or end of file.
     """
     block_re = re.compile(
-        rf'(^  - {re.escape(key_field)}: {re.escape(key_value)}(?:\s|$).*?\n)'
-        rf'(.*?)'
-        rf'(?=^  - {re.escape(key_field)}:|\Z)',
+        rf"(^  - {re.escape(key_field)}: {re.escape(key_value)}(?:\s|$).*?\n)"
+        rf"(.*?)"
+        rf"(?=^  - {re.escape(key_field)}:|\Z)",
         re.MULTILINE | re.DOTALL,
     )
     m = block_re.search(text)
     if not m:
-        raise ValueError(
-            f"entry {key_field}={key_value!r} not found in YAML"
-        )
+        raise ValueError(f"entry {key_field}={key_value!r} not found in YAML")
     head, body = m.group(1), m.group(2)
 
     new_body = body
     for field, new_val in updates.items():
         # Find existing `    <field>: ...` and replace its value
         field_re = re.compile(
-            rf'^(    {re.escape(field)}:[ \t]*)(.*?)(\n)',
+            rf"^(    {re.escape(field)}:[ \t]*)(.*?)(\n)",
             re.MULTILINE,
         )
         # Decide quoting: leave bools/numbers/already-quoted strings alone,
         # otherwise wrap as a YAML double-quoted scalar for safety.
-        if new_val in ("true", "false") or (
-                isinstance(new_val, str) and new_val.startswith('"')) or (
-                isinstance(new_val, str) and new_val.isdigit()):
+        if (
+            new_val in ("true", "false")
+            or (isinstance(new_val, str) and new_val.startswith('"'))
+            or (isinstance(new_val, str) and new_val.isdigit())
+        ):
             quoted = new_val
         elif new_val == "":
             quoted = '""'
         else:
             # Escape any embedded double-quotes
-            esc = new_val.replace('\\', '\\\\').replace('"', '\\"')
+            esc = new_val.replace("\\", "\\\\").replace('"', '\\"')
             quoted = f'"{esc}"'
         if field_re.search(new_body):
             new_body = field_re.sub(
                 lambda mm: f"{mm.group(1)}{quoted}{mm.group(3)}",
-                new_body, count=1,
+                new_body,
+                count=1,
             )
         else:
             # Insert at the head of the body (after the key line)
             new_body = f"    {field}: {quoted}\n" + new_body
 
-    return text[:m.start()] + head + new_body + text[m.end():]
+    return text[: m.start()] + head + new_body + text[m.end() :]
 
 
+@audit_log.audit_endpoint(action="save_category")
 def api_save_category(cat_id: str, payload: dict) -> dict:
     """Update symbol / label / description for one category."""
     cats = config.categories_by_id()
@@ -1620,10 +2434,12 @@ def api_save_category(cat_id: str, payload: dict) -> dict:
     notes_io.atomic_write(path, new_text)
     config.load_categories.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
     return {"ok": True, "id": cat_id, "updated": list(updates.keys())}
 
 
+@audit_log.audit_endpoint(action="save_kind")
 def api_save_kind(kind_code: str, payload: dict) -> dict:
     """Update symbol / label / description for one kind."""
     kinds = config.kinds_by_code()
@@ -1659,6 +2475,7 @@ def api_save_kind(kind_code: str, payload: dict) -> dict:
     notes_io.atomic_write(path, new_text)
     config.load_kinds.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
     return {"ok": True, "code": kind_code, "updated": list(updates.keys())}
 
@@ -1673,41 +2490,40 @@ def api_customize_data() -> dict:
     # render a per-edition picker. Includes a small meta blob for each
     # so the dropdown can show a friendly title.
     from scripts.core import translations as _tx
+
     translations_list = []
     for tid in _tx.list_translations():
         meta = _tx.translation_meta(tid) or {}
-        translations_list.append({
-            "id": tid,
-            "short_title": meta.get("short_title", tid.upper()),
-            "title": meta.get("title", tid),
-            "license": meta.get("license", ""),
-        })
+        translations_list.append(
+            {
+                "id": tid,
+                "short_title": meta.get("short_title", tid.upper()),
+                "title": meta.get("title", tid),
+                "license": meta.get("license", ""),
+            }
+        )
     # Phase ν.2.7-B — popup language registry + canonical book order.
     # Per CLAUDE_PROJECT_RULES.md §6.1, any per-book UI must list books
     # in books.yaml order (Genesis → Revelation → Apocrypha → Ethiopian
     # tail). The UI reads the order from this payload — never sorts on
     # its own — so the canonical-order rule has one source of truth.
     from scripts.build_edition import (
-        POPUP_LANGUAGES, ALL_POPUP_LANGUAGES, decode_per_book_languages,
+        POPUP_LANGUAGES,
+        ALL_POPUP_LANGUAGES,
+        decode_per_book_languages,
     )
     from scripts.core import matrix as _matrix
-    books_canonical = [
-        {"code": b["code"], "title": b.get("title", b["code"])}
-        for b in config.load_books()
-    ]
+
+    books_canonical = [{"code": b["code"], "title": b.get("title", b["code"])} for b in config.load_books()]
     popup_languages_registry = [
-        {"id": lid, "label": POPUP_LANGUAGES[lid]["label"],
-         "has_data": lid in {"english", "hebrew", "greek"}}
+        {"id": lid, "label": POPUP_LANGUAGES[lid]["label"], "has_data": lid in {"english", "hebrew", "greek"}}
         for lid in ALL_POPUP_LANGUAGES
     ]
     # Canon membership per edition — lets the UI filter the books
     # list down to "only books in THIS edition" so a Tanakh edition
     # shows 39 rows and an Ethiopian shows 87.
     _mtx = _matrix.compute_matrix()
-    edition_canon_books = {
-        ed_id: sorted(books)
-        for ed_id, books in _mtx.edition_canon_books.items()
-    }
+    edition_canon_books = {ed_id: sorted(books) for ed_id, books in _mtx.edition_canon_books.items()}
     return {
         "categories": [
             {
@@ -1741,28 +2557,26 @@ def api_customize_data() -> dict:
                 "verse_popups": e.get("verse_popups", True),
                 "verse_marker_glyph": e.get("verse_marker_glyph", ""),
                 "popup_translation": e.get("popup_translation", ""),
-                "popup_languages_default": list(
-                    e.get("popup_languages_default") or []
-                ),
+                "popup_languages_default": list(e.get("popup_languages_default") or []),
                 # Decoded to a JSON-friendly dict for the UI; on-disk
                 # this is a list of "code=lang1,lang2" strings.
-                "popup_languages_per_book": decode_per_book_languages(
-                    e.get("popup_languages_per_book")
-                ),
+                "popup_languages_per_book": decode_per_book_languages(e.get("popup_languages_per_book")),
                 # Phase ψ.8.1 — list of tradition ids enabled for this
                 # edition. Empty list (or absent) → include all
                 # traditions (no-op, pre-ψ.8 build behavior preserved
                 # per §7.2). Filter against TRADITION_IDS defensively
                 # via _filter_traditions_default(); see that helper for
                 # the YAML round-trip caveat.
-                "traditions_default":
-                    _filter_traditions_default(e.get("traditions_default")),
+                "traditions_default": _filter_traditions_default(e.get("traditions_default")),
                 # Phase ψ.8.4 — per-book tradition overrides, decoded
                 # to a JSON-friendly dict for the UI; on-disk this is a
                 # list of "code=t1,t2" strings.
-                "traditions_per_book": _decode_traditions_per_book_for_api(
-                    e.get("traditions_per_book")
-                ),
+                "traditions_per_book": _decode_traditions_per_book_for_api(e.get("traditions_per_book")),
+                # ψ.19 — list of reading-plan ids enabled for this edition.
+                # Empty / absent = no plans (build pipeline ToC integration
+                # ships in ψ.19.1; opting in is currently a schema-only
+                # flag).
+                "enabled_reading_plans": list(e.get("enabled_reading_plans") or []),
                 "theme": e.get("theme", "classic"),
                 "notes": e.get("notes", ""),
             }
@@ -1776,13 +2590,31 @@ def api_customize_data() -> dict:
         # order — the canonical popup-stack order from
         # scripts/core/traditions.py) to render its checkboxes.
         # Single source of truth; UI never hard-codes the set.
-        "traditions": [
-            {"id": tid, "label": label}
-            for tid, label in _traditions_canonical_for_api()
-        ],
+        "traditions": [{"id": tid, "label": label} for tid, label in _traditions_canonical_for_api()],
         "books_canonical": books_canonical,
         "edition_canon_books": edition_canon_books,
+        # ψ.19 — registry of every reading plan available on disk.
+        # The /customize Reading-plans card iterates this to render
+        # toggle checkboxes; each edition's `enabled_reading_plans`
+        # selects from this list.
+        "reading_plans": [
+            {
+                "id": s["id"],
+                "label": s["label"],
+                "description": s["description"],
+                "entry_count": s["entry_count"],
+            }
+            for s in _reading_plans_summary_for_api()
+        ],
     }
+
+
+def _reading_plans_summary_for_api() -> list[dict]:
+    """Indirection for tests — same shape as api_reading_plans_list's
+    `plans` field. Tests can monkeypatch this if they need to."""
+    from scripts.core.reading_plans import list_plans, plan_summary
+
+    return [plan_summary(p) for p in list_plans()]
 
 
 def _traditions_canonical_for_api() -> tuple[tuple[str, str], ...]:
@@ -1790,6 +2622,7 @@ def _traditions_canonical_for_api() -> tuple[tuple[str, str], ...]:
     of (id, label) pairs in canonical order. Tests can monkeypatch
     this without touching the underlying constant."""
     from scripts.core.traditions import CANONICAL_TRADITIONS
+
     return CANONICAL_TRADITIONS
 
 
@@ -1802,6 +2635,7 @@ def _decode_traditions_per_book_for_api(raw) -> dict[str, list[str]]:
     UI never sees junk; the validator catches the typo on next save."""
     from scripts.build_edition import decode_per_book_traditions
     from scripts.core.traditions import TRADITION_IDS
+
     decoded = decode_per_book_traditions(raw)
     return {
         code: [t for t in traditions if isinstance(t, str) and t in TRADITION_IDS]
@@ -1821,6 +2655,7 @@ def _filter_traditions_default(raw) -> list[str]:
     doesn't surface in the customize data; the validator catches it
     on the next save."""
     from scripts.core.traditions import TRADITION_IDS
+
     if not raw:
         return []
     return [t for t in raw if isinstance(t, str) and t in TRADITION_IDS]
@@ -1832,6 +2667,7 @@ def _load_themes() -> list[dict]:
     if not path.is_file():
         return [{"id": "classic", "name": "Classic", "description": ""}]
     import yaml
+
     data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     return data.get("themes", []) or []
 
@@ -1875,10 +2711,7 @@ def _validate_cover_path(path) -> str:
     allowed_ext = {".jpg", ".jpeg", ".png", ".webp"}
     suffix = norm.rsplit(".", 1)
     if len(suffix) != 2 or "." + suffix[1].lower() not in allowed_ext:
-        return (
-            f"cover path must end in an image extension "
-            f"({', '.join(sorted(allowed_ext))}): {s!r}"
-        )
+        return f"cover path must end in an image extension ({', '.join(sorted(allowed_ext))}): {s!r}"
     return ""
 
 
@@ -1916,6 +2749,7 @@ def api_covers() -> dict:
 # Adding a new check = appending to the list in api_preflight().
 # Status order: any "fail" → not-ready; otherwise it ships.
 
+
 def api_preflight() -> dict:
     """Run every preflight check and return a structured dashboard
     payload (Phase ψ.2). Cached cheaply via the same mtime-keyed
@@ -1949,25 +2783,21 @@ def _compute_preflight_uncached() -> dict:
     thin = counts.get("thin", 0)
     total = counts.get("total", 0)
     if miss:
-        status, msg = "fail", (
-            f"{miss} note(s) have no attribution at all "
-            f"(of {total} total)"
-        )
+        status, msg = "fail", (f"{miss} note(s) have no attribution at all (of {total} total)")
     elif thin:
-        status, msg = "warn", (
-            f"{thin} note(s) have thin attribution "
-            f"(of {total} total)"
-        )
+        status, msg = "warn", (f"{thin} note(s) have thin attribution (of {total} total)")
     else:
         status, msg = "pass", f"all {total} notes have attribution"
-    checks.append({
-        "id": "attribution",
-        "name": "Note attribution",
-        "status": status,
-        "message": msg,
-        "details": (audit.get("needs_attention") or [])[:10],
-        "jump_to": "/audit",
-    })
+    checks.append(
+        {
+            "id": "attribution",
+            "name": "Note attribution",
+            "status": status,
+            "message": msg,
+            "details": (audit.get("needs_attention") or [])[:10],
+            "jump_to": "/audit",
+        }
+    )
 
     # 2. Main covers — every edition has its main cover image set
     #    AND that file exists on disk
@@ -1980,52 +2810,49 @@ def _compute_preflight_uncached() -> dict:
             no_main.append({"edition_id": ed_rec["edition_id"]})
         elif not meta:
             # Path is set but the file is missing from disk
-            broken_main.append({
-                "edition_id": ed_rec["edition_id"],
-                "path": path,
-            })
+            broken_main.append(
+                {
+                    "edition_id": ed_rec["edition_id"],
+                    "path": path,
+                }
+            )
     if broken_main:
-        status, msg = "fail", (
-            f"{len(broken_main)} edition(s) have a cover_image path "
-            f"pointing at a missing file"
-        )
+        status, msg = "fail", (f"{len(broken_main)} edition(s) have a cover_image path pointing at a missing file")
     elif no_main:
-        status, msg = "warn", (
-            f"{len(no_main)} edition(s) have no main cover set yet"
-        )
+        status, msg = "warn", (f"{len(no_main)} edition(s) have no main cover set yet")
     else:
         status, msg = "pass", "every edition has a main cover image"
-    checks.append({
-        "id": "covers_main",
-        "name": "Main covers per edition",
-        "status": status,
-        "message": msg,
-        "details": (broken_main + no_main)[:10],
-        "jump_to": "/covers",
-    })
+    checks.append(
+        {
+            "id": "covers_main",
+            "name": "Main covers per edition",
+            "status": status,
+            "message": msg,
+            "details": (broken_main + no_main)[:10],
+            "jump_to": "/covers",
+        }
+    )
 
     # 3. Popup translation set per edition (warn-only — popup uses WEB
     #    when not set, which is acceptable but not ideal for a buyer)
-    no_translation = [
-        {"edition_id": e["id"]}
-        for e in editions
-        if not (e.get("popup_translation") or "").strip()
-    ]
+    no_translation = [{"edition_id": e["id"]} for e in editions if not (e.get("popup_translation") or "").strip()]
     if not no_translation:
         status, msg = "pass", "every edition has a popup translation"
     else:
-        status, msg = "warn", (
-            f"{len(no_translation)} edition(s) using default WEB for "
-            f"verse popups (no explicit translation chosen)"
+        status, msg = (
+            "warn",
+            (f"{len(no_translation)} edition(s) using default WEB for verse popups (no explicit translation chosen)"),
         )
-    checks.append({
-        "id": "popup_translation",
-        "name": "Popup translation per edition",
-        "status": status,
-        "message": msg,
-        "details": no_translation[:10],
-        "jump_to": "/customize",
-    })
+    checks.append(
+        {
+            "id": "popup_translation",
+            "name": "Popup translation per edition",
+            "status": status,
+            "message": msg,
+            "details": no_translation[:10],
+            "jump_to": "/customize",
+        }
+    )
 
     # 4. Popup translation coverage of the edition's canon
     #    For each edition with a popup_translation set, count how many
@@ -2038,84 +2865,85 @@ def _compute_preflight_uncached() -> dict:
         canon = mtx.edition_canon_books.get(ed["id"], set())
         missing = sorted(b for b in canon if not _tx.has_book(tx_id, b))
         if missing:
-            coverage_issues.append({
-                "edition_id": ed["id"],
-                "translation": tx_id,
-                "missing_count": len(missing),
-                "missing_books": missing[:20],
-            })
+            coverage_issues.append(
+                {
+                    "edition_id": ed["id"],
+                    "translation": tx_id,
+                    "missing_count": len(missing),
+                    "missing_books": missing[:20],
+                }
+            )
     total_missing = sum(c["missing_count"] for c in coverage_issues)
     if not coverage_issues:
-        status, msg = "pass", (
-            "every popup translation covers its edition's canon"
-        )
+        status, msg = "pass", ("every popup translation covers its edition's canon")
     else:
-        status, msg = "warn", (
-            f"{total_missing} book(s) across {len(coverage_issues)} "
-            f"edition(s) have no popup translation data"
+        status, msg = (
+            "warn",
+            (f"{total_missing} book(s) across {len(coverage_issues)} edition(s) have no popup translation data"),
         )
-    checks.append({
-        "id": "popup_coverage",
-        "name": "Popup translation coverage",
-        "status": status,
-        "message": msg,
-        "details": coverage_issues[:10],
-        "jump_to": "/customize",
-    })
+    checks.append(
+        {
+            "id": "popup_coverage",
+            "name": "Popup translation coverage",
+            "status": status,
+            "message": msg,
+            "details": coverage_issues[:10],
+            "jump_to": "/customize",
+        }
+    )
 
     # 5. Per-book covers — informational. Not blocking; many editions
     #    legitimately ship with only a main cover.
     per_book_stats = []
     for ed_rec in covers["editions"]:
         total_slots = len(ed_rec["book_covers"])
-        with_cover = sum(
-            1 for s in ed_rec["book_covers"] if s.get("meta")
+        with_cover = sum(1 for s in ed_rec["book_covers"] if s.get("meta"))
+        per_book_stats.append(
+            {
+                "edition_id": ed_rec["edition_id"],
+                "set": with_cover,
+                "total": total_slots,
+            }
         )
-        per_book_stats.append({
-            "edition_id": ed_rec["edition_id"],
-            "set": with_cover,
-            "total": total_slots,
-        })
     total_set = sum(s["set"] for s in per_book_stats)
     total_slots = sum(s["total"] for s in per_book_stats)
     msg = f"{total_set} of {total_slots} per-book cover slots filled"
-    checks.append({
-        "id": "covers_per_book",
-        "name": "Per-book covers (informational)",
-        "status": "pass",   # never blocks ship
-        "message": msg,
-        "details": per_book_stats,
-        "jump_to": "/covers",
-    })
+    checks.append(
+        {
+            "id": "covers_per_book",
+            "name": "Per-book covers (informational)",
+            "status": "pass",  # never blocks ship
+            "message": msg,
+            "details": per_book_stats,
+            "jump_to": "/covers",
+        }
+    )
 
     # 6. Publisher metadata — title + ISBN at minimum for OPF
     incomplete = []
     for ed in editions:
-        missing_fields = [
-            f for f in ("title", "isbn")
-            if not (ed.get(f) or "").strip()
-        ]
+        missing_fields = [f for f in ("title", "isbn") if not (ed.get(f) or "").strip()]
         if missing_fields:
-            incomplete.append({
-                "edition_id": ed["id"],
-                "missing": missing_fields,
-            })
+            incomplete.append(
+                {
+                    "edition_id": ed["id"],
+                    "missing": missing_fields,
+                }
+            )
     if not incomplete:
-        status, msg = "pass", (
-            "every edition has title + ISBN set"
-        )
+        status, msg = "pass", ("every edition has title + ISBN set")
     else:
-        status, msg = "warn", (
-            f"{len(incomplete)} edition(s) missing publisher fields"
-        )
-    checks.append({
-        "id": "publisher_meta",
-        "name": "Publisher metadata",
-        "status": status,
-        "message": msg,
-        "details": incomplete,
-        "jump_to": "/publisher",
-    })
+        status, msg = "warn", (f"{len(incomplete)} edition(s) missing publisher fields")
+    checks.append(
+        {
+            "id": "publisher_meta",
+            "name": "Publisher metadata",
+            "status": status,
+            "message": msg,
+            "details": incomplete,
+            "jump_to": "/publisher",
+        }
+    )
 
     # 7. Empty kinds — kinds in kinds.yaml that no note uses.
     #    Soft warn: hints at over-engineered taxonomy or missing apparatus.
@@ -2125,48 +2953,41 @@ def _compute_preflight_uncached() -> dict:
         for kind_code, count in (by_kind or {}).items():
             if count > 0:
                 used_kinds.add(kind_code)
-    unused = sorted(
-        k["code"] for k in kinds
-        if k["code"] not in used_kinds
-    )
+    unused = sorted(k["code"] for k in kinds if k["code"] not in used_kinds)
     if not unused:
         status, msg = "pass", "every registered kind has at least one note"
     else:
-        status, msg = "warn", (
-            f"{len(unused)} kind(s) have zero notes across all editions"
-        )
-    checks.append({
-        "id": "empty_kinds",
-        "name": "Kind utilization",
-        "status": status,
-        "message": msg,
-        "details": [{"kind_code": k} for k in unused[:20]],
-        "jump_to": "/matrix",
-    })
+        status, msg = "warn", (f"{len(unused)} kind(s) have zero notes across all editions")
+    checks.append(
+        {
+            "id": "empty_kinds",
+            "name": "Kind utilization",
+            "status": status,
+            "message": msg,
+            "details": [{"kind_code": k} for k in unused[:20]],
+            "jump_to": "/matrix",
+        }
+    )
 
     # 8. Rules compliance (Phase ω.0.1) — composes lint_rules.run_all()
     # so the readiness dashboard surfaces drift from §6.1 / §6.2 / etc.
     # the moment it appears, not at the next code review.
     try:
         from scripts.lint_rules import run_all as _lint_run_all
+
         lint = _lint_run_all()
         sub_fail = lint["summary"]["fail"]
         sub_warn = lint["summary"]["warn"]
         if sub_fail:
-            status, msg = "fail", (
-                f"{sub_fail} rule(s) violated, {sub_warn} warning(s)"
-            )
+            status, msg = "fail", (f"{sub_fail} rule(s) violated, {sub_warn} warning(s)")
         elif sub_warn:
             status, msg = "warn", f"{sub_warn} rule warning(s)"
         else:
-            status, msg = "pass", (
-                f"all {lint['summary']['total']} project rules pass"
-            )
+            status, msg = "pass", (f"all {lint['summary']['total']} project rules pass")
         # Surface the failing/warning sub-checks as the details list
         # so a publisher sees "what's wrong" without leaving the page.
         details = [
-            {"rule_id": c["id"], "name": c["name"],
-             "status": c["status"], "message": c["message"]}
+            {"rule_id": c["id"], "name": c["name"], "status": c["status"], "message": c["message"]}
             for c in lint["checks"]
             if c["status"] != "pass"
         ]
@@ -2174,14 +2995,61 @@ def _compute_preflight_uncached() -> dict:
         status = "warn"
         msg = f"rules linter failed to run: {e}"
         details = []
-    checks.append({
-        "id": "rules_compliance",
-        "name": "Rules compliance (§6.1, §6.2, encode/decode, docs)",
-        "status": status,
-        "message": msg,
-        "details": details,
-        "jump_to": "/preflight",   # nowhere better to jump — fix in code
-    })
+    checks.append(
+        {
+            "id": "rules_compliance",
+            "name": "Rules compliance (§6.1, §6.2, encode/decode, docs)",
+            "status": status,
+            "message": msg,
+            "details": details,
+            "jump_to": "/preflight",  # nowhere better to jump — fix in code
+        }
+    )
+
+    # 8b. Schema compliance (Phase ω.19.2) — composes
+    # validate_schemas.run_all() so YAML schema drift surfaces
+    # alongside the rules linter on every preflight read. Same
+    # Tier-3 surface; same meta-tool composition pattern (§9 of
+    # CLAUDE_PROJECT_RULES). Wrap import in try/except so a broken
+    # validator can't 500 the dashboard.
+    try:
+        from scripts.validate_schemas import run_all as _schemas_run_all
+
+        schemas = _schemas_run_all()
+        s_summary = schemas["summary"]
+        s_fail = s_summary.get("fail", 0)
+        s_error = s_summary.get("error", 0)
+        s_total = s_summary.get("total", 0)
+        if s_fail or s_error:
+            status, msg = "fail", (f"{s_fail} file(s) with schema violations, {s_error} unreadable")
+        else:
+            status, msg = "pass", (f"all {s_total} validated YAML file(s) pass schema")
+        # Surface failing/erroring files with their first few errors
+        # so a publisher sees what's wrong without leaving the page.
+        details = [
+            {
+                "file": f["file"],
+                "status": f["status"],
+                "errors": (f.get("errors") or [])[:3],
+                "record_count": f.get("record_count", 0),
+            }
+            for f in schemas["files"]
+            if f["status"] != "ok"
+        ]
+    except Exception as e:
+        status = "warn"
+        msg = f"schema validator failed to run: {e}"
+        details = []
+    checks.append(
+        {
+            "id": "schema_compliance",
+            "name": "Schema compliance (editions / kinds / canons / cross-refs)",
+            "status": status,
+            "message": msg,
+            "details": details,
+            "jump_to": "/preflight",
+        }
+    )
 
     # 9. epubcheck — W3C/IDPF EPUB validator (Phase ω.14)
     #    Runs against built EPUBs in exports/. The check stays
@@ -2191,45 +3059,34 @@ def _compute_preflight_uncached() -> dict:
     #    install hint — the platform stays usable without it.
     try:
         from scripts.core import epubcheck as _ec
+
         ec_result = _ec.run_epubcheck_on_dir(REPO / "exports")
         ec_status = ec_result["status"]
         if ec_status == "pass":
-            msg = (
-                f"all {ec_result['n_epubs']} EPUB(s) validate cleanly"
-            )
+            msg = f"all {ec_result['n_epubs']} EPUB(s) validate cleanly"
             details = []
         elif ec_status == "warn":
             t = ec_result["totals"]
-            msg = (
-                f"epubcheck: {t['warnings']} warning(s) across "
-                f"{ec_result['n_epubs']} EPUB(s) (no errors)"
-            )
+            msg = f"epubcheck: {t['warnings']} warning(s) across {ec_result['n_epubs']} EPUB(s) (no errors)"
             details = [
                 {
                     "epub": r["epub"],
                     "errors": r["errors"],
                     "warnings": r["warnings"],
-                    "first_message":
-                        (r["messages"][0]["message"]
-                         if r["messages"] else ""),
+                    "first_message": (r["messages"][0]["message"] if r["messages"] else ""),
                 }
                 for r in ec_result["results"]
                 if r["status"] != "pass"
             ][:10]
         elif ec_status == "fail":
             t = ec_result["totals"]
-            msg = (
-                f"epubcheck: {t['errors']} error(s), {t['warnings']} "
-                f"warning(s) across {ec_result['n_epubs']} EPUB(s)"
-            )
+            msg = f"epubcheck: {t['errors']} error(s), {t['warnings']} warning(s) across {ec_result['n_epubs']} EPUB(s)"
             details = [
                 {
                     "epub": r["epub"],
                     "errors": r["errors"],
                     "warnings": r["warnings"],
-                    "first_message":
-                        (r["messages"][0]["message"]
-                         if r["messages"] else ""),
+                    "first_message": (r["messages"][0]["message"] if r["messages"] else ""),
                 }
                 for r in ec_result["results"]
                 if r["status"] == "fail"
@@ -2238,16 +3095,13 @@ def _compute_preflight_uncached() -> dict:
             # Java missing or JAR absent. Surface as warn with the
             # install hint; the rest of the platform stays usable.
             ec_status = "warn"
-            msg = ec_result.get(
-                "explanation", "epubcheck unavailable"
-            )
+            msg = ec_result.get("explanation", "epubcheck unavailable")
             details = []
         else:  # 'empty'
             ec_status = "info"
             msg = ec_result.get(
                 "explanation",
-                "no built EPUBs to validate yet — run "
-                "`python scripts/build_edition.py <id>`",
+                "no built EPUBs to validate yet — run `python scripts/build_edition.py <id>`",
             )
             details = []
     except Exception as e:
@@ -2258,14 +3112,62 @@ def _compute_preflight_uncached() -> dict:
     # to 'pass' for the summary tally but keep the message
     # informational so the UI can render it differently if it wants.
     summary_status = "pass" if ec_status == "info" else ec_status
-    checks.append({
-        "id": "epubcheck",
-        "name": "EPUB validation (W3C epubcheck)",
-        "status": summary_status,
-        "message": msg,
-        "details": details,
-        "jump_to": "/export",
-    })
+    checks.append(
+        {
+            "id": "epubcheck",
+            "name": "EPUB validation (W3C epubcheck)",
+            "status": summary_status,
+            "message": msg,
+            "details": details,
+            "jump_to": "/export",
+        }
+    )
+
+    # 10. Content directory health (Phase ω.29) — composes
+    # check_content.run_all() so corruption of notes/, translation
+    # _meta.yaml, candidate JSON, or orphan note files surfaces
+    # alongside the rules / schema linters. Wrap in try/except so a
+    # broken checker can't 500 the dashboard. Same Tier-3 surface;
+    # same meta-tool composition pattern (§9 of CLAUDE_PROJECT_RULES).
+    try:
+        from scripts.check_content import run_all as _content_run_all
+
+        ch = _content_run_all()
+        ch_summary = ch["summary"]
+        ch_fail = ch_summary.get("fail", 0)
+        ch_warn = ch_summary.get("warn", 0)
+        ch_total = ch_summary.get("total", 0)
+        if ch_fail:
+            status, msg = "fail", (f"{ch_fail} content-health check(s) failed (of {ch_total})")
+        elif ch_warn:
+            status, msg = "warn", f"{ch_warn} content-health warning(s)"
+        else:
+            status, msg = "pass", f"all {ch_total} content-health check(s) pass"
+        details = [
+            {
+                "check_id": c["id"],
+                "name": c["name"],
+                "status": c["status"],
+                "message": c["message"],
+                "first_violations": c["violations"][:3],
+            }
+            for c in ch["checks"]
+            if c["status"] != "pass"
+        ]
+    except Exception as e:
+        status = "warn"
+        msg = f"content-health checker failed to run: {e}"
+        details = []
+    checks.append(
+        {
+            "id": "content_health",
+            "name": "Content directory health (notes / translations / covers / candidates)",
+            "status": status,
+            "message": msg,
+            "details": details,
+            "jump_to": "/preflight",
+        }
+    )
 
     # Summary
     summary = {
@@ -2291,6 +3193,13 @@ def _parse_multipart(body: bytes, boundary: bytes) -> list[dict]:
     7578: ``--boundary\\r\\n`` separates parts; each part has headers,
     an empty line, then bytes. ``--boundary--\\r\\n`` ends the body.
     """
+    # ξ.16 SEC-002 — bound the search for the headers/body separator
+    # to a fixed prefix per part. RFC 7578 doesn't cap per-part
+    # header size, but realistic uploads have headers well under 1 KB.
+    # 8 KB is generous; anything larger is almost certainly an attack
+    # trying to grow the headers dict unboundedly.
+    PART_HEADER_MAX_BYTES = 8 * 1024
+    PART_HEADER_LINE_MAX = 1024
     delim = b"--" + boundary
     chunks = body.split(delim)
     # First chunk is the prelude (often empty); last is the closing
@@ -2303,13 +3212,24 @@ def _parse_multipart(body: bytes, boundary: bytes) -> list[dict]:
         # Strip the CRLF that precedes the next boundary
         if chunk.endswith(b"\r\n"):
             chunk = chunk[:-2]
-        sep = chunk.find(b"\r\n\r\n")
+        # ξ.16 SEC-002 — search for the header/body delimiter in only
+        # the first PART_HEADER_MAX_BYTES of the chunk. Past that
+        # point, headers are not legitimate.
+        header_search_window = chunk[:PART_HEADER_MAX_BYTES]
+        sep = header_search_window.find(b"\r\n\r\n")
         if sep < 0:
+            # Either the part is malformed, or the headers exceed
+            # PART_HEADER_MAX_BYTES — treat as malformed and skip.
             continue
         header_blob = chunk[:sep].decode("utf-8", errors="replace")
-        data = chunk[sep + 4:]
+        data = chunk[sep + 4 :]
         headers = {}
         for line in header_blob.split("\r\n"):
+            # ξ.16 SEC-002 — also cap individual header line length to
+            # blunt single-line dict-growth attacks (e.g. one massive
+            # Content-Disposition).
+            if len(line) > PART_HEADER_LINE_MAX:
+                continue
             if ":" in line:
                 k, v = line.split(":", 1)
                 headers[k.strip().lower()] = v.strip()
@@ -2322,17 +3242,28 @@ def _parse_multipart(body: bytes, boundary: bytes) -> list[dict]:
                 name = piece[5:].strip().strip('"')
             elif piece.startswith("filename="):
                 filename = piece[9:].strip().strip('"')
-        parts.append({
-            "name": name,
-            "filename": filename,
-            "content_type": headers.get("content-type", ""),
-            "data": data,
-        })
+        parts.append(
+            {
+                "name": name,
+                "filename": filename,
+                "content_type": headers.get("content-type", ""),
+                "data": data,
+            }
+        )
     return parts
 
 
 def _extract_boundary(content_type_header: str) -> bytes | None:
-    """Pull the ``boundary=...`` token out of a Content-Type header."""
+    """Pull the ``boundary=...`` token out of a Content-Type header.
+
+    ξ.16 SEC-007 — reject empty or oversized boundaries before the
+    parser ever sees them. RFC 2046 §5.1.1 caps the boundary at 70
+    chars; an empty boundary makes ``b"--"`` the delimiter and
+    fragments the body at every ``--`` substring (e.g. inside any
+    base64-encoded chunk), widening the parser's interpretation
+    surface unpredictably. The caller treats ``None`` as a malformed
+    multipart header and returns 400.
+    """
     if not content_type_header:
         return None
     for piece in content_type_header.split(";"):
@@ -2342,6 +3273,13 @@ def _extract_boundary(content_type_header: str) -> bytes | None:
             # Strip surrounding quotes if present
             if v.startswith('"') and v.endswith('"'):
                 v = v[1:-1]
+            # ξ.16 SEC-007 — empty / oversized rejected. Length cap
+            # is RFC 2046's 70-char ceiling; non-ASCII or control
+            # chars are also rejected (boundary must be 7-bit).
+            if not v or len(v) > 70:
+                return None
+            if any(ord(c) < 0x20 or ord(c) > 0x7E for c in v):
+                return None
             return v.encode("ascii", errors="replace")
     return None
 
@@ -2355,6 +3293,7 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
     failure.
     """
     from scripts.core import covers as _covers
+
     ok, err, meta = _covers.validate_upload_image(data)
     if not ok:
         return {"error": err}
@@ -2371,9 +3310,7 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
     if book_code is None:
         rel_path = _covers.storage_path_for_main(edition_id, meta["format"])
     else:
-        rel_path = _covers.storage_path_for_book(
-            edition_id, book_code, meta["format"]
-        )
+        rel_path = _covers.storage_path_for_book(edition_id, book_code, meta["format"])
     abs_path = REPO / "content" / rel_path
 
     # Back up any existing file before overwrite. ensure_backup is a
@@ -2418,8 +3355,8 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
     }
 
 
-def api_upload_cover_main(edition_id: str, body: bytes,
-                           content_type: str) -> dict:
+@audit_log.audit_endpoint(action="upload_cover_main")
+def api_upload_cover_main(edition_id: str, body: bytes, content_type: str) -> dict:
     """Phase π.4-B — upload a main cover for one edition."""
     boundary = _extract_boundary(content_type)
     if boundary is None:
@@ -2431,8 +3368,8 @@ def api_upload_cover_main(edition_id: str, body: bytes,
     return _save_cover_bytes(file_parts[0]["data"], edition_id, None)
 
 
-def api_upload_cover_book(edition_id: str, book_code: str, body: bytes,
-                           content_type: str) -> dict:
+@audit_log.audit_endpoint(action="upload_cover_book")
+def api_upload_cover_book(edition_id: str, book_code: str, body: bytes, content_type: str) -> dict:
     """Phase π.4-B — upload a per-book cover."""
     boundary = _extract_boundary(content_type)
     if boundary is None:
@@ -2444,6 +3381,7 @@ def api_upload_cover_book(edition_id: str, book_code: str, body: bytes,
     return _save_cover_bytes(file_parts[0]["data"], edition_id, book_code)
 
 
+@audit_log.audit_endpoint(action="delete_cover_main")
 def api_delete_cover_main(edition_id: str) -> dict:
     """Phase π.4-B — clear an edition's main cover assignment + file."""
     eds = config.editions_by_id()
@@ -2467,9 +3405,11 @@ def api_delete_cover_main(edition_id: str) -> dict:
     return {"ok": True, "edition_id": edition_id, "cleared": cur_path}
 
 
+@audit_log.audit_endpoint(action="delete_cover_book")
 def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
     """Phase π.4-B — clear a per-book cover assignment + file."""
     from scripts.core import covers as _covers
+
     eds = config.editions_by_id()
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}
@@ -2478,9 +3418,7 @@ def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
     edition = eds[edition_id]
     per_book = _covers.decode_book_covers(edition.get("book_covers"))
     cur_path = per_book.pop(book_code, "")
-    save_result = api_save_edition_meta(
-        edition_id, {"book_covers": per_book}
-    )
+    save_result = api_save_edition_meta(edition_id, {"book_covers": per_book})
     if not save_result.get("ok"):
         return {"error": save_result.get("error", "yaml save failed")}
     if cur_path:
@@ -2491,8 +3429,7 @@ def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
                 abs_path.unlink()
             except OSError:
                 pass
-    return {"ok": True, "edition_id": edition_id,
-            "book_code": book_code, "cleared": cur_path}
+    return {"ok": True, "edition_id": edition_id, "book_code": book_code, "cleared": cur_path}
 
 
 def _compute_covers_uncached() -> dict:
@@ -2515,6 +3452,7 @@ def _compute_covers_uncached() -> dict:
     """
     from scripts.core import covers as _covers
     from scripts.core import matrix as _matrix
+
     editions = config.load_editions()
     books_in_order = config.load_books()
     book_rank = {b["code"]: i for i, b in enumerate(books_in_order)}
@@ -2528,12 +3466,17 @@ def _compute_covers_uncached() -> dict:
         canon_set = edition_canons.get(ed["id"], set())
         # Sort by canonical position (NOT alphabetical, NOT insertion).
         canon_books = sorted(canon_set, key=lambda c: book_rank.get(c, 1_000_000))
-        records.append(_covers.cover_record_for_edition(
-            ed, canon_books, books_idx,
-        ))
+        records.append(
+            _covers.cover_record_for_edition(
+                ed,
+                canon_books,
+                books_idx,
+            )
+        )
     return {"editions": records}
 
 
+@audit_log.audit_endpoint(action="clone_edition")
 def api_clone_edition(payload: dict) -> dict:
     """Phase ν.4 — clone an existing edition into a new one.
 
@@ -2574,10 +3517,7 @@ def api_clone_edition(payload: dict) -> dict:
     # Same id-format constraints as elsewhere in the project — kebab-case,
     # alphanumeric + dashes only, no leading/trailing dash, no whitespace
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", new_id):
-        return {"error": (
-            f"new_id must be lowercase kebab-case "
-            f"(letters/digits/dashes only): got {new_id!r}"
-        )}
+        return {"error": (f"new_id must be lowercase kebab-case (letters/digits/dashes only): got {new_id!r}")}
 
     eds = config.editions_by_id()
     if source_id not in eds:
@@ -2591,6 +3531,7 @@ def api_clone_edition(payload: dict) -> dict:
     # error doesn't leave an orphaned record. Track copied paths for
     # rollback.
     from scripts.core import covers as _covers
+
     copied: list[Path] = []
     new_book_covers_encoded: list[str] | None = None
     new_main_path: str = source.get("cover_image", "")
@@ -2609,15 +3550,11 @@ def api_clone_edition(payload: dict) -> dict:
                     abs_new.parent.mkdir(parents=True, exist_ok=True)
                     # ω.9 — atomic copy: never leave a half-written
                     # cloned cover image on a crash.
-                    notes_io.atomic_write_bytes(
-                        abs_new, src_path.read_bytes()
-                    )
+                    notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
                     copied.append(abs_new)
                     new_main_path = rel_new
             # Per-book covers
-            src_per_book = _covers.decode_book_covers(
-                source.get("book_covers")
-            )
+            src_per_book = _covers.decode_book_covers(source.get("book_covers"))
             new_per_book: dict[str, str] = {}
             for code, src_rel in src_per_book.items():
                 if not src_rel:
@@ -2639,9 +3576,7 @@ def api_clone_edition(payload: dict) -> dict:
                 notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
                 copied.append(abs_new)
                 new_per_book[code] = rel_new
-            new_book_covers_encoded = _covers.encode_book_covers(
-                new_per_book
-            )
+            new_book_covers_encoded = _covers.encode_book_covers(new_per_book)
         except OSError as e:
             # Clean up any files we copied before the failure
             for p in copied:
@@ -2658,7 +3593,10 @@ def api_clone_edition(payload: dict) -> dict:
     try:
         text = yaml_path.read_text(encoding="utf-8")
         new_text = _append_cloned_edition(
-            text, source_id, new_id, new_title or source.get("title", new_id),
+            text,
+            source_id,
+            new_id,
+            new_title or source.get("title", new_id),
             override_cover_image=new_main_path,
             override_book_covers=new_book_covers_encoded,
         )
@@ -2678,6 +3616,7 @@ def api_clone_edition(payload: dict) -> dict:
     # its own lru_cache that needs explicit clearing).
     config.load_editions.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
 
     return {
@@ -2717,7 +3656,7 @@ def _append_cloned_edition(
     scalar_fields = [
         ("title", new_title),
         ("short_title", src.get("short_title", "")),
-        ("isbn", ""),                                    # blank for the clone
+        ("isbn", ""),  # blank for the clone
         ("canon", src.get("canon", "")),
         ("target_audience", src.get("target_audience", "")),
         ("verse_popups", src.get("verse_popups", True)),
@@ -2725,9 +3664,7 @@ def _append_cloned_edition(
         ("popup_translation", src.get("popup_translation", "")),
         ("theme", src.get("theme", "classic")),
         ("notes", src.get("notes", "")),
-        ("cover_image", override_cover_image
-             if override_cover_image is not None
-             else src.get("cover_image", "")),
+        ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
     ]
     for fname, fval in scalar_fields:
         if fval is None:
@@ -2819,21 +3756,34 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
     # would be silently ignored by save anyway, so the preview marks
     # those as "unknown" to give the publisher early feedback.
     EDITABLE = {
-        "title", "short_title", "isbn", "target_audience", "notes",
-        "verse_marker_glyph", "theme", "popup_translation",
-        "cover_image", "verse_popups",
+        "title",
+        "short_title",
+        "isbn",
+        "target_audience",
+        "notes",
+        "verse_marker_glyph",
+        "theme",
+        "popup_translation",
+        "cover_image",
+        "verse_popups",
         # Phase ν.2.7 popup languages
-        "popup_languages_default", "popup_languages_per_book",
+        "popup_languages_default",
+        "popup_languages_per_book",
         # Phase ψ.8 cross-denominational compare apparatus
-        "traditions_default", "traditions_per_book",
+        "traditions_default",
+        "traditions_per_book",
         # Phase π.4-A covers
         "book_covers",
         # Phase ν.6 reader experience
-        "chapter_number_format", "chapter_number_decoration",
+        "chapter_number_format",
+        "chapter_number_decoration",
         # Phase ν.6.1 book ToC ornament
         "book_toc_ornament",
         # Phase ν.6 reader's TOC behavior
-        "reader_toc_collapsible", "reader_toc_default_open",
+        "reader_toc_collapsible",
+        "reader_toc_default_open",
+        # Phase ψ.19 reading plans (schema only — ToC integration ψ.19.1)
+        "enabled_reading_plans",
     }
 
     changes: list[dict] = []
@@ -2855,11 +3805,13 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
         elif proposed == before:
             unchanged.append(field)
             continue
-        changes.append({
-            "field": field,
-            "before": before,
-            "after": proposed,
-        })
+        changes.append(
+            {
+                "field": field,
+                "before": before,
+                "after": proposed,
+            }
+        )
 
     result = {
         "edition_id": edition_id,
@@ -2876,6 +3828,7 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
     return result
 
 
+@audit_log.audit_endpoint(action="save_edition_meta")
 def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     """Update editable metadata for one edition (Phase ν.2).
 
@@ -2896,18 +3849,36 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     if edition_id not in eds:
         return {"error": f"unknown edition: {edition_id}"}
 
-    EDITABLE_TEXT = {"title", "short_title", "isbn", "target_audience", "notes",
-                      "verse_marker_glyph", "theme", "popup_translation",
-                      "cover_image",
-                      # Phase ν.6 — reader experience customization
-                      "chapter_number_format",
-                      "chapter_number_decoration",
-                      # Phase ν.6.1 — book ToC ornament picker
-                      "book_toc_ornament"}
-    EDITABLE_BOOL = {"verse_popups",
-                      # Phase ν.6 — reader's TOC display preferences
-                      "reader_toc_collapsible",
-                      "reader_toc_default_open"}
+    EDITABLE_TEXT = {
+        "title",
+        "short_title",
+        "isbn",
+        "target_audience",
+        "notes",
+        "verse_marker_glyph",
+        "theme",
+        "popup_translation",
+        "cover_image",
+        # Phase ν.6 — reader experience customization
+        "chapter_number_format",
+        "chapter_number_decoration",
+        # Phase ν.6.1 — book ToC ornament picker
+        "book_toc_ornament",
+    }
+    EDITABLE_BOOL = {
+        "verse_popups",
+        # Phase ν.6 — reader's TOC display preferences
+        "reader_toc_collapsible",
+        "reader_toc_default_open",
+        # Phase χ-AI-notes — per-edition opt-in for AI-drafted notes
+        # in the editorial apparatus. Default false; when true, the
+        # build pipeline includes promoted comm-ai notes in this
+        # edition's filter (alongside the kind being present in
+        # enabled_kinds — both are required, so the toggle is a
+        # second confirmation rather than a duplicate of the
+        # standard kind filter).
+        "enable_ai_notes",
+    }
 
     # Validate theme if changed
     if "theme" in payload:
@@ -2921,21 +3892,17 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     # feedback rather than a silent fallback to 'digit'/'plain'.
     if "chapter_number_format" in payload:
         from scripts.build_edition import CHAPTER_NUMBER_FORMATS
+
         v = (payload["chapter_number_format"] or "").strip()
         if v and v not in CHAPTER_NUMBER_FORMATS:
-            return {"error": (
-                f"unknown chapter_number_format: {v!r}; "
-                f"valid: {sorted(CHAPTER_NUMBER_FORMATS)}"
-            )}
+            return {"error": (f"unknown chapter_number_format: {v!r}; valid: {sorted(CHAPTER_NUMBER_FORMATS)}")}
         payload["chapter_number_format"] = v
     if "chapter_number_decoration" in payload:
         from scripts.build_edition import CHAPTER_NUMBER_DECORATIONS
+
         v = (payload["chapter_number_decoration"] or "").strip()
         if v and v not in CHAPTER_NUMBER_DECORATIONS:
-            return {"error": (
-                f"unknown chapter_number_decoration: {v!r}; "
-                f"valid: {sorted(CHAPTER_NUMBER_DECORATIONS)}"
-            )}
+            return {"error": (f"unknown chapter_number_decoration: {v!r}; valid: {sorted(CHAPTER_NUMBER_DECORATIONS)}")}
         payload["chapter_number_decoration"] = v
 
     # Phase ν.6.1 — book ToC ornament validation. Same pattern as
@@ -2944,12 +3911,10 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     # queued for the same follow-up phase as reader_toc_*.
     if "book_toc_ornament" in payload:
         from scripts.build_edition import BOOK_TOC_ORNAMENTS
+
         v = (payload["book_toc_ornament"] or "").strip()
         if v and v not in BOOK_TOC_ORNAMENTS:
-            return {"error": (
-                f"unknown book_toc_ornament: {v!r}; "
-                f"valid: {sorted(BOOK_TOC_ORNAMENTS)}"
-            )}
+            return {"error": (f"unknown book_toc_ornament: {v!r}; valid: {sorted(BOOK_TOC_ORNAMENTS)}")}
         payload["book_toc_ornament"] = v
 
     # Validate cover_image path safety (Phase π.4-A)
@@ -2971,22 +3936,21 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             return {"error": "popup_translation must be a string"}
         if v:
             from scripts.core import translations as _tx
+
             available = set(_tx.list_translations())
             if v not in available:
-                return {
-                    "error": (
-                        f"unknown translation: {v!r}; "
-                        f"available: {sorted(available) or 'none'}"
-                    )
-                }
+                return {"error": (f"unknown translation: {v!r}; available: {sorted(available) or 'none'}")}
         payload["popup_translation"] = v
 
     # Validate popup_languages_default + popup_languages_per_book (Phase ν.2.7-B)
     list_field_updates: dict[str, list[str]] = {}
     from scripts.build_edition import (
-        ALL_POPUP_LANGUAGES, encode_per_book_languages, decode_per_book_languages,
+        ALL_POPUP_LANGUAGES,
+        encode_per_book_languages,
+        decode_per_book_languages,
         encode_per_book_traditions,
     )
+
     valid_langs = set(ALL_POPUP_LANGUAGES)
 
     if "popup_languages_default" in payload:
@@ -3003,12 +3967,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if not s:
                 continue
             if s not in valid_langs:
-                return {
-                    "error": (
-                        f"unknown popup language: {s!r}; "
-                        f"available: {sorted(valid_langs)}"
-                    )
-                }
+                return {"error": (f"unknown popup language: {s!r}; available: {sorted(valid_langs)}")}
             if s not in cleaned:
                 cleaned.append(s)
         list_field_updates["popup_languages_default"] = cleaned
@@ -3019,12 +3978,12 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     # traditions" — byte-identical pre-ψ.8.2 build behavior.
     if "traditions_default" in payload:
         from scripts.core.traditions import TRADITION_IDS
+
         v = payload["traditions_default"]
         if v is None:
             v = []
         if not isinstance(v, list):
-            return {"error":
-                    "traditions_default must be a list of tradition ids"}
+            return {"error": "traditions_default must be a list of tradition ids"}
         cleaned: list[str] = []
         for item in v:
             if not isinstance(item, str):
@@ -3033,15 +3992,38 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if not s:
                 continue
             if s not in TRADITION_IDS:
-                return {
-                    "error": (
-                        f"unknown tradition: {s!r}; "
-                        f"available: {sorted(TRADITION_IDS)}"
-                    )
-                }
+                return {"error": (f"unknown tradition: {s!r}; available: {sorted(TRADITION_IDS)}")}
             if s not in cleaned:
                 cleaned.append(s)
         list_field_updates["traditions_default"] = cleaned
+
+    # ψ.19 — enabled_reading_plans validator. Mirror of the
+    # popup_languages_default / traditions_default pattern: list of
+    # plan ids, each must exist as content/reading_plans/<id>.yaml.
+    # Empty / absent = "no reading plans" — byte-identical to pre-
+    # ψ.19 build behavior. Schema-only for now; build-pipeline ToC
+    # integration ships in ψ.19.1.
+    if "enabled_reading_plans" in payload:
+        from scripts.core.reading_plans import list_plans
+
+        v = payload["enabled_reading_plans"]
+        if v is None:
+            v = []
+        if not isinstance(v, list):
+            return {"error": "enabled_reading_plans must be a list of plan ids"}
+        valid_plans = {p.id for p in list_plans()}
+        cleaned: list[str] = []
+        for item in v:
+            if not isinstance(item, str):
+                return {"error": "enabled_reading_plans items must be strings"}
+            s = item.strip()
+            if not s:
+                continue
+            if s not in valid_plans:
+                return {"error": (f"unknown reading plan: {s!r}; available: {sorted(valid_plans)}")}
+            if s not in cleaned:
+                cleaned.append(s)
+        list_field_updates["enabled_reading_plans"] = cleaned
 
     # Phase ψ.8.4 — traditions_per_book validator. Mirror of
     # popup_languages_per_book: dict of {book_code: [tradition_ids]}.
@@ -3049,67 +4031,44 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     # (explicit override of the default, distinct from absence).
     if "traditions_per_book" in payload:
         from scripts.core.traditions import TRADITION_IDS
+
         v = payload["traditions_per_book"]
         if v is None:
             v = {}
         if not isinstance(v, dict):
-            return {
-                "error": (
-                    "traditions_per_book must be a mapping "
-                    "of book_code → list-of-tradition-ids"
-                )
-            }
+            return {"error": ("traditions_per_book must be a mapping of book_code → list-of-tradition-ids")}
         valid_books = set(config.books_by_code().keys())
         cleaned_dict: dict[str, list[str]] = {}
         for code, traditions in v.items():
             if not isinstance(code, str) or not code.strip():
-                return {"error":
-                        "traditions_per_book book codes must be non-empty strings"}
+                return {"error": "traditions_per_book book codes must be non-empty strings"}
             code = code.strip()
             if code not in valid_books:
                 return {"error": f"unknown book code: {code!r}"}
             if traditions is None:
                 traditions = []
             if not isinstance(traditions, list):
-                return {
-                    "error": (
-                        f"traditions_per_book[{code!r}] must be a list "
-                        f"of tradition ids"
-                    )
-                }
+                return {"error": (f"traditions_per_book[{code!r}] must be a list of tradition ids")}
             book_traditions: list[str] = []
             for t in traditions:
                 if not isinstance(t, str):
-                    return {"error":
-                            f"tradition id in {code!r} must be a string"}
+                    return {"error": f"tradition id in {code!r} must be a string"}
                 s = t.strip()
                 if not s:
                     continue
                 if s not in TRADITION_IDS:
-                    return {
-                        "error": (
-                            f"unknown tradition in {code!r}: {s!r}; "
-                            f"available: {sorted(TRADITION_IDS)}"
-                        )
-                    }
+                    return {"error": (f"unknown tradition in {code!r}: {s!r}; available: {sorted(TRADITION_IDS)}")}
                 if s not in book_traditions:
                     book_traditions.append(s)
             cleaned_dict[code] = book_traditions
-        list_field_updates["traditions_per_book"] = encode_per_book_traditions(
-            cleaned_dict
-        )
+        list_field_updates["traditions_per_book"] = encode_per_book_traditions(cleaned_dict)
 
     if "popup_languages_per_book" in payload:
         v = payload["popup_languages_per_book"]
         if v is None:
             v = {}
         if not isinstance(v, dict):
-            return {
-                "error": (
-                    "popup_languages_per_book must be a mapping "
-                    "of book_code → list-of-language-ids"
-                )
-            }
+            return {"error": ("popup_languages_per_book must be a mapping of book_code → list-of-language-ids")}
         valid_books = set(config.books_by_code().keys())
         cleaned_dict: dict[str, list[str]] = {}
         for code, langs in v.items():
@@ -3121,12 +4080,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if langs is None:
                 langs = []
             if not isinstance(langs, list):
-                return {
-                    "error": (
-                        f"popup_languages_per_book[{code!r}] must be a list "
-                        f"of language ids"
-                    )
-                }
+                return {"error": (f"popup_languages_per_book[{code!r}] must be a list of language ids")}
             book_langs: list[str] = []
             for L in langs:
                 if not isinstance(L, str):
@@ -3135,19 +4089,12 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
                 if not s:
                     continue
                 if s not in valid_langs:
-                    return {
-                        "error": (
-                            f"unknown popup language in {code!r}: {s!r}; "
-                            f"available: {sorted(valid_langs)}"
-                        )
-                    }
+                    return {"error": (f"unknown popup language in {code!r}: {s!r}; available: {sorted(valid_langs)}")}
                 if s not in book_langs:
                     book_langs.append(s)
             cleaned_dict[code] = book_langs
         # Encode to the on-disk list-of-strings format
-        list_field_updates["popup_languages_per_book"] = encode_per_book_languages(
-            cleaned_dict
-        )
+        list_field_updates["popup_languages_per_book"] = encode_per_book_languages(cleaned_dict)
 
     # Validate book_covers (Phase π.4-A)
     # Same indirection as popup_languages_per_book — UI sends a dict
@@ -3156,16 +4103,12 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     # to exist (publishers may save the assignment before uploading).
     if "book_covers" in payload:
         from scripts.core.covers import encode_book_covers
+
         v = payload["book_covers"]
         if v is None:
             v = {}
         if not isinstance(v, dict):
-            return {
-                "error": (
-                    "book_covers must be a mapping of book_code → "
-                    "cover path string"
-                )
-            }
+            return {"error": ("book_covers must be a mapping of book_code → cover path string")}
         valid_books = set(config.books_by_code().keys())
         cleaned_covers: dict[str, str] = {}
         for code, path in v.items():
@@ -3187,7 +4130,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     updates: dict[str, str] = {}
     for field in EDITABLE_TEXT:
         if field in payload:
-            val = (payload[field] or "")
+            val = payload[field] or ""
             if isinstance(val, str):
                 if field == "verse_marker_glyph" and len(val) > 4:
                     return {"error": "verse_marker_glyph max 4 chars"}
@@ -3227,6 +4170,7 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     notes_io.atomic_write(path, text)
     config.load_editions.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
     return {
         "ok": True,
@@ -3250,10 +4194,10 @@ _THIN_ATTR_PATTERNS = (
 
 def _classify_attribution(attr: str) -> str:
     """Bucket an attribution string into one of:
-        'missing'  — empty/whitespace, no attribution at all
-        'thin'     — present but suspiciously short or vague
-        'user'     — user-original / user-paraphrase (legitimate but flag)
-        'sourced'  — references a real outside source (best case)
+    'missing'  — empty/whitespace, no attribution at all
+    'thin'     — present but suspiciously short or vague
+    'user'     — user-original / user-paraphrase (legitimate but flag)
+    'sourced'  — references a real outside source (best case)
     """
     s = (attr or "").strip()
     if not s:
@@ -3485,14 +4429,13 @@ UI_DEFENSE_PRELUDE = r"""
 """
 
 
-
-
 # ω.0.8 — web.py split refactor: HTML constants moved to
 # scripts/templates/<name>.py during the 2026-05-07 split.
 # These imports preserve back-compat with existing
 # `from scripts.web import <NAME>_HTML` callers.
 from scripts.templates.apihelp import APIHELP_HTML
 from scripts.templates.audit import AUDIT_HTML
+from scripts.templates.audit_log import AUDIT_LOG_HTML
 from scripts.templates.compare import COMPARE_HTML
 from scripts.templates.covers import COVERS_HTML
 from scripts.templates.customize import CUSTOMIZE_HTML
@@ -3543,8 +4486,12 @@ def api_compare(book: str, chapter: int, translations: list[str]) -> dict:
     rather than silently dropped, so the UI can surface them.
     """
     from scripts.core.translations import (
-        list_translations, has_translation, has_book, get_chapter,
+        list_translations,
+        has_translation,
+        has_book,
+        get_chapter,
     )
+
     book = (book or "").strip().lower()
     if not book:
         return {"error": "book code is required"}
@@ -3670,7 +4617,9 @@ def api_sample_html(
     edition = eds.get(edition_id)
     if not edition:
         return {
-            "status": "error", "code": "unknown_edition", "http": 404,
+            "status": "error",
+            "code": "unknown_edition",
+            "http": 404,
             "message": f"No edition with id {edition_id!r}",
         }
 
@@ -3678,13 +4627,17 @@ def api_sample_html(
     book = (book or "").strip().lower()
     if not book:
         return {
-            "status": "error", "code": "unknown_book", "http": 404,
+            "status": "error",
+            "code": "unknown_book",
+            "http": 404,
             "message": "book code is required",
         }
     all_books = config.books_by_code()
     if book not in all_books:
         return {
-            "status": "error", "code": "unknown_book", "http": 404,
+            "status": "error",
+            "code": "unknown_book",
+            "http": 404,
             "message": f"Unknown book code {book!r}",
         }
 
@@ -3694,11 +4647,10 @@ def api_sample_html(
     canon_books = set((canons.get(canon_id) or {}).get("books") or [])
     if book not in canon_books:
         return {
-            "status": "error", "code": "out_of_canon", "http": 404,
-            "message": (
-                f"Book {book!r} is not in the {canon_id!r} canon "
-                f"used by edition {edition_id!r}"
-            ),
+            "status": "error",
+            "code": "out_of_canon",
+            "http": 404,
+            "message": (f"Book {book!r} is not in the {canon_id!r} canon used by edition {edition_id!r}"),
         }
 
     # --- Chapter range validation ---
@@ -3707,12 +4659,16 @@ def api_sample_html(
         t = int(to_chapter)
     except (TypeError, ValueError):
         return {
-            "status": "error", "code": "invalid_range", "http": 400,
+            "status": "error",
+            "code": "invalid_range",
+            "http": 400,
             "message": "from and to must be integers",
         }
     if f < 1 or t < f:
         return {
-            "status": "error", "code": "invalid_range", "http": 400,
+            "status": "error",
+            "code": "invalid_range",
+            "http": 400,
             "message": f"invalid range: from={f}, to={t}",
         }
     # Cap range size to keep the document reasonable; pitch decks
@@ -3720,17 +4676,18 @@ def api_sample_html(
     MAX_RANGE = 10
     if (t - f + 1) > MAX_RANGE:
         return {
-            "status": "error", "code": "invalid_range", "http": 400,
-            "message": (
-                f"range too large: requested {t - f + 1} chapters; "
-                f"max is {MAX_RANGE}"
-            ),
+            "status": "error",
+            "code": "invalid_range",
+            "http": 400,
+            "message": (f"range too large: requested {t - f + 1} chapters; max is {MAX_RANGE}"),
         }
 
     # --- Verses (compose translations.get_chapter) ---
     if not translations.has_translation(translation):
         return {
-            "status": "error", "code": "invalid_range", "http": 400,
+            "status": "error",
+            "code": "invalid_range",
+            "http": 400,
             "message": f"translation {translation!r} not available",
         }
     verses_by_chapter: dict[int, list[tuple]] = {}
@@ -3764,24 +4721,38 @@ def api_sample_html(
 
     # --- Render self-contained HTML ---
     html = _render_sample_html(
-        edition=edition, book=book, all_books=all_books,
-        from_chapter=f, to_chapter=t,
-        verses_by_chapter=verses_by_chapter, notes=in_range,
+        edition=edition,
+        book=book,
+        all_books=all_books,
+        from_chapter=f,
+        to_chapter=t,
+        verses_by_chapter=verses_by_chapter,
+        notes=in_range,
         translation=translation,
     )
 
     return {
-        "status": "ok", "html": html,
-        "edition_id": edition_id, "book": book,
-        "from": f, "to": t,
-        "verse_count": total_verses, "note_count": len(in_range),
+        "status": "ok",
+        "html": html,
+        "edition_id": edition_id,
+        "book": book,
+        "from": f,
+        "to": t,
+        "verse_count": total_verses,
+        "note_count": len(in_range),
     }
 
 
 def _render_sample_html(
-    *, edition: dict, book: str, all_books: dict,
-    from_chapter: int, to_chapter: int,
-    verses_by_chapter: dict, notes: list, translation: str,
+    *,
+    edition: dict,
+    book: str,
+    all_books: dict,
+    from_chapter: int,
+    to_chapter: int,
+    verses_by_chapter: dict,
+    notes: list,
+    translation: str,
 ) -> str:
     """Render the self-contained sample HTML document.
 
@@ -3790,11 +4761,10 @@ def _render_sample_html(
     paste, etc., without needing external resources.
     """
     import html as _html
+
     book_meta = all_books.get(book) or {}
     book_title = book_meta.get("title") or book.upper()
-    edition_title = (
-        edition.get("title") or edition.get("short_title") or edition.get("id")
-    )
+    edition_title = edition.get("title") or edition.get("short_title") or edition.get("id")
 
     # Group notes by (chapter, verse) for inline rendering
     notes_by_anchor: dict[tuple[int, int], list] = {}
@@ -3808,7 +4778,7 @@ def _render_sample_html(
             chapter_blocks.append(
                 f'<section class="chapter"><h2>Chapter {ch}</h2>'
                 f'<p class="empty">No verses available for this chapter '
-                f'in {_html.escape(translation.upper())}.</p></section>'
+                f"in {_html.escape(translation.upper())}.</p></section>"
             )
             continue
         verse_html_parts = []
@@ -3824,30 +4794,15 @@ def _render_sample_html(
                     body = str(n[7] or "")  # body is already HTML
                     kind = _html.escape(str(n[4] or ""))
                     items.append(
-                        f'<li class="note"><span class="kind">{kind}</span> '
-                        f'<strong>{title}.</strong> {body}</li>'
+                        f'<li class="note"><span class="kind">{kind}</span> <strong>{title}.</strong> {body}</li>'
                     )
-                note_blocks_html = (
-                    f'<ul class="notes">{"".join(items)}</ul>'
-                )
+                note_blocks_html = f'<ul class="notes">{"".join(items)}</ul>'
             verse_html_parts.append(
-                f'<p class="verse">'
-                f'<sup class="vn">{v_num}</sup> {_html.escape(v_text)}'
-                f'{note_blocks_html}'
-                f'</p>'
+                f'<p class="verse"><sup class="vn">{v_num}</sup> {_html.escape(v_text)}{note_blocks_html}</p>'
             )
-        chapter_blocks.append(
-            f'<section class="chapter">'
-            f'<h2>Chapter {ch}</h2>'
-            f'{"".join(verse_html_parts)}'
-            f'</section>'
-        )
+        chapter_blocks.append(f'<section class="chapter"><h2>Chapter {ch}</h2>{"".join(verse_html_parts)}</section>')
 
-    range_label = (
-        f"Chapter {from_chapter}"
-        if from_chapter == to_chapter
-        else f"Chapters {from_chapter}-{to_chapter}"
-    )
+    range_label = f"Chapter {from_chapter}" if from_chapter == to_chapter else f"Chapters {from_chapter}-{to_chapter}"
     style_block = """
   body {
     font-family: Georgia, "Times New Roman", serif;
@@ -3883,22 +4838,22 @@ def _render_sample_html(
     return (
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
         '<meta charset="utf-8">\n'
-        f'<title>{_html.escape(book_title)} - '
-        f'{_html.escape(range_label)} - Sample</title>\n'
-        f'<style>{style_block}</style>\n</head>\n<body>\n'
-        '<header>\n'
+        f"<title>{_html.escape(book_title)} - "
+        f"{_html.escape(range_label)} - Sample</title>\n"
+        f"<style>{style_block}</style>\n</head>\n<body>\n"
+        "<header>\n"
         f'  <div class="edition">{_html.escape(edition_title or "")}</div>\n'
-        f'  <h1>{_html.escape(book_title)} '
+        f"  <h1>{_html.escape(book_title)} "
         f'<span class="range">- {_html.escape(range_label)}</span></h1>\n'
         f'  <p class="meta">Translation: {_html.escape(translation.upper())} '
-        f'- Sample preview - {len(notes)} note(s) shown</p>\n'
-        '</header>\n'
-        f'{"".join(chapter_blocks)}\n'
-        '<footer>\n'
-        '  Sample generated from the E-Bible publishing platform.\n'
-        '  This is a preview excerpt for evaluation.\n'
-        '</footer>\n'
-        '</body>\n</html>\n'
+        f"- Sample preview - {len(notes)} note(s) shown</p>\n"
+        "</header>\n"
+        f"{''.join(chapter_blocks)}\n"
+        "<footer>\n"
+        "  Sample generated from the E-Bible publishing platform.\n"
+        "  This is a preview excerpt for evaluation.\n"
+        "</footer>\n"
+        "</body>\n</html>\n"
     )
 
 
@@ -3911,9 +4866,7 @@ def _render_sample_html(
 
 # Backup filename pattern: <stem>.<TIMESTAMP>.<suffix>.bak
 # where TIMESTAMP is the YYYYMMDDTHHMMSSZ string from ensure_backup.
-_BACKUP_FILENAME_RE = re.compile(
-    r"^(?P<stem>.+?)\.(?P<ts>\d{8}T\d{6}Z)(?P<suffix>\..+)?\.bak$"
-)
+_BACKUP_FILENAME_RE = re.compile(r"^(?P<stem>.+?)\.(?P<ts>\d{8}T\d{6}Z)(?P<suffix>\..+)?\.bak$")
 
 
 def _resolve_content_path(rel_path: str) -> tuple[Path | None, str | None]:
@@ -3929,6 +4882,17 @@ def _resolve_content_path(rel_path: str) -> tuple[Path | None, str | None]:
     # attack. Don't auto-relativize.
     if rel_path.startswith("/") or rel_path.startswith("\\"):
         return None, "absolute paths are not allowed"
+    # ξ.17 SEC-008 — explicit Windows drive-letter reject. On Windows,
+    # `Path("C:\\foo")` is absolute, and `(REPO / "content" / "C:\\foo")`
+    # returns `C:\\foo` (rightmost-absolute wins). The downstream
+    # `relative_to(content_root)` does catch and reject — fail-closed
+    # today — but adding the explicit reject here mirrors
+    # `safe_path._check_string_safety` and removes the drift risk if
+    # the relative_to check is ever refactored. Reject any string
+    # whose first 2 chars look like `<letter>:` (drive prefix) and
+    # also reject the form `C:foo` (drive-relative path, no slash).
+    if len(rel_path) >= 2 and rel_path[1] == ":" and rel_path[0].isalpha():
+        return None, "drive-letter prefix not allowed"
     # Reject obvious traversal patterns before resolving
     if ".." in Path(rel_path).parts:
         return None, "path traversal not allowed"
@@ -3961,8 +4925,7 @@ def api_list_backups(file_path: str) -> dict:
     """
     abs_path, err = _resolve_content_path(file_path)
     if err:
-        return {"status": "error", "code": "invalid_path",
-                "http": 400, "message": err}
+        return {"status": "error", "code": "invalid_path", "http": 400, "message": err}
     # The file itself need not currently exist (it could have been
     # deleted) — what we care about is whether backups exist.
     backup_dir = abs_path.parent / ".backups"
@@ -3979,22 +4942,21 @@ def api_list_backups(file_path: str) -> dict:
             ts = m.group("ts")
             # Format ISO-8601 from the timestamp
             try:
-                iso_time = (
-                    f"{ts[0:4]}-{ts[4:6]}-{ts[6:8]}T"
-                    f"{ts[9:11]}:{ts[11:13]}:{ts[13:15]}+00:00"
-                )
+                iso_time = f"{ts[0:4]}-{ts[4:6]}-{ts[6:8]}T{ts[9:11]}:{ts[11:13]}:{ts[13:15]}+00:00"
             except IndexError:
                 iso_time = ts
             try:
                 size_bytes = bp.stat().st_size
             except OSError:
                 size_bytes = 0
-            snapshots.append({
-                "id": bp.name,
-                "timestamp": ts,
-                "iso_time": iso_time,
-                "size_bytes": size_bytes,
-            })
+            snapshots.append(
+                {
+                    "id": bp.name,
+                    "timestamp": ts,
+                    "iso_time": iso_time,
+                    "size_bytes": size_bytes,
+                }
+            )
     # Newest first — easier for UI
     snapshots.reverse()
     return {
@@ -4005,6 +4967,7 @@ def api_list_backups(file_path: str) -> dict:
     }
 
 
+@audit_log.audit_endpoint(action="restore_backup")
 def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
     """Restore a backup snapshot to its source file.
 
@@ -4022,31 +4985,38 @@ def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
     """
     abs_path, err = _resolve_content_path(file_path)
     if err:
-        return {"status": "error", "code": "invalid_path",
-                "http": 400, "message": err}
+        return {"status": "error", "code": "invalid_path", "http": 400, "message": err}
     if not snapshot_id or not isinstance(snapshot_id, str):
-        return {"status": "error", "code": "invalid_snapshot",
-                "http": 400, "message": "snapshot_id is required"}
+        return {"status": "error", "code": "invalid_snapshot", "http": 400, "message": "snapshot_id is required"}
 
     m = _BACKUP_FILENAME_RE.match(snapshot_id)
     if not m:
-        return {"status": "error", "code": "invalid_snapshot",
-                "http": 400, "message": f"snapshot id {snapshot_id!r} has bad format"}
+        return {
+            "status": "error",
+            "code": "invalid_snapshot",
+            "http": 400,
+            "message": f"snapshot id {snapshot_id!r} has bad format",
+        }
     # Belt-and-braces: the snapshot's stem must match the file's stem,
     # else the caller is trying to restore a snapshot of a DIFFERENT
     # file into this path, which is a bug or attack.
     if m.group("stem") != abs_path.stem:
-        return {"status": "error", "code": "invalid_snapshot",
-                "http": 400, "message": (
-                    f"snapshot {snapshot_id!r} does not belong to "
-                    f"file {abs_path.name!r}"
-                )}
+        return {
+            "status": "error",
+            "code": "invalid_snapshot",
+            "http": 400,
+            "message": (f"snapshot {snapshot_id!r} does not belong to file {abs_path.name!r}"),
+        }
 
     backup_dir = abs_path.parent / ".backups"
     snapshot_path = backup_dir / snapshot_id
     if not snapshot_path.is_file():
-        return {"status": "error", "code": "snapshot_not_found",
-                "http": 404, "message": f"no such snapshot: {snapshot_id}"}
+        return {
+            "status": "error",
+            "code": "snapshot_not_found",
+            "http": 404,
+            "message": f"no such snapshot: {snapshot_id}",
+        }
 
     # Defense-in-depth: snapshot_path must also be under content/,
     # in case backup_dir was a symlink or something equally weird.
@@ -4054,8 +5024,12 @@ def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
     try:
         snapshot_path.resolve().relative_to(content_root)
     except ValueError:
-        return {"status": "error", "code": "invalid_snapshot",
-                "http": 400, "message": "snapshot resolves outside content/"}
+        return {
+            "status": "error",
+            "code": "invalid_snapshot",
+            "http": 400,
+            "message": "snapshot resolves outside content/",
+        }
 
     # Step 0: read the snapshot content INTO MEMORY before doing
     # anything else. ensure_backup uses second-resolution timestamps;
@@ -4068,14 +5042,19 @@ def api_restore_backup(file_path: str, snapshot_id: str) -> dict:
     try:
         snapshot_bytes = snapshot_path.read_bytes()
     except OSError as e:
-        return {"status": "error", "code": "snapshot_not_found",
-                "http": 404, "message": f"could not read snapshot: {e}"}
+        return {
+            "status": "error",
+            "code": "snapshot_not_found",
+            "http": 404,
+            "message": f"could not read snapshot: {e}",
+        }
 
     # Step 1: snapshot the current state (if file exists) so this
     # restore is itself reversible. May collide with an existing
     # backup path — that's fine; the data we need is already in
     # snapshot_bytes.
     from scripts.core import notes_io
+
     pre_restore_backup = None
     if abs_path.is_file():
         pre_restore_backup = notes_io.ensure_backup(abs_path)
@@ -4194,7 +5173,7 @@ def api_ops_dashboard() -> dict:
     # 5. Disk free on content/
     try:
         usage = shutil.disk_usage(str(REPO / "content"))
-        free_gb = usage.free / (1024 ** 3)
+        free_gb = usage.free / (1024**3)
         used_pct = round(usage.used / usage.total * 100.0, 1)
         out["disk"] = {
             "status": "ok",
@@ -4246,15 +5225,16 @@ _ROUTE_PATTERNS = [
     # POST: if self.path == "/api/X":
     (re.compile(r'^\s*if\s+self\.path\s*==\s*"(/api/[^"]+)"'), "POST"),
     # Pattern: m = re.match(r"^/api/X/...$", self.path)
-    (re.compile(
-        r'^\s*m\s*=\s*re\.match\(r"\^(/api/[^"$]+)\$"'), "PATTERN"),
+    (re.compile(r'^\s*m\s*=\s*re\.match\(r"\^(/api/[^"$]+)\$"'), "PATTERN"),
 ]
 
 # Console-page routes (HTML, not API). These get listed separately
 # in the help page since they're a different kind of surface.
 _CONSOLE_PATTERNS = [
-    re.compile(r'^\s*if\s+path\s*==\s*"(/[a-z][^"/]*)"\s*or\s*'
-               r'path\s*==\s*"\1\.html"'),
+    re.compile(
+        r'^\s*if\s+path\s*==\s*"(/[a-z][^"/]*)"\s*or\s*'
+        r'path\s*==\s*"\1\.html"'
+    ),
 ]
 
 
@@ -4281,8 +5261,7 @@ def api_help_data() -> dict:
     try:
         lines = src_path.read_text(encoding="utf-8").splitlines()
     except OSError as e:
-        return {"status": "error", "code": "source_read_failed",
-                "http": 500, "message": str(e)}
+        return {"status": "error", "code": "source_read_failed", "http": 500, "message": str(e)}
 
     api_routes: list[dict] = []
     consoles: list[dict] = []
@@ -4329,13 +5308,15 @@ def api_help_data() -> dict:
                 seen_api.add(key)
                 ctx = gather_context(i)
                 phase_match = phase_re.search(ctx)
-                api_routes.append({
-                    "method": method if method != "PATTERN" else "GET/POST",
-                    "path": path,
-                    "description": ctx,
-                    "phase": phase_match.group(1) if phase_match else None,
-                    "line": i + 1,
-                })
+                api_routes.append(
+                    {
+                        "method": method if method != "PATTERN" else "GET/POST",
+                        "path": path,
+                        "description": ctx,
+                        "phase": phase_match.group(1) if phase_match else None,
+                        "line": i + 1,
+                    }
+                )
                 break
 
         # Console pages
@@ -4348,12 +5329,14 @@ def api_help_data() -> dict:
                 seen_console.add(path)
                 ctx = gather_context(i)
                 phase_match = phase_re.search(ctx)
-                consoles.append({
-                    "path": path,
-                    "description": ctx,
-                    "phase": phase_match.group(1) if phase_match else None,
-                    "line": i + 1,
-                })
+                consoles.append(
+                    {
+                        "path": path,
+                        "description": ctx,
+                        "phase": phase_match.group(1) if phase_match else None,
+                        "line": i + 1,
+                    }
+                )
                 break
 
     # Sort: API routes by path; consoles by path
@@ -4440,22 +5423,24 @@ def _compute_attribution_audit_uncached() -> dict:
                 kind_def = kinds_idx.get(kind, {})
                 cat_id = kind_def.get("category", "?")
                 cat_def = cats_idx.get(cat_id, {})
-                needs_attention.append({
-                    "book": code,
-                    "book_title": book.get("title", code),
-                    "section": book.get("section", ""),
-                    "chapter": ch,
-                    "verse": vs,
-                    "suffix": suffix or "",
-                    "kind": kind,
-                    "kind_label": kind_def.get("label", kind),
-                    "category": cat_id,
-                    "category_symbol": cat_def.get("symbol", "?"),
-                    "title": title,
-                    "body_preview": (body or "")[:120],
-                    "attribution": (attribution or "").strip(),
-                    "classification": cls,
-                })
+                needs_attention.append(
+                    {
+                        "book": code,
+                        "book_title": book.get("title", code),
+                        "section": book.get("section", ""),
+                        "chapter": ch,
+                        "verse": vs,
+                        "suffix": suffix or "",
+                        "kind": kind,
+                        "kind_label": kind_def.get("label", kind),
+                        "category": cat_id,
+                        "category_symbol": cat_def.get("symbol", "?"),
+                        "title": title,
+                        "body_preview": (body or "")[:120],
+                        "attribution": (attribution or "").strip(),
+                        "classification": cls,
+                    }
+                )
 
     # Per-book counts of notes needing attention (for the left rail)
     by_book: dict[str, dict] = {}
@@ -4470,8 +5455,7 @@ def _compute_attribution_audit_uncached() -> dict:
                 "thin": 0,
             }
         by_book[b][item["classification"]] += 1
-    by_book_list = sorted(by_book.values(),
-                           key=lambda x: -(x["missing"] + x["thin"]))
+    by_book_list = sorted(by_book.values(), key=lambda x: -(x["missing"] + x["thin"]))
 
     # Per-kind counts of notes needing attention
     by_kind: dict[str, int] = {}
@@ -4488,13 +5472,41 @@ def _compute_attribution_audit_uncached() -> dict:
 
 
 # ============================================================
+# Audit-log read endpoint (Phase ξ.13) — surface the NDJSON
+# ledger written by audit_log.audit_endpoint as a JSON envelope
+# the /audit-log console renders. Pure function; no caching
+# (the file is append-only and small enough for a fresh read).
+# ============================================================
+
+
+def api_audit_log(*, n: int = 100, base_dir: Path | None = None) -> dict:
+    """Return the most recent audit-log entries.
+
+    Composes `audit_log.read_recent` and wraps in the project's
+    standard envelope shape. `n` is clamped to [1, 1000] to bound
+    response size; `base_dir` is for tests (production reads
+    `<user_data>/audit/`).
+    """
+    try:
+        n_int = int(n)
+    except (TypeError, ValueError):
+        n_int = 100
+    n_int = max(1, min(1000, n_int))
+    entries = audit_log.read_recent(n=n_int, base_dir=base_dir)
+    return {
+        "status": "ok",
+        "count": len(entries),
+        "limit": n_int,
+        "entries": entries,
+    }
+
+
+# ============================================================
 # Per-Note Disable API (Phase ρ.1) — disable individual notes per edition
 # ============================================================
 
 
-_NOTE_ID_RE = re.compile(
-    r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$"
-)
+_NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
 
 
 def note_id_from_tuple(book_code: str, tup: tuple) -> str:
@@ -4546,6 +5558,7 @@ def html_ref_id_from_note_id(nid: str, books_idx: dict | None = None) -> str | N
     return f"ref-{prefix}{parsed['chapter']:02d}{parsed['verse']:02d}{parsed['suffix']}"
 
 
+@audit_log.audit_endpoint(action="save_note_toggle")
 def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
     """Add or remove a note ID from an edition's disabled_note_ids list (ρ.1).
 
@@ -4587,15 +5600,14 @@ def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
 
     # If unchanged, no-op
     if new_list == sorted(current_disabled):
-        return {"ok": True, "edition": edition_id, "unchanged": True,
-                "disabled_count": len(new_list)}
+        return {"ok": True, "edition": edition_id, "unchanged": True, "disabled_count": len(new_list)}
 
     # Patch editions.yaml using a list-block-aware regex similar to μ.2
     path = REPO / "content" / "editions.yaml"
     text = path.read_text(encoding="utf-8")
 
     block_re = re.compile(
-        rf'(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)',
+        rf"(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)",
         re.MULTILINE | re.DOTALL,
     )
     m = block_re.search(text)
@@ -4609,9 +5621,7 @@ def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
     # the project's custom YAML parser (which uses `field:` after a dash to
     # detect record boundaries). Quoting makes the items pure scalars.
     if new_list:
-        new_block = "    disabled_note_ids:\n" + "\n".join(
-            f'      - "{nid}"' for nid in new_list
-        ) + "\n"
+        new_block = "    disabled_note_ids:\n" + "\n".join(f'      - "{nid}"' for nid in new_list) + "\n"
     else:
         new_block = "    disabled_note_ids: []\n"
 
@@ -4627,15 +5637,16 @@ def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
         anchor_re = re.compile(r"^(    disabled_kinds:)", re.MULTILINE)
         am = anchor_re.search(body)
         if am:
-            new_body = body[:am.start()] + new_block + body[am.start():]
+            new_body = body[: am.start()] + new_block + body[am.start() :]
         else:
             new_body = body + new_block
 
-    new_text = text[:m.start()] + head + new_body + text[m.end():]
+    new_text = text[: m.start()] + head + new_body + text[m.end() :]
     notes_io.ensure_backup(path)
     notes_io.atomic_write(path, new_text)
     config.load_editions.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
 
     return {
@@ -4655,9 +5666,7 @@ def api_disabled_notes_for_edition(edition_id: str) -> dict:
         return {"error": f"unknown edition: {edition_id}"}
     return {
         "edition": edition_id,
-        "disabled_note_ids": sorted(
-            eds[edition_id].get("disabled_note_ids") or []
-        ),
+        "disabled_note_ids": sorted(eds[edition_id].get("disabled_note_ids") or []),
     }
 
 
@@ -4683,9 +5692,7 @@ PUBLISHING_DEFAULTS = {
     "isbn_epub": "",
     "isbn_print": "",
     "cover_credit": "",
-    "source_text_credit": (
-        "Scripture text based on the World English Bible (public domain)."
-    ),
+    "source_text_credit": ("Scripture text based on the World English Bible (public domain)."),
 }
 
 # These are list-typed fields — stored as YAML sub-lists.
@@ -4740,6 +5747,7 @@ def _compute_publisher_data_uncached() -> dict:
     return {"editions": out}
 
 
+@audit_log.audit_endpoint(action="save_publisher_meta")
 def api_save_publisher_meta(edition_id: str, payload: dict) -> dict:
     """Update one edition's publishing metadata. Accepts a partial payload —
     only the fields supplied are modified; anything else is left alone.
@@ -4807,6 +5815,7 @@ def api_save_publisher_meta(edition_id: str, payload: dict) -> dict:
     notes_io.atomic_write(path, text)
     config.load_editions.cache_clear()
     from scripts.core import matrix as matrix_mod
+
     matrix_mod.compute_matrix.cache_clear()
 
     return {
@@ -4817,15 +5826,14 @@ def api_save_publisher_meta(edition_id: str, payload: dict) -> dict:
     }
 
 
-def _patch_yaml_list_field(text: str, edition_id: str,
-                            field: str, items: list[str]) -> str:
+def _patch_yaml_list_field(text: str, edition_id: str, field: str, items: list[str]) -> str:
     """Replace or insert a YAML sub-list block (e.g. authors:) inside one
     edition record. Items are written QUOTED, like the disabled_note_ids
     pattern, so they survive the project's custom YAML parser even if
     they happen to contain colons or other punctuation.
     """
     block_re = re.compile(
-        rf'(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)',
+        rf"(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)",
         re.MULTILINE | re.DOTALL,
     )
     m = block_re.search(text)
@@ -4835,9 +5843,7 @@ def _patch_yaml_list_field(text: str, edition_id: str,
 
     # Build the new block
     if items:
-        new_block = f"    {field}:\n" + "\n".join(
-            f'      - "{_yaml_escape(s)}"' for s in items
-        ) + "\n"
+        new_block = f"    {field}:\n" + "\n".join(f'      - "{_yaml_escape(s)}"' for s in items) + "\n"
     else:
         new_block = f"    {field}: []\n"
 
@@ -4855,7 +5861,7 @@ def _patch_yaml_list_field(text: str, edition_id: str,
         # optional fields the edition has.
         new_body = body.rstrip("\n") + "\n" + new_block + "\n" if body.rstrip("\n") else new_block
 
-    return text[:m.start()] + head + new_body + text[m.end():]
+    return text[: m.start()] + head + new_body + text[m.end() :]
 
 
 def _yaml_escape(s: str) -> str:
@@ -4867,18 +5873,19 @@ def _yaml_escape(s: str) -> str:
 # Phase ξ.5 — Edition Diff View (read-only sales / demo tool)
 # ============================================================
 
+
 def _canons_index() -> dict:
     """Cached load of canons.yaml — returns {canon_id: {label, description, books}}."""
     canons_path = REPO / "content" / "canons.yaml"
     if not canons_path.is_file():
         return {}
     import yaml
+
     data = yaml.safe_load(canons_path.read_text(encoding="utf-8")) or {}
     return data.get("canons", {}) or {}
 
 
-def _diff_edition_summary(ed: dict, mtx, kinds_idx: dict, books_idx: dict,
-                           canons_idx: dict) -> dict:
+def _diff_edition_summary(ed: dict, mtx, kinds_idx: dict, books_idx: dict, canons_idx: dict) -> dict:
     """One edition's side of the diff — headline metadata plus
     pre-computed totals so the UI doesn't have to re-derive them.
     """
@@ -4915,10 +5922,12 @@ def _diff_books_section(a_books: set, b_books: set, books_idx: dict) -> dict:
         rows = []
         for code in sorted(code_set, key=lambda c: order_rank.get(c, 9999)):
             b = books_idx.get(code, {})
-            rows.append({
-                "code": code,
-                "title": b.get("title", code),
-            })
+            rows.append(
+                {
+                    "code": code,
+                    "title": b.get("title", code),
+                }
+            )
         return rows
 
     return {
@@ -4928,8 +5937,7 @@ def _diff_books_section(a_books: set, b_books: set, books_idx: dict) -> dict:
     }
 
 
-def _diff_kinds_section(a_id: str, b_id: str, mtx, kinds_idx: dict,
-                         cats_idx: dict) -> dict:
+def _diff_kinds_section(a_id: str, b_id: str, mtx, kinds_idx: dict, cats_idx: dict) -> dict:
     """Per-kind diff with shipping counts. Three buckets:
        only_a   — kinds enabled in A but not B (with A's count)
        only_b   — kinds enabled in B but not A (with B's count)
@@ -4960,10 +5968,8 @@ def _diff_kinds_section(a_id: str, b_id: str, mtx, kinds_idx: dict,
             row["b_count"] = b_n
         return row
 
-    only_a = [_row(c, a_n=a_counts.get(c, 0))
-              for c in a_kinds - b_kinds]
-    only_b = [_row(c, b_n=b_counts.get(c, 0))
-              for c in b_kinds - a_kinds]
+    only_a = [_row(c, a_n=a_counts.get(c, 0)) for c in a_kinds - b_kinds]
+    only_b = [_row(c, b_n=b_counts.get(c, 0)) for c in b_kinds - a_kinds]
     shared = []
     for c in a_kinds & b_kinds:
         a_n = a_counts.get(c, 0)
@@ -4980,14 +5986,14 @@ def _diff_kinds_section(a_id: str, b_id: str, mtx, kinds_idx: dict,
     return {"only_a": only_a, "only_b": only_b, "shared": shared}
 
 
-def _diff_categories_section(a_id: str, b_id: str,
-                              kinds_idx: dict, cats_idx: dict, mtx) -> list:
+def _diff_categories_section(a_id: str, b_id: str, kinds_idx: dict, cats_idx: dict, mtx) -> list:
     """Category-level rollup: total notes per category, A vs B.
     Includes every category that is non-zero in at least one side, plus
     every category that is enabled (zero-count) in either edition — so
     the UI can show "0 vs 142" stark gaps that are part of the story.
     """
     from scripts.core import matrix as matrix_mod
+
     a_by_cat = matrix_mod.breakdown_by_category(a_id)
     b_by_cat = matrix_mod.breakdown_by_category(b_id)
 
@@ -4995,20 +6001,21 @@ def _diff_categories_section(a_id: str, b_id: str,
     rows = []
     for cid in cat_ids:
         c = cats_idx.get(cid, {}) or {}
-        rows.append({
-            "id": cid,
-            "label": c.get("label", cid),
-            "symbol": c.get("symbol", "?"),
-            "sort_order": c.get("sort_order", 999),
-            "a_count": a_by_cat.get(cid, 0),
-            "b_count": b_by_cat.get(cid, 0),
-        })
+        rows.append(
+            {
+                "id": cid,
+                "label": c.get("label", cid),
+                "symbol": c.get("symbol", "?"),
+                "sort_order": c.get("sort_order", 999),
+                "a_count": a_by_cat.get(cid, 0),
+                "b_count": b_by_cat.get(cid, 0),
+            }
+        )
     rows.sort(key=lambda r: r["sort_order"])
     return rows
 
 
-def _diff_headline(a_summary: dict, b_summary: dict,
-                    books_section: dict, kinds_section: dict) -> str:
+def _diff_headline(a_summary: dict, b_summary: dict, books_section: dict, kinds_section: dict) -> str:
     """Plain-English one-line summary suitable for a buyer-demo opening
     slide. Picks the most recognisable difference — books-only-in-one
     side first, then kinds-only-in-one side, then total-note delta.
@@ -5023,26 +6030,21 @@ def _diff_headline(a_summary: dict, b_summary: dict,
     bits = []
     if a_only_books and not b_only_books:
         bits.append(
-            f"{a_short} includes {len(a_only_books)} book"
-            f"{'s' if len(a_only_books)!=1 else ''} that {b_short} omits"
+            f"{a_short} includes {len(a_only_books)} book{'s' if len(a_only_books) != 1 else ''} that {b_short} omits"
         )
     elif b_only_books and not a_only_books:
         bits.append(
-            f"{b_short} includes {len(b_only_books)} book"
-            f"{'s' if len(b_only_books)!=1 else ''} that {a_short} omits"
+            f"{b_short} includes {len(b_only_books)} book{'s' if len(b_only_books) != 1 else ''} that {a_short} omits"
         )
     elif a_only_books and b_only_books:
         bits.append(
             f"{a_short} adds {len(a_only_books)} book"
-            f"{'s' if len(a_only_books)!=1 else ''} the other lacks; "
+            f"{'s' if len(a_only_books) != 1 else ''} the other lacks; "
             f"{b_short} adds {len(b_only_books)}"
         )
 
     if a_only_kinds or b_only_kinds:
-        bits.append(
-            f"{a_only_kinds} note kinds are exclusive to {a_short}, "
-            f"{b_only_kinds} to {b_short}"
-        )
+        bits.append(f"{a_only_kinds} note kinds are exclusive to {a_short}, {b_only_kinds} to {b_short}")
 
     a_tot = a_summary["totals"]["notes"]
     b_tot = b_summary["totals"]["notes"]
@@ -5060,7 +6062,8 @@ def api_edition_diff(a_id: str, b_id: str) -> dict:
     """Phase ξ.5 — sales-tool edition diff. Cached on the signature
     of every file involved in the diff computation."""
     return _cached_edition_diff(
-        a_id, b_id,
+        a_id,
+        b_id,
         _files_signature(REPO / "content" / "editions.yaml"),
         _files_signature(REPO / "content" / "kinds.yaml"),
         _files_signature(REPO / "content" / "categories.yaml"),
@@ -5083,6 +6086,7 @@ def _compute_edition_diff_uncached(a_id: str, b_id: str) -> dict:
                               UI is responsible for nudging the user.
     """
     from scripts.core import matrix as matrix_mod
+
     eds = config.editions_by_id()
     if a_id not in eds:
         return {"error": f"unknown edition: {a_id}"}
@@ -5108,9 +6112,7 @@ def _compute_edition_diff_uncached(a_id: str, b_id: str) -> dict:
 
     # Light index for the picker dropdown (id + display name only).
     editions_index = [
-        {"id": e["id"],
-         "short_title": e.get("short_title", e["id"]),
-         "title": e.get("title", e["id"])}
+        {"id": e["id"], "short_title": e.get("short_title", e["id"]), "title": e.get("title", e["id"])}
         for e in config.load_editions()
     ]
 
@@ -5140,23 +6142,71 @@ def _safe_request(method):
 
     Used as a decorator on Handler.do_GET / do_POST / do_PUT /
     do_DELETE."""
+
     def wrapper(self):
         try:
             return method(self)
         except Exception as e:
             return self._send_unhandled_error(e, method.__name__)
+
     wrapper.__name__ = method.__name__
     wrapper.__wrapped__ = method
     return wrapper
 
 
 class Handler(BaseHTTPRequestHandler):
+    # ξ.3 — security response headers. Applied to every HTML + JSON
+    # response via _send_security_headers below.
+    #
+    # CSP rationale:
+    #   default-src 'self'         — only same-origin loads
+    #   script-src ... 'unsafe-inline' https://cdn.tailwindcss.com
+    #                              — inline <script> blocks + the
+    #                                Tailwind Play CDN are intentional
+    #                                (CLAUDE_PROJECT_RULES §6.3 — no
+    #                                build step). Tighten in a future
+    #                                ξ phase if we move to bundled JS.
+    #   style-src ... 'unsafe-inline' https://cdn.tailwindcss.com
+    #                              — Tailwind injects styles at runtime
+    #                                from the CDN; inline <style> blocks
+    #                                are also intentional.
+    #   img-src 'self' data:       — uploaded covers + data: URLs for
+    #                                small icons.
+    #   frame-ancestors 'none'     — forbid embedding /matrix etc. in
+    #                                iframes (prevents clickjacking).
+    #   base-uri 'self'            — block <base> tag injection.
+    #   form-action 'self'         — submissions stay same-origin.
+    _CSP_POLICY = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
+        "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
+        "img-src 'self' data:; "
+        "font-src 'self' data:; "
+        "connect-src 'self'; "
+        "frame-ancestors 'none'; "
+        "base-uri 'self'; "
+        "form-action 'self'"
+    )
+
+    def _send_security_headers(self):
+        """ξ.3 — add CSP + nosniff + Referrer-Policy headers.
+
+        Called by every response helper (_send_html, _send_json,
+        _send_file, plus inline routes that build their own header
+        block). Tailwind CDN is allow-listed; everything else is
+        same-origin. Frame-ancestors blocks clickjacking.
+        """
+        self.send_header("Content-Security-Policy", self._CSP_POLICY)
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Referrer-Policy", "same-origin")
+
     def _send_json(self, payload, status=200):
         body = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
+        self._send_security_headers()
         self.end_headers()
         self.wfile.write(body)
 
@@ -5167,22 +6217,20 @@ class Handler(BaseHTTPRequestHandler):
         client never sees a Python stack trace — that's both an
         information-disclosure concern and an unfriendly UX."""
         import traceback
+
         # Log full detail to stderr — useful for operators tailing
         # the dev server; the existing log_message format is short
         # so we drop straight to stderr for tracebacks.
-        sys.stderr.write(
-            f"  [unhandled {method_name}] "
-            f"{type(exc).__name__}: {exc}\n"
-        )
+        sys.stderr.write(f"  [unhandled {method_name}] {type(exc).__name__}: {exc}\n")
         traceback.print_exc(file=sys.stderr)
         try:
-            return self._send_json({
-                "error": "internal_error",
-                "message": (
-                    f"unhandled {type(exc).__name__} in {method_name}; "
-                    "see server log for details"
-                ),
-            }, status=500)
+            return self._send_json(
+                {
+                    "error": "internal_error",
+                    "message": (f"unhandled {type(exc).__name__} in {method_name}; see server log for details"),
+                },
+                status=500,
+            )
         except Exception:
             # If even the JSON send fails (broken pipe, etc.), there's
             # nothing else to do — the request is gone.
@@ -5195,18 +6243,21 @@ class Handler(BaseHTTPRequestHandler):
         if result.get("status") == "ok":
             return self._send_json(result)
         http_code = result.get("http") or 500
-        return self._send_json({
-            "error": result.get("code") or "internal_error",
-            "message": result.get("message") or "",
-            **{k: v for k, v in result.items()
-               if k not in ("status", "code", "http", "message")},
-        }, status=http_code)
+        return self._send_json(
+            {
+                "error": result.get("code") or "internal_error",
+                "message": result.get("message") or "",
+                **{k: v for k, v in result.items() if k not in ("status", "code", "http", "message")},
+            },
+            status=http_code,
+        )
 
     def _send_html(self, html: str):
         body = html.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
+        self._send_security_headers()  # ξ.3
         self.end_headers()
         self.wfile.write(body)
 
@@ -5220,26 +6271,80 @@ class Handler(BaseHTTPRequestHandler):
         except OSError:
             return self._send_json({"error": "file not found"}, status=404)
         if content_type is None:
+            # ξ.16 SEC-001 — restrict served images to the same
+            # allowlist the upload validator accepts (png/jpeg/webp).
+            # Critically, drop SVG and GIF: SVG is XML and renders
+            # inline `<script>` / `on*` handlers when navigated to
+            # directly, which would XSS the localhost origin from the
+            # /content/covers/ same-origin route. Verify magic bytes
+            # match the extension — a hostile file dropped under
+            # content/covers/ (via backup restore, scenario import,
+            # or hand placement) cannot be served as an image.
+            from scripts.core.covers import UPLOAD_ALLOWED_FORMATS, _detect_format
+
             ext = path.suffix.lower().lstrip(".")
+            ext_norm = "jpeg" if ext == "jpg" else ext
+            fmt = _detect_format(data[:32], ext)
+            if fmt not in UPLOAD_ALLOWED_FORMATS or ext_norm not in UPLOAD_ALLOWED_FORMATS:
+                return self._send_json({"error": "unsupported media type"}, status=415)
+            if fmt != ext_norm:
+                # Magic bytes disagree with extension — refuse to
+                # serve. The route is read-only so we can't fix the
+                # disk state from here; the upload pipeline is
+                # responsible for never letting this combination land.
+                return self._send_json({"error": "format/extension mismatch"}, status=415)
             content_type = {
-                "jpg": "image/jpeg", "jpeg": "image/jpeg",
-                "png": "image/png", "webp": "image/webp",
-                "gif": "image/gif", "svg": "image/svg+xml",
-            }.get(ext, "application/octet-stream")
+                "jpeg": "image/jpeg",
+                "png": "image/png",
+                "webp": "image/webp",
+            }[fmt]
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(data)))
-        # Browser cache covers for a minute — saves bandwidth across
-        # navigations between consoles. Short enough that re-uploads
-        # show within reasonable time without manual refresh.
-        self.send_header("Cache-Control", "public, max-age=60")
+        # ξ.16 SEC-010 — `private` not `public`: the localhost app has
+        # no shared cache, but if a user binds --host 0.0.0.0 with a
+        # corporate proxy on path, public would let the proxy cache
+        # private editorial content.
+        self.send_header("Cache-Control", "private, max-age=60")
+        self._send_security_headers()  # ξ.3
+        # ξ.16 SEC-001 — extra defense: even with the magic-byte
+        # check above, sandbox the response. `default-src 'none'`
+        # blocks every subresource fetch the image-as-document
+        # would attempt; `sandbox` blocks scripts/forms/popups in
+        # browsers that respect it.
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'none'; sandbox; img-src 'self'",
+        )
         self.end_headers()
         self.wfile.write(data)
 
+    # ξ.16 SEC-002 — generous cap on JSON body size. Every legitimate
+    # JSON payload on this server is well under 1 MB (kind toggles,
+    # edition meta, scenarios, audit reads). 32 MB gives 30× headroom
+    # for the largest plausible legit payload while still rejecting a
+    # 2 GB Content-Length attack BEFORE allocation. The size check
+    # comes BEFORE self.rfile.read() — no allocation happens for an
+    # over-cap request.
+    JSON_BODY_MAX_BYTES = 32 * 1024 * 1024
+
     def _read_body(self) -> dict:
-        length = int(self.headers.get("Content-Length") or 0)
+        length_header = self.headers.get("Content-Length") or "0"
+        try:
+            length = int(length_header)
+        except ValueError:
+            raise ValueError("invalid Content-Length")
+        if length < 0:
+            raise ValueError("negative Content-Length")
         if not length:
             return {}
+        if length > self.JSON_BODY_MAX_BYTES:
+            # ξ.16 SEC-002 — reject the request BEFORE allocating
+            # `length` bytes. Existing per-route `except Exception
+            # as e: return self._send_json({"error": str(e)},
+            # status=400)` translates this to a 400 with the
+            # message; importantly, no buffer allocation, no DoS.
+            raise ValueError(f"request body too large: {length} bytes (max {self.JSON_BODY_MAX_BYTES})")
         raw = self.rfile.read(length)
         return json.loads(raw.decode("utf-8"))
 
@@ -5264,7 +6369,7 @@ class Handler(BaseHTTPRequestHandler):
         """
         token = os.environ.get("EBIBLE_ADMIN_TOKEN", "").strip()
         if not token:
-            return True   # auth disabled, back-compat default
+            return True  # auth disabled, back-compat default
         header = self.headers.get("Authorization", "")
         prefix = "Bearer "
         if not header.startswith(prefix):
@@ -5273,9 +6378,10 @@ class Handler(BaseHTTPRequestHandler):
                 status=401,
             )
             return False
-        supplied = header[len(prefix):].strip()
+        supplied = header[len(prefix) :].strip()
         # constant-time compare to avoid timing leaks
         import hmac
+
         if not hmac.compare_digest(supplied, token):
             self._send_json({"error": "invalid admin token"}, status=401)
             return False
@@ -5302,8 +6408,83 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json(api_kinds())
         if path == "/api/matrix":
             return self._send_json(api_matrix())
+        # ψ.19 — reading plans (list + per-plan).
+        if path == "/api/reading-plans":
+            return self._send_json(api_reading_plans_list())
+        m = re.match(r"^/api/reading-plans/([a-z0-9_-]+)$", path)
+        if m:
+            result = api_reading_plan_get(m.group(1))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+
+        # ω.16 — edition snapshots. The order matters: more-specific
+        # routes (.../diff, .../<version>) must precede the bare-list
+        # `/api/snapshots/<edition_id>` matcher below.
+        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/diff$", path)
+        if m:
+            qs = urllib.parse.parse_qs(url.query or "")
+            against = (qs.get("against") or [""])[0] or None
+            result = api_snapshot_diff(
+                m.group(1),
+                m.group(2),
+                against_version=against,
+            )
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$", path)
+        if m:
+            result = api_snapshot_get(m.group(1), m.group(2))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)$", path)
+        if m:
+            result = api_snapshot_list(m.group(1))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+
         if path == "/api/scenarios":
             return self._send_json(api_list_scenarios())
+
+        # ψ.27 — YAML export route. Place BEFORE the generic
+        # /api/scenarios/<name> matcher so the .yaml suffix is matched
+        # specifically (the suffix puts it outside the generic regex).
+        m = re.match(r"^/api/scenarios/([a-z0-9_-]+)/export\.yaml$", path)
+        if m:
+            result = api_export_scenario_yaml(m.group(1))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            yaml_text = result["yaml"]
+            body = yaml_text.encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/x-yaml; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header(
+                "Content-Disposition",
+                f'attachment; filename="{m.group(1)}.yaml"',
+            )
+            self._send_security_headers()  # ξ.3
+            self.end_headers()
+            self.wfile.write(body)
+            return
 
         m = re.match(r"^/api/scenarios/([a-z0-9_-]+)$", path)
         if m:
@@ -5320,9 +6501,83 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json(api_sources_index())
         if path == "/api/sources/summary":
             return self._send_json(api_sources_summary())
+        # υ.3 — cross-edition note search. Read query + filters from
+        # the URL query string; thin route adapter over api_search_notes.
+        if path == "/api/search-notes":
+            qs = urllib.parse.parse_qs(url.query or "")
+            q = (qs.get("q") or [""])[0]
+            ed = (qs.get("edition_id") or [""])[0] or None
+            kf = (qs.get("kind") or [""])[0] or None
+            bk = (qs.get("book") or [""])[0] or None
+            try:
+                lim = int((qs.get("limit") or ["100"])[0])
+            except ValueError:
+                lim = 100
+            result = api_search_notes(
+                q,
+                edition_id=ed,
+                kind=kf,
+                book=bk,
+                limit=lim,
+            )
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
         m = re.match(r"^/api/sources/([a-z0-9]+)$", path)
         if m:
             return self._send_json(api_sources_for_book(m.group(1)))
+        # υ.8 — verse-of-the-day feeds. JSON + RSS share the same
+        # underlying picker. ?date=YYYY-MM-DD pins a specific day;
+        # ?edition_id=<id> restricts to that edition's enabled kinds.
+        if path == "/api/verse-of-day.json":
+            qs = urllib.parse.parse_qs(url.query or "")
+            d = (qs.get("date") or [""])[0] or None
+            ed = (qs.get("edition_id") or [""])[0] or None
+            result = api_verse_of_day(d, edition_id=ed)
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+        if path == "/api/verse-of-day.rss":
+            qs = urllib.parse.parse_qs(url.query or "")
+            ed = (qs.get("edition_id") or [""])[0] or None
+            try:
+                days = int((qs.get("days") or ["7"])[0])
+            except ValueError:
+                days = 7
+            # ξ.16 SEC-003 — never reflect Host / X-Forwarded-Proto
+            # verbatim into RSS link URLs. An attacker (LAN peer in
+            # --host 0.0.0.0 mode, or a tab that gets the RSS reader
+            # to fetch with crafted headers) can otherwise pin
+            # `javascript://attacker.tld/...` or `https://evil.tld/...`
+            # into syndicated feeds. Trust order:
+            #   1. YHWH_PUBLIC_BASE_URL (operator-set, authoritative)
+            #   2. Host header IFF it matches the localhost allowlist
+            #   3. hardcoded fallback http://localhost
+            base = _safe_rss_base_url(
+                self.headers.get("X-Forwarded-Proto", "http"),
+                self.headers.get("Host") or "",
+            )
+            xml, mime = api_verse_of_day_rss(
+                days=days,
+                base_url=base,
+                edition_id=ed,
+            )
+            body = xml.encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", mime)
+            self.send_header("Content-Length", str(len(body)))
+            # 1-hour cache (dates roll over once a day; 1h is conservative)
+            self.send_header("Cache-Control", "public, max-age=3600")
+            self._send_security_headers()  # ξ.3
+            self.end_headers()
+            self.wfile.write(body)
+            return
 
         # Export (Phase σ.1 + σ.2)
         if path == "/export" or path == "/export.html":
@@ -5343,6 +6598,7 @@ class Handler(BaseHTTPRequestHandler):
                 "Content-Disposition",
                 f'attachment; filename="{m.group(1)}"',
             )
+            self._send_security_headers()  # ξ.3
             self.end_headers()
             self.wfile.write(data)
             return
@@ -5358,6 +6614,14 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_html(AUDIT_HTML)
         if path == "/api/audit/attribution":
             return self._send_json(api_attribution_audit())
+
+        # Mutation Audit Log (Phase ξ.13)
+        if path == "/audit-log" or path == "/audit-log.html":
+            return self._send_html(AUDIT_LOG_HTML)
+        if path == "/api/audit-log":
+            qs = urllib.parse.parse_qs(url.query or "")
+            n_raw = (qs.get("n") or ["100"])[0]
+            return self._send_json(api_audit_log(n=n_raw))
 
         # Per-note disable list for one edition (Phase ρ.1)
         m = re.match(r"^/api/edition/([a-z0-9-]+)/disabled-notes$", path)
@@ -5420,7 +6684,7 @@ class Handler(BaseHTTPRequestHandler):
         # Spec discusses POST but GET is more idiomatic for a
         # read operation driven entirely by query params.
         if path.startswith("/api/sample/"):
-            edition_id = path[len("/api/sample/"):].split("/", 1)[0]
+            edition_id = path[len("/api/sample/") :].split("/", 1)[0]
             qs = urllib.parse.parse_qs(url.query or "")
             book = (qs.get("book") or [""])[0]
             from_str = (qs.get("from") or ["1"])[0]
@@ -5434,7 +6698,11 @@ class Handler(BaseHTTPRequestHandler):
                 from_n, to_n = from_str, to_str
             translation = (qs.get("translation") or ["kjv"])[0]
             result = api_sample_html(
-                edition_id, book, from_n, to_n, translation=translation,
+                edition_id,
+                book,
+                from_n,
+                to_n,
+                translation=translation,
             )
             if result.get("status") == "ok":
                 return self._send_html(result["html"])
@@ -5443,10 +6711,12 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(http_code)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
-            payload = json.dumps({
-                "error": result.get("code") or "internal_error",
-                "message": result.get("message") or "",
-            }).encode("utf-8")
+            payload = json.dumps(
+                {
+                    "error": result.get("code") or "internal_error",
+                    "message": result.get("message") or "",
+                }
+            ).encode("utf-8")
             self.wfile.write(payload)
             return
 
@@ -5464,10 +6734,14 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(http_code)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
-            self.wfile.write(json.dumps({
-                "error": result.get("code") or "internal_error",
-                "message": result.get("message") or "",
-            }).encode("utf-8"))
+            self.wfile.write(
+                json.dumps(
+                    {
+                        "error": result.get("code") or "internal_error",
+                        "message": result.get("message") or "",
+                    }
+                ).encode("utf-8")
+            )
             return
 
         # Per-book cover status (Phase π.4-A) — read-only feed for
@@ -5507,6 +6781,29 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/covers" or path == "/covers.html":
             return self._send_html(COVERS_HTML)
 
+        # ψ.34 — static-asset route for the matrix console JS bundle.
+        # Lives at scripts/templates/matrix_app.js after extraction
+        # from the inline <script> block of MATRIX_HTML. Read-only;
+        # served with `application/javascript`, the project security
+        # headers, and a 5-minute private cache so navigations
+        # between consoles don't re-fetch.
+        if path == "/static/matrix.js":
+            js_path = REPO / "scripts" / "templates" / "matrix_app.js"
+            if not js_path.is_file():
+                return self._send_json({"error": "not found"}, status=404)
+            try:
+                data = js_path.read_bytes()
+            except OSError:
+                return self._send_json({"error": "not found"}, status=404)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/javascript; charset=utf-8")
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "private, max-age=300")
+            self._send_security_headers()
+            self.end_headers()
+            self.wfile.write(data)
+            return
+
         # Static cover-image serving so the /covers UI can render
         # thumbnails. Sandboxed to content/covers/ ; any path that
         # tries to escape (.., absolute, hidden) is rejected with 404.
@@ -5515,10 +6812,12 @@ class Handler(BaseHTTPRequestHandler):
             # ξ.2 — sandbox via shared safe_path helper. The string
             # after the route prefix is treated as a path RELATIVE
             # TO content/covers/.
-            rel = path[len("/content/covers/"):]
+            rel = path[len("/content/covers/") :]
             from scripts.core.safe_path import (
-                SafePathError, resolve_under,
+                SafePathError,
+                resolve_under,
             )
+
             covers_root = REPO / "content" / "covers"
             try:
                 file_path = resolve_under(covers_root, rel)
@@ -5545,31 +6844,39 @@ class Handler(BaseHTTPRequestHandler):
         # ψ.1.0 — live one-chapter preview
         # /api/preview/<edition>/<book>/<chapter>?translation=<id>
         m = re.match(
-            r"^/api/preview/([a-z0-9-]+)/([a-z0-9]+)/(\d+)$", path,
+            r"^/api/preview/([a-z0-9-]+)/([a-z0-9]+)/(\d+)$",
+            path,
         )
         if m:
             from urllib.parse import parse_qs, urlparse
+
             edition_id = m.group(1)
             book_code = m.group(2)
             try:
                 chapter_int = int(m.group(3))
             except ValueError:
                 return self._send_json(
-                    {"error": "invalid_chapter"}, status=400,
+                    {"error": "invalid_chapter"},
+                    status=400,
                 )
             qs = parse_qs(urlparse(self.path).query)
             translation_id = (qs.get("translation") or ["kjv"])[0]
             result = api_preview(
-                edition_id, book_code, chapter_int,
+                edition_id,
+                book_code,
+                chapter_int,
                 translation_id=translation_id,
             )
             if result.get("status") == "ok":
                 return self._send_json(result)
             http_code = result.get("http") or 500
-            return self._send_json({
-                "error": result.get("code") or "internal_error",
-                "message": result.get("message") or "",
-            }, status=http_code)
+            return self._send_json(
+                {
+                    "error": result.get("code") or "internal_error",
+                    "message": result.get("message") or "",
+                },
+                status=http_code,
+            )
 
         self._send_json({"error": "not found", "path": path}, status=404)
 
@@ -5708,10 +7015,13 @@ class Handler(BaseHTTPRequestHandler):
                 if result.get("status") == "ok":
                     return self._send_json(result, status=200)
                 http_code = result.get("http") or 500
-                return self._send_json({
-                    "error": result.get("code") or "internal_error",
-                    "message": result.get("message") or "",
-                }, status=http_code)
+                return self._send_json(
+                    {
+                        "error": result.get("code") or "internal_error",
+                        "message": result.get("message") or "",
+                    },
+                    status=http_code,
+                )
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
         return self._send_json({"error": "not found"}, status=404)
@@ -5726,6 +7036,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json(api_delete(m.group(1), int(m.group(2))))
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
+        # ω.16 — delete snapshot
+        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$", self.path)
+        if m:
+            result = api_snapshot_delete(m.group(1), m.group(2))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
         # Delete scenario (μ.2½)
         m = re.match(r"^/api/scenarios/([a-z0-9_-]+)$", self.path)
         if m:
@@ -5745,9 +7065,7 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
         # Delete a per-book cover (Phase π.4-B)
-        m = re.match(
-            r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", self.path
-        )
+        m = re.match(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", self.path)
         if m:
             try:
                 result = api_delete_cover_book(m.group(1), m.group(2))
@@ -5766,15 +7084,84 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._check_admin_auth():
             return
+        # ω.16 — snapshot create / restore. POST body shapes:
+        #   create:  /api/snapshots/<edition_id>
+        #     {"version": str, "label"?: str, "notes"?: str,
+        #      "overwrite"?: bool}
+        #   restore: /api/snapshots/<edition_id>/<version>/restore
+        #     no body required
+        m = re.match(
+            r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/restore$",
+            self.path,
+        )
+        if m:
+            result = api_snapshot_restore(m.group(1), m.group(2))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)$", self.path)
+        if m:
+            try:
+                payload = self._read_body() or {}
+            except Exception as e:
+                return self._send_json({"error": str(e)}, status=400)
+            result = api_snapshot_create(m.group(1), payload)
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+
+        # ψ.26 — bulk apply: enable/disable one kind across every
+        # edition. JSON body: ``{"kind": str, "enable": bool}``.
+        if self.path == "/api/matrix/apply-kind-to-all":
+            try:
+                payload = self._read_body() or {}
+            except Exception as e:
+                return self._send_json({"error": str(e)}, status=400)
+            kind = payload.get("kind") or ""
+            enable = payload.get("enable")
+            result = api_apply_kind_to_all_editions(kind, enable=bool(enable))
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
+        # ψ.27 — scenario YAML import. POST a JSON envelope:
+        # ``{"yaml": str, "name"?: str, "overwrite"?: bool}``. Returns
+        # the saved scenario name on success; specific 400/409/413
+        # errors on bad input.
+        if self.path == "/api/scenarios/_import":
+            try:
+                payload = self._read_body() or {}
+            except Exception as e:
+                return self._send_json({"error": str(e)}, status=400)
+            yaml_text = payload.get("yaml") or ""
+            name = payload.get("name") or None
+            overwrite = bool(payload.get("overwrite"))
+            result = api_import_scenario_yaml(
+                yaml_text,
+                name=name,
+                overwrite=overwrite,
+            )
+            if result.get("status") == "error":
+                return self._send_json(
+                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
+                    status=result.get("http") or 500,
+                )
+            return self._send_json(result)
         # Cover uploads (Phase π.4-B) — multipart/form-data, distinct
         # from the JSON-bodied PUT/POST endpoints below. Routed here
         # first so the multipart body isn't read as JSON.
         m = re.match(r"^/api/covers/([a-z0-9-]+)/main$", self.path)
         if m:
             return self._handle_cover_upload(m.group(1), None)
-        m = re.match(
-            r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", self.path
-        )
+        m = re.match(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", self.path)
         if m:
             return self._handle_cover_upload(m.group(1), m.group(2))
         # Source cache uploads (Phase υ.1) — multipart JSON drop
@@ -5824,10 +7211,13 @@ class Handler(BaseHTTPRequestHandler):
             if result.get("status") == "ok":
                 return self._send_json(result)
             http_code = result.get("http") or 500
-            return self._send_json({
-                "error": result.get("code") or "internal_error",
-                "message": result.get("message") or "",
-            }, status=http_code)
+            return self._send_json(
+                {
+                    "error": result.get("code") or "internal_error",
+                    "message": result.get("message") or "",
+                },
+                status=http_code,
+            )
         # Everything else: same as PUT — front-end uses POST for create
         return self.do_PUT()
 
@@ -5849,10 +7239,8 @@ class Handler(BaseHTTPRequestHandler):
             # hostile client streaming an unbounded body).
             if length > SOURCES_UPLOAD_MAX_BYTES * 2:
                 return self._send_json(
-                    {"error": (
-                        f"request too large: {length} bytes "
-                        f"(max {SOURCES_UPLOAD_MAX_BYTES * 2})"
-                    )}, status=413,
+                    {"error": (f"request too large: {length} bytes (max {SOURCES_UPLOAD_MAX_BYTES * 2})")},
+                    status=413,
                 )
             body = self.rfile.read(length) if length > 0 else b""
             content_type = self.headers.get("Content-Type", "")
@@ -5861,8 +7249,7 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:
             return self._send_json({"error": str(e)}, status=400)
 
-    def _handle_cover_upload(self, edition_id: str,
-                              book_code: str | None):
+    def _handle_cover_upload(self, edition_id: str, book_code: str | None):
         """Read a multipart request body within the configured size
         cap, then dispatch to api_upload_cover_*."""
         try:
@@ -5877,23 +7264,18 @@ class Handler(BaseHTTPRequestHandler):
             # Hard cap at twice the per-file limit so a hostile
             # client can't tie up the server with an unbounded read.
             from scripts.core.covers import UPLOAD_MAX_BYTES
+
             if length > UPLOAD_MAX_BYTES * 2:
                 return self._send_json(
-                    {"error": (
-                        f"request too large: {length} bytes "
-                        f"(max {UPLOAD_MAX_BYTES * 2})"
-                    )}, status=413,
+                    {"error": (f"request too large: {length} bytes (max {UPLOAD_MAX_BYTES * 2})")},
+                    status=413,
                 )
             body = self.rfile.read(length) if length > 0 else b""
             content_type = self.headers.get("Content-Type", "")
             if book_code is None:
-                result = api_upload_cover_main(
-                    edition_id, body, content_type
-                )
+                result = api_upload_cover_main(edition_id, body, content_type)
             else:
-                result = api_upload_cover_book(
-                    edition_id, book_code, body, content_type
-                )
+                result = api_upload_cover_book(edition_id, book_code, body, content_type)
             status = 200 if result.get("ok") else 400
             return self._send_json(result, status=status)
         except Exception as e:
@@ -5905,15 +7287,9 @@ class Handler(BaseHTTPRequestHandler):
 # ============================================================
 
 
-
-
-
 # ============================================================
 # Matrix view (Phase μ.1) — read-only count grid in the browser
 # ============================================================
-
-
-
 
 
 # ============================================================
@@ -5921,15 +7297,9 @@ class Handler(BaseHTTPRequestHandler):
 # ============================================================
 
 
-
-
-
 # ============================================================
 # Export UI (Phase σ.1 + σ.2) — buyer-facing /export page
 # ============================================================
-
-
-
 
 
 # ============================================================
@@ -5937,15 +7307,9 @@ class Handler(BaseHTTPRequestHandler):
 # ============================================================
 
 
-
-
-
 # ============================================================
 # Attribution Audit UI (Phase ξ.4) — quality control dashboard
 # ============================================================
-
-
-
 
 
 # ============================================================
@@ -5953,18 +7317,9 @@ class Handler(BaseHTTPRequestHandler):
 # ============================================================
 
 
-
-
-
 # ============================================================
 # Bible Builder Wizard (Phase π.5) — the buyer-demo flow
 # ============================================================
-
-
-
-
-
-
 
 
 # ============================================================
@@ -5978,9 +7333,6 @@ class Handler(BaseHTTPRequestHandler):
 # Composes existing tools (api_attribution_audit, api_covers) plus
 # a few in-process checks; new checks added in api_preflight()
 # automatically render here without UI changes.
-
-
-
 
 
 #
@@ -6001,40 +7353,25 @@ class Handler(BaseHTTPRequestHandler):
 #     handles atomicity per-file (Rule from §9 mental model)
 
 
-
-
-
-
 # Phase ψ.4 — Translation comparison view (/compare).
 # Buyer-demo gold: side-by-side rendering of multiple translations
 # for a given book + chapter, no full EPUB build required.
 # Cross-linked into all 10 other consoles per Rule §6.2.
 
 
-
-
-
-
 # Phase ω.0.2 — generated by scripts/scaffold_console.py.
 # Console: /ops (Operator Dashboard)
-
-
-
 
 
 # Phase ω.0.2 — generated by scripts/scaffold_console.py.
 # Console: /apihelp (API Reference)
 
 
-
-
 def main() -> int:
     p = argparse.ArgumentParser(description="Local web UI for the E-Bible note corpus.")
-    p.add_argument("--host", default="127.0.0.1",
-                   help="bind address (default: 127.0.0.1, localhost-only)")
+    p.add_argument("--host", default="127.0.0.1", help="bind address (default: 127.0.0.1, localhost-only)")
     p.add_argument("--port", type=int, default=8765)
-    p.add_argument("--no-browser", action="store_true",
-                   help="don't auto-open the browser")
+    p.add_argument("--no-browser", action="store_true", help="don't auto-open the browser")
     args = p.parse_args()
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)

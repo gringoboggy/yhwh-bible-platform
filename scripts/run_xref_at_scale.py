@@ -17,6 +17,7 @@ Usage:
     python3 scripts/run_xref_at_scale.py --books gen,exo,lev
     python3 scripts/run_xref_at_scale.py --min-confidence 0.7
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -70,21 +71,18 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         "chapter": chapter,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "n_candidates": len(candidates),
-        "candidates": [candidate_to_dict(c, i)
-                       for i, c in enumerate(candidates, start=1)],
+        "candidates": [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=1)],
     }
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False),
-                        encoding="utf-8")
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out_path
 
 
-def run_xref_for_book(book: str, *, min_confidence: float = 0.6,
-                       min_votes: int = 30, top_n: int = 3) -> dict:
+def run_xref_for_book(book: str, *, min_confidence: float = 0.6, min_votes: int = 30, top_n: int = 3) -> dict:
     """Iterate the TSK cache for one book, run CrossRefDetector per
     verse, write per-chapter candidates JSON. Returns stats."""
     tsk = sources.tsk()
     detector = CrossRefDetector(min_votes=min_votes, top_n=top_n)
-    raw = tsk._raw if hasattr(tsk, '_raw') else None
+    raw = tsk._raw if hasattr(tsk, "_raw") else None
     if raw is None:
         # Fall back to direct cache load
         with open(TSK_PATH) as f:
@@ -126,16 +124,11 @@ def run_xref_for_book(book: str, *, min_confidence: float = 0.6,
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(
-        description="Run CrossRefDetector at scale via direct TSK iteration."
-    )
-    p.add_argument("--books",
-                    help="comma-separated list of books (default: all in TSK)")
+    p = argparse.ArgumentParser(description="Run CrossRefDetector at scale via direct TSK iteration.")
+    p.add_argument("--books", help="comma-separated list of books (default: all in TSK)")
     p.add_argument("--min-confidence", type=float, default=0.6)
-    p.add_argument("--min-votes", type=int, default=30,
-                    help="TSK community-vote threshold (default 30)")
-    p.add_argument("--top-n", type=int, default=3,
-                    help="top N references per verse (default 3)")
+    p.add_argument("--min-votes", type=int, default=30, help="TSK community-vote threshold (default 30)")
+    p.add_argument("--top-n", type=int, default=3, help="top N references per verse (default 3)")
     args = p.parse_args()
 
     # Determine book list
@@ -146,9 +139,11 @@ def main() -> int:
     else:
         books = sorted(tsk_raw.keys())
 
-    print(f"Running CrossRefDetector across {len(books)} books "
-          f"(min-conf={args.min_confidence}, min-votes={args.min_votes}, "
-          f"top-n={args.top_n})")
+    print(
+        f"Running CrossRefDetector across {len(books)} books "
+        f"(min-conf={args.min_confidence}, min-votes={args.min_votes}, "
+        f"top-n={args.top_n})"
+    )
     print()
 
     total_chapters = 0
@@ -162,20 +157,23 @@ def main() -> int:
             top_n=args.top_n,
         )
         if stats["candidates_written"]:
-            print(f"  {GREEN}✓{RESET} {book:5s} "
-                  f"{stats['chapters_processed']:3d} chapters "
-                  f"→ {stats['candidates_written']:5d} candidates "
-                  f"({stats['files_written']} files)")
+            print(
+                f"  {GREEN}✓{RESET} {book:5s} "
+                f"{stats['chapters_processed']:3d} chapters "
+                f"→ {stats['candidates_written']:5d} candidates "
+                f"({stats['files_written']} files)"
+            )
         else:
-            print(f"  {DIM}-{RESET} {book:5s} "
-                  f"{stats['chapters_processed']:3d} chapters → 0 candidates")
+            print(f"  {DIM}-{RESET} {book:5s} {stats['chapters_processed']:3d} chapters → 0 candidates")
         total_chapters += stats["chapters_processed"]
         total_candidates += stats["candidates_written"]
         total_files += stats["files_written"]
 
     print()
-    print(f"TOTAL: {len(books)} books · {total_chapters} chapters · "
-          f"{total_candidates} candidates · {total_files} candidate files")
+    print(
+        f"TOTAL: {len(books)} books · {total_chapters} chapters · "
+        f"{total_candidates} candidates · {total_files} candidate files"
+    )
     print(f"Files written under: {CANDIDATES_DIR}")
     return 0
 

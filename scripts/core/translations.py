@@ -25,6 +25,7 @@ Parsing is via ``ast.literal_eval`` only — translation modules are
 never executed as code, so a corrupted or hostile translation file
 cannot run anything.
 """
+
 from __future__ import annotations
 
 import ast
@@ -41,6 +42,7 @@ def _translations_dir() -> Path:
     prefer this function so they pick up dev/installed/test-override
     resolution automatically."""
     from . import paths
+
     return paths.translations_dir()
 
 
@@ -135,8 +137,7 @@ def has_book(translation: str, book_code: str) -> bool:
     return _book_path(translation, book_code).is_file()
 
 
-def get_verse(translation: str, book_code: str,
-               chapter: int, verse: int) -> str | None:
+def get_verse(translation: str, book_code: str, chapter: int, verse: int) -> str | None:
     """Return the verse text, or ``None`` if missing.
 
     No partial matches; chapter and verse must match exactly. The
@@ -150,8 +151,7 @@ def get_verse(translation: str, book_code: str,
     return idx.get((chapter, verse))
 
 
-def get_chapter(translation: str, book_code: str,
-                 chapter: int) -> list[tuple[int, str]]:
+def get_chapter(translation: str, book_code: str, chapter: int) -> list[tuple[int, str]]:
     """Return ``[(verse_number, text), …]`` for one chapter, in verse
     order. Empty list if the chapter is missing or the book is absent.
     """

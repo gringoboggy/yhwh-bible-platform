@@ -70,57 +70,146 @@ from html.parser import HTMLParser
 # Tag and attribute whitelists
 # ----------------------------------------------------------------------
 
-ALLOWED_TAGS: frozenset[str] = frozenset({
-    # Block
-    "p", "div", "blockquote", "ul", "ol", "li", "dl", "dt", "dd", "pre",
-    # Inline
-    "span", "a", "em", "strong", "b", "i", "u", "sup", "sub", "small",
-    "mark", "cite", "abbr", "q", "time", "dfn", "code", "kbd", "var",
-    "samp", "ruby", "rt", "rp", "br", "wbr",
-    # Headings
-    "h1", "h2", "h3", "h4", "h5", "h6",
-    # Tables
-    "table", "thead", "tbody", "tfoot", "tr", "th", "td", "caption",
-    "colgroup", "col",
-    # Figure
-    "figure", "figcaption",
-    # HR
-    "hr",
-})
+ALLOWED_TAGS: frozenset[str] = frozenset(
+    {
+        # Block
+        "p",
+        "div",
+        "blockquote",
+        "ul",
+        "ol",
+        "li",
+        "dl",
+        "dt",
+        "dd",
+        "pre",
+        # Inline
+        "span",
+        "a",
+        "em",
+        "strong",
+        "b",
+        "i",
+        "u",
+        "sup",
+        "sub",
+        "small",
+        "mark",
+        "cite",
+        "abbr",
+        "q",
+        "time",
+        "dfn",
+        "code",
+        "kbd",
+        "var",
+        "samp",
+        "ruby",
+        "rt",
+        "rp",
+        "br",
+        "wbr",
+        # Headings
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        # Tables
+        "table",
+        "thead",
+        "tbody",
+        "tfoot",
+        "tr",
+        "th",
+        "td",
+        "caption",
+        "colgroup",
+        "col",
+        # Figure
+        "figure",
+        "figcaption",
+        # HR
+        "hr",
+    }
+)
 
 # Tags that are entirely dropped along with their content (no inner
 # text preserved). These contain code or markup that's never safe to
 # emit. <script> is the canonical case.
-TAGS_DROP_CONTENT: frozenset[str] = frozenset({
-    "script", "style", "iframe", "object", "embed", "link", "meta",
-    "form", "input", "button", "select", "textarea", "base", "frame",
-    "frameset", "applet", "svg", "math",
-    # Media tags. EPUB 3 supports <audio>/<video> but ρ.1 routes
-    # those through a validated build-pipeline pass — note bodies
-    # shouldn't embed them directly.
-    "audio", "video", "source", "track",
-    # Image map / area / map are always disallowed.
-    "map", "area",
-})
+TAGS_DROP_CONTENT: frozenset[str] = frozenset(
+    {
+        "script",
+        "style",
+        "iframe",
+        "object",
+        "embed",
+        "link",
+        "meta",
+        "form",
+        "input",
+        "button",
+        "select",
+        "textarea",
+        "base",
+        "frame",
+        "frameset",
+        "applet",
+        "svg",
+        "math",
+        # Media tags. EPUB 3 supports <audio>/<video> but ρ.1 routes
+        # those through a validated build-pipeline pass — note bodies
+        # shouldn't embed them directly.
+        "audio",
+        "video",
+        "source",
+        "track",
+        # Image map / area / map are always disallowed.
+        "map",
+        "area",
+    }
+)
 
 # Self-closing void tags. The serializer emits `<tag />` for these.
-VOID_TAGS: frozenset[str] = frozenset({
-    "br", "wbr", "hr", "col",
-})
+VOID_TAGS: frozenset[str] = frozenset(
+    {
+        "br",
+        "wbr",
+        "hr",
+        "col",
+    }
+)
 
 # Void tags from the disallowed set — these never have a closing
 # tag in HTML5, so the drop-content state machine must NOT push
 # them onto the suppress-depth stack (it would never decrement).
-DISALLOWED_VOID_TAGS: frozenset[str] = frozenset({
-    "input", "meta", "link", "base", "embed", "source", "track",
-    "frame", "area", "br",  # br already a void; never disallowed though
-})
+DISALLOWED_VOID_TAGS: frozenset[str] = frozenset(
+    {
+        "input",
+        "meta",
+        "link",
+        "base",
+        "embed",
+        "source",
+        "track",
+        "frame",
+        "area",
+        "br",  # br already a void; never disallowed though
+    }
+)
 
 # Attributes allowed on every element. Per-tag attributes (below)
 # add to this baseline.
-GLOBAL_ATTRS: frozenset[str] = frozenset({
-    "class", "lang", "dir", "title", "id",
-})
+GLOBAL_ATTRS: frozenset[str] = frozenset(
+    {
+        "class",
+        "lang",
+        "dir",
+        "title",
+        "id",
+    }
+)
 
 # Per-tag additional attributes.
 TAG_ATTRS: dict[str, frozenset[str]] = {
@@ -140,13 +229,24 @@ TAG_ATTRS: dict[str, frozenset[str]] = {
 # Safe URL schemes for href / src (we don't allow src, but the URL
 # checker is reused). Anything not in this set, plus relative paths
 # and anchor-only hrefs, are accepted.
-SAFE_URL_SCHEMES: frozenset[str] = frozenset({
-    "http", "https", "mailto", "tel",
-})
+SAFE_URL_SCHEMES: frozenset[str] = frozenset(
+    {
+        "http",
+        "https",
+        "mailto",
+        "tel",
+    }
+)
 
-DISALLOWED_URL_SCHEMES: frozenset[str] = frozenset({
-    "javascript", "vbscript", "data", "file", "about",
-})
+DISALLOWED_URL_SCHEMES: frozenset[str] = frozenset(
+    {
+        "javascript",
+        "vbscript",
+        "data",
+        "file",
+        "about",
+    }
+)
 
 # ID values are coerced to a safe CSS-identifier shape:
 #   start with a letter, contain only [a-z A-Z 0-9 _ -].
@@ -282,9 +382,7 @@ class _Sanitizer(HTMLParser):
             keys = {k for k, _ in emitted_attrs}
             if "rel" not in keys:
                 emitted_attrs.append(("rel", "noopener noreferrer"))
-        attr_str = "".join(
-            f' {k}="{_escape_attr(v)}"' for k, v in emitted_attrs
-        )
+        attr_str = "".join(f' {k}="{_escape_attr(v)}"' for k, v in emitted_attrs)
         if tag in VOID_TAGS:
             self._out.append(f"<{tag}{attr_str} />")
         else:
@@ -298,9 +396,7 @@ class _Sanitizer(HTMLParser):
         if tag in TAGS_DROP_CONTENT or tag not in ALLOWED_TAGS:
             return
         emitted_attrs = self._emit_attrs(tag, attrs)
-        attr_str = "".join(
-            f' {k}="{_escape_attr(v)}"' for k, v in emitted_attrs
-        )
+        attr_str = "".join(f' {k}="{_escape_attr(v)}"' for k, v in emitted_attrs)
         self._out.append(f"<{tag}{attr_str} />")
 
     def handle_endtag(self, tag):
@@ -366,20 +462,11 @@ class _Sanitizer(HTMLParser):
 
 
 def _escape_text(s: str) -> str:
-    return (
-        s.replace("&", "&amp;")
-         .replace("<", "&lt;")
-         .replace(">", "&gt;")
-    )
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def _escape_attr(s: str) -> str:
-    return (
-        s.replace("&", "&amp;")
-         .replace('"', "&quot;")
-         .replace("<", "&lt;")
-         .replace(">", "&gt;")
-    )
+    return s.replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 # ----------------------------------------------------------------------

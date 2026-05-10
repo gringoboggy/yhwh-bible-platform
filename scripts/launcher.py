@@ -39,6 +39,7 @@ the testable units are the helpers below; ``main()`` is the
 thin orchestrator that wires them together with stdlib defaults
 and accepts injectable callables for tests.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -104,6 +105,7 @@ def bootstrap_user_data(*, migrate_fn=None) -> dict:
         _src_content,
         perform_migration,
     )
+
     return perform_migration(_src_content(), _dst_content())
 
 
@@ -172,28 +174,39 @@ def main(
     are injectable so the full happy path can be exercised in a
     test without listening on a real socket or invoking PyWebView."""
     p = argparse.ArgumentParser(
-        description=("YHWH desktop launcher — starts the local web "
-                     "server and opens the UI."),
+        description=("YHWH desktop launcher — starts the local web server and opens the UI."),
     )
-    p.add_argument("--host", default=DEFAULT_HOST,
-                   help="bind address (default: 127.0.0.1)")
-    p.add_argument("--port", type=int, default=DEFAULT_PORT,
-                   help=(f"preferred port (default: {DEFAULT_PORT}; "
-                         "auto-falls back to a free port if taken)"))
-    p.add_argument("--no-browser", action="store_true",
-                   help=("browser mode only: don't auto-open the "
-                         "browser. Ignored in native shell mode."))
-    p.add_argument("--skip-bootstrap", action="store_true",
-                   help=("skip first-run user-data migration even "
-                         "when running frozen"))
-    p.add_argument("--shell", choices=SHELL_CHOICES, default="auto",
-                   help=("UI shell: 'native' (PyWebView window), "
-                         "'browser' (default browser tab), or "
-                         "'auto' (native when frozen + PyWebView "
-                         "installed, else browser)"))
-    p.add_argument("--debug", action="store_true",
-                   help=("native shell: enable PyWebView dev tools "
-                         "(right-click → Inspect Element)"))
+    p.add_argument("--host", default=DEFAULT_HOST, help="bind address (default: 127.0.0.1)")
+    p.add_argument(
+        "--port",
+        type=int,
+        default=DEFAULT_PORT,
+        help=(f"preferred port (default: {DEFAULT_PORT}; auto-falls back to a free port if taken)"),
+    )
+    p.add_argument(
+        "--no-browser",
+        action="store_true",
+        help=("browser mode only: don't auto-open the browser. Ignored in native shell mode."),
+    )
+    p.add_argument(
+        "--skip-bootstrap", action="store_true", help=("skip first-run user-data migration even when running frozen")
+    )
+    p.add_argument(
+        "--shell",
+        choices=SHELL_CHOICES,
+        default="auto",
+        help=(
+            "UI shell: 'native' (PyWebView window), "
+            "'browser' (default browser tab), or "
+            "'auto' (native when frozen + PyWebView "
+            "installed, else browser)"
+        ),
+    )
+    p.add_argument(
+        "--debug",
+        action="store_true",
+        help=("native shell: enable PyWebView dev tools (right-click → Inspect Element)"),
+    )
     args = p.parse_args(argv)
 
     if not args.skip_bootstrap and should_run_first_run_migration():
@@ -226,10 +239,14 @@ def main(
 
     if shell_mode == "native":
         return _run_native(
-            server, url, debug=args.debug, shell_fn=shell_fn,
+            server,
+            url,
+            debug=args.debug,
+            shell_fn=shell_fn,
         )
     return _run_browser(
-        server, url,
+        server,
+        url,
         no_browser=args.no_browser,
         opener=opener,
         serve_fn=serve_fn,
@@ -258,11 +275,13 @@ def _run_native(server, url, *, debug, shell_fn):
     for tests; production default is
     ``desktop_shell.open_in_native_shell``."""
     if shell_fn is None:
+
         def shell_fn(target_url):
             desktop_shell.open_in_native_shell(target_url, debug=debug)
 
     serve_thread = threading.Thread(
-        target=server.serve_forever, daemon=True,
+        target=server.serve_forever,
+        daemon=True,
     )
     serve_thread.start()
     try:

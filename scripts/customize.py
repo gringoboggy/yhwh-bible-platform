@@ -117,7 +117,9 @@ def validate_assets(cfg: dict) -> list[str]:
             if spec and spec.get("html_file"):
                 p = CONTENT_DIR / spec["html_file"]
                 if not p.is_file():
-                    errors.append(f"book_title_pages.edition_overrides[{ed_id}][{code}].html_file → not found: {spec['html_file']}")
+                    errors.append(
+                        f"book_title_pages.edition_overrides[{ed_id}][{code}].html_file → not found: {spec['html_file']}"
+                    )
 
     return errors
 
@@ -273,8 +275,7 @@ def apply_master_book_title(book_code: str, spec: dict, dry_run: bool) -> str:
     return f"{book_code}: title-page ← {html_ref}"
 
 
-def apply_edition_book_title(edition_id: str, book_code: str, spec: dict,
-                             dry_run: bool) -> str:
+def apply_edition_book_title(edition_id: str, book_code: str, spec: dict, dry_run: bool) -> str:
     """Stage a per-edition book-title-page fragment. build_edition.py picks
     these up from epub_working/title_pages/ during edition build."""
     html_ref = spec.get("html_file")
@@ -341,8 +342,7 @@ def cmd_status(cfg: dict) -> None:
     print(f"  {BOLD}Print covers (POD){RESET}")
     if enabled:
         for v in enabled:
-            print(f"    {v['profile']}: {v['trim_width_in']}\"×{v['trim_height_in']}\" "
-                  f"bleed={v['bleed_in']}\"")
+            print(f'    {v["profile"]}: {v["trim_width_in"]}"×{v["trim_height_in"]}" bleed={v["bleed_in"]}"')
     else:
         print(f"    {DIM}(none enabled — flip enabled: true in customization.yaml to opt in){RESET}")
     print()
@@ -410,15 +410,17 @@ def cmd_revert() -> int:
     targets = ["cover.jpeg", "titlepage.xhtml"]
     restored = 0
     for name in targets:
-        candidates = sorted(backup_dir.glob(f"{name}.*"), key=lambda p: p.stat().st_mtime,
-                            reverse=True)
+        candidates = sorted(backup_dir.glob(f"{name}.*"), key=lambda p: p.stat().st_mtime, reverse=True)
         if candidates:
             shutil.copyfile(candidates[0], EPUB_DIR / name)
             print(f"  {GREEN}✓{RESET} {name} ← {candidates[0].name}")
             restored += 1
     print()
-    print(f"  {GREEN}✓ {restored} file(s) restored{RESET}" if restored
-          else f"  {YELLOW}⚠ no matching backups found{RESET}")
+    print(
+        f"  {GREEN}✓ {restored} file(s) restored{RESET}"
+        if restored
+        else f"  {YELLOW}⚠ no matching backups found{RESET}"
+    )
     return 0
 
 
@@ -431,6 +433,7 @@ def cmd_measure() -> int:
         text = f.read_text(encoding="utf-8")
         # Strip tags
         from scripts.core.html_utils import strip_tags
+
         total_words += len(strip_tags(text).split())
     pages = total_words // WORDS_PER_PAGE
     # Round up to even (printers want even page counts)
@@ -505,17 +508,14 @@ def main() -> None:
     )
     p.add_argument("--validate", action="store_true", help="check all referenced files exist")
     p.add_argument("--apply", action="store_true", help="write changes (default is dry-run)")
-    p.add_argument("--revert", action="store_true",
-                   help="restore cover.jpeg + titlepage.xhtml from backups")
-    p.add_argument("--measure", action="store_true",
-                   help="estimate page count for print-cover spine calc")
+    p.add_argument("--revert", action="store_true", help="restore cover.jpeg + titlepage.xhtml from backups")
+    p.add_argument("--measure", action="store_true", help="estimate page count for print-cover spine calc")
     p.add_argument("--book", help="quick-set: book code (use with --html)")
     p.add_argument("--edition", help="quick-set: edition id (use with --cover or --html)")
     p.add_argument("--image", help="quick-set: image path")
     p.add_argument("--html", help="quick-set: HTML file path")
     p.add_argument("--cover", help="quick-set: cover image path (with --edition)")
-    p.add_argument("--dry-run", action="store_true",
-                   help="show what would happen but don't write (alias for default)")
+    p.add_argument("--dry-run", action="store_true", help="show what would happen but don't write (alias for default)")
     args = p.parse_args()
 
     cfg = load_customization()
@@ -538,9 +538,12 @@ def main() -> None:
 
     # Default behaviour: status + dry-run preview
     cmd_status(cfg)
-    if cfg.get("cover", {}).get("global_default") or cfg.get("cover", {}).get("edition_overrides") \
-       or (cfg.get("book_title_pages", {}) or {}).get("book_defaults") \
-       or (cfg.get("book_title_pages", {}) or {}).get("edition_overrides"):
+    if (
+        cfg.get("cover", {}).get("global_default")
+        or cfg.get("cover", {}).get("edition_overrides")
+        or (cfg.get("book_title_pages", {}) or {}).get("book_defaults")
+        or (cfg.get("book_title_pages", {}) or {}).get("edition_overrides")
+    ):
         cmd_apply(cfg, dry_run=True)
 
 

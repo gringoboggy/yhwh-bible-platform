@@ -41,6 +41,8 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.find_anchor import load_existing_anchors  # noqa: E402
 from scripts.core.notes_io import ensure_backup, atomic_write  # noqa: E402  (Phase χ.6 fix)
+from scripts.core.html_sandbox import sandbox_ai_html  # noqa: E402  (Phase ξ.15)
+from scripts.core.matrix import AI_DRAFTED_KINDS  # noqa: E402  (Phase ξ.15)
 
 NOTES_DIR = REPO_ROOT / "content" / "notes"
 
@@ -65,9 +67,7 @@ def pick_free_suffix(existing_suffixes: set[str]) -> str:
     for ch in "abcdefghijklmnopqrstuvwxyz":
         if ch not in existing_suffixes:
             return ch
-    raise RuntimeError(
-        "All a..z suffixes used on this verse — extend the suffix scheme."
-    )
+    raise RuntimeError("All a..z suffixes used on this verse — extend the suffix scheme.")
 
 
 # ----------------------------------------------------------------------
@@ -158,8 +158,7 @@ def insert_note_into_book_file(
                     break
 
     if not notes_assign or not isinstance(notes_assign.value, ast.List):
-        print(f"  {RED}✗ {book_path.name} has no recognisable NOTES list{RESET}",
-              file=sys.stderr)
+        print(f"  {RED}✗ {book_path.name} has no recognisable NOTES list{RESET}", file=sys.stderr)
         return False
 
     # Determine the insertion line (1-indexed) by scanning existing tuples.
@@ -196,25 +195,18 @@ def insert_note_into_book_file(
         insert_after_lineno = list_open_line
 
     # Build the new tuple text
-    new_tuple_text = format_tuple_text(
-        chapter, verse, suffix, anchor, kind, title, label, body, attribution
-    )
+    new_tuple_text = format_tuple_text(chapter, verse, suffix, anchor, kind, title, label, body, attribution)
 
     # Splice into the file
     lines = text.splitlines(keepends=True)
-    new_lines = (
-        lines[:insert_after_lineno]
-        + [new_tuple_text]
-        + lines[insert_after_lineno:]
-    )
+    new_lines = lines[:insert_after_lineno] + [new_tuple_text] + lines[insert_after_lineno:]
     new_text = "".join(new_lines)
 
     # Sanity: the file should still parse
     try:
         ast.parse(new_text)
     except SyntaxError as e:
-        print(f"  {RED}✗ insertion produced invalid Python: {e}{RESET}",
-              file=sys.stderr)
+        print(f"  {RED}✗ insertion produced invalid Python: {e}{RESET}", file=sys.stderr)
         return False
 
     ensure_backup(book_path)
@@ -252,6 +244,16 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
     if not attribution and c.get("source_name"):
         attribution = c["source_name"]
 
+    # ξ.15 belt-and-braces sandbox: any AI-drafted kind gets a second
+    # pass through the strict allowlist before its body lands in
+    # content/notes/. The detector already sandboxes at emit time;
+    # this pass survives a future detector that forgets to sandbox,
+    # and protects the interactive promote.py path the same as
+    # batch_promote_xrefs.py. Idempotent — clean output is a no-op.
+    draft_body = c["draft_body"]
+    if c["kind"] in AI_DRAFTED_KINDS:
+        draft_body = sandbox_ai_html(draft_body)
+
     ok = insert_note_into_book_file(
         book_path,
         chapter,
@@ -261,7 +263,7 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
         c["kind"],
         c.get("draft_title", "Note"),
         c.get("draft_label", "Note"),
-        c["draft_body"],
+        draft_body,
         attribution=attribution,
     )
     return ok, suffix
@@ -299,13 +301,15 @@ def update_queue_status(queue_path: Path, candidate_id: str, new_status: str) ->
 def render_candidate(c: dict, idx: int, total: int) -> None:
     print()
     print(f"{DIM}── {idx}/{total} ──{RESET}")
-    print(f"  {BOLD}{c.get('chapter','?')}:{c['verse']}{RESET}  "
-          f"kind={BOLD}{c['kind']}{RESET}  "
-          f"conf={c['confidence']}  "
-          f"src={c['source_name']}")
+    print(
+        f"  {BOLD}{c.get('chapter', '?')}:{c['verse']}{RESET}  "
+        f"kind={BOLD}{c['kind']}{RESET}  "
+        f"conf={c['confidence']}  "
+        f"src={c['source_name']}"
+    )
     if c.get("anchor"):
         print(f"  anchor: {YELLOW}{c['anchor']!r}{RESET}")
-    print(f"  {DIM}{c.get('source_attribution','')}{RESET}")
+    print(f"  {DIM}{c.get('source_attribution', '')}{RESET}")
     print()
     body_clean = re.sub(r"<[^>]+>", "", c["draft_body"])
     body_wrapped = body_clean[:280] + ("…" if len(body_clean) > 280 else "")
@@ -357,11 +361,13 @@ def main() -> None:
     if args.list:
         for c in data["candidates"]:
             anchor = (c.get("anchor") or "")[:30]
-            print(f"  [{c.get('status', 'pending'):8s}] "
-                  f"{c['id']:25s}  "
-                  f"{c['kind']:18s}  "
-                  f"conf={c['confidence']}  "
-                  f"anchor={anchor!r}")
+            print(
+                f"  [{c.get('status', 'pending'):8s}] "
+                f"{c['id']:25s}  "
+                f"{c['kind']:18s}  "
+                f"conf={c['confidence']}  "
+                f"anchor={anchor!r}"
+            )
         sys.exit(0)
 
     pending = [c for c in data["candidates"] if c.get("status") == "pending"]
@@ -369,15 +375,16 @@ def main() -> None:
     if args.promote_id:
         target = next((c for c in data["candidates"] if c["id"] == args.promote_id), None)
         if not target:
-            print(f"{RED}✗ no candidate with id {args.promote_id!r}{RESET}",
-                  file=sys.stderr)
+            print(f"{RED}✗ no candidate with id {args.promote_id!r}{RESET}", file=sys.stderr)
             sys.exit(2)
         ok, suffix = promote_candidate(book, target)
         if ok:
             update_queue_status(args.queue_path, target["id"], "promoted")
-            print(f"  {GREEN}✓{RESET} promoted {target['id']} to "
-                  f"{book} {target['chapter']}:{target['verse']}{suffix} "
-                  f"as {target['kind']}")
+            print(
+                f"  {GREEN}✓{RESET} promoted {target['id']} to "
+                f"{book} {target['chapter']}:{target['verse']}{suffix} "
+                f"as {target['kind']}"
+            )
             sys.exit(0)
         else:
             print(f"  {RED}✗ promotion failed{RESET}", file=sys.stderr)
@@ -391,9 +398,7 @@ def main() -> None:
             ok, suffix = promote_candidate(book, t)
             if ok:
                 update_queue_status(args.queue_path, t["id"], "promoted")
-                print(f"  {GREEN}✓{RESET} {t['id']:25s} → "
-                      f"{book} {t['chapter']}:{t['verse']}{suffix} "
-                      f"as {t['kind']}")
+                print(f"  {GREEN}✓{RESET} {t['id']:25s} → {book} {t['chapter']}:{t['verse']}{suffix} as {t['kind']}")
                 n_ok += 1
             else:
                 print(f"  {RED}✗ {t['id']} failed{RESET}", file=sys.stderr)
@@ -405,8 +410,7 @@ def main() -> None:
         print(f"  {DIM}no pending candidates in queue{RESET}")
         sys.exit(0)
 
-    print(f"\n{BOLD}promote{RESET} {DIM}{book} ch {chapter} · "
-          f"{len(pending)} pending{RESET}")
+    print(f"\n{BOLD}promote{RESET} {DIM}{book} ch {chapter} · {len(pending)} pending{RESET}")
 
     n_promoted = 0
     for i, c in enumerate(pending, 1):
@@ -429,8 +433,7 @@ def main() -> None:
             ok, suffix = promote_candidate(book, c)
             if ok:
                 update_queue_status(args.queue_path, c["id"], "promoted")
-                print(f"  {GREEN}✓{RESET} promoted as "
-                      f"{c['chapter']}:{c['verse']}{suffix}")
+                print(f"  {GREEN}✓{RESET} promoted as {c['chapter']}:{c['verse']}{suffix}")
                 n_promoted += 1
             else:
                 print(f"  {RED}✗ promotion failed{RESET}")

@@ -52,7 +52,6 @@ DEFAULT_HEATMAP_OUT = REPO_ROOT / "coverage_heatmap.html"
 # ----------------------------------------------------------------------
 
 
-
 # ----------------------------------------------------------------------
 # Stats
 # ----------------------------------------------------------------------
@@ -89,11 +88,7 @@ def gather_stats(books, kinds):
             per_kind[kind] += 1
             chapter_density[code][ch] += 1
             # Attribution presence (v28a-4 schema): 9th tuple field, non-empty string
-            if (
-                len(tup) >= 9
-                and isinstance(tup[8], str)
-                and tup[8].strip()
-            ):
+            if len(tup) >= 9 and isinstance(tup[8], str) and tup[8].strip():
                 attributed_count += 1
 
         n = sum(kinds_count.values())
@@ -385,7 +380,7 @@ def render_preamble(stats) -> str:
     <h1>Ethiopian Bible · Project Dashboard</h1>
     <p class="subtitle">Scholar's Edition · 87-book canon · live state of <code>content/notes/</code></p>
   </div>
-  <div class="meta">{html.escape(stats['generated_at'])}</div>
+  <div class="meta">{html.escape(stats["generated_at"])}</div>
 </header>"""
 
 
@@ -432,10 +427,7 @@ def render_kind_breakdown(stats) -> str:
             f'<div class="pct">{n:,} · {pct:.1f}%</div>'
             f"</div>"
         )
-    return (
-        '<section><h2>Kind distribution</h2>'
-        '<div class="kind-bars">' + "\n".join(rows) + "</div></section>"
-    )
+    return '<section><h2>Kind distribution</h2><div class="kind-bars">' + "\n".join(rows) + "</div></section>"
 
 
 def render_book_table(stats) -> str:
@@ -450,16 +442,12 @@ def render_book_table(stats) -> str:
         b = pb[code]
         density = b["note_count"] / b["ch_count"] if b["ch_count"] else 0
         kind_cells = "".join(
-            (
-                f'<td class="num">{b["kinds"][k]}</td>'
-                if b["kinds"].get(k)
-                else '<td class="num dim">—</td>'
-            )
+            (f'<td class="num">{b["kinds"][k]}</td>' if b["kinds"].get(k) else '<td class="num dim">—</td>')
             for k in kind_codes
         )
         rows.append(
             f"<tr>"
-            f'<td>{html.escape(code)}</td>'
+            f"<td>{html.escape(code)}</td>"
             f'<td class="title">{html.escape(b["title"])}</td>'
             f'<td class="num">{b["ch_count"]}</td>'
             f'<td class="num">{b["chapters_touched"]}/{b["ch_count"]} '
@@ -470,16 +458,14 @@ def render_book_table(stats) -> str:
         )
 
     return (
-        '<section>'
-        f'<h2>Per-book progress · {len(nonzero)} books with notes</h2>'
+        "<section>"
+        f"<h2>Per-book progress · {len(nonzero)} books with notes</h2>"
         '<table class="books"><thead><tr>'
-        '<th>code</th><th>title</th>'
+        "<th>code</th><th>title</th>"
         '<th class="num">chs</th><th class="num">covered</th>'
         '<th class="num">notes</th><th class="num">/ch</th>'
         f"{th_kinds}"
-        "</tr></thead><tbody>"
-        + "\n".join(rows)
-        + "</tbody></table></section>"
+        "</tr></thead><tbody>" + "\n".join(rows) + "</tbody></table></section>"
     )
 
 
@@ -528,23 +514,17 @@ def render_heatmap(stats, chapter_files: dict | None = None, link_prefix: str = 
             target_file = chapter_files.get((code, ch)) if chapter_files else None
             if target_file:
                 href = f"{link_prefix}{target_file}#ch-{book['bxx']}-c{ch}"
-                rect = (
-                    f'<a href="{html.escape(href)}" target="_blank">{rect}</a>'
-                )
+                rect = f'<a href="{html.escape(href)}" target="_blank">{rect}</a>'
             elems.append(rect)
 
     width = label_w + max_ch * cell_w + side_pad
     height = top_pad + len(books_with) * cell_h + side_pad
     svg = (
         f'<svg class="heatmap" width="{width}" height="{height}" '
-        f'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'
-        + "".join(elems)
-        + "</svg>"
+        f'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' + "".join(elems) + "</svg>"
     )
 
-    swatch_html = "".join(
-        f'<span class="swatch" style="background:{c}"></span>' for c in HEAT_STOPS
-    )
+    swatch_html = "".join(f'<span class="swatch" style="background:{c}"></span>' for c in HEAT_STOPS)
     hint = "click any cell to jump to the chapter" if chapter_files else "hover any cell for the count"
     legend = (
         '<div class="legend"><span>0 notes</span>'
@@ -552,10 +532,7 @@ def render_heatmap(stats, chapter_files: dict | None = None, link_prefix: str = 
         f'<span style="margin-left:auto;">{hint}</span></div>'
     )
 
-    return (
-        f'<section><h2>Note density · book × chapter</h2>'
-        f'<div class="heatmap-wrap">{svg}</div>{legend}</section>'
-    )
+    return f'<section><h2>Note density · book × chapter</h2><div class="heatmap-wrap">{svg}</div>{legend}</section>'
 
 
 def render_gaps(stats) -> str:
@@ -569,11 +546,7 @@ def render_gaps(stats) -> str:
         f'<span class="ch">· {b.get("ch_count", 0)} ch</span></li>'
         for b in empty
     )
-    return (
-        f"<section>"
-        f"<h2>Coverage gaps · {len(empty)} books not yet noted</h2>"
-        f'<ul class="gaps">{items}</ul></section>'
-    )
+    return f'<section><h2>Coverage gaps · {len(empty)} books not yet noted</h2><ul class="gaps">{items}</ul></section>'
 
 
 def render_footer(stats) -> str:
@@ -593,13 +566,9 @@ def render_footer(stats) -> str:
 
 
 def render_html(stats, heatmap_only: bool = False, chapter_files=None, link_prefix: str = "") -> str:
-    title = (
-        "Ethiopian Bible — Coverage Heatmap"
-        if heatmap_only
-        else "Ethiopian Bible — Project Dashboard"
-    )
+    title = "Ethiopian Bible — Coverage Heatmap" if heatmap_only else "Ethiopian Bible — Project Dashboard"
     parts = [
-        '<!DOCTYPE html>',
+        "<!DOCTYPE html>",
         '<html lang="en"><head>',
         '<meta charset="utf-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -611,13 +580,15 @@ def render_html(stats, heatmap_only: bool = False, chapter_files=None, link_pref
     if heatmap_only:
         parts.append(render_heatmap(stats, chapter_files=chapter_files, link_prefix=link_prefix))
     else:
-        parts.extend([
-            render_summary(stats),
-            render_kind_breakdown(stats),
-            render_book_table(stats),
-            render_heatmap(stats, chapter_files=chapter_files, link_prefix=link_prefix),
-            render_gaps(stats),
-        ])
+        parts.extend(
+            [
+                render_summary(stats),
+                render_kind_breakdown(stats),
+                render_book_table(stats),
+                render_heatmap(stats, chapter_files=chapter_files, link_prefix=link_prefix),
+                render_gaps(stats),
+            ]
+        )
     parts.append(render_footer(stats))
     parts.append("</body></html>")
     return "\n".join(parts)

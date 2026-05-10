@@ -42,15 +42,14 @@ def make_png(width: int, height: int) -> bytes:
 
     sig = b"\x89PNG\r\n\x1a\n"
     ihdr_data = struct.pack(">II", width, height) + b"\x08\x02\x00\x00\x00"
-    ihdr = (struct.pack(">I", 13) + b"IHDR" + ihdr_data
-            + struct.pack(">I", zlib.crc32(b"IHDR" + ihdr_data)))
+    ihdr = struct.pack(">I", 13) + b"IHDR" + ihdr_data + struct.pack(">I", zlib.crc32(b"IHDR" + ihdr_data))
     # Solid red row data, deflated
     raw = b"".join(b"\x00" + b"\xff\x00\x00" * width for _ in range(height))
     compressed = zlib.compress(raw)
-    idat = (struct.pack(">I", len(compressed)) + b"IDAT" + compressed
-            + struct.pack(">I", zlib.crc32(b"IDAT" + compressed)))
-    iend = (struct.pack(">I", 0) + b"IEND"
-            + struct.pack(">I", zlib.crc32(b"IEND")))
+    idat = (
+        struct.pack(">I", len(compressed)) + b"IDAT" + compressed + struct.pack(">I", zlib.crc32(b"IDAT" + compressed))
+    )
+    iend = struct.pack(">I", 0) + b"IEND" + struct.pack(">I", zlib.crc32(b"IEND"))
     return sig + ihdr + idat + iend
 
 
@@ -79,11 +78,13 @@ def multipart_body(
     """
     ctype = f"multipart/form-data; boundary={boundary}"
     body = (
-        f"--{boundary}\r\n"
-        f'Content-Disposition: form-data; name="{field_name}"; '
-        f'filename="{filename}"\r\n'
-        f"Content-Type: {content_type}\r\n\r\n"
-    ).encode("utf-8") + file_bytes + (
-        f"\r\n--{boundary}--\r\n"
-    ).encode("utf-8")
+        (
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="{field_name}"; '
+            f'filename="{filename}"\r\n'
+            f"Content-Type: {content_type}\r\n\r\n"
+        ).encode("utf-8")
+        + file_bytes
+        + (f"\r\n--{boundary}--\r\n").encode("utf-8")
+    )
     return body, ctype

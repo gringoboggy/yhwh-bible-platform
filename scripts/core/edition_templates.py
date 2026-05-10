@@ -30,6 +30,7 @@ Public API:
         editions.yaml, returns {"status": "ok"|"error", ...}
         per the §9 mental model.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -51,19 +52,26 @@ TEMPLATE_REQUIRED = {"template_id", "template_label", "template_description"}
 
 # Required editions.yaml-equivalent fields for a clone to validate
 EDITION_REQUIRED = {
-    "canon", "title", "short_title", "target_audience",
-    "enabled_categories", "max_phase", "popup_languages_default",
+    "canon",
+    "title",
+    "short_title",
+    "target_audience",
+    "enabled_categories",
+    "max_phase",
+    "popup_languages_default",
 }
 
 # id format: lowercase, hyphenated, alphanumeric. Same shape as
 # the existing 9 built-in editions.
 import re
+
 ID_RE = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
 
 
 @dataclass(frozen=True)
 class TemplateLoadError(Exception):
     """Raised when a template file is malformed or missing fields."""
+
     template_id: str
     detail: str
 
@@ -207,10 +215,7 @@ def create_from_template(
             "status": "error",
             "code": "invalid_new_id",
             "http": 400,
-            "message": (
-                "new_id must be lowercase, alphanumeric, and "
-                "hyphenated (e.g. 'my-new-edition')"
-            ),
+            "message": ("new_id must be lowercase, alphanumeric, and hyphenated (e.g. 'my-new-edition')"),
         }
 
     new_title_clean = (new_title or "").strip()
@@ -230,10 +235,7 @@ def create_from_template(
             "status": "error",
             "code": "duplicate_id",
             "http": 409,
-            "message": (
-                f"edition id {new_id_clean!r} already exists in "
-                f"editions.yaml"
-            ),
+            "message": (f"edition id {new_id_clean!r} already exists in editions.yaml"),
         }
 
     # Build the new edition dict — id/title overrides come first
@@ -271,6 +273,7 @@ def create_from_template(
     # matrix cache too — its compute_matrix() reads editions
     try:
         from scripts.core import matrix as _matrix_mod
+
         _matrix_mod.compute_matrix.cache_clear()
     except Exception:
         pass

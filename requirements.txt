@@ -1,0 +1,47 @@
+# YHWH Bible publishing platform — Python dependencies (ξ.5).
+#
+# The runtime has been kept intentionally lean per project convention
+# (CLAUDE_PROJECT_RULES §10): "Not Flask / FastAPI / Django. Standard
+# library only on the backend; Tailwind CDN on the frontend. No build
+# step." Only one third-party runtime dep is mandatory.
+#
+# Pin format: `>=A.B,<A+1` keeps minor-version security patches
+# eligible while blocking surprise major bumps. `pyproject.toml` is
+# intentionally NOT used — pip's plain requirements file is enough
+# for this project's setup story (one user-side `pip install -r
+# requirements.txt`).
+
+# ----------------------------------------------------------------------
+# Required runtime — used by content/config loading throughout the
+# project (config.load_*, scenario YAML parsing, etc.).
+# ----------------------------------------------------------------------
+PyYAML>=6.0,<7
+
+# ----------------------------------------------------------------------
+# Test-only — not needed for runtime. Install via:
+#     pip install -r requirements-dev.txt  (future)
+# or just `pip install pytest`.
+# ----------------------------------------------------------------------
+pytest>=8.0,<10
+
+# ----------------------------------------------------------------------
+# Optional — desktop binary integration (θ-cluster). Skip on headless
+# installs / CI. The launcher's native-shell mode imports `webview`
+# inside a try/except so the pure-CLI / pure-web flow doesn't require
+# it.
+# ----------------------------------------------------------------------
+# pywebview>=5.4,<6        ; for `python scripts/launcher.py --shell native`
+# pyinstaller>=6.0,<7      ; for `pyinstaller dev/launcher.spec`
+
+# ----------------------------------------------------------------------
+# Optional — AI-assisted detectors (χ-AI-xrefs / χ-AI-notes). Reads
+# `ANTHROPIC_API_KEY` from env. Cost-gated behind --confirm-cost.
+# Install only if you intend to run the paid corpus-augmentation pass.
+# ----------------------------------------------------------------------
+# anthropic>=0.40,<1       ; for χ-AI-* clients
+
+# ----------------------------------------------------------------------
+# Optional — EPUB validation. Wraps the `epubcheck.jar` Java tool;
+# requires a JRE on PATH. Path overridable via EPUBCHECK_JAR env var.
+# Pure-Python; no extra pip dep needed beyond what's already listed.
+# ----------------------------------------------------------------------

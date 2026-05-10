@@ -31,6 +31,7 @@ mime, filename}``. ``main()`` is the thin CLI adapter that
 discovers the inputs (VERSION + git tags) and calls
 ``build_appcast``.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -82,10 +83,10 @@ def build_appcast(
             "    <item>\n"
             f"      <title>{escape(title)}</title>\n"
             f"      <pubDate>{escape(pub_date)}</pubDate>\n"
-            f"      <enclosure url=\"{escape(download_url)}\""
-            f" sparkle:version=\"{escape(version)}\""
-            f" length=\"{int(length)}\""
-            f" type=\"{escape(mime)}\" />\n"
+            f'      <enclosure url="{escape(download_url)}"'
+            f' sparkle:version="{escape(version)}"'
+            f' length="{int(length)}"'
+            f' type="{escape(mime)}" />\n'
             "    </item>"
         )
     items_block = "\n".join(items_xml) if items_xml else "    <!-- no releases -->"
@@ -93,13 +94,13 @@ def build_appcast(
         '<?xml version="1.0" encoding="utf-8"?>\n'
         '<rss version="2.0"'
         ' xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">\n'
-        '  <channel>\n'
+        "  <channel>\n"
         f"    <title>{escape(channel_title)}</title>\n"
         f"    <description>{escape(channel_description)}</description>\n"
         f"    <language>{escape(channel_language)}</language>\n"
         f"{items_block}\n"
-        '  </channel>\n'
-        '</rss>\n'
+        "  </channel>\n"
+        "</rss>\n"
     )
 
 
@@ -159,44 +160,46 @@ def releases_from_version_and_tags(
     out: list[dict] = []
     seen: set[str] = set()
     if current_version:
-        out.append({
-            "version": current_version,
-            "filename": filename_pattern.format(version=current_version),
-        })
+        out.append(
+            {
+                "version": current_version,
+                "filename": filename_pattern.format(version=current_version),
+            }
+        )
         seen.add(current_version)
     for tag in tags:
         # Strip a leading "v" prefix on tags like "v1.0.0".
         v = tag[1:] if tag.startswith("v") else tag
         if v in seen:
             continue
-        out.append({
-            "version": v,
-            "filename": filename_pattern.format(version=v),
-        })
+        out.append(
+            {
+                "version": v,
+                "filename": filename_pattern.format(version=v),
+            }
+        )
         seen.add(v)
     return out
 
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
-        description=(
-            "Generate a Sparkle/WinSparkle appcast.xml for the "
-            "YHWH desktop binary."
-        ),
+        description=("Generate a Sparkle/WinSparkle appcast.xml for the YHWH desktop binary."),
     )
     p.add_argument(
         "--base-url",
         required=True,
-        help=("URL prefix for the binary downloads, e.g. "
-              "https://yhwh.example/releases/"),
+        help=("URL prefix for the binary downloads, e.g. https://yhwh.example/releases/"),
     )
     p.add_argument(
         "--filename-pattern",
         default="YHWH-{version}.dmg",
-        help=("Filename template with one {version} placeholder. "
-              "Default targets macOS DMG; use "
-              "'YHWH-Setup-{version}.exe' for Windows or "
-              "'YHWH-{version}-x86_64.AppImage' for Linux."),
+        help=(
+            "Filename template with one {version} placeholder. "
+            "Default targets macOS DMG; use "
+            "'YHWH-Setup-{version}.exe' for Windows or "
+            "'YHWH-{version}-x86_64.AppImage' for Linux."
+        ),
     )
     p.add_argument(
         "--title",

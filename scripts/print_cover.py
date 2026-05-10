@@ -95,6 +95,7 @@ def render_isbn_barcode(isbn: str) -> bytes | None:
     try:
         from barcode import EAN13
         from barcode.writer import ImageWriter
+
         digits = "".join(c for c in isbn if c.isdigit())
         if len(digits) != 13:
             return None
@@ -210,8 +211,7 @@ def generate_cover_pdf(
         c.restoreState()
     else:
         warnings.append(
-            f"{edition_id}/{profile}: spine too thin ({spine:.3f}\") for text "
-            f"— increase page_count or use thinner paper"
+            f'{edition_id}/{profile}: spine too thin ({spine:.3f}") for text — increase page_count or use thinner paper'
         )
 
     # ---- BACK cover (left pane: blurb + ISBN barcode) ----
@@ -232,6 +232,7 @@ def generate_cover_pdf(
     from reportlab.platypus import Paragraph
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.enums import TA_LEFT
+
     body_style = ParagraphStyle(
         "body",
         fontName="Helvetica",
@@ -257,8 +258,13 @@ def generate_cover_pdf(
         try:
             c.drawImage(
                 ImageReader(BytesIO(barcode_png)),
-                bar_x, bar_y, width=bar_w, height=bar_h,
-                preserveAspectRatio=True, anchor="sw", mask="auto",
+                bar_x,
+                bar_y,
+                width=bar_w,
+                height=bar_h,
+                preserveAspectRatio=True,
+                anchor="sw",
+                mask="auto",
             )
         except Exception as e:
             warnings.append(f"{edition_id}: barcode draw failed: {e}")
@@ -272,8 +278,7 @@ def generate_cover_pdf(
         c.setStrokeColor(white)
         c.rect(bar_x, bar_y, bar_w, bar_h, stroke=1, fill=0)
         c.setFont("Helvetica", 8)
-        c.drawString(bar_x + 6, bar_y + bar_h / 2,
-                     "PLACEHOLDER · ISBN not yet assigned")
+        c.drawString(bar_x + 6, bar_y + bar_h / 2, "PLACEHOLDER · ISBN not yet assigned")
 
     # ---- PRINT MARKS (subtle outlines for proofing) ----
     # Bleed line (very faint, 0.1pt) at the canvas edge — already there, just doc
@@ -303,11 +308,11 @@ def main() -> None:
     p = argparse.ArgumentParser(
         description="Generate print-on-demand wraparound cover PDFs.",
     )
-    p.add_argument("profile", nargs="?", default="all",
-                   help="profile id (e.g. 'kdp-6x9') or 'all' for every enabled variant")
+    p.add_argument(
+        "profile", nargs="?", default="all", help="profile id (e.g. 'kdp-6x9') or 'all' for every enabled variant"
+    )
     p.add_argument("--edition", help="generate for a single edition only (default: all 5)")
-    p.add_argument("--page-count", type=int,
-                   help="override page count (overrides per-variant page_count)")
+    p.add_argument("--page-count", type=int, help="override page count (overrides per-variant page_count)")
     args = p.parse_args()
 
     if not CUSTOM_YAML.is_file():
@@ -315,6 +320,7 @@ def main() -> None:
         sys.exit(2)
 
     import yaml
+
     with CUSTOM_YAML.open(encoding="utf-8") as f:
         cfg = yaml.safe_load(f) or {}
 
@@ -329,12 +335,9 @@ def main() -> None:
 
     defaults, ed_records = load_onix_metadata()
 
-    target_editions = [args.edition] if args.edition else [
-        e["id"] for e in config.load_editions()
-    ]
+    target_editions = [args.edition] if args.edition else [e["id"] for e in config.load_editions()]
 
-    print(f"\n{BOLD}print_cover{RESET}  {DIM}{len(enabled)} variant(s) × "
-          f"{len(target_editions)} edition(s){RESET}\n")
+    print(f"\n{BOLD}print_cover{RESET}  {DIM}{len(enabled)} variant(s) × {len(target_editions)} edition(s){RESET}\n")
 
     all_warnings: list[str] = []
     generated = 0
@@ -342,8 +345,7 @@ def main() -> None:
         for variant in enabled:
             page_count = args.page_count or variant.get("page_count") or 0
             if not isinstance(page_count, int) or page_count <= 0 or "TODO" in str(page_count):
-                msg = (f"{ed_id}/{variant['profile']}: skipping — "
-                       f"page_count not set (run --measure first)")
+                msg = f"{ed_id}/{variant['profile']}: skipping — page_count not set (run --measure first)"
                 all_warnings.append(msg)
                 print(f"  {YELLOW}⚠{RESET} {msg}")
                 continue
@@ -351,8 +353,10 @@ def main() -> None:
                 out, warns = generate_cover_pdf(ed_id, variant, defaults, ed_records, page_count)
                 all_warnings.extend(warns)
                 generated += 1
-                print(f"  {GREEN}✓{RESET} {out.name}  {DIM}({page_count}pp · "
-                      f"spine={spine_width_in(page_count, variant.get('paper', 'white-50lb')):.3f}\"){RESET}")
+                print(
+                    f"  {GREEN}✓{RESET} {out.name}  {DIM}({page_count}pp · "
+                    f'spine={spine_width_in(page_count, variant.get("paper", "white-50lb")):.3f}"){RESET}'
+                )
             except Exception as e:
                 print(f"  {RED}✗{RESET} {ed_id}/{variant['profile']}: {e}")
 

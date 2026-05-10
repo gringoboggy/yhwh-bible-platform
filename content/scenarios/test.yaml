@@ -1,0 +1,4 @@
+name: test
+enabled_kinds:
+  - comm
+  - word

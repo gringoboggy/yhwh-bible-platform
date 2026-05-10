@@ -46,6 +46,7 @@ Migration approach (rolling, ω.5 → ω.5.x):
   in-tree fallback means un-migrated call sites continue to work
   during the rolling migration.
 """
+
 from __future__ import annotations
 
 import os

@@ -39,7 +39,9 @@ def _traditions_yaml_path() -> Path:
     prefer this function so they pick up dev/installed/test-override
     resolution automatically."""
     from . import paths
+
     return paths.traditions_yaml()
+
 
 # CANONICAL_TRADITIONS is the **ordered** list used in popup rendering
 # (ψ.8.2). The order is fixed by editorial convention — alphabetical or
@@ -199,8 +201,7 @@ def _parse_traditions_yaml(text: str) -> dict:
                 # are silently skipped so a typo here can't poison
                 # the lookup. The `traditions audit` linter check
                 # (ψ.8.2 territory) will surface bad entries to humans.
-                if in_section == "edition_to_tradition" \
-                        and value not in TRADITION_IDS:
+                if in_section == "edition_to_tradition" and value not in TRADITION_IDS:
                     continue
                 out[in_section][key] = value
     return out
@@ -224,10 +225,7 @@ def with_tradition(tup: tuple, tradition: str) -> tuple:
 
     Raises ``ValueError`` for an unknown tradition id."""
     if not valid_tradition(tradition):
-        raise ValueError(
-            f"unknown tradition {tradition!r}; "
-            f"must be one of {sorted(TRADITION_IDS)}"
-        )
+        raise ValueError(f"unknown tradition {tradition!r}; must be one of {sorted(TRADITION_IDS)}")
     if not isinstance(tup, tuple) or len(tup) < 8:
         raise ValueError(f"note tuple must have ≥8 fields, got {len(tup)}")
     base = list(tup[:8])

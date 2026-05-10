@@ -59,7 +59,7 @@ def _locate_jar() -> Optional[Path]:
     if env_jar and Path(env_jar).is_file():
         return Path(env_jar)
     try:
-        from epubcheck.const import EPUBCHECK as bundled  # type: ignore
+        from epubcheck.const import EPUBCHECK as bundled
     except ImportError:
         return None
     p = Path(bundled)
@@ -124,8 +124,7 @@ def is_available() -> tuple[bool, str]:
         )
     if _JAR_PATH is None:
         return False, (
-            "epubcheck JAR not found. Reinstall the `epubcheck` PyPI "
-            "package or set EPUBCHECK_JAR to a JAR path."
+            "epubcheck JAR not found. Reinstall the `epubcheck` PyPI package or set EPUBCHECK_JAR to a JAR path."
         )
     return True, ""
 
@@ -154,12 +153,14 @@ def _parse_epubcheck_json(text: str) -> dict:
     for m in msgs_raw:
         if not isinstance(m, dict):
             continue
-        messages.append({
-            "id": m.get("ID", "") or m.get("id", ""),
-            "severity": m.get("severity", "INFO"),
-            "message": m.get("message", ""),
-            "locations": m.get("locations") or [],
-        })
+        messages.append(
+            {
+                "id": m.get("ID", "") or m.get("id", ""),
+                "severity": m.get("severity", "INFO"),
+                "message": m.get("message", ""),
+                "locations": m.get("locations") or [],
+            }
+        )
     return {
         "messages": messages,
         "version": (raw.get("checker") or {}).get("checkerVersion"),
@@ -198,20 +199,25 @@ def run_epubcheck(
             "epub": epub_name,
             "errors": 1,
             "warnings": 0,
-            "messages": [{
-                "id": "RSC-001",
-                "severity": "ERROR",
-                "message": f"EPUB file not found: {epub}",
-                "locations": [],
-            }],
+            "messages": [
+                {
+                    "id": "RSC-001",
+                    "severity": "ERROR",
+                    "message": f"EPUB file not found: {epub}",
+                    "locations": [],
+                }
+            ],
             "version": None,
         }
 
     _ensure_probed()
     cmd = [
-        "java", "-jar", str(_JAR_PATH),
+        "java",
+        "-jar",
+        str(_JAR_PATH),
         str(epub),
-        "--json", "-",  # JSON to stdout
+        "--json",
+        "-",  # JSON to stdout
         "--quiet",
     ]
     try:
@@ -227,12 +233,14 @@ def run_epubcheck(
             "epub": epub_name,
             "errors": 1,
             "warnings": 0,
-            "messages": [{
-                "id": "TIMEOUT",
-                "severity": "ERROR",
-                "message": f"epubcheck timed out after {timeout}s",
-                "locations": [],
-            }],
+            "messages": [
+                {
+                    "id": "TIMEOUT",
+                    "severity": "ERROR",
+                    "message": f"epubcheck timed out after {timeout}s",
+                    "locations": [],
+                }
+            ],
             "version": None,
         }
     except OSError as e:
@@ -250,14 +258,8 @@ def run_epubcheck(
         }
 
     parsed = _parse_epubcheck_json(proc.stdout)
-    errors = sum(
-        1 for m in parsed["messages"]
-        if m["severity"] in ("ERROR", "FATAL")
-    )
-    warnings = sum(
-        1 for m in parsed["messages"]
-        if m["severity"] == "WARNING"
-    )
+    errors = sum(1 for m in parsed["messages"] if m["severity"] in ("ERROR", "FATAL"))
+    warnings = sum(1 for m in parsed["messages"] if m["severity"] == "WARNING")
     return {
         "status": _classify_status(errors, warnings),
         "epub": epub_name,
@@ -308,10 +310,7 @@ def run_epubcheck_on_dir(
             "n_epubs": 0,
             "results": [],
             "totals": {"errors": 0, "warnings": 0},
-            "explanation": (
-                f"No *.epub files in {d}. Build at least one edition "
-                f"to enable EPUB validation."
-            ),
+            "explanation": (f"No *.epub files in {d}. Build at least one edition to enable EPUB validation."),
         }
     avail, why = is_available()
     if not avail:

@@ -28,6 +28,7 @@ The on-disk layout consumers should follow:
 under ``content/`` to keep the door open for shared covers across
 editions later.
 """
+
 from __future__ import annotations
 
 import struct
@@ -44,6 +45,7 @@ def _covers_dir() -> Path:
     sites should prefer this function so they pick up
     dev/installed/test-override resolution automatically."""
     from . import paths
+
     return paths.covers_dir()
 
 
@@ -102,6 +104,7 @@ def encode_book_covers(per_book: dict[str, str]) -> list[str]:
         return []
     # Late import to avoid circular dependency at module load time.
     from scripts.core import config as _cfg
+
     book_order = list(_cfg.books_by_code().keys())
     rank = {code: i for i, code in enumerate(book_order)}
 
@@ -170,15 +173,15 @@ def _read_jpeg_dimensions(data: bytes) -> Optional[tuple[int, int]]:
         # All other markers carry a 2-byte big-endian length
         if i + 2 > n:
             return None
-        seg_len = struct.unpack(">H", data[i:i + 2])[0]
+        seg_len = struct.unpack(">H", data[i : i + 2])[0]
         # SOF markers — encode dimensions
         if (0xC0 <= marker <= 0xCF) and marker not in (0xC4, 0xC8, 0xCC):
             # Layout: length(2) + precision(1) + height(2) + width(2)
             if i + 7 > n:
                 return None
             try:
-                height = struct.unpack(">H", data[i + 3:i + 5])[0]
-                width = struct.unpack(">H", data[i + 5:i + 7])[0]
+                height = struct.unpack(">H", data[i + 3 : i + 5])[0]
+                width = struct.unpack(">H", data[i + 5 : i + 7])[0]
                 return (width, height)
             except struct.error:
                 return None
@@ -236,7 +239,7 @@ def _read_webp_dimensions(data: bytes) -> Optional[tuple[int, int]]:
         # at offset 23 (12 RIFF + 8 chunk header + 3 frame tag), but
         # we scan defensively in the next 16 bytes for robustness.
         for i in range(20, min(40, len(data) - 7)):
-            if data[i:i + 3] == b"\x9d\x01\x2a":
+            if data[i : i + 3] == b"\x9d\x01\x2a":
                 if i + 7 > len(data):
                     return None
                 w = (data[i + 3] | (data[i + 4] << 8)) & 0x3FFF
@@ -251,7 +254,7 @@ def _read_webp_dimensions(data: bytes) -> Optional[tuple[int, int]]:
             return None
         b1, b2, b3, b4 = data[21], data[22], data[23], data[24]
         w = (b1 | ((b2 & 0x3F) << 8)) + 1
-        h = (((b2 >> 6) | (b3 << 2) | ((b4 & 0x0F) << 10))) + 1
+        h = ((b2 >> 6) | (b3 << 2) | ((b4 & 0x0F) << 10)) + 1
         return (w, h)
 
     return None
@@ -320,8 +323,7 @@ def read_image_meta(path_str: str) -> Optional[dict]:
 # ----------------------------------------------------------------------
 
 
-def cover_record_for_edition(edition: dict, canon_books: list[str],
-                              books_idx: dict) -> dict:
+def cover_record_for_edition(edition: dict, canon_books: list[str], books_idx: dict) -> dict:
     """Build the cover-status record for one edition.
 
     `canon_books` is a list of book codes IN CANONICAL ORDER (caller
@@ -352,12 +354,14 @@ def cover_record_for_edition(edition: dict, canon_books: list[str],
     for code in canon_books:
         path = per_book.get(code, "")
         meta = read_image_meta(path) if path else None
-        book_rows.append({
-            "book_code": code,
-            "title": books_idx.get(code, {}).get("title", code),
-            "path": path,
-            "meta": meta,
-        })
+        book_rows.append(
+            {
+                "book_code": code,
+                "title": books_idx.get(code, {}).get("title", code),
+                "path": path,
+                "meta": meta,
+            }
+        )
 
     return {
         "edition_id": edition["id"],
@@ -371,13 +375,13 @@ def cover_record_for_edition(edition: dict, canon_books: list[str],
 # ----------------------------------------------------------------------
 
 # Limits per dev/SCOPE_2026-05-07-addendum-covers.md.
-UPLOAD_MAX_BYTES = 10 * 1024 * 1024          # 10 MB
+UPLOAD_MAX_BYTES = 10 * 1024 * 1024  # 10 MB
 UPLOAD_MIN_WIDTH = 600
 UPLOAD_MIN_HEIGHT = 900
 UPLOAD_MAX_WIDTH = 4000
 UPLOAD_MAX_HEIGHT = 6000
-UPLOAD_TARGET_ASPECT = 2 / 3                  # portrait, 2:3 book jacket
-UPLOAD_ASPECT_TOLERANCE = 0.20                # ±20%
+UPLOAD_TARGET_ASPECT = 2 / 3  # portrait, 2:3 book jacket
+UPLOAD_ASPECT_TOLERANCE = 0.20  # ±20%
 UPLOAD_ALLOWED_FORMATS = ("png", "jpeg", "webp")
 
 
@@ -400,18 +404,12 @@ def validate_upload_image(data: bytes) -> tuple[bool, str, dict | None]:
         return False, "uploaded file is empty", None
     if n > UPLOAD_MAX_BYTES:
         mb = n / (1024 * 1024)
-        return False, (
-            f"file too large: {mb:.1f} MB (max "
-            f"{UPLOAD_MAX_BYTES // (1024 * 1024)} MB)"
-        ), None
+        return False, (f"file too large: {mb:.1f} MB (max {UPLOAD_MAX_BYTES // (1024 * 1024)} MB)"), None
 
     # Format — detect from magic bytes (don't trust the filename)
     fmt = _detect_format(data, "")
     if fmt not in UPLOAD_ALLOWED_FORMATS:
-        return False, (
-            f"unsupported image format: {fmt!r} "
-            f"(accept: {', '.join(UPLOAD_ALLOWED_FORMATS)})"
-        ), None
+        return False, (f"unsupported image format: {fmt!r} (accept: {', '.join(UPLOAD_ALLOWED_FORMATS)})"), None
 
     # Dimensions — required; if we can't determine them we can't
     # safely accept the upload.
@@ -424,22 +422,17 @@ def validate_upload_image(data: bytes) -> tuple[bool, str, dict | None]:
     else:
         dims = None
     if dims is None:
-        return False, (
-            f"could not determine image dimensions; the file may be "
-            f"corrupted or use an unsupported {fmt} variant"
-        ), None
+        return (
+            False,
+            (f"could not determine image dimensions; the file may be corrupted or use an unsupported {fmt} variant"),
+            None,
+        )
     width, height = dims
 
     if width < UPLOAD_MIN_WIDTH or height < UPLOAD_MIN_HEIGHT:
-        return False, (
-            f"image too small: {width}×{height} px "
-            f"(minimum {UPLOAD_MIN_WIDTH}×{UPLOAD_MIN_HEIGHT})"
-        ), None
+        return False, (f"image too small: {width}×{height} px (minimum {UPLOAD_MIN_WIDTH}×{UPLOAD_MIN_HEIGHT})"), None
     if width > UPLOAD_MAX_WIDTH or height > UPLOAD_MAX_HEIGHT:
-        return False, (
-            f"image too large: {width}×{height} px "
-            f"(maximum {UPLOAD_MAX_WIDTH}×{UPLOAD_MAX_HEIGHT})"
-        ), None
+        return False, (f"image too large: {width}×{height} px (maximum {UPLOAD_MAX_WIDTH}×{UPLOAD_MAX_HEIGHT})"), None
 
     # Aspect ratio — book covers are portrait, target 2:3.
     # We compare the upload's aspect to that target with ±20%
@@ -449,18 +442,26 @@ def validate_upload_image(data: bytes) -> tuple[bool, str, dict | None]:
     lo = UPLOAD_TARGET_ASPECT * (1 - UPLOAD_ASPECT_TOLERANCE)
     hi = UPLOAD_TARGET_ASPECT * (1 + UPLOAD_ASPECT_TOLERANCE)
     if not (lo <= aspect <= hi):
-        return False, (
-            f"image aspect ratio {aspect:.2f} is outside the allowed "
-            f"range ({lo:.2f}–{hi:.2f}); book covers should be roughly "
-            f"2:3 portrait. Crop or resize before uploading."
-        ), None
+        return (
+            False,
+            (
+                f"image aspect ratio {aspect:.2f} is outside the allowed "
+                f"range ({lo:.2f}–{hi:.2f}); book covers should be roughly "
+                f"2:3 portrait. Crop or resize before uploading."
+            ),
+            None,
+        )
 
-    return True, "", {
-        "format": fmt,
-        "width": width,
-        "height": height,
-        "size_kb": int(round(n / 1024)),
-    }
+    return (
+        True,
+        "",
+        {
+            "format": fmt,
+            "width": width,
+            "height": height,
+            "size_kb": int(round(n / 1024)),
+        },
+    )
 
 
 def storage_path_for_main(edition_id: str, fmt: str) -> str:

@@ -22,6 +22,7 @@ What gets copied: every file and directory under the in-tree
 audio, plus the YAML config files). Nothing under ``scripts/``,
 ``tests/``, ``dev/`` — those stay in the read-only repo bundle.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -69,7 +70,9 @@ def plan_migration(src: Path, dst: Path) -> dict:
     function — no I/O writes. Returns a stats dict the CLI prints."""
     if not src.is_dir():
         return {
-            "src_exists": False, "files": [], "total_bytes": 0,
+            "src_exists": False,
+            "files": [],
+            "total_bytes": 0,
             "dst_exists": dst.exists(),
         }
     files = sorted(_walk_files(src))
@@ -108,13 +111,10 @@ def perform_migration(src: Path, dst: Path, *, force: bool = False) -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
-        description=("Bootstrap content/ into the user-data dir for "
-                     "installed-binary deployments. Idempotent."),
+        description=("Bootstrap content/ into the user-data dir for installed-binary deployments. Idempotent."),
     )
-    p.add_argument("--dry-run", action="store_true",
-                   help="show what would be copied; no writes.")
-    p.add_argument("--force", action="store_true",
-                   help="overwrite existing files in the destination.")
+    p.add_argument("--dry-run", action="store_true", help="show what would be copied; no writes.")
+    p.add_argument("--force", action="store_true", help="overwrite existing files in the destination.")
     args = p.parse_args(argv)
 
     src = _src_content()
@@ -125,13 +125,11 @@ def main(argv: list[str] | None = None) -> int:
     print()
 
     if not src.is_dir():
-        print(f"{RED}REFUSING:{RESET} source content/ does not exist "
-              f"at {src}.")
+        print(f"{RED}REFUSING:{RESET} source content/ does not exist at {src}.")
         return 1
 
     if _is_already_migrated() and not args.force and not args.dry_run:
-        print(f"{GREEN}Already migrated{RESET} — destination has "
-              f"editions.yaml marker.")
+        print(f"{GREEN}Already migrated{RESET} — destination has editions.yaml marker.")
         print(f"  Re-run with {YELLOW}--force{RESET} to overwrite.")
         return 0
 
@@ -140,8 +138,9 @@ def main(argv: list[str] | None = None) -> int:
     mb = plan["total_bytes"] / (1024 * 1024)
     print(f"Plan: {n_files} files · {mb:.1f} MB total")
     if plan["dst_exists"]:
-        print(f"  {DIM}(destination exists; existing files will be "
-              f"{'overwritten' if args.force else 'skipped'}){RESET}")
+        print(
+            f"  {DIM}(destination exists; existing files will be {'overwritten' if args.force else 'skipped'}){RESET}"
+        )
     print()
 
     if args.dry_run:
@@ -150,20 +149,20 @@ def main(argv: list[str] | None = None) -> int:
 
     result = perform_migration(src, dst, force=args.force)
     print(f"{GREEN}✓{RESET} Copied:  {result['copied']:5d}")
-    print(f"{DIM}-{RESET} Skipped: {result['skipped']:5d} "
-          f"(already present)")
+    print(f"{DIM}-{RESET} Skipped: {result['skipped']:5d} (already present)")
     if result["errors"]:
         print(f"{RED}✗{RESET} Errors:  {len(result['errors'])}")
         for err in result["errors"][:5]:
             print(f"    {err}")
         if len(result["errors"]) > 5:
-            print(f"    {DIM}... {len(result['errors']) - 5} more "
-                  f"errors omitted{RESET}")
+            print(f"    {DIM}... {len(result['errors']) - 5} more errors omitted{RESET}")
         return 1
     print()
-    print(f"{DIM}Next: set YHWH_CONTENT_ROOT to use the new location, "
-          f"or simply delete the in-tree content/ directory and the "
-          f"user-data dir wins automatically.{RESET}")
+    print(
+        f"{DIM}Next: set YHWH_CONTENT_ROOT to use the new location, "
+        f"or simply delete the in-tree content/ directory and the "
+        f"user-data dir wins automatically.{RESET}"
+    )
     return 0
 
 

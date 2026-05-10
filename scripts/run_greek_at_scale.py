@@ -14,6 +14,7 @@ Usage:
     python3 scripts/run_greek_at_scale.py --books jhn,rom
     python3 scripts/run_greek_at_scale.py --min-confidence 0.85
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -38,9 +39,33 @@ RESET = "\033[0m"
 # detector's NT_BOOKS so the driver can fast-skip OT books before any
 # detector instantiation.
 NT_BOOKS = {
-    "mat", "mrk", "luk", "jhn", "act", "rom", "1co", "2co", "gal",
-    "eph", "php", "col", "1th", "2th", "1ti", "2ti", "tit", "phm",
-    "heb", "jas", "1pe", "2pe", "1jn", "2jn", "3jn", "jud", "rev",
+    "mat",
+    "mrk",
+    "luk",
+    "jhn",
+    "act",
+    "rom",
+    "1co",
+    "2co",
+    "gal",
+    "eph",
+    "php",
+    "col",
+    "1th",
+    "2th",
+    "1ti",
+    "2ti",
+    "tit",
+    "phm",
+    "heb",
+    "jas",
+    "1pe",
+    "2pe",
+    "1jn",
+    "2jn",
+    "3jn",
+    "jud",
+    "rev",
 }
 
 
@@ -75,13 +100,10 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
     if out_path.exists():
         try:
             existing = json.loads(out_path.read_text(encoding="utf-8"))
-            existing_candidates = [c for c in existing.get("candidates", [])
-                                    if c.get("kind") != "lang-greek"]
+            existing_candidates = [c for c in existing.get("candidates", []) if c.get("kind") != "lang-greek"]
         except Exception:
             pass
-    new_dicts = [candidate_to_dict(c, i)
-                 for i, c in enumerate(candidates,
-                                        start=len(existing_candidates) + 1)]
+    new_dicts = [candidate_to_dict(c, i) for i, c in enumerate(candidates, start=len(existing_candidates) + 1)]
     all_candidates = existing_candidates + new_dicts
     payload = {
         "book": book,
@@ -90,8 +112,7 @@ def write_queue(book: str, chapter: int, candidates: list) -> Path | None:
         "n_candidates": len(all_candidates),
         "candidates": all_candidates,
     }
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False),
-                        encoding="utf-8")
+    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     return out_path
 
 
@@ -99,14 +120,24 @@ def run_greek_for_book(book: str, *, min_confidence: float = 0.7) -> dict:
     """Iterate KJV verses for one NT book, run GreekWordDetector,
     write candidates JSON per chapter. Returns stats."""
     if book not in NT_BOOKS:
-        return {"book": book, "skipped": True, "reason": "OT (no NT Greek)",
-                "chapters_processed": 0, "candidates_written": 0,
-                "files_written": 0}
+        return {
+            "book": book,
+            "skipped": True,
+            "reason": "OT (no NT Greek)",
+            "chapters_processed": 0,
+            "candidates_written": 0,
+            "files_written": 0,
+        }
 
     if not translations.has_book("kjv", book):
-        return {"book": book, "skipped": True, "reason": "no KJV data",
-                "chapters_processed": 0, "candidates_written": 0,
-                "files_written": 0}
+        return {
+            "book": book,
+            "skipped": True,
+            "reason": "no KJV data",
+            "chapters_processed": 0,
+            "candidates_written": 0,
+            "files_written": 0,
+        }
 
     detector = GreekWordDetector()
 
@@ -151,8 +182,7 @@ def main() -> int:
     p = argparse.ArgumentParser(
         description="Run GreekWordDetector at scale via direct KJV iteration.",
     )
-    p.add_argument("--books",
-                    help="comma-separated list of NT books (default: all)")
+    p.add_argument("--books", help="comma-separated list of NT books (default: all)")
     p.add_argument("--min-confidence", type=float, default=0.7)
     args = p.parse_args()
 
@@ -160,12 +190,10 @@ def main() -> int:
         books = args.books.split(",")
     else:
         # All books we have KJV data for; filter to NT.
-        all_books = [Path(p).stem
-                     for p in (REPO_ROOT / "content/translations/kjv").glob("*.py")]
+        all_books = [Path(p).stem for p in (REPO_ROOT / "content/translations/kjv").glob("*.py")]
         books = sorted(b for b in all_books if b in NT_BOOKS)
 
-    print(f"Running GreekWordDetector across {len(books)} NT books "
-          f"(min-conf={args.min_confidence})")
+    print(f"Running GreekWordDetector across {len(books)} NT books (min-conf={args.min_confidence})")
     print()
 
     total_chapters = 0
@@ -174,29 +202,32 @@ def main() -> int:
     skipped_count = 0
     for book in books:
         stats = run_greek_for_book(
-            book, min_confidence=args.min_confidence,
+            book,
+            min_confidence=args.min_confidence,
         )
         if stats.get("skipped"):
             skipped_count += 1
-            print(f"  {DIM}-{RESET} {book:5s} "
-                  f"skipped ({stats.get('reason', '?')})")
+            print(f"  {DIM}-{RESET} {book:5s} skipped ({stats.get('reason', '?')})")
             continue
         if stats["candidates_written"]:
-            print(f"  {GREEN}✓{RESET} {book:5s} "
-                  f"{stats['chapters_processed']:3d} chapters "
-                  f"→ {stats['candidates_written']:5d} candidates "
-                  f"({stats['files_written']} files)")
+            print(
+                f"  {GREEN}✓{RESET} {book:5s} "
+                f"{stats['chapters_processed']:3d} chapters "
+                f"→ {stats['candidates_written']:5d} candidates "
+                f"({stats['files_written']} files)"
+            )
         else:
-            print(f"  {DIM}-{RESET} {book:5s} "
-                  f"{stats['chapters_processed']:3d} chapters → 0 candidates")
+            print(f"  {DIM}-{RESET} {book:5s} {stats['chapters_processed']:3d} chapters → 0 candidates")
         total_chapters += stats["chapters_processed"]
         total_candidates += stats["candidates_written"]
         total_files += stats["files_written"]
 
     print()
-    print(f"TOTAL: {len(books) - skipped_count} books processed · "
-          f"{total_chapters} chapters · "
-          f"{total_candidates} candidates · {total_files} candidate files")
+    print(
+        f"TOTAL: {len(books) - skipped_count} books processed · "
+        f"{total_chapters} chapters · "
+        f"{total_candidates} candidates · {total_files} candidate files"
+    )
     print(f"({skipped_count} books skipped — OT or no KJV data)")
     return 0
 

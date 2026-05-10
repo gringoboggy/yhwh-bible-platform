@@ -1,0 +1,13 @@
+label: Language Study
+notes: |
+  Hebrew + Greek language work with cross-reference support.
+  Hides commentary so the reader concentrates on the source-
+  language apparatus (Strong's, parsing, root-form notes).
+based_on: null
+builtin: true
+recipe:
+  enabled_categories:
+    - lang
+    - xref
+  enabled_kinds: []
+  disabled_kinds: []

@@ -63,11 +63,13 @@ TODO_RE = re.compile(r"TODO_[A-Z_0-9]+")
 # Config loading — content/onix.py is a Python module with constants
 # ----------------------------------------------------------------------
 
+
 def load_onix_config() -> tuple[dict, list]:
     """Return (defaults, editions) from content/onix.py."""
     if not ONIX_CONFIG_PY.is_file():
         raise FileNotFoundError(f"missing {ONIX_CONFIG_PY}")
     import importlib.util
+
     spec = importlib.util.spec_from_file_location("_onix_cfg", ONIX_CONFIG_PY)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -97,8 +99,7 @@ def build_header(defaults: dict) -> ET.Element:
     h = ET.Element("Header")
     sender = _add(h, "Sender")
     _add(sender, "SenderName", defaults.get("publisher", "TODO_PUBLISHER_NAME"))
-    _add(h, "SentDateTime",
-         datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
+    _add(h, "SentDateTime", datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
     _add(h, "MessageNote", "ONIX 3.0 product record — Ethiopian Bible Scholar's Edition platform")
     return h
 
@@ -108,8 +109,7 @@ def build_product(edition: dict, defaults: dict) -> ET.Element:
     p = ET.Element("Product")
 
     # Record reference — unique within the message; opaque
-    _add(p, "RecordReference",
-         f"ethiopian-bible-{edition.get('id', 'unknown')}")
+    _add(p, "RecordReference", f"ethiopian-bible-{edition.get('id', 'unknown')}")
     _add(p, "NotificationType", "03")  # ONIX list 1: 03 = confirmed record
 
     # Identifiers
@@ -196,8 +196,7 @@ def build_product(edition: dict, defaults: dict) -> ET.Element:
     # ── PublishingDetail ─────────────────────────────────────────
     pub = _add(p, "PublishingDetail")
     pub_imprint = _add(pub, "Imprint")
-    _add(pub_imprint, "ImprintName",
-         defaults.get("imprint") or defaults.get("publisher", "TODO_PUBLISHER_NAME"))
+    _add(pub_imprint, "ImprintName", defaults.get("imprint") or defaults.get("publisher", "TODO_PUBLISHER_NAME"))
     pub_pub = _add(pub, "Publisher")
     _add(pub_pub, "PublishingRole", "01")  # 01 = Publisher
     _add(pub_pub, "PublisherName", defaults.get("publisher", "TODO_PUBLISHER_NAME"))
@@ -228,8 +227,7 @@ def build_product(edition: dict, defaults: dict) -> ET.Element:
     supply = _add(ps, "SupplyDetail")
     sup_supplier = _add(supply, "Supplier")
     _add(sup_supplier, "SupplierRole", sup_cfg.get("role", "01"))
-    _add(sup_supplier, "SupplierName",
-         defaults.get("publisher", "TODO_PUBLISHER_NAME"))
+    _add(sup_supplier, "SupplierName", defaults.get("publisher", "TODO_PUBLISHER_NAME"))
     _add(supply, "ProductAvailability", sup_cfg.get("availability", "20"))
 
     price_cfg = sup_cfg.get("price", {})
@@ -244,10 +242,13 @@ def build_product(edition: dict, defaults: dict) -> ET.Element:
 
 def build_message(editions: list, defaults: dict) -> ET.Element:
     """Top-level <ONIXMessage>."""
-    msg = ET.Element("ONIXMessage", {
-        "release": ONIX_RELEASE,
-        "xmlns": ONIX_NAMESPACE,
-    })
+    msg = ET.Element(
+        "ONIXMessage",
+        {
+            "release": ONIX_RELEASE,
+            "xmlns": ONIX_NAMESPACE,
+        },
+    )
     msg.append(build_header(defaults))
     for ed in editions:
         msg.append(build_product(ed, defaults))
@@ -275,10 +276,10 @@ def main() -> None:
         description="Emit ONIX 3.0 metadata for retailer distribution.",
     )
     p.add_argument("--edition", help="single edition id (e.g. 'jewish-study')")
-    p.add_argument("--combined", action="store_true",
-                   help="emit one combined ONIXMessage with all editions")
-    p.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR,
-                   help=f"output directory (default: {DEFAULT_OUTPUT_DIR})")
+    p.add_argument("--combined", action="store_true", help="emit one combined ONIXMessage with all editions")
+    p.add_argument(
+        "--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR, help=f"output directory (default: {DEFAULT_OUTPUT_DIR})"
+    )
     args = p.parse_args()
 
     defaults, editions = load_onix_config()
@@ -305,9 +306,11 @@ def main() -> None:
             ensure_backup(out)
         atomic_write(out, xml)
         flag = GREEN + "✓" if n_todo == 0 else YELLOW + "⚠"
-        print(f"  {flag}{RESET} onix-combined.xml  "
-              f"{DIM}({len(editions)} products, {len(xml):,} bytes,"
-              f" {n_todo} TODO placeholder{'s' if n_todo != 1 else ''}){RESET}")
+        print(
+            f"  {flag}{RESET} onix-combined.xml  "
+            f"{DIM}({len(editions)} products, {len(xml):,} bytes,"
+            f" {n_todo} TODO placeholder{'s' if n_todo != 1 else ''}){RESET}"
+        )
         written.append(out)
     else:
         for ed in editions:
@@ -322,9 +325,7 @@ def main() -> None:
             # we'd write APART FROM the SentDateTime, skip the write. The
             # timestamp would otherwise tick on every run and show every
             # ONIX file as "modified" in git, even when nothing changed.
-            _ts_re = re.compile(
-                rb"<SentDateTime>\d{8}T\d{6}Z</SentDateTime>"
-            )
+            _ts_re = re.compile(rb"<SentDateTime>\d{8}T\d{6}Z</SentDateTime>")
             placeholder = b"<SentDateTime>STABLE</SentDateTime>"
             new_normalized = _ts_re.sub(placeholder, xml.encode("utf-8"))
             should_write = True
@@ -340,10 +341,12 @@ def main() -> None:
                 atomic_write(out, xml)
             flag = GREEN + "✓" if n_todo == 0 else YELLOW + "⚠"
             tag = "" if should_write else f" {DIM}(unchanged){RESET}"
-            print(f"  {flag}{RESET} onix-{ed_id}.xml  "
-                  f"{DIM}({len(xml):,} bytes,"
-                  f" {n_todo} TODO placeholder{'s' if n_todo != 1 else ''}){RESET}"
-                  f"{tag}")
+            print(
+                f"  {flag}{RESET} onix-{ed_id}.xml  "
+                f"{DIM}({len(xml):,} bytes,"
+                f" {n_todo} TODO placeholder{'s' if n_todo != 1 else ''}){RESET}"
+                f"{tag}"
+            )
             written.append(out)
 
     print(f"\n  output: {args.output_dir.relative_to(REPO_ROOT)}")

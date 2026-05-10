@@ -1,8 +1,20 @@
 #!/bin/sh
-# Pre-commit hook — runs scripts/lint_rules.py before allowing the commit.
+# Pre-commit hook — runs the project's audit suite before allowing the
+# commit. As of ξ.11.1 (2026-05-10) the chain is:
 #
-# Installed by dev/install_hooks.cmd. To bypass for a single commit (only
-# when you really know what you're doing), pass --no-verify:
+#   1. scripts/lint_rules.py     — project rule invariants (always)
+#   2. scripts/audit_deps.py     — pip-audit on requirements.txt (ξ.11)
+#   3. scripts/audit_dead_code.py — vulture sweep (ω.26)
+#   4. scripts/audit_types.py    — mypy type check (ω.31)
+#   5. scripts/audit_caches.py   — @lru_cache invalidation audit (ω.30)
+#
+# Each step degrades gracefully when its underlying tool isn't installed
+# (returns rc=2 with a clear "pip install X" hint). Only rc=1 (real
+# violations) blocks the commit; rc=2 (tool missing) is logged and
+# skipped so a fresh checkout without the dev tools can still ship.
+#
+# Installed by dev/install_hooks.cmd. To bypass for a single commit
+# (only when you really know what you're doing), pass --no-verify:
 #   git commit --no-verify -m "..."
 #
 # This file is the tracked-in-repo template. Editing the working copy at
@@ -24,14 +36,32 @@ else
     exit 0
 fi
 
-$PY scripts/lint_rules.py
-status=$?
+# Run the audit chain. Only fail the commit on rc=1 (real violations);
+# rc=2 (tool missing — e.g. mypy not installed) is informational.
+overall=0
+for cmd in \
+    "scripts/lint_rules.py" \
+    "scripts/audit_deps.py" \
+    "scripts/audit_dead_code.py" \
+    "scripts/audit_types.py" \
+    "scripts/audit_caches.py"
+do
+    $PY "$cmd"
+    rc=$?
+    if [ $rc -eq 1 ]; then
+        overall=1
+        echo "  pre-commit: $cmd reported violations (rc=1)"
+    elif [ $rc -eq 2 ]; then
+        # Tool missing — informational, doesn't block.
+        echo "  pre-commit: $cmd skipped (tool not installed; rc=2)"
+    fi
+done
 
-if [ $status -ne 0 ]; then
+if [ $overall -ne 0 ]; then
     echo ""
-    echo "Pre-commit blocked: scripts/lint_rules.py reported failures."
+    echo "Pre-commit blocked: one or more audits reported failures."
     echo "Fix the issues above, or run 'git commit --no-verify' to bypass."
-    exit $status
+    exit 1
 fi
 
 exit 0

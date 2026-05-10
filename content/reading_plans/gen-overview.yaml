@@ -1,0 +1,37 @@
+id: gen-overview
+label: Genesis in 10 Days
+description: |
+  Whirlwind walk through Genesis covering the major narrative arcs:
+  Creation, Fall, Flood, the patriarchs, Joseph in Egypt. Designed
+  as an example of a short reading plan in the project YAML format.
+entries:
+  - day: 1
+    verses:
+      - 'gen 1:1-2:3'
+  - day: 2
+    verses:
+      - 'gen 2:4-3:24'
+  - day: 3
+    verses:
+      - 'gen 4-5'
+  - day: 4
+    verses:
+      - 'gen 6-9'
+  - day: 5
+    verses:
+      - 'gen 10-11'
+  - day: 6
+    verses:
+      - 'gen 12-15'
+  - day: 7
+    verses:
+      - 'gen 16-19'
+  - day: 8
+    verses:
+      - 'gen 20-26'
+  - day: 9
+    verses:
+      - 'gen 27-36'
+  - day: 10
+    verses:
+      - 'gen 37-50'

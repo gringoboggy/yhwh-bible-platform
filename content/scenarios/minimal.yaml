@@ -1,0 +1,13 @@
+label: Reader's Minimal
+notes: |
+  Reader's-edition preset. Just the verse text + cross-references.
+  Strips every commentary / language / liturgical layer for a clean
+  reading experience.
+based_on: null
+builtin: true
+recipe:
+  enabled_categories:
+    - text
+    - xref
+  enabled_kinds: []
+  disabled_kinds: []

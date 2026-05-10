@@ -119,8 +119,7 @@ def main() -> None:
     except OSError as e:
         if e.errno in (48, 98):  # EADDRINUSE on macOS / Linux
             print(
-                f"{RED}ERROR: port {args.port} already in use. "
-                f"Try -p {args.port + 1}{RESET}",
+                f"{RED}ERROR: port {args.port} already in use. Try -p {args.port + 1}{RESET}",
                 file=sys.stderr,
             )
             sys.exit(2)

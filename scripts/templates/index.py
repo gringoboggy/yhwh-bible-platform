@@ -3,7 +3,20 @@ during the web.py split refactor (2026-05-07).
 
 Re-imported by scripts/web.py for back-compat with existing
 `from scripts.web import INDEX_HTML` callers.
+
+ψ.16 status-dashboard polish (2026-05-10): `BUYER_ARC_POLISH_CSS`
+inlined from `_design`. The editor's distinctive heavy nav stays
+(it has its own Bible-app brand chrome — `bg-slate-900` header,
+3-pane editor layout — that the lighter dashboard polish would
+clash with). HEADER_NAV_LINKS is intentionally NOT added here
+because the cross-link linter (§6.2) exempts INDEX_HTML for
+exactly this reason ("different layout"). The polish CSS itself
+brings the same focus rings, transition curves, and tactile
+button feedback the dashboard consoles got — universal UX wins
+that don't impose a layout.
 """
+
+from scripts.templates._design import BUYER_ARC_POLISH_CSS  # noqa: E402
 
 INDEX_HTML = r"""<!DOCTYPE html>
 <html lang="en">
@@ -21,6 +34,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
   .scroll-thin::-webkit-scrollbar { width: 6px; }
   .scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 </style>
+<!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="bg-slate-50 text-slate-900 h-screen flex flex-col">
 
@@ -350,3 +364,12 @@ init();
 </body>
 </html>
 """
+
+# ψ.16 — substitute the polish-CSS marker at module load. We don't
+# call `apply_design_system` because INDEX_HTML deliberately omits
+# the HEADER_NAV_LINKS marker (linter exempts INDEX); a targeted
+# replace is more honest about which substitution is happening.
+INDEX_HTML = INDEX_HTML.replace(
+    "<!-- BUYER_ARC_POLISH_CSS -->",
+    BUYER_ARC_POLISH_CSS,
+)

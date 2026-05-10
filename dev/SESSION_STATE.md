@@ -1,16 +1,1047 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-09, after **ψ.20 note-density heat-map**
-shipped — per-book heat-map in /matrix sidebar (third panel
-after Symbol totals + Categories breakdown). Color-graded
-red-600 → amber-500 → green-600 on note-count percentile
-within visible-book range. Empty books get muted slate-200
-cells with slate-400 text so they stay visible in canon order.
-Reuses Matrix.per_book data from ψ.18 — no new API endpoint,
-no server-side change. Triggered from renderSymbolTotals so
-the heatmap stays in sync with toggle-driven re-renders.
-+10 tests in TestPsi20DensityHeatmap. **1093 / 1093 tests green;
+**Updated:** 2026-05-10, after **Δ.4.1 wire-flip attempted +
+reverted** (DERIVED-INDEX cluster). Tried to flip
+`matrix.compute_matrix()` to delegate to the indexed path;
+reverted within the same phase after discovering xdist
+cross-worker contention on the shared `<user_data>/cache/
+corpus.sqlite` file. Worker A (test_scripts.py) and Worker B
+(test_perf.py) racing on rebuilds produced 9 equivalence-test
+failures + 1 perf-budget violation. All resolved when run
+sequentially — confirmed real concurrency issue, not logic.
+**Reverted cleanly**; what stayed: (1) `_CACHED_CONN_PATH`
+path-invalidation in corpus_index (real bug fix protecting
+against monkeypatched-test leaks); (2) `_compute_matrix_via_
+file_walk()` rename of the file-walk body (preserves the Δ.4
+equivalence test's ability to compare paths). The Δ.4
+implementation + 7 tests are unaffected — `compute_matrix_
+indexed()` works manually at ~12× speedup. Future Δ.4.1
+re-attempt needs file lock around `rebuild()` first
+(recommended ~5 lines with fcntl/msvcrt). **1915 / 1915 tests
+green; 11/11 linter clean.**
+
+Prior ship in same session: **Δ.4 index-backed compute_matrix**
+shipped (DERIVED-INDEX cluster). The biggest
+consumer migration — `compute_matrix()` is the most-consumed
+aggregate (15+ web.py call sites). New
+`corpus_index.compute_matrix_indexed()` returns the SAME
+`Matrix` dataclass as `matrix.compute_matrix()` with **bit-
+identical** contents on all 6 projections (enabled / potential
+/ edition_canon_books / edition_enabled_kinds / per_book /
+per_chapter) for every shipping edition. **Empirical: 3.2s →
+263ms (~12× speedup).** Single SQL roll-up at finest
+granularity (book × kind × chapter) then Python pivots into
+the projections. Edition canon + enabled-kinds rules use the
+existing `matrix._canon_books_for_edition` /
+`_enabled_kinds_for_edition` helpers — filter semantics
+identical. Bonus fix: Windows file-lock issue in
+`rebuild(force=True)` — cached connection now closed before
+the old `corpus.sqlite` is unlinked. **+7 tests** including
+bit-identical equivalence pin across every edition × every
+projection. `matrix.compute_matrix()` wire is unchanged —
+deliberate; the flip affects 15+ consumers so review burden
+is real. Future Δ.4.1 = wire flip; Δ.5 = next consumer.
+**1915 / 1915 tests green; 11/11 linter clean.**
+
+Prior ship in same session: **Δ.3 index-backed attribution
+audit** shipped (DERIVED-INDEX cluster). Second consumer
+migration in the Δ-family — demonstrates the pattern's
+generality (Δ.2 was query-shaped, Δ.3 is classify+group-by-
+shaped). New `corpus_index.audit_attribution()` mirrors
+`web.api_attribution_audit()`'s shape exactly: counts dict
+(total/missing/thin/user/sourced), needs_attention list with
+all 12 fields, by_book / by_kind aggregations. Classifier
+mirror (`_classify_attribution`) duplicated to keep
+corpus_index lightweight (web.py is too heavy to import); a
+13-case equivalence test pins the two copies. **Real-corpus
+equivalence pin** confirms `corpus_index.audit_attribution()`
+and `web.api_attribution_audit()` produce identical counts
++ identical needs_attention length + identical top-3 tuples
+across all 51,394 notes. **+5 tests.** `api_attribution_audit`
+wire is unchanged — same review-then-flip discipline as Δ.2.
+Future Δ.3.1 = wire flip; future Δ.4 = next consumer
+(probably `compute_matrix.potential`). **1908 / 1908 tests
+green; 11/11 linter clean.**
+
+Prior ship in same session: **Δ.2 index-backed search**
+shipped (DERIVED-INDEX cluster). First migration in the
+Δ-family demonstrating the index can replace existing
+aggregates with equivalent results at meaningfully lower
+latency. New `body_plain` column added to the index schema
+(HTML-stripped at build time; +1s to build for ~25 MB of plain
+text). New `corpus_index.search(query, *, kind, book,
+edition_id, limit)` mirrors `note_search.search_notes`'s
+result shape, scoring weights (label=5/title=4/kind=3/
+attribution=2/body=1 computed in SQL via SUM(CASE WHEN ...)),
+filters (kind/book/edition_id with full canon + enabled-kind
+precedence), and canonical-order tie-breaking. **+11 tests**
+including equivalence pin (sample queries `covenant`/`manger`/
+`Adam` return identical hit counts + identical top-5 tuples
+between index and file-walk implementations) and performance
+pin (≥3× faster). `api_search_notes` wire is unchanged —
+deliberate. Future Δ.2.1 = one-line wire flip after operator
+review of the equivalence pin. Future Δ.2.2 = optional FTS5
+upgrade for better ranking + tokenization (would break the
+equivalence pin, so it's a separate phase). **1903 / 1903
+tests green; 11/11 linter clean.**
+
+Prior ship in same session: **Δ.1 SQLite derived corpus
+index** shipped (DERIVED-INDEX cluster — new Greek-letter
+family). The bold proposal from `dev/AUDIT_2026-05-10.md` §2.
+New `scripts/core/corpus_index.py` (~430 lines) — additive
+SQLite layer that indexes every note in `content/notes/*.py`
+under `<user_data>/cache/corpus.sqlite`, rebuilt on mtime
+change. Fingerprint = sha256 over `(stem, size, mtime_ns)`;
+deliberately cheaper than the snapshot integrity hash because
+the correctness target is change detection, not tamper
+evidence. Public API: `rebuild()`, `connection()`,
+`invalidate()`, `count_by_kind()`, `count_by_book()`,
+`count_by_kind_and_book()`, `total_note_count()`,
+`kinds_present()`. Built 51,394 notes in ~5 seconds; queries
+sub-millisecond. **+17 tests** including a real-corpus
+equivalence pin against `matrix.compute_matrix().potential` —
+ethiopian-tewahedo's full-canon counts agree exactly. This
+phase is **purely additive**: existing `lru_cache` aggregates
+keep working. Migration of consumers is deferred to future
+Δ.2-Δ.5 phases (each one independently testable against the
+equivalence pin). **1892 / 1892 tests green; 11/11 linter
+clean.**
+
+Prior ship in same session: **ξ.17 remaining security punch
+list** shipped (SECURITY cluster, HARDENING track). Closes the
+5 audit findings ξ.16 deferred. **SEC-008** Windows drive-letter
+explicit reject in `_resolve_content_path`. **SEC-004** cache_path
+validated as bare filename in `fetcher_config._validate_and_build`
+(rejects separators, drive-letters, control chars, `~`, `..`).
+**SEC-009** `python3` literals replaced with `sys.executable`
+across 7 dev scripts (add_kind/add_note/build_edition/bulk_edit/
+run/release/verify) — PATH-hijack vector closed. **SEC-011** YAML
+billion-laughs guard in `api_import_scenario_yaml` rejects > 50
+anchors or > 50 aliases pre-`safe_load`. **SEC-005** audit-log
+integrity: every entry now carries `prev_hash` (sha256 of prior
+line); new `verify_chain()` walks the chain and surfaces the
+first break; pre-ξ.17 lines counted as `ungated_lines` not
+failures. Sensitive kwargs (api_key, password, token, secret,
+authorization, etc.) redacted to `[REDACTED]` in the args
+summary before logging. **+18 tests** in `TestXi17Security`.
+**1875 / 1875 tests green; 11/11 linter clean.** This closes
+the entire `dev/AUDIT_2026-05-10.md` §1 security punch list
+(0 findings open).
+
+Prior ship in same session: **ω.34.1 test cleanup** shipped
+(ROBUSTNESS cluster, HARDENING track). Closed all deferred
+items from ω.34. New `dev/BOOK_FLOORS.json` carries per-book
+minimum note counts pinned at 75% of the 2026-05-10 snapshot
+(38,513 floor sum vs 51,394 current — 74.9%). New
+`scripts/update_book_floors.py` regenerates the file when
+intentional reductions ship. New `TestOmega341BookFloors` (3
+tests) enforces `current >= floor` with aggregated per-book
+violation reporting. New `TestOmega341StrongsHebrewSourceLoader`
+(4 tests) mirrors the Greek pattern — closes the Hebrew
+detector coverage gap. New `TestOmega341CrossRefDetector` (8
+tests) pins the TSK detector's `min_votes=30` / `top_n=3`
+thresholds, confidence scaling, reviewer-flag wording, anchor
+shape — uses a stub TSK to avoid loading the 7 MB real cache
+for unit tests. `tests/test_perf.py:51` stale skip
+(`gen.py not present`) replaced with an `assert` — gen.py is
+canonical, the skip was dead defensive code masking
+"corpus disappeared" regressions. **+15 tests. 1857 / 1857
+tests green; 11/11 linter clean.**
+
+Prior ship in same session: **ψ.34 matrix JS extraction**
+shipped (TEMPLATES cluster). The matrix data-model consolidation
+phase from `dev/AUDIT_2026-05-10.md` §4 reduced to its safest
+sub-item: split the inline matrix app JS (~1,550 lines) out of
+`scripts/templates/matrix.py` into standalone
+`scripts/templates/matrix_app.js`, served via new
+`/static/matrix.js` route in `scripts/web.py`. `MATRIX_HTML`
+shrunk from ~85 KB to ~34 KB. Pure refactor — no behavior
+change. The 16-line corpus-progress widget at the template
+head stays inline (too small to justify a file); the ω.0.6
+UI defense prelude (~190 lines, shared across all 14 consoles
+via `bulk_inject.py`) also stays inline (extraction would be
+its own phase). New test helper `_matrix_html_and_js()` returns
+the HTML+JS union so the 9 existing test classes that grep
+`cls.html` for JS code strings (TestPsi26 / Psi27 / Psi28 /
+etc.) work unchanged. **+9 new tests** in
+`TestPsi34MatrixJsExtraction` covering file presence,
+function-entry-point pins, size shrinkage, route headers,
+404-on-missing. Deferred: ψ.35 data-model collapse (5
+projections → 1), ψ.36 lazy-load `/api/matrix/chapter` (parked
+until UI co-design). **1842 / 1842 tests green (1 skipped —
+EPUB e2e without `epub_working/`); 11/11 linter clean.**
+
+Prior ship in same session: **ω.34 test gap pass** shipped
+(ROBUSTNESS cluster, HARDENING track). Closed 4 of the 5
+test-coverage gaps from `dev/AUDIT_2026-05-10.md` §3.
+**(1) EPUB end-to-end smoke test** — new `TestOmega34EpubEndToEnd`
+calls `build_one("jewish-study", dry_run=False)` and asserts the
+zipfile contract (mimetype / container.xml / OPF / TOC / chapter).
+Skips cleanly if `epub_working/` scaffold absent — runs in any
+prepped dev tree. **(2) Content-hash fingerprint** —
+`scripts/core/snapshots.py:_corpus_fingerprint` switched from
+`sha1((stem, mtime_ns))` to `sha256(framed-content)`. Identical
+mtimes with different content now produce different hashes;
+two regression tests pin both directions (the bug class and
+the contract). Existing `test_create_records_corpus_hash`
+updated for SHA-256's 64-char hex. **(3) Per-edition kind set
+pins** — new `TestOmega34EditionKindSetPins` (5 tests): every
+code in `enabled_kinds`/`disabled_kinds` resolves in
+`kinds.yaml` (catches `comm-rabbic` typo class), categories
+resolve, tradition signatures present, kind floor ≥25 per
+edition, AI gate uniformly applied. **(4) pytest-xdist
+installed** with new `[tool.pytest.ini_options]` in
+`pyproject.toml`: `serial` marker registered, SyntaxWarning
+filter for PD-source bodies. Wall-time win: **327s → 201s
+(~38% faster)** with `pytest -n auto --dist=loadfile`. Full 4×
+unlocks when ω.27 splits `tests/test_scripts.py`. **+8 tests
+total. 1834 / 1834 tests green; 11/11 linter clean.**
+Deferred to ω.34.1: per-book floors, `test_perf.py:51` stale
+skip, Hebrew/TSK detector test classes.
+
+Prior ship in same session: **ξ.16 security sweep** shipped
+(SECURITY cluster, HARDENING track). Closed 6 of the 11 findings
+from `dev/AUDIT_2026-05-10.md` — 3 HIGH (SEC-001 SVG XSS sink,
+SEC-002 unbounded body read, SEC-003 RSS Host-header reflection),
+2 MED (SEC-002 multipart per-part header cap, SEC-006 subprocess
+timeout), 1 LOW (SEC-007 boundary validation), plus bonus SEC-010
+cache-control private. Each finding has a behavioral test pinning
+the attack vector that would have succeeded before the fix:
+`TestXi16Security` (+21 tests). Key changes: `_send_file` now
+verifies image magic bytes match the extension and refuses
+SVG/GIF (CSP `default-src 'none'; sandbox` added); `_read_body`
+caps at 32 MB BEFORE `rfile.read()` (no DoS allocation);
+`_safe_rss_base_url()` helper trusts only `YHWH_PUBLIC_BASE_URL`
+env or strict localhost allowlist (no Host-header reflection);
+`api_export_build` passes `timeout=300` (operator override via
+`YHWH_BUILD_TIMEOUT_SECONDS`) and translates `TimeoutExpired` to a
+504 with `code: build_timeout`; `_extract_boundary` rejects
+empty / >70 / non-ASCII boundaries. Deferred to a future ξ.17:
+SEC-004 (cache_path), SEC-005 (audit-log integrity chain),
+SEC-008 (Windows drive letter), SEC-009 (`python3` literals),
+SEC-011 (YAML billion-laughs). **1826 / 1826 tests green; 11/11
+linter clean.**
+
+Prior ship in same session: **ξ.15 AI-output HTML sandbox**
+shipped (SECURITY cluster, HARDENING track). Safety companion to
+χ-AI-notes (which shipped earlier in the same session). New
+`scripts/core/html_sandbox.py` with `sandbox_ai_html()` — two-pass
+strict allowlist that composes publisher-grade `sanitize_html` then
+restricts to `em / strong / b / i / sup / sub / code / br / span /
+p` and in-document anchors only. External http/https/mailto/tel
+URLs on `<a>` are rejected — stricter than publisher allowlist (the
+AI has no business linking out). Wired at TWO points (defense in
+depth): (1) `AINoteDetector.detect()` sandboxes `body_html` + `label`
+BEFORE composition; (2) `promote.promote_candidate()` re-sandboxes
+for any `kind` in `AI_DRAFTED_KINDS` — catches anything a future
+detector might forget. Subset invariant pinned: every payload's
+tag set in `sandbox_ai_html(x)` ⊆ `sanitize_html(x)`. Idempotent.
+**+39 tests** in `TestXi15HtmlSandbox`: function-contract,
+14 XSS payload classes (script / iframe / javascript: with
+whitespace-bypass / data: / vbscript: / on* handlers / style /
+object / embed / form / DOCTYPE / conditional-comment with
+hidden script), AI allowlist coverage, anchor href variants,
+attr stripping, AINoteDetector integration (body + label sandbox,
+candidate still emitted when body sandboxed-to-empty so reviewer
+queue surfaces hostile model output), promote belt-and-braces
+(AI kind triggers second pass; non-AI kind unchanged so
+publisher h2/ul/li survive). **1805 / 1805 tests green; 11/11
+linter clean.**
+
+Prior ship in same session: **χ-AI-notes infrastructure**
+shipped (CORPUS cluster, LONG TRACK). Sibling to χ-AI-xrefs:
+LLM-backed first-draft note generator that proposes new note
+prose for sparse verses (instead of links between verses). New
+`AnthropicNoteClient` in `scripts/core/sources.py` mirrors the
+established AnthropicXrefClient pattern verbatim — same
+construction contract, same caching discipline, same defensive
+degradation. Padded ~5,800-token system prompt walks the model
+through 3 note classes (explanatory / study / translation) with
+worked examples per class. New `AINoteDetector` in
+`scripts/core/detectors.py` emits `comm-ai` candidates, registered
+in `ALL_DETECTORS`. New `scripts/run_ai_notes_at_scale.py` driver
+mirrors the χ-AI-xrefs cost-gated driver (`--dry-run`,
+`--max-verses`, `--confirm-cost`, `--tradition`). Cost projection
+$0.0020/verse → $62 full-corpus pass. New `comm-ai` kind in
+`content/kinds.yaml` (category=comm, symbol=Ⓐ). New
+`enable_ai_notes` boolean field on edition records (in
+`api_save_edition_meta` EDITABLE_BOOL set); new `AI_DRAFTED_KINDS`
+second-gate in `scripts/core/matrix.py:_enabled_kinds_for_edition`
+implements the spec's double-opt-in (comm-ai must be in BOTH
+enabled_kinds AND enable_ai_notes=true to ship). Defaults to
+filtering OUT — every existing edition unchanged. **+46 tests**
+across `TestAnthropicNoteClient` (19), `TestAINoteDetector` (10),
+`TestRunAINotesAtScaleDriver` (10), `TestEnableAINotesField` (7).
+**This is an INFRASTRUCTURE ship** — no paid run made; no
+`comm-ai` notes yet exist in `content/notes/` or
+`content/candidates/`. First paid run is user's opt-in via the
+driver's `--confirm-cost` gate. **1730 / 1730 tests green;
 11/11 linter clean.**
+
+Prior ship in same session: **ω.29 content directory health
+checker** (Phase III step 3 of 5; HARDENING cluster). New
+`scripts/check_content.py` (~410 lines, pure stdlib + yaml)
+with 5 sub-checks: notes_parse (every notes/*.py decodes via
+ast.literal_eval), translations_meta (_meta.yaml integrity),
+cover_files (path-traversal-safe cover ref resolution),
+candidates_json (well-formed promoter shape), orphan_notes
+(every notes file matches a books.yaml code). Composed into
+`api_preflight` as a single `content_health` check. **+36 tests
+in `TestOmega29CheckContent`** (5 sub-checks × ~5 tests each
++ run_all aggregator + CLI + wiring contracts). Found 8 real
+cover-file dangling references on the live tree — same signal
+as existing `covers_main` preflight check (acceptable
+redundancy). Phase III progress: **3 of 5 ✓**.
+
+Prior ship: **ξ.13 mutation audit log** — Phase III step 2 of
+5 (SECURITY cluster). Append-only NDJSON ledger at
+`<user_data>/audit/<YYYY-MM>.ndjson` records every mutation
+that touches `content/`. The
+`@audit_log.audit_endpoint(action="...")` decorator on
+`scripts/web.py` now wraps **24 mutation routes** (was 12;
+added `api_save`, `api_delete`, `api_clone_edition`,
+`api_snapshot_create/restore/delete`, `api_upload_cover_main/book`,
+`api_import_scenario_yaml`, `api_sources_cache_fetch/fetch_all/upload/clear`,
+`api_restore_backup`, `api_export_build`, `api_build_all_editions`).
+New read-side: `api_audit_log(*, n=100, base_dir=None)` pure
+function (composes `audit_log.read_recent`); GET `/api/audit-log`
+JSON envelope; new `/audit-log` console
+(`scripts/templates/audit_log.py` → `AUDIT_LOG_HTML`) — count
+chips (entries / ok / error / raised), filterable list with
+endpoint+action+args text filter and result-class dropdown.
+Console added to `_design.CONSOLES` and `lint_rules.route_for_constant`
+so the cross-link invariant + inventory checks both surface it
+automatically. **+34 tests in `TestXi13AuditLog`**: module-level
+(append, read_recent, monthly rotation, malformed-line skip,
+`_short_repr`, `_summarize_args`), decorator (passes through
+return; logs ok/error/raised; doesn't break the call when log
+fails), envelope (n clamping, string coercion, base_dir
+override), wiring (route registered, console template loadable,
+in CONSOLES, in linter route map, every mutation endpoint
+decorated, audit_log module is pure stdlib).
+
+Inventory: **14 consoles** (`AUDIT_LOG_HTML` joined the matrix
+in ξ.13); see `scripts/templates/_design.py:CONSOLES` for the
+canonical list. **AI infrastructure now spans 2 phases**:
+χ-AI-xrefs (corpus-time link proposing, ✓ shipped 2026-05-08)
++ χ-AI-notes (corpus-time note drafting, ✓ infra shipped
+2026-05-10). Both use Haiku 4.5 with 1h-cache 5K+ token
+prompts; the singleton clients are at
+`scripts/core/sources.py:anthropic_xref_client()` and
+`anthropic_note_client()`.
+
+Prior ship: **ξ.10.1 + ξ.11.1 fail-closed
+flips** — Phase III step 1 of 5 (SECURITY cluster).
+**ξ.10.1**: migrated 5 holdout `_http.get()` call sites in
+fetch_sources.py to pass `allowlist=DEFAULT_PD_SOURCES_ALLOWLIST`;
+flipped `_check_allowlist` to raise `SSRFBlockedError` instead
+of warn-and-continue when no allowlist given. Error fires
+BEFORE any network I/O. **ξ.11.1**: extended
+`dev/git-hooks/pre-commit` to chain the full audit suite
+(`lint_rules` + `audit_deps` + `audit_dead_code` + `audit_types`
++ `audit_caches`); each step gracefully degrades when its tool
+isn't installed (rc=2 = informational; only rc=1 blocks). New
+`.audit-waivers.yaml` at repo root with documented format
+(empty today; no CVEs waived). Updated `TestXi10SsrfAllowlist`:
+flipped the back-compat test to the fail-closed pin; added 3
+new regression pins (fetch_sources.py call sites all pass
+allowlist; pre-commit chain entries; waivers file format).
+Phase III progress: **1 of 5 ✓**. **1650 / 1650 tests green;
+11/11 linter clean.**
+
+Prior ship: **ψ.16 status-dashboard polish** — closes Phase II. Investigation surfaced that ψ.13.5,
+ν.2.8, and ψ.11 were all shipped in a 2026-05-09 batch
+(CHANGELOG line 4678); ψ.13.5 reinterpreted as "design-system
+consolidation" via `apply_design_system()` helper. So ψ.16 was
+the last sliver of Phase II's remaining work. **Phase II now
+COMPLETE: ψ.16 + ψ.13.5 + ν.2.8 + ψ.11.** Next: Phase III step
+1 — ξ.10.1 + ξ.11.1 fail-closed flips. Inventory
+revealed the PLAN's "5 remaining consoles" was stale: 4
+(audit/preflight/ops/diff/apihelp) were already polished in
+earlier work; only `scripts/templates/index.py` (the note
+editor) was missing the BUYER_ARC_POLISH_CSS marker. Added the
+import, the `<!-- BUYER_ARC_POLISH_CSS -->` marker in `<head>`,
+and the module-load substitution at the file's tail. INDEX_HTML
+keeps its distinctive `bg-slate-900` heavy nav per the §6.2
+cross-link linter's deliberate INDEX_HTML exemption — only the
+universal-UX-win polish CSS (focus rings, transitions, button
+feedback, .psi14-pending pill, fade-in keyframes) reaches the
+editor; the layout stays untouched. +6 tests in
+`TestPsi16IndexEditorPolishCSS`. All 13 console templates now
+have BUYER_ARC_POLISH_CSS. Phase II progress: **1 of 3 ✓**;
+next: ψ.13.5 f-string sweep (now unblocked since every
+template has substitution markers). **1647 / 1647 tests green;
+11/11 linter clean.**
+
+Prior ship: **ω.30 cache invalidation audit** — Phase I step 5;
+**Phase I now COMPLETE**. New
+`scripts/audit_caches.py` (~250 lines, pure stdlib `ast` +
+`re`) AST-walks scripts/ for `@lru_cache` / `@functools.lru_cache`
+decorators; regex-scans codebase for `<func>.cache_clear()`
+call sites. Classifies each cache as `clear_path` /
+`whitelisted` / `no_clear_path`. New
+`scripts/.cache_audit_whitelist.py` documents 8 caches across
+3 categories: signature-keyed `_cached_*` in web.py (file
+changes invalidate via key change), read-once singletons in
+sources.py (PD source data; lazy-loaded once), env-dependent
+singleton `_anthropic_client`. Real cleanup: `_files_signature`
+in web.py had `@lru_cache(maxsize=1024)` decorator + later
+rebinding to un-cached impl that overrode it; the decorator
+was dead code (rebinding shadowed). Collapsed into single
+un-decorated function with documented rationale. +17 tests in
+`TestOmega30AuditCaches`. Production tree audit verdict:
+**all 23 caches accounted for (15 clear-path + 8 whitelisted +
+0 no-clear-path)**. **Phase I COMPLETE: ω.33 (ruff format) +
+ω.27 (test split) + ω.26 (dead code) + ω.31 (mypy) + ω.30
+(cache audit). Total Phase I impact: 4 audit wrappers, 3
+whitelist files, 2 real latent bugs caught, 7 new per-target
+test files, 1 codebase-wide format pass, +43 new tests
+(1602 → 1641).** Next: Phase II (Design + UX completion);
+first step ψ.16 status-dashboard polish (5 remaining consoles).
+**1641 / 1641 tests green; 11/11 linter clean.**
+
+Prior ship: **ω.31 mypy type-checking sweep** — Phase I step 4. New `scripts/audit_types.py`
+(~180 lines) wraps mypy: `mypy_available()`, `run_mypy()`,
+`_parse_mypy_output()`, `audit()`, CLI with `--json`. New
+`[tool.mypy]` section in pyproject.toml — conservative
+defaults (`ignore_missing_imports=true`, `warn_unused_ignores=
+true`); scope: `scripts/core` + `scripts/build_edition.py`;
+strict-mode deferred to future ω.31.x. **18 type errors
+caught + fixed** across 4 files including ONE real latent bug:
+`scripts/core/preview.py:333` imported `canonical_tradition_id`
+which doesn't exist in `traditions.py` — would ImportError at
+runtime when `active_traditions` is truthy (no production edition
+has populated it yet, hence no test coverage). Replaced with
+`note_tradition(note)`. Other fixes: `e`-shadowing across
+except-block boundary in `reading_plans.py`, `Optional[ModuleSpec]`
+not guarded in `build_edition.py:1619`, `dict[str, object]`
+narrowing for mixed-type stats dicts, `f` reused for
+`TextIOWrapper` and `Path` (renamed to `theme_handle` and
+`html_path`), 3 unused `# type: ignore` comments removed.
++10 tests in `TestOmega31AuditTypes` (parser shapes, audit
+envelope, pyproject pin, CLI). Phase I progress: **4 of 5 ✓**
+(ω.33, ω.27, ω.26, ω.31). Next: ω.30 cache invalidation audit
+(pure stdlib; closes Phase I). **1624 / 1624 tests green;
+11/11 linter clean.**
+
+Prior ship: **ω.26 vulture dead-code sweep** — Phase I step 3. New `scripts/audit_dead_code.py`
+(~225 lines) wraps vulture: pure-function `vulture_available()`,
+`run_vulture(paths, *, min_confidence, whitelist)`,
+`_parse_vulture_output(text)`, `audit(*, min_confidence,
+include_tests)`; thin CLI with `--json` + `--min-confidence` +
+`--include-tests` flags. Default scope `scripts/` only (tests
+have noisy fixture-style false positives). Default confidence
+80%. New `scripts/.vulture_whitelist.py` documents two false-
+positive categories: `@lru_cache` key parameters in web.py
+(notes_sig, kinds_sig, etc. — used by hashing not body) and
+`HTMLParser` hook overrides in html_sanitize.py (handle_decl
+signature required by parent class). Real fix: removed an
+8-line dead block in `scripts/inject.py:545-552` — a refactor
+leftover with `if False else x` always-true ternary and a
+self-aware `# ^ that line was wrong` comment. Vulture caught
+its own argparse quirk during testing: positional paths must
+come BEFORE `--min-confidence` flag (test caught it; fixed by
+arg-order shuffle in run_vulture). +12 tests in
+`TestOmega26AuditDeadCode` (parser shapes, audit() envelope,
+whitelist sanity, CLI). Phase I progress: **3 of 5 ✓** (ω.33,
+ω.27, ω.26). Next: ω.31 type checking (mypy/pyright); same
+FOSS-dev-tool authorization pattern. **1614 / 1614 tests
+green; 11/11 linter clean.**
+
+Prior ship: **ω.27 test fixture split** — 16 ω-cluster classes
+extracted from test_scripts.py into 7 per-target test files.
+— Phase I step 2 of 5. Pure Python refactor: extracted 16 test
+classes from `tests/test_scripts.py` (22,676 → 18,739 lines,
+−3,937) into 7 per-target test files. Each new file sits next
+to the scripts/ module it covers: `test_validate_schemas.py`
+(3 classes), `test_build_cache.py` (3), `test_watch.py` (1),
+`test_lint_rules.py` (5 — including the older TestOmega15PlanLinter
+for cohesion), `test_migrate.py` (1), `test_refactor.py` (2),
+`test_cleanup.py` (1). Test count preserved: 1602 → 1602
+verified via `pytest --collect-only`. Full pytest still green.
+One-shot `_omega27_split.py` helper used + deleted after.
+Conservative scope: only the recent ω-cluster classes; older
+TestPsi*/TestUpsilon*/TestXi*/etc. stay in test_scripts.py for
+future ω.27.x phases. Phase I progress: **2 of 5 ✓** (ω.33 +
+ω.27). Next: ω.26 vulture sweep (needs `pip install vulture`).
+**1602 / 1602 tests green; 11/11 linter clean.**
+
+Prior ship: **ω.33 ruff format one-shot pass** — first step of
+Phase I foundation per the revised completion plan. The entire codebase passed through
+`python -m ruff format .` (253 files reformatted; 41 already
+formatted; ZERO logic changes — verified by full pytest still
+returning 1600/1600 immediately after). New
+`TestOmega33RuffFormat` (+2) pins format consistency via
+`ruff format --check` subprocess + verifies pyproject.toml
+config still has the load-bearing knobs. Format diff is purely
+cosmetic — dict-literal unwrapping, line-joining where ≤120
+chars, single→double quote normalization. **Recommended user
+follow-up: add the format-pass commit's SHA to
+`.git-blame-ignore-revs` so `git blame` stays meaningful**.
+Phase I progress: ω.33 ✓ (1 of 5); next is ω.27 test fixture
+split (pure Python; no external tool). **1602 / 1602 tests
+green; 11/11 linter clean.**
+
+Prior ship: **ω.28 backup retention policy** — per-pattern
+retention layered on `cleanup.py`.
+Defaults preserve current behavior so absence of the config
+file is a no-op shift. Built-in `_DEFAULT_RETENTION`:
+`content/notes/*.py` keeps 10 revisions; `editions.yaml`
+keeps 30 days; `kinds.yaml` and `categories.yaml` keep 30
+days; `epub_working/**` keeps 3 revisions; default keeps 5
+revisions. New `load_retention_policy(config_path=None)`
+reads `content/.backup_retention.yaml`; missing/corrupt
+files degrade to defaults; rule entries with neither
+`keep_revisions` nor `keep_days` (or both) are silently
+dropped. New `select_rule(file_path, policy)` first-match-wins
+via `pathlib.PurePath.match` (right-anchored). New
+`_backups_to_prune(files, rule, *, now=None)` dispatches on
+rule shape: `keep_revisions` sorts newest-first then prunes
+past N; `keep_days` prunes older-than-cutoff via injectable
+`now`. `plan_backups(grouped, keep=None, *, policy=None,
+now=None)` extended for policy-based dispatch; legacy `keep`
+positional arg still works. CLI `--keep` default flipped
+`5 → None`; user passing `--keep N` reverts to single-rule
+mode. Two real bugs caught via test-fixture iteration:
+8-digit timestamp regex requirement (helper produced 9
+digits → `stem_of` didn't match → all synthetic files
+grouped under one stem); `.resolve()` breaking
+`relative_to` on Windows tmp_paths. +16 tests in
+`TestOmega28BackupRetention`. **1600 / 1600 tests green;
+11/11 linter clean.**
+
+Prior ship: **ω.25.1 bulk rename: category id** — direct
+extension of ω.25 with the same framework but different
+target file list. Categories appear in three YAML
+positions (none in notes/*.py): the registry record
+(`categories.yaml`), each kind's `category:` field
+(`kinds.yaml`), and `enabled_categories:` list items
+(editions / templates / scenarios). Refactored
+`_count_yaml_kind_refs` / `_plan_yaml_rewrite` into
+pattern-generic helpers (`_count_yaml_refs(path, patterns)` /
+`_plan_yaml_rewrite(path, patterns, new_value)`) so kind +
+category share the line-scan loop; ω.25's 16 tests verified
+behavioural equivalence. New surface mirrors the kind path:
+`category_target_files`, `_yaml_category_patterns` (3 regexes
+vs kind's 2; the extra one targets the non-list-item
+continuation `category:` field), `discover_category_usage`,
+`compute_category_rename_plan`, `validate_category_rename`
+(rejects collision / invalid shape / missing-old),
+`apply_category_rename` (same atomic-rollback contract; audit
+log `action: rename-category`). CLI `rename-category` mirrors
+`rename-kind`. Audit log id sequence is shared between kind +
+category — pinned by a test that pre-seeds refactor-0001 and
+confirms a category rename becomes refactor-0002. +13 tests in
+`TestOmega251CategoryRename`. **1584 / 1584 tests green; 11/11
+linter clean.**
+
+Prior ship: **ω.25 bulk rename / refactor tool** — atomic
+project-wide kind-code rename. New
+`scripts/refactor.py` (~430 lines) ships pure helpers
+(`kind_target_files`, `discover_kind_usage`,
+`compute_kind_rename_plan`, `validate_kind_rename`,
+`apply_kind_rename`) + thin CLI (`rename-kind <old> <new>
+[--dry-run] [--apply] [--json]`). YAML files (kinds.yaml,
+editions.yaml, edition_templates/*.yaml, scenarios/*.yaml) use
+two anchored regexes (`^\s+-\s+code:\s*<old>` for the
+kinds.yaml record + `^\s+-\s+<old>` for list items in
+enabled_kinds/disabled_kinds). Notes/*.py use AST-walk to find
+`ast.Constant` nodes at tuple **position 4** (`kind` field per
+the notes-format docstring); position-precise text-slice
+replacement; re-parse before commit. Body text + docstrings +
+attribution mentioning the kind are NOT touched. Atomic apply
+with `notes_io.ensure_backup` BEFORE first mutation; rollback
+on any later failure. Audit log appended to
+`content/.refactor_log.yaml` (separate from the ω.22 ledger;
+runtime renames don't need migration MODULES, just an
+auditable record). Validation rejects identical codes / invalid
+shape / missing-old / collision-with-new. Two real bugs caught
++ fixed via smoke testing: tuple-position-3 → -4 (jumped from
+2 found to 6134 for `xref-citation`); YAML `code:` regex
+anchor missed the leading list-item dash. v1 scope =
+kind-rename; ω.25.1 (category-rename, same framework, different
+target file set) added to PLAN. +16 tests in
+`TestOmega25BulkRename`. **1571 / 1571 tests green; 11/11
+linter clean.**
+
+Prior ship: **ω.18 lint auto-fix mode** —
+— `--fix` flag in `scripts/lint_rules.py` for safe drift
+correction. Survey of every existing check found that **most
+need human judgment** (code review, template understanding,
+content writes); only `freshness` has a deterministic
+mechanical fix (touch SESSION_STATE.md mtime to match
+CHANGELOG.md). Shipping ONE genuinely-safe fixer + the
+framework is more honest than five risky ones. New `FIXERS`
+dict registry maps `check_id` → fixer callable; `run_fixers()`
+dispatcher composes `run_all()` and routes failing checks to
+their registered fixer (or surfaces `"refused"` with original
+lint message in tow). `--fix --dry-run` previews without
+applying. `_fix_freshness` uses `os.utime` to sync timestamps;
+its message explicitly flags the caveat ("might mask actual
+content drift if SESSION_STATE was forgotten") so the user
+knows what they're agreeing to. Empty FIXERS slots for unsafe
+checks (atomic_writes, external_http, etc.) are a feature —
+future ω.18.x phases each add a fixer at safety-review-grain.
++14 tests in `TestOmega18LintFix`. **1555 / 1555 tests green;
+11/11 linter clean.**
+
+Prior ship: **ω.22 migration scripts framework** — versioned,
+idempotent, append-only migration runner.
+The two ad-hoc migration helpers (`scripts/migrate_to_user_data.py`
+from ω.5; `scripts/backfill_traditions.py` from ψ.8) get
+backfilled as retroactive 0001 + 0002. New `scripts/migrate.py`
+(~370 lines) exposes pure-function helpers
+(`discover_migrations`, `load_state`, `save_state`,
+`pending_migrations` / `applied_migrations`, `apply_up`,
+`apply_down`, `run_up`, `run_down`, `status`) over a thin CLI
+adapter (`list` / `status` / `up` / `down`). Migrations are
+`<NNNN>_<name>.py` modules under `scripts/migrations/` exposing
+`ID`, `DESCRIPTION`, `up()`, `down()`. Forward-only is a
+first-class concept: `down()` raising `NotImplementedError`
+surfaces as `{ok: False, forward_only: True, ...}` rather than
+a traceback. Both 0001 and 0002 are forward-only (they wrap
+existing scripts that copy user data + rewrite note tuples —
+restore from a ω.16 snapshot if revert is needed). Ledger
+writes go through `notes_io.atomic_write` + `ensure_backup`.
++22 tests in `TestOmega22MigrationFramework`. **1541 / 1541
+tests green; 11/11 linter clean.**
+
+Prior ship: **ω.23.1 AST-parse cache** — acted on the ω.23
+finding within the same session arc. The
+two AST-walk checks (`check_atomic_writes` + `check_external_http`)
+each independently parsed every `.py` under `scripts/`; the new
+shared `_PARSE_CACHE` (module-level dict in
+`scripts/lint_rules.py`) memoises the read+parse pair on
+`str(path.resolve())`. New `_load_parsed_python(path) →
+(tree, lines)` helper returns `(None, [])` on failure (cached
+so a broken file isn't re-parsed); both `check_*` refactored
+to call it instead of the inline `read_text` + `ast.parse`.
+`_clear_parse_cache()` drops the cache; `run_all()` calls it
+at entry so back-to-back invocations (tests, api_preflight)
+re-read on-disk state. Behavioural equivalence verified —
+production tree still passes both checks with zero violations.
+**Measured impact: total lint wall time 2912ms → 2096ms (−28%);
+`external_http` 1397ms → 421ms (−70%). `atomic_writes` runs
+first and now pays the parse cost (1131ms → 1313ms, +16%).**
++10 tests in `TestOmega231AstCacheReuse`. **1519 / 1519 tests
+green; 11/11 linter clean.**
+
+Prior ship: **ω.23 lint perf profile** — smallest practical pick
+after ω.21; ~0.5 session, LOW risk; no new files / deps. `scripts/lint_rules.py:run_all` now times
+each check via `time.perf_counter`; every per-check dict gains
+`duration_ms` (rounded to 3 dp), aggregate summary gains
+`total_ms`. Both additive — existing consumers (api_preflight,
+JSON downstreams) ignore unknown keys. Unknown-id + check-
+raised paths also carry `duration_ms` so consumers don't trip on
+KeyError. New `--profile` CLI flag sorts checks by duration
+descending (slowest first, where attention is needed) + prints
+`[XXX.X ms]` timing column + `total_ms` in the verdict line.
+Default text output unchanged for back-compat. `main()`
+signature aligned with `validate_schemas.main` /
+`dev/watch.py:main` conventions: `(argv=None) -> int` lets
+tests drive the CLI without sys.argv munging. Real finding
+surfaced: `external_http` (1397ms) + `atomic_writes` (1131ms)
+dominate the 2.9s total wall time — both AST-walk the entire
+scripts/ tree; a future ω.23.1 could cache parsed ASTs across
+them. +10 tests in `TestOmega23LintProfile`. **1509 / 1509
+tests green; 11/11 linter clean.**
+
+Prior ship: **ω.21 watch mode** — the dev-loop file watcher
+pairs naturally with the ω.20 chain (cache delivers ms hits →
+watch automates the trigger). New
+`dev/watch.py` (~250 lines, stdlib-only per §10 — no `watchdog`
+dep). Pure helpers: `default_targets()` returns 13 curated load-
+bearing paths (~226 watched files in the current tree);
+`compute_signature(paths)` walks files + dirs, skipping dotfile
+dirs (.backups/.cache/__pycache__/.pytest_cache) and
+.bak/.tmp/.swp/.pyc suffixes so editor + project-backup noise
+doesn't trigger; `detect_changes(old, new)` returns
+{added, modified, removed} sorted lists. Action runners:
+`run_lint()` composes `scripts.lint_rules.run_all()` in-process
+(no subprocess startup cost; try/except so a linter bug doesn't
+kill the loop); `run_build(edition_id, *, version, output_dir)`
+subprocesses build_edition.py — no `--force` because ω.20-B's
+cache makes unchanged-input builds ~ms. CLI: `--interval`
+(default 2.0), `--build`, `--edition` (default
+ethiopian-tewahedo), `--version`, `--once` (CI-friendly single
+pass). Path keys POSIX-normalised for cross-platform parity.
++17 tests in `TestOmega21WatchMode`. **1499 / 1499 tests green;
+11/11 linter clean.**
+
+Prior ship: **ω.20-C build stats sidecar** — closed the ω.20
+chain end-to-end with the buyer-facing UX surface. New `scripts/build_edition.py:_write_stats_sidecar`
+helper writes `<output_path>.stats.json` adjacent to every
+produced EPUB. Buyer-facing payload only: `edition_id`, `version`,
+`cache_hit`, `skipped`, `size_mb`, `build_seconds`, `filename` —
+operator stats (markers_removed, etc.) stay in the in-memory
+dict, not serialized. `build_one` captures `_t0 = perf_counter()`
+at entry and writes the sidecar at all three real-build return
+paths (content-cache hit, mtime-cache hit, successful subprocess
+build); dry_run path produces no sidecar (pre-ω.20-C contract).
+`scripts/web.py:api_export_build` folds the sidecar into the
+response — `cache_hit` / `skipped` / `build_seconds` surface
+when present; missing or corrupt sidecar degrades silently
+(EPUB is the contract). +9 tests in
+`TestOmega20CStatsSidecar`. The ω.20 chain (cache module +
+integration + UX surface) ships fully closed. **1482 / 1482
+tests green; 11/11 linter clean.**
+
+Prior ship: **ω.20-B build cache integration + perf calibration** —
+wired the ω.20-A cache module into `build_one()` and uptook it
+from the API path. Pure cache module (ω.20-A) + integration into
+`build_one` (ω.20-B) + opportunistic API-path uptake. `scripts/build_edition.
+py:build_one` computes the cache key once per call (storing
+`Optional[str]` so a key-compute failure cleanly degrades to
+no-cache rather than failing the build); on cache hit (BEFORE
+the legacy mtime check, since content-addressable hits even when
+the output file was deleted), copies the cached EPUB into
+`output_dir` via `notes_io.atomic_write_bytes`, sets
+`output_path` + `size_mb` + `skipped=True` + `cache_hit=True`,
+returns. After a successful subprocess build, `cache_store`
+warms the cache opportunistically — failures here MUST NOT fail
+the build (read-only disk / full disk swallowed). `force=True`
+and `dry_run=True` both bypass cache. `scripts/web.py:`
+`api_export_build` dropped its legacy `--force` flag so the API
+path now uses the cache (~30-90s saved per untouched edition;
+buyer-facing artifact byte-identical). Surface for `cache_hit`
+in the API response defers to ω.20-C. +6 tests in
+`TestOmega20BBuildCacheIntegration`.
+
+The ω.20-A verification run flagged an unrelated flake in
+`test_api_matrix_cold_under_budget` — diagnosed not bumped:
+standalone cold-call = 2.89s (under 3s budget); pytest harness
+adds 0.5-1s overhead; cProfile under warm OS cache showed only
+311ms of work, with 87 file reads dominating cold cost. No
+regression — pytest needs explicit tolerance. New
+`_PYTEST_HARNESS_MULTIPLIER = 1.4` in `tests/test_perf.py`
+applied to api_matrix.cold + api_search_notes (same shape).
+`dev/PERF_BUDGETS.md` §3.1 documents the convention. **1473 /
+1473 tests green; 11/11 linter clean.**
+
+Prior ship: **ω.20-A build cache module** — first half of ω.20.
+New `scripts/core/build_cache.py` exposes
+`compute_cache_key(edition_id, *, version="v28a")` returning a
+stable SHA-256 hex digest covering every input that affects the
+edition's EPUB: the edition record (JSON-serialized,
+sort_keys=True), version, canon book list resolved from
+canons.yaml, kinds/categories/books.yaml whole-file hashes,
+themes.yaml when the edition uses a theme, every in-canon
+content/notes/<book>.py, referenced translations' `_meta.yaml`
++ per-book files, reading-plan files, cover image bytes (main
++ per-book), build_edition.py source, every file under
+epub_working/. Inputs sorted by label before hashing for
+cross-platform determinism; missing optional inputs contribute
+a stable `"<missing>"` token. Surface: `cache_lookup`,
+`cache_store` (atomic via `notes_io.atomic_write_bytes`),
+`cache_clear` (idempotent on missing dir; leaves non-EPUB
+sidecars alone). `cache_dir_default()` →
+`<repo>/exports/.cache/`. All paths injectable via `cache_dir=`
+kwarg so tests run against `tmp_path`. ω.20 was split A/B at
+the module/integration seam — ω.20-B will wire the
+lookup/store calls into `build_one()` next turn (additive,
+preserves the no-cache code path). +17 tests in
+`TestOmega20ABuildCache`. **1466 / 1467 tests green; 11/11
+linter clean.** (1 unrelated perf-budget flake on
+`api_matrix.cold` — verified NOT caused by build_cache; whole
+suite ran 50% slower this run vs ω.19.2's run, pointing at
+machine-state slowness. Calibration deferred to user decision
+per `dev/PERF_BUDGETS.md` decision tree.)
+
+Prior ship: **ω.19.2 schema validator preflight composition** —
+closes the third (and final) follow-on flagged at ω.19.
+`scripts/web.py:_compute_preflight_uncached`
+now composes `validate_schemas.run_all()` as a new
+`schema_compliance` check (inserted between `rules_compliance`
+and `epubcheck`). Same Tier-3 surface, same §9 meta-tool
+composition pattern as the rules linter: status fail on any
+per-file fail/error, pass when clean; failing files surface in
+`details[]` with up to 3 errors each so a publisher sees what's
+wrong without leaving the page; `jump_to: /preflight`. Wrapped
+in try/except that degrades to `warn` with the failure reason —
+a broken validator can't 500 the dashboard. `--strict-unknown`
+CLI flag plumbs end-to-end: `_validate_record_list` derives a
+strict copy of each spec via `dataclasses.replace` only when
+asked; every `validate_*` accepts `strict_unknown=False`;
+`run_all` threads the kwarg uniformly to each validator
+(canons + cross-refs accept it for signature parity). Default
+off — production YAML routinely carries transitional keys; flip
+on for orphaned-field audits. `dev/SCHEMAS.md` gains §6
+documenting the preflight surface; §5 documents the new flag.
++12 tests in `TestOmega192SchemaPreflight`. The ω.19 →
+ω.19.1 → ω.19.2 chain is now fully shipped. **1450 / 1450
+tests green; 11/11 linter clean.**
+
+Prior ship: **ω.19.1 schema validator follow-on** — closed the
+two remaining ω.19 follow-on items. `scripts/core/config.py:`
+`_parse_value` now recognises bare `[]` as an empty list so
+`_patch_yaml_list_field`'s output round-trips correctly. New
+`scripts/validate_schemas.py:validate_cross_refs()` walks
+editions / kinds and confirms every reference (canon →
+canons.yaml; enabled_categories → categories.yaml; enabled/
+disabled_kinds → kinds.yaml; enabled_reading_plans →
+content/reading_plans/<id>.yaml; kinds.category →
+categories.yaml.id) resolves to a real id. Caught real
+corruption on first run: catholic-study's `enabled_reading_plans:
+"[]"` → `[]`. +14 tests in `TestOmega191SchemaFollowOn`.
+
+Prior ship: **ω.19 schema validator CLI** — single-pass YAML
+validator covering 5 load-bearing config files
+(editions / kinds / categories / books / canons) against
+explicit per-record specs. New `scripts/validate_schemas.py`
+exposes a tiny in-house framework (`FieldSpec` + `RecordSpec`
++ `validate_record`, ~50 lines per §10) + per-file specs + a
+CLI (`--json` for CI; `--file <name>` for one-file scoped runs).
+Caught + fixed two real findings: `legacy` is a valid phase
+value not in the initial enum; catholic-study had two
+stringified-empty list fields (`"[]"` strings instead of empty
+lists) from a prior round-trip test — the underlying parser
+bug in `_patch_yaml_list_field` flagged in SCHEMAS.md §4 as a
+future ω.19.1 (now closed). New `dev/SCHEMAS.md` documents
+every validated file + extension template + known limitations.
++23 tests in `TestOmega19SchemaValidator`.
+
+Prior ship: **ω.13 performance budgets** — Tier-3 structural
+enforcement: pin per-route /
+per-helper timing budgets, fail tests on regression. New
+`scripts/perf_budgets.py` exposes a 13-entry `BUDGETS` mapping
+plus `measure` / `assert_under_budget` / `check_budget` /
+`list_budgets`. New `tests/test_perf.py` exercises 12 hot
+paths against the budgets (notes_io.load_notes cold+warm;
+config loaders; api_matrix cold+cached; api_customize_data;
+api_search_notes; verse_of_day; inject_reading_plans_page;
+recover.list_backups; recover.verify_yaml). Cold/cached split
+for api_matrix catches both "underlying work slowed down" and
+"cache stopped working" regressions independently. Budgets
+calibrated against measured baselines (e.g. api_matrix.cold:
+2.4s measured → 3s budget; load_notes(gen): 115ms → 250ms).
+New `dev/PERF_BUDGETS.md` documents every budget with
+rationale + update decision tree. +25 tests across 2 new
+classes/files. **1401 / 1401 tests green; 11/11 linter clean.**
+
+Prior ship: **ξ.10 + ξ.11 security-depth pair** — two
+~½-session HARDENING phases bundled.
+**ξ.10 SSRF/outbound URL allowlist** extends
+`scripts.core.http.get(url, allowlist=...)` with a pre-flight
+host check that raises `SSRFBlockedError` BEFORE network I/O on
+non-matching hosts. Subdomain-aware (matches via
+`endswith("." + allowed)`), case-insensitive per RFC 3986,
+anti-spoof guarded (`evil-github.com` ≠ `github.com`). Three
+pre-built frozenset groups: PD_SOURCES, AI_BACKEND,
+DESKTOP_UPDATE. Calls without an `allowlist` log a warning +
+continue (back-compat); ξ.10.x can flip to fail-closed.
+`fetch_appcast` migrated to the desktop-update allowlist.
+**ξ.11 pip-audit wrapper** ships `scripts/audit_deps.py` —
+shells out to pip-audit against requirements.txt, severity-
+graded gate (`--severity HIGH` default; `--strict` for any
+vuln; `--json` for CI). Graceful when pip-audit is missing
+(`pip_audit_missing` exit code 2 + install suggestion).
+SECURITY.md §3 + new §6.1 document both. +18 tests across 2
+new classes. **1376 / 1376 tests green; 11/11 linter clean.**
+
+Prior ship: **ω.11 recovery doc + helpers** — operator-facing
+recovery guide
+(`dev/RECOVERY.md`) catalogs scenarios (notes / editions.yaml
+corruption, stuck IN_FLIGHT marker, stale tmp dirs, linter
+false positives, snapshot-restore safety net) with a
+per-scenario decision tree. New `scripts/recover.py` CLI exposes
+four subcommands (`list-backups`, `restore`, `verify-yaml`,
+`flip-inflight`) wrapping the existing `notes_io.ensure_backup`
++ `atomic_write` infrastructure. `restore` reads chosen-backup
+bytes into memory BEFORE the rollback-backup write to survive
+the second-resolution timestamp collision class (regression
+test included). `verify-yaml` runs the file through the
+project's custom `_parse_yaml_records` to catch the
+yaml.safe_dump-vs-project-parser format mismatch the ω.16
+restore phase first surfaced. `flip-inflight` interactively
+confirms before flipping the marker (pass `--yes` for scripts).
++18 tests in `TestOmega11Recovery`. **1358 / 1358 tests green;
+11/11 linter clean.**
+
+Prior ship: **ψ.19.1 reading-plans build-pipeline ToC
+integration** — closes the loop opened by
+ψ.19's infrastructure ship. New `render_reading_plans_page` +
+`inject_reading_plans_page` in scripts/build_edition.py emit
+an XHTML page (one section per enabled plan, one `<li>` per
+day, verse refs as plain-text), patch the OPF manifest +
+spine, and patch nav.xhtml's ToC. Build_one calls the injector
+right after `inject_copyright_page` so the EPUB ordering is
+title → copyright → reading plans → main matter. No-op when
+the edition's `enabled_reading_plans` is empty / unresolvable;
+idempotent on re-run (re-injection doesn't double-patch).
+/customize card legend dropped the "schema only" caveat
+since the build-pipeline integration is now live. Verse-level
+deep linking (ψ.19.2) is a future enhancement; v1 ships with
+plain-text refs. +13 tests. **1340 / 1340 tests green;
+11/11 linter clean.**
+
+Prior ship: **ψ.19 reading plans (infrastructure)** — declarative
+YAML format under
+`content/reading_plans/<id>.yaml` with flat
+`id/label/description/entries:[{day,verses}]` records. New
+`scripts/core/reading_plans.py` exposes loader + verse-ref
+parser; ships 2 starter plans (monthly-psalms 30 days × 5
+psalms covering all 150; gen-overview 10-day demo). Per-edition
+opt-in via `enabled_reading_plans: []` in editions.yaml,
+validated through api_save_edition_meta (rejects unknown plan
+ids). New `/api/reading-plans` + `/api/reading-plans/<id>`
+routes; api_customize_data surfaces both the registry and each
+edition's enabled list. /customize gains a Reading-plans
+fieldset with per-plan checkboxes; state mirrors the
+popup-langs / traditions pattern (`box.readingPlansState`,
+`box.dataset.readingPlansDirty`). Build-pipeline EPUB ToC
+integration deferred to ψ.19.1. +29 tests across 2 new
+classes. **1327 / 1327 tests green; 11/11 linter clean.**
+
+Prior ship: **ω.16 edition snapshots** — frozen point-in-time
+records of an edition under
+`content/snapshots/<edition_id>/<version>/` (edition.yaml +
+metadata.yaml with SHA-1 corpus fingerprint). New
+`scripts/core/snapshots.py` exposes list/read/create/diff/restore/
+delete pure functions. Restore uses a custom YAML dumper
+(`_dump_edition_record`) emitting the project's
+`_parse_yaml_records` format, with a parser-roundtrip safety
+net — write aborted if the new content wouldn't reparse. Six
+routes (GET list / GET single / GET diff / POST create / POST
+restore / DELETE) + Snapshots fieldset per edition on /publisher
+with version+label inputs, per-row Diff/Restore/Delete buttons,
+inline diff summary, confirm-before-act on destructive flows.
+
+A real bug + fix landed mid-implementation: first-pass restore
+used `yaml.safe_dump` whose top-level list shape (`- id: ...` at
+column 0) silently broke the project's custom parser (which
+expects `  - id: ...`). editions.yaml was restored from
+.backups; the parser-roundtrip validation now prevents recurrence.
+
++30 tests across 3 new classes. **1298 / 1298 tests green;
+11/11 linter clean.**
+
+Prior ship: **ξ.3 + ξ.5 + ξ.6 security-baseline trio** — three
+coherent ½-session HARDENING
+phases bundled together. **ξ.3 CSP headers** on every HTML +
+JSON + download response (Tailwind CDN allow-listed per §6.3;
+everything else same-origin; frame-ancestors 'none' blocks
+clickjacking; form-action + base-uri locked) plus
+X-Content-Type-Options: nosniff + Referrer-Policy: same-origin
+via single `Handler._send_security_headers()` source of truth.
+**ξ.5 dependency hygiene** — new `requirements.txt` pins
+PyYAML >=6.0,<7 (the sole mandatory runtime dep; project
+deliberately lean per §10) + pytest test-time + commented-
+optional pywebview / pyinstaller / anthropic; new
+`dev/SECURITY.md` with threat model + reporting +
+disclosure + dep table + env-var table + CSP policy +
+atomic-write invariant + contributor checklist. **ξ.6 secrets
+management** — new `.env.example` documenting every project
+env var (8 total: YHWH_CONTENT_ROOT, EBIBLE_ADMIN_TOKEN,
+EPUBCHECK_JAR, ANTHROPIC_API_KEY, CODESIGN_IDENTITY, TEAMID,
+NOTARIZE_KEYCHAIN_PROFILE, AC_PROFILE) with all assignments
+commented; `.gitignore` hardened (explicit `.env` + `*.env`
+glob + `!.env.example` carve-out). +21 tests across 3 new
+classes. **1268 / 1268 tests green; 11/11 linter clean.**
+
+Prior ship: **ψ.26 matrix bulk operations** — three flows for
+9-edition-scale productivity:
+shift+click range-select within active edition (one ψ.29 undo
+op), drag-select across kind rows with 4px click-vs-drag
+threshold + visual cue (one undo op flushed at mouseup), and
+apply-to-all-editions per kind via a new
+`api_apply_kind_to_all_editions(kind, *, enable)` backend that
+composes per-edition `api_save_edition` and a confirmation
+modal showing per-edition current state. New
+`applyKindsBulk(changes)` helper flushes a single `'bulk'`-type
+ψ.29 op covering all changes (compatible with the existing
+applyOpDirection iterator). `psi26VisibleKindOrder()` skips
+`display: none` rows so range-select respects the ψ.28
+filter. New `POST /api/matrix/apply-kind-to-all` route. Bind
+once via `window.__psi26Bound`. +25 tests across 2 new
+classes. **1247 / 1247 tests green; 11/11 linter clean.**
+
+Prior ship: **ψ.27 matrix scenarios + import/export YAML** —
+six built-in preset scenarios as `content/scenarios/*.yaml` (minimal · devotional ·
+language-study · academic · scholarly · full-corpus) with
+recipe form (enabled_categories + enabled_kinds +
+disabled_kinds, mirroring editions.yaml) so they pick up new
+kinds automatically. `builtin: true` flag distinguishes from
+user-saved. api_list_scenarios + api_get_scenario resolve
+recipe → flat `enabled_kinds_resolved` via the canonical
+core/matrix helper; the /matrix Load button consumes the
+resolved list. api_export_scenario_yaml + api_import_scenario_yaml
++ new `/api/scenarios/<name>/export.yaml` and
+`/api/scenarios/_import` routes give YAML portability.
+api_delete_scenario protects built-ins from deletion. /matrix
+UI groups Built-in presets above Saved-by-you with `[built-in]`
+chip; per-row Export modal with Copy/Download; top-of-panel
+Import-YAML modal with name + overwrite. +33 tests across 3
+new classes. Plus a relative-import fix
+(`from .core.X` → `from scripts.core.X`) in api_search_notes /
+api_verse_of_day / api_verse_of_day_rss / _resolve_scenario_recipe
+so the existing TestScenarios fixture (which loads web.py via
+importlib.spec_from_file_location) still works. **1224 / 1224
+tests green; 11/11 linter clean.**
+
+Prior ship: **υ.8 verse-of-the-day JSON / RSS feed** — new
+`scripts/core/verse_of_day.py` with SHA-1-of-date seeded
+picker that walks the corpus deterministically and only
+returns verses with ≥1 attached note (feeds are never empty).
+Headline note ranked by kind weight (comm/dev highest;
+lang/text/topic lowest). Edition filter restricts to canon
+books + enabled-kinds. `api_verse_of_day` returns the JSON
+payload; `api_verse_of_day_rss` returns RSS 2.0 XML with
+RFC-822 pubdates + CDATA-wrapped body HTML for last `?days=7`
+(clamped 1..60). New `/api/verse-of-day.json` and
+`/api/verse-of-day.rss` routes. +16 tests.
+
+§14 housekeeping (still applies): PLAN §5.1 ψ.25 annotated as
+stale — the edition-diff work it describes is already shipped
+under the original ξ.5.
+
+Prior ship: **υ.3 cross-edition note search** — new
+`scripts/core/note_search.py` over all 51K notes via the
+existing mtime-cached `notes_io.load_notes`. Field-weighted
+scoring ranks label/title above stray body matches; body is
+HTML-stripped before matching. Excerpt windows ±60 chars
+around the first match. `api_search_notes` enriches hits with
+kind/category metadata. `/sources` gains a collapsible "Search
+across editions" section with input + edition/kind/book
+filters + 200ms debounce + score-ranked results with
+`<mark>`-highlighted excerpts. +28 tests across 3 new classes.
+
+Prior ship: **ψ.29 matrix undo/redo + keyboard help overlay** —
+undo/redo stack of kind + category toggle ops bounded at 50
+entries. Each op records `[{code, from, to}]` deltas so undo
+restores exact prior state via ψ.12 incremental DOM patches.
+Stack cleared on edition switch / reset / save. `?`-triggered
+help modal lists every shortcut. Bind-once via
+`window.__psi29Bound`. +24 tests.
+
+Prior ship: **ψ.28 matrix kind search-and-filter** — type-ahead
+`<input type="search">` above the matrix table hides non-matching
+kind rows in real time. Haystack matches kind code, kind label,
+category id, category label, and category symbol (so `lang-`
+finds language kinds, `📜` finds kinds whose category renders
+that symbol, etc.). Category rows co-hide when zero of their
+kinds match. `/` keyboard shortcut focuses the input. Esc clears
++ blurs. Live `<visible>/<total> kinds` status next to the input.
+Bind-once via `dataset.psi28Bound`. +16 tests in
+TestPsi28MatrixKindFilter.
+
+Prior ship: **ψ.18.2 matrix chapter drilldown expand-all** —
+replaced ψ.18.1's static "+ N more books" italic line with a
+clickable nested `<details class="psi182-rest">` that lazy-renders
+the long tail of per-chapter sparkline rows on first toggle.
+Refactored chapter-row build into three module-level helpers
+(`buildChapterSparklineRow`, `chapterRowHtml`,
+`buildKindRestChapterRows`) so eager top-5 and lazy rest share one
+source of truth. +14 tests in TestPsi182MatrixChapterExpandAll.
+
+Prior ship: **ψ.20 note-density heat-map** — per-book heat-map in
+/matrix sidebar (third panel after Symbol totals + Categories
+breakdown). Color-graded red-600 → amber-500 → green-600 on
+note-count percentile within visible-book range. Empty books get
+muted slate-200 cells with slate-400 text so they stay visible in
+canon order. Reuses Matrix.per_book data from ψ.18 — no new API
+endpoint, no server-side change. Triggered from renderSymbolTotals
+so the heatmap stays in sync with toggle-driven re-renders.
++10 tests in TestPsi20DensityHeatmap.
 
 Prior ship: **ψ.1.2 wizard preview iframe** — — third and final sub-phase of the ψ.1 live EPUB preview
 cluster. Adds a live preview iframe to /wizard step 6 (Review)
