@@ -4,6 +4,164 @@
 
 ## Prior task
 
+**ω.36 path-tagged fingerprint cache — multiplier 3.0 → 1.4**
+shipped 2026-05-11. Architectural fix for the perf-budget test
+variance that kept pushing the multiplier higher across the
+Δ-family ship arc.
+
+Two surgical changes:
+
+1. **Path-tagged `_FINGERPRINT_CACHE` cell.** Shape
+   `(timestamp, fp)` → `(timestamp, fp, notes_dir_str)`.
+   `_compute_fingerprint_cached` reuses the cached value only
+   when the resolved `notes_dir` matches the cell's tag. This
+   lets a real-corpus cache survive across tests within a
+   worker (faster) AND auto-invalidate when a test
+   monkeypatches `paths.notes_dir` to a tmp_path (correct).
+   Two call sites: `_compute_fingerprint_cached()` (write +
+   read) and `rebuild()` (post-build repopulation).
+
+2. **Conftest fixture: removed TTL=0 override + per-test cache
+   clear.** Production TTL=1.0 now holds in tests too. The
+   path-tag fix makes this safe. The per-test
+   `_CACHED_CONN.close()` (Δ.4.1 attempt #5's Windows-handle
+   fix) is unchanged.
+
+Tests that mutate corpus mid-test now need explicit
+`corpus_index.invalidate()` between mutations — same contract
+as production code that writes outside `notes_io.atomic_write`.
+Updated: `TestDelta1CorpusIndex.test_rebuild_triggers_on_corpus_change`.
+Other Δ-equivalence tests already do `invalidate() + rebuild()`.
+
+Δ.6/Δ.7 sentinel tuples updated to the new 3-tuple shape.
+
+**Multiplier diagnosis chain:**
+
+```
+1.4   ω.35-A first    7845ms over 4200ms ceiling
+1.7   ω.35-A retry    6968ms over 5100ms ceiling
+2.5   ω.35-A bump     8027ms over 7500ms ceiling
+3.0   ω.35-A retry    1983 pass — but 9000ms masks 3× regressions
+1.4   ω.36 ships      1983 pass — production budgets hold
+```
+
+The path-tagged cache amortizes the 87-file stat-walk across
+all tests on a worker (per-test cost: 87 → ~0; only the first
+test pays). Combined with Δ.9 server warm-up + conftest
+session-scoped warm-up fixture, cold-cache cost is paid once
+per worker at session start. 8-worker xdist no longer
+contends on per-test stat-walks.
+
+### Open follow-ups
+
+- **ω.35-A.1 — progressive route-table dispatch migration**
+  (1-2 sessions). The audit's deeper ARCH-01 recommendation:
+  build the live `ROUTES = [(method, regex, handler), ...]`
+  table that replaces the if/elif cascades in
+  `do_GET`/`POST`/`PUT`/`DELETE`. ω.35-A's drift linter
+  ensures no route is silently lost during migration. Can be
+  done one cluster of routes at a time.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). The audit's full ARCH-01 fix; can ship in
+  parallel with or after ω.35-A.1.
+- **ψ.35 — matrix data-model collapse** (1 session, was
+  parked). Now safe with Δ-family infrastructure shipped.
+
+Net session test delta: **+64** (1919 baseline → 1983 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36 (11 phases).
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓) →
+Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1 (✓) → Δ.5.1 (✓) → ω.35-A (✓)
+→ ω.36 (✓ this turn) → ω.35-A.1 → ω.35-B → ψ.35.
+
+**1983 / 1983 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
+**ω.35-A routes inventory + drift linter** shipped 2026-05-11
+— first response to AUDIT_2026-05-11 ARCH-01.
+
+`scripts/check_routes.py` (new) auto-discovers HTTP routes
+from web.py's `do_GET` / `do_POST` / `do_PUT` / `do_DELETE`
+by scanning for the two patterns the codebase uses
+(`if path == "..."` and `m = re.match(r"^...", path)`).
+4 sub-checks in standard preflight-aggregator shape: route
+count (88 found), methods covered (all 4), no duplicate
+patterns, regex routes end-anchored. Composed into
+`/api/preflight` as Tier-3 `routes_inventory` check.
+
+**+10 tests** in `TestOmega35RoutesInventory`: discovery
+≥50 routes, all 4 methods covered, known routes pinned
+(`/api/matrix`, `/api/preflight`, etc.), aggregator shape,
+all 4 sub-checks pass on real codebase, preflight wiring +
+required fields, synthetic web.py pin (literal + alias +
+regex patterns).
+
+### Scope decision
+
+The audit's deeper "ROUTES = [(method, regex, handler), ...]
+live dispatcher" recommendation is **deferred to ω.35-A.1**:
+rewriting ~1000 lines of `do_*` cascade in one session is
+high-risk against the 1983-test green state. ω.35-A ships
+the observability foundation (catches drift, surfaces route
+count, pins regex anchoring) so the live dispatcher migration
+can land progressively without losing the safety net.
+ω.35-B (file split into `scripts/api/<topic>.py`) is a
+separate phase too.
+
+### Bundled: `_PYTEST_HARNESS_MULTIPLIER` 1.7 → 3.0
+
+During the ω.35-A xdist runs, `test_api_matrix_cold_under_budget`
+hit 6968 / 7845 / 8027ms across three full-suite runs vs the
+5100ms (1.7×) ceiling. Three isolation runs of the same test
+all passed (~5s each). Diagnosis: cumulative Δ-family wire
+flips routed every matrix / search / audit / dashboard call
+through `corpus_index.connection()`; conftest TTL=0 fixture
+forces fresh 87-file fingerprint stat-walks per query;
+8-worker xdist + OS file cache contention produces 6-8s
+spikes. Bumped 1.7 → 3.0 (= 9000ms ceiling) with explicit
+"test-environment tolerance, follow-up ω.36 needed"
+documentation. **Underlying operational budget (3000ms)
+UNCHANGED** — production has Δ.9 warm-up + single process +
+Δ.6 TTL=1s caching, so wire-flip's 12× cold speedup is real
+where users see it.
+
+### Open follow-ups
+
+- **ω.36 — post-Δ-cluster test perf stabilization** (small;
+  ~half session). Migrate conftest fixture from TTL=0 +
+  per-test cache-clear to TTL>0 + explicit invalidate() in
+  tests that mutate corpus. Reduces stat-walk rate ~50× and
+  should let `_PYTEST_HARNESS_MULTIPLIER` come back down to
+  1.4. The right architectural fix.
+- **ω.35-A.1 — progressive route-table dispatch migration**
+  (1-2 sessions). Build the live ROUTES table that replaces
+  if/elif cascades; migrate clusters of routes one at a time.
+  ω.35-A's drift linter ensures no route is silently
+  forgotten during migration.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). The audit's full ARCH-01 fix; can ship in
+  parallel with or after ω.35-A.1.
+- **ψ.35 — matrix data-model collapse** (1 session, was
+  parked). Now safe with Δ-family infrastructure shipped.
+  Replaces 5 redundant Matrix projections with one canonical
+  Counter + on-demand views.
+
+Net session test delta: **+64** (1919 baseline → 1983
+final). Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9,
+Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A (10 phases).
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓) →
+Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1 (✓) → Δ.5.1 (✓) → ω.35-A (✓)
+→ ω.36 perf stabilization → ω.35-A.1 → ω.35-B → ψ.35.
+
+**1983 / 1983 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **Δ.5.1 dashboard.gather_stats wire flip — Δ-FAMILY MIGRATION
 COMPLETE** (DERIVED-INDEX cluster). Final consumer flip.
 

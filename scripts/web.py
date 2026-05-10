@@ -3195,6 +3195,43 @@ def _compute_preflight_uncached() -> dict:
         }
     )
 
+    # ω.35-A — Routes inventory check. Auto-discovers routes in
+    # do_GET / do_POST / do_PUT / do_DELETE; surfaces total count
+    # and flags duplicate patterns / unanchored regexes / missing
+    # methods. Wrap in try/except per the §9 mental model: a
+    # broken meta-tool can't 500 the dashboard.
+    try:
+        from scripts import check_routes as _check_routes_mod
+
+        cr = _check_routes_mod.run_all()
+        cr_summary = cr.get("summary", {})
+        if cr_summary.get("fail", 0) > 0:
+            cr_status = "fail"
+        elif cr_summary.get("warn", 0) > 0:
+            cr_status = "warn"
+        else:
+            cr_status = "pass"
+        cr_msg = f"{cr.get('route_count', 0)} routes; {cr_summary.get('pass', 0)}/{cr_summary.get('total', 0)} sub-checks pass"
+        cr_details = [
+            {"id": c["id"], "name": c["name"], "status": c["status"], "message": c["message"]}
+            for c in cr.get("checks", [])
+            if c["status"] != "pass"
+        ]
+    except Exception as e:  # noqa: BLE001 — meta-tool failure must not break dashboard
+        cr_status = "warn"
+        cr_msg = f"routes inventory failed to run: {e}"
+        cr_details = []
+    checks.append(
+        {
+            "id": "routes_inventory",
+            "name": "HTTP routes inventory (web.py do_GET / POST / PUT / DELETE)",
+            "status": cr_status,
+            "message": cr_msg,
+            "details": cr_details,
+            "jump_to": "/preflight",
+        }
+    )
+
     # Summary
     summary = {
         "total": len(checks),

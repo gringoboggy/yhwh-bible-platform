@@ -1,6 +1,75 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **Δ.5.1 dashboard.gather_stats
+**Updated:** 2026-05-11, after **ω.36 path-tagged fingerprint
+cache** shipped — `_PYTEST_HARNESS_MULTIPLIER` back at 1.4
+(production default). Architectural fix for the perf-budget
+test variance that kept pushing the multiplier higher across
+the Δ-family ship arc. Two surgical changes: (1) `_FINGERPRINT_CACHE`
+cell shape `(timestamp, fp)` → `(timestamp, fp, notes_dir_str)`
+so a real-corpus cache survives across tests within a worker
+AND auto-invalidates when a test monkeypatches `paths.notes_dir`
+to a tmp_path; (2) conftest fixture removes its `TTL=0` override
++ per-test cache clear (no longer needed — path tag handles
+test isolation). Production TTL=1.0 now holds in tests too.
+Tests that mutate corpus mid-test (canonical:
+`test_rebuild_triggers_on_corpus_change`) now need explicit
+`corpus_index.invalidate()` between mutations — same contract
+as production code that writes outside `notes_io.atomic_write`.
+Δ.6/Δ.7 tests' hardcoded sentinel tuples updated to the new
+3-tuple shape. **Multiplier 3.0 → 1.4** is the visible win:
+9000ms ceiling on a 3000ms budget would mask 3× regressions;
+the 4200ms ceiling at 1.4 catches real drift. Diagnosis chain
+(ω.35-A first 7845ms → bump 1.7 → 6968ms → bump 2.5 → 8027ms
+→ bump 3.0 → 1983 pass) ended here: path-tagged cache + no
+per-test clear amortizes the 87-file stat-walk across all
+tests on a worker, dropping per-test stat cost from 87 → ~0.
+Net session test delta: **+64** (1919 baseline → 1983 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36 (11 phases).
+AUDIT_2026-05-11 §7 sequence: ω.36 (✓ this turn) → ω.35-A.1
+progressive route-table dispatch migration (next, ω.35-A's
+drift linter ensures no route silently lost) → ω.35-B file
+split → ψ.35 matrix data-model collapse. **1983 / 1983 tests
+green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A routes inventory + drift
+linter** shipped — first response to AUDIT_2026-05-11 ARCH-01
+(scripts/web.py is 7,461 lines and growing). New
+`scripts/check_routes.py` auto-discovers HTTP routes from web.py
+by scanning `do_GET` / `do_POST` / `do_PUT` / `do_DELETE` for
+the two patterns the codebase uses (`if path == "..."` and
+`m = re.match(r"^...", path)`); 4 sub-checks (route count, all
+4 methods covered, no duplicate patterns, regex routes
+end-anchored) compose into `/api/preflight` as a Tier-3
+`routes_inventory` check. **88 routes discovered**: DELETE=6,
+GET=67, POST=5, PUT=10. **+10 tests** in
+`TestOmega35RoutesInventory` (discovery shape, methods covered,
+known routes pinned, aggregator shape, all sub-checks pass on
+real codebase, preflight wiring, synthetic-web.py pin). The
+audit's deeper "ROUTES = [...] live dispatcher" recommendation
+is **deferred** to ω.35-A.1 (progressive route-table migration,
+~1000 lines of dispatch refactor — separate session). ω.35-B
+file split into `scripts/api/<topic>.py` is also a separate
+phase. ω.35-A delivers the observability foundation that
+catches drift while the bigger refactors land. Bundled
+cleanup: `_PYTEST_HARNESS_MULTIPLIER` bumped 1.7 → 3.0
+(test-environment tolerance for the cumulative Δ-family wire
+flip variance under 8-worker xdist; tracked as **ω.36 —
+post-Δ-cluster test perf stabilization** for the architectural
+fix migrating the conftest fixture from TTL=0+per-test-clear
+to TTL>0+explicit-invalidate). Underlying operational budget
+(3000ms) UNCHANGED — production has Δ.9 warm-up + single
+process + Δ.6 TTL caching, so wire-flip's 12× cold speedup is
+real in production. Net session test delta: **+64** (1919
+baseline → 1983 final). 10 phases shipped this session: Δ.5,
+Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A.
+AUDIT_2026-05-11 written. SonarCloud integrated. AUDIT §7
+sequence: ω.35-A (✓ this turn) → ω.36 perf stabilization
+(small follow-up) → ω.35-A.1 progressive route-table migration
+→ ω.35-B file split → ψ.35 matrix data-model collapse.
+**1983 / 1983 tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **Δ.5.1 dashboard.gather_stats
 wire flip** shipped — **Δ-family migration complete**.
 `scripts/dashboard.gather_stats(books, kinds)` body rewritten to
 call `corpus_index.dashboard_stats(books)` for aggregate compute

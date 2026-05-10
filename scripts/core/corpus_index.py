@@ -291,7 +291,14 @@ def _compute_fingerprint() -> str:
 # (which also clears this cache) for the same effect. After Δ.6,
 # `connection()` in steady state is a dict lookup + a sqlite query.
 _FINGERPRINT_TTL_SEC: float = 1.0
-_FINGERPRINT_CACHE: Optional[tuple[float, str]] = None
+# ω.36 (2026-05-11) — cache cell now carries the notes_dir path it
+# was computed against. Tests routinely monkeypatch
+# `paths.notes_dir` to a tmp_path; without the path tag, a cached
+# fingerprint from a real-corpus test would leak into a synthetic-
+# corpus test and return wrong results. Tagging the path lets the
+# cache survive across tests within a worker (faster) while still
+# auto-invalidating when the resolved path changes (correct).
+_FINGERPRINT_CACHE: Optional[tuple[float, str, str]] = None
 
 
 def _compute_fingerprint_cached() -> str:
@@ -299,26 +306,37 @@ def _compute_fingerprint_cached() -> str:
 
     When the TTL is non-positive, bypasses the cache (test-friendly
     "never trust the cache" mode). Otherwise returns the cached
-    value if it was computed within `_FINGERPRINT_TTL_SEC` of now;
-    recomputes and refreshes the cache otherwise.
+    value if it was computed within `_FINGERPRINT_TTL_SEC` of now
+    AND the resolved `notes_dir` path matches; recomputes and
+    refreshes the cache otherwise.
 
     The cache is process-local module state; cross-process workers
     each maintain their own. `invalidate()` clears the cache so
     callers that need a guaranteed fresh fingerprint (e.g. after
     explicitly mutating the corpus) can force the next call to
     recompute.
+
+    ω.36 (2026-05-11) — path-tagged cache. The cache cell now
+    stores ``(monotonic_at, fingerprint, notes_dir_str)``. A
+    cached value is reused only when the resolved notes_dir
+    matches the cell's tag, which lets the cache safely survive
+    across tests within a worker (the autouse conftest fixture no
+    longer needs to clear it per-test). Eliminates the per-test
+    87-file stat-walk that had pushed the perf-budget multiplier
+    from 1.4 → 3.0 under xdist load.
     """
     global _FINGERPRINT_CACHE
     if _FINGERPRINT_TTL_SEC <= 0:
         return _compute_fingerprint()
     now = time.monotonic()
+    notes_dir_str = str(_notes_dir())
     cached = _FINGERPRINT_CACHE
     if cached is not None:
-        cached_at, fp = cached
-        if now - cached_at < _FINGERPRINT_TTL_SEC:
+        cached_at, fp, cached_path = cached
+        if cached_path == notes_dir_str and now - cached_at < _FINGERPRINT_TTL_SEC:
             return fp
     fp = _compute_fingerprint()
-    _FINGERPRINT_CACHE = (now, fp)
+    _FINGERPRINT_CACHE = (now, fp, notes_dir_str)
     return fp
 
 
@@ -565,8 +583,10 @@ def rebuild(*, force: bool = False) -> dict:
         fp_path.write_text(fp, encoding="utf-8")
         # Refresh the fingerprint cache to the just-written value
         # so the next caller sees the post-build fingerprint
-        # without a fresh stat-walk.
-        _FINGERPRINT_CACHE = (time.monotonic(), fp)
+        # without a fresh stat-walk. ω.36 — include notes_dir path
+        # tag so the cache survives the rebuild correctly even
+        # when the resolved path is monkeypatched by tests.
+        _FINGERPRINT_CACHE = (time.monotonic(), fp, str(_notes_dir()))
 
     # Reset any cached connection — it points at the old file now.
     global _CACHED_CONN, _CACHED_CONN_PATH

@@ -6,6 +6,237 @@
 
 ---
 
+## 2026-05-11 — session — ω.36 path-tagged fingerprint cache — multiplier 3.0 → 1.4
+
+**Phases shipped:** ω.36. Architectural fix for the perf-budget
+test variance that pushed `_PYTEST_HARNESS_MULTIPLIER` from
+1.4 → 1.7 → 2.5 → 3.0 across the Δ-family wire flips. Ships
+two surgical changes that let the multiplier come back to its
+production-default 1.4 without compromising correctness.
+**Test delta:** 0 (1983 → 1983 green; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+**Multiplier delta:** 3.0 → 1.4 (back to production default).
+
+What shipped:
+
+- **Path-tagged fingerprint cache.** `_FINGERPRINT_CACHE` cell
+  shape changed from `(monotonic_at, fp)` → `(monotonic_at, fp,
+  notes_dir_str)`. `_compute_fingerprint_cached` now reuses
+  the cached value only when the resolved `notes_dir` matches
+  the cell's tag. This lets a real-corpus cache survive across
+  tests within a worker AND auto-invalidate when a test
+  monkeypatches `paths.notes_dir` to a tmp_path (different
+  path tag → recompute). Two call sites updated:
+  `_compute_fingerprint_cached()` (write + read) and
+  `rebuild()`'s post-build cache repopulation.
+- **Conftest fixture: removed per-test cache clear; removed
+  TTL=0 override.** `tests/conftest.py:_disable_corpus_index_fingerprint_cache`
+  used to do `monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 0.0)`
+  + `corpus_index._FINGERPRINT_CACHE = None`. Both removed.
+  Production TTL=1.0 now holds in tests too. The path-tag fix
+  makes this safe.
+- **Per-test `_CACHED_CONN.close()` retained.** Δ.4.1 attempt
+  #5's Windows-handle-lingering fix is unchanged; only the
+  fingerprint side of the fixture changed.
+
+The diagnosis chain that led here:
+
+```
+Multiplier Run             Failure                 Cause
+1.4        ω.35-A first    api_matrix.cold 7845ms  Δ-family wire flips multiply tests touching corpus_index
+1.7        ω.35-A retry    api_matrix.cold 6968ms  conftest TTL=0 forces 87-file stat-walk on every query
+2.5        ω.35-A bumped   api_matrix.cold 8027ms  8-worker xdist contention on notes/ dir's OS file cache
+3.0        ω.35-A retry    1983/1983 PASS          but 9000ms ceiling on 3000ms budget = masks 3× regressions
+1.4        ω.36 ships      1983/1983 PASS          path-tagged cache + production TTL = correct + fast
+```
+
+Tests that mutate corpus mid-test now need explicit
+`corpus_index.invalidate()` between mutations (same contract
+as production code that writes outside `notes_io.atomic_write`):
+
+- `TestDelta1CorpusIndex.test_rebuild_triggers_on_corpus_change`
+  updated. The other Δ-equivalence-pin tests already do
+  `invalidate() + rebuild()` so no change needed.
+
+Δ.6 / Δ.7 tests' hardcoded sentinel tuples updated to the new
+3-tuple shape (`(timestamp, fp, path)`).
+
+Notable decisions:
+
+- **Path-tag in the cache cell, not a separate cache key.**
+  Storing the path alongside the cached fingerprint keeps the
+  invalidation logic in one place (the `cached_path ==
+  notes_dir_str` check) and avoids needing a dict-of-caches.
+  Single-process production has only one path, so the tag is
+  inert; tests benefit automatically.
+- **Removed both TTL override AND per-test cache clear.** The
+  two pieces were redundant under TTL=0 (cache cleared, but
+  TTL=0 also bypassed). Keeping the cache populated across
+  tests within a worker amortizes the 87-file stat-walk over
+  many tests, dropping the average per-test stat cost from
+  87 to ~0 (only the first test on a worker pays).
+- **Multiplier comes all the way back to 1.4.** No
+  conservatism — if the architectural fix is correct, the
+  budget should hold at production levels. If a regression
+  appears later, the multiplier-bumping pattern is now
+  documented and ready.
+
+Continuity pointers:
+
+- `scripts/core/corpus_index.py:_FINGERPRINT_CACHE` (cell
+  shape) + `_compute_fingerprint_cached` (path-aware lookup)
+  + `rebuild` (post-build repopulation).
+- `tests/conftest.py:_disable_corpus_index_fingerprint_cache`
+  (slimmed; only the cached-conn-close path remains).
+- `tests/test_perf.py:_PYTEST_HARNESS_MULTIPLIER` — back at
+  1.4 with documentation of the chain.
+- AUDIT_2026-05-11 §7 sequence: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓)
+  → Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1 (✓) → Δ.5.1 (✓) → ω.35-A
+  (✓) → ω.36 (✓ this turn) → **ω.35-A.1** (next, the live
+  route-table dispatch refactor; ω.35-A's drift linter ensures
+  no route silently lost during migration) → ω.35-B file
+  split → ψ.35 matrix data-model collapse.
+
+---
+
+## 2026-05-11 — session — ω.35-A routes inventory + drift linter (audit ARCH-01 first response)
+
+**Phases shipped:** ω.35-A. First response to AUDIT_2026-05-11
+ARCH-01 ("scripts/web.py is now 7,461 lines, growing"). The
+audit's deeper recommendation was a `ROUTES = [(method, regex,
+handler), ...]` table that would replace the hand-maintained
+if/elif cascade in `do_GET` / `do_POST` / `do_PUT` /
+`do_DELETE`. **That dispatch refactor is deferred to a future
+ω.35-A.1**: rewriting ~1000 lines of cascade in one session is
+high-risk against the 1973-test green state. ω.35-A ships the
+**observability foundation** instead — a CLI + Tier-3
+preflight check that auto-discovers routes from web.py and
+flags drift. ω.35-B (file split into `scripts/api/<topic>.py`)
+remains a separate phase.
+**Test delta:** +10 (was 1973, now 1983; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `scripts/check_routes.py` — auto-discovers routes by
+  scanning `do_GET` / `do_POST` / `do_PUT` / `do_DELETE` for
+  the two patterns the codebase uses
+  (`if path == "..."` and `m = re.match(r"^...", path)`).
+  Discovery is regex-based; deliberately matches only the two
+  patterns the codebase uses today (a new dispatch style would
+  trip the inventory's "no routes discovered" warn — surfacing
+  pattern drift is part of the value).
+- 4 sub-checks in standard preflight-aggregator shape
+  (CLAUDE_PROJECT_RULES.md §9):
+  - `route_count` — surfaces total + per-method (DELETE=6,
+    GET=67, POST=5, PUT=10 = **88 routes**); pass at any
+    count, trend over time is the signal.
+  - `methods_covered` — all 4 dispatch methods have ≥1 route;
+    catches a method getting silently emptied during refactor.
+  - `no_duplicate_patterns` — within a method, the same
+    pattern can't be reached twice (second branch is dead);
+    catches accidental duplication.
+  - `regex_anchors` — every regex route ends with `$` (the
+    audit's "more-specific routes must precede the bare-list"
+    comment-only ordering becomes lintable for end-anchor at
+    least).
+- `_compute_preflight_uncached()` in `scripts/web.py` now
+  composes the inventory as a `routes_inventory` Tier-3 check
+  (alongside `rules_compliance`, `schema_compliance`,
+  `content_health`); wrapped in try/except so a broken
+  meta-tool can't 500 the dashboard.
+- 10 new tests in `TestOmega35RoutesInventory`: discovery
+  finds ≥50 routes, all 4 methods covered, known routes
+  pinned (`/api/matrix`, `/api/preflight`, `/api/search-notes`,
+  `/api/audit/attribution`), aggregator shape, all 4 sub-checks
+  pass on the real codebase, preflight wiring, synthetic-web.py
+  pin (covers literal + alias + regex patterns).
+
+### Scope decision
+
+The full `ROUTES = [...]` live-dispatcher refactor (the audit's
+deeper recommendation) requires:
+
+- Mapping every if/elif branch in 1000+ lines of dispatch
+- Extracting each branch's handler logic into a named function
+- Building the table + dispatch loop
+- Preserving the precedence ordering (more-specific routes first)
+- Not breaking any of 1983 tests
+
+That's 2-3 sessions, not 1. Splitting into ω.35-A
+(observability, this ship) → ω.35-A.1 (progressive route
+migration, future) → ω.35-B (file split, future) is the
+honest sequencing. Each ships a real improvement; together
+they close ARCH-01.
+
+### Bundled cleanup: `_PYTEST_HARNESS_MULTIPLIER` 1.7 → 3.0
+
+During the ω.35-A xdist runs, `test_api_matrix_cold_under_budget`
+showed consistent 6968-8027ms timings vs the 5100ms (1.7×)
+ceiling — three full-suite runs over budget, three isolation
+runs (5s each) clean. Diagnosis: the cumulative Δ-family wire
+flips routed every matrix / search / audit / dashboard call
+through `corpus_index.connection()`; combined with the
+conftest TTL=0 fixture forcing fresh 87-file fingerprint
+stat-walks per query; 8 xdist workers contend on the same
+notes/ dir's OS file cache, producing 6-8s spikes.
+
+Bumped `_PYTEST_HARNESS_MULTIPLIER` from 1.7 to 3.0 (=
+9000ms ceiling) with explicit "follow-up phase needed"
+documentation. The underlying operational budget (3000ms)
+is UNCHANGED — the wire flip's 12× cold speedup is real in
+production where (a) Δ.9 warms the index at startup so
+cold-cache cost is never paid in a request, (b) production
+has one process so no cross-worker fs contention, (c) the
+Δ.6 TTL=1s caches fingerprints between calls. The 3.0
+multiplier is purely a **test-environment tolerance**.
+
+**Tracked as `ω.36 — post-Δ-cluster test perf
+stabilization`**: migrate the conftest fixture from TTL=0 +
+per-test cache-clear to TTL>0 + explicit invalidate() in
+tests that mutate corpus. Should reduce stat-walk rate ~50×
+and let the multiplier come back down to 1.4.
+
+### Notable decisions
+
+- **Auto-discovery over hand-maintained registry.** A
+  `ROUTES` list maintained by hand drifts the moment someone
+  adds a route without updating it. Auto-discovery via regex
+  scan eliminates the maintenance burden — the source of
+  truth IS the `do_*` methods themselves; the linter just
+  surfaces facts about them.
+- **No file split in ω.35-A.** The audit's ω.35-B (move
+  `api_*` business helpers into `scripts/api/<topic>.py`) is
+  a tractable file-level refactor but doesn't share a
+  dependency with ω.35-A. Better to ship them as discrete
+  phases.
+- **Multiplier bump documented as test-environment
+  tolerance.** Per PERF_BUDGETS.md §3.1, the multiplier is
+  the right knob for harness/xdist variance. The real fix is
+  the conftest architecture (ω.36); the multiplier holds the
+  line until then.
+
+### Continuity pointers
+
+- `scripts/check_routes.py` (new) — auto-discovery + 4
+  sub-checks; CLI + Tier-3 preflight composition.
+- `scripts/web.py:_compute_preflight_uncached` — composes the
+  inventory check (around the existing `content_health`
+  wiring).
+- `tests/test_scripts.py:TestOmega35RoutesInventory` (10
+  tests).
+- `tests/test_perf.py:_PYTEST_HARNESS_MULTIPLIER` — bumped
+  with documentation; `ω.36` flagged as the architectural
+  follow-up.
+- AUDIT_2026-05-11 §7 sequence: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓)
+  → Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1 (✓) → Δ.5.1 (✓) → ω.35-A
+  (✓ this turn) → **ω.36 perf stabilization** (next, smaller)
+  → ω.35-A.1 progressive route-table migration (next session)
+  → ω.35-B file split (next-next session) → ψ.35 matrix
+  data-model collapse.
+
+---
+
 ## 2026-05-11 — session — Δ.5.1 dashboard.gather_stats wire flip — Δ-FAMILY MIGRATION COMPLETE (DERIVED-INDEX cluster)
 
 **Phases shipped:** Δ.5.1. Final consumer wire flip — closes

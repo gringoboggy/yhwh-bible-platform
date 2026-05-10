@@ -9,18 +9,27 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 
-# Δ.6 — disable the corpus_index fingerprint TTL cache during tests
-# by default. Tests routinely mutate the corpus and immediately
-# query (e.g. write a notes file then call `rebuild()`); the
-# production TTL=1.0s cache would return stale data inside that
-# window. The cache is correct-by-construction in production where
-# `notes_io.atomic_write` callers can pair with
-# `corpus_index.invalidate()` to force freshness, but test helpers
-# write notes directly. Setting TTL≤0 makes the cache invisible to
-# every test by default. Tests that specifically exercise the
-# cache (TestDelta6FingerprintCache) re-set TTL>0 via their own
-# monkeypatch and reset module state explicitly — the local
-# monkeypatch takes precedence.
+# ω.36 (2026-05-11) — production TTL=1.0 in tests too, now that
+# Δ.6's fingerprint cache is path-tagged. The previous "TTL=0 +
+# clear cache per test" pattern was correct but expensive: every
+# test that touched corpus_index forced a fresh 87-file
+# `os.stat` walk, and 8 xdist workers contending on the same
+# notes/ dir's OS file cache produced 6-8s spikes on
+# `api_matrix.cold` (the Δ-family wire flips multiplied the
+# number of tests touching the index by ~10×). The path-tag fix
+# in `_compute_fingerprint_cached` lets a real-corpus cache
+# survive across tests within a worker (since they all resolve
+# the same notes_dir) AND auto-invalidate when a test
+# monkeypatches `paths.notes_dir` to a tmp_path (different path
+# tag → recompute). Tests that mutate-then-query within a
+# single test still need explicit `corpus_index.invalidate()`
+# between mutations — same contract as production code that
+# writes outside `notes_io.atomic_write`.
+#
+# We still close the per-process cached sqlite connection per
+# test (Δ.4.1 attempt #5 fix): closes lingering Windows file
+# handles so the next test's invalidate()/rebuild()/replace()
+# cycle doesn't race.
 @pytest.fixture(autouse=True)
 def _disable_corpus_index_fingerprint_cache(monkeypatch):
     import sqlite3
@@ -29,14 +38,8 @@ def _disable_corpus_index_fingerprint_cache(monkeypatch):
         from scripts.core import corpus_index
     except ImportError:
         return
-    monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 0.0)
-    corpus_index._FINGERPRINT_CACHE = None
-    # Δ.4.1 attempt #5 — also close any lingering cached sqlite
-    # connection so the next test's invalidate()/rebuild()/replace()
-    # cycle doesn't race with a still-held file handle on Windows.
-    # Production keeps the connection cached for performance; tests
-    # need fresh handles to avoid PermissionError on the cross-test
-    # rebuild→replace path.
+    # No more TTL=0 override — production default (1.0s) is now
+    # safe in tests because the cache is path-tagged.
     if corpus_index._CACHED_CONN is not None:
         try:
             corpus_index._CACHED_CONN.close()

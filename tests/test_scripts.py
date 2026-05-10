@@ -22564,6 +22564,13 @@ class TestDelta1CorpusIndex:
         assert first["note_count"] == 1
         # Add a book — fingerprint changes
         self._write_book(nd, "exo", [(1, 1, "", "", "word", "T", "L", "B")])
+        # ω.36 — explicit invalidate() between mid-test mutation and
+        # the next rebuild() call. Production code that writes
+        # outside `notes_io.atomic_write` (e.g. test fixtures using
+        # `pathlib.write_text`) needs the same hook to defeat the
+        # Δ.6 TTL cache. Production callers that go through
+        # `notes_io.atomic_write` get this for free via the Δ.7 hook.
+        ci.invalidate()
         second = ci.rebuild()
         assert second["rebuilt"] is True
         assert second["note_count"] == 2
@@ -23696,7 +23703,8 @@ class TestDelta6FingerprintCache:
         assert result["rebuilt"] is True
         # Cache should now hold the post-build fingerprint
         assert corpus_index._FINGERPRINT_CACHE is not None
-        cached_at, cached_fp = corpus_index._FINGERPRINT_CACHE
+        # ω.36 — cache cell is now 3-tuple (timestamp, fp, notes_dir_str).
+        cached_at, cached_fp, cached_path = corpus_index._FINGERPRINT_CACHE
         assert cached_fp == result["fingerprint"]
 
     def test_default_ttl_is_one_second(self):
@@ -24088,7 +24096,8 @@ class TestDelta7NotesIoInvalidationHook:
         from scripts.core import corpus_index, notes_io
 
         monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
-        corpus_index._FINGERPRINT_CACHE = (1.0, "stale-fingerprint-value")
+        # ω.36 — cache cell is now 3-tuple (timestamp, fp, notes_dir_str).
+        corpus_index._FINGERPRINT_CACHE = (1.0, "stale-fingerprint-value", "/test/path")
 
         notes_path = tmp_path / "notes" / "gen.py"
         notes_path.parent.mkdir(parents=True)
@@ -24100,7 +24109,7 @@ class TestDelta7NotesIoInvalidationHook:
         from scripts.core import corpus_index, notes_io
 
         monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
-        sentinel = (1.0, "still-here-after-yaml-write")
+        sentinel = (1.0, "still-here-after-yaml-write", "/test/path")
         corpus_index._FINGERPRINT_CACHE = sentinel
 
         yaml_path = tmp_path / "config" / "editions.yaml"
@@ -24113,7 +24122,7 @@ class TestDelta7NotesIoInvalidationHook:
         from scripts.core import corpus_index, notes_io
 
         monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
-        corpus_index._FINGERPRINT_CACHE = (1.0, "stale-bytes-write")
+        corpus_index._FINGERPRINT_CACHE = (1.0, "stale-bytes-write", "/test/path")
 
         notes_path = tmp_path / "notes" / "exo.py"
         notes_path.parent.mkdir(parents=True)
@@ -24139,7 +24148,7 @@ class TestDelta7NotesIoInvalidationHook:
         from scripts.core import corpus_index, notes_io
 
         monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
-        sentinel = (1.0, "still-here-after-lookalike")
+        sentinel = (1.0, "still-here-after-lookalike", "/test/path")
         corpus_index._FINGERPRINT_CACHE = sentinel
 
         lookalike = tmp_path / "notes_backup" / "gen.py"
@@ -24415,3 +24424,129 @@ class TestDelta51DashboardStatsWireFlip:
         result = dashboard_module.gather_stats(books, kinds)
         # On the real corpus, no parse failures expected
         assert result["parse_failures"] == [], f"unexpected parse_failures: {result['parse_failures']}"
+
+
+# ---------- Phase ω.35-A : routes inventory + drift linter ------------
+
+
+class TestOmega35RoutesInventory:
+    """ω.35-A — first response to AUDIT_2026-05-11 ARCH-01.
+    `scripts/check_routes.py` auto-discovers HTTP routes from
+    web.py's do_GET/POST/PUT/DELETE methods, surfaces the route
+    count + method distribution, and flags drift classes
+    (duplicate patterns, unanchored regexes, missing methods).
+    Wired into /api/preflight as the `routes_inventory` Tier-3
+    check.
+
+    Lays the foundation for ω.35-A.1 (progressive route-table
+    dispatch migration) and ω.35-B (file split into
+    `scripts/api/<topic>.py`) without rewriting any dispatch
+    code in this phase — keeps the 1973-test green state intact."""
+
+    def test_discover_routes_returns_at_least_50(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        assert len(routes) >= 50, f"expected ≥50 routes, found {len(routes)}"
+
+    def test_discover_routes_covers_all_four_methods(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        methods = {r.method for r in routes}
+        assert methods == {"GET", "POST", "PUT", "DELETE"}, f"method coverage: {methods}"
+
+    def test_discover_routes_includes_known_routes(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("GET", "/api/matrix", False) in keys
+        assert ("GET", "/api/preflight", False) in keys
+        assert ("GET", "/api/search-notes", False) in keys
+        assert ("GET", "/api/audit/attribution", False) in keys
+
+    def test_run_all_returns_standard_aggregator_shape(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert "checks" in result
+        assert "summary" in result
+        assert "route_count" in result
+        for c in result["checks"]:
+            for k in ("id", "name", "status", "message", "violations"):
+                assert k in c, f"sub-check missing {k!r}"
+            assert c["status"] in ("pass", "warn", "fail")
+        s = result["summary"]
+        for k in ("total", "pass", "clean"):
+            assert k in s
+
+    def test_no_duplicate_patterns_check_passes_on_real_codebase(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        sub = next(c for c in result["checks"] if c["id"] == "no_duplicate_patterns")
+        assert sub["status"] == "pass", f"duplicate pattern found: {sub['violations']}"
+
+    def test_regex_routes_are_end_anchored(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        sub = next(c for c in result["checks"] if c["id"] == "regex_anchors")
+        assert sub["status"] == "pass", f"unanchored regex(es): {sub['violations']}"
+
+    def test_run_all_clean_on_real_codebase(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True, f"routes inventory has open drift: {result['summary']}"
+
+    def test_preflight_includes_routes_inventory(self):
+        from scripts.web import _compute_preflight_uncached
+
+        pf = _compute_preflight_uncached()
+        ids = [c["id"] for c in pf["checks"]]
+        assert "routes_inventory" in ids, f"preflight missing routes_inventory check: {ids}"
+
+    def test_preflight_routes_inventory_has_required_fields(self):
+        from scripts.web import _compute_preflight_uncached
+
+        pf = _compute_preflight_uncached()
+        check = next(c for c in pf["checks"] if c["id"] == "routes_inventory")
+        for k in ("id", "name", "status", "message", "details", "jump_to"):
+            assert k in check, f"preflight check missing {k!r}"
+        assert check["status"] in ("pass", "warn", "fail")
+        assert check["jump_to"] == "/preflight"
+
+    def test_discovery_handles_synthetic_web_py(self, tmp_path):
+        # Pin: discovery is regex-based; verify it correctly
+        # picks up both literal and regex route patterns from a
+        # tiny synthetic do_GET / do_POST.
+        from scripts import check_routes
+
+        synth = tmp_path / "synth_web.py"
+        synth.write_text(
+            "import re\n\n"
+            "class H:\n"
+            "    def do_GET(self):\n"
+            '        path = "/foo"\n'
+            '        if path == "/foo":\n'
+            "            return\n"
+            '        if path == "/bar" or path == "/bar.html":\n'
+            "            return\n"
+            '        m = re.match(r"^/api/x/([a-z]+)$", path)\n'
+            "        if m:\n"
+            "            return\n\n"
+            "    def do_POST(self):\n"
+            '        m = re.match(r"^/api/upload$", self.path)\n'
+            "        if m:\n"
+            "            return\n",
+            encoding="utf-8",
+        )
+        routes = check_routes.discover_routes(web_py_path=synth)
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("GET", "/foo", False) in keys
+        assert ("GET", "/bar", False) in keys
+        assert ("GET", "/bar.html", False) in keys  # alias picked up
+        assert ("GET", "/api/x/([a-z]+)$", True) in keys
+        assert ("POST", "/api/upload$", True) in keys
