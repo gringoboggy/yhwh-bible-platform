@@ -4,6 +4,91 @@
 
 ## Prior task
 
+**ω.35-A.4 querystring-bearing routes table** shipped
+2026-05-11. Third slice of the audit ARCH-01 route-table
+migration.
+
+`scripts/web.py:_QS_REGEX_GET_ROUTES` (new, module scope below
+`_REGEX_GET_ROUTES`): table of `(regex, lambda m, qs:
+handler(...))` for GET routes that parse the URL querystring.
+3 routes migrated:
+- /api/snapshots/<ed>/<ver>/diff (qs.against)
+- /api/audit-log (qs.n)
+- /api/diff (qs.a, qs.b with defaults)
+
+`Handler.do_GET` extended with a third dispatch loop after
+`_REGEX_GET_ROUTES`. The 3 legacy branches deleted with
+`# ω.35-A.4 — migrated` breadcrumbs.
+
+**+8 tests** in `TestOmega35A4QsRegexGetTable` including a
+regression pin for a substring-collision bug caught and fixed
+mid-phase.
+
+### Bug caught + fixed mid-phase
+
+`"_REGEX_GET_ROUTES" in "_QS_REGEX_GET_ROUTES"` is True
+(substring match). In `check_routes.discover_routes`, the
+REGEX-table check fired first on the QS table's declaration
+line, setting the wrong state flag. Inventory dropped 88 → 85
+before reordering the checks (QS before REGEX). Test:
+`test_substring_collision_dispatch_fixed` asserts the order
+holds — if future code reorders or adds another similar-named
+table, the test catches it.
+
+### Bundled cleanups
+
+- `TestXi13AuditLog.test_audit_log_route_registered` updated
+  to accept both literal-quoted (`"/api/audit-log"`) and
+  regex-pattern (`r"^/api/audit-log$"`) forms. The migration
+  changed the substring shape; the test contract is
+  "registered somehow."
+- `test_verse_of_day_under_budget` adopted
+  `_PYTEST_HARNESS_MULTIPLIER`. 207ms-vs-200ms warm flake
+  under 8-worker xdist OS-file-cache contention; same class
+  as api_matrix.cold; same multiplier applies.
+
+### Migration progress
+
+| Phase | What landed |
+|---|---|
+| ω.35-A   | Discovery + drift linter |
+| ω.35-A.1 | 14 simple GET routes |
+| ω.35-A.2 | 3 regex GET routes + error-translate helper |
+| ω.35-A.3 | 17 legacy branches deleted; api_help_data discovers tables |
+| ω.35-A.4 | 3 querystring routes + bug fixes |
+
+**20 of 88 routes (~23%) now exclusively in tables.**
+Remaining 68 in legacy: payload-reading (PUT/POST/DELETE),
+multipart, custom-output (RSS/YAML/HTML), admin-auth-gated.
+
+### Open follow-ups
+
+- **ω.35-A.5 — PUT / POST / DELETE tables** (1-2 sessions).
+  Mutation routes need admin-auth + payload reading.
+  Probably a 4-tuple table:
+  `(method, regex, handler_with_payload, requires_auth)`.
+- **ω.35-A.6 — custom-output routes** (1 session). RSS feed,
+  YAML export, HTML responses. May need a separate output
+  helper alongside `_dispatch_table_result`.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). Move handlers into per-topic modules.
+- **Perf-test serialization** (~half session). Mark perf
+  tests serial so multiplier can come back to 1.4.
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+88** (1919 baseline → 2007 final).
+15 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1, ω.35-A.2, ω.35-A.3,
+ω.35-A.4. AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.4 ✓ → ω.35-A.5
+PUT/POST/DELETE tables (next) → ω.35-A.6 custom-output →
+ω.35-B file split → ψ.35 matrix collapse.
+
+**2007 / 2007 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.3 delete dead-code legacy branches** shipped
 2026-05-11. Cleanup phase that removes the 17 dead-code
 if/elif branches in `Handler.do_GET` corresponding to routes

@@ -19310,7 +19310,12 @@ class TestXi13AuditLog:
         web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
         text = web_py.read_text(encoding="utf-8")
         assert '"/audit-log"' in text
-        assert '"/api/audit-log"' in text
+        # ω.35-A.4 — /api/audit-log migrated from a legacy
+        # `if path == "/api/audit-log":` branch (literal-quoted form)
+        # to `_QS_REGEX_GET_ROUTES` (regex-pattern form
+        # `r"^/api/audit-log$"`). Both substrings are valid proof
+        # of registration; we just need one to be present.
+        assert '"/api/audit-log"' in text or r'r"^/api/audit-log$"' in text
         assert "AUDIT_LOG_HTML" in text
 
     def test_audit_log_console_template_loadable(self):
@@ -24784,3 +24789,111 @@ class TestOmega35A2RegexGetTable:
         assert ("GET", "/api/reading-plans/([a-z0-9_-]+)$", True) in keys
         assert ("GET", "/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$", True) in keys
         assert ("GET", "/api/snapshots/([a-z0-9._-]+)$", True) in keys
+
+
+# ---------- Phase ω.35-A.4 : querystring-bearing routes ---------------
+
+
+class TestOmega35A4QsRegexGetTable:
+    """ω.35-A.4 — third route-table slice covering GET routes that
+    parse the URL querystring. `_QS_REGEX_GET_ROUTES` entries are
+    `(regex, lambda m, qs: handler(...))` — handler takes the
+    regex match + parsed qs dict, returns the response. Dispatch
+    runs through `_dispatch_table_result` for the standard
+    error-translate envelope.
+
+    Migrated routes (legacy branches deleted in same phase):
+    - /api/snapshots/<ed>/<ver>/diff (qs.against)
+    - /api/audit-log (qs.n)
+    - /api/diff (qs.a, qs.b)"""
+
+    def test_qs_table_has_expected_entries(self):
+        from scripts import web
+
+        patterns = [r.pattern for r, _ in web._QS_REGEX_GET_ROUTES]
+        joined = "|".join(patterns)
+        assert "/api/snapshots/" in joined and "/diff" in joined
+        assert "/api/audit-log" in joined
+        assert "/api/diff" in joined
+
+    def test_qs_table_entries_shape(self):
+        from scripts import web
+
+        for entry in web._QS_REGEX_GET_ROUTES:
+            assert isinstance(entry, tuple)
+            assert len(entry) == 2
+            regex_obj, handler = entry
+            assert hasattr(regex_obj, "match"), f"first not a compiled regex: {regex_obj}"
+            assert callable(handler), f"second not callable: {handler}"
+
+    def test_qs_handlers_take_match_and_qs(self):
+        # Smoke-test the audit-log handler with empty qs to confirm
+        # it accepts the (m, qs) signature and produces a dict.
+        from scripts import web
+
+        for regex_obj, handler in web._QS_REGEX_GET_ROUTES:
+            if regex_obj.pattern == r"^/api/audit-log$":
+                m = regex_obj.match("/api/audit-log")
+                assert m is not None
+                result = handler(m, {})
+                assert isinstance(result, dict)
+                break
+        else:
+            raise AssertionError("audit-log entry not found")
+
+    def test_qs_diff_uses_defaults_when_qs_empty(self):
+        from scripts import web
+
+        for regex_obj, handler in web._QS_REGEX_GET_ROUTES:
+            if regex_obj.pattern == r"^/api/diff$":
+                m = regex_obj.match("/api/diff")
+                assert m is not None
+                result = handler(m, {})
+                assert isinstance(result, dict)
+                break
+        else:
+            raise AssertionError("/api/diff entry not found")
+
+    def test_qs_audit_log_respects_n_param(self):
+        from scripts import web
+
+        for regex_obj, handler in web._QS_REGEX_GET_ROUTES:
+            if regex_obj.pattern == r"^/api/audit-log$":
+                m = regex_obj.match("/api/audit-log")
+                result = handler(m, {"n": ["5"]})
+                assert isinstance(result, dict)
+                if "entries" in result:
+                    assert len(result["entries"]) <= 5
+                break
+
+    def test_route_inventory_no_drift_after_qs_migration(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True
+
+    def test_discovery_recognizes_qs_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("GET", "/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/diff$", True) in keys
+        assert ("GET", "/api/audit-log$", True) in keys
+        assert ("GET", "/api/diff$", True) in keys
+
+    def test_substring_collision_dispatch_fixed(self):
+        # Regression pin: `"_REGEX_GET_ROUTES" in "_QS_REGEX_GET_ROUTES"`
+        # is True (substring); the discovery state machine must
+        # check QS first so the regex-table flag isn't tripped on
+        # the QS table's declaration line. If the order regressed,
+        # the QS routes would silently vanish from the inventory.
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        qs_route_patterns = {
+            r.pattern
+            for r in routes
+            if r.method == "GET" and r.is_regex and r.pattern in ("/api/audit-log$", "/api/diff$")
+        }
+        assert "/api/audit-log$" in qs_route_patterns
+        assert "/api/diff$" in qs_route_patterns

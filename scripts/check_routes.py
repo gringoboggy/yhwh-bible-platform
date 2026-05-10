@@ -139,6 +139,7 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
     in_method: str | None = None
     in_simple_get_table: bool = False
     in_regex_get_table: bool = False
+    in_qs_regex_get_table: bool = False
     for line_no, line in enumerate(lines, start=1):
         # ω.35-A.1 — track the `_SIMPLE_GET_ROUTES` table opening
         # so its `(path, handler)` tuples register as GET routes.
@@ -153,6 +154,31 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
             # End of table on a closing `]`
             if line.strip().startswith("]"):
                 in_simple_get_table = False
+            continue
+
+        # ω.35-A.4 — track the `_QS_REGEX_GET_ROUTES` table
+        # opening. CHECKED BEFORE `_REGEX_GET_ROUTES` because the
+        # latter's name is a substring of the former — substring
+        # `in` would otherwise fire on the QS table's declaration
+        # line and trigger the wrong branch.
+        # Each entry is multi-line:
+        #     (
+        #         re.compile(r"^/api/foo/(...)$"),
+        #         lambda m, qs: api_foo(...),
+        #     ),
+        # So we look specifically for a line that contains
+        # `re.compile(r"^...")` while inside the block.
+        if "_QS_REGEX_GET_ROUTES" in line and "[" in line:
+            in_qs_regex_get_table = True
+            continue
+        if in_qs_regex_get_table:
+            rx = re.match(r'\s*re\.compile\(\s*r"\^([^"]+)"\s*\)\s*,?\s*$', line)
+            if rx:
+                table_routes.append(Route(method="GET", pattern=rx.group(1), is_regex=True, line=line_no))
+                continue
+            # End of table on a closing `]` at start of line
+            if line.strip().startswith("]"):
+                in_qs_regex_get_table = False
             continue
 
         # ω.35-A.2 — track the `_REGEX_GET_ROUTES` table opening

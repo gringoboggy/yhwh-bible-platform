@@ -6,6 +6,134 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.4 querystring-bearing routes table (third route-table slice)
+
+**Phases shipped:** ω.35-A.4. Widens the route-table migration
+to cover GET routes that parse the URL querystring. The legacy
+cascade had this 7-line boilerplate inlined 6+ times:
+`qs = urllib.parse.parse_qs(url.query or "")` →
+`arg = (qs.get("name") or ["default"])[0]` → handler call →
+optional error-translate → send_json. Now consolidated into
+one `(regex, lambda m, qs: handler(...))` table entry per route.
+**Test delta:** +8 (was 1999, now 2007; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `_QS_REGEX_GET_ROUTES` table in `scripts/web.py` (module
+  scope, just below `_REGEX_GET_ROUTES`). Each entry is
+  `(re.compile(r"^..."), lambda m, qs: handler(...))` —
+  handler takes the regex match + parsed qs dict, returns
+  the response dict. 3 routes migrated:
+  - `/api/snapshots/<ed>/<ver>/diff` (qs.against →
+    `api_snapshot_diff(g1, g2, against_version=against)`)
+  - `/api/audit-log` (qs.n → `api_audit_log(n=n)`)
+  - `/api/diff` (qs.a, qs.b with sensible defaults →
+    `api_edition_diff(a, b)`)
+- `Handler.do_GET` extended with a third dispatch loop after
+  `_REGEX_GET_ROUTES`: iterate `_QS_REGEX_GET_ROUTES`, on
+  first match parse `urllib.parse.parse_qs(url.query)`, call
+  `handler(m, qs)`, route through `_dispatch_table_result`
+  for the standard error-translate envelope.
+- Deleted the 3 legacy if/elif branches (snapshots-diff,
+  audit-log, diff) — replaced with single-line
+  `# ω.35-A.4 — migrated to _QS_REGEX_GET_ROUTES` breadcrumbs.
+- `scripts/check_routes.py` extended:
+  - new `in_qs_regex_get_table` state machine + inline regex
+    matching the `re.compile(r"^...")` line inside a multi-
+    line `(regex, handler)` tuple
+  - **CRITICAL: QS check ordered BEFORE the `_REGEX_GET_ROUTES`
+    check.** `"_REGEX_GET_ROUTES" in "_QS_REGEX_GET_ROUTES"`
+    is True (substring), so checking REGEX first would set the
+    wrong flag on the QS table's declaration line and silently
+    lose the 3 routes from inventory. Caught + fixed during
+    smoke-test (route count dropped 88 → 85 before reorder;
+    back to 88 after).
+- `_ROUTE_PATTERNS` in `api_help_data` extended with a 5th
+  pattern matching the standalone `re.compile(r"^...$")` line
+  shape that appears INSIDE `_QS_REGEX_GET_ROUTES` multi-line
+  entries (vs the inline 1-line `(re.compile(...), handler)`
+  tuples in `_REGEX_GET_ROUTES`). Keeps /apihelp's route
+  inventory accurate.
+- 8 new tests in `TestOmega35A4QsRegexGetTable`: table entries
+  pinned + well-formed, handlers accept (m, qs) signature,
+  `/api/diff` defaults baked in, `/api/audit-log` respects
+  qs.n, inventory zero-drift, discovery picks up QS table,
+  substring-collision regression pin (asserts the dispatch
+  reorder holds).
+
+### Bundled cleanups (each caught + fixed within the phase)
+
+- **`TestXi13AuditLog.test_audit_log_route_registered`
+  updated.** The test asserted the literal substring
+  `'"/api/audit-log"'` (with quotes) was in web.py source.
+  After migration, the path appears as `r"^/api/audit-log$"`
+  (regex form). Updated the assertion to accept EITHER form
+  (`'"/api/audit-log"' in text or r'r"^/api/audit-log$"' in
+  text`) with documentation of why.
+- **`test_verse_of_day_under_budget` adopted
+  `_PYTEST_HARNESS_MULTIPLIER`.** The xdist run flaked at
+  207ms vs the 200ms 1.0× warm budget. verse_of_day walks
+  notes_io per book to pick a deterministic daily headline;
+  under 8-worker OS-file-cache contention the walk
+  occasionally spikes. Same harness class as api_matrix.cold;
+  applied the same multiplier with documented rationale.
+
+### Migration progress
+
+| Phase | What landed |
+|---|---|
+| ω.35-A   | Discovery + drift linter |
+| ω.35-A.1 | 14 simple GET routes table-dispatched |
+| ω.35-A.2 | 3 regex GET routes + error-translate helper |
+| ω.35-A.3 | 17 legacy branches deleted; api_help_data discovers tables |
+| ω.35-A.4 | 3 querystring routes table-dispatched + bug fixes |
+
+20 of 88 routes (~23%) now exclusively in tables. Remaining
+68 in legacy: payload-reading (PUT/POST/DELETE), multipart,
+custom-output (RSS/YAML/HTML), admin-auth-gated, and a few
+GET routes with custom logic that don't fit the
+table-handler shape.
+
+### Notable decisions
+
+- **Lambda handlers as `lambda m, qs: api_X(...)`.** Each
+  per-route boilerplate stays visible at the registration
+  site (vs a separate `_route_*` adapter function per route).
+  Pythonic; reads naturally. If a handler gets more than
+  3-4 lines of qs unpacking, it can be hoisted to a named
+  function — but for the 3 routes migrated, the inline form
+  is clearest.
+- **Lowering the substring-collision bug into a regression
+  test.** `test_substring_collision_dispatch_fixed` asserts
+  the QS-before-REGEX check order holds. If a future Claude
+  reorders them (or adds another table whose name contains
+  `_REGEX_GET_ROUTES` as a substring), the test catches it.
+- **Same `_dispatch_table_result` helper used for all three
+  tables.** No new error-translation code; the helper
+  introduced in ω.35-A.2 generalizes cleanly.
+
+### Continuity pointers
+
+- `scripts/web.py:_QS_REGEX_GET_ROUTES` (new table, module
+  scope) + `do_GET` (third dispatch loop) + 3 legacy
+  branches deleted with breadcrumbs.
+- `scripts/check_routes.py:_REGEX_TABLE_ENTRY_RE` neighbors +
+  new `in_qs_regex_get_table` state machine ordered BEFORE
+  `_REGEX_GET_ROUTES` (substring-collision fix).
+- `scripts/web.py:_ROUTE_PATTERNS` — 5th pattern for the
+  multi-line QS table entries.
+- `tests/test_scripts.py:TestOmega35A4QsRegexGetTable` (8
+  tests including the substring-collision regression pin).
+- `tests/test_perf.py:test_verse_of_day_under_budget` —
+  adopted `_PYTEST_HARNESS_MULTIPLIER`.
+- AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.4 ✓ → **ω.35-A.5
+  PUT/POST/DELETE tables** (next; mutation routes that need
+  admin-auth + payload reading) → ω.35-B file split → ψ.35
+  matrix data-model collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.3 delete dead-code legacy branches (audit ARCH-01 cleanup)
 
 **Phases shipped:** ω.35-A.3. Deleted the dead-code legacy

@@ -1,6 +1,39 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.3 delete dead-code
+**Updated:** 2026-05-11, after **ω.35-A.4 querystring-bearing
+routes table** shipped — third route-table slice. New
+`_QS_REGEX_GET_ROUTES` table covers GET routes that parse the
+URL querystring; each entry is
+`(re.compile(r"^..."), lambda m, qs: handler(...))` and runs
+through the existing `_dispatch_table_result` helper. 3 routes
+migrated: /api/snapshots/<ed>/<ver>/diff (qs.against),
+/api/audit-log (qs.n), /api/diff (qs.a/qs.b with sensible
+defaults). Legacy branches deleted (replaced with breadcrumbs).
+**+8 tests** in `TestOmega35A4QsRegexGetTable` including a
+regression pin for the substring-collision bug caught and
+fixed mid-phase. The bug: `"_REGEX_GET_ROUTES" in
+"_QS_REGEX_GET_ROUTES"` is True (substring), so checking
+REGEX first would set the wrong state flag on the QS table's
+declaration line. Inventory dropped 88 → 85 before the
+reorder; 88 after. Bundled cleanups (also mid-phase):
+`TestXi13AuditLog.test_audit_log_route_registered` updated
+to accept both literal-quoted and regex-pattern forms;
+`test_verse_of_day_under_budget` adopted
+`_PYTEST_HARNESS_MULTIPLIER` after a 207ms-vs-200ms flake
+(same xdist OS-file-cache contention class as api_matrix.cold).
+Migration progress: 20/88 routes (~23%) now exclusively in
+tables. Remaining 68 in legacy: payload-reading (PUT/POST/
+DELETE), multipart, custom-output, admin-auth-gated. Net
+session test delta: **+88** (1919 baseline → 2007 final).
+15 phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1,
+Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1, ω.35-A.2,
+ω.35-A.3, ω.35-A.4. AUDIT §7 sequence: ω.35-A.4 ✓ →
+**ω.35-A.5** PUT/POST/DELETE tables (next; mutation routes
+that also need admin-auth + payload reading) → ω.35-B file
+split → ψ.35 matrix data-model collapse. **2007 / 2007 tests
+green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.3 delete dead-code
 legacy branches** shipped. Cleanup phase that removes 17 dead
 if/elif branches in `Handler.do_GET` corresponding to the 17
 routes already table-dispatched via `_SIMPLE_GET_ROUTES` /

@@ -5298,6 +5298,12 @@ _ROUTE_PATTERNS = [
     # Strip leading `^` and trailing `$` to align with /apihelp's
     # human-friendly path display.
     (re.compile(r'^\s*\(\s*re\.compile\(\s*r"\^(/api/[^"$]+)\$"\s*\)\s*,'), "PATTERN"),
+    # ω.35-A.4 — also discover `_QS_REGEX_GET_ROUTES` table entries.
+    # The pattern is on its own line inside the multi-line entry:
+    #     re.compile(r"^/api/foo$"),
+    # Same regex as ω.35-A.3 but anchored to a standalone line
+    # (entries in _REGEX_GET_ROUTES are single-line tuples).
+    (re.compile(r'^\s*re\.compile\(\s*r"\^(/api/[^"$]+)\$"\s*\)\s*,?\s*$'), "PATTERN"),
 ]
 
 # Console-page routes (HTML, not API). These get listed separately
@@ -6298,6 +6304,54 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
 ]
 
 
+# ω.35-A.4 (2026-05-11) — third slice of the route-table migration.
+# `_QS_REGEX_GET_ROUTES` covers GET routes that need to parse the
+# URL's querystring before calling their handler. The legacy
+# cascade had this shape inlined 6+ times:
+#
+#   qs = urllib.parse.parse_qs(url.query or "")
+#   arg = (qs.get("name") or ["default"])[0]
+#   ...
+#   result = api_X(group1, group2, kwarg=arg)
+#   return self._send_json(result)   # or with error-translate
+#
+# The table represents each route as `(regex, handler_with_qs)`
+# where `handler_with_qs` is `Callable[[Match, dict[str, list[str]]], dict]`
+# — takes the regex match and the parsed qs dict, returns the
+# response dict. Most entries use a small `lambda m, qs: api_X(...)`
+# to keep the per-route boilerplate visible.
+#
+# Same dispatch contract as `_REGEX_GET_ROUTES`: order = precedence
+# (more-specific patterns first), runs through
+# `_dispatch_table_result` for the standard error-translation
+# envelope, migrated branches deleted from legacy via ω.35-A.3-style
+# cleanup once the table is proven.
+_QS_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
+    # /api/snapshots/<ed>/<ver>/diff?against=<ver>
+    (
+        re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/diff$"),
+        lambda m, qs: api_snapshot_diff(
+            m.group(1),
+            m.group(2),
+            against_version=(qs.get("against") or [""])[0] or None,
+        ),
+    ),
+    # /api/audit-log?n=<int>
+    (
+        re.compile(r"^/api/audit-log$"),
+        lambda m, qs: api_audit_log(n=(qs.get("n") or ["100"])[0]),
+    ),
+    # /api/diff?a=<ed>&b=<ed> — sensible defaults baked in
+    (
+        re.compile(r"^/api/diff$"),
+        lambda m, qs: api_edition_diff(
+            (qs.get("a") or ["catholic-study"])[0] or "catholic-study",
+            (qs.get("b") or ["evangelical-reformed"])[0] or "evangelical-reformed",
+        ),
+    ),
+]
+
+
 def _dispatch_table_result(handler_self, result: dict) -> None:
     """ω.35-A.2 helper — translate a handler dict result to an HTTP
     response, mirroring the boilerplate that appeared 10+ times in
@@ -6582,6 +6636,19 @@ class Handler(BaseHTTPRequestHandler):
                 result = handler(*m.groups())
                 return _dispatch_table_result(self, result)
 
+        # ω.35-A.4 — regex routes with querystring parsing. Each
+        # handler is `lambda m, qs: api_X(...)` — takes the match
+        # and the parsed querystring dict, returns the response.
+        # Routes through the same `_dispatch_table_result` helper
+        # so the standard error-translate envelope still applies
+        # uniformly.
+        for regex, handler in _QS_REGEX_GET_ROUTES:
+            m = regex.match(path)
+            if m:
+                qs = urllib.parse.parse_qs(url.query or "")
+                result = handler(m, qs)
+                return _dispatch_table_result(self, result)
+
         if path == "/" or path == "/index.html":
             return self._send_html(INDEX_HTML)
         if path == "/matrix" or path == "/matrix.html":
@@ -6595,26 +6662,8 @@ class Handler(BaseHTTPRequestHandler):
         # current tables don't support; ω.35-A.4 will widen the
         # regex table to cover query-bearing routes.
 
-        # ω.16 — edition snapshots. The /<ed>/<ver>/diff route is
-        # the only one left here; /<ed>/<ver> and /<ed> migrated
-        # to `_REGEX_GET_ROUTES`. Order still matters: this
-        # more-specific `.../diff` matcher must precede any
-        # less-specific snapshots route added in future.
-        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/diff$", path)
-        if m:
-            qs = urllib.parse.parse_qs(url.query or "")
-            against = (qs.get("against") or [""])[0] or None
-            result = api_snapshot_diff(
-                m.group(1),
-                m.group(2),
-                against_version=against,
-            )
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
+        # ω.35-A.4 — /api/snapshots/<ed>/<ver>/diff migrated to
+        # _QS_REGEX_GET_ROUTES.
 
         # ψ.27 — YAML export route. Place BEFORE the generic
         # /api/scenarios/<name> matcher so the .yaml suffix is matched
@@ -6771,10 +6820,7 @@ class Handler(BaseHTTPRequestHandler):
         # Mutation Audit Log (Phase ξ.13)
         if path == "/audit-log" or path == "/audit-log.html":
             return self._send_html(AUDIT_LOG_HTML)
-        if path == "/api/audit-log":
-            qs = urllib.parse.parse_qs(url.query or "")
-            n_raw = (qs.get("n") or ["100"])[0]
-            return self._send_json(api_audit_log(n=n_raw))
+        # ω.35-A.4 — /api/audit-log migrated to _QS_REGEX_GET_ROUTES.
 
         # Per-note disable list for one edition (Phase ρ.1)
         m = re.match(r"^/api/edition/([a-z0-9-]+)/disabled-notes$", path)
@@ -6793,16 +6839,7 @@ class Handler(BaseHTTPRequestHandler):
         # Edition Diff View (Phase ξ.5) — read-only sales/demo tool
         if path == "/diff" or path == "/diff.html":
             return self._send_html(DIFF_HTML)
-        if path == "/api/diff":
-            qs = urllib.parse.parse_qs(url.query or "")
-            a = (qs.get("a") or [""])[0]
-            b = (qs.get("b") or [""])[0]
-            # Sensible defaults for the buyer-demo headline
-            if not a:
-                a = "catholic-study"
-            if not b:
-                b = "evangelical-reformed"
-            return self._send_json(api_edition_diff(a, b))
+        # ω.35-A.4 — /api/diff migrated to _QS_REGEX_GET_ROUTES.
 
         # Translation comparison view (Phase ψ.4) — read-only side-
         # by-side renderer. Buyer demo without needing a full EPUB.
