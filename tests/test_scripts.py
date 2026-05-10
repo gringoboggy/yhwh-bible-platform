@@ -24147,3 +24147,84 @@ class TestDelta7NotesIoInvalidationHook:
         notes_io.atomic_write(lookalike, "NOTES = ()\n")
 
         assert corpus_index._FINGERPRINT_CACHE == sentinel
+
+
+# ---------- Phase Δ.2.1 : api_search_notes wire flip ------------------
+
+
+class TestDelta21SearchWireFlip:
+    """Δ.2.1 — `web.api_search_notes` delegates to
+    `corpus_index.search()` (the Δ.2 indexed path) instead of
+    `note_search.search_notes()` (file-walk). The Δ.2 equivalence
+    pin already confirms identical results across the real corpus;
+    these tests verify the wire actually routes through the
+    indexed path and the response shape is preserved."""
+
+    def test_api_search_notes_routes_through_corpus_index(self, monkeypatch):
+        # The wire flip in one assertion: api_search_notes must
+        # invoke corpus_index.search() (NOT note_search.search_notes).
+        from scripts import web
+        from scripts.core import corpus_index
+
+        called = {"corpus_index_search": 0}
+        original = corpus_index.search
+
+        def counting_search(*args, **kwargs):
+            called["corpus_index_search"] += 1
+            return original(*args, **kwargs)
+
+        monkeypatch.setattr(corpus_index, "search", counting_search)
+        result = web.api_search_notes("covenant", limit=5)
+        assert result["status"] == "ok"
+        assert called["corpus_index_search"] == 1, (
+            f"api_search_notes must call corpus_index.search() exactly once (actual: {called['corpus_index_search']})"
+        )
+
+    def test_api_search_notes_preserves_response_shape(self):
+        # Post-flip: status / query / filters / total / hits / limit
+        # all still present and well-formed.
+        from scripts import web
+
+        result = web.api_search_notes("covenant", limit=5)
+        assert result["status"] == "ok"
+        assert result["query"] == "covenant"
+        assert "filters" in result
+        assert "total" in result
+        assert "hits" in result
+        assert "limit" in result
+        assert result["limit"] == 5
+        # When hits exist, every hit is enriched with kind/category metadata.
+        for h in result["hits"]:
+            assert "kind_label" in h, "hit missing kind_label (enrichment broke?)"
+            assert "category" in h
+            assert "category_label" in h
+            assert "category_symbol" in h
+            # Indexed path returns dict shape directly — must
+            # carry the same keys SearchHit.to_dict() did.
+            for k in ("book_code", "chapter", "verse", "kind", "title", "label", "excerpt", "score"):
+                assert k in h, f"hit missing {k} post-flip"
+
+    def test_api_search_notes_edition_filter_still_works(self):
+        # Edition filter narrows by enabled-kinds; must still work
+        # through the indexed path.
+        from scripts import web
+
+        unfiltered = web.api_search_notes("covenant", limit=200)
+        # jewish-study has a smaller enabled-kinds set than the
+        # full corpus, so its filtered total must be ≤ unfiltered.
+        filtered = web.api_search_notes("covenant", edition_id="jewish-study", limit=200)
+        assert filtered["status"] == "ok"
+        assert filtered["total"] <= unfiltered["total"], (
+            f"edition filter should not increase hit count; "
+            f"unfiltered={unfiltered['total']} jewish-study={filtered['total']}"
+        )
+        assert filtered["filters"]["edition_id"] == "jewish-study"
+
+    def test_api_search_notes_kind_filter_still_works(self):
+        from scripts import web
+
+        # Pick a kind that exists in the corpus.
+        result = web.api_search_notes("covenant", kind="comm", limit=200)
+        assert result["status"] == "ok"
+        for h in result["hits"]:
+            assert h["kind"] == "comm", f"kind filter leaked: got kind={h['kind']!r}"

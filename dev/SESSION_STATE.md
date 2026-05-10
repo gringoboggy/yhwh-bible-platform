@@ -1,6 +1,32 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **Δ.4.1 + Δ.7 attempt #5 SHIPPED**
+**Updated:** 2026-05-11, after **Δ.2.1 api_search_notes wire flip**
+shipped (DERIVED-INDEX cluster). Second consumer wire flip after
+Δ.4.1 cleared the path. `web.api_search_notes` now delegates to
+`corpus_index.search()` instead of `note_search.search_notes()`;
+the indexed path returns the same dict shape natively
+(equivalence pinned by Δ.2's `test_search_equivalence_with_file_walk_for_real_corpus`)
+so the hit-enrichment loop iterates dicts directly without
+`SearchHit.to_dict()` translation. Clean ship on first try —
+the Δ.6/Δ.8/Δ.9 unblockers + conftest fixtures + atomic replace
+that took 5 attempts on Δ.4.1 made this one transparent. **+4
+tests** in `TestDelta21SearchWireFlip`: routes-through-corpus_index
+(mock-counter), response-shape preserved, edition filter still
+narrows, kind filter still pins. Existing 5 shape-contract tests
+in `TestUpsilon3SourcesSearch` continue to pass unchanged.
+Performance: file-walk ~3s cold; indexed ≥3× faster per Δ.2's
+existing perf pin; cold-cache cost amortized via Δ.9 +
+session-scoped warm-up. Net session test delta: **+46** (1919
+baseline → 1965 final). The Δ-family is now wire-flipped at TWO
+consumers (matrix + search). **Two deferred flips remain** —
+Δ.3.1 (attribution audit), Δ.5.1 (dashboard_stats), each same
+shape and same one-session ship. AUDIT_2026-05-11 §7 sequence:
+Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓) → Δ.4.1 (✓) → Δ.2.1 (✓ this turn)
+→ Δ.3.1 / Δ.5.1 (next) → ω.35 web.py route table → ψ.35
+matrix data-model collapse. **1965 / 1965 tests green (1
+skipped); 11/11 linter clean.**
+
+Prior ship in same session: **Δ.4.1 + Δ.7 attempt #5 SHIPPED**
 (DERIVED-INDEX cluster). After **four prior reverts**, the
 matrix wire flip finally landed cleanly. `matrix.compute_matrix()`
 body now `return corpus_index.compute_matrix_indexed()` (1-line

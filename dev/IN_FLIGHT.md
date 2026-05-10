@@ -4,6 +4,65 @@
 
 ## Prior task
 
+**Δ.2.1 api_search_notes wire flip** shipped 2026-05-11
+(DERIVED-INDEX cluster). Second consumer wire flip after Δ.4.1
+cleared the path. Clean ship on first try — the Δ.6/Δ.8/Δ.9
+infrastructure + conftest fixtures made this transparent.
+
+`web.api_search_notes()` body changed from
+`from scripts.core.note_search import search_notes` +
+`hits = search_notes(q, ...)` to
+`from scripts.core import corpus_index` +
+`hits = corpus_index.search(q, ...)`. The indexed path returns
+the same dict shape natively (no `SearchHit.to_dict()`
+translation needed); equivalence pinned by Δ.2's
+`test_search_equivalence_with_file_walk_for_real_corpus`.
+
+**+4 tests** in `TestDelta21SearchWireFlip`:
+- routes through `corpus_index.search()` (mock-counter; exactly
+  1 call per api_search_notes invocation)
+- response shape preserved (status / query / filters / total /
+  hits / limit + every hit dict carries kind_label / category /
+  category_label / category_symbol enrichment + 8 base keys)
+- edition filter still narrows (jewish-study ≤ unfiltered)
+- kind filter still pins (no leakage)
+
+Existing 5 shape-contract tests in `TestUpsilon3SourcesSearch`
+continue to pass unchanged — the wire flip is transparent at
+the response-shape level.
+
+Performance: file-walk ~3s cold; indexed ≥3× faster per Δ.2's
+existing perf pin. Cold-cache cost amortized via Δ.9 (server
+warm-up) + conftest session-scoped warm-up fixture.
+
+The Δ-family is now wire-flipped at TWO consumers:
+- ✓ matrix (Δ.4.1 attempt #5)
+- ✓ search (Δ.2.1, this turn)
+
+**Two more deferred wire flips remain — natural next phases:**
+- **Δ.3.1** — flip `web.api_attribution_audit` to call
+  `corpus_index.audit_attribution()` (Δ.3's indexed path).
+- **Δ.5.1** — flip `dashboard.gather_stats` to call
+  `corpus_index.dashboard_stats()` (Δ.5's indexed path).
+
+Each is the same shape (one-line body change in the public
+function) and benefits from the same Δ.6-Δ.9 unblockers
+attempt #5 + Δ.2.1 already paid for.
+
+Net session test delta: **+46** (1919 baseline → 1965 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1. Phases reverted+cleaned-up: Δ.4.1 + Δ.7 attempts #3, #4
+(documented learning in CHANGELOG). AUDIT_2026-05-11 written.
+SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓) →
+Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1 / Δ.5.1 (next) → ω.35 web.py
+route table → ψ.35 matrix data-model collapse.
+
+**1965 / 1965 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **Δ.4.1 + Δ.7 attempt #5 — SHIPPED** (DERIVED-INDEX cluster).
 After **four prior reverts**, the matrix wire flip finally
 landed cleanly. `matrix.compute_matrix()` body now

@@ -1448,11 +1448,19 @@ def api_search_notes(
     book: str | None = None,
     limit: int = 100,
 ) -> dict:
-    """Pure-function wrapper around `scripts.core.note_search.search_notes`.
+    """Pure-function wrapper that returns matching notes for the
+    given query, optionally filtered by edition / kind / book.
 
-    Translates `SearchHit` records to JSON-friendly dicts and adds
-    kind/category labels so the UI can render results without a
-    second round-trip to /api/matrix.
+    Δ.2.1 (2026-05-11) — wire flipped from
+    `scripts.core.note_search.search_notes` (file-walk) to
+    `scripts.core.corpus_index.search` (indexed). The Δ.2
+    equivalence pin (`test_search_equivalence_with_file_walk_for_real_corpus`)
+    confirms identical hit counts + identical top-5 tuples
+    across the real corpus; the indexed path serves the same
+    dict shape directly (no `SearchHit.to_dict()` translation
+    needed). Empirical: file-walk ~3s cold on 51K notes;
+    indexed ≥3× faster (per Δ.2's perf pin) and reads from the
+    warm sqlite served by the Δ.6 fingerprint cache.
 
     Returns:
         ``{"status": "ok", "query": str, "filters": {...},
@@ -1460,7 +1468,7 @@ def api_search_notes(
         ``{"status": "error", "code": ..., "http": 400, "message": ...}``
         on bad input.
     """
-    from scripts.core.note_search import search_notes
+    from scripts.core import corpus_index
 
     q = (query or "").strip()
     if not q:
@@ -1488,7 +1496,7 @@ def api_search_notes(
         cap = 100
     cap = max(1, min(cap, 500))
 
-    hits = search_notes(
+    hits = corpus_index.search(
         q,
         edition_id=edition_id or None,
         kind=kind or None,
@@ -1500,12 +1508,12 @@ def api_search_notes(
     cats_idx = config.categories_by_id()
 
     enriched = []
-    for h in hits:
-        kind_def = kinds_idx.get(h.kind, {})
+    for d in hits:
+        kind_code = d.get("kind", "")
+        kind_def = kinds_idx.get(kind_code, {})
         cat_id = kind_def.get("category", "?")
         cat_def = cats_idx.get(cat_id, {})
-        d = h.to_dict()
-        d["kind_label"] = kind_def.get("label", h.kind)
+        d["kind_label"] = kind_def.get("label", kind_code)
         d["category"] = cat_id
         d["category_label"] = cat_def.get("label", cat_id)
         d["category_symbol"] = cat_def.get("symbol", "?")

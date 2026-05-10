@@ -6,6 +6,90 @@
 
 ---
 
+## 2026-05-11 — session — Δ.2.1 api_search_notes wire flip (DERIVED-INDEX cluster)
+
+**Phases shipped:** Δ.2.1. Second consumer wire flip (after
+Δ.4.1 cleared the path) — `web.api_search_notes` now delegates
+to `corpus_index.search()` instead of
+`note_search.search_notes()`. Clean ship on first try; the
+Δ.6/Δ.8/Δ.9 unblockers + conftest fixtures + atomic replace
+that took 5 attempts on Δ.4.1 made this one transparent.
+**Test delta:** +4 (was 1961, now 1965; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `scripts/web.py:api_search_notes()` body changed from
+  `from scripts.core.note_search import search_notes` +
+  `hits = search_notes(q, ...)` (file-walk, returns
+  `list[SearchHit]`) to
+  `from scripts.core import corpus_index` +
+  `hits = corpus_index.search(q, ...)` (indexed, returns
+  `list[dict]`).
+- The hit enrichment loop now iterates dicts directly — no
+  `SearchHit.to_dict()` translation needed because
+  `corpus_index.search()` produces the dict shape natively.
+  Same keys (`book_code`, `chapter`, `verse`, `suffix`,
+  `anchor`, `kind`, `title`, `label`, `excerpt`,
+  `attribution`, `score`); equivalence pinned by Δ.2's
+  `test_search_equivalence_with_file_walk_for_real_corpus`.
+- Docstring rewritten to document the wire flip and the Δ.2
+  equivalence pin's role in confirming behavioral
+  equivalence.
+
+Tests (`TestDelta21SearchWireFlip`, +4):
+
+- `api_search_notes` routes through `corpus_index.search()`
+  (verified by mock-counter assertion: exactly one call per
+  api_search_notes invocation).
+- Response shape preserved: `status` / `query` / `filters` /
+  `total` / `hits` / `limit` all present; every hit dict
+  carries `kind_label` / `category` / `category_label` /
+  `category_symbol` enrichment + the 8 base keys.
+- Edition filter still narrows results (jewish-study total
+  ≤ unfiltered total).
+- Kind filter still pins one kind code (no leakage).
+
+Performance: file-walk path measured ~3s cold; indexed path
+≥3× faster per Δ.2's `test_search_index_faster_than_file_walk`.
+After Δ.9 + conftest session warm-up, the cold-cache cost is
+paid at startup, so callers see consistent fast queries.
+
+Notable decisions:
+
+- **No new tests for response-equivalence to file-walk.** The
+  Δ.2 equivalence pin
+  (`test_search_equivalence_with_file_walk_for_real_corpus`,
+  shipped 2026-05-10) already exercises the indexed path's
+  return shape against `note_search.search_notes()` for sample
+  queries (`covenant`, `manger`, `Adam`). The wire flip is
+  transparent because the indexed path's output dict ⊇ the
+  file-walk path's `SearchHit.to_dict()` shape.
+- **Existing api_search_notes tests preserved.** The 5
+  shape-contract tests in `TestUpsilon3SourcesSearch` (status
+  ok / blank query empty / too-long query rejected / limit
+  clamp / metadata enriched) all continue to pass post-flip
+  unchanged.
+- **No `force=True` in the new tests.** Same convention as
+  Δ.5/Δ.6 — `corpus_index.invalidate() + rebuild()` is the
+  correct path, never `rebuild(force=True)` (which races on
+  Windows xdist per the Δ.4.1 history).
+
+Continuity pointers:
+
+- `scripts/web.py:api_search_notes` (around line 1443) — the
+  flipped wire.
+- `tests/test_scripts.py:TestDelta21SearchWireFlip` (4 tests
+  at end of file).
+- The Δ-family is now wire-flipped at TWO consumers (matrix +
+  search). **Two more deferred wire flips remain**: Δ.3.1
+  (attribution audit), Δ.5.1 (dashboard_stats). Each is the
+  same shape (one-line body change in the public function)
+  and benefits from the same Δ.6-Δ.9 unblockers. Should each
+  be a single-session ship.
+
+---
+
 ## 2026-05-11 — session — Δ.4.1 + Δ.7 attempt #5 — SHIPPED (DERIVED-INDEX cluster)
 
 **Phases shipped:** Δ.4.1 (matrix wire flip) + Δ.7 (notes_io
