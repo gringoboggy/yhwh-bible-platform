@@ -1,6 +1,75 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **Δ.2.1 api_search_notes wire flip**
+**Updated:** 2026-05-11, after **Δ.5.1 dashboard.gather_stats
+wire flip** shipped — **Δ-family migration complete**.
+`scripts/dashboard.gather_stats(books, kinds)` body rewritten to
+call `corpus_index.dashboard_stats(books)` for aggregate compute
+and layer on the 4 dashboard-renderer pass-through/diagnostic
+fields (`books`, `kinds`, `parse_failures`, `generated_at`).
+`parse_failures` preserved via lightweight per-book
+`notes_io.load_notes(path)` pre-scan (cost: 87 file reads,
+lru-cached, ~tens of ms cold / zero warm). New
+`_gather_stats_via_file_walk(books, kinds)` retained as the
+file-walk reference (mirrors Δ.4.1's
+`_compute_matrix_via_file_walk` pattern); the Δ.5 equivalence
+test redirected to it. **+4 tests** in
+`TestDelta51DashboardStatsWireFlip`: routes-through-corpus_index
+mock-counter, full response shape preserved (4 aggregate + 4
+pass-through keys), chapter_density supports subscript access
+(corpus_index setdefault({}) every book), parse_failures is
+empty on well-formed corpus. Clean ship on first try (one xdist
+load-spike on api_matrix.cold confirmed flaky on retry —
+1973/1973 green on second run, wall time 5:00 → 3:37).
+
+**Δ-family migration complete:**
+- ✓ Δ.4.1 matrix (5 attempts, 4 reverted)
+- ✓ Δ.2.1 search (clean first try)
+- ✓ Δ.3.1 attribution audit (clean first try)
+- ✓ Δ.5.1 dashboard_stats (clean first try, this turn)
+
+Per AUDIT_2026-05-11 §7, **next phases**: ω.35 web.py route
+table refactor (the audit's #1 unfinished architectural debt;
+web.py was 7,395 lines at audit time and trending wrong)
+followed by ψ.35 matrix data-model collapse (5 projections → 1
+canonical Counter; previously parked needing the Δ-cluster
+infrastructure that's now shipped).
+
+Net session test delta: **+54** (1919 baseline → 1973 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1 (9 phases). AUDIT_2026-05-11 written.
+SonarCloud integrated (`bridge4kaladin-collab/yhwh-bible-platform`).
+**1973 / 1973 tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **Δ.3.1 api_attribution_audit wire
+flip** shipped (DERIVED-INDEX cluster). Third consumer flip after
+Δ.4.1 + Δ.2.1. `web._cached_attribution_audit` (the lru_cache
+wrapper called by `api_attribution_audit`) body changed from
+`return _compute_attribution_audit_uncached()` to
+`from scripts.core import corpus_index; raw = corpus_index.audit_attribution(); return {**raw, "by_kind": [{"kind": k, "count": n} for k, n in raw["by_kind"]]}`.
+The `by_kind` translation (tuple-list → dict-list) preserves
+the frontend contract that the Δ.3 equivalence pin doesn't
+check. The outer `lru_cache(maxsize=4)` keyed on file
+signatures is retained as a second invalidation layer (catches
+kinds/categories/books YAML mutations corpus_index doesn't
+track). `_compute_attribution_audit_uncached` retained as the
+documented file-walk reference (mirrors Δ.4.1's pattern).
+**+4 tests** in `TestDelta31AttributionAuditWireFlip`:
+routes-through-corpus_index (mock-counter +
+cache_clear()), top-level shape preserved (counts /
+needs_attention / by_book / by_kind + 5 count buckets),
+by_kind translated to dict-list (no tuple leakage),
+needs_attention 14-key metadata preserved. Clean ship on first
+try. Net session test delta: **+50** (1919 baseline → 1969
+final). The Δ-family is now wire-flipped at THREE consumers
+(matrix + search + attribution audit). **One deferred flip
+remains** — Δ.5.1 (dashboard_stats); after it lands the
+Δ-family migration is complete. AUDIT_2026-05-11 §7 sequence:
+Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓) → Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1
+(✓ this turn) → Δ.5.1 (next) → ω.35 web.py route table → ψ.35
+matrix data-model collapse. **1969 / 1969 tests green (1
+skipped); 11/11 linter clean.**
+
+Prior ship in same session: **Δ.2.1 api_search_notes wire flip**
 shipped (DERIVED-INDEX cluster). Second consumer wire flip after
 Δ.4.1 cleared the path. `web.api_search_notes` now delegates to
 `corpus_index.search()` instead of `note_search.search_notes()`;

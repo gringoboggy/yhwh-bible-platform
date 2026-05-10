@@ -134,7 +134,25 @@ def _notes_dir_signature() -> tuple:
 # wrapper is small; the heavy lifting stays in the public endpoint.
 @functools.lru_cache(maxsize=4)
 def _cached_attribution_audit(notes_sig, kinds_sig, cats_sig, books_sig):
-    return _compute_attribution_audit_uncached()
+    # Δ.3.1 (2026-05-11) — wire flipped to the indexed path.
+    # `corpus_index.audit_attribution()` produces the same counts +
+    # needs_attention list (Δ.3 equivalence pin confirms identity);
+    # the file-walk reference at `_compute_attribution_audit_uncached`
+    # is retained as the equivalence anchor and a fall-back. The
+    # outer lru_cache(maxsize=4) keyed on file signatures stays —
+    # it adds a second invalidation layer that catches kinds/
+    # categories/books YAML mutations the inner corpus_index doesn't
+    # track directly. The `by_kind` shape translation
+    # (tuple-list → dict-list) preserves the frontend contract:
+    # /audit consumers expect `[{"kind": k, "count": n}]`, not
+    # `[(k, n)]` (which JSON-serializes to `[[k, n]]`).
+    from scripts.core import corpus_index
+
+    raw = corpus_index.audit_attribution()
+    return {
+        **raw,
+        "by_kind": [{"kind": k, "count": n} for k, n in raw["by_kind"]],
+    }
 
 
 @functools.lru_cache(maxsize=16)

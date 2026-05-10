@@ -58,6 +58,54 @@ DEFAULT_HEATMAP_OUT = REPO_ROOT / "coverage_heatmap.html"
 
 
 def gather_stats(books, kinds):
+    """Gather project-wide stats for the dashboard renderer.
+
+    Δ.5.1 (2026-05-11) — wire flipped to
+    `corpus_index.dashboard_stats(books)` for the aggregate
+    compute (per-book / per-kind / chapter_density / total_notes).
+    `_gather_stats_via_file_walk()` is retained as the explicit
+    file-walk reference for the Δ.5 equivalence pin and as a
+    fall-back if the index is unavailable.
+
+    Pass-through fields (`books`, `kinds`, `generated_at`) and the
+    diagnostic `parse_failures` list are added on top of the
+    indexed payload — corpus_index doesn't track parse failures
+    (silently skips bad rows at index build time), so we still
+    do a lightweight pre-scan here via the lru-cached
+    `notes_io.load_notes` to preserve the warning surface for the
+    dashboard footer.
+    """
+    from scripts.core import corpus_index
+
+    # Lightweight parse-failure pre-scan. notes_io.load_notes is
+    # lru-cached on (path, mtime), so 87 reads cost ~tens of ms
+    # cold and zero warm. Preserved so render_footer's parse
+    # warning still fires when a book file is malformed.
+    parse_failures: list[str] = []
+    for book in books:
+        code = book["code"]
+        path = NOTES_DIR / f"{code}.py"
+        if path.is_file() and load_notes(path) is None:
+            parse_failures.append(code)
+
+    raw = corpus_index.dashboard_stats(books)
+    return {
+        **raw,
+        "books": books,
+        "kinds": kinds,
+        "parse_failures": parse_failures,
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+    }
+
+
+def _gather_stats_via_file_walk(books, kinds):
+    """File-walk reference implementation, preserved for the Δ.5
+    equivalence pin (`test_dashboard_stats_equivalent_to_file_walk`)
+    and as a diagnostic fall-back. Mirrors the
+    `_compute_matrix_via_file_walk` pattern from Δ.4.1: keep the
+    explicit reference function under a new name so future
+    Claude can still compare paths.
+    """
     per_book = {}
     per_kind: Counter = Counter()
     chapter_density: dict[str, dict[int, int]] = defaultdict(lambda: defaultdict(int))

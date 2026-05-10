@@ -23509,11 +23509,11 @@ class TestDelta5IndexDashboardStats:
         # for downstream rendering (books, kinds, parse_failures,
         # generated_at) are excluded; they aren't aggregates and the
         # index doesn't compute them.
-        # Deliberately NOT using force=True here — under xdist on
-        # Windows it races with other workers' cached connections
-        # (same failure class that defeated Δ.4.1 wire-flip). The
-        # fingerprint check inside rebuild() already triggers when
-        # the corpus on disk has changed.
+        # Δ.5.1 (2026-05-11): the public `gather_stats` is now
+        # wire-flipped to corpus_index, so this test compares
+        # against the explicit `_gather_stats_via_file_walk`
+        # reference instead. Same pattern as Δ.4.1's
+        # `_compute_matrix_via_file_walk` anchor.
         from scripts import dashboard as dashboard_module
         from scripts.core import config, corpus_index, notes_io
 
@@ -23522,7 +23522,7 @@ class TestDelta5IndexDashboardStats:
 
         books = config.load_books()
         kinds = config.load_kinds()
-        file_walk = dashboard_module.gather_stats(books, kinds)
+        file_walk = dashboard_module._gather_stats_via_file_walk(books, kinds)
         indexed = corpus_index.dashboard_stats(books)
 
         assert file_walk["total_notes"] == indexed["total_notes"]
@@ -24228,3 +24228,190 @@ class TestDelta21SearchWireFlip:
         assert result["status"] == "ok"
         for h in result["hits"]:
             assert h["kind"] == "comm", f"kind filter leaked: got kind={h['kind']!r}"
+
+
+# ---------- Phase Δ.3.1 : api_attribution_audit wire flip --------------
+
+
+class TestDelta31AttributionAuditWireFlip:
+    """Δ.3.1 — `web.api_attribution_audit` (via
+    `_cached_attribution_audit`) delegates to
+    `corpus_index.audit_attribution()` instead of
+    `_compute_attribution_audit_uncached()` (file-walk). The Δ.3
+    equivalence pin already confirms identical `counts` and
+    matching `needs_attention` length + top-3 entries."""
+
+    def test_wire_routes_through_corpus_index(self, monkeypatch):
+        # The wire flip in one assertion: api_attribution_audit
+        # must invoke corpus_index.audit_attribution().
+        from scripts import web
+        from scripts.core import corpus_index
+
+        called = {"corpus_index_audit_attribution": 0}
+        original = corpus_index.audit_attribution
+
+        def counting_audit():
+            called["corpus_index_audit_attribution"] += 1
+            return original()
+
+        monkeypatch.setattr(corpus_index, "audit_attribution", counting_audit)
+        # Clear lru_cache so the wire actually runs
+        web._cached_attribution_audit.cache_clear()
+        result = web.api_attribution_audit()
+        assert "counts" in result
+        assert called["corpus_index_audit_attribution"] >= 1, (
+            "api_attribution_audit must call corpus_index.audit_attribution()"
+        )
+
+    def test_response_preserves_top_level_shape(self):
+        # Post-flip: counts / needs_attention / by_book / by_kind
+        # all still present.
+        from scripts import web
+
+        web._cached_attribution_audit.cache_clear()
+        result = web.api_attribution_audit()
+        for k in ("counts", "needs_attention", "by_book", "by_kind"):
+            assert k in result, f"top-level key {k!r} missing post-flip"
+        # counts must have all classification buckets
+        for cls in ("total", "missing", "thin", "user", "sourced"):
+            assert cls in result["counts"], f"counts missing {cls!r}"
+
+    def test_by_kind_shape_translated_to_dict_list(self):
+        # corpus_index.audit_attribution returns by_kind as
+        # list[tuple]; the frontend expects list[dict] with
+        # `kind` + `count` keys. The wire-flip translation
+        # preserves this contract.
+        from scripts import web
+
+        web._cached_attribution_audit.cache_clear()
+        result = web.api_attribution_audit()
+        for entry in result["by_kind"]:
+            assert isinstance(entry, dict), f"by_kind entry not a dict: {type(entry).__name__}"
+            assert "kind" in entry, f"by_kind entry missing 'kind': {entry}"
+            assert "count" in entry, f"by_kind entry missing 'count': {entry}"
+            assert isinstance(entry["count"], int)
+
+    def test_needs_attention_carries_full_metadata(self):
+        # Each needs_attention item must keep the 12 keys downstream
+        # consumers (the /audit console) read: book, book_title,
+        # section, chapter, verse, suffix, kind, kind_label,
+        # category, category_symbol, title, body_preview,
+        # attribution, classification.
+        from scripts import web
+
+        web._cached_attribution_audit.cache_clear()
+        result = web.api_attribution_audit()
+        if not result["needs_attention"]:
+            return  # corpus may have zero missing/thin in some scenarios
+        first = result["needs_attention"][0]
+        for k in (
+            "book",
+            "book_title",
+            "section",
+            "chapter",
+            "verse",
+            "suffix",
+            "kind",
+            "kind_label",
+            "category",
+            "category_symbol",
+            "title",
+            "body_preview",
+            "attribution",
+            "classification",
+        ):
+            assert k in first, f"needs_attention entry missing {k!r} post-flip"
+
+
+# ---------- Phase Δ.5.1 : dashboard.gather_stats wire flip ------------
+
+
+class TestDelta51DashboardStatsWireFlip:
+    """Δ.5.1 — `dashboard.gather_stats` delegates to
+    `corpus_index.dashboard_stats()` (the Δ.5 indexed path) instead
+    of walking notes/<code>.py files directly. The Δ.5 equivalence
+    pin already confirms identical aggregate output across the real
+    corpus; these tests verify the wire actually routes through
+    the indexed path and the dashboard-renderer contract is
+    preserved (pass-through fields, parse_failures pre-scan
+    diagnostic, defaultdict-compatible chapter_density)."""
+
+    def test_wire_routes_through_corpus_index(self, monkeypatch):
+        # The wire flip in one assertion: dashboard.gather_stats
+        # must invoke corpus_index.dashboard_stats().
+        from scripts import dashboard as dashboard_module
+        from scripts.core import config, corpus_index
+
+        called = {"corpus_index_dashboard_stats": 0}
+        original = corpus_index.dashboard_stats
+
+        def counting_dashboard(books):
+            called["corpus_index_dashboard_stats"] += 1
+            return original(books)
+
+        monkeypatch.setattr(corpus_index, "dashboard_stats", counting_dashboard)
+        books = config.load_books()
+        kinds = config.load_kinds()
+        result = dashboard_module.gather_stats(books, kinds)
+        assert "total_notes" in result
+        assert called["corpus_index_dashboard_stats"] == 1, (
+            "gather_stats must call corpus_index.dashboard_stats() exactly once"
+        )
+
+    def test_full_response_shape_preserved(self):
+        # Post-flip: aggregate fields from corpus_index PLUS the
+        # 4 pass-through / diagnostic fields the renderer needs.
+        from scripts import dashboard as dashboard_module
+        from scripts.core import config
+
+        books = config.load_books()
+        kinds = config.load_kinds()
+        result = dashboard_module.gather_stats(books, kinds)
+
+        # Aggregate fields (from corpus_index)
+        for k in ("total_notes", "per_book", "per_kind", "chapter_density"):
+            assert k in result, f"aggregate key {k!r} missing post-flip"
+
+        # Pass-through + diagnostic fields (added by the wire-flip
+        # wrapper)
+        for k in ("books", "kinds", "parse_failures", "generated_at"):
+            assert k in result, f"pass-through key {k!r} missing post-flip"
+
+        # Pass-through values are the inputs back out
+        assert result["books"] is books
+        assert result["kinds"] is kinds
+        assert isinstance(result["parse_failures"], list)
+        assert isinstance(result["generated_at"], str)
+
+    def test_chapter_density_supports_renderer_access_pattern(self):
+        # render_heatmap reads `cd[code]` (subscript, not .get()) —
+        # this must NOT KeyError for any book in books, since
+        # corpus_index.dashboard_stats explicitly setdefault({})s
+        # every book.
+        from scripts import dashboard as dashboard_module
+        from scripts.core import config
+
+        books = config.load_books()
+        kinds = config.load_kinds()
+        result = dashboard_module.gather_stats(books, kinds)
+        cd = result["chapter_density"]
+        for book in books:
+            code = book["code"]
+            entry = cd[code]  # MUST NOT KeyError
+            assert isinstance(entry, dict)
+            # Per-chapter access via .get() must also be safe
+            _ = entry.get(1, 0)
+
+    def test_parse_failures_diagnostic_preserved(self):
+        # parse_failures should be an empty list on the real
+        # (well-formed) corpus. The pre-scan still runs in the
+        # wire-flip wrapper so a corrupt notes file would still
+        # surface in render_footer's warning.
+        from scripts import dashboard as dashboard_module
+        from scripts.core import config
+
+        books = config.load_books()
+        kinds = config.load_kinds()
+        result = dashboard_module.gather_stats(books, kinds)
+        # On the real corpus, no parse failures expected
+        assert result["parse_failures"] == [], f"unexpected parse_failures: {result['parse_failures']}"

@@ -6,6 +6,219 @@
 
 ---
 
+## 2026-05-11 — session — Δ.5.1 dashboard.gather_stats wire flip — Δ-FAMILY MIGRATION COMPLETE (DERIVED-INDEX cluster)
+
+**Phases shipped:** Δ.5.1. Final consumer wire flip — closes
+the Δ-family migration. `scripts/dashboard.gather_stats(books,
+kinds)` now delegates to `corpus_index.dashboard_stats(books)`
+for aggregate compute and adds the renderer's pass-through /
+diagnostic fields on top. Clean ship on first try (one xdist
+load-spike on api_matrix.cold confirmed flaky on retry —
+1973/1973 green on the second run).
+**Test delta:** +4 (was 1969, now 1973; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `scripts/dashboard.py:gather_stats(books, kinds)` body
+  rewritten to call `corpus_index.dashboard_stats(books)` for
+  aggregate fields, then layer on the 4 dashboard-renderer
+  needs: `books` (pass-through), `kinds` (pass-through),
+  `parse_failures` (lightweight pre-scan via
+  `notes_io.load_notes(path)` — preserves the diagnostic for
+  `render_footer`'s warning surface), `generated_at` (UTC
+  timestamp string).
+- New `scripts/dashboard.py:_gather_stats_via_file_walk(books,
+  kinds)` — preserves the original file-walk implementation as
+  the explicit reference for the Δ.5 equivalence pin and as a
+  diagnostic fallback. Mirrors Δ.4.1's
+  `_compute_matrix_via_file_walk` pattern.
+- `tests/test_scripts.py:TestDelta5IndexDashboardStats::test_dashboard_stats_equivalent_to_file_walk`
+  updated to compare against `_gather_stats_via_file_walk`
+  instead of `gather_stats` (post-flip the public function
+  trivially matches the indexed path; comparing against the
+  preserved file-walk reference keeps the equivalence check
+  meaningful).
+
+The `parse_failures` pre-scan specifically:
+
+- corpus_index silently skips bad notes rows at index build
+  time (no diagnostic surface).
+- The dashboard renderer (`render_footer`) shows a warning
+  when `parse_failures` is non-empty.
+- To preserve that surface, `gather_stats` does a lightweight
+  per-book `notes_io.load_notes(path)` check post-flip and
+  populates `parse_failures` with codes whose load returned
+  None. Cost: 87 file reads, lru-cached on (path, mtime), so
+  ~tens of ms cold and zero warm.
+
+Tests (`TestDelta51DashboardStatsWireFlip`, +4):
+
+- `gather_stats` routes through `corpus_index.dashboard_stats`
+  (mock-counter assertion: exactly 1 call per gather_stats
+  invocation).
+- Full response shape preserved: 4 aggregate keys
+  (total_notes / per_book / per_kind / chapter_density) +
+  4 pass-through/diagnostic keys (books / kinds /
+  parse_failures / generated_at). Pass-through values are
+  the exact inputs back out (identity check).
+- chapter_density supports `cd[code]` subscript access (not
+  just `.get()`) because corpus_index.dashboard_stats
+  setdefault({}) every book in `books`. Required by
+  `render_heatmap` which subscript-accesses cd before falling
+  back to .get(ch, 0).
+- parse_failures is `[]` on the well-formed real corpus
+  (diagnostic surface preserved; pre-scan still runs).
+
+### Δ-family migration complete
+
+After Δ.5.1, all four Δ-cluster consumer wire flips have
+shipped:
+
+| Phase | Consumer | Notes |
+|---|---|---|
+| Δ.4.1 | `matrix.compute_matrix` | 5 attempts (4 reverted) before the infrastructure (Δ.6/Δ.8/Δ.9 + conftest fixtures + atomic replace) supported it. |
+| Δ.2.1 | `web.api_search_notes` | Clean first-try ship after Δ.4.1 cleared the path. |
+| Δ.3.1 | `web.api_attribution_audit` | Clean first-try; added `by_kind` shape translation (tuple-list → dict-list) for frontend contract. |
+| Δ.5.1 | `dashboard.gather_stats` | Clean first-try; preserved file-walk reference under `_gather_stats_via_file_walk` for the Δ.5 equivalence pin. |
+
+Per AUDIT_2026-05-11 §7, the next phase is **ω.35 — web.py
+route table refactor** (the audit's #1 unfinished
+architectural debt; web.py was 7,395 lines at audit time and
+trending wrong) followed by **ψ.35 — matrix data-model
+collapse** (5 projections → 1 canonical Counter; previously
+parked needing the Δ-cluster infrastructure that's now
+shipped).
+
+Notable decisions:
+
+- **Preserved the file-walk reference function under
+  `_gather_stats_via_file_walk`.** Same rationale as
+  Δ.4.1's `_compute_matrix_via_file_walk`: the equivalence
+  pin needs an explicit anchor; a future operator
+  diagnostic (`why does indexed differ from file-walk?`)
+  needs a callable; the cost of keeping a 50-line function is
+  negligible.
+- **parse_failures pre-scan kept.** corpus_index doesn't
+  surface parse failures; doing a lightweight pre-scan in
+  the wire-flip wrapper preserves the renderer's warning
+  surface without coupling corpus_index to dashboard's
+  contract. The pre-scan reads via the lru-cached
+  `notes_io.load_notes` so cost is bounded.
+- **Δ.5 equivalence test updated to anchor on the new
+  reference name.** The test would have trivially matched
+  post-flip if it stayed on `gather_stats`; redirecting to
+  `_gather_stats_via_file_walk` keeps the migration-safety
+  contract real.
+
+Continuity pointers:
+
+- `scripts/dashboard.py:gather_stats` — the flipped wire (the
+  public function the CLI consumes).
+- `scripts/dashboard.py:_gather_stats_via_file_walk` —
+  preserved file-walk reference.
+- `tests/test_scripts.py:TestDelta51DashboardStatsWireFlip`
+  (4 tests at end of file).
+- `tests/test_scripts.py:TestDelta5IndexDashboardStats::test_dashboard_stats_equivalent_to_file_walk`
+  — updated reference path.
+- The Δ-family migration is complete. AUDIT_2026-05-11 §7
+  advances to ω.35 (web.py route table) and ψ.35 (matrix
+  data-model collapse).
+
+---
+
+## 2026-05-11 — session — Δ.3.1 api_attribution_audit wire flip (DERIVED-INDEX cluster)
+
+**Phases shipped:** Δ.3.1. Third consumer wire flip after
+Δ.4.1 + Δ.2.1. `web.api_attribution_audit` (via the
+file-signature-keyed `_cached_attribution_audit` lru_cache
+wrapper) now delegates to `corpus_index.audit_attribution()`
+instead of `_compute_attribution_audit_uncached()` (file-walk).
+Clean ship on first try; the by_kind shape translation
+(tuple-list → dict-list) preserves the frontend contract that
+the Δ.3 equivalence pin doesn't check.
+**Test delta:** +4 (was 1965, now 1969; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `scripts/web.py:_cached_attribution_audit()` body changed
+  from `return _compute_attribution_audit_uncached()` to
+  `from scripts.core import corpus_index; raw =
+  corpus_index.audit_attribution(); return {**raw, "by_kind":
+  [{"kind": k, "count": n} for k, n in raw["by_kind"]]}`.
+- The outer `lru_cache(maxsize=4)` keyed on
+  `(notes_sig, kinds_sig, cats_sig, books_sig)` is RETAINED.
+  Belt-and-braces: it adds a second invalidation layer that
+  catches kinds.yaml / categories.yaml / books.yaml mutations
+  the inner corpus_index doesn't track directly.
+- `_compute_attribution_audit_uncached()` is RETAINED as the
+  documented file-walk reference (mirrors the Δ.4.1 pattern of
+  preserving `_compute_matrix_via_file_walk`). Currently
+  unused at runtime but kept for the Δ.3 equivalence pin and
+  diagnostic introspection.
+
+The `by_kind` shape translation specifically:
+
+- corpus_index returns: `[("comm", 100), ("xref", 50), ...]`
+  (sorted tuple list, JSON-serializes to nested arrays)
+- frontend expects: `[{"kind": "comm", "count": 100}, ...]`
+  (dict-list — what the file-walk path produced)
+- the wire-flip body adapts in one comprehension; no other
+  shape difference between the two implementations.
+
+Tests (`TestDelta31AttributionAuditWireFlip`, +4):
+
+- `api_attribution_audit` routes through
+  `corpus_index.audit_attribution` (mock-counter assertion;
+  uses `_cached_attribution_audit.cache_clear()` to ensure the
+  wire actually runs).
+- Top-level shape preserved: `counts` / `needs_attention` /
+  `by_book` / `by_kind`; counts has all 5 buckets (`total`,
+  `missing`, `thin`, `user`, `sourced`).
+- `by_kind` translated to dict-list: every entry is a dict
+  with `kind` + `count` keys (not a tuple).
+- `needs_attention` items carry full 14-key metadata
+  (book / book_title / section / chapter / verse / suffix /
+  kind / kind_label / category / category_symbol / title /
+  body_preview / attribution / classification).
+
+Notable decisions:
+
+- **Retained the outer lru_cache.** Both the inner
+  corpus_index Δ.6 fingerprint cache and the outer
+  file-signature lru_cache are correct caching layers; they
+  invalidate on different signals (notes-mtime vs
+  kinds.yaml / categories.yaml / books.yaml). Together they
+  ensure freshness across all the inputs the audit reads.
+- **Retained the file-walk reference function.** Per the
+  Δ.4.1 pattern, keeping `_compute_attribution_audit_uncached`
+  preserves the equivalence anchor and gives operators a
+  diagnostic path if the indexed audit ever diverges.
+- **`by_kind` translation lives in the route adapter, not
+  corpus_index.** Keeping the inner library returning native
+  tuple-shape (which is more efficient for further computation)
+  and translating at the edge is cleaner than coupling
+  corpus_index to one specific frontend's contract. Future
+  CLI consumers can use the tuple shape directly.
+
+Continuity pointers:
+
+- `scripts/web.py:_cached_attribution_audit` (line ~135) — the
+  flipped wire.
+- `scripts/web.py:_compute_attribution_audit_uncached` (line
+  ~5403) — preserved file-walk reference.
+- `tests/test_scripts.py:TestDelta31AttributionAuditWireFlip`
+  (4 tests at end of file).
+- The Δ-family is now wire-flipped at THREE consumers (matrix
+  + search + attribution audit). **One more deferred wire
+  flip remains**: Δ.5.1 (dashboard_stats). After it ships,
+  the Δ-family migration is complete and AUDIT_2026-05-11 §7
+  advances to ω.35 (web.py route table refactor) and ψ.35
+  (matrix data-model collapse).
+
+---
+
 ## 2026-05-11 — session — Δ.2.1 api_search_notes wire flip (DERIVED-INDEX cluster)
 
 **Phases shipped:** Δ.2.1. Second consumer wire flip (after

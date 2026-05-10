@@ -4,6 +4,156 @@
 
 ## Prior task
 
+**Δ.5.1 dashboard.gather_stats wire flip — Δ-FAMILY MIGRATION
+COMPLETE** (DERIVED-INDEX cluster). Final consumer flip.
+
+`scripts/dashboard.gather_stats(books, kinds)` body changed
+from a 50-line file-walk loop to a thin wrapper that calls
+`corpus_index.dashboard_stats(books)` and adds the 4
+dashboard-renderer pass-through/diagnostic fields:
+- `books` (pass-through input)
+- `kinds` (pass-through input)
+- `parse_failures` (lightweight per-book pre-scan via
+  `notes_io.load_notes(path)` — preserves the diagnostic for
+  `render_footer`'s warning surface; corpus_index silently
+  skips bad rows so we still need this layer)
+- `generated_at` (UTC timestamp string)
+
+New `_gather_stats_via_file_walk(books, kinds)` retained as
+the explicit file-walk reference (mirrors Δ.4.1's
+`_compute_matrix_via_file_walk` pattern). The Δ.5 equivalence
+pin (`test_dashboard_stats_equivalent_to_file_walk`) redirected
+to it.
+
+**+4 tests** in `TestDelta51DashboardStatsWireFlip`:
+- routes through corpus_index.dashboard_stats (mock-counter)
+- full response shape preserved (4 aggregate + 4
+  pass-through/diagnostic keys; pass-through identity check)
+- chapter_density supports subscript access `cd[code]`
+  (corpus_index setdefault({}) every book → no KeyError in
+  render_heatmap)
+- parse_failures empty on well-formed real corpus
+  (diagnostic surface preserved; pre-scan still runs)
+
+Clean ship on first try. One xdist load-spike on
+`api_matrix.cold` (6968ms vs 5100ms budget) confirmed flaky on
+retry — re-run was 1973/1973 green, wall time 5:00 → 3:37
+(confirming the spike was transient OS load, not a Δ.5.1
+regression).
+
+### Δ-family migration complete
+
+| Phase | Consumer | Notes |
+|---|---|---|
+| ✓ Δ.4.1 | `matrix.compute_matrix` | 5 attempts (4 reverted); the path-clearer |
+| ✓ Δ.2.1 | `web.api_search_notes` | clean first try |
+| ✓ Δ.3.1 | `web.api_attribution_audit` | clean first try; `by_kind` shape translation |
+| ✓ Δ.5.1 | `dashboard.gather_stats` | clean first try; `parse_failures` pre-scan |
+
+All four consumers now route through the indexed path. The
+Δ-cluster infrastructure (Δ.0 lock, Δ.1 index, Δ.6 fingerprint
+cache, Δ.8 per-worker storage, Δ.9 server warm-up + conftest
+fixtures) supports them all transparently.
+
+### Next phase
+
+Per AUDIT_2026-05-11 §7, the natural next phases are:
+
+- **ω.35 — web.py route table refactor** (1-2 sessions). The
+  audit's #1 unfinished architectural debt: web.py was 7,395
+  lines at audit time and trending wrong (+226 lines just
+  during the audit's session). Recommended approach:
+  `ROUTES = [(method, regex, handler_fn), ...]` table compiled
+  at import + per-topic `scripts/api/<topic>.py` modules.
+  Keeps the no-Flask rule while fixing the precedence-via-
+  comment-ordering smell.
+- **ψ.35 — matrix data-model collapse** (1 session, was
+  parked). Replace `Matrix`'s 5 redundant projections with one
+  canonical `Counter[(ed, kind, book, chapter)]` and on-demand
+  view methods. Now safe with Δ.4.1 wire-flipped — the
+  per_chapter cube has fewer downstream consumers post-flip
+  because indexed callers can compose their own projections.
+
+Either is a single-session ship; ω.35 has bigger architectural
+payoff (the audit's #1 item), ψ.35 has bigger memory/perf
+payoff (cuts cache footprint ~3×).
+
+Net session test delta: **+54** (1919 baseline → 1973 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1 (9 phases). AUDIT_2026-05-11 written.
+SonarCloud integrated.
+
+**1973 / 1973 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
+**Δ.3.1 api_attribution_audit wire flip** shipped 2026-05-11
+(DERIVED-INDEX cluster). Third consumer wire flip; clean ship
+on first try.
+
+`web._cached_attribution_audit` (the file-signature-keyed
+lru_cache wrapper) body changed from
+`return _compute_attribution_audit_uncached()` to
+`from scripts.core import corpus_index; raw = corpus_index.audit_attribution(); return {**raw, "by_kind": [{"kind": k, "count": n} for k, n in raw["by_kind"]]}`.
+
+Two preservation decisions:
+- The outer `lru_cache(maxsize=4)` keyed on
+  `(notes_sig, kinds_sig, cats_sig, books_sig)` is RETAINED —
+  belt-and-braces: it catches kinds.yaml / categories.yaml /
+  books.yaml mutations corpus_index doesn't track directly.
+- `_compute_attribution_audit_uncached` retained as the
+  documented file-walk reference (mirrors Δ.4.1's pattern of
+  keeping `_compute_matrix_via_file_walk`).
+
+`by_kind` shape translation: corpus_index returns
+`[("comm", 100), ...]` tuple-list (efficient for further
+computation; native ordered shape); the frontend expects
+`[{"kind": "comm", "count": 100}, ...]` dict-list (what the
+file-walk path produced). The Δ.3 equivalence pin doesn't
+check by_kind shape — caught here at the wire.
+
+**+4 tests** in `TestDelta31AttributionAuditWireFlip`:
+- routes through corpus_index.audit_attribution (mock-counter
+  + cache_clear() to ensure wire actually runs)
+- top-level shape preserved (counts / needs_attention /
+  by_book / by_kind + 5 count buckets total/missing/thin/
+  user/sourced)
+- by_kind translated to dict-list (every entry is a dict
+  with `kind` + `count` keys; no tuple leakage)
+- needs_attention items carry full 14-key metadata
+  (book / book_title / section / chapter / verse / suffix /
+  kind / kind_label / category / category_symbol / title /
+  body_preview / attribution / classification)
+
+The Δ-family is now wire-flipped at THREE consumers:
+- ✓ matrix (Δ.4.1 attempt #5)
+- ✓ search (Δ.2.1)
+- ✓ attribution audit (Δ.3.1, this turn)
+
+**One more deferred wire flip remains:**
+- **Δ.5.1** — flip `dashboard.gather_stats` to call
+  `corpus_index.dashboard_stats()` (Δ.5's indexed path).
+
+After Δ.5.1 ships the Δ-family migration is complete.
+AUDIT_2026-05-11 §7 then advances to ω.35 (web.py route table
+refactor — the audit's #1 unfinished architectural debt at
+7,395 lines and growing) and ψ.35 (matrix data-model collapse,
+5 projections → 1).
+
+Net session test delta: **+50** (1919 baseline → 1969 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1. Phases reverted+cleaned-up: Δ.4.1 + Δ.7 attempts
+#3, #4 (documented learning). AUDIT_2026-05-11 written.
+SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓) →
+Δ.4.1 (✓) → Δ.2.1 (✓) → Δ.3.1 (✓) → Δ.5.1 (next) → ω.35 web.py
+route table → ψ.35 matrix data-model collapse.
+
+**1969 / 1969 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **Δ.2.1 api_search_notes wire flip** shipped 2026-05-11
 (DERIVED-INDEX cluster). Second consumer wire flip after Δ.4.1
 cleared the path. Clean ship on first try — the Δ.6/Δ.8/Δ.9
