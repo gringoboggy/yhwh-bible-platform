@@ -51,22 +51,29 @@ def atomic_write(path: Path | str, text: str, *, encoding: str = "utf-8") -> Pat
     either fully the old content or fully the new content; there is no
     half-written state observable to other readers.
 
+    Δ.7 — when the written path is a `.py` file under
+    `content/notes/`, the corpus_index fingerprint cache is
+    invalidated so the next indexed query sees the write
+    immediately. Without this hook the Δ.6 TTL (1s in production)
+    would let a freshly-written note return stale aggregates for
+    up to one TTL after the write — visible in the editor's
+    save → re-render-matrix loop after Δ.4.1 wired
+    `compute_matrix()` to the indexed path.
+
     Returns the resolved Path that was written.
     """
     path = Path(path)
-    # Sibling tempfile in the same directory so os.replace stays on the
-    # same filesystem (cross-fs renames are not atomic).
     tmp = path.with_suffix(path.suffix + ".tmp")
     try:
         tmp.write_text(text, encoding=encoding)
         os.replace(tmp, path)
     except Exception:
-        # Best-effort cleanup; never leave a stray .tmp behind.
         try:
             tmp.unlink()
         except OSError:
             pass
         raise
+    _invalidate_corpus_index_if_notes_file(path)
     return path
 
 
@@ -74,7 +81,9 @@ def atomic_write_bytes(path: Path | str, data: bytes) -> Path:
     """Binary counterpart of atomic_write — same atomicity guarantee.
 
     Used by the cover-upload endpoint (Phase π.4-B) and any other
-    binary writer. Same .tmp + os.replace dance.
+    binary writer. Same .tmp + os.replace dance. Δ.7 hook fires
+    here too — defense in depth against a future writer choosing
+    the wrong primitive.
     """
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -88,7 +97,27 @@ def atomic_write_bytes(path: Path | str, data: bytes) -> Path:
         except OSError:
             pass
         raise
+    _invalidate_corpus_index_if_notes_file(path)
     return path
+
+
+def _invalidate_corpus_index_if_notes_file(path: Path) -> None:
+    """Δ.7 — if `path` is a `.py` file under `content/notes/`,
+    clear the corpus_index fingerprint cache so the next indexed
+    query picks up the write without waiting for the Δ.6 TTL to
+    expire. Lazy-import to avoid startup-order circular. Best-
+    effort: failure is silently swallowed (1s of stale data is
+    graceful degradation; failing the editor save is not). Path
+    discrimination via `path.parent.name == "notes"` rejects
+    lookalike directories like `notes_backup/`.
+    """
+    try:
+        if path.suffix == ".py" and path.parent.name == "notes":
+            from scripts.core import corpus_index
+
+            corpus_index.invalidate()
+    except Exception:  # noqa: BLE001
+        pass
 
 
 def ensure_backup(

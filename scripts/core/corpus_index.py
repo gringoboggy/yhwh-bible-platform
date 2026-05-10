@@ -475,10 +475,16 @@ def _build_to(path: Path) -> tuple[int, str]:
         # Switch back to safer pragmas for query-time use.
         conn.executescript("PRAGMA journal_mode=DELETE; PRAGMA synchronous=NORMAL;")
         conn.close()
-        # Atomic swap
-        if path.is_file():
-            path.unlink()
-        tmp.rename(path)
+        # Atomic swap. Δ.4.1 attempt #5 (2026-05-11) — switched from
+        # `unlink + rename` to `tmp.replace(path)` because on Windows
+        # the discrete unlink can race with a sibling worker's still-
+        # closing sqlite handle. `Path.replace()` calls `os.replace()`
+        # which is atomic (Win32 MoveFileEx with REPLACE_EXISTING) and
+        # tolerates a target file that's being released by another
+        # handle in the same process. Same atomicity guarantee on
+        # POSIX. Eliminates the PermissionError class that surfaced
+        # on Δ.1 equivalence tests under 8-worker xdist load.
+        tmp.replace(path)
         return total, _compute_fingerprint()
     except Exception:
         conn.close()

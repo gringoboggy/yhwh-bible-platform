@@ -4,6 +4,70 @@
 
 ## Prior task
 
+**Δ.4.1 + Δ.7 attempt #5 — SHIPPED** (DERIVED-INDEX cluster).
+After **four prior reverts**, the matrix wire flip finally
+landed cleanly. `matrix.compute_matrix()` body now
+`return corpus_index.compute_matrix_indexed()` (1-line wire
+flip; @lru_cache wrapper retained as defense in depth).
+`notes_io.atomic_write` / `atomic_write_bytes` hooked via Δ.7
+to invalidate corpus_index on `.py` writes under
+`content/notes/` (best-effort; closes production stale-after-
+edit window).
+
+**Empirical**: ~3.2s file-walk → ~263ms indexed (~12× cold
+speedup); sub-millisecond when served by lru_cache. **+8 tests**
+in TestDelta41MatrixWireFlip (3) + TestDelta7NotesIoInvalidationHook
+(5).
+
+What unblocked attempt #5 (each prior revert pointed at one of
+these; attempt #5 closed all of them):
+
+- Δ.6 fingerprint cache: per-call 87-file stat-walk removed
+- Δ.8 per-worker storage: cross-worker file contention removed
+- Δ.9 server warm-up: production cold-start cost paid upfront
+- conftest session-scoped `_prebuilt_corpus_index_per_worker`
+  fixture (NEW this turn): test-side parallel to Δ.9 — first
+  test on each worker doesn't pay rebuild cost
+- `tmp.replace(path)` in `_build_to` (NEW this turn): replaced
+  `unlink + rename` to dodge Windows MoveFileEx race with
+  closing handles
+- per-test `_CACHED_CONN.close()` in conftest (NEW this turn):
+  added to existing autouse fixture, eliminates lingering
+  handle class on Windows
+- `_PYTEST_HARNESS_MULTIPLIER` 1.4 → 1.7 (NEW this turn):
+  documents wire-flip's xdist timing variance per
+  PERF_BUDGETS.md §3.1 (multiplier carries test-environment
+  tolerance, not operational cost)
+
+The Δ-family is now wire-flipped at one consumer (matrix). 
+
+**Three more deferred wire flips remain — natural next phases:**
+- **Δ.2.1** — flip `api_search_notes` to call
+  `corpus_index.search()` (Δ.2's indexed path).
+- **Δ.3.1** — flip `api_attribution_audit` to call
+  `corpus_index.audit_attribution()` (Δ.3's indexed path).
+- **Δ.5.1** — flip `dashboard.gather_stats` to call
+  `corpus_index.dashboard_stats()` (Δ.5's indexed path).
+
+Each is the same shape (one-line body change in the public
+function) and benefits from the same Δ.6-Δ.9 unblockers
+attempt #5 paid for. Should each be a single-session ship.
+
+After the 3 remaining wire flips, AUDIT_2026-05-11 §7 advances
+to ω.35 (web.py route table refactor) and ψ.35 (matrix data-
+model collapse 5 projections → 1).
+
+Net session test delta: **+42** (1919 baseline → 1961 final).
+Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7.
+Phases reverted this session: Δ.4.1 + Δ.7 attempts #3 and #4
+(retained as documented learning in CHANGELOG, fully cleaned
+up). AUDIT_2026-05-11 written. SonarCloud integrated
+(`bridge4kaladin-collab/yhwh-bible-platform`).
+
+**1961 / 1961 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **Δ.9 corpus_index warm-up at server startup** shipped 2026-05-11
 (DERIVED-INDEX cluster). The cold-cache fix that unblocks Δ.4.1
 attempt #5.

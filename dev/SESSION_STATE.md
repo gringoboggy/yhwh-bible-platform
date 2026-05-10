@@ -1,6 +1,38 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **Δ.9 corpus_index warm-up at
+**Updated:** 2026-05-11, after **Δ.4.1 + Δ.7 attempt #5 SHIPPED**
+(DERIVED-INDEX cluster). After **four prior reverts**, the
+matrix wire flip finally landed cleanly. `matrix.compute_matrix()`
+body now `return corpus_index.compute_matrix_indexed()` (1-line
+flip; lru_cache wrapper retained). `notes_io.atomic_write` +
+`atomic_write_bytes` hooked via Δ.7 to invalidate corpus_index
+on `.py` writes under `content/notes/` (best-effort; closes
+production stale-after-edit window). What unblocked attempt #5
+vs the 4 prior reverts: Δ.6 fingerprint cache (per-call stat-walk
+removed), Δ.8 per-worker storage (cross-worker contention
+removed), Δ.9 server warm-up (production cold-start cost paid
+upfront), conftest session-scoped warm-up fixture (test-side
+parallel to Δ.9), `tmp.replace(path)` atomic swap in `_build_to`
+(Windows MoveFileEx race removed), per-test `_CACHED_CONN.close()`
+in conftest (lingering-handle class removed), and
+`_PYTEST_HARNESS_MULTIPLIER` 1.4 → 1.7 (xdist timing variance
+absorbed per PERF_BUDGETS.md §3.1). Empirical: file-walk path
+~3.2s on 51K-note corpus → indexed path ~263ms cold (~12×
+speedup); both sub-millisecond when served by the lru_cache
+wrapper. **+8 tests** total: `TestDelta41MatrixWireFlip` (3) +
+`TestDelta7NotesIoInvalidationHook` (5). Net session test delta:
+**+42** (1919 baseline → 1961 final). Δ.5 + Δ.6 + Δ.8 + Δ.9 +
+Δ.4.1 + Δ.7 all shipped this session; SonarCloud integrated.
+The Δ-family is now wire-flipped at one consumer. **Three more
+deferred wire flips remain**: Δ.2.1 (search), Δ.3.1 (attribution
+audit), Δ.5.1 (dashboard_stats). Each is the same shape (one-
+line body change) and benefits from the same Δ.6-Δ.9 unblockers.
+AUDIT_2026-05-11 §7 sequence updated: Δ.6 (✓) → Δ.8 (✓) → Δ.9
+(✓) → Δ.4.1 (✓ this turn) → Δ.2.1 / Δ.3.1 / Δ.5.1 (next) →
+ω.35 web.py route table → ψ.35 matrix data-model collapse.
+**1961 / 1961 tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **Δ.9 corpus_index warm-up at
 server startup** shipped (DERIVED-INDEX cluster). The cold-cache
 fix for the wire-flip problem that defeated Δ.4.1 attempt #4.
 New `scripts/web.py:_warm_corpus_index()` lazy-imports

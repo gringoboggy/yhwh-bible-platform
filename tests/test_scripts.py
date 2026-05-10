@@ -23212,21 +23212,18 @@ class TestDelta4IndexComputeMatrix:
         # The migration-safety contract for Δ.4. Every projection
         # must compare equal between the file-walk and indexed paths
         # for every shipping edition.
-        # Δ.6 (2026-05-11): dropped `force=True` to dodge the xdist
-        # contention class — `rebuild()`'s fingerprint check (now
-        # backed by the TTL cache) already triggers on any real
-        # corpus mutation.
-        # Δ.4.1 attempt #4 (2026-05-11) — reverted; comparing
-        # `compute_matrix()` (file-walk) against `compute_matrix_indexed()`
-        # remains the right anchor because the wire is back to file-walk.
+        # Δ.4.1 attempt #5 (2026-05-11) — wire flipped after
+        # Δ.6+Δ.7+Δ.8+Δ.9 unblockers; this test must compare
+        # against the explicit `_compute_matrix_via_file_walk()`
+        # reference (NOT against `compute_matrix()` itself, which
+        # post-flip trivially matches the indexed path).
         from scripts.core import corpus_index
-        from scripts.core.matrix import compute_matrix
+        from scripts.core.matrix import _compute_matrix_via_file_walk
 
         corpus_index.invalidate()
         corpus_index.rebuild()
-        compute_matrix.cache_clear()
 
-        file_walk = compute_matrix()
+        file_walk = _compute_matrix_via_file_walk()
         indexed = corpus_index.compute_matrix_indexed()
 
         editions = list(file_walk.edition_canon_books.keys())
@@ -24008,3 +24005,145 @@ class TestDelta9CorpusIndexWarmup:
         result = web._warm_corpus_index()
         assert result["rebuilt"] is False
         assert result["note_count"] == 100
+
+
+# ---------- Phase Δ.4.1 : matrix wire flip (attempt #5) ---------------
+
+
+class TestDelta41MatrixWireFlip:
+    """Δ.4.1 — `matrix.compute_matrix()` delegates to
+    `corpus_index.compute_matrix_indexed()`. Attempts #1-4
+    reverted; attempt #5 ships after Δ.6 (TTL fingerprint cache),
+    Δ.7 (notes_io invalidation hook), Δ.8 (per-worker index
+    storage), and Δ.9 (server warm-up + session-scoped test
+    warm-up fixture) collectively removed every prior failure
+    mode."""
+
+    def test_compute_matrix_returns_indexed_path_result(self):
+        from scripts.core import corpus_index
+        from scripts.core.matrix import compute_matrix
+
+        corpus_index.invalidate()
+        corpus_index.rebuild()
+        compute_matrix.cache_clear()
+
+        public = compute_matrix()
+        indexed = corpus_index.compute_matrix_indexed()
+
+        editions = list(public.edition_canon_books.keys())
+        assert len(editions) >= 5
+        for ed_id in editions:
+            assert public.potential.get(ed_id, {}) == indexed.potential.get(ed_id, {})
+            assert public.enabled.get(ed_id, {}) == indexed.enabled.get(ed_id, {})
+            assert public.per_book.get(ed_id, {}) == indexed.per_book.get(ed_id, {})
+            assert public.per_chapter.get(ed_id, {}) == indexed.per_chapter.get(ed_id, {})
+            assert public.edition_canon_books.get(ed_id) == indexed.edition_canon_books.get(ed_id)
+            assert public.edition_enabled_kinds.get(ed_id) == indexed.edition_enabled_kinds.get(ed_id)
+
+    def test_compute_matrix_lru_cache_still_works(self):
+        from scripts.core.matrix import compute_matrix
+
+        compute_matrix.cache_clear()
+        first = compute_matrix()
+        second = compute_matrix()
+        assert first is second, "lru_cache should return the same Matrix instance"
+
+    def test_compute_matrix_meaningfully_faster_than_file_walk(self):
+        # Sanity floor: indexed-via-public must NOT be substantially
+        # slower than file-walk reference.
+        import time
+
+        from scripts.core import corpus_index, notes_io
+        from scripts.core.matrix import _compute_matrix_via_file_walk, compute_matrix
+
+        corpus_index.invalidate()
+        corpus_index.rebuild()
+        compute_matrix.cache_clear()
+        notes_io.clear_load_notes_cache()
+
+        t0 = time.perf_counter()
+        _compute_matrix_via_file_walk()
+        file_walk_ms = (time.perf_counter() - t0) * 1000
+
+        compute_matrix.cache_clear()
+        t0 = time.perf_counter()
+        compute_matrix()
+        public_ms = (time.perf_counter() - t0) * 1000
+
+        assert public_ms < file_walk_ms * 3, (
+            f"compute_matrix() suspiciously slow vs file-walk: file_walk={file_walk_ms:.1f}ms public={public_ms:.1f}ms"
+        )
+
+
+# ---------- Phase Δ.7 : notes_io → corpus_index invalidation hook ----
+
+
+class TestDelta7NotesIoInvalidationHook:
+    """Δ.7 — `notes_io.atomic_write` (and `atomic_write_bytes`)
+    invalidate the corpus_index fingerprint cache when writing
+    under `content/notes/`. Closes the production correctness gap
+    Δ.4.1's wire flip introduces."""
+
+    def test_writing_notes_file_invalidates_corpus_index(self, tmp_path, monkeypatch):
+        from scripts.core import corpus_index, notes_io
+
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+        corpus_index._FINGERPRINT_CACHE = (1.0, "stale-fingerprint-value")
+
+        notes_path = tmp_path / "notes" / "gen.py"
+        notes_path.parent.mkdir(parents=True)
+        notes_io.atomic_write(notes_path, "NOTES = ()\n")
+
+        assert corpus_index._FINGERPRINT_CACHE is None
+
+    def test_writing_non_notes_file_does_not_invalidate(self, tmp_path, monkeypatch):
+        from scripts.core import corpus_index, notes_io
+
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+        sentinel = (1.0, "still-here-after-yaml-write")
+        corpus_index._FINGERPRINT_CACHE = sentinel
+
+        yaml_path = tmp_path / "config" / "editions.yaml"
+        yaml_path.parent.mkdir(parents=True)
+        notes_io.atomic_write(yaml_path, "editions:\n  - id: x\n")
+
+        assert corpus_index._FINGERPRINT_CACHE == sentinel
+
+    def test_writing_notes_file_via_bytes_variant_invalidates(self, tmp_path, monkeypatch):
+        from scripts.core import corpus_index, notes_io
+
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+        corpus_index._FINGERPRINT_CACHE = (1.0, "stale-bytes-write")
+
+        notes_path = tmp_path / "notes" / "exo.py"
+        notes_path.parent.mkdir(parents=True)
+        notes_io.atomic_write_bytes(notes_path, b"NOTES = ()\n")
+
+        assert corpus_index._FINGERPRINT_CACHE is None
+
+    def test_invalidation_hook_failure_does_not_poison_write(self, tmp_path, monkeypatch):
+        from scripts.core import corpus_index, notes_io
+
+        def explode():
+            raise RuntimeError("simulated corpus_index failure")
+
+        monkeypatch.setattr(corpus_index, "invalidate", explode)
+
+        notes_path = tmp_path / "notes" / "lev.py"
+        notes_path.parent.mkdir(parents=True)
+        result_path = notes_io.atomic_write(notes_path, "NOTES = ()\n")
+        assert result_path == notes_path
+        assert notes_path.read_text(encoding="utf-8") == "NOTES = ()\n"
+
+    def test_lookalike_path_with_parent_named_notes_backup_does_not_invalidate(self, tmp_path, monkeypatch):
+        from scripts.core import corpus_index, notes_io
+
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+        sentinel = (1.0, "still-here-after-lookalike")
+        corpus_index._FINGERPRINT_CACHE = sentinel
+
+        lookalike = tmp_path / "notes_backup" / "gen.py"
+        lookalike.parent.mkdir(parents=True)
+        notes_io.atomic_write(lookalike, "NOTES = ()\n")
+
+        assert corpus_index._FINGERPRINT_CACHE == sentinel

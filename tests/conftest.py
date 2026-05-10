@@ -23,12 +23,47 @@ sys.path.insert(0, str(REPO_ROOT))
 # monkeypatch takes precedence.
 @pytest.fixture(autouse=True)
 def _disable_corpus_index_fingerprint_cache(monkeypatch):
+    import sqlite3
+
     try:
         from scripts.core import corpus_index
     except ImportError:
         return
     monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 0.0)
     corpus_index._FINGERPRINT_CACHE = None
+    # Δ.4.1 attempt #5 — also close any lingering cached sqlite
+    # connection so the next test's invalidate()/rebuild()/replace()
+    # cycle doesn't race with a still-held file handle on Windows.
+    # Production keeps the connection cached for performance; tests
+    # need fresh handles to avoid PermissionError on the cross-test
+    # rebuild→replace path.
+    if corpus_index._CACHED_CONN is not None:
+        try:
+            corpus_index._CACHED_CONN.close()
+        except sqlite3.Error:
+            pass
+        corpus_index._CACHED_CONN = None
+        corpus_index._CACHED_CONN_PATH = None
+
+
+# Δ.4.1 attempt #5 (companion to Δ.9 production warm-up) — pre-build
+# the corpus_index ONCE per pytest-xdist worker so the first test
+# that touches it via the wire-flipped `compute_matrix()` doesn't
+# pay the ~5s rebuild cost (which broke 3 perf budgets in attempt
+# #4). With Δ.8 per-worker storage in place, each worker has its
+# own `corpus.<worker>.sqlite`; this fixture builds it once at
+# session start. Subsequent tests hit the warm sqlite + lru_cache
+# path. Best-effort: any failure is swallowed and tests fall back
+# to the file-walk paths.
+@pytest.fixture(scope="session", autouse=True)
+def _prebuilt_corpus_index_per_worker():
+    try:
+        from scripts.core import corpus_index
+
+        corpus_index.rebuild()
+    except Exception:  # noqa: BLE001 — best-effort warm-up; never poison test session
+        pass
+    yield
 
 
 @pytest.fixture

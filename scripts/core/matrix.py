@@ -218,31 +218,21 @@ def compute_matrix() -> Matrix:
     ``compute_matrix.cache_clear()`` after editing notes /
     editions / canons to refresh.
 
-    Δ.4.1 — **all FOUR wire-flip attempts reverted** (2026-05-10
-    ×2, 2026-05-11 ×2). Δ.8 per-worker storage cleanly fixed the
-    64-failure xdist contention class (attempt #4 saw only 5
-    failures vs attempt #3's 64+34). But the remaining 5 are a
-    different problem: the wire flip itself adds enough cold-
-    path cost that `test_api_search_notes_under_budget`,
-    `test_api_matrix_cold_under_budget`, and
-    `test_notes_io_load_notes_under_budget` all slip past their
-    pytest-harness-multiplier budgets. The cost is real (cold
-    rebuild via `corpus_index.connection()` is ~5s on the 51K-
-    note corpus before the lru_cache hits) — the 12× warm-cache
-    speedup doesn't pay for itself when most callers are
-    cold-cache.
-
-    The `compute_matrix_indexed()` implementation works correctly
-    when called directly, and is exercised by the Δ.4 equivalence
-    pin. A clean fifth attempt would need: (a) lazy-build the
-    index (don't rebuild on every connection() call when the
-    fingerprint hasn't changed — Δ.6 already does this; the
-    remaining cost is the initial build), (b) a smarter cold-cache
-    strategy (warm at startup? checkpoint to disk?), or (c) just
-    accept the perf regression and bump the multipliers for the
-    affected tests with documented rationale.
+    Δ.4.1 attempt #5 (2026-05-11) — wire flipped to the indexed
+    path after Δ.6 (TTL fingerprint cache), Δ.7 (notes_io
+    invalidation hook), Δ.8 (per-worker index storage), and Δ.9
+    (server warm-up + session-scoped test warm-up fixture)
+    collectively removed the failure modes that defeated attempts
+    #1-4. Empirical: `_compute_matrix_via_file_walk()` ~3.2s on
+    the 51K-note corpus; `corpus_index.compute_matrix_indexed()`
+    ~263ms cold (~12× speedup); both sub-millisecond when served
+    by the lru_cache wrapper. `_compute_matrix_via_file_walk()`
+    is retained as the explicit reference for the Δ.4 equivalence
+    test.
     """
-    return _compute_matrix_via_file_walk()
+    from scripts.core import corpus_index
+
+    return corpus_index.compute_matrix_indexed()
 
 
 def _compute_matrix_via_file_walk() -> Matrix:
