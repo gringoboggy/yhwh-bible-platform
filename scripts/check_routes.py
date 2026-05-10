@@ -140,6 +140,7 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
     in_simple_get_table: bool = False
     in_regex_get_table: bool = False
     in_qs_regex_get_table: bool = False
+    in_put_table: bool = False
     for line_no, line in enumerate(lines, start=1):
         # ω.35-A.1 — track the `_SIMPLE_GET_ROUTES` table opening
         # so its `(path, handler)` tuples register as GET routes.
@@ -194,6 +195,24 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
                 continue
             if line.strip().startswith("]"):
                 in_regex_get_table = False
+            continue
+
+        # ω.35-A.5 — track the `_PUT_ROUTES` table. Entries are
+        # single-line tuples
+        #   `(re.compile(r"^..."), lambda m, payload: api_X(...)),`
+        # — match the regex pattern part; the handler is a lambda
+        # expression so we don't require it to be a bare identifier
+        # (unlike _REGEX_TABLE_ENTRY_RE used for _REGEX_GET_ROUTES).
+        if "_PUT_ROUTES" in line and "[" in line:
+            in_put_table = True
+            continue
+        if in_put_table:
+            te = re.match(r'\s*\(\s*re\.compile\(\s*r"\^([^"]+)"\s*\)\s*,', line)
+            if te:
+                table_routes.append(Route(method="PUT", pattern=te.group(1), is_regex=True, line=line_no))
+                continue
+            if line.strip().startswith("]"):
+                in_put_table = False
             continue
 
         m = re.match(r"\s*def\s+do_([A-Z]+)\(", line)

@@ -6,6 +6,114 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.5 PUT mutation routes table (fourth route-table slice)
+
+**Phases shipped:** ω.35-A.5. First slice covering MUTATION
+routes (PUT). 6 routes migrated; legacy boilerplate (9 lines
+per route, 6 routes = 54 lines) consolidated into one dispatch
+loop. `_dispatch_table_result` extended to handle the
+`{ok: False}` legacy mutation-result shape (HTTP 400)
+alongside the existing `{status: error}` shape.
+**Test delta:** +8 (was 2007, now 2015; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `_PUT_ROUTES` table in `scripts/web.py` (module scope
+  below `_QS_REGEX_GET_ROUTES`). 6 single-line entries of the
+  form `(re.compile(r"^..."), lambda m, payload: api_X(...))`:
+  - `/api/notes/<id>` → `api_save`
+  - `/api/edition/<id>` → `api_save_edition`
+  - `/api/scenarios/<name>` → `api_save_scenario`
+  - `/api/category/<id>` → `api_save_category`
+  - `/api/kind/<id>` → `api_save_kind`
+  - `/api/publisher/<id>` → `api_save_publisher_meta`
+- `_dispatch_table_result` extended with a second response
+  shape: `{ok: False}` → HTTP 400 with body as-is (preserves
+  the legacy `status = 200 if result.get("ok") else 400`
+  pattern that appeared 6+ times). The check is
+  `result.get("ok") is False` (NOT `not result.get("ok")`),
+  so handlers that omit `ok` entirely (e.g. `api_save`'s
+  error path returns `{"error": ..., "book": ...}` with no
+  `ok` key) still go through as 200 — matches legacy.
+- `Handler.do_PUT` extended with a dispatch loop:
+  `_check_admin_auth` runs at function entry, then the loop
+  iterates `_PUT_ROUTES`, reads body, calls
+  `handler(m, payload)`, routes through
+  `_dispatch_table_result`, wrapped in try/except so any
+  handler exception becomes a 400 with the exception message
+  (mirrors the legacy 9-line boilerplate).
+- 5 legacy PUT branches deleted: `/api/notes`, `/api/edition`,
+  `/api/scenarios`, `/api/category`, `/api/kind`. The
+  `/api/publisher` legacy block kept as dead code (multi-line
+  full block; safer to leave intact than rewrite — the table
+  dispatch returns before reaching it).
+- `scripts/check_routes.py` extended with new
+  `in_put_table` state machine. The PUT table uses LAMBDA
+  expressions for handlers (vs the bare-identifier handlers
+  in `_REGEX_GET_ROUTES`), so a more lenient discovery regex
+  matches the regex pattern but doesn't require a bare-
+  identifier handler.
+
+### Migration progress
+
+| Phase | What landed |
+|---|---|
+| ω.35-A   | Discovery + drift linter |
+| ω.35-A.1 | 14 simple GET routes |
+| ω.35-A.2 | 3 regex GET routes + error-translate helper |
+| ω.35-A.3 | 17 legacy branches deleted; api_help_data discovers tables |
+| ω.35-A.4 | 3 querystring routes + bug fixes |
+| ω.35-A.5 | 6 PUT mutation routes + ok:False translation |
+
+**26 of 88 routes (~30%) now exclusively in tables.**
+Remaining 62 in legacy: POST/DELETE mutations, multipart,
+custom-output (RSS/YAML/HTML), bespoke GET routes
+(static files, sample preview, /api/build-all literal-path
+self.path form, edition-meta/preview "error" key shape,
+export/build's 500-on-fail, edition/note-toggle's nested
+path).
+
+### Notable decisions
+
+- **`_dispatch_table_result` extended, not duplicated.** The
+  new `ok: False → 400` check sits alongside the existing
+  `status == "error"` check in the SAME function. Three
+  response shapes, one helper. Future ω.35-A.x slices add
+  more shapes by extending the helper, not by introducing
+  parallel dispatch helpers.
+- **The `is False` check (not `not result.get("ok")`).** Crucial
+  to preserve legacy behavior for handlers that omit `ok`
+  entirely. `api_save`'s error path returns `{"error": ...,
+  "book": ...}` with no `ok` key; `result.get("ok")` is None
+  (not False), so the 400-translation correctly doesn't
+  fire — matches the legacy.
+- **Kept `/api/publisher` legacy block as dead code.**
+  Multi-line block; safer to leave intact than rewrite for
+  one route. The dispatch loop returns first; the legacy is
+  unreachable. ω.35-A.7 can finish the cleanup.
+- **Lenient discovery regex for the PUT table.** PUT entries
+  use lambdas; the strict `_REGEX_TABLE_ENTRY_RE`
+  (introduced in ω.35-A.2 for `_REGEX_GET_ROUTES` bare-
+  identifier handlers) wouldn't match. Added a separate
+  inline regex that captures the regex pattern but doesn't
+  constrain the handler form.
+
+### Continuity pointers
+
+- `scripts/web.py:_PUT_ROUTES` (new table) +
+  `_dispatch_table_result` (extended for `ok: False`) +
+  `do_PUT` (dispatch loop) + 5 legacy branches deleted.
+- `scripts/check_routes.py:in_put_table` state machine.
+- `tests/test_scripts.py:TestOmega35A5PutTable` (8 tests
+  including 3 for the new `_dispatch_table_result` cases).
+- AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.5 ✓ →
+  **ω.35-A.6** DELETE table (next; mutation routes with the
+  same auth + handler shape but no payload) → ω.35-A.7 POST
+  + multipart → ω.35-B file split → ψ.35 matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.4 querystring-bearing routes table (third route-table slice)
 
 **Phases shipped:** ω.35-A.4. Widens the route-table migration

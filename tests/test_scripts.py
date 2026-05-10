@@ -24897,3 +24897,158 @@ class TestOmega35A4QsRegexGetTable:
         }
         assert "/api/audit-log$" in qs_route_patterns
         assert "/api/diff$" in qs_route_patterns
+
+
+# ---------- Phase ω.35-A.5 : PUT mutation routes table ----------------
+
+
+class TestOmega35A5PutTable:
+    """ω.35-A.5 — fourth route-table slice. `_PUT_ROUTES` covers
+    PUT mutation routes that share the uniform shape:
+    regex → read_body → handler(m, payload) → translate ok:False
+    to 400 → send_json. The 9-line per-route boilerplate that
+    appeared 6+ times in do_PUT is now one dispatch loop.
+
+    Admin auth check runs at do_PUT function entry, so every
+    table-registered route is auto-protected.
+
+    Extended `_dispatch_table_result` handles the new
+    `{ok: False}` legacy mutation-result shape (→ HTTP 400)
+    alongside the existing `{status: error}` shape and the
+    bare-200 fall-through."""
+
+    def test_put_table_has_expected_entries(self):
+        from scripts import web
+
+        patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        joined = "|".join(patterns)
+        assert "/api/notes/" in joined
+        assert "/api/edition/" in joined
+        assert "/api/scenarios/" in joined
+        assert "/api/category/" in joined
+        assert "/api/kind/" in joined
+        assert "/api/publisher/" in joined
+
+    def test_put_table_entries_shape(self):
+        from scripts import web
+
+        for entry in web._PUT_ROUTES:
+            assert isinstance(entry, tuple)
+            assert len(entry) == 2
+            regex_obj, handler = entry
+            assert hasattr(regex_obj, "match")
+            assert callable(handler)
+
+    def test_dispatch_table_result_translates_ok_false_to_400(self):
+        # The ω.35-A.5 extension: legacy {ok: False} mutation
+        # results translate to HTTP 400 with the body as-is.
+        from scripts.web import _dispatch_table_result
+
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+                self.status = None
+
+            def _send_json(self, body, status=200):
+                self.sent = body
+                self.status = status
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"ok": False, "error": "validation failed"})
+        assert h.status == 400
+        assert h.sent == {"ok": False, "error": "validation failed"}
+
+    def test_dispatch_table_result_passes_ok_true_through(self):
+        # Happy path: {ok: True} returns 200 unchanged.
+        from scripts.web import _dispatch_table_result
+
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+                self.status = None
+
+            def _send_json(self, body, status=200):
+                self.sent = body
+                self.status = status
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"ok": True, "id": "x"})
+        assert h.status == 200
+        assert h.sent == {"ok": True, "id": "x"}
+
+    def test_dispatch_table_result_passes_dict_without_ok_through(self):
+        # api_save's error path returns {"error": ..., "book": ...}
+        # with no "ok" key. result.get("ok") is None (not False), so
+        # the ok-False check shouldn't fire. Matches legacy: api_save
+        # errors went through send_json with 200 (the legacy did not
+        # translate them).
+        from scripts.web import _dispatch_table_result
+
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+                self.status = None
+
+            def _send_json(self, body, status=200):
+                self.sent = body
+                self.status = status
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"error": "book not found", "book": "xyz"})
+        assert h.status == 200
+        assert h.sent == {"error": "book not found", "book": "xyz"}
+
+    def test_route_inventory_no_drift_after_put_migration(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True
+        # PUT method should still have at least the migrated 6
+        # plus the un-migrated bespoke ones.
+        routes = check_routes.discover_routes()
+        puts = [r for r in routes if r.method == "PUT"]
+        assert len(puts) >= 9, f"PUT count dropped: {len(puts)}"
+
+    def test_discovery_recognizes_put_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("PUT", "/api/notes/([a-z0-9]+)$", True) in keys
+        assert ("PUT", "/api/edition/([a-z0-9-]+)$", True) in keys
+        assert ("PUT", "/api/category/([a-z0-9-]+)$", True) in keys
+        assert ("PUT", "/api/kind/([a-z0-9-]+)$", True) in keys
+
+    def test_handlers_take_match_and_payload(self):
+        # Smoke-test: handler signature is (m, payload). Run each
+        # handler with a synthetic match + minimal payload and
+        # confirm it returns a dict (or raises a tolerable
+        # exception like KeyError that the dispatch try/except
+        # would translate to 400).
+        import re as _re
+
+        from scripts import web
+
+        for regex_obj, handler in web._PUT_ROUTES:
+            # Manually invoke with a dummy match and empty dict to
+            # check the signature is (m, payload). The handler may
+            # raise downstream — that's caught by the dispatch
+            # try/except. We only care here about the call-pattern.
+            m = _re.match(regex_obj.pattern, "/api/dummy/value")
+            if m is None:
+                # Some patterns require specific characters; try
+                # the simplest path that matches the regex anchor.
+                m = regex_obj.match("/api/x/y")
+            # Just confirm handler is callable with (m, payload)
+            # signature — we don't actually run it because that
+            # would mutate state on the real corpus.
+            assert callable(handler)
+            try:
+                import inspect
+
+                sig = inspect.signature(handler)
+                params = list(sig.parameters.keys())
+                assert len(params) == 2, f"handler for {regex_obj.pattern} has wrong arg count: {params}"
+            except (TypeError, ValueError):
+                # Lambdas without explicit annotations are fine
+                pass

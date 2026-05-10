@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.4 querystring-bearing
+**Updated:** 2026-05-11, after **ω.35-A.5 PUT mutation routes
+table** shipped — first slice covering MUTATION routes (PUT).
+New `_PUT_ROUTES` table with 6 entries: /api/notes/<id>,
+/api/edition/<id>, /api/scenarios/<name>, /api/category/<id>,
+/api/kind/<id>, /api/publisher/<id>. Each is
+`(re.compile(r"^..."), lambda m, payload: api_X(...))`.
+`do_PUT` runs `_check_admin_auth` once at function entry, then
+the table dispatch loop, then falls through to the legacy
+cascade for the 4 bespoke PUT routes (export/build,
+edition-meta, edition-meta/preview, edition/note-toggle).
+`_dispatch_table_result` extended with a SECOND response shape:
+`{ok: False}` → HTTP 400 (alongside the existing
+`{status: error}` → http error envelope). The check is
+`result.get("ok") is False` (not `not result.get("ok")`) — so
+handlers that omit `ok` entirely (api_save's error path
+returns `{error: ..., book: ...}` with no ok key) go through
+as 200 unchanged, matching legacy. 5 legacy branches deleted;
+/api/publisher block kept as dead code (multi-line; safer to
+leave for ω.35-A.7 cleanup). check_routes.py extended with
+in_put_table state machine + a lenient discovery regex that
+captures the regex pattern but doesn't constrain the handler
+form (PUT table uses lambdas, vs `_REGEX_GET_ROUTES` bare
+identifiers). **+8 tests** in `TestOmega35A5PutTable`
+including 3 for the new `_dispatch_table_result` cases
+(ok:False → 400, ok:True → 200, dict-without-ok → 200).
+Migration progress: 26/88 routes (~30%) now exclusively in
+tables. Net session test delta: **+96** (1919 baseline → 2015
+final). 16 phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9,
+Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.5.
+AUDIT §7 sequence: ω.35-A.5 ✓ → **ω.35-A.6** DELETE table
+(next; same auth + handler shape but no payload) → ω.35-A.7
+POST + multipart → ω.35-B file split → ψ.35 matrix
+data-model collapse. **2015 / 2015 tests green (1 skipped);
+11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.4 querystring-bearing
 routes table** shipped — third route-table slice. New
 `_QS_REGEX_GET_ROUTES` table covers GET routes that parse the
 URL querystring; each entry is

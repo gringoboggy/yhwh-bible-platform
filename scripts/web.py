@@ -6352,15 +6352,53 @@ _QS_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
 ]
 
 
+# ω.35-A.5 (2026-05-11) — fourth slice of the route-table migration.
+# `_PUT_ROUTES` covers PUT mutation routes that share the
+# uniform shape: regex match → `payload = self._read_body()` →
+# `result = api_X(group(1), payload)` → translate `ok: False`
+# to HTTP 400 → send_json. Dispatch is wrapped in try/except so
+# any handler exception becomes a 400 with the exception message
+# (mirrors the legacy 9-line boilerplate inlined 6+ times).
+#
+# Admin auth happens at do_PUT function entry (one
+# `_check_admin_auth()` call); table dispatch runs AFTER that
+# check, so every table-registered route is auto-protected.
+#
+# Entries are `(regex, handler)` where handler is
+# `Callable[[Match, dict], dict]` — takes the regex match and
+# the parsed JSON payload, returns the response dict.
+# `_dispatch_table_result` was extended in ω.35-A.5 to handle
+# the `{ok: False}` legacy mutation-result shape (→ HTTP 400).
+_PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
+    (re.compile(r"^/api/notes/([a-z0-9]+)$"), lambda m, payload: api_save(m.group(1), payload)),
+    (re.compile(r"^/api/edition/([a-z0-9-]+)$"), lambda m, payload: api_save_edition(m.group(1), payload)),
+    (re.compile(r"^/api/scenarios/([a-z0-9_-]+)$"), lambda m, payload: api_save_scenario(m.group(1), payload)),
+    (re.compile(r"^/api/category/([a-z0-9-]+)$"), lambda m, payload: api_save_category(m.group(1), payload)),
+    (re.compile(r"^/api/kind/([a-z0-9-]+)$"), lambda m, payload: api_save_kind(m.group(1), payload)),
+    (re.compile(r"^/api/publisher/([a-z0-9-]+)$"), lambda m, payload: api_save_publisher_meta(m.group(1), payload)),
+]
+
+
 def _dispatch_table_result(handler_self, result: dict) -> None:
     """ω.35-A.2 helper — translate a handler dict result to an HTTP
     response, mirroring the boilerplate that appeared 10+ times in
-    the legacy cascade. If `result.get("status") == "error"`, sends
-    a JSON error envelope with the appropriate HTTP status; otherwise
-    sends the result as a 200 JSON response.
+    the legacy cascade.
 
-    Centralizing this means a future error-shape refinement (e.g.
-    adding a request-id field) lands in one place instead of ten.
+    Three response shapes handled:
+    1. `{"status": "error", "code": ..., "http": ..., "message": ...}`
+       — translated to JSON error envelope with appropriate HTTP
+       status. (ω.35-A.2 introduced this for the GET tables.)
+    2. `{"ok": False, ...}` — legacy mutation-result shape used by
+       api_save_edition / api_save_scenario / api_save_kind etc.
+       Sends the raw result with HTTP 400. (ω.35-A.5 added this for
+       the PUT/DELETE tables; preserves the legacy
+       `status = 200 if result.get("ok") else 400` pattern.)
+    3. Any other dict — sent as 200. Covers the `{"ok": True, ...}`
+       success shape AND handlers that return bare result dicts
+       without the ok-or-status discriminator (e.g. api_save's
+       happy path returns `{"ok": True, ...}`; its error path
+       returns `{"error": ..., "book": ...}` with no `ok` key —
+       both go through as 200, matching legacy behavior).
     """
     if result.get("status") == "error":
         handler_self._send_json(
@@ -6370,6 +6408,9 @@ def _dispatch_table_result(handler_self, result: dict) -> None:
             },
             status=result.get("http") or 500,
         )
+        return
+    if result.get("ok") is False:
+        handler_self._send_json(result, status=400)
         return
     handler_self._send_json(result)
 
@@ -7066,33 +7107,25 @@ class Handler(BaseHTTPRequestHandler):
     def do_PUT(self):
         if not self._check_admin_auth():
             return
-        m = re.match(r"^/api/notes/([a-z0-9]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                return self._send_json(api_save(m.group(1), payload))
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Save edition kind-toggle state (μ.2)
-        m = re.match(r"^/api/edition/([a-z0-9-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_edition(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Save scenario (μ.2½)
-        m = re.match(r"^/api/scenarios/([a-z0-9_-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_scenario(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
+        # ω.35-A.5 — table-driven dispatch for the uniform-shape PUT
+        # routes (regex → read body → call handler → translate
+        # ok:False to 400 → send_json). The 9-line per-route
+        # boilerplate that appeared 6+ times is now one dispatch
+        # loop. Routes that need bespoke handling (export/build's
+        # 500-on-fail, build-all's success_count check,
+        # edition-meta/preview's "error" key check, edition/note-
+        # toggle's extra path segment) stay in the legacy cascade
+        # for future ω.35-A.x slices.
+        for regex, handler in _PUT_ROUTES:
+            m = regex.match(self.path)
+            if m:
+                try:
+                    payload = self._read_body()
+                    result = handler(m, payload)
+                    return _dispatch_table_result(self, result)
+                except Exception as e:
+                    return self._send_json({"error": str(e)}, status=400)
+        # ω.35-A.5 — /api/notes, /api/edition, /api/scenarios migrated to _PUT_ROUTES.
         # Build edition (Phase σ.2)
         m = re.match(r"^/api/export/build/([a-z0-9-]+)$", self.path)
         if m:
@@ -7119,26 +7152,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json(result, status=status)
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
-        # Customize: update one category (Phase ν.1)
-        m = re.match(r"^/api/category/([a-z0-9-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_category(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Customize: update one kind (Phase ν.1)
-        m = re.match(r"^/api/kind/([a-z0-9-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_kind(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
+        # ω.35-A.5 — /api/category, /api/kind migrated to _PUT_ROUTES.
         # Customize: update edition metadata (Phase ν.2 — title, audience,
         # verse_popups, verse_marker_glyph, etc. — NOT the kind toggles)
         m = re.match(r"^/api/edition-meta/([a-z0-9-]+)$", self.path)
@@ -7175,7 +7189,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json(result, status=status)
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
-        # Publisher console save (Phase π.1)
+        # ω.35-A.5 — /api/publisher migrated to _PUT_ROUTES.
+        # (Legacy block below kept for the now-impossible match
+        # path; left intact to make the diff small. The dispatch
+        # loop above returns before reaching here.)
         m = re.match(r"^/api/publisher/([a-z0-9-]+)$", self.path)
         if m:
             try:

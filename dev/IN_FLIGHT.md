@@ -4,6 +4,103 @@
 
 ## Prior task
 
+**ω.35-A.5 PUT mutation routes table** shipped 2026-05-11.
+First slice covering MUTATION routes.
+
+`scripts/web.py:_PUT_ROUTES` (new, module scope below
+`_QS_REGEX_GET_ROUTES`): 6 single-line entries of the form
+`(re.compile(r"^..."), lambda m, payload: api_X(...))` for the
+6 PUT routes that share the uniform shape (regex → read body
+→ handler → translate ok:False to 400 → send_json):
+- /api/notes/<id>
+- /api/edition/<id>
+- /api/scenarios/<name>
+- /api/category/<id>
+- /api/kind/<id>
+- /api/publisher/<id>
+
+`Handler.do_PUT` extended with table dispatch: `_check_admin_auth`
+at function entry, then iterate `_PUT_ROUTES`, on match read
+body and call handler wrapped in try/except (exception → 400
+with message). Falls through to legacy cascade for 4 bespoke
+PUT routes still in legacy (export/build, edition-meta,
+edition-meta/preview, edition/note-toggle).
+
+`_dispatch_table_result` extended with a SECOND response
+shape: `result.get("ok") is False` → HTTP 400 with body
+as-is. Preserves the legacy `status = 200 if result.get("ok")
+else 400` pattern. **The `is False` check (not falsy check)
+is crucial** — `api_save`'s error path returns
+`{error: ..., book: ...}` with NO ok key; `result.get("ok")`
+is None there, not False, so the 400-translation correctly
+doesn't fire. Three response shapes now handled by one
+helper.
+
+5 legacy PUT branches deleted with breadcrumb comments;
+`/api/publisher` legacy block kept as dead code (multi-line,
+safer to leave for ω.35-A.7 cleanup).
+
+`check_routes.py` extended:
+- `in_put_table` state machine
+- Lenient discovery regex (captures regex pattern but doesn't
+  require bare-identifier handler — PUT entries use lambdas)
+
+**+8 tests** in `TestOmega35A5PutTable`:
+- table entries pinned
+- entries well-formed (compiled regex + callable)
+- `_dispatch_table_result` translates `ok: False` to 400
+- passes `ok: True` through (200)
+- passes dict-without-ok through (200) — preserves
+  api_save's error-without-ok-key behavior
+- inventory zero-drift; PUT count ≥9 preserved
+- discovery picks up table entries
+- handlers take (m, payload) signature
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+
+**26 of 88 routes (~30%) now exclusively in tables.**
+Remaining 62 in legacy: 5 POST mutations, 6 DELETE
+mutations, 4 bespoke PUT routes, multipart upload (2 routes),
+custom-output (RSS/YAML/HTML), static file serving, sample
+preview, /api/build-all literal-path-on-self.path form.
+
+### Open follow-ups
+
+- **ω.35-A.6 — DELETE table** (1 session). Same auth + uniform
+  handler shape as PUT but no payload. 6 DELETE routes to
+  migrate.
+- **ω.35-A.7 — POST + multipart** (1-2 sessions). POST
+  mutations + the multipart upload routes (covers, sources).
+  Needs a new helper for multipart body parsing.
+- **ω.35-A.8 — bespoke routes cleanup** (1 session). The 4
+  PUT outliers + /api/publisher dead code + custom-output
+  formats.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). After all dispatch is table-driven, move
+  handlers into per-topic modules.
+- **Perf-test serialization** (~half session).
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+96** (1919 baseline → 2015 final).
+16 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.5.
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.5 ✓ → ω.35-A.6
+DELETE (next) → ω.35-A.7 POST+multipart → ω.35-A.8 bespoke
+cleanup → ω.35-B file split → ψ.35 matrix collapse.
+
+**2015 / 2015 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.4 querystring-bearing routes table** shipped
 2026-05-11. Third slice of the audit ARCH-01 route-table
 migration.
