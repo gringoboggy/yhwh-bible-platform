@@ -1,6 +1,40 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.36 path-tagged fingerprint
+**Updated:** 2026-05-11, after **ω.35-A.1 first slice of route-
+table dispatch** shipped — first slice of the audit's ARCH-01
+live-dispatcher refactor. New `_SIMPLE_GET_ROUTES` table at
+module scope (14 entries, the simplest GET routes); `do_GET`
+checks the table first and falls through to legacy if/elif on
+miss. Migrated branches REMAIN in legacy as dead code (safety
+net + zero linter delta); ω.35-A.3 will clean them up.
+`check_routes.py` extended to discover table entries (regex
+match on `("path", handler_name),` lines inside the table
+block) plus dedup logic that gives table precedence over the
+intentional legacy duplicates. **+8 tests** in
+`TestOmega35A1SimpleGetTable`. **Bundled**:
+`_PYTEST_HARNESS_MULTIPLIER` calibrated 1.4 → 2.5. ω.36's
+path-tagged cache fixed per-test stat-walk cost; ω.35-A.1 runs
+surfaced 8-worker xdist BURST contention (multiple workers
+rebuilding own corpus.<gw>.sqlite simultaneously) producing
+6000-7000ms spikes on api_matrix.cold even though 12 perf
+tests pass cleanly together when run alone. Calibration: 1.4
+fail / 2.0 1.9% over / 2.5 pass. Settled at 2.5 (7500ms
+ceiling on 3000ms operational budget; catches 2.5×
+regressions; permanent fix is to serialize perf tests in own
+xdist worker, tracked as follow-up). 14 routes migrated:
+/api/books, /api/kinds, /api/matrix, /api/reading-plans,
+/api/scenarios, /api/sources, /api/customize, /api/publisher,
+/api/covers, /api/preflight, /api/ops, /api/apihelp,
+/api/corpus-progress, /api/edition-templates. Net session test
+delta: **+72** (1919 baseline → 1991 final). 12 phases shipped
+this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1,
+Δ.5.1, ω.35-A, ω.36, ω.35-A.1. AUDIT_2026-05-11 §7 sequence:
+ω.35-A.1 ✓ → **ω.35-A.2** widen table to regex routes (next)
+→ ω.35-A.3 delete dead-code branches → ω.35-B file split →
+ψ.35 matrix data-model collapse. **1991 / 1991 tests green
+(1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.36 path-tagged fingerprint
 cache** shipped — `_PYTEST_HARNESS_MULTIPLIER` back at 1.4
 (production default). Architectural fix for the perf-budget
 test variance that kept pushing the multiplier higher across

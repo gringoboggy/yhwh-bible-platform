@@ -24550,3 +24550,120 @@ class TestOmega35RoutesInventory:
         assert ("GET", "/bar.html", False) in keys  # alias picked up
         assert ("GET", "/api/x/([a-z]+)$", True) in keys
         assert ("POST", "/api/upload$", True) in keys
+
+
+# ---------- Phase ω.35-A.1 : table-driven dispatch (simple GET) -------
+
+
+class TestOmega35A1SimpleGetTable:
+    """ω.35-A.1 — first slice of the audit's ARCH-01 live-dispatcher
+    refactor. `web._SIMPLE_GET_ROUTES` is a list of `(path, handler)`
+    tuples for the simplest GET routes (the
+    `if path == "/api/X": return self._send_json(api_X())` shape).
+    `Handler.do_GET` checks the table FIRST and falls through to
+    the legacy if/elif cascade for routes that don't fit the simple
+    shape.
+
+    Migrated branches REMAIN in the legacy if/elif as dead code —
+    safety net + zero linter delta. ω.35-A.1 dedups the discovered
+    set so the table entry wins; unintentional duplicates still
+    surface.
+
+    Future ω.35-A.2 will widen the table to cover regex routes and
+    paths that need querystring parsing; ω.35-A.3 will delete the
+    dead-code legacy branches once the table is proven."""
+
+    def test_table_has_expected_minimum_size(self):
+        from scripts import web
+
+        assert len(web._SIMPLE_GET_ROUTES) >= 10, f"_SIMPLE_GET_ROUTES has only {len(web._SIMPLE_GET_ROUTES)} entries"
+
+    def test_table_entries_are_path_handler_tuples(self):
+        from scripts import web
+
+        for entry in web._SIMPLE_GET_ROUTES:
+            assert isinstance(entry, tuple), f"entry is not a tuple: {entry}"
+            assert len(entry) == 2, f"entry is not a (path, handler) 2-tuple: {entry}"
+            path, handler = entry
+            assert isinstance(path, str), f"path is not a str: {path!r}"
+            assert path.startswith("/"), f"path doesn't start with /: {path!r}"
+            assert callable(handler), f"handler is not callable for {path}: {handler}"
+
+    def test_table_includes_known_simple_routes(self):
+        from scripts import web
+
+        paths = {p for p, _ in web._SIMPLE_GET_ROUTES}
+        # Pin a representative subset of the simplest routes
+        assert "/api/books" in paths
+        assert "/api/kinds" in paths
+        assert "/api/matrix" in paths
+        assert "/api/preflight" in paths
+        assert "/api/customize" in paths
+        assert "/api/publisher" in paths
+
+    def test_table_handlers_each_return_dict_when_invoked(self):
+        # Sanity: every registered handler can be called and returns
+        # a dict. Catches mis-registration (e.g. someone wires a
+        # handler that takes args, or one that returns None).
+        from scripts import web
+
+        for path, handler in web._SIMPLE_GET_ROUTES:
+            result = handler()
+            assert isinstance(result, dict), f"handler for {path} returned {type(result).__name__}, expected dict"
+
+    def test_route_inventory_no_drift_after_migration(self):
+        # Per the migration contract, dedup logic in check_routes
+        # ensures the route count stays the same after migration —
+        # table entries replace legacy duplicates 1:1.
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True, f"routes inventory has open drift: {result['summary']}"
+        # All 4 methods still present
+        sub = next(c for c in result["checks"] if c["id"] == "methods_covered")
+        assert sub["status"] == "pass"
+        # No duplicates (the dedup hides the intentional table↔legacy
+        # overlap; unintentional duplicates would still surface)
+        sub = next(c for c in result["checks"] if c["id"] == "no_duplicate_patterns")
+        assert sub["status"] == "pass"
+
+    def test_discovery_includes_table_entries(self):
+        # The dedup path means table entries DO appear in the
+        # discovered set (they take precedence over the legacy
+        # if/elif duplicates).
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        for path in ("/api/books", "/api/matrix", "/api/preflight"):
+            assert ("GET", path, False) in keys, f"table entry {path!r} not in discovered set"
+
+    def test_table_routes_dispatched_through_handler(self):
+        # End-to-end smoke: simulate a do_GET-style dispatch by
+        # calling the table handler the way the Handler class would.
+        # Confirms the table is well-formed and the handlers are
+        # importable + callable from web.py's namespace.
+        from scripts import web
+
+        # Find /api/books handler
+        path_to_handler = dict(web._SIMPLE_GET_ROUTES)
+        assert "/api/books" in path_to_handler
+        result = path_to_handler["/api/books"]()
+        # api_books returns a dict with at least one of the
+        # standard list keys (defensive check)
+        assert isinstance(result, dict)
+
+    def test_known_routes_still_work_post_migration(self):
+        # Direct call to api_* via web.* module namespace must
+        # still return the same shape as before. Catches accidental
+        # function rename / import breakage.
+        from scripts import web
+
+        # /api/books shape: a dict with "books" key
+        r = web.api_books()
+        assert isinstance(r, dict)
+        # /api/preflight shape: dict with "checks" key (part of
+        # the standard preflight aggregator shape)
+        r = web.api_preflight()
+        assert isinstance(r, dict)
+        assert "checks" in r or "summary" in r

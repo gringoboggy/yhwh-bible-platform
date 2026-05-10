@@ -89,6 +89,12 @@ _LITERAL_RE = re.compile(r'\s*if path == "(/[^"]*)"(?:\s+or\s+path\s*==\s*"(/[^"
 # Match `m = re.match(r"^/foo/([a-z]+)$", path)` (or ..., self.path).
 _REGEX_RE = re.compile(r'\s*m\s*=\s*re\.match\(\s*r"\^([^"]+)",\s*(?:path|self\.path)\s*\)')
 
+# ω.35-A.1 — also discover `_SIMPLE_GET_ROUTES` table entries.
+# Each line of the form `("/api/foo", handler_name),` registers a
+# table-dispatched GET route. The discovery still considers these
+# as GET (the table is GET-specific by design).
+_TABLE_ENTRY_RE = re.compile(r'\s*\(\s*"(/[^"]+)"\s*,\s*[A-Za-z_][A-Za-z0-9_]*\s*\)\s*,?\s*$')
+
 
 def _method_for_line(text: str, line_no: int) -> str | None:
     """Walk backward from ``line_no`` to find the enclosing
@@ -118,9 +124,26 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines()
 
-    out: list[Route] = []
+    table_routes: list[Route] = []
+    legacy_routes: list[Route] = []
     in_method: str | None = None
+    in_simple_get_table: bool = False
     for line_no, line in enumerate(lines, start=1):
+        # ω.35-A.1 — track the `_SIMPLE_GET_ROUTES` table opening
+        # so its `(path, handler)` tuples register as GET routes.
+        if "_SIMPLE_GET_ROUTES" in line and "[" in line:
+            in_simple_get_table = True
+            continue
+        if in_simple_get_table:
+            te = _TABLE_ENTRY_RE.match(line)
+            if te:
+                table_routes.append(Route(method="GET", pattern=te.group(1), is_regex=False, line=line_no))
+                continue
+            # End of table on a closing `]`
+            if line.strip().startswith("]"):
+                in_simple_get_table = False
+            continue
+
         m = re.match(r"\s*def\s+do_([A-Z]+)\(", line)
         if m:
             in_method = m.group(1)
@@ -134,17 +157,27 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
         lit = _LITERAL_RE.match(line)
         if lit:
             primary, alias = lit.group(1), lit.group(2)
-            out.append(Route(method=in_method, pattern=primary, is_regex=False, line=line_no))
+            legacy_routes.append(Route(method=in_method, pattern=primary, is_regex=False, line=line_no))
             if alias:
-                out.append(Route(method=in_method, pattern=alias, is_regex=False, line=line_no))
+                legacy_routes.append(Route(method=in_method, pattern=alias, is_regex=False, line=line_no))
             continue
 
         rx = _REGEX_RE.match(line)
         if rx:
-            out.append(Route(method=in_method, pattern=rx.group(1), is_regex=True, line=line_no))
+            legacy_routes.append(Route(method=in_method, pattern=rx.group(1), is_regex=True, line=line_no))
             continue
 
-    return out
+    # ω.35-A.1 — the migration intentionally leaves table-dispatched
+    # routes ALSO in the legacy if/elif (as dead code) so the
+    # discovery still finds them via the legacy regex if the table
+    # is somehow malformed. Dedupe here — the table entry wins on
+    # collision; the legacy duplicate is dropped from the
+    # discovered set so the no_duplicate_patterns sub-check stays
+    # clean. Unintentional duplicates (two if/elif branches for the
+    # same path) still surface.
+    table_keys = {(r.method, r.pattern) for r in table_routes}
+    deduped_legacy = [r for r in legacy_routes if (r.method, r.pattern) not in table_keys]
+    return table_routes + deduped_legacy
 
 
 # ----------------------------------------------------------------------

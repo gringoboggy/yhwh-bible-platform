@@ -6217,6 +6217,49 @@ def _safe_request(method):
     return wrapper
 
 
+# ω.35-A.1 (2026-05-11) — table-driven dispatch for the simplest GET
+# routes (the `if path == "/api/X": return self._send_json(api_X())`
+# shape that dominated the do_GET cascade). The Handler.do_GET method
+# checks this table FIRST; falls through to the legacy if/elif
+# cascade for routes that don't fit the simple shape (auth-gated,
+# payload-reading, multipart parsing, custom error translation).
+#
+# **Migration strategy:** the migrated branches REMAIN in the legacy
+# if/elif as dead code. The table dispatch returns first, so those
+# branches are unreachable but still picked up by the ω.35-A
+# `check_routes.py` drift linter (which discovers routes by regex-
+# scanning do_GET). Future ω.35-A.2 cleanup will delete the dead
+# branches once the table dispatch is proven across a full release
+# cycle. For now, dead-code preservation = safety net + zero linter
+# delta.
+#
+# **What qualifies for the table:** routes that are (a) GET, (b) no
+# admin auth, (c) no payload reading, (d) no querystring parsing
+# beyond what the handler does internally, (e) the response is a
+# bare `_send_json(api_X())` with no error-translation logic. Any
+# route that needs more inline logic stays in the legacy cascade.
+#
+# Routes are migrated as `(path, handler_callable)` tuples. The
+# handlers are the existing pure-function `api_*` helpers — no
+# changes to handler signatures or call patterns.
+_SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
+    ("/api/books", api_books),
+    ("/api/kinds", api_kinds),
+    ("/api/matrix", api_matrix),
+    ("/api/reading-plans", api_reading_plans_list),
+    ("/api/scenarios", api_list_scenarios),
+    ("/api/sources", api_sources_index),
+    ("/api/customize", api_customize_data),
+    ("/api/publisher", api_publisher_data),
+    ("/api/covers", api_covers),
+    ("/api/preflight", api_preflight),
+    ("/api/ops", api_ops_dashboard),
+    ("/api/apihelp", api_help_data),
+    ("/api/corpus-progress", api_corpus_progress),
+    ("/api/edition-templates", api_edition_templates_list),
+]
+
+
 class Handler(BaseHTTPRequestHandler):
     # ξ.3 — security response headers. Applied to every HTML + JSON
     # response via _send_security_headers below.
@@ -6460,6 +6503,15 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         url = urllib.parse.urlparse(self.path)
         path = url.path
+
+        # ω.35-A.1 — table-driven dispatch for the simplest JSON GET
+        # routes. Falls through to the legacy if/elif cascade for
+        # routes that don't fit (auth-gated, payload-reading, etc.).
+        # See `_SIMPLE_GET_ROUTES` near the top of the file for
+        # the migration contract and the drift-tolerance strategy.
+        for route_path, handler in _SIMPLE_GET_ROUTES:
+            if path == route_path:
+                return self._send_json(handler())
 
         if path == "/" or path == "/index.html":
             return self._send_html(INDEX_HTML)

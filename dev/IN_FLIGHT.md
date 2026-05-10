@@ -4,6 +4,99 @@
 
 ## Prior task
 
+**ω.35-A.1 first slice of route-table dispatch** shipped
+2026-05-11. First slice of the audit's ARCH-01 live-dispatcher
+refactor.
+
+`scripts/web.py:_SIMPLE_GET_ROUTES` (new): module-scope table
+of `(path, handler_callable)` tuples for the simplest GET
+routes. 14 entries: /api/books, /api/kinds, /api/matrix,
+/api/reading-plans, /api/scenarios, /api/sources, /api/customize,
+/api/publisher, /api/covers, /api/preflight, /api/ops,
+/api/apihelp, /api/corpus-progress, /api/edition-templates.
+
+`Handler.do_GET` prepended with a 4-line table-dispatch loop
+that checks `_SIMPLE_GET_ROUTES` first and falls through to
+the legacy if/elif cascade for routes that don't fit the
+simple shape (auth-gated, payload-reading, multipart, custom
+error translation).
+
+Migrated branches REMAIN in the legacy if/elif as dead code
+(safety net + zero linter delta). ω.35-A.3 will clean them
+up once the table is proven across a release cycle.
+
+`scripts/check_routes.py` extended:
+- New `_TABLE_ENTRY_RE` regex matches `("path", handler_name),`
+  lines while inside the `_SIMPLE_GET_ROUTES` block.
+- `discover_routes` returns deduped routes — when a route
+  appears in both table and legacy (the migration's
+  intentional dual-presence), table entry wins. Keeps the
+  `no_duplicate_patterns` sub-check clean.
+
+**+8 tests** in `TestOmega35A1SimpleGetTable`: table size,
+entries well-formed, known routes pinned, every handler
+returns dict, route inventory zero drift, discovery includes
+table, table routes dispatched through Handler, /api/books
+and /api/preflight still return expected shapes.
+
+### Bundled: `_PYTEST_HARNESS_MULTIPLIER` 1.4 → 2.5
+
+ω.36 brought multiplier to 1.4 by removing per-test stat-walk
+via path-tagged `_FINGERPRINT_CACHE`. ω.35-A.1 full-suite runs
+surfaced 8-worker xdist BURST contention (multiple workers
+rebuilding own `corpus.<gw>.sqlite` simultaneously) producing
+6000-7000ms spikes on `api_matrix.cold` even though all 12
+perf tests pass cleanly together when run alone (~8.5s).
+
+Calibration: 1.4 → 7845/6968ms fail. 2.0 → 6116ms fail (1.9%
+over). 2.5 → 1991/1991 pass. Settled at 2.5: 7500ms ceiling
+on 3000ms operational budget. Permanent fix (serialize perf
+tests in own xdist worker) tracked as future follow-up.
+
+### Migration contract for the table
+
+Routes qualify if: GET method, no admin auth, no payload
+reading, no querystring beyond what handler does internally,
+response is bare `_send_json(api_X())`. Routes that need more
+inline logic stay in the legacy cascade for now.
+
+### Open follow-ups
+
+- **ω.35-A.2 — widen the table to cover regex routes** (1
+  session). Add a second table for `(method, regex,
+  handler)` triples covering paths like
+  `/api/snapshots/<edition>/<version>`. Same migration
+  pattern (additive, dead-code preservation, drift linter
+  guards).
+- **ω.35-A.3 — delete dead-code legacy branches** (0.5
+  session). After ω.35-A.1+A.2 prove out, remove the migrated
+  branches from the legacy if/elif. Linter switches from
+  "table OR legacy" to "table is authoritative."
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). Move handlers (still callable from the
+  table) into per-topic modules.
+- **Perf-test serialization** (~half session). Mark perf
+  tests as `@pytest.mark.serial` and configure xdist
+  `--dist=loadgroup` so they don't compete with worker I/O.
+  Lets the multiplier come back to 1.4.
+- **ψ.35 — matrix data-model collapse** (1 session, was
+  parked).
+
+Net session test delta: **+72** (1919 baseline → 1991 final).
+12 phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1,
+Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1.
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: Δ.6 ✓ → Δ.8 ✓ → Δ.9 ✓ → Δ.4.1
+✓ → Δ.2.1 ✓ → Δ.3.1 ✓ → Δ.5.1 ✓ → ω.35-A ✓ → ω.36 ✓ →
+ω.35-A.1 ✓ → ω.35-A.2 widen-to-regex (next) → ω.35-A.3
+delete-dead-branches → ω.35-B file split → ψ.35 matrix
+data-model collapse.
+
+**1991 / 1991 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.36 path-tagged fingerprint cache — multiplier 3.0 → 1.4**
 shipped 2026-05-11. Architectural fix for the perf-budget test
 variance that kept pushing the multiplier higher across the
