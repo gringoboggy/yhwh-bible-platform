@@ -1,6 +1,40 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.2 second slice of
+**Updated:** 2026-05-11, after **ω.35-A.3 delete dead-code
+legacy branches** shipped. Cleanup phase that removes 17 dead
+if/elif branches in `Handler.do_GET` corresponding to the 17
+routes already table-dispatched via `_SIMPLE_GET_ROUTES` /
+`_REGEX_GET_ROUTES` (ω.35-A.1 + ω.35-A.2). Net: web.py
+shorter, single source of truth for migrated routes, drift
+linter still reports 88 routes (table entries replace the
+deleted legacy ones 1:1). Each deleted branch replaced with
+a single `# ω.35-A.3 — migrated to _SIMPLE_GET_ROUTES`
+breadcrumb so future grep finds the migration. Bug caught +
+fixed mid-phase: `api_help_data()` independently scans web.py
+source via `_ROUTE_PATTERNS`; the deletions removed the
+`if path == "..."` lines that scanner matched, so /apihelp
+showed fewer routes. Fixed by extending `_ROUTE_PATTERNS`
+with two table-aware patterns (one for `_SIMPLE_GET_ROUTES`
+tuples, one for `_REGEX_GET_ROUTES` tuples) so the help
+console enumerates table-dispatched routes alongside
+legacy ones. Preserved /api/scenarios/<name>/export.yaml
+(YAML output, not JSON — not table-compatible).
+**0 test delta** (cleanup is a strict reduction; existing
+ω.35-A.1 + ω.35-A.2 tests already verify table dispatch).
+Migration progress: 17/88 routes now exclusively in tables
+(~19%); 71 remain in legacy (querystring, payload-reading,
+multipart, custom-output, admin-auth-gated). Net session
+test delta: **+80** unchanged (1919 baseline → 1999 final).
+14 phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1,
+Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1, ω.35-A.2,
+ω.35-A.3. AUDIT §7 sequence: ω.35-A.3 ✓ → **ω.35-A.4** widen
+to querystring-bearing routes (next; /api/snapshots/<ed>/<ver>/diff,
+/api/audit-log, /api/diff, /api/compare, /api/backups,
+/api/search-notes) → ω.35-A.5 PUT/POST/DELETE tables →
+ω.35-B file split → ψ.35 matrix data-model collapse.
+**1999 / 1999 tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.2 second slice of
 route-table dispatch (regex routes + error-translate helper)**
 shipped. Widens the route-table migration to cover
 parameterized GET paths with the boilerplate `regex.match →

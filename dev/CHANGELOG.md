@@ -6,6 +6,105 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.3 delete dead-code legacy branches (audit ARCH-01 cleanup)
+
+**Phases shipped:** ω.35-A.3. Deleted the dead-code legacy
+if/elif branches for the 17 routes already migrated to
+`_SIMPLE_GET_ROUTES` / `_REGEX_GET_ROUTES`. Net: web.py
+shorter, single source of truth for migrated routes, drift
+linter still reports the same 88 routes (table entries
+replace the deleted legacy ones 1:1).
+**Test delta:** 0 (1999 → 1999 green; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- Deleted 14 simple-GET legacy branches from `Handler.do_GET`
+  (one per ω.35-A.1 table entry): /api/books, /api/kinds,
+  /api/matrix, /api/reading-plans, /api/scenarios,
+  /api/sources, /api/customize, /api/publisher, /api/covers,
+  /api/preflight, /api/ops, /api/apihelp, /api/corpus-progress,
+  /api/edition-templates. Each branch was 2 lines (the
+  `if path == "/api/X":` test and the
+  `return self._send_json(api_X())` body); replaced with a
+  single-line `# ω.35-A.3 — migrated` breadcrumb comment.
+- Deleted 3 regex-GET legacy branches: `/api/reading-plans/<id>`,
+  `/api/snapshots/<ed>/<ver>`, `/api/snapshots/<ed>` (all 7-9
+  lines each, with the error-translation boilerplate that's
+  now centralized in `_dispatch_table_result`). The
+  `/api/snapshots/<ed>/<ver>/diff` route remains (querystring-
+  bearing; pending ω.35-A.4).
+- `_ROUTE_PATTERNS` in `api_help_data` extended with two new
+  patterns so the /apihelp console finds routes registered in
+  both tables. Without this, /apihelp would show fewer routes
+  post-deletion (the source-scan based discovery wouldn't see
+  the `("path", handler)` table tuples). Now it does.
+- 0 new tests in this phase (the cleanup is a strict
+  reduction; existing tests for ω.35-A.1 / ω.35-A.2 already
+  verify the table dispatch returns the right responses).
+
+### Bug caught + fixed mid-phase
+
+The full xdist run after the deletions surfaced 2 failures:
+`test_api_help_data_finds_known_routes` and
+`test_api_help_recursion_self_listed`. Root cause:
+`api_help_data()` used `_ROUTE_PATTERNS` to scan web.py source
+for route declarations; the deletions removed the
+`if path == "..."` lines those patterns matched. Fixed by
+extending `_ROUTE_PATTERNS` to also match table tuples. Bug
++ fix in the same phase; the test suite caught the
+introspection drift before ship.
+
+### Migration progress
+
+| Phase | What landed |
+|---|---|
+| ω.35-A   | Discovery + drift linter (Tier-3 preflight check). |
+| ω.35-A.1 | 14 simple GET routes table-dispatched. |
+| ω.35-A.2 | 3 regex GET routes table-dispatched + error-translate helper. |
+| ω.35-A.3 | Delete 17 legacy branches; api_help_data discovers tables. |
+
+17 of 88 routes now exclusively in tables (~19%). The legacy
+if/elif still owns 71 routes — querystring-parsing, payload-
+reading, multipart, custom-output, admin-auth-gated.
+
+### Notable decisions
+
+- **Replace deleted branches with breadcrumb comments
+  (`# ω.35-A.3 — migrated to _SIMPLE_GET_ROUTES`)**, not raw
+  deletion. Future Claude grepping for `/api/books` finds
+  the breadcrumb and follows it to the table. Cheap
+  archaeology aid for the next refactor.
+- **Extended `_ROUTE_PATTERNS` instead of routing
+  `api_help_data` through `check_routes.discover_routes()`.**
+  The api_help_data scan also picks up phase markers from
+  comments above each route declaration; adopting
+  check_routes' simpler shape would lose that context. The
+  two patterns added (line-shape match for table tuples)
+  give /apihelp the same per-route phase/description it had
+  before.
+- **Preserved `/api/scenarios/<name>` etc. that look
+  table-eligible but are NOT.** The scenarios route I left
+  is `/api/scenarios/<name>/export.yaml` which returns YAML
+  (not JSON) — different output format, not table-compatible.
+  Future ω.35-A.x may add a YAML-output table.
+
+### Continuity pointers
+
+- `scripts/web.py:do_GET` — 17 dead-code branches removed;
+  17 breadcrumb comments mark the migrations.
+- `scripts/web.py:_ROUTE_PATTERNS` — two new entries for
+  `_SIMPLE_GET_ROUTES` / `_REGEX_GET_ROUTES` table discovery.
+- AUDIT_2026-05-11 §7 sequence: ω.35-A.3 ✓ → **ω.35-A.4
+  widen to querystring-bearing routes** (next; covers
+  /api/snapshots/<ed>/<ver>/diff, /api/audit-log,
+  /api/diff, /api/compare, /api/backups, /api/search-notes —
+  the ones that need `qs = parse_qs(url.query)` before
+  calling the handler) → ω.35-A.5 PUT/POST/DELETE tables →
+  ω.35-B file split → ψ.35 matrix data-model collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.2 second slice of route-table dispatch (regex routes + error-translate helper)
 
 **Phases shipped:** ω.35-A.2. Widens the route-table migration

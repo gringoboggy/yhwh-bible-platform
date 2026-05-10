@@ -5289,6 +5289,15 @@ _ROUTE_PATTERNS = [
     (re.compile(r'^\s*if\s+self\.path\s*==\s*"(/api/[^"]+)"'), "POST"),
     # Pattern: m = re.match(r"^/api/X/...$", self.path)
     (re.compile(r'^\s*m\s*=\s*re\.match\(r"\^(/api/[^"$]+)\$"'), "PATTERN"),
+    # ω.35-A.3 — also discover `_SIMPLE_GET_ROUTES` table entries.
+    # Each line of the form `("/api/foo", api_foo),` registers a
+    # table-dispatched GET route.
+    (re.compile(r'^\s*\(\s*"(/api/[^"]+)"\s*,\s*[A-Za-z_][A-Za-z0-9_]*\s*\)\s*,?\s*$'), "GET"),
+    # ω.35-A.3 — also discover `_REGEX_GET_ROUTES` table entries.
+    # Each line of the form `(re.compile(r"^/api/foo/(...)$"), api_foo),`.
+    # Strip leading `^` and trailing `$` to align with /apihelp's
+    # human-friendly path display.
+    (re.compile(r'^\s*\(\s*re\.compile\(\s*r"\^(/api/[^"$]+)\$"\s*\)\s*,'), "PATTERN"),
 ]
 
 # Console-page routes (HTML, not API). These get listed separately
@@ -6577,28 +6586,20 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_html(INDEX_HTML)
         if path == "/matrix" or path == "/matrix.html":
             return self._send_html(MATRIX_HTML)
-        if path == "/api/books":
-            return self._send_json(api_books())
-        if path == "/api/kinds":
-            return self._send_json(api_kinds())
-        if path == "/api/matrix":
-            return self._send_json(api_matrix())
-        # ψ.19 — reading plans (list + per-plan).
-        if path == "/api/reading-plans":
-            return self._send_json(api_reading_plans_list())
-        m = re.match(r"^/api/reading-plans/([a-z0-9_-]+)$", path)
-        if m:
-            result = api_reading_plan_get(m.group(1))
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
+        # ω.35-A.3 (2026-05-11) — deleted dead-code legacy branches
+        # for the 14 simple + 3 regex routes migrated to
+        # `_SIMPLE_GET_ROUTES` / `_REGEX_GET_ROUTES`. The table
+        # dispatch loops at the top of this method handle them now.
+        # The /api/snapshots/<ed>/<ver>/diff route stays here — it
+        # needs querystring parsing (`?against=<ver>`) which the
+        # current tables don't support; ω.35-A.4 will widen the
+        # regex table to cover query-bearing routes.
 
-        # ω.16 — edition snapshots. The order matters: more-specific
-        # routes (.../diff, .../<version>) must precede the bare-list
-        # `/api/snapshots/<edition_id>` matcher below.
+        # ω.16 — edition snapshots. The /<ed>/<ver>/diff route is
+        # the only one left here; /<ed>/<ver> and /<ed> migrated
+        # to `_REGEX_GET_ROUTES`. Order still matters: this
+        # more-specific `.../diff` matcher must precede any
+        # less-specific snapshots route added in future.
         m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/diff$", path)
         if m:
             qs = urllib.parse.parse_qs(url.query or "")
@@ -6614,27 +6615,6 @@ class Handler(BaseHTTPRequestHandler):
                     status=result.get("http") or 500,
                 )
             return self._send_json(result)
-        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$", path)
-        if m:
-            result = api_snapshot_get(m.group(1), m.group(2))
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
-        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)$", path)
-        if m:
-            result = api_snapshot_list(m.group(1))
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
-
-        if path == "/api/scenarios":
-            return self._send_json(api_list_scenarios())
 
         # ψ.27 — YAML export route. Place BEFORE the generic
         # /api/scenarios/<name> matcher so the .yaml suffix is matched
@@ -6672,8 +6652,7 @@ class Handler(BaseHTTPRequestHandler):
         # /api/sources below, which navigates note attribution
         if path == "/api/sources/cache":
             return self._send_json(api_sources_cache_status())
-        if path == "/api/sources":
-            return self._send_json(api_sources_index())
+        # ω.35-A.3 — /api/sources migrated to _SIMPLE_GET_ROUTES.
         if path == "/api/sources/summary":
             return self._send_json(api_sources_summary())
         # υ.3 — cross-edition note search. Read query + filters from
@@ -6781,8 +6760,7 @@ class Handler(BaseHTTPRequestHandler):
         # Customize (Phase ν.1)
         if path == "/customize" or path == "/customize.html":
             return self._send_html(CUSTOMIZE_HTML)
-        if path == "/api/customize":
-            return self._send_json(api_customize_data())
+        # ω.35-A.3 — /api/customize migrated to _SIMPLE_GET_ROUTES.
 
         # Attribution Audit (Phase ξ.4)
         if path == "/audit" or path == "/audit.html":
@@ -6806,8 +6784,7 @@ class Handler(BaseHTTPRequestHandler):
         # Publisher console (Phase π.1)
         if path == "/publisher" or path == "/publisher.html":
             return self._send_html(PUBLISHER_HTML)
-        if path == "/api/publisher":
-            return self._send_json(api_publisher_data())
+        # ω.35-A.3 — /api/publisher migrated to _SIMPLE_GET_ROUTES.
 
         # Bible Builder Wizard (Phase π.5)
         if path == "/wizard" or path == "/wizard.html":
@@ -6922,14 +6899,12 @@ class Handler(BaseHTTPRequestHandler):
         # Per-book cover status (Phase π.4-A) — read-only feed for
         # the upcoming /covers UI. Returns each edition's main + per-book
         # cover slots, filtered by canon and sorted in canonical order.
-        if path == "/api/covers":
-            return self._send_json(api_covers())
+        # ω.35-A.3 — /api/covers migrated to _SIMPLE_GET_ROUTES.
 
         # Pre-flight checklist (Phase ψ.2) — aggregator dashboard
         if path == "/preflight" or path == "/preflight.html":
             return self._send_html(PREFLIGHT_HTML)
-        if path == "/api/preflight":
-            return self._send_json(api_preflight())
+        # ω.35-A.3 — /api/preflight migrated to _SIMPLE_GET_ROUTES.
 
         # Corpus progress widget (Phase ψ.3) — read-only feed for
         # the every-console progress bar. Cheap; composes the
@@ -6939,17 +6914,13 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/ops" or path == "/ops.html":
             return self._send_html(OPS_HTML)
         # Phase ψ.6 — operator dashboard data feed
-        if path == "/api/ops":
-            return self._send_json(api_ops_dashboard())
+        # ω.35-A.3 — /api/ops migrated to _SIMPLE_GET_ROUTES.
 
         # Phase ω.0.2 — scaffolded route for /apihelp
         if path == "/apihelp" or path == "/apihelp.html":
             return self._send_html(APIHELP_HTML)
         # Phase ω.3 — API reference data feed (auto-generated)
-        if path == "/api/apihelp":
-            return self._send_json(api_help_data())
-        if path == "/api/corpus-progress":
-            return self._send_json(api_corpus_progress())
+        # ω.35-A.3 — /api/apihelp + /api/corpus-progress migrated to _SIMPLE_GET_ROUTES.
 
         # Cover console (Phase π.4-B UI). The image-upload flow lives
         # in do_POST; this route just serves the page shell.
@@ -7013,8 +6984,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json(api_template(m.group(1)))
 
         # ψ.7-B — list edition starter-pack templates
-        if path == "/api/edition-templates":
-            return self._send_json(api_edition_templates_list())
+        # ω.35-A.3 — /api/edition-templates migrated to _SIMPLE_GET_ROUTES.
 
         # ψ.1.0 — live one-chapter preview
         # /api/preview/<edition>/<book>/<chapter>?translation=<id>

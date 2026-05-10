@@ -4,6 +4,87 @@
 
 ## Prior task
 
+**ω.35-A.3 delete dead-code legacy branches** shipped
+2026-05-11. Cleanup phase that removes the 17 dead-code
+if/elif branches in `Handler.do_GET` corresponding to routes
+already table-dispatched via `_SIMPLE_GET_ROUTES` (14) and
+`_REGEX_GET_ROUTES` (3).
+
+Each deleted branch replaced with a single `# ω.35-A.3 —
+migrated to _SIMPLE_GET_ROUTES` breadcrumb comment so future
+grep for the path finds the migration trail.
+
+The drift linter still reports 88 routes — table entries
+replace the deleted legacy ones 1:1 (the existing dedup logic
+in `check_routes.discover_routes` continues to work; before
+this phase the table entry won over the legacy duplicate,
+after this phase only the table entry exists for those 17
+routes).
+
+### Bug caught + fixed mid-phase
+
+The full xdist run after deletions surfaced 2 failures in
+`TestEditionMeta` (test_api_help_data_finds_known_routes,
+test_api_help_recursion_self_listed). Root cause: separate
+introspection in `api_help_data()` used `_ROUTE_PATTERNS` to
+scan web.py source for `if path == "..."` lines. The
+deletions removed those lines, so /apihelp showed fewer
+routes.
+
+Fixed by extending `_ROUTE_PATTERNS` with two table-aware
+patterns:
+- `("/api/foo", api_foo),` for `_SIMPLE_GET_ROUTES` tuples
+- `(re.compile(r"^/api/foo/(...)$"), api_foo),` for
+  `_REGEX_GET_ROUTES` tuples
+
+Bug + fix in same phase. The test suite caught the
+introspection drift before any save.
+
+### Migration progress
+
+| Phase | What landed |
+|---|---|
+| ω.35-A   | Discovery + drift linter (Tier-3 preflight) |
+| ω.35-A.1 | 14 simple GET routes table-dispatched |
+| ω.35-A.2 | 3 regex GET routes table-dispatched + error-translate helper |
+| ω.35-A.3 | 17 legacy branches deleted; api_help_data discovers tables |
+
+17 of 88 routes (~19%) now exclusively in tables. Remaining 71
+are in legacy if/elif: querystring-parsing, payload-reading,
+multipart, custom-output (RSS/YAML), admin-auth-gated.
+
+### Open follow-ups
+
+- **ω.35-A.4 — widen table to querystring-bearing routes**
+  (1 session). Covers /api/snapshots/<ed>/<ver>/diff,
+  /api/audit-log, /api/diff, /api/compare, /api/backups,
+  /api/search-notes. Probably needs a third table shape
+  `(regex, query_param_names, handler)` or a wrapped-handler
+  form `(regex, lambda self, m, qs: handler(...))`.
+- **ω.35-A.5 — PUT / POST / DELETE tables** (1-2 sessions).
+  All three currently mirror do_GET's shape but also need
+  admin-auth and payload reading.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). Move handlers into per-topic modules
+  (still callable from the table).
+- **Perf-test serialization** (~half session). Mark perf
+  tests serial so they don't compete with worker I/O. Lets
+  the harness multiplier come back to 1.4.
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+80** (1919 baseline → 1999 final).
+14 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1, ω.35-A.2, ω.35-A.3.
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.3 ✓ → ω.35-A.4
+widen-querystring (next) → ω.35-A.5 mutation tables → ω.35-B
+file split → ψ.35 matrix collapse.
+
+**1999 / 1999 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.2 second slice of route-table dispatch (regex routes
 + error-translate helper)** shipped 2026-05-11. Widens the
 table-driven dispatch to cover parameterized GET paths.
