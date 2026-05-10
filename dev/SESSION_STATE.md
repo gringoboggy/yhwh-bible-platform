@@ -1,6 +1,33 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.1 first slice of route-
+**Updated:** 2026-05-11, after **ω.35-A.2 second slice of
+route-table dispatch (regex routes + error-translate helper)**
+shipped. Widens the route-table migration to cover
+parameterized GET paths with the boilerplate `regex.match →
+handler(*groups) → error-translate → send_json` shape that
+appeared 10+ times in the legacy cascade. New
+`_REGEX_GET_ROUTES` table (3 entries: /api/reading-plans/<id>,
+/api/snapshots/<ed>/<ver>, /api/snapshots/<ed>; order =
+precedence). New `_dispatch_table_result(handler_self, result)`
+helper centralizes the error-translation envelope. `do_GET`
+iterates the regex table after `_SIMPLE_GET_ROUTES` and before
+the legacy if/elif cascade. `check_routes.py` extended with
+`_REGEX_TABLE_ENTRY_RE` + `in_regex_get_table` state machine;
+existing dedup keeps the discovered count at 88. **+8 tests**
+in `TestOmega35A2RegexGetTable` (entries pinned + well-formed,
+snapshot precedence two-arg-before-one, _dispatch_table_result
+translates error vs passes through ok vs defaults, route
+inventory zero-drift, discovery recognizes regex table
+entries). Migration progress: 17 of 88 routes migrated (~19%).
+Net session test delta: **+80** (1919 baseline → 1999 final).
+13 phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1,
+Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1, ω.35-A.2.
+AUDIT §7 sequence: ω.35-A.2 ✓ → **ω.35-A.3 delete-dead-code**
+(next, fast cleanup) → ω.35-A.4 widen to querystring-bearing
+routes → ω.35-B file split → ψ.35 matrix data-model collapse.
+**1999 / 1999 tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.1 first slice of route-
 table dispatch** shipped — first slice of the audit's ARCH-01
 live-dispatcher refactor. New `_SIMPLE_GET_ROUTES` table at
 module scope (14 entries, the simplest GET routes); `do_GET`

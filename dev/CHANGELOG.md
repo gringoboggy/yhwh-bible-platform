@@ -6,6 +6,107 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.2 second slice of route-table dispatch (regex routes + error-translate helper)
+
+**Phases shipped:** ω.35-A.2. Widens the route-table migration
+to cover parameterized GET paths with the boilerplate
+`regex.match → handler(*groups) → error-translate → send_json`
+shape that appeared 10+ times in the legacy cascade.
+**Test delta:** +8 (was 1991, now 1999; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `_REGEX_GET_ROUTES` table in `scripts/web.py` (module
+  scope, just below `_SIMPLE_GET_ROUTES`). Each entry is
+  `(compiled_regex, handler_callable)`. 3 routes migrated:
+  /api/reading-plans/<id>, /api/snapshots/<ed>/<ver>,
+  /api/snapshots/<ed>. Order = precedence (more-specific
+  patterns precede less-specific so the two-arg snapshot
+  route wins over the one-arg one).
+- New `_dispatch_table_result(handler_self, result)` helper
+  centralizes the standard error-translation envelope:
+  `if result.get("status") == "error"` → `_send_json` with
+  the error code/message/http envelope; otherwise
+  `_send_json(result)`. Defaults: missing code →
+  `"internal_error"`, missing http → 500, missing message →
+  empty string.
+- `Handler.do_GET` extended: after the ω.35-A.1
+  `_SIMPLE_GET_ROUTES` dispatch loop, iterate
+  `_REGEX_GET_ROUTES`; on first regex match, call
+  `handler(*m.groups())` and route through
+  `_dispatch_table_result(self, result)`.
+- `scripts/check_routes.py` extended: new
+  `_REGEX_TABLE_ENTRY_RE` matches
+  `(re.compile(r"^...")..., handler)` lines; the
+  `in_regex_get_table` state machine in `discover_routes`
+  tracks `_REGEX_GET_ROUTES` block opens/closes. Existing
+  dedup logic (table entry wins over legacy duplicate) keeps
+  the discovered count at 88 — no drift after migration.
+- 8 new tests in `TestOmega35A2RegexGetTable`: table entries
+  pinned + well-formed, snapshot precedence (two-arg before
+  one-arg), `_dispatch_table_result` translates error vs
+  passes through ok vs defaults, route inventory drift-free,
+  discovery recognizes regex table entries.
+
+### Migration progress
+
+| Phase | Coverage |
+|---|---|
+| ω.35-A.1 | 14 simple GET routes (`if path == "/api/X"`) |
+| ω.35-A.2 | 3 regex GET routes (`regex.match → handler(*groups)`) |
+| **Total migrated** | **17 of 88 routes (~19%)** |
+
+Remaining shapes to cover in future ω.35-A.x phases:
+- Regex routes with querystring parsing (snapshot diff,
+  audit-log, diff, compare, backups)
+- Routes that need payload reading (PUT / POST mutations)
+- Multipart routes (cover upload, sources cache upload)
+- Custom-output routes (RSS, YAML export, file download)
+- Admin-auth-gated routes (all PUT / POST / DELETE)
+
+### Notable decisions
+
+- **`_dispatch_table_result` as a standalone helper, not a
+  method.** Avoids coupling new dispatch logic to the Handler
+  class's internal API. The helper takes `handler_self` as a
+  first arg so it can call `_send_json` on the real Handler.
+  Future ω.35-B (file split) can move the helper to
+  `scripts/api/_dispatch.py` cleanly.
+- **Snapshot precedence test pinned.** The legacy cascade
+  relied on hand-maintained ordering via comments
+  ("more-specific routes must precede the bare-list");
+  the table now enforces precedence by iteration order and
+  a test pins it. Future Claude (or anyone) adding a
+  snapshot variant can't accidentally invert the order.
+- **`_dispatch_table_result` returns None.** The dispatch
+  loop in `do_GET` does `return _dispatch_table_result(...)`
+  which returns None — same as legacy `return self._send_json(...)`
+  (which also returns None). Both work because Python
+  functions return None implicitly; the early-return-from-do_GET
+  semantics are preserved.
+- **Migrated branches stay as dead code in legacy if/elif.**
+  Same safety-net contract as ω.35-A.1. ω.35-A.3 will
+  clean them up once the table is proven.
+
+### Continuity pointers
+
+- `scripts/web.py:_REGEX_GET_ROUTES` (new table) +
+  `_dispatch_table_result` (new helper) + `do_GET` (second
+  dispatch loop after the simple-routes loop).
+- `scripts/check_routes.py:_REGEX_TABLE_ENTRY_RE` +
+  `in_regex_get_table` state machine in `discover_routes`.
+- `tests/test_scripts.py:TestOmega35A2RegexGetTable` (8
+  tests).
+- AUDIT_2026-05-11 §7 sequence: Δ.6 ✓ → Δ.8 ✓ → Δ.9 ✓ →
+  Δ.4.1 ✓ → Δ.2.1 ✓ → Δ.3.1 ✓ → Δ.5.1 ✓ → ω.35-A ✓ → ω.36 ✓
+  → ω.35-A.1 ✓ → ω.35-A.2 ✓ (this turn) → **ω.35-A.3**
+  delete-dead-code (next, fast cleanup) → ω.35-A.4 widen
+  to querystring-bearing routes → ω.35-B file split → ψ.35
+  matrix data-model collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.1 first slice of route-table dispatch (audit ARCH-01 progress)
 
 **Phases shipped:** ω.35-A.1. First slice of the audit's

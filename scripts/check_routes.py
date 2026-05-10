@@ -95,6 +95,16 @@ _REGEX_RE = re.compile(r'\s*m\s*=\s*re\.match\(\s*r"\^([^"]+)",\s*(?:path|self\.
 # as GET (the table is GET-specific by design).
 _TABLE_ENTRY_RE = re.compile(r'\s*\(\s*"(/[^"]+)"\s*,\s*[A-Za-z_][A-Za-z0-9_]*\s*\)\s*,?\s*$')
 
+# ω.35-A.2 — also discover `_REGEX_GET_ROUTES` table entries.
+# Each line of the form `(re.compile(r"^/api/foo/([a-z]+)$"), handler),`
+# registers a regex-dispatched GET route. The regex pattern (without
+# its leading `^`) is what gets recorded so the output matches the
+# regex routes discovered from the legacy if/elif (which also strip
+# the leading `^` via the `_REGEX_RE` capture group).
+_REGEX_TABLE_ENTRY_RE = re.compile(
+    r'\s*\(\s*re\.compile\(\s*r"\^([^"]+)"\s*\)\s*,\s*[A-Za-z_][A-Za-z0-9_]*\s*\)\s*,?\s*$'
+)
+
 
 def _method_for_line(text: str, line_no: int) -> str | None:
     """Walk backward from ``line_no`` to find the enclosing
@@ -128,6 +138,7 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
     legacy_routes: list[Route] = []
     in_method: str | None = None
     in_simple_get_table: bool = False
+    in_regex_get_table: bool = False
     for line_no, line in enumerate(lines, start=1):
         # ω.35-A.1 — track the `_SIMPLE_GET_ROUTES` table opening
         # so its `(path, handler)` tuples register as GET routes.
@@ -142,6 +153,21 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
             # End of table on a closing `]`
             if line.strip().startswith("]"):
                 in_simple_get_table = False
+            continue
+
+        # ω.35-A.2 — track the `_REGEX_GET_ROUTES` table opening
+        # so its `(re.compile(r"..."), handler)` tuples register
+        # as GET regex routes.
+        if "_REGEX_GET_ROUTES" in line and "[" in line:
+            in_regex_get_table = True
+            continue
+        if in_regex_get_table:
+            te = _REGEX_TABLE_ENTRY_RE.match(line)
+            if te:
+                table_routes.append(Route(method="GET", pattern=te.group(1), is_regex=True, line=line_no))
+                continue
+            if line.strip().startswith("]"):
+                in_regex_get_table = False
             continue
 
         m = re.match(r"\s*def\s+do_([A-Z]+)\(", line)

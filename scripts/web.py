@@ -6260,6 +6260,57 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
 ]
 
 
+# ω.35-A.2 (2026-05-11) — second slice of the route-table migration.
+# `_REGEX_GET_ROUTES` covers the next-simplest GET shape: parameterized
+# paths with the boilerplate "regex.match → handler(*groups) →
+# if result.get('status') == 'error': error-translate → else
+# send_json(result)" pattern that appears 10+ times in the legacy
+# cascade. Order matters here — table iteration is sequential and
+# more-specific patterns MUST precede less-specific ones (e.g.
+# `/api/snapshots/<ed>/<ver>` before `/api/snapshots/<ed>`). Same
+# migration contract as ω.35-A.1: dispatch loop in do_GET checks
+# this table after `_SIMPLE_GET_ROUTES` and before the legacy
+# if/elif; migrated branches stay in legacy as dead code; the drift
+# linter dedups so the route count is preserved.
+#
+# Qualifying criteria for this table:
+#   - GET method
+#   - No admin auth gate
+#   - No querystring parsing (paths that need querystring stay in
+#     legacy until ω.35-A.4 adds a query-aware table)
+#   - Handler takes the regex capture groups as positional args
+#   - Response is `_send_json(result)` with the standard
+#     "if status == 'error', translate to HTTP error" dance
+_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
+    (re.compile(r"^/api/reading-plans/([a-z0-9_-]+)$"), api_reading_plan_get),
+    # Snapshots: order matters — /<ed>/<ver> must precede /<ed>
+    (re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$"), api_snapshot_get),
+    (re.compile(r"^/api/snapshots/([a-z0-9._-]+)$"), api_snapshot_list),
+]
+
+
+def _dispatch_table_result(handler_self, result: dict) -> None:
+    """ω.35-A.2 helper — translate a handler dict result to an HTTP
+    response, mirroring the boilerplate that appeared 10+ times in
+    the legacy cascade. If `result.get("status") == "error"`, sends
+    a JSON error envelope with the appropriate HTTP status; otherwise
+    sends the result as a 200 JSON response.
+
+    Centralizing this means a future error-shape refinement (e.g.
+    adding a request-id field) lands in one place instead of ten.
+    """
+    if result.get("status") == "error":
+        handler_self._send_json(
+            {
+                "error": result.get("code") or "internal_error",
+                "message": result.get("message") or "",
+            },
+            status=result.get("http") or 500,
+        )
+        return
+    handler_self._send_json(result)
+
+
 class Handler(BaseHTTPRequestHandler):
     # ξ.3 — security response headers. Applied to every HTML + JSON
     # response via _send_security_headers below.
@@ -6512,6 +6563,15 @@ class Handler(BaseHTTPRequestHandler):
         for route_path, handler in _SIMPLE_GET_ROUTES:
             if path == route_path:
                 return self._send_json(handler())
+
+        # ω.35-A.2 — regex routes with the standard
+        # "handler(*groups) + error-translate" boilerplate.
+        # Table order = precedence (more-specific before less).
+        for regex, handler in _REGEX_GET_ROUTES:
+            m = regex.match(path)
+            if m:
+                result = handler(*m.groups())
+                return _dispatch_table_result(self, result)
 
         if path == "/" or path == "/index.html":
             return self._send_html(INDEX_HTML)

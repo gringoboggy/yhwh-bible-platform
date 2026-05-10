@@ -4,6 +4,96 @@
 
 ## Prior task
 
+**ω.35-A.2 second slice of route-table dispatch (regex routes
++ error-translate helper)** shipped 2026-05-11. Widens the
+table-driven dispatch to cover parameterized GET paths.
+
+`scripts/web.py:_REGEX_GET_ROUTES` (new, module scope just
+below `_SIMPLE_GET_ROUTES`): 3 entries pairing a
+`re.compile(r"^...")` pattern with the handler callable.
+Order = precedence (more-specific patterns first).
+
+`scripts/web.py:_dispatch_table_result(handler_self, result)`
+(new helper): centralizes the boilerplate
+`if result.get("status") == "error"` → error-envelope-with-
+http-code, else `_send_json(result)` that appeared 10+ times
+in the legacy cascade.
+
+`Handler.do_GET` extended: after the ω.35-A.1
+`_SIMPLE_GET_ROUTES` dispatch, iterate `_REGEX_GET_ROUTES`;
+on first match, call `handler(*m.groups())` and route through
+`_dispatch_table_result(self, result)`.
+
+`check_routes.py` extended: new `_REGEX_TABLE_ENTRY_RE` +
+`in_regex_get_table` state machine in `discover_routes`.
+Existing dedup gives table entries precedence over legacy
+duplicates so the discovered count holds steady at 88.
+
+**+8 tests** in `TestOmega35A2RegexGetTable`:
+- table entries pinned + well-formed (compiled-regex +
+  callable)
+- snapshot precedence: two-arg /<ed>/<ver> route MUST be
+  before one-arg /<ed> route in iteration order
+- `_dispatch_table_result` translates error (with code/http/
+  message)
+- passes through ok results unchanged (status=200)
+- defaults for missing fields (code → internal_error;
+  http → 500; message → "")
+- route inventory has zero drift after migration
+- discovery picks up regex table entries
+
+### Migration progress
+
+| Phase | Coverage |
+|---|---|
+| ω.35-A.1 | 14 simple GET routes |
+| ω.35-A.2 | 3 regex GET routes |
+| **Total** | **17 of 88 routes (~19%)** |
+
+Remaining shapes for future ω.35-A.x phases:
+- Regex routes with querystring parsing
+- Routes that read payload (PUT/POST mutations)
+- Multipart routes (cover/source uploads)
+- Custom-output routes (RSS, YAML, file download)
+- Admin-auth-gated routes
+
+### Open follow-ups
+
+- **ω.35-A.3 — delete dead-code legacy branches** (~half
+  session). After ω.35-A.1 + A.2, migrated branches sit in
+  the legacy if/elif as dead code. Delete them once the
+  table dispatch is proven across a release cycle. Linter
+  switches from "table OR legacy" to "table is authoritative."
+- **ω.35-A.4 — widen table to querystring-bearing routes**
+  (1 session). Routes like /api/snapshots/<ed>/<ver>/diff
+  need `qs = parse_qs(url.query)` before calling the handler.
+  Probably needs a `(regex, handler, kwargs_from_query)`
+  3-tuple table shape OR `(regex, lambda self, m, qs:
+  handler(...))` wrapped-handler form.
+- **ω.35-A.5 — PUT / POST / DELETE tables** (1 session). All
+  three currently have if/elif cascades that mirror do_GET's
+  shape but also need admin-auth and payload reading.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). Move handlers into per-topic modules.
+- **Perf-test serialization** (~half session). Mark perf
+  tests as serial so they don't compete with worker I/O.
+  Lets the multiplier come back to 1.4.
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+80** (1919 baseline → 1999 final).
+13 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1, ω.35-A.2.
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.2 ✓ → ω.35-A.3
+delete-dead-code (next) → ω.35-A.4 widen-querystring →
+ω.35-A.5 mutation tables → ω.35-B file split → ψ.35 matrix
+collapse.
+
+**1999 / 1999 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.1 first slice of route-table dispatch** shipped
 2026-05-11. First slice of the audit's ARCH-01 live-dispatcher
 refactor.

@@ -24667,3 +24667,120 @@ class TestOmega35A1SimpleGetTable:
         r = web.api_preflight()
         assert isinstance(r, dict)
         assert "checks" in r or "summary" in r
+
+
+# ---------- Phase ω.35-A.2 : regex routes table dispatch ---------------
+
+
+class TestOmega35A2RegexGetTable:
+    """ω.35-A.2 — second slice of the route-table migration.
+    `web._REGEX_GET_ROUTES` covers parameterized GET paths with the
+    boilerplate regex.match → handler(*groups) → error-translate →
+    send_json shape. Handler.do_GET dispatches this table after
+    _SIMPLE_GET_ROUTES and before the legacy if/elif cascade.
+    `_dispatch_table_result` centralizes the standard error-
+    translation envelope that previously appeared 10+ times in the
+    legacy code."""
+
+    def test_regex_table_has_expected_entries(self):
+        from scripts import web
+
+        patterns = [r.pattern for r, _ in web._REGEX_GET_ROUTES]
+        as_strs = "|".join(patterns)
+        assert "/api/reading-plans/" in as_strs
+        assert "/api/snapshots/" in as_strs
+
+    def test_regex_table_entries_are_compiled_regex_handler_tuples(self):
+        from scripts import web
+
+        for entry in web._REGEX_GET_ROUTES:
+            assert isinstance(entry, tuple)
+            assert len(entry) == 2
+            regex_obj, handler = entry
+            assert hasattr(regex_obj, "match"), f"first element not a compiled regex: {regex_obj}"
+            assert callable(handler), f"second element not callable: {handler}"
+
+    def test_snapshot_precedence_two_args_before_one(self):
+        # /api/snapshots/<ed>/<ver> MUST come before
+        # /api/snapshots/<ed> so the more-specific pattern wins.
+        from scripts import web
+
+        idx_two = None
+        idx_one = None
+        for i, (regex_obj, _) in enumerate(web._REGEX_GET_ROUTES):
+            pat = regex_obj.pattern
+            if "/api/snapshots/" in pat and pat.count("([a-z0-9._-]+)") == 2:
+                idx_two = i
+            elif "/api/snapshots/" in pat and pat.count("([a-z0-9._-]+)") == 1:
+                idx_one = i
+        assert idx_two is not None
+        assert idx_one is not None
+        assert idx_two < idx_one
+
+    def test_dispatch_table_result_translates_error(self):
+        from scripts.web import _dispatch_table_result
+
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+                self.status = None
+
+            def _send_json(self, body, status=200):
+                self.sent = body
+                self.status = status
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"status": "error", "code": "not_found", "http": 404, "message": "x"})
+        assert h.status == 404
+        assert h.sent == {"error": "not_found", "message": "x"}
+
+    def test_dispatch_table_result_passes_through_ok(self):
+        from scripts.web import _dispatch_table_result
+
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+                self.status = None
+
+            def _send_json(self, body, status=200):
+                self.sent = body
+                self.status = status
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"status": "ok", "data": [1, 2, 3]})
+        assert h.status == 200
+        assert h.sent == {"status": "ok", "data": [1, 2, 3]}
+
+    def test_dispatch_table_result_defaults(self):
+        # Missing code → "internal_error"; missing http → 500;
+        # missing message → "".
+        from scripts.web import _dispatch_table_result
+
+        class FakeHandler:
+            def __init__(self):
+                self.sent = None
+                self.status = None
+
+            def _send_json(self, body, status=200):
+                self.sent = body
+                self.status = status
+
+        h = FakeHandler()
+        _dispatch_table_result(h, {"status": "error"})
+        assert h.status == 500
+        assert h.sent == {"error": "internal_error", "message": ""}
+
+    def test_route_inventory_no_drift_after_regex_migration(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True
+
+    def test_discovery_recognizes_regex_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("GET", "/api/reading-plans/([a-z0-9_-]+)$", True) in keys
+        assert ("GET", "/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$", True) in keys
+        assert ("GET", "/api/snapshots/([a-z0-9._-]+)$", True) in keys
