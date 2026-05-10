@@ -7367,6 +7367,41 @@ class Handler(BaseHTTPRequestHandler):
 # Console: /apihelp (API Reference)
 
 
+def _warm_corpus_index() -> dict:
+    """Δ.9 — pre-build the derived corpus_index before the server
+    starts handling requests so the first call doesn't pay the
+    ~5s rebuild cost (51K notes × per-file parse). When the
+    fingerprint already matches an existing on-disk index this is
+    a fast no-op (sub-50ms — just a stat-walk + cached fingerprint
+    compare).
+
+    Best-effort: any failure logs a warning and returns a sentinel
+    dict but does NOT propagate. The server should still start
+    even if the index can't be built — first-request callers will
+    fall back to file-walk paths and the next operator run can
+    diagnose.
+
+    Returns the rebuild() result dict (or `{"rebuilt": False,
+    "error": str}` on failure) for callers that want to log the
+    outcome themselves.
+    """
+    try:
+        from scripts.core import corpus_index
+
+        t0 = time.perf_counter()
+        result = corpus_index.rebuild()
+        elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+        note_count = result.get("note_count", 0)
+        if result.get("rebuilt"):
+            print(f"  corpus_index: warmed ({note_count} notes, {elapsed_ms}ms)")
+        else:
+            print(f"  corpus_index: already fresh ({note_count} notes, {elapsed_ms}ms)")
+        return result
+    except Exception as exc:  # noqa: BLE001 — best-effort hook; never block server start
+        print(f"  corpus_index: warm-up failed, will rebuild on first request: {exc}")
+        return {"rebuilt": False, "error": str(exc)}
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description="Local web UI for the E-Bible note corpus.")
     p.add_argument("--host", default="127.0.0.1", help="bind address (default: 127.0.0.1, localhost-only)")
@@ -7376,9 +7411,14 @@ def main() -> int:
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     url = f"http://{args.host if args.host != '0.0.0.0' else 'localhost'}:{args.port}/"
-    print(f"\n  E-Bible web — note editor")
+    print("\n  E-Bible web — note editor")
     print(f"  serving at: {url}")
-    print(f"  Ctrl-C to stop\n")
+    print("  Ctrl-C to stop\n")
+
+    # Δ.9 — pre-build the corpus_index BEFORE the first request
+    # so cold-cache cost is paid here, not in a user-visible
+    # 5s pause on the first /matrix or /api/search call.
+    _warm_corpus_index()
 
     if not args.no_browser:
         threading.Timer(0.5, lambda: webbrowser.open(url)).start()

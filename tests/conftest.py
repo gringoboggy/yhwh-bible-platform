@@ -9,6 +9,28 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 
+# Δ.6 — disable the corpus_index fingerprint TTL cache during tests
+# by default. Tests routinely mutate the corpus and immediately
+# query (e.g. write a notes file then call `rebuild()`); the
+# production TTL=1.0s cache would return stale data inside that
+# window. The cache is correct-by-construction in production where
+# `notes_io.atomic_write` callers can pair with
+# `corpus_index.invalidate()` to force freshness, but test helpers
+# write notes directly. Setting TTL≤0 makes the cache invisible to
+# every test by default. Tests that specifically exercise the
+# cache (TestDelta6FingerprintCache) re-set TTL>0 via their own
+# monkeypatch and reset module state explicitly — the local
+# monkeypatch takes precedence.
+@pytest.fixture(autouse=True)
+def _disable_corpus_index_fingerprint_cache(monkeypatch):
+    try:
+        from scripts.core import corpus_index
+    except ImportError:
+        return
+    monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 0.0)
+    corpus_index._FINGERPRINT_CACHE = None
+
+
 @pytest.fixture
 def repo_root() -> Path:
     """Path to the project root."""

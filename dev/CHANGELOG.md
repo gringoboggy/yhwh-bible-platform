@@ -6,6 +6,757 @@
 
 ---
 
+## 2026-05-11 — session — Δ.9 corpus_index warm-up at server startup (DERIVED-INDEX cluster)
+
+**Phases shipped:** Δ.9. The cold-cache fix for the wire-flip
+problem that defeated Δ.4.1 attempt #4. Pre-builds the derived
+index BEFORE the HTTP server handles its first request so the
+~5s rebuild cost is paid at startup, not on a user-visible
+`/matrix` or `/api/search` call. Best-effort: any failure logs
+a warning and the server starts anyway (first-request callers
+fall back to the file-walk paths). **+6 tests.**
+**Test delta:** +6 (was 1947, now 1953; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `scripts/web.py:_warm_corpus_index()` — lazy-imports
+  `corpus_index` (no startup-order coupling), calls
+  `rebuild()`, prints a one-line outcome
+  (`corpus_index: warmed (51394 notes, 2480ms)` or
+  `corpus_index: already fresh (51394 notes, 12ms)` or
+  `corpus_index: warm-up failed, will rebuild on first request: <exc>`),
+  returns the rebuild() dict for callers that want to log
+  themselves.
+- `scripts/web.py:main()` now calls `_warm_corpus_index()`
+  AFTER `ThreadingHTTPServer` is constructed (so a binding
+  failure aborts loudly) but BEFORE `server.serve_forever()`
+  (so the warm-up cost is paid here, not on first-request).
+- 6 new tests in `TestDelta9CorpusIndexWarmup` covering:
+  callable + returns dict; calls rebuild() exactly once;
+  swallows exceptions to avoid blocking server start; returns
+  rebuild result on success; control-flow invariant in
+  `main()` (server-construct → warm-up → serve_forever order
+  via `inspect.getsource`); idempotent on warm cache.
+
+Notable decisions:
+
+- **Best-effort hook, never blocks server start.** A corrupt
+  index or a transient I/O error during warm-up logs a warning
+  but doesn't abort. The first request just pays the rebuild
+  cost in the request path — same as before Δ.9. Failure
+  modes are graceful degradation, not "user can't access UI".
+- **Lazy-imported `corpus_index`.** Keeps web.py's
+  startup-time import graph unchanged; cleanly separates the
+  warm-up from the server-binding path.
+- **One-line outcome print, not a structured log.** Matches
+  the existing operator-facing print style in `main()`
+  (`E-Bible web — note editor`, `serving at: …`). When the
+  observability gap from AUDIT_2026-05-10 §2 is addressed in
+  a future ω.* phase, this can move to structured-log.
+- **Δ.9 alone, NOT bundled with a fifth Δ.4.1 attempt.** Four
+  prior reverts on Δ.4.1 say "validate the unblocker first;
+  attempt the wire flip in a separate phase." Δ.9 ships as a
+  small, independently-valuable improvement (matrix loads
+  faster on first hit even with the file-walk wire); Δ.4.1
+  attempt #5 can come next session with confidence.
+
+### Continuity pointers
+
+- `scripts/web.py:_warm_corpus_index` (new function above
+  `main()`) — the warm-up helper.
+- `scripts/web.py:main` — call site between
+  `ThreadingHTTPServer(...)` and `server.serve_forever()`.
+- `tests/test_scripts.py:TestDelta9CorpusIndexWarmup` (6
+  tests).
+- AUDIT_2026-05-11 §7 sequence updated mid-arc again: Δ.6 (✓)
+  → Δ.8 (✓) → Δ.9 (✓ this turn) → Δ.4.1 attempt #5 (next
+  session) → ω.35 → ψ.35.
+
+Cumulative session test delta: **+34** (1919 → 1953).
+Δ.5 + Δ.6 + Δ.8 + Δ.9 all shipped clean. Δ.4.1 + Δ.7
+attempted twice, reverted twice; deferred behind Δ.9.
+
+---
+
+## 2026-05-11 — session — Δ.4.1 + Δ.7 attempt #4 — REVERTED (DERIVED-INDEX cluster)
+
+**Phases attempted:** Δ.4.1 (matrix wire flip; 4th attempt) +
+Δ.7 (notes_io invalidation hook; 2nd attempt). Both reverted
+within the same phase after the full-suite xdist run produced
+**5 failures** (1950/1955 passed; +1 skipped) — dramatic
+improvement from attempt #3's 64 failed + 34 errors thanks to
+Δ.8 per-worker index storage eliminating the cross-worker
+contention class — but the residual 5 failures revealed a
+**different problem**: the wire flip itself adds enough cold-
+path cost that 3 perf budgets slip even in isolation.
+**Test delta:** 0 net (1947 pre-attempt → 1947 post-revert).
+**Linter delta:** 11/11 clean (post-revert).
+
+### What was attempted (same as attempt #3)
+
+- **Δ.4.1**: `matrix.compute_matrix()` body changed from
+  `return _compute_matrix_via_file_walk()` to
+  `return corpus_index.compute_matrix_indexed()`.
+- **Δ.7**: hooked `notes_io.atomic_write` and
+  `atomic_write_bytes` to call `corpus_index.invalidate()` for
+  `.py` files written under `content/notes/`.
+- 8 tests re-added (`TestDelta41MatrixWireFlip` ×3 +
+  `TestDelta7NotesIoInvalidationHook` ×5).
+- Δ.4 equivalence test reverted to comparing
+  `_compute_matrix_via_file_walk()` against
+  `compute_matrix_indexed()`.
+
+### What broke under xdist `-n auto --dist=loadfile`
+
+```
+5 failed, 1950 passed, 1 skipped in 357s
+```
+
+vs attempt #3:
+
+```
+64 failed, 1849 passed, 1 skipped, 34 errors in 537s
+```
+
+Δ.8 fixed 64 → 5. The remaining 5:
+
+1. `test_codebase_stays_ruff_formatted` — formatting drift
+   from edits (would clear with `ruff format`).
+2. `test_notes_io_load_notes_under_budget` — perf budget violation.
+3. `test_api_matrix_cold_under_budget` — perf budget violation.
+4. `test_api_search_notes_under_budget` — perf budget violation.
+5. `TestDelta1.test_index_matches_existing_aggregate_for_real_corpus`
+   — `PermissionError` (residual xdist edge case).
+
+**Even in isolation** (single test, `-n 0`):
+- `test_api_search_notes_under_budget` measures 6.8s vs 4.2s
+  budget (3s base × 1.4 multiplier).
+- Direct timing: 7.7s cold, 3.3s warm. The wire flip routes
+  every previously-file-walk consumer through corpus_index;
+  the very first call after invalidate triggers a full SQLite
+  rebuild from 87 files (~5s) on top of the file-walk that
+  api_search_notes does anyway.
+
+### What was reverted (again)
+
+- `matrix.compute_matrix()` body restored to call
+  `_compute_matrix_via_file_walk()`. Docstring expanded to
+  document this as the **fourth reverted attempt** with the
+  diagnosis: Δ.8 fixed contention; the cold-cache cost is the
+  remaining blocker.
+- `notes_io.atomic_write` + `atomic_write_bytes` reverted to
+  pre-Δ.7 form; `_invalidate_corpus_index_if_notes_file`
+  helper deleted.
+- `TestDelta41MatrixWireFlip` (3) +
+  `TestDelta7NotesIoInvalidationHook` (5) classes removed.
+- Δ.4 equivalence test back to comparing `compute_matrix()`
+  (file-walk again) vs `compute_matrix_indexed()`.
+
+### What stays
+
+- **Δ.8 per-worker index storage** ships clean (1947 / 1947
+  passed; +8 tests). The contention-class fix is real and
+  permanent.
+- The Δ.4.1 attempt #4 → #3 progress (5 failures vs 64+34)
+  proves Δ.8 worked exactly as designed; the remaining
+  problem is a different architectural concern.
+- `compute_matrix_indexed()` continues to work correctly when
+  called directly. Δ.4 equivalence pin still passes.
+
+### What needs to land before a fifth Δ.4.1 attempt
+
+The next attempt vector is NOT another contention fix — it's
+**cold-cache cost reduction**:
+
+1. **Pre-build the index at server startup** (warm the cache
+   before any request). Trades startup time for first-request
+   latency. Production-friendly; tests need a corresponding
+   warm-up fixture. ~30 lines.
+2. **Persistent index across process restarts** (don't
+   rebuild from scratch every cold start; the fingerprint
+   check + DB-on-disk should already give this, but tests
+   defeat it via tmp_path). Production already works this
+   way; only test environments need rethink.
+3. **Bump the perf budget multiplier from 1.4 to 2.0**, with
+   PERF_BUDGETS.md §3.1 documentation. This admits the wire
+   flip's cost rather than designing around it. Cheapest
+   option; least architecturally satisfying.
+
+Recommendation: option 1 (warm-up at startup) is cleanest, ~1
+session to implement. Track as `Δ.9 — index warm-up` in
+PLAN-REFRESH.
+
+### Notable decisions
+
+- **Reverted within the same phase, second time in this
+  session.** Same call as attempt #3. CLAUDE_PROJECT_RULES.md
+  is right: a flaky test suite is more expensive than a
+  shipped 12× speedup. Δ.4.1 is now a **four-attempts-and-out**
+  signal — needs serious design work, not "try again."
+- **Δ.8 stays shipped.** It cleanly fixed the cross-worker
+  contention class. The next attempt at Δ.4.1 will benefit
+  from it; reverting Δ.8 too would be over-rolling.
+- **Δ.5 / Δ.6 / Δ.8 cumulative test growth this session: +28
+  (1919 → 1947).** Solid progress on the index foundation
+  even though the wire flip remains stubborn.
+
+### Continuity pointers
+
+- `scripts/core/matrix.py:compute_matrix()` — back to file-walk;
+  docstring documents 4 reverted attempts now.
+- `scripts/core/notes_io.py:atomic_write` — pre-Δ.7 form.
+- `tests/test_scripts.py` — TestDelta41 + TestDelta7 removed
+  again; TestDelta4 equivalence test back to comparing
+  `compute_matrix()` vs `compute_matrix_indexed()`.
+- The natural next phase is **Δ.9 — index warm-up at startup**
+  (the cold-cache fix), followed by Δ.4.1 attempt #5.
+- AUDIT_2026-05-11 §7 sequence updated mid-arc again: Δ.6 (✓)
+  → Δ.8 (✓) → Δ.9 (next?) → Δ.4.1 attempt #5 → ω.35 → ψ.35.
+
+---
+
+## 2026-05-11 — session — Δ.8 per-worker index storage (DERIVED-INDEX cluster)
+
+**Phases shipped:** Δ.8. The unblocker the prior reverts kept
+asking for, finally landed: each pytest-xdist worker now reads
+its own corpus.sqlite / corpus.fingerprint / corpus.lock files
+under a `PYTEST_XDIST_WORKER`-suffixed name. **Eliminates the
+cross-worker file contention surface at its root** — the class
+of failures that defeated Δ.4.1 attempts #1-3 cannot occur when
+workers don't share files. ~10 lines of code.
+**Test delta:** +8 (was 1939, now 1947; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `corpus_index._xdist_suffix()` helper reads
+  `PYTEST_XDIST_WORKER` env var; returns `.<worker>` (e.g.
+  `.gw0`, `.gw1`, `.master`) when running under xdist, empty
+  string otherwise.
+- `_index_path()`, `_fingerprint_path()`, `_lock_path()` all
+  apply the suffix: production gets `corpus.sqlite` /
+  `corpus.fingerprint` / `corpus.lock`; xdist worker gw0 gets
+  `corpus.gw0.sqlite` / etc.
+- `TestDelta0RebuildLock.test_lock_creates_lockfile` updated
+  to read `corpus_index._lock_path()` instead of hardcoding
+  `corpus.lock` (the test now sees the suffixed name when run
+  under xdist).
+- 8 new tests in `TestDelta8PerWorkerIndexStorage` covering:
+  empty suffix when env unset; suffix includes worker name;
+  master worker is also namespaced (rather than collapsed to
+  empty); production paths revert to canonical filenames; per-
+  worker paths use suffix; two distinct workers resolve to
+  distinct paths; end-to-end isolation (worker A rebuilds, B
+  sees its own pristine state with separate file on disk);
+  per-worker locks don't block each other (single-process
+  simulation of "two workers acquire concurrently").
+
+Notable decisions:
+
+- **Production paths unchanged.** The xdist env var is set
+  ONLY by pytest-xdist worker subprocesses; production has no
+  env var, so `_xdist_suffix()` returns `""` and filenames are
+  canonical. Single-process production still gets
+  cross-process-sharing if multiple processes connect to the
+  same user_data_root.
+- **Master worker is namespaced as `.master`.** When pytest-xdist
+  uses explicit `--tx` specs the controller process runs as
+  "master"; namespacing it (rather than mapping to empty)
+  preserves the property "any two distinct PYTEST_XDIST_WORKER
+  values produce distinct paths."
+- **Lock files per-worker too.** This is what actually
+  eliminates contention — even with separate SQLite files,
+  shared lockfiles would re-introduce the Windows
+  PermissionError class. One lock per file, one file per
+  worker.
+- **Δ.6 fingerprint cache + conftest TTL=0 fixture stay
+  unchanged.** Per-worker storage solves the cross-worker
+  contention; the in-memory caches were already per-process so
+  they were never the contention surface.
+
+Continuity pointers:
+
+- `scripts/core/corpus_index.py:_xdist_suffix` (new helper) +
+  `_index_path` / `_fingerprint_path` / `_lock_path` (suffix
+  applied).
+- `tests/test_scripts.py:TestDelta8PerWorkerIndexStorage` (8
+  tests).
+- The Δ.4.1 wire flip (3 prior reverted attempts) should now
+  be safe to retry — the contention surface that defeated
+  attempts #1-3 is gone. **Δ.4.1 attempt #4 is the natural
+  next phase**, ideally bundled with Δ.7 (notes_io
+  invalidation hook) for production correctness.
+
+---
+
+## 2026-05-11 — session — Δ.4.1 + Δ.7 attempt #3 — REVERTED (DERIVED-INDEX cluster)
+
+**Phases attempted:** Δ.4.1 (matrix wire flip; 3rd attempt) +
+Δ.7 (notes_io → corpus_index invalidation hook). Both reverted
+within the same phase after the full-suite xdist run produced
+**64 failed + 34 errors** (1849/1947 passed) vs the pre-flip
+1939/1939 baseline. Same xdist contention class that defeated
+attempts #1 and #2 on 2026-05-10 — Δ.6's TTL-memoized
+fingerprint cache mitigates the stat-walk cost in production
+but the conftest TTL=0 fixture that gives tests a clean
+mutate-and-query story actually amplifies the per-worker stat
++ rebuild rate, and routing `compute_matrix()` through
+`corpus_index.connection()` multiplies the number of tests that
+trigger that path by ~10×. Windows file locks during cached-
+connection swap-out + short-window rebuilds produce widespread
+`PermissionError` failures that don't reproduce sequentially.
+**Test delta:** 0 net (1939 pre-attempt → 1939 post-revert,
++1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean (post-revert).
+
+### What was attempted
+
+- **Δ.4.1**: `matrix.compute_matrix()` body changed from
+  `return _compute_matrix_via_file_walk()` to
+  `return corpus_index.compute_matrix_indexed()`. The
+  `@lru_cache(maxsize=1)` wrapper retained as defense in depth.
+- **Δ.7**: hooked `notes_io.atomic_write` and
+  `atomic_write_bytes` to call `corpus_index.invalidate()` for
+  `.py` files written under `content/notes/`. Best-effort hook;
+  any `corpus_index.invalidate()` exception silently swallowed
+  to avoid poisoning the write.
+- 8 new tests (`TestDelta41MatrixWireFlip` ×3 +
+  `TestDelta7NotesIoInvalidationHook` ×5).
+- `TestDelta4IndexComputeMatrix.test_indexed_matrix_exactly_equivalent_to_file_walk`
+  switched its file-walk reference from `compute_matrix()`
+  (now indexed) to `_compute_matrix_via_file_walk()` (the
+  preserved explicit reference function).
+
+### What broke under xdist `-n auto --dist=loadfile`
+
+- `64 failed, 1849 passed, 1 skipped, 34 errors in 537s`
+- Failures spanned `TestPsi7ANewBuiltInEditions`, `TestMatrixAPI`,
+  `TestEditionDiff`, `TestThemes`, `TestDelta1` /  `TestDelta2`
+  / `TestDelta3` / `TestDelta4` / `TestDelta5` / `TestDelta6`
+  / `TestDelta41` (every test class that touches the index
+  under contention), plus `test_perf.py::test_api_search_notes_under_budget`
+  (4385ms vs 4200ms budget — disk I/O contention from concurrent
+  workers hammering corpus.sqlite).
+- All targeted runs (Δ.4.1 + Δ.7 + Δ.4 alone, or with
+  test_perf.py and 2 workers) PASSED — the contention only
+  surfaces with 8 concurrent workers all touching the index.
+
+### What was reverted
+
+- `matrix.compute_matrix()` body restored to call
+  `_compute_matrix_via_file_walk()` directly. Docstring
+  expanded to record this is the **third reverted attempt**
+  and what a fourth would need.
+- `notes_io.atomic_write` + `atomic_write_bytes` reverted to
+  their pre-Δ.7 form — no corpus_index hook. The
+  `_invalidate_corpus_index_if_notes_file` helper deleted.
+- `TestDelta41MatrixWireFlip` (3 tests) +
+  `TestDelta7NotesIoInvalidationHook` (5 tests) classes
+  removed from `tests/test_scripts.py`.
+- Δ.4 equivalence test reverted to comparing
+  `compute_matrix()` (file-walk again) vs
+  `compute_matrix_indexed()`.
+
+### What stays from the work
+
+- The Δ.6 fingerprint cache layer (shipped earlier this
+  session) is unaffected. `compute_matrix_indexed()` still
+  works correctly when called directly.
+- The Δ.6 docstring's reference to "unblocks every Δ.x.1 wire
+  flip" was wrong — the wire flip needs more than a
+  fingerprint cache. Captured here.
+- AUDIT_2026-05-11 §0 item iii ("the production correctness
+  gap that Δ.4.1 introduces") confirmed correct — Δ.7 IS
+  needed any time a wire flip lands. Both are now deferred
+  together.
+
+### What needs to land before a fourth Δ.4.1 attempt
+
+1. **Per-process index storage** — give each xdist worker its
+   own `corpus.sqlite` in a worker-namespaced cache dir (uses
+   `PYTEST_XDIST_WORKER` env var to pick the path). Eliminates
+   cross-worker file contention entirely. ~10 lines in
+   `corpus_index._index_path()`. Defeats the cache's
+   cross-process-sharing benefit, but in test scenarios the
+   shared cache provides zero value (each worker has its own
+   process state anyway).
+2. **OR**: explicit serial markers on every test that calls
+   `compute_matrix()` directly or indirectly. ~50+ tests
+   affected. Heavy maintenance burden.
+3. **OR**: `pytest --dist=loadgroup` with explicit grouping of
+   index-touching tests onto one worker. Gives up parallelism
+   for the affected subset.
+
+Recommendation: option 1 (per-worker storage) is cleanest;
+~1 session to implement + verify. Then Δ.4.1 attempt #4 should
+land cleanly. **Track as `Δ.8 — per-worker index storage` in
+PLAN-REFRESH (next phase).**
+
+### Notable decisions
+
+- **Reverted within the same phase.** Per CLAUDE_PROJECT_RULES.md:
+  "The wire-flip introduced a flaky-test condition that affects
+  every future CI run. Better to revert cleanly with documented
+  reason than to leave the test suite in an unstable state."
+  Same call as the 2026-05-10 attempts.
+- **Δ.6 + AUDIT_2026-05-11 from earlier this session both
+  stay shipped.** They diagnose the architecture correctly; the
+  wire flip just needs a different concurrency model than the
+  audit predicted.
+- **Δ.8 (per-worker storage) is the right next attempt vector,
+  not "try again with more time."** The previous reverts each
+  said "next attempt with X" and X kept being insufficient.
+  This time the path is concrete: separate the per-test
+  contention surface from the index identity.
+
+### Continuity pointers
+
+- `scripts/core/matrix.py:compute_matrix()` — back to file-walk;
+  docstring documents 3 reverted attempts.
+- `scripts/core/notes_io.py:atomic_write` — pre-Δ.7 form.
+- `tests/test_scripts.py` — TestDelta41 + TestDelta7 removed;
+  TestDelta4 equivalence test back to comparing
+  `compute_matrix()` vs `compute_matrix_indexed()`.
+- The natural next phase is **Δ.8 — per-worker index storage**
+  (the unblocker), followed by Δ.4.1 attempt #4.
+- AUDIT_2026-05-11 §7 sequence still valid; insert Δ.8 between
+  N+1 (Δ.6, ✓) and the deferred N+2 (Δ.4.1).
+
+---
+
+## 2026-05-11 — session — Δ.4.1 matrix wire flip (retry + ship) + Δ.7 notes_io invalidation hook (DERIVED-INDEX cluster) — SUPERSEDED BY REVERT ENTRY ABOVE
+
+**Phases shipped:** Δ.4.1 + Δ.7. The matrix wire flip that
+reverted twice on 2026-05-10 — now safe to ship after Δ.6
+landed the fingerprint cache layer earlier this session. Δ.7 is
+the production correctness companion: hooks `notes_io.atomic_write`
+so a write to `content/notes/` eagerly invalidates the
+corpus_index fingerprint cache, eliminating the 1s
+stale-after-write window the Δ.6 TTL would otherwise create
+once Δ.4.1 routes the public matrix through the indexed path.
+**Test delta:** +8 (was 1939, now 1947; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+NOTE: this entry's claims of "shipped" turned out to be wrong
+when the full xdist run was checked. The phase was reverted
+within the same session; the entry above this one is the
+authoritative record.
+
+### Δ.4.1 — matrix wire flip
+
+- `scripts/core/matrix.py:compute_matrix()` body changed from
+  `return _compute_matrix_via_file_walk()` to
+  `return corpus_index.compute_matrix_indexed()`. The
+  `@lru_cache(maxsize=1)` wrapper is retained (defense in
+  depth — even though the indexed path is sub-millisecond, the
+  lru_cache bounds repeated calls within a single render loop
+  to one Matrix instance).
+- Docstring rewritten to document the ship: previous
+  attempt-and-revert noted as historical context, the Δ.6 + Δ.7
+  unblock chain explained, empirical `~3.2s → ~263ms` (~12×)
+  speedup pinned.
+- `_compute_matrix_via_file_walk()` retained as the explicit
+  reference implementation. The Δ.4 equivalence test now
+  compares the indexed path against this reference (NOT against
+  `compute_matrix()` itself, which would trivially match the
+  indexed path because they're now the same code).
+- All 7 `matrix_mod.compute_matrix.cache_clear()` call sites in
+  `scripts/web.py` are unchanged — they continue to clear the
+  matrix-level lru_cache after YAML mutations (editions / kinds
+  / categories). The indexed path picks up YAML changes via
+  `config.load_editions/load_kinds` (which the same call sites
+  also clear). Pure additive correctness; no per-site touchups.
+
+### Δ.7 — notes_io → corpus_index invalidation hook
+
+- `scripts/core/notes_io.py:atomic_write()` — after the atomic
+  rename, calls a new module-private
+  `_invalidate_corpus_index_if_notes_file(path)` helper that
+  lazily imports `corpus_index` and calls `invalidate()` if the
+  path is a `.py` file whose immediate parent is `notes/`.
+- `scripts/core/notes_io.py:atomic_write_bytes()` — same hook
+  (defense in depth; future writers using the wrong primitive
+  don't silently break index freshness).
+- The hook is **best-effort**: any exception raised by
+  `corpus_index.invalidate()` is silently swallowed. A failed
+  invalidation falls back to "1s of stale data" via the Δ.6 TTL
+  expiration — never poisons the write itself.
+- The path discrimination uses `path.parent.name == "notes"`
+  rather than a substring match, so paths like
+  `content/notes_backup/gen.py` or `archive/notes_old/foo.py`
+  do NOT trigger invalidation.
+
+### Bundled test updates
+
+- `TestDelta4IndexComputeMatrix.test_indexed_matrix_exactly_equivalent_to_file_walk`
+  switched from comparing `compute_matrix()` (now indexed)
+  against `compute_matrix_indexed()` (trivially equal post-flip)
+  to comparing `_compute_matrix_via_file_walk()` (the explicit
+  file-walk reference) against `compute_matrix_indexed()`. Same
+  contract; preserved meaning post-flip.
+
+### Tests (+8 new)
+
+`TestDelta41MatrixWireFlip` (3):
+- `compute_matrix()` returns bit-identical Matrix to
+  `corpus_index.compute_matrix_indexed()` across all 6
+  projections × every shipping edition.
+- `compute_matrix()` lru_cache still works (back-to-back calls
+  return the same Matrix instance).
+- `compute_matrix()` is not >3× slower than file-walk reference
+  (in practice it's much faster; this is the asymmetric "no
+  silent regression" floor).
+
+`TestDelta7NotesIoInvalidationHook` (5):
+- Writing under `tmp_path/notes/<book>.py` clears
+  `_FINGERPRINT_CACHE`.
+- Writing under `tmp_path/config/editions.yaml` does NOT clear
+  the cache (YAML edits don't change corpus content).
+- `atomic_write_bytes` to a notes path also fires the hook.
+- A `corpus_index.invalidate()` that raises does NOT poison the
+  write; the file still lands and contents are correct.
+- A lookalike path (`tmp_path/notes_backup/<book>.py`) does NOT
+  trigger invalidation (parent.name guard works).
+
+### Notable decisions
+
+- **Bundled Δ.4.1 + Δ.7 in one ship.** The audit
+  (AUDIT_2026-05-11 §0 item iii) noted the production correctness
+  gap that Δ.4.1 alone would introduce. Shipping them together
+  closes the gap atomically — no intermediate revision where the
+  indexed path returns stale data.
+- **`@lru_cache(maxsize=1)` retained on `compute_matrix()`.** The
+  indexed path is fast enough that the cache is theoretically
+  redundant, but it bounds within-render-loop calls (e.g. a
+  template rendering 6 sidebar widgets that each call
+  `compute_matrix()`) to one Matrix instance. Cost is zero;
+  defense-in-depth value is real.
+- **Hook is best-effort, not fail-loud.** A `corpus_index`
+  failure during a write must not block the write — losing 1s
+  of cache freshness is graceful; failing the editor save is
+  not. The conftest test pins this contract.
+- **Path discrimination via `parent.name == "notes"` not
+  substring match.** Strict guard against false positives for
+  archive / backup / lookalike directories that happen to
+  contain "notes" in the path. Pinned by the lookalike test.
+
+### Continuity pointers
+
+- `scripts/core/matrix.py:compute_matrix()` — now a 3-line
+  function delegating to corpus_index.
+- `scripts/core/notes_io.py:_invalidate_corpus_index_if_notes_file`
+  — the Δ.7 hook function.
+- `tests/test_scripts.py:TestDelta41MatrixWireFlip` (3 tests)
+  + `TestDelta7NotesIoInvalidationHook` (5 tests).
+- The Δ-family is now consumer-flipped at one site (matrix);
+  three more deferred wire flips remain (Δ.2.1 search, Δ.3.1
+  attribution audit, Δ.5.1 dashboard_stats). Each is the same
+  shape (one-line body change in the public function); each
+  benefits from Δ.6 + Δ.7 the same way.
+- AUDIT_2026-05-11 §7 N+2 (Δ.4.1) shipped; §7 N+3 is the
+  PLAN-REFRESH (prune §5, refresh §6, sync §7 ledger, add the
+  newly-shipped Δ.6/Δ.4.1/Δ.7 + still-open Δ.2.1/Δ.3.1/Δ.5.1).
+
+---
+
+## 2026-05-11 — session — Δ.6 fingerprint cache layer (DERIVED-INDEX cluster) + AUDIT_2026-05-11
+
+**Phases shipped:** Δ.6. Audit memo `dev/AUDIT_2026-05-11.md`
+written first; Δ.6 is its **#1 ARCH-02 recommendation** — the
+infrastructure that unblocks every deferred Δ.x.1 wire flip
+(matrix / search / attribution / dashboard_stats) by removing
+the per-call 87-file stat-walk that defeated `compute_matrix()`'s
+parent-level `lru_cache`.
+**Test delta:** +10 (was 1929, now 1939; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `corpus_index._FINGERPRINT_TTL_SEC: float = 1.0` — module-level
+  TTL constant (production default 1s; tests set 0 via the new
+  conftest autouse fixture).
+- `corpus_index._FINGERPRINT_CACHE: tuple[float, str] | None` —
+  `(monotonic_at, fingerprint)` cell.
+- `corpus_index._compute_fingerprint_cached()` — TTL-memoized
+  variant. Non-positive TTL bypasses (test "never trust the
+  cache" mode); otherwise returns the cached value if computed
+  within `_FINGERPRINT_TTL_SEC` of `time.monotonic()`, else
+  recomputes and refreshes.
+- `corpus_index.fingerprint()` (public alias) repointed at the
+  cached path.
+- `corpus_index.rebuild()` — both fingerprint reads (pre-lock and
+  post-lock) now go through `_compute_fingerprint_cached()`. The
+  post-lock call clears the cache first so it's guaranteed
+  fresh after the lock acquire (corpus might have changed while
+  we waited). On successful build, the cache is repopulated with
+  the just-written fingerprint so the next caller is a hit.
+- `corpus_index.invalidate()` — additionally clears the
+  fingerprint cache. Closes the "stale fingerprint inside TTL
+  after explicit invalidate" loophole.
+- `tests/conftest.py` — new autouse fixture
+  `_disable_corpus_index_fingerprint_cache` sets
+  `_FINGERPRINT_TTL_SEC = 0.0` and clears
+  `_FINGERPRINT_CACHE` for every test. Production TTL stays at
+  1s; tests see no cache by default. Tests that specifically
+  exercise the cache (`TestDelta6FingerprintCache`) override the
+  TTL via local monkeypatch — local takes precedence.
+
+Bundled cleanups (per AUDIT_2026-05-11 TEST-01 / TEST-02):
+
+- Δ.1 `test_index_matches_existing_aggregate_for_real_corpus` —
+  dropped `force=True`; uses `invalidate() + rebuild()` instead.
+  Same correctness; no xdist contention class.
+- Δ.2 `test_search_equivalence_with_file_walk_for_real_corpus` —
+  same cleanup.
+- Δ.3 `test_audit_attribution_equivalent_to_file_walk_for_real_corpus`
+  — same cleanup.
+- Δ.4 `test_indexed_matrix_exactly_equivalent_to_file_walk` —
+  same cleanup.
+- New `test_acquire_lock_raises_on_timeout` — closes the
+  TEST-02 gap (the Δ.0 lock's `timeout=` parameter was
+  untested).
+
+Tests (`TestDelta6FingerprintCache`, +10):
+
+- cached returns same value within TTL (and stat-walks exactly
+  once via a counting wrapper)
+- recomputes after TTL expires (sleep 0.07s past 0.05s TTL,
+  verify second compute fires)
+- TTL=0 bypasses cache (3 calls = 3 stat-walks)
+- TTL<0 bypasses cache (negative-sentinel handling)
+- `invalidate()` clears the fingerprint cache
+- public `fingerprint()` alias uses the cached path
+- `rebuild()` repopulates the cache with the post-build value
+- default TTL is 1.0 (reads source file directly to dodge the
+  conftest autouse monkeypatch)
+- `_acquire_rebuild_lock(timeout=0.2)` raises TimeoutError when
+  the lock is already held
+- `rebuild()` fast-path doesn't take the lock when the index is
+  already fresh (3 back-to-back calls observe 0 lock acquires)
+
+Notable decisions:
+
+- **Cache lives at module scope, not per-instance.** The index
+  module has no instances. Process-local module state is the
+  natural fit — xdist workers each maintain their own; no
+  cross-process coordination needed because the lock (Δ.0)
+  serializes writers and the fingerprint reads are pure
+  observations.
+- **Conftest autouse over per-test invalidate calls.** Tests
+  routinely mutate the corpus and immediately query (e.g. write
+  a notes file then `rebuild()`); without the fixture, each
+  test would need an explicit `invalidate()` between mutation
+  and query, making cache-aware-test the new failure mode.
+  Disabling globally moves the cache out of the test contract;
+  production code that needs freshness still calls
+  `invalidate()` (or waits past the 1s TTL).
+- **The `force=True` cleanups bundled here, not deferred.** The
+  AUDIT_2026-05-11 noted Δ.3 and Δ.4 equivalence tests still
+  raced under xdist with `force=True`; folding the 5-line
+  cleanup into Δ.6's ship eliminates one source of CI
+  flakiness immediately.
+- **Production-side hook to `notes_io.atomic_write` is NOT
+  wired.** A future Δ.7 could thread `corpus_index.invalidate()`
+  into the canonical write path so any explicit corpus write
+  hooks the index without per-call ceremony. Deferred — keeps
+  Δ.6 small and correct; the audit memo flags it as follow-up.
+
+Continuity pointers:
+
+- `scripts/core/corpus_index.py` (Δ.6 section near the top, lines
+  ~120-180; `rebuild()` updated, `invalidate()` updated).
+- `tests/conftest.py` (autouse fixture).
+- `tests/test_scripts.py:TestDelta6FingerprintCache` (10 tests
+  at the end of file).
+- The Δ.x.1 wire flips (Δ.4.1 matrix, Δ.2.1 search, Δ.3.1
+  attribution audit, Δ.5.1 dashboard_stats) are NOW SAFE TO
+  ATTEMPT — the per-call stat-walk that defeated them is gone.
+  Δ.4.1 retry is the natural next phase.
+
+---
+
+## 2026-05-10 — session — Δ.5 index-backed dashboard_stats (DERIVED-INDEX cluster)
+
+**Phases shipped:** Δ.5. Fourth consumer migration in the Δ-family —
+demonstrates the index handles the project-wide aggregate report
+shape (per-book counts + per-kind counts + per-book chapter density
++ attribution count). No wire flip in this phase; pure additive
+following the Δ.2 / Δ.3 / Δ.4 pattern.
+**Test delta:** +10 (was 1919, now 1929; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `corpus_index.dashboard_stats(books)` mirrors the aggregate
+  fields of `dashboard.gather_stats(books, kinds)`: returns
+  `{total_notes, per_book, per_kind, chapter_density}`. Per-book
+  entries carry `code / title / ch_count / note_count / attributed
+  / kinds / chapters_touched / pct_covered` — the same dict shape
+  the file-walk produces.
+- Two SQL roll-ups instead of 87 file reads: one
+  `GROUP BY book_code, kind` query for per-book counts +
+  attributed counts (via `SUM(CASE WHEN TRIM(attribution) != ''
+  THEN 1 ELSE 0 END)`); one `GROUP BY book_code, chapter` query
+  for `chapter_density`. Aggregation finished in Python in
+  book-list iteration order so the per_book dict's key sequence
+  matches the file-walk path exactly.
+- The pass-through fields the file-walk includes for downstream
+  rendering (`books`, `kinds`, `parse_failures`, `generated_at`)
+  are NOT returned by the indexed function — consumers either
+  pass them through themselves or use the dedicated
+  `dashboard.gather_stats()` for a full report. The index has no
+  notion of "parse failure" because malformed entries are
+  silently skipped at build time.
+
+Tests (`TestDelta5IndexDashboardStats`, +10):
+
+- top-level shape (4 keys + types)
+- per-book entry has the expected 8 fields for every canonical book
+- `total_notes` matches the per_book sum
+- `per_kind` matches per_book.kinds rolled up
+- `pct_covered` is nonnegative (note: legitimately exceeds 100%
+  when a book has notes referencing chapters past `ch_count`;
+  file-walk produces the same uncapped value)
+- empty-books call returns the empty zero-shape
+- single-book call isolates per_kind / chapter_density correctly
+- `attributed <= note_count` invariant per book
+- `chapter_density` has a key for every per_book entry (even when
+  zero notes — file-walk uses defaultdict; indexed mirrors with
+  explicit `setdefault({})`)
+- **equivalence pin against file-walk** — every aggregate field
+  per book matches across the full canon
+
+Notable decisions:
+
+- **No `force=True` in the equivalence test.** Δ.4.1's revert
+  documented that under xdist on Windows, `corpus_index.rebuild
+  (force=True)` races with other workers' cached connections
+  (PermissionError on `corpus.sqlite` unlink). The fingerprint
+  check inside `rebuild()` already triggers a rebuild when the
+  corpus on disk has changed; force is redundant for correctness
+  and adds contention. Existing Δ.3/Δ.4 equivalence tests still
+  use `force=True` and inherit the intermittent risk — separate
+  cleanup, not blocking Δ.5.
+- **Index-backed function takes the `books` list as input.** The
+  signature mirrors `dashboard.gather_stats(books, kinds)` (drops
+  `kinds` since the index knows its own kinds via `count_by_kind`)
+  so a future wire-flip is a one-line drop-in. Consumers pick the
+  iteration order via the `books` arg, mirroring file-walk.
+
+Continuity pointers:
+
+- `scripts/core/corpus_index.py` (Δ.5 section at the bottom).
+- `tests/test_scripts.py` (`TestDelta5IndexDashboardStats`,
+  ~10 tests at the very bottom).
+- The Δ-family pattern (lru_cache → indexed-aggregate +
+  equivalence-pin) is the same as Δ.2/Δ.3/Δ.4. Future Δ.6
+  candidates: `coverage.book_stats` (CLI; pairs with epub_working/
+  HTML count for completeness), per-edition stats endpoints in
+  web.py.
+
+---
+
 ## 2026-05-10 — session — Δ.4.1 wire-flip attempted + reverted (DERIVED-INDEX cluster)
 
 **Phases attempted:** Δ.4.1. Wire-flip of `matrix.compute_matrix()`

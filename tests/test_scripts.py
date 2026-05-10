@@ -22734,8 +22734,12 @@ class TestDelta1CorpusIndex:
         from scripts.core import corpus_index
         from scripts.core.matrix import compute_matrix
 
-        # Force a fresh build against the real notes_dir
-        corpus_index.rebuild(force=True)
+        # Δ.6 (2026-05-11): dropped `force=True`; the fingerprint
+        # cache picks up real corpus changes within TTL and the
+        # equivalence is a per-corpus invariant. The old force path
+        # raced with other xdist workers' cached connections.
+        corpus_index.invalidate()
+        corpus_index.rebuild()
 
         m = compute_matrix()
         # Pick one well-populated edition (ethiopian-tewahedo has the
@@ -22949,7 +22953,10 @@ class TestDelta2IndexSearch:
         # eventual api_search_notes flip is safe.
         from scripts.core import corpus_index, note_search
 
-        corpus_index.rebuild(force=True)
+        # Δ.6 (2026-05-11): dropped `force=True`; same rationale as
+        # the Δ.1 equivalence test above.
+        corpus_index.invalidate()
+        corpus_index.rebuild()
 
         for q in ("covenant", "manger", "Adam"):
             file_walk = note_search.search_notes(q, limit=20)
@@ -23110,7 +23117,10 @@ class TestDelta3IndexAttributionAudit:
         from scripts import web
         from scripts.core import corpus_index
 
-        corpus_index.rebuild(force=True)
+        # Δ.6 (2026-05-11): dropped `force=True`; same rationale as
+        # the Δ.1/Δ.2 equivalence tests.
+        corpus_index.invalidate()
+        corpus_index.rebuild()
         index_audit = corpus_index.audit_attribution()
         file_audit = web.api_attribution_audit()
 
@@ -23202,10 +23212,18 @@ class TestDelta4IndexComputeMatrix:
         # The migration-safety contract for Δ.4. Every projection
         # must compare equal between the file-walk and indexed paths
         # for every shipping edition.
+        # Δ.6 (2026-05-11): dropped `force=True` to dodge the xdist
+        # contention class — `rebuild()`'s fingerprint check (now
+        # backed by the TTL cache) already triggers on any real
+        # corpus mutation.
+        # Δ.4.1 attempt #4 (2026-05-11) — reverted; comparing
+        # `compute_matrix()` (file-walk) against `compute_matrix_indexed()`
+        # remains the right anchor because the wire is back to file-walk.
         from scripts.core import corpus_index
         from scripts.core.matrix import compute_matrix
 
-        corpus_index.rebuild(force=True)
+        corpus_index.invalidate()
+        corpus_index.rebuild()
         compute_matrix.cache_clear()
 
         file_walk = compute_matrix()
@@ -23304,10 +23322,16 @@ class TestDelta0RebuildLock:
             pass
 
     def test_lock_creates_lockfile(self, tmp_path, monkeypatch):
+        # Δ.8 (2026-05-11) — under pytest-xdist this test sees a
+        # PYTEST_XDIST_WORKER-suffixed lock filename
+        # (`corpus.gw0.lock` etc.), not the canonical `corpus.lock`.
+        # Read the actual path via `_lock_path()` instead of
+        # hardcoding the filename.
         from scripts.core import corpus_index, paths
 
         monkeypatch.setattr(paths, "user_data_root", lambda: tmp_path)
-        lock_path = tmp_path / "cache" / "corpus.lock"
+        lock_path = corpus_index._lock_path()
+        assert lock_path.parent == tmp_path / "cache"
         assert not lock_path.exists()
         with corpus_index._acquire_rebuild_lock():
             assert lock_path.is_file()
@@ -23353,3 +23377,634 @@ class TestDelta0RebuildLock:
         lock_path = corpus_index._lock_path()
         idx_path = corpus_index._index_path()
         assert lock_path.parent == idx_path.parent
+
+
+# ---------- Phase Δ.5 : index-backed dashboard_stats -------------------
+
+
+class TestDelta5IndexDashboardStats:
+    """Δ.5 — fourth consumer migration to the derived index.
+    `dashboard.gather_stats(books, kinds)` walks every notes/<code>.py
+    to compute total_notes, per_book aggregates (note_count, kinds,
+    attributed, chapters_touched, pct_covered), per_kind, and
+    chapter_density. `corpus_index.dashboard_stats(books)` produces
+    equivalent output via 2 SQL roll-ups instead of 87 file reads.
+    Pure additive — no wire flip in this phase."""
+
+    def test_dashboard_stats_returns_expected_top_level_shape(self):
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        assert isinstance(result, dict)
+        for k in ("total_notes", "per_book", "per_kind", "chapter_density"):
+            assert k in result
+        assert isinstance(result["total_notes"], int)
+        assert isinstance(result["per_book"], dict)
+        assert isinstance(result["per_kind"], dict)
+        assert isinstance(result["chapter_density"], dict)
+
+    def test_dashboard_stats_per_book_has_expected_keys(self):
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        for b in config.load_books():
+            assert b["code"] in result["per_book"]
+            entry = result["per_book"][b["code"]]
+            for k in (
+                "code",
+                "title",
+                "ch_count",
+                "note_count",
+                "attributed",
+                "kinds",
+                "chapters_touched",
+                "pct_covered",
+            ):
+                assert k in entry, f"{b['code']} missing {k}"
+
+    def test_dashboard_stats_total_notes_matches_per_book_sum(self):
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        per_book_sum = sum(b["note_count"] for b in result["per_book"].values())
+        assert result["total_notes"] == per_book_sum
+
+    def test_dashboard_stats_per_kind_matches_per_book_kinds_sum(self):
+        from collections import Counter
+
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        agg: Counter = Counter()
+        for entry in result["per_book"].values():
+            for k, n in entry["kinds"].items():
+                agg[k] += n
+        assert dict(agg) == result["per_kind"]
+
+    def test_dashboard_stats_pct_covered_nonnegative(self):
+        # `pct_covered` can legitimately exceed 100% when a book has
+        # notes attached to chapters beyond its canonical `ch_count`
+        # (e.g. extra-canonical material) — file-walk gather_stats
+        # produces the same uncapped value, so the contract here is
+        # just nonnegativity. The equivalence pin elsewhere in this
+        # class verifies the indexed and file-walk values match.
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        for code, entry in result["per_book"].items():
+            assert entry["pct_covered"] >= 0.0, f"{code} pct_covered={entry['pct_covered']} negative"
+
+    def test_dashboard_stats_empty_books_returns_zero(self):
+        from scripts.core import corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats([])
+        assert result == {
+            "total_notes": 0,
+            "per_book": {},
+            "per_kind": {},
+            "chapter_density": {},
+        }
+
+    def test_dashboard_stats_single_book_isolation(self):
+        # Calling with just one book should restrict the per_kind /
+        # chapter_density / total_notes to only that book's notes.
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        books = config.load_books()
+        gen = next((b for b in books if b["code"] == "gen"), None)
+        if gen is None:
+            return  # defensive: gen is canonical, but skip rather than fail if absent
+        result = corpus_index.dashboard_stats([gen])
+        assert list(result["per_book"].keys()) == ["gen"]
+        assert result["total_notes"] == result["per_book"]["gen"]["note_count"]
+
+    def test_dashboard_stats_attributed_le_note_count(self):
+        # Attributed count is a sub-set of note_count: a note either
+        # has attribution or doesn't, so attributed <= note_count.
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        for code, entry in result["per_book"].items():
+            assert entry["attributed"] <= entry["note_count"], (
+                f"{code} attributed={entry['attributed']} > note_count={entry['note_count']}"
+            )
+
+    def test_dashboard_stats_chapter_density_keys_present_for_every_book(self):
+        from scripts.core import config, corpus_index
+
+        corpus_index.rebuild()
+        result = corpus_index.dashboard_stats(config.load_books())
+        for code in result["per_book"]:
+            assert code in result["chapter_density"], f"{code} missing from chapter_density"
+
+    def test_dashboard_stats_equivalent_to_file_walk(self):
+        # The migration-safety contract for Δ.5. Every aggregate
+        # field present in dashboard.gather_stats must equal the
+        # indexed output. Pass-through fields the file-walk includes
+        # for downstream rendering (books, kinds, parse_failures,
+        # generated_at) are excluded; they aren't aggregates and the
+        # index doesn't compute them.
+        # Deliberately NOT using force=True here — under xdist on
+        # Windows it races with other workers' cached connections
+        # (same failure class that defeated Δ.4.1 wire-flip). The
+        # fingerprint check inside rebuild() already triggers when
+        # the corpus on disk has changed.
+        from scripts import dashboard as dashboard_module
+        from scripts.core import config, corpus_index, notes_io
+
+        corpus_index.rebuild()
+        notes_io.clear_load_notes_cache()
+
+        books = config.load_books()
+        kinds = config.load_kinds()
+        file_walk = dashboard_module.gather_stats(books, kinds)
+        indexed = corpus_index.dashboard_stats(books)
+
+        assert file_walk["total_notes"] == indexed["total_notes"]
+        assert dict(file_walk["per_kind"]) == indexed["per_kind"]
+        assert set(file_walk["per_book"].keys()) == set(indexed["per_book"].keys())
+        for code in file_walk["per_book"]:
+            fw = file_walk["per_book"][code]
+            ix = indexed["per_book"][code]
+            for k in ("note_count", "attributed", "kinds", "chapters_touched"):
+                assert fw[k] == ix[k], f"{code}.{k} mismatch: file_walk={fw[k]} indexed={ix[k]}"
+            assert abs(fw["pct_covered"] - ix["pct_covered"]) < 1e-9, f"{code}.pct_covered mismatch"
+        for code, fw_chaps in file_walk["chapter_density"].items():
+            assert dict(fw_chaps) == indexed["chapter_density"].get(code, {}), f"{code} chapter_density mismatch"
+
+
+# ---------- Phase Δ.6 : fingerprint cache layer ------------------------
+
+
+class TestDelta6FingerprintCache:
+    """Δ.6 — TTL-memoized `_compute_fingerprint()`. Without this layer
+    every `connection()` call (and therefore every indexed query)
+    triggered an 87-file `os.stat` walk. With it, back-to-back calls
+    inside one TTL window become a dict lookup. Unblocks the deferred
+    Δ.x.1 wire flips by removing the per-call stat-walk that defeated
+    the parent-level lru_cache on `matrix.compute_matrix()`."""
+
+    def _reset_cache(self, corpus_index):
+        # Test-only helper: reset module-level cache state cleanly.
+        corpus_index._FINGERPRINT_CACHE = None
+
+    def test_cached_returns_same_value_within_ttl(self, monkeypatch):
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+
+        call_count = {"n": 0}
+        original = corpus_index._compute_fingerprint
+
+        def counting_compute():
+            call_count["n"] += 1
+            return original()
+
+        monkeypatch.setattr(corpus_index, "_compute_fingerprint", counting_compute)
+
+        first = corpus_index._compute_fingerprint_cached()
+        second = corpus_index._compute_fingerprint_cached()
+        third = corpus_index._compute_fingerprint_cached()
+        assert first == second == third
+        assert call_count["n"] == 1, "should have stat-walked exactly once"
+
+    def test_cached_recomputes_after_ttl_expires(self, monkeypatch):
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        # 0.05s TTL, easy to exceed in-test
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 0.05)
+
+        call_count = {"n": 0}
+        original = corpus_index._compute_fingerprint
+
+        def counting_compute():
+            call_count["n"] += 1
+            return original()
+
+        monkeypatch.setattr(corpus_index, "_compute_fingerprint", counting_compute)
+
+        corpus_index._compute_fingerprint_cached()
+        assert call_count["n"] == 1
+        # Wait past TTL. Time module local to corpus_index.
+        import time as _t
+
+        _t.sleep(0.07)
+        corpus_index._compute_fingerprint_cached()
+        assert call_count["n"] == 2, "should have recomputed after TTL"
+
+    def test_ttl_zero_bypasses_cache(self, monkeypatch):
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 0.0)
+
+        call_count = {"n": 0}
+        original = corpus_index._compute_fingerprint
+
+        def counting_compute():
+            call_count["n"] += 1
+            return original()
+
+        monkeypatch.setattr(corpus_index, "_compute_fingerprint", counting_compute)
+
+        corpus_index._compute_fingerprint_cached()
+        corpus_index._compute_fingerprint_cached()
+        corpus_index._compute_fingerprint_cached()
+        assert call_count["n"] == 3, "TTL=0 should disable the cache"
+
+    def test_negative_ttl_bypasses_cache(self, monkeypatch):
+        # Same intent as TTL=0 but the contract is "non-positive
+        # disables" — negative is the more obvious "off" sentinel.
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", -1.0)
+        # First call should still produce a value, not crash.
+        fp = corpus_index._compute_fingerprint_cached()
+        assert isinstance(fp, str)
+
+    def test_invalidate_clears_fingerprint_cache(self, monkeypatch):
+        # The contract that closes the "stale fingerprint after
+        # explicit invalidate" loophole.
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+
+        call_count = {"n": 0}
+        original = corpus_index._compute_fingerprint
+
+        def counting_compute():
+            call_count["n"] += 1
+            return original()
+
+        monkeypatch.setattr(corpus_index, "_compute_fingerprint", counting_compute)
+
+        corpus_index._compute_fingerprint_cached()
+        corpus_index._compute_fingerprint_cached()
+        assert call_count["n"] == 1
+        corpus_index.invalidate()
+        corpus_index._compute_fingerprint_cached()
+        assert call_count["n"] == 2, "invalidate() must clear the cache"
+
+    def test_public_fingerprint_alias_uses_cached_path(self, monkeypatch):
+        # Public `fingerprint()` is the cached variant since Δ.6.
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+
+        call_count = {"n": 0}
+        original = corpus_index._compute_fingerprint
+
+        def counting_compute():
+            call_count["n"] += 1
+            return original()
+
+        monkeypatch.setattr(corpus_index, "_compute_fingerprint", counting_compute)
+
+        corpus_index.fingerprint()
+        corpus_index.fingerprint()
+        corpus_index.fingerprint()
+        assert call_count["n"] == 1, "public fingerprint() must use the cached path"
+
+    def test_rebuild_repopulates_fingerprint_cache_post_build(self, tmp_path, monkeypatch):
+        # After a real rebuild, the cache should hold the just-written
+        # fingerprint so the next call is a hit (not a stat-walk).
+        from scripts.core import corpus_index, paths
+
+        self._reset_cache(corpus_index)
+        notes_dir = tmp_path / "notes"
+        notes_dir.mkdir()
+        (notes_dir / "gen.py").write_text(
+            "NOTES = ((1, 1, '', '', 'comm', 'T', 'L', 'B'),)\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(paths, "notes_dir", lambda: notes_dir)
+        monkeypatch.setattr(paths, "user_data_root", lambda: tmp_path / "ud")
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+        corpus_index._CACHED_CONN = None
+
+        result = corpus_index.rebuild(force=True)
+        assert result["rebuilt"] is True
+        # Cache should now hold the post-build fingerprint
+        assert corpus_index._FINGERPRINT_CACHE is not None
+        cached_at, cached_fp = corpus_index._FINGERPRINT_CACHE
+        assert cached_fp == result["fingerprint"]
+
+    def test_default_ttl_is_one_second(self):
+        # Documents the default chosen in the source. If the policy
+        # changes, this test forces an explicit decision rather than
+        # silent drift. Reads the SOURCE FILE directly (not the
+        # module attribute) so the conftest autouse fixture that
+        # sets TTL=0 in tests doesn't shadow this check.
+        import re
+        from pathlib import Path
+
+        from scripts.core import corpus_index
+
+        source_path = Path(corpus_index.__file__)
+        text = source_path.read_text(encoding="utf-8")
+        match = re.search(r"^_FINGERPRINT_TTL_SEC:\s*float\s*=\s*([0-9.]+)", text, re.MULTILINE)
+        assert match is not None, "could not find _FINGERPRINT_TTL_SEC default in source"
+        assert float(match.group(1)) == 1.0, f"default TTL changed: {match.group(1)}"
+
+    def test_acquire_lock_raises_on_timeout(self, tmp_path, monkeypatch):
+        # The Δ.0 lock has a `timeout=` parameter that must raise
+        # TimeoutError when exceeded. Hold the lock from one with-
+        # block and try to acquire from another with a short timeout.
+        from scripts.core import corpus_index, paths
+
+        monkeypatch.setattr(paths, "user_data_root", lambda: tmp_path)
+        # Ensure the lock dir exists
+        (tmp_path / "cache").mkdir(parents=True, exist_ok=True)
+
+        with corpus_index._acquire_rebuild_lock(timeout=5.0):
+            # Inside the held lock, a second acquire with a tiny
+            # timeout MUST raise TimeoutError.
+            try:
+                with corpus_index._acquire_rebuild_lock(timeout=0.2):
+                    raise AssertionError("should not have acquired held lock")
+            except TimeoutError:
+                pass  # expected
+
+    def test_rebuild_under_held_lock_uses_cached_fingerprint_for_fast_path(self, monkeypatch):
+        # Steady-state correctness check: when the index file already
+        # matches the on-disk fingerprint, rebuild() returns the no-
+        # build fast path WITHOUT taking the lock. The cached
+        # fingerprint reads keep this hot path stat-free.
+        from scripts.core import corpus_index
+
+        self._reset_cache(corpus_index)
+        monkeypatch.setattr(corpus_index, "_FINGERPRINT_TTL_SEC", 60.0)
+
+        # Prime: ensure index exists and matches.
+        corpus_index.rebuild()
+
+        lock_acquired = {"n": 0}
+        original_lock = corpus_index._acquire_rebuild_lock
+
+        def counting_lock(*args, **kwargs):
+            lock_acquired["n"] += 1
+            return original_lock(*args, **kwargs)
+
+        monkeypatch.setattr(corpus_index, "_acquire_rebuild_lock", counting_lock)
+
+        # Three rebuild() calls in quick succession against an
+        # already-fresh index must NOT take the lock.
+        for _ in range(3):
+            result = corpus_index.rebuild()
+            assert result["rebuilt"] is False
+        assert lock_acquired["n"] == 0, "fast-path rebuild must not acquire the lock"
+
+
+# ---------- Phase Δ.8 : per-worker index storage ---------------------
+
+
+class TestDelta8PerWorkerIndexStorage:
+    """Δ.8 — index files (corpus.sqlite, corpus.fingerprint,
+    corpus.lock) are namespaced per pytest-xdist worker so workers
+    never share state on disk. Eliminates the cross-worker file
+    contention class that defeated Δ.4.1 attempts #1-3 — Windows
+    file locks during cached-connection swap-out + short-window
+    rebuilds produced widespread `PermissionError` failures when 8
+    concurrent workers all hammered the same shared file.
+
+    The test runner is itself a pytest-xdist worker (or master);
+    these tests use monkeypatch to set / clear the env var and
+    re-read the path helpers, then restore. Production behavior
+    (no env var) is verified directly."""
+
+    def test_xdist_suffix_empty_when_env_var_unset(self, monkeypatch):
+        from scripts.core import corpus_index
+
+        monkeypatch.delenv("PYTEST_XDIST_WORKER", raising=False)
+        assert corpus_index._xdist_suffix() == ""
+
+    def test_xdist_suffix_includes_worker_when_env_var_set(self, monkeypatch):
+        from scripts.core import corpus_index
+
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw0")
+        assert corpus_index._xdist_suffix() == ".gw0"
+
+    def test_xdist_suffix_for_master_worker(self, monkeypatch):
+        # The xdist controller process sets the worker name to
+        # "master" when running with explicit --tx specs; ensure
+        # that's also namespaced (rather than collapsed to empty).
+        from scripts.core import corpus_index
+
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "master")
+        assert corpus_index._xdist_suffix() == ".master"
+
+    def test_index_path_canonical_in_production(self, monkeypatch):
+        # No env var → no suffix → canonical filename matches
+        # what production would write.
+        from scripts.core import corpus_index
+
+        monkeypatch.delenv("PYTEST_XDIST_WORKER", raising=False)
+        assert corpus_index._index_path().name == "corpus.sqlite"
+        assert corpus_index._fingerprint_path().name == "corpus.fingerprint"
+        assert corpus_index._lock_path().name == "corpus.lock"
+
+    def test_index_path_namespaced_per_worker(self, monkeypatch):
+        from scripts.core import corpus_index
+
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw3")
+        assert corpus_index._index_path().name == "corpus.gw3.sqlite"
+        assert corpus_index._fingerprint_path().name == "corpus.gw3.fingerprint"
+        assert corpus_index._lock_path().name == "corpus.gw3.lock"
+
+    def test_two_workers_resolve_to_distinct_paths(self, monkeypatch):
+        # The migration-safety contract: any two distinct workers
+        # MUST resolve to distinct on-disk files (no collisions).
+        from scripts.core import corpus_index
+
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw0")
+        path_a_idx = corpus_index._index_path()
+        path_a_fp = corpus_index._fingerprint_path()
+        path_a_lock = corpus_index._lock_path()
+
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw1")
+        path_b_idx = corpus_index._index_path()
+        path_b_fp = corpus_index._fingerprint_path()
+        path_b_lock = corpus_index._lock_path()
+
+        assert path_a_idx != path_b_idx
+        assert path_a_fp != path_b_fp
+        assert path_a_lock != path_b_lock
+
+    def test_workers_isolated_on_disk_after_rebuild(self, tmp_path, monkeypatch):
+        # End-to-end: worker A rebuilds against its synthetic
+        # corpus; worker B then connects and sees ITS OWN empty
+        # / pristine state, NOT worker A's index. This is the
+        # entire point of the phase: file contention impossible
+        # because workers can't see each other's files.
+        from scripts.core import corpus_index, paths
+
+        notes_dir = tmp_path / "notes"
+        notes_dir.mkdir()
+        (notes_dir / "gen.py").write_text(
+            "NOTES = ((1, 1, '', '', 'comm', 'T', 'L', 'B'),)\n",
+            encoding="utf-8",
+        )
+        monkeypatch.setattr(paths, "notes_dir", lambda: notes_dir)
+        monkeypatch.setattr(paths, "user_data_root", lambda: tmp_path / "ud")
+        corpus_index._CACHED_CONN = None
+        corpus_index._FINGERPRINT_CACHE = None
+
+        # Worker A — build its own index
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw_isolation_A")
+        corpus_index._CACHED_CONN = None
+        result_a = corpus_index.rebuild(force=True)
+        assert result_a["rebuilt"] is True
+        path_a = corpus_index._index_path()
+        assert path_a.is_file()
+
+        # Worker B — distinct env var → distinct path → its own
+        # rebuild creates a SEPARATE file.
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw_isolation_B")
+        corpus_index._CACHED_CONN = None
+        path_b = corpus_index._index_path()
+        # Different path; before B rebuilds, B's file shouldn't exist.
+        assert path_b != path_a
+        # A's file is untouched
+        assert path_a.is_file()
+
+        result_b = corpus_index.rebuild(force=True)
+        assert result_b["rebuilt"] is True
+        assert path_b.is_file()
+        # Both files coexist independently — the contention surface is gone.
+        assert path_a.read_bytes() != b"" and path_b.read_bytes() != b""
+
+    def test_lock_path_per_worker_eliminates_contention(self, tmp_path, monkeypatch):
+        # The lock acquired by worker A's `_acquire_rebuild_lock`
+        # MUST NOT block worker B because they target distinct
+        # lockfiles. This is a single-process simulation of what
+        # happens across xdist workers in reality.
+        from scripts.core import corpus_index, paths
+
+        monkeypatch.setattr(paths, "user_data_root", lambda: tmp_path)
+
+        monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw_lock_A")
+        with corpus_index._acquire_rebuild_lock(timeout=5.0):
+            # Switch the env mid-with: this is the per-process
+            # equivalent of "worker B starts now and takes its own
+            # lock". A short timeout proves no contention.
+            monkeypatch.setenv("PYTEST_XDIST_WORKER", "gw_lock_B")
+            with corpus_index._acquire_rebuild_lock(timeout=0.5):
+                pass  # acquired without blocking on A's lock
+
+
+# ---------- Phase Δ.9 : index warm-up at startup -----------------------
+
+
+class TestDelta9CorpusIndexWarmup:
+    """Δ.9 — `web._warm_corpus_index()` pre-builds the corpus_index
+    before the server handles its first request, paying the cold-
+    cache rebuild cost up-front rather than on a user-visible
+    `/matrix` or `/api/search` call. Best-effort: failures log a
+    warning but do NOT block server start. This is the unblocker
+    for Δ.4.1 attempt #5 — without it, the wire flip's cold-path
+    cost defeats the perf budgets for api_search_notes /
+    api_matrix.cold / notes_io.load_notes."""
+
+    def test_warm_corpus_index_callable_and_returns_dict(self):
+        from scripts import web
+
+        result = web._warm_corpus_index()
+        assert isinstance(result, dict)
+        assert "rebuilt" in result or "error" in result
+
+    def test_warm_corpus_index_calls_rebuild(self, monkeypatch):
+        from scripts import web
+        from scripts.core import corpus_index
+
+        calls: list = []
+
+        def fake_rebuild():
+            calls.append(1)
+            return {"rebuilt": False, "fingerprint": "x" * 64, "note_count": 42, "elapsed_ms": 1.0}
+
+        monkeypatch.setattr(corpus_index, "rebuild", fake_rebuild)
+        web._warm_corpus_index()
+        assert calls == [1], "warm-up must call corpus_index.rebuild() exactly once"
+
+    def test_warm_corpus_index_swallows_exceptions(self, monkeypatch):
+        # Best-effort contract: a corpus_index.rebuild() failure
+        # MUST NOT propagate — server start must not be blocked by
+        # a corrupt index.
+        from scripts import web
+        from scripts.core import corpus_index
+
+        def explode():
+            raise RuntimeError("simulated index failure")
+
+        monkeypatch.setattr(corpus_index, "rebuild", explode)
+        result = web._warm_corpus_index()
+        assert isinstance(result, dict)
+        assert "error" in result
+        assert "simulated index failure" in result["error"]
+        assert result["rebuilt"] is False
+
+    def test_warm_corpus_index_returns_rebuild_result_on_success(self, monkeypatch):
+        from scripts import web
+        from scripts.core import corpus_index
+
+        sentinel = {
+            "rebuilt": True,
+            "fingerprint": "abc123",
+            "note_count": 51394,
+            "elapsed_ms": 2480.3,
+        }
+        monkeypatch.setattr(corpus_index, "rebuild", lambda: sentinel)
+        result = web._warm_corpus_index()
+        assert result == sentinel
+
+    def test_warm_corpus_index_invoked_in_main_before_serve(self):
+        # Source-level invariant: main() must call
+        # _warm_corpus_index() AFTER the ThreadingHTTPServer is
+        # constructed (so a binding failure aborts loudly) but
+        # BEFORE serve_forever (so the warm-up cost is paid here,
+        # not on first-request). Reading the source is the
+        # cheapest way to assert this control-flow contract
+        # without instrumenting main().
+        import inspect
+
+        from scripts import web
+
+        src = inspect.getsource(web.main)
+        assert "_warm_corpus_index()" in src, "main() must call _warm_corpus_index()"
+        idx_server = src.index("ThreadingHTTPServer")
+        idx_warm = src.index("_warm_corpus_index()")
+        idx_serve = src.index("serve_forever")
+        assert idx_server < idx_warm < idx_serve, (
+            f"order violated: server@{idx_server} warm@{idx_warm} serve@{idx_serve}"
+        )
+
+    def test_warm_corpus_index_idempotent_on_warm_cache(self, monkeypatch):
+        # When the on-disk index is already fresh, the warm-up call
+        # should be a fast no-op. Real corpus_index.rebuild()
+        # implements this via the fingerprint check; here we just
+        # verify the function tolerates a "no rebuild needed"
+        # return.
+        from scripts import web
+        from scripts.core import corpus_index
+
+        monkeypatch.setattr(
+            corpus_index,
+            "rebuild",
+            lambda: {"rebuilt": False, "fingerprint": "f" * 64, "note_count": 100, "elapsed_ms": 5.0},
+        )
+        result = web._warm_corpus_index()
+        assert result["rebuilt"] is False
+        assert result["note_count"] == 100

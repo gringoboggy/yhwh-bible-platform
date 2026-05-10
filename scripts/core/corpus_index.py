@@ -97,6 +97,37 @@ def _strip_tags(html_text: str) -> str:
 # ----------------------------------------------------------------------
 # Storage layout
 # ----------------------------------------------------------------------
+#
+# Δ.8 (2026-05-11) — index files are per-process under pytest-xdist.
+# Each worker reads `PYTEST_XDIST_WORKER` (a string like "gw0", "gw1",
+# ..., or "master" for the controller process) and namespaces its
+# corpus.sqlite / corpus.fingerprint / corpus.lock filenames so workers
+# never share state on disk.
+#
+# This eliminates the cross-worker file contention class that
+# defeated Δ.4.1 attempts #1-3 — Windows file locks during cached-
+# connection swap-out + short-window rebuilds produced widespread
+# `PermissionError` failures when 8 workers all hammered the same
+# `corpus.sqlite`.  With per-worker storage the contention surface
+# vanishes at its root: each worker has its own file, its own lock,
+# its own fingerprint cell.
+#
+# In production (no PYTEST_XDIST_WORKER set), paths revert to the
+# canonical names — `corpus.sqlite`, `corpus.fingerprint`,
+# `corpus.lock`. Single-process, no namespacing, full
+# cross-process-sharing benefit when multiple production callers
+# reuse the same on-disk index.
+
+
+def _xdist_suffix() -> str:
+    """Δ.8 — return ``.<worker>`` when running under pytest-xdist,
+    empty string otherwise. Each worker subprocess sets
+    PYTEST_XDIST_WORKER (e.g. ``gw0``) so we can give each worker
+    its own index file. The xdist controller (the test session
+    itself) does NOT set the env var, so master-only test runs use
+    the canonical names — same as production."""
+    worker = os.environ.get("PYTEST_XDIST_WORKER", "")
+    return f".{worker}" if worker else ""
 
 
 def _index_dir() -> Path:
@@ -104,11 +135,11 @@ def _index_dir() -> Path:
 
 
 def _index_path() -> Path:
-    return _index_dir() / "corpus.sqlite"
+    return _index_dir() / f"corpus{_xdist_suffix()}.sqlite"
 
 
 def _fingerprint_path() -> Path:
-    return _index_dir() / "corpus.fingerprint"
+    return _index_dir() / f"corpus{_xdist_suffix()}.fingerprint"
 
 
 def _notes_dir() -> Path:
@@ -138,8 +169,14 @@ def _notes_dir() -> Path:
 def _lock_path() -> Path:
     """Path to the rebuild sentinel lockfile. Lives next to the
     index so all index-touching processes converge on the same
-    file regardless of how `paths.user_data_root()` is resolved."""
-    return _index_dir() / "corpus.lock"
+    file regardless of how `paths.user_data_root()` is resolved.
+
+    Δ.8 — per-worker namespace under pytest-xdist (one lock per
+    worker, since each worker now has its own corpus.sqlite). In
+    production (no env var) reverts to the canonical
+    ``corpus.lock`` filename so concurrent production processes
+    serialize correctly."""
+    return _index_dir() / f"corpus{_xdist_suffix()}.lock"
 
 
 @contextlib.contextmanager
@@ -241,9 +278,55 @@ def _compute_fingerprint() -> str:
     return h.hexdigest()
 
 
+# Δ.6 — TTL-memoized fingerprint. Without this layer, every
+# `connection()` call (and therefore every indexed query) triggered
+# `_compute_fingerprint()` which `os.stat()`s every notes/*.py file.
+# 87 stat calls per query is fine in cold-cache isolation but defeats
+# the parent-level lru_cache on `matrix.compute_matrix()` and
+# hammers the test suite under xdist. The TTL bounds staleness:
+# in production the worst case is one TTL of stale data after a
+# corpus edit (default 1s — acceptable for editorial workflows).
+# Tests override to 0 (always recompute) via monkeypatch when they
+# care about freshness; the equivalence pins call `invalidate()`
+# (which also clears this cache) for the same effect. After Δ.6,
+# `connection()` in steady state is a dict lookup + a sqlite query.
+_FINGERPRINT_TTL_SEC: float = 1.0
+_FINGERPRINT_CACHE: Optional[tuple[float, str]] = None
+
+
+def _compute_fingerprint_cached() -> str:
+    """TTL-memoized variant of `_compute_fingerprint()`.
+
+    When the TTL is non-positive, bypasses the cache (test-friendly
+    "never trust the cache" mode). Otherwise returns the cached
+    value if it was computed within `_FINGERPRINT_TTL_SEC` of now;
+    recomputes and refreshes the cache otherwise.
+
+    The cache is process-local module state; cross-process workers
+    each maintain their own. `invalidate()` clears the cache so
+    callers that need a guaranteed fresh fingerprint (e.g. after
+    explicitly mutating the corpus) can force the next call to
+    recompute.
+    """
+    global _FINGERPRINT_CACHE
+    if _FINGERPRINT_TTL_SEC <= 0:
+        return _compute_fingerprint()
+    now = time.monotonic()
+    cached = _FINGERPRINT_CACHE
+    if cached is not None:
+        cached_at, fp = cached
+        if now - cached_at < _FINGERPRINT_TTL_SEC:
+            return fp
+    fp = _compute_fingerprint()
+    _FINGERPRINT_CACHE = (now, fp)
+    return fp
+
+
 def fingerprint() -> str:
-    """Public alias of `_compute_fingerprint()`."""
-    return _compute_fingerprint()
+    """Public alias of `_compute_fingerprint_cached()` — the cached
+    variant since 2026-05-11 (Δ.6). Callers wanting a guaranteed
+    cache miss should call `invalidate()` first."""
+    return _compute_fingerprint_cached()
 
 
 # ----------------------------------------------------------------------
@@ -414,12 +497,20 @@ def rebuild(*, force: bool = False) -> dict:
     on the actual write. The fast-path (fingerprint matches) does
     NOT take the lock — it's a pure read.
 
+    Δ.6 — fingerprint reads go through `_compute_fingerprint_cached`
+    so back-to-back calls (e.g. every `connection()` call from a
+    web request) don't re-stat 87 files. The post-lock re-check
+    deliberately bypasses the cache by clearing it first — once
+    we've waited on the lock the cached value is potentially stale
+    relative to other processes' writes.
+
     Returns:
         ``{rebuilt: bool, fingerprint: str, note_count: int,
         elapsed_ms: float}``
     """
+    global _FINGERPRINT_CACHE
     t0 = time.perf_counter()
-    fp = _compute_fingerprint()
+    fp = _compute_fingerprint_cached()
     fp_path = _fingerprint_path()
     idx_path = _index_path()
 
@@ -447,8 +538,11 @@ def rebuild(*, force: bool = False) -> dict:
             except OSError:
                 existing_fp_post = ""
             # Recompute fingerprint inside the lock — corpus might
-            # have changed between our pre-lock check and acquire.
-            fp_post = _compute_fingerprint()
+            # have changed between our pre-lock check and acquire,
+            # OR another process may have rebuilt while we waited.
+            # Clear the cache first so the post-lock check is fresh.
+            _FINGERPRINT_CACHE = None
+            fp_post = _compute_fingerprint_cached()
             if existing_fp_post == fp_post:
                 # Another process rebuilt while we waited (or no
                 # rebuild was actually needed); skip our build.
@@ -463,6 +557,10 @@ def rebuild(*, force: bool = False) -> dict:
         note_count, fp = _build_to(idx_path)
         fp_path.parent.mkdir(parents=True, exist_ok=True)
         fp_path.write_text(fp, encoding="utf-8")
+        # Refresh the fingerprint cache to the just-written value
+        # so the next caller sees the post-build fingerprint
+        # without a fresh stat-walk.
+        _FINGERPRINT_CACHE = (time.monotonic(), fp)
 
     # Reset any cached connection — it points at the old file now.
     global _CACHED_CONN, _CACHED_CONN_PATH
@@ -536,8 +634,16 @@ def connection() -> sqlite3.Connection:
 def invalidate() -> None:
     """Force the next call to rebuild. Useful after explicit corpus
     edits that the mtime check might miss (e.g. a future API that
-    writes through `notes_io` followed immediately by a query)."""
-    global _CACHED_CONN, _CACHED_CONN_PATH
+    writes through `notes_io` followed immediately by a query).
+
+    Δ.6 — also clears the in-memory fingerprint cache so the next
+    `_compute_fingerprint_cached()` call recomputes from scratch.
+    Without this clear, an `invalidate()` call inside the TTL
+    window would still return a stale fingerprint and incorrectly
+    skip the rebuild on the next `connection()` call.
+    """
+    global _CACHED_CONN, _CACHED_CONN_PATH, _FINGERPRINT_CACHE
+    _FINGERPRINT_CACHE = None
     if _CACHED_CONN is not None:
         try:
             _CACHED_CONN.close()
@@ -1085,3 +1191,148 @@ def search(
             }
         )
     return out
+
+
+# ----------------------------------------------------------------------
+# Δ.5 — index-backed dashboard_stats
+# ----------------------------------------------------------------------
+
+
+def dashboard_stats(books: list[dict]) -> dict:
+    """Δ.5 — gather the project-wide stats `dashboard.gather_stats()`
+    produces, but via a single index pass instead of an 87-book walk.
+
+    Mirrors `dashboard.gather_stats(books, kinds)`'s output shape on
+    every aggregate field (total_notes, per_kind, per_book.note_count,
+    per_book.attributed, per_book.kinds, per_book.chapters_touched,
+    per_book.pct_covered, chapter_density). Equivalence pin in tests.
+
+    Pass-through fields the file-walk includes for downstream rendering
+    (`books`, `kinds`, `parse_failures`, `generated_at`) are NOT
+    returned here — consumers either pass them through themselves or
+    use the dedicated `dashboard.gather_stats()` for a full report.
+    The index has no notion of "parse failure" because malformed
+    entries are silently skipped at build time.
+
+    Args:
+        books: list of book dicts from `config.load_books()` (each has
+            `code`, `title`, `ch_count`). Iteration order matches the
+            file-walk path so per_book key order is identical.
+
+    Returns:
+        ``{total_notes, per_book, per_kind, chapter_density}`` —
+        equivalent to the corresponding fields of
+        `dashboard.gather_stats()`.
+    """
+    book_codes = [b["code"] for b in books if isinstance(b, dict) and b.get("code")]
+    book_by_code = {b["code"]: b for b in books if isinstance(b, dict) and b.get("code")}
+
+    per_book: dict[str, dict] = {}
+    per_kind: dict[str, int] = {}
+    chapter_density: dict[str, dict[int, int]] = {}
+    total_notes = 0
+
+    if not book_codes:
+        for b in books:
+            if not isinstance(b, dict):
+                continue
+            code = b.get("code")
+            if not code:
+                continue
+            ch_count = b.get("ch_count", 0)
+            per_book[code] = {
+                "code": code,
+                "title": b.get("title", code),
+                "ch_count": ch_count,
+                "note_count": 0,
+                "attributed": 0,
+                "kinds": {},
+                "chapters_touched": 0,
+                "pct_covered": 0.0,
+            }
+        return {
+            "total_notes": 0,
+            "per_book": per_book,
+            "per_kind": per_kind,
+            "chapter_density": chapter_density,
+        }
+
+    conn = connection()
+    placeholders = ",".join("?" * len(book_codes))
+
+    # Per (book, kind): count + attributed-count. The attribution
+    # presence test mirrors `dashboard.gather_stats`: tuple index 8
+    # exists, is a string, and stripped non-empty. The index stores
+    # attribution as a TEXT column (default ''); the file-walk's
+    # `len(tup) >= 9` branch is automatic here because non-9-element
+    # rows insert '' for attribution at build time.
+    rows = conn.execute(
+        f"SELECT book_code, kind, COUNT(*) AS cnt, "
+        f"SUM(CASE WHEN TRIM(attribution) != '' THEN 1 ELSE 0 END) AS attr_cnt "
+        f"FROM notes WHERE book_code IN ({placeholders}) "
+        f"GROUP BY book_code, kind",
+        book_codes,
+    ).fetchall()
+
+    book_kind_counts: dict[str, dict[str, int]] = {}
+    book_attr_counts: dict[str, int] = {}
+    for r in rows:
+        bc = r["book_code"]
+        kind = r["kind"]
+        cnt = int(r["cnt"])
+        attr_cnt = int(r["attr_cnt"] or 0)
+        book_kind_counts.setdefault(bc, {})[kind] = cnt
+        book_attr_counts[bc] = book_attr_counts.get(bc, 0) + attr_cnt
+        per_kind[kind] = per_kind.get(kind, 0) + cnt
+
+    # Per (book, chapter): count, fed into chapter_density. Same
+    # filter on book_codes.
+    chap_rows = conn.execute(
+        f"SELECT book_code, chapter, COUNT(*) AS cnt "
+        f"FROM notes WHERE book_code IN ({placeholders}) "
+        f"GROUP BY book_code, chapter",
+        book_codes,
+    ).fetchall()
+
+    book_chapters: dict[str, set[int]] = {}
+    for r in chap_rows:
+        bc = r["book_code"]
+        chapter = int(r["chapter"])
+        cnt = int(r["cnt"])
+        chapter_density.setdefault(bc, {})[chapter] = cnt
+        book_chapters.setdefault(bc, set()).add(chapter)
+
+    # Now stitch the per_book output in book-list iteration order
+    # so the dict's key sequence matches dashboard.gather_stats.
+    for b in books:
+        if not isinstance(b, dict):
+            continue
+        code = b.get("code")
+        if not code:
+            continue
+        ch_count = b.get("ch_count", 0)
+        kinds_count = book_kind_counts.get(code, {})
+        n = sum(kinds_count.values())
+        chapters_touched = len(book_chapters.get(code, set()))
+        per_book[code] = {
+            "code": code,
+            "title": b.get("title", code),
+            "ch_count": ch_count,
+            "note_count": n,
+            "attributed": book_attr_counts.get(code, 0),
+            "kinds": kinds_count,
+            "chapters_touched": chapters_touched,
+            "pct_covered": (chapters_touched / ch_count * 100) if ch_count else 0.0,
+        }
+        total_notes += n
+        # Ensure book has a chapter_density entry even when zero notes
+        # (file-walk uses defaultdict so absent keys silently return
+        # empty; an absent key in a regular dict would diverge).
+        chapter_density.setdefault(code, {})
+
+    return {
+        "total_notes": total_notes,
+        "per_book": per_book,
+        "per_kind": per_kind,
+        "chapter_density": chapter_density,
+    }
