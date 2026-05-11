@@ -6406,6 +6406,16 @@ _DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
     ),
     # /api/covers/<ed>/main
     (re.compile(r"^/api/covers/([a-z0-9-]+)/main$"), lambda m: api_delete_cover_main(m.group(1))),
+    # ω.35-A.8 — /api/sources/cache/<id> — clear a source cache.
+    # Previously used `_send_dict_result` (which preserved extras in
+    # error envelopes); now table-compatible because A.8 extended
+    # `_dispatch_table_result` to preserve extras too.
+    # api_sources_cache_clear's error envelopes don't include extras
+    # but the discipline is uniform now.
+    (
+        re.compile(r"^/api/sources/cache/([a-z0-9_-]+)$"),
+        lambda m: api_sources_cache_clear(m.group(1)),
+    ),
 ]
 
 
@@ -6469,6 +6479,30 @@ _POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
             payload.get("snapshot_id") or "",
         ),
     ),
+    # ω.35-A.8 — sources/cache fetch routes. Previously used
+    # `_send_dict_result` (which preserved extras in error
+    # envelopes). Now table-compatible because A.8 extended
+    # `_dispatch_table_result` to preserve extras too. MORE-
+    # SPECIFIC /<id>/fetch must precede the broader _all/fetch
+    # match isn't a concern here (paths are distinct), but
+    # convention pinned.
+    # /api/sources/cache/_all/fetch — payload "force"; status==ok|error
+    (
+        re.compile(r"^/api/sources/cache/_all/fetch$"),
+        lambda m, payload: api_sources_cache_fetch_all(
+            force=bool(payload.get("force")),
+        ),
+    ),
+    # /api/sources/cache/<id>/fetch — payload force/url_override/parser_override
+    (
+        re.compile(r"^/api/sources/cache/([a-z0-9_-]+)/fetch$"),
+        lambda m, payload: api_sources_cache_fetch(
+            m.group(1),
+            force=bool(payload.get("force")),
+            url_override=payload.get("url_override") or None,
+            parser_override=payload.get("parser_override") or None,
+        ),
+    ),
 ]
 
 
@@ -6478,9 +6512,13 @@ def _dispatch_table_result(handler_self, result: dict) -> None:
     the legacy cascade.
 
     Three response shapes handled:
-    1. `{"status": "error", "code": ..., "http": ..., "message": ...}`
-       — translated to JSON error envelope with appropriate HTTP
-       status. (ω.35-A.2 introduced this for the GET tables.)
+    1. `{"status": "error", "code": ..., "http": ..., "message": ...,
+       <extras>}` — translated to JSON error envelope with appropriate
+       HTTP status. (ω.35-A.2 introduced this for the GET tables.
+       ω.35-A.8 added extras-preservation so handlers that include
+       additional fields in their error envelope — e.g.
+       `api_sources_cache_fetch_all` returning `"results": []` on
+       config error — match the legacy `_send_dict_result` behavior.)
     2. `{"ok": False, ...}` — legacy mutation-result shape used by
        api_save_edition / api_save_scenario / api_save_kind etc.
        Sends the raw result with HTTP 400. (ω.35-A.5 added this for
@@ -6494,13 +6532,20 @@ def _dispatch_table_result(handler_self, result: dict) -> None:
        both go through as 200, matching legacy behavior).
     """
     if result.get("status") == "error":
-        handler_self._send_json(
-            {
-                "error": result.get("code") or "internal_error",
-                "message": result.get("message") or "",
-            },
-            status=result.get("http") or 500,
-        )
+        envelope = {
+            "error": result.get("code") or "internal_error",
+            "message": result.get("message") or "",
+        }
+        # ω.35-A.8 — preserve any extras (fields beyond the standard
+        # status/code/http/message) so behavior matches the legacy
+        # `_send_dict_result` helper. None of the routes migrated
+        # before A.8 return extras in error envelopes (verified via
+        # grep across all `"status": "error"` returns), so this
+        # extension is behavior-neutral for them.
+        for k, v in result.items():
+            if k not in ("status", "code", "http", "message", "error"):
+                envelope[k] = v
+        handler_self._send_json(envelope, status=result.get("http") or 500)
         return
     if result.get("ok") is False:
         handler_self._send_json(result, status=400)
@@ -7322,12 +7367,11 @@ class Handler(BaseHTTPRequestHandler):
     def do_DELETE(self):
         if not self._check_admin_auth():
             return
-        # ω.35-A.6 — table-driven dispatch for the uniform-shape
-        # DELETE routes (regex → handler(m) → _dispatch_table_result
-        # → send_json). 5 of 6 DELETE routes migrated; the sixth
-        # (/api/sources/cache/<id>) stays in legacy because it
-        # uses the bespoke `_send_dict_result` helper, not the
-        # standard error-translate envelope.
+        # ω.35-A.6/A.8 — table-driven dispatch for ALL 6 DELETE routes
+        # (regex → handler(m) → _dispatch_table_result → send_json).
+        # /api/sources/cache/<id> joined the table in A.8 once
+        # _dispatch_table_result was extended to preserve extras in
+        # error envelopes.
         for regex, handler in _DELETE_ROUTES:
             m = regex.match(self.path)
             if m:
@@ -7336,12 +7380,6 @@ class Handler(BaseHTTPRequestHandler):
                     return _dispatch_table_result(self, result)
                 except Exception as e:
                     return self._send_json({"error": str(e)}, status=400)
-        # Clear a source cache (Phase υ.1) — bespoke
-        # `_send_dict_result` helper; not table-compatible yet.
-        m = re.match(r"^/api/sources/cache/([a-z0-9_-]+)$", self.path)
-        if m:
-            result = api_sources_cache_clear(m.group(1))
-            return self._send_dict_result(result)
         return self._send_json({"error": "not found"}, status=404)
 
     @_safe_request
@@ -7384,29 +7422,10 @@ class Handler(BaseHTTPRequestHandler):
         m = re.match(r"^/api/sources/cache/([a-z0-9_-]+)/upload$", self.path)
         if m:
             return self._handle_sources_cache_upload(m.group(1))
-        # Source cache fetch / fetch-all (Phase υ.1) — JSON body, uses
-        # `_send_dict_result` which preserves extras in error envelopes
-        # (deferred to ω.35-A.8 — bespoke cleanup).
-        if self.path == "/api/sources/cache/_all/fetch":
-            try:
-                payload = self._read_body() or {}
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-            result = api_sources_cache_fetch_all(force=bool(payload.get("force")))
-            return self._send_dict_result(result)
-        m = re.match(r"^/api/sources/cache/([a-z0-9_-]+)/fetch$", self.path)
-        if m:
-            try:
-                payload = self._read_body() or {}
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-            result = api_sources_cache_fetch(
-                m.group(1),
-                force=bool(payload.get("force")),
-                url_override=payload.get("url_override") or None,
-                parser_override=payload.get("parser_override") or None,
-            )
-            return self._send_dict_result(result)
+        # Source cache fetch routes (Phase υ.1) migrated to
+        # _POST_ROUTES (ω.35-A.8) — `_dispatch_table_result` now
+        # preserves extras in error envelopes, so the legacy
+        # `_send_dict_result` behavior is preserved.
         # ν.4 + ω.1 routes migrated to _POST_ROUTES (ω.35-A.7).
         # Everything else: same as PUT — front-end uses POST for create
         return self.do_PUT()

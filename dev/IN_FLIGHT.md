@@ -4,6 +4,135 @@
 
 ## Prior task
 
+**ω.35-A.8 bespoke cleanup (sources/cache routes)** shipped
+2026-05-11. Closes the loop on the routes that previously
+used `_send_dict_result`. **DELETE migration now COMPLETE**
+(6 of 6 routes in the table).
+
+`scripts/web.py:_dispatch_table_result` extended (single
+edit, behavior-neutral for the 11 previously-migrated
+routes): the `status == "error"` branch now preserves any
+fields beyond `status`/`code`/`http`/`message`/`error` in
+the response envelope. Matches the legacy
+`_send_dict_result` extras-preserving shape.
+
+**Routes migrated (1 DELETE + 2 POST):**
+- DELETE /api/sources/cache/<id> → api_sources_cache_clear
+  (joined `_DELETE_ROUTES` as entry #6; do_DELETE is now
+  one dispatch loop + 404 fall-through, NO legacy branches)
+- POST /api/sources/cache/_all/fetch →
+  api_sources_cache_fetch_all (force flag — LOAD-BEARING:
+  this route returns `"results": []` in its config_error
+  envelope, which the UI consumes; extras-preservation in
+  the helper is mandatory)
+- POST /api/sources/cache/<id>/fetch →
+  api_sources_cache_fetch (force / url_override /
+  parser_override destructured in the lambda)
+
+3 legacy branches deleted (1 in do_DELETE, 2 in do_POST).
+
+### Why extend the helper, not add a new table
+
+Adding a `_POST_DICT_RESULT_ROUTES` table would have
+duplicated dispatch loop logic and split conceptually
+identical routes across two tables. The single dispatch
+helper with extras-preservation is one less concept to
+track and matches the design principle "uniform shape
+across the table family."
+
+### Extras safety check
+
+Before extending the helper, grepped all `"status":
+"error"` returns in `scripts/web.py` (40 results). Only
+TWO of them include extras fields beyond
+status/code/http/message:
+- `api_sources_cache_status` line 1759: `"sources": []`
+  (a GET, not currently table-migrated; would have been
+  affected if it were)
+- `api_sources_cache_fetch_all` line 1896: `"results": []`
+  (the load-bearing case for A.8)
+
+None of the 11 already-migrated routes return extras in
+their error envelopes. The helper extension is therefore
+behavior-neutral for them, and load-bearing for the 2 new
+POST entries.
+
+### Tests updated to reflect new state
+
+3 previously-passing tests pinned assertions about
+"sources/cache is in legacy" that A.8 invalidated:
+- `test_sources_cache_still_in_legacy` →
+  `test_sources_cache_migrated_in_a8` (flips: now asserts
+  /sources/cache/ IS in the table)
+- `test_post_table_has_six_entries` →
+  `test_post_table_has_at_least_six_entries` (now a
+  lower-bound pin instead of exact-count, so future slices
+  that grow the table don't break this test)
+- `test_multipart_and_sources_cache_still_in_legacy` →
+  `test_multipart_still_in_legacy_after_a7` (narrowed
+  scope: multipart `/upload` still in legacy; JSON
+  `/fetch` migrated)
+
+### Notable decisions
+
+- **`error` field excluded from extras-preservation.** Some
+  legacy code paths can generate an `error` field in the
+  input dict alongside `status: error`. Preserving an input
+  `error` key would silently overwrite our envelope's
+  error field. Excluded defensively — no current route
+  triggers this, but the pin is cheap.
+- **Behavioral substitution model.** A.8 is a textbook
+  substitution: the helper's signature stayed the same;
+  only its implementation broadened. The 3 migrating
+  routes required zero changes inside their API functions
+  — they return the same dicts they always did.
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+| ω.35-A.8 | 1 DELETE + 2 POST | 40 |
+
+**40 of 94 discovered routes in tables (~43%).**
+- DELETE: **6/6 COMPLETE**
+- POST: 8/11 (3 multipart remain)
+- PUT: 6/10 (4 bespoke remain)
+- GET: 20/67 (large legacy surface — HTML, RSS, YAML,
+  static files, sample previews; not table-friendly until
+  ω.35-B file split introduces typed response shapes)
+
+### Open follow-ups
+
+- **ω.35-A.9 — multipart table** (1 session). 3 routes
+  (covers main, covers book, sources cache upload). Needs
+  a new `lambda m, body, content_type` signature and its
+  own dispatch loop.
+- **ω.35-A.10 — bespoke PUT cleanup** (1 session). 4 PUT
+  routes (export/build, edition-meta, edition-meta/preview,
+  edition/note-toggle). Likely need a new table shape with
+  extras-handling for response.
+- **ω.35-B — web.py file split** (1-2 sessions).
+- **Perf-test serialization** (~half session).
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+123** (1919 baseline → 2042 final).
+19 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.8.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.8 ✓ → ω.35-A.9
+multipart table → ω.35-A.10 bespoke PUT → ω.35-B file split
+→ ψ.35 matrix collapse.
+
+**2042 / 2042 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.7 POST mutation routes table** shipped 2026-05-11.
 First POST-method table for JSON-body routes; 6 of 11 POST
 routes migrated.

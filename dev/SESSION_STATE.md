@@ -1,6 +1,47 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.7 POST mutation
+**Updated:** 2026-05-11, after **ω.35-A.8 bespoke cleanup
+(sources/cache routes)** shipped. Extended
+`_dispatch_table_result` to preserve extras in error
+envelopes (the property `_send_dict_result` provided);
+behavior-neutral for 11 previously-migrated routes (verified
+none returned extras in their `status==error` envelopes).
+Three sources/cache routes migrated: DELETE
+/api/sources/cache/<id> → api_sources_cache_clear (the 6th
+and final DELETE; do_DELETE is now a single dispatch loop +
+404 fall-through, NO legacy branches); POST
+/api/sources/cache/_all/fetch → api_sources_cache_fetch_all
+(load-bearing extras case — returns `"results": []` in its
+config-error envelope; preserved through the helper); POST
+/api/sources/cache/<id>/fetch → api_sources_cache_fetch
+(force/url_override/parser_override destructured in lambda).
+3 legacy branches deleted (1 in do_DELETE, 2 in do_POST).
+**+10 tests** in `TestOmega35A8BespokeCleanup`: dispatch
+helper preserves extras on error AND drops standard fields,
+status==ok pass-through unchanged, _DELETE has 6 entries
+(complete), _POST has 8 entries (A.7 6 + A.8 2), do_DELETE
+has no legacy branches, do_POST has no legacy sources/cache
+branches, end-to-end extras round-trip, discovery
+recognizes new entries, route inventory clean. 3
+previously-passing tests updated to reflect the migration:
+test_sources_cache_still_in_legacy → migrated_in_a8 (flips
+assertion), test_post_table_has_six_entries → at_least_six
+(lower bound), test_multipart_and_sources_cache_still_in_
+legacy → multipart_still_in_legacy_after_a7 (narrowed scope
+to multipart-only). Migration progress: 40/94 discovered
+routes (~43%) now in tables; **DELETE 100% complete**, POST
+8/11, PUT 6/10. Net session test delta: **+123** (1919
+baseline → 2042 final). 19 phases shipped this session: Δ.5,
+Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A,
+ω.36, ω.35-A.1-A.8. AUDIT §7 sequence: ω.35-A.8 ✓ →
+**ω.35-A.9** multipart routes table (next; 3 routes: covers
+main, covers book, sources cache upload — need new
+`lambda m, body, ctype` signature) → ω.35-A.10 bespoke PUT
+cleanup (4 routes) → ω.35-B file split → ψ.35 matrix
+data-model collapse. **2042 / 2042 tests green (1 skipped);
+11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.7 POST mutation
 routes table** shipped — first POST-method table for JSON-body
 routes. New `_POST_ROUTES` table with 6 entries:
 snapshots/<ed>/<ver>/restore (no payload — accepts `{}`

@@ -25187,19 +25187,18 @@ class TestOmega35A6DeleteTable:
         assert ("DELETE", "/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", True) in keys
         assert ("DELETE", "/api/covers/([a-z0-9-]+)/main$", True) in keys
 
-    def test_sources_cache_still_in_legacy(self):
-        # The 6th DELETE route stays in legacy because it uses
-        # _send_dict_result (custom helper) instead of the
-        # standard error-translate envelope. Pin: it should NOT
-        # appear in _DELETE_ROUTES; it MUST still be reachable
-        # via do_DELETE legacy fallback (verified by route
-        # discovery picking up the legacy `m = re.match(...)`).
+    def test_sources_cache_migrated_in_a8(self):
+        # ω.35-A.8 moved the 6th DELETE route (sources/cache/<id>)
+        # into _DELETE_ROUTES, after extending
+        # _dispatch_table_result to preserve extras in error
+        # envelopes — the property `_send_dict_result` provided
+        # but the dispatch helper previously didn't. Pin the
+        # migrated state: the route MUST appear in _DELETE_ROUTES
+        # AND be discoverable as a table-dispatched route.
         from scripts import check_routes, web
 
         table_patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
-        assert not any("/sources/cache/" in p for p in table_patterns)
-        # Discovery should still find /api/sources/cache/<id> as
-        # a DELETE route (via the legacy regex pattern).
+        assert any("/sources/cache/" in p for p in table_patterns)
         routes = check_routes.discover_routes()
         cache_deletes = [r for r in routes if r.method == "DELETE" and "/sources/cache/" in r.pattern]
         assert len(cache_deletes) == 1, f"sources cache DELETE missing: {cache_deletes}"
@@ -25230,10 +25229,13 @@ class TestOmega35A7PostTable:
       upload) — distinct payload shape; need a dedicated table.
     """
 
-    def test_post_table_has_six_entries(self):
+    def test_post_table_has_at_least_six_entries(self):
+        # A.7 introduced 6 entries; subsequent slices grow the table
+        # (A.8 added 2 sources/cache entries → 8). Pin the lower
+        # bound so the table never shrinks below the A.7 baseline.
         from scripts import web
 
-        assert len(web._POST_ROUTES) == 6
+        assert len(web._POST_ROUTES) >= 6
 
     def test_post_table_has_expected_patterns(self):
         from scripts import web
@@ -25319,14 +25321,24 @@ class TestOmega35A7PostTable:
         assert ("POST", "/api/editions/clone$", True) in keys
         assert ("POST", "/api/backups/restore$", True) in keys
 
-    def test_multipart_and_sources_cache_still_in_legacy(self):
-        # 3 multipart routes + 2 sources/cache fetch routes stay
-        # in legacy. Pin: NONE of them should appear in _POST_ROUTES.
+    def test_multipart_still_in_legacy_after_a7(self):
+        # 3 multipart routes stay in legacy after A.7 (deferred to a
+        # future _MULTIPART_ROUTES table). The 2 sources/cache fetch
+        # routes were also deferred from A.7, but A.8 moved them into
+        # _POST_ROUTES — so they're no longer pinned here. Only
+        # multipart-shape routes (which the helper can't handle yet)
+        # remain in legacy.
         from scripts import web
 
         table_patterns = [r.pattern for r, _ in web._POST_ROUTES]
-        assert not any("/covers/" in p for p in table_patterns)
-        assert not any("/sources/cache/" in p for p in table_patterns)
+        assert not any("/covers/" in p for p in table_patterns), (
+            "multipart cover-upload routes must NOT be in _POST_ROUTES — they need a separate _MULTIPART_ROUTES table"
+        )
+        # /upload uses multipart, but /fetch uses JSON — distinguish
+        # them in the assertion.
+        assert not any("/sources/cache/" in p and "/upload" in p for p in table_patterns), (
+            "sources/cache /upload is multipart — must NOT be in _POST_ROUTES"
+        )
 
     def test_dispatch_loop_reads_body_once(self):
         # The dispatch loop in do_POST is structured so _read_body()
@@ -25382,3 +25394,179 @@ class TestOmega35A7PostTable:
             # named "v1" exists), but it must not raise something
             # caused by payload-key access.
             assert "payload" not in str(e).lower(), f"handler crashed on payload access: {e}"
+
+
+class TestOmega35A8BespokeCleanup:
+    """ω.35-A.8 — seventh route-table slice; closes the loop on
+    sources/cache routes that previously used `_send_dict_result`.
+
+    Three routes migrated (1 DELETE + 2 POST), enabled by extending
+    `_dispatch_table_result` to preserve extras fields in error
+    envelopes. Before A.8 the helper was extras-stripping (only
+    sent `{error, message}` in error responses); the legacy
+    `_send_dict_result` was extras-preserving (sent `{error,
+    message, **extras}`). `api_sources_cache_fetch_all` returns
+    `"results": []` in its config-error envelope, so the
+    extras-preservation property is load-bearing.
+
+    Routes migrated:
+    - DELETE /api/sources/cache/<id> → api_sources_cache_clear
+    - POST   /api/sources/cache/_all/fetch → api_sources_cache_fetch_all
+    - POST   /api/sources/cache/<id>/fetch → api_sources_cache_fetch
+
+    Verified extras-neutral for the 11 routes already migrated
+    (none of them return extras in `status==error` envelopes —
+    grep across all `"status": "error"` returns confirmed only
+    api_sources_cache_status and api_sources_cache_fetch_all
+    return `[...]` extras).
+    """
+
+    def test_dispatch_helper_preserves_extras_on_error(self):
+        # The helper sends `{error, message, **extras}` for
+        # status==error responses, matching the legacy
+        # _send_dict_result behavior.
+        from scripts.web import _dispatch_table_result
+
+        captured = {}
+
+        class FakeHandler:
+            def _send_json(self, body, status=200):
+                captured["body"] = body
+                captured["status"] = status
+
+        result = {
+            "status": "error",
+            "code": "config_error",
+            "http": 500,
+            "message": "bad config",
+            "results": [],  # extras key — must be preserved
+            "extra_field": "preserved",
+        }
+        _dispatch_table_result(FakeHandler(), result)
+        assert captured["status"] == 500
+        assert captured["body"]["error"] == "config_error"
+        assert captured["body"]["message"] == "bad config"
+        assert captured["body"]["results"] == []
+        assert captured["body"]["extra_field"] == "preserved"
+        # Standard fields are NOT preserved (they're already
+        # mapped to `error`/`message`).
+        assert "status" not in captured["body"]
+        assert "code" not in captured["body"]
+        assert "http" not in captured["body"]
+
+    def test_dispatch_helper_no_extras_on_ok(self):
+        # The status==ok / fall-through path passes the result
+        # through unchanged. Extras have always been preserved
+        # there; just pin that A.8's change didn't break it.
+        from scripts.web import _dispatch_table_result
+
+        captured = {}
+
+        class FakeHandler:
+            def _send_json(self, body, status=200):
+                captured["body"] = body
+                captured["status"] = status
+
+        result = {"status": "ok", "ok": True, "id": "src1", "cached": True, "size_kb": 4.2}
+        _dispatch_table_result(FakeHandler(), result)
+        assert captured["status"] == 200
+        assert captured["body"] == result  # full pass-through
+
+    def test_delete_table_has_six_entries_now(self):
+        # A.8 added the 6th DELETE entry (sources/cache/<id>),
+        # closing the migration — every DELETE route is now in
+        # the table.
+        from scripts import web
+
+        assert len(web._DELETE_ROUTES) == 6
+        patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
+        assert any("/sources/cache/" in p for p in patterns)
+
+    def test_post_table_has_eight_entries_now(self):
+        # A.7 had 6, A.8 added 2 (sources/cache fetch + fetch_all)
+        # → 8 entries.
+        from scripts import web
+
+        assert len(web._POST_ROUTES) == 8
+
+    def test_post_table_includes_sources_cache_routes(self):
+        from scripts import web
+
+        patterns = [r.pattern for r, _ in web._POST_ROUTES]
+        joined = "|".join(patterns)
+        assert "/api/sources/cache/_all/fetch" in joined
+        assert "/api/sources/cache/" in joined and "/fetch" in joined
+
+    def test_do_DELETE_has_no_legacy_branches(self):
+        # After A.8 the do_DELETE method should contain ONLY the
+        # table dispatch loop + a 404 fall-through; no legacy
+        # `m = re.match(...)` for sources/cache.
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_DELETE)
+        # No raw `re.match(` reference to /sources/cache/ should
+        # remain (the table dispatch uses pre-compiled regexes).
+        assert "re.match" not in src or "/sources/cache/" not in src, (
+            "do_DELETE still has a legacy /sources/cache/ branch — should be in _DELETE_ROUTES now"
+        )
+
+    def test_do_POST_has_no_sources_cache_fetch_branches(self):
+        # After A.8 the do_POST method should not contain the
+        # legacy `if self.path == "/api/sources/cache/_all/fetch":`
+        # branch or `m = re.match(r"^/api/sources/cache/.../fetch$"...`.
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_POST)
+        assert '"/api/sources/cache/_all/fetch"' not in src, (
+            "do_POST still has the legacy _all/fetch literal branch — should be in _POST_ROUTES"
+        )
+        assert "/api/sources/cache/([a-z0-9_-]+)/fetch" not in src, (
+            "do_POST still has the legacy <id>/fetch regex branch — should be in _POST_ROUTES"
+        )
+
+    def test_sources_cache_fetch_all_extras_round_trip(self):
+        # End-to-end smoke through the dispatch helper using a
+        # mock-shaped error result. Confirms the
+        # `_send_dict_result` → `_dispatch_table_result`
+        # behavioral substitution holds for the load-bearing
+        # case (api_sources_cache_fetch_all's config_error path
+        # with `"results": []`).
+        from scripts.web import _dispatch_table_result
+
+        captured = {}
+
+        class FakeHandler:
+            def _send_json(self, body, status=200):
+                captured["body"] = body
+                captured["status"] = status
+
+        result = {
+            "status": "error",
+            "code": "config_error",
+            "http": 500,
+            "message": "fetcher config invalid",
+            "results": [],
+        }
+        _dispatch_table_result(FakeHandler(), result)
+        # UI reads `results` in error case → must be present and []
+        assert captured["body"]["results"] == []
+        assert captured["status"] == 500
+
+    def test_discovery_recognizes_a8_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("DELETE", "/api/sources/cache/([a-z0-9_-]+)$", True) in keys
+        assert ("POST", "/api/sources/cache/_all/fetch$", True) in keys
+        assert ("POST", "/api/sources/cache/([a-z0-9_-]+)/fetch$", True) in keys
+
+    def test_route_inventory_clean_after_a8(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True

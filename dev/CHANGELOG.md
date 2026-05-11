@@ -6,6 +6,128 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.8 bespoke cleanup (seventh route-table slice; sources/cache routes)
+
+**Phases shipped:** ω.35-A.8. Three sources/cache routes
+migrated (1 DELETE + 2 POST), enabled by extending
+`_dispatch_table_result` to preserve extras fields in error
+envelopes — the property that the legacy `_send_dict_result`
+helper provided. **DELETE migration is now COMPLETE** — all 6
+DELETE routes in the table; do_DELETE is one dispatch loop +
+404 fall-through.
+**Test delta:** +10 (was 2032, now 2042; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `_dispatch_table_result` extended (single edit) so the
+  `status == "error"` branch preserves any fields beyond
+  `status`/`code`/`http`/`message`/`error`. Behavior-neutral
+  for the 11 previously-migrated routes (verified by grep:
+  the ONLY API functions whose `"status": "error"` envelope
+  includes extras are `api_sources_cache_status` line 1759
+  with `"sources": []` and `api_sources_cache_fetch_all`
+  line 1896 with `"results": []` — neither was in any
+  table before A.8).
+- `_DELETE_ROUTES` grew by 1 entry: `/api/sources/cache/<id>`
+  → `api_sources_cache_clear`. With this, **all 6 DELETE
+  routes** are now in the table — do_DELETE is one dispatch
+  loop + 404 fall-through (no legacy branches at all).
+- `_POST_ROUTES` grew by 2 entries:
+  `/api/sources/cache/_all/fetch` → fetch_all (force flag)
+  and `/api/sources/cache/<id>/fetch` → fetch (force,
+  url_override, parser_override). Both lazy-body-read via
+  the existing dispatch loop.
+- Legacy branches deleted in `do_DELETE` (the sources/cache
+  clear if-match) and `do_POST` (the `if self.path ==
+  "/api/sources/cache/_all/fetch"` literal + the `m =
+  re.match(r"^/api/sources/cache/(...)/fetch$")` regex).
+- 10 new tests in `TestOmega35A8BespokeCleanup`:
+  - dispatch helper preserves extras on error AND drops
+    standard fields (status/code/http) from envelope
+  - dispatch helper status==ok pass-through unchanged
+  - _DELETE_ROUTES has 6 entries (DELETE migration complete)
+  - _POST_ROUTES has 8 entries (A.7 6 + A.8 2)
+  - POST table includes sources/cache routes
+  - do_DELETE has no legacy /sources/cache/ regex branch
+  - do_POST has no legacy /sources/cache/ branches
+  - end-to-end smoke for the load-bearing extras case
+    (config_error with `"results": []`)
+  - discovery recognizes the 3 new entries
+  - route inventory clean
+- 3 previously-passing tests updated to reflect the new
+  state:
+  - `TestOmega35A6DeleteTable::test_sources_cache_still_in_legacy`
+    renamed `test_sources_cache_migrated_in_a8` — flips from
+    "not in table" to "in table"
+  - `TestOmega35A7PostTable::test_post_table_has_six_entries`
+    renamed `test_post_table_has_at_least_six_entries` —
+    pins the A.7 baseline as a lower bound, not an exact match
+  - `TestOmega35A7PostTable::test_multipart_and_sources_cache_still_in_legacy`
+    renamed `test_multipart_still_in_legacy_after_a7` —
+    sources/cache /upload (multipart) still stays in legacy;
+    sources/cache /fetch (JSON) is now in the table
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+| ω.35-A.8 | 1 DELETE + 2 POST | 40 |
+
+**40 of 94 discovered routes in tables (~43%).** DELETE
+fully migrated (6/6); POST at 8/11 (3 multipart remain);
+PUT at 6/10 (4 bespoke remain); GET at 20/67 (large legacy
+surface for GETs that emit HTML, RSS, YAML, static files,
+sample previews — not table-friendly until ω.35-B file split
+introduces typed response shapes).
+
+### Notable decisions
+
+- **Why extend the helper, not add a new table.** Adding a
+  `_POST_DICT_RESULT_ROUTES` table would have duplicated
+  the dispatch loop logic and split conceptually-identical
+  routes across two tables. The single dispatch helper with
+  extras-preservation is one less concept to track and
+  matches the design principle "uniform shape across the
+  table family."
+- **Why "error" field is also stripped from extras.** Some
+  legacy code paths (notably `_send_dict_result`) generate
+  an `"error"` field in the input dict alongside `"status":
+  "error"`. The new code maps `code` → `error` in the
+  envelope, so preserving an input `error` key would
+  silently overwrite our envelope's error field. The fix:
+  exclude `error` from the extras-preservation set
+  alongside `status/code/http/message`. Defensive only —
+  no current route does this, but worth pinning.
+- **Why update A.7's "exactly 6 entries" assertion to "at
+  least 6".** Pinning an exact count made the test brittle
+  against incremental slices that grow the table — a normal
+  forward direction. Changed to a lower-bound assertion so
+  the test still catches the destructive case (route
+  removal) but tolerates the additive case (more migrations).
+- **Behavioral substitution is the model.** A.8 is a
+  textbook substitution: the helper's interface stayed the
+  same (same function signature, same call sites), only
+  the implementation broadened. The 3 migrating routes
+  required zero changes inside their API functions — they
+  return the same dicts they always did.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-A.1 → A.2 → A.3 → A.4 →
+A.5 → A.6 → A.7 → **A.8 ✓ → A.9** multipart routes table
+(3 routes: covers main, covers book, sources cache upload —
+need a new lambda signature `lambda m, body, content_type`)
+→ ω.35-A.10 bespoke PUT cleanup (4 PUT routes:
+export/build, edition-meta, edition-meta/preview, edition/
+note-toggle) → ω.35-B file split → ψ.35 matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.7 POST mutation routes table (sixth route-table slice)
 
 **Phases shipped:** ω.35-A.7. First POST-method table for
