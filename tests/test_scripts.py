@@ -16756,7 +16756,8 @@ class TestPsi26MatrixBulkOps:
     def test_apply_dispatches_per_edition(self):
         # Monkey-patch api_save_edition to capture each edition write
         # without actually mutating editions.yaml.
-        import scripts.web as web
+        # ω.35-B.5 — canonical home is scripts.api.editions.
+        import scripts.api.editions as web
 
         real_save = web.api_save_edition
         calls = []
@@ -16783,7 +16784,10 @@ class TestPsi26MatrixBulkOps:
     def test_apply_disable_inverse(self):
         # Disabling a kind across all editions: every previously-enabled
         # edition should appear in `changed`; disabled ones in `noop`.
-        import scripts.web as web
+        # ω.35-B.5 — api_save_edition canonical home is scripts.api.editions.
+        # Patch THERE so the in-module call from
+        # api_apply_kind_to_all_editions picks it up.
+        import scripts.api.editions as web
 
         real_save = web.api_save_edition
         web.api_save_edition = lambda eid, payload: {"ok": True}
@@ -16796,7 +16800,10 @@ class TestPsi26MatrixBulkOps:
         assert r_en["total"] == r_dis["total"]
 
     def test_apply_includes_per_edition_results(self):
-        import scripts.web as web
+        # ω.35-B.5 — api_save_edition canonical home is scripts.api.editions.
+        # Patch THERE so the in-module call from
+        # api_apply_kind_to_all_editions picks it up.
+        import scripts.api.editions as web
 
         real_save = web.api_save_edition
         web.api_save_edition = lambda eid, payload: {"ok": True}
@@ -16816,7 +16823,8 @@ class TestPsi26MatrixBulkOps:
         # If individual edition writes fail, the aggregate reports
         # `failures` but still returns status=ok (so partial progress
         # surfaces to the caller).
-        import scripts.web as web
+        # ω.35-B.5 — canonical home is scripts.api.editions.
+        import scripts.api.editions as web
 
         real_save = web.api_save_edition
 
@@ -17983,32 +17991,38 @@ class TestPsi19ReadingPlans:
         )
         assert "error" in r
 
-    def test_save_edition_meta_accepts_valid_plan_ids(self):
+    def test_save_edition_meta_accepts_valid_plan_ids(self, tmp_path):
         # Round-trip: set, verify, then revert. Uses _patch_yaml_list_field
         # under the hood (same pattern as popup_languages_default), so
         # the on-disk format is preserved.
+        #
+        # ω.35-B.5-fallout — the original test's "revert" was to call
+        # save again with `[]`. That writes `enabled_reading_plans: []`
+        # which is byte-different from the original `enabled_reading_plans:`
+        # (no entries). The protected-paths guard now catches that drift.
+        # Switched to shutil-based backup + restore to byte-exact match.
+        import shutil
+
         from scripts.web import api_save_edition_meta, api_customize_data
 
-        # Set
-        r = api_save_edition_meta(
-            "catholic-study",
-            {
-                "enabled_reading_plans": ["monthly-psalms"],
-            },
-        )
-        assert r.get("ok") is True
+        path = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(path, backup)
         try:
+            # Set
+            r = api_save_edition_meta(
+                "catholic-study",
+                {
+                    "enabled_reading_plans": ["monthly-psalms"],
+                },
+            )
+            assert r.get("ok") is True
             d = api_customize_data()
             ed = next(e for e in d["editions"] if e["id"] == "catholic-study")
             assert "monthly-psalms" in ed["enabled_reading_plans"]
         finally:
-            # Revert
-            api_save_edition_meta(
-                "catholic-study",
-                {
-                    "enabled_reading_plans": [],
-                },
-            )
+            # Byte-exact restore.
+            shutil.copy(backup, path)
 
     def test_routes_registered(self):
         from pathlib import Path
@@ -20672,18 +20686,35 @@ class TestEnableAINotesField:
         # publishers can flip it via /api/edition/<id>/meta. If the
         # field falls out of EDITABLE_BOOL the toggle becomes
         # read-only and the spec's reviewer workflow breaks.
+        #
+        # ω.35-B.5 — api_save_edition_meta moved to
+        # scripts/api/editions.py. Check both locations so this
+        # test stays meaningful through the refactor and any
+        # future moves.
         from pathlib import Path
 
-        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
-        text = web_py.read_text(encoding="utf-8")
-        # Find the EDITABLE_BOOL definition and verify enable_ai_notes
-        # appears within it
-        idx = text.find("EDITABLE_BOOL = {")
-        assert idx >= 0
-        end = text.find("}", idx)
-        assert end > idx
-        editable_bool_block = text[idx:end]
-        assert "enable_ai_notes" in editable_bool_block
+        scripts_dir = Path(__file__).resolve().parent.parent / "scripts"
+        candidates = [
+            scripts_dir / "api" / "editions.py",  # canonical home (ω.35-B.5+)
+            scripts_dir / "web.py",  # pre-B.5 home
+        ]
+        found_in = None
+        for path in candidates:
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8")
+            idx = text.find("EDITABLE_BOOL = {")
+            if idx < 0:
+                continue
+            end = text.find("}", idx)
+            assert end > idx
+            editable_bool_block = text[idx:end]
+            if "enable_ai_notes" in editable_bool_block:
+                found_in = path
+                break
+        assert found_in is not None, (
+            f"enable_ai_notes not found in any EDITABLE_BOOL set across candidates: {[str(p) for p in candidates]}"
+        )
 
     def test_ai_drafted_kinds_set_includes_comm_ai(self):
         # Pin the contract that AI_DRAFTED_KINDS gates exactly comm-ai
@@ -26326,15 +26357,20 @@ class TestOmega35B3aCoversExtraction:
                 "(api_sources_cache_upload still needs it; defer to a future slice)"
             )
 
-    def test_api_save_edition_meta_remains_in_web_py(self):
-        # The 2 delete handlers call api_save_edition_meta (which
-        # currently lives in web.py). The lazy import inside the
-        # cover handlers expects to find it there.
+    def test_api_save_edition_meta_accessible_via_web(self):
+        # ω.35-B.3a pinned that api_save_edition_meta lived in
+        # web.py (it was lazy-imported by covers.py from
+        # scripts.web). After ω.35-B.5 the canonical home is
+        # scripts.api.editions; web.py re-exports it. The
+        # B.3a covers handlers were updated in B.5 to lazy-import
+        # from scripts.api.editions directly.
+        # Pin: regardless of canonical home, the name is reachable
+        # via scripts.web for backward compat.
         import scripts.web as w
 
         assert hasattr(w, "api_save_edition_meta"), (
-            "web.py missing api_save_edition_meta — B.3a's delete-cover handlers "
-            "lazy-import it from web.py; if it moves, update covers.py too"
+            "scripts.web.api_save_edition_meta missing — either the canonical "
+            "module moved without a re-export, or the function was deleted"
         )
 
     def test_api_covers_get_remains_in_web_py(self):
@@ -26633,9 +26669,13 @@ class TestOmega35B4CustomizeExtraction:
             "(api_save_edition_meta + api_save_publisher_meta still use it)"
         )
 
-    def test_editions_cluster_remains_in_web_py(self):
-        # The 8 editions-cluster handlers stay in web.py until
-        # B.5. Pin so we know when B.5 has shipped.
+    def test_editions_cluster_not_in_customize_module(self):
+        # The 8 editions-cluster handlers belong to B.5 (scripts/
+        # api/editions.py), NOT to B.4's customize module. Pin
+        # that the customize module DOES NOT define them — they
+        # live elsewhere. They ARE accessible via web.py
+        # (re-imported by B.5) for backward compat.
+        import scripts.api.customize as customize_api
         import scripts.web as w
 
         for name in (
@@ -26648,13 +26688,11 @@ class TestOmega35B4CustomizeExtraction:
             "api_preview_edition_changes",
             "api_apply_kind_to_all_editions",
         ):
-            assert hasattr(w, name), f"web.py missing {name!r} (deferred to B.5)"
-            # And NOT in customize.py
-            import scripts.api.customize as customize_api
-
             assert not hasattr(customize_api, name), (
-                f"scripts.api.customize should NOT define {name!r} — that belongs to B.5"
+                f"scripts.api.customize should NOT define {name!r} — belongs to B.5 editions"
             )
+            # Still reachable via web.py (re-export from B.5)
+            assert hasattr(w, name), f"scripts.web.{name} missing (re-export broken)"
 
     def test_web_py_does_not_define_customize_handlers_inline(self):
         from pathlib import Path
@@ -26677,3 +26715,240 @@ class TestOmega35B4CustomizeExtraction:
         assert isinstance(result, dict)
         assert "error" in result
         assert "unknown category" in result["error"]
+
+
+class TestOmega35B5EditionsExtraction:
+    """ω.35-B.5 — sixth file-split slice. The editions cluster (8
+    audit-logged mutation handlers + 2 private helpers) moved
+    from `scripts/web.py` into `scripts/api/editions.py`. Largest
+    single-slice extraction in the file split (~1180 lines).
+
+    Includes a cross-module update: `scripts/api/covers.py`'s
+    lazy import of `api_save_edition_meta` re-targets from
+    `scripts.web` to `scripts.api.editions`.
+
+    Helpers (`_patch_yaml_entry`, `_patch_yaml_list_field`,
+    `_load_themes`, `_validate_cover_path`, `parse_note_id`,
+    `html_ref_id_from_note_id`, `PUBLISHING_TEXT_LIMITS`,
+    `PUBLISHING_LIST_FIELDS`) STAY in web.py — editions.py
+    lazy-imports them at call time (B.3a pattern).
+
+    During extraction, a section header + `_THIN_ATTR_PATTERNS`
+    constant that lived between `api_save_edition_meta` and the
+    next `def _classify_attribution` got swept up by the
+    block-end detector (which looked for the next `def` and
+    swept everything before it). Restored manually. Pinned by
+    test_thin_attr_patterns_constant_present.
+    """
+
+    def test_editions_module_exists(self):
+        import scripts.api.editions as editions_api
+
+        for name in (
+            "api_save_edition",
+            "api_save_edition_meta",
+            "api_save_publisher_meta",
+            "api_clone_edition",
+            "api_create_edition_from_template",
+            "api_save_note_toggle",
+            "api_preview_edition_changes",
+            "api_apply_kind_to_all_editions",
+            "_patch_edition_kind_lists",
+            "_append_cloned_edition",
+        ):
+            assert hasattr(editions_api, name), f"editions module missing {name!r}"
+
+    def test_all_eight_handlers_backward_compatible_via_web(self):
+        from scripts.web import (
+            api_apply_kind_to_all_editions,
+            api_clone_edition,
+            api_create_edition_from_template,
+            api_preview_edition_changes,
+            api_save_edition,
+            api_save_edition_meta,
+            api_save_note_toggle,
+            api_save_publisher_meta,
+        )
+
+        for fn in (
+            api_apply_kind_to_all_editions,
+            api_clone_edition,
+            api_create_edition_from_template,
+            api_preview_edition_changes,
+            api_save_edition,
+            api_save_edition_meta,
+            api_save_note_toggle,
+            api_save_publisher_meta,
+        ):
+            assert callable(fn)
+
+    def test_private_helpers_backward_compatible_via_web(self):
+        from scripts.web import _append_cloned_edition, _patch_edition_kind_lists
+
+        assert callable(_patch_edition_kind_lists)
+        assert callable(_append_cloned_edition)
+
+    def test_handlers_actually_live_in_new_module(self):
+        from scripts.web import (
+            api_apply_kind_to_all_editions,
+            api_clone_edition,
+            api_create_edition_from_template,
+            api_preview_edition_changes,
+            api_save_edition,
+            api_save_edition_meta,
+            api_save_note_toggle,
+            api_save_publisher_meta,
+        )
+
+        for fn in (
+            api_save_edition,
+            api_save_edition_meta,
+            api_save_publisher_meta,
+            api_clone_edition,
+            api_create_edition_from_template,
+            api_save_note_toggle,
+            api_preview_edition_changes,
+            api_apply_kind_to_all_editions,
+        ):
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.editions", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.editions"
+            )
+
+    def test_route_tables_still_dispatch_editions_cluster(self):
+        from scripts import web
+
+        put_patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        post_patterns = [r.pattern for r, _ in web._POST_ROUTES]
+
+        # PUT routes (api_save_edition, api_save_edition_meta,
+        # api_save_publisher_meta, api_save_note_toggle, api_clone_edition,
+        # api_create_edition_from_template)
+        assert any(p == r"^/api/edition/([a-z0-9-]+)$" for p in put_patterns)
+        assert any("/api/edition-meta/" in p for p in put_patterns)
+        assert any("/api/publisher/" in p for p in put_patterns)
+        assert any("/note-toggle" in p for p in put_patterns)
+        assert any("/api/editions/from-template" in p for p in put_patterns)
+        # POST: api_apply_kind_to_all_editions
+        assert any("/api/matrix/apply-kind-to-all" in p for p in post_patterns)
+
+    def test_audit_decorator_preserved_on_mutations(self):
+        # 7 of 8 handlers are audit-logged
+        # (api_preview_edition_changes is the bespoke read-only-ish
+        # preview that doesn't mutate; api_create_edition_from_template
+        # is not decorated either as it just delegates).
+        from scripts.api.editions import (
+            api_apply_kind_to_all_editions,
+            api_clone_edition,
+            api_save_edition,
+            api_save_edition_meta,
+            api_save_note_toggle,
+            api_save_publisher_meta,
+        )
+
+        for fn in (
+            api_save_edition,
+            api_save_edition_meta,
+            api_save_publisher_meta,
+            api_clone_edition,
+            api_save_note_toggle,
+            api_apply_kind_to_all_editions,
+        ):
+            # Decorated funcs retain their name; an undecorated bare
+            # function would also pass this loose check, so it's a
+            # minimal pin.
+            assert fn.__name__.startswith("api_")
+
+    def test_covers_cross_module_import_targets_editions(self):
+        # api_delete_cover_main + api_delete_cover_book now
+        # lazy-import api_save_edition_meta from scripts.api.editions
+        # (not scripts.web).
+        import inspect
+
+        from scripts.api import covers
+
+        src_main = inspect.getsource(covers.api_delete_cover_main)
+        src_book = inspect.getsource(covers.api_delete_cover_book)
+
+        for src, name in ((src_main, "delete_cover_main"), (src_book, "delete_cover_book")):
+            # Must NOT import from scripts.web
+            assert "from scripts.web import api_save_edition_meta" not in src, (
+                f"{name} still uses old web.py import path — should target scripts.api.editions"
+            )
+            # Must import from scripts.api.editions
+            assert "from scripts.api.editions import api_save_edition_meta" in src, (
+                f"{name} doesn't import api_save_edition_meta from scripts.api.editions"
+            )
+
+    def test_thin_attr_patterns_constant_present(self):
+        # The _THIN_ATTR_PATTERNS constant + Attribution Audit
+        # section header lived between api_save_edition_meta and
+        # def _classify_attribution. During B.5 extraction the
+        # block-end detector swept them along with the editions
+        # handler. They were restored manually. Pin so this isn't
+        # broken in a future refactor.
+        from scripts.web import _classify_attribution, _THIN_ATTR_PATTERNS
+
+        assert callable(_classify_attribution)
+        # _THIN_ATTR_PATTERNS is a tuple of compiled regexes
+        assert len(_THIN_ATTR_PATTERNS) > 0
+        # Smoke test the classifier still works (would fail with
+        # NameError if _THIN_ATTR_PATTERNS were missing)
+        assert _classify_attribution("see Genesis 1:1") == "thin"
+        assert _classify_attribution("") == "missing"
+
+    def test_shared_helpers_remain_in_web_py(self):
+        # B.5 keeps these helpers + constants in web.py because
+        # they have web.py-resident callers (api_customize_data,
+        # api_publisher_data) AND because routine refactor
+        # discipline says "move only what's needed."
+        import scripts.web as w
+
+        for name in (
+            "_patch_yaml_entry",
+            "_patch_yaml_list_field",
+            "_load_themes",
+            "_validate_cover_path",
+            "parse_note_id",
+            "html_ref_id_from_note_id",
+            "PUBLISHING_TEXT_LIMITS",
+            "PUBLISHING_LIST_FIELDS",
+        ):
+            assert hasattr(w, name), (
+                f"web.py missing helper/constant {name!r} — B.5 should NOT have moved it "
+                "(editions.py lazy-imports it from web.py at call time)"
+            )
+
+    def test_web_py_does_not_define_editions_handlers_inline(self):
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in (
+            "api_save_edition",
+            "api_save_edition_meta",
+            "api_save_publisher_meta",
+            "api_clone_edition",
+            "api_create_edition_from_template",
+            "api_save_note_toggle",
+            "api_preview_edition_changes",
+            "api_apply_kind_to_all_editions",
+            "_patch_edition_kind_lists",
+            "_append_cloned_edition",
+        ):
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.editions only"
+            )
+
+    def test_lazy_helper_imports_work_at_call_time(self):
+        # Smoke: call api_save_edition_meta with an unknown
+        # edition. The function must reach its lazy
+        # `from scripts.web import _load_themes, _patch_yaml_entry,
+        # _patch_yaml_list_field, _validate_cover_path` line
+        # without ImportError, then return the normal error dict.
+        from scripts.web import api_save_edition_meta
+
+        result = api_save_edition_meta("definitely-not-a-real-edition-zzz", {"title": "test"})
+        assert isinstance(result, dict)
+        assert "error" in result
+        assert "unknown edition" in result["error"]

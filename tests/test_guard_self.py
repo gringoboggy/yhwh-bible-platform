@@ -204,3 +204,57 @@ class TestProtectedPathsGuardContract:
         # to .backups/. Pin that the guard skips this subdir
         # so legitimate writes don't poison the snapshot.
         assert ".backups" in reload_conftest._PROTECTED_DIR_SKIP_SUBDIRS
+
+
+class TestProtectedPathsGuardCrlfNormalization:
+    """ω.35-B.5-fallout — the guard now normalizes CRLF→LF before
+    hashing. Reason: on Windows working trees, git checks out
+    files with CRLF; Python writes LF (notes_io.atomic_write
+    etc.). A legitimate test that writes via atomic_write then
+    restores via shutil.copy can produce a file whose BYTES
+    differ from the original (LF vs CRLF) but whose CONTENT is
+    identical. Without normalization, the guard fires on this
+    pure-line-ending churn — a false positive.
+
+    Binary files (detected by null-byte in first 4KB) are NOT
+    normalized — they're hashed as-is.
+    """
+
+    def test_crlf_vs_lf_text_hashes_match(self, reload_conftest):
+        lf_bytes = b"line one\nline two\nline three\n"
+        crlf_bytes = b"line one\r\nline two\r\nline three\r\n"
+        h_lf = reload_conftest._normalize_for_hash(lf_bytes)
+        h_crlf = reload_conftest._normalize_for_hash(crlf_bytes)
+        assert h_lf == h_crlf, "CRLF + LF normalize to the same hash"
+
+    def test_actual_content_diff_still_flagged(self, reload_conftest):
+        original = b"line one\nline two\n"
+        mutated = b"line one\nline THREE\n"
+        h_orig = reload_conftest._normalize_for_hash(original)
+        h_mut = reload_conftest._normalize_for_hash(mutated)
+        assert h_orig != h_mut, "actual content drift is still caught"
+
+    def test_binary_files_not_normalized(self, reload_conftest):
+        # Binary files (with null bytes) MUST be hashed as-is.
+        # CRLF-normalization would corrupt them (e.g. PNG / JPEG
+        # uncommonly contain 0x0d 0x0a sequences that mean
+        # something to the codec).
+        binary = b"\x89PNG\r\n\x1a\n" + b"\x00" * 100 + b"\r\nrest"
+        out = reload_conftest._normalize_for_hash(binary)
+        assert out == binary, "binary content must be unchanged"
+
+    def test_snapshot_uses_normalized_hash(self, reload_conftest, tmp_path, monkeypatch):
+        # End-to-end smoke: write the same content with LF and
+        # then with CRLF; snapshots must be equal.
+        monkeypatch.setattr(reload_conftest, "_PROTECTED_DIRS", [tmp_path])
+        monkeypatch.setattr(reload_conftest, "_PROTECTED_FILES", [])
+
+        target = tmp_path / "text_file.txt"
+
+        target.write_bytes(b"hello\nworld\n")
+        snap_lf = reload_conftest._snapshot_protected_paths()
+
+        target.write_bytes(b"hello\r\nworld\r\n")
+        snap_crlf = reload_conftest._snapshot_protected_paths()
+
+        assert snap_lf == snap_crlf, "CRLF/LF differences must not register as drift"

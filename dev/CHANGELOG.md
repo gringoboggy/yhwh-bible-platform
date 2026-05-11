@@ -6,6 +6,149 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.5 editions cluster extracted (sixth file-split slice; largest extraction yet)
+
+**Phases shipped:** ω.35-B.5. The editions cluster — 8
+audit-logged mutation handlers + 2 private helpers — moved
+from `scripts/web.py` into `scripts/api/editions.py`. Largest
+single-slice extraction in the file split (~1188 lines).
+Cross-module dependency in `scripts/api/covers.py` updated to
+target the new home. Guard fixture extended with CRLF
+normalization to ignore Windows line-ending churn.
+**Test delta:** +15 (B.5 self-tests + CRLF guard tests).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+- New `scripts/api/editions.py` (~880 lines) containing:
+  - `_patch_edition_kind_lists` (private helper, ω.35-A.5)
+  - `_append_cloned_edition` (private helper, ν.4)
+  - `api_create_edition_from_template` (ψ.7-B; PUT, no audit)
+  - `api_save_edition` (μ.2; PUT, audit-logged)
+  - `api_apply_kind_to_all_editions` (ψ.26; POST, audit-logged)
+  - `api_clone_edition` (ν.4; PUT, audit-logged)
+  - `api_preview_edition_changes` (ν.5; bespoke PUT, no audit)
+  - `api_save_edition_meta` (ν.2; PUT, audit-logged)
+  - `api_save_note_toggle` (ρ.1; PUT, audit-logged)
+  - `api_save_publisher_meta` (π.1; PUT, audit-logged)
+- **Cross-module update** to `scripts/api/covers.py`:
+  - `api_delete_cover_main` + `api_delete_cover_book` now
+    lazy-import `api_save_edition_meta` from
+    `scripts.api.editions` (was: from `scripts.web`)
+- **web.py delta**: -1188 lines (from ~6754 → ~5566)
+- **CRLF normalization in the protected-paths guard**:
+  Windows working trees have CRLF; Python writes LF. A
+  legitimate test that mutates+restores via shutil.copy can
+  leave a file whose BYTES differ from the original (LF vs
+  CRLF) but whose CONTENT is identical. Without
+  normalization, the guard fires on pure-line-ending churn.
+  Now the guard hashes content with `\r\n → \n` normalized
+  for text files; binary files (detected by null-byte in
+  first 4KB) are hashed as-is.
+
+### Bugs caught + fixed mid-phase
+
+1. **Block-end detector swept `_THIN_ATTR_PATTERNS`
+   constant.** The Python deletion script that removed the 8
+   handlers used "next def/class/@audit_log line" as the
+   block-end marker. For `api_save_edition_meta`, this
+   detector landed on `def _classify_attribution` (the next
+   def), and the deletion swept the section header +
+   `_THIN_ATTR_PATTERNS = (...)` constant that lived between
+   them. Restored manually. Pinned by
+   `test_thin_attr_patterns_constant_present`.
+
+2. **Overlap in block-end detection.** The deletion ranges
+   for `_append_cloned_edition` and
+   `api_preview_edition_changes` overlapped (because
+   _append_cloned_edition's end-of-block detection swept the
+   comment block belonging to api_preview_edition_changes).
+   Fixed by capping each block's end at the start of the
+   next block.
+
+3. **TestPsi26 bulk-ops monkeypatch regression.** 4 tests
+   monkeypatched `web.api_save_edition` to capture per-edition
+   calls. After B.5 the canonical home is
+   `scripts.api.editions`, so the patches missed the in-module
+   call sites. Updated all 4 sites to `import scripts.api.
+   editions as web`.
+
+4. **TestEnableAINotesField source-scan test.** The test read
+   web.py for `EDITABLE_BOOL = {`. After B.5 that lives in
+   editions.py. Updated to check both candidate locations.
+
+5. **test_save_edition_meta_accepts_valid_plan_ids non-
+   restoration.** The test's "revert" called
+   `api_save_edition_meta(..., {"enabled_reading_plans": []})`
+   which writes `enabled_reading_plans: []` — byte-different
+   from the original `enabled_reading_plans:` (empty list
+   with no entries). Switched to shutil-based backup+restore
+   for byte-exact restoration.
+
+6. **B.3a covers test pinning api_save_edition_meta in
+   web.py.** Renamed `test_api_save_edition_meta_remains_in_
+   web_py` → `test_api_save_edition_meta_accessible_via_web`
+   since the canonical home moved.
+
+7. **B.4 customize test pinning editions cluster in web.py.**
+   Renamed `test_editions_cluster_remains_in_web_py` →
+   `test_editions_cluster_not_in_customize_module` to reflect
+   that the cluster moved to editions.py (not deferred
+   anymore).
+
+### Known issue (deferred to ω.35-B.6)
+
+The protected-paths guard fires on full xdist runs — some
+test mutates `content/editions.yaml` with an unquoted
+`- monthly-psalms` entry in catholic-study's
+enabled_reading_plans, then doesn't restore. The mutation is
+UNQUOTED, which means it's NOT from `_patch_yaml_list_field`
+(which quotes its output) — it's from some other write path
+that I haven't been able to grep-bisect down to. The
+mutation persists across xdist + serial runs.
+
+Notes:
+- Restoring via `git checkout HEAD -- content/editions.yaml`
+  before each commit keeps HEAD clean.
+- Running the suite in serial mode (`-p no:xdist`) produces
+  the same mutation, so it's not an xdist race.
+- The CRLF-normalized guard correctly detects this as REAL
+  content drift (verified via `diff` after `tr -d '\r'`).
+- Suspect tests: TestPsi19ReadingPlans + TestPsi26MatrixBulkOps
+  + ...something else. Bisect didn't isolate it.
+
+Action: ω.35-B.6 (exports/build extraction) opens with the
+prereq of identifying + fixing this rogue test. Once
+isolated, the guard will stop firing on full runs.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| ω.35-B.4 | customize | 2 | -80 |
+| ω.35-B.5 | editions cluster | 8 + 2 helpers | -1188 |
+| **Total** | | **31 handlers** | **-2104** |
+
+**Cumulative: -2104 lines in web.py across 6 slices.** The
+file is now ~5566 lines, down from ~7670 at the start of the
+file split (28% reduction).
+
+### Test pinning
+
+11 tests in `TestOmega35B5EditionsExtraction` + 4 tests in
+`TestProtectedPathsGuardCrlfNormalization` (in tests/
+test_guard_self.py). All 15 pass.
+
+AUDIT_2026-05-11 §7 sequence: ... → B.4 → **B.5 ✓ → B.6**
+exports/build (with rogue-test bisect prereq) → B.7
+preflight/audit/help.
+
+---
+
 ## 2026-05-10 — session — ω.35-B.4 customize extracted (fifth file-split slice; B.4 split into B.4 + B.5 for safer slicing)
 
 **Phases shipped:** ω.35-B.4 (scope split from proposal's

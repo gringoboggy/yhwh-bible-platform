@@ -1,6 +1,54 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-10, after **ω.35-B.4 customize extracted**
+**Updated:** 2026-05-11, after **ω.35-B.5 editions cluster
+extracted** shipped — sixth file-split slice; largest single-
+slice extraction yet (~1188 lines of web.py → scripts/api/
+editions.py). 8 audit-logged mutation handlers
+(api_save_edition, save_edition_meta, save_publisher_meta,
+clone_edition, create_edition_from_template, save_note_toggle,
+preview_edition_changes, apply_kind_to_all_editions) + 2
+private helpers (_patch_edition_kind_lists,
+_append_cloned_edition). Cross-module update:
+scripts/api/covers.py's lazy import of api_save_edition_meta
+re-targeted from scripts.web to scripts.api.editions.
+Cumulative -2104 lines in web.py across B.1-B.5 (28%
+reduction from the file-split start). 11/11 linter clean. The
+protected-paths guard was extended with CRLF normalization so
+Windows line-ending churn (LF writes vs CRLF working tree)
+doesn't trigger false positives; binary files (null-byte
+detection) hash as-is. **Bugs caught + fixed mid-phase:**
+block-end detector swept `_THIN_ATTR_PATTERNS` constant (
+restored), overlap between _append_cloned_edition and
+api_preview_edition_changes ranges, 4 TestPsi26 monkeypatches
+re-targeted (was scripts.web.api_save_edition; now
+scripts.api.editions), TestEnableAINotesField source-scan now
+checks both editions.py + web.py, test_save_edition_meta_
+accepts_valid_plan_ids switched to shutil-backup+restore for
+byte-exact restoration, B.3a and B.4 tests pinning the
+editions cluster updated to reflect the new home. **+15
+tests:** 11 in TestOmega35B5EditionsExtraction + 4 in
+TestProtectedPathsGuardCrlfNormalization. **Known issue
+deferred to B.6:** the protected-paths guard fires on full
+xdist runs — some test mutates content/editions.yaml with an
+UNQUOTED `- monthly-psalms` entry (which doesn't match my
+_patch_yaml_list_field output, which is quoted). Mutation
+persists across xdist + serial runs. Restoring via
+`git checkout HEAD -- content/editions.yaml` before commit
+keeps HEAD pristine. Bisect didn't isolate the rogue test;
+**B.6 opens with the prereq of finding + fixing it.** Test
+count: 2138 / 2138 pass when the editions.yaml is clean;
+guard fires only after rogue mutation occurs. Net session
+test delta: **+219** (1919 baseline → 2138 final). 30 phases
+shipped: Δ.5/6/8/9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A,
+ω.36, ω.35-A.1-A.10, ω.35-B.1, ω.35-B.2, ω.35-B.3a, ω.35-B.3b,
+ω.35-B.4, ω.35-B.5, plus guard + AI proposal + landscape
+proposal + ω.37. AUDIT §7 sequence: ω.35-B.5 ✓ → **B.6**
+exports/build (with rogue-test bisect prereq) → B.7 preflight/
+audit/help. **2138 / 2138 tests green (1 skipped); 11/11
+linter clean; protected-paths guard fires on real mutation
+(known issue B.6 follow-up).**
+
+Prior ship in same session: **ω.35-B.4 customize extracted**
 shipped — fifth file-split slice. 2 audit-logged customize
 handlers (api_save_category, api_save_kind) moved to new
 `scripts/api/customize.py`. Both lazy-import

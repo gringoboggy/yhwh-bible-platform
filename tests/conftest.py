@@ -49,14 +49,30 @@ def _rel_key(p: Path) -> str:
         return str(p)
 
 
+def _normalize_for_hash(data: bytes) -> bytes:
+    """Normalize file content for content-equivalence hashing.
+
+    The guard distinguishes CONTENT mutation from line-ending
+    churn. On Windows working trees, Git checks out files with
+    CRLF; Python writes LF (notes_io.atomic_write etc.). A
+    legitimate write-then-restore sequence may produce a file
+    whose BYTES differ from the original (LF vs CRLF) but whose
+    CONTENT is identical. We normalize CRLF→LF before hashing
+    so the guard doesn't fire on line-ending churn alone."""
+    # Binary files (like images) should be hashed as-is. Detect
+    # by null-byte presence in the first 4KB.
+    if b"\x00" in data[:4096]:
+        return data
+    return data.replace(b"\r\n", b"\n")
+
+
 def _snapshot_protected_paths() -> dict[str, str]:
     """Return {key: sha256_hex_or_sentinel} for every file
     under the protected dirs + every protected file.
 
-    Uses SHA256 over file bytes so we catch content drift
-    (mtime alone can be touched without content changing,
-    e.g. via `Path.touch()`). Sentinel "MISSING" handles
-    races where a file disappears mid-scan."""
+    Uses SHA256 over file content (CRLF-normalized) so we catch
+    content drift but not line-ending churn. Sentinel "MISSING"
+    handles races where a file disappears mid-scan."""
     out: dict[str, str] = {}
     for d in _PROTECTED_DIRS:
         if not d.is_dir():
@@ -70,14 +86,14 @@ def _snapshot_protected_paths() -> dict[str, str]:
                 out[_rel_key(entry) + "/"] = "DIR"
                 continue
             try:
-                out[_rel_key(entry)] = hashlib.sha256(entry.read_bytes()).hexdigest()
+                out[_rel_key(entry)] = hashlib.sha256(_normalize_for_hash(entry.read_bytes())).hexdigest()
             except OSError:
                 out[_rel_key(entry)] = "MISSING"
     for f in _PROTECTED_FILES:
         if not f.is_file():
             continue
         try:
-            out[_rel_key(f)] = hashlib.sha256(f.read_bytes()).hexdigest()
+            out[_rel_key(f)] = hashlib.sha256(_normalize_for_hash(f.read_bytes())).hexdigest()
         except OSError:
             out[_rel_key(f)] = "MISSING"
     return out

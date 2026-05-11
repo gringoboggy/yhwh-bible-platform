@@ -4,6 +4,123 @@
 
 ## Prior task
 
+**ω.35-B.5 editions cluster extracted** shipped 2026-05-11.
+Sixth file-split slice; largest single extraction yet
+(~1188 lines).
+
+**New module:** `scripts/api/editions.py` containing 8
+audit-logged mutation handlers + 2 private helpers:
+- api_save_edition / api_save_edition_meta / api_save_publisher_meta
+- api_clone_edition / api_create_edition_from_template
+- api_save_note_toggle / api_preview_edition_changes
+- api_apply_kind_to_all_editions
+- _patch_edition_kind_lists / _append_cloned_edition
+
+**web.py change:** ~1188 lines deleted; single 11-name
+re-import block added. Net delta: -1188 lines.
+
+**Cross-module update:** scripts/api/covers.py's lazy
+import of api_save_edition_meta re-targeted from scripts.web
+to scripts.api.editions.
+
+### Bugs caught + fixed mid-phase
+
+1. **`_THIN_ATTR_PATTERNS` constant swept by block-end
+   detector.** The deletion logic looked for the next
+   `def/class/@audit_log` to mark the end of each handler
+   block. For api_save_edition_meta, the next def is
+   `_classify_attribution`. The section header + the
+   `_THIN_ATTR_PATTERNS` constant lived BETWEEN them; the
+   sweep included these. Restored manually + pinned.
+2. **Overlap between _append_cloned_edition and
+   api_preview_edition_changes ranges.** Fixed by capping
+   each block's end at the start of the next.
+3. **TestPsi26 monkeypatches (4 tests).** Re-targeted from
+   `scripts.web` to `scripts.api.editions`.
+4. **TestEnableAINotesField source-scan.** Updated to check
+   editions.py + web.py.
+5. **test_save_edition_meta_accepts_valid_plan_ids
+   non-restoration.** Switched from "save with `[]` to
+   revert" to shutil backup+restore.
+6. **B.3a + B.4 test renames** to reflect new homes.
+
+### CRLF normalization in the guard
+
+The protected-paths guard was getting false positives from
+Windows CRLF↔LF line-ending churn. After
+`notes_io.atomic_write` (writes LF), shutil-restore from a
+CRLF backup produces a file whose BYTES differ from
+original but content matches. Now the guard normalizes
+`\r\n → \n` before hashing text files; binary files
+(null-byte detection in first 4KB) hash as-is. **+4 tests**
+in `TestProtectedPathsGuardCrlfNormalization`.
+
+### Known issue: rogue test mutates editions.yaml
+
+The protected-paths guard fires on full xdist runs (and
+serial). Some test mutates `content/editions.yaml`
+specifically adding an UNQUOTED `      - monthly-psalms`
+entry to catholic-study's `enabled_reading_plans` and
+doesn't restore.
+
+Notes:
+- The mutation is UNQUOTED, which does NOT match
+  `_patch_yaml_list_field`'s QUOTED output. So a different
+  write path is responsible.
+- Search across scripts/ + tests/ for unquoted writes
+  produced no candidates.
+- The mutation persists across xdist + serial modes — not
+  a race condition.
+- Restoring via `git checkout HEAD --
+  content/editions.yaml` before each commit keeps HEAD
+  pristine.
+- Bisect by class did NOT isolate the source — even with
+  TestPsi19ReadingPlans deselected, the mutation appears.
+
+**B.6 prereq:** find + fix this rogue test before
+proceeding with exports/build extraction. Strategies:
+1. Add a per-test fixture in tests/conftest.py that
+   snapshots editions.yaml before each test + diffs after
+   — that pinpoints the offending test.
+2. Patch `notes_io.atomic_write` to log every write target
+   during test runs.
+3. Bisect by selecting half the file each pass.
+
+### Cumulative file-split progress
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| ω.35-B.4 | customize | 2 | -80 |
+| ω.35-B.5 | editions cluster | 8 + 2 helpers | -1188 |
+| **Total** | | **31 handlers** | **-2104** |
+
+web.py is now ~5566 lines (from ~7670 at the file-split
+start). **28% reduction.**
+
+### Open follow-ups
+
+- **B.6 prereq**: isolate + fix the rogue editions.yaml
+  mutator (likely a fast-add to conftest.py per-test
+  snapshot fixture).
+- **ω.35-B.6** — exports/build extraction (was B.5).
+- **ω.35-B.7** — preflight/audit/help + multipart helper
+  consolidation (was B.6).
+
+Net session test delta: **+219** (1919 baseline → 2138 final).
+30 phases shipped this session.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.5 ✓ → B.6 prereq
++ exports/build → B.7 preflight/audit/help.
+
+**2138 / 2138 tests green (1 skipped); 11/11 linter clean;
+known guard issue deferred to B.6.**
+
+## Prior task
+
 **ω.35-B.4 customize extracted** shipped 2026-05-10. Fifth
 file-split slice; 2 customize-mutation handlers moved.
 

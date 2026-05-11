@@ -72,7 +72,10 @@ def api_delete_cover_main(edition_id: str) -> dict:
     from pathlib import Path
 
     from scripts.core import config, notes_io
-    from scripts.web import api_save_edition_meta
+
+    # ω.35-B.5 — api_save_edition_meta moved to scripts.api.editions.
+    # Previously imported from scripts.web (where it was inline).
+    from scripts.api.editions import api_save_edition_meta
 
     REPO = Path(__file__).resolve().parent.parent.parent
     eds = config.editions_by_id()
@@ -102,7 +105,9 @@ def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
     from pathlib import Path
 
     from scripts.core import config, covers as _covers, notes_io
-    from scripts.web import api_save_edition_meta
+
+    # ω.35-B.5 — api_save_edition_meta moved to scripts.api.editions.
+    from scripts.api.editions import api_save_edition_meta
 
     REPO = Path(__file__).resolve().parent.parent.parent
     eds = config.editions_by_id()

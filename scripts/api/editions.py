@@ -1,0 +1,993 @@
+"""ω.35-B.5 — editions cluster API handlers, extracted from scripts/web.py.
+
+Eight audit-logged mutation handlers for the editions/customize
+surface, plus two private helpers and one read-only function
+(preview). The largest single-slice extraction in the file split.
+
+Handlers (with their route registrations):
+- api_save_edition          PUT /api/edition/<id>
+- api_save_edition_meta     PUT /api/edition-meta/<id>
+- api_save_publisher_meta   PUT /api/publisher/<id>
+- api_clone_edition         PUT /api/editions/clone
+- api_create_edition_from_template  PUT /api/editions/from-template
+- api_save_note_toggle      PUT /api/edition/<id>/note-toggle
+- api_apply_kind_to_all_editions  POST /api/matrix/apply-kind-to-all
+- api_preview_edition_changes  PUT /api/edition-meta/<id>/preview (bespoke, not in _PUT_ROUTES)
+
+Private helpers moved with this slice (used only by handlers here):
+- _patch_edition_kind_lists  (used by api_save_edition)
+- _append_cloned_edition     (used by api_clone_edition)
+
+Lazy imports from web.py (helpers + constants shared with handlers
+that stay in web.py — like api_publisher_data, api_customize_data):
+- _patch_yaml_entry      (also used by api_save_category/api_save_kind in customize.py)
+- _patch_yaml_list_field
+- _load_themes           (also used by api_customize_data)
+- _validate_cover_path
+- parse_note_id / html_ref_id_from_note_id
+- PUBLISHING_TEXT_LIMITS / PUBLISHING_LIST_FIELDS
+
+The lazy-import-back-to-web pattern (established by B.3a covers
+and reinforced by B.3b sources + B.4 customize) avoids the
+import cycle: web.py top-imports this module; this module's
+function bodies lazy-import the helpers at call time when web.py
+is fully loaded.
+
+Cross-module coordination: scripts/api/covers.py was lazy-
+importing api_save_edition_meta from scripts.web. As of B.5 it
+must lazy-import from scripts.api.editions instead — updated in
+the same commit.
+
+scripts/web.py re-imports all 8 handler names so route-table
+lambdas and existing tests work unchanged.
+"""
+
+from __future__ import annotations
+
+import re
+from pathlib import Path
+
+from scripts.core import audit_log, config, notes_io
+
+REPO = Path(__file__).resolve().parent.parent.parent
+
+
+# ---------------------------------------------------------------------
+# Private helpers — moved with the handlers because they're used only
+# inside this module.
+# ---------------------------------------------------------------------
+
+
+def _patch_edition_kind_lists(text: str, edition_id: str, enabled_kinds: list[str], disabled_kinds: list[str]) -> str:
+    """Targeted regex update of one edition's enabled_kinds + disabled_kinds
+    blocks in editions.yaml — preserves all comments, ordering, and other
+    fields outside those blocks."""
+    block_re = re.compile(
+        rf"(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)",
+        re.MULTILINE | re.DOTALL,
+    )
+    m = block_re.search(text)
+    if not m:
+        raise ValueError(f"edition {edition_id!r} not found in editions.yaml")
+
+    block_start, block_body, block_end = m.start(), m.group(2), m.end()
+
+    def _format_list(name: str, items: list[str]) -> str:
+        if not items:
+            return f"    {name}: []\n"
+        lines = "\n".join(f"      - {x}" for x in items)
+        return f"    {name}:\n{lines}\n"
+
+    new_enabled = _format_list("enabled_kinds", enabled_kinds)
+    enabled_re = re.compile(
+        r"^(    enabled_kinds:.*?\n)((?:      - [^\n]+\n)*)",
+        re.MULTILINE,
+    )
+    if enabled_re.search(block_body):
+        new_body = enabled_re.sub(new_enabled, block_body, count=1)
+    else:
+        cats_re = re.compile(
+            r"^(    enabled_categories:.*?\n(?:      - [^\n]+\n)*)",
+            re.MULTILINE,
+        )
+        cm = cats_re.search(block_body)
+        if cm:
+            new_body = block_body[: cm.end()] + new_enabled + block_body[cm.end() :]
+        else:
+            new_body = new_enabled + block_body
+
+    new_disabled = _format_list("disabled_kinds", disabled_kinds)
+    disabled_re = re.compile(
+        r"^(    disabled_kinds:.*?\n)((?:      - [^\n]+\n)*)",
+        re.MULTILINE,
+    )
+    if disabled_re.search(new_body):
+        new_body = disabled_re.sub(new_disabled, new_body, count=1)
+    else:
+        ek_re = re.compile(
+            r"^(    enabled_kinds:.*?\n(?:      - [^\n]+\n)*|    enabled_kinds: \[\]\n)",
+            re.MULTILINE,
+        )
+        em = ek_re.search(new_body)
+        if em:
+            new_body = new_body[: em.end()] + new_disabled + new_body[em.end() :]
+        else:
+            new_body = new_body + new_disabled
+
+    return text[:block_start] + m.group(1) + new_body + text[block_end:]
+
+
+def _append_cloned_edition(
+    text: str,
+    source_id: str,
+    new_id: str,
+    new_title: str,
+    override_cover_image: str = "",
+    override_book_covers: list[str] | None = None,
+) -> str:
+    """Append a deep-copy of one edition record to editions.yaml."""
+    src = config.editions_by_id().get(source_id)
+    if not src:
+        raise ValueError(f"unknown source: {source_id!r}")
+
+    fields_text: list[str] = [f"  - id: {new_id}"]
+
+    scalar_fields = [
+        ("title", new_title),
+        ("short_title", src.get("short_title", "")),
+        ("isbn", ""),
+        ("canon", src.get("canon", "")),
+        ("target_audience", src.get("target_audience", "")),
+        ("verse_popups", src.get("verse_popups", True)),
+        ("verse_marker_glyph", src.get("verse_marker_glyph", "")),
+        ("popup_translation", src.get("popup_translation", "")),
+        ("theme", src.get("theme", "classic")),
+        ("notes", src.get("notes", "")),
+        ("cover_image", override_cover_image if override_cover_image is not None else src.get("cover_image", "")),
+    ]
+    for fname, fval in scalar_fields:
+        if fval is None:
+            continue
+        if fval is True:
+            fields_text.append(f"    {fname}: true")
+        elif fval is False:
+            fields_text.append(f"    {fname}: false")
+        elif fval == "" or fval == 0:
+            fields_text.append(f'    {fname}: ""')
+        else:
+            sval = str(fval).replace('"', '\\"')
+            fields_text.append(f'    {fname}: "{sval}"')
+
+    list_fields: list[tuple[str, list]] = []
+    pld = src.get("popup_languages_default")
+    if pld:
+        list_fields.append(("popup_languages_default", list(pld)))
+    plpb = src.get("popup_languages_per_book")
+    if plpb:
+        list_fields.append(("popup_languages_per_book", list(plpb)))
+    td = src.get("traditions_default")
+    if td:
+        list_fields.append(("traditions_default", list(td)))
+    tpb = src.get("traditions_per_book")
+    if tpb:
+        list_fields.append(("traditions_per_book", list(tpb)))
+
+    if override_book_covers is not None:
+        if override_book_covers:
+            list_fields.append(("book_covers", override_book_covers))
+    else:
+        bc = src.get("book_covers")
+        if bc:
+            list_fields.append(("book_covers", list(bc)))
+
+    for fname, items in list_fields:
+        fields_text.append(f"    {fname}:")
+        for item in items:
+            sitem = str(item).replace('"', '\\"')
+            fields_text.append(f'      - "{sitem}"')
+
+    new_block = "\n".join(fields_text) + "\n"
+    if not text.endswith("\n"):
+        text += "\n"
+    return text + new_block
+
+
+# ---------------------------------------------------------------------
+# Mutation handlers
+# ---------------------------------------------------------------------
+
+
+def api_create_edition_from_template(
+    template_id: str,
+    new_id: str,
+    new_title: str,
+) -> dict:
+    """ψ.7-B — Clone a template into editions.yaml as a new edition.
+
+    Returns the §9 standard dict shape:
+      {"status": "ok", "edition_id": new_id, "edition": {...}}
+      {"status": "error", "code": "...", "http": 4xx, "message": "..."}
+
+    Surfaced at POST /api/editions/from-template with body
+    {template_id, new_id, new_title}. Validates template exists,
+    new_id format + uniqueness, new_title non-empty.
+
+    Composes scripts.core.edition_templates.create_from_template,
+    which handles atomic write + cache invalidation.
+    """
+    from scripts.core import edition_templates as et
+
+    return et.create_from_template(
+        template_id,
+        new_id=new_id,
+        new_title=new_title,
+    )
+
+
+@audit_log.audit_endpoint(action="save_edition")
+def api_save_edition(edition_id: str, payload: dict) -> dict:
+    """Persist a new enabled-kind state for one edition (μ.2)."""
+    new_enabled_set = set(payload.get("enabled_kinds") or [])
+    if not isinstance(new_enabled_set, set) or not all(isinstance(x, str) for x in new_enabled_set):
+        return {"error": "enabled_kinds must be a list of strings"}
+
+    editions_path = REPO / "content" / "editions.yaml"
+    if not editions_path.is_file():
+        return {"error": "editions.yaml missing"}
+
+    editions = config.editions_by_id()
+    if edition_id not in editions:
+        return {"error": f"unknown edition: {edition_id}"}
+    edition = editions[edition_id]
+
+    known_kinds = {k["code"] for k in config.load_kinds()}
+    unknown = new_enabled_set - known_kinds
+    if unknown:
+        return {"error": f"unknown kind(s): {sorted(unknown)}"}
+
+    enabled_cats = set(edition.get("enabled_categories") or [])
+    baseline = {k["code"] for k in config.load_kinds() if k.get("category") in enabled_cats}
+    new_enabled_kinds = sorted(new_enabled_set - baseline)
+    new_disabled_kinds = sorted(baseline - new_enabled_set)
+
+    text = editions_path.read_text(encoding="utf-8")
+    try:
+        new_text = _patch_edition_kind_lists(text, edition_id, new_enabled_kinds, new_disabled_kinds)
+    except ValueError as e:
+        return {"error": str(e)}
+
+    notes_io.ensure_backup(editions_path)
+    notes_io.atomic_write(editions_path, new_text)
+
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+
+    return {
+        "ok": True,
+        "edition": edition_id,
+        "enabled_kinds": new_enabled_kinds,
+        "disabled_kinds": new_disabled_kinds,
+        "enabled_total": len(new_enabled_set),
+    }
+
+
+@audit_log.audit_endpoint(action="apply_kind_to_all_editions")
+def api_apply_kind_to_all_editions(kind_code: str, *, enable: bool) -> dict:
+    """Enable or disable `kind_code` in every edition in editions.yaml.
+
+    Composes `api_save_edition` per edition (so each underlying write
+    is atomic + backed up + cache-invalidated the same way it would
+    be from the per-edition save flow)."""
+    if not isinstance(kind_code, str) or not kind_code:
+        return {"status": "error", "code": "invalid_input", "http": 400, "message": "kind_code is required"}
+    known_kinds = {k["code"] for k in config.load_kinds()}
+    if kind_code not in known_kinds:
+        return {"status": "error", "code": "unknown_kind", "http": 400, "message": f"unknown kind: {kind_code}"}
+    if not isinstance(enable, bool):
+        return {"status": "error", "code": "invalid_input", "http": 400, "message": "enable must be a boolean"}
+
+    editions = config.load_editions()
+    if not editions:
+        return {"status": "error", "code": "no_editions", "http": 503, "message": "no editions in editions.yaml"}
+
+    from scripts.core.matrix import _enabled_kinds_for_edition
+
+    all_kinds = config.load_kinds()
+
+    plan = []
+    for ed in editions:
+        if not isinstance(ed, dict):
+            continue
+        ed_id = ed.get("id")
+        if not ed_id:
+            continue
+        current = _enabled_kinds_for_edition(ed, all_kinds)
+        was_enabled = kind_code in current
+        new_set = (current | {kind_code}) if enable else (current - {kind_code})
+        plan.append(
+            {
+                "edition_id": ed_id,
+                "was_enabled": was_enabled,
+                "now_enabled": kind_code in new_set,
+                "new_set": new_set,
+                "noop": was_enabled == (kind_code in new_set),
+            }
+        )
+
+    results = []
+    failures = []
+    for p in plan:
+        if p["noop"]:
+            results.append(
+                {
+                    "edition_id": p["edition_id"],
+                    "ok": True,
+                    "noop": True,
+                    "was_enabled": p["was_enabled"],
+                    "now_enabled": p["now_enabled"],
+                }
+            )
+            continue
+        r = api_save_edition(
+            p["edition_id"],
+            {"enabled_kinds": sorted(p["new_set"])},
+        )
+        if r.get("ok"):
+            results.append(
+                {
+                    "edition_id": p["edition_id"],
+                    "ok": True,
+                    "noop": False,
+                    "was_enabled": p["was_enabled"],
+                    "now_enabled": p["now_enabled"],
+                }
+            )
+        else:
+            err = r.get("error") or "unknown error"
+            failures.append({"edition_id": p["edition_id"], "error": err})
+            results.append(
+                {
+                    "edition_id": p["edition_id"],
+                    "ok": False,
+                    "error": err,
+                }
+            )
+
+    return {
+        "status": "ok",
+        "kind": kind_code,
+        "enable": enable,
+        "total": len(plan),
+        "changed": sum(1 for r in results if r.get("ok") and not r.get("noop")),
+        "noop": sum(1 for r in results if r.get("noop")),
+        "results": results,
+        "failures": failures,
+    }
+
+
+@audit_log.audit_endpoint(action="clone_edition")
+def api_clone_edition(payload: dict) -> dict:
+    """Phase ν.4 — clone an existing edition into a new one."""
+    if not isinstance(payload, dict):
+        return {"error": "payload must be an object"}
+
+    source_id = (payload.get("source_id") or "").strip()
+    new_id = (payload.get("new_id") or "").strip()
+    new_title = payload.get("new_title")
+    clone_files = bool(payload.get("clone_files", False))
+
+    if not source_id:
+        return {"error": "source_id is required"}
+    if not new_id:
+        return {"error": "new_id is required"}
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", new_id):
+        return {"error": (f"new_id must be lowercase kebab-case (letters/digits/dashes only): got {new_id!r}")}
+
+    eds = config.editions_by_id()
+    if source_id not in eds:
+        return {"error": f"unknown source edition: {source_id!r}"}
+    if new_id in eds:
+        return {"error": f"edition already exists: {new_id!r}"}
+
+    source = eds[source_id]
+
+    from scripts.core import covers as _covers
+
+    copied: list[Path] = []
+    new_book_covers_encoded: list[str] | None = None
+    new_main_path: str = source.get("cover_image", "")
+
+    if clone_files:
+        try:
+            src_main = (source.get("cover_image") or "").strip()
+            if src_main:
+                src_path = REPO / "content" / src_main
+                if src_path.is_file():
+                    suffix = src_path.suffix.lstrip(".") or "jpg"
+                    fmt = {"jpg": "jpeg"}.get(suffix.lower(), suffix.lower())
+                    rel_new = _covers.storage_path_for_main(new_id, fmt)
+                    abs_new = REPO / "content" / rel_new
+                    abs_new.parent.mkdir(parents=True, exist_ok=True)
+                    notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
+                    copied.append(abs_new)
+                    new_main_path = rel_new
+            src_per_book = _covers.decode_book_covers(source.get("book_covers"))
+            new_per_book: dict[str, str] = {}
+            for code, src_rel in src_per_book.items():
+                if not src_rel:
+                    new_per_book[code] = ""
+                    continue
+                src_path = REPO / "content" / src_rel
+                if not src_path.is_file():
+                    new_per_book[code] = ""
+                    continue
+                suffix = src_path.suffix.lstrip(".") or "jpg"
+                fmt = {"jpg": "jpeg"}.get(suffix.lower(), suffix.lower())
+                rel_new = _covers.storage_path_for_book(new_id, code, fmt)
+                abs_new = REPO / "content" / rel_new
+                abs_new.parent.mkdir(parents=True, exist_ok=True)
+                notes_io.atomic_write_bytes(abs_new, src_path.read_bytes())
+                copied.append(abs_new)
+                new_per_book[code] = rel_new
+            new_book_covers_encoded = _covers.encode_book_covers(new_per_book)
+        except OSError as e:
+            for p in copied:
+                try:
+                    p.unlink()
+                except OSError:
+                    pass
+            return {"error": f"failed to clone files: {e}"}
+
+    yaml_path = REPO / "content" / "editions.yaml"
+    try:
+        text = yaml_path.read_text(encoding="utf-8")
+        new_text = _append_cloned_edition(
+            text,
+            source_id,
+            new_id,
+            new_title or source.get("title", new_id),
+            override_cover_image=new_main_path,
+            override_book_covers=new_book_covers_encoded,
+        )
+        notes_io.ensure_backup(yaml_path)
+        notes_io.atomic_write(yaml_path, new_text)
+    except Exception as e:
+        for p in copied:
+            try:
+                p.unlink()
+            except OSError:
+                pass
+        return {"error": f"failed to write editions.yaml: {e}"}
+
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+
+    return {
+        "ok": True,
+        "source_id": source_id,
+        "new_id": new_id,
+        "files_cloned": len(copied),
+    }
+
+
+def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
+    """Compute the field-by-field diff between the current edition
+    record and the proposed payload, without persisting anything."""
+    eds = config.editions_by_id()
+    if edition_id not in eds:
+        return {"error": f"unknown edition: {edition_id}"}
+    current = eds[edition_id]
+
+    EDITABLE = {
+        "title",
+        "short_title",
+        "isbn",
+        "target_audience",
+        "notes",
+        "verse_marker_glyph",
+        "theme",
+        "popup_translation",
+        "cover_image",
+        "verse_popups",
+        "popup_languages_default",
+        "popup_languages_per_book",
+        "traditions_default",
+        "traditions_per_book",
+        "book_covers",
+        "chapter_number_format",
+        "chapter_number_decoration",
+        "book_toc_ornament",
+        "reader_toc_collapsible",
+        "reader_toc_default_open",
+        "enabled_reading_plans",
+    }
+
+    changes: list[dict] = []
+    unchanged: list[str] = []
+    unknown: list[str] = []
+
+    for field, proposed in payload.items():
+        if field not in EDITABLE:
+            unknown.append(field)
+            continue
+        before = current.get(field)
+        if isinstance(proposed, str) and isinstance(before, str):
+            if proposed.strip() == before.strip():
+                unchanged.append(field)
+                continue
+        elif proposed == before:
+            unchanged.append(field)
+            continue
+        changes.append(
+            {
+                "field": field,
+                "before": before,
+                "after": proposed,
+            }
+        )
+
+    result = {
+        "edition_id": edition_id,
+        "changes": changes,
+        "unchanged": unchanged,
+        "no_changes": len(changes) == 0,
+        "field_count": len(payload),
+    }
+    if unknown:
+        result["unknown_fields"] = unknown
+    return result
+
+
+@audit_log.audit_endpoint(action="save_edition_meta")
+def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
+    """Update editable metadata for one edition (Phase ν.2)."""
+    # Lazy imports of web.py-resident helpers. See module docstring.
+    from scripts.web import _load_themes, _patch_yaml_entry, _patch_yaml_list_field, _validate_cover_path
+
+    eds = config.editions_by_id()
+    if edition_id not in eds:
+        return {"error": f"unknown edition: {edition_id}"}
+
+    EDITABLE_TEXT = {
+        "title",
+        "short_title",
+        "isbn",
+        "target_audience",
+        "notes",
+        "verse_marker_glyph",
+        "theme",
+        "popup_translation",
+        "cover_image",
+        "chapter_number_format",
+        "chapter_number_decoration",
+        "book_toc_ornament",
+    }
+    EDITABLE_BOOL = {
+        "verse_popups",
+        "reader_toc_collapsible",
+        "reader_toc_default_open",
+        "enable_ai_notes",
+    }
+
+    if "theme" in payload:
+        valid_theme_ids = {t["id"] for t in _load_themes()}
+        if payload["theme"] not in valid_theme_ids:
+            return {"error": f"unknown theme: {payload['theme']!r}"}
+
+    if "chapter_number_format" in payload:
+        from scripts.build_edition import CHAPTER_NUMBER_FORMATS
+
+        v = (payload["chapter_number_format"] or "").strip()
+        if v and v not in CHAPTER_NUMBER_FORMATS:
+            return {"error": (f"unknown chapter_number_format: {v!r}; valid: {sorted(CHAPTER_NUMBER_FORMATS)}")}
+        payload["chapter_number_format"] = v
+    if "chapter_number_decoration" in payload:
+        from scripts.build_edition import CHAPTER_NUMBER_DECORATIONS
+
+        v = (payload["chapter_number_decoration"] or "").strip()
+        if v and v not in CHAPTER_NUMBER_DECORATIONS:
+            return {"error": (f"unknown chapter_number_decoration: {v!r}; valid: {sorted(CHAPTER_NUMBER_DECORATIONS)}")}
+        payload["chapter_number_decoration"] = v
+
+    if "book_toc_ornament" in payload:
+        from scripts.build_edition import BOOK_TOC_ORNAMENTS
+
+        v = (payload["book_toc_ornament"] or "").strip()
+        if v and v not in BOOK_TOC_ORNAMENTS:
+            return {"error": (f"unknown book_toc_ornament: {v!r}; valid: {sorted(BOOK_TOC_ORNAMENTS)}")}
+        payload["book_toc_ornament"] = v
+
+    if "cover_image" in payload:
+        err = _validate_cover_path(payload["cover_image"])
+        if err:
+            return {"error": err}
+
+    if "popup_translation" in payload:
+        v = payload["popup_translation"]
+        if v is None:
+            v = ""
+        if not isinstance(v, str):
+            return {"error": "popup_translation must be a string"}
+        if v:
+            from scripts.core import translations as _tx
+
+            available = set(_tx.list_translations())
+            if v not in available:
+                return {"error": (f"unknown translation: {v!r}; available: {sorted(available) or 'none'}")}
+        payload["popup_translation"] = v
+
+    list_field_updates: dict[str, list[str]] = {}
+    from scripts.build_edition import (
+        ALL_POPUP_LANGUAGES,
+        encode_per_book_languages,
+        encode_per_book_traditions,
+    )
+
+    valid_langs = set(ALL_POPUP_LANGUAGES)
+
+    if "popup_languages_default" in payload:
+        v = payload["popup_languages_default"]
+        if v is None:
+            v = []
+        if not isinstance(v, list):
+            return {"error": "popup_languages_default must be a list of language ids"}
+        cleaned: list[str] = []
+        for item in v:
+            if not isinstance(item, str):
+                return {"error": "popup_languages_default items must be strings"}
+            s = item.strip()
+            if not s:
+                continue
+            if s not in valid_langs:
+                return {"error": (f"unknown popup language: {s!r}; available: {sorted(valid_langs)}")}
+            if s not in cleaned:
+                cleaned.append(s)
+        list_field_updates["popup_languages_default"] = cleaned
+
+    if "traditions_default" in payload:
+        from scripts.core.traditions import TRADITION_IDS
+
+        v = payload["traditions_default"]
+        if v is None:
+            v = []
+        if not isinstance(v, list):
+            return {"error": "traditions_default must be a list of tradition ids"}
+        cleaned: list[str] = []
+        for item in v:
+            if not isinstance(item, str):
+                return {"error": "traditions_default items must be strings"}
+            s = item.strip()
+            if not s:
+                continue
+            if s not in TRADITION_IDS:
+                return {"error": (f"unknown tradition: {s!r}; available: {sorted(TRADITION_IDS)}")}
+            if s not in cleaned:
+                cleaned.append(s)
+        list_field_updates["traditions_default"] = cleaned
+
+    if "enabled_reading_plans" in payload:
+        from scripts.core.reading_plans import list_plans
+
+        v = payload["enabled_reading_plans"]
+        if v is None:
+            v = []
+        if not isinstance(v, list):
+            return {"error": "enabled_reading_plans must be a list of plan ids"}
+        valid_plans = {p.id for p in list_plans()}
+        cleaned: list[str] = []
+        for item in v:
+            if not isinstance(item, str):
+                return {"error": "enabled_reading_plans items must be strings"}
+            s = item.strip()
+            if not s:
+                continue
+            if s not in valid_plans:
+                return {"error": (f"unknown reading plan: {s!r}; available: {sorted(valid_plans)}")}
+            if s not in cleaned:
+                cleaned.append(s)
+        list_field_updates["enabled_reading_plans"] = cleaned
+
+    if "traditions_per_book" in payload:
+        from scripts.core.traditions import TRADITION_IDS
+
+        v = payload["traditions_per_book"]
+        if v is None:
+            v = {}
+        if not isinstance(v, dict):
+            return {"error": ("traditions_per_book must be a mapping of book_code → list-of-tradition-ids")}
+        valid_books = set(config.books_by_code().keys())
+        cleaned_dict: dict[str, list[str]] = {}
+        for code, traditions in v.items():
+            if not isinstance(code, str) or not code.strip():
+                return {"error": "traditions_per_book book codes must be non-empty strings"}
+            code = code.strip()
+            if code not in valid_books:
+                return {"error": f"unknown book code: {code!r}"}
+            if traditions is None:
+                traditions = []
+            if not isinstance(traditions, list):
+                return {"error": (f"traditions_per_book[{code!r}] must be a list of tradition ids")}
+            book_traditions: list[str] = []
+            for t in traditions:
+                if not isinstance(t, str):
+                    return {"error": f"tradition id in {code!r} must be a string"}
+                s = t.strip()
+                if not s:
+                    continue
+                if s not in TRADITION_IDS:
+                    return {"error": (f"unknown tradition in {code!r}: {s!r}; available: {sorted(TRADITION_IDS)}")}
+                if s not in book_traditions:
+                    book_traditions.append(s)
+            cleaned_dict[code] = book_traditions
+        list_field_updates["traditions_per_book"] = encode_per_book_traditions(cleaned_dict)
+
+    if "popup_languages_per_book" in payload:
+        v = payload["popup_languages_per_book"]
+        if v is None:
+            v = {}
+        if not isinstance(v, dict):
+            return {"error": ("popup_languages_per_book must be a mapping of book_code → list-of-language-ids")}
+        valid_books = set(config.books_by_code().keys())
+        cleaned_dict: dict[str, list[str]] = {}
+        for code, langs in v.items():
+            if not isinstance(code, str) or not code.strip():
+                return {"error": "popup_languages_per_book book codes must be non-empty strings"}
+            code = code.strip()
+            if code not in valid_books:
+                return {"error": f"unknown book code: {code!r}"}
+            if langs is None:
+                langs = []
+            if not isinstance(langs, list):
+                return {"error": (f"popup_languages_per_book[{code!r}] must be a list of language ids")}
+            book_langs: list[str] = []
+            for L in langs:
+                if not isinstance(L, str):
+                    return {"error": f"language id in {code!r} must be a string"}
+                s = L.strip()
+                if not s:
+                    continue
+                if s not in valid_langs:
+                    return {"error": (f"unknown popup language in {code!r}: {s!r}; available: {sorted(valid_langs)}")}
+                if s not in book_langs:
+                    book_langs.append(s)
+            cleaned_dict[code] = book_langs
+        list_field_updates["popup_languages_per_book"] = encode_per_book_languages(cleaned_dict)
+
+    if "book_covers" in payload:
+        from scripts.core.covers import encode_book_covers
+
+        v = payload["book_covers"]
+        if v is None:
+            v = {}
+        if not isinstance(v, dict):
+            return {"error": ("book_covers must be a mapping of book_code → cover path string")}
+        valid_books = set(config.books_by_code().keys())
+        cleaned_covers: dict[str, str] = {}
+        for code, path in v.items():
+            if not isinstance(code, str) or not code.strip():
+                return {"error": "book_covers book codes must be non-empty strings"}
+            code = code.strip()
+            if code not in valid_books:
+                return {"error": f"unknown book code in book_covers: {code!r}"}
+            if path is None:
+                path = ""
+            if not isinstance(path, str):
+                return {"error": f"book_covers[{code!r}] must be a string path"}
+            err = _validate_cover_path(path)
+            if err:
+                return {"error": f"book_covers[{code!r}]: {err}"}
+            cleaned_covers[code] = path.strip()
+        list_field_updates["book_covers"] = encode_book_covers(cleaned_covers)
+
+    updates: dict[str, str] = {}
+    for field in EDITABLE_TEXT:
+        if field in payload:
+            val = payload[field] or ""
+            if isinstance(val, str):
+                if field == "verse_marker_glyph" and len(val) > 4:
+                    return {"error": "verse_marker_glyph max 4 chars"}
+                if field in {"title", "short_title"} and len(val) > 200:
+                    return {"error": f"{field} too long (max 200)"}
+                if field in {"target_audience", "notes"} and len(val) > 500:
+                    return {"error": f"{field} too long (max 500)"}
+                if field == "popup_translation" and len(val) > 32:
+                    return {"error": "popup_translation too long (max 32)"}
+                updates[field] = val
+            else:
+                return {"error": f"{field} must be a string"}
+    for field in EDITABLE_BOOL:
+        if field in payload:
+            v = payload[field]
+            if v not in (True, False):
+                return {"error": f"{field} must be true or false"}
+            updates[field] = "true" if v else "false"
+    if not updates and not list_field_updates:
+        return {"error": "no updates supplied"}
+
+    path = REPO / "content" / "editions.yaml"
+    text = path.read_text(encoding="utf-8")
+    try:
+        if updates:
+            text = _patch_yaml_entry(text, "id", edition_id, updates)
+        for lf, items in list_field_updates.items():
+            text = _patch_yaml_list_field(text, edition_id, lf, items)
+    except ValueError as e:
+        return {"error": str(e)}
+
+    notes_io.ensure_backup(path)
+    notes_io.atomic_write(path, text)
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+    return {
+        "ok": True,
+        "id": edition_id,
+        "updated": list(updates.keys()) + list(list_field_updates.keys()),
+    }
+
+
+@audit_log.audit_endpoint(action="save_note_toggle")
+def api_save_note_toggle(edition_id: str, payload: dict) -> dict:
+    """Add or remove a note ID from an edition's disabled_note_ids list (ρ.1)."""
+    from scripts.web import html_ref_id_from_note_id, parse_note_id
+
+    eds = config.editions_by_id()
+    if edition_id not in eds:
+        return {"error": f"unknown edition: {edition_id}"}
+
+    nid = payload.get("note_id", "")
+    enabled = payload.get("enabled")
+    if enabled not in (True, False):
+        return {"error": "enabled must be true or false"}
+    parsed = parse_note_id(nid)
+    if not parsed:
+        return {"error": f"invalid note_id format: {nid!r}"}
+
+    books = config.books_by_code()
+    if parsed["book"] not in books:
+        return {"error": f"unknown book: {parsed['book']}"}
+
+    html_ref = html_ref_id_from_note_id(nid, books)
+    if not html_ref:
+        return {"error": f"could not resolve note_id to HTML ref: {nid}"}
+
+    edition = eds[edition_id]
+    current_disabled = list(edition.get("disabled_note_ids") or [])
+    new_set = set(current_disabled)
+    if enabled:
+        new_set.discard(nid)
+    else:
+        new_set.add(nid)
+    new_list = sorted(new_set)
+
+    if new_list == sorted(current_disabled):
+        return {"ok": True, "edition": edition_id, "unchanged": True, "disabled_count": len(new_list)}
+
+    path = REPO / "content" / "editions.yaml"
+    text = path.read_text(encoding="utf-8")
+
+    block_re = re.compile(
+        rf"(^  - id: {re.escape(edition_id)}\n)(.*?)(?=^  - id:|\Z)",
+        re.MULTILINE | re.DOTALL,
+    )
+    m = block_re.search(text)
+    if not m:
+        return {"error": f"edition {edition_id} not found in YAML"}
+    head, body = m.group(1), m.group(2)
+
+    if new_list:
+        new_block = "    disabled_note_ids:\n" + "\n".join(f'      - "{nid}"' for nid in new_list) + "\n"
+    else:
+        new_block = "    disabled_note_ids: []\n"
+
+    list_re = re.compile(
+        r"^(    disabled_note_ids:.*?\n)((?:      - [^\n]+\n)*|    disabled_note_ids: \[\]\n)",
+        re.MULTILINE,
+    )
+    if list_re.search(body):
+        new_body = list_re.sub(new_block, body, count=1)
+    else:
+        anchor_re = re.compile(r"^(    disabled_kinds:)", re.MULTILINE)
+        am = anchor_re.search(body)
+        if am:
+            new_body = body[: am.start()] + new_block + body[am.start() :]
+        else:
+            new_body = body + new_block
+
+    new_text = text[: m.start()] + head + new_body + text[m.end() :]
+    notes_io.ensure_backup(path)
+    notes_io.atomic_write(path, new_text)
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+
+    return {
+        "ok": True,
+        "edition": edition_id,
+        "note_id": nid,
+        "now_enabled": enabled,
+        "disabled_count": len(new_list),
+    }
+
+
+@audit_log.audit_endpoint(action="save_publisher_meta")
+def api_save_publisher_meta(edition_id: str, payload: dict) -> dict:
+    """Update one edition's publishing metadata (Phase π.1)."""
+    from scripts.web import (
+        PUBLISHING_LIST_FIELDS,
+        PUBLISHING_TEXT_LIMITS,
+        _patch_yaml_entry,
+        _patch_yaml_list_field,
+    )
+
+    eds = config.editions_by_id()
+    if edition_id not in eds:
+        return {"error": f"unknown edition: {edition_id}"}
+
+    text_updates: dict[str, str] = {}
+    list_updates: dict[str, list[str]] = {}
+
+    for field, max_len in PUBLISHING_TEXT_LIMITS.items():
+        if field not in payload:
+            continue
+        v = payload[field]
+        if v is None:
+            v = ""
+        if not isinstance(v, str):
+            return {"error": f"{field} must be a string"}
+        if len(v) > max_len:
+            return {"error": f"{field} too long (max {max_len})"}
+        text_updates[field] = v
+
+    for lf in PUBLISHING_LIST_FIELDS:
+        if lf not in payload:
+            continue
+        v = payload[lf]
+        if not isinstance(v, list):
+            return {"error": f"{lf} must be a list"}
+        items: list[str] = []
+        for item in v:
+            if not isinstance(item, str):
+                return {"error": f"{lf} items must be strings"}
+            s = item.strip()
+            if not s:
+                continue
+            if len(s) > 300:
+                return {"error": f"{lf} item too long (max 300)"}
+            items.append(s)
+        list_updates[lf] = items
+
+    if not text_updates and not list_updates:
+        return {"error": "no updates supplied"}
+
+    path = REPO / "content" / "editions.yaml"
+    text = path.read_text(encoding="utf-8")
+
+    if text_updates:
+        try:
+            text = _patch_yaml_entry(text, "id", edition_id, text_updates)
+        except ValueError as e:
+            return {"error": str(e)}
+
+    for lf, items in list_updates.items():
+        text = _patch_yaml_list_field(text, edition_id, lf, items)
+
+    notes_io.ensure_backup(path)
+    notes_io.atomic_write(path, text)
+    config.load_editions.cache_clear()
+    from scripts.core import matrix as matrix_mod
+
+    matrix_mod.compute_matrix.cache_clear()
+
+    return {
+        "ok": True,
+        "id": edition_id,
+        "updated_text": list(text_updates.keys()),
+        "updated_lists": list(list_updates.keys()),
+    }
