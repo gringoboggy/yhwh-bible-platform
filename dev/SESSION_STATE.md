@@ -168,9 +168,17 @@ auto-update — moved to a new `tests/test_desktop_theta.py`
 cluster test split**: 3 test classes (78 tests) covering
 the closing v1.0 security hardening arc moved to a new
 `tests/test_security_xi_late.py` (1207 lines).
-test_scripts.py: 18721 → 17551 lines (-1170). Cumulative
-test_scripts.py reduction across all nine extractions:
-**28384 → 17551 (-10833; -38.2%)**. **655 tests** in 9
+test_scripts.py: 18721 → 17551 lines (-1170).
+
+**Then ω.27 follow-on #10 — early v1.0 hardening test
+split**: 6 test classes (112 tests) covering the pre-v1.0
+hardening foundations — ξ.1 input-validation + ω.10
+retry/timeout + ξ.2 path-traversal + ω.9 atomic-writes +
+ω.8 error-boundary + ξ.4 XSS-prevention — moved to a new
+`tests/test_hardening_early.py` (1244 lines).
+test_scripts.py: 17551 → 16336 lines (-1215). Cumulative
+test_scripts.py reduction across all ten extractions:
+**28384 → 16336 (-12048; -42.4%)**. **767 tests** in 10
 self-contained topic files.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;

@@ -298,9 +298,19 @@ Ninth extraction. 3 test classes (78 tests) covering the closing
 v1.0 security arc — ξ.15 AI-output sandbox + ξ.16 security sweep
 + ξ.17 remaining punch list — moved to a new
 `tests/test_security_xi_late.py` (1207 lines). test_scripts.py:
-18721 → 17551 lines (-1170). **Cumulative across nine
-extractions: 28384 → 17551 (-10833; -38.2%).** 655 tests in 9
-self-contained topic files.
+18721 → 17551 lines (-1170).
+
+### Bonus slice: ω.27 follow-on #10 — early v1.0 hardening test split
+
+Tenth extraction. 6 test classes (112 tests) covering the
+pre-v1.0 hardening foundations — ξ.1 input-validation +
+ω.10 retry/timeout + ξ.2 path-traversal + ω.9 atomic-writes
++ ω.8 error-boundary + ξ.4 XSS-prevention — moved to a new
+`tests/test_hardening_early.py` (1244 lines). test_scripts.py:
+17551 → 16336 lines (-1215). Pairs with the late-session
+`test_security_xi_late.py` (#9). **Cumulative across ten
+extractions: 28384 → 16336 (-12048; -42.4%).** 767 tests in
+10 self-contained topic files.
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard

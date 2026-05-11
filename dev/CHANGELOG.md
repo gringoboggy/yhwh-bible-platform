@@ -823,6 +823,24 @@ arc. A future slice could extract the early-ξ foundations to
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
+**ω.27 follow-on #10 — split early v1.0 hardening cluster
+into test_hardening_early.py.** Tenth topic extraction. 6 test
+classes (112 tests) covering the pre-v1.0 hardening
+foundations — ξ.1 input-validation + ω.10 retry/timeout +
+ξ.2 path-traversal + ω.9 atomic-writes-lint + ω.8
+error-boundary + ξ.4 XSS-prevention — moved from
+`tests/test_scripts.py` (17551 → 16336 lines; -1215) into a
+new `tests/test_hardening_early.py` (1244 lines). Pairs with
+the existing `test_security_xi_late.py` from #9: together
+the two files cover the full v1.0 hardening arc (early
+foundations + late-session closing sweep).
+
+**Cumulative test-file-split impact (10 extractions):**
+- test_scripts.py: **28384 → 16336 lines (-12048; -42.4%)**
+- 10 new topic files = **767 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the
