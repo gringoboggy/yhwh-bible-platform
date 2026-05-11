@@ -218,6 +218,27 @@ THEME_TOKENS_CSS = """<style>
     --color-status-warn:    rgb(245 158 11);   /* amber-500 */
     --color-status-error:   rgb(220 38 38);    /* red-600 */
     --color-status-info:    rgb(59 130 246);   /* blue-500 */
+    /* ζ.4: typography tokens (theme-independent — font choice
+       doesn't change between light/dark; line-height + scale stay
+       constant). Future ζ.* can swap font-stack-body for a hosted
+       font like Inter without touching anything else. The system
+       stack here matches Tailwind's font-sans/font-mono defaults
+       — zero load cost, no FOIT, looks native on every OS. */
+    --font-stack-body:      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --font-stack-mono:      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-size-xs:         0.75rem;    /* 12px */
+    --font-size-sm:         0.875rem;   /* 14px */
+    --font-size-base:       1rem;       /* 16px */
+    --font-size-lg:         1.125rem;   /* 18px */
+    --font-size-xl:         1.25rem;    /* 20px */
+    --font-size-2xl:        1.5rem;     /* 24px */
+    --leading-tight:        1.25;
+    --leading-normal:       1.5;
+    --leading-relaxed:      1.625;
+    --font-weight-normal:   400;
+    --font-weight-medium:   500;
+    --font-weight-semibold: 600;
+    --font-weight-bold:     700;
   }
   /* ζ.1: dark theme — defined but INACTIVE; ζ.2 wires the toggle.
      Designers can preview by setting `data-theme="dark"` on `<html>`
@@ -258,7 +279,148 @@ THEME_TOKENS_CSS = """<style>
   .theme-status-warn    { color: var(--color-status-warn); }
   .theme-status-error   { color: var(--color-status-error); }
   .theme-status-info    { color: var(--color-status-info); }
+  /* ζ.4: typography — body inherits the themable font stack the
+     moment THEME_TOKENS_CSS is absorbed. The Tailwind CDN's reset
+     sets `font-family` on `*`, which is too aggressive to override
+     via a token — so we set it on `body` only and let inheritance
+     handle the rest. Code/pre opt-in via .theme-font-mono. */
+  body {
+    font-family: var(--font-stack-body);
+    font-size: var(--font-size-base);
+    line-height: var(--leading-normal);
+  }
+  .theme-text-xs   { font-size: var(--font-size-xs);   line-height: var(--leading-normal); }
+  .theme-text-sm   { font-size: var(--font-size-sm);   line-height: var(--leading-normal); }
+  .theme-text-base { font-size: var(--font-size-base); line-height: var(--leading-normal); }
+  .theme-text-lg   { font-size: var(--font-size-lg);   line-height: var(--leading-tight); }
+  .theme-text-xl   { font-size: var(--font-size-xl);   line-height: var(--leading-tight); }
+  .theme-text-2xl  { font-size: var(--font-size-2xl);  line-height: var(--leading-tight); }
+  .theme-font-mono { font-family: var(--font-stack-mono); }
+  .theme-weight-normal   { font-weight: var(--font-weight-normal); }
+  .theme-weight-medium   { font-weight: var(--font-weight-medium); }
+  .theme-weight-semibold { font-weight: var(--font-weight-semibold); }
+  .theme-weight-bold     { font-weight: var(--font-weight-bold); }
+  /* ζ.5: icon utility. Apply directly to <svg> (or to a wrapping
+     <span>) — sizes to 1em of the surrounding text, inherits
+     stroke/fill from currentColor so the icon picks up the
+     theme-text or theme-status-* color of its parent.
+       vertical-align: -0.125em pushes the icon down ~1.5px so it
+       sits on the baseline rather than the cap-height of the
+       surrounding text. */
+  .theme-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+    stroke: currentColor;
+    fill: none;
+  }
 </style>"""
+
+
+# ----------------------------------------------------------------------
+# ζ.5 — inline-SVG icon library. Lucide-shaped (24x24 viewBox, 2px
+# stroke, rounded cap/join), `stroke="currentColor" fill="none"`
+# so they automatically pick up the parent's text color. Use with
+# `.theme-icon` class (from ζ.5's CSS block above) for sizing.
+#
+# Why inline (not <img src="icon.svg"> or an icon font):
+#   - No extra HTTP request per icon
+#   - `currentColor` makes them theme-aware for free
+#   - No FOIT — they render with the first paint
+#   - Sized via parent's `1em`; no separate sizing system
+#
+# Adding an icon: pick the Lucide path (https://lucide.dev), wrap
+# in `_make_icon(name, path)` and append to ICONS_REGISTRY. The
+# `theme_icon(name)` builder + the JS-side window.ebibleIcons
+# table both pick it up automatically.
+#
+# Why a registry instead of bare module-level constants:
+#   - Tests can iterate (assert every icon has the right shape)
+#   - JS exposure (window.ebibleIcons) is auto-generated
+#   - A future ζ.* phase can add ad-hoc icons without modifying
+#     this file's structure
+# ----------------------------------------------------------------------
+
+_ICON_SVG_TEMPLATE = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" '
+    'fill="none" stroke="currentColor" stroke-width="2" '
+    'stroke-linecap="round" stroke-linejoin="round" '
+    'aria-hidden="true" class="theme-icon" data-icon="{name}">'
+    "{path}"
+    "</svg>"
+)
+
+
+def _make_icon(name: str, path: str) -> str:
+    return _ICON_SVG_TEMPLATE.format(name=name, path=path)
+
+
+# Lucide-shape paths (https://lucide.dev). Each value is the inner
+# `<path>` / `<line>` / `<polyline>` markup of a 24x24 SVG; the
+# wrapper attrs come from _ICON_SVG_TEMPLATE.
+ICONS_REGISTRY: dict[str, str] = {
+    "check": _make_icon("check", '<polyline points="20 6 9 17 4 12"></polyline>'),
+    "alert-triangle": _make_icon(
+        "alert-triangle",
+        '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>'
+        '<line x1="12" y1="9" x2="12" y2="13"></line>'
+        '<line x1="12" y1="17" x2="12.01" y2="17"></line>',
+    ),
+    "x-circle": _make_icon(
+        "x-circle",
+        '<circle cx="12" cy="12" r="10"></circle>'
+        '<line x1="15" y1="9" x2="9" y2="15"></line>'
+        '<line x1="9" y1="9" x2="15" y2="15"></line>',
+    ),
+    "info": _make_icon(
+        "info",
+        '<circle cx="12" cy="12" r="10"></circle>'
+        '<line x1="12" y1="16" x2="12" y2="12"></line>'
+        '<line x1="12" y1="8" x2="12.01" y2="8"></line>',
+    ),
+    "chevron-right": _make_icon("chevron-right", '<polyline points="9 18 15 12 9 6"></polyline>'),
+    "external-link": _make_icon(
+        "external-link",
+        '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>'
+        '<polyline points="15 3 21 3 21 9"></polyline>'
+        '<line x1="10" y1="14" x2="21" y2="3"></line>',
+    ),
+}
+
+
+def theme_icon(name: str) -> str:
+    """Return the inline-SVG markup for `name`, or empty string if
+    not registered. Use in Python f-strings:
+
+        f'<button>{theme_icon("check")} Save</button>'
+    """
+    return ICONS_REGISTRY.get(name, "")
+
+
+# JS exposure — the same icon table, accessible to client-side code
+# via `window.ebibleIcons.check` etc. Generated once at module load
+# so adding to ICONS_REGISTRY automatically updates the JS payload.
+def _build_icons_js() -> str:
+    import json
+
+    # JSON-encode so quotes inside SVG (`stroke-linecap="round"` etc.)
+    # don't break the JS literal.
+    payload = json.dumps(ICONS_REGISTRY)
+    return (
+        "<script>\n"
+        "/* ζ.5: SVG icon registry, exposed to client JS. Mirrors\n"
+        "   scripts.templates._design.ICONS_REGISTRY. Read via\n"
+        "   `window.ebibleIcons['<name>']`. Add new icons by\n"
+        "   appending to ICONS_REGISTRY in _design.py — this script\n"
+        "   block regenerates at module load. */\n"
+        f"window.ebibleIcons = {payload};\n"
+        "</script>"
+    )
+
+
+THEME_ICONS_JS = _build_icons_js()
 
 
 # ----------------------------------------------------------------------
@@ -540,6 +702,7 @@ def apply_design_system(html: str, current_route: str) -> str:
       - `<!-- BUYER_ARC_POLISH_CSS -->`  → BUYER_ARC_POLISH_CSS
       - `<!-- THEME_TOKENS_CSS -->`      → THEME_TOKENS_CSS  (ζ.1)
       - `<!-- DARK_MODE_JS -->`          → DARK_MODE_JS      (ζ.2)
+      - `<!-- THEME_ICONS_JS -->`        → THEME_ICONS_JS    (ζ.5)
 
     The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
     template — that's the existing convention from ψ.14/15/16. The
@@ -578,5 +741,9 @@ def apply_design_system(html: str, current_route: str) -> str:
     html = html.replace(
         "<!-- DARK_MODE_JS -->",
         DARK_MODE_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_ICONS_JS -->",
+        THEME_ICONS_JS,
     )
     return html

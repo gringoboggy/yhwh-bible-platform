@@ -1,6 +1,81 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ζ.2 dark mode**
+**Updated 2026-05-11 / late session**: **ζ.5 iconography
+pass** shipped — Month 2 #4. Replaces /preflight's unicode
+status glyphs (✓ ⚠ ✗) with proper inline SVGs that inherit
+`currentColor` (auto-theme) and scale via parent font-size.
+`ICONS_REGISTRY` in `scripts/templates/_design.py` defines
+6 Lucide-shape icons (check, alert-triangle, x-circle,
+info, chevron-right, external-link) — 24x24 viewBox, 2px
+stroke, `class="theme-icon"`, `data-icon=<name>` for DOM
+inspection. `theme_icon(name)` Python builder for template
+f-strings; `THEME_ICONS_JS` exposes the registry as
+`window.ebibleIcons` (JSON-encoded for safe quote handling).
+`.theme-icon` utility class added to THEME_TOKENS_CSS:
+1em sizing, currentColor stroke, fill none, inline-block
+baseline alignment. `<!-- THEME_ICONS_JS -->` marker
+substitution added to `apply_design_system`. /preflight
+JS migrated from `icon.textContent = '✓'` to a
+`statusIconHtml(status)` helper that maps pass/warn/fail
+→ check/alert-triangle/x-circle and pulls SVG from
+`window.ebibleIcons`. **+25 tests** in
+`tests/test_iconography_zeta5.py` (registry shape × 8,
+helper × 2, JS exposure × 3, .theme-icon CSS × 4,
+apply_design_system × 3, /preflight wire-up × 5).
+**2408 / 2409 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+155** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5).
+
+Next per Month 2 sequence: **ζ.6 toast notifications** —
+introduce a small `window.ebibleToast(msg, kind)` API
+that injects fixed-position toasts (auto-dismiss, ARIA
+live region for screen readers). Uses ζ.1's
+`--color-status-{success,warn,error,info}` for the kind
+palette + ζ.5's icons for the leading glyph. Replaces
+the existing scattered banner-divs that consoles roll
+ad-hoc. ~1 session.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ζ.4 typography
+upgrade** shipped — Month 2 #3 (proposal skips ζ.3). Adds
+themable typography on top of ζ.1's foundation:
+`--font-stack-{body,mono}` (system stacks; no Google
+Fonts dep), six-step `--font-size-{xs..2xl}` scale
+anchored at 1rem, `--leading-{tight,normal,relaxed}`,
+`--font-weight-{normal,medium,semibold,bold}`. New
+`body { font-family / size / leading: var(...) }` rule
+in `THEME_TOKENS_CSS` so every console inheriting the
+marker picks up the themable stack — no per-element
+retrofit needed for basic body text. 11 new utility
+classes (`.theme-text-{xs..2xl}` each pairing
+font-size + line-height, `.theme-font-mono`,
+`.theme-weight-*`). `/preflight` retrofitted: h1 →
+`theme-text-2xl theme-weight-semibold`, body paragraphs
+→ `theme-text-sm theme-text-muted`, `.details-list`
+font-family migrated to `var(--font-stack-mono, ...)`.
+Tailwind's hardcoded `text-2xl font-semibold` removed
+from the h1 to avoid the same CDN cascade-collision ζ.2
+hit. **+18 tests** in `tests/test_typography_zeta4.py`
+(tokens × 6, utilities × 5, body rule × 3,
+/preflight retrofit × 4). **2383 / 2384 tests pass
+serially (1 skipped); 11/11 lint clean.** Net session
+test delta from ψ.36-A baseline: **+130** (20 ω.38 +
+29 ω.47 + 26 Δ.10 + 17 ζ.1 + 20 ζ.2 + 18 ζ.4).
+
+Next per Month 2 sequence: **ζ.5 iconography pass** —
+audit the project's icon usage (currently a mix of
+unicode glyphs and inline SVGs in the preflight
+banner-icon, the dark-mode toggle, etc.); introduce a
+small inline-SVG icon set (or adopt Lucide / Heroicons
+via copy-in, no CDN) sized via the new `--font-size-*`
+tokens; provide a `theme-icon` utility for consistent
+sizing. ~1 session.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ζ.2 dark mode**
 shipped — Month 2 #2, first user-visible payoff of the
 modernization arc. `DARK_MODE_JS` constant in
 `scripts/templates/_design.py` provides a synchronous

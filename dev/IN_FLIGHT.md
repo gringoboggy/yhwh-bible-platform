@@ -4,6 +4,107 @@
 
 ## Prior task
 
+**ζ.5 iconography pass** shipped 2026-05-11. Month 2 #4.
+Replaces the unicode glyph status icons (✓ ⚠ ✗) in
+/preflight's banner + per-check rows with proper inline
+SVGs that inherit `currentColor` (auto-themable) and scale
+with the surrounding text size.
+
+Five pieces:
+- `ICONS_REGISTRY: dict[str, str]` added to
+  `scripts/templates/_design.py` — 6 Lucide-shape icons
+  (check, alert-triangle, x-circle, info, chevron-right,
+  external-link). Each wraps a path with the canonical
+  attrs (24x24 viewBox, 2px stroke, currentColor, fill
+  none, aria-hidden, `class="theme-icon"`, `data-icon`).
+  `_make_icon(name, path)` helper applies the wrapper.
+- `theme_icon(name)` Python builder — returns SVG markup
+  for known names, empty string for unknown (graceful
+  degrade on typos).
+- `THEME_ICONS_JS` constant — `<script>` block exposing
+  `window.ebibleIcons = {...}` (JSON-encoded registry
+  payload). Generated at module-load so adding to
+  ICONS_REGISTRY auto-updates the JS table.
+- `.theme-icon` utility class added to `THEME_TOKENS_CSS`:
+  `display: inline-block; width: 1em; height: 1em;
+  vertical-align: -0.125em; stroke: currentColor;
+  fill: none`. SVG sizes to parent font-size.
+- `<!-- THEME_ICONS_JS -->` marker added to
+  `apply_design_system`. /preflight absorbed it in
+  `<head>`. JS migrated from `icon.textContent = '✓'` to
+  `icon.innerHTML = statusIconHtml(status)` (helper that
+  maps pass/warn/fail → check/alert-triangle/x-circle and
+  pulls from window.ebibleIcons).
+
+**+25 tests** in `tests/test_iconography_zeta5.py`:
+ICONS_REGISTRY shape × 8 (required status + utility icons,
+every entry is valid SVG with currentColor stroke + 24x24
+viewBox + aria-hidden + theme-icon class + data-icon),
+theme_icon helper × 2, THEME_ICONS_JS × 3 (script wrapper,
+window.ebibleIcons exposure, valid JSON payload matching
+registry), .theme-icon CSS × 4 (rule exists, 1em sizing,
+currentColor stroke + fill none, inline-block alignment),
+apply_design_system × 3 (substitution + no-op + idempotency),
+/preflight wire-up × 5 (marker substituted, window.ebibleIcons
+present, statusIconHtml helper used, no residual unicode
+`textContent = '✓'` assignments, status→icon-name dispatch
+table pinned).
+
+**2408 / 2409 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+155** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5).
+
+## Prior task
+
+**ζ.4 typography upgrade** shipped 2026-05-11. Month 2 #3
+(proposal skips ζ.3). Adds themable typography tokens on
+top of ζ.1's foundation so headings + body + code become
+theme-aware.
+
+Three pieces:
+- Typography tokens added to `THEME_TOKENS_CSS`'s `:root`
+  block (theme-independent — font choice doesn't change
+  with light/dark): `--font-stack-body`,
+  `--font-stack-mono` (system stacks, no Google Fonts),
+  `--font-size-{xs,sm,base,lg,xl,2xl}` (rem-based;
+  base=1rem), `--leading-{tight,normal,relaxed}`,
+  `--font-weight-{normal,medium,semibold,bold}`.
+- `body { font-family / font-size / line-height: var(...) }`
+  rule added so every console inherits the themable stack
+  the moment it absorbs THEME_TOKENS_CSS (no per-element
+  retrofit needed for basic body text).
+- 11 new utility classes: `.theme-text-{xs..2xl}` (each
+  pairs font-size + line-height), `.theme-font-mono`,
+  `.theme-weight-{normal,medium,semibold,bold}`.
+- `/preflight` retrofitted: h1 → `theme-text-2xl
+  theme-weight-semibold`, body paragraphs →
+  `theme-text-sm theme-text-muted`, `.details-list`
+  font-family → `var(--font-stack-mono, ui-monospace,
+  monospace)`.
+
+Font-loading: **system stack only**, no Google Fonts.
+Zero load cost, no FOIT, no external dep, matches "no
+build step" rule. Future ζ.* can swap `--font-stack-body`
+to a hosted font (Inter via Bunny CDN, etc.) — single
+token edit, rest of system unchanged.
+
+**+18 tests** in `tests/test_typography_zeta4.py`:
+typography tokens × 6 (font stacks, size scale, base=1rem,
+leadings, weights), utility classes × 5 (size classes
+exist + reference vars + set line-height; font-mono
+references mono stack; weight utilities exist), body rule
+× 3 (rule present, references var, sets size + leading),
+/preflight retrofit × 4 (h1 + body + details-list +
+no residual `text-2xl` on h1).
+
+**2383 / 2384 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+130** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4).
+
+## Prior task
+
 **ζ.2 dark mode** shipped 2026-05-11. Month 2 #2 — first
 user-visible payoff of the modernization arc. Wires the
 toggle that activates ζ.1's `:root[data-theme="dark"]`

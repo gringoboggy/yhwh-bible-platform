@@ -33,10 +33,14 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
   .fail-bg { background: #fef2f2; border-color: #fecaca; }
   details > summary { cursor: pointer; list-style: none; }
   details > summary::-webkit-details-marker { display: none; }
-  .details-list { font-family: ui-monospace, monospace; font-size: 0.8125rem; }
+  /* ζ.4: details-list font moved to themable token; size remains
+     0.8125rem (~ between --font-size-xs and --font-size-sm) so the
+     dense-data look stays. */
+  .details-list { font-family: var(--font-stack-mono, ui-monospace, monospace); font-size: 0.8125rem; }
 </style>
 <!-- THEME_TOKENS_CSS -->
 <!-- DARK_MODE_JS -->
+<!-- THEME_ICONS_JS -->
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="theme-bg-page theme-text">
@@ -68,8 +72,8 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
 
 
 <main class="max-w-5xl mx-auto px-4 py-6">
-  <h1 class="text-2xl font-semibold mb-2">Pre-flight checklist</h1>
-  <p class="text-sm text-slate-600 mb-6">
+  <h1 class="theme-text-2xl theme-weight-semibold mb-2">Pre-flight checklist</h1>
+  <p class="theme-text-sm theme-text-muted mb-6">
     Aggregated readiness checks across all editions. Click a check to
     expand details, or use the "fix in …" link to jump to the right
     console. Re-run by refreshing this page.
@@ -109,35 +113,46 @@ async function loadPreflight() {
   renderChecks(data.checks);
 }
 
+// ζ.5 — status icon names map to keys in window.ebibleIcons.
+// SVG markup is fetched lazily so this code keeps working even on
+// the (transient) edge case where THEME_ICONS_JS hasn't loaded yet.
+function statusIconHtml(status) {
+  const name = {pass: 'check', warn: 'alert-triangle', fail: 'x-circle'}[status];
+  return (window.ebibleIcons && window.ebibleIcons[name]) || '';
+}
+
 function renderBanner(s) {
   const banner = document.getElementById('banner');
   const icon = document.getElementById('banner-icon');
   const headline = document.getElementById('banner-headline');
   const detail = document.getElementById('banner-detail');
   banner.classList.remove('hidden', 'pass-bg', 'warn-bg', 'fail-bg');
+  let status;
   if (s.ready_to_ship && s.warn === 0) {
+    status = 'pass';
     banner.classList.add('pass-bg');
-    icon.textContent = '✓';
-    icon.className = 'text-3xl pass';
     headline.textContent = 'Ready to ship';
     detail.textContent = `All ${s.total} checks pass.`;
   } else if (s.ready_to_ship) {
+    status = 'warn';
     banner.classList.add('warn-bg');
-    icon.textContent = '⚠';
-    icon.className = 'text-3xl warn';
     headline.textContent = 'Ready to ship — with warnings';
     detail.textContent =
       `${s.pass} pass · ${s.warn} warn · ${s.fail} fail. ` +
       `No blockers, but consider addressing warnings before release.`;
   } else {
+    status = 'fail';
     banner.classList.add('fail-bg');
-    icon.textContent = '✗';
-    icon.className = 'text-3xl fail';
     headline.textContent = 'Not ready to ship';
     detail.textContent =
       `${s.pass} pass · ${s.warn} warn · ${s.fail} fail. ` +
       `Failing checks must be addressed before BUILD.`;
   }
+  icon.innerHTML = statusIconHtml(status);
+  // text-3xl on the wrapper sets font-size context (1.875rem); the
+  // SVG's `.theme-icon` consumes that via `width: 1em; height: 1em`.
+  // status class (pass/warn/fail) supplies the color via .pass/.warn/.fail CSS.
+  icon.className = `text-3xl ${status}`;
 }
 
 function renderChecks(checks) {
@@ -146,13 +161,13 @@ function renderChecks(checks) {
   for (const c of checks) {
     const node = document.createElement('details');
     const status = c.status; // pass/warn/fail
-    const icon = {pass: '✓', warn: '⚠', fail: '✗'}[status];
+    const iconSvg = statusIconHtml(status);
     const bg = {pass: '', warn: 'warn-bg', fail: 'fail-bg'}[status];
     node.className = `check-row border rounded ${bg}`;
     const detailsBody = renderDetails(c.details);
     node.innerHTML = `
       <summary class="px-4 py-3 flex items-center gap-3">
-        <span class="icon ${status}">${icon}</span>
+        <span class="icon ${status}">${iconSvg}</span>
         <div class="flex-1">
           <div class="font-medium">${escapeAttr(c.name)}</div>
           <div class="text-sm text-slate-600">${escapeAttr(c.message)}</div>

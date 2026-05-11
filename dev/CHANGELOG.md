@@ -6,6 +6,347 @@
 
 ---
 
+## 2026-05-11 — session — ζ.5 iconography pass (Month 2 #4, replaces /preflight unicode glyphs with themable inline SVGs)
+
+**Phases shipped:** ζ.5 (inline-SVG icon registry + JS
+exposure + `.theme-icon` utility + /preflight retrofit).
+**Test delta:** +25 (`tests/test_iconography_zeta5.py`,
+6 test classes).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+Five pieces replace /preflight's unicode-glyph status
+icons (✓ ⚠ ✗) with proper inline SVGs that inherit
+`currentColor` and scale via parent font-size:
+
+1. **`ICONS_REGISTRY: dict[str, str]`** in
+   `scripts/templates/_design.py` — 6 Lucide-shape icons
+   used by /preflight today (and future ζ.6/7/8 phases):
+   - `check` — pass status (replaces ✓)
+   - `alert-triangle` — warn status (replaces ⚠)
+   - `x-circle` — fail status (replaces ✗)
+   - `info` — informational banners (ζ.6 toasts will use)
+   - `chevron-right` — disclosure indicator
+   - `external-link` — outbound-link visual hint
+
+   Each icon is built via `_make_icon(name, path)` which
+   wraps the Lucide path in the canonical SVG attrs:
+   24x24 viewBox, 2px stroke, `stroke="currentColor"`,
+   `fill="none"`, `aria-hidden="true"`, `class="theme-icon"`,
+   `data-icon="<name>"` for DOM inspection.
+
+2. **`theme_icon(name)` Python builder** — returns SVG
+   markup for known icons, empty string for unknown
+   names (graceful degrade on typos rather than raising,
+   so a template typo doesn't crash the page).
+
+3. **`THEME_ICONS_JS` constant** — `<script>` block
+   exposing the registry as `window.ebibleIcons`. The
+   payload is JSON-encoded so the SVG strings'
+   double-quotes (`stroke="currentColor"` etc.) don't
+   break the JS literal. Generated at module load — any
+   future addition to `ICONS_REGISTRY` automatically
+   appears in `window.ebibleIcons` without separate
+   maintenance.
+
+4. **`.theme-icon` utility class** in `THEME_TOKENS_CSS`:
+
+   ```css
+   .theme-icon {
+     display: inline-block;
+     width: 1em;
+     height: 1em;
+     vertical-align: -0.125em;
+     flex-shrink: 0;
+     stroke: currentColor;
+     fill: none;
+   }
+   ```
+
+   SVG sizes to 1em of parent's font-size; stroke + fill
+   inherit via `currentColor`. The `-0.125em` vertical-
+   align tweak puts the icon on the text baseline rather
+   than the cap-height.
+
+5. **`<!-- THEME_ICONS_JS -->` marker substitution**
+   added to `apply_design_system`. /preflight absorbed
+   the marker in `<head>` between `DARK_MODE_JS` and
+   `BUYER_ARC_POLISH_CSS`. JS migrated:
+
+   ```js
+   // before
+   icon.textContent = '✓';
+   icon.className = 'text-3xl pass';
+   const icon = {pass: '✓', warn: '⚠', fail: '✗'}[status];
+
+   // after
+   function statusIconHtml(status) {
+     const name = {pass: 'check', warn: 'alert-triangle', fail: 'x-circle'}[status];
+     return (window.ebibleIcons && window.ebibleIcons[name]) || '';
+   }
+   icon.innerHTML = statusIconHtml(status);
+   icon.className = `text-3xl ${status}`;
+   ```
+
+### Why a registry + JSON exposure
+
+The pattern needed by /preflight (JS-driven banner icon)
+diverged from the simpler "Python f-string embed" pattern.
+Some surfaces are server-rendered (HTML strings produced
+in Python) — they use `theme_icon(name)`. Others are
+client-rendered (DOM nodes built by inline JS) — they use
+`window.ebibleIcons[name]`. Both consume the same single
+source-of-truth `ICONS_REGISTRY`.
+
+JSON-encoding the payload sidesteps a class of bug where
+naïve string interpolation of SVG into a JS literal
+breaks on the SVG's internal double-quotes
+(`stroke="currentColor"` etc.) The JSON encoder handles
+escaping correctly. `JSON.parse` happens implicitly via
+the JS engine consuming the embedded object literal.
+
+### Cascade caveat (icons-specific)
+
+Unlike ζ.2's body-text fix where conflicting Tailwind
+classes had to be removed, icons don't have the same
+collision — Tailwind's CDN doesn't ship an `.icon` class.
+The `.theme-icon` rule lands cleanly. (The /preflight
+banner-icon span retains its `text-3xl` Tailwind class to
+provide the font-size CONTEXT that the SVG's `1em` sizing
+consumes — that's not a collision, it's parent-to-child
+inheritance.)
+
+### Tests (25 new)
+
+In `tests/test_iconography_zeta5.py`:
+
+1. **TestZeta5IconsRegistry** (8 tests) — 3 required
+   status icons present (check, alert-triangle, x-circle),
+   3 utility icons present (info, chevron-right,
+   external-link), every entry is a valid SVG element,
+   every entry uses `stroke="currentColor" fill="none"`,
+   every entry uses `viewBox="0 0 24 24"`, every entry
+   carries `aria-hidden="true"`, every entry carries
+   `class="theme-icon"`, every entry records its name
+   via `data-icon` attribute.
+2. **TestZeta5ThemeIconHelper** (2 tests) — returns
+   correct SVG for known names, returns empty string for
+   unknown.
+3. **TestZeta5ThemeIconsJs** (3 tests) — `<script>`
+   wrapper, exposes `window.ebibleIcons`, payload parses
+   as valid JSON and matches `ICONS_REGISTRY` exactly.
+4. **TestZeta5ThemeIconUtilityClass** (4 tests) — rule
+   present, 1em sizing, `currentColor` stroke + `fill:
+   none`, `inline-block` with `vertical-align` for baseline
+   alignment.
+5. **TestZeta5ApplyDesignSystem** (3 tests) — marker
+   substitution, no-op on missing marker, idempotency.
+6. **TestZeta5PreflightWired** (5 tests) — marker
+   substituted at module load, `window.ebibleIcons`
+   present in rendered HTML, `statusIconHtml` helper used,
+   no residual `textContent = '✓'` JS assignments, status
+   → icon-name dispatch table (`'check'` / `'alert-triangle'`
+   / `'x-circle'`) pinned.
+
+### What ζ.6 inherits
+
+ζ.6 toasts can now:
+- Use `window.ebibleIcons.info` for informational toasts,
+  `.check` for success, `.alert-triangle` for warnings,
+  `.x-circle` for errors.
+- Style toasts via `--color-status-{success,warn,error,info}`
+  (ζ.1) and `--font-size-sm` (ζ.4) for sizing.
+- Themable in dark mode automatically (currentColor
+  inheritance + the dark-theme color overrides from ζ.1).
+
+### What's next
+
+Per Month 2 sequence: ζ.6 toast notifications → ζ.7
+skeleton loaders → ζ.8 command palette (Cmd+K).
+
+### Test count
+
+Serial run: **2408 / 2409 tests pass (1 skipped); 11/11
+lint clean.** ζ.4 baseline was 2383; +25 ζ.5 = 2408.
+Math checks out.
+
+---
+
+## 2026-05-11 — session — ζ.4 typography upgrade (Month 2 #3, themable type scale)
+
+**Phases shipped:** ζ.4 (typography tokens + utility
+classes + body rule + /preflight retrofit).
+**Test delta:** +18 (`tests/test_typography_zeta4.py`,
+4 test classes).
+**Linter delta:** 11/11 clean.
+
+### Slot note: ζ.3 was not allocated
+
+`PROPOSAL_FEATURE_LANDSCAPE.md` §6 Month 2 sequence goes
+ζ.1 → ζ.2 → **ζ.4** → ζ.5 → ζ.6 → ζ.7 → ζ.8. The ζ.3 slot
+was never assigned a phase. Per §5 sticky rule it stays
+unassigned (and reserved for any later "I want this
+between dark mode and typography" candidate, if one ever
+materializes). Today's ship claims ζ.4 — no number is
+being skipped, just the proposal's gap respected.
+
+### What shipped
+
+Three pieces extend ζ.1's `THEME_TOKENS_CSS` with a
+themable typography layer:
+
+1. **Typography tokens added to `:root`** (theme-
+   independent — font choice doesn't change between light
+   and dark, so no `:root[data-theme="dark"]` override
+   needed):
+
+   ```
+   --font-stack-body   ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                       "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+                       sans-serif, "Apple Color Emoji", "Segoe UI Emoji"
+   --font-stack-mono   ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                       "Liberation Mono", "Courier New", monospace
+   --font-size-xs      0.75rem    (12px)
+   --font-size-sm      0.875rem   (14px)
+   --font-size-base    1rem       (16px)  ← anchor
+   --font-size-lg      1.125rem   (18px)
+   --font-size-xl      1.25rem    (20px)
+   --font-size-2xl     1.5rem     (24px)
+   --leading-tight     1.25
+   --leading-normal    1.5
+   --leading-relaxed   1.625
+   --font-weight-normal     400
+   --font-weight-medium     500
+   --font-weight-semibold   600
+   --font-weight-bold       700
+   ```
+
+2. **`body { ... }` rule added to `THEME_TOKENS_CSS`** —
+   sets `font-family`, `font-size`, `line-height` from the
+   tokens. Tailwind v3 CDN's preflight sets `font-family`
+   on `html`; the more-specific selector winning the
+   cascade is `body`, so this rule wins for the entire
+   DOM tree without per-element migration.
+
+   ```css
+   body {
+     font-family: var(--font-stack-body);
+     font-size: var(--font-size-base);
+     line-height: var(--leading-normal);
+   }
+   ```
+
+3. **11 new utility classes** consume the tokens:
+
+   - `.theme-text-xs` / `.theme-text-sm` / `.theme-text-base`
+     / `.theme-text-lg` / `.theme-text-xl` / `.theme-text-2xl`
+     (each pairs font-size + line-height — smaller sizes
+     use `leading-normal`, larger sizes use `leading-tight`)
+   - `.theme-font-mono` (font-family swap for code/pre)
+   - `.theme-weight-normal` / `.theme-weight-medium`
+     / `.theme-weight-semibold` / `.theme-weight-bold`
+
+### Font-loading decision
+
+System stack only — no Google Fonts, no Bunny CDN, no
+external dependency. Reasons:
+- Zero network cost (the modern stack resolves to the OS
+  default sans-serif: SF Pro on macOS, Segoe UI on
+  Windows, Roboto on Android, Inter-like on Chromium 84+
+  via `ui-sans-serif`).
+- No FOIT / FOUT — fonts paint on first render.
+- Matches the project's "no build step" rule
+  (CLAUDE_PROJECT_RULES §6.3).
+- Future opt-in is one token edit: swap
+  `--font-stack-body` to `'Inter', ui-sans-serif, ...` +
+  add a `<link>` for Inter, and every console picks it up.
+
+### `/preflight` retrofit
+
+```html
+<!-- before -->
+<h1 class="text-2xl font-semibold mb-2">...</h1>
+<p class="text-sm text-slate-600 mb-6">...</p>
+<style>.details-list { font-family: ui-monospace, monospace; ... }</style>
+
+<!-- after -->
+<h1 class="theme-text-2xl theme-weight-semibold mb-2">...</h1>
+<p class="theme-text-sm theme-text-muted mb-6">...</p>
+<style>.details-list { font-family: var(--font-stack-mono, ui-monospace, monospace); ... }</style>
+```
+
+The Tailwind utility-class removal pattern from ζ.2 (drop
+`text-2xl` / `font-semibold` rather than augment) is
+applied here too: leaving the Tailwind classes alongside
+the theme classes would let the CDN's JIT-injected
+utilities win the cascade.
+
+The `.details-list` font-family change uses the var()
+fallback chain so consoles that haven't absorbed
+`THEME_TOKENS_CSS` still get the original `ui-monospace`
+stack — backward-compatible.
+
+### Cascade caveat (same as ζ.2)
+
+Tailwind CDN injects utility classes AFTER inline
+`<style>` blocks; same-specificity utilities WIN. The
+fix for typography is identical to ζ.2's: REMOVE
+conflicting Tailwind classes when migrating to
+`theme-*`. The `body { ... }` rule works because it
+targets `body` directly (not via a class), and Tailwind's
+preflight targets `html` — different element, no
+specificity collision.
+
+### Tests (18 new)
+
+In `tests/test_typography_zeta4.py`:
+
+1. **TestZeta4TypographyTokens** (6 tests) — font-stack-body
+   token present + uses `ui-sans-serif` + `system-ui`,
+   font-stack-mono present + uses `ui-monospace`, six-step
+   size scale present, base size is `1rem`, three leadings
+   present, four weights present.
+2. **TestZeta4TypographyUtilities** (5 tests) — six
+   `.theme-text-*` classes present, each references its
+   `var(--font-size-*)` lookup, each pairs line-height,
+   `.theme-font-mono` references `--font-stack-mono`, all
+   four `.theme-weight-*` classes present.
+3. **TestZeta4BodyFontRule** (3 tests) — `body { ... }` rule
+   present, references `var(--font-stack-body)`, sets
+   base size + leading.
+4. **TestZeta4PreflightRetrofit** (4 tests) — h1 uses
+   `theme-text-2xl theme-weight-semibold`, body
+   paragraphs use `theme-text-sm`, `.details-list` uses
+   themable mono var (with rgb fallback chain), no
+   residual Tailwind `text-2xl` on the h1.
+
+### What ζ.5 inherits
+
+ζ.5 iconography pass now has a stable type-scale to size
+icons against. The toggle button SVG from ζ.2 already
+uses `width="18" height="18"` (hardcoded). ζ.5 can
+introduce a `.theme-icon` utility sized via
+`--font-size-base` (or a dedicated `--icon-size-*` set),
+plus a small inline-SVG icon library (Lucide-shape: 24x24
+viewBox, 2px stroke). The /preflight pass/warn/fail
+unicode glyphs (✓ ⚠ ✗) are candidates for SVG promotion
+in ζ.5.
+
+### What's next
+
+Per Month 2 sequence: ζ.5 iconography → ζ.6 toast
+notifications → ζ.7 skeleton loaders → ζ.8 command
+palette (Cmd+K).
+
+### Test count
+
+Serial run: **2383 / 2384 tests pass (1 skipped); 11/11
+lint clean.** ζ.2 baseline was 2365; +18 ζ.4 = 2383.
+Math checks out.
+
+---
+
 ## 2026-05-11 — session — ζ.2 dark mode (Month 2 #2, first user-visible payoff of the modernization arc)
 
 **Phases shipped:** ζ.2 (dark-mode toggle activating
