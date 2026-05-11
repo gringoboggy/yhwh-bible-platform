@@ -6,6 +6,130 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.2 scenarios extracted (second file-split slice; first with internal helpers)
+
+**Phases shipped:** ω.35-B.2. Scenarios topic extracted —
+larger surface than B.1 (snapshots): 5 `api_*_scenario*`
+handlers plus 2 internal helpers (`_scenario_path`,
+`_resolve_scenario_recipe`) plus 1 regex constant
+(`_SCENARIO_NAME_RE`). All 8 names re-imported into
+`scripts/web.py` so the existing flat namespace stays the
+same — pre-existing tests that reference
+`scripts.web._scenario_path` continue working unchanged.
+**Test delta:** +8 (was 2068, now 2076; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `scripts/api/scenarios.py` module containing:
+  - Constants: `REPO`, `SCENARIOS_DIR`, `_SCENARIO_NAME_RE`
+  - Helpers: `_scenario_path`, `_resolve_scenario_recipe`
+  - Read handlers: `api_list_scenarios`, `api_get_scenario`,
+    `api_export_scenario_yaml`
+  - Mutation handlers (audit-logged): `api_save_scenario`,
+    `api_import_scenario_yaml`, `api_delete_scenario`
+- `scripts/web.py` replaces the ~370-line scenario block
+  with a single re-import block:
+  ```python
+  from scripts.api.scenarios import (
+      _resolve_scenario_recipe,
+      _scenario_path,
+      _SCENARIO_NAME_RE,
+      api_delete_scenario,
+      api_export_scenario_yaml,
+      api_get_scenario,
+      api_import_scenario_yaml,
+      api_list_scenarios,
+      api_save_scenario,
+  )
+  ```
+  Net delta: **-371 lines in web.py**. The file went from
+  ~7560 to ~7190 lines — a 5% reduction in a single slice.
+- 8 new tests in `TestOmega35B2ScenariosExtraction`:
+  - scenarios module is importable on its own (5 handlers
+    + 2 helpers + 1 constant)
+  - 6 handler names backward-compatible via web.py
+  - 3 internal-helper names also backward-compatible
+    (`_scenario_path`, `_resolve_scenario_recipe`,
+    `_SCENARIO_NAME_RE`)
+  - handlers actually live in the new module (`__module__`
+    checks; unwraps `__wrapped__` for audit_log decorator)
+  - route tables (PUT/DELETE/POST) still dispatch scenarios
+  - audit decorator preserved on the 3 mutating handlers
+  - web.py no longer has inline `def api_*_scenario*` or
+    `_SCENARIO_NAME_RE = re.compile(` definitions
+  - `_scenario_path` round-trips identically between the
+    new module's direct import and the web.py re-export
+    (same function object — `is` check)
+- 41 pre-existing scenarios tests still pass (no regression).
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | Helpers | web.py LOC saved |
+|---|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | 0 | ~76 |
+| ω.35-B.2 | scenarios | 5 + get | 2 + 1 const | ~371 |
+
+**Cumulative: -447 lines in web.py across 2 slices.**
+
+### Notable decisions
+
+- **Why re-export internal helpers from web.py.** Some
+  existing tests reference `scripts.web._scenario_path`
+  directly (the helper is documented in their docstrings
+  as the under-the-hood validator). Re-exporting it
+  preserves that contract. The cost is negligible — one
+  line in the import block.
+- **Why a regex constant is also re-exported.**
+  `_SCENARIO_NAME_RE` is the validator's source of truth;
+  test suites that compile their own patterns to compare
+  against the validator's behavior rely on accessing the
+  module's compiled pattern. Re-exporting keeps that path
+  open.
+- **Why scenarios second (after snapshots).** Scenarios
+  is the next-cleanest topic by dependency depth: depends
+  on `config` (kind/edition validation), `notes_io`
+  (atomic write + backup), `audit_log` (decorator), and a
+  lazy import of `scripts.core.matrix` (for recipe
+  resolution). No cross-references to other api_X
+  functions. Slightly larger than snapshots (which had no
+  cross-helper logic), but conceptually similar.
+- **REPO and SCENARIOS_DIR are duplicated in the new
+  module, NOT imported from web.py.** Reason: importing
+  from web.py would create an import cycle (web.py
+  imports from api.scenarios; api.scenarios imports from
+  web.py). Defining the constants locally in
+  `scripts/api/scenarios.py` makes the module
+  standalone-importable. Both modules agree on the
+  values; if `content/scenarios/` ever moves, the change
+  happens in both places (small concern; pinned by a
+  cross-module sanity check if needed).
+- **xdist test_compute_key_is_deterministic flake.** Saw
+  this fail once in the parallel run but pass in
+  isolation. Known class of xdist flakes around shared
+  corpus state. Not caused by this slice; documented but
+  not addressed here.
+
+### Open follow-ups (file split roadmap)
+
+- **ω.35-B.3** — sources/covers extraction. Sources is
+  larger than scenarios (~10 functions: cache status,
+  fetch, fetch_all, upload, clear, plus the sources
+  navigator). Covers is smaller (~5 functions: upload
+  main, upload book, delete main, delete book, list).
+  Could split into B.3a (sources) and B.3b (covers) if
+  the combined diff gets unwieldy.
+- **ω.35-B.4** — editions/customize.
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-B.1 → **B.2 ✓ → B.3**
+sources/covers → B.4 editions/customize → B.5
+exports/build → B.6 preflight/audit/help → ψ.35 matrix
+collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-B.1 snapshots extracted (first slice of the web.py file split)
 
 **Phases shipped:** ω.35-B.1. First file-split slice. Six

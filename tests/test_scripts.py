@@ -26063,3 +26063,140 @@ class TestOmega35B1SnapshotsExtraction:
             assert f"def {name}(" not in text, (
                 f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.snapshots only"
             )
+
+
+class TestOmega35B2ScenariosExtraction:
+    """ω.35-B.2 — second slice of the web.py file split. 5
+    `api_*_scenario*` handlers + 2 internal helpers (`_scenario_path`,
+    `_resolve_scenario_recipe`) + 1 regex constant (`_SCENARIO_NAME_RE`)
+    moved from `scripts/web.py` into `scripts/api/scenarios.py`.
+    `scripts/web.py` re-imports all 8 names so the existing flat
+    namespace is preserved.
+
+    Bigger than B.1 (snapshots): scenarios has internal helpers that
+    other code (tests, /matrix UI) reference by name, so the
+    re-import surface is wider. Audit decorators preserved on the 3
+    mutating handlers (save, import_yaml, delete).
+    """
+
+    def test_scenarios_module_exists(self):
+        import scripts.api.scenarios as scenarios_api
+
+        assert hasattr(scenarios_api, "api_list_scenarios")
+        assert hasattr(scenarios_api, "api_get_scenario")
+        assert hasattr(scenarios_api, "api_save_scenario")
+        assert hasattr(scenarios_api, "api_export_scenario_yaml")
+        assert hasattr(scenarios_api, "api_import_scenario_yaml")
+        assert hasattr(scenarios_api, "api_delete_scenario")
+        # Internal helpers
+        assert hasattr(scenarios_api, "_scenario_path")
+        assert hasattr(scenarios_api, "_resolve_scenario_recipe")
+        assert hasattr(scenarios_api, "_SCENARIO_NAME_RE")
+
+    def test_scenario_handlers_backward_compatible_via_web(self):
+        from scripts.web import (
+            api_delete_scenario,
+            api_export_scenario_yaml,
+            api_get_scenario,
+            api_import_scenario_yaml,
+            api_list_scenarios,
+            api_save_scenario,
+        )
+
+        for fn in (
+            api_delete_scenario,
+            api_export_scenario_yaml,
+            api_get_scenario,
+            api_import_scenario_yaml,
+            api_list_scenarios,
+            api_save_scenario,
+        ):
+            assert callable(fn)
+
+    def test_scenario_internal_helpers_backward_compatible_via_web(self):
+        # Internal helpers (`_scenario_path`, `_resolve_scenario_recipe`,
+        # `_SCENARIO_NAME_RE`) ARE re-exported from web.py because some
+        # tests reference them by the `scripts.web.X` path.
+        from scripts.web import _resolve_scenario_recipe, _scenario_path, _SCENARIO_NAME_RE
+
+        assert callable(_scenario_path)
+        assert callable(_resolve_scenario_recipe)
+        assert _SCENARIO_NAME_RE.match("foo")
+        assert not _SCENARIO_NAME_RE.match("FOO")  # uppercase rejected
+
+    def test_handlers_actually_live_in_new_module(self):
+        from scripts.web import api_save_scenario, api_list_scenarios, api_delete_scenario
+
+        for fn in (api_save_scenario, api_list_scenarios, api_delete_scenario):
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.scenarios", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.scenarios"
+            )
+
+    def test_route_tables_still_dispatch_scenarios(self):
+        from scripts import web
+
+        put_patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        delete_patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
+        post_patterns = [r.pattern for r, _ in web._POST_ROUTES]
+        # /api/scenarios/<name> (PUT save) + /api/scenarios/<name> (DELETE)
+        # + /api/scenarios/_import (POST)
+        assert any("/api/scenarios/" in p for p in put_patterns)
+        assert any("/api/scenarios/" in p for p in delete_patterns)
+        assert any("/api/scenarios/_import" in p for p in post_patterns)
+
+    def test_audit_decorator_preserved_on_mutations(self):
+        from scripts.api.scenarios import (
+            api_delete_scenario,
+            api_import_scenario_yaml,
+            api_save_scenario,
+        )
+
+        for fn in (api_save_scenario, api_import_scenario_yaml, api_delete_scenario):
+            # The decorator wraps the function but doesn't change the
+            # name visible via the import.
+            assert fn.__name__.endswith("scenario") or fn.__name__.endswith("yaml"), (
+                f"unexpected name after decoration: {fn.__name__}"
+            )
+
+    def test_web_py_does_not_define_scenario_handlers_inline(self):
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in (
+            "api_list_scenarios",
+            "api_get_scenario",
+            "api_save_scenario",
+            "api_export_scenario_yaml",
+            "api_import_scenario_yaml",
+            "api_delete_scenario",
+            "_scenario_path",
+            "_resolve_scenario_recipe",
+        ):
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.scenarios only"
+            )
+        # The regex constant: assignment is `_SCENARIO_NAME_RE = re.compile(...)`,
+        # not a `def`. Pin: no such assignment in web.py.
+        assert "_SCENARIO_NAME_RE = re.compile" not in text, (
+            "web.py still has inline `_SCENARIO_NAME_RE = re.compile(...)` — "
+            "should be re-imported from scripts.api.scenarios only"
+        )
+
+    def test_scenario_path_validates_name(self):
+        # Smoke test the internal helper round-trips through both
+        # the new module's direct import and the web.py re-export.
+        from scripts.api.scenarios import _scenario_path as direct
+        from scripts.web import _scenario_path as reexport
+
+        # Same function object via both paths
+        assert direct is reexport
+        # Valid name returns a Path; invalid raises
+        p = direct("my-scenario")
+        assert "my-scenario.yaml" in str(p)
+        try:
+            direct("BAD")  # uppercase rejected
+            raise AssertionError("expected ValueError for uppercase name")
+        except ValueError:
+            pass

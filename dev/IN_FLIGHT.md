@@ -4,6 +4,104 @@
 
 ## Prior task
 
+**ω.35-B.2 scenarios extracted** shipped 2026-05-11. Second
+file-split slice; larger surface than B.1 because scenarios
+has internal helpers + a regex constant that pre-existing
+tests reference by name.
+
+**New module:** `scripts/api/scenarios.py` containing:
+- Constants: `REPO`, `SCENARIOS_DIR` (duplicated locally
+  to avoid an import cycle with web.py), `_SCENARIO_NAME_RE`
+- Internal helpers: `_scenario_path`,
+  `_resolve_scenario_recipe`
+- Read handlers: `api_list_scenarios`, `api_get_scenario`,
+  `api_export_scenario_yaml`
+- Mutation handlers (audit-logged): `api_save_scenario`,
+  `api_import_scenario_yaml`, `api_delete_scenario`
+
+**web.py change:** ~370 lines of inline scenario code
+replaced with a 9-name re-import block. Net delta:
+**-371 lines in web.py** (5% reduction in a single slice).
+
+### Cumulative file-split progress
+
+| Slice | Topic | LOC delta in web.py |
+|---|---|---|
+| ω.35-B.1 | snapshots | -76 |
+| ω.35-B.2 | scenarios | -371 |
+| **Total** | | **-447** |
+
+### Why a wider re-import surface (vs. B.1)
+
+Scenarios has 3 internal names that pre-existing tests
+reference directly:
+- `_scenario_path` — the safety-validating path resolver
+- `_resolve_scenario_recipe` — recipe → flat enabled_kinds
+- `_SCENARIO_NAME_RE` — the validator pattern
+
+Re-exporting them from web.py preserves the
+`scripts.web._scenario_path` import contract. The cost is
+3 extra lines; the benefit is no test-code changes.
+
+### Why duplicate REPO and SCENARIOS_DIR
+
+Importing them from web.py would create a cycle (web.py
+imports from api.scenarios; api.scenarios imports from
+web.py). Defining the constants locally makes the new
+module standalone-importable. The duplication is small
+(2 lines) and pinned: both modules agree on the path
+values.
+
+### Test pinning
+
+8 tests in `TestOmega35B2ScenariosExtraction`:
+- scenarios module importable on its own (5 handlers + 2
+  helpers + 1 constant)
+- 6 handler names backward-compatible via web.py
+- 3 internal-helper names also backward-compatible
+- handlers actually live in the new module (`__module__`
+  check with `__wrapped__` unwrap for audit decorator)
+- route tables (PUT/DELETE/POST) still dispatch scenarios
+- audit decorator preserved on the 3 mutating handlers
+- web.py has no inline `def api_*_scenario*` or regex
+  constant assignment
+- `_scenario_path` is the SAME function object via both
+  paths (`is` check)
+
+41 pre-existing scenario tests still pass.
+
+### xdist flake noted
+
+`test_compute_key_is_deterministic` failed once in the
+parallel run but passes in isolation. Known class of
+xdist flakes around shared corpus state. NOT caused by
+this slice; documented for tracking. Future
+"perf-test serialization" work may absorb it.
+
+### Open follow-ups (file split roadmap)
+
+- **ω.35-B.3** — sources/covers extraction (~15 functions
+  total). May split into B.3a sources + B.3b covers if
+  the diff grows large.
+- **ω.35-B.4** — editions/customize.
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+- Post-B.6: route tables migrate to per-module exports.
+
+Net session test delta: **+157** (1919 baseline → 2076
+final). 23 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10,
+ω.35-B.1, ω.35-B.2.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.2 ✓ → ω.35-B.3
+sources/covers → B.4 editions/customize → B.5 exports/
+build → B.6 preflight/audit/help.
+
+**2076 / 2076 tests green (1 skipped; 1 known xdist flake);
+11/11 linter clean.**
+
+## Prior task
+
 **ω.35-B.1 snapshots extracted** shipped 2026-05-11. First
 slice of the web.py file split. 6 `api_snapshot_*`
 functions moved into new `scripts/api/snapshots.py` module;

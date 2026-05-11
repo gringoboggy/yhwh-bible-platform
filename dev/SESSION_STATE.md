@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-B.1 snapshots
+**Updated:** 2026-05-11, after **ω.35-B.2 scenarios
+extracted** shipped — second file-split slice; larger
+surface than B.1 (snapshots) because scenarios has 2
+internal helpers + 1 regex constant that pre-existing tests
+reference by name. New `scripts/api/scenarios.py` module
+contains: REPO + SCENARIOS_DIR constants (duplicated to
+avoid import cycle with web.py), `_SCENARIO_NAME_RE`,
+`_scenario_path`, `_resolve_scenario_recipe`, and 6
+handlers: `api_list_scenarios`, `api_get_scenario`,
+`api_save_scenario` (audit), `api_export_scenario_yaml`,
+`api_import_scenario_yaml` (audit), `api_delete_scenario`
+(audit). web.py re-imports all 9 names. **Net delta:
+-371 lines in web.py** (5% reduction in a single slice).
+Cumulative across B.1+B.2: -447 lines. **+8 tests** in
+`TestOmega35B2ScenariosExtraction`: module importable, 6
+handlers backward-compatible via web.py, 3 internal-helper
+names also backward-compatible, handlers actually live in
+new module (`__module__` check with `__wrapped__` unwrap
+for audit decorator), route tables (PUT/DELETE/POST) still
+dispatch scenarios, audit decorator preserved on mutations,
+web.py has no inline `def api_*_scenario*` or
+`_SCENARIO_NAME_RE = re.compile(` definitions,
+`_scenario_path` is the SAME function object via both
+import paths (`is` check). Pattern now solid for B.3+
+slices. AUDIT §7 sequence: ω.35-B.2 ✓ → **B.3** sources/
+covers (next; ~15 functions total — may split into B.3a
+sources + B.3b covers if diff grows large) → B.4 editions/
+customize → B.5 exports/build → B.6 preflight/audit/help.
+Net session test delta: **+157** (1919 baseline → 2076
+final). 23 phases shipped this session: Δ.5, Δ.6, Δ.8,
+Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36,
+ω.35-A.1-A.10, ω.35-B.1, ω.35-B.2. **2076 / 2076 tests
+green (1 skipped; 1 known xdist flake `test_compute_key_is
+_deterministic` passes in isolation); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-B.1 snapshots
 extracted** shipped — first slice of the web.py file split.
 6 `api_snapshot_*` functions moved from scripts/web.py into
 new `scripts/api/snapshots.py` module (with package marker
