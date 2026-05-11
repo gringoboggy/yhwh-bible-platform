@@ -25570,3 +25570,222 @@ class TestOmega35A8BespokeCleanup:
 
         result = check_routes.run_all()
         assert result["summary"]["clean"] is True
+
+
+class TestOmega35A9MultipartTable:
+    """ω.35-A.9 — eighth route-table slice; first table with a
+    DISTINCT entry shape (3-tuple instead of 2-tuple) and a
+    DISTINCT lambda signature `lambda m, body, content_type`.
+
+    `_MULTIPART_ROUTES` covers the 3 POST routes that take a
+    multipart body instead of JSON. The dispatch helper
+    `_dispatch_multipart_route` consolidates the boilerplate
+    that previously lived in `_handle_cover_upload` and
+    `_handle_sources_cache_upload` (both methods deleted by
+    this phase).
+
+    Per-route size cap: cover uploads = COVERS_UPLOAD_MAX_BYTES
+    (10 MB), sources cache uploads = SOURCES_UPLOAD_MAX_BYTES
+    (50 MB). The dispatch loop multiplies by 2 before rejecting
+    (matches the prior pattern's defensive comment).
+
+    Routes:
+    - /api/covers/<ed>/main         → api_upload_cover_main
+    - /api/covers/<ed>/book/<book>  → api_upload_cover_book
+    - /api/sources/cache/<id>/upload → api_sources_cache_upload
+    """
+
+    def test_multipart_table_has_three_entries(self):
+        from scripts import web
+
+        assert len(web._MULTIPART_ROUTES) == 3
+
+    def test_multipart_table_entries_shape(self):
+        # Distinct 3-tuple shape: (regex, max_bytes, handler).
+        from scripts import web
+
+        for entry in web._MULTIPART_ROUTES:
+            assert isinstance(entry, tuple)
+            assert len(entry) == 3, f"multipart entry must be 3-tuple, got {len(entry)}"
+            regex_obj, max_bytes, handler = entry
+            assert hasattr(regex_obj, "match")
+            assert isinstance(max_bytes, int)
+            assert max_bytes > 0
+            assert callable(handler)
+
+    def test_multipart_handler_signature_is_match_body_ctype(self):
+        # The multipart lambda is `lambda m, body, ctype: ...` —
+        # three args. Different from POST table's (m, payload)
+        # and DELETE table's (m).
+        import inspect
+
+        from scripts import web
+
+        for regex_obj, _max, handler in web._MULTIPART_ROUTES:
+            try:
+                sig = inspect.signature(handler)
+                params = list(sig.parameters.keys())
+                assert len(params) == 3, f"multipart handler for {regex_obj.pattern} has wrong arg count: {params}"
+            except (TypeError, ValueError):
+                pass
+
+    def test_size_caps_distinct_per_route(self):
+        # The 2 cover routes share one cap; the sources/cache
+        # upload has a different (larger) cap. Pin both.
+        from scripts import web
+
+        covers_caps = []
+        sources_caps = []
+        for regex_obj, max_bytes, _ in web._MULTIPART_ROUTES:
+            if "/covers/" in regex_obj.pattern:
+                covers_caps.append(max_bytes)
+            elif "/sources/cache/" in regex_obj.pattern:
+                sources_caps.append(max_bytes)
+        assert covers_caps, "cover-upload caps missing"
+        assert sources_caps, "sources-cache-upload cap missing"
+        # All cover-upload caps match
+        assert len(set(covers_caps)) == 1, f"cover caps differ: {covers_caps}"
+        # Sources cap is strictly larger than cover cap
+        assert sources_caps[0] > covers_caps[0], (
+            "sources cache upload cap should be larger than cover-upload cap "
+            f"(got sources={sources_caps[0]}, cover={covers_caps[0]})"
+        )
+
+    def test_do_POST_dispatches_to_multipart_table(self):
+        # The do_POST method should contain the multipart table
+        # dispatch loop, and the legacy `_handle_cover_upload`
+        # and `_handle_sources_cache_upload` methods should be
+        # deleted.
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_POST)
+        assert "_MULTIPART_ROUTES" in src, "do_POST missing multipart dispatch loop"
+        # The legacy helpers are deleted — they shouldn't appear
+        # as methods on Handler anymore.
+        assert not hasattr(Handler, "_handle_cover_upload"), (
+            "Handler._handle_cover_upload should be deleted — inlined into _dispatch_multipart_route"
+        )
+        assert not hasattr(Handler, "_handle_sources_cache_upload"), (
+            "Handler._handle_sources_cache_upload should be deleted — inlined into _dispatch_multipart_route"
+        )
+
+    def test_dispatch_multipart_route_returns_413_for_oversize(self):
+        # The helper rejects bodies larger than 2 * max_bytes
+        # with HTTP 413. Test via a stub handler.
+        from scripts.web import _dispatch_multipart_route
+
+        captured = {}
+
+        class FakeHandler:
+            headers = {"Content-Length": str(100 * 1024 * 1024), "Content-Type": "multipart/form-data"}
+            rfile = None  # never read because the size check fails first
+
+            def _send_json(self, body, status=200):
+                captured["body"] = body
+                captured["status"] = status
+
+        import re as _re
+
+        m = _re.match(r"^(.+)$", "anything")
+        # max_bytes=1MB → cap=2MB; sent 100MB → must be rejected
+        _dispatch_multipart_route(FakeHandler(), m, 1 * 1024 * 1024, lambda mt, b, c: {"ok": True})
+        assert captured["status"] == 413
+        assert "too large" in captured["body"]["error"].lower()
+
+    def test_dispatch_multipart_route_rejects_missing_content_length(self):
+        from scripts.web import _dispatch_multipart_route
+
+        captured = {}
+
+        class FakeHandler:
+            headers = {"Content-Length": "not-a-number", "Content-Type": "multipart/form-data"}
+            rfile = None
+
+            def _send_json(self, body, status=200):
+                captured["body"] = body
+                captured["status"] = status
+
+        import re as _re
+
+        m = _re.match(r"^(.+)$", "anything")
+        _dispatch_multipart_route(FakeHandler(), m, 1024, lambda mt, b, c: {"ok": True})
+        assert captured["status"] == 400
+        assert "content-length" in captured["body"]["error"].lower()
+
+    def test_dispatch_multipart_route_invokes_handler_and_dispatches_result(self):
+        # Happy path: body within cap → handler called with body
+        # bytes + ctype → result routed through
+        # _dispatch_table_result.
+        import io
+        import re as _re
+
+        from scripts.web import _dispatch_multipart_route
+
+        captured = {}
+        body_bytes = b"some multipart payload"
+
+        class FakeHandler:
+            headers = {
+                "Content-Length": str(len(body_bytes)),
+                "Content-Type": "multipart/form-data; boundary=xxx",
+            }
+            rfile = io.BytesIO(body_bytes)
+
+            def _send_json(self, body, status=200):
+                captured["body"] = body
+                captured["status"] = status
+
+        observed = {}
+
+        def fake_handler(match, body, ctype):
+            observed["body_len"] = len(body)
+            observed["ctype"] = ctype
+            observed["match"] = match
+            return {"ok": True, "size": len(body)}
+
+        m = _re.match(r"^/api/x/([a-z]+)$", "/api/x/test")
+        _dispatch_multipart_route(FakeHandler(), m, 1 * 1024 * 1024, fake_handler)
+        # Handler was called with the full body
+        assert observed["body_len"] == len(body_bytes)
+        assert observed["ctype"] == "multipart/form-data; boundary=xxx"
+        # Result was dispatched as 200 (ok:True falls through)
+        assert captured["status"] == 200
+        assert captured["body"] == {"ok": True, "size": len(body_bytes)}
+
+    def test_discovery_recognizes_multipart_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        # The 3 multipart routes are discovered as POST.
+        assert ("POST", "/api/covers/([a-z0-9-]+)/main$", True) in keys
+        assert ("POST", "/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", True) in keys
+        assert ("POST", "/api/sources/cache/([a-z0-9_-]+)/upload$", True) in keys
+
+    def test_route_inventory_clean_after_a9(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True
+
+    def test_all_pre_existing_post_routes_now_in_tables(self):
+        # After A.9, every POST route in do_POST flows through
+        # one of two tables (_POST_ROUTES or _MULTIPART_ROUTES) —
+        # no legacy `m = re.match(...)` branches remain that
+        # dispatch a POST.
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_POST)
+        # The only re.match call should be inside the dispatch
+        # loops (which use the pre-compiled regex from the table
+        # via `pattern.match(self.path)`, not `re.match`). A
+        # literal `re.match(r"^...",` call would indicate a
+        # legacy regex branch.
+        assert "re.match(r" not in src, (
+            "do_POST has a raw re.match() call — should dispatch via _POST_ROUTES "
+            "or _MULTIPART_ROUTES, not a legacy regex branch"
+        )

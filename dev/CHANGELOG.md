@@ -6,6 +6,136 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.9 multipart routes table (eighth route-table slice; first table with a distinct entry shape)
+
+**Phases shipped:** ω.35-A.9. Three multipart POST routes
+migrated to a new `_MULTIPART_ROUTES` table with a
+**distinct 3-tuple entry shape** `(regex, max_bytes,
+lambda m, body, content_type)`. The two `_handle_*` helper
+methods (`_handle_cover_upload` and
+`_handle_sources_cache_upload`) consolidated into a single
+`_dispatch_multipart_route` helper. After A.9, **every
+do_POST route is dispatched via a table** — `do_POST` is now
+~16 lines (auth + 2 dispatch loops + fall-through to PUT).
+**Test delta:** +11 (was 2042, now 2053; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `_MULTIPART_ROUTES` table in `scripts/web.py` (module
+  scope below `_POST_ROUTES`). 3 entries with the **first
+  3-tuple shape** in the table family:
+  - `/api/covers/<ed>/main` →
+    `api_upload_cover_main(g1, body, ctype)`, cap
+    `COVERS_UPLOAD_MAX_BYTES` (10 MB)
+  - `/api/covers/<ed>/book/<book>` →
+    `api_upload_cover_book(g1, g2, body, ctype)`, same cap
+  - `/api/sources/cache/<id>/upload` →
+    `api_sources_cache_upload(g1, body, ctype)`, cap
+    `SOURCES_UPLOAD_MAX_BYTES` (50 MB)
+- New `COVERS_UPLOAD_MAX_BYTES` import at module top
+  (`from scripts.core.covers import UPLOAD_MAX_BYTES as
+  COVERS_UPLOAD_MAX_BYTES`). The legacy code imported it
+  lazily inside the handler; module-top is required so the
+  table can be built at module-load time.
+- New `_dispatch_multipart_route(handler_self, match,
+  max_bytes, handler)` helper consolidating the boilerplate:
+  read Content-Length → validate int → reject > 2×max_bytes
+  with HTTP 413 → read body → call `handler(match, body,
+  content_type)` → route through `_dispatch_table_result`.
+- `Handler.do_POST` extended with the multipart dispatch
+  loop. Replaces 3 legacy `m = re.match(...)` branches that
+  called `_handle_cover_upload` or
+  `_handle_sources_cache_upload`.
+- **Deleted: `_handle_cover_upload` and
+  `_handle_sources_cache_upload` methods.** Both were ~25
+  lines of near-identical scaffolding (size validation +
+  body read + dispatch); fully absorbed by
+  `_dispatch_multipart_route`.
+- `scripts/check_routes.py` extended with `in_multipart_table`
+  state machine. Entries discovered as POST routes (multipart
+  is POST-only here). Same multi-line tolerance as the other
+  tables.
+- 11 new tests in `TestOmega35A9MultipartTable`:
+  - 3-entry count pinned
+  - 3-tuple entry shape pinned (distinct from 2-tuple PUT/
+    DELETE/POST tables)
+  - lambda signature is `(m, body, ctype)` — 3 args
+  - per-route caps distinct (covers shared one cap; sources
+    larger cap)
+  - do_POST dispatches to multipart table AND the
+    `_handle_*` methods are deleted from Handler class
+  - 413 returned for oversize bodies
+  - 400 returned for missing/invalid Content-Length
+  - handler invoked with body bytes + ctype + match; result
+    routed to `_dispatch_table_result`
+  - discovery recognizes all 3 multipart entries
+  - route inventory clean
+  - **no legacy `re.match(r"..."` in do_POST** — every POST
+    is now table-dispatched
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+| ω.35-A.8 | 1 DELETE + 2 POST | 40 |
+| ω.35-A.9 | 3 multipart POST | 43 |
+
+**43 of 94 discovered routes in tables (~46%).** **POST is
+now 11/11 COMPLETE** (8 in `_POST_ROUTES`, 3 in
+`_MULTIPART_ROUTES`). With DELETE already at 6/6, the only
+mutation-method holdouts are the 4 bespoke PUT routes
+(export/build, edition-meta, edition-meta/preview, edition/
+note-toggle — they have non-uniform response shapes that
+need shape-specific handling).
+
+### Notable decisions
+
+- **First 3-tuple table.** Adding `max_bytes` to the entry
+  beats parameter sniffing inside the lambda — the cap is
+  declarative, sits next to its pattern, and the dispatch
+  helper enforces it uniformly. A 2-tuple `(regex, handler)`
+  with handler-internal size enforcement would have
+  duplicated the size-check boilerplate.
+- **Module-top `COVERS_UPLOAD_MAX_BYTES` import.** The
+  legacy lazy import inside `_handle_cover_upload` worked
+  but the table needs the value at module-load time. The
+  import doesn't trigger any circular-dependency concerns
+  (verified with a quick CLI smoke before editing).
+- **Helper consolidation eliminates duplicate scaffolding.**
+  `_handle_cover_upload` and `_handle_sources_cache_upload`
+  differed only in:
+  - which max-bytes constant they used
+  - which `api_X(...)` they called
+  - whether they used `_send_json(..., status=400 if not ok
+    else 200)` or `_send_dict_result(result)`
+
+  All 3 dimensions are now table-driven (size from the
+  3-tuple, handler from the lambda, response from
+  `_dispatch_table_result` which handles both shapes).
+- **`do_POST` now ~16 lines.** Auth → JSON dispatch loop
+  → multipart dispatch loop → fall-through to do_PUT.
+  Down from ~120 lines pre-A.7 (and many more pre-A.5).
+- **POST migration complete.** Future POST endpoints have
+  a clear template: JSON body → add to `_POST_ROUTES`;
+  multipart body → add to `_MULTIPART_ROUTES`. The
+  "where does this go?" question is answered by body
+  shape, not by an implicit cascade order.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-A.1 → A.2 → A.3 → A.4 →
+A.5 → A.6 → A.7 → A.8 → **A.9 ✓ → A.10** bespoke PUT cleanup
+(4 routes: export/build, edition-meta, edition-meta/preview,
+edition/note-toggle) → ω.35-B file split → ψ.35 matrix
+collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.8 bespoke cleanup (seventh route-table slice; sources/cache routes)
 
 **Phases shipped:** ω.35-A.8. Three sources/cache routes

@@ -4,6 +4,117 @@
 
 ## Prior task
 
+**ω.35-A.9 multipart routes table** shipped 2026-05-11.
+First route table with a DISTINCT entry shape (3-tuple
+`(regex, max_bytes, handler)`) and DISTINCT lambda
+signature (`lambda m, body, content_type`). **POST migration
+is now COMPLETE** (11 of 11 routes — 8 in `_POST_ROUTES`,
+3 in `_MULTIPART_ROUTES`).
+
+`scripts/web.py:_MULTIPART_ROUTES` (new, module scope below
+`_POST_ROUTES`). 3 entries:
+- /api/covers/<ed>/main → api_upload_cover_main, cap
+  COVERS_UPLOAD_MAX_BYTES (10 MB)
+- /api/covers/<ed>/book/<book> → api_upload_cover_book,
+  same cap
+- /api/sources/cache/<id>/upload → api_sources_cache_upload,
+  cap SOURCES_UPLOAD_MAX_BYTES (50 MB)
+
+New module-top import: `from scripts.core.covers import
+UPLOAD_MAX_BYTES as COVERS_UPLOAD_MAX_BYTES` — required for
+the table to be built at module-load time. Legacy code did
+this lazily inside the handler.
+
+New `_dispatch_multipart_route(handler_self, match,
+max_bytes, handler)` helper. Consolidates ~25 lines of
+boilerplate that was duplicated in `_handle_cover_upload`
+and `_handle_sources_cache_upload`:
+- read Content-Length header
+- validate int parse
+- reject > 2 × max_bytes with HTTP 413
+- read body bytes
+- get Content-Type
+- call handler(match, body, content_type)
+- route result through `_dispatch_table_result`
+- catch any exception → 400
+
+**`_handle_cover_upload` and `_handle_sources_cache_upload`
+methods DELETED.** Both fully absorbed by the helper.
+
+`do_POST` now ~16 lines: auth → JSON dispatch loop →
+multipart dispatch loop → fall-through to do_PUT.
+Pre-A.7 it was ~120 lines.
+
+`check_routes.py` extended with `in_multipart_table` state.
+Entries discovered as POST routes.
+
+### Notable decisions
+
+- **First 3-tuple table.** The `max_bytes` cap is
+  declarative and per-route — sits next to its pattern in
+  the table. A 2-tuple table with handler-internal size
+  enforcement would have duplicated boilerplate. The
+  dispatch helper takes the cap as an argument and enforces
+  uniformly.
+- **Module-top constants import.** Required so the table
+  can be built at module-load time. Verified no circular-
+  dependency concern with a CLI smoke before editing.
+- **Helper consolidation.** `_handle_cover_upload` and
+  `_handle_sources_cache_upload` differed only in 3
+  dimensions (max-bytes constant, api_X function, response
+  shape). All 3 are now table-driven; the helper is
+  shape-agnostic.
+- **POST migration is complete.** Future POST endpoints
+  follow a clear template: JSON body → add to
+  `_POST_ROUTES`; multipart body → add to
+  `_MULTIPART_ROUTES`. No more implicit cascade order.
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+| ω.35-A.8 | 1 DELETE + 2 POST | 40 |
+| ω.35-A.9 | 3 multipart POST | 43 |
+
+**43 of 94 discovered routes in tables (~46%).**
+- POST: **11/11 COMPLETE** (8 + 3)
+- DELETE: **6/6 COMPLETE**
+- PUT: 6/10 (4 bespoke remain)
+- GET: 20/67 (large legacy surface — HTML, RSS, YAML,
+  static files; needs ω.35-B file split)
+
+### Open follow-ups
+
+- **ω.35-A.10 — bespoke PUT cleanup** (1 session). 4 PUT
+  routes (export/build, edition-meta, edition-meta/preview,
+  edition/note-toggle). These have non-uniform response
+  shapes; needs either custom handling per route or a 4th
+  table with a result-shape-aware lambda.
+- **ω.35-B — web.py file split** (1-2 sessions). After all
+  mutation methods are fully migrated, the next move is to
+  split web.py into `scripts/api/<topic>.py` modules. The
+  route tables become per-module exports.
+- **Perf-test serialization** (~half session).
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+134** (1919 baseline → 2053
+final). 20 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.9.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.9 ✓ → ω.35-A.10
+bespoke PUT cleanup → ω.35-B file split → ψ.35 matrix
+collapse.
+
+**2053 / 2053 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.8 bespoke cleanup (sources/cache routes)** shipped
 2026-05-11. Closes the loop on the routes that previously
 used `_send_dict_result`. **DELETE migration now COMPLETE**

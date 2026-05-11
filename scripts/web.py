@@ -58,6 +58,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 from scripts.core import audit_log, config, html_utils, notes_io  # noqa: E402
+from scripts.core.covers import UPLOAD_MAX_BYTES as COVERS_UPLOAD_MAX_BYTES  # noqa: E402  # ω.35-A.9
 
 NOTES_DIR = REPO / "content" / "notes"
 SCENARIOS_DIR = REPO / "content" / "scenarios"
@@ -6506,6 +6507,84 @@ _POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
 ]
 
 
+# ω.35-A.9 (2026-05-11) — eighth slice of the route-table migration.
+# `_MULTIPART_ROUTES` covers POST routes that take a multipart body
+# instead of JSON. Distinct entry shape: 3-tuple
+# `(regex, max_bytes, lambda m, body, content_type)` because the
+# body is bytes (not parsed dict) and the per-route size cap differs
+# (cover uploads = 10 MB; source cache uploads = 50 MB).
+#
+# The hard cap stored here is the per-file limit; the dispatch loop
+# multiplies by 2 before rejecting (matches the legacy pattern's
+# "twice the per-file limit so a hostile client can't tie up the
+# server with an unbounded read" comment).
+#
+# Handlers return the standard `{ok, ...}` or `{status, ...}` dict
+# shape and route through `_dispatch_table_result` like the other
+# tables — uniform on the response side.
+_MULTIPART_ROUTES: list[tuple[re.Pattern, int, "object"]] = [
+    # /api/covers/<ed>/main — cover upload (main hero cover)
+    (
+        re.compile(r"^/api/covers/([a-z0-9-]+)/main$"),
+        COVERS_UPLOAD_MAX_BYTES,
+        lambda m, body, ctype: api_upload_cover_main(m.group(1), body, ctype),
+    ),
+    # /api/covers/<ed>/book/<book> — cover upload (per-book cover).
+    # MUST precede /api/covers/<ed>/main if both could match — they
+    # don't here (different suffixes) but the discipline is pinned.
+    (
+        re.compile(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$"),
+        COVERS_UPLOAD_MAX_BYTES,
+        lambda m, body, ctype: api_upload_cover_book(m.group(1), m.group(2), body, ctype),
+    ),
+    # /api/sources/cache/<id>/upload — drag-drop JSON cache upload
+    (
+        re.compile(r"^/api/sources/cache/([a-z0-9_-]+)/upload$"),
+        SOURCES_UPLOAD_MAX_BYTES,
+        lambda m, body, ctype: api_sources_cache_upload(m.group(1), body, ctype),
+    ),
+]
+
+
+def _dispatch_multipart_route(
+    handler_self,
+    match: "re.Match",
+    max_bytes: int,
+    handler: "object",
+) -> None:
+    """ω.35-A.9 helper — read a multipart body within a per-route
+    size cap and route the result through the standard dispatch
+    helper. Consolidates the boilerplate that was duplicated in
+    `_handle_cover_upload` and `_handle_sources_cache_upload`:
+    parse Content-Length → validate int → reject > 2 * max_bytes
+    → read body → call handler(match, body, content_type) →
+    `_dispatch_table_result`. Any error path returns 400 with
+    `{error: str}` (matches legacy)."""
+    try:
+        length_header = handler_self.headers.get("Content-Length", "")
+        try:
+            length = int(length_header)
+        except ValueError:
+            return handler_self._send_json(
+                {"error": "missing or invalid Content-Length"},
+                status=400,
+            )
+        # Hard cap at twice the per-file limit (defensive against a
+        # hostile client streaming an unbounded body).
+        cap = max_bytes * 2
+        if length > cap:
+            return handler_self._send_json(
+                {"error": f"request too large: {length} bytes (max {cap})"},
+                status=413,
+            )
+        body = handler_self.rfile.read(length) if length > 0 else b""
+        content_type = handler_self.headers.get("Content-Type", "")
+        result = handler(match, body, content_type)
+        return _dispatch_table_result(handler_self, result)
+    except Exception as e:
+        return handler_self._send_json({"error": str(e)}, status=400)
+
+
 def _dispatch_table_result(handler_self, result: dict) -> None:
     """ω.35-A.2 helper — translate a handler dict result to an HTTP
     response, mirroring the boilerplate that appeared 10+ times in
@@ -7409,86 +7488,20 @@ class Handler(BaseHTTPRequestHandler):
             return _dispatch_table_result(self, handler(m, payload))
         # ω.16 routes migrated to _POST_ROUTES (ω.35-A.7).
         # ψ.26 + ψ.27 routes migrated to _POST_ROUTES (ω.35-A.7).
-        # Cover uploads (Phase π.4-B) — multipart/form-data, distinct
-        # from the JSON-bodied PUT/POST endpoints below. Routed here
-        # first so the multipart body isn't read as JSON.
-        m = re.match(r"^/api/covers/([a-z0-9-]+)/main$", self.path)
-        if m:
-            return self._handle_cover_upload(m.group(1), None)
-        m = re.match(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", self.path)
-        if m:
-            return self._handle_cover_upload(m.group(1), m.group(2))
-        # Source cache uploads (Phase υ.1) — multipart JSON drop
-        m = re.match(r"^/api/sources/cache/([a-z0-9_-]+)/upload$", self.path)
-        if m:
-            return self._handle_sources_cache_upload(m.group(1))
+        # ν.4 + ω.1 routes migrated to _POST_ROUTES (ω.35-A.7).
         # Source cache fetch routes (Phase υ.1) migrated to
         # _POST_ROUTES (ω.35-A.8) — `_dispatch_table_result` now
         # preserves extras in error envelopes, so the legacy
         # `_send_dict_result` behavior is preserved.
-        # ν.4 + ω.1 routes migrated to _POST_ROUTES (ω.35-A.7).
+        # ω.35-A.9 — multipart POST routes (covers main, covers
+        # book, sources cache upload) dispatched via
+        # `_MULTIPART_ROUTES` with a per-route size cap.
+        for pattern, max_bytes, handler in _MULTIPART_ROUTES:
+            m = pattern.match(self.path)
+            if m:
+                return _dispatch_multipart_route(self, m, max_bytes, handler)
         # Everything else: same as PUT — front-end uses POST for create
         return self.do_PUT()
-
-    def _handle_sources_cache_upload(self, source_id: str):
-        """Multipart JSON drop for /api/sources/cache/<id>/upload.
-        Reads the body within a generous size cap and dispatches to
-        api_sources_cache_upload (which validates JSON shape and
-        atomically writes the cache file)."""
-        try:
-            length_header = self.headers.get("Content-Length", "")
-            try:
-                length = int(length_header)
-            except ValueError:
-                return self._send_json(
-                    {"error": "missing or invalid Content-Length"},
-                    status=400,
-                )
-            # Hard cap at twice the per-file limit (defensive against a
-            # hostile client streaming an unbounded body).
-            if length > SOURCES_UPLOAD_MAX_BYTES * 2:
-                return self._send_json(
-                    {"error": (f"request too large: {length} bytes (max {SOURCES_UPLOAD_MAX_BYTES * 2})")},
-                    status=413,
-                )
-            body = self.rfile.read(length) if length > 0 else b""
-            content_type = self.headers.get("Content-Type", "")
-            result = api_sources_cache_upload(source_id, body, content_type)
-            return self._send_dict_result(result)
-        except Exception as e:
-            return self._send_json({"error": str(e)}, status=400)
-
-    def _handle_cover_upload(self, edition_id: str, book_code: str | None):
-        """Read a multipart request body within the configured size
-        cap, then dispatch to api_upload_cover_*."""
-        try:
-            length_header = self.headers.get("Content-Length", "")
-            try:
-                length = int(length_header)
-            except ValueError:
-                return self._send_json(
-                    {"error": "missing or invalid Content-Length"},
-                    status=400,
-                )
-            # Hard cap at twice the per-file limit so a hostile
-            # client can't tie up the server with an unbounded read.
-            from scripts.core.covers import UPLOAD_MAX_BYTES
-
-            if length > UPLOAD_MAX_BYTES * 2:
-                return self._send_json(
-                    {"error": (f"request too large: {length} bytes (max {UPLOAD_MAX_BYTES * 2})")},
-                    status=413,
-                )
-            body = self.rfile.read(length) if length > 0 else b""
-            content_type = self.headers.get("Content-Type", "")
-            if book_code is None:
-                result = api_upload_cover_main(edition_id, body, content_type)
-            else:
-                result = api_upload_cover_book(edition_id, book_code, body, content_type)
-            status = 200 if result.get("ok") else 400
-            return self._send_json(result, status=status)
-        except Exception as e:
-            return self._send_json({"error": str(e)}, status=400)
 
 
 # ============================================================

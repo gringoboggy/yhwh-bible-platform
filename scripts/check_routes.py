@@ -143,6 +143,7 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
     in_put_table: bool = False
     in_delete_table: bool = False
     in_post_table: bool = False
+    in_multipart_table: bool = False
     for line_no, line in enumerate(lines, start=1):
         # ω.35-A.1 — track the `_SIMPLE_GET_ROUTES` table opening
         # so its `(path, handler)` tuples register as GET routes.
@@ -249,6 +250,25 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
                 continue
             if line.strip().startswith("]"):
                 in_post_table = False
+            continue
+
+        # ω.35-A.9 — track the `_MULTIPART_ROUTES` table. Entries
+        # are 3-tuples `(re.compile(r"^..."), max_bytes, lambda m,
+        # body, ctype: api_X(...))` — distinct from the other
+        # tables because of the per-route size cap. Same regex
+        # discovery though: capture the pattern after `re.compile`.
+        # All entries register as POST routes (multipart is a POST-
+        # only concept here).
+        if "_MULTIPART_ROUTES" in line and "[" in line:
+            in_multipart_table = True
+            continue
+        if in_multipart_table:
+            te = re.match(r'\s*\(?\s*re\.compile\(\s*r"\^([^"]+)"\s*\)\s*,', line)
+            if te:
+                table_routes.append(Route(method="POST", pattern=te.group(1), is_regex=True, line=line_no))
+                continue
+            if line.strip().startswith("]"):
+                in_multipart_table = False
             continue
 
         m = re.match(r"\s*def\s+do_([A-Z]+)\(", line)

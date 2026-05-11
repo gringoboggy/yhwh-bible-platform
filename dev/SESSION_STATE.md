@@ -1,6 +1,42 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.8 bespoke cleanup
+**Updated:** 2026-05-11, after **ω.35-A.9 multipart routes
+table** shipped — first table with a DISTINCT entry shape
+(3-tuple `(regex, max_bytes, lambda m, body, ctype)`) and
+DISTINCT lambda signature. 3 multipart POST routes migrated:
+/api/covers/<ed>/main + /api/covers/<ed>/book/<book> (both
+capped at COVERS_UPLOAD_MAX_BYTES = 10 MB) + /api/sources/
+cache/<id>/upload (capped at SOURCES_UPLOAD_MAX_BYTES = 50
+MB). New helper `_dispatch_multipart_route` consolidates the
+~25-line scaffolding that lived in `_handle_cover_upload`
+and `_handle_sources_cache_upload` — both methods deleted.
+do_POST is now ~16 lines (auth + JSON dispatch loop +
+multipart dispatch loop + fall-through to PUT). New module-
+top import `from scripts.core.covers import UPLOAD_MAX_BYTES
+as COVERS_UPLOAD_MAX_BYTES` so the table can be built at
+module-load time (legacy code imported lazily inside the
+handler). **+11 tests** in `TestOmega35A9MultipartTable`:
+3-entry count pinned, 3-tuple shape (distinct from 2-tuple
+tables), lambda signature is (m, body, ctype), per-route
+caps distinct, do_POST dispatches to multipart table AND
+the _handle_* methods are deleted from Handler class, 413
+for oversize, 400 for invalid Content-Length, handler
+invoked with body+ctype, discovery recognizes all 3 entries,
+route inventory clean, no legacy re.match in do_POST.
+Migration progress: 43/94 discovered routes (~46%) in
+tables. **POST 11/11 COMPLETE** (8 _POST_ROUTES + 3
+_MULTIPART_ROUTES); DELETE 6/6 COMPLETE; PUT 6/10 (4
+bespoke remain); GET 20/67. Net session test delta:
+**+134** (1919 baseline → 2053 final). 20 phases shipped
+this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1,
+Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.9. AUDIT §7 sequence:
+ω.35-A.9 ✓ → **ω.35-A.10** bespoke PUT cleanup (next; 4
+routes: export/build, edition-meta, edition-meta/preview,
+edition/note-toggle) → ω.35-B file split → ψ.35 matrix
+data-model collapse. **2053 / 2053 tests green (1 skipped);
+11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.8 bespoke cleanup
 (sources/cache routes)** shipped. Extended
 `_dispatch_table_result` to preserve extras in error
 envelopes (the property `_send_dict_result` provided);
