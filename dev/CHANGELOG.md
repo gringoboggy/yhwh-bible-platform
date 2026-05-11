@@ -892,6 +892,27 @@ pre-ψ.34 inline form).
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
+**ω.27 follow-on #14 — split v1.0 console-polish bundle into test_v1_console_polish.py.**
+Fourteenth topic extraction. 11 test classes (81 tests)
+covering the six-phase v1.0 console-polish push that all
+touched the templates package — TestPsi15* (header nav +
+buyer-arc CSS) + TestPsi7A* (built-in editions) + TestPsi7B*
+(edition templates + wizard button) + TestPsi16* (status
+dashboard + index editor polish) + TestNu28* (customize
+visual sections) + TestPsi11* (wizard branding) +
+TestPsi135* (design-system f-string sweep) — moved from
+`tests/test_scripts.py` (14815 → 13859 lines; -956) into a
+new `tests/test_v1_console_polish.py` (986 lines).
+
+**Cumulative test-file-split impact (14 extractions):**
+- test_scripts.py: **28384 → 13859 lines (-14525; -51.2%)**
+- 14 new topic files = **948 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+- **The monolith is now under HALF its original size.** Past
+  the 50% reduction milestone with all 11 audit checks still
+  passing every full sweep.
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the
