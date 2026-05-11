@@ -1,0 +1,52 @@
+# source_dates.yaml — circa-year for each public-domain source family
+# in the corpus. Used by Phase ψ.37 (time-traveling commentary) to
+# filter notes by historical availability — "show me only what a
+# reader in 1611 / 1879 / 1955 would have had."
+#
+# Match contract: a note's `attribution` field is checked (case-
+# sensitive) for the LONGEST matching `prefix` in this list. The
+# matched entry's `year` is the note's effective historical year.
+# Notes with no match (e.g. "User original", "User paraphrase")
+# return ``None`` from ``source_dates.lookup_year`` — they're
+# treated as **contemporary** content (no fixed historical year).
+#
+# Filter semantics in build_edition: a note ships ONLY IF
+#   - the edition's `time_filter_ceiling` is None (no filter), OR
+#   - the note's effective year is not None AND <= ceiling.
+# I.e. contemporary content (no year) is filtered OUT when a
+# ceiling is set; this is the load-bearing design choice for
+# "what a 1611 reader would have had" — User-original commentary
+# was not part of the world in 1611.
+#
+# Ordering: longest prefix first (the lookup respects this so
+# "Treasury of Scripture Knowledge (1830s)" beats "Treasury of
+# Scripture Knowledge" when both would match).
+sources:
+  # Pre-1800 — primarily the foundational reference apparatus.
+  - prefix: "Treasury of Scripture Knowledge (1830s)"
+    year: 1834
+    label: "TSK"
+    note: "Treasury of Scripture Knowledge, R. A. Torrey ed."
+  - prefix: "Treasury of Scripture Knowledge"
+    year: 1834
+    label: "TSK"
+    note: "TSK (umbrella prefix)"
+
+  # 1800s — concordances and topical indexes.
+  - prefix: "Strong's "
+    year: 1890
+    label: "Strong's Concordance"
+    note: "Both H and G entries (Hebrew + Greek); James Strong"
+  - prefix: "Nave's Topical Bible"
+    year: 1897
+    label: "Nave's Topical"
+    note: "Orville J. Nave, first published 1897"
+
+  # 1900s — early-modern textual criticism.
+  - prefix: "Frederic G. Kenyon"
+    year: 1903
+    label: "Kenyon, Our Bible and the Ancient Manuscripts"
+  - prefix: "Frederic G"
+    year: 1903
+    label: "Kenyon (prefix variant)"
+    note: "Catches truncated 'Frederic G' attributions"

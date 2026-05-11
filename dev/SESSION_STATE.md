@@ -1,5 +1,18 @@
 # Session state — current snapshot
 
+**Updated 2026-05-11 / late session**: **ψ.37-A time-traveling
+commentary data model** shipped as slice #2 of the v1.1
+sequence (first feature slice; #1 was PLAN-REFRESH).
+`content/source_dates.yaml` + `scripts/core/source_dates.py`
+implement attribution → circa-year prefix-match. **Corpus
+coverage: 97.3%** (50,013/51,394 notes). +17 tests in
+`tests/test_time_travel_psi37.py`. **2228/2229 tests green;
+11/11 lint clean.** Next ψ.37 sub-slices: ψ.37-B build-
+pipeline filter → ψ.37-C schema + API → ψ.37-D /customize UI
+→ ψ.37-E wizard integration.
+
+---
+
 **Updated 2026-05-11 / late session**: PLAN-REFRESH §5
 prune shipped as slice #1 of the committed v1.1 sequence.
 9 entries marked shipped (ψ.13.5, ψ.20, ρ.1, ξ.10.1,

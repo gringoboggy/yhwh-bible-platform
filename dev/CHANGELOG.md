@@ -6,6 +6,80 @@
 
 ---
 
+## 2026-05-11 — session — ψ.37-A time-traveling commentary data model (slice #2 of the v1.1 sequence)
+
+**Phases shipped:** ψ.37-A (data model + lookup function).
+**Test delta:** +17 (TestSourceDatesCatalogue + TestLookupYear +
+TestSourceDatesCorpusCoverage).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+The data foundation for v1.1's uniqueness-angle feature:
+**"show me only what a reader in 1611 / 1879 / 1955 would have
+had."** Two new files:
+
+- `content/source_dates.yaml` — catalogue mapping attribution
+  prefixes → circa-year. Six entries today covering the 4
+  major source families (TSK 1834, Strong's 1890, Nave's
+  Topical 1897, Kenyon 1903 with prefix variant). Ordered
+  longest-prefix-first; documented with the filter semantics
+  for User-original notes ("contemporary; filtered out by any
+  historical ceiling").
+- `scripts/core/source_dates.py` — `lookup_year(attribution)`
+  + `load_source_dates()` with `@lru_cache(maxsize=1)`. Pure
+  prefix-match against the YAML catalogue.
+
+**Corpus coverage measured: 97.3%.** 50,013 of 51,394 notes
+resolve to a historical year. The unmatched 2.7% are all
+"User original" / "User paraphrase" — genuinely contemporary
+content, correctly returning `None`.
+
+### Tests (17 new)
+
+In `tests/test_time_travel_psi37.py`:
+
+- `TestSourceDatesCatalogue` (3 tests) — YAML shape, longest-
+  prefix-first ordering, the 4 major source families
+  present.
+- `TestLookupYear` (12 tests) — every catalogued source
+  family + empty / unmatched / unknown / longest-prefix-wins
+  contract.
+- `TestSourceDatesCorpusCoverage` (2 tests) — live corpus
+  coverage ≥95% (today's 97.3% gives headroom for legitimate
+  User-original growth); corpus has ≥25K notes (the
+  2026-05-08 minimum floor) so the % is meaningful.
+
+### Corpus distribution by year (informational)
+
+```
+1834   6,132 notes  (11.9%)  TSK
+1890  28,393 notes  (55.2%)  Strong's H/G
+1897  15,372 notes  (29.9%)  Nave's Topical
+1903     116 notes   (0.2%)  Kenyon
+None   1,381 notes   (2.7%)  User original / paraphrase
+```
+
+A 1900 ceiling slider position would yield 49,897 notes (97%);
+a 1850 position would yield 6,132 notes (TSK only); a 1611
+position would yield 0 (corpus has no pre-1700 commentary
+yet — a future χ-cluster adding Calvin 1556 / Henry 1706 /
+Wesley 1755 would unlock the Westminster slider position).
+
+### Next slices in the ψ.37 ship
+
+- **ψ.37-B**: build-pipeline filter (drop notes where
+  `lookup_year(attr) > ceiling` OR where `lookup_year` is
+  `None` and a ceiling is set; no-op when ceiling is `None`).
+- **ψ.37-C**: editions.yaml schema (`time_filter_ceiling:
+  int | null`) + `api_save_edition_meta` validation.
+- **ψ.37-D**: /customize UI dropdown (label "Year ceiling:
+  no limit / 1900 / 1850 / 1800 / 1700 / 1611").
+- **ψ.37-E**: wizard integration so the buyer demo surfaces
+  it from step 1.
+
+---
+
 ## 2026-05-11 — session — PLAN-REFRESH §5 systematic prune (slice #1 of the v1.1 sequence)
 
 **Phases shipped:** PLAN-REFRESH (doc-only).

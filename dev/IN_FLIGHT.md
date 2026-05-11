@@ -4,6 +4,28 @@
 
 ## Prior task
 
+**ψ.37-A time-traveling commentary data model** shipped
+2026-05-11. Slice #2 of the v1.1 sequence (first feature
+slice; #1 was the PLAN-REFRESH doc work). Two new files
+under `content/source_dates.yaml` + `scripts/core/source_dates.py`
+implement the attribution → circa-year prefix-match lookup.
+**Corpus coverage: 97.3%** (50,013 / 51,394 notes resolve to
+a historical year; remaining 2.7% are User-original
+contemporary content). **+17 tests** in
+`tests/test_time_travel_psi37.py`.
+
+### Next ψ.37 sub-slices
+
+- **ψ.37-B** build-pipeline filter (drops notes whose
+  effective year > ceiling, and contemporary notes when
+  ceiling is set)
+- **ψ.37-C** editions.yaml schema + api_save_edition_meta
+  validation
+- **ψ.37-D** /customize UI dropdown
+- **ψ.37-E** wizard integration
+
+## Prior task
+
 **PLAN-REFRESH §5 systematic prune** shipped 2026-05-11.
 Slice #1 of the committed v1.1 sequence. 9 PLAN §5 entries
 that had shipped per CHANGELOG but were still marked
