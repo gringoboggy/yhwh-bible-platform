@@ -191,9 +191,15 @@ resolver (TestPathsRepoAndUserData, TestPathsContentRootResolver,
 TestPathsSubPathHelpers, TestPathsCacheBehavior,
 TestCoreModulesUsePathsResolver, TestMigrateToUserData) moved
 to a new `tests/test_paths_omega5.py` (465 lines).
-test_scripts.py: 15602 → 15170 lines (-432). Cumulative
-test_scripts.py reduction across all twelve extractions:
-**28384 → 15170 (-13214; -46.6%)**. **832 tests** in 12
+test_scripts.py: 15602 → 15170 lines (-432).
+
+**Then ω.27 follow-on #13 — ψ.18 matrix sidebar test split**:
+6 test classes (35 tests) covering the matrix sidebar
+foundations (per-book + per-chapter drilldown) moved to a new
+`tests/test_matrix_sidebar_psi18.py` (392 lines).
+test_scripts.py: 15170 → 14815 lines (-355). Cumulative
+test_scripts.py reduction across all thirteen extractions:
+**28384 → 14815 (-13569; -47.8%)**. **867 tests** in 13
 self-contained topic files.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;

@@ -872,6 +872,26 @@ the θ desktop-binary cluster (test_desktop_theta.py from #8).
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
+**ω.27 follow-on #13 — split ψ.18 + ψ.18.1 matrix sidebar into test_matrix_sidebar_psi18.py.**
+Thirteenth topic extraction. 6 test classes (35 tests) covering
+the matrix sidebar's per-book + per-chapter drilldown
+foundations — TestPsi18MatrixPerBookField + TestPsi18ApiMatrixPerBookSurface
++ TestPsi18MatrixHtmlSidebar + TestPsi181MatrixPerChapterField
++ TestPsi181ApiMatrixPerChapterSurface +
+TestPsi181MatrixHtmlChapterDrilldown — moved from
+`tests/test_scripts.py` (15170 → 14815 lines; -355) into a new
+`tests/test_matrix_sidebar_psi18.py` (392 lines). The
+`_matrix_html_and_js()` helper was duplicated to the new file
+(originally in test_scripts.py — needed for 2 HTML-rendering
+tests that grep `cls.html` for JS strings written against the
+pre-ψ.34 inline form).
+
+**Cumulative test-file-split impact (13 extractions):**
+- test_scripts.py: **28384 → 14815 lines (-13569; -47.8%)**
+- 13 new topic files = **867 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the

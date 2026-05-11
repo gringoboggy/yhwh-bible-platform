@@ -324,9 +324,17 @@ across eleven extractions: 28384 → 15602 (-12782; -45.0%).**
 Twelfth extraction. 6 test classes (32 tests) covering the
 per-user-data location resolver moved to a new
 `tests/test_paths_omega5.py` (465 lines). test_scripts.py:
-15602 → 15170 lines (-432). **Cumulative across twelve
-extractions: 28384 → 15170 (-13214; -46.6%).** 832 tests in
-12 self-contained topic files.
+15602 → 15170 lines (-432).
+
+### Bonus slice: ω.27 follow-on #13 — ψ.18 matrix sidebar test split
+
+Thirteenth extraction. 6 test classes (35 tests) covering the
+matrix sidebar's per-book + per-chapter drilldown foundations
+moved to a new `tests/test_matrix_sidebar_psi18.py` (392 lines).
+test_scripts.py: 15170 → 14815 lines (-355). The
+`_matrix_html_and_js()` helper was duplicated to the new file.
+**Cumulative across thirteen extractions: 28384 → 14815
+(-13569; -47.8%).** 867 tests in 13 self-contained topic files.
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard
