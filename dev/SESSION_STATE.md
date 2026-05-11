@@ -1,6 +1,130 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ω.47 SonarCloud
+**Updated 2026-05-11 / late session**: **ζ.2 dark mode**
+shipped — Month 2 #2, first user-visible payoff of the
+modernization arc. `DARK_MODE_JS` constant in
+`scripts/templates/_design.py` provides a synchronous
+init script (localStorage → `prefers-color-scheme` →
+light; sets `<html data-theme>` BEFORE first paint, no
+FOAUC) plus a fixed-position toggle button (sun/moon SVG,
+top-right) inserted on DOMContentLoaded. Click flips
+attribute + persists + dispatches a `themechange`
+CustomEvent. `window.ebibleTheme` exposes `get()` /
+`set(theme)` / `toggle()` for future ζ.4 typography /
+ζ.6 toasts / ζ.7 skeletons / chart-redraw consumers.
+`<!-- DARK_MODE_JS -->` marker substitution added to
+`apply_design_system`. `/preflight` is the proof-of-
+concept retrofit: marker absorbed in `<head>`, body +
+header migrated to `theme-bg-page` / `theme-bg-surface`
+/ `theme-border` / `theme-text-muted` (with conflicting
+Tailwind `bg-slate-50 text-slate-800` removed from
+`<body>` to avoid CDN cascade collision). Guards:
+localStorage in try/catch, idempotent button insertion,
+aria-label on the icon-only button, button's own inline
+styles adapt to active theme so it stays visible even on
+unthemed consoles. **+20 tests** in
+`tests/test_dark_mode_zeta2.py` (DARK_MODE_JS × 11,
+apply_design_system × 4, /preflight retrofit × 5).
+**2365 / 2366 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+112** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2).
+
+Next per the v1.1 sequence: **ζ.4 typography upgrade**
+— add `--font-stack-body` / `--font-stack-mono` /
+`--font-size-base` tokens to THEME_TOKENS_CSS, swap
+hardcoded `text-sm` / `text-base` in templates for
+themable `.theme-text-{sm,base,lg}` classes, ship a
+proper modern body font (Inter or similar) via Google
+Fonts inline `<link>`. Optionally: ζ.3 placeholder if
+the proposal allocates one (check before claiming the
+number).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ζ.1 CSS variable
+theming foundation** shipped — Month 2 #1, the
+foundational gate for ζ.2 dark mode + ζ.4 typography +
+ζ.5 iconography + ζ.6 toasts + ζ.7 skeletons + ζ.8
+command palette. `THEME_TOKENS_CSS` constant in
+`scripts/templates/_design.py` defines 13 color tokens
+in `:root` (light defaults that match today's Tailwind
+palette pixel-equivalent) AND `:root[data-theme="dark"]`
+(override block, defined-but-inactive — ζ.2 wires the
+toggle). 11 `.theme-*` utility classes consume the vars
+via `var()` lookups so consoles opt in by class name.
+`apply_design_system` extended to substitute the new
+`<!-- THEME_TOKENS_CSS -->` marker; no-op on templates
+without the marker, so the drop-in is safe across all
+15 consoles. `BUYER_ARC_POLISH_CSS` focus-ring rewired
+to `var(--color-focus-ring, rgb(37 99 235))` — the rgb
+fallback keeps unthemed visuals identical. `/preflight`
+is the proof-of-concept retrofit; other 14 consoles
+unchanged and will absorb the marker as ζ.2-ζ.8 calls
+for it. **+17 tests** in `tests/test_theming_zeta1.py`
+(THEME_TOKENS_CSS shape × 7, apply_design_system × 4,
+/preflight retrofit × 4, focus-ring rewire × 2).
+**2345 / 2346 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+92** (20 ω.38 + 29 ω.47 + 26 Δ.10 + 17 ζ.1).
+
+Next per the v1.1 sequence: **ζ.2 dark mode** — wire
+a `data-theme="dark"` toggle button (header icon or
+nav-bar slot) + a JS shim that respects
+`prefers-color-scheme` on first load and persists user
+preference in localStorage. With ζ.1 already shipped,
+ζ.2 is a JS-only ship plus retrofitting a few more
+consoles' markup with `<!-- THEME_TOKENS_CSS -->` and
+`.theme-*` classes on the visible surfaces (cards,
+text). ~1 session.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **Δ.10 schema
+migration framework** shipped — Month 1 foundation #6
+(final foundation item before Month 2 ζ modernization).
+Lightweight migration runner for corpus_index's SQLite
+DB. Four pieces:
+- `scripts/core/migrations.py` declares
+  `MIGRATIONS = [(version, name, sql), ...]`; migration #1
+  = `notes_baseline` (the prior inline `_SCHEMA`).
+- `scripts/core/migrate.py` provides `apply_pending(conn)`
+  + `current_version` + `pending`. Records each apply in
+  `schema_migrations` (version PK + name + applied_at).
+  Per-migration transaction; failure aborts the chain.
+- `corpus_index.rebuild()` rewired to call the runner in
+  place of `conn.executescript(_SCHEMA)`. `_SCHEMA` kept
+  as a back-compat alias pointing at migration #1.
+- `scripts/run_migrations.py` standalone CLI (`--dry-run`,
+  `--current`, `--db <path>`).
+
+Naming: the original "Δ.10 attribution_audit index-back"
+was retired in the ψ.37-E session without consuming the
+number, so Δ.10 was free for the schema-migration slot
+per PROPOSAL_FEATURE_LANDSCAPE §7 / Track L. Unblocks
+Δ.11 WAL mode + Δ.12 FTS5 + Δ.13 sqlite-vec + Δ.15
+event log + Δ.16 encrypted backups (all Track L
+follow-ons that depend on Δ.10).
+
+**+26 tests** in `tests/test_migrations_delta10.py`
+(MIGRATIONS shape × 6, runner semantics × 7, validation
+× 5, corpus_index wire-up × 4, CLI × 4). **2328 / 2329
+tests pass serially (1 skipped); 11/11 lint clean.** Net
+session test delta from ψ.36-A baseline: **+75**
+(20 ω.38 + 29 ω.47 + 26 Δ.10).
+
+Next per the v1.1 sequence: Month 1 foundation is fully
+shipped. **Month 2 modernization (ζ family)** begins —
+ζ.1 CSS variable theming foundation → ζ.2 dark mode →
+ζ.4 typography upgrade → ζ.5 iconography pass → ζ.6
+toast notifications → ζ.7 skeleton loaders → ζ.8
+command palette (Cmd+K). Alternative: dip into Track L
+immediately by shipping Δ.11 WAL mode (0.5 session, S
+blast, now unblocked) before pivoting to UI.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ω.47 SonarCloud
 preflight gate** shipped (renumbered from "ω.36 sonarqube"
 — ω.36 was already used for the path-tagged fingerprint
 cache, §5 sticky-phase rule). Three pieces: (a)

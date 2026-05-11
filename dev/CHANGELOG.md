@@ -6,6 +6,498 @@
 
 ---
 
+## 2026-05-11 — session — ζ.2 dark mode (Month 2 #2, first user-visible payoff of the modernization arc)
+
+**Phases shipped:** ζ.2 (dark-mode toggle activating
+ζ.1's `:root[data-theme="dark"]` block).
+**Test delta:** +20 (`tests/test_dark_mode_zeta2.py`,
+3 test classes).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+Four pieces wire dark mode end-to-end:
+
+1. **`DARK_MODE_JS` constant** added to
+   `scripts/templates/_design.py` (alongside ζ.1's
+   `THEME_TOKENS_CSS`). It's a `<script>` block
+   intended to be placed inline-blocking in `<head>`,
+   not deferred. The order matters: the script must
+   execute BEFORE the body paints so dark-mode users
+   never see a flash of light (FOAUC).
+
+2. **Synchronous init** at script-load:
+   - Read `localStorage.getItem('ebible_theme')` —
+     namespace-prefixed key to avoid collision with
+     future per-feature toggles.
+   - Fall back to `window.matchMedia('(prefers-color-
+     scheme: dark)')` for first-time visitors.
+   - Default to light.
+   - `setAttribute('data-theme', 'dark')` or
+     `removeAttribute('data-theme')` accordingly.
+
+   This runs ~10ms before the rest of the page paints.
+   localStorage access is wrapped in try/catch so
+   private-mode browsers degrade to media-query-only
+   rather than throwing.
+
+3. **`window.ebibleTheme` public API** — exposed for
+   tests + future ζ.* components:
+   ```js
+   window.ebibleTheme.get()         // 'dark' | 'light'
+   window.ebibleTheme.set('dark')   // applies + persists + dispatches
+   window.ebibleTheme.toggle()      // flips current
+   ```
+   Each `set` dispatches a `themechange` CustomEvent on
+   `document` with `{ detail: { theme } }`, so future
+   ζ.6 toasts / ζ.7 skeletons / chart-redraw code can
+   listen and adapt.
+
+4. **Toggle button** inserted on `DOMContentLoaded`:
+   - Fixed position (`top: 0.75rem; right: 0.75rem;
+     z-index: 9999`) — no console-markup edits needed.
+   - Sun/moon SVG icons (inline; ~5 lines each) swap
+     based on active theme.
+   - `aria-label="Toggle dark mode"` for screen
+     readers.
+   - Idempotent: checks for existing `#ebible-theme-
+     toggle` before inserting (safe against double
+     DOMContentLoaded firings).
+   - Button's own background/color adapt to the active
+     theme via inline styles, so it stays visible on
+     consoles that haven't yet absorbed `THEME_TOKENS_CSS`.
+
+5. **`apply_design_system` extended** to substitute
+   `<!-- DARK_MODE_JS -->`. Mirrors the existing
+   `<!-- THEME_TOKENS_CSS -->` and
+   `<!-- BUYER_ARC_POLISH_CSS -->` patterns. Idempotent;
+   no-op when marker absent.
+
+6. **`/preflight` retrofit** (the proof-of-concept
+   console already wired for ζ.1):
+   - Marker `<!-- DARK_MODE_JS -->` added in `<head>`
+     between `THEME_TOKENS_CSS` and `BUYER_ARC_POLISH_CSS`.
+   - `<body class="bg-slate-50 text-slate-800">` →
+     `<body class="theme-bg-page theme-text">`. The
+     Tailwind classes were REMOVED (not just augmented)
+     because Tailwind CDN's JIT-injected utilities
+     otherwise win the cascade and dark mode wouldn't
+     visibly toggle.
+   - Header migrated to `theme-bg-surface theme-border`.
+   - Corpus-progress badge migrated to `theme-text-muted`.
+
+### Cascade caveat (worth pinning for ζ.4+)
+
+Tailwind v3 CDN compiles utilities at JS runtime and
+injects styles into `<head>`. Those injected styles
+come AFTER inline `<style>` blocks (including
+`THEME_TOKENS_CSS`), so Tailwind utilities WIN at equal
+specificity. The fix in ζ.2 was to REMOVE conflicting
+Tailwind classes from elements that should be themable
+(rather than try to override them with !important or
+higher specificity). Future ζ.* phases retrofit
+visible surfaces the same way: drop the hardcoded
+Tailwind color utility, add the theme-* equivalent.
+
+### Today's dark-mode UX
+
+After this ship, on `/preflight` you can:
+1. Click the sun icon in the top-right → page flips to
+   dark.
+2. Reload → still dark (localStorage remembered).
+3. Visit on a fresh browser with system dark mode → starts
+   dark by default.
+4. Click again → flips back to light + persists.
+
+Other 14 consoles still light-only (markers + class
+migration not yet absorbed). Future ζ.* phases or
+buyer-arc polish work can opt them in as needed; the
+toggle button still appears on every page (it's a body-
+appended fixed element, independent of marker presence)
+and operates the `<html data-theme>` attribute — so
+absorbing `THEME_TOKENS_CSS` + theme classes elsewhere
+will "just work" with no JS changes.
+
+### Tests (20 new)
+
+In `tests/test_dark_mode_zeta2.py`:
+
+1. **TestZeta2DarkModeJs** (11 tests) — `<script>`
+   wrapper, namespaced localStorage key
+   (`ebible_theme`), prefers-color-scheme media query,
+   synchronous `setAttribute('data-theme', 'dark')`,
+   `removeAttribute` for light, the three
+   `window.ebibleTheme` methods, `themechange` CustomEvent
+   with `detail`, toggle button id pin, idempotent
+   insertion (`getElementById` check), aria-label,
+   try/catch around localStorage.
+2. **TestZeta2ApplyDesignSystem** (4 tests) —
+   substitution, no-op on missing marker, idempotency,
+   prior markers (HEADER_NAV_LINKS, THEME_TOKENS_CSS,
+   BUYER_ARC_POLISH_CSS) still resolve.
+3. **TestZeta2PreflightWired** (5 tests) — marker
+   substituted, JS appears BEFORE `</head>` (FOAUC
+   guard), body uses theme-bg-page + theme-text, header
+   uses theme-bg-surface + theme-border, no residual
+   `bg-slate-50` in the `<body>` opener (cascade-
+   collision guard).
+
+### What ζ.4 inherits
+
+ζ.4 typography upgrade is the next phase. Tokens to add:
+`--font-stack-body`, `--font-stack-mono`, `--font-size-base`,
+`--leading-normal`. ψ.13's `BTN_*` / `STATUS_*` Tailwind
+constants in `_design.py` can stay; only typography-
+sensitive elements (body, h1-h6, code, pre) need
+themable classes. Roughly 1 session for the foundation +
+a few console retrofits.
+
+### What's next
+
+Per Month 2 sequence: ζ.4 typography upgrade → ζ.5
+iconography pass → ζ.6 toast notifications → ζ.7
+skeleton loaders → ζ.8 command palette (Cmd+K).
+
+### Test count
+
+Serial run: **2365 / 2366 tests pass (1 skipped); 11/11
+lint clean.** ζ.1 baseline was 2345; +20 ζ.2 = 2365.
+Math checks out.
+
+---
+
+## 2026-05-11 — session — ζ.1 CSS variable theming foundation (Month 2 #1, foundational gate for ζ.2/4/5/6/7/8)
+
+**Phases shipped:** ζ.1 (CSS-custom-property theming
+foundation in `scripts/templates/_design.py`).
+**Test delta:** +17 (`tests/test_theming_zeta1.py`,
+4 test classes).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+The visible-modernization arc (Month 2) needs design tokens
+before dark mode (ζ.2), typography (ζ.4), iconography (ζ.5),
+toasts (ζ.6), skeletons (ζ.7), and command palette (ζ.8)
+can land cleanly. ζ.1 introduces the foundation:
+
+1. **`THEME_TOKENS_CSS` constant** added to
+   `scripts/templates/_design.py` (the existing ψ.13
+   design-system module that already houses
+   `BUYER_ARC_POLISH_CSS` and the cross-link nav helpers).
+   It's a `<style>` block with two `:root` rule-sets:
+   - `:root { ... }` — light theme defaults. Values
+     chosen so visuals are pixel-equivalent to the
+     pre-ζ.1 hardcoded Tailwind palette
+     (slate-50/white/slate-900/blue-600/etc.).
+   - `:root[data-theme="dark"] { ... }` — dark theme
+     overrides. Defined but INACTIVE today (no toggle
+     wired yet — that's ζ.2). Designers can preview by
+     setting `data-theme="dark"` on `<html>` manually
+     in devtools.
+
+2. **13 color tokens**, mirroring design-system practice
+   (surface vs. on-surface, semantic status):
+
+   ```
+   --color-bg-page         page background (body)
+   --color-bg-surface      card / panel background
+   --color-text-primary    default body text
+   --color-text-muted      secondary / placeholder text
+   --color-text-on-accent  text on accent color (white-on-blue)
+   --color-accent          primary brand color
+   --color-accent-hover    accent hover state
+   --color-border          default 1px borders
+   --color-focus-ring      keyboard-focus outline
+   --color-status-success  emerald
+   --color-status-warn     amber
+   --color-status-error    red
+   --color-status-info     blue
+   ```
+
+3. **11 `.theme-*` utility classes** that consume the
+   tokens via `var()`. New themable markup uses these in
+   place of hardcoded Tailwind colors:
+
+   ```html
+   <div class="theme-bg-surface theme-text theme-border ...">...</div>
+   ```
+
+   Existing `bg-white text-slate-900` markup is **NOT**
+   touched — ζ.1 doesn't force a migration. ζ.2/4/5/etc.
+   gradually opt surfaces into the theme classes as
+   dark-mode/typography sensitivity requires.
+
+4. **`apply_design_system` extended** to substitute the
+   new `<!-- THEME_TOKENS_CSS -->` marker (mirrors the
+   existing `<!-- BUYER_ARC_POLISH_CSS -->` pattern).
+   No-op on templates without the marker — every
+   pre-ζ.1 console keeps rendering identically.
+
+5. **`BUYER_ARC_POLISH_CSS` focus-ring rewired** —
+   hardcoded `rgb(37 99 235)` for the focus outline
+   became `var(--color-focus-ring, rgb(37 99 235))`. The
+   rgb fallback preserves the visual in templates that
+   haven't absorbed `THEME_TOKENS_CSS` yet; consoles that
+   have absorbed it will pick up the dark-mode focus
+   color (a brighter blue-400) automatically when ζ.2
+   flips the toggle.
+
+6. **`/preflight` is the proof-of-concept retrofit** —
+   `scripts/templates/preflight.py` gets a single new
+   line `<!-- THEME_TOKENS_CSS -->` immediately above
+   the existing `<!-- BUYER_ARC_POLISH_CSS -->` marker.
+   At module load, `apply_design_system` substitutes
+   both. The rendered HTML grows by ~3 KB (the tokens
+   `<style>` block). Visual change today: none.
+   Available hooks after ζ.1: every var + class above.
+
+### Why the minimal retrofit scope
+
+The existing comment in `_design.py` (ψ.13.5 commentary)
+warns: "13-file refactor with real regression risk;
+doing it as a separate focused phase keeps the diff
+inspectable." Same logic applies here. ζ.1 ships the
+foundation + ONE retrofit; ζ.2-ζ.8 add the marker to
+more consoles as each phase needs the theming hook.
+The 14 unmodified consoles keep working byte-equivalent.
+
+### Tests (17 new)
+
+In `tests/test_theming_zeta1.py`:
+
+1. **TestZeta1ThemeTokensCss** (7 tests) — `<style>`
+   wrapper, light `:root` block exists, dark
+   `:root[data-theme="dark"]` block exists, all 13
+   required tokens present in BOTH theme blocks
+   (matters: dark mode must override every token so
+   there's no fallthrough to a half-themed view), all
+   11 utility classes present, each utility class
+   actually references its corresponding `var()`
+   lookup (no accidentally hardcoded colors).
+2. **TestZeta1ApplyDesignSystem** (4 tests) — marker
+   substitution works, no-op when marker absent,
+   idempotent on second call, existing markers
+   (HEADER_NAV_LINKS, BUYER_ARC_POLISH_CSS) still
+   substitute correctly.
+3. **TestZeta1PreflightWired** (4 tests) —
+   `<!-- THEME_TOKENS_CSS -->` is gone from rendered
+   HTML (substituted at module load), token names
+   present in rendered HTML, dark-theme block present
+   but inactive (no `<html data-theme>` attribute
+   wired yet — that's ζ.2), all 3 sample utility
+   classes available for downstream consumption.
+4. **TestZeta1FocusRingThemableViaVar** (2 tests) —
+   `BUYER_ARC_POLISH_CSS` uses `var(--color-focus-ring`,
+   and preserves the `rgb()` fallback so unthemed
+   templates still get a visible focus ring.
+
+### What ζ.2 inherits
+
+The hand-off to ζ.2 dark mode is tight:
+- Tokens are already two-theme-ready — ζ.2 just adds
+  a toggle that flips `<html data-theme>`.
+- Persistence: localStorage key + a tiny JS shim that
+  reads `prefers-color-scheme` on first visit.
+- Visible-surface migration: opt cards/text/borders
+  into `.theme-*` classes per console, prioritizing
+  the buyer-demo consoles (/wizard, /export, /compare).
+- Header toggle icon: a sun/moon SVG slot in
+  `HEADER_NAV` (or a separate builder).
+
+Estimated effort: ~1 session (the foundation already
+landed; ζ.2 is mostly JS + class-name swaps).
+
+### What's next
+
+Per Month 2 sequence:
+- **ζ.2 dark mode** ← next
+- ζ.4 typography upgrade
+- ζ.5 iconography pass
+- ζ.6 toast notifications
+- ζ.7 skeleton loaders
+- ζ.8 command palette (Cmd+K)
+
+### Test count
+
+Serial run: **2345 / 2346 tests pass (1 skipped); 11/11
+lint clean.** Δ.10 baseline was 2328; +17 ζ.1 = 2345.
+Math checks out.
+
+---
+
+## 2026-05-11 — session — Δ.10 schema migration framework (Month 1 foundation #6 — closes Month 1, unblocks Track L)
+
+**Phases shipped:** Δ.10 (schema migration framework for
+corpus_index SQLite db).
+**Test delta:** +26 (`tests/test_migrations_delta10.py`,
+5 test classes).
+**Linter delta:** 11/11 clean.
+
+### Renumber note (Δ.10 was free)
+
+The original "Δ.10 attribution_audit index-back" was
+retired in the ψ.37-E session — investigation found it
+already shipped as Δ.3 + Δ.3.1 (no new work needed). The
+retirement explicitly did NOT consume the number, leaving
+Δ.10 free for the schema-migration-framework slot named in
+PROPOSAL_FEATURE_LANDSCAPE §7 / Track L. This ship claims
+the slot per §5 sticky-phase rule.
+
+### What shipped
+
+Four pieces wire a minimal migration runner into the
+project's only SQLite database (corpus_index):
+
+1. **`scripts/core/migrations.py`** — declarative list:
+
+   ```python
+   MIGRATIONS: list[tuple[int, str, str]] = [
+       (1, "notes_baseline", _M1_NOTES_BASELINE),
+   ]
+   ```
+
+   Each entry is `(version, name, sql)`. Versions must
+   be strictly increasing positive ints; the runner
+   enforces this at import time via
+   `migrate._validate_migrations()`. Migration #1's SQL
+   is byte-equal to the previous inline `_SCHEMA`
+   (notes table + 4 indexes; `CREATE ... IF NOT EXISTS`
+   throughout for idempotency).
+
+2. **`scripts/core/migrate.py`** — the runner. Public:
+   - `apply_pending(conn)` — applies every migration
+     with version > HEAD in order. Per-migration
+     transaction (`with conn:`); a failing migration
+     rolls back AND aborts the chain (later migrations
+     don't run). Records each successful apply in
+     `schema_migrations` (version PK, name, applied_at
+     ISO-8601 UTC). Returns list of newly-applied
+     `(version, name)` tuples.
+   - `current_version(conn)` — `MAX(version)` from
+     `schema_migrations`, or 0 if the table doesn't
+     exist yet (pristine DB).
+   - `pending(conn)` — read-only preview of what
+     `apply_pending` would do next.
+   - `_validate_migrations(items=None)` — checks the
+     monotonicity + positivity + name invariants.
+     Defaults to the live MIGRATIONS list; tests pass
+     explicit lists to verify rejection paths.
+
+   Implementation note: imports `migrations` as a module
+   (not as a name) so test monkeypatches of
+   `migrations.MIGRATIONS` reach the runner. Importing
+   the bound name would snapshot it at module-load time
+   and defeat patches.
+
+3. **`scripts/core/corpus_index.py` rewired** — the
+   `rebuild()` path now calls
+   `migrate.apply_pending(conn)` in place of the inline
+   `conn.executescript(_SCHEMA)`. `_SCHEMA` is retained
+   as a back-compat alias pointing at migration #1's
+   SQL string, so any external import (none observed
+   in the current codebase, but the contract was
+   public-facing) keeps working.
+
+4. **`scripts/run_migrations.py`** — standalone CLI for
+   ad-hoc applies + introspection:
+
+   ```
+   python scripts/run_migrations.py             # apply pending
+   python scripts/run_migrations.py --dry-run   # list pending
+   python scripts/run_migrations.py --current   # print HEAD
+   python scripts/run_migrations.py --db <path> # target a file
+   ```
+
+   Exit codes match the other audit scripts (0=ok or
+   already at HEAD, 1=migration failed, 2=invalid args
+   or DB missing on a read intent).
+
+### Schema status today
+
+After this ship, `corpus_index.connection()` returns a
+DB whose `schema_migrations` table contains one row:
+
+```
+version | name             | applied_at
+--------+------------------+------------------------------
+   1    | notes_baseline   | <ISO-8601 UTC at first rebuild>
+```
+
+A future Δ.12 (FTS5) ship just appends `(2, "fts5_notes",
+"CREATE VIRTUAL TABLE ...")` to MIGRATIONS — no rebuild
+of the framework needed, no `_SCHEMA` constant to edit.
+
+### Tests (26 new)
+
+In `tests/test_migrations_delta10.py`:
+
+1. **TestDelta10MigrationsList** (6 tests) — list shape:
+   non-empty, first entry is `notes_baseline` at version
+   1, versions strictly increasing, all positive ints,
+   names non-empty, migration #1 SQL uses
+   `IF NOT EXISTS` for the notes table + 4 indexes.
+2. **TestDelta10MigrateRunner** (7 tests) — fresh DB
+   starts at 0, fresh DB pending = full list,
+   `apply_pending` records in `schema_migrations` +
+   creates the notes table, idempotency (second apply
+   returns `[]`), `applied_at` is ISO-8601, a synthetic
+   future migration (appended via monkeypatch) applies
+   on next run while existing ones stay put, a broken
+   migration aborts the chain (later migrations don't
+   run).
+3. **TestDelta10MigrationValidation** (5 tests) —
+   `_validate_migrations` rejects zero/negative version,
+   duplicate version, non-increasing version, empty
+   name.
+4. **TestDelta10CorpusIndexWired** (4 tests) — the
+   corpus_index connection has the
+   `schema_migrations` table, current_version equals
+   the highest in MIGRATIONS, notes table still
+   populated after the wire-up (full corpus loads),
+   `corpus_index._SCHEMA` alias still points at
+   migration #1's SQL string.
+5. **TestDelta10RunMigrationsCli** (4 tests) —
+   `--current` on a fresh DB prints HEAD=0, `--dry-run`
+   lists pending without applying, default apply creates
+   the file + records the migration, second apply is a
+   no-op printing "at HEAD ... nothing to apply".
+
+### Why now
+
+Per PROPOSAL_FEATURE_LANDSCAPE.md §6 Month 1 sequence,
+this is item #6 — the final foundation item. Track A
+file split is closed (ω.35-B.7), pre-commit (ω.37) +
+CI (ω.38) shipped, SonarCloud preflight (ω.47) shipped
+last turn. Δ.10 unblocks all of Track L (database
+evolution: WAL, FTS5, sqlite-vec, event log, encrypted
+backups), so Month 2 modernization can begin with a
+clean infrastructure base.
+
+### What's next
+
+Per the v1.1 committed sequence:
+- **Month 2 modernization (ζ family)** — CSS variable
+  theming foundation → dark mode → typography →
+  iconography → toasts → skeleton loaders → command
+  palette (Cmd+K). Visible polish that ships publisher
+  confidence.
+- **OR** dip into Track L immediately by shipping Δ.11
+  WAL mode (0.5 session, S blast, now unblocked by
+  Δ.10). Lets reads happen during rebuild — observable
+  win for the ~10s rebuild window.
+- The ω.47.1 ruff-cleanup phase (promote `ruff check`
+  to CI gate after working off the ~22.8K pre-existing
+  violations) remains queued.
+
+### Test count
+
+Serial run: **2328 / 2329 tests pass (1 skipped); 11/11
+lint clean.** ω.47 baseline was 2302; +26 Δ.10 = 2328.
+Math checks out.
+
+---
+
 ## 2026-05-11 — session — ω.47 SonarCloud preflight gate (Track B developer experience — ω.36 sonarqube renumbered)
 
 **Phases shipped:** ω.47 (SonarCloud quality-gate

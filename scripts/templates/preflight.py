@@ -35,15 +35,17 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
   details > summary::-webkit-details-marker { display: none; }
   .details-list { font-family: ui-monospace, monospace; font-size: 0.8125rem; }
 </style>
+<!-- THEME_TOKENS_CSS -->
+<!-- DARK_MODE_JS -->
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="theme-bg-page theme-text">
 
-<header class="border-b bg-white">
+<header class="border-b theme-bg-surface theme-border">
   <div class="max-w-5xl mx-auto px-4 py-3 flex items-baseline gap-4 text-sm flex-wrap">
     <strong class="text-base">E-Bible</strong>
     <!-- HEADER_NAV_LINKS -->
-    <span id="corpus-progress" class="ml-auto text-xs text-slate-500" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
+    <span id="corpus-progress" class="ml-auto text-xs theme-text-muted" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
   </div>
 </header>
 <script>

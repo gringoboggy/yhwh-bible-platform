@@ -4,6 +4,155 @@
 
 ## Prior task
 
+**ζ.2 dark mode** shipped 2026-05-11. Month 2 #2 — first
+user-visible payoff of the modernization arc. Wires the
+toggle that activates ζ.1's `:root[data-theme="dark"]`
+block.
+
+Four pieces:
+- `DARK_MODE_JS` added to `scripts/templates/_design.py`:
+  ~100 lines wrapped in `<script>`. Synchronous init at
+  script-load (no FOAUC): localStorage → `prefers-color-
+  scheme` → light. On DOMContentLoaded inserts a fixed-
+  position toggle button (sun/moon SVG, top-right). Click
+  flips the attribute + persists + dispatches a
+  `themechange` CustomEvent for future ζ.* components.
+- `window.ebibleTheme` API surface: `get()`, `set(theme)`,
+  `toggle()`. Future ζ.4 typography / ζ.6 toasts /
+  ζ.7 skeletons / charts can read state + listen to events.
+- `<!-- DARK_MODE_JS -->` marker substitution added to
+  `apply_design_system`. Idempotent + no-op on consoles
+  without the marker.
+- `/preflight` template absorbed both the marker (in
+  `<head>` for FOAUC-free init) and the visible-surface
+  migration: `theme-bg-page` on body, `theme-bg-surface`
+  + `theme-border` on header, `theme-text-muted` on the
+  corpus-progress badge. Conflicting Tailwind `bg-slate-50
+  text-slate-800` removed from `<body>` to avoid cascade
+  collision (Tailwind CDN's JIT-injected utilities
+  otherwise win and dark mode wouldn't visibly toggle).
+
+Guards: localStorage access wrapped in try/catch (private-
+mode browsers degrade gracefully). Toggle insertion is
+idempotent (no duplicate buttons if DOMContentLoaded
+fires twice). Button has `aria-label` for screen readers.
+The button's own inline styles adapt to the active theme
+so it stays visible even on consoles that haven't yet
+absorbed `THEME_TOKENS_CSS`.
+
+**+20 tests** in `tests/test_dark_mode_zeta2.py`:
+DARK_MODE_JS contract × 11 (script wrapper, localStorage
+key, prefers-color-scheme query, synchronous attribute
+set, removal in light mode, ebibleTheme API surface,
+themechange event, toggle id, idempotency, aria-label,
+try/catch guard); apply_design_system × 4 (substitution,
+no-op, idempotency, prior markers still work);
+/preflight retrofit × 5 (marker substituted, JS in
+<head>, body uses theme-bg-page, header uses theme-bg-
+surface + theme-border, no residual `bg-slate-50` in
+body opener).
+
+**2365 / 2366 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+112** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2).
+
+## Prior task
+
+**ζ.1 CSS variable theming foundation** shipped 2026-05-11.
+Month 2 #1; foundational gate for ζ.2 dark mode + ζ.4
+typography + ζ.5 iconography + ζ.6 toasts + ζ.7
+skeletons + ζ.8 command palette.
+
+Four pieces:
+- `THEME_TOKENS_CSS` added to
+  `scripts/templates/_design.py` — `<style>` block with
+  13 color tokens in `:root` (light, default) AND
+  `:root[data-theme="dark"]` (override block, inactive
+  until ζ.2). 11 `.theme-*` utility classes consume the
+  vars via `var(--name)` lookups.
+- Tokens: `--color-bg-page`, `--color-bg-surface`,
+  `--color-text-primary`, `--color-text-muted`,
+  `--color-text-on-accent`, `--color-accent`,
+  `--color-accent-hover`, `--color-border`,
+  `--color-focus-ring`,
+  `--color-status-{success,warn,error,info}`.
+- `apply_design_system` extended to substitute
+  `<!-- THEME_TOKENS_CSS -->` (no-op on consoles without
+  the marker — safe drop-in).
+- `BUYER_ARC_POLISH_CSS` focus-ring color rewired to
+  `var(--color-focus-ring, rgb(37 99 235))`. Fallback
+  keeps visual identical in unthemed consoles; the var
+  takes effect once a console adopts THEME_TOKENS_CSS.
+- `/preflight` is the proof-of-concept retrofit — its
+  `<!-- THEME_TOKENS_CSS -->` marker now lives just
+  above the buyer-arc marker in `scripts/templates/
+  preflight.py`. Other 14 consoles unchanged.
+
+**+17 tests** in `tests/test_theming_zeta1.py`:
+THEME_TOKENS_CSS shape (7 — style block, light root,
+dark root, required tokens in light AND dark, utility
+classes exist, utility classes use var()),
+apply_design_system contract (4 — substitution + no-op
++ idempotent + existing markers still work),
+/preflight retrofit (4 — marker gone, tokens present,
+dark block present-but-inactive, utility classes
+available), focus-ring var rewire (2 — var() used +
+rgb fallback preserved).
+
+**2345 / 2346 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+92** (20 ω.38 + 29 ω.47 + 26 Δ.10 + 17 ζ.1).
+
+## Prior task
+
+**Δ.10 schema migration framework** shipped 2026-05-11.
+Month 1 foundation #6 (final foundation item — Month 2
+modernization begins next). Lightweight migration runner
+for the corpus_index SQLite database; unblocks Δ.11 WAL +
+Δ.12 FTS5 + Δ.13 sqlite-vec + Δ.15 event log + Δ.16
+encrypted backups.
+
+Naming: the original "Δ.10 attribution_audit index-back"
+was retired in the ψ.37-E session without consuming the
+number — so Δ.10 freed up for the schema-migration slot.
+
+Four pieces shipped:
+- `scripts/core/migrations.py` — declarative
+  `MIGRATIONS = [(version, name, sql), ...]`. Migration
+  #1 = `notes_baseline` (the previous inline `_SCHEMA`
+  contents — notes table + 4 indexes).
+- `scripts/core/migrate.py` — runner with
+  `apply_pending(conn)`, `current_version(conn)`,
+  `pending(conn)`, `_validate_migrations(items=None)`.
+  Records each applied migration in `schema_migrations`
+  (version PK, name, applied_at ISO-8601 UTC).
+  Per-migration transaction; failure aborts the chain
+  (later migrations don't run over a half-applied
+  earlier one). Module-attribute access to MIGRATIONS
+  (not name import) so tests can monkeypatch.
+- `corpus_index.rebuild()` rewired — replaces inline
+  `conn.executescript(_SCHEMA)` with
+  `migrate.apply_pending(conn)`. `_SCHEMA` retained as
+  a back-compat alias pointing at migration #1's SQL
+  so any pre-Δ.10 import still works.
+- `scripts/run_migrations.py` — standalone CLI:
+  `--dry-run` (list pending), `--current` (print HEAD),
+  `--db <path>` (target a specific file), default
+  applies all pending. Exit codes match the other audit
+  scripts (0/1/2).
+
+**+26 tests** in `tests/test_migrations_delta10.py`:
+6 MIGRATIONS list shape, 7 runner semantics (fresh /
+replay / idempotency / synthetic-future / failure
+abort), 5 validation rejection paths, 4 corpus_index
+wire-up, 4 CLI exit-code paths.
+
+**2328 / 2329 tests pass serially (1 skipped); 11/11
+lint clean.**
+
+## Prior task
+
 **ω.47 SonarCloud preflight gate** shipped 2026-05-11.
 Originally scoped as "ω.36 sonarqube" but renumbered: ω.36
 was already taken by the path-tagged fingerprint cache that

@@ -105,9 +105,13 @@ BUYER_ARC_POLISH_CSS = """<style>
                 opacity 150ms ease,
                 box-shadow 150ms ease;
   }
-  /* ψ.14: visible keyboard-focus rings (buyers may demo via tab) */
+  /* ψ.14: visible keyboard-focus rings (buyers may demo via tab).
+     ζ.1 — focus-ring color is now themable via --color-focus-ring;
+     the rgb() fallback preserves the pre-ζ.1 visual in environments
+     where the var isn't set (consoles that haven't yet absorbed the
+     THEME_TOKENS_CSS block). */
   *:focus-visible {
-    outline: 2px solid rgb(37 99 235); /* blue-600 */
+    outline: 2px solid var(--color-focus-ring, rgb(37 99 235));
     outline-offset: 2px;
     border-radius: 0.25rem;
   }
@@ -116,7 +120,7 @@ BUYER_ARC_POLISH_CSS = """<style>
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    outline: 2px solid rgb(37 99 235);
+    outline: 2px solid var(--color-focus-ring, rgb(37 99 235));
     outline-offset: 2px;
   }
   /* ψ.14: tactile click feedback for buttons (subtle scale-down) */
@@ -149,6 +153,243 @@ BUYER_ARC_POLISH_CSS = """<style>
     to { opacity: 1; transform: translateY(0); }
   }
 </style>"""
+
+
+# ----------------------------------------------------------------------
+# ζ.1 — CSS custom-property theming foundation.
+# Substituted into consoles that opt in via the `<!-- THEME_TOKENS_CSS -->`
+# marker. Provides the design-token surface that ζ.2 dark mode, ζ.4
+# typography, ζ.5 iconography, etc. consume.
+#
+# Two-layer design:
+#   1. `:root { ...light... }` — default values used by every browser
+#      without a `data-theme` attribute. These match today's hardcoded
+#      Tailwind palette so light-theme visuals are pixel-equivalent
+#      before and after ζ.1.
+#   2. `:root[data-theme="dark"] { ...dark... }` — defined but
+#      INACTIVE until ζ.2 lands a toggle script. Lets dark-theme
+#      designers iterate ahead of the ζ.2 ship without needing the
+#      toggle wired in first.
+#
+# `.theme-*` utility classes consume the vars. New themable elements
+# use these classes instead of (or alongside) raw Tailwind colors:
+#
+#   <div class="theme-bg-surface theme-text">...</div>
+#
+# Existing `bg-white text-slate-900` markup stays light-only — ζ.2's
+# job is to gradually migrate dark-mode-sensitive surfaces to the
+# `.theme-*` classes. ζ.1 doesn't force that migration; it just
+# provides the hooks.
+#
+# Token naming convention (mirrors design-system practice — surface
+# vs. on-surface, semantic status colors, sizing tokens for radii
+# left as fallbacks since Tailwind's `rounded-*` covers them):
+#   --color-bg-page         page background (body)
+#   --color-bg-surface      card / panel background
+#   --color-text-primary    default body text
+#   --color-text-muted      secondary / placeholder text
+#   --color-text-on-accent  text rendered ON the accent color
+#   --color-accent          primary brand color (links, primary btn)
+#   --color-accent-hover    accent hover state
+#   --color-border          default 1px borders
+#   --color-focus-ring      keyboard-focus outline (already wired
+#                           into BUYER_ARC_POLISH_CSS via var())
+#   --color-status-success
+#   --color-status-warn
+#   --color-status-error
+#   --color-status-info
+# ----------------------------------------------------------------------
+
+THEME_TOKENS_CSS = """<style>
+  /* ζ.1: light theme — default values match the pre-ζ.1 Tailwind
+     palette so visual equivalence holds in environments without a
+     data-theme attribute. */
+  :root {
+    --color-bg-page:        rgb(248 250 252);  /* slate-50 */
+    --color-bg-surface:     rgb(255 255 255);  /* white */
+    --color-text-primary:   rgb(15 23 42);     /* slate-900 */
+    --color-text-muted:     rgb(100 116 139);  /* slate-500 */
+    --color-text-on-accent: rgb(255 255 255);
+    --color-accent:         rgb(37 99 235);    /* blue-600 */
+    --color-accent-hover:   rgb(29 78 216);    /* blue-700 */
+    --color-border:         rgb(226 232 240);  /* slate-200 */
+    --color-focus-ring:     rgb(37 99 235);    /* blue-600 */
+    --color-status-success: rgb(16 185 129);   /* emerald-500 */
+    --color-status-warn:    rgb(245 158 11);   /* amber-500 */
+    --color-status-error:   rgb(220 38 38);    /* red-600 */
+    --color-status-info:    rgb(59 130 246);   /* blue-500 */
+  }
+  /* ζ.1: dark theme — defined but INACTIVE; ζ.2 wires the toggle.
+     Designers can preview by setting `data-theme="dark"` on `<html>`
+     manually in devtools today.
+
+     Slate/zinc-leaning palette for surfaces; brighter accents to
+     compensate for reduced contrast on dark backgrounds. Mirrors
+     Tailwind's commonly-used dark-mode defaults. */
+  :root[data-theme="dark"] {
+    --color-bg-page:        rgb(15 23 42);     /* slate-900 */
+    --color-bg-surface:     rgb(30 41 59);     /* slate-800 */
+    --color-text-primary:   rgb(241 245 249);  /* slate-100 */
+    --color-text-muted:     rgb(148 163 184);  /* slate-400 */
+    --color-text-on-accent: rgb(255 255 255);
+    --color-accent:         rgb(59 130 246);   /* blue-500 — brighter */
+    --color-accent-hover:   rgb(96 165 250);   /* blue-400 */
+    --color-border:         rgb(51 65 85);     /* slate-700 */
+    --color-focus-ring:     rgb(96 165 250);   /* blue-400 */
+    --color-status-success: rgb(52 211 153);   /* emerald-400 */
+    --color-status-warn:    rgb(251 191 36);   /* amber-400 */
+    --color-status-error:   rgb(248 113 113);  /* red-400 */
+    --color-status-info:    rgb(96 165 250);   /* blue-400 */
+  }
+  /* ζ.1: utility classes that consume the tokens. Templates opt in
+     by replacing `bg-white` with `theme-bg-surface`, etc. */
+  .theme-bg-page       { background-color: var(--color-bg-page); }
+  .theme-bg-surface    { background-color: var(--color-bg-surface); }
+  .theme-text          { color: var(--color-text-primary); }
+  .theme-text-muted    { color: var(--color-text-muted); }
+  .theme-border        { border-color: var(--color-border); }
+  .theme-accent        {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+  .theme-accent:hover  { background-color: var(--color-accent-hover); }
+  .theme-accent-text   { color: var(--color-accent); }
+  .theme-status-success { color: var(--color-status-success); }
+  .theme-status-warn    { color: var(--color-status-warn); }
+  .theme-status-error   { color: var(--color-status-error); }
+  .theme-status-info    { color: var(--color-status-info); }
+</style>"""
+
+
+# ----------------------------------------------------------------------
+# ζ.2 — dark-mode toggle (activates ζ.1's :root[data-theme="dark"]).
+# Substituted into consoles via the `<!-- DARK_MODE_JS -->` marker
+# placed inside the document `<head>` (must be inline-blocking so
+# `data-theme` is set BEFORE the body paints — no flash of light).
+#
+# Behavior:
+#   1. On script-load (synchronous): resolve initial theme from
+#        localStorage → prefers-color-scheme media query → "light".
+#      Sets `<html data-theme="dark">` or removes the attribute.
+#      This runs before <body> paints, so dark-mode users never see
+#      a flash of light.
+#   2. On DOMContentLoaded: insert a fixed-position toggle button
+#      (sun/moon SVG, top-right) into the document. The position is
+#      `position: fixed` so the button doesn't require markup
+#      changes in any existing console.
+#   3. Click handler: flip the attribute, persist to localStorage,
+#      swap the icon (sun ↔ moon), and dispatch a CustomEvent
+#      `themechange` on `document` so future toast/skeleton
+#      components can react.
+#
+# localStorage key: `ebible_theme` (namespace-prefixed to avoid
+# collision with future per-feature toggles).
+#
+# Future ζ.* phases can listen for the `themechange` event to
+# trigger their own redraws (e.g., re-rendering charts in
+# matching colors).
+# ----------------------------------------------------------------------
+
+DARK_MODE_JS = """<script>
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'ebible_theme';
+  var html = document.documentElement;
+
+  // ---- Initial state: storage → media query → light ----
+  function resolveInitial() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light') return saved;
+    } catch (e) { /* localStorage disabled — fall through */ }
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      html.setAttribute('data-theme', 'dark');
+    } else {
+      html.removeAttribute('data-theme');
+    }
+  }
+
+  // Apply immediately — this script is inline-blocking in <head>,
+  // so this runs BEFORE the body paints. No FOAUC for dark-mode
+  // users on first load.
+  var currentTheme = resolveInitial();
+  applyTheme(currentTheme);
+
+  // Expose a small API for tests + future ζ.* components.
+  window.ebibleTheme = {
+    get: function () { return currentTheme; },
+    set: function (theme) {
+      currentTheme = (theme === 'dark') ? 'dark' : 'light';
+      applyTheme(currentTheme);
+      try { localStorage.setItem(STORAGE_KEY, currentTheme); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: currentTheme } }));
+    },
+    toggle: function () {
+      this.set(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+  };
+
+  // ---- Toggle button (inserted post-DOMContentLoaded) ----
+  function insertToggle() {
+    if (document.getElementById('ebible-theme-toggle')) return;  // idempotent
+    var btn = document.createElement('button');
+    btn.id = 'ebible-theme-toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Toggle dark mode');
+    btn.title = 'Toggle dark mode (saves to this browser)';
+    // Inline styles so the button renders correctly even on consoles
+    // that haven't absorbed the THEME_TOKENS_CSS marker yet.
+    btn.style.cssText = [
+      'position:fixed', 'top:0.75rem', 'right:0.75rem', 'z-index:9999',
+      'width:2.25rem', 'height:2.25rem', 'border-radius:9999px',
+      'border:1px solid rgba(100,116,139,0.4)',
+      'background:rgba(255,255,255,0.85)', 'backdrop-filter:blur(4px)',
+      'cursor:pointer', 'display:flex', 'align-items:center',
+      'justify-content:center', 'box-shadow:0 1px 2px rgba(0,0,0,0.08)',
+      'transition:background-color 150ms ease,border-color 150ms ease'
+    ].join(';');
+    btn.innerHTML = ''
+      + '<svg id="ebible-theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+      +   '<circle cx="12" cy="12" r="4"></circle>'
+      +   '<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>'
+      + '</svg>'
+      + '<svg id="ebible-theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">'
+      +   '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'
+      + '</svg>';
+    function syncIcon() {
+      var isDark = html.getAttribute('data-theme') === 'dark';
+      var sun = document.getElementById('ebible-theme-icon-sun');
+      var moon = document.getElementById('ebible-theme-icon-moon');
+      if (sun && moon) {
+        sun.style.display = isDark ? 'none' : '';
+        moon.style.display = isDark ? '' : 'none';
+      }
+      // Adapt the button's own background to the active theme so it
+      // stays visible on dark backgrounds without needing
+      // THEME_TOKENS_CSS to be present.
+      btn.style.background = isDark ? 'rgba(30,41,59,0.85)' : 'rgba(255,255,255,0.85)';
+      btn.style.color = isDark ? 'rgb(241,245,249)' : 'rgb(15,23,42)';
+    }
+    syncIcon();
+    btn.addEventListener('click', function () {
+      window.ebibleTheme.toggle();
+      syncIcon();
+    });
+    document.body.appendChild(btn);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', insertToggle);
+  } else {
+    insertToggle();
+  }
+})();
+</script>"""
 
 
 # ----------------------------------------------------------------------
@@ -297,14 +538,26 @@ def apply_design_system(html: str, current_route: str) -> str:
     Replaces:
       - `    <!-- HEADER_NAV_LINKS -->`  → HEADER_NAV_LINKS(current_route)
       - `<!-- BUYER_ARC_POLISH_CSS -->`  → BUYER_ARC_POLISH_CSS
+      - `<!-- THEME_TOKENS_CSS -->`      → THEME_TOKENS_CSS  (ζ.1)
+      - `<!-- DARK_MODE_JS -->`          → DARK_MODE_JS      (ζ.2)
 
     The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
     template — that's the existing convention from ψ.14/15/16. The
-    BUYER_ARC_POLISH_CSS marker has no leading whitespace.
+    BUYER_ARC_POLISH_CSS, THEME_TOKENS_CSS, and DARK_MODE_JS
+    markers have no leading whitespace.
+
+    DARK_MODE_JS must be placed INSIDE `<head>` so the inline-
+    blocking init runs before the body paints (no FOAUC).
 
     Idempotent: running on a string that already had its markers
     replaced is a no-op (the replace just doesn't find anything).
     Tests rely on this idempotence to avoid double-substitution.
+
+    Templates without the THEME_TOKENS_CSS marker silently skip
+    that substitution — ζ.1 only retrofits the markers into one
+    representative console (`/preflight`) as proof-of-concept.
+    Future ζ.* phases add the marker to more consoles as theming
+    work calls for it.
 
     Adding a new design-system marker (e.g. a future GLOBAL_FOOTER):
     add a `.replace(...)` line here and add the marker placement
@@ -317,5 +570,13 @@ def apply_design_system(html: str, current_route: str) -> str:
     html = html.replace(
         "<!-- BUYER_ARC_POLISH_CSS -->",
         BUYER_ARC_POLISH_CSS,
+    )
+    html = html.replace(
+        "<!-- THEME_TOKENS_CSS -->",
+        THEME_TOKENS_CSS,
+    )
+    html = html.replace(
+        "<!-- DARK_MODE_JS -->",
+        DARK_MODE_JS,
     )
     return html

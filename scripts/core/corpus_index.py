@@ -352,25 +352,15 @@ def fingerprint() -> str:
 # ----------------------------------------------------------------------
 
 
-_SCHEMA = """
-CREATE TABLE IF NOT EXISTS notes (
-    book_code   TEXT    NOT NULL,
-    chapter     INTEGER NOT NULL,
-    verse       INTEGER NOT NULL,
-    suffix      TEXT    NOT NULL DEFAULT '',
-    anchor      TEXT    NOT NULL DEFAULT '',
-    kind        TEXT    NOT NULL,
-    title       TEXT    NOT NULL DEFAULT '',
-    label       TEXT    NOT NULL DEFAULT '',
-    body        TEXT    NOT NULL DEFAULT '',
-    body_plain  TEXT    NOT NULL DEFAULT '',
-    attribution TEXT    NOT NULL DEFAULT ''
-);
-CREATE INDEX IF NOT EXISTS ix_notes_book          ON notes(book_code);
-CREATE INDEX IF NOT EXISTS ix_notes_kind          ON notes(kind);
-CREATE INDEX IF NOT EXISTS ix_notes_book_chapter  ON notes(book_code, chapter);
-CREATE INDEX IF NOT EXISTS ix_notes_book_kind     ON notes(book_code, kind);
-"""
+# Δ.10 — schema now lives in scripts/core/migrations.MIGRATIONS and
+# is applied via scripts/core/migrate.apply_pending(). The previous
+# inline _SCHEMA constant became migration #1 ("notes_baseline").
+# `_SCHEMA` is retained as a back-compat alias for any external
+# import that referenced it directly; future schema changes append
+# to MIGRATIONS rather than editing this string.
+from scripts.core.migrations import MIGRATIONS as _MIGRATIONS
+
+_SCHEMA = _MIGRATIONS[0][2]  # migration #1 sql — notes_baseline
 
 
 def _read_notes_tuples(path: Path) -> list[tuple]:
@@ -481,7 +471,13 @@ def _build_to(path: Path) -> tuple[int, str]:
     try:
         # Performance pragmas for build-time bulk insert.
         conn.executescript("PRAGMA journal_mode=MEMORY; PRAGMA synchronous=OFF;")
-        conn.executescript(_SCHEMA)
+        # Δ.10 — apply schema via the migration runner instead of an
+        # inline executescript. On a freshly-rebuilt DB this applies
+        # every migration in order (currently just #1 notes_baseline,
+        # equivalent to the previous _SCHEMA).
+        from scripts.core import migrate
+
+        migrate.apply_pending(conn)
         notes_dir = _notes_dir()
         total = 0
         if notes_dir.is_dir():
