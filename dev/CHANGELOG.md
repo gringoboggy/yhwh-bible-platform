@@ -856,13 +856,21 @@ is the safety phase for this detector's output.
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
-The monolith is now under the audit's "comfortable" threshold
-(~15K lines). The remaining ~169 classes are mostly the original
-foundational tests (build_edition, customize, publisher, edition
-metadata, translation extractor, themes, etc.) — diverse,
-non-cohesive, and less amenable to topic-cluster extraction.
-Future sessions can keep going but the marginal value drops
-sharply past this point.
+**ω.27 follow-on #12 — split ω.5 paths+migrate cluster into test_paths_omega5.py.**
+Twelfth topic extraction. 6 test classes (32 tests) covering
+the per-user-data location resolver — TestPathsRepoAndUserData
++ TestPathsContentRootResolver + TestPathsSubPathHelpers +
+TestPathsCacheBehavior + TestCoreModulesUsePathsResolver +
+TestMigrateToUserData — moved from `tests/test_scripts.py`
+(15602 → 15170 lines; -432) into a new
+`tests/test_paths_omega5.py` (465 lines). Foundational for
+the θ desktop-binary cluster (test_desktop_theta.py from #8).
+
+**Cumulative test-file-split impact (12 extractions):**
+- test_scripts.py: **28384 → 15170 lines (-13214; -46.6%)**
+- 12 new topic files = **832 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed

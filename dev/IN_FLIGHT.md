@@ -319,9 +319,14 @@ test_scripts.py: 16336 → 15602 lines (-734). **Cumulative
 across eleven extractions: 28384 → 15602 (-12782; -45.0%).**
 800 tests in 11 self-contained topic files.
 
-The monolith is now under the audit's "comfortable" threshold
-(~15K). Remaining classes are mostly diverse foundational
-tests — marginal value of further extraction drops sharply.
+### Bonus slice: ω.27 follow-on #12 — ω.5 paths+migrate test split
+
+Twelfth extraction. 6 test classes (32 tests) covering the
+per-user-data location resolver moved to a new
+`tests/test_paths_omega5.py` (465 lines). test_scripts.py:
+15602 → 15170 lines (-432). **Cumulative across twelve
+extractions: 28384 → 15170 (-13214; -46.6%).** 832 tests in
+12 self-contained topic files.
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard

@@ -183,11 +183,18 @@ classes (33 tests) covering the first LLM-backed χ-cluster
 detector — TestAnthropicXrefClient + TestAIXrefDetector +
 TestRunAIXrefsAtScaleDriver — moved to a new
 `tests/test_corpus_chi_ai_xrefs.py` (764 lines).
-test_scripts.py: 16336 → 15602 lines (-734). Cumulative
-test_scripts.py reduction across all eleven extractions:
-**28384 → 15602 (-12782; -45.0%)**. **800 tests** in 11
-self-contained topic files. **Monolith is now under the
-audit's "comfortable" threshold (~15K).**
+test_scripts.py: 16336 → 15602 lines (-734).
+
+**Then ω.27 follow-on #12 — ω.5 paths+migrate test split**: 6
+test classes (32 tests) covering the per-user-data location
+resolver (TestPathsRepoAndUserData, TestPathsContentRootResolver,
+TestPathsSubPathHelpers, TestPathsCacheBehavior,
+TestCoreModulesUsePathsResolver, TestMigrateToUserData) moved
+to a new `tests/test_paths_omega5.py` (465 lines).
+test_scripts.py: 15602 → 15170 lines (-432). Cumulative
+test_scripts.py reduction across all twelve extractions:
+**28384 → 15170 (-13214; -46.6%)**. **832 tests** in 12
+self-contained topic files.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py
