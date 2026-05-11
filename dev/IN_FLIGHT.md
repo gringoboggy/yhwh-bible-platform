@@ -307,10 +307,21 @@ pre-v1.0 hardening foundations — ξ.1 input-validation +
 ω.10 retry/timeout + ξ.2 path-traversal + ω.9 atomic-writes
 + ω.8 error-boundary + ξ.4 XSS-prevention — moved to a new
 `tests/test_hardening_early.py` (1244 lines). test_scripts.py:
-17551 → 16336 lines (-1215). Pairs with the late-session
-`test_security_xi_late.py` (#9). **Cumulative across ten
-extractions: 28384 → 16336 (-12048; -42.4%).** 767 tests in
-10 self-contained topic files.
+17551 → 16336 lines (-1215).
+
+### Bonus slice: ω.27 follow-on #11 — χ-AI-xrefs test split
+
+Eleventh extraction. 3 test classes (33 tests) covering the
+first LLM-backed χ-cluster detector — TestAnthropicXrefClient
++ TestAIXrefDetector + TestRunAIXrefsAtScaleDriver — moved to
+a new `tests/test_corpus_chi_ai_xrefs.py` (764 lines).
+test_scripts.py: 16336 → 15602 lines (-734). **Cumulative
+across eleven extractions: 28384 → 15602 (-12782; -45.0%).**
+800 tests in 11 self-contained topic files.
+
+The monolith is now under the audit's "comfortable" threshold
+(~15K). Remaining classes are mostly diverse foundational
+tests — marginal value of further extraction drops sharply.
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard

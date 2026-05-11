@@ -176,10 +176,18 @@ hardening foundations — ξ.1 input-validation + ω.10
 retry/timeout + ξ.2 path-traversal + ω.9 atomic-writes +
 ω.8 error-boundary + ξ.4 XSS-prevention — moved to a new
 `tests/test_hardening_early.py` (1244 lines).
-test_scripts.py: 17551 → 16336 lines (-1215). Cumulative
-test_scripts.py reduction across all ten extractions:
-**28384 → 16336 (-12048; -42.4%)**. **767 tests** in 10
-self-contained topic files.
+test_scripts.py: 17551 → 16336 lines (-1215).
+
+**Then ω.27 follow-on #11 — χ-AI-xrefs test split**: 3 test
+classes (33 tests) covering the first LLM-backed χ-cluster
+detector — TestAnthropicXrefClient + TestAIXrefDetector +
+TestRunAIXrefsAtScaleDriver — moved to a new
+`tests/test_corpus_chi_ai_xrefs.py` (764 lines).
+test_scripts.py: 16336 → 15602 lines (-734). Cumulative
+test_scripts.py reduction across all eleven extractions:
+**28384 → 15602 (-12782; -45.0%)**. **800 tests** in 11
+self-contained topic files. **Monolith is now under the
+audit's "comfortable" threshold (~15K).**
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py

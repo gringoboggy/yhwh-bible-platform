@@ -841,6 +841,29 @@ foundations + late-session closing sweep).
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
+**ω.27 follow-on #11 — split χ-AI-xrefs cluster into test_corpus_chi_ai_xrefs.py.**
+Eleventh topic extraction. 3 test classes (33 tests) covering
+the first LLM-backed χ-cluster detector — TestAnthropicXrefClient
++ TestAIXrefDetector + TestRunAIXrefsAtScaleDriver — moved from
+`tests/test_scripts.py` (16336 → 15602 lines; -734) into a new
+`tests/test_corpus_chi_ai_xrefs.py` (764 lines). Pairs with
+ξ.15 AI-output HTML sandbox (in test_security_xi_late.py) which
+is the safety phase for this detector's output.
+
+**Cumulative test-file-split impact (11 extractions):**
+- test_scripts.py: **28384 → 15602 lines (-12782; -45.0%)**
+- 11 new topic files = **800 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+
+The monolith is now under the audit's "comfortable" threshold
+(~15K lines). The remaining ~169 classes are mostly the original
+foundational tests (build_edition, customize, publisher, edition
+metadata, translation extractor, themes, etc.) — diverse,
+non-cohesive, and less amenable to topic-cluster extraction.
+Future sessions can keep going but the marginal value drops
+sharply past this point.
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the
