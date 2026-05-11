@@ -5223,6 +5223,30 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/covers" or path == "/covers.html":
             return self._send_html(COVERS_HTML)
 
+        # Web favicon — serves the multi-resolution program icon
+        # (.ico embedding 16/32/48/64/128/256 sizes) for browser
+        # tabs + bookmarks. Sourced from assets/icons/ (publisher's
+        # icon pack, ingested 2026-05-11). 24-hour public cache so
+        # the browser doesn't re-fetch on every console nav.
+        # See assets/icons/README.md for the full icon catalog.
+        if path == "/favicon.ico":
+            ico_path = REPO / "assets" / "icons" / "program_icon.ico"
+            if not ico_path.is_file():
+                return self._send_json({"error": "favicon missing"}, status=404)
+            try:
+                data = ico_path.read_bytes()
+            except OSError:
+                return self._send_json({"error": "favicon unreadable"}, status=404)
+            self.send_response(200)
+            self.send_header("Content-Type", "image/x-icon")
+            self.send_header("Content-Length", str(len(data)))
+            # Public cache OK — favicon is static + non-sensitive.
+            self.send_header("Cache-Control", "public, max-age=86400")
+            self._send_security_headers()
+            self.end_headers()
+            self.wfile.write(data)
+            return
+
         # ψ.34 — static-asset route for the matrix console JS bundle.
         # Lives at scripts/templates/matrix_app.js after extraction
         # from the inline <script> block of MATRIX_HTML. Read-only;

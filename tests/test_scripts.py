@@ -21995,6 +21995,125 @@ class TestPsi34MatrixJsExtraction:
         assert h._status == 404
 
 
+class TestFaviconRoute:
+    """Favicon route — serves assets/icons/program_icon.ico from
+    /favicon.ico with image/x-icon content-type + 24h public cache.
+    Wired 2026-05-11 alongside the icon pack ingest."""
+
+    def test_favicon_route_serves_ico(self):
+        from io import BytesIO
+
+        from scripts.web import Handler
+
+        class FakeWfile:
+            def __init__(self):
+                self.buffer = BytesIO()
+
+            def write(self, data):
+                self.buffer.write(data)
+
+        class FakeHandler(Handler):
+            def __init__(self):
+                self.path = "/favicon.ico"
+                self.headers = {"Authorization": ""}
+                self.wfile = FakeWfile()
+                self._status = None
+                self._sent_headers = {}
+
+            def send_response(self, code, message=None):
+                self._status = code
+
+            def send_header(self, k, v):
+                self._sent_headers[k] = v
+
+            def end_headers(self):
+                pass
+
+            def log_message(self, *a, **kw):
+                pass
+
+            def _check_admin_auth(self):
+                return True
+
+        h = FakeHandler()
+        h.do_GET()
+        assert h._status == 200
+        assert h._sent_headers["Content-Type"] == "image/x-icon"
+        assert "max-age" in h._sent_headers["Cache-Control"]
+        # ICO file magic: 00 00 01 00
+        body = h.wfile.buffer.getvalue()
+        assert body[:4] == bytes([0, 0, 1, 0]), "expected ICO magic bytes"
+        assert len(body) > 1000, "favicon suspiciously small"
+
+    def test_favicon_file_exists_on_disk(self):
+        from pathlib import Path
+
+        repo_root = Path(__file__).resolve().parent.parent
+        ico = repo_root / "assets" / "icons" / "program_icon.ico"
+        assert ico.is_file(), f"missing icon master: {ico}"
+        # Verify it's a real .ico
+        assert ico.read_bytes()[:4] == bytes([0, 0, 1, 0])
+
+    def test_favicon_route_404_when_file_missing(self, tmp_path, monkeypatch):
+        from io import BytesIO
+
+        from scripts import web
+        from scripts.web import Handler
+
+        monkeypatch.setattr(web, "REPO", tmp_path)
+
+        class FakeWfile:
+            def __init__(self):
+                self.buffer = BytesIO()
+
+            def write(self, data):
+                self.buffer.write(data)
+
+        class FakeHandler(Handler):
+            def __init__(self):
+                self.path = "/favicon.ico"
+                self.headers = {"Authorization": ""}
+                self.wfile = FakeWfile()
+                self._status = None
+                self._sent_headers = {}
+
+            def send_response(self, code, message=None):
+                self._status = code
+
+            def send_header(self, k, v):
+                self._sent_headers[k] = v
+
+            def end_headers(self):
+                pass
+
+            def log_message(self, *a, **kw):
+                pass
+
+            def _check_admin_auth(self):
+                return True
+
+        h = FakeHandler()
+        h.do_GET()
+        assert h._status == 404
+
+    def test_all_documented_icon_sizes_exist(self):
+        # The README catalogs sizes 16/24/32/48/64/96/128/192/256/384/512/1024
+        # plus the 2048 masters. Pin so a future cleanup doesn't
+        # accidentally drop one we depend on (PWA / Apple-touch / etc).
+        from pathlib import Path
+
+        repo_root = Path(__file__).resolve().parent.parent
+        icons_dir = repo_root / "assets" / "icons"
+        expected_sizes = (16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 1024)
+        for size in expected_sizes:
+            f = icons_dir / f"icon_{size}.png"
+            assert f.is_file(), f"missing icon size: {f}"
+        # PNG magic: 89 50 4E 47
+        for size in expected_sizes:
+            f = icons_dir / f"icon_{size}.png"
+            assert f.read_bytes()[:4] == bytes([0x89, 0x50, 0x4E, 0x47]), f"{f} not a PNG"
+
+
 # ---------- Phase ω.34.1 : test cleanup -------------------------------
 
 

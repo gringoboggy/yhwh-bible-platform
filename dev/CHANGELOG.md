@@ -6,6 +6,84 @@
 
 ---
 
+## 2026-05-11 — session — Icon pack ingest + /favicon.ico route wired
+
+**Phases shipped:** publisher's full icon pack ingested at
+`assets/icons/`; web favicon route wired at `/favicon.ico`;
+the originally-planned `scripts/build_icons.py` rendered
+unnecessary (publisher pre-rendered every size).
+**Test delta:** +4 (TestFaviconRoute).
+**Linter delta:** 11/11 clean.
+
+### Icon pack ingest
+
+Publisher provided a fully pre-rendered icon pack at
+`C:\Users\bogda\Documents\yhwh-icon-pack`:
+- **Source cleanup**: garbled embossed text on top/bottom of
+  gold frame erased and reconstructed; stray Midjourney "©"
+  hallucination removed (cloned from the symmetric pattern
+  opposite); transparent background isolated from the
+  octagon body.
+- **15 files** ingested to `assets/icons/`:
+  - `program_icon.ico` (Windows multi-res icon, 16/32/48/64/
+    128/256 embedded; ~120 KB)
+  - `program_icon_2048.png` (full-res opaque, 3.0 MB)
+  - `program_icon_2048_transparent.png` (full-res alpha, 3.4 MB)
+  - 12 pre-rendered PNG sizes: 16, 24, 32, 48, 64, 96, 128,
+    192, 256, 384, 512, 1024 (all transparent)
+- Total footprint: ~8 MB.
+- Catalog + use-cases per target (PyInstaller, macOS .icns,
+  Linux desktop, web favicon, PWA touch icons) in
+  `assets/icons/README.md`.
+
+### `/favicon.ico` route wired
+
+`scripts/web.py` Handler.do_GET — new literal-path branch
+right before `/static/matrix.js`. Serves
+`assets/icons/program_icon.ico` with:
+- `Content-Type: image/x-icon`
+- `Cache-Control: public, max-age=86400` (24h public cache —
+  favicon is static + non-sensitive)
+- Standard security headers (ξ.3)
+
+4 new tests in `TestFaviconRoute`:
+- `test_favicon_route_serves_ico` — happy path; verifies ICO
+  magic bytes (00 00 01 00), content-type, cache header,
+  reasonable size
+- `test_favicon_file_exists_on_disk` — guards against
+  accidental deletion
+- `test_favicon_route_404_when_file_missing` — monkeypatch
+  REPO to tmp_path; verifies 404
+- `test_all_documented_icon_sizes_exist` — pins all 12 PNG
+  sizes from the README catalog; verifies PNG magic bytes
+
+### `scripts/build_icons.py` is no longer needed
+
+`PROPOSAL_AI_ARTWORK.md §6` originally planned a
+`scripts/build_icons.py` to derive Windows .ico + macOS .icns
++ favicon from a 1024×1024 master. The publisher pre-rendered
+every size we'd have generated. Defer / skip the build script.
+
+Pending wire-ups (future θ.* binary-build phases):
+- PyInstaller --icon flag (θ.1 binary build)
+- macOS .icns from icon_1024.png (θ.4 macOS dist)
+- Linux desktop entry (θ.5+)
+- iOS/Android touch icons (when web edition ships PWA)
+- PWA manifest icons (δ.8)
+
+Each is a ~5-line wire-up against the existing files.
+
+### State
+
+- 2142 / 2142 tests green (+4 favicon, +1 above earlier
+  baseline from xdist flake resolution).
+- 11/11 linter clean.
+- Protected-paths guard PASSES on full xdist.
+- Route inventory: 95 routes total (DELETE=6, GET=68 with
+  the new /favicon.ico, POST=11, PUT=11).
+
+---
+
 ## 2026-05-11 — session — Covers pack ingest + B.6 prereq fix (rogue editions.yaml mutator isolated + fixed)
 
 **Phases shipped:** covers pack ingest (25 templates + 6

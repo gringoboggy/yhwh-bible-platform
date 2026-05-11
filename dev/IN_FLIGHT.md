@@ -4,6 +4,20 @@
 
 ## Prior task
 
+**Icon pack ingest + /favicon.ico route wired** shipped
+2026-05-11. Publisher delivered a fully pre-rendered icon
+pack; 15 files ingested to `assets/icons/`; web favicon
+route wired; **4 new tests** in `TestFaviconRoute`. The
+originally-planned `scripts/build_icons.py` is no longer
+needed — publisher pre-rendered every size we'd have
+generated. Pending wire-ups (~5 lines each) for future
+θ.* phases: PyInstaller --icon, macOS .icns, Linux desktop,
+PWA manifest icons. **2142 / 2142 tests green; 11/11
+linter clean; protected-paths guard PASSES.** Route
+inventory: 95 routes total (GET=68 incl. new /favicon.ico).
+
+## Prior task
+
 **Covers pack ingest + B.6 prereq fix** shipped 2026-05-11.
 
 ### Covers pack

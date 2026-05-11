@@ -370,25 +370,47 @@ keywords per book; can start with the defaults and refine).
 
 ---
 
-## 6. The .exe icon — what gets built
+## 6. The .exe icon — INGESTED 2026-05-11
 
-Once you provide `assets/program_icon.png` (1024×1024 master):
+**Status: complete.** Publisher delivered a fully pre-rendered
+icon pack at `assets/icons/`:
 
-1. **Build pipeline addition** (`scripts/build_icons.py`):
-   - Reads `assets/program_icon.png`
-   - Generates a Windows `.ico` containing 16/32/48/128/256 sizes
-     using Pillow
-   - Generates a macOS `.icns` using `iconutil` (when building on
-     macOS) or `pyicns-utils` (cross-platform)
-   - Writes outputs to `dist/icons/`
-2. **PyInstaller integration**: the existing build (if/when we
-   package as `.exe`) will reference `dist/icons/program.ico` via
-   PyInstaller's `--icon` flag.
-3. **Web favicon**: an additional 16×16 derivative copies to
-   `scripts/templates/_assets/favicon.ico`, served by all consoles.
+- `program_icon.ico` — Windows multi-resolution icon (embeds
+  16/32/48/64/128/256 sizes)
+- `program_icon_2048.png` + `program_icon_2048_transparent.png`
+  — full-res masters (opaque + alpha)
+- 12 pre-rendered PNG sizes: 16, 24, 32, 48, 64, 96, 128, 192,
+  256, 384, 512, 1024
 
-This is small, deterministic work — about 1 session from when the
-master file arrives. No external accounts or budgets needed.
+Source was Midjourney with manual cleanup (garbled text +
+stray © hallucination removed; transparent background isolated).
+
+Total footprint: ~8 MB. Full catalog in `assets/icons/README.md`.
+
+**The originally-planned `scripts/build_icons.py` is no
+longer needed** — the publisher pre-rendered every size we'd
+have generated.
+
+### Already wired (2026-05-11)
+
+- **Web favicon route**: `/favicon.ico` serves
+  `assets/icons/program_icon.ico` with `image/x-icon`
+  content-type and a 24-hour public-cache header. Pinned by
+  `TestFaviconRoute` (4 tests covering the route, the file
+  existence, the 404 path, and all 12 documented sizes).
+
+### Pending wiring (future θ.* phases)
+
+| Target | File | Phase |
+|---|---|---|
+| PyInstaller (Windows .exe) | `program_icon.ico` | θ.1 (binary build) |
+| macOS .icns | derive from `icon_1024.png` (or all sizes) | θ.4 (macOS dist) |
+| Linux desktop entry | `icon_512.png` or `icon_1024.png` | θ.5+ |
+| Web touch icon (iOS, Android) | `icon_192.png` | when web edition ships PWA features |
+| PWA manifest icons | `icon_192.png` + `icon_512.png` | δ.8 (PWA install) |
+
+Each of these is a ~5-line wire-up against the existing icon
+files when the relevant phase ships — no fresh asset work.
 
 ---
 

@@ -1,6 +1,35 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **Covers pack ingest + B.6
+**Updated:** 2026-05-11, after **Icon pack ingest +
+/favicon.ico route wired** shipped. Publisher delivered a
+fully pre-rendered icon pack at C:\Users\bogda\Documents\yhwh-
+icon-pack (cleaned Midjourney source: garbled text + stray ©
+removed, transparency isolated). 15 files ingested to
+`assets/icons/`: program_icon.ico (Windows multi-res, embeds
+16/32/48/64/128/256), 2 masters (2048 opaque + transparent),
+12 pre-rendered PNG sizes (16-1024). Total ~8 MB. Catalog +
+per-target use-cases in assets/icons/README.md. **/favicon.ico
+route wired** in scripts/web.py: image/x-icon content-type +
+24h public cache + standard security headers. **+4 tests** in
+TestFaviconRoute (happy path with ICO magic-bytes check,
+file existence, 404 path, all 12 documented PNG sizes present
+with PNG magic-bytes check). The originally-planned
+`scripts/build_icons.py` is NO LONGER NEEDED — publisher
+pre-rendered everything we'd have derived. Pending future
+wire-ups (~5 lines each) for PyInstaller (θ.1), macOS .icns
+(θ.4), Linux desktop (θ.5+), PWA manifest icons (δ.8).
+PROPOSAL_AI_ARTWORK.md §6 updated to reflect the
+icon pack is complete; build_icons.py marked deferred/skipped.
+**2142 / 2142 tests green (1 skipped); 11/11 linter clean;
+protected-paths guard PASSES on full xdist.** Route inventory:
+95 routes total (DELETE=6, GET=68 incl. new /favicon.ico,
+POST=11, PUT=11). Net session test delta: **+223** (1919
+baseline → 2142 final). 33 phases shipped this session.
+AUDIT §7 sequence: covers pack + icon pack + B.6 prereq all
+shipped → **ω.35-B.6** exports/build extraction (now
+unblocked).
+
+Prior ship in same session: **Covers pack ingest + B.6
 prereq fix** shipped. (1) Publisher's yhwh-covers-pack
 ingested: 25 cover templates → content/covers/templates/
 (~159 MB, 5 styles × 5 colorways), 6 reusable borders →
