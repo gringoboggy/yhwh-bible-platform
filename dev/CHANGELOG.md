@@ -6,6 +6,69 @@
 
 ---
 
+## 2026-05-11 — session — ψ.36-A per-edition matrix endpoint (v1.1 slice #3 — lazy-load data-API foundation)
+
+**Phases shipped:** ψ.36-A (the data-API side of matrix
+lazy-load).
+**Test delta:** +8 (TestApiMatrixForEditionShape +
+TestApiMatrixForEditionParity + TestApiMatrixForEditionRoute
++ TestApiMatrixForEditionErrors).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+`scripts/web.py::api_matrix_for_edition(edition_id)` — a new
+GET endpoint at `/api/matrix/edition/<edition_id>`. Returns
+the per-edition slot from `/api/matrix`'s response plus the
+categories + kinds + this-one-edition metadata so the client
+can render a standalone view without a second `/api/matrix`
+round-trip.
+
+This is the 200K-note ceiling lift's **data foundation**:
+today's full `/api/matrix` response (~2 MB on a 51K corpus)
+is fine, but at 200K it'd get heavy. With this endpoint, the
+matrix UI can fetch progressively (one edition at a time)
+when corpus growth justifies it. Existing `/api/matrix`
+consumers are unaffected.
+
+Implementation reuses the existing
+`_api_matrix_per_edition(m, book_ch_counts)` helper (from
+ψ.35-B3) — so the per-edition slot is **byte-identical** to
+what the full endpoint returns. Equivalence pinned by
+`TestApiMatrixForEditionParity::test_matrix_slot_matches_full_response`
+(sweeps every edition).
+
+Route registered in `_REGEX_GET_ROUTES`:
+`re.compile(r"^/api/matrix/edition/([a-z0-9_-]+)$")`. Returns
+`{"error": "unknown edition: ...", "http": 404}` for unknown
+edition ids (standard error-envelope contract; the route
+adapter translates to a real 404).
+
+### Tests (8 new)
+
+In `tests/test_matrix_lazyload_psi36.py`:
+
+- `TestApiMatrixForEditionShape` (5 tests) — top-level keys
+  (edition + categories + kinds + matrix), edition-block
+  metadata, categories/kinds lists-of-dicts shape, matrix
+  slot 11-key contract, totals > 0 for a real edition.
+- `TestApiMatrixForEditionParity` (1 test) — byte-for-byte
+  parity with /api/matrix's per-edition slot across every
+  edition.
+- `TestApiMatrixForEditionRoute` (1 test) — route registered
+  in `_REGEX_GET_ROUTES` + regex matches a real edition id.
+- `TestApiMatrixForEditionErrors` (1 test) — unknown
+  edition → `{"error": "unknown edition: ...", "http": 404}`.
+
+### Deferred to ψ.36-B (UI integration)
+
+The endpoint is shipped; consumer migration in the JS matrix
+UI is a separate slice (ψ.36-B) that can land when corpus
+growth makes the optimization observable. Today's full-
+matrix render is fine.
+
+---
+
 ## 2026-05-11 — session — ψ.37-E /wizard integration (v1.1 buyer demo end-to-end through ψ.37); also: Δ.10 retired (already shipped as Δ.3 + Δ.3.1)
 
 **Phases shipped:** ψ.37-E (wizard integration).

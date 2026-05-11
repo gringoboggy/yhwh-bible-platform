@@ -1,6 +1,19 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ψ.37-E /wizard
+**Updated 2026-05-11 / late session**: **ψ.36-A per-edition
+matrix endpoint** shipped (v1.1 slice #3 data-API
+foundation). New `/api/matrix/edition/<id>` GET endpoint
+reuses `_api_matrix_per_edition` helper; byte-identical
+parity with /api/matrix's per-edition slot. **+8 tests.**
+**2253/2254 tests green; 11/11 lint clean.** ψ.36-B
+(consumer UI migration) deferred — full-matrix render is
+fine today; optimization becomes observable past ~200K.
+**Next per v1.1 sequence: ω.36 sonarqube (deferred until
+user API key) → 6-month feature tracks B-L.**
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ψ.37-E /wizard
 integration** shipped. Inline year-ceiling select at step 5;
 STATE + submit coercion + payload inclusion. **+4 tests.**
 **ψ.37 fully closed end-to-end** through /customize +

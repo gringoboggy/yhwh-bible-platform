@@ -4,6 +4,22 @@
 
 ## Prior task
 
+**ψ.36-A per-edition matrix endpoint** shipped 2026-05-11.
+v1.1 slice #3 — the data-API foundation for matrix lazy-
+load. New `/api/matrix/edition/<id>` GET endpoint reuses
+the existing `_api_matrix_per_edition` helper, returns a
+self-contained payload (edition + categories + kinds +
+matrix slot) so clients can render one edition standalone.
+Byte-identical parity with /api/matrix's per-edition slice
+(pinned across every edition). Existing /api/matrix
+consumers unaffected. **+8 tests** in
+`tests/test_matrix_lazyload_psi36.py`. **2253/2254 tests
+green; 11/11 lint clean.** ψ.36-B (consumer UI migration)
+deferred — today's full-matrix render is fine; the
+optimization becomes observable when corpus passes ~200K.
+
+## Prior task
+
 **ψ.37-E /wizard integration** shipped 2026-05-11. Inline
 year-ceiling select added to step 5 (alongside traditions —
 both are note filters). STATE.time_filter_ceiling: null

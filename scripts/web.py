@@ -571,6 +571,80 @@ def _api_matrix_per_edition(m, book_ch_counts: dict[str, int]) -> dict:
     return out
 
 
+def api_matrix_for_edition(edition_id: str) -> dict:
+    """Phase ψ.36-A — per-edition matrix slice (the lazy-load endpoint).
+
+    Same per-edition payload as ``api_matrix()['matrix'][edition_id]``
+    plus the categories + kinds + this-one-edition metadata so the
+    client can render a standalone view without a second
+    ``/api/matrix`` round-trip. Targets the 200K-note ceiling lift
+    framing of AUDIT_2026-05-11: instead of returning the whole
+    matrix on every render, fetch only what the user is viewing.
+
+    Today's corpus (51K notes) doesn't strictly need this — the
+    full ``/api/matrix`` response is ~2 MB and renders fine — but
+    the endpoint is a foundation the JS UI can adopt incrementally
+    as corpus growth justifies it. Existing /api/matrix consumers
+    are unaffected.
+
+    Returns:
+        {
+            "edition": {id, title, short_title, canon, enabled_categories,
+                        enabled_kinds, disabled_kinds},
+            "categories": [...],     # same shape as /api/matrix
+            "kinds": [...],          # same shape as /api/matrix
+            "matrix": {...},         # the per-edition slot
+        }
+
+    Returns ``{"error": "unknown edition"}`` (HTTP 404 via route
+    adapter) when the edition_id isn't in editions.yaml.
+    """
+    from scripts.core import matrix as matrix_mod
+
+    eds_by_id = config.editions_by_id()
+    if edition_id not in eds_by_id:
+        return {"error": f"unknown edition: {edition_id}", "http": 404}
+
+    m = matrix_mod.compute_matrix()
+    cats = config.load_categories()
+    kinds = config.load_kinds()
+    edition = eds_by_id[edition_id]
+    book_ch_counts = {b["code"]: int(b.get("ch_count") or 0) for b in config.load_books()}
+    # Reuse the helper that builds /api/matrix's per-edition slot.
+    per_edition_full = _api_matrix_per_edition(m, book_ch_counts)
+    slot = per_edition_full.get(edition_id, {})
+    return {
+        "edition": {
+            "id": edition_id,
+            "title": edition.get("title", edition_id),
+            "short_title": edition.get("short_title", edition_id),
+            "canon": edition.get("canon"),
+            "enabled_categories": edition.get("enabled_categories") or [],
+            "enabled_kinds": edition.get("enabled_kinds") or [],
+            "disabled_kinds": edition.get("disabled_kinds") or [],
+        },
+        "categories": [
+            {
+                "id": c["id"],
+                "label": c.get("label", c["id"]),
+                "symbol": c.get("symbol", "?"),
+                "description": c.get("description", ""),
+                "sort_order": c.get("sort_order", 999),
+            }
+            for c in cats
+        ],
+        "kinds": [
+            {
+                "code": k["code"],
+                "category": k.get("category", "?"),
+                "label": k.get("label", k["code"]),
+            }
+            for k in kinds
+        ],
+        "matrix": slot,
+    }
+
+
 def api_reading_plans_list() -> dict:
     """Return a summary of every reading plan in
     ``content/reading_plans/``.
@@ -3243,6 +3317,8 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
     # Snapshots: order matters — /<ed>/<ver> must precede /<ed>
     (re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$"), api_snapshot_get),
     (re.compile(r"^/api/snapshots/([a-z0-9._-]+)$"), api_snapshot_list),
+    # ψ.36-A: per-edition matrix slice (lazy-load endpoint).
+    (re.compile(r"^/api/matrix/edition/([a-z0-9_-]+)$"), api_matrix_for_edition),
 ]
 
 
