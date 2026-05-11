@@ -727,93 +727,18 @@ def api_reading_plan_get(plan_id: str) -> dict:
 
 
 # ---------------------------------------------------------------------
-# ω.16 — edition snapshots: thin route wrappers over scripts.core.snapshots
+# ω.16 / ω.35-B.1 — edition snapshot handlers, now in scripts/api/snapshots.py.
+# Re-imported here so route-table lambdas and tests that reference
+# `scripts.web.api_snapshot_*` keep working unchanged.
 # ---------------------------------------------------------------------
-
-
-def api_snapshot_list(edition_id: str) -> dict:
-    """List every snapshot for `edition_id` (newest first by name).
-
-    Snapshot names are alphanumeric so version-string sorting is
-    stable enough for retail use; the UI can render them however
-    it prefers.
-    """
-    from scripts.core import snapshots as snap_mod
-
-    try:
-        snaps = snap_mod.list_snapshots(edition_id)
-    except ValueError as e:
-        return {"status": "error", "code": "invalid_name", "http": 400, "message": str(e)}
-    return {
-        "status": "ok",
-        "edition_id": edition_id,
-        "snapshots": [s.to_dict() for s in snaps],
-    }
-
-
-def api_snapshot_get(edition_id: str, version: str) -> dict:
-    from scripts.core import snapshots as snap_mod
-
-    try:
-        snap = snap_mod.read_snapshot(edition_id, version)
-    except ValueError as e:
-        return {"status": "error", "code": "invalid_name", "http": 400, "message": str(e)}
-    if snap is None:
-        return {
-            "status": "error",
-            "code": "not_found",
-            "http": 404,
-            "message": f"snapshot {edition_id!r}/{version!r} not found",
-        }
-    return {"status": "ok", **snap}
-
-
-@audit_log.audit_endpoint(action="snapshot_create")
-def api_snapshot_create(edition_id: str, payload: dict) -> dict:
-    from scripts.core import snapshots as snap_mod
-
-    if not isinstance(payload, dict):
-        return {"status": "error", "code": "invalid_input", "http": 400, "message": "payload must be a JSON object"}
-    version = payload.get("version") or ""
-    label = payload.get("label") or None
-    notes = payload.get("notes") or None
-    overwrite = bool(payload.get("overwrite"))
-    return snap_mod.create_snapshot(
-        edition_id,
-        version,
-        label=label,
-        notes=notes,
-        overwrite=overwrite,
-    )
-
-
-def api_snapshot_diff(
-    edition_id: str,
-    version: str,
-    *,
-    against_version: str | None = None,
-) -> dict:
-    from scripts.core import snapshots as snap_mod
-
-    return snap_mod.diff_snapshot(
-        edition_id,
-        version,
-        against_version=against_version,
-    )
-
-
-@audit_log.audit_endpoint(action="snapshot_restore")
-def api_snapshot_restore(edition_id: str, version: str) -> dict:
-    from scripts.core import snapshots as snap_mod
-
-    return snap_mod.restore_snapshot(edition_id, version)
-
-
-@audit_log.audit_endpoint(action="snapshot_delete")
-def api_snapshot_delete(edition_id: str, version: str) -> dict:
-    from scripts.core import snapshots as snap_mod
-
-    return snap_mod.delete_snapshot(edition_id, version)
+from scripts.api.snapshots import (  # noqa: E402
+    api_snapshot_create,
+    api_snapshot_delete,
+    api_snapshot_diff,
+    api_snapshot_get,
+    api_snapshot_list,
+    api_snapshot_restore,
+)
 
 
 # ---------------------------------------------------------------------

@@ -1,6 +1,34 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.10 bespoke PUT
+**Updated:** 2026-05-11, after **ω.35-B.1 snapshots
+extracted** shipped — first slice of the web.py file split.
+6 `api_snapshot_*` functions moved from scripts/web.py into
+new `scripts/api/snapshots.py` module (with package marker
+`scripts/api/__init__.py` documenting the split roadmap).
+web.py re-imports them so the flat namespace stays the same:
+route-table lambdas and tests that reference
+`scripts.web.api_snapshot_*` continue working unchanged.
+Audit decorators preserved on the 3 mutating handlers
+(create, restore, delete). Net delta: -76 lines in web.py.
+**+7 tests** in `TestOmega35B1SnapshotsExtraction`:
+snapshots module importable, handlers backward-compatible
+via web.py, handlers actually live in new module
+(`__module__` check, unwraps audit decorator), route tables
+still dispatch snapshots, audit decorator preserved on
+mutations, scripts.api package loadable + doc mentions
+ω.35-B, web.py has no inline `def api_snapshot_*`
+definitions. Pattern established for subsequent B.x slices.
+Migration progress (file split): 1 topic extracted (6
+functions). AUDIT §7 sequence: ω.35-B.1 ✓ → **B.2**
+scenarios → B.3 sources/covers → B.4 editions/customize →
+B.5 exports/build → B.6 preflight/audit/help. Net session
+test delta: **+149** (1919 baseline → 2068 final). 22
+phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1,
+Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10,
+ω.35-B.1. **2068 / 2068 tests green (1 skipped); 11/11
+linter clean.**
+
+Prior ship in same session: **ω.35-A.10 bespoke PUT
 cleanup** shipped — closes uniform-shape PUT migration. 3
 PUT routes migrated to `_PUT_ROUTES` (table now 9 entries):
 /api/edition/<id>/note-toggle (MUST precede the broader

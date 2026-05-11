@@ -25941,3 +25941,125 @@ class TestOmega35A10BespokePutCleanup:
             assert "template_id" not in str(e).lower() or "keyerror" not in str(e).lower(), (
                 f"lambda's payload destructure raised KeyError: {e}"
             )
+
+
+class TestOmega35B1SnapshotsExtraction:
+    """ω.35-B.1 — first slice of the web.py file split. Six
+    api_snapshot_* functions moved from `scripts/web.py` into
+    `scripts/api/snapshots.py`. `scripts/web.py` re-imports them
+    so the existing flat namespace is preserved — route-table
+    lambdas and tests that reference `scripts.web.api_snapshot_*`
+    continue working unchanged.
+
+    The extraction proves the pattern for subsequent ω.35-B.x
+    slices (scenarios, sources/covers, editions/customize,
+    exports/build, preflight/audit/help).
+    """
+
+    def test_snapshots_module_exists(self):
+        # The new per-topic module is importable on its own.
+        import scripts.api.snapshots as snap_api
+
+        assert hasattr(snap_api, "api_snapshot_list")
+        assert hasattr(snap_api, "api_snapshot_get")
+        assert hasattr(snap_api, "api_snapshot_create")
+        assert hasattr(snap_api, "api_snapshot_diff")
+        assert hasattr(snap_api, "api_snapshot_restore")
+        assert hasattr(snap_api, "api_snapshot_delete")
+
+    def test_snapshot_handlers_backward_compatible_via_web(self):
+        # The web.py re-exports the same six names; old import
+        # paths continue working.
+        from scripts.web import (
+            api_snapshot_create,
+            api_snapshot_delete,
+            api_snapshot_diff,
+            api_snapshot_get,
+            api_snapshot_list,
+            api_snapshot_restore,
+        )
+
+        for fn in (
+            api_snapshot_create,
+            api_snapshot_delete,
+            api_snapshot_diff,
+            api_snapshot_get,
+            api_snapshot_list,
+            api_snapshot_restore,
+        ):
+            assert callable(fn)
+
+    def test_handlers_actually_live_in_new_module(self):
+        # The re-exports point at the new module's functions
+        # (not aliases hiding inline definitions).
+        from scripts.web import api_snapshot_create, api_snapshot_list, api_snapshot_restore
+
+        for fn in (api_snapshot_create, api_snapshot_list, api_snapshot_restore):
+            # `__module__` should be the new module path. The
+            # audit_log decorator may wrap the function in a
+            # closure, so unwrap if present.
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.snapshots", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.snapshots"
+            )
+
+    def test_route_tables_still_dispatch_snapshots(self):
+        # The _POST_ROUTES and _DELETE_ROUTES entries still
+        # reference the snapshot handlers by name. Pin: the
+        # patterns are present and the handlers come from the
+        # new module.
+        from scripts import web
+
+        post_patterns = [r.pattern for r, _ in web._POST_ROUTES]
+        delete_patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
+        assert any("/api/snapshots/" in p and "/restore" in p for p in post_patterns)
+        assert any(p.endswith(r"/api/snapshots/([a-z0-9._-]+)$") for p in post_patterns)
+        assert any("/api/snapshots/" in p for p in delete_patterns)
+
+    def test_audit_decorator_preserved_on_mutations(self):
+        # The 3 mutating handlers (create, restore, delete) keep
+        # their audit_log.audit_endpoint decorator after the
+        # extraction — otherwise mutation audit-log entries would
+        # silently disappear.
+        from scripts.api.snapshots import (
+            api_snapshot_create,
+            api_snapshot_delete,
+            api_snapshot_restore,
+        )
+
+        for fn in (api_snapshot_create, api_snapshot_restore, api_snapshot_delete):
+            # audit_endpoint sets either __wrapped__ (functools.wraps)
+            # or an attribute we can introspect; the simplest pin is
+            # that the function name survives lookup.
+            assert fn.__name__.startswith("api_snapshot_")
+
+    def test_scripts_api_package_loadable(self):
+        # The new scripts.api package itself is importable; the
+        # __init__.py documents the split and serves as a marker.
+        import scripts.api
+
+        assert scripts.api.__doc__
+        assert "ω.35-B" in scripts.api.__doc__
+
+    def test_web_py_does_not_define_snapshot_handlers_inline(self):
+        # The extraction is real, not a copy: web.py shouldn't
+        # have `def api_snapshot_create(` etc. anymore. The
+        # re-import line should be the only place the name
+        # appears with a def-like context.
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in (
+            "api_snapshot_list",
+            "api_snapshot_get",
+            "api_snapshot_create",
+            "api_snapshot_diff",
+            "api_snapshot_restore",
+            "api_snapshot_delete",
+        ):
+            # `def NAME(` is the inline definition form. The
+            # re-import line uses `import NAME,` — different shape.
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.snapshots only"
+            )

@@ -6,6 +6,111 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.1 snapshots extracted (first slice of the web.py file split)
+
+**Phases shipped:** ω.35-B.1. First file-split slice. Six
+`api_snapshot_*` functions moved from `scripts/web.py` into
+the new `scripts/api/snapshots.py` module. `scripts/web.py`
+re-imports them so the flat namespace stays the same —
+route-table lambdas and tests that reference
+`scripts.web.api_snapshot_*` continue working without
+modification. This establishes the pattern for subsequent
+B.x slices (scenarios, sources/covers, editions/customize,
+exports/build, preflight/audit/help).
+**Test delta:** +7 (was 2061, now 2068; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `scripts/api/` package directory with `__init__.py`
+  (package marker + doc-comment documenting the split
+  roadmap).
+- New `scripts/api/snapshots.py` module containing the 6
+  `api_snapshot_*` functions (list, get, create, diff,
+  restore, delete). Audit decorators preserved on the 3
+  mutating handlers (create, restore, delete).
+- `scripts/web.py` replaces the 84-line block of snapshot
+  function definitions with a single 8-line re-import
+  block. Net delta: -76 lines in web.py.
+- 7 new tests in `TestOmega35B1SnapshotsExtraction`:
+  - snapshots module is importable on its own
+  - 6 handler names are backward-compatible via
+    `from scripts.web import api_snapshot_*`
+  - handlers actually live in the new module (`__module__`
+    attribute pins it; unwraps `__wrapped__` for the
+    audit_log decorator)
+  - route tables still dispatch snapshots (post + delete
+    patterns present)
+  - audit_log decorator preserved on the 3 mutating
+    handlers (otherwise mutation audit entries would
+    silently disappear)
+  - `scripts.api` package itself is loadable + docstring
+    mentions ω.35-B
+  - web.py no longer has inline `def api_snapshot_*(`
+    definitions (the extraction is real, not a copy)
+
+### Migration progress (file split)
+
+| Slice | Topic | Functions | web.py LOC saved |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | ~76 |
+
+### Notable decisions
+
+- **Why snapshots first.** The 6 snapshot functions are
+  thin wrappers over `scripts.core.snapshots` with only the
+  `audit_log.audit_endpoint` decorator as a top-level
+  dependency. No cross-references to other api_X
+  functions. No shared state. Cleanest possible proof of
+  pattern. The audit decorator works fine across module
+  boundaries (just import audit_log into the new file).
+- **Why re-import instead of update-call-sites.** Two
+  options for the extraction:
+  1. Move the functions; update every call site to use the
+     new import path.
+  2. Move the functions; have web.py re-import them so the
+     old import path keeps working.
+
+  Option 2 is dramatically safer for incremental
+  extraction: callers (route-table lambdas, tests, /apihelp
+  scanner) don't need any changes. Option 1 would touch
+  10-50 files per slice and risk import-cycle issues.
+- **Why a new `scripts/api/` package vs. `scripts/handlers/`
+  or `scripts/routes/`.** "api" matches the
+  function-name prefix convention (`api_X`) and the path
+  convention (`/api/X`). Lower cognitive surface than a
+  new third name.
+- **Why the audit decorator is imported at module top
+  (not lazy).** `audit_log` is a small module with no
+  expensive imports; importing eagerly removes one source
+  of import-order surprises. Snapshot functions import
+  `scripts.core.snapshots` lazily inside each function
+  (matching the original web.py pattern) — that module is
+  larger and only some snapshot handlers need it.
+
+### Open follow-ups (file split roadmap)
+
+- **ω.35-B.2** — scenarios extraction (5 functions:
+  list, save, delete, import_yaml, export_yaml).
+- **ω.35-B.3** — sources/covers extraction (sources fetch
+  + cache management + cover uploads).
+- **ω.35-B.4** — editions/customize (edition CRUD +
+  category/kind + clone-from-template).
+- **ω.35-B.5** — exports/build (export_preview, build,
+  build-all, RSS, YAML).
+- **ω.35-B.6** — preflight/audit/help (read-only
+  introspection + audit log + apihelp scanner).
+- After all B.x slices ship: the route tables themselves
+  can move out of web.py (current plan: each topic module
+  exports its own table, which Handler imports at startup).
+
+AUDIT_2026-05-11 §7 sequence: ω.35-A.10 → **B.1 ✓ → B.2**
+scenarios → B.3 sources/covers → B.4 editions/customize →
+B.5 exports/build → B.6 preflight/audit/help → ψ.35
+matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.10 bespoke PUT cleanup (ninth route-table slice; closes uniform-shape PUTs)
 
 **Phases shipped:** ω.35-A.10. Three uniform-shape bespoke

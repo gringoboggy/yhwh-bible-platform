@@ -4,6 +4,97 @@
 
 ## Prior task
 
+**ω.35-B.1 snapshots extracted** shipped 2026-05-11. First
+slice of the web.py file split. 6 `api_snapshot_*`
+functions moved into new `scripts/api/snapshots.py` module;
+`scripts/web.py` re-imports them to preserve the flat
+namespace.
+
+**New package:** `scripts/api/` with `__init__.py` (package
+marker + roadmap docstring).
+
+**New module:** `scripts/api/snapshots.py` containing:
+- api_snapshot_list (read-only)
+- api_snapshot_get (read-only)
+- api_snapshot_diff (read-only)
+- api_snapshot_create (mutation; audit-logged)
+- api_snapshot_restore (mutation; audit-logged)
+- api_snapshot_delete (mutation; audit-logged)
+
+**web.py change:** the 84-line block of snapshot function
+definitions replaced with an 8-line re-import:
+```python
+from scripts.api.snapshots import (
+    api_snapshot_create,
+    api_snapshot_delete,
+    api_snapshot_diff,
+    api_snapshot_get,
+    api_snapshot_list,
+    api_snapshot_restore,
+)
+```
+
+Net delta: **-76 lines in web.py**.
+
+### Why this approach
+
+- **Re-import preserves backward compat.** Route-table
+  lambdas and tests that reference `scripts.web.api_X` keep
+  working without modification. Alternative would have been
+  to update every call site, touching 10-50 files per
+  slice and risking import-cycle issues.
+- **Audit decorator survives the move.** `audit_log` is
+  imported at module top in `scripts/api/snapshots.py`
+  (small module, no expensive transitive imports); the 3
+  mutating handlers keep their `@audit_log.audit_endpoint`
+  decorator on the new module's function objects. Mutation
+  audit-log entries continue to fire correctly.
+- **Snapshots were the cleanest first pick.** Thin wrappers
+  over `scripts.core.snapshots`. No cross-references to
+  other `api_X` functions. No shared state. Cleanest proof
+  of pattern.
+
+### Test pinning
+
+7 tests in `TestOmega35B1SnapshotsExtraction`:
+- snapshots module is importable on its own
+- handlers backward-compatible via `from scripts.web
+  import api_snapshot_*`
+- handlers actually live in the new module
+  (`__module__` attribute pinned; unwraps `__wrapped__`
+  for audit_log decorator)
+- route tables still dispatch snapshots
+- audit decorator preserved on the 3 mutating handlers
+- scripts.api package loadable + docstring mentions ω.35-B
+- web.py no longer has inline `def api_snapshot_*(`
+
+29 pre-existing snapshot tests still pass (no regression).
+
+### Open follow-ups (file split roadmap)
+
+- **ω.35-B.2** — scenarios extraction (5 functions: list,
+  save, delete, import_yaml, export_yaml).
+- **ω.35-B.3** — sources/covers extraction.
+- **ω.35-B.4** — editions/customize.
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+- After B.6: route tables themselves can move out of
+  web.py (each topic module exports its table; Handler
+  imports them at startup).
+
+Net session test delta: **+149** (1919 baseline → 2068
+final). 22 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.1 ✓ → ω.35-B.2
+scenarios → B.3 sources/covers → B.4 editions/customize →
+B.5 exports/build → B.6 preflight/audit/help → ψ.35
+matrix collapse.
+
+**2068 / 2068 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.10 bespoke PUT cleanup** shipped 2026-05-11.
 Closes the uniform-shape PUT migration. 3 PUT routes
 migrated to `_PUT_ROUTES` (table now 9 entries); dead-code
