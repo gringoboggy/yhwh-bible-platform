@@ -213,6 +213,15 @@ After ψ.35-Final closed, four AUDIT-queued items landed
   infrastructure unblockers + 4 anti-patterns + existing
   Δ.4/4.1/5/5.1 instances.
 
+### Bonus slice: ω.27 follow-on — test_scripts.py split
+
+First topic extraction from the 28K-line monolithic
+test_scripts.py: the 7 ψ.35-family test classes (39 tests)
+moved to a new self-contained `tests/test_matrix_psi35.py`.
+test_scripts.py: 28384 → 27541 lines (-843). Test count
+unchanged (2211 pass + 1 skipped). Demonstrates the file-
+split pattern for future cohesive-cluster extractions.
+
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard
 PASSES.**

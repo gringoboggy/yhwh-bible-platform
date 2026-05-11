@@ -625,6 +625,24 @@ test-count drift, god-module split, ≥3 months without an
 audit). Lighter solo-Claude audit (2026-05-11 style), not
 the parallel-subagent sweep.
 
+**ω.27 follow-on — split ψ.35 tests into test_matrix_psi35.py.**
+The audit's §3.4 noted test_scripts.py (now 28K lines) is the
+xdist parallel-perf bottleneck; smaller-but-more test files
+unlock the 4× worker ceiling. First topic extraction: moved
+the 7 ψ.35-family test classes (39 tests total —
+TestPsi35AAccessorMethods, TestPsi35B1AccessorDicts,
+TestPsi35B1MatrixCLIMigration, TestPsi35B2InternalConsumerMigrations,
+TestPsi35B3ApiMatrixMigration, TestPsi35B4PerBookAccessor,
+TestPsi35FinalProjectionsAutoDerived) from
+`tests/test_scripts.py` (28384 → 27541 lines; -843) into a
+new `tests/test_matrix_psi35.py` (~880 lines, fully self-
+contained with lazy imports). Test count unchanged (2211
+pass + 1 skipped = 2212 collected). No behavior change.
+Demonstrates the test-split pattern that future ω.27
+follow-on slices will apply to other cohesive clusters
+(ω.35-A/B tests, Δ-family corpus_index tests, χ-cluster
+corpus-growth tests, ω.34/ψ.34/φ.* infrastructure tests).
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the

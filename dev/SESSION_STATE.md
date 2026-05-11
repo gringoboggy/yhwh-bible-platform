@@ -119,6 +119,14 @@ documenting the index-backed-alternative pattern (9-step
 shape + 5 infrastructure unblockers + 4 anti-patterns +
 existing Δ.4/4.1/5/5.1 instances).
 
+**Then ω.27 follow-on — test_scripts.py partial split**:
+the 7 ψ.35-family test classes (39 tests) moved from the
+28K-line monolithic `tests/test_scripts.py` to a new self-
+contained `tests/test_matrix_psi35.py`. test_scripts.py:
+28384 → 27541 lines (-843). Test count + behavior
+unchanged. Demonstrates the test-file-split pattern for
+the next xdist-perf-ceiling-lift slices.
+
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py
 17/17).** Net session test delta: **+293** (1919 baseline →
