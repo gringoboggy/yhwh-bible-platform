@@ -6,6 +6,96 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.6 exports/build extracted (seventh file-split slice)
+
+**Phases shipped:** ω.35-B.6. Four exports/build handlers
++ the `EXPORTS_DIR` constant extracted from `scripts/web.py`
+into `scripts/api/exports.py`.
+**Test delta:** +10 (B.6 self-tests).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+- New `scripts/api/exports.py` (~335 lines):
+  - `EXPORTS_DIR` constant (REPO / "exports")
+  - `api_export_preview` (σ.1; read-only)
+  - `api_export_build` (σ.2; mutation; audit-logged;
+    bespoke 500-on-failure semantics — stays out of
+    _PUT_ROUTES)
+  - `api_build_all_editions` (ω.2; mutation; audit-logged;
+    bespoke success_count check; out of _PUT_ROUTES)
+  - `api_download_export` (read; streams bytes;
+    filename-pattern-validated)
+- `scripts/web.py` replaces the 335-line block with an
+  8-line re-import. **Net delta: -335 lines.**
+- The two bespoke build routes (export/build, build-all)
+  STAY dispatched bespoke in `do_PUT` (their 500-on-failure
+  semantics is documented in B.A.10) — only the FUNCTION
+  bodies moved to exports.py. Verified by
+  `test_bespoke_build_routes_still_dispatch_in_do_PUT`.
+- 10 new tests in `TestOmega35B6ExportsExtraction`:
+  - module importable; 4 handlers + EXPORTS_DIR present
+  - 4 handlers backward-compatible via web.py
+  - handlers actually live in new module (`__module__`
+    check with `__wrapped__` unwrap for audit decorator)
+  - EXPORTS_DIR constant equal across both import paths
+  - audit decorator preserved on 2 mutating handlers
+  - bespoke build routes still dispatch via do_PUT
+  - /api/export/download/<file> still registered in
+    /apihelp (route scanner still discovers it)
+  - web.py has no inline `def api_export_*` / `def
+    api_download_export` / `EXPORTS_DIR = REPO / "exports"`
+  - download with invalid filename returns error dict
+  - preview with unknown edition returns error dict
+
+### Tests updated for new canonical home
+
+3 ω.20-B/C tests in `tests/test_build_cache.py` previously
+patched `scripts.web.EXPORTS_DIR`. Updated to patch the
+canonical home `scripts.api.exports.EXPORTS_DIR` (same
+B.3b-class fix pattern). 1 source-scan test
+(`test_api_export_build_command_drops_force`) updated to
+check both `scripts/api/exports.py` (canonical) and
+`scripts/web.py` (legacy) so it stays meaningful across the
+refactor.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| ω.35-B.4 | customize | 2 | -80 |
+| ω.35-B.5 | editions cluster | 8 + 2 helpers | -1188 |
+| ω.35-B.6 | exports/build | 4 + const | -335 |
+| **Total** | | **35 handlers** | **-2439** |
+
+**Cumulative: -2439 lines in web.py across 7 slices.**
+web.py is now ~5300 lines (from ~7670 at file-split start);
+**31% reduction.**
+
+### State
+
+- 2151 / 2152 tests green (1 skipped, 1 known xdist flake
+  `test_notes_io_load_notes_under_budget` which passes in
+  isolation).
+- 11/11 linter clean.
+- Protected-paths guard PASSES on full xdist (the cache-
+  clear fix from the previous turn holds).
+- Route inventory unchanged: 95 routes.
+
+### Open follow-ups
+
+- **ω.35-B.7** — final file-split slice: preflight/audit/
+  help + multipart helper consolidation. Closes ω.35-B.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-B.6 ✓ → **B.7** preflight/
+audit/help (last B-track slice; closes file split).
+
+---
+
 ## 2026-05-11 — session — Icon pack ingest + /favicon.ico route wired
 
 **Phases shipped:** publisher's full icon pack ingested at

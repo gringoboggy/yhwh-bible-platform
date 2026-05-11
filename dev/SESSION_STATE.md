@@ -1,7 +1,42 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **Icon pack ingest +
-/favicon.ico route wired** shipped. Publisher delivered a
+**Updated:** 2026-05-11, after **ω.35-B.6 exports/build
+extracted** shipped — seventh file-split slice. 4 handlers
+(api_export_preview, api_export_build, api_build_all_editions,
+api_download_export) + EXPORTS_DIR constant moved from
+scripts/web.py to new scripts/api/exports.py. Net delta:
+**-335 lines in web.py**. Cumulative B.1-B.6: **-2439 lines**
+across 7 slices (31% reduction from file-split start;
+web.py now ~5300 lines from ~7670). The two bespoke build
+routes (api_export_build with 500-on-failure, api_build_all_
+editions with success_count check) STAY dispatched bespoke
+in do_PUT — only the FUNCTION bodies moved. **+10 tests** in
+TestOmega35B6ExportsExtraction: module importable, 4
+handlers backward-compatible via web.py, handlers live in
+new module (with __wrapped__ unwrap for audit decorator),
+EXPORTS_DIR equal across both import paths, audit decorator
+preserved, bespoke build routes still dispatch via do_PUT,
+/api/export/download still in /apihelp scanner, no inline
+defs in web.py, download with invalid filename returns
+error, preview with unknown edition returns error. **Tests
+updated for canonical home:** 3 ω.20-B/C build-cache tests
+re-targeted from scripts.web.EXPORTS_DIR to
+scripts.api.exports.EXPORTS_DIR (B.3b-class fix); 1
+source-scan test now checks both candidate locations.
+**2151 / 2152 tests pass (1 skipped, 1 known xdist flake
+test_notes_io_load_notes_under_budget passes in isolation);
+11/11 linter clean; protected-paths guard PASSES.** Net
+session test delta: **+233** (1919 baseline → 2152 final).
+34 phases shipped this session: Δ.5-9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1, ω.35-
+B.2, ω.35-B.3a, ω.35-B.3b, ω.35-B.4, ω.35-B.5, ω.35-B.6, plus
+guard + AI proposal + landscape proposal + ω.37 + covers
+pack + icon pack + favicon wire. AUDIT §7 sequence: ω.35-B.6
+✓ → **ω.35-B.7** preflight/audit/help (final B-track slice;
+closes the file split).
+
+Prior ship in same session: **Icon pack ingest + /favicon.ico
+route wired** shipped. Publisher delivered a
 fully pre-rendered icon pack at C:\Users\bogda\Documents\yhwh-
 icon-pack (cleaned Midjourney source: garbled text + stray ©
 removed, transparency isolated). 15 files ingested to

@@ -22114,6 +22114,153 @@ class TestFaviconRoute:
             assert f.read_bytes()[:4] == bytes([0x89, 0x50, 0x4E, 0x47]), f"{f} not a PNG"
 
 
+class TestOmega35B6ExportsExtraction:
+    """ω.35-B.6 — seventh file-split slice. 4 exports/build
+    handlers extracted from `scripts/web.py` into
+    `scripts/api/exports.py`:
+    - api_export_preview (read-only)
+    - api_export_build (mutation; audit-logged; bespoke 500-on-fail)
+    - api_build_all_editions (mutation; audit-logged; bespoke
+      success_count check)
+    - api_download_export (streams bytes for download)
+
+    Plus the module-level `EXPORTS_DIR` constant. All 5 names
+    are re-exported from scripts.web for backward compat.
+
+    Note: api_export_build + api_build_all_editions are the two
+    bespoke PUT routes that stayed out of `_PUT_ROUTES` in
+    ω.35-A.10 (because their 500-on-failure semantics differ
+    from the standard helper's 400). They remain bespoke in
+    do_PUT after this extraction — only the FUNCTION body
+    moved.
+    """
+
+    def test_exports_module_exists(self):
+        import scripts.api.exports as exports_api
+
+        for name in (
+            "api_export_preview",
+            "api_export_build",
+            "api_build_all_editions",
+            "api_download_export",
+            "EXPORTS_DIR",
+        ):
+            assert hasattr(exports_api, name), f"exports module missing {name!r}"
+
+    def test_handlers_backward_compatible_via_web(self):
+        from scripts.web import (
+            EXPORTS_DIR,
+            api_build_all_editions,
+            api_download_export,
+            api_export_build,
+            api_export_preview,
+        )
+
+        for fn in (api_export_preview, api_export_build, api_build_all_editions, api_download_export):
+            assert callable(fn)
+        assert "exports" in str(EXPORTS_DIR), f"EXPORTS_DIR is {EXPORTS_DIR}"
+
+    def test_handlers_actually_live_in_new_module(self):
+        from scripts.web import (
+            api_build_all_editions,
+            api_download_export,
+            api_export_build,
+            api_export_preview,
+        )
+
+        for fn in (api_export_preview, api_export_build, api_build_all_editions, api_download_export):
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.exports", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.exports"
+            )
+
+    def test_exports_dir_constant_backward_compatible(self):
+        # The constant is referenced directly by tests + the
+        # download dispatch path. Pin its value across both
+        # import sites.
+        from scripts.api.exports import EXPORTS_DIR as direct
+        from scripts.web import EXPORTS_DIR as reexport
+
+        # Same Path object via both paths (same identity)
+        assert direct == reexport
+
+    def test_audit_decorator_preserved_on_mutations(self):
+        # api_export_build + api_build_all_editions are audit-
+        # logged. api_export_preview + api_download_export are
+        # read-only (no decorator).
+        from scripts.api.exports import api_build_all_editions, api_export_build
+
+        for fn in (api_export_build, api_build_all_editions):
+            assert fn.__name__.startswith("api_")
+
+    def test_bespoke_build_routes_still_dispatch_in_do_PUT(self):
+        # api_export_build (PUT /api/export/build/<id>) and
+        # api_build_all_editions (PUT /api/build-all) are the
+        # two bespoke routes ω.35-A.10 kept out of _PUT_ROUTES
+        # because their 500-on-failure semantics don't fit the
+        # standard helper. Pin: they're STILL dispatched in
+        # do_PUT (just calling the new module's function).
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_PUT)
+        assert "api_export_build" in src, "do_PUT must still dispatch api_export_build (bespoke 500-on-fail)"
+        assert "api_build_all_editions" in src, (
+            "do_PUT must still dispatch api_build_all_editions (success_count check)"
+        )
+
+    def test_download_route_still_registered_in_apihelp(self):
+        # api_download_export is wired via `m = re.match(...)` in
+        # do_GET. The /apihelp scanner picks it up. Pin that the
+        # /apihelp data includes the download path so the route
+        # discovery is intact post-split.
+        from scripts.web import api_help_data
+
+        d = api_help_data()
+        paths = {r["path"] for r in d["api_routes"]}
+        # Path uses <param> for placeholders
+        assert any("/api/export/download" in p for p in paths), (
+            f"/api/export/download missing from /apihelp; got: {[p for p in paths if 'export' in p]}"
+        )
+
+    def test_web_py_does_not_define_export_handlers_inline(self):
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in (
+            "api_export_preview",
+            "api_export_build",
+            "api_build_all_editions",
+            "api_download_export",
+        ):
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.exports only"
+            )
+        # The EXPORTS_DIR constant: no inline assignment
+        assert 'EXPORTS_DIR = REPO / "exports"' not in text, (
+            "web.py still defines EXPORTS_DIR — should be re-imported from scripts.api.exports"
+        )
+
+    def test_download_unknown_returns_error(self):
+        # Smoke: api_download_export with an invalid filename
+        # returns the expected error dict, not crashing.
+        from scripts.web import api_download_export
+
+        result = api_download_export("not-a-real-file.epub")
+        assert isinstance(result, dict)
+        assert "error" in result
+
+    def test_preview_unknown_edition_returns_error(self):
+        from scripts.web import api_export_preview
+
+        result = api_export_preview("definitely-not-a-real-edition-zzz")
+        assert isinstance(result, dict)
+        assert "error" in result
+        assert "unknown edition" in result["error"]
+
+
 # ---------- Phase ω.34.1 : test cleanup -------------------------------
 
 

@@ -427,20 +427,33 @@ class TestOmega20BBuildCacheIntegration:
         # ω.20-B drops the legacy --force flag so build_one's cache
         # can fire. Pin this so a future revert wouldn't silently
         # disable the cache for the API path.
+        #
+        # ω.35-B.6 — api_export_build moved to scripts/api/exports.py.
+        # Check both candidate locations so this test stays meaningful.
         from pathlib import Path
 
-        web_src = (Path(__file__).resolve().parent.parent / "scripts" / "web.py").read_text(encoding="utf-8")
-        # Locate the subprocess command list inside api_export_build.
-        # The function signature anchors the search.
+        scripts_dir = Path(__file__).resolve().parent.parent / "scripts"
+        candidates = [
+            scripts_dir / "api" / "exports.py",  # canonical home (ω.35-B.6+)
+            scripts_dir / "web.py",  # pre-B.6 home
+        ]
         anchor = "def api_export_build("
-        i = web_src.find(anchor)
-        assert i > 0
-        block = web_src[i : i + 2000]
-        # The command list must NOT contain "--force". (api_export_build
-        # is the only caller in this file that ever did.)
-        assert '"--force"' not in block, (
-            "api_export_build still passes --force; ω.20-B's cache would never fire for the API path."
-        )
+        found_in = None
+        for path in candidates:
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8")
+            i = text.find(anchor)
+            if i < 0:
+                continue
+            block = text[i : i + 2000]
+            assert '"--force"' not in block, (
+                f"api_export_build in {path.name} still passes --force; "
+                "ω.20-B's cache would never fire for the API path."
+            )
+            found_in = path
+            break
+        assert found_in is not None, f"api_export_build not found in any candidate: {[str(p) for p in candidates]}"
 
     def test_changelog_documents_omega20b(self):
         from pathlib import Path
@@ -642,7 +655,9 @@ class TestOmega20CStatsSidecar:
         version = "v28a-test-omega20c-api"
 
         # Redirect EXPORTS_DIR to tmp_path.
-        monkeypatch.setattr(web_mod, "EXPORTS_DIR", tmp_path)
+        # ω.35-B.6 — canonical home is scripts.api.exports; patch
+        # there so the in-module references see the redirect.
+        monkeypatch.setattr("scripts.api.exports.EXPORTS_DIR", tmp_path)
 
         # Plant a fake EPUB matching the glob pattern api_export_build
         # uses to discover the output.
@@ -695,7 +710,8 @@ class TestOmega20CStatsSidecar:
         edition_id = sorted(config.editions_by_id())[0]
         version = "v28a-test-omega20c-no-sidecar"
 
-        monkeypatch.setattr(web_mod, "EXPORTS_DIR", tmp_path)
+        # ω.35-B.6 — canonical home is scripts.api.exports.
+        monkeypatch.setattr("scripts.api.exports.EXPORTS_DIR", tmp_path)
         fake_epub = tmp_path / f"Ethiopian_Bible_{edition_id}_{version}_X.epub"
         fake_epub.write_bytes(b"PK\x03\x04" + b"\0" * 1024)
         # Note: no sidecar planted.
@@ -727,7 +743,8 @@ class TestOmega20CStatsSidecar:
         edition_id = sorted(config.editions_by_id())[0]
         version = "v28a-test-omega20c-corrupt"
 
-        monkeypatch.setattr(web_mod, "EXPORTS_DIR", tmp_path)
+        # ω.35-B.6 — canonical home is scripts.api.exports.
+        monkeypatch.setattr("scripts.api.exports.EXPORTS_DIR", tmp_path)
         fake_epub = tmp_path / f"Ethiopian_Bible_{edition_id}_{version}_X.epub"
         fake_epub.write_bytes(b"PK\x03\x04" + b"\0" * 1024)
         sidecar = fake_epub.with_suffix(fake_epub.suffix + ".stats.json")

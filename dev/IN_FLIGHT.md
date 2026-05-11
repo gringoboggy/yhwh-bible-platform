@@ -4,6 +4,52 @@
 
 ## Prior task
 
+**ω.35-B.6 exports/build extracted** shipped 2026-05-11.
+Seventh file-split slice. 4 handlers (api_export_preview,
+api_export_build, api_build_all_editions, api_download_
+export) + EXPORTS_DIR constant moved from scripts/web.py to
+new `scripts/api/exports.py`. **Net delta: -335 lines in
+web.py.** Cumulative B.1-B.6: **-2439 lines across 7 slices**
+(31% reduction; web.py now ~5300 lines).
+
+### Bespoke build routes stay bespoke
+
+api_export_build (PUT /api/export/build/<id>) +
+api_build_all_editions (PUT /api/build-all) have
+semantically-distinct response shapes (500-on-failure for
+builds; success_count check for batch). They stay
+dispatched bespoke in do_PUT per ω.35-A.10. Only their
+FUNCTION bodies moved; the route handling is unchanged.
+
+### Tests updated for new canonical home
+
+3 ω.20-B/C tests in test_build_cache.py monkeypatched
+scripts.web.EXPORTS_DIR — re-targeted to
+scripts.api.exports.EXPORTS_DIR (B.3b-class fix). 1 source-
+scan test (test_api_export_build_command_drops_force)
+updated to check both candidate locations.
+
+### State
+
+- 2151 / 2152 tests green (1 skipped, 1 known xdist flake
+  test_notes_io_load_notes_under_budget passes in isolation)
+- 11/11 linter clean
+- Protected-paths guard PASSES
+- Route inventory unchanged: 95 routes
+
+### Open follow-ups
+
+- **ω.35-B.7** — final file-split slice: preflight/audit/
+  help + multipart helper consolidation. Closes ω.35-B.
+
+Net session test delta: **+233** (1919 baseline → 2152
+final). 34 phases shipped this session.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.6 ✓ → **ω.35-B.7**
+preflight/audit/help (closes file split).
+
+## Prior task
+
 **Icon pack ingest + /favicon.ico route wired** shipped
 2026-05-11. Publisher delivered a fully pre-rendered icon
 pack; 15 files ingested to `assets/icons/`; web favicon
