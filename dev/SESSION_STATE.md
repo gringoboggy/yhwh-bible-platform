@@ -150,9 +150,15 @@ test_scripts.py: 22715 → 21726 lines (-989).
 5 χ.1 test classes (21 tests) — Strong's Greek + Naves
 Topical detectors + at-scale drivers — moved to a new
 `tests/test_corpus_chi1.py` (672 lines). test_scripts.py:
-21726 → 21080 lines (-646). Cumulative test_scripts.py
-reduction across all six extractions:
-**28384 → 21080 (-7304; -25.7%)**. **418 tests** in 6 self-
+21726 → 21080 lines (-646).
+
+**Then ω.27 follow-on #7 — v1.0 polish test split**: 7 test
+classes (34 tests) — ω.34 test-gap pass + ψ.34 matrix JS
+extraction + ω.34.1 test cleanup + TestFaviconRoute — moved
+to a new `tests/test_v1_polish_omega34.py` (822 lines).
+test_scripts.py: 21080 → 20290 lines (-790). Cumulative
+test_scripts.py reduction across all seven extractions:
+**28384 → 20290 (-8094; -28.5%)**. **452 tests** in 7 self-
 contained topic files.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;

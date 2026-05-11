@@ -767,6 +767,26 @@ a new `tests/test_corpus_chi1.py` (672 lines). Required adding
   in self-contained topic files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
+**ω.27 follow-on #7 — split v1.0 polish (ω.34/ψ.34/ω.34.1) tests
+into test_v1_polish_omega34.py.** Seventh topic extraction. 7
+test classes (34 tests) covering ω.34 test-gap pass + ψ.34
+matrix JS extraction + ω.34.1 test cleanup + TestFaviconRoute
+moved from `tests/test_scripts.py` (21080 → 20290 lines; -790)
+into a new `tests/test_v1_polish_omega34.py` (822 lines, with
+the now-standard top imports of json + pathlib + pytest +
+REPO_ROOT).
+
+**Cumulative test-file-split impact (7 extractions):**
+- test_scripts.py: **28384 → 20290 lines (-8094; -28.5%)**
+- 7 new topic files = **452 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+- The pattern is well-established; each extraction takes ~3
+  minutes of mechanical work + a 4-6 minute full test sweep
+  verification. Future sessions can keep extracting cohesive
+  clusters until the monolith reaches the ~10-15K "comfortable"
+  size (where xdist's 4× ceiling kicks in fully).
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the

@@ -272,9 +272,17 @@ Sixth topic extraction. 5 χ.1 test classes (21 tests) —
 Strong's Greek source loader, GreekWordDetector, fetch-source
 utilities, at-scale driver, and the bundled Naves Topical
 driver — moved to a new `tests/test_corpus_chi1.py` (672 lines).
-test_scripts.py: 21726 → 21080 lines (-646). **Cumulative
-across six extractions: 28384 → 21080 (-7304; -25.7%).** 418
-tests in 6 self-contained topic files.
+test_scripts.py: 21726 → 21080 lines (-646).
+
+### Bonus slice: ω.27 follow-on #7 — v1.0 polish test split
+
+Seventh topic extraction. 7 test classes (34 tests) covering
+ω.34 test-gap pass + ψ.34 matrix JS extraction + ω.34.1
+test cleanup + TestFaviconRoute moved to a new
+`tests/test_v1_polish_omega34.py` (822 lines).
+test_scripts.py: 21080 → 20290 lines (-790). **Cumulative
+across seven extractions: 28384 → 20290 (-8094; -28.5%).**
+452 tests in 7 self-contained topic files.
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard
