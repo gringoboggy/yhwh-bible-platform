@@ -6,6 +6,137 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.3a covers (mutation handlers) extracted (third file-split slice; first with lazy-import-back-to-web pattern)
+
+**Phases shipped:** ω.35-B.3a. Four cover-mutation handlers
+(upload main/book, delete main/book) extracted from
+`scripts/web.py` into `scripts/api/covers.py`. First slice
+that uses **lazy imports back to web.py** — the new module
+calls helpers (`_extract_boundary`, `_parse_multipart`,
+`_save_cover_bytes`, `api_save_edition_meta`) that still
+live in web.py. Lazy import inside each function body
+avoids an import cycle at module-load time.
+**Test delta:** +11 (was 2076, now 2087; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `scripts/api/covers.py` module containing 4 mutation
+  handlers (all audit-logged):
+  - `api_upload_cover_main(edition_id, body, ctype)`
+  - `api_upload_cover_book(edition_id, book_code, body, ctype)`
+  - `api_delete_cover_main(edition_id)`
+  - `api_delete_cover_book(edition_id, book_code)`
+- Each handler lazy-imports its helpers (`_extract_boundary`,
+  `_parse_multipart`, `_save_cover_bytes`,
+  `api_save_edition_meta`) from `scripts.web` **inside the
+  function body**. This is the safe pattern when the
+  extracted module needs to call back into web.py.
+- `scripts/web.py` replaces the 4 inline function
+  definitions with a single 6-line re-import block.
+- 11 new tests in `TestOmega35B3aCoversExtraction`:
+  - covers module is importable on its own (4 handlers)
+  - 4 handler names backward-compatible via web.py
+  - handlers actually live in the new module (`__module__`
+    check with `__wrapped__` unwrap for audit decorator)
+  - `_MULTIPART_ROUTES` still dispatches upload routes;
+    `_DELETE_ROUTES` still dispatches delete routes
+  - audit decorator preserved on all 4 handlers
+  - **helpers remain in web.py** (`_extract_boundary`,
+    `_parse_multipart`, `_save_cover_bytes`) — pinned
+    because `api_sources_cache_upload` (not yet extracted)
+    also uses them
+  - `api_save_edition_meta` remains in web.py (the lazy
+    import expects it there)
+  - `api_covers()` GET remains in web.py (deliberately
+    out of B.3a's scope — tangled with response cache)
+  - web.py has no inline `def api_*_cover*` definitions
+  - **lazy import path works at call time** — smoke-tested
+    by calling `api_delete_cover_main` with an unknown
+    edition; it must not crash with `ImportError` and must
+    return the normal `unknown edition` error dict
+
+### Out of scope (deferred)
+
+- **`api_covers()` GET** — the per-edition cover-status
+  feed endpoint. Tangled with `_cached_covers` /
+  `_compute_covers_uncached` / `_files_signature` /
+  `_validate_cover_path` — the response-cache layer.
+  Moving it cleanly needs that layer factored out first,
+  which is its own slice (call it B.3a.1 if needed).
+- **`_extract_boundary` / `_parse_multipart` /
+  `_save_cover_bytes`** — generic multipart helpers, plus
+  the cover-persistence function. Used by
+  `api_sources_cache_upload` (also still in web.py until
+  B.3b). Moving them now would require updating two
+  call-site modules with no isolation benefit. Defer
+  until after B.3b extracts sources.
+
+### Why lazy import (and why it's safe)
+
+When web.py top-imports `scripts.api.covers`, Python
+starts loading the new module. If the new module
+top-imported `scripts.web` back, that'd be a cycle —
+Python would either return a partially-loaded web.py
+module (with the helper names not yet defined) or raise
+`ImportError`.
+
+By moving the helper imports inside function bodies:
+1. At module-load time, the cover-handler functions are
+   defined but their bodies haven't executed.
+2. web.py finishes loading; the helper names are now in
+   its namespace.
+3. Later (at first request), a handler is called and the
+   lazy `from scripts.web import ...` fires. web.py is
+   already loaded — Python returns its module object and
+   resolves the names.
+
+Pinned by `test_lazy_import_path_works_at_call_time` —
+calls the function and verifies no `ImportError`.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | ~-70 (net) |
+
+**Cumulative: -517 lines in web.py across 3 slices.**
+
+### Notable decisions
+
+- **Why split B.3 into B.3a + B.3b.** Sources/covers
+  together would have been ~15 functions with two
+  distinct cross-module dependency profiles. Splitting
+  lets each slice ship cleanly and bisects to a smaller
+  surface if anything regresses.
+- **Why covers first (smaller).** Faster validation of
+  the lazy-import pattern. Once proven on 4 handlers, the
+  larger sources extraction (B.3b) can reuse the same
+  pattern with confidence.
+- **xdist flake reminder.** Same
+  `test_compute_key_is_deterministic` flake from B.2
+  appeared again. Confirmed via isolation run that it
+  passes when run alone — known shared-corpus contention
+  in xdist, not caused by this slice.
+
+### Open follow-ups
+
+- **ω.35-B.3b** — sources extraction (next; ~5 sources
+  cache functions: status, fetch, fetch_all, upload,
+  clear, plus sources navigator). After B.3b ships, the
+  generic multipart helpers can move to a shared module.
+- **ω.35-B.4** — editions/customize.
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-B.2 → **B.3a ✓ → B.3b**
+sources → B.4 editions/customize → B.5 exports/build → B.6
+preflight/audit/help → ψ.35 matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-B.2 scenarios extracted (second file-split slice; first with internal helpers)
 
 **Phases shipped:** ω.35-B.2. Scenarios topic extracted —

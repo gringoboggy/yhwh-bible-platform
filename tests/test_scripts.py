@@ -26200,3 +26200,161 @@ class TestOmega35B2ScenariosExtraction:
             raise AssertionError("expected ValueError for uppercase name")
         except ValueError:
             pass
+
+
+class TestOmega35B3aCoversExtraction:
+    """ω.35-B.3a — third file-split slice. 4 cover-mutation
+    handlers (`api_upload_cover_main/book`, `api_delete_cover_main
+    /book`) extracted from `scripts/web.py` into
+    `scripts/api/covers.py`. Only the audit-logged mutation
+    handlers move in B.3a; `api_covers()` GET (with its tangled
+    response-cache infrastructure) and the multipart helpers
+    `_extract_boundary` / `_parse_multipart` / `_save_cover_bytes`
+    (shared with the not-yet-extracted sources/cache upload) stay
+    in web.py.
+
+    The 4 handlers in `scripts/api/covers.py` use LAZY imports for
+    web.py helpers to avoid an import cycle (web.py top-imports
+    api.covers; api.covers cannot top-import web.py back, so the
+    helper imports fire at call time when web.py is fully loaded).
+
+    `scripts/web.py` re-imports the 4 names so route-table lambdas
+    (`_MULTIPART_ROUTES` for uploads, `_DELETE_ROUTES` for deletes)
+    and pre-existing tests keep working unchanged.
+    """
+
+    def test_covers_api_module_exists(self):
+        import scripts.api.covers as covers_api
+
+        assert hasattr(covers_api, "api_upload_cover_main")
+        assert hasattr(covers_api, "api_upload_cover_book")
+        assert hasattr(covers_api, "api_delete_cover_main")
+        assert hasattr(covers_api, "api_delete_cover_book")
+
+    def test_cover_handlers_backward_compatible_via_web(self):
+        from scripts.web import (
+            api_delete_cover_book,
+            api_delete_cover_main,
+            api_upload_cover_book,
+            api_upload_cover_main,
+        )
+
+        for fn in (
+            api_delete_cover_book,
+            api_delete_cover_main,
+            api_upload_cover_book,
+            api_upload_cover_main,
+        ):
+            assert callable(fn)
+
+    def test_handlers_actually_live_in_new_module(self):
+        from scripts.web import api_upload_cover_main, api_delete_cover_book
+
+        for fn in (api_upload_cover_main, api_delete_cover_book):
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.covers", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.covers"
+            )
+
+    def test_multipart_routes_still_dispatch_cover_uploads(self):
+        from scripts import web
+
+        multipart_patterns = [r.pattern for r, _max, _h in web._MULTIPART_ROUTES]
+        # Both cover upload routes are in the multipart table
+        assert any("/api/covers/" in p and "/main" in p for p in multipart_patterns)
+        assert any("/api/covers/" in p and "/book/" in p for p in multipart_patterns)
+
+    def test_delete_routes_still_dispatch_cover_deletes(self):
+        from scripts import web
+
+        delete_patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
+        assert any("/api/covers/" in p and "/main" in p for p in delete_patterns)
+        assert any("/api/covers/" in p and "/book/" in p for p in delete_patterns)
+
+    def test_audit_decorator_preserved_on_all_four(self):
+        # All 4 cover-mutation handlers are audit-logged; the
+        # decorator survives the move.
+        from scripts.api.covers import (
+            api_delete_cover_book,
+            api_delete_cover_main,
+            api_upload_cover_book,
+            api_upload_cover_main,
+        )
+
+        for fn in (
+            api_upload_cover_main,
+            api_upload_cover_book,
+            api_delete_cover_main,
+            api_delete_cover_book,
+        ):
+            assert fn.__name__.startswith("api_")
+
+    def test_helpers_remain_in_web_py(self):
+        # B.3a deliberately keeps the multipart helpers + the
+        # _save_cover_bytes persister in web.py because they're
+        # shared with api_sources_cache_upload (still in web.py).
+        # Pin: these names ARE still in web.py's namespace.
+        import scripts.web as w
+
+        for name in ("_extract_boundary", "_parse_multipart", "_save_cover_bytes"):
+            assert hasattr(w, name), (
+                f"web.py missing helper {name!r} — B.3a should NOT have moved it "
+                "(api_sources_cache_upload still needs it; defer to a future slice)"
+            )
+
+    def test_api_save_edition_meta_remains_in_web_py(self):
+        # The 2 delete handlers call api_save_edition_meta (which
+        # currently lives in web.py). The lazy import inside the
+        # cover handlers expects to find it there.
+        import scripts.web as w
+
+        assert hasattr(w, "api_save_edition_meta"), (
+            "web.py missing api_save_edition_meta — B.3a's delete-cover handlers "
+            "lazy-import it from web.py; if it moves, update covers.py too"
+        )
+
+    def test_api_covers_get_remains_in_web_py(self):
+        # B.3a leaves api_covers() (the GET endpoint) in web.py
+        # because of its tangled response-cache infrastructure.
+        # Pin: the function is still defined in web.py (NOT in
+        # the new module).
+        import scripts.api.covers as covers_api
+        import scripts.web as w
+
+        assert not hasattr(covers_api, "api_covers"), (
+            "scripts.api.covers should NOT define api_covers() — it stays in web.py for B.3a"
+        )
+        assert hasattr(w, "api_covers")
+        # And it should still be a real function (not a re-export)
+        # at this point. Check via __module__:
+        assert w.api_covers.__module__ == "scripts.web", (
+            f"api_covers should still live in scripts.web, got {w.api_covers.__module__}"
+        )
+
+    def test_web_py_does_not_define_cover_mutations_inline(self):
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in (
+            "api_upload_cover_main",
+            "api_upload_cover_book",
+            "api_delete_cover_main",
+            "api_delete_cover_book",
+        ):
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.covers only"
+            )
+
+    def test_lazy_import_path_works_at_call_time(self):
+        # Smoke: call api_delete_cover_main with an unknown
+        # edition. It should NOT crash with ImportError; instead
+        # return the expected error dict.
+        from scripts.web import api_delete_cover_main
+
+        result = api_delete_cover_main("definitely-not-a-real-edition-id-zzzqqq")
+        assert isinstance(result, dict)
+        # The function's lazy imports must have resolved
+        # successfully; the result should be a normal error dict.
+        assert "error" in result
+        assert "unknown edition" in result["error"]

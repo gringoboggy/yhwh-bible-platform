@@ -2973,81 +2973,16 @@ def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> di
     }
 
 
-@audit_log.audit_endpoint(action="upload_cover_main")
-def api_upload_cover_main(edition_id: str, body: bytes, content_type: str) -> dict:
-    """Phase π.4-B — upload a main cover for one edition."""
-    boundary = _extract_boundary(content_type)
-    if boundary is None:
-        return {"error": "request must be multipart/form-data with a boundary"}
-    parts = _parse_multipart(body, boundary)
-    file_parts = [p for p in parts if p.get("filename")]
-    if not file_parts:
-        return {"error": "no file part in upload"}
-    return _save_cover_bytes(file_parts[0]["data"], edition_id, None)
-
-
-@audit_log.audit_endpoint(action="upload_cover_book")
-def api_upload_cover_book(edition_id: str, book_code: str, body: bytes, content_type: str) -> dict:
-    """Phase π.4-B — upload a per-book cover."""
-    boundary = _extract_boundary(content_type)
-    if boundary is None:
-        return {"error": "request must be multipart/form-data with a boundary"}
-    parts = _parse_multipart(body, boundary)
-    file_parts = [p for p in parts if p.get("filename")]
-    if not file_parts:
-        return {"error": "no file part in upload"}
-    return _save_cover_bytes(file_parts[0]["data"], edition_id, book_code)
-
-
-@audit_log.audit_endpoint(action="delete_cover_main")
-def api_delete_cover_main(edition_id: str) -> dict:
-    """Phase π.4-B — clear an edition's main cover assignment + file."""
-    eds = config.editions_by_id()
-    if edition_id not in eds:
-        return {"error": f"unknown edition: {edition_id}"}
-    edition = eds[edition_id]
-    cur_path = (edition.get("cover_image") or "").strip()
-    # Update YAML first (set cover_image to empty)
-    save_result = api_save_edition_meta(edition_id, {"cover_image": ""})
-    if not save_result.get("ok"):
-        return {"error": save_result.get("error", "yaml save failed")}
-    # Then back up + remove the on-disk file
-    if cur_path:
-        abs_path = REPO / "content" / cur_path
-        if abs_path.exists():
-            notes_io.ensure_backup(abs_path)
-            try:
-                abs_path.unlink()
-            except OSError:
-                pass
-    return {"ok": True, "edition_id": edition_id, "cleared": cur_path}
-
-
-@audit_log.audit_endpoint(action="delete_cover_book")
-def api_delete_cover_book(edition_id: str, book_code: str) -> dict:
-    """Phase π.4-B — clear a per-book cover assignment + file."""
-    from scripts.core import covers as _covers
-
-    eds = config.editions_by_id()
-    if edition_id not in eds:
-        return {"error": f"unknown edition: {edition_id}"}
-    if book_code not in config.books_by_code():
-        return {"error": f"unknown book code: {book_code}"}
-    edition = eds[edition_id]
-    per_book = _covers.decode_book_covers(edition.get("book_covers"))
-    cur_path = per_book.pop(book_code, "")
-    save_result = api_save_edition_meta(edition_id, {"book_covers": per_book})
-    if not save_result.get("ok"):
-        return {"error": save_result.get("error", "yaml save failed")}
-    if cur_path:
-        abs_path = REPO / "content" / cur_path
-        if abs_path.exists():
-            notes_io.ensure_backup(abs_path)
-            try:
-                abs_path.unlink()
-            except OSError:
-                pass
-    return {"ok": True, "edition_id": edition_id, "book_code": book_code, "cleared": cur_path}
+# ω.35-B.3a — cover-mutation handlers moved to scripts/api/covers.py.
+# Re-imported here so route-table lambdas (_MULTIPART_ROUTES,
+# _DELETE_ROUTES) and tests that reference `scripts.web.api_X` keep
+# working unchanged.
+from scripts.api.covers import (  # noqa: E402
+    api_delete_cover_book,
+    api_delete_cover_main,
+    api_upload_cover_book,
+    api_upload_cover_main,
+)
 
 
 def _compute_covers_uncached() -> dict:

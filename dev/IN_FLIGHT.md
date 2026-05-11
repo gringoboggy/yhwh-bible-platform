@@ -4,6 +4,126 @@
 
 ## Prior task
 
+**ω.35-B.3a covers (mutation handlers) extracted** shipped
+2026-05-11. Third file-split slice; first with the
+lazy-import-back-to-web pattern.
+
+**New module:** `scripts/api/covers.py` containing 4
+mutation handlers (all audit-logged):
+- api_upload_cover_main (multipart body)
+- api_upload_cover_book (multipart body)
+- api_delete_cover_main (clears file + YAML field)
+- api_delete_cover_book (clears file + YAML field)
+
+**web.py change:** 4 inline function definitions replaced
+with a 6-line re-import block. Net delta: ~-70 lines in
+web.py.
+
+### The lazy-import-back-to-web pattern
+
+The 4 handlers in `scripts/api/covers.py` need helpers
+that still live in web.py:
+- `_extract_boundary`, `_parse_multipart`,
+  `_save_cover_bytes` (multipart processing)
+- `api_save_edition_meta` (called by the 2 delete handlers
+  to clear the YAML field)
+
+If the new module top-imported `scripts.web`, that'd be a
+cycle (web.py top-imports api.covers; api.covers would
+top-import web.py). Python would either return a partial
+module (helpers not yet defined) or raise ImportError.
+
+Solution: lazy import inside each function body:
+```python
+def api_upload_cover_main(edition_id, body, content_type):
+    from scripts.web import _extract_boundary, _parse_multipart, _save_cover_bytes
+    ...
+```
+
+Safe because:
+1. Module-load time: function defined, body not executed.
+2. web.py finishes loading; helper names enter its
+   namespace.
+3. Request time: handler called; lazy import fires;
+   web.py is fully loaded → name resolution succeeds.
+
+Smoke-tested by `test_lazy_import_path_works_at_call_time`:
+calls api_delete_cover_main with unknown edition; must not
+crash with ImportError; must return the normal error dict.
+
+### Out of scope for B.3a (deferred)
+
+- **`api_covers()` GET endpoint** — tangled with the
+  response-cache layer (`_cached_covers`,
+  `_compute_covers_uncached`, `_files_signature`,
+  `_validate_cover_path`). Moving it cleanly needs that
+  layer factored out first. Defer to B.3a.1 if needed.
+- **Generic multipart helpers** (`_extract_boundary`,
+  `_parse_multipart`, `_save_cover_bytes`) — shared with
+  `api_sources_cache_upload` (still in web.py until B.3b).
+  Moving them now would require updating two modules
+  with no isolation benefit. Defer until after B.3b lets
+  us move them to a shared module.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| **Total** | | **16 + helpers** | **-517** |
+
+### Test pinning
+
+11 tests in `TestOmega35B3aCoversExtraction`:
+- covers module importable on its own
+- 4 handler names backward-compatible via web.py
+- handlers actually live in new module (`__module__`
+  check with `__wrapped__` unwrap)
+- `_MULTIPART_ROUTES` still dispatches upload routes
+- `_DELETE_ROUTES` still dispatches delete routes
+- audit decorator preserved on all 4 handlers
+- helpers (`_extract_boundary`, `_parse_multipart`,
+  `_save_cover_bytes`) remain in web.py
+- `api_save_edition_meta` remains in web.py
+- `api_covers()` GET remains in web.py (NOT in new module)
+- web.py has no inline `def api_*_cover*` definitions
+- lazy import path works at call time (smoke + no ImportError)
+
+76 pre-existing cover/π.4 tests still pass.
+
+### xdist flake noted (third occurrence)
+
+`test_compute_key_is_deterministic` failed once in the
+parallel run, passes in isolation. Same known class of
+xdist flakes. Not caused by this slice.
+
+### Open follow-ups
+
+- **ω.35-B.3b** — sources extraction (next; ~5 sources
+  cache functions + navigator). After B.3b, the generic
+  multipart helpers can move to a shared module.
+- **ω.35-B.4** — editions/customize.
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+- **B.3a.1 (optional)** — extract `api_covers()` GET
+  after factoring out the response-cache layer.
+
+Net session test delta: **+168** (1919 baseline → 2087
+final). 24 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10,
+ω.35-B.1, ω.35-B.2, ω.35-B.3a.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.3a ✓ → ω.35-B.3b
+sources → B.4 editions/customize → B.5 exports/build → B.6
+preflight/audit/help.
+
+**2087 / 2087 tests green (1 skipped; 1 known xdist flake);
+11/11 linter clean.**
+
+## Prior task
+
 **ω.35-B.2 scenarios extracted** shipped 2026-05-11. Second
 file-split slice; larger surface than B.1 because scenarios
 has internal helpers + a regex constant that pre-existing
