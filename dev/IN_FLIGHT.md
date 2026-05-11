@@ -249,9 +249,22 @@ index-Δ). Test count unchanged (2211 pass + 1 skipped).
 Fourth topic extraction. 10 ω.35-A test classes (89 tests) —
 TestOmega35RoutesInventory + TestOmega35A1 through A10 —
 moved to a new `tests/test_web_routetable.py` (1528 lines).
-test_scripts.py: 24214 → 22715 lines (-1499). **Cumulative
-across all four extractions: 28384 → 22715 (-5669; -20.0%).**
-314 tests in 4 self-contained topic files.
+test_scripts.py: 24214 → 22715 lines (-1499).
+
+### Bonus slice: ω.27 follow-on #5 — ψ.8 traditions test split
+
+Fifth topic extraction. 9 ψ.8 traditions test classes (83
+tests) covering the cross-denominational comparison
+apparatus moved to a new `tests/test_traditions_psi8.py`
+(1015 lines). test_scripts.py: 22715 → 21726 lines (-989).
+Small departure: top-level `import pytest` + `REPO_ROOT`
+constant added (two existing references couldn't trivially
+lazy-import); `_import_script("web")` replaced with
+`import scripts.web` (cleaner — uses standard module path).
+
+**Cumulative test_scripts.py reduction across five
+extractions: 28384 → 21726 lines (-6658; -23.5%).** 397
+tests in 5 self-contained topic files.
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard

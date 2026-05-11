@@ -139,11 +139,16 @@ test_scripts.py: 26143 → 24214 lines (-1929).
 **Then ω.27 follow-on #4 — ω.35-A route-table test split**: 10
 ω.35-A test classes (89 tests) moved to a new
 `tests/test_web_routetable.py` (1528 lines). test_scripts.py:
-24214 → 22715 lines (-1499). Cumulative test_scripts.py
-reduction across all four extractions:
-**28384 → 22715 (-5669; -20.0%)**. 314 tests in 4 self-
+24214 → 22715 lines (-1499).
+
+**Then ω.27 follow-on #5 — ψ.8 traditions test split**: 9
+ψ.8 traditions test classes (83 tests) moved to a new
+`tests/test_traditions_psi8.py` (1015 lines).
+test_scripts.py: 22715 → 21726 lines (-989). Cumulative
+test_scripts.py reduction across all five extractions:
+**28384 → 21726 (-6658; -23.5%)**. **397 tests** in 5 self-
 contained topic files (matrix-ψ.35, web-filesplit,
-corpus_index-Δ, web-routetable).
+corpus_index-Δ, web-routetable, traditions-ψ.8).
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py

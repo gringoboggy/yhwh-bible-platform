@@ -717,13 +717,41 @@ three splits.
   test_web_routetable.py (1528 lines, 89 tests) = 314 tests
   total in self-contained topic files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
-- ~63% of the test_scripts.py monolith's classes (still ~169 of
-  the original ~197) remain in the monolith. The four extracted
-  clusters were the most cohesive recent additions; the
-  remaining classes are more diverse (build_edition, customize,
-  publisher, ν.*, ψ.* matrix, ψ.* sources, ω.* tooling, ξ.*
-  security, etc.). Each cluster ships as its own ω.27 follow-on
-  slice when bandwidth permits.
+
+**ω.27 follow-on #5 — split ψ.8 traditions tests into test_traditions_psi8.py.**
+Fifth topic extraction. 9 ψ.8 traditions test classes (83 tests)
+— covering the schema foundation (ψ.8.0), customize/build flow
+(ψ.8.1), per-book overrides (ψ.8.2-A), label injection,
+encoder/decoder, resolver, and backfill script — moved from
+`tests/test_scripts.py` (22715 → 21726 lines; -989) into a new
+`tests/test_traditions_psi8.py` (1015 lines, fully self-
+contained).
+
+Two small departures from the prior splits' convention:
+
+- The new file adds top-level `import pytest` and a `REPO_ROOT`
+  constant (the two existing in-file references couldn't be
+  trivially lazy-imported since they sit in test-body / module
+  scope respectively). Both are stdlib-only and don't introduce
+  project dependencies.
+- The two `_import_script("web")` call sites were converted to
+  direct `import scripts.web as web` since the script imports
+  cleanly via the standard module path. This is actually a
+  small improvement — `_import_script` re-executes the module
+  via importlib.util.spec_from_file_location, which can mask
+  bugs that `import scripts.web` would catch.
+
+**Cumulative test-file-split impact (5 extractions):**
+- test_scripts.py: **28384 → 21726 lines (-6658; -23.5%)**
+- 5 new topic files: test_matrix_psi35.py, test_web_filesplit.py,
+  test_corpus_index_delta.py, test_web_routetable.py,
+  test_traditions_psi8.py = **397 tests** total in self-contained
+  topic files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+- The test_scripts.py monolith is now under ~22K lines; the
+  trajectory toward sub-15K (the "comfortable monolith" target
+  for the xdist 4× ceiling) is on track for ~3 more
+  similarly-sized extractions.
 
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
