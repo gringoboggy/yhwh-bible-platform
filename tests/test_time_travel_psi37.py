@@ -383,3 +383,54 @@ class TestApiSaveEditionTimeFilterCeiling:
             from scripts.core import config
 
             config.load_editions.cache_clear()
+
+
+# ---------- Phase ψ.37-D : /customize UI integration -----------------
+
+
+class TestCustomizeUiTimeFilter:
+    """ψ.37-D: the /customize UI surfaces `time_filter_ceiling` from
+    api_customize_data and renders a year-ceiling dropdown with the
+    expected slider positions.
+    """
+
+    def test_api_customize_data_exposes_time_filter_ceiling(self):
+        from scripts.web import api_customize_data
+
+        result = api_customize_data()
+        # Every edition has the field, defaulting to None.
+        for ed in result["editions"]:
+            assert "time_filter_ceiling" in ed, f"edition {ed['id']!r} missing time_filter_ceiling key"
+            # Value is None or an int (whatever's in editions.yaml).
+            v = ed["time_filter_ceiling"]
+            assert v is None or isinstance(v, int), (
+                f"edition {ed['id']!r}: time_filter_ceiling is {v!r}, expected None or int"
+            )
+
+    def test_customize_html_contains_time_travel_section(self):
+        from scripts.templates.customize import CUSTOMIZE_HTML
+
+        # The collapsible section header
+        assert "Time-traveling commentary" in CUSTOMIZE_HTML
+        assert "time-travel-section" in CUSTOMIZE_HTML
+        # The data-field attribute the JS reads
+        assert 'data-field="time_filter_ceiling"' in CUSTOMIZE_HTML
+
+    def test_customize_html_contains_expected_year_ceilings(self):
+        from scripts.templates.customize import CUSTOMIZE_HTML
+
+        # Each slider position the demo relies on
+        for value in ("null", "2000", "1900", "1895", "1885", "1850", "1700", "1611"):
+            assert f'value="{value}"' in CUSTOMIZE_HTML, f"option value={value!r} missing from /customize HTML"
+        # User-facing labels for the demo's key positions
+        assert "no limit" in CUSTOMIZE_HTML
+        assert "King James era" in CUSTOMIZE_HTML
+
+    def test_customize_html_has_explanation_paragraph(self):
+        # The collapsible body should explain the feature so the
+        # buyer isn't confused by an empty 1611 result.
+        from scripts.templates.customize import CUSTOMIZE_HTML
+
+        assert "first published" in CUSTOMIZE_HTML
+        assert "Applies on next BUILD" in CUSTOMIZE_HTML
+        assert "User-original" in CUSTOMIZE_HTML

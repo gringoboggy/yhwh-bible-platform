@@ -434,6 +434,42 @@ function renderEditions() {
         </div>
       </details>
 
+      <details class="time-travel-section mt-3 border border-slate-200 rounded bg-slate-50">
+        <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
+          Time-traveling commentary
+          <span class="text-slate-400 normal-case font-normal ml-2">
+            limit commentary to what a reader in year X would have had (Phase ψ.37)
+          </span>
+        </summary>
+        <div class="px-3 pb-3 pt-1 space-y-2">
+          <p class="text-xs text-slate-500">
+            When set, the build filters out every note whose source
+            was first published <em>after</em> the year you choose —
+            and every contemporary note (User-original / paraphrase)
+            since those weren't part of the historical record either.
+            Pick "no limit" to ship the whole corpus.
+          </p>
+          <label class="text-xs flex items-center gap-2">
+            <span class="font-medium text-slate-700">Year ceiling:</span>
+            <select class="label-input w-auto" data-field="time_filter_ceiling" title="ψ.37 — drop notes whose source published after this year">
+              <option value="null" ${e.time_filter_ceiling == null ? 'selected' : ''}>no limit (full corpus)</option>
+              <option value="2000" ${e.time_filter_ceiling === 2000 ? 'selected' : ''}>by 2000 — modern PD (drops contemporary user notes)</option>
+              <option value="1900" ${e.time_filter_ceiling === 1900 ? 'selected' : ''}>by 1900 — drops Kenyon (1903) + contemporary</option>
+              <option value="1895" ${e.time_filter_ceiling === 1895 ? 'selected' : ''}>by 1895 — drops Nave's (1897) too</option>
+              <option value="1885" ${e.time_filter_ceiling === 1885 ? 'selected' : ''}>by 1885 — drops Strong's (1890); only TSK remains</option>
+              <option value="1850" ${e.time_filter_ceiling === 1850 ? 'selected' : ''}>by 1850 — TSK era only (≈6K notes)</option>
+              <option value="1700" ${e.time_filter_ceiling === 1700 ? 'selected' : ''}>by 1700 — empty (no pre-1834 commentary yet)</option>
+              <option value="1611" ${e.time_filter_ceiling === 1611 ? 'selected' : ''}>by 1611 — King James era (empty; awaits Calvin/Henry χ-cluster)</option>
+            </select>
+          </label>
+          <p class="text-xs text-slate-500 italic">
+            Applies on next BUILD. Today's corpus is 1834-1903 PD apparatus;
+            pre-1700 positions render empty until a future χ-cluster phase
+            adds Calvin (1556), Henry (1706), Wesley (1755) etc.
+          </p>
+        </div>
+      </details>
+
       <details class="traditions-section mt-3 border border-slate-200 rounded bg-slate-50">
         <summary class="px-3 py-2 cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-600 hover:bg-slate-100">
           Traditions

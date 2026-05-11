@@ -1238,6 +1238,10 @@ def api_customize_data() -> dict:
                 "enabled_reading_plans": list(e.get("enabled_reading_plans") or []),
                 "theme": e.get("theme", "classic"),
                 "notes": e.get("notes", ""),
+                # ψ.37-D — year ceiling for time-traveling commentary.
+                # None (or absent) = no filter; int = drop notes whose
+                # source's circa-year > this.
+                "time_filter_ceiling": e.get("time_filter_ceiling"),
             }
             for e in editions
         ],

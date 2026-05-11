@@ -6,6 +6,80 @@
 
 ---
 
+## 2026-05-11 — session — ψ.37-D /customize UI (v1.1 slice #2 closer; feature now end-to-end demo-able)
+
+**Phases shipped:** ψ.37-D (UI integration).
+**Test delta:** +4 (TestCustomizeUiTimeFilter).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+The /customize console gained a **"Time-traveling commentary"**
+collapsible section right above the existing Traditions
+section. With this slice, the ψ.37 feature is **end-to-end
+demo-able** — buyer opens /customize, picks an edition,
+selects a year ceiling, clicks BUILD, and gets an EPUB
+filtered to "what a reader in that year would have had."
+
+- `scripts/templates/customize.py` — new `<details
+  class="time-travel-section">` block with year-ceiling
+  dropdown (`data-field="time_filter_ceiling"`). 8 slider
+  positions: no limit / 2000 / 1900 / 1895 / 1885 / 1850 /
+  1700 / 1611. Each option carries a count-hint label so
+  the buyer sees what each position implies ("by 1850 — TSK
+  era only (≈6K notes)").
+- `scripts/web.py::api_customize_data` extended to expose
+  `time_filter_ceiling` per edition (None when unset).
+- Inline explanatory `<p>` warns that pre-1700 positions
+  currently render empty until a future χ-cluster adds
+  Calvin / Henry / Wesley etc. — the demo is honest about
+  today's corpus limits.
+
+### Tests (4 new)
+
+- `test_api_customize_data_exposes_time_filter_ceiling` —
+  every edition's payload includes the field; value is
+  None or int.
+- `test_customize_html_contains_time_travel_section` — the
+  collapsible markup + `data-field` attribute are present.
+- `test_customize_html_contains_expected_year_ceilings` —
+  every slider position the demo relies on (null / 2000 /
+  1900 / 1895 / 1885 / 1850 / 1700 / 1611) renders as an
+  option; user-facing labels "no limit" + "King James era"
+  pin the demo flavor.
+- `test_customize_html_has_explanation_paragraph` —
+  pre-1700-empty warning is present so the demo doesn't
+  silently confuse the buyer.
+
+### v1.1 slice #2 (ψ.37) — closed
+
+The four sub-slices of ψ.37 are now all shipped:
+
+| Sub-slice | What it does |
+|---|---|
+| ψ.37-A | Data model: source_dates.yaml + lookup_year |
+| ψ.37-B | Build-pipeline filter: compute_time_filtered_html_ref_ids |
+| ψ.37-C | Schema + API: time_filter_ceiling in editions.yaml + api_save_edition_meta validation |
+| ψ.37-D | /customize UI dropdown |
+
+**Total tests for ψ.37: 30** (17 from -A, 9 from -B/-C, 4
+from -D). **Corpus coverage 97.3%.** Feature is end-to-end
+demo-able from the /customize console.
+
+### Remaining ψ.37 polish (optional)
+
+- **ψ.37-E**: wizard integration — surface the year
+  ceiling as a step in the /wizard buyer-demo flow. Polish;
+  /customize already covers the full feature. Deferred.
+
+### Next per the committed v1.1 sequence
+
+ψ.37 ✓ → **ψ.36 matrix lazy-load endpoint** (slice #3) →
+Δ.10 attribution_audit index-back → ω.36 sonarqube
+(whenever your key shows up).
+
+---
+
 ## 2026-05-11 — session — ψ.37-B + ψ.37-C build-pipeline filter + schema/API (v1.1 slice #2 cont'd)
 
 **Phases shipped:** ψ.37-B (build-pipeline filter) + ψ.37-C

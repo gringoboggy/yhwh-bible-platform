@@ -4,6 +4,24 @@
 
 ## Prior task
 
+**ψ.37-D /customize UI** shipped 2026-05-11. The "Time-
+traveling commentary" collapsible section is now on
+/customize with an 8-position year-ceiling dropdown
+(no limit / 2000 / 1900 / 1895 / 1885 / 1850 / 1700 /
+1611). `api_customize_data` exposes the field per edition.
+**+4 tests.** **2241/2242 tests green; 11/11 lint clean.**
+**ψ.37 v1.1 slice #2 is closed** — feature is end-to-end
+demo-able. Optional ψ.37-E wizard integration deferred as
+polish.
+
+### Next per v1.1 sequence
+
+ψ.37 ✓ → **ψ.36 matrix lazy-load endpoint** (slice #3) →
+Δ.10 attribution_audit index-back → ω.36 sonarqube
+(whenever user key shows up) → 6-month feature tracks B-L.
+
+## Prior task
+
 **ψ.37-B + ψ.37-C build-pipeline filter + schema/API** shipped
 2026-05-11. `compute_time_filtered_html_ref_ids(edition)` wires
 into `build_one()` next to the tradition filter (ψ.8.2-A).

@@ -1,6 +1,17 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ψ.37-B + ψ.37-C
+**Updated 2026-05-11 / late session**: **ψ.37-D /customize UI**
+shipped. "Time-traveling commentary" collapsible section
+now live on /customize with 8-position year-ceiling dropdown.
+api_customize_data exposes the field. **+4 tests.**
+**2241/2242 tests green; 11/11 lint clean.** **ψ.37 v1.1
+slice #2 is closed** — feature is end-to-end demo-able.
+Optional ψ.37-E wizard polish deferred. **Next per v1.1
+sequence: ψ.36 matrix lazy-load endpoint (slice #3).**
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ψ.37-B + ψ.37-C
 build-pipeline filter + schema/API** shipped.
 `compute_time_filtered_html_ref_ids` wires into `build_one()`
 alongside tradition filter; `api_save_edition_meta` validates
