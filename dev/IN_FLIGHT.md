@@ -244,6 +244,15 @@ the Δ-family pattern (index-backed file-walk replacements).
 contained topic files (matrix-ψ.35, web-filesplit, corpus_
 index-Δ). Test count unchanged (2211 pass + 1 skipped).
 
+### Bonus slice: ω.27 follow-on #4 — ω.35-A route-table test split
+
+Fourth topic extraction. 10 ω.35-A test classes (89 tests) —
+TestOmega35RoutesInventory + TestOmega35A1 through A10 —
+moved to a new `tests/test_web_routetable.py` (1528 lines).
+test_scripts.py: 24214 → 22715 lines (-1499). **Cumulative
+across all four extractions: 28384 → 22715 (-5669; -20.0%).**
+314 tests in 4 self-contained topic files.
+
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard
 PASSES.**

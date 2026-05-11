@@ -694,6 +694,37 @@ worker storage, warmup) actually hold under xdist.
   dependencies inside test method bodies; no top-level project
   imports.
 
+**ω.27 follow-on #4 — split ω.35-A series into test_web_routetable.py.**
+Fourth (and last-for-this-session) topic extraction. 10
+ω.35-A test classes covering the route-table migration arc
+(TestOmega35RoutesInventory + TestOmega35A1 through A10) moved
+from `tests/test_scripts.py` (24214 → 22715 lines; -1499) into
+a new `tests/test_web_routetable.py` (1528 lines, 89 tests).
+
+The ω.35-A arc shipped 10 slices on 2026-05-11, moving the
+legacy `do_GET / do_POST / do_PUT / do_DELETE` if/elif cascade
+into table-driven dispatch (_SIMPLE_GET_ROUTES,
+_REGEX_GET_ROUTES, _QS_REGEX_GET_ROUTES, _PUT_ROUTES,
+_DELETE_ROUTES, _POST_ROUTES, _MULTIPART_ROUTES). The new
+test file follows the same lineage convention as the other
+three splits.
+
+**Cumulative test-file-split impact (4 extractions):**
+- test_scripts.py: **28384 → 22715 lines (-5669; -20.0%)**
+- 4 new topic files: test_matrix_psi35.py (869 lines, 39 tests),
+  test_web_filesplit.py (1422 lines, 88 tests),
+  test_corpus_index_delta.py (1950 lines, 98 tests),
+  test_web_routetable.py (1528 lines, 89 tests) = 314 tests
+  total in self-contained topic files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+- ~63% of the test_scripts.py monolith's classes (still ~169 of
+  the original ~197) remain in the monolith. The four extracted
+  clusters were the most cohesive recent additions; the
+  remaining classes are more diverse (build_edition, customize,
+  publisher, ν.*, ψ.* matrix, ψ.* sources, ω.* tooling, ξ.*
+  security, etc.). Each cluster ships as its own ω.27 follow-on
+  slice when bandwidth permits.
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the

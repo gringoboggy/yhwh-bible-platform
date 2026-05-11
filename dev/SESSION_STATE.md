@@ -134,9 +134,16 @@ test_scripts.py: 27541 → 26143 lines (-1398).
 **Then ω.27 follow-on #3 — Δ-family test split**: 14
 Δ-family test classes (98 tests) moved to a new
 `tests/test_corpus_index_delta.py` (1950 lines).
-test_scripts.py: 26143 → 24214 lines (-1929). Cumulative
-test_scripts.py reduction: **28384 → 24214 (-4170; -14.7%)**.
-225 tests in 3 self-contained topic files.
+test_scripts.py: 26143 → 24214 lines (-1929).
+
+**Then ω.27 follow-on #4 — ω.35-A route-table test split**: 10
+ω.35-A test classes (89 tests) moved to a new
+`tests/test_web_routetable.py` (1528 lines). test_scripts.py:
+24214 → 22715 lines (-1499). Cumulative test_scripts.py
+reduction across all four extractions:
+**28384 → 22715 (-5669; -20.0%)**. 314 tests in 4 self-
+contained topic files (matrix-ψ.35, web-filesplit,
+corpus_index-Δ, web-routetable).
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py
