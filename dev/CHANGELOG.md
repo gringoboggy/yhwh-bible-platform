@@ -643,6 +643,27 @@ follow-on slices will apply to other cohesive clusters
 (ω.35-A/B tests, Δ-family corpus_index tests, χ-cluster
 corpus-growth tests, ω.34/ψ.34/φ.* infrastructure tests).
 
+**ω.27 follow-on #2 — split ω.35-B tests into test_web_filesplit.py.**
+Second topic extraction. Eight ω.35-B file-split test classes
+(88 tests total — TestOmega35B1SnapshotsExtraction through
+TestOmega35B7PreflightExtraction including B.3a + B.3b)
+moved from `tests/test_scripts.py` (27541 → 26143 lines;
+-1398) into a new `tests/test_web_filesplit.py` (1422 lines,
+self-contained with lazy imports). The classes were scattered
+across two regions of test_scripts.py (B6/B7 at lines 22130-22571
+and B1-B5 at lines 26588-27541) because they shipped in different
+sessions; the new file consolidates them in chronological order
+B1 → B7 with proper section markers. Test count unchanged
+(2211 pass + 1 skipped = 2212 collected). No behavior change.
+
+**Cumulative test-file-split impact:** test_scripts.py:
+**28384 → 26143 lines (-2241; -7.9%)** across two extractions.
+Two new topic files contain 127 tests total. The remaining
+test_scripts.py monolith still has ~190 classes; future ω.27
+follow-on slices will continue the trajectory toward a
+test-per-feature file structure that maximizes xdist
+parallelism.
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the

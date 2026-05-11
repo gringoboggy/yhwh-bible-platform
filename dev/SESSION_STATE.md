@@ -124,8 +124,13 @@ the 7 ψ.35-family test classes (39 tests) moved from the
 28K-line monolithic `tests/test_scripts.py` to a new self-
 contained `tests/test_matrix_psi35.py`. test_scripts.py:
 28384 → 27541 lines (-843). Test count + behavior
-unchanged. Demonstrates the test-file-split pattern for
-the next xdist-perf-ceiling-lift slices.
+unchanged.
+
+**Then ω.27 follow-on #2 — ω.35-B test split**: eight
+ω.35-B file-split test classes (88 tests) moved to a new
+`tests/test_web_filesplit.py` (1422 lines).
+test_scripts.py: 27541 → 26143 lines (-1398). Cumulative
+test_scripts.py reduction: **28384 → 26143 (-2241; -7.9%)**.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py
