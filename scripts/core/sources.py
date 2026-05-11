@@ -319,6 +319,99 @@ class NavesTopical:
 
 
 # ----------------------------------------------------------------------
+# Patristic commentary corpus (γ.3 — 2026-05-11)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class PatristicCommentary:
+    """One verse-keyed Church Father commentary entry.
+
+    Each entry summarizes a Father's interpretation of a specific verse;
+    the source `attribution` field embeds the precise translation
+    citation (NPNF series + volume) so promoted notes carry their
+    provenance into the YAML.
+
+    See `content/sources/patristic_commentaries.json` for the live
+    dataset; future γ.3.x will expand from the current ~8-entry
+    Augustine-on-Genesis seed into a fuller corpus drawn from the
+    NPNF dump.
+    """
+
+    book: str
+    chapter: int
+    verse: int
+    father: str
+    work: str
+    year: int
+    summary: str
+    attribution: str
+
+
+class PatristicCommentaries:
+    """Lazy loader for the Patristic commentary corpus. Cached on
+    first read. Raises ``SourceMissingError`` if the JSON cache file
+    is absent.
+
+    Two access patterns:
+      * ``for_verse(book, chapter, verse)`` — every commentary entry
+        targeting one specific verse (used by the detector).
+      * ``by_father(name)`` — every entry by a given Church Father
+        (e.g. ``"Augustine"``), for audit / coverage UIs.
+    """
+
+    PATH = _SOURCES / "patristic_commentaries.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Patristic commentaries cache not present at {self.PATH}. "
+                "The seed corpus shipped with γ.3 (2026-05-11) — restore from git."
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        # Index by (book, chapter, verse) for O(1) per-verse lookup.
+        self._by_verse: dict[tuple[str, int, int], list[PatristicCommentary]] = {}
+        # Also index by father name for the audit case.
+        self._by_father: dict[str, list[PatristicCommentary]] = {}
+        for entry in data.get("entries", []):
+            try:
+                pc = PatristicCommentary(
+                    book=str(entry["book"]),
+                    chapter=int(entry["chapter"]),
+                    verse=int(entry["verse"]),
+                    father=str(entry["father"]),
+                    work=str(entry.get("work", "")),
+                    year=int(entry.get("year", 0)),
+                    summary=str(entry["summary"]),
+                    attribution=str(entry["attribution"]),
+                )
+            except (KeyError, ValueError, TypeError):
+                # Malformed entry — skip silently. The schema is
+                # documented in the JSON's _meta block; this is
+                # defensive against hand-edit typos.
+                continue
+            key = (pc.book, pc.chapter, pc.verse)
+            self._by_verse.setdefault(key, []).append(pc)
+            self._by_father.setdefault(pc.father, []).append(pc)
+
+    def __len__(self) -> int:
+        return sum(len(v) for v in self._by_verse.values())
+
+    def for_verse(self, book: str, chapter: int, verse: int) -> list[PatristicCommentary]:
+        """Return every commentary entry attached to a specific verse,
+        in insertion order (which the JSON keeps as chronological per
+        father since most Fathers wrote sequentially). Returns an
+        empty list for verses with no commentary."""
+        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+
+    def by_father(self, name: str) -> list[PatristicCommentary]:
+        """Return every entry by a given Church Father (case-sensitive).
+        Useful for coverage audits or a future per-Father console."""
+        return list(self._by_father.get(name, ()))
+
+
+# ----------------------------------------------------------------------
 # Singletons (cached across runs in the same process)
 # ----------------------------------------------------------------------
 
@@ -345,6 +438,12 @@ def tsk() -> Tsk:
 def naves_topical() -> NavesTopical:
     """Return the singleton NavesTopical instance (lazy-loaded once)."""
     return NavesTopical()
+
+
+@lru_cache(maxsize=1)
+def patristic_commentaries() -> PatristicCommentaries:
+    """Return the singleton PatristicCommentaries instance (γ.3 — 2026-05-11)."""
+    return PatristicCommentaries()
 
 
 # ----------------------------------------------------------------------

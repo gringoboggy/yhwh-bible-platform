@@ -316,6 +316,208 @@ THEME_TOKENS_CSS = """<style>
     stroke: currentColor;
     fill: none;
   }
+  /* ζ.6: toast notifications — fixed-position stack of dismissable
+     status banners. Container sits below the dark-mode toggle
+     (top: 4rem so it doesn't overlap). Click-through on the
+     container itself (pointer-events: none); each toast re-enables
+     pointer-events so its dismiss button works. */
+  .theme-toast-container {
+    position: fixed;
+    top: 4rem;
+    right: 0.75rem;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+    max-width: calc(100% - 1.5rem);
+  }
+  .theme-toast {
+    pointer-events: auto;
+    min-width: 18rem;
+    max-width: 24rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    font-size: var(--font-size-sm);
+    line-height: var(--leading-normal);
+    animation: theme-toast-in 200ms ease-out;
+  }
+  /* Per-kind border + icon color. Body text stays --color-text-primary
+     so the message is always readable; only the chrome signals kind. */
+  .theme-toast-info    { border-color: var(--color-status-info); }
+  .theme-toast-success { border-color: var(--color-status-success); }
+  .theme-toast-warn    { border-color: var(--color-status-warn); }
+  .theme-toast-error   { border-color: var(--color-status-error); }
+  .theme-toast-info    .theme-icon { color: var(--color-status-info); }
+  .theme-toast-success .theme-icon { color: var(--color-status-success); }
+  .theme-toast-warn    .theme-icon { color: var(--color-status-warn); }
+  .theme-toast-error   .theme-icon { color: var(--color-status-error); }
+  .theme-toast-message { flex: 1; word-wrap: break-word; }
+  .theme-toast-dismiss {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 0;
+    width: 1.25em;
+    height: 1.25em;
+    font-size: 1.125em;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+  }
+  .theme-toast-dismiss:hover { color: var(--color-text-primary); }
+  .theme-toast-leaving { animation: theme-toast-out 200ms ease-in forwards; }
+  @keyframes theme-toast-in {
+    from { opacity: 0; transform: translateX(8px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes theme-toast-out {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(8px); }
+  }
+  /* ζ.7: skeleton loaders — shimmer-animated placeholder blocks
+     for content that's still loading. Base color is the surface
+     tone; the shimmer band is the border tone (slightly contrasted
+     in both themes). The gradient slides horizontally to create
+     the shimmer effect.
+       prefers-reduced-motion: reduce — disables the animation
+       entirely so vestibular-disorder users get a static block
+       instead of a moving one (WCAG 2.3.3). */
+  .theme-skeleton {
+    display: inline-block;
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-surface) 0%,
+      var(--color-border) 50%,
+      var(--color-bg-surface) 100%
+    );
+    background-size: 200% 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    animation: theme-skeleton-shimmer 1.6s ease-in-out infinite;
+  }
+  .theme-skeleton-text  { display: block; width: 100%; height: 1em; }
+  .theme-skeleton-block { display: block; width: 100%; height: 4rem; }
+  @keyframes theme-skeleton-shimmer {
+    0%   { background-position:  100% 0; }
+    100% { background-position: -100% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-skeleton { animation: none; }
+  }
+  /* ζ.8: command palette (Cmd+K / Ctrl+K). Fixed overlay + centered
+     modal with search input + result listbox + kbd-hint footer.
+     Composes ζ.1 surfaces, ζ.4 typography (mono kbd hints), ζ.5
+     icons. The whole modernization arc pays out here. */
+  .theme-cmd-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 23, 42, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 12vh;
+    animation: theme-cmd-fade-in 150ms ease-out;
+  }
+  :root[data-theme="dark"] .theme-cmd-backdrop {
+    background: rgba(0, 0, 0, 0.65);
+  }
+  .theme-cmd-modal {
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 1rem;
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.625rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+  }
+  .theme-cmd-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-family: var(--font-stack-body);
+    outline: none;
+  }
+  .theme-cmd-input::placeholder { color: var(--color-text-muted); }
+  .theme-cmd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.375rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .theme-cmd-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: transparent;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    border-radius: 0.375rem;
+    text-align: left;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-stack-body);
+  }
+  .theme-cmd-item-label  { flex: 1; }
+  .theme-cmd-item-route  {
+    font-family: var(--font-stack-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+  .theme-cmd-item-icon   { color: var(--color-text-muted); opacity: 0; }
+  .theme-cmd-item-selected {
+    background: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+  .theme-cmd-item-selected .theme-cmd-item-route,
+  .theme-cmd-item-selected .theme-cmd-item-icon { color: var(--color-text-on-accent); }
+  .theme-cmd-item-selected .theme-cmd-item-icon { opacity: 1; }
+  .theme-cmd-footer {
+    display: flex;
+    gap: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-page);
+  }
+  .theme-cmd-kbd {
+    display: inline-block;
+    padding: 0.0625rem 0.375rem;
+    font-family: var(--font-stack-mono);
+    font-size: var(--font-size-xs);
+    line-height: 1.25;
+    color: var(--color-text-primary);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+  }
+  @keyframes theme-cmd-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
 </style>"""
 
 
@@ -421,6 +623,315 @@ def _build_icons_js() -> str:
 
 
 THEME_ICONS_JS = _build_icons_js()
+
+
+# ----------------------------------------------------------------------
+# ζ.6 — toast notifications. `window.ebibleToast(message, kind)` is
+# the lightweight ephemeral-banner API: replaces ad-hoc per-console
+# `<div class="fail-bg">` markup with a centralized, themable,
+# screen-reader-aware notification stack.
+#
+# Usage from JS:
+#     window.ebibleToast('Saved.', 'success');
+#     window.ebibleToast('Network error: ' + e.message, 'error');
+#     window.ebibleToast('No popup translation set on 2 editions.', 'warn');
+#     window.ebibleToast('Build queued; refreshing in 5s', 'info');
+#
+# Kind defaults to 'info' when unknown / omitted. Auto-dismiss after
+# 4s; manual dismiss via the × button. Errors get role="alert" +
+# aria-live="assertive" (immediately announced); others get
+# role="status" + aria-live="polite" (announced at next idle).
+#
+# Icons come from window.ebibleIcons (ζ.5). Colors come from
+# --color-status-* (ζ.1). Sizing comes from --font-size-sm (ζ.4).
+# This is the first ζ.* phase that composes all three foundations.
+#
+# Message text is inserted via `textContent` (XSS-safe). Any HTML
+# in the message string renders as literal text, not markup.
+# ----------------------------------------------------------------------
+
+THEME_TOAST_JS = """<script>
+(function () {
+  'use strict';
+  var KINDS = { info: 'info', success: 'check', warn: 'alert-triangle', error: 'x-circle' };
+  var AUTO_DISMISS_MS = 4000;
+
+  function ensureContainer() {
+    var existing = document.getElementById('ebible-toast-container');
+    if (existing) return existing;
+    var c = document.createElement('div');
+    c.id = 'ebible-toast-container';
+    c.className = 'theme-toast-container';
+    if (document.body) {
+      document.body.appendChild(c);
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        document.body.appendChild(c);
+      });
+    }
+    return c;
+  }
+
+  function dismissToast(toast) {
+    if (!toast || toast.classList.contains('theme-toast-leaving')) return;
+    toast.classList.add('theme-toast-leaving');
+    var done = function () { if (toast.parentNode) toast.parentNode.removeChild(toast); };
+    toast.addEventListener('animationend', done, { once: true });
+    // Fallback: if animationend doesn't fire (reduced-motion or browser
+    // quirk), remove after the keyframe duration anyway.
+    setTimeout(done, 400);
+  }
+
+  window.ebibleToast = function (message, kind) {
+    var resolvedKind = KINDS.hasOwnProperty(kind) ? kind : 'info';
+    var container = ensureContainer();
+    var toast = document.createElement('div');
+    toast.className = 'theme-toast theme-toast-' + resolvedKind;
+    toast.setAttribute('role', resolvedKind === 'error' ? 'alert' : 'status');
+    toast.setAttribute('aria-live', resolvedKind === 'error' ? 'assertive' : 'polite');
+
+    var iconName = KINDS[resolvedKind];
+    var iconSvg = (window.ebibleIcons && window.ebibleIcons[iconName]) || '';
+
+    toast.innerHTML = ''
+      + '<span class="theme-toast-icon-wrap">' + iconSvg + '</span>'
+      + '<span class="theme-toast-message"></span>'
+      + '<button type="button" class="theme-toast-dismiss" aria-label="Dismiss notification">×</button>';
+
+    // textContent — XSS-safe. Caller doesn't need to escape.
+    toast.querySelector('.theme-toast-message').textContent = String(message);
+    container.appendChild(toast);
+
+    var dismissBtn = toast.querySelector('.theme-toast-dismiss');
+    dismissBtn.addEventListener('click', function () { dismissToast(toast); });
+    var autoTimer = setTimeout(function () { dismissToast(toast); }, AUTO_DISMISS_MS);
+    // Cancel auto-dismiss on hover so users can read long messages.
+    toast.addEventListener('mouseenter', function () { clearTimeout(autoTimer); });
+
+    return toast;
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
+# ζ.8 — command palette (Cmd+K / Ctrl+K). Closes the Month 2
+# modernization arc. Composes everything ζ.* built:
+#   - ζ.1 surfaces (--color-bg-surface, --color-accent, --color-border)
+#   - ζ.4 typography (font sizes, mono stack for kbd hints + routes)
+#   - ζ.5 icons (chevron-right for the selected-row affordance)
+#   - ζ.6 toasts (callable from result actions in future extensions)
+#
+# Public API:
+#     window.ebibleCmdPalette.open()    — open the palette
+#     window.ebibleCmdPalette.close()   — close it
+#     window.ebibleCmdPalette.toggle()  — toggle open/closed
+#
+# Keyboard:
+#     Cmd+K (macOS) / Ctrl+K (other) — toggle from anywhere
+#     ↑ / ↓ — navigate results
+#     ↵ — open selected
+#     Esc — close
+#
+# A11y:
+#     - role="dialog" + aria-modal="true" + aria-label
+#     - listbox / option semantics with aria-selected + aria-activedescendant
+#     - autofocus on input when opened
+#     - backdrop click closes (with target check to avoid closing on modal click)
+#
+# Data: CONSOLES list (Python) is JSON-embedded into the JS at module
+# load — same pattern as THEME_ICONS_JS so the JS-side list stays
+# in sync with the Python source of truth.
+# ----------------------------------------------------------------------
+
+
+def _build_cmd_palette_js() -> str:
+    import json
+
+    consoles_payload = json.dumps([{"route": route, "label": label} for (route, label) in CONSOLES])
+    body = r"""<script>
+(function () {
+  'use strict';
+  var CONSOLES = __CONSOLES_JSON__;
+
+  var modal = null;
+  var input = null;
+  var listEl = null;
+  var selectedIdx = 0;
+  var filtered = CONSOLES.slice();
+  var restoreFocusTo = null;
+
+  function isOpen() { return !!modal; }
+
+  function applyFilter() {
+    var q = ((input && input.value) || '').trim().toLowerCase();
+    if (!q) {
+      filtered = CONSOLES.slice();
+    } else {
+      filtered = CONSOLES.filter(function (c) {
+        return c.label.toLowerCase().indexOf(q) !== -1
+            || c.route.toLowerCase().indexOf(q) !== -1;
+      });
+    }
+    selectedIdx = 0;
+    renderList();
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    if (filtered.length === 0) {
+      var empty = document.createElement('li');
+      empty.className = 'theme-cmd-item theme-text-muted';
+      empty.textContent = 'No matches.';
+      listEl.appendChild(empty);
+      return;
+    }
+    filtered.forEach(function (c, i) {
+      var item = document.createElement('li');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'theme-cmd-item';
+      btn.setAttribute('role', 'option');
+      btn.id = 'ebible-cmd-item-' + i;
+      btn.setAttribute('aria-selected', i === selectedIdx ? 'true' : 'false');
+      btn.dataset.index = String(i);
+
+      var iconHtml = (window.ebibleIcons && window.ebibleIcons['chevron-right']) || '';
+      btn.innerHTML = ''
+        + '<span class="theme-cmd-item-label"></span>'
+        + '<span class="theme-cmd-item-route"></span>'
+        + '<span class="theme-cmd-item-icon">' + iconHtml + '</span>';
+      btn.querySelector('.theme-cmd-item-label').textContent = c.label;
+      btn.querySelector('.theme-cmd-item-route').textContent = c.route;
+
+      btn.addEventListener('click', function () { activate(i); });
+      btn.addEventListener('mouseenter', function () {
+        selectedIdx = i;
+        updateSelection();
+      });
+
+      item.appendChild(btn);
+      listEl.appendChild(item);
+    });
+    updateSelection();
+  }
+
+  function updateSelection() {
+    if (!listEl) return;
+    var buttons = listEl.querySelectorAll('.theme-cmd-item');
+    buttons.forEach(function (b, i) {
+      var sel = (i === selectedIdx);
+      b.classList.toggle('theme-cmd-item-selected', sel);
+      b.setAttribute('aria-selected', sel ? 'true' : 'false');
+      if (sel && input) {
+        input.setAttribute('aria-activedescendant', 'ebible-cmd-item-' + i);
+        if (b.scrollIntoView) b.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  }
+
+  function activate(idx) {
+    var target = filtered[idx];
+    if (!target) return;
+    close();
+    window.location.href = target.route;
+  }
+
+  function onKeyDown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (filtered.length) {
+        selectedIdx = Math.min(selectedIdx + 1, filtered.length - 1);
+        updateSelection();
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (filtered.length) {
+        selectedIdx = Math.max(selectedIdx - 1, 0);
+        updateSelection();
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      activate(selectedIdx);
+    }
+  }
+
+  function open() {
+    if (isOpen()) return;
+    restoreFocusTo = document.activeElement;
+
+    var backdrop = document.createElement('div');
+    backdrop.className = 'theme-cmd-backdrop';
+    backdrop.id = 'ebible-cmd-backdrop';
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) close();
+    });
+
+    modal = document.createElement('div');
+    modal.className = 'theme-cmd-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Command palette');
+    modal.innerHTML = ''
+      + '<input type="text" class="theme-cmd-input" placeholder="Jump to console…" '
+      +   'aria-label="Search consoles" '
+      +   'aria-controls="ebible-cmd-list" '
+      +   'aria-autocomplete="list" '
+      +   'autocomplete="off" spellcheck="false">'
+      + '<ul id="ebible-cmd-list" class="theme-cmd-list" role="listbox" aria-label="Console results"></ul>'
+      + '<div class="theme-cmd-footer">'
+      +   '<span><kbd class="theme-cmd-kbd">↑</kbd> <kbd class="theme-cmd-kbd">↓</kbd> navigate</span>'
+      +   '<span><kbd class="theme-cmd-kbd">↵</kbd> open</span>'
+      +   '<span><kbd class="theme-cmd-kbd">Esc</kbd> close</span>'
+      + '</div>';
+
+    input = modal.querySelector('.theme-cmd-input');
+    listEl = modal.querySelector('.theme-cmd-list');
+
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+
+    input.addEventListener('input', applyFilter);
+    input.addEventListener('keydown', onKeyDown);
+
+    applyFilter();
+    input.focus();
+  }
+
+  function close() {
+    if (!isOpen()) return;
+    var backdrop = document.getElementById('ebible-cmd-backdrop');
+    if (backdrop && backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+    modal = null;
+    input = null;
+    listEl = null;
+    selectedIdx = 0;
+    if (restoreFocusTo && typeof restoreFocusTo.focus === 'function') {
+      try { restoreFocusTo.focus(); } catch (e) { /* element gone */ }
+    }
+    restoreFocusTo = null;
+  }
+
+  function toggle() { if (isOpen()) close(); else open(); }
+
+  // Global trigger: Cmd+K (macOS) / Ctrl+K (others). Listens on
+  // capture phase so editor / input fields don't swallow it.
+  document.addEventListener('keydown', function (e) {
+    var k = (e.key || '').toLowerCase();
+    if ((e.metaKey || e.ctrlKey) && k === 'k') {
+      e.preventDefault();
+      toggle();
+    }
+  });
+
+  window.ebibleCmdPalette = { open: open, close: close, toggle: toggle };
+})();
+</script>"""
+    return body.replace("__CONSOLES_JSON__", consoles_payload)
 
 
 # ----------------------------------------------------------------------
@@ -581,7 +1092,14 @@ CONSOLES: list[tuple[str, str]] = [
     ("/preflight", "preflight"),
     ("/ops", "ops"),
     ("/apihelp", "apihelp"),
+    ("/hebrew", "hebrew"),  # γ.1
+    ("/greek", "greek"),  # γ.2
 ]
+
+
+# ζ.8 — command palette JS payload. Built after CONSOLES is defined
+# so the embedded list reflects the live source-of-truth.
+THEME_CMD_PALETTE_JS = _build_cmd_palette_js()
 
 
 def HEADER_NAV_LINKS(current: str = "") -> str:
@@ -703,6 +1221,8 @@ def apply_design_system(html: str, current_route: str) -> str:
       - `<!-- THEME_TOKENS_CSS -->`      → THEME_TOKENS_CSS  (ζ.1)
       - `<!-- DARK_MODE_JS -->`          → DARK_MODE_JS      (ζ.2)
       - `<!-- THEME_ICONS_JS -->`        → THEME_ICONS_JS    (ζ.5)
+      - `<!-- THEME_TOAST_JS -->`        → THEME_TOAST_JS    (ζ.6)
+      - `<!-- THEME_CMD_PALETTE_JS -->`  → THEME_CMD_PALETTE_JS (ζ.8)
 
     The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
     template — that's the existing convention from ψ.14/15/16. The
@@ -745,5 +1265,13 @@ def apply_design_system(html: str, current_route: str) -> str:
     html = html.replace(
         "<!-- THEME_ICONS_JS -->",
         THEME_ICONS_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_TOAST_JS -->",
+        THEME_TOAST_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_CMD_PALETTE_JS -->",
+        THEME_CMD_PALETTE_JS,
     )
     return html

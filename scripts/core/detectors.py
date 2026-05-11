@@ -943,6 +943,95 @@ class AINoteDetector:
 
 
 # ----------------------------------------------------------------------
+# Patristic commentary detector (γ.3 — 2026-05-11)
+# ----------------------------------------------------------------------
+
+
+class PatristicCommentaryDetector:
+    """Emit `comm-patristic` candidates from the curated Patristic
+    corpus (`content/sources/patristic_commentaries.json`).
+
+    Unlike the keyword-matching language detectors, this is a
+    *direct-lookup* detector: each entry in the JSON has an exact
+    `(book, chapter, verse)` target, and the detector emits one
+    candidate per matching entry. Confidence is high (0.95)
+    because the data is hand-curated from public-domain Church
+    Father commentaries, not heuristic.
+
+    Body shape: an `<aside>` block carrying the Father's name +
+    work + circa-year + the summary paragraph. Promoted notes
+    carry the NPNF attribution into the YAML.
+
+    Build-pipeline considerations: the resulting `comm-patristic`
+    notes participate in the existing tradition filter (ψ.8)
+    when an edition's `traditions_default` includes `patristic`.
+    Editions that don't tag the patristic tradition simply omit
+    these notes from the EPUB.
+    """
+
+    name = "PatristicCommentaryDetector"
+    kind = "comm-patristic"
+
+    def __init__(self) -> None:
+        self.corpus = sources.patristic_commentaries()
+
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
+        # verse_text is unused — direct lookup by (book, chapter, verse).
+        entries = self.corpus.for_verse(book, chapter, verse)
+        if not entries:
+            return []
+        out: list[Candidate] = []
+        for entry in entries:
+            body = self._format_body(entry)
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",  # whole-verse anchor (Patristic comment on the entire verse)
+                    confidence=0.95,
+                    source_name=f"{entry.father} / {entry.work}",
+                    source_attribution=entry.attribution,
+                    draft_title=f"Patristic — {entry.father}",
+                    draft_label=f"{entry.father} ({entry.year}).",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Curated PD interpretive summary from "
+                        f"{entry.father}, {entry.work}. Verify the "
+                        "summary still reflects the source's argument "
+                        "before promoting; substitute a verbatim quote "
+                        "from the NPNF dump where available."
+                    ),
+                )
+            )
+        return out
+
+    @staticmethod
+    def _format_body(entry: "sources.PatristicCommentary") -> str:
+        """Render the entry's HTML body. Mirrors the other detectors'
+        HTML shape: header line with the Father + work + year, then
+        the summary paragraph."""
+        # The summary text is already HTML-safe by construction (no
+        # user-controlled content) but escape defensively to keep the
+        # XSS-by-design contract honest.
+        import html as _html
+
+        father = _html.escape(entry.father)
+        work = _html.escape(entry.work)
+        summary = _html.escape(entry.summary)
+        return (
+            f'<aside class="note-comm-patristic">'
+            f"<strong>{father}</strong> "
+            f"<em>{work}</em> "
+            f"<small>(c. {int(entry.year)} AD)</small>"
+            f"<p>{summary}</p>"
+            f"</aside>"
+        )
+
+
+# ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
 
@@ -956,4 +1045,5 @@ ALL_DETECTORS = [
     KenyonReferenceDetector,
     AIXrefDetector,
     AINoteDetector,
+    PatristicCommentaryDetector,  # γ.3
 ]

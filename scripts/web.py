@@ -1875,6 +1875,8 @@ from scripts.templates.covers import COVERS_HTML
 from scripts.templates.customize import CUSTOMIZE_HTML
 from scripts.templates.diff import DIFF_HTML
 from scripts.templates.export import EXPORT_HTML
+from scripts.templates.greek import GREEK_HTML
+from scripts.templates.hebrew import HEBREW_HTML
 from scripts.templates.index import INDEX_HTML
 from scripts.templates.matrix import MATRIX_HTML
 from scripts.templates.ops import OPS_HTML
@@ -1882,6 +1884,10 @@ from scripts.templates.preflight import PREFLIGHT_HTML
 from scripts.templates.publisher import PUBLISHER_HTML
 from scripts.templates.sources import SOURCES_HTML
 from scripts.templates.wizard import WIZARD_HTML
+
+# γ.1 / γ.2 — interlinear lookup APIs.
+from scripts.api.greek import api_greek_lookup
+from scripts.api.hebrew import api_hebrew_lookup
 
 CORPUS_TARGET = 35_000
 
@@ -3319,6 +3325,11 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (re.compile(r"^/api/snapshots/([a-z0-9._-]+)$"), api_snapshot_list),
     # ψ.36-A: per-edition matrix slice (lazy-load endpoint).
     (re.compile(r"^/api/matrix/edition/([a-z0-9_-]+)$"), api_matrix_for_edition),
+    # γ.1: Strong's Hebrew lookup. Accepts 'H1' / 'h1' / '1' /
+    # 'H0001' — the handler normalizes.
+    (re.compile(r"^/api/hebrew/([Hh]?\d+)$"), api_hebrew_lookup),
+    # γ.2: Strong's Greek lookup. Parallel to γ.1; G-prefix.
+    (re.compile(r"^/api/greek/([Gg]?\d+)$"), api_greek_lookup),
 ]
 
 
@@ -4256,6 +4267,16 @@ class Handler(BaseHTTPRequestHandler):
         # Phase ω.0.2 — scaffolded route for /apihelp
         if path == "/apihelp" or path == "/apihelp.html":
             return self._send_html(APIHELP_HTML)
+
+        # γ.1 — Hebrew interlinear console (Strong's Hebrew lookup).
+        # The JSON endpoint /api/hebrew/<num> is in _REGEX_GET_ROUTES.
+        if path == "/hebrew" or path == "/hebrew.html":
+            return self._send_html(HEBREW_HTML)
+
+        # γ.2 — Greek interlinear console (Strong's Greek lookup).
+        # The JSON endpoint /api/greek/<num> is in _REGEX_GET_ROUTES.
+        if path == "/greek" or path == "/greek.html":
+            return self._send_html(GREEK_HTML)
         # Phase ω.3 — API reference data feed (auto-generated)
         # ω.35-A.3 — /api/apihelp + /api/corpus-progress migrated to _SIMPLE_GET_ROUTES.
 

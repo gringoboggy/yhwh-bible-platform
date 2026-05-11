@@ -41,6 +41,8 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
 <!-- THEME_TOKENS_CSS -->
 <!-- DARK_MODE_JS -->
 <!-- THEME_ICONS_JS -->
+<!-- THEME_TOAST_JS -->
+<!-- THEME_CMD_PALETTE_JS -->
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="theme-bg-page theme-text">
@@ -89,8 +91,15 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
     </div>
   </div>
 
-  <div id="checks" class="space-y-2">
-    <p class="text-slate-500 text-sm">running checks…</p>
+  <div id="checks" class="space-y-2" aria-busy="true" aria-live="polite">
+    <!-- ζ.7: skeleton placeholders mimic the eventual check-row
+         layout (~3 rows visible above the fold). aria-busy + the
+         visually-hidden status text keep screen-reader users
+         informed while the placeholders shimmer. -->
+    <span class="sr-only">Loading preflight checks…</span>
+    <div class="theme-skeleton theme-skeleton-block" style="height:3.5rem"></div>
+    <div class="theme-skeleton theme-skeleton-block" style="height:3.5rem"></div>
+    <div class="theme-skeleton theme-skeleton-block" style="height:3.5rem"></div>
   </div>
 </main>
 
@@ -106,7 +115,19 @@ async function loadPreflight() {
     const r = await fetch('/api/preflight');
     data = await r.json();
   } catch (e) {
-    root.innerHTML = `<div class="fail-bg border p-4 rounded">failed to load: ${escapeAttr(e.message)}</div>`;
+    // ζ.6 — replaced ad-hoc fail-bg div with a themable toast.
+    // ζ.7 — also clear the skeleton placeholders so users don't
+    // see fake content shimmering forever after a fetch failure;
+    // the toast carries the error detail.
+    root.innerHTML = '';
+    root.setAttribute('aria-busy', 'false');
+    if (window.ebibleToast) {
+      window.ebibleToast('Failed to load preflight: ' + e.message, 'error');
+    } else {
+      // Graceful fallback for the brief window where THEME_TOAST_JS
+      // might not have loaded yet (unlikely; it's inline in <head>).
+      root.innerHTML = `<div class="fail-bg border p-4 rounded">failed to load: ${escapeAttr(e.message)}</div>`;
+    }
     return;
   }
   renderBanner(data.summary);
@@ -158,6 +179,9 @@ function renderBanner(s) {
 function renderChecks(checks) {
   const root = document.getElementById('checks');
   root.innerHTML = '';
+  // ζ.7: clear the loading state once real checks land — otherwise
+  // screen readers stay parked on "loading preflight checks…".
+  root.setAttribute('aria-busy', 'false');
   for (const c of checks) {
     const node = document.createElement('details');
     const status = c.status; // pass/warn/fail

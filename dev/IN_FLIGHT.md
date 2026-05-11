@@ -4,6 +4,457 @@
 
 ## Prior task
 
+**γ.5 LXX integration** shipped 2026-05-11. Month 3 #4 —
+registers the Septuagint Greek (Brenton 1844, Vatican
+Codex tradition, PD) as a discoverable translation in
+the project's translation system. Composes naturally
+with γ.2's `/api/greek/<num>` for per-word Strong's
+lookups against the LXX text.
+
+Three pieces:
+- `content/translations/lxx-brenton-greek/_meta.yaml` —
+  id=`lxx-brenton-greek`, short_title=`LXX`,
+  license=Public Domain, source attributed to Brenton's
+  1844 Bagster edition (Codex Vaticanus tradition).
+  Stats document the seed scope (1 book / 3 verses) +
+  notes explicitly call out that the rest of the corpus
+  is γ.5.x's ETL.
+- `content/translations/lxx-brenton-greek/gen.py` —
+  Genesis 1:1-3 seed with canonical Greek text:
+  • Gen 1:1 — Ἐν ἀρχῇ ἐποίησεν ὁ Θεὸς...
+  • Gen 1:2 — distinctive LXX "ἀόρατος καὶ ἀκατασκεύαστος"
+    (vs MT's "tohu wabohu")
+  • Gen 1:3 — γενηθήτω φῶς, καὶ ἐγένετο φῶς
+  Standard editorial capitalization on Θεός retained.
+- Tests in `tests/test_lxx_gamma5.py` (+21).
+
+Discovery is purely filesystem-driven
+(`list_translations()` scans `content/translations/`),
+so the directory's existence is sufficient for
+discoverability. LXX now appears in:
+- `/customize` console's popup-translation picker
+- `/compare` translation comparison panel
+- `api_customize_data()` / `api_publisher_data()` outputs
+
+**+21 tests**: layout × 3 (dir + meta + gen.py exist),
+meta × 5 (id, license=PD, short_title=LXX, Brenton 1844
+provenance, seed stats match), discoverability × 5
+(`list_translations`, `has_translation`,
+`has_book(gen)`, false for unseeded books, meta API
+returns), seed verses × 6 (Gen 1:1 opens with "Ἐν ἀρχῇ",
+Gen 1:2 has "ἀόρατος", Gen 1:3 has "γενηθήτω"+"φῶς",
+chapter returns 3 verses, unseeded verse returns None,
+all verses contain Greek Unicode), composes-with-γ.2 × 2
+(Greek lookup API still works post-γ.5, G746 ἀρχή
+exists in lexicon so future word-link feature has a
+target).
+
+**Not shipped** (γ.5.x / γ.5.y):
+- Full LXX corpus (~30 books, ~25K verses) — Genesis
+  1:4+ onwards, Exodus, Psalms, etc. PD source dump
+  needs its own session.
+- LXX English (Brenton's English-side translation —
+  paired text in his 1844 edition). Add as
+  `lxx-brenton-english` translation in γ.5.y; both
+  halves are PD.
+- Per-LXX-word link to `/api/greek/<num>` (γ.5.z) —
+  generate a word-by-word interlinear from γ.5 + γ.2
+  composition.
+
+**2575 / 2576 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+322** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1 + 29 γ.2 + 21 γ.3 + 21 γ.5).
+
+## Prior task
+
+**γ.3 Patristic commentary kind** shipped 2026-05-11.
+Month 3 #3 — first content-depth phase that ships note
+candidates into the existing prospect→promote pipeline
+(different shape from γ.1/γ.2's admin consoles).
+Populates the `comm-patristic` kind (already declared in
+kinds.yaml pre-γ.3) with a curated PD Augustine-on-
+Genesis seed corpus + a detector that emits candidates.
+
+Four pieces:
+- `content/sources/patristic_commentaries.json` — 8
+  hand-curated verse-keyed Augustine entries (Gen 1:1,
+  1:2, 1:3, 1:26, 2:7, 3:1, 3:6, 3:15) drawn from *De
+  Genesi ad litteram* (415 AD), *De Trinitate* (419),
+  *De Genesi contra Manichaeos* (389), and *De civitate
+  Dei* (426). Schema v1: `book, chapter, verse, father,
+  work, year, summary, attribution`. Summaries are
+  clearly-marked interpretive paraphrases (not
+  fabricated verbatim quotes) — honest about scope.
+  Each cites NPNF Series 1 (Schaff) with PD marker.
+- `scripts/core/sources.py` — `PatristicCommentary`
+  frozen dataclass + `PatristicCommentaries` loader
+  (mirrors StrongsHebrew pattern: by-verse index, by-
+  father index, `SourceMissingError` on missing cache) +
+  `patristic_commentaries()` lru-cached factory.
+- `scripts/core/detectors.py` — `PatristicCommentaryDetector`
+  class. `kind = "comm-patristic"`. Direct-lookup
+  (no keyword matching — entries already verse-keyed).
+  Confidence 0.95 (curated PD, not heuristic). Body
+  formatted as `<aside>` with father / work / year
+  header + summary paragraph; HTML-escapes inputs via
+  `html.escape()` for defensive XSS guard. Registered
+  in `ALL_DETECTORS`.
+- Tests in `tests/test_patristic_gamma3.py` (+21).
+
+**+21 tests**: data file × 7 (parses, _meta block,
+entries list ≥5, all fields present, every entry cites
+NPNF + PD, Gen 1:1 present, Augustine-only seed); loader
+× 6 (frozen dataclass, by-verse, by-verse empty for
+unknown, by-father, by-father empty, SourceMissingError
+on absent cache); detector × 6 (registered in ALL_DETECTORS,
+kind=comm-patristic, Gen 1:1 emits Candidate with right
+shape + 0.95 confidence + NPNF attribution, empty list
+for uncommented verses, ignores verse_text content, body
+HTML-escaped); kind registration × 2 (in kinds.yaml,
+correct category + label).
+
+**Not shipped** (deferred to γ.3.x):
+- Full Augustine-on-Genesis NPNF dump (~80 pages PD text
+  — ETL is its own session).
+- Verbatim quoted passages (vs current interpretive
+  summaries).
+- Promotion of candidates into the live corpus — user
+  step via `batch_promote_xrefs.py --kind comm-patristic`
+  once they're ready to commit the seed batch.
+- Other Church Fathers (Origen, Chrysostom, Basil,
+  Jerome, Cyril of Alexandria).
+
+**2554 / 2555 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+301** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1 + 29 γ.2 + 21 γ.3).
+
+## Prior task
+
+**γ.2 Greek interlinear UI** shipped 2026-05-11. Month 3
+#2 — direct mirror of γ.1's pattern, second
+content-depth phase. /hebrew (γ.1) + /greek (γ.2) now
+form a paired language-lookup surface.
+
+Five pieces:
+- `scripts/api/greek.py` — `api_greek_lookup(num)`. Same
+  shape as γ.1's hebrew handler: normalizes G1/g1/1/G0001
+  → G1, returns full entry envelope (`number`, `lemma`,
+  `xlit`, `pron`, `derivation`, `definition`, `kjv_def`,
+  `attribution`). 400 / 404 / 503 error envelopes.
+  Uses `StrongsGreekEntry.xlit` which normalizes the
+  upstream `translit` field for shape parity with
+  Hebrew's `xlit`.
+- `scripts/templates/greek.py` — `GREEK_HTML` console.
+  Two diffs vs HEBREW_HTML:
+  - `.greek-lemma` doesn't set `direction: rtl` (Greek
+    is LTR).
+  - The pron field is rendered conditionally
+    (`if (data.pron)`) — most Greek entries lack pron.
+- `_design.CONSOLES` + `("/greek", "greek")` — the
+  16th... wait, 17th... console. Cross-link nav
+  auto-propagates.
+- `scripts/web.py` — imports `GREEK_HTML` +
+  `api_greek_lookup`; HTML route branch added; regex
+  route `^/api/greek/([Gg]?\d+)$` registered in
+  `_REGEX_GET_ROUTES`.
+- `scripts/lint_rules.py`'s `route_for_constant`
+  extended with `"GREEK_HTML": "/greek"`.
+
+**Test-isolation fix**: γ.2 tests in
+`TestGamma2ApiLookup` + `TestGamma2FullDataAvailable`
+call `sources.strongs_greek.cache_clear()` in
+`setup_class`. `tests/test_corpus_chi1.py` monkeypatches
+`StrongsGreek.PATH` to small synthetic caches; the
+monkeypatch auto-reverts PATH at test teardown but the
+`lru_cache` retains the stale tiny instance. Clearing
+the cache at γ.2 setup forces a re-read of the canonical
+path. Same pattern chi1 itself uses (it calls
+`cache_clear()` at its own setup). γ.1 doesn't suffer
+this — chi1 doesn't touch `strongs_hebrew`.
+
+**+29 tests** in `tests/test_greek_gamma2.py`:
+API lookup × 10 (canonical/bare/lowercase/zero-padded G1,
+unknown → 404, bogus → 400, G0 → 400, full shape, λόγος
+G3056, ἀγάπη G26); template × 9 (valid doc, markers
+substituted, ζ foundation, LTR (no RTL!), lookup form,
+/api/greek endpoint called, textContent escape,
+conditional pron render, hash deep-link); route
+registration × 3 (HTML route, regex callable, regex
+accepts G1/g1/1/G0001 + rejects abc); cross-link × 5
+(/greek in CONSOLES, preflight nav has /greek, hebrew
+nav has /greek + greek nav has /hebrew, self-links to
+all 16 others); data sanity × 2 (≥5000 entries, G1 +
+G3056 + G26 present).
+
+**Future γ.2.x** wires Greek data into
+`build_edition.py`'s popup pipeline for buyer-facing
+Greek interlinear in NT verses (parallel to γ.1.x for
+OT/Hebrew).
+
+**2533 / 2534 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+280** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1 + 29 γ.2).
+
+## Prior task
+
+**γ.1 Hebrew interlinear UI** shipped 2026-05-11. Month 3
+#1 — first γ-track content-depth phase + first new
+console added since the ψ.* extensions. Foundation for
+γ.2 Greek (parallel pattern) and γ.1.x (buyer-facing
+EPUB integration).
+
+Four pieces:
+- `scripts/api/hebrew.py` — `api_hebrew_lookup(num)`
+  handler. Normalizes input (`H1` / `h1` / `1` / `H0001`
+  all → `H1`). Lazy-imports `scripts.core.sources` to
+  fetch the Strong's Hebrew entry; returns full envelope
+  with `number, lemma, xlit, pron, derivation, definition,
+  kjv_def, attribution` on success, 400/404/503 error
+  envelopes for bad format / unknown / missing-lexicon.
+- `scripts/templates/hebrew.py` — `HEBREW_HTML` console.
+  Search form (input + button), result card rendering
+  entry fields via DOM construction (XSS-safe
+  `textContent` for every field). Hebrew lemma renders
+  RTL at 2.25rem. Composes the **full ζ foundation**:
+  ζ.1 surfaces, ζ.4 typography, ζ.5 icons, ζ.6 toasts
+  (network errors), ζ.8 Cmd+K palette markers all in
+  `<head>`. Supports `/hebrew#H7225` deep-links — hash
+  auto-populates input + triggers lookup.
+- `_design.CONSOLES` extended with
+  `("/hebrew", "hebrew")` — auto-propagates the
+  cross-link to every other console via the
+  `HEADER_NAV_LINKS` substitution.
+- `scripts/web.py`: imports `HEBREW_HTML` + `api_hebrew_lookup`;
+  adds `if path == "/hebrew"` branch in `do_GET`;
+  registers `(re.compile(r"^/api/hebrew/([Hh]?\d+)$"),
+  api_hebrew_lookup)` in `_REGEX_GET_ROUTES`.
+- `scripts/lint_rules.py`'s `route_for_constant` table
+  extended with `"HEBREW_HTML": "/hebrew"` so the
+  cross-link invariant check recognizes the new console.
+
+**+27 tests** in `tests/test_hebrew_gamma1.py`:
+API lookup × 9 (canonical H1, bare 1, lowercase h1,
+zero-padded H0001, unknown → 404, bogus → 400, H0 → 400,
+full shape pinned, Genesis 1:1's H7225 ⇒ Hebrew chars);
+HEBREW_HTML template × 8 (valid doc, all markers
+substituted, ζ foundation present, Hebrew RTL, lookup
+form, /api/hebrew called, textContent escape,
+hash deep-link); route registration × 3 (HTML route in
+web.py source, /api/hebrew callable in `_REGEX_GET_ROUTES`,
+regex accepts H1/h1/1/H0001 + rejects abc/empty/decimal);
+cross-link propagation × 5 (/hebrew in CONSOLES,
+/preflight + /apihelp + /audit navs include /hebrew,
+/hebrew nav includes all other 15 consoles); data
+sanity × 2 (≥8000 entries, H1 + H7225 both present).
+
+**Future γ.1.x** will wire the Hebrew data into
+`build_edition.py`'s popup pipeline so buyer-facing EPUBs
+render Hebrew interlinear inline with OT verses (not
+just an admin console).
+
+**2496 / 2497 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+251** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1).
+
+## Prior task
+
+**ζ.8 command palette (Cmd+K)** shipped 2026-05-11.
+Month 2 #7 — **closes the modernization arc**. Maximum
+ζ-foundation composition: ζ.1 surfaces + ζ.4 typography
+(mono kbd hints + mono route badges) + ζ.5 icons
+(chevron-right on selected row).
+
+Four pieces:
+- `THEME_CMD_PALETTE_JS` (~180 lines of JS in a
+  `<script>` IIFE) built via `_build_cmd_palette_js()`
+  helper. CONSOLES list JSON-embedded at module load.
+  Public API: `window.ebibleCmdPalette.{open, close,
+  toggle}`. Global keyboard listener: Cmd+K (macOS) /
+  Ctrl+K toggles; Esc closes.
+- Modal contract: `role="dialog"`, `aria-modal="true"`,
+  `aria-label="Command palette"`. Result list:
+  `role="listbox"`, rows `role="option"`,
+  `aria-selected` + `aria-activedescendant` synced on
+  every selection change. Backdrop click closes (target-
+  check to avoid closing on modal-content click). Focus
+  snapshots `document.activeElement` on open, restores
+  on close — keyboard users don't lose context.
+- Search filters CONSOLES by substring on `label` OR
+  `route` (case-insensitive). Empty result set renders
+  "No matches." placeholder. Arrow Up/Down navigate
+  with `scrollIntoView({block: 'nearest'})`. Enter
+  navigates via `window.location.href = c.route`.
+  Label + route inserted via `textContent` (XSS-safe).
+- Palette CSS in `THEME_TOKENS_CSS`: backdrop (fixed,
+  z-index 9999, dark-mode-deeper-rgba override), modal
+  (max-width 32rem, ζ.1 surface + text + border tokens,
+  20px shadow, max-height 70vh), input (ζ.4 base-size +
+  body-font), list (overflow scroll, 0.375rem padding),
+  item (flex with label + mono route + chevron icon),
+  selected (--color-accent bg + --color-text-on-accent
+  text), footer (bg-page tint with mono kbd hints),
+  `.theme-cmd-kbd` pill (small mono pill style),
+  `@keyframes theme-cmd-fade-in`.
+- `<!-- THEME_CMD_PALETTE_JS -->` marker substitution
+  added to `apply_design_system`. /preflight absorbed in
+  `<head>` between THEME_TOAST_JS and BUYER_ARC_POLISH_CSS.
+
+**+30 tests** in `tests/test_cmd_palette_zeta8.py`:
+JS contract × 12 (script wrapper, API exposed, three
+methods, Cmd+K + Ctrl+K shortcuts, arrow/enter/esc
+keyboard nav, role=dialog + aria-modal, listbox + option
+semantics + aria-selected + aria-activedescendant, focus
+restore via document.activeElement snapshot, textContent
+escape for label + route, backdrop target-check, input
+autofocus, "No matches" empty state); CONSOLES sync × 3
+(JSON extractable, every Python entry mirrored, route
++ label keys); CSS × 8 (backdrop position+z-index, modal
+uses ζ.1 tokens, input uses ζ.4 font-stack-body,
+item rule, selected uses --color-accent +
+--color-text-on-accent, route uses mono stack, kbd uses
+mono stack, fade-in keyframes); apply_design_system × 3
+(substitution + no-op + idempotency); /preflight wire-up
+× 4 (marker substituted, ebibleCmdPalette present,
+Cmd+K + Ctrl+K listeners present, JS lives in <head>).
+
+**2477 / 2478 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+224** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8).
+
+### Month 2 modernization arc — COMPLETE
+
+All seven ζ phases shipped this session arc:
+- ζ.1 CSS variable theming foundation
+- ζ.2 dark mode (composes ζ.1)
+- ζ.4 typography upgrade (extends ζ.1 tokens)
+- ζ.5 iconography pass (Lucide SVG registry + JS API)
+- ζ.6 toast notifications (composes ζ.1 + ζ.4 + ζ.5)
+- ζ.7 skeleton loaders (composes ζ.1)
+- ζ.8 command palette (composes ζ.1 + ζ.4 + ζ.5)
+
+## Prior task
+
+**ζ.7 skeleton loaders** shipped 2026-05-11. Month 2 #6.
+Replaces plain-text "running checks…" placeholders with
+shimmer-animated skeleton blocks. Themes automatically in
+dark mode via ζ.1 tokens. Respects
+`prefers-reduced-motion` for vestibular-disorder users.
+
+Three pieces:
+- Skeleton CSS added to `THEME_TOKENS_CSS`:
+  - `.theme-skeleton` — base shimmer block with
+    horizontal linear-gradient (`--color-bg-surface` base
+    + `--color-border` band) + `background-size: 200%
+    100%` to give the slide animation room to move +
+    `border: 1px solid var(--color-border)` for crisp
+    edges + 0.25rem border-radius + 1.6s shimmer
+    animation.
+  - `.theme-skeleton-text` (1em height) for inline
+    text-replacement skeletons.
+  - `.theme-skeleton-block` (4rem height) for taller
+    paragraph/card skeletons.
+  - `@keyframes theme-skeleton-shimmer` — slides
+    background-position from 100% to -100%.
+  - `@media (prefers-reduced-motion: reduce) {
+    .theme-skeleton { animation: none } }` — WCAG 2.3.3
+    compliance.
+- /preflight retrofit: `<div id="checks">` now starts
+  with 3 stacked `.theme-skeleton-block` placeholders
+  + `aria-busy="true"` + `aria-live="polite"` +
+  visually-hidden "Loading preflight checks…" text for
+  screen-reader users. `renderChecks` (already cleared
+  innerHTML) now ALSO resets `aria-busy="false"`. The
+  ζ.6 toast-error catch block also clears innerHTML +
+  aria-busy so users don't see fake content shimmering
+  after a fetch failure.
+- Tests in `tests/test_skeletons_zeta7.py`.
+
+**+14 tests**: skeleton CSS × 8 (base rule, tokens used,
+linear-gradient + 200% bg-size, shimmer animation
+applied, text + block variants, keyframes, reduced-
+motion via `@media (prefers-reduced-motion: reduce)`
+specifically); /preflight retrofit × 5 (old text gone,
+≥3 skeleton blocks present, aria-busy + aria-live on
+#checks, sr-only loading text, renderChecks clears both
+DOM + aria-busy); fetch-error path × 1 (catch block
+anchored on `loadPreflight`, clears innerHTML + aria-busy,
+calls ebibleToast).
+
+**2447 / 2448 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+194** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7).
+
+## Prior task
+
+**ζ.6 toast notifications** shipped 2026-05-11. Month 2 #5.
+First composed-foundation phase: ζ.1 status colors + ζ.4
+typography + ζ.5 icons all consumed.
+
+Four pieces:
+- `THEME_TOAST_JS` constant in `_design.py` defines the
+  `window.ebibleToast(message, kind)` API. Container
+  `<div id="ebible-toast-container">` lazily created on
+  first call (fixed top: 4rem; right: 0.75rem — below
+  the ζ.2 dark-mode toggle). Auto-dismiss after 4s
+  (`AUTO_DISMISS_MS = 4000`); manual dismiss via × button;
+  hover pauses the auto-dismiss timer for long messages.
+- Kind dispatch: info → info icon + role=status, success
+  → check + role=status, warn → alert-triangle + role=
+  status, error → x-circle + role=alert + aria-live=
+  assertive. Unknown kinds fall back to info via
+  `hasOwnProperty` guard. Message inserted via
+  `textContent` (XSS-safe).
+- Toast CSS rules added to `THEME_TOKENS_CSS`:
+  `.theme-toast-container` (fixed position, click-through
+  via `pointer-events: none`), `.theme-toast` (chrome:
+  border + bg-surface + text-primary + shadow + sm font),
+  four `.theme-toast-<kind>` (border + icon colors from
+  `--color-status-*`), `.theme-toast-dismiss` (×-button
+  styling), `.theme-toast-leaving`, `@keyframes
+  theme-toast-{in,out}` (200ms slide-in/out animations).
+- `<!-- THEME_TOAST_JS -->` marker substitution added to
+  `apply_design_system`. /preflight absorbed in `<head>`
+  between THEME_ICONS_JS and BUYER_ARC_POLISH_CSS.
+- /preflight retrofit: `loadPreflight` catch block
+  migrated from `root.innerHTML = '<div class="fail-bg">
+  failed to load...'` to `window.ebibleToast('Failed to
+  load preflight: ' + e.message, 'error')` with graceful
+  fallback to the original fail-bg div if the toast API
+  isn't loaded yet (defensive in case THEME_TOAST_JS
+  fails to execute).
+
+**+25 tests** in `tests/test_toasts_zeta6.py`:
+THEME_TOAST_JS contract × 11 (script wrapper,
+ebibleToast API, kind dispatch table, 4000ms timer,
+ARIA contract, textContent escaping, container id,
+container idempotency, dismiss aria-label, unknown-kind
+fallback, hover pauses dismiss); CSS rules × 7
+(container, base toast, four per-kind, dismiss,
+leaving, both keyframes, status vars referenced for
+each kind); apply_design_system × 3 (substitution +
+no-op + idempotency); /preflight retrofit × 4 (marker
+substituted, ebibleToast present, error path calls
+ebibleToast with 'error' kind, graceful fail-bg
+fallback preserved).
+
+**2433 / 2434 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+180** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6).
+
+## Prior task
+
 **ζ.5 iconography pass** shipped 2026-05-11. Month 2 #4.
 Replaces the unicode glyph status icons (✓ ⚠ ✗) in
 /preflight's banner + per-check rows with proper inline

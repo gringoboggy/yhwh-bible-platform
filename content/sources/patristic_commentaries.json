@@ -1,0 +1,90 @@
+{
+  "_meta": {
+    "source": "Augustine on Genesis — seed corpus shipped with γ.3 (2026-05-11).",
+    "scope": "Curated interpretive summaries verse-keyed to Genesis 1-3. Each entry is a paraphrased summary of the Church Father's argument, NOT a verbatim quote — verbatim passages from the NPNF text dump will land in a future γ.3.x once that ETL ships.",
+    "public_domain_basis": "Augustine d. 430 AD; Schaff/Dods translations published 1880s-1900s, all out of copyright in every jurisdiction.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Augustine",
+      "work": "De Genesi ad litteram (The Literal Meaning of Genesis)",
+      "year": 415,
+      "summary": "Augustine reads 'In the beginning' (in principio) as referring not merely to a temporal first moment but to the eternal Word (Christ) in whom all things are made. Creation, on this account, is the Father speaking the Word — heaven and earth proceed from the Trinitarian relations rather than from raw temporal succession.",
+      "attribution": "Augustine, De Genesi ad litteram, Bk I. NPNF Series 1, vol. 4, ed. Schaff. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 2,
+      "father": "Augustine",
+      "work": "De Genesi ad litteram",
+      "year": 415,
+      "summary": "On 'the earth was formless and void', Augustine identifies the prima materia — formless matter — as itself created ex nihilo, not co-eternal with God. The 'Spirit moving over the waters' is the Holy Spirit, whose hovering is a figure for the divine love bestowing form on the formless.",
+      "attribution": "Augustine, De Genesi ad litteram, Bk I.4. NPNF Series 1, vol. 4. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 3,
+      "father": "Augustine",
+      "work": "De Genesi ad litteram",
+      "year": 415,
+      "summary": "'Let there be light' is God's first spoken act in Augustine's reading: not the creation of physical sun-light (that comes on day four) but the establishment of intellectual or spiritual light — the rational creation, the angels, illumined by the Word. Physical light follows as a temporal echo of the spiritual original.",
+      "attribution": "Augustine, De Genesi ad litteram, Bk I.9. NPNF Series 1, vol. 4. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 26,
+      "father": "Augustine",
+      "work": "De Trinitate (On the Trinity)",
+      "year": 419,
+      "summary": "'Let us make man in our image' — the plural 'us' is, for Augustine, the Trinitarian council, the Father addressing the Son and the Spirit. The 'image' is properly located in the rational soul (mens), not the body; specifically in its capacity for memory, understanding, and will — a created analogue of the Trinitarian processions.",
+      "attribution": "Augustine, De Trinitate, Bk XII.7 + De Genesi ad litteram VI.12. NPNF Series 1, vols. 3 + 4. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 7,
+      "father": "Augustine",
+      "work": "De Genesi ad litteram",
+      "year": 415,
+      "summary": "On God breathing into Adam, Augustine resists a crudely material reading: the 'breath of life' is the rational soul, infused directly by God (not propagated from prior material). The body is formed from earth as a vessel; the soul is the direct image of God within the human composite.",
+      "attribution": "Augustine, De Genesi ad litteram, Bk VII.1-3. NPNF Series 1, vol. 4. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 1,
+      "father": "Augustine",
+      "work": "De Genesi contra Manichaeos (Two Books on Genesis Against the Manichees)",
+      "year": 389,
+      "summary": "Against the Manichaean reading that finds the serpent to be an inherently-evil being, Augustine insists the serpent is a created good twisted by Satan's prior fall. The 'subtlety' is morally neutral as creature-attribute; only its use under the devil's influence makes it the vehicle of temptation.",
+      "attribution": "Augustine, De Genesi contra Manichaeos, Bk II.14. NPNF Series 1, vol. 4. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 6,
+      "father": "Augustine",
+      "work": "De civitate Dei (The City of God)",
+      "year": 426,
+      "summary": "The Fall, for Augustine, is fundamentally a *will-fault* (defectus voluntatis) before it is an act: Eve and Adam consent inwardly to the serpent's lie before any fruit is eaten. The eating is the visible expression of an interior turning away from God; original sin is therefore primarily a disordered love, not merely a transgressive deed.",
+      "attribution": "Augustine, De civitate Dei, Bk XIV.13. NPNF Series 1, vol. 2. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 15,
+      "father": "Augustine",
+      "work": "De civitate Dei",
+      "year": 426,
+      "summary": "The protoevangelium ('he shall bruise thy head, and thou shalt bruise his heel') is read Christologically: the woman's seed is Christ; the bruised heel is the Cross; the crushed head is the definitive defeat of the devil. This is the first announcement of redemption in the Genesis narrative — the Christian reading of the OT begins here.",
+      "attribution": "Augustine, De civitate Dei, Bk XVI.27. NPNF Series 1, vol. 2. PD."
+    }
+  ]
+}
