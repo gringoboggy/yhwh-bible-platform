@@ -4,6 +4,95 @@
 
 ## Prior task
 
+**Feature landscape proposal + pre-commit hook (ω.37)** shipped
+2026-05-10. Comprehensive planning document covering 11 tracks
+with ~80-110 new phase candidates + the first concrete tool
+from the proposal's §7 catalog.
+
+### The proposal (`dev/PROPOSAL_FEATURE_LANDSCAPE.md`)
+
+11 sections, ~1400 lines. Highlights:
+
+- **11 tracks**: finish ω.35-B + 10 new — dev experience (B),
+  UI modernization (C / new ζ family), corpus depth (D / new γ
+  family), reader experience (E / new δ family), executive (F /
+  new ε family), security hardening (G), matrix expansion (H),
+  publisher workflow (I), AI features (J / from
+  PROPOSAL_AI_ARTWORK), distribution (K / new ο family),
+  database evolution (L).
+- **80+ new phases** each with id, depends, effort, blast, notes.
+- **Dependency graph** showing how foundation → modernization
+  → corpus depth → AI features → executive → distribution
+  unlock each other.
+- **6-month sequencing**: Month 1 foundation (finish file split
+  + CI + migrations), Month 2 modernization (CSS vars + dark
+  mode + cmd palette + typography + iconography), Month 3
+  corpus depth (Hebrew/Greek interlinear + patristic + LXX +
+  FTS5 + reading streaks), Month 4 publisher polish + AI MVP
+  (cover gen + cover composer + ISBN + heatmap), Month 5
+  executive + distribution (event log + dashboard + sales
+  import + press kit + archive.org), Month 6 hardening +
+  amazing tier (verse cards + co-pilot + first-run tour +
+  Ethiopian Orthodox commentary + CSP nonces + 2FA + license
+  keys).
+- **19 small tools** in §7 to build along the way.
+- **6 publisher decisions** in §9 (modernization scope, corpus
+  depth priority, AI feature order, distribution channels,
+  security tier, tooling philosophy).
+- **30+ acceptance criteria** in §11 for "spotless + amazing."
+
+### ω.37 — pre-commit hook (first shipped from §7)
+
+`.githooks/pre-commit` — POSIX shell script that runs:
+1. `ruff format --check .`
+2. `scripts/lint_rules.py`
+
+Before every commit. Catches the ruff-drift class of failures
+that surfaced 5+ times during ω.35-A/B (would have prevented
+the test-runner-finds-ruff-drift-after-the-fact loop).
+
+Cross-platform: Git for Windows ships bash. Auto-detects
+Python (.venv → python3 → python). Bypass with
+`git commit --no-verify` when explicitly desired.
+
+Activated in this clone:
+```
+git config core.hooksPath .githooks
+```
+
+Tested:
+- Clean tree → hook exits 0.
+- Deliberately-malformed file → hook exits 1, real `git commit`
+  blocked, error names the file + remediation.
+
+### What this unblocks
+
+- All future commits go through ruff format + Tier-3 lint
+  automatically.
+- Foundation in place for ω.38 (GitHub Actions cloud CI) which
+  is Month-1 work per the proposal §6 sequencing.
+- The "build any tools needed" mandate now has its first
+  shipped output; the rest of §7 catalog is queued.
+
+### Open follow-ups
+
+- **ω.35-B.4** — editions/customize extraction (next session;
+  proposal §6 Month-1 task #1).
+- **Publisher decisions** (proposal §9) — picking Month-2
+  modernization scope unblocks the largest visible-quality
+  gains.
+
+Net session test delta unchanged: **+195** (1919 baseline →
+2114 final). 28 phases counting the guard + AI proposal +
+landscape proposal + ω.37.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.37 ✓ → ω.35-B.4 →
+B.5 → B.6 → Month-2 modernization (ζ.1 CSS vars first).
+
+**2114 / 2114 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **Protected-paths CI guard + AI artwork proposal** shipped
 2026-05-10. Systemic response to the B.3b-fallout that
 deleted content/sources/strongs_hebrew.json, plus a

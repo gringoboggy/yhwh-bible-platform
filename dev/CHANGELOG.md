@@ -6,6 +6,110 @@
 
 ---
 
+## 2026-05-10 — session — feature landscape proposal + pre-commit hook (ω.37)
+
+**Phases shipped:** ω.37 (pre-commit hook). New planning document
+`dev/PROPOSAL_FEATURE_LANDSCAPE.md` cataloging 11 tracks and
+~80–110 new phase candidates with full dependency chaining.
+**Test delta:** 0 (no test-touching code changes; pre-commit hook
+is dev tooling).
+**Linter delta:** 11/11 clean.
+
+### The proposal document
+
+`dev/PROPOSAL_FEATURE_LANDSCAPE.md` — comprehensive plan covering:
+
+- **§1 North star** — what "spotless + amazing" means concretely
+  (zero crashes / zero data loss / discoverable features / wow
+  moments + content depth).
+- **§2 Architectural invariants** — 11 constraints the proposal
+  honors (no build step, stdlib HTTP server, file-based
+  persistence, route-table dispatch, audit-every-mutation, etc.).
+- **§3 Track structure** — 11 tracks: A finish ω.35-B, B dev
+  experience, C UI modernization (new ζ family), D corpus depth
+  (new γ family), E reader experience (new δ family), F executive
+  (new ε family), G security hardening (ξ.18+), H matrix
+  expansion (ψ.36+), I publisher workflow (ν.7+, π.6+), J AI
+  features (B.AI.*), K distribution (new ο family), L database
+  evolution (Δ.10+).
+- **§4 Phase ledger** — ~80 new phases with id, depends, effort
+  (in sessions), blast radius, key deliverables.
+- **§5 Dependency graph** — ASCII chart of which phases unlock
+  which (foundation → modernization → corpus depth → AI features
+  → executive → distribution).
+- **§6 Sequencing** — recommended 6-month rollout: Month 1
+  foundation (file split + CI + migrations), Month 2
+  modernization (CSS vars + dark mode + cmd palette), Month 3
+  corpus depth (interlinear + patristic + LXX + FTS5), Month 4
+  publisher polish + AI MVP, Month 5 executive + distribution,
+  Month 6 hardening + amazing tier.
+- **§7 Tool catalog** — 19 small tools to build along the way
+  (pre-commit hook ✓ shipped today; CI workflow; hot-reload
+  watcher; OpenAPI generator; migration runner; event log; etc.).
+- **§8 Risk register** — 10 risk categories with mitigations.
+- **§9 Publisher decisions** — 6 inputs needed (modernization
+  scope, corpus depth priority, AI feature order, distribution
+  channels, security tier, tooling philosophy).
+- **§10 Integration** — how this plays with the existing
+  PLAN_2026-05-09.md (doesn't replace it; coexists; new
+  Greek-letter phases back-fill into PLAN §7 as they ship).
+- **§11 Acceptance criteria** — 30+ checkable items for what
+  "done" looks like.
+
+The proposal does NOT commit the publisher to any specific path
+— it's a portfolio of options sequenced so foundation phases
+unlock the most downstream work. The §6 sequencing is one
+plausible 6-month rollout; tracks can be cut, reordered, or
+extended freely.
+
+### ω.37 — pre-commit hook (first shipment from the proposal)
+
+`.githooks/pre-commit` — POSIX shell script that runs:
+1. `ruff format --check .` (catches the ruff-drift class of
+   failures that surfaced 5+ times during the ω.35-A/B sessions)
+2. `scripts/lint_rules.py` (the Tier-3 preflight aggregator)
+
+Before every commit. Bypass with `git commit --no-verify` when
+the user explicitly says so.
+
+Cross-platform: Git for Windows ships with bash and runs hooks
+via the embedded MSYS2 shell. The script auto-detects Python:
+prefers `.venv/`, falls back to system `python3`, then `python`.
+
+**Activation (one-time per clone)**:
+```bash
+git config core.hooksPath .githooks
+```
+
+Activated in this clone. Tested by:
+- Clean tree → hook exits 0 (323 files already formatted, lint
+  clean).
+- Deliberately-malformed test file staged → hook exits 1 with a
+  clear error pointing at the offending file + the `ruff format
+  .` remediation command. Real `git commit` attempt was blocked
+  as expected. Test artifacts cleaned up after.
+
+### Net effect
+
+- Every future commit goes through ruff-format check + Tier-3
+  preflight automatically.
+- The ω.35-A/B class of "commit succeeds, xdist run fails on
+  ruff drift" can't happen anymore — the local hook catches it
+  before the commit even completes.
+- Foundation in place for ω.38 (GitHub Actions CI), which adds
+  the cloud-side counterpart for any future contributors or
+  any machine without the hook activated.
+
+### Open follow-ups (immediate)
+
+- **ω.35-B.4** — editions/customize extraction (next session;
+  unchanged from prior IN_FLIGHT).
+- **Publisher decisions** (PROPOSAL §9) — when ready, picking
+  Month-2 modernization scope unblocks the largest visible-quality
+  gains.
+
+---
+
 ## 2026-05-10 — session — protected-paths CI guard + AI artwork proposal
 
 **Phases shipped:** protected-paths CI guard (systemic fix for

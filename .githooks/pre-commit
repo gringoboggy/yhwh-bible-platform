@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Pre-commit hook (ω.37 — 2026-05-10).
+#
+# Runs ruff format --check + the Tier-3 preflight aggregator
+# (scripts/lint_rules.py) on every commit. Catches the
+# "ruff drift" class of failures BEFORE they reach the test
+# suite (which surfaced 5+ times during ω.35-A/B sessions).
+#
+# Activation (one-time per clone):
+#   git config core.hooksPath .githooks
+#
+# Bypass (use sparingly, with the user's explicit say-so):
+#   git commit --no-verify
+#
+# Cross-platform: this is a POSIX shell script. On Windows,
+# Git for Windows ships with bash and runs hooks via the
+# embedded MSYS2 shell — no extra setup needed.
+
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+# Locate Python. Prefer the project's venv if present, else
+# system python3.
+if [ -x ".venv/bin/python" ]; then
+  PYTHON=".venv/bin/python"
+elif [ -x ".venv/Scripts/python.exe" ]; then
+  PYTHON=".venv/Scripts/python.exe"
+elif command -v python3 >/dev/null 2>&1; then
+  PYTHON="python3"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON="python"
+else
+  echo "pre-commit: no Python found; skipping checks." >&2
+  exit 0
+fi
+
+echo "[pre-commit] running ruff format --check ..."
+if ! "$PYTHON" -m ruff format --check . ; then
+  echo ""
+  echo "[pre-commit] ruff drift detected. Run:"
+  echo "    $PYTHON -m ruff format ."
+  echo "then re-stage and re-commit."
+  echo ""
+  echo "(Bypass with --no-verify if you know what you're doing.)"
+  exit 1
+fi
+
+echo "[pre-commit] running scripts/lint_rules.py ..."
+if ! "$PYTHON" scripts/lint_rules.py >/tmp/lint_rules.out 2>&1 ; then
+  echo ""
+  echo "[pre-commit] Tier-3 preflight failed. Last 30 lines:"
+  echo ""
+  tail -n 30 /tmp/lint_rules.out
+  echo ""
+  echo "Full output: /tmp/lint_rules.out"
+  echo "(Bypass with --no-verify if you know what you're doing.)"
+  exit 1
+fi
+
+echo "[pre-commit] ok"
+exit 0

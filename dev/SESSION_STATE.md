@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-10, after **protected-paths CI guard +
+**Updated:** 2026-05-10, after **feature landscape proposal +
+pre-commit hook (ω.37)** shipped. New planning document
+`dev/PROPOSAL_FEATURE_LANDSCAPE.md` catalogs 11 tracks and
+~80-110 new phase candidates with full dependency chaining and
+a 6-month recommended sequence. The proposal introduces 5 new
+Greek-letter families (γ corpus depth, δ reader experience, ε
+executive/business, ζ UI modernization, ο distribution) plus
+extensions to existing families (ω.37+ dev tooling, ξ.18+
+security, ψ.36+ matrix, ν.7+/π.6+ publisher workflow, Δ.10+
+database evolution, B.AI.* AI features from PROPOSAL_AI_ARTWORK).
+Each new phase has id, depends-on, effort estimate (sessions),
+blast radius, and key deliverables. §5 has an ASCII dependency
+graph; §6 is a 6-month rollout (foundation → modernization →
+corpus depth → publisher polish + AI MVP → executive +
+distribution → hardening + amazing tier); §7 catalogs 19 small
+tools to build along the way; §8-9 cover risks + publisher
+decisions; §10 explains integration with PLAN_2026-05-09.md;
+§11 lists 30+ acceptance criteria. **ω.37 pre-commit hook**
+shipped as the first concrete tool from §7: `.githooks/pre-
+commit` runs `ruff format --check` + `scripts/lint_rules.py`
+before every commit. Activated in this clone via
+`git config core.hooksPath .githooks`. Tested: clean tree
+passes, deliberately-malformed file is blocked with a clear
+error + remediation command. Prevents the recurring ruff-
+drift class of failure that surfaced 5+ times in ω.35-A/B
+sessions. **Test delta:** 0 (no test-touching changes;
+pre-commit hook is dev tooling). **Linter delta:** 11/11 clean.
+Net session test delta unchanged: **+195** (1919 baseline →
+2114 final). 28 phases shipped this session counting the
+guard + AI proposal + landscape proposal + ω.37. AUDIT §7
+sequence: ω.37 ✓ → **ω.35-B.4** editions/customize (next)
+→ B.5 exports/build → B.6 preflight/audit/help → then
+publisher's call on Month-2 modernization. **2114 / 2114
+tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **protected-paths CI guard +
 AI artwork proposal** shipped — systemic fix for the
 B.3b-class regression that deleted content/sources/strongs_
 hebrew.json mid-session, plus a comprehensive planning
