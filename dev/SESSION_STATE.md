@@ -1,33 +1,56 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.6 DELETE mutation
+**Updated:** 2026-05-11, after **ω.35-A.7 POST mutation
+routes table** shipped — first POST-method table for JSON-body
+routes. New `_POST_ROUTES` table with 6 entries:
+snapshots/<ed>/<ver>/restore (no payload — accepts `{}`
+default), snapshots/<ed> (create; payload pass-through),
+matrix/apply-kind-to-all (destructures `kind`/`enable`),
+scenarios/_import (destructures `yaml`/`name`/`overwrite`),
+editions/clone (payload pass-through; ok:False envelope),
+backups/restore (destructures `file`/`snapshot_id`). Handler
+signature is `lambda m, payload: api_X(...)` — same as PUT
+(POST and PUT both carry request bodies). `do_POST` runs
+`_check_admin_auth` once at entry, then the dispatch loop
+(body read lazily, ONCE the first pattern matches), then
+falls through to legacy for the 3 multipart + 2 sources/cache
+routes. The 2 sources/cache POSTs stay because they use
+`_send_dict_result` which preserves arbitrary extras in error
+envelopes — different shape from `_dispatch_table_result`;
+adopting them is judgment-call work deferred to A.8. 6 legacy
+POST branches deleted. **+9 tests** in `TestOmega35A7PostTable`
+(six-entries pin, expected patterns, handler-signature-is-
+(m,payload), snapshot-restore-precedes-create precedence,
+dispatch-reads-body-once via source inspection, empty-body
+restore POST works). 2 pre-existing tests updated to accept
+either the legacy literal or the table regex form
+(test_import_route_registered, test_route_registered for
+apply-kind-to-all). Migration progress: 37/93 discovered
+routes (~40%) now in tables — though "real route count"
+remains 88 (the table-discovery patterns now also pick up
+POSTs that legacy regex never caught: `if self.path == ...`
+literals weren't matched by the discovery's `if path == ...`
+shape). Net session test delta: **+113** (1919 baseline →
+2032 final). 18 phases shipped this session: Δ.5, Δ.6, Δ.8,
+Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36,
+ω.35-A.1-A.7. AUDIT §7 sequence: ω.35-A.7 ✓ → **ω.35-A.8**
+bespoke routes cleanup (next; 2 sources/cache POSTs + 1
+DELETE outlier + 4 bespoke PUTs + /api/publisher dead code +
+custom-output formats) → ω.35-A.9 multipart table → ω.35-B
+file split → ψ.35 matrix data-model collapse. **2032 / 2032
+tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.6 DELETE mutation
 routes table** shipped — first DELETE-method table. New
 `_DELETE_ROUTES` table with 5 entries: notes/<book>/<idx>
-(with int coercion in lambda), snapshots/<ed>/<ver> (uses
-status==error envelope), scenarios/<name> (uses ok:False
-envelope), covers/<ed>/book/<book>, covers/<ed>/main. Handler
-signature is `lambda m: api_X(...)` — no payload (the
-difference vs PUT). `do_DELETE` runs `_check_admin_auth` once
-then the table dispatch loop, then falls through to legacy
-for /api/sources/cache/<id> (uses bespoke `_send_dict_result`,
-not table-compatible). 5 legacy branches deleted. Bug caught
-+ fixed mid-phase: ruff format wrapped 2 of 5 DELETE entries
-onto multiple lines (`(` on its own line); the single-line
-discovery regex missed them. Fix: changed `\(` to `\(?`
-(optional opening paren) so both single-line and multi-line
-tuple shapes match. Applied the same fix to `_PUT_ROUTES`
-discovery for future-proofing. **+8 tests** in
-`TestOmega35A6DeleteTable` (handler-signature-is-(m), covers-
-book-precedes-main precedence, int-coercion smoke check,
-sources/cache legacy-stays pin). Migration progress: 31/88
-routes (~35%) now exclusively in tables. Net session test
-delta: **+104** (1919 baseline → 2023 final). 17 phases
-shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1,
-ω.35-A, ω.36, ω.35-A.1-A.6. AUDIT §7 sequence: ω.35-A.6 ✓ →
-**ω.35-A.7** POST + multipart (next; 5 POST + 2 multipart) →
-ω.35-A.8 bespoke routes cleanup → ω.35-B file split → ψ.35
-matrix data-model collapse. **2023 / 2023 tests green (1
-skipped); 11/11 linter clean.**
+(int coercion in lambda), snapshots/<ed>/<ver> (status==error
+envelope), scenarios/<name> (ok:False envelope),
+covers/<ed>/book/<book>, covers/<ed>/main. Handler signature
+is `lambda m:` (no payload — vs PUT). Bug caught + fixed:
+ruff wrapped 2 of 5 entries onto multiple lines; fix changed
+`\(` to `\(?` in discovery (same fix applied to PUT table
+discovery for future-proofing). **+8 tests** in
+TestOmega35A6DeleteTable.
 
 Prior ship in same session: **ω.35-A.5 PUT mutation routes
 table** shipped — first slice covering MUTATION routes (PUT).

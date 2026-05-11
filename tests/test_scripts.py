@@ -16822,11 +16822,17 @@ class TestPsi26MatrixBulkOps:
 
         web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
         text = web_py.read_text(encoding="utf-8")
-        assert '"/api/matrix/apply-kind-to-all"' in text
-        # Reads `kind` + `enable` from the JSON body.
-        idx = text.find('"/api/matrix/apply-kind-to-all"')
+        # ω.35-A.7 — route migrated to _POST_ROUTES regex table.
+        # Accept either the legacy `"path"` literal OR the table
+        # `r"^path$"` regex form, then locate the lambda body and
+        # confirm `kind` + `enable` destructuring is present nearby.
+        legacy_anchor = '"/api/matrix/apply-kind-to-all"'
+        table_anchor = '"^/api/matrix/apply-kind-to-all$"'
+        anchor = legacy_anchor if legacy_anchor in text else table_anchor
+        assert anchor in text, "matrix/apply-kind-to-all route not registered in any form"
+        idx = text.find(anchor)
         seg = text[idx : idx + 1500]
-        assert '"kind"' in seg or "kind = payload.get" in seg
+        assert '"kind"' in seg or "kind = payload.get" in seg or 'payload.get("kind")' in seg
         assert "enable" in seg
 
 
@@ -18936,7 +18942,12 @@ class TestPsi27ScenarioRoutes:
 
         web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
         text = web_py.read_text(encoding="utf-8")
-        assert '"/api/scenarios/_import"' in text
+        # ω.35-A.7 — route migrated from `if self.path == ...:`
+        # literal into `_POST_ROUTES` regex table. Accept both forms
+        # so this test stays meaningful through the refactor.
+        legacy_form = '"/api/scenarios/_import"' in text
+        table_form = '"^/api/scenarios/_import$"' in text
+        assert legacy_form or table_form, "scenarios/_import POST route not registered in any form"
 
 
 class TestXi13AuditLog:
@@ -25192,3 +25203,182 @@ class TestOmega35A6DeleteTable:
         routes = check_routes.discover_routes()
         cache_deletes = [r for r in routes if r.method == "DELETE" and "/sources/cache/" in r.pattern]
         assert len(cache_deletes) == 1, f"sources cache DELETE missing: {cache_deletes}"
+
+
+class TestOmega35A7PostTable:
+    """ω.35-A.7 — sixth route-table slice; first POST-method
+    table for JSON-body routes. `_POST_ROUTES` covers POST routes
+    that share the uniform shape: regex → handler(m, payload) →
+    _dispatch_table_result. Same lambda signature as `_PUT_ROUTES`
+    (POST and PUT both carry request bodies). Admin auth runs at
+    do_POST function entry; body is read once in the dispatch
+    loop and reused across all 6 entries.
+
+    6 of 11 POST routes migrated:
+    - /api/snapshots/<ed>/<ver>/restore   (no payload — uses {})
+    - /api/snapshots/<ed>                 (snapshot create)
+    - /api/matrix/apply-kind-to-all       (payload destructure)
+    - /api/scenarios/_import              (payload destructure)
+    - /api/editions/clone                 (payload pass-through)
+    - /api/backups/restore                (payload destructure)
+
+    Out of scope (deferred to ω.35-A.8 — bespoke cleanup):
+    - 2 sources/cache fetch routes (use _send_dict_result with
+      extras-preservation — needs either a dispatch helper
+      extension or a dedicated table; judgment call deferred).
+    - 3 multipart routes (cover main, cover book, sources cache
+      upload) — distinct payload shape; need a dedicated table.
+    """
+
+    def test_post_table_has_six_entries(self):
+        from scripts import web
+
+        assert len(web._POST_ROUTES) == 6
+
+    def test_post_table_has_expected_patterns(self):
+        from scripts import web
+
+        patterns = [r.pattern for r, _ in web._POST_ROUTES]
+        joined = "|".join(patterns)
+        assert "/api/snapshots/" in joined
+        assert "/api/matrix/apply-kind-to-all" in joined
+        assert "/api/scenarios/_import" in joined
+        assert "/api/editions/clone" in joined
+        assert "/api/backups/restore" in joined
+
+    def test_post_table_entries_shape(self):
+        from scripts import web
+
+        for entry in web._POST_ROUTES:
+            assert isinstance(entry, tuple)
+            assert len(entry) == 2
+            regex_obj, handler = entry
+            assert hasattr(regex_obj, "match")
+            assert callable(handler)
+
+    def test_post_handler_signature_is_match_and_payload(self):
+        # The POST table handler is `lambda m, payload: api_X(...)` —
+        # two args (match + JSON body), matching PUT. Different from
+        # DELETE's one-arg `lambda m:` signature.
+        import inspect
+
+        from scripts import web
+
+        for regex_obj, handler in web._POST_ROUTES:
+            try:
+                sig = inspect.signature(handler)
+                params = list(sig.parameters.keys())
+                assert len(params) == 2, f"POST handler for {regex_obj.pattern} has wrong arg count: {params}"
+            except (TypeError, ValueError):
+                pass
+
+    def test_snapshot_restore_precedes_snapshot_create(self):
+        # /api/snapshots/<ed>/<ver>/restore is more specific than
+        # /api/snapshots/<ed>; iteration order = precedence so the
+        # restore pattern MUST come first. Otherwise a POST to
+        # /api/snapshots/main/v1/restore would match the less-
+        # specific pattern with `version` swallowing `v1/restore`
+        # and call api_snapshot_create instead of restore.
+        from scripts import web
+
+        idx_restore = None
+        idx_create = None
+        for i, (regex_obj, _) in enumerate(web._POST_ROUTES):
+            pat = regex_obj.pattern
+            # Specifically the snapshots/<ed>/<ver>/restore pattern,
+            # NOT /api/backups/restore (which also has /restore).
+            if "/api/snapshots/" in pat and "/restore" in pat:
+                idx_restore = i
+            elif pat.endswith(r"/api/snapshots/([a-z0-9._-]+)$"):
+                idx_create = i
+        assert idx_restore is not None
+        assert idx_create is not None
+        assert idx_restore < idx_create, (
+            f"restore pattern (idx {idx_restore}) must precede create pattern "
+            f"(idx {idx_create}); otherwise the less-specific create swallows "
+            f"the /<ver>/restore path"
+        )
+
+    def test_route_inventory_no_drift_after_post_migration(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True
+
+    def test_discovery_recognizes_post_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        # All 6 migrated POST routes should appear via the standalone
+        # `re.compile(r"^...$"),` shape (ruff reformatted onto own line).
+        assert ("POST", "/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/restore$", True) in keys
+        assert ("POST", "/api/snapshots/([a-z0-9._-]+)$", True) in keys
+        assert ("POST", "/api/matrix/apply-kind-to-all$", True) in keys
+        assert ("POST", "/api/scenarios/_import$", True) in keys
+        assert ("POST", "/api/editions/clone$", True) in keys
+        assert ("POST", "/api/backups/restore$", True) in keys
+
+    def test_multipart_and_sources_cache_still_in_legacy(self):
+        # 3 multipart routes + 2 sources/cache fetch routes stay
+        # in legacy. Pin: NONE of them should appear in _POST_ROUTES.
+        from scripts import web
+
+        table_patterns = [r.pattern for r, _ in web._POST_ROUTES]
+        assert not any("/covers/" in p for p in table_patterns)
+        assert not any("/sources/cache/" in p for p in table_patterns)
+
+    def test_dispatch_loop_reads_body_once(self):
+        # The dispatch loop in do_POST is structured so _read_body()
+        # fires at most once per request (when the first match
+        # happens), then payload is reused if no match occurs (it
+        # won't — the loop returns on first match). Pin via source
+        # inspection.
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_POST)
+        # The function should contain the dispatch loop pattern
+        assert "_POST_ROUTES" in src
+        # And there must be only one _read_body() call inside the
+        # _POST_ROUTES loop (legacy still has them for sources_cache
+        # routes, which is fine).
+        # Count `_read_body()` references INSIDE the new dispatch loop —
+        # the loop body has exactly one.
+        before_loop, _, after_loop = src.partition("for pattern, handler in _POST_ROUTES")
+        loop_body, _, post_loop = after_loop.partition("# ω.16 routes migrated")
+        assert loop_body.count("self._read_body()") == 1, (
+            f"new POST dispatch loop should read body exactly once; got {loop_body.count('self._read_body()')}"
+        )
+
+    def test_empty_body_post_works_for_restore(self):
+        # Snapshot restore POSTs typically have Content-Length 0.
+        # `_read_body() or {}` returns {} for empty body, and the
+        # restore lambda ignores payload anyway. Verify the lambda
+        # gracefully accepts payload={}.
+        from scripts import web
+
+        # Find the restore entry
+        restore_entry = None
+        for regex_obj, handler in web._POST_ROUTES:
+            if "/restore" in regex_obj.pattern:
+                restore_entry = (regex_obj, handler)
+                break
+        assert restore_entry is not None
+        regex_obj, handler = restore_entry
+        m = regex_obj.match("/api/snapshots/main/v1/restore")
+        assert m is not None
+        # Call the handler with empty payload — it should call into
+        # api_snapshot_restore; we don't care about the result here,
+        # only that it accepts payload={} without crashing on a
+        # missing key access.
+        try:
+            result = handler(m, {})
+            # Result is a dict; either ok or an error envelope.
+            assert isinstance(result, dict)
+        except Exception as e:
+            # api_snapshot_restore is allowed to error (no snapshot
+            # named "v1" exists), but it must not raise something
+            # caused by payload-key access.
+            assert "payload" not in str(e).lower(), f"handler crashed on payload access: {e}"

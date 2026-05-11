@@ -6409,6 +6409,69 @@ _DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
 ]
 
 
+# ω.35-A.7 (2026-05-11) — sixth slice of the route-table migration.
+# `_POST_ROUTES` covers POST routes whose result-shape goes through
+# the standard `_dispatch_table_result` helper. Same lambda signature
+# as `_PUT_ROUTES`: `lambda m, payload`. Admin auth runs at do_POST
+# function entry. Body read happens once in the dispatch loop (matches
+# the PUT loop), and `_read_body() or {}` makes empty-body POSTs
+# (e.g. snapshot restore) work transparently.
+#
+# Out of scope for A.7 (deferred to A.8 — bespoke cleanup):
+# - /api/sources/cache/_all/fetch and /api/sources/cache/<id>/fetch
+#   (use `_send_dict_result` which preserves extras in error envelopes
+#   — they need either an extension to `_dispatch_table_result` or a
+#   dedicated `_POST_DICT_RESULT_ROUTES` table, both judgment calls
+#   best deferred).
+# - 3 multipart routes (cover main, cover book, sources cache upload)
+#   — these read the raw body, not JSON; they need a `_MULTIPART_ROUTES`
+#   table with a distinct lambda signature `lambda m, body, ctype` and
+#   their own dispatch loop. Separate slice.
+_POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
+    # /api/snapshots/<ed>/<ver>/restore — no payload; status==error
+    # envelope. MUST precede /api/snapshots/<ed> (more specific).
+    (
+        re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/restore$"),
+        lambda m, payload: api_snapshot_restore(m.group(1), m.group(2)),
+    ),
+    # /api/snapshots/<ed> — create; payload pass-through; status==error
+    (
+        re.compile(r"^/api/snapshots/([a-z0-9._-]+)$"),
+        lambda m, payload: api_snapshot_create(m.group(1), payload),
+    ),
+    # /api/matrix/apply-kind-to-all — payload destructure; status==error
+    (
+        re.compile(r"^/api/matrix/apply-kind-to-all$"),
+        lambda m, payload: api_apply_kind_to_all_editions(
+            payload.get("kind") or "",
+            enable=bool(payload.get("enable")),
+        ),
+    ),
+    # /api/scenarios/_import — payload destructure; status==error
+    (
+        re.compile(r"^/api/scenarios/_import$"),
+        lambda m, payload: api_import_scenario_yaml(
+            payload.get("yaml") or "",
+            name=payload.get("name") or None,
+            overwrite=bool(payload.get("overwrite")),
+        ),
+    ),
+    # /api/editions/clone — payload pass-through; uses ok:False envelope
+    (
+        re.compile(r"^/api/editions/clone$"),
+        lambda m, payload: api_clone_edition(payload),
+    ),
+    # /api/backups/restore — payload destructure; status==ok|error
+    (
+        re.compile(r"^/api/backups/restore$"),
+        lambda m, payload: api_restore_backup(
+            payload.get("file") or "",
+            payload.get("snapshot_id") or "",
+        ),
+    ),
+]
+
+
 def _dispatch_table_result(handler_self, result: dict) -> None:
     """ω.35-A.2 helper — translate a handler dict result to an HTTP
     response, mirroring the boilerplate that appeared 10+ times in
@@ -7285,77 +7348,29 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._check_admin_auth():
             return
-        # ω.16 — snapshot create / restore. POST body shapes:
-        #   create:  /api/snapshots/<edition_id>
-        #     {"version": str, "label"?: str, "notes"?: str,
-        #      "overwrite"?: bool}
-        #   restore: /api/snapshots/<edition_id>/<version>/restore
-        #     no body required
-        m = re.match(
-            r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)/restore$",
-            self.path,
-        )
-        if m:
-            result = api_snapshot_restore(m.group(1), m.group(2))
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
-        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body() or {}
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-            result = api_snapshot_create(m.group(1), payload)
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
-
-        # ψ.26 — bulk apply: enable/disable one kind across every
-        # edition. JSON body: ``{"kind": str, "enable": bool}``.
-        if self.path == "/api/matrix/apply-kind-to-all":
-            try:
-                payload = self._read_body() or {}
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-            kind = payload.get("kind") or ""
-            enable = payload.get("enable")
-            result = api_apply_kind_to_all_editions(kind, enable=bool(enable))
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
-        # ψ.27 — scenario YAML import. POST a JSON envelope:
-        # ``{"yaml": str, "name"?: str, "overwrite"?: bool}``. Returns
-        # the saved scenario name on success; specific 400/409/413
-        # errors on bad input.
-        if self.path == "/api/scenarios/_import":
-            try:
-                payload = self._read_body() or {}
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-            yaml_text = payload.get("yaml") or ""
-            name = payload.get("name") or None
-            overwrite = bool(payload.get("overwrite"))
-            result = api_import_scenario_yaml(
-                yaml_text,
-                name=name,
-                overwrite=overwrite,
-            )
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
+        # ω.35-A.7 — POST route-table dispatch. Covers:
+        #   /api/snapshots/<ed>/<ver>/restore (no payload)
+        #   /api/snapshots/<ed>               (create)
+        #   /api/matrix/apply-kind-to-all
+        #   /api/scenarios/_import
+        #   /api/editions/clone
+        #   /api/backups/restore
+        # Body is read once here; routes that don't need a payload
+        # (snapshot restore) accept the {} default. Any read failure
+        # before pattern-match is a 400.
+        payload: dict | None = None
+        for pattern, handler in _POST_ROUTES:
+            m = pattern.match(self.path)
+            if not m:
+                continue
+            if payload is None:
+                try:
+                    payload = self._read_body() or {}
+                except Exception as e:
+                    return self._send_json({"error": str(e)}, status=400)
+            return _dispatch_table_result(self, handler(m, payload))
+        # ω.16 routes migrated to _POST_ROUTES (ω.35-A.7).
+        # ψ.26 + ψ.27 routes migrated to _POST_ROUTES (ω.35-A.7).
         # Cover uploads (Phase π.4-B) — multipart/form-data, distinct
         # from the JSON-bodied PUT/POST endpoints below. Routed here
         # first so the multipart body isn't read as JSON.
@@ -7369,7 +7384,9 @@ class Handler(BaseHTTPRequestHandler):
         m = re.match(r"^/api/sources/cache/([a-z0-9_-]+)/upload$", self.path)
         if m:
             return self._handle_sources_cache_upload(m.group(1))
-        # Source cache fetch / fetch-all (Phase υ.1) — JSON body
+        # Source cache fetch / fetch-all (Phase υ.1) — JSON body, uses
+        # `_send_dict_result` which preserves extras in error envelopes
+        # (deferred to ω.35-A.8 — bespoke cleanup).
         if self.path == "/api/sources/cache/_all/fetch":
             try:
                 payload = self._read_body() or {}
@@ -7390,35 +7407,7 @@ class Handler(BaseHTTPRequestHandler):
                 parser_override=payload.get("parser_override") or None,
             )
             return self._send_dict_result(result)
-        # Edition cloning (Phase ν.4) — JSON body, distinct path
-        if self.path == "/api/editions/clone":
-            try:
-                payload = self._read_body()
-                result = api_clone_edition(payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Backup restore (Phase ω.1) — POST {file, snapshot_id}
-        if self.path == "/api/backups/restore":
-            try:
-                payload = self._read_body() or {}
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-            result = api_restore_backup(
-                payload.get("file") or "",
-                payload.get("snapshot_id") or "",
-            )
-            if result.get("status") == "ok":
-                return self._send_json(result)
-            http_code = result.get("http") or 500
-            return self._send_json(
-                {
-                    "error": result.get("code") or "internal_error",
-                    "message": result.get("message") or "",
-                },
-                status=http_code,
-            )
+        # ν.4 + ω.1 routes migrated to _POST_ROUTES (ω.35-A.7).
         # Everything else: same as PUT — front-end uses POST for create
         return self.do_PUT()
 

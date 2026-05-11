@@ -6,6 +6,157 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.7 POST mutation routes table (sixth route-table slice)
+
+**Phases shipped:** ω.35-A.7. First POST-method table for
+JSON-body routes. 6 of 11 POST routes migrated; legacy
+boilerplate (8-14 lines per route, 6 routes ≈ 70 lines)
+consolidated. Same `lambda m, payload` signature as
+`_PUT_ROUTES` — POST and PUT both carry request bodies.
+**Test delta:** +9 (was 2023, now 2032; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `_POST_ROUTES` table in `scripts/web.py` (module
+  scope below `_DELETE_ROUTES`). 6 entries:
+  - `/api/snapshots/<ed>/<ver>/restore` →
+    `api_snapshot_restore(g1, g2)` (no payload — accepts the
+    `{}` default; MUST precede snapshot-create per pattern
+    precedence)
+  - `/api/snapshots/<ed>` →
+    `api_snapshot_create(g1, payload)` (passes payload
+    through)
+  - `/api/matrix/apply-kind-to-all` →
+    `api_apply_kind_to_all_editions(payload["kind"],
+    enable=bool(payload["enable"]))` (destructure in the
+    lambda; matches legacy)
+  - `/api/scenarios/_import` →
+    `api_import_scenario_yaml(payload["yaml"], name=...,
+    overwrite=...)` (destructure)
+  - `/api/editions/clone` →
+    `api_clone_edition(payload)` (pass-through; uses
+    `ok:False` envelope)
+  - `/api/backups/restore` →
+    `api_restore_backup(payload["file"],
+    payload["snapshot_id"])` (destructure; status==ok|error
+    envelope which the standard `_dispatch_table_result`
+    handles)
+- `Handler.do_POST` extended with dispatch loop:
+  `_check_admin_auth` at function entry, then a single
+  `_read_body() or {}` call once a pattern matches (lazy —
+  not for every iteration), then `handler(m, payload)`
+  routed through `_dispatch_table_result`.
+- 6 legacy POST branches deleted with breadcrumb comments:
+  ω.16 snapshots (2 routes), ψ.26 apply-kind-to-all,
+  ψ.27 scenarios import, ν.4 editions clone, ω.1 backups
+  restore. Remaining 5 in legacy: 3 multipart (covers main,
+  covers book, sources cache upload) + 2 sources cache
+  fetch (use `_send_dict_result` with extras-preservation).
+- `scripts/check_routes.py` extended with `in_post_table`
+  state machine; same multi-line-tolerant regex as PUT/DELETE
+  (the lambda forces multi-line formatting in most entries).
+- 10 new tests in `TestOmega35A7PostTable`: six-entries
+  count pinned, expected patterns present, well-formed shape,
+  handler signature is `(m, payload)`, snapshot-restore
+  precedes snapshot-create (precedence — without this, the
+  less-specific create pattern would swallow `/<ver>/restore`
+  via the `<ed>` capture), zero-drift via check_routes, all
+  6 patterns discovered by table-scanner, multipart and
+  sources-cache stay in legacy, dispatch loop reads body
+  exactly once, empty-body restore POST works.
+- Two pre-existing tests updated to accept the new table
+  form alongside the legacy literal:
+  `TestPsi27ScenarioRoutes::test_import_route_registered`
+  (was asserting `"/api/scenarios/_import"` literal in the
+  source — now also accepts `"^/api/scenarios/_import$"`)
+  and `TestPsi26ApplyKindToAll::test_route_registered` (same
+  pattern, with the `kind`+`enable` destructure check
+  extended to also accept `payload.get("kind")` form).
+
+### Out of scope (deferred to ω.35-A.8 — bespoke cleanup)
+
+- 2 sources/cache fetch routes
+  (`/api/sources/cache/_all/fetch` and
+  `/api/sources/cache/<id>/fetch`). They use
+  `_send_dict_result` which **preserves arbitrary extras
+  fields in the error envelope** — different from
+  `_dispatch_table_result`'s `{error, message}` shape.
+  Adopting them either needs to extend the dispatch helper
+  (judgment call: which routes get extras?) or build a
+  dedicated `_POST_DICT_RESULT_ROUTES` table. Both
+  deferrable.
+- 3 multipart routes (cover main, cover book, sources cache
+  upload). They read the raw body, not JSON; they need a
+  `_MULTIPART_ROUTES` table with a distinct lambda
+  signature `lambda m, body, content_type` and a separate
+  dispatch loop. Separate slice.
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+
+**37 of 93 routes (~40%) now exclusively in tables.**
+The route count climbed from 88 to 93 because the table-
+discovery patterns now also pick up the standalone
+`re.compile(r"^...$"),` lines in `_POST_ROUTES`, which
+includes 6 POSTs that the legacy regex never caught
+(`if self.path == ...` literals weren't matched by the
+discovery's `if path == ...` pattern). Net real route count
+is unchanged at 88.
+
+Remaining 51 in legacy (real count): 3 multipart POSTs +
+2 sources/cache POST + 1 DELETE outlier + bespoke PUTs +
+custom-output (RSS, YAML, HTML) + static-file serving +
+sample preview + /api/build-all literal.
+
+### Notable decisions
+
+- **Body read is lazy.** The dispatch loop only calls
+  `_read_body()` once a pattern matches — not for every
+  iteration. Catches a subtle issue: reading the body on
+  every iteration would consume `self.rfile` repeatedly,
+  but `_read_body()` is idempotent (it caches the parsed
+  payload). The lazy pattern is cleaner anyway and matches
+  the PUT loop precedent.
+- **Lambda-side destructure vs handler-side.** Two routes
+  (`apply-kind-to-all`, `_import`) accept un-shaped payload
+  in the underlying API function and the legacy code did
+  the field extraction in the handler. I kept the
+  destructure in the lambda (one shot per route) rather
+  than refactor the API surface — preserves behavior, no
+  ripple effects.
+- **No `_dispatch_table_result` extension for status==ok.**
+  Existing helper already handles the `status==ok` case
+  correctly because anything-not-`status==error`-and-not-
+  `ok==False` falls through to 200. Verified: legacy
+  `/api/backups/restore` returned 200 for status==ok and
+  4xx for status==error; new behavior is identical.
+- **Pattern precedence test was a real catch.** The
+  test_snapshot_restore_precedes_snapshot_create wasn't
+  prophylactic — if I'd put the create pattern first, a
+  POST to `/api/snapshots/main/v1/restore` would have
+  matched create with `<ed>` swallowing `main/v1/restore`
+  (the `[a-z0-9._-]+` class includes `/` ... wait, no it
+  doesn't; `/` isn't in the class so it wouldn't match).
+  But the principle holds. The test pins iteration order
+  as a discipline.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-A.1 → A.2 → A.3 → A.4 →
+A.5 → A.6 → **A.7 ✓ → A.8** bespoke cleanup (2 sources/cache
+POSTs + 1 DELETE outlier + 4 bespoke PUTs + /api/publisher
+dead code + custom-output formats) → ω.35-A.9 multipart
+table → ω.35-B file split → ψ.35 matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.6 DELETE mutation routes table (fifth route-table slice)
 
 **Phases shipped:** ω.35-A.6. First DELETE-method table. 5 of 6

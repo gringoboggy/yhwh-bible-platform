@@ -4,6 +4,120 @@
 
 ## Prior task
 
+**ω.35-A.7 POST mutation routes table** shipped 2026-05-11.
+First POST-method table for JSON-body routes; 6 of 11 POST
+routes migrated.
+
+`scripts/web.py:_POST_ROUTES` (new, module scope below
+`_DELETE_ROUTES`): 6 entries with handler signature
+`lambda m, payload: api_X(...)` (same as PUT):
+- /api/snapshots/<ed>/<ver>/restore (no payload — accepts the
+  `{}` default; MUST precede the snapshot-create pattern for
+  precedence)
+- /api/snapshots/<ed> (create; payload pass-through)
+- /api/matrix/apply-kind-to-all (destructures `kind`+`enable`)
+- /api/scenarios/_import (destructures `yaml`+`name`+
+  `overwrite`)
+- /api/editions/clone (payload pass-through; ok:False
+  envelope shape)
+- /api/backups/restore (destructures `file`+`snapshot_id`;
+  status==ok|error shape handled by standard helper)
+
+`Handler.do_POST` extended: `_check_admin_auth` at entry,
+then dispatch loop with LAZY body read (`_read_body()` fires
+only when the first pattern matches, not on every
+iteration — `payload` is `None` sentinel until then), then
+fall-through to legacy for 3 multipart + 2 sources/cache.
+
+6 legacy POST branches deleted with breadcrumb comments.
+
+`check_routes.py` extended:
+- new `in_post_table` state machine
+- same multi-line tolerance as PUT/DELETE (`\(?` optional
+  opening paren) — POST lambdas force multi-line formatting.
+
+### Deferred to ω.35-A.8 (bespoke cleanup)
+
+- **2 sources/cache POSTs** (`/api/sources/cache/_all/fetch`,
+  `/api/sources/cache/<id>/fetch`). They use
+  `_send_dict_result` which preserves arbitrary EXTRAS fields
+  in error envelopes. Adopting them needs either a dispatch
+  helper extension or a dedicated `_POST_DICT_RESULT_ROUTES`
+  table — both judgment-call work deferred.
+- **3 multipart POSTs** (covers main, covers book, sources
+  cache upload). Distinct payload shape (raw body, not JSON).
+  Needs a `_MULTIPART_ROUTES` table with the
+  `lambda m, body, content_type` signature. Renumber as
+  ω.35-A.9 (separate from A.8 cleanup).
+
+### Pre-existing tests updated
+
+Two tests pinning the legacy literal-string form of routes:
+- `TestPsi27ScenarioRoutes::test_import_route_registered`
+  — was asserting `"/api/scenarios/_import"` in source. Now
+  accepts the table regex `"^/api/scenarios/_import$"` too.
+- `TestPsi26ApplyKindToAll::test_route_registered` — same
+  pattern, with the kind+enable destructure check also
+  accepting `payload.get("kind")` (the lambda body form).
+
+### Notable decisions
+
+- **Body read is lazy.** Pattern iteration doesn't consume
+  `rfile` until a match is known. Matches PUT precedent.
+- **Destructure stays in the lambda.** Preserves the API
+  surface; the API functions accept their original argument
+  shapes.
+- **`_dispatch_table_result` unchanged.** status==ok|error
+  envelope of `/api/backups/restore` already falls through
+  the helper correctly: status!=error and ok!=False → 200.
+- **Precedence test pinned.** Even if the `<ed>` char class
+  doesn't include `/`, the discipline of more-specific-first
+  iteration is pinned for future patterns.
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+
+**37 of 93 discovered routes in tables (~40%).** Real route
+count is still 88 — discovery now picks up POSTs that were
+previously invisible (`if self.path == ...` literals weren't
+matched by the discovery's `if path == ...` shape).
+
+Remaining: 5 POST in legacy (3 multipart, 2 sources/cache),
+4 bespoke PUT, 1 DELETE outlier, custom-output (RSS, YAML,
+HTML), static-file serving, sample preview, /api/build-all
+literal, /api/publisher dead code.
+
+### Open follow-ups
+
+- **ω.35-A.8 — bespoke routes cleanup** (1 session): 2
+  sources/cache POSTs + 1 DELETE outlier + 4 bespoke PUTs +
+  /api/publisher dead code + custom-output formats.
+- **ω.35-A.9 — multipart table** (1 session): 3 multipart
+  routes (covers main, covers book, sources cache upload).
+- **ω.35-B — web.py file split** (1-2 sessions).
+- **Perf-test serialization** (~half session).
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+113** (1919 baseline → 2032 final).
+18 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.7.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.7 ✓ → ω.35-A.8
+bespoke cleanup → ω.35-A.9 multipart table → ω.35-B file
+split → ψ.35 matrix collapse.
+
+**2032 / 2032 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.6 DELETE mutation routes table** shipped 2026-05-11.
 First DELETE-method route table; 5 of 6 DELETE routes
 migrated.

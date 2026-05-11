@@ -142,6 +142,7 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
     in_qs_regex_get_table: bool = False
     in_put_table: bool = False
     in_delete_table: bool = False
+    in_post_table: bool = False
     for line_no, line in enumerate(lines, start=1):
         # ω.35-A.1 — track the `_SIMPLE_GET_ROUTES` table opening
         # so its `(path, handler)` tuples register as GET routes.
@@ -231,6 +232,23 @@ def discover_routes(*, web_py_path: Path | None = None) -> list[Route]:
                 continue
             if line.strip().startswith("]"):
                 in_delete_table = False
+            continue
+
+        # ω.35-A.7 — track the `_POST_ROUTES` table. Same shape
+        # as `_PUT_ROUTES` (handler is `lambda m, payload:`).
+        # Multi-line tolerance via `\(?` (optional opening paren) —
+        # ruff reformats long lambdas onto multiple lines, putting
+        # `re.compile(...)` on its own line.
+        if "_POST_ROUTES" in line and "[" in line:
+            in_post_table = True
+            continue
+        if in_post_table:
+            te = re.match(r'\s*\(?\s*re\.compile\(\s*r"\^([^"]+)"\s*\)\s*,', line)
+            if te:
+                table_routes.append(Route(method="POST", pattern=te.group(1), is_regex=True, line=line_no))
+                continue
+            if line.strip().startswith("]"):
+                in_post_table = False
             continue
 
         m = re.match(r"\s*def\s+do_([A-Z]+)\(", line)
