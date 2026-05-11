@@ -1,6 +1,17 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ψ.37-A time-traveling
+**Updated 2026-05-11 / late session**: **ψ.37-B + ψ.37-C
+build-pipeline filter + schema/API** shipped.
+`compute_time_filtered_html_ref_ids` wires into `build_one()`
+alongside tradition filter; `api_save_edition_meta` validates
+`time_filter_ceiling`; `_patch_yaml_entry` writes "null"
+unquoted for None round-trip. **+9 tests.** **2237/2238
+tests green; 11/11 lint clean.** Remaining ψ.37 sub-slices:
+ψ.37-D /customize UI dropdown → ψ.37-E wizard integration.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ψ.37-A time-traveling
 commentary data model** shipped as slice #2 of the v1.1
 sequence (first feature slice; #1 was PLAN-REFRESH).
 `content/source_dates.yaml` + `scripts/core/source_dates.py`

@@ -6,6 +6,90 @@
 
 ---
 
+## 2026-05-11 — session — ψ.37-B + ψ.37-C build-pipeline filter + schema/API (v1.1 slice #2 cont'd)
+
+**Phases shipped:** ψ.37-B (build-pipeline filter) + ψ.37-C
+(editions.yaml schema + api_save_edition_meta validation).
+**Test delta:** +9 (TestComputeTimeFilteredHtmlRefIds 4 +
+TestApiSaveEditionTimeFilterCeiling 5).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+**ψ.37-B** — `scripts/build_edition.py` gained two new
+functions:
+
+- `_iter_note_ref_attribution_years()` — generator yielding
+  `(ref_id, attribution_year_or_None, book_code)` for every
+  note tuple on disk. Same iteration shape as the existing
+  `_iter_note_ref_traditions`.
+- `compute_time_filtered_html_ref_ids(edition)` — returns the
+  set of HTML ref-ids whose source's circa-year exceeds the
+  edition's `time_filter_ceiling`. Contemporary content
+  (lookup_year is None — "User original" / "User paraphrase")
+  is also dropped when a ceiling is set. None / 0 / negative
+  / absent ceiling → empty set (no-op; §7.2 byte-identical
+  guarantee preserved).
+
+`build_one()` now unions this filter's output into
+`disabled_html_ref_ids` alongside the existing tradition
+filter (ψ.8.2-A). Wire-up is one line; the heavy lifting
+lives in the new function.
+
+**ψ.37-C** — `scripts/api/editions.py::api_save_edition_meta`
+accepts and validates `time_filter_ceiling`:
+
+- Added `"time_filter_ceiling"` to the `EDITABLE_TEXT` set
+  (stored as text in YAML — the parser converts unquoted
+  digits to ints, unquoted "null" / empty to None).
+- New validation block before the EDITABLE_TEXT loop: accept
+  `None` / `""` / `"null"` → write "null"; accept any int
+  in [1500, 2100] → write the digit string; reject anything
+  else with a clear error envelope.
+- `scripts/web.py::_patch_yaml_entry` extended to leave
+  "null" unquoted alongside "true"/"false"/digits (so
+  cleared ceilings round-trip to None via the existing
+  parser logic at scripts/core/config.py line 158).
+
+### Tests (9 new)
+
+In `tests/test_time_travel_psi37.py`:
+
+- `TestComputeTimeFilteredHtmlRefIds` (4 tests):
+  - `test_no_filter_returns_empty_set` — absent /
+    None / "" / 0 / negative all return ∅
+  - `test_ceiling_drops_post_ceiling_content` — 1850
+    ceiling drops ≥10K notes (Strong's + Nave's +
+    Kenyon + contemporary)
+  - `test_ceiling_keeps_pre_ceiling_content` — 2000
+    ceiling drops only contemporary (~1,381 today)
+  - `test_drop_set_monotonic_with_ceiling` — lower
+    ceiling ⇒ superset of higher ceiling's drops
+
+- `TestApiSaveEditionTimeFilterCeiling` (5 tests):
+  - `test_accepts_int_year` — round-trip 1900 → int 1900
+  - `test_accepts_none_to_clear_filter` — set 1900, then
+    None, read back as None
+  - `test_rejects_out_of_range` — 999 / 2200 rejected
+    with "1500-2100" in message
+  - `test_rejects_non_integer` — string / list rejected
+  - `test_accepts_string_digit` — UI's "1900" string
+    coerced to int 1900
+
+All tests restore `content/editions.yaml` from a tmp_path
+backup in their `finally` block + cache_clear, so the live
+corpus state is untouched.
+
+### Next slices in the ψ.37 ship
+
+- **ψ.37-D**: /customize UI — dropdown with labels "no
+  limit / 2000 / 1900 / 1850 / 1700 / 1611" (the slider
+  positions buyers will recognize).
+- **ψ.37-E**: wizard integration so the buyer demo
+  surfaces the year ceiling from step 1.
+
+---
+
 ## 2026-05-11 — session — ψ.37-A time-traveling commentary data model (slice #2 of the v1.1 sequence)
 
 **Phases shipped:** ψ.37-A (data model + lookup function).

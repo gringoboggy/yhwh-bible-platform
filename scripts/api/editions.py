@@ -565,6 +565,10 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
         "chapter_number_format",
         "chapter_number_decoration",
         "book_toc_ornament",
+        # ψ.37-C: time_filter_ceiling — stored as text in YAML
+        # ("null" or a year like "1900"); the YAML loader parses
+        # unquoted digits into ints and "null"/empty into None.
+        "time_filter_ceiling",
     }
     EDITABLE_BOOL = {
         "verse_popups",
@@ -619,6 +623,22 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
             if v not in available:
                 return {"error": (f"unknown translation: {v!r}; available: {sorted(available) or 'none'}")}
         payload["popup_translation"] = v
+
+    # ψ.37-C: time_filter_ceiling — None (no filter; default), or
+    # int in [1500, 2100]. Year stored as a YAML int (unquoted).
+    if "time_filter_ceiling" in payload:
+        v = payload["time_filter_ceiling"]
+        if v is None or v == "" or v == "null":
+            # Clear the filter — patcher writes "null"
+            payload["time_filter_ceiling"] = "null"
+        else:
+            try:
+                v_int = int(v)
+            except (TypeError, ValueError):
+                return {"error": "time_filter_ceiling must be an integer year or null"}
+            if v_int < 1500 or v_int > 2100:
+                return {"error": (f"time_filter_ceiling out of range: {v_int} (expected 1500-2100)")}
+            payload["time_filter_ceiling"] = str(v_int)
 
     list_field_updates: dict[str, list[str]] = {}
     from scripts.build_edition import (

@@ -4,6 +4,21 @@
 
 ## Prior task
 
+**ψ.37-B + ψ.37-C build-pipeline filter + schema/API** shipped
+2026-05-11. `compute_time_filtered_html_ref_ids(edition)` wires
+into `build_one()` next to the tradition filter (ψ.8.2-A).
+`api_save_edition_meta` accepts `time_filter_ceiling` (None /
+int 1500-2100 / "null"). `_patch_yaml_entry` extended to leave
+"null" unquoted for round-trip through the parser. **+9
+tests.** **2237 / 2238 tests green; 11/11 lint clean.**
+
+### Remaining ψ.37 sub-slices
+
+- **ψ.37-D**: /customize UI dropdown
+- **ψ.37-E**: wizard integration
+
+## Prior task
+
 **ψ.37-A time-traveling commentary data model** shipped
 2026-05-11. Slice #2 of the v1.1 sequence (first feature
 slice; #1 was the PLAN-REFRESH doc work). Two new files

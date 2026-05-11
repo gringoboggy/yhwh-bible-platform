@@ -1097,8 +1097,11 @@ def _patch_yaml_entry(text: str, key_field: str, key_value: str, updates: dict[s
         )
         # Decide quoting: leave bools/numbers/already-quoted strings alone,
         # otherwise wrap as a YAML double-quoted scalar for safety.
+        # ψ.37-C: also leave "null" unquoted so it round-trips to None
+        # via the project's YAML parser (which special-cases unquoted
+        # `null` as None at scripts/core/config.py line 158).
         if (
-            new_val in ("true", "false")
+            new_val in ("true", "false", "null")
             or (isinstance(new_val, str) and new_val.startswith('"'))
             or (isinstance(new_val, str) and new_val.isdigit())
         ):

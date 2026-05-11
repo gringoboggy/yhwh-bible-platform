@@ -21,6 +21,8 @@ bodies, so this file has no top-level imports from the project.
 import ast
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
 
 # ---------- Phase ψ.37-A : source-date catalogue + lookup ------------
 
@@ -224,3 +226,160 @@ class TestSourceDatesCorpusCoverage:
         assert self.total >= 25000, (
             f"corpus scan yielded only {self.total:,} notes; expected >=25K (the 2026-05-08 minimum corpus floor)"
         )
+
+
+# ---------- Phase ψ.37-B : build-pipeline filter ---------------------
+
+
+class TestComputeTimeFilteredHtmlRefIds:
+    """ψ.37-B: the build-pipeline filter that drops notes whose
+    source's circa-year > edition.time_filter_ceiling, AND drops
+    contemporary content (lookup_year is None) when a ceiling is set.
+
+    Empty / None / 0 ceiling → no-op (set is empty). §7.2 byte-
+    identical guarantee preserved for pre-ψ.37 editions.
+    """
+
+    def test_no_filter_returns_empty_set(self):
+        from scripts.build_edition import compute_time_filtered_html_ref_ids
+
+        # Absent field
+        assert compute_time_filtered_html_ref_ids({}) == set()
+        # Explicit None
+        assert compute_time_filtered_html_ref_ids({"time_filter_ceiling": None}) == set()
+        # Empty string (defensive)
+        assert compute_time_filtered_html_ref_ids({"time_filter_ceiling": ""}) == set()
+        # Zero / negative
+        assert compute_time_filtered_html_ref_ids({"time_filter_ceiling": 0}) == set()
+        assert compute_time_filtered_html_ref_ids({"time_filter_ceiling": -5}) == set()
+
+    def test_ceiling_drops_post_ceiling_content(self):
+        # 1850 ceiling drops Strong's (1890), Nave's (1897), Kenyon
+        # (1903), AND contemporary User-original / paraphrase (None).
+        from scripts.build_edition import compute_time_filtered_html_ref_ids
+
+        dropped = compute_time_filtered_html_ref_ids({"time_filter_ceiling": 1850})
+        # Floor 10K gives meaningful headroom without locking in
+        # exact counts that shift with corpus growth.
+        assert len(dropped) >= 10000, f"1850 ceiling dropped only {len(dropped):,}; expected >=10K"
+
+    def test_ceiling_keeps_pre_ceiling_content(self):
+        # 2000 ceiling drops only contemporary (no historical year).
+        # Today's corpus: 1,381 User-original / paraphrase notes.
+        from scripts.build_edition import compute_time_filtered_html_ref_ids
+
+        dropped = compute_time_filtered_html_ref_ids({"time_filter_ceiling": 2000})
+        # Today's corpus has ~1,381 contemporary notes; floor 500
+        # gives headroom while pinning the contract (something dropped).
+        assert 500 <= len(dropped) <= 5000, (
+            f"2000 ceiling dropped {len(dropped):,}; expected 500-5000 (only contemporary content should be filtered)"
+        )
+
+    def test_drop_set_monotonic_with_ceiling(self):
+        # Lower ceiling → MORE notes dropped (sub/superset relationship).
+        from scripts.build_edition import compute_time_filtered_html_ref_ids
+
+        d_1900 = compute_time_filtered_html_ref_ids({"time_filter_ceiling": 1900})
+        d_2000 = compute_time_filtered_html_ref_ids({"time_filter_ceiling": 2000})
+        # Everything dropped at 2000 must also be dropped at 1900
+        assert d_2000.issubset(d_1900), "drop set is not monotonic — 2000-drops not a subset of 1900-drops"
+        # And 1900 drops strictly more than 2000 (Kenyon's 1903 entries)
+        assert len(d_1900) > len(d_2000)
+
+
+# ---------- Phase ψ.37-C : edition schema + API validation ----------
+
+
+class TestApiSaveEditionTimeFilterCeiling:
+    """ψ.37-C: `api_save_edition_meta` accepts and validates the
+    `time_filter_ceiling` field. None / int in [1500, 2100] / "null"
+    are accepted; anything else returns an error envelope.
+    """
+
+    def test_accepts_int_year(self, tmp_path):
+        import shutil
+
+        path = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(path, backup)
+        try:
+            from scripts.api.editions import api_save_edition_meta
+            from scripts.core import config
+
+            config.load_editions.cache_clear()
+            r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": 1900})
+            assert r.get("ok"), r
+            eds = {e["id"]: e for e in config.load_editions()}
+            assert eds["catholic-study"]["time_filter_ceiling"] == 1900
+        finally:
+            shutil.copy(backup, path)
+            from scripts.core import config
+
+            config.load_editions.cache_clear()
+
+    def test_accepts_none_to_clear_filter(self, tmp_path):
+        import shutil
+
+        path = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(path, backup)
+        try:
+            from scripts.api.editions import api_save_edition_meta
+            from scripts.core import config
+
+            config.load_editions.cache_clear()
+            # Set then clear
+            r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": 1900})
+            assert r.get("ok"), r
+            r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": None})
+            assert r.get("ok"), r
+            eds = {e["id"]: e for e in config.load_editions()}
+            assert eds["catholic-study"].get("time_filter_ceiling") is None
+        finally:
+            shutil.copy(backup, path)
+            from scripts.core import config
+
+            config.load_editions.cache_clear()
+
+    def test_rejects_out_of_range(self):
+        from scripts.api.editions import api_save_edition_meta
+
+        r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": 999})
+        assert "error" in r
+        assert "1500-2100" in r["error"]
+
+        r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": 2200})
+        assert "error" in r
+        assert "1500-2100" in r["error"]
+
+    def test_rejects_non_integer(self):
+        from scripts.api.editions import api_save_edition_meta
+
+        r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": "nineteen hundred"})
+        assert "error" in r
+        assert "integer year or null" in r["error"]
+
+        r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": [1900]})
+        assert "error" in r
+
+    def test_accepts_string_digit(self, tmp_path):
+        # The UI may send "1900" as a string; coerce it.
+        import shutil
+
+        path = REPO_ROOT / "content" / "editions.yaml"
+        backup = tmp_path / "editions.preserve.yaml"
+        shutil.copy(path, backup)
+        try:
+            from scripts.api.editions import api_save_edition_meta
+            from scripts.core import config
+
+            config.load_editions.cache_clear()
+            r = api_save_edition_meta("catholic-study", {"time_filter_ceiling": "1900"})
+            assert r.get("ok"), r
+            eds = {e["id"]: e for e in config.load_editions()}
+            assert eds["catholic-study"]["time_filter_ceiling"] == 1900
+        finally:
+            shutil.copy(backup, path)
+            from scripts.core import config
+
+            config.load_editions.cache_clear()

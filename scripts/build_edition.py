@@ -262,6 +262,96 @@ def compute_tradition_disabled_html_ref_ids(edition: dict) -> set[str]:
     return out
 
 
+# ---- Phase ψ.37: time-traveling commentary filter ------------------
+#
+# Mirrors the ψ.8.2-A tradition filter shape. Editions can specify
+# a `time_filter_ceiling: int | null` field. When set, every note whose
+# source's circa-year is > ceiling — OR whose attribution has no
+# catalogued year at all (User-original / paraphrase — "contemporary")
+# — joins the disabled-ref-id set, so the EPUB ships only commentary
+# that a reader in `ceiling` would have had.
+#
+# When `time_filter_ceiling` is None (the default), this short-circuits
+# to an empty set — pre-ψ.37 builds stay byte-identical (§7.2).
+#
+# Source-year resolution: `scripts.core.source_dates.lookup_year` does
+# a longest-prefix match against `content/source_dates.yaml`. See
+# ψ.37-A for the data-model details.
+
+
+def _iter_note_ref_attribution_years():
+    """Walk every note tuple on disk and yield
+    ``(ref_id, attribution_year_or_None, book_code)``.
+
+    Used by ``compute_time_filtered_html_ref_ids``. Same iteration
+    shape as ``_iter_note_ref_traditions`` — re-using that helper
+    isn't an option because tradition resolution doesn't surface
+    attribution, and we don't want to double the walk cost.
+    """
+    from scripts.core.notes_io import load_notes
+    from scripts.core.source_dates import lookup_year
+
+    books_idx = config.books_by_code()
+    notes_dir = REPO_ROOT / "content" / "notes"
+    for book_path in sorted(notes_dir.glob("*.py")):
+        if book_path.stem == "__init__" or book_path.stem.startswith("_"):
+            continue
+        book_code = book_path.stem
+        book = books_idx.get(book_code) or {}
+        prefix = book.get("id_prefix")
+        if not prefix:
+            continue
+        notes = load_notes(book_path) or []
+        for tup in notes:
+            if not isinstance(tup, tuple) or len(tup) < 9:
+                continue
+            ch = tup[0]
+            vs = tup[1]
+            suffix = tup[2] or ""
+            attribution = tup[8] or ""
+            try:
+                ch_i = int(ch)
+                vs_i = int(vs)
+            except (TypeError, ValueError):
+                continue
+            ref_id = f"ref-{prefix}{ch_i:02d}{vs_i:02d}{suffix}"
+            yield ref_id, lookup_year(attribution), book_code
+
+
+def compute_time_filtered_html_ref_ids(edition: dict) -> set[str]:
+    """Phase ψ.37-B — return the set of HTML ref-ids whose source's
+    circa-year exceeds the edition's ``time_filter_ceiling``.
+
+    When ``edition["time_filter_ceiling"]`` is None / absent / 0 /
+    invalid: returns an empty set (no-op; pre-ψ.37 byte-identical build).
+
+    When it's a positive int (e.g. 1900): walks every note, computes
+    its attribution's circa-year via ``source_dates.lookup_year``, and
+    adds the ref-id to the output set if EITHER:
+      - the year is None (contemporary content like "User original" —
+        a 1900 reader wouldn't have had it), OR
+      - the year is strictly greater than the ceiling (e.g. an 1897
+        Nave's Topical note dropped by a 1890 ceiling).
+
+    Per CLAUDE_PROJECT_RULES §7.2, the "no-op when default" guarantee
+    is preserved: an edition with no ``time_filter_ceiling`` produces
+    the same EPUB as before this phase shipped.
+
+    The output set is unioned into ``disabled_html_ref_ids`` in
+    ``build_one()``; ``filter_html()`` then strips the matching
+    markers + asides.
+    """
+    ceiling = edition.get("time_filter_ceiling")
+    if not isinstance(ceiling, int) or ceiling <= 0:
+        return set()
+
+    out: set[str] = set()
+    for ref_id, year, _book_code in _iter_note_ref_attribution_years():
+        if year is None or year > ceiling:
+            out.add(ref_id)
+    return out
+
+
 def build_ref_id_to_tradition_map(edition: dict) -> dict[str, str]:
     """Phase ψ.8.2-B (+ ψ.8.4) — ``{ref_id: tradition}`` for every note
     that survived the per-book tradition filter.
@@ -2269,6 +2359,14 @@ def build_one(
     # `traditions_default`, every note whose tradition isn't in that
     # list joins the disabled set. Empty/unset → no-op (set is empty).
     disabled_html_ref_ids |= compute_tradition_disabled_html_ref_ids(edition)
+
+    # Phase ψ.37-B: time-traveling commentary filter. When the edition
+    # sets `time_filter_ceiling: <year>`, every note whose source's
+    # circa-year exceeds the ceiling (OR whose attribution has no
+    # catalogued year — User-original / contemporary) joins the
+    # disabled set. None/0/absent → no-op (set is empty); §7.2
+    # byte-identical guarantee preserved.
+    disabled_html_ref_ids |= compute_time_filtered_html_ref_ids(edition)
 
     # Phase ψ.8.2-B: tradition labelling. We build a {ref_id → tradition}
     # map for the notes that SURVIVED the ψ.8.2-A filter. Empty when
