@@ -748,10 +748,24 @@ Two small departures from the prior splits' convention:
   test_traditions_psi8.py = **397 tests** total in self-contained
   topic files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
-- The test_scripts.py monolith is now under ~22K lines; the
-  trajectory toward sub-15K (the "comfortable monolith" target
-  for the xdist 4× ceiling) is on track for ~3 more
-  similarly-sized extractions.
+
+**ω.27 follow-on #6 — split χ.1 corpus-growth tests into test_corpus_chi1.py.**
+Sixth topic extraction. 5 test classes (21 tests) covering the
+Strong's Greek lexicon source loader, GreekWordDetector,
+fetch-source utilities, the at-scale driver, and the bundled
+Naves Topical driver (which shares the χ-cluster pattern) moved
+from `tests/test_scripts.py` (21726 → 21080 lines; -646) into
+a new `tests/test_corpus_chi1.py` (672 lines). Required adding
+`import json` + `from pathlib import Path` + `import pytest` +
+`REPO_ROOT` at the top — three test methods reference these.
+
+**Cumulative test-file-split impact (6 extractions):**
+- test_scripts.py: **28384 → 21080 lines (-7304; -25.7%)**
+- 6 new topic files: test_matrix_psi35.py, test_web_filesplit.py,
+  test_corpus_index_delta.py, test_web_routetable.py,
+  test_traditions_psi8.py, test_corpus_chi1.py = **418 tests**
+  in self-contained topic files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
