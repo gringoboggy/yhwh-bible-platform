@@ -781,11 +781,26 @@ REPO_ROOT).
 - 7 new topic files = **452 tests** in self-contained topic
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
-- The pattern is well-established; each extraction takes ~3
-  minutes of mechanical work + a 4-6 minute full test sweep
-  verification. Future sessions can keep extracting cohesive
-  clusters until the monolith reaches the ~10-15K "comfortable"
-  size (where xdist's 4× ceiling kicks in fully).
+
+**ω.27 follow-on #8 — split θ desktop-binary cluster into test_desktop_theta.py.**
+Eighth (largest single) topic extraction. 14 test classes (125
+tests) covering θ.1 Desktop launcher (Tkinter shell + free-port
+discovery + first-run migration + bootstrap + browser open +
+server start + main + PyInstaller spec) + DesktopShell
+(pywebview/Tkinter shell selection) + ψ.14 (v1.0 polish header
+nav + buyer-arc CSS + design-system helpers) + θ.4 (installer
+scripts for macOS .dmg, Windows Inno Setup, Linux AppImage) +
+θ.3 (auto-update appcast). Moved from
+`tests/test_scripts.py` (20290 → 18721 lines; -1569) into a new
+`tests/test_desktop_theta.py` (1601 lines). Required adding
+`import sys` to the top imports (the new file has tests that
+monkeypatch `sys.frozen`).
+
+**Cumulative test-file-split impact (8 extractions):**
+- test_scripts.py: **28384 → 18721 lines (-9663; -34.0%)**
+- 8 new topic files = **577 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed

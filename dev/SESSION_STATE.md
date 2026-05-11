@@ -156,10 +156,16 @@ Topical detectors + at-scale drivers — moved to a new
 classes (34 tests) — ω.34 test-gap pass + ψ.34 matrix JS
 extraction + ω.34.1 test cleanup + TestFaviconRoute — moved
 to a new `tests/test_v1_polish_omega34.py` (822 lines).
-test_scripts.py: 21080 → 20290 lines (-790). Cumulative
-test_scripts.py reduction across all seven extractions:
-**28384 → 20290 (-8094; -28.5%)**. **452 tests** in 7 self-
-contained topic files.
+test_scripts.py: 21080 → 20290 lines (-790).
+
+**Then ω.27 follow-on #8 — θ desktop-binary test split**: 14
+test classes (125 tests) — θ.1 Desktop launcher +
+DesktopShell + ψ.14 v1.0 polish + θ.4 installers + θ.3
+auto-update — moved to a new `tests/test_desktop_theta.py`
+(1601 lines). test_scripts.py: 20290 → 18721 lines (-1569).
+Cumulative test_scripts.py reduction across all eight
+extractions: **28384 → 18721 (-9663; -34.0%)**. **577 tests**
+in 8 self-contained topic files.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py

@@ -284,6 +284,16 @@ test_scripts.py: 21080 → 20290 lines (-790). **Cumulative
 across seven extractions: 28384 → 20290 (-8094; -28.5%).**
 452 tests in 7 self-contained topic files.
 
+### Bonus slice: ω.27 follow-on #8 — θ desktop-binary test split
+
+Eighth (largest single) extraction. 14 test classes (125 tests)
+covering θ.1 Desktop launcher + DesktopShell + ψ.14 v1.0 polish
++ θ.4 installers + θ.3 auto-update moved to a new
+`tests/test_desktop_theta.py` (1601 lines). test_scripts.py:
+20290 → 18721 lines (-1569). **Cumulative across eight
+extractions: 28384 → 18721 (-9663; -34.0%).** 577 tests in 8
+self-contained topic files.
+
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard
 PASSES.**
