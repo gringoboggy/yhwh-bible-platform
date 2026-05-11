@@ -1,6 +1,49 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-B.3b sources cache
+**Updated:** 2026-05-10, after **protected-paths CI guard +
+AI artwork proposal** shipped — systemic fix for the
+B.3b-class regression that deleted content/sources/strongs_
+hebrew.json mid-session, plus a comprehensive planning
+document for AI-generated cover artwork. The guard is a
+session-scoped autouse fixture in tests/conftest.py that
+takes a SHA256 snapshot of files under content/sources/ +
+content/editions.yaml at session start and re-checks at
+session teardown — any file added/deleted/modified raises
+a clearly-formatted AssertionError naming the affected
+files. Per-worker under xdist; skips .backups/ (legitimate
+write target); ~50ms session overhead, zero per-test cost.
+**+13 self-tests** in tests/test_guard_self.py: snapshot
+returns dict of hashes, idempotent, skips backups, detects
+added/deleted/modified files, passes when bytes unchanged,
+protected dirs/files lists are correctly populated. Smoke-
+tested (manually, deleted after) by mutating
+_fetchers.json — guard fired at session teardown with clear
+error message. The AI artwork proposal document
+(dev/PROPOSAL_AI_ARTWORK.md) covers 3 asset classes (main
+covers, per-book covers, .exe icon), provider recommendation
+(OpenAI gpt-image-1 for MVP), architecture sketch, cost
+analysis (~$10/edition AI-covered vs ~$50/edition human-
+illustrated), 5-phase rollout (B.AI.1 → B.AI.5), and
+publisher action items. Named PROPOSAL_* (not PLAN_*) to
+keep the plan_singular lint clean. **Recovery context:** the
+strongs_hebrew.json file (1.9 MB Strong's Hebrew lexicon
+cache) was restored from the initial commit and pushed as
+commit 69272c6 immediately after the B.3b-fallout was
+identified; the guard ensures the same class of regression
+gets caught at test-time before any commit. Net session
+test delta: **+195** (1919 baseline → 2114 final after
+guard self-tests + B.3b). 26 phases shipped this session:
+Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1,
+ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1, ω.35-B.2, ω.35-B.3a,
+ω.35-B.3b, plus the guard + AI proposal. AUDIT §7 sequence:
+guard installed → **ω.35-B.4** editions/customize (next)
+→ B.5 exports/build → B.6 preflight/audit/help. Parallel
+work-streams: publisher-side artwork (defaults), .exe icon
+externally commissioned, AI provider account setup (per
+PROPOSAL §2.2). **2114 / 2114 tests green (1 skipped);
+11/11 linter clean.**
+
+Prior ship in same session: **ω.35-B.3b sources cache
 extracted** shipped — fourth file-split slice. 5 sources-
 cache handlers (status, fetch, fetch_all, upload, clear)
 plus 2 internal helpers + SOURCES_UPLOAD_MAX_BYTES constant

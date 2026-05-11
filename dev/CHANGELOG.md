@@ -6,6 +6,145 @@
 
 ---
 
+## 2026-05-10 — session — protected-paths CI guard + AI artwork proposal
+
+**Phases shipped:** protected-paths CI guard (systemic fix for
+B.3b-class regressions) + planning document for AI-generated
+cover artwork.
+**Test delta:** +13 (guard self-tests).
+**Linter delta:** 11/11 clean.
+
+### The CI guard (`tests/conftest.py`)
+
+After B.3b shipped, the dev caught that `git add -A` had swept
+up a test-induced deletion of `content/sources/strongs_hebrew
+.json` (1.9 MB PD-source cache). Root cause: a broken
+monkeypatch in 12 tests pointed at `scripts.web._sources_cache
+_dir` after extraction, when the canonical home had moved to
+`scripts.api.sources._sources_cache_dir`. The patch missed
+the in-module call sites and tests wrote/deleted in the real
+`content/sources/` directory. Restored from the initial
+commit.
+
+This guard prevents the next instance:
+
+- Session-scoped autouse fixture `_protected_paths_guard` in
+  `tests/conftest.py`.
+- Computes SHA256 of every file under `content/sources/`
+  + `content/editions.yaml` at session start.
+- Re-snapshots at session teardown. If anything changed (file
+  added, deleted, or modified), raises a clearly-formatted
+  `AssertionError` naming the affected files.
+- Per-worker under xdist (each worker takes its own snapshot);
+  failures surface in the per-worker report.
+- Skips `.backups/` subdir (legitimate write target via
+  `notes_io.ensure_backup`).
+- Cost: ~50ms per session (SHA256 of ~8MB). No per-test
+  overhead.
+
+`scripts/api/sources.py`-style monkeypatch sites can still
+modify whatever they want — the guard only catches changes
+that escape the test's intended scope and reach the real
+production paths.
+
+13 self-tests in `tests/test_guard_self.py`:
+- snapshot returns dict of SHA256 hashes
+- snapshot includes known protected files (e.g. _fetchers.json)
+- snapshot is idempotent (two consecutive calls match)
+- snapshot skips `.backups/` subdir
+- protected dirs list is non-empty (catches accidental empty
+  list which would make the guard a no-op)
+- snapshot detects added file
+- snapshot detects deleted file
+- snapshot detects content modification (SHA256 catches drift)
+- snapshot passes when same bytes are re-written (mtime alone
+  isn't a change)
+- `_PROTECTED_FILES` list (individual files, not dirs) works
+- content/sources/ is in `_PROTECTED_DIRS`
+- content/editions.yaml is in `_PROTECTED_FILES`
+- `.backups` is in `_PROTECTED_DIR_SKIP_SUBDIRS`
+
+Manual smoke test (deliberate violation): created a test that
+writes garbage into `content/sources/_fetchers.json` and
+leaves the mutation. The guard fired at session teardown with
+the expected error message naming the file. After verifying,
+restored the file and removed the smoke test.
+
+### AI artwork proposal (`dev/PROPOSAL_AI_ARTWORK.md`)
+
+New planning document covering three asset classes:
+1. AI-generated Bible cover artwork (main + per-book)
+2. Human-designed default covers (publisher in progress)
+3. The externally-commissioned `.exe` program icon
+
+The proposal is comprehensive (~9 sections + risk register +
+phased rollout). Highlights:
+
+- **Provider recommendation**: OpenAI gpt-image-1 for the MVP
+  (~$0.04/image; same env-var credential pattern as the
+  existing Anthropic key). Stability AI as a secondary
+  option.
+- **Architecture sketch**: new module `scripts/core/ai_art.py`
+  (provider-agnostic), new endpoints
+  `POST /api/covers/<edition>/main/generate` and
+  `POST /api/covers/<edition>/book/<book>/generate`,
+  budget-gate + per-month spend cap (default $0 = feature
+  disabled until enabled).
+- **Cost analysis**: ~$10 per fully-AI-covered Bible edition;
+  ~$500 lifetime across all 50 planned editions vs. ~$2,500
+  for human-illustrated equivalents.
+- **Phased rollout**: B.AI.1 (MVP, OpenAI main covers only) →
+  B.AI.2 (per-book + prompt template YAML) → B.AI.3 (second
+  provider) → B.AI.4 (quality refinements) → B.AI.5
+  (production hardening).
+- **`.exe` icon plan**: once master 1024×1024 PNG arrives,
+  one session of work to add `scripts/build_icons.py` that
+  derives the Windows `.ico` + macOS `.icns` + favicon
+  cascade.
+- **Publisher action items**: pick provider, set
+  `OPENAI_API_KEY` + `YHWH_AI_ART_BUDGET_USD=20` env vars,
+  decide on style family ("Byzantine icon" recommended for
+  the Tewahedo flagship), confirm aniconic guardrails for
+  divine imagery.
+
+Named `PROPOSAL_*` (not `PLAN_*`) so the `plan_singular`
+lint rule stays satisfied — the project pattern allows
+exactly one active `PLAN_*.md`, plus orthogonal proposal
+documents.
+
+### Notable decisions
+
+- **Why session-scoped (not per-test) guard.** Per-test
+  would catch the regression instantly but adds SHA256
+  overhead to every test (~5ms × 2100 tests ≈ 10s aggregate).
+  Session-scoped catches the regression at the SAME moment
+  the test runner exits, with no per-test cost. The guard
+  is meant to be a safety net for a known class of bugs,
+  not a real-time tripwire.
+- **Why SHA256 (not mtime/size).** mtime can be touched
+  without content change (Path.touch()); size collisions
+  exist; SHA256 is content-truthful. The 8MB of protected
+  files hash in well under 50ms.
+- **Why also a smoke test (manual, deleted).** The self-tests
+  exercise the snapshot machinery against tmp_path. The
+  smoke test verified end-to-end that the SESSION fixture
+  actually fires when real protected files mutate — a
+  guarantee the self-tests can't make directly. Deleted
+  after verification to avoid maintaining a test that
+  intentionally leaves files mutated.
+
+### Open follow-ups
+
+- **ω.35-B.4** — editions/customize extraction (next file-
+  split slice; the guard is now in place to catch any
+  similar regressions).
+- **B.AI.1** — AI cover MVP, once publisher confirms provider
+  + budget cap (see `dev/PROPOSAL_AI_ARTWORK.md` §8).
+- **Build icons pipeline** — once `assets/program_icon.png`
+  master arrives.
+
+---
+
 ## 2026-05-11 — session — ω.35-B.3b sources cache extracted (fourth file-split slice; caught a real monkeypatch regression)
 
 **Phases shipped:** ω.35-B.3b. Five sources-cache handlers

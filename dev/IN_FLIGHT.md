@@ -4,6 +4,101 @@
 
 ## Prior task
 
+**Protected-paths CI guard + AI artwork proposal** shipped
+2026-05-10. Systemic response to the B.3b-fallout that
+deleted content/sources/strongs_hebrew.json, plus a
+comprehensive planning document for the AI-cover-art feature
+the publisher requested.
+
+### The CI guard
+
+`tests/conftest.py` now has a session-scoped autouse fixture
+`_protected_paths_guard` that:
+- SHA256-snapshots files under `content/sources/` +
+  `content/editions.yaml` at session start
+- Re-snapshots at session teardown
+- Raises `AssertionError` if anything changed — added,
+  deleted, or modified (content drift via SHA256)
+- Skips `.backups/` subdir (legitimate write target)
+- Per-worker under xdist; failures surface per-worker
+- ~50ms session overhead, zero per-test cost
+
+13 self-tests in `tests/test_guard_self.py` exercise the
+snapshot machinery against tmp_path (so the tests don't
+touch real protected paths). Smoke-tested manually
+(temporary test, deleted after) to verify the fixture fires
+end-to-end when real protected files mutate.
+
+### The AI artwork proposal
+
+`dev/PROPOSAL_AI_ARTWORK.md` — comprehensive planning doc
+covering:
+- AI-generated cover artwork (main + per-book)
+- Publisher's in-progress human-designed defaults
+- The externally-commissioned `.exe` icon
+
+Key recommendations:
+- **Provider for MVP**: OpenAI gpt-image-1 ($0.04/image).
+- **Style family**: "Byzantine icon" for Tewahedo flagship
+  (matches Ethiopian Orthodox aesthetic tradition).
+- **Budget cap**: $20/month soft cap, $50/month hard cap.
+- **Phased rollout**: B.AI.1 MVP → B.AI.2 per-book →
+  B.AI.3 second provider → B.AI.4 refinements → B.AI.5
+  hardening.
+- **Cost vs. alternatives**: ~$10/edition AI-covered vs.
+  ~$2,500 for human-illustrated equivalent across all 50
+  planned editions.
+
+Named `PROPOSAL_*` (not `PLAN_*`) so `plan_singular` lint
+stays satisfied — exactly one active `PLAN_*.md`, plus
+orthogonal proposal documents allowed.
+
+### Publisher action items (per PROPOSAL §8)
+
+1. **Pick AI provider** for MVP (OpenAI recommended).
+2. **Set env vars**: `OPENAI_API_KEY=sk-...` and
+   `YHWH_AI_ART_BUDGET_USD=20` in a `.env` file at project
+   root (gitignored).
+3. **Confirm style family** ("Byzantine icon" recommended).
+4. **Provide `.exe` icon master** at `assets/program_icon.
+   png` (1024×1024 PNG, transparent background) when ready.
+5. **Drop human-designed defaults** in `content/covers/_
+   defaults/` when ready (independent of AI rollout).
+
+### Recovery context
+
+`content/sources/strongs_hebrew.json` (1.9 MB Strong's
+Hebrew lexicon cache) was restored from the initial commit
+in commit 69272c6 immediately after B.3b's fallout was
+identified. The guard now in place prevents the same
+class of regression from reaching a commit.
+
+### Open follow-ups
+
+- **ω.35-B.4** — editions/customize extraction (next
+  file-split slice; the guard is now in place to catch
+  any similar regressions).
+- **B.AI.1** — AI cover MVP, once publisher confirms
+  provider + budget cap.
+- **scripts/build_icons.py** — once `.exe` icon master
+  arrives.
+
+Net session test delta: **+195** (1919 baseline → 2114
+final). 26 phases shipped this session: Δ.5, Δ.6, Δ.8,
+Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36,
+ω.35-A.1-A.10, ω.35-B.1, ω.35-B.2, ω.35-B.3a, ω.35-B.3b,
+plus the guard + AI proposal.
+
+AUDIT_2026-05-11 §7 sequence: ... → guard installed →
+ω.35-B.4 editions/customize → B.5 exports/build → B.6
+preflight/audit/help. Parallel work-streams: publisher
+artwork defaults, .exe icon (external), AI provider
+setup.
+
+**2114 / 2114 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-B.3b sources cache extracted** shipped 2026-05-11.
 Fourth file-split slice. Caught the first cross-module
 monkeypatch regression in the file split — documented for
