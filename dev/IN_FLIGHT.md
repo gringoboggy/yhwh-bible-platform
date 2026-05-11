@@ -4,6 +4,88 @@
 
 ## Prior task
 
+**Covers pack ingest + B.6 prereq fix** shipped 2026-05-11.
+
+### Covers pack
+
+Publisher's `yhwh-covers-pack` (25 cover templates + 6
+borders + reference composites) ingested per the README's
+suggested layout:
+- `content/covers/templates/` — 25 master covers
+  (~159 MB, 5 styles × 5 colorways)
+- `content/assets/borders/` — 6 transparent border PNGs
+  (~11 MB)
+- Skipped `earlier_composites/` (~116 MB; optional per
+  README)
+
+Catalog + per-edition pairing recommendations in
+`content/covers/templates/README.md`.
+
+### AI artwork proposal updated
+
+`dev/PROPOSAL_AI_ARTWORK.md` §2.1 + §4 updated with:
+- Templates ingested
+- Publisher's stated target: ~170 AI illustrations for
+  per-book art
+- Cost analysis: $6.80 per edition's complete per-book
+  batch; ~$400 lifetime across all 50 planned editions
+  (three orders of magnitude cheaper than human
+  illustrators)
+
+### B.6 prereq — rogue mutator isolated + fixed
+
+Built a **per-test bisect fixture** in tests/conftest.py
+(`_per_test_protected_paths_bisect`, gated on env var
+`YHWH_GUARD_BISECT=1`, default-off). It immediately fails
+the offending test with a clear name.
+
+Caught: `TestOmega16EditionSnapshots::test_restore_round_
+trips_unchanged_state` — but the ROOT CAUSE was earlier in
+the run: `TestPsi19ReadingPlans::test_save_edition_meta_
+accepts_valid_plan_ids` (my B.5 fix) restored the FILE
+via shutil.copy but didn't clear `config.load_editions`'s
+in-memory LRU cache. The snapshot test then read the
+in-memory cached state (still mutated with `monthly-psalms`),
+captured it in a snapshot, and `restore_snapshot` wrote it
+back to disk via `_dump_edition_record` (which produces
+UNQUOTED YAML — matching the pattern we kept seeing).
+
+Fix: added `config.load_editions.cache_clear()` +
+`matrix_mod.compute_matrix.cache_clear()` to the test's
+finally block alongside the file restore.
+
+**Verified**: full xdist regression — 2137 passed, 1
+known xdist flake, **guard does NOT fire**. editions.yaml
+content matches HEAD.
+
+### Bisect tool is permanent
+
+The per-test bisect fixture stays in conftest.py for future
+regressions. Default-off (zero cost). To use:
+
+```bash
+YHWH_GUARD_BISECT=1 pytest tests/ -p no:xdist
+```
+
+### Open follow-ups
+
+- **ω.35-B.6** — exports/build extraction (now unblocked).
+  The B.6 prereq's been resolved.
+- **B.AI.1** — AI cover MVP, once publisher confirms
+  provider + budget cap.
+
+Net session test delta unchanged at 2138; the bisect fixture
+adds zero tests in default-off mode.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.5 ✓ → **B.6**
+exports/build (now unblocked) → B.7 preflight/audit/help.
+
+**2137 / 2138 tests green (1 skipped; 1 known xdist flake
+passes in isolation); 11/11 linter clean; protected-paths
+guard PASSES.**
+
+## Prior task
+
 **ω.35-B.5 editions cluster extracted** shipped 2026-05-11.
 Sixth file-split slice; largest single extraction yet
 (~1188 lines).

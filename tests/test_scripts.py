@@ -18001,8 +18001,19 @@ class TestPsi19ReadingPlans:
         # which is byte-different from the original `enabled_reading_plans:`
         # (no entries). The protected-paths guard now catches that drift.
         # Switched to shutil-based backup + restore to byte-exact match.
+        #
+        # B.6 prereq fix (2026-05-11): the file restore alone wasn't enough.
+        # api_save_edition_meta populates config.load_editions's LRU cache
+        # with the mutated state. After shutil-restore the FILE is clean
+        # but the cache still has monthly-psalms — and a later test
+        # (TestOmega16EditionSnapshots::test_restore_round_trips_unchanged_state)
+        # reads from that cache, captures the in-memory mutation in its
+        # snapshot, and writes it back to disk via _dump_edition_record
+        # (which produces UNQUOTED YAML, the exact pattern we kept seeing).
+        # Fix: clear the cache after restoring the file.
         import shutil
 
+        from scripts.core import config, matrix as matrix_mod
         from scripts.web import api_save_edition_meta, api_customize_data
 
         path = REPO_ROOT / "content" / "editions.yaml"
@@ -18021,8 +18032,10 @@ class TestPsi19ReadingPlans:
             ed = next(e for e in d["editions"] if e["id"] == "catholic-study")
             assert "monthly-psalms" in ed["enabled_reading_plans"]
         finally:
-            # Byte-exact restore.
+            # Byte-exact restore AND cache-invalidate.
             shutil.copy(backup, path)
+            config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
 
     def test_routes_registered(self):
         from pathlib import Path

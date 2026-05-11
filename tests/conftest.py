@@ -99,6 +99,55 @@ def _snapshot_protected_paths() -> dict[str, str]:
     return out
 
 
+@pytest.fixture(autouse=True)
+def _per_test_protected_paths_bisect(request):
+    """Diagnostic: per-test snapshot to pinpoint which test
+    mutates a protected file. Gated on env var
+    `YHWH_GUARD_BISECT=1` so it doesn't slow down normal runs.
+
+    When enabled, runs a snapshot before and after EACH test
+    and fails the test (with a clear message naming itself)
+    if mutation is detected. This converts the
+    end-of-session whoops into immediate failure → test ID.
+
+    Once the rogue test is identified, fix it and disable the
+    bisect fixture by unsetting the env var.
+
+    Cost when disabled (default): zero — fixture returns
+    immediately without taking any snapshot.
+    """
+    import os
+
+    if os.environ.get("YHWH_GUARD_BISECT") != "1":
+        yield
+        return
+
+    before = _snapshot_protected_paths()
+    yield
+    after = _snapshot_protected_paths()
+    if before == after:
+        return
+    deleted = sorted(k for k in before if k not in after)
+    added = sorted(k for k in after if k not in before)
+    modified = sorted(k for k in before if k in after and before[k] != after[k])
+    if not (deleted or added or modified):
+        return
+    parts = []
+    if modified:
+        parts.append(f"MODIFIED: {modified}")
+    if added:
+        parts.append(f"ADDED: {added}")
+    if deleted:
+        parts.append(f"DELETED: {deleted}")
+    test_id = request.node.nodeid
+    raise AssertionError(
+        f"\n\nPROTECTED-PATHS BISECT — test '{test_id}' mutated production data:\n"
+        f"  {chr(10).join('  ' + p for p in parts)}\n\n"
+        "Fix this test's backup/restore logic (use shutil.copy backup+restore,\n"
+        "NOT repeated api_save_X calls to 'revert'). See B.5 CHANGELOG."
+    )
+
+
 @pytest.fixture(scope="session", autouse=True)
 def _protected_paths_guard():
     """Fail the pytest session if any test mutates a file

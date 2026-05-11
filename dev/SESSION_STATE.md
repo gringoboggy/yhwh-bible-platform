@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-B.5 editions cluster
+**Updated:** 2026-05-11, after **Covers pack ingest + B.6
+prereq fix** shipped. (1) Publisher's yhwh-covers-pack
+ingested: 25 cover templates → content/covers/templates/
+(~159 MB, 5 styles × 5 colorways), 6 reusable borders →
+content/assets/borders/ (~11 MB). Catalog + per-edition
+pairing recommendations in content/covers/templates/README.md.
+(2) AI artwork proposal updated with publisher's ~170
+illustrations target for per-book art (sized against the
+Tewahedo canon × 2 ≈ 162). Cost: $6.80 per edition's
+complete batch; ~$400 lifetime across 50 editions; three
+orders of magnitude cheaper than human illustrators.
+(3) **B.6 prereq RESOLVED**: built per-test bisect fixture
+in tests/conftest.py (gated on YHWH_GUARD_BISECT=1, default-
+off). Caught TestOmega16EditionSnapshots::test_restore_round_
+trips_unchanged_state as the proximate mutator. Root cause:
+the B.5 fix to test_save_edition_meta_accepts_valid_plan_ids
+restored the FILE but didn't clear config.load_editions's
+in-memory cache (still had `monthly-psalms`). The snapshot
+test then captured the cached state and re-serialized it
+back to disk via _dump_edition_record (unquoted YAML — the
+exact pattern we kept seeing). Fix: added cache_clear() to
+the test's finally block. **Full xdist regression: 2137 /
+2138 pass; 1 known xdist flake (test_compute_key_is_
+deterministic, passes isolation); protected-paths guard
+PASSES.** Net session test delta unchanged at +219 (bisect
+fixture default-off adds no tests). 31 phases shipped this
+session. The bisect tool stays permanent — default-off (zero
+cost); for future regressions: `YHWH_GUARD_BISECT=1 pytest
+... -p no:xdist`. AUDIT §7 sequence: ω.35-B.5 ✓ → **B.6**
+exports/build (unblocked) → B.7 preflight/audit/help.
+Parallel: publisher has 25 cover templates installed +
+plans ~170 per-book AI illustrations once B.AI.1 ships.
+**2137 / 2138 tests green; 11/11 linter clean; guard
+PASSES.**
+
+Prior ship in same session: **ω.35-B.5 editions cluster
 extracted** shipped — sixth file-split slice; largest single-
 slice extraction yet (~1188 lines of web.py → scripts/api/
 editions.py). 8 audit-logged mutation handlers

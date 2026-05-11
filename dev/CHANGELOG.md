@@ -6,6 +6,136 @@
 
 ---
 
+## 2026-05-11 — session — Covers pack ingest + B.6 prereq fix (rogue editions.yaml mutator isolated + fixed)
+
+**Phases shipped:** covers pack ingest (25 templates + 6
+borders, ~170 MB binary assets), AI artwork proposal updated
+with the publisher's ~170-illustration target, and the B.6
+prereq fix (rogue editions.yaml mutator isolated via
+per-test bisect fixture + fix).
+**Test delta:** 0 (the bisect fixture is gated on env var
+`YHWH_GUARD_BISECT=1`; existing 2138 tests pass; guard now
+green on full xdist).
+**Linter delta:** 11/11 clean.
+
+### Covers pack ingest
+
+Publisher provided 25 finished cover templates + 6
+transparent border PNGs at
+`C:\Users\bogda\Documents\yhwh-covers-pack`. Ingested per
+the README's suggested layout:
+
+- `content/covers/templates/` — 25 master covers
+  (5 styles × 5 colorways), 1792 × 2688 PNG, 5:8 aspect.
+  Styles: `01_ornate_leafy`, `02_classical_corner`,
+  `03_beadline`, `04_minimal_lines`, `05_missal_central`.
+  Colorways: red, brown, navy, forest, black. ~159 MB.
+- `content/assets/borders/` — 6 transparent border PNGs
+  (`border_01_ornate_royal.png` through
+  `border_05_corner_accent.png` + `border_template_clean.png`).
+  ~11 MB.
+- Skipped `earlier_composites/` (~116 MB) — README marked
+  this as optional/reference.
+
+New `content/covers/templates/README.md` documents:
+- the catalog + style-pairing recommendations per edition canon
+- usage (direct main covers, text-overlay sources for π.6,
+  brand-consistency anchors)
+- the Midjourney + hue-shift origin pipeline
+
+### AI artwork proposal updated
+
+`dev/PROPOSAL_AI_ARTWORK.md` §2.1 + §4 updated with:
+- Templates location (now ingested)
+- Publisher's stated target: **~170 AI illustrations** for
+  per-book art (Ethiopian Tewahedo canon × 2 illustrations ≈
+  162; matches)
+- Cost analysis at scale:
+  - 170 images × $0.04 (OpenAI gpt-image-1) = **$6.80 one-off
+    per edition's complete per-book set**
+  - 50 editions × 170 illustrations = 8,500 images × $0.04 +
+    20% regen buffer = **~$400 lifetime AI-art spend** for
+    the entire publishing line
+  - Vs. human illustrator: $50 × 170 × 50 = $425,000
+  - **Three orders of magnitude cheaper.**
+- Budget recommendation: temporarily raise hard cap to $100
+  for the month an edition's per-book batch ships, then
+  drop back to $50.
+
+### B.6 prereq fix — rogue mutator isolated
+
+The session-scoped protected-paths guard had been firing on
+full xdist runs since B.5, but couldn't pinpoint WHICH test
+mutated `content/editions.yaml`. Added a **per-test bisect
+fixture** (`_per_test_protected_paths_bisect` in
+tests/conftest.py) gated on env var `YHWH_GUARD_BISECT=1`.
+Default-off so it doesn't slow down normal runs.
+
+When enabled, the fixture snapshots before/after each test
+and immediately fails the offending test with a clear
+message naming itself:
+
+```
+PROTECTED-PATHS BISECT — test 'tests/test_scripts.py::
+TestOmega16EditionSnapshots::test_restore_round_trips_
+unchanged_state' mutated production data: MODIFIED:
+['content/editions.yaml']
+```
+
+Caught the rogue: **TestOmega16EditionSnapshots::test_
+restore_round_trips_unchanged_state** — but not as the
+direct mutator. Tracing it back:
+
+1. **The real culprit was earlier**:
+   `TestPsi19ReadingPlans::test_save_edition_meta_accepts_
+   valid_plan_ids` (my B.5 fix). It backed up + restored
+   the FILE via shutil.copy, but did NOT clear
+   `config.load_editions`'s in-memory LRU cache that
+   `api_save_edition_meta` had populated with the mutated
+   state.
+2. **Why the snapshot test got blamed**: Later,
+   `test_restore_round_trips_unchanged_state` ran. It calls
+   `create_snapshot` which reads from `config.editions_by_id()`
+   — and got the IN-MEMORY mutated state (still cached
+   with `monthly-psalms`).
+3. **The snapshot wrote it back to disk**: `restore_snapshot`
+   re-serializes via `_dump_edition_record` which produces
+   UNQUOTED YAML (`- monthly-psalms`), matching the exact
+   pattern we kept seeing.
+
+Fix: my B.5 test now calls `config.load_editions.cache_clear()`
++ `matrix_mod.compute_matrix.cache_clear()` in its finally
+block, alongside the file restore. The snapshot test then
+reads the CLEAN cached state and writes back the original
+content.
+
+Verified:
+- Full xdist regression: 2137 passed, 1 skipped, 1 known
+  flake (test_compute_key_is_deterministic, passes
+  isolation). **Guard does NOT fire.**
+- Diff against HEAD: editions.yaml content matches.
+
+### Bisect tool stays in the repo
+
+The per-test bisect fixture is permanent infrastructure for
+future regressions. Default-off (no perf impact). To use:
+
+```bash
+YHWH_GUARD_BISECT=1 pytest tests/test_scripts.py -p no:xdist
+```
+
+When the guard fires unexpectedly in a future session, this
+is the one-line invocation that names the offender.
+
+### Open follow-ups (immediate)
+
+- **ω.35-B.6** — exports/build extraction (now unblocked).
+- The covers pack ingest sets up the asset substrate for
+  the future π.6 cover composer + the B.AI.* AI art
+  features.
+
+---
+
 ## 2026-05-11 — session — ω.35-B.5 editions cluster extracted (sixth file-split slice; largest extraction yet)
 
 **Phases shipped:** ω.35-B.5. The editions cluster — 8
