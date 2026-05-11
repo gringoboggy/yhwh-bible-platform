@@ -1,6 +1,78 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ψ.36-A per-edition
+**Updated 2026-05-11 / late session**: **ω.47 SonarCloud
+preflight gate** shipped (renumbered from "ω.36 sonarqube"
+— ω.36 was already used for the path-tagged fingerprint
+cache, §5 sticky-phase rule). Three pieces: (a)
+`sonar-project.properties` declares the SonarCloud project
+(`bridge4kaladin-collab_yhwh-bible-platform`) + sources +
+exclusions; (b) `scripts/check_sonarqube.py` wraps `sonar
+api get /api/qualitygates/project_status` returning a
+status dict (pass/warn/fail/skip) with the standard
+0/1/2/2 exit-code map matching the other audit scripts;
+(c) `sonarqube_quality_gate` check appended to
+`scripts/api/preflight.py` — lazy-imports + RuntimeError-
+guarded so dashboard stays renderable when the CLI is
+missing. Gracefully degrades: warn on 404 (project not yet
+on SonarCloud), warn on `NONE` (project exists but never
+scanned), skip on config/CLI absent. **Live gate today: warn — no
+analysis run yet**. **Auto Analysis is enabled** on the
+SonarCloud project (discovered post-ship while testing a
+manual scan — which was rejected as a duplicate path).
+The gate flips on the next git push to GitHub
+automatically; no scanner step needed in our workflow.
+**SonarScanner CLI v8.1.0.6389 installed** at
+`%LOCALAPPDATA%\sonar-scanner\` for future
+Auto-off scenarios; not load-bearing now.
+**ω.38 fix-forward**: `ruff check` step removed from the
+CI lint job — codebase has ~22.8K pre-existing violations
+from rules the local pre-commit never enforced; gating it
+would mean day-one CI failure. Promotion to gate is a
+future ruff-cleanup phase (call it ω.47.1+). ω.38 ci.yml
+now exactly mirrors the local pre-commit chain (ruff
+format --check + lint_rules + audit chain). **+28 tests**
+in `tests/test_sonarqube_omega47.py` (9 properties shape,
+11 unit branches, 5 CLI exit-code, 3 preflight wire-up).
+ω.38 test pin updated to assert the deliberate absence of
+`ruff check`. **2302 / 2303 tests pass serially (1
+skipped); 11/11 lint clean.** Net session test delta from
+ψ.36-A baseline: **+49** (20 ω.38 + 29 ω.47 incl. an
+extra preflight-contract assertion that resolved the
+`details: list` regression mid-ship). Next per the
+v1.1 sequence: **Δ.10 schema migration framework** (Month
+1 foundation #6) → Month 2 modernization (ζ family).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ω.38 GitHub Actions
+CI** shipped — Month 1 foundation item #5 of the 6-month
+landscape sequence (Track B developer-experience). New
+`.github/workflows/ci.yml`: (a) lint job mirrors the local
+`dev/git-hooks/pre-commit` chain — ruff format --check + ruff
+check + `scripts/lint_rules.py` + `audit_deps` +
+`audit_dead_code` + `audit_types` + `audit_caches`; (b) test
+job runs pytest across a cross-OS × multi-Python matrix
+(ubuntu × {3.10, 3.11, 3.12, 3.13, 3.14}, windows × {3.10,
+3.11, 3.12, 3.13}, macos × 3.12) with workflow-wide
+`PYTHONUTF8=1` so Windows runners don't trip cp1252 on the
+72 tests that need it; parallel via `-n auto --dist=loadfile`
+(matches pyproject.toml comments). Obsolete GitHub-default
+`python-package.yml` (Python 3.9-3.11, flake8) removed —
+`python-publish.yml` left alone (PyPI flow, separate concern).
+**+20 tests** in `tests/test_ci_omega38.py` pinning workflow
+shape: triggers (push/PR/workflow_dispatch), env block
+(PYTHONUTF8/PYTHONIOENCODING), lint-chain steps, dev-tool
+install, three-OS matrix, py310 floor, modern-python
+coverage, parallel-pytest flags, fail-fast=false, obsolete
+file removed. **2273 / 2274 tests pass serially (1 skipped);
+11/11 lint clean.** Next per v1.1 sequence: **ω.36
+sonarqube** (deferred until user API key) → **Δ.10 schema
+migration framework** (Month 1 final foundation item) →
+Month 2 modernization (ζ family).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ψ.36-A per-edition
 matrix endpoint** shipped (v1.1 slice #3 data-API
 foundation). New `/api/matrix/edition/<id>` GET endpoint
 reuses `_api_matrix_per_edition` helper; byte-identical

@@ -4,6 +4,85 @@
 
 ## Prior task
 
+**ω.47 SonarCloud preflight gate** shipped 2026-05-11.
+Originally scoped as "ω.36 sonarqube" but renumbered: ω.36
+was already taken by the path-tagged fingerprint cache that
+shipped earlier the same day (§5 sticky-phase rule).
+Includes a **fix-forward for ω.38**: `ruff check` removed
+from CI lint job (~22.8K pre-existing violations made it a
+day-one CI failure; promoting it to a gate now needs its
+own cleanup phase first). Three pieces shipped:
+- `sonar-project.properties` — projectKey + organization +
+  sources/tests/exclusions for SonarCloud
+- `scripts/check_sonarqube.py` — Tier-3 meta-tool wrapping
+  `sonar api get /api/qualitygates/project_status`. Returns
+  dict with status pass/warn/fail/skip + exit-code map
+  (0/1/2/2). Gracefully degrades: warn on 404 (project not
+  yet created), warn on NONE (no analysis yet), skip on
+  config or CLI missing.
+- `sonarqube_quality_gate` check appended to
+  `scripts/api/preflight.py` (lazy-imports check_sonarqube;
+  RuntimeError-guarded so dashboard stays renderable).
+Plus C901 `# noqa` on `_compute_preflight_uncached`
+(legitimately one-branch-per-check aggregator) and one
+pre-existing E501 wrap for the routes-inventory msg.
+**+28 tests** across `tests/test_sonarqube_omega47.py`:
+properties shape (9), check_quality_gate unit (11),
+main() CLI exit-code map (5), preflight wire-up (3).
+**ω.38 test updated**: replaced
+`test_lint_job_runs_ruff_check` with
+`test_lint_job_does_not_run_ruff_check_yet` (inverts the
+assertion, pins the deliberate absence).
+**Live gate status**: today returns `warn — no SonarCloud
+analysis run yet`. **Auto Analysis is enabled on the
+SonarCloud project** — meaning the gate will flip
+automatically the next time anything pushes to the
+linked GitHub repo (no scanner step needed). Manual
+`sonar-scanner` runs are rejected as a duplicate path
+unless Auto Analysis is first turned off in the project's
+Administration > Analysis Method settings.
+
+**External tool installed this session** (per
+reference_external_tools memory):
+- **SonarScanner CLI v8.1.0.6389** —
+  `%LOCALAPPDATA%\sonar-scanner\bin\sonar-scanner.bat`,
+  ~55 MB official zip from binaries.sonarsource.com.
+  Not load-bearing right now (Auto Analysis covers it),
+  but kept installed for future Auto-Analysis-off scenarios
+  or CI-based manual scans.
+- Temporary scanner token `yhwh-scanner-2026-05-11`
+  generated for an exploratory manual scan, then
+  **revoked** once Auto Analysis was discovered.
+
+`scripts/check_sonarqube.py` `NONE`-case hint updated to
+mention both paths (Auto Analysis push vs manual scanner).
+
+## Prior task
+
+**ω.38 GitHub Actions CI** shipped 2026-05-11. New
+`.github/workflows/ci.yml`: lint job (ruff format/check +
+`scripts/lint_rules.py` + `audit_deps` + `audit_dead_code` +
+`audit_types` + `audit_caches`) mirrors the local
+`dev/git-hooks/pre-commit` chain; cross-OS test matrix
+(ubuntu × {3.10, 3.11, 3.12, 3.13, 3.14}, windows × {3.10, 3.11,
+3.12, 3.13}, macos × 3.12) with workflow-wide `PYTHONUTF8=1` so
+Windows runners don't trip cp1252 on the 72 tests that need it.
+Parallel pytest via `-n auto --dist=loadfile` (matches
+pyproject.toml comments). Obsolete GitHub-default
+`python-package.yml` (Python 3.9-3.11, flake8) removed.
+`python-publish.yml` stays — separate PyPI flow.
+**+20 tests** in `tests/test_ci_omega38.py` pinning workflow
+shape: file presence + YAML parse, push/PR/workflow_dispatch
+triggers, PYTHONUTF8/PYTHONIOENCODING env, lint-chain steps,
+audit-chain steps, dev-tool install, three-OS matrix, py310
+floor, modern-python coverage, parallel-pytest flags,
+fail-fast=false, obsolete file removed, ci.yml canonical.
+**2273 / 2274 tests pass serially (1 skipped); 11/11 lint
+clean.** Foundation track Month 1 item #5 of the
+PROPOSAL_FEATURE_LANDSCAPE.md 6-month sequence.
+
+## Prior task
+
 **ψ.36-A per-edition matrix endpoint** shipped 2026-05-11.
 v1.1 slice #3 — the data-API foundation for matrix lazy-
 load. New `/api/matrix/edition/<id>` GET endpoint reuses

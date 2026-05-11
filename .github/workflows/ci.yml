@@ -1,0 +1,161 @@
+# ω.38 — GitHub Actions CI (2026-05-11).
+#
+# Mirrors the locally-enforced contract (`.githooks/pre-commit` +
+# `dev/git-hooks/pre-commit`) so PRs cannot regress what fresh
+# clones must pass before merging:
+#   1. ruff format --check    (style, identical to pre-commit)
+#   2. ruff check              (lint: E/W/F/B/UP/SIM/N/C90)
+#   3. scripts/lint_rules.py   (Tier-3 preflight aggregator)
+#   4. scripts/audit_deps.py   (pip-audit on requirements.txt)
+#   5. scripts/audit_dead_code.py (vulture sweep)
+#   6. scripts/audit_types.py  (mypy on scripts/core/)
+#   7. scripts/audit_caches.py (@lru_cache invalidation audit)
+#   8. pytest                  (the full suite — currently 2253+)
+#
+# Cross-OS matrix because:
+#   - Windows requires PYTHONUTF8=1 or 72 tests fail on cp1252
+#     (project memory; reproduced repeatedly during ω.7).
+#   - macOS catches Path/symlink edge cases the test_paths_omega5
+#     suite encodes.
+#   - Ubuntu is the default deployment shape; widest coverage.
+#
+# Python-version range tracks pyproject.toml's
+# `target-version = "py310"` floor through 3.14 (the dev-env
+# version per ω.7).
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Cancel in-progress runs on the same ref when a newer push arrives.
+# Prevents PR backlogs from chewing through Actions minutes.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# UTF-8 everywhere so file reads (notes, YAML, fixtures) don't
+# trip cp1252 on Windows runners or POSIX locale on macOS.
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: "utf-8"
+
+jobs:
+  # ----------------------------------------------------------------
+  # Lint + audit chain. Single OS / single Python — the audit tools
+  # don't need cross-platform validation; consistency is what matters.
+  # Mirrors dev/git-hooks/pre-commit so a green CI run guarantees a
+  # green pre-commit gate.
+  # ----------------------------------------------------------------
+  lint:
+    name: Lint + audit chain
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+
+      - name: Install runtime deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install dev tools (ruff, mypy, vulture, pip-audit)
+        run: |
+          pip install ruff mypy vulture pip-audit
+
+      - name: ruff format --check (style gate)
+        run: ruff format --check .
+
+      # `ruff check` (lint gate) deliberately omitted — the codebase
+      # currently has ~22.8K pre-existing violations from rules the
+      # local pre-commit never enforced. Promoting it from
+      # informational to gating is its own future cleanup phase;
+      # ω.38 ships the CI contract that *matches* the local hook
+      # chain (ruff format --check + lint_rules + audit chain).
+
+      - name: scripts/lint_rules.py (Tier-3 preflight)
+        run: python scripts/lint_rules.py
+
+      - name: scripts/audit_deps.py (pip-audit CVEs)
+        # rc=2 means pip-audit isn't installed locally; in CI it
+        # IS installed, so any non-zero exit is a real finding.
+        run: python scripts/audit_deps.py
+
+      - name: scripts/audit_dead_code.py (vulture sweep)
+        run: python scripts/audit_dead_code.py
+
+      - name: scripts/audit_types.py (mypy scripts/core)
+        run: python scripts/audit_types.py
+
+      - name: scripts/audit_caches.py (@lru_cache audit)
+        run: python scripts/audit_caches.py
+
+  # ----------------------------------------------------------------
+  # Test matrix. Trim the macOS leg to one Python version (it's the
+  # slowest runner and catches a narrow set of issues — symlink /
+  # case-insensitive-FS / Path differences).
+  # ----------------------------------------------------------------
+  test:
+    name: pytest (${{ matrix.os }} / Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        exclude:
+          # macOS leg — keep just one version for cross-FS coverage.
+          - os: macos-latest
+            python-version: "3.10"
+          - os: macos-latest
+            python-version: "3.11"
+          - os: macos-latest
+            python-version: "3.13"
+        include:
+          # 3.14 on ubuntu only — bleeding-edge; matches the local
+          # dev environment per project memory.
+          - os: ubuntu-latest
+            python-version: "3.14"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+          # 3.14 is bleeding edge; allow setup to fall back to the
+          # latest available patch rather than failing outright.
+          allow-prereleases: true
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest-xdist
+
+      - name: Show env (debugging help when matrix entries flake)
+        run: |
+          python --version
+          python -c "import sys; print('PYTHONUTF8=', sys.flags.utf8_mode)"
+
+      - name: pytest (parallel via xdist, loadfile distribution)
+        # `--dist=loadfile` keeps tests in the same file on one
+        # worker — required for the YAML-mutator monolith
+        # tests/test_scripts.py per pyproject.toml comments.
+        run: pytest -n auto --dist=loadfile -v --maxfail=10

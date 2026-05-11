@@ -4,9 +4,7 @@
       "command": "sonar.exe",
       "args": [
         "run",
-        "mcp",
-        "--project",
-        "bridge4kaladin-collab_yhwh-bible-platform"
+        "mcp"
       ]
     }
   }
