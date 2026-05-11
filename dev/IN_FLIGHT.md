@@ -4,6 +4,33 @@
 
 ## Prior task
 
+**ψ.37-E /wizard integration** shipped 2026-05-11. Inline
+year-ceiling select added to step 5 (alongside traditions —
+both are note filters). STATE.time_filter_ceiling: null
+default; submit-time coercion to JS null for "null"/empty/
+non-finite. Save payload includes the field. **+4 tests.**
+**2245/2246 tests green; 11/11 lint clean.** **ψ.37 fully
+closed** — feature ships end-to-end through both /customize
+AND /wizard, 34 ψ.37-specific tests, 97.3% corpus coverage.
+
+### Slice #4 (Δ.10) retired
+
+Investigation found Δ.10 ≈ already shipped as Δ.3 (indexed
+attribution audit, scripts/core/corpus_index.audit_attribution)
++ Δ.3.1 (wire-flip in web._cached_attribution_audit). No new
+work needed.
+
+### Next per the committed v1.1 sequence (updated)
+
+- **ψ.36 matrix lazy-load endpoint** (slice #3) — can ship
+  the data-API side + "load more" default UI without
+  co-design input.
+- **ω.36 sonarqube** — deferred until user API key.
+- **6-month feature tracks B-L** per
+  PROPOSAL_FEATURE_LANDSCAPE.md.
+
+## Prior task
+
 **ψ.37-D /customize UI** shipped 2026-05-11. The "Time-
 traveling commentary" collapsible section is now on
 /customize with an 8-position year-ceiling dropdown

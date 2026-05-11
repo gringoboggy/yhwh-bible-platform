@@ -1,6 +1,18 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ψ.37-D /customize UI**
+**Updated 2026-05-11 / late session**: **ψ.37-E /wizard
+integration** shipped. Inline year-ceiling select at step 5;
+STATE + submit coercion + payload inclusion. **+4 tests.**
+**ψ.37 fully closed end-to-end** through /customize +
+/wizard (34 ψ.37 tests, 97.3% corpus coverage). **Δ.10
+investigation found it's already shipped** as Δ.3 + Δ.3.1
+(no new work). **2245/2246 tests green; 11/11 lint clean.**
+**Next per v1.1 sequence: ψ.36 matrix lazy-load (data-API
+side + simple "load more" default UI).**
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ψ.37-D /customize UI**
 shipped. "Time-traveling commentary" collapsible section
 now live on /customize with 8-position year-ceiling dropdown.
 api_customize_data exposes the field. **+4 tests.**

@@ -434,3 +434,51 @@ class TestCustomizeUiTimeFilter:
         assert "first published" in CUSTOMIZE_HTML
         assert "Applies on next BUILD" in CUSTOMIZE_HTML
         assert "User-original" in CUSTOMIZE_HTML
+
+
+# ---------- Phase ψ.37-E : /wizard integration ----------------------
+
+
+class TestWizardTimeFilter:
+    """ψ.37-E: the /wizard step-5 (traditions) section gained an
+    inline year-ceiling dropdown. Selection feeds into the same
+    edition-meta save the wizard already does for traditions, so
+    the buyer demo can ship a time-filtered EPUB in one flow.
+    """
+
+    def test_wizard_html_contains_year_ceiling_select(self):
+        from scripts.templates.wizard import WIZARD_HTML
+
+        # The select element with its id
+        assert 'id="wizard-time-ceiling"' in WIZARD_HTML
+        # Inline subheading
+        assert "Time-traveling commentary" in WIZARD_HTML
+        # Inline explanatory copy (so the buyer sees a hint, not
+        # just an empty dropdown)
+        assert "Today's PD corpus is 1834-1903" in WIZARD_HTML
+
+    def test_wizard_html_contains_expected_year_options(self):
+        from scripts.templates.wizard import WIZARD_HTML
+
+        for value in ("null", "2000", "1900", "1895", "1885", "1850", "1700", "1611"):
+            assert f'value="{value}"' in WIZARD_HTML, f"wizard option value={value!r} missing"
+
+    def test_wizard_state_has_time_filter_ceiling_default(self):
+        # The JS STATE object must declare a `time_filter_ceiling`
+        # default so back→forward navigation preserves user picks
+        # and the initial render reflects "no filter" (null).
+        from scripts.templates.wizard import WIZARD_HTML
+
+        assert "time_filter_ceiling: null" in WIZARD_HTML
+
+    def test_wizard_includes_time_filter_in_edition_meta_save(self):
+        # The save payload sent to /api/edition-meta/<id> must
+        # include the field so the wizard flow plumbs through to
+        # build_one()'s filter pass without a second round-trip.
+        from scripts.templates.wizard import WIZARD_HTML
+
+        assert "time_filter_ceiling: STATE.time_filter_ceiling" in WIZARD_HTML
+        # And the normalization step (string "null" → JS null) is
+        # present so the API receives a real null rather than the
+        # string.
+        assert "Number.isFinite" in WIZARD_HTML or "parseInt" in WIZARD_HTML

@@ -297,6 +297,31 @@ WIZARD_HTML = r"""<!DOCTYPE html>
       </p>
       <div id="tradition-cards" class="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
       <div class="mt-4 text-sm text-slate-500" id="trad-summary"></div>
+
+      <!-- Phase ψ.37-E — year-ceiling control inline with traditions
+           (both are note filters; one wizard step covers both). -->
+      <div class="mt-6 pt-4 border-t border-slate-200">
+        <h3 class="text-lg font-semibold mb-1">Time-traveling commentary <span class="text-slate-400 font-normal text-sm">(optional)</span></h3>
+        <p class="text-sm text-slate-600 mb-3">
+          Restrict commentary to what a reader in a given year would have
+          had. Today's PD corpus is 1834-1903; pre-1700 positions are
+          empty until a future commentary expansion lands.
+        </p>
+        <label class="text-sm flex items-center gap-2">
+          <span class="font-medium text-slate-700">Year ceiling:</span>
+          <select id="wizard-time-ceiling" class="px-2 py-1 rounded border border-slate-300 text-sm">
+            <option value="null">no limit (full corpus)</option>
+            <option value="2000">by 2000 — modern PD only</option>
+            <option value="1900">by 1900 — drops Kenyon (1903)</option>
+            <option value="1895">by 1895 — drops Nave's (1897) too</option>
+            <option value="1885">by 1885 — drops Strong's (1890)</option>
+            <option value="1850">by 1850 — TSK era only (≈6K notes)</option>
+            <option value="1700">by 1700 — empty (pre-TSK)</option>
+            <option value="1611">by 1611 — King James era (empty)</option>
+          </select>
+        </label>
+      </div>
+
       <div class="mt-6 flex justify-between">
         <button class="back-btn px-5 py-2 rounded border border-slate-300 hover:bg-slate-50">← Back</button>
         <button class="next-btn px-5 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium">Next →</button>
@@ -364,6 +389,11 @@ const STATE = {
   // step 5 from the chosen profile's edition_to_tradition mapping.
   traditions: new Set(),
   traditions_initialized: false,  // flag so back→forward keeps user edits
+  // Phase ψ.37-E — year ceiling control (Step 5, inline with traditions).
+  // null = no filter (default; full corpus); int (year) = filter notes
+  // whose source's circa-year > year. Empty/"null" string from the
+  // <select> is normalised to null at submit time.
+  time_filter_ceiling: null,
 };
 let DATA = null;
 
@@ -957,10 +987,18 @@ async function startBuild() {
     // edition-meta save so the build pipeline picks up the filter on
     // the very next /api/export/build call. Empty Set sends an empty
     // list, which the validator translates to "no filter" (§7.2 no-op).
+    // Phase ψ.37-E — fold the wizard's year-ceiling pick into the
+    // edition-meta save. Read the <select> value at submit time so
+    // the JS doesn't need a separate event listener.
+    const ceilEl = document.getElementById('wizard-time-ceiling');
+    const ceilRaw = ceilEl ? ceilEl.value : 'null';
+    const ceilNorm = (ceilRaw === 'null' || ceilRaw === '') ? null : parseInt(ceilRaw, 10);
+    STATE.time_filter_ceiling = (Number.isFinite(ceilNorm) ? ceilNorm : null);
     const editionMeta = {
       title: STATE.title,
       theme: STATE.theme,
       traditions_default: [...STATE.traditions],
+      time_filter_ceiling: STATE.time_filter_ceiling,
     };
     const r1 = await fetch(`/api/edition-meta/${encodeURIComponent(STATE.edition_id)}`, {
       method: 'PUT',

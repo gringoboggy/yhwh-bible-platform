@@ -6,6 +6,96 @@
 
 ---
 
+## 2026-05-11 — session — ψ.37-E /wizard integration (v1.1 buyer demo end-to-end through ψ.37); also: Δ.10 retired (already shipped as Δ.3 + Δ.3.1)
+
+**Phases shipped:** ψ.37-E (wizard integration).
+**Test delta:** +4 (TestWizardTimeFilter).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+The /wizard buyer-demo flow now picks up ψ.37 in step 5
+(traditions), inline with the existing tradition-filter
+section since both are note-set filters. The buyer can now
+flow end-to-end:
+
+1. /wizard → step 1 (profile)
+2. step 2 (branding) → step 3 (theme) → step 4 (categories)
+3. step 5 → pick traditions **AND** year ceiling
+4. step 6 review → click BUILD
+5. step 7 → EPUB downloads, filtered by year + tradition
+
+Changes:
+
+- `scripts/templates/wizard.py`:
+  - New inline `<select id="wizard-time-ceiling">` block at
+    the end of step 5, after the tradition cards, separated
+    by a `border-t` divider. 8 slider positions (same as
+    /customize: no limit / 2000 / 1900 / 1895 / 1885 / 1850
+    / 1700 / 1611).
+  - `STATE.time_filter_ceiling: null` added to the wizard's
+    state object (back→forward navigation preserves picks).
+  - The build-time submit logic reads `wizard-time-ceiling`,
+    coerces "null" / empty / non-finite to JS null, and
+    folds the value into `editionMeta` alongside
+    `traditions_default`. Same `PUT /api/edition-meta/<id>`
+    round-trip — no new endpoint needed.
+
+### Tests (4 new)
+
+In `tests/test_time_travel_psi37.py`:
+
+- `test_wizard_html_contains_year_ceiling_select` — select
+  id + inline heading + warn-about-corpus copy present.
+- `test_wizard_html_contains_expected_year_options` — every
+  slider position renders.
+- `test_wizard_state_has_time_filter_ceiling_default` — JS
+  STATE default `time_filter_ceiling: null` present.
+- `test_wizard_includes_time_filter_in_edition_meta_save` —
+  the `editionMeta` payload built at submit time includes
+  the field, and the `parseInt`/`Number.isFinite` coercion
+  is present.
+
+### ψ.37 fully closed (all 5 sub-slices)
+
+| Sub-slice | What it does |
+|---|---|
+| ψ.37-A | Data model: source_dates.yaml + lookup_year |
+| ψ.37-B | Build-pipeline filter: compute_time_filtered_html_ref_ids |
+| ψ.37-C | Schema + API: time_filter_ceiling in editions.yaml + validation |
+| ψ.37-D | /customize UI dropdown |
+| ψ.37-E | /wizard integration (step-5 inline) |
+
+**Total ψ.37 tests: 34** (17 from -A, 9 from -B/-C, 4 from
+-D, 4 from -E). **Corpus coverage 97.3%.** Feature ships
+end-to-end through both /customize (advanced) AND /wizard
+(demo / onboarding).
+
+### Slice #4 (Δ.10) retired
+
+Investigating the v1.1 sequence's slice #4 ("Δ.10
+attribution_audit index-back") surfaced that it's **already
+shipped** under different naming:
+
+- `corpus_index.audit_attribution()` was Δ.3 (this session)
+- `web._cached_attribution_audit` wire-flipped to it as Δ.3.1
+  (this session)
+
+The original committed-sequence framing was based on a stale
+view of project state. No new work needed; the audit-page
+performance win is already live.
+
+### Next per the committed v1.1 sequence (updated)
+
+- **ψ.36 matrix lazy-load** (slice #3 in original framing)
+  — was scheduled to need UI co-design; can ship the data-
+  API side + "load more" default UI without input.
+- **ω.36 sonarqube** — deferred until your API key arrives.
+- **6-month feature tracks B-L** per
+  `PROPOSAL_FEATURE_LANDSCAPE.md`.
+
+---
+
 ## 2026-05-11 — session — ψ.37-D /customize UI (v1.1 slice #2 closer; feature now end-to-end demo-able)
 
 **Phases shipped:** ψ.37-D (UI integration).
