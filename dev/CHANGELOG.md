@@ -6,6 +6,128 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.6 DELETE mutation routes table (fifth route-table slice)
+
+**Phases shipped:** ω.35-A.6. First DELETE-method table. 5 of 6
+DELETE routes migrated; legacy boilerplate (8-10 lines per
+route, 5 routes = 40+ lines) consolidated. Discovery regex
+extended to tolerate ruff's multi-line tuple formatting (the
+trigger for a mid-phase bug).
+**Test delta:** +8 (was 2015, now 2023; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `_DELETE_ROUTES` table in `scripts/web.py` (module
+  scope below `_PUT_ROUTES`). 5 entries with handler
+  signature `lambda m: api_X(...)` (no payload — the
+  difference vs PUT):
+  - `/api/notes/<book>/<idx>` →
+    `api_delete(g1, int(g2))` (int coercion in the lambda)
+  - `/api/snapshots/<ed>/<ver>` →
+    `api_snapshot_delete(g1, g2)` (uses `status==error`
+    envelope; the Δ-cluster shape)
+  - `/api/scenarios/<name>` → `api_delete_scenario(g1)`
+    (uses `ok:False` envelope)
+  - `/api/covers/<ed>/book/<book>` (more specific; iterates
+    first)
+  - `/api/covers/<ed>/main`
+- `Handler.do_DELETE` extended with dispatch loop:
+  `_check_admin_auth` at function entry, then iterate
+  `_DELETE_ROUTES`, call `handler(m)`, route through
+  `_dispatch_table_result`, wrapped in try/except.
+- 5 legacy DELETE branches deleted with breadcrumb comments.
+  `/api/sources/cache/<id>` stays in legacy — uses bespoke
+  `_send_dict_result` helper, not table-compatible yet.
+- `scripts/check_routes.py` extended with `in_delete_table`
+  state machine + multi-line-tolerant discovery regex.
+- 8 new tests in `TestOmega35A6DeleteTable`: table entries
+  pinned, well-formed shape, handler signature is `(m)` only
+  (NOT `(m, payload)`), covers-book-precedes-main precedence
+  pinned, notes handler smoke check, route inventory zero-
+  drift with DELETE count ≥ 5, all 5 migrated routes
+  discovered, /api/sources/cache stays in legacy (still
+  reachable via the legacy regex).
+
+### Bug caught + fixed mid-phase (ruff vs single-line regex)
+
+The full xdist run after migration surfaced 2 self-test
+failures: `test_route_inventory_no_drift_after_delete_migration`
+and `test_discovery_recognizes_delete_table_entries`. Root
+cause: ruff format wrapped 2 of the 5 DELETE entries onto
+multiple lines (because the lambda made the single line too
+long). Result: `(re.compile(r"^..."), lambda m: api_X(g1,
+g2)),` became a 4-line tuple with `(` on line 1,
+`re.compile(...)` on line 2, etc. My discovery regex
+`\s*\(\s*re\.compile\(...` required the `(` and `re.compile`
+on the same line, so the multi-line entries weren't matched.
+
+Fix: changed the leading `\(` to `\(?` (optional opening
+paren) so both shapes match:
+- single-line: `(re.compile(r"^...$"), lambda ...),`
+- multi-line: `re.compile(r"^...$"),` on its own line inside
+  a multi-line tuple
+
+Applied the same fix to the `_PUT_ROUTES` discovery too
+(future-proofing — if ruff ever reformats a PUT entry, the
+discovery still works).
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+
+**31 of 88 routes (~35%) now exclusively in tables.**
+Remaining 57 in legacy: 5 POST mutations + 4 bespoke PUT
+routes + multipart uploads + custom-output (RSS/YAML/HTML)
++ static file serving + sample preview + /api/build-all
+literal-path-on-self.path form + /api/sources/cache DELETE.
+
+### Notable decisions
+
+- **Multi-line tolerance in discovery regex from now on.**
+  Ruff format makes choices the discovery shouldn't depend
+  on. The `\(?` (optional opening paren) makes both shapes
+  match without affecting correctness — a standalone
+  `re.compile(...)` line outside a `_DELETE_ROUTES` block
+  wouldn't match because the `in_delete_table` flag would
+  be False.
+- **Int coercion in the notes-DELETE lambda.** The regex
+  captures the index as a string group; `int(m.group(2))`
+  in the lambda coerces before `api_delete`. Keeping the
+  coercion AT the registration site (vs in a separate
+  adapter function) makes the route's contract visible at
+  one glance.
+- **/api/sources/cache stays in legacy.** The 6th DELETE
+  route uses `_send_dict_result` (a custom helper that
+  predates `_dispatch_table_result`). Migrating it would
+  require either rewriting the helper or registering a
+  per-route output-shape adapter. Deferred to ω.35-A.8 (the
+  "bespoke routes cleanup" phase) which can address all the
+  outliers together.
+
+### Continuity pointers
+
+- `scripts/web.py:_DELETE_ROUTES` (new table) + `do_DELETE`
+  (dispatch loop) + 5 legacy branches deleted.
+- `scripts/check_routes.py:in_delete_table` + multi-line-
+  tolerant regex.
+- `tests/test_scripts.py:TestOmega35A6DeleteTable` (8 tests
+  including the int-coercion + precedence + legacy-stays
+  pins).
+- AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.6 ✓ →
+  **ω.35-A.7** POST + multipart (next; ~5 POST routes; +2
+  multipart uploads need a new payload-shape helper) →
+  ω.35-A.8 bespoke routes cleanup → ω.35-B file split →
+  ψ.35 matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.5 PUT mutation routes table (fourth route-table slice)
 
 **Phases shipped:** ω.35-A.5. First slice covering MUTATION

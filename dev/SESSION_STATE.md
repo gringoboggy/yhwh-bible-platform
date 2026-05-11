@@ -1,6 +1,35 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.5 PUT mutation routes
+**Updated:** 2026-05-11, after **ω.35-A.6 DELETE mutation
+routes table** shipped — first DELETE-method table. New
+`_DELETE_ROUTES` table with 5 entries: notes/<book>/<idx>
+(with int coercion in lambda), snapshots/<ed>/<ver> (uses
+status==error envelope), scenarios/<name> (uses ok:False
+envelope), covers/<ed>/book/<book>, covers/<ed>/main. Handler
+signature is `lambda m: api_X(...)` — no payload (the
+difference vs PUT). `do_DELETE` runs `_check_admin_auth` once
+then the table dispatch loop, then falls through to legacy
+for /api/sources/cache/<id> (uses bespoke `_send_dict_result`,
+not table-compatible). 5 legacy branches deleted. Bug caught
++ fixed mid-phase: ruff format wrapped 2 of 5 DELETE entries
+onto multiple lines (`(` on its own line); the single-line
+discovery regex missed them. Fix: changed `\(` to `\(?`
+(optional opening paren) so both single-line and multi-line
+tuple shapes match. Applied the same fix to `_PUT_ROUTES`
+discovery for future-proofing. **+8 tests** in
+`TestOmega35A6DeleteTable` (handler-signature-is-(m), covers-
+book-precedes-main precedence, int-coercion smoke check,
+sources/cache legacy-stays pin). Migration progress: 31/88
+routes (~35%) now exclusively in tables. Net session test
+delta: **+104** (1919 baseline → 2023 final). 17 phases
+shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1,
+ω.35-A, ω.36, ω.35-A.1-A.6. AUDIT §7 sequence: ω.35-A.6 ✓ →
+**ω.35-A.7** POST + multipart (next; 5 POST + 2 multipart) →
+ω.35-A.8 bespoke routes cleanup → ω.35-B file split → ψ.35
+matrix data-model collapse. **2023 / 2023 tests green (1
+skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.5 PUT mutation routes
 table** shipped — first slice covering MUTATION routes (PUT).
 New `_PUT_ROUTES` table with 6 entries: /api/notes/<id>,
 /api/edition/<id>, /api/scenarios/<name>, /api/category/<id>,

@@ -4,6 +4,103 @@
 
 ## Prior task
 
+**ω.35-A.6 DELETE mutation routes table** shipped 2026-05-11.
+First DELETE-method route table; 5 of 6 DELETE routes
+migrated.
+
+`scripts/web.py:_DELETE_ROUTES` (new, module scope below
+`_PUT_ROUTES`): 5 entries with handler signature
+`lambda m: api_X(...)` (no payload, the difference vs PUT):
+- /api/notes/<book>/<idx> (with `int(m.group(2))` coercion
+  in the lambda for the index)
+- /api/snapshots/<ed>/<ver> (uses status==error envelope —
+  the Δ-cluster shape)
+- /api/scenarios/<name> (uses ok:False envelope)
+- /api/covers/<ed>/book/<book> (more specific, iterates first)
+- /api/covers/<ed>/main
+
+`Handler.do_DELETE` extended: `_check_admin_auth` runs at
+function entry, then the table dispatch loop, then falls
+through to legacy for `/api/sources/cache/<id>` (uses bespoke
+`_send_dict_result` helper, not table-compatible yet —
+deferred to ω.35-A.8).
+
+5 legacy DELETE branches deleted with breadcrumb comments.
+
+`check_routes.py` extended:
+- new `in_delete_table` state machine
+- **multi-line tolerance**: the discovery regex now uses
+  `\(?` (optional opening paren) so both single-line tuples
+  AND ruff-reformatted multi-line tuples match. Same fix
+  applied to `_PUT_ROUTES` discovery for future-proofing.
+
+### Bug caught + fixed mid-phase (ruff vs single-line regex)
+
+Full xdist run after migration surfaced 2 self-test failures.
+Root cause: ruff format wrapped 2 of 5 DELETE entries onto
+multiple lines because the lambda made the single line too
+long. My discovery regex required `(` and `re.compile` on the
+same line; the multi-line entries had `(` on one line and
+`re.compile(...)` on the next.
+
+Fix: changed `\(` to `\(?` (optional). Single-line and
+multi-line tuple shapes both match. The standalone
+`re.compile(...)` line outside a `_DELETE_ROUTES` block
+wouldn't match because the `in_delete_table` flag is False
+there.
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+
+**31 of 88 routes (~35%) now exclusively in tables.**
+
+Remaining 57 in legacy:
+- 5 POST mutations (snapshots create + restore, scenarios YAML
+  import, /api/build-all)
+- 4 bespoke PUT routes (export/build, edition-meta,
+  edition-meta/preview, edition/note-toggle)
+- 2 multipart uploads (cover upload, source cache upload)
+- 1 DELETE outlier (/api/sources/cache uses bespoke helper)
+- 1 PUT outlier (/api/publisher dead-code block)
+- custom-output (RSS, YAML export, HTML responses)
+- static file serving (matrix.js, content/covers/)
+- bespoke GET (sample preview, build-all)
+
+### Open follow-ups
+
+- **ω.35-A.7 — POST table + multipart helper** (1-2 sessions).
+  5 POST mutations need admin-auth + payload-reading shape
+  similar to PUT. The 2 multipart routes need a new
+  payload-shape helper (multipart body parser → file dict
+  → handler).
+- **ω.35-A.8 — bespoke routes cleanup** (1 session). 4 bespoke
+  PUT routes + /api/sources/cache DELETE + custom-output
+  formats + /api/publisher dead code.
+- **ω.35-B — web.py file split into scripts/api/<topic>.py**
+  (1-2 sessions). Move handlers into per-topic modules.
+- **Perf-test serialization** (~half session).
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+104** (1919 baseline → 2023 final).
+17 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1,
+Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.6.
+AUDIT_2026-05-11 written. SonarCloud integrated.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.6 ✓ → ω.35-A.7
+POST + multipart (next) → ω.35-A.8 bespoke cleanup → ω.35-B
+file split → ψ.35 matrix collapse.
+
+**2023 / 2023 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.5 PUT mutation routes table** shipped 2026-05-11.
 First slice covering MUTATION routes.
 

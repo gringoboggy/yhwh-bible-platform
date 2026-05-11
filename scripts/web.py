@@ -6379,6 +6379,36 @@ _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
 ]
 
 
+# ω.35-A.6 (2026-05-11) — fifth slice of the route-table migration.
+# `_DELETE_ROUTES` covers DELETE routes (no payload) that go through
+# the standard `_dispatch_table_result` helper. Same shape as
+# `_PUT_ROUTES` but the handler signature is `lambda m: api_X(...)`
+# — no payload, no read_body() call. Admin auth runs at do_DELETE
+# function entry (one `_check_admin_auth()` call).
+#
+# Order matters: more-specific patterns precede less-specific ones
+# (e.g. `/api/covers/<ed>/book/<book>` before `/api/covers/<ed>/main`
+# isn't needed because the suffixes differ, but the principle holds).
+_DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
+    # /api/notes/<book>/<idx> — note delete by 0-based index
+    (re.compile(r"^/api/notes/([a-z0-9]+)/(\d+)$"), lambda m: api_delete(m.group(1), int(m.group(2)))),
+    # /api/snapshots/<ed>/<ver> — uses status==error envelope (Δ-shape)
+    (
+        re.compile(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$"),
+        lambda m: api_snapshot_delete(m.group(1), m.group(2)),
+    ),
+    # /api/scenarios/<name> — uses ok:False envelope
+    (re.compile(r"^/api/scenarios/([a-z0-9_-]+)$"), lambda m: api_delete_scenario(m.group(1))),
+    # /api/covers/<ed>/book/<book> — more specific; MUST precede /<ed>/main
+    (
+        re.compile(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$"),
+        lambda m: api_delete_cover_book(m.group(1), m.group(2)),
+    ),
+    # /api/covers/<ed>/main
+    (re.compile(r"^/api/covers/([a-z0-9-]+)/main$"), lambda m: api_delete_cover_main(m.group(1))),
+]
+
+
 def _dispatch_table_result(handler_self, result: dict) -> None:
     """ω.35-A.2 helper — translate a handler dict result to an HTTP
     response, mirroring the boilerplate that appeared 10+ times in
@@ -7229,50 +7259,22 @@ class Handler(BaseHTTPRequestHandler):
     def do_DELETE(self):
         if not self._check_admin_auth():
             return
-        m = re.match(r"^/api/notes/([a-z0-9]+)/(\d+)$", self.path)
-        if m:
-            try:
-                return self._send_json(api_delete(m.group(1), int(m.group(2))))
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # ω.16 — delete snapshot
-        m = re.match(r"^/api/snapshots/([a-z0-9._-]+)/([a-z0-9._-]+)$", self.path)
-        if m:
-            result = api_snapshot_delete(m.group(1), m.group(2))
-            if result.get("status") == "error":
-                return self._send_json(
-                    {"error": result.get("code") or "internal_error", "message": result.get("message") or ""},
-                    status=result.get("http") or 500,
-                )
-            return self._send_json(result)
-        # Delete scenario (μ.2½)
-        m = re.match(r"^/api/scenarios/([a-z0-9_-]+)$", self.path)
-        if m:
-            try:
-                result = api_delete_scenario(m.group(1))
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Delete a main cover (Phase π.4-B)
-        m = re.match(r"^/api/covers/([a-z0-9-]+)/main$", self.path)
-        if m:
-            try:
-                result = api_delete_cover_main(m.group(1))
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Delete a per-book cover (Phase π.4-B)
-        m = re.match(r"^/api/covers/([a-z0-9-]+)/book/([a-z0-9]+)$", self.path)
-        if m:
-            try:
-                result = api_delete_cover_book(m.group(1), m.group(2))
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Clear a source cache (Phase υ.1)
+        # ω.35-A.6 — table-driven dispatch for the uniform-shape
+        # DELETE routes (regex → handler(m) → _dispatch_table_result
+        # → send_json). 5 of 6 DELETE routes migrated; the sixth
+        # (/api/sources/cache/<id>) stays in legacy because it
+        # uses the bespoke `_send_dict_result` helper, not the
+        # standard error-translate envelope.
+        for regex, handler in _DELETE_ROUTES:
+            m = regex.match(self.path)
+            if m:
+                try:
+                    result = handler(m)
+                    return _dispatch_table_result(self, result)
+                except Exception as e:
+                    return self._send_json({"error": str(e)}, status=400)
+        # Clear a source cache (Phase υ.1) — bespoke
+        # `_send_dict_result` helper; not table-compatible yet.
         m = re.match(r"^/api/sources/cache/([a-z0-9_-]+)$", self.path)
         if m:
             result = api_sources_cache_clear(m.group(1))
