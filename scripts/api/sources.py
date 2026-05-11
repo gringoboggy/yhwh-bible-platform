@@ -22,11 +22,11 @@ Out of scope for B.3b (still in web.py):
   the file-split goal warrants further extraction.
 
 Lazy import pattern: the upload handler lazy-imports
-`_extract_boundary` and `_parse_multipart` from `scripts.web`
-inside its function body. Same rationale as B.3a covers — web.py
-top-imports this module, so this module can't top-import web.py
-back. Inside a function body, the import doesn't fire until call
-time when web.py is fully loaded.
+`_extract_boundary` and `_parse_multipart` from
+`scripts.api.multipart` inside its function body. Originally these
+came from `scripts.web` (where the multipart helpers were inlined
+pre-ω.35-B.7). The import stays lazy so initial module-load order
+is preserved across the api/* package.
 """
 
 from __future__ import annotations
@@ -240,10 +240,10 @@ def api_sources_cache_upload(source_id: str, body: bytes, content_type: str) -> 
     is dict-shaped). Atomic write with backup of any existing file.
     Disk is never mutated on validation failure (§9 binary-asset
     pattern)."""
-    # Lazy import: the multipart helpers still live in scripts.web
-    # (shared with cover uploads). See module docstring for the
-    # rationale.
-    from scripts.web import _extract_boundary, _parse_multipart
+    # Lazy import: multipart helpers live in scripts.api.multipart
+    # (ω.35-B.7). The lazy form matches the api/covers.py upload
+    # handlers; see module docstring for the rationale.
+    from scripts.api.multipart import _extract_boundary, _parse_multipart
     from scripts.core.fetcher_config import (
         FetcherConfigError,
         load_fetcher_config,

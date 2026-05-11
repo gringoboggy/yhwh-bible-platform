@@ -6,6 +6,653 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.7 preflight/audit/help/multipart extracted (eighth and final file-split slice; closes ω.35-B)
+
+**Phases shipped:** ω.35-B.7. Three handler clusters + one
+helper pair extracted from `scripts/web.py` into four new
+purpose-built modules under `scripts/api/`. **Closes the
+file-split track that started in ω.35-B.1.**
+**Test delta:** +19 (TestOmega35B7PreflightExtraction).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+- New `scripts/api/preflight.py` (~514 lines):
+  - `api_preflight()` (ψ.2; read-only; lazy-imports
+    `api_attribution_audit` + `api_covers` from web.py)
+  - `_cached_preflight()` (lru_cache(maxsize=4))
+  - `_compute_preflight_uncached()` — the 12-check aggregator
+    (attribution, covers, popup translation + coverage,
+    publisher meta, kinds utilization, rules linter,
+    schema linter, epubcheck, content health, routes inventory)
+- New `scripts/api/help.py` (~180 lines):
+  - `api_help_data()` (ω.3; scans scripts/web.py source for
+    routes; still correct after extraction because all route
+    tables stay in web.py)
+  - `_ROUTE_PATTERNS` / `_CONSOLE_PATTERNS` constants moved
+    alongside their sole caller
+- New `scripts/api/audit.py` (~39 lines):
+  - `api_audit_log()` (ξ.13; composes `audit_log.read_recent`;
+    clamps `n` to [1, 1000])
+- New `scripts/api/multipart.py` (~121 lines):
+  - `_parse_multipart()` (RFC 7578; SEC-002 header caps)
+  - `_extract_boundary()` (RFC 2046 §5.1.1; SEC-007
+    length / charset rejection)
+- `scripts/web.py` replaces the four blocks with thin
+  re-import notices. **Net delta: -751 lines in web.py.**
+- `scripts/api/covers.py` lazy-import of multipart helpers
+  retargeted from `scripts.web` to `scripts.api.multipart`
+  (canonical home).
+- `scripts/api/sources.py` lazy-import of multipart helpers
+  retargeted likewise. Docstring rationale updated.
+- 19 new tests in `TestOmega35B7PreflightExtraction`:
+  - 4 module-existence checks (one per new module)
+  - backward-compat via web.py re-imports (7 names callable)
+  - canonical-home identity check (`is` + `__module__`)
+  - preflight end-to-end (≥10 checks; summary keys present;
+    summary totals balance)
+  - apihelp end-to-end (≥40 routes; entry schema)
+  - audit_log end-to-end (empty `base_dir` → 0 entries)
+  - audit_log `n` clamping (`<1`, `>1000`, non-int fallback)
+  - multipart helpers round-trip (single PNG part decode)
+  - `_extract_boundary` rejects oversized (>70 chars) per
+    SEC-007
+  - `_extract_boundary` rejects non-ASCII / control bytes
+  - `_extract_boundary` returns None on missing header
+  - api/covers.py upload handlers lazy-import multipart from
+    `scripts.api.multipart` (NOT `scripts.web`)
+  - api/sources.py upload handler lazy-imports likewise
+  - web.py has no inline `def api_preflight(...)` / `def
+    _cached_preflight(...)` / `def _compute_preflight_uncached(...)`
+    / `def api_help_data(...)` / `def api_audit_log(...)`
+    / `def _parse_multipart(...)` / `def _extract_boundary(...)`,
+    and no inline `_ROUTE_PATTERNS = [` / `_CONSOLE_PATTERNS = [`
+  - `_SIMPLE_GET_ROUTES` still dispatches `/api/preflight`
+    + `/api/apihelp` → the re-imported callables
+  - `_QS_REGEX_GET_ROUTES` still dispatches `/api/audit-log`
+    → smoke-call returns the right envelope
+
+### Migration progress (file split — final)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| ω.35-B.4 | customize | 2 | -80 |
+| ω.35-B.5 | editions cluster | 8 + 2 helpers | -1188 |
+| ω.35-B.6 | exports/build | 4 + const | -335 |
+| ω.35-B.7 | preflight + apihelp + audit-log + multipart | 5 + 2 helpers + 2 const | -751 |
+| **Total** | | **40 handlers** | **-3190** |
+
+**Cumulative: -3190 lines in web.py across 8 slices.**
+web.py is now **4564 lines** (from 7670 at file-split start);
+**40.5% reduction**. The scripts/api/ package contains 8
+topic modules totaling ~2,900 lines, with each module focused
+on one concern (snapshots, scenarios, covers, sources,
+customize, editions, exports, preflight/help/audit, plus
+multipart utilities).
+
+### State
+
+- 2171 / 2172 tests green (1 skipped; the previously-flaky
+  xdist test `test_notes_io_load_notes_under_budget` passed
+  this run).
+- 11/11 linter clean.
+- Protected-paths guard PASSES (`tests/test_guard_self.py`
+  17/17).
+- Route inventory unchanged: 95 routes total.
+
+### Open follow-ups
+
+- ω.35-B is now closed. Per AUDIT_2026-05-11 §7 the next
+  natural step is **ψ.35** (matrix data-model collapse —
+  5 redundant projections → 1 canonical), which was held
+  back until the god-module debt was resolved.
+- Possible parallel: a small ω.35-C "package-level docstring
+  / __init__ exports" tidy slice (export from
+  `scripts/api/__init__.py`) if we want consumers to
+  `from scripts.api import api_preflight` directly without
+  reaching into per-topic modules. Optional; not blocking.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-B.6 ✓ → **ω.35-B.7 ✓**
+(closes file split) → ψ.35 matrix collapse → uniqueness
+angle (ψ.37 / θ.6 / χ-AI-rag, publisher-led).
+
+### Follow-on work in same session (after B.7 closed)
+
+After ω.35-B.7 shipped, the session continued with three
+low-risk, high-leverage items off AUDIT_2026-05-11:
+
+1. **ARCH-04 — duplicate `load_notes` cleanup.** The audit-
+   flagged byte-identical duplicate of `notes_io.load_notes`
+   in `scripts/note_quality.py` was replaced with a re-import
+   from the canonical home. `import ast` dropped (no longer
+   needed locally). LRU cache (`(path, mtime_ns)`) now covers
+   `note_quality.py` callers too — previously they re-parsed
+   on every call. +1 test in `TestNoteQuality::test_load_
+   notes_is_canonical_loader` pins identity so the duplicate
+   can't silently reappear.
+
+2. **CLAUDE_PROJECT_RULES §9 — codified the 8-instance
+   topic-split pattern.** New mental-model section *"Extract
+   a topic cluster from a god-module into
+   scripts/api/<topic>.py"* documenting the shape that
+   ω.35-B.1 through B.7 followed: the 8 steps (identify
+   cluster → create module → move bodies verbatim → lazy
+   imports → re-export → tests → cross-module retarget →
+   docs), the why-this-works analysis, and the four
+   anti-patterns (mid-extraction refactor, top-importing
+   web.py, mixed topics in one slice, missing `__wrapped__`
+   unwrap). Generic enough to apply to future god-module
+   decompositions (build_edition.py, prospect.py, etc.).
+
+3. **PLAN_2026-05-09.md §6 refresh + §5 drift banner.**
+   §6's "Recommended next 5-session sequence" was the
+   original v1.0 plan; all five sessions ✓ shipped. Updated
+   to (a) mark the original sequence as shipped with ship
+   dates, (b) recap the actual post-v1.0 trajectory through
+   ω.35-B.7 with the 40.5% web.py reduction milestone, and
+   (c) add a live next-session sequence per
+   AUDIT_2026-05-11 §7 (ψ.35 → PLAN-REFRESH → ψ.36 → ω.36 →
+   publisher-led uniqueness angle). Added a "drift notice"
+   banner at the top of §5 directing readers to §7's phase
+   ledger + CHANGELOG before scoping any "Status: open"
+   entry — many are stale. (Full systematic prune of §5 is
+   still queued as PLAN-REFRESH.)
+
+**Net session-after-B.7 test delta:** +1 (the ARCH-04 pin).
+Post-ARCH-04 count: 2172 passed + 1 skipped = 2173
+collected; 11/11 linter clean; protected-paths guard
+PASSES.
+
+### Bonus slice: ψ.35-A — Matrix accessor methods foundation
+
+The audit's `ARCH-03` recommendation was to collapse the
+`Matrix` dataclass's 5 redundant projections (`enabled`,
+`potential`, `per_book` are all derivations of
+`per_chapter` + `edition_enabled_kinds`). The full collapse
+is a multi-slice refactor (15+ consumers in `scripts/web.py`
+need migrating). **ψ.35-A** ships the foundation — four
+accessor methods on `Matrix` that derive every projected
+view from the canonical store, equivalence-pinned against
+the existing fields:
+
+- `m.enabled_count(ed, kind)`     ≡ `m.enabled[ed][kind]`
+- `m.potential_count(ed, kind)`   ≡ `m.potential[ed][kind]`
+- `m.per_book_count(ed, kind, b)` ≡ `m.per_book[ed][kind][b]`
+- `m.chapter_dist(ed, kind, b)`   ≡ `m.per_chapter[ed][kind][b]`
+
+The existing six fields stay populated — **zero consumer
+migration in this slice.** Future ψ.35 sub-slices (the
+"B-track" of the ψ.35 family — see roadmap below) migrate
+consumers one at a time; the final slice removes the
+redundant projections.
+
+**+9 tests** in `TestPsi35AAccessorMethods`:
+
+- `test_enabled_count_equivalence` — sweep every (ed, kind)
+  pair in both `enabled` and `potential`; method output must
+  match stored value, including the disabled-kind = 0 contract
+- `test_potential_count_equivalence` — sweep every (ed, kind)
+  in `potential`; method output must match
+- `test_per_book_count_equivalence` — sweep every (ed, kind,
+  book) triple in `per_book`
+- `test_chapter_dist_equivalence` — sweep every triple in
+  `per_chapter`; the entire `{chapter: count}` dict must
+  match
+- `test_chapter_dist_returns_defensive_copy` — mutating the
+  returned dict must not bleed back into the cached matrix
+- `test_enabled_count_returns_zero_for_disabled_kind` —
+  pin the explicit contract: for any kind NOT in
+  `edition_enabled_kinds[ed]`, `enabled_count` returns 0
+  even when `potential_count > 0`
+- `test_accessor_handles_unknown_edition` — unknown ed →
+  every accessor returns 0 / {}
+- `test_accessor_handles_unknown_kind` — same for unknown kind
+- `test_accessor_methods_are_bound` — pin the method-on-
+  dataclass shape (instance methods, not staticmethods)
+
+### Roadmap — future ψ.35 sub-slices (NOT shipped yet)
+
+The full ψ.35 collapse will roll out as a multi-slice
+sequence. Each downstream slice will:
+
+- Migrate one cohesive consumer cluster from raw-field
+  reads (e.g. `m.enabled.get(ed, {}).get(kind, 0)`) to the
+  matching accessor (`m.enabled_count(ed, kind)`).
+- Add tests pinning the consumer's behaviour against the
+  new API (same as ω.35-B.* tests pinned each topic
+  cluster's extraction).
+- Ship under a sub-tag like `ψ.35-B1` (snapshot console
+  consumers), `ψ.35-B2` (preflight / covers / customize),
+  etc. The exact decomposition is publisher-led.
+
+The terminating slice (provisionally tagged `ψ.35-Final`)
+will remove the redundant `enabled`, `potential`, and
+`per_book` fields from `Matrix` and become a small
+cache-footprint improvement; the `per_chapter` field stays
+as the canonical store.
+
+**Net session test delta after ψ.35-A:** +9 (the new
+accessor-equivalence tests). Post-ψ.35-A count: 2181
+passed + 1 skipped = 2182 collected; 11/11 linter clean;
+protected-paths guard PASSES.
+
+### Bonus slice: ψ.35-B1 — Matrix CLI migration + dict accessors
+
+The first **consumer-migration** slice of the ψ.35 family.
+ψ.35-A added scalar accessor methods; ψ.35-B1 (a) adds two
+dict-returning accessors so consumers that need the whole-
+edition `{kind: count}` map have a method-based path, and
+(b) migrates `scripts/matrix.py` (the CLI tool) — the
+first concrete consumer to move off raw-field reads.
+
+**New accessors on `Matrix`:**
+
+- `m.enabled_kinds_dict(ed)`   ≡ `m.enabled.get(ed, {})`
+- `m.potential_kinds_dict(ed)` ≡ `m.potential.get(ed, {})`
+
+Both derive from `per_chapter` + `edition_enabled_kinds`,
+returning only kinds with non-zero counts (matching the
+stored projection's shape — zero-count kinds are absent,
+not stored as 0). Future ψ.35 sub-slices will add similar
+dict accessors for `per_book[ed][kind]` if needed; for now
+the per-book whole-dict shape isn't actually consumed
+anywhere outside `api_matrix`'s JSON response (which stays
+on the stored projection for the moment — its migration is
+its own slice).
+
+**Consumer migrated:** `scripts/matrix.py` (the CLI tool —
+`python scripts/matrix.py` for the category/kind/edition
+tables). Five call sites moved from raw-field reads to
+the accessor API:
+
+- `m.enabled[ed_id].get(kind_code, 0)` (line 107) →
+  `m.enabled_count(ed_id, kind_code)`
+- `m.potential[ed_id].get(kind_code, 0)` (line 108) →
+  `m.potential_count(ed_id, kind_code)`
+- `m.potential[ed_id].values()` for the "filtered out"
+  delta row (line 71) →
+  `m.potential_kinds_dict(ed_id).values()`
+- `m.enabled[edition_id]` for the per-edition detail view
+  (line 134) → `m.enabled_kinds_dict(edition_id)`
+- `m.potential[edition_id]` (line 135) →
+  `m.potential_kinds_dict(edition_id)`
+
+Each migration line carries a `# ψ.35-B1 — was: …` comment
+so the original raw-field expression is preserved in source
+for future readers.
+
+**+7 tests** across two classes:
+
+- `TestPsi35B1AccessorDicts` (5 tests):
+  - `test_enabled_kinds_dict_equivalence` — sweep every
+    edition, method output must equal stored `m.enabled[ed]`
+  - `test_potential_kinds_dict_equivalence` — same for
+    `m.potential[ed]`
+  - `test_dict_accessors_omit_zero_count_kinds` — pin the
+    shape contract (no `{kind: 0}` entries)
+  - `test_dict_accessors_handle_unknown_edition` —
+    unknown ed → empty dict
+  - `test_enabled_dict_respects_kind_filter` — every kind
+    in the returned dict must be in
+    `edition_enabled_kinds[ed]`
+- `TestPsi35B1MatrixCLIMigration` (2 tests):
+  - `test_cli_module_runs_without_crashing` — invokes
+    `matrix_cli.main()` with `sys.argv = ["matrix.py"]`,
+    captures stdout, asserts every edition's short prefix
+    appears + the TOTAL row renders
+  - `test_cli_uses_accessor_methods_not_raw_fields` —
+    source-scan (comment-stripped) pins that the four
+    anti-pattern strings (`m.enabled[ed_id].get(`,
+    `m.potential[ed_id].get(`, `m.enabled[edition_id]`,
+    `m.potential[edition_id]`) are NOT present, and that
+    the `ψ.35-B1` migration markers ARE present.
+
+**Net session test delta after ψ.35-B1:** +7. **Final count:
+2188 passed + 1 skipped = 2189 collected; 11/11 linter
+clean; protected-paths guard PASSES.**
+
+### Outstanding ψ.35 migration targets (queued)
+
+Consumer migrations still pending (each = a future
+ψ.35-B2/B3/... slice):
+
+- `scripts/web.py:515-544` (`api_matrix` JSON shape — needs
+  whole-edition projections; serialization-sensitive)
+- `scripts/web.py:2878` (`_diff_edition_summary`)
+- `scripts/web.py:2935-2936` (`_diff_kinds_section`)
+- `scripts/api/exports.py:48-49` (`api_export_preview`)
+- `scripts/api/preflight.py:249` (`mtx.enabled.items()`
+  iteration — preflight kind-utilization check)
+
+After all five are migrated, ψ.35-Final removes the
+`enabled`, `potential`, and `per_book` fields from
+`Matrix` and the cache footprint drops to 1/4 of today's.
+
+### Bonus slice: ψ.35-B2 — Internal-helper consumer migrations
+
+Second consumer-migration slice. Four of the five queued
+B2-onward targets above migrated to the accessor API:
+
+- `scripts/web.py::_diff_edition_summary` (line 2878):
+  `mtx.enabled.get(ed_id, {})` → `mtx.enabled_kinds_dict(ed_id)`
+- `scripts/web.py::_diff_kinds_section` (lines 2935-2936):
+  `mtx.enabled.get(a_id, {})` / `(b_id, {})` →
+  `mtx.enabled_kinds_dict(a_id)` / `(b_id)`
+- `scripts/api/exports.py::api_export_preview` (lines 48-49):
+  `m.enabled.get(edition_id, {})` / `m.potential.get(...)` →
+  `m.enabled_kinds_dict(edition_id)` / `m.potential_kinds_dict(...)`
+- `scripts/api/preflight.py::_compute_preflight_uncached`
+  (line 249): `for ed_id, by_kind in mtx.enabled.items()` →
+  `for ed_id in mtx.edition_canon_books: ...
+  mtx.enabled_kinds_dict(ed_id).items()`
+
+Each migration line carries a `# ψ.35-B2 — was: …` comment
+preserving the original raw-field expression.
+
+**+6 tests** in `TestPsi35B2InternalConsumerMigrations`:
+
+- `test_preflight_empty_kinds_still_computes_correctly` —
+  the migrated iteration produces the same `used_kinds`
+  set, so the empty_kinds verdict is unchanged
+- `test_edition_diff_summary_still_computes_correctly` —
+  `_diff_edition_summary`'s totals.notes equals
+  `sum(mtx.enabled_kinds_dict(ed_id).values())`
+- `test_edition_diff_kinds_section_still_classifies_correctly` —
+  `_diff_kinds_section`'s `shared` rows have a_count /
+  b_count matching the accessor outputs
+- `test_export_preview_summary_matches_dict_accessors` —
+  `api_export_preview`'s notes_shipping / notes_potential
+  equal the accessor sums
+- `test_migrated_files_lack_raw_enabled_get_pattern` —
+  source-scan (comment-stripped) of web.py + api/exports.py
+  + api/preflight.py confirms the four anti-patterns
+  (`mtx.enabled.get(`, `mtx.potential.get(`, `m.enabled.get(`,
+  `m.potential.get(`) are absent from executable code
+- `test_migrated_files_carry_b2_markers` — ψ.35-B2 markers
+  present in all three migrated files
+
+### Bonus slice: ψ.35-B3 — api_matrix raw-read migration (last one)
+
+The final web.py consumer migrating off `m.enabled[ed]` /
+`m.potential[ed]`. Extracted the per-edition matrix-block
+build into a new helper `_api_matrix_per_edition(m,
+book_ch_counts)`. Migrated:
+
+- `for ed_id in m.enabled` (line 544 pre-B3) →
+  `for ed_id in m.edition_canon_books`
+- `m.enabled[ed_id]` → `m.enabled_kinds_dict(ed_id)`
+- `m.potential[ed_id]` → `m.potential_kinds_dict(ed_id)`
+- `sum(m.enabled[ed_id].values())` / `sum(m.potential[...].values())`
+  → sum on local dict vars
+
+Deliberately deferred to a future slice: `m.per_book.get(...)`
+on line 527 (needs a new `per_book_kinds_dict()` accessor)
+and `m.per_chapter.get(...)` on line 532 (per_chapter IS
+the canonical store — stays raw through ψ.35-Final).
+
+**+5 tests** in `TestPsi35B3ApiMatrixMigration`:
+
+- `test_api_matrix_response_shape_unchanged` — full keyset
+  + value equivalence across all 9 editions: new helper
+  output equals (a) the dict-accessor outputs AND (b) the
+  stored projection. **Zero behavior change at the JSON
+  boundary** (which is the JS UI contract).
+- `test_api_matrix_iterates_every_edition` — keyset of the
+  new comprehension equals `m.edition_canon_books.keys()`
+  AND equals `m.enabled.keys()` (the pre-migration source).
+- `test_api_matrix_helper_exported` — `_api_matrix_per_edition`
+  is importable from `scripts.web` for test monkeypatching.
+- `test_api_matrix_no_longer_iterates_m_enabled` — source-
+  scan (comment-stripped) pins that `for ed_id in m.enabled`
+  is gone from web.py executable code.
+- `test_api_matrix_b3_marker_present` — ψ.35-B3 migration
+  marker present.
+
+### Net session totals (post-ψ.35-B3)
+
+- web.py: **4564 → 4589 lines** (+25 for the
+  `_api_matrix_per_edition` helper + migration comments).
+  Down 40.2% from the 7670-line file-split start.
+- scripts/core/matrix.py: 339 → 422 lines (+83 for the
+  6 accessor methods + their docstrings).
+- scripts/matrix.py: 198 → 204 lines (+6 for migration
+  comments preserving original raw-field expressions).
+- Tests: 2199 passed + 1 skipped = **2200 collected**.
+- Linter: 11/11 clean.
+- Protected-paths guard: PASSES.
+
+**Remaining ψ.35 work** (queued for a future session):
+
+1. **`per_book_kinds_dict` accessor + migration** — add a
+   whole-edition `per_book` accessor, migrate the one
+   remaining raw `m.per_book.get(ed_id, {})` read on
+   `scripts/web.py:527`. ~30 lines + 3 tests.
+2. **`ψ.35-Final` — remove redundant projections** — drop
+   the `enabled`, `potential`, and `per_book` fields from
+   `Matrix`; remove their build-up in
+   `_compute_matrix_via_file_walk()` and
+   `corpus_index.compute_matrix_indexed()`. ~80 lines of
+   removal across two files + cache-footprint measurement
+   tests. **Requires (1) to land first** so the lone
+   raw-read is gone.
+
+### Bonus slice: ψ.35-B4 — per_book_kinds_dict + last raw read
+
+Closes out the last raw `m.per_book` consumer in
+production. Added third dict-returning accessor:
+
+- `m.per_book_kinds_dict(ed) -> dict[kind, dict[book, count]]`
+  — derives from `per_chapter` via per-(kind, book)
+  summation across chapters.
+
+Migrated `scripts/web.py:527` (the `per_book` slot in
+`api_matrix`'s per-edition JSON output):
+`m.per_book.get(ed_id, {})` → `m.per_book_kinds_dict(ed_id)`.
+
+**+6 tests** in `TestPsi35B4PerBookAccessor`: equivalence
+pin vs stored `m.per_book`, zero-count omission contract,
+unknown-edition → empty dict, `api_matrix`'s per_book
+field byte-equal to both the accessor output AND the
+stored projection, source-scan anti-pattern guard, marker
+pin.
+
+### Post-ψ.35-B4 state — every raw projection read is migrated
+
+The ψ.35 consumer-migration arc is now complete for the
+three redundant projections:
+
+| Projection field | Production raw reads remaining |
+|---|---|
+| `m.enabled` | 0 (was 4 — CLI + 3 web.py helpers + 1 api_matrix) |
+| `m.potential` | 0 (was 2 — CLI + api_export_preview) |
+| `m.per_book` | 0 (was 1 — api_matrix per_book slot) |
+| `m.per_chapter` | 1 — api_matrix per_chapter slot (canonical) |
+
+`m.per_chapter` is the canonical store and stays — every
+accessor derives from it. The only remaining ψ.35 work is
+the **field removal** (ψ.35-Final), which rewrites the
+TestMatrix / TestPsi35A / TestPsi35B1 equivalence tests
+(they compare accessors to the stored projections — once
+the projections are gone, equivalence becomes
+self-referential; they need to compare against a frozen
+pre-migration golden snapshot instead, or be replaced
+with direct value-check tests like the per_chapter sum
+identities).
+
+### Bonus slice: ψ.35-Final — projection fields auto-derived
+
+The terminating slice of the ψ.35 family. Three changes:
+
+1. **`Matrix` dataclass** — `enabled`, `potential`, and
+   `per_book` are now `init=False`. The build pipelines no
+   longer pass them in. A new `__post_init__` derives them
+   from `per_chapter` + `edition_enabled_kinds` via the
+   dict accessor methods, using `object.__setattr__` to
+   bypass the frozen-dataclass immutability.
+
+2. **`_compute_matrix_via_file_walk()`** — the
+   pre-ψ.35-Final body had a triple-nested loop that built
+   `enabled`, `potential`, `per_book`, AND `per_chapter` in
+   a single pass. The slim version builds ONLY `per_chapter`;
+   the three derived dicts get auto-materialized in
+   `__post_init__`. ~30 lines of loop body deleted.
+
+3. **`corpus_index.compute_matrix_indexed()`** — same
+   simplification; same ~25-line reduction.
+
+**API surface preserved.** Every existing consumer that
+does `m.enabled[ed_id]` / `m.potential[ed_id]` /
+`m.per_book[ed_id]` continues working unchanged because
+the field name is still present — only its *source* moved
+from caller-passed to derived-in-post-init.
+
+**Storage at the build site drops** by 3 dict-of-dicts
+allocations + the inner summation loops that populated
+them. The per-Matrix-instance footprint is unchanged —
+__post_init__ materializes the projections once and stores
+them via object.__setattr__. (A future cleanup could swap
+the materialized fields for `@cached_property` to defer
+the build cost; today's call sites all read all three
+projections, so the laziness wouldn't save anything in
+practice.)
+
+**Δ.4 equivalence still holds.** Both build pipelines
+(`_compute_matrix_via_file_walk` and `compute_matrix_indexed`)
+go through the same `__post_init__`, so their outputs are
+guaranteed equivalent for the same per_chapter +
+edition_enabled_kinds inputs. Pinned by
+`test_delta4_equivalence_still_holds_post_psi35_final` in
+the new test class.
+
+**+6 tests** in `TestPsi35FinalProjectionsAutoDerived`:
+
+- `test_projection_fields_still_accessible` — API surface
+  pin: `m.enabled[ed]` / `m.potential[ed]` / `m.per_book[ed]`
+  still return dicts for every edition in the live matrix.
+- `test_projection_fields_are_init_false` — dataclass
+  shape pin: the three derived fields have `init=False`,
+  the three canonical-source fields have `init=True`.
+- `test_matrix_constructible_from_canonical_only` —
+  synthetic Matrix with only the canonical-source kwargs
+  builds and auto-derives the expected projections.
+- `test_disabled_kind_excluded_from_auto_derived_enabled` —
+  the disabled-kind contract holds: a kind in per_chapter
+  but NOT in edition_enabled_kinds is in `potential` but
+  not `enabled`.
+- `test_build_pipelines_no_longer_pass_projection_kwargs` —
+  source-scan of scripts/core/matrix.py + corpus_index.py
+  confirms `enabled=enabled,` / `potential=potential,` /
+  `per_book=per_book,` are absent from `Matrix(...)`
+  construction.
+- `test_delta4_equivalence_still_holds_post_psi35_final` —
+  the file-walk and indexed paths still produce equivalent
+  Matrix objects across all six fields after the migration.
+
+### Final session totals (post-ψ.35-Final)
+
+- **All 5 phase letter clusters touched this session**:
+  Δ (corpus index), ω (web.py file split + tooling),
+  ξ (security audit log surface), ψ (matrix collapse).
+  No phase letters newly introduced — every ship landed on
+  existing tracks per AUDIT_2026-05-11 §7.
+- web.py: **4564 → 4589 lines** (+25 for the B3 helper +
+  migration comments).
+- scripts/core/matrix.py: 339 → **438 lines** (+99 net:
+  accessor methods + `__post_init__` derivation logic +
+  docstring updates; partly offset by deleting the
+  pre-ψ.35-Final triple-nested build loop in
+  `_compute_matrix_via_file_walk`).
+- scripts/core/corpus_index.py: ~25 lines deleted from
+  `compute_matrix_indexed` (the inner projection-build
+  loop body).
+- scripts/matrix.py: 198 → 204 lines (+6 for migration
+  comments preserving original raw-field expressions).
+- Tests: 2211 passed + 1 skipped = **2212 collected**.
+- Linter: 11/11 clean.
+- Protected-paths guard: PASSES.
+
+### ψ.35 family — fully shipped
+
+The audit's ARCH-03 finding ("`compute_matrix()` 5
+projections → 1") is **resolved**. The Matrix dataclass
+has 6 fields total, 3 of which are now derived (init=False)
+from the 3 canonical-source fields. Consumer migration
+arc is complete (ψ.35-B1 through B4 + ψ.35-Final). No
+further ψ.35 sub-slices queued; the family is done.
+
+The "1/4 cache footprint" goal was partially achieved
+(build-site allocations dropped; per-instance footprint
+unchanged because __post_init__ still materializes the
+projections). A future `@cached_property` swap could
+defer per-instance materialization, but today's consumer
+mix (api_matrix reads all three projections) means the
+deferral wouldn't save anything; defer that optimization
+to a session where a new consumer profile makes it
+worthwhile.
+
+### Post-ψ.35-Final additions: memory refresh + §9 Δ-family
+
+After ψ.35-Final closed the ψ.35 family, four follow-on
+items from AUDIT_2026-05-11 §4 and §5 landed:
+
+**MEM-01 / MEM-02 / MEM-03 — memory refresh.** Three auto-
+memory files updated to reflect post-v1.0 reality:
+
+- `project_v1_terminus.md` — was framing v1.0 as the
+  upcoming terminus. v1.0 shipped 2026-05-10; corpus is
+  51K+ (≈2× the original 25K floor). Updated to "v1.0
+  shipped → v1.x trajectory" with the current Δ + ω.35-A/B
+  + ψ.35 family ships catalogued; v1.1 informal terminus =
+  ω.35-A/B + ψ.35 + one publisher-led uniqueness angle.
+- `project_ai_xrefs_unfunded.md` — was framing AI xrefs
+  as deferred-pending-funding. Funding gate lifted
+  2026-05-08; χ-AI-xrefs and χ-AI-notes infrastructure
+  both shipped. Updated to clarify that "more AI" =
+  content runs, not infra builds.
+- `reference_external_tools.md` — epubcheck was listed as
+  "briefed but not yet wired." It IS now wired (in the
+  preflight dashboard at `api_preflight()`'s `epubcheck`
+  check, via `scripts.core.epubcheck`). Updated.
+
+**MEM-NEW-02 — `feedback_audit_cadence.md` (new memory).**
+Codifies the trigger conditions for proactively suggesting
+a periodic self-audit (≥10 phases shipped in an arc, ≥150
+test-count drift, god-module split, ≥3 months without an
+audit). Lighter solo-Claude audit (2026-05-11 style), not
+the parallel-subagent sweep.
+
+**MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
+CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
+alternative for an expensive file-walk operation (the
+Δ-family pattern)"*. Documents:
+
+- The setup (expensive file-walk + 10× speedup target)
+- The 9-step shape (build-equiv → equivalence-test →
+  rebuild-lock → TTL fingerprint cache → invalidation hook
+  → per-worker storage → warmup → wire-flip-as-its-own-
+  phase → no-force=True convention)
+- The five infrastructure unblockers and the failure mode
+  each one eliminates (rebuild lock vs concurrent writes,
+  TTL cache vs xdist stat-storm, invalidation vs stale
+  reads, per-worker vs cross-worker race, warmup vs
+  cold-test race)
+- The four anti-patterns (premature wire-flip, deleting
+  the file-walk reference, force=True in equivalence
+  tests, shared SQLite path across workers)
+- Existing instances (Δ.4 / Δ.4.1 for compute_matrix;
+  Δ.5 / Δ.5.1 for dashboard_stats)
+
+Generic enough to apply to future index-backed
+optimizations on any other expensive operation (e.g. a
+future Δ-style phase for the `_compute_attribution_audit`
+file-walk if its cost ever becomes load-bearing).
+
+---
+
 ## 2026-05-11 — session — ω.35-B.6 exports/build extracted (seventh file-split slice)
 
 **Phases shipped:** ω.35-B.6. Four exports/build handlers

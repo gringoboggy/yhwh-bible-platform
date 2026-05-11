@@ -843,6 +843,274 @@ pattern.
    need surfacing through the schema + UI; reinventing them is the
    anti-pattern this rule guards against.
 
+### "Extract a topic cluster from a god-module into scripts/api/<topic>.py"
+
+Codified after the ω.35-B file-split track shipped eight instances
+(B.1 snapshots, B.2 scenarios, B.3a covers-mutations, B.3b sources-
+cache, B.4 customize, B.5 editions, B.6 exports/build, B.7 preflight
+/audit/help/multipart). Each slice reduced web.py by 70–1200 lines;
+cumulative 40.5% reduction (7670 → 4564 lines) with **zero** behavior
+change at any HTTP boundary.
+
+The same shape will recur when other god-modules need decomposing
+(`scripts/build_edition.py`, `scripts/prospect.py`, etc.). Follow
+this template; don't re-derive.
+
+**The shape:**
+
+1. **Identify a cohesive topic cluster.** A good slice is 3–10
+   handlers that share an HTTP prefix (`/api/snapshots/*`), a domain
+   concept (covers, sources, editions), or an internal helper graph
+   (preflight + its cache helpers). Mixing two unrelated topics in
+   one slice is the anti-pattern — split them.
+
+2. **Create `scripts/api/<topic>.py`** with:
+   - A module docstring naming the phase tag (ω.35-B.N), the handlers
+     moved, what stayed in web.py and why, and the lazy-import
+     pattern if applicable.
+   - `from __future__ import annotations` so future PEP-604 type
+     hints work on Python ≥ 3.10.
+   - Module-level imports for libraries that are guaranteed
+     non-circular (`config`, `audit_log`, `notes_io`, `pathlib`).
+   - **NEVER** top-import from `scripts.web` — that's the circular
+     hazard the lazy pattern is designed to dodge.
+
+3. **Move handler bodies verbatim.** Don't refactor in the same
+   commit as the extraction. Preserve every existing comment,
+   docstring, decorator, error message. The diff should read
+   "moved" not "rewrote." Behavior-changing improvements come in a
+   separate, smaller follow-up slice.
+
+4. **Lazy-import web.py-only dependencies inside the function body.**
+   `_files_signature`, `_save_cover_bytes`, `api_attribution_audit`,
+   etc., all stay in web.py for now. Their callers inside the
+   extracted module import them at call time, NOT at module load
+   time. This sidesteps the circular import that would otherwise
+   block the split.
+
+5. **Replace the inline defs in `scripts/web.py`** with a thin
+   re-import block:
+
+   ```python
+   # ============================================================
+   # <Topic> API (Phase <tag> / ω.35-B.N)
+   # ============================================================
+   # Implementation moved to scripts/api/<topic>.py.
+   # Re-imports below preserve scripts.web.api_X for route-table
+   # lambdas + tests that reference the flat namespace.
+   from scripts.api.<topic> import (  # noqa: E402
+       api_X,
+       api_Y,
+       ...
+   )
+   ```
+
+   Route tables (`_SIMPLE_GET_ROUTES`, `_PUT_ROUTES`, etc.) and the
+   legacy if/elif dispatch in `do_GET` / `do_POST` continue to
+   reference `api_X` by its flat name — the re-import preserves the
+   binding identity.
+
+6. **Add a `TestOmega35BN<Topic>Extraction` class** with this
+   uniform shape:
+   - `test_<topic>_module_exists` — `hasattr(scripts.api.<topic>,
+     "api_X")` for every moved name.
+   - `test_handlers_backward_compatible_via_web` — every name is
+     importable from `scripts.web` and callable.
+   - `test_handlers_actually_live_in_new_module` — `is`-identity
+     check between `scripts.web.api_X` and the canonical home, and
+     `__module__ == "scripts.api.<topic>"`. For audit-decorated
+     handlers, unwrap via `getattr(fn, "__wrapped__", fn)` before
+     reading `__module__`.
+   - `test_audit_decorator_preserved` — for every mutation handler
+     wearing `@audit_log.audit_endpoint`, pin the decorator is still
+     in place.
+   - `test_web_py_does_not_define_<topic>_handlers_inline` — source-
+     scan `scripts/web.py` for `def api_X(` and assert absence.
+   - `test_route_table_still_dispatches_<topic>` — if applicable,
+     pin that `_SIMPLE_GET_ROUTES` / `_PUT_ROUTES` / etc. still
+     points at the (re-imported) callables.
+
+7. **Cross-module retarget.** If other `scripts/api/*.py` modules
+   lazy-import the helpers you're moving from `scripts.web` (legacy
+   home), retarget them to the new canonical home in the same ship.
+   Add a test asserting the source contains the new import path,
+   not the old one — this prevents drift back.
+
+8. **Update `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`,
+   `dev/CHANGELOG.md`** with:
+   - Slice name (ω.35-B.N) and what moved
+   - Net line-count delta in web.py
+   - Cumulative delta across the track (so progress reads as a
+     trajectory, not a series of one-offs)
+   - Test count and linter status
+
+**Why this works:**
+- **Zero downtime / zero behavior change.** Route registration is
+  unchanged; the dispatcher resolves the same callable through the
+  re-import. Existing tests pass without modification (they import
+  from `scripts.web`).
+- **Tests stay co-located.** The extraction tests live in
+  `tests/test_scripts.py` next to the topic's existing tests, so
+  related coverage stays together.
+- **Lazy import sidesteps circularity.** `web.py` → `api/<topic>.py`
+  is one-way at module-load time; `api/<topic>.py` → `scripts.web`
+  is deferred until call time, by which point web.py is fully
+  loaded.
+
+**Anti-patterns:**
+
+- Rewriting a handler mid-extraction. Move first, refactor later —
+  the diff should be 100% movement so a regression is bisectable.
+- Top-importing `scripts.web` from `scripts/api/<topic>.py`. That
+  creates the circular import the lazy pattern dodges.
+- Mixing two topics in one slice. Split them; smaller slices ship
+  with smaller blast radius and clearer diffs.
+- Forgetting the `__wrapped__` unwrap in the `__module__` test for
+  audit-decorated handlers. The decorator wraps the function, so
+  the raw `fn.__module__` reads the decorator's module, not the
+  handler's.
+
+**Existing instances:** ω.35-B.1 through ω.35-B.7. After B.7 closed
+the file split for web.py, the pattern is durable enough to apply
+elsewhere; future invocations can label themselves with their own
+phase letter (the pattern is generic, not ω-only).
+
+### "Build an index-backed alternative for an expensive file-walk operation (the Δ-family pattern)"
+
+Codified after the ω.34/Δ-family arc shipped Δ.0 through Δ.9
+(2026-05-10 → 2026-05-11). The pattern recurred in two
+distinct operations (`compute_matrix` via Δ.4 and
+`dashboard_stats` via Δ.5) and the *infrastructure* slices
+(Δ.0, Δ.6, Δ.7, Δ.8, Δ.9) were collectively load-bearing —
+the wire-flip attempts kept reverting until all five unblockers
+were in place. Capture the shape so the next index-backed
+optimization doesn't re-derive each unblocker.
+
+**The setup:**
+
+The codebase has an expensive file-walk operation (a function
+that opens every `content/notes/*.py`, parses each, aggregates
+something across the corpus). It's correct, slow (~3s on 51K
+notes), and called frequently. An SQLite-indexed alternative
+would be ~10× faster but introduces multi-process / xdist
+correctness hazards that are easy to get wrong.
+
+**The shape:**
+
+1. **Build the equivalent function under a new name.** Don't
+   rename or replace the file-walk yet. Add
+   `<name>_indexed()` alongside `<name>()` in the same module,
+   plus an equivalence test that pins both produce
+   byte-identical output for the same inputs.
+
+2. **The equivalence test is non-negotiable.** Δ.4's
+   equivalence test caught the index path's first attempts
+   diverging on disabled-kind filtering, empty-edition
+   handling, and chapter-key dtype (int vs str). Skipping it
+   would have shipped buggy migrations to production.
+
+3. **A rebuild lock under `content/.locks/`** — the index is
+   shared across xdist workers in tests + threads in
+   production. Concurrent writes corrupt it. Use a file-based
+   lock (`<feature>_rebuild.lock`) with `_acquire_rebuild_lock(*,
+   timeout: float = 30.0)`. Pin TimeoutError-on-exceed with a
+   short timeout in tests (held-lock setup + 0.2s acquire ->
+   raises).
+
+4. **TTL fingerprint cache** — `_compute_fingerprint()` stats
+   every `notes/*.py` (87 files). On hot paths this hammers
+   the OS. Memoize keyed on a monotonic clock with a
+   configurable refresh interval (default 1s in production,
+   0s in tests for force-rebuild patterns). After this lands,
+   `connection()`'s rebuild check is a single dict-lookup in
+   steady state. Without this, EVERY wire-flip attempt
+   intermittently fails xdist because workers race to rebuild.
+
+5. **`notes_io` invalidation hook** — when a notes file is
+   rewritten by an editing tool, the index must invalidate so
+   the next reader rebuilds. Wire a callback in
+   `notes_io.atomic_write` that calls the index's
+   `invalidate()` method. Without this, edits during a test
+   run produce stale index reads and false-failing
+   equivalence assertions.
+
+6. **Per-worker index storage** — each xdist worker gets its
+   own SQLite file path. The naming convention is
+   `corpus_index_<worker_id>.sqlite` (worker_id = `gw0`,
+   `gw1`, ... for xdist; `_serial_` for non-xdist runs).
+   Per-worker storage prevents the cross-worker write race
+   that defeated wire-flip attempts #1-4.
+
+7. **Server warmup + session-scoped test fixture** — both
+   prod and test cold-start cases pay the first-rebuild cost.
+   In production, warmup happens at server boot (one-time).
+   In tests, a session-scoped `corpus_index_warmup` fixture
+   in `tests/conftest.py` builds the index before any test
+   runs. Without warmup, cold tests random-fail because the
+   first rebuild + an in-flight test write race on the lock.
+
+8. **Wire-flip in a separate phase.** Even with all
+   unblockers in place, the wire-flip is its own slice. The
+   public function (e.g. `compute_matrix()`) gets a one-line
+   change to call `compute_matrix_indexed()` instead of
+   `_compute_matrix_via_file_walk()`. The file-walk
+   implementation stays under its private name as the
+   equivalence-test reference. **Do not delete the file-walk
+   path** — it's the auditable "this is what the answer
+   should be" reference.
+
+9. **Test convention: no `force=True` in equivalence tests.**
+   The early Δ.3/Δ.4 tests called
+   `corpus_index.rebuild(force=True)` to deterministically
+   produce a fresh index. On Windows under xdist, that races
+   with other workers' cached connections (PermissionError
+   on `sqlite` unlink). The correct pattern is
+   `corpus_index.invalidate() + rebuild()` — same effect
+   without the race. Δ.5+ uses this convention; earlier tests
+   were retrofitted when Δ.6 shipped.
+
+**Why this needs all 5 infrastructure slices:**
+
+Each unblocker eliminates one failure mode. Skipping any one
+makes the wire-flip flaky:
+
+| Skip                     | Failure mode                          |
+|--------------------------|---------------------------------------|
+| (3) rebuild lock         | concurrent writes corrupt the index   |
+| (4) TTL fingerprint cache | 87 stat() calls per query → xdist storm |
+| (5) notes_io hook        | edits during test → stale index reads |
+| (6) per-worker storage   | cross-worker write race → SQLite lock |
+| (7) warmup fixture       | cold tests hit first-rebuild race    |
+
+A wire-flip attempted before all five land will hit one of
+these and revert. The Δ.4.1 wire-flip succeeded on attempt #5
+specifically because Δ.6/Δ.7/Δ.8/Δ.9 (the four infra slices)
++ the equivalence-test convention (no force=True) all landed
+first. Treat new index-backed optimizations the same way:
+**land every unblocker before flipping any wire.**
+
+**Existing instances:**
+- Δ.4 + Δ.4.1: file-walk `compute_matrix` → SQL-indexed
+  `compute_matrix_indexed`. Empirical: file-walk ~3.2s on
+  51K corpus, indexed ~263ms cold (~12× speedup); both
+  sub-millisecond after the parent-level `@lru_cache(maxsize=1)`
+  serves.
+- Δ.5 + Δ.5.1: same shape for `dashboard_stats`. TTL=1s caches
+  fingerprints between calls; same per-worker SQLite path
+  convention reused.
+
+**Anti-patterns:**
+
+- Wire-flipping before all five infrastructure unblockers
+  exist (you'll revert).
+- Deleting the file-walk reference implementation after the
+  wire flip (you lose the equivalence-test anchor — needed
+  for any future change to the index schema).
+- Using `force=True` in equivalence tests (Windows xdist
+  race; use `invalidate() + rebuild()` instead).
+- Sharing one SQLite path across xdist workers (cross-worker
+  write race; always per-worker).
+
 ## 10. What this project is NOT
 
 - Not a learning management system. Schools are an audience,

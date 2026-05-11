@@ -47,7 +47,6 @@ Exit codes:
 """
 
 import argparse
-import ast
 import re
 import sys
 from collections import Counter
@@ -144,28 +143,15 @@ def _presentational_tags(html: str) -> list[str]:
 
 
 # ----------------------------------------------------------------------
-# Note loading (AST, no exec)
+# Note loading — delegated to the canonical, LRU-cached loader.
+# (ARCH-04 / 2026-05-11) The byte-identical duplicate that lived here
+# pre-dated the consolidation work in β.2 + notes_io.load_notes; the
+# canonical loader uses ast.literal_eval (same safety guarantee) and
+# adds a `(path, mtime_ns)` LRU cache that the dashboard, citation
+# index, glossary, and 87-book sweep tools already rely on.
 # ----------------------------------------------------------------------
 
-
-def load_notes(path: Path):
-    """Extract NOTES from a notes file via ast.literal_eval. Returns:
-    list of tuples on success, None on parse error, [] on missing.
-    """
-    try:
-        text = path.read_text(encoding="utf-8")
-        tree = ast.parse(text)
-    except (SyntaxError, OSError):
-        return None
-    for node in tree.body:
-        if isinstance(node, ast.Assign):
-            for tgt in node.targets:
-                if isinstance(tgt, ast.Name) and tgt.id == "NOTES":
-                    try:
-                        return ast.literal_eval(node.value)
-                    except (ValueError, SyntaxError):
-                        return None
-    return []
+from scripts.core.notes_io import load_notes  # noqa: E402, F401
 
 
 # ----------------------------------------------------------------------

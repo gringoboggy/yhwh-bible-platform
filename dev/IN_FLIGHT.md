@@ -4,6 +4,229 @@
 
 ## Prior task
 
+**ω.35-B.7 preflight/audit/help/multipart extracted** shipped
+2026-05-11. Eighth and final file-split slice — closes
+ω.35-B. Three handler clusters + one helper pair extracted
+from `scripts/web.py` into four purpose-built modules:
+- `scripts/api/preflight.py` — `api_preflight`,
+  `_cached_preflight`, `_compute_preflight_uncached` (the
+  12-check readiness aggregator).
+- `scripts/api/help.py` — `api_help_data` + the
+  `_ROUTE_PATTERNS` / `_CONSOLE_PATTERNS` constants that
+  drive `/apihelp` route discovery.
+- `scripts/api/audit.py` — `api_audit_log` (clamps `n` to
+  [1, 1000]; composes `audit_log.read_recent`).
+- `scripts/api/multipart.py` — `_parse_multipart`,
+  `_extract_boundary` (RFC 7578 / 2046; SEC-002 + SEC-007
+  defensive caps preserved).
+
+**Net delta: -751 lines in web.py.** Cumulative B.1-B.7:
+**-3190 lines across 8 slices** (40.5% reduction from
+file-split start; web.py is now 4564 lines from 7670).
+
+### Cross-module retarget
+
+`scripts/api/covers.py` and `scripts/api/sources.py` both
+lazy-imported `_extract_boundary` + `_parse_multipart` from
+`scripts.web` (legacy home). Both retargeted to
+`scripts.api.multipart` (canonical home). Tests
+`test_covers_upload_handlers_target_new_multipart_home` and
+`test_sources_upload_handler_targets_new_multipart_home`
+pin the retarget.
+
+### State
+
+- 2171 / 2172 tests green (1 skipped, previously-flaky xdist
+  test `test_notes_io_load_notes_under_budget` passed on
+  this run)
+- 11/11 linter clean
+- Protected-paths guard PASSES (`tests/test_guard_self.py`
+  17/17)
+- Route inventory unchanged: 95 routes
+
+### Open follow-ups
+
+- ω.35-B is **closed**. The file-split track is done.
+- Per AUDIT_2026-05-11 §7 the natural next step is **ψ.35**
+  (matrix data-model collapse — 5 redundant projections →
+  1 canonical). It was held back behind the god-module debt;
+  now unblocked.
+- Optional small slice: ω.35-C "package __init__ exports"
+  if consumers should be able to `from scripts.api import
+  api_preflight` without reaching into per-topic modules.
+
+Net session test delta: **+252** (1919 baseline → 2171
+final after B.7). 35 phases shipped this session.
+
+### Follow-on work after B.7 (same session)
+
+1. **ARCH-04** — `note_quality.py` duplicate `load_notes`
+   replaced with re-import from canonical
+   `notes_io.load_notes`; `import ast` dropped. +1 pin test
+   in `TestNoteQuality`. Final count: **2172 passed + 1
+   skipped = 2173 collected**.
+2. **§9 codification** — CLAUDE_PROJECT_RULES gained the
+   "Extract a topic cluster from a god-module into
+   scripts/api/<topic>.py" mental model (8 steps + why +
+   4 anti-patterns). Codifies the 8-instance B.1-B.7
+   pattern as durable, doc-only.
+3. **PLAN §6 refresh + §5 banner** — original v1.0
+   5-session sequence marked shipped; post-v1.0 trajectory
+   recapped (web.py 7670 → 4564, -40.5%); live next-
+   session sequence seeded per AUDIT §7 (ψ.35 → PLAN-
+   REFRESH → ψ.36 → ω.36 → publisher uniqueness angle).
+   §5 has a drift-notice banner.
+
+### Bonus slice: ψ.35-A — Matrix accessor methods (after ARCH-04)
+
+Added 4 derive-from-canonical methods on `Matrix`
+(`enabled_count`, `potential_count`, `per_book_count`,
+`chapter_dist`) that compute every projection view from
+`per_chapter` + `edition_enabled_kinds`. The existing 6
+fields stay populated — zero consumer migration in this
+slice. **+9 tests** in `TestPsi35AAccessorMethods` pin
+equivalence between the methods and the stored projections
+across every (ed, kind, book) triple in the live matrix.
+
+### Bonus slice: ψ.35-B1 — Matrix CLI migration + dict accessors
+
+First **consumer migration** of the ψ.35 family. Added 2
+dict-returning accessors (`enabled_kinds_dict`,
+`potential_kinds_dict`) for whole-edition `{kind: count}`
+views, then migrated `scripts/matrix.py` (the CLI tool) —
+5 call sites moved from raw-field reads to the accessor
+API. Each migration line carries a `# ψ.35-B1 — was: …`
+comment preserving the original expression in source.
+
+**+7 tests** across two classes: `TestPsi35B1AccessorDicts`
+(5 equivalence pins for the new dict accessors) +
+`TestPsi35B1MatrixCLIMigration` (2 tests).
+
+### Bonus slice: ψ.35-B2 — Internal-helper consumer migrations
+
+Four of the five queued post-B1 targets migrated:
+
+- `scripts/web.py::_diff_edition_summary` (line 2878)
+- `scripts/web.py::_diff_kinds_section` (lines 2935-2936)
+- `scripts/api/exports.py::api_export_preview` (lines 48-49)
+- `scripts/api/preflight.py::_compute_preflight_uncached`
+  (line 249; iteration form via `m.edition_canon_books`)
+
+**+6 tests** in `TestPsi35B2InternalConsumerMigrations`:
+behavioral equivalence + source-scan anti-pattern + marker
+pins.
+
+### Bonus slice: ψ.35-B3 — api_matrix raw-read migration
+
+Final raw `m.enabled[ed]` / `m.potential[ed]` consumer
+migration. Extracted `_api_matrix_per_edition` helper;
+swapped iteration source from `m.enabled.keys()` to
+`m.edition_canon_books.keys()`. **JSON output byte-equal
+to pre-migration** (proven by `test_api_matrix_response_
+shape_unchanged`). `m.per_book.get(ed_id, {})` line 527
+deliberately deferred — needs a whole-edition
+`per_book_kinds_dict()` accessor.
+
+**+5 tests** in `TestPsi35B3ApiMatrixMigration`: full
+keyset + value equivalence across 9 editions; helper
+exported; anti-pattern + marker pins.
+
+### Bonus slice: ψ.35-B4 — per_book_kinds_dict + last raw read
+
+Closes out the last raw `m.per_book` consumer. Added third
+dict-returning accessor:
+`per_book_kinds_dict(ed) -> dict[kind, dict[book, count]]`
+deriving from `per_chapter` via per-(kind, book) summation
+across chapters. Migrated `scripts/web.py:527` (the
+`per_book` slot in `api_matrix`'s per-edition JSON output)
+from `m.per_book.get(ed_id, {})` to
+`m.per_book_kinds_dict(ed_id)`. **+6 tests** in
+`TestPsi35B4PerBookAccessor`.
+
+### ψ.35 consumer-migration arc — complete
+
+| Projection field | Production raw reads remaining |
+|---|---|
+| `m.enabled` | 0 |
+| `m.potential` | 0 |
+| `m.per_book` | 0 |
+| `m.per_chapter` | 1 — api_matrix per_chapter slot (canonical) |
+
+Every raw `m.enabled` / `m.potential` / `m.per_book` read
+in production code is now gone. Only `m.per_chapter` reads
+remain, and that field is the canonical store — it stays.
+
+### Bonus slice: ψ.35-Final — projection fields auto-derived
+
+The terminating slice. Made `enabled`, `potential`, and
+`per_book` fields `init=False` on the `Matrix` dataclass;
+added `__post_init__` that derives them from `per_chapter`
++ `edition_enabled_kinds` via the dict accessors. Both
+build pipelines (`_compute_matrix_via_file_walk` and
+`corpus_index.compute_matrix_indexed`) simplified: each
+~25-30 line projection-construction loop body deleted,
+since the derived dicts auto-materialize in __post_init__.
+
+**API surface preserved** — every existing consumer that
+does `m.enabled[ed]` continues working unchanged. Storage
+at the build site drops; per-Matrix-instance footprint
+unchanged (the projections still get materialized once,
+just in __post_init__ rather than the pipeline).
+
+**Δ.4 equivalence still holds** — both build pipelines now
+share the same __post_init__ derivation, so their outputs
+are guaranteed equivalent. Pinned by
+`test_delta4_equivalence_still_holds_post_psi35_final`.
+
+**+6 tests** in `TestPsi35FinalProjectionsAutoDerived`:
+API surface pin, dataclass shape pin (`init=False`
+verification), synthetic-Matrix construction with
+canonical-only kwargs, disabled-kind exclusion contract,
+build-pipeline kwarg removal source-scan, Δ.4 equivalence.
+
+### ψ.35 family — fully shipped
+
+The audit's ARCH-03 finding ("`compute_matrix()` 5
+projections → 1") is resolved. Consumer migration arc
+(ψ.35-A → B1 → B2 → B3 → B4) and field-derivation arc
+(ψ.35-Final) are both complete. No further ψ.35 sub-slices
+queued.
+
+### Post-ψ.35-Final additions: memory refresh + Δ-family codification
+
+After ψ.35-Final closed, four AUDIT-queued items landed
+(all doc-only, low-risk, well within the night's scope):
+
+- **MEM-01/02/03 memory refresh** — `project_v1_terminus.md`
+  (v1.0 shipped → v1.x trajectory), `project_ai_xrefs_unfunded.md`
+  (infra shipped, content-runs only now), `reference_external_tools.md`
+  (epubcheck now wired). Memory index in MEMORY.md updated
+  in parallel.
+- **MEM-NEW-02 audit cadence** — new `feedback_audit_cadence.md`
+  memory codifying when to proactively suggest a self-audit
+  (≥10 phases shipped / ≥150 test drift / god-module split /
+  ≥3 months).
+- **MEM-NEW-01 Δ-family §9 codification** — new
+  CLAUDE_PROJECT_RULES §9 mental-model section *"Build an
+  index-backed alternative for an expensive file-walk
+  operation (the Δ-family pattern)"*. 9-step shape + 5
+  infrastructure unblockers + 4 anti-patterns + existing
+  Δ.4/4.1/5/5.1 instances.
+
+**Final state for this session: 2211 passed + 1 skipped =
+2212 collected; 11/11 linter clean; protected-paths guard
+PASSES.**
+
+AUDIT_2026-05-11 §7 sequence: ω.35-B.6 ✓ → **ω.35-B.7 ✓**
+(closes file split) → ARCH-04 ✓ + §9 codify ✓ + §6 refresh
+✓ → **ψ.35-A ✓** → **ψ.35-B1 ✓** → **ψ.35-B2 ✓** →
+**ψ.35-B3 ✓** → **ψ.35-B4 ✓** → **ψ.35-Final ✓** (ψ.35
+fully shipped) → publisher-led uniqueness angle
+(ψ.37 / θ.6 / χ-AI-rag) → ψ.36 matrix lazy-load endpoint
+(200K-note ceiling lift).
+
+## Prior task
+
 **ω.35-B.6 exports/build extracted** shipped 2026-05-11.
 Seventh file-split slice. 4 handlers (api_export_preview,
 api_export_build, api_build_all_editions, api_download_

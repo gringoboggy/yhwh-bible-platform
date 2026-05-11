@@ -79,24 +79,165 @@ class Matrix:
     kind in canon, regardless of enabled toggles) so the JS can
     drill down from a kind row into its chapter distribution
     without a server round-trip.
+
+    ψ.35-A (2026-05-11) — `per_chapter` is the **canonical store**.
+    The accessor methods below (`enabled_count`, `potential_count`,
+    `per_book_count`, `chapter_dist`, `enabled_kinds_dict`,
+    `potential_kinds_dict`, `per_book_kinds_dict`) derive every
+    view from `per_chapter` + `edition_enabled_kinds`.
+
+    ψ.35-Final (2026-05-11) — `enabled`, `potential`, and
+    `per_book` are now ``init=False`` and **derived in
+    ``__post_init__``** from `per_chapter` + `edition_enabled_kinds`.
+    The caller no longer passes them in; both build pipelines
+    (`_compute_matrix_via_file_walk` and
+    `corpus_index.compute_matrix_indexed`) were simplified to stop
+    building those three dicts. Storage at the build site drops
+    accordingly; the per-Matrix-instance footprint is unchanged
+    (the projections still get materialized once, in __post_init__,
+    so existing consumers that do ``m.enabled[ed]`` keep working
+    unchanged). A future slice could swap the materialized fields
+    for `@cached_property` to defer the build cost; today's call
+    sites all read all three projections, so the laziness wouldn't
+    save anything in practice.
     """
 
-    enabled: dict[str, dict[str, int]] = field(default_factory=dict)  # ed → kind → count
-    potential: dict[str, dict[str, int]] = field(default_factory=dict)  # ed → kind → count
+    # ψ.35-Final: caller passes these three "canonical-source"
+    # fields. The three derived projections below are computed in
+    # __post_init__.
     edition_canon_books: dict[str, set[str]] = field(default_factory=dict)  # ed → set[book_code]
     edition_enabled_kinds: dict[str, set[str]] = field(default_factory=dict)  # ed → set[kind_code]
+    # ψ.18.1: ed → kind → book → chapter → count.
+    # Same scope as per_book; chapters with zero notes-of-this-kind
+    # are absent. Chapter keys are ints in Python; JSON serialization
+    # promotes them to strings (the JS sidebar handles either).
+    # ψ.35-A: this is the canonical store the accessor methods read.
+    per_chapter: dict[str, dict[str, dict[str, dict[int, int]]]] = field(default_factory=dict)
+
+    # ψ.35-Final: derived projections (init=False; computed in
+    # __post_init__ from per_chapter + edition_enabled_kinds).
+    # Kept as data attributes so existing consumers that do
+    # ``m.enabled[ed]`` continue working without method-call rewrites.
+    enabled: dict[str, dict[str, int]] = field(default_factory=dict, init=False)  # ed → kind → count
+    potential: dict[str, dict[str, int]] = field(default_factory=dict, init=False)  # ed → kind → count
     # ψ.18: ed → kind → book → count.
     # Scope mirrors `potential` (any kind that has notes in canon —
     # NOT filtered by enabled state) so the matrix UI's JS can sum
     # across LOCAL_ENABLED for a live count that reflects pending
     # toggles. Only books that have notes-of-this-kind appear; books
     # with zero notes-of-this-kind are absent (not stored as 0).
-    per_book: dict[str, dict[str, dict[str, int]]] = field(default_factory=dict)
-    # ψ.18.1: ed → kind → book → chapter → count.
-    # Same scope as per_book; chapters with zero notes-of-this-kind
-    # are absent. Chapter keys are ints in Python; JSON serialization
-    # promotes them to strings (the JS sidebar handles either).
-    per_chapter: dict[str, dict[str, dict[str, dict[int, int]]]] = field(default_factory=dict)
+    per_book: dict[str, dict[str, dict[str, int]]] = field(default_factory=dict, init=False)
+
+    def __post_init__(self):
+        # ψ.35-Final: derive the three projection fields from
+        # per_chapter + edition_enabled_kinds. Frozen dataclass
+        # mutation requires object.__setattr__.
+        #
+        # Shape contract: every edition declared in
+        # `edition_canon_books` MUST appear as a top-level key in
+        # each projection, even if its derived dict is empty (no
+        # notes / no enabled kinds). This matches the pre-ψ.35-Final
+        # build pipelines, which seeded `{ed: {} for ed in editions}`
+        # then populated. Tests + the matrix UI rely on the keyset
+        # being the full edition list, not just editions with data.
+        editions = set(self.edition_canon_books) | set(self.per_chapter)
+        object.__setattr__(self, "potential", {ed: self.potential_kinds_dict(ed) for ed in editions})
+        object.__setattr__(self, "enabled", {ed: self.enabled_kinds_dict(ed) for ed in editions})
+        object.__setattr__(self, "per_book", {ed: self.per_book_kinds_dict(ed) for ed in editions})
+
+    # ψ.35-A — derive-from-canonical accessor methods. Future ψ.35
+    # follow-on slices migrate consumers (15+ web.py call sites)
+    # from raw-field reads (`m.enabled[ed][kind]`) to method calls
+    # (`m.enabled_count(ed, kind)`); ψ.35-Final removes the
+    # redundant projection fields.
+    # ------------------------------------------------------------------
+
+    def enabled_count(self, ed: str, kind: str) -> int:
+        """Notes of ``kind`` that would ship in edition ``ed`` (kind
+        filter applied). Returns 0 if the kind is disabled for the
+        edition. Equivalent to ``self.enabled.get(ed, {}).get(kind, 0)``
+        but derives from ``per_chapter`` + ``edition_enabled_kinds`` —
+        the two non-redundant fields."""
+        if kind not in self.edition_enabled_kinds.get(ed, set()):
+            return 0
+        return self.potential_count(ed, kind)
+
+    def potential_count(self, ed: str, kind: str) -> int:
+        """Notes of ``kind`` in ``ed``'s canon, ignoring the kind filter.
+        Equivalent to ``self.potential.get(ed, {}).get(kind, 0)``.
+        Derives from ``per_chapter``."""
+        chapter_dicts = self.per_chapter.get(ed, {}).get(kind, {})
+        return sum(sum(chap.values()) for chap in chapter_dicts.values())
+
+    def per_book_count(self, ed: str, kind: str, book: str) -> int:
+        """Notes of ``kind`` for one ``book`` in ``ed``'s canon.
+        Equivalent to ``self.per_book.get(ed, {}).get(kind, {}).get(book, 0)``.
+        Derives from ``per_chapter``."""
+        return sum(self.per_chapter.get(ed, {}).get(kind, {}).get(book, {}).values())
+
+    def chapter_dist(self, ed: str, kind: str, book: str) -> dict[int, int]:
+        """``{chapter: count}`` for one ``(ed, kind, book)`` triple.
+        Equivalent to ``self.per_chapter.get(ed, {}).get(kind, {}).get(book, {})``
+        with a defensive copy so callers can't mutate the cached
+        matrix. Reads ``per_chapter`` directly (it IS the canonical
+        store)."""
+        return dict(self.per_chapter.get(ed, {}).get(kind, {}).get(book, {}))
+
+    # ψ.35-B1 — dict-returning accessors for whole-edition views.
+    # Consumers that need a ``{kind: count}`` map (e.g. for JSON
+    # serialization or sum-across-all-kinds) call these instead of
+    # reading ``self.enabled[ed]`` / ``self.potential[ed]`` directly.
+
+    def enabled_kinds_dict(self, ed: str) -> dict[str, int]:
+        """``{kind_code: count}`` for every kind enabled in ``ed``.
+        Equivalent to ``self.enabled.get(ed, {})``. Derives from
+        ``per_chapter`` + ``edition_enabled_kinds``; only kinds with
+        a non-zero count appear (matching the stored projection's
+        shape — zero-count kinds are absent, not stored as 0)."""
+        enabled_kinds = self.edition_enabled_kinds.get(ed, set())
+        out: dict[str, int] = {}
+        for kind, by_book in self.per_chapter.get(ed, {}).items():
+            if kind not in enabled_kinds:
+                continue
+            total = sum(sum(chap.values()) for chap in by_book.values())
+            if total > 0:
+                out[kind] = total
+        return out
+
+    def potential_kinds_dict(self, ed: str) -> dict[str, int]:
+        """``{kind_code: count}`` for every kind with notes in ``ed``'s
+        canon (kind filter ignored). Equivalent to
+        ``self.potential.get(ed, {})``. Derives from ``per_chapter``;
+        only kinds with a non-zero count appear (matching the stored
+        projection's shape)."""
+        out: dict[str, int] = {}
+        for kind, by_book in self.per_chapter.get(ed, {}).items():
+            total = sum(sum(chap.values()) for chap in by_book.values())
+            if total > 0:
+                out[kind] = total
+        return out
+
+    # ψ.35-B4 — third dict accessor: whole-edition per-book view.
+    # The JSON shape consumed by the matrix sidebar UI (api_matrix's
+    # per_book field) needs the full ``{kind: {book: count}}`` nested
+    # map. Derives from per_chapter via summation across chapters.
+
+    def per_book_kinds_dict(self, ed: str) -> dict[str, dict[str, int]]:
+        """``{kind_code: {book_code: count}}`` for every kind in ``ed``'s
+        canon. Equivalent to ``self.per_book.get(ed, {})``. Derives
+        from ``per_chapter`` via per-(kind, book) summation across
+        chapters. Only (kind, book) pairs with non-zero counts appear
+        (matching the stored ``per_book`` projection's shape)."""
+        out: dict[str, dict[str, int]] = {}
+        for kind, by_book in self.per_chapter.get(ed, {}).items():
+            kind_dict: dict[str, int] = {}
+            for book, chap_dict in by_book.items():
+                n = sum(chap_dict.values())
+                if n > 0:
+                    kind_dict[book] = n
+            if kind_dict:
+                out[kind] = kind_dict
+        return out
 
 
 # ----------------------------------------------------------------------
@@ -261,16 +402,14 @@ def _compute_matrix_via_file_walk() -> Matrix:
         edition_canon[ed_id] = _canon_books_for_edition(ed, canons)
         edition_enabled[ed_id] = _enabled_kinds_for_edition(ed, kinds)
 
-    # Read each book's notes ONCE; distribute counts to every edition
-    enabled: dict[str, dict[str, int]] = {ed["id"]: {} for ed in editions}
-    potential: dict[str, dict[str, int]] = {ed["id"]: {} for ed in editions}
-    # ψ.18: per-edition, per-kind, per-book counts (potential scope —
-    # every kind, every book in canon, regardless of edition's
-    # enabled-kind toggles). The JS sidebar sums across the user's
-    # LOCAL_ENABLED so toggles affect counts live without re-fetching.
-    per_book: dict[str, dict[str, dict[str, int]]] = {ed["id"]: {} for ed in editions}
-    # ψ.18.1: third level — per-chapter breakdown. Same scope; lets
-    # the sidebar drill from a kind row into chapter distribution.
+    # ψ.35-Final: only `per_chapter` is built here. The three
+    # derived projections (`enabled`, `potential`, `per_book`) are
+    # computed in Matrix.__post_init__ from per_chapter +
+    # edition_enabled_kinds. The pre-ψ.35-Final build did 3 extra
+    # per-book/per-kind summation loops here; those are now folded
+    # into the dataclass's post-init step. Every edition still gets
+    # a top-level entry in per_chapter (even empty editions) to
+    # preserve the keyset contract.
     per_chapter: dict[str, dict[str, dict[str, dict[int, int]]]] = {ed["id"]: {} for ed in editions}
 
     for book in books:
@@ -283,28 +422,17 @@ def _compute_matrix_via_file_walk() -> Matrix:
             ed_id = ed["id"]
             if code not in edition_canon[ed_id]:
                 continue
-            # potential = all of this book's notes in canon scope
             for kind_code, n in per_kind.items():
-                potential[ed_id][kind_code] = potential[ed_id].get(kind_code, 0) + n
-                # ψ.18: per-book breakdown for every kind in canon
-                per_book[ed_id].setdefault(kind_code, {})[code] = n
                 # ψ.18.1: per-chapter breakdown; copy to detach from
                 # the helper's local dict so future calls can't mutate
                 # cached state.
                 chap_counts = per_kind_chapters.get(kind_code)
                 if chap_counts:
                     per_chapter[ed_id].setdefault(kind_code, {})[code] = dict(chap_counts)
-            # enabled = filtered down to active kinds (totals only)
-            for kind_code, n in per_kind.items():
-                if kind_code in edition_enabled[ed_id]:
-                    enabled[ed_id][kind_code] = enabled[ed_id].get(kind_code, 0) + n
 
     return Matrix(
-        enabled=enabled,
-        potential=potential,
         edition_canon_books=edition_canon,
         edition_enabled_kinds=edition_enabled,
-        per_book=per_book,
         per_chapter=per_chapter,
     )
 

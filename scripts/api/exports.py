@@ -45,8 +45,12 @@ def api_export_preview(edition_id: str) -> dict:
     edition = eds[edition_id]
 
     m = matrix_mod.compute_matrix()
-    enabled = m.enabled.get(edition_id, {})
-    potential = m.potential.get(edition_id, {})
+    # ψ.35-B2 — was: `m.enabled.get(edition_id, {})` / `m.potential.get(edition_id, {})`.
+    # `enabled_kinds_dict` / `potential_kinds_dict` derive from the
+    # canonical per_chapter store and isolate this consumer from the
+    # upcoming projection-field removal in ψ.35-Final.
+    enabled = m.enabled_kinds_dict(edition_id)
+    potential = m.potential_kinds_dict(edition_id)
     canon_books = m.edition_canon_books.get(edition_id, set())
     enabled_kinds = m.edition_enabled_kinds.get(edition_id, set())
 

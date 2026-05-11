@@ -11,11 +11,11 @@ Out of scope for B.3a (still in web.py):
   (_cached_covers, _compute_covers_uncached, _files_signature).
   A future B.3a.1 may absorb it once the cache-layer dependencies
   are factored out.
-- Internal helpers `_extract_boundary`, `_parse_multipart`,
-  `_save_cover_bytes` — shared with `api_sources_cache_upload`
-  (still in web.py until B.3b). Moving them now would create a
-  multi-call-site change with no isolation benefit; defer to a
-  helper-consolidation slice when sources lands.
+- Internal helper `_save_cover_bytes` — still in web.py (close to
+  the _files_signature / _notes_dir_signature cache layer and the
+  validate-then-write upload pipeline). Multipart helpers
+  `_extract_boundary` / `_parse_multipart` were moved to
+  `scripts.api.multipart` in ω.35-B.7.
 
 Lazy import pattern: the 4 handlers below lazy-import from
 `scripts.web` inside their function bodies, NOT at module top.
@@ -39,7 +39,8 @@ from scripts.core import audit_log
 @audit_log.audit_endpoint(action="upload_cover_main")
 def api_upload_cover_main(edition_id: str, body: bytes, content_type: str) -> dict:
     """Phase π.4-B — upload a main cover for one edition."""
-    from scripts.web import _extract_boundary, _parse_multipart, _save_cover_bytes
+    from scripts.api.multipart import _extract_boundary, _parse_multipart
+    from scripts.web import _save_cover_bytes
 
     boundary = _extract_boundary(content_type)
     if boundary is None:
@@ -54,7 +55,8 @@ def api_upload_cover_main(edition_id: str, body: bytes, content_type: str) -> di
 @audit_log.audit_endpoint(action="upload_cover_book")
 def api_upload_cover_book(edition_id: str, book_code: str, body: bytes, content_type: str) -> dict:
     """Phase π.4-B — upload a per-book cover."""
-    from scripts.web import _extract_boundary, _parse_multipart, _save_cover_bytes
+    from scripts.api.multipart import _extract_boundary, _parse_multipart
+    from scripts.web import _save_cover_bytes
 
     boundary = _extract_boundary(content_type)
     if boundary is None:

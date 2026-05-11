@@ -1,6 +1,145 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-B.6 exports/build
+**Updated:** 2026-05-11, after **ω.35-B.7 preflight/audit/
+help/multipart extracted** shipped — eighth and final
+file-split slice. **Closes ω.35-B.** Three handler clusters
++ one helper pair moved from scripts/web.py to four new
+purpose-built modules:
+- `scripts/api/preflight.py` — api_preflight,
+  _cached_preflight, _compute_preflight_uncached (the
+  12-check readiness aggregator)
+- `scripts/api/help.py` — api_help_data + _ROUTE_PATTERNS /
+  _CONSOLE_PATTERNS constants that drive /apihelp route
+  discovery
+- `scripts/api/audit.py` — api_audit_log (clamps n; composes
+  audit_log.read_recent)
+- `scripts/api/multipart.py` — _parse_multipart,
+  _extract_boundary (RFC 7578 / 2046; SEC-002 + SEC-007
+  caps preserved)
+
+Net delta: **-751 lines in web.py**. Cumulative B.1-B.7:
+**-3190 lines across 8 slices (40.5% reduction)**.
+**scripts/web.py is now 4564 lines** (from 7670 at file-split
+start). The god-module debt is **resolved**.
+
+`scripts/api/covers.py` + `scripts/api/sources.py` lazy
+imports of multipart helpers retargeted from `scripts.web`
+(legacy) to `scripts.api.multipart` (canonical).
+
+**+19 tests** in TestOmega35B7PreflightExtraction: 4
+module-existence checks, backward-compat via web.py
+re-imports, canonical-home identity + __module__ check,
+preflight end-to-end (≥10 checks; summary balanced), apihelp
+end-to-end (≥40 routes), audit_log end-to-end + n clamping
+([1, 1000] + non-int fallback), multipart round-trip (PNG
+part decode), _extract_boundary reject oversized/non-ASCII/
+missing, covers + sources retarget pins, no inline defs in
+web.py + no inline _ROUTE_PATTERNS / _CONSOLE_PATTERNS,
+_SIMPLE_GET_ROUTES + _QS_REGEX_GET_ROUTES still dispatch the
+re-imported callables.
+
+**After B.7 closed, three follow-on items shipped same
+session** off AUDIT_2026-05-11: (a) ARCH-04 — duplicate
+`load_notes` in `scripts/note_quality.py` replaced with
+re-import from canonical `notes_io.load_notes` (+1 test
+pin so it can't drift back); (b) CLAUDE_PROJECT_RULES §9
+gained a new mental-model section codifying the 8-instance
+ω.35-B topic-split pattern (8 steps + why-this-works +
+4 anti-patterns); (c) PLAN §6 refreshed to mark the
+original v1.0 5-session sequence as shipped, recap the
+post-v1.0 trajectory through B.7 (40.5% web.py reduction
+milestone), and seed the live AUDIT_2026-05-11 §7
+sequence; §5 got a drift-notice banner directing readers
+to §7 + CHANGELOG before scoping any "Status: open" entry.
+
+**Then ψ.35-A shipped (the audit's ARCH-03 foundation):** 4
+derive-from-canonical accessor methods on `Matrix` —
+`enabled_count`, `potential_count`, `per_book_count`,
+`chapter_dist` — compute every projection view from
+`per_chapter` + `edition_enabled_kinds`. Existing 6 fields
+stay populated for back-compat; zero consumer migration in
+this slice. +9 tests in `TestPsi35AAccessorMethods` pin
+equivalence across every (ed, kind, book) triple in the live
+matrix. Future ψ.35 follow-on slices migrate 15+ web.py
+consumers; ψ.35-Final removes the redundant projections.
+
+**Then ψ.35-B1 shipped** — first consumer-migration slice
+of the ψ.35 family. Added 2 dict-returning accessors
+(`enabled_kinds_dict`, `potential_kinds_dict`) for whole-
+edition views, then migrated `scripts/matrix.py` (CLI tool):
+5 raw-field reads replaced with the accessor API. Each
+migrated line carries a `# ψ.35-B1 — was: …` comment
+preserving the original expression. **+7 tests**.
+
+**Then ψ.35-B2 shipped** — 4 internal-helper consumers
+migrated: `_diff_edition_summary`, `_diff_kinds_section`,
+`api_export_preview`, and the preflight kind-utilization
+iteration. **+6 tests**.
+
+**Then ψ.35-B3 shipped** — `api_matrix` migration:
+extracted `_api_matrix_per_edition` helper; JSON output
+byte-equal to pre-migration. **+5 tests**.
+
+**Then ψ.35-B4 shipped** — last raw `m.per_book` consumer
+migrated; `per_book_kinds_dict` accessor added. **+6 tests**.
+
+**Then ψ.35-Final shipped** — the terminating slice of the
+ψ.35 family. Made `enabled`, `potential`, and `per_book`
+fields `init=False` on `Matrix`; added `__post_init__`
+that derives them from `per_chapter` +
+`edition_enabled_kinds` via the dict accessors. Both build
+pipelines (`_compute_matrix_via_file_walk` and
+`corpus_index.compute_matrix_indexed`) simplified: each
+~25-30 line projection-construction loop body deleted.
+**API surface preserved** — every consumer doing
+`m.enabled[ed]` continues working unchanged. **Δ.4
+equivalence still holds** (both pipelines share the same
+__post_init__ derivation). **+6 tests** in
+`TestPsi35FinalProjectionsAutoDerived`.
+
+### ψ.35 family — fully shipped
+
+The audit's ARCH-03 finding ("`compute_matrix()` 5
+projections → 1") is **resolved**. The Matrix dataclass
+has 6 fields total, 3 of which are now derived
+(init=False) from the 3 canonical-source fields. Consumer
+migration arc (ψ.35-A → B1 → B2 → B3 → B4) and
+field-derivation arc (ψ.35-Final) are both complete.
+
+### Post-ψ.35-Final additions
+
+After ψ.35-Final closed, four AUDIT-queued items landed:
+**MEM-01/02/03 memory refresh** (v1_terminus updated to
+v1.0-shipped framing; ai_xrefs marked as infra-shipped;
+external_tools updated to note epubcheck is wired).
+**MEM-NEW-02 audit cadence** new memory codifying when
+to proactively suggest a self-audit. **MEM-NEW-01 Δ-family
+§9 codification** new CLAUDE_PROJECT_RULES §9 mental model
+documenting the index-backed-alternative pattern (9-step
+shape + 5 infrastructure unblockers + 4 anti-patterns +
+existing Δ.4/4.1/5/5.1 instances).
+
+**2211 / 2212 tests green (1 skipped); 11/11 linter clean;
+protected-paths guard PASSES (tests/test_guard_self.py
+17/17).** Net session test delta: **+293** (1919 baseline →
+2211 final). 43 phases shipped this session: Δ.5-9, Δ.4.1,
+Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10,
+ω.35-B.1, ω.35-B.2, ω.35-B.3a, ω.35-B.3b, ω.35-B.4, ω.35-B.5,
+ω.35-B.6, ω.35-B.7, ARCH-04, **ψ.35-A**, **ψ.35-B1**,
+**ψ.35-B2**, **ψ.35-B3**, **ψ.35-B4**, **ψ.35-Final**, plus
+guard + AI proposal + landscape proposal + ω.37 + covers
+pack + icon pack + favicon wire + §9 codification + §6
+PLAN refresh.
+
+AUDIT §7 sequence: ω.35-B.6 ✓ → **ω.35-B.7 ✓** (closes file
+split) → ARCH-04 ✓ + §9 codify ✓ + §6 refresh ✓ →
+**ψ.35-A ✓** → **ψ.35-B1 ✓** → **ψ.35-B2 ✓** →
+**ψ.35-B3 ✓** → **ψ.35-B4 ✓** → **ψ.35-Final ✓** (ψ.35
+family fully shipped) → publisher-led uniqueness angle
+(ψ.37 / θ.6 / χ-AI-rag) → ψ.36 matrix lazy-load endpoint
+(200K-note ceiling lift).
+
+Prior ship in same session: **ω.35-B.6 exports/build
 extracted** shipped — seventh file-split slice. 4 handlers
 (api_export_preview, api_export_build, api_build_all_editions,
 api_download_export) + EXPORTS_DIR constant moved from
@@ -25,15 +164,7 @@ scripts.api.exports.EXPORTS_DIR (B.3b-class fix); 1
 source-scan test now checks both candidate locations.
 **2151 / 2152 tests pass (1 skipped, 1 known xdist flake
 test_notes_io_load_notes_under_budget passes in isolation);
-11/11 linter clean; protected-paths guard PASSES.** Net
-session test delta: **+233** (1919 baseline → 2152 final).
-34 phases shipped this session: Δ.5-9, Δ.4.1, Δ.7, Δ.2.1,
-Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1, ω.35-
-B.2, ω.35-B.3a, ω.35-B.3b, ω.35-B.4, ω.35-B.5, ω.35-B.6, plus
-guard + AI proposal + landscape proposal + ω.37 + covers
-pack + icon pack + favicon wire. AUDIT §7 sequence: ω.35-B.6
-✓ → **ω.35-B.7** preflight/audit/help (final B-track slice;
-closes the file split).
+11/11 linter clean; protected-paths guard PASSES.**
 
 Prior ship in same session: **Icon pack ingest + /favicon.ico
 route wired** shipped. Publisher delivered a

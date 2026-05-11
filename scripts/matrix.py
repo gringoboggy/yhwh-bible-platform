@@ -68,7 +68,8 @@ def _category_table(m: matrix.Matrix, editions: list[dict], categories: list[dic
     delta_row = f"  {DIM}{'(filtered out)':<22}{RESET}"
     for ed_id in ed_ids:
         enabled = matrix.total_for_edition(ed_id)
-        potential = sum(m.potential[ed_id].values())
+        # ψ.35-B1 — was: sum(m.potential[ed_id].values())
+        potential = sum(m.potential_kinds_dict(ed_id).values())
         delta = potential - enabled
         delta_row += f" {DIM}{f'+{delta}' if delta else '·':>9}{RESET}"
     print(delta_row)
@@ -104,8 +105,10 @@ def _kind_table(m: matrix.Matrix, editions: list[dict], kinds: list[dict]) -> No
             kind_code = k["code"]
             row = f"    {kind_code:<24}"
             for ed_id in ed_ids:
-                enabled = m.enabled[ed_id].get(kind_code, 0)
-                potential = m.potential[ed_id].get(kind_code, 0)
+                # ψ.35-B1 — was: m.enabled[ed_id].get(kind_code, 0)
+                enabled = m.enabled_count(ed_id, kind_code)
+                # ψ.35-B1 — was: m.potential[ed_id].get(kind_code, 0)
+                potential = m.potential_count(ed_id, kind_code)
                 if enabled > 0:
                     row += f" {GREEN}{enabled:>9,}{RESET}"
                 elif potential > 0:
@@ -131,8 +134,12 @@ def _edition_detail(edition_id: str) -> None:
         sys.exit(2)
 
     m = matrix.compute_matrix()
-    enabled = m.enabled[edition_id]
-    potential = m.potential[edition_id]
+    # ψ.35-B1 — was: m.enabled[edition_id] / m.potential[edition_id].
+    # Method-derived dicts are equivalent (per TestPsi35B1AccessorDicts
+    # equivalence pin) and isolate this CLI from the upcoming
+    # projection-field removal in ψ.35-Final.
+    enabled = m.enabled_kinds_dict(edition_id)
+    potential = m.potential_kinds_dict(edition_id)
     canon_books = m.edition_canon_books[edition_id]
     enabled_kinds = m.edition_enabled_kinds[edition_id]
     total_enabled = sum(enabled.values())

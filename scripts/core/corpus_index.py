@@ -978,41 +978,30 @@ def compute_matrix_indexed():
         edition_canon[ed_id] = _canon_books_for_edition(ed, canons)
         edition_enabled[ed_id] = _enabled_kinds_for_edition(ed, kinds_def)
 
-    enabled: dict[str, dict[str, int]] = {ed["id"]: {} for ed in editions}
-    potential: dict[str, dict[str, int]] = {ed["id"]: {} for ed in editions}
-    per_book: dict[str, dict[str, dict[str, int]]] = {ed["id"]: {} for ed in editions}
+    # ψ.35-Final: only `per_chapter` is built here. The three
+    # derived projections (`enabled`, `potential`, `per_book`) are
+    # computed in Matrix.__post_init__ from per_chapter +
+    # edition_enabled_kinds. Same simplification applied to the
+    # file-walk reference path in `scripts/core/matrix.py`.
     per_chapter: dict[str, dict[str, dict[str, dict[int, int]]]] = {ed["id"]: {} for ed in editions}
 
     # For each book in each edition's canon, distribute that book's
-    # (kind, chapter) counts into the projections. This mirrors the
-    # file-walk implementation's structure exactly.
-    for book, by_kind in book_kind_totals.items():
+    # per-chapter counts into per_chapter.
+    for book in book_kind_totals:
         for ed in editions:
             ed_id = ed["id"]
             if book not in edition_canon[ed_id]:
                 continue
             chapter_grid = grid.get(book, {})
-            for kind_code, n in by_kind.items():
-                # potential = ed-canon + every kind
-                potential[ed_id][kind_code] = potential[ed_id].get(kind_code, 0) + n
-                # per_book = ed-canon + every kind, per book
-                per_book[ed_id].setdefault(kind_code, {})[book] = n
-                # per_chapter = ed-canon + every kind, per book, per chapter
-                chap_counts = chapter_grid.get(kind_code)
+            for kind_code, chap_counts in chapter_grid.items():
                 if chap_counts:
                     # Copy to detach from grid (matches file-walk's
                     # `dict(chap_counts)` defensive-copy contract).
                     per_chapter[ed_id].setdefault(kind_code, {})[book] = dict(chap_counts)
-                # enabled = potential filtered by edition.enabled_kinds
-                if kind_code in edition_enabled[ed_id]:
-                    enabled[ed_id][kind_code] = enabled[ed_id].get(kind_code, 0) + n
 
     return Matrix(
-        enabled=enabled,
-        potential=potential,
         edition_canon_books=edition_canon,
         edition_enabled_kinds=edition_enabled,
-        per_book=per_book,
         per_chapter=per_chapter,
     )
 

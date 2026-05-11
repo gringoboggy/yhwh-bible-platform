@@ -510,40 +510,65 @@ def api_matrix() -> dict:
             }
             for e in editions
         ],
-        "matrix": {
-            ed_id: {
-                "enabled": m.enabled[ed_id],
-                "potential": m.potential[ed_id],
-                "total_enabled": sum(m.enabled[ed_id].values()),
-                "total_potential": sum(m.potential[ed_id].values()),
-                "canon_books_count": len(m.edition_canon_books[ed_id]),
-                "enabled_kinds_count": len(m.edition_enabled_kinds[ed_id]),
-                "enabled_kinds_set": sorted(m.edition_enabled_kinds[ed_id]),
-                # ψ.18: per-kind, per-book counts (potential scope —
-                # all kinds in canon, regardless of enabled state).
-                # The JS sidebar sums across LOCAL_ENABLED for a
-                # live total, and renders the per-book counts as
-                # sparklines.
-                "per_book": m.per_book.get(ed_id, {}),
-                # ψ.18.1: per-kind, per-book, per-chapter counts —
-                # third drilldown level on the totals sidebar. Same
-                # potential scope as per_book; chapter keys ride out
-                # as JSON strings (JavaScript object keys).
-                "per_chapter": m.per_chapter.get(ed_id, {}),
-                # Canon book order (for sparkline column ordering)
-                "canon_book_order": [
-                    b["code"] for b in config.load_books() if b["code"] in m.edition_canon_books[ed_id]
-                ],
-                # ψ.18.1: per-book chapter counts so the chapter
-                # sparkline knows the book's full width. Flat dict
-                # is fine — every edition shares the same book set.
-                "book_chapter_counts": {
-                    code: book_ch_counts[code] for code in m.edition_canon_books[ed_id] if code in book_ch_counts
-                },
-            }
-            for ed_id in m.enabled
-        },
+        "matrix": _api_matrix_per_edition(m, book_ch_counts),
     }
+
+
+def _api_matrix_per_edition(m, book_ch_counts: dict[str, int]) -> dict:
+    """ψ.35-B3 — build the per-edition slice of the api_matrix JSON
+    response. Extracted into a helper for clarity now that the bound
+    accessor calls per edition have made the comprehension less
+    readable inline.
+
+    The per-edition shape is the JSON contract the JS UI depends on
+    (matrix sidebar, per-book sparkline, per-chapter drilldown).
+    Pinned by ``TestPsi35B3ApiMatrixMigration``."""
+    # ψ.35-B3 — was: `for ed_id in m.enabled` reading the raw
+    # projection's keyset. Switched to `m.edition_canon_books` which
+    # has the same keyset (both are populated from editions.yaml).
+    # Per-edition values now derive from the accessor API where
+    # possible; `per_book` and `per_chapter` still read raw (the
+    # whole-edition nested-dict shape needs a dedicated accessor that
+    # ψ.35-B3 deliberately defers — see CHANGELOG).
+    out: dict = {}
+    for ed_id in m.edition_canon_books:
+        # ψ.35-B3 — was: `m.enabled[ed_id]` / `m.potential[ed_id]`.
+        enabled_dict = m.enabled_kinds_dict(ed_id)
+        potential_dict = m.potential_kinds_dict(ed_id)
+        out[ed_id] = {
+            "enabled": enabled_dict,
+            "potential": potential_dict,
+            "total_enabled": sum(enabled_dict.values()),
+            "total_potential": sum(potential_dict.values()),
+            "canon_books_count": len(m.edition_canon_books[ed_id]),
+            "enabled_kinds_count": len(m.edition_enabled_kinds[ed_id]),
+            "enabled_kinds_set": sorted(m.edition_enabled_kinds[ed_id]),
+            # ψ.18: per-kind, per-book counts (potential scope — all
+            # kinds in canon, regardless of enabled state). The JS
+            # sidebar sums across LOCAL_ENABLED for a live total, and
+            # renders the per-book counts as sparklines.
+            # ψ.35-B4 — was: `m.per_book.get(ed_id, {})`. The new
+            # `per_book_kinds_dict` accessor derives the same shape
+            # from the canonical per_chapter store; once ψ.35-Final
+            # ships, the `per_book` field on Matrix is removed and
+            # only the accessor remains.
+            "per_book": m.per_book_kinds_dict(ed_id),
+            # ψ.18.1: per-kind, per-book, per-chapter counts — third
+            # drilldown level on the totals sidebar. Same potential
+            # scope as per_book; chapter keys ride out as JSON strings
+            # (JavaScript object keys). `per_chapter` IS the canonical
+            # store — stays as raw read across all of ψ.35.
+            "per_chapter": m.per_chapter.get(ed_id, {}),
+            # Canon book order (for sparkline column ordering)
+            "canon_book_order": [b["code"] for b in config.load_books() if b["code"] in m.edition_canon_books[ed_id]],
+            # ψ.18.1: per-book chapter counts so the chapter sparkline
+            # knows the book's full width. Flat dict is fine — every
+            # edition shares the same book set.
+            "book_chapter_counts": {
+                code: book_ch_counts[code] for code in m.edition_canon_books[ed_id] if code in book_ch_counts
+            },
+        }
+    return out
 
 
 def api_reading_plans_list() -> dict:
@@ -1358,598 +1383,26 @@ def api_covers() -> dict:
 
 
 # ============================================================
-# Phase ψ.2 — Pre-flight checklist (composes existing checks)
+# Phase ψ.2 / ω.35-B.7 — Pre-flight checklist
 # ============================================================
-#
-# Single API + single console that aggregates every quality / readiness
-# check into one ship-ready dashboard. Composes existing tools
-# (api_attribution_audit, api_covers) plus a few in-process checks
-# that are too small to warrant their own endpoint.
-#
-# Each check returns the same shape so the UI can render uniformly:
-#
-#   {
-#       "id":      machine-readable slug,
-#       "name":    human-readable label,
-#       "status":  "pass" | "warn" | "fail",
-#       "message": one-line summary for the dashboard,
-#       "details": list of dict (cap at ~10 for payload size),
-#       "jump_to": URL of the console where this gets fixed,
-#   }
-#
-# Adding a new check = appending to the list in api_preflight().
-# Status order: any "fail" → not-ready; otherwise it ships.
+# Three handlers (api_preflight, _cached_preflight,
+# _compute_preflight_uncached) moved to scripts/api/preflight.py.
+# Re-imports below preserve scripts.web.api_preflight (route table)
+# and scripts.web._cached_preflight / _compute_preflight_uncached
+# (test-side cache-clear + monkeypatch sites).
+from scripts.api.preflight import (  # noqa: E402
+    _cached_preflight,
+    _compute_preflight_uncached,
+    api_preflight,
+)
 
 
-def api_preflight() -> dict:
-    """Run every preflight check and return a structured dashboard
-    payload (Phase ψ.2). Cached cheaply via the same mtime-keyed
-    cache pattern as the other derived endpoints."""
-    return _cached_preflight(
-        _files_signature(REPO / "content" / "editions.yaml"),
-        _files_signature(REPO / "content" / "books.yaml"),
-        _files_signature(REPO / "content" / "kinds.yaml"),
-        _files_signature(REPO / "content" / "categories.yaml"),
-        _notes_dir_signature(),
-    )
-
-
-@functools.lru_cache(maxsize=4)
-def _cached_preflight(eds_sig, books_sig, kinds_sig, cats_sig, notes_sig):
-    return _compute_preflight_uncached()
-
-
-def _compute_preflight_uncached() -> dict:
-    from scripts.core import translations as _tx
-    from scripts.core import matrix as _matrix
-
-    checks: list[dict] = []
-    editions = config.load_editions()
-    mtx = _matrix.compute_matrix()
-
-    # 1. Note attribution — direct reuse of the audit endpoint
-    audit = api_attribution_audit()
-    counts = audit.get("counts", {})
-    miss = counts.get("missing", 0)
-    thin = counts.get("thin", 0)
-    total = counts.get("total", 0)
-    if miss:
-        status, msg = "fail", (f"{miss} note(s) have no attribution at all (of {total} total)")
-    elif thin:
-        status, msg = "warn", (f"{thin} note(s) have thin attribution (of {total} total)")
-    else:
-        status, msg = "pass", f"all {total} notes have attribution"
-    checks.append(
-        {
-            "id": "attribution",
-            "name": "Note attribution",
-            "status": status,
-            "message": msg,
-            "details": (audit.get("needs_attention") or [])[:10],
-            "jump_to": "/audit",
-        }
-    )
-
-    # 2. Main covers — every edition has its main cover image set
-    #    AND that file exists on disk
-    covers = api_covers()
-    no_main, broken_main = [], []
-    for ed_rec in covers["editions"]:
-        path = ed_rec["main_cover"]["path"]
-        meta = ed_rec["main_cover"]["meta"]
-        if not path:
-            no_main.append({"edition_id": ed_rec["edition_id"]})
-        elif not meta:
-            # Path is set but the file is missing from disk
-            broken_main.append(
-                {
-                    "edition_id": ed_rec["edition_id"],
-                    "path": path,
-                }
-            )
-    if broken_main:
-        status, msg = "fail", (f"{len(broken_main)} edition(s) have a cover_image path pointing at a missing file")
-    elif no_main:
-        status, msg = "warn", (f"{len(no_main)} edition(s) have no main cover set yet")
-    else:
-        status, msg = "pass", "every edition has a main cover image"
-    checks.append(
-        {
-            "id": "covers_main",
-            "name": "Main covers per edition",
-            "status": status,
-            "message": msg,
-            "details": (broken_main + no_main)[:10],
-            "jump_to": "/covers",
-        }
-    )
-
-    # 3. Popup translation set per edition (warn-only — popup uses WEB
-    #    when not set, which is acceptable but not ideal for a buyer)
-    no_translation = [{"edition_id": e["id"]} for e in editions if not (e.get("popup_translation") or "").strip()]
-    if not no_translation:
-        status, msg = "pass", "every edition has a popup translation"
-    else:
-        status, msg = (
-            "warn",
-            (f"{len(no_translation)} edition(s) using default WEB for verse popups (no explicit translation chosen)"),
-        )
-    checks.append(
-        {
-            "id": "popup_translation",
-            "name": "Popup translation per edition",
-            "status": status,
-            "message": msg,
-            "details": no_translation[:10],
-            "jump_to": "/customize",
-        }
-    )
-
-    # 4. Popup translation coverage of the edition's canon
-    #    For each edition with a popup_translation set, count how many
-    #    of its canon books the translation actually covers
-    coverage_issues = []
-    for ed in editions:
-        tx_id = (ed.get("popup_translation") or "").strip()
-        if not tx_id:
-            continue
-        canon = mtx.edition_canon_books.get(ed["id"], set())
-        missing = sorted(b for b in canon if not _tx.has_book(tx_id, b))
-        if missing:
-            coverage_issues.append(
-                {
-                    "edition_id": ed["id"],
-                    "translation": tx_id,
-                    "missing_count": len(missing),
-                    "missing_books": missing[:20],
-                }
-            )
-    total_missing = sum(c["missing_count"] for c in coverage_issues)
-    if not coverage_issues:
-        status, msg = "pass", ("every popup translation covers its edition's canon")
-    else:
-        status, msg = (
-            "warn",
-            (f"{total_missing} book(s) across {len(coverage_issues)} edition(s) have no popup translation data"),
-        )
-    checks.append(
-        {
-            "id": "popup_coverage",
-            "name": "Popup translation coverage",
-            "status": status,
-            "message": msg,
-            "details": coverage_issues[:10],
-            "jump_to": "/customize",
-        }
-    )
-
-    # 5. Per-book covers — informational. Not blocking; many editions
-    #    legitimately ship with only a main cover.
-    per_book_stats = []
-    for ed_rec in covers["editions"]:
-        total_slots = len(ed_rec["book_covers"])
-        with_cover = sum(1 for s in ed_rec["book_covers"] if s.get("meta"))
-        per_book_stats.append(
-            {
-                "edition_id": ed_rec["edition_id"],
-                "set": with_cover,
-                "total": total_slots,
-            }
-        )
-    total_set = sum(s["set"] for s in per_book_stats)
-    total_slots = sum(s["total"] for s in per_book_stats)
-    msg = f"{total_set} of {total_slots} per-book cover slots filled"
-    checks.append(
-        {
-            "id": "covers_per_book",
-            "name": "Per-book covers (informational)",
-            "status": "pass",  # never blocks ship
-            "message": msg,
-            "details": per_book_stats,
-            "jump_to": "/covers",
-        }
-    )
-
-    # 6. Publisher metadata — title + ISBN at minimum for OPF
-    incomplete = []
-    for ed in editions:
-        missing_fields = [f for f in ("title", "isbn") if not (ed.get(f) or "").strip()]
-        if missing_fields:
-            incomplete.append(
-                {
-                    "edition_id": ed["id"],
-                    "missing": missing_fields,
-                }
-            )
-    if not incomplete:
-        status, msg = "pass", ("every edition has title + ISBN set")
-    else:
-        status, msg = "warn", (f"{len(incomplete)} edition(s) missing publisher fields")
-    checks.append(
-        {
-            "id": "publisher_meta",
-            "name": "Publisher metadata",
-            "status": status,
-            "message": msg,
-            "details": incomplete,
-            "jump_to": "/publisher",
-        }
-    )
-
-    # 7. Empty kinds — kinds in kinds.yaml that no note uses.
-    #    Soft warn: hints at over-engineered taxonomy or missing apparatus.
-    kinds = config.load_kinds()
-    used_kinds: set[str] = set()
-    for ed_id, by_kind in mtx.enabled.items():
-        for kind_code, count in (by_kind or {}).items():
-            if count > 0:
-                used_kinds.add(kind_code)
-    unused = sorted(k["code"] for k in kinds if k["code"] not in used_kinds)
-    if not unused:
-        status, msg = "pass", "every registered kind has at least one note"
-    else:
-        status, msg = "warn", (f"{len(unused)} kind(s) have zero notes across all editions")
-    checks.append(
-        {
-            "id": "empty_kinds",
-            "name": "Kind utilization",
-            "status": status,
-            "message": msg,
-            "details": [{"kind_code": k} for k in unused[:20]],
-            "jump_to": "/matrix",
-        }
-    )
-
-    # 8. Rules compliance (Phase ω.0.1) — composes lint_rules.run_all()
-    # so the readiness dashboard surfaces drift from §6.1 / §6.2 / etc.
-    # the moment it appears, not at the next code review.
-    try:
-        from scripts.lint_rules import run_all as _lint_run_all
-
-        lint = _lint_run_all()
-        sub_fail = lint["summary"]["fail"]
-        sub_warn = lint["summary"]["warn"]
-        if sub_fail:
-            status, msg = "fail", (f"{sub_fail} rule(s) violated, {sub_warn} warning(s)")
-        elif sub_warn:
-            status, msg = "warn", f"{sub_warn} rule warning(s)"
-        else:
-            status, msg = "pass", (f"all {lint['summary']['total']} project rules pass")
-        # Surface the failing/warning sub-checks as the details list
-        # so a publisher sees "what's wrong" without leaving the page.
-        details = [
-            {"rule_id": c["id"], "name": c["name"], "status": c["status"], "message": c["message"]}
-            for c in lint["checks"]
-            if c["status"] != "pass"
-        ]
-    except Exception as e:
-        status = "warn"
-        msg = f"rules linter failed to run: {e}"
-        details = []
-    checks.append(
-        {
-            "id": "rules_compliance",
-            "name": "Rules compliance (§6.1, §6.2, encode/decode, docs)",
-            "status": status,
-            "message": msg,
-            "details": details,
-            "jump_to": "/preflight",  # nowhere better to jump — fix in code
-        }
-    )
-
-    # 8b. Schema compliance (Phase ω.19.2) — composes
-    # validate_schemas.run_all() so YAML schema drift surfaces
-    # alongside the rules linter on every preflight read. Same
-    # Tier-3 surface; same meta-tool composition pattern (§9 of
-    # CLAUDE_PROJECT_RULES). Wrap import in try/except so a broken
-    # validator can't 500 the dashboard.
-    try:
-        from scripts.validate_schemas import run_all as _schemas_run_all
-
-        schemas = _schemas_run_all()
-        s_summary = schemas["summary"]
-        s_fail = s_summary.get("fail", 0)
-        s_error = s_summary.get("error", 0)
-        s_total = s_summary.get("total", 0)
-        if s_fail or s_error:
-            status, msg = "fail", (f"{s_fail} file(s) with schema violations, {s_error} unreadable")
-        else:
-            status, msg = "pass", (f"all {s_total} validated YAML file(s) pass schema")
-        # Surface failing/erroring files with their first few errors
-        # so a publisher sees what's wrong without leaving the page.
-        details = [
-            {
-                "file": f["file"],
-                "status": f["status"],
-                "errors": (f.get("errors") or [])[:3],
-                "record_count": f.get("record_count", 0),
-            }
-            for f in schemas["files"]
-            if f["status"] != "ok"
-        ]
-    except Exception as e:
-        status = "warn"
-        msg = f"schema validator failed to run: {e}"
-        details = []
-    checks.append(
-        {
-            "id": "schema_compliance",
-            "name": "Schema compliance (editions / kinds / canons / cross-refs)",
-            "status": status,
-            "message": msg,
-            "details": details,
-            "jump_to": "/preflight",
-        }
-    )
-
-    # 9. epubcheck — W3C/IDPF EPUB validator (Phase ω.14)
-    #    Runs against built EPUBs in exports/. The check stays
-    #    informational when no EPUBs exist yet (info, not warn) so a
-    #    fresh checkout doesn't show a red flag for "not validated".
-    #    When Java is unavailable, surfaces as 'warn' with a clear
-    #    install hint — the platform stays usable without it.
-    try:
-        from scripts.core import epubcheck as _ec
-
-        ec_result = _ec.run_epubcheck_on_dir(REPO / "exports")
-        ec_status = ec_result["status"]
-        if ec_status == "pass":
-            msg = f"all {ec_result['n_epubs']} EPUB(s) validate cleanly"
-            details = []
-        elif ec_status == "warn":
-            t = ec_result["totals"]
-            msg = f"epubcheck: {t['warnings']} warning(s) across {ec_result['n_epubs']} EPUB(s) (no errors)"
-            details = [
-                {
-                    "epub": r["epub"],
-                    "errors": r["errors"],
-                    "warnings": r["warnings"],
-                    "first_message": (r["messages"][0]["message"] if r["messages"] else ""),
-                }
-                for r in ec_result["results"]
-                if r["status"] != "pass"
-            ][:10]
-        elif ec_status == "fail":
-            t = ec_result["totals"]
-            msg = f"epubcheck: {t['errors']} error(s), {t['warnings']} warning(s) across {ec_result['n_epubs']} EPUB(s)"
-            details = [
-                {
-                    "epub": r["epub"],
-                    "errors": r["errors"],
-                    "warnings": r["warnings"],
-                    "first_message": (r["messages"][0]["message"] if r["messages"] else ""),
-                }
-                for r in ec_result["results"]
-                if r["status"] == "fail"
-            ][:10]
-        elif ec_status == "unavailable":
-            # Java missing or JAR absent. Surface as warn with the
-            # install hint; the rest of the platform stays usable.
-            ec_status = "warn"
-            msg = ec_result.get("explanation", "epubcheck unavailable")
-            details = []
-        else:  # 'empty'
-            ec_status = "info"
-            msg = ec_result.get(
-                "explanation",
-                "no built EPUBs to validate yet — run `python scripts/build_edition.py <id>`",
-            )
-            details = []
-    except Exception as e:
-        ec_status = "warn"
-        msg = f"epubcheck check failed to run: {e}"
-        details = []
-    # The dashboard's status set is {pass, warn, fail}; map 'info'
-    # to 'pass' for the summary tally but keep the message
-    # informational so the UI can render it differently if it wants.
-    summary_status = "pass" if ec_status == "info" else ec_status
-    checks.append(
-        {
-            "id": "epubcheck",
-            "name": "EPUB validation (W3C epubcheck)",
-            "status": summary_status,
-            "message": msg,
-            "details": details,
-            "jump_to": "/export",
-        }
-    )
-
-    # 10. Content directory health (Phase ω.29) — composes
-    # check_content.run_all() so corruption of notes/, translation
-    # _meta.yaml, candidate JSON, or orphan note files surfaces
-    # alongside the rules / schema linters. Wrap in try/except so a
-    # broken checker can't 500 the dashboard. Same Tier-3 surface;
-    # same meta-tool composition pattern (§9 of CLAUDE_PROJECT_RULES).
-    try:
-        from scripts.check_content import run_all as _content_run_all
-
-        ch = _content_run_all()
-        ch_summary = ch["summary"]
-        ch_fail = ch_summary.get("fail", 0)
-        ch_warn = ch_summary.get("warn", 0)
-        ch_total = ch_summary.get("total", 0)
-        if ch_fail:
-            status, msg = "fail", (f"{ch_fail} content-health check(s) failed (of {ch_total})")
-        elif ch_warn:
-            status, msg = "warn", f"{ch_warn} content-health warning(s)"
-        else:
-            status, msg = "pass", f"all {ch_total} content-health check(s) pass"
-        details = [
-            {
-                "check_id": c["id"],
-                "name": c["name"],
-                "status": c["status"],
-                "message": c["message"],
-                "first_violations": c["violations"][:3],
-            }
-            for c in ch["checks"]
-            if c["status"] != "pass"
-        ]
-    except Exception as e:
-        status = "warn"
-        msg = f"content-health checker failed to run: {e}"
-        details = []
-    checks.append(
-        {
-            "id": "content_health",
-            "name": "Content directory health (notes / translations / covers / candidates)",
-            "status": status,
-            "message": msg,
-            "details": details,
-            "jump_to": "/preflight",
-        }
-    )
-
-    # ω.35-A — Routes inventory check. Auto-discovers routes in
-    # do_GET / do_POST / do_PUT / do_DELETE; surfaces total count
-    # and flags duplicate patterns / unanchored regexes / missing
-    # methods. Wrap in try/except per the §9 mental model: a
-    # broken meta-tool can't 500 the dashboard.
-    try:
-        from scripts import check_routes as _check_routes_mod
-
-        cr = _check_routes_mod.run_all()
-        cr_summary = cr.get("summary", {})
-        if cr_summary.get("fail", 0) > 0:
-            cr_status = "fail"
-        elif cr_summary.get("warn", 0) > 0:
-            cr_status = "warn"
-        else:
-            cr_status = "pass"
-        cr_msg = f"{cr.get('route_count', 0)} routes; {cr_summary.get('pass', 0)}/{cr_summary.get('total', 0)} sub-checks pass"
-        cr_details = [
-            {"id": c["id"], "name": c["name"], "status": c["status"], "message": c["message"]}
-            for c in cr.get("checks", [])
-            if c["status"] != "pass"
-        ]
-    except Exception as e:  # noqa: BLE001 — meta-tool failure must not break dashboard
-        cr_status = "warn"
-        cr_msg = f"routes inventory failed to run: {e}"
-        cr_details = []
-    checks.append(
-        {
-            "id": "routes_inventory",
-            "name": "HTTP routes inventory (web.py do_GET / POST / PUT / DELETE)",
-            "status": cr_status,
-            "message": cr_msg,
-            "details": cr_details,
-            "jump_to": "/preflight",
-        }
-    )
-
-    # Summary
-    summary = {
-        "total": len(checks),
-        "pass": sum(1 for c in checks if c["status"] == "pass"),
-        "warn": sum(1 for c in checks if c["status"] == "warn"),
-        "fail": sum(1 for c in checks if c["status"] == "fail"),
-    }
-    summary["ready_to_ship"] = summary["fail"] == 0
-    return {"checks": checks, "summary": summary}
-
-
-def _parse_multipart(body: bytes, boundary: bytes) -> list[dict]:
-    """Minimal multipart/form-data parser — focused on the cover-upload
-    use case (one file part per request, no nested multipart).
-
-    Returns a list of part dicts:
-        {name, filename, content_type, data}
-
-    We use this instead of cgi.FieldStorage because cgi is deprecated
-    in 3.13 and a focused 30-line parser is easier to reason about than
-    a stdlib module that's on its way out. The format itself is RFC
-    7578: ``--boundary\\r\\n`` separates parts; each part has headers,
-    an empty line, then bytes. ``--boundary--\\r\\n`` ends the body.
-    """
-    # ξ.16 SEC-002 — bound the search for the headers/body separator
-    # to a fixed prefix per part. RFC 7578 doesn't cap per-part
-    # header size, but realistic uploads have headers well under 1 KB.
-    # 8 KB is generous; anything larger is almost certainly an attack
-    # trying to grow the headers dict unboundedly.
-    PART_HEADER_MAX_BYTES = 8 * 1024
-    PART_HEADER_LINE_MAX = 1024
-    delim = b"--" + boundary
-    chunks = body.split(delim)
-    # First chunk is the prelude (often empty); last is the closing
-    # "--\r\n" marker plus optional trailer.
-    parts = []
-    for chunk in chunks[1:-1]:
-        # Strip the CRLF that follows the boundary line
-        if chunk.startswith(b"\r\n"):
-            chunk = chunk[2:]
-        # Strip the CRLF that precedes the next boundary
-        if chunk.endswith(b"\r\n"):
-            chunk = chunk[:-2]
-        # ξ.16 SEC-002 — search for the header/body delimiter in only
-        # the first PART_HEADER_MAX_BYTES of the chunk. Past that
-        # point, headers are not legitimate.
-        header_search_window = chunk[:PART_HEADER_MAX_BYTES]
-        sep = header_search_window.find(b"\r\n\r\n")
-        if sep < 0:
-            # Either the part is malformed, or the headers exceed
-            # PART_HEADER_MAX_BYTES — treat as malformed and skip.
-            continue
-        header_blob = chunk[:sep].decode("utf-8", errors="replace")
-        data = chunk[sep + 4 :]
-        headers = {}
-        for line in header_blob.split("\r\n"):
-            # ξ.16 SEC-002 — also cap individual header line length to
-            # blunt single-line dict-growth attacks (e.g. one massive
-            # Content-Disposition).
-            if len(line) > PART_HEADER_LINE_MAX:
-                continue
-            if ":" in line:
-                k, v = line.split(":", 1)
-                headers[k.strip().lower()] = v.strip()
-        cd = headers.get("content-disposition", "")
-        name = ""
-        filename = ""
-        for piece in cd.split(";"):
-            piece = piece.strip()
-            if piece.startswith("name="):
-                name = piece[5:].strip().strip('"')
-            elif piece.startswith("filename="):
-                filename = piece[9:].strip().strip('"')
-        parts.append(
-            {
-                "name": name,
-                "filename": filename,
-                "content_type": headers.get("content-type", ""),
-                "data": data,
-            }
-        )
-    return parts
-
-
-def _extract_boundary(content_type_header: str) -> bytes | None:
-    """Pull the ``boundary=...`` token out of a Content-Type header.
-
-    ξ.16 SEC-007 — reject empty or oversized boundaries before the
-    parser ever sees them. RFC 2046 §5.1.1 caps the boundary at 70
-    chars; an empty boundary makes ``b"--"`` the delimiter and
-    fragments the body at every ``--`` substring (e.g. inside any
-    base64-encoded chunk), widening the parser's interpretation
-    surface unpredictably. The caller treats ``None`` as a malformed
-    multipart header and returns 400.
-    """
-    if not content_type_header:
-        return None
-    for piece in content_type_header.split(";"):
-        piece = piece.strip()
-        if piece.lower().startswith("boundary="):
-            v = piece[9:].strip()
-            # Strip surrounding quotes if present
-            if v.startswith('"') and v.endswith('"'):
-                v = v[1:-1]
-            # ξ.16 SEC-007 — empty / oversized rejected. Length cap
-            # is RFC 2046's 70-char ceiling; non-ASCII or control
-            # chars are also rejected (boundary must be 7-bit).
-            if not v or len(v) > 70:
-                return None
-            if any(ord(c) < 0x20 or ord(c) > 0x7E for c in v):
-                return None
-            return v.encode("ascii", errors="replace")
-    return None
+# ω.35-B.7 — multipart/form-data helpers moved to
+# scripts/api/multipart.py. Re-imports preserve
+# scripts.web._parse_multipart / _extract_boundary for callers
+# that still lazy-import from web (legacy api/covers.py +
+# api/sources.py paths will be updated in the same ship).
+from scripts.api.multipart import _extract_boundary, _parse_multipart  # noqa: E402
 
 
 def _save_cover_bytes(data: bytes, edition_id: str, book_code: str | None) -> dict:
@@ -3105,168 +2558,11 @@ def api_ops_dashboard() -> dict:
     return out
 
 
-# Phase ω.3 — API reference page. Auto-enumerates every /api/*
-# route by regex-scanning this file's source. Helps future Claude
-# / future dev orient — the /api/* surface has grown to ~30 routes
-# across 12+ phases. Single page with method + path + description
-# + phase tag + permission level beats hunting through web.py.
-#
-# Pattern: pure-function-API + thin route adapter (7th instance —
-# now properly codified in §9 since ω.0.7).
-
-# Route patterns to recognize, in source-scan order. Each entry's
-# regex captures the path. The regex matches the WHOLE source line
-# (including leading whitespace) so context comments can be located
-# from the same line index.
-_ROUTE_PATTERNS = [
-    # GET: if path == "/api/X":   or   if path == "/X" or path == "/X.html":
-    (re.compile(r'^\s*if\s+path\s*==\s*"(/api/[^"]+)"'), "GET"),
-    (re.compile(r'^\s*if\s+path\.startswith\("(/api/[^"]+)"'), "GET"),
-    # POST: if self.path == "/api/X":
-    (re.compile(r'^\s*if\s+self\.path\s*==\s*"(/api/[^"]+)"'), "POST"),
-    # Pattern: m = re.match(r"^/api/X/...$", self.path)
-    (re.compile(r'^\s*m\s*=\s*re\.match\(r"\^(/api/[^"$]+)\$"'), "PATTERN"),
-    # ω.35-A.3 — also discover `_SIMPLE_GET_ROUTES` table entries.
-    # Each line of the form `("/api/foo", api_foo),` registers a
-    # table-dispatched GET route.
-    (re.compile(r'^\s*\(\s*"(/api/[^"]+)"\s*,\s*[A-Za-z_][A-Za-z0-9_]*\s*\)\s*,?\s*$'), "GET"),
-    # ω.35-A.3 — also discover `_REGEX_GET_ROUTES` table entries.
-    # Each line of the form `(re.compile(r"^/api/foo/(...)$"), api_foo),`.
-    # Strip leading `^` and trailing `$` to align with /apihelp's
-    # human-friendly path display.
-    (re.compile(r'^\s*\(\s*re\.compile\(\s*r"\^(/api/[^"$]+)\$"\s*\)\s*,'), "PATTERN"),
-    # ω.35-A.4 — also discover `_QS_REGEX_GET_ROUTES` table entries.
-    # The pattern is on its own line inside the multi-line entry:
-    #     re.compile(r"^/api/foo$"),
-    # Same regex as ω.35-A.3 but anchored to a standalone line
-    # (entries in _REGEX_GET_ROUTES are single-line tuples).
-    (re.compile(r'^\s*re\.compile\(\s*r"\^(/api/[^"$]+)\$"\s*\)\s*,?\s*$'), "PATTERN"),
-]
-
-# Console-page routes (HTML, not API). These get listed separately
-# in the help page since they're a different kind of surface.
-_CONSOLE_PATTERNS = [
-    re.compile(
-        r'^\s*if\s+path\s*==\s*"(/[a-z][^"/]*)"\s*or\s*'
-        r'path\s*==\s*"\1\.html"'
-    ),
-]
-
-
-def api_help_data() -> dict:
-    """Enumerate every /api/* route + every /<console> route by
-    scanning scripts/web.py source. The result powers the /apihelp
-    console; nothing here mutates state or hits the network.
-
-    Returns:
-        {
-          "status": "ok",
-          "api_routes": [
-            {"method": str, "path": str, "description": str,
-             "phase": str | None, "line": int}, ...
-          ],
-          "consoles": [
-            {"path": str, "description": str, "phase": str | None,
-             "line": int}, ...
-          ],
-          "totals": {"api": int, "consoles": int},
-        }
-    """
-    src_path = REPO / "scripts" / "web.py"
-    try:
-        lines = src_path.read_text(encoding="utf-8").splitlines()
-    except OSError as e:
-        return {"status": "error", "code": "source_read_failed", "http": 500, "message": str(e)}
-
-    api_routes: list[dict] = []
-    consoles: list[dict] = []
-    seen_api: set[tuple[str, str]] = set()
-    seen_console: set[str] = set()
-
-    # Phase regex — matches "Phase X.Y" or "Phase Xx.Y" in
-    # comments above a route. ω, ψ, etc. are real characters
-    # in the codebase.
-    phase_re = re.compile(r"Phase\s+([α-ωΑ-Ω][a-z]?\.[\w.\-]+)")
-
-    def gather_context(line_idx: int, max_lookback: int = 8) -> str:
-        """Walk backward from a route line collecting comment lines.
-        Stop at the first non-comment, non-empty line OR after
-        max_lookback lines."""
-        comment_lines: list[str] = []
-        for j in range(line_idx - 1, max(-1, line_idx - max_lookback), -1):
-            line = lines[j].strip()
-            if not line:
-                if comment_lines:
-                    break
-                continue
-            if line.startswith("#"):
-                comment_lines.append(line.lstrip("#").strip())
-            else:
-                break
-        comment_lines.reverse()
-        return " ".join(comment_lines)
-
-    for i, line in enumerate(lines):
-        # API routes
-        for pattern, method in _ROUTE_PATTERNS:
-            m = pattern.match(line)
-            if m:
-                path = m.group(1)
-                # The PATTERN method gets its placeholders
-                # explicit (e.g. /api/translation/<id>/<book>)
-                if method == "PATTERN":
-                    # Convert regex segments like ([a-z0-9-]+) → <param>
-                    path = re.sub(r"\(\[[^\]]+\]\+\)", "<param>", path)
-                key = (method, path)
-                if key in seen_api:
-                    break
-                seen_api.add(key)
-                ctx = gather_context(i)
-                phase_match = phase_re.search(ctx)
-                api_routes.append(
-                    {
-                        "method": method if method != "PATTERN" else "GET/POST",
-                        "path": path,
-                        "description": ctx,
-                        "phase": phase_match.group(1) if phase_match else None,
-                        "line": i + 1,
-                    }
-                )
-                break
-
-        # Console pages
-        for pattern in _CONSOLE_PATTERNS:
-            m = pattern.match(line)
-            if m:
-                path = m.group(1)
-                if path in seen_console:
-                    break
-                seen_console.add(path)
-                ctx = gather_context(i)
-                phase_match = phase_re.search(ctx)
-                consoles.append(
-                    {
-                        "path": path,
-                        "description": ctx,
-                        "phase": phase_match.group(1) if phase_match else None,
-                        "line": i + 1,
-                    }
-                )
-                break
-
-    # Sort: API routes by path; consoles by path
-    api_routes.sort(key=lambda r: r["path"])
-    consoles.sort(key=lambda r: r["path"])
-
-    return {
-        "status": "ok",
-        "api_routes": api_routes,
-        "consoles": consoles,
-        "totals": {
-            "api": len(api_routes),
-            "consoles": len(consoles),
-        },
-    }
+# Phase ω.3 / ω.35-B.7 — /apihelp data endpoint.
+# api_help_data + the _ROUTE_PATTERNS / _CONSOLE_PATTERNS
+# constants moved to scripts/api/help.py. Re-imports preserve
+# scripts.web.api_help_data (route table + tests).
+from scripts.api.help import api_help_data  # noqa: E402
 
 
 def api_corpus_progress() -> dict:
@@ -3387,33 +2683,11 @@ def _compute_attribution_audit_uncached() -> dict:
 
 
 # ============================================================
-# Audit-log read endpoint (Phase ξ.13) — surface the NDJSON
-# ledger written by audit_log.audit_endpoint as a JSON envelope
-# the /audit-log console renders. Pure function; no caching
-# (the file is append-only and small enough for a fresh read).
+# Audit-log read endpoint (Phase ξ.13 / ω.35-B.7)
 # ============================================================
-
-
-def api_audit_log(*, n: int = 100, base_dir: Path | None = None) -> dict:
-    """Return the most recent audit-log entries.
-
-    Composes `audit_log.read_recent` and wraps in the project's
-    standard envelope shape. `n` is clamped to [1, 1000] to bound
-    response size; `base_dir` is for tests (production reads
-    `<user_data>/audit/`).
-    """
-    try:
-        n_int = int(n)
-    except (TypeError, ValueError):
-        n_int = 100
-    n_int = max(1, min(1000, n_int))
-    entries = audit_log.read_recent(n=n_int, base_dir=base_dir)
-    return {
-        "status": "ok",
-        "count": len(entries),
-        "limit": n_int,
-        "entries": entries,
-    }
+# api_audit_log moved to scripts/api/audit.py. Re-import preserves
+# scripts.web.api_audit_log (route table lambda + tests).
+from scripts.api.audit import api_audit_log  # noqa: E402
 
 
 # ============================================================
@@ -3626,7 +2900,9 @@ def _diff_edition_summary(ed: dict, mtx, kinds_idx: dict, books_idx: dict, canon
     pre-computed totals so the UI doesn't have to re-derive them.
     """
     ed_id = ed["id"]
-    enabled = mtx.enabled.get(ed_id, {})
+    # ψ.35-B2 — was: `mtx.enabled.get(ed_id, {})`. Accessor returns
+    # the same shape from the canonical per_chapter store.
+    enabled = mtx.enabled_kinds_dict(ed_id)
     canon_books = mtx.edition_canon_books.get(ed_id, set())
     enabled_kinds = mtx.edition_enabled_kinds.get(ed_id, set())
     canon_id = ed.get("canon", "")
@@ -3683,8 +2959,9 @@ def _diff_kinds_section(a_id: str, b_id: str, mtx, kinds_idx: dict, cats_idx: di
     """
     a_kinds = mtx.edition_enabled_kinds.get(a_id, set())
     b_kinds = mtx.edition_enabled_kinds.get(b_id, set())
-    a_counts = mtx.enabled.get(a_id, {})
-    b_counts = mtx.enabled.get(b_id, {})
+    # ψ.35-B2 — was: `mtx.enabled.get(a_id, {})` / `mtx.enabled.get(b_id, {})`.
+    a_counts = mtx.enabled_kinds_dict(a_id)
+    b_counts = mtx.enabled_kinds_dict(b_id)
 
     def _row(code, a_n=None, b_n=None):
         k = kinds_idx.get(code, {}) or {}
