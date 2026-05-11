@@ -1,5 +1,19 @@
 # Session state — current snapshot
 
+**Updated 2026-05-11 / late session**: PLAN-REFRESH §5
+prune shipped as slice #1 of the committed v1.1 sequence.
+9 entries marked shipped (ψ.13.5, ψ.20, ρ.1, ξ.10.1,
+ξ.11.1, ξ.15, ω.27, ω.30, ω.31). PLAN §5 went from 46/84 to
+**55/84 entries marked** (65%). §5 banner replaced —
+trust CHANGELOG over Status lines if they conflict.
+**Committed sequence next:** ψ.37 time-traveling commentary
+→ ψ.36 matrix lazy-load → Δ.10 attribution_audit index-back
+→ ω.36 sonarqube (deferred) → 6-month feature tracks B-L.
+**2211 / 2212 tests green; 11/11 linter clean.**
+
+---
+
+
 **Updated:** 2026-05-11, after **ω.35-B.7 preflight/audit/
 help/multipart extracted** shipped — eighth and final
 file-split slice. **Closes ω.35-B.** Three handler clusters

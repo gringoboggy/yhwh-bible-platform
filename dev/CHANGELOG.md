@@ -6,6 +6,63 @@
 
 ---
 
+## 2026-05-11 — session — PLAN-REFRESH §5 systematic prune (slice #1 of the v1.1 sequence)
+
+**Phases shipped:** PLAN-REFRESH (doc-only).
+**Test delta:** +0 (doc-only).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+The systematic prune queued from AUDIT_2026-05-11 §1.3 — every
+`#### <phase> — <headline>` entry in PLAN §5 was cross-checked
+against CHANGELOG session-headlines to find shipped phases that
+were still marked `Status: open`.
+
+- Before: 46 of 84 entries (55%) carried an explicit shipped /
+  superseded / spec-stale marker.
+- After: **55 of 84 entries (65%)** carry the marker. **+9
+  entries** marked shipped with their correct CHANGELOG date:
+  - ψ.13.5 (F-string sweep original spec) — ✓ 2026-05-09
+  - ψ.20 (note-density heatmap) — ✓ 2026-05-09
+  - ρ.1 (LibriVox audio infrastructure) — ✓ 2026-05-08
+  - ξ.10.1 (fail-closed SSRF posture) — ✓ 2026-05-10
+  - ξ.11.1 (pip-audit CI gate) — ✓ 2026-05-10
+  - ξ.15 (AI-output HTML sandbox) — ✓ 2026-05-10
+  - ω.27 (test fixture consolidation original spec) — ✓ 2026-05-09
+  - ω.30 (cache invalidation audit) — ✓ 2026-05-10
+  - ω.31 (mypy type-checking sweep) — ✓ 2026-05-10
+- Each entry's `**Status:** open` line was rewritten to
+  `**Status:** ✓ shipped <date> (see dev/CHANGELOG.md)` when
+  the helper detected one in the next 12 lines.
+- The remaining **~29 entries are genuinely open** — no
+  CHANGELOG session-headline matches the phase tag. They cover
+  matrix UX (ψ.30/31/32/33), corpus depth (χ.10/11, χ.2-5,
+  τ.2-11), reader experience (ψ.21/22/23/24), security
+  follow-ons (ξ.7/8/9/12/14), tooling (ω.12/17/24/32), and
+  desktop binary follow-ons (θ.3.1, ρ.2-5).
+- §5 banner replaced — was "drift notice; prune queued"; now
+  "refresh complete; trust CHANGELOG over Status lines if they
+  ever conflict."
+
+### Why this slice first
+
+Per CLAUDE_PROJECT_RULES §3 sequencing rule #1 (safest /
+most-foundational first): doc-only, zero behavior risk,
+highest immediate leverage for future-session orientation
+bandwidth. Eliminates the §5 drift that fresh-Claude
+sessions would otherwise have to manually cross-check
+against CHANGELOG.
+
+### Next per the committed v1.1 sequence
+
+`PLAN-REFRESH ✓` → **ψ.37 time-traveling commentary**
+(uniqueness-angle pick) → ψ.36 matrix lazy-load → Δ.10
+attribution_audit index-back → ω.36 sonarqube (deferred
+until your API key) → 6-month feature tracks B-L.
+
+---
+
 ## 2026-05-11 — session — ω.35-B.7 preflight/audit/help/multipart extracted (eighth and final file-split slice; closes ω.35-B)
 
 **Phases shipped:** ω.35-B.7. Three handler clusters + one

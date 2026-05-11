@@ -4,6 +4,43 @@
 
 ## Prior task
 
+**PLAN-REFRESH §5 systematic prune** shipped 2026-05-11.
+Slice #1 of the committed v1.1 sequence. 9 PLAN §5 entries
+that had shipped per CHANGELOG but were still marked
+`Status: open` got their explicit `✓ SHIPPED <date>`
+headers + Status lines. §5 banner updated from "drift
+notice; prune queued" to "refresh complete; trust CHANGELOG
+over Status lines if they conflict."
+
+- Before: 46 of 84 entries marked (55%)
+- After: **55 of 84 entries marked (65%)**
+- Newly marked: ψ.13.5, ψ.20, ρ.1, ξ.10.1, ξ.11.1, ξ.15,
+  ω.27, ω.30, ω.31
+- Remaining ~29 entries are genuinely open
+
+### Next per the committed v1.1 sequence
+
+1. **PLAN-REFRESH ✓** (this slice)
+2. **ψ.37 time-traveling commentary** — uniqueness-angle
+   pick; adds a `circa_year` field to note metadata + a
+   build-pipeline filter + a /customize knob ("year ceiling:
+   1611 / 1879 / 1955 / no limit"); operates on existing
+   source attributions so no new external data needed
+3. **ψ.36 matrix lazy-load endpoint** — 200K-note ceiling
+   lift; data-API + "load more" default UI
+4. **Δ.10 attribution_audit index-back** — apply the
+   Δ-family pattern (CLAUDE_PROJECT_RULES §9) to the
+   next-most-walked file-walk
+5. **ω.36 sonarqube preflight gate** — deferred until
+   user provides API key
+6. **6-month feature tracks B-L** per
+   `dev/PROPOSAL_FEATURE_LANDSCAPE.md` (UI modernization,
+   corpus depth, reader experience, executive, security
+   hardening, matrix expansion, publisher workflow, AI
+   features, distribution, database evolution)
+
+## Prior task
+
 **ω.35-B.7 preflight/audit/help/multipart extracted** shipped
 2026-05-11. Eighth and final file-split slice — closes
 ω.35-B. Three handler clusters + one helper pair extracted
