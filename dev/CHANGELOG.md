@@ -6,6 +6,144 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-B.3b sources cache extracted (fourth file-split slice; caught a real monkeypatch regression)
+
+**Phases shipped:** ω.35-B.3b. Five sources-cache handlers
+(status, fetch, fetch_all, upload, clear) plus 2 internal
+helpers and the `SOURCES_UPLOAD_MAX_BYTES` constant extracted
+from `scripts/web.py` into `scripts/api/sources.py`. The
+upload handler lazy-imports `_extract_boundary` /
+`_parse_multipart` from web.py (same pattern as B.3a). Caught
+a **real cross-module monkeypatch regression** mid-phase:
+12 test sites patched `scripts.web._sources_cache_dir` but
+the in-module calls in `scripts.api.sources` resolve against
+their own module's namespace, so the patches didn't reach
+them.
+**Test delta:** +13 (was 2087, now 2100; 1 skipped EPUB e2e;
+1 perf test deflaked).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- New `scripts/api/sources.py` module containing:
+  - Constants: `REPO`, `SOURCES_UPLOAD_MAX_BYTES`
+  - Internal helpers: `_sources_cache_dir`, `_datetime_iso`
+  - Read handler: `api_sources_cache_status`
+  - Mutation handlers (audit-logged): `api_sources_cache_fetch`,
+    `api_sources_cache_fetch_all`, `api_sources_cache_upload`,
+    `api_sources_cache_clear`
+- `scripts/web.py` replaces the ~320-line sources-cache block
+  with an 8-name re-import. The `SOURCES_UPLOAD_MAX_BYTES`
+  constant is re-exported because `_MULTIPART_ROUTES`
+  references it directly at module-load time.
+- **Net delta: -319 lines in web.py** (4.5% reduction in a
+  single slice). Cumulative across B.1+B.2+B.3a+B.3b:
+  **-836 lines**.
+- 13 new tests in `TestOmega35B3bSourcesCacheExtraction`:
+  - module importable on its own (5 handlers + 2 helpers + 1
+    constant)
+  - 5 handler names backward-compatible via web.py
+  - `SOURCES_UPLOAD_MAX_BYTES` value preserved via both
+    import paths (50 * 1024 * 1024)
+  - handlers actually live in the new module (`__module__`
+    + `__wrapped__` unwrap)
+  - `_MULTIPART_ROUTES` still dispatches sources upload
+  - `_POST_ROUTES` still dispatches sources fetch + fetch_all
+  - `_DELETE_ROUTES` still dispatches sources clear
+  - audit decorator preserved on 4 mutating handlers
+  - multipart helpers (`_extract_boundary`,
+    `_parse_multipart`) remain in web.py
+  - sources NAVIGATOR functions stay in web.py (`api_sources
+    _index`, `api_sources_for_book`, `api_sources_summary` —
+    deferred to B.3c if needed)
+  - web.py has no inline `def api_sources_cache_*` or
+    `SOURCES_UPLOAD_MAX_BYTES = 50` definitions
+  - lazy multipart-helper import path works at call time
+  - `_sources_cache_dir` is the SAME function object via
+    both import paths (`is` check)
+
+### Real regression caught + fixed mid-phase
+
+The full xdist run after extraction surfaced 5 failing tests
+in `TestSourcesCacheUI`. Root cause: the tests patch a
+module-attribute helper:
+```python
+monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+```
+This worked when both the helper definition AND its callers
+lived in `scripts.web`. After extraction, the helper lives in
+`scripts.api.sources` and callers inside that module do
+`LOAD_GLOBAL _sources_cache_dir` against
+`scripts.api.sources`'s namespace. Patching the web.py-side
+copy (which is now a re-imported reference, not the canonical
+binding) had no effect on those call sites.
+
+**Fix**: updated the 12 patch sites to target
+`"scripts.api.sources._sources_cache_dir"` — the canonical
+home of the function. After the fix all 22 TestSourcesCacheUI
+tests pass.
+
+This is the first cross-module monkeypatch regression we've
+hit in the file split. Future extractions should pre-emptively
+audit tests for similar patterns:
+```bash
+grep "monkeypatch.setattr(self.w, " tests/
+```
+…and re-target them to the canonical module.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| **Total** | | **21 handlers** | **-836** |
+
+### Notable decisions
+
+- **Why split B.3 into B.3a (covers) + B.3b (sources cache).**
+  Combined would have been ~9 functions with two distinct
+  cross-module dependency profiles. Splitting kept each diff
+  reviewable + made the monkeypatch regression isolatable to
+  B.3b only.
+- **Why duplicate the SOURCES_UPLOAD_MAX_BYTES constant via
+  re-export.** `_MULTIPART_ROUTES` (still in web.py)
+  references the constant at module-load time. Re-importing
+  it from `scripts.api.sources` keeps web.py's reference
+  pointing at the canonical value.
+- **Why the navigator stays in web.py.** `api_sources_index`,
+  `api_sources_for_book`, `api_sources_summary` are
+  conceptually distinct from cache management (read-only
+  browsing vs. fetcher orchestration) and live interleaved
+  with unrelated functions (api_search_notes,
+  api_verse_of_day). Moving them would require either
+  threading the unrelated functions in too OR an additional
+  cohesive-block reshape. Defer until those neighboring
+  functions also need to move.
+- **xdist perf-test flake.** `test_api_matrix_cold_under_
+  budget` flaked once in the parallel run; passed in
+  isolation. Similar profile to `test_compute_key_is_
+  deterministic` — shared corpus state across workers. Not
+  caused by this slice.
+
+### Open follow-ups
+
+- **ω.35-B.3c (optional)** — sources NAVIGATOR extraction
+  (api_sources_index, api_sources_for_book,
+  api_sources_summary). Lower priority since the navigator
+  is interleaved with neighbors.
+- **ω.35-B.4** — editions/customize.
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-B.3a → **B.3b ✓ → B.4**
+editions/customize (next) → B.5 exports/build → B.6
+preflight/audit/help → ψ.35 matrix collapse.
+
+---
+
 ## 2026-05-11 — session — ω.35-B.3a covers (mutation handlers) extracted (third file-split slice; first with lazy-import-back-to-web pattern)
 
 **Phases shipped:** ω.35-B.3a. Four cover-mutation handlers

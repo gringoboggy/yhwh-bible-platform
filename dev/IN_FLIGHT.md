@@ -4,6 +4,115 @@
 
 ## Prior task
 
+**ω.35-B.3b sources cache extracted** shipped 2026-05-11.
+Fourth file-split slice. Caught the first cross-module
+monkeypatch regression in the file split — documented for
+future extractions.
+
+**New module:** `scripts/api/sources.py` containing:
+- Constants: `REPO`, `SOURCES_UPLOAD_MAX_BYTES`
+- Helpers: `_sources_cache_dir`, `_datetime_iso`
+- Read handler: `api_sources_cache_status`
+- Mutation handlers (audit-logged):
+  `api_sources_cache_fetch`, `api_sources_cache_fetch_all`,
+  `api_sources_cache_upload`, `api_sources_cache_clear`
+
+**web.py change:** ~320 lines of inline sources-cache code
+replaced with an 8-name re-import block. `SOURCES_UPLOAD_MAX
+_BYTES` is re-exported because `_MULTIPART_ROUTES`
+references it at module-load time.
+
+Net delta: **-319 lines in web.py** (4.5% reduction in a
+single slice). Cumulative B.1+B.2+B.3a+B.3b: **-836 lines**.
+
+### Real regression caught + fixed mid-phase
+
+12 tests patched `scripts.web._sources_cache_dir` via:
+```python
+monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+```
+This worked when the helper definition AND its callers lived
+in the same module. After extraction, callers inside
+`scripts.api.sources` resolve their LOAD_GLOBAL against
+their own module's namespace — the patch on `scripts.web`'s
+re-exported reference doesn't reach them.
+
+Fix: updated the 12 patch sites to target
+`"scripts.api.sources._sources_cache_dir"` (the canonical
+home). After fix all 22 TestSourcesCacheUI tests pass.
+
+### Lesson for future B.x slices
+
+Future extractions should pre-audit tests for this pattern:
+```bash
+grep "monkeypatch.setattr(self.w, " tests/
+```
+…and re-target patches to the canonical module after
+extraction.
+
+### Out of scope for B.3b (still in web.py)
+
+- **Sources NAVIGATOR**: `api_sources_index`,
+  `api_sources_for_book`, `api_sources_summary`. Read-only
+  browsing of notes by book/chapter (Phase μ.3) —
+  conceptually distinct from cache management. Interleaved
+  with unrelated functions (api_search_notes,
+  api_verse_of_day). Defer to a B.3c slice if it makes
+  sense after surrounding functions also move.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| **Total** | | **21 handlers** | **-836** |
+
+### Test pinning
+
+13 tests in `TestOmega35B3bSourcesCacheExtraction`:
+- module importable on its own (5 handlers + 2 helpers + 1
+  constant)
+- 5 handler names backward-compatible via web.py
+- SOURCES_UPLOAD_MAX_BYTES value preserved via both paths
+- handlers actually live in new module
+- all 3 route tables (multipart/POST/DELETE) still dispatch
+  sources cache routes
+- audit decorator preserved on 4 mutating handlers
+- multipart helpers + navigator funcs remain in web.py
+- web.py has no inline `def api_sources_cache_*` or
+  `SOURCES_UPLOAD_MAX_BYTES = 50` definitions
+- lazy multipart-helper import works at call time
+- `_sources_cache_dir` is the SAME function object via both
+  import paths (`is` check)
+
+22 pre-existing TestSourcesCacheUI tests pass after the
+monkeypatch fix.
+
+### Open follow-ups
+
+- **ω.35-B.3c (optional)** — sources NAVIGATOR
+  (api_sources_index, api_sources_for_book,
+  api_sources_summary). Lower priority.
+- **ω.35-B.4** — editions/customize (next).
+- **ω.35-B.5** — exports/build.
+- **ω.35-B.6** — preflight/audit/help.
+
+Net session test delta: **+182** (1919 baseline → 2101
+final). 25 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1,
+ω.35-B.2, ω.35-B.3a, ω.35-B.3b.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.3b ✓ → ω.35-B.4
+editions/customize → B.5 exports/build → B.6 preflight/
+audit/help.
+
+**2101 / 2101 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-B.3a covers (mutation handlers) extracted** shipped
 2026-05-11. Third file-split slice; first with the
 lazy-import-back-to-web pattern.

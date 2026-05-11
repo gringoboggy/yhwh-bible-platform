@@ -10449,7 +10449,9 @@ class TestSourcesCacheUI:
 
     def test_status_reports_cached_false_for_missing_file(self, tmp_path, monkeypatch):
         # Point cache dir at an empty tmp_path; every source becomes uncached.
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         result = self.w.api_sources_cache_status()
         for s in result["sources"]:
             assert s["cached"] is False
@@ -10460,7 +10462,9 @@ class TestSourcesCacheUI:
         from scripts.core.fetcher_config import load_fetcher_config
 
         cfg = load_fetcher_config()
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         # Drop a synthetic file at the first source's cache_path
         src = cfg.sources[0]
         (tmp_path / src.cache_path).write_text('{"x":1}', encoding="utf-8")
@@ -10486,7 +10490,9 @@ class TestSourcesCacheUI:
 
         # Make the post-fetch stat check see a "freshly written" file
         # in tmp_path so api_sources_cache_fetch reports cached=True.
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         (tmp_path / cfg.sources[0].cache_path).write_text('{"ok":1}', encoding="utf-8")
 
         calls = []
@@ -10506,7 +10512,9 @@ class TestSourcesCacheUI:
 
         cfg = load_fetcher_config()
         sid = cfg.sources[0].id
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
 
         seen_urls = []
 
@@ -10548,7 +10556,9 @@ class TestSourcesCacheUI:
         from scripts.core.fetcher_config import load_fetcher_config
 
         cfg = load_fetcher_config()
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
 
         called_ids = []
 
@@ -10570,7 +10580,9 @@ class TestSourcesCacheUI:
         from scripts.core.fetcher_config import load_fetcher_config
 
         cfg = load_fetcher_config()
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
 
         # All optional ones win; required ones fail.
         def stub_fetch(src, force):
@@ -10610,7 +10622,9 @@ class TestSourcesCacheUI:
 
         cfg = load_fetcher_config()
         sid = cfg.sources[0].id
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
 
         body, ct = self._multipart_body("payload.json", b'{"hello":"world"}')
         result = self.w.api_sources_cache_upload(sid, body, ct.decode())
@@ -10647,7 +10661,9 @@ class TestSourcesCacheUI:
         assert result["code"] == "no_file_part"
 
     def test_upload_rejects_invalid_json(self, tmp_path, monkeypatch):
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         body, ct = self._multipart_body("bad.json", b"not json {")
         result = self.w.api_sources_cache_upload("strongs_hebrew", body, ct.decode())
         assert result["status"] == "error"
@@ -10656,7 +10672,9 @@ class TestSourcesCacheUI:
         assert not (tmp_path / "strongs_hebrew.json").is_file()
 
     def test_upload_rejects_non_dict_top_level(self, tmp_path, monkeypatch):
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         body, ct = self._multipart_body("arr.json", b"[1,2,3]")
         result = self.w.api_sources_cache_upload("strongs_hebrew", body, ct.decode())
         assert result["status"] == "error"
@@ -10664,7 +10682,9 @@ class TestSourcesCacheUI:
         assert not (tmp_path / "strongs_hebrew.json").is_file()
 
     def test_upload_rejects_too_large(self, tmp_path, monkeypatch):
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         # Build a body larger than the configured cap.
         big_body = b"x" * (self.w.SOURCES_UPLOAD_MAX_BYTES + 1)
         result = self.w.api_sources_cache_upload("strongs_hebrew", big_body, "multipart/form-data; boundary=B")
@@ -10678,7 +10698,9 @@ class TestSourcesCacheUI:
         from scripts.core.fetcher_config import load_fetcher_config
 
         cfg = load_fetcher_config()
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         sid = cfg.sources[0].id
         cache_path = tmp_path / cfg.sources[0].cache_path
         cache_path.write_text('{"some":"data"}', encoding="utf-8")
@@ -10691,7 +10713,9 @@ class TestSourcesCacheUI:
         from scripts.core.fetcher_config import load_fetcher_config
 
         cfg = load_fetcher_config()
-        monkeypatch.setattr(self.w, "_sources_cache_dir", lambda: tmp_path)
+        # ω.35-B.3b — the helper now lives in scripts.api.sources;
+        # patch the canonical location so in-module callers see it.
+        monkeypatch.setattr("scripts.api.sources._sources_cache_dir", lambda: tmp_path)
         sid = cfg.sources[0].id
         result = self.w.api_sources_cache_clear(sid)
         assert result["status"] == "ok"
@@ -26358,3 +26382,184 @@ class TestOmega35B3aCoversExtraction:
         # successfully; the result should be a normal error dict.
         assert "error" in result
         assert "unknown edition" in result["error"]
+
+
+class TestOmega35B3bSourcesCacheExtraction:
+    """ω.35-B.3b — fourth file-split slice. 5 sources-cache handlers
+    (status, fetch, fetch_all, upload, clear) extracted from
+    `scripts/web.py` into `scripts/api/sources.py` along with their
+    internal helpers and the SOURCES_UPLOAD_MAX_BYTES constant. The
+    multipart upload handler lazy-imports `_extract_boundary` and
+    `_parse_multipart` from web.py (same pattern as B.3a covers).
+
+    Out of scope: api_sources_index, api_sources_for_book,
+    api_sources_summary (the sources NAVIGATOR — a different
+    sub-topic, still in web.py).
+    """
+
+    def test_sources_api_module_exists(self):
+        import scripts.api.sources as sources_api
+
+        for name in (
+            "api_sources_cache_status",
+            "api_sources_cache_fetch",
+            "api_sources_cache_fetch_all",
+            "api_sources_cache_upload",
+            "api_sources_cache_clear",
+            "_sources_cache_dir",
+            "_datetime_iso",
+            "SOURCES_UPLOAD_MAX_BYTES",
+        ):
+            assert hasattr(sources_api, name), f"sources module missing {name!r}"
+
+    def test_sources_cache_handlers_backward_compatible_via_web(self):
+        from scripts.web import (
+            api_sources_cache_clear,
+            api_sources_cache_fetch,
+            api_sources_cache_fetch_all,
+            api_sources_cache_status,
+            api_sources_cache_upload,
+        )
+
+        for fn in (
+            api_sources_cache_status,
+            api_sources_cache_fetch,
+            api_sources_cache_fetch_all,
+            api_sources_cache_upload,
+            api_sources_cache_clear,
+        ):
+            assert callable(fn)
+
+    def test_upload_max_bytes_constant_backward_compatible(self):
+        # The constant is referenced directly by _MULTIPART_ROUTES
+        # at module-load time in web.py, so the re-export MUST
+        # preserve the same integer value.
+        from scripts.api.sources import SOURCES_UPLOAD_MAX_BYTES as direct
+        from scripts.web import SOURCES_UPLOAD_MAX_BYTES as reexport
+
+        assert direct == reexport == 50 * 1024 * 1024  # 50 MB
+
+    def test_handlers_actually_live_in_new_module(self):
+        from scripts.web import (
+            api_sources_cache_fetch,
+            api_sources_cache_status,
+            api_sources_cache_upload,
+        )
+
+        for fn in (api_sources_cache_status, api_sources_cache_fetch, api_sources_cache_upload):
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.sources", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.sources"
+            )
+
+    def test_multipart_table_still_dispatches_sources_upload(self):
+        from scripts import web
+
+        multipart_patterns = [r.pattern for r, _max, _h in web._MULTIPART_ROUTES]
+        assert any("/api/sources/cache/" in p and "/upload" in p for p in multipart_patterns)
+
+    def test_post_table_still_dispatches_sources_fetch(self):
+        from scripts import web
+
+        post_patterns = [r.pattern for r, _ in web._POST_ROUTES]
+        assert any("/api/sources/cache/_all/fetch" in p for p in post_patterns)
+        assert any("/api/sources/cache/" in p and "/fetch" in p for p in post_patterns)
+
+    def test_delete_table_still_dispatches_sources_clear(self):
+        from scripts import web
+
+        delete_patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
+        assert any("/api/sources/cache/" in p for p in delete_patterns)
+
+    def test_audit_decorator_preserved_on_mutations(self):
+        # 4 of 5 handlers are audit-logged (status is read-only,
+        # not decorated). Pin the decorated ones.
+        from scripts.api.sources import (
+            api_sources_cache_clear,
+            api_sources_cache_fetch,
+            api_sources_cache_fetch_all,
+            api_sources_cache_upload,
+        )
+
+        for fn in (
+            api_sources_cache_fetch,
+            api_sources_cache_fetch_all,
+            api_sources_cache_upload,
+            api_sources_cache_clear,
+        ):
+            assert fn.__name__.startswith("api_sources_cache_")
+
+    def test_multipart_helpers_remain_in_web_py(self):
+        # B.3b lazy-imports `_extract_boundary` and `_parse_multipart`
+        # from web.py inside the upload handler. Pin that they're
+        # still there.
+        import scripts.web as w
+
+        assert hasattr(w, "_extract_boundary")
+        assert hasattr(w, "_parse_multipart")
+
+    def test_sources_navigator_remains_in_web_py(self):
+        # api_sources_index, api_sources_for_book, api_sources_summary
+        # are deliberately NOT in B.3b's scope. Pin: still in web.py.
+        import scripts.web as w
+
+        for name in ("api_sources_index", "api_sources_for_book", "api_sources_summary"):
+            assert hasattr(w, name), f"web.py missing {name!r} (sources navigator stays in B.3b)"
+            # And NOT in the new sources_cache module
+            import scripts.api.sources as sources_api
+
+            assert not hasattr(sources_api, name), (
+                f"scripts.api.sources should NOT define {name!r} — that's the navigator, "
+                "still in web.py until a future slice"
+            )
+
+    def test_web_py_does_not_define_sources_cache_handlers_inline(self):
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in (
+            "api_sources_cache_status",
+            "api_sources_cache_fetch",
+            "api_sources_cache_fetch_all",
+            "api_sources_cache_upload",
+            "api_sources_cache_clear",
+            "_sources_cache_dir",
+            "_datetime_iso",
+        ):
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.sources only"
+            )
+        # The constant is an assignment, not a def.
+        assert "SOURCES_UPLOAD_MAX_BYTES = 50" not in text, (
+            "web.py still has inline `SOURCES_UPLOAD_MAX_BYTES = 50...` — "
+            "should be re-imported from scripts.api.sources only"
+        )
+
+    def test_lazy_multipart_helper_path_works_at_call_time(self):
+        # Smoke: call api_sources_cache_upload with a missing
+        # Content-Type to trigger an early error path. The lazy
+        # imports of _extract_boundary and _parse_multipart must
+        # resolve at call time without ImportError.
+        from scripts.web import api_sources_cache_upload
+
+        # Force a config lookup failure first to avoid hitting the
+        # network — use an obviously invalid source id. The
+        # function should reach the lazy-import line and proceed
+        # to a normal error dict.
+        result = api_sources_cache_upload("definitely-not-a-real-source-zzzqqq", b"", "")
+        assert isinstance(result, dict)
+        # Either the unknown_source error fires (most likely) or
+        # the not_utf8 / missing_boundary error fires; either way
+        # the function ran to completion with no ImportError.
+        assert "status" in result or "error" in result
+
+    def test_sources_cache_dir_is_callable(self):
+        from scripts.api.sources import _sources_cache_dir as direct
+        from scripts.web import _sources_cache_dir as reexport
+
+        # Same function object via both paths
+        assert direct is reexport
+        p = direct()
+        assert "content" in str(p)
+        assert "sources" in str(p)

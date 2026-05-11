@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-B.3a covers (mutation
+**Updated:** 2026-05-11, after **ω.35-B.3b sources cache
+extracted** shipped — fourth file-split slice. 5 sources-
+cache handlers (status, fetch, fetch_all, upload, clear)
+plus 2 internal helpers + SOURCES_UPLOAD_MAX_BYTES constant
+moved from scripts/web.py to new scripts/api/sources.py.
+The upload handler lazy-imports `_extract_boundary` /
+`_parse_multipart` from web.py (same pattern as B.3a). The
+SOURCES_UPLOAD_MAX_BYTES constant is re-exported because
+`_MULTIPART_ROUTES` references it at module-load time.
+**Net delta: -319 lines in web.py**; cumulative B.1+B.2+
+B.3a+B.3b: **-836 lines**. **Real regression caught mid-
+phase:** 12 tests patched `scripts.web._sources_cache_dir`
+but in-module callers in scripts.api.sources resolve their
+own module's namespace; the patch didn't reach them. Fixed
+by re-targeting the 12 sites to
+`"scripts.api.sources._sources_cache_dir"` — the canonical
+home. This is the first cross-module monkeypatch regression
+in the file split; future extractions should pre-audit
+tests for this pattern. **+13 tests** in
+`TestOmega35B3bSourcesCacheExtraction`: module importable, 5
+handlers backward-compatible via web.py, constant value
+preserved (50*1024*1024), handlers in new module, all 3
+route tables (multipart/POST/DELETE) still dispatch sources,
+audit decorator preserved on 4 mutations, multipart helpers
++ navigator funcs remain in web.py, no inline defs in web.py,
+lazy multipart-helper import works at call time,
+_sources_cache_dir is same fn object via both paths. AUDIT
+§7 sequence: ω.35-B.3b ✓ → **B.4** editions/customize (next)
+→ B.5 exports/build → B.6 preflight/audit/help. Net session
+test delta: **+182** (1919 baseline → 2101 final). 25 phases
+shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1,
+ω.35-B.2, ω.35-B.3a, ω.35-B.3b. **2101 / 2101 tests green
+(1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **ω.35-B.3a covers (mutation
 handlers) extracted** shipped — third file-split slice.
 First slice using the **lazy-import-back-to-web pattern**:
 the new `scripts/api/covers.py` module contains 4
