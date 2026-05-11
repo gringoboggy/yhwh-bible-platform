@@ -1,6 +1,37 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-10, after **feature landscape proposal +
+**Updated:** 2026-05-10, after **ω.35-B.4 customize extracted**
+shipped — fifth file-split slice. 2 audit-logged customize
+handlers (api_save_category, api_save_kind) moved to new
+`scripts/api/customize.py`. Both lazy-import
+`_patch_yaml_entry` from web.py because the helper is also
+needed by api_save_edition_meta + api_save_publisher_meta
+(both deferred to B.5 — editions cluster). Slice scope split:
+the proposal's original "B.4 editions/customize combined"
+became B.4 (customize, 2 handlers, this ship) + B.5 (editions
+cluster, 8 handlers, next). Downstream slices renumbered: B.5
+→ B.6 (exports/build), B.6 → B.7 (preflight/audit/help).
+**+9 tests** in `TestOmega35B4CustomizeExtraction`: module
+importable, handlers backward-compatible via web.py, handlers
+live in new module, _PUT_ROUTES still dispatches, audit
+decorator preserved, `_patch_yaml_entry` stays in web.py
+(pinned), 8 editions-cluster handlers stay in web.py (pinned
+— surfaces when B.5 ships), no inline defs in web.py, lazy
+patch-helper import path works at call time. **Net delta:**
+~-80 lines in web.py. Cumulative B.1+B.2+B.3a+B.3b+B.4:
+**-916 lines** across 23 handlers in 5 modules. AUDIT §7
+sequence: ω.35-B.4 ✓ → **B.5** editions cluster (next; 8
+handlers including the api_save_edition_meta whose
+cross-module lazy import from scripts/api/covers.py will need
+to update to point at the new home). Net session test delta:
+**+204** (1919 baseline → 2123 final after B.4 self-tests).
+29 phases shipped this session: Δ.5/6/8/9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10, ω.35-B.1,
+ω.35-B.2, ω.35-B.3a, ω.35-B.3b, ω.35-B.4, plus the guard +
+AI proposal + landscape proposal + ω.37. **2123 / 2123
+tests green (1 skipped); 11/11 linter clean.**
+
+Prior ship in same session: **feature landscape proposal +
 pre-commit hook (ω.37)** shipped. New planning document
 `dev/PROPOSAL_FEATURE_LANDSCAPE.md` catalogs 11 tracks and
 ~80-110 new phase candidates with full dependency chaining and

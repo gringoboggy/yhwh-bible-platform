@@ -26563,3 +26563,117 @@ class TestOmega35B3bSourcesCacheExtraction:
         p = direct()
         assert "content" in str(p)
         assert "sources" in str(p)
+
+
+class TestOmega35B4CustomizeExtraction:
+    """ω.35-B.4 — fifth file-split slice. 2 audit-logged mutation
+    handlers for the /customize console (Phase ν.1 — edit
+    symbols/labels/descriptions for categories and kinds)
+    extracted from `scripts/web.py` into
+    `scripts/api/customize.py`. The `_patch_yaml_entry` helper
+    stays in web.py because it's also used by
+    `api_save_edition_meta` and `api_save_publisher_meta` (both
+    still in web.py until B.5). customize.py lazy-imports it
+    inside each handler.
+
+    Out of scope for B.4 (deferred to B.5 — editions cluster):
+    - api_save_edition / api_save_edition_meta /
+      api_save_publisher_meta
+    - api_clone_edition / api_create_edition_from_template
+    - api_save_note_toggle / api_preview_edition_changes
+    - api_apply_kind_to_all_editions
+    """
+
+    def test_customize_module_exists(self):
+        import scripts.api.customize as customize_api
+
+        assert hasattr(customize_api, "api_save_category")
+        assert hasattr(customize_api, "api_save_kind")
+
+    def test_handlers_backward_compatible_via_web(self):
+        from scripts.web import api_save_category, api_save_kind
+
+        assert callable(api_save_category)
+        assert callable(api_save_kind)
+
+    def test_handlers_actually_live_in_new_module(self):
+        from scripts.web import api_save_category, api_save_kind
+
+        for fn in (api_save_category, api_save_kind):
+            target = getattr(fn, "__wrapped__", fn)
+            assert target.__module__ == "scripts.api.customize", (
+                f"{target.__name__} module is {target.__module__}, expected scripts.api.customize"
+            )
+
+    def test_put_table_still_dispatches_customize(self):
+        from scripts import web
+
+        put_patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        # /api/category/<id> + /api/kind/<code>
+        assert any("/api/category/" in p for p in put_patterns)
+        assert any("/api/kind/" in p for p in put_patterns)
+
+    def test_audit_decorator_preserved(self):
+        from scripts.api.customize import api_save_category, api_save_kind
+
+        for fn in (api_save_category, api_save_kind):
+            # The decorator wraps the function but the name
+            # survives.
+            assert fn.__name__.startswith("api_save_")
+
+    def test_patch_yaml_entry_stays_in_web_py(self):
+        # B.4 deliberately keeps _patch_yaml_entry in web.py
+        # because api_save_edition_meta + api_save_publisher_meta
+        # (still inline) also need it. Pin: the helper is still
+        # there.
+        import scripts.web as w
+
+        assert hasattr(w, "_patch_yaml_entry"), (
+            "web.py missing _patch_yaml_entry — B.4 should NOT have moved it "
+            "(api_save_edition_meta + api_save_publisher_meta still use it)"
+        )
+
+    def test_editions_cluster_remains_in_web_py(self):
+        # The 8 editions-cluster handlers stay in web.py until
+        # B.5. Pin so we know when B.5 has shipped.
+        import scripts.web as w
+
+        for name in (
+            "api_save_edition",
+            "api_save_edition_meta",
+            "api_save_publisher_meta",
+            "api_clone_edition",
+            "api_create_edition_from_template",
+            "api_save_note_toggle",
+            "api_preview_edition_changes",
+            "api_apply_kind_to_all_editions",
+        ):
+            assert hasattr(w, name), f"web.py missing {name!r} (deferred to B.5)"
+            # And NOT in customize.py
+            import scripts.api.customize as customize_api
+
+            assert not hasattr(customize_api, name), (
+                f"scripts.api.customize should NOT define {name!r} — that belongs to B.5"
+            )
+
+    def test_web_py_does_not_define_customize_handlers_inline(self):
+        from pathlib import Path
+
+        web_py = Path(__file__).resolve().parent.parent / "scripts" / "web.py"
+        text = web_py.read_text(encoding="utf-8")
+        for name in ("api_save_category", "api_save_kind"):
+            assert f"def {name}(" not in text, (
+                f"web.py still has inline `def {name}(...)` — should be re-imported from scripts.api.customize only"
+            )
+
+    def test_lazy_patch_helper_path_works_at_call_time(self):
+        # Smoke: call api_save_category with an unknown category
+        # id. The function must reach the lazy-import line and
+        # return the expected error dict, NOT crash with
+        # ImportError.
+        from scripts.web import api_save_category
+
+        result = api_save_category("definitely-not-a-real-cat-zzzqqq", {"symbol": "?"})
+        assert isinstance(result, dict)
+        assert "error" in result
+        assert "unknown category" in result["error"]

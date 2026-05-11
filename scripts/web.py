@@ -1678,86 +1678,18 @@ def _patch_yaml_entry(text: str, key_field: str, key_value: str, updates: dict[s
     return text[: m.start()] + head + new_body + text[m.end() :]
 
 
-@audit_log.audit_endpoint(action="save_category")
-def api_save_category(cat_id: str, payload: dict) -> dict:
-    """Update symbol / label / description for one category."""
-    cats = config.categories_by_id()
-    if cat_id not in cats:
-        return {"error": f"unknown category: {cat_id}"}
-
-    updates = {}
-    if "symbol" in payload:
-        s = (payload["symbol"] or "").strip()
-        if not s or len(s) > 4:
-            return {"error": "symbol must be 1-4 visible chars"}
-        updates["symbol"] = s
-    if "label" in payload:
-        lab = (payload["label"] or "").strip()
-        if not lab:
-            return {"error": "label cannot be empty"}
-        if len(lab) > 60:
-            return {"error": "label too long (max 60 chars)"}
-        updates["label"] = lab
-    if "description" in payload:
-        updates["description"] = (payload["description"] or "").strip()
-    if not updates:
-        return {"error": "no updates supplied"}
-
-    path = REPO / "content" / "categories.yaml"
-    text = path.read_text(encoding="utf-8")
-    try:
-        new_text = _patch_yaml_entry(text, "id", cat_id, updates)
-    except ValueError as e:
-        return {"error": str(e)}
-
-    notes_io.ensure_backup(path)
-    notes_io.atomic_write(path, new_text)
-    config.load_categories.cache_clear()
-    from scripts.core import matrix as matrix_mod
-
-    matrix_mod.compute_matrix.cache_clear()
-    return {"ok": True, "id": cat_id, "updated": list(updates.keys())}
-
-
-@audit_log.audit_endpoint(action="save_kind")
-def api_save_kind(kind_code: str, payload: dict) -> dict:
-    """Update symbol / label / description for one kind."""
-    kinds = config.kinds_by_code()
-    if kind_code not in kinds:
-        return {"error": f"unknown kind: {kind_code}"}
-
-    updates = {}
-    if "symbol" in payload:
-        s = (payload["symbol"] or "").strip()
-        if not s or len(s) > 4:
-            return {"error": "symbol must be 1-4 visible chars"}
-        updates["symbol"] = s
-    if "label" in payload:
-        lab = (payload["label"] or "").strip()
-        if not lab:
-            return {"error": "label cannot be empty"}
-        if len(lab) > 60:
-            return {"error": "label too long (max 60 chars)"}
-        updates["label"] = lab
-    if "description" in payload:
-        updates["description"] = (payload["description"] or "").strip()
-    if not updates:
-        return {"error": "no updates supplied"}
-
-    path = REPO / "content" / "kinds.yaml"
-    text = path.read_text(encoding="utf-8")
-    try:
-        new_text = _patch_yaml_entry(text, "code", kind_code, updates)
-    except ValueError as e:
-        return {"error": str(e)}
-
-    notes_io.ensure_backup(path)
-    notes_io.atomic_write(path, new_text)
-    config.load_kinds.cache_clear()
-    from scripts.core import matrix as matrix_mod
-
-    matrix_mod.compute_matrix.cache_clear()
-    return {"ok": True, "code": kind_code, "updated": list(updates.keys())}
+# ω.35-B.4 — api_save_category + api_save_kind handlers moved to
+# scripts/api/customize.py. Re-imported here so route-table
+# lambdas (_PUT_ROUTES entries reference these by flat name) and
+# tests that import `scripts.web.api_save_*` keep working.
+# The `_patch_yaml_entry` helper above stays in web.py because
+# api_save_edition_meta + api_save_publisher_meta also use it
+# (both still inline below until ω.35-B.5). customize.py
+# lazy-imports the helper at call time.
+from scripts.api.customize import (  # noqa: E402
+    api_save_category,
+    api_save_kind,
+)
 
 
 def api_customize_data() -> dict:

@@ -6,6 +6,103 @@
 
 ---
 
+## 2026-05-10 — session — ω.35-B.4 customize extracted (fifth file-split slice; B.4 split into B.4 + B.5 for safer slicing)
+
+**Phases shipped:** ω.35-B.4 (scope split from proposal's
+original "editions/customize" combined slice). Two
+audit-logged customize handlers extracted; the larger
+editions cluster (8 handlers) deferred to **ω.35-B.5**.
+Existing slice numbering for downstream work renumbers
+accordingly:
+- B.5 (was: exports/build) → editions cluster
+- B.6 (was: preflight/audit/help) → exports/build
+- B.7 (new) → preflight/audit/help
+
+**Test delta:** +9 (B.4 self-tests).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+- New `scripts/api/customize.py` module containing 2
+  audit-logged mutation handlers (Phase ν.1 — edit
+  symbols/labels/descriptions):
+  - `api_save_category(cat_id, payload)` → updates categories.yaml
+  - `api_save_kind(kind_code, payload)` → updates kinds.yaml
+- Both handlers **lazy-import `_patch_yaml_entry` from
+  scripts.web** (same pattern as B.3a covers + B.3b sources
+  cache upload). The helper stays in web.py because
+  api_save_edition_meta + api_save_publisher_meta also use
+  it (both deferred to B.5).
+- `scripts/web.py` replaces the 2 inline function defs with a
+  small re-import block. Net delta: ~-80 lines in web.py.
+- 9 new tests in `TestOmega35B4CustomizeExtraction`:
+  - customize module is importable on its own (2 handlers)
+  - 2 handler names backward-compatible via web.py
+  - handlers actually live in new module (`__module__`
+    check with `__wrapped__` unwrap for audit decorator)
+  - `_PUT_ROUTES` still dispatches both /api/category/<id>
+    + /api/kind/<code>
+  - audit decorator preserved on both handlers
+  - `_patch_yaml_entry` helper REMAINS in web.py (pinned —
+    api_save_edition_meta + api_save_publisher_meta need it)
+  - 8 editions-cluster handlers REMAIN in web.py (pinned —
+    surfaces when B.5 ships)
+  - web.py has no inline `def api_save_(category|kind)(`
+  - **lazy patch-helper import path works at call time** —
+    smoke-tested by calling api_save_category with unknown
+    cat_id, must not crash with ImportError, must return
+    the normal `unknown category` error dict
+
+### Why split B.4
+
+The original proposal §6 §4 catalog combined editions +
+customize as one slice. Surveying revealed 9+ mutation
+handlers across 4600+ lines, with cross-module dependencies
+(api_save_edition_meta is already lazy-imported by
+scripts/api/covers.py). Per "professional, safe, logical"
+(2026-05-10 mandate), splitting into B.4 (small, 2 handlers)
++ B.5 (bigger, 8 handlers) keeps each diff reviewable and
+bisects cleanly if anything regresses.
+
+### Notable detail — pre-commit hook caught its first issue
+
+The full xdist run after extraction surfaced ruff format
+drift on tests/test_scripts.py (the new test class needed
+ruff-formatting). Pre-commit hook (ω.37, shipped earlier
+today) would have caught this BEFORE the commit attempt
+in a future workflow. This time the lint-rules test caught
+it at the test-suite level; behavior is unchanged.
+
+### Migration progress (file split)
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| ω.35-B.4 | customize | 2 | ~-80 |
+| **Total** | | **23 handlers** | **-916** |
+
+### Open follow-ups
+
+- **ω.35-B.5** — editions cluster extraction (next; 8
+  mutation handlers: api_save_edition, save_edition_meta,
+  save_publisher_meta, clone_edition,
+  create_edition_from_template, save_note_toggle,
+  preview_edition_changes, apply_kind_to_all_editions).
+  Includes the cover-handler cross-module migration: update
+  scripts/api/covers.py's lazy import to point at the new
+  scripts/api/editions.py instead of scripts.web.
+- **ω.35-B.6** — exports/build (was B.5).
+- **ω.35-B.7** — preflight/audit/help + multipart helper
+  consolidation (was B.6).
+
+AUDIT_2026-05-11 §7 sequence: ... → B.3b → B.4 ✓ → B.5
+editions → B.6 exports/build → B.7 preflight/audit/help.
+
+---
+
 ## 2026-05-10 — session — feature landscape proposal + pre-commit hook (ω.37)
 
 **Phases shipped:** ω.37 (pre-commit hook). New planning document

@@ -4,6 +4,90 @@
 
 ## Prior task
 
+**ω.35-B.4 customize extracted** shipped 2026-05-10. Fifth
+file-split slice; 2 customize-mutation handlers moved.
+
+**New module:** `scripts/api/customize.py` containing 2
+audit-logged mutation handlers (Phase ν.1):
+- api_save_category (PUT /api/category/<id>)
+- api_save_kind (PUT /api/kind/<code>)
+
+**web.py change:** 2 inline function definitions replaced
+with a 4-line re-import block. Net delta: ~-80 lines in
+web.py.
+
+### Why this was split from the original B.4 scope
+
+The proposal's §6 Month-1 listed B.4 as "editions/customize
+extraction" — one slice. Surveying found 9+ mutation handlers
+across 4600+ lines, with cross-module dependencies
+(`api_save_edition_meta` is already lazy-imported by
+`scripts/api/covers.py`). Per "professional, safe, logical,"
+this slice ships the smaller customize half (2 handlers); the
+larger editions cluster (8 handlers) is now **ω.35-B.5** next.
+
+Downstream slices renumbered:
+- B.5 → B.6 (was: exports/build)
+- B.6 → B.7 (was: preflight/audit/help)
+
+### Why `_patch_yaml_entry` stays in web.py
+
+The helper is used by 4 functions:
+- api_save_category (moved to customize.py — lazy-imports the helper)
+- api_save_kind (moved to customize.py — lazy-imports the helper)
+- api_save_edition_meta (still in web.py until B.5)
+- api_save_publisher_meta (still in web.py until B.5)
+
+Keeping it in web.py for now avoids touching all four call
+sites in one go. When B.5 lands, both api_save_edition_meta
+and api_save_publisher_meta will lazy-import the helper too,
+at which point it can be consolidated to a shared module if
+preferred — but it's also fine to keep in web.py as a
+stable utility.
+
+### Lazy-import smoke test
+
+`test_lazy_patch_helper_path_works_at_call_time` calls
+api_save_category with an unknown category id — the function
+must reach the lazy `from scripts.web import _patch_yaml_entry`
+line and proceed to the normal error path. Confirms the
+B.3a-pattern still works.
+
+### Cumulative file-split progress
+
+| Slice | Topic | Handlers | LOC delta in web.py |
+|---|---|---|---|
+| ω.35-B.1 | snapshots | 6 | -76 |
+| ω.35-B.2 | scenarios | 6 + helpers | -371 |
+| ω.35-B.3a | covers (mutations) | 4 | -70 |
+| ω.35-B.3b | sources cache | 5 + 2 helpers + const | -319 |
+| ω.35-B.4 | customize | 2 | -80 |
+| **Total** | | **23 handlers** | **-916** |
+
+### Open follow-ups
+
+- **ω.35-B.5** — editions cluster (next session). 8 handlers:
+  api_save_edition, save_edition_meta, save_publisher_meta,
+  clone_edition, create_edition_from_template, save_note_toggle,
+  preview_edition_changes, apply_kind_to_all_editions.
+  Larger surface; will also need to update
+  `scripts/api/covers.py`'s lazy import of api_save_edition_meta
+  to point at the new editions.py home.
+- **ω.35-B.6** — exports/build (was B.5).
+- **ω.35-B.7** — preflight/audit/help + multipart helper
+  consolidation (was B.6).
+
+Net session test delta: **+204** (1919 baseline → 2123 final).
+29 phases shipped this session.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-B.4 ✓ → ω.35-B.5
+editions cluster → B.6 exports/build → B.7 preflight/
+audit/help.
+
+**2123 / 2123 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **Feature landscape proposal + pre-commit hook (ω.37)** shipped
 2026-05-10. Comprehensive planning document covering 11 tracks
 with ~80-110 new phase candidates + the first concrete tool
