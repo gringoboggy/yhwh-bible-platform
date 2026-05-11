@@ -229,8 +229,20 @@ Second topic extraction. Eight ω.35-B file-split test classes
 `tests/test_web_filesplit.py` (1422 lines). test_scripts.py:
 27541 → 26143 lines (-1398). Test count unchanged. Classes
 consolidated in chronological order B1 → B7 with per-slice
-section markers. **Cumulative test_scripts.py reduction
-across both extractions: 28384 → 26143 (-2241; -7.9%).**
+section markers.
+
+### Bonus slice: ω.27 follow-on #3 — Δ-family test split
+
+Third topic extraction. 14 Δ-family test classes (98 tests)
+moved from test_scripts.py to a new self-contained
+`tests/test_corpus_index_delta.py` (1950 lines). Pairs with
+the new CLAUDE_PROJECT_RULES §9 mental-model section codifying
+the Δ-family pattern (index-backed file-walk replacements).
+
+**Cumulative test_scripts.py reduction across three extractions:
+28384 → 24214 lines (-4170; -14.7%).** 225 tests in 3 self-
+contained topic files (matrix-ψ.35, web-filesplit, corpus_
+index-Δ). Test count unchanged (2211 pass + 1 skipped).
 
 **Final state for this session: 2211 passed + 1 skipped =
 2212 collected; 11/11 linter clean; protected-paths guard

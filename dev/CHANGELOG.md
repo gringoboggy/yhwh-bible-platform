@@ -664,6 +664,36 @@ follow-on slices will continue the trajectory toward a
 test-per-feature file structure that maximizes xdist
 parallelism.
 
+**ω.27 follow-on #3 — split Δ-family tests into test_corpus_index_delta.py.**
+Third topic extraction. 14 Δ-family test classes covering the
+corpus_index optimization arc (Δ.0 rebuild lock, Δ.1 index
+schema, Δ.2/3/4/5 indexed alternatives for search /
+attribution-audit / compute_matrix / dashboard-stats, Δ.6 TTL
+fingerprint cache, Δ.7 notes_io invalidation hook, Δ.8 per-
+worker storage, Δ.9 warmup fixture, plus the four wire-flip
+slices Δ.2.1/3.1/4.1/5.1) moved from `tests/test_scripts.py`
+(26143 → 24214 lines; -1929) into a new
+`tests/test_corpus_index_delta.py` (1950 lines, 98 tests).
+
+Pairs directly with the new CLAUDE_PROJECT_RULES §9 mental-
+model section *"Build an index-backed alternative for an
+expensive file-walk operation (the Δ-family pattern)"* — the
+tests are the empirical witness that the codified pattern's
+infrastructure unblockers (rebuild lock, TTL cache, per-
+worker storage, warmup) actually hold under xdist.
+
+**Cumulative test-file-split impact (3 extractions):**
+- test_scripts.py: **28384 → 24214 lines (-4170; -14.7%)**
+- 3 new topic files: test_matrix_psi35.py (869 lines, 39 tests),
+  test_web_filesplit.py (1422 lines, 88 tests),
+  test_corpus_index_delta.py (1950 lines, 98 tests) = 225 tests
+  total in self-contained topic files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+- All three new files use the same convention: module docstring
+  describes the topic + lineage; every class lazy-imports its
+  dependencies inside test method bodies; no top-level project
+  imports.
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the

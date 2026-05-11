@@ -129,8 +129,14 @@ unchanged.
 **Then ω.27 follow-on #2 — ω.35-B test split**: eight
 ω.35-B file-split test classes (88 tests) moved to a new
 `tests/test_web_filesplit.py` (1422 lines).
-test_scripts.py: 27541 → 26143 lines (-1398). Cumulative
-test_scripts.py reduction: **28384 → 26143 (-2241; -7.9%)**.
+test_scripts.py: 27541 → 26143 lines (-1398).
+
+**Then ω.27 follow-on #3 — Δ-family test split**: 14
+Δ-family test classes (98 tests) moved to a new
+`tests/test_corpus_index_delta.py` (1950 lines).
+test_scripts.py: 26143 → 24214 lines (-1929). Cumulative
+test_scripts.py reduction: **28384 → 24214 (-4170; -14.7%)**.
+225 tests in 3 self-contained topic files.
 
 **2211 / 2212 tests green (1 skipped); 11/11 linter clean;
 protected-paths guard PASSES (tests/test_guard_self.py
