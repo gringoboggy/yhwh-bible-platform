@@ -4,6 +4,106 @@
 
 ## Prior task
 
+**ω.35-A.10 bespoke PUT cleanup** shipped 2026-05-11.
+Closes the uniform-shape PUT migration. 3 PUT routes
+migrated to `_PUT_ROUTES` (table now 9 entries); dead-code
+/api/publisher block deleted; 3 truly-bespoke PUT routes
+intentionally retained in legacy with documented distinct-
+response-shape reasons.
+
+**Routes migrated to `_PUT_ROUTES`:**
+- /api/edition/<id>/note-toggle → api_save_note_toggle
+  (MUST precede the broader /api/edition/<id> entry for
+  precedence; pinned by `test_note_toggle_precedes_edition
+  _save`)
+- /api/edition-meta/<id> → api_save_edition_meta (standard
+  ok:True|False shape; 200/400 via the helper)
+- /api/editions/from-template → api_create_edition_from
+  _template (status==ok|error shape; moves out of literal
+  `if self.path ==` form into a discoverable regex entry)
+
+**Deleted: dead-code /api/publisher block.** Route was in
+`_PUT_ROUTES` since A.5; the legacy fall-through was
+unreachable.
+
+**Bespoke retentions (documented in do_PUT comments):**
+- /api/export/build/<id> — 200 if ok else **500**. Build
+  failure is a server-side error (not bad input), so 500
+  is semantically meaningful. Adapter would obscure this.
+- /api/build-all — 200 if `success_count > 0` else 500.
+  Partial-success is a real 200 outcome; the custom check
+  has no analog in `_dispatch_table_result`.
+- /api/edition-meta/<id>/preview — 200 if "error" not in
+  result else 400. Returns bare diff dict (success) or
+  `{"error": "..."}` (failure) — no status/ok
+  discriminator the helper checks.
+
+`do_PUT` now: auth → table dispatch → 3 bespoke branches
+→ 404 fall-through. Down from 7+ legacy branches pre-A.10.
+
+### Notable decisions
+
+- **Why not adapt the bespoke 3 via lambda wrappers.** The
+  build endpoints' 500-on-failure is semantically
+  meaningful (server-side error, not input validation).
+  Wrapping via a status==error adapter would be technically
+  equivalent but obscure the distinction in the route
+  definition. Pinned bespoke makes the distinction first-
+  class.
+- **Why preview stays bespoke.** Its bare error key shape
+  is non-uniform; adapting would require either modifying
+  the API function (UI may depend on the current shape), a
+  per-route wrapper (adds layer without saving code), or
+  extending the helper to also check for `error` key
+  (would change behavior for any future API that has an
+  innocent `error` key in success path). None wins clarity
+  over the 9-line legacy branch.
+- **note-toggle precedence is real.** Both /api/edition/
+  <id>/note-toggle and /api/edition/<id> match prefix; the
+  more-specific suffix-bearing pattern MUST iterate first
+  or the broader pattern's `<id>` group swallows the
+  `foo/note-toggle` path. Pinned.
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+| ω.35-A.8 | 1 DELETE + 2 POST | 40 |
+| ω.35-A.9 | 3 multipart POST | 43 |
+| ω.35-A.10 | 3 PUT | 46 |
+
+**46 of 95 discovered routes in tables (~48%).**
+- POST: **11/11 COMPLETE**
+- DELETE: **6/6 COMPLETE**
+- PUT: 9/11 (2 bespoke retentions by design — build endpoints)
+- GET: 20/67 (large legacy surface; needs ω.35-B file split)
+
+### Open follow-ups
+
+- **ω.35-B — web.py file split** (1-2 sessions). After
+  A.10 the mutation surface is uniform and ready for the
+  web.py → `scripts/api/<topic>.py` modules split. Route
+  tables become per-module exports.
+- **Perf-test serialization** (~half session).
+- **ψ.35 — matrix data-model collapse** (1 session, parked).
+
+Net session test delta: **+142** (1919 baseline → 2061
+final). 21 phases shipped: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
+Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36, ω.35-A.1-A.10.
+
+AUDIT_2026-05-11 §7 sequence: ... → ω.35-A.10 ✓ → ω.35-B
+file split (mutation surface now uniform and ready).
+
+**2061 / 2061 tests green (1 skipped); 11/11 linter clean.**
+
+## Prior task
+
 **ω.35-A.9 multipart routes table** shipped 2026-05-11.
 First route table with a DISTINCT entry shape (3-tuple
 `(regex, max_bytes, handler)`) and DISTINCT lambda

@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated:** 2026-05-11, after **ω.35-A.9 multipart routes
+**Updated:** 2026-05-11, after **ω.35-A.10 bespoke PUT
+cleanup** shipped — closes uniform-shape PUT migration. 3
+PUT routes migrated to `_PUT_ROUTES` (table now 9 entries):
+/api/edition/<id>/note-toggle (MUST precede the broader
+/api/edition/<id> for precedence — pinned by test),
+/api/edition-meta/<id> (standard ok:True|False shape),
+/api/editions/from-template (status==ok|error shape; moves
+out of literal `if self.path ==` legacy form). Dead-code
+/api/publisher block deleted from do_PUT. 3 PUT routes
+intentionally retained in legacy with documented reasons:
+/api/export/build/<id> (500-on-failure semantically distinct
+from 400 — builds are server-side ops, not input
+validation), /api/build-all (custom success_count > 0 check
+for partial-ok 200 outcome), /api/edition-meta/<id>/preview
+(returns bare error key with no status/ok discriminator —
+helper can't distinguish error from success without an
+adapter). **+8 tests** in `TestOmega35A10BespokePutCleanup`:
+9-entry count, A.10 routes present, note-toggle precedes
+edition save, bespoke 3 stay in legacy, publisher dead code
+deleted (no re.match for publisher AND no api_save_publisher
+_meta call site), discovery recognizes 3 new entries,
+inventory clean, from-template handles empty payload. Test
+delta: 2061 / 2061 (+8). Migration progress: 46/95
+discovered routes (~48%) now in tables. **All mutation
+methods table-driven**: POST 11/11 COMPLETE, DELETE 6/6
+COMPLETE, PUT 9/11 (2 bespoke retentions by design); GET
+20/67. Net session test delta: **+142** (1919 baseline →
+2061 final). 21 phases shipped this session: Δ.5, Δ.6, Δ.8,
+Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A, ω.36,
+ω.35-A.1-A.10. AUDIT §7 sequence: ω.35-A.10 ✓ → **A.11
+or directly to ω.35-B file split**. After A.10 the mutation
+surface is uniform and ready for the web.py → scripts/api/
+<topic>.py split. **2061 / 2061 tests green (1 skipped);
+11/11 linter clean.**
+
+Prior ship in same session: **ω.35-A.9 multipart routes
 table** shipped — first table with a DISTINCT entry shape
 (3-tuple `(regex, max_bytes, lambda m, body, ctype)`) and
 DISTINCT lambda signature. 3 multipart POST routes migrated:

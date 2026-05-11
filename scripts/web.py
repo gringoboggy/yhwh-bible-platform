@@ -6372,11 +6372,36 @@ _QS_REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
 # the `{ok: False}` legacy mutation-result shape (→ HTTP 400).
 _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (re.compile(r"^/api/notes/([a-z0-9]+)$"), lambda m, payload: api_save(m.group(1), payload)),
+    # ω.35-A.10 — /api/edition/<id>/note-toggle MUST precede the
+    # broader /api/edition/<id> below; both regex match on the same
+    # prefix but the more-specific suffix-bearing pattern needs to
+    # iterate first.
+    (
+        re.compile(r"^/api/edition/([a-z0-9-]+)/note-toggle$"),
+        lambda m, payload: api_save_note_toggle(m.group(1), payload),
+    ),
     (re.compile(r"^/api/edition/([a-z0-9-]+)$"), lambda m, payload: api_save_edition(m.group(1), payload)),
     (re.compile(r"^/api/scenarios/([a-z0-9_-]+)$"), lambda m, payload: api_save_scenario(m.group(1), payload)),
     (re.compile(r"^/api/category/([a-z0-9-]+)$"), lambda m, payload: api_save_category(m.group(1), payload)),
     (re.compile(r"^/api/kind/([a-z0-9-]+)$"), lambda m, payload: api_save_kind(m.group(1), payload)),
     (re.compile(r"^/api/publisher/([a-z0-9-]+)$"), lambda m, payload: api_save_publisher_meta(m.group(1), payload)),
+    # ω.35-A.10 — /api/edition-meta/<id> — uses standard ok:True|False
+    # shape (200 / 400). Standard helper covers it.
+    (
+        re.compile(r"^/api/edition-meta/([a-z0-9-]+)$"),
+        lambda m, payload: api_save_edition_meta(m.group(1), payload),
+    ),
+    # ω.35-A.10 — /api/editions/from-template — uses status==ok|error
+    # shape. Standard helper covers it via status==error → http
+    # envelope and fall-through 200.
+    (
+        re.compile(r"^/api/editions/from-template$"),
+        lambda m, payload: api_create_edition_from_template(
+            (payload or {}).get("template_id", ""),
+            (payload or {}).get("new_id", ""),
+            (payload or {}).get("new_title", ""),
+        ),
+    ),
 ]
 
 
@@ -7324,15 +7349,25 @@ class Handler(BaseHTTPRequestHandler):
     def do_PUT(self):
         if not self._check_admin_auth():
             return
-        # ω.35-A.5 — table-driven dispatch for the uniform-shape PUT
-        # routes (regex → read body → call handler → translate
-        # ok:False to 400 → send_json). The 9-line per-route
-        # boilerplate that appeared 6+ times is now one dispatch
-        # loop. Routes that need bespoke handling (export/build's
-        # 500-on-fail, build-all's success_count check,
-        # edition-meta/preview's "error" key check, edition/note-
-        # toggle's extra path segment) stay in the legacy cascade
-        # for future ω.35-A.x slices.
+        # ω.35-A.5/A.10 — table-driven dispatch for uniform-shape
+        # PUT routes (regex → read body → call handler →
+        # _dispatch_table_result → send_json). After A.10 the table
+        # covers 9 of 10 PUT routes; the 3 remaining bespoke routes
+        # below have semantically-distinct response shapes that
+        # don't fit the standard helper:
+        #   - /api/export/build/<id> uses HTTP 500 on build failure
+        #     (server-side build error, not bad input)
+        #   - /api/build-all uses HTTP 500 only when ALL editions
+        #     fail (custom `success_count > 0` check; partial-ok
+        #     is a real 200 outcome)
+        #   - /api/edition-meta/<id>/preview uses a bare `"error"`
+        #     key (no status/ok discriminator) — the helper can't
+        #     distinguish error from success without additional
+        #     introspection
+        # Adapting them would require either modifying the API
+        # functions' return shape (risky — UI may depend on the
+        # current shape) or a wrapper helper per route (adds a
+        # layer without saving meaningful code). Pinned bespoke.
         for regex, handler in _PUT_ROUTES:
             m = regex.match(self.path)
             if m:
@@ -7342,8 +7377,8 @@ class Handler(BaseHTTPRequestHandler):
                     return _dispatch_table_result(self, result)
                 except Exception as e:
                     return self._send_json({"error": str(e)}, status=400)
-        # ω.35-A.5 — /api/notes, /api/edition, /api/scenarios migrated to _PUT_ROUTES.
-        # Build edition (Phase σ.2)
+        # Bespoke #1 — Build edition (Phase σ.2). 500 on build
+        # failure (not 400 — build is a server-side operation).
         m = re.match(r"^/api/export/build/([a-z0-9-]+)$", self.path)
         if m:
             try:
@@ -7354,38 +7389,20 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json(result, status=status)
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
-        # Build all editions (Phase ω.2) — runs build_edition for
-        # every edition, packages successful EPUBs into one zip.
-        # Per-edition errors don't abort the batch (spec).
+        # Bespoke #2 — Build all editions (Phase ω.2). 500 only
+        # when ALL editions fail; partial success is a real 200.
         if self.path == "/api/build-all":
             try:
                 payload = self._read_body() or {}
                 version = payload.get("version", "v28a")
                 result = api_build_all_editions(version=version)
-                # Status 200 if at least one success (partial-ok is
-                # a real outcome the UI handles); 500 only when all
-                # editions failed.
                 status = 200 if result.get("success_count", 0) > 0 else 500
                 return self._send_json(result, status=status)
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
-        # ω.35-A.5 — /api/category, /api/kind migrated to _PUT_ROUTES.
-        # Customize: update edition metadata (Phase ν.2 — title, audience,
-        # verse_popups, verse_marker_glyph, etc. — NOT the kind toggles)
-        m = re.match(r"^/api/edition-meta/([a-z0-9-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_edition_meta(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # Phase ν.5 — change-impact preview. Same payload shape as
-        # /api/edition-meta save, but read-only: returns the
-        # field-by-field diff between current state and proposal.
-        # The /customize UI calls this before any save to show a
-        # "you're about to change X, Y, Z" modal.
+        # Bespoke #3 — Edition metadata change-impact preview
+        # (Phase ν.5). Returns either a bare diff dict (success)
+        # or `{"error": "..."}` (failure) — no status/ok marker.
         m = re.match(r"^/api/edition-meta/([a-z0-9-]+)/preview$", self.path)
         if m:
             try:
@@ -7395,51 +7412,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send_json(result, status=status)
             except Exception as e:
                 return self._send_json({"error": str(e)}, status=400)
-        # Per-note toggle (Phase ρ.1) — add/remove a note ID from an
-        # edition's disabled_note_ids list.
-        m = re.match(r"^/api/edition/([a-z0-9-]+)/note-toggle$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_note_toggle(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # ω.35-A.5 — /api/publisher migrated to _PUT_ROUTES.
-        # (Legacy block below kept for the now-impossible match
-        # path; left intact to make the diff small. The dispatch
-        # loop above returns before reaching here.)
-        m = re.match(r"^/api/publisher/([a-z0-9-]+)$", self.path)
-        if m:
-            try:
-                payload = self._read_body()
-                result = api_save_publisher_meta(m.group(1), payload)
-                status = 200 if result.get("ok") else 400
-                return self._send_json(result, status=status)
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
-        # ψ.7-B — clone an edition starter-pack template
-        if self.path == "/api/editions/from-template":
-            try:
-                payload = self._read_body() or {}
-                result = api_create_edition_from_template(
-                    payload.get("template_id", ""),
-                    payload.get("new_id", ""),
-                    payload.get("new_title", ""),
-                )
-                if result.get("status") == "ok":
-                    return self._send_json(result, status=200)
-                http_code = result.get("http") or 500
-                return self._send_json(
-                    {
-                        "error": result.get("code") or "internal_error",
-                        "message": result.get("message") or "",
-                    },
-                    status=http_code,
-                )
-            except Exception as e:
-                return self._send_json({"error": str(e)}, status=400)
+        # ω.35-A.10 — /api/edition-meta/<id>, /api/edition/<id>/
+        # note-toggle, /api/editions/from-template migrated to
+        # _PUT_ROUTES (above). /api/publisher/<id> was migrated
+        # in A.5; the dead-code block previously kept for diff-
+        # cleanliness has been deleted in A.10.
         return self._send_json({"error": "not found"}, status=404)
 
     @_safe_request

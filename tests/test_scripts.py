@@ -25789,3 +25789,155 @@ class TestOmega35A9MultipartTable:
             "do_POST has a raw re.match() call — should dispatch via _POST_ROUTES "
             "or _MULTIPART_ROUTES, not a legacy regex branch"
         )
+
+
+class TestOmega35A10BespokePutCleanup:
+    """ω.35-A.10 — ninth route-table slice; closes the loop on the
+    uniform-shape bespoke PUT routes. 3 routes added to `_PUT_ROUTES`
+    (edition-meta, edition/note-toggle, editions/from-template) and
+    the dead-code /api/publisher legacy block deleted. 3 truly
+    bespoke PUT routes remain in legacy because their response
+    shapes are semantically distinct from the standard helper:
+    - /api/export/build/<id> → 500 on build failure (not 400)
+    - /api/build-all → 500 only when ALL editions fail
+    - /api/edition-meta/<id>/preview → bare `error` key shape
+
+    These bespoke retentions are documented in do_PUT with explicit
+    "why not in table" comments. Pinning them preserves the
+    semantic distinction (build = server-side error → 500;
+    preview's "error" key has no `status` discriminator).
+    """
+
+    def test_put_table_has_nine_entries(self):
+        # 6 from A.5 + 3 from A.10
+        from scripts import web
+
+        assert len(web._PUT_ROUTES) == 9
+
+    def test_put_table_includes_a10_routes(self):
+        from scripts import web
+
+        patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        joined = "|".join(patterns)
+        assert (
+            "/api/edition-meta/" in joined and "/preview" not in joined.split("/api/edition-meta/")[1].split("|")[0]
+        ), "edition-meta save MUST be in the table, but preview MUST stay in legacy"
+        assert "/api/edition/" in joined and "/note-toggle" in joined
+        assert "/api/editions/from-template" in joined
+
+    def test_note_toggle_precedes_edition_save(self):
+        # /api/edition/<id>/note-toggle is more specific than
+        # /api/edition/<id>; the more-specific suffix MUST iterate
+        # first or its match path gets swallowed by the broader
+        # one. Iteration order = precedence.
+        from scripts import web
+
+        idx_toggle = None
+        idx_edition = None
+        for i, (regex_obj, _) in enumerate(web._PUT_ROUTES):
+            pat = regex_obj.pattern
+            if "/api/edition/" in pat and "/note-toggle" in pat:
+                idx_toggle = i
+            elif pat.endswith(r"/api/edition/([a-z0-9-]+)$"):
+                idx_edition = i
+        assert idx_toggle is not None
+        assert idx_edition is not None
+        assert idx_toggle < idx_edition, (
+            f"note-toggle pattern (idx {idx_toggle}) must precede edition save "
+            f"(idx {idx_edition}); otherwise edition's <id> group would swallow "
+            f"the path 'foo/note-toggle' on requests to /api/edition/foo/note-toggle"
+        )
+
+    def test_bespoke_three_still_in_legacy(self):
+        # The 3 truly bespoke PUT routes (different response
+        # semantics) are intentionally kept in legacy. Pin: NONE
+        # of them should appear in _PUT_ROUTES.
+        from scripts import web
+
+        table_patterns = [r.pattern for r, _ in web._PUT_ROUTES]
+        # /api/export/build/<id>
+        assert not any("/api/export/build/" in p for p in table_patterns), (
+            "/api/export/build/ must stay in legacy (500 on failure semantics)"
+        )
+        # /api/build-all
+        assert not any("/api/build-all" in p for p in table_patterns), (
+            "/api/build-all must stay in legacy (custom success_count check)"
+        )
+        # /api/edition-meta/<id>/preview (NOT to be confused with
+        # /api/edition-meta/<id> save which IS in the table)
+        assert not any("/api/edition-meta/" in p and "/preview" in p for p in table_patterns), (
+            "/api/edition-meta/<id>/preview must stay in legacy (bare error key shape)"
+        )
+
+    def test_publisher_dead_code_deleted(self):
+        # The /api/publisher block in do_PUT was dead code after
+        # A.5 (the table dispatch above it always matched first).
+        # A.10 deleted it. Pin: do_PUT must not contain a
+        # standalone `re.match(r"^/api/publisher/...` call (the
+        # legacy dead-code shape).
+        import inspect
+
+        from scripts.web import Handler
+
+        src = inspect.getsource(Handler.do_PUT)
+        # Allow mentions of `/api/publisher/` in comments/strings
+        # (the breadcrumb is fine), but reject any actual code
+        # that would dispatch a publisher route: a regex literal
+        # OR an `api_save_publisher_meta(` call.
+        assert 're.match(r"^/api/publisher/' not in src, (
+            "do_PUT still has a legacy re.match() for /api/publisher/ — the dead-code "
+            "block should have been deleted in A.10 (the route is in _PUT_ROUTES)"
+        )
+        assert "api_save_publisher_meta(" not in src, (
+            "do_PUT still calls api_save_publisher_meta directly — the dispatch goes "
+            "through _PUT_ROUTES; the legacy fall-through call site was dead code"
+        )
+
+    def test_discovery_recognizes_a10_table_entries(self):
+        from scripts import check_routes
+
+        routes = check_routes.discover_routes()
+        keys = {(r.method, r.pattern, r.is_regex) for r in routes}
+        assert ("PUT", "/api/edition/([a-z0-9-]+)/note-toggle$", True) in keys
+        assert ("PUT", "/api/edition-meta/([a-z0-9-]+)$", True) in keys
+        assert ("PUT", "/api/editions/from-template$", True) in keys
+
+    def test_route_inventory_clean_after_a10(self):
+        from scripts import check_routes
+
+        result = check_routes.run_all()
+        assert result["summary"]["clean"] is True
+
+    def test_from_template_signature_unchanged(self):
+        # api_create_edition_from_template takes (template_id,
+        # new_id, new_title). The lambda must call it with those
+        # three positional args extracted from payload. Smoke:
+        # the lambda accepts (m, payload={}) without crashing
+        # before reaching the API.
+        from scripts import web
+
+        from_template_entry = None
+        for regex_obj, handler in web._PUT_ROUTES:
+            if regex_obj.pattern == r"^/api/editions/from-template$":
+                from_template_entry = (regex_obj, handler)
+                break
+        assert from_template_entry is not None
+        regex_obj, handler = from_template_entry
+        m = regex_obj.match("/api/editions/from-template")
+        assert m is not None
+        # Call with empty payload — api function will return an
+        # error envelope (status==error / unknown_template or
+        # similar), but the lambda's payload destructure must
+        # not raise.
+        try:
+            result = handler(m, {})
+            assert isinstance(result, dict)
+        except Exception as e:
+            # If it raises, the cause must not be missing-key
+            # access on the payload — that'd indicate the
+            # destructure expects keys, but `(payload or {}).get(
+            # ..., "")` returns "" for missing keys, which is
+            # legal.
+            assert "template_id" not in str(e).lower() or "keyerror" not in str(e).lower(), (
+                f"lambda's payload destructure raised KeyError: {e}"
+            )

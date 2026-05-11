@@ -6,6 +6,134 @@
 
 ---
 
+## 2026-05-11 — session — ω.35-A.10 bespoke PUT cleanup (ninth route-table slice; closes uniform-shape PUTs)
+
+**Phases shipped:** ω.35-A.10. Three uniform-shape bespoke
+PUT routes migrated into `_PUT_ROUTES`; the dead-code
+/api/publisher block deleted; 3 truly-bespoke PUT routes
+intentionally retained in legacy with documented
+distinct-response-shape reasons.
+**Test delta:** +8 (was 2053, now 2061; +1 skipped EPUB e2e).
+**Linter delta:** 11/11 clean.
+
+What shipped:
+
+- `_PUT_ROUTES` grew from 6 → 9 entries:
+  - `/api/edition/<id>/note-toggle` →
+    `api_save_note_toggle(g1, payload)`. **MUST precede**
+    the existing `/api/edition/<id>` entry: same prefix,
+    more specific suffix; iteration order = precedence
+    (pinned by `test_note_toggle_precedes_edition_save`).
+  - `/api/edition-meta/<id>` →
+    `api_save_edition_meta(g1, payload)`. Uses standard
+    `ok:True|False` shape (200 / 400). Standard helper
+    covers it.
+  - `/api/editions/from-template` →
+    `api_create_edition_from_template(template_id, new_id,
+    new_title)`. Destructures payload in the lambda. Uses
+    `status==ok|error` shape; standard helper covers it.
+- Dead-code `/api/publisher/<id>` legacy block deleted
+  from `do_PUT` (route was in the table since A.5; the
+  legacy fall-through was unreachable). Pinned by
+  `test_publisher_dead_code_deleted`.
+- 3 PUT routes intentionally retained in legacy (pinned
+  by `test_bespoke_three_still_in_legacy`):
+  - **`/api/export/build/<id>`** — `200 if ok else 500`.
+    Build failure is a server-side error (not bad input),
+    semantically distinct from the standard helper's
+    `ok:False → 400` mapping.
+  - **`/api/build-all`** — `200 if success_count > 0
+    else 500`. Partial-success is a real 200 outcome; the
+    custom `success_count` check has no analog in the
+    helper.
+  - **`/api/edition-meta/<id>/preview`** — `200 if "error"
+    not in result else 400`. Returns bare diff dict on
+    success and `{"error": "..."}` on failure — no
+    `status` or `ok` discriminator that the helper checks.
+- 8 new tests in `TestOmega35A10BespokePutCleanup`:
+  - 9-entry count pinned
+  - A.10 routes present in the table; preview route
+    correctly NOT in the table
+  - note-toggle precedes edition save (precedence pinned)
+  - 3 bespoke routes stay in legacy (export/build,
+    build-all, preview)
+  - /api/publisher dead code deleted (no `re.match(r"^/api
+    /publisher/`, no `api_save_publisher_meta(` call site
+    in do_PUT)
+  - discovery recognizes all 3 new entries
+  - route inventory clean
+  - from-template lambda accepts empty payload without
+    KeyError (`(payload or {}).get(...)` shape)
+
+### Migration progress
+
+| Phase | Methods | Total |
+|---|---|---|
+| ω.35-A.1 | 14 GET (simple) | 14 |
+| ω.35-A.2 | 3 GET (regex) | 17 |
+| ω.35-A.4 | 3 GET (qs) | 20 |
+| ω.35-A.5 | 6 PUT | 26 |
+| ω.35-A.6 | 5 DELETE | 31 |
+| ω.35-A.7 | 6 POST | 37 |
+| ω.35-A.8 | 1 DELETE + 2 POST | 40 |
+| ω.35-A.9 | 3 multipart POST | 43 |
+| ω.35-A.10 | 3 PUT | 46 |
+
+**46 of 95 discovered routes in tables (~48%).** All
+mutation routes now table-friendly: POST 11/11 COMPLETE,
+DELETE 6/6 COMPLETE, PUT 9/11 (the remaining 2 are by
+design — build endpoints have meaningful 500-on-failure
+semantics that the standard helper would mask).
+
+### Notable decisions
+
+- **Why not adapt the bespoke 3 via lambda wrappers.** The
+  build endpoints' 500-on-failure is semantically
+  meaningful: builds are long-running server operations,
+  not input validation. A 500 communicates "server-side
+  error, retry might help"; a 400 would communicate "your
+  request was malformed, fix it and retry." Wrapping
+  these via a status==error adapter (`http: 500`) would be
+  technically equivalent but obscure the distinction in
+  the route definition. Pinning them as bespoke makes the
+  distinction first-class.
+- **Why preview stays bespoke.** The preview endpoint
+  returns a bare diff dict (success) or `{"error": ...}`
+  (failure) — no `status` or `ok` discriminator. The
+  standard helper checks `status == "error"` (not just
+  `"error" in result`), so it would dispatch a failed
+  preview as a 200 with the bare error dict — wrong
+  behavior. Adapting would require either:
+  - changing `api_preview_edition_changes`'s return shape
+    (risk: UI may check `.error` directly), or
+  - a wrapper lambda that reshapes the result, or
+  - extending the helper to also check for `error` key.
+  
+  None of these wins clarity over the 9-line legacy
+  branch, so pinned.
+- **Why /api/edition/<id>/note-toggle precedes /api/edition
+  /<id>.** Both match prefix `/api/edition/`; the more-
+  specific note-toggle pattern MUST iterate first or the
+  broader pattern's `<id>` group would swallow the path
+  `foo/note-toggle` on requests to /api/edition/foo/note-
+  toggle. The precedence is pinned in
+  `test_note_toggle_precedes_edition_save`.
+- **Why /api/editions/from-template moves out of literal
+  `if self.path ==` form.** Previously it was a literal-
+  path branch in do_PUT (not discoverable by
+  check_routes). Moving to a regex table entry brings it
+  into the route inventory and makes it visible in
+  /apihelp.
+
+AUDIT_2026-05-11 §7 sequence: ω.35-A.1 → A.2 → A.3 → A.4 →
+A.5 → A.6 → A.7 → A.8 → A.9 → **A.10 ✓ → A.11 (TBD)** either
+absorb bespoke 3 via helper extensions, or move directly to
+ω.35-B file split (split web.py into scripts/api/<topic>.py
+modules). After A.10 the mutation surface is uniform and
+ready for the file split.
+
+---
+
 ## 2026-05-11 — session — ω.35-A.9 multipart routes table (eighth route-table slice; first table with a distinct entry shape)
 
 **Phases shipped:** ω.35-A.9. Three multipart POST routes
