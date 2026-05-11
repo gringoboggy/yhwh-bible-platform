@@ -290,8 +290,16 @@ Eighth (largest single) extraction. 14 test classes (125 tests)
 covering θ.1 Desktop launcher + DesktopShell + ψ.14 v1.0 polish
 + θ.4 installers + θ.3 auto-update moved to a new
 `tests/test_desktop_theta.py` (1601 lines). test_scripts.py:
-20290 → 18721 lines (-1569). **Cumulative across eight
-extractions: 28384 → 18721 (-9663; -34.0%).** 577 tests in 8
+20290 → 18721 lines (-1569).
+
+### Bonus slice: ω.27 follow-on #9 — ξ.15/.16/.17 late security test split
+
+Ninth extraction. 3 test classes (78 tests) covering the closing
+v1.0 security arc — ξ.15 AI-output sandbox + ξ.16 security sweep
++ ξ.17 remaining punch list — moved to a new
+`tests/test_security_xi_late.py` (1207 lines). test_scripts.py:
+18721 → 17551 lines (-1170). **Cumulative across nine
+extractions: 28384 → 17551 (-10833; -38.2%).** 655 tests in 9
 self-contained topic files.
 
 **Final state for this session: 2211 passed + 1 skipped =

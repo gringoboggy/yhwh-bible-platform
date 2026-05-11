@@ -802,6 +802,27 @@ monkeypatch `sys.frozen`).
   files.
 - Test count unchanged (2211 pass + 1 skipped = 2212 collected).
 
+**ω.27 follow-on #9 — split ξ.15/.16/.17 late-session security cluster
+into test_security_xi_late.py.** Ninth topic extraction. 3 test
+classes (78 tests) covering the closing arc of v1.0 security
+hardening: ξ.15 AI-output HTML sandbox + ξ.16 security sweep +
+ξ.17 remaining security punch list moved from
+`tests/test_scripts.py` (18721 → 17551 lines; -1170) into a new
+`tests/test_security_xi_late.py` (1207 lines).
+
+Note: the earlier ξ.1 / ξ.2 / ξ.4 input-validation +
+path-traversal + XSS-prevention foundations stay in
+test_scripts.py — they shipped much earlier (pre-v1.0) and
+don't form a cohesive late-session cluster with the ξ.15-17
+arc. A future slice could extract the early-ξ foundations to
+`tests/test_security_xi_early.py` if the symmetry matters.
+
+**Cumulative test-file-split impact (9 extractions):**
+- test_scripts.py: **28384 → 17551 lines (-10833; -38.2%)**
+- 9 new topic files = **655 tests** in self-contained topic
+  files.
+- Test count unchanged (2211 pass + 1 skipped = 2212 collected).
+
 **MEM-NEW-01 — Δ-family pattern → §9 mental model.** New
 CLAUDE_PROJECT_RULES §9 section: *"Build an index-backed
 alternative for an expensive file-walk operation (the
