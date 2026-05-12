@@ -591,6 +591,102 @@ class ProtestantCommentaries:
 
 
 # ----------------------------------------------------------------------
+# Catholic commentary corpus (χ.4 — 2026-05-12)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class CatholicCommentary:
+    """One verse-keyed entry in the medieval Catholic exegetical corpus.
+
+    Shape parallels `PatristicCommentary` and `EthiopianCommentary` —
+    field name `father` is preserved because every voice surfaced
+    through Aquinas's Catena Aurea is itself a Church Father (Augustine,
+    Chrysostom, Jerome, Origen, Cyril, Bede, Gregory the Great,
+    Theophylact, etc.). The semantic distinction from γ.3 is the
+    *framing tradition*: these are Father voices selected and stitched
+    by Aquinas's medieval Catholic editorial hand — the same Father may
+    appear in both γ.3 (Augustine on Genesis, e.g.) and χ.4 (Augustine
+    on the Gospels via the Catena), tagged with different kinds
+    according to which tradition's reception apparatus surfaces them.
+
+    Coverage is Gospels-only per the Catena's original scope: Matthew,
+    Mark, Luke, John.
+
+    See `content/sources/catholic_commentaries.json` for the live
+    dataset; χ.4 ships a ~12-entry seed across all four Gospels, and
+    future χ.4.x will expand from the Newman/Pusey 1841-1845 Oxford
+    edition (CCEL hosts the full PD text).
+    """
+
+    book: str
+    chapter: int
+    verse: int
+    father: str
+    work: str
+    year: int
+    summary: str
+    attribution: str
+
+
+class CatholicCommentaries:
+    """Lazy loader for the Catholic (Catena Aurea) commentary corpus.
+    Cached on first read. Raises ``SourceMissingError`` if the JSON
+    cache file is absent.
+
+    Two access patterns mirror γ.3/γ.4:
+      * ``for_verse(book, chapter, verse)`` — every entry attached to
+        the verse (used by the detector).
+      * ``by_father(name)`` — every entry by a given Church Father as
+        surfaced via the Catena (e.g. ``"Augustine"``), for audit /
+        coverage UIs.
+    """
+
+    PATH = _SOURCES / "catholic_commentaries.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Catholic commentaries cache not present at {self.PATH}. "
+                "The seed corpus shipped with χ.4 (2026-05-12) — restore from git."
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self._by_verse: dict[tuple[str, int, int], list[CatholicCommentary]] = {}
+        self._by_father: dict[str, list[CatholicCommentary]] = {}
+        for entry in data.get("entries", []):
+            try:
+                cc = CatholicCommentary(
+                    book=str(entry["book"]),
+                    chapter=int(entry["chapter"]),
+                    verse=int(entry["verse"]),
+                    father=str(entry["father"]),
+                    work=str(entry.get("work", "")),
+                    year=int(entry.get("year", 0)),
+                    summary=str(entry["summary"]),
+                    attribution=str(entry["attribution"]),
+                )
+            except (KeyError, ValueError, TypeError):
+                continue
+            key = (cc.book, cc.chapter, cc.verse)
+            self._by_verse.setdefault(key, []).append(cc)
+            self._by_father.setdefault(cc.father, []).append(cc)
+
+    def __len__(self) -> int:
+        return sum(len(v) for v in self._by_verse.values())
+
+    def for_verse(self, book: str, chapter: int, verse: int) -> list[CatholicCommentary]:
+        """Return every entry attached to a specific verse, in insertion
+        order. Empty list when nothing matches."""
+        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+
+    def by_father(self, name: str) -> list[CatholicCommentary]:
+        """Return every entry by a given Church Father (case-sensitive),
+        as surfaced through Aquinas's Catena Aurea."""
+        return list(self._by_father.get(name, ()))
+
+
+# ----------------------------------------------------------------------
 # Singletons (cached across runs in the same process)
 # ----------------------------------------------------------------------
 
@@ -635,6 +731,12 @@ def ethiopian_commentaries() -> EthiopianCommentaries:
 def protestant_commentaries() -> ProtestantCommentaries:
     """Return the singleton ProtestantCommentaries instance (χ.2 — 2026-05-12)."""
     return ProtestantCommentaries()
+
+
+@lru_cache(maxsize=1)
+def catholic_commentaries() -> CatholicCommentaries:
+    """Return the singleton CatholicCommentaries instance (χ.4 — 2026-05-12)."""
+    return CatholicCommentaries()
 
 
 # ----------------------------------------------------------------------

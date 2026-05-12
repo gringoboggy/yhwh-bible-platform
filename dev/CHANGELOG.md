@@ -6,6 +6,128 @@
 
 ---
 
+## 2026-05-12 — session — χ.4 SEED Catena Aurea (opens Catholic Catena commentary track)
+
+**Phases shipped:** χ.4 (SEED — Aquinas's Catena Aurea on the Four
+Gospels, 12-entry seed). Second ship in the χ-commentary cluster
+(after χ.2 Matthew Henry); next per PLAN_2026-05-09 execution-order
+recommendation (χ.2 → **χ.4** → χ.3 → χ.5).
+**Test delta:** +34 (3244 → 3278; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### χ.4 — Catholic (Catena Aurea) commentary seed
+
+Thomas Aquinas's *Catena Aurea* ("Golden Chain") is a verse-by-verse
+compilation of patristic exegesis on the four Gospels (Matthew /
+Mark / Luke / John), compiled 1262-1273 at the request of Pope
+Urban IV. It is THE standard medieval Catholic biblical apparatus —
+Aquinas stitched together (catena) selected passages from ~80 Greek
+and Latin Fathers (Augustine, Chrysostom, Jerome, Origen, Cyril,
+Bede, Gregory the Great, Theophylact, et al.), preserving multiple
+voices per verse in canonical sequence.
+
+**Why this ship matters for the project specifically**:
+
+- The `catholic-study` edition declares `catholic` in
+  `traditions_default` but had only generic patristic notes
+  (via γ.3's Augustine-on-Genesis seed) to surface in the ψ.8
+  cross-denominational popup. χ.4 ships the first batch of
+  *medieval Catholic reception* notes — Father voices framed by
+  Aquinas's editorial hand, distinct from raw patristic content.
+- The `anglican-bcp` edition (which also declares catholic via
+  the deuterocanonical-friendly canon) gains identical coverage
+  automatically — no edition-level change needed.
+- PLAN_2026-05-09 §χ.2-5 execution order picks χ.4 second
+  ("Catena — needs Latin translation passes"); this ship honors
+  that ordering. Latin → English handled via the Newman/Pusey
+  1841-1845 Oxford translation (already PD).
+- The seed pins the signature Catholic exegetical anchor: Mt 16:18
+  *Tu es Petrus* (papal-primacy verse).
+
+**Pattern**: mirrors γ.3 / γ.4 / χ.2 seed ships exactly — 12 verse-
+keyed entries across all four Gospels, infrastructure shipped, full
+ETL deferred to χ.4.x.
+
+### Files
+
+- `content/sources/catholic_commentaries.json` — new; schema v1
+  mirroring patristic / ethiopian / protestant commentary files.
+  Field name `father` (consistent with γ.3 / γ.4) — every Catena
+  voice IS a Church Father; the Catholic tradition framing is in
+  the *kind* (`comm-catholic`), not the schema. 12 paraphrased
+  entries with full Catena Aurea provenance ("via Catena Aurea"
+  in every attribution) and explicit "PD" markers.
+- `scripts/core/sources.py` — `CatholicCommentary` frozen dataclass
+  + `CatholicCommentaries` lazy loader (indexes by_verse + by_father,
+  raises SourceMissingError on absent JSON) + `catholic_commentaries()`
+  `@lru_cache(maxsize=1)` singleton. Mirrors γ.3 / γ.4 patterns
+  exactly (Patristic-style API).
+- `scripts/core/detectors.py` — `CatholicCommentaryDetector` class
+  (kind="comm-catholic", confidence 0.95, direct-lookup by
+  (book, chapter, verse), HTML-escaped body via `_format_body()`
+  with **BC/AD-aware year display** mirroring γ.4 — some Catena
+  Fathers (Origen d. 254 AD, Tertullian, etc.) sit near the AD
+  transition. `note-comm-catholic` CSS class for theme styling.
+  Candidate `draft_title` prefixes "Catholic (Catena Aurea) — "
+  to surface Aquinas's compilation provenance in the popup.
+  Candidate `draft_label` appends "via Catena Aurea." for chip
+  rendering. Appended to `ALL_DETECTORS` after
+  `ProtestantCommentaryDetector` so candidate ordering is
+  γ.3 → γ.4 → χ.2 → χ.4 (patristic → tewahedo → protestant →
+  catholic).
+
+**Kind reuse**: `comm-catholic` pre-existed in `content/kinds.yaml`
+(line 437-445; declared by the kinds-v2 schema since before χ.4).
+χ.4 is the first phase to actually emit this kind. No kinds.yaml
+edit needed.
+
+**Tradition wiring**: pre-existing. `content/traditions.yaml`
+already maps `catholic-study → catholic`, so ψ.8 picks up
+comm-catholic notes for the catholic-study edition automatically.
+The `anglican-bcp` edition's `traditions_default` includes
+`catholic` as one of its lenses, so it also picks them up.
+
+### Tests
+
+`tests/test_catholic_chi4.py` — 34 tests across 5 classes:
+
+- **TestChi4DataFile × 9** — seed JSON parses, meta block complete,
+  meta names Catena Aurea, ≥12 entries, every entry has required
+  fields, every entry mentions Catena Aurea + PD marker, every
+  entry is Gospels-only (mat / mar / luk / joh — pin against
+  accidental Catena scope creep into non-Gospel books), Mt 1:1
+  present.
+- **TestChi4CatholicCommentariesLoader × 7** — loader returns
+  frozen dataclass instances, dataclass is frozen (mutation
+  raises), by_verse + by_father lookup, empty for non-Gospel
+  books (gen / act), Augustine by_father, SourceMissingError
+  on absent cache.
+- **TestChi4DetectorContract × 8** — detector registered in
+  ALL_DETECTORS *after* ProtestantCommentaryDetector (lineage
+  pin), kind="comm-catholic", candidate shape with title prefix
+  "Catholic (Catena Aurea) —" and label "via Catena Aurea",
+  confidence=0.95, empty for non-Gospel books, verse_text
+  ignored, body HTML-escapes (XSS pin), body renders AD for
+  post-Christian year.
+- **TestChi4KindIsRegistered × 2** — `comm-catholic` exists in
+  kinds.yaml with category=comm + label=Catholic.
+- **TestChi4Coverage × 8** — all four Gospels covered (Matthew /
+  Mark / Luke / John); Mt 16:18 *Tu es Petrus* papal-primacy
+  anchor present; Augustine (Catena's heaviest voice) +
+  Chrysostom (Greek balance) + Jerome (Latin Vulgate + Matthew
+  anchor) all appear in the seed.
+
+### Forward references
+
+- **χ.4.x** — user-side full Catena Aurea ETL from the
+  Newman/Pusey/Keble/Pattison 1841-1845 Oxford edition (CCEL
+  hosts the full text). ~3-8K notes target per PLAN.
+- **χ.3 Calvin** — next in PLAN execution order. Calvin tags as
+  `comm-reformation` kind (existing).
+- **χ.5 Rashi** — Jewish; `comm-rabbinic` kind (existing).
+
+---
+
 ## 2026-05-12 — session — χ.2 SEED Matthew Henry (opens Protestant commentary cluster)
 
 **Phases shipped:** χ.2 (SEED — Matthew Henry's Exposition of the

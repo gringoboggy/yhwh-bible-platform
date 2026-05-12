@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "source": "Thomas Aquinas, Catena Aurea (Golden Chain) on the Four Gospels, compiled 1262-1273 — seed corpus shipped with χ.4 (2026-05-12).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where Aquinas's verse-by-verse compilation of patristic exegesis carries a distinctive Catholic-traditional reading. The Catena Aurea is itself a 'chain' (catena) of selected Father quotations stitched together by Aquinas as the standard medieval Catholic biblical apparatus. Coverage is Gospels-only (Matthew / Mark / Luke / John) per Aquinas's original scope. Each entry preserves one Aquinas-curated Father voice per verse (the seed; the full Catena typically has 3-7 Fathers per verse). Each summary is a paraphrase, not a verbatim quote — verbatim passages will land in a future χ.4.x ETL pass.",
+    "public_domain_basis": "Thomas Aquinas d. 7 March 1274 — out of copyright in every jurisdiction by age. Standard PD English translation: John Henry Newman, E.B. Pusey, John Keble, Mark Pattison, et al., 'Catena Aurea: Commentary on the Four Gospels collected out of the works of the Fathers by S. Thomas Aquinas', Oxford: John Henry Parker, 4 volumes 1841-1845 (Library of Fathers of the Holy Catholic Church series). All translators died before 1929 (Newman d. 1890; Pusey d. 1882; Keble d. 1866; Pattison d. 1884); CCEL hosts the full text in PD.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "book": "mat",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Jerome",
+      "work": "Commentary on Matthew (via Aquinas's Catena Aurea)",
+      "year": 398,
+      "summary": "Jerome opens the Catena on Matthew with the question of why the genealogy begins with Abraham rather than Adam: Matthew writes for the Jewish converts, for whom the Abrahamic covenant is the proximate inheritance, while Luke's genealogy (which ascends to Adam) writes for the Gentile reader. The double name 'Jesus Christ son of David, son of Abraham' compresses the messianic and the covenantal: Christ is at once the promised Davidic king and the seed in whom all nations are blessed. Aquinas places Jerome's reading first because the genealogical opening is the medieval Catholic interpretive entry-point to the entire New Testament.",
+      "attribution": "Jerome, Commentary on Matthew, in Aquinas's Catena Aurea on Matthew 1:1. Newman/Pusey/Keble Oxford trans., vol. 1 (1841). PD."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 3,
+      "father": "John Chrysostom",
+      "work": "Homilies on Matthew (via Catena Aurea)",
+      "year": 390,
+      "summary": "On 'Blessed are the poor in spirit' Chrysostom rejects any reading that confines the beatitude to material poverty: the poverty in question is the humility of spirit that knows its dependence on God, the disposition Christ Himself models in the Incarnation. The Catena pairs this with Augustine's reading (poverty of spirit = the gift of fear, the foundation of the seven gifts of the Holy Spirit) — together establishing the medieval Catholic synthesis: external poverty is occasion, internal humility is substance, and the gifts of the Spirit are the supernatural fruit.",
+      "attribution": "John Chrysostom, Homilies on Matthew, in Aquinas's Catena Aurea on Matthew 5:3. Newman trans., Oxford 1841. PD."
+    },
+    {
+      "book": "mat",
+      "chapter": 16,
+      "verse": 18,
+      "father": "Augustine",
+      "work": "Sermons on the New Testament + Retractions (via Catena Aurea)",
+      "year": 412,
+      "summary": "Aquinas's Catena on the 'Tu es Petrus' verse foregrounds Augustine's mature reading (Retractions I.21): the rock is Christ Himself, professed by Peter — yet because Peter is the one who confesses, the rock is in him by participation, and the keys are entrusted to him as to one representing the whole Church. The Catena does not resolve the rock-as-Christ versus rock-as-Peter question; it preserves both, with Augustine's reading set first and Chrysostom's complementary reading following. This is the signature medieval Catholic exegetical pin on papal primacy.",
+      "attribution": "Augustine, Retractations I.21 + Sermon 76, in Aquinas's Catena Aurea on Matthew 16:18. Newman/Pusey Oxford trans., vol. 1 (1841). PD."
+    },
+    {
+      "book": "mat",
+      "chapter": 27,
+      "verse": 46,
+      "father": "Jerome",
+      "work": "Commentary on Matthew (via Catena Aurea)",
+      "year": 398,
+      "summary": "On 'Eli, Eli, lama sabachthani' Jerome reads the cry as Christ's intentional citation of Psalm 22:1, claiming the messianic Psalm in its entirety from its opening words. The Catena rejects the kenotic reading (that the divine Word abandoned the human Christ at the cross) and the modalist reading (that the Father literally forsook the Son): the cry is liturgical-prophetic, drawing the bystanders' attention to a Psalm whose closing verses (Ps 22:27-31) announce the conversion of the nations. Aquinas's selection here pins the Catholic doctrine of the hypostatic union against medieval Cathar / Albigensian dissolutions.",
+      "attribution": "Jerome, Commentary on Matthew (Bk IV), in Aquinas's Catena Aurea on Matthew 27:46. Newman trans., Oxford 1842. PD."
+    },
+    {
+      "book": "mar",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Bede the Venerable",
+      "work": "Exposition of the Gospel of Mark (via Catena Aurea)",
+      "year": 730,
+      "summary": "Bede observes that Mark — uniquely among the four — opens without genealogy or infancy narrative, beginning instead with the prophetic 'voice crying in the wilderness'. This is Aquinas's chosen frame for the second Gospel: Mark writes for converts already catechized in the Abrahamic-Davidic story (which Matthew supplied), and so begins where the public ministry of John the Forerunner begins. The phrase 'beginning of the Gospel' Bede reads typologically: every public conversion in the Church's history continues this Markan beginning.",
+      "attribution": "Bede, Exposition of Mark, in Aquinas's Catena Aurea on Mark 1:1. Newman trans., Oxford 1842. PD."
+    },
+    {
+      "book": "mar",
+      "chapter": 16,
+      "verse": 15,
+      "father": "Gregory the Great",
+      "work": "Homilies on the Gospels (via Catena Aurea)",
+      "year": 593,
+      "summary": "On 'Go into all the world and preach the gospel to every creature' Gregory reads 'every creature' broadly: every nation, every condition, every rational creature without exclusion. The Catena pairs this with the mission-grammar of the medieval Catholic missions to the Anglo-Saxons (Gregory's own dispatch of Augustine of Canterbury) and to the Slavs (Cyril and Methodius). The verse becomes, in the Catena, the dominical commission underwriting every subsequent expansion of the Western Latin Christian apparatus across cultures and tongues.",
+      "attribution": "Gregory the Great, Homilies on the Gospels, Hom. 29, in Aquinas's Catena Aurea on Mark 16:15. Newman trans., Oxford 1842. PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 1,
+      "verse": 46,
+      "father": "Bede the Venerable",
+      "work": "Exposition of the Gospel of Luke (via Catena Aurea)",
+      "year": 720,
+      "summary": "On the Magnificat ('My soul doth magnify the Lord') Bede reads Mary's canticle as the prayer of the entire Church speaking through her: the soul magnifies (makes great) what was already great in itself — not by addition, but by acknowledgment. This is the seed of the medieval Catholic doctrine of Mary as type and mother of the Church (Lumen Gentium's mid-20th c. formula has its medieval anchor here). Aquinas places Bede's reading at the head of the Catena on the Magnificat as the definitive Western Latin gloss; Origen's complementary reading on the same verse (Magnificat as inverted Roman pride) follows.",
+      "attribution": "Bede, Exposition of Luke, in Aquinas's Catena Aurea on Luke 1:46. Newman trans., Oxford 1843. PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 2,
+      "verse": 14,
+      "father": "Origen",
+      "work": "Homilies on Luke (via Catena Aurea)",
+      "year": 235,
+      "summary": "On the angelic 'Glory to God in the highest, and on earth peace to men of good will' Origen reads the peace not as universal benediction but as covenanted gift to those whose wills are aligned with God — the Greek 'eudokia' carries this directional sense. The Catena foregrounds this against any reading that would make the angelic announcement an unconditional pacifying of all humanity: peace IS announced to all but RECEIVED by those whose wills receive it. Aquinas's selection here pins the medieval Catholic synergism of grace and free will against any reading of pure unilateral pacification.",
+      "attribution": "Origen, Homilies on Luke (Hom. 13), in Aquinas's Catena Aurea on Luke 2:14. Newman trans., Oxford 1843. PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 24,
+      "verse": 13,
+      "father": "Augustine",
+      "work": "Sermons (via Catena Aurea)",
+      "year": 415,
+      "summary": "On the road to Emmaus Augustine reads the disciples' failure to recognize the Risen Christ as itself the catechetical pattern: Christ comes alongside, listens, explains the Scriptures (Moses and all the prophets), and is recognized in the breaking of the bread. This is the Catena's eucharistic anchor — the Mass enacts the Emmaus pattern: Word-then-Sacrament, Scripture-then-Bread, Christ comes alongside and is recognized only in the breaking. Theophylact's complementary reading (the journey-length itself is figurative for the post-Resurrection Church's pilgrim condition) follows.",
+      "attribution": "Augustine, Sermon 234 + Sermon 235, in Aquinas's Catena Aurea on Luke 24:13. Newman trans., Oxford 1843. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Augustine",
+      "work": "Tractates on the Gospel of John (via Catena Aurea)",
+      "year": 415,
+      "summary": "On the Johannine prologue Augustine sets out the Catena's definitive Western Latin gloss: 'In the beginning' is not a temporal first moment but the eternal generation of the Word from the Father — 'before all worlds' as the Creed says. The Word is what God has eternally said about Himself; in the Incarnation that eternal Word takes flesh without ceasing to be eternal. Aquinas pairs Augustine's reading with Chrysostom's (against Arius: the Word is God by essence, not by participation) and with Origen's (the Word is the cause of intelligibility in every rational creature) — the Catena's anti-Arian triple seal.",
+      "attribution": "Augustine, Tractate I on John, in Aquinas's Catena Aurea on John 1:1. Newman trans., Oxford 1845. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 14,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John (via Catena Aurea)",
+      "year": 428,
+      "summary": "On 'the Word became flesh' Cyril provides Aquinas's preferred Christological gloss against Nestorian dissolution: the becoming is not a change of the Word into something else (the Word remains what He always was) but an assumption of human nature into the one Person of the Word. The unity of natures is hypostatic; the union does not produce a tertium quid. The Catena pairs this with Augustine's reading ('dwelt among us' as the eternal Word tabernacled in time) and with Hilary's (the glory beheld is the glory natural to the only-begotten, not borrowed). This is the doctrinal seed of the medieval Catholic Christological synthesis.",
+      "attribution": "Cyril of Alexandria, Commentary on John (Bk I), in Aquinas's Catena Aurea on John 1:14. Newman trans., Oxford 1845. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 20,
+      "verse": 28,
+      "father": "Augustine",
+      "work": "Tractates on the Gospel of John (via Catena Aurea)",
+      "year": 416,
+      "summary": "On Thomas's confession 'My Lord and my God' Augustine reads the words as the Gospel's climactic doxological pin: every prior chapter has been working toward this confession, and the Resurrection appearances culminate in it. The Catena uses this verse to anchor the Catholic doctrine that faith follows on, not precedes, evidence — yet that faith goes beyond what evidence alone can demonstrate (Christ's blessing of those who 'have not seen and yet have believed' immediately follows). Aquinas's selection here closes the Catena on John with the same doxological gesture with which it began the prologue: the Word is God, confessed as Lord.",
+      "attribution": "Augustine, Tractate 121 on John, in Aquinas's Catena Aurea on John 20:28. Newman trans., Oxford 1845. PD."
+    }
+  ]
+}

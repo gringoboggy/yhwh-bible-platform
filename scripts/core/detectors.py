@@ -1223,6 +1223,106 @@ class ProtestantCommentaryDetector:
         )
 
 
+class CatholicCommentaryDetector:
+    """Emit `comm-catholic` candidates from Aquinas's Catena Aurea
+    (`content/sources/catholic_commentaries.json`).
+
+    Structurally parallel to γ.3 / γ.4 / χ.2 — a direct-lookup detector
+    keyed on (book, chapter, verse) emitting one Candidate per matching
+    entry. The semantic distinction from γ.3 is the *framing tradition*:
+    every Father voice surfaced here is Aquinas-selected and Aquinas-
+    sequenced, representing the medieval Catholic reception of the
+    Fathers via the Catena. The same Church Father (Augustine, Origen,
+    Chrysostom) may legitimately appear in both γ.3's patristic corpus
+    and χ.4's Catholic corpus — the two readings are tagged with
+    different kinds to surface in different denominational lenses
+    (catholic-study edition opts into comm-catholic; eastern-orthodox
+    edition consumes comm-patristic).
+
+    Body rendering uses **BC/AD-aware year display** because Origen
+    (d. 254 AD) and other early Fathers in the Catena cross the AD
+    transition — mirrors γ.4's pattern. Coverage is Gospels-only per
+    the Catena's original scope.
+
+    Build-pipeline considerations: comm-catholic notes participate in
+    the existing tradition filter (ψ.8) when an edition's
+    `traditions_default` includes `catholic`. The catholic-study and
+    anglican-bcp editions consume them directly.
+
+    χ.4 ships a ~12-entry seed across all four Gospels to prove the
+    pipeline; χ.4.x will expand from the Newman/Pusey 1841-1845
+    Oxford edition (CCEL hosts the full PD text).
+    """
+
+    name = "CatholicCommentaryDetector"
+    kind = "comm-catholic"
+
+    def __init__(self) -> None:
+        self.corpus = sources.catholic_commentaries()
+
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
+        # verse_text is unused — direct lookup by (book, chapter, verse).
+        entries = self.corpus.for_verse(book, chapter, verse)
+        if not entries:
+            return []
+        out: list[Candidate] = []
+        for entry in entries:
+            body = self._format_body(entry)
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",  # whole-verse anchor
+                    confidence=0.95,
+                    source_name=f"{entry.father} / {entry.work}",
+                    source_attribution=entry.attribution,
+                    draft_title=f"Catholic (Catena Aurea) — {entry.father}",
+                    draft_label=f"{entry.father} ({entry.year}), via Catena Aurea.",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Curated PD interpretive summary representing the "
+                        f"medieval Catholic reception of {entry.father} "
+                        f"via Aquinas's Catena Aurea. Verify the summary "
+                        "still reflects the Father's argument as Aquinas "
+                        "framed it before promoting; substitute a verbatim "
+                        "quote from the Newman/Pusey Oxford 1841-1845 "
+                        "edition (CCEL) where available."
+                    ),
+                )
+            )
+        return out
+
+    @staticmethod
+    def _format_body(entry: "sources.CatholicCommentary") -> str:
+        """Render the entry's HTML body. Mirrors γ.4's BC/AD pattern
+        since some Catena Fathers (Origen d. 254 AD, Tertullian, etc.)
+        sit near the AD transition.
+
+        The summary text is escape-safe by construction (no user-
+        controlled content) but escape defensively to keep the
+        XSS-by-design contract honest.
+        """
+        import html as _html
+
+        father = _html.escape(entry.father)
+        work = _html.escape(entry.work)
+        summary = _html.escape(entry.summary)
+        year = int(entry.year)
+        era = "BC" if year < 0 else "AD"
+        year_display = abs(year)
+        return (
+            f'<aside class="note-comm-catholic">'
+            f"<strong>{father}</strong> "
+            f"<em>{work}</em> "
+            f"<small>(c. {year_display} {era})</small>"
+            f"<p>{summary}</p>"
+            f"</aside>"
+        )
+
+
 # ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
@@ -1240,4 +1340,5 @@ ALL_DETECTORS = [
     PatristicCommentaryDetector,  # γ.3
     EthiopianCommentaryDetector,  # γ.4 — flagship payload
     ProtestantCommentaryDetector,  # χ.2 — Matthew Henry seed
+    CatholicCommentaryDetector,  # χ.4 — Catena Aurea seed
 ]
