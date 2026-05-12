@@ -4,6 +4,52 @@
 
 ## Prior task
 
+**ε.1 metrics collector** shipped 2026-05-11. Month 5 #2 —
+read-side rollup layer over Δ.15's event log + first
+emit() wire-up.
+
+Three pieces:
+- `scripts/core/metrics.py` — `events_total()`,
+  `events_by_kind()`, `builds_by_outcome()`,
+  `builds_by_edition(limit)`, `recent_events(n=20)`,
+  `iter_events_since(iso_ts)`, `summary_kpis()`. All
+  compose `event_log.iter_events()` single-pass.
+- `summary_kpis()` returns the canonical dashboard
+  payload: `events_total`, top-5 kinds, builds bucket
+  with success_rate, top-5 built editions, last 5
+  events. Stable shape even when log is empty.
+- `api_export_build` (scripts/api/exports.py) emits
+  `build_start` / `build_complete` / `build_failure`
+  events at the four exit paths (start, timeout,
+  nonzero-exit, no-EPUB-found, success). Wrapped in
+  `_safe_emit` so a misconfigured event log can never
+  break the build path.
+
+**+17 tests** in `tests/test_metrics_epsilon1.py`:
+events_total × 2, by_kind × 2, builds_by_outcome × 2,
+builds_by_edition × 2, recent_events × 2, iter_since × 1,
+summary_kpis × 4 (shape, success_rate math, recent cap,
+top-kinds cap), build-export emit wire × 2 (unknown
+edition emits failure; emit failures don't break build).
+
+**2762 / 2763 tests pass serially (1 skipped); 11/11
+lint clean.**
+
+## Prior task
+
+**Δ.15 event log** shipped 2026-05-11. Month 5 #1.
+`scripts/core/event_log.py` — append-only JSON Lines
+writer at `user_data_root()/events.jsonl`. `emit(kind,
+**fields)` → returns the recorded dict; `iter_events()`,
+`tail(n)`, `count()` for reads. `kind` is positional-
+only so caller's `kind=` kwarg can't override.
+ISO-8601 UTC timestamps. Malformed lines silently
+skipped on read (one bad line doesn't blind the
+reader to the rest). **+26 tests** in
+`tests/test_event_log_delta15.py`.
+
+## Prior task
+
 **ν.7 inline editing standardization** shipped 2026-05-11.
 Month 4 non-money #4 — completes all four non-money
 Month 4 items. Per proposal: "Click → edit-in-place →

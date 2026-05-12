@@ -6,6 +6,127 @@
 
 ---
 
+## 2026-05-11 — session — Δ.15 event log + ε.1 metrics collector (Month 5 opens; 2 of 7 ships)
+
+**Phases shipped:** Δ.15 (append-only events.jsonl
+writer/reader) + ε.1 (read-side rollup queries + first
+emit() wire-up in api_export_build).
+**Test delta:** +43 (26 Δ.15 + 17 ε.1).
+**Linter delta:** 11/11 clean.
+
+### Δ.15 — Event log
+
+`scripts/core/event_log.py` provides:
+
+- `emit(kind, /, **fields) → dict` — positional-only
+  `kind` (caller's `kind=` kwarg silently ignored;
+  prevents accidental override). ISO-8601 UTC `ts`
+  auto-generated. Returns the recorded dict for caller
+  inspection.
+- `iter_events()` — generator yielding parsed events in
+  write order. Malformed lines silently skipped (one
+  bad line doesn't blind the reader to the rest).
+- `tail(n)` — last N events.
+- `count()` — total parseable events.
+
+File location: `user_data_root() / events.jsonl`. Parent
+dir created lazily on first emit. Line-buffered append
+mode so each emit lands as a complete, greppable line.
+
+JSON line shape:
+
+```
+{"ts": "2026-05-11T18:30:00.123456+00:00",
+ "kind": "build_complete",
+ "edition_id": "catholic-study",
+ ...}
+```
+
+`ts` and `kind` are reserved field names; everything else
+passes through. Readers tolerate unknown fields so
+emitters can add new ones freely (no schema migration).
+
+### ε.1 — Metrics collector
+
+`scripts/core/metrics.py` provides read-side rollups
+over the event log:
+
+- `events_total()` — count.
+- `events_by_kind()` — `{kind: count}`.
+- `builds_by_outcome()` — `{"start", "complete",
+  "failure"}` buckets.
+- `builds_by_edition(limit=10)` — top editions by
+  `build_complete` count.
+- `recent_events(n=20)`.
+- `iter_events_since(iso_ts)` — lex-sort filter.
+- `summary_kpis()` — composed dashboard payload with
+  events_total, top-5 kinds, builds bucket with
+  computed success_rate, top-5 built editions, recent-5
+  events. Stable shape even when the log is empty.
+
+### First emit() wire-up: api_export_build
+
+`scripts/api/exports.py::api_export_build` instrumented
+at the four exit paths:
+
+- `build_start` — at function entry after validation.
+- `build_failure(reason="unknown_edition")` — early-
+  return for unknown edition id.
+- `build_failure(reason="timeout", timeout_seconds=N)`
+  — subprocess timeout.
+- `build_failure(reason="nonzero_exit", returncode=N)`
+  — build script exit code != 0.
+- `build_failure(reason="no_epub_found")` — build
+  reported success but no EPUB on disk.
+- `build_complete(filename, size_mb, cache_hit,
+  build_seconds)` — happy path.
+
+All emit calls wrapped in `_safe_emit` (try/except) so
+a misconfigured event log can never break the build
+pipeline. The build is the contract; logging is
+best-effort.
+
+### Tests (43 new)
+
+In `tests/test_event_log_delta15.py` (26 tests):
+EmitBasic × 5 (writes to file, returns dict, ISO-8601
+ts, one line per call, valid JSON), EmitFields × 4
+(arbitrary fields, ts ignored, kind kwarg ignored,
+non-serializable raises), EmitValidation × 4 (empty,
+whitespace, non-string, kind strip), IterEvents × 5
+(empty log, missing file, write order, malformed
+skipped, empty lines skipped), TailAndCount × 5
+(last N, zero, more-than-available, negative-clamps,
+count matches), FilePath × 2 (events.jsonl name,
+parent dir creation).
+
+In `tests/test_metrics_epsilon1.py` (17 tests):
+events_total × 2, by_kind × 2, builds_by_outcome × 2,
+builds_by_edition × 2, recent_events × 2, iter_since
+× 1, summary_kpis × 4 (empty shape, success_rate math,
+recent cap, top-kinds cap), build-export emit wire × 2.
+
+### What's next
+
+Month 5 remaining (5 items, all non-money):
+- ε.2 /exec dashboard MVP (renders `summary_kpis()`)
+- ε.3 sales import (KDP/Apple/Google CSV upload)
+- ε.6 distribution channel checklist
+- ε.7 press kit auto-build
+- ο.4 archive.org auto-upload
+
+Further-out (post Month 5):
+- ε.5 quarterly auto-report (PDF aggregation of the
+  dashboards). Referenced as a future composition target
+  in `event_log.py`'s docstring.
+
+### Test count
+
+Serial run: **2762 / 2763 tests pass (1 skipped); 11/11
+lint clean.** ν.7 baseline was 2719; +43 = 2762.
+
+---
+
 ## 2026-05-11 — session — Month 4 non-money subset: ν.10 + ψ.38 + ω.39 + ν.7 (4 ships, +78 tests)
 
 **Phases shipped:** ν.10 (recents API) + ψ.38 (matrix

@@ -1,6 +1,30 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **Month 4
+**Updated 2026-05-11 / late session**: **Month 5 opened
+— Δ.15 event log + ε.1 metrics collector shipped (2 of
+7 Month 5 items).** Δ.15: append-only `events.jsonl` at
+`user_data_root()/events.jsonl`. `emit(kind, **fields)`
++ `iter_events`/`tail`/`count`. Positional-only `kind`
+prevents kwarg override. Malformed-line tolerance on
+read. ε.1: `scripts/core/metrics.py` with rollup queries
+(`events_total`, `events_by_kind`, `builds_by_outcome`,
+`builds_by_edition`, `recent_events`, `iter_events_since`,
+`summary_kpis`); `api_export_build` instrumented with
+`build_start`/`build_complete`/`build_failure` emits
+wrapped in `_safe_emit` (build never breaks on log
+issues). **+43 tests** (26 Δ.15 + 17 ε.1). **2762 /
+2763 tests pass serially (1 skipped); 11/11 lint clean.**
+Net session test delta from ψ.36-A baseline: **+509**
+across 24 ships.
+
+Month 5 remaining (5 items): ε.2 /exec dashboard MVP,
+ε.3 sales import (KDP/Apple/Google CSV), ε.6 distribution
+checklist, ε.7 press kit auto-build, ο.4 archive.org
+auto-upload. All non-money.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **Month 4
 non-money subset shipped (4 phases)** — ν.10 recents +
 ψ.38 matrix heatmap + ω.39 hot-reload + ν.7 inline-edit
 standardization. All four follow the established

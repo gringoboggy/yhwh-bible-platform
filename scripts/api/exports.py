@@ -119,9 +119,26 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
 
     Build is synchronous (typically 10-30 seconds); the HTTP request
     blocks until the EPUB is ready or fails.
+
+    ε.1 — emits `build_start` / `build_complete` / `build_failure`
+    events to the event log so the future /exec dashboard can roll up
+    build cadence + success rate. emit() failures are swallowed so a
+    misconfigured event log can't break the build pipeline itself.
     """
+    from scripts.core import event_log
+
+    def _safe_emit(kind, **fields):
+        try:
+            event_log.emit(kind, **fields)
+        except Exception:
+            # Best-effort logging — never block the build path on
+            # event-log issues.
+            pass
+
     if edition_id not in config.editions_by_id():
+        _safe_emit("build_failure", edition_id=edition_id, reason="unknown_edition")
         return {"error": f"unknown edition: {edition_id}"}
+    _safe_emit("build_start", edition_id=edition_id, version=version)
 
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -163,6 +180,7 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
             timeout=timeout_s,
         )
     except subprocess.TimeoutExpired as e:
+        _safe_emit("build_failure", edition_id=edition_id, reason="timeout", timeout_seconds=timeout_s)
         return {
             "error": "build timed out",
             "code": "build_timeout",
@@ -173,6 +191,7 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
             else (e.stderr or "")[-2000:],
         }
     if proc.returncode != 0:
+        _safe_emit("build_failure", edition_id=edition_id, reason="nonzero_exit", returncode=proc.returncode)
         return {
             "error": "build failed",
             "returncode": proc.returncode,
@@ -183,6 +202,7 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
     pattern = f"Ethiopian_Bible_{edition_id}_{version}_*.epub"
     candidates = sorted(EXPORTS_DIR.glob(pattern), key=lambda p: p.stat().st_mtime, reverse=True)
     if not candidates:
+        _safe_emit("build_failure", edition_id=edition_id, reason="no_epub_found")
         return {"error": "build reported success but no EPUB found"}
 
     out = candidates[0]
@@ -214,6 +234,15 @@ def api_export_build(edition_id: str, version: str = "v28a") -> dict:
         except Exception:
             pass
 
+    _safe_emit(
+        "build_complete",
+        edition_id=edition_id,
+        version=version,
+        filename=out.name,
+        size_mb=response.get("size_mb"),
+        cache_hit=response.get("cache_hit"),
+        build_seconds=response.get("build_seconds"),
+    )
     return response
 
 
