@@ -193,7 +193,10 @@ class TestOmega19SchemaValidator:
         result = validate_kinds()
         assert result["status"] == "ok", f"kinds.yaml unexpected violations: {result['errors']}"
         # 66 → 67 with χ-AI-notes (2026-05-10): added `comm-ai` kind.
-        assert result["record_count"] == 67
+        # 67 → 68 with χ.2 SEED (2026-05-12): added `comm-protestant` kind
+        # (sibling of comm-reformation; post-Reformation English
+        # Nonconformist / Puritan / Evangelical, e.g. Matthew Henry).
+        assert result["record_count"] == 68
 
     def test_validate_categories_passes(self):
         from scripts.validate_schemas import validate_categories

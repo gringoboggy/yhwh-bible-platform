@@ -4,6 +4,92 @@
 
 ## Prior task
 
+**χ.2 SEED Matthew Henry's Exposition** shipped 2026-05-12.
+First ship after the translation foundation arc closed with
+τ.6 — pivots from translation-depth to corpus growth via the
+χ-commentary cluster. Per PLAN_2026-05-09 §χ.2-5 execution-
+order recommendation (χ.2 Matthew Henry → χ.4 Catena → χ.3
+Calvin → χ.5 Rashi), χ.2 ships first because Matthew Henry's
+*Exposition of the Old and New Testament* (1706-1721) is the
+most-circulated PD Protestant commentary.
+
+**Why it matters for THIS project**: the `evangelical-reformed`
+edition declares `protestant` in `traditions_default` (via
+`content/traditions.yaml`) but had NO `comm-protestant` notes
+to surface in the ψ.8 cross-denominational popup. χ.2 ships
+the first batch of Protestant tradition notes, closing that
+surface. Henry anchors the χ.2.x expansion roadmap (Spurgeon /
+Edwards / Hodge as future commentators).
+
+**Files**:
+- `content/kinds.yaml` — new `comm-protestant` kind, sibling
+  of (not replacement for) the narrower `comm-reformation`
+  kind which stays scoped to 16th c. magisterial Reformers
+  (Luther / Calvin / Zwingli). Label "Protestant", description
+  names Henry / Spurgeon / Edwards / Hodge.
+- `content/sources/protestant_commentaries.json` — new schema-v1
+  seed file mirroring γ.3 / γ.4 commentary files. **Field
+  name `commentator` (not `father`)** — Henry isn't a Father
+  in any historical sense; the semantic distinction is
+  preserved in the dataclass + loader API. 12 paraphrased
+  entries across Gen 1:1, 1:3, 1:26, 2:7, 3:1, 3:15
+  (protoevangelium), 6:5 (total depravity), Ps 1:1, 23:1,
+  John 1:1, 1:14, 19:34. Every entry carries full attribution
+  + explicit "PD" marker.
+- `scripts/core/sources.py` — `ProtestantCommentary` frozen
+  dataclass + `ProtestantCommentaries` lazy loader (indexes
+  by_verse + by_commentator) + `protestant_commentaries()`
+  `@lru_cache(maxsize=1)` singleton.
+- `scripts/core/detectors.py` — `ProtestantCommentaryDetector`
+  class (kind="comm-protestant", confidence 0.95, direct-lookup
+  by (book, chapter, verse), HTML-escaped body via
+  `_format_body()`, **plain year display** — no BC/AD branching
+  needed since all Protestant expositors are post-Reformation,
+  simpler than γ.4's BC-handling for 1 Enoch's c. 200 BC
+  entries). Appended to `ALL_DETECTORS` after
+  `EthiopianCommentaryDetector` (γ.4) so candidate ordering is
+  Father-canonical first → Tewahedo-distinctive second →
+  Protestant-English third.
+
+**Tradition wiring**: pre-existing. `content/traditions.yaml`
+already maps `evangelical-reformed → protestant`, so ψ.8
+picks up comm-protestant notes for the evangelical-reformed
+edition automatically. No traditions.yaml edit needed.
+
+**Tests**: tests/test_protestant_chi2.py — 32 tests across 5
+classes. TestChi2DataFile × 8 (parses, meta block, ≥12 entries,
+required fields, PD marker, post-Reformation year range, Gen
+1:1 present). TestChi2ProtestantCommentariesLoader × 7 (frozen
+dataclass, by_verse + by_commentator lookup, empty-list for
+unknowns, SourceMissingError on absent cache). TestChi2DetectorContract
+× 8 (registered after Ethiopian — candidate-order pin,
+kind=comm-protestant, candidate shape, confidence=0.95, empty
+for uncommented verses, verse_text ignored, body XSS-escapes,
+plain year display distinct from γ.4 BC/AD). TestChi2KindIsRegistered
+× 3 (comm-protestant in kinds.yaml + comm-reformation coexists —
+anti-merge pin). TestChi2Coverage × 6 (Genesis / Psalms / John;
+Gen 3:15 protoevangelium; Gen 6:5 total-depravity anchor; Henry
+sole commentator).
+
+**+32 tests**. **3244 / 3245 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **χ.2.x** — user-side full ETL from CCEL / Project Gutenberg
+  Matthew Henry text dump. ~5-15K notes target per PLAN.
+- **χ.3 Calvin** — next in PLAN execution order (χ.2 → χ.4 → χ.3
+  → χ.5). Calvin tags as `comm-reformation` kind, not
+  `comm-protestant`.
+- **χ.4 Catena Aurea** — Catholic patristic-chain commentary.
+- **χ.5 Rashi** — Jewish.
+
+**Recommended next ship**: χ.4 Catena Aurea (next per PLAN
+execution order — Catholic patristic-chain compiled by Aquinas;
+~3-8K notes target; Latin translation passes needed). Or pivot
+to ψ.30 a11y / money authorization / γ.4.1 corpus expansion.
+
+## Prior task
+
 **τ.6 Ge'ez Tewahedo Bible seed** shipped 2026-05-12. Closes
 the translation-foundation arc this session. Reinforces the
 v1.x flagship (ethiopian-tewahedo edition) with its native

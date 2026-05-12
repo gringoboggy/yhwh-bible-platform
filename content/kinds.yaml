@@ -454,6 +454,16 @@ kinds:
     description: "Luther, Calvin, Zwingli, Anabaptist readings."
     phase: phase2
 
+  - code: comm-protestant
+    category: comm
+    symbol: "◇"
+    note_class: "note-comm-protestant"
+    marker_class: "marker-comm-protestant"
+    label: "Protestant"
+    title_attr: "Post-Reformation Protestant interpretation"
+    description: "English Nonconformist / Puritan / Evangelical readings — Matthew Henry, Spurgeon, Edwards, Hodge. Distinct from comm-reformation (narrowly 16th c. magisterial Reformers)."
+    phase: phase2
+
   - code: comm-modern-critical
     category: comm
     symbol: "◇"

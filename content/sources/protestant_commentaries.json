@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "source": "Matthew Henry, An Exposition of the Old and New Testament (1706-1721) — seed corpus shipped with χ.2 (2026-05-12).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the post-Reformation English Protestant (Nonconformist / Puritan) tradition carries a distinctive devotional-practical reading. Matthew Henry (1662-1714) wrote Genesis through Acts; the rest of the New Testament was completed posthumously by his colleagues from his notes. Each entry is a paraphrased summary of Henry's interpretive thrust + practical application, not a verbatim quote — verbatim passages from the CCEL / Project Gutenberg dump will land in a future χ.2.x ETL pass. Distinct from comm-reformation kind, which is narrowly scoped to 16th c. magisterial Reformers (Luther / Calvin / Zwingli).",
+    "public_domain_basis": "Matthew Henry d. 22 June 1714 — out of copyright in every jurisdiction. Standard PD editions: Fleming H. Revell (1896); MacDonald Publishing 6-volume reprint. Hendrickson 1991 reprint adds no copyrightable material. CCEL hosts the full text under PD.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 1,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "Henry reads 'In the beginning' as the definitive PD refutation of three errors at once: against the eternalists (who hold matter co-eternal with God), against the polytheists (who multiply makers), and against the deists (who detach God from continued providence). The simplicity of the verse is its weight — it asserts authorship without arguing for it, leaving the conscience to acknowledge what reason cannot deny. The practical use: every creature thus belongs to its Maker, and we are stewards rather than proprietors of what we hold.",
+      "attribution": "Matthew Henry, Exposition, on Genesis 1:1. PD (Henry d. 1714)."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 3,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "On 'Let there be light, and there was light' Henry hears the pattern of all subsequent gracious operation: God speaks, the creature obeys, the work is done. The light is created before its instruments (sun and moon come on day four) to teach that God is not bound to ordinary means — he can give light to the soul without sun, comfort without secondary cause. The application is evangelical: the same word that called light from darkness shines in the heart at conversion (2 Cor 4:6).",
+      "attribution": "Matthew Henry, Exposition, on Genesis 1:3. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 26,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "Henry takes 'Let us make man in our image' as evidence of the Trinity speaking in solemn consultation — not the royal we of human kings (God needs no counsel) and not (against the Jewish reading) angels (the image is divine, and angels are not creators). The image consists in knowledge, righteousness, and true holiness (Eph 4:24, Col 3:10) — all forfeited at the Fall and restored only in regeneration. Dominion follows image: man rules creation because he bears the Maker's likeness, not because of any native power of his own.",
+      "attribution": "Matthew Henry, Exposition, on Genesis 1:26-27. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 7,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "Henry pairs the dust and the breath as the two-fold reminder for the soul: 'the body, formed of the dust of the ground, is poor and base; the soul, breathed of God, is noble and divine.' The breathing in is not Adam's animation in the manner of the beasts (who already had life) but the giving of a rational, immortal spirit fitted to know God. The practical end of the verse is humility before God and watchfulness against the body's corruption — the dust will return to dust, the spirit to him who gave it.",
+      "attribution": "Matthew Henry, Exposition, on Genesis 2:7. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 1,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "On the serpent's subtlety Henry observes that Satan chooses the most cunning of creatures because his design requires concealment: the open enemy is easy to resist, the disguised friend is not. The first temptation begins with a question — 'Yea, hath God said?' — which is the pattern of every subsequent assault on the soul: not flat denial but suggested doubt. Henry's pastoral note is unforgettable: the devil aims chiefly at our communion with God by first weakening our confidence in his word.",
+      "attribution": "Matthew Henry, Exposition, on Genesis 3:1. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 15,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "Henry reads Genesis 3:15 as the protoevangelium — the first gospel preached in the world, and preached to the serpent. The seed of the woman is Christ (singular), born of a woman but not of a man, who bruises the serpent's head (a mortal wound at the cross) while suffering only a bruise to his heel (a sufferable, temporary wound). Henry notes the order: the curse is pronounced on the serpent before grace is offered to the man — comfort came to fallen Adam by overhearing his enemy's sentence. This is the seed-bed of every later messianic promise.",
+      "attribution": "Matthew Henry, Exposition, on Genesis 3:15. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 6,
+      "verse": 5,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol I (Genesis)",
+      "year": 1708,
+      "summary": "On 'every imagination of the thoughts of his heart was only evil continually' Henry presses the universal corruption of human nature as a doctrine to be received with both grief and wonder: grief that the heart God made upright has become a fountain of corruption, wonder that God does not destroy the world the moment it becomes such. The 'every / only / continually' Henry takes as the most exhaustive statement of total depravity in Scripture — every faculty corrupt, only evil produced, continually so without intermission. The doctrine is to be turned upon ourselves before it is preached to others.",
+      "attribution": "Matthew Henry, Exposition, on Genesis 6:5. PD."
+    },
+    {
+      "book": "ps",
+      "chapter": 1,
+      "verse": 1,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol III (Psalms)",
+      "year": 1710,
+      "summary": "Henry reads the threefold negation — walks not / stands not / sits not — as a descending progression of sinful complicity. The walk is occasional and irresolute; the standing is deliberate and habitual; the sitting is settled, comfortable, and instructional (the scorner's seat is where doctrine is mocked). Blessedness is preserved by refusing each step in turn: refuse the company, refuse the path, refuse the seat. The threefold negation is then matched by the threefold ascent — delight in the law, meditate day and night, bring forth fruit in season.",
+      "attribution": "Matthew Henry, Exposition, on Psalm 1:1-3. PD."
+    },
+    {
+      "book": "ps",
+      "chapter": 23,
+      "verse": 1,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol III (Psalms)",
+      "year": 1710,
+      "summary": "On 'The Lord is my shepherd' Henry hears the believer's confession in two short clauses that together exhaust the whole comfort of religion: a present possession ('The Lord is my shepherd') and a confident inference ('I shall not want'). The shepherd-image carries the threefold office: he leads (guidance), he feeds (provision), he defends (protection). The 'my' Henry will not let pass — David could have said 'the Lord is a shepherd' generally, but the comfort of the psalm depends on the possessive: appropriated, particular, mine.",
+      "attribution": "Matthew Henry, Exposition, on Psalm 23:1. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 1,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol V (John)",
+      "year": 1712,
+      "summary": "Henry takes the three clauses of John 1:1 as the threefold witness to Christ's deity: 'In the beginning was the Word' (his eternity — he did not begin to be, but was), 'the Word was with God' (his distinct personality — not the Father, but with the Father), 'and the Word was God' (his consubstantiality — same in essence with him whom he is with). Against the Arian (who would read 'a god') Henry observes that the article and the predicate order in Greek are decisive; against the Sabellian (who would collapse the persons) the second clause holds. The whole prologue is dogmatic in form but doxological in temper — to be read on the knees.",
+      "attribution": "Matthew Henry, Exposition, on John 1:1-3. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 14,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol V (John)",
+      "year": 1712,
+      "summary": "On 'the Word became flesh' Henry resists every reading that would dissolve the wonder: the Word did not cease to be what he was (eternal God) nor was the flesh swallowed up in the divinity (still truly man) — the becoming is the assumption of a true human nature into the one Person of the Word, indivisibly and forever. 'Dwelt among us' (Greek: *eskēnōsen* — tabernacled) Henry reads against the Old Testament tabernacle: as God's glory once dwelt between the cherubim, so now in the flesh of Christ, but now seen, handled, beheld. The glory beheld is the glory 'as of the only begotten' — not borrowed but native.",
+      "attribution": "Matthew Henry, Exposition, on John 1:14. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 19,
+      "verse": 34,
+      "commentator": "Matthew Henry",
+      "work": "Exposition of the Old and New Testament, Vol V (John)",
+      "year": 1712,
+      "summary": "Henry reads the blood and water from the pierced side as the double sacrament of the Church — the blood points to the cup, the water to the laver of regeneration — both proceeding from the same wound and from the same Christ. The medical-historical question (whether the pericardium had filled with fluid) Henry mentions briefly but quickly subordinates to the typological reading: from the second Adam's side, while he slept the sleep of death, comes the Bride. The pierced side becomes the open way into the holiest, never to be closed.",
+      "attribution": "Matthew Henry, Exposition, on John 19:34. PD."
+    }
+  ]
+}

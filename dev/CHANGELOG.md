@@ -6,6 +6,120 @@
 
 ---
 
+## 2026-05-12 — session — χ.2 SEED Matthew Henry (opens Protestant commentary cluster)
+
+**Phases shipped:** χ.2 (SEED — Matthew Henry's Exposition of the
+Old and New Testament, 12-entry seed). Opens the χ-commentary
+cluster (χ.2-5: Matthew Henry / Calvin / Catena Aurea / Rashi)
+per PLAN_2026-05-09 execution-order recommendation. First ship
+after the translation foundation arc closed with τ.6.
+**Test delta:** +32 (3212 → 3244; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### χ.2 — Post-Reformation Protestant commentary (Matthew Henry seed)
+
+Matthew Henry (1662-1714) was an English Nonconformist minister
+whose *Exposition of the Old and New Testament* (1706-1721) is
+the most-circulated practical-devotional Protestant commentary
+in the English-speaking world. Henry completed Genesis through
+Acts personally; the remainder of the New Testament was
+completed posthumously by his colleagues from his notes.
+
+**Why this ship matters for the project specifically**:
+
+- The `evangelical-reformed` edition already declares
+  `protestant` in `traditions_default` (via `content/traditions.yaml`)
+  but had no `comm-protestant` notes to surface in the ψ.8
+  cross-denominational popup. χ.2 ships the first batch of
+  Protestant tradition notes, closing that surface.
+- Henry is the most widely-circulated PD Protestant expositor;
+  he anchors the χ.2.x expansion roadmap (Spurgeon, Edwards,
+  Hodge as future commentators).
+- The PLAN_2026-05-09 §χ.2-5 execution-order recommendation
+  picks χ.2 first ("Matthew Henry — most voluminous"); this
+  ship honors that ordering.
+
+**Pattern**: mirrors γ.3 (Augustine seed) + γ.4 (Ethiopian seed)
+exactly — 12 verse-keyed entries across Gen 1-6 / Ps 1+23 / John
+1+19, infrastructure shipped, full ETL deferred to χ.2.x.
+
+### Files
+
+- `content/kinds.yaml` — new `comm-protestant` kind (sibling
+  of, not replacement for, the narrower `comm-reformation`
+  kind which stays scoped to 16th c. magisterial Reformers).
+  Label "Protestant"; description names Henry / Spurgeon /
+  Edwards / Hodge as the post-Reformation English Nonconformist
+  / Puritan / Evangelical tradition.
+- `content/sources/protestant_commentaries.json` — new; schema
+  v1 mirroring patristic / ethiopian commentary files. Field
+  name `commentator` (not `father`) — Henry isn't a Father in
+  any historical sense; the semantic distinction is preserved
+  in the dataclass + loader API. 12 paraphrased entries with
+  full attribution and explicit "PD" markers.
+- `scripts/core/sources.py` — `ProtestantCommentary` frozen
+  dataclass + `ProtestantCommentaries` lazy loader (indexes
+  by_verse + by_commentator, raises SourceMissingError on
+  absent JSON) + `protestant_commentaries()` `@lru_cache(maxsize=1)`
+  singleton. Mirrors γ.3 / γ.4 patterns.
+- `scripts/core/detectors.py` — `ProtestantCommentaryDetector`
+  class (kind="comm-protestant", confidence 0.95, direct-lookup
+  by (book, chapter, verse), HTML-escaped body via `_format_body()`
+  with **plain year display** — no BC/AD branching needed since
+  all Protestant expositors are post-Reformation, simpler than
+  γ.4's BC-handling for 1 Enoch's c. 200 BC entries.
+  `note-comm-protestant` CSS class for theme styling. Appended
+  to `ALL_DETECTORS` after `EthiopianCommentaryDetector` (γ.4)
+  so candidate ordering is Father-canonical first → Tewahedo-
+  distinctive second → Protestant-English third.
+
+**Tradition wiring**: pre-existing. `content/traditions.yaml`
+already maps `evangelical-reformed → protestant`, so ψ.8 picks
+up comm-protestant notes for the evangelical-reformed edition
+automatically. No traditions.yaml edit needed.
+
+### Tests
+
+`tests/test_protestant_chi2.py` — 32 tests across 5 classes:
+
+- **TestChi2DataFile × 8** — seed JSON parses, meta block
+  complete, ≥12 entries, every entry has required fields +
+  PD marker, every entry is post-Reformation (1700-1721 to
+  guard against accidental comm-reformation overlap), Gen 1:1
+  present.
+- **TestChi2ProtestantCommentariesLoader × 7** — loader
+  returns frozen dataclass instances, dataclass is frozen
+  (mutation raises), by_verse + by_commentator lookup, empty-
+  list for unknowns, SourceMissingError on absent cache.
+- **TestChi2DetectorContract × 8** — detector registered in
+  ALL_DETECTORS *after* EthiopianCommentaryDetector (candidate-
+  order pin), kind="comm-protestant", candidate shape +
+  confidence=0.95, empty-list for uncommented verses, verse_text
+  is ignored (direct lookup), body HTML-escapes user content
+  (XSS pin), body renders plain year without era marker
+  (distinct from γ.4).
+- **TestChi2KindIsRegistered × 3** — `comm-protestant` exists
+  in kinds.yaml with category=comm + label=Protestant, AND
+  `comm-reformation` still coexists as a sibling (anti-merge
+  pin).
+- **TestChi2Coverage × 6** — Genesis / Psalms / John covered;
+  Gen 3:15 protoevangelium present (the Reformed pin); Gen 6:5
+  total-depravity anchor present; Matthew Henry is the sole
+  commentator in the seed (χ.2.x adds Spurgeon / Edwards /
+  Hodge).
+
+### Forward references
+
+- **χ.2.x** — user-side full ETL from CCEL / Project Gutenberg
+  Matthew Henry text dump. ~5-15K notes target per PLAN.
+- **χ.3** — Calvin's Commentaries (next in PLAN execution
+  order: χ.2 → χ.4 → χ.3 → χ.5; Calvin tags as `comm-reformation`
+  kind, not `comm-protestant`).
+- **χ.4** — Catena Aurea (Catholic patristic-chain commentary).
+- **χ.5** — Rashi commentary (Jewish).
+
+---
+
 ## 2026-05-12 — session — τ.6 Ge'ez Tewahedo seed (Tewahedo flagship native language)
 
 **Phases shipped:** τ.6 (Ge'ez Tewahedo Bible seed —

@@ -502,6 +502,95 @@ class EthiopianCommentaries:
 
 
 # ----------------------------------------------------------------------
+# Protestant commentary corpus (χ.2 — 2026-05-12)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class ProtestantCommentary:
+    """One verse-keyed entry in the post-Reformation Protestant corpus.
+
+    Shape parallels `PatristicCommentary` and `EthiopianCommentary` so the
+    detector layer stays structurally uniform across the comm-* cluster.
+    The semantic distinction is twofold: (a) the *tradition* — these are
+    post-Reformation English Nonconformist / Puritan / Evangelical
+    expositors rather than Church Fathers or magisterial Reformers; and
+    (b) the *field name* — `commentator` rather than `father`, since
+    Matthew Henry / Spurgeon / Edwards / Hodge are not Fathers in any
+    historical sense.
+
+    See `content/sources/protestant_commentaries.json` for the live
+    dataset; χ.2 ships a ~12-entry Matthew Henry seed across Genesis /
+    Psalms / John, and future χ.2.x will expand from the CCEL /
+    Project Gutenberg dump via per-pericope summarization.
+    """
+
+    book: str
+    chapter: int
+    verse: int
+    commentator: str
+    work: str
+    year: int
+    summary: str
+    attribution: str
+
+
+class ProtestantCommentaries:
+    """Lazy loader for the Protestant commentary corpus. Cached on
+    first read. Raises ``SourceMissingError`` if the JSON cache file
+    is absent.
+
+    Two access patterns mirror the γ.3/γ.4 loaders:
+      * ``for_verse(book, chapter, verse)`` — every entry attached to
+        the verse (used by the detector).
+      * ``by_commentator(name)`` — every entry by a given expositor
+        (e.g. ``"Matthew Henry"``), for audit / coverage UIs.
+    """
+
+    PATH = _SOURCES / "protestant_commentaries.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Protestant commentaries cache not present at {self.PATH}. "
+                "The seed corpus shipped with χ.2 (2026-05-12) — restore from git."
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self._by_verse: dict[tuple[str, int, int], list[ProtestantCommentary]] = {}
+        self._by_commentator: dict[str, list[ProtestantCommentary]] = {}
+        for entry in data.get("entries", []):
+            try:
+                pc = ProtestantCommentary(
+                    book=str(entry["book"]),
+                    chapter=int(entry["chapter"]),
+                    verse=int(entry["verse"]),
+                    commentator=str(entry["commentator"]),
+                    work=str(entry.get("work", "")),
+                    year=int(entry.get("year", 0)),
+                    summary=str(entry["summary"]),
+                    attribution=str(entry["attribution"]),
+                )
+            except (KeyError, ValueError, TypeError):
+                continue
+            key = (pc.book, pc.chapter, pc.verse)
+            self._by_verse.setdefault(key, []).append(pc)
+            self._by_commentator.setdefault(pc.commentator, []).append(pc)
+
+    def __len__(self) -> int:
+        return sum(len(v) for v in self._by_verse.values())
+
+    def for_verse(self, book: str, chapter: int, verse: int) -> list[ProtestantCommentary]:
+        """Return every entry attached to a specific verse, in insertion
+        order. Empty list when nothing matches."""
+        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+
+    def by_commentator(self, name: str) -> list[ProtestantCommentary]:
+        """Return every entry by a given expositor (case-sensitive)."""
+        return list(self._by_commentator.get(name, ()))
+
+
+# ----------------------------------------------------------------------
 # Singletons (cached across runs in the same process)
 # ----------------------------------------------------------------------
 
@@ -540,6 +629,12 @@ def patristic_commentaries() -> PatristicCommentaries:
 def ethiopian_commentaries() -> EthiopianCommentaries:
     """Return the singleton EthiopianCommentaries instance (γ.4 — 2026-05-11)."""
     return EthiopianCommentaries()
+
+
+@lru_cache(maxsize=1)
+def protestant_commentaries() -> ProtestantCommentaries:
+    """Return the singleton ProtestantCommentaries instance (χ.2 — 2026-05-12)."""
+    return ProtestantCommentaries()
 
 
 # ----------------------------------------------------------------------

@@ -1132,6 +1132,97 @@ class EthiopianCommentaryDetector:
         )
 
 
+class ProtestantCommentaryDetector:
+    """Emit `comm-protestant` candidates from the curated post-Reformation
+    Protestant corpus (`content/sources/protestant_commentaries.json`).
+
+    Structurally parallel to γ.3's PatristicCommentaryDetector and γ.4's
+    EthiopianCommentaryDetector — a direct-lookup detector keyed on
+    (book, chapter, verse) emitting one Candidate per matching entry.
+    The semantic difference is *tradition*: this detector surfaces the
+    post-Reformation English Nonconformist / Puritan / Evangelical
+    exposition (Matthew Henry, Spurgeon, Edwards, Hodge) — distinct from
+    the magisterial Reformers covered by comm-reformation.
+
+    Build-pipeline considerations: the resulting `comm-protestant`
+    notes participate in the existing tradition filter (ψ.8) when an
+    edition's `traditions_default` includes `protestant`. The
+    `evangelical-reformed` edition consumes them directly; other
+    editions can opt in per their own traditions config.
+
+    χ.2 ships a ~12-entry Matthew Henry seed across Genesis / Psalms /
+    John to prove the pipeline; χ.2.x will expand from CCEL / Project
+    Gutenberg dumps via per-pericope summarization.
+    """
+
+    name = "ProtestantCommentaryDetector"
+    kind = "comm-protestant"
+
+    def __init__(self) -> None:
+        self.corpus = sources.protestant_commentaries()
+
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
+        # verse_text is unused — direct lookup by (book, chapter, verse).
+        entries = self.corpus.for_verse(book, chapter, verse)
+        if not entries:
+            return []
+        out: list[Candidate] = []
+        for entry in entries:
+            body = self._format_body(entry)
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",  # whole-verse anchor
+                    confidence=0.95,
+                    source_name=f"{entry.commentator} / {entry.work}",
+                    source_attribution=entry.attribution,
+                    draft_title=f"Protestant — {entry.commentator}",
+                    draft_label=f"{entry.commentator} ({entry.year}).",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Curated PD interpretive summary representing the "
+                        f"post-Reformation English Protestant tradition's "
+                        f"reading via {entry.commentator}, {entry.work}. "
+                        "Verify the summary still reflects the expositor's "
+                        "argument before promoting; substitute a verbatim "
+                        "quote from the CCEL / Project Gutenberg dump where "
+                        "available."
+                    ),
+                )
+            )
+        return out
+
+    @staticmethod
+    def _format_body(entry: "sources.ProtestantCommentary") -> str:
+        """Render the entry's HTML body. Mirrors γ.3 / γ.4 pattern.
+
+        The summary text is escape-safe by construction (no user-
+        controlled content) but escape defensively to keep the
+        XSS-by-design contract honest.
+        """
+        import html as _html
+
+        commentator = _html.escape(entry.commentator)
+        work = _html.escape(entry.work)
+        summary = _html.escape(entry.summary)
+        # All Protestant expositors in the corpus are post-Reformation
+        # (1500+) so plain year display suffices — no BC/AD branching
+        # needed (γ.4's BC handling was required for 1 Enoch's c. 200 BC).
+        year = int(entry.year)
+        return (
+            f'<aside class="note-comm-protestant">'
+            f"<strong>{commentator}</strong> "
+            f"<em>{work}</em> "
+            f"<small>({year})</small>"
+            f"<p>{summary}</p>"
+            f"</aside>"
+        )
+
+
 # ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
@@ -1148,4 +1239,5 @@ ALL_DETECTORS = [
     AINoteDetector,
     PatristicCommentaryDetector,  # γ.3
     EthiopianCommentaryDetector,  # γ.4 — flagship payload
+    ProtestantCommentaryDetector,  # χ.2 — Matthew Henry seed
 ]
