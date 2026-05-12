@@ -1466,3 +1466,118 @@ class TestGamma44CParablesDetailWave:
     def test_enoch_transfiguration_present(self):
         enoch = [e for e in self.ec.for_verse("1en", 71, 11) if e.father == "1 Enoch (Ethiopian tradition)"]
         assert enoch, "γ.4.4.C missing 1En 71:11 — Enoch's transfiguration / theosis witness"
+
+
+class TestGamma44DAstroDreamsAnimalWave:
+    """γ.4.4.D — 1 Enoch Astronomical Book + Dream Visions + Animal
+    Apocalypse expansion (40 entries on chs 72-90 beyond the 6
+    γ.4.4.A entries on this section). Brings chs 72-90 coverage from
+    6 to 46 entries; Mäṣḥafä Hēnok now substantively expanded across
+    Watchers (γ.4.4.B), Parables (γ.4.4.C), and Astronomical+Dreams
+    +Animal Apocalypse (γ.4.4.D). Voice distribution post-γ.4.4.D:
+    ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes
+    plurality voice in the corpus.
+
+    Pins:
+    - chs 72-90 substantively expanded (≥40 1en entries in chs
+      72-90).
+    - All three sub-arcs covered: Astronomical Book (72-82) +
+      First Dream Vision (83-84) + Animal Apocalypse (85-90).
+    - 1 Enoch share ≥45% of corpus (becomes plurality voice).
+    - Signature passages: 72:32 (364-day liturgical year —
+      Bāḥrä Ḥasab calendar anchor), 82:1 (Methuselah-as-scribe
+      charge — monastic-scribal lineage warrant), 84:1 (tongue-
+      given-for-praise), 85:3 (Adam as white bull — Animal
+      Apocalypse foundational allegory), 87:2 (four white men —
+      seven-archangel witness), 89:1 (Noah translated from bull
+      to man — theosis anticipation), 89:50 (tower upon house —
+      temple ecclesiology), 89:59 (seventy shepherds — gentile
+      dominion period), 90:28 (new house / new Jerusalem — Rev
+      21:2-3 antecedent), 90:38 (white-bull reunification + lamb-
+      with-horns Christological climax).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_chs_72_to_90_substantively_expanded(self):
+        enoch_range = []
+        for chapter in range(72, 91):
+            for verse in range(1, 100):
+                enoch_range.extend(
+                    e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
+                )
+        assert len(enoch_range) >= 40, (
+            f"γ.4.4.D expected ≥40 entries in 1En 72-90; found {len(enoch_range)}"
+        )
+
+    def test_all_three_subarcs_covered(self):
+        def has_entry_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("1en", chapter, verse):
+                        if entry.father == "1 Enoch (Ethiopian tradition)":
+                            return True
+            return False
+
+        assert has_entry_in(72, 82), "γ.4.4.D missing Astronomical Book (1En 72-82)"
+        assert has_entry_in(83, 84), "γ.4.4.D missing First Dream Vision (1En 83-84)"
+        assert has_entry_in(85, 90), "γ.4.4.D missing Animal Apocalypse (1En 85-90)"
+
+    def test_1_enoch_share_above_45_percent(self):
+        enoch_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "1 Enoch (Ethiopian tradition)"
+        )
+        total = len(self.ec)
+        share = enoch_count / total
+        assert share >= 0.45, (
+            f"γ.4.4.D expected 1 Enoch share ≥45% (plurality voice); actual {share:.1%} "
+            f"({enoch_count} of {total})"
+        )
+
+    def test_liturgical_year_anchor_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 72, 32) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 72:32 — 364-day liturgical year (Bāḥrä Ḥasab anchor)"
+
+    def test_methuselah_scribe_charge_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 82, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 82:1 — Methuselah-as-scribe charge"
+
+    def test_tongue_given_for_praise_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 84, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 84:1 — tongue given for praise"
+
+    def test_adam_as_white_bull_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 85, 3) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 85:3 — Adam as white bull (Animal Apocalypse anchor)"
+
+    def test_four_archangels_in_animal_apocalypse_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 87, 2) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 87:2 — four white men (seven-archangel witness)"
+
+    def test_noah_translated_bull_to_man_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 89, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 89:1 — Noah translated from bull to man (theosis anticipation)"
+
+    def test_tower_upon_house_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 89, 50) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 89:50 — tower upon house (temple ecclesiology)"
+
+    def test_seventy_shepherds_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 89, 59) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 89:59 — seventy shepherds (gentile dominion period)"
+
+    def test_new_house_new_jerusalem_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 90, 28) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 90:28 — new house / new Jerusalem (Rev 21:2-3 antecedent)"
+
+    def test_white_bull_reunification_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 90, 38) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.D missing 1En 90:38 — white-bull reunification + lamb-with-horns climax"

@@ -6,6 +6,97 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.4.D 1 Enoch Astronomical + Dream Visions + Animal Apocalypse (40 entries on chs 72-90)
+
+**Phases shipped:** γ.4.4.D — Astronomical Book (chs 72-82) + First
+Dream Vision (chs 83-84) + Animal Apocalypse (chs 85-90) expansion
+of the Mäṣḥafä Hēnok corpus. γ.4.4.A shipped 6 entries on this
+range (72:1, 81:5, 83:3, 85:1, 90:9, 90:37); γ.4.4.D adds 40 more,
+bringing chs 72-90 coverage from 6 to 46 entries. 1 Enoch share of
+the corpus rises from ~41% to ~49% — **1 Enoch becomes plurality
+voice in the corpus** (was Cyril). Mäṣḥafä Hēnok now substantively
+covered across Watchers (γ.4.4.B), Parables (γ.4.4.C), and
+Astronomical-Dreams-Animal (γ.4.4.D); only the Epistle of Enoch
+(γ.4.4.E, chs 91-108) remains.
+**Test delta:** +13 (γ.4.4.D).
+**Linter delta:** 11/11 clean.
+
+### γ.4.4.D — 1 Enoch Astronomical + Dream Visions + Animal Apocalypse (chs 72-90)
+
+This wave covers the three Mäṣḥafä Hēnok sections that lie between
+the Parables (already substantively expanded in γ.4.4.C) and the
+Epistle of Enoch (still first-wave-only):
+
+**Astronomical Book (12 entries on chs 72-82)** — Uriel's revelation
+of the heavenly luminaries and calendar: twelve solar gates (72:2),
+the 364-day liturgical year (72:32 — Tewahedo Bāḥrä Ḥasab anchor),
+lunar law (73:1), lunar variation (74:2), intercalary days (75:1-2),
+twelve winds (76:1), seven mountains and seven rivers cosmography
+(77:3), named sun and moon (78:1), sinners' cosmic disruption (80:2),
+Enoch reading the heavenly tablets (81:2), Methuselah-as-first-
+scribe charge (82:1).
+
+**First Dream Vision (3 entries on chs 83-84)** — Enoch's youthful
+Flood-prophecy vision and intercessory prayer: Mahalalel's
+interpretation (83:7), tongue-given-for-praise theological warrant
+(84:1), Enoch's prayer for righteous-remnant preservation (84:4).
+
+**Animal Apocalypse (25 entries on chs 85-90)** — the full bovine-
+allegorical compression of biblical history from Adam to eschaton:
+Adam as white bull (85:3) + Cain/Abel (85:4) + Asael's fall (86:1)
++ 200 watchers as descending stars (86:3) + four white men /
+archangels (87:2) + Enoch translated by archangels (87:3) + Asael
+bound (88:1) + all watchers bound (88:3) + Noah translated from
+bull to man (89:1 — ontological-elevation precedent for theosis)
++ Noah's three sons (89:9) + table of nations as bovine
+diversification (89:10) + Jacob's offspring as white sheep (89:12)
++ Esau as wild ass (89:14) + wilderness tabernacle as 'house'
+(89:36) + Gentile oppressors as wild beasts (89:42) + Solomon's
+temple as tower-upon-house (89:50) + exile and tower abandoned
+(89:55) + seventy shepherds period (89:59) + Maccabean awakening
+(90:6) + angelic helper (90:14) + throne of judgment set (90:20)
++ fallen stars judged (90:24) + new house / new Jerusalem (90:28)
++ Gentile conversion (90:30) + white-bull eschatological
+reunification with lamb-of-horns Christological climax (90:38).
+
+**Why this ship matters for the project specifically**:
+
+- The **Astronomical Book** is the textual anchor for Tewahedo
+  liturgical computus — the 364-day solar-calendar revelation at
+  72:32 undergirds the Tewahedo Bāḥrä Ḥasab (Sea of Reckoning)
+  computational tradition.
+- The **Animal Apocalypse** is the most extensive narrative-
+  allegorical compression of biblical history surviving from the
+  Second-Temple period; Tewahedo eschatology and Christology both
+  draw on this allegorical compression as canonical structure.
+- **89:1 (Noah translated from bull to man)** is a pre-Christian
+  ontological-elevation precedent for the Tewahedo deification
+  (theosis) tradition.
+- **82:1 (Methuselah-as-scribe charge)** is the foundational
+  warrant for the entire Mäṣḥafä Hēnok preservation enterprise:
+  every Tewahedo monastic scribe who copied Enoch from the 4th
+  century onward stood consciously in this Methuselan succession.
+- **90:37-38 (white-bull reunification + lamb-with-horns)** is the
+  Animal Apocalypse's dual-Christological climax: Christ as both
+  new-Adam (white bull) AND Lamb-of-God (with horns of authority) —
+  Tewahedo Christology preserves both registers without tension.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 40 new 1 Enoch
+  entries appended across three work labels (Astronomical Book,
+  Dream Visions, Animal Apocalypse) with year codes matching scholarly
+  consensus (-250 / -150 / -150 respectively). _meta scope and
+  source strings updated.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma44DAstroDreamsAnimalWave` class with 13 tests pinning
+  chs 72-90 substantively expanded (≥40 1en entries in chs 72-90)
+  + all three sub-arcs + 1 Enoch share ≥45% (plurality voice
+  threshold) + 10 signature passages (72:32, 82:1, 84:1, 85:3,
+  87:2, 89:1, 89:50, 89:59, 90:28, 90:38).
+
+---
+
 ## 2026-05-12 — session — γ.4.4.C 1 Enoch Parables detail (40 entries on chs 37-71) + sonar reinstall
 
 **Phases shipped:** γ.4.4.C — Parables-section expansion of the

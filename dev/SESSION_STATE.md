@@ -1,5 +1,36 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.4.D Astro+Dreams+Animal ships, 1 Enoch
+becomes plurality voice**: **γ.4.4.D 1 Enoch Astronomical Book +
+Dream Visions + Animal Apocalypse detail shipped (40 entries on
+chs 72-90).** Brings chs 72-90 coverage from 6 entries (γ.4.4.A
+first wave) to 46 entries; corpus voice mix moves from 45/14/41
+to ~39/12/49 Cyril/Ephrem/1En — **1 Enoch is now the plurality
+voice** (was Cyril). Mäṣḥafä Hēnok substantively covered across
+Watchers (γ.4.4.B 51 entries) + Parables (γ.4.4.C 49 entries) +
+Astronomical-Dreams-Animal (γ.4.4.D 46 entries); only the Epistle
+of Enoch (γ.4.4.E, 1En 91-108) remains for full Mäṣḥafä-Hēnok
+depth. Anchor passages now substantively covered: 72:32 (364-day
+liturgical year — Tewahedo Bāḥrä Ḥasab anchor), 82:1 (Methuselah-
+as-scribe charge — monastic-scribal lineage warrant), 84:1
+(tongue-given-for-praise), 85:3 (Adam as white bull — Animal
+Apocalypse anchor), 87:2 (four archangels in Animal Apocalypse),
+89:1 (Noah translated bull-to-man — theosis precedent), 89:50
+(tower upon house — temple ecclesiology), 89:59 (seventy shepherds
+— gentile dominion period), 90:28 (new house / new Jerusalem —
+Rev 21:2-3 antecedent), 90:38 (white-bull reunification + lamb-
+with-horns Christological climax). **+13 tests** in
+`TestGamma44DAstroDreamsAnimalWave`. 11/11 lint clean.
+
+**Recommended next ship**:
+- **γ.4.4.E Epistle of Enoch** (1En 91-108) — closes the Mäṣḥafä
+  Hēnok arc. Apocalypse of Weeks (93 + 91:11-17) is a direct
+  anchor for Tewahedo eschatological periodisation.
+- **γ.4.2.B Ephrem on Gen 12-50** — rebalances voice mix (Ephrem
+  currently 12% — under-represented).
+
+---
+
 **Updated 2026-05-12 / γ.4.4.C Parables ships + sonar reinstall**:
 **γ.4.4.C 1 Enoch Parables detail shipped (40 entries on chs 37-71)
 + SonarQube integration cleanly reinstalled.** Parables-section

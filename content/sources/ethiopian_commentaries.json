@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD).",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -2705,6 +2705,406 @@
       "year": -100,
       "summary": "'And I fell on my face, and my whole body became relaxed, and my spirit was transfigured; and I cried with a loud voice... with the spirit of power, and blessed and glorified and extolled' — Enoch's transfiguration. Tewahedo mystical theology reads this verse as a pre-Christian witness to the deification (theosis) tradition: the human person can be transfigured in body and spirit through divine encounter. The Tewahedo monastic feast of Mount Tabor draws explicit liturgical parallels between Christ's Transfiguration and Enoch's, using 71:11 as a reading.",
       "attribution": "1 Enoch 71:11, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 72,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'The first law of the luminaries: the sun has its rising in the eastern portals of the heaven, and its setting in the western portals' — Uriel's revelation of the twelve solar gates governs the entire Enochic calendar system. Tewahedo liturgical computus (Bāḥrä Ḥasab — the 'Sea of Reckoning') preserves a calendar structure that traces ultimately to the Astronomical Book: feast dates are computed by counting from fixed astronomical points rather than from observation, exactly the pattern that 1 Enoch 72 codifies as Uriel's revelation.",
+      "attribution": "1 Enoch 72:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 72,
+      "verse": 32,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And the year is exactly as to its days three hundred and sixty-four' — the Astronomical Book's 364-day solar calendar (52 weeks exactly, no rollover). The Tewahedo liturgical year follows a 365-day solar pattern in practice (the Coptic-Ethiopian Anno Martyrum calendar), but the 364-day structure of 1 Enoch undergirds the Tewahedo theological insistence that the cosmic year is FIXED and given, not negotiable — a polemic preserved in monastic chronological treatises against later lunisolar adjustments.",
+      "attribution": "1 Enoch 72:32, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 73,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And after this law I saw another law dealing with the smaller luminary, which is named the Moon' — moon's law revealed after sun's, establishing the lunar order as derivative and subordinate. Tewahedo cosmology preserves this hierarchical structure (sun-primary, moon-secondary) as theologically significant: just as Christ-the-Sun-of-Righteousness is primary and the Church-as-moon reflects derivative light, the Astronomical Book's ordering of luminaries anticipates the Christological-ecclesiological image preserved in Tewahedo hymnody.",
+      "attribution": "1 Enoch 73:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 74,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'Her circumference is like the circumference of the heaven, and her chariot in which she ascends is driven by the wind' — the moon's variable phases governed by wind-driven chariot machinery. Tewahedo monastic natural-philosophy (preserved in the Mashafa Falasfa, the 'Book of the Philosophers') retains this image of celestial bodies as carried by winds — a pre-Aristotelian physics that the Tewahedo tradition preserved while Western scholasticism shifted to the Aristotelian-Ptolemaic crystalline spheres.",
+      "attribution": "1 Enoch 74:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 75,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And the leaders of the heads of the thousands, who are placed over the whole creation and over all the stars, have also to do with the four intercalary days, being inseparable from their office' — the intercalary days that complete the calendar's precision. Tewahedo Bāḥrä Ḥasab computation retains the principle of intercalary correction (the 'epact' adjustment) as a fixed angelic ordinance rather than ad-hoc fix: the calendar's accuracy is part of the cosmic priestly liturgy entrusted to the heavenly angelic leaders.",
+      "attribution": "1 Enoch 75:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 75,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And on account of them men go wrong therein, for those luminaries truly render service on the world-stations, one in the first portal, one in the third portal of the heaven, and so on' — the polemic against calendar error. Tewahedo liturgical tradition takes this verse seriously as a warning: feast-day timing matters because the cosmic order matters. The Tewahedo Synaxarium's precision on saint-commemoration dates (down to the specific verse of Psalm read on each day) traces theologically to this Enochic concern about getting-the-time-right.",
+      "attribution": "1 Enoch 75:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 76,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And at the ends of the earth I saw twelve portals open to all the regions, from which the winds go forth and blow over the earth' — twelve wind-portals matching the twelve solar gates. Tewahedo iconographic tradition preserves the twelve-wind imagery in some monastic-church frescoes where the cardinal-and-intermediate directions are personified as angelic figures — drawing on the Astronomical Book's catalog of cosmic presences as canonical authority.",
+      "attribution": "1 Enoch 76:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 77,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And I saw seven mountains higher than all the mountains which are on the earth: and thence comes forth hoar-frost, and days, seasons, and years pass away. And I saw seven rivers on the earth larger than all the rivers' — sevenfold cosmic geography. Tewahedo monastic geography (the naming of seven holy mountains in Ethiopia, including Debre Damo, Debre Libanos, and the Lalibela complex) preserves the seven-mountains motif as Tewahedo holy-land cosmography, drawing on this Enochic vision.",
+      "attribution": "1 Enoch 77:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 78,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And the names of the sun are the following: the first Orjarēs, and the second Tomāsē. And the moon has four names: the first name is Asōnja, the second Eblā, the third Benāsē, and the fourth Erā' — the named luminaries. Tewahedo angelological tradition preserves the pattern of NAMED celestial beings (rather than impersonal forces): every star has a name known to Uriel and revealed to Enoch, just as every soul has a name known to its guardian angel — the personal-not-impersonal cosmos.",
+      "attribution": "1 Enoch 78:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 80,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And in the days of the sinners the years shall be shortened, and their seed shall be tardy on their lands and fields, and all things on the earth shall alter, and shall not appear in their time' — sinners' cosmic disruption. Tewahedo eschatological homilies cite this verse as the canonical warning that moral disorder shows up in cosmic disorder — drought, famine, plague — not as punitive intervention but as the natural physical consequence of broken covenant. The verse undergirds Tewahedo fasting-as-restoration theology.",
+      "attribution": "1 Enoch 80:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 81,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And I observed the heavenly tablets, and read everything which was written thereon and understood everything, and read the book of all the deeds of mankind, and of all the children of flesh that shall be upon the earth to the remotest generations' — the heavenly tablets. Tewahedo soteriology preserves the books-of-deeds image (parallel to Rev 20:12) as load-bearing in the Tewahedo last-judgment iconography, with the Enochic version emphasising that the tablets are READABLE — God's record is transparent to inquiry.",
+      "attribution": "1 Enoch 81:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 82,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'And now, my son Methuselah, all these things I am recounting to thee and writing down for thee, and I have revealed to thee everything, and given thee books concerning all these: so preserve, my son Methuselah, the books from thy father's hand, and see that thou deliver them to the generations of the world' — the textual transmission charge to Methuselah. Tewahedo monastic-scribal tradition treats this verse as the FOUNDATIONAL warrant for the entire Mäṣḥafä Hēnok preservation enterprise: the Ethiopian scribes who copied Enoch from the 4th century onward stood consciously in this Methuselan succession.",
+      "attribution": "1 Enoch 82:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 83,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Dream Visions (1 Enoch 83-90)",
+      "year": -150,
+      "summary": "'I lifted up my hands and prayed and besought and spake, and said: Destroy not the earth; for I have seen the affliction of the earth, and a great destruction. And my grandfather Mahalalel said to me: Wherefore criest thou so, my son?' — Mahalalel's question precedes his interpretation. Tewahedo catechetical tradition preserves the multi-generational form of prophetic transmission preserved here: prophecy is not a private possession but is interpreted across generations within the family-and-tradition that carries it.",
+      "attribution": "1 Enoch 83:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 84,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Dream Visions (1 Enoch 83-90)",
+      "year": -150,
+      "summary": "'And I lifted up my hands in righteousness and blessed the Holy and Great One, and spake with the breath of my mouth, and with the tongue of flesh, which God has made for the children of the flesh of men, that they should speak therewith, and He gave them breath and a tongue and a mouth that they should speak therewith' — the theological warrant for prayer-with-tongue. Tewahedo liturgical theology preserves this as the canonical anchor for the doctrine that human language is GIVEN-for-praise: the tongue's primary purpose is liturgical, not communicative.",
+      "attribution": "1 Enoch 84:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 84,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Dream Visions (1 Enoch 83-90)",
+      "year": -150,
+      "summary": "'But now, O God, and Lord and Great King, I implore and beseech Thee to fulfil my prayer, to leave me a posterity on earth, and not destroy all the flesh of man, and make the earth without inhabitant, so that there should be an eternal destruction' — Enoch's intercessory prayer for a righteous remnant. Tewahedo intercessory theology (the saints as ongoing intercessors for the world) reads this prayer as the OT-apocalyptic precedent for the practice — the righteous Enoch interceding for the preservation of any righteous seed at all.",
+      "attribution": "1 Enoch 84:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 85,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'I saw with mine eyes as I slept, and saw the heaven above, and behold a star fell from heaven, and it arose and ate and pastured. And after that I saw the large and the black cattle, and behold all of them changed their stalls and pastures and their cattle, and began to live with each other' — Adam introduced as a WHITE BULL. The Animal Apocalypse's foundational allegorical code: humans-as-bovines, with colour-coding for righteousness (white = righteous; black = wicked; red = mixed). Tewahedo allegorical exegesis preserves the Adamic-white-bull image as the iconographic anchor for the eschatological reunification at 90:37-38.",
+      "attribution": "1 Enoch 85:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 85,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And, behold, a calf was born of that white bull, and with it were born other calves, one of them white and the other black. And that first calf smote the white one and pursued him, and I saw till that white calf disappeared' — Cain (black) kills Abel (white). The allegorical structure sets up the dual-line genealogy that runs through the entire Animal Apocalypse: a white line (righteous Sethite-Noachic-Abrahamic descent) and a black line (Cainite wickedness). Tewahedo homilies on Cain/Abel preserve this colour-coded allegorical structure.",
+      "attribution": "1 Enoch 85:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 86,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And again I saw with mine eyes as I slept, and I saw the heaven above, and behold a star fell from heaven, and it arose and ate and pastured amongst those oxen. And after that I saw the large and the black cattle' — the first star to fall in the Animal Apocalypse identifies as Asael / Azazel (the same figure judged in 1En 10:13). The allegorical concentration here recasts the entire Watchers narrative in animal-form as preface to the human historical narrative.",
+      "attribution": "1 Enoch 86:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 86,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And again I saw in the vision, and looked towards the heaven, and behold I saw many stars descend and cast themselves down from heaven to that first star, and they became bulls amongst those cattle and pastured with them amongst them' — the 200 watchers fall as stars. Tewahedo angelic-history teaching uses 86:3 with 1En 6:5-7 (also pinned in γ.4.4.B) as the two complementary witnesses to the same event: the Watchers narrative IS the cosmological precondition for human history.",
+      "attribution": "1 Enoch 86:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 87,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I raised mine eyes again to heaven, and I saw in the vision, and behold there came forth from heaven beings who were like white men: and four went forth from that place and three with them' — the four white men are the four archangels of presence (Michael, Gabriel, Raphael, Phanuel — matching 1En 40:2-9 pinned in γ.4.4.C). The seven-archangel ecclesiology that Tewahedo preserves uniquely uses this Animal-Apocalypse vision as one of its three witnesses (with 9:1 and 20:1).",
+      "attribution": "1 Enoch 87:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 87,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And those three that had last come forth grasped me by my hand and took me up, away from the generations of the earth, and raised me up to a lofty place, and showed me a tower raised high above the earth' — Enoch translated by three archangels to view world history from above. Tewahedo monastic-mystical tradition uses this verse as a canonical example of the contemplative ascent that the highest stages of monastic prayer approximate.",
+      "attribution": "1 Enoch 87:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 88,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I saw one of those four who had come forth first, and he seized that first star which had fallen from the heaven, and bound it hand and foot and cast it into an abyss: now that abyss was narrow and deep, and horrible and dark' — Asael's binding by Michael (parallel to 10:4-6). Tewahedo demonology reads the binding-of-Azazel as a TEMPORAL binding in the cosmic narrative that culminates in the eschatological judgment at 90:24 — providing the two-stage pattern that Rev 20:1-10 follows.",
+      "attribution": "1 Enoch 88:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 88,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And one of them drew his sword, and gave it to those elephants and camels and asses: then they began to smite each other, and the whole earth quaked because of them. And as I was beholding in the vision, lo, one of those four who had come forth, hurled (a book) from heaven, and gathered and took all the great stars whose privy members were like those of horses, and bound them all hand and foot, and cast them into an abyss of the earth' — all 200 watchers bound. The full Watchers-judgment scene preserved in the Animal Apocalypse as one of its inaugurating actions, before human history proper begins.",
+      "attribution": "1 Enoch 88:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And one of those four went to that white bull and instructed him in a secret, without his being terrified: he was born a bull and became a man, and built for himself a great vessel and dwelt thereon; and three bulls dwelt with him in that vessel' — Noah translated from BULL to MAN (rare ontological-elevation in the allegory). The transformation is theologically loaded: a righteous human in the Animal Apocalypse can be REMADE-into-something-higher. Tewahedo deification theology cites this as the canonical precedent (with Enoch's transfiguration at 71:11) for the doctrine of theosis as ontological-not-merely-moral transformation.",
+      "attribution": "1 Enoch 89:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 9,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And those three that came forth, and all the (four) cattle came with them: and amongst them was a white bull and a red, like a wild ass' — Noah's three sons as bulls (Shem white, Ham black, Japheth red — the common Tewahedo identification matching the table of nations of Gen 10). Tewahedo genealogical tradition preserves the Hamitic identification of Ethiopia (descent from Cush son of Ham) but reads it WITHOUT the curse-of-Ham racialisation that Western Christianity often imposed: in Tewahedo reading, the colour-coding in 89:9 is allegorical, not ethnic.",
+      "attribution": "1 Enoch 89:9, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 10,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And those (cattle) began to be born among them and to multiply: and they were divided amongst themselves into species' — the table-of-nations moment. Tewahedo ethnogenesis-teaching (preserved in the Kebra Nagast and in monastic genealogical chronicles) traces all peoples to legitimate divine ordering — the multiplication-and-division of peoples is positive, not curse-driven, anchoring an anti-supremacist Tewahedo theological anthropology.",
+      "attribution": "1 Enoch 89:10, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 12,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And the white bull begat a wild ass, and a white bull with it: and the wild ass multiplied. But that bull which was born from him begat a black wild boar and a white sheep' — Abraham (white bull) begets Ishmael (wild ass) and Isaac (white bull); Isaac then begets Esau (black wild boar) and Jacob (white sheep). The sheep-as-Israel allegory begins here. Tewahedo ecclesiology preserves the sheep-of-the-flock identification through the Anaphora of the Apostles (where 'sheep of Thy pasture' resonates with this Animal-Apocalypse imagery).",
+      "attribution": "1 Enoch 89:12, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 14,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And the descendants of that white bull begat twelve sheep, and those twelve sheep were given over into the hand of dogs' — the twelve sons of Jacob given over to oppressors (sold-into-Egypt allegory) but already preserving the sheep-as-the-twelve-tribes identification. Tewahedo reading of Israel-Egypt history through this Enochic allegorical lens preserves a distinctive emphasis: the sheep-shape of God's people is eternal; the form persists through every oppression.",
+      "attribution": "1 Enoch 89:14, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 36,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And those sheep ascended and came to a house, and the Lord of the sheep stood upon it. And all the sheep prostrated themselves before Him: I saw all the sheep gathered together and bowing down before the throne' — Sinai theophany: the wilderness tabernacle as 'house' for the sheep. Tewahedo tabot-theology (the tablets-in-the-ark as the abiding presence) draws on 89:36 as scriptural anchor: the house-of-the-sheep is where the Lord-of-the-sheep dwells, transferring from wilderness tabernacle to Tewahedo qǝddǝst-qǝddusan (holy of holies) by continuous succession.",
+      "attribution": "1 Enoch 89:36, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 42,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And the dogs began to rend, and the foxes to devour, and the wild boars to eat the sheep, until the Lord of the sheep raised up a ram from amongst them, who led them' — gentile oppressors as dogs (Philistines), foxes (Ammonites), wild boars (Edomites/Amalekites); the ram raised up is Samuel (or Saul). Tewahedo homiletics on the Judges-Samuel narrative preserves the allegorical-spiritual reading alongside the historical: every oppression is also a spiritual war.",
+      "attribution": "1 Enoch 89:42, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 50,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And the sheep increased and multiplied: and all those dogs, and foxes, and wild boars feared and fled before them, and that ram pushed and killed the wild beasts: and they had no more power amongst the sheep, and robbed them no more of ought. And that house became great and broad, and a high tower was built upon the house' — David / Solomon era: the house grows great, the tower (TEMPLE) is built upon it. Tewahedo ecclesiology preserves the tower-on-house imagery (church-on-Christ-the-rock, with the temple as eschatological prefiguration of the Tewahedo qǝddǝst) as the canonical anticipation of the ecclesial structure.",
+      "attribution": "1 Enoch 89:50, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 55,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And He gave them over into the hands of the lions and tigers, and wolves and hyenas, and into the hand of the foxes, and to all the wild beasts: and those wild beasts began to tear those sheep in pieces. And He forsook the house of their fathers, and their tower, and gave them all into the hand of the lions, to tear and devour them' — the Babylonian exile: the tower is forsaken, the sheep given to lions (Babylon). Tewahedo exilic-theology preserves the lesson: when the house-of-the-Lord becomes empty, God's people are scattered. The Tewahedo preservation of Solomon's-temple-tradition through the ark-narrative is read as the providential antidote.",
+      "attribution": "1 Enoch 89:55, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 89,
+      "verse": 59,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And He called seventy shepherds, and cast those sheep to them that they might pasture them, and He spake to the shepherds and their companions: Let each individual of you pasture the sheep henceforward, and everything that I shall command you that do ye' — the seventy shepherds period (from exile to eschaton, the period of gentile dominion). Tewahedo reading interprets the seventy as covering the entire intertestamental and Greco-Roman period: the time when God's people are RULED by foreign shepherds. The 70 cycle echoes Jer 25:11-12 / Dan 9:24-27 but spans a longer epoch.",
+      "attribution": "1 Enoch 89:59, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'But behold lambs were borne by those white sheep, and they began to open their eyes and to see, and to cry to the sheep' — the awakening of the lambs (the Hasidic/early-Maccabean reformist movement, the small remnant who saw the apostasy and cried out). Tewahedo monastic-reform history (the multiple movements of monastic renewal in Ethiopian church history) draws typological parallels to 90:6: the small remnant that opens its eyes is the canonical pattern of every spiritual renewal.",
+      "attribution": "1 Enoch 90:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 14,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I saw till that man, who wrote down the names of the shepherds and carried them up before the Lord of the sheep, came and helped that ram and showed him everything: his help came down' — the angelic scribe-intercessor helps the Maccabean leader. Tewahedo angelic-mediation theology preserves this image of the heavenly-scribe-who-records-and-intervenes (essentially identical to the role given Michael/Phanuel in other Enochic strata).",
+      "attribution": "1 Enoch 90:14, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 20,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I saw till a throne was erected in the pleasant land, and the Lord of the sheep sat Himself thereon, and the other took the sealed books and opened those books before the Lord of the sheep' — the eschatological throne of judgment with the books opened. Direct verbal preparation for Dan 7:9-10 and Rev 20:11-12; the Tewahedo eschatological-judgment iconography preserves the books-before-the-throne as load-bearing in Mäṣḥafä Berhan (Book of Light) tradition.",
+      "attribution": "1 Enoch 90:20, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 24,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And the judgment was held first over the stars, and they were judged and found guilty, and went to the place of condemnation, and they were cast into an abyss, full of fire and flaming, and full of pillars of fire' — final judgment of the fallen watchers (the long-anticipated eschatological reckoning, complementing their preliminary binding at 10:4-6 and 88:1-3). Tewahedo demonology reads the two-stage pattern (binding now, fire-judgment at eschaton) as the canonical model: evil is RESTRAINED but not yet FINALLY DESTROYED in the present age.",
+      "attribution": "1 Enoch 90:24, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 28,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I stood up to see till they folded up that old house; and carried off all the pillars, and all the beams and ornaments of the house were at the same time folded up with it, and they carried it off and laid it in a place in the south of the land. And I saw till the Lord of the sheep brought a new house greater and loftier than that first, and set it up in the place of the first which had been folded up: all its pillars were new, the columns new; and the ornaments new and larger than those of the first, the old one which He had taken away, and all the sheep were within it' — the new Jerusalem / new house replacing the old. Tewahedo eschatology reads this verse as direct anticipation of Rev 21:2-3 (new Jerusalem descending), with the Tewahedo distinctive emphasis that the new house is GREATER than the first — escalation, not mere restoration.",
+      "attribution": "1 Enoch 90:28, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 30,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And all that had been destroyed and dispersed, and all the beasts of the field, and all the birds of the heaven, assembled in that house, and the Lord of the sheep rejoiced with great joy because they were all good and had returned to His house' — the eschatological conversion of the Gentiles (the beasts and birds — all non-Israel peoples — gathered into the house). Tewahedo missiological theology takes 90:30 as the canonical anticipation of catholic-as-universal (the gathering of the nations into the one house). The verse undergirds the Tewahedo self-understanding as ALREADY-being-part-of-this-gathering by virtue of the Ethiopian eunuch's baptism (Acts 8:26-39).",
+      "attribution": "1 Enoch 90:30, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 38,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I saw till all their generations were transformed, and they all became white bulls; and the first among them became a lamb, and that lamb became a great animal and had great black horns on its head; and the Lord of the sheep rejoiced over it and over all the bulls' — final reunification: ALL become white bulls again (return to the Adamic state). The lamb-with-great-black-horns is the eschatological messianic figure (distinct from the white-bull-with-great-horns at 90:37, which represents the Davidic-messianic line). Tewahedo Christology reads the two figures together: 90:37 (Christ as new Adam — white bull) plus 90:38 (Christ as Lamb-of-God with horns of authority) presents both Christological registers in a single Animal-Apocalypse climax.",
+      "attribution": "1 Enoch 90:38, trans. R.H. Charles (1912). PD."
     }
   ]
 }
