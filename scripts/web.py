@@ -2652,6 +2652,38 @@ def api_ops_dashboard() -> dict:
 from scripts.api.help import api_help_data  # noqa: E402
 
 
+def api_dev_templates_mtime() -> dict:
+    """ω.39 — return the maximum mtime_ns across the project's
+    template files. Used by `THEME_HOTRELOAD_JS` to drive
+    auto-reload-on-edit in localhost dev sessions.
+
+    Scope: `scripts/templates/*.py` only. A future ω.39.x can
+    extend to content/notes/ + content/translations/ as needed.
+
+    Returns:
+        {"status": "ok", "mtime_ns": int} — max of every
+        template module's stat mtime. If no templates are
+        found (defensive), returns 0.
+
+    No auth gate — this is read-only metadata. The endpoint
+    is harmless even on production deployments; the JS-side
+    guard (`hostname in ('localhost', '127.0.0.1', '::1')`)
+    keeps the polling client out of production.
+    """
+    templates_dir = REPO / "scripts" / "templates"
+    if not templates_dir.is_dir():
+        return {"status": "ok", "mtime_ns": 0}
+    max_mtime = 0
+    for path in templates_dir.glob("*.py"):
+        try:
+            m = path.stat().st_mtime_ns
+        except OSError:
+            continue
+        if m > max_mtime:
+            max_mtime = m
+    return {"status": "ok", "mtime_ns": max_mtime}
+
+
 def api_corpus_progress() -> dict:
     """Return current corpus size + the project's note-count target,
     plus derived progress. Surfaced as a small widget in every
@@ -3294,6 +3326,8 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     ("/api/apihelp", api_help_data),
     ("/api/corpus-progress", api_corpus_progress),
     ("/api/edition-templates", api_edition_templates_list),
+    # ω.39 — dev-side template mtime probe for THEME_HOTRELOAD_JS.
+    ("/api/dev/templates-mtime", api_dev_templates_mtime),
 ]
 
 

@@ -518,6 +518,43 @@ THEME_TOKENS_CSS = """<style>
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+  /* ν.7: inline-editable element styling. Composes with ζ.1 tokens
+     so dark mode + the editable visual states stay coherent. */
+  .theme-editable {
+    border-bottom: 1px dashed var(--color-border);
+    cursor: text;
+    padding: 0.0625rem 0.125rem;
+    transition: background-color 100ms ease, border-color 100ms ease;
+  }
+  .theme-editable:hover {
+    background: var(--color-bg-page);
+    border-bottom-color: var(--color-text-muted);
+  }
+  .theme-editable-active {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-accent);
+    border-radius: 0.25rem;
+    padding: 0.0625rem 0.25rem;
+  }
+  .theme-editable-pending {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .theme-editable-error {
+    border-color: var(--color-status-error);
+    background: rgba(220, 38, 38, 0.05);
+  }
+  .theme-editable-input {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-width: 4rem;
+  }
   /* δ.1: reading-streak indicator. Quiet bottom-right fixed pill
      showing the current consecutive-day streak. Hidden when
      streak is zero. Theme-aware via ζ.1 tokens; clickable to
@@ -1363,6 +1400,361 @@ THEME_BOOKMARKS_JS = """<script>
 
 
 # ----------------------------------------------------------------------
+# ν.10 — recently-used quick access (2026-05-11).
+#
+# Tracks per-kind recently-used entries in localStorage so consoles
+# can render "Recent: X, Y, Z" widgets without re-querying the
+# server. Open-ended `kind` parameter — consoles decide what's
+# trackable (editions, books, scenarios, translations, scripts, etc.).
+#
+# Public API:
+#     window.ebibleRecents.track(kind, id, label?)
+#         — record a use; idempotent on same (kind, id);
+#           refreshes lastUsed timestamp
+#     window.ebibleRecents.recent(kind, limit=5)
+#         — most-recent entries first; up to `limit`
+#     window.ebibleRecents.getAll()
+#         — full state for export / debugging
+#     window.ebibleRecents.clear(kind?)
+#         — drop one kind's history (or all if kind omitted)
+#
+# Each mutation dispatches a `recentschange` CustomEvent on
+# `document` with `{ detail: { kind, recents } }` — future widgets
+# can re-render without polling.
+#
+# Storage shape (localStorage key `ebible_recents`):
+#     {
+#       "editions": [
+#         {"id": "catholic-study", "label": "Catholic Study", "lastUsed": "2026-05-11T..."},
+#         ...
+#       ],
+#       "books": [ ... ],
+#       ...
+#     }
+#
+# Per-kind cap: 50 entries. A user touching 50+ editions wouldn't
+# reasonably see value from anything past the top of the list, and
+# the cap keeps localStorage payload under ~10 KB total.
+# ----------------------------------------------------------------------
+
+THEME_RECENTS_JS = """<script>
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'ebible_recents';
+  var PER_KIND_CAP = 50;
+
+  function loadAll() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return {};
+      var parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveAll(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) { /* private mode — degrade silently */ }
+  }
+
+  function notify(kind, recents) {
+    document.dispatchEvent(new CustomEvent('recentschange', {
+      detail: { kind: kind, recents: recents }
+    }));
+  }
+
+  function track(kind, id, label) {
+    if (kind == null || id == null) return;
+    var state = loadAll();
+    var k = String(kind);
+    var entries = Array.isArray(state[k]) ? state[k] : [];
+    // Remove existing entry for the same id (idempotent), then
+    // unshift to front. Refresh label if a new one was passed.
+    var existing = null;
+    var filtered = [];
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].id === String(id)) existing = entries[i];
+      else filtered.push(entries[i]);
+    }
+    var entry = {
+      id: String(id),
+      label: label != null ? String(label) : (existing && existing.label) || String(id),
+      lastUsed: new Date().toISOString()
+    };
+    filtered.unshift(entry);
+    // Cap so localStorage stays bounded.
+    if (filtered.length > PER_KIND_CAP) filtered = filtered.slice(0, PER_KIND_CAP);
+    state[k] = filtered;
+    saveAll(state);
+    notify(k, filtered);
+    return entry;
+  }
+
+  function recent(kind, limit) {
+    if (kind == null) return [];
+    var lim = (typeof limit === 'number' && limit > 0) ? Math.min(limit, PER_KIND_CAP) : 5;
+    var state = loadAll();
+    var entries = state[String(kind)];
+    return Array.isArray(entries) ? entries.slice(0, lim) : [];
+  }
+
+  function getAll() {
+    return loadAll();
+  }
+
+  function clear(kind) {
+    var state = loadAll();
+    if (kind == null) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      notify(null, {});
+      return;
+    }
+    var k = String(kind);
+    if (state[k] == null) return;
+    delete state[k];
+    saveAll(state);
+    notify(k, []);
+  }
+
+  window.ebibleRecents = {
+    track: track,
+    recent: recent,
+    getAll: getAll,
+    clear: clear
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
+# ω.39 — hot-reload for templates (2026-05-11). Minimum-viable
+# polling implementation; the proper watchdog+SSE upgrade is ω.39.x.
+#
+# Behavior:
+#   - Activates only when hostname is localhost / 127.0.0.1 / ::1.
+#     Production deploys on real domains opt out automatically.
+#   - Polls /api/dev/templates-mtime every 2s. Compares the returned
+#     mtime_ns against the value seen at script-load. If it changed,
+#     `window.location.reload()`.
+#   - Console-logs once on activation so devs see "ω.39 hot-reload
+#     watching" in DevTools.
+#
+# No external deps; uses only the standard fetch + setInterval. The
+# `watchdog` Python package + SSE push are ω.39.x's deliverables —
+# polling at 2s is plenty for hot-reload UX (sub-3s feels instant
+# for "save → see change").
+# ----------------------------------------------------------------------
+
+THEME_HOTRELOAD_JS = """<script>
+(function () {
+  'use strict';
+  // Localhost guard: only run in dev. Production deploys on real
+  // domains skip this entirely.
+  var host = window.location.hostname;
+  var DEV_HOSTS = ['localhost', '127.0.0.1', '::1', ''];
+  if (DEV_HOSTS.indexOf(host) === -1) return;
+
+  var POLL_INTERVAL_MS = 2000;
+  var baselineMtime = null;
+  var pollCount = 0;
+
+  function poll() {
+    fetch('/api/dev/templates-mtime', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || typeof data.mtime_ns !== 'number') return;
+        if (baselineMtime === null) {
+          baselineMtime = data.mtime_ns;
+          console.log('[ω.39] hot-reload watching (baseline mtime=' + baselineMtime + ')');
+          return;
+        }
+        if (data.mtime_ns !== baselineMtime) {
+          console.log('[ω.39] template change detected; reloading…');
+          window.location.reload();
+        }
+      })
+      .catch(function () { /* network blip — ignore, next poll retries */ });
+    pollCount++;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      poll();
+      setInterval(poll, POLL_INTERVAL_MS);
+    });
+  } else {
+    poll();
+    setInterval(poll, POLL_INTERVAL_MS);
+  }
+
+  // Expose for tests + dev-tools.
+  window.ebibleHotReload = {
+    get baselineMtime() { return baselineMtime; },
+    get pollCount() { return pollCount; }
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
+# ν.7 — inline editing standardization (2026-05-11). Click → swap
+# to <input>, blur or Enter saves, Esc cancels. Standardized
+# library that future per-console retrofits (ν.7.x for /customize,
+# /publisher, /covers) adopt instead of rolling their own.
+#
+# Public API:
+#     window.ebibleEditable.bind(element, options)
+#         options:
+#           onSave: async (newValue) => any           // returns or throws
+#           validate?: (newValue) => boolean          // pre-save check
+#           format?: (value) => string                // display formatting
+#           placeholder?: string
+#     window.ebibleEditable.unbind(element)            // remove handlers
+#
+# Lifecycle:
+#     1. Click → idle becomes active: original text → <input>
+#        with current value selected, autofocus.
+#     2. Blur OR Enter → if validate returns true, call onSave
+#        with the new value. Pending state (opacity + pointer-
+#        events: none) while in flight. On success → idle with
+#        new display. On failure → revert + ebibleToast error.
+#     3. Esc → cancel; revert to original.
+#
+# Composes ζ.1 (theme colors), ζ.6 (toast on failure), ν.7's own
+# CSS (.theme-editable / .theme-editable-active / etc).
+#
+# XSS safety: every display update uses textContent. Caller-
+# supplied `format` function is called on the saved value before
+# render; format-returned strings also rendered as text.
+# ----------------------------------------------------------------------
+
+THEME_EDITABLE_JS = """<script>
+(function () {
+  'use strict';
+
+  function defaultFormat(value) { return value == null ? '' : String(value); }
+  function defaultValidate() { return true; }
+
+  function bind(element, options) {
+    if (!element || element.__ebibleEditable) return;
+    options = options || {};
+    var onSave = typeof options.onSave === 'function' ? options.onSave : null;
+    if (!onSave) {
+      throw new Error('ebibleEditable.bind: onSave is required');
+    }
+    var validate = typeof options.validate === 'function' ? options.validate : defaultValidate;
+    var format = typeof options.format === 'function' ? options.format : defaultFormat;
+    var placeholder = options.placeholder || '';
+
+    element.classList.add('theme-editable');
+    if (placeholder && !element.textContent.trim()) {
+      element.textContent = placeholder;
+    }
+
+    function enterEditMode() {
+      if (element.classList.contains('theme-editable-active')) return;
+      var originalText = element.textContent;
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'theme-editable-input';
+      input.value = originalText === placeholder ? '' : originalText;
+      input.setAttribute('aria-label', 'Edit ' + (element.getAttribute('aria-label') || 'value'));
+
+      element.classList.add('theme-editable-active');
+      element.textContent = '';
+      element.appendChild(input);
+      input.focus();
+      input.select();
+
+      var committed = false;
+      function cleanup(finalText) {
+        element.classList.remove('theme-editable-active');
+        element.classList.remove('theme-editable-pending');
+        // Use textContent for XSS-safety; format() output is also
+        // treated as text.
+        element.textContent = format(finalText != null ? finalText : originalText);
+      }
+
+      function commit() {
+        if (committed) return;
+        committed = true;
+        var newValue = input.value;
+        if (!validate(newValue)) {
+          element.classList.add('theme-editable-error');
+          input.focus();
+          setTimeout(function () {
+            element.classList.remove('theme-editable-error');
+          }, 600);
+          committed = false;
+          return;
+        }
+        if (newValue === (originalText === placeholder ? '' : originalText)) {
+          // No change → just revert chrome.
+          cleanup(originalText);
+          return;
+        }
+        element.classList.add('theme-editable-pending');
+        Promise.resolve(onSave(newValue))
+          .then(function () {
+            cleanup(newValue);
+          })
+          .catch(function (err) {
+            element.classList.remove('theme-editable-pending');
+            element.classList.add('theme-editable-error');
+            cleanup(originalText);
+            element.classList.add('theme-editable-error');
+            setTimeout(function () {
+              element.classList.remove('theme-editable-error');
+            }, 1500);
+            if (window.ebibleToast) {
+              window.ebibleToast('Save failed: ' + (err && err.message || err || 'unknown'), 'error');
+            }
+          });
+      }
+
+      function cancel() {
+        committed = true;
+        cleanup(originalText);
+      }
+
+      input.addEventListener('blur', commit);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          commit();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          cancel();
+        }
+      });
+    }
+
+    element.addEventListener('click', enterEditMode);
+    element.__ebibleEditable = { enter: enterEditMode };
+  }
+
+  function unbind(element) {
+    if (!element || !element.__ebibleEditable) return;
+    // Simplest implementation: clone & replace, dropping listeners.
+    // Caller can rebind if they want.
+    var fresh = element.cloneNode(true);
+    element.parentNode.replaceChild(fresh, element);
+    fresh.classList.remove('theme-editable');
+    delete fresh.__ebibleEditable;
+  }
+
+  window.ebibleEditable = {
+    bind: bind,
+    unbind: unbind
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
 # ζ.2 — dark-mode toggle (activates ζ.1's :root[data-theme="dark"]).
 # Substituted into consoles via the `<!-- DARK_MODE_JS -->` marker
 # placed inside the document `<head>` (must be inline-blocking so
@@ -1653,6 +2045,9 @@ def apply_design_system(html: str, current_route: str) -> str:
       - `<!-- THEME_CMD_PALETTE_JS -->`  → THEME_CMD_PALETTE_JS (ζ.8)
       - `<!-- THEME_STREAK_JS -->`       → THEME_STREAK_JS    (δ.1)
       - `<!-- THEME_BOOKMARKS_JS -->`    → THEME_BOOKMARKS_JS (δ.2)
+      - `<!-- THEME_RECENTS_JS -->`      → THEME_RECENTS_JS   (ν.10)
+      - `<!-- THEME_HOTRELOAD_JS -->`    → THEME_HOTRELOAD_JS (ω.39)
+      - `<!-- THEME_EDITABLE_JS -->`     → THEME_EDITABLE_JS  (ν.7)
 
     The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
     template — that's the existing convention from ψ.14/15/16. The
@@ -1711,5 +2106,17 @@ def apply_design_system(html: str, current_route: str) -> str:
     html = html.replace(
         "<!-- THEME_BOOKMARKS_JS -->",
         THEME_BOOKMARKS_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_RECENTS_JS -->",
+        THEME_RECENTS_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_HOTRELOAD_JS -->",
+        THEME_HOTRELOAD_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_EDITABLE_JS -->",
+        THEME_EDITABLE_JS,
     )
     return html

@@ -6,6 +6,130 @@
 
 ---
 
+## 2026-05-11 — session — Month 4 non-money subset: ν.10 + ψ.38 + ω.39 + ν.7 (4 ships, +78 tests)
+
+**Phases shipped:** ν.10 (recents API) + ψ.38 (matrix
+heatmap, renumbered from proposal's ψ.36) + ω.39
+(hot-reload, polling-based minimum-viable) + ν.7
+(inline-edit library).
+**Test delta:** +78 across the four ships (+16 + 17 +
+20 + 25).
+**Linter delta:** 11/11 clean.
+
+### ν.10 — Recently-used quick access
+
+`THEME_RECENTS_JS` provides `window.ebibleRecents.{track,
+recent, getAll, clear}`. localStorage key
+`ebible_recents`. Schema: `{<kind>: [{id, label,
+lastUsed}, ...]}`. Per-kind cap at 50 entries. CustomEvent
+`recentschange` dispatched on mutation. Infrastructure
+only — per-console recent-X widgets become ν.10.x.
+
+### ψ.38 — Matrix heatmap mode (renumbered from ψ.36)
+
+The proposal called this "ψ.36 Heatmap mode" but ψ.36
+was already split (ψ.36-A shipped lazy-load endpoint +
+ψ.36-B deferred consumer migration). Renumbered to
+ψ.38 per §5 sticky-phase rule. 5 emerald-toned color
+buckets via percentile bucketing of `.count-cell` values.
+Toggle button in /matrix header; localStorage-persisted
+state. MutationObserver re-applies heatmap on matrix
+re-render (handles edition kind-toggle saves).
+
+### ω.39 — Hot-reload for templates (polling MVP)
+
+Proposal called for watchdog+SSE; shipped a polling-based
+MVP instead (watchdog+SSE upgrade is ω.39.x).
+`api_dev_templates_mtime()` handler returns
+`{"mtime_ns": <max_mtime>}` for `scripts/templates/*.py`.
+`THEME_HOTRELOAD_JS` polls `/api/dev/templates-mtime`
+every 2s. Localhost-only activation guard (production
+deployments on real domains opt out automatically).
+`window.ebibleHotReload` introspection API for debugging.
+
+### ν.7 — Inline editing standardization (library only)
+
+`THEME_EDITABLE_JS` exposes `window.ebibleEditable.{bind,
+unbind}`. Standard lifecycle: click → `<input>` swap with
+autofocus + select-all → blur OR Enter commits async via
+`onSave` → Esc cancels. Visual states via CSS:
+`.theme-editable` (idle, dashed underline),
+`.theme-editable-active` (input mode, accent border),
+`.theme-editable-pending` (opacity reduced + pointer-
+events disabled for multi-click protection),
+`.theme-editable-error` (red border, fades after 1.5s).
+Failure path: `onSave` throws → revert + ebibleToast
+'error'. No-change-no-save guard skips network on blur
+without edit. Per-console retrofits (/customize,
+/publisher, /covers) become ν.7.x.
+
+### Composition payoff
+
+All four ships use the established `THEME_*_JS` pattern:
+- ζ.1 tokens for color
+- ζ.6 toasts for failure UX (ν.7)
+- localStorage namespaced keys (ν.10, ψ.38, ω.39)
+- CustomEvent for cross-component listening (ν.10)
+- /preflight as the marker-substitution proof-of-concept
+- Marker substitution via `apply_design_system`
+
+The foundation continues to pay dividends — each new
+phase is ~150 lines of JS + CSS + a small Python handler.
+
+### Tests (78 new)
+
+- `tests/test_recents_nu10.py` — 16 tests (JS contract,
+  marker, /preflight wire-up).
+- `tests/test_matrix_heatmap_psi38.py` — 17 tests (CSS
+  buckets, toggle button, JS implementation).
+- `tests/test_hotreload_omega39.py` — 20 tests (API,
+  route, JS contract, marker, /preflight wire-up).
+- `tests/test_editable_nu7.py` — 25 tests (JS contract,
+  CSS visual states, marker, /preflight wire-up).
+
+### Month 4 status
+
+| Phase | Status | Notes |
+|---|---|---|
+| **ν.7** | ✓ shipped | foundation library; ν.7.x = per-console retrofits |
+| **ν.10** | ✓ shipped | infrastructure; ν.10.x = per-console widgets |
+| **ψ.38** | ✓ shipped | renumbered from ψ.36 |
+| **ω.39** | ✓ shipped | polling-based MVP; ω.39.x = watchdog+SSE |
+| **B.AI.1** | ⏸ blocked on $ | needs publisher provider/budget choice |
+| **B.AI.2** | ⏸ blocked on $ | depends on B.AI.1 |
+| **π.9** | ⏸ blocked on $ | $295 Bowker ISBN block |
+
+### What's next
+
+Per operating-model authorization, **session pauses
+here**. Money items require explicit go-aheads. Until
+then, Month 4 sequence has reached its non-money
+endpoint.
+
+Options for the user:
+1. Approve a money item (B.AI.1 / B.AI.2 / π.9).
+2. Jump to Month 5 (executive / business — Δ.15 / ε.* —
+   mostly non-money).
+3. Skip to a specific later track (Track G security,
+   Track K distribution, etc.).
+4. Stop here — close session.
+
+### Test count
+
+Serial run: **2719 / 2720 tests pass (1 skipped); 11/11
+lint clean.** δ.2 baseline was 2641; +78 = 2719. Math
+checks out.
+
+### Session arc totals
+
+- **22 ships** across ω.38, ω.47, Δ.10, ζ.1-8, γ.1, γ.2,
+  γ.3, γ.5, Δ.12, δ.1, δ.2, ν.10, ψ.38, ω.39, ν.7.
+- **+466 tests** net of ψ.36-A baseline (2253 → 2719).
+- **5 saved commits** (`4a6521b`, `0eb10ec`, `92cc2e9`,
+  `3d19ef4`, `b8bf931`) + this bundle pending save.
+
+---
+
 ## 2026-05-11 — session — δ.2 bookmarks / highlights (Month 3 #7, **CLOSES MONTH 3**)
 
 **Phases shipped:** δ.2 (full `window.ebibleBookmarks`

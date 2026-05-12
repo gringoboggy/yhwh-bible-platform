@@ -4,6 +4,177 @@
 
 ## Prior task
 
+**ν.7 inline editing standardization** shipped 2026-05-11.
+Month 4 non-money #4 — completes all four non-money
+Month 4 items. Per proposal: "Click → edit-in-place →
+blur saves." Foundation library; per-console retrofits
+become ν.7.x.
+
+Three pieces:
+- `THEME_EDITABLE_JS` constant — full
+  `window.ebibleEditable.{bind, unbind}` API. Click →
+  `<input>` swap with autofocus + select-all; blur OR
+  Enter commits via async `onSave`; Esc cancels. No-
+  change-no-save guard (blur without edit skips network).
+  Pending state disables pointer events during async
+  commit (multi-click protection). Failure path reverts
+  + toasts via ζ.6's `window.ebibleToast('Save failed:
+  ...', 'error')`. Supports `validate` and `format`
+  callbacks. All display updates via `textContent`
+  (XSS-safe).
+- `.theme-editable*` CSS in `THEME_TOKENS_CSS`: 5
+  visual states (idle, hover, active, pending, error)
+  using ζ.1 tokens. `.theme-editable-input` inherits
+  font so swap-in is seamless. Pending state pairs
+  CSS `pointer-events: none` with JS-side guard for
+  belt-and-braces.
+- `<!-- THEME_EDITABLE_JS -->` marker substitution +
+  /preflight wire-up (infrastructure only — no
+  editable elements yet).
+
+**+25 tests** in `tests/test_editable_nu7.py`: JS
+contract × 13 (API, bind requires onSave, format +
+validate callbacks, Enter/Escape/blur handling,
+textContent escape, toast composition, pending pointer-
+events, no-change skip); CSS × 6 (idle border-bottom,
+hover, active uses accent, pending pointer-events,
+error uses status color, input inherits font); marker
+× 3; /preflight wire-up × 3.
+
+**2719 / 2720 tests pass serially (1 skipped); 11/11
+lint clean.**
+
+### Month 4 non-money subset — COMPLETE (4 ships, +78 tests)
+
+| Phase | Title | Tests |
+|---|---|---|
+| ν.10 | Recently-used quick access | +16 |
+| ψ.38 | Matrix heatmap mode (renumbered from proposal's ψ.36) | +17 |
+| ω.39 | Hot-reload for templates (polling-based; watchdog+SSE is ω.39.x) | +20 |
+| ν.7 | Inline editing standardization (library only; per-console retrofits are ν.7.x) | +25 |
+
+**Per the operating model**, this is the pause point.
+Month 4 has 3 remaining items that gate on user
+spending decisions: B.AI.1 (cover AI), B.AI.2 (per-book
+cover AI), π.9 (Bowker ISBN). Those need explicit
+go-aheads.
+
+## Prior task
+
+**ω.39 hot-reload for templates** shipped 2026-05-11.
+Month 4 non-money #3. Polling-based dev hot-reload (the
+watchdog+SSE version is ω.39.x). `api_dev_templates_mtime()`
+handler + `/api/dev/templates-mtime` route in
+`_SIMPLE_GET_ROUTES`. `THEME_HOTRELOAD_JS` polls every
+2s, baselines on first response, reloads on mtime
+change. Localhost-only activation guard (production
+opt-out automatic). `window.ebibleHotReload`
+introspection API. **+20 tests** in
+`tests/test_hotreload_omega39.py`.
+
+## Prior task
+
+**ψ.38 matrix heatmap mode** shipped 2026-05-11.
+Per proposal: "`watchdog`-based file watcher; SSE-driven
+browser auto-refresh. Halves the dev-loop time."
+
+**Simplified scope** (the proper watchdog+SSE version
+becomes ω.39.x): polling-based hot-reload using only
+the existing HTTP infrastructure. No new Python deps,
+no separate watcher process.
+
+Scope:
+- `api_dev_templates_mtime()` handler in `scripts/web.py`
+  — returns `{"mtime_ns": <max_mtime_ns_int>}` for
+  `scripts/templates/*.py` (+ optionally for one or two
+  other watched dirs). Registered in
+  `_SIMPLE_GET_ROUTES` at `/api/dev/templates-mtime`.
+- `THEME_HOTRELOAD_JS` constant in `_design.py`:
+  - Only activates when
+    `hostname ∈ {localhost, 127.0.0.1, ::1}` (production
+    deploys on real domains opt-out automatically).
+  - Polls `/api/dev/templates-mtime` every 2s.
+  - On mtime change (after initial fetch baseline),
+    `window.location.reload()`.
+  - Logs to console for dev visibility.
+- `<!-- THEME_HOTRELOAD_JS -->` marker.
+- /preflight absorbs as proof-of-concept.
+- Tests in `tests/test_hotreload_omega39.py`.
+
+**Not in scope** (ω.39.x):
+- True file-system watchdog (eliminates polling).
+- Server-Sent-Events (push instead of poll).
+- Watching content/notes/ + content/translations/
+  (the proposal calls them out indirectly; minimum-
+  viable only watches scripts/templates/).
+- Cross-tab reload coordination.
+
+## Prior task
+
+**ψ.38 matrix heatmap mode** shipped 2026-05-11. Month 4
+non-money #2. Renumbered from the proposal's "ψ.36
+Heatmap mode" because ψ.36 was already split into
+ψ.36-A (shipped, lazy-load) + ψ.36-B (deferred,
+consumer migration). Renumbered to ψ.38 (next free ψ
+slot — ψ.37 = time-traveling commentary, shipped) per
+§5 sticky-phase rule.
+
+Per proposal: "Color intensity = note count per cell.
+Toggle in /matrix header."
+
+Scope:
+- Heatmap CSS classes (`.matrix-heatmap-1` through
+  `.matrix-heatmap-5`) added to `scripts/templates/
+  matrix.py`'s inline `<style>` block. 5 intensity
+  levels mapped from light → dark via theme tokens
+  where possible (cells stay readable on both light
+  and dark themes).
+- Toggle button in the matrix header — "Heatmap" /
+  "Numbers" mode switch. localStorage-persisted state
+  (`ebible_matrix_heatmap_mode`).
+- JS in matrix.py (NOT matrix_app.js — keeps the change
+  scoped). On toggle ON:
+  1. Walks every `.count-cell` element
+  2. Reads numeric content
+  3. Computes max + percentile bucketing
+  4. Applies matrix-heatmap-N class
+  On toggle OFF: removes all heatmap classes.
+- `MutationObserver` re-applies heatmap when /matrix
+  re-renders (e.g. after edition kind-toggle save).
+- Tests in `tests/test_matrix_heatmap_psi38.py`.
+
+**Not in scope** (ψ.38.x):
+- Per-edition heatmap mode (currently global toggle).
+- Different intensity palettes (e.g. red-warm vs
+  blue-cool).
+- Heatmap legend / scale indicator.
+
+## Prior task
+
+**ν.10 recently-used quick access** shipped 2026-05-11.
+Month 4 #1 of the non-money sequence — first phase
+since the Month 3 → Month 4 boundary pause.
+
+Three pieces:
+- `THEME_RECENTS_JS` in `_design.py`:
+  `window.ebibleRecents.{track, recent, getAll, clear}`
+  API. localStorage key `ebible_recents`. Schema:
+  `{<kind>: [{id, label, lastUsed}, ...]}`. Per-kind
+  cap at 50 entries (keeps localStorage under ~10 KB).
+  CustomEvent `recentschange` for future widgets.
+- `<!-- THEME_RECENTS_JS -->` marker added to
+  `apply_design_system`.
+- /preflight absorbs as proof-of-concept (no visible UI
+  change yet — just the JS API available).
+
+**+16 tests** in `tests/test_recents_nu10.py` (JS × 10,
+apply_design_system × 3, /preflight wire-up × 3).
+
+**2657 / 2658 tests pass serially (1 skipped); 11/11
+lint clean.**
+
+## Prior task
+
 **δ.2 bookmarks / highlights** shipped 2026-05-11.
 **CLOSES MONTH 3.** Last reader-track phase in this
 Month's content-depth-wave.

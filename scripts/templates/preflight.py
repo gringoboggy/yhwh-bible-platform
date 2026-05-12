@@ -45,6 +45,9 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
 <!-- THEME_CMD_PALETTE_JS -->
 <!-- THEME_STREAK_JS -->
 <!-- THEME_BOOKMARKS_JS -->
+<!-- THEME_RECENTS_JS -->
+<!-- THEME_HOTRELOAD_JS -->
+<!-- THEME_EDITABLE_JS -->
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="theme-bg-page theme-text">

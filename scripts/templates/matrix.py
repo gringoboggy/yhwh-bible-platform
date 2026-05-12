@@ -126,6 +126,47 @@ MATRIX_HTML = r"""<!DOCTYPE html>
     border-radius: 2px;
     display: inline-block;
   }
+  /* ψ.38 — matrix heatmap mode. Toggle in header switches every
+     .count-cell from raw-number display to a color-intensity cell.
+     5 buckets (1=lightest, 5=darkest). Cell text stays black-on-X
+     for readability; we shade the BACKGROUND so the value remains
+     selectable + copyable for keyboard users. */
+  body.matrix-heatmap-on .matrix-heatmap-1 { background: #f0fdf4; }   /* emerald-50 */
+  body.matrix-heatmap-on .matrix-heatmap-2 { background: #bbf7d0; }   /* emerald-200 */
+  body.matrix-heatmap-on .matrix-heatmap-3 { background: #4ade80; color: #064e3b; }  /* emerald-400 + emerald-900 text */
+  body.matrix-heatmap-on .matrix-heatmap-4 { background: #16a34a; color: #f0fdf4; }  /* emerald-600 + emerald-50 text */
+  body.matrix-heatmap-on .matrix-heatmap-5 { background: #14532d; color: #f0fdf4; }  /* emerald-900 + emerald-50 text */
+  /* When heatmap is on, hide the numeric content of the cells —
+     keep the data accessible via screen readers (text stays in
+     the DOM) but de-emphasize visually. The cell BACKGROUND
+     carries the information. */
+  body.matrix-heatmap-on .count-cell.matrix-heatmap-1,
+  body.matrix-heatmap-on .count-cell.matrix-heatmap-2,
+  body.matrix-heatmap-on .count-cell.matrix-heatmap-3,
+  body.matrix-heatmap-on .count-cell.matrix-heatmap-4,
+  body.matrix-heatmap-on .count-cell.matrix-heatmap-5 {
+    /* Keep text visible; the contrast pairing on each bucket is
+       chosen so the digit + background stays readable. */
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  #psi38-heatmap-toggle {
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    background: white;
+    color: #475569;
+  }
+  #psi38-heatmap-toggle.psi38-active {
+    background: #14532d;
+    color: #f0fdf4;
+    border-color: #14532d;
+  }
+  #psi38-heatmap-toggle:hover {
+    border-color: #94a3b8;
+  }
 </style>
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
@@ -139,12 +180,151 @@ MATRIX_HTML = r"""<!DOCTYPE html>
   <div class="flex items-center gap-4 text-xs flex-wrap">
     <!-- HEADER_NAV_LINKS -->
     <span id="corpus-progress" class="ml-auto text-xs text-slate-500" title="corpus depth toward the 35,000-note Ethiopian Tewahedo target">·· loading ··</span>
+    <!-- ψ.38 — heatmap mode toggle. localStorage-persisted. -->
+    <button type="button" id="psi38-heatmap-toggle"
+      aria-pressed="false"
+      title="Toggle heatmap mode (color intensity = note count)">Heatmap</button>
     <!-- ψ.29 — keyboard help affordance. Same modal opens via `?`. -->
     <button type="button" id="psi29-help-btn"
       class="w-6 h-6 rounded-full border border-slate-300 text-slate-500 hover:text-slate-800 hover:border-slate-400 flex items-center justify-center"
       aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)">?</button>
   </div>
 </header>
+<script>
+// ψ.38 — matrix heatmap mode. Toggle in header switches every
+// .count-cell from raw-number display to color-intensity buckets.
+// 5 buckets via simple even-distribution of (count > 0) values.
+// localStorage key `ebible_matrix_heatmap_mode` ('on' | 'off')
+// persists the user's choice across reloads.
+//
+// Re-applies via MutationObserver when /matrix re-renders (after
+// a save, kind-toggle, etc.) — no coupling to matrix_app.js's
+// internal render lifecycle.
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'ebible_matrix_heatmap_mode';
+  var BUCKET_CLASSES = [
+    'matrix-heatmap-1',
+    'matrix-heatmap-2',
+    'matrix-heatmap-3',
+    'matrix-heatmap-4',
+    'matrix-heatmap-5'
+  ];
+
+  function loadMode() {
+    try {
+      return localStorage.getItem(STORAGE_KEY) === 'on';
+    } catch (e) { return false; }
+  }
+  function saveMode(on) {
+    try { localStorage.setItem(STORAGE_KEY, on ? 'on' : 'off'); } catch (e) {}
+  }
+
+  function clearHeatmap() {
+    var cells = document.querySelectorAll('.count-cell');
+    for (var i = 0; i < cells.length; i++) {
+      for (var j = 0; j < BUCKET_CLASSES.length; j++) {
+        cells[i].classList.remove(BUCKET_CLASSES[j]);
+      }
+    }
+  }
+
+  function applyHeatmap() {
+    var cells = document.querySelectorAll('.count-cell');
+    if (cells.length === 0) return;
+    // Collect numeric values; ignore cells with no digit content
+    // (e.g., header cells that are .count-cell for alignment).
+    var values = [];
+    var numeric = [];
+    for (var i = 0; i < cells.length; i++) {
+      var text = (cells[i].textContent || '').trim();
+      var n = parseInt(text.replace(/[^\\d-]/g, ''), 10);
+      if (isFinite(n) && n > 0 && /\\d/.test(text)) {
+        values.push(n);
+        numeric.push({ cell: cells[i], value: n });
+      }
+    }
+    if (numeric.length === 0) return;
+    var maxVal = Math.max.apply(null, values);
+    if (maxVal === 0) return;
+    // Bucket by even-thirds of the linear scale; tweak with log
+    // for skewed distributions if needed. 5 buckets total.
+    for (var k = 0; k < numeric.length; k++) {
+      var ratio = numeric[k].value / maxVal;
+      var idx;
+      if (ratio < 0.05)      idx = 0;  // matrix-heatmap-1 (faint)
+      else if (ratio < 0.20) idx = 1;
+      else if (ratio < 0.50) idx = 2;
+      else if (ratio < 0.80) idx = 3;
+      else                   idx = 4;  // matrix-heatmap-5 (deepest)
+      // Remove any prior bucket; apply current.
+      for (var b = 0; b < BUCKET_CLASSES.length; b++) {
+        numeric[k].cell.classList.remove(BUCKET_CLASSES[b]);
+      }
+      numeric[k].cell.classList.add(BUCKET_CLASSES[idx]);
+    }
+  }
+
+  function syncButton(btn, on) {
+    btn.classList.toggle('psi38-active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? 'Numbers' : 'Heatmap';
+  }
+
+  function setMode(on) {
+    var btn = document.getElementById('psi38-heatmap-toggle');
+    if (btn) syncButton(btn, on);
+    document.body.classList.toggle('matrix-heatmap-on', on);
+    if (on) {
+      applyHeatmap();
+    } else {
+      clearHeatmap();
+    }
+    saveMode(on);
+  }
+
+  function init() {
+    var btn = document.getElementById('psi38-heatmap-toggle');
+    if (!btn) return;
+    var initial = loadMode();
+    syncButton(btn, initial);
+    if (initial) {
+      document.body.classList.add('matrix-heatmap-on');
+      // Defer the initial application until after matrix_app.js
+      // populates the table. Two strategies: MutationObserver on
+      // the table body (catches the render), and an interval-
+      // bounded retry for safety.
+      var attempts = 0;
+      var tryApply = function () {
+        if (document.querySelectorAll('.count-cell').length > 0) {
+          applyHeatmap();
+        } else if (attempts++ < 30) {
+          setTimeout(tryApply, 200);
+        }
+      };
+      tryApply();
+    }
+    btn.addEventListener('click', function () {
+      setMode(!document.body.classList.contains('matrix-heatmap-on'));
+    });
+    // Watch for re-renders so kind-toggle saves don't strand
+    // the heatmap classes.
+    var observer = new MutationObserver(function () {
+      if (document.body.classList.contains('matrix-heatmap-on')) {
+        applyHeatmap();
+      }
+    });
+    var main = document.querySelector('main') || document.body;
+    observer.observe(main, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 <script>
 // Phase ψ.3 — corpus progress widget. Cheap fetch + DOM update;
 // silently no-ops on failure so a stale browser tab never breaks

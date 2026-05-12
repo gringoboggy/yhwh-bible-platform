@@ -1,6 +1,56 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **δ.2 bookmarks /
+**Updated 2026-05-11 / late session**: **Month 4
+non-money subset shipped (4 phases)** — ν.10 recents +
+ψ.38 matrix heatmap + ω.39 hot-reload + ν.7 inline-edit
+standardization. All four follow the established
+`THEME_*_JS` infrastructure pattern: localStorage where
+relevant, CustomEvent for cross-component listening, ζ.1
+theme tokens for color, ζ.6 toasts for failure UX, /preflight
+absorbs each marker as proof-of-concept. ψ.38 renumbered
+from proposal's "ψ.36" because the ψ.36 slot was already
+split (ψ.36-A shipped + ψ.36-B deferred). ω.39 shipped
+as polling-based minimum-viable; the proper
+watchdog-based version is ω.39.x. ν.7 shipped as the
+foundation library; per-console retrofits become ν.7.x.
+
+**+78 tests this Month-4-non-money slice**: ν.10 ×16 +
+ψ.38 ×17 + ω.39 ×20 + ν.7 ×25.
+
+**2719 / 2720 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+466**.
+
+### Month 4 remaining items — money decisions blocked
+
+| Phase | Title | $ |
+|---|---|---|
+| B.AI.1 | Main cover AI generation MVP | DALL-E vs Midjourney vs SD; needs publisher choice + budget |
+| B.AI.2 | Per-book cover AI generation | Builds on B.AI.1; ~170 covers @ ~$6.80/edition |
+| π.9 | ISBN registration assistant (Bowker) | $295 / 10-block |
+
+Per operating-model authorization, these gate on
+explicit user go-aheads. Until then, the autonomous
+sequence has reached its endpoint within Month 4's
+non-money subset.
+
+### Options for next direction
+
+1. **Approve one or more money items** — name the
+   provider/budget for B.AI.1, or authorize the Bowker
+   ISBN purchase for π.9.
+2. **Jump ahead to Month 5** (executive / business —
+   Δ.15 event log, ε.1 metrics collector, ε.2 /exec
+   dashboard, etc.) — all non-money except ε.4 which
+   touches Bowker cost data.
+3. **Skip to a specific later track** — Track G security
+   hardening (ξ.18+), Track H matrix expansion (ψ.36+),
+   Track K distribution (ο family).
+4. **Stop here** — close session cleanly.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **δ.2 bookmarks /
 highlights** shipped — Month 3 #7, **CLOSES MONTH 3**.
 `THEME_BOOKMARKS_JS` provides the full
 `window.ebibleBookmarks` API: add/remove/list/byRef/
