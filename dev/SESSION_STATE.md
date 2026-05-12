@@ -1,6 +1,60 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / PLAN-REFRESH-2**: **PLAN-REFRESH-2 shipped
+**Updated 2026-05-12 / Month 6 #4**: **ξ.21 TOTP 2FA shipped —
+stdlib-only RFC 6238 implementation (no pyotp dep) + persisted
+enrollment state + admin-auth gate extension.** New
+scripts/core/totp.py: generate_secret/current_code/verify_code/
+provisioning_uri all pure-stdlib (hmac+hashlib+base64+secrets+
+struct+time); HMAC-SHA1 default per RFC 6238 + de-facto
+authenticator-app standard; 30-second time step; 6-digit codes;
+default ±1-step (±30s) drift window for clock skew; constant-
+time compare via hmac.compare_digest; verified against all 6
+RFC 6238 Appendix B vectors (parametrized test). New
+scripts/core/auth.py: sparse JSON state at content/auth.json
+mirroring distribution.py persistence (atomic write +
+ensure_backup + whitelist on save). New scripts/api/auth.py:
+4 endpoints — GET /api/auth/status surfaces flags + metadata
+but never the secret; POST /api/auth/totp/begin generates
+pending secret + provisioning URI WITHOUT persisting; POST
+/api/auth/totp/confirm verifies the code then persists (two-
+step pattern prevents lockout); POST /api/auth/totp/disable
+requires a valid current code (refuses without proof so an
+attacker who bypassed the gate can't also nuke 2FA). Admin
+auth gate (scripts.web.Handler._check_admin_auth) doubled in
+size to handle the new factor matrix: Bearer token:code parsed
+via str.partition(':') so tokens containing colons round-trip
+correctly; back-compat preserved when neither factor is
+configured (the original ω.4 default-open behavior). Routes:
+GET /api/auth/status added to _SIMPLE_GET_ROUTES (19→20); 3
+POST /api/auth/totp/{begin,confirm,disable} added to
+_POST_ROUTES (9→12; count test bumped). Deliberate scope
+choices: QR-code rendering DEFERRED to ξ.21.x (publisher
+pastes otpauth URL into authenticator app; rendering would
+need ~300 lines of Reed-Solomon hand-rolled or a CDN dep that
+conflicts with §6.3); single-use recovery codes also DEFERRED
+to ξ.21.x (acceptable for solo-admin single-machine: edit
+content/auth.json directly to disable if locked out). **+54
+tests** in tests/test_totp_xi21.py (11 classes covering all 6
+RFC 6238 vectors parametrized, secret generation, provisioning
+URI shape + URL-encoding + parser round-trip, verify_code
+drift window + malformed rejection, state load/save + whitelist,
+enroll/disable + idempotence, 4 API endpoints, admin auth gate
+matrix (neither/token-only/totp-only/both), route registration).
+**3091/3092 tests pass serially (1 skipped); 11/11 lint clean.**
+Net session test delta from psi.36-A baseline: **+838** across
+35 ships (32 code + 1 audit + 1 PLAN-REFRESH-2 + ξ.21).
+
+**Month 6 status**: γ.4 + ζ.9 + ξ.18 + ξ.21 shipped (4 of 7).
+Remaining: ξ.26 license-key validation (non-money), B.AI.4 +
+B.AI.5 (money items gated on publisher authorization).
+
+ξ.21.x natural follow-ons (logged in CHANGELOG for the linter
+phase-mentions check): QR-code SVG rendering + single-use
+recovery codes.
+
+---
+
+**Updated 2026-05-12 / PLAN-REFRESH-2 (prior)**: **PLAN-REFRESH-2 shipped
 — doc-only refresh closing 6 of 7 drift items named in
 AUDIT_2026-05-12.** PLAN_2026-05-09.md §7 ledger updated with
 Month 5+6 ships (ε.1-ε.3 + ε.6-ε.7 + ο.4 + γ.4 + ζ.9 + ξ.18

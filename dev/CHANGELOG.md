@@ -6,6 +6,134 @@
 
 ---
 
+## 2026-05-12 — session — ξ.21 TOTP-based 2FA for admin auth (Month 6)
+
+**Phases shipped:** ξ.21 (TOTP-based 2-factor authentication for
+mutating endpoints — stdlib-only RFC 6238 implementation, no
+external `pyotp` dependency).
+**Test delta:** +54 (3037 → 3091; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### ξ.21 — TOTP 2FA
+
+Per PROPOSAL §6 Month 6 #6: "2FA for admin auth." Composes
+seamlessly with ω.4's existing Bearer-token gate:
+
+```
+Both factors enabled →  Authorization: Bearer <token>:<code>
+Token only            →  Authorization: Bearer <token>     (unchanged)
+TOTP only             →  Authorization: Bearer :<code>     (empty token slot)
+Neither               →  no header required                (unchanged default)
+```
+
+**Stdlib-only TOTP** (`scripts/core/totp.py`): RFC 6238 HMAC-SHA1
+with 30-second time step, 6-digit codes, default ±1-step (±30s)
+drift window. Verified against the RFC 6238 Appendix B test
+vectors (6 of them, parametrized).
+
+- `generate_secret(*, length_bytes=20)` — base32 string from
+  `secrets.token_bytes` (160 bits default).
+- `current_code(secret, *, now=None)` — current 6-digit code.
+- `verify_code(secret, code, *, now=None, drift_steps=1)` —
+  constant-time compare with `hmac.compare_digest`; rejects
+  malformed codes silently (no exceptions).
+- `provisioning_uri(secret, *, label, issuer)` — otpauth://totp/
+  URL the publisher pastes into an authenticator app
+  (Google Authenticator / Authy / 1Password / etc.).
+- No external dependency. Pure `hmac` + `hashlib` + `base64` +
+  `secrets` + `struct` + `time`.
+
+**Persisted enrollment** (`scripts/core/auth.py`): sparse JSON
+at `content/auth.json` mirroring `distribution.py` and
+`press_kit.py` persistence discipline (atomic write +
+ensure_backup + whitelist on save + empty-state default).
+SCHEMA_VERSION = 1. Default issuer "YHWH Bible", default label
+"admin@ebible".
+
+- `load_auth() / save_auth(state)` — read/write the state file.
+- `enroll_totp(secret, *, issuer, label)` — persist + flip
+  `enabled=True`.
+- `disable_totp()` — remove the totp block; idempotent.
+- `is_totp_enabled()` / `get_totp_secret()` — predicate helpers.
+
+**API surface** (`scripts/api/auth.py`):
+
+- `GET /api/auth/status` → `{token_enabled, totp_enabled,
+  enrolled_at?, issuer?, label?}`. Never reveals the secret.
+- `POST /api/auth/totp/begin` → generates a pending secret +
+  provisioning URI WITHOUT persisting. The publisher scans the
+  otpauth URL into their authenticator app, types a code, and
+  POSTs to `/confirm` to seal the enrollment. Two-step pattern
+  prevents the "enrolled a secret I never proved I have"
+  lockout.
+- `POST /api/auth/totp/confirm` → receives secret + code;
+  verifies; on success persists secret + flips enabled=True.
+- `POST /api/auth/totp/disable` → requires a valid current code
+  before disabling (refuses without proof to prevent an
+  attacker who somehow bypassed the gate from also nuking 2FA).
+
+**Admin auth gate extension** (`scripts.web.Handler._check_admin_auth`):
+
+- Reads `EBIBLE_ADMIN_TOKEN` (factor 1) + `auth.is_totp_enabled()`
+  (factor 2). When neither is set → open (back-compat default).
+- Parses `Authorization: Bearer <token>:<code>` via
+  `str.partition(":")` so tokens containing colons (e.g.
+  base64-encoded secrets) round-trip correctly.
+- Token-only / TOTP-only / both / neither matrix all tested.
+
+### Deliberate scope choices
+
+**QR-code rendering not shipped.** The provisioning_uri returns
+the raw otpauth:// URL; the publisher pastes it into their
+authenticator app. Rendering as a QR code (SVG) needs a Reed-
+Solomon + bitmap encoder (~300 lines hand-rolled, or a CDN dep
+that conflicts with §6.3). Tracked as ξ.21.x.
+
+**Recovery codes not shipped.** Single-use backup codes if the
+authenticator is lost. Tracked as ξ.21.x. Today's mitigation:
+the publisher can `disable_totp()` via direct file edit of
+`content/auth.json` if locked out (acceptable for a solo-admin
+single-machine deployment).
+
+### Routes
+
+- `GET /api/auth/status` → `_SIMPLE_GET_ROUTES` (was 19, now 20).
+- 3 × `POST /api/auth/totp/{begin,confirm,disable}` → `_POST_ROUTES`
+  (was 9, now 12).
+
+### Files
+
+- `scripts/core/totp.py` — new (~190 lines including the RFC
+  6238 algorithm + secret generation + URI builder).
+- `scripts/core/auth.py` — new (~170 lines: state persistence
+  + enroll/disable helpers).
+- `scripts/api/auth.py` — new (~190 lines: 4 endpoints).
+- `scripts/web.py` — `import` block extended;
+  `_check_admin_auth` doubled in length to handle the new
+  factor matrix; routes registered.
+- `tests/test_totp_xi21.py` — new (54 tests across 11 classes:
+  Rfc6238Vectors × 6 parametrized, SecretGeneration × 5,
+  ProvisioningUri × 4, VerifyCode × 7, AuthStateLoadSave × 4,
+  EnrollDisable × 6, ApiBegin × 2, ApiConfirm × 4, ApiDisable
+  × 4, ApiStatus × 3, AdminAuthGate × 5, RouteRegistration × 3).
+- `tests/test_web_routetable.py` — POST route-count test bumped
+  9 → 12.
+
+### Forward references in code
+
+The `scripts/core/auth.py` + `scripts/api/auth.py` + `totp.py`
+docstrings name **ξ.21.x** (QR-code SVG rendering + single-use
+recovery codes) as natural follow-ons. Logged here so the
+linter's "phase mentioned in code" check stays clean.
+
+### Month 6 status
+
+Shipped: γ.4, ζ.9, ξ.18, ξ.21 (4 of 7).
+Remaining: ξ.26 license-key validation (non-money), B.AI.4
+sharable verse cards (**money**), B.AI.5 AI co-pilot (**money**).
+
+---
+
 ## 2026-05-12 — session — PLAN-REFRESH-2 (doc-only)
 
 **Phases shipped:** none — doc-only refresh per

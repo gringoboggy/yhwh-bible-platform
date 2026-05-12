@@ -1912,6 +1912,12 @@ from scripts.api.archive_org import (
     api_archive_org_status,
     api_archive_org_upload,
 )
+from scripts.api.auth import (
+    api_auth_status,
+    api_auth_totp_begin,
+    api_auth_totp_confirm,
+    api_auth_totp_disable,
+)
 
 CORPUS_TARGET = 35_000
 
@@ -3361,6 +3367,9 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     # ο.4 — archive.org configuration status (does the publisher have
     # credentials set yet?). Never touches the network.
     ("/api/archive-org/status", api_archive_org_status),
+    # ξ.21 — admin-auth + 2FA enrollment status (read-only; never
+    # reveals the secret).
+    ("/api/auth/status", api_auth_status),
 ]
 
 
@@ -3631,6 +3640,19 @@ _POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (
         re.compile(r"^/api/archive-org/upload/([a-z0-9-]+)$"),
         lambda m, payload: api_archive_org_upload(m.group(1), payload),
+    ),
+    # ξ.21 — 2FA enrollment flow (begin → confirm → disable).
+    (
+        re.compile(r"^/api/auth/totp/begin$"),
+        lambda m, payload: api_auth_totp_begin(payload),
+    ),
+    (
+        re.compile(r"^/api/auth/totp/confirm$"),
+        lambda m, payload: api_auth_totp_confirm(payload),
+    ),
+    (
+        re.compile(r"^/api/auth/totp/disable$"),
+        lambda m, payload: api_auth_totp_disable(payload),
     ),
     # ω.35-A.8 — sources/cache fetch routes. Previously used
     # `_send_dict_result` (which preserved extras in error
@@ -4088,42 +4110,68 @@ class Handler(BaseHTTPRequestHandler):
         return json.loads(raw.decode("utf-8"))
 
     def _check_admin_auth(self) -> bool:
-        """Phase ω.4 — auth gate for mutation endpoints.
+        """Phase ω.4 + ξ.21 — auth gate for mutation endpoints.
 
-        Behavior is governed by the ``EBIBLE_ADMIN_TOKEN`` env var:
+        Two factors compose:
 
-          - **unset (default)**: every endpoint behaves as before.
-            Local-only / single-user assumption holds; the project
-            stays trivially launchable for development.
-          - **set**: every POST / PUT / DELETE on /api/* requires
-            an ``Authorization: Bearer <token>`` header that matches
-            exactly. Mismatch → 401.
+          - **Factor 1 — admin token** (``EBIBLE_ADMIN_TOKEN`` env
+            var). Unset → factor 1 not required. Set → caller must
+            present a matching token.
+          - **Factor 2 — TOTP** (enrolled via ξ.21's `/api/auth/totp/*`
+            endpoints). Disabled → factor 2 not required. Enabled →
+            caller must present a current 6-digit code.
 
-        GET / HEAD are unaffected (read-only is fine to leave open
-        even when the rest is locked down).
+        ``Authorization`` header formats accepted (per active factors):
 
-        Returns True when the request is allowed to proceed; when
-        False, this method has already sent a 401 response and the
-        caller should return immediately.
+            Both factors enabled →  ``Authorization: Bearer <token>:<code>``
+            Token only            →  ``Authorization: Bearer <token>``
+            TOTP only             →  ``Authorization: Bearer :<code>``
+                                     (token slot is empty)
+            Neither               →  no header required (back-compat)
+
+        GET / HEAD bypass this gate (read-only stays open even when
+        the rest is locked down).
+
+        Returns True when allowed; on False the 401 response has
+        already been sent and the caller should return immediately.
         """
         token = os.environ.get("EBIBLE_ADMIN_TOKEN", "").strip()
-        if not token:
+        from scripts.core import auth as auth_core
+
+        totp_enabled = auth_core.is_totp_enabled()
+        if not token and not totp_enabled:
             return True  # auth disabled, back-compat default
         header = self.headers.get("Authorization", "")
         prefix = "Bearer "
         if not header.startswith(prefix):
             self._send_json(
-                {"error": "missing Authorization: Bearer <token> header"},
+                {"error": "missing Authorization: Bearer <token>[:<totp-code>] header"},
                 status=401,
             )
             return False
         supplied = header[len(prefix) :].strip()
-        # constant-time compare to avoid timing leaks
+        # Parse "<token>:<code>" — split on the FIRST colon only so
+        # tokens that themselves contain colons (e.g. base64-encoded
+        # secrets) round-trip correctly.
+        supplied_token, _, supplied_code = supplied.partition(":")
         import hmac
 
-        if not hmac.compare_digest(supplied, token):
-            self._send_json({"error": "invalid admin token"}, status=401)
-            return False
+        if token:
+            if not hmac.compare_digest(supplied_token, token):
+                self._send_json({"error": "invalid admin token"}, status=401)
+                return False
+        # ξ.21 — if TOTP is enabled, require a matching code in addition
+        # to (or instead of) the token.
+        if totp_enabled:
+            secret = auth_core.get_totp_secret()
+            from scripts.core import totp as totp_mod
+
+            if not secret or not totp_mod.verify_code(secret, supplied_code):
+                self._send_json(
+                    {"error": "invalid or missing TOTP code"},
+                    status=401,
+                )
+                return False
         return True
 
     def log_message(self, fmt, *args):
