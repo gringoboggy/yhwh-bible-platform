@@ -62,16 +62,21 @@ The buyer demo. End-to-end:
 ### Corpus depth target
 
 The Ethiopian Tewahedo edition is the **superset** that all other
-editions filter from. **Target corpus size: 35,000–40,000 notes** in
-the Ethiopian flagship, drawn from public-domain sources via the
-existing `prospect → promote` pipeline. Other editions are subsets;
-their note counts fall out automatically from canon + kind filtering.
+editions filter from. **Original target corpus size: 35,000–40,000
+notes**; **actual corpus as of 2026-05-12: 51,394 notes** (147% of
+the original upper bound — the floor is met, with substantial
+headroom). Drawn from public-domain sources via the existing
+`prospect → promote` pipeline. Other editions are subsets; their
+note counts fall out automatically from canon + kind filtering.
 
-Today's count: **1,381 notes** (handed-authored + sample seeds).
-Closing the gap to the 35–40K target is the **largest single piece
-of remaining work** and is owned by the χ cluster (corpus + detector
-expansion). Every shipped χ.* phase moves the corpus closer; the
-buyer demo's perceived depth is a direct function of this number.
+Today's count: **51,394 notes** (corpus floor met). Continued
+growth via χ-AI-xrefs (LLM-backed thematic cross-references) and
+γ-cluster expansion (γ.4.x Tewahedo + γ.6 Vulgate + γ.7 Targums)
+is **opportunistic, not blocking** — the depth claim against
+every competing free Bible app is comfortably satisfied. Future
+γ-cluster ships add depth in specific dimensions (Tewahedo
+distinctive readings, manuscript-text-critical apparatus) rather
+than chasing raw count.
 
 Every change should make the demo better, simpler, deeper, or
 more impressive. If a change doesn't serve the demo, it should be
@@ -1122,9 +1127,16 @@ first. Treat new index-backed optimizations the same way:
   *content* in many languages remains the whole point;
   *interface* in many languages joins it as a long-tail roadmap
   item rather than out of scope.
-- Not a print-on-demand pipeline. Focus is digital retail.
-  Print PDF (σ.4) is in the deferred list; not blocking the
-  demo.
+- ~~Not a print-on-demand pipeline.~~ **Partially lifted
+  2026-05-12** — focus remains digital retail, but ψ.22
+  (multi-format export: PDF / MOBI / HTML / TXT) is now an
+  open MEDIUM item in PLAN §7. Print PDF for direct buyer
+  consumption (sample chapter PDFs land in ε.7 press kits;
+  full-edition PDF in ψ.22) is in scope. Full POD (KDP
+  paperback / IngramSpark) is still deferred — the
+  print-cover-customize wiring exists in content/
+  customization.yaml but the build pipeline integration is
+  beyond v1.x.
 - Not a real-time collab tool. One editor at a time. Git
   history covers the audit trail.
 - Not Flask / FastAPI / Django. Standard library only on the

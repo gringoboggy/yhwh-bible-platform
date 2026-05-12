@@ -68,8 +68,28 @@ this size.
 
 ## Items definitely NOT planned (out of mission)
 
-- Modern English translation of any book (out of license scope)
-- Audio Bible / TTS rendering
-- Mobile native apps (web is sufficient)
-- Print-on-demand pipeline (focus is digital retail)
-- Multi-language UI (the editorial apparatus is English)
+- Modern English translation of any book (out of license scope —
+  unchanged).
+- ~~Audio Bible / TTS rendering~~ — **lifted.** The ρ-cluster
+  (ρ.1-ρ.5) is now scheduled per
+  `dev/SCOPE_2026-05-08-addendum-audio-epubs.md`. PD LibriVox
+  recordings embedded via EPUB 3 native `<audio>`. Not TTS —
+  curated PD human-narrated audio.
+- Mobile native apps (web is sufficient — unchanged).
+- ~~Print-on-demand pipeline~~ — **partially lifted 2026-05-12.**
+  Print PDF for sample chapters (ε.7 press kits) + full-edition
+  multi-format export (ψ.22 — PDF / MOBI / HTML / TXT) are in
+  scope. KDP paperback + IngramSpark integration are still
+  deferred.
+- ~~Multi-language UI~~ — **lifted 2026-05-09 (PLAN θ.5).**
+  Localized UI shells (Spanish, Portuguese, French, German) are
+  in the LONG TRACK once a real buyer ask materializes. The
+  editorial apparatus baseline remains English.
+
+## 2026-05-12 refresh
+
+This page's "Web UI for note editing" deferred-but-built entry
+remains accurate (built in ι.2). The "Other ideas explicitly
+deferred" section is still relevant. Lifted-items above moved
+from "definitely NOT" to "active/scheduled" per the post-v1.0
+operating model (see `dev/PROPOSAL_FEATURE_LANDSCAPE.md` §6).

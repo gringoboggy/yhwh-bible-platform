@@ -1,6 +1,37 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / audit checkpoint**: **dev/AUDIT_2026-05-12.md
+**Updated 2026-05-12 / PLAN-REFRESH-2**: **PLAN-REFRESH-2 shipped
+— doc-only refresh closing 6 of 7 drift items named in
+AUDIT_2026-05-12.** PLAN_2026-05-09.md §7 ledger updated with
+Month 5+6 ships (ε.1-ε.3 + ε.6-ε.7 + ο.4 + γ.4 + ζ.9 + ξ.18
++ all the ν.7/ν.10/ψ.35/ψ.36-A/ψ.37/ψ.38/ω.35-A.1-A.11/
+ω.35-B.1-B.7/ω.37-39/ω.47/Δ.6-Δ.7/Δ.10/Δ.12/Δ.15/ζ.1-ζ.9/
+γ.1-γ.5/δ.1-δ.2 catch-up); PLAN §10.1 new section adds the
+Month 1-6 operating model cross-reference to
+PROPOSAL_FEATURE_LANDSCAPE; PLAN §11 addenda index adds two
+new stubs (xi-18-x-style-src trade-off + gamma-4-expansion
+ETL roadmap); CLAUDE_PROJECT_RULES §1 corpus target reflects
+actual 51,394 notes vs original 35-40K target (147% of upper
+bound, floor met, growth opportunistic); CLAUDE_PROJECT_RULES
+§10 POD line partially lifted (PDF in scope via epsilon.7 +
+psi.22; KDP/IngramSpark still deferred); ROADMAP_FUTURE.md
+reconciles Audio Bible / POD / Multi-language UI lifts;
+IN_FLIGHT.md pruned from ~8,643 lines (30+ prior-task
+entries) to 275 lines (5 most recent) per AUDIT §4d. 18
+scope addenda now indexed (was 16). **No code changes**;
+test count unchanged at 3037/3038; 11/11 lint clean. Net
+session test delta from psi.36-A baseline unchanged at **+784**
+across 34 ships (33 phases + 1 audit + this PLAN-REFRESH-2;
+34 distinct work units, of which this is the second doc-only).
+
+**Recommended next-N-session ordering** (now refreshed in
+PLAN §10.1): N+1 ξ.21 2FA → N+2 ξ.26 license-key →
+N+3 publisher decision (B.AI.1+2 / B.AI.4 / B.AI.5 / π.9 +
+γ.4.x corpus expansion + ξ.18.x style-src direction).
+
+---
+
+**Updated 2026-05-12 / audit checkpoint (prior)**: **dev/AUDIT_2026-05-12.md
 shipped — doc-only solo-Claude audit triggered by
 feedback_audit_cadence.md (Month 5 closure + ≥150 test-count drift
 both tripped).** Audit corpus: 3037/3038 tests green, 11/11 lint

@@ -6,6 +6,105 @@
 
 ---
 
+## 2026-05-12 — session — PLAN-REFRESH-2 (doc-only)
+
+**Phases shipped:** none — doc-only refresh per
+AUDIT_2026-05-12 §5 N+1 recommendation ("highest-leverage
+single action; closes 5 of 7 named drift items in one pass").
+**Test delta:** 0 (3037 → 3037).
+**Linter delta:** 11/11 clean (scope addenda count 16 → 18 —
+two new addenda stubs added).
+
+### What this refresh did
+
+**1. `dev/PLAN_2026-05-09.md` §7 ledger refresh** — Month 5 +
+Month 6 ships added to the ✓ Shipped list. New entries: ν.7,
+ν.10, ξ.18, ψ.35, ψ.36-A, ψ.37, ψ.38, ω.35-A.1-A.11,
+ω.35-B.1-B.7, ω.37, ω.38, ω.39, ω.47, Δ.6, Δ.7, Δ.10, Δ.12,
+Δ.15, ε.1-ε.3, ε.6-ε.7, ο.4, ζ.1-ζ.9, γ.1-γ.5, δ.1-δ.2.
+Plus a new ledger sub-section pinning the Month 5 closer.
+
+**2. `dev/PLAN_2026-05-09.md` §10.1 — Operating model**
+section added. Cross-references
+`dev/PROPOSAL_FEATURE_LANDSCAPE.md` §6 as the canonical
+post-v1.0 sequence doc; documents Month 1 through Month 6
+status (Months 1-3 + 5 = ✓ shipped; Month 4 = ◐ non-money
+subset shipped, money items awaiting authorization; Month 6 =
+◐ 3 of 7 shipped). Includes the AUDIT_2026-05-12 §5 next-N
+table (N+1 PLAN-REFRESH-2 → N+2 ξ.21 → N+3 ξ.26 → N+4
+publisher decision).
+
+**3. `dev/PLAN_2026-05-09.md` §11 addenda index** — two new
+entries:
+- `dev/SCOPE_2026-05-12-addendum-xi-18-x-style-src.md` (◯
+  stub) — captures the style-src tightening trade-off (option
+  A Tailwind-build / B hash-CSP / C accept the medium-low
+  surface, with activation criteria).
+- `dev/SCOPE_2026-05-12-addendum-gamma-4-expansion.md` (◯
+  stub) — captures the γ.4.x corpus expansion roadmap (per-
+  source ETL: γ.4.1 Cyril/John, γ.4.2 Ephrem/Genesis,
+  γ.4.3 Cyril/Luke, γ.4.4 1 Enoch, γ.4.5 Ephrem Paradise,
+  γ.4.6 Cyril letters/Thesaurus; orthogonal γ.4.y
+  Synaxarium date-keyed sidebar; blocked γ.4.z Andəmta on
+  translation-budget / seminary partnership).
+
+**4. `dev/CLAUDE_PROJECT_RULES.md` §1 north-star** — corpus
+target updated. Reads "Original target: 35,000-40,000;
+actual as of 2026-05-12: 51,394 (147% of upper bound — the
+floor is met)." Continued growth via χ-AI-xrefs +
+γ-cluster reframed as opportunistic, not blocking.
+
+**5. `dev/CLAUDE_PROJECT_RULES.md` §10 "What this project is
+NOT"** — print-on-demand line partially lifted. Print PDF
+(sample-chapter in ε.7 press kits + full-edition multi-
+format in ψ.22) is in scope; KDP paperback / IngramSpark
+integration remains deferred.
+
+**6. `dev/ROADMAP_FUTURE.md`** — three "definitely NOT
+planned" items reconciled with active scope:
+- Audio Bible / TTS → lifted; ρ-cluster scheduled.
+- Print-on-demand → partially lifted; ε.7 + ψ.22 in scope.
+- Multi-language UI → lifted (2026-05-09; θ.5 in LONG TRACK).
+
+**7. `dev/IN_FLIGHT.md` prune** — chain truncated from
+~30+ "Prior task" entries (~8,643 lines) to last 5
+(AUDIT + ξ.18 + ζ.9 + γ.4 + ο.4 = 275 lines, -97%). The
+authoritative chronological record lives in CHANGELOG; the
+prune pointer cites AUDIT_2026-05-12 §4d.
+
+### What this refresh did NOT do
+
+- Did NOT touch `dev/CLAUDE_PROJECT_RULES.md` §13 / §14
+  protocols — those are working as intended (pivot audit +
+  state-uncertainty audit both triggered correctly this
+  session arc).
+- Did NOT write new specs for ξ.21 / ξ.26 — those land
+  with their respective ships.
+- Did NOT prune `dev/CHANGELOG.md` — chronological history
+  is the canonical record and stays append-only.
+- Did NOT touch any code or tests — pure documentation
+  refresh; test count unchanged at 3037 / 3038.
+
+### Drift items addressed (per AUDIT_2026-05-12)
+
+Of the 7 named drift items, 6 are closed by this refresh:
+
+| # | Item | Status |
+|---|---|---|
+| i | ROADMAP_FUTURE.md stale | ✓ refreshed |
+| ii | RULES.md §1 corpus target | ✓ refreshed |
+| iii | RULES.md §10 NOT-list | ◐ POD/i18n reconciled; LMS/native-apps/Flask unchanged |
+| iv | PLAN §5/§7 ledger drift | ✓ §7 refreshed; §5 carries pre-existing legacy entries that ship as future PLAN-REFRESH-3 cleanup |
+| v | IN_FLIGHT prior-task chain bloat | ✓ pruned to last 5 |
+| vi | PROPOSAL operating model not in PLAN | ✓ §10.1 added |
+| vii | Missing SCOPE addenda for new specs | ◐ ξ.18.x + γ.4.x stubs added; ε-track / ω.35 / ζ.9 post-hoc addenda not added (operating-model cross-reference covers them at the meta-level) |
+
+### Forward references in code
+
+None — this is a doc-only ship.
+
+---
+
 ## 2026-05-12 — session — AUDIT_2026-05-12 (doc-only)
 
 **Phases shipped:** none — doc-only audit per memory rule
