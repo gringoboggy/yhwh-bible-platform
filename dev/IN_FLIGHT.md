@@ -4,6 +4,58 @@
 
 ## Prior task
 
+**AUDIT_2026-05-12-B** shipped 2026-05-12. Second solo-Claude audit
+of the day, user-invoked after the χ.2-5 commentary cluster CLOSED
+and γ.4.1 advanced through 3 of 4 planned waves. Doc-only; no
+phase, no test delta, 11/11 lint clean.
+
+**Key findings**:
+- AUDIT_2026-05-12 recommendations were ~80% consumed within
+  hours (PLAN-REFRESH-2 + ξ.21 + ξ.26 all shipped same day).
+  Audit-cadence rule continues to work.
+- Two new drift items: (viii) PLAN §5 MEDIUM TRACK status drift on
+  χ-cluster SEED-vs-ETL.x decomposition; (ix) γ.4 corpus voice
+  imbalance (93% Cyril after γ.4.1.C).
+- One minor cleanup: (x) CRLF/LF warnings on every save.
+- 5 new patterns established this session: SEED+ETL.x decomposition;
+  anti-fabrication pin (γ.4.1.C Jn 8-10 lost-books guard); year-
+  range anti-merge pin; per-tradition title prefix; CRLF/LF noise.
+
+**Recommended next-N-session ordering** (audit-derived):
+- **N+1 γ.4.2 Ephrem on Genesis first wave** — rebalances 93%
+  Cyril voice mix toward documented dual-anchor claim.
+- **N+2 γ.4.1.D Cyril on John 15-21** — closes γ.4.1 modulo
+  unfillable Jn 8-10 manuscript gap.
+- **N+3 doc-refresh trio**: PLAN §5 χ-cluster status normalization
+  + RULES §1 corpus target update + .gitattributes EOL fix.
+- **N+4 publisher decision checkpoint**: money items (B.AI.1+2
+  + π.9; B.AI.4 + B.AI.5 already removed) + γ.4.x continuation +
+  ξ.18.x style-src direction.
+
+**Files**:
+- `dev/AUDIT_2026-05-12-B.md` — new audit memo (~570 lines).
+- `dev/CHANGELOG.md` — audit ship block prepended.
+
+**3383 / 3384 tests pass serially (1 skipped); 11/11 lint clean.**
+No code changes.
+
+**Session totals (2026-05-12) post-audit**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+γ.4.1.C Cyril on John (third wave)                  +14 tests
+AUDIT_2026-05-12-B                                    0 tests (doc-only)
+                                  session total:   +186 tests
+                                  3197 → 3383 (serial; 1 skipped)
+```
+
+## Prior task
+
 **γ.4.1.C Cyril on John (third wave: John 11-14)** shipped 2026-05-12.
 Continues the γ.4.1 Tewahedo flagship expansion. γ.4.1.A shipped 30
 entries on John 1-4; γ.4.1.B shipped 27 on John 5-7; γ.4.1.C adds 29

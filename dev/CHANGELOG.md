@@ -6,6 +6,61 @@
 
 ---
 
+## 2026-05-12 — session — AUDIT_2026-05-12-B (post-χ-cluster + γ.4.1.A/B/C arc)
+
+**Phases shipped:** AUDIT_2026-05-12-B — second solo-Claude audit
+of the day, triggered by `feedback_audit_cadence.md` after the
+χ.2-5 commentary cluster CLOSED (4 SEEDs in single-session sweep)
+and γ.4.1 Tewahedo flagship expansion advanced through 3 of 4
+planned waves. User-invoked ("audit"). Doc-only; no phase, no
+test delta, 11/11 lint clean.
+
+### Output
+
+Single file: `dev/AUDIT_2026-05-12-B.md` (~570 lines). Sections:
+
+- **TL;DR**: AUDIT_2026-05-12 recommendations fully consumed
+  within hours (PLAN-REFRESH-2 + ξ.21 + ξ.26 all shipped same
+  day). Two new drift findings: viii) PLAN §5 MEDIUM TRACK status
+  drift on χ-cluster SEED-vs-ETL.x decomposition; ix) γ.4 corpus
+  voice imbalance (Cyril 93% / Ephrem 5% / 1 Enoch 2% after
+  γ.4.1.C). One minor cleanup: x) CRLF/LF warnings on every save.
+- **Arc statistics**: AUDIT_2026-05-12 → now = +346 tests across
+  11 phase ships in single sustained-engagement run.
+- **Route/console/module inventory delta**: +7 endpoints from
+  ξ.21+ξ.26; 0 from χ-cluster + γ.4.1 (pure content). sources.py
+  grew ~400 LOC for the 4 new commentary trios + γ.4.1 content;
+  no god-module regression.
+- **5 new patterns established**: (3a) SEED + ETL.x decomposition;
+  (3b) anti-fabrication pin (γ.4.1.C Jn 8-10 lost-books guard);
+  (3c) year-range anti-merge pin; (3d) per-tradition title
+  prefix; (3e) CRLF/LF warning noise.
+- **Status of AUDIT_2026-05-12 recommendations**: 3 fully shipped,
+  1 partial, 1 overtaken by events. Of the 7 drift items, 2
+  closed (iv + v), 3 partial (i + iii + vii), 2 still open (ii
+  + vi). Money-item gate: now 3 items not 5 (B.AI.4 + B.AI.5
+  removed earlier today via EPUB-scope reckoning).
+- **Recommended next-N-session ordering**: N+1 γ.4.2 Ephrem on
+  Genesis first wave (rebalances 93% Cyril voice mix); N+2 γ.4.1.D
+  Cyril on John 15-21 (closes γ.4.1 modulo unfillable Jn 8-10);
+  N+3 doc-refresh trio (PLAN §5 + RULES §1 + .gitattributes);
+  N+4 publisher decision; N+5+ per outcome.
+- **Closing**: single highest-leverage action is γ.4.2 first wave;
+  single biggest gap is drift items (ii) RULES §1 corpus target
+  + (vi) operating-model in rules-doc which were flagged in
+  AUDIT_2026-05-12 and STILL OPEN.
+
+Method: mechanical inventory pass + recommendation drafting +
+carry-over flagging. Three new uniqueness-angle observations:
+F. (Tewahedo flagship via γ.4 + γ.4.1) is now the dominant
+active uniqueness work, beyond the original γ.4 seed shipped
+in the AUDIT_2026-05-12 window.
+
+**3383 / 3384 tests pass serially (1 skipped); 11/11 lint clean.**
+No code changes.
+
+---
+
 ## 2026-05-12 — session — γ.4.1.C Cyril on John (third wave: John 11-14)
 
 **Phases shipped:** γ.4.1.C — third wave of Cyril of Alexandria's
