@@ -4,6 +4,73 @@
 
 ## Prior task
 
+**τ.5-A JPS 1917 + WLC Hebrew seed** shipped 2026-05-12.
+First ship after SESSION_END_2026-05-12's translation-gap
+audit. Per the closer's §4 N+1 recommendation: close the
+Hebrew column for the 6 of 9 editions that declare `hebrew`
+in popup_languages_default.
+
+**Two halves shipped together as one phase** (γ.5 LXX-seed
+pattern):
+
+- `jps` — Jewish Publication Society 1917 Tanakh (English).
+  PD basis: Schechter died 1915, Adler 1940; JPS itself
+  placed 1917 edition in public domain.
+- `wlc` — Westminster Leningrad Codex (Hebrew). PD basis:
+  Kimball transcription explicitly PD per tanach.us;
+  Leningrad Codex B19A (1008 CE) PD by age.
+
+**Files**:
+- `scripts/extract_translation.py` — TRANSLATIONS dict
+  extended with jps + wlc entries (title / short_title /
+  license / source URL + package / notes documenting
+  user-side ingest path).
+- `content/translations/jps/_meta.yaml` — schema v1; full
+  PD documentation; user-side ingest steps; JPS-conventions
+  notes.
+- `content/translations/jps/gen.py` — 3-verse Genesis seed
+  (Gen 1:1-3) with canonical JPS phrasing ("unformed and
+  void", "hovered", single-quoted speech).
+- `content/translations/wlc/_meta.yaml` — Kimball/Leningrad
+  documentation; Unicode handling for niqqud + te`amim;
+  RTL rendering via ν.2.7's popup-languages machinery.
+- `content/translations/wlc/gen.py` — 3-verse Hebrew seed
+  with full niqqud + te`amim; opens on בְּרֵאשִׁית בָּרָא
+  אֱלֹהִים; closes on וַיְהִי־אוֹר.
+- `tests/test_translations_tau5a.py` — 21 tests across 6
+  classes (Registry / Discovery / JpsSeed / WlcSeed / Pairing
+  / meta-shape).
+
+**Runtime verification** (post-ship):
+- `scripts.core.translations.list_translations()` returns
+  `['jps', 'kjv', 'lxx-brenton-greek', 'wlc']` (was 2).
+- `has_translation('jps')` + `has_translation('wlc')` both
+  True.
+- `get_verse('jps', 'gen', 1, 1)` returns the canonical
+  JPS opening; `get_verse('wlc', 'gen', 1, 1)` returns the
+  Hebrew opening with niqqud.
+
+**Auto-surfaces in**: /customize console's
+popup_translation dropdown + /compare console's
+side-by-side rendering (no UI code change — both compose
+`list_translations()` output dynamically).
+
+**+21 tests** in tests/test_translations_tau5a.py.
+
+**3155 / 3156 tests pass serially (1 skipped); 11/11 lint
+clean.**
+
+Forward references: τ.5-A.x (user-side full 39-book Hebrew
+ingest) + τ.5-B (WLC-without-niqqud unpointed variant). Both
+logged in CHANGELOG for the linter's phase-mentions check.
+
+**Recommended next ship**: τ.4 Brenton LXX (English side) —
+full ingest from the current 3-verse γ.5 Greek-only seed.
+After: τ.3 Vulgate, τ.2 Douay-Rheims, then per publisher
+direction.
+
+## Prior task
+
 **SESSION_END_2026-05-12** shipped — professional handoff
 closer for the longest single-conversation arc in the
 project's history. Doc-only; no test delta; 11/11 lint clean.

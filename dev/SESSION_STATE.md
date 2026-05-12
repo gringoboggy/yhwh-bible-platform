@@ -1,6 +1,43 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / SESSION END (closer)**: **Session-end
+**Updated 2026-05-12 / τ.5-A Hebrew translations seeded**:
+**JPS 1917 + WLC seeds shipped (3-verse Genesis each) — first
+ship after SESSION_END_2026-05-12's translation-gap audit; per
+the closer's section 4 N+1 recommendation.** Two new
+translations register automatically via
+scripts.core.translations.list_translations() (now returns 4
+ids: jps + kjv + lxx-brenton-greek + wlc). scripts/extract_translation.py
+TRANSLATIONS dict extended with jps + wlc entries documenting
+PD basis (JPS 1917 explicitly placed PD by JPS; Kimball WLC
+transcription explicitly PD; Leningrad Codex B19A from 1008
+CE PD by age) and user-side full-ingest paths (download from
+eBible.org / tanach.us, unzip, run extract script). Seed
+files: content/translations/jps/{_meta.yaml, gen.py} with
+JPS-canonical phrasing ("unformed and void", "hovered",
+single-quoted speech) + content/translations/wlc/{_meta.yaml,
+gen.py} with niqqud + te`amim Hebrew (U+0591-U+05C7 range)
+opening on בְּרֵאשִׁית בָּרָא אֱלֹהִים. Mirrors γ.5 LXX-seed
+pattern. Full 39-book / ~23,000-verse OT ingest is τ.5-A.x
+user-side per the documented pattern. **+21 tests** in
+tests/test_translations_tau5a.py (6 classes: Registry x3,
+Discovery x4, JpsSeed x5 with JPS-phrasing pins, WlcSeed x6
+with Hebrew-Unicode-block validation + bereshit/elohim/
+yehi-or content pins + RTL-meta-documentation pin, Pairing
+x2). **3155/3156 tests pass serially (1 skipped); 11/11 lint
+clean.** Net session test delta from psi.36-A baseline: **+902**
+across 39 work units (33 phases + 1 audit + 1 PLAN-REFRESH-2
++ ξ.26 + book-covers ingest + B.AI.4 removal +
+EPUB-scope-reckoning quad-removal + SESSION_END closer +
+τ.5-A).
+
+**Recommended next ship per SESSION_END_2026-05-12 section 4**:
+τ.4 Brenton LXX (English side) — full ingest from the
+current 3-verse γ.5 seed. After that: τ.3 Vulgate (Latin),
+τ.2 Douay-Rheims.
+
+---
+
+**Updated 2026-05-12 / SESSION END (closer) (prior)**: **Session-end
 professional handoff doc `dev/SESSION_END_2026-05-12.md`
 shipped — wraps the longest single-conversation arc in the
 project's history (38+ work units; +881 tests from psi.36-A

@@ -228,6 +228,55 @@ TRANSLATIONS: dict[str, dict] = {
             "Apocrypha entirely."
         ),
     },
+    "jps": {
+        "title": "Jewish Publication Society Tanakh (1917)",
+        "short_title": "JPS",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "eBible.org",
+            "url": "https://eBible.org/eng-jps/",
+            "package": "eng-jps_vpl.zip",
+            "source_date": None,  # filled at extract time
+        },
+        "notes": (
+            "Jewish Publication Society 1917 Tanakh — Public-Domain "
+            "English translation of the Hebrew Bible. Closes the "
+            "Hebrew column for the 6 of 9 editions that declare "
+            "`hebrew` in popup_languages_default (ethiopian-tewahedo, "
+            "catholic-study, jewish-study, scholarly-academic, "
+            "anglican-bcp, lutheran-confessional). Pairs with "
+            "the `wlc` (Westminster Leningrad Codex) consonantal "
+            "Hebrew text — JPS provides the English-language "
+            "channel; WLC provides the Hebrew-text channel. Phase "
+            "τ.5-A ships infrastructure + Gen 1:1-3 seed; τ.5-A.x "
+            "is the user-side full ingest (download eng-jps_vpl.zip, "
+            "unzip into content/translations/sources/jps/, run "
+            "this script). OT only — JPS is the Hebrew Bible, 39 "
+            "books / ~23,000 verses."
+        ),
+    },
+    "wlc": {
+        "title": "Westminster Leningrad Codex (Hebrew)",
+        "short_title": "WLC",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "Westminster Theological Seminary / tanach.us",
+            "url": "https://tanach.us/Tanach.xml",
+            "package": "WLC consonantal text — transcribed from Leningrad Codex (B19A, 1008 CE)",
+            "source_date": None,  # filled at extract time
+        },
+        "notes": (
+            "Westminster Leningrad Codex — consonantal Hebrew text "
+            "of the Tanakh, transcribed from the Leningrad Codex "
+            "(B19A, 1008 CE) by Christopher V. Kimball at WLC. "
+            "Public Domain. Pairs with `jps` (JPS 1917 English). "
+            "The Leningrad Codex is the oldest complete Masoretic "
+            "text manuscript and is the base text for nearly every "
+            "modern critical Hebrew Bible. τ.5-A ships seed (Gen "
+            "1:1-3); τ.5-A.x is user-side full ingest. OT only — "
+            "Hebrew canon (39 books / ~23,000 verses)."
+        ),
+    },
 }
 
 

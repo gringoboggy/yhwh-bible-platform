@@ -6,6 +6,124 @@
 
 ---
 
+## 2026-05-12 — session — τ.5-A JPS + WLC Hebrew seed (closes Hebrew column foundation)
+
+**Phases shipped:** τ.5-A (JPS 1917 English Tanakh + Westminster
+Leningrad Codex Hebrew — infrastructure + Genesis 1:1-3 seeds;
+full ingest deferred to user-side τ.5-A.x per the documented
+pattern). Per SESSION_END_2026-05-12 §4 N+1 recommendation: this
+is the first ship after the EPUB-scope reckoning, addressing the
+translation-coverage gap surfaced in the session closer.
+**Test delta:** +21 (3134 → 3155; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### τ.5-A — JPS 1917 + WLC Hebrew
+
+**Why this ships first**: the SESSION_END audit found the project
+declares `hebrew` in popup_languages_default for 6 of 9 editions
+(ethiopian-tewahedo, catholic-study, jewish-study, scholarly-
+academic, anglican-bcp, lutheran-confessional) but ships no
+full Hebrew translation data — only γ.1 Strong's word-lookup
+(lemma + morphology). Closing the Hebrew column improves every
+edition that promises Hebrew popups.
+
+**Two halves shipped together as one phase**:
+
+- **`jps`** — Jewish Publication Society 1917 Tanakh, the
+  first Jewish-committee English translation. Unambiguously
+  Public Domain (Solomon Schechter died 1915; Cyrus Adler
+  1940; the JPS itself placed the 1917 edition in PD).
+- **`wlc`** — Westminster Leningrad Codex consonantal Hebrew
+  text (Christopher V. Kimball transcription of the Leningrad
+  Codex B19A, 1008 CE). Both the transcription (explicitly
+  PD per tanach.us) and the underlying manuscript (PD by
+  age) are out of copyright.
+
+Both follow the **γ.5 LXX-seed pattern**: ship infrastructure +
+metadata + 3-verse Genesis seed (Gen 1:1-3) to prove the
+wire-up; the full 39-book / ~23,000-verse OT ingest is user-
+side τ.5-A.x.
+
+### Files
+
+- `scripts/extract_translation.py` — added `jps` + `wlc`
+  entries to the `TRANSLATIONS` registry dict (alongside the
+  existing `kjv` + `web` entries). Each entry carries
+  title / short_title / license / source URL / package /
+  notes documenting the user-side ingest path.
+- `content/translations/jps/_meta.yaml` — new. Schema
+  v1; documents PD basis (Schechter / Adler / 1917 JPS),
+  source URL (eBible.org eng-jps), seed scope (3 verses),
+  notes covering JPS conventions (Jehovah Tetragrammaton,
+  thou/thee, semicolons).
+- `content/translations/jps/gen.py` — new. 3-verse seed
+  (Gen 1:1-3) with the canonical JPS 1917 phrasing
+  ("unformed and void", "hovered", single-quoted speech).
+- `content/translations/wlc/_meta.yaml` — new. Documents
+  Kimball transcription PD basis, Leningrad Codex B19A
+  base manuscript, Unicode handling note (niqqud +
+  te`amim in U+0591-U+05C7 range), RTL rendering via
+  ν.2.7's popup-languages machinery.
+- `content/translations/wlc/gen.py` — new. 3-verse Hebrew
+  seed including niqqud + te`amim; first verse opens with
+  `בְּרֵאשִׁית` ("in the beginning") + `אֱלֹהִים` ("God");
+  third verse contains `יְהִי אוֹר` ("let there be light").
+- `tests/test_translations_tau5a.py` — new. 21 tests across
+  6 classes: Registry × 3, Discovery × 4, JpsSeed × 5
+  (incl. canonical JPS phrasing pins),
+  WlcSeed × 6 (incl. Hebrew-Unicode-block validation +
+  bereshit/elohim/yehi-or content pins +
+  RTL-meta-documentation pin), Pairing × 2.
+
+### Auto-discovery + runtime contract
+
+`scripts.core.translations.list_translations()` discovers any
+directory under `content/translations/` automatically (no
+hardcoded registry); after this ship the function returns
+`['jps', 'kjv', 'lxx-brenton-greek', 'wlc']` instead of the
+prior two. `has_translation()`, `has_book()`, `get_verse()`,
+`book_verse_count()`, `translation_meta()` all work as
+expected for both new ids (verified via runtime check).
+
+The /customize console's popup_translation dropdown
+automatically surfaces both new ids (no UI code change
+required — it composes `list_translations()` output).
+The /compare console will render JPS / WLC side-by-side with
+KJV for any verse where all three have content (today: Gen
+1:1-3 only).
+
+### User-side full-ingest path (τ.5-A.x)
+
+For each of the two halves:
+
+```
+1. Download eng-jps_vpl.zip (or wlc source) from eBible.org
+   or tanach.us into content/translations/sources/<id>/
+2. Unzip
+3. python scripts/extract_translation.py <id>
+4. Verify: python scripts/extract_translation.py <id> --report
+```
+
+After τ.5-A.x runs, the per-book .py files (39 × 2 = ~78 new
+files) replace the seed, the `_meta.yaml` stats are updated,
+and the corresponding editions get full Hebrew-column coverage
+in their popup overlays.
+
+### Forward references in code
+
+The meta YAMLs name **τ.5-A.x** (user-side full ingest) and
+**τ.5-B** (WLC-without-niqqud variant for unpointed-text
+scholars). Logged here so the linter's "phase mentioned in
+code" check stays clean.
+
+### Recommended next ship
+
+Per SESSION_END_2026-05-12 §4: **τ.4 Brenton LXX (English
+side)** — full ingest from the current 3-verse γ.5 seed.
+After that: τ.3 Vulgate (Latin), τ.2 Douay-Rheims.
+
+---
+
 ## 2026-05-12 — session — SESSION_END_2026-05-12 closer (doc-only handoff)
 
 **Phases shipped:** none. Session-end professional handoff doc.
