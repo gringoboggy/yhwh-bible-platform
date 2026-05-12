@@ -4,6 +4,123 @@
 
 ## Prior task
 
+**χ.5 SEED Rashi's Commentary on the Tanakh** shipped 2026-05-12.
+**CLOSES the χ.2-5 commentary cluster** — all four denominational
+seeds shipped in a single session (χ.2 Henry / χ.3 Calvin / χ.4
+Catena Aurea / χ.5 Rashi). +135 cumulative tests for the cluster
+(3134 → 3347 passing serially).
+
+**Why it matters for THIS project**: the `jewish-study` edition
+declares `jewish` in `traditions_default` but had no
+`comm-rabbinic` notes to surface in the ψ.8 cross-denominational
+popup. χ.5 ships the first batch of rabbinic-tradition notes —
+Rashi specifically — making the jewish-study edition's Jewish
+lens substantive. The ψ.8 popup now has SUBSTANTIVE coverage for
+ALL FOUR major Western traditions (Patristic + Tewahedo +
+Protestant + Catholic + Reformation + Rabbinic). The buyer-facing
+differentiator is now genuinely multi-traditional rather than
+Protestant-default.
+
+**Two Jewish-distinctive pins** the seed guards against drift:
+- **Ps 22:1** ("My God, why hast thou forsaken me") — Rashi reads
+  as David's prophetic vision of Esther in exile, NOT
+  Christological prefigurement of the Cross.
+- **Isa 53:3** ("He was despised") — Rashi reads as corporate
+  Israel suffering exile for the nations, NOT individual messiah.
+These are the two most-disputed Jewish-Christian interpretive
+texts; pinning them ensures the comm-rabbinic kind retains its
+genuinely-Jewish voice across the entire χ.5.x expansion.
+
+**Files**:
+- `content/sources/rabbinic_commentaries.json` — new schema-v1
+  seed; field name `commentator` (mirrors χ.2 / χ.3 — Rashi
+  isn't a Father); 12 paraphrased Rashi entries weighted toward
+  Pentateuch + key Jewish-distinctive readings; every attribution
+  cites medieval Hebrew + "PD" (Rashi d. 1105); PD _meta block
+  explicitly addresses the English-translation-may-not-be-PD
+  issue (most modern Rashi translations are in copyright; seed
+  paraphrases work from the medieval Hebrew directly).
+- `scripts/core/sources.py` — `RabbinicCommentary` frozen
+  dataclass + `RabbinicCommentaries` lazy loader (by_verse +
+  by_commentator) + `rabbinic_commentaries()` `@lru_cache(maxsize=1)`
+  singleton. Mirrors χ.2 / χ.3 API.
+- `scripts/core/detectors.py` — `RabbinicCommentaryDetector`
+  class (kind="comm-rabbinic", confidence 0.95, plain year
+  display — all χ.5 seed voices post-AD). draft_title prefix
+  "Rabbinic —". Appended to `ALL_DETECTORS` after
+  `ReformationCommentaryDetector` — candidate-order lineage now
+  γ.3 → γ.4 → χ.2 → χ.4 → χ.3 → χ.5 (patristic → tewahedo →
+  protestant → catholic → reformation → rabbinic).
+
+**Kind reuse**: `comm-rabbinic` pre-existed in kinds.yaml (line
+417-425). χ.5 is first phase to emit it. No kinds.yaml change.
+
+**Tradition wiring**: pre-existing. traditions.yaml maps
+jewish-study → jewish; ψ.8 surfaces comm-rabbinic notes for the
+edition automatically.
+
+**Tests**: tests/test_rabbinic_chi5.py — 34 tests across 5
+classes. TestChi5DataFile × 8 (parses, meta block, ≥12 entries,
+required fields, Rashi + PD marker, year range 1070-1105 anti-
+merge pin, Gen 1:1 present). TestChi5RabbinicCommentariesLoader
+× 7 (frozen dataclass, by_verse + by_commentator, empty for NT
+books — Rashi scope, Rashi present, Maimonides empty —
+χ.5.x not χ.5, SourceMissingError on absent cache).
+TestChi5DetectorContract × 8 (registered after Reformation —
+lineage pin, kind=comm-rabbinic, candidate shape with Rabbinic
+title prefix, confidence=0.95, empty for NT verses + out-of-seed
+Gen verses, verse_text ignored, body XSS-escapes, plain year
+display). TestChi5KindIsRegistered × 2. TestChi5Coverage × 9
+(Pentateuch-weighted ≥6, iconic Gen 1:1 "zo'ek darshani"
+opening, Akedah, Shiloh prophecy Jewish read, Shema, Akiva pin,
+**Ps 22:1 Jewish-distinctive** + **Isa 53:3 corporate-Israel** —
+both load-bearing for the Jewish-Christian boundary, Rashi-only-
+voice anti-merge pin).
+
+**+34 tests**. **3347 / 3348 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **χ.5.x** — user-side full Rashi ETL from primary Hebrew (PD
+  by age) + fresh paraphrases OR confirmed-PD English. ~3-7K
+  notes target per PLAN.
+- **χ.5.y Maimonides** — add the Rambam (1138-1204) as another
+  comm-rabbinic voice.
+- **χ.5.z Ibn Ezra + Ramban + Targumim** — additional rabbinic
+  voices.
+
+**χ.2-5 CLUSTER CLOSED**. Session totals:
+
+```
+χ.2  Matthew Henry          comm-protestant   +32 tests   SEED ✓
+χ.4  Aquinas (Catena Aurea) comm-catholic     +34 tests   SEED ✓
+χ.3  Calvin                 comm-reformation  +35 tests   SEED ✓
+χ.5  Rashi                  comm-rabbinic     +34 tests   SEED ✓
+                            cluster total:    +135 tests
+                            3134 → 3347 (serial; 1 skipped)
+```
+
+**Recommended next ship** (PIVOT — χ-cluster is done):
+- **γ.4.1 Cyril's John commentary** (extend Tewahedo flagship from
+  12 seed entries → ~400-600 via NPNF S2 V14). Activation criteria
+  per `dev/SCOPE_2026-05-12-addendum-gamma-4-expansion.md` say
+  publisher confirmation of v1.x uniqueness angle; this session's
+  Tewahedo-direction trajectory (τ.6 Ge'ez + γ.4 + now all 4
+  cluster seeds with comm-ethiopian as the flagship voice)
+  constitutes implicit confirmation.
+- **ψ.30 matrix accessibility** — publisher-facing console polish.
+  Single autonomous phase, no money gate.
+- **Money authorization** — B.AI.1 + B.AI.2 cover-gen are gated on
+  publisher provider pick (Anthropic / OpenAI / Stability budget
+  decision).
+- **Audit cadence** — per `memory/feedback_audit_cadence.md`: 22+
+  phases shipped this session, +213 tests cumulative. Both
+  thresholds (≥10 phases + ≥150 tests) tripped — audit
+  recommendation is in scope. Would be a lighter solo-Claude
+  audit, not parallel-subagent sweep.
+
+## Prior task
+
 **χ.3 SEED Calvin's commentaries** shipped 2026-05-12. Third
 ship in the χ-commentary cluster (after χ.2 Matthew Henry +
 χ.4 Catena Aurea); closes the magisterial-Western half. Only

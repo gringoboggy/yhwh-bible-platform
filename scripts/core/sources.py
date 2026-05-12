@@ -787,6 +787,100 @@ class ReformationCommentaries:
 
 
 # ----------------------------------------------------------------------
+# Rabbinic commentary corpus (χ.5 — 2026-05-12)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class RabbinicCommentary:
+    """One verse-keyed entry in the rabbinic-tradition commentary corpus.
+
+    Shape parallels `ProtestantCommentary` / `ReformationCommentary` —
+    field name `commentator` (not `father`) since rabbinic-tradition
+    exegetes (Rashi, Maimonides, Ibn Ezra, Ramban, Sforno, etc.) are
+    not Christian Fathers. The semantic distinction from the Christian
+    comm-* siblings is *tradition*: these are voices in the Jewish
+    medieval / classical exegetical chain — what the kinds.yaml
+    description calls 'Talmud, Midrash Rabbah, Rashi, Maimonides,
+    Targumim'.
+
+    Rashi (Rabbi Shlomo ben Yitzhak, 1040-1105) is THE foundational
+    Jewish commentator — the indispensable companion to every page of
+    the Tanakh and Talmud in subsequent Jewish learning. χ.5 ships a
+    Rashi-only seed; future χ.5.x adds Maimonides / Ibn Ezra /
+    Ramban / Targum entries.
+
+    See `content/sources/rabbinic_commentaries.json` for the live
+    dataset; χ.5 ships a ~12-entry Pentateuch-heavy seed covering
+    Rashi's signature pins (Bereshit, Akedah, Shema, etc.) + key
+    Jewish-distinctive readings of contested verses (Isa 53, Ps 22).
+    """
+
+    book: str
+    chapter: int
+    verse: int
+    commentator: str
+    work: str
+    year: int
+    summary: str
+    attribution: str
+
+
+class RabbinicCommentaries:
+    """Lazy loader for the rabbinic commentary corpus. Cached on first
+    read. Raises ``SourceMissingError`` if the JSON cache file is absent.
+
+    Two access patterns mirror χ.2 / χ.3:
+      * ``for_verse(book, chapter, verse)`` — every entry attached to
+        the verse (used by the detector).
+      * ``by_commentator(name)`` — every entry by a given exegete
+        (e.g. ``"Rashi"``), for audit / coverage UIs.
+    """
+
+    PATH = _SOURCES / "rabbinic_commentaries.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Rabbinic commentaries cache not present at {self.PATH}. "
+                "The seed corpus shipped with χ.5 (2026-05-12) — restore from git."
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self._by_verse: dict[tuple[str, int, int], list[RabbinicCommentary]] = {}
+        self._by_commentator: dict[str, list[RabbinicCommentary]] = {}
+        for entry in data.get("entries", []):
+            try:
+                rb = RabbinicCommentary(
+                    book=str(entry["book"]),
+                    chapter=int(entry["chapter"]),
+                    verse=int(entry["verse"]),
+                    commentator=str(entry["commentator"]),
+                    work=str(entry.get("work", "")),
+                    year=int(entry.get("year", 0)),
+                    summary=str(entry["summary"]),
+                    attribution=str(entry["attribution"]),
+                )
+            except (KeyError, ValueError, TypeError):
+                continue
+            key = (rb.book, rb.chapter, rb.verse)
+            self._by_verse.setdefault(key, []).append(rb)
+            self._by_commentator.setdefault(rb.commentator, []).append(rb)
+
+    def __len__(self) -> int:
+        return sum(len(v) for v in self._by_verse.values())
+
+    def for_verse(self, book: str, chapter: int, verse: int) -> list[RabbinicCommentary]:
+        """Return every entry attached to a specific verse, in insertion
+        order. Empty list when nothing matches."""
+        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+
+    def by_commentator(self, name: str) -> list[RabbinicCommentary]:
+        """Return every entry by a given exegete (case-sensitive)."""
+        return list(self._by_commentator.get(name, ()))
+
+
+# ----------------------------------------------------------------------
 # Singletons (cached across runs in the same process)
 # ----------------------------------------------------------------------
 
@@ -843,6 +937,12 @@ def catholic_commentaries() -> CatholicCommentaries:
 def reformation_commentaries() -> ReformationCommentaries:
     """Return the singleton ReformationCommentaries instance (χ.3 — 2026-05-12)."""
     return ReformationCommentaries()
+
+
+@lru_cache(maxsize=1)
+def rabbinic_commentaries() -> RabbinicCommentaries:
+    """Return the singleton RabbinicCommentaries instance (χ.5 — 2026-05-12)."""
+    return RabbinicCommentaries()
 
 
 # ----------------------------------------------------------------------

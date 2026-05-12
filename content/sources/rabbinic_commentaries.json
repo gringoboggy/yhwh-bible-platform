@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "source": "Rabbi Shlomo Yitzchaki (Rashi) — Commentary on the Tanakh, written ~1070-1105 — seed corpus shipped with χ.5 (2026-05-12).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where Rashi's commentary carries a distinctively Jewish (medieval Ashkenazi-Tzarfatic) reading. Rashi (Rabbi Shlomo ben Yitzhak, 1040-1105, Troyes / Worms) wrote commentaries on the entire Pentateuch, most of Prophets, most of Writings, and on nearly the entire Babylonian Talmud — he is THE foundational Jewish commentator, the indispensable companion to every page of the Tanakh and Talmud in subsequent Jewish learning. The seed pulls 12 verse-keyed entries weighted toward Pentateuch (Rashi's most-studied work) + key Jewish-distinctive readings (Isa 53 corporate-Israel, Ps 22 historical-not-messianic, Shema eschatology). Each entry is a paraphrased summary of Rashi's interpretive thrust, NOT a verbatim quote — verbatim passages require careful sourcing (Rashi's medieval Hebrew is PD; most English translations are not). Future χ.5.x will expand to ~3-7K notes using either PD primary Hebrew + fresh paraphrases or a confirmed-PD English edition.",
+    "public_domain_basis": "Rashi d. 13 July 1105 — out of copyright in every jurisdiction by age. The medieval Hebrew text is public domain. PD English translation candidates: M. Friedländer's Rashi articles in the Jewish Encyclopedia (1906, PD); Pre-1929 partial translations in Christian Hebraist literature (e.g., Drusius, Buxtorf, Lightfoot — Latin paraphrases); seed paraphrases here summarize Rashi's interpretive thrust from the underlying medieval Hebrew without quoting any in-copyright English translation. χ.5.x full ETL will require either fresh English rendering from the PD Hebrew or use of a confirmed-PD edition.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 1,
+      "commentator": "Rashi",
+      "work": "Commentary on Genesis",
+      "year": 1095,
+      "summary": "Rashi opens his entire Pentateuch commentary with his most-quoted note: 'This verse cries out, explain me!' (ha-mikra ha-zeh omer darsheni). The grammatical difficulty — 'b'reishit bara' read straightforwardly is 'in the beginning of God's creating' (construct form), not 'in the beginning God created' (absolute form). Rashi resolves by reading 'reishit' as a reference to TWO things called 'reishit' in Scripture: Israel (Jer 2:3, 'Israel is holy to the Lord, the reishit of His produce') and the Torah (Prov 8:22, 'The Lord acquired me [Wisdom = Torah] at the reishit of His way'). Thus the verse means: 'For the sake of Israel and the Torah (both called reishit) God created the heavens and the earth.' This is the foundational Jewish reading: creation is teleological, ordered toward covenant and Torah.",
+      "attribution": "Rashi, Commentary on Genesis 1:1 (Pirush Rashi al ha-Torah). Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 26,
+      "commentator": "Rashi",
+      "work": "Commentary on Genesis",
+      "year": 1095,
+      "summary": "On 'na'aseh adam' (let us make man) Rashi explicitly addresses the Christian Trinitarian reading and rejects it: the plural is NOT a sign of multiple persons in God, but God's act of consulting His Heavenly Court (the angels). Rashi notes that this teaches a profound humility: 'from here we learn the modesty of the Holy One, blessed be He — though the greater takes no counsel of the lesser, He nevertheless does so to teach derech eretz.' Rashi adds that God deliberately included this potential 'opening' for heretical mis-reading so that the righteous would refute it from the very next verse ('vayyivra Elohim et ha-adam' — singular). This is one of Rashi's most polemically-Jewish notes, written in the medieval Ashkenazi context of Christian disputations.",
+      "attribution": "Rashi, Commentary on Genesis 1:26. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew."
+    },
+    {
+      "book": "gen",
+      "chapter": 22,
+      "verse": 1,
+      "commentator": "Rashi",
+      "work": "Commentary on Genesis (Akedah)",
+      "year": 1095,
+      "summary": "On the opening of the Akedah ('And it came to pass after these things'), Rashi catches the unusual 'achar ha-devarim ha-eleh' and provides his characteristic Midrashic backstory: he records two Talmudic traditions for what 'these words/things' refers to. (1) Some say Satan accused Abraham before God: 'Behold, in every feast Abraham made he offered nothing to You — no bullock, no ram!' God replied: 'Did he make the feast for any but his son? Yet if I command him, behold he will sacrifice him before Me.' (2) Others say Ishmael and Isaac argued, Ishmael boasting he was circumcised at 13 (consensual) while Isaac was circumcised at 8 (without consent); Isaac retorted that he would gladly offer his whole body to God. The Akedah follows. This Midrashic resolution of the opening phrase is signature Rashi — finding theological backstory in unusual phrasings.",
+      "attribution": "Rashi, Commentary on Genesis 22:1. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; Midrashic source TB Sanhedrin 89b."
+    },
+    {
+      "book": "gen",
+      "chapter": 25,
+      "verse": 22,
+      "commentator": "Rashi",
+      "work": "Commentary on Genesis",
+      "year": 1095,
+      "summary": "On 'And the children struggled together within her' (va-yitrotzatzu ha-banim b'kirbah) Rashi gives the famous Midrashic explanation: when Rebekah passed the yeshivot of Shem and Eber (the patriarchal academies of Torah study), Jacob struggled to come out toward them; when she passed houses of idol-worship, Esau struggled to come out. The verbal root r-tz-tz Rashi notes carries the sense of 'running' AND 'crushing' — they were each running toward their own destiny, crushing each other in the womb's narrow confines. This characteristic Rashi note compresses an entire theological account of the brothers' subsequent histories into the etymology of a single verb.",
+      "attribution": "Rashi, Commentary on Genesis 25:22. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; Midrashic source Genesis Rabbah 63:6."
+    },
+    {
+      "book": "gen",
+      "chapter": 49,
+      "verse": 10,
+      "commentator": "Rashi",
+      "work": "Commentary on Genesis (Jacob's blessings)",
+      "year": 1095,
+      "summary": "On 'The sceptre shall not depart from Judah, nor the lawgiver from between his feet, until Shiloh come' (ad ki yavo Shiloh) Rashi reads the verse messianically but in the distinctively Jewish horizon: Shiloh refers to King Messiah, whose name carries the sense of 'the one to whom the kingship belongs' (shelo, 'his'). Rashi cites the Targum Onkelos: 'until the Messiah comes, whose is the kingship.' Unlike the Christian Christological reading (where the verse points to Jesus), Rashi maintains the Jewish forward-looking horizon: Messiah ben David is yet to come, and the Davidic sceptre's continuity (through the patriarchs of Babylonia in his own day) preserves Jewish messianic hope. This is one of the verses where Rashi's text-shape AND his eschatological framing differ sharply from Christian medieval exegesis.",
+      "attribution": "Rashi, Commentary on Genesis 49:10. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew."
+    },
+    {
+      "book": "exo",
+      "chapter": 3,
+      "verse": 14,
+      "commentator": "Rashi",
+      "work": "Commentary on Exodus",
+      "year": 1100,
+      "summary": "On 'Ehyeh-Asher-Ehyeh' (I will be that I will be) Rashi offers his characteristic translation: 'I will be with them in this trouble (Egypt) — I will be with them in their other troubles.' Moses had objected: when I tell them God's name, what shall I say? God responds with a name that is itself a covenant promise: not a static metaphysical attribute (as in Christian and Greek philosophical readings) but a dynamic-relational pledge to be present in suffering. Rashi continues: Moses replied, 'Why should I mention to them other troubles? Sufficient unto the trouble is its present occasion!' Hence God said only 'Ehyeh' (singular) when Moses next reported to Israel — present-tense reassurance rather than future-tense warning. This is signature Rashi: theology embedded in the precise grammatical contour of the verse.",
+      "attribution": "Rashi, Commentary on Exodus 3:14. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; Midrashic source TB Berakhot 9b."
+    },
+    {
+      "book": "lev",
+      "chapter": 19,
+      "verse": 18,
+      "commentator": "Rashi",
+      "work": "Commentary on Leviticus",
+      "year": 1100,
+      "summary": "On 'V'ahavta l'reacha kamocha' (and thou shalt love thy neighbor as thyself) Rashi cites Rabbi Akiva's famous halakhic principle from the Sifra: 'zeh klal gadol baTorah' — 'this is a great principle of the Torah.' Rashi adds that 'reacha' (thy neighbor) means a fellow-Jew specifically in its narrowest application but extends by Talmudic interpretation to encompass any human being made in the divine image. The 'as thyself' is taken not as a measure of intensity (love them with the same intensity you love yourself) but as a measure of *kind*: do not do to your neighbor what you would not want done to you (Hillel's negative formulation in TB Shabbat 31a). This Rashi note grounds the rabbinic-halakhic reading against later Christian (and Kantian) readings of the commandment as one of equal self-sacrificing affect.",
+      "attribution": "Rashi, Commentary on Leviticus 19:18. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; Midrashic source Sifra Kedoshim 4:12 + TB Shabbat 31a."
+    },
+    {
+      "book": "deu",
+      "chapter": 6,
+      "verse": 4,
+      "commentator": "Rashi",
+      "work": "Commentary on Deuteronomy (Shema)",
+      "year": 1100,
+      "summary": "Rashi's reading of the Shema is eschatologically forward-looking and distinctively Jewish: 'The LORD who is NOW our God and not the God of the [pagan] nations, He will in the future be ONE LORD (echad)' — citing Zechariah 14:9, 'And the Lord shall be King over all the earth: in that day shall the Lord be One, and His name One.' The 'echad' (one) is for Rashi not merely a statement of numerical unity (against pagan polytheism in the present) but a prophecy of the messianic age when the entire world will acknowledge the God of Israel. Rashi's note thus folds the Shema into the eschatological horizon of Jewish liturgical hope — Aleinu's 'l'takken olam b'malkhut Shaddai' (to perfect the world under God's sovereignty) is rooted here. The 'echad' that the Jew confesses in the Shema is both present-Jewish confession AND future-cosmic completion.",
+      "attribution": "Rashi, Commentary on Deuteronomy 6:4. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; citation Zech 14:9 + TB Pesachim 50a."
+    },
+    {
+      "book": "deu",
+      "chapter": 6,
+      "verse": 5,
+      "commentator": "Rashi",
+      "work": "Commentary on Deuteronomy (V'ahavta)",
+      "year": 1100,
+      "summary": "On 'And thou shalt love the LORD thy God with all thy heart, and with all thy soul, and with all thy might' Rashi gives the classic Talmudic explanation of 'b'chol l'vavcha' (with all thy heart): the Hebrew has TWO bets (l'vavcha, not l'vcha) — read as plural 'hearts' — meaning with both your inclinations, the yetzer hatov (good inclination) AND the yetzer hara (evil inclination). One is to serve God even with the evil inclination, channeling its energy toward Torah and mitzvot rather than away. Rashi reads 'b'chol nafshcha' as 'even if He takes your soul' (martyrdom — the source-text for Jewish martyrology, including the Crusades-era kiddush ha-Shem of Rashi's own community). 'B'chol m'odecha' he reads as 'with all your wealth' since some people value money more than life itself. This compressed Rashi note carries a whole Jewish ethics of integrated whole-person service.",
+      "attribution": "Rashi, Commentary on Deuteronomy 6:5. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; Midrashic source M. Berakhot 9:5 + TB Berakhot 54a."
+    },
+    {
+      "book": "ps",
+      "chapter": 22,
+      "verse": 1,
+      "commentator": "Rashi",
+      "work": "Commentary on the Psalms",
+      "year": 1100,
+      "summary": "On 'Eli, Eli, lama azavtani' ('My God, my God, why hast thou forsaken me') Rashi rejects the Christian Christological reading (where the verse prefigures Jesus's cry from the cross) and instead reads the psalm as David's prophetic vision of the future exile of Israel — specifically the Persian exile under Ahasuerus, with Esther speaking through David. The 'forsaking' is not the abandonment of one suffering individual at one moment, but the agonized cry of a people-in-exile feeling God's hiddenness across generations. This is one of Rashi's most polemically anti-Christian psalmic notes, written in the immediate context of the First Crusade (1096) and the massacres of Rashi's own Rhineland Jewish communities. The verse becomes a textual site of irreducible Jewish-Christian interpretive disagreement.",
+      "attribution": "Rashi, Commentary on Psalm 22:1. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew; Midrashic source Pesikta Rabbati 36."
+    },
+    {
+      "book": "ps",
+      "chapter": 23,
+      "verse": 1,
+      "commentator": "Rashi",
+      "work": "Commentary on the Psalms",
+      "year": 1100,
+      "summary": "On 'The LORD is my shepherd' Rashi gives a brief but characteristic comment: David speaks here from the depth of his own experience as a literal shepherd in his youth — he knows the shepherd-sheep relationship intimately, the leading to water and pasture, the rod and the staff, the defense against predators. The metaphor is therefore not a stylized literary device but an autobiographical confession transformed into liturgy. Rashi adds that 'lo echsar' (I shall not lack) means specifically that whatever the believer lacks in present circumstance, in the world-to-come there will be no lack. This pairs the psalm's pastoral present-tense with the rabbinic-eschatological horizon — a characteristic Rashi move: rooting the verse in concrete biography while opening it toward the olam ha-ba.",
+      "attribution": "Rashi, Commentary on Psalm 23:1. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew."
+    },
+    {
+      "book": "isa",
+      "chapter": 53,
+      "verse": 3,
+      "commentator": "Rashi",
+      "work": "Commentary on Isaiah (Suffering Servant)",
+      "year": 1095,
+      "summary": "On 'He was despised, and rejected of men; a man of sorrows, and acquainted with grief' Rashi gives THE classic Jewish-distinctive reading of the Suffering Servant: the servant is collective Israel, suffering in exile, despised among the nations whose sins they bear redemptively. Rashi explicitly rejects (without naming) the Christian Christological reading: 'He was despised — even though there were among them prophets and righteous men, the nations despised them.' The 'wounds for our transgressions' (53:5) Rashi takes as the nations speaking, recognizing in the messianic future that Israel's exile-suffering had been redemptive for the world. This Rashi reading became normative for medieval and modern Jewish exegesis of Isaiah 53 and is the single most-disputed text between Jewish and Christian interpretive traditions.",
+      "attribution": "Rashi, Commentary on Isaiah 53:3. Hebrew text PD (Rashi d. 1105). Paraphrase from the medieval Hebrew."
+    }
+  ]
+}

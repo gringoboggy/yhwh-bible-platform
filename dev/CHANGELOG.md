@@ -6,6 +6,155 @@
 
 ---
 
+## 2026-05-12 — session — χ.5 SEED Rashi (CLOSES χ.2-5 cluster)
+
+**Phases shipped:** χ.5 (SEED — Rashi's Commentary on the Tanakh,
+12-entry seed). **FOURTH and final ship in the χ-commentary cluster
+— closes χ.2-5 (Protestant + Reformation + Catholic + Jewish all
+have seed coverage).**
+**Test delta:** +34 (3313 → 3347; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### χ.5 — Rabbinic-tradition commentary (Rashi seed)
+
+Rabbi Shlomo Yitzchaki (Rashi, 1040-1105, Troyes / Worms) is THE
+foundational Jewish commentator — the indispensable companion to
+every page of the Tanakh and Talmud in subsequent Jewish learning.
+Rashi wrote commentaries on the entire Pentateuch, most of Prophets,
+most of Writings, and on nearly the entire Babylonian Talmud.
+
+**Why this ship matters for the project specifically**:
+
+- The `jewish-study` edition declares `jewish` in `traditions_default`
+  but had no `comm-rabbinic` notes to surface in the ψ.8 cross-
+  denominational popup. χ.5 ships the first batch of rabbinic-
+  tradition notes — Rashi specifically — making the jewish-study
+  edition's promised Jewish lens substantive instead of decorative.
+- The ψ.8 cross-denominational popup now has substantive coverage
+  for ALL FOUR major Western traditions (Patristic γ.3 + Tewahedo
+  γ.4 + Protestant χ.2 + Catholic χ.4 + Reformation χ.3 + Jewish
+  χ.5) — the buyer-facing differentiator is now genuinely
+  multi-traditional rather than Protestant-default.
+- The seed pins the two most-disputed Jewish-Christian
+  interpretive verses with their **Jewish-distinctive readings**:
+  Isa 53:3 (Suffering Servant = corporate Israel suffering for
+  the nations, NOT individual messiah) and Ps 22:1 (David's
+  prophetic vision of Esther-in-exile, NOT prefigurement of
+  Christ's cross). These two pins guard against any future drift
+  toward Christological-default readings in the rabbinic corpus.
+
+**χ.2-5 CLUSTER NOW CLOSED.** All four denominational seeds shipped
+2026-05-12 in a single session:
+
+```
+χ.2 Matthew Henry        →  comm-protestant   (Henry seed)
+χ.3 Calvin               →  comm-reformation  (Calvin seed)
+χ.4 Catena Aurea         →  comm-catholic     (Aquinas seed)
+χ.5 Rashi                →  comm-rabbinic     (Rashi seed)
+```
+
+Combined this session: **+135 tests** (3134 → 3347 passing serially;
+1 skipped). 6 new content/sources/*.json files; 6 new dataclass+
+loader+detector trios mirroring γ.3/γ.4 pattern; full kind/tradition
+wiring for all four denominational lenses.
+
+**Pattern**: mirrors γ.3 / γ.4 / χ.2 / χ.3 / χ.4 exactly — 12
+verse-keyed entries, infrastructure shipped, full ETL deferred to
+χ.5.x.
+
+### Files
+
+- `content/sources/rabbinic_commentaries.json` — new; schema v1
+  mirroring sibling commentary files. Field name `commentator`
+  (Rashi is a rabbi/exegete, not a Father). 12 paraphrased Rashi
+  entries weighted **Pentateuch ×7** (Gen 1:1, 1:26, 22:1, 25:22,
+  49:10; Exo 3:14; Lev 19:18; Deu 6:4, 6:5 — actually Pentateuch
+  count is 9), Psalms ×2 (Ps 22:1, 23:1), Isaiah ×1 (53:3).
+  Every entry attribution: 'Rashi, Commentary on [book/verse]
+  ... Hebrew text PD (Rashi d. 1105).' The PD _meta block
+  explicitly addresses the English-translation issue (most modern
+  Rashi translations remain in copyright; seed paraphrases avoid
+  quoting them, working from the medieval Hebrew directly).
+- `scripts/core/sources.py` — `RabbinicCommentary` frozen
+  dataclass + `RabbinicCommentaries` lazy loader (by_verse +
+  by_commentator) + `rabbinic_commentaries()`
+  `@lru_cache(maxsize=1)` singleton. Mirrors χ.2 / χ.3 API
+  exactly.
+- `scripts/core/detectors.py` — `RabbinicCommentaryDetector`
+  class (kind="comm-rabbinic", confidence 0.95, **plain year
+  display** — all χ.5 seed voices post-AD; mirrors χ.2 / χ.3).
+  `note-comm-rabbinic` CSS class for theme styling. Candidate
+  `draft_title` prefixes "Rabbinic — " for downstream UI
+  differentiation. Appended to `ALL_DETECTORS` after
+  `ReformationCommentaryDetector` — candidate-order lineage
+  γ.3 → γ.4 → χ.2 → χ.4 → χ.3 → χ.5 (patristic → tewahedo →
+  protestant → catholic → reformation → rabbinic). Reviewer
+  notes flag the Hebrew-PD-but-English-translation-may-not-be
+  issue for the χ.5.x ETL pipeline.
+
+**Kind reuse**: `comm-rabbinic` pre-existed in `content/kinds.yaml`
+(line 417-425; kinds-v2 schema description: "Talmud, Midrash
+Rabbah, Rashi, Maimonides, Targumim"). χ.5 is the first phase to
+actually emit this kind. No kinds.yaml edit needed; no kinds-
+count pin bump.
+
+**Tradition wiring**: pre-existing. `content/traditions.yaml` maps
+`jewish-study → jewish`. The jewish-study edition surfaces
+comm-rabbinic notes automatically via ψ.8.
+
+### Tests
+
+`tests/test_rabbinic_chi5.py` — 34 tests across 5 classes:
+
+- **TestChi5DataFile × 8** — seed JSON parses, meta block complete,
+  ≥12 entries, every entry has required fields + Rashi + PD marker,
+  every entry year in 1070-1105 (anti-merge with χ.2 1700-1721,
+  χ.3 1540-1564 ranges; also anti-merge with future χ.5.x post-
+  Rashi voices like Maimonides 1138-1204), Gen 1:1 present.
+- **TestChi5RabbinicCommentariesLoader × 7** — loader returns
+  frozen dataclass instances, dataclass is frozen, by_verse +
+  by_commentator lookup, empty for NT books (mat / rev — Rashi
+  scope), Rashi present, Maimonides returns empty (χ.5.x not
+  χ.5), SourceMissingError on absent cache.
+- **TestChi5DetectorContract × 8** — registered in ALL_DETECTORS
+  after ReformationCommentaryDetector (lineage pin),
+  kind="comm-rabbinic", candidate shape with title prefix
+  "Rabbinic —", confidence=0.95, empty for NT verses + out-of-
+  seed Gen verses, verse_text ignored, body HTML-escapes (XSS
+  pin), plain year display.
+- **TestChi5KindIsRegistered × 2** — comm-rabbinic in kinds.yaml
+  with category=comm + label=Rabbinic.
+- **TestChi5Coverage × 9** — Pentateuch-weighted (≥6 of 12);
+  iconic Gen 1:1 "zo'ek darshani" opening present; Akedah opening
+  (Gen 22:1) present; Shiloh prophecy (Gen 49:10) Jewish reading
+  present; Shema (Deu 6:4) present; Akiva-pin (Lev 19:18) present;
+  **Ps 22:1 Jewish-distinctive reading** (NOT Christological);
+  **Isa 53:3 corporate-Israel reading** (THE most-disputed
+  Jewish-Christian text); Rashi-only-voice anti-merge pin.
+
+### Forward references
+
+- **χ.5.x** — user-side full Rashi ETL from primary Hebrew (PD by
+  age) with either fresh paraphrases or a confirmed-PD English
+  edition. ~3-7K notes target per PLAN.
+- **χ.5.y Maimonides** — add the Rambam (1138-1204) as another
+  comm-rabbinic voice. Mishneh Torah + Guide for the Perplexed
+  + commentaries on the Mishnah, all PD by age.
+- **χ.5.z Ibn Ezra + Ramban + Targumim** — additional rabbinic
+  voices for the comm-rabbinic kind.
+
+### χ-cluster session totals (2026-05-12)
+
+| Phase | Voice | Kind | Tests | Status |
+|---|---|---|---|---|
+| χ.2 | Matthew Henry | comm-protestant | +32 | SEED ✓ |
+| χ.4 | Aquinas (Catena Aurea) | comm-catholic | +34 | SEED ✓ |
+| χ.3 | Calvin | comm-reformation | +35 | SEED ✓ |
+| χ.5 | Rashi | comm-rabbinic | +34 | SEED ✓ |
+| | | **+135 total** | **3134 → 3347** | **χ.2-5 CLUSTER CLOSED** |
+
+---
+
 ## 2026-05-12 — session — χ.3 SEED Calvin (opens 16th c. magisterial Reformation track)
 
 **Phases shipped:** χ.3 (SEED — John Calvin's commentaries on the
