@@ -1,6 +1,63 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / Month 6 #4**: **ξ.21 TOTP 2FA shipped —
+**Updated 2026-05-12 / Month 6 #5; non-money queue CLOSED**:
+**ξ.26 license-key validation shipped — HMAC-SHA256 (substituted
+for PROPOSAL-spec'd Ed25519 because the cryptography library
+conflicts with section 6.3 no-build-step invariant; soft
+enforcement at v1 per section 9.5 doesn't justify asymmetric
+crypto; Ed25519 upgrade tracked as ξ.26.x for hard enforcement
+if piracy ever becomes measurable). New scripts/core/license_key.py
+with LK1 format prefix + mint(edition_id, expires_iso, secret) +
+verify(license_str, secret, now) returning envelope with reason ∈
+{ok, no_enforcement, missing, wrong_format, unsupported_version,
+bad_signature, expired}; is_enforced() reads
+EBIBLE_LICENSE_SIGNING_KEY env var; fail-open when env var unset
+(no_enforcement reason) so dev + first-run install operate
+without licensing friction. New scripts/core/license_state.py
+with sparse JSON state at content/licenses.json mirroring auth.py
+/ distribution.py / press_kit.py persistence discipline. New
+scripts/api/license.py with 3 endpoints: GET /api/license/status
+returns per-edition rollup with has_key + valid + reason but
+NEVER the stored key string; PUT /api/license/<edition> verifies
+before persisting (refuses bad signature / expired / edition
+mismatch); DELETE /api/license/<edition> idempotent. Soft-
+enforcement contract: API never refuses based on license state;
+status endpoint surfaces validity so future UI can render warning
+banner; build / preview / publish paths must NOT crash on missing
+or invalid keys. Routes: GET /api/license/status added to
+_SIMPLE_GET_ROUTES (20→21); PUT /api/license/<edition> added to
+_PUT_ROUTES (11→12); DELETE /api/license/<edition> added to
+_DELETE_ROUTES (7→8). **+43 tests** in tests/test_license_xi26.py (44 cases in file;
+1 deselected by pytest collection)
+(10 classes covering format constants, enforcement toggle, mint
+input validation, verify happy/bad-sig/expired/malformed/unsupported
+paths, state load/save with whitelist, set/remove/get helpers,
+all 3 API endpoints, route registration). **3134/3135 tests
+pass serially (1 skipped); 11/11 lint clean.** Net session test
+delta from psi.36-A baseline: **+881** across 36 work units
+(33 phases + 1 audit + 1 PLAN-REFRESH-2 + ξ.26).
+
+**MONTH 6 NON-MONEY QUEUE CLOSED.** Shipped: γ.4 + ζ.9 +
+ξ.18 + ξ.21 + ξ.26 (5 of 7). **Autonomous shipping is now
+blocked** on either:
+- B.AI.4 / B.AI.5 publisher authorization (money items), OR
+- A new direction opened: γ.4.x corpus expansion (per
+  SCOPE_2026-05-12-addendum-gamma-4-expansion), ψ.30 matrix
+  a11y, χ.2-5 commentary expansion, or uniqueness angles
+  B/D/E per AUDIT_2026-05-10 section 5 (EPUB-as-the-app /
+  manuscript-scans / lectionary-mode).
+
+This is the clean checkpoint AUDIT_2026-05-12 section 5 N+4
+recommended ("publisher decision checkpoint on money items +
+gamma.4.x corpus expansion + xi.18.x style-src direction").
+
+ξ.26.x natural follow-on logged in CHANGELOG: Ed25519 upgrade
+if hard enforcement ever required (LK2 format prefix; verify()
+dispatches on prefix for side-by-side migration).
+
+---
+
+**Updated 2026-05-12 / Month 6 #4 (prior)**: **ξ.21 TOTP 2FA shipped —
 stdlib-only RFC 6238 implementation (no pyotp dep) + persisted
 enrollment state + admin-auth gate extension.** New
 scripts/core/totp.py: generate_secret/current_code/verify_code/

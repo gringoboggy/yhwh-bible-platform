@@ -1918,6 +1918,11 @@ from scripts.api.auth import (
     api_auth_totp_confirm,
     api_auth_totp_disable,
 )
+from scripts.api.license import (
+    api_license_remove,
+    api_license_set,
+    api_license_status,
+)
 
 CORPUS_TARGET = 35_000
 
@@ -3370,6 +3375,9 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     # ξ.21 — admin-auth + 2FA enrollment status (read-only; never
     # reveals the secret).
     ("/api/auth/status", api_auth_status),
+    # ξ.26 — per-edition license-key validity rollup (read-only;
+    # never reveals the signing secret or the actual license string).
+    ("/api/license/status", api_license_status),
 ]
 
 
@@ -3511,6 +3519,12 @@ _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
         re.compile(r"^/api/press-kit/([a-z0-9-]+)$"),
         lambda m, payload: api_press_kit_save(m.group(1), payload),
     ),
+    # ξ.26 — /api/license/<edition> — store a license key for an
+    # edition. Verifies before persisting; refuses an invalid key.
+    (
+        re.compile(r"^/api/license/([a-z0-9-]+)$"),
+        lambda m, payload: api_license_set(m.group(1), payload),
+    ),
     # ω.35-A.10 — /api/editions/from-template — uses status==ok|error
     # shape. Standard helper covers it via status==error → http
     # envelope and fall-through 200.
@@ -3567,6 +3581,12 @@ _DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (
         re.compile(r"^/api/distribution/([a-z0-9-]+)/([a-z_]+)$"),
         lambda m: api_distribution_unmark(m.group(1), m.group(2)),
+    ),
+    # ξ.26 — /api/license/<edition> — remove a stored license.
+    # Idempotent (already-absent returns ok:True, removed:False).
+    (
+        re.compile(r"^/api/license/([a-z0-9-]+)$"),
+        lambda m: api_license_remove(m.group(1)),
     ),
 ]
 

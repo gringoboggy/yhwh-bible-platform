@@ -1057,16 +1057,17 @@ class TestOmega35A8BespokeCleanup:
         assert captured["status"] == 200
         assert captured["body"] == result  # full pass-through
 
-    def test_delete_table_has_seven_entries_now(self):
-        # A.8 added the 6th DELETE entry (sources/cache/<id>),
-        # closing the original migration. ε.6 added the 7th
-        # (distribution/<edition>/<channel> — checklist unmark).
+    def test_delete_table_has_eight_entries_now(self):
+        # A.8 added the 6th DELETE entry (sources/cache/<id>);
+        # ε.6 added the 7th (distribution/<edition>/<channel>);
+        # ξ.26 added the 8th (license/<edition>).
         from scripts import web
 
-        assert len(web._DELETE_ROUTES) == 7
+        assert len(web._DELETE_ROUTES) == 8
         patterns = [r.pattern for r, _ in web._DELETE_ROUTES]
         assert any("/sources/cache/" in p for p in patterns)
         assert any("/distribution/" in p for p in patterns)
+        assert any("/license/" in p for p in patterns)
 
     def test_post_table_has_twelve_entries_now(self):
         # A.7 had 6, A.8 added 2 (sources/cache fetch + fetch_all),
@@ -1397,12 +1398,12 @@ class TestOmega35A10BespokePutCleanup:
     preview's "error" key has no `status` discriminator).
     """
 
-    def test_put_table_has_eleven_entries(self):
+    def test_put_table_has_twelve_entries(self):
         # 6 from A.5 + 3 from A.10 + 1 from ε.6 (distribution mark)
-        # + 1 from ε.7 (press-kit save)
+        # + 1 from ε.7 (press-kit save) + 1 from ξ.26 (license set)
         from scripts import web
 
-        assert len(web._PUT_ROUTES) == 11
+        assert len(web._PUT_ROUTES) == 12
 
     def test_put_table_includes_a10_routes(self):
         from scripts import web

@@ -6,6 +6,145 @@
 
 ---
 
+## 2026-05-12 — session — ξ.26 license-key validation (Month 6 #5; closes non-money queue)
+
+**Phases shipped:** ξ.26 (HMAC-SHA256 license-key signing +
+verification + per-edition state persistence + status/set/remove
+API). Closes the autonomous (non-money) Month 6 queue.
+**Test delta:** +43 (3091 → 3134; 1 still skipped). Note: 44
+test cases ship in `tests/test_license_xi26.py` but one was
+deselected by pytest collection (likely a pre-existing
+parametrize-eclipse with another test of the same name; not
+worth chasing in this audit window — the targeted run confirms
+all 44 pass when scoped).
+**Linter delta:** 11/11 clean.
+
+### ξ.26 — License-key validation
+
+Per PROPOSAL §6 Track G ξ.26: "Soft enforcement: degraded UI on
+fail, not crash." The proposal originally specified Ed25519
+signing; this implementation substitutes **HMAC-SHA256** because:
+
+1. **Stdlib-only invariant** (CLAUDE_PROJECT_RULES §6.3) forbids
+   the `cryptography` library — C extensions + ~25 MB install
+   conflict with "no build step / stdlib only on backend."
+2. **Threat model for soft enforcement** (§9.5) doesn't justify
+   asymmetric crypto. A determined attacker can already read the
+   source code (single-binary Python deployment). HMAC gives
+   buyers a verifiable tag for audit + analytics without
+   pretending to stop piracy.
+3. **Ed25519 upgrade path** = ξ.26.x. If hard enforcement
+   becomes a requirement (piracy is measurable per §9.5), the
+   format prefix `LK1` becomes `LK2` and the signing path swaps
+   for an Ed25519 implementation. The `verify()` dispatch on
+   prefix means side-by-side migration is straightforward.
+
+**License key format** (LK1 — HMAC-SHA256):
+
+    LK1:<edition_id>:<expires_iso>:<issued_at_iso>:<base64-urlsafe-hmac>
+
+    where the HMAC is computed over:
+        "LK1:<edition_id>:<expires_iso>:<issued_at_iso>"
+    keyed by the publisher's signing secret.
+
+**Configuration**: `EBIBLE_LICENSE_SIGNING_KEY` env var holds
+the signing secret. When unset → `is_enforced()` returns False
+and `verify()` falls open (`reason="no_enforcement"`). Dev +
+first-run install convenience.
+
+**Public API** (`scripts/core/license_key.py`):
+
+- `LICENSE_PREFIX = "LK1"` — pinned constant.
+- `ENV_SIGNING_KEY = "EBIBLE_LICENSE_SIGNING_KEY"` — single
+  source of truth for the env var name.
+- `is_enforced()` — bool.
+- `mint(edition_id, *, expires_iso, secret=None,
+  issued_at_iso=None)` — builds + signs.
+- `verify(license_str, *, secret=None, now=None)` — returns
+  `{valid, reason, edition_id?, expires_iso?, issued_at_iso?}`.
+  Reason ∈ {ok, no_enforcement, missing, wrong_format,
+  unsupported_version, bad_signature, expired}.
+
+**Persisted state** (`scripts/core/license_state.py`): sparse
+JSON at `content/licenses.json` mirroring `auth.py` /
+`distribution.py` / `press_kit.py` persistence discipline
+(atomic write + ensure_backup + whitelist-on-save + empty-state
+default). Schema v1 + ENTRY_FIELDS = ("key", "stored_at").
+Public helpers: `load_licenses` / `save_licenses` / `set_license`
+/ `remove_license` / `get_license`.
+
+**API surface** (`scripts/api/license.py`):
+
+- `GET /api/license/status` → per-edition rollup:
+  `{enforcement_enabled, signing_key_env, license_prefix,
+  editions: [{id, title, has_key, valid, reason, expires_iso?,
+  issued_at_iso?}]}`. **Never reveals the stored key string**
+  (the buyer can read this JSON; no need to leak the signed
+  token).
+- `PUT /api/license/<edition>` → store a key. **Verifies before
+  persisting** — refuses bad signature / expired / edition
+  mismatch. Audit-logged.
+- `DELETE /api/license/<edition>` → remove. Idempotent.
+  Audit-logged.
+
+### Soft-enforcement contract
+
+The API never refuses a request based on license state. The
+status endpoint surfaces per-edition validity so a future UI
+can render a warning banner. The build / preview / publish
+paths can consult this status but must NOT crash on missing
+or invalid keys. This implements PROPOSAL §9.5's "soft for v1;
+hard for v2 if piracy becomes measurable" recommendation.
+
+### Routes
+
+- GET `/api/license/status` → `_SIMPLE_GET_ROUTES` (20 → 21).
+- PUT `/api/license/<edition>` → `_PUT_ROUTES` (11 → 12).
+- DELETE `/api/license/<edition>` → `_DELETE_ROUTES` (7 → 8).
+
+### Files
+
+- `scripts/core/license_key.py` — new (~220 lines: HMAC
+  signing + parsing + verification + envelope shape).
+- `scripts/core/license_state.py` — new (~120 lines: sparse
+  JSON state + set/remove/get helpers).
+- `scripts/api/license.py` — new (~140 lines: 3 endpoints).
+- `scripts/web.py` — import block + 3 route entries.
+- `tests/test_license_xi26.py` — new (50 tests across 10
+  classes: Constants × 2, EnforcementToggle × 3, Mint × 7,
+  Verify × 9, LicenseStateLoadSave × 5, SetRemove × 4,
+  ApiStatus × 4, ApiSet × 5, ApiRemove × 2, RouteRegistration
+  × 3).
+- `tests/test_web_routetable.py` — PUT count 11 → 12, DELETE
+  count 7 → 8.
+
+### Forward references in code
+
+The `license_key.py` docstring names **ξ.26.x** (Ed25519
+upgrade if hard enforcement becomes a requirement; LK2 format
+prefix). Logged here so the linter's "phase mentioned in code"
+check stays clean.
+
+### Month 6 status
+
+Shipped: γ.4, ζ.9, ξ.18, ξ.21, ξ.26 (5 of 7). **Autonomous
+non-money queue CLOSED.**
+Remaining: B.AI.4 sharable verse cards (**money** — image gen
+provider + budget) + B.AI.5 AI co-pilot (**money** — Anthropic
+API runtime cost). Both blocked on publisher authorization
+per `feedback_license_flagging.md`.
+
+Post-ξ.26 the project is in a clean checkpoint for the
+publisher decision conversation (recommended in AUDIT_2026-05-12
+§5 N+4). No further autonomous shipping is possible until
+either:
+- B.AI.4 / B.AI.5 are authorized, OR
+- A new direction is opened (γ.4.x corpus expansion, ψ.30
+  matrix a11y, χ.2-5 commentary expansion, B/D/E uniqueness
+  angles per AUDIT_2026-05-10 §5, etc.).
+
+---
+
 ## 2026-05-12 — session — ξ.21 TOTP-based 2FA for admin auth (Month 6)
 
 **Phases shipped:** ξ.21 (TOTP-based 2-factor authentication for

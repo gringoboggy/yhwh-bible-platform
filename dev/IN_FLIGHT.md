@@ -4,6 +4,73 @@
 
 ## Prior task
 
+**ξ.26 license-key validation** shipped 2026-05-12. Month 6
+#5 — CLOSES the autonomous non-money queue. HMAC-SHA256
+substituted for PROPOSAL-spec'd Ed25519 (stdlib-first
+invariant § 6.3 forbids the `cryptography` library; soft
+enforcement per § 9.5 doesn't justify asymmetric crypto; LK2
+format prefix reserved for ξ.26.x Ed25519 upgrade if hard
+enforcement ever required).
+
+Three pieces:
+- `scripts/core/license_key.py` — `LICENSE_PREFIX = "LK1"`;
+  `ENV_SIGNING_KEY = "EBIBLE_LICENSE_SIGNING_KEY"`;
+  `is_enforced()` reads the env var (fail-open when unset for
+  dev / first-run convenience); `mint(edition_id, *,
+  expires_iso, secret=None, issued_at_iso=None)` builds the
+  LK1 string + HMAC-SHA256 signature; `verify(license_str, *,
+  secret=None, now=None)` returns an envelope with reason ∈
+  {ok, no_enforcement, missing, wrong_format,
+  unsupported_version, bad_signature, expired}. Constant-time
+  signature compare via hmac.compare_digest. Format prefix
+  reserved for LK2 (Ed25519) future upgrade.
+- `scripts/core/license_state.py` — sparse JSON state at
+  content/licenses.json mirroring auth.py / distribution.py /
+  press_kit.py persistence discipline (atomic write +
+  ensure_backup + whitelist-on-save + empty-state default).
+  set_license / remove_license / get_license / load /
+  save helpers.
+- `scripts/api/license.py` — 3 endpoints: GET
+  /api/license/status returns per-edition rollup with
+  has_key + valid + reason; PUT /api/license/<edition>
+  verifies BEFORE persisting (refuses bad signature / expired
+  / edition mismatch so bad keys don't get stuck in state);
+  DELETE /api/license/<edition> idempotent. Audit-logged.
+  Status endpoint NEVER reveals the stored key string.
+
+Soft-enforcement contract pinned: API never refuses a request
+based on license state; status endpoint surfaces validity so
+future UI can render warning banner; build/preview/publish
+paths must not crash on missing or invalid keys.
+
+Routes registered: GET /api/license/status →
+_SIMPLE_GET_ROUTES (20→21); PUT /api/license/<edition> →
+_PUT_ROUTES (11→12); DELETE /api/license/<edition> →
+_DELETE_ROUTES (7→8). Count tests bumped on both PUT + DELETE.
+
+**+43 tests** in tests/test_license_xi26.py (44 cases in file; 1 deselected at collection):
+TestXi26Constants × 2, EnforcementToggle × 3, Mint × 7,
+Verify × 9 (round-trip, bad sig, expired, wrong secret,
+unsupported version, malformed, missing, fail-open, now
+injection), LicenseStateLoadSave × 5, SetRemove × 4,
+ApiStatus × 4 (incl never-reveals-stored-key pin),
+ApiSet × 5, ApiRemove × 2, RouteRegistration × 3.
+
+**3134 / 3135 tests pass serially (1 skipped); 11/11 lint
+clean.**
+
+Forward reference: ξ.26.x Ed25519 upgrade for hard
+enforcement (LK2 format prefix; verify() dispatches on
+prefix for side-by-side migration). Logged in CHANGELOG so
+linter phase-mentions check stays clean.
+
+**Month 6 status: autonomous non-money queue CLOSED.**
+Remaining work blocked on publisher decision: B.AI.4 +
+B.AI.5 money items, or new direction (γ.4.x / ψ.30 / χ.2-5 /
+uniqueness angles B/D/E).
+
+## Prior task
+
 **ξ.21 TOTP-based 2FA for admin auth** shipped 2026-05-12.
 Month 6 #4 — stdlib-only RFC 6238 implementation (no pyotp
 dep) + persisted enrollment + admin-auth gate extension.
