@@ -1,6 +1,47 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ε.3 sales
+**Updated 2026-05-11 / late session**: **ε.6 distribution
+checklist shipped — Month 5 #5 (5 of 7).** New
+`scripts/core/distribution.py` (DISTRIBUTION_CHANNELS =
+kdp/apple/google/archive_org/own_site; sparse-store JSON at
+`content/distribution.json`; load/save with atomic write +
+backup snapshot + stale-field stripping; mark_shipped /
+mark_unshipped helpers with shipped_at preservation; rollup
+composes full-edition grid + per-channel coverage % + overall
+coverage) + new `scripts/api/distribution.py` (3 endpoints:
+api_distribution_list GET, api_distribution_mark PUT with
+edition-existence validation, api_distribution_unmark DELETE
+with idempotent semantics) + /exec extended with the
+distribution checklist section (editable per-cell grid, click
+toggles via PUT/DELETE through the route table, ζ.6 toast on
+result, coverage line beneath). Per-edition × per-channel grid
+deliberately broader than ε.3's sales-only channels —
+archive.org and own_site count as distribution surfaces even
+though they have no sales reports. Routes: GET /api/distribution
+added to _SIMPLE_GET_ROUTES; PUT /api/distribution/<edition>
+added to _PUT_ROUTES (count 9→10); DELETE
+/api/distribution/<edition>/<channel> added to _DELETE_ROUTES
+(count 6→7). **+41 tests** in
+`tests/test_distribution_epsilon6.py` (11 classes covering
+constants, load/save, mark/unmark idempotence and
+shipped_at-preservation, is_shipped predicate, rollup math,
+three API endpoints, template grid + JS, route registration,
+and a full PUT→GET→DELETE round-trip). **2885 / 2886 tests
+pass serially (1 skipped); 11/11 lint clean.** Net session
+test delta from ψ.36-A baseline: **+632** across 27 ships.
+
+Month 5 remaining (2 items): ε.7 press kit auto-build,
+ο.4 archive.org auto-upload. All non-money.
+
+Natural ε.7 / ο.4 follow-ons logged in CHANGELOG: ε.7 (press
+kit consumes per-channel shipped state to decide which formats
+to package); ο.4 (archive.org auto-upload auto-marks the
+`archive_org` cell on successful push, closing the manual-
+toggle loop for that channel).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ε.3 sales
 import shipped — Month 5 #4 (4 of 7).** New
 `scripts/core/sales.py` (per-channel CSV parsers for
 KDP / Apple Books / Google Play Books + edition

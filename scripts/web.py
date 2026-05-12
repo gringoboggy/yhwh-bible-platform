@@ -1897,6 +1897,11 @@ from scripts.api.sales import (
     api_sales_import,
     api_sales_rollup,
 )
+from scripts.api.distribution import (
+    api_distribution_list,
+    api_distribution_mark,
+    api_distribution_unmark,
+)
 
 CORPUS_TARGET = 35_000
 
@@ -3341,6 +3346,8 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     ("/api/exec", api_exec_dashboard),
     # ε.3 — sales rollup: per-channel + per-edition + MTD totals.
     ("/api/sales/rollup", api_sales_rollup),
+    # ε.6 — distribution checklist: per-edition × per-channel grid.
+    ("/api/distribution", api_distribution_list),
 ]
 
 
@@ -3466,6 +3473,12 @@ _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
         re.compile(r"^/api/edition-meta/([a-z0-9-]+)$"),
         lambda m, payload: api_save_edition_meta(m.group(1), payload),
     ),
+    # ε.6 — /api/distribution/<edition> — mark a channel shipped.
+    # Payload: {channel: <id>, url?, isbn?, notes?, shipped_at?}.
+    (
+        re.compile(r"^/api/distribution/([a-z0-9-]+)$"),
+        lambda m, payload: api_distribution_mark(m.group(1), payload),
+    ),
     # ω.35-A.10 — /api/editions/from-template — uses status==ok|error
     # shape. Standard helper covers it via status==error → http
     # envelope and fall-through 200.
@@ -3516,6 +3529,12 @@ _DELETE_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (
         re.compile(r"^/api/sources/cache/([a-z0-9_-]+)$"),
         lambda m: api_sources_cache_clear(m.group(1)),
+    ),
+    # ε.6 — /api/distribution/<edition>/<channel> — unmark shipped.
+    # Idempotent (already-absent returns ok:True, removed:False).
+    (
+        re.compile(r"^/api/distribution/([a-z0-9-]+)/([a-z_]+)$"),
+        lambda m: api_distribution_unmark(m.group(1), m.group(2)),
     ),
 ]
 

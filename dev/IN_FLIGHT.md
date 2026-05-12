@@ -4,6 +4,60 @@
 
 ## Prior task
 
+**ε.6 distribution checklist** shipped 2026-05-11. Month 5 #5
+— per-edition × per-channel shipped-to grid on /exec with
+editable cells, coverage % rollup, atomic JSON persistence.
+
+Three pieces:
+- `scripts/core/distribution.py` — `DISTRIBUTION_CHANNELS =
+  ("kdp", "apple", "google", "archive_org", "own_site")`;
+  `CHANNEL_LABELS` for UI; `SCHEMA_VERSION = 1`; `ENTRY_FIELDS`
+  whitelist; sparse JSON storage at `content/distribution.json`
+  (machine-managed, sibling to `content/sources/*.json`);
+  `load_distribution()` with empty-state default for missing /
+  malformed file; `save_distribution(state)` normalizes (drops
+  unknown channels + entry fields from stale clients) then
+  atomic-writes with `ensure_backup`; `is_shipped`,
+  `edition_channels` predicates; `mark_shipped(edition_id,
+  channel_id, *, url, isbn, notes, shipped_at)` preserves
+  existing `shipped_at` on re-mark unless overridden;
+  `mark_unshipped` idempotent + prunes empty edition rows so
+  JSON stays sparse; `rollup(state, editions)` returns
+  UI-friendly view with per-channel coverage % + overall
+  coverage, one row per edition (even editions with zero
+  shipped channels).
+- `scripts/api/distribution.py` — `api_distribution_list()` GET
+  composes load_distribution + load_editions;
+  `api_distribution_mark(edition_id, payload)` PUT validates
+  edition against `config.load_editions()` (catches typos),
+  validates channel, calls mark_shipped, audit-logged;
+  `api_distribution_unmark(edition_id, channel_id)` DELETE
+  validates channel, calls mark_unshipped (idempotent —
+  already-absent returns ok:True, removed:False), audit-logged.
+- /exec extended — distribution-checklist section with editable
+  grid (rows = editions, cols = 5 channels), JS
+  `renderDistribution(rollup)` + `onDistributionCellClick(e)` +
+  `loadDistribution()`. Click toggles PUT/DELETE through route
+  table with ζ.6 toast on result; cell opacity=0.5 during
+  in-flight request. Coverage line beneath grid shows overall
+  % + per-channel %.
+
+Routes registered: GET `/api/distribution` joined
+`_SIMPLE_GET_ROUTES`; PUT `/api/distribution/<edition>` joined
+`_PUT_ROUTES` (count test 9→10); DELETE
+`/api/distribution/<edition>/<channel>` joined `_DELETE_ROUTES`
+(count test 6→7).
+
+**+41 tests** in `tests/test_distribution_epsilon6.py`:
+TestEpsilon6Constants × 4, LoadSave × 5, MarkUnmark × 8,
+IsShipped × 3, Rollup × 6, ApiList × 1, ApiMark × 4,
+ApiUnmark × 3, ExecTemplateGrid × 3, RouteRegistration × 3,
+FullRoundTrip × 1.
+
+**2885 / 2886 tests pass serially (1 skipped); 11/11 lint clean.**
+
+## Prior task
+
 **ε.3 sales import** shipped 2026-05-11. Month 5 #4 — CSV
 upload of KDP / Apple Books / Google Play Books reports
 + per-edition revenue rollup + new sixth `sales_mtd`

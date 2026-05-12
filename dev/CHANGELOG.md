@@ -6,6 +6,162 @@
 
 ---
 
+## 2026-05-11 — session — ε.6 distribution checklist (Month 5 #5; 5 of 7 ships)
+
+**Phases shipped:** ε.6 (distribution channel checklist — per-edition
+× per-channel shipped-to grid on /exec with editable cells, coverage
+% rollup, and atomic JSON persistence).
+**Test delta:** +41 (2844 → 2885; 1 still skipped).
+**Linter delta:** 11/11 clean (17 cross-linked consoles unchanged).
+
+### ε.6 — Distribution channel checklist
+
+Per the proposal spec: "Per-edition: which channels (KDP, Apple,
+Google, archive.org, your site) has it shipped to. Visible in
+/exec." Editable grid below the existing tiles + sales rollup;
+single click toggles shipped/unshipped per cell with ζ.6 toast
+on result.
+
+**Channels** (`DISTRIBUTION_CHANNELS`): kdp, apple, google,
+archive_org, own_site. Deliberately broader than ε.3's sales
+channels — archive.org and own_site don't have sales reports
+but ARE real distribution surfaces the publisher needs to
+track.
+
+**Storage** — `content/distribution.json` (machine-managed
+JSON; sibling to `content/sources/*.json`). Sparse schema:
+missing edition / missing channel = not shipped (no explicit
+`false` flag stored). Atomic write via `notes_io.atomic_write`
+with `ensure_backup` snapshot so a partial write can never
+leave the file half-mutated.
+
+**Schema (v1)**:
+
+```
+{
+  "schema_version": 1,
+  "editions": {
+    "<edition_id>": {
+      "<channel_id>": {
+        "shipped_at": "<iso-8601 utc>",
+        "url": "<optional>",
+        "isbn": "<optional>",
+        "notes": "<optional>"
+      }
+    }
+  }
+}
+```
+
+**Public API** (`scripts/core/distribution.py`):
+
+- `DISTRIBUTION_CHANNELS`, `CHANNEL_LABELS`, `SCHEMA_VERSION`,
+  `ENTRY_FIELDS` — pinned constants. `ENTRY_FIELDS` is the
+  whitelist `save_distribution` enforces; unknown fields from
+  stale clients are dropped on save.
+- `load_distribution()` — empty-state default for missing /
+  malformed file (no per-call error handling needed by callers).
+- `save_distribution(state)` — normalizes (drops unknown
+  channels + entry fields) then atomic-writes with backup.
+- `is_shipped(state, edition_id, channel_id)` — bool predicate.
+- `edition_channels(state, edition_id)` — per-channel dict.
+- `mark_shipped(edition_id, channel_id, *, url=None, isbn=None,
+  notes=None, shipped_at=None)` — preserves existing `shipped_at`
+  on re-mark unless overridden; merges optional fields without
+  dropping prior ones; raises ValueError on unknown channel.
+- `mark_unshipped(edition_id, channel_id)` — idempotent;
+  returns True iff something was removed; prunes the edition
+  row when no channels remain so the JSON stays sparse.
+- `rollup(state, editions)` — UI-friendly view: per-edition
+  channel grid + per-channel coverage % + overall coverage.
+  Always returns one row per edition in the canonical list,
+  even editions with zero shipped channels.
+
+### API surface
+
+`scripts/api/distribution.py`:
+
+- `api_distribution_list()` — GET; payload
+  `{status, rollup, schema_version}`. Read-only.
+- `api_distribution_mark(edition_id, payload)` — PUT; validates
+  edition against `config.load_editions()` (catches typos so the
+  publisher can't mark non-existent editions), validates channel
+  against `DISTRIBUTION_CHANNELS`, calls `mark_shipped` with
+  optional `url`/`isbn`/`notes`/`shipped_at` from payload.
+  Audit-logged.
+- `api_distribution_unmark(edition_id, channel_id)` — DELETE;
+  validates channel, calls `mark_unshipped`. Audit-logged.
+  Unknown edition is NOT an error (the entry simply doesn't
+  exist — idempotent semantics).
+
+### /exec distribution section
+
+`scripts/templates/exec.py::EXEC_HTML` extended with:
+
+- Section header + p-tag explainer.
+- `<table id="distribution-table">` with `id="distribution-thead-row"`
+  (first cell is "Edition", JS appends one `<th>` per channel
+  on each render so future channel additions flow through
+  without template churn).
+- `<tbody id="distribution-tbody">` — JS renders one row per
+  edition with click-to-toggle cells. Cell text = "✓" / "·";
+  title attribute shows `Shipped <date> — click to unmark` or
+  `Not shipped — click to mark`.
+- `<div id="distribution-coverage-line">` — overall coverage +
+  per-channel coverage line beneath the grid.
+- JS: `renderDistribution(rollup)` + `onDistributionCellClick(e)`
+  + `loadDistribution()`. Toggle PUTs `{channel}` JSON to
+  `/api/distribution/<edition>` or DELETEs
+  `/api/distribution/<edition>/<channel>`; refreshes via
+  `loadDistribution()` after each success; ζ.6 toast on
+  success/failure; cell `opacity=0.5` during in-flight request.
+
+### Routes
+
+- GET `/api/distribution` → `_SIMPLE_GET_ROUTES`
+- PUT `/api/distribution/<edition>` → `_PUT_ROUTES` (count
+  bumped 9 → 10)
+- DELETE `/api/distribution/<edition>/<channel>` → `_DELETE_ROUTES`
+  (count bumped 6 → 7)
+
+### Files
+
+- `scripts/core/distribution.py` — new (~280 lines: constants,
+  load/save, mark/unmark, is_shipped, rollup).
+- `scripts/api/distribution.py` — new (~130 lines: 3 endpoints
+  with edition+channel validation and audit-logging).
+- `scripts/templates/exec.py` — extended docstring, added
+  distribution checklist section + 3 JS helpers + `loadDistribution()`
+  initial-load call.
+- `scripts/web.py` — `from scripts.api.distribution import …`;
+  `/api/distribution` added to `_SIMPLE_GET_ROUTES`;
+  `/api/distribution/<edition>` added to `_PUT_ROUTES`;
+  `/api/distribution/<edition>/<channel>` added to `_DELETE_ROUTES`.
+- `tests/test_distribution_epsilon6.py` — new (41 tests across
+  11 classes: Constants × 4, LoadSave × 5, MarkUnmark × 8,
+  IsShipped × 3, Rollup × 6, ApiList × 1, ApiMark × 4,
+  ApiUnmark × 3, ExecTemplateGrid × 3, RouteRegistration × 3,
+  FullRoundTrip × 1).
+- `tests/test_web_routetable.py` — DELETE route-count test
+  bumped 6 → 7; PUT route-count test bumped 9 → 10.
+
+### Forward references in code
+
+The api/template docstrings name **ε.7** (press kit auto-build
+can consult per-channel shipped state to know which formats to
+package), **ο.4** (archive.org auto-upload auto-marks the
+`archive_org` cell on successful push), and the optional future
+"channels to ship to" surface in /publisher. Logged here so the
+linter's "phase mentioned in code" check stays clean.
+
+### Month 5 status
+
+Shipped: Δ.15, ε.1, ε.2, ε.3, ε.6 (5 of 7).
+Remaining: ε.7 press kit auto-build, ο.4 archive.org
+auto-upload. All non-money.
+
+---
+
 ## 2026-05-11 — session — ε.3 sales import (Month 5 #4; 4 of 7 ships)
 
 **Phases shipped:** ε.3 (sales import + revenue rollup — three

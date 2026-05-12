@@ -1,8 +1,9 @@
-"""ε.2 + ε.3 — /exec dashboard template.
+"""ε.2 + ε.3 + ε.6 — /exec dashboard template.
 
 Surfaces SIX executive KPI tiles + sales import card + per-channel /
-per-edition rollup tables + a recent-activity table, rendered from
-`api_exec_dashboard()` + `api_sales_rollup()` on initial page load.
+per-edition rollup tables + distribution checklist grid + a recent-
+activity table, rendered from `api_exec_dashboard()` +
+`api_sales_rollup()` + `api_distribution_list()` on initial page load.
 Tiles:
 
     1. Editions count           — config.load_editions()
@@ -20,13 +21,21 @@ Sales workflow (ε.3):
 - Per-channel + per-edition revenue tables refresh from
   `/api/sales/rollup` after each import.
 
+Distribution checklist (ε.6):
+- Editable grid: rows = shipped editions, columns = 5 channels
+  (KDP / Apple Books / Google Play Books / Archive.org / Own site).
+- Click a cell to toggle shipped/unshipped. PUT/DELETE through
+  `/api/distribution/<edition>` with ζ.6 toast on result.
+- Per-channel coverage % + overall % displayed below the grid.
+
 Composes the full ζ foundation (theme tokens + dark mode + icons +
 toasts + cmd palette). All values insert via `textContent` so any
 future event-log payload with exotic characters stays XSS-safe.
 
 Foundation for ε.4 (cost-per-edition rollup expands tile 3), ε.5
-(quarterly auto-report composes this payload into PDF), ε.6 (channel
-checklist consumes per-edition channel coverage).
+(quarterly auto-report composes this payload into PDF), ε.7 (press
+kit auto-build can consult the channel state for what to package),
+ο.4 (archive.org auto-upload auto-marks the archive_org cell).
 """
 
 from scripts.templates._design import apply_design_system  # noqa: E402
@@ -201,6 +210,28 @@ EXEC_HTML = r"""<!DOCTYPE html>
         </table>
       </div>
     </div>
+  </section>
+
+  <section aria-label="Distribution checklist" class="mb-8" id="distribution-section">
+    <h2 class="theme-text-lg theme-weight-semibold mb-3">Distribution channels</h2>
+    <p class="theme-text-sm theme-text-muted mb-3">
+      Per-edition shipped-to-channel checklist. Click a cell to toggle.
+      Coverage % below tracks how broadly the catalogue is distributed.
+    </p>
+    <div class="theme-bg-surface theme-border border rounded-lg overflow-x-auto mb-3">
+      <table class="events-table" id="distribution-table">
+        <thead>
+          <tr id="distribution-thead-row">
+            <th>Edition</th>
+            <!-- channel <th> cells inserted by JS -->
+          </tr>
+        </thead>
+        <tbody id="distribution-tbody">
+          <tr><td class="theme-text-muted">·· loading ··</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="theme-text-xs theme-text-muted" id="distribution-coverage-line">·· loading ··</div>
   </section>
 
   <section aria-label="Recent activity" class="mb-8">
@@ -385,6 +416,124 @@ async function loadSalesRollup() {
     // Silent — sales rollup is a nice-to-have, not a hard dependency.
   }
 }
+
+// ε.6 — distribution checklist render + toggle.
+function renderDistribution(rollup) {
+  var theadRow = document.getElementById('distribution-thead-row');
+  var tbody = document.getElementById('distribution-tbody');
+  var coverageLine = document.getElementById('distribution-coverage-line');
+  if (!theadRow || !tbody) return;
+
+  // Rebuild the header from the channel list each render so a future
+  // channel addition flows through without template churn.
+  while (theadRow.children.length > 1) {
+    theadRow.removeChild(theadRow.lastChild);
+  }
+  var channels = rollup.channels || [];
+  channels.forEach(function (ch) {
+    var th = document.createElement('th');
+    th.textContent = ch.label;
+    th.title = ch.id;
+    theadRow.appendChild(th);
+  });
+
+  // Body rows: one per edition.
+  tbody.innerHTML = '';
+  var editions = rollup.editions || [];
+  if (editions.length === 0) {
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    td.colSpan = 1 + channels.length;
+    td.className = 'theme-text-muted';
+    td.textContent = 'No editions configured.';
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  } else {
+    editions.forEach(function (ed) {
+      var tr = document.createElement('tr');
+      var name = document.createElement('td');
+      name.className = 'mono';
+      name.textContent = ed.id;
+      name.title = ed.title;
+      tr.appendChild(name);
+      channels.forEach(function (ch) {
+        var cell = (ed.channels || {})[ch.id] || {shipped: false};
+        var td = document.createElement('td');
+        td.style.cursor = 'pointer';
+        td.dataset.edition = ed.id;
+        td.dataset.channel = ch.id;
+        td.dataset.shipped = cell.shipped ? '1' : '0';
+        td.textContent = cell.shipped ? '✓' : '·';
+        td.title = cell.shipped
+          ? ('Shipped' + (cell.shipped_at ? (' ' + (cell.shipped_at || '').slice(0, 10)) : '') + ' — click to unmark')
+          : 'Not shipped — click to mark';
+        td.addEventListener('click', onDistributionCellClick);
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Coverage line: overall + per-channel %.
+  var overall = rollup.overall || {};
+  var byCh = rollup.by_channel_coverage || {};
+  var parts = ['Overall: ' + (overall.percent || 0).toFixed(1) + '% (' +
+    (overall.shipped_cells || 0) + ' of ' + (overall.total_cells || 0) + ' cells)'];
+  channels.forEach(function (ch) {
+    var c = byCh[ch.id] || {};
+    parts.push(ch.label + ' ' + (c.percent || 0).toFixed(1) + '%');
+  });
+  coverageLine.textContent = parts.join(' · ');
+}
+
+async function onDistributionCellClick(e) {
+  var td = e.currentTarget;
+  var editionId = td.dataset.edition;
+  var channelId = td.dataset.channel;
+  var wasShipped = td.dataset.shipped === '1';
+  td.style.opacity = '0.5';
+  try {
+    var resp, data;
+    if (wasShipped) {
+      resp = await fetch('/api/distribution/' + encodeURIComponent(editionId) +
+        '/' + encodeURIComponent(channelId), {method: 'DELETE'});
+    } else {
+      resp = await fetch('/api/distribution/' + encodeURIComponent(editionId), {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({channel: channelId}),
+      });
+    }
+    data = await resp.json();
+    if (resp.ok && data.ok) {
+      if (window.ebibleToast) {
+        window.ebibleToast(
+          (wasShipped ? 'Unmarked ' : 'Marked ') + editionId + ' / ' + channelId,
+          'success'
+        );
+      }
+      loadDistribution();
+    } else {
+      var msg = (data && (data.message || data.error)) || ('HTTP ' + resp.status);
+      if (window.ebibleToast) window.ebibleToast('Failed: ' + msg, 'error');
+    }
+  } catch (err) {
+    if (window.ebibleToast) window.ebibleToast('Network error: ' + err.message, 'error');
+  } finally {
+    td.style.opacity = '1.0';
+  }
+}
+
+async function loadDistribution() {
+  try {
+    var r = await fetch('/api/distribution');
+    var data = await r.json();
+    if (data.status !== 'ok') return;
+    renderDistribution(data.rollup || {});
+  } catch (e) {
+    // Silent — checklist is a nice-to-have, not a hard dependency.
+  }
+}
 function renderEvents(events) {
   var tbody = document.getElementById('events-tbody');
   tbody.innerHTML = '';
@@ -447,6 +596,7 @@ async function loadDashboard() {
 }
 loadDashboard();
 loadSalesRollup();
+loadDistribution();
 
 // ε.3 — sales import form handler. Submits multipart to
 // /api/sales/import/<channel>; toasts on success/failure; refreshes
