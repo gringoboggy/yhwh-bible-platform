@@ -72,7 +72,7 @@ Two complementary goals:
 - Content depth that beats every free Bible app's free tier
   (Hebrew/Greek interlinear, patristic commentary, Targums, DSS
   variants, critical apparatus).
-- AI features that feel like magic (verse cards, co-pilot,
+- AI features that feel like magic (co-pilot,
   daily devotional curation).
 - Reader features that compete with paid apps (memorization
   spaced-repetition, audio-sync, sharable cards).
@@ -308,7 +308,7 @@ for cross-reference + dependency linkage:
 | B.AI.1 | Main cover AI generation MVP | publisher decisions | 1.5 | M | OpenAI gpt-image-1 + budget gate + /covers integration. |
 | B.AI.2 | Per-book cover AI generation | B.AI.1 | 1.5 | M | + `content/_ai_prompts.yaml` template system. |
 | B.AI.3 | Second provider (Stability AI) | B.AI.1 | 1 | M | Provider-agnostic abstraction validation. |
-| B.AI.4 | Sharable verse cards | B.AI.1, ζ.4 | 1.5 | M | Long-press verse → "share as 1080×1080 image with AI background + typography." Massive social distribution lever. |
+| ~~B.AI.4~~ | ~~Sharable verse cards~~ | — | — | — | **REMOVED 2026-05-12** per publisher direction. The social-distribution lever is out of scope for this product. Slot intentionally left vacant in the B.AI.* numbering to preserve historical references; do NOT re-use the slot. |
 | B.AI.5 | AI co-pilot (Cmd+J anywhere) | ζ.8 | 2 | M | "What does this do?" or "Create a scenario where only rabbinic + patristic kinds are enabled." Uses existing Anthropic key. |
 | B.AI.6 | Daily devotional auto-curation | χ.11, δ.9 | 1.5 | M | AI picks today's verse based on liturgical calendar + reader history. Emails it. |
 | B.AI.7 | Marketing copy generator | B.AI.5 | 1 | S | Given an edition's metadata, draft Amazon/Apple Books product copy. |
@@ -426,10 +426,10 @@ within each chain; cross-chain arrows are shown explicitly.
 
   PROPOSAL_AI_ARTWORK:
     B.AI.1 main cover ──→ B.AI.2 per-book ──→ π.6 cover composer
-         │                     │                 │
-         │                     └─→ B.AI.4 verse cards
-         │                                │
-         │                                └─→ social distribution
+         │                     │
+         │                     │
+         │
+         │
          │
          └─→ B.AI.3 2nd provider (parallel)
 
@@ -527,14 +527,14 @@ publisher. Workflow accelerates measurably.
 **End-of-month state**: business is legible. Shipping an edition
 to 4 channels takes minutes.
 
-### Month 6 — Hardening + the "amazing" tier (≈ 7 sessions)
-1. **B.AI.4** Sharable verse cards
-2. **B.AI.5** AI co-pilot (Cmd+J)
-3. **ζ.9** First-run tour
-4. **γ.4** Ethiopian Orthodox commentary kind (flagship payload)
-5. **ξ.18** CSP nonces
-6. **ξ.21** 2FA for admin auth
-7. **ξ.26** License key validation
+### Month 6 — Hardening + the "amazing" tier (≈ 6 sessions; reduced from 7)
+~~1. **B.AI.4** Sharable verse cards~~ — **REMOVED 2026-05-12.**
+1. **B.AI.5** AI co-pilot (Cmd+J)
+2. **ζ.9** First-run tour ✓ shipped 2026-05-12
+3. **γ.4** Ethiopian Orthodox commentary kind (flagship payload) ✓ shipped 2026-05-12
+4. **ξ.18** CSP nonces ✓ shipped 2026-05-12
+5. **ξ.21** 2FA for admin auth ✓ shipped 2026-05-12
+6. **ξ.26** License key validation ✓ shipped 2026-05-12
 
 **End-of-month state**: visible "amazing" features ship. Security
 hardened. First commercial release-ready.
@@ -565,7 +565,7 @@ broader plan. Listed here so they don't get forgotten.
 | LanguageTool client | `scripts/core/languagetool.py` | π.10 | ◯ open | Grammar check via the LanguageTool HTTP API or local server |
 | SM-2 spaced-repetition engine | `scripts/core/sm2.py` | δ.3 | ◯ open | ~50 lines; per-card review intervals |
 | AI co-pilot router | `scripts/core/copilot.py` | B.AI.5 | ◯ open | Wraps Anthropic API + intent classification |
-| Verse-card renderer | `scripts/core/verse_card.py` | B.AI.4 | ◯ open | Composite AI bg + typography into 1080×1080 PNG |
+| ~~Verse-card renderer~~ | ~~`scripts/core/verse_card.py`~~ | ~~B.AI.4~~ | **REMOVED 2026-05-12** | — |
 | Icon pipeline | `scripts/build_icons.py` | PROPOSAL_AI_ARTWORK §6 | ◯ open | .ico + .icns + favicon derivation |
 | Build-icons stub | `scripts/build_icons_stub.py` (placeholder) | now | ◯ optional | Empty scaffold; surfaces the gap until the user provides the master PNG |
 
@@ -611,8 +611,8 @@ Before greenlighting tracks, please confirm:
 ### 9.3 AI feature priority (Month 4-6)
 - Confirm B.AI.1-2 from PROPOSAL_AI_ARTWORK first; B.AI.5
   (co-pilot) follows in Month 6.
-- B.AI.4 sharable verse cards: Instagram/Twitter aspect ratios
-  (1080×1080 + 1080×1920 for Stories)?
+- ~~B.AI.4 sharable verse cards: Instagram/Twitter aspect ratios~~
+  — **REMOVED 2026-05-12** per publisher direction.
 
 ### 9.4 Distribution channels (Month 5)
 - Which channels to prioritize? Recommended: KDP first (largest
@@ -695,8 +695,7 @@ must be observable:
       indexed.
 - [ ] AI cover generation produces 3 acceptable variants in <30s.
 - [ ] AI co-pilot (Cmd+J) responds in <5s.
-- [ ] Sharable verse cards generate in <8s; output is
-      visually distinctive per book.
+- ~~[ ] Sharable verse cards generate in <8s~~ — **REMOVED 2026-05-12**.
 - [ ] /exec dashboard renders in <2s with the last 90 days of
       KPI history.
 - [ ] At least 5 of: Hebrew interlinear, Greek interlinear,

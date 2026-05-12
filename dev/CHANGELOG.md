@@ -6,6 +6,132 @@
 
 ---
 
+## 2026-05-12 — session — π-book-covers ingest + B.AI.4 removed (content + doc-only)
+
+**Phases shipped:** none (content ingest + scope-reduction
+doc edit). Effectively a "π.4-D-book-defaults" sub-phase
+extending the existing π.4 cover system with a shared cover
+inventory; not numbered formally because it adds no code
+surface — only data + YAML wiring.
+**Test delta:** 0 (3134 → 3134; covers/_book_defaults is data,
+not exercised by tests).
+**Linter delta:** 11/11 clean (18 scope addenda unchanged).
+
+### Per-publisher direction
+
+Two scope changes per publisher direction this turn:
+
+1. **Ingest the publisher's curated 66-cover set** from
+   `~/Documents/book_covers/by_book/<NN_BookName>/primary.jpg`
+   into the project as a shared cover inventory.
+2. **Completely remove B.AI.4 sharable verse cards** from
+   PROPOSAL_FEATURE_LANDSCAPE and adjust Month 6 ordering.
+
+### 1. Book covers ingest
+
+The publisher has curated per-book covers for the full
+Protestant 66-book canon (with alt variants stored
+alongside in the source folder). This ingest:
+
+- Copies all 66 `primary.jpg` files into
+  `content/covers/_book_defaults/<book_code>.jpg` (a NEW
+  shared cover inventory).
+- Wires the Ethiopian Tewahedo edition's `book_covers` YAML
+  block in `content/editions.yaml` to point at the shared
+  paths (all 66 entries; the 21 Ethiopic-canon extras —
+  1en, jub, mq1-mq3, 4ba, paz, sus, bel, etc. — are not
+  covered by this ingest and have no per-book covers yet).
+- Adds `content/covers/_book_defaults/README.md` documenting
+  the inventory + how other editions can opt in via their
+  own `book_covers` block.
+
+This exercises the "paths can point anywhere under
+content/" door that `scripts/core/covers.py` explicitly
+documented as the shared-covers-across-editions pattern:
+
+> "The on-disk layout consumers should follow:
+>   content/covers/<edition_id>/main.<ext>
+>   content/covers/<edition_id>/books/<book_code>.<ext>
+> …but this module does not enforce that — paths can point
+> anywhere under `content/` to keep the door open for
+> shared covers across editions later."
+
+Other editions (catholic-study, evangelical-reformed,
+jewish-study, etc.) can opt in by adding their own
+`book_covers:` YAML block pointing at the same shared
+paths, OR by uploading edition-specific overrides via
+the existing `/covers` console.
+
+**Verification**: `covers.decode_book_covers(tewahedo.book_covers)`
+decodes 66 entries; every path resolves to an existing
+file under `content/`.
+
+### 2. B.AI.4 removal — sharable verse cards
+
+Per publisher direction: the social-distribution lever is
+out of scope for this product. Removed from the forward-
+pointing canonical sequence doc
+`dev/PROPOSAL_FEATURE_LANDSCAPE.md`:
+
+- Section 1.2 "amazing = wow moments" bullet updated (verse
+  cards struck through).
+- Section 5 Track B AI table row B.AI.4 marked
+  **REMOVED 2026-05-12** with a strikethrough; the slot
+  is intentionally left vacant to preserve historical
+  numbering (do NOT re-use B.AI.4 for a new feature).
+- Section 5 dependency-graph art updated (B.AI.1 → B.AI.4
+  → social-distribution arc removed).
+- Section 6 Month 6 sequence: B.AI.4 removed; Month 6
+  total reduced from 7 sessions to 6.
+- Section 7 tool catalog: Verse-card renderer
+  (`scripts/core/verse_card.py`) marked REMOVED.
+- Section 9.3 publisher decisions: verse-card aspect-ratio
+  question struck through.
+- Section 11 acceptance criteria: verse-card generation
+  performance pin struck through.
+
+Historical references in `dev/CHANGELOG.md`,
+`dev/IN_FLIGHT.md` prior-task blocks, `dev/SESSION_STATE.md`
+prior-snapshot blocks, and `dev/AUDIT_2026-05-12.md` audit
+corpus snapshot are left as-is — those documents are
+append-only chronological / point-in-time records of when
+B.AI.4 was an active candidate.
+
+**Effect on Month 6 status**: 5 of 6 shipped (γ.4 + ζ.9 +
+ξ.18 + ξ.21 + ξ.26). Only B.AI.5 AI co-pilot remains,
+gated on publisher authorization for Anthropic API runtime
+budget.
+
+### Files
+
+- `content/covers/_book_defaults/{66 .jpg files}` — new.
+- `content/covers/_book_defaults/README.md` — new.
+- `content/editions.yaml` — `book_covers:` block added
+  under `ethiopian-tewahedo` (66 `<code>=<path>` strings);
+  edition `notes` extended.
+- `dev/PROPOSAL_FEATURE_LANDSCAPE.md` — 7 strike-edits
+  removing B.AI.4 / verse-cards references; Month 6
+  recount.
+
+### Why no code change
+
+This ingest uses the existing π.4 cover infrastructure
+exactly as designed. `scripts/core/covers.py::decode_book_covers`
+already handles the new path format; the /api/covers GET
+endpoint already serves any path under content/covers/
+(see ξ.16 SEC-001 magic-byte validation); the /covers
+console UI already renders per-book covers from the
+edition's `book_covers` YAML. The only "missing" workflow
+piece is bulk-assignment (clicking a button on /covers to
+apply the `_book_defaults` set to a different edition);
+that's a future ψ.x slice if needed.
+
+### Forward references in code
+
+None.
+
+---
+
 ## 2026-05-12 — session — ξ.26 license-key validation (Month 6 #5; closes non-money queue)
 
 **Phases shipped:** ξ.26 (HMAC-SHA256 license-key signing +

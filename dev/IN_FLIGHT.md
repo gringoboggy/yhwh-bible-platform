@@ -4,6 +4,57 @@
 
 ## Prior task
 
+**π-book-covers ingest + B.AI.4 removal** shipped 2026-05-12.
+Content + doc-only; no phase number assigned (extends existing
+π.4 cover system; no code surface added). No test delta.
+11/11 lint clean.
+
+Two parts:
+
+1. **Book covers ingest**: copied the publisher's 66-cover
+   curated set from
+   `C:\Users\bogda\Documents\book_covers\by_book\<NN_BookName>\primary.jpg`
+   into `content/covers/_book_defaults/<book_code>.jpg`
+   (Protestant 66-book canon, all books). Wired the Ethiopian
+   Tewahedo edition's `book_covers:` YAML block in
+   content/editions.yaml to reference all 66 shared paths.
+   Added `content/covers/_book_defaults/README.md`
+   documenting the inventory + opt-in pattern for other
+   editions. Exercises the "paths can point anywhere under
+   content/" door that `scripts/core/covers.py` explicitly
+   documented as the shared-covers-across-editions pattern.
+   Ethiopic-canon extras (1en, jub, mq1-3, 4ba, paz, sus,
+   bel, man, 1es, 2es, tob, jdt, wis, bar, lje, sir, aes,
+   etc. — 21 books) not covered by this ingest; future
+   ingest opportunity.
+
+2. **B.AI.4 sharable verse cards removed**: per publisher
+   direction, the social-distribution lever is out of scope.
+   7 strike-edits across `dev/PROPOSAL_FEATURE_LANDSCAPE.md`
+   (§1.2 amazing-features bullet, §5 Track B table row + the
+   dependency-graph art, §6 Month 6 sequence with recount
+   from 7 to 6 sessions, §7 tool catalog, §9.3 publisher
+   decisions, §11 acceptance criteria). Slot B.AI.4
+   intentionally left VACANT in numbering to preserve
+   historical references; do not re-use. Historical mentions
+   in CHANGELOG / prior IN_FLIGHT prior-task blocks / prior
+   SESSION_STATE snapshot blocks / AUDIT_2026-05-12 audit
+   corpus snapshot left as-is — those are append-only
+   point-in-time records.
+
+**Month 6 status post-removal**: 5 of 6 shipped (γ.4 + ζ.9
++ ξ.18 + ξ.21 + ξ.26). Only B.AI.5 AI co-pilot (Cmd+J)
+remains, gated on publisher authorization for Anthropic API
+runtime budget.
+
+**3134 / 3135 tests pass serially (1 skipped); 11/11 lint
+clean.** No code changes; no test changes.
+
+Per-publisher "finish autonomous" direction: continuing to
+the next autonomous item after this ship.
+
+## Prior task
+
 **ξ.26 license-key validation** shipped 2026-05-12. Month 6
 #5 — CLOSES the autonomous non-money queue. HMAC-SHA256
 substituted for PROPOSAL-spec'd Ed25519 (stdlib-first

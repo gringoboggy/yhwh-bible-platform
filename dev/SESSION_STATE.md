@@ -1,6 +1,59 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / Month 6 #5; non-money queue CLOSED**:
+**Updated 2026-05-12 / publisher direction (book covers +
+B.AI.4 removal)**: **Two scope changes per publisher
+direction this turn — both content + doc, no code change,
+no test delta.** (1) Ingested the publisher's curated 66-cover
+set from ~/Documents/book_covers/by_book/<NN_BookName>/primary.jpg
+into content/covers/_book_defaults/<book_code>.jpg
+(Protestant 66-book canon; Ethiopic extras 1en/jub/mq1-3/etc
+not yet covered); wired the Ethiopian Tewahedo edition's
+book_covers YAML block in content/editions.yaml to point at
+all 66 shared paths; added README.md documenting the
+inventory + how other editions opt in. This exercises the
+"paths can point anywhere under content/" door that
+scripts/core/covers.py explicitly documented as the
+shared-covers-across-editions pattern. (2) Completely
+removed B.AI.4 sharable verse cards from
+PROPOSAL_FEATURE_LANDSCAPE.md per publisher direction (7
+strike-edits across section 1.2, section 5 Track B table +
+dependency graph, section 6 Month 6 sequence, section 7
+tool catalog, section 9.3 publisher decisions, section 11
+acceptance criteria); slot B.AI.4 intentionally left vacant
+in numbering to preserve historical references; do NOT
+re-use. Historical references in chronological docs
+(CHANGELOG, prior IN_FLIGHT prior-task blocks, prior
+SESSION_STATE snapshot blocks, AUDIT_2026-05-12 audit
+corpus snapshot) left as-is — those are append-only
+point-in-time records.
+
+**Month 6 status post-B.AI.4-removal**: 5 of 6 shipped
+(γ.4 + ζ.9 + ξ.18 + ξ.21 + ξ.26). Only B.AI.5 AI co-pilot
+(Cmd+J) remains, gated on publisher authorization for
+Anthropic API runtime budget.
+
+**3134 / 3135 tests pass serially (1 skipped); 11/11 lint
+clean.** No code changes; net session test delta from
+ψ.36-A baseline unchanged at **+881** across 37 work units
+(33 phases + 1 audit + 1 PLAN-REFRESH-2 + ξ.26 + this
+ingest-and-removal).
+
+**Autonomous queue per "finish autonomous" direction**:
+the project is at the publisher-decision checkpoint
+AUDIT_2026-05-12 §5 N+4 recommended. Open non-money
+directions (any could be next):
+- ξ.27 health check endpoint + ξ.28 graceful shutdown
+  (small Track G ops items, 0.25 sessions each — bundle).
+- γ.4.x corpus expansion per SCOPE addendum (Cyril/John
+  ~400 entries; large content ingest).
+- ψ.30 matrix a11y + mobile (1-2 sessions; UI/UX).
+- χ.2-5 commentary expansion (more Patristic content).
+- Uniqueness angles B/D/E per AUDIT_2026-05-10 §5 (larger
+  efforts).
+
+---
+
+**Updated 2026-05-12 / Month 6 #5; non-money queue CLOSED (prior)**:
 **ξ.26 license-key validation shipped — HMAC-SHA256 (substituted
 for PROPOSAL-spec'd Ed25519 because the cryptography library
 conflicts with section 6.3 no-build-step invariant; soft
