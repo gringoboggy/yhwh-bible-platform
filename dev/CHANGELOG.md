@@ -6,6 +6,105 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.1.C Cyril on John (third wave: John 11-14)
+
+**Phases shipped:** γ.4.1.C — third wave of Cyril of Alexandria's
+Commentary on John. γ.4.1.A shipped 30 entries on John 1-4;
+γ.4.1.B shipped 27 entries on John 5-7; γ.4.1.C adds 29 entries
+on John 11-14 (Lazarus + anointing/triumphal entry/cosmic-judgment
++ foot-washing + Last Supper + Farewell Discourse I). **Skips
+John 8-10** because Cyril's Books VII-VIII on those chapters are
+LOST in the manuscript tradition — no Cyril coverage possible.
+**Test delta:** +14 (3369 → 3383; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.1.C — Cyril on John 11-14 (Lazarus + Last Supper + Farewell I)
+
+This wave covers the **Christological-pneumatological climax** of
+the Gospel's central section — the verses through which Cyril most
+fully articulates his Trinitarian theology and his pneumatology
+in the John commentary. The Lazarus pericope contains Cyril's most
+extended treatment of Christ's true human affections without
+compromising divine impassibility (the Miaphysite pin at Jn 11:35).
+The Last Supper foot-washing institutes ecclesial humility as the
+constitutive Christian mark (Jn 13:14). The Farewell Discourse I
+contains the perichoresis-foundational texts (14:9-10), the first
+Paraclete promise (14:16-17), and Cyril's most-contested anti-Arian
+exposition (14:28 "My Father is greater than I").
+
+**Why this ship matters for the project specifically**:
+
+- The **Lazarus pericope (John 11)** anchors Cyril's resurrection-
+  Christology and the Christian liturgical-vocabulary of death as
+  sleep (koimēsis). Substantive coverage of Jn 11:25 (I am the
+  resurrection), Jn 11:35 (Jesus wept), and Jn 11:43 (Lazarus,
+  come forth) gives the buyer the entire Christological arc of
+  the foundational resurrection sign.
+- The **John 14 perichoresis-Paraclete cluster** is the textual
+  foundation of patristic Trinitarian theology. Jn 14:9 ("He that
+  hath seen me hath seen the Father") + Jn 14:10 ("I am in the
+  Father, and the Father in me") + Jn 14:16-17 (the Paraclete
+  promise) + Jn 14:28 ("My Father is greater than I" — the anti-
+  Arian polemical pin) together constitute the Johannine basis
+  for the Tewahedo doxological-Trinitarian creedal commitments.
+- The **John 13 foot-washing** is enacted annually in the Tewahedo
+  Holy Thursday liturgy (the Patriarch washes monks' feet) — the
+  Jn 13:14 entry provides the patristic exegetical warrant.
+- The **John 12:24 grain-of-wheat** anchors the entire patristic
+  theology of redemptive suffering, including martyrology that
+  the Tewahedo Synaxarium preserves prominently.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 29 new Cyril-on-
+  John entries appended (Jn 11:4/11:11/11:25/11:26/11:35/11:40/
+  11:41/11:43 + 12:24/12:27/12:31/12:32/12:46 + 13:1/13:14/13:18/
+  13:31/13:34/13:35 + 14:1/14:2/14:6/14:9/14:10/14:16/14:17/14:20/
+  14:26/14:28). Each entry ~120-200 word paraphrase of Cyril's
+  interpretive position. _meta block updated to document γ.4.1.C
+  + the cumulative state (Cyril now 91 of 98 = 93% of corpus) and
+  to note the John 8-10 manuscript-tradition gap.
+- `tests/test_ethiopian_gamma4.py` — new `TestGamma41CCyrilJohn11Through14`
+  class with 14 tests: John 11-14 coverage pin; **anti-fabrication
+  pin** (no Cyril content allowed on Jn 8-10 since Books VII-VIII
+  are LOST); 11 doctrinal anchor pins (I-am-the-resurrection / Jesus-
+  wept-Miaphysite / grain-of-wheat / prince-cast-out / new-commandment /
+  Way-Truth-Life / seen-me-seen-Father / perichoresis-foundation /
+  Paraclete-promise / Father-greater-than-I); _meta documents γ.4.1.C;
+  NPNF + Vol 14 + PD citation pin per entry.
+  test_cyril_is_heaviest_voice bumped from ≥50 to ≥80 expected Cyril.
+
+**Code-side wiring**: zero new code. γ.4.1.C is pure content expansion
+within the γ.4 infrastructure shipped 2026-05-11.
+
+### Corpus state post-γ.4.1.C
+
+```
+ethiopian_commentaries.json: 98 entries (was 69 after γ.4.1.B; +29)
+├─ Cyril of Alexandria     : 91 entries (was 62; +29 — all on John)
+│  ├─ John chapters covered: 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 19
+│  │                         (chs 8-10 unavailable — Books VII-VIII LOST)
+│  └─ Per-chapter counts   : 1×14, 2×5, 3×8, 4×5, 5×10, 6×10, 7×7,
+│                            11×8, 12×5, 13×6, 14×10, 19×1
+├─ Ephrem the Syrian       :  5 entries (unchanged)
+└─ 1 Enoch tradition       :  2 entries (unchanged)
+
+Six-tradition coverage     : 154 entries (was 125)
+γ.4.1 cumulative           : 86 of 600 target (~14% — wave-1+2+3 done)
+```
+
+### Forward references
+
+- **γ.4.1.D** — Cyril on John 15-21 (Vine discourse + High-Priestly
+  Prayer + Passion + Resurrection appearances). ~30-40 more entries.
+  This will CLOSE the γ.4.1 Cyril-on-John ETL (modulo the John 8-10
+  manuscript gap which is unfillable from Cyril).
+- **γ.4.2** — Ephrem on Genesis (NPNF S2 V13). ~200-300 entries.
+  Would rebalance the voice mix from current 93% Cyril dominance.
+- **γ.4.4** — 1 Enoch (Charles 1912) verse-keyed entries. ~300 more.
+
+---
+
 ## 2026-05-12 — session — γ.4.1.B Cyril on John (second wave: John 5-7)
 
 **Phases shipped:** γ.4.1.B — second wave of Cyril of Alexandria's

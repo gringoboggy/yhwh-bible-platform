@@ -417,13 +417,16 @@ class TestGamma41CyrilJohn:
         cls.ec = sources.ethiopian_commentaries()
 
     def test_cyril_is_heaviest_voice(self):
-        # After γ.4.1.A + γ.4.1.B, Cyril has many more entries than any
-        # other single Father in the corpus. γ.4.1.A added 30 + γ.4.1.B
-        # added 27 = +57 Cyril entries on top of the original γ.4 seed.
+        # After γ.4.1.A + γ.4.1.B + γ.4.1.C, Cyril has many more entries
+        # than any other single Father in the corpus. Cumulative wave:
+        # γ.4.1.A 30 + γ.4.1.B 27 + γ.4.1.C 29 = +86 Cyril entries on top
+        # of the original γ.4 seed.
         cyril = self.ec.by_father("Cyril of Alexandria")
         ephrem = self.ec.by_father("Ephrem the Syrian")
-        assert len(cyril) >= 50, f"γ.4.1.A+B expansion expected ≥50 Cyril entries; found {len(cyril)}"
-        assert len(cyril) > len(ephrem), f"After γ.4.1.A+B Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
+        assert len(cyril) >= 80, f"γ.4.1.A+B+C expansion expected ≥80 Cyril entries; found {len(cyril)}"
+        assert len(cyril) > len(ephrem), (
+            f"After γ.4.1.A+B+C Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
+        )
 
     def test_cyril_john_chapters_1_through_4_covered(self):
         # γ.4.1 wave 1 explicitly covers John 1-4.
@@ -632,3 +635,158 @@ class TestGamma41BCyrilJohn5Through7:
             assert "NPNF" in attr, f"γ.4.1.B entry missing NPNF citation: {attr!r}"
             assert "14" in attr, f"γ.4.1.B entry missing Vol 14 citation: {attr!r}"
             assert "PD" in attr, f"γ.4.1.B entry missing PD marker: {attr!r}"
+
+
+class TestGamma41CCyrilJohn11Through14:
+    """γ.4.1.C — Cyril of Alexandria on John 11-14 (29 entries). Covers
+    the Lazarus pericope (John 11), the anointing/triumphal entry/
+    cosmic-judgment cluster (John 12), the foot-washing + Last Supper
+    + new commandment (John 13), and the Farewell Discourse I including
+    the Trinitarian perichoresis texts + the first Paraclete promise
+    (John 14). Per the addendum's γ.4.1 decomposition, γ.4.1.C targets
+    ~30-40 entries; this ship lands 29.
+
+    Note: Cyril's Books VII-VIII covering John 8-10 are LOST in the
+    manuscript tradition; no Cyril coverage possible for those chapters
+    (a future Ephrem-on-John or Andəmta-on-John phase could fill the
+    gap).
+
+    Pins:
+    - John 11-14 chapter coverage present in addition to 1-7 + 19.
+    - The most-load-bearing doctrinal anchors of this wave:
+      Jn 11:25 (I-am-the-resurrection — fifth 'I AM'),
+      Jn 11:35 (Jesus-wept — Cyril's Miaphysite anti-Apollinarian pin),
+      Jn 12:24 (grain-of-wheat — redemptive-suffering theology),
+      Jn 12:31 (prince-cast-out — Christus-victor cosmic dimension),
+      Jn 13:34 (new-commandment — Christological measure of love),
+      Jn 14:6 (Way-Truth-Life — most exhaustive Christological pin),
+      Jn 14:9 (seen-me=seen-Father — anti-Sabellian + anti-Arian),
+      Jn 14:10 (mutual indwelling — perichoresis foundation),
+      Jn 14:16 + 14:17 (Paraclete promise — pneumatology),
+      Jn 14:28 (Father-greater — the most-contested Arian polemical
+      verse, requiring careful Cyrilline distinction).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_cyril_john_chapters_11_through_14_covered(self):
+        # γ.4.1.C explicitly covers John 11-14 (8-10 lost in manuscript).
+        for chapter in (11, 12, 13, 14):
+            cyril_in_chapter = []
+            for verse in range(1, 100):
+                cyril_in_chapter.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+            assert len(cyril_in_chapter) >= 5, (
+                f"γ.4.1.C expected ≥5 Cyril entries in John {chapter}; found {len(cyril_in_chapter)}"
+            )
+
+    def test_no_coverage_in_lost_chapters_8_through_10(self):
+        # Cyril's Books VII-VIII on Jn 8-10 are LOST. This pin guards
+        # against accidental fabrication of "Cyril on John 8-10"
+        # entries — they would be unsourceable.
+        for chapter in (8, 9, 10):
+            for verse in range(1, 100):
+                cyril_here = [e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"]
+                assert not cyril_here, (
+                    f"Cyril on John {chapter}:{verse} found, but Books VII-VIII are LOST — must not have content here"
+                )
+
+    def test_cyril_i_am_resurrection_present(self):
+        # Jn 11:25 — fifth of Christ's 'I AM' sayings, the ontological
+        # resurrection-Christology pin.
+        cyril_1125 = [e for e in self.ec.for_verse("joh", 11, 25) if e.father == "Cyril of Alexandria"]
+        assert cyril_1125, "γ.4.1.C missing Jn 11:25 — 'I am the resurrection' Christological pin"
+
+    def test_cyril_jesus_wept_miaphysite_pin_present(self):
+        # Jn 11:35 — Cyril's most extended treatment of Christ's true
+        # human affections without compromising divine impassibility.
+        # This is the Miaphysite anti-Apollinarian / anti-Docetist /
+        # anti-Stoic-projection pin all in one verse.
+        cyril_1135 = [e for e in self.ec.for_verse("joh", 11, 35) if e.father == "Cyril of Alexandria"]
+        assert cyril_1135, "γ.4.1.C missing Jn 11:35 — Miaphysite Christology pin (Jesus wept)"
+
+    def test_cyril_grain_of_wheat_present(self):
+        # Jn 12:24 — redemptive-suffering theology root.
+        cyril_1224 = [e for e in self.ec.for_verse("joh", 12, 24) if e.father == "Cyril of Alexandria"]
+        assert cyril_1224, "γ.4.1.C missing Jn 12:24 — grain-of-wheat redemptive pin"
+
+    def test_cyril_prince_cast_out_present(self):
+        # Jn 12:31 — Christus-victor cosmic dimension of the cross.
+        cyril_1231 = [e for e in self.ec.for_verse("joh", 12, 31) if e.father == "Cyril of Alexandria"]
+        assert cyril_1231, "γ.4.1.C missing Jn 12:31 — prince-of-world cast out (Christus victor)"
+
+    def test_cyril_new_commandment_present(self):
+        # Jn 13:34 — Christological measure of love grounding Cyril's
+        # ecclesiology of love-community.
+        cyril_1334 = [e for e in self.ec.for_verse("joh", 13, 34) if e.father == "Cyril of Alexandria"]
+        assert cyril_1334, "γ.4.1.C missing Jn 13:34 — new commandment of love"
+
+    def test_cyril_way_truth_life_present(self):
+        # Jn 14:6 — the most exhaustive single-verse Christological
+        # self-disclosure; textual root of Christological exclusivism.
+        cyril_146 = [e for e in self.ec.for_verse("joh", 14, 6) if e.father == "Cyril of Alexandria"]
+        assert cyril_146, "γ.4.1.C missing Jn 14:6 — Way/Truth/Life Christological pin"
+
+    def test_cyril_seen_me_seen_father_present(self):
+        # Jn 14:9 — anti-Sabellian + anti-Arian double-pin grounding
+        # the Tewahedo iconographic tradition.
+        cyril_149 = [e for e in self.ec.for_verse("joh", 14, 9) if e.father == "Cyril of Alexandria"]
+        assert cyril_149, "γ.4.1.C missing Jn 14:9 — 'seen me = seen Father' Trinitarian pin"
+
+    def test_cyril_mutual_indwelling_perichoresis_present(self):
+        # Jn 14:10 — the Trinitarian perichoresis textual foundation.
+        cyril_1410 = [e for e in self.ec.for_verse("joh", 14, 10) if e.father == "Cyril of Alexandria"]
+        assert cyril_1410, "γ.4.1.C missing Jn 14:10 — perichoresis foundational pin"
+
+    def test_cyril_paraclete_promise_present(self):
+        # Jn 14:16 + 14:17 — the first Paraclete promise, principal
+        # Johannine pin for Spirit's personal divinity.
+        cyril_1416 = [e for e in self.ec.for_verse("joh", 14, 16) if e.father == "Cyril of Alexandria"]
+        cyril_1417 = [e for e in self.ec.for_verse("joh", 14, 17) if e.father == "Cyril of Alexandria"]
+        assert cyril_1416, "γ.4.1.C missing Jn 14:16 — Paraclete promise (allon Paraklēton)"
+        assert cyril_1417, "γ.4.1.C missing Jn 14:17 — Spirit of truth"
+
+    def test_cyril_father_greater_arian_polemical_present(self):
+        # Jn 14:28 — THE most-contested Arian polemical verse in
+        # Cyril's John commentary. Required Cyrilline orthodox
+        # distinction between the assumed humanity (with respect to
+        # which the Father is 'greater') and the eternal divine
+        # nature (in which the Son is consubstantial-equal).
+        cyril_1428 = [e for e in self.ec.for_verse("joh", 14, 28) if e.father == "Cyril of Alexandria"]
+        assert cyril_1428, "γ.4.1.C missing Jn 14:28 — 'Father greater' anti-Arian polemical pin"
+
+    def test_meta_documents_gamma_4_1_c_expansion(self):
+        # Pin: _meta scope block names γ.4.1.C explicitly so a future
+        # reviewer can identify which entries came from this wave.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        assert "γ.4.1.C" in meta["source"] or "γ.4.1.C" in meta["scope"], (
+            "_meta must name γ.4.1.C expansion in source or scope"
+        )
+
+    def test_every_gamma_4_1_c_attribution_cites_npnf_vol_14(self):
+        # γ.4.1.C entries (Cyril-on-John in chapters 11-14) must all
+        # cite NPNF Series 2 Vol 14 + explicit PD marker.
+        cyril_in_chs_11_to_14 = []
+        for chapter in (11, 12, 13, 14):
+            for verse in range(1, 100):
+                cyril_in_chs_11_to_14.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        assert cyril_in_chs_11_to_14, "γ.4.1.C expected Cyril entries in John 11-14"
+        for entry in cyril_in_chs_11_to_14:
+            attr = entry.attribution
+            assert "NPNF" in attr, f"γ.4.1.C entry missing NPNF citation: {attr!r}"
+            assert "14" in attr, f"γ.4.1.C entry missing Vol 14 citation: {attr!r}"
+            assert "PD" in attr, f"γ.4.1.C entry missing PD marker: {attr!r}"

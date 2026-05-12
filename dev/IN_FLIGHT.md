@@ -4,6 +4,90 @@
 
 ## Prior task
 
+**γ.4.1.C Cyril on John (third wave: John 11-14)** shipped 2026-05-12.
+Continues the γ.4.1 Tewahedo flagship expansion. γ.4.1.A shipped 30
+entries on John 1-4; γ.4.1.B shipped 27 on John 5-7; γ.4.1.C adds 29
+on John 11-14 (Lazarus + Last Supper + Farewell Discourse I).
+**Skips John 8-10** — Cyril's Books VII-VIII covering those chapters
+are LOST in the manuscript tradition.
+
+**Why it matters for THIS project**: γ.4.1.C covers the Christological-
+pneumatological climax of the central Johannine section. The Lazarus
+pericope (John 11) anchors Cyril's resurrection-Christology + the
+Christian liturgical-vocabulary of death as sleep. The John 14
+perichoresis-Paraclete cluster (14:9-10, 14:16-17, 14:28) is the
+textual foundation of patristic Trinitarian theology — including
+the most-contested anti-Arian verse (Jn 14:28 "My Father is greater
+than I") which Cyril resolves via the assumed-humanity vs eternal-
+nature distinction. The John 13 foot-washing is enacted annually in
+the Tewahedo Holy Thursday liturgy.
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 29 new Cyril-on-
+  John entries appended (Jn 11:4/11:11/11:25/11:26/11:35/11:40/
+  11:41/11:43 + 12:24/12:27/12:31/12:32/12:46 + 13:1/13:14/13:18/
+  13:31/13:34/13:35 + 14:1/14:2/14:6/14:9/14:10/14:16/14:17/14:20/
+  14:26/14:28). Each entry ~120-200 word paraphrase. _meta block
+  updated to document γ.4.1.C + the cumulative state (Cyril now
+  91 of 98 = 93%) and to note the John 8-10 manuscript-tradition gap.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma41CCyrilJohn11Through14` class with 14 tests pinning
+  John 11-14 coverage + 11 doctrinal anchors + anti-fabrication pin
+  for Jn 8-10 (no Cyril content allowed there) + NPNF/Vol 14/PD pin
+  + γ.4.1.C _meta name. test_cyril_is_heaviest_voice bumped from
+  ≥50 to ≥80 expected.
+
+**Code-side wiring**: zero new code. γ.4.1.C is pure content expansion.
+
+**Corpus state post-γ.4.1.C**:
+```
+ethiopian_commentaries.json: 98 entries (was 69 after γ.4.1.B; +29)
+├─ Cyril of Alexandria     : 91 entries (was 62; +29 — all on John)
+│  ├─ John chapters covered: 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 19
+│  │                         (chs 8-10 unavailable — Books VII-VIII LOST)
+│  └─ Per-chapter counts   : 1×14, 2×5, 3×8, 4×5, 5×10, 6×10, 7×7,
+│                            11×8, 12×5, 13×6, 14×10, 19×1
+├─ Ephrem the Syrian       :  5 entries (unchanged)
+└─ 1 Enoch tradition       :  2 entries (unchanged)
+
+Six-tradition coverage     : 154 entries (was 125)
+γ.4.1 cumulative wave-1+2+3: 86 of 600 target (~14%)
+```
+
+**+14 tests**. **3383 / 3384 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **γ.4.1.D** — Cyril on John 15-21 (Vine discourse + High-Priestly
+  Prayer + Passion + Resurrection appearances). ~30-40 more entries.
+  Closes γ.4.1 Cyril-on-John ETL (modulo the unfillable Jn 8-10 gap).
+- **γ.4.2** — Ephrem on Genesis (NPNF S2 V13). ~200-300 entries.
+  Would rebalance the voice mix from current 93% Cyril dominance.
+
+**Session totals (2026-05-12)**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+γ.4.1.C Cyril on John (third wave)                  +14 tests
+                                  session total:   +186 tests
+                                  3197 → 3383 (serial; 1 skipped)
+```
+
+**Recommended next ship**:
+- **γ.4.1.D Cyril on John 15-21** — closes γ.4.1 Cyril-on-John ETL.
+  ~30-40 more entries.
+- **γ.4.2 Ephrem on Genesis** — rebalances voice mix (currently 93%
+  Cyril); the Syriac anchor deserves expansion comparable to Cyril's.
+- **AUDIT** — session well past audit-cadence triggers (≥10 phases +
+  ≥150 tests). Solo-Claude audit would consolidate state.
+
+## Prior task
+
 **γ.4.1.B Cyril on John (second wave: John 5-7)** shipped 2026-05-12.
 Continues the γ.4.1 Tewahedo flagship expansion. γ.4.1.A shipped 30
 entries covering John 1-4; γ.4.1.B adds 27 entries covering John 5-7
