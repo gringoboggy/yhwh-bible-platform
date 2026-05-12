@@ -49,12 +49,18 @@ needs but otherwise has to grep for. Pin them here so they're discovered
 in the bootstrap pass.
 
 ```
-GitHub repo:           bridge4kaladin-collab/yhwh-bible-platform  (private)
-SonarCloud server:     https://sonarcloud.io                      (EU)
+GitHub repo:             bridge4kaladin-collab/yhwh-bible-platform  (private)
+SonarCloud server:       https://sonarcloud.io                      (EU)
 SonarCloud organization: bridge4kaladin-collab
 SonarCloud project key:  bridge4kaladin-collab_yhwh-bible-platform
-                       (canonical file: YHWH v2.4/sonar-project.properties line 19)
+                         (canonical file: YHWH v2.4/sonar-project.properties)
 ```
+
+MCP wiring lives in `.mcp.json` at the repo parent (where Claude Code
+launches); the `--project <key>` arg is pinned there so MCP queries
+auto-scope to this project. Secrets-scanning hooks are installed at
+USER scope (`~/.claude/hooks/sonar-secrets/`) — shared across all
+projects; do not duplicate at project scope.
 
 When invoking `sonar integrate claude` from the parent directory (not
 from inside `YHWH v2.4/`), pass the project key explicitly to skip the
@@ -63,10 +69,6 @@ from inside `YHWH v2.4/`), pass the project key explicitly to skip the
 ```
 sonar integrate claude -p bridge4kaladin-collab_yhwh-bible-platform --non-interactive
 ```
-
-The MCP server + secrets-scanning hooks are installed at project scope
-(`.claude/hooks/sonar-secrets/`); rebind when the working tree moves to
-a new machine.
 
 ---
 

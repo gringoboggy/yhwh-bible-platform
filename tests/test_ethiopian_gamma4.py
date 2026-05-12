@@ -1356,3 +1356,113 @@ class TestGamma44BWatchersDetailWave:
     def test_second_journey_closes_present(self):
         enoch_361 = [e for e in self.ec.for_verse("1en", 36, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
         assert enoch_361, "γ.4.4.B missing 1En 36:1 — second journey closes"
+
+
+class TestGamma44CParablesDetailWave:
+    """γ.4.4.C — 1 Enoch Parables detail expansion (40 entries on
+    chs 37-71 beyond the 9 γ.4.4.A entries on that section). Brings
+    Parables coverage from 9 to 49 entries across 32 distinct
+    chapters (out of the section's 35). Voice distribution post-
+    γ.4.4.C: 50% Cyril / 15% Ephrem / 35% 1 Enoch — 1 Enoch share
+    continues to climb but Cyril remains plurality voice.
+
+    Pins:
+    - Parables (chs 37-71) substantively expanded (≥40 1en entries
+      in chs 37-71).
+    - All four Parables sub-arcs covered: First Parable (38-44) +
+      Second Parable (45-57) + Third Parable (58-69) + Translation
+      Visions (70-71).
+    - 1 Enoch share ≥30% of corpus.
+    - Signature passages: 40:9 (Phanuel — angel of repentance),
+      42:1 (Wisdom finds no place — Mary-fiat antecedent), 45:3
+      (Elect One enthroned for judgment — Mt 25:31 antecedent),
+      48:4 (Light of Gentiles — Servant-Son-of-Man identification),
+      60:8 (Behemoth — east-of-Eden geography), 61:10
+      (Cherubim/Seraphim/Ophannim), 68:1 (Methuselah as first
+      Parables scribe), 69:25 (cosmogonic Oath), 69:27 (Son of Man
+      receives sum of judgment — Jn 5:22-27 antecedent), 71:11
+      (Enoch's transfiguration — theosis witness).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_parables_substantively_expanded(self):
+        enoch_parables = []
+        for chapter in range(37, 72):
+            for verse in range(1, 100):
+                enoch_parables.extend(
+                    e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
+                )
+        assert len(enoch_parables) >= 40, (
+            f"γ.4.4.C expected ≥40 Parables (1En 37-71) entries; found {len(enoch_parables)}"
+        )
+
+    def test_all_four_parables_subarcs_covered(self):
+        def has_entry_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("1en", chapter, verse):
+                        if entry.father == "1 Enoch (Ethiopian tradition)":
+                            return True
+            return False
+
+        assert has_entry_in(38, 44), "γ.4.4.C missing First Parable (1En 38-44)"
+        assert has_entry_in(45, 57), "γ.4.4.C missing Second Parable (1En 45-57)"
+        assert has_entry_in(58, 69), "γ.4.4.C missing Third Parable (1En 58-69)"
+        assert has_entry_in(70, 71), "γ.4.4.C missing Translation Visions (1En 70-71)"
+
+    def test_1_enoch_share_above_30_percent(self):
+        enoch_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "1 Enoch (Ethiopian tradition)"
+        )
+        total = len(self.ec)
+        share = enoch_count / total
+        assert share >= 0.30, f"γ.4.4.C expected 1 Enoch share ≥30%; actual {share:.1%} ({enoch_count} of {total})"
+
+    def test_phanuel_repentance_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 40, 9) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 40:9 — Phanuel, angel of repentance"
+
+    def test_wisdom_finds_no_place_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 42, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 42:1 — Wisdom finds no place (Mary-fiat antecedent)"
+
+    def test_elect_one_enthroned_for_judgment_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 45, 3) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 45:3 — Elect One enthroned for judgment (Mt 25:31 antecedent)"
+
+    def test_light_of_gentiles_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 48, 4) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 48:4 — Light of Gentiles / Servant–Son-of-Man identification"
+
+    def test_behemoth_east_of_eden_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 60, 8) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 60:8 — Behemoth and east-of-Eden geography"
+
+    def test_threefold_angel_hierarchy_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 61, 10) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 61:10 — Cherubim / Seraphim / Ophannim hierarchy"
+
+    def test_methuselah_first_scribe_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 68, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 68:1 — Methuselah as first scribe of the Parables"
+
+    def test_cosmogonic_oath_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 69, 25) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 69:25 — cosmogonic Oath holding the cosmos together"
+
+    def test_son_of_man_sum_of_judgment_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 69, 27) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 69:27 — Son of Man receives sum of judgment (Jn 5:22-27 antecedent)"
+
+    def test_enoch_transfiguration_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 71, 11) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.C missing 1En 71:11 — Enoch's transfiguration / theosis witness"

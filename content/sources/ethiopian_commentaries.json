@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
     "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD).",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
@@ -2305,6 +2305,406 @@
       "year": -200,
       "summary": "'And from thence I went to the south to the ends of the earth, and saw there three open portals of the heaven: from them issues dew, rain, and wind' — Enoch's final journey-segment to the south completes the four-directional cosmological survey (chs 17-36). Together with the earlier western (17-19) and northern (34) journeys + the central Jerusalem-omphalos vision (26-32), Enoch has now mapped the cosmic geography from all four cardinal directions. The Tewahedo iconographic tradition's depictions of the cosmos often preserve this four-directional structuring with Jerusalem at the center, drawing on the Enochic cosmological survey as authoritative source.",
       "attribution": "1 Enoch 36:1-4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 37,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'Until the present day such wisdom has never been given by the Lord of Spirits as I have received... that I should declare it to those who dwell on the earth' — Enoch's commissioning to deliver the Parables not as private mysticism but as covenant proclamation. The Tewahedo Synaxarium retains Enoch's prophetic status as one to whom the heavenly wisdom-tradition was entrusted, the textual basis for the liturgical reading of 1 Enoch in select Tewahedo festal contexts.",
+      "attribution": "1 Enoch 37:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 38,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'When the Righteous One shall appear before the eyes of the righteous, whose elect works hang upon the Lord of Spirits, and light shall appear to the righteous and the elect who dwell on the earth' — first occurrence of 'the Righteous One' (Ge'ez ṣadiq) as an eschatological title. Tewahedo Christology reads this title prospectively as a designation for Christ, paralleling Acts 3:14, 7:52, 22:14 — the New Testament's ho dikaios as Christological title shares the Enochic verbal root.",
+      "attribution": "1 Enoch 38:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 38,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'From thenceforward those who possess the earth shall no longer be powerful and exalted: nor shall they be able to behold the face of the holy, for the Lord of Spirits has caused His light to appear on the face of the holy and righteous and elect' — reversal of social ordering at the eschaton. Tewahedo wisdom tradition reads this verse as parallel to the Magnificat (Lk 1:51-53): both preserve the prophetic God-shines-on-the-humble / God-throws-down-the-mighty structure under Lord-of-Spirits theology.",
+      "attribution": "1 Enoch 38:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 39,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And there mine eyes saw the Elect One of righteousness and of faith, and I saw his dwelling-place under the wings of the Lord of Spirits' — the Elect One pre-existent and enthroned-with-the-Father. Tewahedo iconography of Christ enthroned under the wings of the Lord (preserved in some illuminated Ge'ez Bibles' depictions of the throne-room visions) traces back to this verse as scriptural anchor for the imagery.",
+      "attribution": "1 Enoch 39:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 39,
+      "verse": 12,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And those who sleep not bless Thee: they stand before Thy glory and bless, praise, and extol, saying: \"Holy, holy, holy, is the Lord of Spirits: he filleth the earth with spirits\"' — the triple-sanctus (qadis qadis qadis) attested in the Parables. The Tewahedo Anaphora of the Apostles preserves this Sanctus verbatim as the angelic praise sung perpetually before the throne, drawing both on Isa 6:3 and on the Enochic witness preserved in the Tewahedo lectionary.",
+      "attribution": "1 Enoch 39:12, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 40,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And on the four sides of the Lord of Spirits I saw four presences, different from those that sleep not, and I learnt their names: for the angel who went with me made known to me their names' — four-archangel theology of presence (parallel to but distinct from the seven-archangel list at 20:1). Tewahedo iconography of Christ surrounded by the four presences (often depicted on the tabot — the ark's tablets in qǝddǝst, the holy of holies) draws on this verse as canonical authority.",
+      "attribution": "1 Enoch 40:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 40,
+      "verse": 9,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the fourth, who is set over the repentance unto hope of those who inherit eternal life, is named Phanuel' — Phanuel as the angel of repentance. Tewahedo penitential tradition retains Phanuel as a distinctive feast-day commemoration (unique to Ethiopia among the major Christian traditions), with his role as the angel-mediator of the sinner's hope preserved in monastic confession liturgy.",
+      "attribution": "1 Enoch 40:9, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 41,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And after that I saw all the secrets of the heavens, and how the kingdom is divided, and how the actions of men are weighed in the balance' — the cosmic-balance image. Tewahedo eschatology of judgment as actual weighing (with Michael often depicted as the angel of the scales in church iconography) draws on this verse as scriptural anchor, paralleling Dan 5:27 and standing in lineage with the Egyptian Maat-tradition that Ethiopian iconography preserves through a Christianised filter.",
+      "attribution": "1 Enoch 41:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 41,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'For the Lord has separated the day and the night, and the spirits of light and darkness, and apportioned them their seasons' — apportioning theology. Tewahedo wisdom tradition reads this verse in tandem with Gen 1:4-5 as the textual basis for the doctrine that even darkness is ordered toward divine purpose, not autonomous evil — a key node in the Tewahedo theodicy framework.",
+      "attribution": "1 Enoch 41:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 42,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'Wisdom found no place where she might dwell; then a dwelling-place was assigned her in the heavens. Wisdom went forth to make her dwelling among the children of men, and found no dwelling-place' — the failed earthly mission of Wisdom. Tewahedo Christology reads this verse Christologically (after Pr 8:22-31, Wisd 7:25-26) as anticipating the Incarnation's reversal: the Word/Wisdom who could find no place on earth in the Parables ultimately does find a place — in Mary's womb.",
+      "attribution": "1 Enoch 42:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 42,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'Then Wisdom returned to her place, and took her seat among the angels. And iniquity went forth from her chambers: whom she sought not she found, and dwelt with them, as rain in a desert and dew on a thirsty land' — Wisdom's withdrawal contrasted with iniquity's flourishing. Tewahedo monastic qǝne (sacred poetry) preserves this image as the canonical illustration of why Christ's coming was necessary: Wisdom alone could not stay; she required incarnation. The verse is cited in Tewahedo Marian liturgy as the antecedent that Mary's fiat reverses.",
+      "attribution": "1 Enoch 42:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 43,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'These are the names of the holy who dwell on the earth and believe in the name of the Lord of Spirits for ever and ever' — names recorded in heaven for those who believe-in-the-name. Tewahedo baptismal liturgy (in which the catechumen's name is liturgically inscribed and called before the congregation) takes this verse as one of its scriptural anchors, paralleling Lk 10:20 (rejoice that your names are written in heaven).",
+      "attribution": "1 Enoch 43:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 45,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'On that day Mine Elect One shall sit on the throne of glory and shall try their works, and their places shall be without number' — the Elect One enthroned for judgment. Tewahedo Christology reads this verse with Mt 25:31 (Son-of-Man on throne-of-glory) as direct textual genealogy: the Synoptic image of the Son of Man enthroned for judgment is verbally Enochic, with the Tewahedo liturgical reading making this dependency explicit.",
+      "attribution": "1 Enoch 45:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 45,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And I will transform the heaven and make it an eternal blessing and light, and I will transform the earth and make it a blessing: and I will cause Mine elect ones to dwell upon it' — new-heaven-new-earth theology. Tewahedo eschatology reads this verse as parallel and prior textual basis for Rev 21:1-5, with the Parables providing the verbal pattern (transform-heaven-transform-earth) that the Apocalypse expands.",
+      "attribution": "1 Enoch 45:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 46,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And I asked the angel who went with me and showed me all the hidden things, concerning that Son of Man, who he was, and whence he was, and why he went with the Head of Days' — Enoch's inquiry about the Son of Man, setting up the answer in 46:3. Tewahedo catechesis preserves the question-and-answer dialogical form as the model for inquiring into Christology: the disciple must ASK before the Spirit answers.",
+      "attribution": "1 Enoch 46:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 47,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And in those days shall have ascended the prayer of the righteous, and the blood of the righteous from the earth before the Lord of Spirits' — the prayer-of-the-righteous-ascending pattern. Tewahedo intercession theology (the role of saints and martyrs as ongoing intercessors) takes this verse as scriptural foundation for the belief that the martyrs' blood actively cries out before God (parallel to Rev 6:9-10, which draws on this Enochic image).",
+      "attribution": "1 Enoch 47:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 47,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'In those days I saw the Head of Days when He seated himself upon the throne of His glory, and the books of the living were opened before Him: and all His host which is in heaven above and His counsellors stood before Him' — books-of-the-living courtroom scene. The textual genealogy from this image to Dan 7:9-10 to Rev 20:12 forms a continuous Tewahedo eschatological tradition; the books-of-the-living trope appears in the Anaphora of the Three Hundred Eighteen Orthodox.",
+      "attribution": "1 Enoch 47:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 48,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And in that place I saw the fountain of righteousness which was inexhaustible: and around it were many fountains of wisdom: and all the thirsty drank of them, and were filled with wisdom, and their dwellings were with the righteous and holy and elect' — the heavenly fountain. Tewahedo sacramental theology reads this verse as anticipating both baptismal-fountain imagery (the Tewahedo baptismal ritual involves immersion at the church's outer fountain) and the Johannine living-water Christology (Jn 4:14, 7:38).",
+      "attribution": "1 Enoch 48:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 48,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And he shall be a staff to the righteous whereon to stay themselves and not fall, and he shall be the light of the Gentiles, and the hope of those who are troubled of heart' — Light-of-Gentiles title applied to the Son of Man. The verbal parallel to Isa 42:6 / 49:6 (light-to-the-Gentiles) establishes a Servant-of-the-Lord / Son-of-Man identification in pre-Christian Jewish apocalyptic that Tewahedo Christology preserves as canonical: Christ is BOTH suffering-servant AND apocalyptic-Son-of-Man without tension.",
+      "attribution": "1 Enoch 48:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 48,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the wisdom of the Lord of Spirits hath revealed Him to the holy and righteous; for He hath preserved the lot of the righteous, because they have hated and despised this world of unrighteousness... for in His name they are saved' — the saved-in-his-name formula. Tewahedo soteriology takes this verse as a pre-canonical witness to the in-the-name pattern (Acts 4:12): the Parables already use 'name-of-the-Lord-of-Spirits' as salvation-medium, anticipating the Christological transposition to 'name-of-Jesus' by direct verbal continuity.",
+      "attribution": "1 Enoch 48:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 49,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'For wisdom is poured out like water, and glory faileth not before him for evermore' — wisdom-as-water. Tewahedo sapiential tradition (qǝne) cites this as the textual basis for the metaphor of teaching as water-pouring; the verse is recited in some Tewahedo monastic chants celebrating the founders' teaching ministry.",
+      "attribution": "1 Enoch 49:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 49,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And in him dwells the spirit of wisdom, and the spirit which gives insight, and the spirit of understanding and of might, and the spirit of those who have fallen asleep in righteousness' — the multi-spirit-on-the-Messiah list. Strikingly parallel to Isa 11:2's spirit-of-wisdom-and-understanding cluster, and to Rev 5:6's seven-spirits-of-God. Tewahedo pneumatology preserves this triadic resonance (Enoch / Isaiah / Revelation) in the eucharistic epiclesis prayers.",
+      "attribution": "1 Enoch 49:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 51,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the Elect One shall in those days sit on My throne, and his mouth shall pour forth all the secrets of wisdom and counsel: for the Lord of Spirits hath given them to him and hath glorified him' — Elect-One-on-My-throne. Tewahedo Christology emphasizes the SHARED-throne (Heb 1:3-8; Rev 3:21, 22:1-3) as continuous with this Enochic image: the Son shares the Father's throne not as conquest but as eternal counsel.",
+      "attribution": "1 Enoch 51:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 55,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'Ye mighty kings who dwell on the earth, ye shall have to behold Mine Elect One, how he sits on the throne of glory and judges Azazel, and all his associates, and all his hosts in the name of the Lord of Spirits' — eschatological judgment of Azazel. Tewahedo demonology reads this verse with 10:13 (Azazel's prior binding) as a two-stage drama: temporal binding (Watchers) plus final eschatological reckoning (Parables) — establishing a pattern that Rev 20:1-10 follows.",
+      "attribution": "1 Enoch 55:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 58,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the righteous shall be in the light of the sun, and the elect in the light of eternal life: the days of their life shall be unending, and the days of the holy without number' — eternal-light eschatology. Tewahedo eucharistic liturgy invokes this verse imagery in the post-communion prayer 'may we be among those whose days are unending' — direct textual borrowing from the Parables preserved in the Tewahedo liturgical memory.",
+      "attribution": "1 Enoch 58:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 60,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'In the year 500, in the seventh month, on the fourteenth day of the month in the life of Enoch. In that Parable I saw how a mighty quaking made the heaven of heavens to quake' — opening of the Noah-vision interlude embedded in the Parables. Tewahedo manuscript tradition preserves the Noah-vision as integral to the Parables (some Hellenistic-Jewish witnesses treat it as later interpolation; Ethiopian textual witnesses do not separate it). This editorial decision shapes how Tewahedo readers understand the Parables' coherence.",
+      "attribution": "1 Enoch 60:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 60,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And on that day were two monsters parted, a female monster named Leviathan, to dwell in the abysses of the ocean over the fountains of the waters' — Leviathan as cosmic monster. Tewahedo iconographic tradition (preserved on some monastic church murals) retains Leviathan-Behemoth imagery as eschatological-feast preparation, paralleling 2 Bar 29:4, 4 Ezr 6:49-52, b. Sanh 99a — the righteous will eat of these monsters at the Messianic banquet.",
+      "attribution": "1 Enoch 60:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 60,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the male is named Behemoth, who occupies with his breast a waste wilderness named Dūidāin, on the east of the garden where the elect and righteous dwell' — Behemoth and the Edenic geography. The garden-of-the-righteous remains east-of-Eden, preserving the prelapsarian topology that Tewahedo monastic spirituality maps onto sacred space (the church's qǝddǝst, holy of holies, symbolically corresponds to the inner garden where the righteous dwell).",
+      "attribution": "1 Enoch 60:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 61,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the Lord of Spirits placed the Elect One on the throne of glory. And he shall judge all the works of the holy above in the heaven, and in the balance shall their deeds be weighed' — the cosmic-weighing image with the Elect One as judge. Tewahedo iconography of the last judgment (developed especially in the Mäṣḥafä Berhan / Book of Light) depicts Christ as throne-judge with scales held by Michael — drawing on 61:8 as scriptural anchor for the iconographic program.",
+      "attribution": "1 Enoch 61:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 61,
+      "verse": 10,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And he will summon all the host of the heavens, and all the holy ones above, and the host of God, the Cherubic, Seraphin and Ophannin, and all the angels of power' — full angelic hierarchy with the rare Ophannin (= ophanim, the thrones / wheels of Ezk 1:15-21). Tewahedo angelology preserves the threefold-angel structure (Cherubim / Seraphim / Ophanim) in the Sǝbḫata Foṣǝlt prayer, drawing on this verse as canonical authority for naming the third tier.",
+      "attribution": "1 Enoch 61:10, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 63,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'In those days shall the mighty and the kings who possess the earth implore (Him) to grant them a little respite from His angels of punishment to whom they were delivered, that they might fall down and worship before the Lord of Spirits, and confess their sins before Him' — the kings' final repentance attempt. Tewahedo homiletic tradition uses this verse to teach that the time of mercy is BEFORE judgment, not after: the kings ask, but 'there shall be no respite' (63:6). The pastoral application is unflinching.",
+      "attribution": "1 Enoch 63:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 67,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And in those days the punishment of the Lord of Spirits shall go forth, and they shall open all the chambers of waters that are above the heavens, and the springs which are beneath the earth' — cosmic-water-judgment unleashing. Tewahedo eschatological readings (preserved in some Ge'ez liturgical homilies) preserve this water-judgment as parallel to but distinct from the Genesis Flood — eschatological reprise rather than primordial cleansing.",
+      "attribution": "1 Enoch 67:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 68,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And after that my grandfather Enoch gave me all the secrets in the book of the Parables, and put them together for me in the words of the book of the Parables' — Methuselah as the textual transmitter of the Parables. Tewahedo manuscript culture (the long tradition of monastic scribes copying Enoch) traces its lineage of textual responsibility back through this verse: Methuselah is the first scribe of the Parables, and every Tewahedo scribe stands in that succession.",
+      "attribution": "1 Enoch 68:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 69,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the third was named Gadreel: he it is who showed the children of men all the blows of death, and he led astray Eve, and showed the weapons of death to the sons of men, the shield and the coat of mail, and the sword for battle, and all the weapons of death to the children of men' — Gadreel as the angel who taught violence. Tewahedo pacifist-monastic tradition (the demand that monks bear no weapon) cites this verse as the canonical condemnation of weapons-craft at its angelic origin: violence is not natural to creation, it was TAUGHT by a fallen angel.",
+      "attribution": "1 Enoch 69:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 69,
+      "verse": 25,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And by that oath the heaven was suspended before the world was created and for ever. And through it the earth was founded upon the water' — the cosmogonic Oath. Tewahedo wisdom tradition reads this as the textual root for the sacramental power of the divine Name: just as the Oath holds the cosmos together, the invocation of the Name in liturgy holds the worshipping community together. The Sǝbḫata Foṣǝlt invokes this directly.",
+      "attribution": "1 Enoch 69:25, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 69,
+      "verse": 27,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And he sat on the throne of his glory, and the sum of judgment was given unto the Son of Man, and he caused the sinners to pass away and be destroyed from off the face of the earth, and those who have led the world astray' — Son of Man enthroned at consummation, parallel and prior to Jn 5:22-27. Tewahedo Christology cites this as the textual basis for the doctrine that the Father has GIVEN judgment to the Son — not delegated provisionally, but transferred completely.",
+      "attribution": "1 Enoch 69:27, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 70,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And it came to pass after this that his name during his lifetime was raised aloft to that Son of Man and to the Lord of Spirits from amongst those who dwell on the earth' — Enoch's name lifted to the Son of Man, anticipating the climactic 71:14 'Thou art the Son of Man'. Tewahedo theological tradition reads this verse as the textual basis for the unique status accorded Enoch in the Tewahedo Synaxarium: lifted-in-name means lifted-in-priestly-status, with Enoch's intercessory role preserved as part of the heavenly liturgy.",
+      "attribution": "1 Enoch 70:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 70,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And he set me between the two winds, between the North and the West, where the angels took the cords to measure for me the place for the elect and righteous' — measuring the place of the righteous. Tewahedo monastic geography (the actual layout of monastic complexes with directional orientation) preserves the four-cardinal-points structuring of sacred space, drawing on 70:3 and parallel Enochic texts as scriptural-cosmological anchor.",
+      "attribution": "1 Enoch 70:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 71,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And the spirit translated Enoch to the heaven of heavens, and I saw there as it were a structure built of crystals, and between those crystals tongues of living fire' — the crystal-and-fire heavenly architecture (parallel to Rev 4:6 sea-of-glass and Rev 21:18-21 crystal city walls). Tewahedo architectural symbolism (the use of polished stone and white-glazed surfaces in Lalibela's monolithic churches) draws on this Enochic vision-architecture as canonical aesthetic.",
+      "attribution": "1 Enoch 71:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 71,
+      "verse": 11,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And I fell on my face, and my whole body became relaxed, and my spirit was transfigured; and I cried with a loud voice... with the spirit of power, and blessed and glorified and extolled' — Enoch's transfiguration. Tewahedo mystical theology reads this verse as a pre-Christian witness to the deification (theosis) tradition: the human person can be transfigured in body and spirit through divine encounter. The Tewahedo monastic feast of Mount Tabor draws explicit liturgical parallels between Christ's Transfiguration and Enoch's, using 71:11 as a reading.",
+      "attribution": "1 Enoch 71:11, trans. R.H. Charles (1912). PD."
     }
   ]
 }

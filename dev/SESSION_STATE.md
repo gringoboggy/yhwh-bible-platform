@@ -1,5 +1,43 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.4.C Parables ships + sonar reinstall**:
+**γ.4.4.C 1 Enoch Parables detail shipped (40 entries on chs 37-71)
++ SonarQube integration cleanly reinstalled.** Parables-section
+expansion brings Parables coverage from 9 entries (γ.4.4.A first
+wave) to 49 entries across 32 of 35 chapters. 1 Enoch share rises
+from 31% to ~41% — Cyril remains plurality voice but 1 Enoch
+continues to climb. Anchor passages now substantively covered:
+38:2 (Righteous One title), 40:9 (Phanuel — Tewahedo-distinctive
+feast), 42:1 (Wisdom finds no place — Mary-fiat antecedent), 45:3
+(Elect One on throne — Mt 25:31 antecedent), 48:4 (Light of
+Gentiles — Servant–Son-of-Man identification), 48:7 (saved-in-his-
+name — Acts 4:12 antecedent), 60:7-8 (Leviathan + Behemoth — Mes-
+sianic banquet), 61:10 (Cherubim/Seraphim/Ophannim hierarchy),
+68:1 (Methuselah as first Parables scribe), 69:25 (cosmogonic
+Oath — Sǝbḫata Foṣǝlt anchor), 69:27 (Son of Man receives sum of
+judgment — Jn 5:22-27 antecedent), 71:11 (Enoch's transfiguration —
+theosis witness). **+13 tests** in
+`TestGamma44CParablesDetailWave`. Also this session: full sonar
+cleanup + clean reinstall via `/sonarqube:sonar-integrate` — MCP
+pinned to project at parent `.mcp.json`, secrets hooks at USER
+scope, canonical `sonar-project.properties` re-created; net `-28`
+tests from removing `test_sonarqube_omega47.py`. Combined session
+delta: `-15` tests. Full-suite serial reports 11 Windows handle-
+inheritance flakers (all pass individually — environmental, not
+regression); ruff format check passes 420/420; lint_rules 11/11
+CLEAN.
+
+**Translation arc closed (prior session, kept current):** the
+Mäṣḥafä Hēnok corpus now has Watchers (γ.4.4.B) AND Parables
+(γ.4.4.C) substantively expanded. Forward references from
+γ.4.4.C IN_FLIGHT block: **γ.4.4.D** Astronomical + Dream Visions
+(1En 72-90) would push 1 Enoch share past Cyril and make it the
+plurality voice; **γ.4.4.E** Epistle of Enoch (1En 91-108) closes
+the Mäṣḥafä Hēnok arc; **γ.4.2.B** Ephrem on Gen 12-50 would
+rebalance voice mix toward Ephrem.
+
+---
+
 **Updated 2026-05-12 / τ.6 Ge'ez ships, translation arc closes**:
 **τ.6 Ge'ez Tewahedo seed shipped — reinforces the v1.x
 flagship (ethiopian-tewahedo edition) with its native

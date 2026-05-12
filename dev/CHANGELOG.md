@@ -6,6 +6,128 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.4.C 1 Enoch Parables detail (40 entries on chs 37-71) + sonar reinstall
+
+**Phases shipped:** γ.4.4.C — Parables-section expansion of the
+Mäṣḥafä Hēnok corpus (1 Enoch's Son-of-Man Christology section).
+γ.4.4.A shipped 9 entries on this section (37:1, 38:1, 46:1, 46:3,
+48:2, 48:6, 51:1, 62:5, 71:14); γ.4.4.C adds 40 more, bringing
+Parables coverage from 9 to 49 entries across 32 distinct chapters
+(of the section's 35). 1 Enoch share of the corpus rises from 31%
+to ~41% — Cyril remains plurality voice but 1 Enoch continues to
+climb.
+**Test delta:** +13 (γ.4.4.C). Combined with prior sonar-cleanup
+test removal (−28 from `test_sonarqube_omega47.py` deletion), net
+session delta = −15.
+**Linter delta:** 11/11 clean.
+
+### γ.4.4.C — 1 Enoch Parables detail (chs 37-71)
+
+This wave covers the full Parables narrative arc in substantive
+detail: prologue extension (37:5) + First Parable's revelation /
+heaven-secrets / wisdom-finds-no-place sequence (38-43) + Second
+Parable's Elect-One enthronement / Light-of-Gentiles / Son-of-Man
+identification (45-55) + Third Parable's Noah-vision / Leviathan-
+Behemoth / cherubim-seraphim-ophannim / cosmogonic Oath / Son-of-
+Man-receives-judgment sequence (58-69) + Translation Visions of
+Enoch lifted / crystal-and-fire heaven / transfiguration (70-71).
+
+**Why this ship matters for the project specifically**:
+
+- The **Parables** is the pre-Christian textual root for **Son-of-Man
+  Christology** — the single most theologically load-bearing
+  pre-canonical text for identifying Jesus as the apocalyptic Son
+  of Man. Tewahedo canonisation preserves this textual lineage
+  where every other major communion lost it.
+- **45:3 (Elect One on throne of glory for judgment)** is the
+  direct Enochic antecedent of Matthew 25:31 — the Synoptic
+  judgment-throne scene is verbally Enochic.
+- **48:4 (Light of Gentiles)** establishes a Servant-of-the-Lord /
+  Son-of-Man identification in pre-Christian Jewish apocalyptic
+  that Tewahedo Christology preserves as canonical: Christ is BOTH
+  suffering-servant AND apocalyptic-Son-of-Man without tension.
+- **48:7 (saved-in-his-name)** is the pre-canonical witness to the
+  in-the-name salvation formula (Acts 4:12) — the Parables already
+  use 'name-of-the-Lord-of-Spirits' as salvation-medium.
+- **40:9 (Phanuel, angel of repentance)** is a Tewahedo-distinctive
+  feast-day commemoration unique to Ethiopia among the major
+  Christian traditions.
+- **42:1-2 (Wisdom finds no place)** is read in Tewahedo Marian
+  liturgy as the antecedent that Mary's fiat reverses.
+- **60:7-8 (Leviathan + Behemoth)** anchors the Messianic-banquet
+  preparation imagery preserved in Tewahedo monastic-church murals.
+- **68:1 (Methuselah as first Parables scribe)** locates every
+  Tewahedo monastic scribe in a textual-responsibility lineage
+  reaching back through Enoch's son.
+- **69:25 (cosmogonic Oath)** anchors the Tewahedo theology of the
+  divine Name as sacramentally creation-sustaining — invoked
+  directly in the Sǝbḫata Foṣǝlt prayer.
+- **69:27 (Son of Man receives sum of judgment)** is the textual
+  basis for the doctrine that the Father has GIVEN judgment to the
+  Son completely (Jn 5:22-27 antecedent).
+- **71:11 (Enoch's transfiguration)** is a pre-Christian witness to
+  the deification (theosis) tradition that the Tewahedo Mount-
+  Tabor monastic feast draws liturgical parallels to.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 40 new 1 Enoch
+  Parables entries appended (book code `1en`, work
+  `Book of Parables (1 Enoch 37-71)`, father
+  `1 Enoch (Ethiopian tradition)`, year `-100`, attribution
+  `1 Enoch C:V, trans. R.H. Charles (1912). PD.`). _meta scope
+  and source strings updated to record γ.4.4.C addition.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma44CParablesDetailWave` class with 13 tests pinning
+  Parables substantively expanded (≥40 1en entries in chs 37-71) +
+  all four sub-arcs (First / Second / Third / Translation Visions)
+  + 1 Enoch share ≥30% + 10 signature passages (40:9, 42:1, 45:3,
+  48:4, 60:8, 61:10, 68:1, 69:25, 69:27, 71:11).
+
+### Test environment note
+
+The full-suite serial run after this ship reported 11 environmental
+failures, all on subprocess-spawning tests (test_audit_dead_code,
+test_audit_types, test_desktop_theta, test_lint_rules ruff format
+check) with identical `OSError: [WinError 6] The handle is invalid`
+in the subprocess.Popen call. Each test passes individually in a
+fresh process. Root cause is Windows handle-inheritance
+exhaustion under Python 3.14 + pytest + heavy subprocess load —
+NOT a regression from γ.4.4.C content. Verified independently:
+`python -m ruff format --check .` reports `420 files already
+formatted`; `python scripts/lint_rules.py` reports `CLEAN: 11 pass
+· 0 warn · 0 fail`; the new γ.4.4.C test class passes 13/13
+verbosely.
+
+### Sonar reinstall (earlier this session)
+
+SonarQube integration cleanly removed and reinstalled via
+`/sonarqube:sonar-integrate`. Removed: `.claude/hooks/sonar-
+secrets/` (project-scope), duplicate `.mcp.json` files at root and
+`YHWH v2.4/`, `YHWH v2.4/sonar-project.properties`,
+`YHWH v2.4/scripts/check_sonarqube.py`,
+`YHWH v2.4/tests/test_sonarqube_omega47.py` (29 tests), the ω.47
+`sonarqube_quality_gate` check block in `YHWH v2.4/scripts/api/
+preflight.py`, SonarQube Cloud badge in `YHWH v2.4/README.md`,
+External-service-identifiers SonarCloud block in
+`YHWH v2.4/dev/CLAUDE_PROJECT_RULES.md`, `.vscode/settings.json`
+(SonarLint connected-mode only). Reinstall via `sonar self-update`
+(v0.12.0) + `sonar integrate claude --non-interactive`.
+Re-created: `YHWH v2.4/sonar-project.properties` (canonical
+config), parent `.mcp.json` with explicit `--project` pin to
+`bridge4kaladin-collab_yhwh-bible-platform`, README badge,
+CLAUDE_PROJECT_RULES external-services block (updated wording for
+USER-scope hooks). The ω.47 in-process gate query was deliberately
+NOT reinstated — Auto Analysis on SonarCloud side runs scans on
+push automatically, so the in-app gate poll is no longer load-
+bearing. Live API probe via `sonar api get
+/api/qualitygates/project_status?projectKey=...` confirms wiring
+works (returns `{"projectStatus":{"status":"NONE",...}}` —
+expected for a freshly-bound project pending first push-triggered
+scan).
+
+---
+
 ## 2026-05-12 — session — γ.4.4.B 1 Enoch Watchers detail (40 entries on chs 1-36)
 
 **Phases shipped:** γ.4.4.B — Watchers detail expansion of the

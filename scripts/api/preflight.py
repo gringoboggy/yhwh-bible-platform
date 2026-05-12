@@ -512,47 +512,6 @@ def _compute_preflight_uncached() -> dict:  # noqa: C901 — Tier-3 aggregator: 
         }
     )
 
-    # ω.47 — SonarCloud quality-gate (network call; degrade to warn
-    # when the project isn't on SonarCloud yet, or the CLI is
-    # missing, or the call times out). Lazy import so the
-    # preflight module stays load-fast for environments where
-    # the sonar CLI isn't installed.
-    try:
-        from scripts.check_sonarqube import check_quality_gate
-
-        sq = check_quality_gate()
-        sq_status = sq["status"]
-        sq_msg = sq["message"]
-        sq_raw_details = sq.get("details") or {}
-    except Exception as e:  # noqa: BLE001 — meta-tool failure must not break dashboard
-        sq_status = "warn"
-        sq_msg = f"sonarqube check failed to run: {e}"
-        sq_raw_details = {}
-    # Preflight contract (pinned by test_preflight_returns_structured_checks
-    # in tests/test_scripts.py): status ∈ {pass, warn, fail} and details is
-    # a list. Map "skip" → "warn" (skipped checks are warns to the dashboard),
-    # and wrap our info dict as a single-element list, or expand the
-    # failed-conditions list when present.
-    if sq_status == "skip":
-        sq_status = "warn"
-    failed_conditions = sq_raw_details.get("all_conditions") if isinstance(sq_raw_details, dict) else None
-    if failed_conditions:
-        sq_details_list = [{"metricKey": c.get("metricKey"), "status": c.get("status")} for c in failed_conditions]
-    elif sq_raw_details:
-        sq_details_list = [sq_raw_details]
-    else:
-        sq_details_list = []
-    checks.append(
-        {
-            "id": "sonarqube_quality_gate",
-            "name": "SonarCloud quality gate",
-            "status": sq_status,
-            "message": sq_msg,
-            "details": sq_details_list,
-            "jump_to": "/preflight",
-        }
-    )
-
     # Summary
     summary = {
         "total": len(checks),
