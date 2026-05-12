@@ -117,6 +117,7 @@ EXEC_HTML = r"""<!DOCTYPE html>
 <!-- THEME_ICONS_JS -->
 <!-- THEME_TOAST_JS -->
 <!-- THEME_CMD_PALETTE_JS -->
+<!-- THEME_TOUR_JS -->
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="theme-bg-page theme-text">
@@ -864,6 +865,50 @@ loadSalesRollup();
 loadDistribution();
 loadPressKitEditions();
 loadArchiveOrgStatus();
+
+// ζ.9 — first-run guided tour. Skips automatically when the user
+// has already seen it (localStorage flag `ebible_tour_exec_v1`).
+// Restartable from /apihelp via window.ebibleTour.reset().
+(function () {
+  if (!window.ebibleTour) return;
+  var steps = [
+    {
+      selector: null,
+      title: 'Welcome to the Executive Dashboard',
+      body: 'This 90-second tour shows where the publisher workflow lives. Press Skip any time; we won\\'t re-show this automatically.',
+    },
+    {
+      selector: '#kpi-grid',
+      title: 'Top-line KPIs',
+      body: 'Editions count, corpus depth, AI spend month-to-date, perf-budget health, build success, and sales month-to-date — all composed from the event log.',
+      position: 'bottom',
+    },
+    {
+      selector: '#sales-import-section',
+      title: 'Sales import',
+      body: 'Upload monthly CSVs from KDP, Apple Books, or Google Play. Rows append to the event log and the rollup tables refresh below.',
+      position: 'top',
+    },
+    {
+      selector: '#distribution-section',
+      title: 'Distribution checklist',
+      body: 'Per-edition × per-channel grid. Click a cell to toggle shipped/unshipped. Coverage % beneath tracks how broadly the catalogue is distributed.',
+      position: 'top',
+    },
+    {
+      selector: '#press-kit-section',
+      title: 'Press kit + Archive.org',
+      body: 'Per-edition deliverable: covers in 4 sizes, blurbs, sample chapter. Download as ZIP, or — once credentials are set — upload directly to archive.org with one click.',
+      position: 'top',
+    },
+    {
+      selector: null,
+      title: 'You\\'re ready',
+      body: 'Cmd+K (Ctrl+K on Windows) opens the command palette to jump between any console. Restart this tour from the API help console if you want a refresher.',
+    },
+  ];
+  window.ebibleTour.startIfFirstRun('ebible_tour_exec_v1', steps);
+})();
 
 // ε.3 — sales import form handler. Submits multipart to
 // /api/sales/import/<channel>; toasts on success/failure; refreshes

@@ -1,6 +1,57 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / opens Month 6**: **γ.4 Ethiopian
+**Updated 2026-05-12 / Month 6**: **ζ.9 first-run tour
+shipped — Month 6 #2 (taken after γ.4 since both are
+non-money + tour spec was a tiny ½-session estimate).**
+New `THEME_TOUR_JS` in scripts/templates/_design.py — an
+in-house ~330-line tour engine (no Shepherd.js/CDN dep per
+invariant I.1) exposing window.ebibleTour.{start, skip,
+next, back, startIfFirstRun, reset}; matches the public API
+shape of Shepherd/Driver/Intro for future migration ease.
+UX contract: dim backdrop + halo on the target element (box-
+shadow trick provides the per-step dim), positioned tooltip
+with viewport clamping, centred-modal mode for null-selector
+steps, ARIA dialog with role=dialog + aria-modal +
+aria-labelledby, keyboard navigation (ESC=skip, ←/→
+back/next), focus moves to Next button on each step + prior
+focus restored on close, click-outside does NOT dismiss
+(avoid accidental skip), reduced-motion friendly. All
+caller-supplied strings (title, body) inserted via
+textContent — XSS-safe by construction. localStorage gate
+(default key 'ebible_tour_seen_v1') so the tour never
+auto-reshows; reset() exists for a future /apihelp "Restart
+tour" link. New `<!-- THEME_TOUR_JS -->` marker registered
+in apply_design_system + listed in its docstring catalog.
+
+/exec extended with the 6-step first-run tour
+(`ebibleTour.startIfFirstRun('ebible_tour_exec_v1', steps)`
+on load): welcome modal → KPI tiles → sales import →
+distribution checklist → press kit + archive.org → closing
+modal with Cmd+K pointer + /apihelp-restart hint.
+
+**+21 tests** in `tests/test_tour_zeta9.py` (7 classes:
+JsConstantShape×2, MarkerSubstituted×2, MarkerDocumented×1,
+XssGuards×4 pinning textContent over innerHTML for every
+caller string, StorageKey×2, Accessibility×4 pinning ARIA +
+ESC handler, ExecWiring×6 pinning step count + selectors +
+modal-bookend pattern). **3011 / 3012 tests pass serially (1
+skipped); 11/11 lint clean.** Net session test delta from
+ψ.36-A baseline: **+758** across 31 ships.
+
+**Month 6 status**: γ.4 + ζ.9 shipped (2 of 7). Remaining:
+ξ.18 CSP nonces (non-money), ξ.21 2FA for admin auth
+(non-money), ξ.26 license-key validation (non-money), B.AI.4
+sharable verse cards (**money**), B.AI.5 AI co-pilot
+(**money**). Money items gated on publisher authorization.
+
+ζ.9.x natural follow-ons: per-console restart links (the
+`reset(storageKey)` API exists for this), and tour content
+extensions for /matrix + /publisher when those console
+workflows mature.
+
+---
+
+**Updated 2026-05-12 / Month 6 (prior)**: **γ.4 Ethiopian
 Tewahedo commentary shipped — the flagship payload (Month 6
 #4 per PROPOSAL, taken first since the v1.x uniqueness angle
 is the named priority).** New

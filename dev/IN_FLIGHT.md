@@ -4,6 +4,59 @@
 
 ## Prior task
 
+**ζ.9 first-run tour** shipped 2026-05-12. Month 6 #2 —
+in-house tour overlay engine (no Shepherd.js / CDN
+dependency per invariant I.1 "no heavy framework creep");
+mirrors Shepherd/Driver/Intro public API shape so future
+migration is cheap. + 6-step /exec first-run walk-through.
+
+Three pieces:
+- `scripts/templates/_design.py::THEME_TOUR_JS` — new ~330-
+  line script constant exposing `window.ebibleTour.{start,
+  skip, next, back, startIfFirstRun, reset}`. UX contract:
+  dim backdrop + halo on the target (box-shadow provides the
+  per-step dim), positioned tooltip with viewport clamping
+  via top/bottom/left/right `position` field (default
+  `bottom`), centred-modal mode for null-selector steps,
+  ARIA `role=dialog` + `aria-modal=true` + `aria-labelledby`
+  referencing the title's id, keyboard nav (ESC=skip,
+  ←/→=back/next), focus moves to Next button on each step
+  with prior focus restored on close, click-outside does NOT
+  dismiss (avoid accidental skip), reduced-motion friendly.
+  All caller-supplied strings (title, body) inserted via
+  textContent. localStorage gate (default key
+  `ebible_tour_seen_v1`); `startIfFirstRun(storageKey,
+  steps, opts)` short-circuits when the flag is set;
+  `reset(storageKey)` clears it for future /apihelp
+  restart-link wiring. Each step has a counter
+  ("Step N of M") + Back disabled on step 0 + Next reads
+  "Done" on the last step.
+- `scripts/templates/_design.py::apply_design_system` —
+  `<!-- THEME_TOUR_JS -->` marker substitution registered
+  + the docstring marker catalog updated to list ζ.9.
+- `scripts/templates/exec.py` — `<!-- THEME_TOUR_JS -->`
+  marker inserted in the head + 6-step tour declared in an
+  IIFE at the bottom of the dashboard script, gated on
+  `window.ebibleTour` presence. Steps: welcome modal → KPI
+  tiles (`#kpi-grid`) → sales import (`#sales-import-section`)
+  → distribution checklist (`#distribution-section`) → press
+  kit + archive.org (`#press-kit-section`) → closing modal
+  with Cmd+K pointer + /apihelp-restart hint. Storage key
+  `ebible_tour_exec_v1` (per-console namespacing so future
+  /matrix or /publisher tours can be tracked independently).
+
+**+21 tests** in `tests/test_tour_zeta9.py`:
+TestZeta9JsConstantShape × 2, MarkerSubstituted × 2,
+MarkerDocumented × 1, XssGuards × 4 (pin textContent over
+innerHTML for every caller-controlled string), StorageKey
+× 2, Accessibility × 4 (ARIA + ESC handler), ExecWiring × 6
+(step count + selectors + modal-bookend pattern + first-run
+guard).
+
+**3011 / 3012 tests pass serially (1 skipped); 11/11 lint clean.**
+
+## Prior task
+
 **γ.4 Ethiopian Tewahedo commentary** shipped 2026-05-12.
 Month 6 — the flagship payload per PROPOSAL ("the Tewahedo
 Bible's primary differentiator"). Opens Month 6 by taking the

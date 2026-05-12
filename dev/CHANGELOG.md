@@ -6,6 +6,118 @@
 
 ---
 
+## 2026-05-12 — session — ζ.9 first-run tour engine + /exec walk-through (Month 6)
+
+**Phases shipped:** ζ.9 (in-house tour overlay engine — no CDN
+dependency; per invariant I.1 "no heavy framework creep" —
+mirrors Shepherd.js / Driver.js / Intro.js public API shape; +
+six-step /exec first-run tour wired via the new substitution
+marker).
+**Test delta:** +21 (2990 → 3011; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### ζ.9 — First-run tour engine
+
+Per PROPOSAL §3 spec: "90-second guided tour... Skipable; never
+auto-reshows. Sells the product to its own user." Proposal
+suggested Shepherd.js (CDN) — shipped in-house instead. The
+engine is ~200 lines of JS, no external dep, matches the public
+API surface of the major tour libraries so a future swap is
+cheap.
+
+**Engine** — `THEME_TOUR_JS` in `scripts/templates/_design.py`:
+
+- `window.ebibleTour.start(steps[, opts])` — render the
+  tour. `steps` is `[{selector, title, body, position}]` —
+  `selector` is a CSS selector or falsy (renders as a centred
+  modal); `position` is `'top'|'bottom'|'left'|'right'`
+  (default `'bottom'`); `body` is plain text (rendered via
+  textContent — XSS-safe).
+- `window.ebibleTour.skip()` — close the tour + mark seen.
+- `window.ebibleTour.next()` / `.back()` — manual navigation.
+  `next()` on the last step closes the tour + marks seen.
+- `window.ebibleTour.startIfFirstRun(storageKey, steps, opts)`
+  — short-circuits when `localStorage[storageKey]` is set.
+  Returns `true` if it started the tour, `false` if it
+  skipped. Per-console storage keys so each console's tour
+  can be tracked independently.
+- `window.ebibleTour.reset(storageKey)` — clear the flag so
+  the tour fires on the next page load (used by a future
+  /apihelp "Restart tour" link).
+
+**UX contract**:
+
+- Backdrop dims the viewport behind the tooltip; when a step
+  has a target selector, the target gets a halo (border +
+  box-shadow that dims everything outside its bounding box).
+- Tooltip positions itself relative to the target with
+  viewport clamping; centred-modal mode for steps with no
+  target.
+- Keyboard: ESC = skip, ArrowRight = next, ArrowLeft = back.
+- Click-outside does NOT dismiss (avoid accidental skip).
+- ARIA: `role="dialog"` + `aria-modal="true"` +
+  `aria-labelledby` referencing the title's id. Focus moves
+  to the Next button on each step; on close, prior focus is
+  restored.
+- Reduced-motion friendly (no transitions).
+- Step counter "Step N of M" displayed; Back disabled on
+  step 0; Next reads "Done" on the last step.
+
+**Substitution** — new `<!-- THEME_TOUR_JS -->` marker; the
+`apply_design_system()` replacer (and its docstring catalog)
+list ζ.9 alongside the existing ζ markers.
+
+### /exec — 6-step first-run tour
+
+`scripts/templates/exec.py` invokes
+`ebibleTour.startIfFirstRun('ebible_tour_exec_v1', steps)` on
+load. Steps:
+
+1. **Welcome** (centred modal) — "90-second tour shows where
+   the publisher workflow lives. Press Skip any time; we
+   won't re-show this automatically."
+2. **Top-line KPIs** — anchored to `#kpi-grid`.
+3. **Sales import** — anchored to `#sales-import-section`.
+4. **Distribution checklist** — anchored to `#distribution-section`.
+5. **Press kit + Archive.org** — anchored to `#press-kit-section`.
+6. **You're ready** (centred modal) — pointer to Cmd+K command
+   palette + restart-from-/apihelp note.
+
+The storage key is `ebible_tour_exec_v1` — bumped to v2 if the
+tour content materially changes and we want returning users
+to see it again.
+
+### Files
+
+- `scripts/templates/_design.py` — `THEME_TOUR_JS` constant
+  (~330 lines including the engine + ARIA + positioning),
+  marker substitution registered in `apply_design_system`,
+  marker catalog in the docstring.
+- `scripts/templates/exec.py` — `<!-- THEME_TOUR_JS -->`
+  marker added; 6-step tour declared; first-run gate wired.
+- `tests/test_tour_zeta9.py` — new (21 tests across 7
+  classes: JsConstantShape × 2, MarkerSubstituted × 2,
+  MarkerDocumented × 1, XssGuards × 4, StorageKey × 2,
+  Accessibility × 4, ExecWiring × 6).
+
+### Forward references
+
+`reset(storageKey)` exists for a future /apihelp restart
+trigger. Any console that opts into a tour can wire its own
+steps + storage key — the engine is console-agnostic. Not
+shipping the /apihelp button now to keep ζ.9 v1 focused; that's
+a ζ.9.x-style follow-on if/when needed.
+
+### Month 6 status
+
+Shipped: γ.4, ζ.9 (2 of 7).
+Remaining: ξ.18 CSP nonces (non-money), ξ.21 2FA for admin
+auth (non-money), ξ.26 license-key validation (non-money),
+B.AI.4 sharable verse cards (**money**), B.AI.5 AI co-pilot
+(**money**).
+
+---
+
 ## 2026-05-12 — session — γ.4 Ethiopian Tewahedo commentary (Month 6 — flagship payload)
 
 **Phases shipped:** γ.4 (Ethiopian Tewahedo commentary corpus +

@@ -1886,6 +1886,346 @@ DARK_MODE_JS = """<script>
 
 
 # ----------------------------------------------------------------------
+# ζ.9 — First-run tour engine (2026-05-12).
+#
+# Minimal in-house tour overlay, no CDN dependency (per the project's
+# invariant I.1: no heavy framework creep). Mirrors the public API
+# shape that Shepherd.js / Driver.js / Intro.js use so future
+# migration is cheap if needed.
+#
+# Public API:
+#   window.ebibleTour.start(steps[, opts])
+#       — steps: array of {selector, title, body, position?}
+#         selector may be falsy → renders as a centred modal
+#         position is 'top'|'bottom'|'left'|'right' (default 'bottom')
+#       — opts: {storageKey?} (defaults to 'ebible_tour_seen_v1')
+#   window.ebibleTour.skip() — close + mark seen
+#   window.ebibleTour.next() / .back() — navigate manually
+#   window.ebibleTour.startIfFirstRun(storageKey, steps[, opts])
+#       — only starts when localStorage[storageKey] is missing
+#   window.ebibleTour.reset(storageKey) — clear the seen flag
+#       (used by /apihelp's "Restart tour" link)
+#
+# UX contract:
+#   - Dim backdrop covers the whole viewport behind the tooltip.
+#   - Target element gets a halo via outline style (no DOM mutation).
+#   - Tooltip card has: title, body (textContent — XSS-safe), buttons.
+#   - Skip ends the tour and marks seen. Back is disabled on step 0.
+#   - Last step's Next button reads "Done".
+#   - ESC closes; click-outside does NOT (avoid accidental skip).
+#   - ARIA: role="dialog" + aria-modal + aria-labelledby; focus moves
+#     into the tooltip on each step; ESC restores prior focus.
+#   - Reduced-motion friendly — no animations.
+#
+# Composes ζ.1 theme tokens (color vars from THEME_TOKENS_CSS).
+# Never auto-reshows: storage key bumps to v2 if the tour content
+# materially changes and we want returning users to see it again.
+# ----------------------------------------------------------------------
+
+THEME_TOUR_JS = """<script>
+(function () {
+  'use strict';
+
+  var STATE = {
+    steps: null,
+    index: 0,
+    opts: null,
+    priorFocus: null,
+    backdrop: null,
+    tooltip: null,
+    halo: null,
+  };
+
+  var STORAGE_KEY_DEFAULT = 'ebible_tour_seen_v1';
+
+  function makeEl(tag, className) {
+    var el = document.createElement(tag);
+    if (className) el.className = className;
+    return el;
+  }
+
+  function buildBackdrop() {
+    var bd = makeEl('div', 'ebible-tour-backdrop');
+    bd.style.cssText = ''
+      + 'position:fixed;inset:0;'
+      + 'background:rgba(15,23,42,0.55);'
+      + 'z-index:99998;';
+    return bd;
+  }
+
+  function buildTooltip() {
+    var card = makeEl('div', 'ebible-tour-tooltip');
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-modal', 'true');
+    card.setAttribute('aria-labelledby', 'ebible-tour-title');
+    card.style.cssText = ''
+      + 'position:fixed;z-index:99999;'
+      + 'max-width:24rem;min-width:14rem;'
+      + 'padding:1rem 1.25rem;'
+      + 'background:var(--color-bg-surface, #fff);'
+      + 'color:var(--color-fg, #0f172a);'
+      + 'border:1px solid var(--color-border, #e2e8f0);'
+      + 'border-radius:0.5rem;'
+      + 'box-shadow:0 10px 30px rgba(0,0,0,0.2);'
+      + 'font-size:0.875rem;line-height:1.45;';
+
+    var title = makeEl('h3');
+    title.id = 'ebible-tour-title';
+    title.style.cssText = 'margin:0 0 0.5rem 0;font-size:1rem;font-weight:600;';
+
+    var body = makeEl('p');
+    body.className = 'ebible-tour-body';
+    body.style.cssText = 'margin:0 0 0.75rem 0;';
+
+    var meta = makeEl('div', 'ebible-tour-meta');
+    meta.style.cssText = ''
+      + 'display:flex;align-items:center;justify-content:space-between;'
+      + 'gap:0.5rem;margin-top:0.5rem;font-size:0.75rem;';
+
+    var progress = makeEl('span', 'ebible-tour-progress');
+    progress.style.cssText = 'color:var(--color-text-muted, #64748b);';
+
+    var btnGroup = makeEl('div', 'ebible-tour-buttons');
+    btnGroup.style.cssText = 'display:flex;gap:0.5rem;';
+
+    var skip = makeEl('button', 'ebible-tour-skip');
+    skip.type = 'button';
+    skip.textContent = 'Skip';
+    skip.style.cssText = ''
+      + 'padding:0.25rem 0.6rem;font-size:0.75rem;'
+      + 'background:transparent;border:1px solid var(--color-border, #cbd5e1);'
+      + 'color:var(--color-text-muted, #64748b);'
+      + 'border-radius:0.25rem;cursor:pointer;';
+
+    var back = makeEl('button', 'ebible-tour-back');
+    back.type = 'button';
+    back.textContent = 'Back';
+    back.style.cssText = skip.style.cssText;
+
+    var next = makeEl('button', 'ebible-tour-next');
+    next.type = 'button';
+    next.textContent = 'Next';
+    next.style.cssText = ''
+      + 'padding:0.25rem 0.75rem;font-size:0.75rem;font-weight:600;'
+      + 'background:var(--color-accent, #2563eb);color:#fff;'
+      + 'border:1px solid var(--color-accent, #2563eb);'
+      + 'border-radius:0.25rem;cursor:pointer;';
+
+    btnGroup.appendChild(skip);
+    btnGroup.appendChild(back);
+    btnGroup.appendChild(next);
+    meta.appendChild(progress);
+    meta.appendChild(btnGroup);
+    card.appendChild(title);
+    card.appendChild(body);
+    card.appendChild(meta);
+
+    skip.addEventListener('click', skipTour);
+    back.addEventListener('click', goBack);
+    next.addEventListener('click', goNext);
+
+    return card;
+  }
+
+  function buildHalo() {
+    var halo = makeEl('div', 'ebible-tour-halo');
+    halo.style.cssText = ''
+      + 'position:fixed;pointer-events:none;'
+      + 'border:3px solid var(--color-accent, #2563eb);'
+      + 'border-radius:0.5rem;box-shadow:0 0 0 9999px rgba(15,23,42,0.55);'
+      + 'z-index:99997;'
+      + 'transition:none;';
+    return halo;
+  }
+
+  function positionTooltip(step) {
+    var tooltip = STATE.tooltip;
+    var halo = STATE.halo;
+    var backdrop = STATE.backdrop;
+    if (!tooltip) return;
+    var sel = step && step.selector;
+    var target = sel ? document.querySelector(sel) : null;
+    if (!target) {
+      // Centred modal — hide halo + show full backdrop.
+      if (halo) halo.style.display = 'none';
+      if (backdrop) backdrop.style.background = 'rgba(15,23,42,0.55)';
+      tooltip.style.left = '50%';
+      tooltip.style.top = '50%';
+      tooltip.style.transform = 'translate(-50%, -50%)';
+      return;
+    }
+    var rect = target.getBoundingClientRect();
+    if (halo) {
+      halo.style.display = '';
+      halo.style.left = (rect.left - 6) + 'px';
+      halo.style.top = (rect.top - 6) + 'px';
+      halo.style.width = (rect.width + 12) + 'px';
+      halo.style.height = (rect.height + 12) + 'px';
+    }
+    // Hide backdrop colour — halo's box-shadow now provides the dim.
+    if (backdrop) backdrop.style.background = 'transparent';
+
+    tooltip.style.transform = '';
+    var position = step.position || 'bottom';
+    var margin = 12;
+    var winW = window.innerWidth;
+    var winH = window.innerHeight;
+    var tipW = tooltip.offsetWidth || 320;
+    var tipH = tooltip.offsetHeight || 120;
+    var left, top;
+    switch (position) {
+      case 'top':
+        left = Math.max(8, rect.left + rect.width / 2 - tipW / 2);
+        top = Math.max(8, rect.top - tipH - margin);
+        break;
+      case 'left':
+        left = Math.max(8, rect.left - tipW - margin);
+        top = Math.max(8, rect.top + rect.height / 2 - tipH / 2);
+        break;
+      case 'right':
+        left = Math.min(winW - tipW - 8, rect.right + margin);
+        top = Math.max(8, rect.top + rect.height / 2 - tipH / 2);
+        break;
+      default:
+        left = Math.max(8, rect.left + rect.width / 2 - tipW / 2);
+        top = Math.min(winH - tipH - 8, rect.bottom + margin);
+    }
+    // Clamp into viewport.
+    left = Math.max(8, Math.min(left, winW - tipW - 8));
+    top = Math.max(8, Math.min(top, winH - tipH - 8));
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+  }
+
+  function renderStep() {
+    var step = STATE.steps[STATE.index];
+    if (!step) return;
+    var tooltip = STATE.tooltip;
+    var titleEl = tooltip.querySelector('#ebible-tour-title');
+    var bodyEl = tooltip.querySelector('.ebible-tour-body');
+    var progressEl = tooltip.querySelector('.ebible-tour-progress');
+    var backBtn = tooltip.querySelector('.ebible-tour-back');
+    var nextBtn = tooltip.querySelector('.ebible-tour-next');
+    // textContent — XSS-safe for every caller-supplied string.
+    titleEl.textContent = step.title || '';
+    bodyEl.textContent = step.body || '';
+    progressEl.textContent = 'Step ' + (STATE.index + 1) + ' of ' + STATE.steps.length;
+    backBtn.disabled = STATE.index === 0;
+    backBtn.style.opacity = backBtn.disabled ? '0.4' : '1.0';
+    nextBtn.textContent = STATE.index === STATE.steps.length - 1 ? 'Done' : 'Next';
+    positionTooltip(step);
+    // Move focus into the tooltip so keyboard users land here.
+    setTimeout(function () { nextBtn.focus(); }, 0);
+  }
+
+  function endTour(markSeen) {
+    if (STATE.backdrop && STATE.backdrop.parentNode) {
+      STATE.backdrop.parentNode.removeChild(STATE.backdrop);
+    }
+    if (STATE.tooltip && STATE.tooltip.parentNode) {
+      STATE.tooltip.parentNode.removeChild(STATE.tooltip);
+    }
+    if (STATE.halo && STATE.halo.parentNode) {
+      STATE.halo.parentNode.removeChild(STATE.halo);
+    }
+    document.removeEventListener('keydown', onKeydown, true);
+    window.removeEventListener('resize', onResize);
+    if (markSeen && STATE.opts && STATE.opts.storageKey) {
+      try { localStorage.setItem(STATE.opts.storageKey, '1'); } catch (e) {}
+    }
+    if (STATE.priorFocus && STATE.priorFocus.focus) {
+      try { STATE.priorFocus.focus(); } catch (e) {}
+    }
+    var key = STATE.opts && STATE.opts.storageKey;
+    STATE.steps = null;
+    STATE.index = 0;
+    STATE.opts = null;
+    STATE.priorFocus = null;
+    STATE.backdrop = null;
+    STATE.tooltip = null;
+    STATE.halo = null;
+    document.dispatchEvent(new CustomEvent('ebibletourend', { detail: { storageKey: key } }));
+  }
+
+  function skipTour() { endTour(true); }
+  function goNext() {
+    if (STATE.index >= STATE.steps.length - 1) {
+      endTour(true);
+      return;
+    }
+    STATE.index += 1;
+    renderStep();
+  }
+  function goBack() {
+    if (STATE.index <= 0) return;
+    STATE.index -= 1;
+    renderStep();
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      skipTour();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      goNext();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      goBack();
+    }
+  }
+
+  function onResize() {
+    if (STATE.steps) positionTooltip(STATE.steps[STATE.index]);
+  }
+
+  function startTour(steps, opts) {
+    if (STATE.steps) return; // already running
+    if (!steps || !steps.length) return;
+    STATE.steps = steps;
+    STATE.index = 0;
+    STATE.opts = opts || { storageKey: STORAGE_KEY_DEFAULT };
+    if (!STATE.opts.storageKey) STATE.opts.storageKey = STORAGE_KEY_DEFAULT;
+    STATE.priorFocus = document.activeElement;
+    STATE.backdrop = buildBackdrop();
+    STATE.tooltip = buildTooltip();
+    STATE.halo = buildHalo();
+    document.body.appendChild(STATE.backdrop);
+    document.body.appendChild(STATE.halo);
+    document.body.appendChild(STATE.tooltip);
+    document.addEventListener('keydown', onKeydown, true);
+    window.addEventListener('resize', onResize);
+    renderStep();
+  }
+
+  function startIfFirstRun(storageKey, steps, opts) {
+    var key = storageKey || STORAGE_KEY_DEFAULT;
+    var seen = false;
+    try { seen = !!localStorage.getItem(key); } catch (e) {}
+    if (seen) return false;
+    var resolvedOpts = Object.assign({}, opts || {}, { storageKey: key });
+    startTour(steps, resolvedOpts);
+    return true;
+  }
+
+  function resetTour(storageKey) {
+    var key = storageKey || STORAGE_KEY_DEFAULT;
+    try { localStorage.removeItem(key); } catch (e) {}
+  }
+
+  window.ebibleTour = {
+    start: startTour,
+    skip: skipTour,
+    next: goNext,
+    back: goBack,
+    startIfFirstRun: startIfFirstRun,
+    reset: resetTour,
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
 # Console list — single source of truth for the cross-link nav.
 # Adding a new console means appending here AND adding the route in
 # scripts/web.py. The §6.2 cross-link invariant linter then verifies
@@ -2049,6 +2389,7 @@ def apply_design_system(html: str, current_route: str) -> str:
       - `<!-- THEME_RECENTS_JS -->`      → THEME_RECENTS_JS   (ν.10)
       - `<!-- THEME_HOTRELOAD_JS -->`    → THEME_HOTRELOAD_JS (ω.39)
       - `<!-- THEME_EDITABLE_JS -->`     → THEME_EDITABLE_JS  (ν.7)
+      - `<!-- THEME_TOUR_JS -->`         → THEME_TOUR_JS      (ζ.9)
 
     The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
     template — that's the existing convention from ψ.14/15/16. The
@@ -2119,5 +2460,9 @@ def apply_design_system(html: str, current_route: str) -> str:
     html = html.replace(
         "<!-- THEME_EDITABLE_JS -->",
         THEME_EDITABLE_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_TOUR_JS -->",
+        THEME_TOUR_JS,
     )
     return html
