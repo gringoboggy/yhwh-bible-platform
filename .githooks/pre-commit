@@ -23,16 +23,36 @@ cd "$REPO_ROOT"
 
 # Locate Python. Prefer the project's venv if present, else
 # system python3.
+#
+# Windows-Store-alias guard: on Windows, `python3` and `python` may
+# resolve to the App-Installer alias under %LOCALAPPDATA%\Microsoft\
+# WindowsApps\, which prints "Python was not found ..." and exits
+# non-zero. `command -v` finds it (it's a real file in PATH), so we
+# have to actually invoke `--version` to test if the interpreter is
+# a real Python install.
+try_python() {
+  # Returns 0 if "$1 --version" runs successfully AND emits a
+  # version string starting with "Python ", which the Store alias
+  # does NOT (it prints "Python was not found" to stderr).
+  out="$("$1" --version 2>&1)" || return 1
+  case "$out" in
+    Python\ *) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 if [ -x ".venv/bin/python" ]; then
   PYTHON=".venv/bin/python"
 elif [ -x ".venv/Scripts/python.exe" ]; then
   PYTHON=".venv/Scripts/python.exe"
-elif command -v python3 >/dev/null 2>&1; then
+elif command -v python3 >/dev/null 2>&1 && try_python python3; then
   PYTHON="python3"
-elif command -v python >/dev/null 2>&1; then
+elif command -v python >/dev/null 2>&1 && try_python python; then
   PYTHON="python"
+elif command -v py >/dev/null 2>&1 && try_python "py -3"; then
+  PYTHON="py -3"
 else
-  echo "pre-commit: no Python found; skipping checks." >&2
+  echo "pre-commit: no working Python found; skipping checks." >&2
   exit 0
 fi
 

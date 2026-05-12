@@ -417,15 +417,15 @@ class TestGamma41CyrilJohn:
         cls.ec = sources.ethiopian_commentaries()
 
     def test_cyril_is_heaviest_voice(self):
-        # After γ.4.1.A + γ.4.1.B + γ.4.1.C, Cyril has many more entries
-        # than any other single Father in the corpus. Cumulative wave:
-        # γ.4.1.A 30 + γ.4.1.B 27 + γ.4.1.C 29 = +86 Cyril entries on top
-        # of the original γ.4 seed.
+        # After γ.4.1.A + γ.4.1.B + γ.4.1.C + γ.4.1.D, Cyril has many
+        # more entries than any other single Father in the corpus.
+        # Cumulative wave: γ.4.1.A 30 + γ.4.1.B 27 + γ.4.1.C 29 + γ.4.1.D
+        # 30 = +116 Cyril entries on top of the original γ.4 seed (5).
         cyril = self.ec.by_father("Cyril of Alexandria")
         ephrem = self.ec.by_father("Ephrem the Syrian")
-        assert len(cyril) >= 80, f"γ.4.1.A+B+C expansion expected ≥80 Cyril entries; found {len(cyril)}"
+        assert len(cyril) >= 115, f"γ.4.1.A+B+C+D expansion expected ≥115 Cyril entries; found {len(cyril)}"
         assert len(cyril) > len(ephrem), (
-            f"After γ.4.1.A+B+C Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
+            f"After γ.4.1.A+B+C+D Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
         )
 
     def test_cyril_john_chapters_1_through_4_covered(self):
@@ -938,3 +938,158 @@ class TestGamma42EphremGenesisFirstWave:
             assert "NPNF" in attr, f"γ.4.2 entry missing NPNF citation: {attr!r}"
             assert "13" in attr, f"γ.4.2 entry missing Vol 13 citation: {attr!r}"
             assert "PD" in attr, f"γ.4.2 entry missing PD marker: {attr!r}"
+
+
+class TestGamma41DCyrilJohn15Through21:
+    """γ.4.1.D — Cyril of Alexandria on John 15-21 (30 entries).
+    CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap (Cyril's
+    Books VII-VIII LOST). Covers the Vine discourse (John 15) + further
+    Paraclete promises + sorrow-turned-to-joy (John 16) + the High-
+    Priestly Prayer (John 17) + Garden of Gethsemane + arrest + trial
+    before Pilate (John 18) + Passion + tetelestai (John 19) +
+    Resurrection appearances + breathing of Holy Ghost (John 20) +
+    restoration of Peter / Feed-my-sheep (John 21).
+
+    γ.4.1 cumulative wave-totals: A 30 + B 27 + C 29 + D 30 = 116
+    Cyril-on-John entries beyond the γ.4 seed of 3 Cyril-on-John.
+
+    Pins:
+    - John 15-21 chapter coverage; full Cyrilline John (1-7 + 11-21).
+    - Vine + branches anchor (15:1, 15:5 — ecclesial vital-union).
+    - Paraclete + pneumatology (15:26 eternal procession;
+      16:7 expedient-I-go-away; 16:13 guide-into-all-truth).
+    - High-Priestly Prayer (17:3 eternal-life-is-knowing;
+      17:5 glory-before-world; 17:21 that-they-all-may-be-one;
+      17:24 behold-my-glory).
+    - Trinitarian-equality (18:6 ego-eimi-theophany);
+    - Christological (18:36 kingdom-not-of-this-world;
+      19:30 tetelestai-completed-work).
+    - Resurrection + commissioning (20:17 my-Father-and-your-Father;
+      20:22 Receive-ye-the-Holy-Ghost; 20:29 blessed-not-seen-yet-believed).
+    - Pastoral commission (21:15-17 lovest-thou-me + Feed-my-sheep).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_cyril_john_chapters_15_through_21_covered(self):
+        # γ.4.1.D explicitly covers John 15-21.
+        for chapter in (15, 16, 17, 18, 19, 20, 21):
+            cyril_in_chapter = []
+            for verse in range(1, 100):
+                cyril_in_chapter.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+            assert len(cyril_in_chapter) >= 2, (
+                f"γ.4.1.D expected ≥2 Cyril entries in John {chapter}; found {len(cyril_in_chapter)}"
+            )
+
+    def test_gamma_4_1_now_closed_modulo_jn_8_10_gap(self):
+        # γ.4.1 is now CLOSED: Cyril coverage spans the full Gospel
+        # of John (Jn 1-7 from γ.4.1.A/B + Jn 11-14 from γ.4.1.C +
+        # Jn 15-21 from γ.4.1.D + Jn 19:34 from γ.4 seed). Pin all
+        # extant John chapters present except 8-10 (manuscript gap).
+        cyril_on_john = [e for e in self.ec.by_father("Cyril of Alexandria") if e.book == "joh"]
+        chapters = {e.chapter for e in cyril_on_john}
+        expected_present = {1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21}
+        missing = expected_present - chapters
+        assert not missing, f"γ.4.1.D should close γ.4.1 except for Jn 8-10; missing chapters: {missing}"
+
+    def test_cyril_vine_present(self):
+        # Jn 15:1 — sixth 'I AM' saying; ecclesial vital-union pin.
+        cyril_151 = [e for e in self.ec.for_verse("joh", 15, 1) if e.father == "Cyril of Alexandria"]
+        assert cyril_151, "γ.4.1.D missing Jn 15:1 — 'I am the true vine'"
+
+    def test_cyril_greater_love_present(self):
+        # Jn 15:13 — cross as visible measure of divine love.
+        cyril_1513 = [e for e in self.ec.for_verse("joh", 15, 13) if e.father == "Cyril of Alexandria"]
+        assert cyril_1513, "γ.4.1.D missing Jn 15:13 — greater love"
+
+    def test_cyril_eternal_procession_present(self):
+        # Jn 15:26 — Eastern Orthodox foundation for eternal procession
+        # from the Father (Cyrilline reading distinguishing eternal
+        # procession from temporal mission — pre-Filioque grounding).
+        cyril_1526 = [e for e in self.ec.for_verse("joh", 15, 26) if e.father == "Cyril of Alexandria"]
+        assert cyril_1526, "γ.4.1.D missing Jn 15:26 — Spirit's eternal procession"
+
+    def test_cyril_expedient_i_go_away_present(self):
+        # Jn 16:7 — pneumatology of progressive economy; Ascension as
+        # precondition for Spirit's coming.
+        cyril_167 = [e for e in self.ec.for_verse("joh", 16, 7) if e.father == "Cyril of Alexandria"]
+        assert cyril_167, "γ.4.1.D missing Jn 16:7 — expedient-I-go-away"
+
+    def test_cyril_eternal_life_is_knowing_present(self):
+        # Jn 17:3 — definition of eternal life as participation-by-
+        # knowing the only true God + Jesus Christ.
+        cyril_173 = [e for e in self.ec.for_verse("joh", 17, 3) if e.father == "Cyril of Alexandria"]
+        assert cyril_173, "γ.4.1.D missing Jn 17:3 — eternal life as knowing"
+
+    def test_cyril_glory_before_world_was_present(self):
+        # Jn 17:5 — Cyril's strongest single-verse text for the
+        # Son's eternal pre-existence; used heavily in Twelve Anathemas.
+        cyril_175 = [e for e in self.ec.for_verse("joh", 17, 5) if e.father == "Cyril of Alexandria"]
+        assert cyril_175, "γ.4.1.D missing Jn 17:5 — glory before world was"
+
+    def test_cyril_that_they_all_may_be_one_present(self):
+        # Jn 17:21 — THE ecclesiological text of the Gospel; ecclesial
+        # unity grounded in Trinitarian perichoresis.
+        cyril_1721 = [e for e in self.ec.for_verse("joh", 17, 21) if e.father == "Cyril of Alexandria"]
+        assert cyril_1721, "γ.4.1.D missing Jn 17:21 — that they all may be one"
+
+    def test_cyril_kingdom_not_of_this_world_present(self):
+        # Jn 18:36 — anti-theocratic + anti-revolutionary pin shaping
+        # Tewahedo monastic withdrawal ethic.
+        cyril_1836 = [e for e in self.ec.for_verse("joh", 18, 36) if e.father == "Cyril of Alexandria"]
+        assert cyril_1836, "γ.4.1.D missing Jn 18:36 — my kingdom not of this world"
+
+    def test_cyril_tetelestai_present(self):
+        # Jn 19:30 — dominical declaration of completed work; sovereign
+        # release of life, not victim's defeat.
+        cyril_1930 = [e for e in self.ec.for_verse("joh", 19, 30) if e.father == "Cyril of Alexandria"]
+        assert cyril_1930, "γ.4.1.D missing Jn 19:30 — tetelestai"
+
+    def test_cyril_receive_holy_ghost_present(self):
+        # Jn 20:22 — new-creation breathing of the Spirit echoing
+        # Gen 2:7; Trinitarian-pneumatological climax of the
+        # Resurrection appearances.
+        cyril_2022 = [e for e in self.ec.for_verse("joh", 20, 22) if e.father == "Cyril of Alexandria"]
+        assert cyril_2022, "γ.4.1.D missing Jn 20:22 — Receive ye the Holy Ghost"
+
+    def test_cyril_feed_my_sheep_present(self):
+        # Jn 21:17 — third commission to Peter; pastoral office
+        # institution; preserved in Tewahedo ordination prayers.
+        cyril_2117 = [e for e in self.ec.for_verse("joh", 21, 17) if e.father == "Cyril of Alexandria"]
+        assert cyril_2117, "γ.4.1.D missing Jn 21:17 — Feed my sheep"
+
+    def test_meta_documents_gamma_4_1_d_expansion(self):
+        # Pin: _meta scope/source block names γ.4.1.D explicitly.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        assert "γ.4.1.D" in meta["source"] or "γ.4.1.D" in meta["scope"], (
+            "_meta must name γ.4.1.D expansion in source or scope"
+        )
+
+    def test_every_gamma_4_1_d_attribution_cites_npnf_vol_14(self):
+        # γ.4.1.D entries (Cyril-on-John in chapters 15-21) must all
+        # cite NPNF Series 2 Vol 14 + explicit PD marker.
+        cyril_in_chs_15_to_21 = []
+        for chapter in (15, 16, 17, 18, 19, 20, 21):
+            for verse in range(1, 100):
+                cyril_in_chs_15_to_21.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        assert cyril_in_chs_15_to_21, "γ.4.1.D expected Cyril entries in John 15-21"
+        for entry in cyril_in_chs_15_to_21:
+            attr = entry.attribution
+            assert "NPNF" in attr, f"γ.4.1.D entry missing NPNF citation: {attr!r}"
+            assert "14" in attr, f"γ.4.1.D entry missing Vol 14 citation: {attr!r}"
+            assert "PD" in attr, f"γ.4.1.D entry missing PD marker: {attr!r}"

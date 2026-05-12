@@ -6,6 +6,130 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.1.D Cyril on John (fourth wave — CLOSES γ.4.1)
+
+**Phases shipped:** γ.4.1.D — fourth and final wave of Cyril of
+Alexandria's Commentary on John. **CLOSES γ.4.1** modulo the
+permanently-unfillable Jn 8-10 manuscript gap (Cyril's Books VII-
+VIII are LOST). γ.4.1.A shipped John 1-4 (30 entries); γ.4.1.B
+shipped John 5-7 (27); γ.4.1.C shipped John 11-14 (29); γ.4.1.D
+adds John 15-21 (30 entries: Vine + Spirit + Paraclete + High-
+Priestly Prayer + Passion + tetelestai + Resurrection + Receive-
+the-Holy-Ghost + restoration of Peter).
+**Test delta:** +14 (3395 → 3409; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.1.D — Cyril on John 15-21 (Vine + High-Priestly Prayer + Passion + Resurrection)
+
+This wave covers the **post-Last-Supper / Farewell-to-Easter arc**
+of Cyril's John commentary — the verses through which the Gospel
+moves from Christ's final instructions through the cross to the
+Resurrection appearances and apostolic commissioning. Together with
+the prior waves, γ.4.1 now covers the full Gospel of John
+substantively (modulo the manuscript-tradition gap at Jn 8-10).
+
+**Why this ship matters for the project specifically**:
+
+- **John 15 (Vine discourse)** anchors Cyril's ecclesiological
+  doctrine of vital union between Christ and the Church (15:1 + 15:5
+  perichoresis-by-participation; 15:13 cross as visible measure of
+  divine love).
+- **John 15:26 + the John 16 Paraclete texts** ground Cyril's
+  pneumatology of progressive economy + the Eastern Orthodox
+  distinction between Spirit's eternal procession (from-the-Father)
+  and temporal mission (through-the-Son) — the Cyrilline foundation
+  for the original Nicene formulation, against the later Western
+  Filioque interpolation.
+- **John 17 (High-Priestly Prayer)** Cyril treats with particular
+  reverence as "the prayer the Church prays back to the Father along
+  with Christ." Jn 17:5 ('glory before world was') is Cyril's
+  strongest single-verse text for the Son's eternal pre-existence;
+  Jn 17:21 ('that they all may be one') is THE ecclesiological text
+  of the Gospel; Jn 17:24 ('behold my glory') grounds the Tewahedo
+  eschatology of eternal participatory contemplation.
+- **John 18-19 (Passion)** carries the dominical declaration of
+  completed work (Jn 19:30 tetelestai), the paschal-lamb typology
+  (Jn 19:36 'a bone of him shall not be broken'), the Marian-
+  ecclesiological commission (Jn 19:26-27), and the kingdom-not-
+  of-this-world principle (Jn 18:36) that shapes the entire
+  Tewahedo monastic withdrawal ethic.
+- **John 20:22 (Receive ye the Holy Ghost)** echoes Gen 2:7's
+  divine breathing — the Risen Christ as new-creation source.
+- **John 21:15-17 (lovest thou me / Feed my sheep)** institutes the
+  pastoral office; preserved verbatim in Tewahedo ordination prayers.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 30 new Cyril-on-
+  John entries appended (Jn 15:1, 15:5, 15:13, 15:16, 15:26, 15:27,
+  16:7, 16:13, 16:20, 16:28, 16:33, 17:1, 17:3, 17:5, 17:17, 17:21,
+  17:24, 18:6, 18:11, 18:36, 18:38, 19:11, 19:26, 19:30, 19:36,
+  20:17, 20:22, 20:29, 21:15, 21:17). Each entry ~120-180 word
+  paraphrase. _meta block updated to document γ.4.1.D + the
+  CLOSED-modulo-gap status of γ.4.1.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma41DCyrilJohn15Through21` class with 14 tests pinning
+  John 15-21 chapter coverage + **γ.4.1-closes-modulo-Jn-8-10 pin**
+  + 11 doctrinal anchors (Vine 15:1 / Greater love 15:13 / Eternal
+  procession 15:26 / Expedient-I-go-away 16:7 / Eternal-life-is-
+  knowing 17:3 / Glory-before-world-was 17:5 / That-they-all-may-be-
+  one 17:21 / Kingdom-not-of-this-world 18:36 / Tetelestai 19:30 /
+  Receive-the-Holy-Ghost 20:22 / Feed-my-sheep 21:17) + γ.4.1.D _meta
+  name + NPNF + Vol 14 + PD citation pin per entry.
+  test_cyril_is_heaviest_voice bumped from ≥80 to ≥115.
+
+**Code-side wiring**: zero new code. γ.4.1.D is pure content
+expansion within the γ.4 infrastructure shipped 2026-05-11.
+
+### Corpus state post-γ.4.1.D — γ.4.1 CLOSED
+
+```
+ethiopian_commentaries.json: 160 entries (was 130 after γ.4.2 wave-1; +30)
+├─ Cyril of Alexandria     : 121 entries (was 91; +30 — all on John)
+│  ├─ John chapters covered: 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14,
+│  │                         15, 16, 17, 18, 19, 20, 21
+│  │                         (8-10 PERMANENTLY UNAVAILABLE —
+│  │                         Cyril's Books VII-VIII LOST in
+│  │                         manuscript tradition)
+│  └─ Per-chapter counts   : 1×14, 2×5, 3×8, 4×5, 5×10, 6×10, 7×7,
+│                            11×8, 12×5, 13×6, 14×10, 15×6, 16×5,
+│                            17×6, 18×4, 19×5, 20×3, 21×2
+├─ Ephrem the Syrian       :  37 entries (unchanged from γ.4.2)
+└─ 1 Enoch tradition       :   2 entries (unchanged)
+
+Voice distribution         : Cyril 76% / Ephrem 23% / 1 Enoch 1%
+                             (was 70/28/2 pre-γ.4.1.D; Cyril share rose
+                             modestly back but well below pre-γ.4.2 93%)
+Six-tradition coverage     : 216 entries (was 186)
+γ.4.1 cumulative           : 116 entries (γ.4.1.A 30 + γ.4.1.B 27 +
+                             γ.4.1.C 29 + γ.4.1.D 30) — CLOSED
+```
+
+### γ.4.1 SUMMARY — closed in a single session
+
+```
+γ.4.1.A  John 1-4   (Logos prologue + Cana + Nicodemus + Samaritan)  30 ✓
+γ.4.1.B  John 5-7   (Bethesda + Bread of Life + Tabernacles)         27 ✓
+γ.4.1.C  John 11-14 (Lazarus + Last Supper + Farewell I)             29 ✓
+γ.4.1.D  John 15-21 (Vine + High-Priestly Prayer + Passion + Resurr.) 30 ✓
+                                                              cumulative: 116
+γ.4.1 CLOSED 2026-05-12 modulo Jn 8-10 (Cyril Books VII-VIII LOST).
+```
+
+### Forward references
+
+- **γ.4.2.B** — Ephrem on Genesis 12-50 (patriarchal narrative).
+  ~40-60 entries. Would push Ephrem share toward 35-40%, fuller
+  dual-anchor parity.
+- **γ.4.2.C** — Ephrem on Exodus. ~40-60 entries.
+- **γ.4.2.D** — Ephrem on Numbers + Deuteronomy. ~30-40 entries.
+- **γ.4.3** — Cyril on Luke (Payne Smith 1859 PD). ~400 entries
+  long-term target.
+- **γ.4.4** — 1 Enoch (Charles 1912) verse-keyed entries. ~300
+  entries; would bring 1 Enoch share substantively up (currently 1%).
+
+---
+
 ## 2026-05-12 — session — γ.4.2 Ephrem on Genesis (first wave: Gen 1-11)
 
 **Phases shipped:** γ.4.2 first wave — Ephrem the Syrian's

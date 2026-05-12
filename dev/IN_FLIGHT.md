@@ -4,6 +4,104 @@
 
 ## Prior task
 
+**γ.4.1.D Cyril on John (fourth wave: John 15-21) — CLOSES γ.4.1**
+shipped 2026-05-12. 30 substantive Cyril-on-John entries covering
+John 15-21 (Vine + Spirit + Paraclete + sorrow-to-joy + High-Priestly
+Prayer + Garden + arrest + Pilate + Passion + tetelestai + Resurrection
++ Receive-the-Holy-Ghost + restoration of Peter). γ.4.1 is now CLOSED
+modulo the unfillable Jn 8-10 manuscript gap (Cyril's Books VII-VIII
+LOST).
+
+**Why it matters for THIS project**: completes the Cyrilline John
+commentary arc that started with the γ.4 seed. The four waves
+together cover the full Gospel of John substantively (modulo the
+manuscript-tradition gap at Jn 8-10). The Tewahedo theological
+inheritance from Cyril — especially the Christology of one incarnate
+nature of the Word, the eucharistic realism of the Bread of Life
+discourse, the pneumatology of progressive economy, and the
+Trinitarian perichoresis — is now substantively present in the
+buyer-facing apparatus across the entire Gospel.
+
+**γ.4.1 SUMMARY** (single-session arc):
+```
+γ.4.1.A  John 1-4    Logos prologue + Cana + Nicodemus + Samaritan  30 ✓
+γ.4.1.B  John 5-7    Bethesda + Bread of Life + Tabernacles         27 ✓
+γ.4.1.C  John 11-14  Lazarus + Last Supper + Farewell I              29 ✓
+γ.4.1.D  John 15-21  Vine + High-Priestly Prayer + Passion + Resurr  30 ✓
+                                                       cumulative: 116
+γ.4.1 CLOSED 2026-05-12 modulo Jn 8-10 (Cyril Books VII-VIII LOST).
+```
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 30 new Cyril-on-
+  John entries appended covering Jn 15:1/15:5/15:13/15:16/15:26/
+  15:27 + 16:7/16:13/16:20/16:28/16:33 + 17:1/17:3/17:5/17:17/
+  17:21/17:24 + 18:6/18:11/18:36/18:38 + 19:11/19:26/19:30/19:36 +
+  20:17/20:22/20:29 + 21:15/21:17. _meta block updated to document
+  γ.4.1.D + the CLOSED-modulo-gap status of γ.4.1.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma41DCyrilJohn15Through21` class with 14 tests including
+  the **γ.4.1-closes-modulo-Jn-8-10 pin** that asserts coverage
+  spans all extant Cyrilline chapters (Jn 1-7 + 11-21).
+
+**Code-side wiring**: zero new code.
+
+**Corpus state post-γ.4.1.D**:
+```
+ethiopian_commentaries.json: 160 entries (was 130 after γ.4.2 wave-1; +30)
+├─ Cyril of Alexandria     : 121 entries (was 91; +30)
+│  ├─ John coverage         : chs 1-7 + 11-21 (Cyrilline-John COMPLETE)
+│  └─ 8-10 PERMANENTLY UNAVAILABLE (Books VII-VIII LOST)
+├─ Ephrem the Syrian       :  37 entries (unchanged)
+└─ 1 Enoch tradition       :   2 entries (unchanged)
+
+Voice mix: Cyril 76% / Ephrem 23% / 1 Enoch 1%
+           (was 70/28/2 pre-γ.4.1.D)
+Six-tradition coverage     : 216 entries (was 186)
+γ.4.1 cumulative           : 116 entries (CLOSED)
+```
+
+**+14 tests**. **3409 / 3410 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **γ.4.2.B** Ephrem on Genesis 12-50 (patriarchal narrative,
+  ~40-60 entries) — would push Ephrem share toward 35-40%.
+- **γ.4.2.C** Ephrem on Exodus (~40-60 entries).
+- **γ.4.2.D** Ephrem on Numbers + Deuteronomy (~30-40 entries).
+- **γ.4.3** Cyril on Luke (Payne Smith 1859 PD, ~400 long-term
+  target).
+- **γ.4.4** 1 Enoch verse-keyed (Charles 1912 PD, ~300 entries) —
+  would bring 1 Enoch share substantively up (currently 1%).
+
+**Session totals (2026-05-12)**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+γ.4.1.C Cyril on John (third wave)                  +14 tests
+AUDIT_2026-05-12-B                                    0 tests (doc-only)
+γ.4.2 Ephrem on Genesis (first wave)                +12 tests
+γ.4.1.D Cyril on John (fourth wave — CLOSES γ.4.1)  +14 tests
+                                  session total:   +212 tests
+                                  3197 → 3409 (serial; 1 skipped)
+```
+
+**Recommended next ship**:
+- **γ.4.2.B Ephrem on Gen 12-50** — patriarchal narrative; pushes
+  Ephrem share toward 35-40% (closer to corpus parity with Cyril).
+- **γ.4.4 1 Enoch first wave** — the Tewahedo-unique canon
+  distinctive; currently 1% of corpus. Substantive expansion would
+  highlight the Tewahedo flagship uniqueness.
+- **PAUSE** — session has 10 phase ships + 2 audits + 2 side-ships.
+  Healthy stopping point if user wants.
+
+## Prior task
+
 **γ.4.2 Ephrem on Genesis (first wave: Gen 1-11)** shipped 2026-05-12.
 First ship per AUDIT_2026-05-12-B N+1 recommendation. 32 substantive
 verse-keyed entries from Ephrem the Syrian's Commentary on Genesis

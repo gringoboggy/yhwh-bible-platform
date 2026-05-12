@@ -2,16 +2,16 @@
 
 **Date:** 2026-05-12
 **Parent phase:** γ.4 (Ethiopian Tewahedo commentary — shipped 2026-05-12)
-**Status:** γ.4.1.A (John 1-4, 30 entries) + γ.4.1.B (John 5-7, 27
-entries) + γ.4.1.C (John 11-14, 29 entries) + γ.4.2 wave-1 (Ephrem
-on Gen 1-11, 32 entries) all shipped 2026-05-12. γ.4.2 wave-1 was
-sequenced per AUDIT_2026-05-12-B §ix recommendation to rebalance
-the corpus voice mix from 93% Cyril (after γ.4.1.C) to 70% Cyril /
-28% Ephrem / 2% 1 Enoch. Combined γ.4.x wave-to-date: 118 entries
-beyond the γ.4 seed of 12. γ.4.1.D (John 15-21) + γ.4.2.B-D (Ephrem
-Exodus/Numbers/Deut) + γ.4.3-6 still open per per-source ETL specs
-below. Activation criteria for γ.4.1 + γ.4.2 met by publisher's
-explicit direction to ship.
+**Status:** γ.4.1 CLOSED 2026-05-12 modulo unfillable Jn 8-10 gap
+(Cyril Books VII-VIII LOST). γ.4.1.A (John 1-4, 30) + γ.4.1.B (John 5-7,
+27) + γ.4.1.C (John 11-14, 29) + γ.4.1.D (John 15-21, 30) all shipped
+2026-05-12 = 116 Cyrilline-John entries spanning the full Gospel
+minus the manuscript-tradition gap. γ.4.2 wave-1 (Ephrem on Gen 1-11,
+32 entries) also shipped 2026-05-12, sequenced per AUDIT_2026-05-12-B
+§ix recommendation to rebalance voice mix from 93% Cyril to current
+76% Cyril / 23% Ephrem / 1% 1 Enoch. Combined γ.4.x ship-to-date:
+148 entries beyond the γ.4 seed of 12 (corpus total 160). γ.4.2.B-D
+(Ephrem Gen 12-50 / Exodus / Numbers + Deut) + γ.4.3-6 still open.
 
 ---
 
@@ -107,9 +107,9 @@ sub-phases ship against an explicit plan.
         │           Life + Tabernacles)                           [second wave]
         ├─ γ.4.1.C  John 11-14 (Lazarus + Last       29 entries  ✓ SHIPPED 2026-05-12
         │           Supper + Farewell Discourse I)               [third wave]
-        └─ γ.4.1.D  John 15-21 (Vine + High-         ~30-40 entries
-                    Priestly Prayer + Passion +                   open
-                    Resurrection)
+        └─ γ.4.1.D  John 15-21 (Vine + High-         30 entries  ✓ SHIPPED 2026-05-12
+                    Priestly Prayer + Passion +                   [fourth wave]
+                    Resurrection)                                 CLOSES γ.4.1
         [γ.4.1 books VII-VIII covering John 8-10 are LOST in
          the manuscript tradition; no Cyril coverage possible
          for those chapters per the addendum]

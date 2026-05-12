@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries: Lazarus + anointing/entry/judgment + foot-washing + Last Supper + Farewell Discourse I). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries: creation week + Sabbath + Eden + Fall + protoevangelium + Cain-Abel + Enoch translation + Noah-flood-rainbow + Babel) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. Note: Cyril's Books VII-VIII covering Jn 8-10 are LOST in the manuscript tradition; no Cyril coverage possible for those chapters. All Cyril material sourced from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885); all Ephrem material from NPNF Series 2 vol. 13 (Gwynn/Schaff translation, Oxford 1898).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution post-γ.4.2 wave-1 rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) — substantively closer to the documented dual-anchor claim. Future γ.4.1.D will extend Cyril to John 15-21 (Vine + High-Priestly Prayer + Passion + Resurrection); γ.4.2.B-D will extend Ephrem through Exodus / Numbers / Deuteronomy; γ.4.3-6 will cover Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries: Vine + Spirit + Paraclete + sorrow-to-joy + High-Priestly Prayer + Garden + Passion + tetelestai + Resurrection + Receive-the-Holy-Ghost + restoration of Peter) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. Note: Cyril's Books VII-VIII covering Jn 8-10 are LOST in the manuscript tradition; no Cyril coverage possible for those chapters (a future Ephrem-on-John or Andəmta-on-John phase could fill the gap). All Cyril material sourced from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885); all Ephrem material from NPNF Series 2 vol. 13 (Gwynn/Schaff translation, Oxford 1898).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. Future γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers + Deuteronomy; γ.4.3-6 will cover Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -1305,6 +1305,306 @@
       "year": 362,
       "summary": "'Therefore is the name of it called Babel; because the LORD did there confound the language of all the earth' Ephrem reads as the etymological-theological hinge that interprets the entire Old Testament's subsequent encounter with multiple languages. The confusion of tongues (the Hebrew balal = to mix / confound) at Babel is divine judgment-as-mercy: the unified human project was unifiedly evil; fragmentation by language limits the scope of any single evil. The Pentecost (Acts 2) Ephrem reads as the inverse-recapitulation: not the abolition of linguistic diversity but the Spirit's gift of cross-linguistic intelligibility around the proclamation of Christ. The Tewahedo Pentecost liturgy explicitly cross-references Gen 11:9 in its hymns, preserving this Ephremic Babel-Pentecost typological pair.",
       "attribution": "Ephrem the Syrian, Commentary on Genesis XI.9 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 15,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'I am the true vine, and my Father is the husbandman' Cyril takes as the sixth of Christ's 'I AM' sayings and the foundational text for the doctrine of vital union between Christ and the Church. 'True' (alēthinē) Cyril emphasizes against any merely metaphorical or typological reading: Christ is not LIKE a vine, He IS the vine in the substantive sense — the source of life for the branches grafted into Him. The Father as 'husbandman' (geōrgos) Cyril reads as the Trinitarian operation in vine-tending: the Father's pruning and cultivating work is exercised through the Son in the Spirit. The Tewahedo Anaphora preserves this vine-husbandman language in its ecclesiological prayers.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk X.1 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 15,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'I am the vine, ye are the branches: he that abideth in me, and I in him, the same bringeth forth much fruit: for without me ye can do nothing' is for Cyril the Christological-ecclesiological pin against any reading that would make Christian life autonomous. The reciprocal abiding (en emoi / en autō — in me / in him) Cyril takes as extending the Johannine perichoresis (14:10-11) from the Trinity to the Christ-Church relation by participation. 'Without me ye can do nothing' (chōris emou ou dynasthe poiein ouden) Cyril takes with full force: not 'less effectively' but 'nothing at all' — every fruit-bearing in the Christian life is participatory in Christ's own activity. The verse is the textual foundation for the Tewahedo doctrine of synergism-in-grace: human cooperation is real but always sourced in prior divine indwelling.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk X.5 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 15,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Greater love hath no man than this, that a man lay down his life for his friends' Cyril reads as Christ's self-disclosure of the love that the cross will enact within hours. The 'greater' (meizona) establishes the comparative absolute: no love exceeds self-laying-down-for-friends. Christ's love for the world (Jn 3:16) is enacted as this love in the cross; the cross is therefore the visible measure of the previously-invisible Trinitarian love. 'For his friends' (hyper tōn philōn autou) Cyril reads with care: the love is universal in offer (15:16 'I have chosen you'), particular in friendship-bond. This anticipates the eucharistic ethic that becomes determinative for the Tewahedo monastic-martyrological tradition: laying-down-of-life is the Christian's proper response to having been thus loved.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk X.13 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 15,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Ye have not chosen me, but I have chosen you, and ordained you, that ye should go and bring forth fruit' Cyril takes as the dominical doctrine of election as priority of divine initiative. The reversal of expected ordering (the human disciple-choice is preceded and constituted by divine choice) Cyril reads as eliminating any boast: apostleship is gift, not achievement. 'Ordained' (ethēka — set / placed / appointed) Cyril notes carries the sense of sacramental commission: the appointment is not merely informational but operatively confers what it commissions. The Tewahedo doctrine of holy orders draws its theological warrant from this Cyrilline reading: ordination is participation in Christ's own ordaining act.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk X.16 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 15,
+      "verse": 26,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'But when the Comforter is come, whom I will send unto you from the Father, even the Spirit of truth, which proceedeth from the Father, He shall testify of me' is THE pneumatological text Cyril cites most heavily in his Trinitarian theology. The Greek ekporeuetai (proceedeth) Cyril reads as the eternal procession of the Spirit from the Father (the Eastern Orthodox foundation for the original Nicene formulation, against the later Western Filioque). Yet 'whom I will send' (pempsō egō) preserves the Son's role in the temporal mission of the Spirit. Cyril distinguishes carefully: the ETERNAL procession is from-the-Father-alone; the TEMPORAL mission is through-the-Son. This distinction becomes determinative for Eastern + Oriental Orthodox pneumatology, including Tewahedo.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk X.26 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 15,
+      "verse": 27,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'And ye also shall bear witness, because ye have been with me from the beginning' Cyril takes as the apostolic-foundation text grounding the historical-witness character of the Christian message. 'From the beginning' (ap' archēs) Cyril reads as the public-ministry beginning (from the Baptist's witness onward) — the apostles' qualification to bear witness rests on direct historical eyewitness, not on personal religious experience alone. This grounds the patristic-Tewahedo doctrine of apostolic succession: the Church's authoritative teaching traces back through a continuous chain to the eyewitness apostles, who saw with their own eyes what they then proclaimed.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk X.27 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 16,
+      "verse": 7,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'It is expedient (sympherei) for you that I go away: for if I go not away, the Comforter will not come unto you; but if I depart, I will send Him unto you' Cyril takes as the dominical pneumatology of progressive economy. Christ's bodily departure is necessary for the Spirit's coming because the modes of presence are different: Christ in the flesh was geographically limited (could be in one place at a time); the Spirit indwelling the Church is universally present everywhere His people gather. The 'expedient' (sympherei — beneficial / advantageous) Cyril emphasizes as not consolation-prize but actual upgrade: ascension + Spirit-coming is a richer mode of presence than incarnate proximity. The Tewahedo Anaphora's epiclesis prayers explicitly invoke this Cyrilline reading.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.7 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 16,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'When He, the Spirit of truth, is come, He will guide you into all truth: for He shall not speak of Himself; but whatsoever He shall hear, that shall He speak' Cyril unpacks against any reading that would make the Spirit a separate or supplementary teaching source. 'He shall not speak of Himself' Cyril reads as expressing perfect Trinitarian harmony: the Spirit's teaching IS the Father's + Son's teaching, mediated through the Spirit's distinctive operation, not a separate revelation. 'All truth' (eis tēn alētheian pasan) Cyril limits to the Christological-soteriological deposit: the Spirit guides into ALL the truth Christ has given, not into endless new revelations. This grounds patristic-Tewahedo apostolic-deposit doctrine.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.13 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 16,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Ye shall be sorrowful, but your sorrow shall be turned into joy' Cyril reads as the eschatological pattern of Christian experience: present suffering is not negated but transmuted by the resurrection. 'Turned' (genēsetai eis charan — shall be made into joy) Cyril takes literally: not 'replaced by' joy after sorrow ends, but TRANSFORMED INTO joy. The Easter pattern (Friday's sorrow becomes Sunday's joy through the cross-resurrection event) is the paradigm. Cyril applies this to every subsequent Christian experience of suffering: nothing in the Christian life is finally lost; every present sorrow is the seed of a future joy by participation in the paschal pattern. The Tewahedo Easter Anaphora preserves this transformative reading.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.20 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 16,
+      "verse": 28,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'I came forth from the Father, and am come into the world: again, I leave the world, and go to the Father' Cyril takes as the compressed Johannine summary of the entire incarnational economy. The four-fold movement (procession from Father / incarnation into world / departure from world / return to Father) Cyril reads as the dogmatic structure that the entire Gospel of John traces verse-by-verse. The 'came forth' (exēlthon) preserves the eternal procession; the 'come into the world' (elēlytha eis ton kosmon) marks the historical incarnation; the 'leave the world' (aphiēmi ton kosmon) anticipates the cross-and-ascension; the 'go to the Father' (poreuomai pros ton Patera) marks the consummation in glory. The Tewahedo Christmas Anaphora explicitly echoes all four movements.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.28 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 16,
+      "verse": 33,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'In the world ye shall have tribulation: but be of good cheer; I have overcome (nenikēka) the world' is for Cyril the closing dominical pin of the Farewell Discourses. The perfect tense 'have overcome' (nenikēka — completed action with continuing result) Cyril takes proleptically: the victory is spoken of as already accomplished from the perspective of the eternal Word, even though the cross-and-resurrection still lay ahead historically. 'Be of good cheer' (tharseite — take courage, be confident) is therefore not consolation despite-defeat but participatory rejoicing-in-victory: the disciples are invited to share Christ's confidence that the outcome is settled. This grounds the Tewahedo martyrological tradition's characteristic theological confidence.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.33 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 17,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Father, the hour is come; glorify thy Son, that thy Son also may glorify thee' opens the High-Priestly Prayer that Cyril treats with particular reverence — calling it 'the prayer the Church prays back to the Father along with Christ.' The 'hour' (hōra) Cyril reads as the kairos-hour of the entire incarnational economy: the appointed time toward which all prior events of Christ's life have been ordered. The mutual glorification (Son-glorified-by-Father and Father-glorified-by-Son) Cyril reads as preserving the Trinitarian symmetry: glory belongs to all three Persons, communicated reciprocally, never possessed monopolistically. This is the textual frame for the entire Tewahedo doxological tradition.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.1 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 17,
+      "verse": 3,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'And this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent' Cyril unpacks as the dominical definition of eternal life: not merely endless duration but cognitive-relational participation in the divine knowledge. The infinitive 'might know' (ginōskōsi — continuous action) Cyril takes as denoting ongoing personal knowing, not single intellectual grasp. The pairing (the Father AS only true God AND Jesus Christ AS sent) Cyril carefully reads to preserve both monotheism (against pagan polytheism) and Christological inclusion in deity (against Arian subordination): both clauses together constitute the saving knowledge. This verse anchors the Tewahedo catechetical tradition's definition of theosis as participation-by-knowing.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.3 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 17,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'And now, O Father, glorify thou me with thine own self with the glory which I had with thee before the world was' (para seautō tē doxē hē eichon pro tou ton kosmon einai para soi) is Cyril's strongest single-verse text for the eternal pre-existence of the Son. 'Before the world was' Cyril takes against any Arian reading: the Son had glory WITH the Father before creation existed — therefore the Son's existence is not within creation's scope but eternal, alongside the Father from the very beginning. 'Thine own self' (para seautō) preserves the Personal distinction even within the consubstantial unity: the glory is shared between distinct Persons, not collapsed into Sabellian identity. This verse is among Cyril's most-cited prooftexts in the Twelve Anathemas against Nestorius.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.5 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 17,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Sanctify them through thy truth: thy word is truth' Cyril takes as the dominical pin for the Word-mediated character of sanctification. 'Sanctify' (hagiason — set apart, make holy) Cyril reads as not merely declarative (treated as holy) but operatively transformative (actually made holy). The instrument of sanctification ('through thy truth') Cyril identifies as the apostolic Word given by Christ to the Church — the deposit that the Spirit teaches into all truth (16:13). The closing 'thy word is truth' Cyril takes with full force: the Word (the eternal Logos) IS the truth, and the spoken word (the apostolic Scripture) participates in that truth. This grounds the patristic-Tewahedo doctrine of Scripture's truth as Christ's own truth mediated.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.17 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 17,
+      "verse": 21,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'That they all may be one; as thou, Father, art in me, and I in thee, that they also may be one in us' is for Cyril THE ecclesiological text of the entire Gospel. The unity asked for is participatory: ecclesial unity is grounded in and patterned after Trinitarian unity. 'As' (kathōs) Cyril reads as analogical (a real likeness preserved across the ontological difference between Trinitarian-unity-by-nature and ecclesial-unity-by-grace). 'That the world may believe' (hina ho kosmos pisteusē — closing the verse) Cyril takes as missiological warrant: the visible unity of the Church is the primary evidential basis for the Gospel's credibility. The Tewahedo communion's preserved liturgical unity across 1700 years draws its theological warrant from this verse.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.21 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 17,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Father, I will that they also, whom thou hast given me, be with me where I am; that they may behold my glory' Cyril takes as the dominical eschatological prayer. 'Be with me where I am' (hina hopou eimi egō kakeinoi ōsi met' emou) Cyril reads as the consummation of the entire salvific economy: the goal is not merely forgiveness or moral renewal but ETERNAL CO-PRESENCE with the incarnate Word. 'Behold my glory' (theōrōsi tēn doxan tēn emēn) Cyril takes as the visio Dei — the eternal vision of God in the glorified flesh of Christ. This grounds the Tewahedo eschatological tradition that pictures heaven as eternal participatory contemplation of Christ's glory, not as static reward.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.24 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 18,
+      "verse": 6,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's self-identification at the arrest — 'I am he' (egō eimi) followed by the arresting party going backward and falling to the ground — Cyril reads as the deliberate Johannine theophanic intrusion into the Passion narrative. The 'I AM' Cyril links to the divine self-disclosure (Ex 3:14 ego eimi ho ōn); the falling-back is the standard biblical reaction of the unholy when confronted with theophany (cf. Ezek 1:28, Rev 1:17). Cyril's theological point: even at the moment of voluntary self-surrender, Christ's divinity is manifested visibly. The arrest happens only because Christ permits it, not because the arresting party has the power to take Him.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.6 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 18,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's rebuke of Peter — 'The cup which my Father hath given me, shall I not drink it?' — Cyril takes as the deliberate Johannine inversion of the Synoptic Gethsemane prayer ('let this cup pass from me'). John omits the Gethsemane agony entirely; instead, Christ at the moment of arrest already speaks the conformed-will resolution: the cup will be drunk. The 'shall I not drink' (ou mē piō auto) is rhetorical question expecting affirmative answer: of course He will drink, because the Father has given it. Cyril reads this as confirming the perfect alignment of the Son's incarnate will with the Father's eternal will, even at the moment of greatest stress. This grounds Cyril's later argument for the integrity of Christ's human will (against Apollinarian denial).",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.11 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 18,
+      "verse": 36,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'My kingdom is not of this world (ek tou kosmou toutou): if my kingdom were of this world, then would my servants fight, that I should not be delivered to the Jews: but now is my kingdom not from hence' Cyril takes as the dominical pin against any theocratic or revolutionary reading of Christ's mission. The kingdom's NOT-FROM-HENCE (ek — out of, sourced in) does not mean NOT-FOR-HERE: it means not deriving its character from this-world's power structures (force, military conquest, political dominance). The kingdom IS for the world, but it operates by different means (suffering love, persuasive truth, sacramental presence). Cyril's reading establishes the theological frame for the Tewahedo monastic tradition's withdrawal-from-political-power as the proper kingdom-ethic, while still affirming the kingdom's universal scope.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XI.36 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 18,
+      "verse": 38,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Pilate's question — 'What is truth?' (ti estin alētheia) — Cyril treats with characteristic theological tragedy. Truth Himself stands before Pilate (Christ is the truth per 14:6); Pilate fails to recognize what is right in front of him. Cyril notes the absence of any answer from Christ: the only proper response to a question that misses what is already self-evidently present is silence. Pilate's tragic moment becomes the prototype of every subsequent encounter with Christ where the questioner cannot or will not see what is before them. The Tewahedo Good Friday liturgy preserves this moment with particular weight; the question and the silence stand as the textual icon of unbelief.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.38 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 19,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's reply to Pilate — 'Thou couldest have no power at all against me, except it were given thee from above' — Cyril takes as the comprehensive doctrine of divine sovereignty over even the Passion's executioners. Pilate's authority is real (not denied) but derivative (not autonomous): every act of the powerful is bounded by divine permission. 'Therefore he that delivered me unto thee hath the greater sin' (continuing the verse) Cyril takes as establishing graduated responsibility within the system: the Sanhedrin who delivered Christ to Pilate bear greater responsibility than Pilate, who merely executes their judgment within the bounds of his secondary authority. This nuanced reading shapes the Tewahedo Holy Week liturgy's careful theological framing.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.11 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 19,
+      "verse": 26,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's words from the cross to His mother and the beloved disciple — 'Woman, behold thy son! ... Behold thy mother!' — Cyril reads at multiple levels. Literally, Christ provides for Mary's continued care after His death (the eldest son's filial obligation discharged even from the cross). Typologically, Cyril takes Mary as figure of the Church and John as figure of every disciple: in establishing John as Mary's son, Christ establishes the Church as the Mother of every believer + every believer as the Church's son. The Tewahedo Marian veneration (which is particularly developed compared to other Christian traditions) draws its theological warrant from this Cyrilline reading.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.26 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 19,
+      "verse": 30,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's dying word — 'It is finished' (tetelestai) — Cyril takes as the dominical declaration of completed accomplishment. The perfect tense (tetelestai — completed action with continuing result) Cyril emphasizes: the work IS finished, definitively and abidingly. NOT 'I am dying' or 'I have failed' but 'the work is complete.' Cyril reads this as encompassing: the entire prophetic-typological economy of the Old Testament now fulfilled; the redemptive work for which the Word became flesh now consummated; the price for sin now paid in full. 'He bowed His head, and gave up the ghost' Cyril notes the order: Christ acts (bows head, gives spirit) — He is not passively overtaken by death but actively releases His life. The cross is sovereign self-offering, not victim's defeat.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.30 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 19,
+      "verse": 36,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "John's interpretive comment — 'For these things were done, that the scripture should be fulfilled, A bone of him shall not be broken' (citing Ex 12:46 / Num 9:12 / Ps 34:20) — Cyril takes as decisive paschal typology. The Passover lamb's prohibition on broken bones is fulfilled in the crucifixion's NOT-broken-bones (against the standard practice of breaking the legs to hasten death — done to the two thieves but providentially omitted for Christ). Cyril reads this as the divine providential ordering of even the smallest details of the Passion to display the Christ-as-Paschal-Lamb typology. The Tewahedo Passover-Easter liturgical complex preserves this typological reading prominently in its hymnody.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.36 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 20,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "The Risen Christ's words to Mary Magdalene — 'Touch me not (mē mou haptou); for I am not yet ascended to my Father' — Cyril treats with care. The 'touch me not' Cyril reads not as ritual-purity concern (the resurrection-flesh is not unclean) but as redirecting Mary's grasping affection: the post-resurrection relationship will be different in mode, mediated through the ascension and the Spirit's coming. 'I ascend unto my Father, and your Father; and to my God, and your God' Cyril reads with careful Trinitarian precision: the distinction (MY Father / YOUR Father) preserves the Son's unique-by-nature sonship as distinct from the believers' adoptive-by-grace sonship. The verse establishes the theological basis for the Tewahedo doctrine of adoptive theosis.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.17 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 20,
+      "verse": 22,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'And when He had said this, He breathed on them, and saith unto them, Receive ye the Holy Ghost' Cyril treats as a Trinitarian-pneumatological text of extraordinary density. The breathing (enephysēsen — the same verb as in Gen 2:7 LXX, where God breathes life into Adam) Cyril reads as the deliberate new-creation parallel: the Risen Christ inaugurates the eschatological new creation by breathing the Spirit into the new humanity. The 'Receive ye the Holy Ghost' (labete Pneuma Hagion) Cyril carefully distinguishes from Pentecost: this is the Spirit-gift FOR the apostolic commission (immediately followed by 'Whose soever sins ye remit'), Pentecost is the Spirit-gift for universal indwelling. Both are real; both are sourced in Christ. The Tewahedo holy-orders prayer at episcopal consecration echoes this verse explicitly.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.22 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 20,
+      "verse": 29,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Thomas, because thou hast seen me, thou hast believed: blessed are they that have not seen, and yet have believed' Cyril takes as the dominical pin for faith-without-direct-evidence as the normative Christian condition. The Risen Christ does NOT rebuke Thomas's prior demand for evidence (the wounds are shown, the touch is offered); but He does proleptically commend the future generations whose faith will rest on apostolic testimony rather than direct sensory verification. The 'blessed' (makarioi) Cyril reads as ranking apostolic-testimony-based faith on the same scale as direct-sight faith — perhaps even higher, since it operates with less crutch. This grounds the entire Tewahedo catechetical-apologetic tradition that proclaims the Gospel as worthy of faith based on apostolic testimony.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.29 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 21,
+      "verse": 15,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "The threefold question — 'Simon, son of Jonas, lovest thou me more than these?' — Cyril reads as the deliberate counterpart to Peter's threefold denial. Christ's repetition is restorative, not accusatory: each affirmation of love undoes one denial. 'More than these' (pleon toutōn) Cyril reads as referring to the other disciples (Peter had boasted in 13:37 that he would die for Christ even if all others fell away — Christ now tests the boast). The Greek verbal play (agapē / phileō) Cyril notes but treats with characteristic restraint: both verbs in John often function as synonyms; the deeper distinction is in the questioning-and-answering pattern itself, not in word-choice subtleties.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.15 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 21,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Feed my sheep' (boske ta probata mou) — the third and culminating commission to Peter — Cyril takes as the dominical institution of the pastoral office. The shift from 'lambs' (arnia, in v. 15) to 'sheep' (probata, in v. 17) Cyril reads as moving from the inexperienced new converts to the mature flock — the entire spectrum of pastoral responsibility is committed to Peter and through him to every subsequent pastor. The repetition Cyril sees as marking the deliberate sacramental-commissioning weight: this is not casual exhortation but solemn appointment. The Tewahedo ordination of bishops and priests preserves this verse's institutional weight in its consecration prayers.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.17 (NPNF S2 V14). PD."
     }
   ]
 }
