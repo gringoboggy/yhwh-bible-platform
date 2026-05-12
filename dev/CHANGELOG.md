@@ -6,6 +6,64 @@
 
 ---
 
+## 2026-05-12 — session — AUDIT_2026-05-12 (doc-only)
+
+**Phases shipped:** none — doc-only audit per memory rule
+`feedback_audit_cadence.md` (≥150 test-count drift OR major arc
+closure triggers audit suggestion; this arc tripped both).
+**Test delta:** 0 (3037 → 3037).
+**Linter delta:** 11/11 clean.
+
+### `dev/AUDIT_2026-05-12.md` — solo-Claude project audit
+
+New audit memo covering:
+
+- TL;DR: the 2026-05-11 audit's "five things to do" list shipped
+  almost completely (Δ.6, Δ.4.1, ω.35-A/B, ψ.35, PLAN-REFRESH-1
+  all done); the audit-cadence rule itself is working.
+- Arc statistics for Month 5 + Month 6 opening: 32 ships in this
+  session arc; +784 tests from ψ.36-A baseline; web.py modestly
+  re-grew from 4,564 → 4,921 lines (+357, with no regression
+  toward god-module pattern); 5 new content/ JSON state files.
+- Route / console / module inventory: 60 table-routed endpoints
+  across 7 tables; 17 cross-linked consoles unchanged (every
+  new surface is a /exec section); 5 new core modules + 4 new
+  api modules; web.py extension limited to import block + route
+  table entries + `_send_zip` helper + ξ.18 CSP machinery.
+- Status table for AUDIT_2026-05-11 recommendations (11 of 12
+  items closed; 1 carried over).
+- Five new drift findings (money-gate becoming dominant,
+  ξ.18.x style-src trade-off unsspeced, PROPOSAL operating
+  model not in PLAN, IN_FLIGHT prior-task chain bloat,
+  test-suite balance).
+- Recommended next-N-session ordering (N+1 PLAN-REFRESH-2 →
+  N+2 ξ.21 2FA → N+3 ξ.26 license-key → N+4 publisher
+  decision checkpoint).
+- Closing: highest-leverage single action is PLAN-REFRESH-2
+  (doc-only, ~1 hour, closes 5 of 7 named drift items).
+
+### Method
+
+Mechanical inventory pass (route table counts via Python
+introspection, file sizes via `wc -l`, console count via
+CONSOLES tuple length) + recommendation drafting + carry-over
+flagging from AUDIT_2026-05-11. No code changes. Memory rule
+`feedback_audit_cadence.md` explicitly contrasts the "lighter
+solo-Claude audit" with the "parallel-subagent sweep" — this
+is the former.
+
+### Forward references in code
+
+None — this is a doc-only ship.
+
+### Recommendation summary
+
+PLAN-REFRESH-2 next, then ξ.21 → ξ.26. Money-item authorization
+conversation worth raising at the next checkpoint (5 items
+blocked).
+
+---
+
 ## 2026-05-12 — session — ξ.18 CSP nonces (Month 6)
 
 **Phases shipped:** ξ.18 (per-request CSP nonce on `script-src`,

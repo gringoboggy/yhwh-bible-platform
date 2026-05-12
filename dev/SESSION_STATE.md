@@ -1,6 +1,36 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / Month 6**: **ξ.18 CSP nonces shipped
+**Updated 2026-05-12 / audit checkpoint**: **dev/AUDIT_2026-05-12.md
+shipped — doc-only solo-Claude audit triggered by
+feedback_audit_cadence.md (Month 5 closure + ≥150 test-count drift
+both tripped).** Audit corpus: 3037/3038 tests green, 11/11 lint
+clean, 17 cross-linked consoles + 1 editor, 9 editions, 51,394
+notes, 4,921-line scripts/web.py (was 4,564 on 2026-05-11
+post-ω.35-B; +357 across Month 5+6 with no god-module regression),
+61 test files (+5 this arc), 60 table-routed endpoints across 7
+route tables, 5 new core modules + 4 new api modules + 5 new
+content/ JSON state files. Of the 2026-05-11 audit's 12 named
+recommendations, 11 shipped (Δ.6, Δ.4.1, ω.35-A.1-A.11 + B.1-B.7,
+ψ.35, PLAN-REFRESH slice #1, ω.38 CI, ω.47 SonarCloud, ψ.37
+time-travel uniqueness angle, γ.4 second uniqueness angle, plus
+the four security follow-ons); 1 carried over (PLAN-REFRESH slice
+#2). Audit names PLAN-REFRESH-2 (doc-only, ~1 hour) as the highest-
+leverage next action — closes 5 of 7 named drift items in one pass.
+Five money-blocked items (B.AI.1+2 / B.AI.4 / B.AI.5 / π.9) become
+the dominant blocker after the 2-item non-money queue (ξ.21 + ξ.26)
+completes; authorization conversation worth raising at the next
+publisher checkpoint. **No phase shipped, no test delta**; net
+session test delta from ψ.36-A baseline unchanged at **+784** across
+32 ships.
+
+**Recommended next-N-session ordering** (from AUDIT §5):
+N+1 PLAN-REFRESH-2 → N+2 ξ.21 2FA → N+3 ξ.26 license-key →
+N+4 publisher decision checkpoint (money items + γ.4.x corpus
+expansion + ξ.18.x style-src direction).
+
+---
+
+**Updated 2026-05-12 / Month 6 (prior)**: **ξ.18 CSP nonces shipped
 — Month 6 #3.** scripts/web.py::Handler extended with
 per-request CSP nonce machinery: _generate_nonce() returns
 secrets.token_urlsafe(16) for 128-bit entropy;

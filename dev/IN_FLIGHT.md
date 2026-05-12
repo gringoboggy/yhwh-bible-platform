@@ -4,6 +4,38 @@
 
 ## Prior task
 
+**AUDIT_2026-05-12** shipped 2026-05-12. Doc-only solo-Claude
+audit triggered by `feedback_audit_cadence.md` after Month 5
+closure + ≥150 test-count drift both tripped. No phase shipped;
+no test delta; lint 11/11 clean.
+
+Single output: `dev/AUDIT_2026-05-12.md` (~250 lines). Sections:
+
+- TL;DR — 2026-05-11 audit's 12 named items mostly shipped (11 of
+  12); audit-cadence rule is working.
+- Arc statistics — Month 5 + Month 6 opening: 32 ships, +784
+  tests; web.py 4,564 → 4,921 (no god-module regression).
+- Status table for AUDIT_2026-05-11 recommendations.
+- 5 new drift findings: money-gate dominance, ξ.18.x style-src
+  trade-off unspeced, PROPOSAL operating model not in PLAN,
+  IN_FLIGHT prior-task chain bloat, test-suite balance.
+- Route/console/module inventory: 60 table-routed endpoints,
+  17 consoles unchanged, 5 new core + 4 new api modules, 5
+  new content/ JSON state files.
+- Recommended next-N-session ordering: N+1 PLAN-REFRESH-2 → N+2
+  ξ.21 2FA → N+3 ξ.26 license-key → N+4 publisher decision.
+- Closing: highest-leverage single action is PLAN-REFRESH-2
+  (doc-only, ~1 hour, closes 5 of 7 named drift items).
+
+Method: mechanical inventory pass (route table counts via Python
+introspection, file sizes via `wc -l`, console count via CONSOLES
+tuple length) + recommendation drafting + carry-over flagging.
+
+**3037 / 3038 tests pass serially (1 skipped); 11/11 lint clean.**
+No code changes.
+
+## Prior task
+
 **ξ.18 CSP nonces** shipped 2026-05-12. Month 6 #3 — per-
 request nonce on script-src; HTML responses get the strict
 policy + every &lt;script&gt; gets nonce="X"; JSON/file/zip
