@@ -1,7 +1,55 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / EPUB-scope reckoning**: **Four more
+features REMOVED per publisher direction — B.AI.5 (AI co-pilot
+Cmd+J), B.AI.6 (daily devotional auto-curation), B.AI.7
+(marketing copy generator), and δ.9 (email subscription for
+verse-of-day). All four share the same root cause as the
+B.AI.4 removal earlier today: EPUB readers sandbox JS + block
+network, so any feature requiring runtime network calls from
+the EPUB is unimplementable in the actual shipped product.**
+EPUB-reader-sandbox investigation: Apple Books/iBooks blocks
+XHR/fetch to external domains; Kindle KFX strips most JS;
+Google Play Books blocks cross-origin network; Calibre/ADE
+reader-dependent. Any "Cmd+J chat with Anthropic" or
+"/api/subscribe accepts email" feature can only run in the
+publisher's localhost dashboard, not in shipped editions.
+Removed: 12 strike-edits across PROPOSAL_FEATURE_LANDSCAPE.md
+(§1.2 amazing-features rewritten to focus on
+ships-in-publisher-output AI, §3 Track summary recount, §5
+Track E + Track J tables with vacant slots, §5 dependency-
+graph art, §6 Month 6 recount 7→5, §7 tool catalog removes
+scripts/core/copilot.py entry, §8 risk register update, §9.3
+publisher decisions clean-up, §11 acceptance criteria
+strike-through). Slot vacancy policy: ALL five removed
+slots (B.AI.4 + B.AI.5 + B.AI.6 + B.AI.7 + δ.9) intentionally
+left VACANT in numbering; historical chronological docs
+preserved unchanged; do NOT re-use these slot numbers. Track
+J (AI features) now narrowly scoped to cover-generation
+artifacts that ship in the EPUB (B.AI.1 + B.AI.2 + B.AI.3).
+Track E (reader experience) trimmed to δ.1-δ.8 — all features
+that genuinely ship inside the EPUB. **No code changes**;
+test count unchanged at 3134/3135; 11/11 lint clean. Net
+session test delta from psi.36-A baseline unchanged at **+881**
+across 38 work units (33 phases + 1 audit + 1 PLAN-REFRESH-2
++ ξ.26 + book-covers ingest + B.AI.4 removal + this
+EPUB-scope-reckoning quad-removal).
+
+**Money-blocked items now narrowly scoped to B.AI.1 + B.AI.2
++ B.AI.3 (cover generation), plus the earlier-flagged π.9
+Bowker ISBN.** The B.AI.5/6/7 + δ.9 removals close the entire
+"runtime publisher-side AI" category — that whole tier was
+incompatible with shipping in EPUB. Future AI work is
+restricted to:
+- Build-time corpus generation (χ-AI-xrefs, χ-AI-notes —
+  infrastructure shipped; first paid run is user-side).
+- Cover-generation artifacts that ship in the EPUB output
+  (B.AI.1 + B.AI.2 + B.AI.3, all money-gated).
+
+---
+
 **Updated 2026-05-12 / publisher direction (book covers +
-B.AI.4 removal)**: **Two scope changes per publisher
+B.AI.4 removal) (prior)**: **Two scope changes per publisher
 direction this turn — both content + doc, no code change,
 no test delta.** (1) Ingested the publisher's curated 66-cover
 set from ~/Documents/book_covers/by_book/<NN_BookName>/primary.jpg

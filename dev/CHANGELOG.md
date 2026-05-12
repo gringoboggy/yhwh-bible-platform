@@ -6,6 +6,136 @@
 
 ---
 
+## 2026-05-12 — session — EPUB-scope reckoning: B.AI.5 + B.AI.6 + B.AI.7 + δ.9 REMOVED (doc-only)
+
+**Phases shipped:** none — doc-only scope reduction per publisher
+direction. Continuation of the 2026-05-12 B.AI.4 removal pattern;
+all four features removed share the same root cause.
+**Test delta:** 0 (3134 → 3134).
+**Linter delta:** 11/11 clean.
+
+### Why four features removed in one strike
+
+Publisher question: "can B.AI.5 actually be implemented in an
+EPUB and work on EPUB readers? i feel like it's way out of scope
+now that I think about it." Investigation confirmed:
+
+**EPUB readers sandbox JavaScript severely**:
+
+- **Apple Books / iBooks** — XHR/fetch to external domains
+  blocked. No `api.anthropic.com` calls possible.
+- **Kindle** — almost no JS support in KFX; arbitrary scripts
+  stripped.
+- **Google Play Books** — slightly more permissive; still
+  blocks cross-origin network.
+- **Calibre / Adobe Digital Editions** — reader-dependent;
+  inconsistent across versions.
+
+**Implication**: any feature that requires the EPUB's JS to call
+out to a network endpoint at READER runtime is unimplementable in
+the actual product. Such features can only run in the publisher's
+own web server (the localhost dashboard the publisher uses to
+*build* editions) — they don't ship to readers.
+
+Four features in `PROPOSAL_FEATURE_LANDSCAPE.md` had this
+problem. Removed all four per publisher direction:
+
+| ID | Title | Why it fails the EPUB-scope test |
+|---|---|---|
+| **B.AI.5** | AI co-pilot (Cmd+J anywhere) | Cmd+J chat with Anthropic API — needs network access from EPUB JS → blocked. Use cases listed in proposal ("create a scenario where only rabbinic + patristic kinds are enabled") are 100% publisher-console operations. |
+| **B.AI.6** | Daily devotional auto-curation | "AI picks today's verse + emails it" — needs both LLM call AND SMTP, neither callable from the EPUB. Pure publisher-side. |
+| **B.AI.7** | Marketing copy generator | Depended on B.AI.5; orphaned by its removal. Also "Amazon/Apple Books product copy" is publisher-side marketing, doesn't ship in the EPUB. |
+| **δ.9** | Email subscription for verse-of-day | Verbatim from proposal: "Pure backend: `/api/subscribe/verse-of-day` accepts email; sends daily via SMTP. Built on existing υ.8 RSS." Publisher web-server endpoint; no way for the EPUB JS to subscribe. |
+
+**Items considered but kept** (per "everything else is good"
+from the publisher):
+- ε.4 cost-per-edition rollup + ε.5 quarterly auto-report PDF —
+  pure publisher analytics, don't ship in EPUB, but they're
+  business-ops tools the publisher uses to run the platform.
+- ξ-cluster security / ω-cluster ops / ζ-cluster theming — all
+  publisher-console UX; explicitly kept.
+- ο.6 "Built with YHWH" badge — does ship in the EPUB footer.
+- B.AI.1 + B.AI.2 cover generation — output (the cover image)
+  ships in the EPUB.
+- π.9 Bowker ISBN — ISBN appears on the EPUB.
+
+### Strike-edits applied to `dev/PROPOSAL_FEATURE_LANDSCAPE.md`
+
+Same pattern as the B.AI.4 removal ship:
+
+- §1.2 "amazing = wow moments" rewritten to focus on AI features
+  that ship in publisher output (covers via B.AI.1+B.AI.2, corpus
+  via χ-AI-xrefs + χ-AI-notes) rather than reader-runtime AI.
+- §3 Track-summary table — Track E reduced from δ.1-δ.9 to
+  δ.1-δ.8; Track J reduced from B.AI.1-B.AI.7 to B.AI.1-B.AI.3.
+- §5 Track E table — δ.9 row marked **REMOVED 2026-05-12** with
+  strikethrough; slot vacant.
+- §5 Track J table — B.AI.5, B.AI.6, B.AI.7 rows marked
+  **REMOVED 2026-05-12** with strikethrough; all three slots
+  vacant. (B.AI.4 was already removed 2026-05-12 earlier in the
+  session.)
+- §5 dependency-graph art updated — `ζ.8 cmd palette → B.AI.5
+  → B.AI.7` arc and `χ.11 → B.AI.6 → δ.9` arc both deleted with
+  REMOVED markers.
+- §6 Month 6 sequence — recount from 7 sessions to 5 (already
+  closed; just bookkeeping).
+- §7 Tool catalog — "AI co-pilot router (scripts/core/copilot.py)"
+  marked REMOVED.
+- §8 Risk register — B.AI.5 per-invocation cost gate no longer
+  applicable; row updated.
+- §9.3 Publisher decisions — B.AI.5 reference removed.
+- §11 Acceptance criteria — "AI co-pilot responds in <5s"
+  struck through.
+
+### Slot vacancy policy
+
+All four removed slots (B.AI.4, B.AI.5, B.AI.6, B.AI.7, δ.9)
+intentionally **left vacant in numbering**:
+
+- Historical references in CHANGELOG / prior IN_FLIGHT
+  prior-task blocks / prior SESSION_STATE snapshot blocks /
+  AUDIT_2026-05-12 audit corpus snapshot remain valid (those
+  documents are append-only point-in-time records of when these
+  features were active candidates).
+- Do **NOT** re-use any of these slot numbers for a new feature.
+  If a similar feature is genuinely needed in the future, assign
+  a fresh number.
+
+### Effect on platform composition
+
+Track J (AI features) now narrowly scoped to cover-generation
+artifacts that ship in the EPUB:
+- B.AI.1 main cover AI gen (money; publisher-authorized)
+- B.AI.2 per-book cover AI gen (money; publisher-authorized)
+- B.AI.3 second provider abstraction validation (money; publisher-
+  authorized)
+
+Track E (reader experience) trimmed to δ.1-δ.8 — all features
+that genuinely ship inside the EPUB:
+- δ.1 streaks (localStorage in EPUB JS)
+- δ.2 bookmarks (EPUB-side JSON export/import)
+- δ.3 memorization (SM-2 in EPUB JS)
+- δ.4 audio-sync (composes ρ.1 EPUB audio)
+- δ.5 dark mode reader (CSS in EPUB)
+- δ.6 reading-pace tracker (localStorage in EPUB JS)
+- δ.7 print stylesheet (`@media print` in EPUB CSS)
+- δ.8 PWA install (`manifest.json` + service worker for the
+  published HTML edition)
+
+### Files
+
+- `dev/PROPOSAL_FEATURE_LANDSCAPE.md` — 12 strike-edits across
+  §1.2, §3 Track summary, §5 tables (Track E + Track J), §5
+  dependency graph, §6 Month 6 sequence, §7 tool catalog, §8
+  risk register, §9.3 publisher decisions, §11 acceptance
+  criteria.
+
+### Forward references in code
+
+None — this is doc-only.
+
+---
+
 ## 2026-05-12 — session — π-book-covers ingest + B.AI.4 removed (content + doc-only)
 
 **Phases shipped:** none (content ingest + scope-reduction

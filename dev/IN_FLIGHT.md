@@ -4,6 +4,70 @@
 
 ## Prior task
 
+**EPUB-scope reckoning: B.AI.5 + B.AI.6 + B.AI.7 + δ.9
+REMOVED** shipped 2026-05-12. Doc-only per publisher direction
+("can B.AI.5 actually be implemented in an EPUB and work on
+EPUB readers? i feel like it's way out of scope" → confirmed
+unimplementable; same root cause then audited for similar
+items). No phase number; no test delta; 11/11 lint clean.
+
+**Root cause**: EPUB readers sandbox JavaScript severely —
+Apple Books/iBooks blocks XHR/fetch to external domains,
+Kindle KFX strips most JS, Google Play Books blocks
+cross-origin network, Calibre/ADE inconsistent. Any feature
+requiring runtime network calls from the EPUB is
+unimplementable in the actual shipped product.
+
+**Four features failed the EPUB-scope test**:
+- **B.AI.5** AI co-pilot (Cmd+J) — Anthropic API calls from
+  EPUB JS blocked. Use cases were 100% publisher-console
+  operations (scenario synthesis, blurb drafting).
+- **B.AI.6** Daily devotional auto-curation — needs LLM call
+  + SMTP. Neither callable from EPUB. Pure publisher-side.
+- **B.AI.7** Marketing copy generator — depended on B.AI.5
+  (orphaned by its removal). Also: "Amazon/Apple Books
+  product copy" doesn't ship in the EPUB.
+- **δ.9** Email subscription for verse-of-day — verbatim from
+  proposal "pure backend; SMTP". Publisher web-server
+  endpoint; no way for EPUB JS to subscribe.
+
+**Items considered but kept** (per "everything else is
+good"): ε.4 + ε.5 (publisher analytics — they're business-ops
+tools you run alongside the platform); ξ/ω/ζ clusters
+(publisher console UX); ο.6 "Built with YHWH" badge (DOES
+ship in EPUB footer); B.AI.1+B.AI.2 cover gen (output ships
+in EPUB); π.9 Bowker ISBN (appears on EPUB).
+
+**12 strike-edits** in `dev/PROPOSAL_FEATURE_LANDSCAPE.md`:
+§1.2 amazing-features rewrite, §3 Track summary recount, §5
+Track E + Track J tables with vacant slots, §5 dependency-
+graph art, §6 Month 6 recount 7→5 sessions, §7 tool catalog
+removes scripts/core/copilot.py entry, §8 risk register, §9.3
+publisher decisions, §11 acceptance criteria.
+
+**Slot vacancy policy**: ALL five removed slots (B.AI.4 +
+B.AI.5 + B.AI.6 + B.AI.7 + δ.9) intentionally LEFT VACANT in
+numbering. Historical chronological docs (CHANGELOG, prior
+IN_FLIGHT prior-task blocks, prior SESSION_STATE snapshot
+blocks, AUDIT_2026-05-12) preserved unchanged — those are
+append-only point-in-time records. Do NOT re-use these slot
+numbers; assign fresh numbers if similar features are
+genuinely needed in the future.
+
+**Track J (AI features) post-reckoning**: narrowly scoped to
+cover-generation artifacts that ship in the EPUB (B.AI.1 +
+B.AI.2 + B.AI.3, all money-gated on publisher provider pick).
+
+**Track E (reader experience) post-reckoning**: δ.1-δ.8 only.
+Every retained item genuinely ships inside the EPUB
+(localStorage state, EPUB-side CSS/JS, manifest.json for the
+PWA published HTML edition).
+
+**3134/3135 tests pass serially (1 skipped); 11/11 lint
+clean.** No code changes; no test changes.
+
+## Prior task
+
 **π-book-covers ingest + B.AI.4 removal** shipped 2026-05-12.
 Content + doc-only; no phase number assigned (extends existing
 π.4 cover system; no code surface added). No test delta.

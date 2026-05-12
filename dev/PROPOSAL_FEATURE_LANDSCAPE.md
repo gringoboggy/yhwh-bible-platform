@@ -72,8 +72,12 @@ Two complementary goals:
 - Content depth that beats every free Bible app's free tier
   (Hebrew/Greek interlinear, patristic commentary, Targums, DSS
   variants, critical apparatus).
-- AI features that feel like magic (co-pilot,
-  daily devotional curation).
+- AI features that feel like magic in publisher-shipped
+  content (covers via B.AI.1+B.AI.2; corpus via χ-AI-xrefs +
+  χ-AI-notes). Reader-side runtime AI deferred indefinitely
+  per the 2026-05-12 EPUB-scope reckoning (EPUB readers
+  sandbox JS / block network → no runtime LLM calls possible
+  on Apple Books / Kindle / Google Play / most readers).
 - Reader features that compete with paid apps (memorization
   spaced-repetition, audio-sync, sharable cards).
 - Publisher tools that compress days of editorial work into
@@ -118,12 +122,12 @@ in §6 sequencing.
 | **B** | Developer experience | ω.37–ω.46 | 6–8 sessions | None |
 | **C** | UI modernization (ζ family) | ζ.1–ζ.10 | 6–10 sessions | C.1 first (CSS variables) |
 | **D** | Corpus depth (γ family) | γ.1–γ.9 | 12–18 sessions | D.1 (interlinear UI scaffold) |
-| **E** | Reader experience (δ family) | δ.1–δ.9 | 6–10 sessions | C track (dark mode for δ.5) |
+| **E** | Reader experience (δ family) | δ.1–δ.8 (δ.9 REMOVED 2026-05-12) | 5–9 sessions | C track (dark mode for δ.5) |
 | **F** | Executive / business (ε family) | ε.1–ε.8 | 6–8 sessions | F.1 (event log) before others |
 | **G** | Security hardening (ξ.18+) | ξ.18–ξ.29 | 6–8 sessions | None |
 | **H** | Matrix expansion (ψ.36+) | ψ.36–ψ.43 | 6–8 sessions | None |
 | **I** | Publisher workflow (ν.7+, π.6+) | ν.7–ν.11, π.6–π.12 | 8–12 sessions | C track (consistent UI) |
-| **J** | AI features (B.AI.*) | B.AI.1–B.AI.7 | 8–10 sessions | Publisher provider pick |
+| **J** | AI features (B.AI.*) | B.AI.1–B.AI.3 (B.AI.4 + B.AI.5 + B.AI.6 + B.AI.7 REMOVED 2026-05-12) | 4 sessions | Publisher provider pick |
 | **K** | Distribution / marketing (ο family) | ο.1–ο.7 | 6–8 sessions | F track (analytics first) |
 | **L** | Database evolution (Δ.10+) | Δ.10–Δ.16 | 4–6 sessions | L.1 (migrations) first |
 
@@ -218,7 +222,7 @@ tier. The "most extensive" promise is real and demonstrable.
 | δ.6 | Reading-pace tracker | δ.1 | 0.5 | S | "At your current pace, you'll finish in X days." Encouragement, not gamification. |
 | δ.7 | Print stylesheet | ζ.4 | 0.5 | S | `@media print` rules for the published HTML edition. |
 | δ.8 | PWA install | ψ.22 | 1 | M | Published HTML edition becomes installable. `manifest.json` + service worker for offline. Distribution lever; no App Store. |
-| δ.9 | Email subscription for verse-of-day | none | 1 | M | Pure backend: `/api/subscribe/verse-of-day` accepts email; sends daily via SMTP. Built on existing υ.8 RSS. |
+| ~~δ.9~~ | ~~Email subscription for verse-of-day~~ | — | — | — | **REMOVED 2026-05-12.** Pure backend; doesn't ship in the EPUB. EPUB readers can't call out to subscribe. Slot left vacant; do NOT re-use. |
 
 **Track E outcome**: shipped editions compete with paid Bible
 apps. Memorization + audio-sync are paid-app exclusives elsewhere.
@@ -309,9 +313,9 @@ for cross-reference + dependency linkage:
 | B.AI.2 | Per-book cover AI generation | B.AI.1 | 1.5 | M | + `content/_ai_prompts.yaml` template system. |
 | B.AI.3 | Second provider (Stability AI) | B.AI.1 | 1 | M | Provider-agnostic abstraction validation. |
 | ~~B.AI.4~~ | ~~Sharable verse cards~~ | — | — | — | **REMOVED 2026-05-12** per publisher direction. The social-distribution lever is out of scope for this product. Slot intentionally left vacant in the B.AI.* numbering to preserve historical references; do NOT re-use the slot. |
-| B.AI.5 | AI co-pilot (Cmd+J anywhere) | ζ.8 | 2 | M | "What does this do?" or "Create a scenario where only rabbinic + patristic kinds are enabled." Uses existing Anthropic key. |
-| B.AI.6 | Daily devotional auto-curation | χ.11, δ.9 | 1.5 | M | AI picks today's verse based on liturgical calendar + reader history. Emails it. |
-| B.AI.7 | Marketing copy generator | B.AI.5 | 1 | S | Given an edition's metadata, draft Amazon/Apple Books product copy. |
+| ~~B.AI.5~~ | ~~AI co-pilot (Cmd+J anywhere)~~ | — | — | — | **REMOVED 2026-05-12** per publisher direction (EPUB-scope reckoning). EPUB readers sandbox JS + block network; Anthropic API calls from inside the EPUB are blocked. Use cases were 100% publisher-console operations (scenario synthesis, blurb drafting). Slot left vacant; do NOT re-use. |
+| ~~B.AI.6~~ | ~~Daily devotional auto-curation~~ | — | — | — | **REMOVED 2026-05-12** (same EPUB-scope reckoning). "AI picks today's verse + emails it" requires both LLM and SMTP, neither callable from the EPUB. Pure publisher-side feature; doesn't ship to readers. Slot left vacant; do NOT re-use. |
+| ~~B.AI.7~~ | ~~Marketing copy generator~~ | — | — | — | **REMOVED 2026-05-12.** Depended on B.AI.5 (orphaned by its removal). Also: "Amazon/Apple Books product copy" is publisher-side marketing, doesn't ship in the EPUB. Slot left vacant; do NOT re-use. |
 
 **Track J outcome**: AI integration that feels like magic across
 publisher + reader + business surfaces.
@@ -384,7 +388,7 @@ within each chain; cross-chain arrows are shown explicitly.
                 ├─→ ζ.4 typography ──→ ζ.7 skeletons ──→ ζ.10 transitions
                 │      │
                 │      ▼
-                ├─→ ζ.5 iconography ──→ ζ.8 cmd palette ──→ B.AI.5 co-pilot
+                ├─→ ζ.5 iconography ──→ ζ.8 cmd palette
                 │                              │
                 ├─→ ζ.6 toasts                 └─→ ν.11 optimistic UI
                 │
@@ -433,11 +437,11 @@ within each chain; cross-chain arrows are shown explicitly.
          │
          └─→ B.AI.3 2nd provider (parallel)
 
-    ζ.8 cmd palette ──→ B.AI.5 co-pilot ──→ B.AI.7 marketing copy
+    ζ.8 cmd palette   (B.AI.5 + B.AI.7 REMOVED 2026-05-12)
 
-    χ.11 liturgical (planned) ──→ B.AI.6 daily devotional
-         │
-         └─→ δ.9 verse-of-day email subscription
+    χ.11 liturgical (planned)   (B.AI.6 REMOVED 2026-05-12)
+
+         (δ.9 verse-of-day email subscription REMOVED 2026-05-12)
 
   Distribution chain:
     ε.7 press kit ─┬─→ ο.1 KDP submit
@@ -527,14 +531,20 @@ publisher. Workflow accelerates measurably.
 **End-of-month state**: business is legible. Shipping an edition
 to 4 channels takes minutes.
 
-### Month 6 — Hardening + the "amazing" tier (≈ 6 sessions; reduced from 7)
+### Month 6 — Hardening tier (≈ 5 sessions; reduced from 7 after B.AI.4 + B.AI.5 removal)
 ~~1. **B.AI.4** Sharable verse cards~~ — **REMOVED 2026-05-12.**
-1. **B.AI.5** AI co-pilot (Cmd+J)
-2. **ζ.9** First-run tour ✓ shipped 2026-05-12
-3. **γ.4** Ethiopian Orthodox commentary kind (flagship payload) ✓ shipped 2026-05-12
-4. **ξ.18** CSP nonces ✓ shipped 2026-05-12
-5. **ξ.21** 2FA for admin auth ✓ shipped 2026-05-12
-6. **ξ.26** License key validation ✓ shipped 2026-05-12
+~~2. **B.AI.5** AI co-pilot (Cmd+J)~~ — **REMOVED 2026-05-12** (EPUB scope).
+1. **ζ.9** First-run tour ✓ shipped 2026-05-12
+2. **γ.4** Ethiopian Orthodox commentary kind (flagship payload) ✓ shipped 2026-05-12
+3. **ξ.18** CSP nonces ✓ shipped 2026-05-12
+4. **ξ.21** 2FA for admin auth ✓ shipped 2026-05-12
+5. **ξ.26** License key validation ✓ shipped 2026-05-12
+
+**Month 6 status (post-removals)**: CLOSED. All 5 remaining
+items shipped 2026-05-12. The "amazing tier" framing reduced
+to "hardening tier" since the AI-magic items were the
+amazing-tier content and they don't fit the EPUB-ships-to-readers
+deliverable.
 
 **End-of-month state**: visible "amazing" features ship. Security
 hardened. First commercial release-ready.
@@ -564,7 +574,7 @@ broader plan. Listed here so they don't get forgotten.
 | Bowker ISBN client | `scripts/core/bowker.py` | π.9 | ◯ open | ISBN registration API client |
 | LanguageTool client | `scripts/core/languagetool.py` | π.10 | ◯ open | Grammar check via the LanguageTool HTTP API or local server |
 | SM-2 spaced-repetition engine | `scripts/core/sm2.py` | δ.3 | ◯ open | ~50 lines; per-card review intervals |
-| AI co-pilot router | `scripts/core/copilot.py` | B.AI.5 | ◯ open | Wraps Anthropic API + intent classification |
+| ~~AI co-pilot router~~ | ~~`scripts/core/copilot.py`~~ | ~~B.AI.5~~ | **REMOVED 2026-05-12** | — |
 | ~~Verse-card renderer~~ | ~~`scripts/core/verse_card.py`~~ | ~~B.AI.4~~ | **REMOVED 2026-05-12** | — |
 | Icon pipeline | `scripts/build_icons.py` | PROPOSAL_AI_ARTWORK §6 | ◯ open | .ico + .icns + favicon derivation |
 | Build-icons stub | `scripts/build_icons_stub.py` (placeholder) | now | ◯ optional | Empty scaffold; surfaces the gap until the user provides the master PNG |
@@ -576,7 +586,7 @@ broader plan. Listed here so they don't get forgotten.
 | Risk | Likelihood | Severity | Mitigation |
 |---|---|---|---|
 | Track ambition overruns publisher time | Medium | Medium | Sequence in §6 is one plausible path; cut tracks freely. Foundation tracks (A + L.Δ.10) unblock the most downstream work — finish those first. |
-| AI costs exceed budget | Low | Medium | PROPOSAL_AI_ARTWORK §3.5 hard cap; B.AI.5 (co-pilot) also gates per-invocation. |
+| AI costs exceed budget | Low | Medium | PROPOSAL_AI_ARTWORK §3.5 hard cap. (B.AI.5 co-pilot per-invocation gate no longer applies — feature removed 2026-05-12.) |
 | Schema migration breaks corpus_index | Low | High | Δ.10 ships with reversible migrations + a SHA256 snapshot of pre-migration sqlite stored in .backups/. |
 | Dark mode breaks reader EPUBs | Low | Medium | ζ.2 changes only the publisher UI; δ.5 separately ships dark-mode reader EPUB. Different code paths. |
 | Heavy new dependency creep | Medium | Medium | Invariants I.1 + I.2 forbid build steps + frameworks. Every CDN library justified per phase; total CDN size capped at ~500KB. |
@@ -609,8 +619,8 @@ Before greenlighting tracks, please confirm:
   Creative Commons).
 
 ### 9.3 AI feature priority (Month 4-6)
-- Confirm B.AI.1-2 from PROPOSAL_AI_ARTWORK first; B.AI.5
-  (co-pilot) follows in Month 6.
+- Confirm B.AI.1-2 from PROPOSAL_AI_ARTWORK first.
+  (B.AI.5 co-pilot removed 2026-05-12 per EPUB-scope reckoning.)
 - ~~B.AI.4 sharable verse cards: Instagram/Twitter aspect ratios~~
   — **REMOVED 2026-05-12** per publisher direction.
 
@@ -694,7 +704,7 @@ must be observable:
 - [ ] Cmd+K command palette opens in <100ms with all actions
       indexed.
 - [ ] AI cover generation produces 3 acceptable variants in <30s.
-- [ ] AI co-pilot (Cmd+J) responds in <5s.
+- ~~[ ] AI co-pilot (Cmd+J) responds in <5s~~ — **REMOVED 2026-05-12**.
 - ~~[ ] Sharable verse cards generate in <8s~~ — **REMOVED 2026-05-12**.
 - [ ] /exec dashboard renders in <2s with the last 90 days of
       KPI history.
