@@ -4,6 +4,54 @@
 
 ## Prior task
 
+**ξ.18 CSP nonces** shipped 2026-05-12. Month 6 #3 — per-
+request nonce on script-src; HTML responses get the strict
+policy + every &lt;script&gt; gets nonce="X"; JSON/file/zip
+responses keep the legacy _CSP_POLICY as defense-in-depth.
+
+Three pieces in scripts/web.py::Handler:
+- `_generate_nonce()` staticmethod — secrets.token_urlsafe(16)
+  → 22-char base64-urlsafe string; 128 bits of entropy per
+  RFC 8941 recommendation.
+- `_csp_with_nonce(nonce)` classmethod — builds the strict CSP:
+  script-src 'self' 'nonce-<value>' https://cdn.tailwindcss.com.
+  style-src deliberately keeps 'unsafe-inline' (Tailwind Play
+  CDN compat; tightening needs a build step that §6.3 forbids).
+- `_SCRIPT_TAG_RE` class regex + `_inject_script_nonces(html,
+  nonce)` classmethod — adds nonce="X" to every &lt;script tag
+  variant (no-attr, src=, async, multi-line); regex boundary
+  prevents false matches on &lt;scripts&gt;/&lt;scripting&gt;;
+  idempotent on already-noncified HTML; preserves internal
+  whitespace.
+
+Plumbing:
+- `_send_security_headers(*, nonce=None)` kwarg added: when None
+  emits the legacy `_CSP_POLICY` (defense in depth for
+  JSON/file/zip), when string emits `_csp_with_nonce(nonce)`.
+- `_send_html(html)` generates a fresh nonce per call → runs
+  injector → sends strict CSP with matching nonce. Nonce
+  rebuilds on every render so a cached prior response can't
+  replay-attack the current one.
+
+**+26 tests** in `tests/test_csp_nonce_xi18.py`:
+NonceGeneration × 3, CspWithNonce × 5 (drops 'unsafe-inline'
+from script-src, includes nonce, keeps style-src
+'unsafe-inline', other directives preserved, Tailwind CDN
+allowed), ScriptInjection × 9 (every &lt;script tag variant +
+boundary check vs &lt;scripts&gt;/&lt;scripting&gt; +
+idempotence + real EXEC_HTML), SendHtmlContract × 4 with
+fake-handler smoke tests, LegacyPolicyPreserved × 2 (ξ.3
+contract stays green), JsonResponsesUseLegacyCsp × 3.
+
+**3037 / 3038 tests pass serially (1 skipped); 11/11 lint clean.**
+
+Forward reference: ξ.18.x style-src nonce tightening (needs a
+Tailwind-build migration; conflicts with §6.3 "no build step"
+today). Logged in CHANGELOG so the linter's "phase mentioned
+in code" check stays clean.
+
+## Prior task
+
 **ζ.9 first-run tour** shipped 2026-05-12. Month 6 #2 —
 in-house tour overlay engine (no Shepherd.js / CDN
 dependency per invariant I.1 "no heavy framework creep");

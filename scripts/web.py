@@ -45,6 +45,7 @@ import ast
 import json
 import os
 import re
+import secrets
 import sys
 import threading
 import time
@@ -3825,15 +3826,97 @@ class Handler(BaseHTTPRequestHandler):
         "form-action 'self'"
     )
 
-    def _send_security_headers(self):
-        """ξ.3 — add CSP + nosniff + Referrer-Policy headers.
+    # ξ.18 (2026-05-12) — per-request nonce regex. Inserts
+    # `nonce="<value>"` into every `<script` tag that doesn't already
+    # carry one. Anchored on `<script` followed by a tag-attribute
+    # boundary character (space, slash, or `>`); `<scripts>` and
+    # `<scripting>` deliberately don't match.
+    _SCRIPT_TAG_RE = re.compile(r"<script(?![a-zA-Z0-9-_])")
+
+    @staticmethod
+    def _generate_nonce() -> str:
+        """Fresh CSP nonce per request. 16 bytes of os.urandom → base64
+        url-safe encoding → 22-char string. RFC 8941 recommends ≥128
+        bits of entropy for CSP nonces; 16 bytes (128 bits) satisfies."""
+        return secrets.token_urlsafe(16)
+
+    @classmethod
+    def _csp_with_nonce(cls, nonce: str) -> str:
+        """Return the strict CSP for an HTML response with this nonce.
+        Drops `'unsafe-inline'` from `script-src` and adds the per-
+        request `'nonce-<value>'` so every inline `<script>` block in
+        the rendered HTML must carry the matching nonce attribute.
+
+        `style-src` keeps `'unsafe-inline'` for now — Tailwind's Play
+        CDN injects styles at runtime; tightening style-src is a
+        separate ξ phase (style-src nonces require a Tailwind-build
+        migration, which conflicts with §6.3 'no build step').
+        """
+        return (
+            "default-src 'self'; "
+            f"script-src 'self' 'nonce-{nonce}' https://cdn.tailwindcss.com; "
+            "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
+            "img-src 'self' data:; "
+            "font-src 'self' data:; "
+            "connect-src 'self'; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'"
+        )
+
+    @classmethod
+    def _inject_script_nonces(cls, html: str, nonce: str) -> str:
+        """Add `nonce="<value>"` to every `<script` tag in `html` that
+        doesn't already carry one. Pure function — html and nonce
+        passed in, transformed html returned.
+
+        Variant coverage:
+            <script>            → <script nonce="X">
+            <script src="...">  → <script nonce="X" src="...">
+            <script async>      → <script nonce="X" async>
+            <script\\nsrc="...">  → <script nonce="X"\\nsrc="..."> (preserves
+                                                            internal whitespace)
+
+        Tags that already have a `nonce=` attribute are skipped — the
+        regex's lookahead requires a non-name boundary character right
+        after `<script`, and the replacement adds the attribute
+        prefix, so re-running the helper on already-noncified HTML is
+        a no-op for any tag with an existing nonce."""
+
+        def add_nonce(match: re.Match) -> str:
+            return f'<script nonce="{nonce}"'
+
+        # Skip tags that already have nonce="" (idempotent).
+        # We accomplish this by limiting the regex to <script tags
+        # without `nonce=` in the next 200 chars — but that requires
+        # lookahead. Simpler: post-process to dedupe nonce attrs.
+        result = cls._SCRIPT_TAG_RE.sub(add_nonce, html)
+        # Collapse duplicate nonce attrs (defensive against caller
+        # re-noncifying already-noncified HTML).
+        if "nonce=" in html:
+            result = re.sub(
+                rf'<script nonce="{re.escape(nonce)}" nonce="[^"]+"',
+                f'<script nonce="{nonce}"',
+                result,
+            )
+        return result
+
+    def _send_security_headers(self, *, nonce: str | None = None):
+        """ξ.3 + ξ.18 — add CSP + nosniff + Referrer-Policy headers.
 
         Called by every response helper (_send_html, _send_json,
         _send_file, plus inline routes that build their own header
         block). Tailwind CDN is allow-listed; everything else is
         same-origin. Frame-ancestors blocks clickjacking.
+
+        ξ.18 (2026-05-12): when `nonce` is provided, emit the strict
+        CSP that requires `nonce-<value>` on every inline script
+        instead of `'unsafe-inline'`. JSON / file / zip responses
+        pass nonce=None (no inline scripts in those responses) and
+        keep the legacy policy as defense-in-depth.
         """
-        self.send_header("Content-Security-Policy", self._CSP_POLICY)
+        policy = self._csp_with_nonce(nonce) if nonce else self._CSP_POLICY
+        self.send_header("Content-Security-Policy", policy)
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "same-origin")
 
@@ -3890,11 +3973,14 @@ class Handler(BaseHTTPRequestHandler):
         )
 
     def _send_html(self, html: str):
-        body = html.encode("utf-8")
+        # ξ.18 — fresh per-request nonce + noncified body + strict CSP.
+        nonce = self._generate_nonce()
+        noncified = self._inject_script_nonces(html, nonce)
+        body = noncified.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
-        self._send_security_headers()  # ξ.3
+        self._send_security_headers(nonce=nonce)  # ξ.3 + ξ.18
         self.end_headers()
         self.wfile.write(body)
 

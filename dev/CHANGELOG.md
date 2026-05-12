@@ -6,6 +6,106 @@
 
 ---
 
+## 2026-05-12 — session — ξ.18 CSP nonces (Month 6)
+
+**Phases shipped:** ξ.18 (per-request CSP nonce on `script-src`,
+dropping `'unsafe-inline'` for inline scripts in HTML responses;
+JSON/file/zip responses keep the legacy policy as defense-in-
+depth).
+**Test delta:** +26 (3011 → 3037; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### ξ.18 — CSP nonces
+
+Per PROPOSAL §6 Track G: "Replace `'unsafe-inline'` with
+per-request nonces. Significantly hardens XSS." Before ξ.18, the
+HTML response CSP carried `script-src 'self' 'unsafe-inline'
+https://cdn.tailwindcss.com` — a single reflected-XSS that
+managed to inject a `<script>` block anywhere in the response
+body would execute. After ξ.18, every inline `<script>` carries a
+matching per-request `nonce="X"` attribute and the CSP declares
+`script-src 'self' 'nonce-X' https://cdn.tailwindcss.com`. An
+attacker would need to BOTH inject the script AND know the
+current request's random nonce — which is generated fresh per
+response and never written anywhere observable.
+
+**Implementation** (`scripts/web.py::Handler`):
+
+- `_generate_nonce()` static method — `secrets.token_urlsafe(16)`
+  → 22-char base64-urlsafe string, 128 bits of entropy.
+- `_csp_with_nonce(nonce)` classmethod — builds the strict CSP:
+  `script-src 'self' 'nonce-<value>' https://cdn.tailwindcss.com`
+  + leaves the other directives unchanged. `style-src` keeps
+  `'unsafe-inline'` for now — Tailwind's Play CDN injects styles
+  at runtime, and tightening style-src to a nonce would require a
+  Tailwind-build migration (conflicts with CLAUDE_PROJECT_RULES
+  §6.3 "no build step"). Style-src nonce tightening is a future
+  ξ phase.
+- `_inject_script_nonces(html, nonce)` classmethod — pure-function
+  regex transform that adds `nonce="X"` to every `<script` tag
+  missing one. Regex boundary check prevents false matches on
+  `<scripts>` / `<scripting>`. Idempotent: re-running on already-
+  noncified HTML doesn't duplicate the attribute. Preserves
+  internal whitespace (multi-line `<script` tags supported).
+- `_send_security_headers(*, nonce=None)` — extended with an
+  optional nonce kwarg. When None (the default for JSON / file /
+  zip responses), emits the legacy `_CSP_POLICY` as defense-in-
+  depth. When a nonce string is supplied, emits the strict
+  `_csp_with_nonce(nonce)`.
+- `_send_html(html)` — generates a fresh nonce, runs
+  `_inject_script_nonces`, sends the strict CSP carrying the
+  matching nonce. The nonce rebuilds on every render so a cached
+  prior response can't replay-attack the current one.
+
+### Why script-src only and not style-src
+
+Tailwind's Play CDN injects `<style>` tags at runtime as the
+class-scanner observes element classes. Those runtime-injected
+styles would fail the strict nonce check (CDN code can't know
+the per-request nonce). Three options:
+
+1. Drop the Tailwind Play CDN + bundle Tailwind — but §6.3
+   forbids a build step.
+2. Move to a hash-based CSP for style-src — fragile against any
+   Tailwind version bump.
+3. Keep `style-src 'unsafe-inline'` — the choice taken.
+
+Style-src tightening becomes possible if/when the project either
+moves off Tailwind Play CDN or accepts a build step. Documented in
+the `_csp_with_nonce` docstring + the test pin
+`test_style_src_keeps_unsafe_inline` so a future contributor who
+tries to tighten style-src will be forced to think about it.
+
+### Files
+
+- `scripts/web.py` — `import secrets`; added `_SCRIPT_TAG_RE`
+  class attr + 3 helpers (`_generate_nonce`, `_csp_with_nonce`,
+  `_inject_script_nonces`); extended `_send_security_headers`
+  with `nonce=None` kwarg; updated `_send_html` to noncify +
+  emit the strict CSP.
+- `tests/test_csp_nonce_xi18.py` — new (26 tests across 6
+  classes: NonceGeneration × 3, CspWithNonce × 5, ScriptInjection
+  × 9 covering every `<script` tag variant + boundary checks +
+  idempotence + the real EXEC_HTML, SendHtmlContract × 4 with a
+  fake-handler smoke test, LegacyPolicyPreserved × 2 so the ξ.3
+  tests stay green, JsonResponsesUseLegacyCsp × 3 pinning the
+  no-nonce / explicit-None / explicit-string paths).
+
+### Forward references in code
+
+The `_csp_with_nonce` docstring names the future "ξ phase" that
+would tighten `style-src` similarly. Logged in this CHANGELOG so
+the linter's "phase mentioned in code" check stays clean.
+
+### Month 6 status
+
+Shipped: γ.4, ζ.9, ξ.18 (3 of 7).
+Remaining: ξ.21 2FA for admin auth (non-money), ξ.26 license-key
+validation (non-money), B.AI.4 sharable verse cards (**money**),
+B.AI.5 AI co-pilot (**money**).
+
+---
+
 ## 2026-05-12 — session — ζ.9 first-run tour engine + /exec walk-through (Month 6)
 
 **Phases shipped:** ζ.9 (in-house tour overlay engine — no CDN

@@ -1,6 +1,52 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / Month 6**: **ζ.9 first-run tour
+**Updated 2026-05-12 / Month 6**: **ξ.18 CSP nonces shipped
+— Month 6 #3.** scripts/web.py::Handler extended with
+per-request CSP nonce machinery: _generate_nonce() returns
+secrets.token_urlsafe(16) for 128-bit entropy;
+_csp_with_nonce(nonce) builds the strict CSP that DROPS
+'unsafe-inline' from script-src and ADDS 'nonce-<value>'
+(style-src deliberately keeps 'unsafe-inline' for Tailwind
+Play CDN compat — tightening style-src needs a build step
+that §6.3 forbids); _inject_script_nonces(html, nonce) pure-
+function regex transform adds nonce="X" to every &lt;script
+tag missing one (idempotent, regex boundary prevents false
+matches on &lt;scripts&gt;/&lt;scripting&gt;, preserves
+internal whitespace); _send_security_headers(*, nonce=None)
+extended kwarg so HTML responses get the strict policy and
+JSON/file/zip responses keep the legacy _CSP_POLICY as
+defense-in-depth; _send_html generates a fresh nonce per
+call, runs the injector, sends the strict CSP carrying the
+matching nonce-X. Before ξ.18 a reflected-XSS that injected
+&lt;script&gt; into the response body would execute; after
+ξ.18 the attacker would need to BOTH inject AND know the
+current request's random nonce — generated fresh per
+response and never written anywhere observable.
+
+**+26 tests** in `tests/test_csp_nonce_xi18.py` (6 classes:
+NonceGeneration×3, CspWithNonce×5, ScriptInjection×9
+covering every &lt;script tag variant + boundary checks +
+idempotence + the real EXEC_HTML, SendHtmlContract×4 with
+fake-handler smoke tests, LegacyPolicyPreserved×2 so ξ.3
+tests stay green, JsonResponsesUseLegacyCsp×3 pinning the
+no-nonce / explicit-None / explicit-string paths).
+**3037 / 3038 tests pass serially (1 skipped); 11/11 lint
+clean.** Net session test delta from ψ.36-A baseline:
+**+784** across 32 ships.
+
+**Month 6 status**: γ.4 + ζ.9 + ξ.18 shipped (3 of 7).
+Remaining: ξ.21 2FA for admin auth (non-money), ξ.26
+license-key validation (non-money), B.AI.4 + B.AI.5 (money
+items gated on publisher authorization).
+
+ξ.18.x natural follow-on: style-src nonce tightening (would
+require Tailwind-build migration; conflicts with §6.3 today).
+Logged in CHANGELOG for the linter's "phase mentioned in code"
+check.
+
+---
+
+**Updated 2026-05-12 / Month 6 (prior)**: **ζ.9 first-run tour
 shipped — Month 6 #2 (taken after γ.4 since both are
 non-money + tour spec was a tiny ½-session estimate).**
 New `THEME_TOUR_JS` in scripts/templates/_design.py — an
