@@ -1,6 +1,48 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / τ.5-A Hebrew translations seeded**:
+**Updated 2026-05-12 / translation tier-1 wave closed**: **τ.4
++ τ.3 + τ.2 shipped together — Brenton LXX English + Clementine
+Vulgate Latin + Douay-Rheims Challoner English. All three follow
+the γ.5 / τ.5-A seed pattern (3-verse Genesis seed + registry
+entry; full ingest deferred to user-side τ.x.x).** Batched
+because publisher value compounds: Vulgate Latin + DRA English
+together give the catholic-study + anglican-bcp editions their
+complete tradition pair; Brenton-Eng joins Brenton-Greek (γ.5)
+to give the Orthodox / scholarly editions both halves of the
+LXX. Each ID's Gen 1:3 carries the translation's signature
+rendering of fiat-lux/let-there-be-light/be-light-made,
+verbatim-pinned in tests so future swaps are visible as
+deliberate changes. State after ship: 7 translations registered
+(kjv full; jps + wlc + lxx-brenton-greek + lxx-brenton-english
++ vulgate-clementine + douay-rheims all 3-verse Genesis seeds).
+Of the 9 editions' popup_languages_default declarations:
+hebrew (6 editions) covered by τ.5-A; greek (8 editions)
+covered by γ.5 + τ.4; latin (1 edition, anglican-bcp) covered
+by τ.3; arabic (1 edition, coptic-orthodox) remains
+uncovered — no τ-phase yet assigned for it (van-Dyck 1865
+Arabic Bible is PD and eBible.org has it as `arb-vandyke`,
+candidate for a future τ-phase). PLAN section 7 ledger
+updated: τ.2 + τ.3 + τ.4 added to Shipped list; removed from
+MEDIUM open list. **+28 tests** in
+tests/test_translations_tau4_tau3_tau2.py (10 classes:
+3 Registry × 2-3 each, 3 Discovery × 1-3 each, 3 Seed
+× 4-5 each with translation-specific phrasing pins,
+1 JointCoverage × 3 testing distinct-traditions invariant +
+Vulgate→DRA calque trail). **3183/3184 tests pass serially
+(1 skipped); 11/11 lint clean.** Net session test delta from
+psi.36-A baseline: **+930** across 40 work units.
+
+**Recommended next ship**: Arabic Van-Dyck seed for the
+coptic-orthodox edition's remaining popup-language gap, OR
+τ.6 Ge'ez for the ethiopian-tewahedo flagship's native
+language, OR τ.5-B WLC-without-niqqud variant, OR pivot to
+another track (ψ.30 matrix a11y, χ.2-5 patristic expansion,
+γ.4.1 corpus expansion). The publisher decision-point
+referenced in AUDIT_2026-05-12 §5 N+5 has now arrived.
+
+---
+
+**Updated 2026-05-12 / τ.5-A Hebrew translations seeded (prior)**:
 **JPS 1917 + WLC seeds shipped (3-verse Genesis each) — first
 ship after SESSION_END_2026-05-12's translation-gap audit; per
 the closer's section 4 N+1 recommendation.** Two new

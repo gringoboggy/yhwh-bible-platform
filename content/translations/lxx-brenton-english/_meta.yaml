@@ -1,0 +1,67 @@
+# Translation metadata — τ.4 LXX Brenton English seed (2026-05-12).
+#
+# Brenton's edition of the Septuagint (1844, Samuel Bagster & Sons,
+# London) printed the Greek text of the Vatican Codex (B/03)
+# alongside an English translation in parallel columns. The Greek
+# side ships as `lxx-brenton-greek` (γ.5, 2026-05-11); this is the
+# English-side companion called for by SESSION_END_2026-05-12 §4
+# N+2.
+#
+# Both halves are unambiguously Public Domain — Brenton died 1862;
+# his 1844 edition predates the 1929 cutoff in every jurisdiction.
+#
+# τ.4 ships seed + metadata; τ.4.x is user-side full ingest from
+# eBible.org's eng-Brenton_vpl.zip package.
+
+id: lxx-brenton-english
+title: "Septuagint (Brenton 1844, English translation)"
+short_title: "LXX-Eng"
+license: "Public Domain"
+source:
+  publisher: "Samuel Bagster & Sons (London, 1844)"
+  url: "https://eBible.org/eng-Brenton/"
+  package: "eng-Brenton_vpl.zip (user-side ingest — eBible.org)"
+  fetched: 2026-05-12
+  source_date: 1844
+stats:
+  books: 1            # seed only — Genesis
+  verses: 3           # Gen 1:1-3 — canonical opening seed
+  books_outside_kjv: 0
+notes: |
+  τ.4 SEED CORPUS.
+
+  This is a 3-verse seed (Genesis 1:1-3) that proves the
+  translation-registry wire-up. Once the directory is present,
+  `list_translations()` discovers `lxx-brenton-english`
+  automatically; the /customize console surfaces it as a
+  selectable popup_translation; the /compare console renders it
+  side-by-side with `lxx-brenton-greek` (the Greek side from
+  γ.5) and any other registered translations.
+
+  The full ~30-book / ~25,000-verse Septuagint English ingest
+  is τ.4.x's user-side deliverable. The eBible.org package
+  `eng-Brenton_vpl.zip` is the canonical source; once
+  downloaded into `content/translations/sources/lxx-brenton-english/`
+  and unzipped, the user runs
+  `python scripts/extract_translation.py lxx-brenton-english`
+  to generate the per-book .py files.
+
+  Brenton's translation has some characteristics worth noting
+  for the publisher / reader:
+
+  - The LXX has additional books/sections not in the Hebrew MT
+    (Tobit, Judith, Wisdom, Sirach, 1-4 Maccabees, extended
+    Daniel + Esther). Brenton 1844 includes most of these in
+    English; the package coverage varies.
+  - Greek-original transliterations of Hebrew names sometimes
+    differ from standard English forms (e.g. "Sidon" /
+    "Sodom" / "Sennaar" instead of MT-derived spellings).
+  - The text is in Victorian-register English — readable but
+    archaic. Modern alternatives (NETS — New English Translation
+    of the Septuagint, 2007) are NOT public domain.
+
+  Pairs naturally with the existing `lxx-brenton-greek`
+  (γ.5 seed, also 3 verses) — both are columns of the same
+  source edition. When both are fully ingested, the /compare
+  console will show Greek and English columns of Brenton 1844
+  side by side.

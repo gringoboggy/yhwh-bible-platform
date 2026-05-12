@@ -277,6 +277,88 @@ TRANSLATIONS: dict[str, dict] = {
             "Hebrew canon (39 books / ~23,000 verses)."
         ),
     },
+    "lxx-brenton-english": {
+        "title": "Septuagint (Brenton 1844, English translation)",
+        "short_title": "LXX-Eng",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "Samuel Bagster & Sons (London, 1844)",
+            "url": "https://eBible.org/eng-Brenton/",
+            "package": "eng-Brenton_vpl.zip",
+            "source_date": 1844,
+        },
+        "notes": (
+            "Brenton's 1844 English translation of the Septuagint, "
+            "printed alongside the Greek text (which ships as "
+            "`lxx-brenton-greek` from γ.5). Both halves are "
+            "unambiguously Public Domain — Brenton died 1862; the "
+            "1844 edition predates the 1929 PD cutoff in every "
+            "jurisdiction. This is the English-side companion "
+            "translation called for by SESSION_END_2026-05-12 §4 "
+            "N+2. Closes the Greek-translation-content column for "
+            "the 8 of 9 editions declaring `greek` in "
+            "popup_languages_default (Orthodox primary; useful for "
+            "any edition exploring LXX vs MT divergences). τ.4 "
+            "ships infrastructure + Gen 1:1-3 seed; τ.4.x is "
+            "user-side full ingest. OT only — Septuagint canon "
+            "(~30 books / ~25,000 verses)."
+        ),
+    },
+    "vulgate-clementine": {
+        "title": "Clementine Vulgate (Latin, 1592)",
+        "short_title": "Vulgate",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "Vatican Press (Rome, 1592 Clementine edition)",
+            "url": "https://eBible.org/lat-clemvulg/",
+            "package": "lat-clemvulg_vpl.zip",
+            "source_date": 1592,
+        },
+        "notes": (
+            "Clementine Vulgate — Pope Clement VIII's 1592 "
+            "authorized edition of Jerome's 4th-century Latin "
+            "translation. Public Domain by age (Jerome died 420 "
+            "AD; Clementine edition 1592). Closes the Latin "
+            "column called for by the anglican-bcp edition in "
+            "popup_languages_default. The Stuttgart Vulgate "
+            "(Weber-Gryson, 1969+) is the modern critical "
+            "alternative but is NOT public domain; the "
+            "Clementine remains the canonical PD Latin Bible. "
+            "τ.3 ships Gen 1:1-3 seed; τ.3.x is user-side full "
+            "ingest. Both Testaments — full Catholic canon "
+            "(~73 books, the Latin Vulgate covers slightly more "
+            "than the Hebrew MT)."
+        ),
+    },
+    "douay-rheims": {
+        "title": "Douay-Rheims Bible (Challoner revision, 1899)",
+        "short_title": "DRA",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "John Murphy Company (Baltimore, 1899)",
+            "url": "https://eBible.org/eng-DRA/",
+            "package": "eng-DRA_vpl.zip",
+            "source_date": 1899,
+        },
+        "notes": (
+            "Douay-Rheims-Challoner — English Catholic translation "
+            "of the Latin Vulgate. The original Douay-Rheims OT "
+            "(1610) + NT (1582) was revised by Bishop Richard "
+            "Challoner in three rounds (1749 NT, 1750 OT, 1752 NT). "
+            "The 1899 John Murphy edition is the canonical "
+            "Challoner-text reprint, Public Domain by age. "
+            "Pairs with `vulgate-clementine` (Latin) as the "
+            "Catholic-tradition translation pair (the way KJV + "
+            "WLC pair for Reformation Protestants, and JPS + WLC "
+            "pair for Jewish-tradition readers). Strengthens the "
+            "catholic-study + anglican-bcp editions in particular. "
+            "Famously archaic phrasings like 'Be light made. And "
+            "light was made.' for Genesis 1:3 — a direct calque "
+            "of the Vulgate's 'Fiat lux. Et facta est lux.' τ.2 "
+            "ships Gen 1:1-3 seed; τ.2.x is user-side full ingest. "
+            "Both Testaments — full Catholic canon."
+        ),
+    },
 }
 
 

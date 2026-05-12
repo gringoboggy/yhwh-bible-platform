@@ -6,6 +6,164 @@
 
 ---
 
+## 2026-05-12 — session — τ.4 + τ.3 + τ.2 LXX-English + Vulgate + Douay-Rheims seeds (translation tier-1 wave)
+
+**Phases shipped:** τ.4 (Brenton LXX English) + τ.3 (Clementine
+Vulgate Latin) + τ.2 (Douay-Rheims Challoner). Three seeds
+shipped together to close the SESSION_END_2026-05-12 §4 first-
+wave translation work — N+2/N+3/N+4 from the recommended
+sequence, batched because all three share the γ.5 / τ.5-A seed
+pattern and the publisher value compounds when all three are
+present simultaneously (Latin↔English Catholic pair + LXX
+Greek↔English pair).
+**Test delta:** +28 (3155 → 3183; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### τ.4 — Brenton LXX English (`lxx-brenton-english`)
+
+The English-side companion to the existing `lxx-brenton-greek`
+(γ.5, 2026-05-11). Brenton's 1844 edition printed Greek and
+English in parallel columns; both halves are unambiguously PD
+(Brenton died 1862; the edition is 1844, predating every
+jurisdiction's PD cutoff). When τ.4.x fully ingests, the
+/compare console will render Brenton Greek alongside Brenton
+English for any LXX verse.
+
+Closes the English-of-LXX channel for the 8 of 9 editions
+declaring `greek` in popup_languages_default — Orthodox
+primary; useful for any reader exploring LXX vs MT divergences
+(deuterocanonical books, additional Daniel/Esther passages,
+Psalm 151, 3-4 Maccabees).
+
+### τ.3 — Clementine Vulgate Latin (`vulgate-clementine`)
+
+Pope Clement VIII's 1592 authorized edition of Jerome's
+4th-century Latin translation. Public Domain by age (Jerome
+died 420 AD; Clementine 1592). Closes the Latin column for
+the anglican-bcp edition — the only one of 9 project editions
+to declare `latin` in popup_languages_default.
+
+The notes explicitly distinguish three Latin Vulgate editions:
+- **Clementine** (1592, this one): canonical PD Latin Bible;
+  Tridentine-Mass + pre-Vatican-II Catholic liturgical text.
+- **Stuttgart / Weber-Gryson** (1969+): modern critical edition;
+  NOT public domain.
+- **Nova Vulgata** (1979): Vatican post-Vatican-II official;
+  NOT public domain.
+
+For PD distribution the Clementine is the only option, and
+it's also the most historically-significant Latin Bible.
+
+### τ.2 — Douay-Rheims Challoner (`douay-rheims`)
+
+English Catholic translation of the Latin Vulgate. The
+original Douay-Rheims (NT 1582, OT 1610) was revised by Bishop
+Richard Challoner (1749-1752); the 1899 John Murphy Company
+(Baltimore) reprint is the canonical Challoner-text edition,
+PD by age. Pairs with `vulgate-clementine` (τ.3) as the
+Catholic-tradition translation pair — DRA is the English
+translation OF that Vulgate. Together they form the
+Catholic-tradition pair parallel to KJV+WLC (Reformation
+Protestant) and JPS+WLC (Jewish).
+
+### Why batched together
+
+All three follow the **γ.5 / τ.5-A seed pattern**: register in
+`scripts/extract_translation.py` TRANSLATIONS dict + create
+`content/translations/<id>/_meta.yaml` + `gen.py` with Gen
+1:1-3 seed + tests pin the registry, discovery, seed content,
+and meta shape. Full ingest deferred to user-side τ.x.x per
+the documented `python scripts/extract_translation.py <id>`
+workflow.
+
+Batching three at once works because the publisher value
+compounds: with Vulgate Latin + DRA English present, the
+catholic-study + anglican-bcp editions get both halves of
+their tradition pair in one ship; with Brenton-English added,
+the eastern-orthodox + coptic-orthodox + scholarly-academic
+editions get the LXX English channel.
+
+### Files
+
+- `scripts/extract_translation.py` — TRANSLATIONS dict
+  extended with 3 entries (lxx-brenton-english /
+  vulgate-clementine / douay-rheims). Each documents
+  PD basis, source URL+package, full-ingest path notes.
+- `content/translations/lxx-brenton-english/{_meta.yaml, gen.py}` — new.
+- `content/translations/vulgate-clementine/{_meta.yaml, gen.py}` — new.
+- `content/translations/douay-rheims/{_meta.yaml, gen.py}` — new.
+- `tests/test_translations_tau4_tau3_tau2.py` — new (28 tests
+  across 10 classes: 3 Registry × 2-3 each, 3 Discovery × 1-3
+  each, 3 Seed × 4-5 each, 1 JointCoverage × 3 covering the
+  cross-translation invariants).
+
+### Translation-specific pins
+
+Each Genesis 1:3 pin captures the translation tradition's
+signature rendering of "let there be light":
+
+| Translation | Gen 1:3 |
+|---|---|
+| KJV | "Let there be light: and there was light." |
+| JPS | "'Let there be light.' And there was light." |
+| LXX-Greek (γ.5) | Καὶ εἶπεν ὁ Θεός Γενηθήτω φῶς καὶ ἐγένετο φῶς. |
+| LXX-Eng (this ship) | "Let there be light, and there was light." |
+| Vulgate (this ship) | "Fiat lux. Et facta est lux." |
+| Douay-Rheims (this ship) | "Be light made. And light was made." |
+| WLC (Hebrew) | יְהִי אוֹר וַיְהִי־אוֹר |
+
+The Vulgate→DRA calque trail (Fiat lux → Be light made) is
+explicitly pinned in `TestJointCoverage::test_clementine_and_dra_pair_traceable`.
+
+### State post-ship
+
+7 translations registered (sorted alphabetically by id):
+`douay-rheims`, `jps`, `kjv` (full), `lxx-brenton-english`,
+`lxx-brenton-greek`, `vulgate-clementine`, `wlc`. 6 of 7 are
+3-verse Genesis seeds. KJV is the only full translation on
+disk; everything else awaits τ.x.x user-side ingest.
+
+### Forward references in code
+
+The meta YAMLs name **τ.4.x**, **τ.3.x**, and **τ.2.x** (each
+the corresponding user-side full ingest). Logged here so the
+linter's "phase mentioned in code" check stays clean.
+
+### Translation column coverage post-ship
+
+Per the 6 of 9 editions declaring `hebrew`: τ.5-A (JPS+WLC)
+already closed the Hebrew column.
+
+Per the 8 of 9 editions declaring `greek`: γ.5 + τ.4 now
+provide both Greek text and English-of-Greek; the column is
+closed at the seed level.
+
+Per the 1 of 9 editions declaring `latin`: τ.3 (Clementine
+Vulgate) closes the Latin column.
+
+Per the 1 of 9 editions declaring `arabic`: not yet shipped;
+remains as future τ-cluster work (no τ-phase numbered for it
+yet — coptic-orthodox edition's Arabic-popup promise stays
+unfulfilled).
+
+### Recommended next ship
+
+The translation-tier-1 wave is now seeded for every declared
+popup language except Arabic. Reasonable next-ship options:
+- **Arabic translation seed** (new τ-phase — coptic-orthodox
+  edition's remaining gap; PD Arabic Bible exists via
+  Van Dyck 1865 = `arb-vandyke` on eBible.org).
+- **τ.6 Ge'ez** (Tewahedo flagship's native language — the
+  ethiopian-tewahedo edition would directly benefit).
+- **τ.5-B** WLC-without-niqqud variant.
+- **τ.7 Greek NT (manuscript)** — distinct from γ.2 Strong's
+  lookup; full GNT (Westcott-Hort 1881 or Nestle 1904 — both
+  PD).
+- Or pivot to a different track: ψ.30 matrix a11y, χ.2-5
+  patristic, γ.4.1 corpus expansion, or money authorization.
+
+---
+
 ## 2026-05-12 — session — τ.5-A JPS + WLC Hebrew seed (closes Hebrew column foundation)
 
 **Phases shipped:** τ.5-A (JPS 1917 English Tanakh + Westminster

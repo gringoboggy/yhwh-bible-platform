@@ -1,0 +1,68 @@
+# Translation metadata — τ.2 Douay-Rheims-Challoner English seed (2026-05-12).
+#
+# The Douay-Rheims Bible was the first complete English Catholic
+# translation, made from the Latin Vulgate at the English College
+# at Douai (NT 1582) and Rheims (OT 1610). Bishop Richard
+# Challoner revised it in three rounds (1749 NT, 1750 OT, 1752
+# NT). The 1899 John Murphy Company (Baltimore) edition is the
+# canonical Challoner-text reprint and is Public Domain by age.
+#
+# Closes the Catholic English-translation column. Pairs with
+# `vulgate-clementine` (τ.3) — DRA is the English translation OF
+# that Vulgate. Together they form the Catholic-tradition
+# translation pair, parallel to KJV+WLC (Reformation Protestant)
+# and JPS+WLC (Jewish).
+#
+# τ.2 ships Gen 1:1-3 seed; τ.2.x is user-side full ingest from
+# eBible.org's eng-DRA_vpl.zip package.
+
+id: douay-rheims
+title: "Douay-Rheims Bible (Challoner revision, 1899)"
+short_title: "DRA"
+license: "Public Domain"
+source:
+  publisher: "John Murphy Company (Baltimore, 1899)"
+  url: "https://eBible.org/eng-DRA/"
+  package: "eng-DRA_vpl.zip (user-side ingest — eBible.org)"
+  fetched: 2026-05-12
+  source_date: 1899
+stats:
+  books: 1            # seed only — Genesis
+  verses: 3           # Gen 1:1-3 — canonical opening seed
+  books_outside_kjv: 0
+notes: |
+  τ.2 SEED CORPUS.
+
+  This is a 3-verse seed (Genesis 1:1-3) that proves the
+  translation-registry wire-up. Once the directory is present,
+  `list_translations()` discovers `douay-rheims` automatically;
+  the /customize console surfaces it as a selectable
+  popup_translation; the /compare console renders it side-by-
+  side with KJV, JPS, Vulgate Latin, etc.
+
+  The full Catholic-canon ingest is τ.2.x's user-side
+  deliverable.
+
+  Stylistic notes:
+
+  - Douay-Rheims is famously archaic. Genesis 1:3 reads
+    "Be light made. And light was made." — a direct
+    calque on the Vulgate's "Fiat lux. Et facta est lux."
+    rather than the more natural "Let there be light." of
+    KJV.
+  - Verse 2 uses "spirit of God" in lowercase (matching the
+    Vulgate's *spiritus Dei*); compare KJV's capitalized
+    "Spirit of God" (Reformation theological emphasis).
+  - "Heaven" is singular (matching the Latin *caelum* — singular
+    in the Clementine), distinct from later English versions
+    that sometimes render "the heavens."
+
+  These archaisms are features not bugs for the catholic-study
+  + anglican-bcp + scholarly-academic editions — the historical
+  texture matters more than modern readability there. For
+  modern-Catholic readers, NABRE / RSV-CE / NRSV-CE are
+  alternatives but all are NOT public domain.
+
+  Pairs with `vulgate-clementine` (τ.3) for side-by-side
+  Latin / English display in /compare once both are fully
+  ingested.

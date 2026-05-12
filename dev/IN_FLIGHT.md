@@ -4,6 +4,75 @@
 
 ## Prior task
 
+**τ.4 + τ.3 + τ.2 translation tier-1 wave** shipped 2026-05-12.
+Three seeds shipped together to close the SESSION_END §4
+first-wave translation work in one ship (N+2/N+3/N+4 batched
+because the publisher value compounds — Latin↔English Catholic
+pair from τ.3+τ.2 + LXX Greek↔English pair from γ.5+τ.4).
+
+**Three new translations** (all 3-verse Genesis seeds following
+γ.5 / τ.5-A pattern):
+
+- **τ.4 `lxx-brenton-english`** — Brenton 1844 LXX English
+  side. Companion to existing γ.5 `lxx-brenton-greek` —
+  Brenton printed Greek + English in parallel columns. PD
+  (Brenton died 1862; 1844 edition predates every PD cutoff).
+- **τ.3 `vulgate-clementine`** — Pope Clement VIII's 1592
+  authorized edition of Jerome's Latin Vulgate. PD by age
+  (Jerome d. 420 AD; Clementine 1592). Notes distinguish
+  Clementine (PD) from Stuttgart/Weber-Gryson (NOT PD) and
+  Nova Vulgata (NOT PD) — only Clementine works for the
+  publisher's PD-distribution constraint.
+- **τ.2 `douay-rheims`** — Challoner-revised Douay-Rheims
+  English Catholic Bible, 1899 John Murphy reprint, PD by age.
+  Pairs with τ.3 as the Catholic-tradition translation pair.
+
+**Files**: 3 new content/translations/<id>/{_meta.yaml, gen.py}
+trios + scripts/extract_translation.py TRANSLATIONS dict
+extended with 3 new entries (full PD documentation +
+user-side ingest path).
+
+**Tests**: tests/test_translations_tau4_tau3_tau2.py — 28
+tests across 10 classes. Translation-specific phrasing pins
+(JPS "unformed and void", DRA "Be light made" / "void and
+empty", Vulgate "In principio" / "Fiat lux", LXX-Eng
+"unsightly and unfurnished"). JointCoverage class pins the
+distinct-traditions invariant on Gen 1:2 (KJV and JPS
+verbatim-agree on Gen 1:1 but diverge on 1:2) and the
+Vulgate→DRA calque trail (Fiat lux → Be light made).
+
+**State after ship**: 7 translations registered. Of the 9
+editions' popup_languages_default declarations:
+
+| Language | Declared by | Coverage |
+|---|---|---|
+| hebrew | 6 editions | ✓ τ.5-A (jps + wlc) |
+| greek | 8 editions | ✓ γ.5 + τ.4 |
+| latin | 1 (anglican-bcp) | ✓ τ.3 |
+| arabic | 1 (coptic-orthodox) | ✗ no τ-phase yet |
+
+Arabic remains the only popup-language gap. PD Arabic Bible
+exists (Van-Dyck 1865; eBible.org `arb-vandyke`) — candidate
+for a future τ-phase if the coptic-orthodox edition becomes
+a near-term priority.
+
+**+28 tests**. **3183 / 3184 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+Forward references: τ.2.x + τ.3.x + τ.4.x (all user-side full
+ingests). Logged in CHANGELOG for the linter's phase-mentions
+check.
+
+**Translation tier-1 wave: CLOSED.** The publisher decision
+point referenced in AUDIT_2026-05-12 §5 N+5 has now arrived
+— next ship is either an Arabic seed (closes the last
+popup-language gap), τ.6 Ge'ez (flagship native language),
+τ.5-B WLC-unpointed variant, or pivot to a different track
+(ψ.30 matrix a11y, χ.2-5 patristic, γ.4.1 corpus expansion,
+or money-item authorization).
+
+## Prior task
+
 **τ.5-A JPS 1917 + WLC Hebrew seed** shipped 2026-05-12.
 First ship after SESSION_END_2026-05-12's translation-gap
 audit. Per the closer's §4 N+1 recommendation: close the
