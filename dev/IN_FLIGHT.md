@@ -4,6 +4,91 @@
 
 ## Prior task
 
+**γ.4.4.B 1 Enoch Watchers detail (40 entries on chs 1-36)** shipped
+2026-05-12. Substantive expansion of the Watchers section beyond
+the 11 first-wave entries. Brings Watchers coverage from 11 to 51
+entries across 30 distinct chapters (out of section's 36); 1 Enoch
+share of corpus rises from 17% to 31% — now substantively the
+second-heaviest voice.
+
+**Why it matters for THIS project**: the Watchers section is the
+Mäṣḥafä Hēnok's most theologically load-bearing component — textual
+root of Tewahedo demonology (15:8 demons as disembodied antediluvian
+giants), seven-archangel veneration (20:1), forgivable-vs-unforgivable
+sin distinction (13:8), Gehenna-fire eschatology (10:13), pagan-
+idolatry-as-demon-sacrifice etiology (19:1 → 1 Cor 10:20), Ethiopian
+imperial 'Negus Negesti' title etymology (9:4 'King of kings').
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 40 new 1 Enoch
+  Watchers entries appended covering all 5 sub-arcs: prologue
+  (1:3, 2:1, 5:4, 5:7) + descent (6:2, 6:5, 7:5, 8:4, 9:1, 9:4,
+  9:8, 10:1, 10:13, 11:1) + intercession (12:1, 12:4, 13:5, 13:8,
+  14:1, 14:25, 15:8, 16:1) + first journey (17:1, 17:5, 18:14,
+  19:1, 19:3) + second journey (20:1, 21:7, 23:1, 24:4, 25:3,
+  25:5, 26:1, 27:2, 29:2, 32:3, 33:3, 34:1, 36:1). _meta updated.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma44BWatchersDetailWave` class with 12 tests.
+
+**Code-side wiring**: zero new code.
+
+**Corpus state post-γ.4.4.B**:
+```
+ethiopian_commentaries.json: 230 entries (was 190; +40)
+├─ Cyril of Alexandria     : 121 entries (John 1-7 + 11-21 — COMPLETE)
+├─ Ephrem the Syrian       :  37 entries (Gen 1-9, 11)
+└─ 1 Enoch tradition       :  72 entries (1en 5 books; Watchers
+                                          substantively expanded —
+                                          30 of 36 chs covered)
+
+Voice mix: 53% Cyril / 16% Ephrem / 31% 1 Enoch
+           (was 64/19/17 pre-γ.4.4.B)
+Six-tradition coverage     : 286 entries (was 246)
+γ.4 cumulative              : 218 entries beyond γ.4 seed
+                             (.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              .2 32 + .4 30 + .4.B 40 = 218)
+```
+
+**+12 tests**. **3433 / 3434 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **γ.4.4.C** Parables detail (Son-of-Man Christology expansion).
+- **γ.4.4.D** Astronomical + Dream Visions / Animal Apocalypse.
+- **γ.4.4.E** Epistle of Enoch detail.
+- **γ.4.2.B** Ephrem on Gen 12-50.
+- **γ.4.3** Cyril on Luke (~400 long-term).
+
+**Session totals (2026-05-12)**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+γ.4.1.C Cyril on John (third wave)                  +14 tests
+AUDIT_2026-05-12-B                                    0 tests (doc-only)
+γ.4.2 Ephrem on Genesis (first wave)                +12 tests
+γ.4.1.D Cyril on John (fourth wave — CLOSES γ.4.1)  +15 tests
+γ.4.4 1 Enoch (first wave — all 5 books)            +11 tests
+γ.4.4.B 1 Enoch Watchers detail                     +12 tests
+                                  session total:   +236 tests
+                                  3197 → 3433 (serial; 1 skipped)
+```
+
+**Recommended next ship**:
+- **γ.4.4.C Parables detail** — expand Son-of-Man Christology
+  section (1En 37-71). Would push 1 Enoch share toward 35-40%.
+- **γ.4.2.B Ephrem on Gen 12-50** — patriarchal narrative; would
+  push Ephrem share back toward 20-25%.
+- **PAUSE** — session has 13 phase ships + 2 audits + 2 side-ships.
+  Voice mix is substantively three-anchored; corpus state is clean;
+  natural pause point.
+
+## Prior task
+
 **γ.4.4 1 Enoch first wave (all five books — 30 entries)** shipped
 2026-05-12. First substantive expansion of the **third anchor** of
 the Ethiopian Tewahedo corpus — the Mäṣḥafä Hēnok (Book of Enoch)

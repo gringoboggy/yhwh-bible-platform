@@ -6,6 +6,117 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.4.B 1 Enoch Watchers detail (40 entries on chs 1-36)
+
+**Phases shipped:** γ.4.4.B — Watchers detail expansion of the
+Mäṣḥafä Hēnok corpus. γ.4.4.A shipped 30 entries spanning all five
+books of 1 Enoch (11 of which were on Watchers chs 1-36); γ.4.4.B
+adds 40 more entries on the Watchers section, bringing Watchers
+coverage to 51 entries across 30 distinct chapters (out of the
+section's 36). 1 Enoch share of the corpus rises from 17% to 31% —
+now substantively the second-heaviest voice.
+**Test delta:** +12 (3421 → 3433; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.4.B — 1 Enoch Watchers detail (chs 1-36)
+
+This wave covers the full Watchers narrative arc in substantive
+detail: the prologue and natural-theology argument (chs 1-5), the
+deliberate-collective rebellion of the 200 angels (6-11), Enoch's
+attempted intercession and the denial of forgiveness (12-16), the
+first cosmic journey through the fire-river and the prison of the
+fallen stars (17-19), and the second cosmic journey through the
+four cardinal directions to the throne-mountain with the tree of
+life + the seven-archangel list + the Gehenna geography (20-36).
+
+**Why this ship matters for the project specifically**:
+
+- The **Watchers section** is the Mäṣḥafä Hēnok's most theologically
+  load-bearing component — the textual root of (i) Tewahedo
+  demonology (15:8 demons as disembodied antediluvian giants),
+  (ii) Tewahedo seven-archangel veneration (20:1), (iii) the
+  distinction between forgivable human sin and unforgivable
+  angelic sin (13:8), (iv) the Gehenna-fire eschatology (10:13),
+  (v) the textual etiology of pagan idolatry as sacrifice-to-demons
+  (19:1 → 1 Cor 10:20).
+- The **seven-archangel list (1En 20:1)** is the Tewahedo
+  Synaxarium's canonical source for the seven dedicated archangel
+  feast days — a tradition Catholics and Orthodox preserve
+  partially (Michael / Gabriel / Raphael universally; Uriel in
+  Eastern Orthodoxy + some Catholic locales; Raguel / Saraqael /
+  Remiel only via Tewahedo continuity).
+- The **tree of life at 1En 24:4-25:5** establishes the
+  eschatological tree-of-life imagery that Revelation 22:2
+  develops — Tewahedo eschatology preserves the inter-textual
+  continuity through the Mäṣḥafä Hēnok that other canons lose.
+- The **four-archangel intercession (9:1)** is the textual basis
+  for the Tewahedo liturgical doxology pattern (Lord of lords /
+  God of gods / King of kings / God of the ages) preserved in
+  the Anaphora of the Apostles.
+- The **Ethiopian imperial title 'Negus Negesti' (King of Kings)**
+  derives etymologically and theologically from 1En 9:4's
+  doxological 'King of kings' — making this verse a textual
+  anchor for Tewahedo political theology specifically.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 40 new 1 Enoch
+  Watchers entries appended: prologue (1:3, 2:1, 5:4, 5:7) +
+  descent and giants (6:2, 6:5, 7:5, 8:4, 9:1, 9:4, 9:8, 10:1,
+  10:13, 11:1) + Enoch's intercession (12:1, 12:4, 13:5, 13:8,
+  14:1, 14:25, 15:8, 16:1) + first journey (17:1, 17:5, 18:14,
+  19:1, 19:3) + second journey (20:1, 21:7, 23:1, 24:4, 25:3,
+  25:5, 26:1, 27:2, 29:2, 32:3, 33:3, 34:1, 36:1). Each entry
+  ~120-180 word paraphrase. _meta block updated to document γ.4.4.B
+  + the rebalanced voice mix.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma44BWatchersDetailWave` class with 12 tests pinning
+  Watchers substantively expanded (≥40 entries in chs 1-36) +
+  all five Watchers sub-arcs covered + 1 Enoch share ≥25% + 9
+  signature passages (5:7 covenant blessing / 9:1 four archangels
+  / 10:13 Azazel judgment / 13:8 denied intercession / 15:8 demons
+  etiology / 17:1 first journey opening / 20:1 seven archangels /
+  24:4 tree of life / 36:1 second journey closes).
+
+**Code-side wiring**: zero new code. γ.4.4.B is pure content
+expansion within the existing γ.4 infrastructure.
+
+### Corpus state post-γ.4.4.B
+
+```
+ethiopian_commentaries.json: 230 entries (was 190 after γ.4.4 wave-1; +40)
+├─ Cyril of Alexandria     : 121 entries (unchanged)
+├─ Ephrem the Syrian       :  37 entries (unchanged)
+└─ 1 Enoch tradition       :  72 entries (was 32; +40)
+   ├─ 1en chapters covered  : 32 distinct chs across all 5 books
+   │  Watchers (1-36)       : 30 of 36 chapters
+   │  Parables (37-71)      :  7 of 35 chapters (from γ.4.4.A only)
+   │  Astronomical (72-82)  :  2 of 11 chapters (from γ.4.4.A only)
+   │  Dream Visions (83-90) :  3 of  8 chapters (from γ.4.4.A only)
+   │  Epistle (91-108)      :  4 of 18 chapters (from γ.4.4.A only)
+   + 2 Gen cross-refs from γ.4 seed
+
+Voice distribution         : 53% Cyril / 16% Ephrem / 31% 1 Enoch
+                             (was 64/19/17 pre-γ.4.4.B)
+Six-tradition coverage     : 286 entries (was 246)
+γ.4 cumulative content      : 218 entries beyond γ.4 seed of 12
+                             (γ.4.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              γ.4.2 wave-1 32 + γ.4.4 wave-1 30 +
+                              γ.4.4.B 40 = 218)
+```
+
+### Forward references
+
+- **γ.4.4.C** Parables detail expansion (1 Enoch 37-71). Would
+  expand the Son-of-Man Christology section substantively.
+- **γ.4.4.D** Astronomical + Dream Visions / Animal Apocalypse
+  expansion (1 Enoch 72-90).
+- **γ.4.4.E** Epistle of Enoch expansion (1 Enoch 91-108).
+- **γ.4.2.B** Ephrem on Gen 12-50 (~40-60 entries).
+- **γ.4.3** Cyril on Luke (Payne Smith 1859 PD, ~400 long-term target).
+
+---
+
 ## 2026-05-12 — session — γ.4.4 1 Enoch (first wave: all five books, 30 entries)
 
 **Phases shipped:** γ.4.4 first wave — R.H. Charles' 1912 PD

@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch itself (book code 1en, spanning all five-book structure: Watchers + Parables + Astronomical + Dream Visions / Animal Apocalypse + Epistle of Enoch) — brings 1 Enoch share substantively up from 1% to 17%. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning Watchers + Parables + Astronomical + Dream Visions / Animal Apocalypse + Epistle. Post-γ.4.4 voice distribution: 64% Cyril / 19% Ephrem / 17% 1 Enoch — substantively three-anchored matching the corpus' documented threefold patristic-canonical structure. Future γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers + Deuteronomy; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD); γ.4.4.B-E will expand 1 Enoch beyond the 30-entry first wave toward the ~300 long-term target.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD).",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -1905,6 +1905,406 @@
       "year": -100,
       "summary": "'Be hopeful; for aforetime ye were put to shame through ill and affliction; but now ye shall shine as the lights of heaven, ye shall shine and ye shall be seen, and the portals of heaven shall be opened to you' — the Epistle's closing exhortation to the persecuted righteous. The 'shine as the lights of heaven' echoes Daniel 12:3 ('they that be wise shall shine as the brightness of the firmament') and anticipates Matthew 13:43 ('Then shall the righteous shine forth as the sun in the kingdom of their Father'). Tewahedo eschatology preserves this glorification-by-shining as the proper image of the resurrection body: not pale ghost, not generic light, but glorified material radiance that is recognizably the individual person now made luminous.",
       "attribution": "1 Enoch 104:2, trans. R.H. Charles (1912). PD. Cf. Dan 12:3 + Mt 13:43."
+    },
+    {
+      "book": "1en",
+      "chapter": 1,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'The Holy Great One will come forth from His dwelling, and the eternal God will tread upon the earth, even on Mount Sinai, and appear in the strength of His might from the heaven of heavens' — the Sinai theophany extended to a general theological pattern. The God who once came down on Sinai will come again at the eschaton; the historical theophany prefigures the eschatological. The Tewahedo Synaxarium readings for the Feast of the Transfiguration explicitly connect this verse to the Tabor manifestation: each visible coming of the Most High to creation participates in the one cosmic visitation that the Mäṣḥafä Hēnok foretells.",
+      "attribution": "1 Enoch 1:3-4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 2,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Observe ye everything that takes place in the heaven, how they do not change their orbits, and the luminaries which are in the heaven, how they all rise and set in order, each in its season, and transgress not against their appointed order' — the natural-theology argument from cosmic regularity. The Watchers' rebellion is precisely the violation of this divinely-appointed cosmic order; the natural creation's obedience shames the angelic-human disobedience. The Tewahedo monastic tradition draws explicit catechetical use: the unfailing observance of natural creation rebukes the failing observance of moral creation.",
+      "attribution": "1 Enoch 2:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 5,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'But ye — ye have not been steadfast, nor done the commandments of the Lord' — the address to the unrighteous after the natural-theology argument of chs 2-5. The transgression is specifically of the COMMANDMENTS, not of vague moral sensibility: 1 Enoch presupposes the Mosaic covenant as the standard by which the elect are measured. The Tewahedo reading takes this as the canonical Jewish covenant-theology basis that the Christian moral catechesis presupposes; the Sermon on the Mount intensifies but does not abrogate the prior commanded standard.",
+      "attribution": "1 Enoch 5:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 5,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'But to the elect there shall be light and joy and peace, and they shall inherit the earth' — the climactic blessing on the righteous, anticipating the Beatitude 'Blessed are the meek, for they shall inherit the earth' (Mt 5:5 = Ps 37:11). The triple gift (light + joy + peace) Tewahedo eschatology reads as the proper inheritance of the resurrection saints: not merely escape from suffering but positive participation in divine glory. The 'inherit the earth' is read in Tewahedo eschatology as the new-creation earth, restored and glorified, not the present fallen earth.",
+      "attribution": "1 Enoch 5:7, trans. R.H. Charles (1912). PD. Cf. Mt 5:5 + Ps 37:11."
+    },
+    {
+      "book": "1en",
+      "chapter": 6,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And the angels, the children of the heaven, saw and lusted after them, and said to one another: Come, let us choose us wives from among the children of men and beget us children' — the deliberate-collective character of the Watchers' decision. The rebellion is not impulsive individual passion but coordinated council: 'said to one another' frames the sin as conspiratorial, not accidental. The Tewahedo angelological tradition reads this against any reading that would minimize Satan-and-the-fallen-angels as mere temptation-creatures: they are genuine moral agents with developed plans, not impulsive nature-spirits.",
+      "attribution": "1 Enoch 6:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 6,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Then sware they all together and bound themselves by mutual imprecations upon it' — the angelic oath that seals the rebellion. The mutual binding-by-oath ensures no individual angel can retreat from the collective plan: each is now bound to all the others. Tewahedo demonological tradition reads this as the prototype of every subsequent secret-society oath: the binding-by-mutual-imprecation is the demonic technology for ensuring collective evil endures past individual second-thoughts. The verse warrants a deep ascetic suspicion of any oath-bound association outside the Church's sacramental order.",
+      "attribution": "1 Enoch 6:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 7,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'The giants turned against them and devoured mankind. And they began to sin against birds, and beasts, and reptiles, and fish, and to devour one another's flesh, and drink the blood' — the violent escalation of giant predation. The four-fold catalog (humans / birds / beasts / fish) traces the giant predation through the whole creaturely order; 'devour one another's flesh' makes them ultimately self-cannibalistic. Tewahedo monastic-ascetic tradition reads this as the ultimate pattern of disordered appetite: unchecked consumption finally turns inward, devouring its own. The catalog itself becomes the textual basis for the standard four-fold dietary categories preserved in monastic fasting rules.",
+      "attribution": "1 Enoch 7:5-6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 8,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And as men perished, they cried, and their cry went up to heaven' — the foundational text for the prayer-of-the-oppressed as cosmic-judicial appeal. The 'cry' (Geez 'awyāt) is involuntary lament of those suffering injustice; it ascends to heaven by divine ordinance, not by deliberate liturgical mediation. This is the textual basis for the Tewahedo doctrine of God's predisposition to hear the cry of the persecuted regardless of formal liturgical observance: oppression itself becomes prayer when borne by the innocent.",
+      "attribution": "1 Enoch 8:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 9,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Then Michael, Uriel, Raphael, and Gabriel looked down from heaven and saw much blood being shed upon the earth' — the four-archangel intercession that responds to the cry of the oppressed. The four names establish the canonical Tewahedo angelology: Michael (warrior-defender), Uriel (light-bearer / scribe), Raphael (healer / binder of Azazel), Gabriel (messenger). Other Christian traditions know one or two of these; the Tewahedo Synaxarium honors all four with dedicated feast days, drawing the angelological framework directly from this Enochic chapter.",
+      "attribution": "1 Enoch 9:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 9,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The archangels address the Most High: 'Lord of lords, God of gods, King of kings, and God of the ages, the throne of Thy glory standeth unto all the generations of the ages, and Thy name holy and glorious and blessed unto all the ages' — the foundational angelic doxology. The triple superlative (Lord of lords + God of gods + King of kings) becomes the Tewahedo liturgical model for naming God in the Anaphora prayers; 'King of kings' specifically (mèngèshte negus) becomes the Ethiopian imperial title (Negus Negesti = King of Kings) borrowed from this verse. The Tewahedo Anaphora of the Apostles preserves this Enochic doxology pattern verbatim.",
+      "attribution": "1 Enoch 9:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 9,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And they have gone to the daughters of men upon the earth, and have slept with the women, and have defiled themselves' — the archangels' formal indictment of the Watchers. The verb 'defiled themselves' (Geez 'irat) Tewahedo reads not merely as ritual impurity but as ontological self-degradation: the Watchers' descent into human sexuality reduces their angelic substance to a corrupted mixed-state. This grounds the Tewahedo monastic-ascetic theology of celibacy: not because sexuality is evil (Gen 1:28 stands) but because angelic-ranked existence has always been celibate by nature, and the monastic call is to anticipate that angelic mode of life.",
+      "attribution": "1 Enoch 9:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 10,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Then said the Most High, the Holy and Great One spake, and sent Uriel to the son of Lamech' — God's first response to the angelic intercession: dispatching Uriel to Noah. The naming of Noah as 'son of Lamech' (rather than directly) establishes the genealogical-historical anchoring of the divine intervention: God acts within recognizable human history, working through specific named individuals embedded in known lineages. Tewahedo theological reading takes this as the Enochic anchor for the doctrine of providence working through ordinary genealogical paths rather than through general moral suasion.",
+      "attribution": "1 Enoch 10:1-2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 10,
+      "verse": 13,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Of the rebel Watchers: 'In those days they shall be led off to the abyss of fire, and to the torment and the prison in which they shall be confined for ever' — the final-judgment confinement of the rebel angels. The 'abyss of fire' (Geez gehannem) is etymologically the Geez form of Gehenna; this is the textual root of Tewahedo eschatology's specifically-fiery doctrine of the fate of the unrepentant. 'For ever' (la-'alam — for the age, into the eternal) precludes any annihilationist reading: the punishment is eternal in duration, matching the eternal-good reward of the elect.",
+      "attribution": "1 Enoch 10:13, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 11,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And in those days I will open the store chambers of blessing which are in the heaven, so as to send them down upon the earth over the work and labour of the children of men' — the eschatological reversal of the Watcher-era curse. Where the Watchers brought down forbidden teachings + ruinous consequences, the Most High at the eschaton will open the legitimate heavenly storehouses + send down the blessings on human labor. The 'work and labour of the children of men' is restored to its Edenic dignity by divine cooperation rather than usurped by demonic technological revelation.",
+      "attribution": "1 Enoch 11:1-2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 12,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Before these things Enoch was hidden, and no one of the children of men knew where he was hidden, and where he abode, and what had become of him' — the foundational text for Enoch's hidden pre-translation existence. Already before the Flood narrative, Enoch is 'hidden' (Geez xəbu') with the watchers and holy ones — translated from ordinary human existence into the angelic order. This Tewahedo reads as the foundation of Enoch's authority to receive subsequent visions: he is the human-yet-translated witness, qualified to mediate between angelic and human knowledge precisely because he occupies both spheres.",
+      "attribution": "1 Enoch 12:1-2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 12,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The angels commission Enoch: 'Enoch, thou scribe of righteousness, go, declare to the Watchers of the heaven who have left the high heaven, the holy eternal place, and have defiled themselves with women' — Enoch's prophetic-judicial role as scribe. Where ordinary scribes record human events, Enoch is the scribe of the angelic-judicial process: the divine sentence on the Watchers passes THROUGH Enoch's recording. The title 'scribe of righteousness' (ṣaḥafe ṣədq) becomes the canonical Tewahedo designation; this verse is the textual warrant for treating Enoch's recorded visions as inspired prophetic Scripture rather than mere human composition.",
+      "attribution": "1 Enoch 12:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 13,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The fallen Watchers ask Enoch to intercede for them: 'They had not the power to speak with Him or to lift up their eyes to heaven for shame of their sins for which they had been condemned' — the inability of the fallen to face God directly. The shame-condition Tewahedo reads as the inverse of the elect's privileged direct address to God (cf. Heb 4:16 'come boldly unto the throne of grace'): unrepented sin produces moral inability to approach, even apart from any external prohibition. The Tewahedo confessional-sacramental theology reads this as the textual basis for the priest's mediating role in sin-burdened conscience.",
+      "attribution": "1 Enoch 13:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 13,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "After Enoch's attempted intercession, the divine response: 'And the vision was shown to me thus: Behold, in the vision clouds invited me and a mist summoned me' — the prelude to God's denial of forgiveness for the fallen Watchers. The denial itself comes in chs 14-16: the Watchers' rebellion is not forgivable because they sinned with full angelic knowledge, where humans sin with partial knowledge. Tewahedo theological tradition draws explicit distinction: human sin is fully redeemable through Christ's incarnation (the Word assumed human nature); angelic sin is not (the Word did not assume angelic nature). The Mäṣḥafä Hēnok grounds this distinction textually.",
+      "attribution": "1 Enoch 13:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 14,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'The book of the words of righteousness, and of the reprimand of the eternal Watchers in accordance with the command of the Holy Great One in that vision' — the literary-canonical self-description of the section that follows. The text identifies itself as 'the book' (mäṣḥaf) of the words of righteousness — claiming for itself the canonical-scriptural status that the Tewahedo tradition recognizes. The naming of God as 'the Holy Great One' (Qadūs ʿAbiy) becomes a standard Tewahedo liturgical title, preserved in the Anaphora.",
+      "attribution": "1 Enoch 14:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 14,
+      "verse": 25,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Of the Most High in the throne vision: 'No angel could enter and could behold His face by reason of the magnificence and glory, and no flesh could behold Him' — the divine inaccessibility even to the highest angels. The 'no angel could enter' establishes the radical otherness of God even from the angelic order: God is not merely the highest among the heavenly hierarchy but qualitatively other than the entire creaturely order, including angels. This grounds the Tewahedo apophatic theological tradition: divine essence is incomprehensible to every creature, including the highest cherubim and seraphim.",
+      "attribution": "1 Enoch 14:25, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 15,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Of the giants born from the Watcher-human unions: 'But now the giants, who are produced from the spirits and flesh, shall be called evil spirits upon the earth, and on the earth shall be their dwelling' — the foundational Enochic etiology of demons. The giants (Nephilim) die in the Flood; their disembodied spirits become the unclean spirits that the New Testament accounts will exorcise. This is the Tewahedo demonological tradition's textual root: demons are not eternally-fallen lower angels but specifically the disembodied spirits of the antediluvian giants. The exorcistic ministry of Christ (cf. Mk 1:23-27 + parallels) presupposes this Enochic understanding.",
+      "attribution": "1 Enoch 15:8-10, trans. R.H. Charles (1912). PD. Cf. Mk 1:23-27."
+    },
+    {
+      "book": "1en",
+      "chapter": 16,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Of the demons (disembodied giants): 'From the day of the slaughter and destruction and death of the giants, from the souls of whose flesh the spirits, having gone forth, shall destroy without incurring judgement' — the post-Flood era of demonic predation. The demons act 'without incurring judgement' because they exist in a category outside the original divine ordering: humans face judgment under the Adamic-Noahic-Mosaic covenant; angels face judgment for their own rebellion; demons (as a third category, post-Flood) operate in an interim awaiting final eschatological judgment. The Tewahedo exorcistic liturgical tradition draws explicit pneumatological framework from this verse.",
+      "attribution": "1 Enoch 16:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 17,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And they took and brought me to a place in which those who were there were like flaming fire, and, when they wished, they appeared as men' — the opening of Enoch's first cosmic journey. The angelic guides who transform between fire-form and man-form establish the Enochic angelological pattern: angels have native fire-existence (their proper-nature mode) but can manifest as men for human communication (their accommodation-mode). The Tewahedo iconographic tradition preserves this dual-mode angelology: angels are depicted in human form in iconographic accommodation, but liturgical-theological references invoke their fire-nature.",
+      "attribution": "1 Enoch 17:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 17,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And I came to the river of fire in which the fire flows like water and discharges itself into the great sea towards the west' — Enoch beholds the river of fire that connects to the cosmic west-sea. The river-of-fire (nahar ʾəsāt) Tewahedo eschatology reads as the eschatological fire that purges + judges; the New Testament's 'lake of fire' (Rev 19:20, 20:10) Tewahedo reads as connected to this Enochic vision. The 'great sea towards the west' is the cosmic-mythic ocean at the world's edge, before which the fire-river ends — establishing the geographical-eschatological boundary of the divine economy.",
+      "attribution": "1 Enoch 17:5, trans. R.H. Charles (1912). PD. Cf. Rev 19:20."
+    },
+    {
+      "book": "1en",
+      "chapter": 18,
+      "verse": 14,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The angel-guide tells Enoch: 'This place is the end of heaven and earth: this has become a prison for the stars and the host of heaven' — the prison of the fallen stars. The 'stars' here are angelic beings (per ancient Near Eastern cosmology where stars are the visible counterparts of heavenly powers); the prison is where the Watcher-stars who transgressed are confined awaiting judgment. Jude 1:13's 'wandering stars, to whom is reserved the blackness of darkness for ever' Tewahedo reads as direct allusion to this Enochic verse. The cosmology of stars-as-angels is preserved in Tewahedo liturgical hymnody.",
+      "attribution": "1 Enoch 18:14, trans. R.H. Charles (1912). PD. Cf. Jude 1:13."
+    },
+    {
+      "book": "1en",
+      "chapter": 19,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Uriel explains: 'Here shall stand the angels who have connected themselves with women, and their spirits assuming many different forms are defiling mankind and shall lead them astray into sacrificing to demons as gods' — the post-Flood human idolatry derived from demon-led seduction. Tewahedo reads this as the canonical-Jewish anchor for the New Testament's claim that pagan sacrifices are sacrifices 'to demons' (1 Cor 10:20: 'the things which the Gentiles sacrifice, they sacrifice to devils, and not to God'). The continuity between 1 Enoch's demonology and Paul's pagan-idolatry critique is one of the strongest inter-textual bridges the Tewahedo canon preserves.",
+      "attribution": "1 Enoch 19:1, trans. R.H. Charles (1912). PD. Cf. 1 Cor 10:20."
+    },
+    {
+      "book": "1en",
+      "chapter": 19,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Enoch concludes his vision report: 'And I, Enoch, alone saw the vision, the ends of all things: and no man shall see as I have seen' — the Enochic claim to unique revelatory privilege. The 'no man shall see' establishes Enoch's prophetic singularity (until the eschaton's general revelation). Tewahedo reads this not as exclusivist boast but as commissioned-witness charter: Enoch sees so that he may report, his vision is recorded so that the elect may know what they could not otherwise know. The verse becomes the textual warrant for the Mäṣḥafä Hēnok's canonical-scriptural status: the unique vision requires preservation in inspired text.",
+      "attribution": "1 Enoch 19:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 20,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And these are the names of the holy angels who watch' — the foundational seven-archangel list: Uriel (chief of the host of the firmament + chief of paradise + chief of the cherubim), Raphael (chief of the spirits of men), Raguel (over the world of the luminaries), Michael (chief of Israel + over chaos), Saraqael (the spirits of the children of men who transgress), Gabriel (over paradise + serpents + cherubim), Remiel (over those who rise from the dead). The Tewahedo Synaxarium honors all seven on dedicated days; the seven-archangel framework is one of the most explicit Tewahedo angelological inheritances from the Mäṣḥafä Hēnok, with Catholic and Orthodox traditions partially preserving the framework but Protestant traditions almost entirely losing it.",
+      "attribution": "1 Enoch 20:1-7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 21,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And from thence I went to another place, which was still more horrible than the former, and I saw a horrible thing: a great fire there which burnt and blazed, and the place was cleft as far as the abyss, being full of great descending columns of fire' — the Tartaros-Gehenna vision. Enoch sees the place of final punishment for the wicked, distinguished from the prison of the rebel angels in 18:14 by its more-horrible character. The fire descending in columns Tewahedo reads as the inverse of the Pentecostal tongues of fire descending in blessing (Acts 2:3): the same fire-imagery serves either as gift (when received by the righteous Spirit) or as judgment (when meeting the unrighteous).",
+      "attribution": "1 Enoch 21:7, trans. R.H. Charles (1912). PD. Cf. Acts 2:3."
+    },
+    {
+      "book": "1en",
+      "chapter": 23,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And from thence I went to another place to the west of the ends of the earth. And I saw a burning fire which ran without resting, and paused not from its course day or night but ran regularly' — Enoch beholds the perpetual fire of the divine judicial process. The 'without resting' (Geez 'enza i-yenuh) establishes the perpetuity of divine judgment: the fire of judgment is not episodic but ongoing, constantly burning even when not visibly applied. This grounds the Tewahedo theological reading that divine justice is not occasional intervention but continuous operation — what humans experience as discrete acts of judgment are visible occasions of a permanently-burning process.",
+      "attribution": "1 Enoch 23:1-2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 24,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And amongst them was a tree such as I had never yet smelt, neither was any amongst them nor were others like it: it had a fragrance beyond all fragrance, and its leaves and blooms and wood wither not for ever: and its fruit is beautiful' — Enoch's vision of the eschatological tree of life. The tree restored at the eschaton echoes the Edenic tree (Gen 2:9) and prefigures the Revelation tree of life (Rev 22:2 'the tree of life, which bare twelve manner of fruits, and yielded her fruit every month: and the leaves of the tree were for the healing of the nations'). Tewahedo eschatology preserves the tree-of-life imagery as central to its description of the restored creation; the Mäṣḥafä Hēnok's vision pre-dates and grounds the Revelation development.",
+      "attribution": "1 Enoch 24:4, trans. R.H. Charles (1912). PD. Cf. Rev 22:2."
+    },
+    {
+      "book": "1en",
+      "chapter": 25,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The angel Michael explains the mountain on which the tree of life grows: 'This high mountain which thou hast seen, whose summit is like the throne of God, is His throne, where the Holy Great One, the Lord of Glory, the Eternal King, will sit, when He shall come down to visit the earth with goodness' — the throne-mountain of the eschatological visitation. The mountain serves simultaneously as God's throne AND as the place of His descent to creation: in the eschaton the transcendent and immanent are reunited geographically. Tewahedo theological geography preserves this throne-mountain imagery; Mount Zion (and by extension every consecrated church building) participates in this eschatological throne-mountain typology.",
+      "attribution": "1 Enoch 25:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 25,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Of the tree of life at the eschaton: 'Its fruit shall be for food to the elect: it shall be transplanted to the holy place, to the temple of the Lord, the Eternal King' — the transplantation of the tree to the eschatological temple. The tree of life is not merely restored to its Edenic location but UPGRADED to the temple of God Himself: the original garden setting becomes the new-creation sanctuary. Tewahedo liturgical theology reads this as the textual basis for the consecrated altar table as participation in the eschatological temple-tree: the eucharistic bread received at the altar IS the fruit of the eschatological tree of life given proleptically.",
+      "attribution": "1 Enoch 25:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 26,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And I went from thence to the middle of the earth, and I saw a blessed place in which there were trees with branches abiding and blooming. And there I saw a holy mountain, and underneath the mountain to the east there was a stream and it flowed towards the south' — Enoch beholds the cosmic-geographical center of the earth: Jerusalem and the Mount of Olives. The middle-of-the-earth cosmology (with Jerusalem at the omphalos / world's navel) Tewahedo preserves in its theological geography; the medieval mappae mundi place Jerusalem at the center because of this Enochic-and-prophetic tradition.",
+      "attribution": "1 Enoch 26:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 27,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The angel explains the cursed Valley of Hinnom: 'This accursed valley is for those who are accursed for ever: here shall all the accursed be gathered together who utter with their lips against the Lord unseemly words and of His glory speak hard things' — the Gehenna eschatology grounded in geographical Hinnom Valley outside Jerusalem. The valley where idolatrous Israel sacrificed children to Molech becomes the Mäṣḥafä Hēnok's typological location of the eschatological gathering of the condemned. New Testament 'Gehenna' (12 occurrences) presupposes this Enochic geographical-eschatological identification; Tewahedo eschatology preserves the Hinnom-Gehenna typological continuity.",
+      "attribution": "1 Enoch 27:2-3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 29,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And I saw the trees of judgement, especially vessels of the fragrance of frankincense and myrrh, and the trees were not like each other' — Enoch's vision of the aromatic trees of paradise: frankincense and myrrh prominent among them. The same two substances are brought as gifts to the infant Christ (Mt 2:11) — Tewahedo Christological reading takes the Magi gifts as proleptic offering from the eschatological paradise back to the Incarnate one whose advent inaugurates the new creation. The Tewahedo eucharistic preparation includes frankincense + myrrh in deliberate liturgical-cosmic reference.",
+      "attribution": "1 Enoch 29:2, trans. R.H. Charles (1912). PD. Cf. Mt 2:11."
+    },
+    {
+      "book": "1en",
+      "chapter": 32,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And I came to the Garden of Righteousness, and saw beyond those trees many large trees growing there and of goodly fragrance, large, very beautiful and glorious, and the tree of wisdom whereof they eat and know great wisdom' — Enoch reaches the Edenic Garden of Righteousness with the tree of wisdom (distinct from the tree of life at 24:4 and 25:5). The Garden of Righteousness as the proper-name designation of restored Eden becomes determinative for Tewahedo monastic-spiritual literature: the monastery is figured as the proleptic Garden of Righteousness on earth, where the tree of wisdom yields its fruit to the disciplined ascetic.",
+      "attribution": "1 Enoch 32:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 33,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And there I saw the ends of the earth whereon the heaven rests, and the portals of the heaven open. And I saw how the stars of heaven come forth, and I counted the portals out of which they proceed' — Enoch's vision of the cosmological mechanism by which stars rise and set. The 'portals' (Geez bāʾəw) are gates in the heavenly dome through which the heavenly bodies pass on their appointed circuits. Tewahedo theological cosmology preserves this gateway-cosmology in its liturgical hymnody: the doxologies frequently reference the 'portals of heaven' through which prayers ascend and divine gifts descend.",
+      "attribution": "1 Enoch 33:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 34,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And from thence I went towards the north to the ends of the earth, and there I saw a great and glorious device at the ends of the whole earth' — Enoch's northward journey reaches the cosmic north device. The 'great and glorious device' (Geez maxbar 'abiy wa-səbuh) Tewahedo cosmological tradition reads as the divine mechanism for weather: the storehouses of snow, rain, and wind from which the meteorological phenomena are dispatched per divine will. This pre-meteorological cosmology Tewahedo monasticism preserves as catechetical resource: weather is not merely natural but divinely-administered, and prayer for rain is real petition to the administering Most High.",
+      "attribution": "1 Enoch 34:1-3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 36,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And from thence I went to the south to the ends of the earth, and saw there three open portals of the heaven: from them issues dew, rain, and wind' — Enoch's final journey-segment to the south completes the four-directional cosmological survey (chs 17-36). Together with the earlier western (17-19) and northern (34) journeys + the central Jerusalem-omphalos vision (26-32), Enoch has now mapped the cosmic geography from all four cardinal directions. The Tewahedo iconographic tradition's depictions of the cosmos often preserve this four-directional structuring with Jerusalem at the center, drawing on the Enochic cosmological survey as authoritative source.",
+      "attribution": "1 Enoch 36:1-4, trans. R.H. Charles (1912). PD."
     }
   ]
 }

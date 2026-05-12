@@ -131,7 +131,9 @@ sub-phases ship against an explicit plan.
         │           (Watchers + Parables +                        [Jude pin + Son of
         │           Astronomical + Dream Visions /                Man + White Bull]
         │           Animal Apocalypse + Epistle)
-        ├─ γ.4.4.B  Watchers detail expansion         ~50-70 entries  open
+        ├─ γ.4.4.B  Watchers detail expansion         40 entries  ✓ SHIPPED 2026-05-12
+        │           (chs 1-36; 30 of 36 chs covered)             [seven archangels +
+        │                                                         tree of life pin]
         ├─ γ.4.4.C  Parables (Son of Man) detail      ~50-70 entries  open
         ├─ γ.4.4.D  Astronomical + Dream Visions      ~40-60 entries  open
         └─ γ.4.4.E  Epistle of Enoch detail           ~40-60 entries  open

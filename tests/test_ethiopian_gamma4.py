@@ -1253,3 +1253,106 @@ class TestGamma44EnochFirstWave:
             assert "Charles" in attr, f"γ.4.4 entry missing Charles citation: {attr!r}"
             assert "1912" in attr, f"γ.4.4 entry missing 1912 date: {attr!r}"
             assert "PD" in attr, f"γ.4.4 entry missing PD marker: {attr!r}"
+
+
+class TestGamma44BWatchersDetailWave:
+    """γ.4.4.B — 1 Enoch Watchers detail expansion (40 entries on
+    chs 1-36 beyond the 11 γ.4.4.A entries on that section). Brings
+    Watchers coverage from 11 to 51 entries across 30 distinct
+    chapters (out of the section's 36). Voice distribution post-
+    γ.4.4.B: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now
+    substantively the second-heaviest voice in the corpus.
+
+    Pins:
+    - Watchers (chs 1-36) substantively expanded (≥40 1en entries
+      in chs 1-36).
+    - All five Watchers sub-arcs covered: prologue + descent +
+      Enoch's intercession + first journey + second journey.
+    - 1 Enoch share ≥25% of corpus.
+    - Signature passages: 5:7 (covenant blessing — Mt 5:5 anticipation),
+      9:1 (four archangels named), 10:13 (judgment of Azazel),
+      13:8 (Enoch's denial of intercession), 15:8 (giants → demons
+      etiology), 17:1 (first journey opening), 20:1 (seven archangels
+      list), 24:4 (tree of life — Rev 22:2 anticipation), 36:1
+      (second journey closes).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_watchers_substantively_expanded(self):
+        enoch_watchers = []
+        for chapter in range(1, 37):
+            for verse in range(1, 100):
+                enoch_watchers.extend(
+                    e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
+                )
+        assert len(enoch_watchers) >= 40, (
+            f"γ.4.4.B expected ≥40 Watchers (1En 1-36) entries; found {len(enoch_watchers)}"
+        )
+
+    def test_all_five_watchers_subarcs_covered(self):
+        def has_entry_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("1en", chapter, verse):
+                        if entry.father == "1 Enoch (Ethiopian tradition)":
+                            return True
+            return False
+
+        assert has_entry_in(1, 5), "γ.4.4.B missing Watchers prologue (1En 1-5)"
+        assert has_entry_in(6, 11), "γ.4.4.B missing Watchers descent (1En 6-11)"
+        assert has_entry_in(12, 16), "γ.4.4.B missing Enoch's intercession (1En 12-16)"
+        assert has_entry_in(17, 19), "γ.4.4.B missing first journey (1En 17-19)"
+        assert has_entry_in(20, 36), "γ.4.4.B missing second journey (1En 20-36)"
+
+    def test_1_enoch_share_above_25_percent(self):
+        enoch_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "1 Enoch (Ethiopian tradition)"
+        )
+        total = len(self.ec)
+        share = enoch_count / total
+        assert share >= 0.25, f"γ.4.4.B expected 1 Enoch share ≥25%; actual {share:.1%} ({enoch_count} of {total})"
+
+    def test_covenant_blessing_present(self):
+        enoch_57 = [e for e in self.ec.for_verse("1en", 5, 7) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_57, "γ.4.4.B missing 1En 5:7 — covenant blessing / Mt 5:5 anticipation"
+
+    def test_four_archangels_named_present(self):
+        enoch_91 = [e for e in self.ec.for_verse("1en", 9, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_91, "γ.4.4.B missing 1En 9:1 — four archangels intercession"
+
+    def test_azazel_judgment_present(self):
+        enoch_1013 = [e for e in self.ec.for_verse("1en", 10, 13) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_1013, "γ.4.4.B missing 1En 10:13 — Azazel judgment / gehannem"
+
+    def test_intercession_denied_present(self):
+        enoch_138 = [e for e in self.ec.for_verse("1en", 13, 8) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_138, "γ.4.4.B missing 1En 13:8 — Enoch's denied intercession"
+
+    def test_demons_etiology_present(self):
+        enoch_158 = [e for e in self.ec.for_verse("1en", 15, 8) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_158, "γ.4.4.B missing 1En 15:8 — demons-as-disembodied-giants etiology"
+
+    def test_first_journey_opening_present(self):
+        enoch_171 = [e for e in self.ec.for_verse("1en", 17, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_171, "γ.4.4.B missing 1En 17:1 — first journey opening"
+
+    def test_seven_archangels_list_present(self):
+        enoch_201 = [e for e in self.ec.for_verse("1en", 20, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_201, "γ.4.4.B missing 1En 20:1 — seven archangels"
+
+    def test_tree_of_life_present(self):
+        enoch_244 = [e for e in self.ec.for_verse("1en", 24, 4) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_244, "γ.4.4.B missing 1En 24:4 — tree of life / Rev 22:2 anticipation"
+
+    def test_second_journey_closes_present(self):
+        enoch_361 = [e for e in self.ec.for_verse("1en", 36, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_361, "γ.4.4.B missing 1En 36:1 — second journey closes"
