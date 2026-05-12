@@ -4,6 +4,61 @@
 
 ## Prior task
 
+**τ.10-A Van Dyck Arabic Bible seed** shipped 2026-05-12.
+Closes the last popup-language gap after the τ.5-A + γ.5 +
+τ.4 + τ.3 + τ.2 wave. Coptic-orthodox edition was the only
+one of 9 to declare `arabic` in popup_languages_default;
+arabic-vandyke now provides matching translation data.
+
+**Files**:
+- `scripts/extract_translation.py` — TRANSLATIONS dict
+  extended with arabic-vandyke entry; PD basis fully
+  documented (all 5 translators died before 1929 cutoff).
+- `content/translations/arabic-vandyke/_meta.yaml` — new;
+  canonical coverage note (Van Dyck is Protestant
+  66-book — deuterocanonical-Arabic Bible candidate for a
+  future τ-phase); RTL via ν.2.7.
+- `content/translations/arabic-vandyke/gen.py` — new; 3-verse
+  Genesis seed with tashkīl; opens فِي ٱلْبَدْءِ خَلَقَ ٱللهُ;
+  closes فَكَانَ نُورٌ.
+
+**Tests**: tests/test_translations_tau10a.py — 14 tests
+across 5 classes. Notable: the **TestPopupLanguageCoverageClosed
+× 2** class programmatically audits every edition's
+popup_languages_default and asserts zero gaps remain. This
+becomes a permanent invariant going forward — adding a new
+popup-language declaration in any edition without matching
+translation data will fail the test.
+
+**Popup-language coverage state — CLOSED**:
+
+| Language | Declared by | Coverage |
+|---|---|---|
+| english | All 9 editions | kjv (full) + jps + lxx-brenton-english + douay-rheims (seeds) |
+| hebrew | 6 editions | wlc (seed) — τ.5-A |
+| greek | 8 editions | lxx-brenton-greek (seed) — γ.5 |
+| latin | 1 (anglican-bcp) | vulgate-clementine (seed) — τ.3 |
+| arabic | 1 (coptic-orthodox) | arabic-vandyke (seed) — τ.10-A |
+
+8 translations on disk total: kjv full + 7 Gen 1:1-3 seeds.
+Each full ingest is a separate user-side τ-x.x ship per the
+documented pattern.
+
+Forward references: τ.10-A.x user-side full ingest. Logged in
+CHANGELOG.
+
+**+14 tests**. **3197/3198 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Translation tier-1 wave CLOSED.** The popup-language
+foundation is now complete. Subsequent translation work shifts
+from "close coverage gaps" to "deepen specific tradition
+support" (τ.6 Ge'ez for Tewahedo flagship; τ.7 Greek NT
+manuscript; τ.8-11 Reformation-era English; or pivot to
+non-translation tracks).
+
+## Prior task
+
 **τ.4 + τ.3 + τ.2 translation tier-1 wave** shipped 2026-05-12.
 Three seeds shipped together to close the SESSION_END §4
 first-wave translation work in one ship (N+2/N+3/N+4 batched

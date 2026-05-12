@@ -330,6 +330,37 @@ TRANSLATIONS: dict[str, dict] = {
             "than the Hebrew MT)."
         ),
     },
+    "arabic-vandyke": {
+        "title": "Van Dyck–Boustani Arabic Bible (1865)",
+        "short_title": "AVD",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "American Bible Society / Syrian Mission (Beirut, 1865)",
+            "url": "https://eBible.org/arb-vandyke/",
+            "package": "arb-vandyke_vpl.zip",
+            "source_date": 1865,
+        },
+        "notes": (
+            "Van Dyck–Boustani 1865 Arabic Bible — the standard "
+            "Arabic Protestant Bible, produced over 16 years by "
+            "Eli Smith (d. 1857), Cornelius Van Dyck (d. 1895), "
+            "Butrus al-Bustani (d. 1883), Nasif al-Yaziji (d. "
+            "1871), and Yusuf al-Asir (d. 1889) — all dead before "
+            "the 1929 PD cutoff in every jurisdiction. The 1865 "
+            "Beirut edition itself is unambiguously PD by age. "
+            "Closes the Arabic column for the coptic-orthodox "
+            "edition — the last popup-language gap after τ.5-A + "
+            "γ.5 + τ.4 + τ.3 closed Hebrew + Greek + Latin. "
+            "τ.10-A ships Gen 1:1-3 seed; τ.10-A.x is user-side "
+            "full ingest. Right-to-left rendering handled by "
+            "ν.2.7's popup-languages machinery (same as `wlc` "
+            "Hebrew). Both Testaments — Protestant 66-book canon "
+            "(the Van Dyck does NOT include the deuterocanonical "
+            "books; for Coptic Orthodox use a future τ-phase "
+            "could add the 19th-century Bagster Catholic Arabic "
+            "Bible which has the deuterocanon)."
+        ),
+    },
     "douay-rheims": {
         "title": "Douay-Rheims Bible (Challoner revision, 1899)",
         "short_title": "DRA",

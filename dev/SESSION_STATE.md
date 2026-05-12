@@ -1,6 +1,40 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / translation tier-1 wave closed**: **τ.4
+**Updated 2026-05-12 / popup-language coverage CLOSED**:
+**τ.10-A Van Dyck–Boustani Arabic Bible 1865 seed shipped —
+closes the last popup-language gap.** Arabic was the only
+declared popup_languages_default value without matching
+translation data (coptic-orthodox edition is the sole declarer).
+Van Dyck PD basis: all 5 translators died before 1929 (Smith
+1857, Van Dyck 1895, Bustani 1883, Yaziji 1871, Asir 1889);
+1865 Beirut edition PD by age. After this ship, EVERY popup
+language across all 9 editions has at least seed coverage:
+english (kjv full + 3 seed alternatives), hebrew (wlc seed
+via τ.5-A), greek (lxx-brenton-greek seed via γ.5), latin
+(vulgate-clementine seed via τ.3), arabic (arabic-vandyke
+seed via τ.10-A). The TestPopupLanguageCoverageClosed test
+programmatically enforces this invariant going forward — any
+future edition declaring a new popup language without matching
+translation data fails the test. 8 translations on disk: kjv
+full + 7 seeds (jps + wlc + lxx-brenton-greek +
+lxx-brenton-english + vulgate-clementine + douay-rheims +
+arabic-vandyke). **+14 tests** in tests/test_translations_tau10a.py
+(5 classes incl. TestPopupLanguageCoverageClosed). **3197/3198
+tests pass serially (1 skipped); 11/11 lint clean.** Net session
+test delta from psi.36-A baseline: **+944** across 41 work units.
+
+**Translation tier-1 wave: CLOSED.** Recommended next-ship
+pivots: τ.6 Ge'ez (flagship native language; reinforces v1.x
+uniqueness angle), τ.5-B WLC unpointed variant, τ.7 Greek NT
+manuscript (Westcott-Hort 1881 or Nestle 1904 — distinct from
+γ.2 Strong's lookup), τ.8 Geneva 1599, τ.9 ASV+YLT, τ.11
+Reformation partials. OR pivot off translations: ψ.30 matrix
+a11y, χ.2-5 patristic expansion, γ.4.1 corpus expansion, or
+money-item authorization.
+
+---
+
+**Updated 2026-05-12 / translation tier-1 wave closed (prior)**: **τ.4
 + τ.3 + τ.2 shipped together — Brenton LXX English + Clementine
 Vulgate Latin + Douay-Rheims Challoner English. All three follow
 the γ.5 / τ.5-A seed pattern (3-verse Genesis seed + registry

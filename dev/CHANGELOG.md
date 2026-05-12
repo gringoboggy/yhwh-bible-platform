@@ -6,6 +6,117 @@
 
 ---
 
+## 2026-05-12 — session — τ.10-A Arabic Van-Dyck seed (closes the last popup-language gap)
+
+**Phases shipped:** τ.10-A (Van Dyck–Boustani Arabic Bible 1865
+seed). Closes the only remaining popup-language gap after the
+τ.4/τ.3/τ.2 wave — coptic-orthodox edition's Arabic declaration
+now has matching translation data.
+**Test delta:** +14 (3183 → 3197; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### τ.10-A — Van Dyck–Boustani Arabic Bible (1865)
+
+Per `dev/PLAN_2026-05-09.md` τ-cluster: τ.10 is the "non-English
+translations" umbrella. τ.10-A is the first sub-ship under it:
+the Arabic Van Dyck–Boustani 1865 Bible. Public Domain by age
+(the translation team — Eli Smith d. 1857, Cornelius Van Dyck
+d. 1895, Butrus al-Bustani d. 1883, Nasif al-Yaziji d. 1871,
+Yusuf al-Asir d. 1889 — all died before the 1929 PD cutoff in
+every jurisdiction; the 1865 Beirut edition itself is PD by
+age).
+
+**Closes the last popup-language gap**: the coptic-orthodox
+edition is the only one of 9 to declare `arabic` in
+popup_languages_default. After this ship, every declared
+language across all 9 editions has at least seed-level
+translation coverage.
+
+### Files
+
+- `scripts/extract_translation.py` — `arabic-vandyke` entry
+  added to TRANSLATIONS dict; PD basis fully documented
+  (names + death dates of all 5 translators);
+  user-side ingest path noted (`arb-vandyke_vpl.zip` from
+  eBible.org).
+- `content/translations/arabic-vandyke/_meta.yaml` — new.
+  Schema v1; full PD documentation; canonical-coverage note
+  (Van Dyck is Protestant 66-book; deuterocanonical-Arabic
+  Bible candidate for a future τ-phase); RTL handling note
+  (same path as `wlc` Hebrew via ν.2.7).
+- `content/translations/arabic-vandyke/gen.py` — new. 3-verse
+  Genesis seed with tashkīl (vowel marks U+064B-U+065F);
+  opens `فِي ٱلْبَدْءِ خَلَقَ ٱللهُ`; closes
+  `فَكَانَ نُورٌ`.
+- `tests/test_translations_tau10a.py` — new (14 tests across
+  5 classes: Registry × 2, Discovery × 3, Seed × 5 with
+  Arabic-Unicode-block validation + content pins on
+  fi-albadi / allah / nur, MetaShape × 2, **TestPopupLanguageCoverageClosed
+  × 2** — the closing test for the wave that programmatically
+  audits every edition's popup_languages_default and asserts
+  zero gaps remain).
+
+### Popup-language coverage state — CLOSED
+
+After this ship, every popup_languages_default declaration
+across the 9 editions has at least one matching translation:
+
+| Language | Declared by | Coverage |
+|---|---|---|
+| english | All 9 editions | ✓ kjv (full) + 3 others (seed) |
+| hebrew | 6 editions | ✓ wlc (seed) — τ.5-A |
+| greek | 8 editions | ✓ lxx-brenton-greek (seed) — γ.5 |
+| latin | 1 (anglican-bcp) | ✓ vulgate-clementine (seed) — τ.3 |
+| **arabic** | **1 (coptic-orthodox)** | **✓ arabic-vandyke (seed) — τ.10-A** |
+
+The `TestPopupLanguageCoverageClosed::test_every_popup_language_has_a_translation`
+test programmatically enforces this invariant going forward —
+any future edition that adds a new popup-language declaration
+without a matching translation in `content/translations/` will
+fail this test.
+
+### Forward references in code
+
+`τ.10-A.x` (user-side full ingest) named in the meta + the
+extract_translation TRANSLATIONS notes. Logged here so the
+linter's "phase mentioned in code" check stays clean.
+
+### Translation tier-1 wave summary (complete arc)
+
+The translation work this conversation closes:
+
+| Phase | Translation | Status |
+|---|---|---|
+| τ.5-A jps | JPS 1917 Tanakh English | seed |
+| τ.5-A wlc | Westminster Leningrad Codex Hebrew | seed |
+| τ.4 | Brenton 1844 LXX English | seed |
+| τ.3 | Clementine Vulgate Latin | seed |
+| τ.2 | Douay-Rheims Challoner English | seed |
+| **τ.10-A** | **Van Dyck Arabic** | **seed** |
+
+Plus the pre-existing `kjv` (full) and `lxx-brenton-greek`
+(γ.5 seed). 8 translations on disk; full ingests deferred to
+respective τ-x.x user-side workflows.
+
+### Recommended next ship
+
+Translation foundation is now complete. Next-ship pivots:
+
+- **τ.6 Ge'ez** — Tewahedo flagship's native liturgical
+  language. Directly reinforces the v1.x uniqueness angle.
+- **τ.5-B WLC unpointed** — pure consonantal Hebrew for
+  scholars (strips niqqud / te`amim).
+- **τ.7 Greek NT (manuscript)** — Westcott-Hort 1881 or
+  Nestle 1904 (both PD); distinct from γ.2 Strong's lookup.
+- **τ.8 Geneva Bible 1599** — Reformation-era English.
+- **τ.9 ASV + YLT** — early 20th-century PD English.
+- **τ.11 Reformation partials** — Tyndale fragments etc.
+- Or pivot off the translation track entirely:
+  ψ.30 matrix a11y, χ.2-5 patristic, γ.4.1 corpus
+  expansion, or money authorization.
+
+---
+
 ## 2026-05-12 — session — τ.4 + τ.3 + τ.2 LXX-English + Vulgate + Douay-Rheims seeds (translation tier-1 wave)
 
 **Phases shipped:** τ.4 (Brenton LXX English) + τ.3 (Clementine
