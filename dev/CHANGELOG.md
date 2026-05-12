@@ -6,6 +6,131 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.4 1 Enoch (first wave: all five books, 30 entries)
+
+**Phases shipped:** γ.4.4 first wave — R.H. Charles' 1912 PD
+translation of 1 Enoch, 30 verse-keyed entries covering all five
+canonical books (Watchers chs 1-36 + Parables 37-71 + Astronomical
+72-82 + Dream Visions / Animal Apocalypse 83-90 + Epistle of Enoch
+91-108). First substantive expansion of the **third anchor** of
+the Ethiopian Tewahedo corpus — the Mäṣḥafä Hēnok that the
+Tewahedo canon uniquely receives as Scripture among the major
+Christian communions. **First entries in the corpus to use the
+Tewahedo-only "1en" book code.**
+**Test delta:** +11 (3410 → 3421; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.4 — 1 Enoch first wave (all five books)
+
+This wave deliberately brings the 1 Enoch share of the Ethiopian
+corpus from **1%** (pre-γ.4.4) to **17%** (post-γ.4.4 wave-1) —
+substantively three-anchored at last (Cyril 64% / Ephrem 19% /
+1 Enoch 17%), matching the corpus' documented threefold patristic-
+canonical structure. The Mäṣḥafä Hēnok is the **single biggest
+canonical differentiator** of the Tewahedo Bible from every other
+major Christian communion's canon.
+
+**Why this ship matters for the project specifically**:
+
+- The **Mäṣḥafä Hēnok (Book of Enoch)** is the most-cited Tewahedo-
+  distinctive canonical book in the buyer-facing apparatus.
+  γ.4 shipped 2 entries (Gen 6:1 + 6:4 cross-references); γ.4.4
+  ships the first substantive presence of 1 Enoch ITSELF in the
+  corpus.
+- **1 Enoch 1:9** is the verse Jude 1:14-15 quotes VERBATIM in the
+  canonical New Testament — Jude's apostolic-canonical quotation of
+  1 Enoch as inspired prophecy is the strongest textual basis for
+  the Tewahedo canon's reception of 1 Enoch as Scripture. Pinning
+  this verse in the corpus surfaces the Mäṣḥafä Hēnok's bridge to
+  the canonical NT.
+- **1 Enoch's Son of Man Christology** (chs 46, 48, 62, 71)
+  develops the Danielic Son of Man into a sustained pre-Christian
+  Jewish messianic-cosmic-judge figure. The NT's use of "Son of
+  Man" as Christ's self-designation (84 times in the Synoptics +
+  13 in John) presupposes this Enochic development. The Tewahedo
+  reception of the Parables as canonical Scripture preserves
+  inter-textual continuity that other Christian canons (lacking
+  1 Enoch) obscure.
+- **The Animal Apocalypse's Messianic White Bull (90:37)** —
+  eschatological New Adam restoring Adamic kingship over creation —
+  is the strongest pre-Christian Jewish text on cosmic recapitulation
+  that the NT Last-Adam Christology (1 Cor 15:45 + Rev 5:13)
+  fulfills.
+
+**Pattern**: extends the wave-based content expansion proven this
+session. First introduction of the "1en" book code to the corpus.
+Charles 1912 trans is fully PD in all major jurisdictions (Charles
+d. 1931; UK life+70 PD since 2002; US 95-years-from-publication
+since 2008).
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 30 new 1 Enoch
+  verse-keyed entries appended covering 1En 1:1, 1:9 (Jude
+  quotation), 6:1, 6:6 (Watchers), 7:2, 8:1, 10:4, 14:8, 14:18
+  (throne vision), 15:1, 22:5 (Sheol), 37:1, 38:1, 46:1 (Son of
+  Man), 46:3, 48:2, 48:6 (pre-existence), 51:1, 62:5, 71:14
+  (Enoch-Son-of-Man), 72:1, 81:5, 83:3, 85:1, 90:9, 90:37
+  (Messianic Bull), 91:7, 93:3, 99:10, 104:2. Each entry
+  ~120-180 word paraphrase. Father field uses "1 Enoch (Ethiopian
+  tradition)" matching the existing γ.4 seed convention. Year is
+  ~-200 BC for Watchers material, ~-150 BC for Dream Visions /
+  Astronomical, ~-100 BC for Parables and Epistle (per Charles's
+  dating). _meta block updated to document γ.4.4 wave-1 + the
+  three-anchored voice distribution.
+- `tests/test_ethiopian_gamma4.py` — new `TestGamma44EnochFirstWave`
+  class with 11 tests pinning: 1en book code present (≥30 entries);
+  all five 1 Enoch books represented; 1 Enoch substantively present
+  (≥15% of corpus); 6 signature passages (Jude 1:9 quotation /
+  Watchers descent 6:1 / throne vision 14:18 / Son of Man vision
+  46:1 / Enoch-as-Son-of-Man 71:14 / Messianic White Bull 90:37);
+  γ.4.4 _meta name; every entry cites Charles 1912 + PD.
+
+**Code-side wiring**: zero new code. γ.4.4 is pure content
+expansion. The "1en" book code is new but the existing
+EthiopianCommentaryDetector + EthiopianCommentaries loader handle
+any book code as a string — no infrastructure changes needed.
+
+### Corpus state post-γ.4.4 wave-1
+
+```
+ethiopian_commentaries.json: 190 entries (was 160 after γ.4.1.D; +30)
+├─ Cyril of Alexandria     : 121 entries (unchanged from γ.4.1.D)
+│  └─ John chapters         : 1-7 + 11-21 (Cyrilline-John COMPLETE)
+├─ Ephrem the Syrian       :  37 entries (unchanged from γ.4.2)
+│  └─ Gen chapters          : 1-9, 11
+└─ 1 Enoch tradition       :  32 entries (was 2; +30)
+   ├─ 1en chapters covered  : 1, 6, 7, 8, 10, 14, 15, 22, 37, 38,
+   │                          46, 48, 51, 62, 71, 72, 81, 83, 85,
+   │                          90, 91, 93, 99, 104 (24 distinct chs)
+   └─ 5 books all represented: Watchers + Parables + Astronomical +
+                              Dream Visions/Animal Apocalypse + Epistle
+   + 2 Gen cross-refs (γ.4 seed): Gen 6:1 + 6:4
+
+Voice distribution         : 64% Cyril / 19% Ephrem / 17% 1 Enoch
+                             (substantively three-anchored at last)
+Six-tradition coverage     : 246 entries (was 216)
+γ.4 cumulative content      : 178 entries beyond γ.4 seed of 12
+                             (γ.4.1.A 30 + .B 27 + .C 29 + .D 30 +
+                              γ.4.2 wave-1 32 + γ.4.4 wave-1 30 = 178)
+```
+
+### Forward references
+
+- **γ.4.4.B-E** — 1 Enoch expansion beyond the 30-entry first
+  wave toward the ~300 long-term target. Could decompose by book
+  (γ.4.4.B Watchers detail / γ.4.4.C Parables detail / γ.4.4.D
+  Astronomical + Dream Visions / γ.4.4.E Epistle).
+- **γ.4.2.B** — Ephrem on Gen 12-50 (patriarchal narrative,
+  ~40-60 entries).
+- **γ.4.2.C/D** — Ephrem on Exodus / Numbers + Deuteronomy.
+- **γ.4.3** — Cyril on Luke (Payne Smith 1859 PD, ~400 long-term
+  target).
+- **γ.4.5** — Ephrem's Hymns on Paradise (~80 entries).
+- **γ.4.6** — Cyril's Letters + Thesaurus (~150-200 entries).
+
+---
+
 ## 2026-05-12 — session — γ.4.1.D Cyril on John (fourth wave — CLOSES γ.4.1)
 
 **Phases shipped:** γ.4.1.D — fourth and final wave of Cyril of

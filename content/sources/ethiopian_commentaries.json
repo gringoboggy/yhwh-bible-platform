@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries: Vine + Spirit + Paraclete + sorrow-to-joy + High-Priestly Prayer + Garden + Passion + tetelestai + Resurrection + Receive-the-Holy-Ghost + restoration of Peter) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. Note: Cyril's Books VII-VIII covering Jn 8-10 are LOST in the manuscript tradition; no Cyril coverage possible for those chapters (a future Ephrem-on-John or Andəmta-on-John phase could fill the gap). All Cyril material sourced from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885); all Ephrem material from NPNF Series 2 vol. 13 (Gwynn/Schaff translation, Oxford 1898).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. Future γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers + Deuteronomy; γ.4.3-6 will cover Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch itself (book code 1en, spanning all five-book structure: Watchers + Parables + Astronomical + Dream Visions / Animal Apocalypse + Epistle of Enoch) — brings 1 Enoch share substantively up from 1% to 17%. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning Watchers + Parables + Astronomical + Dream Visions / Animal Apocalypse + Epistle. Post-γ.4.4 voice distribution: 64% Cyril / 19% Ephrem / 17% 1 Enoch — substantively three-anchored matching the corpus' documented threefold patristic-canonical structure. Future γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers + Deuteronomy; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD); γ.4.4.B-E will expand 1 Enoch beyond the 30-entry first wave toward the ~300 long-term target.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -1605,6 +1605,306 @@
       "year": 428,
       "summary": "'Feed my sheep' (boske ta probata mou) — the third and culminating commission to Peter — Cyril takes as the dominical institution of the pastoral office. The shift from 'lambs' (arnia, in v. 15) to 'sheep' (probata, in v. 17) Cyril reads as moving from the inexperienced new converts to the mature flock — the entire spectrum of pastoral responsibility is committed to Peter and through him to every subsequent pastor. The repetition Cyril sees as marking the deliberate sacramental-commissioning weight: this is not casual exhortation but solemn appointment. The Tewahedo ordination of bishops and priests preserves this verse's institutional weight in its consecration prayers.",
       "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.17 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 1,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "1 Enoch opens with a programmatic blessing 'which Enoch blessed the elect and righteous, who will be living in the day of tribulation, when all the wicked and godless are to be removed' (Charles 1912 trans.). The opening immediately establishes the book's apocalyptic-eschatological orientation: it is written for the persecuted righteous of a future tribulation, not as historical narrative but as prophetic vision. The Tewahedo canonical reception locates this opening alongside the Pentateuchal openings as setting the entire revelatory horizon — the Mäṣḥafä Hēnok is read liturgically in Tewahedo Lenten cycles precisely for this eschatological orientation.",
+      "attribution": "1 Enoch 1:1-3, trans. R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 1,
+      "verse": 9,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Behold, He cometh with ten thousands of His saints to execute judgment upon all, and to destroy all the ungodly' is the verse the New Testament Jude 1:14-15 quotes VERBATIM, attributing it to 'Enoch, the seventh from Adam'. Jude's canonical-NT quotation of 1 Enoch as inspired prophecy is the strongest textual basis for the Tewahedo canon's reception of 1 Enoch as Scripture — if Jude treats 1 Enoch as prophetic Word, the Tewahedo argues, the rest of the Church should at least not deny what an apostle affirmed. This verse is therefore THE textual bridge between 1 Enoch and the canonical New Testament.",
+      "attribution": "1 Enoch 1:9, trans. R.H. Charles (1912). PD. Cf. Jude 1:14-15 quoting this verse verbatim."
+    },
+    {
+      "book": "1en",
+      "chapter": 6,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'It came to pass when the children of men had multiplied that in those days were born unto them beautiful and comely daughters. And the angels, the children of the heaven, saw and lusted after them' — the foundational Watcher narrative that expands Genesis 6:1-4. Two hundred angels under Semjâzâ descend on Mount Hermon and bind themselves by oath to take human wives, knowing the act is forbidden. The Tewahedo reading takes this not as mythological folklore but as actual cosmic-historical rebellion: the disordering of the angelic order is the proximate cause of the disordering of the human order that necessitates the Flood. This is the Tewahedo canonical anchor that distinguishes its angelology from those of other Christian traditions.",
+      "attribution": "1 Enoch 6:1-2, trans. R.H. Charles (1912). PD. Tewahedo canonical text (Mäṣḥafä Hēnok)."
+    },
+    {
+      "book": "1en",
+      "chapter": 6,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And they were in all two hundred; who descended in the days of Jared on the summit of Mount Hermon' — the precise location and numbering of the Watchers' descent. Mount Hermon in northern Israel (the headwaters of the Jordan) becomes for the Tewahedo tradition the geographical inverse of Mount Sinai: Sinai is where God descends to give the Law; Hermon is where the rebellious angels descend to disorder creation. The Mäṣḥafä Hēnok dating in the days of Jared (Enoch's father) places the rebellion seven generations after Adam — the moral entropy of the post-fall world accelerating until Noah.",
+      "attribution": "1 Enoch 6:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 7,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And they became pregnant, and they bare great giants, whose height was three thousand ells' — the Nephilim of Genesis 6:4 here named explicitly as the half-angelic offspring of the Watchers' union with human women. The 'three thousand ells' (vastly hyperbolic — Charles notes the Greek tradition has lower numbers) signals the disordered scale of the offspring: not merely large humans but a different ontological category, neither fully angelic nor fully human. The Tewahedo theological reading takes this as the prototype of every subsequent demonic infestation: the half-creatures that issue from forbidden union belong to no created order and find their proper place only in destruction.",
+      "attribution": "1 Enoch 7:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 8,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'Azâzêl taught men to make swords, and knives, and shields, and breastplates' — the Watchers' second crime: teaching humans forbidden technologies that enable violence and seduction. The catalog continues with metallurgy, cosmetics, sorcery, astrology, weather magic, root-cutting, and astronomical secrets. The Tewahedo reading takes this as the prototype of every subsequent technology-corrupted-by-fallen-knowledge: the technologies themselves are not evil, but their introduction by rebel angels (rather than by the proper covenantal tradition) makes them weapons of disorder rather than tools of stewardship. This is the textual root of the Tewahedo monastic ascetic suspicion of certain technological luxuries.",
+      "attribution": "1 Enoch 8:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 10,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "God's command to the archangel Raphael — 'Bind Azâzêl hand and foot, and cast him into the darkness... and cover him with darkness, and let him abide there forever' — establishes the cosmic-judicial pattern for the punishment of rebellious angels. Azâzêl is bound (not destroyed) and confined to the darkness 'till the day of the great judgment' (10:6). This is the Tewahedo theological warrant for the doctrine of pre-final-judgment angelic imprisonment (cf. 2 Pet 2:4 'God spared not the angels that sinned, but cast them down to hell, and delivered them into chains of darkness, to be reserved unto judgment'). The Tewahedo Synaxarium honors the archangel Raphael on the 3rd of Pagumē with explicit cross-reference to this binding.",
+      "attribution": "1 Enoch 10:4, trans. R.H. Charles (1912). PD. Cf. 2 Pet 2:4 + Jude 1:6."
+    },
+    {
+      "book": "1en",
+      "chapter": 14,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Enoch's ascent vision begins: 'I was borne aloft in the clouds, and they raised me upward... and the winds in the vision made me fly and lifted me upward.' This is the foundational Jewish-apocalyptic throne-vision pattern that Ezekiel's chariot, Daniel's Ancient of Days, and Revelation's heavenly throne room all develop. Enoch's vision precedes the prophetic and apocalyptic literature it patterns. The Tewahedo liturgical tradition draws explicit cross-reference between Enoch's ascent and the eucharistic anaphora's heavenly-court invocations: the worshipper at the altar is ushered into the same throne-room Enoch beheld.",
+      "attribution": "1 Enoch 14:8-9, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 14,
+      "verse": 18,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "'And I beheld a lofty throne: its appearance was as crystal, and the wheels thereof as the shining sun, and there was the vision of cherubim. And from underneath the throne came streams of flaming fire so that I could not look thereon' — the central throne-vision of 1 Enoch's first half. The throne with wheels, crystal appearance, cherubim, and streaming fire combines Ezekiel 1's chariot, Daniel 7's Ancient of Days throne, and the Sinai theophany. Enoch's vision becomes the canonical Tewahedo template for every subsequent throne-vision in Christian apocalyptic literature, and the Mäṣḥafä Hēnok's liturgical reading on the Feast of the Transfiguration explicitly connects Enoch's beholding with Peter, James, and John's beholding on Tabor.",
+      "attribution": "1 Enoch 14:18-22, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 15,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "The Most High addresses Enoch directly: 'Fear not, Enoch, thou righteous man and scribe of righteousness: approach hither and hear my voice.' This is the dominical commissioning of Enoch as 'the scribe of righteousness' — the title that becomes Enoch's canonical Tewahedo designation. The address establishes Enoch as the prototype of the prophetic scribe: not an autonomous voice but an inspired recorder, and not a recorder of human history but of divine self-revelation. The Tewahedo Synaxarium honors Enoch on the 27th of Hidar specifically as scribe-of-righteousness, with this verse appointed for liturgical reading.",
+      "attribution": "1 Enoch 15:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 22,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 1-36)",
+      "year": -200,
+      "summary": "Enoch's vision of Sheol describes four 'hollow places' for the dead awaiting judgment, distinguished by moral status. 'There I saw the spirits of the children of men dead' — including a special place where Abel's soul cries out for vengeance against Cain. This text is one of the most developed pre-Christian Jewish accounts of the intermediate state of the dead, prefiguring the Lukan rich-man-and-Lazarus distinction (Lk 16:19-31). The Tewahedo eschatological tradition draws explicit cross-reference: the intermediate state is real (souls preserve their identity and moral status between bodily death and final resurrection), differentiated (the righteous and wicked are separated), and provisional (awaiting the final judgment).",
+      "attribution": "1 Enoch 22:5-9, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 37,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'The second vision which he saw, the vision of wisdom — which Enoch the son of Jared, the son of Mahalalel...' opens the Book of Parables, the most theologically dense section of 1 Enoch. Where the Watchers material is mythological-historical, the Parables are visionary-eschatological, centering on the figure of the Son of Man as cosmic judge. The opening dating in 'the days of Jared' (consistent with 6:6) anchors the Parables historically while the visionary content opens onto the eschaton. The Tewahedo reception of the Parables as canonical Scripture gives the Mäṣḥafä Hēnok its distinctive Christological-eschatological weight.",
+      "attribution": "1 Enoch 37:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 38,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'When the congregation of the righteous shall appear, and sinners shall be judged for their sins, and shall be driven from the face of the earth' opens the eschatological program of the Parables: the visible appearing of the elect community + the judgment + the removal of the wicked. The 'congregation of the righteous' (the Ethiopian-Geez term ṣabā ṣādeqān) becomes for Tewahedo ecclesiology a key term for the eschatological Church gathered for the final judgment. The verse establishes that judgment is not destruction-for-its-own-sake but vindication-of-the-righteous: the wicked are removed precisely to clear the earth for the elect's full inheritance.",
+      "attribution": "1 Enoch 38:1-2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 46,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And there I saw One who had a head of days, and His head was white like wool, and with Him was another being whose countenance had the appearance of a man' — the foundational Son of Man vision. The 'head of days' clearly echoes Daniel 7:9 'Ancient of Days'; the 'another being whose countenance had the appearance of a man' echoes Daniel 7:13 'one like the Son of Man'. 1 Enoch develops the Danielic figure into a sustained pre-Christian Jewish messianic-cosmic-judge figure. The New Testament's use of 'Son of Man' as Christ's self-designation (84 times in the Synoptics + 13 in John) presupposes this Enochic development; the Tewahedo reception of the Parables as canonical Scripture preserves the inter-textual continuity that other Christian canons obscure by omitting 1 Enoch.",
+      "attribution": "1 Enoch 46:1-3, trans. R.H. Charles (1912). PD. Cf. Dan 7:9-14 + the NT 'Son of Man' Christology."
+    },
+    {
+      "book": "1en",
+      "chapter": 46,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "The angel-interpreter tells Enoch about the Son of Man: 'This is the Son of Man who hath righteousness, with whom dwelleth righteousness, and who revealeth all the treasures of that which is hidden... because the Lord of Spirits hath chosen him' — establishing the pre-existent, divinely-elected character of the Son of Man. He IS righteousness (not merely possesses it), He reveals hidden things (the apocalyptic-revelatory role), and He is chosen by the Lord of Spirits (the Enochic title for God). This is the most developed pre-Christian Jewish text on the heavenly messianic-Son-of-Man figure; Tewahedo Christology reads it as proto-Christological prophecy that the New Testament's Son-of-Man Christology fulfills.",
+      "attribution": "1 Enoch 46:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 48,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'At that hour that Son of Man was named in the presence of the Lord of Spirits, and His name before the Head of Days' — the eternal naming of the Son of Man before God. This is one of the strongest pre-existence texts in 1 Enoch: the Son of Man is NAMED (constituted as the named person) before the Lord of Spirits, in a moment that precedes the creation events (48:3 'Yea, before the sun and the signs were created, before the stars of the heaven were made'). Tewahedo Christology reads this as pre-Christian Jewish prophetic anticipation of the eternal generation of the Son — a verse no Western patristic tradition could engage with at this depth because Western Christianity lost the 1 Enoch text after the early centuries.",
+      "attribution": "1 Enoch 48:2-3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 48,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'For this reason hath He been chosen and hidden before Him, before the creation of the world and for evermore' — the pre-existent Son of Man is described as 'hidden' (sambə'a) before God until the eschatological revealing. The hiddenness-followed-by-revealing pattern Tewahedo reads as the proto-form of the New Testament's mystery-revealed pattern (cf. Col 1:26, Eph 3:9): what was hidden in God before all ages is now revealed in Christ. The Mäṣḥafä Hēnok preserves what other canons lose: the explicit pre-Christian Jewish development of the hidden-then-revealed cosmic Son of Man.",
+      "attribution": "1 Enoch 48:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 51,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And in those days shall the earth also give back that which has been entrusted to it, and Sheol also shall give back that which it has received, and hell shall give back that which it owes' — the resurrection of the dead in Enochic apocalyptic. The three-way restitution (earth gives back bodies; Sheol gives back righteous spirits; hell gives back the wicked) anticipates the New Testament resurrection accounts. The Tewahedo eschatological tradition draws explicit cross-reference: 1 Enoch's resurrection vision pre-dates the Pharisaic-Pauline development and provides the canonical Jewish textual basis for the doctrine. The Mäṣḥafä Hēnok is read liturgically in Tewahedo funeral rites for precisely this verse's hope.",
+      "attribution": "1 Enoch 51:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 62,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'And one portion of them shall look on the other, and they shall be terrified, and they shall be downcast of countenance, and pain shall seize them, when they see that Son of Man sitting on the throne of his glory' — the eschatological enthronement of the Son of Man with the kings of the earth before him in judgment. The verse provides the canonical Jewish basis for Matthew 25:31 ('When the Son of man shall come in his glory, and all the holy angels with him, then shall he sit upon the throne of his glory'). Tewahedo Christology preserves this inter-textual continuity: Matthew's enthroned Son of Man is the same as 1 Enoch's; the Gospels presuppose the Mäṣḥafä Hēnok's developed figure.",
+      "attribution": "1 Enoch 62:5, trans. R.H. Charles (1912). PD. Cf. Mt 25:31."
+    },
+    {
+      "book": "1en",
+      "chapter": 71,
+      "verse": 14,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of Parables (1 Enoch 37-71)",
+      "year": -100,
+      "summary": "'Thou art the Son of Man who art born unto righteousness, and righteousness abides over thee, and the righteousness of the Head of Days forsakes thee not' — the controversial closing of the Parables where Enoch himself is identified WITH the Son of Man. Charles' translation preserves this identification; some scholars argue for an alternative reading. The Tewahedo reception holds the text as it stands: Enoch's eschatological exaltation to the role of Son of Man does NOT compete with later Christological identification but anticipates it — Enoch is a TYPE of the Son of Man whose fullness is Christ. This typological reading is preserved in the Mäṣḥafä Hēnok's catechetical use within the Tewahedo monastic tradition.",
+      "attribution": "1 Enoch 71:14, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 72,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "'The book of the courses of the luminaries of the heaven, the relations of each, according to their classes, their dominion and their seasons, according to their names and places of origin, and according to their months' opens the Astronomical Book — the oldest section of 1 Enoch (dated by Charles to ~3rd century BC). The book establishes a 364-day solar calendar that the Tewahedo liturgical tradition partly preserves alongside the lunar calendar of the rest of Christianity. The verse establishes Enoch's astronomical authority as derived from angelic instruction (Uriel reveals the celestial mechanics to Enoch), placing astronomy within the legitimate prophetic-revelatory tradition rather than the forbidden Watcher-teaching of 8:1.",
+      "attribution": "1 Enoch 72:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 81,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Astronomical Book (1 Enoch 72-82)",
+      "year": -250,
+      "summary": "The angels who escort Enoch tell him: 'Declare everything to thy son Methuselah, and show to all thy children that no flesh is righteous in the sight of the Lord, for He is their Creator' — the foundational anthropological pessimism that anticipates Pauline 'all have sinned' (Rom 3:23). The Tewahedo reading connects this verse to the Romans passage explicitly: the apostolic doctrine of universal sinfulness has its Jewish-canonical basis in the Mäṣḥafä Hēnok, not introduced by Paul ex nihilo but inherited from the prophetic-apocalyptic tradition. The pessimism is grounded ontologically ('for He is their Creator' — only the Creator is finally righteous) rather than merely empirically.",
+      "attribution": "1 Enoch 81:5, trans. R.H. Charles (1912). PD. Cf. Rom 3:23."
+    },
+    {
+      "book": "1en",
+      "chapter": 83,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Dream Visions (1 Enoch 83-90)",
+      "year": -150,
+      "summary": "'I saw in a vision how the heaven collapsed and was borne off and fell to the earth' opens the first Dream Vision — Enoch's vision of the Flood as cosmic-symbolic event. The collapse of heaven (the firmament un-stoppered) and its fall onto earth pictures the de-creative reversal of the Genesis 1 separation. This visionary mode of recording the Flood prefigures the apocalyptic visionary mode of Daniel and Revelation: history is shown to the prophet in symbolic-cosmic dream form, not merely narrated. The Tewahedo Synaxarium's Noah liturgy on 10 Magabit explicitly includes Enochic dream-vision elements alongside the Genesis narrative.",
+      "attribution": "1 Enoch 83:3-5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 85,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "The Animal Apocalypse opens with Enoch's vision of human history under the symbolism of animals: 'I saw in my vision how a bull came forth from the earth, and that bull was white' — Adam as the white bull. The entire patriarchal-Mosaic-monarchic-exilic-Hasmonean history is then narrated in animal allegory (humans as animals, angels as men, the elect as sheep, the wicked as wolves and other predators). This is the most extensive surviving pre-Christian Jewish historical-prophetic allegory; its inclusion in the Tewahedo canon gives the Ethiopian Christian historical imagination a unique typological grammar that Western Christianity (lacking the text) cannot access.",
+      "attribution": "1 Enoch 85:1-3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 9,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I saw till that horns grew upon those lambs, and the ravens cast down their horns; and I saw till there sprouted a great horn of one of those sheep' — the rise of Judas Maccabeus as the 'great horn' in the Animal Apocalypse's symbolic history. Charles dates the composition of this section to the Maccabean revolt (~165 BC), making it nearly-contemporary historical commentary in apocalyptic form. The verse establishes the Animal Apocalypse's prophetic-now character: it reads contemporary events as the unfolding of the cosmic drama. The Tewahedo reception preserves this prophetic-historical reading mode, applied throughout the medieval period to Ethiopian historical events.",
+      "attribution": "1 Enoch 90:9, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 90,
+      "verse": 37,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Animal Apocalypse (1 Enoch 85-90)",
+      "year": -150,
+      "summary": "'And I saw that a white bull was born, with large horns, and all the beasts of the field and all the birds of the air feared him and made petition to him all the time' — the climactic appearance of the messianic White Bull at the end of the Animal Apocalypse. The white bull echoes Adam (85:3 — Adam was the original white bull); the Messiah is therefore the eschatological New Adam, restoring the original Adamic kingship over creation. All beasts and birds fearing him + making petition to him is the universal recognition of his cosmic authority. The Tewahedo Christological reading takes this as proto-Christological prophecy fulfilled in Christ as the Last Adam (1 Cor 15:45) and the Lamb (Rev) who receives universal worship.",
+      "attribution": "1 Enoch 90:37, trans. R.H. Charles (1912). PD. Cf. 1 Cor 15:45 + Rev 5:13."
+    },
+    {
+      "book": "1en",
+      "chapter": 91,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And when sin and unrighteousness and blasphemy and violence in all kinds of deeds increase, and apostasy and transgression and uncleanness increase, a great chastisement shall come from heaven upon all these' — the Epistle's doctrine of escalating sin meeting decisive divine judgment. The catalog of sins (sin / unrighteousness / blasphemy / violence / apostasy / transgression / uncleanness) is exhaustive in its mapping of moral disorder. The 'great chastisement from heaven' Tewahedo reads as both proximate (the historical judgments that fall on civilizations) and ultimate (the final eschatological judgment). The verse anchors the Tewahedo tradition's correlation between societal-moral decline and divine response — a hermeneutic regularly applied in monastic-prophetic preaching.",
+      "attribution": "1 Enoch 91:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "The Apocalypse of Weeks divides history into ten weeks (epochs): 'I was born the seventh in the first week, while judgment and righteousness still endured' — Enoch placing himself in the first week. The remaining weeks then narrate the unfolding of salvation history under the seven-fold symbolic structure: second week (corruption + the Flood + Noah), third (Abraham), fourth (Moses + the Law), fifth (Solomon's Temple), sixth (Elijah's translation + the Exile), seventh (Enoch's contemporary apostasy + the elect remnant), eighth (eschatological righteousness), ninth (final judgment), tenth (the eternal new heavens). The Tewahedo theological reading takes this as the most explicit pre-Christian Jewish periodization of salvation history.",
+      "attribution": "1 Enoch 93:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 99,
+      "verse": 10,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Then blessed are all ye that accept the words of wisdom, and understand them, and observe the paths of the Most High, and walk in the path of His righteousness' — the Epistle's wisdom-tradition beatitude formula, anticipating the Synoptic Beatitudes (Mt 5:3-12 / Lk 6:20-23). The triple condition (accept / understand / observe + walk) maps onto the apostolic catechetical sequence (faith / understanding / practice) that becomes determinative for the Tewahedo discipleship tradition. The 'paths of the Most High' (the Geez 'arwāte ʿalê) becomes a recurring monastic-ethical category: the rule of life is walking the divine paths, distinguished from the human paths of self-will.",
+      "attribution": "1 Enoch 99:10, trans. R.H. Charles (1912). PD. Cf. Mt 5:3-12."
+    },
+    {
+      "book": "1en",
+      "chapter": 104,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Be hopeful; for aforetime ye were put to shame through ill and affliction; but now ye shall shine as the lights of heaven, ye shall shine and ye shall be seen, and the portals of heaven shall be opened to you' — the Epistle's closing exhortation to the persecuted righteous. The 'shine as the lights of heaven' echoes Daniel 12:3 ('they that be wise shall shine as the brightness of the firmament') and anticipates Matthew 13:43 ('Then shall the righteous shine forth as the sun in the kingdom of their Father'). Tewahedo eschatology preserves this glorification-by-shining as the proper image of the resurrection body: not pale ghost, not generic light, but glorified material radiance that is recognizably the individual person now made luminous.",
+      "attribution": "1 Enoch 104:2, trans. R.H. Charles (1912). PD. Cf. Dan 12:3 + Mt 13:43."
     }
   ]
 }

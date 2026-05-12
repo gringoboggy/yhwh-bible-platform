@@ -1093,3 +1093,163 @@ class TestGamma41DCyrilJohn15Through21:
             assert "NPNF" in attr, f"γ.4.1.D entry missing NPNF citation: {attr!r}"
             assert "14" in attr, f"γ.4.1.D entry missing Vol 14 citation: {attr!r}"
             assert "PD" in attr, f"γ.4.1.D entry missing PD marker: {attr!r}"
+
+
+class TestGamma44EnochFirstWave:
+    """γ.4.4 — 1 Enoch verse-keyed entries (first wave, 30 entries).
+    First substantive expansion of the third anchor of the Ethiopian
+    corpus — the Mäṣḥafä Hēnok (Book of Enoch) that the Tewahedo
+    canon uniquely receives as Scripture among the major Christian
+    communions. Pre-γ.4.4 1 Enoch presence: 2 entries (Gen 6:1 +
+    6:4 cross-references from γ.4 seed). Post-γ.4.4 wave-1: 32
+    entries — 30 of which are verse-keyed to 1 Enoch itself (book
+    code "1en"). This is the first time the corpus contains entries
+    that use a Tewahedo-only canonical book code.
+
+    Voice distribution post-γ.4.4 wave-1: 64% Cyril / 19% Ephrem /
+    17% 1 Enoch — substantively three-anchored, matching the corpus
+    _meta scope's documented threefold structure.
+
+    Sourced from R.H. Charles, The Book of Enoch (Oxford: Clarendon,
+    1912). Charles died 1931 — UK life+70 makes the work PD as of
+    2002; US 95-years-from-publication makes it PD as of 2008. Fully
+    PD in every major jurisdiction as of this ship.
+
+    Per the addendum γ.4.4 target ~300 entries; this first wave
+    lands 30 covering the canonical five-book structure: Watchers
+    (chs 1-36) + Parables (37-71) + Astronomical (72-82) + Dream
+    Visions / Animal Apocalypse (83-90) + Epistle of Enoch (91-108).
+
+    Pins:
+    - 1en book code now present in corpus (Tewahedo canonical first).
+    - All five 1 Enoch books represented (Watchers + Parables +
+      Astronomical + Dream Visions + Epistle).
+    - 1 Enoch share ≥15% of corpus (substantive third-anchor presence).
+    - Signature 1 Enoch passages: 1:9 (Jude quotation pin), 6:1
+      (Watchers descent), 14:18 (throne vision), 46:1 (Son of Man
+      vision), 71:14 (Enoch-Son-of-Man identification), 90:37
+      (Messianic White Bull).
+    - Every entry attributed to R.H. Charles 1912 PD trans.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_1en_book_code_present(self):
+        # First entries to use the Tewahedo-only "1en" book code.
+        # Pin its presence so future kinds-cleanup doesn't drop it.
+        entries_on_1en = []
+        for chapter in range(1, 109):
+            for verse in range(1, 100):
+                entries_on_1en.extend(self.ec.for_verse("1en", chapter, verse))
+        assert len(entries_on_1en) >= 30, (
+            f"γ.4.4 wave-1 expected ≥30 entries on book code '1en'; found {len(entries_on_1en)}"
+        )
+
+    def test_all_five_1_enoch_books_represented(self):
+        # 1 Enoch is composed of 5 separately-redacted "books":
+        # Watchers (1-36) + Parables (37-71) + Astronomical (72-82) +
+        # Dream Visions / Animal Apocalypse (83-90) + Epistle (91-108).
+        # Pin all five represented in the first wave.
+        def has_chapter_in_range(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("1en", chapter, verse):
+                        if entry.father == "1 Enoch (Ethiopian tradition)":
+                            return True
+            return False
+
+        assert has_chapter_in_range(1, 36), "γ.4.4 missing Book of the Watchers (1En 1-36)"
+        assert has_chapter_in_range(37, 71), "γ.4.4 missing Book of Parables (1En 37-71)"
+        assert has_chapter_in_range(72, 82), "γ.4.4 missing Astronomical Book (1En 72-82)"
+        assert has_chapter_in_range(83, 90), "γ.4.4 missing Dream Visions / Animal Apocalypse (1En 83-90)"
+        assert has_chapter_in_range(91, 108), "γ.4.4 missing Epistle of Enoch (1En 91-108)"
+
+    def test_1_enoch_substantively_present(self):
+        # Pre-γ.4.4 1 Enoch was 2 of 130 entries (1%). Post-γ.4.4
+        # first wave should be substantively present (≥15% of corpus).
+        enoch = [
+            e for e in self.ec._by_verse.values() for entry in e if entry.father == "1 Enoch (Ethiopian tradition)"
+        ]
+        # Iterate via by_verse: count from collection
+        enoch_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "1 Enoch (Ethiopian tradition)"
+        )
+        total = len(self.ec)
+        share = enoch_count / total
+        assert share >= 0.15, f"γ.4.4 wave-1 expected 1 Enoch share ≥15%; actual {share:.1%} ({enoch_count} of {total})"
+
+    def test_1_enoch_jude_quotation_pin_present(self):
+        # 1En 1:9 is THE textual bridge between 1 Enoch and the
+        # canonical NT (Jude 1:14-15 quotes it verbatim). Pin presence.
+        enoch_19 = [e for e in self.ec.for_verse("1en", 1, 9) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_19, "γ.4.4 missing 1En 1:9 — the verse Jude 1:14-15 quotes verbatim"
+
+    def test_1_enoch_watchers_descent_present(self):
+        # 1En 6:1 — the foundational Watchers narrative; Tewahedo-
+        # distinctive expansion of Gen 6:1-4.
+        enoch_61 = [e for e in self.ec.for_verse("1en", 6, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_61, "γ.4.4 missing 1En 6:1 — Watchers descent narrative"
+
+    def test_1_enoch_throne_vision_present(self):
+        # 1En 14:18 — Enoch's throne vision combining Ezekiel 1's
+        # chariot + Dan 7's Ancient of Days. Foundational template
+        # for subsequent Christian apocalyptic literature.
+        enoch_1418 = [e for e in self.ec.for_verse("1en", 14, 18) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_1418, "γ.4.4 missing 1En 14:18 — throne vision template"
+
+    def test_1_enoch_son_of_man_present(self):
+        # 1En 46:1 — the foundational Son of Man vision; the most
+        # developed pre-Christian Jewish messianic-cosmic-judge
+        # figure that the NT "Son of Man" Christology presupposes.
+        enoch_461 = [e for e in self.ec.for_verse("1en", 46, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_461, "γ.4.4 missing 1En 46:1 — Son of Man vision"
+
+    def test_1_enoch_enoch_as_son_of_man_present(self):
+        # 1En 71:14 — controversial identification of Enoch with the
+        # Son of Man; closes the Parables. Tewahedo reading preserves
+        # the typological-not-competitive relationship to Christ.
+        enoch_7114 = [e for e in self.ec.for_verse("1en", 71, 14) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_7114, "γ.4.4 missing 1En 71:14 — Enoch-as-Son-of-Man identification"
+
+    def test_1_enoch_messianic_white_bull_present(self):
+        # 1En 90:37 — climactic appearance of the messianic White
+        # Bull in the Animal Apocalypse; eschatological New Adam
+        # that NT Last-Adam Christology (1 Cor 15:45) fulfills.
+        enoch_9037 = [e for e in self.ec.for_verse("1en", 90, 37) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch_9037, "γ.4.4 missing 1En 90:37 — Messianic White Bull"
+
+    def test_meta_documents_gamma_4_4_expansion(self):
+        # Pin: _meta scope/source block names γ.4.4 explicitly.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        assert "γ.4.4" in meta["source"] or "γ.4.4" in meta["scope"], (
+            "_meta must name γ.4.4 expansion in source or scope"
+        )
+
+    def test_every_gamma_4_4_attribution_cites_charles_1912(self):
+        # γ.4.4 entries must all cite R.H. Charles 1912 trans + PD.
+        enoch_on_1en = []
+        for chapter in range(1, 109):
+            for verse in range(1, 100):
+                enoch_on_1en.extend(
+                    e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
+                )
+        assert enoch_on_1en, "γ.4.4 expected 1 Enoch entries on 1en book code"
+        for entry in enoch_on_1en:
+            attr = entry.attribution
+            assert "Charles" in attr, f"γ.4.4 entry missing Charles citation: {attr!r}"
+            assert "1912" in attr, f"γ.4.4 entry missing 1912 date: {attr!r}"
+            assert "PD" in attr, f"γ.4.4 entry missing PD marker: {attr!r}"

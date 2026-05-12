@@ -126,7 +126,15 @@ sub-phases ship against an explicit plan.
         └─ γ.4.2.D  Ephrem on Numbers + Deuteronomy   ~30-40 entries
                                                                   open
 γ.4.3   Cyril's Luke (Payne Smith 1859 — PD)         ~400 entries      open
-γ.4.4   1 Enoch (Charles 1912) verse-keyed entries   ~300 entries      open
+γ.4.4   1 Enoch (Charles 1912) verse-keyed entries   ~300 entries      PARTIAL
+        ├─ γ.4.4.A  First wave covering all 5 books  30 entries  ✓ SHIPPED 2026-05-12
+        │           (Watchers + Parables +                        [Jude pin + Son of
+        │           Astronomical + Dream Visions /                Man + White Bull]
+        │           Animal Apocalypse + Epistle)
+        ├─ γ.4.4.B  Watchers detail expansion         ~50-70 entries  open
+        ├─ γ.4.4.C  Parables (Son of Man) detail      ~50-70 entries  open
+        ├─ γ.4.4.D  Astronomical + Dream Visions      ~40-60 entries  open
+        └─ γ.4.4.E  Epistle of Enoch detail           ~40-60 entries  open
 γ.4.5   Ephrem's Hymns on Paradise selections        ~80 entries       open
 γ.4.6   Cyril's Letters + Thesaurus (selective)      ~150-200 entries  open
 

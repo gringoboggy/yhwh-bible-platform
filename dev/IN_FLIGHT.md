@@ -4,6 +4,110 @@
 
 ## Prior task
 
+**γ.4.4 1 Enoch first wave (all five books — 30 entries)** shipped
+2026-05-12. First substantive expansion of the **third anchor** of
+the Ethiopian Tewahedo corpus — the Mäṣḥafä Hēnok (Book of Enoch)
+that the Tewahedo canon uniquely receives as Scripture. **First
+entries in the corpus to use the Tewahedo-only "1en" book code.**
+
+**Why it matters for THIS project**: brings the 1 Enoch share of
+the Ethiopian corpus from 1% (pre-γ.4.4) to 17% — substantively
+three-anchored at last (Cyril 64% / Ephrem 19% / 1 Enoch 17%). The
+Mäṣḥafä Hēnok is the SINGLE BIGGEST canonical differentiator of
+the Tewahedo Bible from every other major Christian communion's
+canon; its substantive presence in the buyer-facing apparatus is
+load-bearing for the v1.x flagship uniqueness claim.
+
+**1 Enoch 1:9 pin** — THE verse Jude 1:14-15 quotes verbatim in
+the canonical NT. Jude's apostolic-canonical quotation of 1 Enoch
+as inspired prophecy is the strongest textual basis for the
+Tewahedo canon's reception of 1 Enoch as Scripture.
+
+**1 Enoch Son of Man Christology** (chs 46, 48, 62, 71) — develops
+the Danielic Son of Man into a sustained pre-Christian Jewish
+messianic-cosmic-judge figure. The NT's "Son of Man" Christology
+(84 Synoptic + 13 Johannine uses) presupposes this Enochic
+development. Tewahedo reception preserves what other canons obscure.
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 30 new 1 Enoch
+  entries appended across all five canonical books: Watchers
+  (1:1, 1:9, 6:1, 6:6, 7:2, 8:1, 10:4, 14:8, 14:18, 15:1, 22:5) +
+  Parables (37:1, 38:1, 46:1, 46:3, 48:2, 48:6, 51:1, 62:5, 71:14)
+  + Astronomical (72:1, 81:5) + Dream Visions / Animal Apocalypse
+  (83:3, 85:1, 90:9, 90:37) + Epistle of Enoch (91:7, 93:3, 99:10,
+  104:2). All cite R.H. Charles 1912 trans (Oxford: Clarendon —
+  fully PD since 2002 UK / 2008 US per copyright math). _meta block
+  updated to document γ.4.4 wave-1 + the three-anchored voice
+  distribution.
+- `tests/test_ethiopian_gamma4.py` — new `TestGamma44EnochFirstWave`
+  class with 11 tests: 1en-book-code-present + all-five-books-
+  represented + 1-Enoch-substantively-present (≥15% share) + 6
+  signature passages (Jude 1:9 / Watchers 6:1 / throne vision 14:18
+  / Son of Man 46:1 / Enoch-as-Son-of-Man 71:14 / Messianic White
+  Bull 90:37) + γ.4.4 _meta name + Charles/1912/PD per entry.
+
+**Code-side wiring**: zero new code. The "1en" book code is new
+to the corpus but the existing EthiopianCommentaryDetector +
+EthiopianCommentaries loader handle any book code as string — no
+infrastructure changes needed.
+
+**Corpus state post-γ.4.4 wave-1**:
+```
+ethiopian_commentaries.json: 190 entries (was 160 after γ.4.1.D; +30)
+├─ Cyril of Alexandria     : 121 entries (John 1-7 + 11-21 — COMPLETE)
+├─ Ephrem the Syrian       :  37 entries (Gen 1-9, 11)
+└─ 1 Enoch tradition       :  32 entries (1en chs 1-104 + 2 Gen xrefs)
+
+Voice mix: 64% Cyril / 19% Ephrem / 17% 1 Enoch
+           (substantively three-anchored at last)
+Six-tradition coverage     : 246 entries (was 216)
+γ.4 cumulative              : 178 entries beyond γ.4 seed
+                             (.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              .2 wave-1 32 + .4 wave-1 30 = 178)
+```
+
+**+11 tests**. **3421 / 3422 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **γ.4.4.B-E** 1 Enoch expansion beyond first wave (decompose by
+  book: Watchers / Parables / Astronomical+Dream Visions / Epistle).
+- **γ.4.2.B** Ephrem on Gen 12-50 (patriarchal narrative).
+- **γ.4.2.C/D** Ephrem on Exodus / Numbers + Deuteronomy.
+- **γ.4.3** Cyril on Luke (~400 long-term target).
+- **γ.4.5** Ephrem's Hymns on Paradise (~80 entries).
+- **γ.4.6** Cyril's Letters + Thesaurus (~150-200 entries).
+
+**Session totals (2026-05-12)**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+γ.4.1.C Cyril on John (third wave)                  +14 tests
+AUDIT_2026-05-12-B                                    0 tests (doc-only)
+γ.4.2 Ephrem on Genesis (first wave)                +12 tests
+γ.4.1.D Cyril on John (fourth wave — CLOSES γ.4.1)  +15 tests
+γ.4.4 1 Enoch (first wave — all 5 books)            +11 tests
+                                  session total:   +224 tests
+                                  3197 → 3421 (serial; 1 skipped)
+```
+
+**Recommended next ship**:
+- **γ.4.2.B Ephrem on Gen 12-50** — patriarchal narrative; would
+  push Ephrem share toward 25-30%, closer to corpus parity.
+- **γ.4.4.B 1 Enoch Watchers detail** — substantively expand the
+  Watcher section (chs 1-36) toward fuller coverage.
+- **PAUSE** — session has 12 phase ships + 2 audits + 2 side-ships.
+  Voice distribution is now substantively three-anchored
+  (64/19/17), a natural completion-point for the γ.4 expansion arc.
+
+## Prior task
+
 **γ.4.1.D Cyril on John (fourth wave: John 15-21) — CLOSES γ.4.1**
 shipped 2026-05-12. 30 substantive Cyril-on-John entries covering
 John 15-21 (Vine + Spirit + Paraclete + sorrow-to-joy + High-Priestly
