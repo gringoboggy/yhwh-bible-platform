@@ -1,6 +1,110 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **γ.5 LXX
+**Updated 2026-05-11 / late session**: **δ.2 bookmarks /
+highlights** shipped — Month 3 #7, **CLOSES MONTH 3**.
+`THEME_BOOKMARKS_JS` provides the full
+`window.ebibleBookmarks` API: add/remove/list/byRef/
+isBookmarked/toggle/export/exportAsDownload/import/
+import_. localStorage-only, no backend. Schema: `{ref,
+note, color, addedAt}` per entry. Pretty-printed JSON
+export with dated filename via blob URL + revoke
+cleanup; import supports merge mode + validates array
+shape (throws on malformed input). New `bookmark` icon
+in ζ.5's ICONS_REGISTRY. CustomEvent `bookmarkschange`
+dispatched on every mutation. add() idempotent on same
+ref. /preflight absorbs the marker as proof-of-concept;
+future reader pages inherit naturally. **+23 tests**
+in `tests/test_bookmarks_delta2.py`. **2641 / 2642
+tests pass serially (1 skipped); 11/11 lint clean.**
+
+### Month 3 — COMPLETE (7 ships, +164 tests this Month)
+
+| Phase | Title | Tests |
+|---|---|---|
+| γ.1 | Hebrew interlinear UI | +27 |
+| γ.2 | Greek interlinear UI | +29 |
+| γ.3 | Patristic commentary kind | +21 |
+| γ.5 | LXX integration | +21 |
+| Δ.12 | FTS5 full-text search | +21 |
+| δ.1 | Reading streaks | +22 |
+| δ.2 | Bookmarks / highlights | +23 |
+
+Net session test delta from ψ.36-A baseline: **+388**
+across 18 ships total (5 in saved commits + 7 in
+current bundle + 6 still unsaved post-Δ.12 boundary).
+
+**Per the operating-model authorization, this is the
+Month 3 → Month 4 PAUSE point.** Saved + summarized;
+waiting for direction before opening Month 4 (publisher
+polish + AI MVP: B.AI.1 main-cover-AI, B.AI.2 per-book-
+covers, ν.7 inline editing, ν.10 quick access, π.9
+Bowker ISBN registration, ψ.36 matrix heatmap mode, ω.39
+template hot-reload).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **δ.1 reading
+streaks** shipped — Month 3 #6, first reader-track
+phase (lowercase δ family, distinct from uppercase Δ).
+`THEME_STREAK_JS` provides `window.ebibleStreak.{mark,
+getStreak, getReadDates, reset}` — localStorage-only,
+no backend. Streak math has today-or-yesterday
+tolerance (avoids midnight rollover surprises). Quiet
+bottom-right indicator pill with flame icon (newly
+added to ζ.5's ICONS_REGISTRY); hidden when streak == 0.
+History capped at 400 days. CustomEvent `streakchange`
+dispatched for δ.2/δ.3/δ.6 listeners. **+22 tests** in
+`tests/test_streak_delta1.py`. **2618 / 2619 tests
+pass serially (1 skipped); 11/11 lint clean.** Net
+session test delta from ψ.36-A baseline: **+365**
+(20 ω.38 + 29 ω.47 + 26 Δ.10 + 17 ζ.1 + 20 ζ.2 + 18 ζ.4
++ 25 ζ.5 + 25 ζ.6 + 14 ζ.7 + 30 ζ.8 + 27 γ.1 + 29 γ.2 +
+21 γ.3 + 21 γ.5 + 21 Δ.12 + 22 δ.1).
+
+Next per Month 3 sequence: **δ.2 bookmarks / highlights**
+— the LAST Month 3 item. Per proposal: "JSON sidecar
+file the reader controls (export/import). Right-click
+verse → bookmark; long-press → highlight color picker."
+Builds on δ.1's localStorage infrastructure + the
+streakchange event. After δ.2 ships, PAUSE at Month 3
+→ Month 4 boundary per the operating-model
+authorization.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **Δ.12 FTS5
+full-text search** shipped — Month 3 #5. First phase
+that uses Δ.10's migration framework for real schema
+evolution. Migration #2 (`notes_fts`) added — FTS5
+virtual table with external-content reference (no data
+duplication), porter tokenization + diacritic folding.
+`corpus_index.rebuild()` populates via `INSERT INTO
+notes_fts(notes_fts) VALUES('rebuild')` after the notes
+bulk insert. New `fts5_search()` function uses FTS5
+MATCH + bm25 ranking + snippet() builtin for context
+windows. Bare-word queries auto-prefix-match (LIKE-UX
+parity); FTS5 syntax (quoted phrases, OR, NOT, NEAR)
+passes through. Same hit-dict shape as the existing
+`search()` so consumers swap freely. Malformed queries
+raise ValueError. **+21 tests** in
+`tests/test_fts5_delta12.py` (migration × 7, table × 2,
+semantics × 5, filters × 3, hit shape × 4). **2596 /
+2597 tests pass serially (1 skipped); 11/11 lint clean.**
+Net session test delta from ψ.36-A baseline: **+343**
+(20 ω.38 + 29 ω.47 + 26 Δ.10 + 17 ζ.1 + 20 ζ.2 + 18 ζ.4
++ 25 ζ.5 + 25 ζ.6 + 14 ζ.7 + 30 ζ.8 + 27 γ.1 + 29 γ.2 +
+21 γ.3 + 21 γ.5 + 21 Δ.12).
+
+Next per Month 3 sequence: **δ.1 reading streaks**
+(reader-side feature — localStorage-based daily-read
+tracking + visual streak indicator). Then **δ.2
+bookmarks / highlights** to close Month 3. After δ.2,
+PAUSE at Month 3 → Month 4 boundary per the new
+operating model.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **γ.5 LXX
 integration** shipped — Month 3 #4. Registers the
 Septuagint Greek (Brenton 1844, Codex Vaticanus
 tradition, PD) as a discoverable translation. Filesystem-

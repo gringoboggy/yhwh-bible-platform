@@ -518,6 +518,34 @@ THEME_TOKENS_CSS = """<style>
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+  /* δ.1: reading-streak indicator. Quiet bottom-right fixed pill
+     showing the current consecutive-day streak. Hidden when
+     streak is zero. Theme-aware via ζ.1 tokens; clickable to
+     dispatch a streakchange event for future δ.* listeners. */
+  .theme-streak-indicator {
+    position: fixed;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    z-index: 9997;
+    display: none;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    background: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    font-size: var(--font-size-xs);
+    line-height: 1.25;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    cursor: default;
+    user-select: none;
+  }
+  .theme-streak-indicator.theme-streak-visible { display: inline-flex; }
+  .theme-streak-indicator .theme-icon { color: rgb(234 88 12); /* orange-600, theme-independent flame */ }
+  .theme-streak-indicator .theme-streak-count {
+    font-weight: var(--font-weight-semibold);
+  }
 </style>"""
 
 
@@ -588,6 +616,16 @@ ICONS_REGISTRY: dict[str, str] = {
         '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>'
         '<polyline points="15 3 21 3 21 9"></polyline>'
         '<line x1="10" y1="14" x2="21" y2="3"></line>',
+    ),
+    "flame": _make_icon(
+        "flame",
+        # δ.1 — reading-streak indicator. Lucide `flame` icon.
+        '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>',
+    ),
+    "bookmark": _make_icon(
+        "bookmark",
+        # δ.2 — bookmark indicator. Lucide `bookmark` icon.
+        '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>',
     ),
 }
 
@@ -935,6 +973,396 @@ def _build_cmd_palette_js() -> str:
 
 
 # ----------------------------------------------------------------------
+# δ.1 — reading streaks (2026-05-11). First reader-track (δ family)
+# phase. localStorage-only — no backend. Composes ζ.1 surfaces +
+# ζ.4 typography + ζ.5 icons (the flame).
+#
+# Public API:
+#     window.ebibleStreak.mark(ref)        — record a read for the
+#                                            current calendar day; ref
+#                                            optional (e.g. 'gen 1:1')
+#     window.ebibleStreak.getStreak()      — current consecutive-day
+#                                            streak; int
+#     window.ebibleStreak.getReadDates()   — array of ISO date strings
+#                                            on which any read happened
+#     window.ebibleStreak.reset()          — clear all streak state
+#
+# Each mark dispatches a `streakchange` CustomEvent on `document` with
+# `{ detail: { streak, dates } }`. Future δ.* phases (δ.2 bookmarks,
+# δ.3 memorization, δ.6 pace-tracker) listen for this.
+#
+# UI: a quiet fixed-bottom-right pill inserts on DOMContentLoaded.
+# Hidden via `display: none` unless streak > 0. Composes the flame
+# icon from ζ.5's registry — adds visual punch without violating the
+# project's no-emoji rule.
+#
+# localStorage shape:
+#     ebible_streak = {
+#       "dates": ["2026-05-09", "2026-05-10", "2026-05-11"],
+#       "lastRef": "gen 1:1"   // optional; for δ.2 to read
+#     }
+#
+# Streak math: a "streak" is the count of consecutive days ending
+# today (or yesterday, if today hasn't been marked yet). A gap of
+# one or more days breaks the streak.
+# ----------------------------------------------------------------------
+
+THEME_STREAK_JS = """<script>
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'ebible_streak';
+  var FLAME_FALLBACK = '<svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>';
+
+  function todayIso() {
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { dates: [], lastRef: null };
+      var parsed = JSON.parse(raw);
+      if (!parsed || !Array.isArray(parsed.dates)) return { dates: [], lastRef: null };
+      return parsed;
+    } catch (e) {
+      return { dates: [], lastRef: null };
+    }
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) { /* private-mode browser — degrade silently */ }
+  }
+
+  function dateNDaysAgo(n) {
+    var d = new Date();
+    d.setDate(d.getDate() - n);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function computeStreak(dates) {
+    if (!dates || dates.length === 0) return 0;
+    var set = {};
+    for (var i = 0; i < dates.length; i++) set[dates[i]] = true;
+    // Streak ends today OR yesterday (so a user who reads daily
+    // doesn't lose the streak by checking late at night vs early
+    // next morning).
+    var startOffset = set[todayIso()] ? 0 : (set[dateNDaysAgo(1)] ? 1 : -1);
+    if (startOffset < 0) return 0;
+    var count = 0;
+    var offset = startOffset;
+    while (set[dateNDaysAgo(offset)]) {
+      count++;
+      offset++;
+    }
+    return count;
+  }
+
+  function mark(ref) {
+    var state = loadState();
+    var today = todayIso();
+    if (state.dates.indexOf(today) === -1) {
+      state.dates.push(today);
+      // Keep only the last 400 dates (over a year of history is plenty).
+      if (state.dates.length > 400) state.dates = state.dates.slice(-400);
+    }
+    if (ref != null) state.lastRef = String(ref);
+    saveState(state);
+    var streak = computeStreak(state.dates);
+    updateIndicator(streak);
+    document.dispatchEvent(new CustomEvent('streakchange', {
+      detail: { streak: streak, dates: state.dates.slice() }
+    }));
+    return streak;
+  }
+
+  function getStreak() {
+    return computeStreak(loadState().dates);
+  }
+
+  function getReadDates() {
+    return loadState().dates.slice();
+  }
+
+  function reset() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    updateIndicator(0);
+    document.dispatchEvent(new CustomEvent('streakchange', {
+      detail: { streak: 0, dates: [] }
+    }));
+  }
+
+  function updateIndicator(streak) {
+    var el = document.getElementById('ebible-streak-indicator');
+    if (!el) return;
+    var countEl = el.querySelector('.theme-streak-count');
+    if (countEl) countEl.textContent = String(streak);
+    var unit = streak === 1 ? 'day' : 'days';
+    var labelEl = el.querySelector('.theme-streak-label');
+    if (labelEl) labelEl.textContent = unit + ' streak';
+    if (streak > 0) {
+      el.classList.add('theme-streak-visible');
+    } else {
+      el.classList.remove('theme-streak-visible');
+    }
+  }
+
+  function insertIndicator() {
+    if (document.getElementById('ebible-streak-indicator')) return;
+    var el = document.createElement('div');
+    el.id = 'ebible-streak-indicator';
+    el.className = 'theme-streak-indicator';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-label', 'Reading streak');
+    var iconHtml = (window.ebibleIcons && window.ebibleIcons['flame']) || FLAME_FALLBACK;
+    el.innerHTML = iconHtml
+      + '<span class="theme-streak-count">0</span>'
+      + ' <span class="theme-streak-label">day streak</span>';
+    if (document.body) {
+      document.body.appendChild(el);
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        document.body.appendChild(el);
+      });
+    }
+    // Initial render — show indicator if there's already a streak
+    // from prior sessions.
+    updateIndicator(getStreak());
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', insertIndicator);
+  } else {
+    insertIndicator();
+  }
+
+  window.ebibleStreak = {
+    mark: mark,
+    getStreak: getStreak,
+    getReadDates: getReadDates,
+    reset: reset
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
+# δ.2 — bookmarks / highlights (2026-05-11). Builds on δ.1's
+# localStorage infrastructure. JSON sidecar that the reader exports
+# and imports — no backend. Each bookmark carries an optional
+# highlight color so the same storage backs both features.
+#
+# Public API:
+#     window.ebibleBookmarks.add(ref, opts?)
+#         — opts: { note: str, color: hex_or_name }
+#         — returns the stored bookmark dict
+#     window.ebibleBookmarks.remove(ref)
+#         — returns true if removed, false if absent
+#     window.ebibleBookmarks.list()
+#         — array of all bookmarks, newest first
+#     window.ebibleBookmarks.byRef(ref)
+#         — single bookmark or null
+#     window.ebibleBookmarks.isBookmarked(ref)
+#         — boolean
+#     window.ebibleBookmarks.toggle(ref, opts?)
+#         — add if absent, remove if present; returns final state
+#     window.ebibleBookmarks.export()
+#         — returns JSON string (caller saves via blob URL)
+#     window.ebibleBookmarks.exportAsDownload()
+#         — triggers a browser download of `ebible-bookmarks-YYYY-MM-DD.json`
+#     window.ebibleBookmarks.import_(json, opts?)
+#         — opts: { merge: true } — default replaces; merge keeps
+#           existing + adds new
+#
+# Each mutation dispatches a `bookmarkschange` CustomEvent on
+# `document` so visible-bookmark badges in future reader pages can
+# re-render without polling.
+#
+# Storage shape:
+#     ebible_bookmarks = [
+#       { "ref": "gen 1:1", "note": "...", "color": "#fbbf24",
+#         "addedAt": "2026-05-11T18:30:00Z" },
+#       ...
+#     ]
+# Ordering on disk: newest-first (most recent add first). list()
+# preserves this order.
+#
+# `import_` is named with trailing underscore because `import` is a
+# JS reserved word; the API exposes both `import` (via bracket access)
+# and `import_` for direct dot-call. Tests pin both.
+# ----------------------------------------------------------------------
+
+THEME_BOOKMARKS_JS = """<script>
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'ebible_bookmarks';
+
+  function loadAll() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      var parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveAll(items) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch (e) { /* private mode — degrade silently */ }
+  }
+
+  function notify() {
+    document.dispatchEvent(new CustomEvent('bookmarkschange', {
+      detail: { bookmarks: loadAll() }
+    }));
+  }
+
+  function nowIso() {
+    return new Date().toISOString();
+  }
+
+  function add(ref, opts) {
+    if (ref == null) return null;
+    var items = loadAll();
+    // Remove any existing entry for the same ref so add() is
+    // idempotent (semantically: "ensure this ref is bookmarked").
+    items = items.filter(function (it) { return it.ref !== String(ref); });
+    var entry = {
+      ref: String(ref),
+      note: (opts && opts.note != null) ? String(opts.note) : '',
+      color: (opts && opts.color != null) ? String(opts.color) : '',
+      addedAt: nowIso()
+    };
+    items.unshift(entry); // newest-first
+    saveAll(items);
+    notify();
+    return entry;
+  }
+
+  function remove(ref) {
+    if (ref == null) return false;
+    var items = loadAll();
+    var before = items.length;
+    items = items.filter(function (it) { return it.ref !== String(ref); });
+    if (items.length === before) return false;
+    saveAll(items);
+    notify();
+    return true;
+  }
+
+  function list() {
+    return loadAll();
+  }
+
+  function byRef(ref) {
+    if (ref == null) return null;
+    var items = loadAll();
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].ref === String(ref)) return items[i];
+    }
+    return null;
+  }
+
+  function isBookmarked(ref) {
+    return byRef(ref) !== null;
+  }
+
+  function toggle(ref, opts) {
+    if (isBookmarked(ref)) {
+      remove(ref);
+      return false;
+    }
+    add(ref, opts);
+    return true;
+  }
+
+  function exportJson() {
+    return JSON.stringify(loadAll(), null, 2);
+  }
+
+  function exportAsDownload() {
+    var json = exportJson();
+    var blob = new Blob([json], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    var d = new Date();
+    var stamp = d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+    a.href = url;
+    a.download = 'ebible-bookmarks-' + stamp + '.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
+  }
+
+  function importJson(jsonStr, opts) {
+    var parsed;
+    try {
+      parsed = JSON.parse(String(jsonStr));
+    } catch (e) {
+      throw new Error('invalid JSON: ' + e.message);
+    }
+    if (!Array.isArray(parsed)) {
+      throw new Error('expected array of bookmark entries');
+    }
+    var merge = !!(opts && opts.merge);
+    var existing = merge ? loadAll() : [];
+    var seenRefs = {};
+    var out = [];
+    // Imported entries take priority over existing on ref collision.
+    parsed.forEach(function (entry) {
+      if (!entry || typeof entry.ref !== 'string') return;
+      if (seenRefs[entry.ref]) return;
+      seenRefs[entry.ref] = true;
+      out.push({
+        ref: entry.ref,
+        note: typeof entry.note === 'string' ? entry.note : '',
+        color: typeof entry.color === 'string' ? entry.color : '',
+        addedAt: typeof entry.addedAt === 'string' ? entry.addedAt : nowIso()
+      });
+    });
+    existing.forEach(function (entry) {
+      if (seenRefs[entry.ref]) return;
+      seenRefs[entry.ref] = true;
+      out.push(entry);
+    });
+    saveAll(out);
+    notify();
+    return out.length;
+  }
+
+  window.ebibleBookmarks = {
+    add: add,
+    remove: remove,
+    list: list,
+    byRef: byRef,
+    isBookmarked: isBookmarked,
+    toggle: toggle,
+    export: exportJson,
+    exportAsDownload: exportAsDownload,
+    import: importJson,
+    import_: importJson
+  };
+})();
+</script>"""
+
+
+# ----------------------------------------------------------------------
 # ζ.2 — dark-mode toggle (activates ζ.1's :root[data-theme="dark"]).
 # Substituted into consoles via the `<!-- DARK_MODE_JS -->` marker
 # placed inside the document `<head>` (must be inline-blocking so
@@ -1223,6 +1651,8 @@ def apply_design_system(html: str, current_route: str) -> str:
       - `<!-- THEME_ICONS_JS -->`        → THEME_ICONS_JS    (ζ.5)
       - `<!-- THEME_TOAST_JS -->`        → THEME_TOAST_JS    (ζ.6)
       - `<!-- THEME_CMD_PALETTE_JS -->`  → THEME_CMD_PALETTE_JS (ζ.8)
+      - `<!-- THEME_STREAK_JS -->`       → THEME_STREAK_JS    (δ.1)
+      - `<!-- THEME_BOOKMARKS_JS -->`    → THEME_BOOKMARKS_JS (δ.2)
 
     The HEADER_NAV_LINKS marker MUST be 4-space-indented in the
     template — that's the existing convention from ψ.14/15/16. The
@@ -1273,5 +1703,13 @@ def apply_design_system(html: str, current_route: str) -> str:
     html = html.replace(
         "<!-- THEME_CMD_PALETTE_JS -->",
         THEME_CMD_PALETTE_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_STREAK_JS -->",
+        THEME_STREAK_JS,
+    )
+    html = html.replace(
+        "<!-- THEME_BOOKMARKS_JS -->",
+        THEME_BOOKMARKS_JS,
     )
     return html

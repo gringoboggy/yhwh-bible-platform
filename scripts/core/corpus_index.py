@@ -486,6 +486,18 @@ def _build_to(path: Path) -> tuple[int, str]:
                     if nb.stem == "__init__":
                         continue
                     total += _populate_from_book(conn, nb.stem, nb)
+        # Δ.12 — populate the FTS5 external-content index from `notes`.
+        # The 'rebuild' command reads every row from the source table
+        # and re-indexes it. Cheap (one pass after the bulk insert);
+        # idempotent (rebuild always produces the same index).
+        try:
+            conn.execute("INSERT INTO notes_fts(notes_fts) VALUES('rebuild')")
+        except sqlite3.OperationalError:
+            # Migration #2 might not have applied (e.g. very old DB
+            # on disk between Δ.10 and Δ.12). Skip silently — search
+            # falls back to the LIKE-based path until the next
+            # fingerprint mismatch triggers a full rebuild.
+            pass
         # Switch back to safer pragmas for query-time use.
         conn.executescript("PRAGMA journal_mode=DELETE; PRAGMA synchronous=NORMAL;")
         conn.close()
@@ -1199,6 +1211,126 @@ def search(
                 "excerpt": excerpt,
                 "attribution": r["attribution"] or None,
                 "score": int(r["score"]),
+            }
+        )
+    return out
+
+
+# ----------------------------------------------------------------------
+# Δ.12 — FTS5 full-text search (2026-05-11)
+# ----------------------------------------------------------------------
+
+
+def fts5_search(
+    query: str,
+    *,
+    kind: Optional[str] = None,
+    book: Optional[str] = None,
+    limit: int = 100,
+) -> list[dict]:
+    """Δ.12 — FTS5-backed search across notes.
+
+    Same return shape as `search()` so consumers can swap call sites.
+    Uses SQLite FTS5 MATCH with the `bm25()` ranking function and the
+    `snippet()` builtin for context-window excerpts (~30 token window
+    around the first match, wrapped in `‹›` markers).
+
+    Query syntax: FTS5 standard. Bare words are AND-combined; quoted
+    phrases match exactly; `OR`, `NOT`, `*` (prefix), and `NEAR()` all
+    supported. Bare-word queries are auto-prefixed (`word*`) for
+    substring-ish matching that matches the LIKE-based search's UX.
+
+    Returns:
+        list[dict] — same shape as `search()`: book_code, chapter,
+        verse, suffix, anchor, kind, title, label, excerpt,
+        attribution, score (lower is better in FTS5 bm25; flipped
+        to a positive integer for consistency with the LIKE search).
+
+    Empty / whitespace-only query → []. Queries that FTS5 rejects
+    as malformed (e.g., unbalanced quotes) raise `ValueError`.
+    """
+    q = (query or "").strip()
+    if not q:
+        return []
+
+    # Bare-word queries → prefix-matching by default. Single-word
+    # queries get `word*`; multi-word bare queries become `w1* w2*`.
+    # Power users using FTS5 syntax (quotes, OR, NOT, NEAR) get their
+    # literal query through unchanged.
+    has_syntax = any(c in q for c in ('"', "(", ")")) or any(
+        kw in q.upper().split() for kw in ("AND", "OR", "NOT", "NEAR")
+    )
+    if has_syntax:
+        match_q = q
+    else:
+        # Sanitize bare words: split on whitespace, append `*` to each
+        # token that doesn't already end with one. Strip non-alphanum
+        # punctuation that FTS5 would reject (commas, parens, etc.).
+        tokens = []
+        for tok in q.split():
+            cleaned = "".join(c for c in tok if c.isalnum() or c in "*'-")
+            if not cleaned:
+                continue
+            if not cleaned.endswith("*"):
+                cleaned = cleaned + "*"
+            tokens.append(cleaned)
+        if not tokens:
+            return []
+        match_q = " ".join(tokens)
+
+    conn = connection()
+    sql_parts = [
+        "SELECT n.book_code, n.chapter, n.verse, n.suffix, n.anchor, n.kind, n.title, n.label, n.attribution,",
+        "snippet(notes_fts, -1, '‹', '›', '…', 30) AS excerpt,",
+        "bm25(notes_fts) AS bm25_score",
+        "FROM notes_fts JOIN notes n ON n.rowid = notes_fts.rowid",
+        "WHERE notes_fts MATCH ?",
+    ]
+    args: list = [match_q]
+
+    if kind:
+        sql_parts.append("AND n.kind = ?")
+        args.append(kind)
+    if book:
+        sql_parts.append("AND n.book_code = ?")
+        args.append(book)
+
+    sql_parts.append("ORDER BY bm25_score")  # ascending — lower bm25 = better match
+    cap = max(1, int(limit)) if limit else 100
+    sql_parts.append("LIMIT ?")
+    args.append(cap)
+
+    sql = " ".join(sql_parts)
+    try:
+        rows = conn.execute(sql, args).fetchall()
+    except sqlite3.OperationalError as e:
+        # FTS5 rejects malformed queries (e.g., unbalanced quotes).
+        # Re-raise as ValueError so callers can distinguish from
+        # generic DB errors.
+        raise ValueError(f"malformed FTS5 query {query!r}: {e}") from e
+
+    out: list[dict] = []
+    for r in rows:
+        # bm25 is negative-ish; lower magnitude = better. Flip to a
+        # positive integer for consistency with the LIKE search's
+        # "higher score = better" convention.
+        bm25 = float(r["bm25_score"])
+        # bm25 typically ranges 0 to -10; map to integer score where
+        # 100 = perfect match, decreasing for weaker.
+        positive_score = max(1, int(100 - bm25 * -10))
+        out.append(
+            {
+                "book_code": r["book_code"],
+                "chapter": int(r["chapter"]),
+                "verse": int(r["verse"]),
+                "suffix": r["suffix"] or "",
+                "anchor": r["anchor"] or "",
+                "kind": r["kind"],
+                "title": r["title"] or "",
+                "label": r["label"] or "",
+                "excerpt": r["excerpt"] or "",
+                "attribution": r["attribution"] or None,
+                "score": positive_score,
             }
         )
     return out

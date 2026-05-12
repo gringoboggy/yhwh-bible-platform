@@ -4,6 +4,184 @@
 
 ## Prior task
 
+**δ.2 bookmarks / highlights** shipped 2026-05-11.
+**CLOSES MONTH 3.** Last reader-track phase in this
+Month's content-depth-wave.
+
+Four pieces:
+- `THEME_BOOKMARKS_JS` constant in `_design.py` — full
+  `window.ebibleBookmarks` API surface: `add(ref, opts)`,
+  `remove(ref)`, `list()`, `byRef(ref)`,
+  `isBookmarked(ref)`, `toggle(ref, opts)`,
+  `export()` (JSON string), `exportAsDownload()` (blob-
+  URL browser download with `ebible-bookmarks-YYYY-MM-DD.json`
+  filename + URL.revokeObjectURL cleanup), `import` /
+  `import_` (JS-reserved-word alias; supports `{ merge:
+  true }` mode). localStorage key `ebible_bookmarks`.
+  Schema per entry: `{ref, note, color, addedAt}`.
+  CustomEvent `bookmarkschange` dispatched on every
+  mutation. `add()` idempotent on same ref (filters
+  duplicates before unshift; refreshes addedAt).
+- New `bookmark` icon in ζ.5's `ICONS_REGISTRY` (Lucide
+  shape, 24×24 viewBox, currentColor stroke).
+- `<!-- THEME_BOOKMARKS_JS -->` marker substitution in
+  `apply_design_system`.
+- /preflight absorbs the marker (same proof-of-concept
+  pattern as δ.1).
+
+**Not shipped** (δ.2.x):
+- Right-click and long-press DOM hooks for verse
+  interaction — requires reader-page integration that
+  doesn't exist yet (no verse-display console).
+- Color-picker modal UI for highlights (the storage
+  layer has a `color` field; the picker UI lands in a
+  δ.2.x).
+- A future /read console that consumes the API.
+
+**+23 tests** in `tests/test_bookmarks_delta2.py`: JS
+contract × 13 (script wrapper, API, full method
+surface 10-method list, namespaced storage, try/catch
+guard, bookmarkschange event, canonical schema fields,
+pretty-printed JSON export, blob-URL download with
+revoke, dated filename, malformed-import rejection,
+merge mode, add idempotency); bookmark icon × 2; marker
+substitution × 3; /preflight wire-up × 3; API safety
+× 2 (no innerHTML with user data, malformed JSON
+rejection).
+
+**2641 / 2642 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+388** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1 + 29 γ.2 + 21 γ.3 + 21 γ.5 + 21 Δ.12
++ 22 δ.1 + 23 δ.2).
+
+### Month 3 — COMPLETE
+
+All seven Month 3 phases shipped this session:
+- γ.1 Hebrew interlinear UI (/hebrew console + lookup API)
+- γ.2 Greek interlinear UI (/greek console + lookup API)
+- γ.3 Patristic commentary kind (Augustine seed corpus +
+  detector)
+- γ.5 LXX integration (Brenton Greek translation registered)
+- Δ.12 FTS5 full-text search (notes_fts virtual table +
+  fts5_search)
+- δ.1 reading streaks (localStorage + indicator)
+- δ.2 bookmarks / highlights (localStorage + export/import)
+
+**Per the operating model, this is the Month 3 → Month 4
+boundary pause.** Save + summary then wait for direction.
+
+## Prior task
+
+**δ.1 reading streaks** shipped 2026-05-11. Month 3 #6,
+first reader-track phase (lowercase δ family, distinct
+from uppercase Δ database track). Per proposal:
+"localStorage-only; no backend. Quiet bottom-of-page
+indicator."
+
+Five pieces:
+- `THEME_STREAK_JS` constant in `_design.py` — a ~140-line
+  IIFE exposing `window.ebibleStreak.{mark, getStreak,
+  getReadDates, reset}`. localStorage key `ebible_streak`.
+  Computes consecutive-day streak with today-or-yesterday
+  tolerance (so users checking late-night don't lose
+  their streak at midnight). Caps stored history at
+  400 days. Dispatches `streakchange` CustomEvent for
+  δ.2/δ.3/δ.6 listeners.
+- Quiet bottom-right indicator (#ebible-streak-indicator)
+  inserted on DOMContentLoaded. Hidden when streak == 0;
+  shows flame-icon + "N day streak" otherwise. Uses ζ.5's
+  flame icon (newly added to ICONS_REGISTRY) with a
+  hardcoded fallback for environments without
+  THEME_ICONS_JS loaded.
+- `flame` icon added to ζ.5's `ICONS_REGISTRY` (Lucide
+  shape; 24×24 viewBox; currentColor stroke). The
+  indicator uses an orange-600 override for the flame so
+  it has consistent fire-color in both themes (only
+  theme-independent color in the whole system today).
+- `.theme-streak-indicator` + `.theme-streak-visible` +
+  child rules in `THEME_TOKENS_CSS`. ζ.1 surface +
+  text + border tokens; pill shape; small shadow.
+- `<!-- THEME_STREAK_JS -->` marker substitution in
+  `apply_design_system`. /preflight absorbs (semantically
+  weird since preflight isn't a reader, but proves the
+  wire-up universal).
+
+**+22 tests** in `tests/test_streak_delta1.py`: JS
+contract × 9 (script wrapper, API, 4 methods,
+localStorage key + guard, streakchange event,
+today-or-yesterday math, indicator id, 400-day cap);
+flame icon × 3 (in registry, valid SVG, theme-icon
+class); CSS × 4 (rule, fixed-position, theme tokens,
+visible toggle class); apply_design_system × 3
+(substitution, no-op, idempotency); /preflight wire-up
+× 3 (marker substituted, ebibleStreak present, in head).
+
+**2618 / 2619 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+365** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1 + 29 γ.2 + 21 γ.3 + 21 γ.5 + 21 Δ.12
++ 22 δ.1).
+
+## Prior task
+
+**Δ.12 FTS5 full-text search** shipped 2026-05-11. Month 3
+#5 — first phase that uses Δ.10's migration framework
+beyond its baseline.
+
+Three pieces:
+- Migration #2 (`notes_fts`) added to
+  `scripts/core/migrations.py`: FTS5 virtual table with
+  external-content reference (`content='notes',
+  content_rowid='rowid'`) — no data duplication.
+  Indexes title + label + kind + attribution + body_plain.
+  Tokenizer: `porter unicode61 remove_diacritics 1` —
+  porter stemming (so "running" matches "run") +
+  diacritic folding (so "kechritha" matches accented
+  forms).
+- `corpus_index.rebuild()` populates FTS5 via `INSERT INTO
+  notes_fts(notes_fts) VALUES('rebuild')` after
+  `_populate_from_book` finishes — single pass per
+  rebuild, idempotent. Wrapped in try/except for old DBs
+  pre-Δ.12 (graceful degrade).
+- `fts5_search(query, *, kind, book, limit)` function in
+  `corpus_index.py`. Bare-word queries auto-prefix-match
+  (each token gets `*` appended) for LIKE-style UX;
+  power users get FTS5 syntax through unchanged (quoted
+  phrases, OR, NOT, NEAR). Uses `snippet()` builtin for
+  context windows wrapped in `‹›` markers. Returns same
+  hit-dict shape as `search()` so consumers can swap.
+  bm25 ranking → flipped to positive int for consistency
+  with the LIKE search's "higher = better" convention.
+  Malformed FTS5 queries raise `ValueError`.
+
+**+21 tests** in `tests/test_fts5_delta12.py`: migration
+× 7 (count, name, FTS5, porter, diacritics, external
+content, columns); table existence × 2 (table present,
+populated to match notes count); search semantics × 5
+(empty → [], bare word hits, prefix auto-match, phrase
+query, malformed raises ValueError); filters × 3 (book,
+kind, limit); hit shape × 4 (all canonical fields,
+ints, positive score, snippet markers).
+
+**Not in scope** (Δ.12.x):
+- Wire `api_search_notes` to use FTS5 by default. Proposal
+  called this out; staying LIKE-based for now until
+  equivalence pin is added.
+- JS-side search-syntax-help affordance for power users.
+- /search advanced console (regex, field-scoped, multi-
+  language).
+
+**2596 / 2597 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+343** (20 ω.38 + 29 ω.47 + 26 Δ.10 +
+17 ζ.1 + 20 ζ.2 + 18 ζ.4 + 25 ζ.5 + 25 ζ.6 + 14 ζ.7
++ 30 ζ.8 + 27 γ.1 + 29 γ.2 + 21 γ.3 + 21 γ.5 + 21 Δ.12).
+
+## Prior task
+
 **γ.5 LXX integration** shipped 2026-05-11. Month 3 #4 —
 registers the Septuagint Greek (Brenton 1844, Vatican
 Codex tradition, PD) as a discoverable translation in

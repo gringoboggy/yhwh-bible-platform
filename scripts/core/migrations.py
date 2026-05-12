@@ -62,8 +62,35 @@ CREATE INDEX IF NOT EXISTS ix_notes_book_kind     ON notes(book_code, kind);
 """
 
 
+# Migration #2 — FTS5 virtual table for full-text search (Δ.12 —
+# 2026-05-11). External-content table: indexes notes by rowid
+# without duplicating the source data. The `porter` tokenizer
+# applies stemming so "running" matches "run", and "remove_diacritics
+# 1" folds accents so a buyer can type "kechritha" and match
+# "κεχρῖσθαι"-derived English.
+#
+# Populated at rebuild time via `INSERT INTO notes_fts(notes_fts)
+# VALUES('rebuild')` — runs once per index build, indexes follow
+# the source automatically. The `body` column is left out (the
+# `body_plain` column gives clean ASCII without HTML markup, which
+# is what FTS5 wants).
+_M2_NOTES_FTS = """
+CREATE VIRTUAL TABLE IF NOT EXISTS notes_fts USING fts5(
+    title,
+    label,
+    kind,
+    attribution,
+    body_plain,
+    content='notes',
+    content_rowid='rowid',
+    tokenize='porter unicode61 remove_diacritics 1'
+);
+"""
+
+
 # The canonical migration list. Order = application order. Versions
 # MUST be strictly increasing; the runner enforces this at apply time.
 MIGRATIONS: list[tuple[int, str, str]] = [
     (1, "notes_baseline", _M1_NOTES_BASELINE),
+    (2, "notes_fts", _M2_NOTES_FTS),
 ]

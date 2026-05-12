@@ -6,6 +6,443 @@
 
 ---
 
+## 2026-05-11 — session — δ.2 bookmarks / highlights (Month 3 #7, **CLOSES MONTH 3**)
+
+**Phases shipped:** δ.2 (full `window.ebibleBookmarks`
+API + bookmark icon + /preflight wire-up).
+**Test delta:** +23 (`tests/test_bookmarks_delta2.py`,
+5 test classes).
+**Linter delta:** 11/11 clean.
+
+### Month 3 closure
+
+This ship closes the Month 3 content-depth wave:
+
+```
+γ.1 → γ.2 → γ.3 → γ.5 → Δ.12 → δ.1 → δ.2
+Hebrew Greek Augustine LXX  FTS5  streak bookmark
+```
+
+7 phases shipped this Month. +164 tests this Month
+(out of +388 net session delta).
+
+### What shipped
+
+Four pieces wire the bookmark / highlight storage layer:
+
+1. **`THEME_BOOKMARKS_JS` constant** — full
+   `window.ebibleBookmarks` API surface:
+
+   ```js
+   window.ebibleBookmarks.add('gen 1:1', { note: '...', color: '#fbbf24' });
+   window.ebibleBookmarks.remove('gen 1:1');
+   window.ebibleBookmarks.list();           // newest-first array
+   window.ebibleBookmarks.byRef('gen 1:1'); // single entry or null
+   window.ebibleBookmarks.isBookmarked('gen 1:1');
+   window.ebibleBookmarks.toggle('gen 1:1', { ... });
+   window.ebibleBookmarks.export();         // pretty-printed JSON string
+   window.ebibleBookmarks.exportAsDownload(); // browser download
+   window.ebibleBookmarks.import(jsonStr, { merge: true });
+   window.ebibleBookmarks['import'](jsonStr); // JS-reserved-word access
+   window.ebibleBookmarks.import_(jsonStr);   // dot-access alias
+   ```
+
+   - localStorage key: `ebible_bookmarks`.
+   - Schema per entry: `{ref, note, color, addedAt}`.
+   - `add()` idempotent on same ref (filters duplicates
+     before unshift; refreshes addedAt).
+   - `import` validates array shape; throws Error on
+     malformed JSON.
+   - Default import REPLACES storage; `{ merge: true }`
+     keeps existing + adds new with import priority on
+     ref collision.
+   - CustomEvent `bookmarkschange` on every mutation.
+   - private-mode browsers degrade silently via try/catch
+     around localStorage.
+
+2. **`bookmark` icon** added to ζ.5's
+   `ICONS_REGISTRY` (Lucide shape).
+
+3. **`<!-- THEME_BOOKMARKS_JS -->` marker** wired into
+   `apply_design_system`.
+
+4. **`/preflight` retrofit** — marker absorbed in
+   `<head>` between THEME_STREAK_JS and
+   BUYER_ARC_POLISH_CSS. Same proof-of-concept pattern
+   as δ.1.
+
+### Export contract is durable
+
+The exported JSON is the user-portable format: they
+download it from one machine, import on another. Pinned
+in tests:
+- Pretty-printed with 2-space indent (human-readable
+  in a text editor).
+- Filename includes ISO date so multiple snapshots can
+  coexist.
+- Blob URL is revoked after the click (no memory leak).
+- Import validates schema; throws on shape drift so
+  partial corruption never lands silently.
+
+### Tests (23 new)
+
+In `tests/test_bookmarks_delta2.py`:
+
+1. **TestDelta2BookmarksJs** (13 tests) — script wrapper,
+   ebibleBookmarks API exposed, full 10-method surface
+   pinned (add/remove/list/byRef/isBookmarked/toggle/
+   export/exportAsDownload/import/import_), namespaced
+   storage, try/catch guard, bookmarkschange event,
+   schema fields (ref/note/color/addedAt), pretty JSON
+   export, blob URL + revoke, dated filename, malformed
+   JSON rejection, merge mode, add idempotency.
+2. **TestDelta2BookmarkIcon** (2 tests) — icon in
+   registry, valid SVG.
+3. **TestDelta2ApplyDesignSystem** (3 tests) — marker
+   substitution, no-op, idempotency.
+4. **TestDelta2PreflightWired** (3 tests) — marker
+   substituted, API present, in head section.
+5. **TestDelta2ApiSafety** (2 tests) — no unsafe
+   innerHTML interpolation with bookmark fields,
+   malformed import rejection.
+
+### What's next (Month 3 → Month 4 PAUSE)
+
+Per the operating-model authorization, ship halts here.
+**Save + summarize → wait for direction.**
+
+Month 4 in the proposal (publisher polish + AI MVP):
+- **B.AI.1** Main cover AI generation MVP (publisher
+  decision needed by start of month — DALL-E vs
+  Midjourney vs Stable Diffusion, budget gate).
+- **B.AI.2** Per-book cover AI generation.
+- **ν.7** Inline editing standardization.
+- **ν.10** Recently-used quick access.
+- **π.9** ISBN registration assistant (Bowker) —
+  $295/10 block requires explicit spending approval.
+- **ψ.36** Matrix heatmap mode.
+- **ω.39** Hot-reload for templates (dev quality of life).
+
+The AI cover phases (B.AI.1, B.AI.2) and π.9 Bowker
+both gate on real-money decisions per the operating-
+model rules — all three will ASK before executing.
+
+### Test count
+
+Serial run: **2641 / 2642 tests pass (1 skipped); 11/11
+lint clean.** δ.1 baseline was 2618; +23 δ.2 = 2641.
+Math checks out.
+
+### Session totals (12-hour run since ψ.36-A)
+
+- **18 ships shipped** across Month 1 foundation
+  closure + Month 2 modernization (entire ζ arc) +
+  Month 3 content depth wave.
+- **+388 tests** net of ψ.36-A baseline (2253 → 2641).
+- **3 saved commits** (`4a6521b`, `0eb10ec`,
+  `92cc2e9`, `3d19ef4`) + current bundle pending save.
+
+---
+
+## 2026-05-11 — session — δ.1 reading streaks (Month 3 #6, opens the reader-track δ family)
+
+**Phases shipped:** δ.1 (THEME_STREAK_JS + flame icon +
+indicator CSS + /preflight wire-up).
+**Test delta:** +22 (`tests/test_streak_delta1.py`,
+5 test classes).
+**Linter delta:** 11/11 clean.
+
+### Phase-notation note
+
+The δ.* track uses **lowercase δ** (the Greek lowercase
+delta, curved form), distinct from **uppercase Δ** (the
+Greek capital, triangle form) used for the database-
+evolution track (Δ.10, Δ.12, etc.). Same Greek letter
+visually-close glyphs; the case distinction carries the
+track meaning per CLAUDE_PROJECT_RULES §5.
+
+### What shipped
+
+Five pieces wire a localStorage-only reading-streak
+tracker:
+
+1. **`THEME_STREAK_JS` constant** (~140 lines, IIFE
+   pattern matching ζ.2/ζ.6/ζ.8) exposes:
+
+   ```js
+   window.ebibleStreak.mark(ref);         // record today's read
+   window.ebibleStreak.getStreak();       // → consecutive-day int
+   window.ebibleStreak.getReadDates();    // → ['2026-05-09', ...]
+   window.ebibleStreak.reset();           // clear streak state
+   ```
+
+   - **localStorage key**: `ebible_streak` (namespaced).
+   - **Storage shape**: `{ dates: [...iso-strings], lastRef: 'gen 1:1' }`.
+   - **Streak math**: today-or-yesterday tolerance — a
+     user reading at 11:55pm one day and 12:05am the
+     next day doesn't reset the streak.
+   - **History cap**: 400 days (over a year) so
+     localStorage stays bounded over decade-long use.
+   - **try/catch around localStorage**: private-mode
+     browsers degrade silently.
+   - **CustomEvent `streakchange`** dispatched on every
+     mark — δ.2 bookmarks, δ.3 memorization, δ.6 pace-
+     tracker will listen.
+
+2. **Quiet bottom-right indicator** inserted on
+   DOMContentLoaded:
+
+   ```html
+   <div id="ebible-streak-indicator" class="theme-streak-indicator"
+        role="status" aria-label="Reading streak">
+     <svg class="theme-icon">...</svg>
+     <span class="theme-streak-count">12</span>
+     <span class="theme-streak-label">day streak</span>
+   </div>
+   ```
+
+   Hidden via `display: none` when streak == 0. The
+   `theme-streak-visible` class flips it on. ARIA
+   `role="status"` for screen-reader awareness without
+   being intrusive.
+
+3. **`flame` icon added to ζ.5's `ICONS_REGISTRY`** —
+   Lucide flame shape, 24×24 viewBox, currentColor
+   stroke, theme-icon class. Used by the indicator;
+   future δ.6 pace-tracker may reuse.
+
+4. **`.theme-streak-indicator` CSS rules** in
+   `THEME_TOKENS_CSS`:
+   - Fixed bottom-right position (`bottom: 0.75rem;
+     right: 0.75rem; z-index: 9997`).
+   - ζ.1 surface + text + border tokens (theme-aware).
+   - Pill shape (border-radius: 9999px), small shadow.
+   - Flame color forced to `rgb(234 88 12)` (orange-600)
+     — only theme-independent color in the design system
+     so the flame stays orange in both light AND dark.
+
+5. **`<!-- THEME_STREAK_JS -->` marker** in
+   `apply_design_system`. /preflight absorbed in `<head>`
+   between THEME_CMD_PALETTE_JS and BUYER_ARC_POLISH_CSS.
+
+### Why /preflight is the proof-of-concept
+
+/preflight is an admin dashboard, not a reader page.
+The indicator there is semantically weird ("you've
+checked /preflight 3 days in a row"). But the wire-up
+contract is universal — any future reader page (say,
+a `/read` console in Track E's later phases, or an
+HTML edition output) inherits the same module by
+absorbing the marker.
+
+For testability + buyer-demo purposes, /preflight is
+fine. Users won't actually see the indicator unless
+they call `window.ebibleStreak.mark()` manually (or
+δ.2 wires it from a "verse interaction" trigger).
+
+### Tests (22 new)
+
+In `tests/test_streak_delta1.py`:
+
+1. **TestDelta1ReaderStreakJs** (9 tests) — script
+   wrapper, ebibleStreak API exposed, all 4 public
+   methods (mark / getStreak / getReadDates / reset),
+   namespaced localStorage key, try/catch guard,
+   streakchange event with detail payload, today-or-
+   yesterday math (specifically `dateNDaysAgo(1)`
+   reference pinned), indicator id, 400-day history cap.
+2. **TestDelta1FlameIcon** (3 tests) — flame in
+   ICONS_REGISTRY, valid SVG, theme-icon class.
+3. **TestDelta1StreakCss** (4 tests) — rule present,
+   fixed bottom-right position, ζ.1 token references
+   (bg-surface, text-primary, border), visible-toggle
+   class.
+4. **TestDelta1ApplyDesignSystem** (3 tests) — marker
+   substitution, no-op on missing marker, idempotency.
+5. **TestDelta1PreflightWired** (3 tests) — marker
+   substituted, ebibleStreak present in HTML, JS in
+   <head> section.
+
+### What δ.2 inherits
+
+δ.2 bookmarks/highlights builds directly on δ.1:
+- Same localStorage namespace pattern (will be
+  `ebible_bookmarks` / `ebible_highlights`).
+- Listens to `streakchange` event to update bookmark
+  metadata.
+- Reuses `theme-toast` from ζ.6 for "bookmark added"
+  notifications.
+- Reuses ζ.5 icons for bookmark / highlight glyphs
+  (will add a "bookmark" icon to the registry).
+
+### What's next
+
+**δ.2 bookmarks / highlights** closes Month 3. Per
+proposal:
+- JSON sidecar file the reader controls (export/import).
+- Right-click verse → bookmark.
+- Long-press → highlight color picker.
+
+After δ.2 ships, the operating-model authorization
+PAUSES at Month 3 → Month 4 boundary for review.
+
+### Test count
+
+Serial run: **2618 / 2619 tests pass (1 skipped); 11/11
+lint clean.** Δ.12 baseline was 2596; +22 δ.1 = 2618.
+Math checks out.
+
+---
+
+## 2026-05-11 — session — Δ.12 FTS5 full-text search (Month 3 #5, first Δ.10-framework migration ship)
+
+**Phases shipped:** Δ.12 (FTS5 virtual table + populate
+step + `fts5_search()` function).
+**Test delta:** +21 (`tests/test_fts5_delta12.py`, 5
+test classes).
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+Three pieces wire SQLite FTS5 full-text search on top
+of the corpus_index notes table:
+
+1. **Migration #2 in `scripts/core/migrations.py`** —
+   `notes_fts` FTS5 virtual table:
+
+   ```sql
+   CREATE VIRTUAL TABLE IF NOT EXISTS notes_fts USING fts5(
+       title, label, kind, attribution, body_plain,
+       content='notes',
+       content_rowid='rowid',
+       tokenize='porter unicode61 remove_diacritics 1'
+   );
+   ```
+
+   - **External-content reference** — no data
+     duplication; FTS5 indexes notes by rowid.
+   - **Porter tokenization** — stems "running" → "run"
+     etc. Buyer-facing search quality unlock.
+   - **Diacritic folding** (`remove_diacritics 1`) — a
+     user typing "kechritha" matches accented Greek
+     forms.
+   - **body deliberately omitted** — `body_plain` is the
+     clean ASCII equivalent (HTML tags stripped at index
+     time); FTS5 indexes that, not the raw HTML.
+
+   This is the **first phase that uses Δ.10's migration
+   framework for real schema evolution**. The Δ.10
+   contract held — adding the entry to MIGRATIONS, the
+   runner picks it up on next `connection()`, FTS5
+   appears in the rebuilt DB.
+
+2. **`corpus_index.rebuild()` populate step** — after
+   `_populate_from_book` loops finish:
+
+   ```python
+   try:
+       conn.execute("INSERT INTO notes_fts(notes_fts) VALUES('rebuild')")
+   except sqlite3.OperationalError:
+       pass  # migration #2 might not have applied yet on
+             # very old DBs; graceful degrade
+   ```
+
+   FTS5's special `'rebuild'` command reads every row
+   from the source table and re-indexes it. Cheap
+   (single pass after bulk insert); idempotent.
+
+3. **`fts5_search()` in `corpus_index.py`**:
+
+   ```python
+   fts5_search(
+       "beginning",                # bare word → auto-prefix `beginning*`
+       kind="lang-hebrew",         # optional filter
+       book="gen",                 # optional filter
+       limit=100,
+   )
+   ```
+
+   **Query handling**:
+   - Bare-word queries auto-prefix-match (each token
+     gets `*` appended) so the UX matches the LIKE-based
+     search.
+   - Power users using FTS5 syntax (quoted phrases,
+     `OR`, `NOT`, `NEAR()`, `*` prefix) get their
+     literal query through unchanged.
+   - Tokens are sanitized — non-alphanumeric punctuation
+     stripped so FTS5 doesn't reject the query for stray
+     characters.
+
+   **Output shape**: same hit-dict as `search()` — `book_code,
+   chapter, verse, suffix, anchor, kind, title, label,
+   excerpt, attribution, score`. The `excerpt` uses
+   FTS5's `snippet()` builtin with `‹›` markers around
+   matched terms and `…` for truncation. The `score` is
+   bm25 flipped to a positive int (higher = better,
+   matching LIKE-search convention).
+
+   **Errors**: malformed FTS5 queries (unbalanced quotes,
+   etc.) raise `ValueError` so callers can catch
+   cleanly.
+
+### Why this matters for downstream phases
+
+Δ.12 unblocks two downstream tracks:
+
+- **Δ.12.x** — rewire `api_search_notes` to use FTS5
+  by default. Proposal called this out; deferred to a
+  separate phase so the equivalence pin (FTS5 returns
+  comparable results to the LIKE search for the same
+  query corpus) can be added carefully.
+- **Δ.13 sqlite-vec for vector similarity** (Track L) —
+  follows the same migration pattern (new virtual
+  table, populate at rebuild). Δ.12's wire-up is the
+  template.
+- **A future "advanced search" console** — phrase
+  queries, field-scoped (e.g., "kind:lang-greek
+  begin*"), regex. FTS5 supports all of this; just
+  needs UI.
+
+### Tests (21 new)
+
+In `tests/test_fts5_delta12.py`:
+
+1. **TestDelta12Migration** (7 tests) — 2+ migrations
+   exist, #2 is `notes_fts`, uses FTS5 virtual table,
+   porter tokenizer, `remove_diacritics 1`, external
+   content reference, indexes the 5 expected columns.
+2. **TestDelta12FtsTableExists** (2 tests) — `notes_fts`
+   table present after rebuild, row count matches notes
+   table. **Lesson learned**: don't cache conn at class
+   level — other fixtures invalidate it between methods.
+   Fresh conn per test method.
+3. **TestDelta12Fts5SearchSemantics** (5 tests) — empty
+   query → [], bare-word hits, prefix-match default
+   ("begin" matches "beginning"), phrase query, malformed
+   query raises ValueError.
+4. **TestDelta12Fts5SearchFilters** (3 tests) — book
+   filter restricts, kind filter restricts, limit caps.
+5. **TestDelta12Fts5HitShape** (4 tests) — all canonical
+   fields present, chapter/verse are ints, score is
+   positive int, excerpt contains `‹›` snippet markers.
+
+### What's next
+
+Per Month 3 sequence:
+- **δ.1 reading streaks** — reader-side feature; daily
+  read-tracking + visual streak indicator.
+- **δ.2 bookmarks / highlights** — closes Month 3.
+- After δ.2, PAUSE at Month 3 → Month 4 boundary per
+  the operating-model authorization.
+
+### Test count
+
+Serial run: **2596 / 2597 tests pass (1 skipped); 11/11
+lint clean.** γ.5 baseline was 2575; +21 Δ.12 = 2596.
+Math checks out.
+
+---
+
 ## 2026-05-11 — session — γ.5 LXX integration (Month 3 #4, second translation joins KJV)
 
 **Phases shipped:** γ.5 (LXX-Brenton-Greek translation

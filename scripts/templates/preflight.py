@@ -43,6 +43,8 @@ PREFLIGHT_HTML = r"""<!DOCTYPE html>
 <!-- THEME_ICONS_JS -->
 <!-- THEME_TOAST_JS -->
 <!-- THEME_CMD_PALETTE_JS -->
+<!-- THEME_STREAK_JS -->
+<!-- THEME_BOOKMARKS_JS -->
 <!-- BUYER_ARC_POLISH_CSS -->
 </head>
 <body class="theme-bg-page theme-text">
