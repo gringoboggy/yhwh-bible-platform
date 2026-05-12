@@ -1,6 +1,43 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / EPUB-scope reckoning**: **Four more
+**Updated 2026-05-12 / SESSION END (closer)**: **Session-end
+professional handoff doc `dev/SESSION_END_2026-05-12.md`
+shipped — wraps the longest single-conversation arc in the
+project's history (38+ work units; +881 tests from psi.36-A
+baseline 2253→3134; 13 commits). Captures: day's ships
+chronologically, code-residue audit for the 5 removals (ZERO
+RESIDUE — copilot.py/verse_card.py never existed; smtplib
+nowhere imported; all references are strikethrough markers
+in dev/ docs or historical CHANGELOG entries; one near-match
+flagged — verse_of_day stays since υ.8 is the existing PD RSS
+feed, different from removed δ.9 email subscription),
+translation reality check (only KJV ships full; LXX-Greek is
+3-verse seed; Hebrew/Latin/Arabic declared in popup_languages
+but not on disk — biggest publisher-visible gap), and the
+recommended next-session ordering (τ.5-A JPS+WLC → τ.4
+Brenton LXX English → τ.3 Vulgate Latin → τ.2 Douay-Rheims).
+Translations jumped to top priority because closing the gap
+improves every edition (9 of 9 declare languages they don't
+fully serve) and is fully autonomous (no money). No code
+changes; no test delta; 11/11 lint clean.**
+
+### Next-session bootstrap
+
+Read in order: CLAUDE_PROJECT_RULES.md → SESSION_STATE.md
+(this file) → PROPOSAL_FEATURE_LANDSCAPE.md (Month 1-6
+operating model) → PLAN_2026-05-09.md (with §10.1 operating-
+model link) → SESSION_END_2026-05-12.md (this session's
+handoff with recommended next-N).
+
+**Recommended next-session first ship**: τ.5-A JPS + WLC
+Hebrew ingest. ~1.5-2 sessions. Closes the Hebrew column for
+6 editions; mirrors the τ.1 KJV ingest pattern; PD source
+(JPS 1917 Tanakh + WLC consonantal text both unambiguously
+out of copyright).
+
+---
+
+**Updated 2026-05-12 / EPUB-scope reckoning (prior)**: **Four more
 features REMOVED per publisher direction — B.AI.5 (AI co-pilot
 Cmd+J), B.AI.6 (daily devotional auto-curation), B.AI.7
 (marketing copy generator), and δ.9 (email subscription for

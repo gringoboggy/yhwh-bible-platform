@@ -4,6 +4,71 @@
 
 ## Prior task
 
+**SESSION_END_2026-05-12** shipped — professional handoff
+closer for the longest single-conversation arc in the
+project's history. Doc-only; no test delta; 11/11 lint clean.
+
+`dev/SESSION_END_2026-05-12.md` (~250 lines) captures:
+
+1. **38+ ships chronologically** (commits 3d19ef4 → 60d9e57)
+   across Month 5 (closed) + Month 6 non-money queue (closed)
+   + 5 doc-only removals + audit + PLAN-REFRESH-2.
+
+2. **Code-residue audit for the 5 removed features**
+   (B.AI.4/5/6/7 + δ.9) per publisher request to verify the
+   removals cleaned up anything in the code. **Result: zero
+   residue.**
+   - scripts/core/copilot.py + scripts/core/verse_card.py:
+     never existed (proposal-only entries).
+   - No `import smtplib` / SMTP usage anywhere in scripts/.
+   - All textual matches are strikethrough removal markers in
+     dev/ docs or append-only historical CHANGELOG entries.
+   - One near-match: verse_of_day matches in scripts/web.py +
+     scripts/core/verse_of_day.py + test_scripts.py are υ.8
+     (existing PD RSS feed, read-only daily verse rotation);
+     NOT the removed δ.9 email subscription. Names overlap;
+     scope doesn't. υ.8 stays.
+
+3. **Translation status reality check** per publisher request
+   ("I want to make sure there are more than just greek and
+   hebrew translations available for the verses. latin and
+   all that is still in there right?"). Honest answer
+   surfaced: **the project ships exactly ONE full
+   verse-by-verse translation today — KJV English.** The
+   lxx-brenton-greek translation is a 3-verse seed (Genesis
+   1:1-3 only, from γ.5). Editions DECLARE hebrew/greek/
+   latin/arabic in popup_languages_default but the underlying
+   translation data isn't on disk. Hebrew = γ.1 Strong's
+   word-lookup only (lemma + morphology, not full text).
+   Greek = γ.2 Strong's word-lookup + 3-verse LXX seed.
+   Latin = not shipped at all. Arabic = not shipped at all.
+   The τ-cluster (τ.2-τ.12) covers all of these in PLAN §7
+   but none have shipped yet.
+
+4. **Recommended next-session ordering**:
+   - N+1: **τ.5-A JPS + WLC Hebrew ingest** (highest leverage
+     — closes the Hebrew column for 6 of 9 editions; PD
+     source; mirrors the τ.1 KJV pattern; ~1.5-2 sessions).
+   - N+2: τ.4 Brenton LXX English (full ingest from the
+     3-verse seed; ~1 session).
+   - N+3: τ.3 Vulgate Latin (closes the Latin column for
+     anglican-bcp; ~1.5 sessions).
+   - N+4: τ.2 Douay-Rheims (Catholic English; ~1 session).
+   - N+5+: per publisher direction (more τ, money
+     authorization for B.AI.1+B.AI.2, γ.4.1 corpus expansion,
+     ψ.30 matrix a11y, or uniqueness angles B/D/E from
+     AUDIT_2026-05-10 §5).
+
+The translation work jumped to top priority because closing
+the gap improves every edition (9 of 9 declare languages they
+don't fully serve) and is fully autonomous (no money
+authorization needed for PD source ingest).
+
+**3134/3135 tests pass serially (1 skipped); 11/11 lint
+clean.** Doc-only ship.
+
+## Prior task
+
 **EPUB-scope reckoning: B.AI.5 + B.AI.6 + B.AI.7 + δ.9
 REMOVED** shipped 2026-05-12. Doc-only per publisher direction
 ("can B.AI.5 actually be implemented in an EPUB and work on
