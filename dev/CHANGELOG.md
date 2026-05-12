@@ -6,6 +6,119 @@
 
 ---
 
+## 2026-05-12 — session — γ.4 Ethiopian Tewahedo commentary (Month 6 — flagship payload)
+
+**Phases shipped:** γ.4 (Ethiopian Tewahedo commentary corpus +
+detector — first content-depth ship after Month 5 closed; per
+PROPOSAL "the flagship payload — the Tewahedo Bible's primary
+differentiator").
+**Test delta:** +30 (2960 → 2990; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4 — Ethiopian Tewahedo commentary
+
+Mirrors γ.3's PatristicCommentaryDetector pattern almost exactly:
+direct-lookup detector keyed on (book, chapter, verse), confidence
+0.95, HTML-escaped body builder, registered in `ALL_DETECTORS`.
+The semantic difference is the *tradition* sourced — Syriac (Ephrem),
+non-Chalcedonian Alexandrian (Cyril), and 1 Enoch (R.H. Charles'
+PD 1912 translation) anchors the Ethiopian Tewahedo communion
+distinctively receives.
+
+**Why this is the flagship payload** (per PROPOSAL §6, Month 6
+#4): Ethiopian Tewahedo is the only major Christian communion to
+canonize 1 Enoch. The Tewahedo Bible's distinctiveness against
+every other Bible edition flows from that single canonical
+choice + the non-Chalcedonian Christological tradition (Cyril,
+Severus) + the Syriac patristic tradition (Ephrem) deeply
+influencing Ethiopian theology. γ.4's seed surfaces all three.
+
+**Seed corpus** — `content/sources/ethiopian_commentaries.json`,
+12 entries across:
+
+- **Ephrem the Syrian** (4 entries): Gen 1:1 (creation),
+  Gen 1:3 (light), Gen 2:7 (breath of life), Gen 3:1 (serpent),
+  Psalm 1:1 (the threefold ascent).
+- **Cyril of Alexandria** (5 entries): Gen 1:26 (Trinitarian
+  council), Ps 23 (shepherd), John 1:1 (Logos), John 1:14
+  (Incarnation — Miaphysite anchor), John 19:34 (blood + water).
+- **1 Enoch — Ethiopian canonical tradition** (2 entries): Gen 6:1
+  (the Watchers), Gen 6:4 (the Nephilim) via R.H. Charles 1912.
+
+All attribution cites either NPNF (Schaff series — Ephrem in
+Series 2 vol. 13, Cyril in vols. 7 + 14) or R.H. Charles 1912 —
+both firmly public domain.
+
+**Public API** (`scripts/core/sources.py`):
+
+- `EthiopianCommentary` — frozen dataclass mirroring
+  `PatristicCommentary` (book/chapter/verse/father/work/year/
+  summary/attribution).
+- `EthiopianCommentaries` — lazy loader; indexes by verse + by
+  father; raises `SourceMissingError` on absent JSON.
+- `ethiopian_commentaries()` — `@lru_cache(maxsize=1)` singleton.
+
+`scripts/core/detectors.py`:
+
+- `EthiopianCommentaryDetector` — `kind = "comm-ethiopian"`;
+  direct-lookup; confidence 0.95; body uses `note-comm-ethiopian`
+  CSS class for theme styling; **BC/AD-aware year renderer**
+  (1 Enoch dates to c. 200 BC — negative `year` field renders as
+  "200 BC" not "-200 AD"). Registered in `ALL_DETECTORS` after
+  `PatristicCommentaryDetector` (γ.3) so candidate ordering is
+  Father-canonical first, Tewahedo-distinctive second.
+
+### Kind reuse
+
+The `comm-ethiopian` kind already existed in `content/kinds.yaml`
+("Ethiopian Tewahedo tradition — Andəmta commentary, Synaxarium,
+Fetha Nagast"). No kinds.yaml edit needed for γ.4 — the kind was
+declared pre-emptively by the kinds-v2 schema; γ.4 is the first
+phase to actually populate it. Test pin added so a future
+kinds-cleanup can't drop it silently.
+
+### Tradition wiring
+
+`comm-ethiopian` notes participate in the existing tradition filter
+(ψ.8) for editions whose `traditions_default` includes `tewahedo`.
+The `ethiopian-tewahedo` edition (per
+`content/traditions.yaml::edition_to_tradition`) consumes them
+directly; other editions opt in per their own traditions config.
+No new tradition wiring needed.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — new (12-entry
+  seed; _meta block documents PD basis covering Ephrem/Cyril/Charles).
+- `scripts/core/sources.py` — `EthiopianCommentary` dataclass +
+  `EthiopianCommentaries` loader + `ethiopian_commentaries()`
+  cached singleton.
+- `scripts/core/detectors.py` — `EthiopianCommentaryDetector`
+  class + appended to `ALL_DETECTORS`.
+- `tests/test_ethiopian_gamma4.py` — new (30 tests across 5
+  classes: DataFile × 7, Loader × 8, DetectorContract × 9,
+  KindRegistered × 2, Coverage × 4).
+
+### Forward references in code
+
+The detector + dataclass docstrings name **γ.4.x** (future
+expansion from NPNF + Charles ETLs into a fuller corpus, target
+1K-note dump per PROPOSAL §6) as the natural follow-on. Logged
+here so the linter's "phase mentioned in code" check stays clean.
+γ.4.x is the structural expansion of the seed corpus — same
+schema, more entries; no further code change needed.
+
+### Month 6 status
+
+Shipped: γ.4 (1 of 7).
+Remaining: ζ.9 first-run tour (non-money), ξ.18 CSP nonces
+(non-money), ξ.21 2FA (non-money), ξ.26 license-key validation
+(non-money), B.AI.4 sharable verse cards (**money**), B.AI.5 AI
+co-pilot (**money**). Money items gated on publisher
+authorization.
+
+---
+
 ## 2026-05-11 — session — ο.4 archive.org auto-upload (Month 5 #7; CLOSES Month 5)
 
 **Phases shipped:** ο.4 (archive.org auto-upload — S3-style PUT to

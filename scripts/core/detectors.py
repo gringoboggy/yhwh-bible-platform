@@ -1032,6 +1032,107 @@ class PatristicCommentaryDetector:
 
 
 # ----------------------------------------------------------------------
+# Ethiopian commentary detector (γ.4 — 2026-05-11) — flagship payload
+# ----------------------------------------------------------------------
+
+
+class EthiopianCommentaryDetector:
+    """Emit `comm-ethiopian` candidates from the curated Ethiopian
+    Tewahedo corpus (`content/sources/ethiopian_commentaries.json`).
+
+    Structurally parallel to γ.3's PatristicCommentaryDetector — a
+    direct-lookup detector keyed on (book, chapter, verse) emitting
+    one Candidate per matching entry. The semantic difference is
+    *tradition*: this detector surfaces the Syriac / non-Chalcedonian
+    / Tewahedo-canon (1 Enoch) / Andəmta sources the Ethiopian
+    Tewahedo communion distinctively receives.
+
+    The proposal calls γ.4 "the flagship payload — the Tewahedo
+    Bible's primary differentiator". The eventual goal is a
+    full Andəmta corpus from PD Ge'ez ETLs; γ.4 ships a ~12-entry
+    seed across Genesis / Psalms / John to prove the pipeline, with
+    γ.4.x to expand.
+
+    Build-pipeline considerations: the resulting `comm-ethiopian`
+    notes participate in the existing tradition filter (ψ.8) when
+    an edition's `traditions_default` includes `tewahedo`. The
+    Ethiopian Tewahedo edition (`ethiopian-tewahedo`) consumes
+    them directly; other editions can opt in per their own
+    traditions config.
+    """
+
+    name = "EthiopianCommentaryDetector"
+    kind = "comm-ethiopian"
+
+    def __init__(self) -> None:
+        self.corpus = sources.ethiopian_commentaries()
+
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
+        # verse_text is unused — direct lookup by (book, chapter, verse).
+        entries = self.corpus.for_verse(book, chapter, verse)
+        if not entries:
+            return []
+        out: list[Candidate] = []
+        for entry in entries:
+            body = self._format_body(entry)
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",  # whole-verse anchor
+                    confidence=0.95,
+                    source_name=f"{entry.father} / {entry.work}",
+                    source_attribution=entry.attribution,
+                    draft_title=f"Tewahedo — {entry.father}",
+                    draft_label=f"{entry.father} ({entry.year}).",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Curated PD interpretive summary representing the "
+                        f"Ethiopian Tewahedo tradition's reading via "
+                        f"{entry.father}, {entry.work}. Verify the summary "
+                        "still reflects the source's argument before "
+                        "promoting; substitute a verbatim quote from the "
+                        "NPNF / Charles dump where available, and where "
+                        "applicable cross-check the Andəmta homiletic "
+                        "tradition for resonance."
+                    ),
+                )
+            )
+        return out
+
+    @staticmethod
+    def _format_body(entry: "sources.EthiopianCommentary") -> str:
+        """Render the entry's HTML body. Mirrors γ.3's pattern.
+
+        The summary text is already escape-safe by construction (no
+        user-controlled content) but escape defensively to keep the
+        XSS-by-design contract honest.
+        """
+        import html as _html
+
+        father = _html.escape(entry.father)
+        work = _html.escape(entry.work)
+        summary = _html.escape(entry.summary)
+        # Year may be negative (e.g. 1 Enoch c. 200 BC). Render "BC"
+        # for negative, "AD" for positive so the chip stays correct
+        # across the canonical span.
+        year = int(entry.year)
+        era = "BC" if year < 0 else "AD"
+        year_display = abs(year)
+        return (
+            f'<aside class="note-comm-ethiopian">'
+            f"<strong>{father}</strong> "
+            f"<em>{work}</em> "
+            f"<small>(c. {year_display} {era})</small>"
+            f"<p>{summary}</p>"
+            f"</aside>"
+        )
+
+
+# ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
 
@@ -1046,4 +1147,5 @@ ALL_DETECTORS = [
     AIXrefDetector,
     AINoteDetector,
     PatristicCommentaryDetector,  # γ.3
+    EthiopianCommentaryDetector,  # γ.4 — flagship payload
 ]

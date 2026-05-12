@@ -412,6 +412,96 @@ class PatristicCommentaries:
 
 
 # ----------------------------------------------------------------------
+# Ethiopian commentary corpus (γ.4 — 2026-05-11)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class EthiopianCommentary:
+    """One verse-keyed entry in the Ethiopian Tewahedo commentary corpus.
+
+    Shape mirrors `PatristicCommentary` so the detector layer can stay
+    structurally parallel to γ.3. The semantic distinction is the
+    *tradition*: these entries come from the Syriac fathers (Ephrem),
+    the non-Chalcedonian Alexandrian school (Cyril), the Tewahedo-
+    canonical 1 Enoch (R.H. Charles' PD 1912 translation), and the
+    Ethiopian Andəmta / Synaxarium / Fetha Nagast tradition — the
+    sources distinctively received by the Ethiopian Tewahedo communion.
+
+    See `content/sources/ethiopian_commentaries.json` for the live
+    dataset; γ.4 ships a ~12-entry seed across Genesis / Psalms / John,
+    and future γ.4.x will expand from the NPNF + Charles ETLs.
+    """
+
+    book: str
+    chapter: int
+    verse: int
+    father: str
+    work: str
+    year: int
+    summary: str
+    attribution: str
+
+
+class EthiopianCommentaries:
+    """Lazy loader for the Ethiopian commentary corpus. Cached on
+    first read. Raises ``SourceMissingError`` if the JSON cache file
+    is absent.
+
+    Two access patterns mirror `PatristicCommentaries`:
+      * ``for_verse(book, chapter, verse)`` — every entry attached to
+        the verse (used by the detector).
+      * ``by_father(name)`` — every entry by a given source (e.g.
+        ``"Ephrem the Syrian"``), for audit / coverage UIs.
+    """
+
+    PATH = _SOURCES / "ethiopian_commentaries.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Ethiopian commentaries cache not present at {self.PATH}. "
+                "The seed corpus shipped with γ.4 (2026-05-11) — restore from git."
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self._by_verse: dict[tuple[str, int, int], list[EthiopianCommentary]] = {}
+        self._by_father: dict[str, list[EthiopianCommentary]] = {}
+        for entry in data.get("entries", []):
+            try:
+                ec = EthiopianCommentary(
+                    book=str(entry["book"]),
+                    chapter=int(entry["chapter"]),
+                    verse=int(entry["verse"]),
+                    father=str(entry["father"]),
+                    work=str(entry.get("work", "")),
+                    year=int(entry.get("year", 0)),
+                    summary=str(entry["summary"]),
+                    attribution=str(entry["attribution"]),
+                )
+            except (KeyError, ValueError, TypeError):
+                continue
+            key = (ec.book, ec.chapter, ec.verse)
+            self._by_verse.setdefault(key, []).append(ec)
+            self._by_father.setdefault(ec.father, []).append(ec)
+
+    def __len__(self) -> int:
+        return sum(len(v) for v in self._by_verse.values())
+
+    def for_verse(self, book: str, chapter: int, verse: int) -> list[EthiopianCommentary]:
+        """Return every entry attached to a specific verse, in insertion
+        order. Empty list when nothing matches."""
+        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+
+    def by_father(self, name: str) -> list[EthiopianCommentary]:
+        """Return every entry by a given source (case-sensitive). The
+        'father' field is sometimes a tradition rather than a person
+        (e.g. '1 Enoch (Ethiopian tradition)') — that's deliberate;
+        the audit UI groups by it identically."""
+        return list(self._by_father.get(name, ()))
+
+
+# ----------------------------------------------------------------------
 # Singletons (cached across runs in the same process)
 # ----------------------------------------------------------------------
 
@@ -444,6 +534,12 @@ def naves_topical() -> NavesTopical:
 def patristic_commentaries() -> PatristicCommentaries:
     """Return the singleton PatristicCommentaries instance (γ.3 — 2026-05-11)."""
     return PatristicCommentaries()
+
+
+@lru_cache(maxsize=1)
+def ethiopian_commentaries() -> EthiopianCommentaries:
+    """Return the singleton EthiopianCommentaries instance (γ.4 — 2026-05-11)."""
+    return EthiopianCommentaries()
 
 
 # ----------------------------------------------------------------------

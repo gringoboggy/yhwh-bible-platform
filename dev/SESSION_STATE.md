@@ -1,6 +1,57 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ο.4 archive.org
+**Updated 2026-05-12 / opens Month 6**: **γ.4 Ethiopian
+Tewahedo commentary shipped — the flagship payload (Month 6
+#4 per PROPOSAL, taken first since the v1.x uniqueness angle
+is the named priority).** New
+`content/sources/ethiopian_commentaries.json` (12-entry seed
+across Ephrem the Syrian / Cyril of Alexandria / 1 Enoch
+tradition; covers Gen 1:1 / 1:3 / 1:26 / 2:7 / 3:1 / 6:1 / 6:4,
+Ps 1:1 + 23:1, John 1:1 + 1:14 + 19:34; every entry cites
+either NPNF (Schaff Series 2 vol 13 for Ephrem, vols 7+14 for
+Cyril) or R.H. Charles 1912 — both firmly PD) + `EthiopianCommentary`
+dataclass + `EthiopianCommentaries` loader + `ethiopian_commentaries()`
+singleton in scripts/core/sources.py mirroring γ.3's
+PatristicCommentaries pattern + new `EthiopianCommentaryDetector`
+in scripts/core/detectors.py registered after PatristicCommentaryDetector
+in ALL_DETECTORS (kind="comm-ethiopian", confidence 0.95,
+direct-lookup by book/chapter/verse, BC/AD-aware year renderer
+so 1 Enoch's c. 200 BC date renders as "200 BC" not "-200 AD",
+note-comm-ethiopian CSS class for theme styling).
+
+The `comm-ethiopian` kind already existed in
+content/kinds.yaml ("Ethiopian Tewahedo tradition — Andəmta
+commentary, Synaxarium, Fetha Nagast"); γ.4 is the first
+phase to populate it. Tradition wiring also pre-existing
+(content/traditions.yaml::edition_to_tradition has
+ethiopian-tewahedo: tewahedo); ψ.8 tradition filter picks
+these up automatically for editions whose traditions_default
+includes `tewahedo`.
+
+Distinctively-Tewahedo coverage in the seed: 1 Enoch entries
+(Gen 6:1 + 6:4 Watchers tradition via Charles 1912 PD) +
+Cyril's Miaphysite formula (John 1:14 — the foundation of the
+non-Chalcedonian Christology shared with Tewahedo) + Andəmta
+homiletic resonance noted in summaries where applicable.
+
+**+30 tests** in `tests/test_ethiopian_gamma4.py` (5 classes
+covering data-file validation, loader contract, detector
+contract including BC/AD year rendering + HTML escape, kind
+registration, breadth coverage across Gen/Ps/John + 1 Enoch +
+Cyril). **2990 / 2991 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A baseline:
+**+737** across 30 ships.
+
+**Month 6 status**: γ.4 shipped (1 of 7). Remaining: ζ.9
+first-run tour (non-money), ξ.18 CSP nonces (non-money),
+ξ.21 2FA (non-money), ξ.26 license-key validation (non-money),
+B.AI.4 sharable verse cards (**money**), B.AI.5 AI co-pilot
+(**money**). γ.4.x is the natural follow-on (NPNF + Charles
+ETLs into a 1K-note corpus per PROPOSAL §6 target).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ο.4 archive.org
 auto-upload shipped — Month 5 #7 (CLOSES Month 5).** New
 `scripts/core/archive_org.py` (ENV_ACCESS_KEY +
 ENV_SECRET_KEY env-var contract; is_configured() True iff both

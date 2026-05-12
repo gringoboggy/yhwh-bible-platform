@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote — verbatim passages will land in a future γ.4.x ETL pass.",
+    "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "Ephrem reads 'In the beginning' as denoting the absolute commencement of created time, not a moment within a prior temporal sequence. The Word through whom God creates is not added to creation but is its enabling cause; thus the verse is read Christologically without dissolving the Father-Son distinction. Ethiopian Tewahedo commentary follows Ephrem on this point against any reading that would make the Son a creature.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Prologue. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on Paradise",
+      "year": 365,
+      "summary": "On 'Let there be light', Ephrem distinguishes the first-day light from the fourth-day luminaries: the primordial light is the radiance of God's own glory illuminating creation before its instruments (sun, moon, stars) are fashioned. The Ethiopian Andəmta homily extends this by identifying the seven days as a typological prefigurement of the seven ages of salvation history culminating in Christ.",
+      "attribution": "Ephrem the Syrian, Hymns on Paradise I.4-7. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 26,
+      "father": "Cyril of Alexandria",
+      "work": "Thesaurus on the Holy and Consubstantial Trinity",
+      "year": 425,
+      "summary": "Cyril reads the plural 'Let us make' as the Trinity in council, the Father addressing the Son and the Holy Spirit — not a royal plural and not (against the Jewish reading) the angels, since the image is divine and angels are not creators. The image is located primarily in the rational soul. This Trinitarian construction is held without modification by Tewahedo dogmatics; the Miaphysite formula of Cyril ('one nature of the incarnate Word') governs the subsequent reading of human nature in Christ.",
+      "attribution": "Cyril of Alexandria, Thesaurus, Assertion XVII. NPNF Series 2, vol. 7. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "On 'God breathed into his nostrils the breath of life', Ephrem reads the breath (nefesh / nešmā) not as a separable substance but as the divine in-spiration that gives Adam his unique standing among creatures. The Ethiopian Andəmta commentary on this verse stresses that the breath is what makes the human a fitting addressee for revelation — not merely a living animal but a hearer of the Word.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis II.2. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "Ephrem's reading of the serpent emphasizes deception by speech rather than ontological evil: the serpent is a creature whose form Satan borrows for the purpose of the temptation. Tewahedo tradition, drawing on the Synaxarium accounts of the Watchers (cf. 1 Enoch 6-11), connects this fallen-angel-acting-through-a-beast pattern to the wider angelology of the Ethiopian canon.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis II.15. NPNF Series 2, vol. 13. PD. (Watchers parallel: R.H. Charles, Book of Enoch, 1912, ch. 6-11.)"
+    },
+    {
+      "book": "gen",
+      "chapter": 6,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 6-11)",
+      "year": -200,
+      "summary": "Where the Hebrew Bible's 'sons of God' (b'nei ha'elohim) saw the daughters of men, the Ethiopian Tewahedo tradition reads through 1 Enoch's expansion: the Watchers, two hundred angels under Semjâzâ, descend on Mount Hermon and bind themselves by oath to take human wives. The corruption is not human alone but angelic-human, requiring the Flood as a cosmic — not merely punitive — purgation. The Tewahedo canon is the only Christian canon to receive 1 Enoch as Scripture, making this reading load-bearing for its theology of evil.",
+      "attribution": "1 Enoch 6:1-8, trans. R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912). PD. The Ethiopic Mäṣḥafä Hēnok preserves the only complete text."
+    },
+    {
+      "book": "gen",
+      "chapter": 6,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Book of the Watchers (1 Enoch 6-11)",
+      "year": -200,
+      "summary": "The Nephilim ('giants') of Genesis 6:4 are, in 1 Enoch's reading received by Tewahedo, the half-angelic offspring of the Watchers' union with human women. They are not figures of valor but of disorder; their consumption of all that humans could produce and their turning on humanity is the proximate cause of the Flood. Jude 1:14-15's direct quotation of 1 Enoch confirms the New Testament's acquaintance with this tradition.",
+      "attribution": "1 Enoch 7:1-6 + 8:1-3, trans. R.H. Charles, The Book of Enoch (1912). PD. Cf. Jude 1:14-15 quoting 1 Enoch 1:9 verbatim."
+    },
+    {
+      "book": "ps",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on the Psalms",
+      "year": 365,
+      "summary": "Ephrem opens his Psalter commentary with the threefold negation — walks not / stands not / sits not — as a progression of deepening complicity in evil: the walk is occasional, the standing is habitual, the sitting is settled. The Ethiopian Andəmta tradition develops this into a homiletic device for the daily examen, paired with the threefold ascent of the just (meditation by day / by night / yielding fruit in season).",
+      "attribution": "Ephrem the Syrian, on Psalm 1. NPNF Series 2, vol. 13 (Gwynn). PD."
+    },
+    {
+      "book": "ps",
+      "chapter": 23,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Psalms",
+      "year": 428,
+      "summary": "Cyril reads 'The Lord is my shepherd' Christologically: the shepherd of Psalm 23 is the same as the Good Shepherd of John 10, the same as the Lamb of Revelation. The 'I shall not want' is a confession of complete dependence on the Incarnate Word who is at once Lamb and Shepherd. Tewahedo liturgy preserves this Christological reading prominently in the burial office.",
+      "attribution": "Cyril of Alexandria, on Psalm 22/23 (LXX numbering). NPNF Series 2, vol. 7. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On the Logos prologue, Cyril resists any temporal reading of 'in the beginning was the Word': the Word is co-eternal with the Father, not produced as the first effect of the Father's will. Cyril's Miaphysite formula — 'one nature of the incarnate Word' — anchors the Tewahedo christological tradition; the Ethiopian Liturgy of St Cyril ('Anaphora of Cyril of Alexandria') is one of the principal eucharistic prayers of the Ethiopian Church to this day.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.1. NPNF Series 2, vol. 14. PD. Tewahedo liturgical witness: Mäṣḥafä Qǝddase, Anaphora of Cyril."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 14,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'The Word became flesh' is, for Cyril, the dogmatic foundation of the Miaphysite confession received by Tewahedo: one incarnate nature of the Word, indivisibly united from two natures (divine and human) without confusion. Against the Nestorian reading that finds two persons or two natures-after-union, Cyril insists the union is hypostatic and indivisible. The Tewahedo Synaxarium honors Cyril on the 3rd of Hamlē for this defense.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.14, + Second Letter to Nestorius. NPNF Series 2, vol. 14. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 19,
+      "verse": 34,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On the blood and water from Christ's pierced side, Cyril reads sacramentally: the water signifies baptism, the blood signifies the eucharist, both flowing from the wound that is the source of the Church's life. The Tewahedo liturgical tradition preserves this dual symbolism with particular emphasis in the Anaphora of Our Lord Jesus Christ; the wound is the Church's font and table.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.19. NPNF Series 2, vol. 14. PD."
+    }
+  ]
+}

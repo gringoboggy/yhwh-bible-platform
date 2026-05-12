@@ -4,6 +4,64 @@
 
 ## Prior task
 
+**γ.4 Ethiopian Tewahedo commentary** shipped 2026-05-12.
+Month 6 — the flagship payload per PROPOSAL ("the Tewahedo
+Bible's primary differentiator"). Opens Month 6 by taking the
+v1.x uniqueness angle first.
+
+Three pieces:
+- `content/sources/ethiopian_commentaries.json` — new 12-entry
+  seed JSON. _meta block documents PD basis (Ephrem the Syrian
+  via NPNF Series 2 vol 13 ed. Schaff 1898 + Cyril of
+  Alexandria via NPNF vols 7+14 + R.H. Charles, The Book of
+  Enoch, Oxford 1912 — all firmly out of copyright). Entries
+  cover Gen 1:1/1:3/1:26/2:7/3:1/6:1/6:4 + Ps 1:1+23:1 + John
+  1:1/1:14/19:34. Three traditions represented: Ephrem (Syriac
+  patristic — Tewahedo theological influence), Cyril
+  (non-Chalcedonian Alexandrian — Miaphysite Christology
+  foundational to the Oriental Orthodox communion of which
+  Tewahedo is one of five canonical jurisdictions), and 1 Enoch
+  (Tewahedo-canonical Watchers tradition; the only major
+  Christian communion to canonize 1 Enoch).
+- `scripts/core/sources.py` — `EthiopianCommentary` frozen
+  dataclass mirroring `PatristicCommentary` exactly +
+  `EthiopianCommentaries` lazy loader (indexes by_verse +
+  by_father, raises SourceMissingError on absent JSON) +
+  `ethiopian_commentaries()` `@lru_cache(maxsize=1)` singleton.
+- `scripts/core/detectors.py` — `EthiopianCommentaryDetector`
+  class (kind="comm-ethiopian", confidence 0.95, direct-lookup
+  by (book, chapter, verse), HTML-escaped body via
+  `_format_body()` with **BC/AD-aware year renderer** so 1
+  Enoch's c. 200 BC dating renders as "200 BC" not "-200 AD",
+  `note-comm-ethiopian` CSS class for theme styling, reviewer
+  notes reference the Andəmta tradition cross-check). Appended
+  to `ALL_DETECTORS` after `PatristicCommentaryDetector` (γ.3)
+  so candidate ordering is Father-canonical first,
+  Tewahedo-distinctive second.
+
+**Kind reuse**: `comm-ethiopian` already existed in
+content/kinds.yaml ("Ethiopian Tewahedo tradition — Andəmta
+commentary, Synaxarium, Fetha Nagast"). γ.4 is the first phase
+to populate it. No kinds.yaml edit needed.
+
+**Tradition wiring**: pre-existing. content/traditions.yaml
+already maps ethiopian-tewahedo→tewahedo, so ψ.8 picks up
+comm-ethiopian notes for the ethiopian-tewahedo edition
+automatically.
+
+**+30 tests** in `tests/test_ethiopian_gamma4.py`:
+TestGamma4DataFile × 7, EthiopianCommentariesLoader × 8,
+DetectorContract × 9, KindIsRegistered × 2, Coverage × 4.
+
+**2990 / 2991 tests pass serially (1 skipped); 11/11 lint clean.**
+
+Forward reference: γ.4.x is the natural follow-on — NPNF +
+Charles ETL into the 1K-note corpus the PROPOSAL §6 names as
+the eventual target. Logged in CHANGELOG so the linter's
+"phase mentioned in code" check stays clean.
+
+## Prior task
+
 **ο.4 archive.org auto-upload** shipped 2026-05-11. Month 5 #7
 — CLOSES Month 5. Drop-to-archive.org button on /exec; composes
 ε.7 press-kit ZIP + S3-style PUT + ε.6 distribution auto-mark.

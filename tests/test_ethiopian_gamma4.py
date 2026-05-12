@@ -1,0 +1,389 @@
+"""γ.4 — Ethiopian Tewahedo commentary corpus + detector pins.
+
+Topic file (created alongside the γ.4 ship). Mirrors γ.3's
+test shape: seed JSON validation + loader pins + detector
+contract + kinds.yaml registration.
+
+Coverage:
+- TestGamma4DataFile:                the seed JSON parses, has the
+  promised Ephrem + Cyril + 1 Enoch entries, every entry carries
+  full attribution.
+- TestGamma4EthiopianCommentariesLoader: the loader indexes by
+  verse + by father, returns frozen dataclass instances, surfaces
+  SourceMissingError gracefully.
+- TestGamma4DetectorContract:        `EthiopianCommentaryDetector`
+  emits the right Candidate shape; confidence 0.95; empty list
+  for verses with no commentary; registered in ALL_DETECTORS;
+  body builder escapes HTML; BC/AD era display correct for
+  pre-Christian sources (1 Enoch ~200 BC).
+- TestGamma4KindIsRegistered:        `comm-ethiopian` exists in
+  `content/kinds.yaml` (was already there pre-γ.4); pin so a
+  future kinds-cleanup doesn't drop it silently.
+- TestGamma4Coverage:                seed entries span Genesis +
+  Psalms + John, include at least one 1 Enoch entry (the
+  Tewahedo-canonical distinctive), and at least one Cyril entry
+  (the Miaphysite anchor).
+
+Pinning rationale: γ.4 is the flagship payload for the Tewahedo
+Bible's primary differentiator. Drift in the attribution format,
+the detector confidence, the 1 Enoch inclusion, or the kind
+registration would break the buyer-facing distinctiveness claim
+silently.
+"""
+
+from __future__ import annotations
+
+
+class TestGamma4DataFile:
+    """The seed JSON at content/sources/ethiopian_commentaries.json
+    parses and carries the promised Ephrem + Cyril + 1 Enoch set."""
+
+    @classmethod
+    def setup_class(cls):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        cls.path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        cls.data = json.loads(cls.path.read_text(encoding="utf-8"))
+
+    def test_file_exists(self):
+        assert self.path.is_file()
+
+    def test_has_meta_block(self):
+        assert "_meta" in self.data
+        meta = self.data["_meta"]
+        for required in ("source", "scope", "public_domain_basis", "schema_version"):
+            assert required in meta, f"_meta missing field {required!r}"
+        assert meta["schema_version"] == 1
+
+    def test_meta_documents_pd_basis(self):
+        # The buyer-facing claim is that every source is PD; pin the
+        # _meta documents Ephrem (NPNF Series 2 vol 13) + Cyril (NPNF
+        # vols 7 + 14) + Charles (1912) as the PD anchors.
+        meta = self.data["_meta"]
+        pd = meta["public_domain_basis"]
+        assert "Ephrem" in pd
+        assert "Cyril" in pd
+        assert "Charles" in pd
+        assert "1912" in pd
+
+    def test_has_entries_list(self):
+        assert "entries" in self.data
+        assert isinstance(self.data["entries"], list)
+        assert len(self.data["entries"]) >= 10, "expected ≥10 seed entries for γ.4 flagship"
+
+    def test_every_entry_has_required_fields(self):
+        for entry in self.data["entries"]:
+            for field in (
+                "book",
+                "chapter",
+                "verse",
+                "father",
+                "work",
+                "year",
+                "summary",
+                "attribution",
+            ):
+                assert field in entry, f"entry missing field {field!r}: {entry!r}"
+
+    def test_every_entry_cites_pd_source(self):
+        # Pin: every entry's attribution mentions either NPNF (the
+        # Schaff series anchoring Ephrem + Cyril) or "Charles" (the
+        # R.H. Charles 1912 1 Enoch translation), and every one
+        # carries the explicit "PD" marker.
+        for entry in self.data["entries"]:
+            attr = entry["attribution"]
+            assert "NPNF" in attr or "Charles" in attr, f"entry not attributed to NPNF or Charles: {attr!r}"
+            assert "PD" in attr, f"entry attribution missing PD marker: {attr!r}"
+
+    def test_genesis_1_1_present(self):
+        # Canonical opening — buyers' first sanity-check verse.
+        for entry in self.data["entries"]:
+            if entry["book"] == "gen" and entry["chapter"] == 1 and entry["verse"] == 1:
+                return
+        raise AssertionError("seed corpus missing Gen 1:1")
+
+
+class TestGamma4EthiopianCommentariesLoader:
+    """The loader class in `scripts.core.sources` indexes the JSON
+    correctly + raises SourceMissingError on absent cache."""
+
+    def test_loader_returns_frozen_dataclass_instances(self):
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        entries = ec.for_verse("gen", 1, 1)
+        assert entries, "Gen 1:1 should have at least one Ethiopian commentary"
+        entry = entries[0]
+        assert isinstance(entry, sources.EthiopianCommentary)
+        import dataclasses
+
+        assert dataclasses.is_dataclass(entry)
+        for field_name in ("book", "chapter", "verse", "father", "work", "year", "summary", "attribution"):
+            value = getattr(entry, field_name)
+            assert value not in (None, "", 0) or field_name == "year", f"{field_name} unset"
+
+    def test_by_verse_lookup(self):
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        gen11 = ec.for_verse("gen", 1, 1)
+        assert len(gen11) >= 1
+        assert all(e.book == "gen" and e.chapter == 1 and e.verse == 1 for e in gen11)
+
+    def test_by_verse_empty_for_unknown(self):
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        # Matthew 28:1 has no seed yet.
+        empty = ec.for_verse("mat", 28, 1)
+        assert empty == []
+
+    def test_by_father_lookup(self):
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        ephrem = ec.by_father("Ephrem the Syrian")
+        assert len(ephrem) >= 1, "Ephrem must appear in the seed (Syriac anchor)"
+        # Every returned entry has the Ephrem father field.
+        for entry in ephrem:
+            assert entry.father == "Ephrem the Syrian"
+
+    def test_by_father_finds_cyril(self):
+        # Cyril is the Miaphysite anchor — pin he appears so a future
+        # corpus cleanup doesn't accidentally drop the Christology
+        # entries.
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        cyril = ec.by_father("Cyril of Alexandria")
+        assert len(cyril) >= 1
+
+    def test_by_father_finds_1_enoch_tradition(self):
+        # 1 Enoch is THE Tewahedo distinctive — its presence is
+        # load-bearing for the v1.x differentiation claim.
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        enoch = ec.by_father("1 Enoch (Ethiopian tradition)")
+        assert len(enoch) >= 1, "1 Enoch entries are the Tewahedo distinctive — must appear in seed"
+
+    def test_by_father_empty_for_unknown(self):
+        from scripts.core import sources
+
+        ec = sources.ethiopian_commentaries()
+        empty = ec.by_father("Origen")
+        assert empty == []
+
+    def test_loader_handles_missing_cache(self, tmp_path, monkeypatch):
+        from scripts.core import sources
+
+        nope = tmp_path / "ethiopian_commentaries.json"
+        monkeypatch.setattr(sources.EthiopianCommentaries, "PATH", nope)
+        sources.ethiopian_commentaries.cache_clear()
+        try:
+            import pytest
+
+            with pytest.raises(sources.SourceMissingError):
+                sources.EthiopianCommentaries()
+        finally:
+            sources.ethiopian_commentaries.cache_clear()
+
+
+class TestGamma4DetectorContract:
+    """`EthiopianCommentaryDetector` emits proper Candidates and
+    is registered in `ALL_DETECTORS`."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+
+    def test_registered_in_all_detectors(self):
+        from scripts.core import detectors
+
+        assert detectors.EthiopianCommentaryDetector in detectors.ALL_DETECTORS, (
+            "EthiopianCommentaryDetector missing from ALL_DETECTORS — prospect.py won't run it on the corpus"
+        )
+
+    def test_registered_after_patristic(self):
+        # Ordering: γ.4 runs after γ.3 so tradition-specific
+        # entries get appended to the canonical Father ones in
+        # candidate order. Pin so a future cleanup doesn't reorder.
+        from scripts.core import detectors
+
+        detectors_list = list(detectors.ALL_DETECTORS)
+        p_idx = detectors_list.index(detectors.PatristicCommentaryDetector)
+        e_idx = detectors_list.index(detectors.EthiopianCommentaryDetector)
+        assert e_idx > p_idx, "Ethiopian detector must run after Patristic"
+
+    def test_kind_is_comm_ethiopian(self):
+        from scripts.core import detectors
+
+        assert detectors.EthiopianCommentaryDetector.kind == "comm-ethiopian"
+
+    def test_detect_returns_candidate_for_gen_1_1(self):
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        candidates = d.detect("gen", 1, 1, "In the beginning God made heaven and earth.")
+        assert candidates, "Gen 1:1 should produce at least one candidate"
+        c = candidates[0]
+        assert c.kind == "comm-ethiopian"
+        assert c.book == "gen"
+        assert c.chapter == 1
+        assert c.verse == 1
+        assert c.confidence == 0.95
+        assert c.detector == "EthiopianCommentaryDetector"
+        assert "<aside" in c.draft_body
+        # Body is rendered with the note class for theme styling.
+        assert "note-comm-ethiopian" in c.draft_body
+
+    def test_detect_returns_empty_for_uncommented_verse(self):
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        assert d.detect("rev", 1, 1, "") == []  # nothing in seed for Revelation
+        assert d.detect("gen", 50, 1, "") == []
+
+    def test_detect_ignores_verse_text(self):
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        a = d.detect("gen", 1, 1, "real verse text")
+        b = d.detect("gen", 1, 1, "completely different placeholder")
+        assert len(a) == len(b)
+
+    def test_body_is_html_escaped(self):
+        from scripts.core import detectors
+        from scripts.core.sources import EthiopianCommentary
+
+        synthetic = EthiopianCommentary(
+            book="gen",
+            chapter=1,
+            verse=1,
+            father="<TestFather>",
+            work="<TestWork>",
+            year=400,
+            summary="<script>alert(1)</script>",
+            attribution="Test, PD.",
+        )
+        body = detectors.EthiopianCommentaryDetector._format_body(synthetic)
+        assert "<script>" not in body, "summary not escaped — XSS risk"
+        assert "&lt;script&gt;" in body
+        assert "&lt;TestFather&gt;" in body
+
+    def test_body_renders_bc_for_pre_christian_year(self):
+        # 1 Enoch is dated c. 200 BC; pin that the body builder
+        # emits "BC" for negative years rather than "−200 AD".
+        from scripts.core import detectors
+        from scripts.core.sources import EthiopianCommentary
+
+        synthetic = EthiopianCommentary(
+            book="gen",
+            chapter=6,
+            verse=1,
+            father="1 Enoch (Ethiopian tradition)",
+            work="Book of the Watchers",
+            year=-200,
+            summary="Watchers descend.",
+            attribution="Charles 1912. PD.",
+        )
+        body = detectors.EthiopianCommentaryDetector._format_body(synthetic)
+        assert "200 BC" in body
+        assert "-200" not in body
+        assert "200 AD" not in body
+
+    def test_body_renders_ad_for_post_christian_year(self):
+        from scripts.core import detectors
+        from scripts.core.sources import EthiopianCommentary
+
+        synthetic = EthiopianCommentary(
+            book="gen",
+            chapter=1,
+            verse=1,
+            father="Ephrem the Syrian",
+            work="Test",
+            year=360,
+            summary="Test.",
+            attribution="NPNF. PD.",
+        )
+        body = detectors.EthiopianCommentaryDetector._format_body(synthetic)
+        assert "360 AD" in body
+        assert "BC" not in body
+
+
+class TestGamma4KindIsRegistered:
+    """The `comm-ethiopian` kind is in `content/kinds.yaml`. It was
+    declared pre-γ.4 (anticipated by the original kinds-v2 schema);
+    pin its presence so a future kinds-cleanup doesn't drop it
+    silently. γ.4 is the first phase to actually emit this kind."""
+
+    def test_comm_ethiopian_kind_present_in_yaml(self):
+        from pathlib import Path
+
+        import yaml
+
+        repo = Path(__file__).resolve().parent.parent
+        kinds_path = repo / "content" / "kinds.yaml"
+        data = yaml.safe_load(kinds_path.read_text(encoding="utf-8"))
+        codes = {k["code"] for k in data["kinds"]}
+        assert "comm-ethiopian" in codes, "comm-ethiopian kind missing from kinds.yaml"
+
+    def test_comm_ethiopian_kind_has_expected_category(self):
+        from pathlib import Path
+
+        import yaml
+
+        repo = Path(__file__).resolve().parent.parent
+        kinds_path = repo / "content" / "kinds.yaml"
+        data = yaml.safe_load(kinds_path.read_text(encoding="utf-8"))
+        kind = next(k for k in data["kinds"] if k["code"] == "comm-ethiopian")
+        assert kind["category"] == "comm"
+        # Label must remain "Ethiopian" — that's what the popup heading
+        # + the audit grouping rely on.
+        assert kind.get("label") == "Ethiopian"
+
+
+class TestGamma4Coverage:
+    """The seed has the breadth the buyer-facing claim requires:
+    Genesis + Psalms + John, at least one 1 Enoch entry, at least
+    one Cyril entry, NPNF coverage spanning Ephrem + Cyril."""
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_genesis_covered(self):
+        # Generators span Gen 1-6 in the seed.
+        found = False
+        for chapter in range(1, 12):
+            for verse in range(1, 50):
+                if self.ec.for_verse("gen", chapter, verse):
+                    found = True
+                    break
+            if found:
+                break
+        assert found, "seed has no Genesis entries"
+
+    def test_psalms_covered(self):
+        # Psalm 1 + 23 included.
+        assert self.ec.for_verse("ps", 1, 1)
+        assert self.ec.for_verse("ps", 23, 1)
+
+    def test_john_covered(self):
+        # John 1:1 + 1:14 + 19:34 included.
+        assert self.ec.for_verse("joh", 1, 1)
+        assert self.ec.for_verse("joh", 1, 14)
+        assert self.ec.for_verse("joh", 19, 34)
+
+    def test_1_enoch_distinctive_present(self):
+        # Genesis 6:1 / 6:4 are the Watchers-tradition anchor points;
+        # these are the buyer-facing "Tewahedo canon distinctive"
+        # signals — pin one of them appears in the seed.
+        any_enoch = self.ec.for_verse("gen", 6, 1) or self.ec.for_verse("gen", 6, 4)
+        assert any_enoch
