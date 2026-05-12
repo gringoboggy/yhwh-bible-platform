@@ -1907,6 +1907,10 @@ from scripts.api.press_kit import (
     api_press_kit_save,
     build_press_kit_zip,
 )
+from scripts.api.archive_org import (
+    api_archive_org_status,
+    api_archive_org_upload,
+)
 
 CORPUS_TARGET = 35_000
 
@@ -3353,6 +3357,9 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     ("/api/sales/rollup", api_sales_rollup),
     # ε.6 — distribution checklist: per-edition × per-channel grid.
     ("/api/distribution", api_distribution_list),
+    # ο.4 — archive.org configuration status (does the publisher have
+    # credentials set yet?). Never touches the network.
+    ("/api/archive-org/status", api_archive_org_status),
 ]
 
 
@@ -3613,6 +3620,16 @@ _POST_ROUTES: list[tuple[re.Pattern, "object"]] = [
             payload.get("file") or "",
             payload.get("snapshot_id") or "",
         ),
+    ),
+    # ο.4 — /api/archive-org/upload/<edition> — compose press-kit
+    # ZIP + S3-style PUT to archive.org + auto-mark distribution
+    # cell. Payload reserved for future options (currently {}).
+    # Returns ok:True on success (200/2xx from archive.org) or
+    # standard {status:error, code, http, message} envelope on
+    # missing credentials / unknown edition / upload failure.
+    (
+        re.compile(r"^/api/archive-org/upload/([a-z0-9-]+)$"),
+        lambda m, payload: api_archive_org_upload(m.group(1), payload),
     ),
     # ω.35-A.8 — sources/cache fetch routes. Previously used
     # `_send_dict_result` (which preserved extras in error

@@ -4,6 +4,79 @@
 
 ## Prior task
 
+**ο.4 archive.org auto-upload** shipped 2026-05-11. Month 5 #7
+— CLOSES Month 5. Drop-to-archive.org button on /exec; composes
+ε.7 press-kit ZIP + S3-style PUT + ε.6 distribution auto-mark.
+
+Three pieces:
+- `scripts/core/archive_org.py` — `ENV_ACCESS_KEY` /
+  `ENV_SECRET_KEY` / `ENV_CREATOR` env-var name constants;
+  `DISTRIBUTION_CHANNEL = "archive_org"` matches
+  distribution.DISTRIBUTION_CHANNELS; `IDENTIFIER_PREFIX_DEFAULT
+  = "yhwh-bible-"`; `ARCHIVE_S3_BASE = "https://s3.us.archive.org"`;
+  `is_configured()` True iff both env vars set + non-whitespace;
+  `sanitize_identifier(edition_id, *, prefix)` collapses invalid
+  chars → dash, strips leading dots/dashes, ≥5-char + ≤100-char
+  guards, empty input → "yhwh-bible-untitled" fallback;
+  `build_metadata_headers(edition, blurbs)` emits the full
+  x-archive-meta-* header set (title / description / mediatype=
+  texts / collection=opensource / language=eng / creator /
+  licenseurl=CC0) with CR/LF stripping (defense against HTTP
+  response splitting); `upload_press_kit(edition, blurbs,
+  zip_bytes, *, filename, http_fn=None)` PUTs via injectable
+  http_fn (defaults to scripts.core.http.put with the archive-
+  org upload allowlist); exceptions from http_fn become
+  ok:False envelope rather than re-raise; identifier still
+  computed on network failure so audit trail can correlate.
+- `scripts/core/http.py` extended — new `put(url, body, *,
+  headers, timeout, retries, backoff, retry_on_status,
+  allowlist, sleep_fn, urlopen)` returning (status_code,
+  response_bytes); mirrors get()'s retry / timeout / SSRF
+  discipline (fails closed on missing allowlist). New
+  `DEFAULT_ARCHIVE_ORG_UPLOAD_ALLOWLIST = {"s3.us.archive.org",
+  "archive.org"}` frozenset kept separate from PD-sources
+  allowlist since uploads are privileged write traffic.
+- `scripts/api/archive_org.py` — `api_archive_org_status()` GET
+  returns `{configured, message, identifier_prefix,
+  env_var_access, env_var_secret}` (env var *names* surfaced so
+  UI can tell publisher exactly what to set);
+  `api_archive_org_upload(edition_id, payload, *, http_fn=None)`
+  POST composes press_kit.build_zip + archive_org.upload_press_kit
+  + distribution.mark_shipped(edition_id, "archive_org",
+  url=...) — returns one envelope describing all three side-
+  effects with distribution_marked + distribution_error fields;
+  503 when creds missing; 404 on unknown edition; upload
+  failure → ok:False with distribution NOT marked; distribution
+  side-effect failure → upload reported ok:True but
+  distribution_marked=False with the exception in
+  distribution_error. Audit-logged.
+
+/exec extended with archive-org section co-located with press-
+kit (the upload composes press-kit ZIP): status banner loaded
+from /api/archive-org/status names the exact env vars to set;
+Upload button disabled by default until status confirms
+configured=true, POSTs to /api/archive-org/upload/<edition>
+with ζ.6 toast on result, refreshes distribution checklist via
+loadDistribution() so the auto-marked archive_org cell flips
+in the UI.
+
+Routes registered: GET `/api/archive-org/status` →
+`_SIMPLE_GET_ROUTES`; POST `/api/archive-org/upload/<edition>`
+→ `_POST_ROUTES` (count test 8→9).
+
+**+38 tests** in `tests/test_archive_org_omicron4.py`:
+TestOmicron4Constants × 4, IsConfigured × 3, SanitizeIdentifier
+× 5, MetadataHeaders × 4, UploadPressKit × 5, ApiStatus × 2,
+ApiUpload × 5, ExecTemplate × 4, RouteRegistration × 2,
+HttpPutHelper × 3, Integration × 1.
+
+**2960 / 2961 tests pass serially (1 skipped); 11/11 lint clean.**
+
+**MONTH 5 CLOSED** — all 7 non-money items shipped (Δ.15 /
+ε.1 / ε.2 / ε.3 / ε.6 / ε.7 / ο.4).
+
+## Prior task
+
 **ε.7 press kit auto-build** shipped 2026-05-11. Month 5 #6 —
 per-edition ZIP deliverable (cover variants in 4 sizes + blurbs
 + sample chapter + manifest) plus editable blurbs in /exec.

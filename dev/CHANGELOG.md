@@ -6,6 +6,170 @@
 
 ---
 
+## 2026-05-11 — session — ο.4 archive.org auto-upload (Month 5 #7; CLOSES Month 5)
+
+**Phases shipped:** ο.4 (archive.org auto-upload — S3-style PUT to
+`s3.us.archive.org`; composes ε.7's press-kit ZIP; auto-marks ε.6's
+`archive_org` distribution cell on successful push; UI status banner
++ Upload button on /exec).
+**Test delta:** +38 (2922 → 2960; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### ο.4 — Archive.org auto-upload — CLOSES Month 5
+
+Per the proposal spec: "Drop edition → archive.org API push. Free
+distribution." Last non-money Month 5 item. The publisher clicks
+"Upload to archive.org" on /exec; press kit ZIP builds + PUTs to
+archive.org via S3-style API + ε.6 distribution cell auto-flips —
+all in one round-trip, with one audit-log entry, and one toast.
+
+**Auth model** — Internet Archive S3-style credentials supplied via
+env vars `EBIBLE_ARCHIVE_ORG_ACCESS_KEY` + `EBIBLE_ARCHIVE_ORG_SECRET_KEY`;
+written into `Authorization: LOW <access>:<secret>` on every request.
+Missing credentials → `is_configured()` returns False; the API layer
+emits a 503-style `{configured: false, message: "..."}` envelope
+(not an error — the publisher just hasn't set the keys yet). The
+status banner on /exec names the exact env vars to set.
+
+**Upload endpoint** — `https://s3.us.archive.org/<identifier>/<filename>`
+PUT. Metadata via `x-archive-meta-*` headers: title /
+description / mediatype=texts / collection=opensource / language=eng
+/ creator / licenseurl=CC0.
+
+**Identifier sanitization** — archive.org requires ASCII [a-z0-9._-],
+no leading dot, ≥5 chars. `sanitize_identifier` collapses invalid
+chars → dash, strips leading dots/dashes, prefixes with
+`yhwh-bible-` (default; configurable). Identifiers stay stable
+across re-uploads (archive.org items can't be renamed).
+
+**Public API** (`scripts/core/archive_org.py`):
+
+- `ENV_ACCESS_KEY` / `ENV_SECRET_KEY` / `ENV_CREATOR` — env-var
+  name constants (single source of truth shared with the API +
+  UI surface).
+- `DISTRIBUTION_CHANNEL = "archive_org"` — matches
+  `distribution.DISTRIBUTION_CHANNELS`.
+- `IDENTIFIER_PREFIX_DEFAULT = "yhwh-bible-"`.
+- `ARCHIVE_S3_BASE = "https://s3.us.archive.org"`.
+- `is_configured()` — both env vars set + non-whitespace.
+- `sanitize_identifier(edition_id, *, prefix)` — archive.org-
+  compliant slug builder; empty input → "yhwh-bible-untitled";
+  oversized → trimmed to 100 chars.
+- `build_metadata_headers(edition, blurbs)` — full
+  `x-archive-meta-*` header set with newline-stripped values
+  (defense against HTTP response splitting); falls back through
+  blurb_500 → blurb_150 → synthetic title-based description.
+- `upload_press_kit(edition, blurbs, zip_bytes, *, filename,
+  http_fn=None)` — PUTs to archive.org via injectable `http_fn`
+  (defaults to `scripts.core.http.put` with the archive-org
+  upload allowlist). Returns `{ok, identifier, url, status_code,
+  filename, bytes, message}`. Exceptions from `http_fn` (network
+  failures) → `ok: False` envelope (rather than re-raising).
+
+### `scripts/core/http.put()` — new module-level helper
+
+`scripts.core.http` previously only exposed `get` / `get_json`. ο.4
+needed PUT semantics with the same retry / timeout / SSRF guard
+discipline. Added `put(url, body, *, headers, timeout, retries,
+backoff, retry_on_status, allowlist, sleep_fn, urlopen)` returning
+`(status_code, response_bytes)`. Same retry policy as get(); same
+`SSRFBlockedError` fail-closed when `allowlist=None`. First internal
+caller: `archive_org.upload_press_kit`.
+
+New allowlist constant: `DEFAULT_ARCHIVE_ORG_UPLOAD_ALLOWLIST =
+frozenset({"s3.us.archive.org", "archive.org"})`. Separate from
+`DEFAULT_PD_SOURCES_ALLOWLIST` (which is read-only fetch) because
+uploads are privileged write traffic.
+
+### API surface
+
+`scripts/api/archive_org.py`:
+
+- `api_archive_org_status()` — GET; payload `{status, configured,
+  message, identifier_prefix, env_var_access, env_var_secret}`.
+  Never touches the network. The env var *names* are surfaced so
+  the UI can tell the publisher exactly what to set.
+- `api_archive_org_upload(edition_id, payload, *, http_fn=None)`
+  — POST; composes `press_kit.build_zip` + `archive_org.upload_press_kit`
+  + `distribution.mark_shipped(edition_id, "archive_org", url=...)`.
+  Returns one envelope describing all three side-effects:
+  `{ok, edition_id, identifier, url, status_code, filename, bytes,
+  distribution_marked, distribution_error, message}`.
+  Audit-logged. Missing credentials → 503; unknown edition → 404;
+  upload failure → ok=False with distribution NOT marked;
+  distribution side-effect failure → upload reported ok=True but
+  distribution_marked=False with the exception in
+  distribution_error.
+
+### /exec archive.org section
+
+Co-located with the press-kit section (since the upload composes
+press-kit ZIP):
+
+- New status banner (`#archive-org-banner`) loaded from
+  `/api/archive-org/status` — shows either "Credentials configured.
+  Upload-ready." or "Set env vars … to enable uploads."
+- New "Upload to archive.org" button (`#archive-org-upload`) next
+  to "Download press kit". Disabled by default until status
+  confirms configured=True.
+- POSTs to `/api/archive-org/upload/<edition>` with empty JSON body
+  (payload is reserved for future dry-run flag); ζ.6 toast on
+  result; refreshes the distribution checklist (`loadDistribution()`)
+  so the auto-marked archive_org cell flips in the UI.
+
+### Routes
+
+- GET `/api/archive-org/status` → `_SIMPLE_GET_ROUTES`
+- POST `/api/archive-org/upload/<edition>` → `_POST_ROUTES`
+  (count test 8 → 9)
+
+### Files
+
+- `scripts/core/archive_org.py` — new (~230 lines: constants +
+  is_configured + sanitize_identifier + build_metadata_headers +
+  auth header + upload_press_kit with injectable http_fn).
+- `scripts/api/archive_org.py` — new (~110 lines: 2 endpoints
+  composing press_kit + archive_org + distribution).
+- `scripts/core/http.py` — extended with `put(url, body, *,
+  headers, ...)` mirroring `get()`'s retry / SSRF discipline; new
+  `DEFAULT_ARCHIVE_ORG_UPLOAD_ALLOWLIST` frozenset.
+- `scripts/templates/exec.py` — extended docstring; added
+  archive-org banner + Upload button + 2 JS helpers
+  (loadArchiveOrgStatus, uploadToArchiveOrg); event-wiring IIFE.
+- `scripts/web.py` — `from scripts.api.archive_org import …`;
+  `/api/archive-org/status` added to `_SIMPLE_GET_ROUTES`;
+  `/api/archive-org/upload/<edition>` added to `_POST_ROUTES`.
+- `tests/test_archive_org_omicron4.py` — new (38 tests across 10
+  classes: Constants × 4, IsConfigured × 3, SanitizeIdentifier × 5,
+  MetadataHeaders × 4, UploadPressKit × 5, ApiStatus × 2,
+  ApiUpload × 5, ExecTemplate × 4, RouteRegistration × 2,
+  HttpPutHelper × 3, Integration × 1).
+- `tests/test_web_routetable.py` — POST route-count test bumped
+  8 → 9.
+
+### Month 5 — CLOSED
+
+All 7 non-money items shipped:
+1. Δ.15 event log (2026-05-11)
+2. ε.1 metrics collector (2026-05-11)
+3. ε.2 /exec dashboard MVP (2026-05-11)
+4. ε.3 sales import (2026-05-11)
+5. ε.6 distribution checklist (2026-05-11)
+6. ε.7 press kit auto-build (2026-05-11)
+7. ο.4 archive.org auto-upload (2026-05-11)
+
+Month 5 deferred (money items): B.AI.* AI cover generation, π.9
+ISBN registration (Bowker), ε.4 cost-per-edition rollup (waits for
+AI events to emit `cost`), ε.5 quarterly auto-report (composes the
+full Month 5 surface once it's been used for a quarter).
+
+Month 6 per PROPOSAL_FEATURE_LANDSCAPE: B.AI.4 sharable verse cards,
+B.AI.5 AI co-pilot, ζ.9 first-run tour, γ.4 Ethiopian Orthodox
+commentary (flagship payload), ξ.18 CSP nonces, ξ.21 2FA, ξ.26
+license-key validation.
+
+---
+
 ## 2026-05-11 — session — ε.7 press kit auto-build (Month 5 #6; 6 of 7 ships)
 
 **Phases shipped:** ε.7 (press kit auto-build — per-edition ZIP with

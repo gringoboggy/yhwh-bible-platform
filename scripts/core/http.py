@@ -194,6 +194,62 @@ def get_json(url: str, *, encoding: str = "utf-8", **kwargs) -> dict:
     return json.loads(raw.decode(encoding))
 
 
+def put(
+    url: str,
+    body: bytes,
+    *,
+    headers: dict[str, str] | None = None,
+    timeout: float = DEFAULT_TIMEOUT,
+    retries: int = DEFAULT_RETRIES,
+    backoff: float = DEFAULT_BACKOFF_BASE,
+    retry_on_status: tuple[int, ...] = DEFAULT_RETRY_STATUS,
+    allowlist=None,
+    sleep_fn=time.sleep,
+    urlopen=urllib.request.urlopen,
+) -> tuple[int, bytes]:
+    """Upload ``body`` bytes via HTTP PUT. Returns ``(status_code,
+    response_bytes)``. Same retry / timeout / SSRF semantics as
+    ``get()``. ο.4 was the first internal caller (archive.org S3-
+    style upload).
+
+    Headers passed via ``headers`` are merged into the request before
+    the call. Note: ``Content-Length`` is set automatically by urllib
+    based on ``body`` length — callers don't need to add it.
+
+    Tests inject ``urlopen`` to stub the network call; the stub
+    receives a ``urllib.request.Request`` object whose ``data`` attr
+    is the body and ``method`` is "PUT".
+    """
+    _check_allowlist(url, allowlist)
+    req = urllib.request.Request(url, data=body, method="PUT")
+    for k, v in (headers or {}).items():
+        req.add_header(k, v)
+    attempts_total = retries + 1
+    last_exc: Exception | None = None
+    for attempt in range(attempts_total):
+        try:
+            with urlopen(req, timeout=timeout) as r:
+                return (int(r.status), r.read())
+        except urllib.error.HTTPError as e:
+            last_exc = e
+            if _is_retryable_status(e, retry_on_status) and attempt < retries:
+                sleep_fn(backoff ** (attempt + 1))
+                continue
+            raise HttpError(url, attempt + 1, e) from e
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last_exc = e
+            if attempt < retries:
+                sleep_fn(backoff ** (attempt + 1))
+                continue
+            raise HttpError(url, attempt + 1, e) from e
+
+    raise HttpError(
+        url,
+        attempts_total,
+        last_exc or RuntimeError("unknown HTTP failure"),
+    )
+
+
 # ξ.10 — pre-built allow-list groups for common call sites.
 # Cite from the call site so future audits can grep
 # `from scripts.core.http import` and see which group each
@@ -219,5 +275,15 @@ DEFAULT_DESKTOP_UPDATE_ALLOWLIST = frozenset(
     {
         "github.com",  # appcast hosted in releases
         "githubusercontent.com",
+    }
+)
+
+# ο.4 — Internet Archive S3-style upload endpoint. Separate from the
+# PD-sources allowlist (which is read-only fetch) because uploads are
+# privileged write traffic.
+DEFAULT_ARCHIVE_ORG_UPLOAD_ALLOWLIST = frozenset(
+    {
+        "s3.us.archive.org",
+        "archive.org",
     }
 )

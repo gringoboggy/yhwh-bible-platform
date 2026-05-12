@@ -1,4 +1,4 @@
-"""ε.2 + ε.3 + ε.6 + ε.7 — /exec dashboard template.
+"""ε.2 + ε.3 + ε.6 + ε.7 + ο.4 — /exec dashboard template.
 
 Surfaces SIX executive KPI tiles + sales import card + per-channel /
 per-edition rollup tables + distribution checklist grid + a recent-
@@ -37,15 +37,20 @@ Press kit (ε.7):
   which streams the ZIP (covers in 4 sizes + blurbs + sample chapter
   + manifest.json).
 
+Archive.org auto-upload (ο.4):
+- Status banner shows whether the publisher's credentials are
+  configured + names the env vars to set when not.
+- "Upload to archive.org" button (next to the press-kit Download
+  button) POSTs to /api/archive-org/upload/<edition>; on success
+  ε.6's archive_org distribution cell auto-marks via
+  distribution.mark_shipped + the checklist refreshes.
+
 Composes the full ζ foundation (theme tokens + dark mode + icons +
 toasts + cmd palette). All values insert via `textContent` so any
 future event-log payload with exotic characters stays XSS-safe.
 
-Foundation for ε.4 (cost-per-edition rollup expands tile 3), ε.5
-(quarterly auto-report composes this payload into PDF), ο.4
-(archive.org auto-upload composes build_press_kit_zip output for
-its upload payload AND auto-marks the archive_org distribution cell
-on successful push).
+Foundation for ε.4 (cost-per-edition rollup expands tile 3) and
+ε.5 (quarterly auto-report composes this payload into PDF).
 """
 
 from scripts.templates._design import apply_design_system  # noqa: E402
@@ -296,8 +301,13 @@ EXEC_HTML = r"""<!DOCTYPE html>
                 class="theme-border border rounded px-3 py-1 theme-text-sm">
           Download press kit (ZIP)
         </button>
+        <button id="archive-org-upload" type="button"
+                class="theme-border border rounded px-3 py-1 theme-text-sm" disabled>
+          Upload to archive.org
+        </button>
         <span id="press-kit-status" class="theme-text-xs theme-text-muted"></span>
       </div>
+      <div id="archive-org-banner" class="theme-text-xs theme-text-muted mt-3">·· checking archive.org status ··</div>
     </div>
   </section>
 
@@ -727,6 +737,68 @@ function downloadPressKit() {
   var dlBtn = document.getElementById('press-kit-download');
   if (dlBtn) dlBtn.addEventListener('click', downloadPressKit);
 })();
+
+// ο.4 — archive.org status banner + upload button. Button stays
+// disabled until status confirms credentials are configured.
+async function loadArchiveOrgStatus() {
+  var banner = document.getElementById('archive-org-banner');
+  var btn = document.getElementById('archive-org-upload');
+  if (!banner || !btn) return;
+  try {
+    var r = await fetch('/api/archive-org/status');
+    var data = await r.json();
+    if (data.status !== 'ok') {
+      banner.textContent = 'archive.org status unavailable.';
+      return;
+    }
+    banner.textContent = data.message || '';
+    btn.disabled = !data.configured;
+  } catch (e) {
+    banner.textContent = 'archive.org status check failed: ' + e.message;
+  }
+}
+
+async function uploadToArchiveOrg() {
+  var sel = document.getElementById('press-kit-edition');
+  var status = document.getElementById('press-kit-status');
+  var btn = document.getElementById('archive-org-upload');
+  if (!sel || !sel.value) return;
+  btn.disabled = true;
+  status.textContent = 'Uploading to archive.org ...';
+  try {
+    var resp = await fetch('/api/archive-org/upload/' + encodeURIComponent(sel.value), {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: '{}',
+    });
+    var data = await resp.json();
+    if (resp.ok && data.ok) {
+      status.textContent = 'Uploaded → ' + (data.url || '');
+      if (window.ebibleToast) {
+        var msg = 'Uploaded to ' + (data.identifier || 'archive.org');
+        if (data.distribution_marked) msg += ' · auto-marked distribution cell';
+        window.ebibleToast(msg, 'success');
+      }
+      // ε.6 distribution checklist refreshes since archive_org cell flipped.
+      loadDistribution();
+    } else {
+      var emsg = (data && (data.message || data.error)) || ('HTTP ' + resp.status);
+      status.textContent = 'Upload failed: ' + emsg;
+      if (window.ebibleToast) window.ebibleToast('Upload failed: ' + emsg, 'error');
+    }
+  } catch (err) {
+    status.textContent = 'Network error: ' + err.message;
+    if (window.ebibleToast) window.ebibleToast('Network error: ' + err.message, 'error');
+  } finally {
+    // Re-check status to determine final disabled state.
+    loadArchiveOrgStatus();
+  }
+}
+
+(function () {
+  var upBtn = document.getElementById('archive-org-upload');
+  if (upBtn) upBtn.addEventListener('click', uploadToArchiveOrg);
+})();
 function renderEvents(events) {
   var tbody = document.getElementById('events-tbody');
   tbody.innerHTML = '';
@@ -791,6 +863,7 @@ loadDashboard();
 loadSalesRollup();
 loadDistribution();
 loadPressKitEditions();
+loadArchiveOrgStatus();
 
 // ε.3 — sales import form handler. Submits multipart to
 // /api/sales/import/<channel>; toasts on success/failure; refreshes

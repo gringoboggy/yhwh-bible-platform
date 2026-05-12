@@ -1,6 +1,62 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ε.7 press kit
+**Updated 2026-05-11 / late session**: **ο.4 archive.org
+auto-upload shipped — Month 5 #7 (CLOSES Month 5).** New
+`scripts/core/archive_org.py` (ENV_ACCESS_KEY +
+ENV_SECRET_KEY env-var contract; is_configured() True iff both
+non-whitespace; sanitize_identifier with yhwh-bible- default
+prefix + invalid-char collapse + ≥5-char + ≤100-char guards;
+build_metadata_headers emits the x-archive-meta-* header set
+with CR/LF stripping; Authorization: LOW <access>:<secret>;
+upload_press_kit PUTs via injectable http_fn — exceptions
+become ok:False envelope rather than re-raise) +
+`scripts/core/http.py` extended with put(url, body, *, headers,
+...) mirroring get()'s retry / SSRF discipline + new
+DEFAULT_ARCHIVE_ORG_UPLOAD_ALLOWLIST frozenset +
+`scripts/api/archive_org.py` (api_archive_org_status GET
+surfaces env-var names + configured flag + identifier prefix;
+api_archive_org_upload POST composes press_kit.build_zip +
+archive_org.upload_press_kit + distribution.mark_shipped on
+success — 503 envelope when creds missing, 404 on unknown
+edition, upload failure surfaces but distribution NOT marked,
+distribution side-effect failure surfaces but upload itself
+reported ok). /exec extended with archive-org banner (status
+loaded from /api/archive-org/status, names exact env vars to
+set) + Upload button (disabled until configured=true, POSTs to
+/api/archive-org/upload/<edition>, refreshes distribution
+checklist on success so auto-marked archive_org cell flips in
+the UI). Routes: GET /api/archive-org/status added to
+_SIMPLE_GET_ROUTES; POST /api/archive-org/upload/<edition>
+added to _POST_ROUTES (count test 8→9). **+38 tests** in
+`tests/test_archive_org_omicron4.py` (11 classes covering
+constants, is_configured edge cases, identifier sanitizer,
+metadata headers + CR/LF stripping, upload happy/4xx/network-
+failure paths, both API endpoints with full composition + side-
+effect failure handling, template structure, route
+registration, the new http.put helper with retry semantics +
+SSRF allowlist, and a press-kit-ZIP-roundtrip integration).
+**2960 / 2961 tests pass serially (1 skipped); 11/11 lint
+clean.** Net session test delta from ψ.36-A baseline: **+707**
+across 29 ships.
+
+**MONTH 5 CLOSED.** All 7 non-money items shipped:
+Δ.15 / ε.1 / ε.2 / ε.3 / ε.6 / ε.7 / ο.4.
+
+Month 6 per PROPOSAL_FEATURE_LANDSCAPE: B.AI.4 sharable verse
+cards, B.AI.5 AI co-pilot, ζ.9 first-run tour, γ.4 Ethiopian
+Orthodox commentary (flagship payload), ξ.18 CSP nonces, ξ.21
+2FA, ξ.26 license-key validation. Two of these (B.AI.4, B.AI.5)
+are money items needing publisher authorization; the rest are
+non-money and can ship autonomously.
+
+Money items still gated on publisher decision: B.AI.1 main
+cover AI gen, B.AI.2 per-book cover AI gen, π.9 Bowker ISBN
+($295/10), ε.4 (waits for AI events to emit cost), ε.5
+(quarterly auto-report best after Month 5 has been in use).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ε.7 press kit
 auto-build shipped — Month 5 #6 (6 of 7).** New
 `scripts/core/press_kit.py` (SCHEMA_VERSION=1, PRESS_KIT_FIELDS
 = blurb_150 / blurb_500 / sample_chapter_html with FIELD_LIMITS

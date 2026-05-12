@@ -1068,12 +1068,12 @@ class TestOmega35A8BespokeCleanup:
         assert any("/sources/cache/" in p for p in patterns)
         assert any("/distribution/" in p for p in patterns)
 
-    def test_post_table_has_eight_entries_now(self):
-        # A.7 had 6, A.8 added 2 (sources/cache fetch + fetch_all)
-        # → 8 entries.
+    def test_post_table_has_nine_entries_now(self):
+        # A.7 had 6, A.8 added 2 (sources/cache fetch + fetch_all),
+        # ο.4 added 1 (archive-org upload) → 9 entries.
         from scripts import web
 
-        assert len(web._POST_ROUTES) == 8
+        assert len(web._POST_ROUTES) == 9
 
     def test_post_table_includes_sources_cache_routes(self):
         from scripts import web
