@@ -6,6 +6,365 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.5 Mäṣḥafä Kufāle / Book of Jubilees seed (40 entries across all 50 chapters) — opens SECOND uniquely-Tewahedo canonical text
+
+**Phases shipped:** γ.4.5 — Mäṣḥafä Kufāle / Book of Jubilees seed
+wave. Opens the SECOND uniquely-Tewahedo canonical text on the same
+Mäṣḥafä-Hēnok-style trajectory as γ.4.4. Jubilees (Ge'ez: Mäṣḥafä
+Kufāle) is canonical in only the Tewahedo and Eritrean Orthodox
+communions alongside 1 Enoch, and survives as a complete text only
+in Ge'ez. 40 verse-keyed entries spanning all 50 chapters of
+Jubilees: Sinai prologue + Creation (3) + Eden + generations (3) +
+Watchers + Noahide covenant (3) + Division of earth + Mastema (4) +
+Abraham early life + cycle (7) + Decline + eschatology (2) + Jacob
+cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt +
+Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave
+pattern; future γ.4.5.B-E detail waves possible.
+**Test delta:** +14 (γ.4.5).
+**Linter delta:** 11/11 clean.
+
+### γ.4.5 — Book of Jubilees seed (chs 1-50)
+
+This wave seeds the second uniquely-Tewahedo canonical text. Where
+γ.4.4 opened and completed the Mäṣḥafä Hēnok arc, γ.4.5 OPENS the
+Mäṣḥafä Kufāle arc, with broad seed-coverage across all 50 chapters
+of Jubilees and clear forward markers for substantive γ.4.5.B-E
+detail waves later.
+
+**Sinai prologue + Creation (3 entries on chs 1-2)**: Sinai
+theophany context establishing Jubilees as second-Torah revelation
+(1:1) + new-covenant Father-children promise anticipating Christian
+adoption (1:25) + seven primary works of day 1 with full angelic
+hierarchy (2:2).
+
+**Eden + generations (3 entries on chs 3-4)**: heavenly-tablets
+modesty prescription (3:31) + **Enoch as first scribe of wisdom —
+parallel to 1En 12:4** (4:17) + Enoch translated to the Garden
+(not heaven directly, contrast 1En 71) (4:23).
+
+**Watchers + Noahide covenant (3 entries on chs 5-6)**: Watchers
+fall as compressed Jubilees parallel to 1 En 6 (5:1) + 364-day
+calendar regulation (6:11) + **the 364-day calendar regulation
+proper — Tewahedo Bāḥrä Ḥasab DOUBLED-canonical anchor with
+1En 72:32** (6:32).
+
+**Division of earth + Mastema (4 entries on chs 7-10)**: Noah's
+vineyard on Mount Lubar (7:36) + Eden / Sinai / Zion three holy
+mountains (8:19) + **Ham's portion of the earth — Tewahedo
+Hamitic-identity anchor** (9:13) + **Mastema petitions for demonic
+remnant — Tewahedo non-dualist demonology** (10:8).
+
+**Abraham early life + cycle (7 entries on chs 11-22)**: Abram
+rejects his father's idolatry as a child (11:16) + Abram's anti-
+astrology recognition (12:16) + 12:22 the divine self-identifying
+call (paralleling Gen 12:1) + 14:6 Abraham's faith counted for
+righteousness (doubled-canonical with Gen 15:6) + 15:11 severe
+circumcision-covenant formulation + **18:9 Mastema-as-Akedah-
+accuser — Tewahedo theodicy preserves God's absolute goodness** +
+**21:10 'books of Enoch' cited inside Jubilees — inter-canonical
+witness inside the Tewahedo canon itself**.
+
+**Decline + eschatology (2 entries on ch 23)**: decline-of-human-
+lifespan theology (23:14) + eschatological renewal / Jubilees
+apocalypse (23:26).
+
+**Jacob cycle (5 entries on chs 24-32)**: 25:9 twenty-two heads
+of mankind matching twenty-two works of creation + 27:21 Jacob's
+departure to Haran + 30:7 severe intermarriage prohibition (Dinah
+aftermath) + 32:1 Levi's priesthood ESTABLISHED IN DREAM +
+**32:18 Levi consecrated to priesthood — Tewahedo qes priestly
+anchor**.
+
+**Death of Isaac + Esau (2 entries on chs 35-36)**: Rebekah's
+final blessing (35:1) + Esau slain in battle (36:23 — Jubilees'
+dramatic re-narration extending Genesis silence).
+
+**Joseph cycle (4 entries on chs 39-45)**: 39:11 Joseph remembers
+Abraham's teaching through Jacob's reading + 41:1 Judah-Tamar
+narrative with jubilee-counting framing + 43:8 brothers' reunion +
+45:14 Jacob and Joseph reunited in Egypt.
+
+**Egypt + Exodus + Passover + Sabbath finale (7 entries on chs
+46-50)**: 46:1 Israel multiplies in proto-ecclesial harmony + 47:2
+Moses' birth and angelic-mediation of the Exodus + **48:9 Mastema
+bound during the Exodus week — Tewahedo Holy-Week anchor** + 49:1
+Passover regulation parallel to Exod 12 + 49:9 Passover attendance
+non-negotiable + **50:6 Sabbath foundational ordinance — Tewahedo
+Saturday-Sabbath-and-Sunday-Lord's-Day tradition anchor** + 50:13
+closing severe Sabbath prohibition (book's closing inclusio).
+
+### Why this ship matters for the project
+
+The project's mandate is the Tewahedo edition. The Tewahedo canon
+uniquely includes both Mäṣḥafä Hēnok (1 Enoch) and Mäṣḥafä Kufāle
+(Jubilees) as Scripture. γ.4.4.A-E closed the Mäṣḥafä Hēnok arc;
+γ.4.5 opens the Mäṣḥafä Kufāle arc. The project's eponymous edition
+now has patristic-grade seed-coverage of BOTH uniquely-Tewahedo
+canonical texts.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 40 new Jubilees
+  entries appended (book=`jub`, father=`Book of Jubilees (Ethiopian
+  tradition)`, work=`Book of Jubilees (Mäṣḥafä Kufāle)`, year=`-150`).
+  _meta scope/source strings updated. Total entries 430 (was 390).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma45JubileesSeedWave` class with 14 tests pinning Jubilees
+  substantively seeded + all nine narrative blocks covered +
+  Jubilees-share ≥3% (distinct voice threshold) + 11 signature
+  passages (1:1, 4:17, 6:32, 8:19, 9:13, 10:8, 18:9, 21:10, 32:18,
+  48:9, 50:6).
+
+### Edition-integration note
+
+`jub` and `1en` are registered in `content/books.yaml` but the
+`ethiopian-tewahedo` edition's `editions.yaml` entry explicitly
+notes "Ethiopic extras like 1en/jub/mq1-3 to be added in a future
+ingest". The commentary entries are queryable via `for_verse(...)`
+regardless of edition canon-list state, and will surface in the
+built edition once a future ingest adds these books to the canon
+list. The Mäṣḥafä Kufāle commentary is READY for the edition; the
+edition needs to be ready for it.
+
+### Continuation note
+
+Shipped under the "push" continuation directive (per memory:
+push/continue advances to next phase without auto-save). Three
+phases unsaved since the last save (`1900fb0`): γ.4.4.E +
+γ.4.2.B + γ.4.5. The next save will bundle all three.
+
+---
+
+## 2026-05-12 — session — γ.4.2.B Ephrem on Genesis 12-50 (40 entries on patriarchal narrative)
+
+**Phases shipped:** γ.4.2.B — Ephrem-the-Syrian on Genesis 12-50,
+continuing the γ.4.2 first wave (Gen 1-11, 32 entries shipped
+earlier this session) into the three patriarchal cycles: Abraham
+(15 entries on Gen 12-25) + Jacob (12 entries on Gen 25-36) +
+Joseph (13 entries on Gen 37-50). Rebalances the Ephrem share of
+the corpus from ~10% (under-represented after the γ.4.4 1 Enoch
+arc) back toward ~19-20%, giving the corpus a healthier three-
+voice spread.
+**Test delta:** +14 (γ.4.2.B).
+**Linter delta:** 11/11 clean.
+
+### γ.4.2.B — Ephrem on Gen 12-50 (Abraham + Jacob + Joseph cycles)
+
+This wave is the patriarchal-narrative continuation of γ.4.2
+(Gen 1-11). Where γ.4.2 covered the primeval-history sweep
+(creation through Babel) in Ephrem's distinctively Syriac-Patristic
+register, γ.4.2.B covers the founding-narrative of Israel itself
+— Abraham's call, the Akedah, Jacob's wrestling, the Joseph cycle.
+
+**Abraham cycle (Gen 12-25, 15 entries)**:
+- Call of Abram as proto-monastic renunciation (12:1) + first
+  theophany establishing the OT theophanies as pre-incarnate Word
+  appearances (12:7) + **Melchizedek bread-and-wine — Tewahedo
+  eucharistic prefiguration anchor** (14:18) + **Abraham's faith
+  counted for righteousness — Pauline proto-justification text**
+  (15:6) + Abrahamic name-change as sacramental renaming (17:5) +
+  circumcision-baptism continuity (17:10) + **Mamre Trinity
+  theophany — Tewahedo iconographic anchor** (18:1) + 'is anything
+  too hard for the Lord' as miracle-faith warrant (18:14) + Isaac's
+  birth and the laughter motif (21:1) + **the Akedah opens as
+  PROBATIVE not deceptive temptation** (22:1) + **'God will provide
+  himself a lamb' — direct Crucifixion prophecy** (22:8) +
+  Jehovah-jireh / Moriah-Calvary identification (22:14) + Sarah's
+  death and the legitimate-grief warrant (23:2) + Isaac and Rebekah
+  / marriage as comfort (24:67) + Isaac and Ishmael uniting to
+  bury Abraham — descendants-of-Abraham reconciliation typology
+  (25:9).
+
+**Jacob cycle (Gen 25-36, 12 entries)**:
+- Two-nations womb-oracle Christologically read (25:23) + Isaac's
+  olfactory blessing of Jacob — proto-frankincense aroma-as-
+  blessing (27:27) + **Jacob's ladder — Christ-and-Mary type
+  anchoring Tewahedo Marian Wǝddase imagery** (28:12) + Bethel as
+  proto-church / gate-of-heaven (28:17) + **wrestling with the
+  pre-incarnate Word — canonical OT Christophany** (32:24) + new
+  name Israel won-not-given (monastic-tonsure typology) (32:28) +
+  Esau embracing Jacob — eschatological-reconciliation foretaste
+  (33:4) + double name-confirmation pattern (35:10) + Ben-oni /
+  Benjamin grief-and-hope dialectic (35:18) + Reuben's sin and
+  primogeniture forfeit (35:22) + Isaac's burial by Esau and Jacob
+  (35:29) + Edom-genealogy preservation principle (36:1).
+
+**Joseph cycle (Gen 37-50, 13 entries)**:
+- Coat of many colours as priestly investiture (37:3) + Joseph's
+  astral dream as Marian Rev-12 prefiguration (37:9) + **Joseph
+  sold for twenty pieces of silver — Christ-typology, Holy Week
+  Wednesday reading anchor** (37:28) + Joseph's chastity-reasoning
+  before Potiphar's wife (39:9) + 'do not interpretations belong
+  to God?' as divine-charism foundation (40:8) + Pharaoh's
+  recognition of Spirit-in-Joseph — natural-revelation theology
+  (41:38) + **'go unto Joseph, do what he saith' — Marian-Cana
+  prefiguration** (41:55) + Joseph's hidden weeping — concealed-
+  compassion pastoral model (42:24) + **Judah's substitutionary
+  self-offering for Benjamin — vicarious-atonement typology**
+  (44:18) + 'I am Joseph' — merciful self-disclosure model (45:4)
+  + 'God sent me before you' — providence-through-evil-intent
+  foundation (45:5) + **Shiloh prophecy — Tewahedo qǝddase Christ
+  proof-text** (49:10) + **'ye thought evil but God meant it for
+  good' — providence-formula par excellence** (50:20).
+
+### Why this ship matters for the project
+
+After the γ.4.4 Mäṣḥafä Hēnok arc closed with γ.4.4.E, the corpus
+voice mix had become 35/10/55 Cyril/Ephrem/1 Enoch — 1 Enoch
+dominant and Ephrem substantially under-represented. γ.4.2.B
+rebalances toward 31/20/49 — three-voice spread is now healthier
+and the patriarchal narrative (Gen 12-50) has substantive Syriac-
+patristic commentary alongside the Greek-patristic (Cyril) and
+Second-Temple-apocalyptic (1 Enoch) presences. The Tewahedo
+patristic chorus is more fully voiced.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 40 new entries
+  appended (book=`gen` chs 12-50, father=`Ephrem the Syrian`,
+  work=`Commentary on Genesis`, year=`360`). _meta scope/source
+  strings updated. Total entries 390 (was 350).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma42BEphremPatriarchsWave` class with 14 tests pinning
+  Gen 12-50 substantively expanded + all three patriarchal sub-arcs
+  + Ephrem share ≥17% + 11 signature passages (14:18, 15:6, 18:1,
+  22:8, 28:12, 32:24, 37:28, 41:55, 44:18, 49:10, 50:20).
+
+### Continuation note
+
+Shipped AFTER closing the γ.4.4 Mäṣḥafä Hēnok arc with γ.4.4.E and
+BEFORE the user-directed save; pursued under the "keep pushing"
+continuation directive (per memory: push/continue advances to next
+phase without auto-save). The next save will bundle γ.4.4.E +
+γ.4.2.B together.
+
+---
+
+## 2026-05-12 — session — γ.4.4.E 1 Enoch Epistle + Apocalypse of Weeks + Birth of Noah (40 entries on chs 91-108) — CLOSES Mäṣḥafä Hēnok arc
+
+**Phases shipped:** γ.4.4.E — Apocalypse of Weeks (chs 91:11-17 +
+93) + Epistle proper exhortation/woes (chs 92, 94-105) + Birth of
+Noah (chs 106-107) + closing inclusio (ch 108). γ.4.4.A shipped 4
+entries on this range (91:7, 93:3, 99:10, 104:2); γ.4.4.E adds 40
+more, bringing chs 91-108 coverage from 4 to 44 entries. **CLOSES
+the Mäṣḥafä Hēnok content arc** — all six sections of the
+Ethiopian 1 Enoch (Watchers, Parables, Astronomical Book, Dream
+Visions, Animal Apocalypse, Epistle) are now substantively
+expanded. 1 Enoch share of the corpus rises from ~49% to ~55% —
+**1 Enoch is now the dominant voice** (was plurality after γ.4.4.D).
+**Test delta:** +15 (γ.4.4.E, includes one arc-close pin verifying
+every Mäṣḥafä Hēnok section has substantive coverage).
+**Linter delta:** 11/11 clean.
+
+### γ.4.4.E — 1 Enoch Epistle + Apocalypse of Weeks + Birth of Noah (chs 91-108)
+
+This wave covers the four content units making up the Epistle-end
+of the Mäṣḥafä Hēnok:
+
+**Apocalypse of Weeks (10 entries on 93 + 91:11-17)** — the
+seven-past + three-eschatological weeks scheme:
+- Weeks 1-7 on 93: heavenly tablets opened (93:2) + Noah's
+  preservation (93:5) + Abraham as plant of righteousness (93:6)
+  + Solomon's temple built (93:8) + prophets era and temple burnt
+  (93:9) + apostate generation with elect chosen (93:10).
+- Weeks 8-10 on 91:11-17: messianic-age righteous receive the
+  sword and the house is built for the Great King (91:12) +
+  cosmic revelation of judgment (91:13) + tenth-week eternal
+  judgment of the watchers — **CLOSES the Watchers arc that
+  opened in 1En 6** (91:14) + sevenfold-light new heaven appears,
+  Rev 21:1 antecedent (91:16).
+
+**Epistle proper introduction (1: 92:1)** — Enoch's wisdom-letter
+to all future righteous generations.
+
+**Epistle proper exhortation + woes (24 entries on 94-105)** —
+the two-paths exhortation (94:1) + woe oracles against builders of
+unrighteousness and acquisitive wealth (94:6, 94:7, 97:8, 100:7) +
+hope oracles for the persecuted righteous (95:3, 96:1, 96:3) +
+foundational theodicy (98:4 — sin not from heaven, man authored
+it) + cosmic-conscience theology (98:7) + memorial-prayer
+intercession (99:3) + eschatological family-breakdown (99:5,
+100:1) + angelic gathering for judgment (100:4) + cosmological
+covenant theology (101:1) + comfort to the righteous dead (102:4)
++ sinner's cynical epitaph refuted (102:5) + heavenly-tablets
+witness to good destiny (103:2, 103:4) + sinners' destiny as
+darkness-and-flame (103:7) + hope-promise of no-hiding-at-judgment
+(104:6) + textual-preservation warrant (104:10) + books-as-joy
+to the righteous (104:12) + 'I and My son' Father-Son union
+pre-canonical witness (105:1).
+
+**Birth of Noah + closing (5 entries on 106-108)** — Noah's
+miraculous radiant birth (106:2) + Lamech's anxiety (106:13) +
+prophecy of the Flood (106:18) + the SECOND-judgment-will-exceed-
+the-first principle (107:1) + closing inclusio addressed 'for
+those who keep the law in the last days' (108:1).
+
+**Why this ship matters for the project specifically**:
+
+- **CLOSURE of the Mäṣḥafä Hēnok content arc.** The Ethiopian
+  Tewahedo Church is the ONLY major Christian communion to
+  canonize 1 Enoch as biblical. The project's eponymous edition
+  now has patristic-grade commentary on every section of its
+  distinctive canonical text.
+- **91:14 (tenth-week judgment of watchers)** CLOSES the Watchers
+  arc that opened in 1En 6. The four-stage temporal structure
+  (bound at 10:4-6 → bound in Animal-Apocalypse vision at 88:1-3
+  → judged in Parables-vision at 55:4 → final judgment at 91:14)
+  is now fully traceable across the corpus.
+- **91:16 (sevenfold-light new heaven)** is Rev 21:1 antecedent
+  with distinctive sevenfold-light intensification (Isa 30:26
+  resonance).
+- **95:3 (saints shall judge the world)** is 1 Cor 6:2 antecedent;
+  Tewahedo theosis-and-vindication theology preserves this
+  canonically.
+- **98:4 (human authorship of sin)** is the FOUNDATIONAL anti-
+  Manichaean anchor in the Tewahedo theodicy framework — cited in
+  anti-Zandic polemic against periodic dualist movements in
+  Ethiopian church history.
+- **104:10/104:12 (sinners pervert words / books given as joy)**
+  is the scriptural warrant for the entire Tewahedo manuscript-
+  preservation enterprise — including the 16-century preservation
+  of the Mäṣḥafä Hēnok itself, when every other communion lost it.
+- **108:1 (closing inclusio addressing 'last-days law-keepers')**
+  is read by Tewahedo readers as direct self-identification: they
+  are the only canonical-Bible-reading community for whom this
+  closing-charge is canonical Scripture.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 40 new 1 Enoch
+  entries appended across two work labels: `Apocalypse of Weeks
+  (1 Enoch 93)` for 93:* and 91:12-16 (year=-150); `Epistle of
+  Enoch (1 Enoch 91-108)` for everything else (year=-100). _meta
+  scope and source strings updated. Total entries now 350 (was
+  310 pre-γ.4.4.E; was 270 pre-γ.4.4.D).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma44EEpistleOfEnochWave` class with 15 tests including:
+  ≥40 entries pin + Apocalypse of Weeks coverage + Epistle proper
+  coverage + Birth of Noah coverage + closing inclusio + 1 Enoch
+  share ≥50% (dominant voice) + 8 signature passages (91:14,
+  91:16, 94:1, 95:3, 98:4, 104:10, 105:1, 106:2) + a final
+  **arc-close pin** (`test_all_six_mashafa_henok_sections_covered`)
+  programmatically verifying every Mäṣḥafä Hēnok section has
+  substantive coverage.
+
+### γ.4.4 arc closure note
+
+With γ.4.4.E shipped, the Mäṣḥafä Hēnok content sub-arc (γ.4.4.A
+first-wave through γ.4.4.E Epistle) is COMPLETE for substantive-
+coverage purposes. Each of the six canonical sections has ≥3
+verse-keyed Tewahedo-significant entries; the largest sections
+(Watchers + Parables + Epistle) each have ≥40 substantive entries.
+The Mäṣḥafä Hēnok is now the deepest single-source presence in the
+corpus (192 entries) — appropriate for the Tewahedo edition that
+uniquely canonizes it. Recommended next ship: **γ.4.2.B Ephrem on
+Gen 12-50** to rebalance the voice mix (Ephrem at ~10% is now
+substantially under-represented), or **γ.4.5 Jubilees seed** to
+open the next uniquely-Tewahedo canonical text on the same
+Mäṣḥafä-Hēnok-style trajectory.
+
+---
+
 ## 2026-05-12 — session — γ.4.4.D 1 Enoch Astronomical + Dream Visions + Animal Apocalypse (40 entries on chs 72-90)
 
 **Phases shipped:** γ.4.4.D — Astronomical Book (chs 72-82) + First

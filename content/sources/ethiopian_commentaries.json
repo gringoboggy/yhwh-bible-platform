@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -3105,6 +3105,1206 @@
       "year": -150,
       "summary": "'And I saw till all their generations were transformed, and they all became white bulls; and the first among them became a lamb, and that lamb became a great animal and had great black horns on its head; and the Lord of the sheep rejoiced over it and over all the bulls' — final reunification: ALL become white bulls again (return to the Adamic state). The lamb-with-great-black-horns is the eschatological messianic figure (distinct from the white-bull-with-great-horns at 90:37, which represents the Davidic-messianic line). Tewahedo Christology reads the two figures together: 90:37 (Christ as new Adam — white bull) plus 90:38 (Christ as Lamb-of-God with horns of authority) presents both Christological registers in a single Animal-Apocalypse climax.",
       "attribution": "1 Enoch 90:38, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that Enoch began to speak from the books, and he said: Concerning the children of righteousness and concerning the elect of the world, and concerning the plant of uprightness, I will speak these things, yea, I Enoch will declare them unto you, my sons: According to that which appeared to me in the heavenly vision, and which I have known through the word of the holy angels, and have learnt from the heavenly tablets' — Enoch reads the seven-weeks scheme from the heavenly tablets. Tewahedo historiographical tradition (preserved in monastic chronicles like the Mäṣḥafä Sǝnksar) follows the principle that history is READABLE: cosmic order is given in advance and the inspired reader can perceive its pattern.",
+      "attribution": "1 Enoch 93:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that in the second week great wickedness shall arise, and deceit shall have sprung up; and in it there shall be the first end. And in it a man shall be saved' — second week: the Flood and Noah's preservation. The Apocalypse of Weeks compresses the entire Watchers + Flood narrative into a single 'week' phrase. Tewahedo periodisation tradition preserves this compression-friendly approach to biblical history: the meaningful units are EPOCHS, not individual events.",
+      "attribution": "1 Enoch 93:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that in the third week at its close a man shall be elected as the plant of righteous judgement, and his posterity shall become the plant of righteousness for evermore' — third week: Abraham elected as the 'plant of righteousness'. Tewahedo covenant theology preserves the plant-of-righteousness image (parallel to Jer 23:5, Isa 11:1 'shoot from stump of Jesse') as the textual basis for the Davidic-messianic line rooted in Abrahamic election: the plant Abraham becomes the plant Israel becomes the plant Christ.",
+      "attribution": "1 Enoch 93:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that in the fifth week, at its close, the house of glory and dominion shall be built for ever' — fifth week: Solomon's temple. Tewahedo temple-theology preserves the 'house of glory and dominion' language as anticipating both the qǝddǝst-qǝddusan (Tewahedo holy of holies) and the eschatological new house of 1En 90:28-29. Solomon's temple is read as historical prefiguration, not termination, of God's dwelling-among-his-people.",
+      "attribution": "1 Enoch 93:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 9,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that in the sixth week all who live in it shall be blinded, and the hearts of all of them shall godlessly forsake wisdom. And in it a man shall ascend; and at its close the house of dominion shall be burnt with fire, and the whole race of the chosen root shall be dispersed' — sixth week: the period of the prophets, Elijah's ascension, and the destruction of Solomon's temple (586 BCE). Tewahedo prophetic tradition reads the 'man shall ascend' as Elijah's translation (cf. 2 Kgs 2:11) — Elijah and Enoch as the two pre-Christian witnesses to bodily translation into heaven.",
+      "attribution": "1 Enoch 93:9, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 93,
+      "verse": 10,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that in the seventh week shall an apostate generation arise, and many shall be its deeds, and all its deeds shall be apostate. And at its close shall be elected the elect righteous of the eternal plant of righteousness, to receive sevenfold instruction concerning all His creation' — seventh week: the present-corrupt-generation but with the ELECT chosen out of it. Tewahedo self-identification with 'the elect of the seventh week' is preserved in some monastic homilies: the Tewahedo community in this Enochic scheme is precisely the chosen-remnant-receiving-sevenfold-instruction.",
+      "attribution": "1 Enoch 93:10, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 91,
+      "verse": 12,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that there shall be another, the eighth week, that of righteousness, and a sword shall be given to it that a righteous judgement may be executed on the oppressors, and sinners shall be delivered into the hands of the righteous. And at its close they shall acquire houses through their righteousness, and a house shall be built for the Great King in glory for evermore' — eighth week: messianic age, the righteous receive the sword to execute judgment. Tewahedo ecclesiology preserves the 'house built for the Great King for ever' as the Tewahedo qǝddǝst's eschatological function: the Tewahedo tabot-house is provisionally that house already.",
+      "attribution": "1 Enoch 91:12, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 91,
+      "verse": 13,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after that, in the ninth week, the righteous judgement shall be revealed to the whole world, and all the works of the godless shall vanish from all the earth, and the world shall be written down for destruction' — ninth week: cosmic revelation of judgment. The verbal parallel to Rev 20:11-15 (the books opened, the world judged) is preserved in Tewahedo eschatological readings as Enochic anticipation of the Johannine vision.",
+      "attribution": "1 Enoch 91:13, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 91,
+      "verse": 14,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And after this, in the tenth week in the seventh part, there shall be the great eternal judgement, in which He will execute vengeance amongst the angels' — tenth week: final judgment of the fallen Watchers. This closes the Watchers arc that began in 1En 6 and was preliminarily judged at 1En 10 / 88:1 / 90:24: the Apocalypse of Weeks holds out the final judgment-of-angels until the LAST week of cosmic time. Tewahedo demonology preserves the two-stage temporal pattern: bound now, judged finally then.",
+      "attribution": "1 Enoch 91:14, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 91,
+      "verse": 16,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Apocalypse of Weeks (1 Enoch 93)",
+      "year": -150,
+      "summary": "'And the first heaven shall depart and pass away, and a new heaven shall appear, and all the powers of the heavens shall give sevenfold light' — new heaven appears with sevenfold light. The Apocalypse of Weeks' eschatological climax is verbally parallel to Rev 21:1 ('a new heaven and a new earth: for the first heaven and the first earth were passed away') with the Enochic distinctive emphasis on SEVENFOLD-light (parallel to Isa 30:26 'the light of the sun shall be sevenfold'). Tewahedo eschatological liturgy preserves the sevenfold-light imagery in some Tewahedo qǝddase doxologies.",
+      "attribution": "1 Enoch 91:16, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 92,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'The book written by Enoch — [Enoch indeed wrote this complete doctrine of wisdom, (which is) praised of all men and a judge of all the earth] for all my children who shall dwell on the earth. And for the future generations who shall observe uprightness and peace' — Epistle proper opens as Enoch's wisdom-testament to all future righteous generations. Tewahedo monastic spirituality (the long tradition of monastic-letter writing — abbots to disciples, elders to novices) traces theologically to this Enochic pattern of wisdom-letter-as-trans-generational-charge.",
+      "attribution": "1 Enoch 92:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 94,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And now my son Methuselah, [I will recount these things to thee and write them down for thee], and I have revealed to thee everything, and given thee books concerning all these: so preserve, my son Methuselah, the books from thy father's hand... And now, my children, listen to me, love righteousness and walk therein; for the paths of righteousness are worthy of acceptation, but the paths of unrighteousness shall suddenly be destroyed and vanish' — the two-paths exhortation. Tewahedo catechetical tradition uses the two-paths formula (preserved also in Didache 1-6) as foundational moral instruction for the catechumen.",
+      "attribution": "1 Enoch 94:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 94,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Woe to those who build unrighteousness and oppression and lay deceit as a foundation; for they shall be suddenly overthrown, and they shall have no peace' — first woe oracle. Tewahedo prophetic-homily tradition reads the Enochic woe oracles as direct precedent for the Lukan woe oracles (Lk 6:24-26) and Jacobean injustice-woes (Jas 5:1-6) — the verbal pattern is continuous: woe + the deed condemned + the future judgment.",
+      "attribution": "1 Enoch 94:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 94,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Woe to those who build their houses with sin; for from all their foundations shall they be overthrown, and by the sword shall they fall. And those who acquire gold and silver in judgement suddenly shall perish' — second woe. The houses-built-with-sin image is preserved in Tewahedo homiletic tradition as warning against ill-gotten ecclesiastical endowment: a church building funded by injustice cannot stand, no matter how outwardly magnificent.",
+      "attribution": "1 Enoch 94:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 95,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Fear ye not the sinners, ye righteous; for again will the Lord deliver them into your hands, that ye may execute judgement upon them according to your desires' — the righteous shall judge the wicked. Direct verbal anticipation of 1 Cor 6:2 ('Do ye not know that the saints shall judge the world?') and Rev 20:4 (thrones of judgment given to the saints). Tewahedo eschatology preserves this saints-judge-the-world expectation as part of the broader theosis-and-vindication theology.",
+      "attribution": "1 Enoch 95:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 96,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Be hopeful, ye righteous; for suddenly shall the sinners perish before you, and ye shall have lordship over them according to your desires' — the hope-oracle counterpart to the woe oracles. Tewahedo hope-theology (persecution-resilience preserved through Aksum-era persecutions, Gragn invasion, the Derg-era massacres of monks) draws on this Enochic hope-formula: present suffering does not falsify the eschatological reversal.",
+      "attribution": "1 Enoch 96:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 96,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Be hopeful, therefore, ye who have suffered tribulation; for ye shall have great joy as the angels of heaven' — equal-to-the-angels promise. Tewahedo monastic spirituality reads this verse as the canonical anchor for the doctrine that the eschatological state of the saints is angelic-in-rank — parallel to Lk 20:35-36 ('equal unto the angels') and 1 Cor 15:48-49.",
+      "attribution": "1 Enoch 96:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 97,
+      "verse": 8,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Woe to you who acquire silver and gold in unrighteousness and say: We have become rich with riches and have possessions; and have acquired everything we have desired. And now let us do what we purposed: for we have gathered silver, and many are the husbandmen in our houses' — woe oracle against acquisitive wealth. Direct verbal-thematic anticipation of the Lukan parable of the rich fool (Lk 12:16-21). Tewahedo monastic tradition of voluntary poverty roots theologically in the Enochic woe-oracle stream.",
+      "attribution": "1 Enoch 97:8, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 98,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'I have sworn unto you, ye sinners, as a mountain has not become a slave, and a hill does not become the handmaid of a woman, even so sin has not been sent upon the earth, but man of himself has created it' — the human authorship of sin. Tewahedo theodicy preserves this verse as the FOUNDATIONAL anti-Manichaean text: evil is not co-eternal substance, not divinely sent, not natural — humans authored it. Cited in Tewahedo anti-Manichaean polemic against the Zandic dualism that periodically appeared in Ethiopian church history.",
+      "attribution": "1 Enoch 98:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 98,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And now know ye that from the angels He will inquire as to your deeds in heaven, from the sun and from the moon and from the stars in reference to your sins because upon the earth ye execute judgement on the righteous. And He will summon to testify against you every cloud and mist and dew and rain' — the entire cosmos as witness against sinners. Tewahedo cosmic-conscience theology preserves this image: every element of creation is morally aware and records human deeds — parallel to Hab 2:11 ('the stone shall cry out of the wall').",
+      "attribution": "1 Enoch 98:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 99,
+      "verse": 3,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'In those days make ready, ye righteous, to raise your prayers as a memorial, and place them as a testimony before the angels, that they may place the sin of the sinners for a memorial before the Most High' — prayer as memorial-testimony. Tewahedo intercessory practice (sustained monastic intercession for the world) preserves the memorial-prayer function as load-bearing: prayers ascend AS witnesses, not just as petitions.",
+      "attribution": "1 Enoch 99:3, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 99,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And in those days the fathers together with their sons shall be smitten in one place, and brethren shall fall together in death till streams flow with their blood. For a man shall not withhold his hand from slaying his sons and his sons' sons, and the sinner shall not withhold his hand from his honoured brother: from dawn till sunset they shall slay one another' — the eschatological family-breakdown. Direct anticipation of the Synoptic apocalypse (Mk 13:12 / Mt 10:21 / Lk 21:16 — 'brother shall deliver up brother to death, and the father his child'). Tewahedo eschatology preserves this family-breakdown as the canonical sign of the eschaton's approach.",
+      "attribution": "1 Enoch 99:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 100,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And in those days in one place the fathers together with their sons shall be smitten and brothers shall fall in death together' — the horror of intra-family slaughter as eschatological marker. Tewahedo homiletic tradition uses 100:1 with 99:5 as paired witnesses to the same eschatological scenario, citing them together when interpreting the Synoptic apocalypse-discourses.",
+      "attribution": "1 Enoch 100:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 100,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And in those days the angels shall descend into the secret places and gather together into one place all those who brought down sin, and the Most High will arise on that day of judgement to execute great judgement amongst sinners' — angelic descent for the gathering-of-sinners. Tewahedo angelological tradition reads this verse alongside Mt 13:39-41 ('the harvesters are angels... they shall gather out of his kingdom all things that offend') as direct Enochic precedent for the Synoptic image.",
+      "attribution": "1 Enoch 100:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 100,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Woe to you, sinners, on the day of strong anguish, ye who afflict the righteous and burn them with fire: ye shall be requited according to your works' — woe oracle for those who burn the righteous (allusion to martyrdom). Tewahedo martyrological tradition (the long history of Ethiopian Christian martyrdom under Aksum-era pagan reversions, Beta Israel/Falasha tensions, Mahdist invasions, modern persecutions) reads this verse as the eschatological vindication-promise for every named martyr.",
+      "attribution": "1 Enoch 100:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 101,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Observe the heaven, ye children of heaven, and every work of the Most High, and fear ye Him and work no evil in His presence. If He closes the windows of heaven, and withholds the rain and the dew from descending on the earth on your account, what will ye do then?' — cosmological theodicy: God's cosmic order is contingent on human moral order. Tewahedo agriculture-and-fasting theology (the seasonal fasts as covenant-rains-restoration) draws on this verse for its scriptural anchor.",
+      "attribution": "1 Enoch 101:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 102,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Fear ye not, ye souls of the righteous, and be hopeful ye that have died in righteousness. And grieve not if your soul into Sheol has descended in grief, and that in your life your body fared not according to your goodness, but wait for the day of the judgement of sinners and for the day of cursing and chastisement' — comfort to the righteous dead. The verbal pattern of 'fear not, ye souls of the righteous' is preserved in Tewahedo funeral liturgy as the consolation-formula for the mourning family.",
+      "attribution": "1 Enoch 102:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 102,
+      "verse": 5,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'When ye die the sinners speak over you: As we die, so die the righteous, and what benefit do they reap for their deeds?' — the cynical sinner's epitaph. Tewahedo apologetic tradition uses 102:5 as the canonical presentation of the no-resurrection-no-judgment cynicism that the Epistle's argument refutes — direct anticipation of the Sadducean / Pauline argument of 1 Cor 15.",
+      "attribution": "1 Enoch 102:5, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 103,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'I swear unto you, that I understand this mystery. For I have read the tablets of heaven, and have seen the holy books, and have found written therein and inscribed regarding them: That all goodness and joy and glory are prepared for them, and written down for the spirits of those who have died in righteousness' — the heavenly-tablets witness to the good destiny of the righteous dead. Tewahedo eschatology preserves the heavenly-tablets image as load-bearing in the doctrine that the righteous dead are NOT merely waiting passively — their joy is already INSCRIBED, prepared in advance.",
+      "attribution": "1 Enoch 103:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 103,
+      "verse": 4,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And the spirits of you who have died in righteousness shall live and rejoice, and their spirits shall not perish, nor their memorial from before the face of the Great One unto all the generations of the world' — the soul-lives-on-and-rejoices promise. Direct anticipation of Phil 1:23 ('to depart and to be with Christ') and Lk 23:43 ('to-day shalt thou be with me in paradise'). Tewahedo soteriology preserves the intermediate-state-as-joyful (not merely Sheol-as-shade) as canonical.",
+      "attribution": "1 Enoch 103:4, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 103,
+      "verse": 7,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And know ye that into Sheol shall they bring your souls, and there shall they be in great tribulation. And into darkness and chains and a burning flame, where there is grievous judgement, shall your spirits enter' — the sinners' destiny as darkness-and-flame. Tewahedo eschatology preserves the dual-destiny structure (joy for righteous, darkness-and-flame for sinners) and notes the verbal continuity with Mt 8:12, 22:13, 25:30 ('outer darkness') and Mt 13:42 ('furnace of fire'). The Synoptic image is Enochic in vocabulary.",
+      "attribution": "1 Enoch 103:7, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 104,
+      "verse": 6,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Be hopeful, and cast not away your hope, for ye shall have great joy as the angels of heaven. What shall ye be obliged to do? Ye shall not have to hide on the day of the great judgement, and ye shall not be found as sinners' — hope-oracle promising the righteous won't have to hide at judgment. The 'no-hiding-at-judgment' assurance is preserved in Tewahedo mystical theology as the eschatological correlate of the righteous having nothing-to-fear-in-the-light: those whose deeds are done in light fear no light.",
+      "attribution": "1 Enoch 104:6, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 104,
+      "verse": 10,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And now I know this mystery, that sinners will alter and pervert the words of righteousness in many ways, and will speak wicked words, and lie, and practise great deceits, and write books concerning their words' — the textual-corruption warning. Tewahedo manuscript culture treats this verse with extraordinary seriousness: the entire monastic-scribal preservation enterprise is partly defined by the conviction that texts CAN be corrupted ('sinners will alter') and must be guarded. The Tewahedo Mäṣḥafä Hēnok preservation through 16 centuries when every other communion lost it is the practical witness to this verse.",
+      "attribution": "1 Enoch 104:10, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 104,
+      "verse": 12,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And now I know this mystery, that to the righteous and wise shall the books be given as a joy and as a recompense and as a wisdom, and they shall believe in them and rejoice in them; and then shall all the righteous who have learnt therefrom all the paths of uprightness be recompensed' — books given to the righteous as joy. The PERMANENT-GIFT-OF-BOOKS theme is central to Tewahedo spirituality: monastic manuscript copying is not a chore but a JOY-FORM. The Tewahedo Mäṣḥafä Sǝbḥata Foṣǝlt prayer treats text-preservation as participation in the heavenly liturgy.",
+      "attribution": "1 Enoch 104:12, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 105,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'In those days the Lord bade them to summon and testify to the children of earth concerning their wisdom: Show it unto them; for ye are their guides, and a recompense over the whole earth. For I and My son will be united with them for ever in the paths of uprightness in their lives' — 'I and My son' ('Adam wäldǝya in Ge'ez) — one of the rare and theologically loaded pre-Christian 'son' references in Second Temple literature. Tewahedo Christology reads this verse Christologically as anticipating the Father-Son union with the redeemed (Jn 14:23, 17:21-23) — pre-canonical witness to the Trinitarian inclusion-pattern.",
+      "attribution": "1 Enoch 105:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 106,
+      "verse": 2,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And his body was white as snow and red as the blooming of a rose, and the hair of his head and his long locks were white as wool, and his eyes beautiful. And when he opened his eyes, he lighted up the whole house like the sun, and the whole house was very bright' — the miraculous birth of Noah. Tewahedo iconography preserves the radiant-infant motif (the depiction of saints' birth-narratives in some monastic frescoes shows infant-light radiating from the cradle) — drawing on the Enochic Noah-birth as one of its scriptural-iconographic anchors.",
+      "attribution": "1 Enoch 106:2, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 106,
+      "verse": 13,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And his father Lamech was afraid of him, and fled and came to his own father Methuselah. And he said to him: I have begotten a strange son, diverse from and unlike man, and resembling the sons of the God of heaven; and his nature is different and he is not like us' — Lamech's anxiety about Noah's supernatural appearance. Tewahedo theological tradition preserves the distinction between APPEARING supernatural and BEING supernaturally fathered: Noah is righteous-Adamic, not Watcher-fathered — the Epistle is careful to refute the latter possibility through the rest of the chapter.",
+      "attribution": "1 Enoch 106:13, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 106,
+      "verse": 18,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And call his name Noah, for he shall be left to you, and he and his sons will be saved from the destruction, which is coming upon the earth on account of all the sin and all the unrighteousness, which will be consummated on the earth in his days' — the prophecy of the Flood delivered through Methuselah-Lamech-Noah lineage. Tewahedo Flood-theology preserves the prophetic-foreknowledge component: the Flood was ANNOUNCED in advance through the patriarchal line, giving humanity warning and time to repent — emphasising God's mercy even in judgment.",
+      "attribution": "1 Enoch 106:18, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 107,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'And after that there shall be still more unrighteousness than that which was first consummated on the earth; for I know the mysteries of the holy ones; for He, the Lord, has showed me and informed me, and I have read them in the heavenly tablets' — the SECOND judgment will exceed the first (Flood). Tewahedo eschatology preserves the second-greater-than-first principle: just as Noah's flood-judgment was decisive but PARTIAL (the human race continued), the final eschatological judgment is total — the typological escalation builds throughout the Mäṣḥafä Hēnok.",
+      "attribution": "1 Enoch 107:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "1en",
+      "chapter": 108,
+      "verse": 1,
+      "father": "1 Enoch (Ethiopian tradition)",
+      "work": "Epistle of Enoch (1 Enoch 91-108)",
+      "year": -100,
+      "summary": "'Another book which Enoch wrote for his son Methuselah and for those who will come after him, and keep the law in the last days' — the closing inclusio of the entire Mäṣḥafä Hēnok. The book closes as it opens (cf. 1En 1:1-2): with Enoch writing for the future-righteous-remnant. Tewahedo manuscript-tradition preserves this opening-closing inclusio as the book's own self-attestation to its destination: it is FOR THE LAST-DAYS RIGHTEOUS. The Tewahedo identification with this addressee is preserved in the very fact that the Tewahedo Bible is the ONLY canonical Bible in which 1 Enoch closes: that closing-charge IS to the Tewahedo reader.",
+      "attribution": "1 Enoch 108:1, trans. R.H. Charles (1912). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 12,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "Ephrem reads the call of Abram as the prototype of every later monastic-renunciation: 'Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee'. The threefold renunciation (country/kindred/father's house) anticipates the Lord's later threefold demand in Lk 14:26-33. Ephrem notes that Abram is asked to leave a land of moon-worship (Ur of the Chaldees was a centre of the Sin/lunar cult) precisely because he is to become the father of those who worship the Lord of heaven — the geographical exit IS a theological exit. Tewahedo monastic tradition preserves Ephrem's reading: every monk's withdrawal repeats Abram's.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XII. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 12,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "First theophany: 'And the Lord appeared unto Abram'. Ephrem emphasises that the Word who appears here is the same Word who became flesh — the Father is invisible, but the Word makes Himself visible through theophanies. The altar Abram builds is the FIRST altar of true worship in the land that will become the holy land, prefiguring every later altar in the Mosaic-Aaronic priesthood and ultimately the Tewahedo tabot. Tewahedo eucharistic theology preserves Ephrem's identification of the OT theophanies as appearances of the pre-incarnate Word.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XII.7. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 14,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "Melchizedek brings forth bread and wine, blessing Abram. Ephrem treats Melchizedek as the supreme OT type of Christ — priest without genealogy, king of righteousness (melek-ṣedeq), king of peace (Salem = shalom). The bread-and-wine offering directly prefigures the Eucharist; the absence of bloody sacrifice makes Melchizedek's priesthood superior to the Aaronic. Tewahedo eucharistic theology preserves this typology load-bearingly: the Tewahedo Anaphora invokes Melchizedek explicitly as the priestly archetype that Christ fulfils, drawing on Heb 5-7 and Ephrem's exegetical lead.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XIV.18. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 15,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And he believed in the Lord; and he counted it to him for righteousness'. Ephrem reads Abraham's faith as the proto-justifying faith — the pattern that Paul will universalise in Rom 4 and Gal 3. Ephrem emphasises that the faith is in a PROMISE (innumerable descendants from a sterile body), not in present visible evidence — establishing faith as TRUST in the divine word against contrary appearance. Tewahedo soteriology preserves the Abrahamic-pattern as the model of saving faith, with Ephrem's emphasis on faith-against-appearance as the monastic-spiritual continuation of this pattern.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XV.6. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 17,
+      "verse": 5,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Neither shall thy name any more be called Abram, but thy name shall be Abraham; for a father of many nations have I made thee'. Ephrem reads the divine name-change as a SACRAMENTAL renaming: the addition of the heh (the divine breath / spirit-letter, also added to Sarai → Sarah) signifies the entry of the divine name itself into Abraham's identity. Tewahedo baptismal liturgy preserves the name-given-at-baptism tradition (the newly-baptised receives a Christian saint-name) as the sacramental continuation of this Abrahamic name-change pattern.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XVII.5. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 17,
+      "verse": 10,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "Circumcision as covenant-sign in the flesh. Ephrem reads circumcision as a temporary sign pointing toward its fulfilment in baptism: the sign cut into the body of one tribe becomes the sign worked into the soul of every Christian. Tewahedo praxis preserves BOTH signs: the Tewahedo Church retains circumcision (on the 8th day for boys) as a cultural continuity with the Abrahamic covenant, while reading baptism as the salvific fulfilment — a unique Tewahedo retention that preserves the Jewish-Christian continuity Ephrem held in tension.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XVII.10. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 18,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And the Lord appeared unto him in the plains of Mamre... behold, three men stood by him'. Ephrem reads the three visitors as a Trinitarian theophany — the Lord (singular) who appears IS the three (plural). Tewahedo iconography preserves the Mamre-Trinity tradition most fully of any major Christian communion (the Andrew Rublev icon tradition is Slavonic; the Tewahedo iconographic Trinity-at-Mamre is older and more widespread in church-wall fresco than in any other Oriental Orthodox communion). Ephrem's exegesis is the Patristic foundation.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XVIII.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 18,
+      "verse": 14,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Is any thing too hard for the Lord?' Ephrem reads the rhetorical question as the FOUNDATIONAL apologetic for divine omnipotence — and specifically for miracle-faith against rational doubt. The Tewahedo annunciation reading explicitly draws on Gen 18:14 (Sarah's incredulity → Isaac's miraculous birth) as the OT type of Lk 1:37 ('for with God nothing shall be impossible' — the angel to Mary). Ephrem's exegesis pins the typological chain.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XVIII.14. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 21,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "Isaac's birth: the Lord visited Sarah as He had said. Ephrem reads the laughter motif (Isaac = yiṣḥaq, 'he laughs') as the joy of fulfilled promise: previous laughter (17:17, 18:12) was incredulous; the laughter encoded in Isaac's name is the joy that follows fulfilment. Tewahedo Marian theology preserves this distinction: Mary's response to annunciation moves from troubled wonder (Lk 1:29) to joyful Magnificat (Lk 1:46-55) — the same incredulity-to-joy pattern.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXI.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 22,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "The Akedah opens with 'And it came to pass after these things, that God did tempt Abraham'. Ephrem reads the temptation as PROBATIVE not deceptive — God already knows Abraham's heart; the test is FOR ABRAHAM, so that Abraham may know what was already in him. Tewahedo spiritual-formation theology (preserved in monastic ascetical texts) follows Ephrem: every trial reveals the soul TO ITSELF; God permits the testing so that the tested know their own depths.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXII.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 22,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'My son, God will provide himself a lamb for a burnt offering'. Ephrem reads this verse as the most direct prophecy of the Crucifixion in the entire Torah: God will provide HIMSELF (i.e., God-incarnate) as the lamb. The substitution-of-ram (22:13) is a temporal stay; the ultimate lamb is the God-man on the Cross. Tewahedo Christology preserves Ephrem's reading: the ram caught in the thicket prefigures Christ's crown of thorns; Isaac unbound prefigures the empty tomb.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXII.8. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 22,
+      "verse": 14,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'In the mount of the Lord it shall be seen' (Jehovah-jireh). Ephrem reads Moriah as the SAME mountain (or its theological extension) that would become Calvary — the OT-NT typological geography is intentional. Tewahedo liturgical-theology preserves the Moriah-Calvary identification: the Tewahedo Anaphora explicitly recalls Moriah when commemorating the Crucifixion, treating the binding of Isaac as the OT side of a single redemptive event extending across two millennia.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXII.14. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 23,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Sarah died... and Abraham came to mourn for Sarah, and to weep for her'. Ephrem reads Abraham's mourning as the legitimate-grief warrant: faith in the resurrection does NOT abolish the legitimate human grief at death. Tewahedo funeral theology preserves Ephrem's balance: mourning is permitted (commanded, even) for forty days; Christian hope reshapes mourning but does not eliminate it. Abraham weeping over Sarah's body authorises every Tewahedo funeral weeping.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIII.2. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 24,
+      "verse": 67,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Isaac brought her into his mother Sarah's tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother's death'. Ephrem reads the marriage as the comfort-in-grief pattern: legitimate human relationships are God's gift FOR consolation. The narrative pattern (find-bride → marry → be-comforted) is preserved in Tewahedo marital theology as the SAFEGUARD against monastic over-spiritualisation: not everyone is called to monastic celibacy; marriage too is sanctifying.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIV.67. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 25,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And his sons Isaac and Ishmael buried him in the cave of Machpelah'. Ephrem dwells on this verse: the half-brothers, Isaac and Ishmael — elsewhere divided — UNITE to bury their father. Ephrem reads this as the eschatological reconciliation of estranged peoples: even when the narrative diverges them, at the threshold of death and burial there is reunion. Tewahedo missiological tradition (the Ethiopian Christian engagement with the Islamic world, including the medieval Solomonic diplomacy with Mamluk Egypt) draws on this verse as canonical witness that descendants-of-Abraham reconciliation is possible.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXV.9. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 25,
+      "verse": 23,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Two nations are in thy womb... and the elder shall serve the younger'. Ephrem reads the womb-oracle Christologically: the two nations are (1) the carnal-old-Israel (the elder, Esau) and (2) the spiritual-new-Israel-in-Christ (the younger, Jacob). The 'elder shall serve younger' inverts natural primogeniture; Tewahedo soteriology preserves Ephrem's reading of this inversion as the foundational pattern: divine election overrides natural-birth order.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXV.23. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 27,
+      "verse": 27,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'See, the smell of my son is as the smell of a field which the Lord hath blessed'. Ephrem treats Isaac's olfactory blessing of Jacob as the prototype of every sacramental aroma: Israel-in-Jacob bears the fragrance of Eden (the field-which-the-Lord-blessed = the Edenic garden, by Ephrem's reading). Tewahedo liturgical use of frankincense in the qǝddase preserves this aroma-as-blessing pattern: the church fills with the smell of paradise.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXVII.27. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 28,
+      "verse": 12,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven: and behold the angels of God ascending and descending on it'. Ephrem reads the ladder as a Christ-Mary type: the ladder is Christ (Jn 1:51 — 'angels of God ascending and descending upon the Son of man'), AND the ladder is Mary (because she bridges earth and heaven, bringing God to earth and lifting earth to God). Tewahedo Marian hymnody preserves the Jacob-ladder typology as one of Mary's most prominent OT types, in the Wǝddase Maryam (Praise of Mary).",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXVIII.12. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 28,
+      "verse": 17,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'How dreadful is this place! this is none other but the house of God, and this is the gate of heaven'. Ephrem reads Bethel ('house of God') as the proto-temple, proto-church, proto-tabot. Tewahedo ecclesiology explicitly carries the gate-of-heaven identification through every Tewahedo church: each parish church is in some sense Bethel — a renewed-Jacob place where heaven opens. The Tewahedo qǝddase opens with this consciousness.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXVIII.17. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 32,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Jacob was left alone; and there wrestled a man with him until the breaking of the day'. Ephrem reads the mysterious wrestler as the pre-incarnate Word — the same Person who later appears to Joshua as captain of the Lord's host (Josh 5:13-15) and who ultimately becomes incarnate in Mary's womb. Tewahedo Christology preserves the wrestling-with-the-pre-incarnate-Word as the canonical OT Christophany that establishes the principle: theophany in the OT is always the Son, never the Father.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXII.24. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 32,
+      "verse": 28,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Thy name shall be called no more Jacob, but Israel: for as a prince hast thou power with God and with men, and hast prevailed'. Ephrem reads the new name as won-not-given: unlike Abraham's name change (simple divine declaration), Jacob WRESTLES for his new name. Tewahedo monastic-ascetical tradition uses this verse as the canonical warrant for spiritual struggle: some names (i.e., spiritual identities) are not handed over but must be wrested through prayer-as-combat. The monastic name received at tonsure is in this lineage.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXII.28. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 33,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Esau ran to meet him, and embraced him, and fell on his neck, and kissed him: and they wept'. Ephrem reads the reconciliation of the brothers as a foretaste of the eschatological reconciliation promised in Rom 11:25-26 (the fullness of the Gentiles, then all Israel saved). Tewahedo ecumenical theology — preserved in the long Tewahedo refusal to demonize other communions even during Chalcedonian controversies — draws on the Esau-Jacob embrace as canonical model for inter-Christian relations.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXIII.4. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 35,
+      "verse": 10,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And God said unto him, Thy name is Jacob: thy name shall not be called any more Jacob, but Israel shall be thy name'. Ephrem notes the divine reconfirmation: the angelic Jabbok name-change is now RATIFIED by God Himself in direct theophany. The pattern of double-confirmation (angelic-then-divine) is preserved in Tewahedo sacramental practice: the deacon's prayer precedes the priest's consecration; the bishop's chrismation ratifies the presbyter's baptism. Authority moves in stages, never bypassed.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXV.10. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 35,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And it came to pass, as her soul was in departing, (for she died,) that she called his name Ben-oni: but his father called him Benjamin'. Ephrem reads the double-naming as the dialectic of grief-and-hope: the mother dying names her son Son-of-my-sorrow; the father renames him Son-of-the-right-hand (i.e., Son-of-strength / favoured-son). Tewahedo pastoral theology preserves this pattern: the church speaks both griefs honestly AND reframes them into hope, never denying the first.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXV.18. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 35,
+      "verse": 22,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And it came to pass... that Reuben went and lay with Bilhah his father's concubine: and Israel heard it'. Ephrem reads Reuben's sin as the COVENANT-RUPTURE moment that cost him the firstborn's inheritance (cf. Gen 49:3-4, 1 Chr 5:1) — Reuben's primogeniture passes to Joseph by way of the double-portion-to-his-two-sons. Tewahedo monastic-discipline tradition cites Reuben's example: a single major moral failure can cost ecclesiastical office, even when individual salvation remains.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXV.22. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 35,
+      "verse": 29,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Isaac gave up the ghost, and died... and his sons Esau and Jacob buried him'. Ephrem notes the symmetric structure with Abraham's burial (25:9 — both half-brothers reconciled at the patriarchal burial). The pattern persists: covenant-divisions soften at death; the family-of-the-promise gathers at the threshold. Tewahedo funerary theology preserves this as the canonical pattern for inter-family reconciliation: estranged kin reconcile at the threshold of ancestral burial.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXV.29. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 36,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Now these are the generations of Esau, who is Edom'. Ephrem reads the Edom-genealogy as the FAITHFUL recording of the rejected line — Scripture preserves Esau's descendants not to praise but to remember. Tewahedo historiographical tradition preserves the principle: even the rejected names are recorded, because divine memory excludes no one. The Mäṣḥafä Sǝnksar (Tewahedo Synaxarium) preserves names of heretics and apostates in this same spirit — for memory, not for veneration.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXVI.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 37,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Now Israel loved Joseph more than all his children... and he made him a coat of many colours'. Ephrem reads the ketonet-passim (coat of many colours / long-sleeved tunic) as a PRIESTLY garment — the Septuagint's poikilon resonates with priestly vestment language. Jacob's gift to Joseph is implicit priestly-investiture. Tewahedo liturgical vestments preserve the multi-coloured-tunic pattern in the deacon's and priest's robes: the colours are not decorative but PROPHETIC, drawing on Joseph's typology.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXVII.3. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 37,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And he dreamed yet another dream, and told it his brethren, and said, Behold, I have dreamed a dream more; and, behold, the sun and the moon and the eleven stars made obeisance to me'. Ephrem reads Joseph's astral dream as a Marian prefiguration: Rev 12:1 ('a woman clothed with the sun, and the moon under her feet, and upon her head a crown of twelve stars') reuses Joseph's imagery for Mary. Tewahedo Marian iconography preserves the Rev-12 crown imagery, reading Joseph's dream as the OT root.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXVII.9. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 37,
+      "verse": 28,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And they... sold Joseph to the Ishmaelites for twenty pieces of silver'. Ephrem reads the twenty-pieces-of-silver sale as the OT type of Christ's thirty-pieces-of-silver betrayal: same pattern (the righteous one sold by his own kin for silver-pieces), with the price escalating in the antitype. Tewahedo Holy-Week liturgy explicitly draws the Joseph-typology in the Wednesday-of-Holy-Week readings: Joseph sold prefigures Christ betrayed.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXVII.28. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 39,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'There is none greater in this house than I; neither hath he kept back any thing from me but thee, because thou art his wife: how then can I do this great wickedness, and sin against God?' Ephrem reads Joseph's reasoning as a perfect model of conscience: he refuses on FAITHFULNESS-to-Potiphar AND on faithfulness-to-God. Tewahedo monastic-ethical tradition cites Joseph as the canonical chastity-model: the rejection is reasoned, not just instinctive.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXIX.9. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 40,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Do not interpretations belong to God? tell me them, I pray you'. Ephrem treats Joseph's reply to the cupbearer and baker as foundational for the doctrine of divine charism: interpretation of dreams is not a human skill but a divine gift, channelled through specific persons. Tewahedo prophetic-discernment tradition (the monastic discernment-of-spirits charism) traces theologically to this verse: the discerner DOES the interpreting but the interpretation BELONGS to God.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XL.8. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 41,
+      "verse": 38,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Pharaoh said unto his servants, Can we find such a one as this is, a man in whom the Spirit of God is?' Ephrem reads Pharaoh's recognition as a striking example: a pagan king discerns the Spirit of God in a Hebrew slave. Tewahedo missiological theology preserves this verse as the canonical warrant for the principle that divine presence can be recognised by those outside the covenant — implicit support for the Tewahedo openness to natural-revelation theology.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLI.38. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 41,
+      "verse": 55,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Go unto Joseph; what he saith to you, do' (Pharaoh's command to the famine-stricken people). Ephrem reads this verbatim as the Marian-Cana-prefiguration: 'whatsoever he saith unto you, do it' (Jn 2:5 — Mary's words to the servants at Cana). Tewahedo Marian theology preserves this typological pair: Joseph's authoritative mediation in famine prefigures Mary's authoritative mediation at Cana; both point to Christ as ultimate-provider.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLI.55. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 42,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And he turned himself about from them, and wept; and returned to them again'. Ephrem treats Joseph's hidden weeping as the model of concealed-compassion: Joseph maintains the testing-disguise BUT the compassion is real and ongoing. Tewahedo pastoral-theology preserves this image: shepherds and confessors may need to maintain apparent severity for the penitent's good, but the compassion underneath must always be active.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLII.24. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 44,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Then Judah came near unto him, and said... let thy servant abide instead of the lad a bondman to my lord'. Ephrem reads Judah's offering of himself as substitute for Benjamin as the OT type of Christ's substitutionary atonement: Judah (the tribe of the future Messiah) offers himself FOR another, anticipating the action of his great descendant. Tewahedo Christology preserves this typology as a key OT witness to vicarious atonement.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLIV.18. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 45,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'And Joseph said unto his brethren, I am Joseph; doth my father yet live?' Ephrem reads the self-revelation as the model of merciful self-disclosure: the brothers, expecting wrath, hear MERCY first. Tewahedo theological-anthropology preserves this pattern: divine self-disclosure in Christ runs ahead of and overwhelms human expectation of judgment. The risen Christ's 'Peace be unto you' to the apostles who abandoned Him is the Joseph-pattern fulfilled.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLV.4. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 45,
+      "verse": 5,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'Now therefore be not grieved, nor angry with yourselves, that ye sold me hither: for God did send me before you to preserve life'. Ephrem reads this verse as the FOUNDATIONAL providence text — God's salvific intent runs through and ABOVE human evil intent. Tewahedo providence-theology (especially developed in monastic spiritual direction for those processing past harms) draws on Gen 45:5: the harm was real; God's purpose ran deeper than the harm.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLV.5. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 49,
+      "verse": 10,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'The sceptre shall not depart from Judah, nor a lawgiver from between his feet, until Shiloh come; and unto him shall the gathering of the people be'. Ephrem reads this as the most explicit messianic prophecy in Genesis: Shiloh = the one to whom (Hebrew shelo = 'his') everything belongs / the one who is sent. Tewahedo Christology preserves the Shiloh-as-Christ identification load-bearingly: the Tewahedo qǝddase explicitly cites Gen 49:10 as proof-text for Christ's Judahic descent and universal lordship ('unto him shall the gathering of the people be').",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLIX.10. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 50,
+      "verse": 20,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 360,
+      "summary": "'But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive'. Ephrem treats this verse as the providence-formula par excellence — the complete two-tier reading of history. Tewahedo providential-theology cites Gen 50:20 in close conjunction with Rom 8:28 ('all things work together for good to them that love God') as the OT-NT providence-pair. The verse is foundational in Tewahedo consolation literature: every personal harm submits to the larger divine purpose without thereby being justified or made non-harmful.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis, Section L.20. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And it came to pass in the first year of the exodus of the children of Israel out of Egypt, in the third month, on the sixteenth day of the month, that God spake to Moses, saying: Come up to Me on the Mount, and I will give thee two tables of stone of the law and of the commandment, which I have written, that thou mayest teach them' — Jubilees opens with the Sinai theophany context, establishing the entire book as a SECOND-TORAH revelation. Tewahedo canonical theology preserves Mäṣḥafä Kufāle as canonical Scripture alongside the Pentateuch — one of only two major Christian communions to do so (the other being Eritrean Orthodox, which derives from Tewahedo).",
+      "attribution": "Jubilees 1:1 (Sinai prologue (1:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 1,
+      "verse": 25,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And I will be a Father unto them, and they shall be My children, and they shall all be called children of the living God, and every angel and every spirit shall know, yea, they shall know that these are My children, and that I am their Father in uprightness and righteousness, and that I love them' — the new-covenant Father-children promise, anticipating Jer 31:33, 2 Cor 6:18, Heb 8:10, Rev 21:7. Tewahedo baptismal theology reads this verse as a direct anticipation of Christian adoption: the Father-children language is uniquely loaded Christologically.",
+      "attribution": "Jubilees 1:25 (Sinai prologue (1:25)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 2,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For on the first day He created the heavens which are above and the earth and the waters and all the spirits which serve before Him — the angels of the presence, and the angels of sanctification, and the angels of the spirit of fire... and of all the spirits of His creatures which are in the heavens and on the earth' — the seven primary works of creation day 1 enumerated. Tewahedo angelology preserves the doctrine that the angelic hierarchies were ALL created on day 1, before the material universe — Jubilees is the canonical anchor for this angelic-creation chronology that diverges from later rabbinic and Western theological accounts.",
+      "attribution": "Jubilees 2:2 (Creation (2:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 3,
+      "verse": 31,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'On this account it is prescribed on the heavenly tablets as touching all those who know the judgement of the law, that they should cover their shame, and should not uncover themselves as the Gentiles uncover themselves' — the heavenly-tablets prescription on bodily modesty. Tewahedo monastic dress tradition (the distinctive monastic robes covering arms and legs completely; the laymen's shamma cloth wrap) preserves this Jubilees-tablet prescription as canonical warrant for clothing-as-covenant-marker.",
+      "attribution": "Jubilees 3:31 (Eden's aftermath (3:31)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 4,
+      "verse": 17,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he was the first among men that are born on earth who learnt writing and knowledge and wisdom and who wrote down the signs of heaven according to the order of their months in a book, that men might know the seasons of the years according to the order of their separate months' — Enoch as the FIRST scribe of wisdom. Jubilees and 1 Enoch agree on this point (cf. 1En 12:4). Tewahedo manuscript tradition explicitly traces its theological lineage to this Enochic scribal commissioning: every monastic scribe stands in the Enochic succession.",
+      "attribution": "Jubilees 4:17 (Enoch as scribe (4:17)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 4,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he was taken from amongst the children of men, and we conducted him into the Garden of Eden in majesty and honour, and behold there he writeth down the condemnation and judgement of the world, and all the wickedness of the children of men' — Enoch translated to Eden (not heaven directly, as 1 En 71 has it). Jubilees locates Enoch's translation in the Garden, where he continues to write. Tewahedo Edenic-monastic-theology preserves the Edenic-garden as still ACCESSIBLE in some sense for the holy: the monk's cell is a fragmentary participation in the Edenic Enochic geography.",
+      "attribution": "Jubilees 4:23 (Enoch translated (4:23)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And it came to pass when the children of men began to multiply on the face of the earth and daughters were born unto them, that the angels of God saw them on a certain year of this jubilee, that they were beautiful to look upon; and they took themselves wives of all whom they chose, and they bare unto them sons and they were giants' — Jubilees' compressed Watchers narrative (parallel to 1 En 6 and Gen 6:1-4). Tewahedo demonology has both witnesses (1 En + Jubilees) as canonical Scripture — the angelic-fall etiology is doubly attested in the Tewahedo canon, where every other Christian communion has at most the Gen 6:1-4 fragment.",
+      "attribution": "Jubilees 5:1 (Watchers (5:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And do thou command the children of Israel that they observe the years according to this reckoning — three hundred and sixty-four days, and (these) will constitute a complete year, and they will not disturb its time from its days and from its feasts' — the 364-day solar calendar regulation. Tewahedo Bāḥrä Ḥasab computational tradition preserves the principle of fixed-year-against-disturbance as central to liturgical accuracy. Jubilees and 1 En Astronomical Book share this calendar; their doubled canonical witness anchors the tradition.",
+      "attribution": "Jubilees 6:11 (Noahide covenant (6:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 32,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'Command thou the children of Israel that they observe the years according to this reckoning — three hundred and sixty-four days, and these will constitute a complete year' — direct calendar regulation verse, parallel to and reinforcing 1 En 72:32 (pinned in γ.4.4.D). **Tewahedo Bāḥrä Ḥasab anchor**: the doubled canonical witness (Jubilees + 1 Enoch) for the 364-day year is unique to the Tewahedo and Eritrean Orthodox communions and undergirds the entire Tewahedo feast-day computation system.",
+      "attribution": "Jubilees 6:32 (Noahide covenant (6:32)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 36,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the seventh year of this jubilee Noah planted vines on the mountain on which the ark had rested, named Lubar, one of the Ararat Mountains, and they produced fruit in the fourth year, and he guarded their fruit, and gathered it in this year in the seventh month' — Noah's vineyard on Mount Lubar. Tewahedo monastic-agriculture tradition (the vine-cultivation at monastic settlements in the Ethiopian highlands) draws on the Noahic vineyard-as-righteous-agriculture motif, though Tewahedo monasticism guards strictly against wine-intemperance (the prohibition Jubilees develops further).",
+      "attribution": "Jubilees 7:36 (Noah's life (7:36)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 8,
+      "verse": 19,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he knew that the Garden of Eden is the holy of holies, and the dwelling of the Lord, and Mount Sinai the centre of the desert, and Mount Zion — the centre of the navel of the earth: these three were created as holy places facing each other' — the three holy mountains: Eden / Sinai / Zion. Tewahedo sacred-geography preserves this tri-mountain structure as central to its theological topology, with the Tewahedo qǝddǝst-qǝddusan (holy of holies) understood as a participation in the Edenic-Zion holy-mountain pattern.",
+      "attribution": "Jubilees 8:19 (Division of earth (8:19)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 9,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the second portion was for Ham... and it goeth from this mountain (Atlas) to Mount Amana, and from Mount Amana to the borders of the sea as far as the great sea... And he wrote down on a tablet that he had given for Ham and his children' — Ham's portion of the earth (covering much of Africa). **Tewahedo Hamitic identity anchor**: the Ethiopian self-understanding as descended from Cush son of Ham draws on Jubilees 9:13 (with Gen 10:6-8) as canonical warrant for an INCLUSIVE Hamitic theology — Ham's portion is divinely allotted, not cursed. The Tewahedo reading explicitly rejects the curse-of-Ham racialisation.",
+      "attribution": "Jubilees 9:13 (Division of earth (9:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 8,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the chief of the spirits, Mastema, came and said: Lord, Creator, let some of them remain before me, and let them hearken to my voice, and do all that I shall say unto them; for if some of them are not left to me, I shall not be able to execute the power of my will on the sons of men' — Mastema's petition for demonic remnant. Tewahedo demonology preserves Mastema as canonical: the post-Flood demonic presence is divinely permitted, bounded, and serves a probative function. This makes Tewahedo theodicy distinctively non-dualistic: evil is BOUNDED, not autonomous.",
+      "attribution": "Jubilees 10:8 (Mastema (10:8)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 11,
+      "verse": 16,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the child began to understand the errors of the earth that all went astray after graven images and after uncleanness, and his father taught him writing, and he was two weeks of years old, and he separated himself from his father, that he might not worship idols with him' — young Abram rejects his father's idolatry. Tewahedo missiological tradition cites this verse as the canonical witness that conversion-from-idolatry CAN happen even within a thoroughly pagan household — a foundational warrant for evangelism into traditional-religious contexts.",
+      "attribution": "Jubilees 11:16 (Abram's early life (11:16)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 12,
+      "verse": 16,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the sixth week, in the fifth year thereof, Abram sat up throughout the night on the new moon of the seventh month to observe the stars from the evening to the morning, in order to see what would be the character of the year with regard to the rains, and he was alone as he sat and observed. And a word came into his heart and he said: All the signs of the stars, and the signs of the moon and of the sun are all in the hand of the Lord' — Abram's astronomical renunciation of astrology. Tewahedo wisdom theology preserves this verse as the canonical anti-astrology text: the heavenly signs are real, but they are SERVANTS of the Lord, not autonomous fate-arbiters.",
+      "attribution": "Jubilees 12:16 (Abram's early life (12:16)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 12,
+      "verse": 22,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For I am the Lord thy God: I rule the heavens and the earth, and I command thee to go forth from this land, and from thy kindred, and from the house of thy father unto a land which I will show thee' — the Jubilees parallel to Gen 12:1, with the divine self-identification made explicit. Tewahedo catechesis uses this verse alongside Gen 12:1 as paired witnesses: the call is to GO and to KNOW the One who calls.",
+      "attribution": "Jubilees 12:22 (Abram's early life (12:22)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 14,
+      "verse": 6,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he believed in the Lord, and it was counted to him for righteousness' — Jubilees' parallel to Gen 15:6. The doubled canonical witness (Genesis + Jubilees) for the proto-justification text gives the Tewahedo canon a uniquely-reinforced foundation for the Pauline argument of Romans 4 and Galatians 3.",
+      "attribution": "Jubilees 14:6 (Abraham cycle (14:6)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 15,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And every one that is born, the flesh of whose foreskin is not circumcised on the eighth day, belongs not to the children of the covenant which the Lord made with Abraham, but to the children of destruction; nor is there moreover any sign on him that he is the Lord's, but (he is destined) to be destroyed and slain from the earth' — Jubilees' severe formulation of the circumcision-covenant. Tewahedo practice retains circumcision on the 8th day for boys as cultural continuity (not soteriological necessity in the Christian dispensation, but unbroken Abrahamic-covenant continuity).",
+      "attribution": "Jubilees 15:11 (Abraham cycle (15:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 18,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the prince Mastema came and said before God: Behold, Abraham loves Isaac his son, and he delights in him above all things else; bid him offer him as a burnt-offering on the altar, and Thou wilt see if he will do this command, and Thou wilt know if he is faithful in everything wherein Thou dost try him' — the Akedah RE-FRAMED with Mastema as the accuser-instigator (parallel to Job 1-2's Satan-as-accuser). Tewahedo Akedah-theology preserves this Jubilees re-framing: the test originates in Mastema's challenge, but God permits it for Abraham's vindication. This protects God's absolute goodness while preserving the narrative of testing.",
+      "attribution": "Jubilees 18:9 (Akedah (18:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 21,
+      "verse": 10,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For thus I have found written in the books of my forefathers, and in the words of Enoch, and in the words of Noah, concerning the blood, for in the sight of the Lord this is a great sin, that they should shed the blood of any soul' — Abraham instructs Isaac, citing 'the books of Enoch'. **Jubilees treats 1 Enoch as authoritative source**, creating an inter-textual canonical witness inside the Tewahedo canon itself: Jubilees cites Enoch, both are Scripture, both are preserved uniquely in Ge'ez.",
+      "attribution": "Jubilees 21:10 (Abraham cycle (21:10)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 23,
+      "verse": 14,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And one shall say to the other, and they to their fellow: Have we not seen all this evil... And in those days, if a man live a jubilee and a half of years, they shall say regarding him: He hath lived long, and the greater part of his days are pain and sorrow and tribulation' — the decline-of-human-lifespan theology. Tewahedo cosmological-anthropology preserves this Jubilees teaching: the shortening of life from the patriarchal centuries to ~70-80 years is NOT primarily biological-evolutionary, but covenant-disruption-consequential.",
+      "attribution": "Jubilees 23:14 (Decline (23:14)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 23,
+      "verse": 26,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in those days the children shall begin to study the laws, and to seek the commandments, and to return to the path of righteousness. And the days shall begin to grow many and increase amongst those children of men, till their days draw nigh to one thousand years' — the eschatological renewal / Jubilees apocalypse. Tewahedo eschatology preserves the millenarian element with caution (not Christian premillenialism, but the expectation of a renewed Edenic-longevity in the messianic age).",
+      "attribution": "Jubilees 23:26 (Decline (23:26)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 25,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'My mother, I know that there are twenty-two heads of mankind from Adam to Jacob, and twenty-two kinds of work were made until the seventh day; this is blessed and holy; and the former also is blessed and holy; and the one with the other serves for sanctification and blessing' — Jacob's recognition that 22 generations from Adam to him matches the 22 works of creation (cf. Jub 2:23). Tewahedo number-theology preserves this 22-fold sacred numerology in some liturgical contexts (parallel to the 22 Hebrew letters' theological significance).",
+      "attribution": "Jubilees 25:9 (Jacob cycle (25:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 27,
+      "verse": 21,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he set his face toward Haran, and he was alone in the way, and he travelled three days, and went to Lūz... And he tarried there one night, and he took a stone of the place and set it under his head, and he was alone in the place, and there was none with him' — Jacob's departure to Haran. Tewahedo monastic-pilgrimage theology preserves the alone-with-stone-pillow image as the canonical pattern of the ascetic's solitary travel: pillow of stone, hearing of theophany.",
+      "attribution": "Jubilees 27:21 (Jacob cycle (27:21)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 30,
+      "verse": 7,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And if there is any man in Israel who wishes to give his daughter or his sister to any man who is of the seed of the Gentiles, he shall surely die, and they shall stone him with stones; for he hath wrought shame in Israel, and they shall burn the woman with fire, because she hath dishonoured the name of the house of her father, and she shall be rooted out of Israel' — Jubilees' severe intermarriage prohibition (after Dinah / Shechem). Tewahedo marriage practice (preservation of endogamous tradition; Tewahedo theological reluctance toward intermarriage with non-Orthodox) draws on Jub 30 as canonical anchor.",
+      "attribution": "Jubilees 30:7 (Jacob cycle (30:7)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 32,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he abode there that night, and Levi dreamed that they had ordained and made him the priest of the Most High God, him and his sons for ever; and he awoke from his sleep and blessed the Lord' — Levi's priesthood ESTABLISHED IN DREAM (not via Aaronic descent — Jubilees has Levi's priesthood antedating Aaron). Tewahedo priestly theology preserves the Jubilees-Levitical lineage as parallel to and reinforcing the Aaronic-priesthood: priesthood is rooted in patriarchal time, before its Mosaic regulation.",
+      "attribution": "Jubilees 32:1 (Jacob cycle / Levi (32:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 32,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he gave Levi a tithe of all that he had, and Levi was the chief of the priests in the temple' — Jacob's tithing of Levi to the priesthood. **Tewahedo priestly anchor**: the Tewahedo priestly tradition (the qes orders descending through specific families) appeals to the patriarchal-Levitical lineage of Jub 32 as part of its self-understanding: the Tewahedo priesthood is older than its Mosaic regulation; Jub 32 is its scriptural anchor in canonical Mäṣḥafä Kufāle.",
+      "attribution": "Jubilees 32:18 (Jacob cycle / Levi (32:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 35,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the first year of the first week of the forty-fifth jubilee... Rebecca called Jacob her son... and said unto him: My son, do honour thy brother, thy father Isaac, all the days of thy life, until the day of his death' — Rebekah's parting instruction to Jacob to honour Isaac. Tewahedo filial-piety tradition preserves Rebekah's blessing structure as canonical pattern: the mother's instruction binding the son to the father's honour.",
+      "attribution": "Jubilees 35:1 (Death of Rebekah (35:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 36,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the sons of Esau came against Jacob, and the sons of Jacob fought against them and slew them, and Esau was slain' — Jubilees' DRAMATIC re-narration: Esau is slain in battle against Jacob's sons (Genesis is silent on Esau's death). The Jubilees version preserves the deep tradition that Esau's line ended violently. Tewahedo preservation of this version (which contradicts neither Genesis nor later texts but ADDS to them) shows the canonical reception of Jubilees as supplementary-authoritative.",
+      "attribution": "Jubilees 36:23 (Esau cycle (36:23)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 39,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Joseph was strong and beautiful, and the wife of his master saw him, and she lifted up her eyes and saw Joseph, and she loved him, and besought him to lie with her. But he did not surrender his soul, and he remembered the Lord and the words which Jacob, his father, used to read from amongst the words of Abraham' — Joseph remembers ABRAHAM'S TEACHING (transmitted through Jacob's reading). Tewahedo wisdom-transmission tradition preserves this multi-generational scriptural-reading pattern: each generation reads aloud what the previous taught — the Tewahedo monastic recitation tradition is in this lineage.",
+      "attribution": "Jubilees 39:11 (Joseph cycle (39:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 41,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the forty-fifth jubilee in the second week and in the second year, Judah took for his first-born Er, a wife from the daughters of Aram, named Tamar' — Jubilees' framing of the Judah-Tamar narrative with the canon's typical chronological-jubilee structure. The verse demonstrates Jubilees' distinctive editorial method: re-narrating Genesis with jubilee-week timestamps. Tewahedo chronological tradition preserves this jubilee-counting as a way of dating biblical events.",
+      "attribution": "Jubilees 41:1 (Joseph cycle / Judah-Tamar (41:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 43,
+      "verse": 8,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Joseph commanded that they should give them food when they had eaten, and he said unto them: Ye shall not return again until ye bring your youngest brother unto me' — the brothers' reunion sequence (parallel Gen 43:34, 44:23). Jubilees compresses but preserves the narrative; the Tewahedo lectionary uses Jubilees alongside Genesis for the Joseph cycle in Holy Week readings, drawing on the doubled canonical witness for the deeper Christological reading.",
+      "attribution": "Jubilees 43:8 (Joseph cycle (43:8)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 45,
+      "verse": 14,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Israel went down into Egypt, into the land of Goshen, in the first year of the third week of the forty-fifth jubilee, in the second year, that is, the year in which Joseph was thirty years' — Jacob and Joseph reunited in Egypt, dated by jubilee. Tewahedo historical-chronological tradition uses the Jubilees jubilee-counting alongside the Genesis natural-year counting; both are canonical, neither subordinates the other.",
+      "attribution": "Jubilees 45:14 (Joseph cycle (45:14)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 46,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And it came to pass that after Jacob died the children of Israel multiplied in the land of Egypt, and they became a great nation, and they were all of one heart, so that brother loved brother and every man helped his brother, and they increased abundantly and multiplied exceedingly, even for ten weeks of years' — the proto-ecclesial harmony of Israel in early Egypt. Tewahedo ecclesiological theology (the goal of one-heart-and-one-soul, parallel to Acts 4:32) reads this verse as the OT type: harmonious community precedes persecution in the divine pattern, just as church-harmony before persecution.",
+      "attribution": "Jubilees 46:1 (Egypt sojourn (46:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 47,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And there was great oppression of the children of Israel in Egypt, and they cried unto the Lord their God, and He heard their voice, and remembered His covenant with their fathers Abraham, Isaac and Jacob, and He sent His angels and led them out from Egypt' — the compressed Exodus motif: God hears the cry, remembers the covenant, sends His angels. Tewahedo exodus-theology preserves the angelic-mediation element prominently (alongside Moses' human agency), drawing on Jubilees as scriptural anchor for the angelic-historical-action doctrine.",
+      "attribution": "Jubilees 47:2 (Moses' birth (47:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 48,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And on the fourteenth day, and on the fifteenth day, and on the sixteenth day, and on the seventeenth, and on the eighteenth day, the prince Mastema was bound and imprisoned behind the children of Israel, that he might not accuse them' — Mastema bound during the Exodus week. Tewahedo Holy-Week theology (Mastema bound during the Paschal mystery; demonic accusation suspended during Christ's Passion-and-Resurrection) draws on Jubilees 48:9 as canonical anchor for the doctrine that the Paschal events constituted demonic suspension of accusation.",
+      "attribution": "Jubilees 48:9 (Exodus (48:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 49,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'Remember the commandment which the Lord commanded thee concerning the Passover, that thou shouldst celebrate it in its season on the fourteenth of the first month, that thou shouldst kill it before it is evening, and that they should eat it by night on the evening of the fifteenth from the time of the setting of the sun' — Passover regulation in Jubilees, parallel to and reinforcing Exod 12. Tewahedo Fasika (Easter / Passover) liturgical regulation preserves the timing-precision that Jubilees codifies: feast-times are NOT negotiable, they are received from divine command.",
+      "attribution": "Jubilees 49:1 (Passover (49:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 49,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the man who is clean, and does not come to observe it on the occasion of its day, so as to bring an acceptable offering before the Lord, and to eat and to drink before the Lord on the day of its festival, that man who is clean and close at hand shall be cut off; because he offered not the oblation of the Lord in its appointed season, he shall take the guilt upon himself' — Passover-attendance is non-negotiable. Tewahedo Fasika practice preserves the obligation-to-attend doctrine: the Easter observance is canonically required participation, not optional devotion.",
+      "attribution": "Jubilees 49:9 (Passover (49:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 50,
+      "verse": 6,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'These are the words and the regulations regarding the sabbaths of the Lord, as they were written down for the children of Israel and the angels of God, that they may keep them, and not violate them throughout all their generations' — closing-sabbath regulations. Tewahedo sabbath theology (the historical Tewahedo observance of BOTH Saturday-Sabbath and Sunday-Lord's-Day, unique among the major Christian communions until the 17th century — and still preserved in some monastic communities) draws on Jubilees 50 as canonical anchor for the centrality of Sabbath observance.",
+      "attribution": "Jubilees 50:6 (Sabbath finale (50:6)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 50,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And every man who does any work thereon, or goes on a journey, or tills (his) farm, whether in his house or any other place, and whoever lights a fire, or rides on any beast, or travels by ship on the sea, and whoever strikes or kills anything, or slaughters a beast or a bird, or whoever catches an animal or a bird or a fish, or whoever fasts or makes war on the Sabbaths: The man who does any of these things on the Sabbath shall die' — the most severe Sabbath prohibition in Jubilees. The closing book is given Moses on Sinai — the inclusio with 1:1 closes. **Tewahedo canonical reception**: this is the closing word of Mäṣḥafä Kufāle, and the Tewahedo Sabbath tradition takes its severity seriously even as it interprets the death-penalty language as covenantal-spiritual rather than civil.",
+      "attribution": "Jubilees 50:13 (Sabbath finale (50:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
     }
   ]
 }

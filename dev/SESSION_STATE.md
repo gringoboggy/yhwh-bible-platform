@@ -1,5 +1,126 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.5 Jubilees seed ships, SECOND uniquely-
+Tewahedo canonical text opens**: **γ.4.5 Mäṣḥafä Kufāle / Book of
+Jubilees seed wave shipped (40 verse-keyed entries across all 50
+chapters).** Opens the second uniquely-Tewahedo canonical text on
+the Mäṣḥafä-Hēnok-style trajectory. Jubilees is canonical in only
+the Tewahedo and Eritrean Orthodox communions, preserved as a
+complete text only in Ge'ez — the project's eponymous edition now
+has patristic-grade seed-coverage of BOTH uniquely-Tewahedo
+canonical texts (1 En + Jubilees). Voice mix moves from 31/20/49 to
+~28/18/45/9 Cyril/Ephrem/1En/Jubilees — Jubilees enters as a
+distinct fourth voice. Anchor passages: 1:1 (Sinai-prologue second-
+Torah framing), 4:17 (Enoch as first scribe — parallel to 1En 12:4),
+6:32 (364-day calendar — Tewahedo Bāḥrä Ḥasab DOUBLED canonical
+anchor with 1En 72:32), 8:19 (Eden/Sinai/Zion three holy mountains),
+9:13 (Ham's portion — Tewahedo Hamitic identity anchor), 10:8
+(Mastema petition — non-dualist demonology), 18:9 (Mastema-as-
+Akedah-accuser — Tewahedo theodicy), 21:10 ('books of Enoch' cited
+within Jubilees — inter-canonical witness), 32:18 (Levi consecrated
+to priesthood — Tewahedo priestly anchor), 48:9 (Mastema bound
+during Exodus — Tewahedo Holy-Week anchor), 50:6 (Sabbath finale —
+Tewahedo Saturday-Sabbath tradition anchor). **+14 tests** in
+`TestGamma45JubileesSeedWave`. 11/11 lint clean. Three phases
+unsaved since last save (`1900fb0`): γ.4.4.E + γ.4.2.B + γ.4.5,
+shipped under "push" continuation directive.
+
+**Recommended next ship**:
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (the Ethiopic Maccabean books — three texts that
+  exist in NO other Christian canon and are NOT the same as Greek
+  1-2-3-4 Maccabees; entirely separate composition preserved only
+  in Ge'ez). With 1En + Jub now both seeded, completing the
+  Ethiopic-extras triad would close the uniquely-Tewahedo canonical-
+  witness gap entirely.
+- **γ.4.5.B Jubilees Watchers + Mastema detail** — substantive
+  expansion of Jub 5-10.
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation.
+
+---
+
+**Updated 2026-05-12 / γ.4.2.B Ephrem on Gen 12-50 ships, voice mix
+rebalanced**: **γ.4.2.B Ephrem on Genesis 12-50 shipped (40 entries
+on patriarchal narrative — Abraham 15 / Jacob 12 / Joseph 13).**
+Continues γ.4.2 (Gen 1-11, shipped earlier this session) into the
+three patriarchal cycles. Brings Ephrem coverage from Gen 1-11 only
+(37 entries) to Gen 1-50 (77 entries). Voice mix moves from
+35/10/55 to ~31/20/49 Cyril/Ephrem/1En — **three-voice spread
+substantially healthier** after Ephrem rebalance. Anchor passages
+now substantively covered: 14:18 (Melchizedek bread-and-wine —
+Tewahedo eucharistic anchor), 15:6 (Abraham's faith counted for
+righteousness), 18:1 (Mamre Trinity theophany — Tewahedo
+iconographic anchor), 22:8 (Akedah / 'God will provide himself a
+lamb' — Crucifixion prophecy), 28:12 (Jacob's ladder — Christ-and-
+Mary type for Wǝddase Maryam), 32:24 (wrestling with pre-incarnate
+Word — canonical OT Christophany), 37:28 (Joseph sold for silver —
+Holy Week Wednesday anchor), 41:55 ('go unto Joseph, do what he
+saith' — Marian-Cana prefiguration), 44:18 (Judah's substitutionary
+offering — vicarious-atonement typology), 49:10 (Shiloh — Tewahedo
+qǝddase Christ proof-text), 50:20 (providence-formula par
+excellence). **+14 tests** in `TestGamma42BEphremPatriarchsWave`.
+11/11 lint clean. Shipped under "keep pushing" continuation
+directive — γ.4.4.E + γ.4.2.B both unsaved at this snapshot, to be
+bundled at the next save.
+
+**Recommended next ship**:
+- **γ.4.5 Jubilees seed** — opens the second uniquely-Tewahedo
+  canonical text on the Mäṣḥafä-Hēnok parallel pattern. With Ephrem
+  rebalanced and the 1 Enoch arc closed, this is the natural next
+  ambitious wave.
+- **γ.4.2.C Ephrem on Exodus** — further Ephrem expansion through
+  the Exodus narrative.
+
+---
+
+**Updated 2026-05-12 / γ.4.4.E Epistle ships, Mäṣḥafä Hēnok arc
+CLOSED, 1 Enoch is now dominant voice**: **γ.4.4.E 1 Enoch Epistle
++ Apocalypse of Weeks + Birth of Noah shipped (40 entries on chs
+91-108) — CLOSES the entire Mäṣḥafä Hēnok content arc.** Brings
+chs 91-108 coverage from 4 entries (γ.4.4.A first wave) to 44
+entries. Voice mix moves from 39/12/49 to ~35/10/55 Cyril/Ephrem/
+1En — **1 Enoch is now the dominant voice in the corpus** (was
+plurality after γ.4.4.D). All six Mäṣḥafä Hēnok sections (Watchers
+51 + Parables 49 + Astronomical 14 + Dream Visions 4 + Animal
+Apocalypse 30 + Epistle 44 = 192 entries) substantively expanded;
+the Mäṣḥafä Hēnok is the deepest single-source presence in the
+corpus, appropriate for the Tewahedo edition that uniquely
+canonizes it. Anchor passages now substantively covered: 91:14
+(tenth-week judgment of watchers — CLOSES the Watchers arc that
+opened in 1En 6), 91:16 (sevenfold-light new heaven — Rev 21:1
+antecedent), 93:6 (Abraham as plant of righteousness — covenant-
+theology anchor), 94:1 (two-paths exhortation — Didache antecedent),
+95:3 (saints shall judge the world — 1 Cor 6:2 antecedent), 98:4
+(sin not sent from heaven — anti-Manichaean foundation), 102:4
+(fear-not-ye-souls-of-righteous — Tewahedo funeral formula), 103:4
+(spirits live and rejoice — intermediate-state-as-joyful), 104:10
+(sinners pervert words — manuscript-preservation warrant), 104:12
+(books given as joy — monastic-scribal joy-form), 105:1 ('I and My
+son' — pre-canonical Father-Son union witness), 106:2 (Noah's
+radiant birth — Tewahedo iconographic anchor), 108:1 (closing
+inclusio — Tewahedo self-identification as last-days law-keepers
+addressee). **+15 tests** in `TestGamma44EEpistleOfEnochWave`
+including the arc-close pin `test_all_six_mashafa_henok_sections_covered`
+that programmatically verifies every Mäṣḥafä Hēnok section has
+substantive coverage. 11/11 lint clean.
+
+**γ.4.4 arc closure note**: γ.4.4.A (first wave) through γ.4.4.E
+(Epistle) is now COMPLETE for substantive-coverage purposes — six
+canonical sections, ≥3 verse-keyed entries each, three largest
+sections (Watchers + Parables + Epistle) each ≥40 substantive
+entries.
+
+**Recommended next ship**:
+- **γ.4.2.B Ephrem on Gen 12-50** — patriarchal narrative;
+  rebalances Ephrem share from 10% (under-represented) back toward
+  20-25%.
+- **γ.4.5 Jubilees seed** — opens the next uniquely-Tewahedo
+  canonical text on the Mäṣḥafä-Hēnok-style trajectory (Mäṣḥafä
+  Kufāle is also canonical in Tewahedo and preserved only in
+  Ge'ez, exactly parallel to 1 Enoch's preservation pattern).
+
+---
+
 **Updated 2026-05-12 / γ.4.4.D Astro+Dreams+Animal ships, 1 Enoch
 becomes plurality voice**: **γ.4.4.D 1 Enoch Astronomical Book +
 Dream Visions + Animal Apocalypse detail shipped (40 entries on

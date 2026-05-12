@@ -1581,3 +1581,415 @@ class TestGamma44DAstroDreamsAnimalWave:
     def test_white_bull_reunification_present(self):
         enoch = [e for e in self.ec.for_verse("1en", 90, 38) if e.father == "1 Enoch (Ethiopian tradition)"]
         assert enoch, "γ.4.4.D missing 1En 90:38 — white-bull reunification + lamb-with-horns climax"
+
+
+class TestGamma44EEpistleOfEnochWave:
+    """γ.4.4.E — 1 Enoch Epistle / Apocalypse of Weeks / Birth of Noah
+    expansion (40 entries on chs 91-108 beyond the 4 γ.4.4.A entries
+    on this section). **CLOSES the Mäṣḥafä Hēnok arc** — all six
+    sections of the Ethiopian 1 Enoch (Watchers + Parables +
+    Astronomical Book + Dream Visions + Animal Apocalypse + Epistle)
+    are now substantively expanded. Voice distribution post-γ.4.4.E:
+    ~34% Cyril / ~10% Ephrem / ~56% 1 Enoch — 1 Enoch is the
+    dominant voice in the corpus.
+
+    Pins:
+    - chs 91-108 substantively expanded (≥40 1en entries in chs
+      91-108).
+    - All three Epistle-section sub-arcs covered: Apocalypse of
+      Weeks (91:11-17 + 93) + Epistle proper exhortation/woes
+      (92, 94-105) + Birth of Noah + closing (106-108).
+    - 1 Enoch share ≥50% of corpus (dominant voice).
+    - Signature passages: 91:14 (tenth-week judgment of watchers —
+      closes Watchers arc), 91:16 (sevenfold-light new heaven —
+      Rev 21:1 antecedent), 93:6 (Abraham as plant of righteousness),
+      94:1 (two-paths exhortation — Didache antecedent), 95:3
+      (saints shall judge the world — 1 Cor 6:2 antecedent), 98:4
+      (human authorship of sin — anti-Manichaean anchor), 102:4
+      (fear-not-ye-souls-of-righteous — Tewahedo funeral formula),
+      103:4 (spirits live and rejoice — intermediate-state-as-
+      joyful), 104:10 (sinners pervert words — manuscript-
+      preservation warrant), 104:12 (books as joy to righteous —
+      monastic-scribal joy-form), 105:1 ('I and My son' — Father-
+      Son union pre-canonical witness), 106:2 (Noah's radiant
+      birth — Tewahedo iconographic anchor), 108:1 ('for those
+      who keep the law in the last days' — Tewahedo self-
+      identification as addressee of the entire book).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_chs_91_to_108_substantively_expanded(self):
+        enoch_range = []
+        for chapter in range(91, 109):
+            for verse in range(1, 100):
+                enoch_range.extend(
+                    e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
+                )
+        assert len(enoch_range) >= 40, (
+            f"γ.4.4.E expected ≥40 entries in 1En 91-108; found {len(enoch_range)}"
+        )
+
+    def test_apocalypse_of_weeks_covered(self):
+        # Seven-past + three-eschatological weeks scheme.
+        # 93:1-10 = weeks 1-7; 91:11-17 = weeks 8-10 + consummation.
+        aow_entries = [
+            e for e in self.ec.for_verse("1en", 93, 2) if e.father == "1 Enoch (Ethiopian tradition)"
+        ]
+        aow_entries += [
+            e for e in self.ec.for_verse("1en", 91, 14) if e.father == "1 Enoch (Ethiopian tradition)"
+        ]
+        assert len(aow_entries) >= 2, "γ.4.4.E missing Apocalypse of Weeks anchor verses (93:2 + 91:14)"
+
+    def test_epistle_proper_covered(self):
+        # Random sample of the Epistle's paths-and-woes section
+        paths_woes = []
+        for chapter in (94, 95, 98, 102, 103, 104):
+            for verse in range(1, 20):
+                paths_woes.extend(
+                    e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
+                )
+        assert len(paths_woes) >= 8, (
+            f"γ.4.4.E expected ≥8 entries across Epistle exhortation chapters 94/95/98/102/103/104; found {len(paths_woes)}"
+        )
+
+    def test_birth_of_noah_covered(self):
+        def has_entry_in(chapter):
+            for verse in range(1, 30):
+                for entry in self.ec.for_verse("1en", chapter, verse):
+                    if entry.father == "1 Enoch (Ethiopian tradition)":
+                        return True
+            return False
+
+        assert has_entry_in(106), "γ.4.4.E missing Birth of Noah (1En 106)"
+        assert has_entry_in(107), "γ.4.4.E missing Birth of Noah continuation (1En 107)"
+
+    def test_closing_inclusio_covered(self):
+        enoch = [e for e in self.ec.for_verse("1en", 108, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 108:1 — closing inclusio of the Mäṣḥafä Hēnok"
+
+    def test_1_enoch_share_above_50_percent(self):
+        enoch_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "1 Enoch (Ethiopian tradition)"
+        )
+        total = len(self.ec)
+        share = enoch_count / total
+        assert share >= 0.50, (
+            f"γ.4.4.E expected 1 Enoch share ≥50% (dominant voice); actual {share:.1%} "
+            f"({enoch_count} of {total})"
+        )
+
+    def test_watchers_arc_closed_at_91_14(self):
+        enoch = [e for e in self.ec.for_verse("1en", 91, 14) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 91:14 — tenth-week judgment of watchers (closes Watchers arc)"
+
+    def test_sevenfold_light_new_heaven_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 91, 16) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 91:16 — sevenfold-light new heaven (Rev 21:1 antecedent)"
+
+    def test_two_paths_exhortation_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 94, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 94:1 — two-paths exhortation (Didache antecedent)"
+
+    def test_saints_shall_judge_world_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 95, 3) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 95:3 — saints shall judge the world (1 Cor 6:2 antecedent)"
+
+    def test_human_authorship_of_sin_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 98, 4) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 98:4 — human authorship of sin (anti-Manichaean anchor)"
+
+    def test_textual_preservation_warrant_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 104, 10) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 104:10 — sinners pervert words (manuscript-preservation warrant)"
+
+    def test_father_son_union_witness_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 105, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 105:1 — 'I and My son' (Father-Son union pre-canonical witness)"
+
+    def test_radiant_birth_of_noah_present(self):
+        enoch = [e for e in self.ec.for_verse("1en", 106, 2) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert enoch, "γ.4.4.E missing 1En 106:2 — Noah's radiant birth (Tewahedo iconographic anchor)"
+
+    def test_all_six_mashafa_henok_sections_covered(self):
+        """γ.4.4.E claims to CLOSE the Mäṣḥafä Hēnok arc — verify
+        every one of the six canonical sections has substantive
+        1 Enoch coverage."""
+        def section_count(start, end):
+            n = 0
+            for chapter in range(start, end + 1):
+                for verse in range(1, 200):
+                    for entry in self.ec.for_verse("1en", chapter, verse):
+                        if entry.father == "1 Enoch (Ethiopian tradition)":
+                            n += 1
+            return n
+
+        watchers = section_count(1, 36)
+        parables = section_count(37, 71)
+        astronomical = section_count(72, 82)
+        dream_visions = section_count(83, 84)
+        animal_apocalypse = section_count(85, 90)
+        epistle = section_count(91, 108)
+
+        for name, n, threshold in [
+            ("Watchers (1-36)", watchers, 40),
+            ("Parables (37-71)", parables, 40),
+            ("Astronomical Book (72-82)", astronomical, 10),
+            ("Dream Visions (83-84)", dream_visions, 3),
+            ("Animal Apocalypse (85-90)", animal_apocalypse, 20),
+            ("Epistle (91-108)", epistle, 40),
+        ]:
+            assert n >= threshold, f"γ.4.4.E arc-close pin: {name} has {n} entries, expected ≥{threshold}"
+
+
+class TestGamma42BEphremPatriarchsWave:
+    """γ.4.2.B — Ephrem on Genesis 12-50 (patriarchal narrative).
+    Continues the γ.4.2 first wave (Gen 1-11, 32 entries shipped
+    earlier this session) into Gen 12-50, adding 40 verse-keyed
+    Ephrem-the-Syrian entries spanning the Abraham (15), Jacob (12),
+    and Joseph (13) cycles. Rebalances Ephrem share from ~10% (under-
+    represented after γ.4.4 1 Enoch arc) back toward ~19%.
+
+    Pins:
+    - Gen 12-50 substantively expanded (≥40 Ephrem entries on Gen
+      12-50).
+    - All three patriarchal sub-arcs covered: Abraham cycle (12-25)
+      + Jacob cycle (25-36) + Joseph cycle (37-50).
+    - Ephrem share ≥17% of corpus (rebalanced upward).
+    - Signature passages: 14:18 (Melchizedek bread-and-wine —
+      Tewahedo eucharistic anchor), 15:6 (Abraham's faith counted
+      for righteousness), 18:1 (Mamre Trinity theophany — Tewahedo
+      iconographic anchor), 22:8 (Akedah / 'God will provide
+      himself a lamb' — direct Crucifixion prophecy), 28:12
+      (Jacob's ladder — Christ-and-Mary type), 32:24 (wrestling
+      with pre-incarnate Word), 37:28 (Joseph sold for silver —
+      Christ-typology), 41:55 ('go unto Joseph, do what he saith'
+      — Marian-Cana prefiguration), 44:18 (Judah's substitutionary
+      self-offering), 49:10 (Shiloh-as-Christ prophecy), 50:20
+      (providence-formula par excellence).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_gen_12_to_50_substantively_expanded(self):
+        ephrem_patriarchs = []
+        for chapter in range(12, 51):
+            for verse in range(1, 100):
+                ephrem_patriarchs.extend(
+                    e for e in self.ec.for_verse("gen", chapter, verse) if e.father == "Ephrem the Syrian"
+                )
+        assert len(ephrem_patriarchs) >= 40, (
+            f"γ.4.2.B expected ≥40 Ephrem entries on Gen 12-50; found {len(ephrem_patriarchs)}"
+        )
+
+    def test_all_three_patriarchal_cycles_covered(self):
+        def has_ephrem_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("gen", chapter, verse):
+                        if entry.father == "Ephrem the Syrian":
+                            return True
+            return False
+
+        assert has_ephrem_in(12, 25), "γ.4.2.B missing Abraham cycle (Gen 12-25)"
+        assert has_ephrem_in(25, 36), "γ.4.2.B missing Jacob cycle (Gen 25-36)"
+        assert has_ephrem_in(37, 50), "γ.4.2.B missing Joseph cycle (Gen 37-50)"
+
+    def test_ephrem_share_above_17_percent(self):
+        ephrem_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Ephrem the Syrian"
+        )
+        total = len(self.ec)
+        share = ephrem_count / total
+        assert share >= 0.17, (
+            f"γ.4.2.B expected Ephrem share ≥17%; actual {share:.1%} ({ephrem_count} of {total})"
+        )
+
+    def test_melchizedek_eucharistic_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 14, 18) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 14:18 — Melchizedek bread-and-wine (Tewahedo eucharistic anchor)"
+
+    def test_abrahams_faith_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 15, 6) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 15:6 — Abraham's faith counted for righteousness"
+
+    def test_mamre_trinity_theophany_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 18, 1) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 18:1 — Mamre Trinity theophany (Tewahedo iconographic anchor)"
+
+    def test_akedah_lamb_prophecy_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 22, 8) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 22:8 — Akedah 'God will provide himself a lamb' (Crucifixion prophecy)"
+
+    def test_jacobs_ladder_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 28, 12) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 28:12 — Jacob's ladder (Christ-and-Mary type)"
+
+    def test_wrestling_pre_incarnate_word_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 32, 24) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 32:24 — wrestling with pre-incarnate Word"
+
+    def test_joseph_sold_for_silver_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 37, 28) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 37:28 — Joseph sold for silver pieces (Christ-typology)"
+
+    def test_go_unto_joseph_marian_prefiguration_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 41, 55) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 41:55 — 'go unto Joseph, do what he saith' (Marian-Cana prefiguration)"
+
+    def test_judah_substitutionary_offering_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 44, 18) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 44:18 — Judah's substitutionary self-offering"
+
+    def test_shiloh_prophecy_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 49, 10) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 49:10 — Shiloh-as-Christ prophecy"
+
+    def test_providence_formula_present(self):
+        eph = [e for e in self.ec.for_verse("gen", 50, 20) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.B missing Gen 50:20 — providence-formula par excellence"
+
+
+class TestGamma45JubileesSeedWave:
+    """γ.4.5 — Mäṣḥafä Kufāle / Book of Jubilees seed wave. Opens
+    the SECOND uniquely-Tewahedo canonical text on the same Mäṣḥafä-
+    Hēnok-style trajectory as γ.4.4. 40 verse-keyed seed entries
+    spanning all 50 chapters of Jubilees (book code 'jub'). Mirrors
+    the γ.4.4 first-wave pattern: broad coverage now, substantive-
+    detail γ.4.5.B-E waves possible later.
+
+    Pins:
+    - Jubilees substantively seeded (≥40 jub entries across chs 1-50).
+    - All major narrative blocks covered: Sinai prologue + Creation
+      + Eden + Watchers + Noahide covenant + Division of earth +
+      Mastema + Abraham + Decline-eschatology + Jacob + Joseph +
+      Exodus-Passover-Sabbath finale.
+    - Jubilees enters the corpus as a distinct voice.
+    - Signature passages: 1:1 (Sinai-prologue second-Torah framing),
+      4:17 (Enoch as first scribe — parallel to 1En 12:4), 6:32
+      (364-day calendar — Tewahedo Bāḥrä Ḥasab doubled-canonical
+      anchor with 1En 72:32), 8:19 (Eden/Sinai/Zion three holy
+      mountains — Tewahedo sacred-geography), 9:13 (Ham's portion —
+      Tewahedo Hamitic identity anchor), 10:8 (Mastema petition —
+      Tewahedo non-dualist demonology), 18:9 (Mastema-as-Akedah-
+      accuser — Tewahedo theodicy preserved), 21:10 ('books of
+      Enoch' cited within Jubilees — inter-canonical-witness),
+      32:18 (Levi consecrated to priesthood — Tewahedo priestly
+      anchor), 48:9 (Mastema bound during Exodus — Tewahedo Holy-
+      Week anchor), 50:6 (Sabbath finale — Tewahedo Saturday-
+      Sabbath-and-Sunday-Lord's-Day tradition).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_jubilees_substantively_seeded(self):
+        jub_entries = []
+        for chapter in range(1, 51):
+            for verse in range(1, 100):
+                jub_entries.extend(
+                    e for e in self.ec.for_verse("jub", chapter, verse)
+                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                )
+        assert len(jub_entries) >= 40, (
+            f"γ.4.5 expected ≥40 Jubilees entries across chs 1-50; found {len(jub_entries)}"
+        )
+
+    def test_all_jubilees_narrative_blocks_covered(self):
+        def has_entry_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("jub", chapter, verse):
+                        if entry.father == "Book of Jubilees (Ethiopian tradition)":
+                            return True
+            return False
+
+        assert has_entry_in(1, 2), "γ.4.5 missing Sinai prologue + Creation (Jub 1-2)"
+        assert has_entry_in(3, 4), "γ.4.5 missing Eden + generations (Jub 3-4)"
+        assert has_entry_in(5, 6), "γ.4.5 missing Watchers + Noahide covenant (Jub 5-6)"
+        assert has_entry_in(7, 10), "γ.4.5 missing Division of earth + Mastema (Jub 7-10)"
+        assert has_entry_in(11, 22), "γ.4.5 missing Abraham cycle (Jub 11-22)"
+        assert has_entry_in(23, 23), "γ.4.5 missing Decline + eschatology (Jub 23)"
+        assert has_entry_in(24, 36), "γ.4.5 missing Jacob cycle (Jub 24-36)"
+        assert has_entry_in(37, 45), "γ.4.5 missing Joseph cycle (Jub 37-45)"
+        assert has_entry_in(46, 50), "γ.4.5 missing Egypt + Exodus + Passover + Sabbath finale (Jub 46-50)"
+
+    def test_jubilees_enters_corpus_as_distinct_voice(self):
+        jub_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Book of Jubilees (Ethiopian tradition)"
+        )
+        total = len(self.ec)
+        share = jub_count / total
+        # Seed wave threshold: Jubilees enters as a recognizable voice
+        # (≥3% of corpus). γ.4.5.B-E future waves would push it higher.
+        assert share >= 0.03, (
+            f"γ.4.5 expected Jubilees share ≥3% (distinct voice); actual {share:.1%} "
+            f"({jub_count} of {total})"
+        )
+
+    def test_sinai_prologue_second_torah_framing_present(self):
+        e = [x for x in self.ec.for_verse("jub", 1, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 1:1 — Sinai-prologue second-Torah framing"
+
+    def test_enoch_as_first_scribe_present(self):
+        e = [x for x in self.ec.for_verse("jub", 4, 17) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 4:17 — Enoch as first scribe (parallel 1En 12:4)"
+
+    def test_364_day_calendar_doubled_anchor_present(self):
+        e = [x for x in self.ec.for_verse("jub", 6, 32) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 6:32 — 364-day calendar (Tewahedo Bāḥrä Ḥasab doubled anchor)"
+
+    def test_three_holy_mountains_present(self):
+        e = [x for x in self.ec.for_verse("jub", 8, 19) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 8:19 — Eden / Sinai / Zion three holy mountains"
+
+    def test_hamitic_identity_anchor_present(self):
+        e = [x for x in self.ec.for_verse("jub", 9, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 9:13 — Ham's portion (Tewahedo Hamitic identity anchor)"
+
+    def test_mastema_petition_present(self):
+        e = [x for x in self.ec.for_verse("jub", 10, 8) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 10:8 — Mastema petition (Tewahedo non-dualist demonology)"
+
+    def test_mastema_as_akedah_accuser_present(self):
+        e = [x for x in self.ec.for_verse("jub", 18, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 18:9 — Mastema-as-Akedah-accuser (Tewahedo theodicy)"
+
+    def test_books_of_enoch_cited_within_jubilees_present(self):
+        e = [x for x in self.ec.for_verse("jub", 21, 10) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 21:10 — 'books of Enoch' cited within Jubilees (inter-canonical witness)"
+
+    def test_levi_priesthood_present(self):
+        e = [x for x in self.ec.for_verse("jub", 32, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 32:18 — Levi consecrated to priesthood (Tewahedo priestly anchor)"
+
+    def test_mastema_bound_during_exodus_present(self):
+        e = [x for x in self.ec.for_verse("jub", 48, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 48:9 — Mastema bound during Exodus (Tewahedo Holy-Week anchor)"
+
+    def test_sabbath_finale_present(self):
+        e = [x for x in self.ec.for_verse("jub", 50, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5 missing Jub 50:6 — Sabbath finale (Tewahedo Saturday-Sabbath tradition)"
