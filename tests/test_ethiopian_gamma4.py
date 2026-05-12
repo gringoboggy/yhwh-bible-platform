@@ -790,3 +790,151 @@ class TestGamma41CCyrilJohn11Through14:
             assert "NPNF" in attr, f"γ.4.1.C entry missing NPNF citation: {attr!r}"
             assert "14" in attr, f"γ.4.1.C entry missing Vol 14 citation: {attr!r}"
             assert "PD" in attr, f"γ.4.1.C entry missing PD marker: {attr!r}"
+
+
+class TestGamma42EphremGenesisFirstWave:
+    """γ.4.2 — Ephrem the Syrian on Genesis (first wave, 32 entries
+    covering Gen 1-11). Per AUDIT_2026-05-12-B §ix recommendation,
+    γ.4.2 first wave was sequenced BEFORE γ.4.1.D to rebalance the
+    corpus voice mix from 93% Cyril (after γ.4.1.C) toward the
+    documented dual-anchor (Syriac + Alexandrian) claim. Post-this-
+    wave voice distribution: Cyril 91 (70%) / Ephrem 37 (28%) /
+    1 Enoch 2 (2%) — substantively closer to the _meta scope's
+    documented four-anchor framework.
+
+    Sourced from NPNF Series 2 Vol 13 (Gwynn/Schaff translation,
+    Oxford 1898 — both translators died well before 1929 PD cutoff).
+    Per the addendum γ.4.2 target ~200-300 entries; this first wave
+    lands 32 covering the primeval history (Gen 1-11). Future
+    γ.4.2.B-D will extend through Exodus / Numbers / Deuteronomy.
+
+    Pins:
+    - Ephrem-on-Genesis chapter coverage (Gen 1-11).
+    - Voice rebalance: Cyril share drops below 80%.
+    - Ephrem is now substantively present (≥30 entries).
+    - The signature Ephremic-Syriac patristic readings:
+      Gen 1:26 (Trinitarian council reading; image/likeness
+      distinction), Gen 2:21 (Adam's sleep prefigures Christ's
+      death; Eve from rib prefigures Church from pierced side),
+      Gen 3:15 (protoevangelium — Syriac patristic basis),
+      Gen 5:24 (Enoch translated — anchor for Mäṣḥafä Hēnok),
+      Gen 6:14 (ark prefigures Church + cross),
+      Gen 9:13 (rainbow as covenantal-bow sheathed),
+      Gen 11:9 (Babel-Pentecost typological inverse).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_ephrem_now_substantively_present(self):
+        # Post-γ.4.2 wave-1: Ephrem should be substantively present
+        # (≥30 entries), not just the 5-entry γ.4 seed presence.
+        ephrem = self.ec.by_father("Ephrem the Syrian")
+        assert len(ephrem) >= 30, f"γ.4.2 wave-1 expected ≥30 Ephrem entries; found {len(ephrem)}"
+
+    def test_voice_rebalance_achieved(self):
+        # Per AUDIT_2026-05-12-B §ix recommendation: γ.4.2 first wave
+        # was sequenced specifically to rebalance the corpus voice mix
+        # away from 93% Cyril dominance. Pin Cyril share now below 80%.
+        cyril = self.ec.by_father("Cyril of Alexandria")
+        total = len(self.ec)
+        cyril_share = len(cyril) / total
+        assert cyril_share < 0.80, (
+            f"γ.4.2 wave-1 should rebalance Cyril share below 80%; actual {cyril_share:.1%} ({len(cyril)} of {total})"
+        )
+
+    def test_ephrem_genesis_chapter_coverage(self):
+        # γ.4.2 wave-1 explicitly covers Gen 1-11 (creation through
+        # Babel). Pin at least 4 chapters of substantive coverage.
+        chapters_covered = set()
+        for chapter in range(1, 12):
+            for verse in range(1, 100):
+                ephrem_here = [e for e in self.ec.for_verse("gen", chapter, verse) if e.father == "Ephrem the Syrian"]
+                if ephrem_here:
+                    chapters_covered.add(chapter)
+        assert len(chapters_covered) >= 8, (
+            f"γ.4.2 wave-1 expected ≥8 Genesis chapters covered by Ephrem; found {sorted(chapters_covered)}"
+        )
+
+    def test_ephrem_image_and_likeness_present(self):
+        # Gen 1:26 — Ephrem's Trinitarian-council reading + image/
+        # likeness distinction (foundational for Tewahedo theosis).
+        ephrem_126 = [e for e in self.ec.for_verse("gen", 1, 26) if e.father == "Ephrem the Syrian"]
+        assert ephrem_126, "γ.4.2 missing Gen 1:26 — image/likeness anchor"
+
+    def test_ephrem_adam_sleep_typology_present(self):
+        # Gen 2:21 — Adam's sleep prefigures Christ's death; Eve from
+        # rib prefigures Church from pierced side. Foundational Adam-
+        # Christ + Eve-Church typology for Tewahedo ecclesiology.
+        ephrem_221 = [e for e in self.ec.for_verse("gen", 2, 21) if e.father == "Ephrem the Syrian"]
+        assert ephrem_221, "γ.4.2 missing Gen 2:21 — Adam-Christ Eve-Church typology"
+
+    def test_ephrem_protoevangelium_present(self):
+        # Gen 3:15 — Syriac patristic basis for early Christological
+        # reading of Genesis. Distinct from but complementary to
+        # χ.2 (Henry) + χ.3 (Calvin) protoevangelium readings.
+        ephrem_315 = [e for e in self.ec.for_verse("gen", 3, 15) if e.father == "Ephrem the Syrian"]
+        assert ephrem_315, "γ.4.2 missing Gen 3:15 — Syriac protoevangelium pin"
+
+    def test_ephrem_enoch_translation_present(self):
+        # Gen 5:24 — Enoch translated; foundational anchor for the
+        # Mäṣḥafä Hēnok (Book of Enoch) that Tewahedo uniquely
+        # canonizes. Load-bearing for the v1.x uniqueness angle.
+        ephrem_524 = [e for e in self.ec.for_verse("gen", 5, 24) if e.father == "Ephrem the Syrian"]
+        assert ephrem_524, "γ.4.2 missing Gen 5:24 — Enoch translation (Mäṣḥafä Hēnok anchor)"
+
+    def test_ephrem_ark_prefigures_church_present(self):
+        # Gen 6:14 — ark prefigures Church + cross. Tewahedo
+        # Anaphora of Athanasius preserves this typological cluster
+        # prominently.
+        ephrem_614 = [e for e in self.ec.for_verse("gen", 6, 14) if e.father == "Ephrem the Syrian"]
+        assert ephrem_614, "γ.4.2 missing Gen 6:14 — ark-Church typology"
+
+    def test_ephrem_rainbow_covenant_present(self):
+        # Gen 9:13 — rainbow as warrior's bow set down in covenantal
+        # pledge; Syriac patristic reading that mercy has the last word.
+        ephrem_913 = [e for e in self.ec.for_verse("gen", 9, 13) if e.father == "Ephrem the Syrian"]
+        assert ephrem_913, "γ.4.2 missing Gen 9:13 — rainbow-bow covenantal pin"
+
+    def test_ephrem_babel_typology_present(self):
+        # Gen 11:9 — Babel as inverse of Pentecost; foundation of
+        # Syriac patristic anti-Promethean theology of language.
+        ephrem_119 = [e for e in self.ec.for_verse("gen", 11, 9) if e.father == "Ephrem the Syrian"]
+        assert ephrem_119, "γ.4.2 missing Gen 11:9 — Babel-Pentecost typological inverse"
+
+    def test_meta_documents_gamma_4_2_expansion(self):
+        # Pin: _meta scope/source block names γ.4.2 explicitly.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        assert "γ.4.2" in meta["source"] or "γ.4.2" in meta["scope"], (
+            "_meta must name γ.4.2 expansion in source or scope"
+        )
+
+    def test_every_gamma_4_2_attribution_cites_npnf_vol_13(self):
+        # γ.4.2 entries (Ephrem-on-Genesis in chapters 1-11) must all
+        # cite NPNF Series 2 Vol 13 + explicit PD marker.
+        ephrem_in_chs_1_to_11 = []
+        for chapter in range(1, 12):
+            for verse in range(1, 100):
+                ephrem_in_chs_1_to_11.extend(
+                    e for e in self.ec.for_verse("gen", chapter, verse) if e.father == "Ephrem the Syrian"
+                )
+        assert ephrem_in_chs_1_to_11, "γ.4.2 expected Ephrem entries in Gen 1-11"
+        # The γ.4 SEED includes some Ephrem-Gen entries (1:1, 1:3, 2:7,
+        # 3:1) with a different attribution format ("NPNF Series 2,
+        # vol. 13"). γ.4.2 wave-1 uses the abbreviated "NPNF S2 V13"
+        # form. Both contain "NPNF" + "13" + "PD".
+        for entry in ephrem_in_chs_1_to_11:
+            attr = entry.attribution
+            assert "NPNF" in attr, f"γ.4.2 entry missing NPNF citation: {attr!r}"
+            assert "13" in attr, f"γ.4.2 entry missing Vol 13 citation: {attr!r}"
+            assert "PD" in attr, f"γ.4.2 entry missing PD marker: {attr!r}"

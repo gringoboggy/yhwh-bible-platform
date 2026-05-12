@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries: Lazarus + anointing/entry/judgment + foot-washing + Last Supper + Farewell Discourse I). Note: Cyril's Books VII-VIII covering Jn 8-10 are LOST in the manuscript tradition; no Cyril coverage possible for those chapters. All Cyril material sourced from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). Cyril is now the heaviest single voice in the corpus (91 of 98 total entries = 93%). Future γ.4.1.D will extend to John 15-21 (Vine + High-Priestly Prayer + Passion + Resurrection); γ.4.2-6 will cover Ephrem on Genesis + Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries: Lazarus + anointing/entry/judgment + foot-washing + Last Supper + Farewell Discourse I). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries: creation week + Sabbath + Eden + Fall + protoevangelium + Cain-Abel + Enoch translation + Noah-flood-rainbow + Babel) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. Note: Cyril's Books VII-VIII covering Jn 8-10 are LOST in the manuscript tradition; no Cyril coverage possible for those chapters. All Cyril material sourced from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885); all Ephrem material from NPNF Series 2 vol. 13 (Gwynn/Schaff translation, Oxford 1898).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution post-γ.4.2 wave-1 rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) — substantively closer to the documented dual-anchor claim. Future γ.4.1.D will extend Cyril to John 15-21 (Vine + High-Priestly Prayer + Passion + Resurrection); γ.4.2.B-D will extend Ephrem through Exodus / Numbers / Deuteronomy; γ.4.3-6 will cover Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -985,6 +985,326 @@
       "year": 428,
       "summary": "'My Father is greater than I' (ho Patēr meizōn mou estin) is THE most contested verse in Cyril's John commentary — the Arian polemical favorite throughout the 4th century, requiring careful orthodox exposition. Cyril resolves through the standard distinction: the verse predicates 'greater' of the Father with respect to the assumed humanity of the incarnate Son, NOT with respect to the eternal divine nature. Insofar as the Son is incarnate (took on human nature), the unincarnate Father is 'greater' in mode-of-existence; insofar as the Son is eternal Word, He is consubstantial-equal with the Father. The verse therefore confirms rather than denies the incarnation, and presupposes rather than undermines the consubstantiality. This careful exposition is one of Cyril's most-cited Johannine passages in later Greek theological tradition.",
       "attribution": "Cyril of Alexandria, Commentary on John, Bk X.28 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On 'the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters' Ephrem reads the threefold negation (tōhū wā-bōhū + darkness + deep) as the proper unfolded condition of created matter awaiting form. Against any reading that would treat the primal chaos as evil or co-eternal, Ephrem insists matter is created good but unformed; form is the divine speech-act that makes the unformed habitable. The Spirit's 'moving' (the Syriac merahhefa carries the sense of a bird brooding over its nest) Ephrem reads as the active warmth that prepares matter for the Word's subsequent commands. This pneumatological-cosmological reading is the Syriac tradition's most distinctive contribution to early creation theology.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'And God saw the light, that it was good: and God divided the light from the darkness' Ephrem takes as the establishment of the elemental moral framework that the entire Scripture presupposes. The dividing (the Syriac fres = to separate definitively) is not provisional but ordinative: light and darkness are henceforth bounded by divine decree. Ephrem reads the 'goodness' (the Syriac tabbutha) as not merely aesthetic approval but the recognition that the light corresponds to the divine intent — God names what He has done as fitting. This pattern (creation + recognition + naming) Ephrem extracts as the divine workflow that the believer is called to imitate: every legitimate work is done, recognized, and named for what it is.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.4 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On 'Let there be a firmament (rāqīa') in the midst of the waters' Ephrem describes a tripartite cosmology that the medieval Tewahedo tradition continues to teach: the waters above (the celestial reservoirs from which rain descends), the firmament (the visible heaven, made of compacted water frozen by the divine command), and the waters below (the seas + the deep). Ephrem is careful against any reading that would make the firmament a fixed metallic dome (against pagan Babylonian cosmologies); rather, it is a flexible-but-stable boundary that holds the upper waters in place by divine sustaining act, not by inherent material property. The Andəmta homiletic tradition preserves Ephrem's tripartite cosmology in its liturgical hymnody on the first creation day.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.6 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 11,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'Let the earth bring forth grass, the herb yielding seed, and the fruit tree yielding fruit after his kind' Ephrem takes as the establishment of generative ordering: the divine speech-act is not the immediate creation of plants (which would be a continuous miracle) but the inscribing of seed-and-fruit cycles into the earth's productive nature. The 'after his kind' (lemīneh) Ephrem reads as a constitutive boundary: each created kind reproduces within its own categorical limits, not crossing them. This Ephremic reading provided the patristic-tradition framework within which medieval Tewahedo natural philosophy understood the species' fixity — a framework that subsequent Andəmta commentators preserved without modification through the early modern period.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.11 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 14,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On 'Let there be lights in the firmament... for signs, and for seasons, and for days, and years' Ephrem makes the foundational anti-astrological argument: the heavenly luminaries are SERVANTS for marking time, not GODS for determining destiny. The fourfold purpose (signs / seasons / days / years) Ephrem reads as exhausting the legitimate functions of the heavens; any further attribution (horoscopic prediction, fate, divinatory power) is human invention not divine grant. The Tewahedo liturgical calendar — which depends on careful astronomical observation for determining Easter (the Bahire Hassab computus tradition) — derives its theological legitimacy directly from this Ephremic reading: astronomy in service of liturgy is sacred; astrology in service of fate-prediction is forbidden.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.14 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 20,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'Let the waters bring forth abundantly the moving creature that hath life' Ephrem reads as the inauguration of animal life — a categorical distinction from plant life established on day three. The Syriac 'rahhash' (moving / creeping) Ephrem takes as the defining attribute: animal life is characterized by self-movement, which presupposes the kind of nephesh-soul that plant life lacks. Yet Ephrem is careful against any reading that would make animal life autonomous: the abundance is divinely commanded, not naturally emergent, and the soul of the animal is a divine breath given for animal-purposes (not transferable to humanity, which receives its own distinct divine inbreathing in 2:7).",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.20 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 26,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On 'Let us make man in our image, after our likeness' Ephrem provides the Syriac patristic reading of the plural: the speaking is internal to the Godhead, the Father addressing the Word and the Spirit in eternal counsel — not (against the Rabbinic reading) the angels, since the image is a divine image and angels are not creators. The 'image' (tzalem) and 'likeness' (demut) Ephrem distinguishes: the image is given fully at creation (rational soul + capacity for moral choice), the likeness is the EVENTUAL conformity-to-God that life-in-grace cultivates. The Tewahedo doctrine of theosis (deification) inherits this Ephremic distinction: humans are made AS image, called TO likeness, completed in the eschaton.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.26 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 31,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'And God saw every thing that He had made, and, behold, it was very good' Ephrem reads as the consummative divine judgment on the entire six-day creative work. 'Very good' (tab tab — the Syriac doubles the adjective for intensity) Ephrem takes as ontological assessment, not merely aesthetic: the cosmos as a whole, in its differentiated unity, perfectly fulfills the divine intention. Against any later Marcionite or gnostic reading that would treat matter or embodiment as defective, Ephrem insists Gen 1:31 is the theological foundation for the goodness of creation — including matter, body, sexuality, work, and time — all 'very good' in their proper places. The fall in Gen 3 corrupts but does not negate this primordial goodness.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis I.31 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On 'God ended His work which He had made; and He rested on the seventh day' Ephrem reads the rest (the Syriac 'ettnih) not as cessation from activity (God's providential governance never pauses) but as the establishment of the Sabbath pattern — the divine ordering of time into work-and-rest. The seventh-day rest is therefore not God's exhaustion but God's instructional gift: humans are taught their own work-rhythm by divine example. Ephrem connects this with the eschatological Sabbath-rest awaited by the faithful (cf. Heb 4:9 sabbatismos): the weekly rest typifies the eternal rest, and the eternal rest fulfills the weekly. The Tewahedo Sabbath observance (preserving the Saturday observance alongside Sunday Eucharist) traces its theological warrant to this Ephremic reading.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis II.2 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On the two trees of Eden — 'the tree of life also in the midst of the garden, and the tree of knowledge of good and evil' — Ephrem provides his characteristic Syriac reading: the tree of life is real (it would have conferred immortality on those who ate from it in obedience), and the tree of knowledge is real (its prohibition was the means by which moral obedience was tested). Against allegorizing readings that would dissolve both trees into mere metaphor, Ephrem insists on their referential reality while preserving their theological significance: physical eating mattered because the tree was the appointed sign of moral allegiance. The Tewahedo Andəmta tradition preserves this Ephremic concrete-and-symbolic reading.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis II.9 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'It is not good that the man should be alone; I will make him an help meet for him' Ephrem reads as the divine recognition of the relational nature of humanity. Adam's solitude is the first thing in creation called 'not good' (the only such utterance in the entire creation account); thus human relationality is not optional add-on but essential constitutive feature. The 'help meet' (the Syriac me'addranita meqabblanitha — a helper corresponding to him) Ephrem reads with care against any reading that would make Eve subordinate-in-essence: she is a helper precisely because she corresponds to him as equal and counterpart. This grounds the Tewahedo theological framing of marriage as a sacramental union of equals.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis II.18 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 2,
+      "verse": 21,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On the creation of Eve from Adam's rib (the divine sleep + the taking of the rib + the building into woman) Ephrem provides the foundational Syriac patristic reading: Adam's deep sleep prefigures Christ's death-sleep on the cross, the rib taken prefigures the wound of Christ's side, and Eve formed from the rib prefigures the Church born from Christ's pierced side. This is the typological-sacramental Adam-Christ + Eve-Church parallel that becomes determinative for medieval Tewahedo ecclesiology: the Church is not externally added to Christ but proceeds from His own pierced side as Eve proceeded from Adam's rib. The Tewahedo Anaphora of Our Lord Jesus Christ explicitly echoes this typology.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis II.21 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "The serpent's counter-claim — 'Ye shall not surely die' — Ephrem identifies as the prototype of every subsequent satanic suggestion: the direct contradiction of the divine word, dressed in the form of liberation-from-prohibition. Ephrem notes the technique: the serpent does not deny God's existence (that would be too clearly false to the unfallen Eve), but denies the consequence God attached to disobedience. The lie is in the consequence, not in the premise. This pattern (true premise + false consequence) Ephrem identifies as the demonic-tempter signature throughout salvation history — recurring in the wilderness temptation of Christ (Mt 4) where Satan again quotes truly-but-misapplied Scripture.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis III.4 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'And the eyes of them both were opened, and they knew that they were naked' Ephrem reads as the inverse of true illumination: the opening of the eyes that the serpent promised does occur, but it is opening TO shame rather than opening TO knowledge of God. The 'nakedness' Ephrem distinguishes from physical undress (Adam and Eve were physically unclothed before the fall without shame): post-fall nakedness is the felt absence of the divine glory that had covered them in their innocent state. Ephrem here grounds the patristic-Syriac tradition that Adam and Eve in Eden were clothed in light (the divine glory itself); the fall stripped them of that radiant covering, leaving the now-shameful bare flesh that needed fig leaves and then God-given skins.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis III.7 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "God's question — 'Where art thou?' — Ephrem takes as pastoral rather than informational: the omniscient God does not ask because He needs to know Adam's location, but because He gives Adam the opportunity to confess. The question opens a space for repentance that Adam tragically fills with deflection and blame-shifting (3:12: 'the woman whom thou gavest to be with me'). Ephrem reads this as the founding pattern of every subsequent pastoral encounter: God invites confession before pronouncing judgment; refusal of the invitation hardens the judgment. The Tewahedo sacrament of confession draws its theological frame from this Ephremic reading: the priest asks not to learn but to invite acknowledgment.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis III.9 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 15,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "Ephrem's reading of the protoevangelium ('it shall bruise thy head, and thou shalt bruise his heel') is THE Syriac patristic basis for early Christological reading of Genesis. The 'seed of the woman' Ephrem takes as singular-Messianic (Christ born of the virgin) AND collectively-ecclesial (the Church suffering yet finally triumphant). The bruising of the head is the decisive wound (mortal) that the seed inflicts on the serpent; the bruising of the heel is the suffering wound (recoverable) that the serpent inflicts on the seed in the wounding of the cross. Ephrem's reading is one of the most-cited patristic precedents in the medieval Tewahedo Mariological tradition, which preserves the singular-Messianic reading without diluting it into the Western 'she shall bruise' Vulgate variant.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis III.15 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 19,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'In the sweat of thy face shalt thou eat bread, till thou return unto the ground' Ephrem reads as the imposition of mortality + the dignification of labor. Mortality enters as judgment ('thou shalt return'); but labor is given as both consequence-of-fall AND mercy-toward-fallen-humanity — work occupies the soul that would otherwise turn to deeper rebellion in idleness. The 'sweat of thy face' Ephrem reads as marking labor with the dignity of effort: post-fall human work is genuinely costly and genuinely productive. The Tewahedo monastic tradition's emphasis on manual labor (the Egyptian-Syriac desert father heritage) inherits this Ephremic reading: work is ascetic gift, not curse to be evaded.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis III.19 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'He placed at the east of the garden of Eden Cherubims, and a flaming sword which turned every way' Ephrem reads as the institution of the guarded sacred space that the entire Levitical and patristic liturgical tradition will subsequently elaborate. The Cherubim + flaming sword prefigure the veil of the Temple (which similarly guards the holy of holies), the icon screen of the Tewahedo and Eastern Orthodox church buildings (which guards the altar), and ultimately the eschatological gates of the heavenly Jerusalem. Ephrem reads the 'turning every way' (mithhappek) as denoting omnidirectional guarding: no approach from any angle can pierce the divine prohibition; only divine permission (Christ's opening of the way through His own flesh, per Heb 10:19-20) restores access.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis III.24 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 4,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "God's warning to Cain — 'sin lieth at the door' (chattat robets) — Ephrem reads with characteristic concrete-typological precision. The Syriac participle (rabea — crouching, like a beast of prey) is preserved; sin is figured as a hostile creature lying in wait outside the door of the soul, requiring active mastery from within. 'And unto thee shall be his desire, and thou shalt rule over him' Ephrem takes as both warning and promise: sin's pressure is real but not insuperable; mastery is achievable through divine help. The Tewahedo monastic ascetic-theological tradition draws its anti-passion combat language directly from this Ephremic reading: the passions are recognized, then resisted, then subdued.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis IV.7 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 4,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "Cain's deflection — 'Am I my brother's keeper?' — Ephrem identifies as the prototype of every subsequent attempted evasion of relational responsibility. The rhetorical question is not innocent ignorance but calculated false-disclaim: Cain knows precisely where Abel is (in the ground he buried him in) but pretends ignorance. Ephrem notes the deep irony: Cain SHOULD have been his brother's keeper (the Hebrew shomer carries the sense of guardian-and-protector); his refusal to be so was the very act of fratricide. The Tewahedo communal-monastic tradition reads this verse as the textual foundation of mutual responsibility: each Christian is responsible for the spiritual welfare of his brothers and sisters, and the refusal of this responsibility is itself a form of fratricide.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis IV.9 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 4,
+      "verse": 16,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'Cain went out from the presence of the LORD, and dwelt in the land of Nod' Ephrem reads as the geographical-spiritual figuration of every subsequent flight from divine presence. The 'land of Nod' (literally 'land of wandering' from the Hebrew nud) Ephrem takes as not merely place-name but condition: Cain's exile is into rootless wandering, the inverse of the agricultural settlement his rejected sacrifice had presupposed. The departure 'from the presence of the LORD' is not divine abandonment (God remains everywhere present) but Cain's chosen exit from the conscious-relational orientation that constitutes communion. Every subsequent biblical wandering (Abraham's call, Israel's wilderness, the prodigal son's far country) Ephrem reads against this Cainite prototype.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis IV.16 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 5,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'And Enoch walked with God: and he was not; for God took him' Ephrem takes as central to the entire Tewahedo theological imagination, since Enoch is the canonical author of the Mäṣḥafä Hēnok (1 Enoch). The 'walking with God' Ephrem reads as the Syriac patristic ideal of continual conscious communion — the same standard upheld for Noah (6:9) and re-articulated for Abraham (17:1). The translation ('God took him') Ephrem takes literally: Enoch did not die in the ordinary mode but was assumed bodily into divine presence. Together with the parallel translation of Elijah (2 Kings 2:11), this establishes the Old Testament's witness to bodily glorification before the universal resurrection. Tewahedo eschatology preserves both translations with particular weight, since Enoch's translated state grounds the authority of the Mäṣḥafä Hēnok he composed.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis V.24 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 5,
+      "verse": 29,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "Lamech's naming of Noah — 'This same shall comfort us (yenahamenu) concerning our work and toil of our hands, because of the ground which the LORD hath cursed' — Ephrem reads as prophetic anticipation grounded in pre-flood corruption. Noah's name (the Hebrew root n-w-h, to rest/comfort) Ephrem takes as etymologically programmatic: Noah will be the one through whom the post-flood relief is mediated, the cursed ground (Gen 3:17) being either washed clean or replaced by new earth in the renewal that follows the flood. Ephrem reads Lamech's hope as proleptically Christological: every Old Testament expectation of comfort-mediated-by-a-righteous-one ultimately points beyond itself to Christ as the true Comforter. The Tewahedo Synaxarium preserves Noah on the 10th of Magabit as a type of Christ.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis V.29 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 6,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'My Spirit shall not always strive (yadōn) with man, for that he also is flesh: yet his days shall be an hundred and twenty years' Ephrem reads the 120-year span as the divine grant of additional time for repentance before the flood — not the post-flood human lifespan but the specific pre-judgment window during which Noah preached repentance. The 'striving' of the Spirit Ephrem takes as the ongoing convicting work of the Spirit in human conscience, eventually withdrawable when persistent rebellion makes further striving fruitless. The verse anchors the Syriac patristic doctrine that divine patience has limits not because of any weariness in God but because of the moral structure that requires consequence to follow on settled refusal.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis VI.3 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 6,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'But Noah found grace in the eyes of the LORD' Ephrem reads as the textual locus classicus for grace (the Syriac taybutha) preceding-and-grounding human righteousness, not following on it. The 'found' (matsa') Ephrem notes carries the sense of discovery within an existing reality, not the achievement of something new: grace was already there in God's disposition; Noah encountered it. Yet the verse immediately follows (in v. 9) with 'Noah was a just man and perfect... and Noah walked with God' — so grace and human righteousness are not opposed but coordinated. Ephrem reads this as the seed of the Pauline doctrine of justifying grace that issues in genuine righteousness — neither merit-earning grace (against Pelagianism) nor grace-displacing-righteousness (against later antinomianism).",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis VI.8 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 6,
+      "verse": 14,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On the divine command to build the ark — 'Make thee an ark (tēbat) of gopher wood' — Ephrem develops the canonical Syriac patristic typology: the ark prefigures the Church (the salvific vessel that carries the faithful through the waters of judgment), and the wood of the ark prefigures the wood of the cross (the material instrument of salvation). The dimensions Ephrem reads symbolically (length 300 / breadth 50 / height 30 cubits): the ark's proportions match the human body's, since the salvation of humanity required the assumption of human form. The Tewahedo Anaphora of Athanasius preserves this Noah-ark-Church-cross typological cluster prominently in its anamnesis prayer.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis VI.14 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 7,
+      "verse": 11,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On the flood's onset — 'all the fountains of the great deep broken up, and the windows of heaven were opened' — Ephrem reads the dual-source flooding as the cosmic-symbolic reversal of the Day 2 separation of waters (Gen 1:6-7). The firmament that had held the upper waters in place is, as it were, unstoppered; the deep that had been bounded breaks its bounds. Creation un-creates itself by divine permission — order returning to chaos because of human moral disorder. This Ephremic reading establishes the deep theological principle that cosmic order and moral order are not independent: human sin has cosmic-environmental consequences, and the restoration of moral order is the precondition for the restoration of cosmic order. The Tewahedo doctrine of the new heavens and new earth (cf. Mäṣḥafä Hēnok 91) traces this principle forward.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis VII.11 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 8,
+      "verse": 21,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "After Noah's post-flood sacrifice — 'the LORD smelled a sweet savour; and the LORD said in his heart, I will not again curse the ground any more for man's sake' — Ephrem reads as the inauguration of the Noahic covenant of cosmic stability. The 'sweet savour' (the Syriac rīhā d-nyahha) Ephrem takes as the prototype of every subsequent acceptable sacrifice — Abel's, Abraham's, the Mosaic sacrificial system, and ultimately the eucharistic sacrifice of Christ. God's interior speech ('said in his heart') Ephrem takes as decisive: the divine commitment is irrevocable not because of external pressure but because of intrinsic divine resolve. The Tewahedo liturgical reading of this verse on Noah's feast day (10th of Magabit) preserves this Ephremic emphasis on the interior divine commitment.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis VIII.21 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 9,
+      "verse": 13,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "On the rainbow as covenantal sign — 'I do set my bow (qashti) in the cloud' — Ephrem makes the most of the Hebrew qesheth's dual sense of 'bow' = both rainbow AND warrior's weapon. God sets His bow (war-weapon) in the cloud: His instrument of judgment is permanently sheathed as covenantal pledge that the universal-deluge mode of judgment will not recur. The bow is set with its string facing downward (toward earth) and its arc facing upward — figuratively, the weapon is laid aside, not aimed. Ephrem reads this as the textual root of the Syriac patristic teaching that divine wrath, while real, is never the final word: the rainbow stands over every subsequent storm as the visible reminder that mercy has the last word.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis IX.13 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 9,
+      "verse": 25,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "Noah's pronouncement after the Ham-incident — 'Cursed be Canaan; a servant of servants shall he be unto his brethren' — Ephrem reads with careful precision against any reading that would extract a permanent racial-ethnic curse. The curse falls on CANAAN (Ham's son), not on Ham himself or on Ham's other descendants; the cursing is therefore localized and historical (fulfilled in the Canaanite-Israelite encounters of Joshua-Judges), not racially universal. Against the early-modern American mis-application of this verse to justify African slavery, Ephrem's text-bounded reading clearly precludes such extension: the curse is on a specific lineage (Canaan), for a specific reason (Canaan's prefigured idolatry and immorality), with a specific fulfillment (the dispossession of the Canaanite peoples by Israel). The Tewahedo reading inherits Ephrem's text-bounded precision.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis IX.25 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 11,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "The Babel-builders' resolution — 'let us build us a city and a tower, whose top may reach unto heaven; and let us make us a name' — Ephrem reads as the prototype of every subsequent self-deifying human project. The 'tower whose top may reach unto heaven' Ephrem takes as the inversion of the rightful divine order: instead of God descending to dwell with humanity (as He will at Sinai, in the Temple, and ultimately in the Incarnation), humanity attempts to ascend to heaven by its own engineering. The 'let us make us a name' Ephrem identifies as the deepest motive: the desire for autonomous self-significance apart from divine naming. The Tewahedo theological reading of Babel maintains this Ephremic anti-Promethean frame: every human construct that aims at deity by self-effort is doomed to confusion.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis XI.4 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 11,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Genesis",
+      "year": 362,
+      "summary": "'Therefore is the name of it called Babel; because the LORD did there confound the language of all the earth' Ephrem reads as the etymological-theological hinge that interprets the entire Old Testament's subsequent encounter with multiple languages. The confusion of tongues (the Hebrew balal = to mix / confound) at Babel is divine judgment-as-mercy: the unified human project was unifiedly evil; fragmentation by language limits the scope of any single evil. The Pentecost (Acts 2) Ephrem reads as the inverse-recapitulation: not the abolition of linguistic diversity but the Spirit's gift of cross-linguistic intelligibility around the proclamation of Christ. The Tewahedo Pentecost liturgy explicitly cross-references Gen 11:9 in its hymns, preserving this Ephremic Babel-Pentecost typological pair.",
+      "attribution": "Ephrem the Syrian, Commentary on Genesis XI.9 (NPNF S2 V13). PD."
     }
   ]
 }

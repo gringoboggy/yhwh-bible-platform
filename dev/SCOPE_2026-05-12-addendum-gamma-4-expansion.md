@@ -3,13 +3,15 @@
 **Date:** 2026-05-12
 **Parent phase:** γ.4 (Ethiopian Tewahedo commentary — shipped 2026-05-12)
 **Status:** γ.4.1.A (John 1-4, 30 entries) + γ.4.1.B (John 5-7, 27
-entries) + γ.4.1.C (John 11-14, 29 entries) all shipped 2026-05-12.
-Combined γ.4.1 wave-to-date: 86 entries spanning John 1-7 + 11-14
-(Cyril Books VII-VIII on Jn 8-10 are LOST and unfillable from Cyril).
-γ.4.1.D (John 15-21) + γ.4.2-6 still open per per-source ETL specs
-below. Activation criteria for γ.4.1 met by publisher's explicit
-direction to ship; γ.4.1.D activation expected to flow from same
-trajectory.
+entries) + γ.4.1.C (John 11-14, 29 entries) + γ.4.2 wave-1 (Ephrem
+on Gen 1-11, 32 entries) all shipped 2026-05-12. γ.4.2 wave-1 was
+sequenced per AUDIT_2026-05-12-B §ix recommendation to rebalance
+the corpus voice mix from 93% Cyril (after γ.4.1.C) to 70% Cyril /
+28% Ephrem / 2% 1 Enoch. Combined γ.4.x wave-to-date: 118 entries
+beyond the γ.4 seed of 12. γ.4.1.D (John 15-21) + γ.4.2.B-D (Ephrem
+Exodus/Numbers/Deut) + γ.4.3-6 still open per per-source ETL specs
+below. Activation criteria for γ.4.1 + γ.4.2 met by publisher's
+explicit direction to ship.
 
 ---
 
@@ -111,7 +113,18 @@ sub-phases ship against an explicit plan.
         [γ.4.1 books VII-VIII covering John 8-10 are LOST in
          the manuscript tradition; no Cyril coverage possible
          for those chapters per the addendum]
-γ.4.2   Ephrem on Genesis (NPNF S2 V13)              ~200-300 entries  open
+γ.4.2   Ephrem on Genesis (NPNF S2 V13)              ~200-300 entries  PARTIAL
+        ├─ γ.4.2.A  Gen 1-11 (primeval history)      32 entries  ✓ SHIPPED 2026-05-12
+        │           (creation + Sabbath + Eden +                  [first wave]
+        │           Fall + protoevangelium + Cain/                AUDIT-recommended
+        │           Abel + Enoch + Noah-flood-                    rebalance
+        │           rainbow + Babel)
+        ├─ γ.4.2.B  Gen 12-50 (patriarchal narrative) ~40-60 entries
+        │                                                         open
+        ├─ γ.4.2.C  Ephrem on Exodus                  ~40-60 entries
+        │                                                         open
+        └─ γ.4.2.D  Ephrem on Numbers + Deuteronomy   ~30-40 entries
+                                                                  open
 γ.4.3   Cyril's Luke (Payne Smith 1859 — PD)         ~400 entries      open
 γ.4.4   1 Enoch (Charles 1912) verse-keyed entries   ~300 entries      open
 γ.4.5   Ephrem's Hymns on Paradise selections        ~80 entries       open

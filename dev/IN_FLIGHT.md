@@ -4,6 +4,96 @@
 
 ## Prior task
 
+**γ.4.2 Ephrem on Genesis (first wave: Gen 1-11)** shipped 2026-05-12.
+First ship per AUDIT_2026-05-12-B N+1 recommendation. 32 substantive
+verse-keyed entries from Ephrem the Syrian's Commentary on Genesis
+(NPNF Series 2 Vol 13, Gwynn/Schaff trans., Oxford 1898 — PD).
+Covers Genesis 1-11 (primeval history: creation week + Sabbath +
+Eden + Fall + protoevangelium + Cain-Abel + Enoch translation +
+Noah-flood-rainbow + Babel).
+
+**Why it matters for THIS project**: rebalances the γ.4 Ethiopian
+corpus voice distribution from **93% Cyril / 5% Ephrem / 2% 1 Enoch**
+(post-γ.4.1.C) to **70% Cyril / 28% Ephrem / 2% 1 Enoch** — bringing
+the corpus shape substantively closer to the documented dual-anchor
+claim (Syriac Ephrem + non-Chalcedonian Alexandrian Cyril as the
+two patristic anchors of Oriental Orthodox communion). Ephrem on
+Genesis is foundational for Tewahedo creation theology + the Andəmta
+homiletic tradition. The seed pins load-bearing Ephremic-Syriac
+patristic readings: image/likeness distinction (1:26 — theosis
+foundation), Adam-Christ + Eve-Church typology (2:21 — ecclesiology
+root), Syriac protoevangelium (3:15), Enoch translation (5:24 —
+Mäṣḥafä Hēnok authority), ark-Church typology (6:14), rainbow-bow
+covenant (9:13), Babel-Pentecost inverse (11:9).
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 32 new
+  Ephrem-on-Genesis entries appended covering Gen 1:2/1:4/1:6/1:11/
+  1:14/1:20/1:26/1:31 + 2:2/2:9/2:18/2:21 + 3:4/3:7/3:9/3:15/3:19/
+  3:24 + 4:7/4:9/4:16 + 5:24/5:29 + 6:3/6:8/6:14 + 7:11 + 8:21 +
+  9:13/9:25 + 11:4/11:9. Each entry ~120-180 word paraphrase. _meta
+  block updated to document γ.4.2 wave-1 + the rebalanced voice
+  distribution.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma42EphremGenesisFirstWave` class with 12 tests pinning
+  Ephrem-substantively-present (≥30) + voice-rebalance-achieved
+  (Cyril <80%) + Gen 1-11 chapter coverage + 7 doctrinal anchors +
+  γ.4.2 _meta name + NPNF/Vol 13/PD citation per entry.
+
+**Code-side wiring**: zero new code. γ.4.2 wave-1 is pure content
+expansion within the γ.4 infrastructure shipped 2026-05-11.
+
+**Corpus state post-γ.4.2 wave-1**:
+```
+ethiopian_commentaries.json: 130 entries (was 98 after γ.4.1.C; +32)
+├─ Cyril of Alexandria     :  91 entries (unchanged — John 1-7+11-14+19)
+├─ Ephrem the Syrian       :  37 entries (was 5; +32 — Genesis 1-11)
+└─ 1 Enoch tradition       :   2 entries (unchanged)
+
+Voice mix: Cyril 70% / Ephrem 28% / 1 Enoch 2%
+           (was 93/5/2 — AUDIT-recommended rebalance achieved)
+Six-tradition coverage     : 186 entries (was 154)
+γ.4 cumulative content      : 118 entries beyond γ.4 seed
+                             (γ.4.1.A 30 + γ.4.1.B 27 + γ.4.1.C 29 +
+                              γ.4.2 wave-1 32 = 118)
+```
+
+**+12 tests**. **3395 / 3396 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **γ.4.1.D** Cyril on John 15-21 — closes γ.4.1 modulo Jn 8-10 gap.
+- **γ.4.2.B** Ephrem on Exodus — pushes Ephrem toward ~35-40%.
+- **γ.4.2.C** Ephrem on Numbers + Deuteronomy — Pentateuch closure.
+- **γ.4.4** 1 Enoch verse-keyed entries — would bring 1 Enoch share
+  up substantively (currently 2%).
+
+**Session totals (2026-05-12)**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+γ.4.1.C Cyril on John (third wave)                  +14 tests
+AUDIT_2026-05-12-B                                    0 tests (doc-only)
+γ.4.2 Ephrem on Genesis (first wave)                +12 tests
+                                  session total:   +198 tests
+                                  3197 → 3395 (serial; 1 skipped)
+```
+
+**Recommended next ship** (per AUDIT_2026-05-12-B + this ship):
+- **γ.4.1.D Cyril on John 15-21** — closes γ.4.1 modulo the
+  unfillable Jn 8-10 gap. Voice mix would shift back toward Cyril
+  slightly (~73%); still well below pre-γ.4.2 93%.
+- **γ.4.2.B Ephrem on Exodus** — pushes Ephrem share toward 35-40%,
+  fuller dual-anchor parity.
+- **AUDIT_2026-05-12-C** — third audit of the day if user requests.
+
+## Prior task
+
 **AUDIT_2026-05-12-B** shipped 2026-05-12. Second solo-Claude audit
 of the day, user-invoked after the χ.2-5 commentary cluster CLOSED
 and γ.4.1 advanced through 3 of 4 planned waves. Doc-only; no

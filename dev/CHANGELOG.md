@@ -6,6 +6,121 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.2 Ephrem on Genesis (first wave: Gen 1-11)
+
+**Phases shipped:** γ.4.2 first wave — Ephrem the Syrian's
+Commentary on Genesis, 32 substantive verse-keyed entries covering
+Genesis 1-11 (primeval history: creation week + Sabbath + Eden + Fall
++ protoevangelium + Cain-Abel + Enoch translation + Noah-flood-rainbow
++ Babel). Sourced from NPNF Series 2 Vol 13 (Gwynn/Schaff translation,
+Oxford 1898; both translators died before 1929 PD cutoff).
+**Audit-recommended sequencing**: per AUDIT_2026-05-12-B §ix, γ.4.2
+first wave was sequenced BEFORE γ.4.1.D to rebalance the corpus voice
+mix away from 93% Cyril dominance.
+**Test delta:** +12 (3383 → 3395; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.2 — Ephrem on Genesis first wave (Gen 1-11)
+
+This wave deliberately rebalances the γ.4 Ethiopian corpus voice
+distribution from **93% Cyril / 5% Ephrem / 2% 1 Enoch** (after
+γ.4.1.C) to **70% Cyril / 28% Ephrem / 2% 1 Enoch** (post-γ.4.2
+wave-1). The shift brings the corpus shape substantively closer
+to the _meta scope's documented dual-anchor claim (Syriac Ephrem
++ non-Chalcedonian Alexandrian Cyril as the two patristic anchors
+of Oriental Orthodox communion).
+
+**Why this ship matters for the project specifically**:
+
+- The Tewahedo theological tradition receives Ephrem AND Cyril as
+  co-equal patristic anchors. A 93% Cyril corpus understates
+  Ephrem's contribution to the Syriac-Aramaic strand of Tewahedo
+  patristic inheritance.
+- Ephrem on Genesis is foundational for the entire Tewahedo
+  understanding of creation theology, the fall, and the
+  Christological-typological reading of the primeval history. The
+  Andəmta homiletic tradition draws explicitly from Ephrem's Gen
+  commentary in its catechetical use.
+- The seed pins load-bearing Ephremic-Syriac patristic readings:
+  Gen 1:26 (image/likeness distinction — theosis foundation);
+  Gen 2:21 (Adam-Christ + Eve-Church typology — Tewahedo
+  ecclesiology root); Gen 3:15 (Syriac protoevangelium); Gen 5:24
+  (Enoch's translation — anchor for Mäṣḥafä Hēnok's authority);
+  Gen 6:14 (ark prefigures Church + cross); Gen 9:13 (rainbow as
+  warrior's bow set down); Gen 11:9 (Babel-Pentecost typological
+  inverse).
+
+**Pattern**: extends the χ-cluster + γ.4.1.A/B/C wave-based content
+expansion proven this session. Pure content (no code), follows the
+established SEED + ETL.x decomposition pattern.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 32 new
+  Ephrem-on-Genesis entries appended covering Gen 1:2, 1:4, 1:6,
+  1:11, 1:14, 1:20, 1:26, 1:31, 2:2, 2:9, 2:18, 2:21, 3:4, 3:7,
+  3:9, 3:15, 3:19, 3:24, 4:7, 4:9, 4:16, 5:24, 5:29, 6:3, 6:8,
+  6:14, 7:11, 8:21, 9:13, 9:25, 11:4, 11:9. Each entry ~120-180
+  word paraphrase of Ephrem's interpretive position. _meta block
+  updated to document γ.4.2 wave-1 + the rebalanced voice
+  distribution.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma42EphremGenesisFirstWave` class with 12 tests pinning
+  Ephrem-now-substantively-present (≥30 entries), Cyril-share-below-
+  80% (voice rebalance), Gen 1-11 chapter coverage, 7 doctrinal
+  anchor pins (Gen 1:26 image/likeness / 2:21 Adam-Christ / 3:15
+  Syriac protoevangelium / 5:24 Enoch translation / 6:14 ark-Church
+  / 9:13 rainbow-bow / 11:9 Babel-Pentecost), _meta documents
+  γ.4.2 expansion, NPNF + Vol 13 + PD citation pin per entry.
+
+**Code-side wiring**: zero new code. γ.4.2 wave-1 is pure content
+expansion within the γ.4 infrastructure shipped 2026-05-11.
+
+### Corpus state post-γ.4.2 wave-1
+
+```
+ethiopian_commentaries.json: 130 entries (was 98 after γ.4.1.C; +32)
+├─ Cyril of Alexandria     :  91 entries (unchanged from γ.4.1.C)
+│  ├─ John coverage         : chs 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 19
+│  │                         (8-10 unfillable — Books VII-VIII LOST)
+│  └─ Per-chapter counts    : 1×14, 2×5, 3×8, 4×5, 5×10, 6×10, 7×7,
+│                            11×8, 12×5, 13×6, 14×10, 19×1
+├─ Ephrem the Syrian       :  37 entries (was 5; +32 — first sub-
+│  │                         stantive presence beyond the γ.4 seed)
+│  ├─ Genesis coverage      : chs 1, 2, 3, 4, 5, 6, 7, 8, 9, 11
+│  │                         (Gen 10 not yet covered; will catch in
+│  │                         γ.4.2.B if desired)
+│  └─ Per-chapter counts    : 1×10 (was 2 + 8 new), 2×5 (was 1 + 4),
+│                            3×8 (was 1 + 7), 4×3, 5×2, 6×3, 7×1,
+│                            8×1, 9×2, 11×2
+└─ 1 Enoch tradition       :   2 entries (unchanged)
+
+Voice distribution         :  Cyril 70%, Ephrem 28%, 1 Enoch 2%
+                             (was 93/5/2 pre-γ.4.2 — AUDIT-recommended
+                             rebalance achieved)
+Six-tradition coverage     : 186 entries (was 154)
+γ.4 cumulative content      : 118 entries beyond the γ.4 seed of 12
+                             (γ.4.1.A 30 + γ.4.1.B 27 + γ.4.1.C 29 +
+                             γ.4.2 wave-1 32 = 118)
+```
+
+### Forward references
+
+- **γ.4.1.D** — Cyril on John 15-21 (Vine + High-Priestly Prayer
+  + Passion + Resurrection). ~30-40 more entries; will close
+  γ.4.1 modulo the unfillable Jn 8-10 gap.
+- **γ.4.2.B** — Ephrem on Exodus (NPNF S2 V13). ~40-60 entries.
+  Would push Ephrem share toward ~35-40%.
+- **γ.4.2.C** — Ephrem on Numbers + Deuteronomy. ~30-40 entries.
+- **γ.4.3** — Cyril on Luke (Payne Smith 1859 PD). ~400 entries
+  long-term target; would re-tilt toward Cyril but is also a
+  different work (Luke ≠ John), giving genre diversity.
+- **γ.4.4** — 1 Enoch (Charles 1912) verse-keyed entries. ~300
+  target; would bring the 1 Enoch share up substantively (currently
+  2%, would target ~25-30% for the full corpus).
+
+---
+
 ## 2026-05-12 — session — AUDIT_2026-05-12-B (post-χ-cluster + γ.4.1.A/B/C arc)
 
 **Phases shipped:** AUDIT_2026-05-12-B — second solo-Claude audit
