@@ -1323,6 +1323,100 @@ class CatholicCommentaryDetector:
         )
 
 
+class ReformationCommentaryDetector:
+    """Emit `comm-reformation` candidates from the 16th c. magisterial
+    Reformation corpus (`content/sources/reformation_commentaries.json`).
+
+    Structurally parallel to γ.3 / γ.4 / χ.2 / χ.4 — a direct-lookup
+    detector keyed on (book, chapter, verse) emitting one Candidate
+    per matching entry. The semantic distinction from χ.2 is *period*:
+    χ.3 covers the 16th c. magisterial Reformation narrowly (Calvin,
+    Luther, Zwingli, Anabaptist expositors — years 1517-1564); χ.2
+    covers the broader post-Reformation English tradition (Henry,
+    Spurgeon, Edwards, Hodge — post-1700).
+
+    Body rendering uses **plain year display** (mirrors χ.2) — all
+    magisterial Reformers are post-1500, no BC/AD branching needed.
+
+    Build-pipeline considerations: comm-reformation notes participate
+    in the existing tradition filter (ψ.8). The lutheran-confessional
+    edition's `traditions_default` declares `protestant`, which
+    surfaces both comm-protestant (broader) AND comm-reformation
+    (narrower 16th c.) — the edition itself doesn't need to know the
+    period distinction; downstream UIs can chip them differently.
+
+    χ.3 ships a ~12-entry Calvin-only seed across both Testaments;
+    χ.3.x will expand from the Calvin Translation Society Edinburgh
+    1843-1855 edition (CCEL hosts the full PD text).
+    """
+
+    name = "ReformationCommentaryDetector"
+    kind = "comm-reformation"
+
+    def __init__(self) -> None:
+        self.corpus = sources.reformation_commentaries()
+
+    def detect(self, book: str, chapter: int, verse: int, verse_text: str) -> list[Candidate]:
+        # verse_text is unused — direct lookup by (book, chapter, verse).
+        entries = self.corpus.for_verse(book, chapter, verse)
+        if not entries:
+            return []
+        out: list[Candidate] = []
+        for entry in entries:
+            body = self._format_body(entry)
+            out.append(
+                Candidate(
+                    book=book,
+                    chapter=chapter,
+                    verse=verse,
+                    kind=self.kind,
+                    anchor="",  # whole-verse anchor
+                    confidence=0.95,
+                    source_name=f"{entry.commentator} / {entry.work}",
+                    source_attribution=entry.attribution,
+                    draft_title=f"Reformation — {entry.commentator}",
+                    draft_label=f"{entry.commentator} ({entry.year}).",
+                    draft_body=body,
+                    detector=self.name,
+                    reviewer_notes=(
+                        "Curated PD interpretive summary representing the "
+                        f"16th c. magisterial Reformation reading via "
+                        f"{entry.commentator}, {entry.work}. Verify the "
+                        "summary still reflects the Reformer's argument "
+                        "before promoting; substitute a verbatim quote "
+                        "from the Calvin Translation Society Edinburgh "
+                        "1843-1855 edition (CCEL) where available."
+                    ),
+                )
+            )
+        return out
+
+    @staticmethod
+    def _format_body(entry: "sources.ReformationCommentary") -> str:
+        """Render the entry's HTML body. Mirrors χ.2 (plain year
+        display, no BC/AD branching) — all magisterial Reformers are
+        post-1500.
+
+        The summary text is escape-safe by construction (no user-
+        controlled content) but escape defensively to keep the
+        XSS-by-design contract honest.
+        """
+        import html as _html
+
+        commentator = _html.escape(entry.commentator)
+        work = _html.escape(entry.work)
+        summary = _html.escape(entry.summary)
+        year = int(entry.year)
+        return (
+            f'<aside class="note-comm-reformation">'
+            f"<strong>{commentator}</strong> "
+            f"<em>{work}</em> "
+            f"<small>({year})</small>"
+            f"<p>{summary}</p>"
+            f"</aside>"
+        )
+
+
 # ----------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------
@@ -1341,4 +1435,5 @@ ALL_DETECTORS = [
     EthiopianCommentaryDetector,  # γ.4 — flagship payload
     ProtestantCommentaryDetector,  # χ.2 — Matthew Henry seed
     CatholicCommentaryDetector,  # χ.4 — Catena Aurea seed
+    ReformationCommentaryDetector,  # χ.3 — Calvin seed
 ]

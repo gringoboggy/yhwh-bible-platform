@@ -4,6 +4,99 @@
 
 ## Prior task
 
+**χ.3 SEED Calvin's commentaries** shipped 2026-05-12. Third
+ship in the χ-commentary cluster (after χ.2 Matthew Henry +
+χ.4 Catena Aurea); closes the magisterial-Western half. Only
+χ.5 Rashi remains open in the χ.2-5 cluster.
+
+**Why it matters for THIS project**: the `evangelical-reformed`
+edition was getting only χ.2's broader post-Reformation Henry-
+flavored notes via its `protestant` tradition declaration. χ.3
+adds the narrowly 16th c. magisterial-Reformation voice — Calvin
+specifically — which the Reformed self-identification expects to
+surface FIRST. The `lutheran-confessional` edition also benefits
+(both editions map to `protestant` tradition via traditions.yaml).
+The seed pins Calvin's signature Reformed exegetical anchors:
+**sola fide** (Rom 3:21 + Gal 2:16), **sola gratia** (Eph 2:8),
+**accommodation** (Gen 1:1 — Calvin's hermeneutical signature),
+**regulative principle** (Exo 20:3), **providence** (Rom 8:28),
+**covenant theology** (Jer 31:33).
+
+**Calvin Translation Society edition**: the standard PD English
+translation (Edinburgh, 22 volumes 1843-1855, ed. Owen / Beveridge
+/ Pringle / King) — all translators died well before the 1929 PD
+cutoff. CCEL hosts the full text under PD.
+
+**Files**:
+- `content/sources/reformation_commentaries.json` — new schema-v1
+  seed file mirroring χ.2 protestant_commentaries (field name
+  `commentator`, not `father` — Calvin is a 16th c. Reformer,
+  not a Father). 12 paraphrased Calvin entries with balanced
+  coverage: **OT × 6** (Gen 1:1, 3:15, Exo 20:3, Ps 23:1, Isa
+  7:14, Jer 31:33) + **NT × 6** (Mat 6:9, Joh 1:1, Rom 3:21,
+  8:28, Gal 2:16, Eph 2:8). Every entry year in 1540-1564
+  (Calvin's commentary period — anti-merge with χ.2's 1700-
+  1721 Matthew Henry range).
+- `scripts/core/sources.py` — `ReformationCommentary` frozen
+  dataclass + `ReformationCommentaries` lazy loader (indexes
+  by_verse + by_commentator) + `reformation_commentaries()`
+  `@lru_cache(maxsize=1)` singleton. Mirrors χ.2 API exactly.
+- `scripts/core/detectors.py` — `ReformationCommentaryDetector`
+  class (kind="comm-reformation", confidence 0.95, **plain year
+  display** — no BC/AD branching since all magisterial Reformers
+  are post-1500; matches χ.2 contract). Candidate `draft_title`
+  prefixes "Reformation —" (distinct from χ.2's "Protestant —"
+  for downstream UI differentiation). Appended to `ALL_DETECTORS`
+  after `CatholicCommentaryDetector` so the candidate-order
+  lineage is γ.3 → γ.4 → χ.2 → χ.4 → χ.3 (patristic → tewahedo
+  → protestant → catholic → reformation).
+
+**Kind reuse**: `comm-reformation` pre-existed in kinds.yaml
+(line 447-455; declared with the kinds-v2 schema). χ.3 is the
+first phase to actually emit it. No kinds.yaml edit needed; no
+kinds-count pin bump.
+
+**Tradition wiring**: pre-existing. traditions.yaml maps
+evangelical-reformed + lutheran-confessional → protestant; both
+editions surface comm-reformation notes automatically via ψ.8.
+
+**Tests**: tests/test_reformation_chi3.py — 35 tests across 5
+classes. TestChi3DataFile × 8 (parses, meta block, ≥12 entries,
+required fields, Calvin attribution + PD marker, year range
+1540-1564 anti-merge pin, Gen 1:1 present).
+TestChi3ReformationCommentariesLoader × 7 (frozen dataclass,
+by_verse + by_commentator, empty for Revelation since Calvin
+never commented on it, Calvin present, Luther returns empty —
+χ.3.x not χ.3, SourceMissingError on absent cache).
+TestChi3DetectorContract × 8 (registered after Catholic —
+lineage pin, kind=comm-reformation, candidate shape with
+Reformation title prefix, confidence=0.95, empty for out-of-
+seed verses, verse_text ignored, body XSS-escapes, plain year
+display). TestChi3KindIsRegistered × 3 (comm-reformation in
+kinds.yaml + comm-protestant coexists as sibling — anti-merge
+pin). TestChi3Coverage × 9 (OT × 6, NT × 6, sola fide × 2 pins,
+sola gratia, accommodation, idolatry, providence, covenant
+theology, Calvin-only-voice anti-merge pin).
+
+**+35 tests**. **3313 / 3314 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **χ.3.x** — user-side full Calvin Translation Society Edinburgh
+  1843-1855 ETL (CCEL). ~5-10K notes target per PLAN.
+- **χ.3.y Luther + Zwingli** — additional comm-reformation voices.
+  Luther on Galatians + Genesis Lectures + Romans; Zwingli on his
+  OT prophet sermons. All PD.
+- **χ.5 Rashi** — the LAST open χ.2-5 cluster phase. Jewish;
+  `comm-rabbinic` kind (existing).
+
+**Recommended next ship**: χ.5 Rashi (closes the entire χ.2-5
+cluster) — Jewish exegetical voice, 11th c. France, comm-rabbinic
+kind already exists. Or pivot — γ.4.1 corpus expansion / ψ.30
+matrix a11y / money authorization for B.AI.* items.
+
+## Prior task
+
 **χ.4 SEED Aquinas's Catena Aurea** shipped 2026-05-12. Second
 ship in the χ-commentary cluster (after χ.2 Matthew Henry); next
 per PLAN_2026-05-09 execution-order recommendation (χ.2 → **χ.4**

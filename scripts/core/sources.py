@@ -687,6 +687,106 @@ class CatholicCommentaries:
 
 
 # ----------------------------------------------------------------------
+# Reformation commentary corpus (χ.3 — 2026-05-12)
+# ----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class ReformationCommentary:
+    """One verse-keyed entry in the 16th c. magisterial Reformation corpus.
+
+    Shape parallels `ProtestantCommentary` — field name `commentator`
+    rather than `father` because the magisterial Reformers (Calvin,
+    Luther, Zwingli, Anabaptist expositors) are not Fathers in the
+    patristic sense; they are 16th c. confessional theologians. The
+    semantic distinction from χ.2 (`comm-protestant`) is *period*:
+    χ.3 covers the 16th c. magisterial Reformation narrowly (1517-
+    1564 endpoints — Luther's 95 Theses through Calvin's death);
+    χ.2 covers the broader post-Reformation English Nonconformist /
+    Puritan / Evangelical tradition (Henry, Spurgeon, Edwards, Hodge,
+    all post-1700). Together with `comm-patristic` (γ.3) and
+    `comm-catholic` (χ.4) they fan out the historical Western
+    Christian commentary spectrum.
+
+    Calvin wrote commentaries on most of the OT (Genesis through
+    Joshua, Psalms, Isaiah, Jeremiah-Lamentations, Daniel, the
+    Twelve Minor Prophets) and on every NT book EXCEPT 2-3 John,
+    Jude, and Revelation. The χ.3 seed pulls 12 entries covering
+    Calvin's distinctively Reformed pins (sola fide, sola gratia,
+    accommodation, covenant theology, providence).
+
+    See `content/sources/reformation_commentaries.json` for the live
+    dataset; χ.3 ships a ~12-entry Calvin-only seed, and future
+    χ.3.x will expand from the Calvin Translation Society Edinburgh
+    1843-1855 edition (CCEL hosts the full PD text).
+    """
+
+    book: str
+    chapter: int
+    verse: int
+    commentator: str
+    work: str
+    year: int
+    summary: str
+    attribution: str
+
+
+class ReformationCommentaries:
+    """Lazy loader for the Reformation commentary corpus. Cached on
+    first read. Raises ``SourceMissingError`` if the JSON cache file
+    is absent.
+
+    Two access patterns mirror χ.2 ProtestantCommentaries:
+      * ``for_verse(book, chapter, verse)`` — every entry attached to
+        the verse (used by the detector).
+      * ``by_commentator(name)`` — every entry by a given Reformer
+        (e.g. ``"John Calvin"``), for audit / coverage UIs.
+    """
+
+    PATH = _SOURCES / "reformation_commentaries.json"
+
+    def __init__(self) -> None:
+        if not self.PATH.is_file():
+            raise SourceMissingError(
+                f"Reformation commentaries cache not present at {self.PATH}. "
+                "The seed corpus shipped with χ.3 (2026-05-12) — restore from git."
+            )
+        with self.PATH.open(encoding="utf-8") as f:
+            data = json.load(f)
+        self._by_verse: dict[tuple[str, int, int], list[ReformationCommentary]] = {}
+        self._by_commentator: dict[str, list[ReformationCommentary]] = {}
+        for entry in data.get("entries", []):
+            try:
+                rc = ReformationCommentary(
+                    book=str(entry["book"]),
+                    chapter=int(entry["chapter"]),
+                    verse=int(entry["verse"]),
+                    commentator=str(entry["commentator"]),
+                    work=str(entry.get("work", "")),
+                    year=int(entry.get("year", 0)),
+                    summary=str(entry["summary"]),
+                    attribution=str(entry["attribution"]),
+                )
+            except (KeyError, ValueError, TypeError):
+                continue
+            key = (rc.book, rc.chapter, rc.verse)
+            self._by_verse.setdefault(key, []).append(rc)
+            self._by_commentator.setdefault(rc.commentator, []).append(rc)
+
+    def __len__(self) -> int:
+        return sum(len(v) for v in self._by_verse.values())
+
+    def for_verse(self, book: str, chapter: int, verse: int) -> list[ReformationCommentary]:
+        """Return every entry attached to a specific verse, in insertion
+        order. Empty list when nothing matches."""
+        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+
+    def by_commentator(self, name: str) -> list[ReformationCommentary]:
+        """Return every entry by a given Reformer (case-sensitive)."""
+        return list(self._by_commentator.get(name, ()))
+
+
+# ----------------------------------------------------------------------
 # Singletons (cached across runs in the same process)
 # ----------------------------------------------------------------------
 
@@ -737,6 +837,12 @@ def protestant_commentaries() -> ProtestantCommentaries:
 def catholic_commentaries() -> CatholicCommentaries:
     """Return the singleton CatholicCommentaries instance (χ.4 — 2026-05-12)."""
     return CatholicCommentaries()
+
+
+@lru_cache(maxsize=1)
+def reformation_commentaries() -> ReformationCommentaries:
+    """Return the singleton ReformationCommentaries instance (χ.3 — 2026-05-12)."""
+    return ReformationCommentaries()
 
 
 # ----------------------------------------------------------------------

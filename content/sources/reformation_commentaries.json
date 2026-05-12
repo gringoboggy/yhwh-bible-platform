@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "source": "John Calvin's commentaries on the Old and New Testaments, written 1540-1564 — seed corpus shipped with χ.3 (2026-05-12).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where Calvin's commentary carries a distinctively Reformed (16th c. magisterial) reading. Calvin wrote commentaries on most of the Old Testament (Genesis through Joshua, Psalms, Isaiah, Jeremiah-Lamentations, Daniel, the Twelve Minor Prophets) and on all of the New Testament EXCEPT 2-3 John, Jude, and Revelation. Each entry is a paraphrased summary of Calvin's interpretive thrust, not a verbatim quote — verbatim passages from the Calvin Translation Society edition will land in a future χ.3.x ETL pass. Distinct from χ.2's comm-protestant kind, which is the broader post-Reformation English Nonconformist / Puritan / Evangelical tradition; comm-reformation is narrowly scoped to 16th c. magisterial Reformers (Calvin, Luther, Zwingli, Anabaptists).",
+    "public_domain_basis": "John Calvin d. 27 May 1564 — out of copyright in every jurisdiction by age. Standard PD English translation: Calvin Translation Society edition, Edinburgh, 22 volumes 1843-1855, translated by John Owen, Henry Beveridge, William Pringle, John King, et al. — all translators died well before 1929. CCEL hosts the full text under PD.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "book": "gen",
+      "chapter": 1,
+      "verse": 1,
+      "commentator": "John Calvin",
+      "work": "Commentary on Genesis",
+      "year": 1554,
+      "summary": "Calvin opens his Genesis commentary with the principle of divine accommodation: Moses writes not as a natural philosopher but as a popular teacher, framing the creation account in the manner of the unlearned so that ordinary believers can grasp it. This is the seed of Calvin's hermeneutical signature — God 'lisps to us as a nurse to her child', adjusting His self-revelation to our capacity. The verse refutes both the eternalists (matter as co-eternal with God) and the Manichees (the world as the work of an inferior demiurge): the heavens and the earth proceed from a single sovereign will, ex nihilo, by the Word.",
+      "attribution": "John Calvin, Commentary on Genesis, on Gen 1:1. Calvin Translation Society edition, ed. John King, Edinburgh 1847. PD."
+    },
+    {
+      "book": "gen",
+      "chapter": 3,
+      "verse": 15,
+      "commentator": "John Calvin",
+      "work": "Commentary on Genesis",
+      "year": 1554,
+      "summary": "Calvin reads Gen 3:15 as the first promise of the Gospel — the protoevangelium — but treats the 'seed of the woman' with cautious specificity: the seed is properly singular (Christ) yet carries a collective sense in His mystical body (the elect, who in Christ bruise the serpent's head wherever the Gospel advances). Against the medieval Catholic reading that finds Mary in 'the woman' (rendered 'she shall bruise' in the Vulgate), Calvin returns to the Hebrew reading: the SEED, not the woman, bruises the serpent. This is one of the Reformed pins where Calvin's philological method directly corrects the medieval interpretive tradition.",
+      "attribution": "John Calvin, Commentary on Genesis, on Gen 3:15. Calvin Translation Society edition, ed. John King, Edinburgh 1847. PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 20,
+      "verse": 3,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Last Four Books of Moses (Harmony)",
+      "year": 1563,
+      "summary": "On 'Thou shalt have no other gods before me' Calvin establishes the Reformed doctrine of true worship: the first commandment forbids not only the gross idolatry of pagan deities but every interior preference of a creature to the Creator. The phrase 'before me' (al panai) Calvin renders 'in my sight' — God is not deceived by hidden idolatry of the heart any more than by open temple-worship. This is the doctrinal anchor of Calvin's later treatises against the Mass and against images (Inventory of Relics, 1543; Treatise on Relics) — the regulative principle of worship has its scriptural root here.",
+      "attribution": "John Calvin, Commentary on the Four Last Books of Moses, on Exod 20:3. Calvin Translation Society edition, trans. Charles W. Bingham, Edinburgh 1852. PD."
+    },
+    {
+      "book": "ps",
+      "chapter": 23,
+      "verse": 1,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Psalms",
+      "year": 1557,
+      "summary": "On 'The LORD is my shepherd' Calvin observes that David's confession is not boast but appropriation: the universal God who governs all creation is here claimed as personal shepherd. The metaphor of shepherding carries for Calvin the full freight of providence — God leads, feeds, defends, restores. The 'I shall not want' is not a denial of all suffering (Calvin is not a prosperity exegete) but a confession that whatever lack the believer experiences in present circumstance, the shepherd's provision toward the believer's true good is unwavering. This is the pastoral undercurrent of Calvin's doctrine of providence (Institutes I.16-18).",
+      "attribution": "John Calvin, Commentary on the Psalms, on Ps 23:1. Calvin Translation Society edition, trans. James Anderson, Edinburgh 1846. PD."
+    },
+    {
+      "book": "isa",
+      "chapter": 7,
+      "verse": 14,
+      "commentator": "John Calvin",
+      "work": "Commentary on Isaiah",
+      "year": 1551,
+      "summary": "Calvin defends the Christological reading of 'a virgin shall conceive and bear a son, and call his name Immanuel' against Jewish exegetes who restrict the prophecy to Ahaz's day. The Hebrew 'almah' Calvin acknowledges can in some contexts mean simply 'young woman', but the SIGN-character of the prophecy (a sign offered to the house of David, not Ahaz personally) and the title Immanuel ('God with us') both demand the supernatural sense. Matthew's citation (Mt 1:23) is not a creative re-reading but a recovery of the verse's original messianic horizon. This is Calvin's mature philological-Christological method at work.",
+      "attribution": "John Calvin, Commentary on Isaiah, on Isa 7:14. Calvin Translation Society edition, trans. William Pringle, Edinburgh 1850. PD."
+    },
+    {
+      "book": "jer",
+      "chapter": 31,
+      "verse": 33,
+      "commentator": "John Calvin",
+      "work": "Commentary on Jeremiah and Lamentations",
+      "year": 1563,
+      "summary": "On 'I will put my law in their inward parts, and write it in their hearts' Calvin reads the new-covenant promise as the substance which the Sinai-covenant prefigured. The novelty of the new covenant is not a new content (the law remains God's law) but a new mode: the same law written formerly on tablets is now inscribed by the Spirit on the heart of the regenerate. This is the covenantal-substantial unity Calvin asserts against both Anabaptist discontinuism (which would discard the Old Testament) and Roman sacramental displacement (which would relocate the heart-inscription in the externals of the Mass). The verse is foundational to Reformed covenant theology.",
+      "attribution": "John Calvin, Commentary on Jeremiah, on Jer 31:33. Calvin Translation Society edition, trans. John Owen, Edinburgh 1852. PD."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 9,
+      "commentator": "John Calvin",
+      "work": "Commentary on a Harmony of the Evangelists",
+      "year": 1555,
+      "summary": "On 'Our Father which art in heaven' Calvin treats the Lord's Prayer as the rule and the limit of all true prayer: every petition must conform to its pattern, and nothing contrary to it may be asked. The address 'Father' establishes the affectionate boldness proper to the believer (no servile or contractual posture); 'in heaven' guards against the carnal familiarity that would forget God's transcendent majesty. The two clauses together — Father AND in heaven — form Calvin's signature corrective: neither Roman distance from God nor enthusiast collapse of God into the self.",
+      "attribution": "John Calvin, Commentary on a Harmony of the Evangelists (Matthew, Mark, Luke), on Matt 6:9. Calvin Translation Society edition, trans. William Pringle, Edinburgh 1845. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 1,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Gospel according to John",
+      "year": 1553,
+      "summary": "Calvin's reading of the Johannine prologue is the Reformed gold standard against the Arian and Socinian dilutions of his own day. 'In the beginning was the Word' Calvin reads as 'before the world was, when there was no time, the Word already had His existence' — the eternity of the Son. 'The Word was with God' establishes the personal distinction (against Sabellian collapse). 'And the Word was God' establishes consubstantiality (against Arian subordination). Calvin draws particular attention to the article order in the Greek (Theos without the article before Logos with the article) — a philological note that becomes central to subsequent Reformed Trinitarian apologetics.",
+      "attribution": "John Calvin, Commentary on John, on John 1:1. Calvin Translation Society edition, trans. William Pringle, Edinburgh 1847. PD."
+    },
+    {
+      "book": "rom",
+      "chapter": 3,
+      "verse": 21,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Epistle to the Romans",
+      "year": 1540,
+      "summary": "On 'But now the righteousness of God apart from the law is manifested' Calvin pins the Reformation doctrine of justification: the righteousness which avails before God is NOT a righteousness wrought by the law (whether ceremonial or moral) but a righteousness apart from law — the righteousness of Christ, imputed to the believer through faith. The 'but now' (nuni de) marks the eschatological hinge: a new economy has dawned in which the manner of righteousness is decisively different. Calvin's exposition of this verse, and of Rom 3:21-26 as a unit, is the textual root of the entire Reformation soteriology.",
+      "attribution": "John Calvin, Commentary on Romans, on Rom 3:21. Calvin Translation Society edition, trans. John Owen, Edinburgh 1849. PD."
+    },
+    {
+      "book": "rom",
+      "chapter": 8,
+      "verse": 28,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Epistle to the Romans",
+      "year": 1540,
+      "summary": "Calvin reads 'all things work together for good to them that love God' as the comprehensive doctrine of providence applied to the elect: not that all things are good in themselves (suffering, persecution, even sin remain evil) but that all things are SUPERINTENDED toward the good of those whom God has called according to His purpose. The clause 'to them who are the called according to his purpose' Calvin treats as definitional, not restrictive: providence-toward-good is the universal experience of the elect precisely BECAUSE election precedes calling and calling precedes the providential weaving. This is the locus classicus of Calvinist providentialism.",
+      "attribution": "John Calvin, Commentary on Romans, on Rom 8:28. Calvin Translation Society edition, trans. John Owen, Edinburgh 1849. PD."
+    },
+    {
+      "book": "gal",
+      "chapter": 2,
+      "verse": 16,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Epistle to the Galatians",
+      "year": 1548,
+      "summary": "On 'a man is not justified by the works of the law, but by the faith of Jesus Christ' Calvin gives his sharpest single-verse exposition of sola fide. The repetition in the verse (three times the negative on works, three times the positive on faith) Calvin reads as Paul's deliberate hammering: NO works of law (not just Jewish ceremonies, as the Sorbonne would have it — every work, of every kind, falls under the negation) and ONLY faith in Christ. Against the medieval Catholic reading of 'faith working through love' as the formal cause of justification, Calvin restricts the faith-instrument to its receptive function: faith justifies AS IT receives Christ, not as it produces love. The works of love follow but never contribute to the verdict.",
+      "attribution": "John Calvin, Commentary on Galatians, on Gal 2:16. Calvin Translation Society edition, trans. William Pringle, Edinburgh 1854. PD."
+    },
+    {
+      "book": "eph",
+      "chapter": 2,
+      "verse": 8,
+      "commentator": "John Calvin",
+      "work": "Commentary on the Epistle to the Ephesians",
+      "year": 1548,
+      "summary": "On 'by grace are ye saved through faith; and that not of yourselves: it is the gift of God' Calvin grounds the sola gratia pillar. Three points get the emphasis: (1) salvation is BY grace — the agent is God's free favor, not human merit; (2) THROUGH faith — the instrument is faith, not works; and (3) the 'gift of God' clause Calvin refers grammatically not just to faith (a debated point in his own day) but to the WHOLE preceding sentence — both grace AND faith are gift, both the source and the means of reception are God's. This closes the door against any synergism that would make faith a human contribution alongside grace.",
+      "attribution": "John Calvin, Commentary on Ephesians, on Eph 2:8. Calvin Translation Society edition, trans. William Pringle, Edinburgh 1854. PD."
+    }
+  ]
+}
