@@ -417,12 +417,13 @@ class TestGamma41CyrilJohn:
         cls.ec = sources.ethiopian_commentaries()
 
     def test_cyril_is_heaviest_voice(self):
-        # After γ.4.1, Cyril has many more entries than any other
-        # single Father in the corpus. Pin Cyril count >> Ephrem count.
+        # After γ.4.1.A + γ.4.1.B, Cyril has many more entries than any
+        # other single Father in the corpus. γ.4.1.A added 30 + γ.4.1.B
+        # added 27 = +57 Cyril entries on top of the original γ.4 seed.
         cyril = self.ec.by_father("Cyril of Alexandria")
         ephrem = self.ec.by_father("Ephrem the Syrian")
-        assert len(cyril) >= 20, f"γ.4.1 expansion expected ≥20 Cyril entries; found {len(cyril)}"
-        assert len(cyril) > len(ephrem), f"After γ.4.1 Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
+        assert len(cyril) >= 50, f"γ.4.1.A+B expansion expected ≥50 Cyril entries; found {len(cyril)}"
+        assert len(cyril) > len(ephrem), f"After γ.4.1.A+B Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
 
     def test_cyril_john_chapters_1_through_4_covered(self):
         # γ.4.1 wave 1 explicitly covers John 1-4.
@@ -521,3 +522,113 @@ class TestGamma41CyrilJohn:
         assert "Pusey" in meta["public_domain_basis"] or "Randell" in meta["public_domain_basis"], (
             "_meta PD basis must document the Pusey/Randell PD translation"
         )
+
+
+class TestGamma41BCyrilJohn5Through7:
+    """γ.4.1.B — Cyril of Alexandria on John 5-7 expansion. Adds 27
+    entries to the γ.4.1.A wave: Bethesda + discourse on the Son
+    (John 5), Bread of Life discourse (John 6), Tabernacles + Living
+    Water → Spirit (John 7). Per the addendum's γ.4.1 decomposition,
+    γ.4.1.B targets ~20-30 entries; this ship lands 27.
+
+    Pins:
+    - John 5-7 chapter coverage present in addition to 1-4.
+    - The five most-load-bearing doctrinal anchors:
+      Jn 5:18 (equal-with-God), Jn 5:26 (life-in-Himself / eternal
+      generation), Jn 6:35 (I-am-Bread-of-Life), Jn 6:51 (flesh-given-
+      for-life-of-world), Jn 6:54 (medicine of immortality), Jn 6:63
+      (Spirit-quickeneth vs capernaitic misreading), Jn 7:38-39
+      (Living Water → Spirit's post-Pentecost gift).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_cyril_john_chapters_5_through_7_covered(self):
+        # γ.4.1.B explicitly covers John 5-7.
+        for chapter in (5, 6, 7):
+            cyril_in_chapter = []
+            for verse in range(1, 100):
+                cyril_in_chapter.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+            assert len(cyril_in_chapter) >= 5, (
+                f"γ.4.1.B expected ≥5 Cyril entries in John {chapter}; found {len(cyril_in_chapter)}"
+            )
+
+    def test_cyril_equal_with_god_present(self):
+        # Jn 5:18 — the explicit Trinitarian-equality verse Cyril
+        # uses against Arian dilution.
+        cyril_518 = [e for e in self.ec.for_verse("joh", 5, 18) if e.father == "Cyril of Alexandria"]
+        assert cyril_518, "γ.4.1.B missing Jn 5:18 — 'equal with God' anti-Arian anchor"
+
+    def test_cyril_life_in_himself_present(self):
+        # Jn 5:26 grounds Cyril's doctrine of eternal generation:
+        # the Son has life in Himself as the Father has it.
+        cyril_526 = [e for e in self.ec.for_verse("joh", 5, 26) if e.father == "Cyril of Alexandria"]
+        assert cyril_526, "γ.4.1.B missing Jn 5:26 — eternal generation anchor"
+
+    def test_cyril_bread_of_life_present(self):
+        # Jn 6:35 — the first of Christ's great 'I am' sayings.
+        cyril_635 = [e for e in self.ec.for_verse("joh", 6, 35) if e.father == "Cyril of Alexandria"]
+        assert cyril_635, "γ.4.1.B missing Jn 6:35 — 'I am the bread of life' Christological pin"
+
+    def test_cyril_flesh_for_life_of_world_present(self):
+        # Jn 6:51 — central eucharistic-Christological text in the
+        # entire Gospel of John per Cyril.
+        cyril_651 = [e for e in self.ec.for_verse("joh", 6, 51) if e.father == "Cyril of Alexandria"]
+        assert cyril_651, "γ.4.1.B missing Jn 6:51 — central eucharistic-Christological pin"
+
+    def test_cyril_eucharistic_realism_present(self):
+        # Jn 6:54 anchors the eucharistic medicine-of-immortality
+        # doctrine that becomes determinative for Tewahedo Anaphora.
+        cyril_654 = [e for e in self.ec.for_verse("joh", 6, 54) if e.father == "Cyril of Alexandria"]
+        assert cyril_654, "γ.4.1.B missing Jn 6:54 — medicine-of-immortality pin"
+
+    def test_cyril_spirit_quickeneth_present(self):
+        # Jn 6:63 — Cyril's careful pneumatological qualification of
+        # eucharistic realism against capernaitic misreading.
+        cyril_663 = [e for e in self.ec.for_verse("joh", 6, 63) if e.father == "Cyril of Alexandria"]
+        assert cyril_663, "γ.4.1.B missing Jn 6:63 — Spirit-quickeneth qualification pin"
+
+    def test_cyril_living_water_present(self):
+        # Jn 7:38 + 7:39 — Cyril's pneumatology of progressive
+        # economy (Spirit fully given only after the glorification).
+        cyril_738 = [e for e in self.ec.for_verse("joh", 7, 38) if e.father == "Cyril of Alexandria"]
+        cyril_739 = [e for e in self.ec.for_verse("joh", 7, 39) if e.father == "Cyril of Alexandria"]
+        assert cyril_738, "γ.4.1.B missing Jn 7:38 — Living Water → rivers"
+        assert cyril_739, "γ.4.1.B missing Jn 7:39 — Spirit's post-Pentecost gift anchor"
+
+    def test_meta_documents_gamma_4_1_b_expansion(self):
+        # Pin: _meta scope block names γ.4.1.B explicitly so a future
+        # reviewer can identify which entries came from this wave.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        assert "γ.4.1.B" in meta["source"] or "γ.4.1.B" in meta["scope"], (
+            "_meta must name γ.4.1.B expansion in source or scope"
+        )
+
+    def test_every_gamma_4_1_b_attribution_cites_npnf_vol_14(self):
+        # γ.4.1.B entries (Cyril-on-John in chapters 5-7) must all
+        # cite NPNF Series 2 Vol 14 + explicit PD marker.
+        cyril_in_chs_5_to_7 = []
+        for chapter in (5, 6, 7):
+            for verse in range(1, 100):
+                cyril_in_chs_5_to_7.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        assert cyril_in_chs_5_to_7, "γ.4.1.B expected Cyril entries in John 5-7"
+        for entry in cyril_in_chs_5_to_7:
+            attr = entry.attribution
+            assert "NPNF" in attr, f"γ.4.1.B entry missing NPNF citation: {attr!r}"
+            assert "14" in attr, f"γ.4.1.B entry missing Vol 14 citation: {attr!r}"
+            assert "PD" in attr, f"γ.4.1.B entry missing PD marker: {attr!r}"

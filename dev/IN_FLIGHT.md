@@ -4,6 +4,91 @@
 
 ## Prior task
 
+**γ.4.1.B Cyril on John (second wave: John 5-7)** shipped 2026-05-12.
+Continues the γ.4.1 Tewahedo flagship expansion. γ.4.1.A shipped 30
+entries covering John 1-4; γ.4.1.B adds 27 entries covering John 5-7
+— arguably the theologically heaviest stretch of Cyril's entire John
+commentary (Father-Son discourse + Bread of Life + Living Water).
+
+**Why it matters for THIS project**: the Bread of Life discourse
+(John 6) is the central locus classicus for Cyril's eucharistic
+realism — the doctrine that shapes the entire Tewahedo Anaphora
+tradition. The John 5 discourse contains the strongest Trinitarian-
+equality texts in the Gospel (5:18 "equal with God"; 5:26 "as the
+Father hath life in Himself" — the textual root of eternal
+generation). The Living Water passages (Jn 7:37-39) anchor Cyril's
+pneumatology of progressive economy (the Spirit was 'not yet given'
+before the glorification — the textual root of the entire post-
+Pentecost pneumatology Tewahedo inherits via the Anaphora of Cyril's
+epiclesis prayers).
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 27 new Cyril-on-
+  John entries appended (Jn 5:8/5:17/5:18/5:19/5:21/5:22/5:24/5:26/
+  5:39/5:46 + Jn 6:11/6:27/6:35/6:38/6:44/6:51/6:53/6:54/6:55/6:63
+  + Jn 7:16/7:17/7:24/7:37/7:38/7:39/7:46). Each entry ~120-180 word
+  paraphrase. _meta block updated to document γ.4.1.B + the cumulative
+  state (Cyril is now 62 of 69 = 90% of the Ethiopian corpus).
+- `tests/test_ethiopian_gamma4.py` — new TestGamma41BCyrilJohn5Through7
+  class (10 tests pinning John 5-7 coverage + 7 doctrinal anchors +
+  NPNF/Vol 14/PD citation pin per entry + γ.4.1.B _meta name).
+  test_cyril_is_heaviest_voice bumped from ≥20 to ≥50 expected entries.
+
+**Code-side wiring**: zero new code. γ.4.1.B is pure content expansion
+within the γ.4 infrastructure shipped 2026-05-11.
+
+**Corpus state post-γ.4.1.B**:
+```
+ethiopian_commentaries.json: 69 entries (was 42 after γ.4.1.A; +27)
+├─ Cyril of Alexandria     : 62 entries (was 35; +27 — all on John)
+│  ├─ John chapters covered: 1, 2, 3, 4, 5, 6, 7, 19
+│  └─ Per-chapter counts   : 1×13, 2×6, 3×8, 4×5, 5×10, 6×10, 7×7, 19×1
+├─ Ephrem the Syrian       :  5 entries (unchanged)
+└─ 1 Enoch tradition       :  2 entries (unchanged)
+
+Six-tradition coverage     : 125 entries (was 98)
+```
+
+**+10 tests**. **3369 / 3370 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Forward references**:
+- **γ.4.1.C** — Cyril on John 11-14 (Lazarus + Last Supper +
+  Farewell Discourses). ~30-40 more entries.
+- **γ.4.1.D** — Cyril on John 15-21 (Vine + High-Priestly Prayer +
+  Passion + Resurrection). ~30-40 more entries.
+- **Manuscript gap note**: Cyril's Books VII-VIII covering John
+  8-10 are LOST in the manuscript tradition; no Cyril expansion is
+  possible for those chapters. A future Ephrem-on-John or
+  Andəmta-on-John phase could fill the gap.
+- **γ.4.2** — Ephrem on Genesis (NPNF S2 V13). ~200-300 entries.
+
+**Session totals (2026-05-12)**:
+```
+τ.6 Ge'ez seed                                      +15 tests
+χ.2 SEED Matthew Henry                              +32 tests
+χ.4 SEED Catena Aurea                               +34 tests
+χ.3 SEED Calvin                                     +35 tests
+χ.5 SEED Rashi                                      +34 tests
+γ.4.1.A Cyril on John (first wave)                  +12 tests
+γ.4.1.B Cyril on John (second wave)                 +10 tests
+                                  session total:   +172 tests
+                                  3197 → 3369 (serial; 1 skipped)
+```
+
+**Recommended next ship**:
+- **γ.4.1.C Cyril on John 11-14** — Lazarus + Last Supper +
+  Farewell Discourses. ~30-40 more entries.
+- **γ.4.1.D Cyril on John 15-21** — Vine + High-Priestly Prayer +
+  Passion + Resurrection. ~30-40 more entries.
+- **γ.4.2 Ephrem on Genesis** — diversify the voice mix; Cyril
+  is at 90% of the corpus, switching to Ephrem rebalances toward
+  the Syriac anchor.
+- **AUDIT** — session has hit ≥10 phases + ≥150 tests (well into
+  audit-cadence territory).
+
+## Prior task
+
 **γ.4.1 Cyril on John (first wave: John 1-4)** shipped 2026-05-12.
 First substantive expansion of the Ethiopian Tewahedo flagship
 corpus — γ.4 shipped 12 seed entries; γ.4.1 adds 30 Cyril-on-John

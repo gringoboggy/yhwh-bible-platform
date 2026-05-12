@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1 (2026-05-12) expanded with substantive Cyril-on-John entries covering the Gospel of John chapters 1-4 from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1 (2026-05-12) added 30 Cyril-on-John entries from NPNF S2 V14 covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); future γ.4.1.B-D will extend to John 5-21, and γ.4.2-6 will cover Ephrem on Genesis + Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). All Cyril material sourced from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit). Cyril is now the heaviest single voice in the corpus (62 of 69 total entries). Future γ.4.1.C-D will extend to John 11-21 (noting Cyril's Books VII-VIII on Jn 8-10 are LOST in manuscript tradition); γ.4.2-6 will cover Ephrem on Genesis + Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -425,6 +425,276 @@
       "year": 428,
       "summary": "The Samaritans' climactic confession — 'This is indeed the Christ, the Saviour of the world' (ho sōtēr tou kosmou) — Cyril emphasizes as the proleptic Gentile recognition of Christ's universal salvific scope. The Samaritans, themselves marginal to Jewish covenant identity, become the prototype for the Gentile inclusion that will mark the post-Pentecost Church. 'Saviour of the world' is for Cyril a title both universal (Christ saves the world, not merely a portion) and particular (each person is saved as individual within that universal scope). The Tewahedo Synaxarium honors Photine (the traditional name of the Samaritan woman) on the 26th of Hidar — her witness to her village becomes the first apostolic missionary act recorded in John.",
       "attribution": "Cyril of Alexandria, Commentary on John, Bk II.42 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 8,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's command to the paralytic — 'Rise, take up thy bed, and walk' — Cyril reads as the threefold pattern of every healing the Word performs in the soul: resurrection from spiritual death (rise), taking up the burden of one's former weakness as instrument rather than master (take up thy bed), and active progress in the new life (walk). The thirty-eight years of paralysis Cyril typologically links with the thirty-eight years of Israel's wilderness wandering (Deut 2:14) — both the individual and the people are healed by direct sovereign address, not by mediating ceremony or stirred-pool waiting. The Sabbath setting prepares Cyril's larger argument: Christ exercises the Father's authority over the Sabbath because He is consubstantial with the Father.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.8 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'My Father worketh hitherto, and I work' (heōs arti) — Cyril reads as one of the most decisive anti-Arian sayings in the Gospel. The Sabbath rest of Gen 2:2 did not mean God ceased operating (providence is unbroken); Christ here claims the same uninterrupted operative power that belongs to the Father. The 'and I' (kagō) refuses any subordination: the Son's working is co-equal, co-eternal, co-extensive with the Father's. The Jews' immediate reaction (5:18: they sought to kill Him for 'making Himself equal with God') confirms they understood the claim correctly. Cyril uses this verse against the Eusebian semi-Arians of his own day who would dilute the Son's operative parity with the Father.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.17 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 18,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "The Jews' interpretation — that Christ was 'making Himself equal with God' (ison heauton poiōn tō Theō) — Cyril takes as inspired witness, not hostile misreading. Even Christ's opponents recognized that calling God 'my Father' (idion Patera) in this manner was a claim to consubstantial equality, not adoptive sonship. Cyril notes the Greek 'idion' (own/proper) carries the sense of natural-not-merely-adoptive: the Son's relation to the Father differs in kind, not just degree, from any creature's. This verse is one of Cyril's strongest scriptural anchors against Arian and Eunomian readings — even the unbelieving witnesses confirm the orthodox reading.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.18 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 19,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'The Son can do nothing of Himself, but what He seeth the Father do' Cyril reads with extreme care against Arian misreading. The 'can do nothing of Himself' is NOT a statement of weakness or subordination but of perfect Trinitarian harmony: the Son's operations are inseparable from the Father's because of their consubstantial unity. The 'seeing' is not perceptual observation (as if the Son had to watch what the Father did) but eternal mutual indwelling of co-equal Persons. 'What things soever He doeth, these also doeth the Son likewise' (homoiōs) Cyril stresses: not subordinately, not differently, but identically — every divine work belongs to all three Persons indivisibly.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.19 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 21,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'As the Father raiseth up the dead, and quickeneth them; even so the Son quickeneth whom He will' — Cyril takes the absolute power of the eschatological resurrection as the supreme proof of consubstantiality. To raise the dead is a work exclusively divine; for the Son to share this power without limit means He shares the divine nature. 'Whom He will' (hous thelei) Cyril emphasizes: not a delegated authority to be exercised within constraints, but sovereign personal choice — the same will that the Father exercises. The verse also establishes the personalist character of resurrection: Christ raises individuals by His sovereign decision, not as automatic effect of cosmic process.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.21 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 22,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'The Father judgeth no man, but hath committed all judgment unto the Son' Cyril reads as the eschatological consummation of the Father-Son economy: the Father's universal judgment is exercised through the incarnate Son, who because of His shared human nature is uniquely fit to judge humanity. The 'committed' (dedōken) Cyril carefully distinguishes from any subordinationist reading: this is not a delegation of authority the Father lacks the will to exercise directly, but the manifestation of the eternal Trinitarian order — every operation 'from the Father, through the Son, in the Spirit' (Cyril's standard formula). This verse grounds Cyril's later argument (in the Twelve Anathemas) that the man-God Christ, not a separate human judge, presides at the Last Day.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.22 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'He that heareth my word, and believeth on Him that sent me, HATH everlasting life' Cyril reads as one of the strongest realized-eschatology pins in the Gospel: eternal life is not merely promised for the future but present possession of the believer through faith. 'Is passed from death unto life' (metabebēken — perfect tense, completed action with continuing result) confirms the present reality: the believer has ALREADY transitioned from the death-realm to the life-realm. This is not denial of future bodily resurrection (which Cyril affirms strongly) but recognition that the spiritual-ontological transition has already occurred for those united to Christ by faith. The verse grounds Cyril's sacramental realism: baptism enacts what faith receives.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.24 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 26,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'As the Father hath life in Himself, so hath He given to the Son to have life in Himself' is for Cyril a critical text for the Son's natural-not-derived divinity. The 'given' (edōken) is not temporal grant (as if the Son did not always possess what He now has) but eternal communication of essence — the Father eternally communicates to the Son the same divine life He has from Himself. To 'have life in Himself' (echein zōēn en heautō) is the divine attribute par excellence: not life received from elsewhere, but life as one's own essence. The Father has it without source; the Son has it from the Father, yet equally and eternally. This is Cyril's most precise statement of the Cappadocian-Athanasian doctrine of eternal generation.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.26 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 39,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Search the scriptures; for in them ye think ye have eternal life: and they are they which testify of me' Cyril takes as the dominical hermeneutical principle: the Hebrew Scriptures are properly read only when read Christologically. Against Marcion's rejection of the Old Testament and against the Jewish rejection of its messianic-Christological reading, Cyril positions the verse as Christ's own self-witness: He IS the proper subject of the Scriptures. 'Ye think' (dokeite) is gentle correction: searching the Scriptures for eternal life apart from recognizing Christ in them is futile — the life they testify to is the life He brings. This verse grounds the entire Alexandrian typological hermeneutic.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.39 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 5,
+      "verse": 46,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'For had ye believed Moses, ye would have believed me: for he wrote of me' Cyril reads as Christ's authoritative claim to be the proper object of every Mosaic prophecy. The verse establishes the principle that Moses and Christ stand in continuity, not discontinuity: rejection of Christ is rejection of Moses (and conversely, true reception of Moses leads to Christ). Cyril uses this verse against any Manichaean or Marcionite reading that would oppose the Testaments; he also uses it against any Jewish reading that would treat Mosaic obedience as sufficient apart from Christological reception. The Tewahedo Pentateuch readings in the Mäṣḥafä Qǝddase preserve this Cyrilline unity by always pairing Torah readings with their Christological NT fulfillment.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.46 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On the multiplication of loaves Cyril notes the deliberate eucharistic prefiguration: Christ TOOK the loaves, gave THANKS (eucharistēsas), and distributed. The four-fold pattern (take / bless / break / give) that becomes the Mass Cyril sees inaugurated here — the feeding of the five thousand is the sign that points to the institution at the Last Supper and the perpetual continuation in the Anaphora. The crowd's hunger Cyril takes typologically: humanity hungers for the bread of eternal life which only Christ can give; physical hunger is the symptom of the deeper spiritual hunger. The Tewahedo Anaphora's preparation prayers preserve this typological reading explicitly.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk III.11 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 27,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Labour not for the meat which perisheth, but for that meat which endureth unto everlasting life' Cyril reads as Christ's hermeneutic for understanding the previous miracle: the loaves were sign, not substance — the substance is the eucharistic bread that gives eternal life. 'Which the Son of man shall give unto you' (dōsei — future tense) Cyril emphasizes: pointing forward to the institution of the eucharist, not to repeat-feedings of physical bread. 'For him hath God the Father sealed' Cyril reads as the Spirit's anointing that makes Christ's human nature the perpetual source of the bread of life — the seal of the Spirit on the incarnate Son is what makes the eucharistic gift possible.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk III.27 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 35,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'I am the bread of life' (egō eimi ho artos tēs zōēs) — the first of Christ's great 'I AM' sayings in John — Cyril reads as both ontological self-disclosure and sacramental promise. The 'I am' echoes the divine name (Ex 3:14: ego eimi ho ōn); the 'bread of life' identifies the specific mode of Christ's gift to His Church. 'He that cometh to me shall never hunger, and he that believeth on me shall never thirst' Cyril takes as the perfect parallel between coming-to-Christ (sacramentally: through baptism into His body) and believing-on-Him (fiducially: through saving faith) — neither alone, but both together produce the perpetual satisfaction of spiritual hunger and thirst.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk III.35 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 38,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'I came down from heaven, not to do mine own will, but the will of Him that sent me' Cyril reads against any reading that would set the Son's will in opposition to the Father's. The 'not mine own' (ouch hina poiō) does not deny that the Son HAS a will (Apollinarian denial), nor does it imply imperfect alignment requiring submission. Rather, Cyril notes the Son's INCARNATE human will is now in question: as man, the Son receives the Father's will and acts upon it; as God, His will is identical with the Father's by nature. This is one of Cyril's earliest articulations of what later dyothelite theology would systematize: two wills (divine + human) in one Person, perfectly aligned.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk III.38 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 44,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'No man can come to me, except the Father which hath sent me draw him' Cyril reads as the Johannine doctrine of prevenient grace. The Father's 'drawing' (helkysē) is the operative work of grace that precedes and enables human response to Christ; without it, no one comes. Cyril is careful here against Pelagian readings: the verse strictly excludes natural human capacity to come to Christ apart from divine initiative. Yet the 'drawing' is not coercive — Cyril (following the classic patristic distinction) reads it as the Father's drawing through the Spirit's inward attraction, which the human will may still resist (against later Augustinian readings that would make it irresistible). This passage grounds the Eastern Christian doctrine of synergism: grace initiates, the will cooperates.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk III.44 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 51,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'I am the living bread which came down from heaven: if any man eat of this bread, he shall live for ever: and the bread that I will give is my flesh, which I will give for the life of the world' is for Cyril the central eucharistic-Christological text in the entire Gospel. The bread Christ gives IS His own flesh — the personal Word's true flesh, not a metaphor or symbol, but the incarnate body offered on the cross and now communicated through the eucharist. 'For the life of the world' confirms the universal scope of the offering — not for the elect alone, not for the Jews alone, but for the kosmos. Cyril uses this verse as the textual foundation for his doctrine of eucharistic realism that becomes determinative for all subsequent Greek and Oriental Orthodox theology.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk III.51 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 53,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Except ye eat the flesh of the Son of man, and drink His blood, ye have no life in you' Cyril takes with full sacramental seriousness: this is not metaphor but ontological condition. The eucharistic eating-and-drinking is the necessary means by which the life of the incarnate Word is communicated to the believer's body and soul. Against any spiritualizing reading that would dissolve the verse into mere faith-receptive metaphor, Cyril insists the verse means what it says: the actual flesh and blood of Christ, sacramentally present, must be actually received. 'Ye have no life in you' (ouk echete zōēn en heautois) is the privative consequence of refusing the eucharistic gift. This is the locus classicus of Cyril's eucharistic theology that the Tewahedo Anaphora preserves verbatim.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.53 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 54,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Whoso eateth my flesh, and drinketh my blood, hath eternal life; and I will raise him up at the last day' Cyril reads as the eucharistic guarantee of bodily resurrection. The flesh of Christ communicated to the believer's body becomes the seed of the resurrection body — Cyril's standard formula is that the eucharist is the 'medicine of immortality' (pharmakon athanasias, from Ignatius). The 'I will raise him up' is Christ's personal promise tied to the eucharistic reception: the body that has received the Body of Christ has within it the seed of eschatological transformation. This verse anchors Cyril's distinctive contribution to eucharistic theology: the sacrament does not merely commemorate or symbolize, it actually communicates the resurrection life.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.54 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 55,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'For my flesh is meat indeed (alēthōs), and my blood is drink indeed' Cyril takes as decisive against any reading that would weaken eucharistic realism. The Greek 'alēthōs' means 'truly / really / actually' — Christ here explicitly disqualifies any metaphorical or symbolic interpretation of His preceding words. Against the gnostics of his own era and against any anticipatory spiritualizing readings, Cyril insists: TRULY flesh, REALLY blood — the eucharistic gift IS what it appears to be on the level of substance, even while remaining bread and wine to the senses. This is Cyril's clearest articulation of what later Western scholasticism would call the doctrine of real presence (without scholastic categories of substance/accidents).",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.55 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 6,
+      "verse": 63,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'It is the Spirit that quickeneth; the flesh profiteth nothing' Cyril famously handles with great care against capernaitic misreadings that would take 'eating the flesh' as cannibalistic physical consumption. The 'flesh' that profiteth nothing is fleshly-mode-of-understanding, not the actual flesh of Christ (which gives life). The verse means: receiving the eucharist with merely carnal comprehension — as if Christ's body were divided physically among communicants like ordinary food — is profitless. Only Spirit-quickened reception receives the gift as it truly is. This is Cyril's careful pneumatological qualification of his strong eucharistic realism: the realism is true, but its appropriation is spiritual, not crudely physical.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.63 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'My doctrine is not mine, but His that sent me' Cyril carefully defends against Arian misreading. The 'not mine' does NOT deny the Son's possession of the doctrine but identifies its source: the Son's teaching is not innovative or independent but is the eternal teaching of the Father, possessed by the Son by nature (consubstantial communication of all divine attributes including wisdom-teaching). Cyril notes the parallel to 5:30: 'I can of mine own self do nothing' — both texts speak of perfect Trinitarian harmony, not of any inferiority in the Son. The Son's teaching IS the Father's teaching because the Son IS the eternal Word who speaks the Father's mind.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.16 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'If any man will do His will, he shall know of the doctrine, whether it be of God' Cyril takes as the dominical statement of moral epistemology: knowledge of divine truth is conditioned on willingness to obey. Against any purely intellectual approach to theological knowledge (which would make speculation independent of holiness), Cyril here grounds the patristic axiom: theology requires askesis. The 'will to do His will' (thelē to thelēma autou poiein) Cyril emphasizes as primary disposition; the cognitive recognition follows on it. This verse becomes the textual root of the entire Eastern Orthodox tradition that knowledge of God presupposes purification of the nous through ascetic practice.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.17 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Judge not according to the appearance (kat' opsin), but judge righteous judgment' Cyril reads as Christ's hermeneutical principle for theological discernment. The Jews were judging based on surface considerations (the Sabbath violation appeared); Christ calls them to deeper judgment (the inner meaning of the law as service to humanity). For Cyril this verse is the dominical warrant for the typological-spiritual exegesis of the Old Testament: the appearance of the text (the literal-historical sense) must be supplemented by the righteous judgment (the spiritual-Christological sense) that recognizes Christ in every passage. This grounds the entire Alexandrian hermeneutical method.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk IV.24 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 37,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'In the last day, that great day of the feast, Jesus stood and cried, saying, If any man thirst, let him come unto me, and drink' Cyril notes the timing with care: on the last day of the Feast of Tabernacles, when the temple's water-libation ceremony reached its climax, Christ stood up to offer Himself as the true reality the ceremony only prefigured. The water libation pleaded for the autumn rains; Christ offers the Living Water of the Spirit that gives eternal life. The 'standing' (statheis) and 'crying' (ekraxen) Cyril takes as proleptic posture of the eschatological Christ — standing as the judge, crying as the herald of salvation. The Tewahedo Mäṣḥafä Qǝddase Anaphora prayers for the Holy Spirit echo this passage's invitation.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk V.37 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 38,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'He that believeth on me, as the scripture hath said, out of his belly (koilias) shall flow rivers of living water' Cyril reads as the pneumatological promise: the Spirit indwelling the believer becomes a perpetual source overflowing to others. The 'rivers' (plural — potamoi) signify both abundance (not merely a trickle) and diversity (different charisms flowing through different believers). The 'belly' (koilias) Cyril interprets as the heart in its biblical-Hebraic sense — the seat of personal life — not the digestive organ. The Tewahedo baptismal liturgy preserves this verse as one of the dominical promises connected to the chrismation that immediately follows baptism: the Spirit poured out becomes the believer's own source of life-giving witness to others.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk V.38 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 39,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "John's interpretive aside — 'This spake He of the Spirit, which they that believe on Him should receive: for the Holy Ghost was not yet given; because that Jesus was not yet glorified' — Cyril takes as decisive for the post-Pentecost-character of the Spirit's full gift. 'Was not yet' (oupō ēn) does NOT mean the Spirit did not exist (Cyril rejects this Origenist misreading) but that the Spirit had not yet been GIVEN in the new-covenant fullness — that giving awaits the Cross-Resurrection-Ascension sequence ('glorified' here meaning the entire paschal exaltation, not merely Resurrection appearance). After Pentecost the Spirit indwells the Church permanently as in 7:38; before Pentecost the Spirit comes intermittently as in the Old Testament prophets. This verse anchors Cyril's pneumatology of progressive economy.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk V.39 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 7,
+      "verse": 46,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "The temple officers' report — 'Never man spake like this Man' (oudepote elalēsen houtōs anthrōpos) — Cyril takes as inspired witness from unwilling sources. The very men sent to arrest Christ become the heralds of His unique authority: they cannot perform their task because the sheer weight of His word disarms them. Cyril notes the linguistic precision: not merely 'never has anyone spoken' but specifically 'never man' (anthrōpos) — implying recognition that more than a mere man speaks here. The verse becomes for Cyril the historical-witness confirmation of the Logos's incarnate authority — even those resistant to faith bear unintended testimony to it.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk V.46 (NPNF S2 V14). PD."
     }
   ]
 }

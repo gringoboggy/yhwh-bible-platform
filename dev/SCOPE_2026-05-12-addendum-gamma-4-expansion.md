@@ -2,11 +2,12 @@
 
 **Date:** 2026-05-12
 **Parent phase:** γ.4 (Ethiopian Tewahedo commentary — shipped 2026-05-12)
-**Status:** γ.4.1 first wave (Cyril on John 1-4, 30 entries) shipped
-2026-05-12. γ.4.1.B-D + γ.4.2-6 still open per per-source ETL specs
-below. Activation criteria for γ.4.1 met by publisher's explicit
-direction to ship; γ.4.1.B-D activation expected to flow from same
-trajectory.
+**Status:** γ.4.1.A (John 1-4, 30 entries) + γ.4.1.B (John 5-7, 27
+entries) both shipped 2026-05-12. Combined γ.4.1 wave-to-date: 57
+entries spanning John 1-7. γ.4.1.C-D (John 11-21) + γ.4.2-6 still
+open per per-source ETL specs below. Activation criteria for γ.4.1
+met by publisher's explicit direction to ship; γ.4.1.C-D activation
+expected to flow from same trajectory.
 
 ---
 
@@ -98,8 +99,8 @@ sub-phases ship against an explicit plan.
 γ.4.1   Cyril's John commentary (NPNF S2 V14)        ~400-600 entries
         ├─ γ.4.1.A  John 1-4 (Prologue + Cana +      30 entries  ✓ SHIPPED 2026-05-12
         │           Nicodemus + Samaritan woman)                  [first wave]
-        ├─ γ.4.1.B  John 5-7 (Bethesda + Bread of    ~20-30 entries
-        │           Life + Tabernacles)                           open
+        ├─ γ.4.1.B  John 5-7 (Bethesda + Bread of    27 entries  ✓ SHIPPED 2026-05-12
+        │           Life + Tabernacles)                           [second wave]
         ├─ γ.4.1.C  John 11-14 (Lazarus + Last       ~30-40 entries
         │           Supper + Farewell Discourses)                 open
         └─ γ.4.1.D  John 15-21 (Vine + High-         ~30-40 entries

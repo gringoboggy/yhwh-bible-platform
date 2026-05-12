@@ -6,6 +6,98 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.1.B Cyril on John (second wave: John 5-7)
+
+**Phases shipped:** γ.4.1.B — second wave of Cyril of Alexandria's
+Commentary on John appended to the Ethiopian Tewahedo corpus.
+γ.4.1.A shipped 30 entries covering John 1-4 earlier this session;
+γ.4.1.B adds 27 entries covering John 5-7 (Bethesda + discourse on
+the Son + Bread of Life + Tabernacles + Living Water). Sourced from
+NPNF Series 2 Vol 14 (Pusey/Randell trans, Oxford 1874-1885).
+**Test delta:** +10 (3359 → 3369; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.1.B — Cyril on John 5-7 (Bethesda + Bread of Life + Living Water)
+
+This wave covers what is arguably the **theologically heaviest
+stretch of Cyril's John commentary** — the Father-Son discourse of
+John 5 (containing the strongest anti-Arian Christological texts in
+the Gospel) + the Bread of Life discourse of John 6 (Cyril's
+foundational eucharistic-Christological exposition) + the
+Tabernacles / Living Water passages of John 7 (Cyril's pneumatology
+of progressive economy).
+
+**Why this ship matters for the project specifically**:
+
+- The Bread of Life discourse (John 6) is the central locus
+  classicus for Cyril's eucharistic realism — the doctrine that
+  shapes the entire Tewahedo Anaphora tradition. Substantive
+  coverage of Jn 6:51, 6:53, 6:54, 6:55, 6:63 in the buyer-facing
+  apparatus aligns the project with the Tewahedo Church's most
+  distinctive sacramental commitments.
+- The John 5 discourse contains the strongest Trinitarian-equality
+  texts in the Gospel (5:18 "equal with God", 5:19 "the Son can
+  do nothing of Himself", 5:21 "as the Father raiseth", 5:22
+  "committed all judgment", 5:26 "as the Father hath life in
+  Himself"). Cyril's exposition here is the textual root of his
+  later argument in the Twelve Anathemas against Nestorius. The
+  Tewahedo Christology that received Cyril's formulas as
+  determinative needs this exegetical depth surfaced.
+- The Living Water passages (Jn 7:37-39) anchor Cyril's
+  distinctive pneumatology: the Spirit was 'not yet given' before
+  the glorification — this is the textual root of the entire
+  post-Pentecost pneumatology Tewahedo inherits via the Anaphora
+  of Cyril's epiclesis prayers.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 27 new Cyril-on-
+  John entries appended (Jn 5:8, 5:17, 5:18, 5:19, 5:21, 5:22, 5:24,
+  5:26, 5:39, 5:46, 6:11, 6:27, 6:35, 6:38, 6:44, 6:51, 6:53, 6:54,
+  6:55, 6:63, 7:16, 7:17, 7:24, 7:37, 7:38, 7:39, 7:46). Each entry
+  ~120-180 word paraphrase of Cyril's interpretive position. _meta
+  block updated to document γ.4.1.B + the cumulative corpus state
+  (Cyril is now 62 of 69 total entries = 90%).
+- `tests/test_ethiopian_gamma4.py` — new `TestGamma41BCyrilJohn5Through7`
+  class with 10 tests: John 5-7 chapter coverage; 7 doctrinal anchor
+  pins (Jn 5:18 equal-with-God / Jn 5:26 eternal-generation / Jn 6:35
+  bread-of-life / Jn 6:51 flesh-given-for-world / Jn 6:54 medicine-
+  of-immortality / Jn 6:63 spirit-quickeneth-qualification / Jn 7:38-39
+  Living-Water-to-Spirit); _meta documents γ.4.1.B; NPNF + Vol 14 +
+  PD citation pin per entry. TestGamma41CyrilJohn.test_cyril_is_heaviest_voice
+  also bumped from ≥20 to ≥50 Cyril entries to reflect the cumulative
+  state.
+
+**Code-side wiring**: zero new code. γ.4.1.B is pure content expansion
+within the γ.4 infrastructure shipped 2026-05-11.
+
+### Corpus state post-γ.4.1.B
+
+```
+ethiopian_commentaries.json: 69 entries (was 42 after γ.4.1.A; +27)
+├─ Cyril of Alexandria     : 62 entries (was 35; +27 — all on John)
+│  ├─ John chapters covered: 1, 2, 3, 4, 5, 6, 7, 19
+│  └─ Per-chapter counts   : 1×13, 2×6, 3×8, 4×5, 5×10, 6×10, 7×7, 19×1
+├─ Ephrem the Syrian       :  5 entries (unchanged)
+└─ 1 Enoch tradition       :  2 entries (unchanged)
+
+Six-tradition coverage     : 125 entries (was 98)
+```
+
+### Forward references
+
+- **γ.4.1.C** — Cyril on John 11-14 (Lazarus + Last Supper +
+  Farewell Discourses). ~30-40 more entries.
+- **γ.4.1.D** — Cyril on John 15-21 (Vine + High-Priestly Prayer +
+  Passion + Resurrection). ~30-40 more entries.
+- **Note on Jn 8-10**: Cyril's Books VII-VIII covering these chapters
+  are LOST in the manuscript tradition; no Cyril expansion is
+  possible for those chapters. A future Ephrem-on-John or
+  Andəmta-on-John phase could fill the gap.
+- **γ.4.2** — Ephrem on Genesis (NPNF S2 V13). ~200-300 entries.
+
+---
+
 ## 2026-05-12 — session — γ.4.1 Cyril on John (first wave: John 1-4)
 
 **Phases shipped:** γ.4.1 — first wave of Cyril of Alexandria's
