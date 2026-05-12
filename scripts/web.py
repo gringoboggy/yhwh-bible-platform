@@ -1892,6 +1892,11 @@ from scripts.api.hebrew import api_hebrew_lookup
 
 # ε.2 — /exec dashboard MVP.
 from scripts.api.exec import api_exec_dashboard
+from scripts.api.sales import (
+    SALES_UPLOAD_MAX_BYTES,
+    api_sales_import,
+    api_sales_rollup,
+)
 
 CORPUS_TARGET = 35_000
 
@@ -3332,8 +3337,10 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     ("/api/edition-templates", api_edition_templates_list),
     # ω.39 — dev-side template mtime probe for THEME_HOTRELOAD_JS.
     ("/api/dev/templates-mtime", api_dev_templates_mtime),
-    # ε.2 — executive dashboard payload (5 KPI tiles + recent events).
+    # ε.2 — executive dashboard payload (6 KPI tiles + recent events).
     ("/api/exec", api_exec_dashboard),
+    # ε.3 — sales rollup: per-channel + per-edition + MTD totals.
+    ("/api/sales/rollup", api_sales_rollup),
 ]
 
 
@@ -3635,6 +3642,14 @@ _MULTIPART_ROUTES: list[tuple[re.Pattern, int, "object"]] = [
         re.compile(r"^/api/sources/cache/([a-z0-9_-]+)/upload$"),
         SOURCES_UPLOAD_MAX_BYTES,
         lambda m, body, ctype: api_sources_cache_upload(m.group(1), body, ctype),
+    ),
+    # ε.3 — /api/sales/import/<channel> — CSV upload of per-channel
+    # sales (KDP / Apple / Google). Channel is validated server-side
+    # against sales.KNOWN_CHANNELS; rows emit sales_record events.
+    (
+        re.compile(r"^/api/sales/import/([a-z]+)$"),
+        SALES_UPLOAD_MAX_BYTES,
+        lambda m, body, ctype: api_sales_import(m.group(1), body, ctype),
     ),
 ]
 

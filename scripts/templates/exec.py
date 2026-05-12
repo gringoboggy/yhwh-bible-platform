@@ -1,7 +1,9 @@
-"""ε.2 — /exec dashboard MVP template.
+"""ε.2 + ε.3 — /exec dashboard template.
 
-Surfaces five executive KPI tiles + a recent-activity table, rendered
-from `api_exec_dashboard()` on initial page load. The tiles are:
+Surfaces SIX executive KPI tiles + sales import card + per-channel /
+per-edition rollup tables + a recent-activity table, rendered from
+`api_exec_dashboard()` + `api_sales_rollup()` on initial page load.
+Tiles:
 
     1. Editions count           — config.load_editions()
     2. Notes corpus             — api_attribution_audit().counts.total
@@ -9,15 +11,22 @@ from `api_exec_dashboard()` on initial page load. The tiles are:
     3. AI spend MTD             — event log `ai_*` events × `cost`
     4. Perf budget health       — perf_budgets.BUDGETS + violations
     5. Error rate               — build outcomes success_rate
+    6. Sales MTD (ε.3)          — sales.totals_mtd() — primary currency
+
+Sales workflow (ε.3):
+- Channel selector (KDP / Apple Books / Google Play Books)
+- File upload (CSV per the channel's native export format)
+- POSTs multipart to `/api/sales/import/<channel>`; toast on result.
+- Per-channel + per-edition revenue tables refresh from
+  `/api/sales/rollup` after each import.
 
 Composes the full ζ foundation (theme tokens + dark mode + icons +
-toasts + cmd palette). All tile values insert via `textContent` so
-any future event-log payload with exotic characters stays XSS-safe.
+toasts + cmd palette). All values insert via `textContent` so any
+future event-log payload with exotic characters stays XSS-safe.
 
-Foundation for ε.3 (sales import → tile 6 sales MTD), ε.4 (cost-per-
-edition rollup expands tile 3), ε.5 (quarterly auto-report composes
-this payload into PDF), and ε.6 (channel checklist surfaces in a
-companion section).
+Foundation for ε.4 (cost-per-edition rollup expands tile 3), ε.5
+(quarterly auto-report composes this payload into PDF), ε.6 (channel
+checklist consumes per-edition channel coverage).
 """
 
 from scripts.templates._design import apply_design_system  # noqa: E402
@@ -134,6 +143,64 @@ EXEC_HTML = r"""<!DOCTYPE html>
       <div class="kpi-value" data-field="builds-rate">·</div>
       <div class="kpi-sub" data-field="builds-sub">terminal builds</div>
     </div>
+
+    <div class="kpi-tile theme-bg-surface theme-border border" data-tile="sales_mtd">
+      <div class="kpi-label">Sales (MTD)</div>
+      <div class="kpi-value" data-field="sales-total">·</div>
+      <div class="kpi-sub" data-field="sales-sub">units this month</div>
+    </div>
+  </section>
+
+  <section aria-label="Sales import" class="mb-8" id="sales-import-section">
+    <h2 class="theme-text-lg theme-weight-semibold mb-3">Sales import</h2>
+    <div class="theme-bg-surface theme-border border rounded-lg p-4">
+      <p class="theme-text-sm theme-text-muted mb-3">
+        Upload a per-channel CSV. Rows append to <code class="theme-font-mono">events.jsonl</code>
+        as <code class="theme-font-mono">sales_record</code> events and refresh the rollups below.
+      </p>
+      <form id="sales-import-form" class="flex flex-wrap gap-3 items-end" enctype="multipart/form-data">
+        <label class="flex flex-col gap-1">
+          <span class="theme-text-xs theme-text-muted">Channel</span>
+          <select id="sales-channel" class="theme-bg-page theme-border border rounded px-2 py-1 theme-text-sm">
+            <option value="kdp">KDP (Amazon)</option>
+            <option value="apple">Apple Books</option>
+            <option value="google">Google Play Books</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-1">
+          <span class="theme-text-xs theme-text-muted">CSV file</span>
+          <input type="file" id="sales-file" accept=".csv,text/csv" required
+                 class="theme-text-sm">
+        </label>
+        <button type="submit" id="sales-submit"
+                class="theme-bg-accent rounded px-3 py-1 theme-text-sm theme-weight-semibold">
+          Import
+        </button>
+        <span id="sales-status" class="theme-text-xs theme-text-muted"></span>
+      </form>
+    </div>
+  </section>
+
+  <section aria-label="Sales rollup" class="mb-8" id="sales-rollup-section">
+    <h2 class="theme-text-lg theme-weight-semibold mb-3">Revenue rollup</h2>
+    <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));">
+      <div class="theme-bg-surface theme-border border rounded-lg overflow-x-auto">
+        <table class="events-table">
+          <thead><tr><th>Channel</th><th>Records</th><th>Units</th><th>Gross</th></tr></thead>
+          <tbody id="sales-by-channel-tbody">
+            <tr><td colspan="4" class="theme-text-muted">·· loading ··</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="theme-bg-surface theme-border border rounded-lg overflow-x-auto">
+        <table class="events-table">
+          <thead><tr><th>Edition</th><th>Channels</th><th>Units</th><th>Gross</th></tr></thead>
+          <tbody id="sales-by-edition-tbody">
+            <tr><td colspan="4" class="theme-text-muted">·· loading ··</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
   <section aria-label="Recent activity" class="mb-8">
@@ -193,6 +260,130 @@ function renderTiles(tiles) {
   var er = tiles.error_rate || {};
   setText('builds-rate', fmtPercent((er.success_rate || 0) * 100));
   setText('builds-sub', (er.total_terminal || 0).toLocaleString() + ' terminal builds');
+
+  // ε.3 — Sales MTD tile. Primary currency = USD when present, else
+  // the first currency encountered. Sub line lists units + record count.
+  var sm = tiles.sales_mtd || {};
+  var grossByCur = sm.gross_by_currency || {};
+  var primaryCurrency = 'USD';
+  var primaryAmount = 0;
+  if (typeof grossByCur.USD === 'number') {
+    primaryAmount = grossByCur.USD;
+  } else {
+    var firstKey = Object.keys(grossByCur)[0];
+    if (firstKey) {
+      primaryCurrency = firstKey;
+      primaryAmount = grossByCur[firstKey] || 0;
+    }
+  }
+  setText('sales-total', (primaryCurrency === 'USD' ? '$' : (primaryCurrency + ' ')) + primaryAmount.toFixed(2));
+  setText('sales-sub',
+    (sm.units || 0).toLocaleString() + ' units · ' +
+    (sm.records || 0).toLocaleString() + ' rows');
+}
+
+function fmtCurrencyBag(bag) {
+  // ε.3 — render a {currency: amount} dict as "$12.50 · €4.20" — the
+  // primary unit (USD) leads when present so the publisher reads
+  // their main number first.
+  if (!bag || typeof bag !== 'object') return '';
+  var keys = Object.keys(bag);
+  if (keys.length === 0) return '$0.00';
+  keys.sort(function (a, b) {
+    if (a === 'USD') return -1;
+    if (b === 'USD') return 1;
+    return a.localeCompare(b);
+  });
+  return keys.map(function (k) {
+    var sym = (k === 'USD') ? '$' : (k + ' ');
+    return sym + (bag[k] || 0).toFixed(2);
+  }).join(' · ');
+}
+
+function renderSalesByChannel(byChannel) {
+  var tbody = document.getElementById('sales-by-channel-tbody');
+  tbody.innerHTML = '';
+  var keys = Object.keys(byChannel || {});
+  if (keys.length === 0) {
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    td.colSpan = 4;
+    td.className = 'theme-text-muted';
+    td.textContent = 'No sales records yet. Upload a CSV above.';
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+  keys.sort();
+  keys.forEach(function (k) {
+    var v = byChannel[k] || {};
+    var tr = document.createElement('tr');
+    var c = document.createElement('td');
+    c.className = 'mono';
+    c.textContent = k;
+    var r = document.createElement('td');
+    r.textContent = (v.records || 0).toLocaleString();
+    var u = document.createElement('td');
+    u.textContent = (v.units || 0).toLocaleString();
+    var g = document.createElement('td');
+    g.className = 'mono';
+    g.textContent = fmtCurrencyBag(v.gross_by_currency || {});
+    tr.appendChild(c); tr.appendChild(r); tr.appendChild(u); tr.appendChild(g);
+    tbody.appendChild(tr);
+  });
+}
+
+function renderSalesByEdition(byEdition) {
+  var tbody = document.getElementById('sales-by-edition-tbody');
+  tbody.innerHTML = '';
+  var keys = Object.keys(byEdition || {});
+  if (keys.length === 0) {
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    td.colSpan = 4;
+    td.className = 'theme-text-muted';
+    td.textContent = 'No sales records yet.';
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+  // Sort by USD gross descending; fall back to first-currency gross.
+  keys.sort(function (a, b) {
+    var ag = (byEdition[a].gross_by_currency || {}).USD;
+    var bg = (byEdition[b].gross_by_currency || {}).USD;
+    if (typeof ag !== 'number') ag = Object.values(byEdition[a].gross_by_currency || {})[0] || 0;
+    if (typeof bg !== 'number') bg = Object.values(byEdition[b].gross_by_currency || {})[0] || 0;
+    return bg - ag;
+  });
+  keys.forEach(function (k) {
+    var v = byEdition[k] || {};
+    var tr = document.createElement('tr');
+    var ed = document.createElement('td');
+    ed.className = 'mono';
+    ed.textContent = k;
+    var ch = document.createElement('td');
+    ch.className = 'mono theme-text-muted';
+    ch.textContent = (v.channels || []).join(', ');
+    var u = document.createElement('td');
+    u.textContent = (v.units || 0).toLocaleString();
+    var g = document.createElement('td');
+    g.className = 'mono';
+    g.textContent = fmtCurrencyBag(v.gross_by_currency || {});
+    tr.appendChild(ed); tr.appendChild(ch); tr.appendChild(u); tr.appendChild(g);
+    tbody.appendChild(tr);
+  });
+}
+
+async function loadSalesRollup() {
+  try {
+    var r = await fetch('/api/sales/rollup');
+    var data = await r.json();
+    if (data.status !== 'ok') return;
+    renderSalesByChannel(data.by_channel || {});
+    renderSalesByEdition(data.by_edition || {});
+  } catch (e) {
+    // Silent — sales rollup is a nice-to-have, not a hard dependency.
+  }
 }
 function renderEvents(events) {
   var tbody = document.getElementById('events-tbody');
@@ -255,6 +446,57 @@ async function loadDashboard() {
   }
 }
 loadDashboard();
+loadSalesRollup();
+
+// ε.3 — sales import form handler. Submits multipart to
+// /api/sales/import/<channel>; toasts on success/failure; refreshes
+// the dashboard tile + rollup tables after a successful import.
+(function () {
+  var form = document.getElementById('sales-import-form');
+  if (!form) return;
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var channelEl = document.getElementById('sales-channel');
+    var fileEl = document.getElementById('sales-file');
+    var statusEl = document.getElementById('sales-status');
+    var submitEl = document.getElementById('sales-submit');
+    if (!fileEl.files || fileEl.files.length === 0) {
+      if (window.ebibleToast) window.ebibleToast('Choose a CSV file first', 'error');
+      return;
+    }
+    var channel = channelEl.value;
+    var file = fileEl.files[0];
+    var fd = new FormData();
+    fd.append('file', file, file.name);
+    submitEl.disabled = true;
+    statusEl.textContent = 'Uploading ' + file.name + ' ...';
+    try {
+      var resp = await fetch('/api/sales/import/' + encodeURIComponent(channel), {
+        method: 'POST',
+        body: fd,
+      });
+      var data = await resp.json();
+      if (resp.ok && data.status === 'ok') {
+        statusEl.textContent = data.message || 'Imported.';
+        if (window.ebibleToast) {
+          window.ebibleToast(data.message || 'Imported ' + (data.imported || 0) + ' rows', 'success');
+        }
+        fileEl.value = '';
+        loadDashboard();
+        loadSalesRollup();
+      } else {
+        var msg = (data && (data.message || data.error)) || ('HTTP ' + resp.status);
+        statusEl.textContent = 'Failed: ' + msg;
+        if (window.ebibleToast) window.ebibleToast('Import failed: ' + msg, 'error');
+      }
+    } catch (err) {
+      statusEl.textContent = 'Network error: ' + err.message;
+      if (window.ebibleToast) window.ebibleToast('Network error: ' + err.message, 'error');
+    } finally {
+      submitEl.disabled = false;
+    }
+  });
+})();
 
 // Corpus-progress widget (mirrors the pattern in every other console).
 fetch('/api/corpus-progress').then(function (r) { return r.json(); })

@@ -4,6 +4,62 @@
 
 ## Prior task
 
+**ε.3 sales import** shipped 2026-05-11. Month 5 #4 — CSV
+upload of KDP / Apple Books / Google Play Books reports
++ per-edition revenue rollup + new sixth `sales_mtd`
+tile on /exec.
+
+Three pieces:
+- `scripts/core/sales.py` — `KNOWN_CHANNELS = ("kdp",
+  "apple", "google")`; `SALES_EVENT_KIND = "sales_record"`;
+  three per-channel parsers (`parse_kdp_csv`,
+  `parse_apple_csv`, `parse_google_csv`) returning
+  normalized `{channel, period_start, period_end,
+  raw_title, identifier, units, gross, currency, ...}`
+  rows; `parse_csv(text, channel)` dispatcher; case-
+  insensitive header lookup with alias support; currency
+  symbol/comma/whitespace stripping; malformed numbers
+  become 0 not crash; `match_edition(raw_title, editions)`
+  longest-substring case-insensitive matcher; `import_records`
+  emits one `sales_record` event per record; three rollup
+  queries (`totals_by_channel`, `totals_by_edition`,
+  `totals_mtd(now=None)`) all single-pass over the event
+  log with currency bags preserved.
+- `scripts/api/sales.py` — `api_sales_rollup()` GET
+  composes the three aggregators; `api_sales_import(
+  channel, body, content_type)` POST multipart with
+  channel validation against `KNOWN_CHANNELS` + 20 MB
+  cap + utf-8 / utf-8-sig / cp1252 decode fallbacks (so
+  Excel-exported CSVs Just Work) + audit_log decorator;
+  returns `{status, ok, channel, imported,
+  matched_editions, filename, message}`.
+- `/exec` tile #6 + import form + rollup tables — sixth
+  `sales_mtd` tile composed via `sales.totals_mtd(now=now)`;
+  "Sales import" form posts multipart to
+  `/api/sales/import/<channel>` with ζ.6 toast on
+  result; "Revenue rollup" pair of tables (by-channel +
+  by-edition) with USD-first currency-bag rendering
+  ("$12.50 · €4.20") + textContent-safe insertion.
+
+Route registration: `/api/sales/rollup` joined
+`_SIMPLE_GET_ROUTES`; `/api/sales/import/<channel>`
+joined `_MULTIPART_ROUTES` (count test bumped 3→4).
+ε.2's strict tile-keys set-equality assertion relaxed
+to a subset check — ε.2 MVP keys remain pinned, ε.3+
+additions are explicitly allowed by contract.
+
+**+54 tests** in `tests/test_sales_epsilon3.py`:
+TestEpsilon3KdpParser × 10, AppleParser × 2,
+GoogleParser × 2, ParseDispatcher × 3, EditionMatch × 5,
+ImportRecords × 4, Totals × 6, ApiSalesRollup × 3,
+ApiSalesImport × 7, DashboardTile × 3, ExecTemplate × 6,
+RouteRegistration × 3.
+
+**2844 / 2845 tests pass serially (1 skipped); 11/11
+lint clean.**
+
+## Prior task
+
 **ε.1 metrics collector** shipped 2026-05-11. Month 5 #2 —
 read-side rollup layer over Δ.15's event log + first
 emit() wire-up.

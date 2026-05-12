@@ -1178,12 +1178,14 @@ class TestOmega35A9MultipartTable:
     - /api/covers/<ed>/main         → api_upload_cover_main
     - /api/covers/<ed>/book/<book>  → api_upload_cover_book
     - /api/sources/cache/<id>/upload → api_sources_cache_upload
+    - /api/sales/import/<channel>   → api_sales_import (ε.3)
     """
 
-    def test_multipart_table_has_three_entries(self):
+    def test_multipart_table_has_four_entries(self):
+        # ε.3 added /api/sales/import/<channel>; previous floor was 3.
         from scripts import web
 
-        assert len(web._MULTIPART_ROUTES) == 3
+        assert len(web._MULTIPART_ROUTES) == 4
 
     def test_multipart_table_entries_shape(self):
         # Distinct 3-tuple shape: (regex, max_bytes, handler).

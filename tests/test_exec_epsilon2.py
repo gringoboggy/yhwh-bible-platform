@@ -57,14 +57,17 @@ class TestEpsilon2ApiDashboard:
         result = api_exec_dashboard()
         assert result["status"] == "ok"
         tiles = result["tiles"]
-        # Five tiles, all keys stable for downstream consumers.
-        assert set(tiles.keys()) == {
+        # ε.2 contract: the five MVP tile keys are always present. ε.3
+        # additively extends with `sales_mtd`; future ε.* additions may
+        # extend further, so this asserts a stable lower bound rather
+        # than strict equality.
+        assert {
             "editions",
             "notes_corpus",
             "ai_spend_mtd",
             "perf_budget_health",
             "error_rate",
-        }
+        }.issubset(tiles.keys())
         assert "events_total" in result
         assert "recent_events" in result
         assert isinstance(result["recent_events"], list)

@@ -1,6 +1,6 @@
-"""ε.2 — /exec dashboard MVP (2026-05-11).
+"""ε.2 + ε.3 — /exec dashboard payload (2026-05-11).
 
-Composes the existing surfaces into the five executive KPI tiles the
+Composes the existing surfaces into the SIX executive KPI tiles the
 publisher needs at-a-glance:
 
     1. Editions count          — config.load_editions()
@@ -8,13 +8,14 @@ publisher needs at-a-glance:
     3. AI spend MTD            — event log filter on `ai_*` kinds + `cost`
     4. Perf budget health      — scripts.perf_budgets.BUDGETS + violation scan
     5. Error rate              — metrics.summary_kpis().builds.success_rate
+    6. Sales MTD               — sales.totals_mtd() (ε.3, 2026-05-11)
 
 Per CLAUDE_PROJECT_RULES §9 "Compose, don't recompute" — every tile
 sources from an existing endpoint or module so there is exactly one
 walk through the corpus / event log per dashboard render.
 
 Public API:
-    api_exec_dashboard()  → dict (the 5-tile payload + recent events)
+    api_exec_dashboard()  → dict (the 6-tile payload + recent events)
 
 Response shape (success):
     {
@@ -28,6 +29,10 @@ Response shape (success):
                                "recent_violations": int},
         "error_rate": {"success_rate": float, "failure_count": int,
                        "total_terminal": int},
+        "sales_mtd": {"records": int, "units": int,
+                      "gross_by_currency": dict[str, float],
+                      "by_channel": dict, "top_editions": list,
+                      "window_start_iso": str},
       },
       "events_total": int,
       "recent_events": list[dict],   # last 10
@@ -35,7 +40,6 @@ Response shape (success):
 
 The endpoint is read-only and idempotent. Future ε.* phases extend
 this:
-    ε.3 sales import     — adds a `sales_mtd` tile
     ε.4 cost rollup      — extends `ai_spend_mtd` to per-edition rows
     ε.5 quarterly report — composes this payload into a PDF
 """
@@ -153,6 +157,13 @@ def api_exec_dashboard(*, now: datetime | None = None) -> dict:
         "total_terminal": total_terminal,
     }
 
+    # Tile 6 (ε.3) — sales month-to-date. Composes sales.totals_mtd
+    # which iterates the event log once and filters to sales_record
+    # events within the current-month window.
+    from scripts.core import sales
+
+    tile_sales_mtd = sales.totals_mtd(now=now)
+
     return {
         "status": "ok",
         "tiles": {
@@ -161,6 +172,7 @@ def api_exec_dashboard(*, now: datetime | None = None) -> dict:
             "ai_spend_mtd": tile_ai_spend,
             "perf_budget_health": tile_perf,
             "error_rate": tile_error_rate,
+            "sales_mtd": tile_sales_mtd,
         },
         "events_total": int(kpis.get("events_total", 0)),
         "recent_events": metrics.recent_events(10),

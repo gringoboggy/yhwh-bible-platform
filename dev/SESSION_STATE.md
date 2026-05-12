@@ -1,6 +1,54 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ε.2 /exec
+**Updated 2026-05-11 / late session**: **ε.3 sales
+import shipped — Month 5 #4 (4 of 7).** New
+`scripts/core/sales.py` (per-channel CSV parsers for
+KDP / Apple Books / Google Play Books + edition
+matcher + rollup queries) + new `scripts/api/sales.py`
+(`api_sales_rollup` GET + `api_sales_import` POST
+multipart with utf-8-sig + cp1252 decode fallbacks +
+20 MB cap) + 6th `sales_mtd` tile added to
+`api_exec_dashboard` payload + sales-import form +
+revenue-rollup tables added to `/exec`. Storage path
+composes Δ.15's append-only event log: each CSV row
+emits one `sales_record` event, so no new persistence
+path + tail/iter/count primitives reuse for free.
+Edition matching is best-effort longest-substring
+case-insensitive; unmatched rows store the raw title
+for manual reconciliation in the `_unmatched` rollup
+bucket. Currency bags preserved per channel + per
+edition (KDP-GBP and Apple-USD aggregate into
+`{"USD": ..., "GBP": ...}` without forced FX). MTD
+window filter is ISO-8601 lex comparison —
+identical pattern to ε.2's AI-spend tile. ε.2's strict
+tile-keys set-equality test relaxed to a subset check
+(five MVP keys still pinned; ε.3+ may extend).
+Multipart route count test bumped 3→4 + inventory
+comment updated. **+54 tests** in
+`tests/test_sales_epsilon3.py` (10 classes covering
+parsers per channel, dispatcher, edition matching,
+import, three rollups, two API endpoints, dashboard
+tile composition, template, route registration).
+**2844 / 2845 tests pass serially (1 skipped); 11/11
+lint clean.** Net session test delta from ψ.36-A
+baseline: **+591** across 26 ships.
+
+Month 5 remaining (3 items): ε.6 distribution
+checklist, ε.7 press kit auto-build, ο.4 archive.org
+auto-upload. All non-money.
+
+Natural ε.3.x / ε.4 / ε.5 / ε.6 / ο.7 follow-ons
+logged in CHANGELOG: ε.4 (per-edition cost-vs-revenue
+overlays the sales rollup with the AI-spend rollup);
+ε.5 (quarterly PDF aggregates this exact payload);
+ε.6 (distribution checklist consumes per-edition
+channel coverage from `totals_by_channel`); ο.7
+(affiliate-code referral tracking extends the
+`sales_record` schema with a `referral` field).
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ε.2 /exec
 dashboard MVP shipped — Month 5 #3 (3 of 7).**
 New `/exec` console + `/api/exec` JSON endpoint compose
 the entire ε.1+Δ.15 foundation into five executive KPI

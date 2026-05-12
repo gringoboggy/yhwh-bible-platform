@@ -6,6 +6,159 @@
 
 ---
 
+## 2026-05-11 — session — ε.3 sales import (Month 5 #4; 4 of 7 ships)
+
+**Phases shipped:** ε.3 (sales import + revenue rollup — three
+per-channel CSV parsers, one /api/sales/rollup read endpoint, one
+multipart /api/sales/import/<channel> write endpoint, sixth
+sales_mtd tile + import workflow on /exec).
+**Test delta:** +54 (2790 → 2844; 1 still skipped).
+**Linter delta:** 11/11 clean (17 cross-linked consoles unchanged).
+
+### ε.3 — Sales import (KDP / Apple / Google CSV)
+
+CSV upload endpoint per the proposal spec: "CSV upload endpoint;
+per-edition revenue rollup; visible in /exec." Composes Δ.15's
+append-only event log as the storage path — every imported CSV
+row becomes one `sales_record` event, so no new persistence path
++ no new backup story + the existing tail/iter/count primitives
+reuse for free.
+
+**Per-channel CSV parsers** (`scripts/core/sales.py`):
+
+- `parse_kdp_csv(text)` — Amazon KDP royalty report (Royalty
+  Date / Title / ASIN-ISBN / Marketplace / Royalty Type /
+  Transaction Type / Net Units Sold / Royalty / Currency).
+- `parse_apple_csv(text)` — Apple Books partner-share report
+  (Begin/End Date / Vendor Identifier / Title / Product Type
+  Identifier / Quantity / Partner Share / Partner Share Currency).
+- `parse_google_csv(text)` — Google Play Books transaction report
+  (Transaction Date / Title / Quantity / Earnings / Currency Code).
+
+Each returns a normalized `[{channel, period_start, period_end,
+raw_title, identifier, units, gross, currency, ...}]` row list.
+Column lookup is case-insensitive and accepts header aliases so
+vendor report-variant churn doesn't break ingest. Currency
+symbols (`$`, `€`, `£`), commas, and surrounding whitespace are
+stripped before float coercion; malformed numbers become 0
+rather than crashing the import.
+
+**Edition matching** — `match_edition(raw_title, editions)` does
+case-insensitive substring matching against shipped edition
+titles. Longest match wins so "Catholic Study Bible" beats
+"Bible" when both could match. No match → `edition_id = None`
+and the record is stored with the raw title for manual
+reconciliation (visible in the rollup table's `_unmatched`
+bucket).
+
+**Rollup queries** — `totals_by_channel()`, `totals_by_edition()`,
+`totals_mtd(now=None)` all single-pass over `event_log.iter_events()`.
+Currency bags preserved per bucket (a KDP record in GBP and an
+Apple record in USD aggregate into `{"USD": ..., "GBP": ...}`).
+MTD rollup filters by ISO-8601 lex comparison against
+`_month_start_iso(now)` — identical pattern to ε.2's AI spend
+tile, deliberately mirrored.
+
+**Public API**:
+- `KNOWN_CHANNELS = ("kdp", "apple", "google")` — single source
+  of truth for channel validation.
+- `SALES_EVENT_KIND = "sales_record"` — pinned so ε.4 / ε.5 /
+  ο.7 follow-ons read from the same key.
+- `parse_csv(text, channel)` — dispatcher; raises ValueError for
+  unknown channel.
+- `import_records(records, *, editions)` — emits N
+  `sales_record` events; returns count.
+- `iter_sales_records()` — generator filter over the event log.
+- `totals_mtd(now=None)` — canonical /exec tile payload with
+  records / units / gross_by_currency / by_channel / top_editions
+  (top 5 by primary currency, USD first).
+
+### API surface
+
+`scripts/api/sales.py`:
+
+- `api_sales_rollup()` — GET; payload `{status, mtd, by_channel,
+  by_edition, known_channels}`. Three single-pass scans (one per
+  top-level aggregator); acceptable for ~200KB/month of events.
+- `api_sales_import(channel, body, content_type)` — POST
+  multipart. Validates channel → multipart parse → UTF-8 decode
+  (with utf-8-sig + cp1252 fallbacks for Excel exports) → CSV
+  parse → emit N `sales_record` events. Returns `{status, ok,
+  channel, imported, matched_editions, filename, message}`.
+  Wrapped with `@audit_log.audit_endpoint(action="sales_import")`
+  so every upload lands in the audit trail.
+- `SALES_UPLOAD_MAX_BYTES = 20 MB` — a year of monthly KDP/Apple/
+  Google reports per edition fits comfortably (a single KDP
+  monthly report rarely tops 50 KB).
+
+### /exec dashboard tile #6 + import workflow
+
+`scripts/api/exec.py::api_exec_dashboard` extended with
+`sales_mtd` tile composed from `sales.totals_mtd(now=now)`. ε.2's
+contract test changed from strict set-equality on tile keys to a
+subset check (the five MVP keys are always present; ε.3 + future
+ε.* may extend).
+
+`scripts/templates/exec.py::EXEC_HTML` extended with:
+- Sixth KPI tile (`data-tile="sales_mtd"`) — primary currency
+  leads when present (USD first; else first encountered).
+- "Sales import" section: channel `<select>` (KDP / Apple Books
+  / Google Play Books) + file input + submit. Form posts
+  multipart to `/api/sales/import/<channel>`; ζ.6 toast on
+  success/failure; dashboard + rollup tables refresh after.
+- "Revenue rollup" section: two responsive tables side-by-side
+  (by-channel + by-edition). Editions sorted by USD gross desc
+  with first-currency fallback. All cell text via `textContent`
+  for XSS safety; currency bags rendered as "$12.50 · €4.20"
+  (USD always first).
+
+### Files
+
+- `scripts/core/sales.py` — new (~360 lines: parsers, dispatcher,
+  edition matcher, importer, three rollup queries).
+- `scripts/api/sales.py` — new (~120 lines: rollup + import
+  endpoints + 20 MB cap constant).
+- `scripts/api/exec.py` — extended docstring (5→6 tiles), added
+  `sales_mtd` tile in `api_exec_dashboard`.
+- `scripts/templates/exec.py` — extended docstring, added 6th
+  KPI tile, import-form section, rollup tables, JS render
+  helpers (`fmtCurrencyBag`, `renderSalesByChannel`,
+  `renderSalesByEdition`, `loadSalesRollup`) + multipart submit
+  handler with ζ.6 toast integration.
+- `scripts/web.py` — `from scripts.api.sales import …` (lazy on
+  module load); `/api/sales/rollup` added to `_SIMPLE_GET_ROUTES`;
+  `/api/sales/import/<channel>` added to `_MULTIPART_ROUTES`.
+- `tests/test_sales_epsilon3.py` — new (54 tests across 10
+  classes: TestEpsilon3KdpParser × 10, AppleParser × 2,
+  GoogleParser × 2, ParseDispatcher × 3, EditionMatch × 5,
+  ImportRecords × 4, Totals × 6, ApiSalesRollup × 3,
+  ApiSalesImport × 7, DashboardTile × 3, ExecTemplate × 6,
+  RouteRegistration × 3).
+- `tests/test_exec_epsilon2.py` — relaxed `test_payload_shape`
+  from set-equality to subset on the ε.2 MVP tile keys (ε.3
+  contract: additive extension is allowed; the five MVP keys
+  remain pinned).
+- `tests/test_web_routetable.py` — multipart-route-count test
+  bumped from 3 → 4 + inventory comment updated.
+
+### Forward references in code
+
+The api/template docstrings name **ε.4** (per-edition
+cost-vs-revenue), **ε.5** (quarterly auto-report PDF), **ε.6**
+(distribution channel checklist consumes per-edition channels
+from `totals_by_channel`), and **ο.7** (affiliate-code tracking
+extends the sales_record schema with a `referral` field) as
+natural follow-ons. Logged here so the linter's "phase mentioned
+in code" check stays clean.
+
+### Month 5 status
+
+Shipped: Δ.15, ε.1, ε.2, ε.3 (4 of 7).
+Remaining: ε.6 distribution checklist, ε.7 press kit auto-build,
+ο.4 archive.org auto-upload. All non-money.
+
+---
+
 ## 2026-05-11 — session — ε.2 /exec dashboard MVP (Month 5 #3; 3 of 7 ships)
 
 **Phases shipped:** ε.2 (executive dashboard — 5 KPI tiles
