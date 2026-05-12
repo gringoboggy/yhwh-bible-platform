@@ -1,4 +1,4 @@
-"""ε.2 + ε.3 + ε.6 — /exec dashboard template.
+"""ε.2 + ε.3 + ε.6 + ε.7 — /exec dashboard template.
 
 Surfaces SIX executive KPI tiles + sales import card + per-channel /
 per-edition rollup tables + distribution checklist grid + a recent-
@@ -28,14 +28,24 @@ Distribution checklist (ε.6):
   `/api/distribution/<edition>` with ζ.6 toast on result.
 - Per-channel coverage % + overall % displayed below the grid.
 
+Press kit (ε.7):
+- Per-edition selector + 3 textareas (150-word blurb, 500-word
+  description, sample chapter HTML) with live character counters
+  against the core module's FIELD_LIMITS.
+- "Save blurbs" PUTs to /api/press-kit/<edition>.
+- "Download press kit" navigates to /api/press-kit/<edition>/download
+  which streams the ZIP (covers in 4 sizes + blurbs + sample chapter
+  + manifest.json).
+
 Composes the full ζ foundation (theme tokens + dark mode + icons +
 toasts + cmd palette). All values insert via `textContent` so any
 future event-log payload with exotic characters stays XSS-safe.
 
 Foundation for ε.4 (cost-per-edition rollup expands tile 3), ε.5
-(quarterly auto-report composes this payload into PDF), ε.7 (press
-kit auto-build can consult the channel state for what to package),
-ο.4 (archive.org auto-upload auto-marks the archive_org cell).
+(quarterly auto-report composes this payload into PDF), ο.4
+(archive.org auto-upload composes build_press_kit_zip output for
+its upload payload AND auto-marks the archive_org distribution cell
+on successful push).
 """
 
 from scripts.templates._design import apply_design_system  # noqa: E402
@@ -232,6 +242,63 @@ EXEC_HTML = r"""<!DOCTYPE html>
       </table>
     </div>
     <div class="theme-text-xs theme-text-muted" id="distribution-coverage-line">·· loading ··</div>
+  </section>
+
+  <section aria-label="Press kit" class="mb-8" id="press-kit-section">
+    <h2 class="theme-text-lg theme-weight-semibold mb-3">Press kit</h2>
+    <p class="theme-text-sm theme-text-muted mb-3">
+      Per-edition deliverable: cover variants (4 sizes), 150-word
+      blurb, 500-word description, sample chapter. Save edits via the
+      button below; Download bundles the latest into a ZIP.
+    </p>
+    <div class="theme-bg-surface theme-border border rounded-lg p-4">
+      <div class="flex flex-wrap gap-3 items-end mb-3">
+        <label class="flex flex-col gap-1">
+          <span class="theme-text-xs theme-text-muted">Edition</span>
+          <select id="press-kit-edition"
+                  class="theme-bg-page theme-border border rounded px-2 py-1 theme-text-sm">
+            <option value="">·· loading editions ··</option>
+          </select>
+        </label>
+        <span id="press-kit-cover-status" class="theme-text-xs theme-text-muted"></span>
+      </div>
+
+      <div class="grid gap-3 mb-3">
+        <label class="flex flex-col gap-1">
+          <span class="theme-text-xs theme-text-muted">
+            150-word blurb (<span data-counter="blurb_150">0</span> / <span data-limit="blurb_150">0</span>)
+          </span>
+          <textarea id="press-kit-blurb_150" rows="3"
+                    class="theme-bg-page theme-border border rounded px-2 py-1 theme-text-sm theme-font-mono"></textarea>
+        </label>
+        <label class="flex flex-col gap-1">
+          <span class="theme-text-xs theme-text-muted">
+            500-word description (<span data-counter="blurb_500">0</span> / <span data-limit="blurb_500">0</span>)
+          </span>
+          <textarea id="press-kit-blurb_500" rows="7"
+                    class="theme-bg-page theme-border border rounded px-2 py-1 theme-text-sm theme-font-mono"></textarea>
+        </label>
+        <label class="flex flex-col gap-1">
+          <span class="theme-text-xs theme-text-muted">
+            Sample chapter HTML (<span data-counter="sample_chapter_html">0</span> / <span data-limit="sample_chapter_html">0</span>)
+          </span>
+          <textarea id="press-kit-sample_chapter_html" rows="10"
+                    class="theme-bg-page theme-border border rounded px-2 py-1 theme-text-sm theme-font-mono"></textarea>
+        </label>
+      </div>
+
+      <div class="flex flex-wrap gap-3 items-center">
+        <button id="press-kit-save" type="button"
+                class="theme-bg-accent rounded px-3 py-1 theme-text-sm theme-weight-semibold">
+          Save blurbs
+        </button>
+        <button id="press-kit-download" type="button"
+                class="theme-border border rounded px-3 py-1 theme-text-sm">
+          Download press kit (ZIP)
+        </button>
+        <span id="press-kit-status" class="theme-text-xs theme-text-muted"></span>
+      </div>
+    </div>
   </section>
 
   <section aria-label="Recent activity" class="mb-8">
@@ -534,6 +601,132 @@ async function loadDistribution() {
     // Silent — checklist is a nice-to-have, not a hard dependency.
   }
 }
+
+// ε.7 — press kit: populate the edition selector, fetch+display
+// blurbs on selection change, live character counters, Save PUTs to
+// /api/press-kit/<id>, Download navigates to .../download.
+var pressKitLimits = {};
+var pressKitFields = ['blurb_150', 'blurb_500', 'sample_chapter_html'];
+
+function updatePressKitCounter(field) {
+  var ta = document.getElementById('press-kit-' + field);
+  var c = document.querySelector('[data-counter="' + field + '"]');
+  if (ta && c) c.textContent = String((ta.value || '').length);
+}
+
+function setPressKitLimits(limits) {
+  pressKitLimits = limits || {};
+  pressKitFields.forEach(function (field) {
+    var l = document.querySelector('[data-limit="' + field + '"]');
+    if (l) l.textContent = String(pressKitLimits[field] || 0);
+  });
+}
+
+async function loadPressKitEditions() {
+  // Compose the rollup endpoint — it already knows the edition list.
+  try {
+    var r = await fetch('/api/distribution');
+    var data = await r.json();
+    if (data.status !== 'ok') return;
+    var editions = ((data.rollup || {}).editions || []);
+    var sel = document.getElementById('press-kit-edition');
+    if (!sel) return;
+    sel.innerHTML = '';
+    if (editions.length === 0) {
+      var opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'No editions configured';
+      sel.appendChild(opt);
+      return;
+    }
+    editions.forEach(function (ed) {
+      var opt = document.createElement('option');
+      opt.value = ed.id;
+      opt.textContent = ed.title + ' (' + ed.id + ')';
+      sel.appendChild(opt);
+    });
+    // Auto-load the first edition's blurbs.
+    sel.value = editions[0].id;
+    loadPressKitFor(editions[0].id);
+  } catch (e) {
+    // Silent.
+  }
+}
+
+async function loadPressKitFor(editionId) {
+  if (!editionId) return;
+  try {
+    var r = await fetch('/api/press-kit/' + encodeURIComponent(editionId));
+    var data = await r.json();
+    if (data.status !== 'ok') return;
+    setPressKitLimits(data.limits || {});
+    var blurbs = data.blurbs || {};
+    pressKitFields.forEach(function (field) {
+      var ta = document.getElementById('press-kit-' + field);
+      if (ta) ta.value = blurbs[field] || '';
+      updatePressKitCounter(field);
+    });
+    var cs = document.getElementById('press-kit-cover-status');
+    if (cs) {
+      cs.textContent = data.cover_present
+        ? 'Cover image found — ZIP will include 4 sized variants.'
+        : 'No cover image set — ZIP will skip cover variants.';
+    }
+  } catch (e) {
+    // Silent.
+  }
+}
+
+async function savePressKit() {
+  var sel = document.getElementById('press-kit-edition');
+  var status = document.getElementById('press-kit-status');
+  if (!sel || !sel.value) return;
+  var payload = {};
+  pressKitFields.forEach(function (field) {
+    var ta = document.getElementById('press-kit-' + field);
+    if (ta) payload[field] = ta.value || '';
+  });
+  status.textContent = 'Saving ...';
+  try {
+    var resp = await fetch('/api/press-kit/' + encodeURIComponent(sel.value), {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    var data = await resp.json();
+    if (resp.ok && data.ok) {
+      status.textContent = 'Saved.';
+      if (window.ebibleToast) window.ebibleToast('Blurbs saved', 'success');
+    } else {
+      var msg = (data && (data.message || data.error)) || ('HTTP ' + resp.status);
+      status.textContent = 'Failed: ' + msg;
+      if (window.ebibleToast) window.ebibleToast('Save failed: ' + msg, 'error');
+    }
+  } catch (err) {
+    status.textContent = 'Network error: ' + err.message;
+    if (window.ebibleToast) window.ebibleToast('Network error: ' + err.message, 'error');
+  }
+}
+
+function downloadPressKit() {
+  var sel = document.getElementById('press-kit-edition');
+  if (!sel || !sel.value) return;
+  // Native browser download — server emits Content-Disposition attachment.
+  window.location = '/api/press-kit/' + encodeURIComponent(sel.value) + '/download';
+}
+
+(function () {
+  pressKitFields.forEach(function (field) {
+    var ta = document.getElementById('press-kit-' + field);
+    if (ta) ta.addEventListener('input', function () { updatePressKitCounter(field); });
+  });
+  var sel = document.getElementById('press-kit-edition');
+  if (sel) sel.addEventListener('change', function () { loadPressKitFor(sel.value); });
+  var saveBtn = document.getElementById('press-kit-save');
+  if (saveBtn) saveBtn.addEventListener('click', savePressKit);
+  var dlBtn = document.getElementById('press-kit-download');
+  if (dlBtn) dlBtn.addEventListener('click', downloadPressKit);
+})();
 function renderEvents(events) {
   var tbody = document.getElementById('events-tbody');
   tbody.innerHTML = '';
@@ -597,6 +790,7 @@ async function loadDashboard() {
 loadDashboard();
 loadSalesRollup();
 loadDistribution();
+loadPressKitEditions();
 
 // ε.3 — sales import form handler. Submits multipart to
 // /api/sales/import/<channel>; toasts on success/failure; refreshes

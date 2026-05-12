@@ -1,6 +1,52 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **ε.6 distribution
+**Updated 2026-05-11 / late session**: **ε.7 press kit
+auto-build shipped — Month 5 #6 (6 of 7).** New
+`scripts/core/press_kit.py` (SCHEMA_VERSION=1, PRESS_KIT_FIELDS
+= blurb_150 / blurb_500 / sample_chapter_html with FIELD_LIMITS
+= 1200 / 3500 / 20000 chars, COVER_VARIANTS = thumb 200×300 /
+web 600×900 / social 1080×1080 / print 2400×3600; sparse JSON
+at content/press_kit.json mirroring distribution.py persistence
+discipline; resize_cover via PIL LANCZOS with white-canvas
+letterbox preserving aspect; build_zip via stdlib zipfile with
+DEFLATE compression, manifest.json + placeholders for missing
+blurbs + skipped covers when absent) + new
+`scripts/api/press_kit.py` (api_press_kit_get returns blurbs +
+cover_present + limits; api_press_kit_save merge-updates with
+413 envelope on over-limit; build_press_kit_zip returns
+(filename, bytes) on success or error envelope on unknown
+edition) + new request-handler helper `_send_zip(filename,
+data)` sending application/zip + Content-Disposition attachment
++ Cache-Control no-store + security headers. /exec extended
+with press-kit section (per-edition selector, 3 textareas with
+live character counters, Save button PUTs blurbs, Download
+button native-browser-downloads the ZIP). Routes: GET
+/api/press-kit/<edition> added to _REGEX_GET_ROUTES; PUT
+/api/press-kit/<edition> added to _PUT_ROUTES (count 10→11);
+binary GET /api/press-kit/<edition>/download lives in do_GET
+legacy cascade because it returns bytes not JSON. **+37 tests**
+in `tests/test_press_kit_epsilon7.py` (11 classes covering
+constants, load/save with whitelist, set_blurbs merge/clear
+semantics + over-limit rejection, resize_cover with exact
+dimensions + aspect-preserving letterbox + RGBA→RGB flatten,
+build_zip contents + has_cover flag + manifest contents
+listing, two API endpoints, build_press_kit_zip tuple/dict
+return contract, template section structure, route
+registration including the binary download wiring + _send_zip
+helper presence). **2922 / 2923 tests pass serially (1
+skipped); 11/11 lint clean.** Net session test delta from
+ψ.36-A baseline: **+669** across 28 ships.
+
+Month 5 remaining (1 item): **ο.4 archive.org auto-upload**.
+Composes ε.7's build_press_kit_zip output for the upload
+payload + auto-marks ε.6's `archive_org` distribution cell on
+successful push. Last non-money Month 5 item.
+
+Natural ε.5 / ο.4 follow-ons logged in CHANGELOG.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **ε.6 distribution
 checklist shipped — Month 5 #5 (5 of 7).** New
 `scripts/core/distribution.py` (DISTRIBUTION_CHANNELS =
 kdp/apple/google/archive_org/own_site; sparse-store JSON at

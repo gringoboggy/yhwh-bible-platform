@@ -4,6 +4,69 @@
 
 ## Prior task
 
+**ε.7 press kit auto-build** shipped 2026-05-11. Month 5 #6 —
+per-edition ZIP deliverable (cover variants in 4 sizes + blurbs
++ sample chapter + manifest) plus editable blurbs in /exec.
+
+Three pieces:
+- `scripts/core/press_kit.py` — `SCHEMA_VERSION = 1`;
+  `PRESS_KIT_FIELDS = (blurb_150, blurb_500, sample_chapter_html)`
+  with `FIELD_LIMITS = {1200, 3500, 20000}` chars;
+  `COVER_VARIANTS = {thumb (200,300), web (600,900), social
+  (1080,1080), print (2400,3600)}`; sparse JSON store at
+  `content/press_kit.json` mirroring distribution.py's
+  persistence (atomic write + ensure_backup + whitelist-on-save
+  drops unknown entry fields); `load_press_kit` /
+  `save_press_kit` with empty-state default; `get_blurbs`;
+  `set_blurbs` merge-update (empty string clears + prunes empty
+  edition rows; raises ValueError on over-limit);
+  `resolve_cover_path(edition)` reads `edition["cover_image"]`
+  relative to content/; `resize_cover(src_path, target_size)`
+  via PIL LANCZOS with white-canvas letterbox (RGBA/palette/
+  CMYK all flatten to RGB); `build_zip(edition, blurbs, *,
+  now=None)` via stdlib zipfile DEFLATE — produces manifest.json
+  + 3 blurb files (placeholders when missing) + 4 cover variants
+  (skipped silently when cover absent; manifest records
+  has_cover=False).
+- `scripts/api/press_kit.py` — `api_press_kit_get(edition_id)`
+  returns blurbs + cover_present flag + limits (lets UI render
+  per-field counters); `api_press_kit_save(edition_id, payload)`
+  PUT validates edition against config.load_editions, merge-
+  updates, returns HTTP-413-style `{status:error,
+  code:field_too_long, http:413}` envelope on over-limit,
+  audit-logged; `build_press_kit_zip(edition_id)` returns
+  `(filename, bytes)` on success or error envelope dict on
+  unknown edition.
+- /exec extended with press-kit section — edition selector
+  auto-populates from `/api/distribution`, 3 textareas with live
+  character counters bound to FIELD_LIMITS via data-counter +
+  data-limit, Save button PUTs to `/api/press-kit/<edition>`
+  with ζ.6 toast, Download button native-browser-downloads via
+  `window.location = /api/press-kit/<edition>/download`, cover-
+  status line shows "Cover image found ..." vs "No cover image
+  set ...".
+
+Helper added: `_send_zip(filename, data)` on the request-handler
+class — sanitizes filename to ASCII-safe chars, sends
+application/zip + Content-Disposition: attachment + Cache-Control:
+no-store + security headers. First binary-download helper to
+join `_send_file` (covers) and `_send_html`.
+
+Routes registered: GET `/api/press-kit/<edition>` →
+`_REGEX_GET_ROUTES`; PUT `/api/press-kit/<edition>` →
+`_PUT_ROUTES` (count test 10→11); GET
+`/api/press-kit/<edition>/download` → do_GET legacy cascade
+(binary; routes through `build_press_kit_zip` + `_send_zip`).
+
+**+37 tests** in `tests/test_press_kit_epsilon7.py`:
+TestEpsilon7Constants × 4, LoadSave × 4, SetBlurbs × 5,
+ResizeCover × 3, BuildZip × 5, ApiGet × 2, ApiSave × 4,
+BuildZipHelper × 2, ExecTemplate × 4, RouteRegistration × 4.
+
+**2922 / 2923 tests pass serially (1 skipped); 11/11 lint clean.**
+
+## Prior task
+
 **ε.6 distribution checklist** shipped 2026-05-11. Month 5 #5
 — per-edition × per-channel shipped-to grid on /exec with
 editable cells, coverage % rollup, atomic JSON persistence.

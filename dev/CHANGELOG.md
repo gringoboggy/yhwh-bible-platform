@@ -6,6 +6,175 @@
 
 ---
 
+## 2026-05-11 — session — ε.7 press kit auto-build (Month 5 #6; 6 of 7 ships)
+
+**Phases shipped:** ε.7 (press kit auto-build — per-edition ZIP with
+4 PIL-resized cover variants + 150/500-word blurbs + sample chapter
+HTML + manifest; editable blurbs in /exec; native browser download
+via Content-Disposition attachment).
+**Test delta:** +37 (2885 → 2922; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### ε.7 — Press kit auto-build
+
+Per the proposal spec: "Per-edition zip with cover variants (4
+sizes), 150-word blurb, 500-word description, sample chapter."
+"Download press kit" on /exec produces the complete deliverable in
+one click; today the publisher hand-resizes covers, copy-pastes
+blurbs from a notes app, and PDF-s a sample chapter.
+
+**Storage** — `content/press_kit.json` (machine-managed sparse JSON,
+sibling to `content/distribution.json` and `content/sources/*.json`).
+Mirrors distribution.py's persistence discipline exactly so the
+atomic-write + backup + whitelist-on-save pattern is uniform across
+the three publisher-state files.
+
+**Schema (v1)**:
+
+```
+{
+  "schema_version": 1,
+  "editions": {
+    "<edition_id>": {
+      "blurb_150": "...",
+      "blurb_500": "...",
+      "sample_chapter_html": "..."
+    }
+  }
+}
+```
+
+**Cover variants** (PIL via Pillow 12.2.0; LANCZOS resampling;
+white-canvas letterbox preserves aspect):
+
+| Variant | Pixels       | Use case                               |
+|---------|--------------|----------------------------------------|
+| thumb   |  200 ×  300  | Catalogue rows, list views             |
+| web     |  600 ×  900  | Storefront product page                |
+| social  | 1080 × 1080  | Instagram / Twitter square             |
+| print   | 2400 × 3600  | KDP minimum print interior; high-res   |
+
+Variants are PNG (lossless) — re-encoding from the source preserves
+text clarity better than re-saving JPEGs.
+
+**Field limits** — 150-word blurb capped at 1200 chars (≈150 words ×
+6 chars + punctuation headroom), 500-word at 3500, sample chapter at
+20000. Over-limit save returns HTTP-413-style `{status:error,
+code:field_too_long, http:413, message:...}` so the UI can flag the
+exact field.
+
+**Public API** (`scripts/core/press_kit.py`):
+
+- `SCHEMA_VERSION`, `PRESS_KIT_FIELDS`, `COVER_VARIANTS`,
+  `FIELD_LIMITS` — pinned constants.
+- `load_press_kit()` / `save_press_kit(state)` — atomic + backup +
+  whitelist-on-save (drops unknown entry fields from stale clients).
+- `get_blurbs(state, edition_id)` — per-edition dict.
+- `set_blurbs(edition_id, *, blurb_150, blurb_500, sample_chapter_html)`
+  — merge-update; empty string clears a field; pruning keeps the
+  edition row sparse; raises ValueError on over-limit.
+- `resolve_cover_path(edition)` — content-relative cover_image →
+  absolute Path or None.
+- `resize_cover(src_path, target_size)` — RGBA / palette / CMYK
+  inputs all flatten to RGB on white canvas; LANCZOS thumbnail +
+  letterbox to target_size; PNG bytes out.
+- `build_zip(edition, blurbs, *, now=None)` — bytes; manifest +
+  blurb placeholders + cover variants (skipped silently when
+  cover absent; the manifest records `has_cover: False`).
+
+### API surface
+
+`scripts/api/press_kit.py`:
+
+- `api_press_kit_get(edition_id)` — GET; returns
+  `{status, edition_id, edition_known, blurbs, cover_present,
+  limits, fields, schema_version}`. Unknown edition still returns
+  ok (with edition_known=False) so the UI can render a "create one
+  first" message rather than HTTP 404.
+- `api_press_kit_save(edition_id, payload)` — PUT; validates
+  edition against `config.load_editions()`, merge-updates,
+  returns `{ok, edition_id, blurbs}` on success or the standard
+  error envelope on validation failure. Audit-logged.
+- `build_press_kit_zip(edition_id)` — returns `(filename, bytes)`
+  on success or an error-envelope dict on failure. The legacy
+  `/api/press-kit/<edition>/download` route in do_GET inspects
+  the return type — tuple goes to a new `_send_zip` helper, dict
+  goes through `_dispatch_table_result` for JSON error envelope.
+
+### /exec press-kit section
+
+`scripts/templates/exec.py::EXEC_HTML` extended with:
+
+- Per-edition `<select>` that auto-populates from
+  `/api/distribution` (edition list reuse) — first edition
+  auto-loads its blurbs.
+- Three `<textarea>` fields with live character counters
+  (`data-counter` / `data-limit` spans bind to `FIELD_LIMITS`).
+- "Save blurbs" button — PUT to `/api/press-kit/<edition>` with
+  ζ.6 toast on result.
+- "Download press kit (ZIP)" button — `window.location =
+  /api/press-kit/<edition>/download` triggers a native browser
+  download via Content-Disposition attachment.
+- Cover-status line — "Cover image found — ZIP will include 4
+  sized variants." OR "No cover image set — ZIP will skip cover
+  variants."
+
+### `_send_zip` helper
+
+New helper on the request handler class:
+`_send_zip(filename, data)` — sanitizes the filename to ASCII-safe
+chars, sends `Content-Type: application/zip` + `Content-Length` +
+`Content-Disposition: attachment; filename="..."` + Cache-Control:
+no-store, then writes the bytes. First binary-download helper to
+join `_send_file` (covers) and `_send_html`.
+
+### Routes
+
+- GET `/api/press-kit/<edition>` → `_REGEX_GET_ROUTES` (blurbs + cover-present)
+- PUT `/api/press-kit/<edition>` → `_PUT_ROUTES` (count 10 → 11)
+- GET `/api/press-kit/<edition>/download` → do_GET legacy cascade
+  (binary; routes through `build_press_kit_zip` + `_send_zip`)
+
+### Files
+
+- `scripts/core/press_kit.py` — new (~320 lines: constants,
+  load/save/get/set, resolve_cover_path, resize_cover via PIL,
+  build_zip via stdlib zipfile).
+- `scripts/api/press_kit.py` — new (~110 lines: 2 JSON endpoints
+  + 1 binary-builder helper).
+- `scripts/templates/exec.py` — extended docstring; added press-kit
+  section + 5 JS helpers (loadPressKitEditions, loadPressKitFor,
+  savePressKit, downloadPressKit, updatePressKitCounter); event
+  wiring IIFE; `loadPressKitEditions()` initial-load call.
+- `scripts/web.py` — `from scripts.api.press_kit import …`;
+  `/api/press-kit/<edition>` GET added to `_REGEX_GET_ROUTES`;
+  PUT added to `_PUT_ROUTES`; download branch added to do_GET
+  legacy cascade; `_send_zip` helper added to handler class.
+- `tests/test_press_kit_epsilon7.py` — new (37 tests across 11
+  classes: Constants × 4, LoadSave × 4, SetBlurbs × 5,
+  ResizeCover × 3, BuildZip × 5, ApiGet × 2, ApiSave × 4,
+  BuildZipHelper × 2, ExecTemplate × 4, RouteRegistration × 4).
+- `tests/test_web_routetable.py` — PUT route-count test
+  bumped 10 → 11.
+
+### Forward references in code
+
+Docstrings name **ε.5** (quarterly auto-report PDF embeds blurbs
++ ZIP-link), **ο.4** (archive.org auto-upload composes
+`build_press_kit_zip` for the upload payload AND auto-marks the
+`archive_org` distribution cell on successful push). Logged here
+so the linter's "phase mentioned in code" check stays clean.
+
+### Month 5 status
+
+Shipped: Δ.15, ε.1, ε.2, ε.3, ε.6, ε.7 (6 of 7).
+Remaining: ο.4 archive.org auto-upload (the last non-money
+Month 5 item — composes ε.7's ZIP builder for its upload payload
++ closes the ε.6 distribution-checklist auto-toggle loop for
+the `archive_org` cell).
+
+---
+
 ## 2026-05-11 — session — ε.6 distribution checklist (Month 5 #5; 5 of 7 ships)
 
 **Phases shipped:** ε.6 (distribution channel checklist — per-edition

@@ -1396,11 +1396,12 @@ class TestOmega35A10BespokePutCleanup:
     preview's "error" key has no `status` discriminator).
     """
 
-    def test_put_table_has_ten_entries(self):
+    def test_put_table_has_eleven_entries(self):
         # 6 from A.5 + 3 from A.10 + 1 from ε.6 (distribution mark)
+        # + 1 from ε.7 (press-kit save)
         from scripts import web
 
-        assert len(web._PUT_ROUTES) == 10
+        assert len(web._PUT_ROUTES) == 11
 
     def test_put_table_includes_a10_routes(self):
         from scripts import web

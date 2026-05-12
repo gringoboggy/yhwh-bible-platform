@@ -1902,6 +1902,11 @@ from scripts.api.distribution import (
     api_distribution_mark,
     api_distribution_unmark,
 )
+from scripts.api.press_kit import (
+    api_press_kit_get,
+    api_press_kit_save,
+    build_press_kit_zip,
+)
 
 CORPUS_TARGET = 35_000
 
@@ -3384,6 +3389,10 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (re.compile(r"^/api/hebrew/([Hh]?\d+)$"), api_hebrew_lookup),
     # γ.2: Strong's Greek lookup. Parallel to γ.1; G-prefix.
     (re.compile(r"^/api/greek/([Gg]?\d+)$"), api_greek_lookup),
+    # ε.7 — /api/press-kit/<edition> — per-edition blurbs + cover-
+    # present flag + field limits. The /download companion lives in
+    # the legacy cascade because it returns binary (ZIP) bytes.
+    (re.compile(r"^/api/press-kit/([a-z0-9-]+)$"), api_press_kit_get),
 ]
 
 
@@ -3478,6 +3487,12 @@ _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (
         re.compile(r"^/api/distribution/([a-z0-9-]+)$"),
         lambda m, payload: api_distribution_mark(m.group(1), payload),
+    ),
+    # ε.7 — /api/press-kit/<edition> — save per-edition blurbs.
+    # Payload: {blurb_150?, blurb_500?, sample_chapter_html?}.
+    (
+        re.compile(r"^/api/press-kit/([a-z0-9-]+)$"),
+        lambda m, payload: api_press_kit_save(m.group(1), payload),
     ),
     # ω.35-A.10 — /api/editions/from-template — uses status==ok|error
     # shape. Standard helper covers it via status==error → http
@@ -3865,6 +3880,22 @@ class Handler(BaseHTTPRequestHandler):
         self._send_security_headers()  # ξ.3
         self.end_headers()
         self.wfile.write(body)
+
+    def _send_zip(self, filename: str, data: bytes):
+        """ε.7 — serve a ZIP as an attachment download. Filename is
+        sanitized to ASCII-safe characters via the standard simple
+        filter (alphanumerics + dash + underscore + dot); anything
+        else collapses to underscore so the Content-Disposition header
+        stays well-formed across browsers."""
+        safe_name = "".join(c if (c.isalnum() or c in "._-") else "_" for c in filename) or "download.zip"
+        self.send_response(200)
+        self.send_header("Content-Type", "application/zip")
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Content-Disposition", f'attachment; filename="{safe_name}"')
+        self.send_header("Cache-Control", "no-store")
+        self._send_security_headers()
+        self.end_headers()
+        self.wfile.write(data)
 
     def _send_file(self, path: Path, content_type: str | None = None):
         """Serve a binary file (cover images etc.). Path must already
@@ -4435,6 +4466,18 @@ class Handler(BaseHTTPRequestHandler):
             if not file_path.is_file():
                 return self._send_json({"error": "not found"}, status=404)
             return self._send_file(file_path)
+
+        # ε.7 — press-kit ZIP download. Returns binary (zipfile bytes)
+        # so it can't go through the JSON-shaped route tables. Lives in
+        # the legacy cascade by design.
+        m = re.match(r"^/api/press-kit/([a-z0-9-]+)/download$", path)
+        if m:
+            result = build_press_kit_zip(m.group(1))
+            if isinstance(result, tuple):
+                filename, body = result
+                return self._send_zip(filename, body)
+            # Error envelope dict — JSON-translate via the standard helper.
+            return _dispatch_table_result(self, result)
 
         m = re.match(r"^/api/notes/([a-z0-9]+)$", path)
         if m:
