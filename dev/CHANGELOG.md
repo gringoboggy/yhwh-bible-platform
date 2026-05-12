@@ -6,6 +6,103 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.1 Cyril on John (first wave: John 1-4)
+
+**Phases shipped:** γ.4.1 — first wave of Cyril of Alexandria's
+Commentary on John appended to the Ethiopian Tewahedo corpus.
+γ.4 shipped 12 seed entries; γ.4.1 adds 30 substantive Cyril-on-
+John entries covering chapters 1-4 (Logos prologue + John the
+Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman).
+Per `dev/SCOPE_2026-05-12-addendum-gamma-4-expansion.md` γ.4.1
+scope, the eventual target is ~400-600 entries from NPNF S2 V14;
+this ship is the first wave, with γ.4.1.B-D extending to John 5-21.
+**Test delta:** +12 (3347 → 3359; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### γ.4.1 — Cyril on John (John 1-4 first wave)
+
+Cyril of Alexandria (d. 444 AD) wrote his Commentary on the
+Gospel of John in 12 books, of which Books I-VI (Jn 1-7) and
+IX-XII (Jn 11-21) are extant; Books VII-VIII (Jn 8-10) are lost.
+The PD English translation by P.E. Pusey (Books I-VIII, 1874-
+1881) and Thomas Randell (Books IX-XII, 1885) constitutes NPNF
+Series 2 Volume 14. Both translators died well before 1929 (Pusey
+d. 1880, Randell d. 1899); CCEL hosts the full text under PD.
+
+**Why this ship matters for the project specifically**:
+
+- The Ethiopian Tewahedo Church preserves Cyril's Christology
+  more fully than any other living Christian communion: the
+  Anaphora of Cyril (Mäṣḥafä Qǝddase) is one of fourteen
+  anaphoras in regular liturgical use; the Synaxarium honors
+  Cyril on the 3rd of Hamlē. Substantive Cyril-on-John coverage
+  is therefore not auxiliary but **central** to the
+  ethiopian-tewahedo edition's distinctive theological voice.
+- γ.4 shipped 3 Cyril-on-John entries (Jn 1:1, 1:14, 19:34) as
+  proof-of-concept; γ.4.1 deepens to 33 Cyril-on-John entries —
+  enough that Cyril is now the **heaviest single voice** in the
+  Ethiopian commentary corpus (was 5 of 12 = 41%; now 35 of 42
+  = 83%). Future γ.4.1.B-D + γ.4.2-6 expansion will keep this
+  Cyrilline weight while adding Ephrem, 1 Enoch, Andəmta, and
+  Synaxarium balance.
+- The new entries pin the load-bearing Cyrilline doctrinal
+  anchors: **communicatio idiomatum** (Jn 3:13), **anti-Arian
+  Christology** (Jn 1:3), **revelatory epistemology** (Jn 1:18),
+  **Lamb of God sacrificial typology** (Jn 1:29), **baptismal
+  regeneration** (Jn 3:5), **Trinitarian soteriology** (Jn 3:16),
+  **ontological theology** (Jn 4:24 "God is Spirit"). All are
+  the same doctrinal pins that Tewahedo dogmatics inherits via
+  Cyril's Christology against Chalcedonian dilution.
+
+### Files
+
+- `content/sources/ethiopian_commentaries.json` — 30 new Cyril-on-
+  John entries appended (covering Jn 1:3, 1:4, 1:5, 1:9, 1:11,
+  1:12, 1:13, 1:18, 1:23, 1:29, 1:33, 1:51, 2:4, 2:7, 2:11, 2:19,
+  2:21, 3:3, 3:5, 3:6, 3:8, 3:13, 3:14, 3:16, 3:36, 4:14, 4:23,
+  4:24, 4:34, 4:42). Each entry: ~120-180 word paraphrase of
+  Cyril's interpretive position, NPNF S2 V14 attribution. The
+  `_meta` block updated to document γ.4.1 wave + Pusey/Randell
+  PD translator chain. The 2 existing seed entries (Jn 1:1 + 1:14)
+  also updated to cite Pusey/Randell for consistency with γ.4.1
+  attribution style.
+- `tests/test_ethiopian_gamma4.py` — new `TestGamma41CyrilJohn`
+  class (12 tests): Cyril-as-heaviest-voice pin, John 1-4 chapter
+  coverage pin, Logos prologue depth pin, and 9 doctrinal-anchor
+  pins (Jn 1:3 anti-Arian / 1:18 revelatory epistemology / 1:29
+  Lamb of God / 3:5 baptismal regeneration / 3:13 communicatio
+  idiomatum / 3:16 Trinitarian soteriology / 4:24 ontological
+  theology, plus NPNF + Vol 14 + PD citation pin in every entry
+  + _meta documents γ.4.1 expansion pin).
+
+**Code-side wiring**: zero new code. γ.4.1 is pure content expansion
+within the γ.4 infrastructure shipped 2026-05-11 (EthiopianCommentaryDetector,
+EthiopianCommentaries loader, comm-ethiopian kind, ethiopian-tewahedo
+edition tradition mapping). The existing detector picks up the new
+entries automatically on next process restart (loader is `@lru_cache`-
+singleton; cleared at test setup).
+
+### Forward references
+
+- **γ.4.1.B** — Cyril on John 5-7 (Bethesda discourse + Bread of
+  Life + Tabernacles). ~20-30 more entries.
+- **γ.4.1.C** — Cyril on John 11-14 (Lazarus + Last Supper +
+  Farewell Discourses). ~30-40 more entries.
+- **γ.4.1.D** — Cyril on John 15-21 (Vine discourse +
+  High-Priestly Prayer + Passion + Resurrection appearances).
+  ~30-40 more entries.
+- **γ.4.2** — Ephrem on Genesis (NPNF S2 V13). ~200-300 entries.
+- **γ.4.3** — Cyril on Luke (Payne Smith 1859 PD). ~400 entries.
+- **γ.4.4** — 1 Enoch verse-keyed entries (Charles 1912). ~300
+  entries.
+
+**Activation criteria** (per `dev/SCOPE_2026-05-12-addendum-gamma-4-expansion.md`):
+the publisher's explicit direction to ship γ.4.1 this session
+constitutes the formal confirmation of "v1.x uniqueness angle =
+Tewahedo direction" required by the addendum.
+
+---
+
 ## 2026-05-12 — session — χ.5 SEED Rashi (CLOSES χ.2-5 cluster)
 
 **Phases shipped:** χ.5 (SEED — Rashi's Commentary on the Tanakh,

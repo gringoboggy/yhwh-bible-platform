@@ -2,8 +2,11 @@
 
 **Date:** 2026-05-12
 **Parent phase:** γ.4 (Ethiopian Tewahedo commentary — shipped 2026-05-12)
-**Status:** stub. Targets captured; per-source ETL specs to be
-written when each γ.4.x sub-phase is picked up.
+**Status:** γ.4.1 first wave (Cyril on John 1-4, 30 entries) shipped
+2026-05-12. γ.4.1.B-D + γ.4.2-6 still open per per-source ETL specs
+below. Activation criteria for γ.4.1 met by publisher's explicit
+direction to ship; γ.4.1.B-D activation expected to flow from same
+trajectory.
 
 ---
 
@@ -93,16 +96,28 @@ sub-phases ship against an explicit plan.
 
 ```
 γ.4.1   Cyril's John commentary (NPNF S2 V14)        ~400-600 entries
-γ.4.2   Ephrem on Genesis (NPNF S2 V13)              ~200-300 entries
-γ.4.3   Cyril's Luke (Payne Smith 1859 — PD)         ~400 entries
-γ.4.4   1 Enoch (Charles 1912) verse-keyed entries   ~300 entries
-γ.4.5   Ephrem's Hymns on Paradise selections        ~80 entries
-γ.4.6   Cyril's Letters + Thesaurus (selective)      ~150-200 entries
+        ├─ γ.4.1.A  John 1-4 (Prologue + Cana +      30 entries  ✓ SHIPPED 2026-05-12
+        │           Nicodemus + Samaritan woman)                  [first wave]
+        ├─ γ.4.1.B  John 5-7 (Bethesda + Bread of    ~20-30 entries
+        │           Life + Tabernacles)                           open
+        ├─ γ.4.1.C  John 11-14 (Lazarus + Last       ~30-40 entries
+        │           Supper + Farewell Discourses)                 open
+        └─ γ.4.1.D  John 15-21 (Vine + High-         ~30-40 entries
+                    Priestly Prayer + Passion +                   open
+                    Resurrection)
+        [γ.4.1 books VII-VIII covering John 8-10 are LOST in
+         the manuscript tradition; no Cyril coverage possible
+         for those chapters per the addendum]
+γ.4.2   Ephrem on Genesis (NPNF S2 V13)              ~200-300 entries  open
+γ.4.3   Cyril's Luke (Payne Smith 1859 — PD)         ~400 entries      open
+γ.4.4   1 Enoch (Charles 1912) verse-keyed entries   ~300 entries      open
+γ.4.5   Ephrem's Hymns on Paradise selections        ~80 entries       open
+γ.4.6   Cyril's Letters + Thesaurus (selective)      ~150-200 entries  open
 
-γ.4.y   Synaxarium date-keyed liturgical sidebar     ~400 entries
+γ.4.y   Synaxarium date-keyed liturgical sidebar     ~400 entries      open
         (orthogonal pattern; needs new infrastructure)
 γ.4.z   Andəmta — BLOCKED on translation budget /
-        seminary partnership
+        seminary partnership                                            BLOCKED
 ```
 
 **Total achievable PD corpus** (γ.4.1-γ.4.6): ~1,500-1,800

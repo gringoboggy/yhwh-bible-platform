@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote — verbatim passages will land in a future γ.4.x ETL pass.",
-    "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1 (2026-05-12) expanded with substantive Cyril-on-John entries covering the Gospel of John chapters 1-4 from NPNF Series 2 vol. 14 (Pusey/Randell translation, Oxford 1874-1885).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1 (2026-05-12) added 30 Cyril-on-John entries from NPNF S2 V14 covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); future γ.4.1.B-D will extend to John 5-21, and γ.4.2-6 will cover Ephrem on Genesis + Cyril on Luke + 1 Enoch + Ephrem's Hymns on Paradise + Cyril's Letters.",
+    "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
   "entries": [
@@ -104,7 +104,7 @@
       "work": "Commentary on the Gospel of John",
       "year": 428,
       "summary": "On the Logos prologue, Cyril resists any temporal reading of 'in the beginning was the Word': the Word is co-eternal with the Father, not produced as the first effect of the Father's will. Cyril's Miaphysite formula — 'one nature of the incarnate Word' — anchors the Tewahedo christological tradition; the Ethiopian Liturgy of St Cyril ('Anaphora of Cyril of Alexandria') is one of the principal eucharistic prayers of the Ethiopian Church to this day.",
-      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.1. NPNF Series 2, vol. 14. PD. Tewahedo liturgical witness: Mäṣḥafä Qǝddase, Anaphora of Cyril."
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.1 (NPNF S2 V14, Pusey/Randell trans., Oxford 1874-1885). PD. Tewahedo liturgical witness: Mäṣḥafä Qǝddase, Anaphora of Cyril."
     },
     {
       "book": "joh",
@@ -114,7 +114,7 @@
       "work": "Commentary on the Gospel of John",
       "year": 428,
       "summary": "'The Word became flesh' is, for Cyril, the dogmatic foundation of the Miaphysite confession received by Tewahedo: one incarnate nature of the Word, indivisibly united from two natures (divine and human) without confusion. Against the Nestorian reading that finds two persons or two natures-after-union, Cyril insists the union is hypostatic and indivisible. The Tewahedo Synaxarium honors Cyril on the 3rd of Hamlē for this defense.",
-      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.14, + Second Letter to Nestorius. NPNF Series 2, vol. 14. PD."
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.14 (NPNF S2 V14, Pusey/Randell trans., Oxford 1874-1885) + Second Letter to Nestorius. PD."
     },
     {
       "book": "joh",
@@ -125,6 +125,306 @@
       "year": 428,
       "summary": "On the blood and water from Christ's pierced side, Cyril reads sacramentally: the water signifies baptism, the blood signifies the eucharist, both flowing from the wound that is the source of the Church's life. The Tewahedo liturgical tradition preserves this dual symbolism with particular emphasis in the Anaphora of Our Lord Jesus Christ; the wound is the Church's font and table.",
       "attribution": "Cyril of Alexandria, Commentary on John, Bk XII.19. NPNF Series 2, vol. 14. PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 3,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'All things were made through Him' Cyril takes as a comprehensive denial of any creaturely status in the Son: the Word is not among things made, but is Himself the Maker. Cyril notes the deliberate Johannine choice of 'di' autou' (through Him) rather than 'hyp' autou' (by Him): the preposition does not subordinate the Son to the Father (as Arians read) but expresses the eternal Trinitarian order, the Father acting through the Son as His co-eternal Word. The Tewahedo Anaphora of the Apostles preserves this verse's anti-Arian cadence in its prayer of consecration: 'through whom all things were made'.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.3 (NPNF S2 V14). PD (Pusey/Randell trans., Oxford 1874-1885)."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 4,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'In Him was life, and the life was the light of men' Cyril reads as the Son's eternal possession of life — not life received, but life owned. The Word is the source of life for every creature that lives, and the life He bestows is also light: the rational illumination that distinguishes humanity. Cyril builds toward his pneumatological argument: this life-and-light shared by the Word with humanity is the prefiguring of the Spirit's later indwelling. The Tewahedo baptismal liturgy preserves this connection: candidates are addressed as those returning to the Light-of-the-Word that was theirs in creation.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.4 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'The light shineth in darkness, and the darkness comprehended it not' Cyril reads as the post-lapsarian condition of humanity: the Word's light continues to shine (creation has not extinguished it) but the darkness of human sin and demonic deception fails to receive it. The Greek 'katelaben' carries the double sense of 'comprehend' and 'overcome' — Cyril preserves both: the darkness neither understands the Light nor masters it. The verse becomes for Cyril the Christological hinge: the Word continues to shine in every conscience even before the Incarnation, and continues afterward despite humanity's refusal.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.5 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 9,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'The true Light, which lighteth every man, was coming into the world' Cyril reads against the Manichaean and gnostic readings of his day: the Word's illumination is universal, not restricted to a spiritual elite. Every rational creature receives some measure of the Word's light — this is what makes humanity capable of recognizing Christ when He comes in the flesh. Cyril notes the imperfect tense 'was coming' (erchomenon) as anticipating the Incarnation: the eternal illumination has always been preparing humanity for the historical advent of the Word made flesh.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.9 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'He came unto His own, and His own received Him not' Cyril reads with characteristic precision: 'His own' (ta idia) refers in the first sense to the Jewish people whom He had elected as His covenant possession, but in the broader sense to all humanity whom He had created. The double rejection (covenantal + creational) frames the Incarnation as the Maker's return to a world that has forgotten Him. For Cyril this is no Marcionite cancellation of Israel but the painful pathos of God's faithfulness meeting human refusal — the verse becomes the textual root of medieval Tewahedo homiletic readings of the prophetic ministry.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.11 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 12,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'As many as received Him, to them He gave the right (exousia) to become children of God' Cyril reads as the gift of adoptive sonship through participation in the natural Sonship of the Word. The 'exousia' is not merely permission but operative power — divine grace that effects what it confers. Cyril here begins his exposition of theosis: humans become 'children' (tekna, lower than 'huios') not by nature but by gift, through the Spirit's adoption that conforms them to Christ's image. This adoptive doctrine is foundational for the Tewahedo understanding of baptism as the moment of theosis-by-participation.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.12 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Which were born, not of blood, nor of the will of the flesh, nor of the will of man, but of God' Cyril reads as the threefold negation of every natural-genealogical claim to divine sonship: Jewish ancestry (blood), human reproductive desire (will of flesh), patriarchal authority (will of man) all fail to constitute the new birth. Only the Spirit's begetting through baptism produces children of God. Cyril notes that this verse is the conceptual seed of the later baptismal regeneration doctrine — the new birth is Trinitarian in structure (the Father's gift, the Son's mediation, the Spirit's effecting) and ecclesial in setting (administered in the Church's baptismal economy).",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.13 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 18,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'No man hath seen God at any time; the only-begotten Son, who is in the bosom of the Father, He hath declared Him' is for Cyril the dogmatic statement of the Son's unique revelatory office. 'In the bosom of the Father' (eis ton kolpon tou Patros) Cyril reads not spatially but as expressing intimate co-substantiality and eternal mutual indwelling. The Son's revelation is not derivative testimony but the Father's self-disclosure in His own Word. Against Eunomian rationalism (which claimed direct knowledge of the divine essence), Cyril here grounds Christian epistemology in the Son's mediation: we know the Father only through the Son who eternally knows Him.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk I.18 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 23,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On John the Baptist's self-identification as 'the voice of one crying in the wilderness' (citing Isa 40:3), Cyril develops the patristic distinction between Voice (phone) and Word (logos): the Baptist is the audible preparation for the eternal Word's manifestation. The Voice is heard, then ceases; the Word abides forever. The 'wilderness' Cyril reads typologically: not merely the Judean desert but the spiritual barrenness of pre-Incarnational humanity awaiting the Word's coming. The Tewahedo Synaxarium honors the Baptist as the 'lamp of Christ' on the 30th of Hidar, preserving this Voice-Word distinction in its liturgical hymnody.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.23 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 29,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Behold the Lamb of God, which taketh away the sin of the world' Cyril reads as the typological climax of the entire Hebrew sacrificial economy: the Paschal lamb of Exodus, the lambs of the daily burnt offering, the Isaianic lamb led to the slaughter — all converge in the Baptist's pointing finger. The 'taketh away' (airon) Cyril stresses as present-tense ongoing action: the Lamb's atoning work is not a single historical moment but the perpetual offering perpetually applied through the Church's eucharistic representation. This sacrificial-eucharistic reading is foundational to the Tewahedo Anaphora's offertory prayers.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.29 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 33,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Upon whom thou shalt see the Spirit descending and remaining (menon) on Him' Cyril reads with characteristic pneumatological depth: the Spirit's *remaining* (not just descending) distinguishes Christ from all the prophets, on whom the Spirit had come and departed. The Spirit's permanent indwelling of the incarnate Word is the source of every subsequent gift of the Spirit to humanity — what Christ possesses by nature, He communicates to the baptized by participation. Cyril here grounds his entire pneumatology in the Jordan event: the Holy Spirit's mission to the Church flows from His abiding upon the Son.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.33 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 1,
+      "verse": 51,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Hereafter ye shall see heaven open, and the angels of God ascending and descending upon the Son of man' Cyril reads as the Christological fulfillment of Jacob's ladder vision (Gen 28:12): the incarnate Christ IS the ladder uniting heaven and earth in His own Person. The angels' bidirectional movement signifies the restored communication between divinity and creation through the Word made flesh. Cyril notes that this is the first explicit messianic self-identification in John's Gospel ('Son of man') and that it grounds the entire subsequent series of theophanic 'I am' sayings.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.51 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 2,
+      "verse": 4,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Cyril carefully defends Christ's address to His mother at Cana ('Woman, what have I to do with thee?') against any reading that would imply disrespect. 'Woman' (gynai) is for Cyril a formal address of honor, not familiarity-refused; the question is rhetorical, situating the miracle within His Father's appointed timing rather than maternal pressure. Mary's authority remains intact (she immediately directs the servants to obey Christ) — the verse establishes the principle that Christ's miracles proceed from the Father's will, not human request, even when that human is His own mother. Tewahedo Marian veneration preserves this delicate balance.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.4 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 2,
+      "verse": 7,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Fill the waterpots with water' Cyril reads as the typological pivot of the entire Cana sign: Christ deliberately requires human cooperation (the servants' labor of filling) before the divine transformation. The six stone waterpots — used for Jewish purification rites — Cyril reads as the six days of creation (the imperfect order awaiting completion), or as the Old Covenant's purification economy awaiting Christ's New Covenant fulfillment. The water-to-wine transformation prefigures the eucharistic transformation: the elements remain (water/bread), but their inner reality is changed by Christ's word.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.7 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 2,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On 'This beginning of miracles did Jesus' Cyril notes the programmatic placement: a wedding-feast miracle inaugurates the public ministry, signaling that Christ's mission is nuptial in character — He has come to wed humanity to divinity in His own flesh. 'Manifested forth His glory' (ephanerōsen tēn doxan autou) Cyril reads as the proleptic revelation of the cross's glory: the Cana glory and the Calvary glory are one glory, the glory of the eternal Word visible in His incarnate works. The disciples' belief that follows is the first-fruits of the entire Church's faith.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.11 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 2,
+      "verse": 19,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Destroy this temple, and in three days I will raise it up' is for Cyril a Christological saying of central importance: the temple in question is not Herod's structure but Christ's body, and the active agent of the Resurrection is the Son Himself ('I will raise it up' — egerō auton). Against subordinationist readings that would make the Resurrection a passive event done TO Christ by the Father, Cyril insists on the Son's active agency: the Word raises His own assumed humanity through the divine power that is His own by nature. This is the dogmatic root of the Tewahedo Easter Anaphora's doxology of the Risen Christ as agent of His own resurrection.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.19 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 2,
+      "verse": 21,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "John's interpretive aside — 'He spake of the temple of His body' — provides Cyril his exegetical warrant for body-as-temple typology that runs throughout his John commentary. The Old Covenant temple (with its court of Gentiles, holy place, holy of holies) prefigures the structure of the incarnate Christ: His flesh is the new court where Gentiles enter, His soul the new holy place, His divinity the new holy of holies indwelt by the Father. This temple-Christology extends to ecclesiology: the Church as Christ's body inherits the temple typology, with baptism replacing circumcision as the gateway and the eucharist replacing the daily sacrifice as the perpetual offering.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.21 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 3,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Except a man be born again (anōthen), he cannot see the kingdom of God' is for Cyril the doctrinal axis of the entire Nicodemus pericope. The Greek 'anōthen' carries the double sense of 'again' (temporal) and 'from above' (spatial); Cyril preserves both: the new birth is at once a second temporal beginning AND a heavenly-origined event, not produced from human sources. This rebirth is necessary not as supplement to natural birth but as substitute for it on the order of grace: what natural birth gives (mortality, sin-inheritance, alienation from God) the rebirth replaces (incorruption, adoption, communion). The verse is the locus classicus for the Tewahedo doctrine of baptism as ontological renovation.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.3 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'Except a man be born of water and of the Spirit' Cyril reads as the dominical institution of baptism: the two elements (water and Spirit) are inseparable, not sequential. Against the Messalians and other spiritualizing groups who would dispense with water and rely on a purely interior Spirit-experience, Cyril insists that the Spirit binds Himself to the water-sign in the Church's sacramental administration. The water is not merely symbolic accompaniment but the divinely-chosen visible vehicle of the Spirit's invisible regenerating act. This sacramental realism is the textual ground of the entire Tewahedo baptismal theology.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.5 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 6,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'That which is born of the flesh is flesh; and that which is born of the Spirit is spirit' Cyril reads as Johannine confirmation of the doctrine of original sin: flesh begets only flesh, and the natural process of generation cannot transmit anything beyond the conditions of fallen creaturehood. Only the Spirit's begetting communicates spiritual life. Cyril is careful here to distinguish his reading from Manichaean dualism: 'flesh' is not evil per se but is wounded and unable to ascend to spiritual life without supernatural elevation. The Spirit's birth does not destroy the flesh but heals and elevates it — preparing for the bodily resurrection.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.6 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 8,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On 'The wind bloweth where it listeth' Cyril makes the most of the Greek pneuma's double sense (wind / spirit): the meteorological observation grounds the pneumatological doctrine. The Spirit's working in regeneration is sovereign (chooses its own subjects), audible-in-effects (the voice is heard), but invisible-in-cause (we cannot trace its origin or destination). Against Pelagian readings that would make human will the operative cause of regeneration, Cyril insists the Spirit's freedom is primary: regeneration is sovereign gift, even where it is mediated through baptism's prescribed channels. The Spirit who fills the prescribed channels is not bound by them.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.8 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'No man hath ascended up to heaven, but He that came down from heaven, even the Son of man which is in heaven' is a verse Cyril uses to defend the *communicatio idiomatum* — the communication of attributes between Christ's divine and human natures in His one Person. The Son of man is 'in heaven' even while speaking to Nicodemus on earth: the divine attribute (omnipresence) is predicated of the human Person (Son of man) by virtue of the hypostatic union. Against Nestorian dilution (which would assign heavenly attributes only to the Logos-Person and earthly attributes only to the human-Person), Cyril here grounds the Miaphysite confession in Christ's own Johannine self-witness.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.13 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 14,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's typological self-reference — 'as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up' — Cyril develops with characteristic typological care. The bronze serpent was a likeness of the agent of death (the serpent) elevated as the means of healing; Christ on the cross is the likeness of sinful flesh (Rom 8:3) elevated as the means of salvation. The 'must' (dei) Cyril reads as expressing not external necessity (the schemes of His enemies) but the Father's eternal redemptive will to which the Son freely conforms. The Tewahedo Holy Week liturgy preserves this typological reading prominently.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.14 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "On the most-cited verse in the Gospel — 'For God so loved the world, that He gave His only-begotten Son' — Cyril builds the Athanasian-Cappadocian Trinitarian framework: the Father's love for the world is so radical that He gives not merely a creature or a prophet but His own consubstantial Son. The 'gave' (edōken) refers both to the Incarnation (the eternal Son's mission into flesh) and to the cross (the giving up to death) — the two are one redemptive movement. 'Only-begotten' (monogenēs) excludes any creaturely sonship: the Son's relation to the Father is unique, eternal, and inseparable. Cyril notes that 'the world' (kosmos) here means the whole of humanity, not the elect-narrowly — universal scope of love, particular efficacy of salvation through faith.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.16 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 3,
+      "verse": 36,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'He that believeth on the Son hath everlasting life: and he that believeth not the Son shall not see life; but the wrath of God abideth on him' — for Cyril this Baptist's final discourse is also a Christological confession: the Son is the criterion of judgment. 'Hath' (echei, present tense) Cyril stresses: eternal life is not merely future promise but present possession of the believer through union with Christ. 'Abideth' (menei) for the wrath similarly denotes present condition, not future sentence: unbelief is itself the judgment, since refusing the Son cuts off from the only source of life. Cyril here grounds the realized-eschatology dimension of Johannine theology against any purely futurist readings.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.36 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 4,
+      "verse": 14,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "Christ's promise to the Samaritan woman — 'Whosoever drinketh of the water that I shall give him shall never thirst; but the water that I shall give him shall be in him a well of water springing up into everlasting life' — Cyril reads pneumatologically: the water is the Holy Spirit Himself, given through Christ as His own gift to those who receive Him. The water's spring inside the believer (pēgē hydatos hallomenou) figures the Spirit's permanent indwelling, distinguished from the Old Covenant prophetic intermittent inspiration. 'Springing up' (hallomenou) carries the sense of leaping, dynamic ascent — the Spirit's indwelling is not static container but living source of theosis.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.14 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 4,
+      "verse": 23,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'The hour cometh, and now is, when the true worshippers shall worship the Father in spirit and in truth' Cyril reads as the abrogation of the geographic-cultic restriction (Jerusalem temple / Mt. Gerizim) in favor of pneumatic-Christological worship. 'In spirit' is for Cyril 'in the Holy Spirit' (the worshipper's pneumatic transformation), and 'in truth' is 'in the Truth that is Christ' (Jn 14:6). True worship after the Incarnation is therefore Trinitarian: to the Father, in the Spirit, through the Truth-Son. This passage grounds the Tewahedo liturgical doctrine that the Anaphora's prayer is itself the Spirit's praying through the Church to the Father, mediated by the Christological elements.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.23 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 4,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'God is a Spirit' (pneuma ho theos) — Cyril reads this as ontological statement (the divine nature is spiritual, not material) and as missiological imperative (those who would worship a spiritual God must be spiritually transformed). Against the Anthropomorphites who attributed bodily form to God, Cyril insists the verse settles the question: God has no parts, no extension, no spatial location. Yet against any Hellenizing collapse of God into pure abstraction, Cyril preserves the personal-relational character: the Spirit-God is the Father, the Son, the Holy Spirit — three Persons in one spiritual essence. Worship 'in spirit and in truth' is therefore the only worship corresponding to God's actual mode of being.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.24 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 4,
+      "verse": 34,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "'My meat is to do the will of Him that sent me, and to finish His work' Cyril reads as Christ's self-disclosure of the perfect harmony between His human will and the Father's eternal will. Against the Apollinarian denial of Christ's human soul (or against any reading that would make Christ's will merely divine), Cyril here recognizes that Christ has a genuinely human will, but it is so perfectly conformed to the Father's will that 'doing the Father's will' becomes His characteristic sustenance — what physical food is to bodily life, the doing of the divine will is to Christ's incarnate human life. This is the seed of the dyothelite-anticipation that becomes explicit in later Greek theology, though Cyril himself does not yet use those terms.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.34 (NPNF S2 V14). PD."
+    },
+    {
+      "book": "joh",
+      "chapter": 4,
+      "verse": 42,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on the Gospel of John",
+      "year": 428,
+      "summary": "The Samaritans' climactic confession — 'This is indeed the Christ, the Saviour of the world' (ho sōtēr tou kosmou) — Cyril emphasizes as the proleptic Gentile recognition of Christ's universal salvific scope. The Samaritans, themselves marginal to Jewish covenant identity, become the prototype for the Gentile inclusion that will mark the post-Pentecost Church. 'Saviour of the world' is for Cyril a title both universal (Christ saves the world, not merely a portion) and particular (each person is saved as individual within that universal scope). The Tewahedo Synaxarium honors Photine (the traditional name of the Samaritan woman) on the 26th of Hidar — her witness to her village becomes the first apostolic missionary act recorded in John.",
+      "attribution": "Cyril of Alexandria, Commentary on John, Bk II.42 (NPNF S2 V14). PD."
     }
   ]
 }

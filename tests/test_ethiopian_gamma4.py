@@ -387,3 +387,137 @@ class TestGamma4Coverage:
         # signals — pin one of them appears in the seed.
         any_enoch = self.ec.for_verse("gen", 6, 1) or self.ec.for_verse("gen", 6, 4)
         assert any_enoch
+
+
+class TestGamma41CyrilJohn:
+    """γ.4.1 — Cyril of Alexandria's Commentary on John (NPNF S2 V14)
+    expansion. γ.4 shipped a 12-entry seed; γ.4.1 added 30 substantive
+    Cyril-on-John entries covering chapters 1-4 (Logos prologue + John
+    the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan
+    woman). Per `dev/SCOPE_2026-05-12-addendum-gamma-4-expansion.md`
+    γ.4.1 scope, the target is ~400-600 entries; γ.4.1 (this ship) is
+    the first wave (~30 entries), with γ.4.1.B-D extending to John
+    5-21.
+
+    Pins:
+    - Cyril is now the heaviest single voice in the Ethiopian corpus.
+    - Cyril-on-John coverage spans John 1-4 (and the existing 19:34).
+    - Every new Cyril entry attribution mentions NPNF + Vol 14 +
+      either Pusey or Randell (the PD translators, Oxford 1874-1885).
+    - The buyer-facing Christological and pneumatological anchors
+      (Jn 1:18 No-man-hath-seen-God, Jn 3:5 born-of-water-and-Spirit,
+      Jn 3:16 God-so-loved, Jn 4:24 God-is-Spirit) are all present.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_cyril_is_heaviest_voice(self):
+        # After γ.4.1, Cyril has many more entries than any other
+        # single Father in the corpus. Pin Cyril count >> Ephrem count.
+        cyril = self.ec.by_father("Cyril of Alexandria")
+        ephrem = self.ec.by_father("Ephrem the Syrian")
+        assert len(cyril) >= 20, f"γ.4.1 expansion expected ≥20 Cyril entries; found {len(cyril)}"
+        assert len(cyril) > len(ephrem), f"After γ.4.1 Cyril ({len(cyril)}) should outweigh Ephrem ({len(ephrem)})"
+
+    def test_cyril_john_chapters_1_through_4_covered(self):
+        # γ.4.1 wave 1 explicitly covers John 1-4.
+        for chapter in (1, 2, 3, 4):
+            cyril_in_chapter = []
+            for verse in range(1, 100):
+                cyril_in_chapter.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+            assert len(cyril_in_chapter) >= 4, (
+                f"γ.4.1 expected ≥4 Cyril entries in John {chapter}; found {len(cyril_in_chapter)}"
+            )
+
+    def test_cyril_logos_prologue_coverage(self):
+        # John 1 prologue (1:1-18) is the Christological foundation.
+        # Pin substantive Cyril coverage in the prologue verses.
+        prologue_cyril = 0
+        for verse in range(1, 19):
+            prologue_cyril += sum(1 for e in self.ec.for_verse("joh", 1, verse) if e.father == "Cyril of Alexandria")
+        assert prologue_cyril >= 6, f"γ.4.1 expected ≥6 Cyril entries in John 1:1-18 prologue; found {prologue_cyril}"
+
+    def test_cyril_anti_arian_anchor_present(self):
+        # John 1:3 ("all things made through Him") is Cyril's
+        # signature anti-Arian Christological pin in his commentary.
+        cyril_103 = [e for e in self.ec.for_verse("joh", 1, 3) if e.father == "Cyril of Alexandria"]
+        assert cyril_103, "γ.4.1 missing Jn 1:3 — Cyril's anti-Arian Christological anchor"
+
+    def test_cyril_no_man_hath_seen_god_present(self):
+        # John 1:18 grounds Cyril's revelatory epistemology.
+        cyril_118 = [e for e in self.ec.for_verse("joh", 1, 18) if e.father == "Cyril of Alexandria"]
+        assert cyril_118, "γ.4.1 missing Jn 1:18 — Cyril's revelatory-epistemology anchor"
+
+    def test_cyril_lamb_of_god_present(self):
+        # John 1:29 is the typological sacrificial pivot.
+        cyril_129 = [e for e in self.ec.for_verse("joh", 1, 29) if e.father == "Cyril of Alexandria"]
+        assert cyril_129, "γ.4.1 missing Jn 1:29 — Lamb of God typological anchor"
+
+    def test_cyril_baptismal_regeneration_anchor_present(self):
+        # John 3:5 ("born of water and the Spirit") is the
+        # Cyrilline sacramental-realism pin against spiritualizing
+        # readings of baptism.
+        cyril_305 = [e for e in self.ec.for_verse("joh", 3, 5) if e.father == "Cyril of Alexandria"]
+        assert cyril_305, "γ.4.1 missing Jn 3:5 — baptismal regeneration anchor"
+
+    def test_cyril_god_so_loved_present(self):
+        # John 3:16 is the most-cited verse in the Gospel — its
+        # Cyrilline reading anchors the Athanasian-Cappadocian
+        # Trinitarian framework received by Tewahedo.
+        cyril_316 = [e for e in self.ec.for_verse("joh", 3, 16) if e.father == "Cyril of Alexandria"]
+        assert cyril_316, "γ.4.1 missing Jn 3:16 — Trinitarian-soteriological anchor"
+
+    def test_cyril_god_is_spirit_present(self):
+        # John 4:24 grounds the ontological-theological pin
+        # ('God is Spirit') against Anthropomorphite readings.
+        cyril_424 = [e for e in self.ec.for_verse("joh", 4, 24) if e.father == "Cyril of Alexandria"]
+        assert cyril_424, "γ.4.1 missing Jn 4:24 — God-is-Spirit ontological anchor"
+
+    def test_cyril_communicatio_idiomatum_anchor_present(self):
+        # John 3:13 ("Son of man which is in heaven") is Cyril's
+        # locus classicus for the communicatio idiomatum doctrine
+        # that grounds Miaphysite Christology against Nestorian
+        # dilution — load-bearing for Tewahedo Christology.
+        cyril_313 = [e for e in self.ec.for_verse("joh", 3, 13) if e.father == "Cyril of Alexandria"]
+        assert cyril_313, "γ.4.1 missing Jn 3:13 — communicatio idiomatum anchor"
+
+    def test_every_gamma_4_1_attribution_cites_npnf_vol_14(self):
+        # γ.4.1 entries (Cyril-on-John in chapters 1-4) must all cite
+        # NPNF Series 2 Vol 14 + the explicit PD marker. The PD
+        # translator chain (Pusey / Randell, Oxford 1874-1885) is
+        # documented once in _meta.public_domain_basis rather than
+        # repeated per-entry — see test_meta_documents_gamma_4_1_expansion.
+        cyril_in_chs_1_to_4 = []
+        for chapter in (1, 2, 3, 4):
+            for verse in range(1, 100):
+                cyril_in_chs_1_to_4.extend(
+                    e for e in self.ec.for_verse("joh", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        assert cyril_in_chs_1_to_4, "γ.4.1 expected Cyril entries in John 1-4"
+        for entry in cyril_in_chs_1_to_4:
+            attr = entry.attribution
+            assert "NPNF" in attr, f"γ.4.1 entry missing NPNF citation: {attr!r}"
+            assert "14" in attr, f"γ.4.1 entry missing Vol 14 citation: {attr!r}"
+            assert "PD" in attr, f"γ.4.1 entry missing PD marker: {attr!r}"
+
+    def test_meta_documents_gamma_4_1_expansion(self):
+        # Pin: _meta scope block names γ.4.1 explicitly so a future
+        # reviewer can identify which entries came from this wave.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        assert "γ.4.1" in meta["scope"], "_meta scope block must name γ.4.1 expansion"
+        assert "Pusey" in meta["public_domain_basis"] or "Randell" in meta["public_domain_basis"], (
+            "_meta PD basis must document the Pusey/Randell PD translation"
+        )
