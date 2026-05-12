@@ -6,6 +6,149 @@
 
 ---
 
+## 2026-05-12 — session — τ.6 Ge'ez Tewahedo seed (Tewahedo flagship native language)
+
+**Phases shipped:** τ.6 (Ge'ez Tewahedo Bible seed —
+`geez-tewahedo`). Reinforces the v1.x flagship (ethiopian-
+tewahedo edition) by adding its native scriptural language to
+the translation registry.
+**Test delta:** +15 (3197 → 3212; 1 still skipped).
+**Linter delta:** 11/11 clean.
+
+### τ.6 — Ge'ez (Classical Ethiopian liturgical)
+
+Ge'ez (ግዕዝ) is the scriptural and liturgical language of the
+Ethiopian Orthodox Tewahedo Church (and Eritrean Orthodox
+Tewahedo — both non-Chalcedonian / Oriental Orthodox). The
+Tewahedo Bible has been preserved in Ge'ez manuscript form
+since the 4th-6th centuries CE. **1 Enoch and Jubilees
+survived as complete texts ONLY in the Ge'ez tradition** — the
+canonical anchors of the project's flagship γ.4 commentary
+work.
+
+**Why this ship matters for the project specifically**:
+
+- The **ethiopian-tewahedo edition** is the project's flagship;
+  its 87-book canon (including 1 Enoch, Jubilees, Meqabyan 1-3,
+  Letter to the Laodiceans) IS the Ge'ez canon. Shipping Ge'ez
+  source text reinforces the v1.x uniqueness angle the project
+  chose.
+- The Ge'ez biblical text sometimes preserves Septuagint
+  readings older than any surviving Greek manuscript — important
+  for the LXX-textcrit + 1 Enoch tradition work γ.4 began.
+- R.H. Charles' 1912 1 Enoch translation (referenced in γ.4's
+  Ethiopian commentary seed) worked from Ge'ez manuscripts.
+
+**PD basis** documented in `_meta.yaml` + extract registry:
+
+- **Pell-Platt 1830 BFBS Ge'ez NT** (British and Foreign Bible
+  Society, London) — first widely-printed Ge'ez NT.
+- **BFBS 1853 Ge'ez Old Testament** — completed the printed
+  Bible.
+- **Dillmann's Lexicon Linguae Aethiopicae (1865)** — citing
+  canonical passages verbatim.
+- Underlying manuscript tradition (Tana 9, EMML manuscripts,
+  monastic codices): 4th-15th century CE.
+
+All pre-1929; unambiguously PD by age.
+
+### Files
+
+- `scripts/extract_translation.py` — `geez-tewahedo` entry
+  added to TRANSLATIONS dict with full Tewahedo-distinctive
+  documentation (canonical books, Unicode block coverage —
+  U+1200-U+137F main + U+1380-U+139F supp + U+2D80-U+2DDF
+  ext + U+AB00-U+AB2F ext-A; LTR script; Tewahedo numerals
+  ፩ ፪ ፫ at U+1369-U+137C).
+- `content/translations/geez-tewahedo/_meta.yaml` — new.
+  Schema v1; full PD documentation; canonical-distinctives
+  notes (1 Enoch / Jubilees / Meqabyan named); LTR script
+  note; Tewahedo numerals note.
+- `content/translations/geez-tewahedo/gen.py` — new. 3-verse
+  Genesis seed:
+  - 1:1 `ቀዳሚሁ ገብረ እግዚአብሔር ሰማየ ወምድረ።` ("In the
+    beginning God created heaven and earth.")
+  - 1:2 with the standard Ge'ez rendering of formless/void +
+    spirit moving over waters
+  - 1:3 `ወይቤ እግዚአብሔር ለይኩን ብርሃን ወኮነ ብርሃን።` ("And God
+    said let there be light and there was light.")
+- `tests/test_translations_tau6.py` — new (15 tests across
+  6 classes: Registry × 2, Discovery × 3, Seed × 5 with
+  Ethiopic-Unicode-block validation + qedami/egziabher/berhan
+  content pins, MetaShape × 2 incl. Tewahedo-distinctive
+  pin, FlagshipReinforcement × 2 checking the
+  ethiopian-tewahedo edition exists + the runtime composes
+  the translation, NineTranslationsRegistered × 1 pinning
+  the post-ship count).
+
+### Editorial-decision note for the flagship
+
+The ethiopian-tewahedo edition does NOT currently declare
+`geez` in its popup_languages_default (only english / hebrew
+/ greek). Adding `geez` to that list is the publisher's
+editorial decision; τ.6's seed makes it possible but doesn't
+force it. When the publisher chooses to surface Ge'ez in the
+popup, the runtime composes against this translation
+automatically (auto-discovery, no UI code change).
+
+### Forward references in code
+
+`τ.6.x` named in the meta + TRANSLATIONS notes — user-side
+full ingest (the eBible.org `gez-Geez_vpl.zip` package or a
+curated transcription of Pell-Platt 1830 + BFBS 1853 covering
+the Tewahedo 87-book canon including the 6 books beyond
+KJV+Apocrypha: 1 Enoch, Jubilees, Meqabyan 1-3, Letter to
+the Laodiceans). Logged here so the linter's "phase mentioned
+in code" check stays clean.
+
+### State after ship
+
+**9 translations on disk**:
+1. `kjv` (English, full — τ.1)
+2. `jps` (English Tanakh, seed — τ.5-A)
+3. `wlc` (Hebrew, seed — τ.5-A)
+4. `lxx-brenton-greek` (Greek LXX, seed — γ.5)
+5. `lxx-brenton-english` (English LXX, seed — τ.4)
+6. `vulgate-clementine` (Latin, seed — τ.3)
+7. `douay-rheims` (English Catholic, seed — τ.2)
+8. `arabic-vandyke` (Arabic, seed — τ.10-A)
+9. `geez-tewahedo` (Ge'ez Tewahedo, seed — τ.6) ← THIS SHIP
+
+### Translation-arc summary this conversation
+
+8 τ-phases shipped today across 4 ships:
+- τ.5-A (jps + wlc) — Hebrew column
+- τ.4 + τ.3 + τ.2 (Brenton-Eng + Vulgate + DRA) — Greek-Eng +
+  Latin + English-Catholic columns
+- τ.10-A (Arabic Van-Dyck) — Arabic column (popup-language
+  coverage CLOSED)
+- τ.6 (Ge'ez Tewahedo) — flagship native language
+
+Plus the earlier γ.5 (LXX Greek seed) shipped 2026-05-11.
+Foundation now provides at least one PD translation in each
+major Christian + Jewish + Muslim biblical-literacy language
+the project's editions serve.
+
+### Recommended next ship
+
+Translation foundation is materially complete. Options:
+- **τ.7 Greek NT (manuscript)** — Westcott-Hort 1881 or
+  Nestle 1904 (both PD); distinct from γ.2 Strong's lookup.
+- **τ.5-B WLC unpointed** — consonantal Hebrew for scholars.
+- **τ.8 Geneva 1599** / **τ.9 ASV + YLT** — Reformation +
+  early-20th-c. English.
+- **τ.11 Reformation partials** — Tyndale fragments etc.
+- **τ.12 NA28 / SBLGNT** — modern critical Greek (likely
+  needs license check).
+- **Pivot off translations**: ψ.30 matrix a11y, χ.2-5
+  patristic expansion, γ.4.1 Cyril/John corpus, or money-item
+  authorization.
+
+The translation arc has run its natural course this session;
+a different-track ship next is reasonable.
+
+---
+
 ## 2026-05-12 — session — τ.10-A Arabic Van-Dyck seed (closes the last popup-language gap)
 
 **Phases shipped:** τ.10-A (Van Dyck–Boustani Arabic Bible 1865

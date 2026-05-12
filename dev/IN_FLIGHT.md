@@ -4,6 +4,66 @@
 
 ## Prior task
 
+**τ.6 Ge'ez Tewahedo Bible seed** shipped 2026-05-12. Closes
+the translation-foundation arc this session. Reinforces the
+v1.x flagship (ethiopian-tewahedo edition) with its native
+scriptural language. Ge'ez (ግዕዝ) is the liturgical /
+scriptural language of the Ethiopian Orthodox Tewahedo Church;
+the Tewahedo Bible's manuscript tradition dates from 4th-6th
+c. CE.
+
+**Why it matters for THIS project**: 1 Enoch and Jubilees
+survived as complete texts ONLY in Ge'ez — those are the
+canonical anchors of γ.4's commentary work (Ethiopian
+Tewahedo seed). R.H. Charles' 1912 1 Enoch translation
+(referenced in γ.4) worked from Ge'ez manuscripts.
+
+**Files**:
+- `scripts/extract_translation.py` — geez-tewahedo entry
+  documenting PD basis (Pell-Platt 1830 BFBS + BFBS 1853 OT
+  + Dillmann 1865 Lexicon; underlying mss 4th-15th c.),
+  Unicode block coverage (U+1200-U+137F + supplement +
+  extended + extended-A), LTR script, Tewahedo numerals.
+- `content/translations/geez-tewahedo/_meta.yaml` — full PD
+  documentation; canonical-distinctives notes naming
+  1 Enoch / Jubilees / Meqabyan; editorial-decision note
+  that ethiopian-tewahedo edition's popup_languages_default
+  doesn't currently declare `geez` (publisher decision to
+  opt in).
+- `content/translations/geez-tewahedo/gen.py` — 3-verse seed:
+  ቀዳሚሁ ገብረ እግዚአብሔር ሰማየ ወምድረ።  (Gen 1:1) /
+  ወምድርሰ ኢታስተርኢ ... ይጼልል መልዕልተ ማይ።  (Gen 1:2) /
+  ወይቤ እግዚአብሔር ለይኩን ብርሃን ወኮነ ብርሃን።  (Gen 1:3).
+
+**Tests**: tests/test_translations_tau6.py — 15 tests across
+6 classes. TestTau6FlagshipReinforcement pins that the
+ethiopian-tewahedo flagship edition exists + the runtime
+composes geez-tewahedo cleanly (edition-agnostic discovery —
+any edition can opt in by listing `geez` in
+popup_languages_default). TestNineTranslationsRegistered
+pins the post-ship count at 9.
+
+**Translation foundation post-ship**: 9 translations on disk.
+Every popup_language declared in any edition's
+popup_languages_default has at least seed coverage. The
+TestPopupLanguageCoverageClosed invariant (from τ.10-A) holds.
+
+Forward reference: τ.6.x user-side full ingest covering the
+Tewahedo 87-book canon (6 books beyond KJV+Apocrypha: 1
+Enoch, Jubilees, Meqabyan 1-3, Letter to the Laodiceans).
+
+**+15 tests**. **3212 / 3213 tests pass serially (1 skipped);
+11/11 lint clean.**
+
+**Translation arc CLOSED this session.** Subsequent
+translation work shifts from foundation-building to depth-
+deepening (τ.7 GNT manuscript, τ.5-B WLC unpointed, τ.8
+Geneva, τ.9 ASV+YLT, τ.11 Reformation partials) or PIVOTS
+off translations (ψ.30 a11y, χ.2-5 patristic, γ.4.1 corpus,
+money authorization).
+
+## Prior task
+
 **τ.10-A Van Dyck Arabic Bible seed** shipped 2026-05-12.
 Closes the last popup-language gap after the τ.5-A + γ.5 +
 τ.4 + τ.3 + τ.2 wave. Coptic-orthodox edition was the only

@@ -1,6 +1,41 @@
 # Session state — current snapshot
 
-**Updated 2026-05-12 / popup-language coverage CLOSED**:
+**Updated 2026-05-12 / τ.6 Ge'ez ships, translation arc closes**:
+**τ.6 Ge'ez Tewahedo seed shipped — reinforces the v1.x
+flagship (ethiopian-tewahedo edition) with its native
+scriptural language.** Ge'ez (ግዕዝ) is the Tewahedo Church's
+liturgical/scriptural language; the Tewahedo Bible's
+manuscript tradition dates from 4th-6th c. CE. 1 Enoch and
+Jubilees survived as complete texts ONLY in Ge'ez — the
+canonical anchors of γ.4's commentary work. PD basis: Pell-
+Platt 1830 BFBS Ge'ez NT + BFBS 1853 OT + Dillmann 1865
+Lexicon; all pre-1929. **+15 tests** in
+tests/test_translations_tau6.py (6 classes incl.
+TestTau6FlagshipReinforcement which checks the
+ethiopian-tewahedo edition exists + runtime composes Ge'ez
+cleanly, and TestNineTranslationsRegistered which pins the
+post-ship count at 9). State after ship: **9 translations on
+disk** (kjv full + 8 seeds: jps + wlc + lxx-brenton-greek +
+lxx-brenton-english + vulgate-clementine + douay-rheims +
+arabic-vandyke + geez-tewahedo). **3212/3213 tests pass
+serially (1 skipped); 11/11 lint clean.** Net session test
+delta from psi.36-A baseline: **+959** across 42 work units.
+
+**Translation foundation is materially complete.** This
+session's τ-arc: τ.5-A (Hebrew jps+wlc) → τ.4+τ.3+τ.2 (LXX-Eng
++ Vulgate + DRA) → τ.10-A (Arabic — popup-language coverage
+CLOSED invariant pinned) → τ.6 (Ge'ez — flagship native
+language). The translation arc has now run its natural
+course this session. Next options either deepen the
+translation register (τ.7 GNT manuscript, τ.5-B WLC
+unpointed, τ.8 Geneva 1599, τ.9 ASV+YLT, τ.11 Reformation
+partials) or PIVOT off translations entirely (ψ.30 matrix
+a11y, χ.2-5 patristic, γ.4.1 corpus expansion, money
+authorization).
+
+---
+
+**Updated 2026-05-12 / popup-language coverage CLOSED (prior)**:
 **τ.10-A Van Dyck–Boustani Arabic Bible 1865 seed shipped —
 closes the last popup-language gap.** Arabic was the only
 declared popup_languages_default value without matching

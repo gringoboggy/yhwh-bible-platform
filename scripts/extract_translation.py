@@ -330,6 +330,44 @@ TRANSLATIONS: dict[str, dict] = {
             "than the Hebrew MT)."
         ),
     },
+    "geez-tewahedo": {
+        "title": "Ge'ez Bible (Classical Ethiopian, Tewahedo tradition)",
+        "short_title": "Ge'ez",
+        "license": "Public Domain",
+        "source": {
+            "publisher": "Pell-Platt British and Foreign Bible Society (London, 1830 NT) + classical Tewahedo manuscript tradition",
+            "url": "https://eBible.org/gez-Geez/",
+            "package": "gez-Geez_vpl.zip",
+            "source_date": 1830,
+        },
+        "notes": (
+            "Ge'ez (ግዕዝ) is the Classical Ethiopian liturgical "
+            "language — the scriptural and liturgical tongue of "
+            "the Ethiopian Orthodox Tewahedo Church (and Eritrean "
+            "Orthodox Tewahedo). The Tewahedo Bible has been "
+            "preserved in Ge'ez manuscript form since the 4th-6th "
+            "centuries CE (the Ge'ez translation pre-dates and "
+            "preserves textual readings sometimes lost in other "
+            "language traditions — most famously 1 Enoch, which "
+            "Tewahedo is the only major Christian communion to "
+            "canonize). PD basis: pre-1929 printed Ge'ez Bibles "
+            "(Pell-Platt's 1830 BFBS Ge'ez NT, the 1853 BFBS Old "
+            "Testament, Dillmann's 1865 Lexicon Linguae "
+            "Aethiopicae); all underlying manuscripts are PD by "
+            "age (4th-15th century CE). Directly reinforces the "
+            "v1.x uniqueness angle (the ethiopian-tewahedo "
+            "flagship edition has Ge'ez as its native scriptural "
+            "language). τ.6 ships Gen 1:1-3 seed; τ.6.x is "
+            "user-side full ingest. Unicode handling: Ethiopic "
+            "block U+1200-U+137F covers the main syllabary; "
+            "U+1380-U+139F Ethiopic Supplement; U+2D80-U+2DDF "
+            "Ethiopic Extended; U+AB00-U+AB2F Ethiopic Extended-A. "
+            "The script is read left-to-right (unlike Hebrew + "
+            "Arabic). Tewahedo numerals (፩ ፪ ፫ ...) live at "
+            "U+1369-U+137C; standard Hindu-Arabic numerals also "
+            "acceptable for verse numbering."
+        ),
+    },
     "arabic-vandyke": {
         "title": "Van Dyck–Boustani Arabic Bible (1865)",
         "short_title": "AVD",

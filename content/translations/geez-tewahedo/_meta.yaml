@@ -1,0 +1,103 @@
+# Translation metadata — τ.6 Ge'ez Tewahedo seed (2026-05-12).
+#
+# Ge'ez (ግዕዝ) is the Classical Ethiopian liturgical language —
+# the scriptural and liturgical tongue of the Ethiopian Orthodox
+# Tewahedo Church (and Eritrean Orthodox Tewahedo, both
+# non-Chalcedonian / Oriental Orthodox). The Tewahedo Bible has
+# been preserved in Ge'ez manuscript form since the 4th-6th
+# centuries CE.
+#
+# Significance for this project:
+#
+# - The ethiopian-tewahedo edition is the project's flagship; its
+#   declared canon (87 books including 1 Enoch, Jubilees,
+#   Meqabyan 1-3, etc.) IS the Ge'ez canon. Shipping Ge'ez source
+#   text reinforces the v1.x uniqueness angle the project chose.
+# - 1 Enoch and Jubilees survived as complete texts ONLY in the
+#   Ge'ez tradition. Western scholarship had to recover them
+#   from Ethiopian manuscripts in the 18th-19th centuries (R.H.
+#   Charles' 1912 1 Enoch translation, which γ.4 references,
+#   worked from Ge'ez manuscripts).
+# - The Ge'ez biblical text sometimes preserves Septuagint
+#   readings older than any surviving Greek manuscript — a fact
+#   that drove much of 20th-century LXX textual criticism.
+#
+# PD basis: pre-1929 printed Ge'ez Bibles establish the textual
+# tradition:
+#
+# - **Pell-Platt 1830 Ge'ez NT** (British and Foreign Bible
+#   Society, London) — first widely-printed Ge'ez NT.
+# - **BFBS 1853 Ge'ez Old Testament** — printed by the same
+#   society, completing the Bible.
+# - **Dillmann's Lexicon Linguae Aethiopicae (1865)** — the
+#   definitive Ge'ez lexicon, citing canonical passages
+#   verbatim.
+#
+# All three are unambiguously PD by age. The underlying
+# manuscript tradition (Tana 9, EMML manuscripts, the various
+# monastic codices) ranges from the 4th-15th century CE; all
+# PD by age.
+#
+# τ.6 ships seed + metadata; τ.6.x is user-side full ingest from
+# eBible.org's gez-Geez_vpl.zip package or a curated
+# transcription of Pell-Platt 1830 + BFBS 1853.
+
+id: geez-tewahedo
+title: "Ge'ez Bible (Classical Ethiopian, Tewahedo tradition)"
+short_title: "Ge'ez"
+license: "Public Domain"
+source:
+  publisher: "Pell-Platt BFBS (London, 1830 NT) + classical Tewahedo manuscript tradition"
+  url: "https://eBible.org/gez-Geez/"
+  package: "gez-Geez_vpl.zip (user-side ingest — eBible.org)"
+  fetched: 2026-05-12
+  source_date: 1830
+stats:
+  books: 1            # seed only — Genesis
+  verses: 3           # Gen 1:1-3 — canonical opening seed
+  books_outside_kjv: 0
+notes: |
+  τ.6 SEED CORPUS.
+
+  This is a 3-verse seed (Genesis 1:1-3) that proves the
+  translation-registry wire-up. Once the directory is present,
+  `list_translations()` discovers `geez-tewahedo` automatically;
+  the /customize console surfaces it as a selectable
+  popup_translation; the /compare console renders it side-by-
+  side with all other registered translations.
+
+  Significance for the flagship:
+
+  The ethiopian-tewahedo edition does NOT currently declare
+  `geez` in its popup_languages_default (it declares english /
+  hebrew / greek). Adding `geez` to that list is an editorial
+  decision the publisher makes; τ.6's seed makes it possible
+  but doesn't force it. When the publisher chooses to surface
+  Ge'ez in the popup, the runtime composes against this
+  translation automatically.
+
+  Unicode handling:
+
+  - **Ethiopic** U+1200-U+137F: main syllabary (fidäl); covers
+    standard text.
+  - **Ethiopic Supplement** U+1380-U+139F: additional syllables
+    + tonal marks.
+  - **Ethiopic Extended** U+2D80-U+2DDF: more syllables (rare).
+  - **Ethiopic Extended-A** U+AB00-U+AB2F: still more variants.
+
+  The script is read left-to-right (unlike Hebrew + Arabic).
+  Tewahedo numerals (፩ ፪ ፫ ...) live at U+1369-U+137C; standard
+  Hindu-Arabic numerals are also acceptable for verse numbering.
+
+  Pairs naturally with:
+  - `wlc` Hebrew (the Ge'ez OT often preserves earlier readings
+    than the MT).
+  - `lxx-brenton-greek` (the Ge'ez OT was likely translated from
+    a Greek LXX Vorlage in the 4th-5th century).
+  - The 1 Enoch / Jubilees / Meqabyan books in the
+    ethiopian-tewahedo canon — no other tradition has these as
+    canonical scripture.
+
+  Future τ.6.x can ingest the full Tewahedo 87-book canon (the
+  6 books beyond the 81 of KJV+Apocrypha are: 1 Enoch, Jubilees,
+  Meqabyan 1-3, Letter to the Laodiceans).
