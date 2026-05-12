@@ -1914,6 +1914,7 @@ CONSOLES: list[tuple[str, str]] = [
     ("/apihelp", "apihelp"),
     ("/hebrew", "hebrew"),  # γ.1
     ("/greek", "greek"),  # γ.2
+    ("/exec", "exec"),  # ε.2
 ]
 
 

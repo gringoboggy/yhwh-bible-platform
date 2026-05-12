@@ -2793,3 +2793,25 @@ entries:
   - content/scenarios/demo.yaml
   - content/notes/gen.py
   applied_at: '2026-05-11T16:33:30Z'
+- id: refactor-0255
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-12T02:08:50Z'
+- id: refactor-0256
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-12T02:08:51Z'

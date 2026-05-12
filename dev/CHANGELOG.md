@@ -6,6 +6,89 @@
 
 ---
 
+## 2026-05-11 — session — ε.2 /exec dashboard MVP (Month 5 #3; 3 of 7 ships)
+
+**Phases shipped:** ε.2 (executive dashboard — 5 KPI tiles
++ recent-activity table, composes Δ.15 event log + ε.1
+metrics + api_attribution_audit + perf_budgets + config).
+**Test delta:** +28 (2762 → 2790; 1 still skipped).
+**Linter delta:** 11/11 clean (17 cross-linked consoles).
+
+### ε.2 — /exec dashboard MVP
+
+New console at `/exec` + JSON endpoint at `/api/exec`.
+Renders the five top-line KPIs the publisher needs at a
+glance:
+
+1. **Editions** — `config.load_editions()` count.
+2. **Notes corpus** — `api_attribution_audit().counts.total`
+   + 35K target + progress percent.
+3. **AI spend MTD** — sums `cost` field across event-log
+   events whose `kind` starts with `ai_`, filtered to the
+   current month (UTC). Returns `(events, total_usd,
+   window_start_iso)`. $0/0 events until B.AI.1 starts
+   emitting `ai_*` events.
+4. **Perf budget health** — count of budgets defined in
+   `scripts/perf_budgets.BUDGETS` + count of
+   `perf_violation` events. MVP scope: absolute
+   violation count, no rolling window (ε.2.x).
+5. **Build success rate** — `metrics.summary_kpis()
+   .builds.success_rate` + terminal-build count +
+   failure count.
+
+Recent-activity table renders the last 10 events (newest
+displayed first, API contract is newest-last per ε.1's
+`recent_events()`). Every value inserted via
+`textContent` for XSS safety; field detail joined as
+`key=JSON.stringify(value)` pairs.
+
+The endpoint is fully composed — zero new file walks.
+Pattern instance #N of §9 "Compose, don't recompute":
+each tile sources from an existing endpoint or module,
+so a dashboard render adds exactly one cached-aggregator
+hit + one event-log streaming pass.
+
+### Files
+
+- `scripts/api/exec.py` — new (`api_exec_dashboard(*,
+  now=None) → dict`; `_month_start_iso`, `_ai_spend_mtd`,
+  `_perf_budget_health` private helpers).
+- `scripts/templates/exec.py` — new (`EXEC_HTML` with
+  5-tile grid + recent-events table + ζ-foundation
+  composition).
+- `scripts/web.py` — `from scripts.api.exec import
+  api_exec_dashboard`; `from scripts.templates.exec
+  import EXEC_HTML`; `/api/exec` added to
+  `_SIMPLE_GET_ROUTES`; `/exec` HTML branch in `do_GET`.
+- `scripts/templates/_design.py` — `("/exec", "exec")`
+  added to `CONSOLES`; cross-link auto-propagates to all
+  17 consoles' nav.
+- `scripts/lint_rules.py` — `"EXEC_HTML": "/exec"` added
+  to `route_for_constant` so the §6.2 invariant check
+  treats /exec like every other console.
+- `tests/test_exec_epsilon2.py` — 28 tests:
+  TestEpsilon2ApiDashboard (×11), TestEpsilon2ExecTemplate
+  (×8), TestEpsilon2RouteRegistration (×2),
+  TestEpsilon2CrossLinkPropagated (×6),
+  TestEpsilon2LintRulesMapped (×1).
+
+### Forward references in code
+
+The api/template docstrings name **ε.2.x** (future
+rolling-window violations) and **ε.4** (per-edition
+cost-rollup tile expansion) as natural follow-ons.
+Logged here so the linter's "phase mentioned in code"
+check stays clean.
+
+### Month 5 status
+
+Shipped: Δ.15, ε.1, ε.2 (3 of 7).
+Remaining: ε.3 sales import (KDP/Apple/Google CSV), ε.6
+distribution checklist, ε.7 press kit auto-build, ο.4
+archive.org auto-upload. All non-money.
+
+---
+
 ## 2026-05-11 — session — Δ.15 event log + ε.1 metrics collector (Month 5 opens; 2 of 7 ships)
 
 **Phases shipped:** Δ.15 (append-only events.jsonl

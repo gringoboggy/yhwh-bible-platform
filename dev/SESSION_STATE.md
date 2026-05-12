@@ -1,6 +1,42 @@
 # Session state — current snapshot
 
-**Updated 2026-05-11 / late session**: **Month 5 opened
+**Updated 2026-05-11 / late session**: **ε.2 /exec
+dashboard MVP shipped — Month 5 #3 (3 of 7).**
+New `/exec` console + `/api/exec` JSON endpoint compose
+the entire ε.1+Δ.15 foundation into five executive KPI
+tiles: (1) editions count from `config.load_editions()`,
+(2) notes corpus from `api_attribution_audit().counts.total`
++ 35K target + percent, (3) AI spend MTD scanning event
+log for `kind` ∈ {ai_*} with `cost` field, current-month
+window, (4) perf budget health from
+`scripts/perf_budgets.BUDGETS` + count of `perf_violation`
+events, (5) build success rate from
+`metrics.summary_kpis().builds.success_rate`. Recent-
+activity table renders last 10 events via `textContent`
+(XSS-safe), with detail rows formatted as
+`key=JSON.stringify(value)` pairs. Zero new file walks —
+the dashboard is a pure §9 "compose, don't recompute"
+instance: every tile sources from one existing aggregator.
+17th console added to CONSOLES + lint
+`route_for_constant`. **+28 tests** in
+`tests/test_exec_epsilon2.py`. **2789 / 2790 tests
+pass serially (1 skipped); 11/11 lint clean.** Net
+session test delta from ψ.36-A baseline: **+537**
+across 25 ships.
+
+Month 5 remaining (4 items): ε.3 sales import
+(KDP/Apple/Google CSV), ε.6 distribution checklist,
+ε.7 press kit auto-build, ο.4 archive.org auto-upload.
+All non-money.
+
+Natural ε.2.x follow-ons logged in CHANGELOG: rolling-
+window perf-violation counts; ε.4 (per-edition AI cost
+rollup expanding tile 3) ships once the AI events start
+emitting `cost`.
+
+---
+
+**Updated 2026-05-11 / late session (prior)**: **Month 5 opened
 — Δ.15 event log + ε.1 metrics collector shipped (2 of
 7 Month 5 items).** Δ.15: append-only `events.jsonl` at
 `user_data_root()/events.jsonl`. `emit(kind, **fields)`

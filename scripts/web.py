@@ -1874,6 +1874,7 @@ from scripts.templates.compare import COMPARE_HTML
 from scripts.templates.covers import COVERS_HTML
 from scripts.templates.customize import CUSTOMIZE_HTML
 from scripts.templates.diff import DIFF_HTML
+from scripts.templates.exec import EXEC_HTML
 from scripts.templates.export import EXPORT_HTML
 from scripts.templates.greek import GREEK_HTML
 from scripts.templates.hebrew import HEBREW_HTML
@@ -1888,6 +1889,9 @@ from scripts.templates.wizard import WIZARD_HTML
 # γ.1 / γ.2 — interlinear lookup APIs.
 from scripts.api.greek import api_greek_lookup
 from scripts.api.hebrew import api_hebrew_lookup
+
+# ε.2 — /exec dashboard MVP.
+from scripts.api.exec import api_exec_dashboard
 
 CORPUS_TARGET = 35_000
 
@@ -3328,6 +3332,8 @@ _SIMPLE_GET_ROUTES: list[tuple[str, "object"]] = [
     ("/api/edition-templates", api_edition_templates_list),
     # ω.39 — dev-side template mtime probe for THEME_HOTRELOAD_JS.
     ("/api/dev/templates-mtime", api_dev_templates_mtime),
+    # ε.2 — executive dashboard payload (5 KPI tiles + recent events).
+    ("/api/exec", api_exec_dashboard),
 ]
 
 
@@ -4306,6 +4312,11 @@ class Handler(BaseHTTPRequestHandler):
         # The JSON endpoint /api/hebrew/<num> is in _REGEX_GET_ROUTES.
         if path == "/hebrew" or path == "/hebrew.html":
             return self._send_html(HEBREW_HTML)
+
+        # ε.2 — /exec executive dashboard.
+        # JSON endpoint /api/exec is in _SIMPLE_GET_ROUTES.
+        if path == "/exec" or path == "/exec.html":
+            return self._send_html(EXEC_HTML)
 
         # γ.2 — Greek interlinear console (Strong's Greek lookup).
         # The JSON endpoint /api/greek/<num> is in _REGEX_GET_ROUTES.
