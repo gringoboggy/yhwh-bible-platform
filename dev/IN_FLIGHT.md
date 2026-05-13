@@ -4,6 +4,148 @@
 
 ## Prior task
 
+**γ.4.5.C Mäṣḥafä Kufāle / Book of Jubilees Abraham-cycle detail
+(40 verse-keyed entries on Jub 11-22)** shipped 2026-05-12.
+Continues γ.4.5 seed (40 entries across all 50 chs) and γ.4.5.B
+(40 entries on Jub 5-10 Watchers + Mastema) with the Abraham-cycle
+substantive expansion. Mirrors the γ.4.4.B / γ.4.5.B detail-wave
+pattern. The γ.4.5 seed gave broad coverage of all 50 chapters
+with 7 verses falling in chs 11-22 (11:16, 12:16, 12:22, 14:6,
+15:11, 18:9, 21:10); γ.4.5.C brings chs 11-22 coverage from 7 to
+47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10).
+
+**Why it matters for THIS project**:
+
+- **Substantive parity across the Jubilees Abraham cycle.** With
+  Jub 5-10 (γ.4.5.B) and Jub 11-22 (γ.4.5.C) both at 47 entries,
+  the canonical Tewahedo Abraham material is now substantively
+  covered at the same depth as the Watchers narrative. Future
+  γ.4.5.D-E waves can complete the Jacob (24-36) and Joseph +
+  Exodus-finale (37-50) sections.
+- **Triple Pentecost canonical anchor.** Jub 14:1 (Abram's
+  covenant of pieces dated to new moon of third month) joins Jub
+  6:17 (Noah's Feast of Weeks pre-Mosaic) and Jub 1:1 (Sinai
+  prologue) as the three Pentecost-date covenant moments. Add
+  Jub 16:13 (Isaac's birth on Pentecost) and the Tewahedo
+  Pentecost has FOUR canonical date-anchors unique to its canon.
+- **Tewahedo distinctive Christian circumcision** — Jub 15:14
+  + 15:25 + 15:27 substantively pinned: eighth-day non-negotiable,
+  perpetual, AND the angels of presence themselves created
+  circumcised (cosmic-circumcision). This is the canonical anchor
+  for the Tewahedo's uniquely-preserved Christian circumcision
+  practice (preserved alongside baptism, neither conflated).
+- **Pre-Mosaic Feast of Tabernacles** — Jub 16:20: Abraham
+  institutes the FIRST Feast of Tabernacles, seven days, at the
+  Beersheba altar in the year of Isaac's birth. Tewahedo Mäskäl-
+  week canonical antecedent. The pattern (great festivals are
+  patriarchal restorations, not Mosaic novelties) is the Tewahedo
+  liturgical-historiographical anchor.
+- **Mt Moriah = Mt Zion** — Jub 18:13 explicit identification.
+  Tewahedo eucharistic fourfold-altar canonical anchor: every
+  altar is mystically Moriah + Zion + Calvary + Heavenly-Zion.
+- **Akedah-as-Passover** — Jub 17:15 places Mastema's accusation
+  on the eve of Passover (first month, 12th day). The Akedah is
+  offered AS PASSOVER, not merely typologically connected to it —
+  Tewahedo Holy-Week liturgy preserves the doubled commemoration.
+- **No-blood-consumption TRIPLE witness** — Jub 21:7 (Abraham's
+  priestly instructions) joins Jub 6:7 (Noahide command) and Jub
+  7:34 (Noah's testament). Tewahedo dietary-law distinctive
+  preserved on canonical anchor; the Tewahedo prohibition against
+  eating blood is a uniquely-rooting-out sin (Jub 21:18).
+- **Hebrew tongue restored** — Jub 12:25: the angel of presence
+  restores the pre-Babel Hebrew tongue to Abram before his call.
+  Tewahedo Ge'ez liturgical-language warrant by analogy: sacred
+  liturgical languages are angelic gifts, not mere developments.
+- **Solomonic-dynasty Tewahedo-Jacobite anchor** — Jub 22:11:
+  Abraham directly blesses Jacob (his preferred grandson) over
+  Isaac's potential Esau-favoritism. Canonical priority-of-grace
+  over inherited-order. The Tewahedo Kǝbrä Nägäśt's account of
+  the Solomonic dynasty's Jacobite-Israelite continuation (via
+  Menelik I as Solomon's son) has its earliest patriarchal
+  warrant in Abraham's direct blessing.
+- **Pastoral inclusivity** — Jub 22:1: Abraham's Feast of Weeks
+  in his final year is celebrated with BOTH Isaac and Ishmael at
+  the patriarchal altar. Tewahedo pastoral warrant for welcoming
+  Ishmaelite (Muslim-family-background) Ethiopians at the
+  communion-table preparation.
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 40 new Jubilees
+  entries appended (book=`jub`, father=`Book of Jubilees (Ethiopian
+  tradition)`, work=`Book of Jubilees (Mäṣḥafä Kufāle)`,
+  year=`-150`, attribution `Jubilees C:V (section), trans. R.H.
+  Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.`).
+  _meta scope/source strings updated. Total entries now 510 (was
+  470 pre-γ.4.5.C).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma45CJubileesAbrahamCycleWave` class with **23 tests**:
+  ≥40 entries pin + 6 sub-range coverage pins (Abram's early life
+  11-13, covenant+circumcision 14-15, Isaac+Tabernacles 16, Akedah
+  17-18, testament+priestly+blessing 20-22) + 16 signature passage
+  pins (11:18, 12:25, 13:8, 13:25, 14:1, 15:14, 15:27, 16:13,
+  16:20, 17:15, 18:13, 18:18, 19:28, 20:2, 21:7, 22:1, 22:11).
+  Also: pre-existing stale share-pins in γ.4.4.D / γ.4.4.E that
+  had been silently failing since γ.4.5+ diluted 1En share were
+  repaired to absolute-count milestone pins (1En ≥150 / ≥190).
+
+**Code-side wiring**: zero new code.
+
+**Corpus state post-γ.4.5.C**:
+```
+ethiopian_commentaries.json: 510 entries (was 470; +40)
+├─ Cyril of Alexandria               : 121 entries (John 1-7 + 11-21 — COMPLETE)
+├─ Ephrem the Syrian                 :  77 entries (Gen 1-50; Ps 1; Hymns)
+├─ 1 Enoch tradition                 : 192 entries (Mäṣḥafä Hēnok arc CLOSED)
+└─ Book of Jubilees (Eth. tradition) : 120 entries (γ.4.5 + γ.4.5.B + γ.4.5.C)
+
+Voice mix: ~24% Cyril / ~15% Ephrem / ~38% 1 Enoch / ~24% Jubilees
+           (was 26/17/41/16 pre-γ.4.5.C — Jubilees rises to
+            substantively-tied-second voice with Cyril at ~24%)
+
+Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä
+Kufāle) jointly hold 62% of patristic-commentary corpus voice —
+appropriate weight for the Tewahedo edition that uniquely
+canonizes both.
+
+γ.4 cumulative              : 458 entries beyond γ.4 seed
+                             (.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              .2 32 + .2.B 40 + .4 30 + .4.B 40 +
+                              .4.C 40 + .4.D 40 + .4.E 40 + .5 40 +
+                              .5.B 40 + .5.C 40 = 458)
+```
+
+**+23 tests + 2 share-pin repairs**. **γ.4.5.C tests: 23/23 pass
+in isolation; γ.4 full-file suite: 223/223 pass; 11/11 lint
+clean.**
+
+**Forward references**:
+- **γ.4.5.D Jubilees Jacob-cycle detail (Jub 24-36)** — continues
+  the detail-wave pattern; the Jacob cycle is currently at 5 seed
+  entries only and would benefit from the same substantive
+  treatment.
+- **γ.4.5.E Jubilees Joseph + Exodus-finale detail (Jub 37-50)** —
+  would close the γ.4.5 detail arc with full parity across all
+  major Jubilees sections.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition; current
+  Wikisource translations fail the named-PD-edition standard).
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from current ~15% back upward.
+
+**Session totals (2026-05-12, cumulative through γ.4.5.C)**:
+- γ.4.4.A-E shipped (Mäṣḥafä Hēnok arc CLOSED)
+- γ.4.2 + γ.4.2.B shipped (Ephrem on Gen 1-50)
+- γ.4.5 + γ.4.5.B + γ.4.5.C shipped (Mäṣḥafä Kufāle seed +
+  Watchers detail + Abraham-cycle detail)
+- 5 phases shipped unsaved since the last save (γ.4.4.E +
+  γ.4.2.B + γ.4.5 + γ.4.5.B + γ.4.5.C) — per the continuation
+  directive (memory: push/continue advances to next phase without
+  auto-save).
+
+---
+
+## Prior task before γ.4.5.C (kept for context)
+
 **γ.4.5 Mäṣḥafä Kufāle / Book of Jubilees seed (40 verse-keyed
 entries across all 50 chapters)** shipped 2026-05-12. **Opens the
 SECOND uniquely-Tewahedo canonical text** on the same Mäṣḥafä-

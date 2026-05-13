@@ -1526,17 +1526,23 @@ class TestGamma44DAstroDreamsAnimalWave:
         assert has_entry_in(83, 84), "γ.4.4.D missing First Dream Vision (1En 83-84)"
         assert has_entry_in(85, 90), "γ.4.4.D missing Animal Apocalypse (1En 85-90)"
 
-    def test_1_enoch_share_above_45_percent(self):
+    def test_1_enoch_milestone_count_at_or_above_astro_dreams_animal_close(self):
+        # γ.4.4.D shipped 1 Enoch into plurality at ~152 entries (≥45% of
+        # corpus-at-time-of-ship). The original share-pin became
+        # incorrect once γ.4.5/B/C deliberately added Jubilees as a
+        # fourth voice and diluted 1 Enoch's share — see SESSION_STATE
+        # 2026-05-12 entries on the γ.4.5 arc. Replaced with the
+        # absolute-count milestone that captures the historical
+        # achievement invariantly: 1 Enoch reached the Astro-Dreams-
+        # Animal close at ≥150 entries.
         enoch_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "1 Enoch (Ethiopian tradition)"
         )
-        total = len(self.ec)
-        share = enoch_count / total
-        assert share >= 0.45, (
-            f"γ.4.4.D expected 1 Enoch share ≥45% (plurality voice); actual {share:.1%} ({enoch_count} of {total})"
+        assert enoch_count >= 150, (
+            f"γ.4.4.D expected 1 Enoch count ≥150 (Astro-Dreams-Animal close milestone); found {enoch_count}"
         )
 
     def test_liturgical_year_anchor_present(self):
@@ -1664,17 +1670,23 @@ class TestGamma44EEpistleOfEnochWave:
         enoch = [e for e in self.ec.for_verse("1en", 108, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
         assert enoch, "γ.4.4.E missing 1En 108:1 — closing inclusio of the Mäṣḥafä Hēnok"
 
-    def test_1_enoch_share_above_50_percent(self):
+    def test_1_enoch_milestone_count_at_or_above_mashafa_henok_arc_close(self):
+        # γ.4.4.E closed the Mäṣḥafä Hēnok arc with 1 Enoch at 192
+        # entries, briefly the dominant voice (55% of corpus-at-time).
+        # The γ.4.5/B/C waves intentionally added Jubilees as a fourth
+        # voice and diluted 1 Enoch share — see SESSION_STATE
+        # 2026-05-12. The dominance was a phase-transition artifact;
+        # the durable invariant is the absolute Mäṣḥafä-Hēnok
+        # coverage. Replaced with the absolute-count milestone:
+        # 1 Enoch reached the arc-close at ≥190 entries.
         enoch_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "1 Enoch (Ethiopian tradition)"
         )
-        total = len(self.ec)
-        share = enoch_count / total
-        assert share >= 0.50, (
-            f"γ.4.4.E expected 1 Enoch share ≥50% (dominant voice); actual {share:.1%} ({enoch_count} of {total})"
+        assert enoch_count >= 190, (
+            f"γ.4.4.E expected 1 Enoch count ≥190 (Mäṣḥafä Hēnok arc-close milestone); found {enoch_count}"
         )
 
     def test_watchers_arc_closed_at_91_14(self):
@@ -2127,3 +2139,230 @@ class TestGamma45BJubileesWatchersMastemaWave:
         # antitype: the same Spirit reverses Babel at Acts 2.
         e = [x for x in self.ec.for_verse("jub", 10, 26) if x.father == "Book of Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 10:26 — Tower reversed by wind (Pentecost antitype)"
+
+
+class TestGamma45CJubileesAbrahamCycleWave:
+    """γ.4.5.C — Mäṣḥafä Kufāle / Book of Jubilees Abraham-cycle detail
+    wave. Substantively expands Jub 11-22 (idolatry decline through
+    Serug + Abram's argument to Terah against idols + Haran's death
+    in failed idol-rescue + Hebrew tongue restored to Abram by the
+    angel of presence + departure from Ur + Bethel altar + Melchizedek
+    tithe + covenant of pieces dated to Pentecost + circumcision-on-
+    the-eighth-day Tewahedo anchor + angels of presence created
+    circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of
+    Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion
+    + Mastema-as-accuser overthrown by angel-of-presence between
+    Abraham and Mastema + 7-day Akedah commemorative festival +
+    Sarah's Machpelah burial as Marian-Assumption type + Mastema-
+    repulsion clause in Abraham's blessing of Jacob + Abraham's
+    testament love-of-neighbour command to all sons + Abraham's
+    priestly instructions on no-blood-consumption + Abraham's
+    celebration of Feast of Weeks with both Isaac and Ishmael at the
+    altar + Abraham's direct blessing of Jacob over Isaac's potential
+    Esau-favoritism — Tewahedo Solomonic-dynasty Jacobite anchor via
+    Kǝbrä Nägäśt tradition). Mirrors the γ.4.4.B + γ.4.5.B detail-
+    wave pattern. +40 entries on chs 11-22 (after γ.4.5 seed already
+    covered 7 verses in this range, total Jubilees chs 11-22 coverage
+    rises from 7 to 47 entries — substantive-detail parity with
+    γ.4.5.B Jub 5-10).
+
+    Pins:
+    - Jub 11-22 substantively expanded (≥40 NEW entries beyond seed).
+    - Pre-Mosaic agrarian-priestly anchor: Abram drives ravens (11:18).
+    - Tewahedo language-warrant: Hebrew tongue restored (12:25).
+    - Pre-Mosaic legitimate altar: Bethel (13:8) — Tewahedo
+      patriarchal-Anaphora warrant.
+    - Pre-Mosaic tithe: Melchizedek (13:25) — Tewahedo ǝʾǝsär anchor.
+    - Triple-Pentecost: covenant of pieces dated to Pentecost (14:1).
+    - Tewahedo distinctive Christian circumcision: 15:14 + 15:25
+      + 15:27 (angels of presence created circumcised).
+    - Old/New Pentecost doubled: Isaac born on Pentecost (16:13).
+    - Pre-Mosaic Feast of Tabernacles instituted by Abraham (16:20).
+    - Akedah-as-Passover: Mastema accusation on Passover date (17:15).
+    - Eucharistic fourfold-altar anchor: Mt Moriah = Mt Zion (18:13).
+    - Tewahedo Holy-Week shape antecedent: 7-day Akedah commemoration
+      (18:18).
+    - Marian-Assumption type: Sarah's Machpelah burial (19:3).
+    - Patriarchal-blessing Mastema-repulsion clause (19:28).
+    - Love-of-neighbour patriarchal-testament content (20:2).
+    - No-blood-consumption priestly emphasis (21:7) — Tewahedo
+      dietary-law TRIPLE witness with 6:7 + 7:34.
+    - Tewahedo pastoral inclusivity: Abraham's Feast of Weeks with
+      Isaac AND Ishmael (22:1).
+    - Solomonic-dynasty Tewahedo-Jacobite anchor: Abraham's direct
+      blessing of Jacob (22:11) — Kǝbrä Nägäśt foundational verse.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _jub_entries_in(self, start_ch: int, end_ch: int):
+        out = []
+        for chapter in range(start_ch, end_ch + 1):
+            for verse in range(1, 100):
+                out.extend(
+                    e
+                    for e in self.ec.for_verse("jub", chapter, verse)
+                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                )
+        return out
+
+    def test_jub_11_through_22_substantively_expanded(self):
+        # γ.4.5 seed covered 7 verses in chs 11-22; γ.4.5.C adds 40
+        # more for 47 total. Threshold ≥40 protects the wave intent
+        # without locking the exact count.
+        entries = self._jub_entries_in(11, 22)
+        assert len(entries) >= 40, f"γ.4.5.C expected ≥40 Jubilees entries in chs 11-22; found {len(entries)}"
+
+    def test_abram_early_life_chapters_substantively_covered(self):
+        # Jub 11-13 — idolatry decline + Abram's monotheism +
+        # departure from Ur. Tewahedo Andǝmta foundational range.
+        entries = self._jub_entries_in(11, 13)
+        assert len(entries) >= 10, (
+            f"γ.4.5.C expected ≥10 Jubilees entries in chs 11-13 (Abram's early life); found {len(entries)}"
+        )
+
+    def test_covenant_and_circumcision_chapters_substantively_covered(self):
+        # Jub 14-15 — covenant of pieces + circumcision covenant.
+        # Tewahedo distinctive Christian circumcision anchor range.
+        entries = self._jub_entries_in(14, 15)
+        assert len(entries) >= 8, (
+            f"γ.4.5.C expected ≥8 Jubilees entries in chs 14-15 (covenant + circumcision); found {len(entries)}"
+        )
+
+    def test_isaac_birth_and_tabernacles_chapter_substantively_covered(self):
+        # Jub 16 — Isaac's birth on Pentecost + pre-Mosaic Feast of
+        # Tabernacles instituted by Abraham. Tewahedo doubled-festal
+        # canonical anchor.
+        entries = self._jub_entries_in(16, 16)
+        assert len(entries) >= 3, (
+            f"γ.4.5.C expected ≥3 Jubilees entries in ch 16 (Isaac + Tabernacles); found {len(entries)}"
+        )
+
+    def test_akedah_chapters_substantively_covered(self):
+        # Jub 17-18 — Akedah preamble + Akedah proper.
+        # Tewahedo Pascha / Akedah-as-Passover canonical range.
+        entries = self._jub_entries_in(17, 18)
+        assert len(entries) >= 6, f"γ.4.5.C expected ≥6 Jubilees entries in chs 17-18 (Akedah); found {len(entries)}"
+
+    def test_testament_and_priestly_chapters_substantively_covered(self):
+        # Jub 20-22 — Abraham's testament + priestly instructions +
+        # final blessing of Jacob. Tewahedo patriarchal-charge range.
+        entries = self._jub_entries_in(20, 22)
+        assert len(entries) >= 7, (
+            f"γ.4.5.C expected ≥7 Jubilees entries in chs 20-22 (testament + priestly + blessing); found {len(entries)}"
+        )
+
+    def test_abram_drives_ravens_anchor_present(self):
+        # Jub 11:18 — boy-Abram protects sown seed from Mastema's
+        # ravens. Tewahedo agrarian-priestly anchor.
+        e = [x for x in self.ec.for_verse("jub", 11, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 11:18 — Abram drives ravens (agrarian-priestly anchor)"
+
+    def test_hebrew_tongue_restored_anchor_present(self):
+        # Jub 12:25 — angel of presence restores pre-Babel Hebrew
+        # tongue to Abram. Tewahedo Ge'ez liturgical-language warrant.
+        e = [x for x in self.ec.for_verse("jub", 12, 25) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 12:25 — Hebrew tongue restored by angel of presence"
+
+    def test_bethel_altar_anchor_present(self):
+        # Jub 13:8 — pre-Mosaic legitimate altar at Bethel.
+        # Tewahedo patriarchal-Anaphora warrant.
+        e = [x for x in self.ec.for_verse("jub", 13, 8) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 13:8 — Bethel altar (patriarchal-Anaphora warrant)"
+
+    def test_melchizedek_tithe_anchor_present(self):
+        # Jub 13:25 — first canonical tithe paid to Melchizedek.
+        # Tewahedo monastic ǝʾǝsär anchor.
+        e = [x for x in self.ec.for_verse("jub", 13, 25) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 13:25 — Melchizedek tithe (Tewahedo ǝʾǝsär anchor)"
+
+    def test_covenant_of_pieces_pentecost_date_anchor_present(self):
+        # Jub 14:1 — covenant of pieces dated to new moon of third
+        # month (Pentecost). TRIPLE Pentecost anchor with Jub 6:17
+        # (Noah) and Sinai (Ex 19).
+        e = [x for x in self.ec.for_verse("jub", 14, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 14:1 — covenant of pieces on Pentecost (triple-anchor)"
+
+    def test_eighth_day_circumcision_perpetual_anchor_present(self):
+        # Jub 15:14 — eighth-day circumcision required, no flexibility.
+        # Tewahedo distinctive Christian circumcision anchor.
+        e = [x for x in self.ec.for_verse("jub", 15, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 15:14 — eighth-day circumcision (Tewahedo distinctive)"
+
+    def test_angels_of_presence_circumcised_anchor_present(self):
+        # Jub 15:27 — angels of presence and sanctification created
+        # circumcised. Tewahedo cosmic-circumcision anchor.
+        e = [x for x in self.ec.for_verse("jub", 15, 27) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 15:27 — angels of presence created circumcised"
+
+    def test_isaac_born_on_pentecost_anchor_present(self):
+        # Jub 16:13 — Isaac's birth dated to feast of first-fruits
+        # (Pentecost). Tewahedo Old-New-Covenant Pentecost doubled
+        # anchor.
+        e = [x for x in self.ec.for_verse("jub", 16, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 16:13 — Isaac born on Pentecost (doubled anchor)"
+
+    def test_pre_mosaic_tabernacles_anchor_present(self):
+        # Jub 16:20 — Abraham institutes the FIRST Feast of
+        # Tabernacles, seven days, pre-Mosaic. Tewahedo Mäskäl-week
+        # canonical antecedent.
+        e = [x for x in self.ec.for_verse("jub", 16, 20) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 16:20 — pre-Mosaic Feast of Tabernacles instituted by Abraham"
+
+    def test_akedah_as_passover_date_anchor_present(self):
+        # Jub 17:15 — Mastema accuses Abraham on the eve-of-Passover
+        # date (first month, 12th day). Tewahedo Akedah-as-Passover
+        # canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 17, 15) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 17:15 — Mastema accuses on Passover-date (Akedah-as-Passover)"
+
+    def test_moriah_equals_zion_anchor_present(self):
+        # Jub 18:13 — explicit identification of Mt Moriah (Akedah)
+        # with Mt Zion (Temple mount). Tewahedo eucharistic fourfold-
+        # altar canonical anchor (Moriah-Zion-Calvary-Heavenly-Zion).
+        e = [x for x in self.ec.for_verse("jub", 18, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 18:13 — Moriah = Zion (fourfold-altar anchor)"
+
+    def test_seven_day_akedah_festival_anchor_present(self):
+        # Jub 18:18 — Abraham institutes a 7-day Akedah-commemoration
+        # festival. Tewahedo Holy-Week shape antecedent.
+        e = [x for x in self.ec.for_verse("jub", 18, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 18:18 — 7-day Akedah festival (Holy-Week shape antecedent)"
+
+    def test_mastema_repulsion_in_blessing_anchor_present(self):
+        # Jub 19:28 — Abraham's blessing of Jacob includes a Mastema-
+        # repulsion clause. Tewahedo patriarchal-blessing template.
+        e = [x for x in self.ec.for_verse("jub", 19, 28) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 19:28 — Mastema-repulsion in patriarchal blessing"
+
+    def test_love_of_neighbour_testament_anchor_present(self):
+        # Jub 20:2 — Abraham's testament commands love-of-neighbour.
+        # Tewahedo canonical 'second great commandment' antecedent.
+        e = [x for x in self.ec.for_verse("jub", 20, 2) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 20:2 — love-of-neighbour testament command"
+
+    def test_priestly_no_blood_anchor_present(self):
+        # Jub 21:7 — Abraham's priestly instructions to Isaac on
+        # no-blood-consumption. Tewahedo dietary-law TRIPLE witness
+        # with 6:7 + 7:34.
+        e = [x for x in self.ec.for_verse("jub", 21, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 21:7 — priestly no-blood instruction (TRIPLE dietary witness)"
+
+    def test_abraham_feast_of_weeks_inclusivity_anchor_present(self):
+        # Jub 22:1 — Abraham celebrates Feast of Weeks with BOTH
+        # Isaac and Ishmael at the altar. Tewahedo pastoral
+        # inclusivity anchor.
+        e = [x for x in self.ec.for_verse("jub", 22, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 22:1 — Abraham's Feast of Weeks with Isaac AND Ishmael"
+
+    def test_abraham_blesses_jacob_solomonic_anchor_present(self):
+        # Jub 22:11 — Abraham's direct blessing of Jacob (his
+        # preferred grandson). Tewahedo Solomonic-dynasty-Jacobite
+        # anchor via Kǝbrä Nägäśt tradition.
+        e = [x for x in self.ec.for_verse("jub", 22, 11) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.C missing Jub 22:11 — Abraham blesses Jacob (Solomonic-Jacobite anchor)"

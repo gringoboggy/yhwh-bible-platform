@@ -6,6 +6,200 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.5.C Jubilees Abraham-cycle detail (40 entries on Jub 11-22)
+
+**Phases shipped:** γ.4.5.C — substantive expansion of Jubilees
+chapters 11-22 (Abraham cycle). Continues the Mäṣḥafä-Kufāle
+detail-wave pattern after γ.4.5 seed (all 50 chs) and γ.4.5.B
+(Jub 5-10 Watchers + Mastema). The γ.4.5 seed gave broad coverage
+of all 50 chapters with 7 verses falling in chs 11-22 (11:16,
+12:16, 12:22, 14:6, 15:11, 18:9, 21:10); γ.4.5.C brings chs 11-22
+coverage from 7 to 47 entries — substantive-detail parity with
+γ.4.5.B (Jub 5-10) and γ.4.4.B (Watchers detail).
+
+**Test delta:** +23 (`TestGamma45CJubileesAbrahamCycleWave`, 1
+wave class with 23 anchor pins). Total
+ethiopian_commentaries.json entries: 470 → 510 (+40).
+
+**Linter delta:** 11/11 clean.
+
+**Pre-existing test repair:** two stale share-pin tests in
+γ.4.4.D / γ.4.4.E (`test_1_enoch_share_above_45_percent`,
+`test_1_enoch_share_above_50_percent`) had been silently failing
+since γ.4.5+ deliberately diluted 1 Enoch's share by adding
+Jubilees as a fourth voice. Both replaced with absolute-count
+milestone pins (`test_1_enoch_milestone_count_at_or_above_*`) that
+capture each phase's historical achievement invariantly without
+freezing the voice-balance state of the moment.
+
+### What shipped
+
+40 verse-keyed entries spanning Jub 11-22, with major Tewahedo
+anchors:
+
+- **11:4, 11:8, 11:18** — idolatry cascade through Serug's
+  generation + Serug as nominal-idolator great-grandfather +
+  **Abram drives ravens (11:18 — Tewahedo agrarian-priestly anchor;
+  prototype of priest who guards offered seed, undergirds kǝhnät's
+  blessing of fields and crops)**.
+- **12:4, 12:7, 12:12, 12:19, 12:25, 12:28** — Abram's argument to
+  Terah against idols + Terah's private concession-and-public-
+  cowardice + Abram burns the idol house + Haran dies in failed
+  idol-rescue + Abram's first recorded prayer (model for Tewahedo
+  Kidan zä-nägh structure) + **Hebrew tongue restored by the angel
+  of presence (12:25 — Tewahedo Ge'ez liturgical-language warrant
+  by analogy)** + departure from Haran.
+- **13:8, 13:16, 13:25** — **Bethel altar as pre-Mosaic legitimate
+  altar (13:8 — Tewahedo patriarchal-Anaphora warrant)** +
+  return-to-altar after Egypt-failure pattern (näsḫa antecedent) +
+  **Melchizedek tithe as canonical first-tithe (13:25 — Tewahedo
+  monastic ǝʾǝsär anchor on agrarian + military goods)**.
+- **14:1, 14:13, 14:18, 14:21** — **covenant of pieces dated to
+  Pentecost (14:1 — TRIPLE Pentecost anchor with Jub 6:17 Noah's
+  covenant and Sinai Ex 19)** + threefold cosmic-completeness
+  symbolism in offering (Tewahedo liturgical-numerology warrant) +
+  land promise to Abram's seed (universalized for the elected
+  community of faith) + Sarai included in covenant disclosure
+  (Marian-fiat antecedent).
+- **15:14, 15:25, 15:27, 15:33** — **eighth-day circumcision
+  required and perpetual (15:14, 15:25 — Tewahedo distinctive
+  Christian circumcision anchor)** + **angels of presence and
+  sanctification created circumcised (15:27 — cosmic-circumcision;
+  highest angels bear the patriarchal mark)** + prophesied
+  future apostasy with remnant preservation (15:33 — Tewahedo
+  remnant-pattern historiography).
+- **16:3, 16:13, 16:20, 16:29** — annunciation to Sarah (parallel
+  to Marian annunciation; Tewahedo Wǝddase-Maryam OT-type) +
+  **Isaac born on Pentecost (16:13 — Tewahedo Old-New-Covenant
+  doubled Pentecost anchor)** + **Abraham institutes the FIRST
+  Feast of Tabernacles, seven days, pre-Mosaic (16:20 — Tewahedo
+  Mäskäl-week canonical antecedent)** + heavenly-tablet inscription
+  of Tabernacles (16:29).
+- **17:11, 17:15, 17:18** — Ishmael as blessed-but-not-covenant-
+  bearing (Tewahedo distinction between general-providential and
+  elect-covenant blessing) + **Mastema accusation on Passover-date
+  (17:15 — Akedah-as-Passover canonical anchor)** + 'lover of the
+  Lord' as patient-faithful disposition (Tewahedo monastic ideal
+  charism phrase).
+- **18:11, 18:13, 18:18** — angel of presence stays Abraham's
+  hand (Christological pre-incarnate Word reading) + **Mt Moriah =
+  Mt Zion explicit identification (18:13 — Tewahedo eucharistic
+  fourfold-altar anchor: Moriah-Zion-Calvary-Heavenly-Zion)** +
+  **7-day Akedah commemorative festival (18:18 — Tewahedo
+  Holy-Week-into-Easter shape antecedent)**.
+- **19:3, 19:13, 19:28** — Sarah's Machpelah burial (Marian-
+  Assumption typological antecedent; Tewahedo Filsäta iconography
+  pairing) + Rebekah brought from kinship line (Tewahedo zǝmd-zǝr
+  endogamy-within-Orthodoxy warrant) + **Mastema-repulsion clause
+  in Abraham's blessing of Jacob (19:28 — Tewahedo grandparental
+  blessing template; baptismal-and-childhood blessing formula
+  antecedent)**.
+- **20:2, 20:7** — **love-of-neighbour as patriarchal-testament
+  content (20:2 — Tewahedo canonical 'second great commandment'
+  antecedent)** + triad of avoidance: whoredom + idolatrous
+  association + ritual pollution (Tewahedo täzkär ethical-charge
+  triad).
+- **21:7, 21:18, 21:22** — **no-blood-consumption with salt
+  prescription (21:7 — Tewahedo dietary-law TRIPLE witness with
+  6:7 and 7:34)** + blood-consumption as uniquely-rooting-out sin
+  (penitential-canon distinct category) + abominations / graven
+  images / molten images threefold prohibition (Tewahedo
+  iconography-yes-statues-no canonical boundary).
+- **22:1, 22:11** — **Abraham's Feast of Weeks with BOTH Isaac and
+  Ishmael at the altar (22:1 — Tewahedo pastoral-inclusivity
+  anchor; warrant for welcoming Ishmaelite Ethiopians)** +
+  **Abraham's direct blessing of Jacob over Isaac's potential
+  Esau-favoritism (22:11 — Tewahedo Solomonic-dynasty Jacobite
+  anchor via Kǝbrä Nägäśt tradition; canonical priority-of-grace
+  over inherited-order)**.
+
+### Corpus math
+
+```
+Was: 470 entries (post-γ.4.5.B, ethiopian_commentaries.json)
+Now: 510 entries (+40 · γ.4.5.C Jubilees Abraham-cycle detail)
+
+Jubilees by section now:
+  Sinai prologue + Creation (chs 1-4)          :   6 entries
+  Watchers + Noahide + Mastema (chs 5-10)      :  47 entries (γ.4.5.B detail)
+  Abraham cycle (chs 11-22)                    :  47 entries (γ.4.5.C detail) ← NEW
+  Decline + eschatology (ch 23)                :   2 entries
+  Jacob cycle (chs 24-36)                      :   5 entries
+  Joseph cycle (chs 37-45)                     :   3 entries
+  Egypt + Exodus + Passover + Sabbath (46-50)  :  10 entries
+  ───────────────────────────────────────────  ──────────────
+  Total Jubilees                               : 120 entries
+
+ethiopian_commentaries.json total: 510
+├─ Cyril of Alexandria               : 121 entries (John 1-7 + 11-21 — COMPLETE)
+├─ Ephrem the Syrian                 :  77 entries (Gen 1-50; Ps 1; Hymns)
+├─ 1 Enoch tradition                 : 192 entries (Mäṣḥafä Hēnok arc CLOSED)
+└─ Book of Jubilees (Eth. tradition) : 120 entries (Jub 5-10 + 11-22 substantively detailed)
+
+Voice mix: ~24% Cyril / ~15% Ephrem / ~38% 1 Enoch / ~24% Jubilees
+  (was 26/17/41/16 pre-γ.4.5.C — Jubilees rises from 16% to ~24%,
+   now SECOND-largest single-source voice, tied with Cyril at ~24%)
+
+γ.4 cumulative              : 458 entries beyond γ.4 seed
+                             (.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              .2 32 + .2.B 40 + .4 30 + .4.B 40 +
+                              .4.C 40 + .4.D 40 + .4.E 40 + .5 40 +
+                              .5.B 40 + .5.C 40 = 458)
+```
+
+### Two-voice rebalance achievement
+
+With γ.4.5.C shipped, the corpus has a substantively-detailed
+Mäṣḥafä-Kufāle Abraham cycle covering all the canonical Tewahedo
+anchor passages (eighth-day circumcision, pre-Mosaic Tabernacles
+and Weeks, Mt-Moriah-equals-Mt-Zion, Akedah-as-Passover, no-blood
+priestly emphasis, Solomonic-dynasty Jacob election). Jubilees
+rises to substantively-tied-second-voice with Cyril at ~24%, with
+1 Enoch still the plurality at ~38%. Two uniquely-Tewahedo
+canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) now jointly
+hold 62% of the patristic-commentary corpus voice — appropriate
+weight for the Tewahedo edition that uniquely canonizes both.
+
+### Triple Pentecost canonical anchor
+
+A subtle but important addition: γ.4.5.C now has THREE Pentecost-
+date verse-keyed entries (Jub 14:1 Abram's covenant + Jub 6:17
+Noah's covenant from γ.4.5.B + the implicit Sinai-Pentecost
+reference at Jub 1:1 from γ.4.5 seed). The Tewahedo Pentecost
+(Pärräqlēṭos) liturgy commemorates all three covenant moments
+jointly; the canonical corpus now has all three substantively
+referenced. Combined with Jub 16:13 (Isaac's birth on Pentecost),
+the corpus has FOUR Pentecost-date anchors — a uniquely dense
+Pentecost theology unique to the Tewahedo canon.
+
+### Files touched
+
+- `content/sources/ethiopian_commentaries.json` — +40 entries on
+  Jub 11-22; `_meta.source` and `_meta.scope` strings updated to
+  record γ.4.5.C wave.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma45CJubileesAbrahamCycleWave` class with 23 tests;
+  also repaired two pre-existing stale share-pins in
+  `TestGamma44DAstroDreamsAnimalWave` and
+  `TestGamma44EEpistleOfEnochWave` (converted to absolute-count
+  milestone pins — see "Pre-existing test repair" above).
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — updated to reflect γ.4.5.C ship.
+
+### Forward references
+
+- **γ.4.5.D Jubilees Jacob-cycle detail (Jub 24-36)** — patriarchal
+  Jacob narrative; continues the γ.4.5.B/C detail-wave pattern.
+- **γ.4.5.E Jubilees Joseph + Exodus-finale detail (Jub 37-50)** —
+  would close the γ.4.5 detail arc with parity-coverage of the
+  remaining Joseph + Egypt + Exodus + Passover + Sabbath narrative
+  sections.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text.
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation through Exodus.
+
+---
+
 ## 2026-05-12 — session — γ.4.5.B Jubilees Watchers + Mastema detail (40 entries on Jub 5-10)
 
 **Phases shipped:** γ.4.5.B — substantive expansion of Jubilees

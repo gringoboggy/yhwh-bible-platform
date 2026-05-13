@@ -1,5 +1,73 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.5.C Jubilees Abraham-cycle detail ships,
+Jubilees rises to substantively-tied-second voice with Cyril at
+~24%, two-uniquely-Tewahedo-canonical-texts hold 62% of corpus
+voice**: **γ.4.5.C substantive expansion of Jub 11-22 shipped (40
+NEW verse-keyed entries on the Abraham cycle — idolatry decline +
+Abram's monotheism + Hebrew tongue restored + Bethel altar +
+Melchizedek tithe + covenant of pieces on Pentecost +
+eighth-day circumcision Tewahedo distinctive + angels of presence
+created circumcised + Isaac born on Pentecost + pre-Mosaic Feast
+of Tabernacles instituted by Abraham + Akedah-as-Passover +
+Moriah=Zion + 7-day Akedah festival + Sarah's Machpelah burial +
+Mastema-repulsion blessing template + love-of-neighbour testament +
+no-blood priestly emphasis + Abraham's Feast of Weeks with both
+Isaac and Ishmael + Abraham's direct blessing of Jacob).** γ.4.5
+seed covered chs 11-22 with 7 verses; γ.4.5.C brings the same range
+to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10).
+Voice mix moves from 26/17/41/16 to ~24/15/38/24 Cyril/Ephrem/
+1En/Jubilees — **Jubilees now tied with Cyril for second voice at
+~24%**; the two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok
++ Mäṣḥafä Kufāle) jointly hold 62% of the patristic-commentary
+corpus voice. Major Tewahedo anchors now substantively pinned:
+**Triple Pentecost** — Abram's covenant of pieces (14:1) joins
+Noah's covenant (6:17) and Sinai (1:1 implicit) as Pentecost-date
+covenant moments; **Triple no-blood dietary witness** — Abraham's
+priestly instructions on no-blood (21:7) join Jub 6:7 + 7:34;
+**Eighth-day circumcision** as Tewahedo distinctive Christian
+practice (15:14, 15:25); **Cosmic circumcision** — angels of
+presence created circumcised (15:27); **Pre-Mosaic Feast of
+Tabernacles** instituted by Abraham (16:20 — Tewahedo Mäskäl-week
+canonical antecedent); **Isaac born on Pentecost** (16:13 —
+Old-New-Covenant doubled Pentecost); **Akedah-as-Passover** —
+Mastema accuses on Passover-eve date (17:15); **Mt Moriah = Mt
+Zion** explicit identification (18:13 — Tewahedo eucharistic
+fourfold-altar anchor: Moriah-Zion-Calvary-Heavenly-Zion);
+**7-day Akedah commemorative festival** (18:18 — Tewahedo
+Holy-Week shape antecedent); **Abraham's Feast of Weeks with Isaac
+AND Ishmael at the altar** (22:1 — Tewahedo pastoral inclusivity
+anchor); **Abraham's direct blessing of Jacob** (22:11 — Tewahedo
+Solomonic-dynasty Jacobite anchor via Kǝbrä Nägäśt tradition).
+**+23 tests** in `TestGamma45CJubileesAbrahamCycleWave`. 11/11
+lint clean. **Pre-existing test repair**: two stale share-pin
+tests (`TestGamma44D...above_45_percent`,
+`TestGamma44E...above_50_percent`) that had been silently failing
+since γ.4.5+ diluted 1En share were repaired to absolute-count
+milestone pins (`_milestone_count_at_or_above_*`) — invariant
+historical-achievement pins that don't refreeze the voice balance.
+Source: R.H. Charles, *The Book of Jubilees* (Oxford: Clarendon,
+1902 — PD) — same as γ.4.5 + γ.4.5.B; no new source-licensing.
+Four phases unsaved since last save (`1900fb0`): γ.4.4.E +
+γ.4.2.B + γ.4.5 + γ.4.5.B + γ.4.5.C, shipped under continuation
+directive.
+
+**Recommended next ship**:
+- **γ.4.5.D Jubilees Jacob-cycle detail (Jub 24-36)** — continues
+  the detail-wave pattern through the Jacob narrative; would
+  parity-cover the largest single section of Jubilees still at
+  seed-only level (5 entries currently).
+- **γ.4.5.E Jubilees Joseph + Exodus-finale detail (Jub 37-50)** —
+  would close the γ.4.5 detail arc with full parity across all
+  Jubilees sections.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (deferred pending PD source acquisition; current
+  Wikisource translations lack named-translator attribution).
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from current ~15% back upward.
+
+---
+
 **Updated 2026-05-12 / γ.4.5.B Jubilees Watchers + Mastema detail
 ships, Jubilees-Enoch parallel parity reached**: **γ.4.5.B
 substantive expansion of Jub 5-10 shipped (40 NEW verse-keyed
