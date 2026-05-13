@@ -147,9 +147,14 @@ class TestGamma4EthiopianCommentariesLoader:
         from scripts.core import sources
 
         ec = sources.ethiopian_commentaries()
-        # Matthew 28:1 has no seed yet.
-        empty = ec.for_verse("mat", 28, 1)
-        assert empty == []
+        # State-aware empty-lookup pin per CLAUDE_PROJECT_RULES §8:
+        # do not assume any particular verse stays empty (γ.4.6.D
+        # arc-close added Mt 28:1 women-first-witnesses; γ.4.x will
+        # continue filling). Pick a (book, ch, v) that the loader's
+        # for_verse cannot index — a non-corpus book with arbitrary
+        # coordinates — and verify the empty-list contract.
+        empty = ec.for_verse("nonexistent-book-xyz", 99, 99)
+        assert empty == [], f"for_verse on a non-corpus book must return []; got {empty}"
 
     def test_by_father_lookup(self):
         from scripts.core import sources
@@ -526,6 +531,22 @@ class TestGamma4MetaPhasesCoverage:
 
     def test_meta_documents_gamma_4_5_e(self):
         self._assert_phase_mentioned("γ.4.5.E")
+
+    # γ.4.6.x quartet added at γ.4.6.D arc-close per §8.1 (FIFTH instance
+    # after γ.4.4.E, γ.4.5.E, γ.4.2.D, γ.4.3.D). Future drift gets caught
+    # at commit time.
+
+    def test_meta_documents_gamma_4_6(self):
+        self._assert_phase_mentioned("γ.4.6")
+
+    def test_meta_documents_gamma_4_6_b(self):
+        self._assert_phase_mentioned("γ.4.6.B")
+
+    def test_meta_documents_gamma_4_6_c(self):
+        self._assert_phase_mentioned("γ.4.6.C")
+
+    def test_meta_documents_gamma_4_6_d(self):
+        self._assert_phase_mentioned("γ.4.6.D")
 
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
@@ -4603,3 +4624,734 @@ class TestGamma46BSermonOnMountWave:
         assert "Sermon-on-the-Mount" in meta_source or "Sermon on the Mount" in meta_source, (
             "γ.4.6.B _meta.source should describe the Sermon-on-the-Mount wave"
         )
+
+
+class TestGamma46CGalileanMinistryWave:
+    """γ.4.6.C — Cyril of Alexandria on Matthew detail wave II:
+    Galilean Ministry (Matt 8-13). 50 verse-keyed entries deepening
+    the 7 thin seed anchors (8:11 + 9:13 + 10:32 + 11:27 + 12:8 +
+    13:30 + 13:44); brings Galilean-ministry Cyrillian coverage to
+    57 entries — parity with γ.4.6.B Sermon-on-Mount density.
+    Mirrors γ.4.6.B Sermon-on-Mount + γ.4.3.B Cyril-on-Luke Infancy-
+    Galilean detail-wave structure.
+
+    Per §8.1 this is a DETAIL wave, NOT an arc-close — γ.4.6.D
+    (Matt 14-28 Passion + Resurrection) will close the Matthew arc
+    with full §8.1 pins (count milestone ≥260, all-NT-narrative-
+    blocks-covered, _meta sync per sub-phase).
+
+    Pins (detail-wave standard set):
+    - Galilean-ministry substantively detailed (≥57 Cyril entries
+      on Matt 8-13, inclusive of seed; seed had 7).
+    - All six chapters covered with substantive density
+      (≥8 on Matt 8, ≥7 on Matt 9, ≥6 on Matt 10, ≥5 on Matt 11,
+      ≥7 on Matt 12, ≥10 on Matt 13).
+    - Cyril-on-Matthew absolute-count milestone ≥145 entries
+      (per `feedback_share_pin_pattern` — never a share-pin).
+    - Healing-cycle exhaustiveness: leper (8:2-3) + centurion's-
+      servant (8:8) + Peter's-mother-in-law (8:15) + Isa-53-
+      fulfillment (8:17) + storm-stilling (8:26) + Gadarene-
+      demoniacs (8:29) + paralytic-forgiveness (9:2) + authority-
+      to-forgive (9:6) + hemorrhaging-woman (9:21).
+    - Mission-Discourse exhaustiveness: apostolic-authority (10:1)
+      + freely-give (10:8) + sheep-among-wolves (10:16) + endure-
+      to-end (10:22) + fear-not-body-killers (10:28) + not-peace-
+      but-sword (10:34) + lose-life-find-life (10:39).
+    - Rest-invitation exhaustiveness (Mt 11:28-30 SIGNATURE
+      Tewahedo-rest doctrine): 11:28 come-unto-me-all + 11:29 take-
+      my-yoke + 11:30 yoke-easy-burden-light.
+    - Kingdom-Parables exhaustiveness — the five Mt 13 parables NOT
+      in γ.4.6 seed (seed covered 13:30 tares + 13:44 treasure):
+      Sower (13:3) + Mustard-Seed (13:31) + Leaven (13:33) + Pearl
+      (13:45) + Dragnet (13:47).
+    - Signature Cyrillian-Cramer anchors: 8:8 centurion-Qǝddāse-
+      confession-anchor, 8:17 Isa-53-fulfillment Christological key,
+      11:28 come-unto-me-all rest-invitation, 11:29 take-my-yoke
+      meek-and-lowly, 11:30 yoke-easy Chrēstos-pun, 12:28 Spirit-of-
+      God-kingdom-come pneumatological-eschatology, 12:31 blasphemy-
+      against-Spirit unforgivable, 13:43 shine-as-sun Tabor-Anaphora,
+      13:45 pearl-of-great-price Mary-as-Pearl Tewahedo-Mäshafä-
+      Bǝrhān anchor.
+    - _meta.source sync pin: γ.4.6.C + Galilean-ministry.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_galilean_ministry_substantively_detailed(self):
+        cyril_galilean = []
+        for chapter in range(8, 14):
+            for verse in range(1, 100):
+                cyril_galilean.extend(
+                    e for e in self.ec.for_verse("mat", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        # γ.4.6 seed shipped 7 anchors on Matt 8-13 (8:11, 9:13, 10:32,
+        # 11:27, 12:8, 13:30, 13:44); γ.4.6.C adds 50 detail entries = 57 total.
+        assert len(cyril_galilean) >= 57, (
+            f"γ.4.6.C expected ≥57 Cyril entries on Matt 8-13 (Galilean ministry); found {len(cyril_galilean)}"
+        )
+
+    def test_each_galilean_chapter_substantively_covered(self):
+        per_chapter = {}
+        for chapter in range(8, 14):
+            n = 0
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mat", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        n += 1
+            per_chapter[chapter] = n
+        # γ.4.6 seed: Matt 8-13 each had 1, Matt 13 had 2.
+        # γ.4.6.C: +9 / +8 / +7 / +6 / +8 / +12 = +50.
+        assert per_chapter[8] >= 8, f"γ.4.6.C Matt 8 expected ≥8 Cyril entries; got {per_chapter[8]}"
+        assert per_chapter[9] >= 7, f"γ.4.6.C Matt 9 expected ≥7 Cyril entries; got {per_chapter[9]}"
+        assert per_chapter[10] >= 6, f"γ.4.6.C Matt 10 expected ≥6 Cyril entries; got {per_chapter[10]}"
+        assert per_chapter[11] >= 5, f"γ.4.6.C Matt 11 expected ≥5 Cyril entries; got {per_chapter[11]}"
+        assert per_chapter[12] >= 7, f"γ.4.6.C Matt 12 expected ≥7 Cyril entries; got {per_chapter[12]}"
+        assert per_chapter[13] >= 10, f"γ.4.6.C Matt 13 expected ≥10 Cyril entries; got {per_chapter[13]}"
+
+    def test_cyril_on_matthew_milestone_count_at_or_above_galilean_detail(self):
+        cyril_mat = 0
+        for chapter in range(1, 29):
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mat", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        cyril_mat += 1
+        # γ.4.6 seed: 45 + γ.4.6.B Sermon: +50 → 95 + γ.4.6.C Galilean: +50 → 145.
+        # Use absolute count per `feedback_share_pin_pattern`.
+        assert cyril_mat >= 145, (
+            f"γ.4.6.C expected ≥145 Cyril-on-Matthew entries (45 seed + 50 γ.4.6.B + 50 γ.4.6.C); found {cyril_mat}"
+        )
+
+    def test_healing_cycle_substantively_covered(self):
+        # Matt 8-9 healing cycle: leper (8:2-3), centurion-servant (8:8),
+        # Peter's-mother-in-law (8:15), Isa-53-fulfillment (8:17), storm
+        # (8:26), Gadarene-demoniacs (8:29), paralytic-forgiveness (9:2),
+        # authority-to-forgive (9:6), hemorrhaging-woman (9:21). Nine pivotal
+        # verses across the healing-cycle should each carry Cyrillian
+        # commentary. Exhaustiveness pin.
+        healing_verses = [
+            (8, 2),
+            (8, 8),
+            (8, 15),
+            (8, 17),
+            (8, 26),
+            (8, 29),
+            (9, 2),
+            (9, 6),
+            (9, 21),
+        ]
+        missing = []
+        for ch, v in healing_verses:
+            c = [e for e in self.ec.for_verse("mat", ch, v) if e.father == "Cyril of Alexandria"]
+            if not c:
+                missing.append(f"{ch}:{v}")
+        assert not missing, f"γ.4.6.C expected full healing-cycle coverage in Matt 8-9; missing {missing}"
+
+    def test_mission_discourse_substantively_covered(self):
+        # Matt 10 Mission Discourse — apostolic-authority (10:1) +
+        # freely-give (10:8) + sheep-among-wolves (10:16) + endure-to-
+        # end (10:22) + fear-not-body-killers (10:28) + not-peace-but-
+        # sword (10:34) + lose-life-find-life (10:39). Seven pivotal
+        # verses across the mission charter.
+        mission_verses = [1, 8, 16, 22, 28, 34, 39]
+        missing = []
+        for v in mission_verses:
+            c = [e for e in self.ec.for_verse("mat", 10, v) if e.father == "Cyril of Alexandria"]
+            if not c:
+                missing.append(v)
+        assert not missing, f"γ.4.6.C expected full Mission-Discourse coverage in Matt 10; missing 10:{missing}"
+
+    def test_rest_invitation_full_triplet_covered(self):
+        # Mt 11:28-30 is the Cyrillian-Tewahedo-rest signature locus —
+        # the three verses MUST all be present for the doctrine to be
+        # substantively grounded. Signature exhaustiveness pin.
+        rest_verses = [28, 29, 30]
+        missing = []
+        for v in rest_verses:
+            c = [e for e in self.ec.for_verse("mat", 11, v) if e.father == "Cyril of Alexandria"]
+            if not c:
+                missing.append(v)
+        assert not missing, (
+            f"γ.4.6.C expected full come-unto-me-all rest-invitation (Mt 11:28-30); missing 11:{missing}"
+        )
+
+    def test_kingdom_parables_substantively_covered(self):
+        # The five Mt 13 parables NOT covered by γ.4.6 seed: Sower
+        # (13:3), Mustard-Seed (13:31), Leaven (13:33), Pearl (13:45),
+        # Dragnet (13:47). γ.4.6 seed covered Tares (13:30) and
+        # Treasure (13:44 — labeled "pearl of great price" in seed
+        # though the verse is actually the treasure-in-the-field
+        # parable). γ.4.6.C surfaces the five missing kingdom-parables.
+        parable_verses = [3, 31, 33, 45, 47]
+        missing = []
+        for v in parable_verses:
+            c = [e for e in self.ec.for_verse("mat", 13, v) if e.father == "Cyril of Alexandria"]
+            if not c:
+                missing.append(v)
+        assert not missing, (
+            f"γ.4.6.C expected all five non-seed Kingdom-parables covered "
+            f"(Sower 13:3 + Mustard 13:31 + Leaven 13:33 + Pearl 13:45 + Dragnet 13:47); "
+            f"missing 13:{missing}"
+        )
+
+    def test_centurion_qeddase_confession_anchor_present(self):
+        # Mt 8:8 is the Tewahedo Qǝddāse pre-communion confession-anchor
+        # ("I am not worthy that thou shouldest enter under the roof of
+        # my soul"). Signature pin.
+        c = [e for e in self.ec.for_verse("mat", 8, 8) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.C missing Matt 8:8 — centurion 'speak the word only' (Tewahedo "
+            "Qǝddāse pre-communion confession-anchor)"
+        )
+
+    def test_isaiah_53_fulfillment_anchor_present(self):
+        # Mt 8:17's Isa 53 citation is the Cyrillian christological key
+        # interpreting the Galilean healings as proleptic Passion-events.
+        c = [e for e in self.ec.for_verse("mat", 8, 17) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 8:17 — 'himself took our infirmities' (Isa-53 Christological-fulfillment key)"
+
+    def test_come_unto_me_all_anchor_present(self):
+        # Mt 11:28 — the Cyrillian-Tewahedo-rest signature locus. The
+        # central anchor of monastic-rest theology and Sänbätä-Krǝstiyan
+        # Sabbath-in-Christ doctrine.
+        c = [e for e in self.ec.for_verse("mat", 11, 28) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 11:28 — 'come unto me all ye that labour' (Tewahedo signature-rest-invitation)"
+
+    def test_take_my_yoke_meek_and_lowly_anchor_present(self):
+        # Mt 11:29 — the praos-tapeinos-tē-kardia (meek-and-lowly-in-
+        # heart) Christological-humility self-description.
+        c = [e for e in self.ec.for_verse("mat", 11, 29) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 11:29 — 'take my yoke / I am meek and lowly' (Christological-humility doctrine)"
+
+    def test_yoke_easy_chrestos_pun_anchor_present(self):
+        # Mt 11:30 — the Cyrillian Chrēstos / Christos near-homonymy
+        # play: Christ's-yoke is Chrēstos-yoke (kindly), the bearer
+        # shares the carrying.
+        c = [e for e in self.ec.for_verse("mat", 11, 30) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 11:30 — 'my yoke is easy' (Chrēstos-pun + Tewahedo monastic-rule prologue)"
+
+    def test_spirit_of_god_kingdom_come_anchor_present(self):
+        # Mt 12:28 — pneumatological-eschatology summary; Spirit-driven
+        # exorcism manifests present-irrupting kingdom.
+        c = [e for e in self.ec.for_verse("mat", 12, 28) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.C missing Matt 12:28 — 'if I cast out devils by the Spirit of God' (pneumatological-eschatology)"
+        )
+
+    def test_blasphemy_against_spirit_unforgivable_anchor_present(self):
+        # Mt 12:31 — the Cyrillian unforgivable-disposition locus, key
+        # for distinguishing the unforgivable from ordinary post-
+        # baptismal sin in Tewahedo sacramental-confession theology.
+        c = [e for e in self.ec.for_verse("mat", 12, 31) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 12:31 — blasphemy-against-Holy-Spirit (unforgivable-disposition locus)"
+
+    def test_shine_as_sun_tabor_anaphora_anchor_present(self):
+        # Mt 13:43 — eschatological-glorification deification-language;
+        # paired with Mt 17:2 Tabor transfiguration as Tewahedo
+        # iconographic sun-halo-of-saints prooftext.
+        c = [e for e in self.ec.for_verse("mat", 13, 43) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.C missing Matt 13:43 — 'righteous shall shine as the sun' "
+            "(eschatological-deification + Tabor-Anaphora pair)"
+        )
+
+    def test_pearl_of_great_price_mary_anchor_present(self):
+        # Mt 13:45 — the Cyrillian-Tewahedo Pearl-of-Great-Price as
+        # Mary-as-the-Pearl signature; the Mäshafä-Bǝrhān cites
+        # Mt 13:45-46 in the Theotokos-titulature.
+        c = [e for e in self.ec.for_verse("mat", 13, 45) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 13:45 — pearl-of-great-price (Mary-as-Pearl Tewahedo-Mäshafä-Bǝrhān anchor)"
+
+    def test_dragnet_corpus_permixtum_anchor_present(self):
+        # Mt 13:47 — the sagēnē mixed-ecclesiology text; ecclesia-
+        # militans is mixed-by-intent; ecclesia-triumphans is
+        # eschaton-purified.
+        c = [e for e in self.ec.for_verse("mat", 13, 47) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.C missing Matt 13:47 — dragnet (corpus-permixtum mixed-ecclesiology)"
+
+    def test_meta_documents_gamma_4_6_c_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.6.C" in meta_source, "γ.4.6.C must be referenced in _meta.source"
+        assert "Galilean-ministry" in meta_source or "Galilean ministry" in meta_source, (
+            "γ.4.6.C _meta.source should describe the Galilean-ministry wave"
+        )
+
+
+class TestGamma46DCyrilMatthewArcClose:
+    """γ.4.6.D — Cyril of Alexandria on Matthew arc-close wave
+    (Matt 14-28: Galilean miracles + Jerusalem entry + Olivet
+    discourse + Passion narrative + Resurrection + Great
+    Commission). CLOSING WAVE of the four-wave Cyril-on-Matthew
+    arc per §8.1 arc-close convention. 50 verse-keyed entries
+    distributed across all 15 chapters Matt 14-28. Closes the
+    THIRD Cyril Gospel arc:
+
+        Cyril-on-John   γ.4.1-D  116 entries (closed earlier)
+        Cyril-on-Luke   γ.4.3-D  160 entries (closed 2026-05-13)
+        Cyril-on-Matthew γ.4.6-D 195 entries (closed by γ.4.6.D)
+                                (45 seed + 50 γ.4.6.B + 50 γ.4.6.C
+                                 + 50 γ.4.6.D)
+        Cumulative Cyril-on-Gospels: 471 entries.
+
+    FIFTH instance of §8.1 arc-close convention (after γ.4.4.E
+    Mäṣḥafä Hēnok, γ.4.5.E Mäṣḥafä Kufāle, γ.4.2.D Pentateuch,
+    γ.4.3.D Cyril-on-Luke).
+
+    Per §8.1 the closing wave's test class MUST add the three
+    specific pin types:
+    (1) _meta synchronization pin per sub-phase tag with regex
+        word-boundary matching;
+    (2) absolute-count milestone pin at cumulative arc-close
+        count;
+    (3) all_N_sections_covered exhaustiveness pin asserting every
+        section the arc was supposed to cover has substantive
+        coverage at planned depth.
+
+    Pins:
+    - Matt 14-28 substantively detailed (≥72 total Cyril entries
+      on Matt 14-28 = 22 seed + 50 arc-close detail).
+    - Every chapter Matt 14-28 carries ≥2 Cyril entries (parity
+      floor — even the lightest-coverage chapters get arc-close
+      depth).
+    - **§8.1 ARC-CLOSE PIN #1 — count milestone:** Cyril-on-Matthew
+      absolute-count ≥190 entries (per `feedback_share_pin_pattern`
+      — never a share-pin; durable against future voice-broadening).
+    - **§8.1 ARC-CLOSE PIN #2 — all_N_sections_covered
+      exhaustiveness:**
+      test_all_four_cyril_matthew_waves_substantively_covered
+      asserts γ.4.6 seed (≥45) + γ.4.6.B Matt 5-7 (≥56) + γ.4.6.C
+      Matt 8-13 (≥57) + γ.4.6.D Matt 14-28 (≥72) — every section
+      the Cyril-on-Matthew arc was supposed to cover has
+      substantive coverage at planned depth.
+    - **§8.1 ARC-CLOSE PIN #3 — _meta synchronization:** pin per
+      sub-phase tag (γ.4.6, γ.4.6.B, γ.4.6.C, γ.4.6.D) with regex
+      word-boundary; `test_meta_synchronization_at_arc_close`.
+    - 12 signature-passage pins for new Tewahedo anchors at the
+      arc-close: 14:25 walking-on-water egō-eimi + 16:19 binding-
+      loosing keys + 17:1 Tabor mountain-selection + 17:20 mustard-
+      seed-faith + 19:6 one-flesh marital-indissolubility + 21:5
+      king-meek-on-ass Zech 9:9 + 21:42 stone-rejected-cornerstone
+      Ps 118:22-23 + 22:21 render-to-Caesar dual-jurisdiction +
+      25:6 midnight-cry-bridegroom vigil + 26:28 blood-of-covenant
+      Anaphora-form + 26:41 watch-and-pray Gethsemane + 28:18 all-
+      authority-given Cosmic-Christ.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("mat", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def _cyril_in_range(self, ch_start, ch_end):
+        return sum(len(self._cyril_in_chapter(c)) for c in range(ch_start, ch_end + 1))
+
+    def test_matt_14_28_substantively_detailed(self):
+        total = self._cyril_in_range(14, 28)
+        # γ.4.6 seed shipped 22 anchors on Matt 14-28; γ.4.6.D adds 50.
+        assert total >= 72, (
+            f"γ.4.6.D expected ≥72 Cyril entries on Matt 14-28 (22 seed + 50 arc-close detail); found {total}"
+        )
+
+    def test_every_arc_close_chapter_has_minimum_coverage(self):
+        # Parity floor: every chapter Matt 14-28 should carry ≥2
+        # Cyril entries after γ.4.6.D arc-close. Prevents a future
+        # "I'll cover Matt 24 later" from silently leaving a chapter
+        # in seed-only depth.
+        per_chapter = {ch: len(self._cyril_in_chapter(ch)) for ch in range(14, 29)}
+        below_floor = {ch: n for ch, n in per_chapter.items() if n < 2}
+        assert not below_floor, (
+            f"γ.4.6.D arc-close: every Matt 14-28 chapter should have ≥2 "
+            f"Cyril entries; below-floor chapters: {below_floor}"
+        )
+
+    def test_cyril_on_matthew_arc_close_count_milestone(self):
+        # §8.1 ARC-CLOSE PIN #2: absolute-count milestone at arc close.
+        # Per feedback_share_pin_pattern: never a share pin.
+        # Cumulative: 45 (γ.4.6 seed) + 50 (γ.4.6.B Sermon) + 50
+        # (γ.4.6.C Galilean) + 50 (γ.4.6.D arc-close) = 195. ≥190 floor.
+        cyril_mat = 0
+        for chapter in range(1, 29):
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mat", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        cyril_mat += 1
+        assert cyril_mat >= 190, (
+            f"γ.4.6.D arc-close: Cyril-on-Matthew count ≥190 expected "
+            f"(cumulative four-wave arc-close milestone: 45 seed + 50 "
+            f"γ.4.6.B + 50 γ.4.6.C + 50 γ.4.6.D = 195); found {cyril_mat}"
+        )
+
+    def test_all_four_cyril_matthew_waves_substantively_covered(self):
+        # §8.1 ARC-CLOSE PIN #3: all_N_sections_covered exhaustiveness.
+        # Every section of the Cyril-on-Matthew arc must have substantive
+        # coverage at planned depth. The four waves are:
+        # γ.4.6 seed (45 entries across all 28 chapters)
+        # γ.4.6.B Matt 5-7 Sermon-on-Mount detail (≥56 cumulative)
+        # γ.4.6.C Matt 8-13 Galilean-ministry detail (≥57 cumulative)
+        # γ.4.6.D Matt 14-28 arc-close detail (≥72 cumulative)
+        # This pin prevents a future "I'll ship Matt 14-28 later" from
+        # silently leaving the arc partially closed.
+        total_cyril_mat = self._cyril_in_range(1, 28)
+        mat_5_7 = self._cyril_in_range(5, 7)
+        mat_8_13 = self._cyril_in_range(8, 13)
+        mat_14_28 = self._cyril_in_range(14, 28)
+
+        assert total_cyril_mat >= 190, (
+            f"γ.4.6.D arc-close: total Cyril-on-Matthew ≥190 expected (four waves); found {total_cyril_mat}"
+        )
+        assert mat_5_7 >= 56, f"γ.4.6.D arc-close: Matt 5-7 below γ.4.6.B parity (need ≥56, have {mat_5_7})"
+        assert mat_8_13 >= 57, f"γ.4.6.D arc-close: Matt 8-13 below γ.4.6.C parity (need ≥57, have {mat_8_13})"
+        assert mat_14_28 >= 72, f"γ.4.6.D arc-close: Matt 14-28 below γ.4.6.D parity (need ≥72, have {mat_14_28})"
+
+    def test_meta_synchronization_at_arc_close(self):
+        # §8.1 ARC-CLOSE PIN #1: _meta synchronization. Pin per
+        # sub-phase tag with regex word-boundary so γ.4.6 doesn't
+        # accidentally match γ.4.6.B/C/D. Granular failures (per
+        # sub-phase) are easier to diagnose than a combined pin.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert re.search(r"γ\.4\.6(?![.A-Z])", meta_source), "γ.4.6 seed wave must be in _meta.source"
+        assert re.search(r"γ\.4\.6\.B(?![A-Z])", meta_source), (
+            "γ.4.6.B Sermon-on-Mount detail wave must be in _meta.source"
+        )
+        assert re.search(r"γ\.4\.6\.C(?![A-Z])", meta_source), (
+            "γ.4.6.C Galilean-ministry detail wave must be in _meta.source"
+        )
+        assert re.search(r"γ\.4\.6\.D(?![A-Z])", meta_source), "γ.4.6.D arc-close wave must be in _meta.source"
+        # arc-close must describe Matt 14-28 scope explicitly
+        assert (
+            "Matt 14-28" in meta_source
+            or "Passion narrative" in meta_source
+            or "Resurrection + Great Commission" in meta_source
+        ), "γ.4.6.D _meta.source should describe the Matt 14-28 (Passion + Resurrection + Great Commission) scope"
+        # arc-close must record arc-close status explicitly
+        assert (
+            "Cyril-on-Matthew arc is CLOSED" in meta_source
+            or "CLOSING WAVE of the four-wave Cyril-on-Matthew arc" in meta_source
+        ), "γ.4.6.D _meta.source should record the arc-close explicitly"
+
+    # ---- Signature passage pins (12 anchors for Tewahedo distinctives) ----
+
+    def test_walking_on_water_ego_eimi_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 14, 25) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.D missing Matt 14:25 — walking-on-water 'It is I' (egō-eimi Christological-divine-name claim)"
+
+    def test_binding_and_loosing_keys_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 16, 19) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 16:19 — keys-of-the-kingdom binding-and-loosing (apostolic-magisterial donation)"
+        )
+
+    def test_tabor_mountain_selection_anchor_present(self):
+        # Mt 17:2 is γ.4.6 seed (Transfiguration body); 17:1 is the
+        # γ.4.6.D mountain-selection + six-day-typology anchor.
+        c = [e for e in self.ec.for_verse("mat", 17, 1) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 17:1 — Tabor mountain-selection + six-day-creation-"
+            "typology (Tewahedo Buhe iconographic-mountain anchor)"
+        )
+
+    def test_mustard_seed_faith_quality_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 17, 20) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.D missing Matt 17:20 — mustard-seed-faith (quality-not-quantity kenōsis-faith couplet)"
+
+    def test_one_flesh_marital_indissolubility_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 19, 6) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.6.D missing Matt 19:6 — one-flesh-not-twain (Tewahedo marital-indissolubility anchor)"
+
+    def test_king_meek_on_ass_zech_9_9_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 21, 5) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 21:5 — king-meek-on-ass (Zech 9:9 prophetic-"
+            "fulfillment; Tewahedo Hosanna-Sunday liturgy)"
+        )
+
+    def test_stone_rejected_cornerstone_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 21, 42) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 21:42 — stone-rejected-becomes-cornerstone "
+            "(Ps 118:22-23 four-fold cornerstone-prooftext)"
+        )
+
+    def test_render_to_caesar_dual_jurisdiction_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 22, 21) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 22:21 — render-to-Caesar-and-God (Tewahedo twofold-jurisdiction political-theology)"
+        )
+
+    def test_midnight_cry_bridegroom_vigil_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 25, 6) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 25:6 — midnight-cry bridegroom-cometh "
+            "(Tewahedo Mahǝlet-Mǝsǝṭǝs midnight-office vigil)"
+        )
+
+    def test_blood_of_covenant_anaphora_form_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 26, 28) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 26:28 — blood-of-covenant shed-for-many "
+            "(Tewahedo Anaphora-institution words-of-institution)"
+        )
+
+    def test_watch_and_pray_gethsemane_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 26, 41) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 26:41 — watch-and-pray spirit-willing-flesh-weak (Tewahedo monastic-vigil discipline)"
+        )
+
+    def test_all_authority_given_cosmic_christ_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 28, 18) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.6.D missing Matt 28:18 — all-authority-given-in-heaven-and-earth "
+            "(Cosmic-Christ cosmocrator; Great-Commission ground)"
+        )
+
+
+class TestGamma47CyrilMarkSeedWave:
+    """γ.4.7 — Cyril of Alexandria on Mark (seed wave, 2026-05-13).
+    Opens the FOURTH and final canonical-Gospel Cyrillian arc after
+    the three closed arcs:
+
+        Cyril-on-John   γ.4.1-D   116 entries (closed earlier)
+        Cyril-on-Luke   γ.4.3-D   160 entries (closed 2026-05-13 AM)
+        Cyril-on-Matthew γ.4.6-D  195 entries (closed 2026-05-13)
+        Cyril-on-Mark   γ.4.7      40 entries  ← opened by γ.4.7
+
+    Cumulative Cyril-on-Gospels post-γ.4.7: 511 entries across all
+    4 canonical Gospels at substantive seed-or-detail depth.
+
+    Source: Cyril's Mark commentary survives only as catena fragments.
+    Authoritative PD edition is J.A. Cramer, *Catenae Graecorum Patrum
+    in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci*
+    (Oxford: University Press, 1840 — PD); supplemented by Cyril
+    fragments in PG 72 (Migne, 1859 — PD).
+
+    Mark is the Coptic-Alexandrian Gospel par excellence. Tradition
+    attributes to John Mark, founder of the Coptic Church via the
+    Alexandrian see. The apostolic succession runs Mark → Anianus →
+    … → Athanasius → … → Frumentius (Tewahedo founder, consecrated by
+    Athanasius c. 330). Cyril is the 24th Patriarch of the See of Mark.
+    Reading Cyril on Mark closes a hermeneutical loop: the Alexandrian-
+    Coptic patriarch comments on the Gospel attributed to the
+    Alexandrian-Coptic founder, in the tradition that birthed Tewahedo.
+
+    Seed wave (NOT arc-close — γ.4.7.B/C/D detail-waves to follow per
+    γ.4.1 + γ.4.3 + γ.4.6 precedent). Pins (seed-wave standard set):
+    - Mark 1-16 substantively seeded (≥40 Cyril entries on mrk).
+    - Major Markan narrative blocks covered: Prologue + Baptism (1),
+      Galilean Ministry (2-3), Kingdom-Parables (4), Miracles (5-6),
+      Defilement + Syrophoenician (7), Petrine-confession + Passion-
+      prediction (8-9), Discipleship-Discourse (10), Jerusalem Entry
+      + Temple (11-12), Olivet (13), Passion (14-15), Resurrection
+      (16).
+    - Every single Markan chapter Mark 1-16 covered (stronger than
+      block-coverage).
+    - Cyril absolute-count milestone ≥510 entries (471 prior + 40 new
+      = 511; ≥510 conservative floor per `feedback_share_pin_pattern`).
+    - Signature passages: 1:10 Trinitarian-baptism Jordan-theophany +
+      1:15 kingdom-near metanoia-pisteue + 3:35 obedient-family Marian-
+      double-kinship + 4:31 mustard-seed Frumentius-founding-
+      fulfillment + 6:7 two-by-two sending Frumentius-Edesius pattern
+      + 7:28 Syrophoenician Cushite-Gentile-inclusion + 8:29 Petrine-
+      confession sy-ei-ho-Christos + 9:24 'help-mine-unbelief' proto-
+      catechumen-prayer + 10:45 ransom-for-many atonement-summit +
+      11:17 house-of-prayer-for-all-nations Coptic-Tewahedo-
+      fulfillment + 13:32 'neither-the-Son' communicatio-idiomatum +
+      14:36 Abba-Father two-wills Miaphysite-Christology + 15:39
+      centurion-confession structural-inclusio + 16:6 'He-is-risen'
+      Fasika-proclamation.
+    - _meta.source sync pin: γ.4.7 referenced + Cyril-on-Mark signature
+      + Cramer-Catenae source cited.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_mark_substantively_seeded(self):
+        cyril_mrk = []
+        for chapter in range(1, 17):
+            for verse in range(1, 100):
+                cyril_mrk.extend(
+                    e for e in self.ec.for_verse("mrk", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        assert len(cyril_mrk) >= 40, f"γ.4.7 expected ≥40 Cyril entries on Mark 1-16; found {len(cyril_mrk)}"
+
+    def test_all_major_markan_blocks_covered(self):
+        def has_cyril_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("mrk", chapter, verse):
+                        if entry.father == "Cyril of Alexandria":
+                            return True
+            return False
+
+        assert has_cyril_in(1, 1), "γ.4.7 missing Markan Prologue + Baptism (Mark 1)"
+        assert has_cyril_in(2, 3), "γ.4.7 missing Galilean Ministry (Mark 2-3)"
+        assert has_cyril_in(4, 4), "γ.4.7 missing Kingdom Parables (Mark 4)"
+        assert has_cyril_in(5, 6), "γ.4.7 missing Miracles + Mid-ministry (Mark 5-6)"
+        assert has_cyril_in(7, 7), "γ.4.7 missing Defilement + Syrophoenician (Mark 7)"
+        assert has_cyril_in(8, 9), "γ.4.7 missing Petrine-confession + Passion-prediction + Transfiguration (Mark 8-9)"
+        assert has_cyril_in(10, 10), "γ.4.7 missing Discipleship Discourse (Mark 10)"
+        assert has_cyril_in(11, 12), "γ.4.7 missing Jerusalem Entry + Temple (Mark 11-12)"
+        assert has_cyril_in(13, 13), "γ.4.7 missing Olivet eschatology (Mark 13)"
+        assert has_cyril_in(14, 15), "γ.4.7 missing Passion narrative (Mark 14-15)"
+        assert has_cyril_in(16, 16), "γ.4.7 missing Resurrection (Mark 16)"
+
+    def test_all_sixteen_markan_chapters_covered(self):
+        # Stronger than block-coverage: every single Markan chapter
+        # must carry at least one Cyril entry after the γ.4.7 seed.
+        missing = []
+        for chapter in range(1, 17):
+            found = False
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mrk", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        found = True
+                        break
+                if found:
+                    break
+            if not found:
+                missing.append(chapter)
+        assert not missing, f"γ.4.7 expected every Markan chapter 1-16 covered by seed; missing chapters: {missing}"
+
+    def test_cyril_milestone_count_at_or_above_mark_seed(self):
+        # γ.4.1.A-D shipped 116 Cyril-on-John + γ.4.3.A-D shipped 160
+        # Cyril-on-Luke + γ.4.6.A-D shipped 195 Cyril-on-Matthew + γ.4
+        # seed 5 misc (2 gen, 2 ps, etc.) = 476 (rounded down for safety).
+        # γ.4.7 adds 40 Cyril-on-Mark = 516. Floor at ≥510 conservative
+        # post-γ.4.7 milestone. Absolute count per
+        # feedback_share_pin_pattern; invariant under future voice-
+        # broadening waves.
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 510, (
+            f"γ.4.7 expected Cyril count ≥510 (Mark-seed milestone, "
+            f"cumulative across all 4 Gospels); found {cyril_count}"
+        )
+
+    # ---- Signature passage pins (14 anchors for Coptic-Tewahedo distinctives) ----
+
+    def test_trinitarian_baptism_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 1, 10) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.7 missing Mark 1:10 — Trinitarian-baptism Jordan-theophany (Tewahedo Tǝmqät anchor)"
+
+    def test_kingdom_near_metanoia_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 1, 15) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.7 missing Mark 1:15 — kingdom-near metanoia-pisteue (kerygmatic Markan incipit)"
+
+    def test_obedient_family_marian_double_kinship_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 3, 35) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.7 missing Mark 3:35 — doing-God's-will family (Marian-double-kinship anchor)"
+
+    def test_mustard_seed_frumentius_fulfillment_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 4, 31) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.7 missing Mark 4:31 — mustard-seed kingdom-growth (Frumentius-founding fulfillment-pattern)"
+
+    def test_two_by_two_sending_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 6, 7) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 6:7 — two-by-two sending (Frumentius-Edesius + Nine-Saints Tewahedo missionary-pattern)"
+        )
+
+    def test_syrophoenician_cushite_gentile_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 7, 28) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 7:28 — Syrophoenician crumbs "
+            "(Cushite-Gentile-inclusion Tewahedo Aksumite-origin anchor)"
+        )
+
+    def test_petrine_confession_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 8, 29) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 8:29 — Petrine confession sy-ei-ho-Christos (terse-Markan discipleship-confession)"
+        )
+
+    def test_help_mine_unbelief_proto_catechumen_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 9, 24) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.7 missing Mark 9:24 — 'Lord, I believe; help thou mine unbelief' (proto-catechumen-prayer)"
+
+    def test_ransom_for_many_atonement_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 10, 45) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 10:45 — ransom-for-many (atonement-summit; Tewahedo Anaphora cites at institution)"
+        )
+
+    def test_house_of_prayer_all_nations_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 11, 17) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 11:17 — house of prayer for all nations "
+            "(Markan-distinctive; Coptic-Tewahedo Gentile-mission fulfillment)"
+        )
+
+    def test_neither_the_son_communicatio_idiomatum_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 13, 32) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 13:32 — 'neither the Son' (communicatio-idiomatum Cyrillian Miaphysite-Christology)"
+        )
+
+    def test_abba_father_two_wills_miaphysite_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 14, 36) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 14:36 — Abba Father two-wills "
+            "(Miaphysite Gethsemane; baptismal-adoption Rom 8:15 anchor)"
+        )
+
+    def test_markan_centurion_inclusio_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 15, 39) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 15:39 — Markan centurion confession "
+            "(structural-inclusio with Mk 1:1; Gentile-inclusion-at-Cross)"
+        )
+
+    def test_he_is_risen_fasika_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 16, 6) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7 missing Mark 16:6 — 'He is risen; he is not here' "
+            "(Fasika dawn-Eucharist proclamation; Markan-priority lectionary anchor)"
+        )
+
+    def test_meta_documents_gamma_4_7_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.7" in meta_source, "γ.4.7 must be referenced in _meta.source"
+        assert "Cyril on Mark" in meta_source or "Cyril-on-Mark" in meta_source or "seed wave" in meta_source, (
+            "γ.4.7 _meta.source should describe the Cyril-on-Mark seed wave"
+        )
+        assert "Cramer" in meta_source, "γ.4.7 _meta.source should cite Cramer-Catenae source"

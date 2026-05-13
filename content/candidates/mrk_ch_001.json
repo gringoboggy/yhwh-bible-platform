@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 1,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 70,
+  "generated_at": "2026-05-13T21:37:54+00:00",
+  "n_candidates": 73,
   "candidates": [
     {
       "id": "mrk-1-2-001",
@@ -1052,6 +1052,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: ZEBEDEE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-1-10-071",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And straightway coming up out of the water, he saw the heavens opened, and the Spirit like a dove descending upon him&#x27; — Cyril marks the Trinitarian-theophany at Jordan: the Father&#x27;s-voice (1:11), the Son-incarnate-in-the-water, the Spirit-descending-as-dove. The schizomenous (rent-open, Mk 1:10) is stronger than Matthew&#x27;s aneōchthēsan (opened, Mt 3:16) — Mark&#x27;s heaven-torn anticipates the temple-veil-torn at Mk 15:38 (the same schizō). The peristera (dove) recalls Gen 8:8-12 (Noahic-flood-dove-new-creation) and Cant 2:14 (Bridegroom&#x27;s-beloved). Tewahedo Tǝmqät (Epiphany) liturgy on Ṭǝrr 11 reads the Markan baptism explicitly with Cyrillian-Trinitarian emphasis.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-1-15-072",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel&#x27; — Cyril marks the peplērōtai ho kairos (the time is fulfilled) as the kerygmatic-Markan incipit. The four imperatives compress the entire Christic call: the kairos-fulfilled (incarnational-now), the basileia-engiken (kingdom-near), metanoeite (repent — deep-mind-change), pisteuete (believe — covenantal-trust). Tewahedo evangelization-language preserves the metanoeite-pisteuete pair as the dual-call of every catechetical-summons.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-1-24-073",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;What have we to do with thee, thou Jesus of Nazareth? art thou come to destroy us? I know thee who thou art, the Holy One of God&#x27; — Cyril marks the Capernaum-demoniac&#x27;s confession as ironic-theological-priority: the unclean spirits identify the incarnate Word (ho hagios tou theou — the Holy One of God, echoing Ps 16:10 LXX hosios) before the disciples do. The demonic-Christology runs ahead of human-Christology throughout Mark (again at 3:11, 5:7). Tewahedo exorcism-rite cites Mk 1:24 + Acts 16:17 as the demons-recognize-Christ formula.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

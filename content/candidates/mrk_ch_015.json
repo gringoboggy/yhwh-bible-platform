@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 15,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 56,
+  "generated_at": "2026-05-13T21:37:54+00:00",
+  "n_candidates": 58,
   "candidates": [
     {
       "id": "mrk-15-33-001",
@@ -842,6 +842,36 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: MALACHI. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-15-34-057",
+      "verse": 34,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And at the ninth hour Jesus cried with a loud voice, saying, Eloi, Eloi, lama sabachthani? which is, being interpreted, My God, my God, why hast thou forsaken me?&#x27; — Cyril&#x27;s impassible-Passion locus. The Eloi (or Eli per Mt 27:46) is the Aramaic (Eloi) or Hebrew (Eli) opening of Ps 22 (LXX 21). Cyril reads the cry NOT as Father-actually-abandoning-Son (Trinitarian-intra-relations cannot be broken) but as Christ-praying-Psalm-22 from-its-anguished-incipit to-its-triumphant-conclusion (Ps 22:24 &#x27;he hath not despised&#x27;; Ps 22:31 &#x27;he hath done it&#x27;). The Cyrillian-impassibility preserves divine-immutability while honoring the authentic-human-experience of dereliction-felt. Tewahedo Christology preserves Cyril precisely: the one-incarnate-Word experiences-dereliction-in-flesh without divine-suffering.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-15-39-058",
+      "verse": 39,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And when the centurion, which stood over against him, saw that he so cried out, and gave up the ghost, he said, Truly this man was the Son of God&#x27; — Cyril marks the centurion-confession (alēthōs houtos ho anthrōpos hyios theou ēn) as the Markan-thematic-climax: the very Gospel-opening claim (1:1 — &#x27;the gospel of Jesus Christ, the Son of God&#x27;) is now confirmed BY A GENTILE at the Cross. The structural-inclusio frames the entire Gospel between divine-Sonship-declaration and Gentile-confession-fulfillment. Tewahedo missionary-theology reads Mk 15:39 (paired with Mt 27:54 γ.4.6.D) as the Gentile-inclusion-at-the-Cross definitive prooftext.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

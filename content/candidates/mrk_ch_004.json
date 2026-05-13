@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 4,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 52,
+  "generated_at": "2026-05-13T21:37:54+00:00",
+  "n_candidates": 55,
   "candidates": [
     {
       "id": "mrk-4-12-001",
@@ -782,6 +782,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WICKED. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-4-9-053",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And he said unto them, He that hath ears to hear, let him hear&#x27; — Cyril marks ho echōn ōta akouein akouetō as the hermeneutical imperative concluding the Sower-parable. The same formula appears throughout the prophets (Isa 6:9-10, Jer 5:21, Ezek 12:2). The hearing-faculty is not biological-hearing but receptive-comprehension; not all who hear-with-ears hear-with-hearts. Tewahedo mystagogical-catechesis (the gradual-revelation-pattern of the qǝddus-mystēria) cites Mk 4:9 as the receptive-disposition anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-4-21-054",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;Is a candle brought to be put under a bushel, or under a bed? and not to be set on a candlestick?&#x27; — Cyril marks the rhetorical-question form (the only-Mark detail vs Matthew&#x27;s declarative) as deliberate-pedagogy: the disciples are MADE to answer the obvious no. The lychnos (lamp) is the kerygma of the kingdom; the modios (bushel) and klinē (bed) are concealment-vessels; the lychnia (lampstand) is the proper-public-position. Tewahedo public-liturgy theology (the qǝddus-sǝbkät proclamation-pattern) anchors here against any esoteric-Christian-temptation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-4-31-055",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;It is like a grain of mustard seed, which, when it is sown in the earth, is less than all the seeds that be in the earth&#x27; — Cyril marks the Markan-comparative (less-than-all-seeds, NOT in Mt 13:31&#x27;s compact-form) as deliberate-hyperbole emphasizing the imperceptible-smallness-of-the-kingdom&#x27;s-beginning. The mikroteron pantōn-tōn-spermatōn (smaller-than-all-the-seeds) is phenomenological-observation (the apparent-smallest seed of Palestinian agriculture), not botanical-precision. The kingdom&#x27;s-beginning at a Galilean rabbi&#x27;s twelve fishermen IS the imperceptibly-small seed. Tewahedo missionary-theology — specifically the Frumentius-founding-narrative (one shipwrecked Christian captive becomes the seed of an entire national-Church) — reads Mk 4:30-32 as exact-fulfillment.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

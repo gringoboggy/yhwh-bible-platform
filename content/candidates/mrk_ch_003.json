@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 3,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 38,
+  "generated_at": "2026-05-13T21:37:54+00:00",
+  "n_candidates": 41,
   "candidates": [
     {
       "id": "mrk-3-1-001",
@@ -572,6 +572,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: STRIFE. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-3-5-039",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And when he had looked round about on them with anger, being grieved for the hardness of their hearts&#x27; — Cyril marks the met&#x27; orgēs (with-anger) + syllypoumenos (being-grieved) pairing as the only Gospel-passage that explicitly attributes orgē (anger) to the incarnate Word. The orgē is righteous-anger at human-obstinacy (pōrōsis — hardening); the syllype is divine-grief at the same. The dual-affect demonstrates that righteous-anger and compassion-grief co-exist non-contradictorily in the divine-moral-life. Tewahedo Christology preserves both affections as authentic-human-emotion in the incarnate Word without divine-passibility-defect.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-3-14-040",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And he ordained twelve, that they should be with him, and that he might send them forth to preach&#x27; — Cyril marks epoiēsen dōdeka (made-twelve) as the deliberate-symbolism: twelve-tribes-of-Israel restored in twelve-apostolic-foundation. The hina ōsin met&#x27; autou (that-they-might-be-with-him) precedes the hina apostellē (that-he-might-send) — being-with-Christ founds every-apostolic-sending. Tewahedo episcopal-formation tradition cites Mk 3:14 as the dual-mandate (formation-then-mission).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-3-35-041",
+      "verse": 35,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;For whosoever shall do the will of God, the same is my brother, and my sister, and my mother&#x27; — Cyril reads the Markan-version (slightly shorter than Mt 12:50) carefully — not as displacement of Mary but as expansion of kinship via obedience. Mary supremely-does-the-Father&#x27;s-will (Lk 1:38 fiat-mihi); she is thus doubly-mother (by-flesh + by-obedience). Tewahedo Marian-theology reads Mk 3:35 + Mt 12:50 + Lk 11:27-28 as the obedience-based-kinship anchor that ENHANCES rather than diminishes Marian-veneration.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

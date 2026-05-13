@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 13,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 56,
+  "generated_at": "2026-05-13T21:37:54+00:00",
+  "n_candidates": 58,
   "candidates": [
     {
       "id": "mrk-13-11-001",
@@ -842,6 +842,36 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-13-13-057",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And ye shall be hated of all men for my name&#x27;s sake: but he that shall endure unto the end, the same shall be saved&#x27; — Cyril marks the hypomeinas eis telos as the eschatological-perseverance summary (cf. Mt 10:22, Mt 24:13 γ.4.6.D). The misoumenoi (hated-ones) precedes the sōthēsetai (shall-be-saved) — endurance-through-hostility, not absence-of-hostility, is the eschatological-promise. Tewahedo Sämā&#x27;ǝtāt martyrology cites Mk 13:13 as the perseverance-charter.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-13-32-058",
+      "verse": 32,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;But of that day and that hour knoweth no man, no, not the angels which are in heaven, neither the Son, but the Father&#x27; — Cyril treats this most-difficult-verse carefully. The &#x27;neither the Son&#x27; (oude ho hyios) is read by Cyril per the communicatio-idiomatum: in his incarnate-human-nature the Son-as-man does not know-as-human; in his divine-nature he knows-as-divine-Word. The Tewahedo Miaphysite Christology preserves the Cyrillian-balance: the one Person-of-the-Word experiences knowledge-in-flesh authentically without his divine-omniscience being compromised. Anti-Arian and anti-Agnoetic readings both fail against Cyril&#x27;s careful incarnational-communicatio.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

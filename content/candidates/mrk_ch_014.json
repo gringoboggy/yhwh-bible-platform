@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 14,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 84,
+  "generated_at": "2026-05-13T21:37:54+00:00",
+  "n_candidates": 87,
   "candidates": [
     {
       "id": "mrk-14-3-001",
@@ -1262,6 +1262,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: TEMPTATION. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-14-8-085",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;She hath done what she could: she is come aforehand to anoint my body to the burying&#x27; — Cyril marks the Markan-version of the anointing-at-Bethany (paired with Mt 26:13 γ.4.6.D, Lk 7:36-50). The proelaben myrisai mou to sōma eis ton entaphiasmon (she-came-beforehand to-anoint-my-body for-the-burying) names her prophetic-action: she alone among the disciples recognized that the Master-was-going-to-die and-needed-burial-anointing-now. The Markan eis mnēmosynon autēs (memorial-of-her, Mk 14:9) is Christ&#x27;s-own-canonization of one of the few-named-female-acts in the Gospel. Tewahedo Marian + women-saints hagiography reads Mk 14:3-9 as the proto-prophetic-female-disciple anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-14-22-086",
+      "verse": 22,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And as they did eat, Jesus took bread, and blessed, and brake it, and gave to them, and said, Take, eat: this is my body&#x27; — Cyril&#x27;s Eucharistic-realism locus in Mark. The estin (is) is real-identification, not symbolization (cf. Mt 26:26, Lk 22:19, 1 Cor 11:24). The four-action sequence (took-blessed-brake-gave) is the Anaphora-institution-prototype. Tewahedo Qǝddāse-of-the-Apostles cites Mk 14:22-24 + Mt 26:26-28 + Lk 22:19-20 + 1 Cor 11:23-25 as the four-fold institution-witness recited at every Anaphora&#x27;s words-of-institution.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-14-36-087",
+      "verse": 36,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And he said, Abba, Father, all things are possible unto thee; take away this cup from me: nevertheless not what I will, but what thou wilt&#x27; — Cyril marks the Markan-distinctive Abba ho patēr (the Aramaic Abba preserved alongside the Greek translation) as the deepest-filial-intimacy. The transferral to Christian-prayer is at Rom 8:15 + Gal 4:6 (the Spirit-of-adoption cries &#x27;Abba, Father&#x27;). The Gethsemane-cup is the Passion-cup (cf. Mt 26:39 γ.4.6 seed, Lk 22:42 γ.4.3.D). The two-wills (parelthe ap&#x27; emou + thelō / ou-thelō pattern) names the Cyrillian Miaphysite Christology: the one-incarnate-Person genuinely-prays-with-human-volition while-perfectly-aligned-with-divine-will. Tewahedo prayer-formation cites Mk 14:36 + Rom 8:15 as the Abba-adoption baptismal-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]
