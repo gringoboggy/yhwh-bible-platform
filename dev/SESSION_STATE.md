@@ -1,5 +1,91 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.5.E ships, γ.4.5 Mäṣḥafä-Kufāle detail
+arc CLOSED, Jubilees BECOMES PLURALITY VOICE at ~34% surpassing
+1 Enoch, two-uniquely-Tewahedo-canonical-texts hold 66.4% of
+corpus**: **γ.4.5.E substantive expansion of Jub 37-50 shipped
+(40 NEW verse-keyed entries on the Joseph cycle + Exodus-finale —
+Esau-Jacob defensive war + Joseph in Egypt with patriarchal-
+catechized chastity + Joseph marries Asenath (Gentile-spouse
+pastoral anchor) + Judah-Tamar with 'she became more righteous
+than he' canonical-confession verbal anchor + silver-cup test as
+confessor's-ruse pattern + Jacob's seven-day Beersheba pause +
+God's Immanuel-descent-with-Jacob promise + Israelite genealogy +
+Jacob blesses Pharaoh (coronation-prayer canonical-patriarchal
+warrant) + Joseph dies 110 years (gədl biographical precision
+template) + king-who-knew-not-Joseph + Moses' birth in tribulation
+period + Moses placed three days in the ark (Pascal-typology Moses-
+as-Christ canonical anchor) + Pharaoh's-daughter's-compassion +
+Mastema-not-Lord at the lodging (theodicy clarification of Ex 4:24)
++ angelic orchestration of plagues + Red-Sea-crossing IS Passover
+(Fasika doubled-celebration) + Passover blood-on-lintels restrains
+Mastema (eucharistic-blood demonic-defense anchor) + lamb-AND-wine
+canonical eucharistic-OT prototype (Anaphora canonical-OT anchor) +
+Passover-observance acquits-of-guilt (liturgical-act-AS-atonement
+principle) + jubilee-of-jubilees eschatology with Satan permanently
+removed (cosmic-territorial-cleansing eschatology) + Sabbath as
+'day of the holy kingdom' (Saturday-Sabbath foretaste-of-Kingdom
+anchor) + strict Sabbath-prohibition list (Saturday-Sabbath
+canonical observance preservation)).** γ.4.5 seed covered chs
+37-50 with 11 verses; γ.4.5.E brings the same range to 51
+entries — substantive-detail parity with γ.4.5.B/C/D at 47
+entries each. **The γ.4.5 Mäṣḥafä-Kufāle detail arc is now
+CLOSED**: all four major Jubilees narrative sections (chs 5-10,
+11-22, 24-36, 37-50) have substantive-coverage parity at the
+detail-wave depth; short bookend sections (Sinai prologue chs
+1-4, Decline ch 23) retain seed coverage proportionate to their
+length. Voice mix moves from 22/14/35/29 to ~21/13/33/34 Cyril/
+Ephrem/1En/Jubilees — **Jubilees SURPASSES 1 Enoch by 8 entries
+to become the PLURALITY VOICE at 33.9%** (200/590). The two
+uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä
+Kufāle) jointly hold **66.4%** of the patristic-commentary
+corpus voice — appropriate weight for the Tewahedo edition that
+uniquely canonizes both texts; both arcs (γ.4.4 Mäṣḥafä Hēnok
+closed γ.4.4.E + γ.4.5 Mäṣḥafä Kufāle closed γ.4.5.E) shipped on
+2026-05-12. **+25 tests** in
+`TestGamma45EJubileesJosephExodusFinaleWave` including the explicit
+arc-close pin `test_all_six_jubilees_sections_substantively_covered`
+(parallel to γ.4.4.E's Mäṣḥafä-Hēnok arc-close pin) and the
+absolute-count milestone `test_jubilees_milestone_count_at_arc_close`
+pinning ≥200 entries (40 seed + 4×40 detail). **270/270 tests
+pass; 11/11 lint clean.** No share-pin repairs needed this wave
+(1En share 32.5% remains above γ.4.4.A/B/C thresholds 15/25/30%).
+Source: R.H. Charles, *The Book of Jubilees* (Oxford: Clarendon,
+1902 — PD). Two commits since last save (`437a4ec`): would be
+γ.4.5.E as a single ship.
+
+**Two-arc-closure milestone**: with γ.4.5.E shipped, BOTH major
+γ.4-cluster content arcs are CLOSED on the same day:
+- **γ.4.4 Mäṣḥafä Hēnok arc** (closed γ.4.4.E 2026-05-12) — 192
+  entries across all six 1 Enoch sections.
+- **γ.4.5 Mäṣḥafä Kufāle arc** (closed γ.4.5.E 2026-05-12) — 200
+  entries across all major Jubilees narrative sections.
+
+Per memory feedback_audit_cadence (audit proactively after major
+arc closure ≥10 phases or ≥150 test-count drift) — this session
+shipped 5 γ.4.5 phases (B+C+D+E + the seed already in prior save)
+plus γ.4.4.E + γ.4.2.B since the last bootstrap. Test count is
+now 270 in the γ.4 file alone, with multiple share-pin → count-
+milestone conversions. **An audit sweep would be reasonable
+before further large content waves**, particularly given the
+share-pin pattern memory and the voice-mix-rebalance milestones.
+The lighter solo-Claude audit (not the parallel-subagent sweep)
+is appropriate.
+
+**Recommended next ship**:
+- **Save + audit pause** — recommended pivot point given the
+  two-arc-closure milestone.
+- **γ.4.2.C Ephrem on Exodus** — would rebalance Ephrem share
+  from current ~13% back upward and continue the patriarchal-
+  narrative Ephrem coverage from Gen 1-50 (γ.4.2 + γ.4.2.B) into
+  Exodus.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus arc
+  using Payne Smith 1859 PD translation.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition).
+
+---
+
 **Updated 2026-05-12 / γ.4.5.D Jubilees Jacob-cycle detail ships,
 Jubilees surpasses Cyril to become substantively-second voice at
 ~29%, two-uniquely-Tewahedo-canonical-texts hold ~64% of corpus

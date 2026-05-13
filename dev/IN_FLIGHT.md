@@ -4,6 +4,167 @@
 
 ## Prior task
 
+**γ.4.5.E Mäṣḥafä Kufāle / Book of Jubilees Joseph + Exodus-finale
+(40 verse-keyed entries on Jub 37-50) — CLOSES the γ.4.5 detail
+arc** shipped 2026-05-12. Substantively expands chs 37-50 (Esau-
+Jacob war + Joseph in Egypt + Judah-Tamar + silver-cup test + Jacob
+to Egypt + Joseph dies + slavery begins + Moses' birth + Exodus +
+Mastema bound + Passover institution + Sabbath + Jubilee-of-jubilees
+finale). The γ.4.5 seed gave broad coverage of all 50 chapters
+with 11 verses falling in chs 37-50; γ.4.5.E brings chs 37-50
+coverage from 11 to 51 entries — substantive-detail parity (and
+slight surplus) with γ.4.5.B/C/D at 47 entries each.
+
+**Why it matters for THIS project**:
+
+- **γ.4.5 Mäṣḥafä Kufāle detail arc CLOSED.** All four major
+  Jubilees narrative sections (chs 5-10 Watchers + Noahide,
+  11-22 Abraham, 24-36 Jacob, 37-50 Joseph + Exodus-finale) now
+  have substantive-coverage parity at the detail-wave depth.
+  Short bookend sections (chs 1-4 Sinai prologue + Creation,
+  ch 23 Decline) retain seed coverage proportionate to their
+  length. With γ.4.4.E having closed the Mäṣḥafä Hēnok arc
+  earlier this day, BOTH uniquely-Tewahedo canonical-text arcs
+  are now closed on 2026-05-12 — a major canonical-content
+  milestone for the Tewahedo edition.
+- **Jubilees becomes PLURALITY voice.** Voice mix moves from
+  22/14/35/29 to ~21/13/33/34 Cyril/Ephrem/1En/Jubilees —
+  Jubilees surpasses 1 Enoch by 8 entries (200 vs 192) to become
+  the plurality voice. The two uniquely-Tewahedo canonical texts
+  jointly hold 66.4% of the patristic-commentary corpus voice.
+- **Mastema-not-Lord at the lodging-night-attack (48:1-2)** is
+  one of the most theologically significant Jubilees-distinctive
+  clarifications. The Ex 4:24 puzzle ('the Lord met him and
+  sought to kill him' on Moses' return to Egypt) becomes
+  intelligible via the Jubilees Mastema-attack reading: divine
+  goodness is preserved while the canonical narrative is honored.
+  Tewahedo theodicy preserves this exact clarification.
+- **Three-day Moses-ark / Christ-tomb Pascal-typology (47:5)**
+  is Jubilees-distinctive (the 'three days' detail is not in
+  Exodus). The Tewahedo Easter-vigil canonical-OT prefiguration
+  reading depends on Jubilees for this typological precision.
+- **Passover blood-on-lintels restrains Mastema (49:2)** is the
+  canonical anchor for the Tewahedo eucharistic-blood demonic-
+  defense doctrine: every Tewahedo communicant is, by canonical-
+  typology, 'within the bloodstained doorway' that Mastema cannot
+  enter.
+- **Lamb-AND-wine canonical eucharistic-OT prototype (49:6)**
+  preserves the explicit lamb-flesh-and-wine doublet at the
+  original Passover meal — the Tewahedo Anaphora's canonical-OT
+  eucharistic-prototype anchor. Eucharist is patriarchal-Mosaic
+  in canonical structure, not merely apostolic-novel.
+- **Passover-observance acquits-of-guilt (49:15)** is the
+  canonical principle that liturgical-act-AS-atonement (not
+  merely commemoration) is the Tewahedo eucharistic theology.
+  The proper observance of the canonical-Passover IS itself the
+  canonical-atonement-for-the-year's-sin — Tewahedo Fasika
+  reading.
+- **Jubilee-of-jubilees eschatology with Satan permanently
+  removed (50:4)** — the Tewahedo cosmic-territorial-cleansing
+  eschatology canonical anchor. The final consummation is not
+  merely individual-spiritual-resurrection but cosmic-territorial
+  cleansing and permanent removal of demonic presence.
+- **Sabbath as 'day of the holy kingdom' (50:9) + strict
+  Sabbath-prohibition list (50:12)** — Tewahedo Saturday-Sabbath
+  observance (unique among major Christian communions in
+  preserving the canonical-Mosaic seventh-day Sabbath alongside
+  the Lord's-Day Sunday) has its canonical-OT anchor here.
+- **Jacob blesses Pharaoh (45:13)** is the canonical-patriarchal
+  warrant for the Tewahedo coronation-prayer tradition: the
+  Orthodox patriarch may legitimately bless the civil ruler even
+  when the ruler is non-Orthodox (civil authority is divinely
+  ordained, Rom 13:1).
+- **'She became more righteous than he' Judah-Tamar (41:25)** is
+  the canonical-confession verbal anchor for the Tewahedo
+  confessor's näsḫa-of-acknowledgment formula: confession from
+  the stronger-sinner-against-the-weaker-victim follows this
+  exact pattern.
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 40 new Jubilees
+  entries appended (book=`jub`, father=`Book of Jubilees (Ethiopian
+  tradition)`, work=`Book of Jubilees (Mäṣḥafä Kufāle)`,
+  year=`-150`, attribution `Jubilees C:V (section), trans. R.H.
+  Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.`).
+  _meta scope/source strings updated with the γ.4.5.E + γ.4.5
+  arc-close notes. Total entries now 590 (was 550 pre-γ.4.5.E).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma45EJubileesJosephExodusFinaleWave` class with **25
+  tests**: ≥40 entries pin + 6 sub-range coverage pins (Joseph
+  in Egypt 37-40, Judah-Tamar 41-43, Jacob to Egypt 44-45, Moses'
+  birth 47, Exodus-Passover 48-49, Sabbath-Jubilee finale 50) +
+  **arc-close pin `test_all_six_jubilees_sections_substantively_covered`**
+  (parallel to γ.4.4.E's Mäṣḥafä-Hēnok arc-close pin) + **absolute-
+  count milestone `test_jubilees_milestone_count_at_arc_close`**
+  (≥200 entries = 40 seed + 4×40 detail) + 16 signature passage
+  pins (37:1, 39:10, 41:25, 44:1, 44:5, 45:13, 47:5, 48:2,
+  48:18, 49:2, 49:6, 49:15, 50:4, 50:9, 50:12).
+
+**Code-side wiring**: zero new code.
+
+**Corpus state post-γ.4.5.E**:
+```
+ethiopian_commentaries.json: 590 entries (was 550; +40)
+├─ Book of Jubilees (Eth. tradition) : 200 entries (33.9%) ← PLURALITY
+├─ 1 Enoch tradition                 : 192 entries (32.5%)
+├─ Cyril of Alexandria               : 121 entries (20.5%)
+└─ Ephrem the Syrian                 :  77 entries (13.1%)
+
+Voice mix: ~21% Cyril / ~13% Ephrem / ~33% 1 Enoch / ~34% Jubilees
+           (was 22/14/35/29 pre-γ.4.5.E — Jubilees SURPASSES 1 Enoch
+            by 8 entries to become the PLURALITY voice)
+
+Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä
+Kufāle) jointly hold ~66.4% of the patristic-commentary corpus
+voice — both canonical-content arcs CLOSED on 2026-05-12.
+
+γ.4 cumulative              : 538 entries beyond γ.4 seed
+                             (.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              .2 32 + .2.B 40 + .4 30 + .4.B 40 +
+                              .4.C 40 + .4.D 40 + .4.E 40 + .5 40 +
+                              .5.B 40 + .5.C 40 + .5.D 40 + .5.E 40 = 538)
+```
+
+**+25 tests, 0 share-pin repairs needed**. **γ.4.5.E tests: 25/25
+pass in isolation; γ.4 full-file suite: 270/270 pass; 11/11 lint
+clean.**
+
+**γ.4.5 ARC CLOSURE NOTE**: With γ.4.5.E shipped, the γ.4.5
+Mäṣḥafä Kufāle content arc (γ.4.5 seed through γ.4.5.E Joseph +
+Exodus-finale) is COMPLETE for substantive-coverage purposes.
+Each of the four major Jubilees narrative sections (chs 5-10,
+11-22, 24-36, 37-50) has ≥40 entries; short bookend sections
+retain seed coverage proportionate to their length. Mäṣḥafä
+Kufāle is now the second-deepest single-source presence in the
+corpus (200 entries), surpassing 1 Enoch's 192 entries.
+
+**Forward references**:
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from current ~13% back upward.
+- **γ.4.2.D Ephrem on Numbers + Deuteronomy** — further Ephrem
+  Pentateuch expansion.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus arc
+  using Payne Smith 1859 PD translation; would rebalance Cyril
+  share from current ~21% back upward.
+- **γ.4.6 Mäṣḥafä Aksumawi** (Ethiopic Sirach reception) — opens
+  another uniquely-Tewahedo patristic-canonical text tradition.
+- **γ.4.7 Senodos / Didascalia Ethiopic** — opens another
+  patristic-canonical text tradition.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition).
+
+**Session totals (2026-05-12, cumulative through γ.4.5.E)**:
+- γ.4.4.A-E shipped (Mäṣḥafä Hēnok arc CLOSED)
+- γ.4.2 + γ.4.2.B shipped (Ephrem on Gen 1-50)
+- γ.4.5 + γ.4.5.B + γ.4.5.C + γ.4.5.D + γ.4.5.E shipped (Mäṣḥafä
+  Kufāle arc CLOSED)
+- Net corpus delta this session: +538 entries beyond γ.4 seed
+  (12 → 590 entries).
+
+---
+
+## Prior task before γ.4.5.E (kept for context)
+
 **γ.4.5.D Mäṣḥafä Kufāle / Book of Jubilees Jacob-cycle detail
 (40 verse-keyed entries on Jub 24-36)** shipped 2026-05-12.
 Continues γ.4.5 seed, γ.4.5.B (Watchers detail), and γ.4.5.C

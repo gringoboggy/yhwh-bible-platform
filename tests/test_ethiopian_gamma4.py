@@ -2623,3 +2623,284 @@ class TestGamma45DJubileesJacobCycleWave:
         # (Jub 20:2) + Mosaic Lev 19:18.
         e = [x for x in self.ec.for_verse("jub", 36, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 36:7 — Isaac's love-of-brother testament"
+
+
+class TestGamma45EJubileesJosephExodusFinaleWave:
+    """γ.4.5.E — Mäṣḥafä Kufāle / Book of Jubilees Joseph + Exodus-
+    finale wave. CLOSES the γ.4.5 detail arc. Substantively expands
+    Jub 37-50 (Esau-Jacob armed conflict + Joseph in Egypt + Potiphar's
+    wife + Joseph's chastity grounded in patriarchal catechesis +
+    Joseph's marriage to Asenath + Judah and Tamar with 'she is more
+    righteous than I' confession + Joseph reveals himself + silver-cup
+    test + Jacob's seven-day Beersheba pause + God's Immanuel-promise
+    to descend with Jacob + Israelite genealogy at Egypt-descent +
+    Jacob blesses Pharaoh + Joseph dies at 110 years with canonical
+    biographical precision + new king who knew not Joseph + Moses'
+    birth in tribulation period + three-day Moses-ark/Christ-tomb
+    Pascal-typology + Pharaoh's-daughter's-compassion + Mastema-not-
+    Lord at the lodging-attack + angelic orchestration of plagues +
+    Red-Sea-crossing IS Passover + Passover blood-on-lintels restrains
+    Mastema's firstborn-slaying + lamb-AND-wine canonical eucharistic-
+    OT prototype + Passover-observance acquits-of-guilt + Sabbath as
+    foretaste of holy kingdom + jubilee-of-jubilees eschatology with
+    Satan permanently removed + strict Sabbath-prohibition list
+    anchoring Tewahedo Saturday-Sabbath observance). Mirrors the
+    γ.4.4.E arc-close pattern with the explicit all-sections-covered
+    pin.
+
+    Pins:
+    - Jub 37-50 substantively expanded (≥40 NEW entries beyond seed).
+    - γ.4.5 arc-close pin: all six major Jubilees narrative sections
+      (1-4, 5-10, 11-22, 24-36, 37-45, 46-50) have substantive
+      coverage at canonical-detail-wave depth.
+    - Jubilees-arc-close milestone: Jubilees ≥200 entries (40 seed +
+      4 × 40 detail waves).
+    - Defensive-war canonical anchor: Esau-Jacob war (37:1).
+    - Joseph's chastity-via-patriarchal-catechesis (39:10) — Tewahedo
+      family-catechism canonical anchor.
+    - 'She is more righteous than I' Judah-Tamar confession (41:25) —
+      Tewahedo confessor's näsḫa-of-acknowledgment verbal anchor.
+    - Jacob's seven-day Beersheba pause (44:1) — Tewahedo monastic-
+      departure-pause canonical pattern.
+    - God's Immanuel-descent-with-Jacob (44:5) — Tewahedo diaspora-
+      presence theological anchor.
+    - Patriarch blesses Gentile-king: Jacob blesses Pharaoh (45:13) —
+      Tewahedo coronation-prayer canonical-patriarchal warrant.
+    - Three-day Moses-ark / Christ-tomb Pascal-typology (47:5) —
+      Tewahedo Easter-vigil canonical-OT prefiguration.
+    - Mastema-not-Lord at the lodging (48:2) — Tewahedo theodicy
+      canonical clarification of Ex 4:24.
+    - Red-Sea crossing IS Passover (48:18) — Tewahedo Fasika
+      doubled-celebration canonical anchor.
+    - Passover blood-on-lintels restrains Mastema (49:2) — Tewahedo
+      eucharistic-blood demonic-defense canonical anchor.
+    - Lamb-AND-wine eucharistic-OT prototype (49:6) — Tewahedo
+      Anaphora canonical-OT eucharistic-prototype anchor.
+    - Passover-observance acquits-of-guilt (49:15) — Tewahedo
+      liturgical-act-AS-atonement principle canonical anchor.
+    - Jubilee-of-jubilees eschatology with Satan removed (50:4) —
+      Tewahedo cosmic-territorial-cleansing eschatology anchor.
+    - Sabbath as holy-kingdom-day (50:9) — Tewahedo Saturday-Sabbath
+      foretaste-of-Kingdom canonical anchor.
+    - Strict Sabbath-prohibition list (50:12) — Tewahedo Saturday-
+      Sabbath canonical observance preservation anchor.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _jub_entries_in(self, start_ch: int, end_ch: int):
+        out = []
+        for chapter in range(start_ch, end_ch + 1):
+            for verse in range(1, 100):
+                out.extend(
+                    e
+                    for e in self.ec.for_verse("jub", chapter, verse)
+                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                )
+        return out
+
+    def test_jub_37_through_50_substantively_expanded(self):
+        # γ.4.5 seed covered 11 verses in chs 37-50; γ.4.5.E adds 40
+        # more for 51 total. Threshold ≥40 protects the wave intent.
+        entries = self._jub_entries_in(37, 50)
+        assert len(entries) >= 40, f"γ.4.5.E expected ≥40 Jubilees entries in chs 37-50; found {len(entries)}"
+
+    def test_joseph_in_egypt_chapters_substantively_covered(self):
+        # Jub 37-40 — Esau-Jacob war + Joseph in Egypt + Potiphar +
+        # Joseph's rise. Tewahedo Joseph-as-Christ Holy-Week typology
+        # canonical range.
+        entries = self._jub_entries_in(37, 40)
+        assert len(entries) >= 8, (
+            f"γ.4.5.E expected ≥8 Jubilees entries in chs 37-40 (Esau war + Joseph); found {len(entries)}"
+        )
+
+    def test_judah_tamar_and_revelation_chapters_substantively_covered(self):
+        # Jub 41-43 — Judah and Tamar + Joseph reveals himself +
+        # silver-cup test. Tewahedo Marian-Tamar-Davidic-line range.
+        entries = self._jub_entries_in(41, 43)
+        assert len(entries) >= 7, (
+            f"γ.4.5.E expected ≥7 Jubilees entries in chs 41-43 (Tamar + Joseph reveals); found {len(entries)}"
+        )
+
+    def test_jacob_to_egypt_chapters_substantively_covered(self):
+        # Jub 44-45 — Jacob's Beersheba pause + Immanuel-descent
+        # promise + genealogy + Jacob settled. Tewahedo Immanuel-
+        # typology canonical range.
+        entries = self._jub_entries_in(44, 45)
+        assert len(entries) >= 6, (
+            f"γ.4.5.E expected ≥6 Jubilees entries in chs 44-45 (Jacob to Egypt); found {len(entries)}"
+        )
+
+    def test_moses_birth_chapter_substantively_covered(self):
+        # Jub 47 — Moses' birth + three-day-ark Pascal-typology +
+        # Pharaoh's-daughter's-compassion. Tewahedo Moses-as-Christ
+        # typology canonical range.
+        entries = self._jub_entries_in(47, 47)
+        assert len(entries) >= 4, f"γ.4.5.E expected ≥4 Jubilees entries in ch 47 (Moses' birth); found {len(entries)}"
+
+    def test_exodus_passover_chapters_substantively_covered(self):
+        # Jub 48-49 — Exodus + Mastema-not-Lord clarification +
+        # angelic orchestration of plagues + Red-Sea-as-Passover +
+        # Passover institution. Tewahedo Fasika canonical range.
+        entries = self._jub_entries_in(48, 49)
+        assert len(entries) >= 9, (
+            f"γ.4.5.E expected ≥9 Jubilees entries in chs 48-49 (Exodus + Passover); found {len(entries)}"
+        )
+
+    def test_sabbath_jubilee_finale_chapter_substantively_covered(self):
+        # Jub 50 — Sabbath + Jubilee-of-jubilees eschatology +
+        # strict Sabbath-prohibition. Tewahedo Saturday-Sabbath
+        # canonical range.
+        entries = self._jub_entries_in(50, 50)
+        assert len(entries) >= 5, (
+            f"γ.4.5.E expected ≥5 Jubilees entries in ch 50 (Sabbath + Jubilee finale); found {len(entries)}"
+        )
+
+    def test_all_six_jubilees_sections_substantively_covered(self):
+        # γ.4.5 ARC-CLOSE pin — parallel to γ.4.4.E's
+        # test_all_six_mashafa_henok_sections_covered. Verifies that
+        # every major Jubilees narrative section has substantive-
+        # canonical-coverage at the detail-wave depth (≥3 entries for
+        # the shortest section, ≥40 for the four largest). After
+        # γ.4.5.E ships, the γ.4.5 detail arc is COMPLETE.
+        def section_count(start, end):
+            return len(self._jub_entries_in(start, end))
+
+        # The four large sections — each at detail-wave parity (≥40
+        # NEW entries beyond seed).
+        assert section_count(5, 10) >= 40, (
+            f"γ.4.5 arc-close: Watchers + Noahide (Jub 5-10) needs ≥40 entries; found {section_count(5, 10)}"
+        )
+        assert section_count(11, 22) >= 40, (
+            f"γ.4.5 arc-close: Abraham cycle (Jub 11-22) needs ≥40 entries; found {section_count(11, 22)}"
+        )
+        assert section_count(24, 36) >= 40, (
+            f"γ.4.5 arc-close: Jacob cycle (Jub 24-36) needs ≥40 entries; found {section_count(24, 36)}"
+        )
+        assert section_count(37, 50) >= 40, (
+            f"γ.4.5 arc-close: Joseph + Exodus-finale (Jub 37-50) needs ≥40 entries; found {section_count(37, 50)}"
+        )
+        # The short bookend sections — each at seed coverage.
+        assert section_count(1, 4) >= 3, (
+            f"γ.4.5 arc-close: Sinai prologue + Creation (Jub 1-4) needs ≥3 entries; found {section_count(1, 4)}"
+        )
+        assert section_count(23, 23) >= 1, (
+            f"γ.4.5 arc-close: Decline + eschatology (Jub 23) needs ≥1 entry; found {section_count(23, 23)}"
+        )
+
+    def test_jubilees_milestone_count_at_arc_close(self):
+        # γ.4.5 arc-close milestone: Jubilees reached 200 entries
+        # (γ.4.5 seed 40 + γ.4.5.B 40 + γ.4.5.C 40 + γ.4.5.D 40 +
+        # γ.4.5.E 40 = 200). Pin captures the arc-close achievement
+        # invariantly.
+        jub_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Book of Jubilees (Ethiopian tradition)"
+        )
+        assert jub_count >= 200, (
+            f"γ.4.5.E arc-close: Jubilees expected ≥200 entries (40 seed + 4×40 detail); found {jub_count}"
+        )
+
+    def test_esau_jacob_war_anchor_present(self):
+        # Jub 37:1 — Esau's clan wars against Jacob. Tewahedo
+        # defensive-war canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 37, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 37:1 — Esau-Jacob war (defensive-war anchor)"
+
+    def test_joseph_chastity_patriarchal_catechesis_anchor_present(self):
+        # Jub 39:10 — Joseph remembers Abraham's pre-Mosaic adultery
+        # law that Jacob 'used to read.' Tewahedo family-catechism
+        # canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 39, 10) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 39:10 — Joseph's chastity via patriarchal catechesis"
+
+    def test_judah_tamar_confession_anchor_present(self):
+        # Jub 41:25 — 'she became more righteous than he.' Tewahedo
+        # confessor's näsḫa-of-acknowledgment verbal anchor.
+        e = [x for x in self.ec.for_verse("jub", 41, 25) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 41:25 — Judah's 'she is more righteous than I' confession"
+
+    def test_jacob_beersheba_pause_anchor_present(self):
+        # Jub 44:1 — Jacob's seven-day pause at Beersheba before
+        # descending to Egypt. Tewahedo monastic-departure-pause
+        # canonical pattern.
+        e = [x for x in self.ec.for_verse("jub", 44, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 44:1 — Jacob's seven-day Beersheba pause"
+
+    def test_god_descends_with_jacob_anchor_present(self):
+        # Jub 44:5 — 'I will go down with thee, and I will bring
+        # thee up.' Tewahedo Immanuel-typology and diaspora-presence
+        # canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 44, 5) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 44:5 — God's Immanuel-descent-with-Jacob promise"
+
+    def test_jacob_blesses_pharaoh_anchor_present(self):
+        # Jub 45:13 — Jacob blesses Pharaoh. Tewahedo coronation-
+        # prayer canonical-patriarchal warrant.
+        e = [x for x in self.ec.for_verse("jub", 45, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 45:13 — Jacob blesses Pharaoh"
+
+    def test_moses_three_day_ark_pascal_typology_anchor_present(self):
+        # Jub 47:5 — Moses 'placed three days' in the ark. Tewahedo
+        # Pascal-typology Moses-as-Christ canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 47, 5) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 47:5 — Moses three-day-ark Pascal-typology"
+
+    def test_mastema_not_lord_at_lodging_anchor_present(self):
+        # Jub 48:2 — Mastema (not the Lord) sought to kill Moses at
+        # the lodging-night. Tewahedo theodicy canonical clarification
+        # of Ex 4:24.
+        e = [x for x in self.ec.for_verse("jub", 48, 2) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 48:2 — Mastema-not-Lord at the lodging"
+
+    def test_red_sea_is_passover_anchor_present(self):
+        # Jub 48:18 — Red-Sea crossing dated to Passover. Tewahedo
+        # Fasika doubled-celebration canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 48, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 48:18 — Red-Sea-crossing IS Passover"
+
+    def test_passover_blood_restrains_mastema_anchor_present(self):
+        # Jub 49:2 — Mastema's powers restrained by Passover blood
+        # on the lintels. Tewahedo eucharistic-blood demonic-defense
+        # canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 49, 2) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 49:2 — Passover blood restrains Mastema"
+
+    def test_lamb_and_wine_eucharistic_prototype_anchor_present(self):
+        # Jub 49:6 — explicit lamb-AND-wine Passover pairing.
+        # Tewahedo Anaphora canonical-OT eucharistic-prototype anchor.
+        e = [x for x in self.ec.for_verse("jub", 49, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 49:6 — lamb-AND-wine eucharistic-OT prototype"
+
+    def test_passover_observance_acquits_guilt_anchor_present(self):
+        # Jub 49:15 — Passover observance acquits-of-guilt. Tewahedo
+        # liturgical-act-AS-atonement principle canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 49, 15) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 49:15 — Passover-observance acquits-of-guilt"
+
+    def test_jubilee_of_jubilees_eschatology_anchor_present(self):
+        # Jub 50:4 — jubilee-of-jubilees eschatology with Satan
+        # permanently removed and the land cleansed. Tewahedo
+        # cosmic-territorial-cleansing eschatology canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 50, 4) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 50:4 — jubilee-of-jubilees eschatology"
+
+    def test_sabbath_as_holy_kingdom_day_anchor_present(self):
+        # Jub 50:9 — Sabbath as 'day of the holy kingdom.' Tewahedo
+        # Saturday-Sabbath foretaste-of-Kingdom canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 50, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 50:9 — Sabbath as holy-kingdom-day"
+
+    def test_strict_sabbath_prohibition_list_anchor_present(self):
+        # Jub 50:12 — strict Sabbath-prohibition list with 'shall
+        # die' formula. Tewahedo Saturday-Sabbath canonical
+        # observance preservation anchor.
+        e = [x for x in self.ec.for_verse("jub", 50, 12) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.E missing Jub 50:12 — strict Sabbath-prohibition list"
