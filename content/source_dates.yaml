@@ -50,3 +50,29 @@ sources:
     year: 1903
     label: "Kenyon (prefix variant)"
     note: "Catches truncated 'Frederic G' attributions"
+
+  # Patristic and pseudepigraphical (γ.4 cluster — Tewahedo
+  # commentary corpus). Year reflects the underlying source's
+  # historical composition / availability — what a contemporary
+  # reader at the cited year would have had. PD English editions
+  # all post-1840 (Cramer Catenae) / 1859 (Payne Smith) / 1874
+  # (NPNF) / 1898 (Gwynn-NPNF Ephrem) / 1902 (Charles Jubilees) /
+  # 1912 (Charles 1 Enoch); the underlying SOURCE FAMILIES are
+  # patristic (Cyril d. 444, Ephrem d. 373) and pseudepigraphical
+  # (1 Enoch c. -300 to 100, Jubilees c. -150).
+  - prefix: "Cyril of Alexandria"
+    year: 430
+    label: "Cyril of Alexandria"
+    note: "Patriarch of Alexandria (d. 444); commentaries on John/Luke/Matthew. γ.4.1/.3/.6."
+  - prefix: "Ephrem the Syrian"
+    year: 370
+    label: "Ephrem the Syrian"
+    note: "Syrian Father (d. 373); commentaries on Pentateuch. γ.4.2."
+  - prefix: "R.H. Charles, The Book of Enoch"
+    year: -100
+    label: "1 Enoch (R.H. Charles trans.)"
+    note: "1 Enoch composition c. 300 BC - 100 AD; R.H. Charles trans. 1912 PD. γ.4.4."
+  - prefix: "R.H. Charles, The Book of Jubilees"
+    year: -150
+    label: "Jubilees (R.H. Charles trans.)"
+    note: "Jubilees composition c. 150 BC; R.H. Charles trans. 1902 PD. γ.4.5."

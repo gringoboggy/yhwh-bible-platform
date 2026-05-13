@@ -70,6 +70,65 @@ def pick_free_suffix(existing_suffixes: set[str]) -> str:
     raise RuntimeError("All a..z suffixes used on this verse — extend the suffix scheme.")
 
 
+def note_already_exists(
+    notes_path: Path,
+    chapter: int,
+    verse: int,
+    kind: str,
+    body: str,
+    attribution: str | None,
+) -> bool:
+    """N-W4 fix (γ.4.6.B follow-up) — return True iff a tuple with
+    identical (chapter, verse, kind, body, attribution) already exists
+    in ``notes_path``.
+
+    Without this check, re-running batch-style promotion on a candidate
+    set that was already promoted produces duplicate tuples with the
+    NEXT free suffix letter ('c' after 'a'+'b'), because pick_free_suffix
+    only checks slot occupation, not content equality. This caused the
+    χ-cluster promote bug discovered during γ.4.6.B: 2630 attempted /
+    2630 promoted should have been ~50 promoted + ~880 skipped.
+
+    Body comparison is exact-equal (no normalization); attribution
+    comparison handles None ↔ '' equivalence for the pre-9th-field
+    legacy 8-tuple form. Different body or different attribution on the
+    same (ch, v, kind) is treated as a legitimately-distinct note
+    (e.g., topic-nave routinely has multiple bodies per verse with
+    different topic lists).
+    """
+    if not notes_path.is_file():
+        return False
+    try:
+        tree = ast.parse(notes_path.read_text(encoding="utf-8"))
+    except SyntaxError:
+        return False
+    notes = []
+    for node in tree.body:
+        if isinstance(node, ast.Assign):
+            for tgt in node.targets:
+                if isinstance(tgt, ast.Name) and tgt.id == "NOTES":
+                    try:
+                        notes = ast.literal_eval(node.value)
+                    except (ValueError, SyntaxError):
+                        return False
+                    break
+    norm_attr = (attribution or "").strip()
+    for tup in notes:
+        if not isinstance(tup, tuple) or len(tup) < 8:
+            continue
+        tch, tv, _tsuffix, _tanchor, tkind = tup[:5]
+        if tch != chapter or tv != verse or tkind != kind:
+            continue
+        tbody = tup[7] if len(tup) > 7 else ""
+        if tbody != body:
+            continue
+        tattr = (tup[8] if len(tup) > 8 else "") or ""
+        if tattr.strip() != norm_attr:
+            continue
+        return True
+    return False
+
+
 # ----------------------------------------------------------------------
 # Tuple formatting (matches existing gen.py / others)
 # ----------------------------------------------------------------------
@@ -225,6 +284,11 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
     The candidate's ``source_attribution`` (set by detectors) flows into
     the note tuple as the optional 9th field. If absent, the tuple is
     written in the legacy 8-field form.
+
+    N-W4 idempotency: if a note with identical (chapter, verse, kind,
+    body, attribution) already exists in the target book file, returns
+    (False, "") to mark the promote as skipped without writing a
+    duplicate tuple. See ``note_already_exists`` for the dedup contract.
     """
     book_path = NOTES_DIR / f"{book}.py"
     if not book_path.is_file():
@@ -232,10 +296,6 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
 
     chapter = c.get("chapter") or _chapter_from_id(c["id"])
     verse = c["verse"]
-
-    existing = load_existing_anchors(book_path, chapter, verse)
-    used_suffixes = {s for (s, _, _, _) in existing}
-    suffix = pick_free_suffix(used_suffixes)
 
     # Compose attribution for the note tuple. Prefer a fully-formed
     # ``source_attribution`` string; fall back to ``source_name`` plus a
@@ -253,6 +313,16 @@ def promote_candidate(book: str, c: dict) -> tuple[bool, str]:
     draft_body = c["draft_body"]
     if c["kind"] in AI_DRAFTED_KINDS:
         draft_body = sandbox_ai_html(draft_body)
+
+    # N-W4 idempotency check — must happen AFTER the sandbox pass
+    # (sandbox-pass output is what gets written to the file, so dedup
+    # must compare on that canonical form).
+    if note_already_exists(book_path, chapter, verse, c["kind"], draft_body, attribution):
+        return False, ""
+
+    existing = load_existing_anchors(book_path, chapter, verse)
+    used_suffixes = {s for (s, _, _, _) in existing}
+    suffix = pick_free_suffix(used_suffixes)
 
     ok = insert_note_into_book_file(
         book_path,

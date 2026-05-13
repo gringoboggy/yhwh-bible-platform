@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22 (idolatry decline + Abram's monotheism + Hebrew tongue restored + departure from Ur + Bethel altar + Melchizedek tithe + covenant of pieces dated to Pentecost + circumcision-on-the-eighth-day Tewahedo anchor + angels-of-presence created circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion + Mastema-as-accuser overthrown + Sarah's Machpelah burial + Mastema-repulsion in patriarchal blessing + Abraham's testament love-of-neighbour command + Abraham's priestly instructions on no-blood-consumption + Abraham's celebration of Feast of Weeks with both Isaac and Ishmael at the altar + Abraham's direct blessing of Jacob — Solomonic-dynasty Tewahedo-Jacobite anchor). Major Tewahedo anchors: 11:18 (Abram drives ravens — Tewahedo agrarian-priestly anchor); 12:25 (Hebrew tongue restored by angel of presence — Tewahedo Ge'ez liturgical-language warrant by analogy); 13:8 (Bethel altar — pre-Mosaic legitimate altar, Tewahedo patriarchal-Anaphora warrant); 13:25 (Melchizedek tithe — Tewahedo monastic ǝʾǝsär anchor); 14:1 (covenant of pieces dated to Pentecost — TRIPLE Pentecost anchor: Noah's covenant + Abram's covenant + Sinai); 15:14 + 15:25 (eighth-day circumcision non-negotiable — Tewahedo distinctive Christian circumcision anchor); 15:27 (angels-of-presence created circumcised — cosmic-circumcision); 16:13 (Isaac born on Pentecost — Tewahedo Old-New-Covenant Pentecost doubled anchor); 16:20 (pre-Mosaic Feast of Tabernacles instituted by Abraham); 17:15 (Mastema accuses on Passover-date — Akedah-as-Passover canonical anchor); 18:13 (Mt Moriah = Mt Zion identification — Tewahedo eucharistic fourfold-altar anchor); 18:18 (7-day Akedah commemoration — Tewahedo Holy-Week shape anchor); 19:28 (Mastema-repulsion in patriarchal blessing — Tewahedo baptismal-blessing formula antecedent); 20:2 (love-of-neighbour patriarchal-testament content); 21:7 + 21:18 (no-blood-consumption priestly emphasis — Tewahedo dietary distinctive triple-witness with 6:7 + 7:34); 22:1 (Abraham's Feast of Weeks with Isaac AND Ishmael — Tewahedo pastoral inclusivity anchor); 22:11 (Abraham's direct blessing of Jacob — Tewahedo Solomonic-dynasty-Jacobite canonical anchor via Kǝbrä Nägäśt tradition). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36 (Esau sells birthright + Isaac in Gerar + Rebekah's Spirit-inspired blessing of Jacob with explicit resurrection-unto-eternal-life clause + Jacob receives Isaac's blessing + Jacob's flight + Bethel ladder vision (Marian-ladder type) + Jacob's pillar + tithe vow + Jacob in Haran + Leah substitution + Leah's first conception (un-favored-matriarch preference) + Jacob-Esau reconciliation with preserved fraternal love + twice-yearly gift-sending to parents (fifth-commandment diaspora-care antecedent) + Dinah at twelve years + Simeon and Levi's judicial action + Levi's priesthood EARNED by zeal at Shechem + heavenly-tablets righteousness inscription + Isaac's blessing of Levi BEFORE Judah (priestly precedence over royal) + Judah's Davidic-messianic blessing + patriarchal manuscript transmission (Isaac → Jacob → Levi-Judah) + Jacob's institution of double-tithe (tithe to priest + festive tithe consumed by offerer — Tewahedo ǝʾǝsär double-pattern anchor) + seven heavenly tablets given to Jacob + Deborah-nurse buried beneath Bethel oak (monastic-mother-grave-tree tradition antecedent) + Rachel's death bearing Benjamin (Ben-oni → Benjamin renaming as suffering-transmuted-to-joy) + Reuben's defilement of Bilhah + Reuben's voluntary confession + Jacob's clemency-by-confession + distinction terrestrial-pardon vs heavenly-judicial-reckoning + Joseph sold for twenty pieces (Tewahedo Joseph-as-Christ Holy Week typology) + Day of Atonement linked to Jacob's grief over Joseph + Rebekah's deathbed hope for Esau's repentance (Tewahedo eschatological-hope canonical anchor) + Esau and Jacob jointly bury Rebekah at Machpelah (family-reunion-at-funerals pattern) + Isaac's testament of love-of-brother triad with Abraham + Mosaic codification). Major Tewahedo anchors: 24:22 (Isaac's Beersheba altar — three-generation patriarchal-altar chain Abram-Isaac-Jacob); 25:14 (Rebekah's Spirit-inspired blessing — pre-Pentecostal canonical Spirit-utterance); 25:23 (Rebekah's resurrection-unto-eternal-life clause — Tewahedo Tǝnśaʾe matriarchal-canonical anchor); 27:19 (Bethel ladder — Tewahedo Marian-ladder type in Wǝddase Maryam); 27:27 (Jacob's pillar + double-tithe vow — Tewahedo täbot canonical antecedent + ǝʾǝsär comprehensiveness); 30:18 (Levi's priesthood EARNED by zeal — Tewahedo priesthood-by-zeal-and-descent doubled warrant); 30:23 (heavenly-tablets righteousness inscription — Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life doctrine); 31:14-15 (Isaac blesses Levi BEFORE Judah — priestly precedence over royal in Tewahedo ecclesiology); 31:18 (Judah's Davidic-messianic blessing — Tewahedo Solomonic-dynasty Davidic claim via Kǝbrä Nägäśt); 31:23 (patriarchal manuscript transmission — Tewahedo monastic-scribal canonical-inheritance warrant); 32:9 (Jacob's double-tithe institution — Tewahedo ǝʾǝsär double-pattern); 32:21 (seven heavenly tablets — Tewahedo Mäṣḥafä-zä-säma'i doctrine); 33:9 (Reuben's confession + Jacob's clemency — Tewahedo näsḫa absolution principle); 34:18 (Day of Atonement linked to Jacob's Joseph-grief — Tewahedo Astereyo TRIPLED canonical anchor with Jub 5:17 and 6:10); 35:6 (Rebekah's hope for Esau's repentance — Tewahedo eschatological-hope anchor); 36:1 (Isaac's intermediate-state phrase 'eternal house with the fathers' — Tewahedo funeral-liturgy phrase canonical-verbal inheritance); 36:7 (Isaac's love-of-brother testament — Tewahedo Maḫǝbär Qǝddus monastic charism patriarchal warrant). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, CLOSING the γ.4.5 detail arc. Coverage: Esau-Jacob war + Joseph in Egypt + Joseph's chastity anchored in patriarchal-canonical pedagogy + Joseph's marriage to Asenath (Tewahedo Gentile-spouse pastoral anchor) + Judah and Tamar with explicit 'she is more righteous than I' canonical confession formula + silver-cup test as confessor's-ruse pattern + Jacob's seven-day pause at Beersheba + God's Immanuel-promise to accompany Jacob to Egypt + Israelite genealogy at the Egypt-descent + Jacob blesses Pharaoh + Joseph dies 110 years (canonical biographical precision template for gədl genre) + new king who knew not Joseph + Moses' birth dated to tribulation period + three-day Moses-ark / Christ-tomb Pascal-typology + Pharaoh's-daughter's-compassion canonical anchor + Mastema attacks Moses at the lodging (Jubilees protects divine goodness against Ex 4:24 difficulty) + angelic orchestration of plagues + Passover blood-on-lintels canonically restrains Mastema's firstborn-slaying + lamb-AND-wine canonical eucharistic-OT prototype + Passover observance acquits-of-guilt (canonical liturgical-atonement principle) + Sabbath as foretaste of the holy kingdom + jubilee-of-jubilees eschatology with permanent removal of Satan + strict Sabbath-prohibition list anchoring Tewahedo Saturday-Sabbath observance). Major Tewahedo anchors: 37:1 (Esau-Jacob war — defensive-war doctrine canonical anchor); 39:10 (Joseph remembers Abraham's pre-Mosaic adultery law — Tewahedo family-catechism canonical anchor); 41:25 (Judah's 'she is more righteous than I' — Tewahedo confessor's näsḫa-of-acknowledgment verbal anchor); 44:5 (God descends with Jacob to Egypt — Tewahedo Immanuel-typology and diaspora-presence anchor); 45:13 (Jacob blesses Pharaoh — Tewahedo patriarch-blessing-Gentile-king canonical pattern); 47:5 (Moses in the ark THREE DAYS — Tewahedo Pascal-typology Moses-as-Christ); 48:1-2 (Mastema-not-Lord at the lodging-night-attack — Tewahedo theodicy canonical clarification); 48:18 (Red-Sea crossing IS Passover — Tewahedo Fasika doubled-celebration); 49:2 (Passover blood-on-lintels restrains Mastema — Tewahedo eucharistic-blood demonic-defense anchor); 49:6 (lamb-AND-wine canonical eucharistic-prototype — Tewahedo Anaphora canonical-OT anchor); 49:15 (Passover-observance acquits-of-guilt — Tewahedo liturgical-act-AS-atonement principle anchor); 50:4 (jubilee-of-jubilees-eschatology with Satan removed — Tewahedo cosmic-territorial-cleansing eschatology); 50:9 (Sabbath as holy-kingdom-day — Tewahedo Saturday-Sabbath foretaste of Kingdom anchor); 50:12 (strict Sabbath-prohibition list — Tewahedo Saturday-Sabbath canonical observance preserved). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). With γ.4.5.E shipped, the entire γ.4.5 Mäṣḥafä-Kufāle detail arc is COMPLETE: all six major Jubilees narrative sections (Sinai prologue + Creation chs 1-4, Watchers + Noahide chs 5-10, Abraham cycle chs 11-22, Decline + Jacob chs 23-36, Joseph cycle chs 37-45, Egypt-Exodus-Passover-Sabbath finale chs 46-50) have substantive-coverage parity at ≥40 entries each (except the very short ch 23 Decline section which retains seed-only coverage). γ.4.2.C (2026-05-13) added 40 Ephrem-on-Exodus entries spanning all major Exodus narrative blocks: Israel multiplies + Pharaoh's drowning decree (Ex 1) + Moses' birth and Midian (Ex 2) + burning bush and I AM (Ex 3) + signs and the lodging-night attack (Ex 4) + covenantal formula (Ex 6) + rod-serpent (Ex 7) + Passover (Ex 12) + pillar of cloud and fire (Ex 13) + Red Sea (Ex 14) + Song of Moses + Marah-tree (Ex 15) + manna (Ex 16) + water-from-rock + Amalek (Ex 17) + Sinai theophany (Ex 19) + Decalogue (Ex 20) + covenant blood (Ex 24) + tabernacle and mercy seat (Ex 25) + high priest's plate (Ex 28) + golden calf and tablets (Ex 32) + vision of glory (Ex 33) + veil over Moses (Ex 34) + glory fills tabernacle (Ex 40). Major Tewahedo anchors: 2:3 (Moses-in-the-ark three-day burial — Pascal-typology canonical anchor); 3:2 (burning bush — Theotokos iconographic anchor); 3:5 (loose thy shoe — Tewahedo barefoot-sanctuary canonical anchor); 4:24 (Mastema-at-the-lodging — Tewahedo theodicy harmony with Jub 48:1-2); 12:3 (lamb on 10th — Holy-Week counting anchor); 12:13 (blood on lintels Cross-shape — Tewahedo eucharistic demonic-defense anchor); 12:46 (no bone broken — Jn 19:36 verbatim fulfillment anchor); 14:22 (Red-Sea = baptism — Tewahedo baptismal canonical anchor); 15:25 (Marah-tree = Cross — Tewahedo Holy-Week typology anchor); 16:4 (manna = bread-from-heaven Jn 6 anchor); 17:6 (struck rock — Cross + Jn 19:34 anchor); 17:11 (Moses' arms = Cross-posture intercession anchor); 19:18 (Sinai-fire = Pentecost-fire diptych); 20:8 (Sabbath — Tewahedo Saturday-Sabbath-and-Sunday-Lord's-Day double-observance anchor); 24:8 (covenant blood verbatim formula adopted at Last Supper); 25:8 (Tewahedo tabot canonical anchor); 25:18 (cherub-flanked mercy seat — Tewahedo iconographic anchor); 33:20 (vision-reserved-for-Christ canonical anchor); 34:30 (veil-to-unveiled progression — 2 Cor 3 anchor); 40:34 (glory fills tabernacle — Rev 21:3 canonical-hope bookend). Source: Ephrem the Syrian, Commentary on Exodus + Sermo de Domino Nostro + Hymns on the Crucifixion + Hymns on the Nativity, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). With γ.4.2.C shipped, Ephrem coverage extends from Genesis (76) + Psalms (1) into Exodus (40); Ephrem total rises from 77 to 117 entries and Ephrem share rebalances from 13.1% upward. γ.4.3 (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke entries opening the Cyril-on-Luke arc; spans all 24 chapters of Luke (Annunciation + Magnificat + Zacharias-loosed (Lk 1) + Nativity + Nunc Dimittis + 12-year-old-at-Temple (Lk 2) + JBaptist's pneumatological baptism (Lk 3) + Temptation + Nazareth synagogue (Lk 4) + Peter's depart-from-me + paralytic's sins-forgiven (Lk 5) + Son-of-Man-Lord-of-Sabbath + Lukan Beatitudes (Lk 6) + Centurion's faith + sinful-woman-loves-much (Lk 7) + storm-stilling (Lk 8) + Peter's confession + Transfiguration (Lk 9) + Good Samaritan + Mary-at-Christ's-feet (Lk 10) + Lord's Prayer (Lk 11) + Rich Fool (Lk 12) + Sabbath-bent-back-woman (Lk 13) + cost-of-discipleship (Lk 14) + Prodigal Son (Lk 15) + Rich Man and Lazarus intermediate-state anchor (Lk 16) + Samaritan-leper-returns eucharistic anchor (Lk 17) + Pharisee/Publican + blind-beggar Jesus-Prayer anchors (Lk 18) + Zacchaeus + weeping-over-Jerusalem (Lk 19) + render-unto-Caesar two-spheres (Lk 20) + widow's mite (Lk 21) + Last Supper institution + Gethsemane sweat-as-blood (Lk 22) + three-words-from-Cross (Father-forgive-them + Today-with-me-in-paradise + into-thy-hands-commit-spirit) (Lk 23) + Emmaus breaking-of-bread + Ascension (Lk 24)). Major Tewahedo anchors: 1:28 (Theotokos canonical anchor); 2:29 (Nunc Dimittis canonical-hymn anchor); 2:49 (two-natures Christology canonical anchor); 4:21 (Isaiah 61 fulfilment lectionary anchor); 6:5 (Sabbath-Lord-fulfils canonical Sabbath theology anchor); 7:47 (absolution-precedes-penance canonical anchor); 9:35 (Father-Son disclosure Buhe-Transfiguration anchor); 10:33 (Good Samaritan Christological allegory); 15:20 (Father-runs-to-meet canonical anchor); 16:23 (intermediate-state canonical anchor); 17:16 (Anaphora-as-eucharistic-thanksgiving canonical anchor); 22:19 (real-presence canonical Lukan anchor); 22:44 (Gethsemane true-humanity canonical anchor against Apollinarianism); 23:43 (immediate saints-to-paradise canonical anchor); 24:30 (every-Eucharist-is-Emmaus-recognition anchor). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; Payne Smith d. 1895, well before 1929; the original Greek of Cyril's Lukan homilies is lost except for catena fragments, but the Syriac text from which Payne Smith translated preserves the substance of all 156 homilies). Cyril now anchored on TWO Gospels: John 1-21 modulo Jn 8-10 manuscript gap (γ.4.1-γ.4.1.D, 116 entries) + Luke 1-24 (γ.4.3, 40 entries). Cyril total rises from 121 to 161 entries and Cyril share rebalances from 19.2% upward to approximately 24.0%. γ.4.2.D (2026-05-13) added 40 Ephrem-on-Numbers-Deuteronomy entries spanning every major Mosaic narrative block of the back half of the Pentateuch and CLOSING the Ephrem-on-Pentateuch arc (γ.4.2 Gen 1-11 + γ.4.2.B Gen 12-50 + γ.4.2.C Exo 1-40 + γ.4.2.D Num+Deu = four-wave Pentateuch arc with substantive-coverage parity on Gen / Exo / Num+Deu; Lev retained at seed-coverage only as Ephrem's extant Leviticus material is the thinnest of the Pentateuchal corpus). Coverage: Numbers 1-27 (20 entries) — Levites set apart (1:50) + Nazirite vow (6:2 — Tewahedo bahǝtawi anchor) + Aaronic blessing (6:24 — Tewahedo Qǝddase canonical-dismissal anchor) + repeated Passover (9:2 — yearly Pascha non-negotiable doubled-anchor with Exo 12) + pillar of cloud (9:15) + silver trumpets (10:9 — Tewahedo qabaro anchor) + Spirit shared with 70 elders (11:17 — Pentecost antitype) + Moses' meekness (12:3 — monastic anchor) + Moses faithful in my house (12:7 — Heb 3:5 anchor) + Anakim from Nephilim (13:33 — 1 Enoch 7-9 anchor) + slow-to-anger formula (14:18 — Tewahedo penance liturgy) + Korah swallowed (16:32 — priestly-jealousy) + Aaron's rod budding (17:8 — Tewahedo Marian-rod typology + Wǝddase Maryam anchor) + red heifer (19:2 — Heb 9 anchor) + water-from-rock 2nd strike (20:11 — 1 Cor 10:4 / Heb 9-10 triple-witness Christ-struck-once anchor) + bronze serpent (21:8 — Jn 3:14 verbatim Christological typology) + Balaam's ass (22:28 — 2 Pet 2:16 anchor) + star of Jacob + scepter of Israel (24:17 — Mt 2:2 Magi-star + Tewahedo Solomonic-dynasty Sceptre anchor) + Phinehas's covenant of peace (25:11 — Tewahedo priestly-zeal anchor doubled with Jub 30:18) + Joshua's commissioning (27:18 — apostolic-succession antecedent doubled with 1 Tim 4:14 / 2 Tim 1:6); Deuteronomy 4-34 (20 entries) — consuming-fire God (4:24 — Heb 12:29 verbatim) + Decalogue prologue grace-precedes-command (5:6 — Tewahedo catechetical baptism-precedes-commandments anchor) + Shema-Trinitarian-seed (6:4 — Mt 28:19 anchor) + Greatest Commandment Old-Testament source (6:5 — Mt 22:37 anchor) + Christ's Temptation citation #3 (6:13 — Mt 4:10 anchor) + Christ's Temptation citation #1 (8:3 — Mt 4:4 anchor; Jn 6:51 Eucharistic Word-Bread anchor) + heart-circumcision command (10:16 — Rom 2:29 + Jub 15:14-25 Tewahedo distinctive double-circumcision anchor) + Lord-chooses-the-place (12:5 — Tewahedo tabot-as-chosen-place anchor) + third Mosaic Passover legislation (16:1 — Tewahedo Fasika triple-anchor with Exo 12 + Num 9:2) + king copies Torah (17:18 — Tewahedo Solomonic-dynasty Kǝbrä-Nägäśt emperor-as-Torah-guardian anchor) + prophet-like-Moses (18:15 — Acts 3:22 verbatim + Buhe Transfiguration anchor) + hung-on-tree curse (21:23 — Gal 3:13 verbatim atonement anchor) + don't-muzzle-the-ox (25:4 — 1 Cor 9:9 ministerial-support anchor) + cursed-who-doesn't-keep-all (27:26 — Gal 3:10 verbatim) + heart-circumcision-by-God-himself (30:6 — Tewahedo theosis anchor with Jer 31:33 / Ez 36:26 / Acts 2 quadruple-witness) + word-near-in-mouth-and-heart (30:14 — Rom 10:8 verbatim gospel-of-faith anchor) + Song-of-Moses resurrection-monotheism (32:39 — 1 Sam 2:6 + Jn 11:25 anchor) + Moses' blessing of Levi (33:9 — Mt 10:37 monastic-renunciation anchor) + Moses' hidden grave (34:6 — Jude 9 + Tewahedo Astə'arǝgya-Mussē Translation-of-Moses anchor). Source: Ephrem the Syrian, Commentary on Numbers + Commentary on Deuteronomy, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Ephrem total rises from 117 to 157 entries; Ephrem voice rebalances from 17.5% (γ.4.3-close state) upward to approximately 22.1%. With γ.4.2.D shipped, Ephrem is anchored on Gen (76) + Psalms (1) + Exo (40) + Num (20) + Deu (20) = 157 entries; the Ephrem-on-Pentateuch arc is CLOSED for substantive-coverage purposes (four-wave parity Gen+Exo+Num+Deu; Lev retained at seed-only depth pending future ingest if extant Ephrem-on-Leviticus material is identified). γ.4.3.B (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke detail entries extending the γ.4.3 seed-coverage of Lk 1-9 from 18 entries to 58 entries (substantive parity with the γ.4.1.A-D Cyril-on-John detail-wave pattern). Coverage: Lk 1 (1:5 Zacharias priestly course + 1:13 angelic fear-not formula + 1:35 Spirit-overshadowing Theotokos pneumatology + 1:38 fiat-mihi New-Eve Marian anchor + 1:42 Elizabeth's prophetic beatitude + 1:69 Benedictus horn-of-salvation Davidic anchor); Lk 2 (2:14 Gloria-in-excelsis Tewahedo Anaphora opening + 2:21 eighth-day circumcision Tewahedo distinctive + 2:35 Simeon's sword Marian compassion + 2:40 Christ's true-humanity growth anti-Apollinarian + 2:52 fourfold growth-formula anti-Apollinarian doubled-witness with Lk 2:40); Lk 3 (3:3 baptism-of-repentance vs Christian-baptism distinction + 3:22 'bodily shape' visible Trinitarian-epiphany Tewahedo Timqät anchor + 3:23 thirty-years-old priestly-eligibility Levitical-service anchor + 3:38 Adam-son-of-God Second-Adam universal-Adamic redemption anchor); Lk 4 (4:1 Spirit-fills-and-leads-into-wilderness bahǝtawi monastic pattern anchor + 4:18 Isaian-Servant Spirit-Anointed-Messiah self-identification + 4:34 demon-recognition-of-the-Holy-One-of-God Tewahedo exorcism-rite anchor + 4:43 dei-apestalmai missional self-understanding apostolic-sending Jn 20:21 anchor); Lk 5 (5:10 fishers-of-men zōgrōn-rescue apostolic-vocation anchor + 5:13 leper-touch sacramental-bodily-touch laying-on-of-hands healing-rite anchor + 5:24 Son-of-Man divine-prerogative-to-forgive priestly-absolution Jn 20:23 anchor + 5:32 Christ-the-Physician medicinal-soteriological anchor doubled with Lk 19:10); Lk 6 (6:13 Twelve apostles after night of prayer apostolic-foundation Tewahedo episcopal anchor + 6:27 love-your-enemies supernatural-grace bahǝtawi prayer anchor + 6:31 positive Golden Rule active-positive Christian-ethics + 6:36 'be ye merciful' Lukan-distinctive theosis-pattern doubled with Mt 5:48); Lk 7 (7:12 Nain widow's son first Lukan resurrection-miracle priestly-funeral-compassion anchor + 7:22 six Isaian Messianic signs Is 35 + Is 61 fulfilment triple-witness + 7:34 eating-and-drinking Christology table-as-pulpit pattern + 7:48 'thy sins are forgiven' priestly-absolution Jn 20:23 doubled-witness with 5:24 + 7:50 'thy faith hath saved thee; go in peace' Lukan dismissal-formula); Lk 8 (8:11 'the seed is the word of God' dynamic-Word Scripture-as-living-seed anchor + 8:35 Gerasene's threefold-restoration sitting-at-feet-clothed-right-mind catechumen-posture anchor + 8:48 'thy faith hath made thee whole' bold-touch-in-faith Eucharistic-approach anchor + 8:54 'Maid, arise' word-effects-resurrection Fasika anchor); Lk 9 (9:23 kath'-hēmeran 'take up his cross daily' bahǝtawi daily-renewal anchor + 9:31 exodon Transfiguration-Conversation-double-entendre Buhe-Pascha-apocalypse anchor + 9:51 estērisen-to-prosōpon 'set his face' voluntary-Passion travel-narrative-Lent anchor + 9:62 plough-no-looking-back irreversible-monastic-profession Elisha 1 Ki 19:19-21 doubled-witness). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; the second wave draws on Homilies I-LXXI). Cyril total rises from 161 to 201 entries; Cyril share rebalances from 22.7% upward to approximately 26.7%. With γ.4.3.B shipped, Cyril-on-Luke moves from seed-only (18 entries Lk 1-9 + 22 entries Lk 10-24) to substantive depth on Lk 1-9 (58 entries) + seed-only on Lk 10-24 (22 entries); future γ.4.3.C-D detail waves will extend Lk 10-19 (Journey-to-Jerusalem) and Lk 20-24 (Passion-Resurrection-Ascension) to substantive parity, mirroring the γ.4.1.A-D four-wave Cyril-on-John arc structure. γ.4.3.C (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke detail entries extending the γ.4.3 seed-coverage of Lk 10-19 from 13 entries to 53 entries (substantive parity with γ.4.3.B Lk 1-9 detail wave). Coverage: Lk 10 (10:1 seventy-disciples-sent two-by-two Tewahedo missionary anchor + 10:18 'I beheld Satan as lightning fall' 1 En 86 + Rev 12:7 cosmic-cosmological exorcism anchor + 10:21 Trinitarian-utterance-in-Spirit 'Jesus rejoiced' canonical Lukan public-Trinitarian anchor + 10:27 fourfold heart-soul-strength-mind Greatest Commandment Tewahedo integral-formation anchor); Lk 11 (11:4 'forgive us as we forgive' Lord's Prayer reciprocal-forgiveness Tewahedo penance anchor + 11:13 'how much more shall the Father give Holy Spirit' distinctive-Lukan pneumatological substitution + 11:20 'finger of God' Exodus-Spirit identification + 11:27 'blessed is the womb' public-Marian-beatitude doubled with Lk 1:42 — Tewahedo Wǝddase Maryam anchor); Lk 12 (12:10 blasphemy-against-Holy-Spirit Tewahedo penance pastoral wisdom + 12:32 'fear not, little flock' Tewahedo small-flock ecclesiology + 12:35 'gird your loins, lights burning' Tewahedo Holy-Saturday vigil + Mt 25 ten-virgins anchor + 12:50 'I have a baptism to be baptized with' Christ's-death-as-baptism Rom 6:3-4 doubled-witness Tewahedo baptismal anchor); Lk 13 (13:7 barren fig tree three-years intercessory delay-of-judgment + 13:24 'strive to enter strait gate' agōnizesthe monastic-asceticism anchor + 13:29 east-west-north-south eschatological-Gentile-inclusion Tewahedo missionary anchor with Acts 8 Ethiopian-eunuch firstfruits + 13:34 'Jerusalem... gather thy children as a hen' maternal-Christ-image + Exo 19:4 + Deu 32:11); Lk 14 (14:11 'whosoever exalteth himself shall be abased' divine-passive great-reversal Lukan refrain + Phil 2:8-9 + 14:16 Great Supper parable Eucharistic-eschatological-banquet Rev 19:9 doubled-witness + 14:23 'compel them to come in' evangelistic-persuasive-urgency NOT physical-coercion + 14:33 'forsake all that he hath' Tewahedo monastic vocation anchor); Lk 15 (15:7 'joy in heaven over one sinner repenting' angelic-conversion-rejoicing + 15:8 lost-coin maternal-housekeeping Trinitarian iconographic triple-pattern + 15:11 'a certain man had two sons' Prodigal full-pericope Father's-threefold-mercy-speech canonical + 15:32 'dead and alive again' conversion-as-resurrection Rom 6:4 baptismal anchor); Lk 16 (16:8 unjust steward strategic-prudence + 16:9 friends-with-mammon-of-unrighteousness alms-anchor + 16:13 'cannot serve two masters' metaphysical-incompatibility monastic-poverty anchor + 16:19 unnamed-rich-man + named-Lazarus reversal-of-recognition + 16:23 seed intermediate-state triple-witness with Lk 23:43 + 16:31 'if they hear not Moses' sufficiency-of-Scripture Tewahedo bibliology anchor); Lk 17 (17:5 'Lord, increase our faith' prosthes faith-as-gift not-self-produced + 17:6 mustard-seed faith-power-in-object doubled-witness + 17:10 'unprofitable servants' grace-against-merit Tewahedo monastic daily-office formula + 17:21 'kingdom of God is within/among you' entos-hymōn already-present + still-coming doubled dimensions + 17:32 'remember Lot's wife' eschatological-disobedient-looking-back warning Gen 19:26 + Lk 9:62 doubled-witness); Lk 18 (18:1 'always to pray and not to faint' dei-pantote-proseuchesthai ceaseless-prayer Tewahedo seven-fold daily-office Mäshafä-Sǝʾatat anchor + 1 Th 5:17 doubled-witness + 18:11 Pharisee's prayer pros-heauton self-directed anti-model + 18:13 seed-anchor Publican-Jesus-Prayer doubled-witness + 18:16 'suffer little children' paedo-receptivity Tewahedo infant-baptism Lev 12 + Lk 2:22-24 anchor + 18:22 'sell all, follow me' rich-young-ruler monastic-vocation specifically + Acts 4:34-35 cenobitic-divestment doubled-witness); Lk 19 (19:5 'Zacchaeus, come down; today I must abide at thy house' dei-me dominical-seeking-grace initiated-encounter + 19:10 'Son of Man come to seek and save the lost' missio-Dei mission-statement doubled with Lk 5:32 Tewahedo missionary anchor + 19:38 'peace in heaven and glory in the highest' Lukan-distinctive cosmic-reconciliation triumphal-entry doubled with Lk 2:14 Christmas-hymn — Tewahedo Hosanna feast anchor + 19:46 'My house is the house of prayer' Temple-cleansing Is 56:7 + Jer 7:11 canonical triple-witness for church-as-house-of-prayer Tewahedo church-discipline). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; the third wave draws on Homilies LXXII-CXXX). Cyril total rises from 201 to 241 entries; Cyril share rebalances from 26.8% upward to approximately 30.5% (firmly leading Jubilees by 5.2 points). γ.4.3.D (2026-05-13) CLOSES the four-wave Cyril-on-Luke arc with 40 detail entries on Lk 20-24 (Passion + Resurrection + Ascension), extending γ.4.3 seed coverage from 9 seed-only entries to 49 substantive-detail entries on Lk 20-24 (substantive parity with γ.4.3.B Lk 1-9 and γ.4.3.C Lk 10-19). All 40 verses distinct from the γ.4.3 seed set. Distribution: Lk 20 (7) + Lk 21 (7) + Lk 22 (9) + Lk 23 (8) + Lk 24 (9) = 40 entries on Homilies CXXXI-CLVI of Payne Smith. Coverage: Lk 20 (20:1 authority self-authenticating canonical-ecclesial anchor + 20:9 wicked husbandmen Tewahedo-Gentile-inclusion + 20:17 stone-rejected-cornerstone Christological-rejection-reversal Ps 118:22 + Acts 4:11 + 1 Pet 2:6-8 quadruple-witness + 20:27 Sadducees resurrection-denial anti-pattern + 20:36 isaggelos resurrection-anthropology Tewahedo monastic anticipation + 20:38 'all live unto him' Lukan intermediate-state triple-witness with Lk 16:23 + Lk 23:43 + 20:42 Ps 110:1 Christological double-Lordship canonical Tewahedo Anaphora right-hand-of-the-Father anchor); Lk 21 (21:6 Temple-destruction canonical-end-of-Old-Covenant-cultus + Heb 10 doubled-witness + 21:9 not-by-and-by anti-eschatological-panic + 2 Th 2:1-2 + 21:15 mouth-and-wisdom Spirit-confessor's-utterance Acts 6:10 anchor + 21:18 'not a hair of your head perish' Tewahedo martyr-preservation anchor + 21:24 'times of the Gentiles' Tewahedo missionary-eschatology + Rom 11:25 + 21:28 'lift up your heads' upward-eschatological-orientation Anaphora liturgical-posture anchor + 21:36 'watch and pray always' Tewahedo monastic-vigil-prayer doubled with Lk 18:1); Lk 22 (22:15 epithymia-epethymēsa Christ's-eucharistic-desire Tewahedo Mass canonical anchor + 22:20 new-covenant-blood Tewahedo Anaphora institution-form + 1 Cor 11:25 + 22:24 strife-at-Last-Supper bishop-as-servant Tewahedo episcopal-formation + Jn 13:14 + 22:31 'Simon, Simon, Satan hath desired to sift' Satan-permitted-testing Job 1:6-12 + Lk 4:13 anchor + 22:32 'I have prayed for thee' dominical-intercession + apostolic-fraternity Tewahedo pastoral-confession anchor + 22:42 'not my will but thine' two-wills-in-unity Miaphysite Christology Tewahedo anchor + 22:43 Gethsemane-angel-strengthening Tewahedo angelic-ministry + Mäshafä-Mäla'ǝkt + Mt 4:11 + 22:53 'your hour and the power of darkness' exousia-tou-skotous Satan-permitted-hour Col 1:13 + 22:62 eklausen-pikrōs repentant-tears 'gift of tears' Tewahedo monastic-charisma + 2 Cor 7:10); Lk 23 (23:21 'Crucify, crucify' Hosanna-reversal canonical-prophetic-rejection-voice + 23:28 'weep for yourselves' redirected-Holy-Week-lament Tewahedo bēbet-äbiyot procession anchor + 23:33 Calvary kranion Adamic-skull typology Mäshafä-Adam Tewahedo iconographic-tradition + 23:38 trilingual-titulus King-of-the-Jews universal-kingship-of-Christ + Jn 19:20 Tewahedo Solomonic-dynasty anchor + 23:42 good-thief 'Lord remember me' canonical-deathbed-confession Tewahedo last-rites anchor + 23:44 cosmic-three-hour-darkness Holy-Friday-liturgy doubled-witness Mt 27:51-52 + 23:45 Temple-veil-rent Heb 10:19-20 Tewahedo maqdas-curtain barrier-and-passage anchor + 23:53 new-virgin-tomb sanctified-bookend-of-Incarnation doubled with Lk 1:34-35 virgin-womb); Lk 24 (24:1 'first day of the week' mia-tōn-sabbatōn Lord's-Day Tewahedo Sänbatä-Krǝstiyan + Acts 20:7 + Jub 50:9 triple-witness for Tewahedo doubled-Sabbath-observance + 24:5 'why seek the living among the dead' Tewahedo Fasika-vigil anchor + 24:7 dei + third-day-rise Lukan divine-necessity formula + Hos 6:2 + Mt 12:40 triple-witness + 24:13 Emmaus full-pericope Eucharistic-recognition-shape Word-Sacrament-Mystagogy Tewahedo Anaphora-structure anchor + 24:25 'O fools, slow of heart' comprehensive-prophetic-witness Tewahedo Bibliology anchor + 24:27 'beginning at Moses' Christological-hermeneutic Tewahedo Andǝmta multi-layered-Scripture anchor + 24:32 'did not our heart burn' affective-pneumatological-response Acts 2:3 burning-heart-Pentecost doubled-witness + 24:39 'handle me, see flesh and bones' real-bodily-resurrection Tewahedo Fasika confession + Jn 20:27 + 1 Cor 15:42-44 triple-witness + 24:49 'Promise of the Father, power from on high' Pentecost-anticipation Tewahedo Pärräqlēṭos feast anchor + Acts 1:4-5 + Acts 2:1-4). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; the fourth wave draws on Homilies CXXXI-CLVI). Cyril total rises from 241 to 281 entries; Cyril share rebalances from 30.5% upward to approximately 33.9% (now strongly leads the four-voice quartet). With γ.4.3.D shipped, the Cyril-on-Luke arc is CLOSED for substantive-coverage purposes at four-wave parity (γ.4.3 seed + γ.4.3.B Lk 1-9 + γ.4.3.C Lk 10-19 + γ.4.3.D Lk 20-24), mirroring the γ.4.1.A-D four-wave Cyril-on-John arc structure. Cyril now anchored on TWO full Gospels: John 1-21 modulo Jn 8-10 manuscript gap (γ.4.1-γ.4.1.D, 116 entries) + Luke 1-24 in full (γ.4.3 + γ.4.3.B + γ.4.3.C + γ.4.3.D, 160 entries) = 276 entries on two canonical Gospels.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22 (idolatry decline + Abram's monotheism + Hebrew tongue restored + departure from Ur + Bethel altar + Melchizedek tithe + covenant of pieces dated to Pentecost + circumcision-on-the-eighth-day Tewahedo anchor + angels-of-presence created circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion + Mastema-as-accuser overthrown + Sarah's Machpelah burial + Mastema-repulsion in patriarchal blessing + Abraham's testament love-of-neighbour command + Abraham's priestly instructions on no-blood-consumption + Abraham's celebration of Feast of Weeks with both Isaac and Ishmael at the altar + Abraham's direct blessing of Jacob — Solomonic-dynasty Tewahedo-Jacobite anchor). Major Tewahedo anchors: 11:18 (Abram drives ravens — Tewahedo agrarian-priestly anchor); 12:25 (Hebrew tongue restored by angel of presence — Tewahedo Ge'ez liturgical-language warrant by analogy); 13:8 (Bethel altar — pre-Mosaic legitimate altar, Tewahedo patriarchal-Anaphora warrant); 13:25 (Melchizedek tithe — Tewahedo monastic ǝʾǝsär anchor); 14:1 (covenant of pieces dated to Pentecost — TRIPLE Pentecost anchor: Noah's covenant + Abram's covenant + Sinai); 15:14 + 15:25 (eighth-day circumcision non-negotiable — Tewahedo distinctive Christian circumcision anchor); 15:27 (angels-of-presence created circumcised — cosmic-circumcision); 16:13 (Isaac born on Pentecost — Tewahedo Old-New-Covenant Pentecost doubled anchor); 16:20 (pre-Mosaic Feast of Tabernacles instituted by Abraham); 17:15 (Mastema accuses on Passover-date — Akedah-as-Passover canonical anchor); 18:13 (Mt Moriah = Mt Zion identification — Tewahedo eucharistic fourfold-altar anchor); 18:18 (7-day Akedah commemoration — Tewahedo Holy-Week shape anchor); 19:28 (Mastema-repulsion in patriarchal blessing — Tewahedo baptismal-blessing formula antecedent); 20:2 (love-of-neighbour patriarchal-testament content); 21:7 + 21:18 (no-blood-consumption priestly emphasis — Tewahedo dietary distinctive triple-witness with 6:7 + 7:34); 22:1 (Abraham's Feast of Weeks with Isaac AND Ishmael — Tewahedo pastoral inclusivity anchor); 22:11 (Abraham's direct blessing of Jacob — Tewahedo Solomonic-dynasty-Jacobite canonical anchor via Kǝbrä Nägäśt tradition). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36 (Esau sells birthright + Isaac in Gerar + Rebekah's Spirit-inspired blessing of Jacob with explicit resurrection-unto-eternal-life clause + Jacob receives Isaac's blessing + Jacob's flight + Bethel ladder vision (Marian-ladder type) + Jacob's pillar + tithe vow + Jacob in Haran + Leah substitution + Leah's first conception (un-favored-matriarch preference) + Jacob-Esau reconciliation with preserved fraternal love + twice-yearly gift-sending to parents (fifth-commandment diaspora-care antecedent) + Dinah at twelve years + Simeon and Levi's judicial action + Levi's priesthood EARNED by zeal at Shechem + heavenly-tablets righteousness inscription + Isaac's blessing of Levi BEFORE Judah (priestly precedence over royal) + Judah's Davidic-messianic blessing + patriarchal manuscript transmission (Isaac → Jacob → Levi-Judah) + Jacob's institution of double-tithe (tithe to priest + festive tithe consumed by offerer — Tewahedo ǝʾǝsär double-pattern anchor) + seven heavenly tablets given to Jacob + Deborah-nurse buried beneath Bethel oak (monastic-mother-grave-tree tradition antecedent) + Rachel's death bearing Benjamin (Ben-oni → Benjamin renaming as suffering-transmuted-to-joy) + Reuben's defilement of Bilhah + Reuben's voluntary confession + Jacob's clemency-by-confession + distinction terrestrial-pardon vs heavenly-judicial-reckoning + Joseph sold for twenty pieces (Tewahedo Joseph-as-Christ Holy Week typology) + Day of Atonement linked to Jacob's grief over Joseph + Rebekah's deathbed hope for Esau's repentance (Tewahedo eschatological-hope canonical anchor) + Esau and Jacob jointly bury Rebekah at Machpelah (family-reunion-at-funerals pattern) + Isaac's testament of love-of-brother triad with Abraham + Mosaic codification). Major Tewahedo anchors: 24:22 (Isaac's Beersheba altar — three-generation patriarchal-altar chain Abram-Isaac-Jacob); 25:14 (Rebekah's Spirit-inspired blessing — pre-Pentecostal canonical Spirit-utterance); 25:23 (Rebekah's resurrection-unto-eternal-life clause — Tewahedo Tǝnśaʾe matriarchal-canonical anchor); 27:19 (Bethel ladder — Tewahedo Marian-ladder type in Wǝddase Maryam); 27:27 (Jacob's pillar + double-tithe vow — Tewahedo täbot canonical antecedent + ǝʾǝsär comprehensiveness); 30:18 (Levi's priesthood EARNED by zeal — Tewahedo priesthood-by-zeal-and-descent doubled warrant); 30:23 (heavenly-tablets righteousness inscription — Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life doctrine); 31:14-15 (Isaac blesses Levi BEFORE Judah — priestly precedence over royal in Tewahedo ecclesiology); 31:18 (Judah's Davidic-messianic blessing — Tewahedo Solomonic-dynasty Davidic claim via Kǝbrä Nägäśt); 31:23 (patriarchal manuscript transmission — Tewahedo monastic-scribal canonical-inheritance warrant); 32:9 (Jacob's double-tithe institution — Tewahedo ǝʾǝsär double-pattern); 32:21 (seven heavenly tablets — Tewahedo Mäṣḥafä-zä-säma'i doctrine); 33:9 (Reuben's confession + Jacob's clemency — Tewahedo näsḫa absolution principle); 34:18 (Day of Atonement linked to Jacob's Joseph-grief — Tewahedo Astereyo TRIPLED canonical anchor with Jub 5:17 and 6:10); 35:6 (Rebekah's hope for Esau's repentance — Tewahedo eschatological-hope anchor); 36:1 (Isaac's intermediate-state phrase 'eternal house with the fathers' — Tewahedo funeral-liturgy phrase canonical-verbal inheritance); 36:7 (Isaac's love-of-brother testament — Tewahedo Maḫǝbär Qǝddus monastic charism patriarchal warrant). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, CLOSING the γ.4.5 detail arc. Coverage: Esau-Jacob war + Joseph in Egypt + Joseph's chastity anchored in patriarchal-canonical pedagogy + Joseph's marriage to Asenath (Tewahedo Gentile-spouse pastoral anchor) + Judah and Tamar with explicit 'she is more righteous than I' canonical confession formula + silver-cup test as confessor's-ruse pattern + Jacob's seven-day pause at Beersheba + God's Immanuel-promise to accompany Jacob to Egypt + Israelite genealogy at the Egypt-descent + Jacob blesses Pharaoh + Joseph dies 110 years (canonical biographical precision template for gədl genre) + new king who knew not Joseph + Moses' birth dated to tribulation period + three-day Moses-ark / Christ-tomb Pascal-typology + Pharaoh's-daughter's-compassion canonical anchor + Mastema attacks Moses at the lodging (Jubilees protects divine goodness against Ex 4:24 difficulty) + angelic orchestration of plagues + Passover blood-on-lintels canonically restrains Mastema's firstborn-slaying + lamb-AND-wine canonical eucharistic-OT prototype + Passover observance acquits-of-guilt (canonical liturgical-atonement principle) + Sabbath as foretaste of the holy kingdom + jubilee-of-jubilees eschatology with permanent removal of Satan + strict Sabbath-prohibition list anchoring Tewahedo Saturday-Sabbath observance). Major Tewahedo anchors: 37:1 (Esau-Jacob war — defensive-war doctrine canonical anchor); 39:10 (Joseph remembers Abraham's pre-Mosaic adultery law — Tewahedo family-catechism canonical anchor); 41:25 (Judah's 'she is more righteous than I' — Tewahedo confessor's näsḫa-of-acknowledgment verbal anchor); 44:5 (God descends with Jacob to Egypt — Tewahedo Immanuel-typology and diaspora-presence anchor); 45:13 (Jacob blesses Pharaoh — Tewahedo patriarch-blessing-Gentile-king canonical pattern); 47:5 (Moses in the ark THREE DAYS — Tewahedo Pascal-typology Moses-as-Christ); 48:1-2 (Mastema-not-Lord at the lodging-night-attack — Tewahedo theodicy canonical clarification); 48:18 (Red-Sea crossing IS Passover — Tewahedo Fasika doubled-celebration); 49:2 (Passover blood-on-lintels restrains Mastema — Tewahedo eucharistic-blood demonic-defense anchor); 49:6 (lamb-AND-wine canonical eucharistic-prototype — Tewahedo Anaphora canonical-OT anchor); 49:15 (Passover-observance acquits-of-guilt — Tewahedo liturgical-act-AS-atonement principle anchor); 50:4 (jubilee-of-jubilees-eschatology with Satan removed — Tewahedo cosmic-territorial-cleansing eschatology); 50:9 (Sabbath as holy-kingdom-day — Tewahedo Saturday-Sabbath foretaste of Kingdom anchor); 50:12 (strict Sabbath-prohibition list — Tewahedo Saturday-Sabbath canonical observance preserved). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). With γ.4.5.E shipped, the entire γ.4.5 Mäṣḥafä-Kufāle detail arc is COMPLETE: all six major Jubilees narrative sections (Sinai prologue + Creation chs 1-4, Watchers + Noahide chs 5-10, Abraham cycle chs 11-22, Decline + Jacob chs 23-36, Joseph cycle chs 37-45, Egypt-Exodus-Passover-Sabbath finale chs 46-50) have substantive-coverage parity at ≥40 entries each (except the very short ch 23 Decline section which retains seed-only coverage). γ.4.2.C (2026-05-13) added 40 Ephrem-on-Exodus entries spanning all major Exodus narrative blocks: Israel multiplies + Pharaoh's drowning decree (Ex 1) + Moses' birth and Midian (Ex 2) + burning bush and I AM (Ex 3) + signs and the lodging-night attack (Ex 4) + covenantal formula (Ex 6) + rod-serpent (Ex 7) + Passover (Ex 12) + pillar of cloud and fire (Ex 13) + Red Sea (Ex 14) + Song of Moses + Marah-tree (Ex 15) + manna (Ex 16) + water-from-rock + Amalek (Ex 17) + Sinai theophany (Ex 19) + Decalogue (Ex 20) + covenant blood (Ex 24) + tabernacle and mercy seat (Ex 25) + high priest's plate (Ex 28) + golden calf and tablets (Ex 32) + vision of glory (Ex 33) + veil over Moses (Ex 34) + glory fills tabernacle (Ex 40). Major Tewahedo anchors: 2:3 (Moses-in-the-ark three-day burial — Pascal-typology canonical anchor); 3:2 (burning bush — Theotokos iconographic anchor); 3:5 (loose thy shoe — Tewahedo barefoot-sanctuary canonical anchor); 4:24 (Mastema-at-the-lodging — Tewahedo theodicy harmony with Jub 48:1-2); 12:3 (lamb on 10th — Holy-Week counting anchor); 12:13 (blood on lintels Cross-shape — Tewahedo eucharistic demonic-defense anchor); 12:46 (no bone broken — Jn 19:36 verbatim fulfillment anchor); 14:22 (Red-Sea = baptism — Tewahedo baptismal canonical anchor); 15:25 (Marah-tree = Cross — Tewahedo Holy-Week typology anchor); 16:4 (manna = bread-from-heaven Jn 6 anchor); 17:6 (struck rock — Cross + Jn 19:34 anchor); 17:11 (Moses' arms = Cross-posture intercession anchor); 19:18 (Sinai-fire = Pentecost-fire diptych); 20:8 (Sabbath — Tewahedo Saturday-Sabbath-and-Sunday-Lord's-Day double-observance anchor); 24:8 (covenant blood verbatim formula adopted at Last Supper); 25:8 (Tewahedo tabot canonical anchor); 25:18 (cherub-flanked mercy seat — Tewahedo iconographic anchor); 33:20 (vision-reserved-for-Christ canonical anchor); 34:30 (veil-to-unveiled progression — 2 Cor 3 anchor); 40:34 (glory fills tabernacle — Rev 21:3 canonical-hope bookend). Source: Ephrem the Syrian, Commentary on Exodus + Sermo de Domino Nostro + Hymns on the Crucifixion + Hymns on the Nativity, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). With γ.4.2.C shipped, Ephrem coverage extends from Genesis (76) + Psalms (1) into Exodus (40); Ephrem total rises from 77 to 117 entries and Ephrem share rebalances from 13.1% upward. γ.4.3 (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke entries opening the Cyril-on-Luke arc; spans all 24 chapters of Luke (Annunciation + Magnificat + Zacharias-loosed (Lk 1) + Nativity + Nunc Dimittis + 12-year-old-at-Temple (Lk 2) + JBaptist's pneumatological baptism (Lk 3) + Temptation + Nazareth synagogue (Lk 4) + Peter's depart-from-me + paralytic's sins-forgiven (Lk 5) + Son-of-Man-Lord-of-Sabbath + Lukan Beatitudes (Lk 6) + Centurion's faith + sinful-woman-loves-much (Lk 7) + storm-stilling (Lk 8) + Peter's confession + Transfiguration (Lk 9) + Good Samaritan + Mary-at-Christ's-feet (Lk 10) + Lord's Prayer (Lk 11) + Rich Fool (Lk 12) + Sabbath-bent-back-woman (Lk 13) + cost-of-discipleship (Lk 14) + Prodigal Son (Lk 15) + Rich Man and Lazarus intermediate-state anchor (Lk 16) + Samaritan-leper-returns eucharistic anchor (Lk 17) + Pharisee/Publican + blind-beggar Jesus-Prayer anchors (Lk 18) + Zacchaeus + weeping-over-Jerusalem (Lk 19) + render-unto-Caesar two-spheres (Lk 20) + widow's mite (Lk 21) + Last Supper institution + Gethsemane sweat-as-blood (Lk 22) + three-words-from-Cross (Father-forgive-them + Today-with-me-in-paradise + into-thy-hands-commit-spirit) (Lk 23) + Emmaus breaking-of-bread + Ascension (Lk 24)). Major Tewahedo anchors: 1:28 (Theotokos canonical anchor); 2:29 (Nunc Dimittis canonical-hymn anchor); 2:49 (two-natures Christology canonical anchor); 4:21 (Isaiah 61 fulfilment lectionary anchor); 6:5 (Sabbath-Lord-fulfils canonical Sabbath theology anchor); 7:47 (absolution-precedes-penance canonical anchor); 9:35 (Father-Son disclosure Buhe-Transfiguration anchor); 10:33 (Good Samaritan Christological allegory); 15:20 (Father-runs-to-meet canonical anchor); 16:23 (intermediate-state canonical anchor); 17:16 (Anaphora-as-eucharistic-thanksgiving canonical anchor); 22:19 (real-presence canonical Lukan anchor); 22:44 (Gethsemane true-humanity canonical anchor against Apollinarianism); 23:43 (immediate saints-to-paradise canonical anchor); 24:30 (every-Eucharist-is-Emmaus-recognition anchor). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; Payne Smith d. 1895, well before 1929; the original Greek of Cyril's Lukan homilies is lost except for catena fragments, but the Syriac text from which Payne Smith translated preserves the substance of all 156 homilies). Cyril now anchored on TWO Gospels: John 1-21 modulo Jn 8-10 manuscript gap (γ.4.1-γ.4.1.D, 116 entries) + Luke 1-24 (γ.4.3, 40 entries). Cyril total rises from 121 to 161 entries and Cyril share rebalances from 19.2% upward to approximately 24.0%. γ.4.2.D (2026-05-13) added 40 Ephrem-on-Numbers-Deuteronomy entries spanning every major Mosaic narrative block of the back half of the Pentateuch and CLOSING the Ephrem-on-Pentateuch arc (γ.4.2 Gen 1-11 + γ.4.2.B Gen 12-50 + γ.4.2.C Exo 1-40 + γ.4.2.D Num+Deu = four-wave Pentateuch arc with substantive-coverage parity on Gen / Exo / Num+Deu; Lev retained at seed-coverage only as Ephrem's extant Leviticus material is the thinnest of the Pentateuchal corpus). Coverage: Numbers 1-27 (20 entries) — Levites set apart (1:50) + Nazirite vow (6:2 — Tewahedo bahǝtawi anchor) + Aaronic blessing (6:24 — Tewahedo Qǝddase canonical-dismissal anchor) + repeated Passover (9:2 — yearly Pascha non-negotiable doubled-anchor with Exo 12) + pillar of cloud (9:15) + silver trumpets (10:9 — Tewahedo qabaro anchor) + Spirit shared with 70 elders (11:17 — Pentecost antitype) + Moses' meekness (12:3 — monastic anchor) + Moses faithful in my house (12:7 — Heb 3:5 anchor) + Anakim from Nephilim (13:33 — 1 Enoch 7-9 anchor) + slow-to-anger formula (14:18 — Tewahedo penance liturgy) + Korah swallowed (16:32 — priestly-jealousy) + Aaron's rod budding (17:8 — Tewahedo Marian-rod typology + Wǝddase Maryam anchor) + red heifer (19:2 — Heb 9 anchor) + water-from-rock 2nd strike (20:11 — 1 Cor 10:4 / Heb 9-10 triple-witness Christ-struck-once anchor) + bronze serpent (21:8 — Jn 3:14 verbatim Christological typology) + Balaam's ass (22:28 — 2 Pet 2:16 anchor) + star of Jacob + scepter of Israel (24:17 — Mt 2:2 Magi-star + Tewahedo Solomonic-dynasty Sceptre anchor) + Phinehas's covenant of peace (25:11 — Tewahedo priestly-zeal anchor doubled with Jub 30:18) + Joshua's commissioning (27:18 — apostolic-succession antecedent doubled with 1 Tim 4:14 / 2 Tim 1:6); Deuteronomy 4-34 (20 entries) — consuming-fire God (4:24 — Heb 12:29 verbatim) + Decalogue prologue grace-precedes-command (5:6 — Tewahedo catechetical baptism-precedes-commandments anchor) + Shema-Trinitarian-seed (6:4 — Mt 28:19 anchor) + Greatest Commandment Old-Testament source (6:5 — Mt 22:37 anchor) + Christ's Temptation citation #3 (6:13 — Mt 4:10 anchor) + Christ's Temptation citation #1 (8:3 — Mt 4:4 anchor; Jn 6:51 Eucharistic Word-Bread anchor) + heart-circumcision command (10:16 — Rom 2:29 + Jub 15:14-25 Tewahedo distinctive double-circumcision anchor) + Lord-chooses-the-place (12:5 — Tewahedo tabot-as-chosen-place anchor) + third Mosaic Passover legislation (16:1 — Tewahedo Fasika triple-anchor with Exo 12 + Num 9:2) + king copies Torah (17:18 — Tewahedo Solomonic-dynasty Kǝbrä-Nägäśt emperor-as-Torah-guardian anchor) + prophet-like-Moses (18:15 — Acts 3:22 verbatim + Buhe Transfiguration anchor) + hung-on-tree curse (21:23 — Gal 3:13 verbatim atonement anchor) + don't-muzzle-the-ox (25:4 — 1 Cor 9:9 ministerial-support anchor) + cursed-who-doesn't-keep-all (27:26 — Gal 3:10 verbatim) + heart-circumcision-by-God-himself (30:6 — Tewahedo theosis anchor with Jer 31:33 / Ez 36:26 / Acts 2 quadruple-witness) + word-near-in-mouth-and-heart (30:14 — Rom 10:8 verbatim gospel-of-faith anchor) + Song-of-Moses resurrection-monotheism (32:39 — 1 Sam 2:6 + Jn 11:25 anchor) + Moses' blessing of Levi (33:9 — Mt 10:37 monastic-renunciation anchor) + Moses' hidden grave (34:6 — Jude 9 + Tewahedo Astə'arǝgya-Mussē Translation-of-Moses anchor). Source: Ephrem the Syrian, Commentary on Numbers + Commentary on Deuteronomy, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Ephrem total rises from 117 to 157 entries; Ephrem voice rebalances from 17.5% (γ.4.3-close state) upward to approximately 22.1%. With γ.4.2.D shipped, Ephrem is anchored on Gen (76) + Psalms (1) + Exo (40) + Num (20) + Deu (20) = 157 entries; the Ephrem-on-Pentateuch arc is CLOSED for substantive-coverage purposes (four-wave parity Gen+Exo+Num+Deu; Lev retained at seed-only depth pending future ingest if extant Ephrem-on-Leviticus material is identified). γ.4.3.B (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke detail entries extending the γ.4.3 seed-coverage of Lk 1-9 from 18 entries to 58 entries (substantive parity with the γ.4.1.A-D Cyril-on-John detail-wave pattern). Coverage: Lk 1 (1:5 Zacharias priestly course + 1:13 angelic fear-not formula + 1:35 Spirit-overshadowing Theotokos pneumatology + 1:38 fiat-mihi New-Eve Marian anchor + 1:42 Elizabeth's prophetic beatitude + 1:69 Benedictus horn-of-salvation Davidic anchor); Lk 2 (2:14 Gloria-in-excelsis Tewahedo Anaphora opening + 2:21 eighth-day circumcision Tewahedo distinctive + 2:35 Simeon's sword Marian compassion + 2:40 Christ's true-humanity growth anti-Apollinarian + 2:52 fourfold growth-formula anti-Apollinarian doubled-witness with Lk 2:40); Lk 3 (3:3 baptism-of-repentance vs Christian-baptism distinction + 3:22 'bodily shape' visible Trinitarian-epiphany Tewahedo Timqät anchor + 3:23 thirty-years-old priestly-eligibility Levitical-service anchor + 3:38 Adam-son-of-God Second-Adam universal-Adamic redemption anchor); Lk 4 (4:1 Spirit-fills-and-leads-into-wilderness bahǝtawi monastic pattern anchor + 4:18 Isaian-Servant Spirit-Anointed-Messiah self-identification + 4:34 demon-recognition-of-the-Holy-One-of-God Tewahedo exorcism-rite anchor + 4:43 dei-apestalmai missional self-understanding apostolic-sending Jn 20:21 anchor); Lk 5 (5:10 fishers-of-men zōgrōn-rescue apostolic-vocation anchor + 5:13 leper-touch sacramental-bodily-touch laying-on-of-hands healing-rite anchor + 5:24 Son-of-Man divine-prerogative-to-forgive priestly-absolution Jn 20:23 anchor + 5:32 Christ-the-Physician medicinal-soteriological anchor doubled with Lk 19:10); Lk 6 (6:13 Twelve apostles after night of prayer apostolic-foundation Tewahedo episcopal anchor + 6:27 love-your-enemies supernatural-grace bahǝtawi prayer anchor + 6:31 positive Golden Rule active-positive Christian-ethics + 6:36 'be ye merciful' Lukan-distinctive theosis-pattern doubled with Mt 5:48); Lk 7 (7:12 Nain widow's son first Lukan resurrection-miracle priestly-funeral-compassion anchor + 7:22 six Isaian Messianic signs Is 35 + Is 61 fulfilment triple-witness + 7:34 eating-and-drinking Christology table-as-pulpit pattern + 7:48 'thy sins are forgiven' priestly-absolution Jn 20:23 doubled-witness with 5:24 + 7:50 'thy faith hath saved thee; go in peace' Lukan dismissal-formula); Lk 8 (8:11 'the seed is the word of God' dynamic-Word Scripture-as-living-seed anchor + 8:35 Gerasene's threefold-restoration sitting-at-feet-clothed-right-mind catechumen-posture anchor + 8:48 'thy faith hath made thee whole' bold-touch-in-faith Eucharistic-approach anchor + 8:54 'Maid, arise' word-effects-resurrection Fasika anchor); Lk 9 (9:23 kath'-hēmeran 'take up his cross daily' bahǝtawi daily-renewal anchor + 9:31 exodon Transfiguration-Conversation-double-entendre Buhe-Pascha-apocalypse anchor + 9:51 estērisen-to-prosōpon 'set his face' voluntary-Passion travel-narrative-Lent anchor + 9:62 plough-no-looking-back irreversible-monastic-profession Elisha 1 Ki 19:19-21 doubled-witness). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; the second wave draws on Homilies I-LXXI). Cyril total rises from 161 to 201 entries; Cyril share rebalances from 22.7% upward to approximately 26.7%. With γ.4.3.B shipped, Cyril-on-Luke moves from seed-only (18 entries Lk 1-9 + 22 entries Lk 10-24) to substantive depth on Lk 1-9 (58 entries) + seed-only on Lk 10-24 (22 entries); future γ.4.3.C-D detail waves will extend Lk 10-19 (Journey-to-Jerusalem) and Lk 20-24 (Passion-Resurrection-Ascension) to substantive parity, mirroring the γ.4.1.A-D four-wave Cyril-on-John arc structure. γ.4.3.C (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke detail entries extending the γ.4.3 seed-coverage of Lk 10-19 from 13 entries to 53 entries (substantive parity with γ.4.3.B Lk 1-9 detail wave). Coverage: Lk 10 (10:1 seventy-disciples-sent two-by-two Tewahedo missionary anchor + 10:18 'I beheld Satan as lightning fall' 1 En 86 + Rev 12:7 cosmic-cosmological exorcism anchor + 10:21 Trinitarian-utterance-in-Spirit 'Jesus rejoiced' canonical Lukan public-Trinitarian anchor + 10:27 fourfold heart-soul-strength-mind Greatest Commandment Tewahedo integral-formation anchor); Lk 11 (11:4 'forgive us as we forgive' Lord's Prayer reciprocal-forgiveness Tewahedo penance anchor + 11:13 'how much more shall the Father give Holy Spirit' distinctive-Lukan pneumatological substitution + 11:20 'finger of God' Exodus-Spirit identification + 11:27 'blessed is the womb' public-Marian-beatitude doubled with Lk 1:42 — Tewahedo Wǝddase Maryam anchor); Lk 12 (12:10 blasphemy-against-Holy-Spirit Tewahedo penance pastoral wisdom + 12:32 'fear not, little flock' Tewahedo small-flock ecclesiology + 12:35 'gird your loins, lights burning' Tewahedo Holy-Saturday vigil + Mt 25 ten-virgins anchor + 12:50 'I have a baptism to be baptized with' Christ's-death-as-baptism Rom 6:3-4 doubled-witness Tewahedo baptismal anchor); Lk 13 (13:7 barren fig tree three-years intercessory delay-of-judgment + 13:24 'strive to enter strait gate' agōnizesthe monastic-asceticism anchor + 13:29 east-west-north-south eschatological-Gentile-inclusion Tewahedo missionary anchor with Acts 8 Ethiopian-eunuch firstfruits + 13:34 'Jerusalem... gather thy children as a hen' maternal-Christ-image + Exo 19:4 + Deu 32:11); Lk 14 (14:11 'whosoever exalteth himself shall be abased' divine-passive great-reversal Lukan refrain + Phil 2:8-9 + 14:16 Great Supper parable Eucharistic-eschatological-banquet Rev 19:9 doubled-witness + 14:23 'compel them to come in' evangelistic-persuasive-urgency NOT physical-coercion + 14:33 'forsake all that he hath' Tewahedo monastic vocation anchor); Lk 15 (15:7 'joy in heaven over one sinner repenting' angelic-conversion-rejoicing + 15:8 lost-coin maternal-housekeeping Trinitarian iconographic triple-pattern + 15:11 'a certain man had two sons' Prodigal full-pericope Father's-threefold-mercy-speech canonical + 15:32 'dead and alive again' conversion-as-resurrection Rom 6:4 baptismal anchor); Lk 16 (16:8 unjust steward strategic-prudence + 16:9 friends-with-mammon-of-unrighteousness alms-anchor + 16:13 'cannot serve two masters' metaphysical-incompatibility monastic-poverty anchor + 16:19 unnamed-rich-man + named-Lazarus reversal-of-recognition + 16:23 seed intermediate-state triple-witness with Lk 23:43 + 16:31 'if they hear not Moses' sufficiency-of-Scripture Tewahedo bibliology anchor); Lk 17 (17:5 'Lord, increase our faith' prosthes faith-as-gift not-self-produced + 17:6 mustard-seed faith-power-in-object doubled-witness + 17:10 'unprofitable servants' grace-against-merit Tewahedo monastic daily-office formula + 17:21 'kingdom of God is within/among you' entos-hymōn already-present + still-coming doubled dimensions + 17:32 'remember Lot's wife' eschatological-disobedient-looking-back warning Gen 19:26 + Lk 9:62 doubled-witness); Lk 18 (18:1 'always to pray and not to faint' dei-pantote-proseuchesthai ceaseless-prayer Tewahedo seven-fold daily-office Mäshafä-Sǝʾatat anchor + 1 Th 5:17 doubled-witness + 18:11 Pharisee's prayer pros-heauton self-directed anti-model + 18:13 seed-anchor Publican-Jesus-Prayer doubled-witness + 18:16 'suffer little children' paedo-receptivity Tewahedo infant-baptism Lev 12 + Lk 2:22-24 anchor + 18:22 'sell all, follow me' rich-young-ruler monastic-vocation specifically + Acts 4:34-35 cenobitic-divestment doubled-witness); Lk 19 (19:5 'Zacchaeus, come down; today I must abide at thy house' dei-me dominical-seeking-grace initiated-encounter + 19:10 'Son of Man come to seek and save the lost' missio-Dei mission-statement doubled with Lk 5:32 Tewahedo missionary anchor + 19:38 'peace in heaven and glory in the highest' Lukan-distinctive cosmic-reconciliation triumphal-entry doubled with Lk 2:14 Christmas-hymn — Tewahedo Hosanna feast anchor + 19:46 'My house is the house of prayer' Temple-cleansing Is 56:7 + Jer 7:11 canonical triple-witness for church-as-house-of-prayer Tewahedo church-discipline). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; the third wave draws on Homilies LXXII-CXXX). Cyril total rises from 201 to 241 entries; Cyril share rebalances from 26.8% upward to approximately 30.5% (firmly leading Jubilees by 5.2 points). γ.4.3.D (2026-05-13) CLOSES the four-wave Cyril-on-Luke arc with 40 detail entries on Lk 20-24 (Passion + Resurrection + Ascension), extending γ.4.3 seed coverage from 9 seed-only entries to 49 substantive-detail entries on Lk 20-24 (substantive parity with γ.4.3.B Lk 1-9 and γ.4.3.C Lk 10-19). All 40 verses distinct from the γ.4.3 seed set. Distribution: Lk 20 (7) + Lk 21 (7) + Lk 22 (9) + Lk 23 (8) + Lk 24 (9) = 40 entries on Homilies CXXXI-CLVI of Payne Smith. Coverage: Lk 20 (20:1 authority self-authenticating canonical-ecclesial anchor + 20:9 wicked husbandmen Tewahedo-Gentile-inclusion + 20:17 stone-rejected-cornerstone Christological-rejection-reversal Ps 118:22 + Acts 4:11 + 1 Pet 2:6-8 quadruple-witness + 20:27 Sadducees resurrection-denial anti-pattern + 20:36 isaggelos resurrection-anthropology Tewahedo monastic anticipation + 20:38 'all live unto him' Lukan intermediate-state triple-witness with Lk 16:23 + Lk 23:43 + 20:42 Ps 110:1 Christological double-Lordship canonical Tewahedo Anaphora right-hand-of-the-Father anchor); Lk 21 (21:6 Temple-destruction canonical-end-of-Old-Covenant-cultus + Heb 10 doubled-witness + 21:9 not-by-and-by anti-eschatological-panic + 2 Th 2:1-2 + 21:15 mouth-and-wisdom Spirit-confessor's-utterance Acts 6:10 anchor + 21:18 'not a hair of your head perish' Tewahedo martyr-preservation anchor + 21:24 'times of the Gentiles' Tewahedo missionary-eschatology + Rom 11:25 + 21:28 'lift up your heads' upward-eschatological-orientation Anaphora liturgical-posture anchor + 21:36 'watch and pray always' Tewahedo monastic-vigil-prayer doubled with Lk 18:1); Lk 22 (22:15 epithymia-epethymēsa Christ's-eucharistic-desire Tewahedo Mass canonical anchor + 22:20 new-covenant-blood Tewahedo Anaphora institution-form + 1 Cor 11:25 + 22:24 strife-at-Last-Supper bishop-as-servant Tewahedo episcopal-formation + Jn 13:14 + 22:31 'Simon, Simon, Satan hath desired to sift' Satan-permitted-testing Job 1:6-12 + Lk 4:13 anchor + 22:32 'I have prayed for thee' dominical-intercession + apostolic-fraternity Tewahedo pastoral-confession anchor + 22:42 'not my will but thine' two-wills-in-unity Miaphysite Christology Tewahedo anchor + 22:43 Gethsemane-angel-strengthening Tewahedo angelic-ministry + Mäshafä-Mäla'ǝkt + Mt 4:11 + 22:53 'your hour and the power of darkness' exousia-tou-skotous Satan-permitted-hour Col 1:13 + 22:62 eklausen-pikrōs repentant-tears 'gift of tears' Tewahedo monastic-charisma + 2 Cor 7:10); Lk 23 (23:21 'Crucify, crucify' Hosanna-reversal canonical-prophetic-rejection-voice + 23:28 'weep for yourselves' redirected-Holy-Week-lament Tewahedo bēbet-äbiyot procession anchor + 23:33 Calvary kranion Adamic-skull typology Mäshafä-Adam Tewahedo iconographic-tradition + 23:38 trilingual-titulus King-of-the-Jews universal-kingship-of-Christ + Jn 19:20 Tewahedo Solomonic-dynasty anchor + 23:42 good-thief 'Lord remember me' canonical-deathbed-confession Tewahedo last-rites anchor + 23:44 cosmic-three-hour-darkness Holy-Friday-liturgy doubled-witness Mt 27:51-52 + 23:45 Temple-veil-rent Heb 10:19-20 Tewahedo maqdas-curtain barrier-and-passage anchor + 23:53 new-virgin-tomb sanctified-bookend-of-Incarnation doubled with Lk 1:34-35 virgin-womb); Lk 24 (24:1 'first day of the week' mia-tōn-sabbatōn Lord's-Day Tewahedo Sänbatä-Krǝstiyan + Acts 20:7 + Jub 50:9 triple-witness for Tewahedo doubled-Sabbath-observance + 24:5 'why seek the living among the dead' Tewahedo Fasika-vigil anchor + 24:7 dei + third-day-rise Lukan divine-necessity formula + Hos 6:2 + Mt 12:40 triple-witness + 24:13 Emmaus full-pericope Eucharistic-recognition-shape Word-Sacrament-Mystagogy Tewahedo Anaphora-structure anchor + 24:25 'O fools, slow of heart' comprehensive-prophetic-witness Tewahedo Bibliology anchor + 24:27 'beginning at Moses' Christological-hermeneutic Tewahedo Andǝmta multi-layered-Scripture anchor + 24:32 'did not our heart burn' affective-pneumatological-response Acts 2:3 burning-heart-Pentecost doubled-witness + 24:39 'handle me, see flesh and bones' real-bodily-resurrection Tewahedo Fasika confession + Jn 20:27 + 1 Cor 15:42-44 triple-witness + 24:49 'Promise of the Father, power from on high' Pentecost-anticipation Tewahedo Pärräqlēṭos feast anchor + Acts 1:4-5 + Acts 2:1-4). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; the fourth wave draws on Homilies CXXXI-CLVI). Cyril total rises from 241 to 281 entries; Cyril share rebalances from 30.5% upward to approximately 33.9% (now strongly leads the four-voice quartet). With γ.4.3.D shipped, the Cyril-on-Luke arc is CLOSED for substantive-coverage purposes at four-wave parity (γ.4.3 seed + γ.4.3.B Lk 1-9 + γ.4.3.C Lk 10-19 + γ.4.3.D Lk 20-24), mirroring the γ.4.1.A-D four-wave Cyril-on-John arc structure. Cyril now anchored on TWO full Gospels: John 1-21 modulo Jn 8-10 manuscript gap (γ.4.1-γ.4.1.D, 116 entries) + Luke 1-24 in full (γ.4.3 + γ.4.3.B + γ.4.3.C + γ.4.3.D, 160 entries) = 276 entries on two canonical Gospels. γ.4.6 (2026-05-13) added Cyril on Matthew seed wave — 45 verse-keyed entries spanning Matt 1-28 (Genealogy + Virgin Birth + Magi/Star + Baptism + Beatitudes + Sermon-on-Mount + Bread-of-Mercy + Confessor-Theology + Homoousion-Locus + Wheat-and-Tares + Peter's-Confession + Transfiguration-Tabor + Ecclesiological-Presence + Pediobaptism + Ransom-Atonement + Hosaʿinnā-Entry + Resurrection-from-Pentateuch + Divine-Lament-Incarnate + Mäsqäl-Cross-Sign + Sheep-and-Goats + Eucharistic-Institution + Two-Wills-Gethsemane + Impassible-Passion + Temple-Veil-Rent + Fasika-Resurrection + Trinitarian-Baptismal-Formula + Emmanuel-Inclusio). Source: Cyril's Matthew commentary fragments preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I (Oxford: University Press, 1840 — PD) and PG 72 cols. 365-474 (Migne — PD). Mirrors γ.4.3 Cyril-on-Luke seed-wave structure (40 entries spanning Luke 1-24 at seed time). γ.4.6.B (2026-05-13) added Cyril on Matthew Sermon-on-the-Mount detail wave — 50 verse-keyed entries on Matt 5-7 (Sermon setting + Beatitudes 2-9 + persecution-blessings + salt + light + lamp + iota-keraia Torah-immutability + surpass-Pharisees + six Antitheses (anger + reconcile-before-altar Eucharistic-prerequisite + lust + divorce + oaths + non-retaliation + love-enemies) + sun-on-good-and-evil universal-providence + hide-righteousness + secret-giving + inner-room + not-vain-repetitions + thy-kingdom-come Pentecost + epiousios super-substantial-bread + forgive-as-forgiven + lead-us-not + fasting joy + treasures-in-heaven + single-eye haplotēs + providential-birds + seek-first + judge-not + mote-and-beam + ask-seek-knock + Father's-greater-gifts + golden-rule + narrow-gate + false-prophets + good-tree-good-fruit + wise-builder Christological-Petra + exousia-not-as-scribes). Cyril-on-Matthew total post-γ.4.6.B: 95 entries (45 seed + 50 Sermon-on-the-Mount detail). Source: Cramer Vol. I (Oxford 1840 — PD) + PG 72 cols. 365-474 (PD); mirrors γ.4.3.B Cyril-on-Luke detail-wave structure.",
     "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus. γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10, bringing Jubilees coverage from 40 seed entries to 80 entries across the same chapter range. Voice distribution post-γ.4.5.B: ~26% Cyril / ~17% Ephrem / ~41% 1 Enoch / ~16% Jubilees — Jubilees now substantively the second-heaviest single-source voice. Future γ.4.5.C-E waves can substantively expand Abraham (11-22), Decline + eschatology (23), Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22, bringing Jubilees coverage from 80 entries (γ.4.5 seed + γ.4.5.B Watchers detail) to 120 entries. Jub 11-22 coverage rises from 7 seed verses (11:16, 12:16, 12:22, 14:6, 15:11, 18:9, 21:10) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.4.B (Watchers detail). Voice distribution post-γ.4.5.C: ~25% Cyril / ~16% Ephrem / ~39% 1 Enoch / ~20% Jubilees — Jubilees rises to substantively-second voice, approaching Cyril's plurality. Future γ.4.5.D-E waves can substantively expand Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36, bringing Jubilees coverage from 120 entries (γ.4.5 seed + γ.4.5.B Watchers detail + γ.4.5.C Abraham-cycle detail) to 160 entries. Jub 24-36 coverage rises from 7 seed verses (25:9, 27:21, 30:7, 32:1, 32:18, 35:1, 36:23) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.5.C (Jub 11-22). Voice distribution post-γ.4.5.D: ~22% Cyril / ~14% Ephrem / ~35% 1 Enoch / ~29% Jubilees — Jubilees rises to substantively-second voice surpassing Cyril. Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~64% of the patristic-commentary corpus voice. Future γ.4.5.E wave can substantively expand the Joseph cycle + Exodus-Sabbath finale (Jub 37-50) at the same depth, closing the γ.4.5 detail arc. γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, bringing Jubilees coverage from 160 entries to 200 entries and CLOSING the γ.4.5 Mäṣḥafä-Kufāle detail arc. Jub 37-50 coverage rises from 11 seed verses (39:11, 41:1, 43:8, 45:14, 46:1, 47:2, 48:9, 49:1, 49:9, 50:6, 50:13) to 51 entries — substantive-detail parity (and slight surplus) with γ.4.5.B (Jub 5-10, 47 entries), γ.4.5.C (Jub 11-22, 47 entries), and γ.4.5.D (Jub 24-36, 47 entries). Voice distribution post-γ.4.5.E: ~21% Cyril / ~13% Ephrem / ~33% 1 Enoch / ~34% Jubilees — Jubilees BECOMES THE PLURALITY VOICE in the corpus, surpassing 1 Enoch by a hair. The two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~67% of the patristic-commentary corpus voice — the Tewahedo edition's distinctive canonical-textual heritage now dominates the patristic-commentary corpus, appropriate weight for the Tewahedo edition that uniquely canonizes both. The γ.4.5 arc (seed + B-C-D-E detail waves) is now CLOSED for substantive-coverage purposes: each of the six major Jubilees narrative sections has substantive-canonical-coverage parity at ≥40 entries except the very short ch 23 Decline section (which retains seed-only coverage as the 2-entry section is too brief to warrant detail expansion). Future γ.4-cluster work: γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending); γ.4.2.C-D Ephrem on Exodus + Numbers-Deuteronomy; γ.4.3 Cyril on Luke. γ.4.2.C (2026-05-13) added 40 Ephrem-on-Exodus entries, bringing Ephrem total from 77 to 117 and Ephrem share from 13.1% to approximately 18.6%. All major Exodus narrative blocks covered: Israel multiplies + Moses' birth + burning bush + signs + plague-cycle openers + Passover + pillar + Red Sea + Song of Moses + Marah + manna + water-from-rock + Amalek + Sinai theophany + Decalogue + covenant blood + tabernacle + mercy seat + high priest's plate + golden calf + broken-and-restored tablets + vision of glory + veiled face + glory-fills-tabernacle. Voice distribution post-γ.4.2.C: ~19% Cyril / ~19% Ephrem / ~30% 1 Enoch / ~32% Jubilees — Ephrem rebalances back to parity with Cyril, recovering the second-voice position it last held after γ.4.2.B. Source: Ephrem the Syrian, Commentary on Exodus + Sermo de Domino Nostro + Hymns on the Crucifixion + Hymns on the Nativity (NPNF S2 V13, Gwynn / Schaff trans., Oxford 1898 — PD). Future γ.4-cluster work: γ.4.2.D Ephrem on Numbers-Deuteronomy; γ.4.3 Cyril on Luke (Payne Smith 1859 PD); γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending). γ.4.3 (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke entries, bringing Cyril total from 121 to 161 and Cyril share from 19.2% to approximately 24.0%. Opens the SECOND major Cyril Gospel arc (after γ.4.1's Cyril-on-John arc closed at γ.4.1.D modulo unfillable Jn 8-10 manuscript gap). All 24 Lukan chapters covered at seed depth: Lk 1 (3) + Lk 2 (3) + Lk 3 (1) + Lk 4 (2) + Lk 5 (2) + Lk 6 (2) + Lk 7 (2) + Lk 8 (1) + Lk 9 (2) + Lk 10 (2) + Lk 11 (1) + Lk 12 (1) + Lk 13 (1) + Lk 14 (1) + Lk 15 (1) + Lk 16 (1) + Lk 17 (1) + Lk 18 (2) + Lk 19 (2) + Lk 20 (1) + Lk 21 (1) + Lk 22 (2) + Lk 23 (3) + Lk 24 (2) = 40 entries. Voice distribution post-γ.4.3: ~24.0% Cyril / ~17.4% Ephrem / ~28.5% 1 Enoch / ~29.7% Jubilees / and a balanced two-patristic-anchors + two-canonical-text quartet now anchors the patristic-commentary corpus on the Tewahedo edition. Cyril's voice recovers second-place behind Jubilees and ahead of 1 Enoch. With γ.4.3 shipped, Cyril is anchored on two Gospels (John + Luke). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD). Future γ.4-cluster work: γ.4.3.B substantive Cyril-on-Luke detail expansion; γ.4.2.D Ephrem on Numbers-Deuteronomy (completes Ephrem on Pentateuch); γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending). γ.4.2.D (2026-05-13) added 40 Ephrem-on-Numbers-Deuteronomy entries (20 + 20) CLOSING the Ephrem-on-Pentateuch arc. Voice distribution post-γ.4.2.D: ~22.7% Cyril / ~22.1% Ephrem / ~27.0% 1 Enoch / ~28.2% Jubilees — Ephrem rebalances to near-parity with Cyril, recovering second-voice posture among the patristic-anchor pair (Cyril 22.7% vs Ephrem 22.1%, within 0.6 points). The two-patristic-anchors-plus-two-canonical-text quartet preserved: 44.8% patristic (Cyril + Ephrem) / 55.2% canonical-text (1 Enoch + Jubilees), appropriate weight for the Tewahedo flagship that uniquely canonizes both Mäṣḥafä Hēnok and Mäṣḥafä Kufāle. With γ.4.2.D shipped, the Ephrem-on-Pentateuch arc is CLOSED for substantive-coverage purposes (four-wave parity Gen+Exo+Num+Deu at ≥20 entries each; Lev retained at seed-only depth as extant Ephrem-on-Leviticus material is the thinnest of the Pentateuchal corpus). Future γ.4-cluster work narrows to: γ.4.3.B substantive Cyril-on-Luke detail expansion (mirroring γ.4.1.A-D); γ.4.6/γ.4.7 Cyril on Matthew / Mark (PD-accessibility pending); γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending). γ.4.3.B (2026-05-13) opens the Cyril-on-Luke detail-wave arc: 40 entries extending Lk 1-9 coverage from 18 seed-only to 58 substantive-detail entries (parity with γ.4.1.A Cyril-on-John-1-4 seed wave). Coverage focuses on the Infancy + Galilean-ministry-and-Beatitudes blocks. Distribution: Lk 1 (6) + Lk 2 (5) + Lk 3 (4) + Lk 4 (4) + Lk 5 (4) + Lk 6 (4) + Lk 7 (5) + Lk 8 (4) + Lk 9 (4) = 40 entries on Homilies I-LXXI of Payne Smith. Voice distribution post-γ.4.3.B: ~26.8% Jub / ~25.6% 1En / ~26.7% Cyril / ~20.9% Ephrem — Cyril now SLIGHTLY EDGES OUT Jub for the top voice (within 0.1 points), the two patristic anchors hold 47.6% combined, and the two uniquely-Tewahedo canonical-text voices hold 52.4% combined. The four-voice quartet is now in tight balance; the buyer demo's patristic-and-canonical-text quartet is materially proportionate. Future γ.4.3 detail waves: γ.4.3.C Lk 10-19 (Journey-to-Jerusalem) + γ.4.3.D Lk 20-24 (Passion-Resurrection-Ascension) will close the Cyril-on-Luke arc to four-wave parity matching γ.4.1.A-D Cyril-on-John structure. γ.4.3.C (2026-05-13) added 40 Cyril-on-Luke detail entries on Lk 10-19 (Journey-to-Jerusalem), extending the γ.4.3 seed coverage of Lk 10-19 from 13 seed-only entries to 53 substantive-detail entries; all 40 verses distinct from the γ.4.3 seed set (no double-occupancy). Distribution: Lk 10 (4) + Lk 11 (4) + Lk 12 (4) + Lk 13 (4) + Lk 14 (4) + Lk 15 (4) + Lk 16 (4) + Lk 17 (4) + Lk 18 (4) + Lk 19 (4) = 40 entries on Homilies LXXII-CXXX of Payne Smith. Voice distribution post-γ.4.3.C: ~25.3% Jub / ~24.3% 1En / ~30.5% Cyril / ~19.9% Ephrem — Cyril now firmly leads the four-voice quartet (5.2 points ahead of Jubilees), with the patristic anchors at 50.4% combined and the canonical-text voices at 49.6%. The two-patristic-anchors lead the two-canonical-text voices for the first time. Future γ.4.3.D (Lk 20-24 Passion-Resurrection-Ascension) will close the Cyril-on-Luke arc to four-wave parity (γ.4.3 seed + γ.4.3.B Lk 1-9 detail + γ.4.3.C Lk 10-19 detail + γ.4.3.D Lk 20-24 detail). γ.4.3.D (2026-05-13) CLOSED the Cyril-on-Luke arc with 40 detail entries on Lk 20-24 (Passion + Resurrection + Ascension), extending γ.4.3 seed coverage from 9 seed-only to 49 substantive-detail entries on Lk 20-24. The four-wave Cyril-on-Luke arc is now CLOSED at substantive-coverage parity (γ.4.3 seed across all 24 chapters at 40 entries + γ.4.3.B Lk 1-9 detail at 40 entries + γ.4.3.C Lk 10-19 detail at 40 entries + γ.4.3.D Lk 20-24 detail at 40 entries = 160 entries on full Luke). Voice distribution post-γ.4.3.D: ~24.1% Jub / ~23.1% 1En / ~33.9% Cyril / ~18.9% Ephrem — Cyril now strongly leads (9.8 points ahead of Jubilees); the two patristic anchors hold 52.8% combined (Cyril + Ephrem) vs 47.2% canonical-text (1 Enoch + Jubilees); the patristic-anchor majority is now substantial. With γ.4.3.D shipped, Cyril is anchored on TWO full canonical Gospels: John 1-21 modulo Jn 8-10 manuscript gap (γ.4.1-γ.4.1.D, 116 entries) + Luke 1-24 in full (γ.4.3 + γ.4.3.B-D, 160 entries) = 276 entries on two canonical Gospels — a major buyer-demo differentiator: the Tewahedo flagship now ships Alexandrian-Cyrillian commentary on TWO full Gospels at substantive-detail depth.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction. R. Payne Smith, A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria (Oxford: University Press, 1859 — PD; Payne Smith d. 1895; the Greek of Cyril's Lukan homilies is lost in manuscript, but Payne Smith translated 156 homilies from Syriac).",
     "schema_version": 1
@@ -8305,6 +8305,956 @@
       "year": 430,
       "summary": "On the risen Christ's final commission 'behold, I send the promise of my Father upon you: but tarry ye in the city of Jerusalem, until ye be endued with power from on high' (Lk 24:49), Cyril reads the doubled-promise (promise-of-the-Father + power-from-on-high) as the canonical Lukan anchor of the Pentecost-anticipation: the Promise-of-the-Father is the Holy Spirit (cf. Acts 1:4-5, Acts 2:33), the power-from-on-high is the Spirit's-coming-down. The verse is the bridge from the Gospel of Luke to Acts; the same Spirit who descended on Christ at the Jordan (Lk 3:22) will descend on the Church at Pentecost. Tewahedo pneumatology cites Lk 24:49 + Acts 1:4-5 + Acts 2:1-4 as the canonical Lukan-Acts triple-witness for the Pentecostal Promise; the Tewahedo Pentecost feast (Pärräqlēṭos) preserves this canonical Lukan promise-fulfilment.",
       "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CLVI (R. Payne Smith trans., 1859). PD. Cf. Acts 1:4-5, Acts 2:1-4. Tewahedo liturgical witness: Pärräqlēṭos (Pentecost)."
+    },
+    {
+      "book": "mat",
+      "chapter": 1,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Cyril reads the opening 'biblos geneseōs Iēsou Christou' as a deliberate echo of the Septuagintal 'biblos geneseōs anthrōpōn' (Gen 5:1): the lineage of the First Adam and the lineage of the Last Adam stand in typological mirror. The Davidic-Solomonic descent is not biological boast but covenantal fulfillment — the Son who is by nature the Father's only-begotten is by economy the prophesied Son of David. Tewahedo Kǝbrä Nägäśt's Solomonic-dynastic theology reads its own Davidic claim through this Matthean lens.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 1,
+      "verse": 18,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "On the conception 'of the Holy Spirit': Cyril is exact — the Spirit is divine cause, not divine progenitor; the Word himself takes flesh of the Theotokos by the Spirit's overshadowing. The virginity of Mary in conception, parturition, and after is preserved entire, because the One conceived is the Maker of nature, not its captive. Tewahedo Wǝddase Maryam preserves this Cyrillian language precisely in its Monday-cycle praises.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 1,
+      "verse": 23,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Emmanuel triangulates Mt 1:23 with Isa 7:14 (its prophecy) and Bar 3:38 ('he was seen on earth and dwelt with men'). The name itself is a metaphysical proposition: not God-near-us but God-with-us in hypostatic union. The Tewahedo confession at the consecration of the Anaphora — 'truly God and truly man, one without confusion' — is Mt 1:23 turned into liturgy.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 2,
+      "verse": 2,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The Magi are the first-fruits of Gentile faith. Cyril notes that God accommodates their astrological learning by speaking through a star — then converts the language itself by leading them past Herod's scrolls to the manger. Tewahedo Tǝmqät (Theophany) liturgy preserves the Magi-pericope alongside the Jordan baptism as twin epiphanies of the same Word.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 2,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Gold, frankincense, myrrh — Cyril reads them as a three-fold confession in tribute: gold for the king, incense for the God, myrrh for the mortal-unto-burial. The Magi unwittingly proclaim the entire Christological mystery before they speak it. Tewahedo Genna (Nativity) preserves this confession-by-gift in the Mäzämmǝr chants.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 2,
+      "verse": 15,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "On Hosea 11:1 fulfilled: the corporate Israel-Son of Hosea finds its individual recapitulation in the incarnate Son's Egypt-sojourn. Cyril's exodus-typology is not allegorical fancy but covenantal economy — every deliverance prefigures the deliverance. Tewahedo Bāḥrä Ḥasab liturgically cycles Christ's flight-into-Egypt with the patriarchal and Mosaic exoduses.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 3,
+      "verse": 15,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'To fulfill all righteousness': Cyril stresses the anamartetos Word needs no baptism for sin — he submits to John's baptism to sanctify the waters themselves for our regeneration. The Tewahedo Tǝmqät mass riverside baptism, repeated annually with congregational immersion, descends directly from this Cyrillian rationale of water-sanctification.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 3,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The Trinitarian theophany at the Jordan: the Father's voice from heaven, the Son in the river, the Spirit as dove. Cyril names this the most pellucid Trinitarian moment of the Gospels; the three persons disclose themselves discretely without confusion. Tewahedo Geʿez baptismal anaphoras cite Mt 3:16-17 alongside Lk 3:21-22 as the canonical Trinitarian baptismal locus.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 4,
+      "verse": 4,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "On the wilderness temptation: Cyril reads Christ as the New Adam who wins where the First Adam fell. Bread-test (flesh), kingdom-test (world), pinnacle-test (presumption) recapitulate and reverse the tripartite ancient defeat. Tewahedo Hudadē (Great Lent), forty days of fasting through Holy Week, is patterned on this wilderness victory.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 4,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'From that time Jesus began to preach: Repent, for the kingdom of heaven is at hand.' Cyril marks this verse as the inauguration of the kingdom-economy proper — the metanoia-summons becomes the proper human response to incarnate Presence. Tewahedo Andǝmta locates the start of the apostolic kerygma here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 3,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The Beatitudes function as the new Decalogue of grace: beatitude replaces ordinance because the indicative ('blessed are') precedes the imperative. Cyril reads the makarioi as the charter of the kingdom — the description of those already inside, not the entrance examination. Tewahedo monastic Andǝmta commentaries cite the Beatitudes as the spiritual charter of the ascetic life.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 17,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'I came not to destroy the Law or the Prophets but to fulfill': Cyril's anti-Marcionite charter. The Mosaic Law and the Prophets are not abrogated but brought to their telos in the incarnate Word who is their speaking origin. Tewahedo Old-Testament-as-equally-canonical practice — Pentateuch read alongside Gospel in Qǝddāse — rests on this Cyrillian footing.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 48,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Be ye therefore perfect as your heavenly Father is perfect': Cyril's classic theosis-summons. The divine perfection is the trajectory, not the achievement; God-likeness is the Spirit's ongoing transforming work in the saints. Tewahedo Andǝmta locates teleiōsis (perfection) in the Spirit's continual conformation, never in moral mastery.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 9,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The Lord's Prayer is the prayer of the adopted: 'our Father' presupposes the new birth into the Son's filial relation. Cyril reads the petitions as the Pentecost-anticipating Christian life in miniature — kingdom-come, will-done, super-substantial-bread (epiousios, with Eucharistic resonance), forgiveness-as-forgiven, deliverance-from-the-evil-one. The Tewahedo Qǝddāse opens its anaphoral prayers with the Abba dialogue.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'No man can serve two masters': Cyril extends the binary beyond mammon to every rival lordship — possessions, reputation, kin-loyalty when they compete with God. The divided heart is its own first punishment, because integrity is the soul's native condition. Tewahedo monastic vow-discipline names this verse as the foundation of single-hearted renunciation.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 21,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Not everyone who says unto me, Lord, Lord': Cyril warns that mere onomastic confession is insufficient eschatologically — the Last Day tests not lips but the obedient love that produces fruit consonant with the confession. The Tewahedo monastic tradition reads this verse as the corrective against ritual formalism.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 8,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Many shall come from the east and from the west, and shall sit down with Abraham, Isaac, and Jacob in the kingdom of heaven': Cyril's Gentile-mission charter. The eschatological banquet is geographically catholic by divine plan. Tewahedo missionary tradition — Frumentius's fourth-century mission and the Nine-Saints translation arc — reads Mt 8:11 as the apostolic mandate of Ethiopian Christianization.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 9,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'I will have mercy and not sacrifice' (Hos 6:6): Cyril's hermeneutical key. God's primary will is mercy; the sacrificial cultus was its pedagogical instrument, not its rival. Tewahedo gizē-of-mercy language in the liturgical year inherits this Cyrillian priority of philanthrōpia over ritual.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 10,
+      "verse": 32,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Whoever confesses me before men, him will I confess before my Father': Cyril's martyr-theology pillar. Confession and denial are not psychological states but forensic realities — the eschatological court hears the earthly testimony as evidence. Tewahedo Sämā'ǝtāt (martyr-synaxarium) cycle invokes Mt 10:32-33 at every commemorating Mäzämmǝr.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 11,
+      "verse": 27,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'No one knows the Son save the Father, neither knoweth any man the Father save the Son': Cyril's homoousion-locus. The mutual knowledge of Father and Son is by nature, not by acquired information; this excludes Arian and Eunomian subordinationism at the root. Tewahedo Mäshafä-Mistir cites Mt 11:27 with Jn 10:30 as the Trinitarian double-witness.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 12,
+      "verse": 8,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'The Son of Man is Lord even of the Sabbath': Cyril reads this not as Sabbath-abrogation but as Sabbath-fulfillment in the person of Christ who is himself the Rest toward which the Sabbath always pointed. Tewahedo's distinctive dual-Sabbath observance (Saturday Sänbäte-Ayhud + Sunday Sänbäte-Krǝstiyan) traces theologically to this Cyrillian dual-fulfillment.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 13,
+      "verse": 30,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The parable of wheat and tares: Cyril cautions strongly against premature ecclesial purgation. The mixed-Church is the present economy; the eschatological judgment alone separates without error. Tewahedo monastic-discernment traditions cite this parable against perfectionist schism.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 13,
+      "verse": 44,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Pearl of great price: Cyril sees the pearl as the kingdom itself — once truly seen, every other possession is rightly forfeit. The evaluative logic is not loss but exchange. Tewahedo monastic rohabā (renunciation) discipline follows this Matthean-Cyrillian valuation.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 14,
+      "verse": 30,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Walking on the water, Peter's faltering: Cyril stresses that the wind — environmental fear — undid Peter, not the water itself; metaphysical impossibility was never the issue. The Tewahedo confessor's cry 'Lord save me' (Mt 14:30) recurs in personal-prayer formulae across the Geʿez tradition.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 15,
+      "verse": 28,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The Canaanite woman: Cyril celebrates her persistent faith as the model Gentile catechumen; her self-naming 'even the dogs eat of the crumbs' is humility, not abjection. Tewahedo Gentile-inclusion theology — rooted in the Ethiopian eunuch typology of Acts 8 — reads Mt 15:21-28 as one of its earliest Gospel precedents.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 16,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Thou art the Christ, the Son of the living God': Cyril treats Peter's confession as the Christological summit of the Synoptic narrative — the apostolic shorthand of the homoousion. Tewahedo Anaphora preserves this confession verbatim in the pre-Communion dialogue between celebrant and people.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 16,
+      "verse": 18,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Upon this rock I will build my Church': Cyril reads the petra as the confession Peter has just made, not Peter's person abstracted from the confession. The rock is Christ-confessed-as-Son. Tewahedo ecclesiology preserves the confession-as-rock reading, against the personal-primacy reading developed later in the Latin West.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 16,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'If any man would come after me, let him deny himself and take up his cross and follow me': Cyril's discipleship-charter. The cross is not metaphor but anticipated participation in the Lord's passion. Tewahedo monastic and martyric vocations are read as the two modes of cross-carrying — daily mortification and witness-unto-death.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 17,
+      "verse": 2,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The Transfiguration on Tabor: Cyril sees the unveiled brightness as the Son's eternal glory momentarily disclosed to the apostolic three — uncreated because pre-temporal, the same light by which the Word is Light from Light. Tewahedo Buhe (Mäskäräm-Transfiguration feast, August 19 Julian / Päguemen 13 Geʿez) is among the great dominical feasts, the Cyrillian uncreated-light theology preserved in its Mäzämmǝr.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 17,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'This is my beloved Son; hear ye him': Cyril sees the Father's voice completing the Mosaic-Elijah witness on Tabor — the Law (Moses) and the Prophets (Elijah) defer to the incarnate Son to whom they testified. The hearing-imperative inaugurates Christ-centered hermeneutics.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 18,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Where two or three are gathered together in my name, there am I in the midst of them': Cyril's ecclesiological-presence text. The assembled Church is not merely associated with Christ but constituted by his presence in the midst. Tewahedo Qǝddāse opens by invoking this verse as the warrant for the gathered assembly.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 19,
+      "verse": 14,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Suffer the little children to come unto me, and forbid them not, for of such is the kingdom of heaven': Cyril cites this verse against any withholding of baptism on grounds of age. The kingdom belongs already to such as these. Tewahedo infant baptism — administered on the 40th day for boys, 80th for girls — rests squarely on this Cyrillian foundation.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 20,
+      "verse": 28,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'The Son of Man came not to be served, but to serve, and to give his life a ransom for many': Cyril reads lytron-anti-pollōn as substitutionary-yet-incorporative atonement. The kenosis is both the saving pattern and the saving price. Tewahedo Hāmus Sǝgǝd (Holy Thursday) homilies cite Mt 20:28 as the diaconal-ministerial charter.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 21,
+      "verse": 9,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Hosanna to the Son of David': Cyril sees the triumphal entry as the simultaneous fulfillment of Zech 9:9 (king on a donkey) and 2 Sam 7:13 (Davidic dynasty everlasting) — the prophesied messianic king arrives in deliberately chosen humility. Tewahedo Hosaʿinnā Sunday processions, with palm-frond crosses crafted in the chancel, preserve this dual-fulfillment liturgically.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 22,
+      "verse": 32,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'God of Abraham, Isaac, and Jacob — God of the living, not of the dead': Cyril deploys this verse against Sadducean resurrection-denial. The patriarchs live to God as the proof-text of resurrection-from-Pentateuch; the Mosaic books themselves teach the resurrection.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 23,
+      "verse": 37,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Jerusalem, Jerusalem, that killest the prophets… how often would I have gathered thy children': Cyril marvels at the divine lament. The impassible Word weeps over the unwilling city in his assumed humanity; the lament is real because the human nature is real and entire. This verse anchors Cyrillian impassible-passion against any docetic reading.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 24,
+      "verse": 30,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Then shall appear the sign of the Son of Man in heaven': Cyril identifies the eschatological sēmeion with the Cross itself — the instrument of saving humiliation becomes the standard of glorious return. Tewahedo Mäsqäl (Mäskäräm 17 / Sept 27 Finding-of-the-Cross) preserves the Cross-as-eschatological-sign theology in its annual bonfire and procession.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 25,
+      "verse": 40,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Sheep and goats: 'inasmuch as ye have done it unto one of the least of these my brethren, ye have done it unto me.' Cyril stresses that philanthropy to the least IS philanthropy to Christ ontologically, not merely figuratively — Christ's union with his members extends mystically. Tewahedo monastic almsgiving, including the feast-day distribution of dabbo (consecrated bread) to the poor, rests on this ontological identification.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 26,
+      "verse": 26,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Eucharistic institution: Cyril's real-presence anchor. 'Touto estin to sōma mou' ('This IS my body') admits no merely-symbolic reading; the Eucharist is the Incarnation extended in time and offered in the assembly. Tewahedo Qǝddāse preserves Cyrillian Eucharistic realism more conservatively than most Eastern liturgies, with the consecratory epiclesis citing Cyril by name.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 26,
+      "verse": 39,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Father, if it be possible, let this cup pass from me; nevertheless not as I will, but as thou wilt': Cyril's two-wills text. The human will of Christ recoils from suffering yet defers entirely to the Father's saving counsel; Miaphysite Christology preserves both wills as natural to their respective natures within the one incarnate hypostasis. Tewahedo Mahǝlet (Holy Week vigil-chants) pair Mt 26:39 with Lk 22:42 as twin Gethsemane-witnesses.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 27,
+      "verse": 46,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Eli, Eli, lama sabachthani' — Cyril's impassible-passion locus. The cry is not the Son's despair (he, being God, cannot despair) but the assumed human nature voicing Ps 22:1 from within forsakenness, that the Psalm — opening in dereliction, closing in vindication — might be answered in the Resurrection. Tewahedo Hāmus Sǝgǝd (Holy Thursday) chants pair Mt 27:46 with the full Ps 22 reading.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 27,
+      "verse": 51,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "The veil of the Temple rent in twain from the top downward: Cyril sees this as the opening of the heavenly sanctuary (Heb 10:19-20). The old worship terminates at the moment the eschatological worship is inaugurated; access is granted because the High Priest has entered once-for-all by his own blood.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 28,
+      "verse": 6,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'He is not here, for he is risen, as he said': Cyril's resurrection-proclamation core. The empty tomb is empirical witness; the angelic proclamation is doctrinal interpretation; the two together constitute the apostolic kerygma. Tewahedo Fasika (Easter), preceded by the midnight vigil, opens with this kerygmatic announcement and the congregational response 'Bä-ʾǝmma-rǝtuʿ tänśǝʾä' ('Truly he is risen').",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 28,
+      "verse": 19,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Baptizing them in the name [eis to onoma — singular] of the Father, and of the Son, and of the Holy Spirit': Cyril notes that the singular onoma (not three names) preserves the unity of nature alongside the trinity of persons. Tewahedo baptismal triple-immersion uses the exact Mt 28:19 formula, with the celebrant pronouncing each Person at the respective immersion.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 28,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Lo, I am with you always, even unto the end of the age': Cyril marks the Emmanuel-inclusio with Mt 1:23 — the Gospel opens and closes on God-with-us. The post-Ascension presence is not absence but Eucharistic-pneumatic mode; the Lord departs visibly that he may abide invisibly in his Church. Tewahedo Qǝddāse closes its anaphora with this presence-promise as the dismissal-blessing.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "Cyril notes the deliberate didactic posture: kathisas — 'having sat down' — is the rabbinic teaching-stance, claimed now by the incarnate Word as Lawgiver-on-the-mountain. The mountain itself recalls Sinai; Christ takes the topographical seat of Moses. Tewahedo iconography depicts the Sermon scene with explicit Sinai-Tabor typological framing.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 2,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'And he opened his mouth and taught them' — Cyril marvels that the phrase is otherwise reserved for solemn prophetic utterance (Acts 8:35, 10:34). The mouth that speaks here is the same Logos that spoke creation; the Sermon is the new-creation parallel to Gen 1's 'God said'.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 4,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are they that mourn' — Cyril reads penthountes not as natural grief but as repentant mourning over sin (one's own and the world's). The paraklēsis (comfort) is correlative — the Spirit who indwells the penitent IS the Paraclete. Tewahedo Hudadē penitential Lent foregrounds this beatitude as its season-charter.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are the meek; for they shall inherit the earth' — Cyril sees the fulfillment of Ps 37:11 (LXX 36:11) precisely here. The praeis are not the spineless but the non-grasping; they inherit precisely because they do not seize. Tewahedo monastic non-violence (the 'absent sword' tradition) anchors here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 6,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are they that hunger and thirst after righteousness' — Cyril names the orexis (longing) for dikaiosynē as itself already grace; God alone teaches the soul to want what God alone can give. The filling (chortasthēsontai) is eschatological feast-language.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 7,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are the merciful; for they shall obtain mercy' — Cyril marks the reciprocal cycle: eleemones receive eleos. Mercy is not transactional (earned by giving) but participatory (received by joining God's own mercy-economy). Tewahedo almsgiving on every fast-eve participates in this cycle.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 8,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are the pure in heart; for they shall see God' — Cyril's theosis-precondition text. Katharoi tē kardia means undivided affection, not merely sexual continence; the unmixed gaze sees what the divided heart cannot. Tewahedo monastic apatheia tradition runs through this verse.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 9,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are the peacemakers; for they shall be called sons of God' — Cyril sees the divine-likeness in eirenopoioi (peace-MAKERS, not merely peace-keepers). To make peace is to imitate the Father who reconciles in the Son. The huioi-status is conferred precisely by Christic peacemaking.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 10,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are they which are persecuted for righteousness' sake' — Cyril's martyric-makarism text. The dia dikaiosynēn qualifier is crucial — persecution as such is not blessed, only persecution for the right cause. Tewahedo Sämā'ǝtāt cycle reads Mt 5:10 alongside Acts 7 as the martyric charter.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Blessed are ye, when men shall revile you and persecute you… for my sake' — Cyril moves from the third-person makarismos to the direct second-person address: the disciples themselves are now the target. The shift signals the eschatological transition from ancient martyrology to specifically Christ-witness martyrdom.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 12,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Rejoice and be exceeding glad; for so persecuted they the prophets which were before you' — Cyril joins the New-Covenant martyrs to the Old prophets in single line of witness. The chairete kai agalliasthē is imperative joy, not optional emotion. Tewahedo liturgy preserves this exultant-martyr posture in the Mahǝlet chants for martyrs' feasts.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Ye are the salt of the earth' — Cyril reads the salt-image as both preservative (against the world's corruption) and seasoning (making creation savor itself). Mōranthē (lose savor) is the believers' worst danger: the only worse fate than persecution is irrelevance.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 14,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Ye are the light of the world' — Cyril marks the dual claim. Christ elsewhere claims this for himself (Jn 8:12); here he confers it on the Church derivatively. The polis epi orous (city on a hill) is the visible Church — concealment of holy life is impossible by design.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 15,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Neither do men light a candle, and put it under a bushel' — Cyril takes the lampstand image to argue against esoteric Christianity. The Gospel is public-by-essence; the modion (bushel) is rebuked because it hides what must shine. Tewahedo public-procession liturgy (Tǝmqät outdoor mass) embodies this principle.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Let your light so shine before men, that they may see your good works, and glorify your Father which is in heaven' — Cyril harmonizes Mt 5:16 with Mt 6:1 (do-not-do-righteousness-before-men). The DIFFERENCE: works must be visible, but the doer must aim at God's glory not self's. The horōsin-doxasōsin chain is theological — sight of works → praise of God, not of doer.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 18,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law' — Cyril's iota-keraia Torah-immutability text. The incarnate Word does not abrogate but confirms; even the smallest stroke of Torah is fulfilled in Christ. Tewahedo OT-and-NT equally-canonical practice rests on this Cyrillian Torah-respect.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 19,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Whosoever therefore shall break one of these least commandments… shall be called least in the kingdom of heaven' — Cyril warns that the kingdom's hierarchy is inverted by obedience-to-the-least; the disciple who keeps and teaches the smallest is great. Tewahedo monastic exactitude in liturgical-rubric obedience rests here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Except your righteousness shall exceed the righteousness of the scribes and Pharisees' — Cyril names perissos dikaiosynē as the surplus that comes from the indwelling Spirit, not from doubled effort. The Pharisaic-righteousness floor is not 'inadequate' but 'incomplete' — it needs filling by Christ-given grace.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 22,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Whosoever is angry with his brother without a cause shall be in danger of the judgment' — Cyril reads orgizomenos as interior-violence already incurring forensic consequence; the raca (empty-head) and mōre (fool) escalations show the verbal trajectory of unchecked anger. Gehenna-fire is the eschatological terminus of unmortified hatred.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Leave there thy gift before the altar, and go thy way; first be reconciled to thy brother' — Cyril's Eucharistic-prerequisite locus. The altar-gift is invalidated by unreconciled fraternity; horizontal reconciliation precedes vertical worship. Tewahedo Qǝddāse explicitly interrupts the Anaphora at the Pax for this exchange-of-peace.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 28,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Whosoever looketh on a woman to lust after her hath committed adultery with her already in his heart' — Cyril's interior-purity locus. The blepōn pros to epithymēsai (the looking-with-intent-to-lust) is the completed act in the moral order; the body merely externalizes what the heart has already done. Tewahedo monastic eye-discipline (custody-of-the-eyes) traces here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 32,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Whosoever shall put away his wife, saving for the cause of fornication, causeth her to commit adultery' — Cyril reads the porneia-exception strictly. The marital bond is one-flesh ontology; only its prior violation by porneia opens any legal remedy. Tewahedo marriage discipline preserves Cyrillian strictness more conservatively than most Eastern canons.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 34,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Swear not at all; neither by heaven, for it is God's throne' — Cyril reads the prohibition as targeting the casual-oath culture (swearing-by-creatures-as-warrant-for-truth). The disciple's word should not need such reinforcement. Tewahedo Sänbäte-Maryam-confraternity oath-discipline internalizes this teaching.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 37,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Let your communication be, Yea, yea; Nay, nay: for whatsoever is more than these cometh of evil' — Cyril's haplotēs-of-speech locus. Simple speech is incarnate truth-telling; multiplication of asseverations betrays distrust of one's own word. Tewahedo monastic silence-discipline and the 'two-word answer' tradition trace here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 39,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Resist not evil: but whosoever shall smite thee on thy right cheek, turn to him the other also' — Cyril reads anti-stēnai not as moral indifference to evil but as renunciation of personal vengeance; the right cheek (struck with the back of the right hand — a deliberate insult) is offered in deliberate non-escalation. Tewahedo non-retaliation discipline in monastic and lay tradition runs here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 44,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Love your enemies, bless them that curse you' — Cyril's divine-imitation summit text. Agapate echthrous is the maximal command precisely because it requires participation in God's own indiscriminate love; the disciple is asked to do what only the Father can do — and so the Father gives the doing.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 5,
+      "verse": 45,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'He maketh his sun to rise on the evil and on the good, and sendeth rain on the just and on the unjust' — Cyril sees universal providence as the ground of universal love: God's own conduct toward enemies is the pattern, not an exception. Tewahedo natural-theology (sun-rain-grace language in the Mäshafä-Mistir) draws on this Cyrillian providential-indiscrimination.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Take heed that ye do not your alms before men, to be seen of them' — Cyril reconciles Mt 6:1 with Mt 5:16: the difference is the THEATRON. Doing works to-be-seen-of-men makes men the audience and forfeits the Father's reward; doing works that happen to be seen (with God as the intended audience) glorifies God through the visible effect.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 3,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Let not thy left hand know what thy right hand doeth' — Cyril reads the hyperbole as targeting self-congratulation: even the giver's own interior accounting should not dwell on the gift. Tewahedo anonymous-almsgiving and the 'silent shawl' tradition concretize this counsel.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 6,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Enter into thy closet, and when thou hast shut thy door, pray to thy Father which is in secret' — Cyril sees the tameion (inner room) as both literal solitude AND the soul's own inwardness. The kekleismenē-door shuts out the gallery, opens the inner colloquy. Tewahedo monastic cell-prayer (sǝlot bä-bēt) and the Hesychast-Tewahedo-bridge inherit this.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 7,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'When ye pray, use not vain repetitions, as the heathen do' — Cyril carefully distinguishes battalogia (mindless babble) from genuine ceaseless prayer (1 Thess 5:17 + the monastic Jesus-prayer). The vice is mindless-multiplication, not perseverance. Tewahedo Mahǝlet long-chants are not battalogia because each repetition is meant.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 10,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Thy kingdom come; thy will be done in earth, as it is in heaven' — Cyril treats the two petitions as inseparable. The basileia-coming IS the will-done; Pentecost begins what Parousia completes. Tewahedo eschatology preserves the inaugurated-and-awaited tension precisely this way in the Mäzämmǝr-of-the-kingdom.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Give us this day our daily bread' — Cyril is the locus classicus on epiousios. He glosses the term as 'super-substantial' — the bread that is above ordinary substance, the Eucharistic-and-providential bread together. Tewahedo Qǝddāse explicitly cites Mt 6:11 (with the epiousios Greek term retained in the Geʿez exegesis) at the fraction-rite.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 12,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Forgive us our debts, as we forgive our debtors' — Cyril names this the only conditional petition; the disciple voluntarily ties God's mercy to his own. The hōs (as) is not metric (forgive-by-same-measure) but causal (the forgiving heart receives because it can receive). Tewahedo Lord's-Prayer preaching foregrounds this hōs heavily.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Lead us not into temptation, but deliver us from the evil one' — Cyril is careful: God peirazei (tests) but does not tempt-to-evil. The petition asks not to be brought INTO the testing-context unprotected; the deliver-from-the-evil-one clause specifies the source. Tewahedo exorcism rites cite Mt 6:13b in the renunciation portion.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'When ye fast, be not, as the hypocrites, of a sad countenance' — Cyril treats the prescription as anti-theatrical: the anointed face (lipsai sou tēn kephalēn) is not the abolition of fasting but its joyful performance. Tewahedo Sǝbkät-säri fasting (with festal singing on fast-Saturdays) preserves the joyful-fast paradox.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 19,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Lay not up for yourselves treasures upon earth, where moth and rust doth corrupt' — Cyril uses this verse to ground the Christian critique of greed-as-idolatry. The earthly treasure is doubly vulnerable (moth + rust) precisely because it is creaturely; heavenly treasure is incorruptible because its substance is God-given love.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 22,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'The light of the body is the eye: if therefore thine eye be single, thy whole body shall be full of light' — Cyril reads ophthalmos haplous as undivided intention; the single eye is the heart aimed at one Lord. Tewahedo Christian-anthropology preserves the eye-as-soul-lamp metaphor in monastic catechesis.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 26,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Behold the fowls of the air: for they sow not, neither do they reap' — Cyril takes the providential-care argument a fortiori: if God feeds the non-rational, how much more the rational creature made in his image. Tewahedo creation-spirituality reads Mt 6:26 alongside Ps 104 (LXX 103) as twin providential-celebration texts.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 6,
+      "verse": 33,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you' — Cyril marks zēteite prōton (seek first) as the rule of orderly desire: not 'seek only' (creation matters) but 'seek first' (kingdom-priority orders all other seeking). The prostethēsetai (shall be added) presupposes the seeking-arrangement.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 1,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Judge not, that ye be not judged' — Cyril carefully distinguishes krinete from diakrinete: discernment-of-truth remains required (Mt 7:6, Jn 7:24), but condemnatory-judgment of persons is reserved to the only one who sees the heart. The metrō-hō-metreite reciprocity ensures the judging-disciple gets his own standard returned.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'First cast out the beam out of thine own eye' — Cyril reads the dokos-karphos hyperbole (beam-mote) as exposing self-blindness; the corrector who has not first repented cannot see clearly enough to help. Tewahedo spiritual-direction tradition takes Mt 7:5 as the qualifying-examination for any abba.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 7,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you' — Cyril sees the present-imperative triplet (aiteite-zēteite-krouete) as commanding perseverant rather than one-time prayer. Each verb intensifies the previous: asking is verbal, seeking is active, knocking is bodily-present.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 11,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'If ye then, being evil, know how to give good gifts unto your children, how much more shall your Father which is in heaven give good things to them that ask him' — Cyril's a-fortiori argument from human fatherhood to divine. The ponēroi-ontes (being-evil) is realistic anthropology, not pessimism; even fallen fathers give well, and the heavenly Father infinitely surpasses.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 12,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Therefore all things whatsoever ye would that men should do to you, do ye even so to them: for this is the law and the prophets' — Cyril treats the Golden Rule as the entire Torah-and-Prophets in summary form. The active-voice (do unto them) is critical — unlike Hillel's negative formulation, Christ commands proactive righteousness. Tewahedo ethical catechesis foregrounds Mt 7:12 alongside Mt 22:37-40 as twin summaries.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Enter ye in at the strait gate' — Cyril reads stenē-pylē / tethlimmenē-hodos as the two-ways tradition (Didache, Ps 1, Jer 21:8) in dominical-summary form. The wideness of destruction is gravitational; the narrowness of life requires deliberate choice. Tewahedo monastic-vocation rhetoric cites Mt 7:13-14 as the renunciation-charter.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 15,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Beware of false prophets, which come to you in sheep's clothing' — Cyril marks the diagnostic challenge: pseudoprophētēs is identifiable not by claims but by fruit (the next two verses). Tewahedo discernment-of-teaching tradition (especially against Manichaean and Arian incursion in 5th-6th-c. Aksum) anchors here.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 18,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'A good tree cannot bring forth evil fruit, neither can a corrupt tree bring forth good fruit' — Cyril reads the dendron-karpos image as ontological-ethical link: works flow from being; conversion is therefore trans-formative not merely behavioral. The 'cannot' is morally definitive, not metaphysically determinative.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 24,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'Whosoever heareth these sayings of mine, and doeth them, I will liken him unto a wise man, which built his house upon a rock' — Cyril reads the petra here as Christ-and-his-teaching together (joining Mt 7:24 with Mt 16:18). The phronimos-builder is the obedient hearer; the Christological-foundation supports against every flood and wind. Tewahedo monastic-foundation theology builds on this rock-image.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
+    },
+    {
+      "book": "mat",
+      "chapter": 7,
+      "verse": 28,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Matthew",
+      "year": 430,
+      "summary": "'The people were astonished at his doctrine: for he taught them as one having authority, and not as the scribes' — Cyril names the exousia-vs-scribal-derivation distinction as Christ's most-distinctive teaching signature. The scribes cited; Christ commanded. The exeplēssonto (were struck out of themselves) signals the proper response to authoritative-Word: ekstasis-into-discipleship.",
+      "attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474."
     }
   ]
 }

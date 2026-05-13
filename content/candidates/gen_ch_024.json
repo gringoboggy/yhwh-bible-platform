@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 24,
-  "generated_at": "2026-05-13T17:29:02+00:00",
-  "n_candidates": 85,
+  "generated_at": "2026-05-13T19:47:53+00:00",
+  "n_candidates": 88,
   "candidates": [
     {
       "id": "gen-24-60-001",
@@ -1266,6 +1266,51 @@
     },
     {
       "id": "gen-24-67-085",
+      "verse": 67,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIV.67. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Isaac brought her into his mother Sarah&#x27;s tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother&#x27;s death&#x27;. Ephrem reads the marriage as the comfort-in-grief pattern: legitimate human relationships are God&#x27;s gift FOR consolation. The narrative pattern (find-bride → marry → be-comforted) is preserved in Tewahedo marital theology as the SAFEGUARD against monastic over-spiritualisation: not everyone is called to monastic celibacy; marriage too is sanctifying.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-24-67-086",
+      "verse": 67,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIV.67. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Isaac brought her into his mother Sarah&#x27;s tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother&#x27;s death&#x27;. Ephrem reads the marriage as the comfort-in-grief pattern: legitimate human relationships are God&#x27;s gift FOR consolation. The narrative pattern (find-bride → marry → be-comforted) is preserved in Tewahedo marital theology as the SAFEGUARD against monastic over-spiritualisation: not everyone is called to monastic celibacy; marriage too is sanctifying.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-24-67-087",
+      "verse": 67,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIV.67. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Isaac brought her into his mother Sarah&#x27;s tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother&#x27;s death&#x27;. Ephrem reads the marriage as the comfort-in-grief pattern: legitimate human relationships are God&#x27;s gift FOR consolation. The narrative pattern (find-bride → marry → be-comforted) is preserved in Tewahedo marital theology as the SAFEGUARD against monastic over-spiritualisation: not everyone is called to monastic celibacy; marriage too is sanctifying.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-24-67-088",
       "verse": 67,
       "kind": "comm-ethiopian",
       "anchor": "",

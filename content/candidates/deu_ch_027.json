@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 27,
-  "generated_at": "2026-05-13T17:29:02+00:00",
-  "n_candidates": 39,
+  "generated_at": "2026-05-13T19:47:53+00:00",
+  "n_candidates": 42,
   "candidates": [
     {
       "id": "deu-27-4-022",
@@ -576,6 +576,51 @@
     },
     {
       "id": "deu-27-26-039",
+      "verse": 26,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 27:11-26. NPNF Series 2, vol. 13. PD. Cf. Gal 3:10 (verbatim Pauline citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;Cursed be he that confirmeth not all the words of this law to do them&#x27; (Deu 27:26), Ephrem reads the final Ebal-curse as the canonical Old-Testament anchor of Paul&#x27;s argument in Galatians 3:10 (&#x27;as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them&#x27; — verbatim citation). The total-law requirement makes salvation-by-works impossible: no one keeps all things. The verse becomes the typological seed of the apostolic gospel of grace. Tewahedo soteriology cites Deu 27:26 + Gal 3:10 as the canonical doubled-witness that the law diagnoses the curse the Cross removes.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-27-26-040",
+      "verse": 26,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 27:11-26. NPNF Series 2, vol. 13. PD. Cf. Gal 3:10 (verbatim Pauline citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;Cursed be he that confirmeth not all the words of this law to do them&#x27; (Deu 27:26), Ephrem reads the final Ebal-curse as the canonical Old-Testament anchor of Paul&#x27;s argument in Galatians 3:10 (&#x27;as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them&#x27; — verbatim citation). The total-law requirement makes salvation-by-works impossible: no one keeps all things. The verse becomes the typological seed of the apostolic gospel of grace. Tewahedo soteriology cites Deu 27:26 + Gal 3:10 as the canonical doubled-witness that the law diagnoses the curse the Cross removes.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-27-26-041",
+      "verse": 26,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 27:11-26. NPNF Series 2, vol. 13. PD. Cf. Gal 3:10 (verbatim Pauline citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;Cursed be he that confirmeth not all the words of this law to do them&#x27; (Deu 27:26), Ephrem reads the final Ebal-curse as the canonical Old-Testament anchor of Paul&#x27;s argument in Galatians 3:10 (&#x27;as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them&#x27; — verbatim citation). The total-law requirement makes salvation-by-works impossible: no one keeps all things. The verse becomes the typological seed of the apostolic gospel of grace. Tewahedo soteriology cites Deu 27:26 + Gal 3:10 as the canonical doubled-witness that the law diagnoses the curse the Cross removes.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-27-26-042",
       "verse": 26,
       "kind": "comm-ethiopian",
       "anchor": "",

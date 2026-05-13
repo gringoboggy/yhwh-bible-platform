@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 11,
-  "generated_at": "2026-05-13T17:29:02+00:00",
-  "n_candidates": 54,
+  "generated_at": "2026-05-13T19:47:53+00:00",
+  "n_candidates": 57,
   "candidates": [
     {
       "id": "num-11-23-001",
@@ -801,6 +801,51 @@
     },
     {
       "id": "num-11-17-054",
+      "verse": 17,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 11:14-30. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the Lord&#x27;s taking of the Spirit that was upon Moses and putting the same Spirit upon the seventy elders (Num 11:17, 25), Ephrem reads the verse as the canonical Old-Testament antecedent of Pentecost: the one Spirit is shared without diminution, the leader&#x27;s portion does not decrease when others receive. The seventy elders prefigure both the seventy disciples of Lk 10:1 and the assembled hundred-and-twenty of Acts 1-2. Tewahedo pneumatology cites Num 11:17 + Joel 2:28 as the canonical doubled-Old-Testament-witness to the Pentecost gift of the Spirit on all flesh.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-11-17-055",
+      "verse": 17,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 11:14-30. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the Lord&#x27;s taking of the Spirit that was upon Moses and putting the same Spirit upon the seventy elders (Num 11:17, 25), Ephrem reads the verse as the canonical Old-Testament antecedent of Pentecost: the one Spirit is shared without diminution, the leader&#x27;s portion does not decrease when others receive. The seventy elders prefigure both the seventy disciples of Lk 10:1 and the assembled hundred-and-twenty of Acts 1-2. Tewahedo pneumatology cites Num 11:17 + Joel 2:28 as the canonical doubled-Old-Testament-witness to the Pentecost gift of the Spirit on all flesh.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-11-17-056",
+      "verse": 17,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 11:14-30. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the Lord&#x27;s taking of the Spirit that was upon Moses and putting the same Spirit upon the seventy elders (Num 11:17, 25), Ephrem reads the verse as the canonical Old-Testament antecedent of Pentecost: the one Spirit is shared without diminution, the leader&#x27;s portion does not decrease when others receive. The seventy elders prefigure both the seventy disciples of Lk 10:1 and the assembled hundred-and-twenty of Acts 1-2. Tewahedo pneumatology cites Num 11:17 + Joel 2:28 as the canonical doubled-Old-Testament-witness to the Pentecost gift of the Spirit on all flesh.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-11-17-057",
       "verse": 17,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 33,
-  "generated_at": "2026-05-13T17:29:02+00:00",
-  "n_candidates": 54,
+  "generated_at": "2026-05-13T19:47:53+00:00",
+  "n_candidates": 57,
   "candidates": [
     {
       "id": "deu-33-24-001",
@@ -801,6 +801,51 @@
     },
     {
       "id": "deu-33-9-054",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 33:8-11. NPNF Series 2, vol. 13. PD. Cf. Mt 10:37.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On Moses&#x27; blessing of Levi — &#x27;Who said unto his father and to his mother, I have not seen him; neither did he acknowledge his brethren, nor knew his own children: for they have observed thy word, and kept thy covenant&#x27; (Deu 33:9) — Ephrem reads the praise of Levi&#x27;s denial-of-kin-for-sake-of-God as the canonical Old-Testament anchor of the dominical &#x27;He that loveth father or mother more than me is not worthy of me&#x27; (Mt 10:37) and the Levitical-monastic ideal of leaving-family-for-God. Tewahedo monastic theology cites Deu 33:9 + Mt 10:37 as the canonical doubled-witness for the bahǝtawi&#x27;s renunciation of family ties — the desert father is a Levite in the pattern of Deu 33:9, whose covenant-keeping is honoured precisely because it preferred God to kin.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-33-9-055",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 33:8-11. NPNF Series 2, vol. 13. PD. Cf. Mt 10:37.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On Moses&#x27; blessing of Levi — &#x27;Who said unto his father and to his mother, I have not seen him; neither did he acknowledge his brethren, nor knew his own children: for they have observed thy word, and kept thy covenant&#x27; (Deu 33:9) — Ephrem reads the praise of Levi&#x27;s denial-of-kin-for-sake-of-God as the canonical Old-Testament anchor of the dominical &#x27;He that loveth father or mother more than me is not worthy of me&#x27; (Mt 10:37) and the Levitical-monastic ideal of leaving-family-for-God. Tewahedo monastic theology cites Deu 33:9 + Mt 10:37 as the canonical doubled-witness for the bahǝtawi&#x27;s renunciation of family ties — the desert father is a Levite in the pattern of Deu 33:9, whose covenant-keeping is honoured precisely because it preferred God to kin.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-33-9-056",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 33:8-11. NPNF Series 2, vol. 13. PD. Cf. Mt 10:37.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On Moses&#x27; blessing of Levi — &#x27;Who said unto his father and to his mother, I have not seen him; neither did he acknowledge his brethren, nor knew his own children: for they have observed thy word, and kept thy covenant&#x27; (Deu 33:9) — Ephrem reads the praise of Levi&#x27;s denial-of-kin-for-sake-of-God as the canonical Old-Testament anchor of the dominical &#x27;He that loveth father or mother more than me is not worthy of me&#x27; (Mt 10:37) and the Levitical-monastic ideal of leaving-family-for-God. Tewahedo monastic theology cites Deu 33:9 + Mt 10:37 as the canonical doubled-witness for the bahǝtawi&#x27;s renunciation of family ties — the desert father is a Levite in the pattern of Deu 33:9, whose covenant-keeping is honoured precisely because it preferred God to kin.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-33-9-057",
       "verse": 9,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "mat",
   "chapter": 14,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-13T19:47:53+00:00",
+  "n_candidates": 45,
   "candidates": [
     {
       "id": "mat-14-22-001",
@@ -632,6 +632,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: TIME. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "mat-14-30-043",
+      "verse": 30,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Matthew",
+      "source_attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Matthew</em> <small>(c. 430 AD)</small><p>Walking on the water, Peter&#x27;s faltering: Cyril stresses that the wind — environmental fear — undid Peter, not the water itself; metaphysical impossibility was never the issue. The Tewahedo confessor&#x27;s cry &#x27;Lord save me&#x27; (Mt 14:30) recurs in personal-prayer formulae across the Geʿez tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Matthew. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mat-14-30-044",
+      "verse": 30,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Matthew",
+      "source_attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Matthew</em> <small>(c. 430 AD)</small><p>Walking on the water, Peter&#x27;s faltering: Cyril stresses that the wind — environmental fear — undid Peter, not the water itself; metaphysical impossibility was never the issue. The Tewahedo confessor&#x27;s cry &#x27;Lord save me&#x27; (Mt 14:30) recurs in personal-prayer formulae across the Geʿez tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Matthew. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mat-14-30-045",
+      "verse": 30,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Matthew",
+      "source_attribution": "Cyril of Alexandria, Commentary on Matthew (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 cols. 365-474.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Matthew</em> <small>(c. 430 AD)</small><p>Walking on the water, Peter&#x27;s faltering: Cyril stresses that the wind — environmental fear — undid Peter, not the water itself; metaphysical impossibility was never the issue. The Tewahedo confessor&#x27;s cry &#x27;Lord save me&#x27; (Mt 14:30) recurs in personal-prayer formulae across the Geʿez tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Matthew. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]
