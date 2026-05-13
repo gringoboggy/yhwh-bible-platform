@@ -1,0 +1,38 @@
+{
+  "book": "jub",
+  "chapter": 29,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "jub-29-13-001",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 29:13 (Jacob's return and Esau reconciliation (29:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Jacob sent messengers to Esau his brother to the land of Seir, to the country of Edom; and Jacob acknowledged what Esau had done to him, for he loved him very much from the day his father sent him from his presence, until he was settled in Egypt&#x27; — Jubilees uniquely preserves Esau&#x27;s eventual love for Jacob alongside the Gen 33:4 reconciliation narrative. Tewahedo theological reading: even the rejected-line brother retains genuine fraternal affection in Jubilees&#x27; framing — the eschatological reconciliation between covenant-bearing and providential-non-bearing branches is canonically anticipated here. The Tewahedo&#x27;s distinctive pastoral approach to non-Orthodox Christians (Catholic Ethiopians, Protestant Ethiopians, etc.) draws on this canonical fraternal-love-preserved pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-29-19-002",
+      "verse": 19,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 29:19 (Jacob's return and Esau reconciliation (29:19)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Jacob built a house for himself in Salem, in the mountain of Heshbon, and he dwelt there a long time, and he sent unto his father presents and unto his mother twice a year, again and again&#x27; — Jubilees adds the detail of Jacob&#x27;s twice-yearly gift-sending to his parents during his sojourn east of Jordan. Tewahedo Andǝmta exegesis on the fifth commandment (honor thy father and thy mother) cites this verse as the canonical case-study for honoring-from-distance: when geographical separation prevents in-person care, the regular twice-yearly remembrance (gifts, communication) preserves the substance of the command. The Tewahedo diaspora pastoral counsel for emigrant children draws practical-canonical guidance from this verse.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

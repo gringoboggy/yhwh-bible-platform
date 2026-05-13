@@ -1,8 +1,8 @@
 {
   "book": "luk",
   "chapter": 12,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 116,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 121,
   "candidates": [
     {
       "id": "luk-12-2-001",
@@ -1742,6 +1742,81 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WAITING. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-12-10-117",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXXXVI (R. Payne Smith trans., 1859). PD. Cf. Mk 3:29.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On Christ&#x27;s &#x27;unto him that blasphemeth against the Holy Ghost it shall not be forgiven&#x27; (Lk 12:10), Cyril reads the unpardonable-sin clause as the canonical Lukan anchor of the doctrine that the sin against the Spirit is not a single verbal lapse but a settled-final refusal of the Spirit&#x27;s offered forgiveness: one who rejects the agent of forgiveness cannot be forgiven. The unpardonability is structural-receptive, not capricious. Tewahedo penance-theology cites Lk 12:10 + Mk 3:29 as the canonical doubled-witness that the Spirit is the active-agent of every absolution; willful-final refusal of the Spirit closes the door from the human side. Pastoral wisdom in the Tewahedo confessional tradition: anyone WORRIED about having committed this sin has not committed it.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-12-20-118",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXXXIX (R. Payne Smith trans., Oxford: University Press, 1859). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>&#x27;Thou fool, this night thy soul shall be required of thee&#x27; — the rich fool&#x27;s death-warrant in the parable is for Cyril the canonical warning against the postponement-of-the-soul that worldly wealth enables. The man addresses HIS OWN SOUL (&#x27;soul, thou hast much goods&#x27;) as if it belonged to him to dispose; God&#x27;s reply discloses that the soul is on lease. Tewahedo monastic memento-mori catechesis draws directly on this Cyrillian reading.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-12-32-119",
+      "verse": 32,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXXXIX (R. Payne Smith trans., 1859). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On Christ&#x27;s &#x27;Fear not, little flock; for it is your Father&#x27;s good pleasure to give you the kingdom&#x27; (Lk 12:32), Cyril reads the doubled-tenderness (little flock + Father&#x27;s good pleasure) as the canonical Lukan anchor of the doctrine that the Church&#x27;s smallness is no obstacle to the Kingdom&#x27;s gift: God&#x27;s good pleasure (eudokia — the same word as &#x27;good will toward men&#x27; in the angelic hymn Lk 2:14) does not measure recipients by their numbers. Tewahedo ecclesiology, mindful of the minority-position of the Ethiopian Tewahedo Church in the broader Christian world, cites Lk 12:32 as the canonical anchor of the doctrine that the small flock of right-believers (the Tewahedo &#x27;right-believing&#x27; identity) receives the same kingdom as any larger communion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-12-35-120",
+      "verse": 35,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily XC (R. Payne Smith trans., 1859). PD. Cf. Exo 12:11, Mt 25:1-13.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On Christ&#x27;s &#x27;Let your loins be girded about, and your lights burning&#x27; (Lk 12:35), Cyril reads the doubled-readiness-image (girded loins + burning lamps) as the canonical Lukan anchor of the vigil-of-the-Lord eschatological-posture: the Christian awaits the master&#x27;s return in the same posture as the Passover-Israelite (loins girded per Exo 12:11) and the wise virgins (lamps burning per Mt 25:1-13). Tewahedo Holy-Saturday vigil-liturgy cites Lk 12:35 + Exo 12:11 + Mt 25:1-13 as the canonical triple-witness for the vigil-of-the-Lord posture: the all-night Pascha vigil is the liturgical-iconic realization of this canonical readiness.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-12-50-121",
+      "verse": 50,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily XCII (R. Payne Smith trans., 1859). PD. Cf. Rom 6:3-4.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On Christ&#x27;s &#x27;I have a baptism to be baptized with; and how am I straitened till it be accomplished!&#x27; (Lk 12:50), Cyril reads the future-passive-baptism (paraphrasably &#x27;I am-to-be-baptized&#x27;) as the canonical Lukan anchor of the doctrine that Christ&#x27;s death-and-resurrection is itself the baptism-toward-which-his-earthly-baptism-pointed: the Jordan baptism prefigures, the Cross effects. The straitening-cry expresses the Word-in-flesh&#x27;s deep human anticipation of the Passion. Tewahedo baptismal theology cites Lk 12:50 + Rom 6:3-4 (&#x27;baptized into his death&#x27;) as the canonical doubled-witness that Christian baptism participates in Christ&#x27;s own death-baptism; the catechumen is buried with Christ in the font.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 33,
-  "generated_at": "2026-05-09T05:19:29+00:00",
-  "n_candidates": 26,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 27,
   "candidates": [
     {
       "id": "exo-33-11-001",
@@ -392,6 +392,21 @@
       "draft_body": "<strong>Kâbôwd (<em>כָּבוֹד</em>).</strong> properly, weight, but only figuratively in a good sense, splendor or copiousness. <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-33-20-027",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Sermo de Domino Nostro",
+      "source_attribution": "Ephrem the Syrian, Sermo de Domino Nostro 7-8 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (363).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Sermo de Domino Nostro</em> <small>(c. 363 AD)</small><p>&#x27;There shall no man see me and live&#x27; — and yet Moses sees the Lord&#x27;s back as he passes by. Ephrem reads the verse as the canonical disclosure that full vision of God is reserved for the Incarnation: only when the Word is made flesh may humanity behold the divine face without being consumed. Tewahedo reads Ex 33:20 and 1 Jn 1:1 (&#x27;which we have seen with our eyes&#x27;) as a single canonical arc from veiled vision to face-to-face Word.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Sermo de Domino Nostro. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

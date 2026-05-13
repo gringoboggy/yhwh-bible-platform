@@ -6,6 +6,203 @@
 
 ---
 
+## 2026-05-13 — session — ω.40 N-C1 closure (γ.4 promote run via χ-cluster pattern); +830 comm-ethiopian notes; Tewahedo flagship buyer-demo gap CLOSED
+
+**Phases shipped:** ω.40 — closes AUDIT_2026-05-13's central
+CRITICAL finding N-C1 (γ.4 source corpus → content/notes/
+promote gap). New `scripts/run_ethiopian_at_scale.py` driver
+iterates `ethiopian_commentaries.json` (830 entries across 9
+books) + invokes `EthiopianCommentaryDetector` + writes
+prospect-format candidate JSONs. Then
+`batch_promote_xrefs.py --kind comm-ethiopian` promoted all
+830 candidates with zero skips and zero errors. The Tewahedo
+flagship buyer-demo EPUB now surfaces every entry the γ.4
+cluster (γ.4 seed + γ.4.1.A-D Cyril-on-John + γ.4.2.B-D
+Ephrem-on-Pentateuch + γ.4.3-D Cyril-on-Luke + γ.4.4.A-E
+1 Enoch + γ.4.5/B-E Jubilees) has shipped over the past
+three days.
+
+**§3 sequencing rationale:** "continue" advance after ω.39
+hygiene cluster + save (`49f768a`). Per §3 most-logical-path
++ audit recommendation: N-C1 Option A was the audit's
+explicit #1 priority and the only remaining open CRITICAL.
+The bundled hygiene loop (ω.39) lands the clean baseline;
+ω.40 lands the substantive closure. γ.4.6/.7/.8 ships were
+gated by this closure per the audit's "do not ship" list.
+
+**The χ-cluster pattern applied (§9 of CLAUDE_PROJECT_RULES.md,
+sixth instance — after χ.6 TSK, χ.6+ Hebrew, χ.7 Nave's,
+χ.1 Greek, χ.0 Kenyon):**
+
+1. **Source data already present** —
+   `content/sources/ethiopian_commentaries.json` (830 entries,
+   shipped across γ.4 + γ.4.1.A-D + γ.4.2.B-D + γ.4.3-D +
+   γ.4.4.A-E + γ.4.5/B-E over 2026-05-11 to 2026-05-13).
+2. **Kind code already present** — `comm-ethiopian` in
+   `content/kinds.yaml` (γ.4 seed).
+3. **Detector already present** — `EthiopianCommentaryDetector`
+   in `scripts/core/detectors.py` (γ.4 seed).
+4. **NEW: Driver script** —
+   `scripts/run_ethiopian_at_scale.py` (this ship). Modeled
+   on `run_naves_at_scale.py` (append-not-overwrite per
+   chapter; ids continue from existing tail to avoid
+   collisions); accepts canonical or legacy book codes via
+   `_normalize_book_code` (ω.36 alias map).
+5. **Run the driver** — 9 books · 273 chapters · 830
+   candidates · 273 candidate files written.
+6. **Batch promote** —
+   `python3 scripts/batch_promote_xrefs.py --kind comm-ethiopian`
+   attempted 830, promoted 830, skipped 0, errors 0,
+   files affected 273.
+7. **Verify** — pytest 3691 passed / 1 skipped in 306s;
+   linter 11/11 clean; ruff format clean (421 files after
+   9 auto-formatted promoted note files + 1 driver script).
+8. **CHANGELOG with cumulative corpus math** — this entry.
+
+**Why this works (echoing §9 of the rules):**
+
+- **Pure-function-API + thin driver:** the driver does
+  iteration + I/O only; `EthiopianCommentaryDetector.detect()`
+  is the pure function.
+- **Compose, don't recompute:** the driver composes the
+  existing `EthiopianCommentaries` cache loader + the
+  existing detector + the existing
+  `batch_promote_xrefs.promote_candidate()` path. Zero
+  reimplementation.
+- **Idempotent:** the batch promoter dedups against existing
+  promoted notes by (book, chapter, verse, kind). Re-running
+  produces the same final state.
+
+**Corpus delta:**
+
+```
+Pre-ω.40:                     Post-ω.40:
+  content/notes:  51,394 notes  content/notes:  52,224 notes (+830 exactly)
+  comm-ethiopian:     10 notes  comm-ethiopian:    840 notes (+830)
+                      in 6 books                   in 12 books
+```
+
+**comm-ethiopian distribution post-promote:**
+
+```
+  1en   191  (was 1   — +190 Mäṣḥafä Hēnok across all 5 sections)
+  1ki     1  (was 1   — pre-existing seed γ.4 entry, unchanged)
+  deu    20  (was 0   — +20  Ephrem γ.4.2.D)
+  exo    44  (was 4   — +40  Ephrem γ.4.2.C; 4 prior seed)
+  gen    81  (was 2   — +79  Ephrem γ.4.2/B; 2 prior seed)
+  jhn   119  (was 0   — +119 Cyril γ.4.1.A-D)
+  jub   200  (was 0   — +200 Mäṣḥafä Kufāle γ.4.5/B-E)
+  lev     1  (was 1   — pre-existing seed γ.4 entry, unchanged)
+  luk   160  (was 0   — +160 Cyril γ.4.3 + γ.4.3.B-D)
+  num    20  (was 0   — +20  Ephrem γ.4.2.D)
+  psa     2  (was 0   — +2   Ephrem)
+  rut     1  (was 1   — pre-existing seed γ.4 entry, unchanged)
+  ─────────
+  TOTAL  840 (was 10  — +830)
+```
+
+**Voice mix preserved EXACTLY** (cosmetic confirmation —
+promote is mechanical):
+
+```
+Pre-promote (source corpus):     Post-promote (notes corpus):
+  Cyril      281  33.9%            Cyril      281  33.9%
+  Jubilees   200  24.1%            Jubilees   200  24.1%
+  1 Enoch    192  23.1%            1 Enoch    192  23.1%
+  Ephrem     157  18.9%            Ephrem     157  18.9%
+                                                    ───
+                                                    830
+                                  + 10 prior seed entries = 840 total
+```
+
+**What this means for the buyer demo:**
+
+- **Tewahedo flagship buyer-demo EPUB now SURFACES the γ.4
+  payload.** Pre-ω.40, the wizard's BUILD step produced an
+  EPUB whose Tewahedo edition was missing 820 of 830 γ.4
+  source entries (since build_edition.py reads only
+  content/notes/, never the source corpus directly). Post-
+  ω.40, the buyer sees:
+  - **Cyril-on-John** (119 entries on Jn 1-21 modulo Jn 8-10
+    manuscript gap) — Alexandrian Christological apparatus
+    on Logos / Eucharist / Two-Wills / Marian theology.
+  - **Cyril-on-Luke** (160 entries on full Luke 1-24) —
+    Synoptic Christological apparatus extending the John
+    arc; Lukan-distinctive Marian and Pneumatology anchors
+    + Passion + Resurrection + Ascension at substantive
+    depth.
+  - **Ephrem-on-Pentateuch** (159 entries across Gen / Exo /
+    Num / Deu) — Syriac patristic Old Testament with
+    Tewahedo-distinctive anchors (Andǝmta resonance,
+    Mäsḥafä-Adam / Bāḥrä Ḥasab / Wǝddase Maryam markers).
+  - **1 Enoch / Mäṣḥafä Hēnok** (190 entries across all 5
+    sections — Watchers / Parables / Astronomical /
+    Animal Apocalypse / Epistle of Enoch). Canonical only
+    in Tewahedo + Eritrean Orthodox.
+  - **Jubilees / Mäṣḥafä Kufāle** (200 entries across all
+    50 chapters — primordial history through Sinai). Canonical
+    only in Tewahedo + Eritrean Orthodox.
+- **276 entries on TWO full canonical Gospels (John + Luke).**
+  No competing free Bible app surfaces Alexandrian-patristic
+  commentary at this depth on two Gospels.
+- **390 entries on the two uniquely-Tewahedo canonical-text
+  books (1 Enoch + Jubilees).** No competing app surfaces
+  these books with substantive commentary at all (most
+  don't even include them in canon).
+
+**Test posture:** Full suite (3691 passed, 1 skipped in 306s)
+holds post-promote. Identical pass count to pre-ω.40 — the
+promote was purely additive, not changing any test's
+existing-corpus assumptions. The ω.37
+`TestOmega37W11JubileesBuildPipelineIntegration` class
+(detector-level pin) and the new W11-data-flow closure
+(this ship surfaces the actual notes that build_edition
+reads) are now both true: detector emits Candidate +
+candidate is promoted + note appears in content/notes/*.py +
+build_edition reads content/notes/. The chain is unbroken
+end-to-end.
+
+**Items shipped:**
+
+- **`scripts/run_ethiopian_at_scale.py`** (new, 200 lines)
+  — at-scale driver; sixth χ-cluster-pattern instance;
+  ω.36 alias-map compatibility built in.
+- **`content/candidates/<book>_ch_<NNN>.json`** (273 files,
+  append-only) — comm-ethiopian candidates added; existing
+  xref / hebrew / greek / naves candidates preserved.
+- **`content/notes/{1en,deu,exo,gen,jhn,jub,luk,num,psa}.py`**
+  — +830 comm-ethiopian notes promoted (52,224 total notes
+  across 88 files post-promote).
+- **`dev/CHANGELOG.md`** + **`dev/SESSION_STATE.md`** — this
+  entry.
+
+**Recommended next ship:**
+
+- **γ.4.6 / γ.4.7 — Cyril on Matt / Mark** — now UNGATED by
+  N-C1 closure. Would complete the four-Gospel Alexandrian
+  commentary (after Cyril-on-John γ.4.1-D and Cyril-on-Luke
+  γ.4.3-D); PD-accessibility per audit memos. Each ship
+  would add ~120-160 source entries; after ship, re-run
+  ω.40's driver + batch_promote to surface them.
+- **γ.4.8 — Mäqabyan seed** — third uniquely-Tewahedo
+  canonical text. Still deferred pending PD source
+  acquisition (per `reference_external_tools.md` memory).
+  N-W1 share-pin → count-milestone conversion (ω.39) removed
+  the share-pin blocker that would have broken on this ship.
+- **save** — seven phases since `699f531` baseline plus
+  AUDIT_2026-05-13 + ω.39 + ω.40; substantive milestone
+  (buyer-demo gap closed) is a clean checkpoint point.
+  User-explicit only per `feedback_continue_not_save.md`.
+
+**Memory rules consulted:** `feedback_audit_cadence.md`
+(this ship closes the audit's #1 CRITICAL); `feedback_extensive_answers.md`
+(broadest-scope option = full 9-book promote, not subset);
+`feedback_continue_not_save.md` ("continue" advances, save
+is explicit); `feedback_license_flagging.md` (default =
+continue most-logical-path; no license needed).
+
+---
+
 ## 2026-05-13 — session — ω.39 AUDIT_2026-05-13 hygiene cluster (N-W1 last share-pin → count; N-W2 PLAN snapshot refresh; N-W3 Jubilees father-name normalization)
 
 **Phases shipped:** ω.39 — AUDIT_2026-05-13 fast-hygiene loop

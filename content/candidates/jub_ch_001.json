@@ -1,0 +1,38 @@
+{
+  "book": "jub",
+  "chapter": 1,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "jub-1-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 1:1 (Sinai prologue (1:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And it came to pass in the first year of the exodus of the children of Israel out of Egypt, in the third month, on the sixteenth day of the month, that God spake to Moses, saying: Come up to Me on the Mount, and I will give thee two tables of stone of the law and of the commandment, which I have written, that thou mayest teach them&#x27; — Jubilees opens with the Sinai theophany context, establishing the entire book as a SECOND-TORAH revelation. Tewahedo canonical theology preserves Mäṣḥafä Kufāle as canonical Scripture alongside the Pentateuch — one of only two major Christian communions to do so (the other being Eritrean Orthodox, which derives from Tewahedo).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-1-25-002",
+      "verse": 25,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 1:25 (Sinai prologue (1:25)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And I will be a Father unto them, and they shall be My children, and they shall all be called children of the living God, and every angel and every spirit shall know, yea, they shall know that these are My children, and that I am their Father in uprightness and righteousness, and that I love them&#x27; — the new-covenant Father-children promise, anticipating Jer 31:33, 2 Cor 6:18, Heb 8:10, Rev 21:7. Tewahedo baptismal theology reads this verse as a direct anticipation of Christian adoption: the Father-children language is uniquely loaded Christologically.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

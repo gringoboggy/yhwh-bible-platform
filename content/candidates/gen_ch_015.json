@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 15,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 40,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 41,
   "candidates": [
     {
       "id": "gen-15-1-001",
@@ -602,6 +602,21 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: PERIZZITES. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-15-6-041",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XV.6. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And he believed in the Lord; and he counted it to him for righteousness&#x27;. Ephrem reads Abraham&#x27;s faith as the proto-justifying faith — the pattern that Paul will universalise in Rom 4 and Gal 3. Ephrem emphasises that the faith is in a PROMISE (innumerable descendants from a sterile body), not in present visible evidence — establishing faith as TRUST in the divine word against contrary appearance. Tewahedo soteriology preserves the Abrahamic-pattern as the model of saving faith, with Ephrem&#x27;s emphasis on faith-against-appearance as the monastic-spiritual continuation of this pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

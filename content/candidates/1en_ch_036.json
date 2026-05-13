@@ -1,0 +1,23 @@
+{
+  "book": "1en",
+  "chapter": 36,
+  "generated_at": "2026-05-13T17:29:01+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "1en-36-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 36:1-4, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>&#x27;And from thence I went to the south to the ends of the earth, and saw there three open portals of the heaven: from them issues dew, rain, and wind&#x27; — Enoch&#x27;s final journey-segment to the south completes the four-directional cosmological survey (chs 17-36). Together with the earlier western (17-19) and northern (34) journeys + the central Jerusalem-omphalos vision (26-32), Enoch has now mapped the cosmic geography from all four cardinal directions. The Tewahedo iconographic tradition&#x27;s depictions of the cosmos often preserve this four-directional structuring with Jerusalem at the center, drawing on the Enochic cosmological survey as authoritative source.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

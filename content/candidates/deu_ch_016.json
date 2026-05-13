@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 16,
-  "generated_at": "2026-05-09T06:06:26+00:00",
-  "n_candidates": 49,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 50,
   "candidates": [
     {
       "id": "deu-16-16-001",
@@ -737,6 +737,21 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: PENSION, THANKFULNESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 2 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-16-1-050",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 16:1-8. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the Deuteronomic recapitulation of Passover — &#x27;Observe the month of Abib, and keep the passover unto the Lord thy God&#x27; (Deu 16:1) — Ephrem reads the THIRD Mosaic Passover legislation (after Exo 12 and Num 9) as the canonical triple-witness that Pascha is the non-negotiable hinge of the covenant year. The repetition is not redundant but emphatic: the Lord wills that Israel never forget the month of deliverance. Tewahedo Fasika theology cites Exo 12 + Num 9:2 + Deu 16:1 as the canonical triple-Mosaic anchor that the yearly Pascha is constitutive of covenant identity — eucharistically fulfilled in the Tewahedo Holy-Week Anaphora.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

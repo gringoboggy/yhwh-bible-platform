@@ -1,0 +1,38 @@
+{
+  "book": "1en",
+  "chapter": 102,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "1en-102-4-001",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 102:4, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;Fear ye not, ye souls of the righteous, and be hopeful ye that have died in righteousness. And grieve not if your soul into Sheol has descended in grief, and that in your life your body fared not according to your goodness, but wait for the day of the judgement of sinners and for the day of cursing and chastisement&#x27; — comfort to the righteous dead. The verbal pattern of &#x27;fear not, ye souls of the righteous&#x27; is preserved in Tewahedo funeral liturgy as the consolation-formula for the mourning family.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-102-5-002",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 102:5, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;When ye die the sinners speak over you: As we die, so die the righteous, and what benefit do they reap for their deeds?&#x27; — the cynical sinner&#x27;s epitaph. Tewahedo apologetic tradition uses 102:5 as the canonical presentation of the no-resurrection-no-judgment cynicism that the Epistle&#x27;s argument refutes — direct anticipation of the Sadducean / Pauline argument of 1 Cor 15.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

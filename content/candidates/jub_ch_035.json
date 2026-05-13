@@ -1,0 +1,53 @@
+{
+  "book": "jub",
+  "chapter": 35,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "jub-35-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 35:1 (Death of Rebekah (35:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And in the first year of the first week of the forty-fifth jubilee... Rebecca called Jacob her son... and said unto him: My son, do honour thy brother, thy father Isaac, all the days of thy life, until the day of his death&#x27; — Rebekah&#x27;s parting instruction to Jacob to honour Isaac. Tewahedo filial-piety tradition preserves Rebekah&#x27;s blessing structure as canonical pattern: the mother&#x27;s instruction binding the son to the father&#x27;s honour.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-35-6-002",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 35:6 (Death of Rebekah (35:6)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Esau is to thee from time eternal a foe, but I trust that thou wilt confess thy ways to him and that he will yet repent of his evil purpose, and that mercy will reach him&#x27; — Rebekah&#x27;s deathbed words to Jacob preserve a remarkable canonical hope for Esau&#x27;s eventual repentance. Tewahedo eschatological hope (the universalism-leaning emphasis that the Tewahedo holds in tension with apokatastasis-rejection — the Tewahedo neither dogmatically affirms nor dogmatically denies universal-final-repentance) finds canonical matriarchal anchor here: even the most-rejected covenant-line brother is canonically hoped-for. The Tewahedo&#x27;s distinctive pastoral generosity toward non-Tewahedo Christians and even toward those of other faiths in salvation-trust questions draws on Rebekah&#x27;s witness.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-35-18-003",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 35:18 (Death of Rebekah (35:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And she died, the same day, and her two sons buried her, Esau and Jacob, in the double cave near Sarah her mother-in-law&#x27; — Esau and Jacob buried Rebekah TOGETHER in the Machpelah cave, in fraternal cooperation at her funeral despite their lifelong rivalry. Jubilees emphasizes this unique reconciliation-at-the-mother&#x27;s-grave moment. The Tewahedo pastoral tradition of family-reunion-at-funerals (estranged-family-members reconciling at the matriarch&#x27;s or patriarch&#x27;s funeral) draws canonical warrant here: even where the relationship cannot be repaired in life, the death of the parent provides a divinely-arranged occasion for partial reconciliation. The Tewahedo&#x27;s family-funeral liturgy preserves a moment of joint-prayer-by-estranged-children, anchored typologically in this verse.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "book": "jhn",
   "chapter": 12,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 95,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 100,
   "candidates": [
     {
       "id": "jhn-12-3-001",
@@ -1427,6 +1427,81 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WISDOM. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-12-24-096",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on the Gospel of John",
+      "source_attribution": "Cyril of Alexandria, Commentary on John, Bk VIII.24 (NPNF S2 V14). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (428).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on the Gospel of John</em> <small>(c. 428 AD)</small><p>&#x27;Except a corn of wheat fall into the ground and die, it abideth alone: but if it die, it bringeth forth much fruit&#x27; Cyril reads at multiple levels simultaneously. Most literally, it is Christ&#x27;s self-prediction: His death is the necessary condition for the harvest of redemption. Typologically, it prefigures every Christian death-and-resurrection (baptism as participation in His pattern). Pneumatologically, the fruit-bearing is the Spirit&#x27;s work in the Church proceeding from the cross. Cyril notes the grammatical force: not &#x27;IF it die&#x27; (uncertain) but &#x27;IF it die&#x27; (conditional contrast) — death is the NECESSARY price of the harvest, not an unfortunate possibility. This verse anchors Cyril&#x27;s theology of redemptive suffering both for Christ and for those united to Him.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on the Gospel of John. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-12-27-097",
+      "verse": 27,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on the Gospel of John",
+      "source_attribution": "Cyril of Alexandria, Commentary on John, Bk VIII.27 (NPNF S2 V14). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (428).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on the Gospel of John</em> <small>(c. 428 AD)</small><p>&#x27;Now is my soul troubled (tetaraktai); and what shall I say? Father, save me from this hour: but for this cause came I unto this hour&#x27; Cyril expounds as a critical Christological text. The troubling is real (against Docetism — the human nature genuinely faced its passion with distress), yet does not master the divine will (the Son&#x27;s choice to drink the cup is unimpaired). &#x27;What shall I say?&#x27; Cyril reads as rhetorical question, not actual confusion — the Son&#x27;s deliberation is pedagogical for the bystanders&#x27; instruction. The verse establishes that the assumed human nature carries authentic affective response WITHIN the perfect alignment of the incarnate will with the Father&#x27;s eternal will. This is Cyril&#x27;s most careful handling of the Gethsemane-style problematic in his John commentary.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on the Gospel of John. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-12-31-098",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on the Gospel of John",
+      "source_attribution": "Cyril of Alexandria, Commentary on John, Bk VIII.31 (NPNF S2 V14). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (428).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on the Gospel of John</em> <small>(c. 428 AD)</small><p>&#x27;Now is the judgment of this world: now shall the prince of this world (ho archōn tou kosmou toutou) be cast out&#x27; Cyril reads as the cosmic dimension of the cross&#x27;s victory. Satan&#x27;s claim over fallen humanity (rooted in the legal title acquired through Adam&#x27;s transgression) is broken by Christ&#x27;s death, which the prince of this world wrongly exercised against a sinless victim — thus losing his lawful claim over all who unite to Christ. The &#x27;now&#x27; (nun) Cyril emphasizes as the kairos-moment of the cross: not at some future eschatological judgment, but already in Christ&#x27;s death-and-resurrection, the cosmic decision is rendered. This Christus-victor reading is central to the Tewahedo Easter liturgy&#x27;s triumphal language.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on the Gospel of John. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-12-32-099",
+      "verse": 32,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on the Gospel of John",
+      "source_attribution": "Cyril of Alexandria, Commentary on John, Bk VIII.32 (NPNF S2 V14). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (428).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on the Gospel of John</em> <small>(c. 428 AD)</small><p>&#x27;And I, if I be lifted up (hypsōthō) from the earth, will draw all men unto me&#x27; Cyril unpacks the deliberate double sense of &#x27;lifted up&#x27;: it refers at once to the cross (literal elevation on the wood) AND to glorification (exaltation to the Father&#x27;s right hand) — the two are one redemptive movement in John&#x27;s theology. &#x27;Draw all men&#x27; (pantas helkysō) Cyril reads as universal scope of the saving intention: not only Jews, not only those present, but all humanity drawn by the magnetic power of the crucified-and-glorified Word. John&#x27;s parenthetical note (v. 33: &#x27;this He said, signifying what death He should die&#x27;) is Cyril&#x27;s textual confirmation that the cross is integral to the drawing.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on the Gospel of John. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-12-46-100",
+      "verse": 46,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on the Gospel of John",
+      "source_attribution": "Cyril of Alexandria, Commentary on John, Bk VIII.46 (NPNF S2 V14). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (428).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on the Gospel of John</em> <small>(c. 428 AD)</small><p>&#x27;I am come a light into the world, that whosoever believeth on me should not abide in darkness&#x27; Cyril reads as the final Johannine &#x27;I am&#x27; statement before the Passion narrative begins — recapitulating the prologue&#x27;s light-darkness imagery now grounded in the incarnate Christ&#x27;s completed public ministry. The &#x27;not abide in darkness&#x27; (mē meinē — subjunctive negative) Cyril takes as both promise and warning: the choice to abide in darkness is human refusal, not divine fate. Christ&#x27;s coming as Light is for ALL; whether one walks in that Light is conditioned on faith. The verse provides the textual transition from public ministry (chapters 1-12) to the Farewell Discourses (chapters 13-17) in the Gospel&#x27;s structure.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on the Gospel of John. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

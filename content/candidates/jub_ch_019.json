@@ -1,0 +1,53 @@
+{
+  "book": "jub",
+  "chapter": 19,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "jub-19-3-001",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 19:3 (Sarah's death + Rebekah (19:3)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Abraham buried Sarah his wife in the cave of Machpelah which is over against Mamre, that is, Hebron, in the land of Canaan&#x27; — Jubilees confirms the Machpelah burial (Gen 23). Tewahedo Marian-typology reads Sarah&#x27;s burial in the Promised Land — not in Ur or Haran — as the canonical anchor for the doctrine that the matriarch&#x27;s body must rest in the Land of inheritance. Mariological extension: Mary&#x27;s bodily Assumption (Filsäta) is the eschatological consummation of Sarah&#x27;s literal Land-burial — Mary, the antitype of Sarah, is taken up into the heavenly Land that is the consummation of the earthly one. Tewahedo iconography of Filsäta sometimes pairs Mary&#x27;s Assumption with Sarah&#x27;s burial cave as type-and-antitype.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-19-13-002",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 19:13 (Sarah's death + Rebekah (19:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And in the fourth year thereof Isaac took to himself a wife, and her name was Rebecca the daughter of Bethuel, the son of Milcah, the sister of Laban and father of Rebecca, the son of Nahor, the brother of Abraham, the sister of Isaac his wife&#x27; — Jubilees follows the elaborate kinship geometry of Gen 24 to emphasize that Rebekah is a covenant-line spouse, not a Canaanite. Tewahedo marriage canon (zǝmd zǝr) draws on this verse for the kinship-careful pattern of Christian marriage: blood-kinship within bounds is positively desired (against random outside marriage that risks doctrinal-and-cultural drift), while incest is forbidden. The Tewahedo practical pastoral norm — endogamy preferred within Orthodox community boundaries — has its canonical warrant in the patriarchal practice preserved by Jubilees.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-19-28-003",
+      "verse": 28,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 19:28 (Sarah's death + Rebekah (19:28)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Abraham blessed Jacob and said: he shall walk in My ways, and his children shall walk in My ways, and his seed shall be a blessing in the midst of the earth. And let not the spirits of Mastema rule over thee and over thy seed to turn thee from the Lord, who is thy God from henceforth and for ever&#x27; — Abraham&#x27;s blessing of Jacob (his grandson) before Isaac&#x27;s own blessing, with explicit Mastema-repulsion clause. The Tewahedo grandparental blessing tradition preserves this pattern: the grandfather&#x27;s blessing of the grandson includes a Mastema-repulsion clause analogous to Jub 19:28. The Tewahedo baptismal-and-childhood liturgy retains a comparable formula in the priestly blessing of children.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

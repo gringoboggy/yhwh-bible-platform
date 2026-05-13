@@ -1,0 +1,53 @@
+{
+  "book": "jub",
+  "chapter": 26,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "jub-26-13-001",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 26:13 (Jacob receives Isaac's blessing (26:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Rebecca took goodly raiment of her elder son Esau, which was with her in the house, and she clothed Jacob her younger son with them, and put the skins of the kids upon his hands and on the exposed parts of his neck&#x27; — Jubilees follows the Gen 27 deception narrative without softening it. Tewahedo Andǝmta exegesis on this passage takes a distinctive position: the deception is NOT condoned but is canonically PERMITTED by divine providence to bring about the predetermined blessing — Isaac&#x27;s intent to bless Esau was itself contrary to the earlier &#x27;the elder shall serve the younger&#x27; (Gen 25:23 = Jub 19:31). The Tewahedo theological reading: God&#x27;s providence works through human action including human moral ambiguity without destroying free will or sanctioning the deceit per se. (The Tewahedo distinction between divine-permission and divine-command is sharper than the Western Augustinian framing.)</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-26-18-002",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 26:18 (Jacob receives Isaac's blessing (26:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Isaac said unto his son: how hast thou found it so quickly, my son? And Jacob said: because thy God caused me to find. And Isaac said unto Jacob: come near, that I may feel thee, my son, if thou art my son Esau or not. And Jacob went near to his father Isaac, and he felt him and said: the voice is Jacob&#x27;s voice, but the hands are the hands of Esau&#x27; — Jubilees preserves the iconic &#x27;voice of Jacob, hands of Esau&#x27; line. Tewahedo monastic Maḫǝbär Qǝddus tradition reads this verse spiritually: the voice (intentionality, prayer-speech) reveals true spiritual identity even when the hands (outward action) are disguised — the canonical antecedent to the desert-fathers&#x27; discipline of attending to one&#x27;s interior voice rather than external appearance as the locus of spiritual self-knowledge.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-26-24-003",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 26:24 (Jacob receives Isaac's blessing (26:24)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;God give thee of the dew of heaven, and of the dew of the earth, and plenty of corn and wine: let peoples serve thee, and nations bow down to thee. Be lord over thy brethren, and let thy mother&#x27;s sons bow down to thee; cursed be every one that curseth thee, and blessed be every one that blesseth thee&#x27; — Isaac&#x27;s blessing of Jacob (mistakenly received). Jubilees preserves the comprehensive blessing without modification. Tewahedo reading: the Solomonic-dynasty Tewahedo-Jacobite continuation (Kǝbrä Nägäśt tradition: the Tewahedo Church receives the canonical Jacobite blessing through the Solomonic dynasty&#x27;s Davidic descent and the Tewahedo&#x27;s covenantal-spiritual descent through baptism) finds its canonical anchor here. The &#x27;cursed be every one that curseth thee&#x27; clause is the warrant for the Tewahedo&#x27;s distinctive imprecatory-protective prayer tradition against anti-Tewahedo aggressors.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "book": "jub",
+  "chapter": 31,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "jub-31-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 31:1 (Isaac's visit to Bethel (31:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And on the new moon of the first month, the Lord said unto Jacob: arise, and go up to Bethel, and dwell there, and make there an altar to the God who appeared to thee, who fled from the face of Esau thy brother&#x27; — Jubilees dates Jacob&#x27;s return to Bethel to the new moon of the first month (eve of Passover). The Tewahedo theme of return-to-the-place-of-vision (the disciple returns to the locus of initial calling for re-consecration) finds canonical-temporal anchor: the new-moon-of-the-first-month date links Jacob&#x27;s Bethel re-consecration to the Passover-Pascha cluster of dates — return is liturgically tied to Christ&#x27;s Paschal mystery for the Tewahedo reader.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-31-14-002",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 31:14 (Isaac's visit to Bethel (31:14)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And he turned to Levi first, and began to bless him first, and said unto him: may the Lord of all, the Lord of all the ages, bless thee and thy sons throughout all the ages. And may the Lord give to thee and to thy seed greatness and great glory, and cause thee and thy seed, from amongst all flesh, to approach Him to serve in His sanctuary as the angels of the presence and as the holy ones&#x27; — Isaac blesses Levi BEFORE Judah, contrary to chronological birth-order. Jubilees emphasizes that the priestly blessing comes BEFORE the royal blessing — the priestly-ministerial vocation is canonically PRIOR to the royal-political vocation. Tewahedo ecclesiology preserves this primacy: the kǝhnät (priesthood) takes precedence over the nəguś (king) in canonical-spiritual order, even when the king is the political-protector of the church. The Tewahedo&#x27;s distinctive emphasis on the priestly-prophetic-warning of unjust kings finds canonical anchor here.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-31-18-003",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 31:18 (Isaac's visit to Bethel (31:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And he turned to Judah and said: may God give thee strength and power to tread down those that hate thee; be thou a prince, thou and thy sons, over the sons of Jacob; may thy name and the name of thy sons go forth and traverse every land and region. Then shall the Gentiles fear before thy face, and all the nations shall quake. In thee shall be the help of Jacob, and in thee shall be found the salvation of Israel&#x27; — Isaac&#x27;s blessing of Judah explicitly foretells salvation-coming-from-Judah, anticipating Gen 49:10 (Shiloh prophecy) and Davidic messianism. Tewahedo Christology reads this as a doubled OT-canonical proof of Christ&#x27;s Davidic-Judah ancestry: not only the late Gen 49:10 prophecy but also the early Isaac-blessing prophecy at Jub 31:18. The Kǝbrä Nägäśt tradition draws the Tewahedo-Solomonic-dynasty&#x27;s Davidic-Judah claim through this verse.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-31-23-004",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 31:23 (Isaac's visit to Bethel (31:23)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And his father Isaac blessed Jacob, and the two sons of Jacob, Levi and Judah, and his sons. And he gave them all his blessings and gave them his books and the books of his fathers Abraham and his grandfather, and he committed them to Jacob to keep them up and to renew them for his sons until this day&#x27; — Jubilees uniquely speaks of &#x27;the books of his fathers Abraham&#x27; transmitted Isaac → Jacob → Levi-Judah. The patriarchal manuscript-tradition (a pre-Mosaic written canonical literature) is Jubilees-distinctive and the Tewahedo Andǝmta tradition has long taken seriously the implication: the Mosaic Torah is a redaction of older patriarchal writings, not a fresh Sinai-only revelation. The Tewahedo&#x27;s distinctive manuscript-preserving monastic charism (the gədl &#x27;biography&#x27; tradition; the mäṣḥaf säwasǝw &#x27;grammar of language&#x27; tradition) sees itself as continuator of the canonical-patriarchal book-keeping practice.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

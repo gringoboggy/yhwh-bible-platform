@@ -1,0 +1,38 @@
+{
+  "book": "1en",
+  "chapter": 81,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "1en-81-2-001",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 81:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And I observed the heavenly tablets, and read everything which was written thereon and understood everything, and read the book of all the deeds of mankind, and of all the children of flesh that shall be upon the earth to the remotest generations&#x27; — the heavenly tablets. Tewahedo soteriology preserves the books-of-deeds image (parallel to Rev 20:12) as load-bearing in the Tewahedo last-judgment iconography, with the Enochic version emphasising that the tablets are READABLE — God&#x27;s record is transparent to inquiry.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-81-5-002",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 81:5, trans. R.H. Charles (1912). PD. Cf. Rom 3:23.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>The angels who escort Enoch tell him: &#x27;Declare everything to thy son Methuselah, and show to all thy children that no flesh is righteous in the sight of the Lord, for He is their Creator&#x27; — the foundational anthropological pessimism that anticipates Pauline &#x27;all have sinned&#x27; (Rom 3:23). The Tewahedo reading connects this verse to the Romans passage explicitly: the apostolic doctrine of universal sinfulness has its Jewish-canonical basis in the Mäṣḥafä Hēnok, not introduced by Paul ex nihilo but inherited from the prophetic-apocalyptic tradition. The pessimism is grounded ontologically (&#x27;for He is their Creator&#x27; — only the Creator is finally righteous) rather than merely empirically.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

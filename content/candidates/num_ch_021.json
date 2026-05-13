@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 21,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 57,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 58,
   "candidates": [
     {
       "id": "num-21-8-001",
@@ -857,6 +857,21 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: ZAREAH. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "num-21-8-058",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 21:4-9. NPNF Series 2, vol. 13. PD. Cf. Jn 3:14 (verbatim Christological appropriation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the bronze serpent lifted on the standard for the healing of the bitten (Num 21:8-9), Ephrem reads the lifted-up-serpent as the canonical Old-Testament prefigurement of the Crucifixion — taken up verbatim by Christ himself in Jn 3:14: &#x27;as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up.&#x27; The bronze that looks like serpent but contains no venom prefigures Christ-in-the-likeness-of-sinful-flesh-but-without-sin (Rom 8:3). Looking-and-living is the canonical pattern of faith. Tewahedo Mäsqäl theology cites Num 21:8 alongside Jn 3:14 as the canonical doubled-anchor of the Cross-as-healing-standard for the bitten world.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

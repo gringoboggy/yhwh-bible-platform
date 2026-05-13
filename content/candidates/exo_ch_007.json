@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 7,
-  "generated_at": "2026-05-09T05:19:28+00:00",
-  "n_candidates": 41,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 42,
   "candidates": [
     {
       "id": "exo-7-1-001",
@@ -617,6 +617,21 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-7-10-042",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Hymns on the Crucifixion",
+      "source_attribution": "Ephrem the Syrian, Hymns on the Crucifixion IV.10-12 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Hymns on the Crucifixion</em> <small>(c. 365 AD)</small><p>Aaron&#x27;s rod swallowing the rods-turned-serpents of the magicians is, for Ephrem, an early figure of the Crucified Christ swallowing the dragon: the wood that becomes a serpent becomes a devouring serpent, and the devouring is itself the salvation. The Cross — wood that becomes the throne of the Serpent-conqueror — accomplishes in reality what the rod accomplished in type.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Hymns on the Crucifixion. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

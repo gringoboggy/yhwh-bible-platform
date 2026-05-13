@@ -1,0 +1,38 @@
+{
+  "book": "jub",
+  "chapter": 37,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "jub-37-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 37:1 (Esau-Jacob war (37:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And in the third year of the sixth week of this jubilee, the sons of Esau the elder brother of Jacob, gathered themselves together, and Esau heard, and his soul was vexed, and they came against Jacob to make war&#x27; — Jubilees uniquely preserves a major narrative of armed conflict between Esau&#x27;s clan and Jacob&#x27;s family, absent from the canonical Genesis. Tewahedo political-theology reads this as the canonical anchor for defensive-war doctrine: the covenant-community may take up arms against treacherous-relative aggressors precisely because the violation comes from inside the extended-family rather than from a distant foe. The Tewahedo wars of national defense (against the 16th-c. Gragn invasions, the 19th-c. Mahdists, the 20th-c. Italian fascist occupation) draw canonical warrant from this passage.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-37-25-002",
+      "verse": 25,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 37:25 (Esau-Jacob war (37:25)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Jacob said unto Esau: hast thou not made the oath with me, even my father, and these our nine fathers? Why didst thou come now to dishonour us by reason of thy sons coming up against us with a multitude?&#x27; — Esau is confronted with his violation of the Jub 35:9 oath (which he swore to Rebekah on her deathbed and to Isaac at Jub 36:18). The Tewahedo doctrine of oath-binding (the qǝddase oath has eternal-vertical weight) finds canonical anchor here: oaths sworn to a dying parent are inviolable; the treacherous-relative is rendered legitimately-engageable by his own oath-breaking, not by Jacob&#x27;s choice. Tewahedo monastic vow-tradition treats vow-breaking as the canonical-equivalent of Esau&#x27;s treachery.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

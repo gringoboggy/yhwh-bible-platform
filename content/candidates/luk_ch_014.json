@@ -1,8 +1,8 @@
 {
   "book": "luk",
   "chapter": 14,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 47,
   "candidates": [
     {
       "id": "luk-14-8-001",
@@ -632,6 +632,81 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WORLDLINESS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-14-11-043",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily CI (R. Payne Smith trans., 1859). PD. Cf. Phil 2:8-9.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On Christ&#x27;s &#x27;For whosoever exalteth himself shall be abased; and he that humbleth himself shall be exalted&#x27; (Lk 14:11), Cyril reads the doubled-passive-formula (shall-be-abased + shall-be-exalted — the divine passive) as the canonical Lukan anchor of the great-reversal eschatological principle: God himself is the agent of both the abasement and the exaltation. The phrase recurs in Luke at 18:14 (Pharisee + Publican), making it a Lukan refrain. Tewahedo monastic spirituality cites Lk 14:11 + Lk 18:14 + Phil 2:8-9 (Christ&#x27;s-own humiliation-and-exaltation) as the canonical triple-witness of the humility-precedes-exaltation pattern — the same pattern Christ embodies in the Incarnation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-14-16-044",
+      "verse": 16,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily CIII (R. Payne Smith trans., 1859). PD. Cf. Rev 19:9.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On the parable of the Great Supper — &#x27;A certain man made a great supper, and bade many&#x27; (Lk 14:16) — Cyril reads the supper-parable as the canonical Lukan anchor of the Eucharistic-eschatological-banquet image: the great supper is the messianic feast (anticipated at Lk 13:29 from-east-and-west) prepared by the Father, hosted by the Son, distributed by the Spirit&#x27;s apostolic invitations. The original-invited (covenant-elect) excuse themselves; the streets-and-lanes poor are brought in. Tewahedo Eucharistic theology cites Lk 14:16 alongside the Marriage Supper of the Lamb (Rev 19:9) as the canonical Lukan-Apocalyptic doubled-witness of the Eucharist as the present-eschatological-banquet: every Mass anticipates the Great Supper.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-14-23-045",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily CIV (R. Payne Smith trans., 1859). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On the master&#x27;s command &#x27;Go out into the highways and hedges, and compel them to come in&#x27; (Lk 14:23), Cyril reads the compel-them-to-come-in (anagkason eiselthein) as the canonical Lukan anchor of the doctrine of evangelistic-persuasive-urgency: the apostolic invitation is not coy permission but earnest-pressing constraint. Cyril is emphatic that the constraint is moral-persuasive, never physical-coercive (Augustine&#x27;s later use of this verse to justify coercion against the Donatists is not Cyril&#x27;s reading). Tewahedo missionary-pastoral theology cites Lk 14:23 as the canonical Lukan anchor of the doctrine that evangelistic urgency is genuine pressure of love, not state-religious coercion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-14-27-046",
+      "verse": 27,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily CIV (R. Payne Smith trans., Oxford: University Press, 1859). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>&#x27;Whosoever doth not bear his cross, and come after me, cannot be my disciple&#x27; — Cyril reads the saying as the canonical anchor of voluntary martyrdom: the disciple&#x27;s own cross-bearing is the imitation that conforms him to the Master. The discipleship cost-calculation that follows (tower-builder, king-going-to-war) is the prudential prelude. Tewahedo monastic profession includes the voluntary embrace of the spiritual cross in direct dependence on this Cyrillian reading.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "luk-14-33-047",
+      "verse": 33,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Luke",
+      "source_attribution": "Cyril of Alexandria, Commentary on Luke, Homily CV (R. Payne Smith trans., 1859). PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Luke</em> <small>(c. 430 AD)</small><p>On Christ&#x27;s &#x27;Whosoever he be of you that forsaketh not all that he hath, he cannot be my disciple&#x27; (Lk 14:33), Cyril reads the forsake-all-that-he-hath (panta apotassetai tois huparchousin) as the canonical Lukan anchor of the doctrine of total-discipleship: the cost-of-discipleship parable (counting-the-tower + counting-the-battle) issues in this absolute. Cyril does not read &#x27;forsake&#x27; as universal-divestment for every Christian but as the inner-detachment that some are called to embody outwardly in monastic profession. Tewahedo monastic theology cites Lk 14:33 as the canonical Lukan anchor of the bahǝtawi&#x27;s vow of poverty — the monastic outwardly enacts what every disciple inwardly possesses.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Luke. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

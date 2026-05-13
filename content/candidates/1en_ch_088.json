@@ -1,0 +1,38 @@
+{
+  "book": "1en",
+  "chapter": 88,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "1en-88-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Animal Apocalypse (1 Enoch 85-90)",
+      "source_attribution": "1 Enoch 88:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Animal Apocalypse (1 Enoch 85-90)</em> <small>(c. 150 BC)</small><p>&#x27;And I saw one of those four who had come forth first, and he seized that first star which had fallen from the heaven, and bound it hand and foot and cast it into an abyss: now that abyss was narrow and deep, and horrible and dark&#x27; — Asael&#x27;s binding by Michael (parallel to 10:4-6). Tewahedo demonology reads the binding-of-Azazel as a TEMPORAL binding in the cosmic narrative that culminates in the eschatological judgment at 90:24 — providing the two-stage pattern that Rev 20:1-10 follows.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Animal Apocalypse (1 Enoch 85-90). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-88-3-002",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Animal Apocalypse (1 Enoch 85-90)",
+      "source_attribution": "1 Enoch 88:3, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Animal Apocalypse (1 Enoch 85-90)</em> <small>(c. 150 BC)</small><p>&#x27;And one of them drew his sword, and gave it to those elephants and camels and asses: then they began to smite each other, and the whole earth quaked because of them. And as I was beholding in the vision, lo, one of those four who had come forth, hurled (a book) from heaven, and gathered and took all the great stars whose privy members were like those of horses, and bound them all hand and foot, and cast them into an abyss of the earth&#x27; — all 200 watchers bound. The full Watchers-judgment scene preserved in the Animal Apocalypse as one of its inaugurating actions, before human history proper begins.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Animal Apocalypse (1 Enoch 85-90). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

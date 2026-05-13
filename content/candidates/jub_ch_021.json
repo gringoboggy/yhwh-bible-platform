@@ -1,0 +1,68 @@
+{
+  "book": "jub",
+  "chapter": 21,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "jub-21-7-001",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 21:7 (Abraham's priestly instructions (21:7)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And as regards the blood of all flesh that ascendeth on the altar, place ye salt thereon; and as for the blood, eat it not, for it is the soul; and let no blood be left in the flesh which thou eatest&#x27; — Abraham&#x27;s priestly instructions to Isaac repeat the no-blood-consumption command (Jub 6:7, 7:34 antecedents). Tewahedo dietary law preserves the no-blood rule with priestly emphasis: the canonical-Tewahedo prohibition against eating blood (drawn from Gen 9:4 + Lev 17 + Acts 15 + this Jubilees triple-witness) marks the Tewahedo apart from most Western Christian practice. The salt-on-blood prescription is preserved in Tewahedo altar practice.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-21-10-002",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 21:10 (Abraham cycle (21:10)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;For thus I have found written in the books of my forefathers, and in the words of Enoch, and in the words of Noah, concerning the blood, for in the sight of the Lord this is a great sin, that they should shed the blood of any soul&#x27; — Abraham instructs Isaac, citing &#x27;the books of Enoch&#x27;. **Jubilees treats 1 Enoch as authoritative source**, creating an inter-textual canonical witness inside the Tewahedo canon itself: Jubilees cites Enoch, both are Scripture, both are preserved uniquely in Ge&#x27;ez.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-21-18-003",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 21:18 (Abraham's priestly instructions (21:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And there is no greater sin in His sight than this — to eat the blood of any flesh; and they that eat shall be rooted out of the land&#x27; — Abraham frames blood-consumption as a sin of uniquely-rooting-out severity. Tewahedo penitential canon (mäṣḥafä qəddase confession-list) catalogues unintentional blood-consumption (improperly bled meat) as a sin requiring specific priestly absolution. The Tewahedo&#x27;s distinctive abstention from non-kosher-style butchery without specific priestly blessing of the slaughter draws canonical warrant from Jub 21:18 — the prohibition is presented as a category-of-its-own, separate from the general dietary code.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-21-22-004",
+      "verse": 22,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 21:22 (Abraham's priestly instructions (21:22)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And do thou, my son, observe His commandments and His ordinances and His judgments, and walk not after the abominations, and after the graven images, and after the molten images&#x27; — Abraham&#x27;s closing charge to Isaac: covenant-faithfulness expressed positively (keep the commandments) and negatively (no idolatry in any form). The Tewahedo iconographic tradition has been careful to distinguish itself from this prohibition: Tewahedo ikons are NOT graven images (they are painted boards, not sculpted statues; venerated as windows-to-the-real, not worshipped as substitutes for it). The patriarchal warrant for the Tewahedo iconography-yes-statues-no boundary is implicit in this verse&#x27;s careful threefold listing of forbidden artifact types: abominations (idolatrous practices), graven images (sculpture), molten images (cast metal) — none of which describe the Tewahedo painted ikon.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

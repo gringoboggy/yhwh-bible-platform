@@ -1,0 +1,23 @@
+{
+  "book": "1en",
+  "chapter": 108,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 1,
+  "candidates": [
+    {
+      "id": "1en-108-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 108:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;Another book which Enoch wrote for his son Methuselah and for those who will come after him, and keep the law in the last days&#x27; — the closing inclusio of the entire Mäṣḥafä Hēnok. The book closes as it opens (cf. 1En 1:1-2): with Enoch writing for the future-righteous-remnant. Tewahedo manuscript-tradition preserves this opening-closing inclusio as the book&#x27;s own self-attestation to its destination: it is FOR THE LAST-DAYS RIGHTEOUS. The Tewahedo identification with this addressee is preserved in the very fact that the Tewahedo Bible is the ONLY canonical Bible in which 1 Enoch closes: that closing-charge IS to the Tewahedo reader.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

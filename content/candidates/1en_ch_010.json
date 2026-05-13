@@ -1,0 +1,53 @@
+{
+  "book": "1en",
+  "chapter": 10,
+  "generated_at": "2026-05-13T17:29:01+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "1en-10-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 10:1-2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>&#x27;Then said the Most High, the Holy and Great One spake, and sent Uriel to the son of Lamech&#x27; — God&#x27;s first response to the angelic intercession: dispatching Uriel to Noah. The naming of Noah as &#x27;son of Lamech&#x27; (rather than directly) establishes the genealogical-historical anchoring of the divine intervention: God acts within recognizable human history, working through specific named individuals embedded in known lineages. Tewahedo theological reading takes this as the Enochic anchor for the doctrine of providence working through ordinary genealogical paths rather than through general moral suasion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-10-4-002",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 10:4, trans. R.H. Charles (1912). PD. Cf. 2 Pet 2:4 + Jude 1:6.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>God&#x27;s command to the archangel Raphael — &#x27;Bind Azâzêl hand and foot, and cast him into the darkness... and cover him with darkness, and let him abide there forever&#x27; — establishes the cosmic-judicial pattern for the punishment of rebellious angels. Azâzêl is bound (not destroyed) and confined to the darkness &#x27;till the day of the great judgment&#x27; (10:6). This is the Tewahedo theological warrant for the doctrine of pre-final-judgment angelic imprisonment (cf. 2 Pet 2:4 &#x27;God spared not the angels that sinned, but cast them down to hell, and delivered them into chains of darkness, to be reserved unto judgment&#x27;). The Tewahedo Synaxarium honors the archangel Raphael on the 3rd of Pagumē with explicit cross-reference to this binding.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-10-13-003",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 10:13, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>Of the rebel Watchers: &#x27;In those days they shall be led off to the abyss of fire, and to the torment and the prison in which they shall be confined for ever&#x27; — the final-judgment confinement of the rebel angels. The &#x27;abyss of fire&#x27; (Geez gehannem) is etymologically the Geez form of Gehenna; this is the textual root of Tewahedo eschatology&#x27;s specifically-fiery doctrine of the fate of the unrepentant. &#x27;For ever&#x27; (la-&#x27;alam — for the age, into the eternal) precludes any annihilationist reading: the punishment is eternal in duration, matching the eternal-good reward of the elect.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 16,
-  "generated_at": "2026-05-09T05:19:29+00:00",
-  "n_candidates": 37,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 39,
   "candidates": [
     {
       "id": "exo-16-1-001",
@@ -557,6 +557,36 @@
       "draft_body": "<strong>ʼerets (<em>אֶרֶץ</em>).</strong> the earth (at large, or partitively a land). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-16-4-038",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XVI.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;I will rain bread from heaven for you&#x27; — the manna of the wilderness is for Ephrem the direct prophetic anchor of Jn 6: &#x27;I am the bread which came down from heaven.&#x27; The wilderness bread sustains the body for a day; the Eucharist sustains the soul for eternity. Tewahedo Anaphora cites Ex 16:4 and Jn 6 together as the OT-NT diptych of the eucharistic gift.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-16-15-039",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XVI.6 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>When Israel sees the manna they say &#x27;man hu&#x27; — &#x27;what is it?&#x27; — and the question itself becomes the name. Ephrem hears in this the canonical instinct that the heavenly food cannot be named by its likeness to anything earthly; the name is a confession of mystery. Tewahedo eucharistic theology cites this as the OT antecedent of its own anaphoral language of &#x27;mystery,&#x27; &#x27;gift,&#x27; and &#x27;medicine of life.&#x27;</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

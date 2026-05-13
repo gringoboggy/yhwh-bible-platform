@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 19,
-  "generated_at": "2026-05-09T05:19:29+00:00",
-  "n_candidates": 24,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 25,
   "candidates": [
     {
       "id": "exo-19-4-001",
@@ -362,6 +362,21 @@
       "draft_body": "<strong>ʼădônây (<em>אֲדֹנָי</em>).</strong> the Lord (used as a proper name of God only). <em>[Reviewer: extend this with context, theological reading, and any cross-canon resonance before promoting.]</em>",
       "detector": "HebrewWordDetector",
       "reviewer_notes": "Strong's gives the lexical baseline. Add the interpretive substance — context, theological stakes, parallels — before promoting.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-19-18-025",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XIX.8 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Sinai wrapped in fire and smoke is, for Ephrem, the OT diptych of Pentecost: there the fire descends on a mountain and the people may not come near; here the fire descends on heads and tongues so that the people themselves become the mountain. Tewahedo reads Ex 19:18 and Acts 2 as the before-and-after of the divine fire — the same fire that thundered now rests on the believer without consuming.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

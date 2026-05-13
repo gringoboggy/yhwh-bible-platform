@@ -1,0 +1,53 @@
+{
+  "book": "jub",
+  "chapter": 40,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "jub-40-5-001",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 40:5 (Joseph rises (40:5)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And the king commanded that they should arouse Joseph out of the prison: and they arose him out of the prison, and shaved him, and clothed him with new raiment, and presented him before the king&#x27; — Jubilees preserves the Gen 41:14 raising-from-prison narrative. Tewahedo Holy-Week Friday-into-Saturday-into-Sunday liturgical pattern reads this as the canonical sequence: Joseph is raised from the pit-prison (cf. tomb), shaved (cf. body-preparation), clothed with new raiment (cf. resurrection-glorification), presented before the king (cf. ascension). The four-fold raised-shaved-clothed-presented sequence is preserved typologically in Tewahedo Easter-day liturgy: the priest enacts each stage in the Resurrection commemoration.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-40-7-002",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 40:7 (Joseph rises (40:7)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And the king said unto Joseph: I have dreamed two dreams, and there is no man who can interpret them. And now I have heard concerning thee, that when thou hearest dreams thou dost interpret them&#x27; — Pharaoh acknowledges Joseph&#x27;s wisdom-from-the-Lord. Jubilees presents Joseph as the canonical-OT example of Spirit-wisdom-given-to-the-rejected-righteous: the prison-vindicated dreamer becomes the interpreter for the king who cannot understand his own dreams. The Tewahedo monastic discernment-tradition (märǝḥǝbǝr — &#x27;spiritual fatherhood&#x27; charism) draws on this canonical OT pattern: the genuinely-Spirit-led-interpreter sees what the worldly-king cannot, and the worldly-king must acknowledge his dependence on Spirit-given counsel.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-40-10-003",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 40:10 (Joseph rises (40:10)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And he gave him to wife Asenath, the daughter of Potiphar, the priest of Heliopolis, the chief cook&#x27; — Jubilees preserves Joseph&#x27;s marriage to Asenath, the daughter of Potiphar the priest of Heliopolis (later Egyptian apocryphal-Jewish literature substantially develops Asenath&#x27;s conversion). The Tewahedo tradition of canonical-conversion of Gentile-spouse: Joseph&#x27;s wife is a Gentile-pagan-priest&#x27;s daughter, yet she becomes the mother of Ephraim and Manasseh (Israel&#x27;s continuation). The Tewahedo&#x27;s distinctive pastoral practice of welcoming and catechizing the Gentile-or-non-Orthodox spouse of an Orthodox member into full sacramental fellowship has its OT canonical anchor in Asenath&#x27;s reception.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

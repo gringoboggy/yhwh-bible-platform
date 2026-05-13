@@ -1,0 +1,38 @@
+{
+  "book": "1en",
+  "chapter": 84,
+  "generated_at": "2026-05-13T17:29:02+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "1en-84-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Dream Visions (1 Enoch 83-90)",
+      "source_attribution": "1 Enoch 84:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Dream Visions (1 Enoch 83-90)</em> <small>(c. 150 BC)</small><p>&#x27;And I lifted up my hands in righteousness and blessed the Holy and Great One, and spake with the breath of my mouth, and with the tongue of flesh, which God has made for the children of the flesh of men, that they should speak therewith, and He gave them breath and a tongue and a mouth that they should speak therewith&#x27; — the theological warrant for prayer-with-tongue. Tewahedo liturgical theology preserves this as the canonical anchor for the doctrine that human language is GIVEN-for-praise: the tongue&#x27;s primary purpose is liturgical, not communicative.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Dream Visions (1 Enoch 83-90). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-84-4-002",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Dream Visions (1 Enoch 83-90)",
+      "source_attribution": "1 Enoch 84:4, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Dream Visions (1 Enoch 83-90)</em> <small>(c. 150 BC)</small><p>&#x27;But now, O God, and Lord and Great King, I implore and beseech Thee to fulfil my prayer, to leave me a posterity on earth, and not destroy all the flesh of man, and make the earth without inhabitant, so that there should be an eternal destruction&#x27; — Enoch&#x27;s intercessory prayer for a righteous remnant. Tewahedo intercessory theology (the saints as ongoing intercessors for the world) reads this prayer as the OT-apocalyptic precedent for the practice — the righteous Enoch interceding for the preservation of any righteous seed at all.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Dream Visions (1 Enoch 83-90). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}
