@@ -1,5 +1,47 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.5.B Jubilees Watchers + Mastema detail
+ships, Jubilees-Enoch parallel parity reached**: **γ.4.5.B
+substantive expansion of Jub 5-10 shipped (40 NEW verse-keyed
+entries on the Watcher-judgment / Noahide-covenant / demon-binding
+/ Mastema-permission / Tower-Babel narrative core).** γ.4.5 seed
+covered chs 5-10 with 7 verses; γ.4.5.B brings the same range to
+47 entries — substantive-detail parity with the 1 Enoch Watchers
+detail (γ.4.4.B, 51 entries on 1En 1-36). Major Tewahedo anchors
+now substantively pinned: Day-of-Atonement / Astereyo (5:17-18),
+no-blood-consumption dietary law (6:7), Feast-of-Weeks pre-Mosaic
+/ Pentecost antecedent (6:17), 364-day calendar defense / Bāḥrä
+Ḥasab apologia (6:35-38), Canaan-not-Ham anti-racial reading
+(7:13), inter-canonical witness doubled (Noah cites Enoch — 7:34),
+Shem-blessing-reaches-Ethiopia through Red-Sea-as-Shem's-portion
+(8:21), anti-conquest oath until judgment day (9:14-15), binding
+of all demons / Mastema 1/10 permission as numerical-bounded-evil
+(10:7-9), medical book to Noah as Tewahedo mädḫanit tradition
+warrant (10:11-13), Tower-of-Babel reversed by divine wind as
+Pentecost antitype (10:26). **+15 tests** in
+`TestGamma45BJubileesWatchersMastemaWave`. 11/11 lint clean.
+Source: R.H. Charles, *The Book of Jubilees* (Oxford: Clarendon,
+1902 — PD) — same as the γ.4.5 seed wave; no new source-licensing
+required. Voice mix post-γ.4.5.B: ~26/17/41/16 Cyril/Ephrem/1En/
+Jubilees — Jubilees moves from 5th-place seed voice to 4th-place
+substantively-present voice. **Note**: γ.4.8 Mäqabyan seed
+remains DEFERRED pending PD source acquisition — current Wikisource
+CC-BY-SA translations lack named-translator attribution and
+source-manuscript identification, failing the corpus's named-PD-
+edition standard.
+
+**Recommended next ship**:
+- **γ.4.5.C Jubilees Abraham cycle detail (Jub 11-22)** —
+  substantively expands the Abraham-cycle section of Jubilees,
+  including the Mastema-as-Akedah-accuser narrative arc (the seed
+  wave has just 18:9 pinned; substantive expansion would
+  substantially deepen the Tewahedo theodicy material).
+- **γ.4.5.D Jubilees Jacob cycle detail (Jub 24-36)** — comparable
+  expansion of the patriarchal-Jacob narrative.
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation through Exodus.
+
+---
+
 **Updated 2026-05-12 / γ.4.5 Jubilees seed ships, SECOND uniquely-
 Tewahedo canonical text opens**: **γ.4.5 Mäṣḥafä Kufāle / Book of
 Jubilees seed wave shipped (40 verse-keyed entries across all 50

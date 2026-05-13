@@ -132,7 +132,7 @@ editions:
 
   - id: catholic-study
     canon: catholic
-    time_filter_ceiling: 1900
+    time_filter_ceiling: null
     verse_popups: true
     verse_marker_glyph: ¶
     popup_translation: kjv
@@ -166,6 +166,15 @@ editions:
       - mat=english,greek
     traditions_per_book:
       - gen=catholic,cross
+    traditions_default:
+      - catholic
+      - cross
+    authors:
+      - Dr. Jane Editor (editor)
+      - Bishop John Smith (foreword)
+    bisac_codes:
+      - REL006150
+      - REL006490
   - id: evangelical-reformed
     canon: protestant
     title: "The Reformed Study Bible — Expanded Canon"

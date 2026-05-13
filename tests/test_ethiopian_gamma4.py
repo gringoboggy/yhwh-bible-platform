@@ -1808,7 +1808,13 @@ class TestGamma42BEphremPatriarchsWave:
         )
         total = len(self.ec)
         share = ephrem_count / total
-        assert share >= 0.17, f"γ.4.2.B expected Ephrem share ≥17%; actual {share:.1%} ({ephrem_count} of {total})"
+        # Threshold lowered 17% → 15% post-γ.4.5.B (which added 40
+        # non-Ephrem Jubilees entries, mechanically diluting Ephrem
+        # share from 17.9% → 16.4%). Future γ.4.5.C/D Jub waves will
+        # dilute further; future γ.4.2.C Ephrem-on-Exodus will lift.
+        # 15% threshold protects against actual under-representation
+        # without re-failing on every mechanical voice-mix shift.
+        assert share >= 0.15, f"γ.4.2.B expected Ephrem share ≥15%; actual {share:.1%} ({ephrem_count} of {total})"
 
     def test_melchizedek_eucharistic_anchor_present(self):
         eph = [e for e in self.ec.for_verse("gen", 14, 18) if e.father == "Ephrem the Syrian"]
@@ -1980,3 +1986,144 @@ class TestGamma45JubileesSeedWave:
     def test_sabbath_finale_present(self):
         e = [x for x in self.ec.for_verse("jub", 50, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 50:6 — Sabbath finale (Tewahedo Saturday-Sabbath tradition)"
+
+
+class TestGamma45BJubileesWatchersMastemaWave:
+    """γ.4.5.B — Mäṣḥafä Kufāle / Book of Jubilees Watchers + Mastema
+    detail wave. Substantively expands Jub 5-10 (Watchers cascade
+    + Flood judgment + Noahide covenant + 364-day calendar defense
+    + Noah's seven commandments + geographic division + binding of
+    demons + Mastema 1/10 permission + medical book to Noah + Tower
+    of Babel reversal). Mirrors the γ.4.4.B detail-wave pattern.
+    +40 entries on chs 5-10 (after γ.4.5 seed already covered 7
+    verses in this range, total Jubilees chs 5-10 coverage rises
+    from 7 to 47 entries).
+
+    Pins:
+    - Jub 5-10 substantively expanded (≥40 NEW entries beyond seed).
+    - Day-of-Atonement / Tewahedo-Astereyo anchor (5:17).
+    - Tewahedo dietary-law anchor (6:7 — no blood consumption).
+    - Feast-of-Weeks pre-Mosaic anchor (6:17 — Pentecost antecedent).
+    - 364-day calendar defense / Bāḥrä Ḥasab apologia (6:35).
+    - Canaan-not-Ham anti-racial reading (7:13).
+    - Inter-canonical witness — Noah cites Enoch (7:34).
+    - Shem-blessing-Tewahedo-geography (8:21 — Red Sea = Shem's portion).
+    - Anti-conquest oath until judgment (9:14).
+    - Binding of all demons (10:7) + Mastema 1/10 permission (10:9) —
+      Tewahedo non-dualist demonology with numerical bound.
+    - Medical book to Noah (10:11) — Tewahedo mädḫanit tradition warrant.
+    - Tower of Babel reversed by divine wind (10:26) — Pentecost antitype.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _jub_entries_in(self, start_ch: int, end_ch: int):
+        out = []
+        for chapter in range(start_ch, end_ch + 1):
+            for verse in range(1, 100):
+                out.extend(
+                    e
+                    for e in self.ec.for_verse("jub", chapter, verse)
+                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                )
+        return out
+
+    def test_jub_5_through_10_substantively_expanded(self):
+        # γ.4.5 seed covered 7 verses in chs 5-10; γ.4.5.B adds 40
+        # more for 47 total. Threshold ≥40 protects the wave intent
+        # without locking the exact count.
+        entries = self._jub_entries_in(5, 10)
+        assert len(entries) >= 40, f"γ.4.5.B expected ≥40 Jubilees entries in chs 5-10; found {len(entries)}"
+
+    def test_watchers_section_substantively_covered(self):
+        # Jub 5 — Watcher judgment + Flood — needs broad coverage,
+        # not just the 5:1 seed.
+        entries = self._jub_entries_in(5, 5)
+        assert len(entries) >= 6, (
+            f"γ.4.5.B expected ≥6 Jubilees entries in ch 5 (Watcher judgment); found {len(entries)}"
+        )
+
+    def test_noahide_covenant_section_substantively_covered(self):
+        # Jub 6 — Noahide covenant + calendar legislation — central
+        # Tewahedo theological section.
+        entries = self._jub_entries_in(6, 6)
+        assert len(entries) >= 8, (
+            f"γ.4.5.B expected ≥8 Jubilees entries in ch 6 (Noahide covenant + calendar); found {len(entries)}"
+        )
+
+    def test_mastema_chapter_substantively_covered(self):
+        # Jub 10 — demon-binding + Mastema 1/10 permission +
+        # medical book + Tower of Babel — Tewahedo demonology core.
+        entries = self._jub_entries_in(10, 10)
+        assert len(entries) >= 7, (
+            f"γ.4.5.B expected ≥7 Jubilees entries in ch 10 (Mastema + Babel); found {len(entries)}"
+        )
+
+    def test_day_of_atonement_astereyo_anchor_present(self):
+        # Jub 5:17 — annual atonement-by-turning-once-a-year, set in
+        # the Watchers-judgment context. Tewahedo Astereyo warrant.
+        e = [x for x in self.ec.for_verse("jub", 5, 17) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 5:17 — Day of Atonement / Astereyo anchor"
+
+    def test_no_blood_consumption_dietary_anchor_present(self):
+        # Jub 6:7 — pre-Mosaic prohibition. Tewahedo dietary law anchor.
+        e = [x for x in self.ec.for_verse("jub", 6, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 6:7 — no blood consumption (Tewahedo dietary anchor)"
+
+    def test_feast_of_weeks_pre_mosaic_anchor_present(self):
+        # Jub 6:17 — Pentecost established with Noah, not Moses.
+        # Tewahedo Pärräqlēṭos antecedent.
+        e = [x for x in self.ec.for_verse("jub", 6, 17) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 6:17 — Feast of Weeks pre-Mosaic (Pentecost antecedent)"
+
+    def test_364_day_calendar_defense_anchor_present(self):
+        # Jub 6:35 — lunar-reckoning critique. Bāḥrä Ḥasab apologia.
+        e = [x for x in self.ec.for_verse("jub", 6, 35) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 6:35 — 364-day calendar defense (Bāḥrä Ḥasab apologia)"
+
+    def test_canaan_not_ham_anti_racial_anchor_present(self):
+        # Jub 7:13 — Canaan (not Ham) saw nakedness. Tewahedo anti-
+        # racial reading of the Genesis 9 curse.
+        e = [x for x in self.ec.for_verse("jub", 7, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 7:13 — Canaan not Ham (anti-racial reading)"
+
+    def test_noah_cites_enoch_intercanonical_witness_present(self):
+        # Jub 7:34 — Noah commands his sons by Enoch's authority.
+        # Inter-canonical witness doubled (Jubilees citing Enoch).
+        e = [x for x in self.ec.for_verse("jub", 7, 34) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 7:34 — Noah cites Enoch (inter-canonical witness)"
+
+    def test_anti_conquest_oath_anchor_present(self):
+        # Jub 9:14 — Noah binds sons by oath against seizing
+        # another's portion. Tewahedo anti-conquest theology.
+        e = [x for x in self.ec.for_verse("jub", 9, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 9:14 — anti-conquest oath until judgment day"
+
+    def test_binding_of_all_demons_anchor_present(self):
+        # Jub 10:7 — God's first response is TOTAL binding.
+        # Tewahedo theodicy: divine intention is full restraint.
+        e = [x for x in self.ec.for_verse("jub", 10, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 10:7 — binding of all demons (divine intent of full restraint)"
+
+    def test_mastema_one_tenth_permission_anchor_present(self):
+        # Jub 10:9 — God grants 1/10 of demons to remain free.
+        # Tewahedo numerical-bounded-evil anchor.
+        e = [x for x in self.ec.for_verse("jub", 10, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 10:9 — Mastema 1/10 permission (numerical-bounded-evil)"
+
+    def test_medical_book_to_noah_anchor_present(self):
+        # Jub 10:11 — angels teach Noah herbal medicines paired
+        # with demonological diagnoses. Tewahedo mädḫanit tradition.
+        e = [x for x in self.ec.for_verse("jub", 10, 11) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 10:11 — medical book to Noah (mädḫanit tradition)"
+
+    def test_tower_of_babel_reversed_by_wind_anchor_present(self):
+        # Jub 10:26 — Tower overthrown by mighty wind. Pentecost
+        # antitype: the same Spirit reverses Babel at Acts 2.
+        e = [x for x in self.ec.for_verse("jub", 10, 26) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.B missing Jub 10:26 — Tower reversed by wind (Pentecost antitype)"

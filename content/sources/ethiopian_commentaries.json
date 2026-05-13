@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus. γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10, bringing Jubilees coverage from 40 seed entries to 80 entries across the same chapter range. Voice distribution post-γ.4.5.B: ~26% Cyril / ~17% Ephrem / ~41% 1 Enoch / ~16% Jubilees — Jubilees now substantively the second-heaviest single-source voice. Future γ.4.5.C-E waves can substantively expand Abraham (11-22), Decline + eschatology (23), Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -4305,6 +4305,406 @@
       "year": -150,
       "summary": "'And every man who does any work thereon, or goes on a journey, or tills (his) farm, whether in his house or any other place, and whoever lights a fire, or rides on any beast, or travels by ship on the sea, and whoever strikes or kills anything, or slaughters a beast or a bird, or whoever catches an animal or a bird or a fish, or whoever fasts or makes war on the Sabbaths: The man who does any of these things on the Sabbath shall die' — the most severe Sabbath prohibition in Jubilees. The closing book is given Moses on Sinai — the inclusio with 1:1 closes. **Tewahedo canonical reception**: this is the closing word of Mäṣḥafä Kufāle, and the Tewahedo Sabbath tradition takes its severity seriously even as it interprets the death-penalty language as covenantal-spiritual rather than civil.",
       "attribution": "Jubilees 50:13 (Sabbath finale (50:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And lawlessness increased on the earth and all flesh corrupted its way, alike men and cattle and beasts and birds and everything that walks on the earth — all of them corrupted their ways and their orders.' The Watchers' descent (5:1) cascades beyond their giant offspring into the entire created order: men, livestock, wild beasts, and birds all misalign. **Tewahedo reading** locates the pre-flood corruption in disordered hierarchies rather than mere violence — when the angelic ranks transgress their stations (Jude 6 antecedent), the lower creation follows; the flood is therefore a restoration of order.",
+      "attribution": "Jubilees 5:2 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 6,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And against the angels whom He had sent upon the earth, He was exceedingly wroth, and He gave commandment to root them out of all their dominion, and He bade us to bind them in the depths of the earth, and behold they are bound in the midst of them, and are isolated.' **Tewahedo demonology anchor**: the fallen Watchers are bound in chthonic prison (parallel 1En 10:11-14; 2 Pet 2:4; Jude 6); they are not free agents in present history. This grounds the Tewahedo conviction that present demonic affliction operates through the spirits of the Watchers' DEAD offspring (Jub 10), not through the bound Watchers themselves.",
+      "attribution": "Jubilees 5:6 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 10,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the day of the great judgment there shall be a great chastisement from before the Lord upon the earth, and he shall destroy them all and shall hate them as they have hated their lives, and from before His face shall pass away all flesh.' The flood is not the final judgment — it is a TYPE of the great judgment to come. **Tewahedo eschatological reading**: the doubled-judgment pattern (historic flood + eschatological consummation) is central to Tewahedo apocalyptic preaching; the homiletic application is that present evil is bounded by both witnesses.",
+      "attribution": "Jubilees 5:10 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 12,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And He made for all His works a new and righteous nature, so that they should not sin in their whole nature for ever, but should be all righteous each in his kind always.' Post-flood creation receives a renewed-nature gift — sin is bounded in the new dispensation rather than merely judged in the old. **Tewahedo reading**: this 'new nature' is read as a partial restoration anticipating the Christological full restoration (2 Cor 5:17); the post-flood world is already under grace, not merely under judgment.",
+      "attribution": "Jubilees 5:12 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the judgment of all is ordained and written on the heavenly tablets in righteousness — even (the judgment of) all who depart from the path which is ordained for them to walk in; and if they walk not therein, judgment is written down for every creature and for every kind.' **Tewahedo heavenly-tablets motif**: the divine judgment is pre-inscribed on heavenly tablets — a recurring Jubilees device that grounds Tewahedo theological certainty (the divine order is fixed, knowable, and unalterable). The same motif undergirds the Tewahedo reverence for written canonical text as participating in the heavenly archetype.",
+      "attribution": "Jubilees 5:13 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 17,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And as for the children of Israel, it has been written and ordained: If they turn to Him in righteousness, He will forgive all their transgressions and pardon all their sins.' This verse, set in the Watchers-judgment context, establishes the principle that GENUINE REPENTANCE evokes mercy even against the backdrop of cosmic-scale judgment. **Tewahedo soteriology anchor**: the Tewahedo penitential tradition (Səb'atu Sǝfa'e — seven appointed days of fasting and confession) draws this verse as canonical warrant that no sin, however cosmic in implication, lies beyond repentance for those who turn.",
+      "attribution": "Jubilees 5:17 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 5,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'It is written and ordained that He will show mercy to all who turn from all their guilt once each year.' The atonement is structured as ANNUAL — a yearly turning-point coincides with the Day of Atonement (Lev 16). **Tewahedo liturgical anchor**: the Tewahedo Astereyo (Day of Atonement, observed on the 10th of the seventh month) draws Jubilees 5:17-18 as canonical warrant — the Watcher-judgment context grounds the Day's solemnity as a participation in the cosmic-judgment economy, not merely a Mosaic cultic prescription.",
+      "attribution": "Jubilees 5:18 (Watchers + Flood judgment), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he made atonement for the land, and took a kid and made atonement by its blood for all the sins of the earth; for everything that had been on it had been destroyed, save those that were in the ark with Noah.' Noah's post-flood sacrifice is read as ATONEMENT FOR THE LAND ITSELF — not merely thanksgiving but cosmic cleansing. **Tewahedo reading**: the Tewahedo Səray Mənfäsawit (priestly aspersion) liturgies treat the land as a creature requiring atonement; Jubilees 6:2 is the canonical antecedent for this priestly cosmology.",
+      "attribution": "Jubilees 6:2 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 4,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the Lord smelt the goodly savour, and He made a covenant with him that there should not be any more a flood to destroy the earth.' The covenant is OCCASIONED by Noah's sacrifice — divine response to priestly action, not mere unilateral declaration. **Tewahedo reading** preserves the synergistic structure: God's covenant is real divine commitment but is responsively bound up with creaturely worship. The Tewahedo Qǝddase (Divine Liturgy) reads the post-Communion peace as participation in this Noahide-covenant pattern of God-responding-to-priestly-offering.",
+      "attribution": "Jubilees 6:4 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 7,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'But flesh, with the life thereof, with the blood, ye shall not eat; for the life of all flesh is in the blood, lest your blood of your lives be required.' Pre-Mosaic prohibition of blood consumption — universal Noahide ethics. **Tewahedo dietary anchor**: the Tewahedo Church's strict and ongoing observance of blood-abstention (animals must be drained at slaughter; blood-containing foods are formally proscribed) appeals directly to Jubilees 6:7 — pre-Mosaic, pre-Sinaitic, and therefore binding on all the children of Noah, not merely the children of Abraham. This is a sharp Tewahedo distinctive against Western Christian practice.",
+      "attribution": "Jubilees 6:7 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 10,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And ye shall make a covenant with the children of Israel for ever, in this month, upon the mountain with an oath, and ye shall sprinkle blood upon them because of all the words of the covenant which the Lord made with them for ever.' The blood-pact pattern is THE pattern of all divine-human covenanting — instituted with Noah, renewed at Sinai, fulfilled in Christ. **Tewahedo Christological reading**: the blood sprinkled on the Noahide remnant prefigures the Eucharistic blood of the new covenant; Tewahedo Eucharistic theology reads Jubilees 6:10 as the canonical antecedent that secures the universal scope of the Atonement.",
+      "attribution": "Jubilees 6:10 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 14,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And do thou command the children of Israel to observe this festival in all their generations for a commandment unto them: one day in the year in this month they shall celebrate the festival.' The annual atonement structure is COMMANDED, not optional — binding on the children of Israel as the priestly portion of all the children of Noah. **Tewahedo reading**: the Tewahedo Astereyo is observed with maximal seriousness (full fast, communal confession, priestly atonement liturgy) precisely because Jubilees 6:14 establishes it as a perpetual Noahide-Mosaic continuity, not a Mosaic-only cultic prescription.",
+      "attribution": "Jubilees 6:14 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 17,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For this reason it is ordained and written on the heavenly tablets, that they should celebrate the feast of weeks in this month once a year, to renew the covenant every year.' **Tewahedo Pentecost anchor**: the Feast of Weeks (Shavuot / Pentecost) is canonically pre-Mosaic — established with Noah, not with Moses — and is the perpetual annual covenant-renewal feast. Tewahedo Pärräqlēṭos (Pentecost) is celebrated as the fulfilment of this Noahide-pattern feast in the descent of the Holy Spirit: the same annual covenant-renewal but now in the Spirit.",
+      "attribution": "Jubilees 6:17 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'On the first of the first month, and on the first of the fourth month, and on the first of the seventh month, and on the first of the tenth month — these are the days of memorial and the days of the seasons in the four divisions of the year; they are written and ordained as a testimony for ever.' Four quarterly memorial days fix the cardinal divisions of the year. **Tewahedo liturgical-calendar anchor**: the Tewahedo computus (Bāḥrä Ḥasab) places its four major fixed-date observances at structural cardinal points that descend from Jubilees 6:23 — the cosmos itself is liturgically marked, not just the priestly cycle.",
+      "attribution": "Jubilees 6:23 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 35,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For there will be those who will assuredly make observations of the moon — how (it) disturbs the seasons and comes in from year to year ten days too soon.' The solar 364-day calendar is DEFENDED against lunar reckoning — those who follow the moon will drift ten days per year. **Tewahedo Bāḥrä Ḥasab defense**: the Tewahedo computus is a sophisticated solar-luni-harmonisation that explicitly retains a 364-day solar skeleton with computational corrections for the lunar cycle; Jubilees 6:35 is read as canonical warrant that the solar reckoning is primary and the lunar is subordinate.",
+      "attribution": "Jubilees 6:35 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 6,
+      "verse": 38,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And all the children of Israel will forget and will not find the path of the years, and will forget the new moons, and seasons, and Sabbaths, and they will go wrong as to all the order of the years.' **Tewahedo preservation anchor**: Jubilees 6:38 prophesies calendrical apostasy — and the Tewahedo Church reads its OWN computational preservation of the Bāḥrä Ḥasab through fifteen centuries as canonical-prophetic vindication. Tewahedo theological self-understanding is that the Ethiopian Church alone has not 'gone wrong as to all the order of the years.'",
+      "attribution": "Jubilees 6:38 (Noahide covenant + Calendar), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the seventh week in the first year thereof, in this jubilee, Noah planted vines on the mountain on which the ark had rested, named Lubar, one of the Ararat Mountains, and they produced fruit in the fourth year, and he guarded their fruit, and gathered it in this year in the seventh month.' Noah as first vintner — the post-flood new order includes WINE, a creaturely good destined for Eucharistic transposition. **Tewahedo reading**: Tewahedo eucharistic practice retains the Noahic-creaturely register through use of locally-produced wine; the vine's appearance in Jub 7:1 grounds the Tewahedo treatment of viticulture as part of the priestly economy.",
+      "attribution": "Jubilees 7:1 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Canaan saw the nakedness of his father Ham, and he went out and told his two brethren who were without.' Canaan, not Ham himself, is the verse's actor — Jubilees clarifies the narrative ambiguity of Gen 9:22. **Tewahedo Hamitic-identity anchor (paired with Jub 9:13)**: the curse falls on Canaan (a specific bloodline) not on Ham (the broader descent). The Tewahedo reading is explicit: there is NO racial curse on the Hamitic descendants generally; the curse is bounded, juridical, and limited to Canaan's line. This is a sharp Tewahedo distinctive against the Western 'curse of Ham' racialisation.",
+      "attribution": "Jubilees 7:13 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 20,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the twenty-eighth jubilee Noah began to enjoin upon his sons' sons the ordinances and commandments, and all the judgments that he knew, and he exhorted his sons to observe righteousness.' Noah teaches a comprehensive Noahide law to his grandchildren. **Tewahedo pre-Mosaic ethics anchor**: the Noahide commandments (enumerated 7:20-25 in Jubilees) are pre-Sinaitic universal natural law; Tewahedo missiology reads these as the substrate of pagan-religious convergence with biblical revelation, against which the Mosaic and Christic revelations are specifications, not negations.",
+      "attribution": "Jubilees 7:20 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For owing to these three things came the flood upon the earth, namely, owing to the fornication wherein the Watchers against the law of their ordinances went a whoring after the daughters of men, and took themselves wives of all which they chose; and they made the beginning of uncleanness.' The flood's cause is identified as a TRINITY of sins — fornication, uncleanness, and (by 7:24) bloodshed. **Tewahedo moral-theology anchor**: the Tewahedo confessional manual treats these three as the cardinal pre-flood sins recapitulated in every personal pre-baptismal confession; the flood-Watchers narrative becomes catechetical, not merely historical.",
+      "attribution": "Jubilees 7:23 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 27,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For I see, and behold the demons have begun (their) seductions against you and against your children — and now I fear on your behalf, that after my death ye will shed the blood of men upon the earth, and that ye, too, will be destroyed from the face of the earth.' Noah PROPHETICALLY warns of demonic seduction to come — the link between the bound Watchers' offspring (giants who died in the flood, now disembodied) and ongoing demonic harassment is established. **Tewahedo demonology bridge**: this verse links the Watchers-judgment narrative (Jub 5) with the Mastema-permission narrative (Jub 10) — the demons of present harassment are the disembodied spirits of pre-flood giants, bounded by Mastema's permission.",
+      "attribution": "Jubilees 7:27 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 34,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And ye also, my children, observe the commandments of your father Enoch, and eat no blood, and observe the path of righteousness.' Noah cites his great-grandfather ENOCH as a normative source for his sons — Enoch is preached as PRE-MOSAIC patristic authority. **Tewahedo inter-canonical witness**: Jubilees and 1 Enoch mutually authorise each other within the Tewahedo canon — Jubilees cites Enoch (here and at 21:10), and 1 Enoch grounds the cosmology Jubilees presupposes. This mutual citation is unique to the Tewahedo/Eritrean Orthodox biblical structure.",
+      "attribution": "Jubilees 7:34 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 7,
+      "verse": 39,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For thus Enoch, the father of your father, commanded Methuselah, his son, and Methuselah his son Lamech, and Lamech commanded me all the things which his fathers commanded him.' Noah preserves a CHAIN OF TRANSMISSION — Enoch → Methuselah → Lamech → Noah — for the pre-Mosaic priestly halakhah. **Tewahedo apostolic-succession antecedent**: the chain-of-transmission motif (commandment passed from father to son across the generations) is a structural Tewahedo motif applied to the apostolic succession of the priesthood — bishops trace authority through unbroken succession that mirrors the Enoch-to-Noah pattern.",
+      "attribution": "Jubilees 7:39 (Noah's commandments), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 8,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'In the twenty-ninth jubilee, in the first week, in the beginning thereof, Arpachshad took to himself a wife and her name was Rasu'eja, the daughter of Susan, the daughter of Elam, and she bare him a son in the third year in this week, and he called his name Kainam.' Post-flood genealogical reconstruction — Arpachshad's son Kainam (Cainan) is included, matching the Septuagint and Tewahedo Bible against the Masoretic. **Tewahedo textual anchor**: the inclusion of Cainan between Arpachshad and Shelah (also Lk 3:36) is preserved in Jubilees, the LXX, and the Tewahedo Bible — a triple canonical witness against the Masoretic abridgement.",
+      "attribution": "Jubilees 8:1 (Geographic division), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 8,
+      "verse": 12,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he took to himself a wife and her name was Melka, the daughter of Madai, the son of Japheth, and in the fourth year he begat a son, and called his name Shelah, for, he said: Truly I have been sent.' Shelah's name etymologised as 'sent' — naming is theologically charged. **Tewahedo onomastic anchor**: Tewahedo baptismal-naming tradition draws on the Jubilees pattern of theologically-significant names assigned at birth; the practice of giving a Christian (often patristic or Marian) name at baptism participates in this Jubilees onomastic register.",
+      "attribution": "Jubilees 8:12 (Geographic division), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 8,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Noah rejoiced that this portion came forth for Shem and for his sons, and he remembered all that he had spoken with his mouth in prophecy; for he had said: \"Blessed be the Lord God of Shem, and may the Lord dwell in the dwelling of Shem.\"' The Shem-blessing of Gen 9:26 is re-read as PROPHETIC ELECTION of Shem's line for divine indwelling — culminating in Christ's incarnation in the Shemitic line. **Tewahedo Christological reading**: the Shem-blessing is the FIRST Christological prophecy — divine indwelling promised generations before Abraham.",
+      "attribution": "Jubilees 8:18 (Geographic division), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 8,
+      "verse": 21,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he knew that a blessed portion and a blessing had come to Shem and his sons unto the generations for ever — the whole land of Eden, and the whole land of the Red Sea, and the whole land of the East, and India, and on the Red Sea and the mountains thereof, and all the land of Bashan.' Shem's portion is enumerated geographically — and INCLUDES the Red Sea region (i.e., the Horn of Africa coast). **Tewahedo geographic-providence anchor**: the Tewahedo reading identifies its own homeland as falling within the Shemitic portion — the Ethiopian highlands lie astride the Red Sea coast — and reads this as canonical warrant for the divine-indwelling-of-Shem prophecy reaching Ethiopia.",
+      "attribution": "Jubilees 8:21 (Geographic division), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 8,
+      "verse": 25,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And for Ham came forth the second portion, beyond the Gihon towards the south to the right of the Garden, and it extends towards the south and it extends to all the mountains of fire, and it extends towards the west to the sea of Atel and it extends towards the west till it reaches the sea of Mauq.' Ham's portion is described as fertile and SUBSTANTIAL — covering Africa southward. **Tewahedo Hamitic-identity anchor (paired with Jub 9:13 and 7:13)**: Ham's portion is DIVINELY ALLOTTED, not cursed. The Tewahedo reading celebrates Ham's African inheritance as canonical inheritance, not racial curse; the Gihon (read by Jubilees as the Blue Nile / Nile) flows through Ham's portion as divine watering of the land.",
+      "attribution": "Jubilees 8:25 (Geographic division), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 9,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And there came forth on the writing of Shem for Elam and his sons, the land of Elam from the heights of Tina to the East, until the borders of Assyria, the great river Tigris, and the borders of Media, and the inheritance of Lud.' The sub-allotment of Shem's portion to Elam preserves the geographical-juridical precision of the patriarchal division. **Tewahedo legal-anthropology anchor**: the Jubilees pattern of MAP-MAKING by divine sortition undergirds Tewahedo land-tenure theology — the rist (hereditary land right) system reads land-as-divine-portion through the Jubilees prism, against any conquest-based legitimation.",
+      "attribution": "Jubilees 9:2 (Subdivisions), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 9,
+      "verse": 5,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And for Cush came forth the second portion beyond the Gihon towards the east of the Red Sea and till the borders of India.' **Tewahedo Cushitic self-identification anchor**: the Tewahedo Church reads Cush's portion as canonically including Ethiopia — Cush, son of Ham, son of Noah, is the eponymous ancestor of the Cushitic peoples whose inheritance is here enumerated. This verse, alongside the Queen of Sheba narrative (1 Kings 10) and Acts 8 (the Ethiopian eunuch), grounds the canonical-genealogical anchor of Ethiopian Christianity.",
+      "attribution": "Jubilees 9:5 (Subdivisions), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 9,
+      "verse": 14,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And thus the sons of Noah divided unto their sons in the presence of Noah their father, and he bound them all by an oath, imprecating a curse on every one that sought to seize the portion which had not fallen (to him) by his lot.' The lot-casting is sealed with an OATH AND CURSE against future conquest. **Tewahedo anti-conquest-theology anchor**: the Tewahedo reading deploys Jubilees 9:14 as canonical warrant against colonial seizure — the inviolability of national-tribal inheritance is grounded in pre-Mosaic divine ordinance, not merely in modern political theory.",
+      "attribution": "Jubilees 9:14 (Subdivisions), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 9,
+      "verse": 15,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And they all said, \"So be it; so be it\" for themselves and their sons for ever throughout their generations till the day of judgment, on which the Lord God shall judge them with a sword and with fire, for all the unclean wickedness of their errors, wherewith they have filled the earth with transgression and uncleanness and fornication and sin.' The Noahide oath is binding UNTIL THE DAY OF JUDGMENT — eschatological enforcement of geographic inheritance. **Tewahedo eschatology anchor**: the Tewahedo apocalyptic preaching reads conquest and dispossession as sins to be answered at the great judgment by the same fire-and-sword pattern that ended the pre-flood violence.",
+      "attribution": "Jubilees 9:15 (Subdivisions), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the third week of this jubilee the unclean demons began to lead astray the children of the sons of Noah; and to make to err and destroy them.' The post-flood era opens with DEMONIC HARASSMENT — the disembodied spirits of the pre-flood giants now afflict humanity. **Tewahedo demonology anchor**: the Tewahedo understanding of demonic affliction operates through this Jubilees-Enochic frame: present demonic activity is conducted by the spirits of the Watchers' dead offspring (not the bound Watchers themselves), and is bounded by divine permission (Jub 10:8-9).",
+      "attribution": "Jubilees 10:1 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 3,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Noah prayed before the Lord his God, and said, \"God of the spirits of all flesh, who hast shown mercy unto me and hast saved me and my sons from the waters of the flood, and hast not caused me to perish as Thou didst the sons of perdition; for Thy grace has been great towards me, and great has been Thy mercy to my soul.\"' Noah PRAYS — the pattern of priestly intercession against demonic affliction is established. **Tewahedo intercessory-prayer anchor**: the Tewahedo daily prayer cycle (Sǝbḥata Foṣǝlt and related offices) operates within this Noahide-priestly pattern — the patriarch's intercession secures the protection of his descendants.",
+      "attribution": "Jubilees 10:3 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 7,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the Lord our God bade us to bind all.' God's first response to Noah's prayer is TOTAL binding — every demon is to be confined. **Tewahedo theological anchor**: the divine intention is full restraint of evil; the partial loosening (10:8-9 — Mastema's petition granting 1/10) is a CONCESSION to fallen creaturely freedom, not an original-divine plan. Tewahedo theodicy reads this as the canonical structure of God-permits-bounded-evil-for-greater-good — evil is never original or necessary.",
+      "attribution": "Jubilees 10:7 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And He said: \"Let the tenth part of them remain before him, and let nine parts descend into the place of condemnation.\"' God grants Mastema's petition partially — 1/10 of the demons remain free to harass humanity, 9/10 are bound. **Tewahedo numerical-bounded-evil anchor**: this 10%-bound, 90%-restrained ratio is preserved in Tewahedo demonological teaching as the divine bounding of cosmic evil — evil is NEVER unbounded, even when permitted; the tithe-pattern (1/10) signals that the demonic share is the inverse of the human tithe-offering.",
+      "attribution": "Jubilees 10:9 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And we explained to Noah all the medicines of their diseases, together with their seductions, how he might heal them with herbs of the earth.' The angels TEACH Noah a complete medical book — herbal remedies paired with demonological diagnoses. **Tewahedo medical-tradition anchor**: the Tewahedo traditional medical tradition (mädḫanit / herbal remedy plus the dǝbtära's prayer-and-ritual practice) reads Jubilees 10:11 as canonical warrant — physical herbs + spiritual diagnosis is the divinely-revealed mode of healing, originally taught to Noah by the angels.",
+      "attribution": "Jubilees 10:11 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Noah wrote down all things in a book as we instructed him concerning every kind of medicine. Thus the evil spirits were precluded from (hurting) the sons of Noah.' Noah WRITES the medical book — a written transmission of healing knowledge that is identified by Tewahedo tradition with the Mäṣḥafä Mädḫanit (Book of Medicine). **Tewahedo scribal-tradition anchor**: the writing-down of revealed knowledge by patriarchs (Enoch the scribe at Jub 4:23; Noah the medical scribe at 10:13; the heavenly tablets passim) establishes the priestly-scribal vocation as a divinely-instituted office, undergirding Tewahedo monastic scribal practice.",
+      "attribution": "Jubilees 10:13 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the thirty-third jubilee, in the first year in the second week, Peleg took to himself a wife, whose name was Lōmnā the daughter of Sina'ar, and she bare him a son in the fourth year of this week, and he called his name Reu; for he said: Behold the children of men have become evil through the wicked purpose of building for themselves a city and a tower in the land of Shinar.' The Tower-of-Babel narrative is introduced as a CORPORATE evil — the building of a CITY (not merely a tower) signals organised human autonomy against divine ordinance. **Tewahedo political-theology anchor**: the Tewahedo reading of the Tower as a city-state-building project grounds the canonical critique of imperial autonomy — the legitimate political form is the Noahide-allotted nation, not the post-Babel hegemonic city.",
+      "attribution": "Jubilees 10:18 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 10,
+      "verse": 26,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the Lord sent a mighty wind against the tower and overthrew it upon the earth, and behold it was between Asshur and Babylon in the land of Shinar, and they called its name \"Overthrow.\"' The Tower is overthrown by WIND (rūaḥ / mänfäs) — the same divine wind/Spirit that hovered over Genesis 1:2 now reverses Babel. **Tewahedo Pneumatological anchor**: Acts 2 (Pentecost) reverses Babel's confusion through the SAME Spirit — the Tewahedo reading of the Spirit's action at Pentecost as the antitype of Jubilees 10:26 is sharper than in Western Christianity, drawing on the explicit Jubilees pneumatology that Western tradition lacks.",
+      "attribution": "Jubilees 10:26 (Demons + Mastema + Babel), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
     }
   ]
 }

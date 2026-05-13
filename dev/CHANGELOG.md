@@ -6,6 +6,124 @@
 
 ---
 
+## 2026-05-12 — session — γ.4.5.B Jubilees Watchers + Mastema detail (40 entries on Jub 5-10)
+
+**Phases shipped:** γ.4.5.B — substantive expansion of Jubilees
+chapters 5-10. Mirrors the γ.4.4.B detail-wave pattern. The γ.4.5
+seed (shipped earlier today) gave broad coverage of all 50 chapters
+with 7 verses falling in chs 5-10; γ.4.5.B brings chs 5-10 coverage
+from 7 to 47 entries, focused on the Watcher-judgment / Noahide-
+covenant / demon-binding / Mastema-permission narrative core.
+
+**Test delta:** +15 (`TestGamma45BJubileesWatchersMastemaWave`,
+1 wave class with 15 anchor pins). Total ethiopian_commentaries.json
+entries: 430 → 470.
+
+**Linter delta:** 11/11 clean.
+
+### What shipped
+
+40 verse-keyed entries spanning Jub 5-10, with major Tewahedo
+anchors:
+
+- **5:2, 5:6, 5:10, 5:12, 5:13, 5:17, 5:18** — Watchers cascade
+  (corruption reaches the animal kingdom) + Watchers bound in
+  chthonic prison + great-judgment foreshadowing + new-creation
+  motif + heavenly-tablets motif + **Day of Atonement linked to
+  Watcher judgment (5:17-18 — Tewahedo Astereyo warrant)**.
+- **6:2, 6:4, 6:7, 6:10, 6:14, 6:17, 6:23, 6:35, 6:38** —
+  Noah's post-flood atonement as land-cleansing + covenant of
+  seasons + **no blood consumption (6:7 — Tewahedo dietary law
+  anchor)** + blood-life equivalence + annual atonement command
+  + **Feast of Weeks pre-Mosaic (6:17 — Tewahedo Pärräqlēṭos /
+  Pentecost antecedent)** + four-quarterly memorial days +
+  **calendar-defense / 364-day lunar critique (6:35-38 — Bāḥrä
+  Ḥasab apologia + canonical-prophetic vindication of Tewahedo
+  calendar preservation)**.
+- **7:1, 7:13, 7:20, 7:23, 7:27, 7:34, 7:39** — Noah the vintner
+  + **Canaan-not-Ham (7:13 — Tewahedo anti-racial reading of the
+  Gen 9 curse)** + Noahide seven commandments + flood-trinity-
+  of-sins (fornication / uncleanness / bloodshed) + prophetic
+  warning of demonic seduction + **Noah cites Enoch (7:34 —
+  inter-canonical witness doubled)** + Enoch→Methuselah→Lamech→
+  Noah chain of transmission.
+- **8:1, 8:12, 8:18, 8:21, 8:25** — post-flood genealogy including
+  Cainan (LXX / Tewahedo against MT) + onomastic-as-prophetic
+  pattern + **Shem-blessing as first Christological prophecy
+  (8:18) + Shemitic portion includes the Red Sea region
+  (8:21 — canonical anchor for the divine-indwelling promise
+  reaching Ethiopia)** + Ham's portion celebrated as substantial
+  divine allotment (8:25).
+- **9:2, 9:5, 9:14, 9:15** — sub-allotment by lot + **Cush's
+  portion canonically anchors Tewahedo Cushitic self-identification
+  (9:5)** + **anti-conquest oath (9:14-15 — binding against
+  imperial seizure until the day of judgment)**.
+- **10:1, 10:3, 10:7, 10:9, 10:11, 10:13, 10:18, 10:26** — demons
+  begin afflicting Noah's children + Noah prays + **God commands
+  binding of all demons (10:7 — divine intent is full restraint)**
+  + **Mastema 1/10 permission (10:9 — numerical-bounded-evil
+  anchor)** + **angels teach Noah a complete medical book
+  (10:11 — Tewahedo mädḫanit tradition canonical warrant)** +
+  Noah writes the medical book + **Tower of Babel as corporate
+  political autonomy (10:18) + reversed by divine wind (10:26 —
+  Pentecost antitype)**.
+
+### Why this wave matters for the Tewahedo edition
+
+γ.4.5.B closes the loop between the Watchers narrative (1 Enoch,
+substantively covered through γ.4.4.E) and its parallel in Jubilees.
+The Tewahedo canon uniquely preserves BOTH inter-witnessing texts;
+the corpus's coverage of the two should be roughly symmetrical.
+Pre-γ.4.5.B: 1 Enoch had ~192 substantive entries; Jubilees had
+40 seed-level entries. γ.4.5.B brings Jubilees Watchers / Noahide-
+covenant / Mastema sections to substantive-detail parity with the
+1 Enoch Watchers detail (γ.4.4.B, 51 entries on 1En 1-36).
+
+### Voice mix post-γ.4.5.B
+
+```
+Approximate distribution:
+  ~26%  Cyril of Alexandria  (γ.4.1 series)
+  ~17%  Ephrem the Syrian    (γ.4.2 series)
+  ~41%  1 Enoch tradition    (γ.4.4 series)
+  ~16%  Jubilees tradition   (γ.4.5 + γ.4.5.B)
+```
+
+Jubilees moves from 5th-place seed voice to 4th-place substantively-
+present voice. 1 Enoch retains dominance (consistent with the
+Tewahedo edition's eponymous canonical priority).
+
+### Source
+
+All entries paraphrased from R.H. Charles, *The Book of Jubilees*
+(Oxford: Clarendon, 1902 — PD). Same source as the γ.4.5 seed wave
+shipped earlier today; no new source-licensing required.
+
+### What's next
+
+Per SESSION_STATE recommendation chain:
+- **γ.4.5.C** — Abraham cycle (Jub 11-22) substantive detail
+- **γ.4.5.D** — Jacob cycle (Jub 24-36) substantive detail
+- **γ.4.8** — Mäqabyan seed (DEFERRED pending PD source acquisition;
+  current Wikisource CC-BY-SA translations lack named-translator
+  attribution and source-manuscript identification — fails the
+  corpus's named-PD-edition standard)
+- **γ.4.2.C** — Ephrem on Exodus continuation
+
+### Linter / preflight
+
+11/11 clean. Pre-commit hook (now functional after today's earlier
+fix at d58dec5) ran end-to-end on the commit.
+
+### Test count
+
+After γ.4.5.B: ethiopian_commentaries.json holds **470 entries**
+across the established voices. New TestGamma45BJubileesWatchersMastemaWave
+class adds 15 pins for the wave's substantive coverage and major
+Tewahedo theological anchors.
+
+---
+
 ## 2026-05-12 — session — γ.4.5 Mäṣḥafä Kufāle / Book of Jubilees seed (40 entries across all 50 chapters) — opens SECOND uniquely-Tewahedo canonical text
 
 **Phases shipped:** γ.4.5 — Mäṣḥafä Kufāle / Book of Jubilees seed
