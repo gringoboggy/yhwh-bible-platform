@@ -1,5 +1,55 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / ω.41 hygiene bundle ships — AUDIT_2026-05-
+13-EOD follow-through. 4 of 5 WARN items addressed in single
+hygiene-cluster commit-set: EOD-W1 PLAN §2 status-snapshot
+refreshed (3808 tests / 52,459 notes / 11 books in patristic
+source corpus); EOD-W2 `_dedup_ethiopian_notes.py` docstring
+extended with LOAD-BEARING-NO-LONGER SAFETY NOTE banner; EOD-W3
+CLAUDE_PROJECT_RULES §1 extended with "Patristic-source voice
+composition" subsection codifying Cyril's 48.5% plurality as
+intentional (Cyril = 24th Patriarch of See of Mark, apostolic
+succession to John Mark + Athanasius + Frumentius); EOD-W4
+CLAUDE_PROJECT_RULES §7.4 added codifying one-shot ship-scripts
+retention rule; SESSION_STATE inventory extended with OBSOLETE
+SAFETY SCRIPTS + ONE-SHOT SHIP SCRIPTS pointer blocks. EOD-W5
+(other default-state-assumption tests) deferred to future sweep
+per audit recommendation. Suite 3808 + 1 skip unchanged; linter
+11/11; ruff format unchanged.** Triggered by user "ok save and
+go ahead with recommended order" after AUDIT_2026-05-13-EOD.
+Per §3 hygiene-class priorities and AUDIT recommended priority
+order (P1 save → P2 PLAN refresh → P3 ω.41 hygiene → P4 γ.4.7.B
+next).
+
+**P1 SAVE already shipped** as commit `0cc884a` (gamma.4.6.C +
+gamma.4.6.D + gamma.4.7 + AUDIT_2026-05-13-EOD bundled) +
+cleanup commit `7c5a51f` (stray 0-byte file removal from shell-
+pipe mishap during save). Pre-commit hook ran ruff format check
++ lint_rules.py both green at commit time.
+
+**Items shipped (ω.41 hygiene bundle):**
+
+- `dev/PLAN_2026-05-09.md:73-94` — §2 status snapshot refresh
+  (EOD-W1).
+- `scripts/_dedup_ethiopian_notes.py` — LOAD-BEARING-NO-LONGER
+  SAFETY NOTE in docstring (EOD-W2).
+- `dev/CLAUDE_PROJECT_RULES.md §1.x "Patristic-source voice
+  composition" + §7.4 "One-shot ship scripts" (EOD-W3 + W4).
+- `dev/SESSION_STATE.md` — inventory section extended with
+  OBSOLETE SAFETY SCRIPTS + ONE-SHOT SHIP SCRIPTS blocks.
+
+**Voice-composition policy now codified:** Cyril's 48.5%
+plurality is intentional-not-accidental per the apostolic-
+succession rationale. Future >50% Cyril share (likely with
+γ.4.7.x detail-wave expansion) is acceptable but flag-in-headline.
+
+**Recommended next ship:** P4 γ.4.7.B Cyril-on-Mark detail wave I
+(~40-50 entries on Mark 1-5 Galilean-ministry first half).
+Cramer Vol. I has Mark fragments alongside Matthew (same PD
+volume).
+
+---
+
 **Updated 2026-05-13 / γ.4.7 Cyril-on-Mark seed ships — OPENS the
 FOURTH and final canonical-Gospel Cyrillian arc; ALL FOUR Cyril-on-
 canonical-Gospels arcs now present (3 closed + 1 newly-opened-as-
@@ -9163,6 +9213,24 @@ HOUSEKEEPING:
   scripts/scaffold_console.py (ω.0.2 — single-command new-console
   bootstrap)
   tests/fixtures.py (ω.0.3 — shared test fixtures)
+
+OBSOLETE SAFETY SCRIPTS (kept as emergency-restore tools per
+ω.41 / EOD-W2; carry LOAD-BEARING-NO-LONGER docstring banners):
+  scripts/_dedup_ethiopian_notes.py — removed 4,240 duplicates
+    during γ.4.6.B (pre-N-W4 era). Now no-op on clean files; N-W4
+    idempotency makes it unnecessary. Retained for emergency-
+    restore if N-W4 regresses.
+
+ONE-SHOT SHIP SCRIPTS (retain one release cycle, then archive per
+CLAUDE_PROJECT_RULES §7.4 codified at ω.41 / EOD-W4):
+  scripts/_ship_gamma46.py    γ.4.6  seed (Cyril-on-Matt, 45)
+  scripts/_ship_gamma46b.py   γ.4.6.B Sermon detail (50)
+  scripts/_ship_gamma46c.py   γ.4.6.C Galilean detail (50)
+  scripts/_ship_gamma46d.py   γ.4.6.D Matthew arc-close (50)
+  scripts/_ship_gamma47.py    γ.4.7  Cyril-on-Mark seed (40)
+  → archive to dev/archive/ship_scripts/γ.4.6-arc/ after the
+    arc's full release cycle (post-v1.x.x publisher cut).
+  → γ.4.7 archive deferred until Mark arc closes at γ.4.7.D.
 
 CORPUS GROWTH PIPELINE (χ cluster — pattern proven repeatable
 across 4 detectors now):

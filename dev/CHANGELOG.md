@@ -6,6 +6,85 @@
 
 ---
 
+## 2026-05-13 — session — ω.41 hygiene bundle (audit follow-through; EOD-W1/W2/W3/W4)
+
+**Phases shipped:** ω.41 — hygiene bundle addressing 4 of 5 WARN
+items from AUDIT_2026-05-13-EOD (EOD-W5 deferred per audit
+recommendation as future-sweep work, not this session).
+
+**§3 sequencing rationale:** Per user "ok save and go ahead with
+recommended order" after AUDIT_2026-05-13-EOD. P1 (save) already
+shipped as commit `0cc884a` + cleanup `7c5a51f`. P2 (PLAN refresh)
+landed via single-line PLAN §2 status-snapshot edit. P3 (this
+ω.41 bundle) addresses EOD-W2/W3/W4 in a single hygiene-cluster
+commit.
+
+**Items shipped:**
+
+1. **EOD-W1 P2: `dev/PLAN_2026-05-09.md:73-94`** — §2 status snapshot
+   refreshed from "3691 tests / 51,394 notes / 9 books" stale-as-
+   of-AUDIT_2026-05-13-AM to "3808 tests / 52,459 notes (1,065 of
+   which are γ.4 patristic-promoted) / 11 books covered in patristic
+   source corpus". Phase-shipped list extended with ω.40 + N-W4 fix
+   + γ.4.6/B/C/D + γ.4.7. Re-staling pattern noted for future
+   self-healing linter check.
+
+2. **EOD-W2: `scripts/_dedup_ethiopian_notes.py` docstring**
+   extended with explicit LOAD-BEARING-NO-LONGER SAFETY NOTE banner
+   describing N-W4 idempotency closure. Original incident context
+   preserved for posterity. Distinguishes "obsolete safety script"
+   (this) from "permanent at-scale driver" or "one-shot ship
+   script" categories.
+
+3. **EOD-W3: `dev/CLAUDE_PROJECT_RULES.md §1 corpus-depth-target**
+   extended with new "Patristic-source voice composition"
+   subsection. Codifies Cyril's plurality at 48.5% as intentional-
+   not-accidental (Cyril = 24th Patriarch of See of Mark; standing
+   in apostolic succession to John Mark + Athanasius +
+   Frumentius). Recasts the corpus as "Cyrillian-led patristic
+   chorus + three Tewahedo-canonical-OT + one Syriac supplement"
+   rather than an even four-voice quartet. Permits >50% Cyril if
+   future γ.4.7.x detail-waves push past — flag-in-SESSION_STATE
+   trajectory rather than hard cap.
+
+4. **EOD-W4: `dev/CLAUDE_PROJECT_RULES.md §7.4 (NEW)**
+   "One-shot ship scripts" retention rule. Codifies the
+   `_ship_*.py` retention policy: keep in `scripts/` one full
+   release cycle after the relevant arc closes; archive to
+   `dev/archive/ship_scripts/<arc-tag>/` after that. Distinguishes
+   from permanent at-scale drivers (`run_*_at_scale.py`) and
+   from obsolete safety scripts. Applies prospectively to γ.4.6-arc
+   ship scripts (5 currently in tree).
+
+5. **`dev/SESSION_STATE.md` inventory section** — added "OBSOLETE
+   SAFETY SCRIPTS" pointer block (lists `_dedup_ethiopian_notes.py`)
+   + "ONE-SHOT SHIP SCRIPTS" pointer block (lists the 5
+   `_ship_gamma*.py` files with their phase tags + archival
+   trigger condition). Both per the new §7.4 + EOD-W2/W4 rules.
+
+**EOD-W5 (other default-state-assumption tests) DEFERRED** —
+per audit recommendation, this is a future-sweep concern not
+addressed in this hygiene bundle. The state-aware test fix at
+γ.4.6.D (`test_by_verse_empty_for_unknown`) already provides a
+reference pattern for future sweeps.
+
+**Test delta:** 0 net tests (doc-and-rule changes only). Full
+suite remains 3808 passed + 1 skipped. Linter 11/11 clean. Ruff
+format unchanged (no .py files reformatted — `_dedup_ethiopian_
+notes.py` docstring extension was within existing string literal).
+
+**Forward references:**
+- **P4 γ.4.7.B Cyril-on-Mark detail wave I** is the next-natural
+  content ship per the AUDIT recommendation order. Cramer Vol. I
+  has Mark fragments alongside Matthew (same PD volume; same
+  attribution template). Per the new §1 voice-composition rule,
+  the Cyril-past-50% threshold is acceptable but should be flagged
+  in the SESSION_STATE headline. Suggested scope: ~40-50 entries
+  on Mark 1-5 (Galilean ministry first half), mirroring
+  γ.4.6.B Sermon-on-Mount detail-wave shape.
+
+---
+
 ## 2026-05-13 — session — γ.4.7 Cyril-on-Mark seed (OPENS FOURTH and final canonical-Gospel arc)
 
 **Phases shipped:** γ.4.7 — Cyril-on-Mark seed wave. 40 verse-keyed

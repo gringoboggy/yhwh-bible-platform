@@ -1,18 +1,42 @@
 """γ.4.6.B-hotfix — dedup duplicate comm-ethiopian tuples in content/notes/*.py.
 
-Cause: scripts/batch_promote_xrefs.py + scripts/promote.py are non-idempotent.
-Each re-run of the χ-cluster (run_ethiopian_at_scale.py → batch_promote_xrefs.py)
-re-promotes every source entry with the NEXT available suffix letter ('c', 'd',
-'e', ...). γ.4.6's first ship added 45 unique Cyril-on-Matthew. γ.4.6.B's
-ship re-ran batch_promote and (a) added 50 new γ.4.6.B Sermon entries, but
-ALSO (b) re-duplicated all 45 γ.4.6 entries + similarly polluted every
-γ.4 source-book.
+⚠️ SAFETY NOTE — LOAD-BEARING-NO-LONGER POST-N-W4 FIX (2026-05-13).
 
-This script reads each notes/*.py via ast, identifies comm-ethiopian tuples
-that duplicate an earlier-occurring (chapter, verse, kind, body, attribution)
-tuple, and removes them by line-slicing the source text. Preserves all
-non-tuple formatting (docstring, imports, comments, NOTES_X aliases).
-Idempotent — re-running this script on a clean file is a no-op.
+The N-W4 idempotency fix (commit 67a9c1c, 2026-05-13) made
+`scripts/promote.py` `promote_candidate()` idempotent at the core via
+the `note_already_exists()` helper + early-return. As of N-W4, every
+χ-cluster re-promote correctly skips already-present entries; no
+duplicates are produced.
+
+This script is retained in tree as an emergency-restore tool in case
+N-W4 regresses. On a clean (post-N-W4) corpus it is a strict no-op —
+verified across γ.4.6.C / γ.4.6.D / γ.4.7 production-scale ships
+(3 verifications: 50/50/40 promoted, 0 errors, 0 duplicates created).
+
+When to invoke this script (NORMAL operation = NEVER):
+- Only if a future change breaks N-W4 idempotency AND duplicates land
+  in content/notes/*.py before the regression is detected.
+- AUDIT_2026-05-13-EOD EOD-W2 flagged this script's status; see that
+  audit for the closure of the original N-W4 incident.
+
+Original incident context (for posterity):
+
+Cause: scripts/batch_promote_xrefs.py + scripts/promote.py WERE
+non-idempotent (pre-N-W4). Each re-run of the χ-cluster
+(run_ethiopian_at_scale.py → batch_promote_xrefs.py) re-promoted every
+source entry with the NEXT available suffix letter ('c', 'd', 'e', ...).
+γ.4.6's first ship added 45 unique Cyril-on-Matthew. γ.4.6.B's ship
+re-ran batch_promote and (a) added 50 new γ.4.6.B Sermon entries, but
+ALSO (b) re-duplicated all 45 γ.4.6 entries + similarly polluted every
+γ.4 source-book — 4,240 duplicates total across 10 books. This script
+removed them on 2026-05-13 morning before N-W4 fix landed.
+
+Mechanism: reads each notes/*.py via ast, identifies comm-ethiopian
+tuples that duplicate an earlier-occurring (chapter, verse, kind, body,
+attribution) tuple, and removes them by line-slicing the source text.
+Preserves all non-tuple formatting (docstring, imports, comments,
+NOTES_X aliases). Idempotent — re-running this script on a clean file
+is a no-op.
 
 Run from project root: python scripts/_dedup_ethiopian_notes.py
 """

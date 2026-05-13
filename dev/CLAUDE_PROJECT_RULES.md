@@ -69,18 +69,56 @@ headroom). Drawn from public-domain sources via the existing
 `prospect → promote` pipeline. Other editions are subsets; their
 note counts fall out automatically from canon + kind filtering.
 
-Today's count: **51,394 notes** (corpus floor met). Continued
-growth via χ-AI-xrefs (LLM-backed thematic cross-references) and
-γ-cluster expansion (γ.4.x Tewahedo + γ.6 Vulgate + γ.7 Targums)
-is **opportunistic, not blocking** — the depth claim against
-every competing free Bible app is comfortably satisfied. Future
-γ-cluster ships add depth in specific dimensions (Tewahedo
-distinctive readings, manuscript-text-critical apparatus) rather
-than chasing raw count.
+Today's count: **52,459 notes** (post-2026-05-13 EOD, +1,065
+γ.4 patristic-promoted notes on top of the 51,394 hand-authored
+baseline). Corpus floor met with substantial headroom (148.5% of
+original upper bound). Continued growth via χ-AI-xrefs (LLM-backed
+thematic cross-references) and γ-cluster expansion (γ.4.x Tewahedo
++ γ.6 Vulgate + γ.7 Targums) is **opportunistic, not blocking** —
+the depth claim against every competing free Bible app is
+comfortably satisfied. Future γ-cluster ships add depth in specific
+dimensions (Tewahedo distinctive readings, manuscript-text-critical
+apparatus) rather than chasing raw count.
 
 Every change should make the demo better, simpler, deeper, or
 more impressive. If a change doesn't serve the demo, it should be
 explicitly deferred unless the user pulled it forward.
+
+### Patristic-source voice composition
+
+**Codified at ω.41 hygiene bundle, 2026-05-13, per AUDIT_2026-05-13-
+EOD EOD-W3:**
+
+The γ.4 patristic source corpus (`content/sources/ethiopian_
+commentaries.json`, currently 1,065 entries) is **Cyril-led** by
+design. The four-voice composition is:
+
+- **Cyril of Alexandria** (48.5%, 516 entries — Alexandrian-Coptic
+  patriarchal commentary; the Tewahedo Christological doctrinal
+  centerpiece via the Mark → Athanasius → Frumentius apostolic
+  lineage).
+- **Jubilees (Ethiopian tradition)** (18.8%, 200 entries — uniquely-
+  Tewahedo-canonical OT pseudepigraphical witness).
+- **1 Enoch (Ethiopian tradition)** (18.0%, 192 entries — uniquely-
+  Tewahedo-canonical OT pseudepigraphical witness).
+- **Ephrem the Syrian** (14.7%, 157 entries — Syriac patristic
+  voice; the East-Syrian-Alexandrian bridge).
+
+**Cyril's plurality is intentional, not accidental.** Cyril is the
+24th Patriarch of the See of Mark, standing in direct apostolic
+succession to John Mark (Coptic founder) and to Athanasius
+(Tewahedo founder Frumentius's consecrator c. 330). His commentary
+on the four canonical Gospels is the doctrinal heart of the
+Tewahedo flagship. The corpus is therefore "Cyrillian-led patristic
+chorus + three Tewahedo-canonical-OT + one Syriac supplement"
+rather than an even four-voice quartet.
+
+**If Cyril's share crosses 50% (single-father-majority threshold)**
+in future γ.4.7.x detail-wave expansion, that is acceptable per
+this rule — but flag it explicitly in the relevant SESSION_STATE
+headline so the trajectory is visible. Balance with Ephrem or
+pseudepigraphical expansion if a publisher uniqueness-angle pick
+(per memory `v1_terminus`) calls for it.
 
 ## 2. Universal principles (from SCOPE_2026-05-08.md, carried verbatim from 05-07)
 
@@ -313,6 +351,32 @@ Books use lowercase 3-letter codes: `gen`, `exo`, `1ki`, `tob`,
 `lje`, `2es`, etc. The 87-book Ethiopian Tewahedo set is the
 superset; smaller canons are subsets defined in
 `content/canons.yaml`.
+
+### 7.4 One-shot ship scripts
+
+`scripts/_ship_*.py` files are one-shot ledgers of the entries
+appended to `content/sources/*.json` (or similar) at a specific
+ship moment. They are NOT re-runnable in normal operation; running
+them again would duplicate entries (though N-W4 idempotency now
+protects against this for χ-cluster ships).
+
+**Retention rule (codified at ω.41 hygiene bundle, 2026-05-13,
+per AUDIT_2026-05-13-EOD EOD-W4):**
+
+- Retain `_ship_*.py` files in `scripts/` for **one full release
+  cycle** after the relevant arc closes.
+- After that, move them to `dev/archive/ship_scripts/<arc-tag>/`
+  preserving the original filename. The arc-close commit message
+  documents the script's retired-not-deleted status.
+- Distinguish from permanent at-scale driver scripts
+  (`scripts/run_*_at_scale.py`) which ARE re-runnable detectors
+  and remain in `scripts/` indefinitely.
+
+Distinct from the obsolete safety scripts (e.g.
+`scripts/_dedup_ethiopian_notes.py` post-N-W4): those carry an
+explicit "LOAD-BEARING-NO-LONGER" docstring banner and remain
+in `scripts/` as emergency-restore tools, separately tracked
+in the SESSION_STATE inventory under "obsolete safety scripts".
 
 ## 8. Testing conventions
 
