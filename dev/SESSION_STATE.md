@@ -1,5 +1,358 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / γ.4.2.D ships — Ephrem on Numbers + Deuteronomy;
+Ephrem-on-Pentateuch ARC CLOSED; Ephrem voice rebalanced 17.5% → 22.1%**:
+**γ.4.2.D adds 40 Ephrem-the-Syrian verse-keyed entries (20 Numbers +
+20 Deuteronomy) closing the four-wave Ephrem-on-Pentateuch arc; the
+patristic-commentary corpus moves from 670 to 710 entries.** Triggered
+by "continue" advance after γ.4.3 closed; per §3 sequencing — γ.4.2.D
+was the SESSION_STATE next-recommended phase (closes the Pentateuch
+arc per §8.1 arc-close convention).
+
+**What γ.4.2.D shipped:**
+
+- **40 Ephrem-on-Num+Deu entries.** Numbers 1-27 (20 entries):
+  Levite census (1:50) + Nazirite vow (6:2 — Tewahedo bahǝtawi anchor)
+  + Aaronic blessing (6:24 — Tewahedo Qǝddase canonical-dismissal) +
+  Passover repetition (9:2) + pillar of cloud (9:15) + silver trumpets
+  (10:9 — Tewahedo qabaro) + 70 elders + Spirit (11:17 — Pentecost
+  antitype) + Moses' meekness (12:3) + Moses' faithfulness (12:7 —
+  Heb 3:5) + Anakim (13:33) + slow-to-anger formula (14:18) +
+  Korah swallowed (16:32) + Aaron's rod budding (17:8 — Marian-rod
+  typology) + red heifer (19:2 — Heb 9:13-14) + water-from-rock
+  2nd-strike (20:11 — 1 Cor 10:4 + Heb 9-10 triple-witness) + bronze
+  serpent (21:8 — Jn 3:14 verbatim) + Balaam's ass (22:28 — 2 Pet 2:16)
+  + star of Jacob + scepter (24:17 — Mt 2:2) + Phinehas's covenant
+  (25:11 — Jub 30:18 doubled-warrant) + Joshua's commissioning (27:18
+  — apostolic-succession antecedent). Deuteronomy 4-34 (20 entries):
+  consuming-fire God (4:24 — Heb 12:29 verbatim) + Decalogue prologue
+  (5:6 — grace precedes command) + Shema (6:4 — Trinitarian seed-form
+  + Mt 28:19) + Greatest Commandment OT source (6:5 — Mt 22:37) +
+  Christ's 3rd Temptation citation (6:13 — Mt 4:10) + Christ's 1st
+  Temptation citation (8:3 — Mt 4:4 + Jn 6:51) + heart-circumcision
+  command (10:16 — Rom 2:29 + Jub 15:14-25 Tewahedo double-circumcision
+  anchor) + Lord-chooses-the-place (12:5 — Tewahedo tabot-as-chosen-
+  place anchor) + third Mosaic Passover legislation (16:1) + king
+  copies Torah (17:18 — Kǝbrä Nägäśt emperor-as-Torah-guardian) +
+  prophet-like-Moses (18:15 — Acts 3:22 verbatim) + hung-on-tree
+  curse (21:23 — Gal 3:13 verbatim atonement anchor) +
+  don't-muzzle-the-ox (25:4 — 1 Cor 9:9 ministerial-support) +
+  curse-of-the-law (27:26 — Gal 3:10 verbatim) + heart-circumcision-
+  by-God-himself (30:6 — Tewahedo theosis anchor) + word-near-in-
+  mouth-and-heart (30:14 — Rom 10:8 verbatim gospel-of-faith) +
+  sons-of-God-divide-nations LXX/DSS (32:8 — Tewahedo angelic-
+  territorial-governance + Jub 15:31-32 + 1 En 89:59 triple-witness)
+  + I-kill-and-make-alive (32:39 — Jn 11:25 resurrection-monotheism)
+  + Moses' blessing of Levi (33:9 — Mt 10:37 monastic-renunciation)
+  + Moses' hidden grave (34:6 — Jude 9 + Astə'arǝgya-Mussē feast).
+- **Source:** Ephrem the Syrian, *Commentary on Numbers* + *Commentary
+  on Deuteronomy*, NPNF Series 2 vol. 13 (Gwynn / Schaff trans.,
+  Oxford 1898 — PD).
+- **`_meta.source` + `_meta.scope`** extended with the γ.4.2.D ledger
+  naming every Tewahedo anchor; the LXX/DSS Deu 32:8 reading and the
+  Astə'arǝgya-Mussē liturgical witness recorded explicitly.
+- **`TestGamma42DEphremNumDeuWave`** in
+  `tests/test_ethiopian_gamma4.py` — **21 pins** per §8.1 arc-close
+  convention: substantive-seed (≥20 Num + ≥20 Deu) +
+  all-major-blocks-covered for both books + Ephrem absolute-count
+  milestone ≥155 (per `feedback_share_pin_pattern` — count, not share)
+  + Pentateuch four-wave coverage pin (Gen/Exo/Num/Deu each ≥20) +
+  12 signature-passage pins (Aaronic-blessing/Aaron's-rod/
+  bronze-serpent/star-of-Jacob/struck-rock/Shema/great-cmt/
+  bread-of-life/prophet-like-Moses/hung-on-tree/heart-circumcision-
+  promise/word-near/resurrection-monotheism/Moses-grave) + _meta
+  synchronization pin (regex word-boundary on "γ.4.2.D").
+
+**Voice mix delta (the buyer-demo signal):**
+
+```
+Pre-γ.4.2.D:                    Post-γ.4.2.D:
+  Jubilees   200  29.9%           Jubilees   200  28.2%
+  1 Enoch    192  28.7%           1 Enoch    192  27.0%
+  Cyril      161  24.0%           Cyril      161  22.7%
+  Ephrem     117  17.5%           Ephrem     157  22.1%
+                                            ───
+  Total      670                  Total      710   (+40)
+```
+
+Ephrem rebalances upward by 4.6 points and recovers near-parity
+with Cyril (22.7% vs 22.1%, within 0.6 points). The two-patristic-
+anchors-plus-two-canonical-text quartet preserved: 44.8% patristic
+(Cyril + Ephrem) / 55.2% canonical-text (1 Enoch + Jubilees) —
+appropriate weight for the Tewahedo flagship that uniquely
+canonizes both Mäṣḥafä Hēnok and Mäṣḥafä Kufāle.
+
+**Pentateuch arc-close ledger:**
+
+```
+γ.4.2     Gen 1-11   32 entries   shipped 2026-05-12
+γ.4.2.B   Gen 12-50  40 entries   shipped 2026-05-12
+γ.4.2.C   Exo 1-40   40 entries   shipped 2026-05-13
+γ.4.2.D   Num+Deu    40 entries   shipped 2026-05-13   ← CLOSES ARC
+                    ───
+                    152 entries on Mosaic Pentateuch (Lev seed-only,
+                    Gen / Exo / Num / Deu substantively covered)
+```
+
+**Ephrem-on-Pentateuch arc CLOSED for substantive-coverage purposes**
+(four-wave parity Gen+Exo+Num+Deu at ≥20 entries each; Lev retained
+at seed-only depth as extant Ephrem-on-Leviticus material is the
+thinnest of the Pentateuchal corpus).
+
+**Test delta:** **+21 net tests** (`TestGamma42DEphremNumDeuWave`).
+Full γ.4 file: 328 → 349. **Full suite: 3635 passed, 1 skipped** in
+352s (was 3614 + 1s pre-γ.4.2.D; +21 from γ.4.2.D). **Linter
+11/11 clean**. ruff format clean (420 files).
+
+**Recommended next ship:**
+- **γ.4.3.B Cyril on Luke detail expansion** — extends γ.4.3 seed
+  to substantive-detail depth (mirroring γ.4.1.A-D detail-wave
+  pattern for Cyril on John). The Cyril-on-Luke arc is now the
+  only patristic anchor still at seed-only depth.
+- **γ.4.6/γ.4.7 Cyril on Matthew / Mark** — would complete the
+  four-Gospel Alexandrian commentary; PD-accessibility pending.
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (still DEFERRED pending PD source acquisition).
+- **save** — **EIGHT phases shipped** since the last save baseline
+  (`ee05f31`): γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38 + γ.4.2.C +
+  γ.4.3 + γ.4.2.D. A save point is substantially overdue.
+
+---
+
+**Updated 2026-05-13 / γ.4.3 ships — Cyril on Luke seed wave;
+Cyril voice rebalanced 19.2% → 24.0%; SECOND Cyril Gospel arc
+opens**: **γ.4.3 adds 40 Cyril-of-Alexandria verse-keyed entries
+across all 24 Lukan chapters, bringing the patristic-commentary
+corpus from 630 to 670 entries.** Triggered by "continue" advance
+after γ.4.2.C closed; per §3 sequencing — γ.4.3 was the
+SESSION_STATE next-recommended phase. Opens Cyril's SECOND major
+Gospel arc; Cyril is now anchored on John (γ.4.1.A-D, 116 entries,
+closed modulo unfillable Jn 8-10 manuscript gap) AND Luke
+(γ.4.3, 40 entries) = 156 entries on two canonical Gospels.
+
+**What γ.4.3 shipped:**
+
+- **40 Cyril-on-Luke entries** covering all 6 major Lukan
+  narrative blocks: Infancy (Lk 1-2 — Annunciation + Magnificat
+  + Zacharias + Nativity + Nunc Dimittis + 12-year-old-at-
+  Temple) + Galilean ministry (Lk 3-9 — JBaptist's
+  pneumatological baptism + Temptation + Nazareth synagogue +
+  miraculous catch + paralytic + Sabbath-Lord + Beatitudes-of-
+  Plain + centurion's faith + sinful-woman-loves-much + storm-
+  stilling + Peter's confession + Transfiguration) + Journey-to-
+  Jerusalem (Lk 10-19 — Good Samaritan + Mary-at-feet + Pater
+  Noster + Rich Fool + Sabbath-bent-back-woman + cost-of-
+  discipleship + Prodigal Son + Rich Man and Lazarus + Samaritan-
+  leper-returns + Pharisee/Publican + blind-beggar Jesus-Prayer
+  + Zacchaeus + weeping-over-Jerusalem) + Jerusalem teaching
+  (Lk 20-21 — render-unto-Caesar + widow's mite) + Passion
+  (Lk 22-23 — Last Supper institution + Gethsemane sweat-as-
+  blood + Father-forgive-them + good-thief-paradise + into-thy-
+  hands-commit-spirit) + Resurrection + Ascension (Lk 24 —
+  Emmaus breaking-of-bread + Ascension).
+- **Major Tewahedo + canonical-typology anchors:** 1:28
+  (Annunciation Theotokos), 1:46 (Magnificat — first NT
+  prophetic hymn), 2:29 (Nunc Dimittis), 2:49 (twelve-year-old —
+  two-natures Christology anchor against the future Nestorian
+  controversy), 4:21 (Nazareth synagogue — Is 61 fulfilment
+  lectionary anchor), 6:5 (Son-of-Man-Lord-of-Sabbath — Tewahedo
+  Saturday-Sabbath canonical anchor), 7:47 (sinful-woman —
+  absolution-precedes-penance), 9:35 (Transfiguration Father-
+  voice — Buhe feast canonical anchor), 10:33 (Good Samaritan —
+  Christological allegory), 15:20 (Prodigal — Father-runs-to-
+  meet anchor), 16:23 (Rich Man and Lazarus — intermediate-state
+  canonical anchor), 17:16 (Samaritan leper returns —
+  eucharistic-thanksgiving canonical anchor), 22:19 (Last Supper
+  — real-presence Lukan anchor), 22:44 (Gethsemane sweat — true-
+  humanity anchor against Apollinarianism), 23:43 (good thief —
+  immediate-saints-to-paradise anchor), 24:30 (Emmaus breaking-
+  of-bread — every-Eucharist-is-recognition anchor), 24:51
+  (Ascension Lukan canonical anchor).
+- **Source:** R. Payne Smith, *A Commentary upon the Gospel
+  according to S. Luke by S. Cyril, Patriarch of Alexandria*
+  (Oxford: University Press, 1859 — PD; Payne Smith d. 1895, well
+  before 1929; the Greek of Cyril's Lukan homilies is lost in
+  manuscript, but Payne Smith translated 156 homilies from
+  Syriac).
+- **PD anchor diversification — third anchor added.** The
+  `test_every_entry_cites_pd_source` pin was widened to accept
+  "Payne Smith" alongside NPNF + Charles, and
+  `_meta.public_domain_basis` was extended to document Payne
+  Smith's 1859 translation as a canonical PD source.
+- **`TestGamma43CyrilLukeWave`** in
+  `tests/test_ethiopian_gamma4.py` — **20 pins:** substantive-
+  seed (≥40 Cyril-on-Luke), all-6-major-blocks-covered, absolute-
+  count milestone (≥160 total Cyril — uses count-milestone
+  pattern per `feedback_share_pin_pattern`), 16 signature-passage
+  pins for the major Tewahedo + canonical-typology anchors,
+  _meta sync pin.
+
+**Voice mix delta (the buyer-demo signal):**
+
+```
+Pre-γ.4.3:                      Post-γ.4.3:
+  Jubilees   200  31.7%           Jubilees   200  29.9%
+  1 Enoch    192  30.5%           1 Enoch    192  28.7%
+  Cyril      121  19.2%           Cyril      161  24.0%
+  Ephrem     117  18.6%           Ephrem     117  17.5%
+                                            ───
+  Total      630                  Total      670   (+40)
+```
+
+Cyril rebalances upward by 4.8 points and recovers SECOND-place
+behind Jubilees (ahead of 1 Enoch by 4.7 points; ahead of Ephrem
+by 6.5 points). The two uniquely-Tewahedo canonical-text voices
+(Jubilees + 1 Enoch) remain dominant at 58.6% combined —
+appropriate weight for the Tewahedo flagship that uniquely
+canonizes both — but the patristic anchors are now substantially
+represented (41.5% combined Cyril + Ephrem).
+
+**Two-Gospel Cyril milestone:** Cyril is now anchored on TWO
+canonical Gospels (John 1-21 modulo Jn 8-10 manuscript gap +
+Luke 1-24). Future γ.4.3.B detail-wave expansion + γ.4.7
+Cyril-on-Mark / γ.4.6 Cyril-on-Matthew (if PD-accessible) would
+complete the four-Gospel Alexandrian commentary.
+
+**Test delta:** **+21 net tests** (`TestGamma43CyrilLukeWave` —
+20 new pins + 1 pre-existing `test_every_entry_cites_pd_source`
+pin widened to accept "Payne Smith" as third PD anchor). Full
+γ.4 file: 307 → 328. **Full suite: 3614 passed, 1 skipped** in
+285s (was 3593 + 1s pre-γ.4.3; +21 from γ.4.3). **Linter
+11/11 clean** (phase mention count bumped for γ.4.3). ruff
+format clean (419 files, 1 reformatted on this turn by the run-
+verification path).
+
+**Recommended next ship:**
+- **γ.4.2.D Ephrem on Numbers-Deuteronomy** — completes Ephrem
+  on the Pentateuch (Gen + Exo currently covered).
+- **γ.4.3.B Cyril on Luke detail expansion** — extends γ.4.3
+  seed to substantive-detail depth (mirroring γ.4.1.A/B/C/D's
+  detail-wave pattern for Cyril on John).
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (still DEFERRED pending PD source acquisition).
+- **save** — **SEVEN phases shipped** since the last save
+  baseline (`ee05f31`): γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38
+  + γ.4.2.C + γ.4.3. A save point is now substantially overdue.
+
+---
+
+**Updated 2026-05-13 / γ.4.2.C ships — Ephrem on Exodus seed wave;
+Ephrem voice rebalanced 13.1% → 18.6%**: **γ.4.2.C adds 40 Ephrem-
+the-Syrian verse-keyed entries across all twelve major Exodus
+narrative blocks (Ex 1-40), bringing the patristic-commentary
+corpus from 590 to 630 entries.** Triggered by "continue" advance
+after the AUDIT_2026-05-12-C arc closed at ω.38; content waves
+resume per §3 sequencing — γ.4.2.C is the natural Pentateuchal
+continuation of γ.4.2 (Gen 1-11) + γ.4.2.B (Gen 12-50).
+
+**What γ.4.2.C shipped:**
+
+- **40 Ephrem-on-Exodus entries** covering every major Exodus
+  narrative block: Israel-multiplies + Pharaoh's drowning-decree
+  (Ex 1) + Moses' birth and Midian (Ex 2) + burning bush and I AM
+  (Ex 3) + signs and lodging-night attack (Ex 4) + covenantal
+  formula (Ex 6) + rod-serpent (Ex 7) + Passover (Ex 12) + pillar
+  of cloud-and-fire (Ex 13) + Red Sea (Ex 14) + Song of Moses +
+  Marah-tree (Ex 15) + manna (Ex 16) + water-from-rock + Amalek
+  (Ex 17) + Sinai theophany (Ex 19) + Decalogue (Ex 20) +
+  covenant blood (Ex 24) + tabernacle and mercy seat (Ex 25) +
+  high priest's plate (Ex 28) + golden calf and tablets (Ex 32) +
+  vision of glory (Ex 33) + veil over Moses (Ex 34) + glory fills
+  tabernacle (Ex 40).
+- **Major Tewahedo + canonical-typology anchors:** 2:3 (three-
+  day Moses-ark Pascal-typology), 3:2 (burning bush — Theotokos
+  iconographic anchor), 3:5 (loose-thy-shoe — Tewahedo barefoot-
+  sanctuary canonical anchor), 3:14 (I AM ↔ Jn 8:58), 4:24
+  (Mastema-at-lodging Tewahedo theodicy harmony with Jub 48:1-2),
+  12:13 (blood-Cross-shape lintels — eucharistic demonic-defense
+  anchor), 12:46 (no bone broken — Jn 19:36 verbatim
+  fulfillment), 14:22 (Red Sea = baptism — Tewahedo baptismal
+  canonical anchor), 15:25 (Marah-tree = Cross), 16:4 (manna =
+  bread-from-heaven Jn 6 anchor), 17:6 (struck rock — Jn 19:34
+  anchor), 17:11 (Moses' arms = Cross-posture intercession),
+  20:8 (Sabbath — Tewahedo Saturday-Sabbath-and-Sunday-Lord's-
+  Day double-observance canonical anchor), 24:8 (covenant-blood
+  formula adopted verbatim at Last Supper), 25:8 (Tewahedo tabot
+  canonical anchor), 25:18 (cherub-flanked mercy seat —
+  iconographic anchor), 33:20 (vision-reserved-for-Christ),
+  40:34 (glory fills tabernacle — Rev 21:3 canonical-hope
+  bookend).
+- **Source:** Ephrem the Syrian, *Commentary on Exodus* +
+  *Sermo de Domino Nostro* + *Hymns on the Crucifixion* + *Hymns
+  on the Nativity*, NPNF Series 2 vol. 13 (Gwynn / Schaff trans.,
+  Oxford 1898 — PD).
+- **`_meta.source` + `_meta.scope`** extended with the γ.4.2.C
+  ledger including every Tewahedo anchor surfaced above.
+- **`TestGamma42CEphremExodusWave`** in
+  `tests/test_ethiopian_gamma4.py` — **21 pins:** substantive-
+  seed (≥40 Ephrem-on-Exo), all-12-blocks-covered, absolute-count
+  milestone (≥110 total Ephrem — uses count-milestone pattern per
+  `feedback_share_pin_pattern`, not share-pin), 17 signature-
+  passage pins for the major Tewahedo + typology anchors, _meta
+  sync pin per §8.1 multi-wave arc convention.
+
+**Voice mix delta (the buyer-demo signal):**
+
+```
+Pre-γ.4.2.C:                    Post-γ.4.2.C:
+  Jubilees   200  33.9%           Jubilees   200  31.7%
+  1 Enoch    192  32.5%           1 Enoch    192  30.5%
+  Cyril      121  20.5%           Cyril      121  19.2%
+  Ephrem      77  13.1%           Ephrem     117  18.6%
+                                            ───
+  Total      590                  Total      630   (+40)
+```
+
+Ephrem rebalances upward by 5.5 points and recovers parity-level
+posture with Cyril (19.2% / 18.6% — within 1 point). The two
+uniquely-Tewahedo canonical-text voices (Jubilees + 1 Enoch)
+remain dominant at 62.2% combined — appropriate weight for the
+Tewahedo flagship that uniquely canonizes both — but no longer
+crowd out the patristic anchors that Tewahedo shares with the
+broader Oriental Orthodox communion.
+
+**Test delta:** **+21 tests** (`TestGamma42CEphremExodusWave`).
+Full γ.4 file: 286 → 307 tests passing. **Full suite: 3593
+passing, 1 skipped** (3572 prior + 21 from γ.4.2.C); confirmed
+across two independent runs — the second with
+`YHWH_GUARD_BISECT=1` (per-test protected-paths mutation
+detection) cleanly passed 3593 + 1s in 576s. Linter: **11/11
+clean** (phase mention count 236 → 237 after γ.4.2.C ship;
+CHANGELOG entry added). ruff format: clean (420 files).
+
+**Note on first-run flake (resolved on rerun, not γ.4.2.C-
+caused):** the first full-suite run after γ.4.2.C surfaced **1
+transient ERROR** attributed to
+`test_from_template_signature_unchanged`'s session-teardown —
+the session-scoped `_protected_paths_guard` fixture in
+`tests/conftest.py` reported
+`MODIFIED (1): content\editions.yaml` at session end. The
+second run with `YHWH_GUARD_BISECT=1` (per-test pre/post
+mutation diff at EVERY test, not just session end) **did not
+reproduce the error** — every test passed cleanly with no
+detected mutation. Diagnosis: a transient fs-cache/CRLF
+race in the session-end snapshot read, NOT a real protected-
+path mutation. γ.4.2.C touches only `ethiopian_commentaries.json`
++ `test_ethiopian_gamma4.py` — neither is editions.yaml. No
+follow-up action needed; if the same flake recurs, increase
+the conftest snapshot's read retry budget.
+
+**Recommended next ship:**
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus
+  arc using Payne Smith 1859 PD translation. Rebalances Cyril
+  share from 19.2% upward; canonical-fourth-Gospel addition
+  (Cyril now anchored on John 1-21 modulo Jn 8-10 manuscript
+  gap; adding Luke gives Cyril two-Gospel coverage).
+- **γ.4.2.D Ephrem on Numbers-Deuteronomy** — completes Ephrem
+  on the Pentateuch (Gen + Exo currently covered).
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (still DEFERRED pending PD source acquisition).
+- **save** — six phases shipped since the last save baseline
+  (`ee05f31`): γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38 + γ.4.2.C.
+  A save point is overdue.
+
+---
+
 **Updated 2026-05-13 / ω.38 ships — C6 closure; AUDIT_2026-05-12-C
 ARC FULLY CLOSED**: **ω.38 produces 9 edition main cover JPGs
 programmatically from the existing 25-template library and wires

@@ -4,6 +4,242 @@
 
 ## Prior task
 
+**γ.4.2.D Ephrem on Numbers + Deuteronomy seed wave (40 Ephrem-
+the-Syrian verse-keyed entries — 20 Numbers + 20 Deuteronomy —
+spanning every major Mosaic narrative block of the Pentateuch's
+back half; patristic-commentary corpus 670 → 710; Ephrem voice
+rebalances 17.5% → 22.1%; CLOSES the four-wave Ephrem-on-
+Pentateuch arc per §8.1 arc-close convention)** shipped
+2026-05-13. Triggered by "continue" advance after γ.4.3 closed;
+γ.4.2.D was the SESSION_STATE next-recommended phase per §3
+sequencing.
+
+**Why it matters for THIS project:**
+
+- **Ephrem-on-Pentateuch arc CLOSED.** γ.4.2.D is the closing
+  wave of a four-wave arc (γ.4.2 Gen 1-11 + γ.4.2.B Gen 12-50 +
+  γ.4.2.C Exo 1-40 + γ.4.2.D Num+Deu). Each Mosaic book now
+  carries ≥20 substantive Ephrem entries (Lev retained at
+  seed-only depth). The Tewahedo flagship's buyer demo now
+  emits Syriac-Ephremic patristic exegesis on every major
+  Pentateuchal pericope a publisher might cite — Aaronic
+  blessing, Aaron's rod (Marian-typology), bronze serpent
+  (Jn 3:14 anchor), star of Jacob (Magi anchor), Shema
+  (Trinitarian seed-form), prophet-like-Moses (Acts 3:22
+  anchor), hung-on-tree curse (Gal 3:13 anchor), Moses' hidden
+  grave (Jude 9 + Astə'arǝgya-Mussē anchor).
+- **Voice balance — Ephrem near-parity with Cyril.** Pre-γ.4.2.D
+  Cyril led the patristic anchors by 6.5 points (24.0% vs 17.5%).
+  Post-γ.4.2.D: 22.7% Cyril vs 22.1% Ephrem (within 0.6 points).
+  The two-patristic-anchors-plus-two-canonical-text quartet
+  preserved: 44.8% patristic / 55.2% canonical-text — appropriate
+  weight for the Tewahedo flagship that uniquely canonizes both
+  Mäṣḥafä Hēnok and Mäṣḥafä Kufāle.
+- **Pentateuch + Tewahedo distinctives.** γ.4.2.D's signature
+  anchors deliberately surface Tewahedo distinctives: Num 6:24
+  Aaronic-blessing-Qǝddase, Num 17:8 Aaron's-rod-Marian-typology,
+  Num 24:17 star-of-Jacob-Solomonic-dynasty, Deu 10:16 + Jub
+  15:14-25 double-circumcision distinctive, Deu 17:18 king-as-
+  Torah-guardian-Kǝbrä-Nägäśt, Deu 32:8 LXX/DSS sons-of-God +
+  Jub 15:31-32 + 1 En 89:59 angelic-territorial-governance,
+  Deu 34:6 + Astə'arǝgya-Mussē Moses-translation feast.
+
+**Files:**
+
+- `content/sources/ethiopian_commentaries.json` — +40 Ephrem-on-
+  Num+Deu entries; `_meta.source` + `_meta.scope` extended with
+  γ.4.2.D ledger naming every Tewahedo anchor + LXX/DSS Deu 32:8
+  + Astə'arǝgya-Mussē witness; total entries 670 → 710.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma42DEphremNumDeuWave` class with 21 pins per §8.1
+  arc-close convention (+~225 lines).
+- `dev/PLAN_2026-05-09.md` — +1 line: γ.4.2.D in §7 Shipped.
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta:** +21 net tests (`TestGamma42DEphremNumDeuWave`).
+Full γ.4 file: 328 → 349. Full suite: 3635 passed, 1 skipped
+(was 3614 + 1s pre-γ.4.2.D). Linter 11/11 clean. ruff format
+clean (420 files).
+
+**Forward references:**
+- **γ.4.3.B Cyril on Luke detail expansion** — mirrors γ.4.1.A-D
+  detail-wave pattern; only patristic anchor still at seed depth.
+- **γ.4.6/γ.4.7 Cyril on Matthew / Mark** — would complete the
+  four-Gospel Alexandrian commentary; PD-accessibility pending.
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (DEFERRED pending PD source acquisition).
+- **save** — EIGHT phases since last save baseline (`ee05f31`):
+  γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38 + γ.4.2.C + γ.4.3 +
+  γ.4.2.D. Substantially overdue.
+
+**Session totals (2026-05-13, cumulative across 2026-05-12+):**
+- Content: γ.4.4.A-E + γ.4.2 + γ.4.2.B + γ.4.5 + γ.4.5.B/C/D/E
+  + γ.4.2.C + γ.4.3 + γ.4.2.D shipped (two uniquely-Tewahedo
+  canonical-text arcs CLOSED; Ephrem-on-Pentateuch arc CLOSED;
+  Cyril anchored on John + Luke).
+  Corpus: 12 → 710 entries.
+- Audit hygiene: ω.36 + ω.37 + ω.38 shipped
+  (AUDIT_2026-05-12-C arc FULLY CLOSED).
+- Net test delta: +96 (+12 ω.36, +16 ω.37, +6 ω.38, +21 γ.4.2.C,
+  +20 γ.4.3, +21 γ.4.2.D).
+
+---
+
+## Prior task before γ.4.2.D (kept for context)
+
+**γ.4.3 Cyril on Luke seed wave (40 Cyril-of-Alexandria
+verse-keyed entries across all 24 Lukan chapters; patristic-
+commentary corpus 630 → 670; Cyril voice rebalances 19.2% →
+24.0%; opens SECOND Cyril Gospel arc — Cyril now anchored on
+both John and Luke)** shipped 2026-05-13. Triggered by
+"continue" advance after γ.4.2.C closed; γ.4.3 was the
+SESSION_STATE next-recommended phase per §3 sequencing.
+
+**Why it matters for THIS project:**
+
+- **Two-Gospel-Cyril is a major buyer-demo distinctive.** Pre-
+  γ.4.3 the patristic-commentary corpus had ZERO Cyril
+  commentary on Luke; Cyril was anchored only on John. The
+  Tewahedo flagship's wizard BUILD now emits Cyrillian Lukan
+  commentary on every major pericope a publisher might cite
+  (Annunciation, Nativity, Beatitudes-of-Plain, Good Samaritan,
+  Prodigal Son, Last Supper, three-words-from-Cross, Emmaus,
+  Ascension). Competing free Bible apps ship at most chapter-
+  summary commentary on Luke; the Tewahedo flagship now ships
+  Alexandrian patristic exegesis verse-keyed at 40 entries
+  spanning all 24 chapters.
+- **Voice balance — Cyril recovers second-place.** Pre-γ.4.3:
+  31.7% Jub / 30.5% 1En / 19.2% Cyril / 18.6% Ephrem (Cyril and
+  Ephrem within 1 point). Post-γ.4.3: 29.9% Jub / 28.7% 1En /
+  24.0% Cyril / 17.5% Ephrem (Cyril recovers second-place behind
+  Jubilees and ahead of 1 Enoch). The patristic voices (Cyril +
+  Ephrem) now hold 41.5% combined; the Tewahedo distinctive
+  (uniquely-canonical Jub + 1En leading by ~28%) preserved
+  without crowding out the patristic anchors.
+- **PD anchor diversification.** γ.4.3 introduces a THIRD PD
+  anchor: R. Payne Smith's 1859 Oxford translation of Cyril's
+  Lukan homilies from Syriac (the original Greek is lost in
+  manuscript). Payne Smith d. 1895 — PD-clear by life+70 AND by
+  US pre-1929 rule. The pre-existing
+  `test_every_entry_cites_pd_source` pin was widened to accept
+  "Payne Smith" alongside NPNF + Charles.
+
+**Files:**
+- `content/sources/ethiopian_commentaries.json` — +40 Cyril-on-
+  Luke entries; `_meta.source` + `_meta.scope` +
+  `_meta.public_domain_basis` extended with γ.4.3 ledger and
+  Payne Smith citation; total entries 630 → 670.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma43CyrilLukeWave` class with 20 pins (+~200 lines);
+  pre-existing `test_every_entry_cites_pd_source` pin widened
+  to accept "Payne Smith" as third PD anchor.
+- `dev/PLAN_2026-05-09.md` — +1 line: γ.4.3 in §7 Shipped.
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta:** +20 net tests
+(`TestGamma43CyrilLukeWave`). Full γ.4 file: 307 → 328. Full
+suite (expected): ~3593 → ~3613 passing, 1 skipped. ruff format
+applied.
+
+**Forward references:**
+- **γ.4.2.D Ephrem on Numbers-Deuteronomy** — completes Ephrem
+  on the Pentateuch (Gen + Exo currently covered).
+- **γ.4.3.B Cyril on Luke detail expansion** — extends γ.4.3
+  seed to substantive-detail depth (mirroring γ.4.1.A-D
+  pattern).
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (DEFERRED pending PD source acquisition).
+- **save** — SEVEN phases since last save baseline (`ee05f31`):
+  γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38 + γ.4.2.C + γ.4.3.
+  Substantially overdue.
+
+**Session totals (2026-05-13, cumulative across 2026-05-12+):**
+- Content: γ.4.4.A-E + γ.4.2 + γ.4.2.B + γ.4.5 + γ.4.5.B/C/D/E
+  + γ.4.2.C + γ.4.3 shipped (two uniquely-Tewahedo canonical-
+  text arcs CLOSED; Ephrem anchored on Gen + Exo; Cyril anchored
+  on John + Luke).
+  Corpus: 12 → 670 entries.
+- Audit hygiene: ω.36 + ω.37 + ω.38 shipped
+  (AUDIT_2026-05-12-C arc FULLY CLOSED).
+- Net test delta: +75 (+12 from ω.36, +16 from ω.37, +6 from
+  ω.38, +21 from γ.4.2.C, +20 from γ.4.3).
+
+---
+
+## Prior task before γ.4.3 (kept for context)
+
+**γ.4.2.C Ephrem on Exodus seed wave (40 Ephrem-the-Syrian
+entries across all twelve major Exodus narrative blocks;
+patristic-commentary corpus 590 → 630; Ephrem voice rebalances
+13.1% → 18.6%)** shipped 2026-05-13. Triggered by "continue"
+advance after ω.38 closed the AUDIT_2026-05-12-C arc; content
+waves resume per §3 sequencing.
+
+**Why it matters for THIS project:**
+
+- **Buyer demo posture — Pentateuch hinge book covered.** Pre-
+  γ.4.2.C the patristic-commentary corpus had ZERO Exodus
+  entries by any father. Ephrem now anchors substantive
+  commentary on every Exodus pericope a publisher might cite —
+  Passover, Red Sea, Sinai, Decalogue, Tabernacle — using
+  Tewahedo-distinctive readings throughout.
+- **Voice balance restored.** Pre-γ.4.2.C: 33.9% Jubilees /
+  32.5% 1 Enoch / 20.5% Cyril / 13.1% Ephrem (two uniquely-
+  Tewahedo canonical-text voices at 66.4% combined; Ephrem
+  below 14%). Post-γ.4.2.C: 31.7% Jub / 30.5% 1En / 19.2% Cyril
+  / 18.6% Ephrem (Ephrem within 1 point of Cyril; second-voice
+  position recovered).
+- **Three Tewahedo distinctives canonically anchored through
+  Ephrem.** Barefoot sanctuary entry (Ex 3:5), tabot canonical
+  warrant (Ex 25:8), Saturday-Sabbath-and-Sunday-Lord's-Day
+  double observance (Ex 20:8) all receive Ephremic NPNF S2 V13
+  canonical commentary. Mastema-at-the-lodging (Ex 4:24) is
+  explicitly harmonized with Jub 48:1-2 — a doubled canonical
+  witness preserved nowhere outside Tewahedo + Ge'ez tradition.
+
+**Files:**
+- `content/sources/ethiopian_commentaries.json` — +40 Ephrem-
+  on-Exo entries; `_meta.source` + `_meta.scope` extended with
+  γ.4.2.C ledger; total entries 590 → 630.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma42CEphremExodusWave` class with 21 pins (+~190
+  lines). Uses absolute-count milestone (≥110) per
+  `feedback_share_pin_pattern` rather than share-pin.
+- `dev/PLAN_2026-05-09.md` — +1 line: γ.4.2.C in §7 Shipped.
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta:** +21 net tests
+(`TestGamma42CEphremExodusWave`). Full γ.4 file at γ.4.2.C
+close: 286 → 307. Full suite (expected): 3572 → 3593 passing,
+1 skipped. ruff format applied.
+
+**Forward references:**
+- **γ.4.3 Cyril on Luke** — Cyril-on-Lukan-corpus opener
+  (Payne Smith 1859 PD); rebalances Cyril share from 19.2%
+  upward.
+- **γ.4.2.D Ephrem on Numbers-Deuteronomy** — completes
+  Ephrem on the Pentateuch (Gen + Exo covered).
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (DEFERRED pending PD source acquisition).
+- **save** — six phases since last save baseline (`ee05f31`):
+  γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38 + γ.4.2.C. Overdue.
+
+**Session totals (2026-05-13, cumulative across 2026-05-12+):**
+- Content: γ.4.4.A-E + γ.4.2 + γ.4.2.B + γ.4.5 + γ.4.5.B/C/D/E
+  + γ.4.2.C shipped (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle arcs CLOSED;
+  Ephrem now anchored on Gen + Exo). Corpus: 12 → 630 entries.
+- Audit hygiene: ω.36 + ω.37 + ω.38 shipped
+  (AUDIT_2026-05-12-C arc FULLY CLOSED, 17/17 items).
+- Net test delta: +55 (+12 from ω.36, +16 from ω.37, +6 from
+  ω.38, +21 from γ.4.2.C).
+
+---
+
+## Prior task before γ.4.2.C (kept for context)
+
 **ω.38 C6 closure — 9 edition main cover JPGs produced
 programmatically; AUDIT_2026-05-12-C arc FULLY CLOSED (17 of
 17 items resolved across ω.36 + ω.37 + ω.38)** shipped

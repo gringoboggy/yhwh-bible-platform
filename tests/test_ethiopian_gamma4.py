@@ -88,13 +88,20 @@ class TestGamma4DataFile:
                 assert field in entry, f"entry missing field {field!r}: {entry!r}"
 
     def test_every_entry_cites_pd_source(self):
-        # Pin: every entry's attribution mentions either NPNF (the
-        # Schaff series anchoring Ephrem + Cyril) or "Charles" (the
-        # R.H. Charles 1912 1 Enoch translation), and every one
-        # carries the explicit "PD" marker.
+        # Pin: every entry's attribution cites one of the project's
+        # canonical PD translation anchors, and carries the explicit
+        # "PD" marker. Accepted anchors:
+        #   - "NPNF" — Schaff's NPNF series (anchors Ephrem on Genesis +
+        #     Cyril on John).
+        #   - "Charles" — R.H. Charles (1912 1 Enoch + 1902 Jubilees).
+        #   - "Payne Smith" — R. Payne Smith's 1859 Oxford translation
+        #     of Cyril's Commentary on Luke from Syriac (the Greek
+        #     original is lost except for catena fragments; Payne Smith
+        #     d. 1895, well before 1929). Added γ.4.3.
+        pd_anchors = ("NPNF", "Charles", "Payne Smith")
         for entry in self.data["entries"]:
             attr = entry["attribution"]
-            assert "NPNF" in attr or "Charles" in attr, f"entry not attributed to NPNF or Charles: {attr!r}"
+            assert any(a in attr for a in pd_anchors), f"entry not attributed to any PD anchor {pd_anchors}: {attr!r}"
             assert "PD" in attr, f"entry attribution missing PD marker: {attr!r}"
 
     def test_genesis_1_1_present(self):
@@ -2108,6 +2115,354 @@ class TestGamma42BEphremPatriarchsWave:
         assert eph, "γ.4.2.B missing Gen 50:20 — providence-formula par excellence"
 
 
+class TestGamma42CEphremExodusWave:
+    """γ.4.2.C — Ephrem on Exodus seed wave. Extends the γ.4.2 +
+    γ.4.2.B Genesis coverage into Exodus with 40 verse-keyed entries
+    spanning every major Exodus narrative block. Source: Ephrem the
+    Syrian, *Commentary on Exodus* + *Sermo de Domino Nostro* +
+    *Hymns on the Crucifixion* + *Hymns on the Nativity*, NPNF
+    Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD).
+    Rebalances Ephrem share from 13.1% (γ.4.5.E corpus state) back
+    upward to ~18.6% — recovering parity with Cyril.
+
+    Pins:
+    - Exo 1-40 substantively expanded (≥40 Ephrem entries on exo).
+    - All twelve major narrative blocks covered: Israel-multiplies
+      (Ex 1), Moses' birth + Midian (Ex 2), burning bush + I AM
+      (Ex 3), signs + lodging-night (Ex 4), covenantal formula
+      (Ex 6) + rod-serpent (Ex 7), Passover (Ex 12), pillar
+      (Ex 13), Red Sea (Ex 14), Song + Marah (Ex 15), manna +
+      water-from-rock + Amalek (Ex 16-17), Sinai theophany +
+      Decalogue + covenant blood (Ex 19-24), tabernacle + mercy
+      seat + high priest (Ex 25-28), golden calf + tablets + glory
+      + veil + glory-fills (Ex 32-40).
+    - Ephrem milestone count ≥110 entries (absolute, per
+      feedback_share_pin_pattern — does not break mechanically
+      on future voice-broadening waves).
+    - Voice mix invariant: Ephrem rises but no existing voice
+      loses entries.
+    - Signature passages: 2:3 (three-day Moses-ark Pascal-typology
+      anchor), 3:2 (burning bush — Theotokos iconographic anchor),
+      3:5 (loose-thy-shoe — Tewahedo barefoot-sanctuary canonical
+      anchor), 3:14 (I AM ↔ Jn 8:58), 4:24 (Mastema-at-lodging
+      Tewahedo theodicy harmony with Jub 48:1-2), 12:13 (blood
+      Cross-shape on lintels — Tewahedo eucharistic demonic-defense
+      anchor), 12:46 (no bone broken — Jn 19:36 verbatim
+      fulfillment), 14:22 (Red Sea = baptism — Tewahedo baptismal
+      canonical anchor), 15:25 (Marah-tree = Cross), 16:4 (manna
+      = bread-from-heaven Jn 6 anchor), 17:6 (struck rock — Jn
+      19:34 anchor), 17:11 (Moses' arms = Cross-posture
+      intercession), 20:8 (Sabbath — Tewahedo Saturday-Sabbath-
+      and-Sunday-Lord's-Day double-observance canonical anchor),
+      24:8 (covenant-blood formula adopted verbatim at Last
+      Supper), 25:8 (Tewahedo tabot canonical anchor), 33:20
+      (vision-reserved-for-Christ), 40:34 (glory fills tabernacle
+      — Rev 21:3 canonical-hope bookend).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_exodus_substantively_seeded(self):
+        ephrem_exo = []
+        for chapter in range(1, 41):
+            for verse in range(1, 100):
+                ephrem_exo.extend(
+                    e for e in self.ec.for_verse("exo", chapter, verse) if e.father == "Ephrem the Syrian"
+                )
+        assert len(ephrem_exo) >= 40, f"γ.4.2.C expected ≥40 Ephrem entries on Exodus 1-40; found {len(ephrem_exo)}"
+
+    def test_all_major_exodus_blocks_covered(self):
+        def has_ephrem_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("exo", chapter, verse):
+                        if entry.father == "Ephrem the Syrian":
+                            return True
+            return False
+
+        assert has_ephrem_in(1, 2), "γ.4.2.C missing Israel-multiplies + Moses' birth (Ex 1-2)"
+        assert has_ephrem_in(3, 4), "γ.4.2.C missing burning bush + signs (Ex 3-4)"
+        assert has_ephrem_in(6, 7), "γ.4.2.C missing covenantal formula + rod-serpent (Ex 6-7)"
+        assert has_ephrem_in(12, 13), "γ.4.2.C missing Passover + pillar (Ex 12-13)"
+        assert has_ephrem_in(14, 15), "γ.4.2.C missing Red Sea + Song of Moses (Ex 14-15)"
+        assert has_ephrem_in(16, 17), "γ.4.2.C missing manna + water-from-rock + Amalek (Ex 16-17)"
+        assert has_ephrem_in(19, 20), "γ.4.2.C missing Sinai theophany + Decalogue (Ex 19-20)"
+        assert has_ephrem_in(24, 28), "γ.4.2.C missing covenant + tabernacle + priestly vestments (Ex 24-28)"
+        assert has_ephrem_in(32, 34), "γ.4.2.C missing golden calf + tablets + glory + veil (Ex 32-34)"
+        assert has_ephrem_in(40, 40), "γ.4.2.C missing glory-fills-tabernacle (Ex 40)"
+
+    def test_ephrem_milestone_count_at_or_above_exodus_close(self):
+        # γ.4.2 (Gen 1-11, 32) + γ.4.2.B (Gen 12-50, 40) + γ.4.5.D
+        # incidental Ps (1) + γ.4.2.C (Exo 1-40, 40) = ≥113 Ephrem
+        # entries. Absolute milestone per feedback_share_pin_pattern;
+        # invariant against future voice-broadening waves.
+        ephrem_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Ephrem the Syrian"
+        )
+        assert ephrem_count >= 110, (
+            f"γ.4.2.C expected Ephrem count ≥110 (Exodus-arc close milestone); found {ephrem_count}"
+        )
+
+    def test_moses_ark_pascal_typology_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 2, 3) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 2:3 — three-day Moses-ark Pascal-typology anchor"
+
+    def test_burning_bush_theotokos_type_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 3, 2) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 3:2 — burning bush (Theotokos iconographic anchor)"
+
+    def test_loose_thy_shoe_barefoot_sanctuary_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 3, 5) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 3:5 — loose-thy-shoe (Tewahedo barefoot-sanctuary anchor)"
+
+    def test_i_am_revelation_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 3, 14) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 3:14 — I AM (canonical anchor for Jn 8:58)"
+
+    def test_mastema_at_lodging_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 4, 24) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 4:24 — lodging-night attack (Tewahedo Jub 48:1-2 harmony)"
+
+    def test_blood_on_lintels_cross_shape_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 12, 13) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 12:13 — blood-on-lintels Cross-shape (eucharistic demonic-defense)"
+
+    def test_no_bone_broken_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 12, 46) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 12:46 — no bone broken (Jn 19:36 verbatim fulfillment)"
+
+    def test_red_sea_baptism_typology_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 14, 22) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 14:22 — Red Sea = baptism (Tewahedo baptismal anchor)"
+
+    def test_marah_tree_cross_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 15, 25) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 15:25 — Marah-tree (Cross typology anchor)"
+
+    def test_manna_bread_from_heaven_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 16, 4) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 16:4 — manna (bread-from-heaven Jn 6 anchor)"
+
+    def test_struck_rock_christ_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 17, 6) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 17:6 — struck rock (Christ + Jn 19:34 anchor)"
+
+    def test_moses_arms_cross_posture_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 17, 11) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 17:11 — Moses' arms (Cross-posture intercession anchor)"
+
+    def test_sabbath_double_observance_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 20, 8) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 20:8 — Sabbath (Tewahedo Saturday + Sunday double observance)"
+
+    def test_covenant_blood_formula_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 24, 8) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 24:8 — covenant-blood (verbatim formula adopted at Last Supper)"
+
+    def test_tabot_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 25, 8) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 25:8 — sanctuary (Tewahedo tabot canonical anchor)"
+
+    def test_vision_reserved_for_christ_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 33, 20) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 33:20 — vision-reserved-for-Christ (canonical anchor)"
+
+    def test_glory_fills_tabernacle_present(self):
+        eph = [e for e in self.ec.for_verse("exo", 40, 34) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.C missing Ex 40:34 — glory fills tabernacle (Rev 21:3 bookend)"
+
+    def test_meta_documents_gamma_4_2_c_expansion(self):
+        # Pin the _meta.source string carries the γ.4.2.C signature so
+        # future Claude doesn't lose the arc-record. Per the §8.1 arc-
+        # close convention (rules) the _meta sync pin is required for
+        # multi-wave content arcs.
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.2.C" in meta_source, "γ.4.2.C must be referenced in _meta.source"
+        assert "Ephrem-on-Exodus" in meta_source, "γ.4.2.C _meta.source should describe Ephrem-on-Exodus"
+
+
+class TestGamma43CyrilLukeWave:
+    """γ.4.3 — Cyril of Alexandria on Luke seed wave. Opens the
+    SECOND major Cyril Gospel arc after γ.4.1 (Cyril-on-John, closed
+    at γ.4.1.D modulo unfillable Jn 8-10 manuscript gap). 40 verse-
+    keyed entries spanning all 24 Lukan chapters. Source: R. Payne
+    Smith, *A Commentary upon the Gospel according to S. Luke by
+    S. Cyril, Patriarch of Alexandria* (Oxford: University Press,
+    1859 — PD; Payne Smith d. 1895). The 156 homilies translated
+    from Syriac (original Greek lost except for catena fragments).
+    Rebalances Cyril share from 19.2% (γ.4.2.C-close state) back
+    upward to ~24.0%.
+
+    Pins:
+    - Lk 1-24 substantively seeded (≥40 Cyril entries on luk).
+    - All major Lukan narrative blocks covered: Infancy (1-2),
+      Galilean ministry (3-9), Journey-to-Jerusalem (10-19),
+      Jerusalem teaching (20-21), Passion (22-23), Resurrection-
+      and-Ascension (24).
+    - Cyril absolute-count milestone ≥160 entries (per
+      `feedback_share_pin_pattern` — absolute count, not share).
+    - Signature passages: 1:28 (Annunciation Theotokos anchor),
+      2:29 (Nunc Dimittis), 2:49 (two-natures Christology),
+      4:21 (Is 61 fulfilment), 7:47 (sinful woman loves much —
+      absolution-precedes-penance), 9:35 (Transfiguration Father-
+      voice), 10:33 (Good Samaritan Christological allegory),
+      15:20 (Father-runs-to-meet — Prodigal), 16:23 (Rich Man and
+      Lazarus — intermediate state anchor), 17:16 (Samaritan
+      leper returns — eucharistic-thanksgiving anchor), 22:19
+      (Last Supper real-presence Lukan anchor), 22:44 (Gethsemane
+      sweat — true-humanity anchor against Apollinarianism), 23:43
+      ('Today shalt thou be with me in paradise' — immediate-
+      paradise anchor), 24:30 (Emmaus breaking-of-bread — every-
+      Eucharist-is-recognition anchor), 24:51 (Ascension Lukan
+      anchor).
+    - _meta.source sync pin: γ.4.3 referenced + Cyril-on-Luke
+      signature.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_luke_substantively_seeded(self):
+        cyril_luk = []
+        for chapter in range(1, 25):
+            for verse in range(1, 100):
+                cyril_luk.extend(
+                    e for e in self.ec.for_verse("luk", chapter, verse) if e.father == "Cyril of Alexandria"
+                )
+        assert len(cyril_luk) >= 40, f"γ.4.3 expected ≥40 Cyril entries on Luke 1-24; found {len(cyril_luk)}"
+
+    def test_all_major_lukan_blocks_covered(self):
+        def has_cyril_in(start, end):
+            for chapter in range(start, end + 1):
+                for verse in range(1, 100):
+                    for entry in self.ec.for_verse("luk", chapter, verse):
+                        if entry.father == "Cyril of Alexandria":
+                            return True
+            return False
+
+        assert has_cyril_in(1, 2), "γ.4.3 missing Lukan Infancy narrative (Lk 1-2)"
+        assert has_cyril_in(3, 9), "γ.4.3 missing Galilean ministry (Lk 3-9)"
+        assert has_cyril_in(10, 19), "γ.4.3 missing Journey-to-Jerusalem (Lk 10-19)"
+        assert has_cyril_in(20, 21), "γ.4.3 missing Jerusalem teaching (Lk 20-21)"
+        assert has_cyril_in(22, 23), "γ.4.3 missing Passion narrative (Lk 22-23)"
+        assert has_cyril_in(24, 24), "γ.4.3 missing Resurrection + Ascension (Lk 24)"
+
+    def test_cyril_milestone_count_at_or_above_luke_seed(self):
+        # γ.4.1.A-D shipped 116 Cyril-on-John entries; γ.4.3 adds
+        # 40 Cyril-on-Luke = 156. Floor at ≥160 as conservative
+        # post-γ.4.3 milestone (accommodates seed-wave count + any
+        # incidental Cyril references). Absolute count per
+        # feedback_share_pin_pattern; invariant under future voice-
+        # broadening waves.
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 160, f"γ.4.3 expected Cyril count ≥160 (Luke-seed close milestone); found {cyril_count}"
+
+    def test_annunciation_theotokos_anchor_present(self):
+        c = [e for e in self.ec.for_verse("luk", 1, 28) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 1:28 — Annunciation (Theotokos canonical anchor)"
+
+    def test_magnificat_present(self):
+        c = [e for e in self.ec.for_verse("luk", 1, 46) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 1:46 — Magnificat (first NT prophetic hymn)"
+
+    def test_nunc_dimittis_present(self):
+        c = [e for e in self.ec.for_verse("luk", 2, 29) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 2:29 — Nunc Dimittis (canonical hymn anchor)"
+
+    def test_twelve_year_old_two_natures_present(self):
+        c = [e for e in self.ec.for_verse("luk", 2, 49) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 2:49 — twelve-year-old (two-natures Christology anchor)"
+
+    def test_nazareth_synagogue_isaiah_61_present(self):
+        c = [e for e in self.ec.for_verse("luk", 4, 21) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 4:21 — Nazareth synagogue (Isaiah 61 fulfilment anchor)"
+
+    def test_sabbath_lord_present(self):
+        c = [e for e in self.ec.for_verse("luk", 6, 5) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 6:5 — Son of Man Lord of the Sabbath (Tewahedo Sabbath anchor)"
+
+    def test_sinful_woman_absolution_present(self):
+        c = [e for e in self.ec.for_verse("luk", 7, 47) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 7:47 — sinful woman (absolution-precedes-penance canonical anchor)"
+
+    def test_transfiguration_father_voice_present(self):
+        c = [e for e in self.ec.for_verse("luk", 9, 35) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 9:35 — Transfiguration Father-voice (Buhe feast canonical anchor)"
+
+    def test_good_samaritan_allegory_present(self):
+        c = [e for e in self.ec.for_verse("luk", 10, 33) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 10:33 — Good Samaritan (Christological allegory)"
+
+    def test_prodigal_son_present(self):
+        c = [e for e in self.ec.for_verse("luk", 15, 20) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 15:20 — Prodigal Son (Father-runs-to-meet canonical anchor)"
+
+    def test_rich_man_lazarus_intermediate_state_present(self):
+        c = [e for e in self.ec.for_verse("luk", 16, 23) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 16:23 — Rich Man and Lazarus (intermediate state canonical anchor)"
+
+    def test_samaritan_leper_eucharist_present(self):
+        c = [e for e in self.ec.for_verse("luk", 17, 16) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 17:16 — Samaritan leper returns (eucharistic-thanksgiving anchor)"
+
+    def test_last_supper_real_presence_present(self):
+        c = [e for e in self.ec.for_verse("luk", 22, 19) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 22:19 — Last Supper institution (real-presence Lukan anchor)"
+
+    def test_gethsemane_humanity_present(self):
+        c = [e for e in self.ec.for_verse("luk", 22, 44) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 22:44 — Gethsemane sweat (true-humanity anchor against Apollinarianism)"
+
+    def test_good_thief_paradise_present(self):
+        c = [e for e in self.ec.for_verse("luk", 23, 43) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 23:43 — good thief (immediate-saints-to-paradise canonical anchor)"
+
+    def test_emmaus_breaking_of_bread_present(self):
+        c = [e for e in self.ec.for_verse("luk", 24, 30) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 24:30 — Emmaus breaking-of-bread (every-Eucharist-recognition anchor)"
+
+    def test_ascension_present(self):
+        c = [e for e in self.ec.for_verse("luk", 24, 51) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.3 missing Lk 24:51 — Ascension (Lukan canonical anchor)"
+
+    def test_meta_documents_gamma_4_3_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.3" in meta_source, "γ.4.3 must be referenced in _meta.source"
+        assert "Cyril-of-Alexandria-on-Luke" in meta_source or "Cyril-on-Luke" in meta_source, (
+            "γ.4.3 _meta.source should describe Cyril-on-Luke"
+        )
+        assert "Payne Smith" in meta_source, "γ.4.3 _meta.source should cite R. Payne Smith"
+
+
 class TestGamma45JubileesSeedWave:
     """γ.4.5 — Mäṣḥafä Kufāle / Book of Jubilees seed wave. Opens
     the SECOND uniquely-Tewahedo canonical text on the same Mäṣḥafä-
@@ -3134,3 +3489,208 @@ class TestGamma45EJubileesJosephExodusFinaleWave:
         # observance preservation anchor.
         e = [x for x in self.ec.for_verse("jub", 50, 12) if x.father == "Book of Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 50:12 — strict Sabbath-prohibition list"
+
+
+class TestGamma42DEphremNumDeuWave:
+    """γ.4.2.D — Ephrem on Numbers + Deuteronomy seed wave. CLOSES
+    the Ephrem-on-Pentateuch arc (γ.4.2 Gen 1-11 + γ.4.2.B Gen 12-50
+    + γ.4.2.C Exo 1-40 + γ.4.2.D Num+Deu). 40 verse-keyed entries
+    (20 + 20) spanning every major Mosaic narrative block of the
+    Pentateuch's back half. Source: Ephrem the Syrian, Commentary
+    on Numbers + Commentary on Deuteronomy, NPNF Series 2 vol. 13
+    (Gwynn / Schaff trans., Oxford 1898 — PD). Rebalances Ephrem
+    share from 17.5% (γ.4.3-close state) upward to ~22.1% —
+    recovers near-parity with Cyril (22.7% vs 22.1%, within 0.6 pts).
+
+    Pins (per §8.1 arc-close convention for multi-wave content
+    arcs — Ephrem-on-Pentateuch is the closing wave):
+    - Numbers + Deuteronomy substantively seeded (≥20 entries each).
+    - All major Numbers blocks covered: Levite census (1) + priestly
+      vow + Aaronic blessing (6) + Passover repetition + pillar (9)
+      + trumpets + 70 elders (10-11) + Moses' meekness + faithful
+      (12) + Anakim (13) + slow-to-anger (14) + Korah (16) +
+      Aaron's rod (17) + red heifer (19) + struck rock (20) +
+      bronze serpent (21) + Balaam (22-24) + Phinehas (25) +
+      Joshua succession (27).
+    - All major Deuteronomy blocks covered: consuming-fire (4) +
+      Decalogue restated (5) + Shema + Greatest Cmt + 3rd
+      Temptation citation (6) + 1st Temptation citation (8) +
+      heart-circumcision command (10) + chosen place (12) + 3rd
+      Mosaic Passover (16) + king's Torah (17) + prophet-like-Moses
+      (18) + hung-on-tree (21) + ox-not-muzzled (25) + curse-of-the-
+      law (27) + heart-circumcision-promise (30) + word-near-in-
+      mouth (30) + kill-and-make-alive (32) + Levi's blessing (33)
+      + Moses' hidden grave (34).
+    - _meta synchronization pin — _meta.source names γ.4.2.D and
+      describes Ephrem on Numbers + Deuteronomy.
+    - Ephrem absolute-count milestone ≥155 entries (per
+      `feedback_share_pin_pattern` — absolute count, not share;
+      invariant against future voice-broadening waves).
+    - Pentateuch four-wave coverage pin: Gen + Exo + Num + Deu
+      each carry ≥20 Ephrem entries (Lev retained at seed-only).
+    - Signature passages: Aaronic blessing (Num 6:24), Aaron's
+      rod budding (Num 17:8 — Marian-rod), bronze serpent
+      (Num 21:8 — Jn 3:14), star of Jacob (Num 24:17),
+      Shema (Deu 6:4), bread-of-life pedagogy (Deu 8:3 — Mt 4:4),
+      prophet-like-Moses (Deu 18:15 — Acts 3:22), hung-on-tree
+      curse (Deu 21:23 — Gal 3:13), heart-circumcision promise
+      (Deu 30:6), kill-and-make-alive (Deu 32:39), Moses' hidden
+      grave (Deu 34:6 — Jude 9 + Astə'arǝgya-Mussē).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _ephrem_in(self, book, ch_start, ch_end):
+        out = []
+        for chapter in range(ch_start, ch_end + 1):
+            for verse in range(1, 100):
+                out.extend(e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Ephrem the Syrian")
+        return out
+
+    def test_numbers_substantively_seeded(self):
+        eph_num = self._ephrem_in("num", 1, 36)
+        assert len(eph_num) >= 20, f"γ.4.2.D expected ≥20 Ephrem entries on Numbers 1-36; found {len(eph_num)}"
+
+    def test_deuteronomy_substantively_seeded(self):
+        eph_deu = self._ephrem_in("deu", 1, 34)
+        assert len(eph_deu) >= 20, f"γ.4.2.D expected ≥20 Ephrem entries on Deuteronomy 1-34; found {len(eph_deu)}"
+
+    def test_all_major_numbers_blocks_covered(self):
+        def has(start, end):
+            return bool(self._ephrem_in("num", start, end))
+
+        assert has(1, 1), "γ.4.2.D missing Levite census (Num 1)"
+        assert has(6, 6), "γ.4.2.D missing Nazirite vow + Aaronic blessing (Num 6)"
+        assert has(9, 10), "γ.4.2.D missing Passover repetition + pillar + trumpets (Num 9-10)"
+        assert has(11, 12), "γ.4.2.D missing 70 elders + Moses' meekness/faithfulness (Num 11-12)"
+        assert has(13, 14), "γ.4.2.D missing Anakim + slow-to-anger (Num 13-14)"
+        assert has(16, 17), "γ.4.2.D missing Korah + Aaron's rod (Num 16-17)"
+        assert has(19, 21), "γ.4.2.D missing red heifer + struck rock + bronze serpent (Num 19-21)"
+        assert has(22, 25), "γ.4.2.D missing Balaam + star of Jacob + Phinehas (Num 22-25)"
+        assert has(27, 27), "γ.4.2.D missing Joshua's commissioning (Num 27)"
+
+    def test_all_major_deuteronomy_blocks_covered(self):
+        def has(start, end):
+            return bool(self._ephrem_in("deu", start, end))
+
+        assert has(4, 5), "γ.4.2.D missing consuming-fire God + Decalogue prologue (Deu 4-5)"
+        assert has(6, 6), "γ.4.2.D missing Shema + Greatest Commandment + 3rd Temptation citation (Deu 6)"
+        assert has(8, 8), "γ.4.2.D missing 1st Temptation citation 'man not by bread alone' (Deu 8)"
+        assert has(10, 12), "γ.4.2.D missing heart-circumcision + chosen-place (Deu 10-12)"
+        assert has(16, 18), "γ.4.2.D missing 3rd Mosaic Passover + king's Torah + prophet-like-Moses (Deu 16-18)"
+        assert has(21, 21), "γ.4.2.D missing hung-on-tree curse (Deu 21)"
+        assert has(25, 27), "γ.4.2.D missing don't-muzzle-ox + curse-of-the-law (Deu 25-27)"
+        assert has(30, 30), "γ.4.2.D missing heart-circumcision promise + word-near-in-mouth (Deu 30)"
+        assert has(32, 34), "γ.4.2.D missing Song of Moses + Levi's blessing + Moses' grave (Deu 32-34)"
+
+    def test_ephrem_milestone_count_at_pentateuch_arc_close(self):
+        # γ.4.2 (Gen 1-11) + γ.4.2.B (Gen 12-50) + Ps (1) + γ.4.2.C
+        # (Exo 1-40) + γ.4.2.D (Num 1-27 + Deu 4-34) = 117 + 40 = 157
+        # Ephrem entries at arc-close. Absolute milestone per
+        # feedback_share_pin_pattern; invariant against future
+        # voice-broadening waves.
+        ephrem_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Ephrem the Syrian"
+        )
+        assert ephrem_count >= 155, (
+            f"γ.4.2.D expected Ephrem count ≥155 (Pentateuch-arc close milestone); found {ephrem_count}"
+        )
+
+    def test_pentateuch_four_wave_coverage(self):
+        # Per §8.1 arc-close: every section of the closed arc must
+        # carry substantive coverage. Pentateuch arc = four waves at
+        # ≥20 Ephrem entries each (Gen / Exo / Num / Deu). Leviticus
+        # retained at seed-only depth per scope; not pinned here.
+        gen = len(self._ephrem_in("gen", 1, 50))
+        exo = len(self._ephrem_in("exo", 1, 40))
+        num = len(self._ephrem_in("num", 1, 36))
+        deu = len(self._ephrem_in("deu", 1, 34))
+        assert gen >= 20, f"γ.4.2.D arc-close: Ephrem-on-Gen below floor (need ≥20, have {gen})"
+        assert exo >= 20, f"γ.4.2.D arc-close: Ephrem-on-Exo below floor (need ≥20, have {exo})"
+        assert num >= 20, f"γ.4.2.D arc-close: Ephrem-on-Num below floor (need ≥20, have {num})"
+        assert deu >= 20, f"γ.4.2.D arc-close: Ephrem-on-Deu below floor (need ≥20, have {deu})"
+
+    def test_aaronic_blessing_canonical_dismissal_present(self):
+        eph = [e for e in self.ec.for_verse("num", 6, 24) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Num 6:24 — Aaronic blessing (Tewahedo Qǝddase dismissal anchor)"
+
+    def test_aarons_rod_marian_typology_present(self):
+        eph = [e for e in self.ec.for_verse("num", 17, 8) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Num 17:8 — Aaron's rod budding (Marian-rod typology / Wǝddase Maryam)"
+
+    def test_bronze_serpent_christological_typology_present(self):
+        eph = [e for e in self.ec.for_verse("num", 21, 8) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Num 21:8 — bronze serpent (Jn 3:14 verbatim Christological anchor)"
+
+    def test_star_of_jacob_sceptre_messianic_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("num", 24, 17) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Num 24:17 — star of Jacob + scepter of Israel (Mt 2:2 + Solomonic-dynasty)"
+
+    def test_struck_rock_christ_once_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("num", 20, 11) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Num 20:11 — water-from-rock 2nd strike (1 Cor 10:4 / Heb 9-10)"
+
+    def test_shema_trinitarian_seed_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 6, 4) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 6:4 — Shema (Trinitarian seed-form; Mt 28:19 anchor)"
+
+    def test_great_commandment_old_testament_source_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 6, 5) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 6:5 — love YHWH with all heart (Mt 22:37 anchor)"
+
+    def test_bread_of_life_pedagogy_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 8, 3) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 8:3 — man not by bread alone (Mt 4:4 + Jn 6:51 anchor)"
+
+    def test_prophet_like_moses_christological_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 18, 15) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 18:15 — prophet-like-Moses (Acts 3:22 verbatim Christological anchor)"
+
+    def test_hung_on_tree_curse_atonement_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 21, 23) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 21:23 — hung-on-tree curse (Gal 3:13 verbatim atonement anchor)"
+
+    def test_heart_circumcision_promise_theosis_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 30, 6) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 30:6 — God will circumcise your heart (Tewahedo theosis anchor)"
+
+    def test_word_near_in_mouth_gospel_of_faith_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 30, 14) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 30:14 — word-near-in-mouth (Rom 10:8 verbatim gospel-of-faith)"
+
+    def test_resurrection_monotheism_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 32, 39) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 32:39 — I kill and make alive (resurrection-monotheism canonical anchor)"
+
+    def test_moses_hidden_grave_translation_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("deu", 34, 6) if e.father == "Ephrem the Syrian"]
+        assert eph, "γ.4.2.D missing Deu 34:6 — Moses' hidden grave (Jude 9 + Astə'arǝgya-Mussē anchor)"
+
+    def test_meta_documents_gamma_4_2_d_pentateuch_arc_close(self):
+        # Pin the _meta.source string carries the γ.4.2.D signature so
+        # future Claude doesn't lose the arc-record. Per the §8.1 arc-
+        # close convention (rules), the _meta sync pin is required for
+        # multi-wave content arcs. γ.4.2.D is the closing wave of the
+        # four-wave Ephrem-on-Pentateuch arc — synchronization pin
+        # checks the closing wave's _meta annotation explicitly.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert re.search(r"γ\.4\.2\.D(?![.A-Z])", meta_source), "γ.4.2.D must be referenced in _meta.source"
+        assert "Ephrem-on-Numbers-Deuteronomy" in meta_source or "Numbers + Deuteronomy" in meta_source, (
+            "γ.4.2.D _meta.source should name Numbers + Deuteronomy explicitly"
+        )
+        assert "Ephrem-on-Pentateuch arc" in meta_source, "γ.4.2.D _meta.source should record the Pentateuch arc-close"

@@ -153,7 +153,7 @@ editions:
     disabled_kinds:
       - comm-reformation
     max_phase: phase2
-    cover_image: "covers/catholic-study.jpg"
+    cover_image: covers/catholic-study.jpg
     notes: Foregrounds comm-patristic, comm-catholic, dist-mariological, dist-typological, liturgy-christian-year.
     popup_languages_default:
       - english

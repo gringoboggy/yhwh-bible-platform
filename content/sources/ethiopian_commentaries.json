@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22 (idolatry decline + Abram's monotheism + Hebrew tongue restored + departure from Ur + Bethel altar + Melchizedek tithe + covenant of pieces dated to Pentecost + circumcision-on-the-eighth-day Tewahedo anchor + angels-of-presence created circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion + Mastema-as-accuser overthrown + Sarah's Machpelah burial + Mastema-repulsion in patriarchal blessing + Abraham's testament love-of-neighbour command + Abraham's priestly instructions on no-blood-consumption + Abraham's celebration of Feast of Weeks with both Isaac and Ishmael at the altar + Abraham's direct blessing of Jacob — Solomonic-dynasty Tewahedo-Jacobite anchor). Major Tewahedo anchors: 11:18 (Abram drives ravens — Tewahedo agrarian-priestly anchor); 12:25 (Hebrew tongue restored by angel of presence — Tewahedo Ge'ez liturgical-language warrant by analogy); 13:8 (Bethel altar — pre-Mosaic legitimate altar, Tewahedo patriarchal-Anaphora warrant); 13:25 (Melchizedek tithe — Tewahedo monastic ǝʾǝsär anchor); 14:1 (covenant of pieces dated to Pentecost — TRIPLE Pentecost anchor: Noah's covenant + Abram's covenant + Sinai); 15:14 + 15:25 (eighth-day circumcision non-negotiable — Tewahedo distinctive Christian circumcision anchor); 15:27 (angels-of-presence created circumcised — cosmic-circumcision); 16:13 (Isaac born on Pentecost — Tewahedo Old-New-Covenant Pentecost doubled anchor); 16:20 (pre-Mosaic Feast of Tabernacles instituted by Abraham); 17:15 (Mastema accuses on Passover-date — Akedah-as-Passover canonical anchor); 18:13 (Mt Moriah = Mt Zion identification — Tewahedo eucharistic fourfold-altar anchor); 18:18 (7-day Akedah commemoration — Tewahedo Holy-Week shape anchor); 19:28 (Mastema-repulsion in patriarchal blessing — Tewahedo baptismal-blessing formula antecedent); 20:2 (love-of-neighbour patriarchal-testament content); 21:7 + 21:18 (no-blood-consumption priestly emphasis — Tewahedo dietary distinctive triple-witness with 6:7 + 7:34); 22:1 (Abraham's Feast of Weeks with Isaac AND Ishmael — Tewahedo pastoral inclusivity anchor); 22:11 (Abraham's direct blessing of Jacob — Tewahedo Solomonic-dynasty-Jacobite canonical anchor via Kǝbrä Nägäśt tradition). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36 (Esau sells birthright + Isaac in Gerar + Rebekah's Spirit-inspired blessing of Jacob with explicit resurrection-unto-eternal-life clause + Jacob receives Isaac's blessing + Jacob's flight + Bethel ladder vision (Marian-ladder type) + Jacob's pillar + tithe vow + Jacob in Haran + Leah substitution + Leah's first conception (un-favored-matriarch preference) + Jacob-Esau reconciliation with preserved fraternal love + twice-yearly gift-sending to parents (fifth-commandment diaspora-care antecedent) + Dinah at twelve years + Simeon and Levi's judicial action + Levi's priesthood EARNED by zeal at Shechem + heavenly-tablets righteousness inscription + Isaac's blessing of Levi BEFORE Judah (priestly precedence over royal) + Judah's Davidic-messianic blessing + patriarchal manuscript transmission (Isaac → Jacob → Levi-Judah) + Jacob's institution of double-tithe (tithe to priest + festive tithe consumed by offerer — Tewahedo ǝʾǝsär double-pattern anchor) + seven heavenly tablets given to Jacob + Deborah-nurse buried beneath Bethel oak (monastic-mother-grave-tree tradition antecedent) + Rachel's death bearing Benjamin (Ben-oni → Benjamin renaming as suffering-transmuted-to-joy) + Reuben's defilement of Bilhah + Reuben's voluntary confession + Jacob's clemency-by-confession + distinction terrestrial-pardon vs heavenly-judicial-reckoning + Joseph sold for twenty pieces (Tewahedo Joseph-as-Christ Holy Week typology) + Day of Atonement linked to Jacob's grief over Joseph + Rebekah's deathbed hope for Esau's repentance (Tewahedo eschatological-hope canonical anchor) + Esau and Jacob jointly bury Rebekah at Machpelah (family-reunion-at-funerals pattern) + Isaac's testament of love-of-brother triad with Abraham + Mosaic codification). Major Tewahedo anchors: 24:22 (Isaac's Beersheba altar — three-generation patriarchal-altar chain Abram-Isaac-Jacob); 25:14 (Rebekah's Spirit-inspired blessing — pre-Pentecostal canonical Spirit-utterance); 25:23 (Rebekah's resurrection-unto-eternal-life clause — Tewahedo Tǝnśaʾe matriarchal-canonical anchor); 27:19 (Bethel ladder — Tewahedo Marian-ladder type in Wǝddase Maryam); 27:27 (Jacob's pillar + double-tithe vow — Tewahedo täbot canonical antecedent + ǝʾǝsär comprehensiveness); 30:18 (Levi's priesthood EARNED by zeal — Tewahedo priesthood-by-zeal-and-descent doubled warrant); 30:23 (heavenly-tablets righteousness inscription — Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life doctrine); 31:14-15 (Isaac blesses Levi BEFORE Judah — priestly precedence over royal in Tewahedo ecclesiology); 31:18 (Judah's Davidic-messianic blessing — Tewahedo Solomonic-dynasty Davidic claim via Kǝbrä Nägäśt); 31:23 (patriarchal manuscript transmission — Tewahedo monastic-scribal canonical-inheritance warrant); 32:9 (Jacob's double-tithe institution — Tewahedo ǝʾǝsär double-pattern); 32:21 (seven heavenly tablets — Tewahedo Mäṣḥafä-zä-säma'i doctrine); 33:9 (Reuben's confession + Jacob's clemency — Tewahedo näsḫa absolution principle); 34:18 (Day of Atonement linked to Jacob's Joseph-grief — Tewahedo Astereyo TRIPLED canonical anchor with Jub 5:17 and 6:10); 35:6 (Rebekah's hope for Esau's repentance — Tewahedo eschatological-hope anchor); 36:1 (Isaac's intermediate-state phrase 'eternal house with the fathers' — Tewahedo funeral-liturgy phrase canonical-verbal inheritance); 36:7 (Isaac's love-of-brother testament — Tewahedo Maḫǝbär Qǝddus monastic charism patriarchal warrant). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, CLOSING the γ.4.5 detail arc. Coverage: Esau-Jacob war + Joseph in Egypt + Joseph's chastity anchored in patriarchal-canonical pedagogy + Joseph's marriage to Asenath (Tewahedo Gentile-spouse pastoral anchor) + Judah and Tamar with explicit 'she is more righteous than I' canonical confession formula + silver-cup test as confessor's-ruse pattern + Jacob's seven-day pause at Beersheba + God's Immanuel-promise to accompany Jacob to Egypt + Israelite genealogy at the Egypt-descent + Jacob blesses Pharaoh + Joseph dies 110 years (canonical biographical precision template for gədl genre) + new king who knew not Joseph + Moses' birth dated to tribulation period + three-day Moses-ark / Christ-tomb Pascal-typology + Pharaoh's-daughter's-compassion canonical anchor + Mastema attacks Moses at the lodging (Jubilees protects divine goodness against Ex 4:24 difficulty) + angelic orchestration of plagues + Passover blood-on-lintels canonically restrains Mastema's firstborn-slaying + lamb-AND-wine canonical eucharistic-OT prototype + Passover observance acquits-of-guilt (canonical liturgical-atonement principle) + Sabbath as foretaste of the holy kingdom + jubilee-of-jubilees eschatology with permanent removal of Satan + strict Sabbath-prohibition list anchoring Tewahedo Saturday-Sabbath observance). Major Tewahedo anchors: 37:1 (Esau-Jacob war — defensive-war doctrine canonical anchor); 39:10 (Joseph remembers Abraham's pre-Mosaic adultery law — Tewahedo family-catechism canonical anchor); 41:25 (Judah's 'she is more righteous than I' — Tewahedo confessor's näsḫa-of-acknowledgment verbal anchor); 44:5 (God descends with Jacob to Egypt — Tewahedo Immanuel-typology and diaspora-presence anchor); 45:13 (Jacob blesses Pharaoh — Tewahedo patriarch-blessing-Gentile-king canonical pattern); 47:5 (Moses in the ark THREE DAYS — Tewahedo Pascal-typology Moses-as-Christ); 48:1-2 (Mastema-not-Lord at the lodging-night-attack — Tewahedo theodicy canonical clarification); 48:18 (Red-Sea crossing IS Passover — Tewahedo Fasika doubled-celebration); 49:2 (Passover blood-on-lintels restrains Mastema — Tewahedo eucharistic-blood demonic-defense anchor); 49:6 (lamb-AND-wine canonical eucharistic-prototype — Tewahedo Anaphora canonical-OT anchor); 49:15 (Passover-observance acquits-of-guilt — Tewahedo liturgical-act-AS-atonement principle anchor); 50:4 (jubilee-of-jubilees-eschatology with Satan removed — Tewahedo cosmic-territorial-cleansing eschatology); 50:9 (Sabbath as holy-kingdom-day — Tewahedo Saturday-Sabbath foretaste of Kingdom anchor); 50:12 (strict Sabbath-prohibition list — Tewahedo Saturday-Sabbath canonical observance preserved). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). With γ.4.5.E shipped, the entire γ.4.5 Mäṣḥafä-Kufāle detail arc is COMPLETE: all six major Jubilees narrative sections (Sinai prologue + Creation chs 1-4, Watchers + Noahide chs 5-10, Abraham cycle chs 11-22, Decline + Jacob chs 23-36, Joseph cycle chs 37-45, Egypt-Exodus-Passover-Sabbath finale chs 46-50) have substantive-coverage parity at ≥40 entries each (except the very short ch 23 Decline section which retains seed-only coverage).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus. γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10, bringing Jubilees coverage from 40 seed entries to 80 entries across the same chapter range. Voice distribution post-γ.4.5.B: ~26% Cyril / ~17% Ephrem / ~41% 1 Enoch / ~16% Jubilees — Jubilees now substantively the second-heaviest single-source voice. Future γ.4.5.C-E waves can substantively expand Abraham (11-22), Decline + eschatology (23), Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22, bringing Jubilees coverage from 80 entries (γ.4.5 seed + γ.4.5.B Watchers detail) to 120 entries. Jub 11-22 coverage rises from 7 seed verses (11:16, 12:16, 12:22, 14:6, 15:11, 18:9, 21:10) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.4.B (Watchers detail). Voice distribution post-γ.4.5.C: ~25% Cyril / ~16% Ephrem / ~39% 1 Enoch / ~20% Jubilees — Jubilees rises to substantively-second voice, approaching Cyril's plurality. Future γ.4.5.D-E waves can substantively expand Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36, bringing Jubilees coverage from 120 entries (γ.4.5 seed + γ.4.5.B Watchers detail + γ.4.5.C Abraham-cycle detail) to 160 entries. Jub 24-36 coverage rises from 7 seed verses (25:9, 27:21, 30:7, 32:1, 32:18, 35:1, 36:23) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.5.C (Jub 11-22). Voice distribution post-γ.4.5.D: ~22% Cyril / ~14% Ephrem / ~35% 1 Enoch / ~29% Jubilees — Jubilees rises to substantively-second voice surpassing Cyril. Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~64% of the patristic-commentary corpus voice. Future γ.4.5.E wave can substantively expand the Joseph cycle + Exodus-Sabbath finale (Jub 37-50) at the same depth, closing the γ.4.5 detail arc. γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, bringing Jubilees coverage from 160 entries to 200 entries and CLOSING the γ.4.5 Mäṣḥafä-Kufāle detail arc. Jub 37-50 coverage rises from 11 seed verses (39:11, 41:1, 43:8, 45:14, 46:1, 47:2, 48:9, 49:1, 49:9, 50:6, 50:13) to 51 entries — substantive-detail parity (and slight surplus) with γ.4.5.B (Jub 5-10, 47 entries), γ.4.5.C (Jub 11-22, 47 entries), and γ.4.5.D (Jub 24-36, 47 entries). Voice distribution post-γ.4.5.E: ~21% Cyril / ~13% Ephrem / ~33% 1 Enoch / ~34% Jubilees — Jubilees BECOMES THE PLURALITY VOICE in the corpus, surpassing 1 Enoch by a hair. The two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~67% of the patristic-commentary corpus voice — the Tewahedo edition's distinctive canonical-textual heritage now dominates the patristic-commentary corpus, appropriate weight for the Tewahedo edition that uniquely canonizes both. The γ.4.5 arc (seed + B-C-D-E detail waves) is now CLOSED for substantive-coverage purposes: each of the six major Jubilees narrative sections has substantive-canonical-coverage parity at ≥40 entries except the very short ch 23 Decline section (which retains seed-only coverage as the 2-entry section is too brief to warrant detail expansion). Future γ.4-cluster work: γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending); γ.4.2.C-D Ephrem on Exodus + Numbers-Deuteronomy; γ.4.3 Cyril on Luke.",
-    "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22 (idolatry decline + Abram's monotheism + Hebrew tongue restored + departure from Ur + Bethel altar + Melchizedek tithe + covenant of pieces dated to Pentecost + circumcision-on-the-eighth-day Tewahedo anchor + angels-of-presence created circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion + Mastema-as-accuser overthrown + Sarah's Machpelah burial + Mastema-repulsion in patriarchal blessing + Abraham's testament love-of-neighbour command + Abraham's priestly instructions on no-blood-consumption + Abraham's celebration of Feast of Weeks with both Isaac and Ishmael at the altar + Abraham's direct blessing of Jacob — Solomonic-dynasty Tewahedo-Jacobite anchor). Major Tewahedo anchors: 11:18 (Abram drives ravens — Tewahedo agrarian-priestly anchor); 12:25 (Hebrew tongue restored by angel of presence — Tewahedo Ge'ez liturgical-language warrant by analogy); 13:8 (Bethel altar — pre-Mosaic legitimate altar, Tewahedo patriarchal-Anaphora warrant); 13:25 (Melchizedek tithe — Tewahedo monastic ǝʾǝsär anchor); 14:1 (covenant of pieces dated to Pentecost — TRIPLE Pentecost anchor: Noah's covenant + Abram's covenant + Sinai); 15:14 + 15:25 (eighth-day circumcision non-negotiable — Tewahedo distinctive Christian circumcision anchor); 15:27 (angels-of-presence created circumcised — cosmic-circumcision); 16:13 (Isaac born on Pentecost — Tewahedo Old-New-Covenant Pentecost doubled anchor); 16:20 (pre-Mosaic Feast of Tabernacles instituted by Abraham); 17:15 (Mastema accuses on Passover-date — Akedah-as-Passover canonical anchor); 18:13 (Mt Moriah = Mt Zion identification — Tewahedo eucharistic fourfold-altar anchor); 18:18 (7-day Akedah commemoration — Tewahedo Holy-Week shape anchor); 19:28 (Mastema-repulsion in patriarchal blessing — Tewahedo baptismal-blessing formula antecedent); 20:2 (love-of-neighbour patriarchal-testament content); 21:7 + 21:18 (no-blood-consumption priestly emphasis — Tewahedo dietary distinctive triple-witness with 6:7 + 7:34); 22:1 (Abraham's Feast of Weeks with Isaac AND Ishmael — Tewahedo pastoral inclusivity anchor); 22:11 (Abraham's direct blessing of Jacob — Tewahedo Solomonic-dynasty-Jacobite canonical anchor via Kǝbrä Nägäśt tradition). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36 (Esau sells birthright + Isaac in Gerar + Rebekah's Spirit-inspired blessing of Jacob with explicit resurrection-unto-eternal-life clause + Jacob receives Isaac's blessing + Jacob's flight + Bethel ladder vision (Marian-ladder type) + Jacob's pillar + tithe vow + Jacob in Haran + Leah substitution + Leah's first conception (un-favored-matriarch preference) + Jacob-Esau reconciliation with preserved fraternal love + twice-yearly gift-sending to parents (fifth-commandment diaspora-care antecedent) + Dinah at twelve years + Simeon and Levi's judicial action + Levi's priesthood EARNED by zeal at Shechem + heavenly-tablets righteousness inscription + Isaac's blessing of Levi BEFORE Judah (priestly precedence over royal) + Judah's Davidic-messianic blessing + patriarchal manuscript transmission (Isaac → Jacob → Levi-Judah) + Jacob's institution of double-tithe (tithe to priest + festive tithe consumed by offerer — Tewahedo ǝʾǝsär double-pattern anchor) + seven heavenly tablets given to Jacob + Deborah-nurse buried beneath Bethel oak (monastic-mother-grave-tree tradition antecedent) + Rachel's death bearing Benjamin (Ben-oni → Benjamin renaming as suffering-transmuted-to-joy) + Reuben's defilement of Bilhah + Reuben's voluntary confession + Jacob's clemency-by-confession + distinction terrestrial-pardon vs heavenly-judicial-reckoning + Joseph sold for twenty pieces (Tewahedo Joseph-as-Christ Holy Week typology) + Day of Atonement linked to Jacob's grief over Joseph + Rebekah's deathbed hope for Esau's repentance (Tewahedo eschatological-hope canonical anchor) + Esau and Jacob jointly bury Rebekah at Machpelah (family-reunion-at-funerals pattern) + Isaac's testament of love-of-brother triad with Abraham + Mosaic codification). Major Tewahedo anchors: 24:22 (Isaac's Beersheba altar — three-generation patriarchal-altar chain Abram-Isaac-Jacob); 25:14 (Rebekah's Spirit-inspired blessing — pre-Pentecostal canonical Spirit-utterance); 25:23 (Rebekah's resurrection-unto-eternal-life clause — Tewahedo Tǝnśaʾe matriarchal-canonical anchor); 27:19 (Bethel ladder — Tewahedo Marian-ladder type in Wǝddase Maryam); 27:27 (Jacob's pillar + double-tithe vow — Tewahedo täbot canonical antecedent + ǝʾǝsär comprehensiveness); 30:18 (Levi's priesthood EARNED by zeal — Tewahedo priesthood-by-zeal-and-descent doubled warrant); 30:23 (heavenly-tablets righteousness inscription — Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life doctrine); 31:14-15 (Isaac blesses Levi BEFORE Judah — priestly precedence over royal in Tewahedo ecclesiology); 31:18 (Judah's Davidic-messianic blessing — Tewahedo Solomonic-dynasty Davidic claim via Kǝbrä Nägäśt); 31:23 (patriarchal manuscript transmission — Tewahedo monastic-scribal canonical-inheritance warrant); 32:9 (Jacob's double-tithe institution — Tewahedo ǝʾǝsär double-pattern); 32:21 (seven heavenly tablets — Tewahedo Mäṣḥafä-zä-säma'i doctrine); 33:9 (Reuben's confession + Jacob's clemency — Tewahedo näsḫa absolution principle); 34:18 (Day of Atonement linked to Jacob's Joseph-grief — Tewahedo Astereyo TRIPLED canonical anchor with Jub 5:17 and 6:10); 35:6 (Rebekah's hope for Esau's repentance — Tewahedo eschatological-hope anchor); 36:1 (Isaac's intermediate-state phrase 'eternal house with the fathers' — Tewahedo funeral-liturgy phrase canonical-verbal inheritance); 36:7 (Isaac's love-of-brother testament — Tewahedo Maḫǝbär Qǝddus monastic charism patriarchal warrant). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, CLOSING the γ.4.5 detail arc. Coverage: Esau-Jacob war + Joseph in Egypt + Joseph's chastity anchored in patriarchal-canonical pedagogy + Joseph's marriage to Asenath (Tewahedo Gentile-spouse pastoral anchor) + Judah and Tamar with explicit 'she is more righteous than I' canonical confession formula + silver-cup test as confessor's-ruse pattern + Jacob's seven-day pause at Beersheba + God's Immanuel-promise to accompany Jacob to Egypt + Israelite genealogy at the Egypt-descent + Jacob blesses Pharaoh + Joseph dies 110 years (canonical biographical precision template for gədl genre) + new king who knew not Joseph + Moses' birth dated to tribulation period + three-day Moses-ark / Christ-tomb Pascal-typology + Pharaoh's-daughter's-compassion canonical anchor + Mastema attacks Moses at the lodging (Jubilees protects divine goodness against Ex 4:24 difficulty) + angelic orchestration of plagues + Passover blood-on-lintels canonically restrains Mastema's firstborn-slaying + lamb-AND-wine canonical eucharistic-OT prototype + Passover observance acquits-of-guilt (canonical liturgical-atonement principle) + Sabbath as foretaste of the holy kingdom + jubilee-of-jubilees eschatology with permanent removal of Satan + strict Sabbath-prohibition list anchoring Tewahedo Saturday-Sabbath observance). Major Tewahedo anchors: 37:1 (Esau-Jacob war — defensive-war doctrine canonical anchor); 39:10 (Joseph remembers Abraham's pre-Mosaic adultery law — Tewahedo family-catechism canonical anchor); 41:25 (Judah's 'she is more righteous than I' — Tewahedo confessor's näsḫa-of-acknowledgment verbal anchor); 44:5 (God descends with Jacob to Egypt — Tewahedo Immanuel-typology and diaspora-presence anchor); 45:13 (Jacob blesses Pharaoh — Tewahedo patriarch-blessing-Gentile-king canonical pattern); 47:5 (Moses in the ark THREE DAYS — Tewahedo Pascal-typology Moses-as-Christ); 48:1-2 (Mastema-not-Lord at the lodging-night-attack — Tewahedo theodicy canonical clarification); 48:18 (Red-Sea crossing IS Passover — Tewahedo Fasika doubled-celebration); 49:2 (Passover blood-on-lintels restrains Mastema — Tewahedo eucharistic-blood demonic-defense anchor); 49:6 (lamb-AND-wine canonical eucharistic-prototype — Tewahedo Anaphora canonical-OT anchor); 49:15 (Passover-observance acquits-of-guilt — Tewahedo liturgical-act-AS-atonement principle anchor); 50:4 (jubilee-of-jubilees-eschatology with Satan removed — Tewahedo cosmic-territorial-cleansing eschatology); 50:9 (Sabbath as holy-kingdom-day — Tewahedo Saturday-Sabbath foretaste of Kingdom anchor); 50:12 (strict Sabbath-prohibition list — Tewahedo Saturday-Sabbath canonical observance preserved). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). With γ.4.5.E shipped, the entire γ.4.5 Mäṣḥafä-Kufāle detail arc is COMPLETE: all six major Jubilees narrative sections (Sinai prologue + Creation chs 1-4, Watchers + Noahide chs 5-10, Abraham cycle chs 11-22, Decline + Jacob chs 23-36, Joseph cycle chs 37-45, Egypt-Exodus-Passover-Sabbath finale chs 46-50) have substantive-coverage parity at ≥40 entries each (except the very short ch 23 Decline section which retains seed-only coverage). γ.4.2.C (2026-05-13) added 40 Ephrem-on-Exodus entries spanning all major Exodus narrative blocks: Israel multiplies + Pharaoh's drowning decree (Ex 1) + Moses' birth and Midian (Ex 2) + burning bush and I AM (Ex 3) + signs and the lodging-night attack (Ex 4) + covenantal formula (Ex 6) + rod-serpent (Ex 7) + Passover (Ex 12) + pillar of cloud and fire (Ex 13) + Red Sea (Ex 14) + Song of Moses + Marah-tree (Ex 15) + manna (Ex 16) + water-from-rock + Amalek (Ex 17) + Sinai theophany (Ex 19) + Decalogue (Ex 20) + covenant blood (Ex 24) + tabernacle and mercy seat (Ex 25) + high priest's plate (Ex 28) + golden calf and tablets (Ex 32) + vision of glory (Ex 33) + veil over Moses (Ex 34) + glory fills tabernacle (Ex 40). Major Tewahedo anchors: 2:3 (Moses-in-the-ark three-day burial — Pascal-typology canonical anchor); 3:2 (burning bush — Theotokos iconographic anchor); 3:5 (loose thy shoe — Tewahedo barefoot-sanctuary canonical anchor); 4:24 (Mastema-at-the-lodging — Tewahedo theodicy harmony with Jub 48:1-2); 12:3 (lamb on 10th — Holy-Week counting anchor); 12:13 (blood on lintels Cross-shape — Tewahedo eucharistic demonic-defense anchor); 12:46 (no bone broken — Jn 19:36 verbatim fulfillment anchor); 14:22 (Red-Sea = baptism — Tewahedo baptismal canonical anchor); 15:25 (Marah-tree = Cross — Tewahedo Holy-Week typology anchor); 16:4 (manna = bread-from-heaven Jn 6 anchor); 17:6 (struck rock — Cross + Jn 19:34 anchor); 17:11 (Moses' arms = Cross-posture intercession anchor); 19:18 (Sinai-fire = Pentecost-fire diptych); 20:8 (Sabbath — Tewahedo Saturday-Sabbath-and-Sunday-Lord's-Day double-observance anchor); 24:8 (covenant blood verbatim formula adopted at Last Supper); 25:8 (Tewahedo tabot canonical anchor); 25:18 (cherub-flanked mercy seat — Tewahedo iconographic anchor); 33:20 (vision-reserved-for-Christ canonical anchor); 34:30 (veil-to-unveiled progression — 2 Cor 3 anchor); 40:34 (glory fills tabernacle — Rev 21:3 canonical-hope bookend). Source: Ephrem the Syrian, Commentary on Exodus + Sermo de Domino Nostro + Hymns on the Crucifixion + Hymns on the Nativity, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). With γ.4.2.C shipped, Ephrem coverage extends from Genesis (76) + Psalms (1) into Exodus (40); Ephrem total rises from 77 to 117 entries and Ephrem share rebalances from 13.1% upward. γ.4.3 (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke entries opening the Cyril-on-Luke arc; spans all 24 chapters of Luke (Annunciation + Magnificat + Zacharias-loosed (Lk 1) + Nativity + Nunc Dimittis + 12-year-old-at-Temple (Lk 2) + JBaptist's pneumatological baptism (Lk 3) + Temptation + Nazareth synagogue (Lk 4) + Peter's depart-from-me + paralytic's sins-forgiven (Lk 5) + Son-of-Man-Lord-of-Sabbath + Lukan Beatitudes (Lk 6) + Centurion's faith + sinful-woman-loves-much (Lk 7) + storm-stilling (Lk 8) + Peter's confession + Transfiguration (Lk 9) + Good Samaritan + Mary-at-Christ's-feet (Lk 10) + Lord's Prayer (Lk 11) + Rich Fool (Lk 12) + Sabbath-bent-back-woman (Lk 13) + cost-of-discipleship (Lk 14) + Prodigal Son (Lk 15) + Rich Man and Lazarus intermediate-state anchor (Lk 16) + Samaritan-leper-returns eucharistic anchor (Lk 17) + Pharisee/Publican + blind-beggar Jesus-Prayer anchors (Lk 18) + Zacchaeus + weeping-over-Jerusalem (Lk 19) + render-unto-Caesar two-spheres (Lk 20) + widow's mite (Lk 21) + Last Supper institution + Gethsemane sweat-as-blood (Lk 22) + three-words-from-Cross (Father-forgive-them + Today-with-me-in-paradise + into-thy-hands-commit-spirit) (Lk 23) + Emmaus breaking-of-bread + Ascension (Lk 24)). Major Tewahedo anchors: 1:28 (Theotokos canonical anchor); 2:29 (Nunc Dimittis canonical-hymn anchor); 2:49 (two-natures Christology canonical anchor); 4:21 (Isaiah 61 fulfilment lectionary anchor); 6:5 (Sabbath-Lord-fulfils canonical Sabbath theology anchor); 7:47 (absolution-precedes-penance canonical anchor); 9:35 (Father-Son disclosure Buhe-Transfiguration anchor); 10:33 (Good Samaritan Christological allegory); 15:20 (Father-runs-to-meet canonical anchor); 16:23 (intermediate-state canonical anchor); 17:16 (Anaphora-as-eucharistic-thanksgiving canonical anchor); 22:19 (real-presence canonical Lukan anchor); 22:44 (Gethsemane true-humanity canonical anchor against Apollinarianism); 23:43 (immediate saints-to-paradise canonical anchor); 24:30 (every-Eucharist-is-Emmaus-recognition anchor). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD; Payne Smith d. 1895, well before 1929; the original Greek of Cyril's Lukan homilies is lost except for catena fragments, but the Syriac text from which Payne Smith translated preserves the substance of all 156 homilies). Cyril now anchored on TWO Gospels: John 1-21 modulo Jn 8-10 manuscript gap (γ.4.1-γ.4.1.D, 116 entries) + Luke 1-24 (γ.4.3, 40 entries). Cyril total rises from 121 to 161 entries and Cyril share rebalances from 19.2% upward to approximately 24.0%. γ.4.2.D (2026-05-13) added 40 Ephrem-on-Numbers-Deuteronomy entries spanning every major Mosaic narrative block of the back half of the Pentateuch and CLOSING the Ephrem-on-Pentateuch arc (γ.4.2 Gen 1-11 + γ.4.2.B Gen 12-50 + γ.4.2.C Exo 1-40 + γ.4.2.D Num+Deu = four-wave Pentateuch arc with substantive-coverage parity on Gen / Exo / Num+Deu; Lev retained at seed-coverage only as Ephrem's extant Leviticus material is the thinnest of the Pentateuchal corpus). Coverage: Numbers 1-27 (20 entries) — Levites set apart (1:50) + Nazirite vow (6:2 — Tewahedo bahǝtawi anchor) + Aaronic blessing (6:24 — Tewahedo Qǝddase canonical-dismissal anchor) + repeated Passover (9:2 — yearly Pascha non-negotiable doubled-anchor with Exo 12) + pillar of cloud (9:15) + silver trumpets (10:9 — Tewahedo qabaro anchor) + Spirit shared with 70 elders (11:17 — Pentecost antitype) + Moses' meekness (12:3 — monastic anchor) + Moses faithful in my house (12:7 — Heb 3:5 anchor) + Anakim from Nephilim (13:33 — 1 Enoch 7-9 anchor) + slow-to-anger formula (14:18 — Tewahedo penance liturgy) + Korah swallowed (16:32 — priestly-jealousy) + Aaron's rod budding (17:8 — Tewahedo Marian-rod typology + Wǝddase Maryam anchor) + red heifer (19:2 — Heb 9 anchor) + water-from-rock 2nd strike (20:11 — 1 Cor 10:4 / Heb 9-10 triple-witness Christ-struck-once anchor) + bronze serpent (21:8 — Jn 3:14 verbatim Christological typology) + Balaam's ass (22:28 — 2 Pet 2:16 anchor) + star of Jacob + scepter of Israel (24:17 — Mt 2:2 Magi-star + Tewahedo Solomonic-dynasty Sceptre anchor) + Phinehas's covenant of peace (25:11 — Tewahedo priestly-zeal anchor doubled with Jub 30:18) + Joshua's commissioning (27:18 — apostolic-succession antecedent doubled with 1 Tim 4:14 / 2 Tim 1:6); Deuteronomy 4-34 (20 entries) — consuming-fire God (4:24 — Heb 12:29 verbatim) + Decalogue prologue grace-precedes-command (5:6 — Tewahedo catechetical baptism-precedes-commandments anchor) + Shema-Trinitarian-seed (6:4 — Mt 28:19 anchor) + Greatest Commandment Old-Testament source (6:5 — Mt 22:37 anchor) + Christ's Temptation citation #3 (6:13 — Mt 4:10 anchor) + Christ's Temptation citation #1 (8:3 — Mt 4:4 anchor; Jn 6:51 Eucharistic Word-Bread anchor) + heart-circumcision command (10:16 — Rom 2:29 + Jub 15:14-25 Tewahedo distinctive double-circumcision anchor) + Lord-chooses-the-place (12:5 — Tewahedo tabot-as-chosen-place anchor) + third Mosaic Passover legislation (16:1 — Tewahedo Fasika triple-anchor with Exo 12 + Num 9:2) + king copies Torah (17:18 — Tewahedo Solomonic-dynasty Kǝbrä-Nägäśt emperor-as-Torah-guardian anchor) + prophet-like-Moses (18:15 — Acts 3:22 verbatim + Buhe Transfiguration anchor) + hung-on-tree curse (21:23 — Gal 3:13 verbatim atonement anchor) + don't-muzzle-the-ox (25:4 — 1 Cor 9:9 ministerial-support anchor) + cursed-who-doesn't-keep-all (27:26 — Gal 3:10 verbatim) + heart-circumcision-by-God-himself (30:6 — Tewahedo theosis anchor with Jer 31:33 / Ez 36:26 / Acts 2 quadruple-witness) + word-near-in-mouth-and-heart (30:14 — Rom 10:8 verbatim gospel-of-faith anchor) + Song-of-Moses resurrection-monotheism (32:39 — 1 Sam 2:6 + Jn 11:25 anchor) + Moses' blessing of Levi (33:9 — Mt 10:37 monastic-renunciation anchor) + Moses' hidden grave (34:6 — Jude 9 + Tewahedo Astə'arǝgya-Mussē Translation-of-Moses anchor). Source: Ephrem the Syrian, Commentary on Numbers + Commentary on Deuteronomy, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Ephrem total rises from 117 to 157 entries; Ephrem voice rebalances from 17.5% (γ.4.3-close state) upward to approximately 22.1%. With γ.4.2.D shipped, Ephrem is anchored on Gen (76) + Psalms (1) + Exo (40) + Num (20) + Deu (20) = 157 entries; the Ephrem-on-Pentateuch arc is CLOSED for substantive-coverage purposes (four-wave parity Gen+Exo+Num+Deu; Lev retained at seed-only depth pending future ingest if extant Ephrem-on-Leviticus material is identified).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus. γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10, bringing Jubilees coverage from 40 seed entries to 80 entries across the same chapter range. Voice distribution post-γ.4.5.B: ~26% Cyril / ~17% Ephrem / ~41% 1 Enoch / ~16% Jubilees — Jubilees now substantively the second-heaviest single-source voice. Future γ.4.5.C-E waves can substantively expand Abraham (11-22), Decline + eschatology (23), Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22, bringing Jubilees coverage from 80 entries (γ.4.5 seed + γ.4.5.B Watchers detail) to 120 entries. Jub 11-22 coverage rises from 7 seed verses (11:16, 12:16, 12:22, 14:6, 15:11, 18:9, 21:10) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.4.B (Watchers detail). Voice distribution post-γ.4.5.C: ~25% Cyril / ~16% Ephrem / ~39% 1 Enoch / ~20% Jubilees — Jubilees rises to substantively-second voice, approaching Cyril's plurality. Future γ.4.5.D-E waves can substantively expand Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36, bringing Jubilees coverage from 120 entries (γ.4.5 seed + γ.4.5.B Watchers detail + γ.4.5.C Abraham-cycle detail) to 160 entries. Jub 24-36 coverage rises from 7 seed verses (25:9, 27:21, 30:7, 32:1, 32:18, 35:1, 36:23) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.5.C (Jub 11-22). Voice distribution post-γ.4.5.D: ~22% Cyril / ~14% Ephrem / ~35% 1 Enoch / ~29% Jubilees — Jubilees rises to substantively-second voice surpassing Cyril. Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~64% of the patristic-commentary corpus voice. Future γ.4.5.E wave can substantively expand the Joseph cycle + Exodus-Sabbath finale (Jub 37-50) at the same depth, closing the γ.4.5 detail arc. γ.4.5.E (2026-05-12) added 40 Jubilees Joseph + Exodus-finale detail entries on Jub 37-50, bringing Jubilees coverage from 160 entries to 200 entries and CLOSING the γ.4.5 Mäṣḥafä-Kufāle detail arc. Jub 37-50 coverage rises from 11 seed verses (39:11, 41:1, 43:8, 45:14, 46:1, 47:2, 48:9, 49:1, 49:9, 50:6, 50:13) to 51 entries — substantive-detail parity (and slight surplus) with γ.4.5.B (Jub 5-10, 47 entries), γ.4.5.C (Jub 11-22, 47 entries), and γ.4.5.D (Jub 24-36, 47 entries). Voice distribution post-γ.4.5.E: ~21% Cyril / ~13% Ephrem / ~33% 1 Enoch / ~34% Jubilees — Jubilees BECOMES THE PLURALITY VOICE in the corpus, surpassing 1 Enoch by a hair. The two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~67% of the patristic-commentary corpus voice — the Tewahedo edition's distinctive canonical-textual heritage now dominates the patristic-commentary corpus, appropriate weight for the Tewahedo edition that uniquely canonizes both. The γ.4.5 arc (seed + B-C-D-E detail waves) is now CLOSED for substantive-coverage purposes: each of the six major Jubilees narrative sections has substantive-canonical-coverage parity at ≥40 entries except the very short ch 23 Decline section (which retains seed-only coverage as the 2-entry section is too brief to warrant detail expansion). Future γ.4-cluster work: γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending); γ.4.2.C-D Ephrem on Exodus + Numbers-Deuteronomy; γ.4.3 Cyril on Luke. γ.4.2.C (2026-05-13) added 40 Ephrem-on-Exodus entries, bringing Ephrem total from 77 to 117 and Ephrem share from 13.1% to approximately 18.6%. All major Exodus narrative blocks covered: Israel multiplies + Moses' birth + burning bush + signs + plague-cycle openers + Passover + pillar + Red Sea + Song of Moses + Marah + manna + water-from-rock + Amalek + Sinai theophany + Decalogue + covenant blood + tabernacle + mercy seat + high priest's plate + golden calf + broken-and-restored tablets + vision of glory + veiled face + glory-fills-tabernacle. Voice distribution post-γ.4.2.C: ~19% Cyril / ~19% Ephrem / ~30% 1 Enoch / ~32% Jubilees — Ephrem rebalances back to parity with Cyril, recovering the second-voice position it last held after γ.4.2.B. Source: Ephrem the Syrian, Commentary on Exodus + Sermo de Domino Nostro + Hymns on the Crucifixion + Hymns on the Nativity (NPNF S2 V13, Gwynn / Schaff trans., Oxford 1898 — PD). Future γ.4-cluster work: γ.4.2.D Ephrem on Numbers-Deuteronomy; γ.4.3 Cyril on Luke (Payne Smith 1859 PD); γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending). γ.4.3 (2026-05-13) added 40 Cyril-of-Alexandria-on-Luke entries, bringing Cyril total from 121 to 161 and Cyril share from 19.2% to approximately 24.0%. Opens the SECOND major Cyril Gospel arc (after γ.4.1's Cyril-on-John arc closed at γ.4.1.D modulo unfillable Jn 8-10 manuscript gap). All 24 Lukan chapters covered at seed depth: Lk 1 (3) + Lk 2 (3) + Lk 3 (1) + Lk 4 (2) + Lk 5 (2) + Lk 6 (2) + Lk 7 (2) + Lk 8 (1) + Lk 9 (2) + Lk 10 (2) + Lk 11 (1) + Lk 12 (1) + Lk 13 (1) + Lk 14 (1) + Lk 15 (1) + Lk 16 (1) + Lk 17 (1) + Lk 18 (2) + Lk 19 (2) + Lk 20 (1) + Lk 21 (1) + Lk 22 (2) + Lk 23 (3) + Lk 24 (2) = 40 entries. Voice distribution post-γ.4.3: ~24.0% Cyril / ~17.4% Ephrem / ~28.5% 1 Enoch / ~29.7% Jubilees / and a balanced two-patristic-anchors + two-canonical-text quartet now anchors the patristic-commentary corpus on the Tewahedo edition. Cyril's voice recovers second-place behind Jubilees and ahead of 1 Enoch. With γ.4.3 shipped, Cyril is anchored on two Gospels (John + Luke). Source: R. Payne Smith, *A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria* (Oxford: University Press, 1859 — PD). Future γ.4-cluster work: γ.4.3.B substantive Cyril-on-Luke detail expansion; γ.4.2.D Ephrem on Numbers-Deuteronomy (completes Ephrem on Pentateuch); γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending). γ.4.2.D (2026-05-13) added 40 Ephrem-on-Numbers-Deuteronomy entries (20 + 20) CLOSING the Ephrem-on-Pentateuch arc. Voice distribution post-γ.4.2.D: ~22.7% Cyril / ~22.1% Ephrem / ~27.0% 1 Enoch / ~28.2% Jubilees — Ephrem rebalances to near-parity with Cyril, recovering second-voice posture among the patristic-anchor pair (Cyril 22.7% vs Ephrem 22.1%, within 0.6 points). The two-patristic-anchors-plus-two-canonical-text quartet preserved: 44.8% patristic (Cyril + Ephrem) / 55.2% canonical-text (1 Enoch + Jubilees), appropriate weight for the Tewahedo flagship that uniquely canonizes both Mäṣḥafä Hēnok and Mäṣḥafä Kufāle. With γ.4.2.D shipped, the Ephrem-on-Pentateuch arc is CLOSED for substantive-coverage purposes (four-wave parity Gen+Exo+Num+Deu at ≥20 entries each; Lev retained at seed-only depth as extant Ephrem-on-Leviticus material is the thinnest of the Pentateuchal corpus). Future γ.4-cluster work narrows to: γ.4.3.B substantive Cyril-on-Luke detail expansion (mirroring γ.4.1.A-D); γ.4.6/γ.4.7 Cyril on Matthew / Mark (PD-accessibility pending); γ.4.8 Mäqabyan seed (DEFERRED — PD source acquisition pending).",
+    "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction. R. Payne Smith, A Commentary upon the Gospel according to S. Luke by S. Cyril, Patriarch of Alexandria (Oxford: University Press, 1859 — PD; Payne Smith d. 1895; the Greek of Cyril's Lukan homilies is lost in manuscript, but Payne Smith translated 156 homilies from Syriac).",
     "schema_version": 1
   },
   "entries": [
@@ -5905,6 +5905,1206 @@
       "year": -150,
       "summary": "'Whoever does any work thereon, or goes a journey, or tills (his) farm whether in his house or any other place, and whoever lights a fire, or rides on any beast, or travels by ship on the sea, and whoever strikes or kills anything, or slaughters a beast or a bird, or whoever catches an animal or a bird or a fish, or whoever fasts or makes war on the Sabbaths: the man who does any of these things on the Sabbath shall die' — Jubilees gives the strictest possible Sabbath-prohibition list, with the canonical 'shall die' formula. The Tewahedo Saturday-Sabbath observance preserves this strictness in canonical-pastoral form: Saturday is a day of complete rest, abstention from agricultural-and-commercial work, and elevated-spiritual-focus. The Tewahedo's distinctive observation of BOTH Saturday (canonical-OT Sabbath) and Sunday (Christ's-resurrection-Lord's-Day) gives the Tewahedo the canonical-fullness of weekly-time-sanctification, anchored in Jub 50.",
       "attribution": "Jubilees 50:12 (Sabbath and Jubilee finale (50:12)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 1,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Ephrem reads Israel's prodigious multiplication in Egypt as the patriarchal blessing of Gen 1:28 surviving inside a hostile crown: the seed cannot be extinguished, because the messianic line is the seed-bearer of the world. Tewahedo commentary follows this reading when teaching that the Hebrew people are preserved through Egyptian captivity precisely so that the Saviour may issue from them.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus I.1 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 1,
+      "verse": 22,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Pharaoh's edict that every male Hebrew infant be cast into the river is, for Ephrem, the first scriptural sign of Mastema-mirror tyranny: the murderous power decrees the very fate it will suffer. The plague of the firstborn and the Red Sea reverse Pharaoh's decree on his own house. Tewahedo reads this as the canonical pattern by which oppressor measures are returned upon oppressors.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus I.4 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 2,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "When the mother of Moses sees that her child is 'goodly' (asteios), Ephrem reads this not as physical beauty alone but as divinely-bestowed countenance, a foreshadowing of the 'fairest of the sons of men' (Ps 45:2). The radiance her eyes detect is the same radiance that will shine from Moses' face at Sinai and from the face of Christ at the Transfiguration.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus II.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 2,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Sermo de Domino Nostro",
+      "year": 363,
+      "summary": "The three-month hiding of the infant Moses, ended by his being laid in an ark of bulrushes pitched with bitumen, is for Ephrem the first Pascal typology of the Old Testament: the ark is the tomb, the three months are the days of burial in cipher, and the deliverer is preserved through the very waters that should have destroyed him. Tewahedo carries this reading as part of its Pascal lectionary catechesis: Moses-in-the-ark anticipates Christ-in-the-tomb.",
+      "attribution": "Ephrem the Syrian, Sermo de Domino Nostro 3-4 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 2,
+      "verse": 10,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Pharaoh's daughter, drawing the Hebrew infant out of the river and giving him a name, is for Ephrem the first prefiguration of the Gentile Church receiving the Word from among the Hebrews. The Egyptian princess does what her father refuses to do; the daughter of the oppressor saves the deliverer of the oppressed. Tewahedo cites this as a canonical anchor for Gentile-incorporation into the people of God.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus II.5 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 2,
+      "verse": 21,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Moses meeting Zipporah at the well in Midian, after defending her father's flock from hostile shepherds, is read by Ephrem as the second well-betrothal after Jacob and Rachel: a prophet meeting his bride at a well of living water. The pattern recurs at Sychar, where the true Bridegroom meets the Samaritan woman at Jacob's well (Jn 4). Tewahedo treats Ex 2:21 as a canonical link in the well-betrothal chain culminating in the Bridegroom-Christ.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus II.10 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 3,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Nativity",
+      "year": 365,
+      "summary": "The bush that burns yet is not consumed is, for Ephrem, the first canonical type of the Theotokos: the holy fire of divinity dwelling within the bush of Mary's flesh without consuming it. Tewahedo iconography seats the burning bush among its earliest Marian types, and the bush is a regular figure in Marian hymnody: 'the bush that bore the fire and was not burned.'",
+      "attribution": "Ephrem the Syrian, Hymns on the Nativity I.18; cp. Hymns on the Crucifixion I.2-3 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 3,
+      "verse": 5,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'Loose thy shoe from off thy foot, for the place whereon thou standest is holy ground' — Ephrem hears in this not only Moses' singular calling but the rule for entering the sanctuary, that what carries the dust of the world is removed before standing where God has descended. Tewahedo carries this as the canonical warrant for entering the Beta Maryam barefoot, a practice preserved in every Tewahedo church to this day.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus III.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 3,
+      "verse": 14,
+      "father": "Ephrem the Syrian",
+      "work": "Sermo de Domino Nostro",
+      "year": 363,
+      "summary": "'I AM THAT I AM' is, for Ephrem, the divine Name revealed in advance of the Incarnation as the very ground on which the Word may later say 'Before Abraham was, I am' (Jn 8:58). The Name is not given to Moses as a label but as a confession: God reveals himself as the eternal subsisting One whose being underwrites every act of deliverance. Tewahedo reads Ex 3:14 and Jn 8:58 as a single canonical disclosure.",
+      "attribution": "Ephrem the Syrian, Sermo de Domino Nostro 4-5 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 4,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Moses' hand made leprous in the bosom and then restored is, for Ephrem, the sign of the Incarnation given before the fact: humanity has become diseased in its hidden parts, and the Lord places it within his own bosom to bring it forth healed. The same hand that becomes leprous becomes healing for the leprous — a foreshadowing of the Word's assumption of the very flesh he will cleanse.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus IV.3 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 4,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Water turned to blood at Moses' word is the sign of judgment; water turned to wine at Cana is the sign of joy. Ephrem reads the two miracles as a single canonical inclusio: the first prophet inverts the river to bring judgment on Egypt; the true Lord inverts the water-pots to bring gladness to the wedding. The Word who turned the Nile to blood for accusation turns the jars of purification into the wine of the new covenant.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus IV.5 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 4,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "The hostile encounter at the lodging-place, where the Lord seems to seek Moses' life, Ephrem reads as a covenant-rupture answered by covenant-restoration: it is the failure to circumcise Moses' son that opens the breach, and Zipporah's prompt circumcision that closes it. The Tewahedo reading harmonizes the canonical witness with Jub 48:1-2, which names Mastema as the immediate agent; the divine permission and the demonic accusation work together to vindicate the covenant.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus IV.20 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 6,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'I will take you to me for a people, and I will be to you a God' — Ephrem hears in this verse the completion of the Abrahamic-Isaac-Jacob promise: the patriarchal seed becomes a peoplehood under a single covenanted Name. Tewahedo cites Ex 6:7 as the canonical formula on which both Sinai and the New-Covenant 'I will be their God and they shall be my people' (Jer 31:33; Rev 21:3) depend.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus VI.3 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 7,
+      "verse": 10,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "Aaron's rod swallowing the rods-turned-serpents of the magicians is, for Ephrem, an early figure of the Crucified Christ swallowing the dragon: the wood that becomes a serpent becomes a devouring serpent, and the devouring is itself the salvation. The Cross — wood that becomes the throne of the Serpent-conqueror — accomplishes in reality what the rod accomplished in type.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion IV.10-12 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 12,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "The lamb is to be set aside on the tenth day of the month — and on this very tenth day, Ephrem reads, the true Lamb entered Jerusalem to be set aside for the slaughter. The four days between the setting-aside and the killing correspond to the Holy-Week interval between Palm Sunday and Crucifixion. Tewahedo Pascal catechesis preserves this counting in its Holy-Week observances.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion II.5-7 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 12,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "The lamb is roasted whole, eaten with unleavened bread and bitter herbs. Ephrem reads each prescription as eucharistic precedent: the unbroken lamb is the unbroken body of Christ; the unleavened bread is the bread that carries no leaven of malice; the bitter herbs are the bitter cup of the Passion. Tewahedo Anaphora retains this canonical OT prototype as one of its earliest Pascal anchors.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion II.8 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 12,
+      "verse": 13,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "Blood struck upon the two side-posts and the upper lintel of the door traces, for Ephrem, the very figure of the Cross over each Israelite household: a mark in the shape of the salvation that the blood signifies. The destroyer who passes over the marked door does so because the mark is the Cross before the Cross. Tewahedo cites this as a canonical eucharistic-demonic-defense anchor: the Pascal blood marks the household; the eucharist marks the soul.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion III.1-3 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 12,
+      "verse": 46,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "'Neither shall ye break a bone thereof' — Ephrem treats this prescription as one of the most precise prophetic anchors in the Old Testament, fulfilled verbatim at Jn 19:36 when the soldiers do not break Christ's legs. The Lamb of God remains the unbroken lamb of Exodus. Tewahedo reads Ex 12:46 and Jn 19:36 as a single canonical disclosure of the same lamb.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion III.10 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 13,
+      "verse": 21,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "The pillar of cloud by day and of fire by night, leading Israel through the wilderness, is for Ephrem the canonical figure of Christ's two natures: the cloud that veils the fire is the humanity that veils the divinity, yet the veiling does not extinguish the radiance. Tewahedo reads the pillar as the first systematic OT diptych of the Incarnation.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XIII.7 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 14,
+      "verse": 16,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "Moses stretches out the rod over the sea, and Ephrem hears in the gesture the shape of the Cross extended over the waters of baptism. The rod that splits the sea is the same wood that, in the new dispensation, splits the waters of death so that the baptized may walk through on dry ground. Tewahedo reads the Red Sea and the baptismal font as a single canonical passageway.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion V.4-6 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 14,
+      "verse": 22,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Israel passes through the sea on dry ground with the waters as a wall on either hand. Paul reads this as 'baptized into Moses in the cloud and in the sea' (1 Cor 10:2); Ephrem follows Paul and reads Ex 14:22 as the founding scriptural figure of Christian baptism. Tewahedo carries this as the principal OT type of its baptismal liturgy: the people pass through the waters and emerge a people.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XIV.6 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 14,
+      "verse": 28,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Pharaoh's host drowned in the very waters through which Israel walks dry is, for Ephrem, the canonical anti-type of baptism: what saves the believer destroys the pursuer. The devil and the powers of the old age are drowned in the font as Pharaoh was drowned in the sea. Tewahedo reads the renunciation of Satan in its baptismal rite as the liturgical correlate of the Red-Sea drowning.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XIV.10 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 15,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'I will sing unto the Lord, for he hath triumphed gloriously' — the first canonical hymn of victory, sung on the shore of the sea by the redeemed. Ephrem treats Ex 15:1 as the prototype of all Pascal hymnody: every Easter song of the Church is a continuation of Moses' shore-song. Tewahedo mäzmur-tradition recognizes the Song of Moses among its earliest canonical warrants for hymnic praise after deliverance.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XV.1 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 15,
+      "verse": 25,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "The Lord shows Moses a tree, and the tree cast into the bitter waters of Marah makes them sweet. Ephrem reads the wood as the Cross before its time: what sweetens the waters of the world is the wood of the Cross cast into them. Tewahedo Holy-Week catechesis cites Ex 15:25 as one of its principal OT cross-typology anchors.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion VIII.4 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 16,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'I will rain bread from heaven for you' — the manna of the wilderness is for Ephrem the direct prophetic anchor of Jn 6: 'I am the bread which came down from heaven.' The wilderness bread sustains the body for a day; the Eucharist sustains the soul for eternity. Tewahedo Anaphora cites Ex 16:4 and Jn 6 together as the OT-NT diptych of the eucharistic gift.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XVI.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 16,
+      "verse": 15,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "When Israel sees the manna they say 'man hu' — 'what is it?' — and the question itself becomes the name. Ephrem hears in this the canonical instinct that the heavenly food cannot be named by its likeness to anything earthly; the name is a confession of mystery. Tewahedo eucharistic theology cites this as the OT antecedent of its own anaphoral language of 'mystery,' 'gift,' and 'medicine of life.'",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XVI.6 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 17,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "The rock struck by Moses' rod pours out water for the thirsty people, and Ephrem joins Paul (1 Cor 10:4) in reading the rock as Christ. The striking is the Crucifixion; the water is the Spirit and the eucharistic stream (Jn 19:34 — blood and water from the pierced side). Tewahedo treats Ex 17:6 and Jn 19:34 as a single canonical disclosure of the smitten Christ releasing the rivers of living water.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion IX.2-4 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 17,
+      "verse": 11,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "When Moses lifted up his hands Israel prevailed against Amalek; when he let them down Amalek prevailed. Ephrem reads the cruciform posture as the secret of the victory: Moses' arms outstretched are the Cross fore-figured, and the war is won not by the sword in the valley but by the cross-shape on the hill. Tewahedo carries this as the canonical OT type of Christian intercessory prayer in the cross-posture.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XVII.5 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 19,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Sinai wrapped in fire and smoke is, for Ephrem, the OT diptych of Pentecost: there the fire descends on a mountain and the people may not come near; here the fire descends on heads and tongues so that the people themselves become the mountain. Tewahedo reads Ex 19:18 and Acts 2 as the before-and-after of the divine fire — the same fire that thundered now rests on the believer without consuming.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XIX.8 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 20,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'I am the Lord thy God, which have brought thee out of the land of Egypt, out of the house of bondage' — Ephrem reads the Pascal preface as the ground of every command that follows. The commandments are not arbitrary statutes but the rule-of-life of a delivered people; only the delivered are addressed by the Decalogue. Tewahedo catechesis preserves this priority of deliverance before commandment.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XX.1 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 20,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'Remember the sabbath day, to keep it holy' — Ephrem reads Sabbath-rest as the canonical sign that creation is given a goal beyond labour: the Sabbath foreshadows the eighth-day rest of the Resurrection. Tewahedo alone among the major communions preserves both observances together — Saturday-Sabbath retained from Sinai and Sunday-Lord's-Day added from the Resurrection — and reads Ex 20:8 as the canonical anchor of the double observance.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XX.4 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 24,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Hymns on the Crucifixion",
+      "year": 365,
+      "summary": "Moses takes the blood and sprinkles it on the people, saying 'Behold the blood of the covenant, which the Lord hath made with you concerning all these words.' Ephrem hears in this the very formula that Christ will adopt verbatim at the Last Supper: 'This is the blood of the covenant.' Tewahedo Anaphora reads Ex 24:8 and Mt 26:28 as a single covenantal sentence completed by the Cross.",
+      "attribution": "Ephrem the Syrian, Hymns on the Crucifixion VI.3-5 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 25,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "'Let them make me a sanctuary; that I may dwell among them' — Ephrem reads this verse as the canonical warrant for every consecrated dwelling-place of God: the tabernacle prefigures the Incarnation ('the Word was made flesh and tabernacled among us,' Jn 1:14), and the Incarnation prefigures the Church. Tewahedo cites Ex 25:8 as the principal canonical anchor of its tabot tradition — the Ark-as-sanctuary at the center of every Tewahedo church.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XXV.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 25,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Two cherubim of gold beaten out of one piece, their wings stretched over the mercy seat, are for Ephrem the canonical sign that the divine throne rests over a place of propitiation, not over a tribunal alone. The mercy seat between the wings is the OT type of the Cross where mercy meets the Law. Tewahedo iconography preserves the cherub-flanked tabot in every sanctuary.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XXV.9 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 28,
+      "verse": 36,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "The plate of pure gold on the high priest's forehead, engraved 'Holiness to the Lord' — Ephrem reads this as the priestly title borne by the high priest in figure and by Christ in fulfilment: the True Priest carries the holiness of the Lord on his very person, not as an ornament but as his essence. Tewahedo priestly vestments retain the canonical pattern of the Aaronic mitre as a deliberate iconographic echo.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XXVIII.12 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 32,
+      "verse": 11,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Moses' intercession after the golden calf, in which he pleads against the wrath of God on behalf of the people, is for Ephrem the canonical OT prefiguration of Christ's high-priestly intercession (Jn 17; Heb 7:25). The mediator does not stand with the accuser but with the accused, even when the accused are guilty. Tewahedo reads Ex 32:11 as the principal OT figure of mediatorial prayer.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XXXII.4 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 32,
+      "verse": 19,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Moses breaks the first tablets at the foot of the mountain when he sees the calf; the second tablets are given after intercession and re-ascent. Ephrem reads the two givings as the canonical figure of the two Testaments: the first Adamic covenant broken at the foot of the mountain, the second covenant given through the One who ascends and descends. Tewahedo carries this as the principal OT figure of the OT-NT twofold canonical witness.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XXXII.10 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 33,
+      "verse": 20,
+      "father": "Ephrem the Syrian",
+      "work": "Sermo de Domino Nostro",
+      "year": 363,
+      "summary": "'There shall no man see me and live' — and yet Moses sees the Lord's back as he passes by. Ephrem reads the verse as the canonical disclosure that full vision of God is reserved for the Incarnation: only when the Word is made flesh may humanity behold the divine face without being consumed. Tewahedo reads Ex 33:20 and 1 Jn 1:1 ('which we have seen with our eyes') as a single canonical arc from veiled vision to face-to-face Word.",
+      "attribution": "Ephrem the Syrian, Sermo de Domino Nostro 7-8 (NPNF S2 V13). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 34,
+      "verse": 30,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "Moses descends with face shining and must put on a veil that the people may bear his presence. Paul reads the veil as the figure of the obscurity that remains over the OT until Christ takes it away (2 Cor 3:13-16). Ephrem follows Paul and reads Ex 34:30 as the canonical anchor of the veiled-to-unveiled progression: in the OT the prophet's borrowed glory must be covered; in the NT the believer beholds the Lord's own glory unveiled.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XXXIV.11 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "exo",
+      "chapter": 40,
+      "verse": 34,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Exodus",
+      "year": 360,
+      "summary": "When the tabernacle is finished, the cloud covers it and the glory of the Lord fills it. Ephrem reads the closing verse of Exodus as the canonical anticipation of the Apocalyptic vision: 'the tabernacle of God is with men, and he will dwell with them' (Rev 21:3). The whole book moves from the house of bondage to the house of glory. Tewahedo eschatological catechesis treats Ex 40:34 as the OT bookend of the canonical hope completed in Rev 21.",
+      "attribution": "Ephrem the Syrian, Commentary on Exodus XL.16 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 1,
+      "verse": 28,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Cyril reads the angel's 'Hail, thou that art highly favoured' as the scriptural witness that Mary is uniquely graced — not merely a vessel selected at random but a creature on whom the eternal counsel of God has already rested. The greeting is itself an anticipation of the Incarnation: the angel speaks to her as already enclosing the favour that is about to descend in her womb. Tewahedo Marian theology cites this verse as one of its earliest patristic anchors of the Theotokos confession.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily I (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 1,
+      "verse": 46,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The Magnificat — 'My soul doth magnify the Lord' — is for Cyril the first prophetic hymn of the New Covenant, spoken by the very mouth that bears the Word. Mary magnifies not by adding anything to God but by uniquely participating in his self-giving: she 'magnifies' the Lord precisely as the bearer of his enfleshment. Cyril reads the song as the OT prophetic genre — the canticles of Hannah, Miriam, Deborah — now fulfilled and surpassed in the Mother of the incarnate Word.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily II (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 1,
+      "verse": 64,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Zacharias's tongue is loosed at the moment he writes 'His name is John,' and Cyril hears in the restoration the canonical sign that speech is given by faith and withheld by unbelief. The priestly silence imposed in the Holy Place is broken when the prophet consents to the angelic message; the canticle Benedictus follows immediately. Tewahedo lectionary preserves Zacharias's release as the OT-priestly-to-NT-prophetic hinge of the Lukan infancy.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily III (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 2,
+      "verse": 7,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'No room in the inn' — Cyril hears the verse as the canonical sign that the Word enters the world rejected from the start, foreshadowing the Cross's final rejection. The manger is itself a eucharistic image: the food-trough of beasts becomes the resting-place of the Bread that comes down from heaven. Tewahedo Nativity hymnody draws directly on this Cyrillian reading of the manger as proto-altar.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily I on the Nativity (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 2,
+      "verse": 29,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Simeon's 'Nunc dimittis' is for Cyril the canonical confession that the seeing of the infant Christ IS the seeing of salvation: the eyes that behold the babe have beheld the salvation God prepared 'before the face of all peoples.' Cyril notes that Simeon does not say 'I have seen one who will save' but 'mine eyes have seen thy salvation' — the infant is the salvation, not merely its instrument. Tewahedo Compline preserves Nunc Dimittis as one of its earliest canonical-hymn anchors.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily IV (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 2,
+      "verse": 49,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The twelve-year-old in the Temple says 'I must be about my Father's business,' and Cyril hears in the words the first public utterance of the Son's consciousness of his own divine sonship. The very child who is subject to his earthly parents declares without violation of that subjection that the Father in heaven is his proper Father. Tewahedo Christology cites Lk 2:49 as one of its earliest canonical anchors of the two-natures-in-one-person confession that Cyril would later make definitive against Nestorius.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily V (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 3,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "John's 'He shall baptize you with the Holy Ghost and with fire' is for Cyril the canonical disclosure that Christian baptism is fundamentally pneumatological — the water is the outer sign of an inner gift of the Spirit. The fire is not destruction but the purifying-and-illuminating fire of the Pentecostal descent. Tewahedo baptismal theology reads Lk 3:16 alongside Acts 2 as the canonical diptych of the Spirit's outpouring in the New Covenant.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily VI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 4,
+      "verse": 8,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Christ's reply to the devil — 'Thou shalt worship the Lord thy God, and him only shalt thou serve' — is for Cyril the canonical Adamic reversal: where the first Adam consented to the serpent's offered elevation, the New Adam refuses every offered kingdom that does not come through the cross. The temptation is the wilderness-pendant of the Eden episode. Tewahedo Lenten lectionary places the Temptation narrative at the gateway of the Great Fast for precisely this Cyrillian reading.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily VII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 4,
+      "verse": 21,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "After reading from Isaiah, Christ declares 'This day is this scripture fulfilled in your ears.' Cyril reads the synagogue homily as the canonical announcement that the Anointed-One's program is the program of Is 61: good tidings to the poor, release to the captives, sight to the blind, acceptable year. Tewahedo public-reading lectionary still pairs Isaiah 61 with Luke 4 on Nazareth-synagogue feast days to preserve this Cyrillian fulfilment-arc.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 5,
+      "verse": 8,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Peter's response to the miraculous catch — 'Depart from me, for I am a sinful man, O Lord' — is for Cyril the first canonical confession of Christ's divinity by the future chief apostle: only divine power could so command the deep, and only divine holiness compels such a confession of unworthiness. Cyril notes that Christ does not depart but rather summons Peter from sinfulness to apostleship. Tewahedo ordination liturgy preserves the Petrine 'depart from me' as the canonical posture of the one called to priesthood.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XIII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 5,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "When Christ tells the paralytic 'Man, thy sins are forgiven thee,' Cyril hears the canonical claim of divine prerogative — only God forgives sins, as the scribes themselves know. The subsequent healing of the body is offered as the visible sign of the invisible remission. Cyril emphasizes the order: sins forgiven first, then body restored, so that the priority of soul over body is canonically established. Tewahedo penitential theology cites Lk 5:20-24 as the principal Lukan anchor of sacramental absolution.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XIV (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 6,
+      "verse": 5,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'The Son of Man is Lord also of the sabbath' — Cyril reads the declaration as the canonical assertion of Christ's divinity by way of his lordship over the Mosaic institution. The same Word who instituted the Sabbath in creation and re-instituted it at Sinai stands as its Lord. Tewahedo Saturday-Sabbath theology cites Lk 6:5 as the canonical warrant that the Lord of the Sabbath is precisely the One who fulfills, not abrogates, its rest in himself.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XX (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 6,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The Lukan Beatitudes — 'Blessed are ye poor, for yours is the kingdom of God' — are for Cyril the canonical pendant to the Matthean form: where Matthew preserves the inner-disposition reading (poor in spirit), Luke preserves the outer-condition reading (literally poor). Cyril harmonizes the two as a single canonical blessing of those whose poverty — whether of possession or of spirit — opens them to the kingdom. Tewahedo monastic catechesis draws explicitly on the Lukan form.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XXIX (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 7,
+      "verse": 9,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "When Christ marvels at the centurion — 'I have not found so great faith, no, not in Israel' — Cyril reads the praise as the canonical anticipation of the Gentile mission. The Gentile believes without having seen the temple; the Israelite, having the temple before his eyes, often does not. Cyril treats Lk 7:9 as the Lukan precursor of his beloved Pauline 'there is neither Jew nor Greek' (Gal 3:28). Tewahedo missiology cites the centurion as a canonical Gentile-faith anchor.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XXXVI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 7,
+      "verse": 47,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Her sins, which are many, are forgiven; for she loved much' — Cyril reads the saying not as forgiveness CAUSED by love but as forgiveness MANIFESTED by love. The woman's tears at the Pharisee's table are the visible token that her sins are already remitted; the love comes from the remission, the remission is not the wage of the love. Tewahedo penitential rite preserves this Cyrillian ordering: absolution precedes the works of penance, never the reverse.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XL (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 8,
+      "verse": 25,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Where is your faith?' — Christ's rebuke to the terrified disciples in the storm is for Cyril the canonical anchor of the disciples' still-developing recognition of his divinity. The Word who rebukes the wind is the same Word who, in Job and the Psalms, treads upon the waves of the sea. The storm-stilling is a theophanic act, and the disciples' question 'who then is this?' answers itself. Tewahedo Christology cites Lk 8:25 as a canonical anchor of the disciples' graduated confession of the Word's divinity.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XLIII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 9,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Peter's 'Thou art the Christ of God' is for Cyril the apostolic confession that defines the Church. The confession is not Peter's discovery — it is the Father's revelation through him — and yet it is Peter's voice that utters it on behalf of the Twelve. Cyril treats the Lukan form alongside the Matthean expansion (Mt 16:16-18) as a single canonical confession-and-commission diptych. Tewahedo Petrine theology cites Lk 9:20 as the canonical anchor of the apostolic confessional core.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XLIX (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 9,
+      "verse": 35,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The voice from the cloud at the Transfiguration — 'This is my beloved Son: hear him' — is for Cyril the canonical Father-Son disclosure made visible to Peter, James, and John. The Transfiguration is the proleptic glimpse of the post-Resurrection glory: the same flesh that walks the wilderness shines with the uncreated light. Tewahedo Transfiguration feast (Buhe) preserves Cyril's reading of the divine voice as the canonical paternal attestation of the Son's inseparable divinity.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily LI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 10,
+      "verse": 33,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Cyril reads the Good Samaritan parable as a Christological allegory from at least the third Christian century, and his exegesis carries the canonical pattern: the wounded man is Adam-fallen-among-thieves; the priest and Levite are Law and Prophets, unable to save; the Samaritan is the despised-and-rejected Christ; the inn is the Church; the two denarii are the Old and New Testaments; the promise to return is the Second Coming. Tewahedo monastic exegesis preserves this allegory wholesale.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXVIII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 10,
+      "verse": 42,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Mary at Christ's feet 'hath chosen that good part' — Cyril reads the saying as the canonical anchor of contemplative priority: the service to the body (Martha) is necessary but the service to the Word (Mary) is the 'one thing needful,' and Mary's portion will not be taken from her. Tewahedo monastic theology cites Lk 10:42 as one of its earliest canonical anchors of the primacy of prayer and scripture-reading over outward works.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXIX (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 11,
+      "verse": 2,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The Lukan Pater Noster — 'When ye pray, say, Our Father which art in heaven' — is for Cyril the canonical form by which the Word teaches the saints to address God in his own filial voice. The 'Our' is ecclesial: no one prays the prayer alone; even the hermit in the desert prays as a member of the body. Tewahedo daily-office incorporates the Pater Noster at every hour, drawing directly on Cyril's reading of it as the canonical-filial address form.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXXII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 12,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Thou fool, this night thy soul shall be required of thee' — the rich fool's death-warrant in the parable is for Cyril the canonical warning against the postponement-of-the-soul that worldly wealth enables. The man addresses HIS OWN SOUL ('soul, thou hast much goods') as if it belonged to him to dispose; God's reply discloses that the soul is on lease. Tewahedo monastic memento-mori catechesis draws directly on this Cyrillian reading.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily LXXXIX (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 13,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'This woman, being a daughter of Abraham, whom Satan hath bound, lo, these eighteen years, ought not she to be loosed from this bond on the sabbath day?' — Cyril reads Christ's defence of the Sabbath healing as the canonical exposure of the Pharisaic perversion of the rest-commandment into a bondage. The Sabbath was made for the loosing of bonds, not for their maintenance. Tewahedo Sabbatical theology cites Lk 13:16 as the canonical anchor of the freedom-form of Sabbath rest.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily XCVI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 14,
+      "verse": 27,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Whosoever doth not bear his cross, and come after me, cannot be my disciple' — Cyril reads the saying as the canonical anchor of voluntary martyrdom: the disciple's own cross-bearing is the imitation that conforms him to the Master. The discipleship cost-calculation that follows (tower-builder, king-going-to-war) is the prudential prelude. Tewahedo monastic profession includes the voluntary embrace of the spiritual cross in direct dependence on this Cyrillian reading.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CIV (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 15,
+      "verse": 20,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'When he was yet a great way off, his father saw him, and had compassion, and ran, and fell on his neck, and kissed him' — Cyril treats the Father's running as the canonical signature of the Lukan parable: the divine compassion does not wait for the sinner to arrive but goes out to meet him while he is still far. The first robe, the ring, and the shoes are the baptismal restoration of dignity. Tewahedo penitential theology cites Lk 15:20-22 as the principal canonical anchor of God-runs-to-meet-the-returning-sinner imagery.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CVII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 16,
+      "verse": 23,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Cyril reads the Rich-Man-and-Lazarus narrative as canonically settling several intermediate-state questions: that there is consciousness after death; that the just are gathered to a place of refreshment ('Abraham's bosom'); that the unjust suffer torment in conscious recognition; that the chasm fixed between the two is uncrossable; that Moses and the Prophets are sufficient witnesses to deter the living. Tewahedo eschatology draws on Lk 16:19-31 as the principal canonical Lukan anchor of the intermediate-state doctrine.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 17,
+      "verse": 16,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Only the Samaritan among the ten cleansed lepers returns to give thanks at Christ's feet, and Cyril reads the verse as the canonical Lukan anchor of the eucharistic posture: the cleansed turn back to the cleanser in thanksgiving (eucharistia). The nine who do not return are not cured of the deeper leprosy of ingratitude. Tewahedo Anaphora preserves the Cyrillian reading: the proper response to divine cleansing is the return-to-the-altar with thanks.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXIII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 18,
+      "verse": 13,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The publican standing afar off, smiting on his breast, saying 'God be merciful to me a sinner' — Cyril treats this prayer as the canonical Lukan form of the Jesus-prayer: short, exact, self-acknowledging, mercy-petitioning. The publican goes down to his house justified, not the Pharisee. Tewahedo monastic prayer tradition preserves the publican's prayer as the canonical seed of the continual prayer of the heart.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXX (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 18,
+      "verse": 38,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "The blind beggar at Jericho — 'Jesus, thou son of David, have mercy on me' — gives, for Cyril, the canonical short-form messianic address. The blind man sees by faith what the seeing crowd does not see: the Davidic sonship of the passing Christ. Tewahedo invocation of the Jesus-prayer preserves the blind-beggar address as one of its earliest canonical forms.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXXVI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 19,
+      "verse": 9,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'This day is salvation come to this house' — Cyril reads the Zacchaeus pericope as the canonical Lukan diptych to Lk 15: in Lk 15 the lost son returns to the father; in Lk 19 the lost son is sought-and-found by the Father. The Son of Man came TO SEEK AND TO SAVE — the seeking is the divine initiative. Tewahedo missiology cites Lk 19:10 alongside Lk 15:20 as the canonical seeking-and-running diptych.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXXVII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 19,
+      "verse": 41,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "Christ's weeping over Jerusalem is for Cyril the canonical disclosure of the Lord's mercy precisely toward the city about to reject him. The tears do not soften the prophetic announcement of the city's destruction; they intensify it as the announcement of a real and grievous loss. Cyril rejects every reading that would treat the tears as mere stagecraft. Tewahedo Holy-Week lectionary preserves Lk 19:41-44 as the Palm-Sunday-eve reading of the Lord's lament.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXXVIII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 20,
+      "verse": 25,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Render therefore unto Caesar the things which be Caesar's, and unto God the things which be God's' — Cyril treats the saying as the canonical two-spheres principle: civic duty is real but subordinate, and never displaces the duty to God. The denarius carries Caesar's image; the soul carries God's. The implicit argument is that the soul is rendered to God by being conformed to his image. Tewahedo political theology cites Lk 20:25 as the canonical two-kingdoms anchor.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXXXII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 21,
+      "verse": 3,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'This poor widow hath cast in more than they all' — Cyril reads the widow's mite as the canonical anchor of the all-or-nothing form of Christian almsgiving: the gift is measured not by the amount given but by the proportion of one's substance, and the widow who gives her last two coins gives literally everything. Tewahedo monastic voluntary poverty draws on Lk 21:3-4 as one of its earliest canonical anchors of total renunciation.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXXXVIII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 22,
+      "verse": 19,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'This is my body which is given for you: this do in remembrance of me' — Cyril treats the Lukan institution narrative as the canonical anchor of his entire eucharistic theology: that the bread broken IS the body of Christ, that the body of Christ given for the believers is the same body born of the Virgin, that the Eucharist is the ongoing communication of the life-giving flesh of the Word. Tewahedo Anaphora cites Lk 22:19 as one of its principal canonical warrants of the real presence.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXLI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 22,
+      "verse": 44,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'His sweat was as it were great drops of blood falling down to the ground' — Cyril treats the Gethsemane sweat as the canonical anchor of the Lord's true humanity: the agony is real, the prayer is real, the consenting will is real. Against any Apollinarian reduction of the human will, Cyril insists that the Word in his humanity wills our salvation through real prayer to the Father. Tewahedo Holy-Thursday lectionary preserves Lk 22:44 as the canonical anchor of the Lord's prayerful humanity.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CXLVI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 23,
+      "verse": 34,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Father, forgive them; for they know not what they do' — Cyril treats the first word from the Cross as the canonical fulfilment of Is 53:12 ('he made intercession for the transgressors'). The intercessory office of the High Priest is exercised from the altar of the Cross itself. The 'they know not' is a real plea for ignorance-extenuation: those who execute Christ are bidden to the same forgiveness offered to all. Tewahedo Good-Friday liturgy preserves Lk 23:34 at the head of the seven words.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CL (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 23,
+      "verse": 43,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Today shalt thou be with me in paradise' — Cyril reads the promise to the good thief as the canonical anchor of three doctrines: (1) Christ retains the prerogative of paradise even at the moment of his apparent defeat; (2) confession-from-the-cross suffices for salvation; (3) the saints enter paradise immediately at death and do not wait. The 'today' rules out every reading that defers the saints' beatific reception to the Last Day alone. Tewahedo intermediate-state doctrine cites Lk 23:43 as a principal canonical anchor.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CLI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 23,
+      "verse": 46,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'Father, into thy hands I commend my spirit' — Cyril treats the Lukan death-cry, drawn from Ps 31:5, as the canonical anchor of every Christian's death-bed prayer: the soul is commended to the Father who created it, by the same words the eternal Son used. The Word does not lose his divinity at the cry of dereliction; the soul-Father committal is the calm answer to the Markan-Matthean cry. Tewahedo funeral office cites Lk 23:46 as the canonical commendation-prayer.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CLII (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 24,
+      "verse": 30,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'He took bread, and blessed it, and brake, and gave to them. And their eyes were opened, and they knew him' — Cyril reads the Emmaus recognition as the canonical Lukan disclosure that the Risen Christ is known IN the breaking of the bread. The same gesture that instituted the Eucharist on Holy Thursday opens the disciples' eyes on Easter evening. Tewahedo eucharistic theology cites Lk 24:30-31 as the canonical anchor that every Eucharist is an Emmaus-recognition.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CLV (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "luk",
+      "chapter": 24,
+      "verse": 51,
+      "father": "Cyril of Alexandria",
+      "work": "Commentary on Luke",
+      "year": 430,
+      "summary": "'He was parted from them, and carried up into heaven' — Cyril treats the Lukan Ascension as the canonical inauguration of the Word-made-flesh's session at the Father's right hand: the same humanity assumed from the Virgin is enthroned in glory. The Ascension is not the departure of the Word from his flesh but the elevation of the flesh into the divine glory. Tewahedo Ascension feast (Ǝrgät) cites Lk 24:51 alongside Acts 1:9-11 as the canonical diptych of the heavenly enthronement.",
+      "attribution": "Cyril of Alexandria, Commentary on Luke, Homily CLVI (R. Payne Smith trans., Oxford: University Press, 1859). PD."
+    },
+    {
+      "book": "num",
+      "chapter": 1,
+      "verse": 50,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the setting-apart of the Levites for tabernacle service, Ephrem reads the census-and-separation pattern of Num 1:50 as the canonical model for ordered ministry: the people are numbered for their tribes, but one tribe is numbered for the Lord himself. The Levites' exemption from the military census is not privilege but conscription into a more dangerous service — the daily handling of the holy things. Tewahedo monastic theology cites Num 1:50 as the Old-Testament warrant for the consecration of the däbtära and the priest-monks; the consecrated are numbered for the sanctuary first, for the nation only afterward.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 1:50. NPNF Series 2, vol. 13 (Gwynn/Schaff trans., Oxford 1898). PD."
+    },
+    {
+      "book": "num",
+      "chapter": 6,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the Nazirite vow, Ephrem reads Num 6:2 as the canonical Old-Testament antecedent of the monastic profession: a person separates himself unto the Lord by a deliberate vow, abstaining from wine, leaving hair uncut as the visible token of consecration. The Nazirite is voluntary, time-bound, and lay — anyone may take the vow. Tewahedo monastic tradition cites Num 6 as the typological warrant for the bahǝtawi (solitary ascetic) and for the temporary monastic vows undertaken during fasts and pilgrimages; the uncut hair and untrimmed beard of the bahǝtawi visibly preserve the Nazirite sign.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 6:1-21. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 6,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "Ephrem reads the threefold Aaronic blessing (Num 6:24-26 — 'The Lord bless thee... make his face shine upon thee... lift up his countenance upon thee') as the canonical priestly anchor that the Father, Son, and Holy Spirit may be invoked under three benedictions before the Tabernacle reveals the Trinity. The triadic shape, the divine-face theology, and the placement of the Name upon Israel are read by Ephrem as the seed-form of every later Christian benediction. The Tewahedo Mass (Qǝddase) preserves Num 6:24-26 as the canonical dismissal-blessing; the priest extends the blessing over the people in the exact threefold form, sealing the eucharistic act.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 6:22-27. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 9,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the command to keep the Passover at its appointed season in the second year (Num 9:2), Ephrem reads the verse as establishing the canonical annual rhythm of Pascha: Passover is not a one-time deliverance but a perpetual yearly observance constitutive of covenant identity. The wilderness Passover anticipates every later celebration: in the desert, in the land, in exile, and finally in the eucharistic Pascha of the Church. Tewahedo Fasika observance cites Num 9:2 alongside Exo 12 as the canonical doubled-anchor for the non-negotiable yearly celebration; to skip Pascha is to step outside the covenant rhythm.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 9:1-14. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 9,
+      "verse": 15,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the cloud covering the tabernacle by day and the appearance-of-fire by night (Num 9:15), Ephrem reads the doubled pillar — cloud and fire — as the canonical visible-sign of continuous divine indwelling: the Lord neither withdraws by day nor leaves the camp dark by night. The same cloud that veiled Sinai's fire now veils and reveals the tabernacle's glory. Tewahedo eucharistic theology cites Num 9:15 as the canonical anchor of the perpetual veil-and-glory pattern preserved in the curtained sanctuary: the tabot is veiled in cloud, illumined by lampstand fire, both signs of the abiding Lord.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 9:15-23. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 10,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the silver trumpets sounded for war and for festivals (Num 10:9-10), Ephrem reads the doubled liturgical-and-military use of the trumpet as the canonical pattern: the same sign that summons the people to battle summons them to rejoicing — both belong to the Lord, both invoke remembrance before him. Tewahedo liturgical practice preserves the silver-trumpet tradition in the qabaro and silver-trumpet of the great feasts (Mäsqäl, Timqät); the same trumpet that announces the procession of the tabot announces the day of remembrance. Num 10:9 is the canonical anchor for the trumpet-as-prayer in Ethiopian worship.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 10:1-10. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 11,
+      "verse": 17,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the Lord's taking of the Spirit that was upon Moses and putting the same Spirit upon the seventy elders (Num 11:17, 25), Ephrem reads the verse as the canonical Old-Testament antecedent of Pentecost: the one Spirit is shared without diminution, the leader's portion does not decrease when others receive. The seventy elders prefigure both the seventy disciples of Lk 10:1 and the assembled hundred-and-twenty of Acts 1-2. Tewahedo pneumatology cites Num 11:17 + Joel 2:28 as the canonical doubled-Old-Testament-witness to the Pentecost gift of the Spirit on all flesh.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 11:14-30. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 12,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On 'Moses was very meek, above all the men which were upon the face of the earth' (Num 12:3), Ephrem reads the meekness-of-Moses note as the canonical Old-Testament prefigurement of the Beatitude 'blessed are the meek' (Mt 5:5) and of Christ's own 'I am meek and lowly of heart' (Mt 11:29). Moses' meekness is not weakness but the refusal to defend himself against his own sister and brother; the Lord defends him because he will not. Tewahedo monastic spirituality cites Num 12:3 as the canonical Old-Testament anchor for the cardinal monastic virtue of mätayāqǝbǝr (humility) — the desert father is meek in the pattern of Moses.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 12:1-15. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 12,
+      "verse": 7,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On 'My servant Moses... is faithful in all mine house' (Num 12:7), Ephrem reads the Lord's defense of Moses as the canonical typological seed of Hebrews 3:5-6: Moses is faithful as a servant in the house, Christ as a son over the house. The household-of-God image is rooted here; the apostolic writer's distinction between servant and son is exegetically inevitable from Num 12:7's vocabulary. Tewahedo christology cites Num 12:7 + Heb 3 as the canonical doubled-witness that Moses prefigures but does not equal the Son who built the house — the typological gap is preserved.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 12:6-8. NPNF Series 2, vol. 13. PD. Cf. Heb 3:5-6."
+    },
+    {
+      "book": "num",
+      "chapter": 13,
+      "verse": 33,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the spies' report of 'the sons of Anak, who come of the Nephilim' in Canaan (Num 13:33), Ephrem reads the survival of Nephilim-stock beyond the Flood as the canonical anchor of the continuing struggle against Watchers-progeny: not all giants perished in the deluge, and the conquest of Canaan is itself a continuation of the Flood-judgment. Tewahedo angelology, drawing on 1 Enoch 7-9 (Mäṣḥafä Hēnok), preserves this reading; the Anakim are the residual giants whose presence in Canaan justifies the herem-conquest as cosmic purgation, not merely political dispossession.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 13:25-33. NPNF Series 2, vol. 13. PD. Cf. 1 Enoch 7-9, trans. R.H. Charles (Oxford: Clarendon, 1912 — PD)."
+    },
+    {
+      "book": "num",
+      "chapter": 14,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On Moses' citation of the divine self-disclosure 'The Lord is longsuffering, and of great mercy, forgiving iniquity and transgression... by no means clearing the guilty' (Num 14:18), Ephrem reads the formula as the canonical liturgical prayer-of-pardon adopted into the Septuagint Psalter (Ps 86:15, 103:8, 145:8) and extended into every later Christian confession-rite. The verse holds together the two halves of the Name: mercy and justice, neither cancelling the other. Tewahedo penance liturgy (näsḫa-of-näsḫa) cites Num 14:18 as the canonical Old-Testament anchor for the priestly absolution formula; the same formula governs the Lenten qǝne and the Holy Thursday foot-washing.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 14:13-25. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "num",
+      "chapter": 16,
+      "verse": 32,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the swallowing of Korah, Dathan, and Abiram by the earth (Num 16:32), Ephrem reads the judgment-against-priestly-rebellion as the canonical anchor of the gravity-of-priesthood: those who usurp the priestly office without divine appointment fall through the very earth that should bear them. Korah's rebellion is doubled in Jude 11 ('perished in the gainsaying of Core') and read as type of every later schismatic seizure of office. Tewahedo canon-law cites Num 16:32 + Jude 11 as the canonical doubled-warrant for the gravity of unauthorised priesthood; only the lawfully-ordained may approach the tabot.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 16:1-35. NPNF Series 2, vol. 13. PD. Cf. Jude 11."
+    },
+    {
+      "book": "num",
+      "chapter": 17,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On Aaron's rod that 'budded, and brought forth buds, and bloomed blossoms, and yielded almonds' (Num 17:8), Ephrem reads the blossoming-of-the-dead-staff as the canonical Marian-rod typology: a dry rod brings forth life out of season because the Lord wills it, prefiguring the Virgin who bears the Word without seed. The Tewahedo Wǝddase Maryam preserves this reading explicitly — Mary is the 'rod of Aaron' (in Geʿez: bä-ṭwāf zä-Aron) whose blossoming is the seedless Conception of the Word. Num 17:8 is therefore the canonical Old-Testament Marian-iconographic anchor in Ethiopian devotion, alongside the burning bush (Ex 3:2) and the ladder of Jacob (Gen 28:12 + Jub 27:19).",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 17:1-13. NPNF Series 2, vol. 13. PD. Tewahedo Marian liturgical witness: Wǝddase Maryam (Praises of Mary)."
+    },
+    {
+      "book": "num",
+      "chapter": 19,
+      "verse": 2,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the red heifer 'wherein is no blemish, and upon which never came yoke' (Num 19:2), Ephrem reads the unyoked, unblemished, wholly-burnt red heifer as the canonical Old-Testament type of Christ's atoning sacrifice — taken up explicitly by Hebrews 9:13-14 as the lesser-to-greater argument: if the ashes of a heifer sanctified the flesh, how much more shall the blood of Christ purge the conscience. The red colour anticipates the blood, the unyoked freedom anticipates Christ's voluntary submission, the outside-the-camp burning anticipates Calvary outside Jerusalem (Heb 13:11-12). Tewahedo eucharistic theology cites Num 19 + Heb 9 as canonical doubled-witness to Christ's once-for-all purifying sacrifice.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 19:1-22. NPNF Series 2, vol. 13. PD. Cf. Heb 9:13-14, 13:11-12."
+    },
+    {
+      "book": "num",
+      "chapter": 20,
+      "verse": 11,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On Moses' striking of the rock twice at Meribah (Num 20:11), Ephrem reads the doubled-strike as the proximate cause of Moses' exclusion from the land: the Lord had commanded that he speak to the rock, not strike it. The exegetical key, taken up by Paul (1 Cor 10:4 — 'that Rock was Christ'), is that Christ is struck once for the people's salvation; to strike him twice violates the typology of the once-for-all sacrifice (Heb 9:28, 10:10). Tewahedo christology cites Num 20:11 + 1 Cor 10:4 + Heb 9-10 as the canonical triple-witness that the Rock-Christ is smitten once and yields life-giving water forever.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 20:1-13. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 10:4; Heb 9:28."
+    },
+    {
+      "book": "num",
+      "chapter": 21,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the bronze serpent lifted on the standard for the healing of the bitten (Num 21:8-9), Ephrem reads the lifted-up-serpent as the canonical Old-Testament prefigurement of the Crucifixion — taken up verbatim by Christ himself in Jn 3:14: 'as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up.' The bronze that looks like serpent but contains no venom prefigures Christ-in-the-likeness-of-sinful-flesh-but-without-sin (Rom 8:3). Looking-and-living is the canonical pattern of faith. Tewahedo Mäsqäl theology cites Num 21:8 alongside Jn 3:14 as the canonical doubled-anchor of the Cross-as-healing-standard for the bitten world.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 21:4-9. NPNF Series 2, vol. 13. PD. Cf. Jn 3:14 (verbatim Christological appropriation)."
+    },
+    {
+      "book": "num",
+      "chapter": 22,
+      "verse": 28,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the Lord's opening of the mouth of Balaam's ass to rebuke the prophet (Num 22:28), Ephrem reads the wonder as the canonical anchor of the doctrine that the Lord may speak truth from the most unworthy vessels: a Gentile diviner is humbled by his own beast, and the prophecy that follows (Num 24:17) issues from the same mouth that needed an ass's instruction. The verse becomes the typological seed of 2 Peter 2:16's denunciation of Balaam — and of the broader patristic principle that the prophetic gift can pass through mouths whose private life condemns them. Tewahedo pastoral theology cites Num 22:28 as the canonical Old-Testament anchor: receive the word for its truth, not for the messenger's worthiness.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 22:21-35. NPNF Series 2, vol. 13. PD. Cf. 2 Pet 2:16."
+    },
+    {
+      "book": "num",
+      "chapter": 24,
+      "verse": 17,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On Balaam's fourth oracle — 'I shall see him, but not now: I shall behold him, but not nigh: there shall come a Star out of Jacob, and a Sceptre shall rise out of Israel' (Num 24:17) — Ephrem reads the doubled-image (Star + Sceptre) as the canonical Old-Testament prophecy of the Messiah's advent: the Star is the sign that appears to the Gentile Magi (Mt 2:2 — 'we have seen his star in the east'), the Sceptre is the Davidic kingship received by the Son of David. The Gentile diviner Balaam prophesies through gritted teeth the salvation of the world. Tewahedo nativity-iconography cites Num 24:17 as the canonical Old-Testament doubled-anchor of the Star-of-Bethlehem and the Davidic-Solomonic Sceptre — both inherited by the Tewahedo Solomonic dynasty's self-understanding.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 24:15-19. NPNF Series 2, vol. 13. PD. Cf. Mt 2:2."
+    },
+    {
+      "book": "num",
+      "chapter": 25,
+      "verse": 11,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On Phinehas's spear-thrust and the Lord's grant of 'my covenant of peace' (Num 25:11-13), Ephrem reads the zealot-priest's act as the canonical anchor of priestly-zeal: not bloodlust, but a refusal to tolerate the pollution of the camp by Baal of Peor. The covenant-of-peace given for an act of violence is the paradox: peace with God is procured by hating what God hates. Tewahedo priestly tradition cites Num 25:11 as the canonical Old-Testament warrant for the priestly-zeal expected of the qes (parish priest) and the märigeta (cantor) — those who cannot tolerate liturgical pollution receive the covenant of peace. The doubling with Jub 30:18 (Levi's priesthood earned-by-zeal at Shechem) makes Num 25:11 + Jub 30:18 the canonical Tewahedo doubled-warrant for priesthood-by-zeal.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 25:1-15. NPNF Series 2, vol. 13. PD. Cf. Jub 30:18 (R.H. Charles trans., 1902 — PD)."
+    },
+    {
+      "book": "num",
+      "chapter": 27,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Numbers",
+      "year": 365,
+      "summary": "On the Lord's selection of Joshua as Moses' successor — 'Take thee Joshua the son of Nun, a man in whom is the spirit, and lay thine hand upon him' (Num 27:18) — Ephrem reads the laying-on-of-hands as the canonical Old-Testament antecedent of apostolic succession: the spirit-bearing successor is consecrated by the laying-on of the predecessor's hands, ratified by the assembly. The transmission is bodily and visible, not merely charismatic. Tewahedo episcopal-consecration cites Num 27:18 + 1 Tim 4:14 as the canonical doubled-witness for the unbroken chain of laying-on-of-hands that grounds the Patriarchate of Ethiopia in apostolic-Mosaic continuity.",
+      "attribution": "Ephrem the Syrian, Commentary on Numbers, on 27:12-23. NPNF Series 2, vol. 13. PD. Cf. 1 Tim 4:14, 2 Tim 1:6."
+    },
+    {
+      "book": "deu",
+      "chapter": 4,
+      "verse": 24,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'the Lord thy God is a consuming fire, even a jealous God' (Deu 4:24), Ephrem reads the doubled-image (consuming fire + jealous God) as the canonical Old-Testament anchor of Hebrews 12:29 ('for our God is a consuming fire' — verbatim citation). The fire-image is not destructive wrath but the purifying jealousy that refuses rival affections. Tewahedo theology cites Deu 4:24 + Heb 12:29 as the canonical doubled-witness that the encounter-with-God is always simultaneously consoling and consuming; the Eucharist itself receives the same description in the Tewahedo Anaphora of Athanasius: 'this is the burning coal which Isaiah saw'.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 4:23-31. NPNF Series 2, vol. 13. PD. Cf. Heb 12:29 (verbatim citation)."
+    },
+    {
+      "book": "deu",
+      "chapter": 5,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On the prologue to the Decalogue's restatement — 'I am the Lord thy God, which brought thee out of the land of Egypt, from the house of bondage' (Deu 5:6) — Ephrem reads the placement of the redemption-formula BEFORE the commandments as the canonical anchor of the order-of-salvation: grace precedes obligation, the Exodus precedes Sinai. The Decalogue is given to a people already redeemed, not to a people earning redemption. Tewahedo catechetical theology cites Deu 5:6 as the canonical Old-Testament anchor for the order baptism-precedes-commandments: the catechumen is delivered from Egypt (baptism) BEFORE receiving the Tewahedo moral-life formation.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 5:1-21. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "deu",
+      "chapter": 6,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On the Shema — 'Hear, O Israel: The Lord our God is one Lord' (Deu 6:4) — Ephrem reads the confession as the canonical Old-Testament Trinitarian seed-form: the threefold name (Lord / our God / Lord) coupled with the affirmation of one (eḥad) holds together the unity and plurality that the New Testament will unfold. The Hebrew eḥad (compound unity, not yaḥid solitary singleness) opens the conceptual space for the later Nicene-Constantinopolitan confession of three persons of one substance. Tewahedo Trinitarian theology cites Deu 6:4 + the dominical 'baptize them in the name of the Father, and of the Son, and of the Holy Ghost' (Mt 28:19) as the canonical Old-Testament-to-New-Testament continuity: the same one Lord is the Holy Trinity.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 6:4-9. NPNF Series 2, vol. 13. PD. Cf. Mt 28:19."
+    },
+    {
+      "book": "deu",
+      "chapter": 6,
+      "verse": 5,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'And thou shalt love the Lord thy God with all thine heart, and with all thy soul, and with all thy might' (Deu 6:5), Ephrem reads the threefold-totality of love as the canonical Old-Testament anchor of the Great Commandment that Christ cites as 'the first and great commandment' (Mt 22:37-38). Heart, soul, might: nothing of the human person is exempt from the demand. Tewahedo monastic theology cites Deu 6:5 + Mt 22:37 as the canonical doubled-witness that monastic poverty (yielding might), monastic chastity (yielding heart), and monastic obedience (yielding soul) are the threefold practical realization of the one Shema-commandment.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 6:4-9. NPNF Series 2, vol. 13. PD. Cf. Mt 22:37-38."
+    },
+    {
+      "book": "deu",
+      "chapter": 6,
+      "verse": 13,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'Thou shalt fear the Lord thy God, and serve him' (Deu 6:13), Ephrem reads the doubled-verb (fear + serve) as the canonical Old-Testament anchor invoked by Christ at the third Temptation: 'Thou shalt worship the Lord thy God, and him only shalt thou serve' (Mt 4:10). The Septuagint's substitution of 'worship' (proskunēseis) for 'fear' (phobēthēsē) preserves the doubled-verb structure that Christ retains. Tewahedo christology cites Deu 6:13 + Mt 4:10 as the canonical doubled-witness that Christ in his humanity submits to the Father-alone-worshipped, providing the typological model for every Tewahedo refusal of demonic or imperial worship.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 6:10-19. NPNF Series 2, vol. 13. PD. Cf. Mt 4:10 (Christological appropriation at the Temptation)."
+    },
+    {
+      "book": "deu",
+      "chapter": 8,
+      "verse": 3,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'man doth not live by bread only, but by every word that proceedeth out of the mouth of the Lord doth man live' (Deu 8:3), Ephrem reads the manna-pedagogy as the canonical anchor cited by Christ at the first Temptation (Mt 4:4 / Lk 4:4 — verbatim citation). The manna teaches that humanity's deepest hunger is for the Word, not for bread; the Eucharist resolves both hungers in one. Tewahedo eucharistic theology cites Deu 8:3 + Jn 6:51 ('I am the living bread which came down from heaven') + Mt 4:4 as the canonical triple-witness: Christ is the Word-who-is-Bread, fulfilling the Deuteronomic pedagogy in the Eucharistic anaphora.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 8:1-10. NPNF Series 2, vol. 13. PD. Cf. Mt 4:4, Jn 6:51."
+    },
+    {
+      "book": "deu",
+      "chapter": 10,
+      "verse": 16,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'Circumcise therefore the foreskin of your heart, and be no more stiffnecked' (Deu 10:16), Ephrem reads the heart-circumcision command as the canonical Old-Testament anchor of Paul's 'circumcision is that of the heart, in the spirit, and not in the letter' (Rom 2:29). The Deuteronomic call to interior circumcision is not a substitute for the bodily rite but its ground: the outward sign is empty without the inward reality. Tewahedo theology — uniquely among Christian communions still practising bodily circumcision per Jub 15:14-25 — cites Deu 10:16 as the canonical Old-Testament witness that BOTH circumcisions are required: the bodily sign that distinguishes the people and the heart-circumcision that perfects it.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 10:12-22. NPNF Series 2, vol. 13. PD. Cf. Rom 2:29; Jub 15:14-25 (R.H. Charles, 1902 — PD)."
+    },
+    {
+      "book": "deu",
+      "chapter": 12,
+      "verse": 5,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'the place which the Lord your God shall choose out of all your tribes to put his name there' (Deu 12:5), Ephrem reads the centralization-of-worship command as the canonical Old-Testament typological anchor that flows through Shiloh → Jerusalem → Zion → the Eucharistic altar of every local church. The Lord chooses ONE place for his Name in the Old Covenant; in the New Covenant, every Eucharistic altar is THE chosen place because the Body broken there IS the New-Covenant tabot. Tewahedo eucharistic theology cites Deu 12:5 as the canonical anchor for the doctrine that the Eucharist gathers Jerusalem's centralization into every parish — the tabot-bearing altar IS the chosen place.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 12:1-14. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "deu",
+      "chapter": 16,
+      "verse": 1,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On the Deuteronomic recapitulation of Passover — 'Observe the month of Abib, and keep the passover unto the Lord thy God' (Deu 16:1) — Ephrem reads the THIRD Mosaic Passover legislation (after Exo 12 and Num 9) as the canonical triple-witness that Pascha is the non-negotiable hinge of the covenant year. The repetition is not redundant but emphatic: the Lord wills that Israel never forget the month of deliverance. Tewahedo Fasika theology cites Exo 12 + Num 9:2 + Deu 16:1 as the canonical triple-Mosaic anchor that the yearly Pascha is constitutive of covenant identity — eucharistically fulfilled in the Tewahedo Holy-Week Anaphora.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 16:1-8. NPNF Series 2, vol. 13. PD."
+    },
+    {
+      "book": "deu",
+      "chapter": 17,
+      "verse": 18,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On the king's Torah — 'when he sitteth upon the throne of his kingdom, he shall write him a copy of this law in a book' (Deu 17:18-19) — Ephrem reads the king-as-Torah-scribe command as the canonical Old-Testament anchor of the doctrine that the king is FIRST a guardian of the law, only secondarily a ruler of the people. The king does not stand above the Torah; he copies it with his own hand and reads it all the days of his life. Tewahedo Solomonic-dynasty self-understanding, codified in the Kǝbrä Nägäśt (Glory of the Kings), cites Deu 17:18 as the canonical Old-Testament warrant for the Ethiopian-emperor-as-Torah-guardian — the emperor at coronation receives both crown and Tabot, and is sworn to defend both.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 17:14-20. NPNF Series 2, vol. 13. PD. Tewahedo dynastic witness: Kǝbrä Nägäśt."
+    },
+    {
+      "book": "deu",
+      "chapter": 18,
+      "verse": 15,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'The Lord thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken' (Deu 18:15), Ephrem reads the prophet-like-Moses promise as the canonical Old-Testament messianic anchor cited verbatim by Peter in Acts 3:22 ('A prophet shall the Lord your God raise up unto you of your brethren, like unto me') and by Stephen in Acts 7:37 — the apostolic preaching's primary Old-Testament prophecy-of-Christ proof-text alongside Ps 110:1. The 'like-Moses' qualification is fulfilled in Christ at the Transfiguration where Moses and Elijah appear with him on the mountain. Tewahedo christology cites Deu 18:15 + Acts 3:22 + the Buhe Transfiguration as the canonical triple-witness of the Mosaic-prophet identity of Christ.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 18:9-22. NPNF Series 2, vol. 13. PD. Cf. Acts 3:22 (verbatim apostolic citation), Acts 7:37."
+    },
+    {
+      "book": "deu",
+      "chapter": 21,
+      "verse": 23,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'he that is hanged is accursed of God' (Deu 21:23), Ephrem reads the curse-on-the-hanged-corpse statute as the canonical Old-Testament anchor of Paul's atonement-formula in Galatians 3:13: 'Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree' — verbatim citation. The Deuteronomic curse is not abolished but absorbed: Christ takes the curse upon himself precisely by hanging on the tree. Tewahedo atonement theology cites Deu 21:23 + Gal 3:13 as the canonical doubled-anchor of the substitutionary cross — the Cross is canonical-curse-bearing, the Christ is canonical-curse-bearer, the redemption is canonical-completion.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 21:22-23. NPNF Series 2, vol. 13. PD. Cf. Gal 3:13 (verbatim Pauline citation)."
+    },
+    {
+      "book": "deu",
+      "chapter": 25,
+      "verse": 4,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'Thou shalt not muzzle the ox when he treadeth out the corn' (Deu 25:4), Ephrem reads the agricultural-mercy statute as the canonical Old-Testament anchor of Paul's argument for ministerial support: cited at 1 Cor 9:9 and 1 Tim 5:18 with the gloss 'Doth God take care for oxen? or saith he it altogether for our sakes? For our sakes, no doubt, this is written.' The verse becomes the apostolic warrant for the priest's right to be sustained by the eucharistic offerings of the people. Tewahedo canonical-economy cites Deu 25:4 + 1 Cor 9:9 as the canonical doubled-witness for the lay-support of the priest and the monastery — the worker is worthy of his hire.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 25:1-19. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 9:9, 1 Tim 5:18."
+    },
+    {
+      "book": "deu",
+      "chapter": 27,
+      "verse": 26,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'Cursed be he that confirmeth not all the words of this law to do them' (Deu 27:26), Ephrem reads the final Ebal-curse as the canonical Old-Testament anchor of Paul's argument in Galatians 3:10 ('as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them' — verbatim citation). The total-law requirement makes salvation-by-works impossible: no one keeps all things. The verse becomes the typological seed of the apostolic gospel of grace. Tewahedo soteriology cites Deu 27:26 + Gal 3:10 as the canonical doubled-witness that the law diagnoses the curse the Cross removes.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 27:11-26. NPNF Series 2, vol. 13. PD. Cf. Gal 3:10 (verbatim Pauline citation)."
+    },
+    {
+      "book": "deu",
+      "chapter": 30,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'the Lord thy God will circumcise thine heart, and the heart of thy seed, to love the Lord thy God with all thine heart, and with all thy soul, that thou mayest live' (Deu 30:6), Ephrem reads the heart-circumcision-by-divine-action as the canonical Old-Testament promise of grace fulfilled in the new covenant: what Deu 10:16 commands ('circumcise your heart'), Deu 30:6 promises the Lord himself will accomplish. The same gospel-of-grace structure (command becomes promise) flows through Jer 31:33 and Ez 36:26 into Acts 2's Pentecost. Tewahedo theosis-theology cites Deu 30:6 as the canonical Old-Testament anchor: the Spirit-given heart-circumcision IS theosis — God's own action transforming the human heart to love him with the love that he commands.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 30:1-10. NPNF Series 2, vol. 13. PD. Cf. Jer 31:33, Ez 36:26, Acts 2."
+    },
+    {
+      "book": "deu",
+      "chapter": 30,
+      "verse": 14,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On 'the word is very nigh unto thee, in thy mouth, and in thy heart, that thou mayest do it' (Deu 30:14), Ephrem reads the near-Word promise as the canonical Old-Testament anchor of Paul's exposition of the gospel-of-faith in Romans 10:8 ('The word is nigh thee, even in thy mouth, and in thy heart: that is, the word of faith, which we preach' — verbatim citation). The Deuteronomic word-near-to-you is appropriated by Paul as the gospel: salvation is not ascending to heaven (incarnation already happened) or descending to the abyss (resurrection already happened) but confessing with the mouth and believing with the heart. Tewahedo catechesis cites Deu 30:14 + Rom 10:8-10 as the canonical doubled-witness that the gospel is mouth-and-heart confession.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 30:11-20. NPNF Series 2, vol. 13. PD. Cf. Rom 10:8-10 (verbatim Pauline citation)."
+    },
+    {
+      "book": "deu",
+      "chapter": 32,
+      "verse": 8,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On the Song of Moses' line 'when the Most High divided to the nations their inheritance, when he separated the sons of Adam, he set the bounds of the people according to the number of the sons of God' (Deu 32:8, LXX / Dead Sea Scrolls reading 'sons of God' / b'nei Elohim — preserved in the Masoretic-correction tradition), Ephrem reads the verse as the canonical Old-Testament anchor of the doctrine of angelic-territorial-governance: the Most High assigned each nation to the oversight of an angelic prince, retaining Israel as his own portion (Deu 32:9). Tewahedo angelology preserves this doctrine prominently — the Synaxarium accounts of Saint Michael as guardian-prince of Ethiopia, the Tewahedo Mäshafä Hēnok (1 Enoch) traditions of the seventy shepherds (1 En 89-90), and the Mäṣḥafä Kufāle (Jubilees) accounts of the angel-of-the-presence assigned to Israel (Jub 1:27, 2:1, 15:31-32) all flow from Deu 32:8's canonical seed. Tewahedo cites Deu 32:8 + Jub 15:31-32 + 1 En 89:59 as the canonical triple-witness of angelic-territorial-governance.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 32:7-9. NPNF Series 2, vol. 13. PD (LXX/DSS reading retained against Masoretic correction). Cf. Jub 15:31-32, 1 En 89:59 (R.H. Charles, 1902/1912 — PD)."
+    },
+    {
+      "book": "deu",
+      "chapter": 32,
+      "verse": 39,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On the Song of Moses' climactic self-disclosure — 'See now that I, even I, am he, and there is no god with me: I kill, and I make alive; I wound, and I heal' (Deu 32:39) — Ephrem reads the kill-and-make-alive paired-action as the canonical Old-Testament anchor of resurrection-monotheism: the SAME God who brings death brings life, the SAME God who wounds heals. There is no Manichaean dualism (one god of life, another of death). The verse anticipates 1 Sam 2:6 ('The Lord killeth, and maketh alive') and is fulfilled in the dominical 'I am the resurrection, and the life' (Jn 11:25). Tewahedo Easter (Fasika) theology cites Deu 32:39 + Jn 11:25 as the canonical doubled-witness of the resurrection-monotheist God.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 32:39-43. NPNF Series 2, vol. 13. PD. Cf. 1 Sam 2:6, Jn 11:25."
+    },
+    {
+      "book": "deu",
+      "chapter": 33,
+      "verse": 9,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On Moses' blessing of Levi — 'Who said unto his father and to his mother, I have not seen him; neither did he acknowledge his brethren, nor knew his own children: for they have observed thy word, and kept thy covenant' (Deu 33:9) — Ephrem reads the praise of Levi's denial-of-kin-for-sake-of-God as the canonical Old-Testament anchor of the dominical 'He that loveth father or mother more than me is not worthy of me' (Mt 10:37) and the Levitical-monastic ideal of leaving-family-for-God. Tewahedo monastic theology cites Deu 33:9 + Mt 10:37 as the canonical doubled-witness for the bahǝtawi's renunciation of family ties — the desert father is a Levite in the pattern of Deu 33:9, whose covenant-keeping is honoured precisely because it preferred God to kin.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 33:8-11. NPNF Series 2, vol. 13. PD. Cf. Mt 10:37."
+    },
+    {
+      "book": "deu",
+      "chapter": 34,
+      "verse": 6,
+      "father": "Ephrem the Syrian",
+      "work": "Commentary on Deuteronomy",
+      "year": 365,
+      "summary": "On Moses' burial 'in a valley in the land of Moab, over against Bethpeor: but no man knoweth of his sepulchre unto this day' (Deu 34:6), Ephrem reads the divinely-hidden grave as the canonical Old-Testament anchor of Jude 9's account of the archangel Michael's dispute with the devil over Moses' body — preserved in the Assumption of Moses tradition received by the Ethiopian canon. The hidden grave prepares Moses for his Transfiguration appearance with Elijah (Mt 17:3, Lk 9:30-31), suggesting a translation-pattern parallel to Enoch (Gen 5:24) and Elijah (2 Ki 2:11). Tewahedo Astə'arǝgya-Mussē (Translation of Moses) commemorates this hidden-grave tradition; Deu 34:6 + Jude 9 + the Buhe Transfiguration form the canonical triple-witness of Moses' translated-glorified state.",
+      "attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 34:1-12. NPNF Series 2, vol. 13. PD. Cf. Jude 9, Mt 17:3; Tewahedo liturgical witness: Astə'arǝgya-Mussē."
     }
   ]
 }
