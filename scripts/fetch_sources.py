@@ -34,7 +34,6 @@ import argparse
 import json
 import re
 import sys
-import urllib.request
 import zipfile
 from io import BytesIO
 from pathlib import Path

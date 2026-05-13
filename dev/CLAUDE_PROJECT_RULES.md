@@ -51,8 +51,8 @@ The buyer demo. End-to-end:
 ```
 1. Open /wizard
 2. "Make a Catholic study Bible" (or pick another starting edition)
-3. Step through ~8 cards: canon, kinds, theme, publisher meta,
-   per-note tweaks, popup languages, preview
+3. Step through 7 cards: start-from, branding, theme, content
+   (canon + kinds), traditions, review, build
 4. Click BUILD → an EPUB downloads with that publisher's imprint,
    ISBN, copyright, theme, only their picked notes, and verse
    popups in the languages they configured
@@ -273,9 +273,25 @@ A new UI control that adds a feature should default to the
   Translation modules and notes modules look like Python but
   must not be executable. A corrupted or hostile data file
   must not run code.
-- Cache file reads with `lru_cache` keyed on `(path, mtime_ns)`
-  so on-disk edits auto-invalidate. See
-  `scripts.core.notes_io.load_notes` for the canonical pattern.
+- **Caching depends on file mutability**:
+  - **User-editable runtime data** (notes, translations — files
+    that publishers / the customize console can edit while the
+    web process is running): cache with `lru_cache` keyed on
+    `(path, mtime_ns)` so on-disk edits auto-invalidate without a
+    restart. Canonical pattern: `scripts.core.notes_io.load_notes`
+    + `_load_notes_cached(path_str, mtime_ns)`. Also used by
+    `scripts.core.translations`.
+  - **Project-internal published data** (Strong's dictionaries,
+    TSK, Nave's, commentary corpora like
+    `ethiopian_commentaries.json`, configuration loaders in
+    `scripts.core.config`): cache as singletons via
+    `@lru_cache(maxsize=1)`. These files are not edited at
+    runtime by publishers; updates ship via git commits + process
+    restart. Tests that mutate these files in fixtures MUST call
+    `<loader>.cache_clear()` in their setup or `tmp_path` setup.
+  - If a loader currently uses `maxsize=1` and you need it to
+    react to runtime edits, upgrade it to the mtime-keyed pattern
+    (don't retain the singleton and try to invalidate manually).
 - Writes go through `notes_io.atomic_write`. Bulk or
   destructive writes go through `notes_io.ensure_backup` first.
 
@@ -321,6 +337,67 @@ superset; smaller canons are subsets defined in
   invariant for each branch. Caught when ψ.3's mid-task work
   flipped IN_FLIGHT to `active` and broke a test that assumed
   it was always `idle`.
+
+### 8.1 Arc-close pin convention
+
+Codified after the third instance of this pattern shipped (γ.4.4.E
+Mäṣḥafä Hēnok arc-close, γ.4.5.E Mäṣḥafä Kufāle arc-close — both
+2026-05-12, plus the share-pin → count-milestone repair pattern
+documented in memory `feedback_share_pin_pattern.md`). When a
+multi-wave content arc closes (a parent phase like γ.4.4 or γ.4.5
+whose detail-wave sub-phases A/B/C/D/E ship across multiple turns),
+the closing wave's test class MUST add three specific kinds of pin:
+
+1. **`_meta` synchronization pin.** Assert that the JSON `_meta`
+   `source` and/or `scope` block names the arc's parent phase tag
+   AND every shipped sub-phase tag. Pattern: regex word-boundary
+   match (`re.escape(phase) + r"(?![.A-Z])"`) so γ.4.4 doesn't
+   accidentally match γ.4.4.B. Pin per sub-phase, not all in one
+   test — granular failures are easier to diagnose.
+
+2. **Absolute-count milestone pin.** Assert
+   `corpus_count >= N` where N is the cumulative count at the
+   arc's close. Use a count milestone (`enoch_count >= 190`), NEVER
+   a share threshold (`share >= 30%`) — share-pins break
+   mechanically when later content waves dilute the share, even
+   though the historical achievement is preserved. See memory
+   `feedback_share_pin_pattern.md` for the failure-mode rationale.
+
+3. **`all_N_sections_covered` exhaustiveness pin.** Assert every
+   section the arc was supposed to cover has substantive coverage
+   (≥ a stated minimum count or a substantive-content marker).
+   Pattern: a single test named like
+   `test_all_six_<arc>_sections_substantively_covered` that
+   iterates the expected section list and asserts each one. This
+   prevents a future "I'll ship the Astronomical Book later" from
+   silently leaving the arc partially closed.
+
+Existing instances:
+
+- γ.4.4.E (Mäṣḥafä Hēnok arc) — `TestGamma44EEpistleOfEnochWave`
+  in `tests/test_ethiopian_gamma4.py` at the closing of the
+  six-section 1 Enoch arc; arc-close pin
+  `test_all_six_mashafa_henok_sections_covered`.
+- γ.4.5.E (Mäṣḥafä Kufāle arc) — `TestGamma45EJubileesJosephExodusFinaleWave`
+  at the closing of the Jubilees four-major-section arc; arc-close
+  pin `test_all_six_jubilees_sections_substantively_covered` plus
+  the `test_jubilees_milestone_count_at_arc_close` count milestone.
+- ω.37 (W10 closure) — `TestGamma4MetaPhasesCoverage` extends the
+  `_meta` synchronization pin pattern across every previously-
+  shipped sub-phase (γ.4.4.B/C/D/E + γ.4.5/B/C/D/E), so future
+  drift gets caught at commit time.
+
+When to use this convention: only at the **closing wave** of a
+multi-wave content arc, not at every intermediate wave. The
+closing wave is identified by the arc's substantive-coverage
+parity goal being reached (every section covered at the planned
+depth); the closing test class is where these three pins live.
+
+Anti-pattern: putting a share-pin in the arc-close class. Memory
+`feedback_share_pin_pattern.md` documents why every share-pin
+breaks mechanically on the next voice-broadening wave; the
+arc-close convention exists in part to replace the failure-prone
+share-pin pattern with the durable count-milestone pattern.
 
 ## 9. Mental models for common tasks
 

@@ -48,6 +48,33 @@ class SourceMissingError(RuntimeError):
     """Raised when a source file is not cached. Hint: run fetch_sources.py."""
 
 
+# ω.36 — Book-code aliases for legacy commentary JSONs.
+#
+# Historical commentary corpora (ethiopian / catholic / protestant /
+# reformation / rabbinic JSONs) use 1990s-SBL short codes `joh` (John)
+# and `ps` (Psalms). The canonical `content/books.yaml` registry uses
+# OSIS-style `jhn` / `psa`. Without normalization, calls like
+# `for_verse("jhn", 1, 1)` against an entry stored under `joh` return
+# `[]` — silently dropping 119 Cyril-on-John + 2 Ephrem-on-Psalm-1
+# entries from any reader that uses the canonical books.yaml code.
+# Audit-C (2026-05-12) flagged this as CRITICAL-2.
+#
+# The alias map is applied SYMMETRICALLY — both at index-build time
+# (stored keys are normalized to canonical codes) and at for_verse
+# lookup time (query codes are normalized too). Either input form
+# resolves to the canonical bucket.
+_BOOK_CODE_ALIASES: dict[str, str] = {
+    "joh": "jhn",  # John (legacy SBL short → OSIS canonical)
+    "ps": "psa",  # Psalms (legacy SBL short → OSIS canonical)
+}
+
+
+def _normalize_book_code(book: str) -> str:
+    """Map legacy book codes to canonical books.yaml codes.
+    Unknown codes pass through unchanged."""
+    return _BOOK_CODE_ALIASES.get(book, book)
+
+
 # ----------------------------------------------------------------------
 # Strong's Hebrew
 # ----------------------------------------------------------------------
@@ -391,7 +418,7 @@ class PatristicCommentaries:
                 # documented in the JSON's _meta block; this is
                 # defensive against hand-edit typos.
                 continue
-            key = (pc.book, pc.chapter, pc.verse)
+            key = (_normalize_book_code(pc.book), pc.chapter, pc.verse)
             self._by_verse.setdefault(key, []).append(pc)
             self._by_father.setdefault(pc.father, []).append(pc)
 
@@ -403,7 +430,7 @@ class PatristicCommentaries:
         in insertion order (which the JSON keeps as chronological per
         father since most Fathers wrote sequentially). Returns an
         empty list for verses with no commentary."""
-        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
 
     def by_father(self, name: str) -> list[PatristicCommentary]:
         """Return every entry by a given Church Father (case-sensitive).
@@ -481,7 +508,7 @@ class EthiopianCommentaries:
                 )
             except (KeyError, ValueError, TypeError):
                 continue
-            key = (ec.book, ec.chapter, ec.verse)
+            key = (_normalize_book_code(ec.book), ec.chapter, ec.verse)
             self._by_verse.setdefault(key, []).append(ec)
             self._by_father.setdefault(ec.father, []).append(ec)
 
@@ -491,7 +518,7 @@ class EthiopianCommentaries:
     def for_verse(self, book: str, chapter: int, verse: int) -> list[EthiopianCommentary]:
         """Return every entry attached to a specific verse, in insertion
         order. Empty list when nothing matches."""
-        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
 
     def by_father(self, name: str) -> list[EthiopianCommentary]:
         """Return every entry by a given source (case-sensitive). The
@@ -573,7 +600,7 @@ class ProtestantCommentaries:
                 )
             except (KeyError, ValueError, TypeError):
                 continue
-            key = (pc.book, pc.chapter, pc.verse)
+            key = (_normalize_book_code(pc.book), pc.chapter, pc.verse)
             self._by_verse.setdefault(key, []).append(pc)
             self._by_commentator.setdefault(pc.commentator, []).append(pc)
 
@@ -583,7 +610,7 @@ class ProtestantCommentaries:
     def for_verse(self, book: str, chapter: int, verse: int) -> list[ProtestantCommentary]:
         """Return every entry attached to a specific verse, in insertion
         order. Empty list when nothing matches."""
-        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
 
     def by_commentator(self, name: str) -> list[ProtestantCommentary]:
         """Return every entry by a given expositor (case-sensitive)."""
@@ -668,7 +695,7 @@ class CatholicCommentaries:
                 )
             except (KeyError, ValueError, TypeError):
                 continue
-            key = (cc.book, cc.chapter, cc.verse)
+            key = (_normalize_book_code(cc.book), cc.chapter, cc.verse)
             self._by_verse.setdefault(key, []).append(cc)
             self._by_father.setdefault(cc.father, []).append(cc)
 
@@ -678,7 +705,7 @@ class CatholicCommentaries:
     def for_verse(self, book: str, chapter: int, verse: int) -> list[CatholicCommentary]:
         """Return every entry attached to a specific verse, in insertion
         order. Empty list when nothing matches."""
-        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
 
     def by_father(self, name: str) -> list[CatholicCommentary]:
         """Return every entry by a given Church Father (case-sensitive),
@@ -769,7 +796,7 @@ class ReformationCommentaries:
                 )
             except (KeyError, ValueError, TypeError):
                 continue
-            key = (rc.book, rc.chapter, rc.verse)
+            key = (_normalize_book_code(rc.book), rc.chapter, rc.verse)
             self._by_verse.setdefault(key, []).append(rc)
             self._by_commentator.setdefault(rc.commentator, []).append(rc)
 
@@ -779,7 +806,7 @@ class ReformationCommentaries:
     def for_verse(self, book: str, chapter: int, verse: int) -> list[ReformationCommentary]:
         """Return every entry attached to a specific verse, in insertion
         order. Empty list when nothing matches."""
-        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
 
     def by_commentator(self, name: str) -> list[ReformationCommentary]:
         """Return every entry by a given Reformer (case-sensitive)."""
@@ -863,7 +890,7 @@ class RabbinicCommentaries:
                 )
             except (KeyError, ValueError, TypeError):
                 continue
-            key = (rb.book, rb.chapter, rb.verse)
+            key = (_normalize_book_code(rb.book), rb.chapter, rb.verse)
             self._by_verse.setdefault(key, []).append(rb)
             self._by_commentator.setdefault(rb.commentator, []).append(rb)
 
@@ -873,7 +900,7 @@ class RabbinicCommentaries:
     def for_verse(self, book: str, chapter: int, verse: int) -> list[RabbinicCommentary]:
         """Return every entry attached to a specific verse, in insertion
         order. Empty list when nothing matches."""
-        return list(self._by_verse.get((book, int(chapter), int(verse)), ()))
+        return list(self._by_verse.get((_normalize_book_code(book), int(chapter), int(verse)), ()))
 
     def by_commentator(self, name: str) -> list[RabbinicCommentary]:
         """Return every entry by a given exegete (case-sensitive)."""

@@ -389,6 +389,235 @@ class TestGamma4Coverage:
         assert any_enoch
 
 
+class TestOmega37CrossCanonCommentaryPin:
+    """ω.37 (W7 closure) — pin the intentional cross-canon commentary.
+
+    The 2026-05-12-C audit's W7 flagged a count mismatch: 192 entries
+    with `father = "1 Enoch (Ethiopian tradition)"` vs only 190 entries
+    with `book = "1en"`. Investigation showed the 2 stray entries are
+    intentional: 1 Enoch commentary on Gen 6:1 + Gen 6:4 (the sons-of-
+    God / nephilim passage that the Watchers narrative in 1En 6-11
+    canonically expands). These belong as commentary on both texts —
+    Tewahedo readers cross-reference between Gen 6 and 1En 6-11 as
+    a single narrative arc.
+
+    This class pins that cross-link to detect regression (someone
+    'cleans up' the apparent inconsistency by removing the entries).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        cls.ec = sources.ethiopian_commentaries()
+
+    def test_enoch_voice_on_genesis_6_1_present(self):
+        # 1En 6-11 expands Gen 6:1's "sons of God came in to the
+        # daughters of men" as the descent of the Watchers under
+        # Šemiḥazah. Tewahedo reading takes the two passages as one
+        # narrative.
+        entries = [e for e in self.ec.for_verse("gen", 6, 1) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert entries, "ω.37 W7 pin: expected 1 Enoch voice on Gen 6:1 (Watchers descent anchor)"
+
+    def test_enoch_voice_on_genesis_6_4_present(self):
+        # 1En 7:2 + 15:8 expand Gen 6:4's "nephilim" / "mighty men"
+        # as the giants begotten of the Watcher-women union; their
+        # post-flood spirits become the demons (15:8). Tewahedo
+        # demonology canonically anchors here.
+        entries = [e for e in self.ec.for_verse("gen", 6, 4) if e.father == "1 Enoch (Ethiopian tradition)"]
+        assert entries, "ω.37 W7 pin: expected 1 Enoch voice on Gen 6:4 (nephilim / giants anchor)"
+
+    def test_only_intentional_cross_canon_pattern_is_enoch_on_genesis(self):
+        # The corpus has EXACTLY ONE cross-canon commentary pattern
+        # currently: 1 Enoch commenting on Genesis 6:1 + 6:4.
+        # If a future content wave adds another (e.g., Jubilees
+        # commentary on Genesis or vice versa), the test will fail
+        # and the new pattern must be deliberately added here.
+        import json
+        from pathlib import Path
+
+        path = Path(__file__).resolve().parent.parent / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        unexpected = []
+        for entry in data["entries"]:
+            book = entry.get("book", "")
+            father = entry.get("father", "")
+            father_is_enoch = father.startswith("1 Enoch")
+            father_is_jub = father.startswith("Book of Jubilees")
+            book_is_enoch = book == "1en"
+            book_is_jub = book == "jub"
+            # Allowed pattern: 1 Enoch voice on `gen` (the W7 pin).
+            # Everything else where tradition doesn't match book code
+            # is unexpected.
+            if (father_is_enoch and not book_is_enoch) or (father_is_jub and not book_is_jub):
+                allowed = father_is_enoch and book == "gen"
+                if not allowed:
+                    unexpected.append((book, entry.get("chapter"), entry.get("verse"), father))
+        assert not unexpected, (
+            f"ω.37 W7 pin: unexpected cross-canon entries (only 1 Enoch on Gen is allowed): {unexpected}"
+        )
+
+
+class TestGamma4MetaPhasesCoverage:
+    """ω.37 (W10 closure) — _meta scope/source must name every shipped
+    γ.4.x sub-phase. The audit flagged the absence of these pins as a
+    drift risk: if a future content wave forgets to update _meta along
+    with shipping entries, ATTRIBUTIONS and audit-trail readers will
+    see stale metadata while the entries-by-count grows underneath.
+
+    Pattern modeled on `test_meta_documents_gamma_4_4_expansion` at
+    `TestGamma44EnochFirstWave:test_meta_documents_gamma_4_4_expansion`.
+    Each test asserts the phase tag appears in _meta source or scope
+    with a regex word boundary so γ.4.4 doesn't match γ.4.4.B.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = data["_meta"]
+        cls.meta_text = meta.get("source", "") + " " + meta.get("scope", "")
+
+    def _assert_phase_mentioned(self, phase: str) -> None:
+        import re
+
+        # Negative lookahead prevents γ.4.4 from matching γ.4.4.B etc.
+        pattern = re.escape(phase) + r"(?![.A-Z])"
+        assert re.search(pattern, self.meta_text), f"_meta must name phase {phase} in source or scope"
+
+    def test_meta_documents_gamma_4_4_b(self):
+        self._assert_phase_mentioned("γ.4.4.B")
+
+    def test_meta_documents_gamma_4_4_c(self):
+        self._assert_phase_mentioned("γ.4.4.C")
+
+    def test_meta_documents_gamma_4_4_d(self):
+        self._assert_phase_mentioned("γ.4.4.D")
+
+    def test_meta_documents_gamma_4_4_e(self):
+        self._assert_phase_mentioned("γ.4.4.E")
+
+    def test_meta_documents_gamma_4_5(self):
+        self._assert_phase_mentioned("γ.4.5")
+
+    def test_meta_documents_gamma_4_5_b(self):
+        self._assert_phase_mentioned("γ.4.5.B")
+
+    def test_meta_documents_gamma_4_5_c(self):
+        self._assert_phase_mentioned("γ.4.5.C")
+
+    def test_meta_documents_gamma_4_5_d(self):
+        self._assert_phase_mentioned("γ.4.5.D")
+
+    def test_meta_documents_gamma_4_5_e(self):
+        self._assert_phase_mentioned("γ.4.5.E")
+
+
+class TestOmega37W11JubileesBuildPipelineIntegration:
+    """ω.37 (W11 closure) — build-pipeline integration test for
+    Jubilees commentary.
+
+    The 2026-05-12-C audit's W11 flagged that no test verified
+    Jubilees entries flowing through the detector → candidate →
+    comm-ethiopian-kind path that the build pipeline consumes.
+    γ.4.5 + .B/.C/.D/.E shipped 200 Jubilees entries; this class
+    pins that the **canonical demo anchor** (jub 6:32 — the
+    Tewahedo Bāḥrä Ḥasab 364-day-liturgical-year canonical anchor)
+    flows through the full pipeline as `comm-ethiopian` content.
+
+    The 364-day calendar (Mäḥǝbär Ḥaddis) is preserved liturgically
+    in the Tewahedo Church and is the canonical-OT antecedent for
+    Tewahedo Bāḥrä Ḥasab (Sea of Reckoning) computus. Doubled
+    canonical anchor with 1En 72:32. If a build-filter regression
+    silently dropped Jubilees commentary, this anchor would be the
+    most demo-visible casualty.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+
+    def test_jub_6_32_produces_jubilees_candidate(self):
+        # The detector must produce at least one Candidate at
+        # jub 6:32, and the Candidate's father must be Jubilees
+        # (NOT 1 Enoch, even though 1En 72:32 is the doubled anchor —
+        # 1 Enoch lives under book='1en', Jubilees under book='jub').
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        candidates = d.detect("jub", 6, 32, "")
+        assert candidates, (
+            "ω.37 W11 pin: jub 6:32 must produce a comm-ethiopian candidate (Bāḥrä Ḥasab canonical anchor)"
+        )
+        jubilees = [c for c in candidates if "Jubilees" in c.source_name]
+        assert jubilees, (
+            f"ω.37 W11 pin: jub 6:32 must include a Jubilees voice; "
+            f"got sources: {[c.source_name for c in candidates]!r}"
+        )
+
+    def test_jub_6_32_candidate_kind_is_comm_ethiopian(self):
+        # The kind code is what the build-pipeline filter keys on.
+        # If this becomes anything other than "comm-ethiopian",
+        # editions with `comm-ethiopian` in enabled_kinds will
+        # silently drop Jubilees.
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        candidates = d.detect("jub", 6, 32, "")
+        for c in candidates:
+            assert c.kind == "comm-ethiopian", (
+                f"ω.37 W11 pin: jub 6:32 candidate kind must be 'comm-ethiopian'; got {c.kind!r}"
+            )
+
+    def test_jub_6_32_attribution_carries_charles_pd_marker(self):
+        # The build pipeline emits the attribution into the EPUB's
+        # source-citation footer. The full chain (Charles 1902,
+        # Oxford Clarendon, PD) must round-trip from the JSON
+        # _meta.public_domain_basis through detector.attribution.
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        candidates = d.detect("jub", 6, 32, "")
+        jubilees = [c for c in candidates if "Jubilees" in c.source_name]
+        assert jubilees, "no Jubilees voice on jub 6:32"
+        c = jubilees[0]
+        attr = c.source_attribution
+        assert "Charles" in attr, f"ω.37 W11 pin: Jubilees citation must include Charles translator name; got {attr!r}"
+        assert "1902" in attr, f"ω.37 W11 pin: Jubilees citation must include 1902 publication date; got {attr!r}"
+        assert "PD" in attr, f"ω.37 W11 pin: Jubilees citation must include PD marker; got {attr!r}"
+
+    def test_jub_6_32_body_html_contains_bahra_hasab_marker(self):
+        # The Candidate's draft_body is the actual aside HTML that
+        # the EPUB renders. The Bāḥrä-Ḥasab-anchor summary text
+        # mentions the 364-day liturgical year — verify that survives
+        # the html-escape round-trip (any escaping regression that
+        # mangled the summary would show up here).
+        from scripts.core import detectors
+
+        d = detectors.EthiopianCommentaryDetector()
+        candidates = d.detect("jub", 6, 32, "")
+        jubilees = [c for c in candidates if "Jubilees" in c.source_name]
+        assert jubilees, "no Jubilees voice on jub 6:32"
+        body = jubilees[0].draft_body
+        # The body must be the aside wrapper used by all comm-* kinds
+        # so it flows through filter_html identically to other voices.
+        assert "<aside" in body, "draft_body should be aside-wrapped"
+        assert "note-comm-ethiopian" in body, "draft_body must carry the note-comm-ethiopian CSS class"
+        # Bāḥrä Ḥasab is the canonical Tewahedo-Ge'ez liturgical
+        # computus phrase; the 364-day calendar discussion in Jub 6:32
+        # is its scriptural anchor. Either the phrase OR the "364"
+        # numeric anchor must survive the html-escape pass.
+        assert ("Bāḥrä" in body) or ("364" in body), (
+            f"ω.37 W11 pin: Jub 6:32 body should reference Bāḥrä Ḥasab OR the 364-day calendar; got: {body[:200]!r}"
+        )
+
+
 class TestGamma41CyrilJohn:
     """γ.4.1 — Cyril of Alexandria's Commentary on John (NPNF S2 V14)
     expansion. γ.4 shipped a 12-entry seed; γ.4.1 added 30 substantive
@@ -1416,16 +1645,18 @@ class TestGamma44CParablesDetailWave:
         assert has_entry_in(58, 69), "γ.4.4.C missing Third Parable (1En 58-69)"
         assert has_entry_in(70, 71), "γ.4.4.C missing Translation Visions (1En 70-71)"
 
-    def test_1_enoch_share_above_30_percent(self):
+    def test_1_enoch_milestone_count_at_or_above_parables_close(self):
+        # Per feedback_share_pin_pattern: converted from γ.4.4.C share-pin
+        # (1En ≥30%) to absolute-count milestone pin (≥190 entries).
+        # Invariant historical-achievement pin; does not refreeze the
+        # voice balance when later γ-clusters dilute the 1En share.
         enoch_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "1 Enoch (Ethiopian tradition)"
         )
-        total = len(self.ec)
-        share = enoch_count / total
-        assert share >= 0.30, f"γ.4.4.C expected 1 Enoch share ≥30%; actual {share:.1%} ({enoch_count} of {total})"
+        assert enoch_count >= 190, f"γ.4.4.C milestone: expected 1 Enoch count ≥190 entries; actual {enoch_count}"
 
     def test_phanuel_repentance_present(self):
         enoch = [e for e in self.ec.for_verse("1en", 40, 9) if e.father == "1 Enoch (Ethiopian tradition)"]
@@ -1944,20 +2175,19 @@ class TestGamma45JubileesSeedWave:
         assert has_entry_in(37, 45), "γ.4.5 missing Joseph cycle (Jub 37-45)"
         assert has_entry_in(46, 50), "γ.4.5 missing Egypt + Exodus + Passover + Sabbath finale (Jub 46-50)"
 
-    def test_jubilees_enters_corpus_as_distinct_voice(self):
+    def test_jubilees_milestone_count_at_or_above_seed(self):
+        # Per feedback_share_pin_pattern: converted from γ.4.5 share-pin
+        # (Jub ≥3% as "distinct voice") to absolute-count milestone pin
+        # (≥40 entries = seed wave size). Invariant historical-achievement
+        # pin; does not break mechanically when later γ-clusters dilute
+        # the Jubilees share.
         jub_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "Book of Jubilees (Ethiopian tradition)"
         )
-        total = len(self.ec)
-        share = jub_count / total
-        # Seed wave threshold: Jubilees enters as a recognizable voice
-        # (≥3% of corpus). γ.4.5.B-E future waves would push it higher.
-        assert share >= 0.03, (
-            f"γ.4.5 expected Jubilees share ≥3% (distinct voice); actual {share:.1%} ({jub_count} of {total})"
-        )
+        assert jub_count >= 40, f"γ.4.5 milestone: expected Jubilees count ≥40 entries (seed wave); actual {jub_count}"
 
     def test_sinai_prologue_second_torah_framing_present(self):
         e = [x for x in self.ec.for_verse("jub", 1, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]

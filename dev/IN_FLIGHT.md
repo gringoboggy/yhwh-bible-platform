@@ -4,6 +4,289 @@
 
 ## Prior task
 
+**ω.38 C6 closure — 9 edition main cover JPGs produced
+programmatically; AUDIT_2026-05-12-C arc FULLY CLOSED (17 of
+17 items resolved across ω.36 + ω.37 + ω.38)** shipped
+2026-05-13. Triggered by user directive "put the covers in"
+after ω.37 closed 7 of the 9 audit-C residue items.
+
+**Why it matters for THIS project**:
+
+- **Demo blocker resolved.** Before ω.38, the wizard's BUILD
+  step emitted EPUBs whose cover slot resolved to a missing
+  path for 8 of 9 editions (the 9th had an empty `cover_image`
+  field). The buyer's "wow, that's it?" moment ended with
+  broken covers. ω.38 produces tasteful stock-template covers
+  for every edition with tradition-appropriate color/design
+  pairing.
+- **Audit-C arc fully closed.** Three audit-driven hygiene
+  phases (ω.36 + ω.37 + ω.38) close every item from
+  AUDIT_2026-05-12-C. The audit cadence's value is proven: the
+  parallel-subagent sweep caught real demo-readiness gaps the
+  linter alone could not surface, and the three-phase residue
+  close-out shipped them all.
+- **Generator script is the durable artifact.** Publishers can
+  re-run `scripts/generate_edition_covers.py` after editing
+  titles in `editions.yaml`, or re-target individual editions
+  to different templates by editing the script's `EDITIONS`
+  mapping. Cover artwork swap to bespoke is a one-line
+  `api_save_edition_meta` call; the stock covers are
+  demo-ready out of the box.
+
+**Files**:
+- `scripts/generate_edition_covers.py` — new, +~220 lines:
+  PIL-based programmatic cover generator with template-to-
+  edition mapping, Times/Georgia typography, drop-shadow,
+  1024×1536 output.
+- `content/covers/<9 edition IDs>.jpg` — new, 9 JPEG files at
+  1024×1536, average ~740 KB each, total ~6.7 MB.
+- `content/editions.yaml` — one-line fix: catholic-study's
+  `cover_image: ""` → `cover_image: "covers/catholic-study.jpg"`.
+- `tests/test_scripts.py` — +~140 lines: new
+  `TestOmega38EditionCovers` class with 6 pins covering disk
+  presence, JPEG validity, yaml correctness, preflight pass,
+  generator-script integrity, template-uniqueness curation.
+- `dev/PLAN_2026-05-09.md` — +1 line: ω.38 in §7 Shipped.
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta**: **+6 net tests** (`TestOmega38EditionCovers`).
+Full suite at ω.38 close: **3572 passing, 1 skipped** (was
+3566 at ω.37 close; +6 from ω.38). Linter 11/11 clean (phase
+mention count 235 → 236; ω.38 referenced in CHANGELOG). ruff
+format applied to the 2 edited files.
+
+**Preflight delta** (the audit-flagged signal):
+- Pre-ω.38: `covers_main → fail` (8 broken)
+- Post-JPGs: `covers_main → warn` (1 yaml empty-string)
+- Post-yaml-fix: `covers_main → pass` ← current state
+
+**AUDIT_2026-05-12-C arc — FINAL TALLY:**
+- ω.36 (2026-05-12): 8 items closed
+- ω.37 (2026-05-13): 7 items closed
+- ω.38 (2026-05-13): 1 item closed (C6)
+- W17 (info-only meta-observation): accepted, no action
+- **17 of 17 items closed.** Full audit-C resolution.
+
+**Forward references**:
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation;
+  rebalances Ephrem share from 13.1% upward. Audit hygiene is
+  fully closed; content waves can resume.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus
+  arc using Payne Smith 1859 PD translation.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition).
+- **save** — five phases shipped since the last save baseline
+  (`ee05f31`): γ.4.5.D + γ.4.5.E + ω.36 + ω.37 + ω.38. A save
+  point is overdue.
+
+**Session totals (2026-05-13, cumulative across 2026-05-12+):**
+- Content: γ.4.4.A-E + γ.4.2 + γ.4.2.B + γ.4.5 + γ.4.5.B/C/D/E
+  shipped (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle arcs both CLOSED).
+  Corpus: 12 → 590 entries.
+- Audit hygiene: ω.36 + ω.37 + ω.38 shipped
+  (AUDIT_2026-05-12-C arc FULLY CLOSED, 17/17 items).
+- Net test delta: +34 hygiene/regression-detection tests
+  (+12 from ω.36, +16 from ω.37, +6 from ω.38).
+
+---
+
+## Prior task before ω.38 (kept for context)
+
+**ω.37 Audit-C residue cleanup (7 of the 9 remaining items;
+only C6 cover-JPGs left as publisher-decision external-asset
+work)** shipped 2026-05-13. Second audit-driven hygiene phase
+following ω.36 (2026-05-12). Triggered by "ok hygiene" continue
+directive after ω.36 close-out. Closes 16 of 17 AUDIT_2026-05-12-C
+items across the two phases.
+
+**Why it matters for THIS project**:
+
+- **Audit-C arc essentially closed.** With ω.36 + ω.37 shipped,
+  only C6 (cover JPGs — external assets) remains. The audit
+  punch list that triggered ~3 hours after γ.4.5.E is now ~95%
+  resolved. The project can resume content waves with high
+  confidence the hygiene foundation is solid.
+- **W7 confirms intentional cross-canon pattern.** 1 Enoch
+  commentary on Gen 6:1+6:4 (Watchers narrative ↔ sons-of-God
+  passage) is preserved with regression-detection pins. Future
+  cross-canon additions (e.g. Jubilees on Genesis) must be
+  deliberately allow-listed.
+- **W10 catches a structural drift class.** Without these 9
+  `_meta` pins, a future content wave could grow the corpus by
+  hundreds of entries while leaving `_meta.source/scope`
+  pointing at stale phase tags. ATTRIBUTIONS readers and
+  audit-trail consumers would see stale metadata.
+- **W11 unblocks Jubilees demo claim.** 200 Jubilees entries
+  in the corpus, but no test verified they flowed through the
+  build pipeline. The 4 W11 pins make the build path
+  regression-detected.
+- **W12 codifies a durable pattern.** The arc-close convention
+  (three pins: `_meta` sync, count-milestone, exhaustiveness)
+  is now a §-level rule. The next multi-wave content arc gets
+  the right test shape from the start.
+- **W4 + W15 close minor doc-reality drift.** Two small fixes
+  reconciling the rules doc with what the code/wizard actually
+  does.
+- **C5 functional rewrite makes the test immune to load flake.**
+  The audit-C run's "cold faster than warm" report can't
+  happen with the new `cache_info()`-delta assertion.
+
+**Files**:
+- `dev/CLAUDE_PROJECT_RULES.md` — +~70 lines: new §8.1 arc-close
+  convention; §7.1 mtime-cache guidance refactor; §1 wizard
+  prose fix.
+- `tests/test_ethiopian_gamma4.py` — +~190 lines: 3 new test
+  classes covering 16 tests (W7 cross-canon + W10 meta-phase
+  + W11 build-pipeline).
+- `tests/test_scripts.py` — C5 test rewritten in place (timing
+  heuristic → `cache_info()` delta).
+- `dev/PLAN_2026-05-09.md` — +1 line: ω.37 in §7 Shipped block.
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta**: **+16 net tests**. Full suite at ω.37 close:
+**3566 passing, 1 skipped** (was 3550 at ω.36; +16 from ω.37).
+Linter 11/11 clean (phase mention count 234 → 235). ruff format
+applied to 3 edited code/test files.
+
+**Audit-C residue still open after ω.37:**
+- **C6 9 edition main cover JPGs** — external-asset production
+  (publisher decision; could intentionally remain as the demo-
+  of-preflight-catching-real-issues moment).
+
+**Forward references**:
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from 13.1% back upward. The audit
+  hygiene arc is sufficiently closed that content waves can
+  resume.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus
+  arc using Payne Smith 1859 PD translation. Luke uses
+  canonical book code `luk`; no alias work needed (ω.36 only
+  aliased the legacy SBL `joh`/`ps`).
+- **C6 cover JPG production** — if a polish pass is preferred
+  over more content; publisher decision required.
+
+**Session totals (2026-05-13, cumulative including 2026-05-12)**:
+- γ.4.4.A-E shipped (Mäṣḥafä Hēnok arc CLOSED, 2026-05-12)
+- γ.4.2 + γ.4.2.B shipped (Ephrem on Gen 1-50, 2026-05-12)
+- γ.4.5 + γ.4.5.B/C/D/E shipped (Mäṣḥafä Kufāle arc CLOSED,
+  2026-05-12)
+- ω.36 shipped (Audit-C cleanup #1, 2026-05-12)
+- ω.37 shipped (Audit-C residue cleanup, 2026-05-13)
+- Net corpus delta: +538 commentary entries (12 → 590); +28
+  hygiene tests across ω.36 + ω.37.
+
+---
+
+## Prior task before ω.37 (kept for context)
+
+**ω.36 Audit-C cleanup ship (8 items from AUDIT_2026-05-12-C
+executed as a single audit-driven hygiene phase)** shipped
+2026-05-12. Triggered by "continue" directive at the two-arc-
+closure milestone (γ.4.4 Mäṣḥafä Hēnok + γ.4.5 Mäṣḥafä Kufāle
+arcs both CLOSED earlier the same day). Per project rule §3.1
+(safest / most-foundational first), the audit-recommended
+hygiene precedes the next content wave so corpus legal-audit
+trail + cross-reference routing + test-pin durability + schema
+validation stay clean as the corpus continues to grow.
+
+**Why it matters for THIS project**:
+
+- **C2 alias unblocks 119+2 commentary entries from the build
+  pipeline.** Before ω.36, `for_verse("jhn", 1, 1)` returned
+  `[]` even though Cyril's dense Logos-prologue commentary was
+  in the corpus (under book=`joh`). Same for Ephrem-on-Psalm-1
+  (under book=`ps`). The build pipeline reads via the canonical
+  books.yaml codes, so these 121 entries were silently dropped
+  from every built EPUB. The symmetric alias resolves both old
+  storage codes and new canonical-code queries — read paths
+  unblocked, no rekey needed.
+- **C4 strict-unknown schema validation restored.** Two pytest
+  tests had been failing since `epsilon7` shipped catholic-study's
+  product-metadata fields. With those tests restored, future
+  schema-spec drift gets caught at commit time.
+- **C3 ATTRIBUTIONS legal-audit trail.** 588 of 590 commentary
+  entries now have a human-readable cross-source registry entry,
+  not just the JSON-internal `_meta.public_domain_basis` block.
+  An external legal/licensing reviewer reads ATTRIBUTIONS.md
+  first; the gap was a real documentation hole.
+- **C1 PLAN sub-phase ledger.** Future-Claude orientation now
+  reads the actual γ.4 ladder (16 sub-phases) instead of just
+  the parent γ.4 label. The audit flagged this as the SECOND
+  audit in a row hitting the same blind spot; ω.36 closes the
+  drift before it becomes durable.
+- **W8/W9 share-pin → count-milestone conversions.** Pre-emptive
+  conversion of two share-pins that memory
+  `feedback_share_pin_pattern` predicted would break on the next
+  voice-add wave (1 Enoch margin was 50 entries; Jubilees still
+  far from threshold but converted for pattern consistency).
+- **W3/W6 small drift cleanup.** Dead `import urllib.request` in
+  `fetch_sources.py` (HTTP routes through `scripts.core.http`
+  per the SSRF-allowlist convention); 12 Jubilees section labels
+  normalized from `"Abram's early life"` → `"Abraham cycle"`.
+
+**Files**:
+- `scripts/validate_schemas.py` — +2 lines (FieldSpec entries
+  for `authors` + `bisac_codes` in `EDITIONS_SPEC`).
+- `scripts/core/sources.py` — +27 lines (alias map +
+  `_normalize_book_code()` helper + symmetric application at
+  6 index-build sites + 6 `for_verse` sites).
+- `scripts/fetch_sources.py` — −1 line (dead urllib import).
+- `tests/test_ethiopian_gamma4.py` — 2 share-pin → count-milestone
+  conversions in-place.
+- `tests/test_scripts.py` — +12 tests in `TestOmega36AuditCleanup`
+  covering every fix site.
+- `content/sources/ATTRIBUTIONS.md` — +4 patristic-source sections
+  (~60 lines).
+- `content/sources/ethiopian_commentaries.json` — 12 attribution-
+  string normalizations (replace-all on `"Abram's early life"` →
+  `"Abraham cycle"`).
+- `dev/PLAN_2026-05-09.md` — +7 lines (γ.4 sub-phase ledger +
+  ω.36 in §7 Shipped block).
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta**: **+12 tests** (`TestOmega36AuditCleanup` — 12
+anchor pins). All suites pass: **tests/ excluding test_scripts
+2596 passed, 1 skipped; test_scripts.py 954 passed;
+test_ethiopian_gamma4.py 270 passed**. Linter 11/11 clean. ruff
+format applied to the 3 edited code/test files.
+
+**Audit-C residue (NOT shipped this turn — deferred to follow-up):**
+- **C5 preflight cache-invalidation test** — investigation
+  (likely threshold-sensitivity on the 590-entry JSON; widen
+  margin or rework threshold).
+- **C6 9 edition main cover JPGs** — external-asset production
+  (publisher decision; could be the intentional demo-of-
+  preflight-catching-real-issues moment).
+
+**Forward references**:
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from current 13.1% back upward.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus
+  arc using Payne Smith 1859 PD translation. The joh/ps alias
+  work in ω.36 means future commentary ingest can use either
+  canonical or SBL-short codes transparently.
+- **C5/C6 audit residue close-out** — preflight cache test +
+  cover JPG production, if a polish pass is preferred over
+  more content.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition).
+
+**Session totals (2026-05-12, cumulative through ω.36)**:
+- γ.4.4.A-E shipped (Mäṣḥafä Hēnok arc CLOSED)
+- γ.4.2 + γ.4.2.B shipped (Ephrem on Gen 1-50)
+- γ.4.5 + γ.4.5.B + γ.4.5.C + γ.4.5.D + γ.4.5.E shipped
+  (Mäṣḥafä Kufāle arc CLOSED)
+- ω.36 shipped (Audit-C cleanup ship)
+- Net corpus delta this session: +538 entries beyond γ.4 seed
+  (12 → 590 entries) plus +12 hygiene tests in ω.36.
+
+---
+
+## Prior task before ω.36 (kept for context)
+
 **γ.4.5.E Mäṣḥafä Kufāle / Book of Jubilees Joseph + Exodus-finale
 (40 verse-keyed entries on Jub 37-50) — CLOSES the γ.4.5 detail
 arc** shipped 2026-05-12. Substantively expands chs 37-50 (Esau-

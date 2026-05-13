@@ -6,6 +6,480 @@
 
 ---
 
+## 2026-05-13 — session — ω.38 C6 closure: 9 edition main cover JPGs (AUDIT_2026-05-12-C ARC FULLY CLOSED)
+
+**Phases shipped:** ω.38 — produces the last remaining audit-C
+item (C6 — 9 missing edition main cover JPGs). Triggered by
+user directive "put the covers in" after ω.37 closed 7 of the
+9 audit-C residue items. **With ω.38 shipped, the
+AUDIT_2026-05-12-C arc is now FULLY CLOSED**: 17 of 17 items
+resolved across ω.36 + ω.37 + ω.38 (plus W17 accepted as
+info-only meta-observation).
+
+**Why it matters for THIS project**:
+
+- **Demo-blocker resolved.** Before ω.38, the wizard's BUILD
+  step emitted EPUBs whose cover slot resolved to a missing
+  path for 8 of 9 editions (`editions.yaml:53` declared
+  `cover_image: "covers/ethiopian-tewahedo.jpg"` but the file
+  did not exist; same shape for 7 sibling editions; the 9th —
+  catholic-study — had an empty-string `cover_image` field).
+  The buyer's "wow, that's it?" moment ended with broken-cover
+  EPUBs. ω.38 produces tasteful stock-template covers for every
+  edition; the cover_image fields all point at real files.
+- **Demo polish without bespoke artwork commitment.** The 9
+  covers are composited from the existing 25-template library
+  (`content/covers/templates/`, 5 design families × 5 colors).
+  Tradition-appropriate template-to-edition mapping (Tewahedo →
+  ornate red/gold missal style; Catholic → classical navy;
+  Reformed → black beadline restraint; Jewish → brown parchment
+  classical; etc.) is editorially defensible AND swappable —
+  publishers can replace any cover via `api_save_edition_meta`'s
+  `cover_image` field at any time.
+- **Audit-C arc fully closed.** Combined ω.36 (8 items) +
+  ω.37 (7 items) + ω.38 (1 item) closes every item the
+  AUDIT_2026-05-12-C parallel-subagent sweep surfaced. Audit
+  cadence works: the audit caught real demo-readiness gaps the
+  linter could not catch, and the three-phase residue close-out
+  shipped them. Net session investment ~6 hours; net buyer-demo
+  posture: substantially improved.
+
+**Items shipped:**
+
+- **`scripts/generate_edition_covers.py`** (~220 lines) — new
+  programmatic cover generator. Reads templates from
+  `content/covers/templates/`, composites edition title +
+  subtitle + publisher mark using Times Bold (title), Times
+  Regular (subtitle), Georgia (publisher mark) in warm cream
+  (245, 230, 195) with soft drop-shadow. Outputs JPEGs at
+  1024×1536 (matching the existing `_book_defaults/` pattern;
+  what epubcheck expects for EPUB covers).
+- **9 edition main cover JPGs** in `content/covers/`:
+  ```
+  ethiopian-tewahedo.jpg     → 05_missal_central_red
+  catholic-study.jpg         → 02_classical_corner_navy
+  evangelical-reformed.jpg   → 03_beadline_black
+  jewish-study.jpg           → 02_classical_corner_brown
+  scholarly-academic.jpg     → 03_beadline_forest
+  eastern-orthodox.jpg       → 01_ornate_leafy_red
+  anglican-bcp.jpg           → 03_beadline_navy
+  lutheran-confessional.jpg  → 02_classical_corner_black
+  coptic-orthodox.jpg        → 01_ornate_leafy_brown
+  ```
+  Each template-to-edition pairing is unique (no two editions
+  share the same template visual). Average file size ~740 KB;
+  total cover-asset payload ~6.7 MB.
+- **`content/editions.yaml`** — fixed `catholic-study`'s empty
+  `cover_image: ""` to `cover_image: "covers/catholic-study.jpg"`
+  so preflight's `covers_main` check goes to `pass`.
+- **`TestOmega38EditionCovers`** in `tests/test_scripts.py`:
+  6 anchor pins —
+  (1) every expected edition has a cover file on disk;
+  (2) every cover is a valid JPEG with reasonable EPUB
+  dimensions (≥600×900);
+  (3) every editions.yaml `cover_image` path is well-formed
+  and points at an existing file;
+  (4) preflight `covers_main` now returns `status: pass` (was
+  `fail` at audit time, `warn` after the 8 JPGs landed but
+  before the catholic-study yaml fix);
+  (5) the generator script exists, is importable, and its
+  EDITIONS mapping covers all 9 expected edition IDs;
+  (6) every edition uses a unique template (no visual
+  duplicates in a wizard picker).
+
+**Template selection rationale (curation notes):**
+
+- **04_minimal_lines_*** templates carry a central jewel/cross
+  ornament that visually clashes with subtitle text. Initial
+  draft used minimal_lines for Reformed and Scholar's; first
+  preview showed the cross overlapping "Reformed Study Bible"
+  and "Scholar's Edition" subtitles. Swapped to 03_beadline_black
+  (Reformed) and 03_beadline_forest (Scholar's). Documented in
+  the generator's docstring as guidance for future template
+  picks.
+- **05_missal_central_*** templates have an empty inner panel
+  (no center ornament) despite the family name; used for
+  Tewahedo (red) since the family's ornate Coptic-style border
+  is tradition-resonant.
+- **Color symbolism**: red = liturgical/Byzantine traditions
+  (Tewahedo, Eastern Orthodox); navy = Catholic/Anglican formal;
+  brown = parchment/scholarly Jewish/Coptic earth; black =
+  Reformed/Lutheran restraint; forest = academic dignity (the
+  one Scholar's-Edition slot).
+
+**Test delta:** +6 tests in `TestOmega38EditionCovers`. Full
+suite at ω.38 close (estimated): **3572 passing, 1 skipped**
+(2612 in tests/ excluding test_scripts.py + 960 in
+test_scripts.py; +6 from ω.37 baseline of 3566).
+
+**Linter delta:** 11/11 clean. Phase mention count 235 → 236
+(ω.38 referenced in CHANGELOG). ruff format applied to
+`scripts/generate_edition_covers.py` and the new
+`TestOmega38EditionCovers` block in `tests/test_scripts.py`.
+
+**Preflight delta:**
+- Before ω.38: `covers_main → fail` (8 editions broken)
+- After 9 JPGs land: `covers_main → warn` (1 edition with
+  empty `cover_image` field — catholic-study)
+- After editions.yaml fix: `covers_main → pass` ← current state
+
+**Voice-mix / corpus shape (UNCHANGED by ω.38):** ω.38 is
+purely cover-asset production; commentary corpus shape is
+identical to post-γ.4.5.E / post-ω.36 / post-ω.37:
+```
+ethiopian_commentaries.json: 590 entries
+├─ Book of Jubilees (Eth. tradition) : 200 entries (33.9%) ← PLURALITY
+├─ 1 Enoch tradition                 : 192 entries (32.5%)
+├─ Cyril of Alexandria               : 121 entries (20.5%)
+└─ Ephrem the Syrian                 :  77 entries (13.1%)
+```
+
+**Files touched:**
+- `scripts/generate_edition_covers.py` (new, +~220 lines)
+- `content/covers/<9 edition IDs>.jpg` (new, 9 files, ~6.7 MB)
+- `content/editions.yaml` (one-line fix: catholic-study cover_image)
+- `tests/test_scripts.py` (+~140 lines: TestOmega38EditionCovers)
+- `dev/PLAN_2026-05-09.md` (+1 line: ω.38)
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  (this entry + state-of-record updates)
+
+**AUDIT_2026-05-12-C arc — final tally:**
+- ω.36 (2026-05-12): 8 items closed
+  (C1+C2+C3+C4 + W3+W6+W8+W9)
+- ω.37 (2026-05-13): 7 items closed
+  (W7+W10+W11+W12+W15+W4+C5)
+- ω.38 (2026-05-13): 1 item closed (C6)
+- W17 (info-only meta-observation): accepted, no action
+- **Total: 17 of 17 items closed** — full arc resolution
+
+**Recommended next ship:**
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation;
+  rebalances Ephrem share from 13.1% upward.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan arc
+  using Payne Smith 1859 PD translation.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (still DEFERRED pending PD source acquisition).
+- The audit-C arc is fully closed; the project is positioned
+  to resume substantial content waves with high confidence in
+  the hygiene foundation.
+
+---
+
+## 2026-05-13 — session — ω.37 Audit-C residue cleanup ship (W7+W10+W11+W12+W15+W4+C5)
+
+**Phases shipped:** ω.37 — second audit-driven hygiene ship,
+closing 7 of the 9 remaining items from `AUDIT_2026-05-12-C`
+(ω.36 closed the first 8 items on 2026-05-12). Triggered by
+user-issued "ok hygiene" directive after the ω.36 close-out.
+The "continue the audit cleanup" most-logical-path: prefer the
+audit-driven hygiene work over starting a new content arc until
+the audit's punch list is closed; per project rule §3.1
+("safest / most-foundational first"). Only **C6 cover JPGs**
+(external-asset production — publisher decision) remains open.
+
+**Items shipped (mapping audit numbers → fix):**
+
+- **W7** — Investigation closure. The audit's W7 flagged a count
+  mismatch (192 `father=1 Enoch` entries vs 190 `book=1en`
+  entries). Investigation found the 2 strays are intentional —
+  1 Enoch commentary on Gen 6:1 + Gen 6:4 (the sons-of-God /
+  nephilim passage that 1En 6-11 canonically expands). New
+  `TestOmega37CrossCanonCommentaryPin` class adds **3 tests**
+  pinning both anchors as cross-canon commentary AND verifying
+  the corpus has exactly ONE such pattern (future cross-canon
+  additions must be deliberately allow-listed).
+
+- **W10** — `_meta` scope/source pins for every shipped
+  γ.4-cluster sub-phase. New `TestGamma4MetaPhasesCoverage`
+  class adds **9 tests** with regex-word-boundary matching so
+  γ.4.4 doesn't accidentally match γ.4.4.B. Catches future
+  drift where a content wave forgets to update `_meta` strings
+  alongside shipping entries. Modeled on the existing
+  `test_meta_documents_gamma_4_4_expansion` at γ.4.4 parent
+  level.
+
+- **W11** — Jubilees build-pipeline integration test. New
+  `TestOmega37W11JubileesBuildPipelineIntegration` class adds
+  **4 tests** keyed on jub 6:32 (the Tewahedo Bāḥrä Ḥasab
+  364-day-calendar canonical anchor). Verifies:
+  (a) the detector produces a `comm-ethiopian` Candidate for
+  the Jubilees voice;
+  (b) the kind code is exactly `comm-ethiopian` (build-pipeline
+  filter contract);
+  (c) the attribution chain (Charles 1902, PD marker) survives
+  through to the Candidate's `source_attribution`;
+  (d) the rendered HTML body wraps in `<aside class="note-
+  comm-ethiopian">` and preserves the Bāḥrä-Ḥasab / 364-day
+  semantic anchor through html-escape.
+
+- **W12** — Arc-close pin convention codified in
+  `CLAUDE_PROJECT_RULES.md` §8.1 (a new sub-section under
+  Testing conventions). Documents the three-pin pattern that
+  multi-wave content arcs MUST close with:
+  (1) `_meta` synchronization pin per sub-phase,
+  (2) absolute-count milestone pin (NOT a share-pin — per
+  memory `feedback_share_pin_pattern`),
+  (3) `all_N_sections_covered` exhaustiveness pin.
+  Existing instances: γ.4.4.E Mäṣḥafä Hēnok arc-close,
+  γ.4.5.E Mäṣḥafä Kufāle arc-close, ω.37 `TestGamma4MetaPhasesCoverage`.
+
+- **W15** — Wizard-step prose reconciled. The actual wizard has
+  7 cards (`scripts/templates/wizard.py:124-130`:
+  start-from / branding / theme / content / traditions /
+  review / build). Rules §1 prose said "~8 cards" — corrected
+  to "7 cards" with explicit list.
+
+- **W4** — `lru_cache` mtime-keying decision. Rule §7.1 was
+  saying "Cache file reads with `lru_cache` keyed on `(path,
+  mtime_ns)`" but most loaders use plain `@lru_cache(maxsize=1)`
+  without mtime. **Decision: update the rule** to distinguish
+  two cases:
+  (a) **User-editable runtime data** (notes, translations —
+  publishers / customize console can edit during web process
+  lifetime): mtime-keyed pattern.
+  (b) **Project-internal published data** (Strong's, TSK, Nave's,
+  commentary corpora, config loaders): singleton via
+  `@lru_cache(maxsize=1)`; updates ship via git+restart.
+  Tests that mutate via fixtures MUST call `<loader>.cache_clear()`.
+  Codifies actual practice without retrofitting mtime keys onto
+  7 source singletons that don't need them.
+
+- **C5** — Preflight cache-invalidation test converted from
+  timing-based (`cold > warm * 5`) to functional (`cache_info()`
+  hits/misses delta). The old heuristic flaked under parallel-
+  subagent I/O contention (audit-C reported warm 13.9s / cold
+  11.1s — cold somehow faster than warm). The replacement reads
+  `_cached_preflight.cache_info()` directly: same mtime
+  signature ⇒ hits++; different signature ⇒ misses++.
+  Deterministic, fast, and what the cache invariant actually
+  says. Three local re-runs of the original test all passed
+  (18s/27s/23s) before conversion — the flake was the audit's
+  load environment, not a real bug; the conversion makes it
+  immune regardless.
+
+**Items NOT shipped this turn (audit-C residue, ranked):**
+
+- **C6 missing edition main cover JPGs (8 of 9 editions)** —
+  external-asset production. The wizard's BUILD step emits
+  EPUBs whose cover slot resolves to a missing path for
+  ethiopian-tewahedo + 7 sibling editions. Could be 1 hour
+  with stock template OR a week with bespoke artwork. Publisher
+  decision — could intentionally be left as the
+  demo-of-preflight-catching-real-issues moment.
+
+**Test delta:** **+16 net tests**:
+- `TestOmega37CrossCanonCommentaryPin` (3 tests, W7)
+- `TestGamma4MetaPhasesCoverage` (9 tests, W10)
+- `TestOmega37W11JubileesBuildPipelineIntegration` (4 tests, W11)
+- `TestEditionMeta::test_preflight_caching_invalidates_on_notes_change`
+  (1 in-place rewrite, C5 — no count delta)
+
+Total session: ω.36 +12 + ω.37 +16 = +28 hygiene tests beyond
+the γ.4.5.E baseline of 3522. Full suite at ω.37 close: **3566
+passing, 1 skipped** (2612 in `tests/` excluding test_scripts.py
++ 954 in test_scripts.py).
+
+**Linter delta:** 11/11 clean. Phase mention count rises 234 → 235
+(ω.37 referenced in CHANGELOG). ruff format applied to the 3
+edited Python files.
+
+**Voice-mix / corpus shape (UNCHANGED by ω.37):** ω.37 is purely
+infrastructural / journal / test hygiene; corpus shape is
+identical to post-γ.4.5.E and post-ω.36:
+```
+ethiopian_commentaries.json: 590 entries
+├─ Book of Jubilees (Eth. tradition) : 200 entries (33.9%) ← PLURALITY
+├─ 1 Enoch tradition                 : 192 entries (32.5%)
+├─ Cyril of Alexandria               : 121 entries (20.5%)
+└─ Ephrem the Syrian                 :  77 entries (13.1%)
+```
+
+**Files touched:**
+- `dev/CLAUDE_PROJECT_RULES.md` (+~70 lines: §7.1 mtime-cache
+  guidance refactor; §8.1 arc-close pin convention; §1 prose
+  fix for wizard step count)
+- `tests/test_ethiopian_gamma4.py` (+~190 lines: 3 new test
+  classes covering 16 tests)
+- `tests/test_scripts.py` (C5 test rewritten in place;
+  +14 lines net for the functional invalidation check)
+- `dev/PLAN_2026-05-09.md` (+1 line: ω.37 in §7 Shipped block)
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  (this entry + state-of-record updates)
+
+**Audit-C overall arc status after ω.37:**
+- 16 items closed across ω.36 + ω.37 (8 + 7 + W17 info-only)
+- 1 item remaining: **C6** (external-asset production)
+- Cumulative tests added: +28 hygiene pins
+- Audit punch list is now ~95% closed; only the
+  publisher-decision asset item is outstanding.
+
+**Recommended next ship:**
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from 13.1% back upward. Audit hygiene
+  arc is now sufficiently closed to resume content waves.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus
+  arc using Payne Smith 1859 PD translation; would rebalance
+  Cyril share from 20.5% back upward.
+- **C6 cover-JPG production** — alternative if a polish pass
+  is preferred over more content (publisher decision required).
+
+---
+
+## 2026-05-12 — session — ω.36 Audit-C cleanup ship (schema spec + share-pin → count + journals backfill + book-code aliases)
+
+**Phases shipped:** ω.36 — single-ship execution of `AUDIT_2026-05-12-C`
+recommendations 1-6 (CRITICAL items 1, 3, 4, plus WARN 3, 6, 8, 9, and
+the most-leveraged CRITICAL 2). Triggered by user-issued "continue"
+directive at the two-arc-closure milestone (γ.4.4 Mäṣḥafä Hēnok arc +
+γ.4.5 Mäṣḥafä Kufāle arc both CLOSED earlier the same day). Per project
+rule §3.1 (safest / most-foundational first), the audit-recommended
+hygiene work takes priority over the next content wave so the corpus's
+legal-audit hygiene + cross-reference routing + test-pin durability
+stay clean as the corpus continues to grow.
+
+**Items shipped (mapping audit-C numbers → fix):**
+
+- **C4** — `scripts/validate_schemas.py`: added `FieldSpec("authors",
+  required=False, type=list, item_type=str)` and `FieldSpec(
+  "bisac_codes", required=False, type=list, item_type=str)` to
+  `EDITIONS_SPEC`. The two strict-unknown tests
+  (`test_validate_editions_strict_unknown_kwarg`,
+  `test_main_strict_unknown_flag`) now PASS where they had been
+  silently failing since `epsilon7` shipped catholic-study's
+  authors + bisac_codes fields.
+
+- **C2** — `scripts/core/sources.py`: added module-level
+  `_BOOK_CODE_ALIASES = {"joh": "jhn", "ps": "psa"}` plus
+  `_normalize_book_code(book)` helper. Wired through all 6
+  commentary loaders (PatristicCommentary, EthiopianCommentary,
+  ProtestantCommentary, CatholicCommentary, ReformationCommentary,
+  RabbinicCommentary) — applied SYMMETRICALLY at index-build
+  AND at `for_verse` lookup. The 119 Cyril-on-John entries
+  (stored under `book="joh"`) and the 2 Ephrem-on-Psalm-1 entries
+  (stored under `book="ps"`) are now ROUTABLE via the canonical
+  books.yaml codes `jhn` / `psa`. Build pipeline reads through
+  `for_verse(canonical_code, ...)` will now surface these entries
+  in built EPUBs.
+
+- **C1** — `dev/PLAN_2026-05-09.md` §7 Shipped block: appended
+  the γ.4.1.A/.B/.C/.D (Cyril John), γ.4.2/.2.B (Ephrem Genesis),
+  γ.4.4 / .4.B/.C/.D/.E (1 Enoch arc CLOSED), γ.4.5 / .5.B/.C/.D/.E
+  (Jubilees arc CLOSED), and ω.36 lines. PLAN now reflects the
+  actual γ.4 cumulative ladder; future-Claude orientation reads
+  the sub-phase ledger instead of just the parent γ.4 label.
+
+- **C3** — `content/sources/ATTRIBUTIONS.md`: appended four
+  patristic-source sections — Cyril of Alexandria (Pusey/Randell
+  1874-1885, NPNF S2), Ephrem the Syrian (Gwynn 1898, NPNF S2 V13),
+  1 Enoch tradition (Charles 1912, Oxford Clarendon), Book of
+  Jubilees (Charles 1902, Adam and Charles Black). 588 of 590
+  ethiopian_commentaries entries now have a human-readable
+  legal-audit-trail registry entry. (The `_meta.public_domain_basis`
+  block in each JSON remains the technical source-of-truth; the
+  ATTRIBUTIONS.md entries are the cross-source registry an
+  external legal/licensing reviewer reads first.)
+
+- **W3** — `scripts/fetch_sources.py`: removed dead top-import
+  `import urllib.request` (line 37). All HTTP I/O routes through
+  `scripts.core.http._http.get(...)` per the ξ.10 SSRF-allowlist
+  convention; the bare top-import was dead weight that could
+  mislead future readers into bypassing the allowlist.
+
+- **W6** — `content/sources/ethiopian_commentaries.json`: normalized
+  12 Jubilees attribution strings — `"Abram's early life"` →
+  `"Abraham cycle"` (one canonical patriarch-section label).
+  Drift had been introduced by γ.4.5.C's Abraham-cycle expansion
+  splitting the section by Abram's pre-call period.
+
+- **W8** — `tests/test_ethiopian_gamma4.py::TestGamma44CParablesWave`:
+  converted `test_1_enoch_share_above_30_percent` (share-pin ≥30%)
+  to `test_1_enoch_milestone_count_at_or_above_parables_close`
+  (absolute-count ≥190 entries). Same template as the prior
+  γ.4.4.D/.E and γ.4.2.B repairs. Pre-emptive conversion: the
+  share-pin was 50 entries from breaking on the next γ-cluster
+  ship per memory `feedback_share_pin_pattern`.
+
+- **W9** — `tests/test_ethiopian_gamma4.py::TestGamma45JubileesSeedWave`:
+  converted `test_jubilees_enters_corpus_as_distinct_voice`
+  (share-pin ≥3%) to `test_jubilees_milestone_count_at_or_above_seed`
+  (absolute-count ≥40 entries = seed wave size). Pre-emptive
+  conversion for consistency with the count-milestone pattern.
+
+**Test delta:** +12 tests (`TestOmega36AuditCleanup` in
+`tests/test_scripts.py` — 12 anchor pins covering the 6 audit-fix
+sites plus the two share-pin conversions). Two existing tests
+converted in-place (no net delta for those, but their assertion
+shape changed from share-pin to count-milestone). The schema
+strict-unknown pair previously failing is now passing. Net session
+total: previous +156 (γ.4.5/B/C/D/E run) + ω.36's +12 = +168
+across this session, all additive.
+
+**Linter delta:** 11/11 clean. The rules linter is correctly blind
+to the audit-flagged drifts (C1 PLAN-direction, C2 books.yaml-route,
+C3 ATTRIBUTIONS-completeness, C4 pytest-runtime) — they require
+either pytest-level validation OR cross-file content checks that
+sit outside the linter's structural-invariant scope. The linter
+caught the things it should catch; the audit caught the things
+the linter cannot.
+
+**Items NOT shipped this turn (audit-C residue, ranked):**
+
+- **C5 preflight cache-invalidation test** — investigation, not
+  a one-line fix. Symptoms: warm read 13.9s, cold-after-edit 11.1s.
+  Likely root cause: the 590-entry `ethiopian_commentaries.json`
+  is large enough that the warm path already pays substantial I/O
+  cost, narrowing the warm/cold gap below the 5× threshold the
+  test expects. Best fix is likely to widen the test's margin or
+  rework the threshold to a sub-millisecond-warm vs.
+  hundreds-of-ms-cold check. Deferred to a follow-up.
+
+- **C6 missing edition main cover JPGs (8 of 9 editions)** —
+  external-asset production. The wizard's BUILD step emits
+  EPUBs whose cover slot resolves to a missing path for
+  ethiopian-tewahedo + 7 sibling editions. Could be done with
+  stock cover-template generation; could also be left as the
+  intentional demo-of-the-preflight-catching-real-issues
+  moment. Decision belongs to the publisher, not the engineer.
+
+**Voice-mix / corpus shape (UNCHANGED by ω.36):** ω.36 is purely
+infrastructural / journal / test hygiene; corpus shape is identical
+to post-γ.4.5.E:
+```
+ethiopian_commentaries.json: 590 entries
+├─ Book of Jubilees (Eth. tradition) : 200 entries (33.9%) ← PLURALITY
+├─ 1 Enoch tradition                 : 192 entries (32.5%)
+├─ Cyril of Alexandria               : 121 entries (20.5%)
+└─ Ephrem the Syrian                 :  77 entries (13.1%)
+
+The two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä
+Kufāle) jointly hold 66.4% of patristic-commentary corpus voice.
+```
+
+**Files touched:**
+- `scripts/validate_schemas.py` (+2 FieldSpec lines for authors + bisac_codes)
+- `scripts/core/sources.py` (+27 lines: alias map + helper + 12 wire-up sites)
+- `scripts/fetch_sources.py` (-1 line: dead urllib.request import)
+- `tests/test_ethiopian_gamma4.py` (2 share-pins → count-milestones)
+- `tests/test_scripts.py` (+12 tests in TestOmega36AuditCleanup)
+- `content/sources/ATTRIBUTIONS.md` (+4 patristic sections, ~60 lines)
+- `content/sources/ethiopian_commentaries.json` (12 section-label normalizations, replace-all)
+- `dev/PLAN_2026-05-09.md` (+7 lines: γ.4 sub-phase ledger + ω.36)
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md` (this entry + state-of-record updates)
+
+**Recommended next ship:**
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from 13.1% back upward and continue
+  the Pentateuch coverage beyond Gen 1-50.
+- **γ.4.3 Cyril on Luke** — opens a new Cyril-on-Lukan-corpus arc
+  using Payne Smith 1859 PD translation; would rebalance Cyril
+  share from 20.5% back upward. Now that joh→jhn alias resolves,
+  the Luke entries (book=`luk` in books.yaml) will surface in
+  builds without alias work.
+- **C5/C6 audit residue close-out** — preflight cache test + cover
+  JPG production, if a polish pass is preferred over more content.
+
+---
+
 ## 2026-05-12 — session — γ.4.5.E Jubilees Joseph + Exodus-finale (40 entries on Jub 37-50) — CLOSES γ.4.5 detail arc; Jubilees becomes plurality voice
 
 **Phases shipped:** γ.4.5.E — substantive expansion of Jubilees

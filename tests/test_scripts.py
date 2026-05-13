@@ -2628,27 +2628,51 @@ class TestEditionMeta:
 
     def test_preflight_caching_invalidates_on_notes_change(self, tmp_path):
         """Like every other derived endpoint (φ.1), preflight is
-        mtime-keyed and rebuilds when underlying data changes."""
-        import shutil, time
+        mtime-keyed and rebuilds when underlying data changes.
+
+        ω.37 (C5 closure): converted from timing-based to functional —
+        the old `cold > warm * 5` heuristic flaked under parallel-
+        subagent I/O contention (AUDIT_2026-05-12-C reported warm 13.9s
+        / cold 11.1s, where cold was somehow faster than warm). The
+        replacement reads `_cached_preflight.cache_info()` directly:
+        same call signature ⇒ hits++; different mtime signature ⇒
+        misses++. Deterministic, fast, and what the cache invariant
+        actually says.
+        """
+        import shutil
+
+        from scripts.api.preflight import _cached_preflight
 
         path = REPO_ROOT / "content" / "notes" / "gen.py"
         backup = tmp_path / "gen.py.bak"
         shutil.copy(path, backup)
         try:
-            # Warm
+            # Populate cache and snapshot the baseline cache stats.
             self.web.api_preflight()
-            t0 = time.perf_counter()
+            before = _cached_preflight.cache_info()
+
+            # Same-signature call must be a cache hit.
             self.web.api_preflight()
-            warm = time.perf_counter() - t0
-            # Mutate notes file
+            after_warm = _cached_preflight.cache_info()
+            assert after_warm.hits == before.hits + 1, (
+                f"warm call should be a cache hit; hits before={before.hits}, after={after_warm.hits}"
+            )
+            assert after_warm.misses == before.misses, (
+                f"warm call should NOT add a miss; misses before={before.misses}, after={after_warm.misses}"
+            )
+
+            # Mutate the notes file — _notes_dir_signature() must now
+            # return a different tuple, forcing a cache miss.
             text = path.read_text(encoding="utf-8")
             path.write_text(text + "\n# transient\n", encoding="utf-8")
-            t0 = time.perf_counter()
             self.web.api_preflight()
-            cold = time.perf_counter() - t0
-            assert cold > warm * 5, (
-                f"after notes change, preflight should miss cache "
-                f"(warm {warm * 1000:.1f}ms, cold-after {cold * 1000:.1f}ms)"
+            after_cold = _cached_preflight.cache_info()
+            assert after_cold.misses == after_warm.misses + 1, (
+                f"after notes change, preflight should miss cache; "
+                f"misses before={after_warm.misses}, after={after_cold.misses}"
+            )
+            assert after_cold.hits == after_warm.hits, (
+                f"cold call should NOT add a hit; hits before={after_warm.hits}, after={after_cold.hits}"
             )
         finally:
             shutil.copy(backup, path)
@@ -13860,3 +13884,311 @@ class TestEnableAINotesField:
         from scripts.core.matrix import AI_DRAFTED_KINDS
 
         assert "comm-ai" in AI_DRAFTED_KINDS
+
+
+class TestOmega36AuditCleanup:
+    """ω.36 — Audit-C cleanup ship (2026-05-12).
+
+    Pins the six audit-C fixes:
+      - C4: validate_schemas EDITIONS_SPEC accepts authors + bisac_codes
+      - C2: scripts.core.sources resolves joh→jhn and ps→psa aliases
+      - W8/W9: γ.4.4.C and γ.4.5 share-pins converted to count milestones
+        (those tests live in tests/test_ethiopian_gamma4.py — the conversion
+        pin here is structural: the share-pin assertions no longer exist)
+      - C1: PLAN §7 lists γ.4 sub-phase ledger
+      - C3: ATTRIBUTIONS.md lists the four patristic sources
+      - W3: fetch_sources.py has no dead urllib.request top-import
+      - W6: ethiopian_commentaries.json Jubilees Abram-cycle label normalized
+    """
+
+    def test_normalize_book_code_aliases_joh_to_jhn(self):
+        from scripts.core.sources import _normalize_book_code
+
+        assert _normalize_book_code("joh") == "jhn"
+
+    def test_normalize_book_code_aliases_ps_to_psa(self):
+        from scripts.core.sources import _normalize_book_code
+
+        assert _normalize_book_code("ps") == "psa"
+
+    def test_normalize_book_code_passthrough_for_canonical_codes(self):
+        from scripts.core.sources import _normalize_book_code
+
+        # Canonical books.yaml codes pass through unchanged.
+        assert _normalize_book_code("gen") == "gen"
+        assert _normalize_book_code("rev") == "rev"
+        assert _normalize_book_code("jhn") == "jhn"
+        assert _normalize_book_code("psa") == "psa"
+        # Ethiopic extras pass through unchanged.
+        assert _normalize_book_code("1en") == "1en"
+        assert _normalize_book_code("jub") == "jub"
+
+    def test_cyril_john_entries_resolvable_via_canonical_jhn(self):
+        # The PD audit's CRITICAL #2: 119 Cyril-on-John entries were
+        # stored under book="joh" but books.yaml registers "jhn".
+        # Without the alias, `for_verse("jhn", 1, 1)` returned []
+        # despite dense Logos-prologue coverage. The alias maps both
+        # codes to the same bucket.
+        from scripts.core.sources import ethiopian_commentaries
+
+        ec = ethiopian_commentaries()
+        canonical = ec.for_verse("jhn", 1, 1)
+        legacy = ec.for_verse("joh", 1, 1)
+        assert canonical, "expected Cyril John 1:1 entries via canonical 'jhn'"
+        # Both lookups resolve to identical bucket — symmetric alias.
+        assert canonical == legacy, "joh and jhn must resolve to the same bucket"
+
+    def test_ephrem_psalm_entries_resolvable_via_canonical_psa(self):
+        from scripts.core.sources import ethiopian_commentaries
+
+        ec = ethiopian_commentaries()
+        canonical = ec.for_verse("psa", 1, 1)
+        legacy = ec.for_verse("ps", 1, 1)
+        # Ephrem on Psalm 1 ships exactly 2 entries per the audit count.
+        assert canonical, "expected Ephrem Psalm 1:1 entries via canonical 'psa'"
+        assert canonical == legacy, "ps and psa must resolve to the same bucket"
+
+    def test_validate_schemas_strict_unknown_accepts_authors_field(self):
+        # Audit-C CRITICAL #4: catholic-study carries authors:[...] and
+        # bisac_codes:[...] but validate_schemas had no FieldSpec for
+        # them; strict_unknown=True returned status:fail. Fix adds the
+        # two FieldSpec entries.
+        from scripts.validate_schemas import validate_editions
+
+        result = validate_editions(strict_unknown=True)
+        # Must succeed under strict_unknown now that authors+bisac_codes
+        # are in EDITIONS_SPEC.
+        assert result["status"] == "ok", (
+            f"validate_editions strict_unknown should pass after C4 fix; errors: {result.get('errors', [])}"
+        )
+
+    def test_editions_spec_includes_authors_and_bisac_codes(self):
+        from scripts.validate_schemas import EDITIONS_SPEC
+
+        field_names = {f.name for f in EDITIONS_SPEC.fields}
+        assert "authors" in field_names, "C4 fix: authors must be in EDITIONS_SPEC"
+        assert "bisac_codes" in field_names, "C4 fix: bisac_codes must be in EDITIONS_SPEC"
+
+    def test_plan_section7_lists_gamma4_sub_phase_ledger(self):
+        # Audit-C CRITICAL #1: PLAN §7 must list γ.4 sub-phases that
+        # were previously rolled up only under the parent γ.4 label.
+        from pathlib import Path
+
+        plan_path = Path(__file__).resolve().parent.parent / "dev" / "PLAN_2026-05-09.md"
+        text = plan_path.read_text(encoding="utf-8")
+        # Spot-check 6 sub-phase strings from the backfilled ledger.
+        for label in [
+            "γ.4.1.A",
+            "γ.4.2.B",
+            "γ.4.4.E",
+            "γ.4.5",
+            "γ.4.5.E",
+            "ω.36",
+        ]:
+            assert label in text, f"PLAN §7 should list shipped phase {label}"
+
+    def test_attributions_md_lists_four_patristic_sources(self):
+        # Audit-C CRITICAL #3: ATTRIBUTIONS.md must register the four
+        # patristic / Tewahedo-canonical sources for legal-audit trail.
+        from pathlib import Path
+
+        attr_path = Path(__file__).resolve().parent.parent / "content" / "sources" / "ATTRIBUTIONS.md"
+        text = attr_path.read_text(encoding="utf-8")
+        # The 4 source names per the audit's CRITICAL-3 line.
+        for source_marker in [
+            "Cyril of Alexandria",
+            "Ephrem the Syrian",
+            "1 Enoch",
+            "Mäṣḥafä Kufāle",
+            "R. H. Charles",  # Both 1902 Jubilees + 1912 1 Enoch
+            "Pusey",  # Cyril
+            "Schaff",  # Ephrem NPNF
+        ]:
+            assert source_marker in text, f"ATTRIBUTIONS.md should mention '{source_marker}'"
+
+    def test_fetch_sources_no_dead_urllib_import(self):
+        # Audit-C WARN-3: top-import `import urllib.request` was dead
+        # (all HTTP goes through scripts.core.http._http.get). Remove.
+        from pathlib import Path
+
+        fs_path = Path(__file__).resolve().parent.parent / "scripts" / "fetch_sources.py"
+        text = fs_path.read_text(encoding="utf-8")
+        # Look for the dead bare import. Acceptable: zero occurrences,
+        # OR a comment that references it — only the live `import` line
+        # counts.
+        import_lines = [
+            ln
+            for ln in text.splitlines()
+            if ln.strip().startswith("import urllib.request") or ln.strip().startswith("from urllib.request")
+        ]
+        assert not import_lines, f"fetch_sources.py should not have dead urllib.request import; found: {import_lines}"
+
+    def test_jubilees_section_label_normalized(self):
+        # Audit-C WARN-6: Jub 11-12 entries previously labeled
+        # "Abram's early life"; Jub 13+ entries labeled "Abraham cycle".
+        # Normalized to "Abraham cycle" across the whole patriarchal cycle.
+        from pathlib import Path
+
+        json_path = Path(__file__).resolve().parent.parent / "content" / "sources" / "ethiopian_commentaries.json"
+        text = json_path.read_text(encoding="utf-8")
+        assert "Abram's early life" not in text, "Jubilees Abram-cycle entries must be normalized to 'Abraham cycle'"
+
+    def test_share_pins_in_gamma4_converted_to_count_milestones(self):
+        # Audit-C WARN-8 / W9: pre-emptive share-pin → count-milestone
+        # conversion. The two share-pin test names should no longer
+        # exist in the γ.4 test file.
+        from pathlib import Path
+
+        gamma4_path = Path(__file__).resolve().parent.parent / "tests" / "test_ethiopian_gamma4.py"
+        text = gamma4_path.read_text(encoding="utf-8")
+        assert "test_1_enoch_share_above_30_percent" not in text, (
+            "γ.4.4.C share-pin should be converted to count-milestone"
+        )
+        assert "test_jubilees_enters_corpus_as_distinct_voice" not in text, (
+            "γ.4.5 share-pin should be converted to count-milestone"
+        )
+        # And the new count-milestone pins should be present.
+        assert "test_1_enoch_milestone_count_at_or_above_parables_close" in text, (
+            "1 Enoch count-milestone pin should be present"
+        )
+        assert "test_jubilees_milestone_count_at_or_above_seed" in text, (
+            "Jubilees count-milestone pin should be present"
+        )
+
+
+class TestOmega38EditionCovers:
+    """ω.38 — C6 closure (2026-05-13). The 9 edition main cover JPGs
+    are present on disk and every editions.yaml entry points at a
+    real file.
+
+    The audit's C6 was the only audit-C item still open after
+    ω.36 + ω.37: `editions.yaml` declared `cover_image:
+    "covers/<edition-id>.jpg"` for every edition, but the JPGs did
+    not exist. The wizard's BUILD step emitted EPUBs whose cover slot
+    resolved to a missing path — a real demo blocker.
+
+    ω.38 ships `scripts/generate_edition_covers.py` (programmatic
+    cover generator using the existing 25-template family in
+    `content/covers/templates/`) and the 9 resulting JPGs. Publishers
+    can swap to bespoke artwork via `api_save_edition_meta`'s
+    `cover_image` field; the stock-template covers are demo-ready
+    out of the box.
+    """
+
+    EXPECTED_EDITIONS = [
+        "ethiopian-tewahedo",
+        "catholic-study",
+        "evangelical-reformed",
+        "jewish-study",
+        "scholarly-academic",
+        "eastern-orthodox",
+        "anglican-bcp",
+        "lutheran-confessional",
+        "coptic-orthodox",
+    ]
+
+    @classmethod
+    def setup_class(cls):
+        from pathlib import Path
+
+        cls.repo = Path(__file__).resolve().parent.parent
+        cls.covers_dir = cls.repo / "content" / "covers"
+
+    def test_every_edition_main_cover_exists(self):
+        for edition_id in self.EXPECTED_EDITIONS:
+            path = self.covers_dir / f"{edition_id}.jpg"
+            assert path.is_file(), (
+                f"ω.38 C6 pin: edition '{edition_id}' must have a main cover at {path.relative_to(self.repo)}"
+            )
+
+    def test_every_main_cover_is_valid_jpeg(self):
+        from PIL import Image
+
+        for edition_id in self.EXPECTED_EDITIONS:
+            path = self.covers_dir / f"{edition_id}.jpg"
+            with Image.open(path) as img:
+                assert img.format == "JPEG", f"ω.38 C6 pin: {edition_id} cover must be JPEG; got {img.format}"
+                # Reasonable EPUB cover dimensions — wider than 600
+                # rules out accidental thumbnail saves; the
+                # generator targets 1024×1536.
+                assert img.width >= 600, f"ω.38 C6 pin: {edition_id} cover width {img.width} is suspiciously small"
+                assert img.height >= 900, f"ω.38 C6 pin: {edition_id} cover height {img.height} is suspiciously small"
+
+    def test_editions_yaml_points_at_existing_cover_files(self):
+        # Spot-check via the editions.yaml records that every cover
+        # path is well-formed and the file exists. This catches the
+        # specific failure mode the audit flagged.
+        from scripts.core import config
+
+        for ed in config.load_editions():
+            cover = ed.get("cover_image", "")
+            if not cover:
+                # Per editions.yaml convention, an empty string would
+                # be a real bug after C6 closure (preflight covers_main
+                # warns on empty values too).
+                continue
+            assert cover.startswith("covers/"), (
+                f"ω.38 C6 pin: cover path for {ed.get('id')!r} should start with 'covers/'; got {cover!r}"
+            )
+            path = self.repo / "content" / cover
+            assert path.is_file(), (
+                f"ω.38 C6 pin: editions.yaml points at missing cover {cover!r} for edition {ed.get('id')!r}"
+            )
+
+    def test_preflight_covers_main_now_passes(self):
+        # The buyer-demo check the audit specifically flagged.
+        # covers_main was 'fail' (8 of 9 broken) at audit time;
+        # after ω.38 it must be 'pass' (every edition wired).
+        from scripts.web import api_preflight
+        from scripts.api.preflight import _cached_preflight
+
+        _cached_preflight.cache_clear()
+        result = api_preflight()
+        covers_check = next(
+            (c for c in result["checks"] if c["id"] == "covers_main"),
+            None,
+        )
+        assert covers_check is not None, "preflight must surface covers_main"
+        assert covers_check["status"] == "pass", (
+            f"ω.38 C6 pin: preflight covers_main must be 'pass'; "
+            f"got {covers_check['status']!r} — {covers_check.get('message')!r}"
+        )
+
+    def test_generator_script_exists_and_is_importable(self):
+        from pathlib import Path
+        import importlib.util
+
+        script_path = self.repo / "scripts" / "generate_edition_covers.py"
+        assert script_path.is_file(), "ω.38: generate_edition_covers.py must exist for future regenerations"
+        # Import the module to verify it's syntactically valid and
+        # the EDITIONS mapping covers all 9 expected ids.
+        spec = importlib.util.spec_from_file_location("generate_edition_covers", script_path)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        mapping_ids = {row[0] for row in module.EDITIONS}
+        assert mapping_ids == set(self.EXPECTED_EDITIONS), (
+            f"ω.38: EDITIONS mapping in generator must cover every "
+            f"expected edition; missing: "
+            f"{set(self.EXPECTED_EDITIONS) - mapping_ids}, "
+            f"extra: {mapping_ids - set(self.EXPECTED_EDITIONS)}"
+        )
+
+    def test_generator_uses_unique_template_per_edition(self):
+        # If two editions share a template (family, color) the
+        # covers become visually indistinguishable on a wizard
+        # picker. Pin uniqueness as a curation rule.
+        from pathlib import Path
+        import importlib.util
+
+        script_path = self.repo / "scripts" / "generate_edition_covers.py"
+        spec = importlib.util.spec_from_file_location("generate_edition_covers", script_path)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        templates = [row[1] for row in module.EDITIONS]
+        assert len(templates) == len(set(templates)), (
+            f"ω.38: every edition should use a unique template; "
+            f"duplicates: "
+            f"{[t for t in templates if templates.count(t) > 1]}"
+        )

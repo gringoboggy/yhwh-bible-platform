@@ -191,6 +191,8 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("publisher_url", type=str, required=False),
         FieldSpec("isbn_epub", type=str, required=False),
         FieldSpec("isbn_print", type=str, required=False),
+        FieldSpec("authors", required=False, type=list, item_type=str),
+        FieldSpec("bisac_codes", required=False, type=list, item_type=str),
         FieldSpec("language_code", type=str, required=False),
         FieldSpec("theme", type=str, required=False),
         FieldSpec("popup_translation", type=str, required=False),
