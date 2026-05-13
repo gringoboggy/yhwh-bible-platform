@@ -117,8 +117,8 @@ commercially shippable.
   console.
 - **Build-all editions** with per-edition success/fail reporting
   + zip download (failures don't abort the batch).
-- **Save = git push** to a private GitHub repo with pre-commit
-  hook running the 11-check linter.
+- **Save = git commit** with pre-commit hook running the
+  11-check linter.
 
 ### Infrastructure
 

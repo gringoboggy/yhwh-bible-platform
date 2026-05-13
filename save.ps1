@@ -21,10 +21,12 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-git push
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Push failed. Your work is committed locally; run 'git push' again when the connection is back." -ForegroundColor Red
-    exit $LASTEXITCODE
-}
+# Push step disabled — remote deleted 2026-05-12.
+# Re-enable when a new remote is set up.
+# git push
+# if ($LASTEXITCODE -ne 0) {
+#     Write-Host "Push failed. Your work is committed locally; run 'git push' again when the connection is back." -ForegroundColor Red
+#     exit $LASTEXITCODE
+# }
 
-Write-Host "Saved to GitHub." -ForegroundColor Green
+Write-Host "Saved locally (no remote configured)." -ForegroundColor Green

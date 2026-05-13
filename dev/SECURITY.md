@@ -36,9 +36,7 @@ network-peer concerns. The CSP headers (ξ.3) and admin-token gate
 
 Please report security issues privately:
 
-- Open a GitHub Security Advisory on the project repo (preferred —
-  GitHub keeps the disclosure private until you publish it).
-- Or email the maintainer directly. Do **not** post details to
+- Email the maintainer directly. Do **not** post details to
   public issue trackers.
 
 We aim to acknowledge reports within 7 days and ship a fix or
@@ -152,21 +150,20 @@ Every outbound HTTP call now goes through
 `scripts.core.http.get(url, allowlist=...)`. Calls supplying an
 `allowlist` parameter are validated against it BEFORE any network
 I/O — non-matching hosts raise `SSRFBlockedError` and never touch
-the wire. Subdomain-aware: `github.com` in the allowlist accepts
-`api.github.com`, `raw.githubusercontent.com`, etc. Anti-spoof
-guard: `evil-github.com` does NOT match `github.com` (only
+the wire. Subdomain-aware: `example.com` in the allowlist accepts
+`api.example.com`, `data.example.com`, etc. Anti-spoof
+guard: `evil-example.com` does NOT match `example.com` (only
 suffix-with-leading-dot is accepted).
 
 Three pre-built allow-list groups in
 `scripts/core/http.py`:
 
 - `DEFAULT_PD_SOURCES_ALLOWLIST` — public-domain source corpora
-  (openscriptures.org, ebible.org, archive.org, openbible.info,
-  raw.githubusercontent.com, github.com).
+  (openscriptures.org, ebible.org, archive.org, openbible.info).
 - `DEFAULT_AI_BACKEND_ALLOWLIST` — Anthropic API
   (api.anthropic.com).
 - `DEFAULT_DESKTOP_UPDATE_ALLOWLIST` — appcast / release hosting
-  (github.com, githubusercontent.com).
+  (provider-specific, configured by deployment).
 
 Calls without an `allowlist` parameter log a warning and
 continue (back-compat). A future ξ.10.x can flip this to

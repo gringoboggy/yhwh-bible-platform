@@ -143,16 +143,9 @@ clean.**
 - γ.4.4.A-E shipped (Mäṣḥafä Hēnok arc CLOSED)
 - γ.4.2 + γ.4.2.B shipped (Ephrem on Gen 1-50 substantively expanded)
 - γ.4.5 shipped (Mäṣḥafä Kufāle / Jubilees seed)
-- Sonar integration cleanly reinstalled
 - 3 phases shipped unsaved since the last save (γ.4.4.E + γ.4.2.B +
   γ.4.5) — per the "keep pushing / push" continuation directive
   (memory: push/continue advances to next phase without auto-save).
-
-**Sonar integration status**: reinstalled cleanly earlier this
-session via `/sonarqube:sonar-integrate`. MCP at parent-dir
-`.mcp.json` pinned via `--project bridge4kaladin-collab_yhwh-bible-
-platform`; secrets-scanning hooks at USER scope; canonical config
-at `YHWH v2.4/sonar-project.properties`.
 
 ---
 
@@ -255,16 +248,9 @@ clean.**
 - γ.4.4.A through γ.4.4.E shipped (Mäṣḥafä Hēnok arc CLOSED)
 - γ.4.2 (Gen 1-11) + γ.4.2.B (Gen 12-50) — Ephrem on Genesis through
   Joseph cycle
-- Sonar integration cleanly reinstalled
 - Net test delta since session start: substantial positive (specific
   count drifts with the environmental subprocess flakers; see
   CHANGELOG for the precise pass-counts at each ship)
-
-**Sonar integration status**: reinstalled cleanly earlier this
-session via `/sonarqube:sonar-integrate`. MCP at parent-dir
-`.mcp.json` pinned via `--project bridge4kaladin-collab_yhwh-bible-
-platform`; secrets-scanning hooks at USER scope; canonical config
-at `YHWH v2.4/sonar-project.properties`.
 
 ---
 
@@ -401,11 +387,3 @@ Tewahedo edition that uniquely canonizes it.
   continuation of the γ.4.2 Gen 1-11 first wave.
 - **OR γ.4.5 Jubilees seed** — opens the next uniquely-Tewahedo
   canonical text on the same Mäṣḥafä-Hēnok-style trajectory.
-
-**Sonar integration status**: reinstalled cleanly earlier this
-session via `/sonarqube:sonar-integrate`. MCP at parent-dir
-`.mcp.json` pinned via `--project bridge4kaladin-collab_yhwh-bible-
-platform`; secrets-scanning hooks at USER scope; canonical config
-at `YHWH v2.4/sonar-project.properties`. The ω.47 in-process gate
-poll was NOT reinstated (Auto Analysis on SonarCloud handles
-scanning automatically on push).

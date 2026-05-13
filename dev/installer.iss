@@ -17,7 +17,7 @@
 
 #define MyAppName "YHWH"
 #define MyAppPublisher "YHWH Bible Publishing"
-#define MyAppURL "https://github.com/bridge4kaladin-collab/yhwh-bible-platform"
+#define MyAppURL ""
 #define MyAppExeName "YHWH.exe"
 
 ; Read version from the project's VERSION file. Falls back to "dev"

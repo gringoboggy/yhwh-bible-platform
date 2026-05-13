@@ -9,7 +9,7 @@
       "license": "Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.",
       "candidates": [
         {
-          "url": "https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js",
+          "url": "https://archive.org/download/openscriptures-strongs-json/strongs-hebrew-dictionary.js",
           "parser": "strongs-hebrew-js"
         }
       ]
@@ -22,7 +22,7 @@
       "license": "Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.",
       "candidates": [
         {
-          "url": "https://raw.githubusercontent.com/openscriptures/strongs/master/greek/strongs-greek-dictionary.js",
+          "url": "https://archive.org/download/openscriptures-strongs-json/strongs-greek-dictionary.js",
           "parser": "strongs-greek-js"
         }
       ]
@@ -47,14 +47,6 @@
       "required": false,
       "license": "Nave's Topical Bible, Orville J. Nave (1896). Public domain (US copyright lapsed; author died 1917, work first published 1896).",
       "candidates": [
-        {
-          "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases_extras/main/naves/naves.json",
-          "parser": "json-topic-to-refs"
-        },
-        {
-          "url": "https://raw.githubusercontent.com/openbibleinfo/Topical-Bible/main/naves.json",
-          "parser": "json-topic-to-refs"
-        },
         {
           "url": "https://a.openbible.info/data/topic-votes.txt.zip",
           "parser": "openbible-topics-tsv"

@@ -160,7 +160,7 @@ api modules become independently testable + replaceable.
 | ID | Title | Depends | Effort | Blast | Notes |
 |---|---|---|---|---|---|
 | ω.37 | Pre-commit hook framework | none | 0.5 | S | `.githooks/pre-commit` runs `ruff format --check` + `scripts/lint_rules.py`. Prevents the recurring "ruff drift" failure pattern. Activation: `git config core.hooksPath .githooks`. (FIRST SHIPMENT — included in this commit) |
-| ω.38 | GitHub Actions CI | ω.37 | 1 | S | `.github/workflows/ci.yml` runs tests + linter on every push. Optional Windows-runner + macOS-runner matrix. SonarCloud integration already done (2026-05-11). |
+| ω.38 | CI workflow (host-specific) | ω.37 | 1 | S | Pre-commit-mirroring CI run. Removed 2026-05-12 along with the cloud remote. Re-add on whatever git host is next chosen. |
 | ω.39 | Hot-reload for templates | none | 0.5 | S | `watchdog`-based file watcher; SSE-driven browser auto-refresh. Halves the dev-loop time. |
 | ω.40 | VS Code workspace config | none | 0.25 | S | `.vscode/settings.json` + recommended extensions list (ruff, Python). |
 | ω.41 | Dev container | ω.40 | 1 | S | `.devcontainer/devcontainer.json` for cloud-dev parity. Optional. |
@@ -255,7 +255,7 @@ them.
 | ξ.22 | Backup rotation policy | none | 0.5 | S | `.backups/` rotation: last 7 daily + last 4 weekly + last 12 monthly. Currently unbounded. |
 | ξ.23 | Encrypted backups | ξ.22, Δ.16 | 1 | M | PyNaCl libsodium; user holds the key. For unpublished editions. |
 | ξ.24 | `pip-audit` in CI | ω.38 | 0.5 | S | Dependency scanning in cloud CI. Already have ξ.5 local; this is the cloud counterpart. |
-| ξ.25 | Secret scanning in pre-commit (`gitleaks`) | ω.37 | 0.25 | S | Already have SonarCloud secrets hooks; reinforce locally. Catches secrets BEFORE commit. |
+| ξ.25 | Secret scanning in pre-commit (`gitleaks`) | ω.37 | 0.25 | S | Local secret-scanning gate. Catches secrets BEFORE commit. |
 | ξ.26 | License key validation | none | 1.5 | M | Ed25519-signed license keys for commercial editions. Soft enforcement: degraded UI on fail, not crash. |
 | ξ.27 | Health check endpoint (`/health`) | none | 0.25 | S | Returns 200 + JSON status. Used by ops dashboards + future load balancers. |
 | ξ.28 | Graceful shutdown handler | none | 0.25 | S | SIGINT handler closes sqlite connections cleanly. ~10 lines. |
@@ -271,7 +271,7 @@ finds nothing flagged.
 | ψ.36 | Heatmap mode | none | 1 | M | Color intensity = note count per cell. Toggle in /matrix header. |
 | ψ.37 | Compare-two-editions overlay | ψ.36 | 1.5 | M | Pick two editions; render their matrices in one grid with diff highlighting. |
 | ψ.38 | Time-travel mode (snapshot diff) | ω.16 ✓ | 1.5 | M | Render matrix at snapshot vN.4 vs vN.5. Visual diff. Massive "what changed?" value. |
-| ψ.39 | Bulk-import scenarios from URL | none | 1 | S | Paste `gist.github.com` link → load scenario. Enables peer sharing. |
+| ψ.39 | Bulk-import scenarios from URL | none | 1 | S | Paste a URL link → load scenario. Enables peer sharing. |
 | ψ.40 | Export matrix as PNG/SVG/PDF | none | 1 | M | For reports + executive docs. SVG generated server-side via simple `<svg>` string. |
 | ψ.41 | Matrix annotations | none | 1 | M | Pin a comment to a cell ("intentionally disabled for ESV target audience"). Persisted in scenario YAML. |
 | ψ.42 | Macro mode (record + replay) | ψ.29 ✓ | 1.5 | M | Record sequence of actions; replay on another edition. Power-user feature. |
@@ -476,7 +476,7 @@ Each month is ~6–8 sessions. Sequencing prioritizes:
 2. **ω.35-B.5** exports/build extraction
 3. **ω.35-B.6** preflight/audit/help extraction (closes the file split)
 4. **ω.37** pre-commit hook ← **shipped in this commit**
-5. **ω.38** GitHub Actions CI
+5. **ω.38** CI workflow (host-specific; removed 2026-05-12)
 6. **Δ.10** schema migration framework
 
 **End-of-month state**: web.py file split done; CI prevents next
@@ -559,7 +559,7 @@ broader plan. Listed here so they don't get forgotten.
 | Tool | Lives at | Track | Status | Purpose |
 |---|---|---|---|---|
 | Pre-commit hook | `.githooks/pre-commit` | ω.37 | **SHIPPED 2026-05-10** | Runs ruff format --check + lint_rules before commit |
-| GitHub Actions workflow | `.github/workflows/ci.yml` | ω.38 | ◯ open | Cloud CI runs full test suite |
+| CI workflow (host-specific) | removed 2026-05-12 | ω.38 | ◯ open | Cloud CI; re-add on new host |
 | Hot-reload watcher | `scripts/dev/watch_templates.py` | ω.39 | ◯ open | File-watch + SSE auto-refresh |
 | Component preview server | `scripts/dev/components_server.py` + `/dev/components` console | ω.42 | ◯ open | Per-template iteration |
 | API playground console | `/dev/api` | ω.43 | ◯ open | Postman-like UI; self-served via route tables |
@@ -591,7 +591,7 @@ broader plan. Listed here so they don't get forgotten.
 | Dark mode breaks reader EPUBs | Low | Medium | ζ.2 changes only the publisher UI; δ.5 separately ships dark-mode reader EPUB. Different code paths. |
 | Heavy new dependency creep | Medium | Medium | Invariants I.1 + I.2 forbid build steps + frameworks. Every CDN library justified per phase; total CDN size capped at ~500KB. |
 | Test suite slowdown from new tracks | Medium | Low | Perf budgets (ω.6) enforce per-test ceilings. ω.44 surfaces regression visually. |
-| GitHub Actions CI surfaces flaky tests previously masked | High | Low | Pre-existing flakes (test_compute_key_is_deterministic, test_api_matrix_cold_under_budget) are known shared-corpus-contention; address with serialization in a small ω.x slice. |
+| Cloud CI surfaces flaky tests previously masked | High | Low | Pre-existing flakes (test_compute_key_is_deterministic, test_api_matrix_cold_under_budget) are known shared-corpus-contention; address with serialization in a small ω.x slice. |
 | Publisher gets ahead of platform on artwork → mismatched expectations | Medium | Low | Quarterly review: section §9 decisions revisited at month 3 + month 5. |
 | Security hardening (ξ.18-29) breaks something on the way | Low | High | Each ξ phase is small, atomic, individually testable. CI guard + protected-paths guard catch data-side regressions; per-phase tests catch behavior regressions. |
 | AI-generated content slips through review → reputational risk | Low | High | Pre-acceptance human review (PROPOSAL_AI_ARTWORK §7); audit log captures everything; never auto-ship AI-generated text or imagery. |

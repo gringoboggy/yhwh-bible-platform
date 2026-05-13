@@ -8,13 +8,13 @@ The source list is declarative — see `content/sources/_fetchers.json` for the 
 
 Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.
 
-Source URL: <https://raw.githubusercontent.com/openscriptures/strongs/master/hebrew/strongs-hebrew-dictionary.js>
+Source URL: <https://archive.org/download/openscriptures-strongs-json/strongs-hebrew-dictionary.js>
 
 ## Strong's Greek Dictionary
 
 Strong's Exhaustive Concordance of the Bible, James Strong (1894). Public domain. Digital edition by Open Scriptures, CC-BY-SA.
 
-Source URL: <https://raw.githubusercontent.com/openscriptures/strongs/master/greek/strongs-greek-dictionary.js>
+Source URL: <https://archive.org/download/openscriptures-strongs-json/strongs-greek-dictionary.js>
 
 ## Treasury of Scripture Knowledge
 
@@ -28,8 +28,6 @@ Nave's Topical Bible, Orville J. Nave (1896). Public domain (US copyright lapsed
 
 Source URLs (tried in order):
 
-- <https://raw.githubusercontent.com/scrollmapper/bible_databases_extras/main/naves/naves.json> *(parser: `json-topic-to-refs`)*
-- <https://raw.githubusercontent.com/openbibleinfo/Topical-Bible/main/naves.json> *(parser: `json-topic-to-refs`)*
 - <https://a.openbible.info/data/topic-votes.txt.zip> *(parser: `openbible-topics-tsv`)*
 - <https://www.ccel.org/n/nave/topical/topical.txt> *(parser: `ccel-text`)*
 

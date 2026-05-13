@@ -134,9 +134,8 @@ def fetch_appcast(
     through ``http.HttpError``; XML parse failures raise
     ``AppcastError``."""
     if http_fn is None:
-        # ξ.10 — pin appcast egress to the desktop-update allowlist
-        # (GitHub Releases hosting). Other call sites use their own
-        # allowlist groups.
+        # ξ.10 — pin appcast egress to the desktop-update allowlist.
+        # Other call sites use their own allowlist groups.
         from scripts.core.http import (
             get as http_get,
             DEFAULT_DESKTOP_UPDATE_ALLOWLIST,

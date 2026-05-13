@@ -456,7 +456,7 @@ reunification with lamb-of-horns Christological climax (90:38).
 
 ---
 
-## 2026-05-12 — session — γ.4.4.C 1 Enoch Parables detail (40 entries on chs 37-71) + sonar reinstall
+## 2026-05-12 — session — γ.4.4.C 1 Enoch Parables detail (40 entries on chs 37-71)
 
 **Phases shipped:** γ.4.4.C — Parables-section expansion of the
 Mäṣḥafä Hēnok corpus (1 Enoch's Son-of-Man Christology section).
@@ -466,9 +466,7 @@ Parables coverage from 9 to 49 entries across 32 distinct chapters
 (of the section's 35). 1 Enoch share of the corpus rises from 31%
 to ~41% — Cyril remains plurality voice but 1 Enoch continues to
 climb.
-**Test delta:** +13 (γ.4.4.C). Combined with prior sonar-cleanup
-test removal (−28 from `test_sonarqube_omega47.py` deletion), net
-session delta = −15.
+**Test delta:** +13 (γ.4.4.C).
 **Linter delta:** 11/11 clean.
 
 ### γ.4.4.C — 1 Enoch Parables detail (chs 37-71)
@@ -548,33 +546,6 @@ NOT a regression from γ.4.4.C content. Verified independently:
 formatted`; `python scripts/lint_rules.py` reports `CLEAN: 11 pass
 · 0 warn · 0 fail`; the new γ.4.4.C test class passes 13/13
 verbosely.
-
-### Sonar reinstall (earlier this session)
-
-SonarQube integration cleanly removed and reinstalled via
-`/sonarqube:sonar-integrate`. Removed: `.claude/hooks/sonar-
-secrets/` (project-scope), duplicate `.mcp.json` files at root and
-`YHWH v2.4/`, `YHWH v2.4/sonar-project.properties`,
-`YHWH v2.4/scripts/check_sonarqube.py`,
-`YHWH v2.4/tests/test_sonarqube_omega47.py` (29 tests), the ω.47
-`sonarqube_quality_gate` check block in `YHWH v2.4/scripts/api/
-preflight.py`, SonarQube Cloud badge in `YHWH v2.4/README.md`,
-External-service-identifiers SonarCloud block in
-`YHWH v2.4/dev/CLAUDE_PROJECT_RULES.md`, `.vscode/settings.json`
-(SonarLint connected-mode only). Reinstall via `sonar self-update`
-(v0.12.0) + `sonar integrate claude --non-interactive`.
-Re-created: `YHWH v2.4/sonar-project.properties` (canonical
-config), parent `.mcp.json` with explicit `--project` pin to
-`bridge4kaladin-collab_yhwh-bible-platform`, README badge,
-CLAUDE_PROJECT_RULES external-services block (updated wording for
-USER-scope hooks). The ω.47 in-process gate query was deliberately
-NOT reinstated — Auto Analysis on SonarCloud side runs scans on
-push automatically, so the in-app gate poll is no longer load-
-bearing. Live API probe via `sonar api get
-/api/qualitygates/project_status?projectKey=...` confirms wiring
-works (returns `{"projectStatus":{"status":"NONE",...}}` —
-expected for a freshly-bound project pending first push-triggered
-scan).
 
 ---
 
@@ -6913,8 +6884,7 @@ In `tests/test_migrations_delta10.py`:
 Per PROPOSAL_FEATURE_LANDSCAPE.md §6 Month 1 sequence,
 this is item #6 — the final foundation item. Track A
 file split is closed (ω.35-B.7), pre-commit (ω.37) +
-CI (ω.38) shipped, SonarCloud preflight (ω.47) shipped
-last turn. Δ.10 unblocks all of Track L (database
+CI (ω.38) shipped last turn. Δ.10 unblocks all of Track L (database
 evolution: WAL, FTS5, sqlite-vec, event log, encrypted
 backups), so Month 2 modernization can begin with a
 clean infrastructure base.
@@ -6940,393 +6910,6 @@ Per the v1.1 committed sequence:
 Serial run: **2328 / 2329 tests pass (1 skipped); 11/11
 lint clean.** ω.47 baseline was 2302; +26 Δ.10 = 2328.
 Math checks out.
-
----
-
-## 2026-05-11 — session — ω.47 SonarCloud preflight gate (Track B developer experience — ω.36 sonarqube renumbered)
-
-**Phases shipped:** ω.47 (SonarCloud quality-gate
-integration into /preflight) + an in-session fix-forward
-for ω.38 (`ruff check` removed from CI lint job).
-**Test delta:** +28 (`tests/test_sonarqube_omega47.py`,
-4 test classes).
-**Linter delta:** 11/11 clean.
-
-### Renumber note (sticky-phase rule §5)
-
-The AUDIT_2026-05-11 §6 proposal called this "ω.36
-sonarqube CI gate" but **ω.36 was already consumed earlier
-same day** by the path-tagged fingerprint cache (multiplier
-3.0 → 1.4). Per CLAUDE_PROJECT_RULES §5 "Letter assignments
-are sticky — a feature lives with one letter forever",
-this work ships as **ω.47** (next free ω-slot after
-ω.37/.38 pre-commit + CI and the ω.39-46 range already
-assigned in PROPOSAL_FEATURE_LANDSCAPE.md §7).
-
-### What shipped
-
-Three pieces wire SonarCloud's quality gate into the
-project's existing /preflight dashboard alongside
-`rules_compliance` + `schema_compliance` (per AUDIT
-§6.624):
-
-1. **`sonar-project.properties`** — SonarCloud config:
-   - `sonar.organization=bridge4kaladin-collab`
-   - `sonar.projectKey=bridge4kaladin-collab_yhwh-bible-platform`
-     (SonarCloud's standard `<org>_<github-repo>` convention)
-   - `sonar.sources=scripts` (only the Python production
-     tree; `content/notes/*.py` is data per pyproject.toml)
-   - `sonar.tests=tests`
-   - `sonar.python.version=3.10,3.11,3.12,3.13,3.14`
-     (matches the ω.38 CI matrix)
-   - Exclusions mirror .gitignore + ruff's `extend-exclude`:
-     `__pycache__`, `.backups`, `content/notes`,
-     `content/translations`, `content/sources`,
-     `content/candidates`, `epub_working`, `exports`,
-     `builds`, `kings_session`, `source_archive`,
-     `assets`, `_audit_state.json`
-   - `sonar.scm.provider=git` + `sonar.sourceEncoding=UTF-8`
-
-2. **`scripts/check_sonarqube.py`** — Tier-3 meta-tool
-   (~250 lines) wrapping `sonar api get
-   /api/qualitygates/project_status`. Public API:
-   - `check_quality_gate() -> dict` — returns
-     `{"status": "pass"|"warn"|"fail"|"skip", "message":
-     str, "details": dict}`. In-process callable so the
-     preflight aggregator skips the subprocess hop.
-   - `main(argv=None) -> int` — CLI entry; standard
-     audit-script exit-code map (0=pass, 1=fail,
-     2=warn/skip). `--json` flag emits the dict raw.
-
-   Status semantics:
-   - **pass** — gate status `OK`
-   - **fail** — gate status `ERROR` (real findings)
-   - **warn** — gate status `WARN`, `NONE` (no analysis
-     yet), 404 (project not yet on SonarCloud), timeout,
-     or non-JSON response
-   - **skip** — `sonar-project.properties` missing,
-     `sonar.projectKey` unset, or `sonar` CLI absent
-
-3. **`sonarqube_quality_gate` preflight check** — appended
-   to `scripts/api/preflight.py::_compute_preflight_uncached()`.
-   Lazy-imports `check_sonarqube.check_quality_gate` and
-   wraps the call in a broad `except` so a runtime failure
-   (network outage, unexpected upstream change, etc.)
-   surfaces as `warn` rather than breaking the dashboard.
-   Surfaces in /api/preflight + /preflight UI with `id:
-   sonarqube_quality_gate, name: SonarCloud quality gate,
-   jump_to: /preflight`.
-
-### Live state today
-
-The check returns **warn — "no SonarCloud analysis run
-yet"**. The SonarCloud project DOES exist (CLI didn't
-return 404), but no analysis has been uploaded yet. To
-flip to pass/fail: run `sonar-scanner` from the repo root
-once. The gate is otherwise self-maintaining.
-
-### Fix-forward for ω.38
-
-While verifying ω.47 against `ruff check`, discovered the
-codebase has **~22,798 pre-existing `ruff check`
-violations** from rules the local `.githooks/pre-commit`
-never enforced (it only runs `ruff format --check` +
-`scripts/lint_rules.py`). ω.38's ci.yml had added `ruff
-check` as a gating step — which would have failed CI on
-day one.
-
-**Resolution**: removed `ruff check` from ci.yml's lint
-job. CI now exactly mirrors the local pre-commit contract.
-Promoting `ruff check` to a gate is its own future
-cleanup phase (provisionally **ω.47.1** — name not yet
-sticky, can be renumbered when scoped). The lint-job
-comment block in ci.yml documents this deliberately.
-
-Also fixed two pre-existing lint findings the new `ruff
-format` pass on preflight.py surfaced (because the format
-run touched the file's whitespace):
-- C901 on `_compute_preflight_uncached` — added `#
-  noqa: C901` with rationale: aggregator function with
-  one branch per check, complexity grows linearly with
-  check count; this is by design.
-- E501 long line in the routes-inventory message — wrapped
-  the f-string across two lines.
-
-### Tests (28 new)
-
-In `tests/test_sonarqube_omega47.py`:
-
-1. **TestOmega47SonarProjectProperties** (9 tests) —
-   `sonar-project.properties` shape: organization,
-   projectKey, projectName, sources=scripts, tests=tests,
-   exclusions cover regenerables + legacy
-   (__pycache__/content/notes/kings_session/source_archive/
-   epub_working/exports/builds/.backups), python.version
-   covers 3.10 floor, scm.provider=git, sourceEncoding=UTF-8.
-2. **TestOmega47CheckQualityGateUnit** (11 tests) — every
-   branch of `check_quality_gate()`:
-   - skip on missing properties / no projectKey / sonar
-     CLI missing (3)
-   - pass on `OK` gate (1)
-   - fail on `ERROR` gate; failed_conditions surfaced (1)
-   - warn on `WARN`, `NONE`, 404, timeout, parse-error,
-     "other API error → fail" (6)
-3. **TestOmega47CheckQualityGateCli** (5 tests) — main()
-   exit codes (0/1/2/2 for pass/fail/warn/skip) +
-   `--json` flag emits valid JSON with status field.
-4. **TestOmega47PreflightWired** (3 tests) —
-   /api/preflight surfaces `sonarqube_quality_gate` check
-   with the canonical 6-field shape (id/name/status/
-   message/details/jump_to); dashboard stays renderable
-   when `check_quality_gate()` raises (warn-fallback path).
-
-### ω.38 test pin update
-
-Replaced `test_lint_job_runs_ruff_check` (now obsolete)
-with `test_lint_job_does_not_run_ruff_check_yet` —
-inverts the assertion to pin the deliberate absence. Uses
-regex `\bruff\s+check\b` so the test doesn't false-match
-on `ruff format --check`. Comment explains the why so a
-future "let's add lint" sweep gets the context it needs.
-
-### Why now
-
-The previous turn invoked `/sonarqube:sonar-integrate`,
-which wired the `sonar` CLI + MCP + secrets hooks but
-didn't ship the actual project-side quality-gate
-integration. Closing-the-loop on the sonarqube context
-while it was fresh — paired-phases rule (CLAUDE_PROJECT_
-RULES §3.3) — beat moving on to Δ.10 schema migration
-framework as a separate concern.
-
-### What's next
-
-Per the v1.1 committed sequence:
-- **Δ.10 schema migration framework** — Month 1
-  foundation #6, the final foundation item before Month 2
-  modernization.
-- **ω.47.1 ruff-check cleanup** — provisionally named
-  follow-on for promoting `ruff check` to a CI gate
-  after the ~22.8K pre-existing violation backlog is
-  worked off. Likely needs its own audit + multi-session
-  arc.
-- **Month 2 modernization (ζ family)** — CSS variable
-  theming, dark mode, typography, iconography, toasts,
-  skeletons, command palette.
-
-### Post-ship: SonarScanner install + Auto Analysis discovery
-
-Mid-session the user offered a sonar-cli source folder at
-`C:\Users\bogda\Documents\sonarqube-cli-0.12.0.1512`; that
-was the upstream source repo for the same `sonar` CLI
-already installed — no install needed. **SonarScanner CLI**
-(the heavyweight static analyzer, separate tool) is what's
-actually needed to populate the quality gate. Installed
-**v8.1.0.6389** to `%LOCALAPPDATA%\sonar-scanner\`:
-- Downloaded the official Windows x64 zip (~55 MB) from
-  `binaries.sonarsource.com/Distribution/sonar-scanner-cli/`.
-- Verified: `sonar-scanner.bat --version` reports
-  `SonarScanner CLI 8.1.0.6389 / Java 21.0.9 Adoptium /
-  Windows 11 10.0 amd64`.
-
-Generated a SonarCloud User Token via `sonar api post
-/api/user_tokens/generate` (PowerShell quote-mangling
-needed working around — used Bash with `MSYS_NO_PATHCONV=1`)
-and ran the first scan. **Scanner failed with:**
-
-> ERROR You are running manual analysis while Automatic
-> Analysis is enabled. Please consider disabling one or
-> the other.
-
-**Discovery**: the SonarCloud project has **Automatic
-Analysis enabled** — SonarCloud watches the linked GitHub
-repo and runs scans automatically on every push, blocking
-manual-scanner runs to avoid duplicate paths. This is
-actually the better posture for this project: no
-CI scanner step needed, no manual scans needed; pushes
-populate the gate.
-
-**Cleanup post-discovery**:
-- Revoked the temporary scanner token
-  (`yhwh-scanner-2026-05-11`) via `sonar api post
-  /api/user_tokens/revoke`.
-- Wiped the token cache file (`/tmp/yhwh-sonar-token`).
-- SonarScanner stays installed for future Auto-Analysis-off
-  scenarios (e.g., a developer wanting to scan a feature
-  branch before pushing).
-
-**`scripts/check_sonarqube.py` hint message refined** for
-the `NONE`-gate-status case: now mentions both paths (push
-triggers Auto Analysis vs manual `sonar-scanner` when Auto
-is off). The test that pins this hint stays green
-(matcher accepts either of two substrings).
-
-### User out-of-band step (revised)
-
-The gate will flip from warn → pass/fail **automatically**
-on your next `./save.cmd` (which pushes to GitHub). No
-manual scanner run required. After the push:
-- Watch Auto Analysis at `https://sonarcloud.io/project/
-  overview?id=bridge4kaladin-collab_yhwh-bible-platform`
-- /preflight check will reflect the new gate status on
-  next dashboard refresh (the lru_cache invalidates when
-  any tracked yaml/notes file mtime changes; manual cache-
-  clear via `/api/preflight?nocache=1` is available too)
-- If you want manual scans, disable Auto Analysis under
-  the project's Administration > Analysis Method settings,
-  then run `sonar-scanner` from the repo root.
-
-### Test count
-
-Serial run: **2302 / 2303 tests pass (1 skipped); 11/11
-lint clean.** ω.38 baseline was 2273 (ψ.36-A baseline
-2253 + 20 ω.38 = 2273); +29 ω.47 = 2302. The +29 includes
-an additional mid-ship assertion added when fixing the
-`details: list` contract regression — every preflight
-check must declare details as a list, not dict.
-
-### Mid-ship regression caught + fixed
-
-During the full-suite verify pass, `TestEditionMeta::
-test_preflight_returns_structured_checks` failed:
-the existing preflight contract pins every check's
-`details` field as a `list` AND `status` as
-`pass`/`warn`/`fail` (no `skip`). My initial sonarqube
-wire-up passed a `dict` for `details` and could yield
-`skip`. Two-line fix in the wire-up: map `skip → warn`
-and wrap the info dict as a single-element list (with
-`failed_conditions` expanded to a list of `{metricKey,
-status}` items when present). Pinned both shape
-requirements in `TestOmega47PreflightWired::
-test_sonarqube_check_has_required_shape` so a future
-re-introduction can't pass silently.
-
----
-
-## 2026-05-11 — session — ω.38 GitHub Actions CI (Month 1 foundation #5 — Track B developer experience)
-
-**Phases shipped:** ω.38 (CI workflow + obsolete-template removal).
-**Test delta:** +20 (`tests/test_ci_omega38.py`, 6 test classes).
-**Linter delta:** 11/11 clean.
-
-### What shipped
-
-`.github/workflows/ci.yml` — the project's first
-project-tailored GitHub Actions workflow. Mirrors the
-locally-enforced contract (`.githooks/pre-commit` +
-`dev/git-hooks/pre-commit`) so a green CI run guarantees the
-fresh-clone gate would have passed too.
-
-**Two jobs:**
-
-1. **`lint`** (ubuntu-latest × Python 3.12) — installs runtime
-   deps + dev tools (ruff, mypy, vulture, pip-audit), then
-   runs the full audit chain in pre-commit order:
-   - `ruff format --check .`
-   - `ruff check .`
-   - `python scripts/lint_rules.py` (Tier-3 preflight; 11 checks)
-   - `python scripts/audit_deps.py` (pip-audit CVE gate)
-   - `python scripts/audit_dead_code.py` (vulture sweep)
-   - `python scripts/audit_types.py` (mypy on scripts/core/)
-   - `python scripts/audit_caches.py` (@lru_cache audit)
-
-2. **`test`** — pytest matrix across:
-   - ubuntu-latest × {3.10, 3.11, 3.12, 3.13, 3.14}
-   - windows-latest × {3.10, 3.11, 3.12, 3.13}
-   - macos-latest × 3.12 (trimmed for runner cost)
-
-   Runs `pytest -n auto --dist=loadfile -v --maxfail=10` —
-   `loadfile` distribution keeps the YAML-mutator monolith
-   tests (`tests/test_scripts.py`) on one worker per
-   pyproject.toml's recommendation. `fail-fast: false` so a
-   single Python-version breakage doesn't mask others.
-
-**Workflow-wide env:**
-- `PYTHONUTF8=1` — required on Windows runners or 72 tests
-  fail on cp1252 decoding errors at byte 0x9d. Project memory
-  reproduces this reliably.
-- `PYTHONIOENCODING=utf-8` — paired safety net for stdout/stderr.
-
-**Concurrency control:** new pushes on the same ref cancel
-in-flight runs (saves Actions minutes on noisy PR branches).
-
-**Trigger surface:** push to main, PRs to main, plus
-`workflow_dispatch` for manual re-runs after transient
-runner failures.
-
-### Obsolete file removed
-
-`.github/workflows/python-package.yml` — GitHub's default
-template (Python 3.9-3.11, flake8) was misaligned with this
-project (Python target 3.10+, ruff). Replaced by ci.yml.
-`.github/workflows/python-publish.yml` left alone — it's a
-separate PyPI release flow (currently unused; ξ-5 keeps
-requirements.txt-only setup) but doesn't conflict with CI.
-
-### Tests (20 new)
-
-In `tests/test_ci_omega38.py`:
-
-1. **TestOmega38CiWorkflowExists** (3 tests) — file presence,
-   YAML parses, top-level `name:` set.
-2. **TestOmega38CiWorkflowTriggers** (3 tests) — push to main,
-   PR to main, workflow_dispatch all present. Robust to YAML's
-   bare-`on:` → Python `True` quirk.
-3. **TestOmega38CiWorkflowEnv** (2 tests) — PYTHONUTF8=1 and
-   PYTHONIOENCODING=utf-8 set workflow-wide (not per-job).
-4. **TestOmega38CiLintChain** (5 tests) — every step from the
-   pre-commit chain is invoked (ruff format/check + lint_rules
-   + 4 audit scripts) AND every required dev tool is installed
-   in the lint job (so audits don't silently rc=2-skip).
-5. **TestOmega38CiTestMatrix** (5 tests) — three OSes present,
-   3.10 floor + modern (3.12+) version present, pytest with
-   `-n auto --dist=loadfile`, fail-fast: false.
-6. **TestOmega38CiObsoleteRemoved** (2 tests) —
-   `python-package.yml` is gone; `ci.yml` is canonical.
-
-Pinning rationale: this workflow is the only enforcement gate
-on `main` for contributors whose fresh clone hasn't activated
-the pre-commit hook (`git config core.hooksPath .githooks`).
-Drift here is silent — the maintainer keeps seeing green
-checks while coverage degrades — so every requirement gets
-an explicit assertion.
-
-### Why now
-
-Per **PROPOSAL_FEATURE_LANDSCAPE.md §6** the v1.1 sequence
-after slice #3 (ψ.36-A) was: ω.36 sonarqube (deferred until
-user API key) → 6-month feature tracks B-L. Month 1 Track B
-foundation order: ω.35-B.4 → B.5 → B.6 ✓ → ω.37 pre-commit
-hook ✓ → **ω.38 GitHub Actions CI** ← *this* → Δ.10 schema
-migration framework. ω.38 is Month 1 item #5 of 6.
-
-### What's next
-
-Per the committed v1.1 sequence:
-- **Δ.10 schema migration framework** — Month 1 final
-  foundation item (the original Δ.10 attribution-audit-index
-  was retired in the ψ.37-E session; this is the *schema
-  migration framework* slot, separately tracked).
-- **ω.36 sonarqube** — still deferred until user API key.
-- **Month 2 modernization** — ζ family (CSS variable theming,
-  dark mode, typography, iconography, toasts, skeletons,
-  command palette).
-
-### Linter / preflight
-
-11/11 clean. Pre-existing IN_FLIGHT contract: marker flipped
-`active` → `idle` end-of-task.
-
-### Test count
-
-Serial run: **2273 passed, 1 skipped** (up from 2253 — exactly
-the +20 ω.38 additions). Parallel xdist runs surface known
-race conditions on `content/editions.yaml` mutation; cleaning
-the working tree (`git checkout content/editions.yaml
-content/.refactor_log.yaml`) before each `-n auto` run is the
-documented workaround. The CI's pytest step uses
-`--dist=loadfile` to keep the YAML mutator monolith on one
-worker, sidestepping the inter-worker race in practice.
 
 ---
 
@@ -7477,7 +7060,6 @@ performance win is already live.
 - **ψ.36 matrix lazy-load** (slice #3 in original framing)
   — was scheduled to need UI co-design; can ship the data-
   API side + "load more" default UI without input.
-- **ω.36 sonarqube** — deferred until your API key arrives.
 - **6-month feature tracks B-L** per
   `PROPOSAL_FEATURE_LANDSCAPE.md`.
 
@@ -7552,8 +7134,7 @@ demo-able from the /customize console.
 ### Next per the committed v1.1 sequence
 
 ψ.37 ✓ → **ψ.36 matrix lazy-load endpoint** (slice #3) →
-Δ.10 attribution_audit index-back → ω.36 sonarqube
-(whenever your key shows up).
+Δ.10 attribution_audit index-back.
 
 ---
 
@@ -7767,8 +7348,7 @@ against CHANGELOG.
 
 `PLAN-REFRESH ✓` → **ψ.37 time-traveling commentary**
 (uniqueness-angle pick) → ψ.36 matrix lazy-load → Δ.10
-attribution_audit index-back → ω.36 sonarqube (deferred
-until your API key) → 6-month feature tracks B-L.
+attribution_audit index-back → 6-month feature tracks B-L.
 
 ---
 
@@ -24439,100 +24019,6 @@ Continuity pointers:
   Tier D line 22 (audio extensions deferred).
 - `dev/SCOPE_2026-05-08.md` — base scope still authoritative; the
   two new addenda are addenda *to* it, not replacements.
-
----
-
-## 2026-05-08 — session — σ.3 GitHub backup workflow shipped
-
-**Phases shipped:** σ.3.
-**Test delta:** 0 (393 → 393 — no runtime change).
-**Save tag this session:** initial git push, commit `ea0fbeb` to
-`bridge4kaladin-collab/yhwh-bible-platform` (PRIVATE).
-
-What shipped:
-
-- Installed GitHub CLI 2.92.0 via `winget install GitHub.cli` (admin
-  UAC required; succeeded on second prompt).
-- Authenticated `gh` against `github.com` as
-  `bridge4kaladin-collab` via the device-code web flow.
-  Scopes: `gist`, `read:org`, `repo`. Token stored in Windows
-  Credential Manager (keyring).
-- `git init --initial-branch=main` in the project root.
-- Added `.claude/` to `.gitignore` — Claude Code's per-machine
-  permission cache and runtime lock are not portable.
-- Initial commit `ea0fbeb`: 1668 files, 653,880 insertions, message
-  "Initial commit: YHWH Bible publishing platform v2.4".
-- `gh repo create yhwh-bible-platform --private --source=. --push`
-  — repo created PRIVATE, no collaborators, default branch `main`,
-  push completed.
-- New files at repo root for one-command save:
-  - `save.ps1` — PowerShell wrapper for add+commit+push.
-  - `save.cmd` — cmd.exe shim that runs save.ps1 with
-    `-ExecutionPolicy Bypass`. Needed because Windows's default
-    PowerShell execution policy (`Restricted`) blocks .ps1 files
-    until the user runs `Set-ExecutionPolicy`. Caught immediately
-    on first user-test of save.ps1; .cmd was added in the same
-    session as the workaround so the non-developer path is
-    "double-click or `./save.cmd \"msg\"`" with no policy fiddling.
-  Both default to a timestamp message; both no-op if nothing
-  changed; both print a red "push failed" line if the network
-  blocks (commit still saved locally).
-
-User-facing handoff:
-
-- Save (preferred): `./save.cmd "<message>"` from PowerShell or cmd.
-- Save (PS-direct): `./save.ps1 "<message>"` only if execution
-  policy is RemoteSigned or Bypass.
-- Save (raw): `git add -A; git commit -m "<msg>"; git push`.
-- Start of fresh session: `git pull`.
-- Repo URL: https://github.com/bridge4kaladin-collab/yhwh-bible-platform.
-
-Notable decisions:
-
-- Used the gh device-code flow (`gh auth login --hostname github.com
-  --git-protocol https --web`) rather than asking the user to
-  generate a PAT manually. The first attempt timed out while the
-  user was unblocking iCloud's spam filtering for GitHub's 2FA
-  email; the second attempt succeeded after GitHub eventually
-  delivered the verification code.
-- `.claude/` added to `.gitignore` rather than committed. The local
-  permissions allowlist accumulates per-session and is bound to a
-  specific Windows install (e.g. paths like `C:\Program Files\
-  GitHub CLI`); committing it would only create cross-machine
-  noise. The `settings.local.json` filename suffix is the
-  documented convention for "do not share" anyway.
-- Skipped `gh repo create --confirm` interactive flag in favor of
-  `--source=. --push`, which is one command and idempotent in
-  intent. No collaborators flag passed (the `--add-collaborator`
-  flag was deliberately not used; user requested no collaborators).
-
-Retrospective (§12 trigger fired — new pattern shipped):
-
-- **Pattern recognized:** "non-developer GitHub onboarding via gh
-  device-code flow, with a tiny PowerShell save-wrapper as the
-  durable affordance." The user is the persona this pattern is
-  optimized for. If the same flow is needed again (e.g. a
-  collaborator's machine), the steps are: winget install → device
-  code login (warn about 2FA email, especially iCloud spam) →
-  gitignore .claude/ → init → commit → `gh repo create --private
-  --source=. --push` → drop a `save.ps1`. Worth codifying as a §9
-  mental model the next time the rules doc is touched, especially
-  if a second machine/user joins.
-- **Inventory pointer added:** "GIT BACKUP" section at the top of
-  the inventory in SESSION_STATE.md — names the remote, the save
-  and pull commands, and where gh.exe lives.
-- **Working agreement carried over from PLAN:** zips are no longer
-  the save medium. The /save = present-zip rule (CLAUDE_PROJECT_
-  RULES §4) is now superseded for this project by `save.ps1` /
-  `git push`. The rules doc still describes the zip flow because
-  it predates σ.3 — leaving it there as a fallback for offline
-  scenarios; if zips never come back, prune that section in a
-  future rules-doc pass.
-
-Continuity pointers:
-
-- `dev/PLAN_2026-05-08.md` Tier A line 1 (σ.3 spec).
-- `dev/CLAUDE_PROJECT_RULES.md` §4 (save semantics — pre-σ.3 baseline).
 
 ---
 

@@ -10370,13 +10370,13 @@ class TestXi10SsrfAllowlist:
         assert r == b"data"
 
     def test_subdomain_match_accepted(self):
-        # api.github.com should match an allow-list entry of
-        # github.com (subdomain-aware).
+        # api.example.com should match an allow-list entry of
+        # example.com (subdomain-aware).
         from scripts.core.http import get
 
         r = get(
-            "https://api.github.com/repos",
-            allowlist={"github.com"},
+            "https://api.example.com/repos",
+            allowlist={"example.com"},
             urlopen=self._mock_urlopen(b"json"),
             sleep_fn=lambda s: None,
         )
@@ -10417,20 +10417,20 @@ class TestXi10SsrfAllowlist:
         assert called == []
 
     def test_anti_spoof_subdomain_match(self):
-        # `evil-github.com` shares the suffix "github.com" but is NOT
+        # `evil-example.com` shares the suffix "example.com" but is NOT
         # a subdomain. Suffix-match must require a leading dot.
         from scripts.core.http import get, SSRFBlockedError
 
         try:
             get(
-                "https://evil-github.com/foo",
-                allowlist={"github.com"},
+                "https://evil-example.com/foo",
+                allowlist={"example.com"},
                 urlopen=self._mock_urlopen(b""),
                 sleep_fn=lambda s: None,
             )
             assert False, "should have raised"
         except SSRFBlockedError as e:
-            assert e.host == "evil-github.com"
+            assert e.host == "evil-example.com"
 
     def test_case_insensitive_match(self):
         # URL hosts are case-insensitive per RFC 3986; the allow-list
@@ -10438,8 +10438,8 @@ class TestXi10SsrfAllowlist:
         from scripts.core.http import get
 
         r = get(
-            "https://API.GitHub.COM/foo",
-            allowlist={"github.com"},
+            "https://API.Example.COM/foo",
+            allowlist={"example.com"},
             urlopen=self._mock_urlopen(b"x"),
             sleep_fn=lambda s: None,
         )

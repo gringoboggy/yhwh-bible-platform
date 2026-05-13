@@ -53,7 +53,7 @@ Discovery order for the validator:
 Install hints (printed when nothing is found):
     macOS:    brew install epubcheck
     Debian:   apt-get install epubcheck
-    Manual:   https://github.com/w3c/epubcheck/releases
+    Manual:   download epubcheck from the W3C epubcheck project, then
               unzip into ``<repo>/.tools/`` so this script can find it.
 """
 
@@ -118,7 +118,7 @@ epubcheck not found. Install one of these ways:
 
   macOS:    brew install epubcheck
   Debian:   sudo apt-get install epubcheck
-  Manual:   https://github.com/w3c/epubcheck/releases
+  Manual:   download epubcheck from the W3C epubcheck project, then
             unzip into ``<repo>/.tools/`` (so e.g. .tools/epubcheck-5.1.0/epubcheck.jar)
             or set EPUBCHECK_JAR=/path/to/epubcheck.jar in your environment.
 """

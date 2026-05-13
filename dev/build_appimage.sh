@@ -41,16 +41,11 @@ fi
 APPIMAGETOOL="/tmp/appimagetool-${ARCH}.AppImage"
 if [[ ! -x "$APPIMAGETOOL" ]]; then
     echo "Downloading appimagetool to $APPIMAGETOOL..."
-    if command -v wget >/dev/null 2>&1; then
-        wget -q -O "$APPIMAGETOOL" \
-            "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${ARCH}.AppImage"
-    elif command -v curl >/dev/null 2>&1; then
-        curl -fsSL -o "$APPIMAGETOOL" \
-            "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${ARCH}.AppImage"
-    else
-        echo "ERROR: need wget or curl to download appimagetool." >&2
-        exit 1
-    fi
+    # Auto-download URL removed 2026-05-12. Install appimagetool manually
+    # to ${APPIMAGETOOL} and re-run this script.
+    echo "ERROR: appimagetool not found at ${APPIMAGETOOL}." >&2
+    echo "       Install it manually and re-run." >&2
+    exit 1
     chmod +x "$APPIMAGETOOL"
 fi
 

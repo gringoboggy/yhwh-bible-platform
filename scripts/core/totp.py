@@ -168,7 +168,7 @@ def provisioning_uri(secret: str, *, label: str, issuer: str = "YHWH Bible") -> 
     """Build an otpauth://totp/... URI for the authenticator app.
 
     Per the otpauth URI spec (de-facto standard maintained by Google
-    Authenticator at github.com/google/google-authenticator/wiki/Key-Uri-Format):
+    Authenticator):
 
         otpauth://totp/<Issuer>:<Label>?secret=<base32>&issuer=<Issuer>&algorithm=SHA1&digits=6&period=30
 

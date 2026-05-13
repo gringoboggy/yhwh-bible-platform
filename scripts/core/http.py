@@ -67,10 +67,9 @@ def _check_allowlist(url: str, allowlist) -> None:
     """Validate that `url`'s host is in `allowlist`. Allowlist may be
     a set / frozenset / tuple / list of host strings (lowercased,
     no scheme). Subdomain-aware: if the allowlist contains
-    ``raw.githubusercontent.com``, requests to
-    ``raw.githubusercontent.com/...`` and any subdomain like
-    ``cdn.raw.githubusercontent.com`` are accepted; if it contains
-    ``github.com``, ``api.github.com`` is also accepted.
+    ``data.example.com``, requests to ``data.example.com/...`` and
+    any subdomain like ``cdn.data.example.com`` are accepted; if it
+    contains ``example.com``, ``api.example.com`` is also accepted.
 
     ξ.10.1 — `allowlist=None` raises `SSRFBlockedError` BEFORE any
     network I/O (was warn-and-continue in ξ.10). Every call site in
@@ -95,8 +94,8 @@ def _check_allowlist(url: str, allowlist) -> None:
     if host in allow_set:
         return
     # Subdomain match: any of allowlist's entries is a suffix of host
-    # (with a leading dot to avoid matching ``evil-github.com`` against
-    # ``github.com``).
+    # (with a leading dot to avoid matching ``evil-example.com`` against
+    # ``example.com``).
     for allowed in allow_set:
         if host.endswith("." + allowed):
             return
@@ -149,7 +148,7 @@ def get(
     an allowlist log a warning and continue (back-compat); calls
     with a non-matching host raise ``SSRFBlockedError`` BEFORE
     any network I/O. Subdomain-aware: an allow-listed
-    ``github.com`` accepts ``api.github.com`` etc.
+    ``example.com`` accepts ``api.example.com`` etc.
 
     Raises ``HttpError`` after all retries are exhausted; raises
     ``SSRFBlockedError`` immediately if `allowlist` is set and
@@ -260,8 +259,6 @@ DEFAULT_PD_SOURCES_ALLOWLIST = frozenset(
         "ebible.org",
         "archive.org",
         "openbible.info",
-        "raw.githubusercontent.com",
-        "github.com",  # subdomain match catches api.github.com etc.
     }
 )
 
@@ -273,8 +270,7 @@ DEFAULT_AI_BACKEND_ALLOWLIST = frozenset(
 
 DEFAULT_DESKTOP_UPDATE_ALLOWLIST = frozenset(
     {
-        "github.com",  # appcast hosted in releases
-        "githubusercontent.com",
+        "archive.org",  # appcast + desktop release artifacts hosted here
     }
 )
 

@@ -21,10 +21,9 @@ your phone is two taps.
 | Anthropic mobile app (claude.ai) | ❌ no | n/a | free / Pro / Max | Chat only, no Claude Code |
 | ngrok / Cloudflare Tunnel + SSH | ✅ yes | ✅ same shell | free tier OK | Works, but Tailscale is easier to maintain |
 
-The desktop machine has the working tree, the test suite, the `.git`, the
-`sonar-project.properties`, the pre-commit hook. Anything that doesn't see
-those files can't actually ship work — only describe it. SSH preserves
-full parity.
+The desktop machine has the working tree, the test suite, the `.git`, and
+the pre-commit hook. Anything that doesn't see those files can't actually
+ship work — only describe it. SSH preserves full parity.
 
 ---
 
@@ -75,7 +74,7 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell `
 
 1. Download from https://tailscale.com/download/windows
 2. Run the installer (no admin needed for personal install)
-3. Sign in with Google / GitHub / Microsoft / Apple ID — pick one and
+3. Sign in with Google / Microsoft / Apple ID — pick one and
    remember it; you'll use the same identity on the phone in Step 3
 4. After sign-in, the machine joins your tailnet. Find its
    Tailscale IP:
@@ -321,12 +320,9 @@ everything. Phone is just a terminal.
 
 ## Related references
 
-- SonarCloud project key: `bridge4kaladin-collab_yhwh-bible-platform`
-  (per `dev/CLAUDE_PROJECT_RULES.md` § 0 — already pinned for cross-
-  session discoverability).
 - Save semantics: `./save.cmd "<message>"` per
-  `dev/CLAUDE_PROJECT_RULES.md` § 4 (git add -A + commit + push to
-  `bridge4kaladin-collab/yhwh-bible-platform` on main).
+  `dev/CLAUDE_PROJECT_RULES.md` § 4 (git add -A + commit locally;
+  push fails until a new remote is configured).
 - Bootstrap triad: `dev/CLAUDE_PROJECT_RULES.md`, `dev/SESSION_STATE.md`,
   `dev/PLAN_2026-05-09.md` (every fresh Claude session reads these
   first; phone sessions are no different).

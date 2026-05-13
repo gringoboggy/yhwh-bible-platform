@@ -152,9 +152,8 @@ with-horns Christological climax). **+13 tests** in
 
 ---
 
-**Updated 2026-05-12 / γ.4.4.C Parables ships + sonar reinstall**:
-**γ.4.4.C 1 Enoch Parables detail shipped (40 entries on chs 37-71)
-+ SonarQube integration cleanly reinstalled.** Parables-section
+**Updated 2026-05-12 / γ.4.4.C Parables ships**:
+**γ.4.4.C 1 Enoch Parables detail shipped (40 entries on chs 37-71).** Parables-section
 expansion brings Parables coverage from 9 entries (γ.4.4.A first
 wave) to 49 entries across 32 of 35 chapters. 1 Enoch share rises
 from 31% to ~41% — Cyril remains plurality voice but 1 Enoch
@@ -169,12 +168,7 @@ sianic banquet), 61:10 (Cherubim/Seraphim/Ophannim hierarchy),
 Oath — Sǝbḫata Foṣǝlt anchor), 69:27 (Son of Man receives sum of
 judgment — Jn 5:22-27 antecedent), 71:11 (Enoch's transfiguration —
 theosis witness). **+13 tests** in
-`TestGamma44CParablesDetailWave`. Also this session: full sonar
-cleanup + clean reinstall via `/sonarqube:sonar-integrate` — MCP
-pinned to project at parent `.mcp.json`, secrets hooks at USER
-scope, canonical `sonar-project.properties` re-created; net `-28`
-tests from removing `test_sonarqube_omega47.py`. Combined session
-delta: `-15` tests. Full-suite serial reports 11 Windows handle-
+`TestGamma44CParablesDetailWave`. Full-suite serial reports 11 Windows handle-
 inheritance flakers (all pass individually — environmental, not
 regression); ruff format check passes 420/420; lint_rules 11/11
 CLEAN.
@@ -629,7 +623,7 @@ post-ω.35-B; +357 across Month 5+6 with no god-module regression),
 route tables, 5 new core modules + 4 new api modules + 5 new
 content/ JSON state files. Of the 2026-05-11 audit's 12 named
 recommendations, 11 shipped (Δ.6, Δ.4.1, ω.35-A.1-A.11 + B.1-B.7,
-ψ.35, PLAN-REFRESH slice #1, ω.38 CI, ω.47 SonarCloud, ψ.37
+ψ.35, PLAN-REFRESH slice #1, ω.38 CI, ψ.37
 time-travel uniqueness angle, γ.4 second uniqueness angle, plus
 the four security follow-ons); 1 carried over (PLAN-REFRESH slice
 #2). Audit names PLAN-REFRESH-2 (doc-only, ~1 hour) as the highest-
@@ -1695,78 +1689,6 @@ blast, now unblocked) before pivoting to UI.
 
 ---
 
-**Updated 2026-05-11 / late session (prior)**: **ω.47 SonarCloud
-preflight gate** shipped (renumbered from "ω.36 sonarqube"
-— ω.36 was already used for the path-tagged fingerprint
-cache, §5 sticky-phase rule). Three pieces: (a)
-`sonar-project.properties` declares the SonarCloud project
-(`bridge4kaladin-collab_yhwh-bible-platform`) + sources +
-exclusions; (b) `scripts/check_sonarqube.py` wraps `sonar
-api get /api/qualitygates/project_status` returning a
-status dict (pass/warn/fail/skip) with the standard
-0/1/2/2 exit-code map matching the other audit scripts;
-(c) `sonarqube_quality_gate` check appended to
-`scripts/api/preflight.py` — lazy-imports + RuntimeError-
-guarded so dashboard stays renderable when the CLI is
-missing. Gracefully degrades: warn on 404 (project not yet
-on SonarCloud), warn on `NONE` (project exists but never
-scanned), skip on config/CLI absent. **Live gate today: warn — no
-analysis run yet**. **Auto Analysis is enabled** on the
-SonarCloud project (discovered post-ship while testing a
-manual scan — which was rejected as a duplicate path).
-The gate flips on the next git push to GitHub
-automatically; no scanner step needed in our workflow.
-**SonarScanner CLI v8.1.0.6389 installed** at
-`%LOCALAPPDATA%\sonar-scanner\` for future
-Auto-off scenarios; not load-bearing now.
-**ω.38 fix-forward**: `ruff check` step removed from the
-CI lint job — codebase has ~22.8K pre-existing violations
-from rules the local pre-commit never enforced; gating it
-would mean day-one CI failure. Promotion to gate is a
-future ruff-cleanup phase (call it ω.47.1+). ω.38 ci.yml
-now exactly mirrors the local pre-commit chain (ruff
-format --check + lint_rules + audit chain). **+28 tests**
-in `tests/test_sonarqube_omega47.py` (9 properties shape,
-11 unit branches, 5 CLI exit-code, 3 preflight wire-up).
-ω.38 test pin updated to assert the deliberate absence of
-`ruff check`. **2302 / 2303 tests pass serially (1
-skipped); 11/11 lint clean.** Net session test delta from
-ψ.36-A baseline: **+49** (20 ω.38 + 29 ω.47 incl. an
-extra preflight-contract assertion that resolved the
-`details: list` regression mid-ship). Next per the
-v1.1 sequence: **Δ.10 schema migration framework** (Month
-1 foundation #6) → Month 2 modernization (ζ family).
-
----
-
-**Updated 2026-05-11 / late session (prior)**: **ω.38 GitHub Actions
-CI** shipped — Month 1 foundation item #5 of the 6-month
-landscape sequence (Track B developer-experience). New
-`.github/workflows/ci.yml`: (a) lint job mirrors the local
-`dev/git-hooks/pre-commit` chain — ruff format --check + ruff
-check + `scripts/lint_rules.py` + `audit_deps` +
-`audit_dead_code` + `audit_types` + `audit_caches`; (b) test
-job runs pytest across a cross-OS × multi-Python matrix
-(ubuntu × {3.10, 3.11, 3.12, 3.13, 3.14}, windows × {3.10,
-3.11, 3.12, 3.13}, macos × 3.12) with workflow-wide
-`PYTHONUTF8=1` so Windows runners don't trip cp1252 on the
-72 tests that need it; parallel via `-n auto --dist=loadfile`
-(matches pyproject.toml comments). Obsolete GitHub-default
-`python-package.yml` (Python 3.9-3.11, flake8) removed —
-`python-publish.yml` left alone (PyPI flow, separate concern).
-**+20 tests** in `tests/test_ci_omega38.py` pinning workflow
-shape: triggers (push/PR/workflow_dispatch), env block
-(PYTHONUTF8/PYTHONIOENCODING), lint-chain steps, dev-tool
-install, three-OS matrix, py310 floor, modern-python
-coverage, parallel-pytest flags, fail-fast=false, obsolete
-file removed. **2273 / 2274 tests pass serially (1 skipped);
-11/11 lint clean.** Next per v1.1 sequence: **ω.36
-sonarqube** (deferred until user API key) → **Δ.10 schema
-migration framework** (Month 1 final foundation item) →
-Month 2 modernization (ζ family).
-
----
-
 **Updated 2026-05-11 / late session (prior)**: **ψ.36-A per-edition
 matrix endpoint** shipped (v1.1 slice #3 data-API
 foundation). New `/api/matrix/edition/<id>` GET endpoint
@@ -1775,8 +1697,7 @@ parity with /api/matrix's per-edition slot. **+8 tests.**
 **2253/2254 tests green; 11/11 lint clean.** ψ.36-B
 (consumer UI migration) deferred — full-matrix render is
 fine today; optimization becomes observable past ~200K.
-**Next per v1.1 sequence: ω.36 sonarqube (deferred until
-user API key) → 6-month feature tracks B-L.**
+**Next per v1.1 sequence: 6-month feature tracks B-L.**
 
 ---
 
@@ -1835,7 +1756,7 @@ prune shipped as slice #1 of the committed v1.1 sequence.
 trust CHANGELOG over Status lines if they conflict.
 **Committed sequence next:** ψ.37 time-traveling commentary
 → ψ.36 matrix lazy-load → Δ.10 attribution_audit index-back
-→ ω.36 sonarqube (deferred) → 6-month feature tracks B-L.
+→ 6-month feature tracks B-L.
 **2211 / 2212 tests green; 11/11 linter clean.**
 
 ---
@@ -2845,7 +2766,7 @@ process + Δ.6 TTL caching, so wire-flip's 12× cold speedup is
 real in production. Net session test delta: **+64** (1919
 baseline → 1983 final). 10 phases shipped this session: Δ.5,
 Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7, Δ.2.1, Δ.3.1, Δ.5.1, ω.35-A.
-AUDIT_2026-05-11 written. SonarCloud integrated. AUDIT §7
+AUDIT_2026-05-11 written. AUDIT §7
 sequence: ω.35-A (✓ this turn) → ω.36 perf stabilization
 (small follow-up) → ω.35-A.1 progressive route-table migration
 → ω.35-B file split → ψ.35 matrix data-model collapse.
@@ -2888,7 +2809,6 @@ infrastructure that's now shipped).
 Net session test delta: **+54** (1919 baseline → 1973 final).
 Phases shipped this session: Δ.5, Δ.6, Δ.8, Δ.9, Δ.4.1, Δ.7,
 Δ.2.1, Δ.3.1, Δ.5.1 (9 phases). AUDIT_2026-05-11 written.
-SonarCloud integrated (`bridge4kaladin-collab/yhwh-bible-platform`).
 **1973 / 1973 tests green (1 skipped); 11/11 linter clean.**
 
 Prior ship in same session: **Δ.3.1 api_attribution_audit wire
@@ -2968,7 +2888,7 @@ speedup); both sub-millisecond when served by the lru_cache
 wrapper. **+8 tests** total: `TestDelta41MatrixWireFlip` (3) +
 `TestDelta7NotesIoInvalidationHook` (5). Net session test delta:
 **+42** (1919 baseline → 1961 final). Δ.5 + Δ.6 + Δ.8 + Δ.9 +
-Δ.4.1 + Δ.7 all shipped this session; SonarCloud integrated.
+Δ.4.1 + Δ.7 all shipped this session.
 The Δ-family is now wire-flipped at one consumer. **Three more
 deferred wire flips remain**: Δ.2.1 (search), Δ.3.1 (attribution
 audit), Δ.5.1 (dashboard_stats). Each is the same shape (one-
@@ -3004,9 +2924,7 @@ sequence updated: Δ.6 (✓) → Δ.8 (✓) → Δ.9 (✓ this turn) →
 Δ.4.1 attempt #5 (next session) → ω.35 → ψ.35. Net session
 test delta: **+34** (1919 baseline → 1953 final). Δ.5 + Δ.6 +
 Δ.8 + Δ.9 all shipped clean; Δ.4.1 + Δ.7 attempted twice,
-reverted twice. SonarCloud integration also wired this session
-(`bridge4kaladin-collab/yhwh-bible-platform` project; MCP +
-secrets-scanning hooks at project scope). **1953 / 1953 tests
+reverted twice. **1953 / 1953 tests
 green (1 skipped); 11/11 linter clean.**
 
 Prior ship in same session: **Δ.4.1 + Δ.7 attempt #4
@@ -3985,7 +3903,7 @@ Prior ship: **ξ.10 + ξ.11 security-depth pair** — two
 host check that raises `SSRFBlockedError` BEFORE network I/O on
 non-matching hosts. Subdomain-aware (matches via
 `endswith("." + allowed)`), case-insensitive per RFC 3986,
-anti-spoof guarded (`evil-github.com` ≠ `github.com`). Three
+anti-spoof guarded (`evil-example.com` ≠ `example.com`). Three
 pre-built frozenset groups: PD_SOURCES, AI_BACKEND,
 DESKTOP_UPDATE. Calls without an `allowlist` log a warning +
 continue (back-compat); ξ.10.x can flip to fail-closed.
@@ -4558,10 +4476,8 @@ most-logical-path: either remaining v1.0 polish (**ψ.14**
 buyer-arc + **ψ.17** reader-EPUB) or **θ.4** cross-platform
 installers — flag Apple Developer ID at θ.4 start.
 **Save tag:** σ.3 → ω.6 → scope add → ω.7 → υ.7 → υ.1 → τ-scope →
-3rd-rev scope → … → ω.5 → θ.1 → **θ.2** on
-`bridge4kaladin-collab/yhwh-bible-platform`, private. Saves are now
-git pushes, not zips — see "GIT BACKUP" in the inventory below and
-the root-level `save.cmd` / `save.ps1` helpers. Each commit runs
+3rd-rev scope → … → ω.5 → θ.1 → **θ.2** — currently local-only
+(remote was deleted 2026-05-12). Each commit runs
 the pre-commit hook (`scripts/lint_rules.py` 10/10 must pass).
 
 > 📖 **First time reading this?** Then go read
@@ -6522,7 +6438,7 @@ nav block touched).
 - ω.7 — Persistent dev ergonomics (PYTHONUTF8=1 + Scripts on PATH +
   pre-commit hook + `.gitattributes`).
 - ω.6 — Verified baseline (393/393 tests, 14/14 routes, 8/8 linter).
-- σ.3 — GitHub backup workflow.
+- σ.3 — Cloud backup workflow.
 - Scope expansion — ψ.8 + ρ.1 + ω.6/ω.7 + ψ.10 + ψ.12 + polish trio.
 - χ.7 Nave's Topical infrastructure.
 
@@ -6585,7 +6501,7 @@ default config and pass it.
 - ω.7 — Persistent dev ergonomics (PYTHONUTF8=1 + Scripts on PATH +
   pre-commit hook + .gitattributes).
 - ω.6 — Verified baseline (393/393 tests, 14/14 routes, 8/8 linter).
-- σ.3 — GitHub backup workflow.
+- σ.3 — Cloud backup workflow.
 - Scope expansion — ψ.8 + ρ.1 + ω.6/ω.7 + ψ.10 + ψ.12 + polish trio.
 - χ.7 Nave's Topical infrastructure.
 
@@ -6641,7 +6557,7 @@ machine inherit them automatically; future machines re-do (a) and
 
 **Prior phases this session:**
 - ω.6 — Verified baseline (393/393 tests, 14/14 routes, 8/8 linter).
-- σ.3 — GitHub backup workflow.
+- σ.3 — Cloud backup workflow.
 - Scope expansion — ψ.8 + ρ.1 + ω.6/ω.7 + ψ.10 + ψ.12 + polish trio.
 - χ.7 Nave's Topical infrastructure.
 
@@ -6688,7 +6604,7 @@ PDF generation requires it). Installed via pip into the local
 Python; not committed since it's environment, not source.
 
 **Prior phases this session:**
-- σ.3 — GitHub backup workflow (initial push, save.cmd/.ps1
+- σ.3 — Cloud backup workflow (initial push, save.cmd/.ps1
   wrappers, `.claude/` in `.gitignore`).
 - Scope expansion — ψ.8 cross-denom + ρ.1 audio + ω.6/ω.7
   added to PLAN; v1.0 terminus updated to include ψ.8; two
@@ -6846,16 +6762,15 @@ Operator-facing polish and other softer items stay v1.1+.
 ## Inventory pointers (where things live)
 
 ```
-GIT BACKUP (σ.3 — shipped 2026-05-08):
-  Remote:    https://github.com/bridge4kaladin-collab/yhwh-bible-platform (private)
-  Default branch: main
+GIT BACKUP (σ.3 — shipped 2026-05-08, REVERTED 2026-05-12):
+  Remote:    DELETED 2026-05-12. save.cmd commits locally; the
+             push step fails until a new remote is configured.
+  Default branch: main (local)
   Save command:  ./save.cmd "<message>"   (preferred Windows wrapper)
                  ./save.ps1 "<message>"   (needs PS execution policy)
-                 raw: git add -A; git commit -m "<msg>"; git push
-  Pull command:  git pull                 (start of fresh session)
+                 raw: git add -A; git commit -m "<msg>"   (push step fails)
+  Pull command:  n/a — no remote
   Excluded:  .claude/ (per-machine), plus everything in .gitignore.
-  GitHub CLI lives at: C:\Program Files\GitHub CLI\gh.exe
-  gh authed as: bridge4kaladin-collab (HTTPS, keyring-stored token).
 
 LOCAL DEV ENVIRONMENT (ω.6 verified, ω.7 ergonomic — 2026-05-08):
   Python 3.14.4 at C:\Users\bogda\AppData\Local\Python\pythoncore-3.14-64\
