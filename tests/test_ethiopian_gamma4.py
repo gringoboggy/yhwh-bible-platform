@@ -1511,9 +1511,7 @@ class TestGamma44DAstroDreamsAnimalWave:
                 enoch_range.extend(
                     e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
                 )
-        assert len(enoch_range) >= 40, (
-            f"γ.4.4.D expected ≥40 entries in 1En 72-90; found {len(enoch_range)}"
-        )
+        assert len(enoch_range) >= 40, f"γ.4.4.D expected ≥40 entries in 1En 72-90; found {len(enoch_range)}"
 
     def test_all_three_subarcs_covered(self):
         def has_entry_in(start, end):
@@ -1538,8 +1536,7 @@ class TestGamma44DAstroDreamsAnimalWave:
         total = len(self.ec)
         share = enoch_count / total
         assert share >= 0.45, (
-            f"γ.4.4.D expected 1 Enoch share ≥45% (plurality voice); actual {share:.1%} "
-            f"({enoch_count} of {total})"
+            f"γ.4.4.D expected 1 Enoch share ≥45% (plurality voice); actual {share:.1%} ({enoch_count} of {total})"
         )
 
     def test_liturgical_year_anchor_present(self):
@@ -1631,19 +1628,13 @@ class TestGamma44EEpistleOfEnochWave:
                 enoch_range.extend(
                     e for e in self.ec.for_verse("1en", chapter, verse) if e.father == "1 Enoch (Ethiopian tradition)"
                 )
-        assert len(enoch_range) >= 40, (
-            f"γ.4.4.E expected ≥40 entries in 1En 91-108; found {len(enoch_range)}"
-        )
+        assert len(enoch_range) >= 40, f"γ.4.4.E expected ≥40 entries in 1En 91-108; found {len(enoch_range)}"
 
     def test_apocalypse_of_weeks_covered(self):
         # Seven-past + three-eschatological weeks scheme.
         # 93:1-10 = weeks 1-7; 91:11-17 = weeks 8-10 + consummation.
-        aow_entries = [
-            e for e in self.ec.for_verse("1en", 93, 2) if e.father == "1 Enoch (Ethiopian tradition)"
-        ]
-        aow_entries += [
-            e for e in self.ec.for_verse("1en", 91, 14) if e.father == "1 Enoch (Ethiopian tradition)"
-        ]
+        aow_entries = [e for e in self.ec.for_verse("1en", 93, 2) if e.father == "1 Enoch (Ethiopian tradition)"]
+        aow_entries += [e for e in self.ec.for_verse("1en", 91, 14) if e.father == "1 Enoch (Ethiopian tradition)"]
         assert len(aow_entries) >= 2, "γ.4.4.E missing Apocalypse of Weeks anchor verses (93:2 + 91:14)"
 
     def test_epistle_proper_covered(self):
@@ -1683,8 +1674,7 @@ class TestGamma44EEpistleOfEnochWave:
         total = len(self.ec)
         share = enoch_count / total
         assert share >= 0.50, (
-            f"γ.4.4.E expected 1 Enoch share ≥50% (dominant voice); actual {share:.1%} "
-            f"({enoch_count} of {total})"
+            f"γ.4.4.E expected 1 Enoch share ≥50% (dominant voice); actual {share:.1%} ({enoch_count} of {total})"
         )
 
     def test_watchers_arc_closed_at_91_14(self):
@@ -1723,6 +1713,7 @@ class TestGamma44EEpistleOfEnochWave:
         """γ.4.4.E claims to CLOSE the Mäṣḥafä Hēnok arc — verify
         every one of the six canonical sections has substantive
         1 Enoch coverage."""
+
         def section_count(start, end):
             n = 0
             for chapter in range(start, end + 1):
@@ -1817,9 +1808,7 @@ class TestGamma42BEphremPatriarchsWave:
         )
         total = len(self.ec)
         share = ephrem_count / total
-        assert share >= 0.17, (
-            f"γ.4.2.B expected Ephrem share ≥17%; actual {share:.1%} ({ephrem_count} of {total})"
-        )
+        assert share >= 0.17, f"γ.4.2.B expected Ephrem share ≥17%; actual {share:.1%} ({ephrem_count} of {total})"
 
     def test_melchizedek_eucharistic_anchor_present(self):
         eph = [e for e in self.ec.for_verse("gen", 14, 18) if e.father == "Ephrem the Syrian"]
@@ -1908,12 +1897,11 @@ class TestGamma45JubileesSeedWave:
         for chapter in range(1, 51):
             for verse in range(1, 100):
                 jub_entries.extend(
-                    e for e in self.ec.for_verse("jub", chapter, verse)
+                    e
+                    for e in self.ec.for_verse("jub", chapter, verse)
                     if e.father == "Book of Jubilees (Ethiopian tradition)"
                 )
-        assert len(jub_entries) >= 40, (
-            f"γ.4.5 expected ≥40 Jubilees entries across chs 1-50; found {len(jub_entries)}"
-        )
+        assert len(jub_entries) >= 40, f"γ.4.5 expected ≥40 Jubilees entries across chs 1-50; found {len(jub_entries)}"
 
     def test_all_jubilees_narrative_blocks_covered(self):
         def has_entry_in(start, end):
@@ -1946,8 +1934,7 @@ class TestGamma45JubileesSeedWave:
         # Seed wave threshold: Jubilees enters as a recognizable voice
         # (≥3% of corpus). γ.4.5.B-E future waves would push it higher.
         assert share >= 0.03, (
-            f"γ.4.5 expected Jubilees share ≥3% (distinct voice); actual {share:.1%} "
-            f"({jub_count} of {total})"
+            f"γ.4.5 expected Jubilees share ≥3% (distinct voice); actual {share:.1%} ({jub_count} of {total})"
         )
 
     def test_sinai_prologue_second_torah_framing_present(self):

@@ -52,8 +52,24 @@ elif command -v python >/dev/null 2>&1 && try_python python; then
 elif command -v py >/dev/null 2>&1 && try_python "py -3"; then
   PYTHON="py -3"
 else
-  echo "pre-commit: no working Python found; skipping checks." >&2
-  exit 0
+  # Windows fallback: Git for Windows bash inherits the system PATH,
+  # not the user PATH. nuget-style `pythoncore-*` installs live under
+  # %LOCALAPPDATA%\Python\ and are invisible to `which` even though
+  # they work fine from PowerShell. Search known install locations.
+  for candidate in \
+      "$HOME"/AppData/Local/Python/pythoncore-*/python.exe \
+      /c/Python3*/python.exe \
+      "/c/Program Files/Python3*/python.exe" ; do
+    # Unmatched globs expand to the literal pattern; -x filters those out.
+    if [ -x "$candidate" ] && try_python "$candidate"; then
+      PYTHON="$candidate"
+      break
+    fi
+  done
+  if [ -z "${PYTHON:-}" ]; then
+    echo "pre-commit: no working Python found; skipping checks." >&2
+    exit 0
+  fi
 fi
 
 echo "[pre-commit] running ruff format --check ..."
