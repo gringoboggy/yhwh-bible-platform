@@ -1546,16 +1546,23 @@ class TestGamma44BWatchersDetailWave:
         assert has_entry_in(17, 19), "γ.4.4.B missing first journey (1En 17-19)"
         assert has_entry_in(20, 36), "γ.4.4.B missing second journey (1En 20-36)"
 
-    def test_1_enoch_share_above_25_percent(self):
+    def test_1_enoch_count_at_or_above_watchers_close(self):
+        # Converted share-pin → count-milestone per
+        # feedback_share_pin_pattern. The original γ.4.4.B share-pin
+        # (≥25% of corpus) broke mechanically at γ.4.3.C as the Cyril
+        # detail-wave grew the denominator. The historical achievement
+        # (Watchers + Parables + Astro + Animal + Epistle = ~192 entries)
+        # is preserved as an absolute floor; future voice-broadening
+        # waves no longer mechanically break this pin.
         enoch_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "1 Enoch (Ethiopian tradition)"
         )
-        total = len(self.ec)
-        share = enoch_count / total
-        assert share >= 0.25, f"γ.4.4.B expected 1 Enoch share ≥25%; actual {share:.1%} ({enoch_count} of {total})"
+        assert enoch_count >= 190, (
+            f"γ.4.4.B expected 1 Enoch count ≥190 (cumulative Watchers + Parables + Astro + Animal + Epistle floor); found {enoch_count}"
+        )
 
     def test_covenant_blessing_present(self):
         enoch_57 = [e for e in self.ec.for_verse("1en", 5, 7) if e.father == "1 Enoch (Ethiopian tradition)"]
@@ -3694,3 +3701,515 @@ class TestGamma42DEphremNumDeuWave:
             "γ.4.2.D _meta.source should name Numbers + Deuteronomy explicitly"
         )
         assert "Ephrem-on-Pentateuch arc" in meta_source, "γ.4.2.D _meta.source should record the Pentateuch arc-close"
+
+
+class TestGamma43BCyrilLukeInfancyGalileanWave:
+    """γ.4.3.B — Cyril of Alexandria on Luke detail wave I (Lk 1-9:
+    Infancy + Galilean ministry). FIRST detail wave extending the
+    γ.4.3 seed coverage from 18 seed-only entries on Lk 1-9 to 58
+    substantive-detail entries (mirroring γ.4.1.A Cyril-on-John-1-4
+    seed-density pattern). 40 verse-keyed entries distributed across
+    all 9 chapters; all 40 verses are distinct from the γ.4.3 seed
+    set (no double-occupancy). Source: R. Payne Smith, *A Commentary
+    upon the Gospel according to S. Luke by S. Cyril, Patriarch of
+    Alexandria* (Oxford: University Press, 1859 — PD; draws on
+    Homilies I-LXXI). Rebalances Cyril share from 22.7% to ~26.7%
+    — Cyril now slightly edges out Jubilees for the top voice.
+
+    Pins (γ.4.3.B is a first detail wave, not an arc-close — lighter
+    pin set than the §8.1 arc-close convention):
+    - Lk 1-9 substantively detailed (≥58 total Cyril entries on
+      Lk 1-9 = 18 seed + 40 detail).
+    - All 9 chapters have detail-depth ≥4 entries each.
+    - Cyril absolute-count milestone ≥200 entries (per
+      `feedback_share_pin_pattern` — absolute count, not share).
+    - 12 signature-passage pins for the new Tewahedo anchors
+      introduced by the detail wave: Annunciation cycle 1:35 +
+      1:38 (Theotokos pneumatology + New-Eve fiat); 2:14 Gloria-
+      in-excelsis (Anaphora opening); 2:21 eighth-day circumcision
+      (Tewahedo distinctive); 3:22 'bodily shape' Trinitarian
+      epiphany (Timqät anchor); 3:38 Adam-son-of-God (Second-Adam
+      universal-Adamic); 4:18 Isaian-Servant Spirit-Anointing;
+      5:24 Son-of-Man-forgives (priestly-absolution Jn 20:23);
+      6:13 Twelve-apostles (apostolic foundation); 7:22 six
+      Messianic signs; 9:23 daily-cross (bahǝtawi anchor); 9:31
+      exodon-Transfiguration-Buhe; 9:51 set-face-to-Jerusalem
+      voluntary-Passion.
+    - _meta synchronization pin — regex word-boundary on γ.4.3.B.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("luk", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def test_lk_1_9_substantively_detailed(self):
+        total = sum(len(self._cyril_in_chapter(c)) for c in range(1, 10))
+        assert total >= 58, f"γ.4.3.B expected ≥58 Cyril entries on Lk 1-9 (18 seed + 40 detail); found {total}"
+
+    def test_each_lk_chapter_has_detail_depth(self):
+        # Detail-wave parity floor: each of Lk 1-9 should have ≥4
+        # Cyril entries after γ.4.3.B (seed had 1-3 per chapter; the
+        # detail wave brings each chapter to ≥4).
+        for chapter in range(1, 10):
+            count = len(self._cyril_in_chapter(chapter))
+            assert count >= 4, f"γ.4.3.B Lk {chapter} below detail-depth floor (need ≥4, have {count})"
+
+    def test_cyril_milestone_count_post_detail_wave_b(self):
+        # γ.4.1-γ.4.1.D Cyril-on-John (116) + γ.4.3 seed (40) +
+        # γ.4.3.B (40) + Gen 1:26 (1) + Ps 23:1 (1) + Joh 19:34/
+        # 1:4-13 (3) = 201. Absolute milestone per
+        # feedback_share_pin_pattern.
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 200, (
+            f"γ.4.3.B expected Cyril count ≥200 (post-detail-wave-B milestone); found {cyril_count}"
+        )
+
+    def test_theotokos_pneumatology_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 1, 35) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 1:35 — Spirit-overshadowing (Theotokos pneumatology anchor)"
+
+    def test_fiat_mihi_new_eve_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 1, 38) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 1:38 — fiat-mihi (New-Eve Marian-obedience anchor)"
+
+    def test_gloria_in_excelsis_anaphora_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 2, 14) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 2:14 — Gloria-in-excelsis (Tewahedo Anaphora opening anchor)"
+
+    def test_eighth_day_circumcision_tewahedo_distinctive_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 2, 21) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 2:21 — Christ's circumcision (Tewahedo distinctive anchor)"
+
+    def test_bodily_shape_timqat_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 3, 22) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 3:22 — 'bodily shape' Spirit-descent (Tewahedo Timqät anchor)"
+
+    def test_adam_son_of_god_second_adam_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 3, 38) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 3:38 — Adam-son-of-God (Second-Adam universal-Adamic anchor)"
+
+    def test_isaian_servant_spirit_anointing_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 4, 18) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 4:18 — Isaian-Servant Spirit-Anointed-Messiah anchor"
+
+    def test_son_of_man_forgives_priestly_absolution_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 5, 24) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 5:24 — Son-of-Man-forgives (priestly absolution Jn 20:23 anchor)"
+
+    def test_twelve_apostles_apostolic_foundation_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 6, 13) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 6:13 — Twelve apostles (Tewahedo episcopal apostolic-foundation)"
+
+    def test_six_messianic_signs_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 7, 22) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 7:22 — six Isaian Messianic signs (Christ-identity triple-witness)"
+
+    def test_daily_cross_bahetawi_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 9, 23) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 9:23 — kath'-hēmeran daily-cross (bahǝtawi daily-renewal anchor)"
+
+    def test_exodon_transfiguration_buhe_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 9, 31) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 9:31 — exodon Transfiguration-Conversation (Tewahedo Buhe anchor)"
+
+    def test_set_face_to_jerusalem_voluntary_passion_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 9, 51) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.B missing Lk 9:51 — estērisen-to-prosōpon set-face (voluntary-Passion anchor)"
+
+    def test_meta_documents_gamma_4_3_b_detail_wave(self):
+        # Per the §8.1 _meta sync convention (extended to detail
+        # waves), pin that the JSON _meta.source records γ.4.3.B
+        # explicitly and names the Lk 1-9 detail-wave scope.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert re.search(r"γ\.4\.3\.B(?![A-Z])", meta_source), "γ.4.3.B must be referenced in _meta.source"
+        assert "Cyril-of-Alexandria-on-Luke detail entries" in meta_source or "Cyril-on-Luke detail" in meta_source, (
+            "γ.4.3.B _meta.source should name Cyril-on-Luke detail-wave explicitly"
+        )
+        assert "Lk 1-9" in meta_source or "Infancy" in meta_source, (
+            "γ.4.3.B _meta.source should describe the Lk 1-9 (Infancy + Galilean ministry) scope"
+        )
+
+
+class TestGamma43CCyrilLukeJourneyWave:
+    """γ.4.3.C — Cyril of Alexandria on Luke detail wave II (Lk 10-19:
+    Journey-to-Jerusalem). SECOND detail wave extending the γ.4.3
+    seed coverage from 13 seed-only entries on Lk 10-19 to 53
+    substantive-detail entries (parity with γ.4.3.B Lk 1-9 detail
+    wave). 40 verse-keyed entries distributed across all 10 chapters
+    (4 per chapter); all 40 verses are distinct from the γ.4.3 seed
+    set (no double-occupancy). Source: R. Payne Smith, *A Commentary
+    upon the Gospel according to S. Luke by S. Cyril, Patriarch of
+    Alexandria* (Oxford: University Press, 1859 — PD; draws on
+    Homilies LXXII-CXXX). Rebalances Cyril share from 26.8% to
+    ~30.5% — Cyril now firmly leads the four-voice quartet by 5.2
+    points (patristic anchors 50.4% combined vs canonical-text
+    voices 49.6%).
+
+    Pins (γ.4.3.C is a detail wave, not arc-close — lighter pin set
+    than the §8.1 arc-close convention):
+    - Lk 10-19 substantively detailed (≥53 total Cyril entries on
+      Lk 10-19 = 13 seed + 40 detail).
+    - All 10 chapters have detail-depth ≥4 entries each.
+    - Cyril absolute-count milestone ≥240 entries (per
+      `feedback_share_pin_pattern` — absolute count, not share).
+    - 12 signature-passage pins for the new Tewahedo anchors
+      introduced by the detail wave: seventy disciples sent
+      (10:1); Trinitarian utterance 'rejoiced in Spirit' (10:21);
+      fourfold Greatest Commandment (10:27); reciprocal forgiveness
+      (11:4); Holy Spirit answer-to-prayer (11:13); finger-of-God
+      (11:20); cosmic peace-in-heaven triumphal-entry doubled with
+      Christmas-hymn (Lk 19:38); Christ's death-as-baptism (12:50);
+      east-west-north-south Ethiopian-eschatological-inclusion
+      (13:29); Eucharistic-eschatological-Great-Supper (14:16);
+      Father's-mercy Prodigal full-pericope (15:11); sufficiency-
+      of-Scripture (16:31); ceaseless-prayer (18:1); Son-of-Man
+      seek-and-save (19:10); house-of-prayer (19:46).
+    - _meta synchronization pin — regex word-boundary on γ.4.3.C.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("luk", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def test_lk_10_19_substantively_detailed(self):
+        total = sum(len(self._cyril_in_chapter(c)) for c in range(10, 20))
+        assert total >= 53, f"γ.4.3.C expected ≥53 Cyril entries on Lk 10-19 (13 seed + 40 detail); found {total}"
+
+    def test_each_lk_chapter_has_detail_depth(self):
+        # Detail-wave parity floor: each of Lk 10-19 should have ≥4
+        # Cyril entries after γ.4.3.C (seed had 1-2 per chapter; the
+        # detail wave brings each chapter to ≥4).
+        for chapter in range(10, 20):
+            count = len(self._cyril_in_chapter(chapter))
+            assert count >= 4, f"γ.4.3.C Lk {chapter} below detail-depth floor (need ≥4, have {count})"
+
+    def test_cyril_milestone_count_post_detail_wave_c(self):
+        # γ.4.1-γ.4.1.D Cyril-on-John (116) + γ.4.3 seed (40) +
+        # γ.4.3.B Lk 1-9 detail (40) + γ.4.3.C Lk 10-19 detail (40)
+        # + Gen 1:26 (1) + Ps 23:1 (1) + Joh 1:3-5,9-13,19:34 (3) = 241.
+        # Absolute milestone per feedback_share_pin_pattern.
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 240, (
+            f"γ.4.3.C expected Cyril count ≥240 (post-detail-wave-C milestone); found {cyril_count}"
+        )
+
+    def test_seventy_disciples_missionary_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 10, 1) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 10:1 — seventy disciples sent two-by-two (Tewahedo missionary anchor)"
+
+    def test_trinitarian_rejoiced_in_spirit_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 10, 21) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 10:21 — 'Jesus rejoiced in spirit' (Trinitarian utterance anchor)"
+
+    def test_fourfold_greatest_commandment_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 10, 27) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 10:27 — fourfold heart-soul-strength-mind Greatest Commandment"
+
+    def test_reciprocal_forgiveness_lords_prayer_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 11, 4) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 11:4 — reciprocal forgiveness (Tewahedo penance anchor)"
+
+    def test_father_gives_holy_spirit_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 11, 13) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 11:13 — Holy Spirit as supreme answer-to-prayer (Lukan distinctive)"
+
+    def test_finger_of_god_exodus_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 11, 20) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 11:20 — finger-of-God (Exodus-Spirit identification anchor)"
+
+    def test_christs_death_as_baptism_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 12, 50) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 12:50 — 'baptism to be baptized with' (Rom 6:3-4 anchor)"
+
+    def test_east_west_ethiopian_inclusion_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 13, 29) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 13:29 — east-west-north-south Ethiopian-eschatological inclusion"
+
+    def test_great_supper_eucharistic_eschatological_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 14, 16) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 14:16 — Great Supper (Eucharistic-eschatological banquet + Rev 19:9)"
+
+    def test_prodigal_full_pericope_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 15, 11) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 15:11 — Prodigal full pericope (Father's threefold-mercy speech)"
+
+    def test_sufficiency_of_scripture_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 16, 31) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 16:31 — 'if they hear not Moses' (sufficiency-of-Scripture Tewahedo bibliology)"
+
+    def test_ceaseless_prayer_seven_office_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 18, 1) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 18:1 — 'always pray, faint not' (Tewahedo Mäshafä-Sǝʾatat anchor)"
+
+    def test_son_of_man_seek_and_save_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 19, 10) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 19:10 — Son of Man seek and save (missio-Dei doubled with Lk 5:32)"
+
+    def test_peace_in_heaven_triumphal_entry_hosanna_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 19, 38) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 19:38 — 'peace in heaven' (Tewahedo Hosanna feast anchor)"
+
+    def test_house_of_prayer_temple_cleansing_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 19, 46) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.C missing Lk 19:46 — 'house of prayer' (church-discipline canonical anchor)"
+
+    def test_meta_documents_gamma_4_3_c_detail_wave(self):
+        # Per the §8.1 _meta sync convention (extended to detail
+        # waves), pin that the JSON _meta.source records γ.4.3.C
+        # explicitly and names the Lk 10-19 detail-wave scope.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert re.search(r"γ\.4\.3\.C(?![A-Z])", meta_source), "γ.4.3.C must be referenced in _meta.source"
+        assert "Lk 10-19" in meta_source or "Journey-to-Jerusalem" in meta_source, (
+            "γ.4.3.C _meta.source should describe the Lk 10-19 (Journey-to-Jerusalem) scope"
+        )
+
+
+class TestGamma43DCyrilLukePassionWave:
+    """γ.4.3.D — Cyril of Alexandria on Luke detail wave III (Lk 20-24:
+    Passion + Resurrection + Ascension). CLOSING WAVE of the four-
+    wave Cyril-on-Luke arc per §8.1 arc-close convention. 40 verse-
+    keyed entries distributed across all 5 chapters (Lk 20: 7 +
+    Lk 21: 7 + Lk 22: 9 + Lk 23: 8 + Lk 24: 9). All 40 verses are
+    distinct from the γ.4.3 seed set. Source: R. Payne Smith,
+    *A Commentary upon the Gospel according to S. Luke by S. Cyril,
+    Patriarch of Alexandria* (Oxford: University Press, 1859 — PD;
+    draws on Homilies CXXXI-CLVI). Rebalances Cyril share from
+    30.5% to ~33.9% — Cyril now strongly leads the four-voice
+    quartet (9.8 points ahead of Jubilees).
+
+    Per §8.1 arc-close convention, the closing wave's test class
+    MUST add the three specific pin types: (1) _meta synchronization
+    pin per sub-phase tag with regex word-boundary matching; (2)
+    absolute-count milestone pin at the cumulative arc-close count;
+    (3) all_N_sections_covered exhaustiveness pin asserting every
+    section the arc was supposed to cover has substantive coverage.
+
+    Pins:
+    - Lk 20-24 substantively detailed (≥49 total Cyril entries on
+      Lk 20-24 = 9 seed + 40 detail).
+    - All 5 chapters have detail-depth ≥7 entries each.
+    - **§8.1 ARC-CLOSE PIN #1 — count milestone:** Cyril absolute-
+      count ≥280 entries (cumulative Cyril-on-John 116 + Cyril-on-
+      Luke 160 + incidental 5 = 281; ≥280 absolute floor per
+      `feedback_share_pin_pattern`).
+    - **§8.1 ARC-CLOSE PIN #2 — all_N_sections_covered exhaustiveness:**
+      test_all_four_cyril_luke_waves_substantively_covered asserts
+      γ.4.3 seed (40), γ.4.3.B Lk 1-9 (≥58), γ.4.3.C Lk 10-19
+      (≥53), γ.4.3.D Lk 20-24 (≥49) — every section the
+      Cyril-on-Luke arc was supposed to cover has substantive
+      coverage at the planned depth.
+    - **§8.1 ARC-CLOSE PIN #3 — _meta synchronization:** pin per
+      sub-phase tag (γ.4.3, γ.4.3.B, γ.4.3.C, γ.4.3.D) with
+      regex word-boundary; tests/`test_meta_synchronization_at_arc_close`.
+    - 14 signature-passage pins for new Tewahedo anchors:
+      Ps 110:1 right-hand-of-Father (20:42); Spirit-confessor's-
+      mouth (21:15); Christ's-eucharistic-desire (22:15);
+      new-covenant-blood (22:20); bishop-as-servant (22:24);
+      two-wills-in-unity Miaphysite (22:42); angel-strengthening
+      (22:43); Adamic-skull-Calvary (23:33); trilingual-titulus
+      Solomonic-dynasty (23:38); good-thief deathbed-confession
+      (23:42); Temple-veil-rent Heb 10:19-20 (23:45); first-day-
+      of-the-week doubled-Sabbath (24:1); Emmaus full-pericope
+      Eucharistic-shape (24:13); real-bodily-resurrection (24:39);
+      Promise-of-the-Father Pentecost-Pärräqlēṭos (24:49).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("luk", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def _cyril_in_range(self, ch_start, ch_end):
+        return sum(len(self._cyril_in_chapter(c)) for c in range(ch_start, ch_end + 1))
+
+    def test_lk_20_24_substantively_detailed(self):
+        total = self._cyril_in_range(20, 24)
+        assert total >= 49, f"γ.4.3.D expected ≥49 Cyril entries on Lk 20-24 (9 seed + 40 detail); found {total}"
+
+    def test_each_lk_passion_chapter_has_detail_depth(self):
+        # Detail-wave parity floor: each of Lk 20-24 should have ≥7
+        # Cyril entries after γ.4.3.D (Passion chapters get denser
+        # coverage than seed-only chapters elsewhere).
+        for chapter in range(20, 25):
+            count = len(self._cyril_in_chapter(chapter))
+            assert count >= 7, f"γ.4.3.D Lk {chapter} below detail-depth floor (need ≥7, have {count})"
+
+    def test_cyril_arc_close_count_milestone(self):
+        # §8.1 ARC-CLOSE PIN #2: absolute-count milestone at arc
+        # close. Per feedback_share_pin_pattern: never a share pin.
+        # Cumulative: Cyril-on-John 116 (γ.4.1-D) + Cyril-on-Luke
+        # 40 seed + 40 + 40 + 40 detail = 276 on Gospels + 5
+        # incidental (Gen 1:26 + Ps 23:1 + Joh 1:3-5,9-13,19:34
+        # earlier) = 281. ≥280 floor.
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 280, (
+            f"γ.4.3.D arc-close: Cyril count ≥280 expected (cumulative arc-close milestone); found {cyril_count}"
+        )
+
+    def test_all_four_cyril_luke_waves_substantively_covered(self):
+        # §8.1 ARC-CLOSE PIN #3: all_N_sections_covered exhaustiveness.
+        # Every section of the Cyril-on-Luke arc must have substantive
+        # coverage at planned depth. The four waves are: γ.4.3 seed
+        # (40 entries across all 24 chapters) + γ.4.3.B Lk 1-9 detail
+        # (≥58 cumulative on Lk 1-9) + γ.4.3.C Lk 10-19 detail (≥53
+        # cumulative) + γ.4.3.D Lk 20-24 detail (≥49 cumulative).
+        # This pin prevents a future "I'll ship Lk 20-24 later" from
+        # silently leaving the arc partially closed.
+        total_cyril_luke = self._cyril_in_range(1, 24)
+        lk_1_9 = self._cyril_in_range(1, 9)
+        lk_10_19 = self._cyril_in_range(10, 19)
+        lk_20_24 = self._cyril_in_range(20, 24)
+
+        assert total_cyril_luke >= 160, (
+            f"γ.4.3.D arc-close: total Cyril-on-Luke ≥160 expected (4 waves × 40); found {total_cyril_luke}"
+        )
+        assert lk_1_9 >= 58, f"γ.4.3.D arc-close: Lk 1-9 below γ.4.3.B parity (need ≥58, have {lk_1_9})"
+        assert lk_10_19 >= 53, f"γ.4.3.D arc-close: Lk 10-19 below γ.4.3.C parity (need ≥53, have {lk_10_19})"
+        assert lk_20_24 >= 49, f"γ.4.3.D arc-close: Lk 20-24 below γ.4.3.D parity (need ≥49, have {lk_20_24})"
+
+    def test_meta_synchronization_at_arc_close(self):
+        # §8.1 ARC-CLOSE PIN #1: _meta synchronization. Pin per
+        # sub-phase tag with regex word-boundary so γ.4.3 doesn't
+        # accidentally match γ.4.3.B/C/D. Granular failures (per
+        # sub-phase) are easier to diagnose than a combined pin.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        # word-boundary regex: don't accidentally match sub-phase
+        # tags as substrings of one another
+        assert re.search(r"γ\.4\.3(?![.A-Z])", meta_source), "γ.4.3 seed wave must be in _meta.source"
+        assert re.search(r"γ\.4\.3\.B(?![A-Z])", meta_source), "γ.4.3.B detail wave I must be in _meta.source"
+        assert re.search(r"γ\.4\.3\.C(?![A-Z])", meta_source), "γ.4.3.C detail wave II must be in _meta.source"
+        assert re.search(r"γ\.4\.3\.D(?![A-Z])", meta_source), (
+            "γ.4.3.D detail wave III (arc-close) must be in _meta.source"
+        )
+        # arc-close must describe Lk 20-24 scope explicitly
+        assert "Lk 20-24" in meta_source or "Passion + Resurrection + Ascension" in meta_source, (
+            "γ.4.3.D _meta.source should describe the Lk 20-24 (Passion + Resurrection + Ascension) scope"
+        )
+        # arc-close must record arc-close status explicitly
+        assert (
+            "Cyril-on-Luke arc is CLOSED" in meta_source or "CLOSES the four-wave Cyril-on-Luke arc" in meta_source
+        ), "γ.4.3.D _meta.source should record the arc-close explicitly"
+
+    # ---- Signature passage pins (14 anchors for Tewahedo distinctives) ----
+
+    def test_ps_110_right_hand_of_father_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 20, 42) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 20:42 — Ps 110:1 right-hand-of-Father Christological double-Lordship"
+
+    def test_spirit_confessors_mouth_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 21, 15) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 21:15 — Spirit-confessor's-mouth (Acts 6:10 anchor)"
+
+    def test_christs_eucharistic_desire_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 22, 15) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 22:15 — epithymia-epethymēsa Christ's-eucharistic-desire"
+
+    def test_new_covenant_blood_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 22, 20) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 22:20 — new-covenant-blood (Tewahedo Anaphora institution-form)"
+
+    def test_bishop_as_servant_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 22, 24) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 22:24 — Last-Supper strife (bishop-as-servant + Jn 13:14)"
+
+    def test_two_wills_miaphysite_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 22, 42) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 22:42 — 'not my will but thine' (two-wills-in-unity Miaphysite Christology)"
+
+    def test_gethsemane_angel_strengthening_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 22, 43) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 22:43 — Gethsemane angel-strengthening (Tewahedo angelic-ministry)"
+
+    def test_calvary_adamic_skull_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 23, 33) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 23:33 — Calvary kranion (Adamic-skull Tewahedo iconographic-tradition)"
+
+    def test_trilingual_titulus_solomonic_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 23, 38) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 23:38 — trilingual titulus universal-kingship-Tewahedo-Solomonic"
+
+    def test_good_thief_deathbed_confession_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 23, 42) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 23:42 — good-thief 'Lord, remember me' (deathbed-confession)"
+
+    def test_temple_veil_rent_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 23, 45) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 23:45 — Temple-veil-rent (Heb 10:19-20 Tewahedo maqdas-curtain)"
+
+    def test_lords_day_doubled_sabbath_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 24, 1) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 24:1 — 'first day of the week' (Tewahedo Sänbatä-Krǝstiyan doubled-Sabbath)"
+
+    def test_emmaus_eucharistic_shape_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 24, 13) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 24:13 — Emmaus full pericope (Eucharistic Word-Sacrament-Mystagogy shape)"
+
+    def test_real_bodily_resurrection_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 24, 39) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 24:39 — 'handle me, flesh and bones' (real-bodily-resurrection)"
+
+    def test_promise_of_the_father_pentecost_anchor_present(self):
+        eph = [e for e in self.ec.for_verse("luk", 24, 49) if e.father == "Cyril of Alexandria"]
+        assert eph, "γ.4.3.D missing Lk 24:49 — 'Promise of the Father' (Pentecost-Pärräqlēṭos Tewahedo anchor)"

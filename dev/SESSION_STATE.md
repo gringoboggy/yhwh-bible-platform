@@ -1,5 +1,422 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / γ.4.3.D ships — Cyril on Luke detail wave III
+(Lk 20-24 Passion + Resurrection + Ascension); CYRIL-ON-LUKE ARC
+CLOSED at four-wave parity (mirrors γ.4.1.A-D Cyril-on-John);
+Cyril voice rebalanced 30.5% → 33.9%; patristic-anchor majority
+now substantial (52.8% vs 47.2% canonical-text)**: **γ.4.3.D adds
+40 Cyril-of-Alexandria verse-keyed detail entries on Lk 20-24,
+extending the γ.4.3 seed coverage from 9 seed-only entries to 49
+substantive-detail entries; the patristic-commentary corpus moves
+from 790 to 830 entries.** Triggered by "continue" advance after
+γ.4.3.C closed; γ.4.3.D was the SESSION_STATE next-recommended
+phase per §3 sequencing (CLOSING wave of the four-wave Cyril-on-
+Luke arc).
+
+**Three §8.1 arc-close pin types applied** (closing-wave-specific
+discipline per CLAUDE_PROJECT_RULES.md §8.1): (1) _meta
+synchronization per sub-phase with regex word-boundary; (2)
+absolute-count milestone ≥280 Cyril; (3)
+all_N_sections_covered exhaustiveness — γ.4.3 seed + γ.4.3.B
+Lk 1-9 + γ.4.3.C Lk 10-19 + γ.4.3.D Lk 20-24 each at planned
+depth.
+
+**What γ.4.3.D shipped:**
+
+- **40 Cyril-on-Luke detail entries spanning Lk 20-24.** Lk 20
+  (7 entries): 20:1 authority self-authenticating + 20:9 wicked
+  husbandmen Tewahedo-Gentile-inclusion + 20:17 stone-rejected-
+  cornerstone (Ps 118:22 + Acts 4:11 + 1 Pet 2:6-8) + 20:27
+  Sadducees resurrection-denial + 20:36 isaggelos resurrection-
+  anthropology + 20:38 'all live unto him' intermediate-state +
+  20:42 Ps 110:1 right-hand-of-Father. Lk 21 (7): 21:6 Temple-
+  destruction + 21:9 anti-eschatological-panic + 21:15 mouth-
+  and-wisdom Spirit-confessor's-utterance + 21:18 'not a hair
+  perish' martyr-preservation + 21:24 times-of-the-Gentiles
+  Tewahedo missionary-eschatology + 21:28 'lift up your heads'
+  Anaphora liturgical-posture + 21:36 watch-and-pray ceaseless-
+  vigilance. Lk 22 (9): 22:15 Christ's-eucharistic-desire +
+  22:20 new-covenant-blood + 22:24 bishop-as-servant + 22:31
+  Satan-permitted-testing + 22:32 dominical-intercession-for-
+  Peter + 22:42 not-my-will-but-thine two-wills Miaphysite +
+  22:43 Gethsemane angel-strengthening + 22:53 power-of-darkness
+  + 22:62 Peter's-tears repentant-charisma. Lk 23 (8): 23:21
+  'crucify' Hosanna-reversal + 23:28 redirected-Holy-Week-lament
+  + 23:33 Calvary Adamic-skull Mäshafä-Adam + 23:38 trilingual-
+  titulus Solomonic-dynasty + 23:42 good-thief deathbed-
+  confession + 23:44 cosmic-three-hour-darkness + 23:45
+  Temple-veil-rent Heb 10:19-20 + 23:53 new-virgin-tomb. Lk 24
+  (9): 24:1 first-day-Lord's-Day doubled-Sabbath + 24:5
+  'why seek living among dead' Fasika-vigil + 24:7 dei + third-
+  day-rise + 24:13 Emmaus full-pericope Eucharistic-recognition-
+  shape + 24:25 'O fools, slow of heart' + 24:27 Christological-
+  hermeneutic Tewahedo Andǝmta + 24:32 burning-heart-Pentecost
+  + 24:39 real-bodily-resurrection + 24:49 Promise-of-the-Father
+  Pärräqlēṭos.
+- **Source:** R. Payne Smith, *A Commentary upon the Gospel
+  according to S. Luke by S. Cyril, Patriarch of Alexandria*
+  (Oxford: University Press, 1859 — PD; draws on Homilies
+  CXXXI-CLVI).
+- **`_meta.source` + `_meta.scope`** extended with the γ.4.3.D
+  arc-close ledger naming every Tewahedo anchor + recording
+  Cyril-on-Luke arc CLOSED status explicitly + cumulative
+  two-Gospel coverage (276 entries on John + Luke).
+- **`TestGamma43DCyrilLukePassionWave`** in
+  `tests/test_ethiopian_gamma4.py` — **20 pins per §8.1 arc-close
+  convention**:
+  - Lk-20-24-substantively-detailed (≥49 total = 9 seed + 40
+    detail)
+  - each-Passion-chapter-≥7-entries (across 5 chapters)
+  - **ARC-CLOSE PIN #1** — Cyril absolute-count milestone ≥280
+    (per `feedback_share_pin_pattern` count-pin convention)
+  - **ARC-CLOSE PIN #2** — all_four_cyril_luke_waves_covered:
+    γ.4.3 (≥40) + γ.4.3.B (≥58) + γ.4.3.C (≥53) + γ.4.3.D (≥49)
+    + total Cyril-on-Luke ≥160; prevents partial-arc-close drift
+  - **ARC-CLOSE PIN #3** — _meta synchronization per sub-phase
+    with regex word-boundary matching (γ.4.3, γ.4.3.B, γ.4.3.C,
+    γ.4.3.D) + Lk 20-24 scope + arc-close status explicit
+  - 14 signature-passage pins for new Tewahedo anchors
+    (Ps 110:1 + Spirit-confessor's-mouth + Christ's-eucharistic-
+    desire + new-covenant-blood + bishop-as-servant + two-wills
+    Miaphysite + angel-strengthening + Adamic-skull-Calvary +
+    trilingual-titulus + good-thief-confession + Temple-veil-rent
+    + doubled-Sabbath + Emmaus + real-bodily-resurrection +
+    Promise-of-the-Father)
+
+**Voice mix delta (the buyer-demo signal):**
+
+```
+Pre-γ.4.3.D:                    Post-γ.4.3.D:
+  Jubilees   200  25.3%           Jubilees   200  24.1%
+  1 Enoch    192  24.3%           1 Enoch    192  23.1%
+  Cyril      241  30.5%           Cyril      281  33.9%
+  Ephrem     157  19.9%           Ephrem     157  18.9%
+                                            ───
+  Total      790                  Total      830   (+40)
+```
+
+Cyril rebalances upward by 3.4 points and strongly leads the
+four-voice quartet (9.8 points ahead of Jubilees). The two
+patristic anchors (Cyril + Ephrem = 52.8%) lead the two
+canonical-text voices (1 Enoch + Jubilees = 47.2%) by 5.6
+points — patristic-anchor majority is now substantial.
+
+**Cyril-on-Luke arc CLOSED (mirrors γ.4.1.A-D pattern):**
+
+```
+γ.4.3     Lk 1-24 seed       40 entries   shipped 2026-05-13
+γ.4.3.B   Lk 1-9 detail      40 entries   shipped 2026-05-13
+γ.4.3.C   Lk 10-19 detail    40 entries   shipped 2026-05-13
+γ.4.3.D   Lk 20-24 detail    40 entries   shipped 2026-05-13   ← CLOSES ARC
+                            ────
+                            160 entries on Cyril-on-Luke
+                            (substantive parity across all four waves)
+```
+
+**Cumulative Cyril-on-Gospels:**
+- Cyril-on-John (γ.4.1-D): 116 entries on Jn 1-21 modulo Jn 8-10
+  manuscript gap.
+- Cyril-on-Luke (γ.4.3-D): 160 entries on Lk 1-24 in full.
+- **Total: 276 entries on TWO full canonical Gospels.** This is
+  the major buyer-demo differentiator: the Tewahedo flagship now
+  ships Alexandrian-Cyrillian commentary on two full Gospels at
+  substantive-detail depth.
+
+**Test delta:** **+20 net tests** (`TestGamma43DCyrilLukePassionWave`).
+Full γ.4 file: 385 → 405. **Full suite: 3691 passed, 1 skipped**
+in 389s (was 3671 + 1s pre-γ.4.3.D; +20 from γ.4.3.D). **Linter
+11/11 clean**. ruff format clean (420 files — 1 reformatted
+mid-ship by the verification path).
+
+**Recommended next ship:**
+- **save** — **FIVE phases shipped** since last save baseline
+  (`699f531`): γ.4.3.B + γ.4.3.C + γ.4.3.D plus the share-pin →
+  count-milestone conversion. Cyril-on-Luke arc closure is a
+  significant milestone (matches γ.4.1 closure pattern); a save
+  point captures the arc-close cleanly.
+- **γ.4.6/γ.4.7 Cyril on Matthew / Mark** — would complete the
+  four-Gospel Alexandrian commentary (after γ.4.1 Cyril-on-John
+  + γ.4.3-D Cyril-on-Luke); PD-accessibility pending.
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (still DEFERRED pending PD source acquisition).
+- **Audit suggestion (per memory `feedback_audit_cadence`):**
+  ≥10 phases shipped since the last audit (γ.4.4.A-E + γ.4.5/B-E
+  + γ.4.2.B-D + γ.4.3 + γ.4.3.B-D = 16 content waves); test count
+  drift +178 since AUDIT_2026-05-12-C (3513 → 3691). A lighter
+  solo-Claude audit may be appropriate before the γ.4.6/γ.4.7
+  cluster ships.
+
+---
+
+**Updated 2026-05-13 / γ.4.3.C ships — Cyril on Luke detail wave II
+(Lk 10-19 Journey-to-Jerusalem); Cyril voice rebalanced 26.8% →
+30.5%; Cyril firmly leads four-voice quartet by 5.2 points;
+patristic anchors take lead over canonical-text voices (50.4% vs
+49.6%)**: **γ.4.3.C adds 40 Cyril-of-Alexandria verse-keyed detail
+entries on Lk 10-19, extending the γ.4.3 seed coverage from 13
+seed-only entries to 53 substantive-detail entries (parity with
+γ.4.3.B Lk 1-9 detail wave); the patristic-commentary corpus
+moves from 750 to 790 entries.** Triggered by "continue" advance
+after γ.4.3.B closed; γ.4.3.C was the SESSION_STATE next-
+recommended phase per §3 sequencing.
+
+**Audit hygiene during this ship — share-pin → count-milestone
+conversion:** The γ.4.4.B `test_1_enoch_share_above_25_percent`
+share-pin broke mechanically when the Cyril detail-wave grew the
+denominator (1 Enoch share dropped from 25.6% to ~24.3%). Per the
+`feedback_share_pin_pattern` memory rule mandating share-pin →
+count-milestone conversion at break-time, the pin was converted in
+the same commit to `test_1_enoch_count_at_or_above_watchers_close`
+with absolute floor ≥190 (preserves the historical Watchers +
+Parables + Astro + Animal + Epistle cumulative achievement; durable
+against future voice-broadening waves). Conversion is recorded in
+the test's docstring with the share-pin-failure-mode rationale.
+
+**What γ.4.3.C shipped:**
+
+- **40 Cyril-on-Luke detail entries spanning Lk 10-19** (4 per
+  chapter, all distinct from γ.4.3 seed). Lk 10: 10:1 seventy
+  disciples sent (Tewahedo missionary anchor) + 10:18 'Satan
+  fell as lightning' (1 En 86 + Rev 12:7 triple-witness) + 10:21
+  'Jesus rejoiced in Spirit' (Lukan public-Trinitarian utterance)
+  + 10:27 fourfold heart-soul-strength-mind Greatest Commandment.
+  Lk 11: 11:4 reciprocal forgiveness (Tewahedo penance anchor) +
+  11:13 Holy-Spirit-as-supreme-answer (Lukan-distinctive
+  pneumatology) + 11:20 'finger of God' (Exodus-Spirit
+  identification anchor) + 11:27 public Marian beatitude
+  (Tewahedo Wǝddase Maryam anchor). Lk 12: 12:10 blasphemy-against-
+  Spirit pastoral wisdom + 12:32 'little flock' Tewahedo
+  ecclesiology + 12:35 girded-loins Holy-Saturday vigil + 12:50
+  Christ's-death-as-baptism (Rom 6:3-4). Lk 13: 13:7 barren fig
+  tree + 13:24 strait gate (monastic agōn) + 13:29 east-west-north-
+  south Ethiopian-eschatological-inclusion (Acts 8 eunuch
+  firstfruits) + 13:34 maternal-Christ-image. Lk 14: 14:11 divine-
+  passive exaltation + 14:16 Great Supper (Eucharistic-eschatological
+  banquet + Rev 19:9) + 14:23 'compel them to come in' (persuasive
+  not coercive) + 14:33 monastic forsake-all. Lk 15: 15:7 angelic
+  rejoicing + 15:8 lost-coin Trinitarian-iconographic triple-
+  pattern + 15:11 Prodigal full pericope (Father's threefold-mercy)
+  + 15:32 'dead and alive again' (conversion-as-resurrection).
+  Lk 16: 16:8 unjust steward strategic-prudence + 16:13
+  'cannot serve two masters' metaphysical incompatibility + 16:19
+  named-Lazarus reversal-of-recognition + 16:31 sufficiency-of-
+  Scripture (Tewahedo bibliology). Lk 17: 17:5 'Lord, increase
+  our faith' + 17:10 'unprofitable servants' (monastic daily-office)
+  + 17:21 'kingdom within/among you' + 17:32 'remember Lot's wife'.
+  Lk 18: 18:1 ceaseless-prayer (Tewahedo Mäshafä-Sǝʾatat seven-fold
+  office anchor) + 18:11 Pharisee's anti-model + 18:16 paedo-
+  receptivity (Tewahedo infant-baptism anchor) + 18:22 monastic
+  vocation. Lk 19: 19:5 dei-me dominical-seeking + 19:10 missio-
+  Dei (doubled with Lk 5:32) + 19:38 'peace in heaven' (Tewahedo
+  Hosanna feast anchor) + 19:46 'house of prayer' (Tewahedo
+  church-discipline).
+- **Source:** R. Payne Smith, *A Commentary upon the Gospel
+  according to S. Luke by S. Cyril, Patriarch of Alexandria*
+  (Oxford: University Press, 1859 — PD; draws on Homilies
+  LXXII-CXXX).
+- **`_meta.source` + `_meta.scope`** extended with the γ.4.3.C
+  ledger naming every Tewahedo anchor.
+- **`TestGamma43CCyrilLukeJourneyWave`** in
+  `tests/test_ethiopian_gamma4.py` — **19 pins** (detail wave,
+  not arc-close): Lk-10-19-substantively-detailed (≥53 total
+  Cyril on Lk 10-19 = 13 seed + 40 detail) + each-chapter-≥4-
+  entries (detail-depth parity floor across 10 chapters) +
+  Cyril absolute-count milestone ≥240 (per
+  `feedback_share_pin_pattern`) + 15 signature-passage pins +
+  _meta synchronization pin (regex word-boundary on γ.4.3.C).
+- **`TestGamma44BWatchersDetailWave.test_1_enoch_share_above_25_percent`**
+  CONVERTED to
+  `test_1_enoch_count_at_or_above_watchers_close` (absolute floor
+  ≥190) per `feedback_share_pin_pattern`. Conversion is recorded
+  in the docstring with full failure-mode rationale.
+
+**Voice mix delta (the buyer-demo signal):**
+
+```
+Pre-γ.4.3.C:                    Post-γ.4.3.C:
+  Jubilees   200  26.7%           Jubilees   200  25.3%
+  1 Enoch    192  25.6%           1 Enoch    192  24.3%
+  Cyril      201  26.8%           Cyril      241  30.5%
+  Ephrem     157  20.9%           Ephrem     157  19.9%
+                                            ───
+  Total      750                  Total      790   (+40)
+```
+
+Cyril rebalances upward by 3.7 points and now firmly leads the
+four-voice quartet (5.2 points ahead of Jubilees). For the FIRST
+time the two patristic anchors (Cyril + Ephrem = 50.4%) lead the
+two canonical-text voices (1 Enoch + Jubilees = 49.6%) — the
+voice-balance has crossed the half-line in favor of patristic
+exegesis. The two-Tewahedo-distinctive canonical texts remain
+substantively present at ~half the corpus.
+
+**Cyril-on-Gospel arc structure (mirrors γ.4.1.A-D pattern):**
+
+```
+γ.4.3     Lk 1-24 seed       40 entries   shipped 2026-05-13
+γ.4.3.B   Lk 1-9 detail      40 entries   shipped 2026-05-13
+γ.4.3.C   Lk 10-19 detail    40 entries   shipped 2026-05-13   ← THIS
+γ.4.3.D   Lk 20-24 detail    (planned — Passion-Resurrection-Ascension)
+                            ────
+                            Mirrors γ.4.1.A-D (Cyril-on-John 1-21,
+                            116 entries across four waves)
+```
+
+**Test delta:** **+19 net tests** (`TestGamma43CCyrilLukeJourneyWave`).
+The share-pin → count-milestone conversion is net-zero (1 pin
+removed + 1 pin added). Full γ.4 file: 366 → 385. **Full suite:
+3671 passed, 1 skipped** in 429s (was 3652 + 1s pre-γ.4.3.C; +19
+from γ.4.3.C). **Linter 11/11 clean**. ruff format clean (420
+files).
+
+**Recommended next ship:**
+- **γ.4.3.D Cyril on Luke detail wave III** — Lk 20-24
+  (Passion + Resurrection + Ascension). The CLOSING wave of the
+  Cyril-on-Luke arc per §8.1 arc-close convention. Will require
+  the three-pin closing-wave types (count milestone, all-six-
+  sections-covered exhaustiveness, _meta synchronization).
+  Mirrors γ.4.1.D Cyril-on-John 15-21 closure pattern.
+- **γ.4.6/γ.4.7 Cyril on Matthew / Mark** — would complete the
+  four-Gospel Alexandrian commentary; PD-accessibility pending.
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (still DEFERRED pending PD source acquisition).
+- **save** — γ.4.3.B + γ.4.3.C are 2 phases since baseline
+  `699f531`; not yet urgent.
+
+---
+
+**Updated 2026-05-13 / γ.4.3.B ships — Cyril on Luke detail wave I
+(Lk 1-9 Infancy + Galilean ministry); Cyril voice rebalanced 22.7%
+→ 26.7%; Cyril SLIGHTLY EDGES OUT Jubilees for top voice**:
+**γ.4.3.B adds 40 Cyril-of-Alexandria verse-keyed detail entries
+on Lk 1-9, extending the γ.4.3 seed coverage from 18 seed-only
+entries to 58 substantive-detail entries (parity with the γ.4.1.A
+Cyril-on-John-1-4 seed-density pattern); the patristic-commentary
+corpus moves from 710 to 750 entries.** Triggered by "continue"
+advance after γ.4.2.D closed the Ephrem-on-Pentateuch arc; per §3
+sequencing — γ.4.3.B was the SESSION_STATE next-recommended phase
+(the only patristic anchor still at seed-only depth was
+Cyril-on-Luke). All 40 verses are distinct from the γ.4.3 seed set
+(no double-occupancy).
+
+**What γ.4.3.B shipped:**
+
+- **40 Cyril-on-Luke detail entries spanning Lk 1-9.** Lk 1 (6
+  entries): 1:5 Zacharias priestly course + 1:13 angelic
+  fear-not formula + 1:35 Spirit-overshadowing (Theotokos
+  pneumatology) + 1:38 fiat-mihi (New-Eve Marian-obedience) +
+  1:42 Elizabeth's prophetic beatitude + 1:69 Benedictus
+  horn-of-salvation. Lk 2 (5 entries): 2:14 Gloria-in-excelsis
+  (Tewahedo Anaphora opening) + 2:21 eighth-day circumcision
+  (Tewahedo distinctive) + 2:35 Simeon's sword (Marian
+  compassion) + 2:40 + 2:52 (Christ's true-humanity growth —
+  anti-Apollinarian doubled-witness). Lk 3 (4 entries): 3:3
+  John's-baptism-vs-Christian-baptism distinction + 3:22
+  'bodily shape' (Tewahedo Timqät visible-Trinitarian-epiphany
+  anchor) + 3:23 thirty-years priestly-eligibility + 3:38
+  Adam-son-of-God (Second-Adam universal-Adamic). Lk 4 (4):
+  4:1 Spirit-fills-and-leads-into-wilderness (bahǝtawi pattern)
+  + 4:18 Isaian-Servant Spirit-Anointed-Messiah + 4:34 demon
+  recognises Holy-One-of-God (Tewahedo exorcism-rite anchor) +
+  4:43 dei-apestalmai missional self-understanding. Lk 5 (4):
+  5:10 fishers-of-men + 5:13 leper-touch sacramental-bodily
+  + 5:24 Son-of-Man-forgives (priestly-absolution Jn 20:23) +
+  5:32 Christ-the-Physician medicinal-soteriological. Lk 6 (4):
+  6:13 Twelve apostles (Tewahedo episcopal apostolic-foundation)
+  + 6:27 love-your-enemies + 6:31 positive Golden Rule + 6:36
+  'be ye merciful' (theosis-pattern doubled with Mt 5:48). Lk 7
+  (5): 7:12 Nain widow's son (priestly-funeral-compassion) +
+  7:22 six Isaian Messianic signs + 7:34 eating-and-drinking
+  Christology + 7:48 'thy sins are forgiven' (priestly-absolution
+  doubled-witness with 5:24) + 7:50 'thy faith hath saved thee;
+  go in peace' Lukan dismissal-formula. Lk 8 (4): 8:11
+  'seed is the word of God' (Scripture-as-living-seed) + 8:35
+  Gerasene's threefold-restoration (catechumen-posture) + 8:48
+  bold-touch-in-faith (Eucharistic-approach) + 8:54 'Maid,
+  arise' (word-effects-resurrection / Fasika anchor). Lk 9 (4):
+  9:23 kath'-hēmeran daily-cross (bahǝtawi daily-renewal) +
+  9:31 exodon Transfiguration-Conversation (Tewahedo Buhe
+  Pascha-apocalypse anchor) + 9:51 estērisen-to-prosōpon
+  set-face (voluntary-Passion travel-narrative anchor) + 9:62
+  plough-no-looking-back (irreversible monastic profession +
+  1 Ki 19:19-21 doubled-witness).
+- **Source:** R. Payne Smith, *A Commentary upon the Gospel
+  according to S. Luke by S. Cyril, Patriarch of Alexandria*
+  (Oxford: University Press, 1859 — PD; draws on Homilies
+  I-LXXI of the Payne Smith translation).
+- **`_meta.source` + `_meta.scope`** extended with the γ.4.3.B
+  ledger; every Tewahedo anchor surfaced is named explicitly.
+- **`TestGamma43BCyrilLukeInfancyGalileanWave`** in
+  `tests/test_ethiopian_gamma4.py` — **17 pins** (γ.4.3.B is
+  the FIRST detail wave, not arc-close — lighter pin set than
+  the §8.1 arc-close convention): Lk-1-9-substantively-detailed
+  (≥58 total Cyril on Lk 1-9 = 18 seed + 40 detail) +
+  each-chapter-≥4-entries (detail-depth parity floor) +
+  Cyril absolute-count milestone ≥200 (per
+  `feedback_share_pin_pattern`) + 12 signature-passage pins
+  (Theotokos pneumatology / New-Eve / Gloria-in-excelsis /
+  eighth-day circumcision / Timqät / Second-Adam / Isaian-
+  Servant / priestly-absolution / Twelve-apostles / Messianic-
+  signs / daily-cross / exodon-Buhe / set-face-Passion) +
+  _meta synchronization pin (regex word-boundary on γ.4.3.B).
+
+**Voice mix delta (the buyer-demo signal):**
+
+```
+Pre-γ.4.3.B:                    Post-γ.4.3.B:
+  Jubilees   200  28.2%           Jubilees   200  26.7%
+  1 Enoch    192  27.0%           1 Enoch    192  25.6%
+  Cyril      161  22.7%           Cyril      201  26.8%
+  Ephrem     157  22.1%           Ephrem     157  20.9%
+                                            ───
+  Total      710                  Total      750   (+40)
+```
+
+Cyril rebalances upward by 4.1 points and slightly EDGES OUT
+Jubilees for the top voice (26.8% Cyril vs 26.7% Jub, within
+0.1 points). The two patristic anchors hold 47.7% combined; the
+two uniquely-Tewahedo canonical-text voices hold 52.3%. The
+four-voice quartet is now in tight balance.
+
+**Cyril-on-Gospel arc structure (mirrors γ.4.1.A-D pattern):**
+
+```
+γ.4.3     Lk 1-24 seed       40 entries   shipped 2026-05-13
+γ.4.3.B   Lk 1-9 detail      40 entries   shipped 2026-05-13   ← THIS
+γ.4.3.C   Lk 10-19 detail    (planned — Journey-to-Jerusalem)
+γ.4.3.D   Lk 20-24 detail    (planned — Passion-Resurrection-Ascension)
+                            ────
+                            Mirrors γ.4.1.A-D (Cyril-on-John 1-21,
+                            116 entries across four waves)
+```
+
+**Test delta:** **+17 net tests** (`TestGamma43BCyrilLukeInfancyGalileanWave`).
+Full γ.4 file: 349 → 366. **Full suite: 3652 passed, 1 skipped**
+in 389s (was 3635 + 1s pre-γ.4.3.B; +17 from γ.4.3.B). **Linter
+11/11 clean**. ruff format clean (420 files).
+
+**Recommended next ship:**
+- **γ.4.3.C Cyril on Luke detail wave II** — Lk 10-19
+  (Journey-to-Jerusalem). 40 entries extending the seed coverage
+  of the Journey block from 12 seed-only to ~52 substantive-
+  detail. The Journey block holds many Tewahedo anchors
+  (Good Samaritan, Lord's Prayer, Rich Fool, Prodigal Son,
+  Rich Man and Lazarus intermediate-state, Samaritan leper,
+  Pharisee/Publican, Zacchaeus).
+- **γ.4.3.D Cyril on Luke detail wave III** — Lk 20-24
+  (Passion + Resurrection + Ascension). Closes the
+  Cyril-on-Luke arc to four-wave parity matching γ.4.1.A-D.
+- **γ.4.6/γ.4.7 Cyril on Matthew / Mark** — would complete the
+  four-Gospel Alexandrian commentary; PD-accessibility pending.
+- **γ.4.8 Mäqabyan seed** — THIRD uniquely-Tewahedo canonical
+  text (still DEFERRED pending PD source acquisition).
+- **save** — **NINE phases shipped** since the last save baseline
+  (`ee05f31` → most recent save was `699f531` for γ.4.2.D); now
+  γ.4.3.B is +1 since that baseline. A save point is reasonable
+  whenever you want to capture state; not blocking.
+
+---
+
 **Updated 2026-05-13 / γ.4.2.D ships — Ephrem on Numbers + Deuteronomy;
 Ephrem-on-Pentateuch ARC CLOSED; Ephrem voice rebalanced 17.5% → 22.1%**:
 **γ.4.2.D adds 40 Ephrem-the-Syrian verse-keyed entries (20 Numbers +
