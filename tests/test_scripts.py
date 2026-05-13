@@ -255,10 +255,13 @@ class TestBuildEdition:
 
         all_kinds = config.load_kinds()
         # Default-stock edition: popup_translation unset → both
-        # replaced/missed should remain 0
+        # replaced/missed should remain 0. Use ethiopian-tewahedo
+        # (the flagship edition); catholic-study now has
+        # `popup_translation: kjv` set explicitly so it's no longer
+        # a default-stock exemplar.
         with tempfile.TemporaryDirectory() as tmp:
             stats = self.mod.build_one(
-                "catholic-study",
+                "ethiopian-tewahedo",
                 Path(tmp),
                 "v28a-t",
                 all_kinds,

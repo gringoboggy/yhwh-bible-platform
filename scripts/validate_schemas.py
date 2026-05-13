@@ -194,6 +194,7 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("language_code", type=str, required=False),
         FieldSpec("theme", type=str, required=False),
         FieldSpec("popup_translation", type=str, required=False),
+        FieldSpec("time_filter_ceiling", type=int, required=False),
         FieldSpec("verse_popups", type=bool, required=False),
         FieldSpec("verse_marker_glyph", type=str, required=False),
         FieldSpec("chapter_number_format", type=str, required=False),

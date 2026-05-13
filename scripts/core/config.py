@@ -140,8 +140,8 @@ def note_attribution(tup: tuple) -> Optional[str]:
 
 
 def _parse_value(s):
-    """Parse a scalar YAML value. Strings are JSON-quoted; integers and `null`
-    are bare; booleans not used here."""
+    """Parse a scalar YAML value. Strings are JSON-quoted; integers,
+    `null`, and bare `true`/`false` booleans are bare."""
     s = s.strip()
     # Strip trailing comments: a `#` that is not inside a quoted string.
     # We scan for `#` outside double-quoted regions.
@@ -157,6 +157,10 @@ def _parse_value(s):
         s = s[:cut].rstrip()
     if s == "" or s == "null":
         return None
+    if s == "true":
+        return True
+    if s == "false":
+        return False
     # ω.19.1 — recognise the inline empty-list literal so
     # `field: []` round-trips as an empty list rather than the
     # literal string "[]". `_patch_yaml_list_field` writes this

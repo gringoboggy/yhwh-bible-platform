@@ -132,7 +132,10 @@ editions:
 
   - id: catholic-study
     canon: catholic
-    popup_translation: ""
+    time_filter_ceiling: 1900
+    verse_popups: true
+    verse_marker_glyph: ¶
+    popup_translation: kjv
     title: The Catholic Study Bible — Ethiopian Edition
     short_title: Catholic SB Ethiopian
     isbn: 978-XXX-XXXXX-XX-Y
@@ -157,6 +160,12 @@ editions:
       - hebrew
       - greek
     enabled_reading_plans:
+    popup_languages_per_book:
+      - gen=english,hebrew
+      - tob=
+      - mat=english,greek
+    traditions_per_book:
+      - gen=catholic,cross
   - id: evangelical-reformed
     canon: protestant
     title: "The Reformed Study Bible — Expanded Canon"
