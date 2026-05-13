@@ -1,5 +1,83 @@
 # Session state — current snapshot
 
+**Updated 2026-05-12 / γ.4.5.D Jubilees Jacob-cycle detail ships,
+Jubilees surpasses Cyril to become substantively-second voice at
+~29%, two-uniquely-Tewahedo-canonical-texts hold ~64% of corpus
+voice**: **γ.4.5.D substantive expansion of Jub 24-36 shipped (40
+NEW verse-keyed entries on the Jacob cycle — Esau sells birthright +
+Isaac kept in Promised Land during famine + Isaac's Beersheba altar
+completing three-generation patriarchal-altar chain + Rebekah's
+first anti-intermarriage command + Rebekah's orans-posture prayer +
+Spirit-inspired blessing of Jacob with explicit resurrection-unto-
+eternal-life clause + Jacob deceives Isaac (Tewahedo permission-vs-
+command distinction) + 'voice of Jacob, hands of Esau' interior-
+voice spiritual-discernment + Bethel ladder vision (Marian-ladder
+type) + Jacob's pillar and tithe-of-everything vow + Jacob in Haran +
+Leah substitution + Leah's first conception as un-favored-matriarch
+preference + Jacob-Esau reconciliation with preserved fraternal love +
+twice-yearly diaspora gift-sending to parents + Dinah at twelve years +
+Levi's priesthood EARNED by zeal at Shechem + heavenly-tablets
+righteousness inscription + Isaac blesses Levi BEFORE Judah (priestly
+precedence over royal) + Judah's Davidic-messianic blessing +
+patriarchal manuscript transmission Isaac → Jacob → Levi-Judah +
+Jacob's institution of double-tithe at Bethel + seven heavenly tablets
+given to Jacob + Deborah-nurse Bethel oak + Rachel's death bearing
+Benjamin / Ben-oni renaming + Reuben's incest + Reuben's voluntary
+confession + Jacob's clemency-by-confession + Joseph sold for twenty
+pieces of gold + Day of Atonement linked to Jacob's Joseph-grief +
+Rebekah's deathbed hope for Esau's repentance + Esau-Jacob joint
+burial of Rebekah at Machpelah + Isaac's eternal-house-with-fathers
+phrase + Isaac's love-of-brother testament).** γ.4.5 seed covered chs
+24-36 with 7 verses; γ.4.5.D brings the same range to 47 entries —
+substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.5.C (Jub
+11-22). Voice mix moves from 24/15/38/24 to ~22/14/35/29 Cyril/Ephrem/
+1En/Jubilees — **Jubilees surpasses Cyril to become substantively-
+second voice at ~29%**; the two uniquely-Tewahedo canonical texts
+(Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold **~64%** of the
+patristic-commentary corpus voice. Major Tewahedo anchors now
+substantively pinned: **Three-generation patriarchal-altar chain**
+complete (Abram 13:8 + Isaac 24:22 + Jacob 32:1); **Spirit-inspired
+matriarchal blessing** (25:14 — pre-Pentecostal näfsä-qǝddus); **Bethel
+ladder = Marian-ladder type** (27:19 — Wǝddase Maryam canonical
+warrant); **Levi's priesthood EARNED by zeal** (30:18 — priesthood-by-
+zeal-AND-descent doubled warrant); **Heavenly-tablets righteousness
+inscription** (30:23 — täwlǝd-bä-mäṣǝḥaf book-of-life anchor);
+**Priestly precedence over royal** (31:14 — Isaac blesses Levi BEFORE
+Judah); **Davidic-messianic Judah-blessing** (31:18 — Solomonic-dynasty
+Davidic claim via Kǝbrä Nägäśt); **Jacob's double-tithe** (32:9 —
+Tewahedo ǝʾǝsär double-pattern anchor); **Seven heavenly tablets to
+Jacob** (32:21 — Mäṣḥafä-zä-säma'i heavenly-book doctrine anchor);
+**Reuben's confession + Jacob's clemency** (33:9 — Tewahedo näsḫa
+absolution-by-confession principle); **Day of Atonement linked to
+Jacob's Joseph-grief** (34:18 — Astereyo TRIPLED canonical anchor with
+Jub 5:17 and Jub 6:10); **Rebekah's hope for Esau's repentance**
+(35:6 — Tewahedo eschatological-hope canonical anchor); **Isaac's
+'eternal house with the fathers'** (36:1 — Tewahedo funeral-liturgy
+verbal-inheritance anchor). **+23 tests** in
+`TestGamma45DJubileesJacobCycleWave`. **246/246 tests pass; 11/11
+lint clean.** **Pre-existing test repair**: stale Ephrem share-pin
+in TestGamma42BEphremPatriarchsWave (previously lowered 17%→15%)
+failed again at 14.0% post-γ.4.5.D dilution — converted to
+absolute-count milestone pin (Ephrem ≥75 entries), same pattern as
+γ.4.5.C's repair of the γ.4.4.D/.E pins. Source: R.H. Charles, *The
+Book of Jubilees* (Oxford: Clarendon, 1902 — PD). One commit since
+last save (`989cada`): γ.4.5.D, shipped under push directive.
+
+**Recommended next ship**:
+- **γ.4.5.E Jubilees Joseph + Exodus-finale detail (Jub 37-50)** —
+  would close the γ.4.5 detail arc with full parity-coverage of
+  the Joseph cycle (chs 37-45, currently 3 seed entries) and
+  Egypt-Exodus-Passover-Sabbath finale (chs 46-50, currently 10
+  seed entries). After γ.4.5.E ships, all major Jubilees narrative
+  sections will have substantive-detail parity at the 47-entries-
+  per-cluster pattern.
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition).
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from current ~14% back upward.
+
+---
+
 **Updated 2026-05-12 / γ.4.5.C Jubilees Abraham-cycle detail ships,
 Jubilees rises to substantively-tied-second voice with Cyril at
 ~24%, two-uniquely-Tewahedo-canonical-texts hold 62% of corpus

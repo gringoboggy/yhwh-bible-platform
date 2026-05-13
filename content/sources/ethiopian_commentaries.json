@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22 (idolatry decline + Abram's monotheism + Hebrew tongue restored + departure from Ur + Bethel altar + Melchizedek tithe + covenant of pieces dated to Pentecost + circumcision-on-the-eighth-day Tewahedo anchor + angels-of-presence created circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion + Mastema-as-accuser overthrown + Sarah's Machpelah burial + Mastema-repulsion in patriarchal blessing + Abraham's testament love-of-neighbour command + Abraham's priestly instructions on no-blood-consumption + Abraham's celebration of Feast of Weeks with both Isaac and Ishmael at the altar + Abraham's direct blessing of Jacob — Solomonic-dynasty Tewahedo-Jacobite anchor). Major Tewahedo anchors: 11:18 (Abram drives ravens — Tewahedo agrarian-priestly anchor); 12:25 (Hebrew tongue restored by angel of presence — Tewahedo Ge'ez liturgical-language warrant by analogy); 13:8 (Bethel altar — pre-Mosaic legitimate altar, Tewahedo patriarchal-Anaphora warrant); 13:25 (Melchizedek tithe — Tewahedo monastic ǝʾǝsär anchor); 14:1 (covenant of pieces dated to Pentecost — TRIPLE Pentecost anchor: Noah's covenant + Abram's covenant + Sinai); 15:14 + 15:25 (eighth-day circumcision non-negotiable — Tewahedo distinctive Christian circumcision anchor); 15:27 (angels-of-presence created circumcised — cosmic-circumcision); 16:13 (Isaac born on Pentecost — Tewahedo Old-New-Covenant Pentecost doubled anchor); 16:20 (pre-Mosaic Feast of Tabernacles instituted by Abraham); 17:15 (Mastema accuses on Passover-date — Akedah-as-Passover canonical anchor); 18:13 (Mt Moriah = Mt Zion identification — Tewahedo eucharistic fourfold-altar anchor); 18:18 (7-day Akedah commemoration — Tewahedo Holy-Week shape anchor); 19:28 (Mastema-repulsion in patriarchal blessing — Tewahedo baptismal-blessing formula antecedent); 20:2 (love-of-neighbour patriarchal-testament content); 21:7 + 21:18 (no-blood-consumption priestly emphasis — Tewahedo dietary distinctive triple-witness with 6:7 + 7:34); 22:1 (Abraham's Feast of Weeks with Isaac AND Ishmael — Tewahedo pastoral inclusivity anchor); 22:11 (Abraham's direct blessing of Jacob — Tewahedo Solomonic-dynasty-Jacobite canonical anchor via Kǝbrä Nägäśt tradition). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD).",
-    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus. γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10, bringing Jubilees coverage from 40 seed entries to 80 entries across the same chapter range. Voice distribution post-γ.4.5.B: ~26% Cyril / ~17% Ephrem / ~41% 1 Enoch / ~16% Jubilees — Jubilees now substantively the second-heaviest single-source voice. Future γ.4.5.C-E waves can substantively expand Abraham (11-22), Decline + eschatology (23), Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22, bringing Jubilees coverage from 80 entries (γ.4.5 seed + γ.4.5.B Watchers detail) to 120 entries. Jub 11-22 coverage rises from 7 seed verses (11:16, 12:16, 12:22, 14:6, 15:11, 18:9, 21:10) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.4.B (Watchers detail). Voice distribution post-γ.4.5.C: ~25% Cyril / ~16% Ephrem / ~39% 1 Enoch / ~20% Jubilees — Jubilees rises to substantively-second voice, approaching Cyril's plurality. Future γ.4.5.D-E waves can substantively expand Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth.",
+    "source": "Ephrem the Syrian + Cyril of Alexandria + 1 Enoch references — seed corpus shipped with γ.4 (2026-05-11). γ.4.1.A (2026-05-12) added Cyril on John 1-4 (30 entries). γ.4.1.B (2026-05-12) added Cyril on John 5-7 (27 entries: Bethesda discourse + Bread of Life + Tabernacles/Living Water). γ.4.1.C (2026-05-12) added Cyril on John 11-14 (29 entries). γ.4.2 first wave (2026-05-12) added Ephrem on Genesis 1-11 (32 entries) — rebalances corpus voice mix per AUDIT_2026-05-12-B §ix recommendation. γ.4.1.D (2026-05-12) added Cyril on John 15-21 (30 entries) — CLOSES γ.4.1 modulo the unfillable Jn 8-10 manuscript gap. γ.4.4 first wave (2026-05-12) added 30 verse-keyed entries into 1 Enoch (book code 1en, all five-book structure). γ.4.4.B (2026-05-12) added 40 Watchers-detail entries (1En chs 1-36) covering the full Watchers narrative arc: prologue + descent and giants + Enoch's intercession denial + first cosmic journey through fallen-star prison + second journey through cosmic geography to tree of life and mountain of God. Cyril's Books VII-VIII covering Jn 8-10 remain LOST in manuscript tradition. All Cyril material from NPNF S2 V14 (Pusey/Randell trans., Oxford 1874-1885); all Ephrem from NPNF S2 V13 (Gwynn/Schaff trans., Oxford 1898); all 1 Enoch from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.C (2026-05-12) added 40 Parables-detail entries (1En chs 37-71) covering the full three-Parables + Translation-Visions narrative arc: Light of Gentiles (48:4) + Son of Man enthroned for judgment (45:3, 51:3, 69:27) + Wisdom's failed earthly mission (42:1-2) + Phanuel angel of repentance (40:9) + Methuselah as first scribe of the Parables (68:1) + cosmogonic Oath (69:25) + Enoch's transfiguration (71:11). All entries paraphrase R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90: Astronomical Book (364-day liturgical year — Tewahedo Bāḥrä Ḥasab anchor; named luminaries; Methuselah-as-scribe charge) + First Dream Vision (Mahalalel's interpretation; tongue-given-for-praise) + Animal Apocalypse (Adam as white bull → Cain/Abel → watchers fall as stars → Noah translated from bull to man → table of nations as bovine diversification → Israel as sheep → Sinai house and Solomon's tower → exile and seventy shepherds → Maccabean awakening with angelic helper → throne of judgment → new house / new Jerusalem → Gentile conversion → white-bull reunification + lamb-with-horns climax). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.4.E (2026-05-12) added 40 entries on 1En 91-108: Apocalypse of Weeks (seven-past + three-eschatological weeks scheme — Tewahedo historiographical-periodisation anchor; 91:14 tenth-week watcher-judgment closes the Watchers arc; 91:16 sevenfold-light new heaven — Rev 21:1 antecedent) + Epistle proper paths and woes (94:1 two-paths exhortation; 95:3 saints-shall-judge-the-world — 1 Cor 6:2 antecedent; 98:4 human authorship of sin — anti-Manichaean anchor; 102:4 fear-not-ye-souls-of-the-righteous — Tewahedo funeral-liturgy formula; 103:4 spirits-live-and-rejoice — intermediate-state-as-joyful canonical; 104:10 sinners-pervert-words — Tewahedo manuscript-preservation warrant; 104:12 books-as-joy-to-the-righteous — monastic-scribal joy-form; 105:1 'I and My son' — Father-Son union pre-canonical witness) + Birth of Noah (106:2 white-snow-radiant-infant — Tewahedo iconographic anchor) + closing inclusio (108:1 'for those who keep the law in the last days' — Tewahedo self-identification as addressee of the entire book). All from R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). γ.4.2.B (2026-05-12) added 40 Ephrem-on-Genesis entries on Gen 12-50 (patriarchal narrative: Abraham 15 entries / Jacob 12 / Joseph 13). Source: Ephrem the Syrian, Commentary on Genesis, NPNF Series 2 vol. 13 (Gwynn / Schaff trans., Oxford 1898 — PD). Continues γ.4.2 first wave (Gen 1-11, 32 entries shipped earlier this session) and rebalances the post-γ.4.4 voice mix. γ.4.5 (2026-05-12) added 40 seed entries on Book of Jubilees (book code 'jub') across all 50 chapters: Sinai prologue / Creation / Eden / Watchers (Jubilees parallel to 1 Enoch 6) / Noahide covenant including 364-day calendar (6:32 — Tewahedo Bāḥrä Ḥasab doubled-canonical anchor with 1 En 72:32) / Division of earth (9:13 — Tewahedo Hamitic identity anchor) / Mastema (10:8 — Tewahedo demonology distinctive) / Abraham (12:16 anti-astrology, 18:9 Mastema-as-Akedah-accuser, 21:10 'books of Enoch' cited inside Jubilees — inter-textual canonical witness) / Jacob (32:1, 32:18 Levi consecrated to priesthood — Tewahedo priestly anchor) / Joseph / Exodus (48:9 Mastema bound — Tewahedo Holy-Week anchor) / Passover (49:1, 49:9 — Tewahedo Fasika non-negotiable observance) / Sabbath finale (50:6, 50:13 — Tewahedo BOTH-Sabbath-AND-Lord's-Day tradition anchor). Source: R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). Book code 'jub' is already registered in books.yaml; edition canon-inclusion noted in editions.yaml as 'to be added in a future ingest' (commentary content is in scope and queryable via for_verse('jub', ...) regardless of edition canon-list state). γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10 (Watchers cascade + Flood judgment + Noahide covenant + 364-day calendar defense + Noah's seven commandments + geographic division + binding of demons + Mastema 1/10 permission + medical book to Noah + Tower of Babel reversal). Major Tewahedo anchors: 5:17-18 (Day of Atonement linked to Watcher judgment — Tewahedo Astereyo warrant); 6:7 (no blood consumption — Tewahedo dietary law anchor); 6:17 (Feast of Weeks pre-Mosaic — Tewahedo Pärräqlēṭos antecedent); 6:35-38 (calendar-defense — Bāḥrä Ḥasab apologia); 7:13 (Canaan not Ham cursed — anti-racial reading); 7:34 (Noah cites Enoch — inter-canonical witness doubled); 8:18-21 (Shem-blessing prophesies divine indwelling, Tewahedo identifies Ethiopia within the Shemitic portion via the Red Sea geography); 8:25 + 9:5 (Ham/Cush portions celebrated as divine allotment — Tewahedo Hamitic identity anchor strengthened); 9:14-15 (anti-conquest oath until judgment day); 10:7-9 (binding of demons + Mastema 1/10 permission — Tewahedo non-dualist demonology with numerical bound); 10:11-13 (medical book to Noah — Tewahedo mädḫanit tradition canonical warrant); 10:18-26 (Tower-Babel reversed by divine wind — Pentecost antitype anchor). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22 (idolatry decline + Abram's monotheism + Hebrew tongue restored + departure from Ur + Bethel altar + Melchizedek tithe + covenant of pieces dated to Pentecost + circumcision-on-the-eighth-day Tewahedo anchor + angels-of-presence created circumcised + Isaac's birth on Pentecost + pre-Mosaic Feast of Tabernacles instituted by Abraham + Akedah at Mt Moriah = Mt Zion + Mastema-as-accuser overthrown + Sarah's Machpelah burial + Mastema-repulsion in patriarchal blessing + Abraham's testament love-of-neighbour command + Abraham's priestly instructions on no-blood-consumption + Abraham's celebration of Feast of Weeks with both Isaac and Ishmael at the altar + Abraham's direct blessing of Jacob — Solomonic-dynasty Tewahedo-Jacobite anchor). Major Tewahedo anchors: 11:18 (Abram drives ravens — Tewahedo agrarian-priestly anchor); 12:25 (Hebrew tongue restored by angel of presence — Tewahedo Ge'ez liturgical-language warrant by analogy); 13:8 (Bethel altar — pre-Mosaic legitimate altar, Tewahedo patriarchal-Anaphora warrant); 13:25 (Melchizedek tithe — Tewahedo monastic ǝʾǝsär anchor); 14:1 (covenant of pieces dated to Pentecost — TRIPLE Pentecost anchor: Noah's covenant + Abram's covenant + Sinai); 15:14 + 15:25 (eighth-day circumcision non-negotiable — Tewahedo distinctive Christian circumcision anchor); 15:27 (angels-of-presence created circumcised — cosmic-circumcision); 16:13 (Isaac born on Pentecost — Tewahedo Old-New-Covenant Pentecost doubled anchor); 16:20 (pre-Mosaic Feast of Tabernacles instituted by Abraham); 17:15 (Mastema accuses on Passover-date — Akedah-as-Passover canonical anchor); 18:13 (Mt Moriah = Mt Zion identification — Tewahedo eucharistic fourfold-altar anchor); 18:18 (7-day Akedah commemoration — Tewahedo Holy-Week shape anchor); 19:28 (Mastema-repulsion in patriarchal blessing — Tewahedo baptismal-blessing formula antecedent); 20:2 (love-of-neighbour patriarchal-testament content); 21:7 + 21:18 (no-blood-consumption priestly emphasis — Tewahedo dietary distinctive triple-witness with 6:7 + 7:34); 22:1 (Abraham's Feast of Weeks with Isaac AND Ishmael — Tewahedo pastoral inclusivity anchor); 22:11 (Abraham's direct blessing of Jacob — Tewahedo Solomonic-dynasty-Jacobite canonical anchor via Kǝbrä Nägäśt tradition). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD). γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36 (Esau sells birthright + Isaac in Gerar + Rebekah's Spirit-inspired blessing of Jacob with explicit resurrection-unto-eternal-life clause + Jacob receives Isaac's blessing + Jacob's flight + Bethel ladder vision (Marian-ladder type) + Jacob's pillar + tithe vow + Jacob in Haran + Leah substitution + Leah's first conception (un-favored-matriarch preference) + Jacob-Esau reconciliation with preserved fraternal love + twice-yearly gift-sending to parents (fifth-commandment diaspora-care antecedent) + Dinah at twelve years + Simeon and Levi's judicial action + Levi's priesthood EARNED by zeal at Shechem + heavenly-tablets righteousness inscription + Isaac's blessing of Levi BEFORE Judah (priestly precedence over royal) + Judah's Davidic-messianic blessing + patriarchal manuscript transmission (Isaac → Jacob → Levi-Judah) + Jacob's institution of double-tithe (tithe to priest + festive tithe consumed by offerer — Tewahedo ǝʾǝsär double-pattern anchor) + seven heavenly tablets given to Jacob + Deborah-nurse buried beneath Bethel oak (monastic-mother-grave-tree tradition antecedent) + Rachel's death bearing Benjamin (Ben-oni → Benjamin renaming as suffering-transmuted-to-joy) + Reuben's defilement of Bilhah + Reuben's voluntary confession + Jacob's clemency-by-confession + distinction terrestrial-pardon vs heavenly-judicial-reckoning + Joseph sold for twenty pieces (Tewahedo Joseph-as-Christ Holy Week typology) + Day of Atonement linked to Jacob's grief over Joseph + Rebekah's deathbed hope for Esau's repentance (Tewahedo eschatological-hope canonical anchor) + Esau and Jacob jointly bury Rebekah at Machpelah (family-reunion-at-funerals pattern) + Isaac's testament of love-of-brother triad with Abraham + Mosaic codification). Major Tewahedo anchors: 24:22 (Isaac's Beersheba altar — three-generation patriarchal-altar chain Abram-Isaac-Jacob); 25:14 (Rebekah's Spirit-inspired blessing — pre-Pentecostal canonical Spirit-utterance); 25:23 (Rebekah's resurrection-unto-eternal-life clause — Tewahedo Tǝnśaʾe matriarchal-canonical anchor); 27:19 (Bethel ladder — Tewahedo Marian-ladder type in Wǝddase Maryam); 27:27 (Jacob's pillar + double-tithe vow — Tewahedo täbot canonical antecedent + ǝʾǝsär comprehensiveness); 30:18 (Levi's priesthood EARNED by zeal — Tewahedo priesthood-by-zeal-and-descent doubled warrant); 30:23 (heavenly-tablets righteousness inscription — Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life doctrine); 31:14-15 (Isaac blesses Levi BEFORE Judah — priestly precedence over royal in Tewahedo ecclesiology); 31:18 (Judah's Davidic-messianic blessing — Tewahedo Solomonic-dynasty Davidic claim via Kǝbrä Nägäśt); 31:23 (patriarchal manuscript transmission — Tewahedo monastic-scribal canonical-inheritance warrant); 32:9 (Jacob's double-tithe institution — Tewahedo ǝʾǝsär double-pattern); 32:21 (seven heavenly tablets — Tewahedo Mäṣḥafä-zä-säma'i doctrine); 33:9 (Reuben's confession + Jacob's clemency — Tewahedo näsḫa absolution principle); 34:18 (Day of Atonement linked to Jacob's Joseph-grief — Tewahedo Astereyo TRIPLED canonical anchor with Jub 5:17 and 6:10); 35:6 (Rebekah's hope for Esau's repentance — Tewahedo eschatological-hope anchor); 36:1 (Isaac's intermediate-state phrase 'eternal house with the fathers' — Tewahedo funeral-liturgy phrase canonical-verbal inheritance); 36:7 (Isaac's love-of-brother testament — Tewahedo Maḫǝbär Qǝddus monastic charism patriarchal warrant). All from R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902 — PD).",
+    "scope": "Curated interpretive summaries verse-keyed to passages where the Ethiopian Tewahedo tradition carries a distinctive reading. The Syriac (Ephrem) and non-Chalcedonian Alexandrian (Cyril) fathers are the patristic anchors shared by the Oriental Orthodox communion; Ethiopia is one of its five canonical jurisdictions. 1 Enoch is included specifically because Tewahedo is the only major communion to canonize it; the references draw on R.H. Charles' PD 1912 translation. Each entry is a paraphrased summary, not a verbatim quote. γ.4 shipped 12 seed entries; γ.4.1.A (2026-05-12) added 30 Cyril-on-John entries covering John 1-4 (Logos prologue + John the Baptist + Cana + Temple cleansing + Nicodemus + Samaritan woman); γ.4.1.B (2026-05-12) added 27 entries covering John 5-7 (Bethesda + discourse on the Son + Bread of Life + Tabernacles + Living Water/Spirit); γ.4.1.C (2026-05-12) added 29 entries covering John 11-14 (Lazarus pericope + anointing/triumphal entry/cosmic judgment + foot-washing + Last Supper + Farewell Discourse I including the Trinitarian-perichoresis texts and the Paraclete promise). γ.4.2 first wave (2026-05-12) added 32 Ephrem-on-Genesis entries covering Gen 1-11 (Syriac patristic primeval-history exegesis); voice distribution rebalanced from 93/5/2 to 70/28/2 (Cyril/Ephrem/1 Enoch) per AUDIT_2026-05-12-B §ix. γ.4.1.D (2026-05-12) added 30 Cyril-on-John entries covering John 15-21 (Vine discourse + further Paraclete promises + High-Priestly Prayer + Garden of Gethsemane + Passion / tetelestai / blood-and-water + Resurrection appearances + breathing of Holy Ghost + restoration of Peter / Feed-my-sheep). γ.4.1 CLOSED modulo unfillable Jn 8-10 (Cyril Books VII-VIII LOST). Post-γ.4.1.D voice distribution: 76% Cyril / 23% Ephrem / 1% 1 Enoch — Cyril share rose modestly back toward dominance but well below pre-γ.4.2 93%. γ.4.1 cumulative content: 116 entries across the four waves. γ.4.4 first wave (2026-05-12) added 30 verse-keyed 1 Enoch entries (book code 1en) spanning all 5 books. γ.4.4.B (2026-05-12) added 40 Watchers detail entries (1En chs 1-36), bringing Watchers coverage from 11 to 51 entries across 30 distinct chapters (out of the section's 36). Post-γ.4.4.B voice distribution: 53% Cyril / 16% Ephrem / 31% 1 Enoch — 1 Enoch now substantively the second-heaviest voice. Future γ.4.4.C-E will extend Parables / Astronomical+Dream Visions / Epistle similarly; γ.4.2.B-D will extend Ephrem through Gen 12-50 / Exodus / Numbers+Deut; γ.4.3 will cover Cyril on Luke (Payne Smith 1859 PD). γ.4.4.D (2026-05-12) added 40 entries on 1En 72-90 — Astronomical Book (chs 72-82, 12 entries: solar/lunar calendar law + intercalary days + twelve winds + seven mountains/rivers + named luminaries + sinners disrupt seasons + Methuselah charge) + First Dream Vision (chs 83-84, 3 entries: Mahalalel's interpretation + tongue-given-for-praise + Enoch's intercession for righteous remnant) + Animal Apocalypse (chs 85-90, 25 entries: Adam as white bull through Cain-Abel + watchers as fallen stars + four archangels + Noah's translation + table of nations + Israel as sheep + Sinai 'house' + tower as temple + exile + seventy shepherds + Maccabean awakening + throne of judgment + new house / new Jerusalem + Gentile conversion + white-bull eschatological reunification + lamb-with-horns Christological climax). Post-γ.4.4.D voice distribution: ~38% Cyril / ~12% Ephrem / ~50% 1 Enoch — 1 Enoch becomes plurality voice. Mäṣḥafä Hēnok Watchers (γ.4.4.B) + Parables (γ.4.4.C) + Astronomical-Dream-Animal (γ.4.4.D) all substantively expanded; only Epistle of Enoch (γ.4.4.E) remains. γ.4.5 (2026-05-12) opens the SECOND uniquely-Tewahedo canonical text: Mäṣḥafä Kufāle / Book of Jubilees (chs 1-50). 40 verse-keyed seed entries spanning all 50 chapters: Sinai prologue + Creation (3) + Eden + generations (3) + Watchers + Noahide covenant (3) + Division of earth + Mastema (4) + Abraham early life (3) + Abraham cycle (4) + Decline + eschatology (2) + Jacob cycle (5) + Death of Isaac + Esau (2) + Joseph cycle (4) + Egypt + Exodus + Passover + Sabbath finale (7). Mirrors γ.4.4 seed-wave pattern. Future γ.4.5.B-E waves can substantively expand each section to Mäṣḥafä-Hēnok-level depth. Voice distribution post-γ.4.5: ~31% Cyril / ~20% Ephrem / ~44% 1 Enoch / ~5% Jubilees — Jubilees enters the corpus. γ.4.5.B (2026-05-12) added 40 Jubilees Watchers + Mastema detail entries on Jub 5-10, bringing Jubilees coverage from 40 seed entries to 80 entries across the same chapter range. Voice distribution post-γ.4.5.B: ~26% Cyril / ~17% Ephrem / ~41% 1 Enoch / ~16% Jubilees — Jubilees now substantively the second-heaviest single-source voice. Future γ.4.5.C-E waves can substantively expand Abraham (11-22), Decline + eschatology (23), Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.C (2026-05-12) added 40 Jubilees Abraham-cycle detail entries on Jub 11-22, bringing Jubilees coverage from 80 entries (γ.4.5 seed + γ.4.5.B Watchers detail) to 120 entries. Jub 11-22 coverage rises from 7 seed verses (11:16, 12:16, 12:22, 14:6, 15:11, 18:9, 21:10) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.4.B (Watchers detail). Voice distribution post-γ.4.5.C: ~25% Cyril / ~16% Ephrem / ~39% 1 Enoch / ~20% Jubilees — Jubilees rises to substantively-second voice, approaching Cyril's plurality. Future γ.4.5.D-E waves can substantively expand Jacob (24-36), Joseph (37-45), and the Exodus-Sabbath finale (46-50) at the same depth. γ.4.5.D (2026-05-12) added 40 Jubilees Jacob-cycle detail entries on Jub 24-36, bringing Jubilees coverage from 120 entries (γ.4.5 seed + γ.4.5.B Watchers detail + γ.4.5.C Abraham-cycle detail) to 160 entries. Jub 24-36 coverage rises from 7 seed verses (25:9, 27:21, 30:7, 32:1, 32:18, 35:1, 36:23) to 47 entries — substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.5.C (Jub 11-22). Voice distribution post-γ.4.5.D: ~22% Cyril / ~14% Ephrem / ~35% 1 Enoch / ~29% Jubilees — Jubilees rises to substantively-second voice surpassing Cyril. Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle) jointly hold ~64% of the patristic-commentary corpus voice. Future γ.4.5.E wave can substantively expand the Joseph cycle + Exodus-Sabbath finale (Jub 37-50) at the same depth, closing the γ.4.5 detail arc.",
     "public_domain_basis": "Ephrem the Syrian d. 373 AD (NPNF Series 2, vol. 13, ed. Gwynn / Schaff, 1898). Cyril of Alexandria d. 444 AD (NPNF Series 2, vols. 7 + 14, trans. P.E. Pusey + Thomas Randell, Oxford: James Parker, 1874-1885 — both translators died well before 1929: Pusey d. 1880, Randell d. 1899). R.H. Charles, The Book of Enoch (Oxford: Clarendon, 1912 — PD). All translations cited are out of copyright in every jurisdiction.",
     "schema_version": 1
   },
@@ -5105,6 +5105,406 @@
       "year": -150,
       "summary": "'And he called Jacob and said: my son Jacob, may the God of all bless thee and strengthen thee to do righteousness, and His will before Him, and may He choose thee and thy seed that ye may become a people for His inheritance according to His will alway. And do thou, my son Jacob, remember my words, and observe the commandments of Abraham, thy father' — Abraham's final blessing of Jacob (his preferred grandson over Isaac's other line through Esau) directly anticipates the Jacob-not-Esau election preserved by Jubilees. The Tewahedo Jacobite-Israelite identification (the Tewahedo Church reads itself as the legitimate Israelite-Jacobite continuation, with the Solomonic dynasty as the canonical-political extension of the Davidic line through Menelik I as Solomon's son in the Kǝbrä Nägäśt tradition) finds its earliest canonical warrant in Abraham's direct-to-Jacob blessing here. The grandfather's blessing of Jacob over his father Isaac's potential to favor Esau is itself read as canonical priority-of-grace over inherited-order.",
       "attribution": "Jubilees 22:11 (Abraham's final blessing (22:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 24,
+      "verse": 3,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Jacob was cooking pottage, and Esau came from the field hungry; and he said to Jacob his brother: give me of this red pottage. And Jacob said to him: sell me thy birthright, and I will give thee bread, and also some of this pottage' — Jubilees preserves the Gen 25 transaction with the explicit verbal contract. Tewahedo Andǝmta exegesis frames this as the canonical case-study in the Tewahedo doctrine of consequential-choice (mərč'a-bä-yäwär̄əd, 'choosing-that-cuts-downward'): Esau's transaction is binding precisely because it was freely entered. The Tewahedo emphasizes against any 'irresistible-grace' framework that some choices truly close future possibilities — the birthright is not recoverable later (Heb 12:17, picked up by Tewahedo Pauline preaching), even though tears are sincere.",
+      "attribution": "Jubilees 24:3 (Esau and Isaac in Gerar (24:3)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 24,
+      "verse": 7,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Esau ate and was filled, and despised the birthright; for this reason was Esau called Edom, on account of the red pottage which Jacob gave him for his birthright' — Jubilees gives the etymology of 'Edom' (red) and explicitly attaches it to the birthright-despising rather than to the red color generally. Tewahedo theological-anthropology reads 'Edom' as the canonical name of the soul-orientation that prefers immediate gratification to long-term covenantal goods; the Tewahedo monastic Doctrine of the Stomach (literal asceticism opposed to over-eating) draws on this verse as the canonical OT warrant for fasting-against-the-stomach-as-mind-clouder.",
+      "attribution": "Jubilees 24:7 (Esau and Isaac in Gerar (24:7)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 24,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the famine was over the land, and Isaac departed to go down into Egypt in the second year of this week, and went to the king of the Philistines to Gerar, unto Abimelech. And the Lord appeared unto him and said unto him: go not down into Egypt; dwell in the land that I shall tell thee of' — God prevents Isaac from leaving the Promised Land even during famine. Tewahedo readings of this episode contrast it with the later Egyptian sojourn (which Jacob does undertake in Jub 45) — the difference is divine command: where God commands return to the Land, exile-flight is forbidden; where God permits exile, sojourn is acceptable. The Tewahedo diaspora theology (those who remain in Ethiopia during persecution vs. those who emigrate) finds its canonical discernment-pattern here: divine guidance, not circumstance, governs the legitimacy of staying-or-going.",
+      "attribution": "Jubilees 24:11 (Esau and Isaac in Gerar (24:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 24,
+      "verse": 22,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he built an altar there, and he called on the name of the Lord, and he pitched his tent there, and his servants digged a well' — Isaac's altar at Beersheba, the pre-Mosaic continuation of Abram's Bethel altar (Jub 13:8). Jubilees emphasizes that the patriarchal-altar tradition is unbroken from Abram through Isaac through Jacob (Jub 32:1) — the legitimate altar passes father-to-son before the Mosaic-priestly investiture. The Tewahedo Anaphora-of-the-Patriarchs (used in periodic monastic-festal commemoration) draws its canonical warrant from this three-generation patriarchal-altar chain: legitimate altar is hereditary AND pre-Mosaic, anchoring the Tewahedo conviction that the Christian altar is patriarchally-prototypical.",
+      "attribution": "Jubilees 24:22 (Esau and Isaac in Gerar (24:22)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 25,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the second year of this week in this jubilee, Rebecca called Jacob her son, and spake unto him, saying: my son, do not take thee a wife of the daughters of Canaan, as Esau, thy brother, who took him two wives of the daughters of Canaan' — Rebekah's command parallels but precedes Isaac's command of Jub 25:5 + Gen 28:1. Jubilees thus gives the matriarch the FIRST anti-intermarriage command. The Tewahedo emphasis on the spiritual authority of the mother in family-religious-formation finds canonical warrant here: doctrinal-marriage discernment passes through the matriarch FIRST. The Tewahedo Marian liturgy (Wǝddase Maryam) draws on this maternal-spiritual-authority pattern for the elevation of Mary's intercessory role.",
+      "attribution": "Jubilees 25:1 (Rebekah's blessing of Jacob (25:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 25,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Rebecca lifted up her hands toward heaven and stretched out the fingers of her hands, and she blessed the Most High God, who had created the heaven and the earth, and she gave Him thanks and praise. And she said: blessed be the Lord God, and may His holy name be blessed for ever and ever, who hath given me Jacob as a pure son and a holy seed' — Rebekah's prayer is a formal blessing of God WITH RAISED HANDS toward heaven. The Tewahedo liturgical posture of orans (hands raised, palms forward, in standing prayer) is the canonical Christian inheritance of this Rebekah-prayer posture; the Tewahedo daily office preserves the raised-hands stance for the doxological climaxes of the morning office, anchored in this matriarchal canonical witness.",
+      "attribution": "Jubilees 25:11 (Rebekah's blessing of Jacob (25:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 25,
+      "verse": 14,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And at that hour, when the spirit of righteousness descended into her mouth, she placed her two hands on the head of Jacob, and said' — Rebekah's blessing is explicitly Spirit-inspired ('the spirit of righteousness descended into her mouth'). Jubilees thus presents a pre-Pentecostal canonical episode of prophetic-Spirit-inspired speech, parallel to later prophetic-speech episodes. The Tewahedo doctrine of inspired-utterance (näfsä qǝddus) finds canonical OT-typological anchor here: the same Spirit that inspires prophets and apostles spoke through Rebekah at Jacob's blessing. The Tewahedo grandmother / mother prayer-of-blessing tradition (the matriarchal blessing carries authority beyond mere well-wishing) draws warrant from this verse.",
+      "attribution": "Jubilees 25:14 (Rebekah's blessing of Jacob (25:14)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 25,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'May the Lord of the world love thee as the heart of thy mother and her affection rejoice in thee; bless thee. And may He give thee a blessing of righteousness, and grant thee help, and give to thee a blessing of length of days. Mayest thou see Mahalalel in thy lifetime, the resurrection unto eternal life' — Rebekah's blessing climaxes with an explicit resurrection-unto-eternal-life clause, a remarkable mid-2nd-c. BCE Jewish text witnessing the resurrection hope. The Tewahedo canonical resurrection-doctrine (Tǝnśaʾe) draws on this Jubilees passage as a Tewahedo-distinctive OT-typological anchor: the resurrection hope is canonically embedded in patriarchal-matriarchal blessing, not just in late-Daniel apocalypse or the prophets.",
+      "attribution": "Jubilees 25:23 (Rebekah's blessing of Jacob (25:23)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 26,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Rebecca took goodly raiment of her elder son Esau, which was with her in the house, and she clothed Jacob her younger son with them, and put the skins of the kids upon his hands and on the exposed parts of his neck' — Jubilees follows the Gen 27 deception narrative without softening it. Tewahedo Andǝmta exegesis on this passage takes a distinctive position: the deception is NOT condoned but is canonically PERMITTED by divine providence to bring about the predetermined blessing — Isaac's intent to bless Esau was itself contrary to the earlier 'the elder shall serve the younger' (Gen 25:23 = Jub 19:31). The Tewahedo theological reading: God's providence works through human action including human moral ambiguity without destroying free will or sanctioning the deceit per se. (The Tewahedo distinction between divine-permission and divine-command is sharper than the Western Augustinian framing.)",
+      "attribution": "Jubilees 26:13 (Jacob receives Isaac's blessing (26:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 26,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Isaac said unto his son: how hast thou found it so quickly, my son? And Jacob said: because thy God caused me to find. And Isaac said unto Jacob: come near, that I may feel thee, my son, if thou art my son Esau or not. And Jacob went near to his father Isaac, and he felt him and said: the voice is Jacob's voice, but the hands are the hands of Esau' — Jubilees preserves the iconic 'voice of Jacob, hands of Esau' line. Tewahedo monastic Maḫǝbär Qǝddus tradition reads this verse spiritually: the voice (intentionality, prayer-speech) reveals true spiritual identity even when the hands (outward action) are disguised — the canonical antecedent to the desert-fathers' discipline of attending to one's interior voice rather than external appearance as the locus of spiritual self-knowledge.",
+      "attribution": "Jubilees 26:18 (Jacob receives Isaac's blessing (26:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 26,
+      "verse": 24,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'God give thee of the dew of heaven, and of the dew of the earth, and plenty of corn and wine: let peoples serve thee, and nations bow down to thee. Be lord over thy brethren, and let thy mother's sons bow down to thee; cursed be every one that curseth thee, and blessed be every one that blesseth thee' — Isaac's blessing of Jacob (mistakenly received). Jubilees preserves the comprehensive blessing without modification. Tewahedo reading: the Solomonic-dynasty Tewahedo-Jacobite continuation (Kǝbrä Nägäśt tradition: the Tewahedo Church receives the canonical Jacobite blessing through the Solomonic dynasty's Davidic descent and the Tewahedo's covenantal-spiritual descent through baptism) finds its canonical anchor here. The 'cursed be every one that curseth thee' clause is the warrant for the Tewahedo's distinctive imprecatory-protective prayer tradition against anti-Tewahedo aggressors.",
+      "attribution": "Jubilees 26:24 (Jacob receives Isaac's blessing (26:24)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 27,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the words of Esau, her elder son, were told to Rebecca in a dream, and Rebecca sent and called Jacob her younger son, and said unto him: behold, Esau thy brother will take vengeance on thee so as to kill thee' — Jubilees uniquely makes Rebekah's foreknowledge of Esau's murderous plot a divinely-given dream, not mere intuition. The Tewahedo dream-discernment tradition (the matriarchal-prophetic dream that saves the patriarch is a recognized canonical category) draws warrant: legitimate dreams from God can be relied on for major decisions when corroborated by the dreamer's righteous standing and the moral content of the dream. Rebekah's dream meets both tests.",
+      "attribution": "Jubilees 27:1 (Jacob's flight and Bethel vision (27:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 27,
+      "verse": 19,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he dreamt that night, and behold, a ladder was set up on the earth, and the top of it reached to heaven, and behold, the angels of the Lord ascended and descended on it: and behold, the Lord stood upon it. And He spake to Jacob, and said: I am the Lord God of Abraham thy father, and the God of Isaac; the land whereon thou art sleeping, to thee will I give it, and to thy seed after thee' — Jubilees preserves the Bethel ladder vision of Gen 28:12-13. Tewahedo Marian-typology reads Jacob's ladder as the canonical OT image of Mary as the ladder-between-heaven-and-earth; the Wǝddase Maryam (Praise of Mary) explicitly invokes 'Mary the ladder of Jacob' in the Monday-evening cycle. The angels-ascending-and-descending detail is the canonical proof-text for the Tewahedo doctrine that angels are not static but actively traffic between heaven and earth on behalf of the elect (Heb 1:14 picks this up apostolically).",
+      "attribution": "Jubilees 27:19 (Jacob's flight and Bethel vision (27:19)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 27,
+      "verse": 27,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Jacob vowed a vow, saying: if the Lord will be with me, and will keep me in this way that I go, and will give me bread to eat, and raiment to put on, so that I return in peace to my father's house, then shall the Lord be my God, and this stone which I have set up as a pillar for a memorial in this place, shall be the house of God: and of all that thou givest me, I shall give the tenth to thee, my God' — Jacob's vow combines covenant-faithfulness, sanctuary-establishment, AND tithing. Jubilees uniquely treats the pillar (mäṣbäḳ) as legitimately establishable by the patriarch BEFORE any Mosaic-altar legislation; the Tewahedo täbot tradition (each Tewahedo church has its consecrated täbot — the tablet representing the ark) finds canonical anchor here: the sanctifiable-stone is a patriarchal-prerogative restored in the Tewahedo täbot. The tithe-of-everything-given is the canonical anchor for the Tewahedo ǝʾǝsär comprehensiveness (not just produce but all gifts received).",
+      "attribution": "Jubilees 27:27 (Jacob's flight and Bethel vision (27:27)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 28,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Jacob went on his journey to the land of the east, to Laban the brother of Rebecca, and he was with him, and served him for Rachel his daughter one week' — Jubilees specifies one week as the initial service period, with the 'seven years' of Gen 29:20 elsewhere preserved as fourteen years for both wives (Jub 28:9-10). The Tewahedo monastic-novitiate pattern (the novice serves a senior monk for a probationary period before formal acceptance) finds canonical-typological anchor in Jacob's service-for-marriage: bodily-and-laborious commitment proves intention before covenant-relationship is consummated. The Tewahedo discernment-pattern (long service before commitment) is canonically rooted here.",
+      "attribution": "Jubilees 28:1 (Jacob in Haran (28:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 28,
+      "verse": 6,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Laban said unto Jacob: it is not so done in our country, to give the younger before the elder: do this seven days' celebration, and we will give thee her also for the service which thou shalt serve me other seven years' — Laban substitutes Leah for Rachel. Jubilees preserves Laban's deception. Tewahedo Andǝmta exegesis notes the canonical irony: Jacob who deceived his older-brother Esau is now deceived by his uncle Laban who insists on elder-first priority. The Tewahedo Christian moral-formation tradition draws on this episode: divine providence often arranges that the deceiver-from-position-of-weakness becomes the deceived-from-position-of-need — not as retributive punishment but as character-forming pedagogy. Jacob's later integrity is forged through Laban's deception.",
+      "attribution": "Jubilees 28:6 (Jacob in Haran (28:6)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 28,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the Lord opened the womb of Leah, and she conceived and bore unto Jacob a son, and he called his name Reuben' — Leah conceives first as the unloved-wife consolation. Jubilees follows Gen 29:32 in attributing the womb-opening to the Lord's compassion on the un-favored. Tewahedo Marian-and-matriarchal piety draws on this canonical pattern: God preferentially attends to the un-favored matriarchs in the patriarchal narratives (Leah, Hagar, the various un-favored wives). The Tewahedo pastoral attention to widowed-or-childless women — extending special intercessory prayer for them — finds canonical anchor in this divine-preference pattern.",
+      "attribution": "Jubilees 28:11 (Jacob in Haran (28:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 29,
+      "verse": 13,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Jacob sent messengers to Esau his brother to the land of Seir, to the country of Edom; and Jacob acknowledged what Esau had done to him, for he loved him very much from the day his father sent him from his presence, until he was settled in Egypt' — Jubilees uniquely preserves Esau's eventual love for Jacob alongside the Gen 33:4 reconciliation narrative. Tewahedo theological reading: even the rejected-line brother retains genuine fraternal affection in Jubilees' framing — the eschatological reconciliation between covenant-bearing and providential-non-bearing branches is canonically anticipated here. The Tewahedo's distinctive pastoral approach to non-Orthodox Christians (Catholic Ethiopians, Protestant Ethiopians, etc.) draws on this canonical fraternal-love-preserved pattern.",
+      "attribution": "Jubilees 29:13 (Jacob's return and Esau reconciliation (29:13)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 29,
+      "verse": 19,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Jacob built a house for himself in Salem, in the mountain of Heshbon, and he dwelt there a long time, and he sent unto his father presents and unto his mother twice a year, again and again' — Jubilees adds the detail of Jacob's twice-yearly gift-sending to his parents during his sojourn east of Jordan. Tewahedo Andǝmta exegesis on the fifth commandment (honor thy father and thy mother) cites this verse as the canonical case-study for honoring-from-distance: when geographical separation prevents in-person care, the regular twice-yearly remembrance (gifts, communication) preserves the substance of the command. The Tewahedo diaspora pastoral counsel for emigrant children draws practical-canonical guidance from this verse.",
+      "attribution": "Jubilees 29:19 (Jacob's return and Esau reconciliation (29:19)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 30,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Shechem son of Hamor the Hivite, the prince of the land, saw her, and he seized her and lay with her, and he defiled her, and she was a little girl, a child of twelve years' — Jubilees specifies Dinah's age as twelve, framing the crime not just as defilement but as child-rape. The Tewahedo canonical anti-child-abuse stance (which goes beyond the standard Western moral framing into Tewahedo-distinctive ecclesiastical-penalty severity) finds canonical anchor here: the doubled-aggravation of force-AND-childhood is the canonical example of a worst-case category. The Tewahedo penitential canon distinguishes adult-and-mutual-consent failings from defilement-of-a-child as categorically separate, drawing on Jub 30:2's age-specification.",
+      "attribution": "Jubilees 30:2 (Dinah and Shechem (30:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 30,
+      "verse": 4,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And the sons of Jacob spake deceitfully unto Shechem and Hamor his father, and dealt craftily with them and beguiled them. And Simeon and Levi came unexpectedly to Shechem and executed judgment on all the men of Shechem, and slew all the men whom they found in it, and left not a single one remaining in it: they slew all in torments because they had dishonoured their sister Dinah' — Jubilees frames the Simeon-and-Levi attack as 'executed judgment' rather than mere revenge. Tewahedo just-war theology reads the Levi-Simeon action as proto-judicial: the defilement created a covenantal-emergency that demanded a judicial response, not a private revenge. The Tewahedo's distinctive (compared to most Western Christianity) acceptance of measured-violence in defense of the covenant-community-against-sexual-aggression has its canonical anchor in this Jubilees framing.",
+      "attribution": "Jubilees 30:4 (Dinah and Shechem (30:4)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 30,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And to Levi we gave the office of the priesthood and to the Levites: to do the service before the Lord as we do continually, and that Levi and his sons may be blessed for ever; for he was zealous to execute righteousness and judgment and vengeance on all those who arose against Israel' — Jubilees uniquely makes Levi's zeal at Shechem the EARNED warrant for the Levitical priesthood (not just the later golden-calf zeal of Ex 32). The Tewahedo priestly-tradition (the kǝhnät as receivers-of-priesthood-by-zeal-for-purity, not just by descent) finds the strongest canonical anchor here: the priesthood is BOTH hereditary AND earned-by-righteous-action — the original priestly investiture was won, not merely inherited.",
+      "attribution": "Jubilees 30:18 (Dinah and Shechem / Levi's zeal (30:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 30,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And it was reckoned to him as righteousness, and they are written down on the heavenly tablets as friends and as righteous ones' — the Simeon-and-Levi action is reckoned as righteousness, parallel to Phinehas's later zeal-as-righteousness reckoning at Num 25:13. Tewahedo doctrine of righteousness-by-faith-AND-by-zealous-action (against any 'faith alone abstracted from action' framing) draws canonical anchor here. The 'written down on the heavenly tablets' formula recurs throughout Jubilees and Tewahedo readers attach to it a doctrine of eternal-heavenly-record: certain canonical actions are not just remembered but inscribed for eschatological vindication. The Tewahedo täwlǝd-bä-mäṣǝḥaf (book-of-life inscription) doctrine has canonical roots here.",
+      "attribution": "Jubilees 30:23 (Dinah and Shechem / Levi's zeal (30:23)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 31,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And on the new moon of the first month, the Lord said unto Jacob: arise, and go up to Bethel, and dwell there, and make there an altar to the God who appeared to thee, who fled from the face of Esau thy brother' — Jubilees dates Jacob's return to Bethel to the new moon of the first month (eve of Passover). The Tewahedo theme of return-to-the-place-of-vision (the disciple returns to the locus of initial calling for re-consecration) finds canonical-temporal anchor: the new-moon-of-the-first-month date links Jacob's Bethel re-consecration to the Passover-Pascha cluster of dates — return is liturgically tied to Christ's Paschal mystery for the Tewahedo reader.",
+      "attribution": "Jubilees 31:1 (Isaac's visit to Bethel (31:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 31,
+      "verse": 14,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he turned to Levi first, and began to bless him first, and said unto him: may the Lord of all, the Lord of all the ages, bless thee and thy sons throughout all the ages. And may the Lord give to thee and to thy seed greatness and great glory, and cause thee and thy seed, from amongst all flesh, to approach Him to serve in His sanctuary as the angels of the presence and as the holy ones' — Isaac blesses Levi BEFORE Judah, contrary to chronological birth-order. Jubilees emphasizes that the priestly blessing comes BEFORE the royal blessing — the priestly-ministerial vocation is canonically PRIOR to the royal-political vocation. Tewahedo ecclesiology preserves this primacy: the kǝhnät (priesthood) takes precedence over the nəguś (king) in canonical-spiritual order, even when the king is the political-protector of the church. The Tewahedo's distinctive emphasis on the priestly-prophetic-warning of unjust kings finds canonical anchor here.",
+      "attribution": "Jubilees 31:14 (Isaac's visit to Bethel (31:14)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 31,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he turned to Judah and said: may God give thee strength and power to tread down those that hate thee; be thou a prince, thou and thy sons, over the sons of Jacob; may thy name and the name of thy sons go forth and traverse every land and region. Then shall the Gentiles fear before thy face, and all the nations shall quake. In thee shall be the help of Jacob, and in thee shall be found the salvation of Israel' — Isaac's blessing of Judah explicitly foretells salvation-coming-from-Judah, anticipating Gen 49:10 (Shiloh prophecy) and Davidic messianism. Tewahedo Christology reads this as a doubled OT-canonical proof of Christ's Davidic-Judah ancestry: not only the late Gen 49:10 prophecy but also the early Isaac-blessing prophecy at Jub 31:18. The Kǝbrä Nägäśt tradition draws the Tewahedo-Solomonic-dynasty's Davidic-Judah claim through this verse.",
+      "attribution": "Jubilees 31:18 (Isaac's visit to Bethel (31:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 31,
+      "verse": 23,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And his father Isaac blessed Jacob, and the two sons of Jacob, Levi and Judah, and his sons. And he gave them all his blessings and gave them his books and the books of his fathers Abraham and his grandfather, and he committed them to Jacob to keep them up and to renew them for his sons until this day' — Jubilees uniquely speaks of 'the books of his fathers Abraham' transmitted Isaac → Jacob → Levi-Judah. The patriarchal manuscript-tradition (a pre-Mosaic written canonical literature) is Jubilees-distinctive and the Tewahedo Andǝmta tradition has long taken seriously the implication: the Mosaic Torah is a redaction of older patriarchal writings, not a fresh Sinai-only revelation. The Tewahedo's distinctive manuscript-preserving monastic charism (the gədl 'biography' tradition; the mäṣḥaf säwasǝw 'grammar of language' tradition) sees itself as continuator of the canonical-patriarchal book-keeping practice.",
+      "attribution": "Jubilees 31:23 (Isaac's visit to Bethel (31:23)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 32,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Jacob abode there that night, and he sent away from him all his flocks and all his possessions to his father Isaac and to his mother Rebecca. And Jacob tithed all the clean animals, and made a burnt-offering, and he gave the tithe to Levi his son, and the second tithe he ate himself before the Lord' — Jubilees uniquely preserves Jacob's institution of the tithe-of-tithes pattern (one tithe to the priest, one tithe consumed by the offerer before the Lord) as a pre-Mosaic patriarchal ordinance. The Tewahedo monastic ǝʾǝsär practice (one tithe to the church / priesthood, a second consumed in festive remembrance) draws canonical anchor here: the Levitical tithe and the ma'aser-šeni (festive tithe consumed by the offerer) are BOTH patriarchal, not just Deut-15-Mosaic. The Tewahedo's distinctive double-tithe practice is canonically pre-Mosaic in this framing.",
+      "attribution": "Jubilees 32:9 (Bethel altar and Levi's priesthood (32:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 32,
+      "verse": 21,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he saw in a vision of the night, and behold, an angel descended from heaven with seven tablets in his hands, and he gave them to Jacob, and he read them, and knew all that was written therein, what would befall him and his sons throughout all the ages' — Jubilees uniquely presents Jacob's reception of seven heavenly tablets containing the entire prophetic future of his descendants. Tewahedo Marian-canonical understanding of revelation (the Mary-as-receiver-of-the-Word echoes the patriarchal pattern of inscribed-revelation-given) draws on this canonical pre-existence-of-the-Word-in-tablets motif. The Tewahedo doctrine of the canonical Scripture as 'eternal in the heavens' (the Mäṣḥafä-zä-säma'i, the heavenly book) finds Jubilees as a key OT canonical anchor.",
+      "attribution": "Jubilees 32:21 (Bethel altar and Levi's priesthood (32:21)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 32,
+      "verse": 25,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Deborah Rebecca's nurse died, and they buried her beneath Bethel under the oak, and he called the name of that place \"The oak of weeping\"' — Deborah-the-nurse's burial is briefly preserved (parallel Gen 35:8). Jubilees uniquely names the oak Allon-bacuth (oak of weeping). The Tewahedo cult-of-departed-faithful-elders (täzkär commemoration on the 40th day, 80th day, anniversary of death) draws on the patriarchal pattern of marking the burial-tree with a remembrance-name. The Tewahedo monastic practice of planting trees at the gravesites of beloved spiritual mothers (including nurses, deaconesses, female monastics) has its canonical anchor in Deborah's Bethel oak: the burial-tree as living memorial.",
+      "attribution": "Jubilees 32:25 (Bethel altar and Levi's priesthood (32:25)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 32,
+      "verse": 33,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he was a great burden to her in her travail, and his soul came near to depart from her, and she had hardly delivered him when she died. And she called his name \"son of my sorrow,\" but Jacob his father called his name Benjamin' — Rachel dies in childbirth bearing Benjamin (Gen 35:18 parallel). Jubilees preserves the doubled naming (Ben-oni / Benjamin). Tewahedo readings see in the doubled naming the canonical type of suffering-transmuted-into-joy: the mother's last word names the cost of motherhood; the father's name names the elevation of the cost into covenantal gladness. The Tewahedo Marian theology of suffering-with-Christ-as-redemptive-fellowship (cf. Lk 2:35 sword-piercing Mary's soul) draws on this canonical matriarchal pattern: the cost of bearing is real AND is renamed by covenantal interpretation.",
+      "attribution": "Jubilees 32:33 (Bethel altar and Levi's priesthood (32:33)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 33,
+      "verse": 2,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Reuben saw Bilhah, Rachel's handmaid, the concubine of his father, bathing in water in a secret place, and he loved her. And he hid himself at night, and he entered the house of Bilhah at night, and he found her sleeping alone on a bed in her house. And he lay with her, and she awoke and saw, and behold Reuben was lying with her in the bed' — Jubilees preserves the Gen 35:22 incident in painful detail. The Tewahedo penitential canon's strongest category — incest, especially with a parent's spouse or partner — finds canonical anchor here. The Tewahedo's distinctive practice of detailed-confession-by-category (the Confessor walks the penitent through specific Scripture-named sins for self-examination) draws Jub 33:2 into the canonical sin-list for the spiritual-paternal-bed category.",
+      "attribution": "Jubilees 33:2 (Reuben's incest (33:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 33,
+      "verse": 9,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And he came to his father Jacob, and he confessed to him that he had defiled the bed of his father; and Jacob mourned exceedingly because of him, and he smote him not, because Reuben himself had confessed to him; and he had pity on him' — Jubilees uniquely preserves Reuben's voluntary confession-to-the-father and Jacob's clemency-because-of-confession. The Tewahedo confession-and-absolution pattern (näsḫa) draws on this verse for the canonical principle that voluntary disclosure to the spiritual father materially mitigates the punitive disciplinary response, even where the sin's gravity is unchanged. The 'smote him not because Reuben had confessed' clause is the Tewahedo canonical warrant for the confessor's clemency in response to genuinely-voluntary admission.",
+      "attribution": "Jubilees 33:9 (Reuben's incest (33:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 33,
+      "verse": 10,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Reuben was not pardoned in heaven, because he was older than Joseph, and because he should not have done this thing — for he could have known that his father had her, but he loved her not as his sister' — Jubilees distinguishes terrestrial pardon (Jacob's clemency) from heavenly judicial-reckoning. Tewahedo theological precision: divine pardon and disciplinary-canonical pardon are NOT identical; the priest can absolve from canonical penalty (Heb. nash'a; Tewahedo näsḫa) without thereby exhausting the heavenly judicial dimension, which remains the Lord's. The Tewahedo's distinct doctrine on the limits of priestly absolution (against the maximalist Catholic plenary-indulgence model) draws canonical anchor here.",
+      "attribution": "Jubilees 33:10 (Reuben's incest (33:10)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 34,
+      "verse": 11,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And they sat down to eat bread, and they sold him to the Ishmaelites for twenty pieces of gold; and they brought him down into Egypt, and they sold him to Potiphar the eunuch the chief cook of Pharaoh' — Jubilees follows the Gen 37 sale of Joseph with a notable detail (twenty pieces of gold; sold to the Ishmaelites). Tewahedo Holy-Week typology preserves the canonical Joseph-as-Christ correspondence: sold for twenty pieces of gold (cf. Mt 26:15 thirty pieces of silver for Christ — the parallel-but-distinct sums anchor the doubled betrayal motif). Tewahedo liturgical commemoration of the Joseph-betrayal date on Wednesday of Holy Week draws on this canonical typological pattern.",
+      "attribution": "Jubilees 34:11 (Joseph sold and annual fast (34:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 34,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'For this reason it is ordained for the children of Israel that they should afflict themselves on the tenth of the seventh month — on the day that the news which made him weep for Joseph came to Jacob his father — that they should make atonement for themselves thereon with a young goat on the tenth of the seventh month, once a year, for their sins; for they had grieved the affection of their father regarding Joseph his son' — Jubilees uniquely connects the Day of Atonement (10th of 7th month, Lev 16) to the day on which Jacob received the news of Joseph's loss. The Tewahedo Day of Atonement (Astereyo) is canonically anchored TRIPLY in Jubilees: the Watchers judgment (Jub 5:17-18), the Noahide atonement pattern (Jub 6 indirectly), AND now Jacob's Joseph-grief (Jub 34:18). The Tewahedo's distinctive emphasis on grief-of-affection (not just sin-against-commandment) as the canonical heart of Atonement Day finds anchor here.",
+      "attribution": "Jubilees 34:18 (Joseph sold and annual fast (34:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 35,
+      "verse": 6,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And Esau is to thee from time eternal a foe, but I trust that thou wilt confess thy ways to him and that he will yet repent of his evil purpose, and that mercy will reach him' — Rebekah's deathbed words to Jacob preserve a remarkable canonical hope for Esau's eventual repentance. Tewahedo eschatological hope (the universalism-leaning emphasis that the Tewahedo holds in tension with apokatastasis-rejection — the Tewahedo neither dogmatically affirms nor dogmatically denies universal-final-repentance) finds canonical matriarchal anchor here: even the most-rejected covenant-line brother is canonically hoped-for. The Tewahedo's distinctive pastoral generosity toward non-Tewahedo Christians and even toward those of other faiths in salvation-trust questions draws on Rebekah's witness.",
+      "attribution": "Jubilees 35:6 (Death of Rebekah (35:6)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 35,
+      "verse": 18,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And she died, the same day, and her two sons buried her, Esau and Jacob, in the double cave near Sarah her mother-in-law' — Esau and Jacob buried Rebekah TOGETHER in the Machpelah cave, in fraternal cooperation at her funeral despite their lifelong rivalry. Jubilees emphasizes this unique reconciliation-at-the-mother's-grave moment. The Tewahedo pastoral tradition of family-reunion-at-funerals (estranged-family-members reconciling at the matriarch's or patriarch's funeral) draws canonical warrant here: even where the relationship cannot be repaired in life, the death of the parent provides a divinely-arranged occasion for partial reconciliation. The Tewahedo's family-funeral liturgy preserves a moment of joint-prayer-by-estranged-children, anchored typologically in this verse.",
+      "attribution": "Jubilees 35:18 (Death of Rebekah (35:18)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 36,
+      "verse": 1,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And in the sixth year of this week, in the forty-fourth jubilee, Isaac called his two sons, Esau and Jacob, and they came to him, and he said unto them: my sons, I am going the way of my fathers, to the eternal house where my fathers are' — Isaac's dying-charge frames death as 'the way of my fathers, to the eternal house.' Jubilees presents an explicit intermediate-state-as-fellowship-with-the-departed-righteous doctrine, antecedent to Lk 16:22 (Abraham's bosom) and the Tewahedo prayer 'in the bosom of Abraham and Isaac and Jacob.' The Tewahedo funeral-liturgy phrase 'in the eternal house with the fathers' is the direct verbal-inheritance of Jub 36:1 — the patriarchal-formulary preserved across millennia.",
+      "attribution": "Jubilees 36:1 (Isaac's testament (36:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
+    },
+    {
+      "book": "jub",
+      "chapter": 36,
+      "verse": 7,
+      "father": "Book of Jubilees (Ethiopian tradition)",
+      "work": "Book of Jubilees (Mäṣḥafä Kufāle)",
+      "year": -150,
+      "summary": "'And I command you, my sons, that ye love one another, the one his brother as a man loves his own soul, and let each strive in that which he can do for his brother, and do righteousness on the earth between you; and ye shall love one another as your own selves' — Isaac's testament commands love-of-brother-as-one's-own-self, the canonical doubled-witness with Jub 20:2 (Abraham's testament) and Lev 19:18. The Tewahedo's distinctive heavy emphasis on family-and-monastic-community fraternal love (not as innovation but as canonical-patriarchal commandment) draws warrant from the patriarchal-testament triad: Abraham (Jub 20:2), Isaac (Jub 36:7), and the eventual Mosaic codification (Lev 19:18). The Tewahedo monastic Maḫǝbär Qǝddus 'beloved-brothers' charism is the canonical-patriarchal inheritance applied to spiritual-kinship community.",
+      "attribution": "Jubilees 36:7 (Isaac's testament (36:7)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD."
     }
   ]
 }

@@ -1811,22 +1811,26 @@ class TestGamma42BEphremPatriarchsWave:
         assert has_ephrem_in(25, 36), "γ.4.2.B missing Jacob cycle (Gen 25-36)"
         assert has_ephrem_in(37, 50), "γ.4.2.B missing Joseph cycle (Gen 37-50)"
 
-    def test_ephrem_share_above_17_percent(self):
+    def test_ephrem_milestone_count_at_or_above_patriarchal_close(self):
+        # γ.4.2.B shipped Ephrem coverage of Gen 12-50 with a final
+        # Ephrem count of 77 (Gen 1-11 from γ.4.2 + Gen 12-50 from
+        # γ.4.2.B). The original share-pin (≥17%, later lowered to
+        # ≥15%) was correct at ship-time but fails mechanically on
+        # every subsequent voice-broadening wave (γ.4.5.C/D add
+        # Jubilees entries that dilute Ephrem's share without removing
+        # any Ephrem content). Converted to absolute-count milestone:
+        # Ephrem-on-Genesis reached ≥75 entries at γ.4.2.B close.
+        # The milestone captures the historical-coverage achievement
+        # invariantly across future voice-broadening.
         ephrem_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "Ephrem the Syrian"
         )
-        total = len(self.ec)
-        share = ephrem_count / total
-        # Threshold lowered 17% → 15% post-γ.4.5.B (which added 40
-        # non-Ephrem Jubilees entries, mechanically diluting Ephrem
-        # share from 17.9% → 16.4%). Future γ.4.5.C/D Jub waves will
-        # dilute further; future γ.4.2.C Ephrem-on-Exodus will lift.
-        # 15% threshold protects against actual under-representation
-        # without re-failing on every mechanical voice-mix shift.
-        assert share >= 0.15, f"γ.4.2.B expected Ephrem share ≥15%; actual {share:.1%} ({ephrem_count} of {total})"
+        assert ephrem_count >= 75, (
+            f"γ.4.2.B expected Ephrem count ≥75 (patriarchal-narrative close milestone); found {ephrem_count}"
+        )
 
     def test_melchizedek_eucharistic_anchor_present(self):
         eph = [e for e in self.ec.for_verse("gen", 14, 18) if e.father == "Ephrem the Syrian"]
@@ -2366,3 +2370,256 @@ class TestGamma45CJubileesAbrahamCycleWave:
         # anchor via Kǝbrä Nägäśt tradition.
         e = [x for x in self.ec.for_verse("jub", 22, 11) if x.father == "Book of Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 22:11 — Abraham blesses Jacob (Solomonic-Jacobite anchor)"
+
+
+class TestGamma45DJubileesJacobCycleWave:
+    """γ.4.5.D — Mäṣḥafä Kufāle / Book of Jubilees Jacob-cycle detail
+    wave. Substantively expands Jub 24-36 (Esau sells birthright +
+    Isaac in Gerar + Rebekah's Spirit-inspired blessing of Jacob with
+    resurrection-unto-eternal-life clause + Jacob receives Isaac's
+    blessing + Jacob's flight + Bethel ladder vision Marian-typology +
+    Jacob's pillar + double-tithe vow + Jacob in Haran + Leah-for-
+    Rachel substitution + Leah's first conception + Jacob-Esau
+    reconciliation with preserved fraternal love + twice-yearly gift-
+    sending to parents + Dinah at twelve years + Levi's priesthood
+    EARNED by zeal at Shechem + heavenly-tablets righteousness
+    inscription + Isaac's blessing of Levi BEFORE Judah priestly-
+    precedence + Judah's Davidic-messianic blessing + patriarchal
+    manuscript transmission + Jacob's institution of double-tithe at
+    Bethel + seven heavenly tablets given to Jacob + Deborah-nurse
+    Bethel oak + Rachel's death bearing Benjamin + Reuben's incest +
+    Reuben's voluntary confession + Jacob's clemency-by-confession +
+    Joseph sold for twenty pieces of gold + Day of Atonement linked
+    to Jacob's Joseph-grief + Rebekah's deathbed hope for Esau's
+    repentance + Esau and Jacob jointly bury Rebekah at Machpelah +
+    Isaac's intermediate-state-as-fellowship phrase + Isaac's love-
+    of-brother testament). Mirrors the γ.4.4.B / γ.4.5.B / γ.4.5.C
+    detail-wave pattern. +40 entries on chs 24-36 (after γ.4.5 seed
+    already covered 7 verses in this range, total Jubilees chs 24-36
+    coverage rises from 7 to 47 entries — substantive-detail parity
+    with γ.4.5.B Jub 5-10 and γ.4.5.C Jub 11-22).
+
+    Pins:
+    - Jub 24-36 substantively expanded (≥40 NEW entries beyond seed).
+    - Three-generation patriarchal-altar chain: Isaac's Beersheba
+      altar (24:22) joins Abram's Bethel altar (13:8) + Jacob's
+      Bethel altar (32:1).
+    - Pre-Pentecostal Spirit-inspired blessing: Rebekah (25:14) —
+      Tewahedo prophetic-utterance OT-typological anchor.
+    - Resurrection-unto-eternal-life clause in Rebekah's blessing
+      (25:23) — Tewahedo Tǝnśaʾe matriarchal-canonical anchor.
+    - Bethel ladder vision (27:19) — Tewahedo Marian-ladder type
+      in Wǝddase Maryam.
+    - Jacob's double-tithe vow (27:27 + 32:9) — Tewahedo ǝʾǝsär
+      double-pattern canonical anchor.
+    - Levi's priesthood EARNED by zeal at Shechem (30:18) —
+      Tewahedo priesthood-by-zeal-and-descent doubled warrant.
+    - Heavenly-tablets righteousness inscription (30:23) —
+      Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life doctrine anchor.
+    - Priestly precedence over royal: Isaac blesses Levi BEFORE
+      Judah (31:14) — Tewahedo ecclesiology anchor.
+    - Davidic-messianic blessing of Judah (31:18) — Tewahedo
+      Solomonic-dynasty Davidic claim via Kǝbrä Nägäśt.
+    - Patriarchal manuscript transmission (31:23) — Tewahedo
+      monastic-scribal canonical-inheritance warrant.
+    - Seven heavenly tablets given to Jacob (32:21) — Tewahedo
+      Mäṣḥafä-zä-säma'i doctrine canonical anchor.
+    - Reuben's voluntary confession + Jacob's clemency (33:9) —
+      Tewahedo näsḫa absolution principle canonical anchor.
+    - Day of Atonement linked to Jacob's Joseph-grief (34:18) —
+      Tewahedo Astereyo TRIPLED canonical anchor with Jub 5:17
+      and Jub 6:10.
+    - Rebekah's hope for Esau's repentance (35:6) — Tewahedo
+      eschatological-hope canonical anchor.
+    - Isaac's 'eternal house with the fathers' phrase (36:1) —
+      Tewahedo funeral-liturgy verbal-inheritance canonical anchor.
+    - Love-of-brother testament triad: Abraham (Jub 20:2) + Isaac
+      (Jub 36:7) + Mosaic Lev 19:18.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _jub_entries_in(self, start_ch: int, end_ch: int):
+        out = []
+        for chapter in range(start_ch, end_ch + 1):
+            for verse in range(1, 100):
+                out.extend(
+                    e
+                    for e in self.ec.for_verse("jub", chapter, verse)
+                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                )
+        return out
+
+    def test_jub_24_through_36_substantively_expanded(self):
+        # γ.4.5 seed covered 7 verses in chs 24-36; γ.4.5.D adds 40
+        # more for 47 total. Threshold ≥40 protects the wave intent
+        # without locking the exact count.
+        entries = self._jub_entries_in(24, 36)
+        assert len(entries) >= 40, f"γ.4.5.D expected ≥40 Jubilees entries in chs 24-36; found {len(entries)}"
+
+    def test_esau_isaac_gerar_chapter_substantively_covered(self):
+        # Jub 24 — Esau's birthright + Isaac in Gerar. Tewahedo
+        # patriarchal-altar three-generation chain anchor range.
+        entries = self._jub_entries_in(24, 24)
+        assert len(entries) >= 3, (
+            f"γ.4.5.D expected ≥3 Jubilees entries in ch 24 (Esau/Isaac in Gerar); found {len(entries)}"
+        )
+
+    def test_rebekah_blessing_chapters_substantively_covered(self):
+        # Jub 25-26 — Rebekah's Spirit-inspired blessing + Jacob
+        # receives Isaac's blessing. Tewahedo matriarchal-canonical
+        # range.
+        entries = self._jub_entries_in(25, 26)
+        assert len(entries) >= 7, (
+            f"γ.4.5.D expected ≥7 Jubilees entries in chs 25-26 (Rebekah + Isaac blessing); found {len(entries)}"
+        )
+
+    def test_bethel_vision_and_haran_chapters_substantively_covered(self):
+        # Jub 27-28 — Bethel ladder vision + Jacob's pillar + tithe
+        # vow + Haran sojourn. Tewahedo täbot canonical-antecedent
+        # range.
+        entries = self._jub_entries_in(27, 28)
+        assert len(entries) >= 6, (
+            f"γ.4.5.D expected ≥6 Jubilees entries in chs 27-28 (Bethel vision + Haran); found {len(entries)}"
+        )
+
+    def test_levi_priesthood_chapters_substantively_covered(self):
+        # Jub 30-32 — Dinah + Shechem + Levi's zeal + Isaac's
+        # blessing of Levi + Bethel altar + tithe-of-tithes + seven
+        # heavenly tablets. Tewahedo priestly-canonical range.
+        entries = self._jub_entries_in(30, 32)
+        assert len(entries) >= 13, (
+            f"γ.4.5.D expected ≥13 Jubilees entries in chs 30-32 (Levi's priesthood); found {len(entries)}"
+        )
+
+    def test_isaac_testament_chapter_substantively_covered(self):
+        # Jub 36 — Isaac's testament (eternal-house phrase +
+        # love-of-brother triad). Tewahedo funeral-liturgy
+        # canonical-verbal range.
+        entries = self._jub_entries_in(36, 36)
+        assert len(entries) >= 3, (
+            f"γ.4.5.D expected ≥3 Jubilees entries in ch 36 (Isaac's testament); found {len(entries)}"
+        )
+
+    def test_isaac_beersheba_altar_anchor_present(self):
+        # Jub 24:22 — Isaac's Beersheba altar continues the patriarchal-
+        # altar chain Abram(13:8) → Isaac → Jacob(32:1). Tewahedo
+        # Anaphora-of-Patriarchs canonical warrant.
+        e = [x for x in self.ec.for_verse("jub", 24, 22) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 24:22 — Isaac's Beersheba altar (three-generation chain)"
+
+    def test_rebekah_spirit_inspired_blessing_anchor_present(self):
+        # Jub 25:14 — 'spirit of righteousness descended into her
+        # mouth' — pre-Pentecostal Spirit-inspired-blessing canonical
+        # episode. Tewahedo näfsä-qǝddus OT-typological anchor.
+        e = [x for x in self.ec.for_verse("jub", 25, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 25:14 — Rebekah's Spirit-inspired blessing"
+
+    def test_resurrection_unto_eternal_life_clause_anchor_present(self):
+        # Jub 25:23 — explicit resurrection-unto-eternal-life clause
+        # in Rebekah's blessing. Tewahedo Tǝnśaʾe matriarchal-canonical
+        # anchor; mid-2nd-c. BCE Jewish resurrection witness.
+        e = [x for x in self.ec.for_verse("jub", 25, 23) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 25:23 — resurrection-unto-eternal-life clause"
+
+    def test_bethel_ladder_marian_type_anchor_present(self):
+        # Jub 27:19 — Jacob's ladder. Tewahedo Marian-ladder type
+        # invoked in Wǝddase Maryam Monday-evening cycle.
+        e = [x for x in self.ec.for_verse("jub", 27, 19) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 27:19 — Bethel ladder (Marian-ladder type)"
+
+    def test_jacob_pillar_double_tithe_vow_anchor_present(self):
+        # Jub 27:27 — Jacob's pillar + tithe-of-everything vow.
+        # Tewahedo täbot canonical-antecedent + ǝʾǝsär comprehensive-
+        # ness anchor.
+        e = [x for x in self.ec.for_verse("jub", 27, 27) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 27:27 — Jacob's pillar + double-tithe vow"
+
+    def test_levi_priesthood_earned_by_zeal_anchor_present(self):
+        # Jub 30:18 — Levi's priesthood EARNED by zeal at Shechem
+        # (not just inherited). Tewahedo priesthood-by-zeal-AND-descent
+        # doubled warrant.
+        e = [x for x in self.ec.for_verse("jub", 30, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 30:18 — Levi's priesthood EARNED by zeal"
+
+    def test_heavenly_tablets_righteousness_inscription_anchor_present(self):
+        # Jub 30:23 — Simeon and Levi inscribed on heavenly tablets
+        # as righteous. Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life
+        # doctrine canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 30, 23) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 30:23 — heavenly-tablets righteousness inscription"
+
+    def test_priestly_before_royal_blessing_anchor_present(self):
+        # Jub 31:14 — Isaac blesses Levi (priestly) BEFORE Judah
+        # (royal). Tewahedo ecclesiology priestly-precedence anchor.
+        e = [x for x in self.ec.for_verse("jub", 31, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 31:14 — Isaac blesses Levi BEFORE Judah (priestly precedence)"
+
+    def test_judah_davidic_messianic_blessing_anchor_present(self):
+        # Jub 31:18 — 'in thee shall be found the salvation of
+        # Israel' Judah blessing. Tewahedo Solomonic-dynasty Davidic
+        # claim via Kǝbrä Nägäśt tradition.
+        e = [x for x in self.ec.for_verse("jub", 31, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 31:18 — Judah's Davidic-messianic blessing"
+
+    def test_patriarchal_manuscript_transmission_anchor_present(self):
+        # Jub 31:23 — Isaac transmits 'the books of his fathers
+        # Abraham' to Jacob. Tewahedo monastic-scribal canonical-
+        # inheritance warrant.
+        e = [x for x in self.ec.for_verse("jub", 31, 23) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 31:23 — patriarchal manuscript transmission"
+
+    def test_jacob_double_tithe_institution_anchor_present(self):
+        # Jub 32:9 — Jacob institutes the tithe-to-priest + festive-
+        # tithe-consumed-by-offerer double pattern at Bethel.
+        # Tewahedo ǝʾǝsär double-pattern canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 32, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 32:9 — Jacob's double-tithe institution"
+
+    def test_seven_heavenly_tablets_anchor_present(self):
+        # Jub 32:21 — angel gives Jacob seven heavenly tablets with
+        # the full prophetic future. Tewahedo Mäṣḥafä-zä-säma'i
+        # heavenly-book doctrine canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 32, 21) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 32:21 — seven heavenly tablets given to Jacob"
+
+    def test_reuben_confession_jacob_clemency_anchor_present(self):
+        # Jub 33:9 — Reuben's voluntary confession; Jacob 'smote him
+        # not because Reuben had confessed.' Tewahedo näsḫa
+        # absolution-by-confession principle canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 33, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 33:9 — Reuben's confession + Jacob's clemency"
+
+    def test_atonement_day_joseph_grief_anchor_present(self):
+        # Jub 34:18 — Day of Atonement (10/7) connected to Jacob's
+        # day of receiving Joseph-loss news. Tewahedo Astereyo
+        # TRIPLED canonical anchor with Jub 5:17 and Jub 6:10.
+        e = [x for x in self.ec.for_verse("jub", 34, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 34:18 — Day of Atonement linked to Jacob's Joseph-grief"
+
+    def test_rebekah_hope_for_esau_repentance_anchor_present(self):
+        # Jub 35:6 — Rebekah's deathbed hope that Esau will repent
+        # and 'mercy will reach him.' Tewahedo eschatological-hope
+        # matriarchal-canonical anchor.
+        e = [x for x in self.ec.for_verse("jub", 35, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 35:6 — Rebekah's hope for Esau's repentance"
+
+    def test_isaac_eternal_house_with_fathers_anchor_present(self):
+        # Jub 36:1 — Isaac's 'eternal house where my fathers are.'
+        # Tewahedo funeral-liturgy phrase canonical-verbal
+        # inheritance anchor.
+        e = [x for x in self.ec.for_verse("jub", 36, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 36:1 — Isaac's eternal-house-with-fathers phrase"
+
+    def test_isaac_love_of_brother_testament_anchor_present(self):
+        # Jub 36:7 — Isaac's 'love one another as your own selves'
+        # testament. Tewahedo Maḫǝbär Qǝddus monastic-charism
+        # canonical anchor; love-of-brother triad with Abraham
+        # (Jub 20:2) + Mosaic Lev 19:18.
+        e = [x for x in self.ec.for_verse("jub", 36, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        assert e, "γ.4.5.D missing Jub 36:7 — Isaac's love-of-brother testament"

@@ -4,6 +4,160 @@
 
 ## Prior task
 
+**γ.4.5.D Mäṣḥafä Kufāle / Book of Jubilees Jacob-cycle detail
+(40 verse-keyed entries on Jub 24-36)** shipped 2026-05-12.
+Continues γ.4.5 seed, γ.4.5.B (Watchers detail), and γ.4.5.C
+(Abraham-cycle detail) with the Jacob-cycle substantive expansion.
+Mirrors the γ.4.4.B / γ.4.5.B / γ.4.5.C detail-wave pattern. The
+γ.4.5 seed gave broad coverage of all 50 chapters with 7 verses
+falling in chs 24-36 (25:9, 27:21, 30:7, 32:1, 32:18, 35:1,
+36:23); γ.4.5.D brings chs 24-36 coverage from 7 to 47 entries —
+substantive-detail parity with γ.4.5.B (Jub 5-10) and γ.4.5.C
+(Jub 11-22).
+
+**Why it matters for THIS project**:
+
+- **Jubilees surpasses Cyril as substantively-second voice.**
+  Voice mix moves from 24/15/38/24 to ~22/14/35/29 Cyril/Ephrem/
+  1En/Jubilees. Jubilees is now the second-largest single-source
+  voice in the corpus, behind 1 Enoch only. The two uniquely-
+  Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle)
+  jointly hold ~64% of the patristic-commentary corpus voice.
+- **Three-generation patriarchal-altar chain complete.** Isaac's
+  Beersheba altar (24:22) joins Abram's Bethel altar (13:8) and
+  Jacob's Bethel altar (32:1) — the Tewahedo Anaphora-of-Patriarchs
+  has canonical anchor across all three patriarchal generations.
+- **Pre-Pentecostal Spirit-inspired blessing.** Jub 25:14 is a
+  remarkable mid-2nd-c. BCE Jewish witness to prophetic-Spirit-
+  inspired speech: 'the spirit of righteousness descended into
+  her mouth.' Tewahedo näfsä-qǝddus (holy-Spirit utterance)
+  finds canonical OT-typological anchor.
+- **Resurrection-unto-eternal-life clause** in Rebekah's blessing
+  (25:23) is one of the strongest mid-2nd-c. BCE Jewish
+  resurrection witnesses. Tewahedo Tǝnśaʾe canonical resurrection
+  doctrine has matriarchal-canonical anchor.
+- **Bethel ladder as Marian-ladder type** (27:19) — the Wǝddase
+  Maryam Monday-evening cycle explicitly invokes 'Mary the ladder
+  of Jacob,' anchored in this canonical passage.
+- **Levi's priesthood EARNED by zeal** (30:18) — Jubilees uniquely
+  makes the Levitical priesthood an earned-by-zeal investiture
+  (not just hereditary). Tewahedo priesthood-by-zeal-AND-descent
+  doubled warrant; the kǝhnät tradition is canonically BOTH
+  earned and inherited.
+- **Priestly precedence over royal** (31:14) — Isaac blesses Levi
+  BEFORE Judah, contrary to birth order. Tewahedo ecclesiology's
+  emphasis on the priest's prophetic-warning authority over the
+  king (even Solomonic-dynasty kings) finds canonical anchor.
+- **Davidic-messianic Judah-blessing** (31:18) — 'in thee shall
+  be found the salvation of Israel' explicitly anticipates the
+  Gen 49:10 Shiloh prophecy. Tewahedo Solomonic-dynasty Davidic-
+  Judah claim (via Kǝbrä Nägäśt) has doubled OT-canonical anchor.
+- **Jacob's double-tithe institution** (32:9) — tithe-to-priest
+  + festive-tithe-consumed-by-offerer as pre-Mosaic patriarchal
+  ordinance. Tewahedo ǝʾǝsär double-pattern canonical anchor.
+- **Seven heavenly tablets given to Jacob** (32:21) — Tewahedo
+  Mäṣḥafä-zä-säma'i (heavenly book) doctrine canonical anchor;
+  canonical Scripture as 'eternal in the heavens.'
+- **Tripled Astereyo canonical anchor** — Jub 34:18 (Jacob's
+  grief-of-affection over Joseph) joins Jub 5:17-18 (Watchers-
+  judgment context) and Jub 6:10 (Noahide blood-atonement
+  context) as the three canonical Jubilees-Atonement anchors.
+  Tewahedo Astereyo's doubled-character (sin-against-commandment
+  AND grief-of-broken-affection) has triple-canonical warrant.
+- **Reuben's confession + Jacob's clemency** (33:9) — voluntary
+  disclosure materially mitigates punitive disciplinary response.
+  Tewahedo näsḫa absolution-by-confession principle canonical
+  anchor.
+- **Rebekah's hope for Esau's repentance** (35:6) — even the
+  most-rejected covenant-line brother is canonically hoped-for.
+  Tewahedo eschatological-hope matriarchal-canonical anchor;
+  informs Tewahedo pastoral generosity toward non-Tewahedo
+  Christians.
+- **'Eternal house with the fathers'** (36:1) — Isaac's intermediate-
+  state-as-fellowship-with-departed-righteous phrase. Tewahedo
+  funeral-liturgy preserves this exact phrase as canonical-verbal
+  inheritance across millennia.
+- **Love-of-brother testament triad** — Abraham (Jub 20:2) +
+  Isaac (Jub 36:7) + Mosaic Lev 19:18. Tewahedo Maḫǝbär Qǝddus
+  monastic-charism canonical-patriarchal warrant.
+
+**Files**:
+- `content/sources/ethiopian_commentaries.json` — 40 new Jubilees
+  entries appended (book=`jub`, father=`Book of Jubilees (Ethiopian
+  tradition)`, work=`Book of Jubilees (Mäṣḥafä Kufāle)`,
+  year=`-150`, attribution `Jubilees C:V (section), trans. R.H.
+  Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.`).
+  _meta scope/source strings updated. Total entries now 550 (was
+  510 pre-γ.4.5.D).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma45DJubileesJacobCycleWave` class with **23 tests**:
+  ≥40 entries pin + 6 sub-range coverage pins (Esau/Isaac in
+  Gerar 24, Rebekah blessing 25-26, Bethel vision + Haran 27-28,
+  Levi priesthood 30-32, Isaac testament 36) + 16 signature
+  passage pins (24:22, 25:14, 25:23, 27:19, 27:27, 30:18, 30:23,
+  31:14, 31:18, 31:23, 32:9, 32:21, 33:9, 34:18, 35:6, 36:1,
+  36:7). Also: pre-existing stale Ephrem share-pin in γ.4.2.B
+  (previously lowered 17%→15%; failed again at 14% post-γ.4.5.D
+  dilution) was repaired to absolute-count milestone pin
+  (`test_ephrem_milestone_count_at_or_above_patriarchal_close`,
+  Ephrem ≥75 entries) — same pattern as γ.4.5.C's repair of the
+  γ.4.4.D/.E pins.
+
+**Code-side wiring**: zero new code.
+
+**Corpus state post-γ.4.5.D**:
+```
+ethiopian_commentaries.json: 550 entries (was 510; +40)
+├─ Cyril of Alexandria               : 121 entries (John 1-7 + 11-21 — COMPLETE)
+├─ Ephrem the Syrian                 :  77 entries (Gen 1-50; Ps 1; Hymns)
+├─ 1 Enoch tradition                 : 192 entries (Mäṣḥafä Hēnok arc CLOSED)
+└─ Book of Jubilees (Eth. tradition) : 160 entries (γ.4.5+B+C+D substantively detailed
+                                                    across chs 5-36, plus seed coverage
+                                                    of chs 1-4 + 23 + 37-50)
+
+Voice mix: ~22% Cyril / ~14% Ephrem / ~35% 1 Enoch / ~29% Jubilees
+           (was 24/15/38/24 pre-γ.4.5.D — Jubilees surpasses Cyril
+            to become substantively-second voice)
+
+Two uniquely-Tewahedo canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä
+Kufāle) jointly hold ~64% of the patristic-commentary corpus
+voice.
+
+γ.4 cumulative              : 498 entries beyond γ.4 seed
+                             (.1.A 30 + .1.B 27 + .1.C 29 + .1.D 30 +
+                              .2 32 + .2.B 40 + .4 30 + .4.B 40 +
+                              .4.C 40 + .4.D 40 + .4.E 40 + .5 40 +
+                              .5.B 40 + .5.C 40 + .5.D 40 = 498)
+```
+
+**+23 tests + 1 share-pin repair**. **γ.4.5.D tests: 23/23 pass
+in isolation; γ.4 full-file suite: 246/246 pass; 11/11 lint
+clean.**
+
+**Forward references**:
+- **γ.4.5.E Jubilees Joseph + Exodus-finale detail (Jub 37-50)** —
+  would close the γ.4.5 detail arc with full parity-coverage of
+  the Joseph cycle (chs 37-45) + Egypt-Exodus-Passover-Sabbath
+  finale (chs 46-50).
+- **γ.4.8 Mäqabyan seed** — opens the THIRD uniquely-Tewahedo
+  canonical text (DEFERRED pending PD source acquisition; current
+  Wikisource translations fail the named-PD-edition standard).
+- **γ.4.2.C Ephrem on Exodus** — Ephrem continuation; would
+  rebalance Ephrem share from current ~14% back upward.
+
+**Session totals (2026-05-12, cumulative through γ.4.5.D)**:
+- γ.4.4.A-E shipped (Mäṣḥafä Hēnok arc CLOSED)
+- γ.4.2 + γ.4.2.B shipped (Ephrem on Gen 1-50)
+- γ.4.5 + γ.4.5.B + γ.4.5.C + γ.4.5.D shipped (Mäṣḥafä Kufāle
+  seed + Watchers detail + Abraham-cycle detail + Jacob-cycle
+  detail)
+- Net corpus delta this session: +498 entries beyond γ.4 seed
+  (12 → 510 → 550 entries).
+
+---
+
+## Prior task before γ.4.5.D (kept for context)
+
 **γ.4.5.C Mäṣḥafä Kufāle / Book of Jubilees Abraham-cycle detail
 (40 verse-keyed entries on Jub 11-22)** shipped 2026-05-12.
 Continues γ.4.5 seed (40 entries across all 50 chs) and γ.4.5.B
