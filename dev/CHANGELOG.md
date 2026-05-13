@@ -6,6 +6,167 @@
 
 ---
 
+## 2026-05-13 — session — ω.39 AUDIT_2026-05-13 hygiene cluster (N-W1 last share-pin → count; N-W2 PLAN snapshot refresh; N-W3 Jubilees father-name normalization)
+
+**Phases shipped:** ω.39 — AUDIT_2026-05-13 fast-hygiene loop
+bundling three NEW WARN items surfaced by the audit. **N-C1 (γ.4
+promote gap) NOT yet addressed in this ship** — needs explicit
+decision (Option A run promote / Option B wire detector live);
+left for the user to direct.
+
+**§3 sequencing rationale:** "continue" advance after
+AUDIT_2026-05-13 wrote. Per §3 rule 1 (safest+foundational
+first): the bundled hygiene loop is materially safer than the
+N-C1 promote run (single-file edits + one mechanical JSON
+rename vs ~1 session integration with voice-mix verification).
+Hygiene lands a clean baseline that any subsequent N-C1
+execution inherits.
+
+**Carry-forward verification during this ship:** several 12-C
+items the audit listed as open turned out to be CONSUMED on
+re-inspection — W3 dead `urllib.request` import in
+`fetch_sources.py` was already gone (likely ω.36 or ω.37
+cleanup); W6 Jubilees section-label `"Abram's early life"` →
+`"Abraham cycle"` was already normalized in
+`ethiopian_commentaries.json` data (residual test-message
+docstring references retained as descriptive text, not data
+drift); W10 _meta sync pins for γ.4.4.B-E + γ.4.5/B-E were
+already in place at `tests/test_ethiopian_gamma4.py:499-524`
+in the `TestOmega37W10MetaSyncPinsBackfill` class. W11 was
+**partially** closed by ω.37 — `TestOmega37W11JubileesBuildPipelineIntegration`
+pins the DETECTOR layer (jub 6:32 → Candidate) but does NOT
+pin the actual build pipeline (`build_edition.py` does not
+read `ethiopian_commentaries.json` — N-C1's substantive
+content). The W11 closure is detector-pinned, not build-
+integration-pinned.
+
+**Items shipped (N-W1):**
+
+- **`tests/test_ethiopian_gamma4.py:1408-1432`** —
+  `test_1_enoch_substantively_present` CONVERTED from share-pin
+  (`share >= 0.15`) to absolute-count milestone
+  (`enoch_count >= 190`). Docstring records the conversion
+  rationale per `feedback_share_pin_pattern.md`: the original
+  share-pin would have broken mechanically on the next voice-
+  broadening ship (γ.4.6/.7/.8 at projected parity → 192/1310
+  = 14.7%, below the 15% floor). The count-milestone preserves
+  the historical Watchers + Parables + Astro + Animal + Epistle
+  cumulative achievement durably against future voice-
+  broadening. **This was the LAST surviving share-pin in
+  `tests/test_ethiopian_gamma4.py`** — file now at zero
+  share-pin exposure.
+
+**Items shipped (N-W2):**
+
+- **`dev/PLAN_2026-05-09.md:76`** — status snapshot refreshed.
+  Was: `13 consoles · 971 tests · 10/10 linter · 5 editions ·
+  51,394 notes` (stale on 4 of 5 metrics — written 2026-05-09).
+  Now: `17 consoles · 3691 tests · 11/11 linter · 9 editions ·
+  51,394 notes`. Added explanatory line noting that the notes
+  count is unchanged because the γ.4 cluster work lives in the
+  source corpus (N-C1 promote-gap context). Doc-only refresh.
+
+**Items shipped (N-W3):**
+
+- **`content/sources/ethiopian_commentaries.json`** — all 200
+  father-string occurrences of `"Book of Jubilees (Ethiopian
+  tradition)"` renamed to `"Jubilees (Ethiopian tradition)"`,
+  achieving symmetry with the existing `"1 Enoch (Ethiopian
+  tradition)"` convention. Atomic write via Path.write_text +
+  os.replace pattern (equivalent to `notes_io.atomic_write`
+  for JSON files); read-back verification confirms zero
+  occurrences of the old name remain.
+- **`tests/test_ethiopian_gamma4.py`** — all 79 test-site
+  references to the old name renamed in the same pass.
+  Subsequent `ruff format` pass cleaned up one line-length
+  drift in `test_1_enoch_substantively_present` (from the
+  N-W1 conversion docstring).
+- **Auditor benefit:** future Claude reads will not hit the
+  prefix-asymmetry trap this audit's own initial probe hit
+  (querying `'Jubilees'` returned zero while querying
+  `'Book of Jubilees'` returned 200).
+
+**Items NOT in this ship (deliberate):**
+
+- **N-C1 (γ.4 promote gap)** — substantive 1-session ship
+  requiring a decision on workflow (run prospect → batch_promote
+  for the 9-book γ.4 source corpus, OR wire `EthiopianCommentaryDetector`
+  live into `build_edition.py`). Recommended Option A per the
+  audit. Left for explicit user direction.
+
+**Test delta:** **+0 net tests** (N-W1 converted one pin,
+didn't add/remove; N-W2 doc-only; N-W3 was a bulk rename).
+Full suite: **3691 passed, 1 skipped** in 344s (was 3691 + 1s
+pre-ω.39 per AUDIT_2026-05-13 verification). **Linter 11/11
+clean**. **ruff format clean** (419 + 1 reformatted post-N-W1
+edit = 420 files clean).
+
+**Voice mix unchanged (the rename is purely cosmetic on the
+father string; entry-counts identical):**
+
+```
+Cyril      281  33.9%
+Jubilees   200  24.1%   ← renamed string, same entries
+1 Enoch    192  23.1%
+Ephrem     157  18.9%
+            ───
+Total      830
+```
+
+**Why it matters for THIS project:**
+
+- **Last-surviving γ.4 share-pin closed** — the file now has
+  zero share-pin exposure. Future γ.4.6/.7/.8 ships can land
+  without share-pin maintenance overhead. The `feedback_share_pin_pattern`
+  convention has now been applied to every share-pin in the γ.4
+  file (γ.4.4 wave-1 + γ.4.4.B + γ.4.4.C + γ.4.5 + γ.4.5.E,
+  five conversions over the audit arc).
+- **Audit-baseline staleness eliminated** — PLAN_2026-05-09.md
+  §2 was the most-visible-but-stale doc surface; a fresh-Claude
+  bootstrap now sees accurate test-count + console-count +
+  edition-count immediately.
+- **Father-name symmetry restored** — `Jubilees (Ethiopian
+  tradition)` mirrors `1 Enoch (Ethiopian tradition)` as the
+  two uniquely-Tewahedo canonical-text voice names. Future
+  test code (and AI agents querying the corpus) won't be
+  misled by the asymmetric prefix.
+
+**Recommended next ship:**
+
+- **N-C1 Option A (γ.4 promote run)** — the substantive
+  buyer-demo gap that this audit-hygiene cluster does NOT
+  close. The audit's #1 priority; would surface 800+ patristic
+  entries in built EPUBs for the Tewahedo flagship.
+- **γ.4.6 / γ.4.7 (Cyril on Matt / Mark) — STILL GATED** by
+  N-C1 (per AUDIT_2026-05-13 "do not ship" list). γ.4.6/.7
+  would add ~280 entries that, like γ.4.1/.3, would never
+  surface in the buyer-demo EPUB without the promote pipeline
+  wired.
+- **save** — six phases shipped since `699f531` baseline
+  (γ.4.2.D + γ.4.3.B + γ.4.3.C + γ.4.3.D + share-pin conversion
+  + this ω.39 hygiene cluster) plus AUDIT_2026-05-13 memo;
+  user-explicit only per `feedback_continue_not_save.md`.
+
+**Memory rules consulted:** `feedback_share_pin_pattern.md`
+(N-W1 conversion); `feedback_audit_cadence.md` (this is the
+follow-on ship from AUDIT_2026-05-13); `feedback_extensive_answers.md`
+(bundled scope rather than minimum); `feedback_continue_not_save.md`
+("continue" advances to next phase but doesn't save).
+
+**Items shipped:**
+
+- `tests/test_ethiopian_gamma4.py` — N-W1 share-pin →
+  count-milestone conversion (line 1408-1432) + N-W3 rename
+  79 sites + ruff format pass.
+- `content/sources/ethiopian_commentaries.json` — N-W3 rename
+  200 sites.
+- `dev/PLAN_2026-05-09.md` — N-W2 §2 status snapshot refresh.
+- `dev/AUDIT_2026-05-13.md` — the audit memo written earlier
+  this session (referenced; not modified by this ship).
+- `dev/CHANGELOG.md` + `dev/SESSION_STATE.md` — this entry.
+
+---
+
 ## 2026-05-13 — session — γ.4.3.D Cyril on Luke detail wave III (Lk 20-24 Passion/Resurrection/Ascension); CYRIL-ON-LUKE ARC CLOSED at four-wave parity
 
 **Phases shipped:** γ.4.3.D — 40 Cyril-of-Alexandria verse-keyed

@@ -1407,20 +1407,29 @@ class TestGamma44EnochFirstWave:
 
     def test_1_enoch_substantively_present(self):
         # Pre-γ.4.4 1 Enoch was 2 of 130 entries (1%). Post-γ.4.4
-        # first wave should be substantively present (≥15% of corpus).
-        enoch = [
-            e for e in self.ec._by_verse.values() for entry in e if entry.father == "1 Enoch (Ethiopian tradition)"
-        ]
-        # Iterate via by_verse: count from collection
+        # first wave should be substantively present.
+        #
+        # Per feedback_share_pin_pattern: converted from γ.4.4 wave-1
+        # share-pin (was: share >= 0.15) to absolute-count milestone.
+        # The original share-pin would have broken mechanically on the
+        # next voice-broadening ship (γ.4.6/.7/.8 Cyril Matt/Mark +
+        # Mäqabyan would dilute 1En share below 15% at 192 / 1310);
+        # the count-milestone preserves the historical achievement
+        # (190+ 1En entries spanning all five sections — Watchers /
+        # Parables / Astro / Animal / Epistle) durably against future
+        # voice-broadening. Converted in AUDIT_2026-05-13 hygiene
+        # cluster as the LAST surviving share-pin in this file.
         enoch_count = sum(
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
             if entry.father == "1 Enoch (Ethiopian tradition)"
         )
-        total = len(self.ec)
-        share = enoch_count / total
-        assert share >= 0.15, f"γ.4.4 wave-1 expected 1 Enoch share ≥15%; actual {share:.1%} ({enoch_count} of {total})"
+        assert enoch_count >= 190, (
+            f"γ.4.4 wave-1 1 Enoch count milestone (≥190 — sum across Watchers / "
+            f"Parables / Astronomical / Animal Apocalypse / Epistle of Enoch); "
+            f"actual {enoch_count}. Per feedback_share_pin_pattern: never a share pin."
+        )
 
     def test_1_enoch_jude_quotation_pin_present(self):
         # 1En 1:9 is THE textual bridge between 1 Enoch and the
@@ -2512,9 +2521,7 @@ class TestGamma45JubileesSeedWave:
         for chapter in range(1, 51):
             for verse in range(1, 100):
                 jub_entries.extend(
-                    e
-                    for e in self.ec.for_verse("jub", chapter, verse)
-                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                    e for e in self.ec.for_verse("jub", chapter, verse) if e.father == "Jubilees (Ethiopian tradition)"
                 )
         assert len(jub_entries) >= 40, f"γ.4.5 expected ≥40 Jubilees entries across chs 1-50; found {len(jub_entries)}"
 
@@ -2523,7 +2530,7 @@ class TestGamma45JubileesSeedWave:
             for chapter in range(start, end + 1):
                 for verse in range(1, 100):
                     for entry in self.ec.for_verse("jub", chapter, verse):
-                        if entry.father == "Book of Jubilees (Ethiopian tradition)":
+                        if entry.father == "Jubilees (Ethiopian tradition)":
                             return True
             return False
 
@@ -2547,52 +2554,52 @@ class TestGamma45JubileesSeedWave:
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
-            if entry.father == "Book of Jubilees (Ethiopian tradition)"
+            if entry.father == "Jubilees (Ethiopian tradition)"
         )
         assert jub_count >= 40, f"γ.4.5 milestone: expected Jubilees count ≥40 entries (seed wave); actual {jub_count}"
 
     def test_sinai_prologue_second_torah_framing_present(self):
-        e = [x for x in self.ec.for_verse("jub", 1, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 1, 1) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 1:1 — Sinai-prologue second-Torah framing"
 
     def test_enoch_as_first_scribe_present(self):
-        e = [x for x in self.ec.for_verse("jub", 4, 17) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 4, 17) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 4:17 — Enoch as first scribe (parallel 1En 12:4)"
 
     def test_364_day_calendar_doubled_anchor_present(self):
-        e = [x for x in self.ec.for_verse("jub", 6, 32) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 6, 32) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 6:32 — 364-day calendar (Tewahedo Bāḥrä Ḥasab doubled anchor)"
 
     def test_three_holy_mountains_present(self):
-        e = [x for x in self.ec.for_verse("jub", 8, 19) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 8, 19) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 8:19 — Eden / Sinai / Zion three holy mountains"
 
     def test_hamitic_identity_anchor_present(self):
-        e = [x for x in self.ec.for_verse("jub", 9, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 9, 13) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 9:13 — Ham's portion (Tewahedo Hamitic identity anchor)"
 
     def test_mastema_petition_present(self):
-        e = [x for x in self.ec.for_verse("jub", 10, 8) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 10, 8) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 10:8 — Mastema petition (Tewahedo non-dualist demonology)"
 
     def test_mastema_as_akedah_accuser_present(self):
-        e = [x for x in self.ec.for_verse("jub", 18, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 18, 9) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 18:9 — Mastema-as-Akedah-accuser (Tewahedo theodicy)"
 
     def test_books_of_enoch_cited_within_jubilees_present(self):
-        e = [x for x in self.ec.for_verse("jub", 21, 10) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 21, 10) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 21:10 — 'books of Enoch' cited within Jubilees (inter-canonical witness)"
 
     def test_levi_priesthood_present(self):
-        e = [x for x in self.ec.for_verse("jub", 32, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 32, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 32:18 — Levi consecrated to priesthood (Tewahedo priestly anchor)"
 
     def test_mastema_bound_during_exodus_present(self):
-        e = [x for x in self.ec.for_verse("jub", 48, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 48, 9) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 48:9 — Mastema bound during Exodus (Tewahedo Holy-Week anchor)"
 
     def test_sabbath_finale_present(self):
-        e = [x for x in self.ec.for_verse("jub", 50, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 50, 6) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5 missing Jub 50:6 — Sabbath finale (Tewahedo Saturday-Sabbath tradition)"
 
 
@@ -2635,9 +2642,7 @@ class TestGamma45BJubileesWatchersMastemaWave:
         for chapter in range(start_ch, end_ch + 1):
             for verse in range(1, 100):
                 out.extend(
-                    e
-                    for e in self.ec.for_verse("jub", chapter, verse)
-                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                    e for e in self.ec.for_verse("jub", chapter, verse) if e.father == "Jubilees (Ethiopian tradition)"
                 )
         return out
 
@@ -2675,65 +2680,65 @@ class TestGamma45BJubileesWatchersMastemaWave:
     def test_day_of_atonement_astereyo_anchor_present(self):
         # Jub 5:17 — annual atonement-by-turning-once-a-year, set in
         # the Watchers-judgment context. Tewahedo Astereyo warrant.
-        e = [x for x in self.ec.for_verse("jub", 5, 17) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 5, 17) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 5:17 — Day of Atonement / Astereyo anchor"
 
     def test_no_blood_consumption_dietary_anchor_present(self):
         # Jub 6:7 — pre-Mosaic prohibition. Tewahedo dietary law anchor.
-        e = [x for x in self.ec.for_verse("jub", 6, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 6, 7) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 6:7 — no blood consumption (Tewahedo dietary anchor)"
 
     def test_feast_of_weeks_pre_mosaic_anchor_present(self):
         # Jub 6:17 — Pentecost established with Noah, not Moses.
         # Tewahedo Pärräqlēṭos antecedent.
-        e = [x for x in self.ec.for_verse("jub", 6, 17) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 6, 17) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 6:17 — Feast of Weeks pre-Mosaic (Pentecost antecedent)"
 
     def test_364_day_calendar_defense_anchor_present(self):
         # Jub 6:35 — lunar-reckoning critique. Bāḥrä Ḥasab apologia.
-        e = [x for x in self.ec.for_verse("jub", 6, 35) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 6, 35) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 6:35 — 364-day calendar defense (Bāḥrä Ḥasab apologia)"
 
     def test_canaan_not_ham_anti_racial_anchor_present(self):
         # Jub 7:13 — Canaan (not Ham) saw nakedness. Tewahedo anti-
         # racial reading of the Genesis 9 curse.
-        e = [x for x in self.ec.for_verse("jub", 7, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 7, 13) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 7:13 — Canaan not Ham (anti-racial reading)"
 
     def test_noah_cites_enoch_intercanonical_witness_present(self):
         # Jub 7:34 — Noah commands his sons by Enoch's authority.
         # Inter-canonical witness doubled (Jubilees citing Enoch).
-        e = [x for x in self.ec.for_verse("jub", 7, 34) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 7, 34) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 7:34 — Noah cites Enoch (inter-canonical witness)"
 
     def test_anti_conquest_oath_anchor_present(self):
         # Jub 9:14 — Noah binds sons by oath against seizing
         # another's portion. Tewahedo anti-conquest theology.
-        e = [x for x in self.ec.for_verse("jub", 9, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 9, 14) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 9:14 — anti-conquest oath until judgment day"
 
     def test_binding_of_all_demons_anchor_present(self):
         # Jub 10:7 — God's first response is TOTAL binding.
         # Tewahedo theodicy: divine intention is full restraint.
-        e = [x for x in self.ec.for_verse("jub", 10, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 10, 7) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 10:7 — binding of all demons (divine intent of full restraint)"
 
     def test_mastema_one_tenth_permission_anchor_present(self):
         # Jub 10:9 — God grants 1/10 of demons to remain free.
         # Tewahedo numerical-bounded-evil anchor.
-        e = [x for x in self.ec.for_verse("jub", 10, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 10, 9) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 10:9 — Mastema 1/10 permission (numerical-bounded-evil)"
 
     def test_medical_book_to_noah_anchor_present(self):
         # Jub 10:11 — angels teach Noah herbal medicines paired
         # with demonological diagnoses. Tewahedo mädḫanit tradition.
-        e = [x for x in self.ec.for_verse("jub", 10, 11) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 10, 11) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 10:11 — medical book to Noah (mädḫanit tradition)"
 
     def test_tower_of_babel_reversed_by_wind_anchor_present(self):
         # Jub 10:26 — Tower overthrown by mighty wind. Pentecost
         # antitype: the same Spirit reverses Babel at Acts 2.
-        e = [x for x in self.ec.for_verse("jub", 10, 26) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 10, 26) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.B missing Jub 10:26 — Tower reversed by wind (Pentecost antitype)"
 
 
@@ -2801,9 +2806,7 @@ class TestGamma45CJubileesAbrahamCycleWave:
         for chapter in range(start_ch, end_ch + 1):
             for verse in range(1, 100):
                 out.extend(
-                    e
-                    for e in self.ec.for_verse("jub", chapter, verse)
-                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                    e for e in self.ec.for_verse("jub", chapter, verse) if e.father == "Jubilees (Ethiopian tradition)"
                 )
         return out
 
@@ -2856,111 +2859,111 @@ class TestGamma45CJubileesAbrahamCycleWave:
     def test_abram_drives_ravens_anchor_present(self):
         # Jub 11:18 — boy-Abram protects sown seed from Mastema's
         # ravens. Tewahedo agrarian-priestly anchor.
-        e = [x for x in self.ec.for_verse("jub", 11, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 11, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 11:18 — Abram drives ravens (agrarian-priestly anchor)"
 
     def test_hebrew_tongue_restored_anchor_present(self):
         # Jub 12:25 — angel of presence restores pre-Babel Hebrew
         # tongue to Abram. Tewahedo Ge'ez liturgical-language warrant.
-        e = [x for x in self.ec.for_verse("jub", 12, 25) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 12, 25) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 12:25 — Hebrew tongue restored by angel of presence"
 
     def test_bethel_altar_anchor_present(self):
         # Jub 13:8 — pre-Mosaic legitimate altar at Bethel.
         # Tewahedo patriarchal-Anaphora warrant.
-        e = [x for x in self.ec.for_verse("jub", 13, 8) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 13, 8) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 13:8 — Bethel altar (patriarchal-Anaphora warrant)"
 
     def test_melchizedek_tithe_anchor_present(self):
         # Jub 13:25 — first canonical tithe paid to Melchizedek.
         # Tewahedo monastic ǝʾǝsär anchor.
-        e = [x for x in self.ec.for_verse("jub", 13, 25) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 13, 25) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 13:25 — Melchizedek tithe (Tewahedo ǝʾǝsär anchor)"
 
     def test_covenant_of_pieces_pentecost_date_anchor_present(self):
         # Jub 14:1 — covenant of pieces dated to new moon of third
         # month (Pentecost). TRIPLE Pentecost anchor with Jub 6:17
         # (Noah) and Sinai (Ex 19).
-        e = [x for x in self.ec.for_verse("jub", 14, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 14, 1) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 14:1 — covenant of pieces on Pentecost (triple-anchor)"
 
     def test_eighth_day_circumcision_perpetual_anchor_present(self):
         # Jub 15:14 — eighth-day circumcision required, no flexibility.
         # Tewahedo distinctive Christian circumcision anchor.
-        e = [x for x in self.ec.for_verse("jub", 15, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 15, 14) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 15:14 — eighth-day circumcision (Tewahedo distinctive)"
 
     def test_angels_of_presence_circumcised_anchor_present(self):
         # Jub 15:27 — angels of presence and sanctification created
         # circumcised. Tewahedo cosmic-circumcision anchor.
-        e = [x for x in self.ec.for_verse("jub", 15, 27) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 15, 27) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 15:27 — angels of presence created circumcised"
 
     def test_isaac_born_on_pentecost_anchor_present(self):
         # Jub 16:13 — Isaac's birth dated to feast of first-fruits
         # (Pentecost). Tewahedo Old-New-Covenant Pentecost doubled
         # anchor.
-        e = [x for x in self.ec.for_verse("jub", 16, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 16, 13) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 16:13 — Isaac born on Pentecost (doubled anchor)"
 
     def test_pre_mosaic_tabernacles_anchor_present(self):
         # Jub 16:20 — Abraham institutes the FIRST Feast of
         # Tabernacles, seven days, pre-Mosaic. Tewahedo Mäskäl-week
         # canonical antecedent.
-        e = [x for x in self.ec.for_verse("jub", 16, 20) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 16, 20) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 16:20 — pre-Mosaic Feast of Tabernacles instituted by Abraham"
 
     def test_akedah_as_passover_date_anchor_present(self):
         # Jub 17:15 — Mastema accuses Abraham on the eve-of-Passover
         # date (first month, 12th day). Tewahedo Akedah-as-Passover
         # canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 17, 15) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 17, 15) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 17:15 — Mastema accuses on Passover-date (Akedah-as-Passover)"
 
     def test_moriah_equals_zion_anchor_present(self):
         # Jub 18:13 — explicit identification of Mt Moriah (Akedah)
         # with Mt Zion (Temple mount). Tewahedo eucharistic fourfold-
         # altar canonical anchor (Moriah-Zion-Calvary-Heavenly-Zion).
-        e = [x for x in self.ec.for_verse("jub", 18, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 18, 13) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 18:13 — Moriah = Zion (fourfold-altar anchor)"
 
     def test_seven_day_akedah_festival_anchor_present(self):
         # Jub 18:18 — Abraham institutes a 7-day Akedah-commemoration
         # festival. Tewahedo Holy-Week shape antecedent.
-        e = [x for x in self.ec.for_verse("jub", 18, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 18, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 18:18 — 7-day Akedah festival (Holy-Week shape antecedent)"
 
     def test_mastema_repulsion_in_blessing_anchor_present(self):
         # Jub 19:28 — Abraham's blessing of Jacob includes a Mastema-
         # repulsion clause. Tewahedo patriarchal-blessing template.
-        e = [x for x in self.ec.for_verse("jub", 19, 28) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 19, 28) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 19:28 — Mastema-repulsion in patriarchal blessing"
 
     def test_love_of_neighbour_testament_anchor_present(self):
         # Jub 20:2 — Abraham's testament commands love-of-neighbour.
         # Tewahedo canonical 'second great commandment' antecedent.
-        e = [x for x in self.ec.for_verse("jub", 20, 2) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 20, 2) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 20:2 — love-of-neighbour testament command"
 
     def test_priestly_no_blood_anchor_present(self):
         # Jub 21:7 — Abraham's priestly instructions to Isaac on
         # no-blood-consumption. Tewahedo dietary-law TRIPLE witness
         # with 6:7 + 7:34.
-        e = [x for x in self.ec.for_verse("jub", 21, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 21, 7) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 21:7 — priestly no-blood instruction (TRIPLE dietary witness)"
 
     def test_abraham_feast_of_weeks_inclusivity_anchor_present(self):
         # Jub 22:1 — Abraham celebrates Feast of Weeks with BOTH
         # Isaac and Ishmael at the altar. Tewahedo pastoral
         # inclusivity anchor.
-        e = [x for x in self.ec.for_verse("jub", 22, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 22, 1) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 22:1 — Abraham's Feast of Weeks with Isaac AND Ishmael"
 
     def test_abraham_blesses_jacob_solomonic_anchor_present(self):
         # Jub 22:11 — Abraham's direct blessing of Jacob (his
         # preferred grandson). Tewahedo Solomonic-dynasty-Jacobite
         # anchor via Kǝbrä Nägäśt tradition.
-        e = [x for x in self.ec.for_verse("jub", 22, 11) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 22, 11) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.C missing Jub 22:11 — Abraham blesses Jacob (Solomonic-Jacobite anchor)"
 
 
@@ -3041,9 +3044,7 @@ class TestGamma45DJubileesJacobCycleWave:
         for chapter in range(start_ch, end_ch + 1):
             for verse in range(1, 100):
                 out.extend(
-                    e
-                    for e in self.ec.for_verse("jub", chapter, verse)
-                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                    e for e in self.ec.for_verse("jub", chapter, verse) if e.father == "Jubilees (Ethiopian tradition)"
                 )
         return out
 
@@ -3102,110 +3103,110 @@ class TestGamma45DJubileesJacobCycleWave:
         # Jub 24:22 — Isaac's Beersheba altar continues the patriarchal-
         # altar chain Abram(13:8) → Isaac → Jacob(32:1). Tewahedo
         # Anaphora-of-Patriarchs canonical warrant.
-        e = [x for x in self.ec.for_verse("jub", 24, 22) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 24, 22) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 24:22 — Isaac's Beersheba altar (three-generation chain)"
 
     def test_rebekah_spirit_inspired_blessing_anchor_present(self):
         # Jub 25:14 — 'spirit of righteousness descended into her
         # mouth' — pre-Pentecostal Spirit-inspired-blessing canonical
         # episode. Tewahedo näfsä-qǝddus OT-typological anchor.
-        e = [x for x in self.ec.for_verse("jub", 25, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 25, 14) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 25:14 — Rebekah's Spirit-inspired blessing"
 
     def test_resurrection_unto_eternal_life_clause_anchor_present(self):
         # Jub 25:23 — explicit resurrection-unto-eternal-life clause
         # in Rebekah's blessing. Tewahedo Tǝnśaʾe matriarchal-canonical
         # anchor; mid-2nd-c. BCE Jewish resurrection witness.
-        e = [x for x in self.ec.for_verse("jub", 25, 23) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 25, 23) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 25:23 — resurrection-unto-eternal-life clause"
 
     def test_bethel_ladder_marian_type_anchor_present(self):
         # Jub 27:19 — Jacob's ladder. Tewahedo Marian-ladder type
         # invoked in Wǝddase Maryam Monday-evening cycle.
-        e = [x for x in self.ec.for_verse("jub", 27, 19) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 27, 19) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 27:19 — Bethel ladder (Marian-ladder type)"
 
     def test_jacob_pillar_double_tithe_vow_anchor_present(self):
         # Jub 27:27 — Jacob's pillar + tithe-of-everything vow.
         # Tewahedo täbot canonical-antecedent + ǝʾǝsär comprehensive-
         # ness anchor.
-        e = [x for x in self.ec.for_verse("jub", 27, 27) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 27, 27) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 27:27 — Jacob's pillar + double-tithe vow"
 
     def test_levi_priesthood_earned_by_zeal_anchor_present(self):
         # Jub 30:18 — Levi's priesthood EARNED by zeal at Shechem
         # (not just inherited). Tewahedo priesthood-by-zeal-AND-descent
         # doubled warrant.
-        e = [x for x in self.ec.for_verse("jub", 30, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 30, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 30:18 — Levi's priesthood EARNED by zeal"
 
     def test_heavenly_tablets_righteousness_inscription_anchor_present(self):
         # Jub 30:23 — Simeon and Levi inscribed on heavenly tablets
         # as righteous. Tewahedo täwlǝd-bä-mäṣǝḥaf book-of-life
         # doctrine canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 30, 23) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 30, 23) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 30:23 — heavenly-tablets righteousness inscription"
 
     def test_priestly_before_royal_blessing_anchor_present(self):
         # Jub 31:14 — Isaac blesses Levi (priestly) BEFORE Judah
         # (royal). Tewahedo ecclesiology priestly-precedence anchor.
-        e = [x for x in self.ec.for_verse("jub", 31, 14) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 31, 14) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 31:14 — Isaac blesses Levi BEFORE Judah (priestly precedence)"
 
     def test_judah_davidic_messianic_blessing_anchor_present(self):
         # Jub 31:18 — 'in thee shall be found the salvation of
         # Israel' Judah blessing. Tewahedo Solomonic-dynasty Davidic
         # claim via Kǝbrä Nägäśt tradition.
-        e = [x for x in self.ec.for_verse("jub", 31, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 31, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 31:18 — Judah's Davidic-messianic blessing"
 
     def test_patriarchal_manuscript_transmission_anchor_present(self):
         # Jub 31:23 — Isaac transmits 'the books of his fathers
         # Abraham' to Jacob. Tewahedo monastic-scribal canonical-
         # inheritance warrant.
-        e = [x for x in self.ec.for_verse("jub", 31, 23) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 31, 23) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 31:23 — patriarchal manuscript transmission"
 
     def test_jacob_double_tithe_institution_anchor_present(self):
         # Jub 32:9 — Jacob institutes the tithe-to-priest + festive-
         # tithe-consumed-by-offerer double pattern at Bethel.
         # Tewahedo ǝʾǝsär double-pattern canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 32, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 32, 9) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 32:9 — Jacob's double-tithe institution"
 
     def test_seven_heavenly_tablets_anchor_present(self):
         # Jub 32:21 — angel gives Jacob seven heavenly tablets with
         # the full prophetic future. Tewahedo Mäṣḥafä-zä-säma'i
         # heavenly-book doctrine canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 32, 21) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 32, 21) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 32:21 — seven heavenly tablets given to Jacob"
 
     def test_reuben_confession_jacob_clemency_anchor_present(self):
         # Jub 33:9 — Reuben's voluntary confession; Jacob 'smote him
         # not because Reuben had confessed.' Tewahedo näsḫa
         # absolution-by-confession principle canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 33, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 33, 9) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 33:9 — Reuben's confession + Jacob's clemency"
 
     def test_atonement_day_joseph_grief_anchor_present(self):
         # Jub 34:18 — Day of Atonement (10/7) connected to Jacob's
         # day of receiving Joseph-loss news. Tewahedo Astereyo
         # TRIPLED canonical anchor with Jub 5:17 and Jub 6:10.
-        e = [x for x in self.ec.for_verse("jub", 34, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 34, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 34:18 — Day of Atonement linked to Jacob's Joseph-grief"
 
     def test_rebekah_hope_for_esau_repentance_anchor_present(self):
         # Jub 35:6 — Rebekah's deathbed hope that Esau will repent
         # and 'mercy will reach him.' Tewahedo eschatological-hope
         # matriarchal-canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 35, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 35, 6) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 35:6 — Rebekah's hope for Esau's repentance"
 
     def test_isaac_eternal_house_with_fathers_anchor_present(self):
         # Jub 36:1 — Isaac's 'eternal house where my fathers are.'
         # Tewahedo funeral-liturgy phrase canonical-verbal
         # inheritance anchor.
-        e = [x for x in self.ec.for_verse("jub", 36, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 36, 1) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 36:1 — Isaac's eternal-house-with-fathers phrase"
 
     def test_isaac_love_of_brother_testament_anchor_present(self):
@@ -3213,7 +3214,7 @@ class TestGamma45DJubileesJacobCycleWave:
         # testament. Tewahedo Maḫǝbär Qǝddus monastic-charism
         # canonical anchor; love-of-brother triad with Abraham
         # (Jub 20:2) + Mosaic Lev 19:18.
-        e = [x for x in self.ec.for_verse("jub", 36, 7) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 36, 7) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.D missing Jub 36:7 — Isaac's love-of-brother testament"
 
 
@@ -3290,9 +3291,7 @@ class TestGamma45EJubileesJosephExodusFinaleWave:
         for chapter in range(start_ch, end_ch + 1):
             for verse in range(1, 100):
                 out.extend(
-                    e
-                    for e in self.ec.for_verse("jub", chapter, verse)
-                    if e.father == "Book of Jubilees (Ethiopian tradition)"
+                    e for e in self.ec.for_verse("jub", chapter, verse) if e.father == "Jubilees (Ethiopian tradition)"
                 )
         return out
 
@@ -3394,7 +3393,7 @@ class TestGamma45EJubileesJosephExodusFinaleWave:
             1
             for verse_entries in self.ec._by_verse.values()
             for entry in verse_entries
-            if entry.father == "Book of Jubilees (Ethiopian tradition)"
+            if entry.father == "Jubilees (Ethiopian tradition)"
         )
         assert jub_count >= 200, (
             f"γ.4.5.E arc-close: Jubilees expected ≥200 entries (40 seed + 4×40 detail); found {jub_count}"
@@ -3403,98 +3402,98 @@ class TestGamma45EJubileesJosephExodusFinaleWave:
     def test_esau_jacob_war_anchor_present(self):
         # Jub 37:1 — Esau's clan wars against Jacob. Tewahedo
         # defensive-war canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 37, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 37, 1) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 37:1 — Esau-Jacob war (defensive-war anchor)"
 
     def test_joseph_chastity_patriarchal_catechesis_anchor_present(self):
         # Jub 39:10 — Joseph remembers Abraham's pre-Mosaic adultery
         # law that Jacob 'used to read.' Tewahedo family-catechism
         # canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 39, 10) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 39, 10) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 39:10 — Joseph's chastity via patriarchal catechesis"
 
     def test_judah_tamar_confession_anchor_present(self):
         # Jub 41:25 — 'she became more righteous than he.' Tewahedo
         # confessor's näsḫa-of-acknowledgment verbal anchor.
-        e = [x for x in self.ec.for_verse("jub", 41, 25) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 41, 25) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 41:25 — Judah's 'she is more righteous than I' confession"
 
     def test_jacob_beersheba_pause_anchor_present(self):
         # Jub 44:1 — Jacob's seven-day pause at Beersheba before
         # descending to Egypt. Tewahedo monastic-departure-pause
         # canonical pattern.
-        e = [x for x in self.ec.for_verse("jub", 44, 1) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 44, 1) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 44:1 — Jacob's seven-day Beersheba pause"
 
     def test_god_descends_with_jacob_anchor_present(self):
         # Jub 44:5 — 'I will go down with thee, and I will bring
         # thee up.' Tewahedo Immanuel-typology and diaspora-presence
         # canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 44, 5) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 44, 5) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 44:5 — God's Immanuel-descent-with-Jacob promise"
 
     def test_jacob_blesses_pharaoh_anchor_present(self):
         # Jub 45:13 — Jacob blesses Pharaoh. Tewahedo coronation-
         # prayer canonical-patriarchal warrant.
-        e = [x for x in self.ec.for_verse("jub", 45, 13) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 45, 13) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 45:13 — Jacob blesses Pharaoh"
 
     def test_moses_three_day_ark_pascal_typology_anchor_present(self):
         # Jub 47:5 — Moses 'placed three days' in the ark. Tewahedo
         # Pascal-typology Moses-as-Christ canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 47, 5) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 47, 5) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 47:5 — Moses three-day-ark Pascal-typology"
 
     def test_mastema_not_lord_at_lodging_anchor_present(self):
         # Jub 48:2 — Mastema (not the Lord) sought to kill Moses at
         # the lodging-night. Tewahedo theodicy canonical clarification
         # of Ex 4:24.
-        e = [x for x in self.ec.for_verse("jub", 48, 2) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 48, 2) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 48:2 — Mastema-not-Lord at the lodging"
 
     def test_red_sea_is_passover_anchor_present(self):
         # Jub 48:18 — Red-Sea crossing dated to Passover. Tewahedo
         # Fasika doubled-celebration canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 48, 18) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 48, 18) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 48:18 — Red-Sea-crossing IS Passover"
 
     def test_passover_blood_restrains_mastema_anchor_present(self):
         # Jub 49:2 — Mastema's powers restrained by Passover blood
         # on the lintels. Tewahedo eucharistic-blood demonic-defense
         # canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 49, 2) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 49, 2) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 49:2 — Passover blood restrains Mastema"
 
     def test_lamb_and_wine_eucharistic_prototype_anchor_present(self):
         # Jub 49:6 — explicit lamb-AND-wine Passover pairing.
         # Tewahedo Anaphora canonical-OT eucharistic-prototype anchor.
-        e = [x for x in self.ec.for_verse("jub", 49, 6) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 49, 6) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 49:6 — lamb-AND-wine eucharistic-OT prototype"
 
     def test_passover_observance_acquits_guilt_anchor_present(self):
         # Jub 49:15 — Passover observance acquits-of-guilt. Tewahedo
         # liturgical-act-AS-atonement principle canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 49, 15) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 49, 15) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 49:15 — Passover-observance acquits-of-guilt"
 
     def test_jubilee_of_jubilees_eschatology_anchor_present(self):
         # Jub 50:4 — jubilee-of-jubilees eschatology with Satan
         # permanently removed and the land cleansed. Tewahedo
         # cosmic-territorial-cleansing eschatology canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 50, 4) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 50, 4) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 50:4 — jubilee-of-jubilees eschatology"
 
     def test_sabbath_as_holy_kingdom_day_anchor_present(self):
         # Jub 50:9 — Sabbath as 'day of the holy kingdom.' Tewahedo
         # Saturday-Sabbath foretaste-of-Kingdom canonical anchor.
-        e = [x for x in self.ec.for_verse("jub", 50, 9) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 50, 9) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 50:9 — Sabbath as holy-kingdom-day"
 
     def test_strict_sabbath_prohibition_list_anchor_present(self):
         # Jub 50:12 — strict Sabbath-prohibition list with 'shall
         # die' formula. Tewahedo Saturday-Sabbath canonical
         # observance preservation anchor.
-        e = [x for x in self.ec.for_verse("jub", 50, 12) if x.father == "Book of Jubilees (Ethiopian tradition)"]
+        e = [x for x in self.ec.for_verse("jub", 50, 12) if x.father == "Jubilees (Ethiopian tradition)"]
         assert e, "γ.4.5.E missing Jub 50:12 — strict Sabbath-prohibition list"
 
 

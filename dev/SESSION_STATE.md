@@ -1,5 +1,141 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / ω.39 AUDIT_2026-05-13 hygiene cluster
+ships — N-W1 (last share-pin → count) + N-W2 (PLAN snapshot
+refresh) + N-W3 (Jubilees father-name normalization, 279 sites);
+γ.4 file at zero share-pin exposure; PLAN status snapshot fresh;
+father-name symmetry restored; N-C1 promote gap deliberately
+NOT addressed (needs explicit Option A/B decision); suite green
+3691/1; linter 11/11; ruff clean (420 files)**: triggered by
+"continue" advance after AUDIT_2026-05-13 wrote. Per §3
+sequencing the bundled hygiene loop is materially safer than
+the N-C1 promote-run substantive ship; lands a clean baseline
+before any N-C1 execution. Three 12-C carry-forward items also
+verified-already-consumed during this ship (W3 dead urllib
+import already gone; W6 Jubilees section-label already
+normalized; W10 _meta sync pins already in place at
+TestOmega37W10MetaSyncPinsBackfill).
+
+**Items shipped:** N-W1 `test_1_enoch_substantively_present`
+converted from `share >= 0.15` to `enoch_count >= 190` with
+full conversion-rationale docstring per
+`feedback_share_pin_pattern.md`. **LAST surviving share-pin
+in `tests/test_ethiopian_gamma4.py`** — file now at zero
+share-pin exposure. N-W2 PLAN §2 status snapshot refreshed
+13→17 consoles, 971→3691 tests, 10→11 linter, 5→9 editions
+(notes 51,394 unchanged per N-C1 promote-gap context). N-W3
+rename `"Book of Jubilees (Ethiopian tradition)"` →
+`"Jubilees (Ethiopian tradition)"` across 200 JSON entries +
+79 test sites; symmetric with `"1 Enoch (Ethiopian tradition)"`.
+Atomic write via `Path.write_text` + `os.replace`. Subsequent
+`ruff format` pass cleaned one line-length drift in the N-W1
+conversion docstring.
+
+**Voice mix unchanged (cosmetic rename — entry counts
+identical):** 33.9% Cyril / 24.1% Jubilees / 23.1% 1 Enoch /
+18.9% Ephrem. Total 830 entries in `ethiopian_commentaries.json`.
+
+**Test delta:** +0 net tests (N-W1 converted, didn't add/
+remove). Full suite: 3691 passed, 1 skipped in 344s (was 3691
++ 1s pre-ω.39 per AUDIT_2026-05-13 verification). Linter
+11/11 clean. ruff 420 files clean.
+
+**Five-pin share-pin → count-milestone conversion arc closed:**
+γ.4.4 wave-1 (ω.39 this ship) + γ.4.4.B (γ.4.3.C ship) +
+γ.4.4.C (ω.36 ship) + γ.4.5 (ω.36 ship) + γ.4.5.E (12-C-era).
+`feedback_share_pin_pattern.md` convention now applied to every
+historically-existing share-pin in the γ.4 cluster.
+
+**Recommended next ship:**
+- **N-C1 Option A (γ.4 promote run)** — THE substantive
+  buyer-demo gap; ~1 session including prospect → batch_promote
+  for `comm-ethiopian` across the 9-book γ.4 source corpus +
+  voice-mix preservation verification + W11 build-pipeline
+  integration test (NOT detector-pinned; build-pinned). Audit-
+  recommended #1 priority.
+- **γ.4.6 / γ.4.7 Cyril on Matt / Mark — STILL GATED** by
+  N-C1 (would add ~280 more source-only entries that don't
+  surface in built EPUBs without promote pipeline wired).
+- **save** — six phases since `699f531` baseline plus
+  AUDIT_2026-05-13 memo + ω.39 hygiene cluster; checkpoint
+  point is reasonable but user-explicit only per
+  `feedback_continue_not_save.md`.
+
+---
+
+**Updated 2026-05-13 / AUDIT_2026-05-13 runs — solo-Claude
+cadence audit after γ.4.3.D + Cyril-on-Luke arc closure;
+6/6 of 12-C CRITICAL items consumed; ONE NEW CRITICAL (γ.4
+source-corpus → content/notes promote gap, escalates 12-C W11);
+3 NEW WARN; suite green 3691/1; linter 11/11**: triggered by
+"continue" advance with both cadence thresholds met (16 phases
+since 12-C ≫ 10 floor; +152 tests ≫ 150 floor). Lighter
+solo-Claude form per `feedback_audit_cadence.md` (not the
+parallel-subagent "big time" sweep reserved for user-explicit
+invocation).
+
+**Headline finding (CRITICAL N-C1):** The γ.4 cluster has
+accumulated 830 patristic entries in
+`content/sources/ethiopian_commentaries.json`, but only 10
+`comm-ethiopian` notes exist in active `content/notes/*.py`.
+`scripts/build_edition.py` has ZERO references to the source
+corpus — the build reads `content/notes/` only. The
+Tewahedo-flagship buyer-demo EPUB therefore does NOT currently
+surface γ.4.1-D (Cyril-on-John 116 entries), γ.4.2.C/D
+(Ephrem-on-Exo/Num/Deu 80 entries), γ.4.3-D (Cyril-on-Luke
+160 entries) — 356 of the project's most distinctive
+patristic-payload entries. DECISION needed: Option A (run
+prospect → batch_promote_xrefs for `comm-ethiopian`, ~1
+session) vs Option B (wire detector live at build time,
+~1-2 sessions). Recommend A (matches χ-cluster pattern).
+
+**Carry-forward status from AUDIT_2026-05-12-C:** 6 of 6
+CRITICAL items consumed (C1 PLAN backfill, C2 joh/jhn aliases
+via ω.36, C3 ATTRIBUTIONS patristic backfill, C4 EDITIONS_SPEC
+authors/bisac_codes, C5 preflight cache test now green, C6 9
+edition cover JPGs in place). 6 of 17 WARN items consumed
+(W7 resolved on inspection — the "2 stray 1En entries" are
+deliberate cross-canon attribution; W8/W9 share-pin
+conversions; W12 §8.1 codification). Detailed status in
+`dev/AUDIT_2026-05-13.md` §1-2 tables.
+
+**NEW WARN findings:**
+- **N-W1** — γ.4.4 wave-1 share-pin at
+  `tests/test_ethiopian_gamma4.py:1423` is the LAST surviving
+  share-pin in the γ.4 suite. Current 1En share 23.1% vs floor
+  15%; γ.4.6+.7+.8 ships at projected parity would break it.
+  Pre-emptive conversion to `enoch_count >= 190` per
+  `feedback_share_pin_pattern.md`. ~1 minute.
+- **N-W2** — `dev/PLAN_2026-05-09.md:76` status snapshot stale
+  on 4 of 5 metrics (13→17 consoles, 971→3691 tests, 10→11
+  linter, 5→9 editions; notes 51,394 unchanged). ~2 minutes.
+- **N-W3** — Father-name casing asymmetric in
+  `ethiopian_commentaries.json`: `'Book of Jubilees (Ethiopian
+  tradition)'` vs `'1 Enoch (Ethiopian tradition)'` — same
+  category, different prefix. Recommend Option A (drop "Book
+  of" from Jubilees, 200 entries + ~6 test sites, ~10 minutes).
+
+**Recommended next ship:**
+- **N-C1 Option A (γ.4 promote run)** — the substantive
+  decision; closes the buyer-demo gap; ~1 session. Bundle the
+  W11 integration test (build Tewahedo + assert γ.4 content
+  appears) as part of the ship.
+- **Fast hygiene loop (~30 min combined save)** — N-W1 +
+  N-W2 + N-W3 + W6 + W3 + W10 partial backfill. Could land as
+  a single save before the next γ.4-cluster content ship.
+- **save** — 5 phases shipped since `699f531` baseline;
+  arc-close + audit-close makes a clean checkpoint.
+- **DO NOT ship γ.4.6/γ.4.7/γ.4.8** until N-C1 + N-W1 are
+  resolved — otherwise the promote gap deepens and the last
+  share-pin breaks mechanically.
+
+Full audit memo: `dev/AUDIT_2026-05-13.md` (560+ lines, structured
+mirroring the 12-C pattern). Audit metadata: 6 prior audits in
+this 4-day arc; convention-performance signal positive (§8.1
+arc-close at 4 instances applied without prompting).
+
+---
+
 **Updated 2026-05-13 / γ.4.3.D ships — Cyril on Luke detail wave III
 (Lk 20-24 Passion + Resurrection + Ascension); CYRIL-ON-LUKE ARC
 CLOSED at four-wave parity (mirrors γ.4.1.A-D Cyril-on-John);
