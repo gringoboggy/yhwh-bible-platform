@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 7,
-  "generated_at": "2026-05-13T21:37:54+00:00",
-  "n_candidates": 48,
+  "generated_at": "2026-05-13T22:17:32+00:00",
+  "n_candidates": 50,
   "candidates": [
     {
       "id": "mrk-7-6-001",
@@ -711,6 +711,36 @@
     },
     {
       "id": "mrk-7-28-048",
+      "verse": 28,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And she answered and said unto him, Yes, Lord: yet the dogs under the table eat of the children&#x27;s crumbs&#x27; — Cyril celebrates the Syrophoenician-woman&#x27;s faith-quickness. The diminutives (kynaria-paidia — little-dogs / little-children) soften the harshness; her witty-faith reply matches Christ&#x27;s-witty-test. The psichiōn (crumbs) image — even the crumbs of Israel&#x27;s kingdom-bread overflow to the Gentile-table — is the early-inclusion charter. Tewahedo missionary-theology cites Mk 7:24-30 + Mt 15:21-28 + Acts 10 as the triple Gentile-inclusion witness; the Tewahedo Church&#x27;s Aksumite origin among Cushite-Gentile peoples reads here as fulfillment.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-7-15-049",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;There is nothing from without a man, that entering into him can defile him: but the things which come out of him, those are they that defile the man&#x27; — Cyril treats the Markan-version alongside Mt 15:11 (γ.4.6.C anchor) — the deeper hermeneutical principle that interior-uncleanness exceeds ritual-uncleanness. Mark 7:19&#x27;s parenthetical &#x27;making all foods clean&#x27; (kathirizōn panta ta brōmata) is the Markan-editorial-clarification that doesn&#x27;t abolish Lev 11 categorically but names the interior-priority hermeneutic. Tewahedo dietary-discipline retains the OT Lev 11 + Acts 15 framework while reading Mk 7:15 as the interior-priority anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-7-28-050",
       "verse": 28,
       "kind": "comm-ethiopian",
       "anchor": "",

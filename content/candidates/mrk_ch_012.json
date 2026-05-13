@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 12,
-  "generated_at": "2026-05-13T21:37:54+00:00",
-  "n_candidates": 77,
+  "generated_at": "2026-05-13T22:17:32+00:00",
+  "n_candidates": 80,
   "candidates": [
     {
       "id": "mrk-12-10-001",
@@ -1146,6 +1146,51 @@
     },
     {
       "id": "mrk-12-42-077",
+      "verse": 42,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And there came a certain poor widow, and she threw in two mites, which make a farthing&#x27; — Cyril marks the widow&#x27;s-mite (lepta duo — two-smallest-coins) as the kenotic-stewardship summit. The Markan-detail (only-Mark + Luke preserve this; Matthew omits) shows Christ-noticing-what-others-miss. The hē hysterēsis autēs (her-poverty, Mk 12:44) gave more-than-all-the-rich because she gave from her bios (life-substance) not perissou (abundance). Tewahedo monastic-and-lay stewardship-formation cites Mk 12:41-44 + Lk 21:1-4 as the kenotic-giving foundational text.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-12-10-078",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;Have ye not read this scripture; The stone which the builders rejected is become the head of the corner: This was the Lord&#x27;s doing, and it is marvellous in our eyes?&#x27; — Cyril cites Ps 118:22-23 (LXX 117:22-23) at the close of the wicked-tenants-parable as the Christological-cornerstone fulfillment (paired with Mt 21:42 γ.4.6.D anchor). The lithon hon apedokimasan (stone-they-rejected) is the Crucifixion; eis kephalēn-gōnias (into head-of-corner) is the Resurrection. Tewahedo Mäzgəbä-Hāymanot doctrine cites Mk 12:10 + Mt 21:42 + Ps 118:22 + Acts 4:11 + 1 Pet 2:6-7 as the five-fold cornerstone-prooftext.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-12-30-079",
+      "verse": 30,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind, and with all thy strength: this is the first commandment&#x27; — Cyril marks the Markan-fourfold-form (heart + soul + mind + strength — kardia + psychē + dianoia + ischys; Matthew gives threefold at Mt 22:37) as the fullest Synoptic-form of the great-commandment. The ischys (strength) addition emphasizes the bodily-strength-dimension of total-consecration. Tewahedo catechetical-totality teaches the four-fold love-of-God as the comprehensive-anthropological-formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-12-42-080",
       "verse": 42,
       "kind": "comm-ethiopian",
       "anchor": "",

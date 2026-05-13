@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 10,
-  "generated_at": "2026-05-13T21:37:54+00:00",
-  "n_candidates": 92,
+  "generated_at": "2026-05-13T22:17:32+00:00",
+  "n_candidates": 95,
   "candidates": [
     {
       "id": "mrk-10-6-001",
@@ -1371,6 +1371,51 @@
     },
     {
       "id": "mrk-10-45-092",
+      "verse": 45,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many&#x27; — Cyril&#x27;s atonement-summit text. The lytron anti pollōn (ransom-for-many) is the explicit-atonement-formula; lytron is the redemption-payment language (Ex 30:12, Isa 53). The peri / anti pollōn (for-many, Septuagintal-Isa-53 echo) names the universal-scope. The diakonēsai (to-minister) inverts the ancient world&#x27;s lord-served-by-slaves dynamic. Tewahedo Anaphora-theology cites Mk 10:45 + Mt 20:28 + 1 Tim 2:6 as the triple ransom-formula anchor; the Qǝddāse explicitly cites &#x27;gave-his-life-a-ransom-for-many&#x27; at the institution.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-10-9-093",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;What therefore God hath joined together, let not man put asunder&#x27; — Cyril&#x27;s marital-indissolubility locus (paired with Mt 19:6 γ.4.6.D anchor). The theou synezeuxen (God-hath-joined) names divine-agency in marriage; the mē chōrizetō (let-not-separate) is imperative-prohibition. The Markan-context (10:11-12) extends the prohibition to women-divorcing-husbands — a Greco-Roman possibility outside the Jewish-context, signaling Mark&#x27;s Gentile-readership. Tewahedo marital-discipline preserves the Cyrillian strictness conservatively.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-10-25-094",
+      "verse": 25,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;It is easier for a camel to go through the eye of a needle, than for a rich man to enter into the kingdom of God&#x27; — Cyril reads kamēlon (camel — NOT kamilon ship-rope per dubious-textual-alternatives) as deliberate-hyperbole. The largest Palestinian animal through the smallest Palestinian aperture: impossibility-by-natural-means, possibility-only-by-grace (Mk 10:27 &#x27;all things are possible with God&#x27;). Tewahedo wealth-ethics cites Mk 10:17-27 alongside Mt 19:16-26 + Lk 18:18-27 as the triple-rich-young-man corpus.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-10-45-095",
       "verse": 45,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -4,6 +4,92 @@
 
 ## Prior task
 
+**γ.4.7.B Cyril-on-Mark detail wave I — Mark 1-5 (Galilean
+ministry first half: prologue + baptism + first miracles +
+Capernaum cycle + parables introduction + Gerasene + Jairus); 51
+verse-keyed entries deepening the 13 γ.4.7 seed anchors on Mark
+1-5 to 64-entry detail-wave coverage — parity with γ.4.6.B Sermon-
+on-Mount density floor; ethiopian_commentaries.json 1065 → 1116;
+Cyril-on-Mark 40 → 91 entries (40 seed + 51 detail). **CYRIL
+CROSSES 50% SINGLE-FATHER-MAJORITY THRESHOLD** for first time in
+project history (48.5% → 50.8%) — flagged per ω.41 §1 voice-
+composition policy codified earlier same-session. Patristic-anchor
+majority 64.9% (Cyril + Ephrem). FOURTH production-scale
+verification of N-W4 idempotency contract (4026 attempted / 51
+promoted / 3975 skipped / 0 errors / 5 files affected). Suite
+3825 pass + 1 skip (+17 net via TestGamma47BCyrilMarkGalileanWave);
+linter 11/11; ruff 429 files clean.** shipped 2026-05-13.
+Triggered by user "ok save and go ahead with recommended order"
+P4 per AUDIT_2026-05-13-EOD priority list. Per §3 close-before-
+open precedent within an arc (γ.4.6.B → .C → .D template).
+
+**Why it matters for THIS project:**
+
+- **Cyril crosses 50% — corpus formally Cyril-led.** Per ω.41 §1
+  voice-composition rule codified at AUDIT_2026-05-13-EOD EOD-W3:
+  this is INTENTIONAL not accidental. Cyril = 24th Patriarch of
+  See of Mark; standing in apostolic succession to John Mark +
+  Athanasius + Frumentius. Corpus is now formally "Cyril-led
+  patristic chorus + three Tewahedo-canonical-OT + one Syriac
+  supplement" rather than an even four-voice quartet.
+- **Cyril-on-Mark coverage matches first-detail-wave precedent.**
+  γ.4.6.B (Matt 5-7, 50 entries) + γ.4.3.B (Lk 1-9, 58 entries) +
+  γ.4.7.B (Mark 1-5, 51 entries) all hit the ~50-entry detail-wave
+  template. The Cyril-on-Mark arc is on track for arc-close at
+  γ.4.7.D (sixth §8.1 instance) after γ.4.7.C (Mark 6-10) detail-
+  wave II.
+- **N-W4 idempotency contract durable across 4 production ships.**
+  γ.4.6.C (3700/50/3650/0) + γ.4.6.D (3895/50/3845/0) + γ.4.7
+  (3935/40/3895/0) + γ.4.7.B (4026/51/3975/0). The χ-cluster
+  pipeline performs as designed on every γ.4.x ship.
+
+**Tewahedo signature anchors (Markan emphasis):**
+
+- Mk 1:8 baptism-with-Spirit (Tǝmqät dual-element)
+- Mk 1:11 Father's-voice (Ps 2:7 + Isa 42:1 conflation)
+- Mk 1:13 wild-beasts (Edenic-restoration; Hudadē-Lent)
+- Mk 1:41 splanchnistheis-leper (deepest Markan compassion)
+- Mk 2:28 Son-of-Man Lord-of-Sabbath
+- Mk 3:27 binding-the-strong-man (apostolic-exorcism)
+- Mk 4:14 sower-soweth-the-word (Logos-hermeneutic)
+- Mk 4:39 'Peace, be still' (divine-speech-to-elements)
+- Mk 5:9 'My name is Legion' (multi-demon-possession)
+- Mk 5:19 first-Gentile-evangelist Decapolis (Aksumite proto-
+  missionary anchor)
+- Mk 5:36 'fear not, only believe' (deathbed-pastoral)
+- Mk 5:41 Talitha cumi (preserved-Aramaic Christic-resurrection)
+
+**Files:**
+
+- `content/sources/ethiopian_commentaries.json` — +51 Cyril-on-
+  Mark entries on Mark 1-5; `_meta.source` extended naming every
+  Tewahedo anchor + Cyril-past-50% policy-flag; total entries
+  1065 → 1116.
+- `content/notes/mrk.py` — promoted via `batch_promote_xrefs.py
+  --kind comm-ethiopian` (idempotent post-N-W4); per-chapter
+  comm-ethiopian Mark 1-5: 15/11/13/14/11; total comm-ethiopian
+  40 → 91; total notes 973 → 1024.
+- `scripts/_ship_gamma47b.py` — new ship script (~860 lines).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma47BCyrilMarkGalileanWave` class (17 pins, ~260 lines).
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta:** +17 net. Full γ.4 file: 481 → 498. Full suite:
+3825 passed, 1 skipped (was 3808 + 1s pre-γ.4.7.B). Linter 11/11
+clean. Ruff 429 files clean.
+
+**Forward references:**
+- **save** — first content ship after P1 save (`0cc884a`).
+  User-explicit only.
+- **γ.4.7.C Cyril-on-Mark detail wave II — Mark 6-10** is the
+  next natural Mark ship.
+- **γ.4.7.D Cyril-on-Mark arc-close — Mark 11-16** would be the
+  SIXTH §8.1 instance and would CLOSE the FOURTH and final
+  canonical-Gospel Cyrillian arc.
+
+## Earlier prior task
+
 **γ.4.7 Cyril-on-Mark seed wave — Mark 1-16 (40 entries spanning
 all 16 chapters); OPENED the FOURTH and final canonical-Gospel
 Cyrillian arc after the three closed arcs (Cyril-on-John γ.4.1-D +

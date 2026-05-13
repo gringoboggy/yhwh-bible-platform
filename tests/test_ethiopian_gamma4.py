@@ -5355,3 +5355,190 @@ class TestGamma47CyrilMarkSeedWave:
             "γ.4.7 _meta.source should describe the Cyril-on-Mark seed wave"
         )
         assert "Cramer" in meta_source, "γ.4.7 _meta.source should cite Cramer-Catenae source"
+
+
+class TestGamma47BCyrilMarkGalileanWave:
+    """γ.4.7.B — Cyril of Alexandria on Mark detail wave I:
+    Galilean ministry first half (Mark 1-5). 51 verse-keyed entries
+    deepening the 13 thin γ.4.7 seed anchors on Mark 1-5 to 64-entry
+    detail-wave coverage. Mirrors γ.4.6.B Sermon-on-Mount detail-
+    wave shape (50 entries on Matt 5-7 deepening 6 γ.4.6 anchors to
+    56-entry coverage).
+
+    Per ω.41 §1 "Patristic-source voice composition" rule
+    (CLAUDE_PROJECT_RULES, codified at AUDIT_2026-05-13-EOD EOD-W3):
+    this wave pushes Cyril past the 50% single-father-majority
+    threshold (48.5% → ~50.8%). Cyril-led-patristic-chorus character
+    is intentional per the apostolic-succession rationale (Cyril =
+    24th Patriarch of See of Mark; standing in apostolic succession
+    to John Mark + Athanasius + Frumentius).
+
+    Pins (detail-wave standard set — NOT arc-close; γ.4.7.D will be
+    the closing wave with §8.1 arc-close pins applied):
+    - Mark 1-5 substantively detailed (≥64 Cyril entries on Mark
+      1-5 = 13 γ.4.7 seed + 51 γ.4.7.B detail).
+    - Every chapter Mark 1-5 substantively covered with detail-wave
+      density floor (≥10 per chapter; tighter than seed-wave
+      ≥2-per-chapter).
+    - Cyril-on-Mark absolute-count milestone ≥90 entries (40 seed
+      + 51 detail = 91 actual; ≥90 floor per
+      `feedback_share_pin_pattern`).
+    - Cumulative-Cyril milestone ≥555 entries (471 prior arcs + 91
+      Cyril-on-Mark + ~2 incidental seed = 564 actual; ≥555 floor).
+    - Signature anchors (12): 1:8 baptism-with-Spirit + 1:11 Father's-
+      voice + 1:13 Edenic-restoration-with-beasts + 1:41 splanchnistheis-
+      leper + 2:28 Son-of-Man Lord-of-Sabbath + 3:27 binding-strong-
+      man + 4:14 sower-soweth-the-word + 4:39 peace-be-still + 5:9
+      'My name is Legion' + 5:19 first-Gentile-evangelist + 5:36
+      'fear not, only believe' + 5:41 Talitha-cumi.
+    - _meta.source sync pin: γ.4.7.B + Mark 1-5 + Galilean ministry
+      first half.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("mrk", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def _cyril_in_range(self, ch_start, ch_end):
+        return sum(len(self._cyril_in_chapter(c)) for c in range(ch_start, ch_end + 1))
+
+    def test_mark_1_5_substantively_detailed(self):
+        total = self._cyril_in_range(1, 5)
+        assert total >= 64, f"γ.4.7.B expected ≥64 Cyril entries on Mark 1-5 (13 seed + 51 detail); found {total}"
+
+    def test_every_galilean_chapter_has_detail_depth(self):
+        # Detail-wave parity floor: each of Mark 1-5 should have ≥10
+        # Cyril entries post-γ.4.7.B (vs seed-wave ≥2-per-chapter floor).
+        per_chapter = {ch: len(self._cyril_in_chapter(ch)) for ch in range(1, 6)}
+        below_floor = {ch: n for ch, n in per_chapter.items() if n < 10}
+        assert not below_floor, (
+            f"γ.4.7.B detail-wave: each Mark 1-5 chapter should have ≥10 "
+            f"Cyril entries; below-floor chapters: {below_floor}"
+        )
+
+    def test_cyril_on_mark_milestone_count_at_or_above_galilean_detail(self):
+        cyril_mrk = 0
+        for chapter in range(1, 17):
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mrk", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        cyril_mrk += 1
+        assert cyril_mrk >= 90, (
+            f"γ.4.7.B expected ≥90 Cyril-on-Mark entries (40 seed + 51 detail = 91); found {cyril_mrk}"
+        )
+
+    def test_cumulative_cyril_milestone_at_or_above_galilean_detail(self):
+        # Cumulative across all books. γ.4.7 seed milestone was ≥510;
+        # γ.4.7.B adds 51 entries → 562 actual; ≥555 floor.
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 555, (
+            f"γ.4.7.B expected Cyril cumulative ≥555 (post-γ.4.7.B milestone); found {cyril_count}"
+        )
+
+    # ---- Signature passage pins (12 anchors) ----
+
+    def test_baptism_with_spirit_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 1, 8) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 1:8 — baptism-with-Holy-Spirit (Tewahedo Tǝmqät dual-element water-and-Spirit anchor)"
+        )
+
+    def test_fathers_voice_beloved_son_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 1, 11) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 1:11 — Father's-voice 'Thou art my beloved Son' "
+            "(Ps 2:7 + Isa 42:1 royal-anointing + Servant-vocation conflation)"
+        )
+
+    def test_edenic_restoration_wild_beasts_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 1, 13) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 1:13 — 'with the wild beasts' "
+            "(Markan-distinctive Edenic-restoration sign; Tewahedo Hudadē-Lent anchor)"
+        )
+
+    def test_splanchnistheis_leper_compassion_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 1, 41) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 1:41 — splanchnistheis (moved-with-compassion) "
+            "leper-healing (deepest Markan compassion-verb)"
+        )
+
+    def test_son_of_man_lord_of_sabbath_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 2, 28) if e.father == "Cyril of Alexandria"]
+        assert c, "γ.4.7.B missing Mark 2:28 — Son of Man Lord of Sabbath (Sabbath-Christology summit)"
+
+    def test_binding_strong_man_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 3, 27) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 3:27 — binding-the-strong-man (apostolic-authority over demons; Heb 2:14 anchor)"
+        )
+
+    def test_sower_soweth_the_word_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 4, 14) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 4:14 — sower-soweth-the-word "
+            "(seed-as-Logos hermeneutic; Tewahedo monastic-lectio-divina anchor)"
+        )
+
+    def test_peace_be_still_storm_rebuke_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 4, 39) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 4:39 — 'Peace, be still' storm-rebuke "
+            "(divine-prerogative speech to elements; Tewahedo natural-disaster-prayer anchor)"
+        )
+
+    def test_my_name_is_legion_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 5, 9) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 5:9 — 'My name is Legion, for we are many' (multi-demon-possession self-disclosure)"
+        )
+
+    def test_first_gentile_evangelist_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 5, 19) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 5:19 — 'go home and tell' "
+            "(formerly-possessed becomes first Gentile evangelist in Decapolis; "
+            "Tewahedo Aksumite-origin proto-missionary anchor)"
+        )
+
+    def test_fear_not_only_believe_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 5, 36) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 5:36 — 'Fear not, only believe' "
+            "(faith-against-death-itself charge; Tewahedo deathbed-pastoral anchor)"
+        )
+
+    def test_talitha_cumi_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 5, 41) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.B missing Mark 5:41 — Talitha cumi (preserved-Aramaic) "
+            "(Christic-power-over-death; Tewahedo Fasika resurrection-anticipation anchor)"
+        )
+
+    def test_meta_documents_gamma_4_7_b_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.7.B" in meta_source, "γ.4.7.B must be referenced in _meta.source"
+        assert "Mark 1-5" in meta_source or "Galilean ministry first half" in meta_source, (
+            "γ.4.7.B _meta.source should describe the Mark 1-5 Galilean-first-half scope"
+        )

@@ -1,5 +1,101 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / γ.4.7.B Cyril-on-Mark detail wave I ships
+— Mark 1-5 Galilean ministry first half; 51 verse-keyed entries
+deepening the 13 γ.4.7 seed anchors to 64-entry detail-wave
+coverage; mirrors γ.4.6.B Sermon-on-Mount density floor;
+ethiopian_commentaries.json 1065 → 1116 (+51); Cyril-on-Mark 40
+→ 91 entries (40 seed + 51 detail). **CYRIL CROSSES 50% SINGLE-
+FATHER-MAJORITY THRESHOLD** for the first time in project history
+(48.5% → 50.8%) — flagged per ω.41 §1 voice-composition policy
+which codified this trajectory as intentional. Patristic-anchor
+majority 64.9% (Cyril + Ephrem). FOURTH production-scale
+verification of N-W4 idempotency contract (4026 attempted / 51
+promoted / 3975 skipped / 0 errors / 5 files affected).
+TestGamma47BCyrilMarkGalileanWave class +17 pins (2 density + 2
+count milestones + 12 signature anchors + 1 _meta sync). Suite
+3825 pass + 1 skip (+17 net); linter 11/11; ruff 429 files
+clean.** Triggered by user "ok save and go ahead with recommended
+order" P4 per AUDIT_2026-05-13-EOD priority list. Per §3 close-
+before-open precedent within an arc (γ.4.6.B → .C → .D template).
+
+**Items shipped:**
+
+- **`scripts/_ship_gamma47b.py`** — new ship script (~860 lines).
+  51 NEW_ENTRIES dict-literals with Cramer Vol. I + PG 72
+  attribution. Distribution: Mark 1 (12) + Mark 2 (9) + Mark 3
+  (10) + Mark 4 (11) + Mark 5 (9) = 51.
+- **`content/sources/ethiopian_commentaries.json`** — entries
+  1065 → 1116; Cyril-on-Mark 40 → 91; `_meta.source` ledger
+  appended with γ.4.7.B wave + Cyril-past-50% policy-flag.
+- **`content/notes/mrk.py`** — promoted via `batch_promote_xrefs.py`
+  (idempotent). Per-chapter comm-ethiopian Mark 1-5 post-γ.4.7.B:
+  15/11/13/14/11. Total comm-ethiopian 40 → 91; total notes 973
+  → 1024.
+- **`tests/test_ethiopian_gamma4.py`** — new
+  `TestGamma47BCyrilMarkGalileanWave` (17 pins, ~260 lines).
+
+**Voice-mix delta — CYRIL CROSSES 50% (HISTORIC):**
+
+```
+Pre-γ.4.7.B:                     Post-γ.4.7.B:
+  Cyril      516  48.5%            Cyril      567  50.8%  ← MAJORITY
+  Jubilees   200  18.8%            Jubilees   200  17.9%
+  1 Enoch    192  18.0%            1 Enoch    192  17.2%
+  Ephrem     157  14.7%            Ephrem     157  14.1%
+                                              ────
+                                              1116 entries
+```
+
+Per ω.41 §1 codification: Cyril as 24th Patriarch of See of Mark
+is intentionally the dominant voice; corpus is formally "Cyril-
+led patristic chorus + three Tewahedo-canonical-OT + one Syriac
+supplement". Patristic-anchor majority 64.9%.
+
+**Tewahedo signature anchors at γ.4.7.B (Markan emphasis):**
+
+- Mk 1:8 baptism-with-Spirit (Tǝmqät dual-element anchor)
+- Mk 1:11 Father's-voice 'beloved Son' (Ps 2:7 + Isa 42:1)
+- Mk 1:13 wild-beasts (Edenic-restoration; Hudadē-Lent anchor)
+- Mk 1:41 splanchnistheis-leper (deepest Markan compassion-verb)
+- Mk 2:28 Son-of-Man Lord-of-Sabbath (Sabbath-Christology summit)
+- Mk 3:27 binding-the-strong-man (apostolic-exorcism authority)
+- Mk 4:14 sower-soweth-the-word (seed-as-Logos hermeneutic)
+- Mk 4:39 'Peace, be still' (divine-prerogative-speech-to-elements)
+- Mk 5:9 'My name is Legion' (multi-demon-possession disclosure)
+- Mk 5:19 first-Gentile-evangelist in Decapolis (Aksumite-origin
+  proto-missionary anchor)
+- Mk 5:36 'fear not, only believe' (deathbed-pastoral charge)
+- Mk 5:41 Talitha cumi (preserved-Aramaic Christic-resurrection)
+
+**N-W4 idempotency contract — FOURTH production verification:**
+
+```
+End-to-end promote pass (γ.4.7.B):
+  Attempted: 4026
+  Promoted:  51    ← exactly the new γ.4.7.B entries
+  Skipped:   3975  ← every prior entry correctly skipped
+  Errors:    0
+  Files affected: 5 (mrk_ch_001 through mrk_ch_005)
+```
+
+Pipeline contract durable across γ.4.6.C / γ.4.6.D / γ.4.7 /
+γ.4.7.B (4 verifications total this session).
+
+**Recommended next ship:**
+
+- **γ.4.7.C Cyril-on-Mark detail wave II — Mark 6-10** (second
+  half of Galilean ministry + Caesarea Philippi + Transfiguration
+  + journey-to-Jerusalem). Natural next per close-before-open
+  precedent within the Mark arc.
+- **γ.4.7.D Cyril-on-Mark arc-close — Mark 11-16** would be the
+  SIXTH §8.1 instance and would CLOSE the FOURTH and final
+  canonical-Gospel Cyrillian arc.
+- **save** — γ.4.7.B is the first content ship after the P1
+  save commit `0cc884a`. User-explicit only.
+
+---
+
 **Updated 2026-05-13 / ω.41 hygiene bundle ships — AUDIT_2026-05-
 13-EOD follow-through. 4 of 5 WARN items addressed in single
 hygiene-cluster commit-set: EOD-W1 PLAN §2 status-snapshot

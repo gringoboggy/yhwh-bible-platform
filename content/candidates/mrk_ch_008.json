@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 8,
-  "generated_at": "2026-05-13T21:37:54+00:00",
-  "n_candidates": 49,
+  "generated_at": "2026-05-13T22:17:32+00:00",
+  "n_candidates": 52,
   "candidates": [
     {
       "id": "mrk-8-18-001",
@@ -726,6 +726,51 @@
     },
     {
       "id": "mrk-8-34-049",
+      "verse": 34,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;Whosoever will come after me, let him deny himself, and take up his cross, and follow me&#x27; — Cyril&#x27;s discipleship-summit text. The aparnēsasthō heauton (deny-himself) is not mere ascetic-self-denial but the renunciation of self-as-center; the aratō ton stauron autou (take-up-his-cross) is the willingness-to-share-the-Master&#x27;s-fate; the akoloutheitō moi (let-him-follow) is the lifelong-relational-commitment. The three-imperatives compress the entire-discipleship-rule. Tewahedo monastic-vocation theology (the Mäshafä-Mǝnǝkwǝsnna rule-prologue) cites Mk 8:34 + Mt 16:24 + Lk 9:23 as the triple cross-bearing-charter.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-8-29-050",
+      "verse": 29,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;But whom say ye that I am? And Peter answereth and saith unto him, Thou art the Christ&#x27; — Cyril marks the Markan-compactness (sy ei ho Christos — three words, Mk 8:29; vs Matthew&#x27;s longer &#x27;thou art the Christ, the Son of the living God&#x27;, Mt 16:16) as characteristic of Mark&#x27;s terse-style. The hymeis (emphatic-you, the disciples) contrasts with the earlier &#x27;who-do-men-say-I-am&#x27;. Discipleship-knowledge is FIRST-person, not borrowed-opinion. Tewahedo catechetical-confession (the credo-recitation in Qǝddāse) is the embodied-actualization of every disciple&#x27;s-own Petrine-confession.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-8-31-051",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And he began to teach them, that the Son of man must suffer many things, and be rejected of the elders, and of the chief priests, and of the scribes, and be killed, and after three days rise again&#x27; — Cyril marks the Markan-first-Passion-prediction as the kerygmatic-turning-point. The dei (it-is-necessary) names divine-soteriological-necessity, not fated-tragedy. The threefold-rejection-source (elders + chief-priests + scribes) names the entire-religious-establishment as conspiring-against-Messiah. The meta treis hēmeras (after-three-days) is the Resurrection-promise paired with every Passion-prediction. Tewahedo Holy-Week lectionary cites Mk 8:31 + Mt 16:21 + Lk 9:22 as the triple Passion-prediction-with-Resurrection-clause.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-8-34-052",
       "verse": 34,
       "kind": "comm-ethiopian",
       "anchor": "",

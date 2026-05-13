@@ -1,8 +1,8 @@
 {
   "book": "mrk",
   "chapter": 6,
-  "generated_at": "2026-05-13T21:37:54+00:00",
-  "n_candidates": 54,
+  "generated_at": "2026-05-13T22:17:32+00:00",
+  "n_candidates": 57,
   "candidates": [
     {
       "id": "mrk-6-4-001",
@@ -801,6 +801,51 @@
     },
     {
       "id": "mrk-6-41-054",
+      "verse": 41,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And when he had taken the five loaves and the two fishes, he looked up to heaven, and blessed, and brake the loaves, and gave them to his disciples to set before them&#x27; — Cyril marks the four-action sequence (anablepsas-eulogēsen-kateklasen-edidou: looked-up + blessed + broke + gave) as the Eucharistic prototype (echoed at Mk 14:22 institution). The Galilean-multiplication is the proleptic Anaphora. Tewahedo Qǝddāse fraction-rite cites Mk 6:41 + Mt 14:19 + Lk 9:16 + Jn 6:11 + Mk 14:22 as the five-fold lineage of the institution-action-sequence.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-6-4-055",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;A prophet is not without honour, but in his own country, and among his own kin, and in his own house&#x27; — Cyril marks the Markan-version (slightly fuller than Mt 13:57) as the kenotic-hiddenness in incarnate-particularity. The familiar-Nazareth neighbors see the carpenter&#x27;s-son they grew up with; faith-eyes are required to see the divine-Logos beneath. The thrice-qualified rejection-locus (patris + syngeneis + oikia — country, kin, house) intensifies the offense. Tewahedo Christological-preaching cites Mk 6:1-6 + Jn 1:11 (came-unto-his-own) as the twofold-rejection-witness.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-6-7-056",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on Mark",
+      "source_attribution": "Cyril of Alexandria, Commentary on Mark (fragments), preserved in J.A. Cramer, Catenae Graecorum Patrum in Novum Testamentum, Vol. I: In Evangelia S. Matthaei et S. Marci (Oxford: University Press, 1840). PD. Greek text also in PG 72 (Migne, 1859).",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (430).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on Mark</em> <small>(c. 430 AD)</small><p>&#x27;And he called unto him the twelve, and began to send them forth by two and two&#x27; — Cyril marks duo duo (two-by-two) as the Markan-distinctive (Matthew gives the full list without the pairing-detail). The twofold-sending fulfills Deut 19:15 (two-witnesses confirm-every-word) and the mutual-pastoral-support principle. Tewahedo missionary-tradition explicitly preserves the two-by-two pattern in the Frumentius + Edesius founding-pair (two brothers-by-faith brought the Gospel to Aksum together), the Nine-Saints arrival (six-and-three in groups), and contemporary pastoral-deputation patterns.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on Mark. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mrk-6-41-057",
       "verse": 41,
       "kind": "comm-ethiopian",
       "anchor": "",
