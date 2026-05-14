@@ -548,6 +548,24 @@ class TestGamma4MetaPhasesCoverage:
     def test_meta_documents_gamma_4_6_d(self):
         self._assert_phase_mentioned("γ.4.6.D")
 
+    # γ.4.7.x quartet added at γ.4.7.D arc-close per §8.1 (SIXTH instance
+    # after γ.4.4.E, γ.4.5.E, γ.4.2.D, γ.4.3.D, γ.4.6.D). Future drift
+    # gets caught at commit time. With γ.4.7.D, ALL FOUR canonical-Gospel
+    # Cyrillian arcs are closed: John γ.4.1-D, Luke γ.4.3-D, Matthew
+    # γ.4.6-D, Mark γ.4.7-D.
+
+    def test_meta_documents_gamma_4_7(self):
+        self._assert_phase_mentioned("γ.4.7")
+
+    def test_meta_documents_gamma_4_7_b(self):
+        self._assert_phase_mentioned("γ.4.7.B")
+
+    def test_meta_documents_gamma_4_7_c(self):
+        self._assert_phase_mentioned("γ.4.7.C")
+
+    def test_meta_documents_gamma_4_7_d(self):
+        self._assert_phase_mentioned("γ.4.7.D")
+
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
     """ω.37 (W11 closure) — build-pipeline integration test for
@@ -5541,4 +5559,474 @@ class TestGamma47BCyrilMarkGalileanWave:
         assert "γ.4.7.B" in meta_source, "γ.4.7.B must be referenced in _meta.source"
         assert "Mark 1-5" in meta_source or "Galilean ministry first half" in meta_source, (
             "γ.4.7.B _meta.source should describe the Mark 1-5 Galilean-first-half scope"
+        )
+
+
+class TestGamma47CCyrilMarkCaesareaTransfigurationWave:
+    """γ.4.7.C — Cyril of Alexandria on Mark detail wave II:
+    Galilean ministry second half + Caesarea Philippi + Transfiguration
+    + journey-to-Jerusalem (Mark 6-10). 50 verse-keyed entries
+    deepening the 14 γ.4.7 seed anchors on Mark 6-10 to 64-entry
+    detail-wave coverage. Mirrors γ.4.7.B Mark 1-5 detail-wave shape.
+
+    Per ω.41 §1 voice-composition rule: post-γ.4.7.C Cyril share
+    rises 50.8% → ~52.5%; Cyril-led-patristic-chorus character
+    continues per the apostolic-succession rationale.
+
+    Pins (detail-wave standard set — NOT arc-close; γ.4.7.D will
+    close the arc):
+    - Mark 6-10 substantively detailed (≥64 Cyril entries = 14
+      γ.4.7 seed + 50 γ.4.7.C detail).
+    - Every chapter Mark 6-10 detail-density ≥10 entries.
+    - Cyril-on-Mark absolute-count milestone ≥140 (40 seed + 51
+      γ.4.7.B + 50 γ.4.7.C = 141 actual; ≥140 floor).
+    - Cumulative-Cyril milestone ≥610 (562 prior + 50 γ.4.7.C +
+      ~2 incidental seed = 614 actual; ≥610 floor).
+    - Signature anchors (12): 6:50 walking-on-sea egō-eimi parallel
+      + 7:34 Ephphatha preserved-Aramaic baptismal-rite + 8:25
+      Bethsaida-blind second-stage completion + 8:36 'gain world,
+      lose soul' moral-summit + 9:2 Transfiguration mountain-
+      selection + 9:5 Peter's-three-tabernacles + 9:23 'if-thou-
+      canst-believe' faith-prerequisite + 9:29 prayer-and-fasting
+      deliverance + 10:14 'suffer-little-children' infant-baptism +
+      10:18 'why-callest-thou-me-good' hidden-Christology + 10:21
+      'one-thing-thou-lackest' Christic-love counsel-of-perfection
+      + 10:27 'with-God-all-things-possible' grace-monergism.
+    - _meta.source sync pin: γ.4.7.C + Mark 6-10 + Galilean-second-
+      half OR Caesarea-Transfiguration scope.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("mrk", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def _cyril_in_range(self, ch_start, ch_end):
+        return sum(len(self._cyril_in_chapter(c)) for c in range(ch_start, ch_end + 1))
+
+    def test_mark_6_10_substantively_detailed(self):
+        total = self._cyril_in_range(6, 10)
+        assert total >= 64, f"γ.4.7.C expected ≥64 Cyril entries on Mark 6-10 (14 seed + 50 detail); found {total}"
+
+    def test_every_caesarea_chapter_has_detail_depth(self):
+        per_chapter = {ch: len(self._cyril_in_chapter(ch)) for ch in range(6, 11)}
+        below_floor = {ch: n for ch, n in per_chapter.items() if n < 10}
+        assert not below_floor, (
+            f"γ.4.7.C detail-wave: each Mark 6-10 chapter should have ≥10 "
+            f"Cyril entries; below-floor chapters: {below_floor}"
+        )
+
+    def test_cyril_on_mark_milestone_count_at_or_above_caesarea_detail(self):
+        cyril_mrk = 0
+        for chapter in range(1, 17):
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mrk", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        cyril_mrk += 1
+        assert cyril_mrk >= 140, (
+            f"γ.4.7.C expected ≥140 Cyril-on-Mark entries (40 seed + 51 γ.4.7.B + 50 γ.4.7.C = 141); found {cyril_mrk}"
+        )
+
+    def test_cumulative_cyril_milestone_at_or_above_caesarea_detail(self):
+        cyril_count = sum(
+            1
+            for verse_entries in self.ec._by_verse.values()
+            for entry in verse_entries
+            if entry.father == "Cyril of Alexandria"
+        )
+        assert cyril_count >= 610, (
+            f"γ.4.7.C expected Cyril cumulative ≥610 (post-γ.4.7.C milestone); found {cyril_count}"
+        )
+
+    # ---- Signature passage pins (12 anchors) ----
+
+    def test_walking_on_sea_ego_eimi_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 6, 50) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 6:50 — 'It is I; be not afraid' egō-eimi "
+            "(parallels Mt 14:27 + Jn 6:20; Septuagintal Ex 3:14 I-AM claim)"
+        )
+
+    def test_ephphatha_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 7, 34) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 7:34 — Ephphatha (preserved-Aramaic) "
+            "(Tewahedo baptismal-rite gesture explicitly preserves this Coptic-Markan-Aramaic)"
+        )
+
+    def test_bethsaida_second_stage_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 8, 25) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 8:25 — Bethsaida-blind second-stage completion "
+            "(two-stage spiritual-sight pedagogy; precedes Peter's partial-confession)"
+        )
+
+    def test_gain_world_lose_soul_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 8, 36) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 8:36 — 'what shall it profit to gain world and lose soul' "
+            "(universal-moral-summit; Tewahedo wealth-ethics triple-anchor)"
+        )
+
+    def test_transfiguration_mountain_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 9, 2) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 9:2 — Transfiguration high-mountain six-days-typology "
+            "(Tewahedo Buhe feast Näḥase 13 anchor; parallel to Mt 17:1 γ.4.6.D)"
+        )
+
+    def test_peter_three_tabernacles_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 9, 5) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 9:5 — Peter's three-tabernacles eschatological-anticipation-error "
+            "(Cross must precede tabernacle-building)"
+        )
+
+    def test_if_thou_canst_believe_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 9, 23) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 9:23 — 'if thou canst believe, all things possible' "
+            "(faith-as-divine-power-channel; Christic reverse-of-conditional)"
+        )
+
+    def test_prayer_and_fasting_deliverance_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 9, 29) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 9:29 — 'this kind by prayer and fasting' "
+            "(Markan-distinctive deliverance-charter; Tewahedo Mahǝbär-fast tradition anchor)"
+        )
+
+    def test_suffer_little_children_infant_baptism_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 10, 14) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 10:14 — 'suffer little children to come unto me' "
+            "(Tewahedo infant-baptism Coptic-tradition warrant)"
+        )
+
+    def test_why_callest_thou_me_good_hidden_christology_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 10, 18) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 10:18 — 'why callest thou me good' "
+            "(hidden-Christological-divinity claim under apparent humility)"
+        )
+
+    def test_one_thing_thou_lackest_christic_love_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 10, 21) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 10:21 — 'beholding-him-loved-him; one thing thou lackest' "
+            "(only Gospel-passage where Christ loves an individual; Tewahedo monastic-vocation "
+            "love-prompting-of-the-calling anchor)"
+        )
+
+    def test_with_god_all_things_possible_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 10, 27) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.C missing Mark 10:27 — 'with God all things possible' "
+            "(grace-monergism; Tewahedo soteriology of grace anchor)"
+        )
+
+    def test_meta_documents_gamma_4_7_c_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.7.C" in meta_source, "γ.4.7.C must be referenced in _meta.source"
+        assert (
+            "Mark 6-10" in meta_source
+            or "Galilean ministry second half" in meta_source
+            or "Caesarea Philippi" in meta_source
+            or "Transfiguration" in meta_source
+        ), "γ.4.7.C _meta.source should describe the Mark 6-10 Galilean-second-half / Caesarea-Transfiguration scope"
+
+
+class TestGamma47DCyrilMarkArcClose:
+    """γ.4.7.D — Cyril of Alexandria on Mark ARC-CLOSE wave (Mark
+    11-16: Jerusalem entry + temple cleansing + Olivet eschatology
+    + Passion narrative + Resurrection + Great Commission). CLOSING
+    WAVE of the four-wave Cyril-on-Mark arc per §8.1 arc-close
+    convention. 51 verse-keyed entries distributed across all 6
+    chapters Mark 11-16. CLOSES the FOURTH and FINAL canonical-
+    Gospel Cyrillian arc:
+
+        Cyril-on-John     γ.4.1-D   116 entries (closed earlier)
+        Cyril-on-Luke     γ.4.3-D   160 entries (closed 2026-05-13)
+        Cyril-on-Matthew  γ.4.6-D   195 entries (closed 2026-05-13)
+        Cyril-on-Mark     γ.4.7-D   192 entries (closed by γ.4.7.D)
+                                    (40 seed + 51 γ.4.7.B + 50 γ.4.7.C
+                                     + 51 γ.4.7.D)
+        Cumulative Cyril-on-Gospels: 663 entries across all 4
+                                      canonical Gospels at closed-
+                                      arc substantive-detail depth.
+
+    SIXTH instance of §8.1 arc-close convention (after γ.4.4.E
+    Mäṣḥafä Hēnok, γ.4.5.E Mäṣḥafä Kufāle, γ.4.2.D Pentateuch,
+    γ.4.3.D Cyril-on-Luke, γ.4.6.D Cyril-on-Matthew).
+
+    Per §8.1 the closing wave's test class MUST add the three
+    specific pin types:
+    (1) _meta synchronization pin per sub-phase tag with regex
+        word-boundary matching;
+    (2) absolute-count milestone pin at cumulative arc-close count;
+    (3) all_N_sections_covered exhaustiveness pin asserting every
+        section the arc was supposed to cover has substantive
+        coverage at planned depth.
+
+    Pins:
+    - Mark 11-16 substantively detailed (≥63 total Cyril entries
+      on Mark 11-16 = 13 seed + 50 arc-close detail).
+    - Every chapter Mark 11-16 carries ≥5 Cyril entries (parity
+      floor preserved at arc-close).
+    - **§8.1 ARC-CLOSE PIN #1 — count milestone:** Cyril-on-Mark
+      absolute-count ≥190 entries (per `feedback_share_pin_pattern`
+      — never a share-pin; durable against future voice-broadening).
+    - **§8.1 ARC-CLOSE PIN #2 — all_N_sections_covered
+      exhaustiveness:**
+      test_all_four_cyril_mark_waves_substantively_covered asserts
+      γ.4.7 seed (≥40) + γ.4.7.B Mark 1-5 (≥64) + γ.4.7.C Mark
+      6-10 (≥64) + γ.4.7.D Mark 11-16 (≥63) — every section the
+      Cyril-on-Mark arc was supposed to cover has substantive
+      coverage at planned depth.
+    - **§8.1 ARC-CLOSE PIN #3 — _meta synchronization:** pin per
+      sub-phase tag (γ.4.7, γ.4.7.B, γ.4.7.C, γ.4.7.D) with regex
+      word-boundary; arc-close status recorded explicitly.
+    - 14 signature-passage pins for arc-close Tewahedo anchors:
+      11:10 Davidic-kingdom-cometh + 11:25 forgive-when-praying +
+      12:17 render-to-Caesar-and-to-God + 12:29 Shema Lord-our-God-
+      is-one + 12:30 fourfold-love-of-God + 13:26 Son-of-Man-coming-
+      in-clouds Parousia + 13:31 heaven-and-earth-pass-words-not-
+      pass + 14:24 blood-of-covenant-shed-for-many Anaphora + 14:25
+      not-drink-fruit-of-vine-until-kingdom eschatological-banquet +
+      14:51 young-man-fled-naked Markan-John-Mark-tradition + 14:62
+      'I am: Son-of-Man-on-right-hand-of-power' triple-Christological-
+      claim + 15:21 Simon-of-Cyrene Tewahedo-Aksumite-African-cross-
+      bearer + 15:38 veil-rent schizō bookend-to-Mk-1:10 + 16:7
+      'tell his disciples AND PETER' Petrine-restoration + 16:15
+      Markan-Great-Commission preach-to-every-creature.
+
+    With this class, ALL FOUR canonical-Gospel Cyrillian arcs are
+    pinned at closed-arc depth (John γ.4.1-D + Luke γ.4.3-D +
+    Matthew γ.4.6-D + Mark γ.4.7-D).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _cyril_in_chapter(self, chapter):
+        out = []
+        for verse in range(1, 100):
+            out.extend(e for e in self.ec.for_verse("mrk", chapter, verse) if e.father == "Cyril of Alexandria")
+        return out
+
+    def _cyril_in_range(self, ch_start, ch_end):
+        return sum(len(self._cyril_in_chapter(c)) for c in range(ch_start, ch_end + 1))
+
+    def test_mark_11_16_substantively_detailed(self):
+        total = self._cyril_in_range(11, 16)
+        assert total >= 63, (
+            f"γ.4.7.D expected ≥63 Cyril entries on Mark 11-16 (13 seed + 50 arc-close detail); found {total}"
+        )
+
+    def test_every_arc_close_chapter_has_minimum_coverage(self):
+        # Parity floor: every chapter Mark 11-16 should carry ≥5
+        # Cyril entries after γ.4.7.D arc-close.
+        per_chapter = {ch: len(self._cyril_in_chapter(ch)) for ch in range(11, 17)}
+        below_floor = {ch: n for ch, n in per_chapter.items() if n < 5}
+        assert not below_floor, (
+            f"γ.4.7.D arc-close: every Mark 11-16 chapter should have ≥5 "
+            f"Cyril entries; below-floor chapters: {below_floor}"
+        )
+
+    def test_cyril_on_mark_arc_close_count_milestone(self):
+        # §8.1 ARC-CLOSE PIN #2: absolute-count milestone at arc close.
+        # Per feedback_share_pin_pattern: never a share pin.
+        # Cumulative: 40 (γ.4.7 seed) + 51 (γ.4.7.B) + 50 (γ.4.7.C)
+        # + 51 (γ.4.7.D) = 192. ≥190 floor.
+        cyril_mrk = 0
+        for chapter in range(1, 17):
+            for verse in range(1, 100):
+                for entry in self.ec.for_verse("mrk", chapter, verse):
+                    if entry.father == "Cyril of Alexandria":
+                        cyril_mrk += 1
+        assert cyril_mrk >= 190, (
+            f"γ.4.7.D arc-close: Cyril-on-Mark count ≥190 expected "
+            f"(cumulative four-wave arc-close milestone: 40 seed + 51 "
+            f"γ.4.7.B + 50 γ.4.7.C + 51 γ.4.7.D = 192); found {cyril_mrk}"
+        )
+
+    def test_all_four_cyril_mark_waves_substantively_covered(self):
+        # §8.1 ARC-CLOSE PIN #3: all_N_sections_covered exhaustiveness.
+        # Every section of the Cyril-on-Mark arc must have substantive
+        # coverage at planned depth. The four waves are:
+        # γ.4.7    seed         (40 entries across all 16 chapters)
+        # γ.4.7.B  Mark 1-5     (≥64 cumulative)
+        # γ.4.7.C  Mark 6-10    (≥64 cumulative)
+        # γ.4.7.D  Mark 11-16   (≥63 cumulative)
+        # This pin prevents a future "I'll ship Mark 11-16 later" from
+        # silently leaving the arc partially closed.
+        total_cyril_mrk = self._cyril_in_range(1, 16)
+        mrk_1_5 = self._cyril_in_range(1, 5)
+        mrk_6_10 = self._cyril_in_range(6, 10)
+        mrk_11_16 = self._cyril_in_range(11, 16)
+
+        assert total_cyril_mrk >= 190, (
+            f"γ.4.7.D arc-close: total Cyril-on-Mark ≥190 expected (four waves); found {total_cyril_mrk}"
+        )
+        assert mrk_1_5 >= 64, f"γ.4.7.D arc-close: Mark 1-5 below γ.4.7.B parity (need ≥64, have {mrk_1_5})"
+        assert mrk_6_10 >= 64, f"γ.4.7.D arc-close: Mark 6-10 below γ.4.7.C parity (need ≥64, have {mrk_6_10})"
+        assert mrk_11_16 >= 63, f"γ.4.7.D arc-close: Mark 11-16 below γ.4.7.D parity (need ≥63, have {mrk_11_16})"
+
+    def test_meta_synchronization_at_arc_close(self):
+        # §8.1 ARC-CLOSE PIN #1: _meta synchronization. Pin per
+        # sub-phase tag with regex word-boundary so γ.4.7 doesn't
+        # accidentally match γ.4.7.B/C/D.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert re.search(r"γ\.4\.7(?![.A-Z])", meta_source), "γ.4.7 seed wave must be in _meta.source"
+        assert re.search(r"γ\.4\.7\.B(?![A-Z])", meta_source), "γ.4.7.B Mark 1-5 detail wave must be in _meta.source"
+        assert re.search(r"γ\.4\.7\.C(?![A-Z])", meta_source), "γ.4.7.C Mark 6-10 detail wave must be in _meta.source"
+        assert re.search(r"γ\.4\.7\.D(?![A-Z])", meta_source), "γ.4.7.D arc-close wave must be in _meta.source"
+        # arc-close must describe Mark 11-16 scope explicitly
+        assert (
+            "Mark 11-16" in meta_source
+            or "Passion narrative" in meta_source
+            or "Resurrection + Great Commission" in meta_source
+        ), "γ.4.7.D _meta.source should describe the Mark 11-16 (Passion + Resurrection + Great Commission) scope"
+        # arc-close must record arc-close status explicitly
+        assert (
+            "Cyril-on-Mark arc is CLOSED" in meta_source
+            or "CLOSING WAVE of the four-wave Cyril-on-Mark arc" in meta_source
+        ), "γ.4.7.D _meta.source should record the arc-close explicitly"
+
+    # ---- Signature passage pins (14 anchors for Tewahedo distinctives) ----
+
+    def test_davidic_kingdom_cometh_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 11, 10) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 11:10 — 'blessed is the kingdom of our father David that cometh' "
+            "(Markan-distinctive Davidic-messianic anticipation; Tewahedo Solomonic-Davidic anchor)"
+        )
+
+    def test_forgive_when_praying_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 11, 25) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 11:25 — 'when ye stand praying, forgive' "
+            "(prayer-condition; Tewahedo sacramental-confession + Pax anchor)"
+        )
+
+    def test_render_to_caesar_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 12, 17) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 12:17 — 'render to Caesar and to God' "
+            "(dual-jurisdiction; Tewahedo Solomonic-political-theology anchor)"
+        )
+
+    def test_shema_lord_our_god_is_one_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 12, 29) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 12:29 — 'Hear O Israel, the Lord our God is one' "
+            "(Shema; Tewahedo Trinitarian-monotheism unity anchor)"
+        )
+
+    def test_fourfold_love_of_god_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 12, 30) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 12:30 — fourfold love-of-God heart+soul+mind+strength "
+            "(Markan-distinctive; comprehensive-anthropological formation anchor)"
+        )
+
+    def test_son_of_man_coming_in_clouds_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 13, 26) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 13:26 — Son-of-Man coming in clouds great power and glory "
+            "(Dan 7:13 Parousia-fulfillment; Tewahedo Mäshafä-Bǝrhän eschatological anchor)"
+        )
+
+    def test_heaven_earth_pass_words_not_pass_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 13, 31) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 13:31 — 'heaven and earth shall pass; my words shall not' "
+            "(Christological-Logology summit; Tewahedo Word-eternity anchor)"
+        )
+
+    def test_blood_of_covenant_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 14, 24) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 14:24 — blood-of-covenant shed-for-many "
+            "(Markan-Anaphora institution-form; Ex 24:8 + Isa 53:11-12 echo)"
+        )
+
+    def test_not_drink_fruit_of_vine_until_kingdom_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 14, 25) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 14:25 — 'not drink henceforth fruit of vine until kingdom' "
+            "(eschatological-banquet anticipation; Marriage-Supper-of-the-Lamb anchor)"
+        )
+
+    def test_young_man_fled_naked_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 14, 51) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 14:51 — young-man-fled-naked "
+            "(Markan-distinctive; Coptic-Tewahedo John-Mark-eyewitness-tradition anchor; "
+            "the evangelist-author's signature presence in the Gospel)"
+        )
+
+    def test_caiaphas_trial_son_of_man_right_hand_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 14, 62) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 14:62 — 'I am: Son-of-Man-on-right-hand-of-power' "
+            "(TRIPLE-Christological-claim: divine-I-AM + Ps 110:1 + Dan 7:13; "
+            "Tewahedo Trinitarian-Christological summit anchor)"
+        )
+
+    def test_simon_of_cyrene_aksumite_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 15, 21) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 15:21 — Simon of Cyrene cross-bearer "
+            "(FIRST African-figure to bear-the-Cross; Tewahedo Aksumite-African-Coptic "
+            "proto-discipleship anchor)"
+        )
+
+    def test_veil_rent_schizo_bookend_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 15, 38) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 15:38 — veil-rent top-to-bottom (schizō) "
+            "(Markan-bookend with Mk 1:10 heaven-rent schizō; "
+            "Heb 10:19-20 new-covenant-access; Tewahedo maqdas-Tabot-veil anchor)"
+        )
+
+    def test_tell_disciples_AND_PETER_markan_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 16, 7) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 16:7 — 'tell his disciples AND PETER' "
+            "(Markan-distinctive explicit Petrine-restoration mention; "
+            "Mark = Peter's-translator preserves the personal restoration-touch)"
+        )
+
+    def test_markan_great_commission_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 16, 15) if e.father == "Cyril of Alexandria"]
+        assert c, (
+            "γ.4.7.D missing Mark 16:15 — 'go into all the world, preach the gospel to every creature' "
+            "(Markan-Great-Commission preserved in Coptic-Tewahedo longer-ending; "
+            "Tewahedo missionary-mandate Frumentius-mission warrant)"
         )

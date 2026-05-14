@@ -6,6 +6,351 @@
 
 ---
 
+## 2026-05-13 — session — γ.4.7.D Cyril-on-Mark ARC-CLOSE (CLOSES THE FOURTH AND FINAL canonical-Gospel Cyrillian arc)
+
+**Phases shipped:** γ.4.7.D — CLOSING WAVE of the four-wave Cyril-
+on-Mark arc per §8.1 arc-close convention (SIXTH instance after
+γ.4.4.E Mäṣḥafä Hēnok, γ.4.5.E Mäṣḥafä Kufāle, γ.4.2.D Pentateuch,
+γ.4.3.D Cyril-on-Luke, γ.4.6.D Cyril-on-Matthew). 51 verse-keyed
+entries on Mark 11-16 (Jerusalem entry + temple cleansing + Olivet
+eschatology + Passion narrative + Resurrection + Great Commission)
+deepening the 13 thin γ.4.7 seed anchors to 64-entry coverage —
+parity with γ.4.7.B Mark-1-5 + γ.4.7.C Mark-6-10 density floors.
+
+**HISTORIC MILESTONE — ALL FOUR canonical-Gospel Cyrillian arcs
+now CLOSED:**
+
+```
+Cyril-on-John     γ.4.1-D    116 entries (closed earlier)
+Cyril-on-Luke     γ.4.3-D    160 entries (closed 2026-05-13 AM)
+Cyril-on-Matthew  γ.4.6-D    195 entries (closed 2026-05-13 PM)
+Cyril-on-Mark     γ.4.7-D    192 entries (closed by THIS ship)
+                              (40 seed + 51 γ.4.7.B + 50 γ.4.7.C
+                               + 51 γ.4.7.D)
+─────────────────────────────────────────────────────────────────
+Cumulative Cyril-on-Gospels: 663 entries across all 4 canonical
+                              Gospels at closed-arc substantive-
+                              detail depth.
+```
+
+**Coptic-Tewahedo apostolic-lineage anchor completed:** Mark =
+Coptic founder's Gospel; Cyril = 24th Patriarch of See of Mark;
+Athanasius = Tewahedo founder Frumentius's consecrator. Reading
+Cyril (Mark's 24th-Patriarch successor) on Mark closes the
+hermeneutical loop in the lineage that birthed Tewahedo. The
+γ.4.7-D arc-close is the structural-completion of the Coptic-
+Markan apostolic-tradition reading.
+
+**§3 sequencing rationale:** "continue" advance after γ.4.7.C
+shipped same-session. Per §3 close-before-open precedent within
+an arc — γ.4.7.D arc-close is the natural-completion of the Mark-
+arc work begun this session.
+
+**Items shipped:**
+
+1. **`scripts/_ship_gamma47d.py` — new ship script** (~880 lines).
+   51 NEW_ENTRIES dict-literals with full Cramer + PG 72
+   attribution. Distribution: Mark 11 (8) + Mark 12 (10) + Mark 13
+   (8) + Mark 14 (11) + Mark 15 (8) + Mark 16 (6) = 51.
+
+2. **`content/sources/ethiopian_commentaries.json`** — extended:
+   - `entries`: 1166 → 1217 (+51).
+   - Cyril-on-Mark within `entries`: 141 → 192 entries.
+   - `_meta.source` ledger appended with γ.4.7.D arc-close
+     manifest + "Cyril-on-Mark arc is CLOSED" status.
+
+3. **`content/notes/mrk.py`** — promoted via `batch_promote_xrefs.py
+   --kind comm-ethiopian` (idempotent post-N-W4). Promote pass:
+   4359 attempted / 51 promoted / 4308 skipped / 0 errors / 6 files
+   affected (mrk_ch_011 through mrk_ch_016). SIXTH production-scale
+   verification of N-W4 contract.
+
+4. **`tests/test_ethiopian_gamma4.py` — `TestGamma47DCyrilMarkArcClose`**
+   (NEW class, 20 pins, ~310 lines). §8.1 arc-close standard pin
+   set:
+   - **§8.1 PIN #1 (_meta synchronization)**: per-sub-phase tag
+     with regex word-boundary matching γ.4.7 + γ.4.7.B + γ.4.7.C
+     + γ.4.7.D; Mark 11-16 scope + arc-close status recorded
+     explicitly.
+   - **§8.1 PIN #2 (count milestone)**: Cyril-on-Mark absolute-
+     count ≥190 (per `feedback_share_pin_pattern` — never a
+     share-pin).
+   - **§8.1 PIN #3 (all_N_sections_covered exhaustiveness)**:
+     γ.4.7 seed (≥40) + γ.4.7.B Mark 1-5 (≥64) + γ.4.7.C Mark
+     6-10 (≥64) + γ.4.7.D Mark 11-16 (≥63).
+   - **Density pins (2)**: Mark 11-16 ≥63 + every chapter ≥5.
+   - **Signature anchor pins (14)**: 11:10 Davidic-kingdom-cometh
+     + 11:25 forgive-when-praying + 12:17 render-to-Caesar +
+     12:29 Shema + 12:30 fourfold-love-of-God + 13:26 Son-of-Man-
+     coming-in-clouds + 13:31 heaven-earth-pass-words-not-pass +
+     14:24 blood-of-covenant + 14:25 not-drink-fruit-of-vine +
+     14:51 young-man-fled-naked Markan-John-Mark-tradition + 14:62
+     triple-Christological-claim + 15:21 Simon-of-Cyrene Aksumite
+     + 15:38 veil-rent schizō + 16:7 'tell disciples AND PETER' +
+     16:15 Markan-Great-Commission.
+
+5. **`tests/test_ethiopian_gamma4.py` — `TestGamma4MetaPhasesCoverage`
+   extension** (+4 pins per ω.37 W10-closure precedent). Adds
+   γ.4.7.x quartet (γ.4.7 + γ.4.7.B + γ.4.7.C + γ.4.7.D) to the
+   catch-all `_meta`-synchronization class. Future drift gets
+   caught at commit time.
+
+**Voice-mix delta:**
+
+```
+Pre-γ.4.7.D (post-γ.4.7.C):       Post-γ.4.7.D:
+  Cyril      617  52.9%             Cyril      668  54.7%
+  Jubilees   200  17.2%             Jubilees   200  16.4%
+  1 Enoch    192  16.5%             1 Enoch    192  15.7%
+  Ephrem     157  13.5%             Ephrem     157  12.9%
+                                                ────
+                                                1217 entries
+```
+
+Cyril 54.7% — comfortable single-father-majority per ω.41 §1
+voice-composition rule (intentional Cyril-led-patristic-chorus).
+Patristic-anchor majority 67.6% (Cyril + Ephrem). Cumulative
+gain across γ.4.6.B through γ.4.7.D: +21.4 points Cyril share
+(33.3% → 54.7%).
+
+**Tewahedo signature anchors surfaced at the arc-close (Passion
++ Coptic-Tewahedo lineage emphasis):**
+
+- **Mk 11:10 Davidic-kingdom-cometh** — Tewahedo Solomonic-Davidic
+  Kǝbrä Nägäśt anchor.
+- **Mk 11:25 forgive-when-praying** — Tewahedo sacramental-Pax
+  pre-Eucharistic-reconciliation anchor.
+- **Mk 12:17 render-to-Caesar-and-to-God** — Tewahedo political-
+  theology twofold-jurisdiction.
+- **Mk 12:29 Shema** — Tewahedo Trinitarian-monotheism unity (anti-
+  Arian + anti-Sabellian).
+- **Mk 12:30 fourfold love-of-God** — Markan-distinctive (heart+
+  soul+mind+strength) comprehensive-anthropological formation.
+- **Mk 13:26 Son-of-Man coming in clouds** — Dan 7:13 Parousia-
+  fulfillment; Tewahedo Mäshafä-Bǝrhän eschatological anchor.
+- **Mk 13:31 heaven-and-earth-pass-my-words-not-pass** —
+  Christological-Logology summit.
+- **Mk 14:24 blood-of-covenant shed-for-many** — Tewahedo Anaphora-
+  institution.
+- **Mk 14:25 not-drink-fruit-of-vine-until-kingdom** — eschatological-
+  banquet anticipation.
+- **Mk 14:51 young-man-fled-naked** — Markan-distinctive; Coptic-
+  Tewahedo John-Mark-eyewitness-tradition anchor (evangelist's-
+  own-signature in the Gospel).
+- **Mk 14:62 'I am: Son-of-Man-on-right-hand-of-power'** — TRIPLE-
+  Christological-claim (egō-eimi divine-name + Ps 110:1 + Dan 7:13);
+  Tewahedo Trinitarian summit.
+- **Mk 15:21 Simon of Cyrene cross-bearer** — FIRST African-figure
+  to bear-the-Cross; Tewahedo Aksumite-Coptic proto-discipleship
+  anchor (Cyrene = Libya = North-African).
+- **Mk 15:38 veil-rent schizō bookend** — Markan inclusio with
+  Mk 1:10 heaven-rent (same schizō verb); Heb 10:19-20 new-covenant-
+  access; Tewahedo maqdas-Tabot-veil anchor.
+- **Mk 16:7 'tell his disciples AND PETER'** — Markan-distinctive
+  Petrine-restoration mention (Mark = Peter's-translator preserves
+  the personal touch).
+- **Mk 16:15 Markan-Great-Commission** — Coptic-Tewahedo longer-
+  ending preserved; Frumentius-mission warrant. With this anchor
+  the FOURTH-and-final canonical-Gospel Cyrillian arc closes on
+  the universal-mission-commission — fitting for the Gospel that
+  Tewahedo traces its own apostolic-succession through (Mark →
+  Anianus → ... → Athanasius → Frumentius).
+
+**Cyril-on-Gospels at FINAL state:**
+
+```
+              source entries
+Cyril-on-Matthew    195   (γ.4.6-D, closed; Cramer Vol. I)
+Cyril-on-Mark       192   (γ.4.7-D, closed; Cramer Vol. I)
+Cyril-on-Luke       160   (γ.4.3-D, closed; Payne Smith)
+Cyril-on-John       116   (γ.4.1-D, closed)
+─────────────────────────────────────────────────────────────
+TOTAL              663 entries across all 4 canonical Gospels.
+```
+
+The Tewahedo flagship now ships Cyrillian commentary on **all 4
+canonical Gospels at closed-arc substantive-detail depth**. No
+competing free Bible app approaches this depth + breadth.
+
+**Test delta:** +24 net (`TestGamma47DCyrilMarkArcClose` 20 +
+`TestGamma4MetaPhasesCoverage` γ.4.7.x extension +4). Full suite:
+3866 passed, 1 skipped (was 3842 + 1s post-γ.4.7.C). Linter 11/11
+clean. Ruff format: 431 files clean.
+
+**Forward references:**
+
+- **save** — γ.4.7.D is the FOURTH content ship since the most
+  recent save (`f7af222` γ.4.7.B); previous γ.4.7.C added on top.
+  Historic-milestone-substantive-save warranted. User-explicit only.
+- **γ.4.8 Mäqabyan seed — STILL DEFERRED pending PD source.**
+  The remaining γ.4 cluster opportunity (Ethiopian-canonical Macc-
+  abees) requires PD-text procurement.
+- **γ.4.2.E or other Ephrem-expansion** could rebalance the voice-
+  composition toward Syriac-presence, but per ω.41 §1 the Cyril-
+  led-character is intentional. Publisher-input (per memory
+  `v1_terminus`) may determine voice-rebalancing priority.
+- **The Cyril-on-canonical-Gospels arc is now COMPLETE.** Future
+  γ.4 work shifts to non-Gospel patristic expansion (Acts +
+  Pauline + Apocalypse + OT-pseudepigraphical depth) or non-
+  patristic content streams.
+
+---
+
+## 2026-05-13 — session — γ.4.7.C Cyril-on-Mark detail wave II (Mark 6-10 Galilean second half + Caesarea + Transfiguration)
+
+**Phases shipped:** γ.4.7.C — second detail wave on the Cyril-on-
+Mark arc. 50 verse-keyed entries on Mark 6-10 (Galilean ministry
+second half + Caesarea Philippi + Transfiguration + journey-to-
+Jerusalem). Deepens the 14 thin γ.4.7 seed anchors on Mark 6-10
+to 64-entry detail-wave coverage — parity with γ.4.7.B Mark-1-5
+density floor (64-entry coverage). Cyril-on-Mark arc now at 141
+entries (40 seed + 51 γ.4.7.B + 50 γ.4.7.C); one more detail wave
+(γ.4.7.D Mark 11-16) would CLOSE the FOURTH and final canonical-
+Gospel Cyrillian arc with §8.1 SIXTH instance.
+
+**§3 sequencing rationale:** "continue" advance after γ.4.7.B
+shipped earlier same-session. Per §3 close-before-open precedent
+within an arc. Per `feedback_extensive_answers`: chose broadest-
+natural detail-wave scope (50 entries spanning all 5 chapters
+Mark 6-10).
+
+**Voice mix at γ.4.7.C close:** Cyril 50.8% → 52.3% (+1.5 pts).
+Per ω.41 §1 voice-composition rule (codified earlier same-session):
+this is intentional Cyril-led-patristic-chorus character per
+apostolic-succession rationale (Cyril = 24th Patriarch of See of
+Mark in lineage to John Mark + Athanasius + Frumentius).
+
+**Items shipped:**
+
+1. **`scripts/_ship_gamma47c.py` — new ship script** (~850 lines).
+   50 NEW_ENTRIES dict-literals with full Cramer Vol. I + PG 72
+   attribution. Distribution: Mark 6 (10) + Mark 7 (9) + Mark 8
+   (11 — includes Mk 8:25 second-stage Bethsaida completion) +
+   Mark 9 (10) + Mark 10 (10) = 50. Atomic write via tmp +
+   `os.replace`.
+
+2. **`content/sources/ethiopian_commentaries.json`** — extended:
+   - `entries`: 1116 → 1166 (+50).
+   - Cyril-on-Mark within `entries`: 91 → 141 entries.
+   - `_meta.source` ledger appended with γ.4.7.C wave manifest.
+
+3. **`content/notes/mrk.py`** — promoted via `batch_promote_xrefs.py
+   --kind comm-ethiopian` (idempotent post-N-W4 fix). Promote pass:
+   4167 attempted / 50 promoted / 4117 skipped / 0 errors / 5 files
+   affected (mrk_ch_006 through mrk_ch_010). FIFTH production-scale
+   verification of N-W4 contract. Per-chapter comm-ethiopian Mark
+   6-10 post-γ.4.7.C: 13 / 11 / 14 / 13 / 13.
+
+4. **`tests/test_ethiopian_gamma4.py` — `TestGamma47CCyrilMarkCaesareaTransfigurationWave`**
+   (NEW class, 17 pins, ~260 lines). Detail-wave standard pin set:
+   - **Density pins (2)**: Mark 6-10 substantively-detailed ≥64 +
+     every chapter Mark 6-10 ≥10.
+   - **Count milestones (2)**: cyril_on_mark ≥140 + cumulative
+     Cyril ≥610.
+   - **Signature anchor pins (12)**: 6:50 walking-on-sea egō-eimi +
+     7:34 Ephphatha + 8:25 Bethsaida-second-stage + 8:36 gain-
+     world-lose-soul + 9:2 Transfiguration mountain + 9:5 Peter-
+     three-tabernacles + 9:23 if-thou-canst-believe + 9:29 prayer-
+     and-fasting + 10:14 suffer-little-children + 10:18 why-callest-
+     thou-me-good + 10:21 one-thing-thou-lackest + 10:27 with-God-
+     all-things-possible.
+   - **`_meta.source` sync pin (1)**: γ.4.7.C + Mark 6-10 OR
+     Galilean-second-half OR Caesarea/Transfiguration.
+
+**Voice-mix delta:**
+
+```
+Pre-γ.4.7.C:                     Post-γ.4.7.C:
+  Cyril      567  50.8%            Cyril      617  52.9%
+  Jubilees   200  17.9%            Jubilees   200  17.2%
+  1 Enoch    192  17.2%            1 Enoch    192  16.5%
+  Ephrem     157  14.1%            Ephrem     157  13.5%
+                                              ────
+                                              1166 entries
+```
+
+Cyril plurality 52.9% post-γ.4.7.C; patristic-anchor majority
+66.4% (Cyril + Ephrem). Per ω.41 §1: corpus formally "Cyril-led
+patristic chorus + three Tewahedo-canonical-OT + one Syriac
+supplement".
+
+**Tewahedo signature anchors surfaced (Caesarea-Transfiguration
+emphasis):**
+
+- **Mk 6:13 oil-anointing apostolic mission** — Tewahedo
+  sacrament-of-the-sick (qǝbʿät-zayit) dual-foundation with
+  Jas 5:14-15.
+- **Mk 6:50 'It is I' egō-eimi** — Septuagintal Ex 3:14 I-AM
+  claim (parallels Mt 14:27 γ.4.6.D, Jn 6:20).
+- **Mk 7:34 Ephphatha (preserved-Aramaic)** — Tewahedo baptismal-
+  rite explicitly preserves this Coptic-Markan-Aramaic gesture
+  (priest touches ears + mouth + nostrils saying 'Be opened').
+- **Mk 8:25 Bethsaida second-stage completion** — only Gospel
+  TWO-STAGE healing; spiritual-sight gradual-pedagogy parallel to
+  Peter's partial-then-corrected Christological confession.
+- **Mk 8:36 gain-world-lose-soul** — universal-moral-summit
+  asymmetry.
+- **Mk 9:2 Transfiguration mountain-selection** — six-day creation-
+  typology; Tewahedo Buhe feast Näḥase 13 anchor.
+- **Mk 9:29 'this kind by prayer and fasting'** — Markan-
+  distinctive (most early-witnesses preserve the fasting-clause;
+  Tewahedo Mahǝbär-fast cycles draw deliverance-charter here).
+- **Mk 10:14 'suffer little children'** — Tewahedo infant-baptism
+  Coptic-tradition warrant.
+- **Mk 10:18 'why callest thou me good'** — hidden-Christological
+  divinity claim under apparent humility.
+- **Mk 10:21 'beholding-him-loved-him; one thing thou lackest'** —
+  ONLY Gospel passage where Christ-is-said-to-love-an-individual;
+  Tewahedo monastic-vocation love-prompting-of-the-calling anchor.
+- **Mk 10:27 'with God all things possible'** — grace-monergism;
+  Tewahedo soteriology of grace anchor.
+
+**Cyril-on-Mark arc progress:**
+
+```
+γ.4.7    seed             40  (Mark 1-16 broad coverage)
+γ.4.7.B  detail wave I    51  (Mark 1-5 Galilean first half)
+γ.4.7.C  detail wave II   50  (Mark 6-10 Galilean second half +
+                               Caesarea + Transfiguration)
+─────────────────────────────────────────────────────────────
+TOTAL:                   141  entries on Mark so far.
+TODO:    γ.4.7.D arc-close (Mark 11-16: Jerusalem + Passion +
+                            Resurrection); SIXTH §8.1 instance.
+```
+
+**Cumulative Cyril-on-Gospels (all 4 canonical):**
+
+```
+Cyril-on-John     γ.4.1-D    116 entries (closed)
+Cyril-on-Luke     γ.4.3-D    160 entries (closed)
+Cyril-on-Matthew  γ.4.6-D    195 entries (closed)
+Cyril-on-Mark     γ.4.7-C    141 entries (seed + 2 detail; 1 wave
+                                           to arc-close)
+────────────────────────────────────────────────────────────────
+TOTAL:                      612 entries across all 4 canonical
+                            Gospels.
+```
+
+**Test delta:** +17 net (`TestGamma47CCyrilMarkCaesareaTransfigurationWave`).
+Full suite: 3842 passed, 1 skipped (was 3825 + 1s post-γ.4.7.B).
+Linter 11/11 clean. Ruff format: 430 files clean.
+
+**Forward references:**
+- **save** — γ.4.7.C is the second content ship since the most
+  recent save (`f7af222` γ.4.7.B). User-explicit only per
+  `feedback_continue_not_save.md`.
+- **γ.4.7.D Cyril-on-Mark arc-close — Mark 11-16** (Jerusalem
+  entry + temple + Olivet eschatology + Passion + Resurrection)
+  would CLOSE the FOURTH and final canonical-Gospel Cyrillian
+  arc. SIXTH instance of §8.1 arc-close convention. Estimated
+  scope: ~50 entries; count milestone Cyril-on-Mark ≥190;
+  all-three-waves-substantively-covered exhaustiveness; per-sub-
+  phase `_meta` synchronization (γ.4.7 + γ.4.7.B + γ.4.7.C +
+  γ.4.7.D); plus TestGamma4MetaPhasesCoverage extension with the
+  γ.4.7.x quartet per ω.37 W10-closure precedent.
+
+---
+
 ## 2026-05-13 — session — γ.4.7.B Cyril-on-Mark detail wave I (Mark 1-5 Galilean ministry first half; Cyril crosses 50% threshold)
 
 **Phases shipped:** γ.4.7.B — first detail wave on the Cyril-on-
