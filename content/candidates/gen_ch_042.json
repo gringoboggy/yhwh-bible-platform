@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 42,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 43,
   "candidates": [
     {
       "id": "gen-42-5-001",
@@ -621,6 +621,21 @@
     },
     {
       "id": "gen-42-24-042",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLII.24. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And he turned himself about from them, and wept; and returned to them again&#x27;. Ephrem treats Joseph&#x27;s hidden weeping as the model of concealed-compassion: Joseph maintains the testing-disguise BUT the compassion is real and ongoing. Tewahedo pastoral-theology preserves this image: shepherds and confessors may need to maintain apparent severity for the penitent&#x27;s good, but the compassion underneath must always be active.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-42-24-043",
       "verse": 24,
       "kind": "comm-ethiopian",
       "anchor": "",

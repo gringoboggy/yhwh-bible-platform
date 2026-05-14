@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 14,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 35,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 36,
   "candidates": [
     {
       "id": "gen-14-18-001",
@@ -516,6 +516,21 @@
     },
     {
       "id": "gen-14-18-035",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XIV.18. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>Melchizedek brings forth bread and wine, blessing Abram. Ephrem treats Melchizedek as the supreme OT type of Christ — priest without genealogy, king of righteousness (melek-ṣedeq), king of peace (Salem = shalom). The bread-and-wine offering directly prefigures the Eucharist; the absence of bloody sacrifice makes Melchizedek&#x27;s priesthood superior to the Aaronic. Tewahedo eucharistic theology preserves this typology load-bearingly: the Tewahedo Anaphora invokes Melchizedek explicitly as the priestly archetype that Christ fulfils, drawing on Heb 5-7 and Ephrem&#x27;s exegetical lead.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-14-18-036",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

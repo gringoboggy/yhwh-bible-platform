@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 87,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "1en-87-2-001",
@@ -111,6 +111,36 @@
     },
     {
       "id": "1en-87-3-008",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Animal Apocalypse (1 Enoch 85-90)",
+      "source_attribution": "1 Enoch 87:3, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Animal Apocalypse (1 Enoch 85-90)</em> <small>(c. 150 BC)</small><p>&#x27;And those three that had last come forth grasped me by my hand and took me up, away from the generations of the earth, and raised me up to a lofty place, and showed me a tower raised high above the earth&#x27; — Enoch translated by three archangels to view world history from above. Tewahedo monastic-mystical tradition uses this verse as a canonical example of the contemplative ascent that the highest stages of monastic prayer approximate.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Animal Apocalypse (1 Enoch 85-90). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-87-2-009",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Animal Apocalypse (1 Enoch 85-90)",
+      "source_attribution": "1 Enoch 87:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Animal Apocalypse (1 Enoch 85-90)</em> <small>(c. 150 BC)</small><p>&#x27;And I raised mine eyes again to heaven, and I saw in the vision, and behold there came forth from heaven beings who were like white men: and four went forth from that place and three with them&#x27; — the four white men are the four archangels of presence (Michael, Gabriel, Raphael, Phanuel — matching 1En 40:2-9 pinned in γ.4.4.C). The seven-archangel ecclesiology that Tewahedo preserves uniquely uses this Animal-Apocalypse vision as one of its three witnesses (with 9:1 and 20:1).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Animal Apocalypse (1 Enoch 85-90). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-87-3-010",
       "verse": 3,
       "kind": "comm-ethiopian",
       "anchor": "",

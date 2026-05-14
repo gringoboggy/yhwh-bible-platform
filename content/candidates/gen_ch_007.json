@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 7,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 48,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 49,
   "candidates": [
     {
       "id": "gen-7-1-001",
@@ -711,6 +711,21 @@
     },
     {
       "id": "gen-7-11-048",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis VII.11 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (362).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 362 AD)</small><p>On the flood&#x27;s onset — &#x27;all the fountains of the great deep broken up, and the windows of heaven were opened&#x27; — Ephrem reads the dual-source flooding as the cosmic-symbolic reversal of the Day 2 separation of waters (Gen 1:6-7). The firmament that had held the upper waters in place is, as it were, unstoppered; the deep that had been bounded breaks its bounds. Creation un-creates itself by divine permission — order returning to chaos because of human moral disorder. This Ephremic reading establishes the deep theological principle that cosmic order and moral order are not independent: human sin has cosmic-environmental consequences, and the restoration of moral order is the precondition for the restoration of cosmic order. The Tewahedo doctrine of the new heavens and new earth (cf. Mäṣḥafä Hēnok 91) traces this principle forward.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-7-11-049",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

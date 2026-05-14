@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 39,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "1en-39-6-001",
@@ -111,6 +111,36 @@
     },
     {
       "id": "1en-39-12-008",
+      "verse": 12,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 39:12, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;And those who sleep not bless Thee: they stand before Thy glory and bless, praise, and extol, saying: &quot;Holy, holy, holy, is the Lord of Spirits: he filleth the earth with spirits&quot;&#x27; — the triple-sanctus (qadis qadis qadis) attested in the Parables. The Tewahedo Anaphora of the Apostles preserves this Sanctus verbatim as the angelic praise sung perpetually before the throne, drawing both on Isa 6:3 and on the Enochic witness preserved in the Tewahedo lectionary.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-39-6-009",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 39:6, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;And there mine eyes saw the Elect One of righteousness and of faith, and I saw his dwelling-place under the wings of the Lord of Spirits&#x27; — the Elect One pre-existent and enthroned-with-the-Father. Tewahedo iconography of Christ enthroned under the wings of the Lord (preserved in some illuminated Ge&#x27;ez Bibles&#x27; depictions of the throne-room visions) traces back to this verse as scriptural anchor for the imagery.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-39-12-010",
       "verse": 12,
       "kind": "comm-ethiopian",
       "anchor": "",

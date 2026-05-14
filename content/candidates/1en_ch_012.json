@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 12,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "1en-12-1-001",
@@ -111,6 +111,36 @@
     },
     {
       "id": "1en-12-4-008",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 12:4, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>The angels commission Enoch: &#x27;Enoch, thou scribe of righteousness, go, declare to the Watchers of the heaven who have left the high heaven, the holy eternal place, and have defiled themselves with women&#x27; — Enoch&#x27;s prophetic-judicial role as scribe. Where ordinary scribes record human events, Enoch is the scribe of the angelic-judicial process: the divine sentence on the Watchers passes THROUGH Enoch&#x27;s recording. The title &#x27;scribe of righteousness&#x27; (ṣaḥafe ṣədq) becomes the canonical Tewahedo designation; this verse is the textual warrant for treating Enoch&#x27;s recorded visions as inspired prophetic Scripture rather than mere human composition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-12-1-009",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 12:1-2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>&#x27;Before these things Enoch was hidden, and no one of the children of men knew where he was hidden, and where he abode, and what had become of him&#x27; — the foundational text for Enoch&#x27;s hidden pre-translation existence. Already before the Flood narrative, Enoch is &#x27;hidden&#x27; (Geez xəbu&#x27;) with the watchers and holy ones — translated from ordinary human existence into the angelic order. This Tewahedo reads as the foundation of Enoch&#x27;s authority to receive subsequent visions: he is the human-yet-translated witness, qualified to mediate between angelic and human knowledge precisely because he occupies both spheres.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-12-4-010",
       "verse": 4,
       "kind": "comm-ethiopian",
       "anchor": "",

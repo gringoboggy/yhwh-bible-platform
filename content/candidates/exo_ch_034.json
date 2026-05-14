@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 34,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 49,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 50,
   "candidates": [
     {
       "id": "exo-34-6-001",
@@ -726,6 +726,21 @@
     },
     {
       "id": "exo-34-30-049",
+      "verse": 30,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XXXIV.11 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Moses descends with face shining and must put on a veil that the people may bear his presence. Paul reads the veil as the figure of the obscurity that remains over the OT until Christ takes it away (2 Cor 3:13-16). Ephrem follows Paul and reads Ex 34:30 as the canonical anchor of the veiled-to-unveiled progression: in the OT the prophet&#x27;s borrowed glory must be covered; in the NT the believer beholds the Lord&#x27;s own glory unveiled.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-34-30-050",
       "verse": 30,
       "kind": "comm-ethiopian",
       "anchor": "",

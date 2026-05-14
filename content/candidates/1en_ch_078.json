@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 78,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 4,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 5,
   "candidates": [
     {
       "id": "1en-78-1-001",
@@ -51,6 +51,21 @@
     },
     {
       "id": "1en-78-1-004",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 78:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And the names of the sun are the following: the first Orjarēs, and the second Tomāsē. And the moon has four names: the first name is Asōnja, the second Eblā, the third Benāsē, and the fourth Erā&#x27; — the named luminaries. Tewahedo angelological tradition preserves the pattern of NAMED celestial beings (rather than impersonal forces): every star has a name known to Uriel and revealed to Enoch, just as every soul has a name known to its guardian angel — the personal-not-impersonal cosmos.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-78-1-005",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

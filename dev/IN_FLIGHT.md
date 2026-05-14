@@ -4,6 +4,164 @@
 
 ## Prior task
 
+**γ.4.9 Athanasius of Alexandria seed wave — 40 verse-keyed entries
+across 19 books spanning OT christological anticipations (Gen 1:26
++ 1:27 + Ex 3:14 + Ps 2:7 + 110:1 + Pr 8:22 + Isa 7:14 + 9:6) +
+canonical Gospel Christology (Mt 1:23 + 11:27 + 28:19 + Jn 1:1 +
+1:14 + 10:30 + 14:9 + 20:28) + Pauline Christology (Rom 1:3 + 8:15
++ 9:5 + 1Co 1:24 + 8:6 + 2Co 8:9 + Gal 4:4 + Eph 1:10 + Phi 2:6 +
+2:7 + 2:9 + Col 1:15 + 1:16 + 2:9 + Heb 1:3 + 13:8) + Petrine +
+Johannine + Apocalyptic (1Pe 1:19 + 4:1 + 2Pe 1:4 + 1Jn 1:1 + 3:2 +
+Rev 1:8 + 5:13 + 22:13). OPENS A FIFTH PATRISTIC VOICE in the γ.4
+corpus alongside the four-voice composition codified at ω.41 §1
+(Cyril 668 + Jubilees 200 + 1 Enoch 192 + Ephrem 157); ethiopian_
+commentaries.json 1217 → 1257 (+40); voice mix Cyril 54.7% → 53.1%
+(intentional Cyril-led plurality preserved); patristic-anchor
+majority 67.6% → 68.8%. SEVENTH production-scale verification of
+N-W4 idempotency contract (5616 attempted / 40 promoted / 5576
+skipped / 0 errors / 35 files affected — broadest N-W4 verification
+yet across 19 different books). Corpus book coverage 11 → 25.
+TestGamma49AthanasiusSeedWave +18 pins (1 substantive-seed + 1
+milestone + 1 thematic-groups + 1 multi-book + 13 signature anchors
++ 1 _meta sync); TestGamma4MetaPhasesCoverage γ.4.9 extension +1
+pin. Suite 3866 → 3885 pass + 1 skip (+19 net); linter 11/11;
+ruff _ship_gamma49.py clean.** shipped 2026-05-13. Triggered by
+user "continue" advance after γ.4.7.D same-session. Per §3
+sequencing: broadest-natural scope (per memory `feedback_extensive_
+answers`) + safest-additive-first + buyer-demo-value (Tewahedo
+flagship corpus depth).
+
+**Why it matters for THIS project — Tewahedo apostolic-bridge
+completion:**
+
+- **OPENS THE FIFTH PATRISTIC VOICE.** Athanasius of Alexandria
+  joins Cyril, Jubilees, 1 Enoch, Ephrem in the γ.4 patristic
+  voice mix. The five-voice composition supersedes the four-voice
+  composition codified at ω.41 §1; the Cyril-led-plurality
+  character is PRESERVED (Cyril remains at 53.1%, intentional per
+  apostolic-succession rationale) while the Athanasian addition
+  deepens the See-of-Mark patriarchal-line depth and the Tewahedo
+  founding-consecrator anchor.
+- **Tewahedo apostolic-anchor reading is now structurally COMPLETE
+  at both endpoints.** Pre-γ.4.9, the γ.4 corpus had Mark-via-Cyril
+  closure (γ.4.7-D, 192 entries — the Coptic-Markan apostolic-
+  tradition reading) but NO direct Athanasian-coverage of the
+  Tewahedo founding-consecrator. γ.4.9 closes the lineage at its
+  Athanasian pole (20th Patriarch + Frumentius's consecrator c.
+  330 AD + Festal Letter 39 author). The hermeneutical-loop is
+  doubly-closed at the lineage's two structural-poles.
+- **Multi-book signature is the broadest-yet γ.4 promote pass.**
+  γ.4.7.D's promote pass affected 6 files (mrk_ch_011-016); γ.4.9's
+  pass affects 35 files across 19 different books. Validates the
+  N-W4 idempotency contract under the broadest production-scope
+  configuration to date — zero errors across 5616 candidate
+  attempts.
+- **Book coverage 11 → 25.** 14 new books introduced to the γ.4
+  corpus (`1co`, `1jn`, `1pe`, `2co`, `2pe`, `col`, `eph`, `gal`,
+  `heb`, `isa`, `phi`, `pro`, `rev`, `rom`). The Pauline + Catholic-
+  Epistle + Apocalyptic-Revelation books were previously
+  unrepresented in the patristic source corpus; γ.4.9 establishes
+  the Athanasian-doctrinal-anchor coverage across all those books.
+
+**SEED-WAVE PIN SET applied (NOT §8.1 arc-close):**
+
+γ.4.9 is a SEED wave, NOT an arc-close. The §8.1 convention applies
+at arc-close (closing wave); γ.4.9 would precede γ.4.9.B/C/D detail
+waves if the publisher's uniqueness-angle pick (per memory
+`v1_terminus`) directs further Athanasian deepening. The seed pin
+set covers:
+
+1. **Substantive-seed pin** — ≥40 Athanasius entries across canon.
+2. **Absolute-count milestone** — Athanasius ≥40 (per
+   `feedback_share_pin_pattern` — never share-pin).
+3. **Thematic-groups all-substantively-covered** — OT + Gospels +
+   Pauline + Petrine/Johannine/Apocalyptic (each ≥1 entry).
+4. **Multi-book-coverage pin** — ≥18 books touched (19 actual);
+   thematic-spread invariant for the multi-book seed signature.
+5. **13 signature-anchor pins** — Gen 1:26, Ex 3:14, Pr 8:22, Isa
+   7:14, Jn 1:1, Jn 1:14, Jn 10:30, Phi 2:7, Col 1:15, Heb 1:3,
+   2 Pet 1:4, 1 Jn 3:2, Rev 1:8 (christological/theosis/
+   Trinitarian distinctives).
+6. **_meta sync pin** — γ.4.9 referenced + Athanasius named + NPNF
+   S2 V4 (Robertson 1892) source cited + FIFTH-PATRISTIC-VOICE or
+   Frumentius-consecrator-rationale described.
+
+Plus TestGamma4MetaPhasesCoverage::test_meta_documents_gamma_4_9
+extension per ω.37 W10-closure precedent — γ.4.9 drift gets caught
+at commit time.
+
+**N-W4 IDEMPOTENCY — SEVENTH PRODUCTION VERIFICATION (BROADEST YET):**
+
+```
+End-to-end promote pass (γ.4.9):
+  Attempted: 5616 ← broadest verification yet (vs prior γ.4.7.D 4359)
+  Promoted:  40   ← exactly the new γ.4.9 entries
+  Skipped:   5576 ← every prior entry correctly skipped
+  Errors:    0
+  Files affected: 35 across 19 different books
+```
+
+Cumulative N-W4 verifications this session: γ.4.6.C / γ.4.6.D /
+γ.4.7 / γ.4.7.B / γ.4.7.C / γ.4.7.D / γ.4.9 = 7 production-scale
+verifications totalling 29,770 attempted / 333 promoted / 29,437
+skipped / 0 errors. The χ-cluster pipeline remains durably safe
+across the most-diverse promote pass to date (19 books).
+
+**Files:**
+
+- `content/sources/ethiopian_commentaries.json` — +40 Athanasius
+  entries across 19 books; `_meta.source` + FIFTH-PATRISTIC-VOICE
+  manifest extended; total entries 1217 → 1257.
+- `content/notes/<19 books>.py` — promoted via
+  `run_ethiopian_at_scale.py` (regenerates candidates) +
+  `batch_promote_xrefs.py --kind comm-ethiopian` (idempotent post-
+  N-W4). Per-book new comm-ethiopian counts: gen +2, exo +1, psa
+  +2, pro +1, isa +2, mat +3, jhn +5, rom +3, 1co +2, 2co +1, gal
+  +1, eph +1, phi +3, col +3, heb +2, 1pe +2, 2pe +1, 1jn +2, rev
+  +3 = 40 total.
+- `scripts/_ship_gamma49.py` — new ship script (~520 lines)
+  mirroring `_ship_gamma47.py` seed-shape but adapted to multi-
+  book thematic distribution.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma49AthanasiusSeedWave` class (18 pins, ~225 lines) +
+  `TestGamma4MetaPhasesCoverage` extension (+1 γ.4.9 pin).
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta:** +19 net (`TestGamma49AthanasiusSeedWave` 18 +
+`TestGamma4MetaPhasesCoverage::test_meta_documents_gamma_4_9` 1).
+Full suite: 3866 → 3885 pass + 1 skip. Linter 11/11. Ruff
+`scripts/_ship_gamma49.py` clean.
+
+**Post-ship correction (same turn):** the first full-suite run
+revealed two failures: `TestGamma4DataFile::test_every_entry_cites_
+pd_source` (attribution check requires "NPNF" substring;
+Athanasius attributions used the full "Nicene and Post-Nicene
+Fathers" without the abbreviation) and `TestOmega33RuffFormat::
+test_codebase_stays_ruff_formatted` (ruff format drift on the 19
+modified notes files + ship script + test file). Fixed via:
+
+1. **`scripts/_fix_gamma49_npnf.py`** — one-shot LOAD-BEARING-ONCE
+   script (per §7.4 ship-script-retention rule): injects "(NPNF)"
+   parenthetical into the existing 40 Athanasius attribution strings
+   in `ethiopian_commentaries.json` + 40 attribution lines across
+   19 notes files (gen/exo/psa/pro/isa/mat/jhn/rom/1co/2co/gal/eph/
+   phi/col/heb/1pe/2pe/1jn/rev). Idempotent re-run safe.
+2. **`scripts/_ship_gamma49.py`** updated to use the new
+   "(NPNF)" abbreviation in all 5 ATTR_* constants (DI, CA, DEC,
+   FL, EPICT) — for future re-runnability.
+3. **`python -m ruff format .`** auto-applied to bring 21 affected
+   files into ruff format conformance.
+
+Post-correction: both failing tests pass. The two-failure → zero
+failure correction is in scope for THIS γ.4.9 ship (same-turn
+hygiene per §3.6 bandwidth-aware — fixing in-flight is cheaper
+than reopening later).
+
+---
+
+## Earlier-prior task (closed)
+
 **γ.4.7.D Cyril-on-Mark ARC-CLOSE wave — Mark 11-16 (Jerusalem
 entry + temple cleansing + Olivet eschatology + Passion narrative
 + Resurrection + Great Commission); CLOSING WAVE of the four-wave

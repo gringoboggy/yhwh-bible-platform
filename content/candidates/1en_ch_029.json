@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 29,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 4,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 5,
   "candidates": [
     {
       "id": "1en-29-2-001",
@@ -51,6 +51,21 @@
     },
     {
       "id": "1en-29-2-004",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 29:2, trans. R.H. Charles (1912). PD. Cf. Mt 2:11.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>&#x27;And I saw the trees of judgement, especially vessels of the fragrance of frankincense and myrrh, and the trees were not like each other&#x27; — Enoch&#x27;s vision of the aromatic trees of paradise: frankincense and myrrh prominent among them. The same two substances are brought as gifts to the infant Christ (Mt 2:11) — Tewahedo Christological reading takes the Magi gifts as proleptic offering from the eschatological paradise back to the Incarnate one whose advent inaugurates the new creation. The Tewahedo eucharistic preparation includes frankincense + myrrh in deliberate liturgical-cosmic reference.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-29-2-005",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

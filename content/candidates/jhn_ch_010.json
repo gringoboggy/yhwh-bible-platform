@@ -1,8 +1,8 @@
 {
   "book": "jhn",
   "chapter": 10,
-  "generated_at": "2026-05-09T06:06:27+00:00",
-  "n_candidates": 99,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 100,
   "candidates": [
     {
       "id": "jhn-10-1-001",
@@ -1487,6 +1487,21 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WORD OF GOD. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "jhn-10-30-100",
+      "verse": 30,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.1-25",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers, Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.1-25</em> <small>(c. 350 AD)</small><p>&#x27;I and my Father are one&#x27; — Athanasius devotes much of Contra Arianos III (chs 1-25) to the proper-exegesis of egō kai ho patēr hen esmen, the singular-most-decisive Arian-controversy verse. Athanasius establishes (a) hen is NEUTER (hen esmen = &#x27;we are one-thing&#x27;), not MASCULINE (eis esmen = &#x27;we are one-person&#x27;); the verse therefore affirms one-essence (homoousion) with TWO-distinct-Persons (Father and Son both subjects of the plural-verb esmen). (b) The verse cannot be reduced to mere moral-union-of-wills because the listening Pharisees correctly understood it as a divinity-claim and prepared to stone Jesus for blasphemy (Jn 10:31, 33). (c) Christ&#x27;s appeal to Ps 82:6 in his self-defense (Jn 10:34-36) is an a-fortiori argument: if covenant-mediating-judges can be called &#x27;gods&#x27; analogically, the eternal-Son consubstantial-Word can be called &#x27;God&#x27; properly. The Tewahedo Christological-confession at every Anaphora preserves Jn 10:30&#x27;s neuter-hen ontological-unity-of-essence formula.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.1-25. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

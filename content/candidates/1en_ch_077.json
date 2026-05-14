@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 77,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 4,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 5,
   "candidates": [
     {
       "id": "1en-77-3-001",
@@ -51,6 +51,21 @@
     },
     {
       "id": "1en-77-3-004",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 77:3, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And I saw seven mountains higher than all the mountains which are on the earth: and thence comes forth hoar-frost, and days, seasons, and years pass away. And I saw seven rivers on the earth larger than all the rivers&#x27; — sevenfold cosmic geography. Tewahedo monastic geography (the naming of seven holy mountains in Ethiopia, including Debre Damo, Debre Libanos, and the Lalibela complex) preserves the seven-mountains motif as Tewahedo holy-land cosmography, drawing on this Enochic vision.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-77-3-005",
       "verse": 3,
       "kind": "comm-ethiopian",
       "anchor": "",

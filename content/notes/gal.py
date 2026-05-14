@@ -2381,6 +2381,17 @@ NOTES = [
     ),
     (
         4,
+        4,
+        "e",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.30</em> <small>(c. 350 AD)</small><p>&#x27;But when the fulness of the time was come, God sent forth his Son, made of a woman, made under the law&#x27; — Athanasius marks genomenon ek gynaikos (made-of-woman) as the genuine-human-birth confession that excludes every Docetic-phantasm reading. The Son is not merely-clothed-in-flesh, not merely-passing-through-Mary-as-a-channel — he is genomenon ek gynaikos in the same mode every human-being is born of woman. The genomenon ek / genomenon hypo combination (born-of-woman + born-under-the-law) names the dual-conformity-to-humanity that the incarnation achieves: biologically-human + legally-human. The Tewahedo Wǝddāse-Maryam preserves Gal 4:4 as the Marian-incarnational summit alongside Lk 1:38 + Mt 1:23 + Isa 7:14 as the four-fold Theotokos-witness.</p></aside>',
+        "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+    ),
+    (
+        4,
         5,
         "",
         "",

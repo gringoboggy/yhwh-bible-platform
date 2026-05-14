@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 42,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "1en-42-1-001",
@@ -111,6 +111,36 @@
     },
     {
       "id": "1en-42-2-008",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 42:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;Then Wisdom returned to her place, and took her seat among the angels. And iniquity went forth from her chambers: whom she sought not she found, and dwelt with them, as rain in a desert and dew on a thirsty land&#x27; — Wisdom&#x27;s withdrawal contrasted with iniquity&#x27;s flourishing. Tewahedo monastic qǝne (sacred poetry) preserves this image as the canonical illustration of why Christ&#x27;s coming was necessary: Wisdom alone could not stay; she required incarnation. The verse is cited in Tewahedo Marian liturgy as the antecedent that Mary&#x27;s fiat reverses.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-42-1-009",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 42:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;Wisdom found no place where she might dwell; then a dwelling-place was assigned her in the heavens. Wisdom went forth to make her dwelling among the children of men, and found no dwelling-place&#x27; — the failed earthly mission of Wisdom. Tewahedo Christology reads this verse Christologically (after Pr 8:22-31, Wisd 7:25-26) as anticipating the Incarnation&#x27;s reversal: the Word/Wisdom who could find no place on earth in the Parables ultimately does find a place — in Mary&#x27;s womb.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-42-2-010",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

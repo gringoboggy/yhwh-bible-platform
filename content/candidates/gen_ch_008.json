@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 8,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 47,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 48,
   "candidates": [
     {
       "id": "gen-8-1-001",
@@ -696,6 +696,21 @@
     },
     {
       "id": "gen-8-21-047",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis VIII.21 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (362).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 362 AD)</small><p>After Noah&#x27;s post-flood sacrifice — &#x27;the LORD smelled a sweet savour; and the LORD said in his heart, I will not again curse the ground any more for man&#x27;s sake&#x27; — Ephrem reads as the inauguration of the Noahic covenant of cosmic stability. The &#x27;sweet savour&#x27; (the Syriac rīhā d-nyahha) Ephrem takes as the prototype of every subsequent acceptable sacrifice — Abel&#x27;s, Abraham&#x27;s, the Mosaic sacrificial system, and ultimately the eucharistic sacrifice of Christ. God&#x27;s interior speech (&#x27;said in his heart&#x27;) Ephrem takes as decisive: the divine commitment is irrevocable not because of external pressure but because of intrinsic divine resolve. The Tewahedo liturgical reading of this verse on Noah&#x27;s feast day (10th of Magabit) preserves this Ephremic emphasis on the interior divine commitment.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-8-21-048",
       "verse": 21,
       "kind": "comm-ethiopian",
       "anchor": "",

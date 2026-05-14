@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 14,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 81,
+  "generated_at": "2026-05-14T01:52:53+00:00",
+  "n_candidates": 82,
   "candidates": [
     {
       "id": "num-14-18-001",
@@ -1206,6 +1206,21 @@
     },
     {
       "id": "num-14-18-081",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 14:13-25. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Moses&#x27; citation of the divine self-disclosure &#x27;The Lord is longsuffering, and of great mercy, forgiving iniquity and transgression... by no means clearing the guilty&#x27; (Num 14:18), Ephrem reads the formula as the canonical liturgical prayer-of-pardon adopted into the Septuagint Psalter (Ps 86:15, 103:8, 145:8) and extended into every later Christian confession-rite. The verse holds together the two halves of the Name: mercy and justice, neither cancelling the other. Tewahedo penance liturgy (näsḫa-of-näsḫa) cites Num 14:18 as the canonical Old-Testament anchor for the priestly absolution formula; the same formula governs the Lenten qǝne and the Holy Thursday foot-washing.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-14-18-082",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -566,6 +566,19 @@ class TestGamma4MetaPhasesCoverage:
     def test_meta_documents_gamma_4_7_d(self):
         self._assert_phase_mentioned("γ.4.7.D")
 
+    # γ.4.9 (Athanasius seed) added 2026-05-13 — OPENS A FIFTH PATRISTIC
+    # VOICE alongside the four-voice composition (Cyril + Jubilees + 1 Enoch
+    # + Ephrem) codified at ω.41 §1. Athanasius is the Tewahedo apostolic-
+    # bridge: 20th Patriarch of the See of Mark + consecrator (c. 330) of
+    # Frumentius + author of Festal Letter 39 (367 NT canon). The seed pairs
+    # structurally with the γ.4.7-D Cyril-on-Mark arc-close: both are See-of-
+    # Mark patriarchal-succession Christology. The _meta sync pin guards
+    # against future drift in the γ.4.9.x detail-wave family if/when those
+    # ship; for now γ.4.9 alone is pinned.
+
+    def test_meta_documents_gamma_4_9(self):
+        self._assert_phase_mentioned("γ.4.9")
+
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
     """ω.37 (W11 closure) — build-pipeline integration test for
@@ -6030,3 +6043,246 @@ class TestGamma47DCyrilMarkArcClose:
             "(Markan-Great-Commission preserved in Coptic-Tewahedo longer-ending; "
             "Tewahedo missionary-mandate Frumentius-mission warrant)"
         )
+
+
+class TestGamma49AthanasiusSeedWave:
+    """γ.4.9 — Athanasius of Alexandria seed wave (2026-05-13).
+    OPENS A FIFTH PATRISTIC VOICE in the γ.4 corpus alongside the
+    four-voice composition codified at ω.41 §1:
+
+        Cyril of Alexandria   668 entries  54.7% → 53.1%
+        Jubilees              200 entries  16.4% → 15.9%
+        1 Enoch               192 entries  15.7% → 15.3%
+        Ephrem the Syrian     157 entries  12.9% → 12.5%
+        + Athanasius (γ.4.9)   40 entries   3.2%  ← THIS SHIP
+
+    Patristic-anchor majority (Cyril + Ephrem + Athanasius) rises
+    67.6% → 68.8%. Per ω.41 §1: the Cyril-led-patristic-chorus
+    character is intentional per apostolic-succession rationale; the
+    fifth-voice opening DEEPENS the patristic plurality without
+    displacing the Cyril-led plurality.
+
+    Athanasius is the Tewahedo apostolic-bridge:
+    - 20th Patriarch of the See of Mark (328-373 AD)
+    - Consecrator (c. 330 AD) of Frumentius the Tewahedo founder
+    - Author of Festal Letter 39 (367 AD) establishing the 27-book
+      NT canon the Tewahedo Church receives in its canonical form
+
+    The seed pairs structurally with the γ.4.7-D Cyril-on-Mark
+    arc-close: both are See-of-Mark patriarchal-succession
+    Christology. γ.4.9 extends the apostolic-lineage hermeneutical
+    reading BACKWARDS from Cyril (24th Patriarch) to Athanasius
+    (20th Patriarch).
+
+    Sources (all fully PD): Select Writings and Letters of Athanasius,
+    NPNF Series 2 Vol. 4 (ed. Robertson, Oxford/T&T Clark 1892) —
+    contains De Incarnatione + Contra Arianos I-IV + De Decretis +
+    Festal Letters (incl. Letter 39) + Epistola ad Epictetum + Letter
+    to Adelphius. Greek text in Migne PG 25-28 (1857-1887, PD).
+
+    Distribution (40 entries across 19 books — THEMATIC-MULTI-BOOK
+    pattern, NOT single-book like prior γ.4.6/γ.4.7 Cyril-on-Gospel
+    arcs; Athanasius's works are doctrinal-treatises commenting on
+    christological-anchor verses across the canon):
+    - OT Christological Anticipations (8 entries across 5 books):
+      gen × 2 + exo × 1 + psa × 2 + pro × 1 + isa × 2
+    - Canonical Gospel Christology (8 entries across 2 books):
+      mat × 3 + jhn × 5
+    - Pauline Christology (16 entries across 8 books):
+      rom × 3 + 1co × 2 + 2co × 1 + gal × 1 + eph × 1 + phi × 3 +
+      col × 3 + heb × 2
+    - Petrine + Johannine + Apocalyptic (8 entries across 4 books):
+      1pe × 2 + 2pe × 1 + 1jn × 2 + rev × 3
+
+    Pins (seed-wave standard set — NOT arc-close; γ.4.9.B/C/D may
+    follow as detail waves per γ.4.1/γ.4.3/γ.4.6/γ.4.7 precedent):
+    - Athanasius substantively seeded (≥40 entries across all books).
+    - All four thematic groups substantively covered (≥1 Athanasius
+      entry in each: OT + Gospels + Pauline + Petrine/Johannine/Apoc).
+    - Multi-book coverage ≥18 (19 actual — thematic-spread invariant).
+    - Athanasius absolute-count milestone ≥40 (40 actual; floor per
+      `feedback_share_pin_pattern.md` — never share-pin).
+    - Signature passages — 13 christological/theosis/Trinitarian
+      anchors covering the Athanasian-Tewahedo doctrinal architecture.
+    - _meta.source sync pin: γ.4.9 referenced + Athanasius signature
+      + NPNF S2 V4 source cited.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _all_athanasius(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Athanasius of Alexandria")
+        return out
+
+    def _athanasius_in_book(self, book):
+        out = []
+        for chapter in range(1, 200):
+            for verse in range(1, 200):
+                out.extend(e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Athanasius of Alexandria")
+        return out
+
+    def test_athanasius_substantively_seeded(self):
+        ath = self._all_athanasius()
+        assert len(ath) >= 40, f"γ.4.9 expected ≥40 Athanasius entries across the canon; found {len(ath)}"
+
+    def test_athanasius_milestone_count(self):
+        # Absolute-count milestone per `feedback_share_pin_pattern.md`:
+        # use count, NEVER share. γ.4.9 seed ships exactly 40 entries;
+        # the ≥40 floor preserves the historical-achievement against
+        # any future voice-broadening wave (subsequent fathers or
+        # γ.4.9.B/C/D detail-wave expansion may dilute Athanasius's
+        # share without violating this milestone).
+        ath = self._all_athanasius()
+        assert len(ath) >= 40, f"γ.4.9 Athanasius count milestone ≥40 not met; found {len(ath)}"
+
+    def test_athanasius_thematic_groups_all_substantively_covered(self):
+        # All four thematic groups must carry ≥1 Athanasius entry.
+        # Multi-book pattern: γ.4.9 IS the seed-wave per group; future
+        # detail waves (γ.4.9.B/C/D) would deepen the count per group.
+        ot_books = {"gen", "exo", "psa", "pro", "isa"}
+        gospel_books = {"mat", "jhn"}
+        pauline_books = {"rom", "1co", "2co", "gal", "eph", "phi", "col", "heb"}
+        petrine_johannine_apoc_books = {"1pe", "2pe", "1jn", "rev"}
+
+        ath = self._all_athanasius()
+
+        def _book_hit(book_set):
+            return any(e.book in book_set for e in ath)
+
+        assert _book_hit(ot_books), "γ.4.9 missing OT Christological Anticipations group (gen/exo/psa/pro/isa)"
+        assert _book_hit(gospel_books), "γ.4.9 missing Canonical Gospel Christology group (mat/jhn)"
+        assert _book_hit(pauline_books), "γ.4.9 missing Pauline Christology group (rom/1co/2co/gal/eph/phi/col/heb)"
+        assert _book_hit(petrine_johannine_apoc_books), (
+            "γ.4.9 missing Petrine + Johannine + Apocalyptic group (1pe/2pe/1jn/rev)"
+        )
+
+    def test_athanasius_multi_book_coverage(self):
+        # Thematic-spread invariant: Athanasius's doctrinal treatises
+        # comment across the canon. The seed must span ≥18 books
+        # (19 actual). Any reduction below this floor in a future
+        # γ.4.9 maintenance ship would indicate the multi-book
+        # signature has been compromised.
+        ath = self._all_athanasius()
+        books_touched = {e.book for e in ath}
+        assert len(books_touched) >= 18, (
+            f"γ.4.9 expected Athanasius entries across ≥18 books (multi-book seed); "
+            f"found {len(books_touched)}: {sorted(books_touched)}"
+        )
+
+    # ---- Signature passage pins (13 anchors covering Athanasian-Tewahedo doctrinal architecture) ----
+
+    def test_trinitarian_lets_make_man_anchor_present(self):
+        c = [e for e in self.ec.for_verse("gen", 1, 26) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Gen 1:26 — Trinitarian 'let us make man in our image' "
+            "(De Decretis §22 intra-Trinitarian-deliberation anchor)"
+        )
+
+    def test_i_am_burning_bush_anchor_present(self):
+        c = [e for e in self.ec.for_verse("exo", 3, 14) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Ex 3:14 — egō eimi ho ōn (LXX I-AM the-Being-One; Burning-Bush divine-name Jn 8:58 anchor)"
+        )
+
+    def test_prov_8_22_arian_controversy_anchor_present(self):
+        c = [e for e in self.ec.for_verse("pro", 8, 22) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Pr 8:22 — 'the LORD created me' "
+            "(THE Arian-controversy prooftext; Contra Arianos II.18-82 refutation)"
+        )
+
+    def test_almah_parthenos_isa_7_14_anchor_present(self):
+        c = [e for e in self.ec.for_verse("isa", 7, 14) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Isa 7:14 — almah/parthenos virgin-conception (De Incarnatione §33 Mt 1:23 prophetic anchor)"
+        )
+
+    def test_johannine_logos_in_beginning_anchor_present(self):
+        c = [e for e in self.ec.for_verse("jhn", 1, 1) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Jn 1:1 — 'in the beginning was the Word' "
+            "(De Incarnatione §1 Johannine prologue Logos-eternal-existence anchor)"
+        )
+
+    def test_word_made_flesh_athanasian_signature_anchor_present(self):
+        c = [e for e in self.ec.for_verse("jhn", 1, 14) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Jn 1:14 — ho Logos sarx egeneto "
+            "(THE Athanasian signature-verse; De Incarnatione §8; DI §54 'God-became-man "
+            "that man might become God' is the soteriological corollary)"
+        )
+
+    def test_i_and_father_are_one_anchor_present(self):
+        c = [e for e in self.ec.for_verse("jhn", 10, 30) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Jn 10:30 — egō kai ho patēr hen esmen (Contra Arianos III.1-25 homoousion neuter-hen anchor)"
+        )
+
+    def test_kenotic_emptied_himself_anchor_present(self):
+        c = [e for e in self.ec.for_verse("phi", 2, 7) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Phil 2:7 — heauton ekenōsen "
+            "(Contra Arianos I.41-45 kenosis-is-assumption-not-subtraction anchor)"
+        )
+
+    def test_image_of_invisible_god_anchor_present(self):
+        c = [e for e in self.ec.for_verse("col", 1, 15) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Col 1:15 — eikōn tou theou tou aoratou "
+            "(Contra Arianos II.62-64 perfect-image firstborn-over-creation anchor)"
+        )
+
+    def test_express_image_heb_1_3_anchor_present(self):
+        c = [e for e in self.ec.for_verse("heb", 1, 3) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Heb 1:3 — apaugasma tēs doxēs + charaktēr tēs hypostaseōs "
+            "(Contra Arianos I.13 light-from-fire perfect-image-of-Father anchor)"
+        )
+
+    def test_theosis_2_peter_1_4_anchor_present(self):
+        c = [e for e in self.ec.for_verse("2pe", 1, 4) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing 2 Pet 1:4 — theias koinōnoi physeōs "
+            "(De Incarnatione §54 THEOSIS-summit; 'He was made man that we might be made God' anchor)"
+        )
+
+    def test_we_shall_be_like_him_anchor_present(self):
+        c = [e for e in self.ec.for_verse("1jn", 3, 2) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing 1 Jn 3:2 — homoioi autō esometha "
+            "(De Incarnatione §54 eschatological theosis-fulfillment + beatific-vision anchor)"
+        )
+
+    def test_alpha_omega_apocalyptic_anchor_present(self):
+        c = [e for e in self.ec.for_verse("rev", 1, 8) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9 missing Rev 1:8 — egō eimi to alpha kai to ō "
+            "(Contra Arianos II.13 Apocalyptic-Christ divine-self-predication; "
+            "Tewahedo Christ-Pantocrator iconography anchor)"
+        )
+
+    def test_meta_documents_gamma_4_9_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.9" in meta_source, "γ.4.9 must be referenced in _meta.source"
+        assert "Athanasius" in meta_source, "γ.4.9 _meta.source should name Athanasius"
+        assert "NPNF" in meta_source or "Robertson" in meta_source, (
+            "γ.4.9 _meta.source should cite NPNF S2 V4 (Robertson 1892) source"
+        )
+        assert (
+            "FIFTH PATRISTIC VOICE" in meta_source
+            or "fifth patristic voice" in meta_source.lower()
+            or ("Frumentius" in meta_source and "consecrator" in meta_source)
+        ), "γ.4.9 _meta.source should describe the fifth-voice / Frumentius-consecrator apostolic-bridge rationale"

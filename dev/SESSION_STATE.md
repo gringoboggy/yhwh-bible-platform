@@ -1,5 +1,161 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / γ.4.9 Athanasius of Alexandria seed wave ships
+— OPENS A FIFTH PATRISTIC VOICE in the γ.4 corpus alongside the
+four-voice composition codified at ω.41 §1 (Cyril 668 + Jubilees
+200 + 1 Enoch 192 + Ephrem 157). 40 verse-keyed Athanasius entries
+across 19 books spanning OT christological anticipations + canonical
+Gospels + Pauline + Petrine + Johannine + Apocalyptic christology.
+Athanasius is the Tewahedo apostolic-bridge: 20th Patriarch of the
+See of Mark (328-373) + consecrator (c. 330 AD) of Frumentius the
+Tewahedo founder + author of Festal Letter 39 (367 NT canon).
+The seed PAIRS structurally with the γ.4.7-D Cyril-on-Mark arc-close
+shipped same-session: both are See-of-Mark patriarchal-succession
+Christology. γ.4.9 extends the apostolic-lineage hermeneutical
+reading BACKWARDS from Cyril (24th Patriarch) to Athanasius (20th).
+ethiopian_commentaries.json 1217 → 1257 (+40); voice mix Cyril
+54.7% → 53.1% (intentional Cyril-led plurality per ω.41 §1 preserved);
+patristic-anchor majority 67.6% → 68.8% (Cyril + Ephrem + Athanasius).
+SEVENTH production-scale verification of N-W4 idempotency contract
+(5616 attempted / 40 promoted / 5576 skipped / 0 errors / 35 files
+affected — broadest-N-W4-verification yet across 19 different books).
+Corpus book coverage 11 → 25 (14 new books: 1co/1jn/1pe/2co/2pe/col/
+eph/gal/heb/isa/phi/pro/rev/rom). TestGamma49AthanasiusSeedWave +18
+pins (1 substantive-seed + 1 milestone + 1 thematic-groups + 1 multi-
+book + 13 signature anchors + 1 _meta sync) + TestGamma4MetaPhases
+Coverage γ.4.9 extension +1 pin. Suite 3866 → 3885 pass + 1 skip
+(+19 net); linter 11/11; ruff _ship_gamma49.py clean.** Triggered
+by user "continue" advance after γ.4.7.D same-session. Per §3
+sequencing: broadest-natural scope (per memory `feedback_extensive_
+answers`) + safest-additive-first + buyer-demo-value (Tewahedo
+flagship corpus depth). Other γ.4 options (γ.4.2.E Ephrem, γ.4.8
+Mäqabyan blocked, χ-cluster AI-xrefs) all narrower or externally-
+blocked; γ.4.9 fifth-voice opening is the broadest available
+continuation.
+
+**The Tewahedo apostolic-anchor reading is now structurally
+COMPLETE at both endpoints:**
+
+```
+See-of-Mark patriarchal lineage (anchored at both endpoints):
+  Mark (Coptic founder)                  ← γ.4.7-D Cyril-on-Mark
+        ↓ (apostolic succession)
+  ...
+  Athanasius (20th Patriarch, 328-373)   ← γ.4.9 SEED THIS SHIP
+        ↓ (consecrator c. 330 AD)
+  Frumentius (Tewahedo founder)
+        ↓ (Tewahedo Church established at Aksum)
+  ...
+  Cyril of Alexandria (24th Patriarch, 412-444)
+                                         ← γ.4.7-D arc-close
+        ↓ (commentary tradition transmitted)
+  Tewahedo Church receives Cyrillian doctrinal heritage
+```
+
+Both endpoints of the apostolic-lineage anchor are now substantively
+covered in the γ.4 corpus: Mark-via-Cyril (γ.4.7-D, 192 entries) +
+Athanasius-the-Tewahedo-consecrator (γ.4.9, 40 entries). The
+hermeneutical loop is doubly-closed at the lineage's two structural
+poles.
+
+**Items shipped:**
+
+- **`scripts/_ship_gamma49.py`** — new ship script (~520 lines, 40
+  NEW_ENTRIES with five distinct attribution strings: De Incarnatione
+  + Contra Arianos I-IV + De Decretis + Festal Letters + Epistola ad
+  Epictetum).
+- **`content/sources/ethiopian_commentaries.json`** — entries 1217 →
+  1257; corpus book coverage 11 → 25; `_meta.source` ledger
+  appended with γ.4.9 FIFTH-PATRISTIC-VOICE manifest.
+- **`content/notes/<19 books>.py`** — promoted via
+  `run_ethiopian_at_scale.py` (regenerates candidates) +
+  `batch_promote_xrefs.py --kind comm-ethiopian` (idempotent post-
+  N-W4). Per-book new comm-ethiopian counts: gen +2, exo +1, psa +2,
+  pro +1, isa +2, mat +3, jhn +5, rom +3, 1co +2, 2co +1, gal +1,
+  eph +1, phi +3, col +3, heb +2, 1pe +2, 2pe +1, 1jn +2, rev +3 =
+  40 total.
+- **`tests/test_ethiopian_gamma4.py`** — new
+  `TestGamma49AthanasiusSeedWave` (18 pins) +
+  `TestGamma4MetaPhasesCoverage::test_meta_documents_gamma_4_9` (1
+  pin) = +19 net.
+
+**Voice-mix delta — fifth voice opened:**
+
+```
+Pre-γ.4.9 (1217 entries):           Post-γ.4.9 (1257 entries):
+  Cyril       668  54.7%               Cyril       668  53.1%
+  Jubilees    200  16.4%               Jubilees    200  15.9%
+  1 Enoch     192  15.7%               1 Enoch     192  15.3%
+  Ephrem      157  12.9%               Ephrem      157  12.5%
+                                       Athanasius   40   3.2%  ← NEW
+                                                  ────
+                                                  1257 entries
+```
+
+Per ω.41 §1: Cyril-led-patristic-chorus character preserved (53.1%
+plurality is still Cyril's, intentional per apostolic-succession
+rationale). Patristic-anchor majority (Cyril + Ephrem + Athanasius)
+67.6% → 68.8%.
+
+**Tewahedo signature anchors at γ.4.9 seed (13 christological/
+theosis/Trinitarian distinctives):**
+
+- Gen 1:26 Trinitarian "let us" (De Decretis §22)
+- Ex 3:14 I-AM ho ōn (LXX divine-name; Jn 8:58 anchor)
+- Pr 8:22 ektisen me (THE Arian-controversy prooftext; CA II.18-82)
+- Isa 7:14 almah/parthenos (De Incarnatione §33)
+- Jn 1:1 in-beginning-was-the-Word (DI §1)
+- Jn 1:14 Word-made-flesh (DI §8) — Athanasius's signature verse
+- Jn 10:30 hen-esmen (CA III.1-25 homoousion anchor)
+- Phi 2:7 heauton-ekenōsen (CA I.41-45 kenosis-is-assumption)
+- Col 1:15 eikōn tou theou aoratou (CA II.62-64 perfect-image)
+- Heb 1:3 apaugasma + charaktēr (CA I.13 light-from-fire)
+- 2 Pet 1:4 theias-koinōnoi-physeōs (DI §54 THEOSIS-summit)
+- 1 Jn 3:2 homoioi-autō-esometha (DI §54 eschatological theosis)
+- Rev 1:8 egō-eimi-to-alpha-kai-to-ō (CA II.13 divine-self-pred.)
+
+**N-W4 idempotency contract — SEVENTH production verification:**
+
+```
+End-to-end promote pass (γ.4.9):
+  Attempted: 5616
+  Promoted:  40    ← exactly the new γ.4.9 entries
+  Skipped:   5576  ← every prior entry correctly skipped
+  Errors:    0
+  Files affected: 35 (across 19 different books)
+```
+
+Cumulative N-W4 verifications this session (γ.4.6.C / γ.4.6.D /
+γ.4.7 / γ.4.7.B / γ.4.7.C / γ.4.7.D / γ.4.9): 29,770 attempted /
+333 promoted / 29,437 skipped / 0 errors. The χ-cluster pipeline
+remains durably safe across the broadest-yet promote pass.
+
+**Recommended next steps:**
+
+- **save** — γ.4.9 is the FIFTH content ship since last save
+  (`f7af222` γ.4.7.B); ω.41 hygiene + γ.4.7.B + γ.4.7.C + γ.4.7.D
+  + γ.4.9 all uncommitted. Fifth-voice-opening + ALL-FOUR-Gospel-
+  Cyrillian-arcs-CLOSED milestones together warrant a substantive
+  save. User-explicit only per `feedback_continue_not_save.md`.
+- **γ.4.9.B/C/D detail-wave expansion** — natural continuation if
+  the user picks the Athanasius-deepening path. Each wave would
+  target a thematic-grouping (e.g. γ.4.9.B Pauline-deepening +
+  γ.4.9.C OT-Christological-anticipations + γ.4.9.D Petrine/
+  Apocalyptic) at ~40-60 entries per wave. Arc-close at γ.4.9.D
+  would apply §8.1 (SEVENTH instance).
+- **γ.4.10 Severus of Antioch seed** — opens SIXTH patristic voice
+  (Miaphysite-Christological non-Chalcedonian doctrinal anchor —
+  Tewahedo Miaphysite identity-anchor). Source: Patrologia
+  Orientalis (PO) — partial PD coverage.
+- **γ.4.2.E Ephrem-expansion** — extends Ephrem voice (currently
+  12.5%); voice-rebalancing option per ω.41 §1.
+- **Audit cadence** — per memory `feedback_audit_cadence`, ≥10
+  phases shipped this session (γ.4.6.B/C/D + γ.4.7/B/C/D + γ.4.9 +
+  ω.41 hygiene + cross-edition ω.40 closure verifications) — light
+  solo-Claude audit warranted at the next session-boundary.
+
+---
+
 **Updated 2026-05-13 / γ.4.7.D Cyril-on-Mark ARC-CLOSE ships —
 HISTORIC MILESTONE: CLOSES THE FOURTH AND FINAL canonical-Gospel
 Cyrillian arc. ALL FOUR Cyril-on-canonical-Gospel arcs now CLOSED

@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 27,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 34,
+  "generated_at": "2026-05-14T01:52:53+00:00",
+  "n_candidates": 35,
   "candidates": [
     {
       "id": "num-27-3-001",
@@ -501,6 +501,21 @@
     },
     {
       "id": "num-27-18-034",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 27:12-23. NPNF Series 2, vol. 13. PD. Cf. 1 Tim 4:14, 2 Tim 1:6.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the Lord&#x27;s selection of Joshua as Moses&#x27; successor — &#x27;Take thee Joshua the son of Nun, a man in whom is the spirit, and lay thine hand upon him&#x27; (Num 27:18) — Ephrem reads the laying-on-of-hands as the canonical Old-Testament antecedent of apostolic succession: the spirit-bearing successor is consecrated by the laying-on of the predecessor&#x27;s hands, ratified by the assembly. The transmission is bodily and visible, not merely charismatic. Tewahedo episcopal-consecration cites Num 27:18 + 1 Tim 4:14 as the canonical doubled-witness for the unbroken chain of laying-on-of-hands that grounds the Patriarchate of Ethiopia in apostolic-Mosaic continuity.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-27-18-035",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

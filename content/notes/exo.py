@@ -799,6 +799,17 @@ NOTES = [
     ),
     (
         3,
+        14,
+        "e",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>De Decretis Nicaenae Synodi §22</em> <small>(c. 350 AD)</small><p>&#x27;And God said unto Moses, I AM THAT I AM... Thus shalt thou say unto the children of Israel, I AM hath sent me unto you&#x27; — Athanasius marks the LXX egō eimi ho ōn (I-AM the-Being-One) as the foundational name-of-God revelation that the Word inherits and reveals in Jn 8:58 (prin Abraam genesthai egō eimi — &#x27;before Abraham was, I am&#x27;). The divine egō-eimi is unshareable with any creature; that the incarnate-Word uses it self-referentially at Jn 6:35 + 8:12 + 10:7 + 10:11 + 11:25 + 14:6 + 15:1 (the seven Johannine I-AM sayings) is therefore self-identification with the Burning-Bush God. Tewahedo Christological-catechesis cites Ex 3:14 + Jn 8:58 + the seven I-AM sayings as the single-Person-of-the-Word-incarnate confession.</p></aside>',
+        "Athanasius of Alexandria, De Decretis Nicaenae Synodi (Defence of the Nicene Definition), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+    ),
+    (
+        3,
         15,
         "",
         "Yahweh",

@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 33,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 24,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 25,
   "candidates": [
     {
       "id": "gen-33-3-001",
@@ -351,6 +351,21 @@
     },
     {
       "id": "gen-33-4-024",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXXIII.4. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Esau ran to meet him, and embraced him, and fell on his neck, and kissed him: and they wept&#x27;. Ephrem reads the reconciliation of the brothers as a foretaste of the eschatological reconciliation promised in Rom 11:25-26 (the fullness of the Gentiles, then all Israel saved). Tewahedo ecumenical theology — preserved in the long Tewahedo refusal to demonize other communions even during Chalcedonian controversies — draws on the Esau-Jacob embrace as canonical model for inter-Christian relations.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-33-4-025",
       "verse": 4,
       "kind": "comm-ethiopian",
       "anchor": "",

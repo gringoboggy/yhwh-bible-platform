@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 33,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 12,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 15,
   "candidates": [
     {
       "id": "jub-33-2-001",
@@ -171,6 +171,51 @@
     },
     {
       "id": "jub-33-10-012",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 33:10 (Reuben's incest (33:10)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Reuben was not pardoned in heaven, because he was older than Joseph, and because he should not have done this thing — for he could have known that his father had her, but he loved her not as his sister&#x27; — Jubilees distinguishes terrestrial pardon (Jacob&#x27;s clemency) from heavenly judicial-reckoning. Tewahedo theological precision: divine pardon and disciplinary-canonical pardon are NOT identical; the priest can absolve from canonical penalty (Heb. nash&#x27;a; Tewahedo näsḫa) without thereby exhausting the heavenly judicial dimension, which remains the Lord&#x27;s. The Tewahedo&#x27;s distinct doctrine on the limits of priestly absolution (against the maximalist Catholic plenary-indulgence model) draws canonical anchor here.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-33-2-013",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 33:2 (Reuben's incest (33:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Reuben saw Bilhah, Rachel&#x27;s handmaid, the concubine of his father, bathing in water in a secret place, and he loved her. And he hid himself at night, and he entered the house of Bilhah at night, and he found her sleeping alone on a bed in her house. And he lay with her, and she awoke and saw, and behold Reuben was lying with her in the bed&#x27; — Jubilees preserves the Gen 35:22 incident in painful detail. The Tewahedo penitential canon&#x27;s strongest category — incest, especially with a parent&#x27;s spouse or partner — finds canonical anchor here. The Tewahedo&#x27;s distinctive practice of detailed-confession-by-category (the Confessor walks the penitent through specific Scripture-named sins for self-examination) draws Jub 33:2 into the canonical sin-list for the spiritual-paternal-bed category.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-33-9-014",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 33:9 (Reuben's incest (33:9)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And he came to his father Jacob, and he confessed to him that he had defiled the bed of his father; and Jacob mourned exceedingly because of him, and he smote him not, because Reuben himself had confessed to him; and he had pity on him&#x27; — Jubilees uniquely preserves Reuben&#x27;s voluntary confession-to-the-father and Jacob&#x27;s clemency-because-of-confession. The Tewahedo confession-and-absolution pattern (näsḫa) draws on this verse for the canonical principle that voluntary disclosure to the spiritual father materially mitigates the punitive disciplinary response, even where the sin&#x27;s gravity is unchanged. The &#x27;smote him not because Reuben had confessed&#x27; clause is the Tewahedo canonical warrant for the confessor&#x27;s clemency in response to genuinely-voluntary admission.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-33-10-015",
       "verse": 10,
       "kind": "comm-ethiopian",
       "anchor": "",

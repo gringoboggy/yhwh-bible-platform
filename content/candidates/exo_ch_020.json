@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 20,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 61,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 63,
   "candidates": [
     {
       "id": "exo-20-1-001",
@@ -906,6 +906,36 @@
     },
     {
       "id": "exo-20-8-061",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XX.4 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;Remember the sabbath day, to keep it holy&#x27; — Ephrem reads Sabbath-rest as the canonical sign that creation is given a goal beyond labour: the Sabbath foreshadows the eighth-day rest of the Resurrection. Tewahedo alone among the major communions preserves both observances together — Saturday-Sabbath retained from Sinai and Sunday-Lord&#x27;s-Day added from the Resurrection — and reads Ex 20:8 as the canonical anchor of the double observance.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-20-2-062",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XX.1 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;I am the Lord thy God, which have brought thee out of the land of Egypt, out of the house of bondage&#x27; — Ephrem reads the Pascal preface as the ground of every command that follows. The commandments are not arbitrary statutes but the rule-of-life of a delivered people; only the delivered are addressed by the Decalogue. Tewahedo catechesis preserves this priority of deliverance before commandment.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-20-8-063",
       "verse": 8,
       "kind": "comm-ethiopian",
       "anchor": "",

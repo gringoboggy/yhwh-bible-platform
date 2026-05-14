@@ -4350,6 +4350,17 @@ NOTES = [
     ),
     (
         8,
+        9,
+        "f",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.41</em> <small>(c. 350 AD)</small><p>&#x27;For ye know the grace of our Lord Jesus Christ, that, though he was rich, yet for your sakes he became poor, that ye through his poverty might be rich&#x27; — Athanasius marks di&#x27; hēmas eptōcheusen plousios ōn (for-our-sake he-became-poor though he-was-rich) as the most-compact kenotic-formula in the NT outside of Phil 2:6-11. The plousios-ōn (being-rich) names the eternal-divine-glory; the eptōcheusen (became-poor) names the kenotic-incarnation. The purpose-clause (hina hymeis ploutēsēte — &#x27;that you might be made-rich&#x27;) names the soteriological-exchange that is the doctrinal-heart of Athanasian-theology: the Son&#x27;s poverty for our richness. This is precisely DI §54&#x27;s formula in Pauline-kenotic register: &#x27;He became poor that we might be made rich&#x27; = &#x27;He was made man that we might be made God.&#x27; Tewahedo incarnational-spirituality cites 2 Cor 8:9 at the wedding-rite and at almsgiving-exhortations as the kenotic-exchange-anchor.</p></aside>',
+        "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+    ),
+    (
+        8,
         10,
         "",
         "",

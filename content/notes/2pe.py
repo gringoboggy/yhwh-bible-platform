@@ -236,6 +236,17 @@ NOTES = [
     ),
     (
         1,
+        4,
+        "c",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §54</em> <small>(c. 350 AD)</small><p>&#x27;Whereby are given unto us exceeding great and precious promises: that by these ye might be partakers of the divine nature&#x27; — Athanasius marks theias koinōnoi physeōs (partakers of-divine nature) as the THEOSIS-summit of the entire NT and the Petrine-anchor of his signature-formula: &#x27;For he was made man that we might be made God&#x27; (Autos gar enēnthrōpēsen, hina hēmeis theopoiēthōmen — DI §54, the most-quoted line in all of patristic theology). The koinōnoi (partakers, sharers — strong noun, not merely &#x27;observers&#x27; or &#x27;imitators&#x27;) names the genuine-ontological-sharing in the divine-life that the incarnation achieves for the redeemed. The theias-physeōs (divine-nature) is not creaturely-elevation (which Arian-creatures could in principle experience) but participation-in-the-essence-itself by grace. Tewahedo deification-spirituality (the Mahǝbär-Sǝmʿon ascetic tradition, the Säwasǝw-of-Pure-Thought) is built explicitly on the Athanasian-Petrine theosis-foundation.</p></aside>',
+        "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+    ),
+    (
+        1,
         5,
         "",
         "",

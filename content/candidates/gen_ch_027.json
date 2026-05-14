@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 27,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 48,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 49,
   "candidates": [
     {
       "id": "gen-27-4-001",
@@ -711,6 +711,21 @@
     },
     {
       "id": "gen-27-27-048",
+      "verse": 27,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXVII.27. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;See, the smell of my son is as the smell of a field which the Lord hath blessed&#x27;. Ephrem treats Isaac&#x27;s olfactory blessing of Jacob as the prototype of every sacramental aroma: Israel-in-Jacob bears the fragrance of Eden (the field-which-the-Lord-blessed = the Edenic garden, by Ephrem&#x27;s reading). Tewahedo liturgical use of frankincense in the qǝddase preserves this aroma-as-blessing pattern: the church fills with the smell of paradise.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-27-27-049",
       "verse": 27,
       "kind": "comm-ethiopian",
       "anchor": "",

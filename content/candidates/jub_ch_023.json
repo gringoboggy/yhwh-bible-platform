@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 23,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "jub-23-14-001",
@@ -111,6 +111,36 @@
     },
     {
       "id": "jub-23-26-008",
+      "verse": 26,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 23:26 (Decline (23:26)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And in those days the children shall begin to study the laws, and to seek the commandments, and to return to the path of righteousness. And the days shall begin to grow many and increase amongst those children of men, till their days draw nigh to one thousand years&#x27; — the eschatological renewal / Jubilees apocalypse. Tewahedo eschatology preserves the millenarian element with caution (not Christian premillenialism, but the expectation of a renewed Edenic-longevity in the messianic age).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-23-14-009",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 23:14 (Decline (23:14)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And one shall say to the other, and they to their fellow: Have we not seen all this evil... And in those days, if a man live a jubilee and a half of years, they shall say regarding him: He hath lived long, and the greater part of his days are pain and sorrow and tribulation&#x27; — the decline-of-human-lifespan theology. Tewahedo cosmological-anthropology preserves this Jubilees teaching: the shortening of life from the patriarchal centuries to ~70-80 years is NOT primarily biological-evolutionary, but covenant-disruption-consequential.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-23-26-010",
       "verse": 26,
       "kind": "comm-ethiopian",
       "anchor": "",

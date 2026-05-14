@@ -522,6 +522,17 @@ NOTES = [
     ),
     (
         1,
+        10,
+        "d",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §16</em> <small>(c. 350 AD)</small><p>&#x27;That in the dispensation of the fulness of times he might gather together in one all things in Christ, both which are in heaven, and which are on earth; even in him&#x27; — Athanasius marks anakephalaiōsasthai ta panta en tō Christō (to-recapitulate all-things in Christ) as the cosmic-scope-of-the-incarnation: the Word&#x27;s-becoming-man does not merely save individual-souls but RECAPITULATES the entire created-order in himself. The ana-kephalaiōsis (re-heading) restores Christ as the cosmic-Head-over-all-things that the original creation-order required (Col 1:18 head-of-the-body) and that the Fall fragmented. The Tewahedo cosmic-liturgical-theology (the Praises of Christ as cosmic-recapitulator at every Anaphora&#x27;s anaphoric-section) preserves Eph 1:10&#x27;s recapitulation-doctrine as constitutive of the entire liturgical-cosmic-restoration.</p></aside>',
+        "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+    ),
+    (
+        1,
         11,
         "",
         "",

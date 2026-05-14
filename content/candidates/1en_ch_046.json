@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 46,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 12,
+  "generated_at": "2026-05-14T01:52:52+00:00",
+  "n_candidates": 15,
   "candidates": [
     {
       "id": "1en-46-1-001",
@@ -171,6 +171,51 @@
     },
     {
       "id": "1en-46-3-012",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 46:3, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>The angel-interpreter tells Enoch about the Son of Man: &#x27;This is the Son of Man who hath righteousness, with whom dwelleth righteousness, and who revealeth all the treasures of that which is hidden... because the Lord of Spirits hath chosen him&#x27; — establishing the pre-existent, divinely-elected character of the Son of Man. He IS righteousness (not merely possesses it), He reveals hidden things (the apocalyptic-revelatory role), and He is chosen by the Lord of Spirits (the Enochic title for God). This is the most developed pre-Christian Jewish text on the heavenly messianic-Son-of-Man figure; Tewahedo Christology reads it as proto-Christological prophecy that the New Testament&#x27;s Son-of-Man Christology fulfills.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-46-1-013",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 46:1-3, trans. R.H. Charles (1912). PD. Cf. Dan 7:9-14 + the NT 'Son of Man' Christology.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;And there I saw One who had a head of days, and His head was white like wool, and with Him was another being whose countenance had the appearance of a man&#x27; — the foundational Son of Man vision. The &#x27;head of days&#x27; clearly echoes Daniel 7:9 &#x27;Ancient of Days&#x27;; the &#x27;another being whose countenance had the appearance of a man&#x27; echoes Daniel 7:13 &#x27;one like the Son of Man&#x27;. 1 Enoch develops the Danielic figure into a sustained pre-Christian Jewish messianic-cosmic-judge figure. The New Testament&#x27;s use of &#x27;Son of Man&#x27; as Christ&#x27;s self-designation (84 times in the Synoptics + 13 in John) presupposes this Enochic development; the Tewahedo reception of the Parables as canonical Scripture preserves the inter-textual continuity that other Christian canons obscure by omitting 1 Enoch.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-46-2-014",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 46:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;And I asked the angel who went with me and showed me all the hidden things, concerning that Son of Man, who he was, and whence he was, and why he went with the Head of Days&#x27; — Enoch&#x27;s inquiry about the Son of Man, setting up the answer in 46:3. Tewahedo catechesis preserves the question-and-answer dialogical form as the model for inquiring into Christology: the disciple must ASK before the Spirit answers.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-46-3-015",
       "verse": 3,
       "kind": "comm-ethiopian",
       "anchor": "",

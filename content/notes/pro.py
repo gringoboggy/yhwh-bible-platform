@@ -3624,6 +3624,17 @@ NOTES = [
     ),
     (
         8,
+        22,
+        "b",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.18-82</em> <small>(c. 350 AD)</small><p>&#x27;The LORD possessed me [LXX ektisen me — &#x27;created me&#x27;] in the beginning of his way, before his works of old&#x27; — Athanasius devotes the entire second-half of Contra Arianos II (some 64 chapters) to refuting the Arian use of Pr 8:22 LXX-ektisen-me as evidence that the Word is a creature. He establishes three interpretive moves: (a) ektisen here is not &#x27;made-from-nothing&#x27; but &#x27;appointed-for-mission&#x27; (the Septuagintal idiom of Pr 8:22 matches Acts 2:36 &#x27;God hath made him both Lord and Christ&#x27; — i.e., &#x27;appointed him in his economic-mission&#x27;); (b) the speaking-Wisdom of Pr 8 names the Word in his ECONOMIC-incarnate-office, not his eternal-pre-incarnate-essence; (c) the proper eternal-generation grammar is gennēsis (begetting), not ktisis (creation), and Scripture consistently observes the distinction (Ps 2:7 gegennēka se, Heb 1:5 gegennēka se, Mt 1:16 egennēse, vs ktisis-language reserved for created-being). The Tewahedo tradition received this Athanasian-interpretive-grid through the Coptic-Alexandrian patriarchal-line; Pr 8:22 in Tewahedo catechetical reading is the economic-Wisdom-appointed verse.</p></aside>',
+        "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+    ),
+    (
+        8,
         23,
         "",
         "earth",

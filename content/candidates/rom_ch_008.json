@@ -1,8 +1,8 @@
 {
   "book": "rom",
   "chapter": 8,
-  "generated_at": "2026-05-09T06:06:28+00:00",
-  "n_candidates": 151,
+  "generated_at": "2026-05-14T01:52:53+00:00",
+  "n_candidates": 152,
   "candidates": [
     {
       "id": "rom-8-1-001",
@@ -2267,6 +2267,21 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 1 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-8-15-152",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.37",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers, Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.37</em> <small>(c. 350 AD)</small><p>&#x27;For ye have not received the spirit of bondage again to fear; but ye have received the Spirit of adoption, whereby we cry, Abba, Father&#x27; — Athanasius marks pneuma huiothesias (the Spirit of adoption) as the theosis-via-adoption pneumatological-anchor. The Spirit who cried &#x27;Abba&#x27; in the incarnate-Son&#x27;s Gethsemane (Mk 14:36 — Markan-distinctive preservation of the Aramaic-original) now cries &#x27;Abba&#x27; IN the believers, making them-by-adoption what the Son-is-by-nature. Athanasius&#x27;s theosis is therefore pneumatologically-mediated: the Spirit of the Son&#x27;s-eternal-sonship is precisely the Spirit who creates the believer&#x27;s adopted-sonship. Tewahedo baptismal-theology cites Rom 8:15 (paired with Gal 4:6) at the moment of chrismation (mǝron-ointment), explicitly naming the Spirit&#x27;s adoption-work.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.37. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

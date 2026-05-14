@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 12,
-  "generated_at": "2026-05-13T19:47:53+00:00",
-  "n_candidates": 36,
+  "generated_at": "2026-05-14T01:52:53+00:00",
+  "n_candidates": 38,
   "candidates": [
     {
       "id": "num-12-6-001",
@@ -531,6 +531,36 @@
     },
     {
       "id": "num-12-7-036",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 12:6-8. NPNF Series 2, vol. 13. PD. Cf. Heb 3:5-6.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On &#x27;My servant Moses... is faithful in all mine house&#x27; (Num 12:7), Ephrem reads the Lord&#x27;s defense of Moses as the canonical typological seed of Hebrews 3:5-6: Moses is faithful as a servant in the house, Christ as a son over the house. The household-of-God image is rooted here; the apostolic writer&#x27;s distinction between servant and son is exegetically inevitable from Num 12:7&#x27;s vocabulary. Tewahedo christology cites Num 12:7 + Heb 3 as the canonical doubled-witness that Moses prefigures but does not equal the Son who built the house — the typological gap is preserved.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-12-3-037",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 12:1-15. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On &#x27;Moses was very meek, above all the men which were upon the face of the earth&#x27; (Num 12:3), Ephrem reads the meekness-of-Moses note as the canonical Old-Testament prefigurement of the Beatitude &#x27;blessed are the meek&#x27; (Mt 5:5) and of Christ&#x27;s own &#x27;I am meek and lowly of heart&#x27; (Mt 11:29). Moses&#x27; meekness is not weakness but the refusal to defend himself against his own sister and brother; the Lord defends him because he will not. Tewahedo monastic spirituality cites Num 12:3 as the canonical Old-Testament anchor for the cardinal monastic virtue of mätayāqǝbǝr (humility) — the desert father is meek in the pattern of Moses.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-12-7-038",
       "verse": 7,
       "kind": "comm-ethiopian",
       "anchor": "",
