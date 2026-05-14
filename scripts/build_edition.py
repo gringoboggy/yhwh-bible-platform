@@ -2178,6 +2178,82 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
     return stats
 
 
+# φ.1 (2026-05-14) — OPF font-manifest emission.
+#
+# The EPUB 3 spec requires every resource referenced by stylesheet.css
+# (including @font-face url() targets) to be registered in the OPF
+# manifest with a correct media-type. apply_style.py emits the
+# @font-face CSS rules; this helper backfills the manifest entries.
+# Pairs with style_config.EMBED_FONT_PATHS (the Π.0 multi-font knob)
+# and the legacy EMBED_FONT_PATH (single-font knob).
+#
+# Idempotent: a font already registered in the manifest is not
+# re-added. No-op when both knobs are empty (preserves v1.0
+# byte-identical builds — important for v1.0 reproducibility).
+
+_FONT_MEDIA_TYPES = {
+    ".ttf": "font/ttf",
+    ".otf": "application/vnd.ms-opentype",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+}
+
+
+def patch_opf_fonts(opf_text: str) -> str:
+    """Register style_config.EMBED_FONT_PATH + EMBED_FONT_PATHS entries
+    in the OPF manifest with proper font media-types.
+
+    Each entry is added as an `<item id="font-N" href="<path>"
+    media-type="<mime>"/>` line just before `</manifest>`. The id is
+    derived from a slug of the basename so it's stable across runs.
+
+    No-op when neither knob is set (v1.0 reproducibility per §6.5).
+    """
+    # Avoid an import cycle — style_config is local module loaded at runtime.
+    from scripts import style_config
+
+    entries: list[dict] = []
+    legacy_path = getattr(style_config, "EMBED_FONT_PATH", None)
+    legacy_family = getattr(style_config, "EMBED_FONT_FAMILY", "")
+    if legacy_path:
+        entries.append({"path": legacy_path, "family": legacy_family})
+    entries.extend(getattr(style_config, "EMBED_FONT_PATHS", []) or [])
+
+    if not entries:
+        # v1.0 reproducibility — byte-identical build when no embeds.
+        return opf_text
+
+    new_items: list[str] = []
+    for entry in entries:
+        path = entry.get("path", "")
+        if not path:
+            continue
+        # Skip if already registered.
+        if f'href="{path}"' in opf_text:
+            continue
+        ext = path.lower().rsplit(".", 1)
+        suffix = "." + ext[-1] if len(ext) == 2 else ""
+        media_type = _FONT_MEDIA_TYPES.get(suffix, "application/octet-stream")
+        # Slug the basename into a stable id.
+        basename = path.rsplit("/", 1)[-1].rsplit(".", 1)[0]
+        slug = re.sub(r"[^A-Za-z0-9]+", "-", basename).strip("-").lower() or "font"
+        font_id = f"font-{slug}"
+        # Ensure id uniqueness even across multiple weights/styles of
+        # the same family by appending a counter if collision.
+        candidate = font_id
+        i = 2
+        while f'id="{candidate}"' in opf_text or any(f'id="{candidate}"' in line for line in new_items):
+            candidate = f"{font_id}-{i}"
+            i += 1
+        new_items.append(f'<item id="{candidate}" href="{path}" media-type="{media_type}"/>')
+
+    if not new_items:
+        return opf_text
+
+    insertion = "\n    " + "\n    ".join(new_items) + "\n  "
+    return opf_text.replace("</manifest>", f"{insertion}</manifest>", 1)
+
+
 def patch_opf_canon(opf_text: str, dropped_files: set[str]) -> str:
     """Remove dropped HTML files from <manifest> + <spine>.
 
@@ -2595,12 +2671,16 @@ def build_one(
         stats["canon_files_removed"] = canon_stats["files_removed"]
         stats["canon_xrefs_stripped"] = canon_stats["cross_refs_stripped"]
 
-        # Patch OPF (kind-based + canon-based)
+        # Patch OPF (kind-based + canon-based + φ.1 font-manifest)
         opf = tmp / "content.opf"
         if opf.is_file():
             opf_text = patch_opf(opf.read_text(encoding="utf-8"), edition, version)
             if dropped_files:
                 opf_text = patch_opf_canon(opf_text, dropped_files)
+            # φ.1 — register EMBED_FONT_PATHS + legacy EMBED_FONT_PATH
+            # entries in the manifest. No-op when both knobs are empty
+            # (preserves v1.0 byte-identical reproducibility).
+            opf_text = patch_opf_fonts(opf_text)
             opf.write_text(opf_text, encoding="utf-8")
 
         # Patch nav.xhtml TOC (canon-based — drop dead links to files AND books)

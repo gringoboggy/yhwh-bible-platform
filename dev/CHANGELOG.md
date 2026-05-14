@@ -6,6 +6,186 @@
 
 ---
 
+## 2026-05-14 — session — φ.1 FONT + TYPOGRAPHY POLISH (five Ethiopic-aware CSS refinements on .vnote-geez/.vnote-amharic; @font-face font-display:swap + optional unicode_range; new patch_opf_fonts() helper backfills OPF manifest for embedded fonts with correct media-types; fonts/README.md corrected + φ.1 workflow documented; v1.0 reproducibility preserved via no-op-when-empty; no data ingest)
+
+**Phase shipped:** φ.1 — Font + typography polish. Sixth tracked
+phase of the 8-phase parallel-Bible expansion. Parallel-unblocked
+relative to τ.6.x.0c (operator-side Tesseract install) and δ.1.x
+(Phase-4 Meqabyan tier-1 work); runs concurrently with both per
+SCOPE_2026-05-14-parallel-bible.md §6.7 track structure.
+
+**Triggered by:** user "save and continue" after τ.6.x.0b shipped as
+commit `c0172c4`. Per memory `feedback_continue_not_save` (continue
+advances next phase) + `feedback_extensive_answers` (broadest
+unblocked scope) + project-rules §3 sequencing (most-foundational
+first), φ.1 selected over δ.1.x seed because (a) 1-session
+complete-and-ship vs multi-session arc-opening, and (b) audit
+cadence threshold approached — better to close a clean ship than
+open a long arc immediately before the audit boundary.
+
+**φ.1 deliverables shipped:**
+
+1. **CSS polish — five Ethiopic-aware refinements** to `.vnote-geez`
+   and `.vnote-amharic` in `scripts/apply_style.py`:
+   - `text-rendering: optimizeLegibility` — fonts with full glyph
+     coverage participate in proper kerning + ligatures (important
+     for Ethiopic syllabaries where vowel-bearing fidel are pre-
+     composed).
+   - `font-feature-settings: "kern", "liga"` — enables OpenType
+     kerning + standard ligatures (no-op on fallback fonts without
+     the features; necessary on Noto Sans Ethiopic for correct
+     fidel spacing).
+   - `hyphens: none` — Ethiopic does not hyphenate word-breaks the
+     way Latin does; explicitly disable browser auto-hyphenation.
+   - `unicode-bidi: isolate` — defensive isolation for the rare
+     cases when an Ethiopic line embeds Latin or Arabic-numeral
+     content; prevents bidirectional reorderings from spilling
+     outside the popup.
+   - `word-break: keep-all` — Ethiopic word-spacing relies on the
+     wordspace ፡ (U+1361); browser-default break-anywhere can split
+     syllables; keep-all forces breaks at explicit word boundaries.
+
+   Π.0 font-family fallback chain (`Noto Sans Ethiopic` → `Abyssinica
+   SIL` → `Nyala` → `Kefa` → `Ethiopia Jiret` → `serif`) preserved.
+
+2. **@font-face polish** in `scripts/apply_style.py`:
+   - **`font-display: swap`** added to BOTH the legacy single-font
+     code path AND the Π.0 EMBED_FONT_PATHS multi-font code path —
+     readers render fallback text immediately rather than blocking
+     on embedded font download.
+   - **Optional `unicode_range`** support per EMBED_FONT_PATHS entry
+     — entries can specify `{"unicode_range": "U+1200-137F, ..."}`
+     and the emitted @font-face rule includes a matching
+     `unicode-range:` declaration; tightens the font's activation
+     range so an Ethiopic-only font doesn't activate for Latin /
+     Hebrew / Greek text.
+
+3. **OPF font-manifest emission** — new `patch_opf_fonts()` helper
+   in `scripts/build_edition.py`:
+   - Iterates `style_config.EMBED_FONT_PATH` (legacy single-font
+     knob) + `style_config.EMBED_FONT_PATHS` (Π.0 multi-font list).
+   - Registers each entry in `content.opf` manifest with proper
+     `media-type` per `_FONT_MEDIA_TYPES` map (`font/ttf` for .ttf;
+     `application/vnd.ms-opentype` for .otf; `font/woff` for .woff;
+     `font/woff2` for .woff2; `application/octet-stream` fallback).
+   - Stable id per entry via slug-of-basename with collision
+     avoidance suffix.
+   - Idempotent (skips entries already registered).
+   - **No-op when both knobs empty** — preserves v1.0 byte-identical
+     build reproducibility per project-rules §6.5.
+   - Wired into the build pipeline at the existing OPF-patch block
+     (after `patch_opf()` + `patch_opf_canon()`) so every per-edition
+     SKU build picks up the font manifest entries automatically.
+
+4. **fonts/README.md updated** — Π.0 misleading "already plumbed in
+   `apply_style.py`" statement REMOVED; replaced with accurate
+   description noting the operator-driven copy step is a known gap.
+   Added new §"φ.1 typography polish (2026-05-14)" documenting the
+   five CSS refinements + font-display: swap + unicode_range knob +
+   patch_opf_fonts() workflow. Acquisition workflow expanded to 8
+   steps (was 5) covering: Noto Sans Ethiopic download → binary
+   placement → LICENSES.md verification → style_config.py
+   registration (with optional unicode_range example) → apply_style
+   invocation → build_edition invocation (now triggering
+   patch_opf_fonts) → epubcheck verification → visual-QA across
+   the five major EPUB reader platforms.
+
+5. NEW `tests/test_parallel_bible_phi1.py` — **34 new pin tests
+   across 5 test groups:**
+
+   - **TestPhi1CssPolish (11 pins):** verifies each of the five
+     refinements is present on both .vnote-geez AND .vnote-amharic
+     (10 pins), plus Π.0 Ethiopic font-family fallback chain
+     regression-guard (1 pin).
+   - **TestPhi1FontFacePolish (3 pins):** font-display: swap in
+     legacy + multi-font code paths; unicode_range knob supported.
+   - **TestPhi1OpfFontManifest (7 pins):** patch_opf_fonts defined,
+     wired into build pipeline, media-type map complete for all 4
+     font extensions, no-op when knobs empty (v1.0 reproducibility),
+     adds TTF manifest entry, idempotent on second call, legacy
+     EMBED_FONT_PATH registered.
+   - **TestPhi1FontsReadmeAccurate (6 pins):** README mentions φ.1,
+     references patch_opf_fonts, documents font-display: swap, lists
+     all five typography refinements, documents unicode_range knob,
+     'already plumbed' lie removed.
+   - **TestPhi1ClosedArcInvariantPreservation (7 pins):** EMBED_FONT_
+     PATHS defaults to [] preserved (Π.0.4); legacy EMBED_FONT_PATH
+     remains None (v1.0 reproducibility); amharic-in-POPUP_LANGUAGES
+     preserved (Π.0.1); Meqabyan 67/67 chapter coverage intact
+     (γ.4.8.E); Meqabyan count ≥212 floor preserved (γ.4.8.F); geez-
+     tewahedo + amharic-tewahedo slots remain at gen.py-only seed
+     state (τ.6.x.0a + τ.6.x.0b contracts).
+
+   All 34 pins pass; full φ.1 + τ.6.x.0b + τ.6.x.0a + Π.0 sweep 113
+   tests green; γ.4 closed-arc regression (γ.4.8.E + γ.4.8.F +
+   γ.4.9.D + γ.4 meta-phases-coverage) 192 tests green. Project
+   linter 11/11 pass / 0 warn / 0 fail. Ruff clean on
+   `scripts/apply_style.py` + `tests/test_parallel_bible_phi1.py`
+   (build_edition.py has pre-existing ruff drift unrelated to φ.1).
+
+**NO data ingest at this phase.** Translation slots remain at Π.0
+seed (τ.6.x.0a + τ.6.x.0b contracts preserved as regression-guarded
+invariants). EMBED_FONT_PATHS remains `[]` in committed config; no
+binary font file committed (Noto Sans Ethiopic acquisition stays
+user-side per the existing fonts/README.md workflow).
+
+**v1.0 reproducibility preserved:** `patch_opf_fonts()` is a no-op
+when both EMBED_FONT_PATH and EMBED_FONT_PATHS are empty; @font-face
+emission is gated on the same knobs. A v1.0-tagged checkout built
+with the committed style_config.py produces byte-identical output
+to the pre-φ.1 build.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E ARC-CLOSE
+67/67 chapter coverage of Meqabyan (mq1 36/36 + mq2 21/21 + mq3
+10/10) intact; γ.4.8.F Meqabyan count ≥212 floor preserved (sole
+2nd-place voice); Π.0.1 amharic-in-POPUP_LANGUAGES preserved;
+Π.0.4 EMBED_FONT_PATHS defaults to [] preserved.
+
+**Parallel-Bible 8-phase roadmap status (post-φ.1):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED  2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED  2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED  2026-05-14 (c0172c4)
+φ.1      Font + typography polish          ✓ SHIPPED  2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install +     ⬜ pending  operator-side
+         tessdata availability verification
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked  on .0c
+Π.1      Parallel-PDF Tewahedo 6           ⬜ pending  ~3-4 sessions
+τ.7.x    Amharic full-Bible ingest         ⬜ pending  blocked on .0c
+δ.1.x    Phase-4 Meqabyan revision         ⬜ pending  ~15-25 sessions; UNBLOCKED
+Π.2      Ethiopian-tewahedo flip           ⬜ pending  ~1 session; gated on τ.6.x + Π.1 + τ.7.x
+δ.2      v3 Meqabyan publication           ⬜ pending  gated on δ.1.x
+```
+
+**Audit cadence check** (per memory `feedback_audit_cadence`,
+threshold ≥10 phases or ≥150 test-count drift since AUDIT_2026-
+05-13-DEEP, with proactive lighter solo-Claude audit at threshold):
+φ.1 is the 10th post-AUDIT phase (γ.4.8 + B + C + D + E + F + Π.0 +
+τ.6.x.0a + τ.6.x.0b + φ.1). Test-count drift since AUDIT now ≥172
+(105 baseline + 33 τ.6.x.0b + 34 φ.1). **BOTH THRESHOLDS NOW
+REACHED** (10 phases ✓ + 150 test drift ✓). Lighter solo-Claude
+audit is now overdue at next session boundary — strongly recommended
+before opening δ.1.x seed or any new arc.
+
+**Next-phase recommendations:**
+
+- **LIGHTER AUDIT** at the next session boundary — both audit-
+  cadence thresholds now reached. Per `feedback_audit_cadence`, this
+  is a solo-Claude lighter pass (not the parallel-subagent sweep).
+  Check: in-flight state coherence, doc cross-refs, lint/test counts
+  vs SESSION_STATE, any stale references in PLAN/SCOPE.
+- **τ.6.x.0c** (user-side) — operator installs Tesseract +
+  `amh.traineddata` + runs `tesseract --list-langs` to verify
+  `gez.traineddata` availability.
+- **δ.1.x seed** (parallel-unblocked, Claude-side multi-session) —
+  Phase-4 Meqabyan tier-1 page-image methodology start. Per the
+  ω.41 Cyril-plurality + γ.4.8.F Tewahedo-distinctive-block 38.25%
+  v1.1 publisher-uniqueness anchor, advancing Meqabyan toward
+  tier-1 quality has the highest content-value next move.
+
+---
+
 ## 2026-05-14 — session — τ.6.x.0b OCR-QUALITY STRATEGY DECISION (Option D Hybrid AUTHORIZED; Tesseract default engine; Cloud OCR opt-in; user-side prerequisites flagged per feedback_license_flagging; no data ingest; translation slots preserved at Π.0 seed; closed-arc invariants regression-guarded)
 
 **Phase shipped:** τ.6.x.0b — OCR-quality strategy decision

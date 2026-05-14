@@ -4,6 +4,43 @@
 
 ## Prior task
 
+**φ.1 Font + typography polish — PARALLEL-UNBLOCKED PHASE; runs
+concurrently with τ.6.x.0c (operator-side Tesseract install) and
+δ.1.x (Phase-4 multi-session). Triggered by user "save and continue"
+after τ.6.x.0b shipped as commit `c0172c4`. Per memory
+`feedback_continue_not_save` (continue advances) + `feedback_
+extensive_answers` (broadest unblocked scope) + project-rules §3
+sequencing (most-foundational first; 1-session ship over multi-
+session arc-opening before audit boundary). Shipped: (1) CSS polish
+— five Ethiopic-aware refinements on .vnote-geez + .vnote-amharic
+(text-rendering optimizeLegibility + font-feature-settings kern/liga
++ hyphens none + unicode-bidi isolate + word-break keep-all);
+Π.0 font-family fallback chain preserved. (2) @font-face polish —
+font-display: swap added to legacy + multi-font code paths; optional
+unicode_range knob per EMBED_FONT_PATHS entry. (3) OPF font-manifest
+emission — new patch_opf_fonts() helper in build_edition.py
+registers EMBED_FONT_PATHS + legacy EMBED_FONT_PATH in content.opf
+with correct media-type (font/ttf, application/vnd.ms-opentype,
+font/woff, font/woff2); idempotent; no-op when both knobs empty
+(v1.0 reproducibility); wired into build pipeline. (4)
+content/assets/fonts/README.md updated — Π.0 misleading "already
+plumbed" claim REMOVED; new §"φ.1 typography polish" added;
+acquisition workflow expanded from 5 to 8 steps. (5) NEW
+tests/test_parallel_bible_phi1.py — 34 pins across 5 test groups.
+NO data ingest: translation slots remain at Π.0 seed; EMBED_FONT_
+PATHS remains [] (binary font acquisition stays user-side).
+γ.4.8.E 67/67 + Meqabyan ≥212 + Π.0.1 + Π.0.4 regression-guarded.
+v1.0 byte-identical reproducibility preserved. All 34 new pins
+pass; φ.1 + τ.6.x.0b + τ.6.x.0a + Π.0 sweep 113 green; γ.4 closed-
+arc regression 192 green; lint 11/11. **AUDIT CADENCE BOTH
+THRESHOLDS REACHED** — φ.1 is the 10th post-AUDIT phase; +172 test
+drift; lighter solo-Claude audit OVERDUE at next session
+boundary.** shipped 2026-05-14. Triggered by user "save and
+continue" at session midpoint after τ.6.x.0b saved as commit
+c0172c4.
+
+## Prior task (previous)
+
 **τ.6.x.0b OCR-quality strategy decision-codification —
 DECISION-ONLY ship. Triggered by user "continue" after τ.6.x.0a
 shipped as commit `fbc6827`. Per memory `feedback_continue_not_save`

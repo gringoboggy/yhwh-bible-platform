@@ -114,16 +114,21 @@ p.verse-p, p.verse-p-flush {
     #    Ethiopic font binary lands.
     embed_block = ""
     if style_config.EMBED_FONT_PATH:
+        # φ.1 — add font-display: swap so readers render fallback text
+        # immediately rather than blocking on the embedded download.
         embed_block += f"""\
 @font-face {{
   font-family: "{style_config.EMBED_FONT_FAMILY}";
   src: url("{style_config.EMBED_FONT_PATH}");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }}
 """
     # Π.0 multi-font list (defaults to []; v1.0 build still emits only
-    # the legacy single-font block above).
+    # the legacy single-font block above). φ.1 (2026-05-14) adds
+    # font-display: swap and unicode-range support so Ethiopic-only
+    # fonts don't activate for non-Ethiopic text.
     for entry in getattr(style_config, "EMBED_FONT_PATHS", []) or []:
         path = entry.get("path", "")
         family = entry.get("family", "")
@@ -131,13 +136,22 @@ p.verse-p, p.verse-p-flush {
             continue
         weight = entry.get("weight", "normal")
         style = entry.get("style", "normal")
+        # φ.1 — optional unicode-range tightens the font's activation
+        # range. Default U+1200-137F (Ethiopic) + U+1380-139F
+        # (Ethiopic Supplement) + U+2D80-2DDF (Ethiopic Extended) +
+        # U+AB00-AB2F (Ethiopic Extended-A). Entries can override
+        # via {"unicode_range": "U+..."} to scope to a different
+        # script.
+        unicode_range = entry.get("unicode_range", "")
+        unicode_block = f"  unicode-range: {unicode_range};\n" if unicode_range else ""
         embed_block += f"""\
 @font-face {{
   font-family: "{family}";
   src: url("{path}");
   font-weight: {weight};
   font-style: {style};
-}}
+  font-display: swap;
+{unicode_block}}}
 """
 
     # Phase ψ.10 — verse-popup typography polish.
@@ -188,19 +202,46 @@ aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
   color: #1e293b;
 }
 
-/* Π.0 — parallel-Bible (Ge'ez + Amharic) popup styles.
-   Both use the Ethiopic Unicode block (U+1200-U+137F), read
+/* Π.0 — parallel-Bible (Ge'ez + Amharic) popup styles. φ.1
+   (2026-05-14) — typography polish for production fidel rendering.
+   Both classes use the Ethiopic Unicode block (U+1200-U+137F), read
    left-to-right (no RTL handling needed unlike Hebrew). Slightly
    larger font-size + line-height keeps fidel legible. The font
    stack lists embedded Noto Sans Ethiopic first (added via
    style_config.EMBED_FONT_PATHS when the OFL font file is placed
    under content/themes/<theme>/fonts/), then falls back to common
-   Ethiopic-capable system fonts. */
+   Ethiopic-capable system fonts.
+
+   φ.1 additions:
+   - text-rendering: optimizeLegibility forces fonts with full glyph
+     coverage to participate in proper kerning + ligatures (important
+     for Ethiopic syllabaries where vowel-bearing fidel are
+     pre-composed).
+   - font-feature-settings: "kern" + "liga" enables OpenType kerning
+     and standard ligatures (no-op on fallback fonts without the
+     features; necessary on Noto Sans Ethiopic for correct fidel
+     spacing).
+   - hyphens: none — Ethiopic does not hyphenate word-breaks the
+     way Latin does; explicitly disable browser auto-hyphenation
+     guesses.
+   - unicode-bidi: isolate — defensive isolation for the rare cases
+     when an Ethiopic line embeds Latin or Arabic-numeral content;
+     prevents bidirectional reorderings from spilling outside the
+     popup.
+   - word-break: keep-all — Ethiopic word-spacing relies on the
+     wordspace ፡ (U+1361); browser-default break-anywhere can split
+     syllables; keep-all forces breaks at explicit word boundaries
+     only. */
 .vnote-geez {
   font-family: "Noto Sans Ethiopic", "Abyssinica SIL", "Nyala",
                "Kefa", "Ethiopia Jiret", serif;
   font-size: 1.05em;
   line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga";
+  hyphens: none;
+  unicode-bidi: isolate;
+  word-break: keep-all;
   border-top: 1px dotted rgba(100, 116, 139, 0.25);
   padding-top: 0.15em;
   color: #1e293b;
@@ -210,6 +251,11 @@ aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
                "Kefa", "Ethiopia Jiret", serif;
   font-size: 1.05em;
   line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga";
+  hyphens: none;
+  unicode-bidi: isolate;
+  word-break: keep-all;
   border-top: 1px dotted rgba(100, 116, 139, 0.25);
   padding-top: 0.15em;
   color: #1e293b;

@@ -1,5 +1,99 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / φ.1 Font + typography polish ship — PARALLEL-
+UNBLOCKED PHASE; runs concurrently with τ.6.x.0c (operator-side) and
+δ.1.x (Phase-4 multi-session). Triggered by user "save and continue"
+after τ.6.x.0b shipped as commit `c0172c4`. Per memory
+`feedback_continue_not_save` (continue advances) + `feedback_
+extensive_answers` (broadest unblocked scope) + project-rules §3
+sequencing (most-foundational first; 1-session complete-and-ship
+chosen over multi-session arc-opening immediately before the audit
+boundary). **φ.1 deliverables shipped:** (1) **CSS polish — five
+Ethiopic-aware refinements** to `.vnote-geez` and `.vnote-amharic`
+in `scripts/apply_style.py`: `text-rendering: optimizeLegibility` +
+`font-feature-settings: "kern", "liga"` + `hyphens: none` +
+`unicode-bidi: isolate` + `word-break: keep-all` (Ethiopic
+wordspace U+1361). Π.0 font-family fallback chain preserved. (2)
+**@font-face polish** — `font-display: swap` added to both legacy
+single-font + multi-font code paths; optional `unicode_range` knob
+per EMBED_FONT_PATHS entry (scopes font activation to Ethiopic
+codepoints). (3) **OPF font-manifest emission** — new
+`patch_opf_fonts()` helper in `scripts/build_edition.py` registers
+EMBED_FONT_PATHS + legacy EMBED_FONT_PATH entries in `content.opf`
+manifest with correct media-type per `_FONT_MEDIA_TYPES` map
+(font/ttf .ttf, application/vnd.ms-opentype .otf, font/woff .woff,
+font/woff2 .woff2, application/octet-stream fallback); stable id via
+slug-of-basename + collision avoidance; idempotent; NO-OP WHEN BOTH
+KNOBS EMPTY (preserves v1.0 byte-identical reproducibility); wired
+into build pipeline after `patch_opf()` + `patch_opf_canon()`.
+(4) `content/assets/fonts/README.md` updated — misleading Π.0
+"already plumbed in apply_style.py" claim REMOVED; added new
+"φ.1 typography polish (2026-05-14)" section documenting all five
+CSS refinements + font-display swap + unicode_range + patch_opf_
+fonts(); acquisition workflow expanded from 5 to 8 steps with
+epubcheck + 5-platform visual-QA. (5) NEW `tests/test_parallel_
+bible_phi1.py` — **34 new pin tests across 5 test groups**
+(TestPhi1CssPolish 11 + TestPhi1FontFacePolish 3 +
+TestPhi1OpfFontManifest 7 + TestPhi1FontsReadmeAccurate 6 +
+TestPhi1ClosedArcInvariantPreservation 7). All 34 pins pass; full
+φ.1 + τ.6.x.0b + τ.6.x.0a + Π.0 sweep 113 tests green; γ.4 closed-
+arc regression sweep 192 tests green. Project linter 11/11 pass / 0
+warn / 0 fail. Ruff clean on apply_style.py + test file. **NO data
+ingest** — translation slots remain at Π.0 seed; EMBED_FONT_PATHS
+remains `[]` in committed config (no binary font file committed,
+acquisition stays user-side per fonts/README.md workflow).
+**v1.0 reproducibility preserved** — patch_opf_fonts is no-op when
+knobs empty; @font-face emission gated on same knobs. **Closed-arc
+invariants regression-guarded:** γ.4.8.E 67/67 intact; γ.4.8.F
+Meqabyan ≥212 preserved; Π.0.1 amharic-in-POPUP_LANGUAGES
+preserved; Π.0.4 EMBED_FONT_PATHS = [] preserved. **AUDIT CADENCE
+BOTH THRESHOLDS NOW REACHED** — φ.1 is the 10th post-AUDIT_2026-
+05-13-DEEP phase; test-count drift now ≥172 (105 baseline + 33
+τ.6.x.0b + 34 φ.1). Lighter solo-Claude audit is OVERDUE at next
+session boundary; strongly recommended before opening δ.1.x seed
+or any new arc.**
+
+**Parallel-Bible 8-phase roadmap status (post-φ.1):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED  2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED  2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED  2026-05-14 (c0172c4)
+φ.1      Font + typography polish          ✓ SHIPPED  2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install +     ⬜ pending  operator-side
+         tessdata availability verification
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked  on .0c
+Π.1      Parallel-PDF Tewahedo 6           ⬜ pending  ~3-4 sessions
+τ.7.x    Amharic full-Bible ingest         ⬜ pending  blocked on .0c
+δ.1.x    Phase-4 Meqabyan revision         ⬜ pending  ~15-25 sessions; UNBLOCKED
+Π.2      Ethiopian-tewahedo flip           ⬜ pending  gated on τ.6.x + Π.1 + τ.7.x
+δ.2      v3 Meqabyan publication           ⬜ pending  gated on δ.1.x
+```
+
+**Recommended next steps:**
+
+- **save** — φ.1 uncommitted since the τ.6.x.0b save earlier this
+  session. Build-up since τ.6.x.0b save: +34 pin tests
+  (test_parallel_bible_phi1.py NEW) + apply_style.py CSS polish
+  (.vnote-geez + .vnote-amharic five refinements + @font-face
+  font-display + unicode_range) + build_edition.py
+  patch_opf_fonts() helper + _FONT_MEDIA_TYPES map + wiring +
+  content/assets/fonts/README.md φ.1 workflow update + state docs.
+- **LIGHTER AUDIT** at next session boundary — BOTH cadence
+  thresholds reached (10 phases + 172 test drift); strongly
+  recommended before opening δ.1.x seed.
+- **τ.6.x.0c** (user-side, operator-side) — install Tesseract +
+  `amh.traineddata` + verify `gez.traineddata` availability.
+- **δ.1.x seed** (parallel-unblocked, Claude-side multi-session) —
+  Phase-4 Meqabyan tier-1 page-image methodology start. Per
+  γ.4.8.F Tewahedo-distinctive-block 38.25% v1.1 anchor, advancing
+  Meqabyan toward tier-1 quality has the highest content-value
+  next move.
+
+---
+
+## Prior φ.1 session
+
 **Updated 2026-05-14 / τ.6.x.0b OCR-quality strategy decision-
 codification ship — DECISION-ONLY. Triggered by user "continue" at
 session start after τ.6.x.0a shipped as commit `fbc6827`. Per memory
