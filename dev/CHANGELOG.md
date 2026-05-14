@@ -6,6 +6,200 @@
 
 ---
 
+## 2026-05-14 — session — Π.1 PARALLEL-PDF TEWAHEDO-DISTINCTIVE STRUCTURAL-MAP FOUNDATION (the 6 Tewahedo-distinctive books — Meqabyan 1-3 + Jubilees + 1 Enoch + Letter to Laodiceans — declared as structural_map sections; jubilees [1454-1514] + one_enoch [1515-1566] page-ranges discovered via PDF marker scan; laodiceans declared with present_in_pdf=false after zero opening-title hits in 2,539-page scan; meqabyan.subsections hoisted from heuristic dict into declarative YAML; tewahedo_distinctive_inventory metadata sibling; extract_parallel_pdf.py gains _extraction_sections + _resolve_section + _section_page_range helpers + laodiceans guard; 58 pin tests across 9 groups; δ.1.0 kinds-count test floor 68→70 corrected; ruff complexity refactor; no data ingest)
+
+**Phase shipped:** Π.1 — Parallel-PDF Tewahedo-distinctive structural-
+map foundation. Eighth tracked phase of the 8-phase parallel-Bible
+expansion (`dev/SCOPE_2026-05-14-parallel-bible.md` §Π.1). Π.1 is
+FOUNDATION-ONLY — no extraction performed; translation slots remain at
+Π.0 + τ.6.x.0a + δ.1.0 seed state (3 verses Genesis only); Meqabyan
+v1 English notes-files untouched; v1.0 byte-identical reproducibility
+preserved.
+
+**Triggered by:** user "continue" after δ.1.0 was shipped earlier
+this session and committed as `59bef8b` (on top of `2c27745`, the
+φ.1 + AUDIT_2026-05-14-LIGHT bundle). Per memory `feedback_continue_
+not_save` (continue advances; never auto-save/zip) + `feedback_
+extensive_answers` (broadest scope; Π.1 selected over δ.1.x.A
+because Π.1 is fully Claude-side via PDF discovery while δ.1.x.A
+requires operator-side page-image transcription) + project rules §3
+sequencing (most-foundational first; declaring slots before populating
+them; safest+additive over risky extraction).
+
+**Π.1 deliverables shipped:**
+
+1. EXTENDED `content/translations/sources/parallel-bible-eotc/
+   _source.yaml::structural_map` with three new sections:
+   - **`jubilees`** (`book_codes: [jub]`, `pdf_page_range: [1454,
+     1514]`, `verified: tentative`, `verified_at_phase: Π.1`,
+     `chapter_count_expected: 50` per Charles 1902 edition). Range
+     discovered by scanning the parallel-Bible PDF for `መጽሐፈ ኩፋሌ`
+     opening-title marker; boundary-page inspection confirmed page
+     1453 closes Daniel additions (`ተረፈ ዳንኤል`), page 1454 opens
+     with `መጽሐፈ ኩፉሌ`, page 1515 transitions to 1 Enoch. 61 pages
+     for 50 chapters (~1.22 pages/chapter — matches meqabyan density).
+   - **`one_enoch`** (`book_codes: [1en]`, `pdf_page_range: [1515,
+     1566]`, `verified: tentative`, `verified_at_phase: Π.1`,
+     `chapter_count_expected: 108` per R.H. Charles 1912 edition).
+     Range discovered by scanning for `መጽሐፈ ሄኖክ` marker; page 1515
+     opens with OCR-garbled `መጽ ሓራፈ ቸዓክ` (cleanly `መጽሐፈ ሄኖክ`
+     on subsequent pages); page 1567 transitions to Matthew Gospel
+     (`ብሥራተ ማቴዎስ ሐዋርያ`). 52 pages for 108 chapters
+     (~0.48 pages/chapter; denser than meqabyan because 1 Enoch
+     chapters are short — many ≤10 verses).
+   - **`laodiceans`** (`book_codes: [lao]`, `pdf_page_range: null`,
+     `verified: false`, `present_in_pdf: false`,
+     `alternate_source_required: true`, `verified_at_phase: Π.1`).
+     Full-PDF marker scan for `መልእክት ... ሎዶቅያ` (Letter to Laodicea)
+     + `ዘወደ ሎዶቅያ` returned ZERO opening-title matches. The 4 pages
+     with `ሎዶቅያ` (2004, 2077, 2080, 2284) are all secondary
+     references (Rev 1:11, Rev 3:14 angel-of-the-Laodicean-church
+     header, geographic mentions, end-of-epistle subscript). The
+     Pauline Letter to the Laodiceans is NOT in this PDF; alternate-
+     source acquisition gated on operator review per memory
+     `feedback_license_flagging`. Alternate-source candidates named
+     in `laodiceans.notes`: Marius Mercator Latin recension /
+     Geneva 1599 / Augustine commentary citations.
+
+2. EXTENDED `meqabyan.subsections` map with per-book page-ranges
+   (mq1=[1318,1365] + mq2=[1366,1372] + mq3=[1373,1378]) hoisted
+   from the heuristic dict in `extract_parallel_pdf.py` into
+   declarative YAML. The heuristic remains as a code-side safety
+   net for back-compat. Π.1 pin
+   `TestPi1MeqabyanSubsections::test_subsections_cover_section_range`
+   verifies the union of subsection ranges lies within the section
+   range [1318, 1378].
+
+3. NEW `tewahedo_distinctive_inventory` metadata block at
+   structural_map top-level naming all 6 Tewahedo-distinctive book
+   codes + 4 declared sections + per-section
+   extraction_status_at_declaration + contract text codifying Π.1
+   as foundation-only. The block is metadata (not a real
+   extractable section); the tool filters it out via the new
+   `_METADATA_KEYS` constant.
+
+4. EXTENDED `scripts/extract_parallel_pdf.py`:
+   - NEW `_METADATA_KEYS = frozenset({"tewahedo_distinctive_
+     inventory"})` constant.
+   - NEW `_extraction_sections(cfg)` helper returning the list of
+     real extractable section names (filters metadata; requires
+     `book_codes` list).
+   - NEW `_resolve_section(cfg, section_name)` helper centralizing
+     section lookup + the laodiceans-style `present_in_pdf=False`
+     guard (raises SystemExit with alternate-source guidance).
+   - NEW `_section_page_range(sec)` helper resolving (start, end,
+     offset) supporting both `pdf_page_range` (canonical) and
+     legacy `scan_page_range` formats.
+   - Pilot-mode resolution updated to skip metadata via
+     `_extraction_sections(cfg)` lookup.
+   - CLI banner updated to phase-neutral `extract_parallel_pdf`
+     (was `τ.6.x.0a extraction`).
+   - Removed unused `OrderedDict` import (dead-code-audit hygiene).
+   - Module docstring extended with Π.1 section.
+
+5. NEW `tests/test_parallel_bible_pi1.py` — **58 pin tests across
+   9 test groups**:
+   - `TestPi1StructuralMapExtension` (7) — sections declared
+     + meqabyan preserved + all-6-codes-mapped.
+   - `TestPi1JubileesSection` (6) — pdf_page_range +
+     pdf_index_offset + verified=tentative + chapter_count 50 +
+     notes-discovery-method.
+   - `TestPi1OneEnochSection` (6) — same as jubilees + Charles
+     1912 anchor.
+   - `TestPi1LaodiceansSlot` (6) — present_in_pdf=False +
+     pdf_page_range=null + alternate_source_required +
+     secondary-reference-pages documented + alternate-sources
+     hinted.
+   - `TestPi1MeqabyanSubsections` (5) — subsections present +
+     mq1/mq2/mq3 ranges + cover-section-range invariant.
+   - `TestPi1TewahedoDistinctiveInventory` (8) — declared
+     sections + book codes + phase + date + status complete +
+     laodiceans status + contract text.
+   - `TestPi1ExtractToolMultiSection` (8) — module loads +
+     constants + helpers + 4-real-sections + metadata-excluded
+     + laodiceans-refused + unknown-section-error +
+     docstring-mentions-Π.1.
+   - `TestPi1ClosedArcInvariantPreservation` (9) — meqabyan
+     unchanged + ocr_strategy unchanged + no_ingest preserved +
+     translation-slot-state preserved + amharic-in-POPUP_LANGUAGES
+     + EMBED_FONT_PATHS empty + δ.1.0 entries empty + Genesis
+     seed intact + γ.4.8.E + γ.4.8.F voice-count floor.
+   - `TestPi1PhaseCoverage` (2) — SCOPE doc names Π.1 + test
+     file canonically named. All 58 pins pass.
+
+6. CORRECTED δ.1.0 kinds-count test floor (`tests/test_validate_
+   schemas.py::test_validate_kinds_passes_on_real_file`). δ.1.0
+   added 2 new kinds (`text-geez-revision` + `compare-divergence-
+   geez`) bringing `content/kinds.yaml` total from 68 → 70 but
+   did NOT bump the test floor; Π.1 audit caught it. Fixed at
+   the Π.1 ship as integration discipline (same date, same
+   parallel-bible expansion arc).
+
+7. RUFF COMPLEXITY refactor — the original τ.6.x.0a
+   `extract_section()` was at McCabe 12; Π.1's laodiceans-guard
+   addition would have pushed it to 13. The guard + page-range
+   resolution were extracted into `_resolve_section` + `_section_
+   page_range` helpers, returning `extract_section` to under
+   threshold while improving readability.
+
+**Full sweep at ship:** 4248 passed + 1 skipped (1 skipped is the
+γ.4.8.F voice-count regression-pin that gracefully skips when
+ethiopian_commentaries.json is absent; it was present during this
+run and passed). Total tests 4191 + 58 Π.1 = 4249 — exact growth
+matches the deliverables. Project linter 11/11 pass / 0 warn /
+0 fail. Ruff check clean across all edited files. Ruff format
+clean across all edited files.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67
+Meqabyan chapter coverage intact (verified via divergence JSON
+_meta block); γ.4.8.F Meqabyan voice ≥200 (212 at ship — full
+post-ω.43 arc-close codification preserved); Π.0.1 amharic-in-
+POPUP_LANGUAGES preserved; Π.0.4 EMBED_FONT_PATHS=[] preserved
+(v1.0 byte-identical reproducibility); τ.6.x.0a structural_map.
+meqabyan contract preserved (book_codes + pdf_page_range +
+verified=True); τ.6.x.0b ocr_strategy authorized_option D-Hybrid
++ default_engine tesseract + no_ingest_at_this_phase True
+preserved; δ.1.0 entries=[] contract preserved (divergence JSON
+not mutated by Π.1).
+
+**Translation-slot contract preserved:** Π.0 + τ.6.x.0a + τ.6.x.0b
++ δ.1.0 contract that geez-tewahedo + amharic-tewahedo slots
+remain at 3-verses-Genesis-only seed is preserved. Π.1 declares
+extraction slots but does NOT populate them; production text for
+the 3 Tewahedo-distinctive in-PDF books (jub, 1en, mq*) lands at
+δ.1.x (Phase-4 page-image methodology — currently in seed at
+δ.1.0) or τ.6.x.1+ (Tesseract OCR baseline — blocked on operator
+τ.6.x.0c install).
+
+**Audit cadence check** (per memory `feedback_audit_cadence`): Π.1
+is the post-AUDIT_2026-05-14-LIGHT phase #2 (δ.1.0 was #1).
+Test-count drift since AUDIT now ≥58 (44 δ.1.0 + 58 Π.1 = 102).
+Threshold (≥10 phases or ≥150 tests) NOT reached.
+
+**Recommended next steps:**
+
+- **save** — Π.1 uncommitted on top of `59bef8b` (δ.1.0). Build-up
+  since `59bef8b`: Π.1 (58 pins + structural_map extension + tool
+  helpers + kinds-floor fix). One commit covers the Π.1 ship.
+- **τ.6.x.0c** (operator-side) — install Tesseract + verify
+  `gez.traineddata` / `amh.traineddata` availability. The Π.1
+  structural_map now declares the 3 in-PDF Tewahedo-distinctive
+  sections (jub + 1en + mq*); τ.6.x.0c unblocks Tesseract-tier-3
+  ingest for jub + 1en.
+- **δ.1.x.A** (Claude-side multi-session) — first Phase-4 page-
+  image batch for mq1 chapters 1-9 using the divergence JSON
+  populated by operator-side rendering at 350 dpi from the
+  parallel-Bible PDF (pages 1318-1365 per the now-declarative
+  meqabyan.subsections.mq1 range).
+- **laodiceans alternate-source acquisition** (operator-side) —
+  per memory `feedback_license_flagging`, when Letter to
+  Laodiceans becomes load-bearing for a ship, the alternate-
+  source options named in `laodiceans.notes` (Marius Mercator
+  Latin / Geneva 1599 / Augustine commentary citations) are
+  surveyed. NOT load-bearing for v1.0 or v1.1.
+
+---
+
 ## 2026-05-14 — session — δ.1.0 PHASE-4 MEQABYAN GEʽEZ-REVISION SEED (multi-session δ.1.x cluster opens; content/divergence/meqabyan_geez_divergence.json + dev/PHASE4_MEQABYAN_TRACKER.md + 2 new kinds + 2 tool skeletons; honesty rules codified; arc-close to δ.1.Z gated on 67/67 chapter coverage + GEEZ_DIVERGENCE_SUMMARY; v1 English immutable during arc; no data ingest)
 
 **Phase shipped:** δ.1.0 — Phase-4 Meqabyan Geʽez-revision SEED.

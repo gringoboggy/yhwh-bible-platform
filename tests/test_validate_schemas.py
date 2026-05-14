@@ -196,7 +196,12 @@ class TestOmega19SchemaValidator:
         # 67 → 68 with χ.2 SEED (2026-05-12): added `comm-protestant` kind
         # (sibling of comm-reformation; post-Reformation English
         # Nonconformist / Puritan / Evangelical, e.g. Matthew Henry).
-        assert result["record_count"] == 68
+        # 68 → 70 with δ.1.0 (2026-05-14): added `text-geez-revision`
+        # ([GZ] label, Phase-4 page-image-tier1 fresh English rendering)
+        # + `compare-divergence-geez` (Geʽez divergence apparatus
+        # inline-popup content-class commentary). The Π.1 audit caught
+        # this floor was not bumped at δ.1.0 ship and corrected it here.
+        assert result["record_count"] == 70
 
     def test_validate_categories_passes(self):
         from scripts.validate_schemas import validate_categories

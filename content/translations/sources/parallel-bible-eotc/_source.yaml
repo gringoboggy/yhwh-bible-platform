@@ -55,8 +55,15 @@ publisher_url: https://www.ethiopianorthodox.org/
 # the 76-page Meqabyan_Geez_Amharic_parallel.pdf extract; that
 # extract's indexing starts at 0 = the full PDF's scan-page 832 area).
 #
-# Verified empirically at τ.6.x.0a (2026-05-14) by scanning for
-# 'መጽሐፈ መቃብያን' title markers and chapter headers in the full PDF.
+# Originally seeded at τ.6.x.0a (2026-05-14) with just `meqabyan`
+# (verified by 'መጽሐፈ መቃብያን' title-marker scan). Extended at Π.1
+# (2026-05-14) to add the remaining Tewahedo-distinctive book sections
+# (jubilees, one_enoch) discovered by 'መጽሐፈ ኩፋሌ' / 'መጽሐፈ ሄኖክ'
+# title-marker scan + boundary-page text inspection. The laodiceans
+# slot is declared but `present_in_pdf: false` — the Pauline Letter
+# to the Laodiceans does NOT appear in this PDF's NT canon (verified
+# by 'መልእክት ... ሎዶቅያ' marker-absence + boundary-page inspection in
+# the NT section around pages 2000-2100).
 structural_map:
   meqabyan:
     book_codes: [mq1, mq2, mq3]
@@ -64,6 +71,15 @@ structural_map:
     pdf_index_offset: 0  # the values above are already 0-indexed
     verified: true
     verified_date: 2026-05-14
+    verified_at_phase: τ.6.x.0a
+    subsections:
+      # Per-book sub-ranges within the meqabyan section. Hoisted from
+      # the heuristic dict in extract_parallel_pdf.py at Π.1 so the
+      # tool can consume them declaratively rather than via a code
+      # fallback (the heuristic remains as a safety net).
+      mq1: [1318, 1365]
+      mq2: [1366, 1372]
+      mq3: [1373, 1378]
     notes: |
       Verified at τ.6.x.0a (2026-05-14) by scanning the FULL Bible
       PDF for book-title markers. The full PDF is 2,539 pages with
@@ -85,7 +101,115 @@ structural_map:
       0-indexed pages because that PDF is the publisher's primary
       submitted file.
 
-  # All other books TBD — expanded as τ.6.x extraction proceeds.
+  jubilees:
+    book_codes: [jub]
+    pdf_page_range: [1454, 1514]
+    pdf_index_offset: 0
+    verified: tentative
+    verified_date: 2026-05-14
+    verified_at_phase: Π.1
+    chapter_count_expected: 50
+    notes: |
+      Discovered at Π.1 (2026-05-14) by scanning for 'መጽሐፈ ኩፋሌ'
+      title markers and inspecting boundary pages. Page 1453 closes
+      the Daniel additions ('ተረፈ ዳንኤል' on page 1452); page 1454
+      opens with 'መጽሐፈ ኩፉሌ' (jub title); pages 1454-1514 = 61 pages
+      for 50 chapters (~1.22 pages/chapter; consistent with meqabyan
+      density). Page 1515 transitions to 1 Enoch.
+
+      The 'tentative' verification flag indicates the boundary pages
+      were inspected but full chapter-by-chapter coverage has not
+      yet been confirmed; that verification lands when production
+      extraction begins (τ.6.x.1+ or δ.1.x-equivalent for jub).
+
+  one_enoch:
+    book_codes: [1en]
+    pdf_page_range: [1515, 1566]
+    pdf_index_offset: 0
+    verified: tentative
+    verified_date: 2026-05-14
+    verified_at_phase: Π.1
+    chapter_count_expected: 108  # R.H. Charles 1912 chapter count
+    notes: |
+      Discovered at Π.1 (2026-05-14) by scanning for 'መጽሐፈ ሄኖክ'
+      title markers and inspecting boundary pages. Page 1514 closes
+      jubilees ('መጽሐፈ ኩፋሌ' last marker); page 1515 opens with
+      OCR-garbled 'መጽ ሓራፈ ቸዓክ' (cleanly 'መጽሐፈ ሄኖክ' on subsequent
+      pages 1517, 1518); pages 1515-1566 = 52 pages for 108 chapters
+      (~0.48 pages/chapter; denser than meqabyan because 1 Enoch
+      chapters are short — many ≤10 verses). Page 1567 transitions
+      to Matthew Gospel ('ብሥራተ ማቴዎስ ሐዋርያ').
+
+      The 'tentative' verification flag matches jubilees — boundary
+      pages confirmed, full coverage TBD. The 108-chapter expectation
+      follows R.H. Charles 1912 (the standard Western edition that
+      γ.4 references).
+
+  laodiceans:
+    book_codes: [lao]
+    pdf_page_range: null
+    pdf_index_offset: 0
+    verified: false
+    verified_date: 2026-05-14
+    verified_at_phase: Π.1
+    present_in_pdf: false
+    alternate_source_required: true
+    notes: |
+      Searched at Π.1 (2026-05-14) for the Pauline Letter to the
+      Laodiceans by scanning every page for 'መልእክት ... ሎዶቅያ'
+      (Letter to Laodicea) and the related 'ዘወደ ሎዶቅያ' construction.
+      ZERO opening-title matches found.
+
+      The 4 pages containing 'ሎዶቅያ' are all secondary references:
+        - page 2004: 'በሎዶቅያ ተጽፋ' ('written from Laodicea' —
+                     subscript note at the end of another epistle)
+        - page 2077: 'በሎዶቅያ' in the seven-churches list (Rev 1:11)
+        - page 2080: 'መልኳከ ቤተ ከርስቲያን ዛዘሎዶቅያ' (Rev 3:14 angel-of-
+                     the-Laodicean-church header — INSIDE Revelation,
+                     not the Pauline Letter to the Laodiceans)
+        - page 2284: 'ወበሎዶቅያ አርካቦስ' (geographic reference)
+
+      The EOTC's parallel-Bible PDF used by this project does NOT
+      include the Pauline Letter to the Laodiceans as a standalone
+      book. The EOTC's NT canon as printed in this volume includes
+      the standard 27-book NT only; the Letter to the Laodiceans is
+      sometimes (but not consistently) included in the EOTC's
+      broader canon.
+
+      Π.1 conclusion: the laodiceans (lao) slot remains DECLARED in
+      this structural_map for future expansion BUT requires an
+      ALTERNATE SOURCE. Possible alternates:
+        - Marius Mercator's Latin recension (Vulgate Codex Fuldensis)
+        - The Geneva 1599 English rendering (PD; available from
+          archive.org / Christian Classics Ethereal Library)
+        - Augustine of Hippo's commentary citations (partial)
+      Acquisition + verification gates on operator review per the
+      `feedback_license_flagging` memory protocol.
+
+  # Translation slot meta — used by the Π.1 declarative-pin tests.
+  # Each entry confirms that a Tewahedo-distinctive book is REGISTERED
+  # in this structural map even if extraction has not yet run.
+  tewahedo_distinctive_inventory:
+    declared_sections: [meqabyan, jubilees, one_enoch, laodiceans]
+    book_codes_total: [mq1, mq2, mq3, jub, 1en, lao]
+    declared_at_phase: Π.1
+    declared_date: 2026-05-14
+    extraction_status_at_declaration:
+      meqabyan: not-yet-extracted  # τ.6.x.0a built the tool; δ.1.x will use Phase-4 page-image method
+      jubilees: not-yet-extracted  # τ.6.x.1+ ocr-tier3 baseline; phase4-page-image escalation if needed
+      one_enoch: not-yet-extracted  # same as jubilees
+      laodiceans: source-unavailable  # alternate source required (per `laodiceans.notes`)
+    contract: |
+      Π.1 is a FOUNDATION phase — it DECLARES the slot inventory
+      without populating it. Extraction proceeds in subsequent
+      phases per the SCOPE_2026-05-14-parallel-bible.md roadmap:
+      meqabyan via δ.1.x (Phase-4 page-image); jubilees + one_enoch
+      via τ.6.x.1+ (Tesseract baseline) or δ.1.x-equivalent escalation
+      (Phase-4 page-image) if OCR quality is insufficient; laodiceans
+      via alternate-source acquisition (operator-side, gated on the
+      `feedback_license_flagging` protocol).
+
+  # All other books still TBD — expanded as τ.6.x extraction proceeds.
   # The publisher's parallel PDF starts at Genesis (page 0) and
   # continues through the EOTC canon. Approximate book starts to be
   # determined empirically book-by-book as ingestion proceeds.

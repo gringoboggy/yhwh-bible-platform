@@ -4,6 +4,51 @@
 
 ## Prior task
 
+**Π.1 Parallel-PDF Tewahedo-distinctive structural-map FOUNDATION —
+FOUNDATION-ONLY ship; declares 6 Tewahedo-distinctive book slots
+(meqabyan + jubilees + one_enoch + laodiceans) so τ.6.x.1+ / δ.1.x
+phases can address them declaratively. Triggered by user "continue"
+after δ.1.0 shipped earlier this session and committed as `59bef8b`
+(on top of `2c27745`). Per memory `feedback_continue_not_save`
++ `feedback_extensive_answers` (broadest scope; Π.1 over δ.1.x.A
+because Π.1 is fully Claude-side via PDF discovery while δ.1.x.A
+requires operator-side page-image transcription). Shipped: (1)
+EXTENDED _source.yaml structural_map with jubilees [1454,1514]
+verified=tentative + one_enoch [1515,1566] verified=tentative +
+laodiceans present_in_pdf=false alternate_source_required (full-PDF
+marker scan returned ZERO `መልእክት ... ሎዶቅያ` opening matches;
+4 `ሎዶቅያ` mentions are all Rev/geographic secondary references).
+Boundary pages of jub + 1en confirmed by `መጽሐፈ ኩፋሌ` / `መጽሐፈ ሄኖክ`
+opening-marker scan + transition-page inspection (page 1453 closes
+Daniel additions → page 1454 opens Jubilees → page 1514 closes
+Jubilees → page 1515 opens 1 Enoch → page 1566 closes 1 Enoch →
+page 1567 opens Matthew Gospel). (2) HOISTED meqabyan.subsections
+(mq1+mq2+mq3 page-ranges) from heuristic dict into declarative
+YAML. (3) NEW tewahedo_distinctive_inventory metadata block
+(declared_sections + book_codes_total + extraction_status +
+foundation contract). (4) EXTENDED extract_parallel_pdf.py with
+_METADATA_KEYS + _extraction_sections() + _resolve_section() +
+_section_page_range() helpers; laodiceans-present_in_pdf-False
+guard; ruff complexity returned under threshold via helper split.
+(5) NEW tests/test_parallel_bible_pi1.py — 58 pins across 9 test
+groups (StructuralMapExtension 7 + JubileesSection 6 +
+OneEnochSection 6 + LaodiceansSlot 6 + MeqabyanSubsections 5 +
+TewahedoDistinctiveInventory 8 + ExtractToolMultiSection 8 +
+ClosedArcInvariantPreservation 9 + PhaseCoverage 2). (6) CORRECTED
+δ.1.0 kinds-count test floor 68 → 70 in test_validate_schemas.py
+(δ.1.0's 2-kind addition was missed at original ship; Π.1 audit
+caught + fixed). All 58 new pins pass; full-tree sweep 4248 passed
++ 1 skipped = 4249 tests (baseline 4191 + 58 = 4249 exact growth).
+Linter 11/11 clean. Ruff check + format clean. NO data ingest:
+translation slots remain at 3-verses-Genesis seed; divergence
+entries=[] preserved; v1 Meqabyan English notes NOT mutated.
+v1.0 byte-identical reproducibility preserved. Closed-arc
+invariants regression-guarded (γ.4.8.E + γ.4.8.F + Π.0.1 + Π.0.4
++ τ.6.x.0a + τ.6.x.0b + δ.1.0).** shipped 2026-05-14. Triggered by
+user "continue" after δ.1.0 committed as 59bef8b on top of 2c27745.
+
+## Prior task (previous)
+
 **δ.1.0 Phase-4 Meqabyan Geʽez-revision SEED — INFRASTRUCTURE-ONLY
 FOUNDATION; multi-session δ.1.x cluster opens. Triggered by user
 "continue" after φ.1 + AUDIT_2026-05-14-LIGHT bundle saved as

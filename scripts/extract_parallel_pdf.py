@@ -6,6 +6,18 @@ eBible.org's gez-Geez slot is no longer available; the parallel-
 Bible PDF (`Bible_Amharic_and_Geez.pdf`, 2,539 pages) is the
 PRIMARY Geʽez + Amharic source.
 
+Π.1 (2026-05-14) — extended for the 6 Tewahedo-distinctive books.
+`_source.yaml::structural_map` gains `jubilees` (jub), `one_enoch`
+(1en), and `laodiceans` (lao) sections alongside the original
+`meqabyan` section. The `meqabyan.subsections` map is hoisted from
+this file's heuristic dict into declarative YAML. The `laodiceans`
+slot is declared with `present_in_pdf: false` and triggers a clean
+SystemExit when extraction is attempted (operator must supply an
+alternate source). `tewahedo_distinctive_inventory` is added as a
+metadata sibling of the real sections — filtered out by
+`_extraction_sections()` so it does not appear in `--list-sections`
+output or pilot-book resolution.
+
 INPUTS
 ======
 
@@ -93,7 +105,6 @@ import os
 import re
 import sys
 import yaml
-from collections import OrderedDict
 from datetime import date
 from pathlib import Path
 
@@ -292,6 +303,65 @@ def parse_verses_from_text(text: str) -> list[tuple[int, int, str]]:
 # ───────────────────────────────────────────────────────────────────
 
 
+# Π.1 introduced metadata keys at the same dict level as real section
+# entries (e.g. `tewahedo_distinctive_inventory`). A real section has a
+# `book_codes` list; metadata keys do not. This helper filters the
+# structural_map dict down to the real extraction sections so the CLI
+# can list them, iterate them, and look-up pilot-book → section without
+# stumbling over metadata.
+_METADATA_KEYS = frozenset({"tewahedo_distinctive_inventory"})
+
+
+def _extraction_sections(cfg: dict) -> list[str]:
+    """Return the names of structural_map entries that represent real
+    extractable book sections (each has a `book_codes` list). Filters
+    out Π.1+ inventory/metadata keys that share the namespace."""
+    out: list[str] = []
+    for name, sec in (cfg.get("structural_map") or {}).items():
+        if name in _METADATA_KEYS:
+            continue
+        if not isinstance(sec, dict):
+            continue
+        if not sec.get("book_codes"):
+            continue
+        out.append(name)
+    return out
+
+
+def _resolve_section(cfg: dict, section_name: str) -> dict:
+    """Look up a section in structural_map; SystemExit with a helpful
+    list if missing, and SystemExit with the alternate-source guidance
+    if it's a present_in_pdf=False slot like `laodiceans`."""
+    sec = (cfg.get("structural_map") or {}).get(section_name)
+    if not sec:
+        raise SystemExit(
+            f"FATAL: section {section_name!r} not in _source.yaml::structural_map. "
+            f"Available: {sorted(_extraction_sections(cfg))}"
+        )
+    if sec.get("present_in_pdf") is False or sec.get("pdf_page_range") is None:
+        raise SystemExit(
+            f"FATAL: section {section_name!r} declares present_in_pdf=False "
+            f"or has no pdf_page_range. Per the _source.yaml::structural_map "
+            f"{section_name}.notes, this book requires an ALTERNATE SOURCE "
+            f"(not the parallel-Bible PDF). Do not run extract_parallel_pdf "
+            f"against it; consult content/translations/sources/parallel-bible-eotc/"
+            f"_source.yaml for acquisition options."
+        )
+    return sec
+
+
+def _section_page_range(sec: dict) -> tuple[int, int, int]:
+    """Resolve a section's (page_start, page_end, offset). Supports
+    both the canonical `pdf_page_range` (0-indexed; offset 0) and the
+    legacy τ.6.x.0 `scan_page_range` (archive.org scan-page numbers;
+    requires `pdf_index_offset`)."""
+    if "pdf_page_range" in sec:
+        page_start, page_end = sec["pdf_page_range"]
+        return page_start, page_end, 0
+    page_start, page_end = sec["scan_page_range"]
+    return page_start, page_end, sec.get("pdf_index_offset", 0)
+
+
 def extract_section(
     cfg: dict,
     section_name: str,
@@ -313,23 +383,8 @@ def extract_section(
     """
     import fitz
 
-    sec = cfg["structural_map"].get(section_name)
-    if not sec:
-        raise SystemExit(
-            f"FATAL: section {section_name!r} not in _source.yaml::structural_map. "
-            f"Available: {sorted(cfg['structural_map'].keys())}"
-        )
-    # Support both the new pdf_page_range key and the legacy
-    # scan_page_range key for back-compat. pdf_page_range is the
-    # canonical post-τ.6.x.0a format (0-indexed full-PDF page
-    # numbers); scan_page_range was the τ.6.x.0 placeholder format
-    # (archive.org scan-page numbers, requires pdf_index_offset).
-    if "pdf_page_range" in sec:
-        page_start, page_end = sec["pdf_page_range"]
-        offset = 0
-    else:
-        page_start, page_end = sec["scan_page_range"]
-        offset = sec.get("pdf_index_offset", 0)
+    sec = _resolve_section(cfg, section_name)
+    page_start, page_end, offset = _section_page_range(sec)
     book_codes = sec["book_codes"]
 
     pdf_path = resolve_pdf_path(cfg)
@@ -343,17 +398,24 @@ def extract_section(
     # without book-boundary detection produces tangled output.
     if pilot_filter:
         pilot_book = pilot_filter.split("-ch")[0] if "-ch" in pilot_filter else pilot_filter
-        # Look for a sub-page-range hint in the notes field — we'll
-        # parse the notes more cleverly post-pilot. For now, accept
-        # a `subsections` map if present.
+        # Π.1 hoisted the meqabyan subsections into the declarative
+        # _source.yaml; jubilees + one_enoch are single-book sections
+        # so subsections doesn't apply. Prefer the declarative form;
+        # the heuristic remains as a safety net for back-compat.
         subs = sec.get("subsections") or {}
         if pilot_book in subs:
             page_start, page_end = subs[pilot_book]
             print(f"  pilot narrowing: book {pilot_book} → pages {page_start}-{page_end}")
+        elif len(book_codes) == 1 and pilot_book == book_codes[0]:
+            # Single-book section — the section page range IS the book
+            # page range. No narrowing needed.
+            print(f"  pilot narrowing: book {pilot_book} = section {section_name} (single-book)")
         else:
             # Heuristic fallback for the meqabyan section based on
-            # τ.6.x.0a verified ranges (notes documented these even
-            # if subsections isn't filled in):
+            # τ.6.x.0a verified ranges. Retained as a safety net even
+            # though Π.1 hoisted them into the declarative subsections
+            # map above; this fires only if subsections is removed or
+            # malformed in _source.yaml.
             heuristic = {
                 ("meqabyan", "mq1"): (1318, 1365),
                 ("meqabyan", "mq2"): (1366, 1372),
@@ -480,19 +542,26 @@ def main() -> int:
     cfg = load_source_config()
 
     if args.pilot:
-        # Derive section from pilot filter.
+        # Derive section from pilot filter. Π.1 introduced metadata
+        # keys (e.g. tewahedo_distinctive_inventory) at the same level
+        # as real sections; we filter those out via _extraction_sections.
         pilot_book = args.pilot.split("-ch")[0]
         section = None
-        for name, sec in cfg["structural_map"].items():
-            if pilot_book in sec["book_codes"]:
+        sm = cfg["structural_map"]
+        for name in _extraction_sections(cfg):
+            sec = sm[name]
+            if pilot_book in (sec.get("book_codes") or []):
                 section = name
                 break
         if not section:
-            raise SystemExit(f"FATAL: pilot book {pilot_book!r} not in any section")
-        print(f"τ.6.x.0a extraction — PILOT mode: {args.pilot} (section={section})")
+            raise SystemExit(
+                f"FATAL: pilot book {pilot_book!r} not in any extractable section. "
+                f"Available: {sorted(_extraction_sections(cfg))}"
+            )
+        print(f"extract_parallel_pdf — PILOT mode: {args.pilot} (section={section})")
         by_book = extract_section(cfg, section, pilot_filter=args.pilot)
     elif args.section:
-        print(f"τ.6.x.0a extraction — SECTION mode: {args.section}")
+        print(f"extract_parallel_pdf — SECTION mode: {args.section}")
         by_book = extract_section(cfg, args.section)
     else:
         p.error("must pass --section or --pilot")
