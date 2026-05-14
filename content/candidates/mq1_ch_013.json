@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 13,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 13,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 16,
   "candidates": [
     {
       "id": "mq1-13-12-001",
@@ -186,6 +186,51 @@
     },
     {
       "id": "mq1-13-20-013",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>COSMIC-SIGNS ESCHATOLOGICAL SEQUENCE — the chapter&#x27;s eschatological-pivot moves from Lucifer-fall (vv. 12-13 seed) to NT-toponyms (v. 3) to cosmic-signs (v. 20). The cosmic-signs typology parallels: JOEL 2:30-31 (&#x27;I will shew wonders in the heavens and in the earth, blood, and fire, and pillars of smoke. The sun shall be turned into darkness, and the moon into blood, before the great and the terrible day of the LORD come&#x27;); MATTHEW 24:29 (&#x27;the sun shall be darkened, and the moon shall not give her light, and the stars shall fall from heaven, and the powers of the heavens shall be shaken&#x27;); MARK 13:24-25 (Markan parallel); LUKE 21:25-26 (Lukan parallel); REVELATION 6:12-14 (the sixth-seal cosmic-signs). Meqabyan integrates the Joel + Synoptic + Apocalyptic cosmic-signs traditions into a single anti-Ṣiruṣaydan eschatological-warning. Tewahedo apocalyptic-tradition reads 13:20 alongside Joel + Matthew 24 as the canonical day-of-the-LORD prophetic-stack.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-13-3-014",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>&#x27;CAPERNAUM, SAMARIA AND GALILEE, SYRIA AND DAMASCUS, CYPRUS AND ACHAIA, and all the heathen of the district of the Jordan&#x27; — NT-ERA APOCALYPTIC TOPONYM CATALOG. The geographic-list is the STRONGEST internal-dating-evidence in 1 Mq for a Christian-era stratum: Capernaum (Mt 11:23 woe-against-Capernaum + the Synoptic Capernaum-Galilean-ministry locus) + Galilee (the standard NT-Galilean-ministry region) + Damascus (Acts 9 Damascus-road Saul-Paul) + Cyprus (Acts 13 Paul-Barnabas mission) + Achaia (Acts 18-19 Pauline-Achaian-mission, including Athens-and-Corinth). The Capernaum-and-Achaia juxtaposition is impossible in pre-Christian-era composition (Capernaum-as-named-significant-locale is a Synoptic-Gospels-era datum; Achaia-as-Roman-province is post-146-BCE but the apocalyptic-pairing-with-Capernaum is NT-era). Per CROSS_REFERENCE_APPENDIX §61 widened-dating: this verse supports the Aksumite-to-Solomonic (4th-14th c.) composition window for the chapter, with the underlying stratum reaching back further.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-13-12-015",
+      "verse": 12,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>EXPLICIT LUCIFER-FALL PASSAGE — vv. 12-13 directly cite Isaiah 14:12-14 (&#x27;How art thou fallen from heaven, O day-star, son of the morning! how art thou cut down to the ground... I will ascend into heaven, I will exalt my throne above the stars of God&#x27;). 1 Mq preserves the standard patristic identification of Isa 14 with the fall of Satan (cf. Tertullian Adversus Marcionem 2.10, Origen De Principiis 1.5.4-5, Augustine City of God 11.15, Cassiodorus Commentary on Psalms). Meqabyan reads Isa 14 as theological-narrative — Lucifer&#x27;s pride-and-fall as the originating event of the cosmic moral order, the structural pre-condition for the human moral arena that the rest of the trilogy occupies. The chapter is the ESCHATOLOGICAL PIVOT of 1 Mq.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-13-20-016",
       "verse": 20,
       "kind": "comm-ethiopian",
       "anchor": "",

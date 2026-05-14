@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 25,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 40,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 42,
   "candidates": [
     {
       "id": "exo-25-8-001",
@@ -591,6 +591,36 @@
     },
     {
       "id": "exo-25-18-040",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XXV.9 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Two cherubim of gold beaten out of one piece, their wings stretched over the mercy seat, are for Ephrem the canonical sign that the divine throne rests over a place of propitiation, not over a tribunal alone. The mercy seat between the wings is the OT type of the Cross where mercy meets the Law. Tewahedo iconography preserves the cherub-flanked tabot in every sanctuary.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-25-8-041",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XXV.2 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;Let them make me a sanctuary; that I may dwell among them&#x27; — Ephrem reads this verse as the canonical warrant for every consecrated dwelling-place of God: the tabernacle prefigures the Incarnation (&#x27;the Word was made flesh and tabernacled among us,&#x27; Jn 1:14), and the Incarnation prefigures the Church. Tewahedo cites Ex 25:8 as the principal canonical anchor of its tabot tradition — the Ark-as-sanctuary at the center of every Tewahedo church.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-25-18-042",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

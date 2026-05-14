@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 30,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 7,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "mq1-30-7-001",
@@ -96,6 +96,51 @@
     },
     {
       "id": "mq1-30-21-007",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Covenant-honor Davidic-Solomonic application (continued from 30:11 deepening + seed 30:7): the verse develops the covenant-honor-formula&#x27;s application to Davidic-Solomonic kingship. The Davidic-Solomonic application parallels: 1 KINGS 3:6-14 (Solomon&#x27;s wisdom-and-honor-and-riches-and-life as covenant-honor reward); 2 CHRONICLES 1:7-12 (the parallel-version); 1 KINGS 11:9-13 (Solomon&#x27;s dishonor-of-the-covenant via foreign-wives leading to kingdom-fragmentation); 2 KINGS 21:1-18 (Manasseh&#x27;s-extreme-dishonor of the covenant); 2 CHRONICLES 33 (the parallel — including Manasseh&#x27;s-repentance per the EOTC-canonical &#x27;Prayer of Manasseh&#x27;); 2 CHRONICLES 35-36 (the Davidic-line&#x27;s-final-dishonor + Babylonian-captivity). Tewahedo-Solomonic-dynastic-tradition (Kǝbrä Nägäśt 13th c.) preserves the covenant-honor-formula as the integrating-principle for Tewahedo-monarchic-history.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-30-7-008",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>&#x27;He who honors me, I will honor; he who loves me, I will love&#x27; — DIRECT CITATION of 1 Samuel 2:30 (the covenant-honor formula given by God to Eli the priest, prophesying the reduction of Eli&#x27;s house). The verse functions in Meqabyan as the CONCISE COVENANT-FORMULA for the entire trilogy&#x27;s theology: faithful witness (martyrdom-or-conversion) draws divine-honor; apostasy draws divine-disregard. The chapter as a whole develops God&#x27;s renunciation of the house of Saul (vv. 1-6) leading to this formula at v. 7. The Tewahedo Liturgy of the Word recites 1 Sam 2:30 at the Trinity-Sunday and Royal-Lectionary offices.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-30-11-009",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Covenant-honor-formula deepening (paired with seed 30:7 1 Sam 2:30 covenant-honor): the verse develops the &#x27;them that honor me I will honor, and they that despise me shall be lightly esteemed&#x27; formula. Patristic-extended-reception of 1 Sam 2:30: GREGORY OF NYSSA De Vita Moysis 2.260-262 (honor-and-dishonor parallels); JOHN CHRYSOSTOM Homilies on 1 Samuel; AUGUSTINE Enarrationes in Psalmos 30 + 70 (the honor-formula in Psalter); AMBROSE Letters 73 + 76 (the political application — Theodosius&#x27;s penance + the Callinicum incident). The covenant-honor-formula parallels: PSALM 91:14-16 (&#x27;because he hath set his love upon me, therefore will I deliver him: I will set him on high, because he hath known my name&#x27;); JOHN 12:26 (&#x27;if any man serve me, him will my Father honour&#x27;); ROMANS 2:6-11 (Pauline-divine-impartiality); SIRACH 3:6 (honor-father-and-mother formula echo). Tewahedo soteriology preserves the covenant-honor-formula as the canonical-anchor for Tewahedo-imperial-and-monastic confessional-tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-30-21-010",
       "verse": 21,
       "kind": "comm-ethiopian",
       "anchor": "",

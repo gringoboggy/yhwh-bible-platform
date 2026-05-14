@@ -1,8 +1,8 @@
 {
   "book": "2co",
   "chapter": 5,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 73,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 74,
   "candidates": [
     {
       "id": "2co-5-1-001",
@@ -1086,6 +1086,21 @@
     },
     {
       "id": "2co-5-19-073",
+      "verse": 19,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §8",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §8</em> <small>(c. 350 AD)</small><p>&#x27;To wit, that God was in Christ, reconciling the world unto himself, not imputing their trespasses unto them&#x27; — Athanasius marks theos ēn en Christō kosmon katallassōn heautō (God was in Christ reconciling the world to himself) as the Pauline-summary-of-the-incarnation-as-reconciliation. The subject is theos (God); the locus is en Christō (in Christ); the action is kosmon katallassōn (reconciling the world); the goal is heautō (to himself — divine-Father-self). The verse compresses the entire Pauline-soteriology into one clause. Tewahedo Anaphora-prefatory thanksgiving cites 2 Cor 5:19 + Rom 5:10 as the reconciliation-locus pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §8. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-5-19-074",
       "verse": 19,
       "kind": "comm-ethiopian",
       "anchor": "",

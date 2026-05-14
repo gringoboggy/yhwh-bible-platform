@@ -1,8 +1,8 @@
 {
   "book": "mq2",
   "chapter": 9,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 8,
   "candidates": [
     {
       "id": "mq2-9-1-001",
@@ -81,6 +81,36 @@
     },
     {
       "id": "mq2-9-11-006",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>SOULS-RECEIVED-BY-ANGELS — the martyrdom-completion psychopomp moment (vv. 11-15): angels descend, receive-the-souls of the five sons, carry them to the bosom-of-Abraham-Isaac-Jacob (the triple-patriarch destination, paired with 1 Mq 3:38 + seed 2 Mq 2:22 and 1 Mq 2:22). The verse mirrors 1 Mq 3:38 word-for-word in its essential structure — confirming the COMPOSITIONAL-PARITY between the 1 Mq Ch 3-4 martyrdom-cycle and the 2 Mq Ch 6-9 martyrdom-cycle that Horovitz 1905 identified as the TYPOLOGICAL-DOUBLE-MARTYRDOM structural pattern of the trilogy. Biblical parallels: LUKE 16:22 (&#x27;carried by the angels into Abraham&#x27;s bosom&#x27;); APOCALYPSE OF PAUL §§14-18 (soul-at-death narrative); TESTAMENT OF ASHER 6:4-6 (the angelic-psychopomp-of-the-righteous); ACTS OF THOMAS 159-160 (Mygdonia&#x27;s angelic-translation). The verse closes the chapter with the canonical-EOTC angelic-reception formula and prepares for Ch 10&#x27;s POST-MORTEM CRIES.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-9-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>OPENS Ch 9: SONS&#x27; DEATH-SEQUENCE one-by-one (vv. 1-10) — the narrative martyrdom-sequence proper that the speeches (Chs 7-8) have prepared. Each son refuses idol-sacrifice; is tortured (burned + dismembered + crushed); dies confessing God. The serial-martyrdom-sequence parallels: 2 MACCABEES 7:1-19 (seven brothers tortured-and-killed serially — tongues cut out + skin removed + dismemberment + fire); 4 MACCABEES 9-12 (the same expanded torture-list); SHEMOT RABBAH on Exodus 15:1 (the rabbinic midrash of the ten martyrs-of-the-kingdom — Asarah Harugei Malkhut); MARTYRDOM OF POLYCARP 1-22 (Christian-era martyrology). Meqabyan&#x27;s distinctive feature: each son&#x27;s death-speech includes a SPECIFIC RESURRECTION-AFFIRMATION — paralleling 2 Macc 7:11 (&#x27;I had them from heaven; and for his laws I despise them; and from him I hope to receive them again&#x27;). The chapter establishes the COMPLETE TRANSACTIONAL-MARTYRDOM-AND-RESURRECTION PATTERN that Meqabyan&#x27;s anti-sectarian polemic (Ch 14) will invoke as scriptural-proof.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-9-11-008",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

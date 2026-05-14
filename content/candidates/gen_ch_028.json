@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 28,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 66,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 68,
   "candidates": [
     {
       "id": "gen-28-12-001",
@@ -981,6 +981,36 @@
     },
     {
       "id": "gen-28-17-066",
+      "verse": 17,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXVIII.17. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;How dreadful is this place! this is none other but the house of God, and this is the gate of heaven&#x27;. Ephrem reads Bethel (&#x27;house of God&#x27;) as the proto-temple, proto-church, proto-tabot. Tewahedo ecclesiology explicitly carries the gate-of-heaven identification through every Tewahedo church: each parish church is in some sense Bethel — a renewed-Jacob place where heaven opens. The Tewahedo qǝddase opens with this consciousness.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-28-12-067",
+      "verse": 12,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXVIII.12. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven: and behold the angels of God ascending and descending on it&#x27;. Ephrem reads the ladder as a Christ-Mary type: the ladder is Christ (Jn 1:51 — &#x27;angels of God ascending and descending upon the Son of man&#x27;), AND the ladder is Mary (because she bridges earth and heaven, bringing God to earth and lifting earth to God). Tewahedo Marian hymnody preserves the Jacob-ladder typology as one of Mary&#x27;s most prominent OT types, in the Wǝddase Maryam (Praise of Mary).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-28-17-068",
       "verse": 17,
       "kind": "comm-ethiopian",
       "anchor": "",

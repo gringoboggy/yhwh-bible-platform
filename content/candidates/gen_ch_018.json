@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 18,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 78,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 80,
   "candidates": [
     {
       "id": "gen-18-2-001",
@@ -1161,6 +1161,36 @@
     },
     {
       "id": "gen-18-14-078",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XVIII.14. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;Is any thing too hard for the Lord?&#x27; Ephrem reads the rhetorical question as the FOUNDATIONAL apologetic for divine omnipotence — and specifically for miracle-faith against rational doubt. The Tewahedo annunciation reading explicitly draws on Gen 18:14 (Sarah&#x27;s incredulity → Isaac&#x27;s miraculous birth) as the OT type of Lk 1:37 (&#x27;for with God nothing shall be impossible&#x27; — the angel to Mary). Ephrem&#x27;s exegesis pins the typological chain.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-18-1-079",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XVIII.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And the Lord appeared unto him in the plains of Mamre... behold, three men stood by him&#x27;. Ephrem reads the three visitors as a Trinitarian theophany — the Lord (singular) who appears IS the three (plural). Tewahedo iconography preserves the Mamre-Trinity tradition most fully of any major Christian communion (the Andrew Rublev icon tradition is Slavonic; the Tewahedo iconographic Trinity-at-Mamre is older and more widespread in church-wall fresco than in any other Oriental Orthodox communion). Ephrem&#x27;s exegesis is the Patristic foundation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-18-14-080",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

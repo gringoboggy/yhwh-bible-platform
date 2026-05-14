@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 16,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 31,
+  "generated_at": "2026-05-14T15:31:49+00:00",
+  "n_candidates": 32,
   "candidates": [
     {
       "id": "psa-16-1-001",
@@ -456,6 +456,21 @@
     },
     {
       "id": "psa-16-10-031",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §22",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §22</em> <small>(c. 350 AD)</small><p>&#x27;For thou wilt not leave my soul in hell; neither wilt thou suffer thine Holy One to see corruption&#x27; (LXX 15:10 — ouk enkataleipseis tēn psychēn mou eis hadēn, oude dōseis ton hosion sou idein diaphthoran) — Athanasius marks Ps 16:10 as the DEFINITIVE RESURRECTION-PROOFTEXT, citing Peter&#x27;s exposition (Acts 2:25-31) and Paul&#x27;s (Acts 13:35-37) as canonical-apostolic exegesis: the verse cannot be of David (whose tomb remains) but must be of David&#x27;s-greater-Son, the Word-incarnate, whose flesh in the tomb did-not-see-corruption (idein diaphthoran) because the deathless-Word remained-united-to-it even through the three-day-pause. The non-corruption of the dead-flesh-of-Christ is the soteriological-key: by-Word&#x27;s-presence-in-it, death itself is decomposed-from-within. Tewahedo Holy-Saturday liturgy cites Ps 16:10 + Acts 2:27 as the harrowing-of-Hades-anchor-pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §22. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-16-10-032",
       "verse": 10,
       "kind": "comm-ethiopian",
       "anchor": "",

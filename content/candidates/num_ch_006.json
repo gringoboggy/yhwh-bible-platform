@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 6,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 77,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 79,
   "candidates": [
     {
       "id": "num-6-24-001",
@@ -1146,6 +1146,36 @@
     },
     {
       "id": "num-6-24-077",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 6:22-27. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>Ephrem reads the threefold Aaronic blessing (Num 6:24-26 — &#x27;The Lord bless thee... make his face shine upon thee... lift up his countenance upon thee&#x27;) as the canonical priestly anchor that the Father, Son, and Holy Spirit may be invoked under three benedictions before the Tabernacle reveals the Trinity. The triadic shape, the divine-face theology, and the placement of the Name upon Israel are read by Ephrem as the seed-form of every later Christian benediction. The Tewahedo Mass (Qǝddase) preserves Num 6:24-26 as the canonical dismissal-blessing; the priest extends the blessing over the people in the exact threefold form, sealing the eucharistic act.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-6-2-078",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 6:1-21. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the Nazirite vow, Ephrem reads Num 6:2 as the canonical Old-Testament antecedent of the monastic profession: a person separates himself unto the Lord by a deliberate vow, abstaining from wine, leaving hair uncut as the visible token of consecration. The Nazirite is voluntary, time-bound, and lay — anyone may take the vow. Tewahedo monastic tradition cites Num 6 as the typological warrant for the bahǝtawi (solitary ascetic) and for the temporary monastic vows undertaken during fasts and pilgrimages; the uncut hair and untrimmed beard of the bahǝtawi visibly preserve the Nazirite sign.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-6-24-079",
       "verse": 24,
       "kind": "comm-ethiopian",
       "anchor": "",

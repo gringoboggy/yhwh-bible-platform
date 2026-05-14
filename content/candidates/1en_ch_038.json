@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 38,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 45,
   "candidates": [
     {
       "id": "1en-38-1-001",
@@ -621,6 +621,51 @@
     },
     {
       "id": "1en-38-4-042",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 38:4, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;From thenceforward those who possess the earth shall no longer be powerful and exalted: nor shall they be able to behold the face of the holy, for the Lord of Spirits has caused His light to appear on the face of the holy and righteous and elect&#x27; — reversal of social ordering at the eschaton. Tewahedo wisdom tradition reads this verse as parallel to the Magnificat (Lk 1:51-53): both preserve the prophetic God-shines-on-the-humble / God-throws-down-the-mighty structure under Lord-of-Spirits theology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-38-1-043",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 38:1-2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;When the congregation of the righteous shall appear, and sinners shall be judged for their sins, and shall be driven from the face of the earth&#x27; opens the eschatological program of the Parables: the visible appearing of the elect community + the judgment + the removal of the wicked. The &#x27;congregation of the righteous&#x27; (the Ethiopian-Geez term ṣabā ṣādeqān) becomes for Tewahedo ecclesiology a key term for the eschatological Church gathered for the final judgment. The verse establishes that judgment is not destruction-for-its-own-sake but vindication-of-the-righteous: the wicked are removed precisely to clear the earth for the elect&#x27;s full inheritance.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-38-2-044",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 38:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;When the Righteous One shall appear before the eyes of the righteous, whose elect works hang upon the Lord of Spirits, and light shall appear to the righteous and the elect who dwell on the earth&#x27; — first occurrence of &#x27;the Righteous One&#x27; (Ge&#x27;ez ṣadiq) as an eschatological title. Tewahedo Christology reads this title prospectively as a designation for Christ, paralleling Acts 3:14, 7:52, 22:14 — the New Testament&#x27;s ho dikaios as Christological title shares the Enochic verbal root.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-38-4-045",
       "verse": 4,
       "kind": "comm-ethiopian",
       "anchor": "",

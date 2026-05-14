@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 9,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 85,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 87,
   "candidates": [
     {
       "id": "gen-9-4-001",
@@ -1266,6 +1266,36 @@
     },
     {
       "id": "gen-9-25-085",
+      "verse": 25,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis IX.25 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (362).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 362 AD)</small><p>Noah&#x27;s pronouncement after the Ham-incident — &#x27;Cursed be Canaan; a servant of servants shall he be unto his brethren&#x27; — Ephrem reads with careful precision against any reading that would extract a permanent racial-ethnic curse. The curse falls on CANAAN (Ham&#x27;s son), not on Ham himself or on Ham&#x27;s other descendants; the cursing is therefore localized and historical (fulfilled in the Canaanite-Israelite encounters of Joshua-Judges), not racially universal. Against the early-modern American mis-application of this verse to justify African slavery, Ephrem&#x27;s text-bounded reading clearly precludes such extension: the curse is on a specific lineage (Canaan), for a specific reason (Canaan&#x27;s prefigured idolatry and immorality), with a specific fulfillment (the dispossession of the Canaanite peoples by Israel). The Tewahedo reading inherits Ephrem&#x27;s text-bounded precision.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-9-13-086",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis IX.13 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (362).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 362 AD)</small><p>On the rainbow as covenantal sign — &#x27;I do set my bow (qashti) in the cloud&#x27; — Ephrem makes the most of the Hebrew qesheth&#x27;s dual sense of &#x27;bow&#x27; = both rainbow AND warrior&#x27;s weapon. God sets His bow (war-weapon) in the cloud: His instrument of judgment is permanently sheathed as covenantal pledge that the universal-deluge mode of judgment will not recur. The bow is set with its string facing downward (toward earth) and its arc facing upward — figuratively, the weapon is laid aside, not aimed. Ephrem reads this as the textual root of the Syriac patristic teaching that divine wrath, while real, is never the final word: the rainbow stands over every subsequent storm as the visible reminder that mercy has the last word.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-9-25-087",
       "verse": 25,
       "kind": "comm-ethiopian",
       "anchor": "",

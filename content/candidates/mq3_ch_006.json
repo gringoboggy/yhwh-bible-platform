@@ -1,8 +1,8 @@
 {
   "book": "mq3",
   "chapter": 6,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 9,
   "candidates": [
     {
       "id": "mq3-6-1-001",
@@ -81,6 +81,51 @@
     },
     {
       "id": "mq3-6-14-006",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of PERSEVERANCE theme synthesizing Ch 6&#x27;s homiletic catalog. The perseverance theme parallels: HEBREWS 10:36-39 (need-of-patience + the just-shall-live-by-faith); 2 PETER 1:5-11 (the seven-step virtue-catalog culminating in perseverance); 2 TIMOTHY 4:7 (&#x27;I have fought a good fight, I have finished my course, I have kept the faith&#x27;); REVELATION 14:12 (&#x27;here is the patience of the saints: here are they that keep the commandments of God, and the faith of Jesus&#x27;); MATTHEW 24:13 (&#x27;but he that shall endure unto the end, the same shall be saved&#x27;). The perseverance-virtue is preserved in Tewahedo monastic-confessional rubric as one of the THREE CARDINAL-MARTYR-VIRTUES (alongside faith and humility) that distinguish the martyr-in-spirit from the martyr-in-body.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-6-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>OPENS Ch 6 — HOMILETIC-GENRE ANCHOR (per source-fidelity note). Ch 6 likely develops SUFFERING + PERSEVERANCE + FEAR-OF-GOD as the homiletic-catalog deepening the martyr-typology established by 1 Mq + 2 Mq&#x27;s martyrdom-narratives. The everyday-Christian-as-confessor theme: martyrdom is not only physical-death-for-faith but also DAILY-PERSEVERANCE-IN-VIRTUE under temptation-and-distress. Parallels: 2 TIMOTHY 3:12 (&#x27;all that will live godly in Christ Jesus shall suffer persecution&#x27;); 1 PETER 4:12-19 (the Petrine suffering-theology — &#x27;beloved, think it not strange concerning the fiery trial which is to try you, as though some strange thing happened unto you&#x27;); JAMES 1:2-4 (&#x27;count it all joy when ye fall into divers temptations&#x27;); HEBREWS 12:1-13 (the cloud-of-witnesses + chastisement-as-fatherly-instruction). Tewahedo monastic-tradition preserves the martyr-typology-extended-to-everyday-life as the MARTUS-AS-DAILY-WITNESS framework.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-6-7-008",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of FEAR-OF-GOD as FOUNDATIONAL VIRTUE. The fear-of-God theme parallels: PROVERBS 1:7 (&#x27;the fear of the LORD is the beginning of knowledge&#x27;); PROVERBS 9:10 (&#x27;the fear of the LORD is the beginning of wisdom&#x27;); PSALM 111:10 (&#x27;the fear of the LORD is the beginning of wisdom&#x27;); SIRACH 1:11-30 (the fear-of-the-LORD catalog — beginning + crown + complete-instruction + delight); ECCLESIASTES 12:13 (&#x27;fear God, and keep his commandments: for this is the whole duty of man&#x27;); ACTS 10:35 (&#x27;in every nation he that feareth him, and worketh righteousness, is accepted with him&#x27;); BARSANUPHIUS Letter 168 (monastic fear-of-God as foundation). The Tewahedo Mäṣḥafä Mäwet (Book of Death — funerary-Liturgical text) preserves fear-of-God as the entry-anchor for repentance-formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-6-14-009",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "isa",
   "chapter": 9,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 52,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 53,
   "candidates": [
     {
       "id": "isa-9-1-001",
@@ -771,6 +771,21 @@
     },
     {
       "id": "isa-9-6-052",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §33",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §33</em> <small>(c. 350 AD)</small><p>&#x27;For unto us a child is born, unto us a son is given... and his name shall be called Wonderful, Counsellor, The mighty God, The everlasting Father, The Prince of Peace&#x27; — Athanasius marks the five-fold throne-name as the prophetic-confirmation that the born-child IS theos-ischyros (the-mighty-God, ʾel-gibbor). The paidion (child) is the gendered-human-infant; the theos-ischyros is the eternal-divine-Person. The two-confessions in one verse are precisely the dual-confession the Nicene-Creed requires: &#x27;true God from true God, ... became man&#x27;. Athanasius reads Isa 9:6 as the OT-pre-figuration of the post-Nicene homoousion (consubstantial) confession — born-paidion-and-mighty-God in one Person. Tewahedo Christmas (Lǝdat) hymnody cites Isa 9:6 as the Nativity-acclamation summit.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §33. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-9-6-053",
       "verse": 6,
       "kind": "comm-ethiopian",
       "anchor": "",

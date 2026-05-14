@@ -614,6 +614,11 @@ class TestGamma4MetaPhasesCoverage:
     def test_meta_documents_gamma_4_8_e(self):
         self._assert_phase_mentioned("γ.4.8.E")
 
+    def test_meta_documents_gamma_4_8_f(self):
+        # γ.4.8.F (2026-05-14) — Mäṣḥafä Mäqabyan Tier-2 audit integration
+        # (post-arc-close apparatus refinement). Pinned for drift-detection.
+        self._assert_phase_mentioned("γ.4.8.F")
+
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
     """ω.37 (W11 closure) — build-pipeline integration test for
@@ -8260,4 +8265,326 @@ class TestGamma48EMeqabyanArcClose:
         )
         assert "EIGHTH" in meta_source or "eighth" in meta_source, (
             "γ.4.8.E _meta.source should name this as the EIGHTH §8.1 arc-close instance"
+        )
+
+
+class TestGamma48FTier2AuditIntegration:
+    """γ.4.8.F — Mäṣḥafä Mäqabyan Tier-2 audit integration (2026-05-14).
+    POST-ARC-CLOSE APPARATUS REFINEMENT — 12 verse-keyed entries
+    propagating the v3 CC0-translation bundle's TIER2_AUDIT.md library-
+    source verification findings into the Meqabyan apparatus.
+
+    Distribution (12 entries across 3 books):
+    - **mq1 (5):** 1:5 Wright 1877 fully-verified + tripartite-witness
+      corroboration; 11:3 Horovitz fn-3 corrected list (X 3, XI 9, XV 7,
+      XXVI 10, XXVIII 5, XXXI 2, XXXII 1; 'XXX 1' dropped as OCR
+      artifact); 15:8 Wright-vs-Frankfurt tripartite-vs-bipartite
+      tension; 20:3 Budge Synaxarium vol. 2 Ṭǝr 21 + Ṭǝr 30 Abijā/Silä
+      saint-dates route; 36:46 Cowley 1974b date-correction (JES 12,
+      no. 1, January 1974, pp. 133-175, JSTOR 44324703).
+    - **mq2 (3):** 1:3 Wright's Preface Meqabyan-vs-Vulgate-Maccabees
+      external corroboration; 4:17 D'Abbadie no. 55 items 28-30 precise
+      locator; 21:11 Tier-2-audit summary-anchor / apparatus-verification
+      ledger.
+    - **mq3 (4):** 1:17 Wright's Preface 'Liber Adami' (Conflict of
+      Adam and Eve) attestation; 2:24 Andǝmta Psalter commentary
+      printed-Amharic-book status; 4:17 Tier-3-interpretive-flagging
+      stance confirmation; 10:30 Wright 'in three parts' + trilogy
+      book-closing-signature Psalter-book-ending-doxologies external
+      corroboration.
+
+    Meqabyan voice 200 → 212; **MOVES TO SOLE 2ND-PLACE** surpassing
+    Jubilees 200 (was tied at γ.4.8.E arc-close). Tewahedo-distinctive-
+    canonical block 37.78% → 38.25% — STRONGEST POSITION IN γ.4 CORPUS
+    HISTORY; directly supports the v1.1 publisher-led uniqueness-angle
+    pick per memory `project_v1_terminus`.
+
+    γ.4.8.E ARC CLOSED state is preserved as a REGRESSION-GUARDED
+    INVARIANT — the 67/67 = 100% chapter coverage across mq1 + mq2 +
+    mq3 must remain intact. γ.4.8.F layers Tier-2 findings as inline
+    apparatus refinements without reopening or disturbing the closed-
+    arc structure.
+
+    Pins (sixteenth N-W4 idempotency verification):
+    - Meqabyan ≥212 absolute-count milestone (γ.4.8.E 200 + γ.4.8.F 12).
+    - mq1 ≥105 / mq2 ≥55 / mq3 ≥52 per-book floor-pins.
+    - Arc-close 67/67 chapter-coverage regression-guard (γ.4.8.E
+      invariant preserved).
+    - 12 signature-anchor pins (one per Tier-2 finding) verifying each
+      finding lands at its target verse with appropriate-content match.
+    - Tier-2-substance-named pins (Wright 1877 + Cowley 1974b + Andǝmta
+      Psalter + Senkessar Ṭǝr 21/30 + 'XXX 1' OCR-artifact-dropped) —
+      ensures the substance of the Tier-2 audit is durably recorded in
+      _meta beyond just the phase-tag.
+    - Cyril plurality preservation per ω.41 §1 trajectory rule (Cyril
+      668 still > Meqabyan 212 at 3.15× next-single-father).
+    - Tewahedo-distinctive-canonical-block share-floor pin (≥38.0% per
+      v1.1 publisher-uniqueness-angle anchor).
+    - _meta synchronization pin for γ.4.8.F.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _meq_in_book(self, book):
+        out = []
+        for chapter in range(1, 50):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _meq_at(self, book, chapter, verse):
+        return [e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"]
+
+    def _all_meq(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Meqabyan (Ethiopian tradition)")
+        return out
+
+    # ---- Absolute-count milestone (γ.4.8.E 200 + γ.4.8.F 12 = 212) ----
+
+    def test_meqabyan_post_tier2_count_milestone(self):
+        meq = self._all_meq()
+        assert len(meq) >= 212, (
+            f"γ.4.8.F Tier-2 integration: Meqabyan count ≥212 expected "
+            f"(γ.4.8.E arc-close 200 + γ.4.8.F Tier-2 12 = 212; "
+            f"Meqabyan moves to sole 2nd-place surpassing Jubilees 200); found {len(meq)}"
+        )
+
+    def test_mq1_post_tier2_floor(self):
+        mq1 = self._meq_in_book("mq1")
+        assert len(mq1) >= 105, (
+            f"γ.4.8.F: mq1 ≥105 expected (γ.4.8.E arc-close 100 + γ.4.8.F 5 = 105); found {len(mq1)}"
+        )
+
+    def test_mq2_post_tier2_floor(self):
+        mq2 = self._meq_in_book("mq2")
+        assert len(mq2) >= 55, f"γ.4.8.F: mq2 ≥55 expected (γ.4.8.C completion 52 + γ.4.8.F 3 = 55); found {len(mq2)}"
+
+    def test_mq3_post_tier2_floor(self):
+        mq3 = self._meq_in_book("mq3")
+        assert len(mq3) >= 52, f"γ.4.8.F: mq3 ≥52 expected (γ.4.8.D completion 48 + γ.4.8.F 4 = 52); found {len(mq3)}"
+
+    # ---- Arc-close regression-guard: 67/67 chapter coverage preserved ----
+
+    def test_arc_close_chapter_coverage_regression_guard(self):
+        # γ.4.8.F must NOT disturb the γ.4.8.E arc-close invariant:
+        # mq1 36/36 + mq2 21/21 + mq3 10/10 = 67/67 = 100%.
+        def chapters_with_entries(book, total):
+            out = set()
+            for ch in range(1, total + 1):
+                for v in range(1, 60):
+                    if self._meq_at(book, ch, v):
+                        out.add(ch)
+                        break
+            return out
+
+        mq1_chs = chapters_with_entries("mq1", 36)
+        mq2_chs = chapters_with_entries("mq2", 21)
+        mq3_chs = chapters_with_entries("mq3", 10)
+        assert mq1_chs == set(range(1, 37)), (
+            f"γ.4.8.F must preserve γ.4.8.E 36/36 mq1 chapter-coverage; "
+            f"missing mq1 chapters: {set(range(1, 37)) - mq1_chs}"
+        )
+        assert mq2_chs == set(range(1, 22)), (
+            f"γ.4.8.F must preserve γ.4.8.C 21/21 mq2 chapter-coverage; "
+            f"missing mq2 chapters: {set(range(1, 22)) - mq2_chs}"
+        )
+        assert mq3_chs == set(range(1, 11)), (
+            f"γ.4.8.F must preserve γ.4.8.D 10/10 mq3 chapter-coverage; "
+            f"missing mq3 chapters: {set(range(1, 11)) - mq3_chs}"
+        )
+
+    # ---- 12 signature-anchor pins (one per Tier-2 finding) ----
+
+    def test_mq1_1_5_wright_1877_fully_verified_anchor(self):
+        c = self._meq_at("mq1", 1, 5)
+        assert c, "γ.4.8.F missing mq1 1:5 — Wright 1877 fully-verified anchor"
+        assert any(
+            "Wright" in (e.summary or "") and ("1877" in (e.summary or "") or "Catalogue" in (e.summary or ""))
+            for e in c
+        ), "γ.4.8.F mq1 1:5 should name Wright 1877 Catalogue (Tier-2 audit fully-verified)"
+
+    def test_mq1_11_3_horovitz_fn3_corrected_list_anchor(self):
+        c = self._meq_at("mq1", 11, 3)
+        assert c, "γ.4.8.F missing mq1 11:3 — Horovitz fn-3 corrected list anchor"
+        assert any("XXX 1" in (e.summary or "") and "OCR" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq1 11:3 should name 'XXX 1' OCR-artifact-dropped correction"
+        )
+
+    def test_mq1_15_8_wright_vs_frankfurt_tension_anchor(self):
+        c = self._meq_at("mq1", 15, 8)
+        assert c, "γ.4.8.F missing mq1 15:8 — Wright-vs-Frankfurt tripartite-vs-bipartite tension anchor"
+        assert any("Frankfurt" in (e.summary or "") and "three parts" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq1 15:8 should name Frankfurt-Codex vs 'in three parts' tension"
+        )
+
+    def test_mq1_20_3_budge_synaxarium_anchor(self):
+        c = self._meq_at("mq1", 20, 3)
+        assert c, "γ.4.8.F missing mq1 20:3 — Budge Synaxarium Ṭǝr 21/30 anchor"
+        assert any(
+            "Budge" in (e.summary or "") and ("Ṭǝr 21" in (e.summary or "") or "Ṭǝr-21" in (e.summary or "")) for e in c
+        ), "γ.4.8.F mq1 20:3 should name Budge Synaxarium Ṭǝr 21 saint-dates"
+
+    def test_mq1_36_46_cowley_1974b_date_correction_anchor(self):
+        c = self._meq_at("mq1", 36, 46)
+        assert c, "γ.4.8.F missing mq1 36:46 — Cowley 1974b date-correction anchor"
+        assert any("Cowley" in (e.summary or "") and "1974" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq1 36:46 should name Cowley 1974b date-correction"
+        )
+        assert any("44324703" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq1 36:46 should name JSTOR 44324703 stable URL"
+        )
+
+    def test_mq2_1_3_wright_meqabyan_vs_vulgate_anchor(self):
+        c = self._meq_at("mq2", 1, 3)
+        assert c, "γ.4.8.F missing mq2 1:3 — Wright Preface Meqabyan-vs-Vulgate distinction anchor"
+        assert any("Vulgate" in (e.summary or "") and "Preface" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq2 1:3 should name Wright Preface Meqabyan-vs-Vulgate-Maccabees distinction"
+        )
+
+    def test_mq2_4_17_dabbadie_precise_locator_anchor(self):
+        c = self._meq_at("mq2", 4, 17)
+        assert c, "γ.4.8.F missing mq2 4:17 — D'Abbadie no. 55 items 28-30 anchor"
+        assert any("Abbadie" in (e.summary or "") and "55" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq2 4:17 should name D'Abbadie Catalogue Raisonné no. 55"
+        )
+
+    def test_mq2_21_11_tier2_audit_ledger_anchor(self):
+        c = self._meq_at("mq2", 21, 11)
+        assert c, "γ.4.8.F missing mq2 21:11 — Tier-2 audit summary-ledger anchor"
+        assert any("TIER-2" in (e.summary or "") and "translation body" in (e.summary or "").lower() for e in c), (
+            "γ.4.8.F mq2 21:11 should reference Tier-2-audit and the no-translation-body-changes claim"
+        )
+
+    def test_mq3_1_17_wright_liber_adami_attestation_anchor(self):
+        c = self._meq_at("mq3", 1, 17)
+        assert c, "γ.4.8.F missing mq3 1:17 — Wright Preface 'Liber Adami' attestation anchor"
+        assert any("Liber Adami" in (e.summary or "") and "Adambuch" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq3 1:17 should name Wright Preface 'Liber Adami' + Adambuch"
+        )
+
+    def test_mq3_2_24_andamta_psalter_printed_status_anchor(self):
+        c = self._meq_at("mq3", 2, 24)
+        assert c, "γ.4.8.F missing mq3 2:24 — Andǝmta Psalter printed-Amharic-book status anchor"
+        assert any(
+            ("Andǝmta" in (e.summary or "") or "Andemta" in (e.summary or ""))
+            and "printed" in (e.summary or "").lower()
+            for e in c
+        ), "γ.4.8.F mq3 2:24 should name Andǝmta Psalter commentary printed-Amharic status"
+
+    def test_mq3_4_17_tier3_interpretive_flagging_confirmed_anchor(self):
+        c = self._meq_at("mq3", 4, 17)
+        assert c, "γ.4.8.F missing mq3 4:17 — Tier-3-interpretive-flagging stance confirmation anchor"
+        assert any("Prov 8" in (e.summary or "") and "Tier-3" in (e.summary or "") for e in c), (
+            "γ.4.8.F mq3 4:17 should name Prov-8-reapplied-to-Adam Tier-3-interpretive-flag stability"
+        )
+
+    def test_mq3_10_30_wright_tripartite_psalter_doxologies_anchor(self):
+        c = self._meq_at("mq3", 10, 30)
+        assert c, "γ.4.8.F missing mq3 10:30 — Wright 'in three parts' + Psalter book-ending-doxologies anchor"
+        assert any(
+            "three parts" in (e.summary or "")
+            and ("Psalter" in (e.summary or "") or "book-ending-doxolog" in (e.summary or "").lower())
+            for e in c
+        ), (
+            "γ.4.8.F mq3 10:30 should name Wright 'in three parts' + Psalter-book-ending-doxologies architectural parallel"
+        )
+
+    # ---- Cyril plurality preservation per ω.41 §1 trajectory rule ----
+
+    def test_cyril_plurality_preserved_post_tier2(self):
+        all_entries = []
+        for verse_entries in self.ec._by_verse.values():
+            all_entries.extend(verse_entries)
+        from collections import Counter
+
+        counts = Counter(e.father for e in all_entries)
+        cyril = counts.get("Cyril of Alexandria", 0)
+        meq = counts.get("Meqabyan (Ethiopian tradition)", 0)
+        jub = counts.get("Jubilees (Ethiopian tradition)", 0)
+        enoch = counts.get("1 Enoch (Ethiopian tradition)", 0)
+        eph = counts.get("Ephrem the Syrian", 0)
+        ath = counts.get("Athanasius of Alexandria", 0)
+        # Cyril must remain single-father plurality leader at sub-50% trajectory.
+        assert cyril > meq, f"γ.4.8.F: Cyril {cyril} must remain > Meqabyan {meq} (ω.41 §1 trajectory)"
+        assert cyril > jub, f"γ.4.8.F: Cyril {cyril} must remain > Jubilees {jub}"
+        assert cyril > enoch, f"γ.4.8.F: Cyril {cyril} must remain > 1 Enoch {enoch}"
+        assert cyril > eph, f"γ.4.8.F: Cyril {cyril} must remain > Ephrem {eph}"
+        assert cyril > ath, f"γ.4.8.F: Cyril {cyril} must remain > Athanasius {ath}"
+        # Cyril plurality remains ≥2× next-single-father (was 3.34× at γ.4.8.E
+        # arc-close; post-γ.4.8.F is 3.15× — well above 2× threshold).
+        next_father = max(meq, jub, enoch, eph, ath)
+        assert cyril >= 2 * next_father, (
+            f"γ.4.8.F: Cyril plurality must remain ≥2× next-single-father (Cyril {cyril} vs next {next_father})"
+        )
+
+    # ---- Tewahedo-distinctive-canonical block share-floor pin ----
+
+    def test_tewahedo_distinctive_canonical_block_share_floor(self):
+        # Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan = Tewahedo-distinctive-
+        # canonical-block. Post-γ.4.8.F: (192 + 200 + 212) / 1579 = 38.25%.
+        # The v1.1-publisher-uniqueness-angle anchor (per memory
+        # `project_v1_terminus`) needs this block at strong position.
+        all_entries = []
+        for verse_entries in self.ec._by_verse.values():
+            all_entries.extend(verse_entries)
+        total = len(all_entries)
+        from collections import Counter
+
+        counts = Counter(e.father for e in all_entries)
+        block = (
+            counts.get("Meqabyan (Ethiopian tradition)", 0)
+            + counts.get("Jubilees (Ethiopian tradition)", 0)
+            + counts.get("1 Enoch (Ethiopian tradition)", 0)
+        )
+        share = block / total if total else 0.0
+        assert share >= 0.38, (
+            f"γ.4.8.F: Tewahedo-distinctive-canonical block share ≥38% expected "
+            f"(supports v1.1 publisher-led uniqueness-angle anchor); "
+            f"got {block}/{total} = {share:.2%}"
+        )
+
+    # ---- Tier-2-substance-named pins on _meta ----
+
+    def test_meta_documents_tier2_audit_substance(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        # γ.4.8.F phase tag must be named.
+        assert "γ.4.8.F" in meta_source, "γ.4.8.F must be referenced in _meta.source"
+        # The five concrete Tier-2-audit findings must each be substantively
+        # named in _meta — these are the durable Tier-2 substance-pins.
+        assert "Wright 1877" in meta_source, "γ.4.8.F _meta should name Wright 1877 Catalogue verification"
+        assert "Cowley 1974b" in meta_source or "1974b" in meta_source, (
+            "γ.4.8.F _meta should name Cowley 1974b date-correction"
+        )
+        assert "44324703" in meta_source, "γ.4.8.F _meta should name JSTOR 44324703 stable URL"
+        assert "Andǝmta" in meta_source or "Andemta" in meta_source, (
+            "γ.4.8.F _meta should name Andǝmta Psalter commentary status"
+        )
+        assert "Ṭǝr 21" in meta_source or "Ter 21" in meta_source, (
+            "γ.4.8.F _meta should name Senkessar Ṭǝr 21 Abijā/Silä saint-dates route"
+        )
+        assert "Liber Adami" in meta_source, "γ.4.8.F _meta should name Wright Preface 'Liber Adami' attestation"
+        # Tier-2 audit's no-translation-body-change claim must be named.
+        assert (
+            "NO TRANSLATION-TEXT CHANGES" in meta_source
+            or "no translation-text" in meta_source.lower()
+            or "no translation body" in meta_source.lower()
+        ), "γ.4.8.F _meta should record the Tier-2 audit's no-translation-body-changes claim"
+        # SIXTEENTH N-W4 verification phase ordinal
+        assert "SIXTEENTH" in meta_source or "sixteenth" in meta_source, (
+            "γ.4.8.F _meta should name this as the SIXTEENTH N-W4 verification"
         )

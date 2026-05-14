@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 10,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 9,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 11,
   "candidates": [
     {
       "id": "mq1-10-1-001",
@@ -126,6 +126,36 @@
     },
     {
       "id": "mq1-10-5-009",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>PATRIARCHS-BURIAL CATALOG: Adam + Abel + Seth + Noah + Shem + Abraham + Isaac + Jacob + Joseph + Moses + Aaron — sought to be buried with their kin PRECISELY SO THAT, at the resurrection, they would rise together. The eleven-patriarch sequence is DISTINCTIVE: standard biblical-patriarchal triads are 3 (Abraham/Isaac/Jacob) or 4 (+ Joseph); Meqabyan&#x27;s eleven extends BACKWARDS to Adam (the protoplast) + Abel (the first-righteous-martyr) + Seth (the righteous-replacement) and FORWARDS to Joseph + Moses + Aaron (the Egypt-deliverance leaders). The reading reverses the typical ancestor-veneration motif: burial-with-kin is PROVISIONAL-PRACTICE awaiting communal-resurrection, not memorial-remembrance. Connects to Genesis 23 (Abraham purchasing Cave of Machpelah) + Genesis 49:29-32 (Jacob&#x27;s burial instructions) + Joshua 24:32 (Joseph&#x27;s bones brought up from Egypt) — the ANCESTRAL-BURIAL-FOR-RESURRECTION typology Tewahedo theology preserves at every funeral-liturgy.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-10-1-010",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Argument-from-ancestral-burial for resurrection: the patriarchs — Adam + Abel + Seth + Noah + Shem + Abraham + Isaac + Jacob + Joseph + Moses + Aaron — sought to be buried with their kin PRECISELY SO THAT, at the resurrection, they would rise together. The reading reverses the typical ancestor-veneration motif: rather than the dead remaining in tombs as a memorial, burial-with-kin becomes a PROVISIONAL-PRACTICE awaiting communal resurrection. Connects to Genesis 23 (Abraham purchasing the Cave of Machpelah for Sarah&#x27;s burial) + Genesis 49:29-32 (Jacob&#x27;s burial instructions) + Joshua 24:32 (Joseph&#x27;s bones brought up from Egypt). The patristic parallel is in resurrection-of-the-flesh treatments — Tertullian De Resurrectione Carnis §52, Theophilus of Antioch Ad Autolycum 1.13.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-10-5-011",
       "verse": 5,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 16,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 4,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 5,
   "candidates": [
     {
       "id": "mq1-16-1-001",
@@ -51,6 +51,21 @@
     },
     {
       "id": "mq1-16-1-004",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 16: post-Hellenistic-Roman GEOGRAPHIC CATALOG listing heathen peoples whose lands and rulers serve as God&#x27;s instruments. The toponym-list is DIAGNOSTICALLY POST-HELLENISTIC: **Arabia + Parthia + Seleucia + Cappadocia + Pontus + Caesarea** all belong to the Hellenistic-Roman geographic horizon. **Parthia** (Eastern Empire 247 BC - 224 AD) + **Seleucia** (Hellenistic Syria-and-Mesopotamia 312-63 BC) + **Cappadocia** (Persian/Hellenistic Anatolia, Roman province from 17 AD) + **Pontus** (Hellenistic kingdom of Mithridates, Roman province from 64 BC) + **Caesarea** (Herodian foundation c. 22-10 BC, named for Augustus) form a TERMINUS-A-QUO of c. 1st c. CE. This dating-anchor pairs with 1 Mq 36:29 (Apollon + Artemis + Serapion cult-dating pre-400 CE) to bracket the chapter&#x27;s composition to roughly 1st-4th c. CE — overlapping the early Aksumite period. Per Horovitz 1905 + CROSS_REFERENCE_APPENDIX §61: this is one of the strongest internal-dating clusters in 1 Mq.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-16-1-005",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

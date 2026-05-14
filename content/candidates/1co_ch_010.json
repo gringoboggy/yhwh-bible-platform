@@ -1,8 +1,8 @@
 {
   "book": "1co",
   "chapter": 10,
-  "generated_at": "2026-05-14T14:52:59+00:00",
-  "n_candidates": 78,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 79,
   "candidates": [
     {
       "id": "1co-10-4-001",
@@ -1161,6 +1161,21 @@
     },
     {
       "id": "1co-10-4-078",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §13",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §13</em> <small>(c. 350 AD)</small><p>&#x27;And did all drink the same spiritual drink: for they drank of that spiritual Rock that followed them: and that Rock was Christ&#x27; — Athanasius marks hē petra de ēn ho Christos (the Rock was Christ) as the Pauline-pre-incarnation-presence prooftext. The same Word who became-incarnate-in-the-fullness-of-time was already-present in the Exodus-economy as the wilderness-sustaining Rock, the Cloud-and-Fire pillar, the Manna. Athanasius&#x27;s Old-Testament-Christology runs on Pauline-1 Cor 10 + Jn 8:58 + Ex 3:14 (Burning Bush) lines. Tewahedo lectionary-pairing reads 1 Cor 10:1-4 with Ex 17:6 (Massah-Meribah) at every Tǝmqät (Theophany) anniversary baptismal-renewal.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §13. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1co-10-4-079",
       "verse": 4,
       "kind": "comm-ethiopian",
       "anchor": "",

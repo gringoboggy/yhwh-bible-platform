@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 33,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 48,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 50,
   "candidates": [
     {
       "id": "exo-33-11-001",
@@ -711,6 +711,36 @@
     },
     {
       "id": "exo-33-20-048",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.14",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.14</em> <small>(c. 350 AD)</small><p>&#x27;And he said, Thou canst not see my face: for there shall no man see me, and live&#x27; — Athanasius marks ou dynēsē idein mou to prosōpon (thou canst not see my face) as the UNSEEABLE-FATHER / VISIBLE-WORD distinction. The Father-in-his-essence is unseeable (1 Tim 6:16 oude idein tis dynatai); what Moses is granted to see (LXX ta opisthia — &#x27;the back parts&#x27;) is the visible-condescension of the Word-pre-incarnate. Athanasius reads the Word as the agent of EVERY OT theophany (the burning bush, the pillar of cloud, the man-Yahweh at Mamre, the Sinai-glory) — the Father is never seen, only the Word who is the Father&#x27;s-form-and-image. This hermeneutic grounds the Tewahedo iconographic-convention: the Father is never directly-depicted, only the Word-incarnate.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.14. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-33-20-049",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Sermo de Domino Nostro",
+      "source_attribution": "Ephrem the Syrian, Sermo de Domino Nostro 7-8 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (363).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Sermo de Domino Nostro</em> <small>(c. 363 AD)</small><p>&#x27;There shall no man see me and live&#x27; — and yet Moses sees the Lord&#x27;s back as he passes by. Ephrem reads the verse as the canonical disclosure that full vision of God is reserved for the Incarnation: only when the Word is made flesh may humanity behold the divine face without being consumed. Tewahedo reads Ex 33:20 and 1 Jn 1:1 (&#x27;which we have seen with our eyes&#x27;) as a single canonical arc from veiled vision to face-to-face Word.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Sermo de Domino Nostro. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-33-20-050",
       "verse": 20,
       "kind": "comm-ethiopian",
       "anchor": "",

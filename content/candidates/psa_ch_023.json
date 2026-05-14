@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 23,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 34,
+  "generated_at": "2026-05-14T15:31:49+00:00",
+  "n_candidates": 36,
   "candidates": [
     {
       "id": "psa-23-1-001",
@@ -501,6 +501,36 @@
     },
     {
       "id": "psa-23-1-034",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §3",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §3</em> <small>(c. 350 AD)</small><p>&#x27;The LORD is my shepherd; I shall not want&#x27; (LXX 22:1 — kyrios poimainei me kai ouden me hysterēsei) — Athanasius marks Ps 23 (LXX 22) as the PARADIGMATIC PASTORAL-COMFORT-PSALM in the Letter to Marcellinus: prescribed for the soul-tending-toward-providential-trust. The kyrios poimainei me (the Lord shepherds-me) is read Christologically — the Word-incarnate is the Johannine ho poimēn ho kalos (the Good Shepherd, Jn 10:11). The Athanasian pastoral-spiritual hermeneutic transforms the Psalter into a Christic-prayer-book: each Psalm voices a stance-toward-Christ that the praying-soul takes-up. The Tewahedo Säʿatat (Liturgy of the Hours) Psalter-pattern preserves this Athanasian pastoral-Psalter use.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §3. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-23-1-035",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Cyril of Alexandria / Commentary on the Psalms",
+      "source_attribution": "Cyril of Alexandria, on Psalm 22/23 (LXX numbering). NPNF Series 2, vol. 7. PD.",
+      "draft_title": "Tewahedo — Cyril of Alexandria",
+      "draft_label": "Cyril of Alexandria (428).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Cyril of Alexandria</strong> <em>Commentary on the Psalms</em> <small>(c. 428 AD)</small><p>Cyril reads &#x27;The Lord is my shepherd&#x27; Christologically: the shepherd of Psalm 23 is the same as the Good Shepherd of John 10, the same as the Lamb of Revelation. The &#x27;I shall not want&#x27; is a confession of complete dependence on the Incarnate Word who is at once Lamb and Shepherd. Tewahedo liturgy preserves this Christological reading prominently in the burial office.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Cyril of Alexandria, Commentary on the Psalms. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-23-1-036",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

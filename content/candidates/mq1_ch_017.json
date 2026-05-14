@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 17,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 7,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "mq1-17-1-001",
@@ -96,6 +96,51 @@
     },
     {
       "id": "mq1-17-14-007",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Sebelyanos=Beliar Christian-reception (continued from 17:6 + seed 17:1): the verse extends the demonic-identification into Christian-patristic reception. Direct parallels: 2 CORINTHIANS 6:14-16 (&#x27;what fellowship hath righteousness with unrighteousness? and what communion hath light with darkness? And what concord hath Christ with Belial?&#x27; — Paul&#x27;s antithesis-doctrine); MARTYRDOM AND ASCENSION OF ISAIAH 4.1-22 (Beliar incarnates-in-Nero-Antichrist — the earliest extant Christian-Beliar-Antichrist identification); ORIGEN Contra Celsum 6.43 (Beliar as kosmokratōr); JEROME In Eph 6:12 + Comm. on Daniel 2.7 (Beliar in the eschatological-Antichrist tradition); AUGUSTINE City of God 20.19 (Antichrist-and-Beliar conflation). Tewahedo apocalyptic tradition preserves the Sebelyanos=Beliar-Antichrist identification in the Mäṣḥafä Mäwet (Book of Death) eschatology + Sǝnkǝsar (Synaxarium) saints&#x27;-deaths-narratives. The Meqabyan compositional-signature of preserving demonic-names-explicitly is one of the most-distinctive Tewahedo-canonical features (vs the LXX/MT preservation of &#x27;Belial&#x27; only via translational-rendering rather than as proper-name).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-17-1-008",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>SEBELYANOS (ሰብልያኖስ) — the unique-to-Meqabyan teacher of the Edomites and Amalekites, identified as a GEʽEZ RENDERING of BELIAR/BELIAL (the Second Temple personification of evil; cf. 2 Corinthians 6:15, Jubilees 1:20, Damascus Document IV.13-19, Testament of Reuben 4:7-11, Sibylline Oracles 3:63-74). Meqabyan preserves the Beliar-as-Antichrist-teacher tradition that runs from Qumran through Pauline polemic through patristic apocalyptic. Sebelyanos reappears at 2 Mq 9:2 as the teacher of Adam&#x27;s first sin — extending the Beliar-tradition to a primordial-temptation role beyond the second-temple apocalyptic. The name is DIAGNOSTIC for Meqabyan&#x27;s relationship to Second Temple Jewish-apocalyptic vocabulary preserved in Ethiopian Christianity.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-17-6-009",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Sebelyanos=Beliar deepening (paired with seed 17:1 Sebelyanos=Beliar identification): the verse develops the Beliar-figure within the narrative. **Beliar/Belial** etymology: Hebrew בְּלִיַּעַל (belial = &#x27;worthless, lawless&#x27;); Septuagint renders variously; Christian-era usage treats Beliar as a specific demonic-name. Patristic-Christian reception of Beliar: 2 CORINTHIANS 6:15 (&#x27;what concord hath Christ with Belial?&#x27; — the unique-NT-occurrence locating Belial as Christ&#x27;s antithetical-figure); SIBYLLINE ORACLES 3.63-74 (Beliar as eschatological-deceiver); TESTAMENTS OF THE TWELVE PATRIARCHS (Belial as the spirit-of-fornication + spirit-of-anger across the testaments — see esp. T. Reuben 2.1-3.6 + T. Levi 18.12); MARTYRDOM AND ASCENSION OF ISAIAH 1.8-9 + 3.13-4.22 (Beliar/Belial = the lawless-one-of-the-last-times — most extended pre-Christian Beliar narrative). Tewahedo apocalyptic tradition preserves Beliar as a transliteration-preserved demonic-name (alongside Sebelyanos = Sumerian-Babylonian-syncretized form per Horovitz 1905 p. 218). The Meqabyan identification of Sebelyanos=Beliar is one of the few EXPLICIT-DEMONIC-NAME IDENTIFICATIONS in EOTC canonical literature.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-17-14-010",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

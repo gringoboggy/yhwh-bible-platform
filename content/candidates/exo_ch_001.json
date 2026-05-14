@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 1,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 36,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 38,
   "candidates": [
     {
       "id": "exo-1-12-001",
@@ -531,6 +531,36 @@
     },
     {
       "id": "exo-1-22-036",
+      "verse": 22,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus I.4 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Pharaoh&#x27;s edict that every male Hebrew infant be cast into the river is, for Ephrem, the first scriptural sign of Mastema-mirror tyranny: the murderous power decrees the very fate it will suffer. The plague of the firstborn and the Red Sea reverse Pharaoh&#x27;s decree on his own house. Tewahedo reads this as the canonical pattern by which oppressor measures are returned upon oppressors.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-1-7-037",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus I.1 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Ephrem reads Israel&#x27;s prodigious multiplication in Egypt as the patriarchal blessing of Gen 1:28 surviving inside a hostile crown: the seed cannot be extinguished, because the messianic line is the seed-bearer of the world. Tewahedo commentary follows this reading when teaching that the Hebrew people are preserved through Egyptian captivity precisely so that the Saviour may issue from them.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-1-22-038",
       "verse": 22,
       "kind": "comm-ethiopian",
       "anchor": "",

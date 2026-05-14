@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 14,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 82,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 85,
   "candidates": [
     {
       "id": "exo-14-13-001",
@@ -1221,6 +1221,51 @@
     },
     {
       "id": "exo-14-28-082",
+      "verse": 28,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XIV.10 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Pharaoh&#x27;s host drowned in the very waters through which Israel walks dry is, for Ephrem, the canonical anti-type of baptism: what saves the believer destroys the pursuer. The devil and the powers of the old age are drowned in the font as Pharaoh was drowned in the sea. Tewahedo reads the renunciation of Satan in its baptismal rite as the liturgical correlate of the Red-Sea drowning.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-14-16-083",
+      "verse": 16,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Hymns on the Crucifixion",
+      "source_attribution": "Ephrem the Syrian, Hymns on the Crucifixion V.4-6 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Hymns on the Crucifixion</em> <small>(c. 365 AD)</small><p>Moses stretches out the rod over the sea, and Ephrem hears in the gesture the shape of the Cross extended over the waters of baptism. The rod that splits the sea is the same wood that, in the new dispensation, splits the waters of death so that the baptized may walk through on dry ground. Tewahedo reads the Red Sea and the baptismal font as a single canonical passageway.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Hymns on the Crucifixion. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-14-22-084",
+      "verse": 22,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XIV.6 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>Israel passes through the sea on dry ground with the waters as a wall on either hand. Paul reads this as &#x27;baptized into Moses in the cloud and in the sea&#x27; (1 Cor 10:2); Ephrem follows Paul and reads Ex 14:22 as the founding scriptural figure of Christian baptism. Tewahedo carries this as the principal OT type of its baptismal liturgy: the people pass through the waters and emerge a people.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-14-28-085",
       "verse": 28,
       "kind": "comm-ethiopian",
       "anchor": "",

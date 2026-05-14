@@ -1,8 +1,8 @@
 {
   "book": "rom",
   "chapter": 5,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 100,
+  "generated_at": "2026-05-14T15:31:49+00:00",
+  "n_candidates": 102,
   "candidates": [
     {
       "id": "rom-5-1-001",
@@ -1491,6 +1491,36 @@
     },
     {
       "id": "rom-5-19-100",
+      "verse": 19,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §7",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §7</em> <small>(c. 350 AD)</small><p>&#x27;For as by one man&#x27;s disobedience many were made sinners, so by the obedience of one shall many be made righteous&#x27; — Athanasius marks dia tēs hypakoēs tou henos (through the obedience of the one) as the soteriological-counterweight to dia tēs parakoēs tou henos (through the disobedience of the one). The hypakoē-of-the-Word-incarnate is active throughout the Gospels (Lk 2:51 hypotassomenos to his parents; Jn 6:38 not my own will; Phil 2:8 obedient unto death) but its soteriological-effect IS THE INCARNATION as a whole: the Word&#x27;s-genuine-human-obedience corrects what Adam&#x27;s-genuine-human-disobedience disordered. Tewahedo paschal-mystery theology cites Rom 5:19 + Heb 5:8 (learned obedience by things suffered) as the obedience-soteriology pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §7. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-5-14-101",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.65",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.65</em> <small>(c. 350 AD)</small><p>&#x27;Nevertheless death reigned from Adam to Moses, even over them that had not sinned after the similitude of Adam&#x27;s transgression, who is the figure of him that was to come&#x27; — Athanasius marks ho estin typos tou mellontos (who is the type of him that was to come) as the Pauline-typological-anchor of the Adam-Christ correspondence the De Incarnatione exposits at length. Adam = the first Adam, head of the fallen-mortal-race; Christ = the second Adam, head of the restored-immortal-race. The typology runs in OPPOSITE-direction-correspondence: where Adam introduced death-by-disobedience, Christ introduces life-by-obedience. Tewahedo Adam-Christ typological-preaching cites Rom 5:14-19 + 1 Cor 15:21-22, 45-49 as the canonical-typological-double anchor at every Holy-Week (Hemamat) catechesis.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.65. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-5-19-102",
       "verse": 19,
       "kind": "comm-ethiopian",
       "anchor": "",

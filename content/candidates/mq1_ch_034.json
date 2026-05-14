@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 34,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 9,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 11,
   "candidates": [
     {
       "id": "mq1-34-1-001",
@@ -126,6 +126,36 @@
     },
     {
       "id": "mq1-34-14-009",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>NEBUCHADNEZZAR-TO-DANIEL citation: &#x27;the SPIRIT OF GOD UPON YOU&#x27; — direct echo of DANIEL 5:14 (Belshazzar to Daniel: &#x27;I have even heard of thee, that the spirit of the gods is in thee, and that light and understanding and excellent wisdom is found in thee&#x27;) + DANIEL 4:8-9 (Nebuchadnezzar to Daniel: &#x27;in whom is the spirit of the holy gods... thou canst; for the spirit of the holy gods is in thee&#x27;). The Danielic spirit-of-God-upon-the-prophet vocabulary locates Meqabyan within the DANIELIC PROPHETIC-INSPIRATION tradition. The chapter&#x27;s broader four-kingdoms apocalypse (seed 34:1) extends the Danielic apocalyptic-framework INTO THE ETHIOPIAN HORIZON via the chapter&#x27;s eastward-toponym extensions. The Spirit-upon-the-prophet vocabulary is itself a CHRISTOLOGICAL-PNEUMATOLOGICAL anchor: Luke 4:18 (Christ at Nazareth: &#x27;the Spirit of the Lord is upon me&#x27;) applies Isaiah 61:1&#x27;s same vocabulary to himself. Tewahedo Christology preserves the Spirit-upon-the-prophet pattern as prefiguring Christ&#x27;s-anointing.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-34-1-010",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>FOUR-KINGDOMS APOCALYPSE — the most internally diagnostic chapter in 1 Mq for dating and provenance. Opening verses lay out a sequence of kingdom-pairings climaxing in an extraordinary claim about kingdom-establishment-over-kingdom. The four-kingdoms schema is parallel to Daniel 2 + Daniel 7 (the Babylon-Persia-Greece-Rome succession), but Meqabyan&#x27;s specific ethnographic list — Judah + Cyprus + Samaria + Damascus + Babylon + India + Nubia + Sheba + Egypt + Ethiopia — extends the Danielic horizon INTO THE EAST (India + Sheba + Ethiopia) in a way distinctive to Ethiopian-Christian-apocalyptic. The chapter also contains a Nebuchadnezzar-to-Daniel citation about &#x27;the spirit of God upon you&#x27; (Dan 5:14 echo), locating the apocalypse-genre within the Danielic tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-34-14-011",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

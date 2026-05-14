@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 21,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 3,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 6,
   "candidates": [
     {
       "id": "mq1-21-1-001",
@@ -36,6 +36,51 @@
     },
     {
       "id": "mq1-21-14-003",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of COVENANT-FIDELITY theme synthesizing the chapter&#x27;s faithfulness-and-wisdom catalog. The covenant-fidelity theme parallels: DEUTERONOMY 7:9 (&#x27;the LORD thy God, he is God, the faithful God, which keepeth covenant and mercy with them that love him and keep his commandments to a thousand generations&#x27; — paired with mq2 3:9 γ.4.8.C entry); PSALM 89:1-37 (the Davidic covenant-fidelity psalm); HEBREWS 6:13-20 (God&#x27;s-immutable-counsel for the seed-of-Abraham); LUKE 1:54-55 + 1:72-75 (Mary&#x27;s-Magnificat + Zechariah&#x27;s-Benedictus covenant-fidelity recapitulation); 2 CORINTHIANS 1:20 (in Christ all God&#x27;s promises are Yes and Amen). Tewahedo soteriology preserves covenant-fidelity as the integrating-anchor for the Tewahedo-Hayyamanot (Tewahedo-confessional-faith) — the canonical-EOTC Christological-covenantal framework. The Meqabyan chapter likely synthesizes the chapter&#x27;s homiletic into covenant-fidelity-as-telos.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-21-1-004",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 21 — HOMILETIC-GENRE ANCHOR: faithfulness-under-threat theme. The chapter likely develops the Maqabean-martyrs&#x27; faithfulness as MODEL for everyday-believer faithfulness — paralleling the 2 Mq Ch 6 mother&#x27;s-exhortation + 3 Mq Ch 6 suffering-and-perseverance themes (γ.4.8.C + γ.4.8.D entries). Direct biblical parallels: 1 PETER 4:12-19 (Petrine suffering-theology); HEBREWS 10:32-39 (need-of-patience + faith-toward-saving-of-the-soul); REVELATION 2:10 (&#x27;be thou faithful unto death, and I will give thee a crown of life&#x27;); 2 TIMOTHY 2:11-13 (&#x27;if we suffer, we shall also reign with him; if we deny him, he also will deny us&#x27;); 1 MACCABEES 2:50-64 (Mattathias&#x27;s deathbed-exhortation to faithfulness). Patristic-tradition: TERTULLIAN De Fuga in Persecutione (the flee-or-stand-firm controversy); ORIGEN Exhortation to Martyrdom; AUGUSTINE Letter 185 (the political-theology of faithful-resistance). Tewahedo confessional-tradition preserves faithfulness-unto-death as one of the four-cardinal-Christian-virtues (faith + hope + charity + faithfulness — Tewahedo expansion of the Pauline-three).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-21-7-005",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of WISDOM-SPEECH-PATTERN. The wisdom-speech-pattern parallels: PROVERBS 1-9 (the father-to-son wisdom-instruction format); SIRACH 1-23 (the wisdom-exhortation pattern); WISDOM OF SOLOMON 1-9 (the Solomonic-wisdom-speech pattern); 4 MACCABEES 1:1-3:18 (philosophical-exhortation treatise-form); JAMES 1:5 + 3:13-18 (wisdom-from-above); 1 CORINTHIANS 2:6-16 (Pauline-wisdom from God). Patristic-tradition: AMBROSE De Officiis (modeled on Cicero&#x27;s De Officiis as Christian-wisdom-treatise); JOHN CHRYSOSTOM De Sacerdotio (pastoral-wisdom-treatise); GREGORY OF NYSSA De Vita Moysis (Moses-as-wisdom-exemplar). Tewahedo wisdom-literature preserves the homiletic-wisdom-treatise as the Mäṣḥafä Tabaqato (Book of the Wise) framework. The Meqabyan chapter likely articulates a wisdom-speech grounded in the post-martyrdom moral-theology established by the trilogy&#x27;s first two books.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-21-14-006",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "mq2",
   "chapter": 16,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 8,
   "candidates": [
     {
       "id": "mq2-16-1-001",
@@ -81,6 +81,36 @@
     },
     {
       "id": "mq2-16-8-006",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>GERIZIM / TABERNACLE-TRADITION CRITIQUE (vv. 8-14): the Meqabyan polemic against Samaritan-Gerizim-temple-tradition. Mount Gerizim is the Samaritan alternative-Temple-location (vs Jerusalem) per the Samaritan-Pentateuch&#x27;s altered Deuteronomy 27:4 reading (EBAL → GERIZIM textual-shift) and the Samaritan-Temple history (built ca. 4th c. BCE, destroyed by Hyrcanus ca. 110 BCE per Josephus Antiquities 13.9.1). Direct biblical parallel: JOHN 4:19-26 (the Samaritan-woman-at-the-well — &#x27;Our fathers worshipped in this mountain; and ye say, that in Jerusalem is the place where men ought to worship&#x27;; Christ&#x27;s response: &#x27;salvation is of the Jews... the true worshippers shall worship the Father in spirit and in truth&#x27;). The Meqabyan critique echoes the Johannine Jewish-priority-of-cultic-place-but-true-worship-spiritualized logic. Tewahedo liturgical-tradition preserves the awareness of Gerizim-vs-Jerusalem controversy in its Säʿatat (Liturgy of the Hours) Psalter recitation of psalms-of-Zion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-16-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>**OPENS Ch 16: ANTI-SAMARITAN RESURRECTION-DENIAL POLEMIC** (vv. 1-7) — the chapter develops the Samaritan-error specifically (named-but-not-developed at seed 14:1). The Samaritans&#x27; specific error per Meqabyan: REJECTION OF ALL SCRIPTURE BEYOND THE PENTATEUCH, hence rejection of the prophetic-eschatological-resurrection-doctrine that depends on Daniel 12 + Isaiah 26 + Ezekiel 37. Historical-Samaritan-doctrine per Josephus + early-patristic-witnesses (Origen Contra Celsum 1.49; Epiphanius Panarion 9) confirms the Pentateuch-only canon and the consequent resurrection-denial-or-uncertainty. The Meqabyan polemic argues from PENTATEUCH-ITSELF for resurrection (the Christ-with-Sadducees argumentation pattern at Matthew 22:31-32 par. — &#x27;God is not the God of the dead, but of the living&#x27; citing Exodus 3:6 &#x27;the God of Abraham, Isaac, Jacob&#x27;). Per CROSS_REFERENCE_APPENDIX §44: the anti-Samaritan polemic is one of Meqabyan&#x27;s most historically-specific theological engagements — locating the text in the Tewahedo-tradition&#x27;s awareness of Samaritan-textual-tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-16-8-008",
       "verse": 8,
       "kind": "comm-ethiopian",
       "anchor": "",

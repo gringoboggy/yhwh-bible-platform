@@ -1,8 +1,8 @@
 {
   "book": "mq2",
   "chapter": 18,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 8,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 10,
   "candidates": [
     {
       "id": "mq2-18-7-001",
@@ -111,6 +111,36 @@
     },
     {
       "id": "mq2-18-14-008",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>ALL-SHALL-RISE eschatological-consequence (vv. 14-19; paired with seed 18:7 Adamic-mortality doctrine). The Adamic-mortality doctrine of 18:7 (&#x27;we are all sons of Adam, and we shall all die&#x27;) is here paired with its RESURRECTION-OBVERSE: &#x27;and as we all die in Adam, even so in resurrection we shall all rise.&#x27; Direct echo of 1 CORINTHIANS 15:22 (&#x27;for as in Adam all die, even so in Christ shall all be made alive&#x27;) + 1 CORINTHIANS 15:42-44 (the four-fold-transformation-formula — corruption / incorruption + dishonor / glory + weakness / power + natural / spiritual). The verse establishes Meqabyan&#x27;s CONSISTENT-PAIRING of Adamic-mortality + Adamic-resurrection — a structural-doublet that secures the doctrine against either-only-mortality-or-only-resurrection collapse. Per CROSS_REFERENCE_APPENDIX-broadened parallels: 2 BARUCH 49:1-3 + 50:1-4 (resurrection-of-the-same-body explicitly stated); 4 EZRA 7:32-33 (earth-restores-what-was-given); APOCALYPSE OF MOSES (Greek LAE) 41:1-3 (Adam-promised-resurrection). Tewahedo eschatology cites 2 Mq 18:14 as one of the canonical proof-texts for UNIVERSAL-RESURRECTION-IN-CHRIST.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-18-7-009",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>ADAMIC-MORTALITY DOCTRINE — &#x27;we are all sons of Adam, and we shall all die.&#x27; Direct echo of Romans 5:12 (&#x27;by one man sin entered into the world, and death by sin&#x27;) + 1 Corinthians 15:21-22 (&#x27;since by man came death, by man came also the resurrection of the dead&#x27;). Per CROSS_REFERENCE_APPENDIX-broadened parallels: 2 Baruch 23:4 (&#x27;when Adam sinned and death was decreed&#x27;) + 2 Baruch 48:42-43 + Apocalypse of Moses (Greek LAE) 14:2 (&#x27;on account of you [Adam] toils and labor were assigned to us&#x27;) + 4 Maccabees 18:7-8 (mother&#x27;s-virginity speech, useful for navigating the persistent genre-confusion between Meqabyan and LXX 2/4 Maccabees). The Adamic-mortality doctrine is the THEOLOGICAL FOUNDATION for Meqabyan&#x27;s resurrection-doctrine: humans are mortal BECAUSE OF Adam&#x27;s sin, and the resurrection is God&#x27;s RESTORATIVE-RESPONSE to that primordial mortality.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-18-14-010",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

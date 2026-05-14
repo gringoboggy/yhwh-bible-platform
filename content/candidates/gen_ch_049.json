@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 49,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 56,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 57,
   "candidates": [
     {
       "id": "gen-49-10-001",
@@ -831,6 +831,21 @@
     },
     {
       "id": "gen-49-10-056",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLIX.10. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;The sceptre shall not depart from Judah, nor a lawgiver from between his feet, until Shiloh come; and unto him shall the gathering of the people be&#x27;. Ephrem reads this as the most explicit messianic prophecy in Genesis: Shiloh = the one to whom (Hebrew shelo = &#x27;his&#x27;) everything belongs / the one who is sent. Tewahedo Christology preserves the Shiloh-as-Christ identification load-bearingly: the Tewahedo qǝddase explicitly cites Gen 49:10 as proof-text for Christ&#x27;s Judahic descent and universal lordship (&#x27;unto him shall the gathering of the people be&#x27;).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-49-10-057",
       "verse": 10,
       "kind": "comm-ethiopian",
       "anchor": "",

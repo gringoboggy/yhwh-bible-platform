@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 24,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 43,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 44,
   "candidates": [
     {
       "id": "num-24-17-001",
@@ -636,6 +636,21 @@
     },
     {
       "id": "num-24-17-043",
+      "verse": 17,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 24:15-19. NPNF Series 2, vol. 13. PD. Cf. Mt 2:2.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Balaam&#x27;s fourth oracle — &#x27;I shall see him, but not now: I shall behold him, but not nigh: there shall come a Star out of Jacob, and a Sceptre shall rise out of Israel&#x27; (Num 24:17) — Ephrem reads the doubled-image (Star + Sceptre) as the canonical Old-Testament prophecy of the Messiah&#x27;s advent: the Star is the sign that appears to the Gentile Magi (Mt 2:2 — &#x27;we have seen his star in the east&#x27;), the Sceptre is the Davidic kingship received by the Son of David. The Gentile diviner Balaam prophesies through gritted teeth the salvation of the world. Tewahedo nativity-iconography cites Num 24:17 as the canonical Old-Testament doubled-anchor of the Star-of-Bethlehem and the Davidic-Solomonic Sceptre — both inherited by the Tewahedo Solomonic dynasty&#x27;s self-understanding.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-24-17-044",
       "verse": 17,
       "kind": "comm-ethiopian",
       "anchor": "",

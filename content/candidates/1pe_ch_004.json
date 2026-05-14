@@ -1,8 +1,8 @@
 {
   "book": "1pe",
   "chapter": 4,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 71,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 72,
   "candidates": [
     {
       "id": "1pe-4-1-001",
@@ -1056,6 +1056,21 @@
     },
     {
       "id": "1pe-4-1-071",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Epictetum",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Epictetum (Letter to Epictetus, Bishop of Corinth), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Epictetum</em> <small>(c. 350 AD)</small><p>&#x27;Forasmuch then as Christ hath suffered for us in the flesh&#x27; — Athanasius marks Christou pathontos sarki (Christ-having-suffered in-flesh) as the qualifier that locates the Passion in the assumed-human-nature without compromising divine-impassibility. The Word-suffers IN the flesh he assumed (the sarki is locative, naming WHERE the suffering happens) without the divine-nature itself becoming passible. The Tewahedo Miaphysite-Christology preserves this Athanasian-distinction: the one-incarnate-Person of the Word genuinely-suffers in the flesh he-assumed, while the divine-essence remains impassible in the same-Person. The Athanasian-impassibility is NOT the denial of Christ&#x27;s-human-suffering (which is real, Heb 5:8 &#x27;though he were a Son, yet learned he obedience by the things which he suffered&#x27;); it is the NATURE-distinction within the Person. The Tewahedo Holy-Friday (Sǝqlät) hymnody preserves this in its Cyrillian-Athanasian Miaphysite-confession.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Epictetum. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1pe-4-1-072",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

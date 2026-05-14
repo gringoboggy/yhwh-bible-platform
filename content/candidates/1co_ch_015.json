@@ -1,8 +1,8 @@
 {
   "book": "1co",
   "chapter": 15,
-  "generated_at": "2026-05-14T14:52:59+00:00",
-  "n_candidates": 148,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 151,
   "candidates": [
     {
       "id": "1co-15-3-001",
@@ -2211,6 +2211,51 @@
     },
     {
       "id": "1co-15-45-148",
+      "verse": 45,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.65",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.65</em> <small>(c. 350 AD)</small><p>&#x27;And so it is written, The first man Adam was made a living soul; the last Adam was made a quickening spirit&#x27; — Athanasius marks ho eschatos Adam eis pneuma zōopoioun (the last Adam unto a life-giving spirit) as the FULL Adam-Christ-typological-completion. The first Adam was made-a-living-soul (received life from outside); the last Adam IS-a-life-giving-Spirit (gives life from himself). The asymmetry is Christ&#x27;s-divinity emerging through the Pauline-typological-structure: Christ is not merely-the-better-Adam but the life-giving-Word-incarnate. Tewahedo Pentecost (Päraqlitos) liturgy cites 1 Cor 15:45 + Jn 20:22 (Jesus breathes Spirit on disciples) as the Pneuma-zōopoioun life-giving-Spirit pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.65. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1co-15-21-149",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §10",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §10</em> <small>(c. 350 AD)</small><p>&#x27;For since by man came death, by man came also the resurrection of the dead&#x27; — Athanasius marks the parallel di&#x27; anthrōpou thanatos / di&#x27; anthrōpou anastasis (through man death / through man resurrection) as the Pauline-soteriological-symmetry the entire De Incarnatione reconstructs. The Adam-Christ Pauline parallel is not merely-decorative: it grounds the soteriological-NECESSITY of the incarnation. Only a genuine-man (sharing Adam&#x27;s nature) can be the agent of resurrection-for-Adam&#x27;s-race; only a divine-Word (with power over death) can effectively rise. The incarnate-Word is both. Tewahedo paschal-doctrine cites 1 Cor 15:21-22 at the Easter-vigil kerygmatic-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §10. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1co-15-28-150",
+      "verse": 28,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.45",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.45</em> <small>(c. 350 AD)</small><p>&#x27;And when all things shall be subdued unto him, then shall the Son also himself be subject unto him that put all things under him, that God may be all in all&#x27; — Athanasius marks hina ē ho theos panta en pasin (that God may-be all in all) as the ESCHATOLOGICAL-TRINITARIAN-RESTORATION anchor. The subjection (hypotagēsetai) of the Son to the Father is NOT subordinationist — it is the Son&#x27;s-redemptive-mission-completed handing-back the redeemed-cosmos to the Father; the Son&#x27;s-economy-of-subjection is qua-his-assumed-humanity-and-mission, not qua-his-divinity. The &#x27;God all in all&#x27; is the Trinitarian-Father-Son-Spirit perichoretic-restoration of all things in their proper relation to the divine-Source.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.45. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1co-15-45-151",
       "verse": 45,
       "kind": "comm-ethiopian",
       "anchor": "",

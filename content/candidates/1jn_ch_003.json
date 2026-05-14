@@ -1,8 +1,8 @@
 {
   "book": "1jn",
   "chapter": 3,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 102,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 104,
   "candidates": [
     {
       "id": "1jn-3-1-001",
@@ -1521,6 +1521,36 @@
     },
     {
       "id": "1jn-3-8-102",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §25",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §25</em> <small>(c. 350 AD)</small><p>&#x27;He that committeth sin is of the devil; for the devil sinneth from the beginning. For this purpose the Son of God was manifested, that he might destroy the works of the devil&#x27; — Athanasius marks eis touto ephanerōthē ho Huios tou theou hina lysē ta erga tou diabolou (for THIS purpose was-manifested the Son-of-God, that he might LOOSEN-DOWN/DESTROY the works of the devil) as the SOTERIOLOGICAL-PURPOSE-STATEMENT of the Incarnation. The ephanerōthē (was-manifested) is the technical-incarnational verb — the eternal-Word-who-IS becomes-visibly-manifest in flesh-and-action. The hina-purpose clause names the polemical-redemptive-telos: not abstractly &#x27;salvation&#x27; but specifically destroying-the-works-of-the-devil — sin, death, deception, the cosmic-tyrant. Pairs with Heb 2:14 (hina dia tou thanatou katargēsē ton to kratos echonta tou thanatou, tout&#x27; estin ton diabolon — that through-death he-might-destroy the one having the power-of-death, that is, the devil) as the canonical-incarnational-destroying-the-devil pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §25. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1jn-3-2-103",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §54",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §54</em> <small>(c. 350 AD)</small><p>&#x27;Beloved, now are we the sons of God, and it doth not yet appear what we shall be: but we know that, when he shall appear, we shall be like him; for we shall see him as he is&#x27; — Athanasius marks homoioi autō esometha (we-shall-be like-him) as the eschatological-theosis-fulfillment of the Athanasian deification-doctrine. The homoioi-autō is not mere moral-similarity (which any creature could in principle achieve) but the kath&#x27;-homoiōsin-theou likeness-to-God that Gen 1:26&#x27;s creation-blueprint envisioned and that the Fall fragmented and that the Word&#x27;s-incarnation restores. The hoti opsometha auton kathōs estin (for we shall see him as he is) names the beatific-vision that COMPLETES the theosis: face-to-face vision of the incarnate-divine-Person produces the final-conformity-to-his-image (cf. 2 Cor 3:18 &#x27;we all... beholding... are changed into the same image&#x27;). The Tewahedo eschatological-hymnody cites 1 Jn 3:2 + 2 Cor 3:18 + Rev 22:4 as the beatific-vision-triad.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §54. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1jn-3-8-104",
       "verse": 8,
       "kind": "comm-ethiopian",
       "anchor": "",

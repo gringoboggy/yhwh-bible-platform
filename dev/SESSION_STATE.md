@@ -1,5 +1,124 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / γ.4.8.F Mäṣḥafä Mäqabyan TIER-2 AUDIT
+INTEGRATION ships — POST-ARC-CLOSE APPARATUS REFINEMENT. 12 verse-
+keyed entries propagating the v3 CC0-translation bundle's
+TIER2_AUDIT.md library-source verification findings into the Meqabyan
+apparatus. Triggered by user "continue" with explicit reference to
+`C:\Users\bogda\Documents\v3` containing new findings from the v3
+CC0-translation bundle. The bundle's Tier-2 library-source verification
+pass produced: (1) Wright 1877 *Catalogue of the Ethiopic Manuscripts
+in the British Museum* FULLY VERIFIED by direct reading (archive.org
+full-text `catalogueofethio00brituoft`) — seven BM Oriental shelfmarks
+(487/489/491/502/504/505/506) confirmed; Horovitz fn-3 cross-ref list
+corrected (X 3, XI 9, XV 7, XXVI 10, XXVIII 5, XXXI 2, XXXII 1);
+"XXX 1" dropped as OCR transcription artifact; Wright independently
+corroborates the tripartite structure ("in three parts" BM Or. 487
+entry X item 3) AND the Meqabyan-vs-Vulgate-Maccabees distinction
+(Wright Preface p. v); Wright Preface also independently attests the
+"Liber Adami" (Conflict of Adam and Eve) — strengthening Round 3's
+Adambuch addition. (2) Cowley date corrected from "1971" to **1974b**
+(JES 12, no. 1, January 1974, pp. 133-175, esp. p. 144; JSTOR
+44324703); conflation-source identified as Cowley's separate 1971
+"Baläandəm Commentaries" article (JES 9.1: 9-20). (3) Andǝmta Psalter
+commentary confirmed as printed-Amharic-book (not manuscript-only);
+3 Mq 2:23 ten-Consciousnesses crux upgraded to printed-volume lookup.
+(4) Senkessar Abijā/Silä saint-dates route precise: Budge *Book of
+the Saints of the Ethiopian Church* vol. 2 entries Ṭǝr 21 + Ṭǝr 30
+(≈ 29 Jan / 7 Feb Gregorian). (5) D'Abbadie *Catalogue Raisonné* no.
+55, items 28-30 precise locator per Wright cross-reference. **No
+translation-text changes** — every Tier-2 finding is an apparatus /
+sources-index refinement. **Distribution (12 entries):** mq1 (5: 1:5
+Wright fully-verified + 11:3 Horovitz fn-3 corrected list + 15:8
+Wright-vs-Frankfurt tripartite-vs-bipartite tension + 20:3 Budge
+Synaxarium Ṭǝr 21/30 + 36:46 Cowley 1974b date-correction) + mq2 (3:
+1:3 Wright Preface Meqabyan-vs-Vulgate + 4:17 D'Abbadie no. 55 +
+21:11 Tier-2-audit ledger anchor) + mq3 (4: 1:17 Wright Preface
+"Liber Adami" + 2:24 Andǝmta Psalter printed-status + 4:17 Tier-3-
+interpretive-flagging confirmation + 10:30 Wright "in three parts"
++ Psalter book-ending-doxologies). Meqabyan voice 200 → **212**;
+**MOVES TO SOLE 2ND-PLACE** surpassing Jubilees 200 (was tied at
+γ.4.8.E arc-close). ethiopian_commentaries.json 1567 → 1579 (+12);
+voice mix Cyril 42.63% → 42.31% (continues sub-50%; plurality intact
+at 3.15× next-single-father 668 vs 212); Meqabyan 12.76% → 13.43%;
+Tewahedo-distinctive-canonical block (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle
++ Mäqabyan) 37.78% → **38.25%** — STRONGEST POSITION IN γ.4 CORPUS
+HISTORY; directly supports v1.1 publisher-led uniqueness-angle pick
+per `project_v1_terminus`. SIXTEENTH production-scale N-W4
+idempotency verification. TestGamma48FTier2AuditIntegration +20 pins
+(12 signature-anchor pins one per Tier-2 finding + 3 per-book floor-
+pins + arc-close 67/67 chapter-coverage REGRESSION-GUARD + Cyril-
+plurality-preservation ω.41 §1 + Tewahedo-canonical-block share-floor
+≥38% + Tier-2-substance-named _meta pins: Wright 1877 + Cowley
+1974b + JSTOR 44324703 + Andǝmta + Ṭǝr 21 + Liber Adami + no-
+translation-body-changes + SIXTEENTH N-W4-verification ordinal) +
+TestGamma4MetaPhasesCoverage γ.4.8.F extension +1 = +21 pins net.
+All pass. Per §3.4 close-before-open is INAPPLICABLE here — γ.4.8.F
+is a POST-ARC-CLOSE APPARATUS REFINEMENT, not a new arc-detail-wave;
+it LAYERS Tier-2 findings as inline-apparatus content without
+disturbing the γ.4.8.E arc-close structure (the 67/67 = 100% mq1+mq2+
+mq3 chapter-coverage invariant is REGRESSION-GUARDED). Mäqabyan arc
+REMAINS CLOSED.**
+
+**γ.4 corpus — SIX-VOICE COMPOSITION STATE (Meqabyan moves to SOLE
+2ND-PLACE post-Tier-2):**
+
+```
+Cyril of Alexandria      668   42.31%  (4 canonical-Gospel arcs closed)
+Meqabyan                 212   13.43%  (ARC CLOSED γ.4.8.E + γ.4.8.F Tier-2 +12)
+Jubilees                 200   12.67%  (arc closed γ.4.5.E)
+1 Enoch                  192   12.16%  (arc closed γ.4.4.E)
+Ephrem the Syrian        157    9.94%  (Pentateuch arc closed γ.4.2.D)
+Athanasius               150    9.50%  (arc closed γ.4.9.D — SEVENTH §8.1)
+─────────────────
+Total                   1579  100.00%  (all six voices substantively closed)
+```
+
+Cyril plurality intact at 3.15× next-single-father (was 3.34× at
+γ.4.8.E arc-close). Mäqabyan trilogy 67/67 chapter coverage preserved
+as regression-guarded invariant. **Tewahedo-distinctive-canonical
+block hits 38.25%** — strongest position in γ.4 corpus history; v1.1
+publisher-led uniqueness-angle anchor strengthened.
+
+**Tier-2 audit substance-pin coverage (durable in _meta):**
+
+```
+Wright 1877 Catalogue              FULLY VERIFIED      mq1 1:5 + mq3 10:30
+Horovitz fn-3 corrected list       7 BM shelfmarks     mq1 11:3
+Wright-vs-Frankfurt tension        scholarly tension   mq1 15:8
+Budge Synaxarium Ṭǝr 21/30         saint-dates route   mq1 20:3
+Cowley 1974b date correction       JSTOR 44324703      mq1 36:46
+Meqabyan-vs-Vulgate distinction    Wright Preface p.v  mq2 1:3
+D'Abbadie no. 55 items 28-30       precise locator     mq2 4:17
+Tier-2-audit summary-ledger        apparatus refinement mq2 21:11
+Wright Preface "Liber Adami"       Conflict of Adam    mq3 1:17
+Andǝmta Psalter printed-Amharic    not manuscript-only mq3 2:24
+Tier-3-interpretive Prov 8 / Adam  stance confirmed    mq3 4:17
+"In three parts" trilogy           Psalter parallel    mq3 10:30
+```
+
+**Recommended next steps:**
+
+- **save** — γ.4.8.F uncommitted since γ.4.8.E save earlier this
+  session. User-explicit only per `feedback_continue_not_save`. Build-
+  up since γ.4.8.E save: +12 entries + +21 tests + 1 new ship script
+  (_ship_gamma48f.py) + state docs.
+- **AUDIT cadence** — post-γ.4.8.F cumulative phases since AUDIT_2026-
+  05-13-DEEP = 5 (γ.4.8 + B + C + D + E + F); test-count drift = +84
+  net since AUDIT. Cadence threshold (≥10 phases or ≥150 test-count
+  drift) approaches but doesn't cross — audit recommended-but-optional.
+- **Next phase candidates:**
+  (a) AUDIT cadence — lighter solo-Claude audit covering the γ.4.8
+      arc-close + γ.4.8.F Tier-2-integration cross-arc consistency
+      checks.
+  (b) RELEASE TRACK — v1.0 candidate criteria all met (52,499+ notes;
+      now 52,511 with γ.4.8.F +12 expansion); declare v1.0 shipped
+      per PLAN §4 (visual QA + binary build + tag).
+  (c) Other open phases per PLAN_2026-05-09.md.
+  Decision deferred to next user "continue" or explicit phase-pick.
+
+---
+
 **Updated 2026-05-14 / γ.4.8.E Mäṣḥafä Mäqabyan ARC-CLOSE ships —
 **MEQABYAN ARC CLOSED.** EIGHTH §8.1 ARC-CLOSE INSTANCE in γ.4 corpus
 history (after γ.4.4.E + γ.4.5.E + γ.4.2.D + γ.4.3.D + γ.4.6.D +

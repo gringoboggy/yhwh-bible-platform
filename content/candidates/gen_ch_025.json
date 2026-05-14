@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 25,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 66,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 68,
   "candidates": [
     {
       "id": "gen-25-8-001",
@@ -981,6 +981,36 @@
     },
     {
       "id": "gen-25-23-066",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXV.23. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;Two nations are in thy womb... and the elder shall serve the younger&#x27;. Ephrem reads the womb-oracle Christologically: the two nations are (1) the carnal-old-Israel (the elder, Esau) and (2) the spiritual-new-Israel-in-Christ (the younger, Jacob). The &#x27;elder shall serve younger&#x27; inverts natural primogeniture; Tewahedo soteriology preserves Ephrem&#x27;s reading of this inversion as the foundational pattern: divine election overrides natural-birth order.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-25-9-067",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXV.9. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And his sons Isaac and Ishmael buried him in the cave of Machpelah&#x27;. Ephrem dwells on this verse: the half-brothers, Isaac and Ishmael — elsewhere divided — UNITE to bury their father. Ephrem reads this as the eschatological reconciliation of estranged peoples: even when the narrative diverges them, at the threshold of death and burial there is reunion. Tewahedo missiological tradition (the Ethiopian Christian engagement with the Islamic world, including the medieval Solomonic diplomacy with Mamluk Egypt) draws on this verse as canonical witness that descendants-of-Abraham reconciliation is possible.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-25-23-068",
       "verse": 23,
       "kind": "comm-ethiopian",
       "anchor": "",

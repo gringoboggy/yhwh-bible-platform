@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 71,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 45,
   "candidates": [
     {
       "id": "1en-71-5-001",
@@ -621,6 +621,51 @@
     },
     {
       "id": "1en-71-14-042",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 71:14, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;Thou art the Son of Man who art born unto righteousness, and righteousness abides over thee, and the righteousness of the Head of Days forsakes thee not&#x27; — the controversial closing of the Parables where Enoch himself is identified WITH the Son of Man. Charles&#x27; translation preserves this identification; some scholars argue for an alternative reading. The Tewahedo reception holds the text as it stands: Enoch&#x27;s eschatological exaltation to the role of Son of Man does NOT compete with later Christological identification but anticipates it — Enoch is a TYPE of the Son of Man whose fullness is Christ. This typological reading is preserved in the Mäṣḥafä Hēnok&#x27;s catechetical use within the Tewahedo monastic tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-71-5-043",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 71:5, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;And the spirit translated Enoch to the heaven of heavens, and I saw there as it were a structure built of crystals, and between those crystals tongues of living fire&#x27; — the crystal-and-fire heavenly architecture (parallel to Rev 4:6 sea-of-glass and Rev 21:18-21 crystal city walls). Tewahedo architectural symbolism (the use of polished stone and white-glazed surfaces in Lalibela&#x27;s monolithic churches) draws on this Enochic vision-architecture as canonical aesthetic.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-71-11-044",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of Parables (1 Enoch 37-71)",
+      "source_attribution": "1 Enoch 71:11, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of Parables (1 Enoch 37-71)</em> <small>(c. 100 BC)</small><p>&#x27;And I fell on my face, and my whole body became relaxed, and my spirit was transfigured; and I cried with a loud voice... with the spirit of power, and blessed and glorified and extolled&#x27; — Enoch&#x27;s transfiguration. Tewahedo mystical theology reads this verse as a pre-Christian witness to the deification (theosis) tradition: the human person can be transfigured in body and spirit through divine encounter. The Tewahedo monastic feast of Mount Tabor draws explicit liturgical parallels between Christ&#x27;s Transfiguration and Enoch&#x27;s, using 71:11 as a reading.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of Parables (1 Enoch 37-71). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-71-14-045",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

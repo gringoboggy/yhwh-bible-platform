@@ -1,8 +1,8 @@
 {
   "book": "eph",
   "chapter": 1,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 111,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 113,
   "candidates": [
     {
       "id": "eph-1-1-001",
@@ -1656,6 +1656,36 @@
     },
     {
       "id": "eph-1-21-111",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.42",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.42</em> <small>(c. 350 AD)</small><p>&#x27;Far above all principality, and power, and might, and dominion, and every name that is named, not only in this world, but also in that which is to come&#x27; — Athanasius marks hyperanō pasēs archēs (far-above every principality) as the exaltation-supremacy Pauline-anchor paired with Phil 2:9 (highly-exalted). The Christ-incarnate-and-risen is RANKED-ABOVE every conceivable angelic or human authority — in BOTH this-age AND the-age-to-come (eschatological-permanence). Tewahedo angelology preserves this Pauline-supremacy-of-Christ at the Christ-Pantocrator iconography of every Tewahedo-dome.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.42. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "eph-1-10-112",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §16",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §16</em> <small>(c. 350 AD)</small><p>&#x27;That in the dispensation of the fulness of times he might gather together in one all things in Christ, both which are in heaven, and which are on earth; even in him&#x27; — Athanasius marks anakephalaiōsasthai ta panta en tō Christō (to-recapitulate all-things in Christ) as the cosmic-scope-of-the-incarnation: the Word&#x27;s-becoming-man does not merely save individual-souls but RECAPITULATES the entire created-order in himself. The ana-kephalaiōsis (re-heading) restores Christ as the cosmic-Head-over-all-things that the original creation-order required (Col 1:18 head-of-the-body) and that the Fall fragmented. The Tewahedo cosmic-liturgical-theology (the Praises of Christ as cosmic-recapitulator at every Anaphora&#x27;s anaphoric-section) preserves Eph 1:10&#x27;s recapitulation-doctrine as constitutive of the entire liturgical-cosmic-restoration.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §16. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "eph-1-21-113",
       "verse": 21,
       "kind": "comm-ethiopian",
       "anchor": "",

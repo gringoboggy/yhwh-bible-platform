@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 34,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 35,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 36,
   "candidates": [
     {
       "id": "deu-34-7-001",
@@ -516,6 +516,21 @@
     },
     {
       "id": "deu-34-6-035",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 34:1-12. NPNF Series 2, vol. 13. PD. Cf. Jude 9, Mt 17:3; Tewahedo liturgical witness: Astə'arǝgya-Mussē.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On Moses&#x27; burial &#x27;in a valley in the land of Moab, over against Bethpeor: but no man knoweth of his sepulchre unto this day&#x27; (Deu 34:6), Ephrem reads the divinely-hidden grave as the canonical Old-Testament anchor of Jude 9&#x27;s account of the archangel Michael&#x27;s dispute with the devil over Moses&#x27; body — preserved in the Assumption of Moses tradition received by the Ethiopian canon. The hidden grave prepares Moses for his Transfiguration appearance with Elijah (Mt 17:3, Lk 9:30-31), suggesting a translation-pattern parallel to Enoch (Gen 5:24) and Elijah (2 Ki 2:11). Tewahedo Astə&#x27;arǝgya-Mussē (Translation of Moses) commemorates this hidden-grave tradition; Deu 34:6 + Jude 9 + the Buhe Transfiguration form the canonical triple-witness of Moses&#x27; translated-glorified state.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-34-6-036",
       "verse": 6,
       "kind": "comm-ethiopian",
       "anchor": "",

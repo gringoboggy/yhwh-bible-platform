@@ -1,8 +1,8 @@
 {
   "book": "act",
   "chapter": 2,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 139,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 142,
   "candidates": [
     {
       "id": "act-2-1-001",
@@ -2076,6 +2076,51 @@
     },
     {
       "id": "act-2-36-139",
+      "verse": 36,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.11-18",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.11-18</em> <small>(c. 350 AD)</small><p>&#x27;Therefore let all the house of Israel know assuredly, that God hath made [epoiēsen] that same Jesus, whom ye have crucified, both Lord and Christ&#x27; — Athanasius marks epoiēsen (God-MADE) as one of the FOUR HARDEST ARIAN PROOFTEXTS (with Pr 8:22 ektisen-me + Heb 3:2 tō poiēsanti + Acts 2:36). The Arians read epoiēsen as &#x27;made into existence&#x27; (= the Son is a creature); Athanasius (CA II.11-18, 8 sections of sustained exegesis) reads as &#x27;appointed-economically&#x27; (= the eternal Word was-MADE-Lord-AND-Christ by-his-incarnational-mission, not made-into-existence). The &#x27;made&#x27; refers to the ECONOMIC-MISSION (the Word-incarnate&#x27;s-being-made the Lord-and-Christ of-history-and-humanity), NOT to the Word&#x27;s-eternal-being. Crucially Pauline-Petrine: Peter&#x27;s epoiēsen and Paul&#x27;s gegennēkēn (Heb 1:5 begotten) name complementary aspects — eternal-begetting qua-divinity + economic-making qua-incarnation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.11-18. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-2-24-140",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.55",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.55</em> <small>(c. 350 AD)</small><p>&#x27;Whom God hath raised up, having loosed the pains of death: because it was not possible that he should be holden of it&#x27; — Athanasius marks ouk ēn dynaton krateisthai auton hyp&#x27; autou (it was-not-possible that he be-held-by it) as the IMPOSSIBILITY-OF-DEATH-HOLDING-THE-WORD. Death cannot hold the deathless-Word; the assumed-flesh died, but the Word&#x27;s-presence-in-it ensured that death-itself was-defeated-from-within. The Petrine apostolic-kerygma at Pentecost (Acts 2:14-36) is itself an extended argument for the Word&#x27;s-divinity from the resurrection-FACT-and-its-impossibility-otherwise. Tewahedo Easter Trisagion-Paschal preaching cites Acts 2:24 + Ps 16:10 as the harrowing-Resurrection apostolic-pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.55. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-2-32-141",
+      "verse": 32,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistulae ad Serapionem 1.6",
+      "source_attribution": "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.6</em> <small>(c. 350 AD)</small><p>&#x27;This Jesus hath God raised up, whereof we all are witnesses. Therefore being by the right hand of God exalted, and having received of the Father the promise of the Holy Ghost, he hath shed forth this, which ye now see and hear&#x27; — Athanasius marks the full PENTECOST-TRINITARIAN-ECONOMY: the Father raises + the Son is exalted-at-the-right-hand + the Son receives-and-pours-out the Spirit. Acts 2:32-33 is the apostolic-kerygmatic articulation of the dual Spirit-economy that Letters to Serapion expounds doctrinally — the Son is BOTH Spirit-recipient (qua-flesh, qua-his-exaltation-as-Man) AND Spirit-sender (qua-divinity, qua-co-source-with-Father). The Pentecost-outpouring IS the incarnational-fulfillment of the Annunciation-overshadowing (Lk 1:35) extended to the Church.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistulae ad Serapionem 1.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-2-36-142",
       "verse": 36,
       "kind": "comm-ethiopian",
       "anchor": "",

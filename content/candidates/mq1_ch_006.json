@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 6,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 13,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 16,
   "candidates": [
     {
       "id": "mq1-6-1-001",
@@ -186,6 +186,51 @@
     },
     {
       "id": "mq1-6-23-013",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Saul-Samuel-Amalek pericope (vv. 20-38) — 1 Samuel 15 obedience-over-sacrifice anchor. Samuel&#x27;s confrontation of Saul (&#x27;hath the LORD as great delight in burnt offerings and sacrifices, as in obeying the voice of the LORD? Behold, to obey is better than sacrifice, and to hearken than the fat of rams&#x27; — 1 Sam 15:22) is the canonical OBEDIENCE-OVER-SACRIFICE formula that Meqabyan recapitulates. The Meqabyan brothers&#x27; refusal to sacrifice-to-idols (the standard Meqabyan martyrology cause) is here grounded in the Samuel-Saul precedent: SACRIFICE WITHOUT OBEDIENCE IS REJECTION; OBEDIENCE WITHOUT SACRIFICE IS ACCEPTANCE. Parallels Hosea 6:6 (&#x27;I desired mercy, and not sacrifice; and the knowledge of God more than burnt offerings&#x27;), Matthew 9:13 + 12:7 (Christ citing Hosea against the Pharisees), and Hebrews 10:5-9 (&#x27;Sacrifice and offering thou wouldest not, but a body hast thou prepared me&#x27;). The chapter unifies royal-faithfulness (vv. 1-18) with obedience-not-sacrifice (vv. 20-38) as the integrated Meqabyan royal-theology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-6-1-014",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Heavenly-palace ekphrasis — one of the most beautiful passages in 1 Mq (vv. 1-18): the description of the dwelling of righteous kings (Abraham + Isaac + Jacob + David + Solomon + Hezekiah) in their heavenly abode. The ekphrasis-of-the-righteous-dwelling is a patristic-and-late-antique standard genre (cf. 4 Ezra 7:88-99, 2 Baruch 51:1-12, Apocalypse of Paul §§14-18); Meqabyan&#x27;s distinctive feature is the SPECIFIC ROYAL roster (Hezekiah&#x27;s addition to the patriarchal triad shifts the typology from patriarchal-fatherhood to royal-covenant-faithfulness — the Davidic-and-Hezekian exemplars of right kingship in 2 Kings / Isaiah 38). The second half of the chapter (vv. 20-38) is the Saul-Samuel-Amalek pericope exegeting 1 Sam 15 obedience-over-sacrifice.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-6-8-015",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Heavenly-palace ekphrasis named-dwelling: ABRAHAM + ISAAC + JACOB + DAVID + SOLOMON + HEZEKIAH dwelling-in-their-heavenly-abode. The specific royal roster expands the standard patriarchal-triad (Abraham + Isaac + Jacob — cf. seed 2:22 + 3:38) by adding the Davidic-Solomonic-Hezekian royal-faithfulness exemplars. The addition of HEZEKIAH (rather than the more-expected Josiah or another reform-king) is theologically significant: Hezekiah is the king who CRIED OUT TO GOD UNDER THREAT (2 Kings 19 / Isaiah 37 — Sennacherib&#x27;s threat to Jerusalem; Hezekiah&#x27;s prayer in the Temple) + RECEIVED MIRACULOUS-DELIVERANCE-AND-EXTENDED-LIFE (2 Kings 20 / Isaiah 38 — the sundial-turned-back-ten-degrees). Hezekiah&#x27;s typology fits the Meqabyan brothers&#x27; situation exactly: facing imperial-threat, praying to God, receiving divine-rescue. The chapter&#x27;s heavenly-dwelling vision functions as the brothers&#x27; destination-promise.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-6-23-016",
       "verse": 23,
       "kind": "comm-ethiopian",
       "anchor": "",

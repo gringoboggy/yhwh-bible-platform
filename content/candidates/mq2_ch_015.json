@@ -1,8 +1,8 @@
 {
   "book": "mq2",
   "chapter": 15,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 8,
   "candidates": [
     {
       "id": "mq2-15-1-001",
@@ -81,6 +81,36 @@
     },
     {
       "id": "mq2-15-11-006",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>MATERIALIST-SADDUCEE REFUTATION (vv. 11-18): the Sadducean-denial-of-resurrection is refuted by appeal to GOD&#x27;S CREATIVE-POWER. The argumentation: if God could create the body from dust-and-nothing at first, He can re-create it from dust at resurrection — the standard-Christian-patristic CREATION-TO-RESURRECTION argument. Direct parallels: 2 MACCABEES 7:28 (the mother to her youngest son — &#x27;I beseech thee, my son, look upon the heaven and the earth, and all that is therein, and consider that God made them of things that were not; and so was mankind made likewise&#x27; — the canonical-creatio-ex-nihilo resurrection-argument); ROMANS 4:17 (&#x27;God, who quickeneth the dead, and calleth those things which be not as though they were&#x27;); HEBREWS 11:19 (&#x27;accounting that God was able to raise him up, even from the dead&#x27; — Abraham&#x27;s binding-of-Isaac interpreted); 1 CLEMENT 24-26 (the resurrection-argument-from-nature). The Meqabyan argument compresses the canonical-Hebrew-Bible + LXX-Maccabean + Pauline argumentation into one systematic exposition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-15-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>OPENS Ch 15: RESURRECTION-DOCTRINE INTRODUCTION extending Ch 14&#x27;s anti-sectarian polemic with a positive-systematic exposition. The chapter&#x27;s framing: &#x27;Now hear concerning the resurrection of the dead — how God shall raise them up.&#x27; The doctrinal-exposition genre parallels: 1 CORINTHIANS 15 (Pauline systematic-resurrection-treatise — the canonical-Christian model); WISDOM OF SOLOMON 3:1-9 + 5:15-23 (the righteous-immortality systematic-exposition); 4 MACCABEES 9-18 (the philosophical-soul-treatise embedded in the martyrdom-narrative); ENOCH 22 (the four-chambers-of-Sheol doctrine — γ.4.4 Mäṣḥafä Hēnok parallel). Meqabyan&#x27;s distinctive feature: the resurrection-doctrine exposition is FRAMED AS REVELATION-TO-MAQABIS-OF-MOAB — the converted-Gentile-king receives the doctrinal-instruction directly. This pedagogical-framing makes Maqabis-of-Moab a DOCTRINAL-TYPE for the Gentile-convert who receives full-doctrinal-instruction within Israel&#x27;s covenant-tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-15-11-008",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

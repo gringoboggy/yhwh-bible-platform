@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 32,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 3,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 6,
   "candidates": [
     {
       "id": "mq1-32-1-001",
@@ -36,6 +36,51 @@
     },
     {
       "id": "mq1-32-14-003",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of FAITHFULNESS-IN-THE-LITTLE theme (preparing Ch 33&#x27;s manna-as-daily-bread typology). The faithfulness-in-the-little theme parallels: LUKE 16:10-13 (&#x27;he that is faithful in that which is least is faithful also in much&#x27;); LUKE 19:17 (the talents-parable Lukan version — &#x27;thou hast been faithful in a very little&#x27;); MATTHEW 25:21 par. (&#x27;thou hast been faithful over a few things, I will make thee ruler over many things&#x27;); 1 CORINTHIANS 4:2 (it-is-required-in-stewards-that-a-man-be-found-faithful); EXODUS 16:16-21 (the manna-collected-according-to-daily-need — the foundational little-faithfulness narrative); MATTHEW 6:11 par. (the Lord&#x27;s-Prayer&#x27;s give-us-this-day-our-daily-bread). Patristic-tradition: BASIL Long Rules + Short Rules (the monastic faithfulness-in-the-little pedagogy); JOHN CLIMACUS Ladder Step 21 (un-mannishness as faithfulness-in-the-little). Tewahedo monastic-pedagogy preserves faithfulness-in-the-little as the diagnostic-test-of-mature-spiritual-formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-32-1-004",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 32 — HOMILETIC-GENRE ANCHOR: continued near-final arc. The chapter likely develops the SECOND-WILDERNESS-WANDERING typology (continuing Ch 31&#x27;s wilderness-provision theme into a deeper articulation). The second-wilderness-wandering theme parallels: NUMBERS 33 (the comprehensive wilderness-stations-catalog); DEUTERONOMY 1-3 (Moses&#x27;s wilderness-rehearsal-and-interpretation); HEBREWS 3:7-4:11 (the wilderness-generation-and-rest application); 1 CORINTHIANS 10:1-13 (the wilderness-warning typology — &#x27;they were our examples, to the intent we should not lust after evil things, as they also lusted&#x27;); PSALM 95:7-11 (the wilderness-generation-as-warning); JUDE 5 (Christ-destroyed-the-unbelieving-wilderness-generation). Tewahedo monastic-tradition preserves the wilderness-wandering-as-spiritual-formation typology — the Däbrä-monasteries (Däbrä Libanos + Däbrä Damo + Däbrä Hayq Istifanos) as institutional-wilderness-retreat-pattern. The Meqabyan chapter likely articulates the wilderness-as-spiritual-formation-pedagogy adjacent to the narrative martyr-arc.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-32-7-005",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of TESTING-AS-PURIFICATION theme. The testing-as-purification theme parallels: PROVERBS 17:3 (&#x27;the fining pot is for silver, and the furnace for gold: but the LORD trieth the hearts&#x27;); JOB 23:10 (&#x27;when he hath tried me, I shall come forth as gold&#x27;); PSALM 12:6 (&#x27;the words of the LORD are pure words: as silver tried in a furnace of earth, purified seven times&#x27;); PSALM 66:10-12 (&#x27;thou, O God, hast proved us: thou hast tried us, as silver is tried&#x27;); MALACHI 3:2-3 (the refiner&#x27;s-fire + the fullers&#x27;-soap); WISDOM 3:1-9 (&#x27;they shall be tried as gold in the furnace, and received as a burnt offering&#x27;); 1 PETER 1:6-7 (&#x27;trial of your faith, being much more precious than of gold that perisheth, though it be tried with fire&#x27;); JAMES 1:2-4 (the trying-of-your-faith). Patristic-tradition: TERTULLIAN De Patientia (the patience-as-purification); CYPRIAN De Mortalitate (suffering-as-purification); GREGORY OF NYSSA De Anima et Resurrectione (the purification-and-deification). Tewahedo monastic-pedagogy preserves testing-as-purification as the integral-mechanism of spiritual-formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-32-14-006",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

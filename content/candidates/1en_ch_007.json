@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 7,
-  "generated_at": "2026-05-14T14:52:59+00:00",
-  "n_candidates": 28,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 30,
   "candidates": [
     {
       "id": "1en-7-2-001",
@@ -411,6 +411,36 @@
     },
     {
       "id": "1en-7-5-028",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 7:5-6, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>&#x27;The giants turned against them and devoured mankind. And they began to sin against birds, and beasts, and reptiles, and fish, and to devour one another&#x27;s flesh, and drink the blood&#x27; — the violent escalation of giant predation. The four-fold catalog (humans / birds / beasts / fish) traces the giant predation through the whole creaturely order; &#x27;devour one another&#x27;s flesh&#x27; makes them ultimately self-cannibalistic. Tewahedo monastic-ascetic tradition reads this as the ultimate pattern of disordered appetite: unchecked consumption finally turns inward, devouring its own. The catalog itself becomes the textual basis for the standard four-fold dietary categories preserved in monastic fasting rules.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-7-2-029",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 7:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>&#x27;And they became pregnant, and they bare great giants, whose height was three thousand ells&#x27; — the Nephilim of Genesis 6:4 here named explicitly as the half-angelic offspring of the Watchers&#x27; union with human women. The &#x27;three thousand ells&#x27; (vastly hyperbolic — Charles notes the Greek tradition has lower numbers) signals the disordered scale of the offspring: not merely large humans but a different ontological category, neither fully angelic nor fully human. The Tewahedo theological reading takes this as the prototype of every subsequent demonic infestation: the half-creatures that issue from forbidden union belong to no created order and find their proper place only in destruction.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-7-5-030",
       "verse": 5,
       "kind": "comm-ethiopian",
       "anchor": "",

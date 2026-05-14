@@ -1,8 +1,8 @@
 {
   "book": "heb",
   "chapter": 9,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 88,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 89,
   "candidates": [
     {
       "id": "heb-9-12-001",
@@ -1311,6 +1311,21 @@
     },
     {
       "id": "heb-9-14-088",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §9",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §9</em> <small>(c. 350 AD)</small><p>&#x27;How much more shall the blood of Christ, who through the eternal Spirit offered himself without spot to God, purge your conscience from dead works to serve the living God?&#x27; — Athanasius marks dia pneumatos aiōniou heauton prosēnenken amōmon tō theō (through eternal Spirit offered himself spotless to God) as the FULL-TRINITARIAN-atonement-structure: the Son offers (active-incarnational-priest) himself (object-of-offering = the incarnate-flesh) through the eternal-Spirit (the pneumatological-medium of the sacrifice) to the Father (recipient-of-the-acceptable-offering). All three Persons are active in the single-act of atonement. Tewahedo Anaphora consecration-prayer cites Heb 9:14 at the epiclesis-of-the-Spirit-upon-the-elements as the Trinitarian-eucharistic-pattern-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §9. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-9-14-089",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

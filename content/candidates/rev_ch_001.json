@@ -1,8 +1,8 @@
 {
   "book": "rev",
   "chapter": 1,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 73,
+  "generated_at": "2026-05-14T15:31:49+00:00",
+  "n_candidates": 75,
   "candidates": [
     {
       "id": "rev-1-1-001",
@@ -1086,6 +1086,36 @@
     },
     {
       "id": "rev-1-18-073",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §17",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §17</em> <small>(c. 350 AD)</small><p>&#x27;I am he that liveth, and was dead; and, behold, I am alive for evermore, Amen; and have the keys of hell and of death&#x27; — Athanasius marks egō eimi ho zōn, kai egenomēn nekros, kai idou zōn eimi eis tous aiōnas (I-AM the-living-one, and I-became dead, and behold I-AM living unto the ages) as the APOCALYPTIC PASCHAL-IDENTITY-OATH of the risen-Christ. The egō eimi self-predicate identifies the speaker with the Exodus 3:14 divine-Name; the egenomēn nekros (I-BECAME dead) names the assumed-flesh&#x27;s-genuine-death — the Word becomes-dead via-the-flesh, the divine-impassibility preserved by-becoming-dead-in-the-flesh-only; the zōn eimi eis tous aiōnas names the resurrection-as-eternal-state. The &#x27;keys of Hades and of Death&#x27; name the Word&#x27;s-Paschal-cosmic-victory-authority. Tewahedo Eastern Easter Trisagion-paschal-chant cites Rev 1:18 as the resurrection-Paschal-acclamation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §17. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-1-8-074",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.13",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.13</em> <small>(c. 350 AD)</small><p>&#x27;I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty&#x27; — Athanasius marks egō eimi to alpha kai to ō (I-AM the alpha and the omega) as the Apocalyptic-Christ&#x27;s self-predication of divine-comprehension. The alpha-and-omega names the all-encompassing-divine-priority-and-finality (no creature could rightly predicate this of itself). The ho ōn kai ho ēn kai ho erchomenos (the-One-being, the-One-was, the-One-coming) is the Apocalyptic-expansion of the LXX-Ex 3:14 ho ōn — the incarnate-Christ taking-up the burning-bush-self-naming and extending it across the eternal-time-axis. The ho pantokratōr (the-Almighty) is the LXX-translation of Hebrew-El-Shaddai, the highest divine-power-predication. The Tewahedo Apocalyptic-iconology (the Christ-Pantocrator iconography of every Tewahedo-church dome) cites Rev 1:8 as the canonical-self-predication.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.13. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-1-18-075",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

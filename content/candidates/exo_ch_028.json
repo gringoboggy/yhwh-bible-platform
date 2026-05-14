@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 28,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 34,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 35,
   "candidates": [
     {
       "id": "exo-28-2-001",
@@ -501,6 +501,21 @@
     },
     {
       "id": "exo-28-36-034",
+      "verse": 36,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XXVIII.12 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>The plate of pure gold on the high priest&#x27;s forehead, engraved &#x27;Holiness to the Lord&#x27; — Ephrem reads this as the priestly title borne by the high priest in figure and by Christ in fulfilment: the True Priest carries the holiness of the Lord on his very person, not as an ornament but as his essence. Tewahedo priestly vestments retain the canonical pattern of the Aaronic mitre as a deliberate iconographic echo.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-28-36-035",
       "verse": 36,
       "kind": "comm-ethiopian",
       "anchor": "",

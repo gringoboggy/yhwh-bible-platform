@@ -1,8 +1,8 @@
 {
   "book": "mq1",
   "chapter": 18,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 4,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 5,
   "candidates": [
     {
       "id": "mq1-18-2-001",
@@ -51,6 +51,21 @@
     },
     {
       "id": "mq1-18-2-004",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 18: &#x27;In times past too there were the wicked and arrogant, those than whom none was greater or stronger — the SONS OF RE&#x27;AYT&#x27; (የረዓይት ልጆች) — the GIANT-PROGENY of the fallen Watchers. Their fathers, while they were angels, used to praise God in heaven WITH the angels; but when their will led them astray, they descended to the earth, took wives from the daughters of men, and went down to eternal punishment with the Devil. Direct expansion of Genesis 6:1-4 (&#x27;the sons of God came in unto the daughters of men, and they bare children to them, the same became mighty men which were of old, men of renown&#x27;) + 1 Enoch 6-11 (the Watchers-and-the-women narrative — Mäṣḥafä Hēnok γ.4.4 covers this extensively across the Watchers section) + Jubilees 5:1-11 (the Watchers-and-the-Nephilim — Mäṣḥafä Kufāle γ.4.5 covers this) + 2 Enoch 18 (Watchers banished). Meqabyan preserves the canonical Tewahedo Watcher-and-Nephilim tradition within its martyrology, linking the giant-progeny to Ṣiruṣaydan&#x27;s-pride typologically.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-18-2-005",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

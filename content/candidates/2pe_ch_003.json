@@ -1,8 +1,8 @@
 {
   "book": "2pe",
   "chapter": 3,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 66,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 68,
   "candidates": [
     {
       "id": "2pe-3-3-001",
@@ -981,6 +981,36 @@
     },
     {
       "id": "2pe-3-18-066",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.46",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.46</em> <small>(c. 350 AD)</small><p>&#x27;But grow in grace, and in the knowledge of our Lord and Saviour Jesus Christ. To him be glory both now and for ever. Amen&#x27; — Athanasius marks autō hē doxa nyn kai eis hēmeran aiōnos (to HIM be the glory now and unto the day of eternity) as a DOXOLOGICAL-WORSHIP-OF-CHRIST anchor that the Arians cannot consistently maintain. The doxa-directed-to-Christ is the creature&#x27;s-worship-act that is owed to God-by-nature alone (the first-commandment exclusion of creature-worship). If Christ were a creature-by-nature, this doxology would be idolatrous; the verse&#x27;s own-internal-logic-positively-requires Christ&#x27;s-divine-essence. Pairs with 2 Pet 3:18 with Rev 1:6 (autō hē doxa kai to kratos eis tous aiōnas) and Rev 5:13 (autō hē doxa kai hē timē) as the canonical worship-directed-to-Christ Apocalyptic-Petrine triplet.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.46. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2pe-3-9-067",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §6",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §6</em> <small>(c. 350 AD)</small><p>&#x27;The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance&#x27; — Athanasius marks mē boulomenos tinas apolesthai alla pantas eis metanoian chōrēsai (not willing any to perish but all to come to-repentance) as the DIVINE-UNIVERSAL-SALVIFIC-WILL Petrine-anchor. The divine-patience (makrothymia) is itself-incarnational: the Word&#x27;s-incarnation IS the divine-patience-extended-in-time, giving humanity-time to repent. Athanasius&#x27;s DI §6-7 anti-Manichaean reading of evil-as-privation-of-good rests on this universal-salvific-will: God-cannot-be-the-author-of-evil because his-will-is-toward-universal-restoration.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2pe-3-18-068",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

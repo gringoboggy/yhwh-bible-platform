@@ -1,8 +1,8 @@
 {
   "book": "mq2",
   "chapter": 8,
-  "generated_at": "2026-05-14T14:53:02+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T15:31:48+00:00",
+  "n_candidates": 8,
   "candidates": [
     {
       "id": "mq2-8-1-001",
@@ -81,6 +81,36 @@
     },
     {
       "id": "mq2-8-14-006",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>HEAVENLY-REWARD FORMULA — the mother&#x27;s eschatological-promise to her sons (vv. 14-18): &#x27;they shall reign forever with the Holy Ones; their bodies shall be like the angels; they shall behold the face of God.&#x27; The three-fold heavenly-reward formula parallels: DANIEL 12:2-3 (&#x27;they that be wise shall shine as the brightness of the firmament; and they that turn many to righteousness as the stars for ever and ever&#x27;); MATTHEW 22:30 par. (&#x27;in the resurrection they neither marry, nor are given in marriage, but are as the angels of God in heaven&#x27;); REVELATION 22:4 (&#x27;and they shall see his face; and his name shall be in their foreheads&#x27;); 1 JOHN 3:2 (&#x27;we shall be like him; for we shall see him as he is&#x27;); 4 MACCABEES 17:18-19 (&#x27;they stand before God&#x27;s throne and live the blessed life&#x27;). The Meqabyan three-fold formula synthesizes the VISIO BEATIFICA + ANGELIC EQUALITY + ETERNAL-REIGN themes that Tewahedo eschatology systematizes — one of the most structured-ETERNAL-REWARD passages in the entire Meqabyan trilogy.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-8-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>OPENS Ch 8: MOTHER&#x27;S-EXHORTATION parallel to 4 Maccabees 15-17. The mother-of-the-five-sons exhorts her sons to martyrdom rather than apostasy. The mother-of-the-Maccabean-martyrs is one of the most theologically-developed female-figures in the Septuagint-deuterocanonical-and-Tewahedo-canonical traditions: 2 MACCABEES 7:20-29 (the canonical brief-version — &#x27;I cannot tell how ye came into my womb... but doubtless the Creator of the world... will also of his own mercy give you breath and life again&#x27;); 4 MACCABEES 15-17 (the philosophical-extended-version — 24 chapters of philosophical praise of the mother&#x27;s rational-faith). Meqabyan&#x27;s distinctive feature: the mother-of-Maqabis-of-Moab&#x27;s-sons is GENTILE (Moabite-converted), inverting the standard-Hebrew-mother model. The exhortation-content parallels the EOTC liturgical-praise of Mary as Mother-of-Martyrs and the Tewahedo Theotokion-tradition. Per Horovitz 1905 + CROSS_REFERENCE_APPENDIX §29: the mother-exhortation passage is among the trilogy&#x27;s strongest structural-parallels to LXX-Maccabean-tradition while remaining narratively-independent of it.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-8-14-008",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

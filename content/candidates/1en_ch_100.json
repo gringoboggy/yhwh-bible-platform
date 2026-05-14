@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 100,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 45,
   "candidates": [
     {
       "id": "1en-100-1-001",
@@ -621,6 +621,51 @@
     },
     {
       "id": "1en-100-7-042",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 100:7, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;Woe to you, sinners, on the day of strong anguish, ye who afflict the righteous and burn them with fire: ye shall be requited according to your works&#x27; — woe oracle for those who burn the righteous (allusion to martyrdom). Tewahedo martyrological tradition (the long history of Ethiopian Christian martyrdom under Aksum-era pagan reversions, Beta Israel/Falasha tensions, Mahdist invasions, modern persecutions) reads this verse as the eschatological vindication-promise for every named martyr.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-100-1-043",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 100:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;And in those days in one place the fathers together with their sons shall be smitten and brothers shall fall in death together&#x27; — the horror of intra-family slaughter as eschatological marker. Tewahedo homiletic tradition uses 100:1 with 99:5 as paired witnesses to the same eschatological scenario, citing them together when interpreting the Synoptic apocalypse-discourses.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-100-4-044",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 100:4, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;And in those days the angels shall descend into the secret places and gather together into one place all those who brought down sin, and the Most High will arise on that day of judgement to execute great judgement amongst sinners&#x27; — angelic descent for the gathering-of-sinners. Tewahedo angelological tradition reads this verse alongside Mt 13:39-41 (&#x27;the harvesters are angels... they shall gather out of his kingdom all things that offend&#x27;) as direct Enochic precedent for the Synoptic image.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-100-7-045",
       "verse": 7,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 18,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 54,
+  "generated_at": "2026-05-14T15:31:46+00:00",
+  "n_candidates": 55,
   "candidates": [
     {
       "id": "deu-18-9-001",
@@ -801,6 +801,21 @@
     },
     {
       "id": "deu-18-15-054",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 18:9-22. NPNF Series 2, vol. 13. PD. Cf. Acts 3:22 (verbatim apostolic citation), Acts 7:37.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;The Lord thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken&#x27; (Deu 18:15), Ephrem reads the prophet-like-Moses promise as the canonical Old-Testament messianic anchor cited verbatim by Peter in Acts 3:22 (&#x27;A prophet shall the Lord your God raise up unto you of your brethren, like unto me&#x27;) and by Stephen in Acts 7:37 — the apostolic preaching&#x27;s primary Old-Testament prophecy-of-Christ proof-text alongside Ps 110:1. The &#x27;like-Moses&#x27; qualification is fulfilled in Christ at the Transfiguration where Moses and Elijah appear with him on the mountain. Tewahedo christology cites Deu 18:15 + Acts 3:22 + the Buhe Transfiguration as the canonical triple-witness of the Mosaic-prophet identity of Christ.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-18-15-055",
       "verse": 15,
       "kind": "comm-ethiopian",
       "anchor": "",

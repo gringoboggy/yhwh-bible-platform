@@ -1,8 +1,8 @@
 {
   "book": "isa",
   "chapter": 7,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 50,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 51,
   "candidates": [
     {
       "id": "isa-7-7-001",
@@ -741,6 +741,21 @@
     },
     {
       "id": "isa-7-14-050",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §33",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §33</em> <small>(c. 350 AD)</small><p>&#x27;Behold, a virgin shall conceive, and bear a son, and shall call his name Immanuel&#x27; — Athanasius marks the LXX-parthenos (virgin, rendering Hebrew almah) as the OT-prophetic-anchor of the Mt 1:23 fulfillment. The verse names two-things that only-Christ fulfills: parthenogenesis (virgin-conception, miraculously human-without-male-seed) and theonymy (&#x27;God-with-us&#x27; — the proper name Immanu-El). The Word-incarnate is BOTH born-of-woman (genuinely-human-natus) AND God-with-us (genuinely-divine-deus-cum-nobis); neither the parthenos-half nor the Immanuel-half can be dropped without losing the incarnation. The Tewahedo Wǝddāse-Maryam (Praises of Mary, 14th-c. Ge&#x27;ez devotional) cites Isa 7:14 in every Friday-Saturday-Sunday cycle as the Marian-Christological-anchor of the entire incarnational mystery.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §33. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-7-14-051",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

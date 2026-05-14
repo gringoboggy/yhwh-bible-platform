@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 45,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 26,
+  "generated_at": "2026-05-14T15:31:49+00:00",
+  "n_candidates": 27,
   "candidates": [
     {
       "id": "psa-45-1-001",
@@ -381,6 +381,21 @@
     },
     {
       "id": "psa-45-6-026",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.13",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.13</em> <small>(c. 350 AD)</small><p>&#x27;Thy throne, O God, is for ever and ever: the sceptre of thy kingdom is a right sceptre&#x27; (LXX 44:7 — ho thronos sou ho theos eis ton aiōna tou aiōnos) — Athanasius marks Ps 45:6 (LXX 44:7) as the DIRECT VOCATIVE-ADDRESS of the Son as ho theos (the-God, with definite article). The Father is the speaker; the Son the addressee; the address is unambiguous in the vocative-with-article. The author of Hebrews (1:8) cites this verse against the angels — &#x27;unto which of the angels said he at any time...&#x27; (1:5) and culminates with this &#x27;But unto the Son he saith, Thy throne, O God&#x27; — Athanasius treats Heb 1:8&#x27;s citation as the canonical apostolic-warrant for reading Ps 45:6&#x27;s vocative as direct-Trinitarian-address, not metaphor or hypostatized-attribute.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.13. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-45-6-027",
       "verse": 6,
       "kind": "comm-ethiopian",
       "anchor": "",

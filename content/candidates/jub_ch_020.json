@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 20,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 28,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 30,
   "candidates": [
     {
       "id": "jub-20-2-001",
@@ -411,6 +411,36 @@
     },
     {
       "id": "jub-20-7-028",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 20:7 (Abraham's testament (20:7)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And, my children, observe the commandment of Abraham your father, and be not separated from the worship of the Lord. And, my children, beware of all whoredom and uncleanness, and of all pollution of sin&#x27; — Abraham&#x27;s testament forbids whoredom, idolatrous association, and ritual impurity as a triad. The Tewahedo monastic-and-lay catechesis preserves this triad as the negative-ethical core of inheritance: each child of the covenant must avoid sexual impurity, idolatrous syncretism, and ritual pollution. The Tewahedo täzkär (memorial) for the departed includes a renewal of this Abrahamic charge — the deceased is commended to the next generation as a witness to the three negative bounds.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-20-2-029",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 20:2 (Abraham's testament (20:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And he commanded them that they should observe the way of the Lord, that they should work righteousness, and love each his neighbour, and act on this manner amongst all men, that they should each so walk with regard to them as to do judgment and righteousness on the earth, that they should circumcise their sons according to the covenant which He had made with them, and not deviate to the right hand or the left of all the paths which the Lord had commanded us&#x27; — Abraham&#x27;s testament to all his sons (legitimate and concubine-born) commands love-of-neighbour as the ethical core. Tewahedo catechesis names Jub 20:2 as the canonical &#x27;second great commandment&#x27; antecedent (Lev 19:18 is the parallel; Mt 22:39 fulfils): love-of-neighbour is not a New-Covenant innovation but the patriarchal testament-content.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-20-7-030",
       "verse": 7,
       "kind": "comm-ethiopian",
       "anchor": "",

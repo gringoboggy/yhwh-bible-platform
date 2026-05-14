@@ -4,6 +4,52 @@
 
 ## Prior task
 
+**γ.4.8.F Mäṣḥafä Mäqabyan TIER-2 AUDIT INTEGRATION — 12 verse-keyed
+entries propagating the v3 CC0-translation bundle's TIER2_AUDIT.md
+library-source verification findings into the YHWH v2.4 Meqabyan
+apparatus. POST-ARC-CLOSE APPARATUS REFINEMENT — the γ.4.8.E ARC-
+CLOSE state (67/67 = 100% mq1+mq2+mq3 chapter coverage) is preserved
+as regression-guarded invariant; γ.4.8.F layers the Tier-2 findings
+inline without reopening or disturbing the closed-arc structure.
+Distribution: mq1 (5: 1:5 Wright 1877 fully-verified + tripartite-
+witness corroboration + 11:3 Horovitz fn-3 corrected list X 3 + XI 9
++ XV 7 + XXVI 10 + XXVIII 5 + XXXI 2 + XXXII 1 + 'XXX 1' dropped as
+OCR artifact + 15:8 Wright-vs-Frankfurt tripartite-vs-bipartite
+tension + 20:3 Budge Synaxarium vol. 2 Ṭǝr 21 + Ṭǝr 30 Abijā/Silä
+saint-dates route + 36:46 Cowley 1974b date-correction JSTOR
+44324703) + mq2 (3: 1:3 Wright Preface Meqabyan-vs-Vulgate-Maccabees
+external corroboration + 4:17 D'Abbadie *Catalogue Raisonné* no. 55
+items 28-30 precise locator + 21:11 Tier-2-audit summary-ledger
+anchor) + mq3 (4: 1:17 Wright Preface 'Liber Adami' / Conflict-of-
+Adam-and-Eve attestation + 2:24 Andǝmta Psalter commentary printed-
+Amharic-book status + 4:17 Tier-3-interpretive-flagging stance
+confirmation for Prov 8 reapplied to Adam + 10:30 Wright 'in three
+parts' + trilogy book-closing-signature Psalter book-ending-doxologies
+external corroboration). Meqabyan voice 200 → 212; MOVES TO SOLE
+2ND-PLACE surpassing Jubilees 200 (was tied at γ.4.8.E arc-close).
+ethiopian_commentaries.json 1567 → 1579 (+12); voice mix Cyril 42.63%
+→ 42.31% (continues sub-50% trajectory; plurality intact at 3.15×
+next-single-father); Tewahedo-distinctive-canonical block 37.78% →
+**38.25%** — STRONGEST POSITION IN γ.4 CORPUS HISTORY; directly
+supports v1.1 publisher-led uniqueness-angle pick per memory
+`project_v1_terminus`. SIXTEENTH production-scale N-W4 idempotency
+verification. TestGamma48FTier2AuditIntegration +20 pins (12
+signature-anchor pins one per Tier-2 finding + 3 per-book floor-
+pins + arc-close chapter-coverage regression-guard + Cyril-plurality-
+preservation + Tewahedo-canonical-block share-floor + Tier-2-
+substance-named _meta pins) + TestGamma4MetaPhasesCoverage γ.4.8.F
+extension +1 = +21 pins net. All pass.** shipped 2026-05-14. Triggered
+by user "continue, in C:\Users\bogda\Documents\v3 there is new
+information on the books of maccabees we just added last pass with
+new findings, please cross reference and update with new findings"
+after γ.4.8.E save. Cross-referenced v3 bundle's TIER2_AUDIT.md +
+CROSS_REFERENCE_APPENDIX.md (v2) + SOURCES.md (v2) against existing
+YHWH v2.4 Meqabyan apparatus; identified Tier-2 findings as the NEW
+content not yet in the project's apparatus; built γ.4.8.F as the
+post-arc-close integration ship.
+
+## Prior task (previous)
+
 **γ.4.8.B Mäṣḥafä Mäqabyan I detail wave — 40 verse-keyed entries
 deepening the 20 mq1 seed anchors to 60-entry substantive-detail
 coverage. FIRST DETAIL WAVE on the SIXTH-voice opened by γ.4.8 seed

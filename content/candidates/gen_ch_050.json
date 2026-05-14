@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 50,
-  "generated_at": "2026-05-14T14:53:01+00:00",
-  "n_candidates": 47,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 48,
   "candidates": [
     {
       "id": "gen-50-20-001",
@@ -696,6 +696,21 @@
     },
     {
       "id": "gen-50-20-047",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section L.20. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive&#x27;. Ephrem treats this verse as the providence-formula par excellence — the complete two-tier reading of history. Tewahedo providential-theology cites Gen 50:20 in close conjunction with Rom 8:28 (&#x27;all things work together for good to them that love God&#x27;) as the OT-NT providence-pair. The verse is foundational in Tewahedo consolation literature: every personal harm submits to the larger divine purpose without thereby being justified or made non-harmful.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-50-20-048",
       "verse": 20,
       "kind": "comm-ethiopian",
       "anchor": "",

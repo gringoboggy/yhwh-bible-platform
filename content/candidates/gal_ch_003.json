@@ -1,8 +1,8 @@
 {
   "book": "gal",
   "chapter": 3,
-  "generated_at": "2026-05-14T14:53:00+00:00",
-  "n_candidates": 107,
+  "generated_at": "2026-05-14T15:31:47+00:00",
+  "n_candidates": 109,
   "candidates": [
     {
       "id": "gal-3-1-001",
@@ -1596,6 +1596,36 @@
     },
     {
       "id": "gal-3-20-107",
+      "verse": 20,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.31",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.31</em> <small>(c. 350 AD)</small><p>&#x27;Now a mediator is not a mediator of one, but God is one&#x27; — Athanasius marks ho de mesitēs henos ouk estin / ho de theos heis estin (the mediator is not of one / but God is one) as the Pauline-monotheism + Christological-mediation conjunction. The verse preserves divine-unity (theos heis estin — God-is-one, the Shema Pauline-formulation) AND establishes Christ&#x27;s-mediatorial-office (mesitēs between God and humanity, requiring two-natures: divine to represent God + human to represent humanity). Tewahedo Christological-summary cites Gal 3:20 + 1 Tim 2:5 as the mediator-of-two-natures Pauline-pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.31. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gal-3-13-108",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §25",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §25</em> <small>(c. 350 AD)</small><p>&#x27;Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree&#x27; — Athanasius marks genomenos hyper hēmōn katara (having become for-us a curse) as the Pauline-substitutionary-summit. The Word-incarnate VOLUNTARILY-takes-on the legal-cursed-status (per Deut 21:23 quoted) that human-disobedience earned — and ABSORBS-it-in-his-own-flesh on the cross. The katara (curse) is taken-into-the-divine-Person and exhausted-by-his-resurrection-acceptance. Tewahedo Holy-Friday liturgical-meditation cites Gal 3:13 + Deut 21:23 + 1 Pet 2:24 as the cursed-on-the-tree triple-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §25. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gal-3-20-109",
       "verse": 20,
       "kind": "comm-ethiopian",
       "anchor": "",

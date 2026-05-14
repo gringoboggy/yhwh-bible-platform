@@ -6,6 +6,166 @@
 
 ---
 
+## 2026-05-14 — session — γ.4.8.F Mäqabyan TIER-2 AUDIT INTEGRATION (post-arc-close apparatus refinement; Wright 1877 fully-verified + Cowley 1974b date correction + Andǝmta-printed-book + Senkessar Ṭǝr 21/30 route; Meqabyan moves to sole 2nd-place at 212; Tewahedo-distinctive-canonical block 38.25%)
+
+**Phase shipped:** γ.4.8.F — Mäṣḥafä Mäqabyan **Tier-2 audit
+integration** (12 verse-keyed entries propagating the v3 CC0-
+translation bundle's TIER2_AUDIT.md library-source verification
+findings into the YHWH v2.4 Meqabyan apparatus). **POST-ARC-CLOSE
+APPARATUS REFINEMENT** — the γ.4.8.E ARC-CLOSE state (67/67 = 100%
+mq1+mq2+mq3 chapter coverage) preserved as regression-guarded
+invariant; γ.4.8.F layers Tier-2 findings inline without reopening
+or disturbing the closed-arc structure.
+
+**Tier-2 audit findings integrated (from v3 bundle TIER2_AUDIT.md):**
+
+1. **Wright 1877 *Catalogue of the Ethiopic Manuscripts in the British
+   Museum* FULLY VERIFIED** by direct reading (archive.org full text
+   `catalogueofethio00brituoft`). Seven BM Oriental shelfmarks
+   (487/489/491/502/504/505/506) confirmed. Horovitz fn-3 cross-ref
+   list corrected to seven entries (X 3, XI 9, XV 7, XXVI 10,
+   XXVIII 5, XXXI 2, XXXII 1); "XXX 1" dropped as OCR transcription
+   artifact (Wright entry XXX is Or. 829* with only Micah/Joel
+   fragment, no Maccabees material). Wright entry X (BM Or. 487 item
+   3) describes the work verbatim as "The Book of Maccabees ... in
+   **three parts**" — third independent witness to tripartite
+   structure alongside Dillmann + EOTC canonical tradition. Wright's
+   Preface (p. v) explicitly distinguishes Geʽez Meqabyan from the
+   later Vulgate-translation 1-2 Maccabees — external corroboration
+   of the project's core framing distinction. Wright's Preface also
+   independently attests the "**Liber Adami**" (Conflict of Adam and
+   Eve) as a catalogued part of the same Geʽez apocryphal corpus —
+   strengthening Round 3's addition of the Adambuch as proximate-
+   Geʽez recipient of the Satan-refused-Adam tradition.
+
+2. **Cowley date corrected from "1971" to "1974b"** — *Journal of
+   Ethiopian Studies* 12, no. 1 (January 1974), pp. 133-175 (esp.
+   p. 144). JSTOR stable URL 44324703. Conflation-source identified
+   as Cowley's separate 1971 "Baläandəm Commentaries" article (JES
+   9.1: 9-20). Article correctly-citable; full text remains paywalled.
+
+3. **Andǝmta Psalter commentary** confirmed as printed-Amharic-book
+   (not manuscript-only). The 3 Mq 2:23 "ten Consciousnesses" crux
+   is therefore consultable in a printed Amharic commentary volume —
+   upgraded from "manuscript hunt" to "locate printed volume" in
+   tractability.
+
+4. **Senkessar Abijā/Silä saint-dates route precise** — Budge, *The
+   Book of the Saints of the Ethiopian Church*, vol. 2 (public domain,
+   archive.org), entries **Ṭǝr 21** and **Ṭǝr 30** (≈ 29 January /
+   7 February Gregorian). The dates are Ethiopian-calendar Ṭǝr 21/30,
+   not Gregorian January 21/30 as older Ludolf-via-Horovitz citations
+   imply.
+
+5. **D'Abbadie *Catalogue Raisonné de MSS. Éthiopiens*** (Paris,
+   1859) **no. 55, items 28-30** — precise public-domain locator per
+   Wright cross-reference; refines SOURCES.md §3 "Abbadie MS" entry.
+
+**No translation-text changes** — every Tier-2 finding is an apparatus
+/ sources-index refinement.
+
+**Distribution (12 entries across 3 books):**
+
+- **mq1 (5 entries):** 1:5 Wright 1877 fully-verified + 11:3 Horovitz
+  fn-3 corrected list + 15:8 Wright-vs-Frankfurt tripartite-vs-
+  bipartite tension + 20:3 Budge Synaxarium Ṭǝr 21/30 + 36:46 Cowley
+  1974b date-correction.
+- **mq2 (3 entries):** 1:3 Wright Preface Meqabyan-vs-Vulgate-Maccabees
+  + 4:17 D'Abbadie no. 55 items 28-30 + 21:11 Tier-2-audit summary-
+  ledger anchor.
+- **mq3 (4 entries):** 1:17 Wright Preface "Liber Adami" attestation
+  + 2:24 Andǝmta Psalter printed-Amharic-book status + 4:17 Tier-3-
+  interpretive-flagging stance confirmation + 10:30 Wright "in three
+  parts" + Psalter book-ending-doxologies external corroboration.
+
+**Voice-mix milestone — Meqabyan moves to SOLE 2ND-PLACE:**
+
+```
+Pre-γ.4.8.F (1567 entries):         Post-γ.4.8.F (1579 entries):
+  Cyril       668  42.63%             Cyril       668  42.31%
+  Jubilees    200  12.76%             Meqabyan    212  13.43%  ← +12 SOLE 2ND
+  Meqabyan    200  12.76%  (TIE)      Jubilees    200  12.67%
+  1 Enoch     192  12.25%             1 Enoch     192  12.16%
+  Ephrem      157  10.02%             Ephrem      157   9.94%
+  Athanasius  150   9.57%             Athanasius  150   9.50%
+```
+
+Cyril plurality intact at 3.15× next-single-father (was 3.34× at
+γ.4.8.E arc-close); Tewahedo-distinctive-canonical block (Mäṣḥafä
+Hēnok + Mäṣḥafä Kufāle + Mäqabyan) hits **38.25%** — strongest
+position in γ.4 corpus history; directly supports v1.1 publisher-
+led uniqueness-angle pick per memory `project_v1_terminus`.
+
+**Pin tests added (TestGamma48FTier2AuditIntegration; 20 pins):**
+
+- Meqabyan ≥212 absolute-count milestone (per `feedback_share_pin_
+  pattern` — absolute-count, not share).
+- mq1 ≥105 / mq2 ≥55 / mq3 ≥52 per-book floor-pins.
+- **Arc-close 67/67 chapter-coverage REGRESSION-GUARD** (γ.4.8.E
+  invariant preserved).
+- 12 signature-anchor pins (one per Tier-2 finding) verifying each
+  finding lands at its target verse with appropriate-content match
+  (Wright/Horovitz/Frankfurt/Budge/Cowley/D'Abbadie/Andǝmta/Liber
+  Adami/Tier-3-Prov-8/three-parts).
+- Cyril plurality preservation per ω.41 §1 trajectory rule (≥2×
+  next-single-father).
+- Tewahedo-distinctive-canonical block ≥38% share-floor (v1.1
+  publisher-uniqueness-angle anchor).
+- Tier-2-substance-named _meta pins: Wright 1877 + Cowley 1974b +
+  JSTOR 44324703 + Andǝmta + Ṭǝr 21 + Liber Adami + no-translation-
+  body-changes claim + SIXTEENTH N-W4 verification ordinal.
+
+Plus TestGamma4MetaPhasesCoverage γ.4.8.F extension +1 = +21 pins net.
+
+**Ledger:**
+
+- `scripts/_ship_gamma48f.py` — new ship script.
+- `content/sources/ethiopian_commentaries.json` — entries 1567 → 1579;
+  _meta.source extended with γ.4.8.F integration ledger.
+- `content/notes/mq1.py` — 100 → 105 note tuples (+5).
+- `content/notes/mq2.py` — 52 → 55 note tuples (+3).
+- `content/notes/mq3.py` — 48 → 52 note tuples (+4).
+- `tests/test_ethiopian_gamma4.py` — TestGamma48FTier2AuditIntegration
+  class added (20 pins); TestGamma4MetaPhasesCoverage extended +1
+  for γ.4.8.F.
+- `dev/SESSION_STATE.md` — γ.4.8.F entry prepended.
+- `dev/IN_FLIGHT.md` — γ.4.8.F entry prepended.
+
+**Source-fidelity:** Per CROSS_REFERENCE_APPENDIX §1.1 + TIER2_AUDIT.md
+§1 Summary, the Tier-2 audit produced **NO TRANSLATION-TEXT CHANGES** —
+the v3 bundle's `translation_continuation.md` remains the v1 published
+text. The Tier-2 audit's substance is bibliographic-metadata-and-
+apparatus-refinement: 1 full verification (Wright); 1 bibliographic
+correction (Cowley date); 1 transcription-artifact cleanup ("XXX 1");
+2 independent corroborations (tripartite structure + Meqabyan-vs-
+Vulgate distinction); 5+ refined locators and access-routes. γ.4.8.F
+propagates these as 12 verse-keyed apparatus entries into the YHWH
+v2.4 Meqabyan inline-apparatus, preserving the closed-arc structure.
+
+**γ.4.8 ARC FINAL STATE (post-Tier-2 integration):**
+
+```
+γ.4.8     seed              (40 entries; multi-book)
+γ.4.8.B   Mäqabyan I detail (40 entries; mq1 70% coverage)
+γ.4.8.C   Mäqabyan II detail (40 entries; mq2 100% coverage achieved)
+γ.4.8.D   Mäqabyan III detail (40 entries; mq3 100% coverage achieved)
+γ.4.8.E   ARC-CLOSE         (40 entries; mq1 100% coverage achieved — EIGHTH §8.1)
+γ.4.8.F   Tier-2 audit integration (12 entries; post-arc-close apparatus refinement)
+─────────────────────────────────────────────────────
+Cumulative: 212 Meqabyan entries; 67/67 chapters (100% coverage preserved).
+Mäqabyan arc CLOSED (γ.4.8.E) + APPARATUS REFINED (γ.4.8.F Tier-2).
+```
+
+Triggered by user "continue, in C:\Users\bogda\Documents\v3 there is
+new information on the books of maccabees we just added last pass
+with new findings, please cross reference and update with new findings"
+after γ.4.8.E ARC-CLOSE save. Per memory `feedback_extensive_answers`
+(broadest scope): chose the comprehensive 12-entry inline-apparatus-
+integration approach with full pin coverage and durable Tier-2-
+substance-named _meta pins.
+
+---
+
 ## 2026-05-14 — session — γ.4.8.E Mäqabyan ARC-CLOSE (EIGHTH §8.1 instance; Mäqabyan ARC CLOSED at 200 entries — PARITY WITH JUBILEES; all-three-Mq-books at 100% chapter coverage; ω.43 §1 rules update)
 
 **Phase shipped:** γ.4.8.E — Mäṣḥafä Mäqabyan ARC-CLOSE (40 verse-

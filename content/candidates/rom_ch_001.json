@@ -1,8 +1,8 @@
 {
   "book": "rom",
   "chapter": 1,
-  "generated_at": "2026-05-14T14:53:03+00:00",
-  "n_candidates": 121,
+  "generated_at": "2026-05-14T15:31:49+00:00",
+  "n_candidates": 123,
   "candidates": [
     {
       "id": "rom-1-1-001",
@@ -1806,6 +1806,36 @@
     },
     {
       "id": "rom-1-4-121",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.14",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.14</em> <small>(c. 350 AD)</small><p>&#x27;And declared to be the Son of God with power, according to the spirit of holiness, by the resurrection from the dead&#x27; — Athanasius marks horisthentos huiou theou en dynamei (declared Son of God in power) as the post-resurrection PUBLIC-MANIFESTATION (NOT a promotion-to-divinity per the Arian-Adoptionist reading). The horizein (declare/mark-off) is a revelatory verb, not an ontological-constitution verb — the resurrection reveals what the Son already was eternally, en dynamei (in power). Athanasius pairs Rom 1:4 with Rom 1:3 (made of seed of David kata sarka — the Davidic-incarnate mode) as the two-clause confession: Davidic-flesh manifesting eternal-divine-Sonship. The Tewahedo Easter (Fāsika) Anaphora preserves the Rom 1:3-4 dual-confession at the Praise-of-the-Resurrection eucharistic-acclamation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.14. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-1-3-122",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.41",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.41</em> <small>(c. 350 AD)</small><p>&#x27;Concerning his Son Jesus Christ our Lord, which was made of the seed of David according to the flesh&#x27; — Athanasius marks kata sarka (according-to-the-flesh) as the qualifier that does NOT limit the Son to flesh-only-being but distinguishes the mode of his Davidic-descent. The Son is genomenou ek spermatos Dauid kata sarka (made of seed of David according to flesh) AND horisthentos huiou theou en dynamei kata pneuma hagiōsynēs (declared Son of God in power according to the Spirit of holiness, Rom 1:4) — the two kata-clauses run in parallel, naming the two dimensions of the one-incarnate-Person. The Davidic-descent is real (Mary&#x27;s lineage; cf. Mt 1, Lk 3) but it is the eternal-Son&#x27;s-becoming-Davidic, not a Davidic-man&#x27;s-becoming-divine. Tewahedo lineage-theology (the Kǝbrä Nägäśt&#x27;s Solomonic-line tradition) reads the Davidic-descent of Christ as the messianic-genealogy that the Solomonic-dynasty fulfills typologically.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.41. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-1-4-123",
       "verse": 4,
       "kind": "comm-ethiopian",
       "anchor": "",
