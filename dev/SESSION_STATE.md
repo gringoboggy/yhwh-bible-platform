@@ -1,5 +1,95 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / δ.1.0 Phase-4 Meqabyan Geʽez-revision SEED
+ship — INFRASTRUCTURE-ONLY FOUNDATION; multi-session δ.1.x cluster
+opens. Triggered by user "continue" after φ.1 + AUDIT_2026-05-14-LIGHT
+bundle saved as commit `2c27745`. Per memory `feedback_continue_not_
+save` + `feedback_extensive_answers` (broadest scope) +
+AUDIT_2026-05-14-LIGHT §5.2 recommendation, δ.1.0 selected as the
+Claude-side advance (τ.6.x.0c remains operator-blocked on Tesseract
+install). **δ.1.0 deliverables shipped:** (1) NEW
+`content/divergence/` directory + `meqabyan_geez_divergence.json`
+schema 1.0 with comprehensive _meta (phases_shipped [δ.1.0] +
+books mq1/mq2/mq3 + total_chapters 67 + chapters_per_book matching
+γ.4.8.E + confidence_threshold 0.8 + four honesty_rules + five
+divergence_classes + three regression_guarded_invariants named +
+entries [] at seed); (2) NEW `dev/PHASE4_MEQABYAN_TRACKER.md` —
+67-chapter status table adapted from project_maccabees_expansion/
+03_PROGRESS_TRACKER.md (per-book sub-tables mq1 36 + mq2 21 + mq3
+10 + status legend todo/draft/reviewed/arc-ready + δ.1.0→δ.1.Z
+cluster shipping ledger + honesty rules + closed-arc
+regression-guard list; all chapters todo at seed); (3) 2 NEW kinds
+in `content/kinds.yaml`: text-geez-revision (text category, [GZ]
+label, phase3 — Phase-4 page-image-tier1 fresh English rendering)
++ compare-divergence-geez (compare category, "Geʽez div." label,
+phase3 — inline-popup content-class divergence commentary); (4) NEW
+`scripts/build_meqabyan_revision.py` — per-book revision markdown
+assembler with confidence ≥ 0.8 floor + page-image-authority gate +
+divergence-class validation + low-confidence override requires
+reviewer sign-off; CLI flags --check / --allow-low-confidence /
+--reviewer; produces empty-entries placeholder at δ.1.0; (5) NEW
+`scripts/promote_divergence_to_apparatus.py` — content-class
+divergence promoter to compare-divergence-geez kind notes;
+is_promotable() gates on content-class + confidence + page-image;
+stable signature() for N-W4-pattern idempotency; refuses to mutate
+notes at δ.1.0 (gated to δ.1.x.A); (6) NEW
+`tests/test_parallel_bible_delta1.py` — **44 new pin tests across
+7 test groups** (DivergenceJson 10 + Tracker 5 + KindsRegistration
+3 + BuildTool 8 + PromoteTool 5 + ClosedArcInvariantPreservation 7
++ ToolsReferenceJson 3). All 44 pins pass; full δ.1.0 + φ.1 +
+τ.6.x.0b + τ.6.x.0a + Π.0 sweep 157 tests green. Project linter
+11/11 clean. Ruff clean across new files. **NO data ingest** —
+translation slots remain at Π.0 seed; meqabyan_geez_divergence.json
+has empty entries; content/notes/mq{1,2,3}.py NOT mutated; v1
+English NOT touched. **v1 English immutability** codified in 4
+places (JSON _meta + tracker + both tool docstrings). **Closed-arc
+invariants regression-guarded:** γ.4.8.E 67/67 intact + γ.4.8.F
+Meqabyan ≥212 + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b translation-slot contracts +
+γ.4.8 mq notes-files existence + δ.1.0 notes-files-not-mutated.
+Audit cadence resets post-AUDIT_2026-05-14-LIGHT — δ.1.0 is
+post-audit phase #1; +44 test drift; threshold (≥10 phases or
+≥150 tests) NOT reached.**
+
+**Parallel-Bible 8-phase roadmap status (post-δ.1.0):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED   2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED   2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED   2026-05-14 (c0172c4)
+φ.1      Font + typography polish          ✓ SHIPPED   2026-05-14 (2c27745)
+δ.1.0    Phase-4 Meqabyan SEED             ✓ SHIPPED   2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install       ⬜ pending   operator-side
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked   on .0c
+Π.1      Parallel-PDF Tewahedo 6           ⬜ pending   ~3-4 sessions
+τ.7.x    Amharic full-Bible ingest         ⬜ pending   blocked on .0c
+δ.1.x.A  mq1 1-9 Phase-4 batch             ⬜ next      ~2 sessions
+δ.1.x.B-G More batches                     ⬜ pending   ~10-15 sessions total
+δ.1.Z    Arc-close 67/67                   ⬜ gated     on .A-G
+Π.2      Ethiopian-tewahedo flip           ⬜ pending   gated on τ.6.x + Π.1 + τ.7.x
+δ.2      v3 Meqabyan publication           ⬜ pending   gated on δ.1.Z
+```
+
+**Recommended next steps:**
+
+- **save** — δ.1.0 uncommitted since the φ.1 + AUDIT save earlier
+  this session. Build-up since 2c27745: +44 pin tests + new
+  divergence JSON + new tracker + 2 new kinds + 2 new tool
+  skeletons + state docs.
+- **δ.1.x.A** (Claude-side, ~2 sessions) — first Phase-4 page-image
+  batch covering mq1 chapters 1-9. Operator renders Geʽez at 350
+  dpi from the parallel-Bible PDF (pages 1318-1365 for 1 Mq);
+  translates verse-by-verse; appends to JSON; runs the build tool;
+  updates tracker.
+- **Π.1** (parallel-unblocked, ~3-4 sessions) — alternative
+  Claude-side advance: Parallel-PDF Tewahedo-distinctive extraction.
+- **τ.6.x.0c** (operator-side) — Tesseract install + tessdata
+  verification.
+
+---
+
+## Prior δ.1.0 session
+
 **Updated 2026-05-14 / φ.1 Font + typography polish ship — PARALLEL-
 UNBLOCKED PHASE; runs concurrently with τ.6.x.0c (operator-side) and
 δ.1.x (Phase-4 multi-session). Triggered by user "save and continue"

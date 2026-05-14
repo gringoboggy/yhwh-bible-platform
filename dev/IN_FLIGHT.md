@@ -4,6 +4,35 @@
 
 ## Prior task
 
+**δ.1.0 Phase-4 Meqabyan Geʽez-revision SEED — INFRASTRUCTURE-ONLY
+FOUNDATION; multi-session δ.1.x cluster opens. Triggered by user
+"continue" after φ.1 + AUDIT_2026-05-14-LIGHT bundle saved as
+commit `2c27745`. Per memory `feedback_continue_not_save` +
+`feedback_extensive_answers` + AUDIT §5.2 recommendation. Shipped:
+(1) NEW content/divergence/meqabyan_geez_divergence.json schema 1.0
+with comprehensive _meta (phases_shipped + books + chapters_per_book
+matching γ.4.8.E + confidence_threshold 0.8 + four honesty_rules +
+five divergence_classes + three regression_guarded_invariants
+named; entries [] at seed); (2) NEW dev/PHASE4_MEQABYAN_TRACKER.md
+67-chapter status table with status legend + δ.1.0→δ.1.Z cluster
+shipping ledger; (3) 2 NEW kinds in content/kinds.yaml
+(text-geez-revision [GZ] + compare-divergence-geez Geʽez-div.);
+(4) NEW scripts/build_meqabyan_revision.py per-book revision
+markdown assembler with confidence ≥ 0.8 + page-image-authority +
+divergence-class validation; (5) NEW
+scripts/promote_divergence_to_apparatus.py content-class divergence
+promoter with N-W4-pattern idempotency signature; (6) NEW
+tests/test_parallel_bible_delta1.py 44 pins across 7 test groups.
+NO data ingest at δ.1.0: meqabyan_geez_divergence.json entries: [];
+content/notes/mq{1,2,3}.py NOT mutated; v1 English NOT touched.
+v1 English immutability codified in 4 places. Closed-arc invariants
+regression-guarded (γ.4.8.E 67/67 + γ.4.8.F ≥212 + Π.0.1 + Π.0.4
++ τ.6.x.0a/b translation-slot contracts). All 44 new pins pass;
+sweep 157 green; project linter 11/11 clean.** shipped 2026-05-14.
+Triggered by user "continue" after φ.1 + audit save 2c27745.
+
+## Prior task (previous)
+
 **φ.1 Font + typography polish — PARALLEL-UNBLOCKED PHASE; runs
 concurrently with τ.6.x.0c (operator-side Tesseract install) and
 δ.1.x (Phase-4 multi-session). Triggered by user "save and continue"

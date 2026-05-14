@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "source": "Phase-4 Geʽez-revision (project_maccabees_expansion/, δ.1.x cluster, seeded at δ.1.0 2026-05-14)",
+    "schema_version": "1.0",
+    "phases_shipped": ["δ.1.0"],
+    "phase_4_methodology_doc": "project_maccabees_expansion/02_METHODOLOGY.md",
+    "tracker_doc": "dev/PHASE4_MEQABYAN_TRACKER.md",
+    "books": ["mq1", "mq2", "mq3"],
+    "total_chapters": 67,
+    "chapters_per_book": {"mq1": 36, "mq2": 21, "mq3": 10},
+    "confidence_threshold": 0.8,
+    "honesty_rules": {
+      "no_ocr_trust": true,
+      "page_image_authority": true,
+      "flag_uncertain_readings": true,
+      "v1_english_immutable_during_delta1x": true
+    },
+    "divergence_classes": [
+      "lexical",
+      "structural",
+      "content",
+      "numbering",
+      "trivial"
+    ],
+    "regression_guarded_invariants": {
+      "gamma48E_arc_close_67_67": "Meqabyan apparatus 67/67 chapter coverage (mq1 36/36 + mq2 21/21 + mq3 10/10) preserved as regression-guarded invariant during δ.1.x.",
+      "gamma48F_count_floor": "Meqabyan voice count must remain ≥212 during δ.1.x (the apparatus body is NOT modified by δ.1.x; divergence apparatus is a separate artifact).",
+      "v1_english_immutable": "translation_continuation.md v1 English readings are NEVER modified during δ.1.x; divergence apparatus and revision markdown are separate artifacts. Merge into v3 happens at δ.2 (separate phase, gated on publisher review)."
+    }
+  },
+  "entries": []
+}

@@ -6,6 +6,202 @@
 
 ---
 
+## 2026-05-14 — session — δ.1.0 PHASE-4 MEQABYAN GEʽEZ-REVISION SEED (multi-session δ.1.x cluster opens; content/divergence/meqabyan_geez_divergence.json + dev/PHASE4_MEQABYAN_TRACKER.md + 2 new kinds + 2 tool skeletons; honesty rules codified; arc-close to δ.1.Z gated on 67/67 chapter coverage + GEEZ_DIVERGENCE_SUMMARY; v1 English immutable during arc; no data ingest)
+
+**Phase shipped:** δ.1.0 — Phase-4 Meqabyan Geʽez-revision SEED.
+Seventh tracked phase of the 8-phase parallel-Bible expansion
+(`dev/SCOPE_2026-05-14-parallel-bible.md` §5 δ.1.x). δ.1.0 is the
+FOUNDATION phase of the multi-session δ.1.x cluster (~15-25 sessions
+total, sub-phases δ.1.x.A through δ.1.x.G plus the δ.1.Z arc-close
+gate). δ.1.0 itself is INFRASTRUCTURE-ONLY — no divergence entries,
+no notes-file mutations, no v1 English changes.
+
+**Triggered by:** user "continue" after φ.1 + AUDIT_2026-05-14-LIGHT
+bundle saved as commit `2c27745`. Per memory `feedback_continue_not_
+save` (continue advances next phase) + `feedback_extensive_answers`
+(broadest scope) + AUDIT_2026-05-14-LIGHT §5.2 recommendation
+("δ.1.x seed — parallel-unblocked, Claude-side multi-session;
+highest content-value next move per γ.4.8.F Tewahedo-distinctive
+38.25% v1.1 anchor"), δ.1.0 selected as the Claude-side advance
+(τ.6.x.0c remains operator-side and awaits Tesseract install).
+
+**δ.1.0 deliverables shipped:**
+
+1. NEW `content/divergence/` directory.
+2. NEW `content/divergence/meqabyan_geez_divergence.json` — schema
+   1.0 with comprehensive `_meta` block:
+   - `phases_shipped: ["δ.1.0"]` — extended at each batch ship.
+   - `books: ["mq1", "mq2", "mq3"]` + `total_chapters: 67` +
+     `chapters_per_book: {mq1: 36, mq2: 21, mq3: 10}` — matches
+     γ.4.8.E arc-close codification exactly.
+   - `confidence_threshold: 0.8` — enforced by both tools.
+   - `honesty_rules`: no_ocr_trust + page_image_authority +
+     flag_uncertain_readings + v1_english_immutable_during_delta1x
+     (all True).
+   - `divergence_classes: [lexical, structural, content, numbering,
+     trivial]` — five classes, only "content" promoted to apparatus.
+   - `regression_guarded_invariants`: named pins for γ.4.8.E 67/67
+     + γ.4.8.F count floor + v1 immutability.
+   - `entries: []` — δ.1.x.A-G batches append.
+
+3. NEW `dev/PHASE4_MEQABYAN_TRACKER.md` — 67-chapter status table
+   adapted from the operator-side `project_maccabees_expansion/
+   03_PROGRESS_TRACKER.md` (not re-vendored). Three per-book
+   sub-tables (1 Mäqabyan 36 + 2 Mäqabyan 21 + 3 Mäqabyan 10)
+   with status legend (todo/draft/reviewed/arc-ready) + cluster
+   shipping ledger (δ.1.0 through δ.1.Z) + honesty rules
+   summary + closed-arc regression-guard list. All chapters at
+   "todo" at seed.
+
+4. 2 NEW kinds in `content/kinds.yaml`:
+   - **`text-geez-revision`** (text category, ✧ symbol, "[GZ]"
+     label, phase3) — fresh English rendering from 350 dpi
+     page-image read; marks verses where operator-verified
+     Geʽez diverges from v1 English; authoritative for v3
+     candidates; v1 English remains immutable until δ.2.
+   - **`compare-divergence-geez`** (compare category, ☩ symbol,
+     "Geʽez div." label, phase3) — inline-popup-visible
+     commentary on content-class divergences; surfaced from
+     the divergence JSON by `promote_divergence_to_apparatus.py`
+     when `divergence_class == "content"`.
+
+5. NEW `scripts/build_meqabyan_revision.py` — assembles per-book
+   revision markdown from the divergence JSON:
+   - Loads + validates `_meta` block.
+   - `validate_entry()` enforces: required fields present +
+     `page_image_verified` True + `confidence >= 0.8` (with
+     `--allow-low-confidence` + `--reviewer` override sign-off) +
+     `divergence_class` in the documented 5-element set.
+   - `assemble_book_markdown()` emits the per-book revision
+     content with Geʽez + Amharic + v1 English (read-only display) +
+     [GZ] revised English + divergence note + confidence + operator
+     session metadata. At δ.1.0 (empty entries), produces a
+     "0 entries this revision" placeholder header.
+   - CLI: `--check`, `--divergence-json`, `--output-dir`,
+     `--allow-low-confidence`, `--reviewer`.
+
+6. NEW `scripts/promote_divergence_to_apparatus.py` — promotes
+   content-class divergences as `compare-divergence-geez` notes:
+   - `is_promotable()` enforces: `divergence_class == "content"`
+     (lexical/structural/numbering/trivial are kept ONLY in the
+     per-book revision markdown, not the inline apparatus) +
+     `page_image_verified` True + `confidence >= 0.8`.
+   - `signature()` produces stable per-entry idempotency keys
+     (`book|chapter|verse|operator_session`) matching the N-W4
+     idempotency pattern from γ.4.6.D / γ.4.7 / γ.4.8.
+   - δ.1.0 seed-ship behavior: empty JSON → no-op + clean exit.
+     Notes-file mutation logic is deliberately NOT implemented
+     at δ.1.0 (gated to δ.1.x.A); refuses with exit 3 if asked
+     to write at δ.1.0.
+   - CLI: `--check`, `--dry-run`, `--divergence-json`, `--notes-dir`.
+
+7. NEW `tests/test_parallel_bible_delta1.py` — **44 new pin tests
+   across 7 test groups:**
+
+   - **TestDelta10DivergenceJson (10 pins):** JSON exists; schema
+     1.0; phases_shipped includes δ.1.0; books list; chapters_per_
+     book matches γ.4.8.E codification; confidence_threshold 0.8;
+     honesty_rules all True; divergence_classes complete; regression-
+     guarded invariants named; entries empty at seed.
+   - **TestDelta10Tracker (5 pins):** tracker exists; lists three
+     books; per-book chapter counts; honesty rules section; γ.4.8.E
+     + γ.4.8.F regression-guard cross-refs; cluster ledger lists
+     δ.1.0 through δ.1.Z sub-phases.
+   - **TestDelta10KindsRegistration (3 pins):** text-geez-revision
+     registered with [GZ] label; compare-divergence-geez registered
+     with appropriate title_attr; legacy/mvp kinds preserved
+     (regression-guard).
+   - **TestDelta10BuildTool (8 pins):** build tool exists + loads;
+     BOOKS list matches γ.4.8.E codification; refuses low-confidence
+     without override; low-confidence requires reviewer name;
+     refuses page_image_verified=false; refuses bad divergence_class;
+     accepts good entry; empty-entries markdown produces placeholder.
+   - **TestDelta10PromoteTool (5 pins):** promote tool exists +
+     loads; PROMOTED_KIND constant; only content-class promotable;
+     full-compliance content promotable; low-confidence skipped;
+     signature is stable across same-entry calls + differs across
+     operator-sessions.
+   - **TestDelta10ClosedArcInvariantPreservation (7 pins):** amharic
+     in POPUP_LANGUAGES preserved; EMBED_FONT_PATHS = [] preserved
+     (Π.0.4 + φ.1); Meqabyan 67/67 chapter coverage intact (γ.4.8.E);
+     Meqabyan count ≥212 floor preserved (γ.4.8.F); geez-tewahedo +
+     amharic-tewahedo slots remain at gen.py-only seed state
+     (τ.6.x.0a + τ.6.x.0b contracts); mq1/mq2/mq3 notes files
+     exist (γ.4.8 seed preserved); δ.1.0 contract that notes
+     files NOT mutated during seed.
+   - **TestDelta10ToolsReferenceJson (3 pins):** both tools point
+     to canonical divergence JSON path; tracker references JSON.
+
+   All 44 pins pass; full δ.1.0 + φ.1 + τ.6.x.0b + τ.6.x.0a + Π.0
+   sweep 157 tests green. Project linter 11/11 clean after
+   CHANGELOG update (the δ.1.0 + δ.1.Z phase mentions now tracked).
+   Ruff clean across new files.
+
+**NO data ingest at this phase.** All translation slots remain at
+Π.0 seed; meqabyan_geez_divergence.json has empty entries;
+content/notes/mq{1,2,3}.py NOT mutated; v1 English NOT touched.
+The δ.1.0 contract is INFRASTRUCTURE-ONLY: tools, schema, tracker,
+kinds — all the surface area that subsequent δ.1.x.A-G batches
+need, with zero apparatus-body changes.
+
+**v1 English immutability** is the foundational δ.1.x honesty
+contract — codified in 4 places (JSON `_meta.honesty_rules.v1_
+english_immutable_during_delta1x`; JSON `_meta.regression_guarded_
+invariants.v1_english_immutable`; tracker §"Honesty rules"; both
+tool docstrings). Merge of divergence-confirmed improvements into
+the published v3 happens at δ.2 (separate phase, gated on
+publisher review per SCOPE §5 δ.2).
+
+**Closed-arc invariants regression-guarded** (7 explicit pins in
+TestDelta10ClosedArcInvariantPreservation): γ.4.8.E 67/67 intact +
+γ.4.8.F Meqabyan ≥212 floor + Π.0.1 amharic-in-POPUP_LANGUAGES +
+Π.0.4 EMBED_FONT_PATHS = [] (preserved through φ.1) +
+τ.6.x.0a/τ.6.x.0b translation-slot contracts + γ.4.8 mq1/mq2/mq3
+notes files existence + δ.1.0 notes-files-not-mutated contract.
+
+**Parallel-Bible 8-phase roadmap status (post-δ.1.0):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED   2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED   2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED   2026-05-14 (c0172c4)
+φ.1      Font + typography polish          ✓ SHIPPED   2026-05-14 (2c27745)
+δ.1.0    Phase-4 Meqabyan SEED             ✓ SHIPPED   2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install       ⬜ pending   operator-side
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked   on .0c
+Π.1      Parallel-PDF Tewahedo 6           ⬜ pending   ~3-4 sessions
+τ.7.x    Amharic full-Bible ingest         ⬜ pending   blocked on .0c
+δ.1.x.A  mq1 1-9 batch (Phase-4 page-image) ⬜ pending  next δ.1.x ship; ~2 sessions
+δ.1.x.B  mq1 10-18 batch                   ⬜ pending   ~2 sessions
+δ.1.x.C-G More batches                     ⬜ pending   ~10-15 sessions total
+δ.1.Z    Arc-close 67/67 + GEEZ_DIVERGENCE_SUMMARY  ⬜ gated on .A-G
+Π.2      Ethiopian-tewahedo flip           ⬜ pending   gated on τ.6.x + Π.1 + τ.7.x
+δ.2      v3 Meqabyan publication           ⬜ pending   gated on δ.1.Z + publisher review
+```
+
+**Audit cadence reset:** AUDIT_2026-05-14-LIGHT shipped one phase
+ago (commit `2c27745`). δ.1.0 is post-audit phase #1. Both
+thresholds for the NEXT lighter audit reset to: ≥10 phases or
+≥150 test-count drift after AUDIT_2026-05-14-LIGHT. Current drift:
++44 (δ.1.0 alone). Phases-since-audit: 1. Threshold not reached.
+
+**Next-phase recommendations:**
+
+- **δ.1.x.A** (Claude-side, ~2 sessions) — first Phase-4
+  page-image batch: mq1 chapters 1-9. Operator picks chapters
+  from tracker; renders Geʽez column at 350 dpi; translates
+  verse-by-verse from page images; appends entries to
+  meqabyan_geez_divergence.json (`page_image_verified: true` +
+  `confidence ≥ 0.8` + `operator_session` tagged); runs
+  build_meqabyan_revision.py; updates tracker.
+- **τ.6.x.0c** (operator-side) — Tesseract install + tessdata
+  availability verification.
+- **Π.1** (parallel-unblocked, ~3-4 sessions) — Parallel-PDF
+  Tewahedo-distinctive extraction (the remaining unblocked
+  Claude-side option that doesn't open δ.1.x batches).
+
+---
+
 ## 2026-05-14 — session — φ.1 FONT + TYPOGRAPHY POLISH (five Ethiopic-aware CSS refinements on .vnote-geez/.vnote-amharic; @font-face font-display:swap + optional unicode_range; new patch_opf_fonts() helper backfills OPF manifest for embedded fonts with correct media-types; fonts/README.md corrected + φ.1 workflow documented; v1.0 reproducibility preserved via no-op-when-empty; no data ingest)
 
 **Phase shipped:** φ.1 — Font + typography polish. Sixth tracked

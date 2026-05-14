@@ -208,6 +208,16 @@ kinds:
     description: "Textual-critical commentary on manuscript / version witnesses to a verse, drawn from PD textual-criticism literature (Kenyon 1895, etc.)."
     phase: mvp
 
+  - code: text-geez-revision
+    category: text
+    symbol: "✧"
+    note_class: "note-text-geez-revision"
+    marker_class: "marker-text-geez-revision"
+    label: "[GZ]"
+    title_attr: "Phase-4 Geʽez-revision (page-image-tier1)"
+    description: "Fresh English rendering from a 350 dpi Geʽez-column page-image read per the Phase-4 methodology (δ.1.x cluster). Marks verses where the operator-verified Geʽez reading diverges from the v1 English. Authoritative for v3 candidates; v1 English remains immutable until δ.2 publisher review."
+    phase: phase3
+
   # ──────────────────────────────────────────────────────────────────
   # CROSS-REFERENCES  ‖
   # ──────────────────────────────────────────────────────────────────
@@ -536,6 +546,16 @@ kinds:
     label: "Gnostic"
     title_attr: "Gnostic / Nag Hammadi parallel"
     description: "Gospel of Thomas, Apocryphon of John, etc."
+    phase: phase3
+
+  - code: compare-divergence-geez
+    category: compare
+    symbol: "☩"
+    note_class: "note-compare-divergence-geez"
+    marker_class: "marker-compare-divergence-geez"
+    label: "Geʽez div."
+    title_attr: "Phase-4 Geʽez vs v1 English divergence note"
+    description: "Inline-popup-visible commentary on a substantive divergence between the v1 published English and the Phase-4 page-image Geʽez-revision reading (δ.1.x cluster). Surfaced from content/divergence/meqabyan_geez_divergence.json by scripts/promote_divergence_to_apparatus.py when an entry's divergence_class is 'content' (not lexical/structural/numbering/trivial). v1 English remains immutable until δ.2 publisher review."
     phase: phase3
 
   # ──────────────────────────────────────────────────────────────────
