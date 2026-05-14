@@ -257,10 +257,10 @@ demands public-domain provenance and trustworthy text.
 
 | Source | Scope | License | Quality | Best for |
 |---|---|---|---|---|
-| **eBible.org `gez-Geez_vpl.zip`** | Full Bible | Public Domain | Clean machine-readable VPL (the format `extract_translation.py` already supports) | **Bulk ingest** of the Bible's 66 standard-canon books |
-| **Pell-Platt 1830 BFBS NT** | New Testament | Public Domain | Clean printed source; need OCR or transcription | Secondary witness for the NT |
-| **BFBS 1853 Geʽez Old Testament** | OT | Public Domain | Clean printed source; need OCR or transcription | Secondary witness for OT |
-| **Parallel Bible PDF (`Bible_Amharic_and_Geez.pdf`)** | Full Bible 2,539 pages | EOTC publication, presumed public-interest scholarly use | OCR garbled per Phase 4 docs — page images authoritative | **Authoritative for Meqabyan and any Tewahedo-distinctive book NOT in eBible.org's canon** (1 Enoch, Jubilees, Meqabyan 1-3, Letter to Laodiceans) |
+| ~~eBible.org `gez-Geez_vpl.zip`~~ | ~~Full Bible~~ | — | — | **REMOVED — verified unavailable 2026-05-14 at τ.6.x.0 audit**. HTTP 404 on `gez-Geez/`; `details.php?id=gez-Geez` returns "ID not found"; eBible.org find-page lists 1,546 translations with ZERO `gez`/`geez` IDs. |
+| **Parallel Bible PDF (`Bible_Amharic_and_Geez.pdf`)** | Full Bible 2,539 pages, **EOTC FULL BIBLE** edition | EOTC publication, public-interest scholarly use | PDF text layer: OCR garbled for Geʽez per Phase 4 docs (acceptable for Amharic). Page images authoritative for both. | **PRIMARY source post-τ.6.x.0 pivot** — replaces eBible.org as the unified parallel-Bible Geʽez + Amharic source for ALL books |
+| **Pell-Platt 1830 BFBS NT** | New Testament | Public Domain | Clean printed source; need OCR or transcription | Secondary witness for the NT (future ingest) |
+| **BFBS 1853 Geʽez Old Testament** | OT | Public Domain | Clean printed source; need OCR or transcription | Secondary witness for OT (future ingest) |
 
 **Recommended strategy:**
 
@@ -844,6 +844,68 @@ option per `feedback_extensive_answers`, gets the highest-value
 data (the parallel-Bible texts) into the publishing pipeline
 fastest, and treats Phase-4 Meqabyan as the slow-burn parallel
 project the v3 handoff package designed it to be.
+
+---
+
+## §7.5 — τ.6.x.0a follow-up: OCR quality (NEW DECISION POINT, 2026-05-14)
+
+The τ.6.x.0 pivot found that eBible.org's `gez-Geez_vpl.zip` is no
+longer available; the parallel-Bible PDF is the primary source. The
+τ.6.x.0a infrastructure ship built `scripts/extract_parallel_pdf.py`
+and verified it runs end-to-end against the publisher's PDF —
+**confirming the Phase-4 docs' warning that the OCR is garbled
+for Geʽez**.
+
+A pilot extraction of 1 Mq Ch 1 produced text with:
+- Wrong vowel-order selections for Geʽez fidel
+- Latin/English character bleed-through in the Geʽez column
+  ("aut", "vee", "Lae" appearing inside ግዕዝ text)
+- Verse numbers occasionally wrong (e.g. "1:33" appearing in a
+  chapter with only 28 verses)
+- Amharic column slightly better but still error-prone
+
+**Per the τ.6.x.0a contract, the geez-tewahedo and amharic-tewahedo
+translation slots REMAIN at their Π.0 seed state** (3 verses on
+Genesis only). The OCR extraction tool exists and runs but does NOT
+populate translation slots with garbled data. A follow-up phase
+**τ.6.x.0b** must choose ONE of these source-quality strategies
+before ANY full-Bible bulk ingest proceeds:
+
+### Option A — Better OCR engine (Tesseract Amharic/Geʽez)
+- Install Tesseract OCR with `tessdata` for Amharic (`amh`) and
+  Geʽez (`gez` if available).
+- Run Tesseract directly on the PDF page images.
+- Pros: free, offline, controllable. Cons: still imperfect; Geʽez
+  language pack may not exist (Tesseract has `amh` but `gez` is
+  often missing).
+
+### Option B — Cloud OCR (Google Cloud Vision / Azure / AWS Textract)
+- Use a cloud OCR API with Amharic + Geʽez script support.
+- Pros: state-of-the-art quality for Ethiopic. Cons: costs money;
+  requires publisher authorization for API spend; sends scan
+  images to a third party.
+
+### Option C — Page-image manual transcription (Phase-4 method)
+- Per `project_maccabees_expansion/02_METHODOLOGY.md §3`: render
+  each page at 350 dpi, read the fidel directly, transcribe.
+- Pros: highest quality; matches the Phase-4 method already in
+  use for Meqabyan. Cons: slow (~1 chapter per session); not
+  practical for whole-Bible bulk extraction (would take 50+
+  sessions).
+
+### Option D — Hybrid (recommended pending publisher input)
+- Use OCR-tier-3 from the PDF as a STARTING BASELINE.
+- Tag every entry with `SOURCE_QUALITY = "ocr-tier3"` so readers
+  and downstream tools know.
+- High-priority books (Meqabyan, 1 Enoch, Jubilees) get upgraded
+  to `page-image-tier1` via the δ.1.x Phase-4 methodology.
+- Other books stay at tier-3 with an explicit caveat in the
+  reader-facing apparatus.
+- This unblocks the wider bulk-ingest goal while preserving honesty.
+
+**The τ.6.x.0b phase will resolve this choice with the publisher's
+input. Until then, the τ.6.x.0a infrastructure stays in place but
+extraction is gated to operator-authorized per-book runs only.**
 
 ---
 

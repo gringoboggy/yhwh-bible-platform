@@ -1,0 +1,112 @@
+# Source provenance — Parallel Geʽez–Amharic EOTC Bible
+#
+# This file documents the source PDF used by τ.6.x and τ.7.x for
+# the parallel-Bible expansion. The PDF itself is NOT committed to
+# the repository because (1) it is 202 MB which exceeds the
+# project's binary-commit threshold without publisher authorization,
+# and (2) it is publisher-supplied material that already lives in
+# the user's local working directory.
+#
+# When the parallel-PDF extraction tool (scripts/extract_parallel_pdf.py)
+# runs, it resolves the PDF path through the search order documented
+# below. If the file cannot be found, the tool exits with a clear
+# error message pointing here.
+
+source_id: parallel-bible-eotc
+description: |
+  The parallel Geʽez–Amharic edition of the Ethiopian Orthodox
+  Tewahedo Church (EOTC) Bible. 2,539 pages. Layout: Geʽez in the
+  left column, Amharic in the right column, verse-aligned, with
+  shared chapter headers (ምዕራፍ + Geʽez numeral). The same source
+  the project_maccabees_expansion/ handoff package uses for the
+  Phase-4 Geʽez-revision of Meqabyan; PROMOTED to the project's
+  PRIMARY Geʽez + Amharic source at τ.6.x.0 (2026-05-14) after
+  eBible.org's gez-Geez slot was verified removed.
+
+primary_filename: Bible_Amharic_and_Geez.pdf
+total_pages: 2539
+
+# PDF size (bytes); checksum for integrity-verification.
+expected_size_bytes: 202694977
+expected_sha256: null  # populated at τ.6.x ship time
+
+# Path resolution — the extractor tries these in order until one
+# exists. Operator can override via PARALLEL_BIBLE_PDF env var.
+resolution_paths:
+  - "${PARALLEL_BIBLE_PDF}"  # env-var override (highest priority)
+  - "../../project_maccabees_expansion/Bible_Amharic_and_Geez.pdf"  # publisher-supplied
+  - "${HOME}/Documents/project_maccabees_expansion/Bible_Amharic_and_Geez.pdf"
+  - "${USERPROFILE}/Documents/project_maccabees_expansion/Bible_Amharic_and_Geez.pdf"
+  - "content/translations/sources/parallel-bible-eotc/Bible_Amharic_and_Geez.pdf"  # in-repo location if ever committed
+
+# Provenance — where the publisher obtained the original.
+archive_org_id: EOTXC_HOLYSCRIPTS_ALL_BOOKS
+archive_org_url: https://archive.org/details/EOTXC_HOLYSCRIPTS_ALL_BOOKS
+publisher_name: Ethiopian Orthodox Tewahedo Church
+publisher_url: https://www.ethiopianorthodox.org/
+
+# Structural map — known book-page ranges. EXPANDED as τ.6.x extraction
+# proceeds book-by-book.
+#
+# IMPORTANT: page indices below are 0-INDEXED PDF page indices into
+# `Bible_Amharic_and_Geez.pdf` (2,539 pages). They are NOT the same as
+# the archive.org scan-page numbers used in
+# `project_maccabees_expansion/01_MASTER_PLAN.md §3` (which refer to
+# the 76-page Meqabyan_Geez_Amharic_parallel.pdf extract; that
+# extract's indexing starts at 0 = the full PDF's scan-page 832 area).
+#
+# Verified empirically at τ.6.x.0a (2026-05-14) by scanning for
+# 'መጽሐፈ መቃብያን' title markers and chapter headers in the full PDF.
+structural_map:
+  meqabyan:
+    book_codes: [mq1, mq2, mq3]
+    pdf_page_range: [1318, 1378]
+    pdf_index_offset: 0  # the values above are already 0-indexed
+    verified: true
+    verified_date: 2026-05-14
+    notes: |
+      Verified at τ.6.x.0a (2026-05-14) by scanning the FULL Bible
+      PDF for book-title markers. The full PDF is 2,539 pages with
+      Genesis at page 0; Meqabyan occupies pages 1318-1378
+      (approximately; book boundaries within the section confirmed
+      by the 'መጽሐፈ መቃብያን ቀዳማዊ/ካልዕ/ሣልስ' title-marker scan).
+
+      Sub-ranges within meqabyan (publisher convention):
+        1 Mq = pages 1318-1365 (36 chapters) — opens at 1318 with
+               'መጽሐፈ • መቃብያን ፡ ቀዳማዊ'
+        2 Mq = pages 1366-1372 (21 chapters) — opens at 1366 with
+               'መጽሐፈ ፣ መቃብያን ፣ ክልፅ' (Meqabyan II / 'second')
+        3 Mq = pages 1373-1378 (10 chapters) — opens at 1373 with
+               'መጽሐፈ ፣ መቃብያን • ሣልስ' (Meqabyan III / 'third')
+
+      Note: the 76-page Meqabyan_Geez_Amharic_parallel.pdf extract
+      uses a different page numbering (scan pages 832-907 from the
+      archive.org metadata). For τ.6.x.0a we use the FULL PDF's
+      0-indexed pages because that PDF is the publisher's primary
+      submitted file.
+
+  # All other books TBD — expanded as τ.6.x extraction proceeds.
+  # The publisher's parallel PDF starts at Genesis (page 0) and
+  # continues through the EOTC canon. Approximate book starts to be
+  # determined empirically book-by-book as ingestion proceeds.
+
+# OCR caveats — see project_maccabees_expansion/05_GEEZ_REFERENCE.md §5
+ocr_caveats: |
+  The PDF has an OCR text layer but it is BADLY GARBLED for Geʽez:
+  - Wrong vowel orders selected by the OCR
+  - Invented fidel that aren't on the page (e.g. ወገብረ → ወንዳረ ቘልፌኤቱ)
+  - Latin/English page-header text bleeds into the Geʽez column at margins
+  - Geʽez numerals (overlined) frequently dropped or mis-read
+
+  The Amharic OCR is acceptable in places but also has errors.
+
+  Per the project_maccabees_expansion/02_METHODOLOGY.md §2 the
+  AUTHORITATIVE source is the page image at 350 dpi, NOT the OCR
+  text layer. The extraction tool tags every entry with a
+  source_quality field reflecting whether it was page-image-
+  verified or OCR-only.
+
+source_quality_tiers:
+  ocr_tier3: "PDF OCR text layer — flagged for review; quality varies by page; Geʽez is unreliable"
+  ocr_tier2: "PDF OCR with operator cross-check against page image — acceptable for non-Meqabyan books"
+  page_image_tier1: "Page-image verified per Phase-4 methodology — production quality; required for Meqabyan and Tewahedo-distinctive books"

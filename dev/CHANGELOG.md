@@ -6,6 +6,124 @@
 
 ---
 
+## 2026-05-14 — session — τ.6.x.0a PARALLEL-PDF EXTRACTION INFRASTRUCTURE + SOURCE PIVOT (eBible.org gez-Geez verified removed; parallel-Bible PDF promoted to primary; extract_parallel_pdf.py built; OCR-quality decision point opened for τ.6.x.0b)
+
+**Phase shipped:** τ.6.x.0a — Parallel-PDF extraction
+infrastructure + source pivot. Second phase of the 8-phase
+parallel-Bible expansion plan (`dev/SCOPE_2026-05-14-parallel-bible.md`).
+
+**Audit conducted at session start** (lightweight, in-line per the
+publisher's "run audits whenever you have to" authorization):
+
+- **Subject:** eBible.org gez-Geez_vpl.zip availability (declared
+  in τ.6 seed `_meta.yaml` as the planned bulk-ingest source).
+- **Method:** HTTP probe of canonical URLs + parse of eBible.org
+  find-page + alternate-ID search.
+- **Finding:** REMOVED. HTTP 404 on `ebible.org/gez-Geez/`;
+  `ebible.org/details.php?id=gez-Geez` returns "ID not found";
+  eBible.org find-page lists 1,546 translation IDs with ZERO
+  matching `gez`/`geez` (only 2 "Ethiopic script" entries, both
+  for OTHER Ethiopian languages, not classical Geʽez).
+- **Impact:** τ.6 seed's "user-side full ingest from eBible.org's
+  gez-Geez_vpl.zip" plan (recorded in `extract_translation.py
+  TRANSLATIONS["geez-tewahedo"]`) is invalidated.
+
+**Pivot:** the parallel-Bible PDF (`Bible_Amharic_and_Geez.pdf`,
+2,539 pages, EOTC FULL BIBLE) — supplied by the publisher in
+`C:\Users\bogda\Documents\project_maccabees_expansion\` — is
+PROMOTED to PRIMARY Geʽez + Amharic source. This matches the
+Phase-4 methodology already established in
+`project_maccabees_expansion/`.
+
+**τ.6.x.0a deliverables shipped:**
+
+1. NEW `content/translations/sources/parallel-bible-eotc/_source.yaml`
+   with source provenance, PDF path resolution_paths (env-var
+   override → publisher-supplied → in-repo fallback), empirically-
+   verified structural map (Meqabyan = pages 1318-1378 with
+   sub-ranges 1 Mq=1318-1365 / 2 Mq=1366-1372 / 3 Mq=1373-1378),
+   OCR caveats, three source-quality tiers.
+
+2. NEW `scripts/extract_parallel_pdf.py` — PDF-to-translation
+   extractor: column splitting (Geʽez left/Amharic right at 50%
+   page width); verse + chapter parsing (Arabic verse-numbers,
+   Geʽez chapter-numerals via ምዕራፍ + ፩-፼ map); page-header
+   garbage filtering; pilot mode for testing; --dry-run +
+   --overwrite + --quality flags; SOURCE_QUALITY provenance
+   tagging in output files.
+
+3. SCOPE doc updates:
+   - §4.1 — table updated marking eBible.org `gez-Geez_vpl.zip`
+     REMOVED + parallel-PDF PROMOTED.
+   - NEW §7.5 — τ.6.x.0b OCR-quality decision point with 4
+     options (Tesseract / cloud OCR / page-image / hybrid).
+
+4. NEW pin-test class — **18 pins across 5 test groups:**
+   - TestTau6x0SourcePivot (5): _source.yaml exists + shape +
+     resolution_paths + scope-doc-records-pivot + quality-tiers.
+   - TestTau6x0aStructuralMap (4): meqabyan structural-map
+     present + book_codes + pdf_page_range 1318-1378 + verified.
+   - TestTau6x0aExtractTool (4): script exists + importable +
+     geez_numeral_to_int + parse_verses_from_text.
+   - TestTau6x0aTranslationSlotsClean (2): geez-tewahedo at seed
+     + amharic-tewahedo at seed (slots NOT polluted with OCR
+     garbage).
+   - TestTau6x0aClosedArcInvariantPreservation (3): amharic in
+     POPUP_LANGUAGES + γ.4.8.E 67/67 + Meqabyan ≥212.
+
+All 18 τ.6.x.0a pins pass; full Π.0 + τ.6.x.0a sweep 46 tests
+green.
+
+**CRITICAL τ.6.x.0a CONTRACT — translation slots remain at seed
+state:**
+
+The geez-tewahedo and amharic-tewahedo translation slots REMAIN
+at their Π.0 seed state (3 verses on Genesis only). The OCR
+extraction tool EXISTS and RUNS but does NOT populate translation
+slots with garbled OCR data. Pilot extraction of 1 Mq Ch 1
+confirmed the Phase-4 doc's warning: OCR for Geʽez is unusable
+(wrong vowel orders, Latin-character bleed-through, wrong verse
+counts).
+
+**Production translation data only lands when source_quality
+reaches `ocr-tier2` or `page-image-tier1`** — gated to τ.6.x.0b
+(OCR-quality strategy choice) or δ.1.x (Phase-4 page-image
+methodology). Enforced by `TestTau6x0aTranslationSlotsClean`
+which fails if either slot gains a non-seed `<book>.py`.
+
+**Files in this ship:**
+
+NEW:
+- `content/translations/sources/parallel-bible-eotc/_source.yaml`
+- `scripts/extract_parallel_pdf.py`
+- `tests/test_parallel_bible_tau6x0.py`
+
+MODIFIED:
+- `dev/SCOPE_2026-05-14-parallel-bible.md` — §4.1 + new §7.5
+- `dev/SESSION_STATE.md` — τ.6.x.0a entry prepended
+- `dev/IN_FLIGHT.md` — τ.6.x.0a entry prepended
+
+**Closed-arc invariants regression-guarded:**
+- Π.0 contract preserved (amharic in POPUP_LANGUAGES,
+  .vnote-geez/.vnote-amharic CSS, amharic-tewahedo translation
+  slot at seed, multi-font infrastructure, fonts directory).
+- γ.4.8.E ARC-CLOSE 67/67 Meqabyan chapter coverage intact.
+- Meqabyan count ≥212 floor preserved.
+- ethiopian-tewahedo popup_languages_default NOT yet flipped.
+- v1.0 reproducibility: legacy EMBED_FONT_PATH knob preserved.
+
+**τ.6.x.0b unblocks** as the natural next phase. Publisher chooses
+OCR-quality strategy; once chosen, τ.6.x.1+ can bulk-ingest the
+Bible book-by-book with quality-tier-tagged data.
+
+Triggered by user "save and continue when you have a chance, run
+audits whenever you have to" after Π.0 was saved as commit
+`6624eba`. The combined save+continue+run-audits authorization
+prompted the τ.6.x.0 audit which surfaced the eBible.org-removal
+finding and the parallel-PDF pivot.
+
+---
+
 ## 2026-05-14 — session — Π.0 PARALLEL-BIBLE INFRASTRUCTURE FOUNDATIONS (first phase of 8 in the parallel-Bible expansion plan; amharic registered + Ethiopic CSS + amharic-tewahedo seed + multi-font infra + fonts directory; no production EPUB changes; γ.4.8.E arc invariants regression-guarded)
 
 **Phase shipped:** Π.0 — Parallel-Bible infrastructure foundations.

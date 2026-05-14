@@ -4,6 +4,35 @@
 
 ## Prior task
 
+**τ.6.x.0a Parallel-PDF extraction infrastructure + source pivot —
+INFRASTRUCTURE-AND-PIVOT ship. τ.6.x.0 audit found eBible.org's
+gez-Geez slot REMOVED (HTTP 404; ZERO `gez`/`geez` IDs among
+1,546 eBible.org translation IDs). PIVOTED Geʽez source to the
+parallel-Bible PDF (Bible_Amharic_and_Geez.pdf, 2,539 pages, EOTC
+FULL BIBLE) per `project_maccabees_expansion/` methodology.
+Shipped: new `content/translations/sources/parallel-bible-eotc/
+_source.yaml` (PDF path resolution + verified structural map for
+Meqabyan at pages 1318-1378 + OCR caveats + 3 source-quality
+tiers); new `scripts/extract_parallel_pdf.py` (PDF-to-translation
+extractor with column splitting, verse/chapter parsing, pilot
+mode, dry-run support, SOURCE_QUALITY tagging); SCOPE doc §4.1
+updated marking eBible.org REMOVED + parallel-PDF PROMOTED; new
+§7.5 documenting τ.6.x.0b OCR-quality decision point with 4
+options; 18 new pin tests across 5 test groups (
+TestTau6x0SourcePivot + TestTau6x0aStructuralMap +
+TestTau6x0aExtractTool + TestTau6x0aTranslationSlotsClean +
+TestTau6x0aClosedArcInvariantPreservation). All 46 Π.0 + τ.6.x.0a
+pins green. CRITICAL CONTRACT: translation slots REMAIN at Π.0
+seed state (3 verses Genesis only); OCR tool exists but does NOT
+populate slots with garbled data — production text gates on
+τ.6.x.0b (OCR-quality strategy choice) or δ.1.x (Phase-4 page-
+image method). All Π.0 + γ.4.8.E invariants regression-guarded.
+Lint clean.** shipped 2026-05-14. Triggered by user "save and
+continue when you have a chance, run audits whenever you have
+to" after Π.0 saved as commit 6624eba.
+
+## Prior task (previous)
+
 **Π.0 Parallel-Bible infrastructure foundations — INFRASTRUCTURE-
 ONLY ship; 28 new pin tests across 6 test groups verifying:
 amharic registered in POPUP_LANGUAGES (4 pins), .vnote-geez +
