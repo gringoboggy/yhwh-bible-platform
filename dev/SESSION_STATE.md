@@ -1,5 +1,150 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / Π.1.B Letter to Laodiceans alternate-source
+declaration ship — DECLARATIVE-ONLY; fulfills the Π.1
+`alternate_source_required:true` flag on the laodiceans slot by
+declaring J.B. Lightfoot 1875 primary + M.R. James 1924 + Codex
+Fuldensis 547 CE secondary PD-source anchors in a NEW
+`content/translations/sources/letter-to-laodiceans/_source.yaml`.
+Triggered by user "continue" after Π.1 shipped earlier this session
+and committed as `13501e9` (on top of `59bef8b`). Per memory
+`feedback_continue_not_save` + `feedback_extensive_answers`
+(broadest scope; Π.1.B selected as the most-foundational Claude-
+side advance since τ.6.x.0c remains operator-blocked on Tesseract
+install and δ.1.x.A requires operator-side page-image rendering)
++ project rules §3 sequencing (most-foundational first; close the
+Π.1-declared follow-up gap before opening new arcs). **Π.1.B
+deliverables shipped:** (1) NEW
+`content/translations/sources/letter-to-laodiceans/_source.yaml`
+declaring source_id letter-to-laodiceans + book_code lao +
+total_chapters 1 + total_verses 20 + verses_per_chapter {1: 20} +
+canonical titles in English / Latin / Geʽez + comprehensive
+description (Codex Fuldensis 547 CE manuscript witness + Augustine
++ Marius Mercator + Latin Father citations + Colossians 4:16
+lost-letter reference + Tewahedo broader-canon variant per Metzger
+1987 §V). **primary_source block** — Lightfoot 1875 Saint Paul's
+Epistles to the Colossians and to Philemon Appendix pp. 281-300
+Cambridge: Macmillan & Co. PD-old (Lightfoot died 1889; 137 years
+post-mortem; EU/Berne life+70 publishable since 1959; US pre-1929
+PD by at-most 1951); archive_org_id `saintpaulsepistl00ligh`;
+source_quality page-image-tier1. **secondary_sources list** — M.R.
+James 1924 Apocryphal New Testament Oxford: Clarendon Press
+pp. 478-480 (PD-old; James died 1936; archive_org_id
+`apocryphalnewte00jame`) + Codex Fuldensis 547 CE Latin manuscript
+witness (PD-by-age; Bonifatianus 1 at Hochschul- und
+Landesbibliothek Fulda; accessed via Lightfoot's transcription;
+source_quality manuscript-witness). **tewahedo_canon_status block**
+— broader-canon-variant status with Metzger 1987 §V pp. 220-221
+fair-use citation (Metzger 1987 is COPYRIGHTED; citation_license
+copyrighted-1987-fair-use-citation-only). **structural_map.
+laodiceans** — book_codes [lao] + chapter_count 1 + verse_count 20
++ verified true + verified_at_phase Π.1.B + source_anchor
+lightfoot_1875_appendix + verse-boundary notes (v1 salutation
+through v20 benediction including v19 read-also-in-Laodicea
+injunction paralleling Col 4:16). **inventory_extension block**
+records bidirectional link to parallel-bible-eotc parent inventory
+with parent_inventory_book_code lao + before/after status
+transition. **Contract fields:** no_ingest_at_this_phase true +
+ingest_gate_phase future-τ.x-or-δ.x-laodiceans-ingest +
+ingest_gate_blockers list (operator-review + publisher-
+authorization + Π.2 prerequisite) + translation_slot_state
+not-populated-pre-ingest. **Honesty contract** requires SOURCE_
+ANCHOR provenance on every future ingest entry + ≥2 cross-checks
+for content/structural divergence_class entries (γ.4 / χ-cluster
+convention). **v1_reproducibility_preserved true** with basis
+spelled out (no content/notes/, no canon-membership, no build-
+pipeline invocation; lao remains absent from every canon
+definition at Π.1.B ship time). **closed_arc_invariants_guarded
+list** explicit enumeration. (2) UPDATED parallel-bible-eotc
+`structural_map.laodiceans` block — fulfills Π.1 follow-up flag
+with `alternate_source_declared: true` + `alternate_source_id:
+letter-to-laodiceans` + `alternate_source_file: content/
+translations/sources/letter-to-laodiceans/_source.yaml` +
+`alternate_source_declared_at_phase: Π.1.B` +
+`alternate_source_declared_date: 2026-05-14`; notes field extended
+with Π.1.B fulfillment paragraph (Lightfoot anchor + James
+secondary + Fuldensis manuscript-via-Lightfoot); Π.1's
+`alternate_source_required: true` preserved verbatim so original
+requirement and fulfillment are both auditable. (3) UPDATED
+`tewahedo_distinctive_inventory`:
+`extraction_status_at_declaration.laodiceans: source-unavailable`
+PRESERVED VERBATIM as historical pin (Π.1 test
+`test_laodiceans_status_is_source_unavailable` continues to pass);
+NEW `extraction_status_current` block reflects Π.1.B flip
+(`laodiceans: alternate-source-declared`; other 3 sections
+mirrored at not-yet-extracted); NEW
+`extraction_status_current_updated_at_phase: Π.1.B` +
+`extraction_status_current_updated_date: 2026-05-14`; NEW
+`extraction_status_phase_history.laodiceans` array records Π.1
+origin (source-unavailable + 'absent from PDF') + Π.1.B flip
+(alternate-source-declared + 'Lightfoot/James/Fuldensis'); contract
+text extended with Π.1.B fulfillment paragraph. (4) UPDATED
+parallel-bible-eotc top-of-file header comment with Π.1.B
+continuation paragraph chaining τ.6.x.0a → Π.1 → Π.1.B
+documentation. (5) NEW `tests/test_parallel_bible_pi1b.py` — **69
+pin tests across 11 test groups** (LetterToLaodiceansSource 8 +
+PrimarySource 7 + SecondarySources 4 + TewahedoCanonStatus 4 +
+StructuralMap 8 + ParallelBibleCrossReference 6 +
+InventoryStatusFlip 9 + IngestContract 7 +
+InventoryExtensionBlock 5 + ClosedArcInvariantPreservation 9 +
+PhaseCoverage 2). All 69 pins pass; full-tree sweep TBD post-
+state-doc-update. **NO data ingest** — content/notes/lao.py NOT
+created; content/canons.yaml NOT modified; content/editions.yaml
+NOT modified; v1 Meqabyan English notes-files NOT mutated; δ.1.0
+divergence entries=[] preserved; v1.0 byte-identical
+reproducibility preserved. **Closed-arc invariants regression-
+guarded:** γ.4.8.E 67/67 intact + γ.4.8.F ≥212 + Π.0.1 amharic-in-
+POPUP_LANGUAGES + Π.0.4 EMBED_FONT_PATHS=[] + τ.6.x.0a meqabyan
+structural_map contract + τ.6.x.0b ocr_strategy authorized_option
+D-Hybrid + δ.1.0 divergence-entries-empty + Π.1 jubilees +
+one_enoch sections unchanged + Π.1
+extraction_status_at_declaration historical pin preserved. **Audit
+cadence:** Π.1.B is post-AUDIT_2026-05-14-LIGHT phase #3
+(δ.1.0 + Π.1 + Π.1.B); test-count drift now ≥171 (44 δ.1.0 + 58
+Π.1 + 69 Π.1.B); **TEST-COUNT THRESHOLD (≥150) NOW REACHED** at
+Π.1.B; phase-count threshold (≥10) NOT reached (3 of 10). Lighter
+solo-Claude audit recommended at next session boundary.**
+
+**Parallel-Bible roadmap status (post-Π.1.B):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED   2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED   2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED   2026-05-14 (c0172c4)
+φ.1      Font + typography polish          ✓ SHIPPED   2026-05-14 (2c27745)
+δ.1.0    Phase-4 Meqabyan SEED             ✓ SHIPPED   2026-05-14 (59bef8b)
+Π.1      Tewahedo-distinctive FOUNDATION   ✓ SHIPPED   2026-05-14 (13501e9)
+Π.1.B    Laodiceans alternate-source       ✓ SHIPPED   2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install       ⬜ pending   operator-side
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked   on .0c (jub/1en declared)
+δ.1.x.A  mq1 1-9 Phase-4 batch             ⬜ next      ~2 sessions; operator-mediated
+δ.1.x.B-G More batches                     ⬜ pending   ~10-15 sessions total
+δ.1.Z    Arc-close 67/67                   ⬜ gated     on .A-G
+τ.7.x    Amharic full-Bible ingest         ⬜ pending   blocked on .0c
+Π.2      Ethiopian-tewahedo flip           ⬜ pending   gated on τ.6.x + Π.1 ✓ + Π.1.B ✓ + τ.7.x
+δ.2      v3 Meqabyan publication           ⬜ pending   gated on δ.1.Z
+τ.x.lao  Letter to Laodiceans ingest       ⬜ pending   declared at Π.1.B; gated on operator+publisher
+```
+
+**Recommended next steps:**
+
+- **save** — Π.1.B uncommitted on top of `13501e9` (Π.1 commit).
+  Build-up since `13501e9`: Π.1.B (NEW
+  content/translations/sources/letter-to-laodiceans/_source.yaml
+  + parallel-bible-eotc laodiceans cross-references +
+  tewahedo_distinctive_inventory current+history blocks + 69 pin
+  tests + state docs).
+- **LIGHTER AUDIT** — test-count cadence threshold (≥150) reached
+  at Π.1.B; strongly recommended before opening the next arc.
+- **δ.1.x.A** (Claude-side multi-session start; operator-mediated)
+  — first Phase-4 batch for mq1 chapters 1-9.
+- **τ.6.x.0c** (operator-side) — install Tesseract + verify
+  `amh.traineddata` + `gez.traineddata` availability.
+
+---
+
+## Prior Π.1.B session
+
 **Updated 2026-05-14 / Π.1 Parallel-PDF Tewahedo-distinctive
 structural-map FOUNDATION ship — FOUNDATION-ONLY; declares the 6
 Tewahedo-distinctive book slots so future τ.6.x.1+ / δ.1.x phases

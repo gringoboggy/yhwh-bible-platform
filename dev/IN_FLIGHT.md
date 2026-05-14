@@ -4,6 +4,53 @@
 
 ## Prior task
 
+**Π.1.B Letter to Laodiceans alternate-source declaration —
+DECLARATIVE-ONLY ship; fulfills the Π.1 `alternate_source_required:
+true` flag on the laodiceans slot. Triggered by user "continue"
+after Π.1 shipped earlier this session and committed as `13501e9`
+(on top of `59bef8b`). Per memory `feedback_continue_not_save`
++ `feedback_extensive_answers` (broadest scope; Π.1.B selected as
+the most-foundational Claude-side advance since τ.6.x.0c remains
+operator-blocked on Tesseract install and δ.1.x.A requires
+operator-side page-image rendering). Shipped: (1) NEW
+`content/translations/sources/letter-to-laodiceans/_source.yaml`
+declaring J.B. Lightfoot 1875 primary PD-old anchor + M.R. James
+1924 + Codex Fuldensis 547 CE secondary anchors + 20-verse single-
+chapter structural_map + Tewahedo broader-canon-variant status
+(Metzger 1987 §V citation, fair-use-disclosed) + inventory_
+extension bidirectional link to parent + no-ingest contract +
+honesty contract + v1.0 reproducibility-preserved fields +
+closed_arc_invariants_guarded list. (2) UPDATED parallel-bible-
+eotc laodiceans block with alternate_source_declared/_at_phase/_id/
+_file cross-references; notes field extended with Π.1.B
+fulfillment paragraph; Π.1's alternate_source_required flag
+preserved verbatim. (3) UPDATED tewahedo_distinctive_inventory:
+extraction_status_at_declaration.laodiceans:source-unavailable
+preserved as historical pin (Π.1 test continues to pass); NEW
+extraction_status_current block reflects flip to
+alternate-source-declared; NEW phase_history.laodiceans array
+records both transitions; contract text extended. (4) UPDATED
+parallel-bible-eotc top-of-file comment with Π.1.B chain. (5) NEW
+tests/test_parallel_bible_pi1b.py — 69 pins across 11 test groups
+(LetterToLaodiceansSource 8 + PrimarySource 7 + SecondarySources 4
++ TewahedoCanonStatus 4 + StructuralMap 8 +
+ParallelBibleCrossReference 6 + InventoryStatusFlip 9 +
+IngestContract 7 + InventoryExtensionBlock 5 +
+ClosedArcInvariantPreservation 9 + PhaseCoverage 2). All 69 pins
+pass; sweep TBD post-state-doc. NO data ingest: content/notes/lao.py
+NOT created; canons.yaml NOT modified; editions.yaml NOT modified;
+v1 Meqabyan English NOT touched; δ.1.0 divergence entries=[]
+preserved; v1.0 byte-identical reproducibility preserved. Closed-
+arc invariants regression-guarded (γ.4.8.E + γ.4.8.F + Π.0.1 + Π.0.4
++ τ.6.x.0a + τ.6.x.0b + δ.1.0 + Π.1). Audit cadence: Π.1.B is
+post-AUDIT_2026-05-14-LIGHT phase #3; test-count drift now ≥171
+(44 + 58 + 69); TEST-COUNT THRESHOLD (≥150) NOW REACHED; lighter
+solo-Claude audit recommended at next session boundary.** shipped
+2026-05-14. Triggered by user "continue" after Π.1 committed as
+`13501e9` on top of `59bef8b`.
+
+## Prior task (previous)
+
 **Π.1 Parallel-PDF Tewahedo-distinctive structural-map FOUNDATION —
 FOUNDATION-ONLY ship; declares 6 Tewahedo-distinctive book slots
 (meqabyan + jubilees + one_enoch + laodiceans) so τ.6.x.1+ / δ.1.x

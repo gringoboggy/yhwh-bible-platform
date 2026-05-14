@@ -63,7 +63,12 @@ publisher_url: https://www.ethiopianorthodox.org/
 # slot is declared but `present_in_pdf: false` — the Pauline Letter
 # to the Laodiceans does NOT appear in this PDF's NT canon (verified
 # by 'መልእክት ... ሎዶቅያ' marker-absence + boundary-page inspection in
-# the NT section around pages 2000-2100).
+# the NT section around pages 2000-2100). Further extended at Π.1.B
+# (2026-05-14) to declare the laodiceans alternate source (Lightfoot
+# 1875 primary + James 1924 + Codex Fuldensis secondary) in
+# content/translations/sources/letter-to-laodiceans/_source.yaml;
+# the laodiceans block now cross-references that alternate source
+# via `alternate_source_id` + `alternate_source_file` fields.
 structural_map:
   meqabyan:
     book_codes: [mq1, mq2, mq3]
@@ -154,6 +159,11 @@ structural_map:
     verified_at_phase: Π.1
     present_in_pdf: false
     alternate_source_required: true
+    alternate_source_declared: true  # Π.1.B fulfillment of the alternate_source_required flag
+    alternate_source_declared_at_phase: Π.1.B
+    alternate_source_declared_date: 2026-05-14
+    alternate_source_id: letter-to-laodiceans
+    alternate_source_file: content/translations/sources/letter-to-laodiceans/_source.yaml
     notes: |
       Searched at Π.1 (2026-05-14) for the Pauline Letter to the
       Laodiceans by scanning every page for 'መልእክት ... ሎዶቅያ'
@@ -174,17 +184,27 @@ structural_map:
       book. The EOTC's NT canon as printed in this volume includes
       the standard 27-book NT only; the Letter to the Laodiceans is
       sometimes (but not consistently) included in the EOTC's
-      broader canon.
+      broader canon (per Metzger 1987 §V "The Canon of the Ethiopian
+      Church" pp. 220-221).
 
       Π.1 conclusion: the laodiceans (lao) slot remains DECLARED in
       this structural_map for future expansion BUT requires an
-      ALTERNATE SOURCE. Possible alternates:
-        - Marius Mercator's Latin recension (Vulgate Codex Fuldensis)
-        - The Geneva 1599 English rendering (PD; available from
-          archive.org / Christian Classics Ethereal Library)
-        - Augustine of Hippo's commentary citations (partial)
-      Acquisition + verification gates on operator review per the
-      `feedback_license_flagging` memory protocol.
+      ALTERNATE SOURCE.
+
+      Π.1.B fulfillment (2026-05-14): the alternate source is now
+      DECLARED in content/translations/sources/letter-to-laodiceans/
+      _source.yaml. Primary anchor: J.B. Lightfoot 1875 (Saint Paul's
+      Epistles to the Colossians and to Philemon, Appendix pp. 281-
+      300, Latin text + English translation; PD-old; Lightfoot died
+      1889). Secondary anchors: M.R. James 1924 (Apocryphal New
+      Testament pp. 478-480, PD-old; James died 1936) + Codex
+      Fuldensis 547 CE manuscript witness (PD-by-age) accessed via
+      Lightfoot's transcription. Twenty-verse single-chapter
+      division per Lightfoot 1875 (the standard reference division
+      cited by Elliott 1993 + Ehrman 2003 + Metzger 1987). Acquisition
+      remains gated on operator review + publisher authorization for
+      broader-canon inclusion in default editions (per the
+      `feedback_license_flagging` memory protocol).
 
   # Translation slot meta — used by the Π.1 declarative-pin tests.
   # Each entry confirms that a Tewahedo-distinctive book is REGISTERED
@@ -194,11 +214,41 @@ structural_map:
     book_codes_total: [mq1, mq2, mq3, jub, 1en, lao]
     declared_at_phase: Π.1
     declared_date: 2026-05-14
+    # HISTORICAL pin — the per-section status as it stood at the
+    # original Π.1 declaration time. Preserved verbatim across
+    # subsequent ships (Π.1.B and later) so Π.1's declarative-
+    # foundation contract is never re-litigated. The CURRENT state
+    # lives in `extraction_status_current` below; transitions live
+    # in `extraction_status_phase_history`.
     extraction_status_at_declaration:
       meqabyan: not-yet-extracted  # τ.6.x.0a built the tool; δ.1.x will use Phase-4 page-image method
       jubilees: not-yet-extracted  # τ.6.x.1+ ocr-tier3 baseline; phase4-page-image escalation if needed
       one_enoch: not-yet-extracted  # same as jubilees
-      laodiceans: source-unavailable  # alternate source required (per `laodiceans.notes`)
+      laodiceans: source-unavailable  # alternate source required (per `laodiceans.notes`) — flipped at Π.1.B to alternate-source-declared (see extraction_status_current)
+    # CURRENT pin — mutates as ships flip the state of a slot. The
+    # only delta from `extraction_status_at_declaration` at Π.1.B
+    # is the laodiceans transition source-unavailable →
+    # alternate-source-declared. New fields here are forward-
+    # additions only; the at-declaration pin above stays untouched.
+    extraction_status_current:
+      meqabyan: not-yet-extracted
+      jubilees: not-yet-extracted
+      one_enoch: not-yet-extracted
+      laodiceans: alternate-source-declared  # Π.1.B (2026-05-14): Lightfoot 1875 + James 1924 + Codex Fuldensis declared in content/translations/sources/letter-to-laodiceans/_source.yaml
+    extraction_status_current_updated_at_phase: Π.1.B
+    extraction_status_current_updated_date: 2026-05-14
+    extraction_status_phase_history:
+      # Records the state transitions across Π.1 → Π.1.B for auditing
+      # and pin-test verification.
+      laodiceans:
+        - phase: Π.1
+          date: 2026-05-14
+          status: source-unavailable
+          reason: 'Pauline Letter to Laodiceans absent from parallel-Bible PDF (verified by full-PDF marker absence)'
+        - phase: Π.1.B
+          date: 2026-05-14
+          status: alternate-source-declared
+          reason: 'alternate-source declared in content/translations/sources/letter-to-laodiceans/_source.yaml — Lightfoot 1875 primary + James 1924 + Codex Fuldensis secondary'
     contract: |
       Π.1 is a FOUNDATION phase — it DECLARES the slot inventory
       without populating it. Extraction proceeds in subsequent
@@ -208,6 +258,17 @@ structural_map:
       (Phase-4 page-image) if OCR quality is insufficient; laodiceans
       via alternate-source acquisition (operator-side, gated on the
       `feedback_license_flagging` protocol).
+
+      Π.1.B (2026-05-14): the laodiceans slot transitions from
+      "source-unavailable" to "alternate-source-declared". The
+      alternate source (Lightfoot 1875 + James 1924 + Codex
+      Fuldensis) is now formally declared with PD-status verified
+      and structural_map for the 20-verse single-chapter book
+      documented in content/translations/sources/letter-to-laodiceans/
+      _source.yaml. Π.1.B is still DECLARATIVE-ONLY — no content/notes/
+      lao.py mutation, no canon-membership change, no production EPUB
+      emission. The next gate is operator review + publisher
+      authorization before ingest opens.
 
   # All other books still TBD — expanded as τ.6.x extraction proceeds.
   # The publisher's parallel PDF starts at Genesis (page 0) and

@@ -1,0 +1,256 @@
+# Source provenance — Letter to Laodiceans (alternate source)
+#
+# DECLARED at Π.1.B (2026-05-14) as the ALTERNATE SOURCE for the
+# laodiceans (lao) slot declared in
+# content/translations/sources/parallel-bible-eotc/_source.yaml
+# structural_map (Π.1 finding: ZERO 'መልእክት ... ሎዶቅያ' opening-title
+# matches in the EOTC parallel-Bible PDF; the Pauline Letter to the
+# Laodiceans is NOT included in the EOTC's printed 27-book NT
+# canon despite appearing in some Tewahedo broader-canon lists per
+# Metzger 1987 §V).
+#
+# This file declares the alternate-source inventory ONLY — no data
+# ingest at Π.1.B (preserves v1.0 byte-identical reproducibility
+# per the τ.6.x.0a / Π.0 / Π.1 contract chain). Ingest is gated on
+# a future δ.1.x-equivalent or τ.x-equivalent phase as documented
+# in the `ingest_gate_phase` field below.
+
+source_id: letter-to-laodiceans
+description: |
+  The Pauline Letter to the Laodiceans (Epistola ad Laodicenses) is
+  a 20-verse short pseudo-Pauline epistle preserved in Latin
+  manuscript tradition (notably Codex Fuldensis, 547 CE) and cited
+  by Augustine, Marius Mercator, and the Latin Fathers. It claims to
+  be the lost letter referenced by Paul at Colossians 4:16. The
+  Tewahedo broader-canon (per Metzger 1987 §V "The Canon of the
+  Ethiopian Church", pp. 220-221) accepts a Letter to Laodiceans in
+  some manuscript-tradition variants, though it is NOT consistently
+  present in the printed EOTC NT — confirmed at Π.1 by the absence
+  of 'መልእክት ... ሎዶቅያ' opening-title markers in the publisher's
+  parallel-Bible PDF.
+
+  PRIMARY anchor: J.B. Lightfoot's 1875 Latin-text + English-
+  translation edition in `Saint Paul's Epistles to the Colossians
+  and to Philemon` (Cambridge: Macmillan & Co., 1875), Appendix:
+  "The Epistle to the Laodiceans" pp. 281-300. This remains the
+  gold-standard scholarly edition still cited by Elliott 1993 and
+  Ehrman 2003. Public domain (Lightfoot died 1889; 96+ years
+  post-mortem at 2026-05-14 EU/Berne 70-year + US pre-1929 dual
+  qualification).
+
+# Book code used throughout this project. Declared at Π.1 in the
+# parallel-bible-eotc structural_map.tewahedo_distinctive_inventory.
+# `lao` is the canonical 3-letter book code for the Letter to the
+# Laodiceans within the project's lowercase 3-letter naming
+# convention (per CLAUDE_PROJECT_RULES §7.3).
+book_code: lao
+book_title_canonical: Letter to the Laodiceans
+book_title_latin: Epistola ad Laodicenses
+book_title_geez: መልእክት ዘወደ ሎዶቅያ
+book_title_tewahedo_recension: Epistle to the Laodiceans (Tewahedo broader-canon variant)
+
+# Total verse count. Lightfoot 1875 + M.R. James 1924 + Elliott 1993
+# all agree on a 20-verse single-chapter division. Codex Fuldensis
+# 547 CE preserves the same text without verse division (verses
+# imposed by later editorial convention).
+total_chapters: 1
+total_verses: 20
+verses_per_chapter:
+  '1': 20
+
+# Provenance of the PRIMARY PD English translation.
+primary_source:
+  citation: |
+    Lightfoot, J.B. 1875. "The Epistle to the Laodiceans" (appendix
+    to Saint Paul's Epistles to the Colossians and to Philemon).
+    Cambridge: Macmillan & Co. pp. 281-300.
+  author: Joseph Barber Lightfoot
+  author_role: Bishop of Durham; Lady Margaret's Professor of Divinity, Cambridge
+  author_died: 1889
+  publication_year: 1875
+  publisher: Macmillan & Co. (Cambridge)
+  language: English (translation) + Latin (critical text)
+  license: PD-old
+  license_basis: |
+    Author died 1889; 137 years post-mortem at 2026-05-14. Qualifies
+    under EU/Berne life+70 (publishable since 1959). Qualifies under
+    US pre-1929 (1875 first publication; in PD since at-most 1951
+    under longest-applicable US term).
+  archive_org_url: https://archive.org/details/saintpaulsepistl00ligh
+  archive_org_id: saintpaulsepistl00ligh
+  source_quality: page-image-tier1  # scholarly critical edition; verse divisions in Lightfoot's hand
+  use_for: alternate-source-anchor
+
+# Secondary PD reference (cross-check; not the primary ingest source).
+secondary_sources:
+  - citation: |
+      James, M.R. 1924. "Epistle to the Laodiceans" in The Apocryphal
+      New Testament: Being the Apocryphal Gospels, Acts, Epistles,
+      and Apocalypses, with Other Narratives and Fragments. Oxford:
+      Clarendon Press. pp. 478-480.
+    author: Montague Rhodes James
+    author_died: 1936
+    publication_year: 1924
+    publisher: Oxford University Press (Clarendon Press)
+    language: English (translation only — no Latin text)
+    license: PD-old
+    license_basis: |
+      Author died 1936; 90 years post-mortem at 2026-05-14. Qualifies
+      under EU/Berne life+70 (publishable since 2007). Qualifies
+      under US pre-1929 (1924 first publication; longest-applicable
+      US term placed it in PD by 1999 at the latest, depending on
+      renewal status; Hirtle Chart 2026 confirms PD).
+    archive_org_url: https://archive.org/details/apocryphalnewte00jame
+    archive_org_id: apocryphalnewte00jame
+    source_quality: page-image-tier1
+    use_for: cross-check-secondary
+
+  - citation: |
+      Codex Fuldensis (Cod. Fuldensis, 547 CE). Latin gospel-and-
+      epistle manuscript copied at Capua under Bishop Victor of Capua.
+      Letter to Laodiceans appears between Colossians and Thessalonians
+      with no verse division. Original held at the Hochschul- und
+      Landesbibliothek Fulda, Bonifatianus 1.
+    author: Anonymous scriptorium of Capua (commissioned by Victor of Capua)
+    author_died: 554  # Victor of Capua's death year; manuscript completed 547 CE
+    publication_year: 547
+    publisher: ~  # manuscript witness, not a printed publication
+    language: Latin
+    license: PD-old
+    license_basis: |
+      6th-century manuscript; in PD under every applicable
+      jurisdiction by virtue of age (>1,400 years post-creation).
+    archive_org_url: ~  # facsimile editions vary; primary scholarly access via Ranke 1868 + Lightfoot 1875 transcription
+    facsimile_reference: |
+      The Lightfoot 1875 primary anchor contains a faithful
+      transcription of the Codex Fuldensis Latin text against which
+      the English translation is calibrated. No standalone Fuldensis
+      ingest is required; the primary source carries the manuscript-
+      witness apparatus.
+    source_quality: manuscript-witness
+    use_for: manuscript-anchor-via-primary
+
+# Tewahedo broader-canon status. This is the doctrinal context for
+# why the Letter to Laodiceans matters to the EOTC even though it is
+# NOT in the printed parallel-Bible PDF.
+tewahedo_canon_status:
+  status: broader-canon-variant
+  citation: |
+    Metzger, Bruce M. 1987. The Canon of the New Testament: Its
+    Origin, Development, and Significance. Oxford: Clarendon Press.
+    §V "The Canon of the Ethiopian Church" pp. 220-221.
+  citation_license: copyrighted-1987-fair-use-citation-only
+  notes: |
+    Metzger documents that the Ethiopian Orthodox Tewahedo Church
+    canon is described in two forms — a "narrower" canon (essentially
+    the 27-book NT consistent with the parallel-Bible PDF) and a
+    "broader" canon that adds Sinodos, Mäṣḥafä Kǝdan, Ethiopian
+    Didascalia, Clement, plus sometimes the Letter to the Laodiceans.
+
+    The broader canon's Letter to Laodiceans is liturgically rare
+    and absent from the printed EOTC NT used by this project's
+    parallel-Bible PDF (verified at Π.1 by full-PDF marker absence).
+    Lightfoot 1875 documents the textual tradition that fed the
+    Ethiopian broader-canon variant.
+
+# Structural map for the 20-verse single-chapter book. Per the
+# project's translation-source convention each verse is addressable
+# by (book_code, chapter, verse). The Lightfoot 1875 Latin + English
+# verse boundaries are used as the canonical divisions.
+structural_map:
+  laodiceans:
+    book_codes: [lao]
+    chapter_count: 1
+    verse_count: 20
+    verified: true
+    verified_date: 2026-05-14
+    verified_at_phase: Π.1.B
+    source_anchor: lightfoot_1875_appendix  # primary_source above
+    notes: |
+      Lightfoot 1875 prints the Latin text + English translation
+      with 20 verses divided per traditional convention. M.R. James
+      1924 secondary follows the same 20-verse division. Codex
+      Fuldensis 547 CE manuscript witness has no verse division
+      (modern verse boundaries are editorial; Lightfoot's are now
+      the standard reference division cited by Elliott 1993 + Ehrman
+      2003 + Metzger 1987).
+
+      Verse boundaries (per Lightfoot 1875 pp. 287-291):
+        v1   Paulus apostolus... salutation
+        v2   gratia + peace formula
+        v3   gratias ago + thanksgiving
+        v4-6 reaffirmation of gospel + against false teachers
+        v7   imprisonment-in-Christ confession
+        v8-10 Pauline rejoicing + perseverance
+        v11-13 ethical exhortation
+        v14   prayer formula
+        v15-17 Spirit + Christ formula
+        v18   greeting transmission
+        v19   read-also-in-Laodicea injunction (parallels Col 4:16)
+        v20   benediction
+
+# Verification context — how the Tewahedo-distinctive 6-slot
+# inventory was extended at Π.1.B.
+inventory_extension:
+  declared_at_phase: Π.1.B
+  declared_date: 2026-05-14
+  parent_inventory_file: content/translations/sources/parallel-bible-eotc/_source.yaml
+  parent_inventory_block: structural_map.tewahedo_distinctive_inventory
+  parent_inventory_book_code: lao
+  parent_inventory_extraction_status_before: source-unavailable
+  parent_inventory_extraction_status_after: alternate-source-declared
+  contract: |
+    Π.1 declared the laodiceans slot in the parallel-Bible PDF
+    structural map with `alternate_source_required: true` (because
+    the PDF does not contain the Letter to Laodiceans). Π.1.B
+    fulfills that follow-up flag by declaring this alternate source
+    (Lightfoot 1875 primary + M.R. James 1924 + Codex Fuldensis as
+    secondary anchors) without performing data ingest. The slot
+    transitions from "source-unavailable" to "alternate-source-
+    declared".
+
+# Ingest contract — Π.1.B is DECLARATIVE-ONLY. No content/notes/lao.py
+# mutation; no translation-slot population; no production EPUB
+# emission. Future ingest gated as documented.
+no_ingest_at_this_phase: true
+ingest_gate_phase: future-τ.x-or-δ.x-laodiceans-ingest
+ingest_gate_blockers:
+  - operator-review-of-alternate-source-fit
+  - publisher-authorization-for-broader-canon-inclusion-in-default-editions
+  - tewahedo-flagship-edition-canon-decision (Π.2 prerequisite)
+translation_slot_state_at_ship: not-populated-pre-ingest
+
+# Honesty contract — preserves the project's PD-source provenance
+# discipline from γ.4 / χ-cluster ships.
+honesty_contract: |
+  Every future ingest from this source MUST carry SOURCE_ANCHOR
+  metadata identifying which of the {primary_source, secondary_sources[i]}
+  the verse came from, plus a per-verse PD-status proof equivalent to
+  the γ.4 patristic ATTR_* conventions. Cross-check against at least
+  two of {Lightfoot 1875, M.R. James 1924, Codex Fuldensis facsimile-
+  via-Lightfoot} for any verse marked with `divergence_class: content`
+  or `divergence_class: structural` per the δ.1.x convention (see
+  content/divergence/meqabyan_geez_divergence.json _meta).
+
+# Reproducibility contract — preserves v1.0 byte-identical builds.
+v1_reproducibility_preserved: true
+v1_reproducibility_basis: |
+  Π.1.B introduces NO data files into content/notes/, NO new
+  translation rows, NO new note tuples, NO new build-pipeline
+  invocations. The lao slot remains absent from every shipped
+  edition's canon filter (lao is not in any canon definition in
+  content/canons.yaml at Π.1.B ship time). Future ingest will add
+  lao to the ethiopian-tewahedo-broader canon definition as a
+  separate δ.x phase gated on publisher direction.
+
+# Closed-arc invariants regression-guarded (per Π.1 chain).
+closed_arc_invariants_guarded:
+  - γ.4.8.E_67_67_chapter_coverage
+  - γ.4.8.F_meqabyan_count_floor_212
+  - Π.0.1_amharic_in_POPUP_LANGUAGES
+  - Π.0.4_EMBED_FONT_PATHS_empty_default
+  - τ.6.x.0a_translation_slot_seed_only
+  - τ.6.x.0b_ocr_strategy_Option_D_authorized
+  - δ.1.0_divergence_entries_empty
+  - Π.1_tewahedo_distinctive_inventory_declared
+  - Π.1.B_laodiceans_alternate_source_declared  # this ship
