@@ -1,0 +1,105 @@
+# Translation metadata — τ.7 Amharic Tewahedo seed (Π.0, 2026-05-14).
+#
+# Amharic (አማርኛ) is the modern liturgical and vernacular language
+# of the Ethiopian Orthodox Tewahedo Church (and the working
+# language of Ethiopia). Unlike Ge'ez (the classical liturgical
+# tongue, frozen since the medieval period), Amharic is a living
+# language with continuous textual production. The EOTC publishes
+# Bibles in modern Amharic that parallel the Ge'ez liturgical text —
+# the publisher's reference 2,539-page parallel Ge'ez–Amharic
+# edition (EOTC FULL BIBLE, archive.org `EOTXC_HOLYSCRIPTS_ALL_BOOKS`)
+# is the canonical full-parallel publication this slot is being
+# built to support.
+#
+# Significance for this project:
+#
+# - The Phase-1 v1 Meqabyan translation (already published) was
+#   sourced from MODERN AMHARIC at nehemiah-osc.org. Therefore an
+#   `amharic-tewahedo` translation slot directly grounds the v1
+#   translation in its source language — making the published
+#   text a checkable artifact, not just an opaque output.
+# - Pairs with `geez-tewahedo` (τ.6.x) as the parallel-Bible
+#   second column. Together they reproduce the printed parallel-
+#   edition experience inside the EPUB popup system.
+# - Adds Amharic as the SECOND modern-vernacular translation in
+#   the registry (the first being english/KJV); supports the
+#   ethiopian-tewahedo flagship's Tewahedo-distinctive market
+#   positioning per memory `project_v1_terminus`.
+#
+# License basis:
+#
+# The Amharic text body is sourced from publicly-available
+# Tewahedo Bible publications. The 1962 first complete Amharic
+# Bible from the Bible Society of Ethiopia (BSE) is the most
+# commonly-cited modern Amharic Bible source. Earlier partial
+# translations and ecclesiastical-only printings precede it.
+#
+# For Π.0 (this seed phase) only metadata + 3 verses are shipped
+# — Π.0 is infrastructure-only.
+#
+# For τ.7.x (bulk ingest) the publisher will choose the source:
+# - nehemiah-osc.org (the source v1 already used; format TBD)
+# - eBible.org `amh_vpl.zip` (clean VPL if available)
+# - the parallel EOTC Bible PDF's Amharic column (cross-witness)
+#
+# All bulk-ingest paths require an extract-adapter (see
+# scripts/extract_translation.py extensions in τ.7.x).
+#
+# τ.7 ships seed + metadata; τ.7.x is user-side full ingest.
+
+id: amharic-tewahedo
+title: "Amharic Bible (Modern Ethiopian, Tewahedo tradition)"
+short_title: "Amharic"
+license: "Public Domain / Tewahedo-tradition (PD basis pending τ.7.x ingest)"
+source:
+  publisher: "EOTC parallel Ge'ez-Amharic Bible (2025 scan, archive.org `EOTXC_HOLYSCRIPTS_ALL_BOOKS`) + nehemiah-osc.org modern Amharic (the v1 source)"
+  url: "https://archive.org/details/EOTXC_HOLYSCRIPTS_ALL_BOOKS"
+  package: "Bible_Amharic_and_Geez.pdf (parallel-Bible PDF) OR amh_vpl (eBible.org if available)"
+  fetched: 2026-05-14
+  source_date: null  # to be set during τ.7.x bulk ingest
+stats:
+  books: 1            # seed only — Genesis
+  verses: 3           # Gen 1:1-3 — canonical opening seed
+  books_outside_kjv: 0
+notes: |
+  Π.0 SEED CORPUS — 2026-05-14.
+
+  This is a 3-verse seed (Genesis 1:1-3) that proves the
+  translation-registry wire-up alongside the existing
+  `geez-tewahedo` τ.6 seed. The two together prove the
+  parallel-Bible popup-popup-popup stack works end-to-end at
+  Genesis 1:1.
+
+  Significance for the flagship:
+
+  The ethiopian-tewahedo edition currently declares
+  popup_languages_default = [english, hebrew, greek]. Adding
+  `amharic` to that list is gated until τ.7.x produces full-
+  Bible coverage; Π.0's seed makes the language registerable
+  but does not yet surface it in production EPUBs.
+
+  Unicode handling:
+
+  - **Ethiopic** U+1200-U+137F: main syllabary (fidäl); covers
+    standard Amharic text. Amharic uses the same Ethiopic script
+    as Ge'ez but with the addition of seven Amharic-specific
+    consonant series (ሸ ቸ ኘ ኸ ዠ ጀ ጨ) that do not exist in
+    classical Ge'ez orthography.
+  - Direction: left-to-right (matches Ge'ez; both differ from
+    Hebrew/Arabic).
+  - Numerals: Amharic typically uses Hindu-Arabic digits in
+    modern publications, though Ethiopic numerals (፩ ፪ ፫ ...
+    U+1369-U+137C) are sometimes preserved in scriptural texts.
+    Verse numbering in this slot will normalize to Arabic
+    digits for indexing while preserving the source rendering
+    where present.
+
+  Pairs naturally with:
+  - `geez-tewahedo` (τ.6) — the classical-language parallel.
+  - The Phase-1 v1 Meqabyan translation in `geez/translation.md`
+    and `translation_continuation.md` — both were sourced from
+    modern Amharic.
+  - The 6 Tewahedo-distinctive books (1en, jub, mq1, mq2, mq3,
+    lao) — the parallel-Bible's Amharic column gives an
+    independent Amharic witness for these books beyond the
+    nehemiah-osc.org source v1 used.

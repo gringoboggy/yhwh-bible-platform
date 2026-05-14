@@ -104,14 +104,39 @@ p.verse-p, p.verse-p-flush {
         raise SystemExit(f"unknown CHAPTER_FLOW: {flow!r}")
 
     # Optional embedded font.
+    #
+    # Two code paths, both rendering @font-face rules into ``embed_block``:
+    #
+    # 1. Legacy single-font knob (EMBED_FONT_PATH + EMBED_FONT_FAMILY) —
+    #    preserved unchanged for v1.0-tagged-build reproducibility.
+    # 2. Π.0 multi-font list (EMBED_FONT_PATHS) — additive; appends one
+    #    @font-face per entry. Used at τ.6.x / Π.2 ship time when the
+    #    Ethiopic font binary lands.
     embed_block = ""
     if style_config.EMBED_FONT_PATH:
-        embed_block = f"""\
+        embed_block += f"""\
 @font-face {{
   font-family: "{style_config.EMBED_FONT_FAMILY}";
   src: url("{style_config.EMBED_FONT_PATH}");
   font-weight: normal;
   font-style: normal;
+}}
+"""
+    # Π.0 multi-font list (defaults to []; v1.0 build still emits only
+    # the legacy single-font block above).
+    for entry in getattr(style_config, "EMBED_FONT_PATHS", []) or []:
+        path = entry.get("path", "")
+        family = entry.get("family", "")
+        if not path or not family:
+            continue
+        weight = entry.get("weight", "normal")
+        style = entry.get("style", "normal")
+        embed_block += f"""\
+@font-face {{
+  font-family: "{family}";
+  src: url("{path}");
+  font-weight: {weight};
+  font-style: {style};
 }}
 """
 
@@ -163,6 +188,33 @@ aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
   color: #1e293b;
 }
 
+/* Π.0 — parallel-Bible (Ge'ez + Amharic) popup styles.
+   Both use the Ethiopic Unicode block (U+1200-U+137F), read
+   left-to-right (no RTL handling needed unlike Hebrew). Slightly
+   larger font-size + line-height keeps fidel legible. The font
+   stack lists embedded Noto Sans Ethiopic first (added via
+   style_config.EMBED_FONT_PATHS when the OFL font file is placed
+   under content/themes/<theme>/fonts/), then falls back to common
+   Ethiopic-capable system fonts. */
+.vnote-geez {
+  font-family: "Noto Sans Ethiopic", "Abyssinica SIL", "Nyala",
+               "Kefa", "Ethiopia Jiret", serif;
+  font-size: 1.05em;
+  line-height: 1.55;
+  border-top: 1px dotted rgba(100, 116, 139, 0.25);
+  padding-top: 0.15em;
+  color: #1e293b;
+}
+.vnote-amharic {
+  font-family: "Noto Sans Ethiopic", "Abyssinica SIL", "Nyala",
+               "Kefa", "Ethiopia Jiret", serif;
+  font-size: 1.05em;
+  line-height: 1.55;
+  border-top: 1px dotted rgba(100, 116, 139, 0.25);
+  padding-top: 0.15em;
+  color: #1e293b;
+}
+
 /* Source label (when an alternate translation is shown) */
 .vnote-source-label {
   font-size: 0.78em;
@@ -195,7 +247,8 @@ aside.vnote > p:last-child,  .vnote > p:last-child  { margin-bottom: 0; }
     background: rgba(30, 41, 59, 0.55);
     border-left-color: rgba(148, 163, 184, 0.45);
   }
-  .vnote-text, .vnote-hebrew, .vnote-greek {
+  .vnote-text, .vnote-hebrew, .vnote-greek,
+  .vnote-geez, .vnote-amharic {
     color: #e2e8f0;
   }
   .vnote-source-label, .vnote-tradition-label {

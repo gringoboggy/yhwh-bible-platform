@@ -6,6 +6,149 @@
 
 ---
 
+## 2026-05-14 — session — Π.0 PARALLEL-BIBLE INFRASTRUCTURE FOUNDATIONS (first phase of 8 in the parallel-Bible expansion plan; amharic registered + Ethiopic CSS + amharic-tewahedo seed + multi-font infra + fonts directory; no production EPUB changes; γ.4.8.E arc invariants regression-guarded)
+
+**Phase shipped:** Π.0 — Parallel-Bible infrastructure foundations.
+**INFRASTRUCTURE-ONLY** ship. The first of 8 phases in the
+parallel-Bible expansion plan documented at
+`dev/SCOPE_2026-05-14-parallel-bible.md`. Prepares every hook
+the later phases (τ.6.x, τ.7.x, Π.1, Π.2, δ.1.x, φ.1, δ.2) need,
+without disturbing v1.0 reproducibility or the closed γ.4.8.E
+Meqabyan-arc invariants.
+
+**Context — what triggered this expansion:**
+
+The user provided a `C:\Users\bogda\Documents\project_maccabees_
+expansion` folder containing: (1) the complete EOTC parallel Geʽez–
+Amharic Bible PDF (2,539 pages); (2) a Phase-4 Geʽez-revision
+handoff package for Meqabyan with detailed methodology, style
+guide, and proof-of-concept; (3) additional v3-bundle apparatus
+refinements already shipped at γ.4.8.F. The publisher's request
+was: "upgrade the scope of the project... integrate everything in
+my program to make the epub... even the whole bible in amharic and
+ge'ez... think hard on how to integrate everything... devise any
+tools or upgrades in the matrix, databases that need to be built,
+extensions of the matrix... most logical, professional and safe
+way." A comprehensive 8-phase roadmap was composed
+(`dev/SCOPE_2026-05-14-parallel-bible.md`); the publisher then
+authorized the full plan and instructed "start at Π.0."
+
+**Π.0 deliverables shipped:**
+
+1. **`amharic` registered in POPUP_LANGUAGES** dict in
+   `scripts/build_edition.py` (parallel to existing geez, aramaic,
+   latin, coptic, syriac entries added at τ.6 + ν.2.5-B). Entry
+   shape: `{"label": "Amharic", "content_class": "vnote-amharic",
+   "has_label_para": True}`. ALL_POPUP_LANGUAGES count raised 8 → 9.
+
+2. **CSS `.vnote-geez` and `.vnote-amharic` blocks** added to
+   `scripts/apply_style.py` with:
+   - Ethiopic font-family fallback chain (Noto Sans Ethiopic →
+     Abyssinica SIL → Nyala → Kefa → Ethiopia Jiret → serif).
+   - LTR direction (NOT RTL — Ethiopic is left-to-right unlike
+     Hebrew which uses `direction: rtl`).
+   - font-size: 1.05em + line-height: 1.55 for fidel legibility.
+   - Dark-mode `@media (prefers-color-scheme: dark)` block
+     extended to include both classes in the color override.
+
+3. **`content/translations/amharic-tewahedo/`** new translation
+   slot:
+   - `_meta.yaml` declaring id, license-basis-pending, source
+     (EOTC parallel Bible PDF + nehemiah-osc.org cross-witness),
+     stats (1 book, 3 verses seed).
+   - `gen.py` with Genesis 1:1-3 in modern Amharic (opens with
+     በመጀመሪያ "in-the-beginning" — distinct from Geʽez classical
+     ቀዳሚሁ; signature-pin verifies the seed is actually Amharic
+     not accidentally-Geʽez).
+
+4. **Multi-font embed infrastructure:**
+   - `style_config.EMBED_FONT_PATHS: list[dict]` added (defaults
+     to `[]` for v1.0 reproducibility — v1.0-tagged builds use
+     only the legacy single-font EMBED_FONT_PATH knob).
+   - `apply_style.py` extended with the loop that emits one
+     @font-face rule per EMBED_FONT_PATHS entry plus the legacy
+     single-font path preserved unchanged.
+   - Configuration form for each entry: `{"path": "fonts/<file>",
+     "family": "<Family>", "weight": "normal", "style": "normal"}`.
+     The legacy single-font knobs remain wired for back-compat.
+
+5. **`content/assets/fonts/` directory** created with:
+   - `README.md` documenting the Noto Sans Ethiopic addition
+     workflow (download from Google Fonts → place binary →
+     register in EMBED_FONT_PATHS at τ.6.x / Π.2).
+   - `LICENSES.md` declaring the SIL OFL 1.1 policy and listing
+     Noto Sans Ethiopic (to be added) + IM Fell English (legacy
+     PD).
+
+**No production EPUB content changes:** `ethiopian-tewahedo`
+edition's `popup_languages_default` remains `[english, hebrew,
+greek]`. The geez+amharic surfacing flip is gated to **Π.2** —
+explicitly tested at Π.0 ship time. Surfacing them at Π.0 would
+expose the incomplete 3-verse seed data, degrading user experience
+and breaking the Π.0 "infrastructure-only" contract.
+
+**Closed-arc invariants regression-guarded:**
+- γ.4.8.E ARC-CLOSE 67/67 chapter coverage intact (mq1 36/36 + mq2
+  21/21 + mq3 10/10).
+- Meqabyan count ≥212 floor preserved (γ.4.8.E 200 + γ.4.8.F 12).
+- ethiopian-tewahedo popup_languages_default explicitly NOT yet
+  flipped.
+- All 4033+ existing tests still pass (verified at ship-time).
+
+**Pin tests added (TestPi0InfrastructureFoundations across 6 test
+groups; 28 pins net):**
+
+| Group | Pins |
+|---|---|
+| TestPi0PopupLanguageRegistration | 4 — amharic registered + entry shape + geez regression-guard + ≥9 count |
+| TestPi0CssClassEmission | 5 — vnote-geez present + vnote-amharic present + font-fallback + no-RTL + dark-mode inclusion |
+| TestPi0AmharicTewahedoSeed | 6 — meta exists + meta shape + Genesis loads + Ethiopic-script + opens-with-በመጀመሪያ signature + geez-tewahedo regression-guard |
+| TestPi0MultiFontInfrastructure | 7 — EMBED_FONT_PATHS attr + defaults-[] + legacy preserved + multi-font loop in apply_style + fonts dir exists + README exists + LICENSES exists |
+| TestPi0ClosedArcInvariantPreservation | 3 — γ.4.8.E 67/67 intact + Meqabyan ≥212 + popup-default not flipped |
+| TestPi0TranslationDiscovery | 3 — amharic-tewahedo in list + has_translation + geez-tewahedo discoverable |
+
+All 28 pass; full Π.0-relevant sweep 82 tests pass.
+
+**Files in this ship:**
+
+NEW:
+- `content/translations/amharic-tewahedo/_meta.yaml`
+- `content/translations/amharic-tewahedo/gen.py`
+- `content/assets/fonts/README.md`
+- `content/assets/fonts/LICENSES.md`
+- `tests/test_parallel_bible_pi0.py`
+- `dev/SCOPE_2026-05-14-parallel-bible.md` (the 8-phase roadmap)
+
+MODIFIED:
+- `scripts/build_edition.py` — POPUP_LANGUAGES dict extension
+- `scripts/apply_style.py` — CSS for .vnote-geez + .vnote-amharic;
+  dark-mode block extension; multi-font emission loop
+- `scripts/style_config.py` — EMBED_FONT_PATHS list added
+- `dev/SESSION_STATE.md` — Π.0 entry prepended
+- `dev/IN_FLIGHT.md` — Π.0 entry prepended
+
+**Π.0 unblocks (per the plan's sequenced roadmap):**
+
+| Phase | Status | Est. effort |
+|---|---|---|
+| **Π.0** Infrastructure foundations | ✓ SHIPPED 2026-05-14 | 1 session |
+| **τ.6.x** Geʽez full-Bible ingest (eBible.org) | unblocked | 2-3 sessions |
+| Π.1 Parallel-PDF (Tewahedo 6) | unblocks once τ.6.x ships | 3-4 sessions |
+| τ.7.x Amharic full-Bible ingest | unblocks once τ.6.x ships | 2-3 sessions |
+| δ.1.x Phase-4 Meqabyan revision | unblocks once Π.1 ships | 15-25 sessions |
+| φ.1 Font + typography polish | unblocks once τ.6.x ships | 1 session |
+| Π.2 Ethiopian-tewahedo flip | unblocks once Π.1 + τ.6.x + τ.7.x + φ.1 ship | 1 session |
+| δ.2 v3 Meqabyan publication | gated on δ.1.x completion + publisher review | gated |
+
+Triggered by user "authorize the full plan, start at Π.0" after
+the parallel-Bible master plan was composed. Per memory
+`feedback_extensive_answers` (broadest scope): Π.0 implemented as
+full infrastructure ship with comprehensive 28-pin coverage rather
+than a minimal stub. Per memory `feedback_continue_not_save`: not
+auto-saved; user-explicit save required.
+
+---
+
 ## 2026-05-14 — session — γ.4.8.F Mäqabyan TIER-2 AUDIT INTEGRATION (post-arc-close apparatus refinement; Wright 1877 fully-verified + Cowley 1974b date correction + Andǝmta-printed-book + Senkessar Ṭǝr 21/30 route; Meqabyan moves to sole 2nd-place at 212; Tewahedo-distinctive-canonical block 38.25%)
 
 **Phase shipped:** γ.4.8.F — Mäṣḥafä Mäqabyan **Tier-2 audit

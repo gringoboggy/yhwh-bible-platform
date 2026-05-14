@@ -723,6 +723,15 @@ POPUP_LANGUAGES: dict[str, dict] = {
     "latin": {"label": "Latin", "content_class": "vnote-latin", "has_label_para": True},
     "coptic": {"label": "Coptic", "content_class": "vnote-coptic", "has_label_para": True},
     "syriac": {"label": "Syriac", "content_class": "vnote-syriac", "has_label_para": True},
+    # Π.0 (2026-05-14) — parallel-Bible expansion preparation.
+    # Amharic is the modern liturgical language of the EOTC alongside
+    # Ge'ez (classical). The Tewahedo Bible is printed in modern
+    # parallel-Ge'ez-Amharic editions (e.g. the 2,539-page EOTC FULL
+    # BIBLE that drives the τ.6.x / τ.7.x ingest in this expansion).
+    # Same script family as Ge'ez (Ethiopic Unicode block U+1200-U+137F,
+    # LTR, no RTL handling needed). Style class .vnote-amharic mirrors
+    # .vnote-geez's CSS in apply_style.py.
+    "amharic": {"label": "Amharic", "content_class": "vnote-amharic", "has_label_para": True},
 }
 
 ALL_POPUP_LANGUAGES: tuple[str, ...] = tuple(POPUP_LANGUAGES.keys())

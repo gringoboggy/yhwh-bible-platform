@@ -34,8 +34,36 @@ FONT_STACK = (
 # (e.g. ``"fonts/IMFellEnglish.otf"``), the apply script registers the file
 # in content.opf and emits a matching ``@font-face`` rule. Leave None to
 # rely on system fonts only.
+#
+# Legacy single-font knobs (preserved for back-compat with v1.0 builds):
 EMBED_FONT_PATH = None
 EMBED_FONT_FAMILY = "IM Fell English"  # used as @font-face family name
+
+# Π.0 (2026-05-14) — multi-font embed list for parallel-Bible support.
+#
+# Each entry is a dict: {"path": "fonts/<file>.ttf", "family": "<Family Name>"}
+# - "path" is relative to ``epub_working/``.
+# - "family" is the CSS font-family name used in @font-face.
+#
+# At build time apply_style.py concatenates the legacy single-font knob
+# (if set) with EMBED_FONT_PATHS. Both code paths emit @font-face rules
+# and register the files in content.opf. v1.0-tagged builds use only the
+# legacy single-font knob — EMBED_FONT_PATHS defaults to [] so existing
+# behavior is unchanged.
+#
+# Recommended use at τ.6.x / Π.1 / Π.2 ship time, when Ethiopic font
+# binary lands at content/themes/<theme>/fonts/NotoSansEthiopic-Regular.ttf:
+#
+#     EMBED_FONT_PATHS = [
+#         {"path": "fonts/NotoSansEthiopic-Regular.ttf",
+#          "family": "Noto Sans Ethiopic"},
+#     ]
+#
+# Π.0 itself does NOT enable Ethiopic embedding (font binary is staged
+# for download but not committed; the .vnote-geez and .vnote-amharic
+# CSS fall through to reader-supplied Ethiopic fonts via the font-family
+# fallback chain in apply_style.py).
+EMBED_FONT_PATHS: list[dict] = []
 
 
 # ---------------------------------------------------------------------------

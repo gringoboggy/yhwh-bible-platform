@@ -4,6 +4,34 @@
 
 ## Prior task
 
+**Π.0 Parallel-Bible infrastructure foundations — INFRASTRUCTURE-
+ONLY ship; 28 new pin tests across 6 test groups verifying:
+amharic registered in POPUP_LANGUAGES (4 pins), .vnote-geez +
+.vnote-amharic CSS emission (5 pins), amharic-tewahedo translation
+slot with Genesis 1:1-3 seed (6 pins), multi-font EMBED_FONT_PATHS
+infrastructure (7 pins), closed γ.4.8.E arc invariants preserved
+(3 pins), translation discovery via list_translations (3 pins).
+No production EPUB content changes — ethiopian-tewahedo's
+popup_languages_default explicitly NOT yet flipped (gated to
+Π.2). Multi-font embed system defaults to empty list preserving
+v1.0 reproducibility. Ethiopic font-family fallback chain declared
+in CSS (Noto Sans Ethiopic → Abyssinica SIL → Nyala → Kefa →
+Ethiopia Jiret → serif); binary font NOT yet committed (gated to
+τ.6.x or Π.2 per `content/assets/fonts/README.md` workflow). All
+28 Π.0 pins pass; full Π.0-relevant sweep (82 tests) green. First
+phase of the 8-phase parallel-Bible roadmap per
+`dev/SCOPE_2026-05-14-parallel-bible.md`; unblocks τ.6.x Geʽez
+full-Bible ingest as the natural next phase.** shipped 2026-05-14.
+Triggered by user "authorize the full plan, start at Π.0" after
+the parallel-Bible master plan was composed in response to the
+publisher's scope-expansion request (`C:\Users\bogda\Documents\
+project_maccabees_expansion` materials integration). Per memory
+`feedback_extensive_answers` (broadest scope): Π.0 implemented as
+full infrastructure ship with comprehensive pin coverage rather
+than a minimal stub.
+
+## Prior task (previous)
+
 **γ.4.8.F Mäṣḥafä Mäqabyan TIER-2 AUDIT INTEGRATION — 12 verse-keyed
 entries propagating the v3 CC0-translation bundle's TIER2_AUDIT.md
 library-source verification findings into the YHWH v2.4 Meqabyan
