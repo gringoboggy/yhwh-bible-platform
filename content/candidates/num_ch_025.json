@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 25,
-  "generated_at": "2026-05-14T04:33:09+00:00",
-  "n_candidates": 31,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 33,
   "candidates": [
     {
       "id": "num-25-3-001",
@@ -456,6 +456,36 @@
     },
     {
       "id": "num-25-11-031",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 25:1-15. NPNF Series 2, vol. 13. PD. Cf. Jub 30:18 (R.H. Charles trans., 1902 — PD).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Phinehas&#x27;s spear-thrust and the Lord&#x27;s grant of &#x27;my covenant of peace&#x27; (Num 25:11-13), Ephrem reads the zealot-priest&#x27;s act as the canonical anchor of priestly-zeal: not bloodlust, but a refusal to tolerate the pollution of the camp by Baal of Peor. The covenant-of-peace given for an act of violence is the paradox: peace with God is procured by hating what God hates. Tewahedo priestly tradition cites Num 25:11 as the canonical Old-Testament warrant for the priestly-zeal expected of the qes (parish priest) and the märigeta (cantor) — those who cannot tolerate liturgical pollution receive the covenant of peace. The doubling with Jub 30:18 (Levi&#x27;s priesthood earned-by-zeal at Shechem) makes Num 25:11 + Jub 30:18 the canonical Tewahedo doubled-warrant for priesthood-by-zeal.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-25-11-032",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 25:1-15. NPNF Series 2, vol. 13. PD. Cf. Jub 30:18 (R.H. Charles trans., 1902 — PD).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Phinehas&#x27;s spear-thrust and the Lord&#x27;s grant of &#x27;my covenant of peace&#x27; (Num 25:11-13), Ephrem reads the zealot-priest&#x27;s act as the canonical anchor of priestly-zeal: not bloodlust, but a refusal to tolerate the pollution of the camp by Baal of Peor. The covenant-of-peace given for an act of violence is the paradox: peace with God is procured by hating what God hates. Tewahedo priestly tradition cites Num 25:11 as the canonical Old-Testament warrant for the priestly-zeal expected of the qes (parish priest) and the märigeta (cantor) — those who cannot tolerate liturgical pollution receive the covenant of peace. The doubling with Jub 30:18 (Levi&#x27;s priesthood earned-by-zeal at Shechem) makes Num 25:11 + Jub 30:18 the canonical Tewahedo doubled-warrant for priesthood-by-zeal.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-25-11-033",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

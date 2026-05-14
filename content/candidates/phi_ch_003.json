@@ -1,8 +1,8 @@
 {
   "book": "phi",
   "chapter": 3,
-  "generated_at": "2026-05-14T04:33:09+00:00",
-  "n_candidates": 18,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 20,
   "candidates": [
     {
       "id": "phi-3-1-001",
@@ -261,6 +261,36 @@
     },
     {
       "id": "phi-3-21-018",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §54",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §54</em> <small>(c. 350 AD)</small><p>&#x27;Who shall change our vile body, that it may be fashioned like unto his glorious body, according to the working whereby he is able even to subdue all things unto himself&#x27; — Athanasius marks metaschēmatisei to sōma tēs tapeinōseōs hēmōn symmorphon tō sōmati tēs doxēs autou (transform the body of our humility conformable to the body of his glory) as the eschatological-theosis Pauline-anchor. The transformation is BODILY (not merely-spiritual), into-the-pattern-of Christ&#x27;s resurrection-glorified-body. This is the FINAL-stage of the Athanasian theosis-arc that began with the incarnation. Tewahedo eschatological-resurrection-doctrine cites Phil 3:21 + 1 Cor 15:51-52 + 1 Jn 3:2 as the bodily-resurrection-glorification triadic-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §54. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "phi-3-21-019",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §54",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §54</em> <small>(c. 350 AD)</small><p>&#x27;Who shall change our vile body, that it may be fashioned like unto his glorious body, according to the working whereby he is able even to subdue all things unto himself&#x27; — Athanasius marks metaschēmatisei to sōma tēs tapeinōseōs hēmōn symmorphon tō sōmati tēs doxēs autou (transform the body of our humility conformable to the body of his glory) as the eschatological-theosis Pauline-anchor. The transformation is BODILY (not merely-spiritual), into-the-pattern-of Christ&#x27;s resurrection-glorified-body. This is the FINAL-stage of the Athanasian theosis-arc that began with the incarnation. Tewahedo eschatological-resurrection-doctrine cites Phil 3:21 + 1 Cor 15:51-52 + 1 Jn 3:2 as the bodily-resurrection-glorification triadic-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §54. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "phi-3-21-020",
       "verse": 21,
       "kind": "comm-ethiopian",
       "anchor": "",

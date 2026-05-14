@@ -1,0 +1,38 @@
+{
+  "book": "mq2",
+  "chapter": 17,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "mq2-17-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>WHEAT-GRAIN DYING ANALOGY for resurrection — develops 1 Corinthians 15:36 (&#x27;thou fool, that which thou sowest is not quickened, except it die&#x27;) + John 12:24 (&#x27;except a corn of wheat fall into the ground and die, it abideth alone: but if it die, it bringeth forth much fruit&#x27;) with a beautiful symbolic-geography expansion: water + earth + sun + wind become resurrection-analogues of body + soul + fire-grace + breath. The vine-and-its-fruit imagery (vv. 5-8) echoes Isaiah 5:1-7 + John 15:1-8 (Christ-the-true-vine). Per CROSS_REFERENCE_APPENDIX Stage-3 broadening: the closest patristic parallels are Tertullian De Resurrectione Carnis §52 + Theophilus of Antioch Ad Autolycum 1.13 (late 2nd c.; earliest extended Christian use of botanical resurrection). The botanical-resurrection argument is one of the MOST DEVELOPED in patristic and Tewahedo eschatology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-17-1-002",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>WHEAT-GRAIN DYING ANALOGY for resurrection — develops 1 Corinthians 15:36 (&#x27;thou fool, that which thou sowest is not quickened, except it die&#x27;) + John 12:24 (&#x27;except a corn of wheat fall into the ground and die, it abideth alone: but if it die, it bringeth forth much fruit&#x27;) with a beautiful symbolic-geography expansion: water + earth + sun + wind become resurrection-analogues of body + soul + fire-grace + breath. The vine-and-its-fruit imagery (vv. 5-8) echoes Isaiah 5:1-7 + John 15:1-8 (Christ-the-true-vine). Per CROSS_REFERENCE_APPENDIX Stage-3 broadening: the closest patristic parallels are Tertullian De Resurrectione Carnis §52 + Theophilus of Antioch Ad Autolycum 1.13 (late 2nd c.; earliest extended Christian use of botanical resurrection). The botanical-resurrection argument is one of the MOST DEVELOPED in patristic and Tewahedo eschatology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

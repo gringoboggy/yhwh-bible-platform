@@ -1,8 +1,8 @@
 {
   "book": "rev",
   "chapter": 22,
-  "generated_at": "2026-05-14T04:33:09+00:00",
-  "n_candidates": 67,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 69,
   "candidates": [
     {
       "id": "rev-22-1-001",
@@ -996,6 +996,36 @@
     },
     {
       "id": "rev-22-13-067",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.13",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.13</em> <small>(c. 350 AD)</small><p>&#x27;I am Alpha and Omega, the beginning and the end, the first and the last&#x27; — Athanasius marks the closing-Apocalyptic Christ-self-predication as the inclusio-pair with Rev 1:8. The triple-self-designation (alpha-omega + archē-telos + prōtos-eschatos) is doxologically-maximal: every-conceivable temporal-and-ontological priority-and-finality is appropriated to the incarnate-Christ. The eschatos (last) connects to LXX-Isa 44:6 egō prōtos kai egō meta tauta (I-first and-I after-these), an explicit YHWH-self-predication in the prophet, now self-claimed by the risen-incarnate-Christ. The Tewahedo Apocalyptic-Christology (the Lǝʿǝlt Mäskäl Feast-of-the-Cross hymnody, the Maḥaberä-Qǝddāsē choral-tradition) cites Rev 22:13 + Isa 44:6 as the divine-self-naming-Christological-inclusio that frames the whole-of-Scripture.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.13. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-22-13-068",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.13",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.13</em> <small>(c. 350 AD)</small><p>&#x27;I am Alpha and Omega, the beginning and the end, the first and the last&#x27; — Athanasius marks the closing-Apocalyptic Christ-self-predication as the inclusio-pair with Rev 1:8. The triple-self-designation (alpha-omega + archē-telos + prōtos-eschatos) is doxologically-maximal: every-conceivable temporal-and-ontological priority-and-finality is appropriated to the incarnate-Christ. The eschatos (last) connects to LXX-Isa 44:6 egō prōtos kai egō meta tauta (I-first and-I after-these), an explicit YHWH-self-predication in the prophet, now self-claimed by the risen-incarnate-Christ. The Tewahedo Apocalyptic-Christology (the Lǝʿǝlt Mäskäl Feast-of-the-Cross hymnody, the Maḥaberä-Qǝddāsē choral-tradition) cites Rev 22:13 + Isa 44:6 as the divine-self-naming-Christological-inclusio that frames the whole-of-Scripture.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.13. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-22-13-069",
       "verse": 13,
       "kind": "comm-ethiopian",
       "anchor": "",

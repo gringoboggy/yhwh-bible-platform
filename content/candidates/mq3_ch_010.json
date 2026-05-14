@@ -1,0 +1,38 @@
+{
+  "book": "mq3",
+  "chapter": 10,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "mq3-10-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>CLOSING CHAPTER of 3 Meqabyan AND of the entire trilogy. Opens with the RESURRECTION-BY-ANALOGY argument: AS GOD CREATES SOULS WITHOUT PARENTS THROUGH HIS SPIRIT HOVERING OVER THE WATERS (Gen 1:2), SO HE RAISES THE DEAD BY HIS WORD. The Genesis 1:2 ruach-elohim-merachefet (&#x27;Spirit of God moved upon the face of the waters&#x27;) is read CHRISTOLOGICALLY-PNEUMATOLOGICALLY: the same creative-Spirit who hovers at creation-of-souls hovers at resurrection-of-bodies. The closing (vv. 24-29) is the FINAL WARNING against the Devil&#x27;s lie that there is no resurrection + the call to prepare for migration &#x27;from this earthly light to heavenly light.&#x27; The book ends (v. 29) with the doxological formula &#x27;From today and unto eternity, Amen&#x27; (ከዛሬ ጀምሮ እስከ ዘለዓለም አሜን). This is the DECISIVE END of the full three-book trilogy and the canonical capstone of the Mäqabyan corpus.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-10-1-002",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>CLOSING CHAPTER of 3 Meqabyan AND of the entire trilogy. Opens with the RESURRECTION-BY-ANALOGY argument: AS GOD CREATES SOULS WITHOUT PARENTS THROUGH HIS SPIRIT HOVERING OVER THE WATERS (Gen 1:2), SO HE RAISES THE DEAD BY HIS WORD. The Genesis 1:2 ruach-elohim-merachefet (&#x27;Spirit of God moved upon the face of the waters&#x27;) is read CHRISTOLOGICALLY-PNEUMATOLOGICALLY: the same creative-Spirit who hovers at creation-of-souls hovers at resurrection-of-bodies. The closing (vv. 24-29) is the FINAL WARNING against the Devil&#x27;s lie that there is no resurrection + the call to prepare for migration &#x27;from this earthly light to heavenly light.&#x27; The book ends (v. 29) with the doxological formula &#x27;From today and unto eternity, Amen&#x27; (ከዛሬ ጀምሮ እስከ ዘለዓለም አሜን). This is the DECISIVE END of the full three-book trilogy and the canonical capstone of the Mäqabyan corpus.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

@@ -102,7 +102,18 @@ class TestGamma4DataFile:
         #     Novum Testamentum* (Oxford 1840 — PD), the authoritative
         #     PD edition of Cyril's Matthew commentary fragments
         #     (Cramer d. 1848). Added γ.4.6.
-        pd_anchors = ("NPNF", "Charles", "Payne Smith", "Cramer")
+        #   - "Horovitz" — Josef Horovitz, "Das äthiopische Maccabäerbuch"
+        #     (Zeitschrift für Assyriologie XIX, 1905, pp. 194-233) — the
+        #     PD primary scholarly study of Meqabyan, integrated as
+        #     apparatus source for γ.4.8 Mäqabyan seed. Added γ.4.8.
+        #   - "CC0" — Creative Commons CC0 1.0 Universal Public Domain
+        #     Dedication, the license under which the 2026-05-14 user-
+        #     contributed Three Books of Meqabyan English translation
+        #     (archive.org/details/three-books-of-meqabyan-cc0-translation)
+        #     was released. CC0 is functionally equivalent to PD for the
+        #     project's canonical-source-licensing requirement. Added
+        #     γ.4.8.
+        pd_anchors = ("NPNF", "Charles", "Payne Smith", "Cramer", "Horovitz", "CC0")
         for entry in self.data["entries"]:
             attr = entry["attribution"]
             assert any(a in attr for a in pd_anchors), f"entry not attributed to any PD anchor {pd_anchors}: {attr!r}"
@@ -587,6 +598,12 @@ class TestGamma4MetaPhasesCoverage:
 
     def test_meta_documents_gamma_4_9_d(self):
         self._assert_phase_mentioned("γ.4.9.D")
+
+    def test_meta_documents_gamma_4_8(self):
+        self._assert_phase_mentioned("γ.4.8")
+
+    def test_meta_documents_gamma_4_8_b(self):
+        self._assert_phase_mentioned("γ.4.8.B")
 
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
@@ -7022,4 +7039,394 @@ class TestGamma49DAthanasiusArcClose:
         )
         assert "SEVENTH" in meta_source or "seventh" in meta_source, (
             "γ.4.9.D _meta.source should name this as the SEVENTH §8.1 arc-close instance"
+        )
+
+
+class TestGamma48MeqabyanSeedWave:
+    """γ.4.8 — Mäṣḥafä Mäqabyan (Three Books of Meqabyan) SEED WAVE
+    (2026-05-14). OPENS THE SIXTH PATRISTIC/CANONICAL VOICE in the γ.4
+    corpus — the third uniquely-Tewahedo-canonical text (alongside 1
+    Enoch / Mäṣḥafä Hēnok γ.4.4 and Jubilees / Mäṣḥafä Kufāle γ.4.5).
+
+    40 verse-keyed seed entries across the three Mäqabyan books:
+    - 1 Mq (20 entries) across 14 chapters — martyrology of Maqabis-
+      of-Benjamin and his five sons vs Chaldean king Ṣiruṣaydan;
+      contains the EPONYM verse 2:14 from which the entire trilogy
+      takes its title.
+    - 2 Mq (12 entries) across 11 chapters — Maqabis-of-Moab
+      conversion cycle (the longest portrait of a Gentile convert in
+      the entire EOTC canon) + a second martyrdom-cycle of his sons
+      + the death of Ṣiruṣaydan + the anti-sectarian resurrection-
+      polemic.
+    - 3 Mq (8 entries) across 5 chapters — homiletic anthology with
+      the most theologically distinctive content of the trilogy: the
+      first-person speech of the Devil + the Satan-refused-to-worship-
+      Adam tradition + the "tenth tribe" angelic hierarchy + the
+      four-elements anthropology + the EOTC canonical definition of
+      "complete repentance" (ፍጹም ንስሓ).
+
+    γ.4.8 had been DEFERRED across the entire γ.4 corpus history
+    pending PD source acquisition. The 2026-05-14 user-contributed
+    CC0 1.0 English translation (archive.org/details/three-books-of-
+    meqabyan-cc0-translation, translated from Modern Amharic of the
+    EOTC Bible at nehemiah-osc.org) is the canonical unblocker.
+
+    Voice mix post-γ.4.8 (1407 entries):
+        Cyril       668  47.48%
+        Jubilees    200  14.22%
+        1 Enoch     192  13.65%
+        Ephrem      157  11.16%
+        Athanasius  150  10.66%
+        Meqabyan     40   2.84%  ← γ.4.8 SEED
+
+    Cyril remains plurality-leader at 3.34× next-single-father (668
+    vs 200). Patristic-anchor majority (Cyril + Ephrem + Athanasius)
+    holds at ~69.2%; Tewahedo-distinctive-canonical voices (Mäṣḥafä
+    Hēnok + Mäṣḥafä Kufāle + Mäqabyan) hold 30.8% — for the first
+    time the three uniquely-Tewahedo canonical texts together
+    constitute a numerically-significant block.
+
+    Pins (seed-wave standard set, NOT arc-close):
+    - Meqabyan substantively seeded (≥40 entries total).
+    - All three Mäqabyan books opened (mq1 ≥20, mq2 ≥12, mq3 ≥8 —
+      previously all 0-tuple per AUDIT_2026-05-13-DEEP D-C1 finding).
+    - Per-book minimum density invariant.
+    - 8 signature-anchor pins (most distinctive theological loci):
+      mq1 2:14 EPONYM-VERSE + mq1 2:5 creation-confession + mq1 36:22
+      Abraham-my-friend triple-formula + mq2 4:15 Maqabis-of-Moab
+      conversion + mq2 14:1 four-sectarian-resurrection-errors + mq3
+      1:15 SATAN-REFUSED-TO-BOW-TO-ADAM + mq3 4:8 'tenth-tribe'
+      angelic hierarchy + mq3 4:34 'complete repentance' EOTC
+      sacramental-confession foundation.
+    - _meta.source sync pin: γ.4.8 referenced + Meqabyan named +
+      Horovitz named (apparatus source) + CC0 / archive.org named.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _meq_in_book(self, book):
+        # Mäqabyan chapter counts: mq1 36 ch, mq2 21 ch, mq3 10 ch.
+        # Verses per chapter top out around 50 (1 Mq 28 has 49). Use
+        # wide range to be safe.
+        out = []
+        for chapter in range(1, 50):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _all_meq(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Meqabyan (Ethiopian tradition)")
+        return out
+
+    # ---- Voice-opening + per-book coverage ----
+
+    def test_meqabyan_voice_opens(self):
+        meq = self._all_meq()
+        assert len(meq) >= 40, (
+            f"γ.4.8 seed expected ≥40 Meqabyan entries (opens SIXTH voice in γ.4 corpus); found {len(meq)}"
+        )
+
+    def test_all_three_maqabyan_books_opened(self):
+        # Per AUDIT_2026-05-13-DEEP D-C1: mq1.py + mq2.py + mq3.py were
+        # all 0-tuple before γ.4.8. After seed they must all have entries.
+        books = ["mq1", "mq2", "mq3"]
+        per_book = {b: len(self._meq_in_book(b)) for b in books}
+        empty = {b: n for b, n in per_book.items() if n < 1}
+        assert not empty, (
+            f"γ.4.8 seed: each of the three Mäqabyan books must have ≥1 Meqabyan entry "
+            f"(opens previously-empty notes-files); empty books: {empty}"
+        )
+
+    def test_mq1_substantively_seeded(self):
+        mq1 = self._meq_in_book("mq1")
+        assert len(mq1) >= 20, (
+            f"γ.4.8 seed expected ≥20 entries on 1 Meqabyan (martyrology + EPONYM verse 2:14); found {len(mq1)}"
+        )
+
+    def test_mq2_substantively_seeded(self):
+        mq2 = self._meq_in_book("mq2")
+        assert len(mq2) >= 12, (
+            f"γ.4.8 seed expected ≥12 entries on 2 Meqabyan (Maqabis-of-Moab conversion + sons-martyrdom + "
+            f"anti-sectarian resurrection-polemic); found {len(mq2)}"
+        )
+
+    def test_mq3_substantively_seeded(self):
+        mq3 = self._meq_in_book("mq3")
+        assert len(mq3) >= 8, (
+            f"γ.4.8 seed expected ≥8 entries on 3 Meqabyan (Devil-dialogue + Satan-refused-Adam + complete-"
+            f"repentance + resurrection-doctrine); found {len(mq3)}"
+        )
+
+    # ---- Signature passage pins (8 anchors) ----
+
+    def test_mq1_2_14_eponym_verse_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 2, 14) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq1 2:14 — THE EPONYM VERSE መቃብያንን ('the Meqabyans'); the verse "
+            "from which the entire trilogy takes its title"
+        )
+
+    def test_mq1_2_5_creation_confession_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 2, 5) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq1 2:5 — creation-confession of faith (inverts Ṣiruṣaydan's claim at 1:26-27); "
+            "EOTC anti-idolatry creed rooted in Genesis 1"
+        )
+
+    def test_mq1_36_22_abraham_my_friend_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 36, 22) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq1 36:22 — 'Abraham is my friend; Isaac is my favored one; Jacob is the beloved "
+            "of my heart' triple-formula (theological climax of 1 Mq; James 2:23 + Isa 41:8 + 2 Chron 20:7)"
+        )
+
+    def test_mq2_4_15_maqabis_of_moab_conversion_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 4, 15) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq2 4:15 — Maqabis-of-Moab as righteous-Gentile-convert (longest portrait of "
+            "Gentile convert in EOTC canon; Ruth-Rabbah-2:9 + Tg-Ps-J-Ruth-1:16 parallels)"
+        )
+
+    def test_mq2_14_1_four_sectarian_errors_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 14, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq2 14:1 — four sectarian errors about resurrection (Jews + Samaritans + Pharisees "
+            "+ Sadducees); longest chapter in 2 Mq, the anti-sectarian resurrection-polemic"
+        )
+
+    def test_mq3_1_15_satan_refused_to_bow_to_adam_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 1, 15) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq3 1:15 — SATAN-REFUSED-TO-WORSHIP-ADAM tradition; the MOST DIAGNOSTIC "
+            "angelological verse in 3 Mq (Vita Adae §§12-17 + 2 Enoch + Cave of Treasures §2 + Qur'an cluster)"
+        )
+
+    def test_mq3_4_8_tenth_tribe_angelic_hierarchy_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 4, 8) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq3 4:8 — 'tenth tribe' angelic hierarchy (Pseudo-Dionysius Celestial Hierarchy 6.2 "
+            "+ Gregory the Great Hom. Evang. 34 + Augustine Enchiridion §29 + Anselm Cur Deus Homo I.16-18)"
+        )
+
+    def test_mq3_4_34_complete_repentance_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 4, 34) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8 missing mq3 4:34 — 'complete repentance' (ፍጹም ንስሓ) definition; foundation of EOTC "
+            "sacramental confession (codified later in Fetha Nagast 13th c.)"
+        )
+
+    # ---- _meta sync pin ----
+
+    def test_meta_documents_gamma_4_8_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.8" in meta_source, "γ.4.8 must be referenced in _meta.source"
+        assert "Mäqabyan" in meta_source or "Meqabyan" in meta_source, (
+            "γ.4.8 _meta.source should name Mäqabyan/Meqabyan"
+        )
+        assert "Horovitz" in meta_source, (
+            "γ.4.8 _meta.source should name Josef Horovitz 1905 (apparatus primary scholarly source)"
+        )
+        assert "CC0" in meta_source or "archive.org" in meta_source or "Public Domain" in meta_source, (
+            "γ.4.8 _meta.source should reference the CC0 1.0 / archive.org canonical source for the translation"
+        )
+        assert "SIXTH" in meta_source or "sixth" in meta_source, (
+            "γ.4.8 _meta.source should name this as opening the SIXTH voice in the corpus"
+        )
+
+
+class TestGamma48BMeqabyanIDetailWave:
+    """γ.4.8.B — Mäṣḥafä Mäqabyan I DETAIL WAVE (2026-05-14). 40 verse-
+    keyed entries deepening the 20 mq1 seed anchors to 60-entry
+    substantive-detail coverage. FIRST DETAIL WAVE on the SIXTH-voice
+    opened by γ.4.8 seed; mirrors γ.4.4.B Watchers detail + γ.4.5.B-E
+    Jubilees chapter-range details + γ.4.9.B-C Athanasius detail-wave
+    shapes.
+
+    Distribution (40 entries across 23 chapters, 11 of which are newly
+    opened relative to seed):
+
+    - Deepened seed chapters (12): 2(+6), 3(+3), 5(+2), 6(+2), 8(+3),
+      10(+1), 13(+2), 14(+2), 28(+2), 33(+1), 34(+1), 36(+2) — 27 detail
+      entries.
+    - Newly-opened chapters (11): 4(+2), 7(+1), 9(+1), 11(+1), 12(+1),
+      15(+1), 16(+1), 18(+1), 19(+1), 25(+2), 29(+1) — 13 detail
+      entries.
+
+    Mq1 coverage post-γ.4.8.B: 25 of 36 chapters (70%); per-chapter
+    floor varies (Ch 2 deepest at 11 entries; many newly-opened
+    chapters at 1-2 entries).
+
+    Voice-mix impact:
+        Meqabyan 40 → 80 entries; Cyril 47.48% → 46.16% (continues
+        sub-50% trajectory; remains plurality-leader at 3.34× next-
+        single-father); Tewahedo-distinctive-canonical block (Mäṣḥafä
+        Hēnok + Mäṣḥafä Kufāle + Mäqabyan) → 32.62%.
+
+    Pins (detail-wave standard set):
+    - Mq1 substantively detailed (≥60 entries — 20 seed + 40 detail).
+    - Meqabyan absolute-count milestone ≥80.
+    - Every previously-seeded mq1 chapter still has its seed entry
+      (no regression).
+    - 11 newly-opened mq1 chapters all carry ≥1 detail-wave entry
+      (4, 7, 9, 11, 12, 15, 16, 18, 19, 25, 29).
+    - 8 signature-anchor pins (most distinctive detail-wave theology):
+      mq1 2:8 warrior-of-martyrs + mq1 3:28 five-brothers-DISTINCTIVE-
+      EXPANSION + mq1 4:1 corpses-resist-destruction-OPENS-Ch4 +
+      mq1 8:22 STRONGEST 1 Cor 15:36-38 PAULINE PARALLEL + mq1 11:1
+      Tyre+Sidon=Ṣiruṣaydan-ETYMOLOGY + mq1 15:6 SECOND-Maqabean-
+      trio Frankfurt-Codex + mq1 25:9 ETHIOPIA-NAMED-FIRST + mq1 28:38
+      ETHIOPIA-NAMED-SECOND.
+    - _meta.source sync pin: γ.4.8.B referenced + "detail" named +
+      mq1 named + "TWELFTH" N-W4 named.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _meq_in_mq1(self):
+        out = []
+        for chapter in range(1, 40):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse("mq1", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _meq_in_mq1_chapter(self, chapter):
+        out = []
+        for verse in range(1, 60):
+            out.extend(
+                e for e in self.ec.for_verse("mq1", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+            )
+        return out
+
+    def _all_meq(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Meqabyan (Ethiopian tradition)")
+        return out
+
+    # ---- Per-voice + per-book density ----
+
+    def test_mq1_substantively_detailed(self):
+        mq1 = self._meq_in_mq1()
+        assert len(mq1) >= 60, f"γ.4.8.B expected ≥60 Meqabyan entries on 1 Mq (20 seed + 40 detail); found {len(mq1)}"
+
+    def test_meqabyan_milestone_at_detail_wave(self):
+        meq = self._all_meq()
+        assert len(meq) >= 80, (
+            f"γ.4.8.B expected ≥80 Meqabyan entries total (40 seed + 40 detail = 80); found {len(meq)}"
+        )
+
+    def test_all_previously_seeded_mq1_chapters_retained(self):
+        # Regression-guard: seed chapters must still have their seed
+        # entries after detail-wave ship.
+        seed_chapters = [2, 3, 5, 6, 8, 10, 13, 14, 17, 28, 30, 33, 34, 36]
+        per_chapter = {ch: len(self._meq_in_mq1_chapter(ch)) for ch in seed_chapters}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.B regression: previously-seeded mq1 chapters must retain entries; empty: {empty}"
+
+    def test_eleven_newly_opened_mq1_chapters_have_detail(self):
+        # γ.4.8.B specifically opened 11 previously-seed-empty chapters.
+        # Each must have ≥1 entry post-detail-wave.
+        newly_opened = [4, 7, 9, 11, 12, 15, 16, 18, 19, 25, 29]
+        per_chapter = {ch: len(self._meq_in_mq1_chapter(ch)) for ch in newly_opened}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.B opens 11 newly-empty chapters: each must have ≥1 entry; empty: {empty}"
+
+    # ---- Signature passage pins (8 anchors) ----
+
+    def test_mq1_2_8_warrior_of_martyrs_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 2, 8) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 2:8 — bear-strangling warrior-of-martyrs motif "
+            "(distinctive vs LXX 2 Macc 7 passive-martyr; Samson/David's-mighty-men echoes)"
+        )
+
+    def test_mq1_3_28_five_brothers_expansion_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 3, 28) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 3:28 — five-brothers expansion DISTINCTIVE to Ethiopian narrative "
+            "(no parallel in LXX 2 Maccabees seven-sons; mirrors mq2 13:1 five-sons-of-Maqabis-of-Moab)"
+        )
+
+    def test_mq1_4_1_corpses_resist_destruction_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 4, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 4:1 — OPENS Ch 4 (corpses-resist-destruction: fire cannot burn; "
+            "Daniel 3:19-27 three-young-men-in-furnace parallel)"
+        )
+
+    def test_mq1_8_22_strongest_pauline_parallel_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 8, 22) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 8:22 — SEED-BURIED-AND-RISING (STRONGEST 1 Cor 15:36-38 Pauline "
+            "parallel in entire Meqabyan trilogy per CROSS_REFERENCE_APPENDIX §10)"
+        )
+
+    def test_mq1_11_1_tyre_sidon_etymology_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 11, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 11:1 — OPENS Ch 11 (Ṣiruṣaydan = TYRE + SIDON etymology; "
+            "Horovitz 1905 p. 195 fn. 3 + Dillmann Lexicon Linguae Aethiopicae 1865)"
+        )
+
+    def test_mq1_15_6_second_maqabean_trio_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 15, 6) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 15:6 — OPENS Ch 15 (SECOND Maqabean trio Mebkyus/Maqabis/Yehuda; "
+            "Horovitz 1905 Frankfurt Codex Rüppel II 7 structural witness for the composite-textual-"
+            "history of the trilogy)"
+        )
+
+    def test_mq1_25_9_ethiopia_named_first_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 25, 9) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 25:9 — ETHIOPIA NAMED (first reference in 1 Mq; Tewahedo-uniqueness-"
+            "angle per memory `project_v1_terminus` buyer-demo)"
+        )
+
+    def test_mq1_28_38_ethiopia_named_second_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 28, 38) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.B missing mq1 28:38 — ETHIOPIA NAMED (second reference; structural anchor "
+            "for Aksumite-and-Tewahedo biblical self-understanding)"
+        )
+
+    # ---- _meta sync pin ----
+
+    def test_meta_documents_gamma_4_8_b_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.8.B" in meta_source, "γ.4.8.B must be referenced in _meta.source"
+        assert "detail" in meta_source.lower(), "γ.4.8.B _meta.source should name 'detail wave'"
+        assert "mq1" in meta_source.lower() or "Mäqabyan I" in meta_source, (
+            "γ.4.8.B _meta.source should name mq1 / Mäqabyan I"
+        )
+        assert "TWELFTH" in meta_source or "twelfth" in meta_source, (
+            "γ.4.8.B _meta.source should name this as the TWELFTH N-W4 verification"
         )

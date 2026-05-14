@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 13,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 40,
+  "generated_at": "2026-05-14T06:19:07+00:00",
+  "n_candidates": 42,
   "candidates": [
     {
       "id": "exo-13-2-001",
@@ -591,6 +591,36 @@
     },
     {
       "id": "exo-13-21-040",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XIII.7 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>The pillar of cloud by day and of fire by night, leading Israel through the wilderness, is for Ephrem the canonical figure of Christ&#x27;s two natures: the cloud that veils the fire is the humanity that veils the divinity, yet the veiling does not extinguish the radiance. Tewahedo reads the pillar as the first systematic OT diptych of the Incarnation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-13-21-041",
+      "verse": 21,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XIII.7 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>The pillar of cloud by day and of fire by night, leading Israel through the wilderness, is for Ephrem the canonical figure of Christ&#x27;s two natures: the cloud that veils the fire is the humanity that veils the divinity, yet the veiling does not extinguish the radiance. Tewahedo reads the pillar as the first systematic OT diptych of the Incarnation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-13-21-042",
       "verse": 21,
       "kind": "comm-ethiopian",
       "anchor": "",

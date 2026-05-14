@@ -120,6 +120,77 @@ headline so the trajectory is visible. Balance with Ephrem or
 pseudepigraphical expansion if a publisher uniqueness-angle pick
 (per memory `v1_terminus`) calls for it.
 
+### Five-voice extension (ω.41 §1.B / γ.4.9.D 2026-05-13)
+
+**Extended at γ.4.9.D arc-close, 2026-05-13:** the corpus opened a
+FIFTH voice with γ.4.9 Athanasius of Alexandria (the Tewahedo
+apostolic-bridge: 20th Patriarch of the See of Mark + Frumentius's
+consecrator c. 330 + author of Festal Letter 39 codifying the 27-book
+NT canon). The five-voice composition was:
+
+- Cyril of Alexandria — 48.86% (668 entries; 4 canonical-Gospel arcs)
+- Jubilees (Ethiopian tradition) — 14.63% (200 entries)
+- 1 Enoch (Ethiopian tradition) — 14.05% (192 entries)
+- Ephrem the Syrian — 11.49% (157 entries)
+- Athanasius of Alexandria — 10.97% (150 entries; γ.4.9.x arc closed)
+
+At γ.4.9.C Cyril's share crossed DOWNWARD below 50% (51.5% → 49.96%)
+as the natural consequence of two consecutive Athanasius detail-waves.
+Cyril remained plurality-leader at 3.34× the next single-father. This
+threshold-crossing was flagged in SESSION_STATE per the trajectory
+rule above. The Cyril-remains-plurality-leader durable safeguard pin
+in `TestGamma49DAthanasiusArcClose::test_cyril_remains_plurality_
+leader_at_arc_close` guards this invariant against future voice-
+mixing.
+
+### Six-voice extension (ω.42 §1.C / γ.4.8 2026-05-14)
+
+**Extended at ω.42 hygiene bundle paired with γ.4.8 ship, 2026-05-14:**
+the corpus opened a SIXTH voice with γ.4.8 Mäṣḥafä Mäqabyan — the
+THIRD uniquely-Tewahedo-canonical text alongside Mäṣḥafä Hēnok (1
+Enoch) and Mäṣḥafä Kufāle (Jubilees). γ.4.8 had been DEFERRED across
+the entire γ.4 corpus history pending PD source acquisition; the
+2026-05-14 user-contributed CC0 1.0 English translation
+(archive.org/details/three-books-of-meqabyan-cc0-translation) is the
+canonical unblocker.
+
+The six-voice composition is:
+
+- **Cyril of Alexandria** — 47.48% (668 entries) — Alexandrian-
+  Coptic patriarchal commentary; the Tewahedo Christological doctrinal
+  centerpiece via the Mark → Athanasius → Frumentius apostolic lineage.
+- **Jubilees / Mäṣḥafä Kufāle (Ethiopian tradition)** — 14.22% (200
+  entries) — uniquely-Tewahedo-canonical OT pseudepigraphical witness.
+- **1 Enoch / Mäṣḥafä Hēnok (Ethiopian tradition)** — 13.65% (192
+  entries) — uniquely-Tewahedo-canonical OT pseudepigraphical witness.
+- **Ephrem the Syrian** — 11.16% (157 entries) — Syriac patristic
+  voice; the East-Syrian-Alexandrian bridge.
+- **Athanasius of Alexandria** — 10.66% (150 entries) — Tewahedo
+  apostolic-bridge: 20th Patriarch of See of Mark + Frumentius's
+  consecrator.
+- **Mäqabyan / Mäṣḥafä Mäqabyan (Ethiopian tradition)** — 2.84% (40
+  entries; γ.4.8 seed; opens-the-sixth-voice) — uniquely-Tewahedo-
+  canonical broader-canon Maccabees-named-but-distinct text (Maqabis-
+  of-Benjamin + Maqabis-of-Moab + angelological/resurrection-doctrine
+  cycles).
+
+**Tewahedo-distinctive-canonical block:** the three uniquely-Tewahedo
+canonical texts (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan) jointly
+hold 432/1407 = 30.71% of the patristic-and-canonical corpus — the
+FIRST TIME the three together constitute a numerically significant
+block. **Patristic-anchor majority** (Cyril + Ephrem + Athanasius)
+holds at 975/1407 = 69.30%. **Cyril plurality** remains intact at
+3.34× next-single-father (668 vs 200), guarded durably by the
+`test_cyril_remains_plurality_leader_at_arc_close` pin (which asserts
+Cyril > Athanasius AND Cyril > Jubilees — sufficient under all
+plausible future expansion).
+
+Future γ.4.8.x detail-wave + arc-close ships (γ.4.8.B Mäqabyan-I
+detail, γ.4.8.C Mäqabyan-II detail, γ.4.8.D Mäqabyan-III detail,
+γ.4.8.E arc-close as EIGHTH §8.1 instance) will follow the established
+seed → detail → arc-close pattern; estimated end-state for the Mäqabyan
+voice is ~120-160 entries (parity with Athanasius 150).
+
 ## 2. Universal principles (from SCOPE_2026-05-08.md, carried verbatim from 05-07)
 
 1. **Fully customizable.** Every UI element, symbol, marker, kind

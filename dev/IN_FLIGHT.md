@@ -4,6 +4,328 @@
 
 ## Prior task
 
+**γ.4.8.B Mäṣḥafä Mäqabyan I detail wave — 40 verse-keyed entries
+deepening the 20 mq1 seed anchors to 60-entry substantive-detail
+coverage. FIRST DETAIL WAVE on the SIXTH-voice opened by γ.4.8 seed
+earlier same session. Mirrors γ.4.4.B Watchers detail + γ.4.5.B-E
+Jubilees chapter-range details + γ.4.9.B-C Athanasius detail-wave
+shapes. Distribution: 23 chapters touched (12 deepened previously-
+seeded + 11 newly-opened). Newly-opened chapters: 4, 7, 9, 11, 12, 15,
+16, 18, 19, 25, 29 — each carries ≥1 entry post-γ.4.8.B. Coverage
+post-γ.4.8.B: 25 of 36 mq1 chapters (70%); 60 entries total (20 seed
++ 40 detail). Meqabyan voice 40 → 80 entries (matches γ.4.4 seed →
+γ.4.4.B + γ.4.9 seed → γ.4.9.B precedent). ethiopian_commentaries.json
+1407 → 1447 (+40); voice mix Cyril 47.48% → 46.16% (continues sub-50%
+trajectory; plurality intact at 3.34× next-single-father 668 vs 200);
+Tewahedo-distinctive-canonical block 30.71% → 32.62%; patristic-anchor
+majority 69.30% → 67.38%. TWELFTH production-scale N-W4 idempotency
+verification. TestGamma48BMeqabyanIDetailWave +13 pins (substantively-
+detailed mq1 ≥60 + Meqabyan ≥80 milestone + seed-chapter-retention
+regression-guard + 11-newly-opened-chapters all-have-detail + 8
+signature anchors + _meta sync) + TestGamma4MetaPhasesCoverage γ.4.8.B
+extension +1 = +14 pins net.** shipped 2026-05-14. Triggered by user
+"continue with your suggestion" after γ.4.8 seed save. Per §3.4
+close-before-open within the Mäqabyan arc. Per memory `feedback_
+extensive_answers` (broadest scope): 40-entry detail wave matching
+γ.4.4.B / γ.4.5.B / γ.4.9.B detail-wave precedents.
+
+**γ.4.8 arc trajectory:**
+
+```
+γ.4.8     seed (40 entries, multi-book: mq1 20 + mq2 12 + mq3 8)
+γ.4.8.B   Mäqabyan I detail (40 entries on mq1; THIS SHIP)         ← 2026-05-14 (this ship)
+γ.4.8.C   Mäqabyan II detail (planned; ~30-40 entries on mq2)      [future]
+γ.4.8.D   Mäqabyan III detail (planned; ~30-40 entries on mq3)     [future]
+γ.4.8.E   arc-close (planned; EIGHTH §8.1 instance + ~10 capstones) [future]
+─────────────────────────────────────────────────────
+Estimated end-state ~160 Meqabyan entries (parity with Athanasius 150)
+```
+
+**γ.4 corpus — SIX-VOICE composition state post-γ.4.8.B:**
+
+```
+Cyril of Alexandria      668   46.16%  (4 canonical-Gospel arcs closed)
+Jubilees                 200   13.82%  (γ.4.5.E closed)
+1 Enoch                  192   13.27%  (γ.4.4.E closed)
+Ephrem the Syrian        157   10.85%  (γ.4.2.D Pentateuch closed)
+Athanasius               150   10.37%  (γ.4.9.D closed — SEVENTH §8.1)
+Meqabyan                  80    5.53%  (γ.4.8 seed + γ.4.8.B mq1 detail)
+─────────────────
+Total                   1447  100.00%
+```
+
+**Themes covered (40 detail entries):**
+
+Deepened seed chapters (27 detail):
+- **Ch 2 (+6, EPONYM chapter):** warrior-of-martyrs bear-strangling
+  (2:8) + inward-beauty-surpasses-outward (2:11) + anti-idol Ps 115
+  recall (2:18) + child-sacrifice intensifier (2:19) + Genesis
+  cross-reference Jacob's-Egypt (2:26) + first-resurrection
+  completion (2:28).
+- **Ch 3 (+3):** beasts-bow-down Daniel 6:22 (3:24) + FIVE-BROTHERS
+  expansion DISTINCTIVE to Ethiopian narrative (3:28) + angels-
+  receive-souls-to-Abraham-Paradise (3:38).
+- **Ch 5 (+2):** Nimrod proud-tower-builder (5:7) + Nebuchadnezzar
+  humbled-to-beasts Dan 4 (5:14) — humbled-kings catalog.
+- **Ch 6 (+2):** heavenly-palace named-dwelling Abraham-Isaac-Jacob-
+  David-Solomon-Hezekiah (6:8) + Saul-Samuel-Amalek 1 Sam 15
+  obedience-over-sacrifice (6:23).
+- **Ch 8 (+3):** four-elements parable two-breasts (8:3) + wind-gives-
+  fruit (8:5) + **SEED-BURIED-AND-RISING (STRONGEST 1 Cor 15:36-38
+  PAULINE PARALLEL per CROSS_REFERENCE_APPENDIX §10) (8:22)**.
+- **Ch 10 (+1):** patriarchs-burial catalog Adam-Abel-Seth-Noah-Shem-
+  Abraham-Isaac-Jacob-Joseph-Moses-Aaron 11-figure (10:5).
+- **Ch 13 (+2):** NT-era apocalyptic toponyms Capernaum/Galilee/Syria/
+  Damascus/Cyprus/Achaia (13:3 — strongest internal-Christian-era
+  dating-evidence) + cosmic-signs Joel 2 + Mt 24 (13:20).
+- **Ch 14 (+2):** Decalogue-in-5-form (14:7) + golden-calf at Horeb
+  (14:11).
+- **Ch 28 (+2):** Esther salvation-history-Cain-to-Esther (28:14) +
+  ETHIOPIA NAMED second reference (28:38).
+- **Ch 33 (+1):** light-filled-heavenly-city for good-kings (33:8).
+- **Ch 34 (+1):** Nebuchadnezzar-to-Daniel spirit-of-God Dan 5:14
+  echo (34:14).
+- **Ch 36 (+2):** Macedonia + Amalekites Sheol/heaven Isa 14:13-15 +
+  Mt 11:23/Lk 10:15 (36:1) + Gen 15:6 Abraham-believed-God Rom 4:3 +
+  Jas 2:23 (36:43; pairs with seed 36:22 Abraham-my-friend triple-
+  formula).
+
+Newly-opened chapters (13 detail):
+- **Ch 4 (+2):** corpses-resist-destruction — fire cannot burn (4:1)
+  + birds-cover-corpses (4:5). Daniel 3:19-27 three-young-men-in-
+  furnace parallel.
+- **Ch 7 (+1):** king's-duties-of-royal-office direct second-person
+  address (7:1). Parallels Wisdom 6:1-11 + Sirach 10:1-11 + Rom
+  13:1-7 + 1 Pet 2:13-17.
+- **Ch 9 (+1):** apostates and heretics catalog including ROOT-CHEWERS
+  (sorcerers) (9:3). Deut 18:10-12 forbidden-divination + Rev 9:21
+  pharmakoi.
+- **Ch 11 (+1):** Ṣiruṣaydan = TYRE + SIDON ETYMOLOGY per Horovitz
+  1905 + Dillmann Lexicon Linguae Aethiopicae 1865 (11:1).
+- **Ch 12 (+1):** Jerusalem-as-Sodom daughter-of-Jerusalem apostrophe
+  Isa 1:9-10 + Jer 23:14 + Ezk 16 (12:1).
+- **Ch 15 (+1):** SECOND Maqabean trio Mebkyus/Maqabis/Yehuda per
+  Horovitz Frankfurt Codex Rüppel II 7 (structural witness for
+  composite-textual-history of trilogy) (15:6).
+- **Ch 16 (+1):** post-Hellenistic toponym Arabia/Parthia/Seleucia/
+  Cappadocia/Pontus/Caesarea — TERMINUS-A-QUO c. 1st c. CE (16:1).
+- **Ch 18 (+1):** sons-of-Re'ayt Watchers Gen 6:1-4 (parallel to γ.4.4
+  + γ.4.5 Watchers coverage) (18:2).
+- **Ch 19 (+1):** Cain's musical-instruments Gen 4:21 + Jubilees 4
+  parallel (19:1).
+- **Ch 25 (+2):** God-fills-horizon-to-horizon Ps 139:7-12 + Jer 23:23
+  + Amos 9:2 (25:4) + ETHIOPIA NAMED first reference (25:9).
+- **Ch 29 (+1):** covenant-exchange formula "Do good for good and
+  evil for evil" Deut 28 + Lev 26 + Rom 2:6-11 (29:5).
+
+**N-W4 IDEMPOTENCY — TWELFTH PRODUCTION VERIFICATION:**
+
+at-scale regenerated candidates for mq1; batch_promote promoted 40
+new mq1 entries (idempotent post-N-W4 contract). The contract holds
+across a clean single-book detail-wave that touches 23 chapters in
+one ship.
+
+**Files:**
+
+- `content/sources/ethiopian_commentaries.json` — +40 Meqabyan entries
+  on mq1 across 23 chapters; `_meta.source` extended with γ.4.8.B
+  detail-wave manifest.
+- `content/notes/mq1.py` — promoted via at-scale + batch_promote
+  (idempotent). Per-chapter post-γ.4.8.B: Ch 2=11, Ch 3=4, Ch 4=2,
+  Ch 5=3, Ch 6=3, Ch 7=1, Ch 8=4, Ch 9=1, Ch 10=2, Ch 11=1, Ch 12=1,
+  Ch 13=3, Ch 14=3, Ch 15=1, Ch 16=1, Ch 17=1, Ch 18=1, Ch 19=1, Ch
+  25=2, Ch 28=3, Ch 29=1, Ch 30=1, Ch 33=2, Ch 34=2, Ch 36=5 = 60
+  total.
+- `scripts/_ship_gamma48b.py` — new ship script (~750 lines, reuses
+  ATTR_MEQ from γ.4.8 seed).
+- `tests/test_ethiopian_gamma4.py` — new `TestGamma48BMeqabyanIDetailWave`
+  class (13 pins) + `TestGamma4MetaPhasesCoverage::test_meta_documents_
+  gamma_4_8_b` (1 pin) = +14 pins net.
+
+**Recommended next steps:**
+
+- **save** — γ.4.8.B + γ.4.8 seed + ω.42 hygiene bundle uncommitted
+  since 037e7c0. User-explicit only per `feedback_continue_not_save`.
+- **γ.4.8.C Mäqabyan II detail wave** — natural close-before-open
+  continuation; would deepen the 12 mq2 seed anchors with ~30-40
+  detail entries covering Maqabis-of-Moab-conversion + sons-martyrdom
+  + Ṣiruṣaydan-death + anti-sectarian-resurrection-polemic.
+
+## Earlier prior task
+
+**γ.4.8 Mäqabyan SEED + ω.42 hygiene bundle — 40 verse-keyed seed
+entries across mq1 + mq2 + mq3 OPENING THE SIXTH PATRISTIC/CANONICAL
+VOICE in the γ.4 corpus (the third uniquely-Tewahedo-canonical text
+alongside 1 Enoch γ.4.4 and Jubilees γ.4.5). γ.4.8 had been DEFERRED
+across the entire γ.4 corpus history per `_meta.source` ledger markers;
+the 2026-05-14 user-contributed CC0 1.0 English translation
+(archive.org/details/three-books-of-meqabyan-cc0-translation, from
+Modern Amharic of EOTC Bible at nehemiah-osc.org by Claude with
+collaborator) is the canonical unblocker. AUDIT_2026-05-13-DEEP D-C1
+RESOLVED. ethiopian_commentaries.json 1367 → 1407 (+40); Meqabyan 0
+→ 40 (NEW SIXTH VOICE); voice mix Cyril 48.87% → 47.48% (continues
+sub-50% trajectory; plurality intact at 3.34× next-single-father);
+Tewahedo-distinctive-canonical block (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle
++ Mäqabyan) reaches 30.71% (first time the three together constitute
+a numerically-significant block). ELEVENTH production-scale N-W4
+idempotency verification (12350 attempted / 40 promoted / 12310
+skipped / 0 errors / 27 files affected). content/notes/mq1.py +
+mq2.py + mq3.py FILLED FOR THE FIRST TIME in project history (each
+was 0-tuple per AUDIT_2026-05-13-DEEP D-C1). TestGamma48MeqabyanSeed
+Wave +14 pins (voice-opens + all-three-books-opened + 3 per-book
+density + 8 signature anchors including EPONYM mq1 2:14 + SATAN-
+REFUSED-TO-WORSHIP-ADAM mq3 1:15 + complete-repentance mq3 4:34 +
+'tenth-tribe' angelic-hierarchy mq3 4:8 + Maqabis-of-Moab conversion
+mq2 4:15 + four-sectarian-errors mq2 14:1 + Abraham-my-friend mq1
+36:22 + creation-confession mq1 2:5) + 1 meta-coverage extension + 1
+PD-anchor-whitelist extension (Horovitz + CC0 added) = +16 net pins.
+Plus ω.42 hygiene bundle: D-W2 fix (jas→jam `_BOOK_CODE_ALIASES`
+single-line addition resolving the γ.4.9.D-flagged + AUDIT-DEEP-re-
+flagged project-level inconsistency); ω.41 §1 extended with §1.B
+five-voice (γ.4.9.D) and §1.C six-voice (γ.4.8) trajectory
+codifications.** shipped 2026-05-14. Triggered by user "let's do a
+real good audit because I have some amazing new findings" + delivery
+of `C:\\Users\\bogda\\Documents\\upload_bundle\\` containing the full
+CC0 1.0 PD translation bundle (Three_Books_of_Meqabyan PDF/EPUB +
+SOURCES.md per-claim audit + CROSS_REFERENCE_APPENDIX.md 64-citation
+verdict matrix + translation_continuation.md canonical text). Per
+memory `feedback_extensive_answers` (broadest scope): 40-entry seed
+matching γ.4.5 + γ.4.9 seed-wave precedents.
+
+**γ.4 corpus — SIX-VOICE composition state:**
+
+```
+Cyril of Alexandria      668   47.48%  (4 canonical-Gospel arcs closed)
+Jubilees                 200   14.22%  (γ.4.5.E closed)
+1 Enoch                  192   13.65%  (γ.4.4.E closed)
+Ephrem the Syrian        157   11.16%  (γ.4.2.D Pentateuch closed)
+Athanasius               150   10.66%  (γ.4.9.D closed — SEVENTH §8.1)
+Meqabyan                  40    2.84%  (γ.4.8 SEED — opens SIXTH voice)
+─────────────────
+Patristic + canonical   1407  100.00%
+```
+
+**Themes covered (40 seed entries):**
+
+- **1 Meqabyan (20 entries across 14 chapters):** creation-confession
+  (2:5) + EPONYM VERSE 2:14 + eastward-prayer Didascalia + searches-
+  kidneys triple-patriarch (2:22) + first-death-and-resurrection
+  (2:27) + Abya-Sila-Fentos five-sons (3:1) + Re'aytawi-crux (5:1) +
+  heavenly-palace ekphrasis (6:1) + vine-and-tree resurrection 1 Cor
+  15:36-38 (8:1) + patriarch-burial argument (10:1) + explicit-
+  Lucifer-fall Isa 14:12-14 (13:12) + Moses-Joshua unfermented-wine
+  wit (14:15) + Sebelyanos=Beliar (17:1) + salvation-history-
+  compression (28:1) + 1 Sam 2:30 covenant-honor (30:7) + manna-as-
+  bread-of-angels Ps 78:25 (33:1) + four-kingdoms apocalypse (34:1) +
+  Abraham-my-friend triple-formula Jas 2:23 climax (36:22) + Apollo+
+  Artemis+Serapion Hellenistic-deity dating-anchor pre-400 CE (36:29)
+  + resurrection capstone double-Amen (36:45).
+- **2 Meqabyan (12 entries across 11 chapters):** Maqabis-of-Moab
+  destroys-Jerusalem parallel-inverse (1:1) + Ps 79:2-3 lament-over-
+  Jerusalem (1:10) + prophet-Re'ay (2:1) + Deut 28 disease-catalog
+  (2:4) + pit-self-mortification penitential (3:2) + MAQABIS-OF-MOAB
+  GENTILE-KING CONVERSION (4:15; longest Gentile-convert portrait in
+  EOTC canon) + sons-of-Maqabis-of-Moab martyrdom-and-appearance
+  (6:1) + Ṣiruṣaydan-death narrative-climax (12:11) + FOUR-SECTARIAN-
+  RESURRECTION-ERRORS Jews/Samaritans/Pharisees/Sadducees (14:1) +
+  four-elements resurrection Empedoclean-Galenic (14:19) + wheat-
+  grain-dying analogy 1 Cor 15:36 + Jn 12:24 (17:1) + Adamic-mortality
+  Rom 5:12 (18:7).
+- **3 Meqabyan (8 entries across 5 chapters):** merciful-and-meek-one
+  messianic-with-Horovitz-caveat (1:1) + Devil's hubris-speech Isa
+  14:13-14 + Ezk 28:2-19 + 2 Thess 2:4 + Ephrem-Nisibena (1:3) + THE
+  SATAN-REFUSED-TO-WORSHIP-ADAM TRADITION Vita Adae §§12-17 + 2 Enoch
+  29:4-5 + Cave of Treasures §2 + Qur'an seven-passage cluster +
+  Bereshit Rabbati + Conflict of Adam and Eve with Satan + Coptic
+  Discourse on Abbatôn (1:15) + Job-1-2-anti-deception (2:1) + Devil's-
+  name-etymology Diabolos-slanderer (4:5) + 'TENTH-TRIBE' ANGELIC-
+  HIERARCHY Pseudo-Dionysius + Gregory + Augustine + Anselm + Mäṣḥafä
+  Mälaʾek (4:8) + 'COMPLETE REPENTANCE' (ፍጹም ንስሓ) EOTC SACRAMENTAL-
+  CONFESSION FOUNDATION + Fetha Nagast codification (4:34) + closing-
+  doxology resurrection-by-Spirit-hovering-waters Gen 1:2 (10:1).
+
+**Source provenance:**
+
+- **Primary text**: CC0 1.0 English translation (May 2026) by Claude
+  (Anthropic) with collaborator, from Modern Amharic of EOTC Bible
+  (nehemiah-osc.org). Archive.org canonical:
+  archive.org/details/three-books-of-meqabyan-cc0-translation.
+- **Principal apparatus**: Josef Horovitz, "Das äthiopische
+  Maccabäerbuch," Zeitschrift für Assyriologie XIX (1905), pp. 194-233
+  — PD primary scholarly study.
+- **Audit verdict matrix**: 64-citation third-pass audit (57 verified
+  / 4 errors corrected / 3 interpretive readings flagged with Horovitz
+  caveats / 7 newly discovered parallels added).
+- **Routing guide**: SOURCES.md Tier 1 (use as-is — all biblical/
+  geographic/Horovitz-verified citations) / Tier 3 (reframe as
+  interpretive — Christological 3 Mq readings + Aksumite-to-Solomonic
+  dating + Prov 8:22 Adam-application). All Tier-3 caveats retained
+  inline in entry summaries.
+
+**N-W4 IDEMPOTENCY — ELEVENTH PRODUCTION VERIFICATION:**
+
+at-scale: 30 books / 418 chapters / 1407 candidates / 418 candidate
+files (up from 27 books pre-γ.4.8). batch_promote: 12350 attempted /
+40 promoted / 12310 skipped (already exists, or rejected) / 0 errors
+/ 27 files affected. Broadest-attempted-count yet. Contract holds
+across SIXTH-voice opening.
+
+**ω.42 hygiene bundle (paired with γ.4.8 ship):**
+
+1. **D-W2 fix** — `scripts/core/sources.py` `_BOOK_CODE_ALIASES` gains
+   `"jas": "jam"` line. Resolves the γ.4.9.D-flagged + AUDIT_2026-05-
+   13-DEEP D-W2-re-flagged project-level inconsistency where sources.py
+   normalized "james" → "jas" but content/notes/jam.py was the actual
+   notes-file. Now symmetric: any "jas"-typed source-JSON entry
+   normalizes to "jam" at both index-build and lookup time. Forward-
+   compatibility preserved — existing `_BOOK_CODE_ALIASES_LONGFORM`
+   `"james": "jas"` mapping kept; the new alias chains "james → jas →
+   jam" in the in-memory index.
+2. **ω.41 §1 voice-composition extension** — CLAUDE_PROJECT_RULES.md
+   §1 now codifies three layers:
+   - Original four-voice composition (ω.41, 2026-05-13)
+   - Five-voice extension §1.B (γ.4.9.D, 2026-05-13)
+   - Six-voice extension §1.C (ω.42 / γ.4.8, 2026-05-14)
+   Cyril plurality preserved across all three layers; durable safeguard
+   pin in `TestGamma49DAthanasiusArcClose::test_cyril_remains_plurality_
+   leader_at_arc_close` continues to guard.
+3. **PD-anchor whitelist extension** — `TestGamma4DataFile::test_every_
+   entry_cites_pd_source` accepted-anchors list gains "Horovitz"
+   (Horovitz 1905 ZA XIX apparatus) + "CC0" (Creative Commons CC0 1.0
+   Universal Public Domain Dedication for the translation itself).
+   Whitelist was previously NPNF + Charles + Payne Smith + Cramer;
+   now extended for γ.4.8 source-types.
+
+**Files:**
+
+- `content/sources/ethiopian_commentaries.json` — +40 Meqabyan entries
+  across 3 Mäqabyan books; `_meta.source` extended with γ.4.8
+  manifest.
+- `content/notes/mq1.py` + `mq2.py` + `mq3.py` — promoted via at-
+  scale + batch_promote (idempotent). Per-book new: mq1 +20, mq2
+  +12, mq3 +8 = 40. Previously all 0-tuple per D-C1.
+- `scripts/_ship_gamma48.py` — new ship script (~830 lines).
+- `scripts/core/sources.py` — ω.42 D-W2 fix.
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma48MeqabyanSeedWave` class (14 pins) +
+  `TestGamma4MetaPhasesCoverage::test_meta_documents_gamma_4_8` (1
+  pin) + `TestGamma4DataFile::test_every_entry_cites_pd_source`
+  PD-anchor whitelist extension = +16 pins net.
+- `dev/CLAUDE_PROJECT_RULES.md` — ω.42 §1.B + §1.C voice-composition
+  trajectory codification.
+
+**Recommended next steps:**
+
+- **save** — γ.4.8 + ω.42 bundle uncommitted since 037e7c0. User-
+  explicit only per `feedback_continue_not_save`.
+- **γ.4.8.B Mäqabyan I detail wave** — natural close-before-open
+  continuation. Per established pattern (γ.4.5.B-E + γ.4.6.B-D +
+  γ.4.7.B-D + γ.4.9.B-D), γ.4.8 would proceed: .B Mq-I-detail + .C
+  Mq-II-detail + .D Mq-III-detail + .E arc-close (EIGHTH §8.1
+  instance). Estimated final state ~120-160 entries.
+
+## Earlier prior task
+
 **γ.4.9.D Athanasius ARC-CLOSE — 30 verse-keyed entries spanning Acts
 opening (11) + cross-canon capstone-synthesis pins (13) + Psalms-
 Marcellinus pastoral coverage (6 via NEW work-source ATTR_MARC).

@@ -1,0 +1,38 @@
+{
+  "book": "mq2",
+  "chapter": 6,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "mq2-6-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>MARTYRDOM-AND-APPEARANCE CHAPTER — structurally parallel to 1 Mq chs. 3-4 but compressed. The sons of Maqabis-of-Moab (named at 2 Mq 13:1 as the SECOND SET of &#x27;five sons of Maqabis,&#x27; mirroring the first five sons of Maqabis-of-Benjamin in 1 Mq — a NUMBER-SYMMETRY across the two books) refuse to sacrifice to Ṣiruṣaydan&#x27;s idols, are burned in fire, then appear post-mortem to the king at night with reproach. The post-mortem-appearance topos is paralleled in 4 Maccabees 17 (the mother-and-seven-sons memorial), in the apocryphal Acts of the Christian martyrs (Polycarp + Perpetua + Felicitas appearance traditions), and in patristic homily on the cult-of-the-martyrs. Meqabyan&#x27;s distinctive feature is the GUILT-INDUCING-REPROACH structure: the appearance is primarily a moral-judgment-on-the-king rather than consolation-for-the-faithful.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-6-1-002",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>MARTYRDOM-AND-APPEARANCE CHAPTER — structurally parallel to 1 Mq chs. 3-4 but compressed. The sons of Maqabis-of-Moab (named at 2 Mq 13:1 as the SECOND SET of &#x27;five sons of Maqabis,&#x27; mirroring the first five sons of Maqabis-of-Benjamin in 1 Mq — a NUMBER-SYMMETRY across the two books) refuse to sacrifice to Ṣiruṣaydan&#x27;s idols, are burned in fire, then appear post-mortem to the king at night with reproach. The post-mortem-appearance topos is paralleled in 4 Maccabees 17 (the mother-and-seven-sons memorial), in the apocryphal Acts of the Christian martyrs (Polycarp + Perpetua + Felicitas appearance traditions), and in patristic homily on the cult-of-the-martyrs. Meqabyan&#x27;s distinctive feature is the GUILT-INDUCING-REPROACH structure: the appearance is primarily a moral-judgment-on-the-king rather than consolation-for-the-faithful.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "book": "mq1",
+  "chapter": 14,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "mq1-14-15-001",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Moses-and-Joshua exchange about the &#x27;SOUND OF UNFERMENTED WINE&#x27; during the Sinai golden-calf episode — a WITTY GEʽEZ ETIOLOGICAL moment unique to Meqabyan within the Pentateuchal-reception tradition. The exchange exegetes Exodus 32:17-18 (Joshua hearing &#x27;the noise of war in the camp&#x27; / Moses replying &#x27;it is not the voice of them that shout for mastery, neither is it the voice of them that cry for being overcome: but the noise of them that sing do I hear&#x27;) by giving the &#x27;singing&#x27; a specifically intoxicated tonality. The chapter as a whole retells the Flood-Noah covenant (vv. 1-3) + the Decalogue in five-commandment form (vv. 7-9) + the golden-calf narrative (vv. 11-18). The five-commandment Decalogue summary is itself a distinctive EOTC catechetical form.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-14-7-002",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>DECALOGUE IN FIVE-COMMANDMENT FORM (vv. 7-9) — a DISTINCTIVE EOTC CATECHETICAL FORM compressing the standard ten commandments (Exodus 20:1-17 / Deuteronomy 5:6-21) into five. The five-fold structure typically pairs related commandments: 1-2 (no other gods + no graven images) + 3 (no taking-the-name-in-vain) + 4 (Sabbath) + 5 (honor parents) + 6-10 (against killing/adultery/stealing/false-witness/coveting). The Tewahedo Catechism (Ḫaymanot Abäw + Mäṣḥafä Qǝddasē) preserves both the standard ten-form AND the five-form pedagogically. The five-form&#x27;s compression facilitates oral-catechesis-by-memory and may reflect the Geʽez-liturgical-rhythmic preference for five-fold structures (cf. Five Pillars of the Tewahedo faith + five-cycle Tewahedo-week-pattern in the Sǝnkǝsar). The verse anchors the Decalogue specifically within the Meqabyan-frame of covenant-faithfulness-against-idolatry.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-14-11-003",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>GOLDEN-CALF AT HOREB (vv. 11-18) — direct Exodus 32 narrative retelling with the distinctive Meqabyan-Geʽez witty exchange between Moses and Joshua about the &#x27;sound of unfermented wine&#x27; (v. 15 — see seed 14:15). The full narrative encompasses: Aaron&#x27;s calf-making at the people&#x27;s demand (v. 11) + Moses&#x27;s intercession for Israel (v. 13) + the broken-and-restored tablets cycle (v. 16 ff.) + Levitical-sword-judgment (v. 17 ff.). The Meqabyan retelling FRAMES the golden-calf as the paradigmatic apostasy-in-the-very-moment-of-revelation — the same pattern Ṣiruṣaydan&#x27;s kingdom enacts at imperial scale. Direct echo of Psalm 106:19-23 (&#x27;they made a calf in Horeb, and worshiped the molten image. Thus they changed their glory into the similitude of an ox that eateth grass&#x27;). Tewahedo liturgical-tradition cites Exo 32 / Psa 106 at the Lenten-and-fasting commemorations of apostasy-as-cycle.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-14-15-004",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>Moses-and-Joshua exchange about the &#x27;SOUND OF UNFERMENTED WINE&#x27; during the Sinai golden-calf episode — a WITTY GEʽEZ ETIOLOGICAL moment unique to Meqabyan within the Pentateuchal-reception tradition. The exchange exegetes Exodus 32:17-18 (Joshua hearing &#x27;the noise of war in the camp&#x27; / Moses replying &#x27;it is not the voice of them that shout for mastery, neither is it the voice of them that cry for being overcome: but the noise of them that sing do I hear&#x27;) by giving the &#x27;singing&#x27; a specifically intoxicated tonality. The chapter as a whole retells the Flood-Noah covenant (vv. 1-3) + the Decalogue in five-commandment form (vv. 7-9) + the golden-calf narrative (vv. 11-18). The five-commandment Decalogue summary is itself a distinctive EOTC catechetical form.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

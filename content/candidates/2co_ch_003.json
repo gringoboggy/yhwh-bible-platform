@@ -1,8 +1,8 @@
 {
   "book": "2co",
   "chapter": 3,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 50,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 52,
   "candidates": [
     {
       "id": "2co-3-3-001",
@@ -741,6 +741,36 @@
     },
     {
       "id": "2co-3-18-050",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.46",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.46</em> <small>(c. 350 AD)</small><p>&#x27;But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord&#x27; — Athanasius marks tēn autēn eikona metamorphoumetha (we are transformed into the same image) as the Pauline-theosis-process-anchor. The transformation is into THE SAME image — the eikōn-of-the-Father (Col 1:15) — by the Spirit of the Lord. Theosis is therefore Trinitarian-mediated: contemplating the Son&#x27;s-glory (visible eikōn of the Father) BY the Spirit (the agent of conformation). Tewahedo monastic-contemplative theology (the Tä&#x27;amrä-Maryam visionary-tradition) cites 2 Cor 3:18 + 1 Jn 3:2 + Rev 22:4 as the beatific-vision-theosis triad.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.46. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-3-18-051",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.46",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.46</em> <small>(c. 350 AD)</small><p>&#x27;But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord&#x27; — Athanasius marks tēn autēn eikona metamorphoumetha (we are transformed into the same image) as the Pauline-theosis-process-anchor. The transformation is into THE SAME image — the eikōn-of-the-Father (Col 1:15) — by the Spirit of the Lord. Theosis is therefore Trinitarian-mediated: contemplating the Son&#x27;s-glory (visible eikōn of the Father) BY the Spirit (the agent of conformation). Tewahedo monastic-contemplative theology (the Tä&#x27;amrä-Maryam visionary-tradition) cites 2 Cor 3:18 + 1 Jn 3:2 + Rev 22:4 as the beatific-vision-theosis triad.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.46. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-3-18-052",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

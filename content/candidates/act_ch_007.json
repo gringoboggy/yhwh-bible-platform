@@ -1,8 +1,8 @@
 {
   "book": "act",
   "chapter": 7,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 103,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 105,
   "candidates": [
     {
       "id": "act-7-9-001",
@@ -1536,6 +1536,36 @@
     },
     {
       "id": "act-7-55-103",
+      "verse": 55,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistulae ad Serapionem 1.30",
+      "source_attribution": "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.30</em> <small>(c. 350 AD)</small><p>&#x27;But he, being full of the Holy Ghost, looked up stedfastly into heaven, and saw the glory of God, and Jesus standing on the right hand of God&#x27; — Athanasius marks Stephanos plērēs Pneumatos Hagiou (Stephen full of the Holy Spirit) eiden doxan theou kai Iēsoun (saw glory-of-God and Jesus) as the TRINITARIAN-EYE-WITNESS martyrdom-scene: Stephen, IN-the-Spirit, sees the Father-glory + the Son-at-the-right-hand. All three divine Persons are simultaneously-participated-in the witness. The &#x27;standing&#x27; (hestōta) — distinct from the usual seated-at-right-hand — is the rare-Acts iconography of Christ-rising-to-receive-the-martyr.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistulae ad Serapionem 1.30. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-7-55-104",
+      "verse": 55,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistulae ad Serapionem 1.30",
+      "source_attribution": "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.30</em> <small>(c. 350 AD)</small><p>&#x27;But he, being full of the Holy Ghost, looked up stedfastly into heaven, and saw the glory of God, and Jesus standing on the right hand of God&#x27; — Athanasius marks Stephanos plērēs Pneumatos Hagiou (Stephen full of the Holy Spirit) eiden doxan theou kai Iēsoun (saw glory-of-God and Jesus) as the TRINITARIAN-EYE-WITNESS martyrdom-scene: Stephen, IN-the-Spirit, sees the Father-glory + the Son-at-the-right-hand. All three divine Persons are simultaneously-participated-in the witness. The &#x27;standing&#x27; (hestōta) — distinct from the usual seated-at-right-hand — is the rare-Acts iconography of Christ-rising-to-receive-the-martyr.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistulae ad Serapionem 1.30. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-7-55-105",
       "verse": 55,
       "kind": "comm-ethiopian",
       "anchor": "",

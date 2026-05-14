@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 82,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 9,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 11,
   "candidates": [
     {
       "id": "1en-82-1-001",
@@ -126,6 +126,36 @@
     },
     {
       "id": "1en-82-1-009",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 82:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And now, my son Methuselah, all these things I am recounting to thee and writing down for thee, and I have revealed to thee everything, and given thee books concerning all these: so preserve, my son Methuselah, the books from thy father&#x27;s hand, and see that thou deliver them to the generations of the world&#x27; — the textual transmission charge to Methuselah. Tewahedo monastic-scribal tradition treats this verse as the FOUNDATIONAL warrant for the entire Mäṣḥafä Hēnok preservation enterprise: the Ethiopian scribes who copied Enoch from the 4th century onward stood consciously in this Methuselan succession.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-82-1-010",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 82:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And now, my son Methuselah, all these things I am recounting to thee and writing down for thee, and I have revealed to thee everything, and given thee books concerning all these: so preserve, my son Methuselah, the books from thy father&#x27;s hand, and see that thou deliver them to the generations of the world&#x27; — the textual transmission charge to Methuselah. Tewahedo monastic-scribal tradition treats this verse as the FOUNDATIONAL warrant for the entire Mäṣḥafä Hēnok preservation enterprise: the Ethiopian scribes who copied Enoch from the 4th century onward stood consciously in this Methuselan succession.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-82-1-011",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "act",
   "chapter": 4,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 77,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 79,
   "candidates": [
     {
       "id": "act-4-11-001",
@@ -1146,6 +1146,36 @@
     },
     {
       "id": "act-4-12-077",
+      "verse": 12,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §40",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §40</em> <small>(c. 350 AD)</small><p>&#x27;Neither is there salvation in any other: for there is none other name under heaven given among men, whereby we must be saved&#x27; — Athanasius marks ouk estin en allō oudeni hē sōtēria (there-is in no other the salvation) as the SOTERIOLOGICAL-EXCLUSIVITY anchor. The name (onoma) is not arbitrary-naming but the divine-Person behind-the-name: only the Word-incarnate can save, because only the Word-by-essence has the divine-power to re-create the fallen image. Petrine apostolic-claim is the same as the Johannine &#x27;no man cometh unto the Father, but by me&#x27; (Jn 14:6) — both rest on the Word&#x27;s-unique-soteriological-capacity-as-divine-incarnate.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §40. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-4-12-078",
+      "verse": 12,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §40",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §40</em> <small>(c. 350 AD)</small><p>&#x27;Neither is there salvation in any other: for there is none other name under heaven given among men, whereby we must be saved&#x27; — Athanasius marks ouk estin en allō oudeni hē sōtēria (there-is in no other the salvation) as the SOTERIOLOGICAL-EXCLUSIVITY anchor. The name (onoma) is not arbitrary-naming but the divine-Person behind-the-name: only the Word-incarnate can save, because only the Word-by-essence has the divine-power to re-create the fallen image. Petrine apostolic-claim is the same as the Johannine &#x27;no man cometh unto the Father, but by me&#x27; (Jn 14:6) — both rest on the Word&#x27;s-unique-soteriological-capacity-as-divine-incarnate.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §40. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-4-12-079",
       "verse": 12,
       "kind": "comm-ethiopian",
       "anchor": "",

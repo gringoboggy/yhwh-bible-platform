@@ -1,8 +1,8 @@
 {
   "book": "1pe",
   "chapter": 3,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 77,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 79,
   "candidates": [
     {
       "id": "1pe-3-1-001",
@@ -1146,6 +1146,36 @@
     },
     {
       "id": "1pe-3-19-077",
+      "verse": 19,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §17",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §17</em> <small>(c. 350 AD)</small><p>&#x27;By which also he went and preached unto the spirits in prison; Which sometime were disobedient, when once the longsuffering of God waited in the days of Noah&#x27; — Athanasius marks tois en phylakē pneumasin poreutheis ekēryxen (the spirits in prison having-gone he-preached-to-them) as the HARROWING-OF-HADES anchor: the Word&#x27;s-soul (united-to-the-Word&#x27;s-divinity even through the three-day-burial-pause) travels to release the OT-righteous (and to confront the OT-disobedient — the antediluvian-spirits) in the inter-mortem state. The Word does NOT release-himself from the body (the Word remains-united-to-flesh even in the tomb); rather, the unified-Christ-in-his-soul descends-to-Hades while-the-body-rests-in-the-tomb. The harrowing is the inaugural-moment of the Word&#x27;s-Paschal-Cosmic-Victory. Tewahedo Holy-Saturday iconography (Anastasis-icon: Christ pulling Adam + Eve out of the tomb) preserves this 1 Peter 3:19-anchored harrowing-tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §17. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1pe-3-19-078",
+      "verse": 19,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §17",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §17</em> <small>(c. 350 AD)</small><p>&#x27;By which also he went and preached unto the spirits in prison; Which sometime were disobedient, when once the longsuffering of God waited in the days of Noah&#x27; — Athanasius marks tois en phylakē pneumasin poreutheis ekēryxen (the spirits in prison having-gone he-preached-to-them) as the HARROWING-OF-HADES anchor: the Word&#x27;s-soul (united-to-the-Word&#x27;s-divinity even through the three-day-burial-pause) travels to release the OT-righteous (and to confront the OT-disobedient — the antediluvian-spirits) in the inter-mortem state. The Word does NOT release-himself from the body (the Word remains-united-to-flesh even in the tomb); rather, the unified-Christ-in-his-soul descends-to-Hades while-the-body-rests-in-the-tomb. The harrowing is the inaugural-moment of the Word&#x27;s-Paschal-Cosmic-Victory. Tewahedo Holy-Saturday iconography (Anastasis-icon: Christ pulling Adam + Eve out of the tomb) preserves this 1 Peter 3:19-anchored harrowing-tradition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §17. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1pe-3-19-079",
       "verse": 19,
       "kind": "comm-ethiopian",
       "anchor": "",

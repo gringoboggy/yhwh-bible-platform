@@ -1,0 +1,68 @@
+{
+  "book": "mq2",
+  "chapter": 1,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "mq2-1-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>Opening of 2 Meqabyan: MAQABIS-OF-MOAB (distinct from Maqabis-of-Benjamin in 1 Mq per Horovitz 1905 p. 195 structural distinction explicitly verbatim — &#x27;a Benjamite martyr-father&#x27; vs &#x27;a Moabite king&#x27;). The Moabite-king Maqabis finds the Jews in Syria between the two rivers, slaughters them from the Jabbok river to the square of Jerusalem, destroys the holy city. Functions as PARALLEL-INVERSE of 1 Mq Ch. 1: where 1 Mq&#x27;s tyrant was Chaldean (Ṣiruṣaydan), here the tyrant is Moabite; where there Israel&#x27;s defenders were endangered, here Israel itself is destroyed. The verse establishes Maqabis-of-Moab as the principal protagonist of 2 Mq — beginning his arc at the moral nadir. His subsequent arc (chs. 2-4) is the LONGEST PORTRAIT of a Gentile convert to Mosaic religion in the entire Ethiopian biblical canon.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-1-10-002",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>&#x27;They made the corpses of your servants food for the birds of heaven. They made the flesh of your righteous ones food for the wild beasts of the desert&#x27; — DIRECT QUOTATION of Psalm 79:2-3 (LXX 78:2-3 &#x27;the dead bodies of your servants have they given to be food for the birds of the heaven, the flesh of your saints to the beasts of the earth&#x27;) — a psalm sung specifically about the destruction of Jerusalem and the desecration of the Temple. The quotation locates the present narrative theologically in the post-586-BCE &#x27;lament-over-Jerusalem&#x27; tradition, alongside Lamentations + Jeremiah&#x27;s prophecies + Ezekiel&#x27;s exile-oracles. Meqabyan&#x27;s use of Ps 79 is a structural-citation: the psalm becomes the LITURGICAL FRAME for the 2 Mq destruction-narrative.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-1-1-003",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>Opening of 2 Meqabyan: MAQABIS-OF-MOAB (distinct from Maqabis-of-Benjamin in 1 Mq per Horovitz 1905 p. 195 structural distinction explicitly verbatim — &#x27;a Benjamite martyr-father&#x27; vs &#x27;a Moabite king&#x27;). The Moabite-king Maqabis finds the Jews in Syria between the two rivers, slaughters them from the Jabbok river to the square of Jerusalem, destroys the holy city. Functions as PARALLEL-INVERSE of 1 Mq Ch. 1: where 1 Mq&#x27;s tyrant was Chaldean (Ṣiruṣaydan), here the tyrant is Moabite; where there Israel&#x27;s defenders were endangered, here Israel itself is destroyed. The verse establishes Maqabis-of-Moab as the principal protagonist of 2 Mq — beginning his arc at the moral nadir. His subsequent arc (chs. 2-4) is the LONGEST PORTRAIT of a Gentile convert to Mosaic religion in the entire Ethiopian biblical canon.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-1-10-004",
+      "verse": 10,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>&#x27;They made the corpses of your servants food for the birds of heaven. They made the flesh of your righteous ones food for the wild beasts of the desert&#x27; — DIRECT QUOTATION of Psalm 79:2-3 (LXX 78:2-3 &#x27;the dead bodies of your servants have they given to be food for the birds of the heaven, the flesh of your saints to the beasts of the earth&#x27;) — a psalm sung specifically about the destruction of Jerusalem and the desecration of the Temple. The quotation locates the present narrative theologically in the post-586-BCE &#x27;lament-over-Jerusalem&#x27; tradition, alongside Lamentations + Jeremiah&#x27;s prophecies + Ezekiel&#x27;s exile-oracles. Meqabyan&#x27;s use of Ps 79 is a structural-citation: the psalm becomes the LITURGICAL FRAME for the 2 Mq destruction-narrative.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

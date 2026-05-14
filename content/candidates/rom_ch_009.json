@@ -1,8 +1,8 @@
 {
   "book": "rom",
   "chapter": 9,
-  "generated_at": "2026-05-14T04:33:09+00:00",
-  "n_candidates": 81,
+  "generated_at": "2026-05-14T06:19:10+00:00",
+  "n_candidates": 83,
   "candidates": [
     {
       "id": "rom-9-7-001",
@@ -1206,6 +1206,36 @@
     },
     {
       "id": "rom-9-5-081",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.10",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.10</em> <small>(c. 350 AD)</small><p>&#x27;Whose are the fathers, and of whom as concerning the flesh Christ came, who is over all, God blessed for ever. Amen&#x27; — Athanasius marks ho ōn epi pantōn theos eulogētos eis tous aiōnas (the-One-being over all, God blessed forever) as one of the clearest Pauline-divine-Christ confessions. The ho ōn (the-Being-One) is a deliberate Pauline-echo of LXX-Ex 3:14 (egō eimi ho ōn — &#x27;I-AM the-Being-One&#x27;); Paul therefore identifies Christ with the Burning-Bush-God using the same divine-name-predication. The kata sarka clause earlier in the verse names Christ&#x27;s-human-descent-from-Israel; the ho ōn epi pantōn theos clause names Christ&#x27;s-eternal-divinity. The two clauses together name the dual-confession of the incarnation. Tewahedo doxological-theology cites Rom 9:5 at the conclusion of doxological-prayers as the Pauline-incarnational summit.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.10. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-9-5-082",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.10",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.10</em> <small>(c. 350 AD)</small><p>&#x27;Whose are the fathers, and of whom as concerning the flesh Christ came, who is over all, God blessed for ever. Amen&#x27; — Athanasius marks ho ōn epi pantōn theos eulogētos eis tous aiōnas (the-One-being over all, God blessed forever) as one of the clearest Pauline-divine-Christ confessions. The ho ōn (the-Being-One) is a deliberate Pauline-echo of LXX-Ex 3:14 (egō eimi ho ōn — &#x27;I-AM the-Being-One&#x27;); Paul therefore identifies Christ with the Burning-Bush-God using the same divine-name-predication. The kata sarka clause earlier in the verse names Christ&#x27;s-human-descent-from-Israel; the ho ōn epi pantōn theos clause names Christ&#x27;s-eternal-divinity. The two clauses together name the dual-confession of the incarnation. Tewahedo doxological-theology cites Rom 9:5 at the conclusion of doxological-prayers as the Pauline-incarnational summit.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.10. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-9-5-083",
       "verse": 5,
       "kind": "comm-ethiopian",
       "anchor": "",

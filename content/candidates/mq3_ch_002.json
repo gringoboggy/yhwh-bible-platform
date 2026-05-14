@@ -1,0 +1,38 @@
+{
+  "book": "mq3",
+  "chapter": 2,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "mq3-2-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>&#x27;But you, who could not deceive my servant JOB — by honor I will inherit your throne to those of them; those whom you could not deceive, I will give the Kingdom of Heaven — says God who rules all.&#x27; Direct reference to JOB 1-2 — the prologue dialogue in which Satan attempts (with God&#x27;s permission) to deceive Job through suffering and fails. The verse functions as GOD&#x27;S RESPONSE to the Devil&#x27;s petition in Ch. 1: those whom the Devil could NOT deceive shall inherit his lost glory. Theological move: the Mäqabyan dialogue-form delivers what Augustine articulates in Enchiridion §29 + City of God 22.1 + Anselm Cur Deus Homo I.16-18 and Gregory the Great Homiliae in Evangelia 34 — the doctrine that THE NUMBER OF THE ELECT EQUALS THE NUMBER OF FALLEN ANGELS, and humans fill the empty seats. Meqabyan&#x27;s distinctive contribution: the dialogue-form-delivery via the Devil&#x27;s-own-petition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-2-1-002",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>&#x27;But you, who could not deceive my servant JOB — by honor I will inherit your throne to those of them; those whom you could not deceive, I will give the Kingdom of Heaven — says God who rules all.&#x27; Direct reference to JOB 1-2 — the prologue dialogue in which Satan attempts (with God&#x27;s permission) to deceive Job through suffering and fails. The verse functions as GOD&#x27;S RESPONSE to the Devil&#x27;s petition in Ch. 1: those whom the Devil could NOT deceive shall inherit his lost glory. Theological move: the Mäqabyan dialogue-form delivers what Augustine articulates in Enchiridion §29 + City of God 22.1 + Anselm Cur Deus Homo I.16-18 and Gregory the Great Homiliae in Evangelia 34 — the doctrine that THE NUMBER OF THE ELECT EQUALS THE NUMBER OF FALLEN ANGELS, and humans fill the empty seats. Meqabyan&#x27;s distinctive contribution: the dialogue-form-delivery via the Devil&#x27;s-own-petition.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "book": "mq2",
+  "chapter": 2,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "mq2-2-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>Prophet RE&#x27;AY (ረአይ, literally &#x27;Vision&#x27; or &#x27;Seeing&#x27;) arrives at Maqabis-of-Moab&#x27;s court — the PROPHETIC-CONFRONTATION moment. The name functions as proper-name-or-title (&#x27;the Seer,&#x27; cf. 1 Samuel 9:9 &#x27;he that is now called a Prophet was beforetime called a Seer&#x27;). The Geʽez phrasing ረአይ የሚሉት ነቢይ (&#x27;the prophet whom they call Re&#x27;ay&#x27;) is itself ambiguous between proper-name and generic seer-title. Re&#x27;ay functions as the prophetic-mediator who delivers God&#x27;s warning that initiates Maqabis&#x27;s conversion-arc — paralleling Nathan-to-David (2 Sam 12), Elijah-to-Ahab (1 Kgs 21), Jonah-to-Nineveh-king (Jon 3), and Daniel-to-Nebuchadnezzar (Dan 4) in the prophet-confronts-king Hebrew-Bible structural template.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-2-4-002",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>&#x27;Worse than the casting of spears and the shooting of arrows, I will bring upon you grievous HEART-DISEASE, ECZEMA, AND GOUT&#x27; — the prophet&#x27;s DISEASE-CATALOG draws on the DEUTERONOMY 28:27-35 COVENANT-CURSE LIST (&#x27;the LORD shall smite you with the boil of Egypt, and with the hemorrhoids, and with the scab, and with the itch, of which you cannot be healed... he shall smite you in the knees, and in the legs, with a sore botch that cannot be healed&#x27;). The threat is calibrated as worse than warrior&#x27;s-death-by-arrow that Maqabis fears — slow, humiliating, public. Tewahedo penitential preaching cites Deut 28 alongside 2 Mq 2:4 to articulate the category of physical-suffering-as-divine-instruction-to-repent. The chapter closes with Maqabis&#x27;s sackcloth-and-dust penitential response (vv. 9-11) paralleling Jonah 3:6 + Esther 4:1.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-2-1-003",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>Prophet RE&#x27;AY (ረአይ, literally &#x27;Vision&#x27; or &#x27;Seeing&#x27;) arrives at Maqabis-of-Moab&#x27;s court — the PROPHETIC-CONFRONTATION moment. The name functions as proper-name-or-title (&#x27;the Seer,&#x27; cf. 1 Samuel 9:9 &#x27;he that is now called a Prophet was beforetime called a Seer&#x27;). The Geʽez phrasing ረአይ የሚሉት ነቢይ (&#x27;the prophet whom they call Re&#x27;ay&#x27;) is itself ambiguous between proper-name and generic seer-title. Re&#x27;ay functions as the prophetic-mediator who delivers God&#x27;s warning that initiates Maqabis&#x27;s conversion-arc — paralleling Nathan-to-David (2 Sam 12), Elijah-to-Ahab (1 Kgs 21), Jonah-to-Nineveh-king (Jon 3), and Daniel-to-Nebuchadnezzar (Dan 4) in the prophet-confronts-king Hebrew-Bible structural template.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-2-4-004",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>&#x27;Worse than the casting of spears and the shooting of arrows, I will bring upon you grievous HEART-DISEASE, ECZEMA, AND GOUT&#x27; — the prophet&#x27;s DISEASE-CATALOG draws on the DEUTERONOMY 28:27-35 COVENANT-CURSE LIST (&#x27;the LORD shall smite you with the boil of Egypt, and with the hemorrhoids, and with the scab, and with the itch, of which you cannot be healed... he shall smite you in the knees, and in the legs, with a sore botch that cannot be healed&#x27;). The threat is calibrated as worse than warrior&#x27;s-death-by-arrow that Maqabis fears — slow, humiliating, public. Tewahedo penitential preaching cites Deut 28 alongside 2 Mq 2:4 to articulate the category of physical-suffering-as-divine-instruction-to-repent. The chapter closes with Maqabis&#x27;s sackcloth-and-dust penitential response (vv. 9-11) paralleling Jonah 3:6 + Esther 4:1.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

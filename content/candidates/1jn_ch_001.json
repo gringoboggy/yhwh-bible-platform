@@ -1,8 +1,8 @@
 {
   "book": "1jn",
   "chapter": 1,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 46,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 48,
   "candidates": [
     {
       "id": "1jn-1-1-001",
@@ -681,6 +681,36 @@
     },
     {
       "id": "1jn-1-1-046",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §17",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §17</em> <small>(c. 350 AD)</small><p>&#x27;That which was from the beginning, which we have heard, which we have seen with our eyes, which we have looked upon, and our hands have handled, of the Word of life&#x27; — Athanasius marks the four-fold sensory-witness (akēkoamen + heōrakamen + etheasametha + epsēlaphēsan — heard, seen, beheld, handled) as the Johannine apostolic-anti-Docetic confession. The Word-of-life is NOT a phantasm, NOT a Gnostic-apparition, NOT a Docetic-appearance — he is hearable, visible, examinable, palpable. The four-fold-witness pattern matches the four-canonical-Gospels (eyewitness Mt, hearer-of-Petrine-witness Mk, investigator-Lk, beloved-disciple-Jn) such that the incarnate-Word&#x27;s sensory-accessibility is canonically-witnessed. The Tewahedo apostolic-succession (Frumentius-through-Athanasius-through-the-Twelve) cites 1 Jn 1:1-3 as the apostolic-eyewitness-warrant.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §17. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1jn-1-1-047",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §17",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §17</em> <small>(c. 350 AD)</small><p>&#x27;That which was from the beginning, which we have heard, which we have seen with our eyes, which we have looked upon, and our hands have handled, of the Word of life&#x27; — Athanasius marks the four-fold sensory-witness (akēkoamen + heōrakamen + etheasametha + epsēlaphēsan — heard, seen, beheld, handled) as the Johannine apostolic-anti-Docetic confession. The Word-of-life is NOT a phantasm, NOT a Gnostic-apparition, NOT a Docetic-appearance — he is hearable, visible, examinable, palpable. The four-fold-witness pattern matches the four-canonical-Gospels (eyewitness Mt, hearer-of-Petrine-witness Mk, investigator-Lk, beloved-disciple-Jn) such that the incarnate-Word&#x27;s sensory-accessibility is canonically-witnessed. The Tewahedo apostolic-succession (Frumentius-through-Athanasius-through-the-Twelve) cites 1 Jn 1:1-3 as the apostolic-eyewitness-warrant.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §17. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1jn-1-1-048",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

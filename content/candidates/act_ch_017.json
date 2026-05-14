@@ -1,8 +1,8 @@
 {
   "book": "act",
   "chapter": 17,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 60,
+  "generated_at": "2026-05-14T06:19:06+00:00",
+  "n_candidates": 62,
   "candidates": [
     {
       "id": "act-17-11-001",
@@ -891,6 +891,36 @@
     },
     {
       "id": "act-17-31-060",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §56",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §56</em> <small>(c. 350 AD)</small><p>&#x27;Because he hath appointed a day, in the which he will judge the world in righteousness by that man whom he hath ordained; whereof he hath given assurance unto all men, in that he hath raised him from the dead&#x27; — Athanasius marks en andri hō hōrisen (by the man whom he appointed) as the CHRIST-AS-ESCHATOLOGICAL-JUDGE anchor from Paul&#x27;s Areopagus sermon. The hōrisen (definitely-appointed) + the pistin paraschōn (having-given-assurance) + the anastēsas ek nekrōn (having-raised-from-the-dead) form the apostolic-proof-structure: the resurrection-of-the-Judge is the evidential-guarantee of the eschatological-judgment-to-come. Tewahedo Pantocrator-eschatology cites Acts 17:31 + Mt 25:31-46 as the Judge-Christ apostolic-Gospel pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §56. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-17-31-061",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §56",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §56</em> <small>(c. 350 AD)</small><p>&#x27;Because he hath appointed a day, in the which he will judge the world in righteousness by that man whom he hath ordained; whereof he hath given assurance unto all men, in that he hath raised him from the dead&#x27; — Athanasius marks en andri hō hōrisen (by the man whom he appointed) as the CHRIST-AS-ESCHATOLOGICAL-JUDGE anchor from Paul&#x27;s Areopagus sermon. The hōrisen (definitely-appointed) + the pistin paraschōn (having-given-assurance) + the anastēsas ek nekrōn (having-raised-from-the-dead) form the apostolic-proof-structure: the resurrection-of-the-Judge is the evidential-guarantee of the eschatological-judgment-to-come. Tewahedo Pantocrator-eschatology cites Acts 17:31 + Mt 25:31-46 as the Judge-Christ apostolic-Gospel pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §56. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-17-31-062",
       "verse": 31,
       "kind": "comm-ethiopian",
       "anchor": "",

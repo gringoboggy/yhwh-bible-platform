@@ -1,8 +1,8 @@
 {
   "book": "heb",
   "chapter": 2,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 50,
+  "generated_at": "2026-05-14T06:19:07+00:00",
+  "n_candidates": 52,
   "candidates": [
     {
       "id": "heb-2-1-001",
@@ -741,6 +741,36 @@
     },
     {
       "id": "heb-2-14-050",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §10",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §10</em> <small>(c. 350 AD)</small><p>&#x27;Forasmuch then as the children are partakers of flesh and blood, he also himself likewise took part of the same; that through death he might destroy him that had the power of death, that is, the devil&#x27; — Athanasius marks paraplēsiōs meteschen tōn autōn (likewise partook of the same) as the Pauline-anti-Docetic Hebrews-anchor. The Word-incarnate did not merely-appear-flesh-and-blood but FULLY-PARTOOK-of (meteschen) the same-substance the children possess. The hina dia tou thanatou katargēsē (that through death he might destroy) names the soteriological-purpose: only by genuinely-dying could the Word destroy death-itself. Tewahedo Christmas + Holy-Friday lectionary pairs Heb 2:14 with Phil 2:7-8 as the genuine-participation-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §10. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-2-14-051",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §10",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §10</em> <small>(c. 350 AD)</small><p>&#x27;Forasmuch then as the children are partakers of flesh and blood, he also himself likewise took part of the same; that through death he might destroy him that had the power of death, that is, the devil&#x27; — Athanasius marks paraplēsiōs meteschen tōn autōn (likewise partook of the same) as the Pauline-anti-Docetic Hebrews-anchor. The Word-incarnate did not merely-appear-flesh-and-blood but FULLY-PARTOOK-of (meteschen) the same-substance the children possess. The hina dia tou thanatou katargēsē (that through death he might destroy) names the soteriological-purpose: only by genuinely-dying could the Word destroy death-itself. Tewahedo Christmas + Holy-Friday lectionary pairs Heb 2:14 with Phil 2:7-8 as the genuine-participation-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §10. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-2-14-052",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

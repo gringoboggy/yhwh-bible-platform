@@ -1,8 +1,8 @@
 {
   "book": "isa",
   "chapter": 53,
-  "generated_at": "2026-05-14T04:33:08+00:00",
-  "n_candidates": 24,
+  "generated_at": "2026-05-14T06:19:07+00:00",
+  "n_candidates": 26,
   "candidates": [
     {
       "id": "isa-53-1-001",
@@ -351,6 +351,36 @@
     },
     {
       "id": "isa-53-3-024",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §34",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §34</em> <small>(c. 350 AD)</small><p>&#x27;He is despised and rejected of men; a man of sorrows, and acquainted with grief&#x27; — Athanasius marks Isa 53:3-5 as the MOST-EXPLICIT prophetic-anchor of the Suffering-Servant theology the Word-incarnate fulfills. The despising-and-rejection are borne by the assumed-humanity (Word-IN-the-flesh tasting human rejection on behalf of all-the-rejected); the bearing-of-griefs (LXX houtos tas hamartias hēmōn pherei) is the substitutionary-atonement-mechanism. The Word&#x27;s-impassible-divinity is preserved (the Word-qua-Word cannot suffer); the assumed-flesh truly-suffers, and the suffering is salvifically-imputed to the Word&#x27;s-Person. Pairs with 1 Pet 2:24 (hos tas hamartias hēmōn autos anēnenken en tō sōmati autou epi to xylon) as the canonical Suffering-Servant-fulfilled-in-Christ pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §34. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-53-3-025",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / De Incarnatione Verbi §34",
+      "source_attribution": "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §34</em> <small>(c. 350 AD)</small><p>&#x27;He is despised and rejected of men; a man of sorrows, and acquainted with grief&#x27; — Athanasius marks Isa 53:3-5 as the MOST-EXPLICIT prophetic-anchor of the Suffering-Servant theology the Word-incarnate fulfills. The despising-and-rejection are borne by the assumed-humanity (Word-IN-the-flesh tasting human rejection on behalf of all-the-rejected); the bearing-of-griefs (LXX houtos tas hamartias hēmōn pherei) is the substitutionary-atonement-mechanism. The Word&#x27;s-impassible-divinity is preserved (the Word-qua-Word cannot suffer); the assumed-flesh truly-suffers, and the suffering is salvifically-imputed to the Word&#x27;s-Person. Pairs with 1 Pet 2:24 (hos tas hamartias hēmōn autos anēnenken en tō sōmati autou epi to xylon) as the canonical Suffering-Servant-fulfilled-in-Christ pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, De Incarnatione Verbi §34. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-53-3-026",
       "verse": 3,
       "kind": "comm-ethiopian",
       "anchor": "",

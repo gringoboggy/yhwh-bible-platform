@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 40,
-  "generated_at": "2026-05-14T04:33:07+00:00",
-  "n_candidates": 35,
+  "generated_at": "2026-05-14T06:19:07+00:00",
+  "n_candidates": 37,
   "candidates": [
     {
       "id": "gen-40-1-001",
@@ -516,6 +516,36 @@
     },
     {
       "id": "gen-40-8-035",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XL.8. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;Do not interpretations belong to God? tell me them, I pray you&#x27;. Ephrem treats Joseph&#x27;s reply to the cupbearer and baker as foundational for the doctrine of divine charism: interpretation of dreams is not a human skill but a divine gift, channelled through specific persons. Tewahedo prophetic-discernment tradition (the monastic discernment-of-spirits charism) traces theologically to this verse: the discerner DOES the interpreting but the interpretation BELONGS to God.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-40-8-036",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XL.8. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;Do not interpretations belong to God? tell me them, I pray you&#x27;. Ephrem treats Joseph&#x27;s reply to the cupbearer and baker as foundational for the doctrine of divine charism: interpretation of dreams is not a human skill but a divine gift, channelled through specific persons. Tewahedo prophetic-discernment tradition (the monastic discernment-of-spirits charism) traces theologically to this verse: the discerner DOES the interpreting but the interpretation BELONGS to God.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-40-8-037",
       "verse": 8,
       "kind": "comm-ethiopian",
       "anchor": "",

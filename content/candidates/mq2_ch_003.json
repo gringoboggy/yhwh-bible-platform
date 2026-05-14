@@ -1,0 +1,38 @@
+{
+  "book": "mq2",
+  "chapter": 3,
+  "generated_at": "2026-05-14T06:19:09+00:00",
+  "n_candidates": 2,
+  "candidates": [
+    {
+      "id": "mq2-3-2-001",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>MAQABIS-OF-MOAB DIGS A PIT AND ENTERS IT UP TO HIS NECK, weeping in extreme self-mortification — one of the MOST DISTINCTIVE PENITENTIAL IMAGES in Ethiopian biblical literature. The pit-immersion-penance has no direct biblical parallel and appears unique to Meqabyan. The closest analogues are the patristic Egyptian-and-Syrian ascetic-stationary-penance practices (cf. Apophthegmata Patrum on Egyptian solitary-anchorites; Simeon Stylites&#x27;s pillar-station; Theodoret of Cyrus Historia Religiosa on Syrian ascetics). The chapter as a whole is the CONVERSION CHAPTER: God responds through the prophet with a long forgiveness-speech (vv. 3-10) including a direct citation of Exodus 20:5-6 (third-and-fourth-generation / thousandth-generation formula at v. 9). Maqabis emerges from the pit (v. 11), confesses, prostrates himself at the prophet&#x27;s feet, is raised.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq2-3-2-002",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Second Book of Meqabyan (Mäṣḥafä Mäqabyan II)</em> <small>(c. 600 AD)</small><p>MAQABIS-OF-MOAB DIGS A PIT AND ENTERS IT UP TO HIS NECK, weeping in extreme self-mortification — one of the MOST DISTINCTIVE PENITENTIAL IMAGES in Ethiopian biblical literature. The pit-immersion-penance has no direct biblical parallel and appears unique to Meqabyan. The closest analogues are the patristic Egyptian-and-Syrian ascetic-stationary-penance practices (cf. Apophthegmata Patrum on Egyptian solitary-anchorites; Simeon Stylites&#x27;s pillar-station; Theodoret of Cyrus Historia Religiosa on Syrian ascetics). The chapter as a whole is the CONVERSION CHAPTER: God responds through the prophet with a long forgiveness-speech (vv. 3-10) including a direct citation of Exodus 20:5-6 (third-and-fourth-generation / thousandth-generation formula at v. 9). Maqabis emerges from the pit (v. 11), confesses, prostrates himself at the prophet&#x27;s feet, is raised.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Second Book of Meqabyan (Mäṣḥafä Mäqabyan II). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}
