@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 2,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 20,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 21,
   "candidates": [
     {
       "id": "psa-2-1-001",
@@ -297,6 +297,21 @@
       "confidence": 0.95,
       "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.13-14",
       "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers, Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.13-14</em> <small>(c. 350 AD)</small><p>&#x27;The Lord hath said unto me, Thou art my Son; this day have I begotten thee&#x27; — Athanasius marks gegennēka se (I have begotten thee) as the eternal-generation prooftext, fielding the central Arian objection: if there was a &#x27;day&#x27; (sēmeron) of begetting, wasn&#x27;t there a &#x27;before&#x27; when the Son was not? Athanasius answers that the sēmeron of the eternal-generation is not a temporal-moment but the perpetual-now of the divine-life — the Father eternally-begets, the Son eternally-is-begotten; the &#x27;today&#x27; is an analogical-borrowing from human-generation language that does not carry the temporal-implication into the divine-relation. Tewahedo Trisagion-theology preserves the Athanasian eternal-generation-without-temporal-priority in its anti-Arian Trisagion formula.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.13-14. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "rejected"
+    },
+    {
+      "id": "psa-2-7-021",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.13-14",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
       "draft_title": "Tewahedo — Athanasius of Alexandria",
       "draft_label": "Athanasius of Alexandria (350).",
       "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.13-14</em> <small>(c. 350 AD)</small><p>&#x27;The Lord hath said unto me, Thou art my Son; this day have I begotten thee&#x27; — Athanasius marks gegennēka se (I have begotten thee) as the eternal-generation prooftext, fielding the central Arian objection: if there was a &#x27;day&#x27; (sēmeron) of begetting, wasn&#x27;t there a &#x27;before&#x27; when the Son was not? Athanasius answers that the sēmeron of the eternal-generation is not a temporal-moment but the perpetual-now of the divine-life — the Father eternally-begets, the Son eternally-is-begotten; the &#x27;today&#x27; is an analogical-borrowing from human-generation language that does not carry the temporal-implication into the divine-relation. Tewahedo Trisagion-theology preserves the Athanasian eternal-generation-without-temporal-priority in its anti-Arian Trisagion formula.</p></aside>",

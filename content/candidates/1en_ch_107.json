@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 107,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 5,
+  "generated_at": "2026-05-14T02:41:47+00:00",
+  "n_candidates": 6,
   "candidates": [
     {
       "id": "1en-107-1-001",
@@ -66,6 +66,21 @@
     },
     {
       "id": "1en-107-1-005",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 107:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;And after that there shall be still more unrighteousness than that which was first consummated on the earth; for I know the mysteries of the holy ones; for He, the Lord, has showed me and informed me, and I have read them in the heavenly tablets&#x27; — the SECOND judgment will exceed the first (Flood). Tewahedo eschatology preserves the second-greater-than-first principle: just as Noah&#x27;s flood-judgment was decisive but PARTIAL (the human race continued), the final eschatological judgment is total — the typological escalation builds throughout the Mäṣḥafä Hēnok.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-107-1-006",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

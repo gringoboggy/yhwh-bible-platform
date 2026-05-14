@@ -4,6 +4,114 @@
 
 ## Prior task
 
+**γ.4.9.B Athanasius Pauline detail wave I — 40 verse-keyed entries
+across all 8 Pauline books (Rom 10 + 1Co 6 + 2Co 3 + Gal 3 + Eph 4 +
+Phi 4 + Col 4 + Heb 6) deepening the 16 γ.4.9 seed Pauline anchors to
+56-entry detail-wave coverage. FIRST DETAIL WAVE on the FIFTH-PATRISTIC-
+VOICE opened by γ.4.9 seed. Mirrors γ.4.7.B Galilean-detail-wave shape
+(51 entries deepening 13 seed anchors to 64-entry coverage).
+ethiopian_commentaries.json 1257 → 1297 (+40); Athanasius 40 → 80; voice
+mix Cyril 53.1% → 51.5% (intentional plurality preserved per ω.41 §1);
+patristic-anchor majority 68.8% → 69.8%. EIGHTH production-scale N-W4
+verification. TestGamma49BAthanasiusPaulineDetailWave +15 pins (1
+substantive-detail + 1 per-book-coverage + 1 Romans-density + 1
+Hebrews-density + 1 milestone + 8 signature anchors + 1 _meta sync) +
+TestGamma4MetaPhasesCoverage γ.4.9.B extension +1 pin. Suite 3885 →
+3900 pass + 1 skip (+15 net); linter 11/11.** shipped 2026-05-13.
+Triggered by user "continue" after γ.4.9 + γ.4.7.D save (5c2d2bc). Per
+§3.4 close-before-open within the Athanasius arc — natural detail-wave
+continuation. Per memory `feedback_extensive_answers` (broadest scope)
++ §3.1 safest-additive-first + §3.2 buyer-demo-value.
+
+**Themes covered (40 detail entries deepening 16 seed anchors):**
+
+- **Romans (10 detail):** Adam-Christ typology (Rom 5:14-19) + Spirit-
+  of-adoption (Rom 8:9-17) + propitiation (Rom 3:25) + cosmic-doxology
+  (Rom 11:36).
+- **1 Cor (6 detail):** Lord-of-glory-crucified communicatio-idiomatum
+  (1Co 2:8) + spiritual-Rock OT-Christ-presence (1Co 10:4) + Eucharist
+  institution (1Co 11:25) + last-Adam life-giving-Spirit (1Co 15:45).
+- **2 Cor (3 detail):** transformation-by-Spirit theosis (2Co 3:18) +
+  God-was-in-Christ reconciliation (2Co 5:19) + Trinitarian benediction
+  (2Co 13:14).
+- **Galatians (3 detail):** became-curse-for-us substitutionary-summit
+  (Gal 3:13) + mediator-not-of-one (Gal 3:20) + Spirit-of-Son adoption
+  (Gal 4:6).
+- **Ephesians (4 detail):** exalted-above-every-name (Eph 1:21) + peace-
+  making-both-one (Eph 2:14) + descent-ascent harrowing (Eph 4:9-10).
+- **Philippians (4 detail):** kenotic-paraenetic (Phi 2:5) + cross-
+  obedience-summit (Phi 2:8) + universal-knee-bow (Phi 2:10) + bodily-
+  resurrection-transformation (Phi 3:21).
+- **Colossians (4 detail):** cosmic-Christ-sustainer (Col 1:17) + head-
+  of-body-ecclesiology (Col 1:18) + Father-pleased-fullness (Col 1:19)
+  + cheirographon-nailed-to-cross (Col 2:14).
+- **Hebrews (6 detail):** seven-fold-OT-citation-chain (Heb 1:5-8) +
+  angelic-worship-of-Christ (Heb 1:6) + direct-address-to-Son-as-God
+  (Heb 1:8) + genuine-flesh-and-blood (Heb 2:14) + tempted-without-sin
+  (Heb 4:15) + Trinitarian-atonement-through-eternal-Spirit (Heb 9:14).
+
+**N-W4 IDEMPOTENCY — EIGHTH PRODUCTION VERIFICATION:**
+
+Promote pass affected 8 Pauline books (rom + 1co + 2co + gal + eph +
+phi + col + heb) — all books touched by γ.4.9.B detail entries. (Run
+details captured by the at-scale + batch-promote sequence; SESSION_
+STATE post-ship numbers reflect the verified-clean state.)
+
+**Sources (one new + four prior):**
+
+- ATTR_CA — Contra Arianos I-IV (NPNF S2 V4, Robertson 1892)
+- ATTR_DI — De Incarnatione Verbi (NPNF S2 V4, Robertson 1892)
+- ATTR_EPICT — Epistola ad Epictetum (NPNF S2 V4, Robertson 1892)
+- ATTR_ADELPH — **NEW for γ.4.9.B** — Epistola ad Adelphium (NPNF S2
+  V4, Robertson 1892). Adds the Letter to Adelphius as fourth
+  Athanasian work-source in the γ.4 corpus (used at Heb 4:15
+  sinless-but-tempted anchor).
+
+**Files:**
+
+- `content/sources/ethiopian_commentaries.json` — +40 Athanasius
+  entries across 8 Pauline books; `_meta.source` extended.
+- `content/notes/<8 Pauline books>.py` — promoted via
+  `run_ethiopian_at_scale.py` + `batch_promote_xrefs.py --kind
+  comm-ethiopian` (idempotent). Per-book new: rom +10, 1co +6, 2co
+  +3, gal +3, eph +4, phi +4, col +4, heb +6 = 40.
+- `scripts/_ship_gamma49b.py` — new ship script (~530 lines).
+- `tests/test_ethiopian_gamma4.py` — new
+  `TestGamma49BAthanasiusPaulineDetailWave` class (15 pins) +
+  `TestGamma4MetaPhasesCoverage` extension (+1 γ.4.9.B pin).
+- `dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`
+  — state-of-record updates.
+
+**Test delta:** +15 net. Suite 3885 → 3900 pass + 1 skip. Linter 11/11.
+Ruff scripts/_ship_gamma49b.py + new γ.4.9.B test code clean (both
+written with "(NPNF)" abbreviation from the start, avoiding the γ.4.9
+post-ship correction).
+
+**Post-ship correction (same turn) — N-W4 dedup-by-attribution drift:**
+The γ.4.9.B promote pass returned 80 promoted (vs expected 40). Root
+cause: γ.4.9's `_fix_gamma49_npnf.py` updated attribution strings in
+JSON + notes but NOT in candidates JSON. γ.4.9.B at-scale appended new
+"(NPNF)" candidates alongside the OLD attribution candidates from
+γ.4.9 first at-scale run. Promote saw the OLD-attribution candidates
+as legit-distinct from NPNF-fixed notes → 40 duplicate Athanasius
+tuples added to 19 notes files.
+
+Fixed via `scripts/_fix_gamma49b_dedup.py`: removed every Athanasius
+tuple from content/notes/*.py whose attribution lacks "(NPNF)" (the
+duplicate-promote signature), AND marked the 40 OLD-attribution
+candidates as `status: "rejected"` in content/candidates/*.json.
+Verified: 80 Athanasius entries total (40 seed + 40 detail), matching
+designed distribution per-book exactly.
+
+**Lesson logged:** future post-ship attribution corrections MUST
+propagate to candidates JSON files OR invalidate them (since at-scale
+is append-not-overwrite). The candidates JSON was a third location
+the original NPNF fixup missed.
+
+---
+
+## Earlier-prior task (closed)
+
 **γ.4.9 Athanasius of Alexandria seed wave — 40 verse-keyed entries
 across 19 books spanning OT christological anticipations (Gen 1:26
 + 1:27 + Ex 3:14 + Ps 2:7 + 110:1 + Pr 8:22 + Isa 7:14 + 9:6) +

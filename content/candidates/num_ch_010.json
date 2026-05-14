@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 10,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 35,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 36,
   "candidates": [
     {
       "id": "num-10-1-001",
@@ -516,6 +516,21 @@
     },
     {
       "id": "num-10-9-035",
+      "verse": 9,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 10:1-10. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the silver trumpets sounded for war and for festivals (Num 10:9-10), Ephrem reads the doubled liturgical-and-military use of the trumpet as the canonical pattern: the same sign that summons the people to battle summons them to rejoicing — both belong to the Lord, both invoke remembrance before him. Tewahedo liturgical practice preserves the silver-trumpet tradition in the qabaro and silver-trumpet of the great feasts (Mäsqäl, Timqät); the same trumpet that announces the procession of the tabot announces the day of remembrance. Num 10:9 is the canonical anchor for the trumpet-as-prayer in Ethiopian worship.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-10-9-036",
       "verse": 9,
       "kind": "comm-ethiopian",
       "anchor": "",

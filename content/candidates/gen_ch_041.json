@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 41,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 79,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 81,
   "candidates": [
     {
       "id": "gen-41-16-001",
@@ -1176,6 +1176,36 @@
     },
     {
       "id": "gen-41-55-079",
+      "verse": 55,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLI.55. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;Go unto Joseph; what he saith to you, do&#x27; (Pharaoh&#x27;s command to the famine-stricken people). Ephrem reads this verbatim as the Marian-Cana-prefiguration: &#x27;whatsoever he saith unto you, do it&#x27; (Jn 2:5 — Mary&#x27;s words to the servants at Cana). Tewahedo Marian theology preserves this typological pair: Joseph&#x27;s authoritative mediation in famine prefigures Mary&#x27;s authoritative mediation at Cana; both point to Christ as ultimate-provider.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-41-38-080",
+      "verse": 38,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLI.38. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Pharaoh said unto his servants, Can we find such a one as this is, a man in whom the Spirit of God is?&#x27; Ephrem reads Pharaoh&#x27;s recognition as a striking example: a pagan king discerns the Spirit of God in a Hebrew slave. Tewahedo missiological theology preserves this verse as the canonical warrant for the principle that divine presence can be recognised by those outside the covenant — implicit support for the Tewahedo openness to natural-revelation theology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-41-55-081",
       "verse": 55,
       "kind": "comm-ethiopian",
       "anchor": "",

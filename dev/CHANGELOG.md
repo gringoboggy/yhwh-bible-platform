@@ -6,6 +6,148 @@
 
 ---
 
+## 2026-05-13 — session — γ.4.9.B Athanasius Pauline detail wave I (FIRST DETAIL WAVE on the fifth patristic voice)
+
+**Phases shipped:** γ.4.9.B — Athanasius of Alexandria Pauline detail
+wave I (40 verse-keyed entries across all 8 Pauline books deepening
+the 16 γ.4.9 seed Pauline anchors to 56-entry detail-wave coverage).
+FIRST DETAIL WAVE on the FIFTH-PATRISTIC-VOICE opened by γ.4.9 seed.
+Mirrors γ.4.7.B Galilean-detail-wave shape (51 entries deepening 13
+seed anchors to 64-entry coverage).
+
+**Distribution (40 entries):**
+
+| Book | Verses (10 / 6 / 3 / 3 / 4 / 4 / 4 / 6) | Themes |
+|---|---|---|
+| Romans (10) | 1:4 + 3:25 + 5:14 + 5:19 + 6:3 + 8:3 + 8:9 + 8:17 + 8:29 + 11:36 | Adam-Christ + Spirit-adoption + propitiation |
+| 1 Cor (6) | 1:30 + 2:8 + 10:4 + 11:25 + 15:21 + 15:45 | Lord-of-glory + Eucharist + last-Adam |
+| 2 Cor (3) | 3:18 + 5:19 + 13:14 | transformation + reconciliation + Trinity |
+| Galatians (3) | 3:13 + 3:20 + 4:6 | curse-for-us + mediator + Spirit-of-Son |
+| Ephesians (4) | 1:21 + 2:14 + 4:9 + 4:10 | exaltation + peace + descent/ascent |
+| Philippians (4) | 2:5 + 2:8 + 2:10 + 3:21 | kenosis-completion + universal-bow |
+| Colossians (4) | 1:17 + 1:18 + 1:19 + 2:14 | cosmic-Christ + head + bond-nailed |
+| Hebrews (6) | 1:5 + 1:6 + 1:8 + 2:14 + 4:15 + 9:14 | citation-chain + high-priest + once-offered |
+
+**Voice-mix delta — Athanasius doubles from 40 to 80 entries:**
+
+```
+Pre-γ.4.9.B (1257 entries):         Post-γ.4.9.B (1297 entries):
+  Cyril       668  53.1%               Cyril       668  51.5%
+  Jubilees    200  15.9%               Jubilees    200  15.4%
+  1 Enoch     192  15.3%               1 Enoch     192  14.8%
+  Ephrem      157  12.5%               Ephrem      157  12.1%
+  Athanasius   40   3.2%               Athanasius   80   6.2%  ← γ.4.9.B
+```
+
+Patristic-anchor majority (Cyril + Ephrem + Athanasius) rises 68.8% →
+69.8%. Per ω.41 §1: Cyril-led-plurality preserved (51.5% — intentional).
+
+**§3 sequencing rationale:** "continue" after the γ.4.9 seed + save
+(commit 5c2d2bc). Per §3.4 close-before-open within the Athanasius arc.
+Per memory `feedback_extensive_answers` (broadest scope) + §3.1 safest-
+additive-first + §3.2 buyer-demo-value (Tewahedo flagship corpus depth).
+
+**Items shipped:**
+
+1. **`scripts/_ship_gamma49b.py` — new ship script** (~530 lines, 40
+   detail-wave entries; adds ATTR_ADELPH as fourth Athanasian work-
+   source — Epistola ad Adelphium).
+
+2. **`content/sources/ethiopian_commentaries.json`** — extended:
+   - `entries`: 1257 → 1297 (+40).
+   - Athanasius entries: 40 → 80.
+   - `_meta.source` ledger appended with γ.4.9.B Pauline-detail-wave
+     manifest.
+
+3. **`content/notes/<8 Pauline books>.py`** — promoted via
+   `run_ethiopian_at_scale.py` (regenerates candidates) +
+   `batch_promote_xrefs.py --kind comm-ethiopian` (idempotent post-
+   N-W4). EIGHTH production-scale verification of N-W4 contract.
+
+4. **`tests/test_ethiopian_gamma4.py` — `TestGamma49BAthanasiusPauline
+   DetailWave`** (NEW class, 15 pins, ~200 lines):
+   - `test_pauline_athanasius_substantively_detailed` (≥56 entries)
+   - `test_every_pauline_book_has_detail_depth` (8-book invariant)
+   - `test_romans_substantively_detailed` (≥13 entries)
+   - `test_hebrews_substantively_detailed` (≥8 entries)
+   - `test_athanasius_milestone_count` (≥80 total)
+   - 8 signature-anchor pins (one per Pauline book): Rom 5:19, 1Co 2:8,
+     2Co 13:14, Gal 3:13, Eph 4:9, Phi 2:10, Col 1:17, Heb 1:8
+   - `test_meta_documents_gamma_4_9_b_expansion` (_meta sync pin)
+
+5. **`tests/test_ethiopian_gamma4.py` — `TestGamma4MetaPhasesCoverage`**
+   extended with `test_meta_documents_gamma_4_9_b` per ω.37 W10-closure
+   precedent — γ.4.9.B family drift gets caught at commit time.
+
+6. **`dev/SESSION_STATE.md`, `dev/IN_FLIGHT.md`, `dev/CHANGELOG.md`** —
+   state-of-record updates per §11.
+
+**Test delta:** +15 net. Full suite: 3885 → 3900 pass + 1 skip. Linter
+11/11. Ruff `scripts/_ship_gamma49b.py` + new γ.4.9.B test code clean
+(both written with "(NPNF)" abbreviation from the start, avoiding the
+γ.4.9 post-ship NPNF correction this ship's predecessor required).
+
+**Post-ship correction (same turn) — N-W4 dedup-by-attribution drift:**
+The γ.4.9.B promote pass returned 80 promoted (40 legit detail + 40
+duplicate γ.4.9 seed entries) instead of the expected 40. Root cause:
+γ.4.9's `_fix_gamma49_npnf.py` (the prior ship's post-correction)
+updated attribution strings in the SOURCE JSON and the NOTES files but
+NOT in the candidate JSON files. When γ.4.9.B at-scale re-ran the
+detector, it appended NEW-attribution candidates to the candidates JSON
+files alongside the OLD-attribution candidates from γ.4.9's first
+at-scale run. The promote pass saw the OLD-attribution candidates as
+"legitimately distinct" from the NPNF-fixed notes (different attribution
+→ different note per `promote.note_already_exists`), and promoted them
+as fresh notes with the next free suffix letter. Result: 40 duplicate
+Athanasius tuples added to 19 notes files. Fixed via:
+
+1. **`scripts/_fix_gamma49b_dedup.py`** — one-shot LOAD-BEARING-ONCE
+   dedup script (per §7.4 retention rule): removes every Athanasius
+   tuple from `content/notes/*.py` whose attribution lacks "(NPNF)"
+   (identifiable signature of duplicate-promote artifacts), AND marks
+   the corresponding 40 OLD-attribution candidates as `status:
+   "rejected"` in `content/candidates/*.json` so re-runs skip them.
+   Removed 40 tuples across 19 notes files; rejected 40 candidates
+   across 35 candidate files.
+
+2. **Ruff format** auto-applied to 11 modified files for format
+   conformance.
+
+3. **Verification** — post-dedup count: 80 Athanasius entries
+   (matching expected 40 seed + 40 detail). Per-book counts match the
+   designed distribution exactly.
+
+Post-correction: all γ.4 test classes pass + 58 γ.4.9-related tests
+pass. Full-suite regression verification in flight.
+
+**Lesson for future post-ship NPNF-style fixups:** when correcting
+attribution strings post-ship, the fix MUST also propagate to the
+candidates JSON files (or invalidate them — `*.json` deletion + at-
+scale re-run, since at-scale is append-not-overwrite). The
+candidates JSON was a third location the original `_fix_gamma49_npnf.
+py` missed. This is now a logged inventory-pointer (per §11 / §12
+retrospective) for any future detector-pipeline-mid-flight content
+correction.
+
+**Continuity pointers:**
+
+- Source addendum: ATTR_ADELPH (Letter to Adelphius) added as fourth
+  Athanasian work alongside ATTR_CA (Contra Arianos), ATTR_DI (De
+  Incarnatione), ATTR_EPICT (Epistola ad Epictetum). All four sources
+  from NPNF S2 V4 (Robertson, Oxford/T&T Clark 1892, fully PD).
+- §8.1 arc-close convention NOT applied — γ.4.9.B is a detail wave;
+  the Athanasius arc has not yet reached the closing-wave threshold.
+  Future γ.4.9.C (non-Pauline detail) or γ.4.9.D (closing arc-wave)
+  would apply §8.1 pin set per precedent.
+- **Audit-cadence flag (per memory `feedback_audit_cadence`):** with
+  γ.4.9.B shipped, the session has now seen 11 phases (ω.41 hygiene +
+  γ.4.6.B/C/D + γ.4.7/B/C/D + γ.4.9 + γ.4.9.B + γ.4.9-NPNF-fixup) AND
+  ~200 tests drift (3700ish → 3900). Both triggers tripped. A light
+  solo-Claude audit (not the parallel-subagent sweep) is the proactive
+  recommendation at this seam.
+
+---
+
 ## 2026-05-13 — session — γ.4.9 Athanasius of Alexandria seed wave (OPENS A FIFTH PATRISTIC VOICE)
 
 **Phases shipped:** γ.4.9 — Athanasius of Alexandria SEED wave (40

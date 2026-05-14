@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 16,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 72,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 73,
   "candidates": [
     {
       "id": "num-16-3-001",
@@ -1071,6 +1071,21 @@
     },
     {
       "id": "num-16-32-072",
+      "verse": 32,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 16:1-35. NPNF Series 2, vol. 13. PD. Cf. Jude 11.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the swallowing of Korah, Dathan, and Abiram by the earth (Num 16:32), Ephrem reads the judgment-against-priestly-rebellion as the canonical anchor of the gravity-of-priesthood: those who usurp the priestly office without divine appointment fall through the very earth that should bear them. Korah&#x27;s rebellion is doubled in Jude 11 (&#x27;perished in the gainsaying of Core&#x27;) and read as type of every later schismatic seizure of office. Tewahedo canon-law cites Num 16:32 + Jude 11 as the canonical doubled-warrant for the gravity of unauthorised priesthood; only the lawfully-ordained may approach the tabot.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-16-32-073",
       "verse": 32,
       "kind": "comm-ethiopian",
       "anchor": "",

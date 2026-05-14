@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 17,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 20,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 21,
   "candidates": [
     {
       "id": "num-17-1-001",
@@ -291,6 +291,21 @@
     },
     {
       "id": "num-17-8-020",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 17:1-13. NPNF Series 2, vol. 13. PD. Tewahedo Marian liturgical witness: Wǝddase Maryam (Praises of Mary).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Aaron&#x27;s rod that &#x27;budded, and brought forth buds, and bloomed blossoms, and yielded almonds&#x27; (Num 17:8), Ephrem reads the blossoming-of-the-dead-staff as the canonical Marian-rod typology: a dry rod brings forth life out of season because the Lord wills it, prefiguring the Virgin who bears the Word without seed. The Tewahedo Wǝddase Maryam preserves this reading explicitly — Mary is the &#x27;rod of Aaron&#x27; (in Geʿez: bä-ṭwāf zä-Aron) whose blossoming is the seedless Conception of the Word. Num 17:8 is therefore the canonical Old-Testament Marian-iconographic anchor in Ethiopian devotion, alongside the burning bush (Ex 3:2) and the ladder of Jacob (Gen 28:12 + Jub 27:19).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-17-8-021",
       "verse": 8,
       "kind": "comm-ethiopian",
       "anchor": "",

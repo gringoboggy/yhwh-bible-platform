@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 19,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 41,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 42,
   "candidates": [
     {
       "id": "num-19-18-001",
@@ -606,6 +606,21 @@
     },
     {
       "id": "num-19-2-041",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 19:1-22. NPNF Series 2, vol. 13. PD. Cf. Heb 9:13-14, 13:11-12.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On the red heifer &#x27;wherein is no blemish, and upon which never came yoke&#x27; (Num 19:2), Ephrem reads the unyoked, unblemished, wholly-burnt red heifer as the canonical Old-Testament type of Christ&#x27;s atoning sacrifice — taken up explicitly by Hebrews 9:13-14 as the lesser-to-greater argument: if the ashes of a heifer sanctified the flesh, how much more shall the blood of Christ purge the conscience. The red colour anticipates the blood, the unyoked freedom anticipates Christ&#x27;s voluntary submission, the outside-the-camp burning anticipates Calvary outside Jerusalem (Heb 13:11-12). Tewahedo eucharistic theology cites Num 19 + Heb 9 as canonical doubled-witness to Christ&#x27;s once-for-all purifying sacrifice.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-19-2-042",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

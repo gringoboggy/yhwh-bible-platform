@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 44,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 15,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 18,
   "candidates": [
     {
       "id": "jub-44-1-001",
@@ -216,6 +216,51 @@
     },
     {
       "id": "jub-44-11-015",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 44:11 (Jacob to Egypt (44:11)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And these are the names of the sons of Jacob who went into Egypt with their father: Reuben, the firstborn of Jacob; and these are the names of the sons of Reuben: Hanoch, and Pallu, and Hezron, and Carmi — five&#x27; — Jubilees preserves the comprehensive Israelite-clan genealogy that descends to Egypt (Gen 46:8-27). The Tewahedo Senodos-genealogical tradition (each Tewahedo bishop traces a genealogy backward to one of the seventy Israelites who descended to Egypt) finds canonical anchor here. The Tewahedo monastic-genealogical chronicle tradition (each major monastery preserves its founder&#x27;s genealogy backward through canonical-Israelite lineage) treats Jub 44:11-33 as a foundational text.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-44-1-016",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 44:1 (Jacob to Egypt (44:1)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And in the first year of the third week in the forty-fifth jubilee, in the second month, Jacob went down to Egypt, his sons with him, and they came to the well of the oath in the seventh of this second month, and he tarried there seven days&#x27; — Jacob deliberately tarries seven days at Beersheba (well of the oath) before proceeding to Egypt. Jubilees uniquely preserves the seven-day delay as a canonical-liturgical pause. Tewahedo monastic-departure tradition: before any major journey or transition, a seven-day prayerful pause at a place of patriarchal-altar memory (Beersheba was Abraham&#x27;s altar of the well of the oath, Gen 21:33; Jub 24:25). The Tewahedo seven-day-week is canonically a unit of canonical-discernment-pause before action — pattern rooted in Jacob&#x27;s pause.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-44-5-017",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 44:5 (Jacob to Egypt (44:5)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And the Lord appeared to him in a vision in the night, and said unto him: Jacob, Jacob. And he said: behold, here am I. And He said: I am the God of thy fathers, the God of Abraham, and Isaac; fear not to go down into Egypt, for I will make thee there into a great people. I will go down with thee, and I will bring thee up, and in this land shalt thou be buried, and Joseph shall put his hand upon thy eyes&#x27; — God explicitly promises to accompany Jacob to Egypt and to bring him back. Tewahedo Immanuel-typology reads this as the canonical-OT proof of God&#x27;s accompanying-presence with his people-in-exile: &#x27;I will go down with thee.&#x27; The Tewahedo distinctive ecclesiology of God-with-the-Diaspora — extending to the Tewahedo&#x27;s own historical experience of dispersion under persecution — draws on this verse. The &#x27;Joseph shall put his hand upon thy eyes&#x27; detail anchors the Tewahedo deathbed-ritual of the eldest-son closing the parent&#x27;s eyes at the moment of death.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-44-11-018",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

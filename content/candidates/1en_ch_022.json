@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 22,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 5,
+  "generated_at": "2026-05-14T02:41:47+00:00",
+  "n_candidates": 6,
   "candidates": [
     {
       "id": "1en-22-5-001",
@@ -66,6 +66,21 @@
     },
     {
       "id": "1en-22-5-005",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 22:5-9, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>Enoch&#x27;s vision of Sheol describes four &#x27;hollow places&#x27; for the dead awaiting judgment, distinguished by moral status. &#x27;There I saw the spirits of the children of men dead&#x27; — including a special place where Abel&#x27;s soul cries out for vengeance against Cain. This text is one of the most developed pre-Christian Jewish accounts of the intermediate state of the dead, prefiguring the Lukan rich-man-and-Lazarus distinction (Lk 16:19-31). The Tewahedo eschatological tradition draws explicit cross-reference: the intermediate state is real (souls preserve their identity and moral status between bodily death and final resurrection), differentiated (the righteous and wicked are separated), and provisional (awaiting the final judgment).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-22-5-006",
       "verse": 5,
       "kind": "comm-ethiopian",
       "anchor": "",

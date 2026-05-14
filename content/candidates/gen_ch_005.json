@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 5,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 49,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 51,
   "candidates": [
     {
       "id": "gen-5-1-001",
@@ -726,6 +726,36 @@
     },
     {
       "id": "gen-5-29-049",
+      "verse": 29,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis V.29 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (362).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 362 AD)</small><p>Lamech&#x27;s naming of Noah — &#x27;This same shall comfort us (yenahamenu) concerning our work and toil of our hands, because of the ground which the LORD hath cursed&#x27; — Ephrem reads as prophetic anticipation grounded in pre-flood corruption. Noah&#x27;s name (the Hebrew root n-w-h, to rest/comfort) Ephrem takes as etymologically programmatic: Noah will be the one through whom the post-flood relief is mediated, the cursed ground (Gen 3:17) being either washed clean or replaced by new earth in the renewal that follows the flood. Ephrem reads Lamech&#x27;s hope as proleptically Christological: every Old Testament expectation of comfort-mediated-by-a-righteous-one ultimately points beyond itself to Christ as the true Comforter. The Tewahedo Synaxarium preserves Noah on the 10th of Magabit as a type of Christ.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-5-24-050",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis V.24 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (362).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 362 AD)</small><p>&#x27;And Enoch walked with God: and he was not; for God took him&#x27; Ephrem takes as central to the entire Tewahedo theological imagination, since Enoch is the canonical author of the Mäṣḥafä Hēnok (1 Enoch). The &#x27;walking with God&#x27; Ephrem reads as the Syriac patristic ideal of continual conscious communion — the same standard upheld for Noah (6:9) and re-articulated for Abraham (17:1). The translation (&#x27;God took him&#x27;) Ephrem takes literally: Enoch did not die in the ordinary mode but was assumed bodily into divine presence. Together with the parallel translation of Elijah (2 Kings 2:11), this establishes the Old Testament&#x27;s witness to bodily glorification before the universal resurrection. Tewahedo eschatology preserves both translations with particular weight, since Enoch&#x27;s translated state grounds the authority of the Mäṣḥafä Hēnok he composed.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-5-29-051",
       "verse": 29,
       "kind": "comm-ethiopian",
       "anchor": "",

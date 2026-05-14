@@ -1,5 +1,94 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / γ.4.9.B Athanasius Pauline detail wave I ships
+— 40 verse-keyed entries across all 8 Pauline books deepening the 16
+γ.4.9 seed Pauline anchors to 56-entry detail-wave coverage. FIRST
+DETAIL WAVE on the FIFTH-PATRISTIC-VOICE opened by γ.4.9. Distribution:
+Romans (10: Adam-Christ + Spirit-adoption + propitiation) + 1 Cor (6:
+Lord-of-glory + Eucharist + last-Adam) + 2 Cor (3: transformation +
+reconciliation + Trinity) + Galatians (3: curse-for-us + mediator +
+Spirit-of-Son) + Ephesians (4: exaltation + peace + descent/ascent) +
+Philippians (4: kenosis-completion + universal-bow + transformation) +
+Colossians (4: cosmic-Christ + headship + bond-nailed) + Hebrews (6:
+citation-chain + high-priesthood + once-offered).
+ethiopian_commentaries.json 1257 → 1297 (+40); Athanasius 40 → 80; voice
+mix Cyril 53.1% → 51.5% (intentional plurality preserved per ω.41 §1);
+patristic-anchor majority 68.8% → 69.8% (Cyril + Ephrem + Athanasius).
+EIGHTH production-scale verification of N-W4 idempotency contract.
+TestGamma49BAthanasiusPaulineDetailWave +15 pins (1 substantive-detail
++ 1 per-book-coverage + 1 Romans-density + 1 Hebrews-density + 1
+milestone + 8 signature anchors + 1 _meta sync) + TestGamma4MetaPhases
+Coverage γ.4.9.B extension +1 pin. Suite 3885 → 3900 pass + 1 skip
+(+15 net); linter 11/11.** Triggered by user "continue" after the
+γ.4.9 + γ.4.7.D save (commit 5c2d2bc). Per §3.4 close-before-open
+within the Athanasius arc — natural detail-wave continuation.
+
+**Pauline-Athanasius coverage post-γ.4.9.B (56 entries across 8 books):**
+
+```
+Romans         3 seed + 10 detail = 13 entries
+1 Corinthians  2 seed +  6 detail =  8 entries
+2 Corinthians  1 seed +  3 detail =  4 entries
+Galatians      1 seed +  3 detail =  4 entries
+Ephesians      1 seed +  4 detail =  5 entries
+Philippians    3 seed +  4 detail =  7 entries
+Colossians     3 seed +  4 detail =  7 entries
+Hebrews        2 seed +  6 detail =  8 entries
+                                    ────
+                                    56 Pauline-Athanasius entries
+```
+
+**Voice-mix delta:**
+
+```
+Pre-γ.4.9.B (1257 entries):         Post-γ.4.9.B (1297 entries):
+  Cyril       668  53.1%               Cyril       668  51.5%
+  Jubilees    200  15.9%               Jubilees    200  15.4%
+  1 Enoch     192  15.3%               1 Enoch     192  14.8%
+  Ephrem      157  12.5%               Ephrem      157  12.1%
+  Athanasius   40   3.2%               Athanasius   80   6.2%  ← γ.4.9.B
+                                                  ────
+                                                  1297 entries
+```
+
+Per ω.41 §1: Cyril-led-patristic-chorus character preserved (51.5%
+plurality still Cyril's — intentional per apostolic-succession
+rationale). Patristic-anchor majority (Cyril + Ephrem + Athanasius)
+68.8% → 69.8%.
+
+**Items shipped:**
+
+- **`scripts/_ship_gamma49b.py`** — new ship script (~530 lines, 40
+  detail-wave entries across all 8 Pauline books). Adds ATTR_ADELPH
+  (Letter to Adelphius) as fourth Athanasian work-source.
+- **`content/sources/ethiopian_commentaries.json`** — entries 1257 →
+  1297; Athanasius 40 → 80; `_meta.source` ledger appended with
+  γ.4.9.B Pauline-detail-wave manifest.
+- **`content/notes/<8 Pauline books>.py`** — promoted via at-scale +
+  batch_promote pipeline (idempotent). Per-book new Athanasius:
+  rom +10, 1co +6, 2co +3, gal +3, eph +4, phi +4, col +4, heb +6 = 40.
+- **`tests/test_ethiopian_gamma4.py`** — new
+  `TestGamma49BAthanasiusPaulineDetailWave` (15 pins) +
+  `TestGamma4MetaPhasesCoverage::test_meta_documents_gamma_4_9_b`
+  (1 pin) = +15 net.
+
+**Recommended next steps (per memory `feedback_audit_cadence`):**
+
+- **AUDIT CADENCE TRIGGERED** — ≥10 phases shipped this session
+  (ω.41 + γ.4.6.B/C/D + γ.4.7/B/C/D + γ.4.9 + γ.4.9.B = 11 phases)
+  AND ~200 test drift (3700ish → 3900). Per memory: "lighter solo-
+  Claude audit, not the parallel-subagent sweep." Proactive
+  recommendation — the user can pick.
+- **save** — γ.4.9.B is the SECOND content ship since latest save
+  (commit 5c2d2bc); both γ.4.9.B and the audit-cadence recommendation
+  are uncommitted. User-explicit only per `feedback_continue_not_save`.
+- **γ.4.9.C non-Pauline detail wave** — continues the close-before-
+  open trajectory: deepen the remaining γ.4.9 thematic groups (OT
+  Christological Anticipations + Canonical Gospels + Petrine/
+  Johannine/Apocalyptic). Estimated scope: ~40 entries.
+
+---
+
 **Updated 2026-05-13 / γ.4.9 Athanasius of Alexandria seed wave ships
 — OPENS A FIFTH PATRISTIC VOICE in the γ.4 corpus alongside the
 four-voice composition codified at ω.41 §1 (Cyril 668 + Jubilees

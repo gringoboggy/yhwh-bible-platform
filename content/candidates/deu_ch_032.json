@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 32,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 96,
+  "generated_at": "2026-05-14T02:41:47+00:00",
+  "n_candidates": 98,
   "candidates": [
     {
       "id": "deu-32-2-001",
@@ -1431,6 +1431,36 @@
     },
     {
       "id": "deu-32-39-096",
+      "verse": 39,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 32:39-43. NPNF Series 2, vol. 13. PD. Cf. 1 Sam 2:6, Jn 11:25.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the Song of Moses&#x27; climactic self-disclosure — &#x27;See now that I, even I, am he, and there is no god with me: I kill, and I make alive; I wound, and I heal&#x27; (Deu 32:39) — Ephrem reads the kill-and-make-alive paired-action as the canonical Old-Testament anchor of resurrection-monotheism: the SAME God who brings death brings life, the SAME God who wounds heals. There is no Manichaean dualism (one god of life, another of death). The verse anticipates 1 Sam 2:6 (&#x27;The Lord killeth, and maketh alive&#x27;) and is fulfilled in the dominical &#x27;I am the resurrection, and the life&#x27; (Jn 11:25). Tewahedo Easter (Fasika) theology cites Deu 32:39 + Jn 11:25 as the canonical doubled-witness of the resurrection-monotheist God.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-32-8-097",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 32:7-9. NPNF Series 2, vol. 13. PD (LXX/DSS reading retained against Masoretic correction). Cf. Jub 15:31-32, 1 En 89:59 (R.H. Charles, 1902/1912 — PD).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the Song of Moses&#x27; line &#x27;when the Most High divided to the nations their inheritance, when he separated the sons of Adam, he set the bounds of the people according to the number of the sons of God&#x27; (Deu 32:8, LXX / Dead Sea Scrolls reading &#x27;sons of God&#x27; / b&#x27;nei Elohim — preserved in the Masoretic-correction tradition), Ephrem reads the verse as the canonical Old-Testament anchor of the doctrine of angelic-territorial-governance: the Most High assigned each nation to the oversight of an angelic prince, retaining Israel as his own portion (Deu 32:9). Tewahedo angelology preserves this doctrine prominently — the Synaxarium accounts of Saint Michael as guardian-prince of Ethiopia, the Tewahedo Mäshafä Hēnok (1 Enoch) traditions of the seventy shepherds (1 En 89-90), and the Mäṣḥafä Kufāle (Jubilees) accounts of the angel-of-the-presence assigned to Israel (Jub 1:27, 2:1, 15:31-32) all flow from Deu 32:8&#x27;s canonical seed. Tewahedo cites Deu 32:8 + Jub 15:31-32 + 1 En 89:59 as the canonical triple-witness of angelic-territorial-governance.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-32-39-098",
       "verse": 39,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 1,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 18,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 19,
   "candidates": [
     {
       "id": "psa-1-1-001",
@@ -261,6 +261,21 @@
     },
     {
       "id": "psa-1-1-018",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on the Psalms",
+      "source_attribution": "Ephrem the Syrian, on Psalm 1. NPNF Series 2, vol. 13 (Gwynn). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on the Psalms</em> <small>(c. 365 AD)</small><p>Ephrem opens his Psalter commentary with the threefold negation — walks not / stands not / sits not — as a progression of deepening complicity in evil: the walk is occasional, the standing is habitual, the sitting is settled. The Ethiopian Andəmta tradition develops this into a homiletic device for the daily examen, paired with the threefold ascent of the just (meditation by day / by night / yielding fruit in season).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on the Psalms. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-1-1-019",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

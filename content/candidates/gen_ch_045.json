@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 45,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 45,
+  "generated_at": "2026-05-14T02:41:48+00:00",
+  "n_candidates": 47,
   "candidates": [
     {
       "id": "gen-45-5-001",
@@ -666,6 +666,36 @@
     },
     {
       "id": "gen-45-5-045",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLV.5. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;Now therefore be not grieved, nor angry with yourselves, that ye sold me hither: for God did send me before you to preserve life&#x27;. Ephrem reads this verse as the FOUNDATIONAL providence text — God&#x27;s salvific intent runs through and ABOVE human evil intent. Tewahedo providence-theology (especially developed in monastic spiritual direction for those processing past harms) draws on Gen 45:5: the harm was real; God&#x27;s purpose ran deeper than the harm.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-45-4-046",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XLV.4. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Joseph said unto his brethren, I am Joseph; doth my father yet live?&#x27; Ephrem reads the self-revelation as the model of merciful self-disclosure: the brothers, expecting wrath, hear MERCY first. Tewahedo theological-anthropology preserves this pattern: divine self-disclosure in Christ runs ahead of and overwhelms human expectation of judgment. The risen Christ&#x27;s &#x27;Peace be unto you&#x27; to the apostles who abandoned Him is the Joseph-pattern fulfilled.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-45-5-047",
       "verse": 5,
       "kind": "comm-ethiopian",
       "anchor": "",

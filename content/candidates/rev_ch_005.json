@@ -1,8 +1,8 @@
 {
   "book": "rev",
   "chapter": 5,
-  "generated_at": "2026-05-14T01:52:53+00:00",
-  "n_candidates": 32,
+  "generated_at": "2026-05-14T02:41:49+00:00",
+  "n_candidates": 33,
   "candidates": [
     {
       "id": "rev-5-1-001",
@@ -477,6 +477,21 @@
       "confidence": 0.95,
       "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.23",
       "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers, Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.23</em> <small>(c. 350 AD)</small><p>&#x27;And every creature which is in heaven, and on the earth, and under the earth, and such as are in the sea, and all that are in them, heard I saying, Blessing, and honour, and glory, and power, be unto him that sitteth upon the throne, and unto the Lamb for ever and ever&#x27; — Athanasius marks pan ktisma (every creature) worshiping tō kathēmenō epi tō thronō kai tō arniō (the-One-sitting upon the throne AND the Lamb) as the cosmic-Apocalyptic-divinity confession. The verse explicitly-distinguishes the Lamb (the incarnate-Christ) from pan-ktisma (every-creature) — the Lamb is therefore-NOT among-the-creatures, but stands with the Father-on-the-throne as the joint-recipient of cosmic-creaturely-worship. The four-fold doxology (eulogia + timē + doxa + kratos — blessing + honor + glory + power) is offered indistinguishably to Father-and-Lamb, marking ontological-equality. The Tewahedo Anaphora doxological-section cites Rev 5:13 + 7:10 + 11:15 as the apocalyptic-divinity-triad.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.23. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "rejected"
+    },
+    {
+      "id": "rev-5-13-033",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.23",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
       "draft_title": "Tewahedo — Athanasius of Alexandria",
       "draft_label": "Athanasius of Alexandria (350).",
       "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.23</em> <small>(c. 350 AD)</small><p>&#x27;And every creature which is in heaven, and on the earth, and under the earth, and such as are in the sea, and all that are in them, heard I saying, Blessing, and honour, and glory, and power, be unto him that sitteth upon the throne, and unto the Lamb for ever and ever&#x27; — Athanasius marks pan ktisma (every creature) worshiping tō kathēmenō epi tō thronō kai tō arniō (the-One-sitting upon the throne AND the Lamb) as the cosmic-Apocalyptic-divinity confession. The verse explicitly-distinguishes the Lamb (the incarnate-Christ) from pan-ktisma (every-creature) — the Lamb is therefore-NOT among-the-creatures, but stands with the Father-on-the-throne as the joint-recipient of cosmic-creaturely-worship. The four-fold doxology (eulogia + timē + doxa + kratos — blessing + honor + glory + power) is offered indistinguishably to Father-and-Lamb, marking ontological-equality. The Tewahedo Anaphora doxological-section cites Rev 5:13 + 7:10 + 11:15 as the apocalyptic-divinity-triad.</p></aside>",

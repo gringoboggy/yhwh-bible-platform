@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 75,
-  "generated_at": "2026-05-14T01:52:52+00:00",
-  "n_candidates": 10,
+  "generated_at": "2026-05-14T02:41:47+00:00",
+  "n_candidates": 12,
   "candidates": [
     {
       "id": "1en-75-1-001",
@@ -141,6 +141,36 @@
     },
     {
       "id": "1en-75-2-010",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 75:2, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And on account of them men go wrong therein, for those luminaries truly render service on the world-stations, one in the first portal, one in the third portal of the heaven, and so on&#x27; — the polemic against calendar error. Tewahedo liturgical tradition takes this verse seriously as a warning: feast-day timing matters because the cosmic order matters. The Tewahedo Synaxarium&#x27;s precision on saint-commemoration dates (down to the specific verse of Psalm read on each day) traces theologically to this Enochic concern about getting-the-time-right.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-75-1-011",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 75:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And the leaders of the heads of the thousands, who are placed over the whole creation and over all the stars, have also to do with the four intercalary days, being inseparable from their office&#x27; — the intercalary days that complete the calendar&#x27;s precision. Tewahedo Bāḥrä Ḥasab computation retains the principle of intercalary correction (the &#x27;epact&#x27; adjustment) as a fixed angelic ordinance rather than ad-hoc fix: the calendar&#x27;s accuracy is part of the cosmic priestly liturgy entrusted to the heavenly angelic leaders.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-75-2-012",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

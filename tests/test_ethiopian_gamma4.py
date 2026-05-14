@@ -579,6 +579,9 @@ class TestGamma4MetaPhasesCoverage:
     def test_meta_documents_gamma_4_9(self):
         self._assert_phase_mentioned("γ.4.9")
 
+    def test_meta_documents_gamma_4_9_b(self):
+        self._assert_phase_mentioned("γ.4.9.B")
+
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
     """ω.37 (W11 closure) — build-pipeline integration test for
@@ -6286,3 +6289,160 @@ class TestGamma49AthanasiusSeedWave:
             or "fifth patristic voice" in meta_source.lower()
             or ("Frumentius" in meta_source and "consecrator" in meta_source)
         ), "γ.4.9 _meta.source should describe the fifth-voice / Frumentius-consecrator apostolic-bridge rationale"
+
+
+class TestGamma49BAthanasiusPaulineDetailWave:
+    """γ.4.9.B — Athanasius of Alexandria Pauline detail wave I (2026-05-13).
+    40 verse-keyed entries across all 8 Pauline books deepening the 16 γ.4.9
+    seed Pauline anchors to 56-entry detail-wave coverage. Mirrors γ.4.7.B
+    Galilean-detail-wave shape (51 entries deepening 13 seed anchors to
+    64-entry coverage).
+
+    Distribution (40 entries):
+    - Romans (10): Rom 1:4 + 3:25 + 5:14 + 5:19 + 6:3 + 8:3 + 8:9 + 8:17
+                   + 8:29 + 11:36
+    - 1 Corinthians (6): 1Co 1:30 + 2:8 + 10:4 + 11:25 + 15:21 + 15:45
+    - 2 Corinthians (3): 2Co 3:18 + 5:19 + 13:14
+    - Galatians (3): Gal 3:13 + 3:20 + 4:6
+    - Ephesians (4): Eph 1:21 + 2:14 + 4:9 + 4:10
+    - Philippians (4): Phi 2:5 + 2:8 + 2:10 + 3:21
+    - Colossians (4): Col 1:17 + 1:18 + 1:19 + 2:14
+    - Hebrews (6): Heb 1:5 + 1:6 + 1:8 + 2:14 + 4:15 + 9:14
+
+    Themes covered: Adam-Christ typology (Rom 5:14-19, 1 Cor 15:21, 45) +
+    Spirit-of-Son adoption (Rom 8:9, Gal 4:6) + kenotic-completion (Phi 2:5,
+    8, 10, 3:21) + cosmic-sustainer (Col 1:17-19) + Hebrews-citation-chain
+    (Heb 1:5-8) + Trinitarian-atonement (Heb 9:14).
+
+    Voice mix post-γ.4.9.B (1297 entries): Cyril 51.5% / Jubilees 15.4% /
+    1 Enoch 14.8% / Ephrem 12.1% / Athanasius 6.2% (40 seed + 40 detail =
+    80). Patristic-anchor majority 67.6% → 69.8%. Per ω.41 §1: Cyril-led-
+    plurality preserved (51.5% remains intentional).
+
+    Pins (detail-wave standard set, NOT arc-close):
+    - Pauline-Athanasius substantively detailed (≥56 entries across all 8
+      Pauline books).
+    - Every Pauline book has ≥1 γ.4.9.B detail-wave entry (8-book
+      thematic-spread invariant).
+    - Athanasius absolute-count milestone ≥80 (40 seed + 40 detail).
+    - Romans + Hebrews density milestones (≥13 + ≥8 respectively).
+    - 8 signature-anchor pins (one per Pauline book covering the most
+      distinctive Athanasian-Pauline-Tewahedo theme for that book).
+    - _meta.source sync pin: γ.4.9.B referenced + Athanasius named +
+      Pauline detail named.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _athanasius_in_book(self, book):
+        out = []
+        for chapter in range(1, 30):
+            for verse in range(1, 100):
+                out.extend(e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Athanasius of Alexandria")
+        return out
+
+    def _all_athanasius(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Athanasius of Alexandria")
+        return out
+
+    def test_pauline_athanasius_substantively_detailed(self):
+        # 16 seed (γ.4.9) + 40 detail (γ.4.9.B) = 56 entries across the 8 Pauline books
+        pauline_books = {"rom", "1co", "2co", "gal", "eph", "phi", "col", "heb"}
+        total = sum(len(self._athanasius_in_book(b)) for b in pauline_books)
+        assert total >= 56, f"γ.4.9.B expected ≥56 Pauline-Athanasius entries (16 seed + 40 detail); found {total}"
+
+    def test_every_pauline_book_has_detail_depth(self):
+        per_book = {
+            b: len(self._athanasius_in_book(b)) for b in ["rom", "1co", "2co", "gal", "eph", "phi", "col", "heb"]
+        }
+        empty = {b: n for b, n in per_book.items() if n < 1}
+        assert not empty, (
+            f"γ.4.9.B detail-wave: each Pauline book should have ≥1 Athanasius entry; empty books: {empty}"
+        )
+
+    def test_romans_substantively_detailed(self):
+        rom = self._athanasius_in_book("rom")
+        assert len(rom) >= 13, (
+            f"γ.4.9.B expected ≥13 Athanasius entries on Romans (3 seed + 10 detail); found {len(rom)}"
+        )
+
+    def test_hebrews_substantively_detailed(self):
+        heb = self._athanasius_in_book("heb")
+        assert len(heb) >= 8, f"γ.4.9.B expected ≥8 Athanasius entries on Hebrews (2 seed + 6 detail); found {len(heb)}"
+
+    def test_athanasius_milestone_count(self):
+        ath = self._all_athanasius()
+        assert len(ath) >= 80, f"γ.4.9.B expected ≥80 Athanasius entries total (40 seed + 40 detail); found {len(ath)}"
+
+    # ---- Signature passage pins (8 anchors — one per Pauline book) ----
+
+    def test_rom_5_19_obedience_of_one_anchor_present(self):
+        c = [e for e in self.ec.for_verse("rom", 5, 19) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing Rom 5:19 — 'by obedience of one shall many be made righteous' "
+            "(DI §7 Adam-Christ obedience-soteriology anchor)"
+        )
+
+    def test_1co_2_8_lord_of_glory_crucified_anchor_present(self):
+        c = [e for e in self.ec.for_verse("1co", 2, 8) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing 1 Cor 2:8 — kyrios tēs doxēs estaurōsan (CA III.32 communicatio-idiomatum Pauline-anchor)"
+        )
+
+    def test_2co_13_14_trinitarian_benediction_anchor_present(self):
+        c = [e for e in self.ec.for_verse("2co", 13, 14) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing 2 Cor 13:14 — grace-love-koinonia Trinitarian-benediction "
+            "(CA III.6 Pauline-closing-doxology anchor)"
+        )
+
+    def test_gal_3_13_became_curse_anchor_present(self):
+        c = [e for e in self.ec.for_verse("gal", 3, 13) if e.father == "Athanasius of Alexandria"]
+        assert c, "γ.4.9.B missing Gal 3:13 — genomenos hyper hēmōn katara (DI §25 substitutionary-summit anchor)"
+
+    def test_eph_4_9_descent_anchor_present(self):
+        c = [e for e in self.ec.for_verse("eph", 4, 9) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing Eph 4:9 — descended into lower parts "
+            "(CA III.46 descent-into-Sheol/harrowing-of-hades Tewahedo anchor)"
+        )
+
+    def test_phi_2_10_every_knee_bow_anchor_present(self):
+        c = [e for e in self.ec.for_verse("phi", 2, 10) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing Phil 2:10 — pan gony kampsē "
+            "(CA I.42 universal-knee-bow Isa 45:23 + Pauline-incarnational-anchor)"
+        )
+
+    def test_col_1_17_cosmic_sustainer_anchor_present(self):
+        c = [e for e in self.ec.for_verse("col", 1, 17) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing Col 1:17 — ta panta en autō synestēken "
+            "(CA II.63 cosmic-sustainer-of-all-things present-continuous anchor)"
+        )
+
+    def test_heb_1_8_thy_throne_o_god_anchor_present(self):
+        c = [e for e in self.ec.for_verse("heb", 1, 8) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.B missing Heb 1:8 — ho thronos sou ho theos "
+            "(CA I.61 direct-address-to-Son-as-ho-theos Pauline-Hebrews-anchor)"
+        )
+
+    def test_meta_documents_gamma_4_9_b_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.9.B" in meta_source, "γ.4.9.B must be referenced in _meta.source"
+        assert "Pauline" in meta_source, "γ.4.9.B _meta.source should name Pauline detail wave"
+        assert "Athanasius" in meta_source, "γ.4.9.B _meta.source should name Athanasius"
