@@ -110,3 +110,126 @@ source_quality_tiers:
   ocr_tier3: "PDF OCR text layer — flagged for review; quality varies by page; Geʽez is unreliable"
   ocr_tier2: "PDF OCR with operator cross-check against page image — acceptable for non-Meqabyan books"
   page_image_tier1: "Page-image verified per Phase-4 methodology — production quality; required for Meqabyan and Tewahedo-distinctive books"
+
+# OCR-quality strategy — codified at τ.6.x.0b (2026-05-14) per
+# dev/SCOPE_2026-05-14-parallel-bible.md §7.5 τ.6.x.0b decision block.
+# Option D (Hybrid) is AUTHORIZED as the project default; Option B
+# (Cloud OCR) remains available as opt-in publisher escalation.
+ocr_strategy:
+  authorized_option: D-Hybrid
+  authorized_at_phase: τ.6.x.0b
+  authorized_date: 2026-05-14
+  default_engine: tesseract  # Option A as the tier-3 sub-strategy
+  cloud_ocr_escalation_available: true  # Option B opt-in, requires publisher direction
+  honesty_contract: |
+    Every tier-3 entry MUST carry SOURCE_QUALITY="ocr-tier3" provenance.
+    The reader-facing note list MUST surface a per-entry caveat
+    ("OCR-derived; awaiting operator cross-check") for tier-3 entries.
+    Tier-2 and tier-1 entries carry no caveat.
+    This contract is non-negotiable per the parallel-Bible plan §4.1
+    "Geʽez source matrix" provenance rule.
+
+  # Tier-policy by book / language stream.
+  tier_policy:
+    meqabyan:
+      books: [mq1, mq2, mq3]
+      target_tier: page-image-tier1
+      path: phase4-page-image-manual
+      shipping_phase: δ.1.x
+    one_enoch:
+      books: [1en]
+      target_tier: page-image-tier1
+      path: phase4-page-image-manual
+      shipping_phase: δ.1.x
+    jubilees:
+      books: [jub]
+      target_tier: page-image-tier1
+      path: phase4-page-image-manual
+      shipping_phase: δ.1.x
+    standard_canon_66:
+      books: all-other-standard-canon
+      baseline_tier: ocr-tier3
+      upgrade_tier: ocr-tier2  # via operator cross-check
+      path: tesseract-via-extract-parallel-pdf
+      shipping_phase: τ.6.x.1+
+    other_tewahedo_distinctive:
+      books: all-other-tewahedo-distinctive
+      baseline_tier: ocr-tier3
+      escalation: phase4-page-image-manual if-unworkable
+      path: tesseract-first
+      shipping_phase: τ.6.x.1+
+    amharic_parallel:
+      books: all-amharic-slot
+      baseline_tier: ocr-tier3
+      upgrade_tier: ocr-tier2
+      path: tesseract-via-extract-parallel-pdf
+      shipping_phase: τ.7.x
+      notes: |
+        Amharic OCR is "acceptable in places" per ocr_caveats above;
+        the upgrade-to-tier-2 cross-check is operator-mediated.
+
+  # Load-bearing user-side prerequisites flagged per memory
+  # feedback_license_flagging (default = continue most-logical-path;
+  # flag external installs/licenses when load-bearing for next ship).
+  # These are gates on the τ.6.x.1+ bulk-ingest phase, NOT on τ.6.x.0b
+  # itself (which is decision-codification only).
+  prerequisites:
+    tesseract_install:
+      required_for: τ.6.x.1+
+      status_at_ship: not-installed-on-dev-workstation
+      verification_method: 'where tesseract.exe + tesseract --version (both not-found at 2026-05-14)'
+      license: Apache-2.0
+      cost: none  # free, no per-seat / per-use spend
+      publisher_authorization_needed: false
+      install_paths:
+        windows: 'UB-Mannheim https://github.com/UB-Mannheim/tesseract/wiki OR choco install tesseract'
+        macos: 'brew install tesseract tesseract-lang'
+        linux: 'apt-get install tesseract-ocr tesseract-ocr-amh'
+
+    amharic_tessdata:
+      required_for: τ.6.x.1+ amharic-slot ingest + standard-canon Amharic-column ingest
+      file: amh.traineddata
+      upstream_repos:
+        - https://github.com/tesseract-ocr/tessdata_fast
+        - https://github.com/tesseract-ocr/tessdata_best
+      license: Apache-2.0
+      cost: none
+      publisher_authorization_needed: false
+
+    geez_tessdata:
+      required_for: τ.6.x.1+ geez-slot ingest where tesseract path is selected
+      file: gez.traineddata
+      status_at_ship: AVAILABILITY-UNCERTAIN
+      verification_method: |
+        Check upstream tessdata-fast + tessdata-best index for `gez`
+        entry as of operator's install date; if absent, search
+        community forks (HornMorpho, ethio-tesseract derivatives) and
+        verify license + quality before adopting.
+      fallback_if_missing:
+        option_a: skip-geez-column-emit-amharic-only-slot
+        option_b: defer-book-to-δ.1.x-phase4
+        operator_chooses_via: '--geez-fallback {skip,phase4-defer} flag (added at τ.6.x.0c)'
+
+    cloud_ocr_escalation:
+      required_for: opt-in only — Option B sub-strategy
+      providers_available: [google-cloud-vision, azure-cognitive-services, aws-textract]
+      license: per-API-spend
+      cost: variable — operator must authorize the spend
+      publisher_authorization_needed: true  # gates on explicit publisher direction
+      not_active_in_default_path: true
+
+  # Translation-slot guarantee — preserved from τ.6.x.0a contract.
+  no_ingest_at_this_phase: true
+  translation_slot_state: 'remains-at-Π.0-seed-Genesis-only'
+  geez_tewahedo_slot_seed_verse_count: 3
+  amharic_tewahedo_slot_seed_verse_count: 3
+
+  # Next-phase pointer.
+  next_phase: τ.6.x.0c
+  next_phase_description: |
+    User-side: install Tesseract + amh.traineddata + verify gez.traineddata
+    availability. The operator runs `tesseract --list-langs` to confirm
+    `amh` is present and to record whether `gez` is present or absent.
+    The verification result feeds into the extract_parallel_pdf.py
+    invocation flags. ONLY after τ.6.x.0c completes does τ.6.x.1+
+    bulk-ingest begin.

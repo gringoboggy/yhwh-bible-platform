@@ -4,6 +4,38 @@
 
 ## Prior task
 
+**τ.6.x.0b OCR-quality strategy decision-codification —
+DECISION-ONLY ship. Triggered by user "continue" after τ.6.x.0a
+shipped as commit `fbc6827`. Per memory `feedback_continue_not_save`
+(continue advances next phase) + `feedback_extensive_answers`
+(broadest scope) + `feedback_license_flagging` (default = most-
+logical-path; flag load-bearing external installs), the τ.6.x.0b
+decision is made now using the §7.5 enumeration's RECOMMENDED
+option rather than waiting for explicit publisher direction.
+**DECISION SHIPPED: Option D (Hybrid) AUTHORIZED** — tier-3 Tesseract
+baseline for 66 standard-canon + Amharic-parallel; tier-1 Phase-4
+page-image for Meqabyan + 1 Enoch + Jubilees; opt-in Cloud OCR
+escalation. Engine: Tesseract (Option A as sub-strategy) as default.
+Shipped: SCOPE §7.5 decision block + _source.yaml `ocr_strategy:`
+block (authorized_option D-Hybrid + tier_policy 6 entries +
+prerequisites 4 entries + no_ingest_at_this_phase true + next_phase
+τ.6.x.0c + honesty_contract) + new tests/test_parallel_bible_
+tau6x0b.py with 33 pins across 7 test groups. Load-bearing user-side
+prerequisite flagged per `feedback_license_flagging`: Tesseract
+install (Apache-2.0, free, no publisher-auth-needed) VERIFIED ABSENT
+on dev workstation at ship time. Geʽez `gez.traineddata` availability
+UNCERTAIN — fallback policy codified (skip-geez-column OR
+defer-to-δ.1.x). Cloud OCR escalation publisher-authorization-gated.
+NO data ingest: geez-tewahedo + amharic-tewahedo slots REMAIN at
+Π.0 seed state; τ.6.x.0a CONTRACT preserved. γ.4.8.E 67/67 +
+Meqabyan ≥212 + Π.0.1 amharic-in-POPUP_LANGUAGES regression-guarded.
+All 33 new pins pass; τ.6.x.0b + τ.6.x.0a + Π.0 sweep 79 green;
+γ.4 closed-arc regression 79 green; lint 11/11 clean.** shipped
+2026-05-14. Triggered by user "continue" at session start after
+τ.6.x.0a saved as commit fbc6827.
+
+## Prior task (previous)
+
 **τ.6.x.0a Parallel-PDF extraction infrastructure + source pivot —
 INFRASTRUCTURE-AND-PIVOT ship. τ.6.x.0 audit found eBible.org's
 gez-Geez slot REMOVED (HTTP 404; ZERO `gez`/`geez` IDs among

@@ -1,5 +1,110 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / τ.6.x.0b OCR-quality strategy decision-
+codification ship — DECISION-ONLY. Triggered by user "continue" at
+session start after τ.6.x.0a shipped as commit `fbc6827`. Per memory
+`feedback_continue_not_save` (continue advances next phase) +
+`feedback_extensive_answers` (broadest scope) + `feedback_license_
+flagging` (default = continue most-logical-path; flag load-bearing
+external installs), the τ.6.x.0b decision is made now using the §7.5
+enumeration's RECOMMENDED option rather than waiting for an explicit
+publisher direction. **DECISION SHIPPED: Option D (Hybrid) is
+AUTHORIZED** — tier-3 Tesseract baseline for the 66 standard-canon +
+Amharic-parallel slot + tier-1 Phase-4 page-image for Meqabyan +
+1 Enoch + Jubilees + opt-in Cloud OCR escalation. **Engine choice:**
+Tesseract (Option A as sub-strategy) as default OCR engine.
+**τ.6.x.0b deliverables shipped:** (1) `dev/SCOPE_2026-05-14-parallel-
+bible.md` §7.5 extended with the τ.6.x.0b decision block (Option D
+AUTHORIZED + 2026-05-14 + Tesseract engine choice + tier-policy table
++ load-bearing prerequisite list including dev-workstation Tesseract-
+not-installed verification + Geʽez tessdata uncertainty flag + Cloud
+OCR opt-in gate + no-ingest-at-this-phase contract + next-phase pointer
+to τ.6.x.0c); (2) `content/translations/sources/parallel-bible-eotc/
+_source.yaml` extended with `ocr_strategy:` block recording
+authorized_option D-Hybrid + authorized_at_phase τ.6.x.0b +
+authorized_date 2026-05-14 + default_engine tesseract +
+cloud_ocr_escalation_available true + tier_policy (6 entries:
+Meqabyan + 1 Enoch + Jubilees → page-image-tier1; standard-canon-66 +
+other-Tewahedo-distinctive + amharic-parallel → ocr-tier3 baseline)
++ prerequisites (4 entries: tesseract_install Apache-2.0 free
+not-installed status, amharic_tessdata Apache-2.0 free,
+geez_tessdata AVAILABILITY-UNCERTAIN + fallback policy,
+cloud_ocr_escalation publisher-authorization-needed) +
+no_ingest_at_this_phase true + translation_slot_state remains-at-
+Π.0-seed + honesty_contract; (3) NEW `tests/test_parallel_bible_
+tau6x0b.py` — **33 new pin tests across 7 test groups**
+(TestTau6x0bScopeDecisionBlock 7 + TestTau6x0bSourceYamlOcrStrategy
+7 + TestTau6x0bTierPolicy 5 + TestTau6x0bPrerequisitesFlagged 5 +
+TestTau6x0bTranslationSlotContractPreserved 4 + TestTau6x0b
+ClosedArcInvariantPreservation 3 + TestTau6x0bNextPhasePointer 2).
+All 33 pins pass; full τ.6.x.0b + τ.6.x.0a + Π.0 sweep 79 tests
+green; γ.4 closed-arc regression (γ.4.8.E + γ.4.8.F + γ.4.9.D +
+γ.4 meta-phases-coverage) 79 tests green. Lint 11/11 clean (0 warn /
+0 fail). Ruff clean on new test file. **NO data ingest** — geez-
+tewahedo + amharic-tewahedo slots REMAIN at Π.0 seed state (3 verses
+Genesis only); τ.6.x.0a CONTRACT preserved. **Closed-arc invariants
+regression-guarded:** γ.4.8.E 67/67 chapter coverage intact;
+Meqabyan ≥212 floor preserved (sole 2nd-place voice); Π.0.1 amharic-
+in-POPUP_LANGUAGES preserved. **Load-bearing user-side prerequisite
+flagged:** Tesseract install (Apache-2.0; free; no publisher
+authorization needed) VERIFIED ABSENT on dev workstation at ship time.
+**τ.6.x.0c unblocks** as the natural next phase (user-side: install
+Tesseract + `amh.traineddata` + verify `gez.traineddata`
+availability). Parallel-unblocked alternatives: **φ.1** (Font +
+typography polish; independent of .0c; rounds out Π.0 CSS classes
+with Noto Sans Ethiopic OFL 1.1 embed) or **δ.1.x seed** (Phase-4
+Meqabyan tier-1; doesn't block on Tesseract).**
+
+**Parallel-Bible 8-phase roadmap status (post-τ.6.x.0b):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED  2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED  2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED  2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install +     ⬜ pending  operator-side
+         tessdata availability verification
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked  on .0c
+Π.1      Parallel-PDF Tewahedo 6           ⬜ pending  ~3-4 sessions
+τ.7.x    Amharic full-Bible ingest         ⬜ pending  blocked on .0c
+δ.1.x    Phase-4 Meqabyan revision         ⬜ pending  ~15-25 sessions; UNBLOCKED
+φ.1      Font + typography polish          ⬜ pending  ~1 session; UNBLOCKED
+Π.2      Ethiopian-tewahedo flip           ⬜ pending  ~1 session
+δ.2      v3 Meqabyan publication           ⬜ pending  gated
+```
+
+**Audit cadence check** (per memory `feedback_audit_cadence`):
+τ.6.x.0b is the 9th post-AUDIT_2026-05-13-DEEP phase (γ.4.8 + B +
+C + D + E + F + Π.0 + τ.6.x.0a + τ.6.x.0b); test-count drift since
+AUDIT now ≥138 (105 baseline + 33 τ.6.x.0b pins). **Threshold (≥10
+phases or ≥150 tests) APPROACHED; not yet reached.** A lighter solo-
+Claude audit between τ.6.x.0b and τ.6.x.0c (or before φ.1 / δ.1.x
+seed if the operator pivots) is strongly recommended at next session
+boundary.
+
+**Recommended next steps:**
+
+- **save** — τ.6.x.0b uncommitted since the τ.6.x.0a save earlier
+  this session. Build-up since τ.6.x.0a save: +33 pin tests
+  (test_parallel_bible_tau6x0b.py NEW) + SCOPE doc §7.5 decision
+  block extension + _source.yaml ocr_strategy block extension +
+  state docs.
+- **τ.6.x.0c** (user-side) — operator installs Tesseract +
+  `amh.traineddata` + runs `tesseract --list-langs` to verify
+  `gez.traineddata` availability. Verification result feeds
+  extract_parallel_pdf.py invocation flags.
+- **OR φ.1** (parallel-unblocked) — Font + typography polish;
+  embeds Noto Sans Ethiopic OFL 1.1; rounds out Π.0 CSS classes;
+  ~1 session; runs concurrently with operator-side .0c work.
+- **OR δ.1.x seed** (parallel-unblocked) — Phase-4 Meqabyan
+  tier-1 work; uses page-image methodology not Tesseract;
+  multi-session.
+- **LIGHTER AUDIT recommended** at next session boundary per
+  cadence threshold approach.
+
+---
+
+## Prior τ.6.x.0b session
+
 **Updated 2026-05-14 / τ.6.x.0a Parallel-PDF extraction
 infrastructure + source pivot ship — INFRASTRUCTURE-AND-PIVOT
 ship. Triggered by user "save and continue when you have a chance,

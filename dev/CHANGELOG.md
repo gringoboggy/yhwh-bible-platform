@@ -6,6 +6,208 @@
 
 ---
 
+## 2026-05-14 — session — τ.6.x.0b OCR-QUALITY STRATEGY DECISION (Option D Hybrid AUTHORIZED; Tesseract default engine; Cloud OCR opt-in; user-side prerequisites flagged per feedback_license_flagging; no data ingest; translation slots preserved at Π.0 seed; closed-arc invariants regression-guarded)
+
+**Phase shipped:** τ.6.x.0b — OCR-quality strategy decision
+codification. Third phase of the 8-phase parallel-Bible expansion
+plan (`dev/SCOPE_2026-05-14-parallel-bible.md`). DECISION-
+CODIFICATION ONLY — no data ingest; no translation-slot population.
+
+**Triggered by:** user "continue" at session start after τ.6.x.0a
+shipped as commit `fbc6827`. Per memory `feedback_continue_not_save`
+(continue advances to next phase) + `feedback_extensive_answers`
+(broadest scope) + `feedback_license_flagging` (default = continue
+most-logical-path; flag load-bearing external installs/licenses),
+the τ.6.x.0b decision is made now using the §7.5 enumeration's
+RECOMMENDED option rather than waiting for an explicit publisher
+direction. Operator can redirect at any later phase.
+
+**Decision: Option D (Hybrid) is AUTHORIZED.**
+
+Reasoning recap (full text in `dev/SCOPE_2026-05-14-parallel-bible.md`
+§7.5 τ.6.x.0b decision block):
+
+- Option A (Tesseract direct) — free + offline, but Geʽez `gez`
+  tessdata availability uncertain at the upstream tessdata-fast /
+  tessdata-best repositories.
+- Option B (Cloud OCR) — Google Cloud Vision / Azure / AWS Textract
+  would require publisher authorization for API spend + sends scan
+  images to a third party. Per `feedback_license_flagging` not
+  authorized in the default-path; opt-in by explicit publisher
+  direction only.
+- Option C (Page-image manual Phase-4) — highest quality but ~50+
+  sessions for whole-Bible scope. Reserved for high-priority
+  Tewahedo-distinctive books via δ.1.x.
+- Option D (Hybrid) — tier-3 Tesseract baseline for the 66 standard-
+  canon + Amharic-parallel slot, tier-1 Phase-4 page-image for
+  Meqabyan + 1 Enoch + Jubilees, opt-in Cloud OCR escalation.
+  Marked "RECOMMENDED" in the §7.5 enumeration. The broadest-scope
+  most-logical-path option per memory rules.
+
+**Engine choice within Option D:** Tesseract (Option A as sub-
+strategy) as the default OCR engine for tier-3 ingest. Cloud OCR
+(Option B) remains available as opt-in publisher escalation.
+
+**Tier policy under Option D (codified in
+`content/translations/sources/parallel-bible-eotc/_source.yaml::
+ocr_strategy.tier_policy`):**
+
+| Books | Target tier | Path | Phase |
+|---|---|---|---|
+| Mäṣḥafä Mäqabyan (mq1+mq2+mq3) | page-image-tier1 | Phase-4 page-image manual | δ.1.x |
+| 1 Enoch (Mäṣḥafä Hēnok) | page-image-tier1 | Phase-4 page-image manual | δ.1.x |
+| Jubilees (Mäṣḥafä Kufāle) | page-image-tier1 | Phase-4 page-image manual | δ.1.x |
+| All other standard-canon (66) | ocr-tier3 baseline → ocr-tier2 after operator cross-check | Tesseract via extract_parallel_pdf.py | τ.6.x.1+ |
+| Other Tewahedo-distinctive | ocr-tier3 baseline; escalate to Phase-4 case-by-case | Tesseract first | τ.6.x.1+ |
+| Amharic parallel slot | ocr-tier3 baseline (Amharic OCR "acceptable in places") | Tesseract via extract_parallel_pdf.py | τ.7.x |
+
+**Honesty contract (non-negotiable per plan §4.1):** every tier-3
+entry MUST carry `SOURCE_QUALITY = "ocr-tier3"` provenance; reader-
+facing apparatus surfaces a per-entry caveat ("OCR-derived; awaiting
+operator cross-check"); tier-2 and tier-1 entries carry no caveat.
+
+**Load-bearing user-side prerequisites flagged per
+`feedback_license_flagging` (gates τ.6.x.1+ bulk-ingest, NOT
+τ.6.x.0b decision-codification itself):**
+
+1. **Tesseract install** — Apache-2.0, free, no publisher
+   authorization needed. VERIFIED ABSENT on the development
+   workstation at ship time (`where tesseract.exe` + `tesseract
+   --version` both "not found"). Operator must install Tesseract 5.x
+   before τ.6.x.1+ runs end-to-end. Windows: UB-Mannheim build or
+   `choco install tesseract`. macOS: `brew install tesseract
+   tesseract-lang`. Linux: `apt-get install tesseract-ocr
+   tesseract-ocr-amh`.
+
+2. **Amharic tessdata (`amh.traineddata`)** — Apache-2.0, free,
+   present in upstream tessdata-fast and tessdata-best.
+
+3. **Geʽez tessdata (`gez.traineddata`)** — AVAILABILITY-UNCERTAIN.
+   NOT in upstream tessdata-fast / tessdata-best at canonical index.
+   Community alternatives (HornMorpho, ethio-tesseract forks) exist
+   but require operator verification of license + quality.
+   **Fallback if missing:** (a) skip-geez-column-emit-amharic-only,
+   (b) defer-book-to-δ.1.x-Phase-4. Operator chooses via a
+   `--geez-fallback {skip,phase4-defer}` flag to be added at
+   τ.6.x.0c.
+
+4. **Cloud OCR escalation (Option B)** — opt-in only; requires
+   explicit publisher authorization for per-API spend. Not active
+   in default path.
+
+**τ.6.x.0b deliverables shipped:**
+
+1. `dev/SCOPE_2026-05-14-parallel-bible.md` §7.5 extended with the
+   τ.6.x.0b decision block: Option D AUTHORIZED + Tesseract engine
+   choice + tier-policy table + load-bearing prerequisite list with
+   the dev-workstation Tesseract-not-installed verification +
+   Geʽez tessdata uncertainty flag + Cloud OCR opt-in gate +
+   no-ingest-at-this-phase contract + next-phase pointer to
+   τ.6.x.0c.
+
+2. `content/translations/sources/parallel-bible-eotc/_source.yaml`
+   extended with `ocr_strategy:` block recording: `authorized_option:
+   D-Hybrid`, `authorized_at_phase: τ.6.x.0b`, `authorized_date:
+   2026-05-14`, `default_engine: tesseract`,
+   `cloud_ocr_escalation_available: true`, honesty_contract text,
+   `tier_policy` (6 book-group entries), `prerequisites` (4 entries
+   with status, license, cost, publisher-authorization flags),
+   `no_ingest_at_this_phase: true`, `translation_slot_state:
+   remains-at-Π.0-seed-Genesis-only`, `next_phase: τ.6.x.0c`.
+
+3. NEW `tests/test_parallel_bible_tau6x0b.py` — 33 pin tests across
+   6 test groups:
+
+   - TestTau6x0bScopeDecisionBlock (7 pins: SCOPE doc exists +
+     decision block present + Option D AUTHORIZED + date recorded +
+     Tesseract engine choice + Tesseract-not-installed verification +
+     Geʽez tessdata uncertainty documented)
+   - TestTau6x0bSourceYamlOcrStrategy (7 pins: ocr_strategy block
+     present + authorized_option D-Hybrid + authorized_at_phase
+     τ.6.x.0b + authorized_date 2026-05-14 + default_engine
+     tesseract + Cloud OCR opt-in available + honesty_contract
+     mentions SOURCE_QUALITY + ocr-tier3)
+   - TestTau6x0bTierPolicy (5 pins: Meqabyan→Phase-4-tier1 +
+     1 Enoch→Phase-4-tier1 + Jubilees→Phase-4-tier1 + standard-canon
+     baseline tier-3 + Amharic-parallel tier-3 at τ.7.x)
+   - TestTau6x0bPrerequisitesFlagged (5 pins: Tesseract install
+     flagged Apache-2.0 free + not-installed-on-dev-workstation
+     status + Amharic tessdata flagged + Geʽez tessdata
+     AVAILABILITY-UNCERTAIN + fallback policy + Cloud OCR
+     publisher-authorization-needed)
+   - TestTau6x0bTranslationSlotContractPreserved (4 pins:
+     no_ingest_at_this_phase True + translation_slot_state
+     documents seed state + geez-tewahedo still gen.py only +
+     amharic-tewahedo still gen.py only — τ.6.x.0a contract
+     preserved)
+   - TestTau6x0bClosedArcInvariantPreservation (3 pins: amharic
+     still in POPUP_LANGUAGES regression-guard from Π.0.1 +
+     Meqabyan arc-close 67/67 chapter coverage intact from γ.4.8.E
+     + Meqabyan count ≥212 floor preserved from γ.4.8.F)
+   - TestTau6x0bNextPhasePointer (2 pins: next_phase is τ.6.x.0c +
+     next_phase_description mentions Tesseract install + tessdata
+     verification)
+
+   All 33 pins pass; full τ.6.x.0b + τ.6.x.0a + Π.0 sweep 79 tests
+   green; γ.4.8.E + γ.4.8.F + γ.4.9.D + γ.4 meta-phases-coverage
+   regression sweep 79 tests green. Ruff clean (full project lint
+   11/11 pass / 0 warn / 0 fail).
+
+**NO data ingest at this phase.** The `geez-tewahedo` and
+`amharic-tewahedo` translation slots REMAIN at their Π.0 seed
+state (3 verses Genesis only). The τ.6.x.0a CONTRACT
+("translation_slot_state: remains-at-Π.0-seed-Genesis-only") is
+preserved as a regression-guarded invariant.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E ARC-CLOSE
+67/67 chapter coverage of Meqabyan apparatus (mq1 36/36 + mq2
+21/21 + mq3 10/10) intact; Meqabyan count ≥212 floor preserved
+(γ.4.8.F Tier-2 audit integration; sole 2nd-place voice); Π.0.1
+amharic-in-POPUP_LANGUAGES preserved.
+
+**Parallel-Bible 8-phase roadmap status (post-τ.6.x.0b):**
+
+```
+Π.0      Infrastructure foundations       ✓ SHIPPED  2026-05-14 (6624eba)
+τ.6.x.0a Parallel-PDF infra + pivot        ✓ SHIPPED  2026-05-14 (fbc6827)
+τ.6.x.0b OCR-quality decision (Option D)   ✓ SHIPPED  2026-05-14 (this ship)
+τ.6.x.0c User-side Tesseract install +     ⬜ pending  operator-side
+         tessdata availability verification
+τ.6.x.1+ Geʽez bulk ingest                 ⬜ blocked  on .0c
+Π.1      Parallel-PDF Tewahedo 6           ⬜ pending  ~3-4 sessions
+τ.7.x    Amharic full-Bible ingest         ⬜ pending  blocked on .0c
+δ.1.x    Phase-4 Meqabyan revision         ⬜ pending  ~15-25 sessions; UNBLOCKED
+φ.1      Font + typography polish          ⬜ pending  ~1 session; UNBLOCKED
+Π.2      Ethiopian-tewahedo flip           ⬜ pending  ~1 session
+δ.2      v3 Meqabyan publication           ⬜ pending  gated
+```
+
+**Audit cadence check** (per memory `feedback_audit_cadence`,
+threshold ≥10 phases or ≥150 test-count drift since AUDIT_2026-
+05-13-DEEP, with proactive lighter solo-Claude audit at threshold):
+τ.6.x.0b is the 9th post-AUDIT phase (γ.4.8 + B + C + D + E + F +
+Π.0 + τ.6.x.0a + τ.6.x.0b). Test-count drift since AUDIT now
+≥138 (105 baseline plus +33 τ.6.x.0b pins). **Threshold approached;
+not yet reached.** A lighter solo-Claude audit between τ.6.x.0b and
+τ.6.x.0c is now strongly recommended at next session boundary.
+
+**Next-phase recommendations:**
+
+- **τ.6.x.0c** — user-side Tesseract install + Amharic tessdata
+  placement + Geʽez tessdata availability verification. Operator
+  runs `tesseract --list-langs` to confirm `amh` is present and
+  to record whether `gez` is present or absent. Verification
+  result feeds into extract_parallel_pdf.py invocation flags.
+- **OR pivot to an unblocked parallel-phase from PLAN_2026-05-09**
+  — e.g., **φ.1** (Font + typography polish; independent of
+  τ.6.x.0c; would round out the Π.0 .vnote-geez/.vnote-amharic
+  CSS classes by embedding Noto Sans Ethiopic OFL 1.1) or
+  **δ.1.x seed** (Phase-4 Meqabyan tier-1 work; doesn't block
+  on Tesseract). These run concurrently with the operator-side
+  τ.6.x.0c work.
+
+---
+
 ## 2026-05-14 — session — τ.6.x.0a PARALLEL-PDF EXTRACTION INFRASTRUCTURE + SOURCE PIVOT (eBible.org gez-Geez verified removed; parallel-Bible PDF promoted to primary; extract_parallel_pdf.py built; OCR-quality decision point opened for τ.6.x.0b)
 
 **Phase shipped:** τ.6.x.0a — Parallel-PDF extraction
