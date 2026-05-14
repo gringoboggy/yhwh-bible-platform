@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 16,
-  "generated_at": "2026-05-14T02:41:47+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 9,
   "candidates": [
     {
       "id": "1en-16-1-001",
@@ -81,6 +81,51 @@
     },
     {
       "id": "1en-16-1-006",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 16:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>Of the demons (disembodied giants): &#x27;From the day of the slaughter and destruction and death of the giants, from the souls of whose flesh the spirits, having gone forth, shall destroy without incurring judgement&#x27; — the post-Flood era of demonic predation. The demons act &#x27;without incurring judgement&#x27; because they exist in a category outside the original divine ordering: humans face judgment under the Adamic-Noahic-Mosaic covenant; angels face judgment for their own rebellion; demons (as a third category, post-Flood) operate in an interim awaiting final eschatological judgment. The Tewahedo exorcistic liturgical tradition draws explicit pneumatological framework from this verse.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-16-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 16:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>Of the demons (disembodied giants): &#x27;From the day of the slaughter and destruction and death of the giants, from the souls of whose flesh the spirits, having gone forth, shall destroy without incurring judgement&#x27; — the post-Flood era of demonic predation. The demons act &#x27;without incurring judgement&#x27; because they exist in a category outside the original divine ordering: humans face judgment under the Adamic-Noahic-Mosaic covenant; angels face judgment for their own rebellion; demons (as a third category, post-Flood) operate in an interim awaiting final eschatological judgment. The Tewahedo exorcistic liturgical tradition draws explicit pneumatological framework from this verse.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-16-1-008",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Book of the Watchers (1 Enoch 1-36)",
+      "source_attribution": "1 Enoch 16:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-200).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Book of the Watchers (1 Enoch 1-36)</em> <small>(c. 200 BC)</small><p>Of the demons (disembodied giants): &#x27;From the day of the slaughter and destruction and death of the giants, from the souls of whose flesh the spirits, having gone forth, shall destroy without incurring judgement&#x27; — the post-Flood era of demonic predation. The demons act &#x27;without incurring judgement&#x27; because they exist in a category outside the original divine ordering: humans face judgment under the Adamic-Noahic-Mosaic covenant; angels face judgment for their own rebellion; demons (as a third category, post-Flood) operate in an interim awaiting final eschatological judgment. The Tewahedo exorcistic liturgical tradition draws explicit pneumatological framework from this verse.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Book of the Watchers (1 Enoch 1-36). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-16-1-009",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

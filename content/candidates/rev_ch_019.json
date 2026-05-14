@@ -1,8 +1,8 @@
 {
   "book": "rev",
   "chapter": 19,
-  "generated_at": "2026-05-09T06:06:28+00:00",
-  "n_candidates": 57,
+  "generated_at": "2026-05-14T04:33:09+00:00",
+  "n_candidates": 60,
   "candidates": [
     {
       "id": "rev-19-1-001",
@@ -857,6 +857,51 @@
       "draft_body": "<strong>Topics.</strong> This verse appears under: VISION, WALLS. <em>[Reviewer: pick one topic (typically the first or most theologically loaded), write a 2–3 sentence thematic note, and discard the rest.]</em>",
       "detector": "NaveTopicalDetector",
       "reviewer_notes": "Nave's Topical lists 2 topic(s) for this verse. Don't paste the comma-list as the final note — pick the strongest theme and write a paragraph.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-19-13-058",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.79",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.79</em> <small>(c. 350 AD)</small><p>&#x27;And he was clothed with a vesture dipped in blood: and his name is called The Word of God&#x27; — Athanasius marks kekletai to onoma autou ho Logos tou theou (his name is-called The Word-of-God) as the APOCALYPTIC LOGOS-CONFIRMATION of the Johannine-prologue. Where Jn 1:1 opens the gospel with en archē ēn ho Logos, kai ho Logos ēn pros ton theon, kai theos ēn ho Logos (in-the-beginning was-the-Word, and the-Word was-with God, and God-was the-Word), Rev 19:13 closes the canonical-Revelation-cycle with the same Word-name-on-the-eschatological-Christ. The vesture-dipped-in-blood (himation bebammenon haimati) carries the Paschal-cross-blood into the eschatological-victory; the Word-of-God-name carries the Johannine-pre-temporal-deity into the eschatological-glory. Tewahedo eschatological-iconography depicts the returning-Christ in vesture-with-Paschal-blood + Logos-name explicitly cited.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.79. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-19-13-059",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.79",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.79</em> <small>(c. 350 AD)</small><p>&#x27;And he was clothed with a vesture dipped in blood: and his name is called The Word of God&#x27; — Athanasius marks kekletai to onoma autou ho Logos tou theou (his name is-called The Word-of-God) as the APOCALYPTIC LOGOS-CONFIRMATION of the Johannine-prologue. Where Jn 1:1 opens the gospel with en archē ēn ho Logos, kai ho Logos ēn pros ton theon, kai theos ēn ho Logos (in-the-beginning was-the-Word, and the-Word was-with God, and God-was the-Word), Rev 19:13 closes the canonical-Revelation-cycle with the same Word-name-on-the-eschatological-Christ. The vesture-dipped-in-blood (himation bebammenon haimati) carries the Paschal-cross-blood into the eschatological-victory; the Word-of-God-name carries the Johannine-pre-temporal-deity into the eschatological-glory. Tewahedo eschatological-iconography depicts the returning-Christ in vesture-with-Paschal-blood + Logos-name explicitly cited.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.79. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rev-19-13-060",
+      "verse": 13,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.79",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.79</em> <small>(c. 350 AD)</small><p>&#x27;And he was clothed with a vesture dipped in blood: and his name is called The Word of God&#x27; — Athanasius marks kekletai to onoma autou ho Logos tou theou (his name is-called The Word-of-God) as the APOCALYPTIC LOGOS-CONFIRMATION of the Johannine-prologue. Where Jn 1:1 opens the gospel with en archē ēn ho Logos, kai ho Logos ēn pros ton theon, kai theos ēn ho Logos (in-the-beginning was-the-Word, and the-Word was-with God, and God-was the-Word), Rev 19:13 closes the canonical-Revelation-cycle with the same Word-name-on-the-eschatological-Christ. The vesture-dipped-in-blood (himation bebammenon haimati) carries the Paschal-cross-blood into the eschatological-victory; the Word-of-God-name carries the Johannine-pre-temporal-deity into the eschatological-glory. Tewahedo eschatological-iconography depicts the returning-Christ in vesture-with-Paschal-blood + Logos-name explicitly cited.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.79. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
       "status": "pending"
     }
   ]

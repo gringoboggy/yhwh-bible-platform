@@ -582,6 +582,12 @@ class TestGamma4MetaPhasesCoverage:
     def test_meta_documents_gamma_4_9_b(self):
         self._assert_phase_mentioned("γ.4.9.B")
 
+    def test_meta_documents_gamma_4_9_c(self):
+        self._assert_phase_mentioned("γ.4.9.C")
+
+    def test_meta_documents_gamma_4_9_d(self):
+        self._assert_phase_mentioned("γ.4.9.D")
+
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
     """ω.37 (W11 closure) — build-pipeline integration test for
@@ -6446,3 +6452,574 @@ class TestGamma49BAthanasiusPaulineDetailWave:
         assert "γ.4.9.B" in meta_source, "γ.4.9.B must be referenced in _meta.source"
         assert "Pauline" in meta_source, "γ.4.9.B _meta.source should name Pauline detail wave"
         assert "Athanasius" in meta_source, "γ.4.9.B _meta.source should name Athanasius"
+
+
+class TestGamma49CAthanasiusNonPaulineDetailWave:
+    """γ.4.9.C — Athanasius of Alexandria non-Pauline detail wave (2026-05-13).
+    40 verse-keyed entries across 13 books deepening the 24 non-Pauline γ.4.9
+    seed anchors (OT + Gospels + Petrine/Johannine/Apocalyptic) to 64-entry
+    detail coverage AND opening Markan + Lukan Athanasian coverage (γ.4.9
+    seed had no Mark / Luke entries).
+
+    Distribution (40 entries):
+    - Old Testament Christological Anticipations (14):
+        gen (4): 2:7 + 3:15 + 14:18 + 22:18
+        exo (2): 7:1 + 33:20
+        psa (4): 16:10 + 22:1 + 45:6 + 82:6
+        pro (2): 8:23 + 8:30
+        isa (2): 53:3 + 61:1
+    - Canonical Gospels (14):
+        mat (4): 3:17 + 16:16 + 26:39 + 27:46
+        mrk (3): 1:1 + 13:32 + 14:62  (NEW — opens Markan Athanasian coverage)
+        luk (3): 1:35 + 2:52 + 10:22  (NEW — opens Lukan Athanasian coverage)
+        jhn (4): 1:3 + 5:23 + 14:28 + 17:5
+    - Petrine + Johannine + Apocalyptic (12):
+        1pe (3): 1:23 + 2:21 + 3:19
+        2pe (2): 1:3 + 3:18
+        1jn (3): 3:8 + 4:2 + 4:9
+        rev (4): 1:18 + 4:8 + 5:9 + 19:13
+
+    Themes covered: divine-inbreathing Spirit-bestowal (Gen 2:7) + virgin-
+    seed protoevangelium (Gen 3:15) + Melchizedek pre-incarnational
+    christophany (Gen 14:18) + gods-by-participation hermeneutic (Exo 7:1
+    + Psa 82:6) + cry-of-dereliction voiced-by-flesh (Psa 22:1 + Mat 27:46)
+    + Wisdom's economic mission (Pro 8:23, 8:30) + Spirit-recipient-and-
+    Spirit-sender (Isa 61:1) + baptism-Trinitarian-theophany (Mat 3:17) +
+    Annunciation-Trinitarian-overshadowing (Luk 1:35) + qua-flesh-not-
+    knowing (Mrk 13:32) + qua-flesh-developmental-increase (Luk 2:52) +
+    homotīmion (Jhn 5:23) + Father-greater-as-source-of-deity (Jhn 14:28)
+    + harrowing-of-Hades (1Pe 3:19) + monogenēs-from-Father-essence (1Jn
+    4:9) + trisagion-Trinitarian-doxology (Rev 4:8) + Apocalyptic-Logos-
+    confirmation (Rev 19:13).
+
+    Voice mix post-γ.4.9.C (1337 entries): Cyril 49.96% / Jubilees 14.96%
+    / 1 Enoch 14.36% / Ephrem 11.74% / Athanasius 8.97% (40 seed + 40
+    Pauline-detail + 40 non-Pauline-detail = 120). Patristic-anchor
+    majority 69.8% → 70.68%. Per ω.41 §1 trajectory rule: Cyril DOWNWARD-
+    CROSSES the 50% single-father-majority threshold (51.5% → 49.96%) as
+    the natural consequence of the fifth-voice-Athanasius two detail-waves
+    in succession; Cyril remains plurality-leader at 3.34× the next single-
+    father.
+
+    FIFTH Athanasian work-source added: ATTR_SERAP (Epistulae ad
+    Serapionem de Spiritu Sancto — Letters to Serapion on the Holy
+    Spirit), used at 5 pneumatologically-decisive anchors (Isa 61:1, Mat
+    3:17, Luk 1:35, 2Pe 1:3, Rev 4:8).
+
+    FIRST Athanasian entries on Mark (3: Mrk 1:1 + 13:32 + 14:62) and on
+    Luke (3: Luk 1:35 + 2:52 + 10:22).
+
+    Pins (detail-wave standard set, NOT arc-close):
+    - Non-Pauline-Athanasius substantively detailed (≥64 entries across
+      the 13 non-Pauline books — 24 seed + 40 detail).
+    - Every non-Pauline book has ≥1 γ.4.9.C detail-wave entry (13-book
+      thematic-spread invariant).
+    - Markan + Lukan coverage opens (≥3 entries each).
+    - Athanasius absolute-count milestone ≥120 (40 seed + 40 Pauline +
+      40 non-Pauline).
+    - Per-group density milestones (OT ≥22, Gospels ≥22, PJA ≥20).
+    - 8 signature-anchor pins (covering the most distinctive Athanasian
+      non-Pauline themes: Gen 2:7 Spirit-inbreathing + Exo 7:1 gods-by-
+      participation + Psa 82:6 theōsis-by-grace + Mat 3:17 Trinitarian-
+      baptism + Mrk 13:32 qua-flesh-not-knowing + Luk 1:35 Annunciation
+      + Jhn 14:28 Father-greater-as-source + Rev 4:8 trisagion).
+    - _meta.source sync pin: γ.4.9.C referenced + non-Pauline named +
+      Athanasius named + ATTR_SERAP/Serapion source named.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _athanasius_in_book(self, book):
+        # Range needs to cover Psalms (150 chapters) — γ.4.9 seed includes
+        # Psa 110:1 + γ.4.9.C adds Psa 82:6 + Isa 61:1, all outside the
+        # 60-chapter range the γ.4.9.B Pauline helper used.
+        out = []
+        for chapter in range(1, 160):
+            for verse in range(1, 200):
+                out.extend(e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Athanasius of Alexandria")
+        return out
+
+    def _all_athanasius(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Athanasius of Alexandria")
+        return out
+
+    # ---- Per-group + per-book density ----
+
+    def test_non_pauline_athanasius_substantively_detailed(self):
+        # 8 OT seed + 14 OT detail + 8 Gospels seed + 14 Gospels detail +
+        # 8 PJA seed + 12 PJA detail = 64 non-Pauline Athanasius entries.
+        non_pauline = {
+            "gen",
+            "exo",
+            "psa",
+            "pro",
+            "isa",
+            "mat",
+            "mrk",
+            "luk",
+            "jhn",
+            "1pe",
+            "2pe",
+            "1jn",
+            "rev",
+        }
+        total = sum(len(self._athanasius_in_book(b)) for b in non_pauline)
+        assert total >= 64, f"γ.4.9.C expected ≥64 non-Pauline-Athanasius entries (24 seed + 40 detail); found {total}"
+
+    def test_every_non_pauline_book_has_detail_depth(self):
+        non_pauline = ["gen", "exo", "psa", "pro", "isa", "mat", "mrk", "luk", "jhn", "1pe", "2pe", "1jn", "rev"]
+        per_book = {b: len(self._athanasius_in_book(b)) for b in non_pauline}
+        empty = {b: n for b, n in per_book.items() if n < 1}
+        assert not empty, (
+            f"γ.4.9.C detail-wave: each non-Pauline book should have ≥1 Athanasius entry; empty books: {empty}"
+        )
+
+    def test_markan_coverage_opens(self):
+        mrk = self._athanasius_in_book("mrk")
+        assert len(mrk) >= 3, (
+            f"γ.4.9.C expected ≥3 Athanasius entries on Mark (γ.4.9 seed had none; γ.4.9.C opens Markan coverage); "
+            f"found {len(mrk)}"
+        )
+
+    def test_lukan_coverage_opens(self):
+        luk = self._athanasius_in_book("luk")
+        assert len(luk) >= 3, (
+            f"γ.4.9.C expected ≥3 Athanasius entries on Luke (γ.4.9 seed had none; γ.4.9.C opens Lukan coverage); "
+            f"found {len(luk)}"
+        )
+
+    def test_ot_group_substantively_detailed(self):
+        ot_books = {"gen", "exo", "psa", "pro", "isa"}
+        total = sum(len(self._athanasius_in_book(b)) for b in ot_books)
+        assert total >= 22, (
+            f"γ.4.9.C expected ≥22 Athanasius OT-christological entries (8 seed + 14 detail); found {total}"
+        )
+
+    def test_gospels_group_substantively_detailed(self):
+        gospels_books = {"mat", "mrk", "luk", "jhn"}
+        total = sum(len(self._athanasius_in_book(b)) for b in gospels_books)
+        assert total >= 22, (
+            f"γ.4.9.C expected ≥22 Athanasius canonical-Gospels entries (8 seed + 14 detail); found {total}"
+        )
+
+    def test_pja_group_substantively_detailed(self):
+        pja_books = {"1pe", "2pe", "1jn", "rev"}
+        total = sum(len(self._athanasius_in_book(b)) for b in pja_books)
+        assert total >= 20, (
+            f"γ.4.9.C expected ≥20 Athanasius Petrine/Johannine/Apocalyptic entries (8 seed + 12 detail); found {total}"
+        )
+
+    def test_athanasius_milestone_count(self):
+        ath = self._all_athanasius()
+        assert len(ath) >= 120, (
+            f"γ.4.9.C expected ≥120 Athanasius entries total "
+            f"(40 seed + 40 Pauline-detail + 40 non-Pauline-detail); found {len(ath)}"
+        )
+
+    # ---- Signature passage pins (8 anchors — across the three groups) ----
+
+    def test_gen_2_7_spirit_inbreathing_anchor_present(self):
+        c = [e for e in self.ec.for_verse("gen", 2, 7) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Gen 2:7 — enephysēsen pnoēn zōēs (DI §3 protological Spirit-bestowal paired with "
+            "Jn 20:22 apostolic in-breathing anchor)"
+        )
+
+    def test_exo_7_1_gods_by_participation_anchor_present(self):
+        c = [e for e in self.ec.for_verse("exo", 7, 1) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Exo 7:1 — dedōka se theon tō Pharaō "
+            "(CA III.19 gods-by-participation-vs-by-nature hermeneutic-key anchor)"
+        )
+
+    def test_psa_82_6_theosis_by_grace_anchor_present(self):
+        c = [e for e in self.ec.for_verse("psa", 82, 6) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Psa 82:6 — egō eipa theoi este "
+            "(CA III.19 theōsis-by-grace anchor, Jn 10:34 cross-canonical pair)"
+        )
+
+    def test_mat_3_17_trinitarian_baptism_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mat", 3, 17) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Mat 3:17 — Jordan-baptismal-Trinitarian-theophany "
+            "(Letters to Serapion 1.4 first-explicit-NT-Trinitarian-disclosure anchor)"
+        )
+
+    def test_mrk_13_32_qua_flesh_not_knowing_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 13, 32) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Mrk 13:32 — oude ho Huios "
+            "(CA III.42-50 the-Son-knoweth-not qua-flesh-pedagogical, Athanasius's "
+            "extensive treatment of the CRUCIAL Arian prooftext)"
+        )
+
+    def test_luk_1_35_annunciation_anchor_present(self):
+        c = [e for e in self.ec.for_verse("luk", 1, 35) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Luk 1:35 — Spirit-overshadows-Virgin "
+            "(Letters to Serapion 1.6 Annunciation-Trinitarian-overshadowing Theotokos anchor)"
+        )
+
+    def test_jhn_14_28_father_greater_anchor_present(self):
+        c = [e for e in self.ec.for_verse("jhn", 14, 28) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Jhn 14:28 — ho Patēr meizōn mou estin "
+            "(CA I.58-64 Father-greater-as-source-of-deity-not-substantial-inequality, "
+            "Athanasius's most-extensive resolution of the hardest Arian prooftext)"
+        )
+
+    def test_rev_4_8_trisagion_anchor_present(self):
+        c = [e for e in self.ec.for_verse("rev", 4, 8) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.C missing Rev 4:8 — hagios hagios hagios "
+            "(Letters to Serapion 1.28 Apocalyptic-Trinitarian-trisagion + Isa 6:3 echo + "
+            "anti-pneumatomachian-Tropici anchor)"
+        )
+
+    # ---- _meta sync pin ----
+
+    def test_meta_documents_gamma_4_9_c_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.9.C" in meta_source, "γ.4.9.C must be referenced in _meta.source"
+        assert "non-Pauline" in meta_source, "γ.4.9.C _meta.source should name non-Pauline detail wave"
+        assert "Athanasius" in meta_source, "γ.4.9.C _meta.source should name Athanasius"
+        assert "Serapion" in meta_source, (
+            "γ.4.9.C _meta.source should name Letters to Serapion (new ATTR_SERAP work-source)"
+        )
+
+
+class TestGamma49DAthanasiusArcClose:
+    """γ.4.9.D — Athanasius of Alexandria ARC-CLOSE wave (2026-05-13).
+    30 verse-keyed entries spanning Acts opening (11) + cross-canon
+    capstone-synthesis pins (13) + Psalms-Marcellinus pastoral
+    coverage (6, via NEW work-source ATTR_MARC). CLOSING WAVE of the
+    four-wave Athanasius arc per §8.1 arc-close convention.
+
+    SEVENTH instance of §8.1 arc-close convention (after γ.4.4.E
+    Mäṣḥafä Hēnok, γ.4.5.E Mäṣḥafä Kufāle, γ.4.2.D Pentateuch,
+    γ.4.3.D Cyril-on-Luke, γ.4.6.D Cyril-on-Matthew, γ.4.7.D Cyril-
+    on-Mark).
+
+    After this ship, ALL FIVE PATRISTIC VOICES are at substantively-
+    closed-arc depth:
+        Cyril of Alexandria    668 entries (4 Gospel arcs closed)
+        Jubilees               200 entries (arc closed γ.4.5.E)
+        1 Enoch                192 entries (arc closed γ.4.4.E)
+        Ephrem the Syrian      157 entries (Pentateuch arc closed γ.4.2.D)
+        Athanasius             150 entries (arc closed by γ.4.9.D)
+        ───────────────────────────
+        Patristic anchor       1367 entries (71.32% of corpus)
+
+    Distribution (30 entries across 12 books, 2 NEW books opened):
+    - Acts (11) — NEW book: 1:8 + 2:24 + 2:32 + 2:36 + 4:12 + 7:55
+      + 8:38 + 9:5 + 10:38 + 17:31 + 20:28 (Acts 2:36 epoiēsen is
+      the PRINCIPAL Arian prooftext addressed CA II.11-18 over 8
+      sections; Acts 8:38 is the Ethiopian eunuch's-baptism Tewahedo
+      foundational anchor)
+    - Capstone synthesis (13): Mrk 16:15 Markan-Great-Commission +
+      Mat 22:43 David-in-Spirit + Mat 24:35 divine-word-eternal +
+      Mat 25:31 Son-of-Man-in-glory + Jhn 8:58 egō eimi + Jhn 16:13
+      Spirit-of-truth + 1Co 15:28 God-all-in-all + Eph 4:5 one-
+      Lord-one-faith-one-baptism + Col 3:4 Christ-our-life + Heb
+      13:20 Trinitarian-pastoral + Jam 1:17 Father-of-lights
+      immutability (NEW book) + 1Jn 5:20 alēthinos theos + 2Pe 3:9
+      divine-patience
+    - Psalms-Marcellinus (6) — NEW work-source ATTR_MARC: Psa 23:1
+      pastoral-comfort + Psa 51:1 penitential + Psa 51:11 anti-
+      pneumatomachian (uses ATTR_SERAP) + Psa 88:1 affliction +
+      Psa 91:1 divine-protection + Psa 119:11 Word-internalization
+
+    Per §8.1 the closing wave's test class MUST add the three
+    specific pin types:
+    (1) _meta synchronization pin per sub-phase tag with regex
+        word-boundary matching;
+    (2) absolute-count milestone pin at cumulative arc-close count;
+    (3) all_N_sections_covered exhaustiveness pin asserting every
+        section of the arc has substantive coverage at planned depth.
+
+    Pins:
+    - Acts substantively detailed (≥11 entries — OPENS Acts coverage).
+    - James substantively detailed (≥1 entry — OPENS James coverage).
+    - Every Acts entry verse-anchored at expected loci (11 distinct
+      verses across 9 chapters).
+    - **§8.1 ARC-CLOSE PIN #1 — count milestone:** Athanasius
+      absolute-count ≥150 entries (per `feedback_share_pin_pattern`
+      — never a share-pin; durable against future voice-broadening).
+    - **§8.1 ARC-CLOSE PIN #2 — all_N_sections_covered
+      exhaustiveness:** test_all_four_athanasius_waves_substantively_
+      covered asserts γ.4.9 seed (≥40) + γ.4.9.B Pauline (≥40) +
+      γ.4.9.C non-Pauline (≥40) + γ.4.9.D arc-close (≥30) — every
+      section of the Athanasius arc has substantive coverage at
+      planned depth.
+    - **§8.1 ARC-CLOSE PIN #3 — _meta synchronization:** pin per
+      sub-phase tag (γ.4.9, γ.4.9.B, γ.4.9.C, γ.4.9.D) with regex
+      word-boundary; arc-close status recorded explicitly.
+    - 8 signature-passage pins for arc-close Tewahedo anchors:
+      Act 2:36 epoiēsen Arian-prooftext + Act 8:38 Ethiopian eunuch
+      Tewahedo-foundation + Act 20:28 divine-blood + Jhn 8:58 egō
+      eimi pre-Abrahamic + Mrk 16:15 Markan-Great-Commission paired-
+      with-Mt-28:19 + Psa 51:11 anti-pneumatomachian Spirit-anchor
+      + 1Jn 5:20 alēthinos theos most-explicit-deity-of-Son anchor
+      + Jam 1:17 Father-of-lights immutability NEW-book opening.
+
+    With this class, the Athanasius arc is PINNED at closed-arc depth
+    (the FIFTH and FINAL patristic-voice to reach arc-close in the
+    γ.4 corpus).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _athanasius_in_book(self, book):
+        # Wide chapter range to cover Psalms (150) and any other book.
+        out = []
+        for chapter in range(1, 160):
+            for verse in range(1, 200):
+                out.extend(e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Athanasius of Alexandria")
+        return out
+
+    def _all_athanasius(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Athanasius of Alexandria")
+        return out
+
+    # ---- New-book coverage opens ----
+
+    def test_acts_coverage_opens(self):
+        act = self._athanasius_in_book("act")
+        assert len(act) >= 11, (
+            f"γ.4.9.D expected ≥11 Athanasius entries on Acts (γ.4.9.D opens Acts coverage; "
+            f"includes Acts 2:36 the PRINCIPAL Arian prooftext + Acts 8:38 the Tewahedo "
+            f"Ethiopian eunuch foundational anchor); found {len(act)}"
+        )
+
+    def test_james_coverage_opens(self):
+        jam = self._athanasius_in_book("jam")
+        assert len(jam) >= 1, (
+            f"γ.4.9.D expected ≥1 Athanasius entry on James (γ.4.9.D opens James coverage "
+            f"with Jam 1:17 paired with Festal Letter 39 canon-inclusion); found {len(jam)}"
+        )
+
+    # ---- §8.1 ARC-CLOSE PIN #1: count milestone ----
+
+    def test_athanasius_arc_close_count_milestone(self):
+        # §8.1 ARC-CLOSE PIN: absolute-count milestone at arc close.
+        # Per feedback_share_pin_pattern: never a share pin.
+        # Cumulative: 40 (γ.4.9 seed) + 40 (γ.4.9.B) + 40 (γ.4.9.C)
+        # + 30 (γ.4.9.D) = 150. ≥150 floor.
+        ath = self._all_athanasius()
+        assert len(ath) >= 150, (
+            f"γ.4.9.D arc-close: Athanasius count ≥150 expected "
+            f"(cumulative four-wave arc-close milestone: 40 seed + 40 γ.4.9.B + "
+            f"40 γ.4.9.C + 30 γ.4.9.D = 150); found {len(ath)}"
+        )
+
+    # ---- §8.1 ARC-CLOSE PIN #2: all_N_sections_covered exhaustiveness ----
+
+    def test_all_four_athanasius_waves_substantively_covered(self):
+        # §8.1 ARC-CLOSE PIN: all_N_sections_covered exhaustiveness.
+        # Every section of the Athanasius arc must have substantive
+        # coverage at planned depth. The four waves are:
+        # γ.4.9    seed                  (≥40 multi-group entries)
+        # γ.4.9.B  Pauline detail        (≥40 entries across 8 Pauline books)
+        # γ.4.9.C  non-Pauline detail    (≥40 entries across 13 non-Pauline books)
+        # γ.4.9.D  arc-close             (≥30 entries spanning Acts + capstones + Psalms-Marcellinus)
+        # This pin prevents future drift from silently leaving any wave under-covered.
+        pauline_books = {"rom", "1co", "2co", "gal", "eph", "phi", "col", "heb"}
+        non_pauline_books = {
+            "gen",
+            "exo",
+            "psa",
+            "pro",
+            "isa",
+            "mat",
+            "mrk",
+            "luk",
+            "jhn",
+            "1pe",
+            "2pe",
+            "1jn",
+            "rev",
+        }
+        arc_close_books = {"act", "jam"}
+
+        pauline_total = sum(len(self._athanasius_in_book(b)) for b in pauline_books)
+        non_pauline_total = sum(len(self._athanasius_in_book(b)) for b in non_pauline_books)
+        arc_close_unique_total = sum(len(self._athanasius_in_book(b)) for b in arc_close_books)
+        athanasius_total = len(self._all_athanasius())
+
+        # Pauline (γ.4.9 seed Pauline 16 + γ.4.9.B detail 40 = 56)
+        assert pauline_total >= 56, (
+            f"γ.4.9.D arc-close: Pauline section below γ.4.9.B parity "
+            f"(need ≥56 = 16 seed + 40 detail, have {pauline_total})"
+        )
+        # Non-Pauline (γ.4.9 seed non-Pauline 24 + γ.4.9.C detail 40 = 64)
+        assert non_pauline_total >= 64, (
+            f"γ.4.9.D arc-close: non-Pauline section below γ.4.9.C parity "
+            f"(need ≥64 = 24 seed + 40 detail, have {non_pauline_total})"
+        )
+        # γ.4.9.D arc-close opens 2 new books (act + jam) — sum 12 entries
+        assert arc_close_unique_total >= 12, (
+            f"γ.4.9.D arc-close: NEW-books section below planned depth "
+            f"(need ≥12 = 11 Acts + 1 James, have {arc_close_unique_total})"
+        )
+        # Cumulative milestone
+        assert athanasius_total >= 150, (
+            f"γ.4.9.D arc-close: total Athanasius ≥150 expected (four-wave cumulative); found {athanasius_total}"
+        )
+
+    # ---- §8.1 ARC-CLOSE PIN #3: _meta synchronization ----
+
+    def test_meta_synchronization_at_arc_close(self):
+        # §8.1 ARC-CLOSE PIN: _meta synchronization. Pin per sub-phase
+        # tag with regex word-boundary so γ.4.9 doesn't accidentally
+        # match γ.4.9.B/C/D.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        meta_source = json.loads(path.read_text(encoding="utf-8"))["_meta"]["source"]
+
+        # Word-boundary regex for each sub-phase tag — prevents γ.4.9 from
+        # matching γ.4.9.B (greedy substring would).
+        for tag in ("γ.4.9", "γ.4.9.B", "γ.4.9.C", "γ.4.9.D"):
+            pattern = re.compile(re.escape(tag) + r"(?![.\w])")
+            assert pattern.search(meta_source), (
+                f"γ.4.9.D arc-close: _meta.source must reference {tag} (four-wave arc-close synchronization pin)"
+            )
+        # Arc-close-status explicit
+        assert "arc CLOSED" in meta_source or "ARC CLOSED" in meta_source, (
+            "γ.4.9.D _meta.source should explicitly mark Athanasius arc CLOSED"
+        )
+        # NEW work-source named
+        assert "Marcellinus" in meta_source, (
+            "γ.4.9.D _meta.source should name Letter to Marcellinus (new ATTR_MARC work-source)"
+        )
+
+    # ---- Signature passage pins (8 arc-close anchors) ----
+
+    def test_act_2_36_epoiesen_arian_prooftext_anchor_present(self):
+        c = [e for e in self.ec.for_verse("act", 2, 36) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Act 2:36 — epoiēsen ho theos kai Kyrion kai Christon "
+            "(CA II.11-18 PRINCIPAL Arian prooftext addressed over 8 sections)"
+        )
+
+    def test_act_8_38_ethiopian_eunuch_anchor_present(self):
+        c = [e for e in self.ec.for_verse("act", 8, 38) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Act 8:38 — Ethiopian eunuch's baptism "
+            "(DI §40 Tewahedo institutional foundational anchor; Athanasius consecrated Frumentius)"
+        )
+
+    def test_act_20_28_divine_blood_anchor_present(self):
+        c = [e for e in self.ec.for_verse("act", 20, 28) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Act 20:28 — tēn ekklēsian tou theou hēn periepoiēsato dia tou haimatos tou idiou "
+            "(CA II.13 divine-blood Pauline-Petrine anchor)"
+        )
+
+    def test_jhn_8_58_ego_eimi_pre_abrahamic_anchor_present(self):
+        c = [e for e in self.ec.for_verse("jhn", 8, 58) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Jhn 8:58 — prin Abraam genesthai egō eimi "
+            "(CA III.30 most-explicit Christ-self-divine-Name claim, paired with Exo 3:14 LXX)"
+        )
+
+    def test_mrk_16_15_markan_great_commission_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mrk", 16, 15) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Mrk 16:15 — Markan Great Commission "
+            "(Festal Letter 39 canon-mandate paired with Mt 28:19 baptismal-formula)"
+        )
+
+    def test_psa_51_11_anti_pneumatomachian_anchor_present(self):
+        c = [e for e in self.ec.for_verse("psa", 51, 11) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Psa 51:11 — to Pneuma to Hagion sou mē antanelēs ap' emou "
+            "(Letters to Serapion 1.9 OT anti-pneumatomachian anchor against Tropici)"
+        )
+
+    def test_1jn_5_20_alethinos_theos_anchor_present(self):
+        c = [e for e in self.ec.for_verse("1jn", 5, 20) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing 1Jn 5:20 — houtos estin ho alēthinos theos kai zōē aiōnios "
+            "(CA III.5 MOST-EXPLICIT explicit-deity-of-Son Catholic-Epistle anchor)"
+        )
+
+    def test_jam_1_17_father_of_lights_immutability_anchor_present(self):
+        c = [e for e in self.ec.for_verse("jam", 1, 17) if e.father == "Athanasius of Alexandria"]
+        assert c, (
+            "γ.4.9.D missing Jam 1:17 — par' hō ouk eni parallagē ē tropēs aposkiasma "
+            "(Festal Letter 39 divine-immutability anti-Arian + James-canon-inclusion anchor)"
+        )
+
+    # ---- Cyril plurality preservation pin (ω.41 §1 trajectory rule) ----
+
+    def test_cyril_remains_plurality_leader_at_arc_close(self):
+        # ω.41 §1 trajectory rule: track Cyril's plurality position
+        # at every threshold-crossing point. At γ.4.9.D arc-close,
+        # Cyril is at 48.86% (668/1367) — sub-50% but still plurality
+        # at 3.34× next single-father. The trajectory is documented
+        # in CHANGELOG / SESSION_STATE.
+        cyril_count = 0
+        jubilees_count = 0
+        for verse_entries in self.ec._by_verse.values():
+            for e in verse_entries:
+                if e.father == "Cyril of Alexandria":
+                    cyril_count += 1
+                elif e.father.startswith("Jubilees"):
+                    jubilees_count += 1
+        # Cyril must remain plurality-leader (single-father with highest count)
+        ath_count = len(self._all_athanasius())
+        assert cyril_count > jubilees_count, (
+            f"ω.41 §1: Cyril must remain single-father plurality-leader; "
+            f"Cyril={cyril_count} vs Jubilees={jubilees_count}"
+        )
+        assert cyril_count > ath_count, (
+            f"ω.41 §1: Cyril must remain plurality-leader over Athanasius even at arc-close; "
+            f"Cyril={cyril_count} vs Athanasius={ath_count}"
+        )
+
+    # ---- _meta sync pin (extension of γ.4.9.C pattern) ----
+
+    def test_meta_documents_gamma_4_9_d_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.9.D" in meta_source, "γ.4.9.D must be referenced in _meta.source"
+        assert "arc-close" in meta_source.lower() or "ARC-CLOSE" in meta_source, (
+            "γ.4.9.D _meta.source should name arc-close"
+        )
+        assert "Athanasius" in meta_source, "γ.4.9.D _meta.source should name Athanasius"
+        assert "Marcellinus" in meta_source, (
+            "γ.4.9.D _meta.source should name Letter to Marcellinus (new ATTR_MARC work-source)"
+        )
+        assert "SEVENTH" in meta_source or "seventh" in meta_source, (
+            "γ.4.9.D _meta.source should name this as the SEVENTH §8.1 arc-close instance"
+        )

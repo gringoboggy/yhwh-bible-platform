@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 21,
-  "generated_at": "2026-05-14T02:41:48+00:00",
-  "n_candidates": 58,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 61,
   "candidates": [
     {
       "id": "gen-21-1-001",
@@ -861,6 +861,51 @@
     },
     {
       "id": "gen-21-1-058",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXI.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>Isaac&#x27;s birth: the Lord visited Sarah as He had said. Ephrem reads the laughter motif (Isaac = yiṣḥaq, &#x27;he laughs&#x27;) as the joy of fulfilled promise: previous laughter (17:17, 18:12) was incredulous; the laughter encoded in Isaac&#x27;s name is the joy that follows fulfilment. Tewahedo Marian theology preserves this distinction: Mary&#x27;s response to annunciation moves from troubled wonder (Lk 1:29) to joyful Magnificat (Lk 1:46-55) — the same incredulity-to-joy pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-21-1-059",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXI.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>Isaac&#x27;s birth: the Lord visited Sarah as He had said. Ephrem reads the laughter motif (Isaac = yiṣḥaq, &#x27;he laughs&#x27;) as the joy of fulfilled promise: previous laughter (17:17, 18:12) was incredulous; the laughter encoded in Isaac&#x27;s name is the joy that follows fulfilment. Tewahedo Marian theology preserves this distinction: Mary&#x27;s response to annunciation moves from troubled wonder (Lk 1:29) to joyful Magnificat (Lk 1:46-55) — the same incredulity-to-joy pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-21-1-060",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXI.1. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>Isaac&#x27;s birth: the Lord visited Sarah as He had said. Ephrem reads the laughter motif (Isaac = yiṣḥaq, &#x27;he laughs&#x27;) as the joy of fulfilled promise: previous laughter (17:17, 18:12) was incredulous; the laughter encoded in Isaac&#x27;s name is the joy that follows fulfilment. Tewahedo Marian theology preserves this distinction: Mary&#x27;s response to annunciation moves from troubled wonder (Lk 1:29) to joyful Magnificat (Lk 1:46-55) — the same incredulity-to-joy pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-21-1-061",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

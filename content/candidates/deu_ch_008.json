@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 8,
-  "generated_at": "2026-05-14T02:41:47+00:00",
-  "n_candidates": 66,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 69,
   "candidates": [
     {
       "id": "deu-8-1-001",
@@ -981,6 +981,51 @@
     },
     {
       "id": "deu-8-3-066",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 8:1-10. NPNF Series 2, vol. 13. PD. Cf. Mt 4:4, Jn 6:51.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;man doth not live by bread only, but by every word that proceedeth out of the mouth of the Lord doth man live&#x27; (Deu 8:3), Ephrem reads the manna-pedagogy as the canonical anchor cited by Christ at the first Temptation (Mt 4:4 / Lk 4:4 — verbatim citation). The manna teaches that humanity&#x27;s deepest hunger is for the Word, not for bread; the Eucharist resolves both hungers in one. Tewahedo eucharistic theology cites Deu 8:3 + Jn 6:51 (&#x27;I am the living bread which came down from heaven&#x27;) + Mt 4:4 as the canonical triple-witness: Christ is the Word-who-is-Bread, fulfilling the Deuteronomic pedagogy in the Eucharistic anaphora.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-8-3-067",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 8:1-10. NPNF Series 2, vol. 13. PD. Cf. Mt 4:4, Jn 6:51.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;man doth not live by bread only, but by every word that proceedeth out of the mouth of the Lord doth man live&#x27; (Deu 8:3), Ephrem reads the manna-pedagogy as the canonical anchor cited by Christ at the first Temptation (Mt 4:4 / Lk 4:4 — verbatim citation). The manna teaches that humanity&#x27;s deepest hunger is for the Word, not for bread; the Eucharist resolves both hungers in one. Tewahedo eucharistic theology cites Deu 8:3 + Jn 6:51 (&#x27;I am the living bread which came down from heaven&#x27;) + Mt 4:4 as the canonical triple-witness: Christ is the Word-who-is-Bread, fulfilling the Deuteronomic pedagogy in the Eucharistic anaphora.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-8-3-068",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 8:1-10. NPNF Series 2, vol. 13. PD. Cf. Mt 4:4, Jn 6:51.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;man doth not live by bread only, but by every word that proceedeth out of the mouth of the Lord doth man live&#x27; (Deu 8:3), Ephrem reads the manna-pedagogy as the canonical anchor cited by Christ at the first Temptation (Mt 4:4 / Lk 4:4 — verbatim citation). The manna teaches that humanity&#x27;s deepest hunger is for the Word, not for bread; the Eucharist resolves both hungers in one. Tewahedo eucharistic theology cites Deu 8:3 + Jn 6:51 (&#x27;I am the living bread which came down from heaven&#x27;) + Mt 4:4 as the canonical triple-witness: Christ is the Word-who-is-Bread, fulfilling the Deuteronomic pedagogy in the Eucharistic anaphora.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-8-3-069",
       "verse": 3,
       "kind": "comm-ethiopian",
       "anchor": "",

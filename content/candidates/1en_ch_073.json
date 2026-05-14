@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 73,
-  "generated_at": "2026-05-14T02:41:47+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 9,
   "candidates": [
     {
       "id": "1en-73-1-001",
@@ -81,6 +81,51 @@
     },
     {
       "id": "1en-73-1-006",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 73:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And after this law I saw another law dealing with the smaller luminary, which is named the Moon&#x27; — moon&#x27;s law revealed after sun&#x27;s, establishing the lunar order as derivative and subordinate. Tewahedo cosmology preserves this hierarchical structure (sun-primary, moon-secondary) as theologically significant: just as Christ-the-Sun-of-Righteousness is primary and the Church-as-moon reflects derivative light, the Astronomical Book&#x27;s ordering of luminaries anticipates the Christological-ecclesiological image preserved in Tewahedo hymnody.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-73-1-007",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 73:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And after this law I saw another law dealing with the smaller luminary, which is named the Moon&#x27; — moon&#x27;s law revealed after sun&#x27;s, establishing the lunar order as derivative and subordinate. Tewahedo cosmology preserves this hierarchical structure (sun-primary, moon-secondary) as theologically significant: just as Christ-the-Sun-of-Righteousness is primary and the Church-as-moon reflects derivative light, the Astronomical Book&#x27;s ordering of luminaries anticipates the Christological-ecclesiological image preserved in Tewahedo hymnody.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-73-1-008",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Astronomical Book (1 Enoch 72-82)",
+      "source_attribution": "1 Enoch 73:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-250).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Astronomical Book (1 Enoch 72-82)</em> <small>(c. 250 BC)</small><p>&#x27;And after this law I saw another law dealing with the smaller luminary, which is named the Moon&#x27; — moon&#x27;s law revealed after sun&#x27;s, establishing the lunar order as derivative and subordinate. Tewahedo cosmology preserves this hierarchical structure (sun-primary, moon-secondary) as theologically significant: just as Christ-the-Sun-of-Righteousness is primary and the Church-as-moon reflects derivative light, the Astronomical Book&#x27;s ordering of luminaries anticipates the Christological-ecclesiological image preserved in Tewahedo hymnody.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Astronomical Book (1 Enoch 72-82). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-73-1-009",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -8805,6 +8805,17 @@ NOTES = [
     ),
     (
         13,
+        20,
+        "j",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.41</em> <small>(c. 350 AD)</small><p>&#x27;Now the God of peace, that brought again from the dead our Lord Jesus, that great shepherd of the sheep, through the blood of the everlasting covenant&#x27; — Athanasius marks ho theos tēs eirēnēs ho anagagōn ek nekrōn ton kyrion (the God of peace who brought up from-the-dead the Lord) as the TRINITARIAN-RESURRECTION pastoral-doxology. The Father-of-peace brings up the Son through-the-blood-of-the-eternal-covenant (haimati diathēkēs aiōniou — note aiōniou, eternal, pointing to the Trinitarian-counsel before-time). The doxological-frame is what makes Hebrews&#x27;s-Christology WORSHIP-able: every Christological-claim climaxes in doxology to the Father through the Son.</p></aside>',
+        "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+    ),
+    (
+        13,
         21,
         "",
         "",

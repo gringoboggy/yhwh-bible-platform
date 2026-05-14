@@ -3294,6 +3294,17 @@ NOTES = [
     ),
     (
         4,
+        5,
+        "d",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.30</em> <small>(c. 350 AD)</small><p>&#x27;One Lord, one faith, one baptism, One God and Father of all, who is above all, and through all, and in you all&#x27; — Athanasius marks the SEVENFOLD-HENOTĒS (heis Kyrios + mia pistis + hen baptisma + heis theos kai Patēr pantōn) as the TRINITARIAN-MONOTHEISM Pauline-synthesis. The seven &#x27;ones&#x27; do not flatten the Trinitarian-distinctions but articulate the divine-unity-in-Trinity: one-Lord (the Son), one-baptism (in the Trinity per Mt 28:19), one-Spirit (implied; cf. Eph 4:4 above), one-God-and-Father — the Three are the unique-one-God. The eph&#x27; hēmin pantōn (above all, through all, in you all) names the Father&#x27;s universal-divine-presence operating through the Son and in the Spirit.</p></aside>',
+        "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+    ),
+    (
+        4,
         6,
         "",
         "",

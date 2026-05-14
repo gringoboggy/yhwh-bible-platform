@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 21,
-  "generated_at": "2026-05-14T02:41:47+00:00",
-  "n_candidates": 42,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 45,
   "candidates": [
     {
       "id": "deu-21-23-001",
@@ -621,6 +621,51 @@
     },
     {
       "id": "deu-21-23-042",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 21:22-23. NPNF Series 2, vol. 13. PD. Cf. Gal 3:13 (verbatim Pauline citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;he that is hanged is accursed of God&#x27; (Deu 21:23), Ephrem reads the curse-on-the-hanged-corpse statute as the canonical Old-Testament anchor of Paul&#x27;s atonement-formula in Galatians 3:13: &#x27;Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree&#x27; — verbatim citation. The Deuteronomic curse is not abolished but absorbed: Christ takes the curse upon himself precisely by hanging on the tree. Tewahedo atonement theology cites Deu 21:23 + Gal 3:13 as the canonical doubled-anchor of the substitutionary cross — the Cross is canonical-curse-bearing, the Christ is canonical-curse-bearer, the redemption is canonical-completion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-21-23-043",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 21:22-23. NPNF Series 2, vol. 13. PD. Cf. Gal 3:13 (verbatim Pauline citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;he that is hanged is accursed of God&#x27; (Deu 21:23), Ephrem reads the curse-on-the-hanged-corpse statute as the canonical Old-Testament anchor of Paul&#x27;s atonement-formula in Galatians 3:13: &#x27;Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree&#x27; — verbatim citation. The Deuteronomic curse is not abolished but absorbed: Christ takes the curse upon himself precisely by hanging on the tree. Tewahedo atonement theology cites Deu 21:23 + Gal 3:13 as the canonical doubled-anchor of the substitutionary cross — the Cross is canonical-curse-bearing, the Christ is canonical-curse-bearer, the redemption is canonical-completion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-21-23-044",
+      "verse": 23,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 21:22-23. NPNF Series 2, vol. 13. PD. Cf. Gal 3:13 (verbatim Pauline citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;he that is hanged is accursed of God&#x27; (Deu 21:23), Ephrem reads the curse-on-the-hanged-corpse statute as the canonical Old-Testament anchor of Paul&#x27;s atonement-formula in Galatians 3:13: &#x27;Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree&#x27; — verbatim citation. The Deuteronomic curse is not abolished but absorbed: Christ takes the curse upon himself precisely by hanging on the tree. Tewahedo atonement theology cites Deu 21:23 + Gal 3:13 as the canonical doubled-anchor of the substitutionary cross — the Cross is canonical-curse-bearing, the Christ is canonical-curse-bearer, the redemption is canonical-completion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-21-23-045",
       "verse": 23,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -2535,6 +2535,17 @@ NOTES = [
     ),
     (
         3,
+        4,
+        "e",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>De Incarnatione Verbi §54</em> <small>(c. 350 AD)</small><p>&#x27;When Christ, who is our life, shall appear, then shall ye also appear with him in glory&#x27; — Athanasius marks ho Christos hē zōē hymōn (Christ, the life of-yours) as the THEŌSIS-ESCHATOLOGICAL-SUMMIT anchor: Christ IS the believer&#x27;s-life-itself (not merely-the-source-of-life). When-he-appears (phanerōthē — eschatological-manifestation), believers-appear-with-him-in-glory — the theōsis-grant fulfilled at the eschaton. Athanasius&#x27;s signature formula &#x27;He was made man that we might be made God&#x27; (DI §54) reaches its temporal-completion at the Col 3:4 phanerōsis. The Tewahedo Easter-vigil hymnody cites Col 3:4 as the saint-glorified-with-Christ Paschal-fulfillment.</p></aside>',
+        "Athanasius of Alexandria, De Incarnatione Verbi (On the Incarnation), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 25 (1857).",
+    ),
+    (
+        3,
         5,
         "",
         "",

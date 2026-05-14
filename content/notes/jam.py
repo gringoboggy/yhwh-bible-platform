@@ -203,6 +203,17 @@ NOTES = [
     ),
     (
         1,
+        17,
+        "a",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Festal Letters 39 (367 AD)</em> <small>(c. 350 AD)</small><p>&#x27;Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning&#x27; — Athanasius marks ho Patēr tōn phōtōn par&#x27; hō ouk eni parallagē ē tropēs aposkiasma (the Father of lights, with-whom is-not variation or shadow-of-turning) as the DIVINE-IMMUTABILITY anchor. The atrepton (un-turning) and aparal-lakton (un-varying) of the Father&#x27;s-essence are direct anti-Arian: the divine-Light cannot vary or turn (i.e. cannot become what-it-was-not, cannot beget-a-creature-rather-than-eternal-Word). Athanasius&#x27;s inclusion of James in the NT-canon (Festal Letter 39, 367 AD) was the canonical-decision that gave the Catholic-Epistle its full-apostolic-authority in the Eastern tradition; Jas 1:17 anchors the canon-inclusion with a direct-Trinitarian-essence prooftext.</p></aside>',
+        "Athanasius of Alexandria, Festal Letters (selections, including the canon-defining Letter 39 of 367 AD), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD.",
+    ),
+    (
+        1,
         19,
         "",
         "man",

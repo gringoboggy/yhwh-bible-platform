@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 38,
-  "generated_at": "2026-05-14T02:41:48+00:00",
-  "n_candidates": 6,
+  "generated_at": "2026-05-14T04:33:08+00:00",
+  "n_candidates": 9,
   "candidates": [
     {
       "id": "jub-38-2-001",
@@ -81,6 +81,51 @@
     },
     {
       "id": "jub-38-2-006",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 38:2 (Esau-Jacob war (38:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Judah&#x27;s sons drew their bows, and shot at Adoram and slew him; and Levi took Reuben aside, and they sent against the men who were on the right and the left, and they slew them&#x27; — Jubilees credits Judah and Levi specifically with the battlefield victory over Esau&#x27;s forces. The Tewahedo Solomonic-dynasty (descending from Judah through David) preserves a memory of the Judah-as-battlefield-leader patriarchal-canonical pattern: the Tewahedo king (nəguś) takes the field with the priest (kǝhnät) accompanying — the Judah-Levi battlefield partnership is the canonical-patriarchal antecedent of the Tewahedo king-and-priest joint-leadership pattern at moments of national crisis.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-38-2-007",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 38:2 (Esau-Jacob war (38:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Judah&#x27;s sons drew their bows, and shot at Adoram and slew him; and Levi took Reuben aside, and they sent against the men who were on the right and the left, and they slew them&#x27; — Jubilees credits Judah and Levi specifically with the battlefield victory over Esau&#x27;s forces. The Tewahedo Solomonic-dynasty (descending from Judah through David) preserves a memory of the Judah-as-battlefield-leader patriarchal-canonical pattern: the Tewahedo king (nəguś) takes the field with the priest (kǝhnät) accompanying — the Judah-Levi battlefield partnership is the canonical-patriarchal antecedent of the Tewahedo king-and-priest joint-leadership pattern at moments of national crisis.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-38-2-008",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 38:2 (Esau-Jacob war (38:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;And Judah&#x27;s sons drew their bows, and shot at Adoram and slew him; and Levi took Reuben aside, and they sent against the men who were on the right and the left, and they slew them&#x27; — Jubilees credits Judah and Levi specifically with the battlefield victory over Esau&#x27;s forces. The Tewahedo Solomonic-dynasty (descending from Judah through David) preserves a memory of the Judah-as-battlefield-leader patriarchal-canonical pattern: the Tewahedo king (nəguś) takes the field with the priest (kǝhnät) accompanying — the Judah-Levi battlefield partnership is the canonical-patriarchal antecedent of the Tewahedo king-and-priest joint-leadership pattern at moments of national crisis.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-38-2-009",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

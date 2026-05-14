@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 24,
-  "generated_at": "2026-05-14T02:41:48+00:00",
-  "n_candidates": 30,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 33,
   "candidates": [
     {
       "id": "exo-24-6-001",
@@ -441,6 +441,51 @@
     },
     {
       "id": "exo-24-8-030",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Hymns on the Crucifixion",
+      "source_attribution": "Ephrem the Syrian, Hymns on the Crucifixion VI.3-5 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Hymns on the Crucifixion</em> <small>(c. 365 AD)</small><p>Moses takes the blood and sprinkles it on the people, saying &#x27;Behold the blood of the covenant, which the Lord hath made with you concerning all these words.&#x27; Ephrem hears in this the very formula that Christ will adopt verbatim at the Last Supper: &#x27;This is the blood of the covenant.&#x27; Tewahedo Anaphora reads Ex 24:8 and Mt 26:28 as a single covenantal sentence completed by the Cross.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Hymns on the Crucifixion. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-24-8-031",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Hymns on the Crucifixion",
+      "source_attribution": "Ephrem the Syrian, Hymns on the Crucifixion VI.3-5 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Hymns on the Crucifixion</em> <small>(c. 365 AD)</small><p>Moses takes the blood and sprinkles it on the people, saying &#x27;Behold the blood of the covenant, which the Lord hath made with you concerning all these words.&#x27; Ephrem hears in this the very formula that Christ will adopt verbatim at the Last Supper: &#x27;This is the blood of the covenant.&#x27; Tewahedo Anaphora reads Ex 24:8 and Mt 26:28 as a single covenantal sentence completed by the Cross.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Hymns on the Crucifixion. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-24-8-032",
+      "verse": 8,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Hymns on the Crucifixion",
+      "source_attribution": "Ephrem the Syrian, Hymns on the Crucifixion VI.3-5 (NPNF S2 V13). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Hymns on the Crucifixion</em> <small>(c. 365 AD)</small><p>Moses takes the blood and sprinkles it on the people, saying &#x27;Behold the blood of the covenant, which the Lord hath made with you concerning all these words.&#x27; Ephrem hears in this the very formula that Christ will adopt verbatim at the Last Supper: &#x27;This is the blood of the covenant.&#x27; Tewahedo Anaphora reads Ex 24:8 and Mt 26:28 as a single covenantal sentence completed by the Cross.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Hymns on the Crucifixion. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-24-8-033",
       "verse": 8,
       "kind": "comm-ethiopian",
       "anchor": "",

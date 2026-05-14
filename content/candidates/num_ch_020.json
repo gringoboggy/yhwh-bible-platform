@@ -1,8 +1,8 @@
 {
   "book": "num",
   "chapter": 20,
-  "generated_at": "2026-05-14T02:41:48+00:00",
-  "n_candidates": 49,
+  "generated_at": "2026-05-14T04:33:09+00:00",
+  "n_candidates": 52,
   "candidates": [
     {
       "id": "num-20-2-001",
@@ -726,6 +726,51 @@
     },
     {
       "id": "num-20-11-049",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 20:1-13. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 10:4; Heb 9:28.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Moses&#x27; striking of the rock twice at Meribah (Num 20:11), Ephrem reads the doubled-strike as the proximate cause of Moses&#x27; exclusion from the land: the Lord had commanded that he speak to the rock, not strike it. The exegetical key, taken up by Paul (1 Cor 10:4 — &#x27;that Rock was Christ&#x27;), is that Christ is struck once for the people&#x27;s salvation; to strike him twice violates the typology of the once-for-all sacrifice (Heb 9:28, 10:10). Tewahedo christology cites Num 20:11 + 1 Cor 10:4 + Heb 9-10 as the canonical triple-witness that the Rock-Christ is smitten once and yields life-giving water forever.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-20-11-050",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 20:1-13. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 10:4; Heb 9:28.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Moses&#x27; striking of the rock twice at Meribah (Num 20:11), Ephrem reads the doubled-strike as the proximate cause of Moses&#x27; exclusion from the land: the Lord had commanded that he speak to the rock, not strike it. The exegetical key, taken up by Paul (1 Cor 10:4 — &#x27;that Rock was Christ&#x27;), is that Christ is struck once for the people&#x27;s salvation; to strike him twice violates the typology of the once-for-all sacrifice (Heb 9:28, 10:10). Tewahedo christology cites Num 20:11 + 1 Cor 10:4 + Heb 9-10 as the canonical triple-witness that the Rock-Christ is smitten once and yields life-giving water forever.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-20-11-051",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Numbers",
+      "source_attribution": "Ephrem the Syrian, Commentary on Numbers, on 20:1-13. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 10:4; Heb 9:28.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Numbers</em> <small>(c. 365 AD)</small><p>On Moses&#x27; striking of the rock twice at Meribah (Num 20:11), Ephrem reads the doubled-strike as the proximate cause of Moses&#x27; exclusion from the land: the Lord had commanded that he speak to the rock, not strike it. The exegetical key, taken up by Paul (1 Cor 10:4 — &#x27;that Rock was Christ&#x27;), is that Christ is struck once for the people&#x27;s salvation; to strike him twice violates the typology of the once-for-all sacrifice (Heb 9:28, 10:10). Tewahedo christology cites Num 20:11 + 1 Cor 10:4 + Heb 9-10 as the canonical triple-witness that the Rock-Christ is smitten once and yields life-giving water forever.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Numbers. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "num-20-11-052",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

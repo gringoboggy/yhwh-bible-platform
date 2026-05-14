@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 5,
-  "generated_at": "2026-05-14T02:41:47+00:00",
-  "n_candidates": 100,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 103,
   "candidates": [
     {
       "id": "deu-5-6-001",
@@ -1491,6 +1491,51 @@
     },
     {
       "id": "deu-5-6-100",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 5:1-21. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the prologue to the Decalogue&#x27;s restatement — &#x27;I am the Lord thy God, which brought thee out of the land of Egypt, from the house of bondage&#x27; (Deu 5:6) — Ephrem reads the placement of the redemption-formula BEFORE the commandments as the canonical anchor of the order-of-salvation: grace precedes obligation, the Exodus precedes Sinai. The Decalogue is given to a people already redeemed, not to a people earning redemption. Tewahedo catechetical theology cites Deu 5:6 as the canonical Old-Testament anchor for the order baptism-precedes-commandments: the catechumen is delivered from Egypt (baptism) BEFORE receiving the Tewahedo moral-life formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-5-6-101",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 5:1-21. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the prologue to the Decalogue&#x27;s restatement — &#x27;I am the Lord thy God, which brought thee out of the land of Egypt, from the house of bondage&#x27; (Deu 5:6) — Ephrem reads the placement of the redemption-formula BEFORE the commandments as the canonical anchor of the order-of-salvation: grace precedes obligation, the Exodus precedes Sinai. The Decalogue is given to a people already redeemed, not to a people earning redemption. Tewahedo catechetical theology cites Deu 5:6 as the canonical Old-Testament anchor for the order baptism-precedes-commandments: the catechumen is delivered from Egypt (baptism) BEFORE receiving the Tewahedo moral-life formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-5-6-102",
+      "verse": 6,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 5:1-21. NPNF Series 2, vol. 13. PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the prologue to the Decalogue&#x27;s restatement — &#x27;I am the Lord thy God, which brought thee out of the land of Egypt, from the house of bondage&#x27; (Deu 5:6) — Ephrem reads the placement of the redemption-formula BEFORE the commandments as the canonical anchor of the order-of-salvation: grace precedes obligation, the Exodus precedes Sinai. The Decalogue is given to a people already redeemed, not to a people earning redemption. Tewahedo catechetical theology cites Deu 5:6 as the canonical Old-Testament anchor for the order baptism-precedes-commandments: the catechumen is delivered from Egypt (baptism) BEFORE receiving the Tewahedo moral-life formation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-5-6-103",
       "verse": 6,
       "kind": "comm-ethiopian",
       "anchor": "",

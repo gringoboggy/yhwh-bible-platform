@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 40,
-  "generated_at": "2026-05-14T02:41:48+00:00",
-  "n_candidates": 28,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 31,
   "candidates": [
     {
       "id": "exo-40-1-001",
@@ -411,6 +411,51 @@
     },
     {
       "id": "exo-40-34-028",
+      "verse": 34,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XL.16 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>When the tabernacle is finished, the cloud covers it and the glory of the Lord fills it. Ephrem reads the closing verse of Exodus as the canonical anticipation of the Apocalyptic vision: &#x27;the tabernacle of God is with men, and he will dwell with them&#x27; (Rev 21:3). The whole book moves from the house of bondage to the house of glory. Tewahedo eschatological catechesis treats Ex 40:34 as the OT bookend of the canonical hope completed in Rev 21.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-40-34-029",
+      "verse": 34,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XL.16 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>When the tabernacle is finished, the cloud covers it and the glory of the Lord fills it. Ephrem reads the closing verse of Exodus as the canonical anticipation of the Apocalyptic vision: &#x27;the tabernacle of God is with men, and he will dwell with them&#x27; (Rev 21:3). The whole book moves from the house of bondage to the house of glory. Tewahedo eschatological catechesis treats Ex 40:34 as the OT bookend of the canonical hope completed in Rev 21.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-40-34-030",
+      "verse": 34,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus XL.16 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>When the tabernacle is finished, the cloud covers it and the glory of the Lord fills it. Ephrem reads the closing verse of Exodus as the canonical anticipation of the Apocalyptic vision: &#x27;the tabernacle of God is with men, and he will dwell with them&#x27; (Rev 21:3). The whole book moves from the house of bondage to the house of glory. Tewahedo eschatological catechesis treats Ex 40:34 as the OT bookend of the canonical hope completed in Rev 21.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-40-34-031",
       "verse": 34,
       "kind": "comm-ethiopian",
       "anchor": "",

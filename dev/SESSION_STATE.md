@@ -1,5 +1,289 @@
 # Session state — current snapshot
 
+**Updated 2026-05-13 / γ.4.9.D Athanasius ARC-CLOSE ships — SEVENTH
+§8.1 arc-close instance + ALL FIVE PATRISTIC VOICES now at closed-arc
+depth. 30 verse-keyed entries spanning Acts opening (11) + cross-canon
+capstone-synthesis pins (13) + Psalms-Marcellinus pastoral coverage
+(6 via NEW work-source ATTR_MARC). CLOSING WAVE of the four-wave
+Athanasius arc (γ.4.9 seed + γ.4.9.B Pauline + γ.4.9.C non-Pauline +
+γ.4.9.D arc-close = 150 cumulative). OPENS Acts coverage (Acts 1:8 +
+2:24 + 2:32 + 2:36 + 4:12 + 7:55 + 8:38 + 9:5 + 10:38 + 17:31 + 20:28
+— includes Acts 2:36 epoiēsen the PRINCIPAL Arian prooftext addressed
+CA II.11-18 over 8 sections AND Acts 8:38 the Ethiopian eunuch's-
+baptism Tewahedo foundational anchor). OPENS James coverage (Jam 1:17
+Father-of-lights divine-immutability paired with Festal Letter 39
+canon-inclusion). NEW work-source ATTR_MARC (Letter to Marcellinus
+on the Interpretation of the Psalms) added — SIXTH Athanasian work-
+source — rounds out Athanasius's pastoral-spiritual voice with the
+canonical Psalms-pastoral-letter; the Tewahedo Säʿatat (Liturgy of the
+Hours) Psalter-recitation tradition is hermeneutically-rooted in this
+Athanasian Letter. ethiopian_commentaries.json 1337 → 1367 (+30);
+Athanasius 120 → 150; voice mix Cyril 49.96% → 48.86% (continuing
+sub-50% trajectory settled at γ.4.9.C; remains plurality-leader at
+3.34× next-single-father 668 vs 200); patristic-anchor majority 70.68%
+→ 71.32%. TENTH production-scale N-W4 idempotency verification (20521
+attempted across two passes / 30 promoted / 20491 skipped / 0 errors /
+27 files-affected — verifies the contract holds even after mid-turn
+book-code correction). TestGamma49DAthanasiusArcClose +15 pins
+implementing §8.1 arc-close convention's THREE required pin types:
+(PIN #1) absolute-count milestone Athanasius ≥150 (never share-pin per
+`feedback_share_pin_pattern`); (PIN #2) all_N_sections_covered
+exhaustiveness — Pauline ≥56 + non-Pauline ≥64 + arc-close-NEW-books
+≥12 + total ≥150; (PIN #3) _meta synchronization with regex word-
+boundary per γ.4.9/γ.4.9.B/γ.4.9.C/γ.4.9.D + "ARC CLOSED" status +
+"Marcellinus" new-work-source. Plus 2 NEW-book opening pins (Acts ≥11,
+James ≥1), 8 signature-anchor pins (Act 2:36 + Act 8:38 + Act 20:28 +
+Jhn 8:58 + Mrk 16:15 + Psa 51:11 + 1Jn 5:20 + Jam 1:17), 1 ω.41 §1
+trajectory pin (Cyril-remains-plurality-leader durable safeguard) +
+_meta sync pin = 15 in class. Plus TestGamma4MetaPhasesCoverage γ.4.9.D
+extension +1 = +16 net. Linter 11/11; ruff applied to both new files.
+Mid-turn correction: book-code typo `"jas"` → `"jam"` (sources.py
+normalizes to "jas" but content/notes/ uses jam.py — pre-existing
+project-level inconsistency; logged for hygiene-arc). Pre-existing
+intermittent flake noted: 11 OSError WinError-6 failures in subprocess-
+spawning tests on Python 3.14.4 + Windows; documented at γ.4.9.C
+remains tracked here unchanged.** Triggered by user "continue" after
+γ.4.9.C close. Per §3.4 close-before-open within the Athanasius arc
++ §8.1 arc-close convention (SEVENTH instance). Per memory
+`feedback_extensive_answers` (broadest scope): 30 entries vs LIGHT-
+audit's 6-10 estimate — chose broader to open Acts (high-importance
+NT-book) + open James + add NEW pastoral-spiritual work-source.
+
+**ATHANASIUS ARC CLOSED — four-wave summary:**
+
+```
+γ.4.9    seed                  40 entries (multi-group, 19 books)
+γ.4.9.B  Pauline detail        40 entries (8 Pauline books)
+γ.4.9.C  non-Pauline detail    40 entries (13 non-Pauline books)
+γ.4.9.D  arc-close             30 entries (12 books incl. NEW: Acts + James)
+─────────────────────────────────────────────────
+Athanasius cumulative          150 entries — ARC CLOSED
+```
+
+**ALL FIVE PATRISTIC VOICES at substantively-closed-arc depth:**
+
+```
+Cyril of Alexandria      668  (4 canonical-Gospel arcs closed)
+Jubilees                 200  (arc closed γ.4.5.E)
+1 Enoch                  192  (arc closed γ.4.4.E)
+Ephrem the Syrian        157  (Pentateuch arc closed γ.4.2.D)
+Athanasius               150  (arc closed γ.4.9.D — SEVENTH §8.1 instance)
+─────────────────
+Patristic-anchor       1367  (71.32% of total 1367 corpus → exactly full
+                              patristic-anchor share of γ.4 corpus)
+```
+
+**Voice-mix delta — Cyril continues downward sub-50% trajectory:**
+
+```
+Pre-γ.4.9.D (1337 entries):     Post-γ.4.9.D (1367 entries):
+  Cyril       668  49.96%          Cyril       668  48.86%
+  Jubilees    200  14.96%          Jubilees    200  14.63%
+  1 Enoch     192  14.36%          1 Enoch     192  14.05%
+  Ephrem      157  11.74%          Ephrem      157  11.49%
+  Athanasius  120   8.97%          Athanasius  150  10.97%  ← arc-close +30
+                                              ────
+                                              1367 entries
+```
+
+Per ω.41 §1: Cyril-led plurality preserved at 3.34× next-single-father.
+Trajectory rule maintained — Cyril's downward-crossing of 50% (at
+γ.4.9.C) is now a settled feature; γ.4.9.D continues the trajectory
+without re-triggering threshold-crossing flag. Athanasius reaches 10.97%
+parity-tier with the other patristic voices. The Cyril-remains-
+plurality-leader DURABLE PIN (in TestGamma49DAthanasiusArcClose) is
+now in place to safeguard any future voice-mixing that could destabilize
+the plurality.
+
+**Items shipped:**
+
+- **`scripts/_ship_gamma49d.py`** — new ship script (~750 lines, 30
+  arc-close entries). Adds ATTR_MARC (Letter to Marcellinus on the
+  Psalms) as SIXTH Athanasian work-source.
+- **`content/sources/ethiopian_commentaries.json`** — entries 1337 →
+  1367; Athanasius 120 → 150; `_meta.source` ledger appended with
+  γ.4.9.D arc-close manifest including "ARC CLOSED" status + SEVENTH
+  §8.1 instance + Marcellinus new-work-source.
+- **`content/notes/<12 books>.py`** — promoted via two-pass at-scale
+  + batch_promote (idempotent post-N-W4). Per-book new: act +11, mrk
+  +1, mat +3, jhn +2, 1co +1, eph +1, col +1, heb +1, jam +1, 1jn +1,
+  2pe +1, psa +6 = 30.
+- **`tests/test_ethiopian_gamma4.py`** — new
+  `TestGamma49DAthanasiusArcClose` (15 pins implementing §8.1 PIN
+  #1 + #2 + #3 + book-opening + signature anchors + ω.41 §1
+  plurality preservation) + `TestGamma4MetaPhasesCoverage::test_meta_
+  documents_gamma_4_9_d` (1 pin) = +16 net.
+
+**Recommended next steps:**
+
+- **save** — γ.4.9.B + γ.4.9.C + γ.4.9.D are all uncommitted since
+  the last save (commit 5c2d2bc). User-explicit only per
+  `feedback_continue_not_save`. 80 new tests since save (γ.4.9.B 15
+  + γ.4.9.C 18 + γ.4.9.D 16 + light-audit-trace cleanup) makes this
+  a natural commit-boundary.
+- **AUDIT cadence check** — total phases since EOD baseline now: ω.41
+  + γ.4.6.B/C/D + γ.4.7/B/C/D + γ.4.9 + γ.4.9-NPNF-fixup + γ.4.9.B +
+  γ.4.9.B-dedup-fix + γ.4.9.C + γ.4.9.D = 13 phases AND ~250+ tests
+  drift (3700ish → 3935ish). LIGHT audit was done after γ.4.9.B;
+  γ.4.9.C + γ.4.9.D add 3 more phases + ~34 tests. Per memory
+  `feedback_audit_cadence`: another light audit would be appropriate
+  if the user wants verification before save, but γ.4.9.D arc-close
+  is itself a self-auditing event (§8.1 PIN #2 all_N_sections_covered
+  exhaustiveness pin verifies the entire Athanasius arc structurally).
+- **γ.4.9 family complete; future depth is opt-in:** with the
+  Athanasius arc closed and ALL FIVE patristic voices at closed-arc
+  depth, the γ.4 corpus is structurally-complete per ω.41 §1's five-
+  voice composition. Future γ.4.x ships (additional voices: γ.4.6
+  Vulgate / γ.4.7 Targums; or expanding existing voices) are
+  OPTIONAL-DEPTH-PLUS rather than required. The Tewahedo flagship
+  corpus has substantively-detailed-closed-arc patristic coverage as
+  designed.
+
+---
+
+**Updated 2026-05-13 / γ.4.9.C Athanasius non-Pauline detail wave ships
+— 40 verse-keyed entries across 13 books deepening the 24 non-Pauline
+γ.4.9 seed anchors (OT christological + Gospels + Petrine/Johannine/
+Apocalyptic) to 64-entry detail coverage AND opening Markan + Lukan
+Athanasian coverage (γ.4.9 seed had no Mark/Luke entries). SECOND
+DETAIL WAVE on the FIFTH-PATRISTIC-VOICE; PAIRS with γ.4.9.B Pauline
+detail wave to give Athanasius substantive coverage across ALL FOUR
+γ.4.9 thematic groups. Distribution: OT (14: gen 4 + exo 2 + psa 4 +
+pro 2 + isa 2 — Spirit-inbreathing/Gen 2:7 + Melchizedek-Christophany/
+Gen 14:18 + gods-by-participation/Exo 7:1 + dereliction-by-flesh/Psa
+22:1 + theōsis-by-grace/Psa 82:6 + Wisdom-architect/Pro 8:30 + Spirit-
+recipient-and-sender/Isa 61:1) + Gospels (14: mat 4 + mrk 3 NEW + luk
+3 NEW + jhn 4 — Trinitarian-baptism/Mat 3:17 + qua-flesh-not-knowing/
+Mrk 13:32 + Annunciation-overshadowing/Luk 1:35 + homoousion-mutual-
+knowledge/Luk 10:22 + creational-asymmetry/Jhn 1:3 + Father-greater-
+as-source/Jhn 14:28 + pre-temporal-glory/Jhn 17:5) + PJA (12: 1pe 3 +
+2pe 2 + 1jn 3 + rev 4 — harrowing-of-Hades/1Pe 3:19 + monogenēs-from-
+Father-essence/1Jn 4:9 + Apocalyptic-Paschal-identity/Rev 1:18 +
+Trinitarian-trisagion/Rev 4:8 + Logos-confirmation/Rev 19:13).
+ethiopian_commentaries.json 1297 → 1337 (+40); Athanasius 80 → 120;
+voice mix Cyril 51.5% → 49.96% (downward-crosses 50% single-father-
+majority threshold; remains plurality-leader at 3.34× next-single-
+father; flagged per ω.41 §1 trajectory rule); patristic-anchor
+majority 69.8% → 70.68%. NINTH production-scale verification of N-W4
+idempotency contract (8210 attempted / 40 promoted / 8170 skipped /
+0 errors / 38 files affected — broadest-N-W4-verification yet by
+attempted-count). FIFTH Athanasian work-source added: ATTR_SERAP
+(Epistulae ad Serapionem de Spiritu Sancto — principal anti-pneuma-
+tomachian work refuting Tropici denial of Spirit's homoousion), used
+at 5 pneumatologically-decisive anchors (Isa 61:1 + Mat 3:17 + Luk
+1:35 + 2Pe 1:3 + Rev 4:8). FIRST Athanasian entries on Mark (3) and
+on Luke (3) — previously empty book coverage opened. TestGamma49C
+AthanasiusNonPaulineDetailWave +17 pins (1 substantive-detail + 1
+per-book-coverage + 1 Markan-opening + 1 Lukan-opening + 3 per-group-
+density + 1 milestone + 8 signature anchors + 1 _meta sync) +
+TestGamma4MetaPhasesCoverage γ.4.9.C extension +1 pin = +18 net.
+Linter 11/11; ruff `_ship_gamma49c.py` clean from authoring + test
+file reformat applied mid-turn for line-length. Mid-turn test fix:
+initial helper used `range(1, 60)` for chapter iteration (copied
+from γ.4.9.B Pauline helper); failed on Psa 82, Psa 110, Isa 61
+(chapters > 60); widened to `range(1, 160)` to safely cover Psalms.
+Suite intermittent: full-suite produces 11 OSError "WinError 6 — The
+handle is invalid" failures in subprocess-spawning tests on Python
+3.14.4 + Windows; reproduces with γ.4.9.C deselected (same 3901-
+collected baseline as LIGHT audit, 3889 pass + 1 skip + 11 fail) —
+pre-existing handle-exhaustion environment-level flake, NOT γ.4.9.C-
+caused; non-blocking; logged for hygiene-arc.** Triggered by user
+"continue" after the LIGHT-audit clean closure (AUDIT_2026-05-13-
+LIGHT.md §5 explicitly recommended γ.4.9.C as the natural next ship).
+Per §3 sequencing: broadest-natural scope (per memory `feedback_
+extensive_answers`) + safest-additive-first + close-before-open
+within the Athanasius arc. After γ.4.9.C all 40 γ.4.9 seed anchors
+have substantive detail-wave coverage; the Athanasius arc is now
+structurally-complete-but-not-yet-closed (γ.4.9.D would be the §8.1
+arc-close ship).
+
+**Pauline-Athanasius coverage post-γ.4.9.B remains 56 entries (γ.4.9.C
+adds 0 to Pauline). Non-Pauline-Athanasius coverage post-γ.4.9.C (64
+entries across 13 books):**
+
+```
+OT christological anticipations (22): gen 6 + exo 3 + psa 6 + pro 3 + isa 4
+  gen   1:26 + 1:27 (seed) + 2:7 + 3:15 + 14:18 + 22:18 (detail)        = 6
+  exo   3:14 (seed) + 7:1 + 33:20 (detail)                              = 3
+  psa   2:7 + 110:1 (seed) + 16:10 + 22:1 + 45:6 + 82:6 (detail)        = 6
+  pro   8:22 (seed) + 8:23 + 8:30 (detail)                              = 3
+  isa   7:14 + 9:6 (seed) + 53:3 + 61:1 (detail)                        = 4
+
+Canonical Gospels (22): mat 7 + mrk 3 NEW + luk 3 NEW + jhn 9
+  mat   1:23 + 11:27 + 28:19 (seed) + 3:17 + 16:16 + 26:39 + 27:46      = 7
+  mrk   (none in seed) + 1:1 + 13:32 + 14:62 (detail)                   = 3
+  luk   (none in seed) + 1:35 + 2:52 + 10:22 (detail)                   = 3
+  jhn   1:1 + 1:14 + 10:30 + 14:9 + 20:28 (seed) + 1:3 + 5:23 + 14:28
+        + 17:5 (detail)                                                 = 9
+
+Petrine + Johannine + Apocalyptic (20): 1pe 5 + 2pe 3 + 1jn 5 + rev 7
+  1pe   1:19 + 4:1 (seed) + 1:23 + 2:21 + 3:19 (detail)                 = 5
+  2pe   1:4 (seed) + 1:3 + 3:18 (detail)                                = 3
+  1jn   1:1 + 3:2 (seed) + 3:8 + 4:2 + 4:9 (detail)                     = 5
+  rev   1:8 + 5:13 + 22:13 (seed) + 1:18 + 4:8 + 5:9 + 19:13 (detail)   = 7
+                                                                      ────
+                                                                      64 non-Pauline-Athanasius entries
+                                                                      + 56 Pauline-Athanasius (γ.4.9.B)
+                                                                      = 120 Athanasius total
+```
+
+**Voice-mix delta — Cyril threshold-crosses DOWNWARD below 50%:**
+
+```
+Pre-γ.4.9.C (1297 entries):         Post-γ.4.9.C (1337 entries):
+  Cyril       668  51.5%               Cyril       668  49.96%  ← DOWNWARD-50%
+  Jubilees    200  15.4%               Jubilees    200  14.96%
+  1 Enoch     192  14.8%               1 Enoch     192  14.36%
+  Ephrem      157  12.1%               Ephrem      157  11.74%
+  Athanasius   80   6.2%               Athanasius  120   8.97%  ← γ.4.9.C +40
+                                                  ────
+                                                  1337 entries
+```
+
+Per ω.41 §1: Cyril-led plurality preserved at 3.34× next-single-father
+(668 vs Jubilees 200). The DOWNWARD-CROSS of the 50% threshold is the
+natural consequence of two consecutive Athanasius detail-waves (γ.4.9.B
++ γ.4.9.C = 80 new Athanasius entries) and is FLAGGED here per ω.41 §1's
+trajectory-visibility requirement. Cyril's plurality is structurally-
+intact; only the absolute-majority is released. Patristic-anchor-trio
+majority (Cyril + Ephrem + Athanasius) 69.8% → 70.68%.
+
+**Items shipped:**
+
+- **`scripts/_ship_gamma49c.py`** — new ship script (~700 lines, 40 non-
+  Pauline detail entries across 13 books). Adds ATTR_SERAP (Letters
+  to Serapion) as FIFTH Athanasian work-source.
+- **`content/sources/ethiopian_commentaries.json`** — entries 1297 →
+  1337; Athanasius 80 → 120; `_meta.source` ledger appended with
+  γ.4.9.C non-Pauline-detail-wave manifest.
+- **`content/notes/<13 non-Pauline books>.py`** — promoted via at-scale
+  + batch_promote pipeline (idempotent). 38 candidate-files-affected /
+  40 candidates-promoted / 8170 already-existed-skipped / 0 errors.
+- **`tests/test_ethiopian_gamma4.py`** — new
+  `TestGamma49CAthanasiusNonPaulineDetailWave` (17 pins) +
+  `TestGamma4MetaPhasesCoverage::test_meta_documents_gamma_4_9_c` (1
+  pin) = +18 net.
+
+**Recommended next steps (per LIGHT-audit §5 closing + memory
+`feedback_extensive_answers`):**
+
+- **γ.4.9.D arc-close** — the §8.1-precedent arc-close ship would
+  close the Athanasius arc with ~6-10 capstone pins + an arc-close test
+  class (per γ.4.6.D + γ.4.7.D precedent). The Athanasius arc is now
+  structurally-complete (all 40 seed anchors detailed) — arc-close is
+  the natural §3.4 close-before-open continuation. Estimated scope ~6-10
+  entries (capstone weight, NOT detail-wave-volume).
+- **save** — γ.4.9.B + γ.4.9.C are both uncommitted since the last save
+  (commit 5c2d2bc). User-explicit only per `feedback_continue_not_save`.
+- **AUDIT cadence check** — γ.4.9.C is the 12th phase since EOD baseline
+  (ω.41 + γ.4.6.B/C/D + γ.4.7/B/C/D + γ.4.9 + γ.4.9-NPNF-fixup + γ.4.9.B
+  + γ.4.9.B-dedup-fix + γ.4.9.C). Cadence already proactively addressed
+  via earlier same-session LIGHT audit; γ.4.9.C alone does NOT re-trigger
+  cadence (only +18 tests added since LIGHT audit's 3901 baseline). No
+  immediate re-audit needed.
+
+---
+
 **Updated 2026-05-13 / γ.4.9.B Athanasius Pauline detail wave I ships
 — 40 verse-keyed entries across all 8 Pauline books deepening the 16
 γ.4.9 seed Pauline anchors to 56-entry detail-wave coverage. FIRST

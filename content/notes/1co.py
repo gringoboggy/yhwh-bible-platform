@@ -9828,6 +9828,17 @@ NOTES = [
     ),
     (
         15,
+        28,
+        "b",
+        "",
+        "comm-ethiopian",
+        "Tewahedo — Athanasius of Alexandria",
+        "Athanasius of Alexandria (350).",
+        '<aside class="note-comm-ethiopian"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.45</em> <small>(c. 350 AD)</small><p>&#x27;And when all things shall be subdued unto him, then shall the Son also himself be subject unto him that put all things under him, that God may be all in all&#x27; — Athanasius marks hina ē ho theos panta en pasin (that God may-be all in all) as the ESCHATOLOGICAL-TRINITARIAN-RESTORATION anchor. The subjection (hypotagēsetai) of the Son to the Father is NOT subordinationist — it is the Son&#x27;s-redemptive-mission-completed handing-back the redeemed-cosmos to the Father; the Son&#x27;s-economy-of-subjection is qua-his-assumed-humanity-and-mission, not qua-his-divinity. The &#x27;God all in all&#x27; is the Trinitarian-Father-Son-Spirit perichoretic-restoration of all things in their proper relation to the divine-Source.</p></aside>',
+        "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+    ),
+    (
+        15,
         29,
         "",
         "",

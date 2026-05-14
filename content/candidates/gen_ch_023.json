@@ -1,8 +1,8 @@
 {
   "book": "gen",
   "chapter": 23,
-  "generated_at": "2026-05-14T02:41:48+00:00",
-  "n_candidates": 26,
+  "generated_at": "2026-05-14T04:33:07+00:00",
+  "n_candidates": 29,
   "candidates": [
     {
       "id": "gen-23-24-001",
@@ -381,6 +381,51 @@
     },
     {
       "id": "gen-23-2-026",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIII.2. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Sarah died... and Abraham came to mourn for Sarah, and to weep for her&#x27;. Ephrem reads Abraham&#x27;s mourning as the legitimate-grief warrant: faith in the resurrection does NOT abolish the legitimate human grief at death. Tewahedo funeral theology preserves Ephrem&#x27;s balance: mourning is permitted (commanded, even) for forty days; Christian hope reshapes mourning but does not eliminate it. Abraham weeping over Sarah&#x27;s body authorises every Tewahedo funeral weeping.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-23-2-027",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIII.2. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Sarah died... and Abraham came to mourn for Sarah, and to weep for her&#x27;. Ephrem reads Abraham&#x27;s mourning as the legitimate-grief warrant: faith in the resurrection does NOT abolish the legitimate human grief at death. Tewahedo funeral theology preserves Ephrem&#x27;s balance: mourning is permitted (commanded, even) for forty days; Christian hope reshapes mourning but does not eliminate it. Abraham weeping over Sarah&#x27;s body authorises every Tewahedo funeral weeping.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-23-2-028",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Genesis",
+      "source_attribution": "Ephrem the Syrian, Commentary on Genesis, Section XXIII.2. NPNF Series 2, vol. 13, ed. J. Gwynn / Schaff (1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Genesis</em> <small>(c. 360 AD)</small><p>&#x27;And Sarah died... and Abraham came to mourn for Sarah, and to weep for her&#x27;. Ephrem reads Abraham&#x27;s mourning as the legitimate-grief warrant: faith in the resurrection does NOT abolish the legitimate human grief at death. Tewahedo funeral theology preserves Ephrem&#x27;s balance: mourning is permitted (commanded, even) for forty days; Christian hope reshapes mourning but does not eliminate it. Abraham weeping over Sarah&#x27;s body authorises every Tewahedo funeral weeping.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Genesis. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "gen-23-2-029",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",
