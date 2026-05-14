@@ -6,6 +6,153 @@
 
 ---
 
+## 2026-05-14 — session — AUDIT_2026-05-14-LIGHT-2 (solo-Claude late-session; second lighter audit of the day per multi-LIGHT-in-one-session pattern from AUDIT_2026-05-13-EOD precedent; test-drift threshold ≥150 reached at Π.1.B with +171 since LIGHT-1; verdict CLEAN across every checked dimension; W-W1 environ failures from LIGHT-1 RESOLVED; twelve closed-arc / contract invariants intact up from nine at LIGHT-1; 171-test drift matched ship ledger exactly; W-W2 unchanged; A-I1 worsened to +509 drift; A-I2 unchanged; NEW A-I3 surfaced — historical-pin convention introduced at Π.1.B as project's first regression-guarded historical-record-immutability invariant; ships as standalone audit commit)
+
+**Phase shipped:** AUDIT_2026-05-14-LIGHT-2 — second lighter
+solo-Claude audit of 2026-05-14. Mirrors AUDIT_2026-05-13-EOD
+precedent of multiple lighter audits clustering in a single high-
+velocity session. Documented at
+`dev/AUDIT_2026-05-14-LIGHT-2.md`.
+
+**Triggered by:** user "continue" after Π.1.B committed as
+`f139494`. Per memory `feedback_audit_cadence` (test-drift
+threshold ≥150 reached at Π.1.B; +171 since LIGHT-1) +
+`feedback_continue_not_save` (continue advances next-most-logical
+path) + project rules §3 sequencing (safest+foundational first;
+audit before opening new arcs).
+
+**Cadence reach since AUDIT_2026-05-14-LIGHT:**
+
+- **Phase-count (≥10):** 3 phases shipped (δ.1.0 + Π.1 + Π.1.B);
+  3 of 10. **NOT reached.**
+- **Test-drift (≥150):** +171 net (4147 → 4318 collected; 4317
+  passed + 1 skipped at this audit's sweep). **REACHED at Π.1.B.**
+
+**Verdict: CLEAN across every checked dimension.** Three
+improvements vs LIGHT-1:
+
+1. **W-W1 RESOLVED.** The 11 Windows-subprocess-handle environ
+   failures from LIGHT-1 are absent at LIGHT-2. Full 7-minute
+   sweep with fail-fast `-x` landed `4317 passed + 1 skipped + 0
+   failed`. The sandbox environment self-resolved between LIGHT-1
+   (310s; 11 environ-fail) and LIGHT-2 (422s; 0 environ-fail) —
+   no code change addressed this; the platform state changed.
+
+2. **Twelve closed-arc / contract invariants verified intact**
+   (up from nine at LIGHT-1; three new from δ.1.0 + Π.1 + Π.1.B):
+   - γ.4.8.E Meqabyan 67/67 chapter coverage
+   - γ.4.8.F Meqabyan ≥212 floor
+   - Π.0.1 amharic-in-POPUP_LANGUAGES
+   - Π.0.4 EMBED_FONT_PATHS = [] default
+   - ω.41 §1 Cyril plurality (249 selectors pass)
+   - τ.6.x.0a contract: geez-tewahedo gen.py-only
+   - τ.6.x.0a contract: amharic-tewahedo gen.py-only
+   - τ.6.x.0b contract: no_ingest_at_this_phase True
+   - v1.0 reproducibility: patch_opf_fonts no-op when knobs empty
+   - **NEW: δ.1.0 divergence_entries=[]** (pinned in 3 test files)
+   - **NEW: Π.1 jubilees + one_enoch structural_map sections**
+     (pinned in 2 test files)
+   - **NEW: Π.1 extraction_status_at_declaration historical pin**
+     — `laodiceans: source-unavailable` preserved verbatim across
+     Π.1.B's flip; project's FIRST regression-guarded historical-
+     record-immutability invariant.
+
+3. **171-test drift correctly accounted** for in the ship ledger:
+   - δ.1.0 Phase-4 Meqabyan seed              +44
+   - Π.1   Tewahedo-distinctive foundation    +58
+   - Π.1.B Laodiceans alternate-source        +69
+   - Total                                  +171 (matches)
+
+**WARN findings:**
+
+- **W-W2 (lint): `scripts/build_edition.py` 44 pre-existing ruff
+  `check` errors** — UNCHANGED from LIGHT-1. Pre-commit hook runs
+  `ruff format` only, not `ruff check`. Flagged for future ω.4x
+  hygiene-arc.
+
+**INFO findings:**
+
+- **A-I1: PLAN_2026-05-09 §2 status snapshot worsened.** PLAN §2
+  reads "3808 tests"; today's count is 4317 (+509 drift; was +339
+  at LIGHT-1; +170 since LIGHT-1). 9 ships beyond PLAN refresh.
+- **A-I2: PLAN §6 still lacks parallel-Bible track.** Unchanged
+  from LIGHT-1. Roadmap status now 7-of-8-and-counting phases on
+  the parallel-Bible track (Π.0 + τ.6.x.0a + τ.6.x.0b + φ.1 +
+  δ.1.0 + Π.1 + Π.1.B).
+- **A-I3 (NEW): historical-pin convention introduced at Π.1.B.**
+  The `extraction_status_at_declaration` + `extraction_status_
+  current` + `extraction_status_phase_history` triad is the
+  project's first regression-guarded historical-record-
+  immutability invariant. Π.1's
+  `test_laodiceans_status_is_source_unavailable` continues to
+  pass because the at-declaration field was preserved verbatim;
+  Π.1.B's `test_extraction_status_at_declaration_unchanged`
+  asserts the same invariant from the opposite direction. Pattern
+  name candidate: "Tri-field history pattern." ONE INSTANCE so
+  far; codify in CLAUDE_PROJECT_RULES.md when a second/third
+  instance ships, per §8.1 arc-close convention precedent (which
+  was codified at the third instance).
+
+**Prior AUDIT findings:**
+
+- LIGHT-1 W-W1: **RESOLVED** at LIGHT-2 (sandbox self-resolved).
+- LIGHT-1 W-W2: STILL OPEN. UNCHANGED.
+- LIGHT-1 A-I1: WORSENED (+509 drift vs +339).
+- LIGHT-1 A-I2: UNCHANGED.
+- DEEP D-C1: RESOLVED (γ.4.8 + B/C/D/E/F). UNCHANGED.
+- DEEP D-W2: RESOLVED (ω.42 alias fix). UNCHANGED.
+- DEEP D-W3: PARTIAL (mq1+mq2+mq3 populated; 4ba+2en+1cl still
+  empty as future-arc targets). UNCHANGED.
+- LIGHT-1 (older) L-W1/L-W2/L-W3: STILL OPEN hygiene-class.
+  UNCHANGED.
+- EOD-W4: UNCHANGED (no new `_ship_*.py` at δ.1.0/Π.1/Π.1.B —
+  declarative ships only; build_meqabyan_revision +
+  promote_divergence_to_apparatus introduced at δ.1.0 are long-
+  lived ETL tools NOT one-shot ships per §7.4).
+
+**Source corpus state:** **1579 entries unchanged** across
+LIGHT-1 → LIGHT-2. δ.1.0/Π.1/Π.1.B are all declarative; no
+commentary-corpus changes. Six-voice composition + Cyril plurality
+at 3.15× next-single-father preserved exactly.
+
+**Linter:** 11/11 pass · 0 warn · 0 fail with **251 non-legacy
+phase mentions** tracked (up from 248 at LIGHT-1; +3 reflecting
+δ.1.0 + Π.1 + Π.1.B phase tags now in CHANGELOG).
+
+**Ruff format:** clean across all newly-introduced files (test_
+parallel_bible_delta1.py + test_parallel_bible_pi1.py + test_
+parallel_bible_pi1b.py + letter-to-laodiceans/_source.yaml +
+parallel-bible-eotc edits). One pre-commit auto-fixup on
+test_parallel_bible_pi1b.py during the Π.1.B ship.
+
+**Recommendations:**
+
+- **Immediate:** save this audit doc as a standalone commit
+  (mirrors AUDIT_2026-05-13-EOD precedent). No fixes required;
+  W-W2 is pre-existing; A-I1/A-I2/A-I3 are info-class.
+- **Next session boundary:** δ.1.x.A (Claude-side multi-session
+  start, operator-mediated mq1 1-9 Phase-4 batch) OR τ.6.x.0c
+  (operator-side Tesseract install) OR operator review of
+  laodiceans alternate-source (declared at Π.1.B).
+- **Future ω.4x hygiene bundle:** W-W2 build_edition.py ruff
+  cleanup + A-I1 PLAN §2 refresh + A-I2 PLAN §6 parallel-Bible
+  track insertion + A-I3 historical-pin convention codification
+  (if a second instance ships before the bundle).
+
+**Cadence after LIGHT-2:** Π.1.B was post-LIGHT-1 phase #3 (test
+threshold reached); LIGHT-2 resets the test-drift counter;
+phase-count counter stays at LIGHT-1+3 (3 of 10). Next phase
+opens a fresh cadence cycle relative to LIGHT-2.
+
+**Session-close recommendation:** session may now close at this
+audit. No strong Claude-side parallel-unblocked next ship is
+identified — δ.1.x.A is operator-mediated; τ.6.x.0c is operator-
+side; obvious Claude-side declarative ships from the Π.x cluster
+are now all closed. The next ship — when it comes — will be
+operator-mediated δ.1.x.A or operator-side τ.6.x.0c.
+
+---
+
 ## 2026-05-14 — session — Π.1.B LETTER TO LAODICEANS ALTERNATE-SOURCE DECLARATION (fulfills the Π.1 `alternate_source_required: true` flag on the laodiceans slot; declares Lightfoot 1875 primary + M.R. James 1924 + Codex Fuldensis 547 CE secondary PD-source anchors in NEW content/translations/sources/letter-to-laodiceans/_source.yaml; structural_map for 20-verse single-chapter Letter to the Laodiceans per Lightfoot's canonical division; Tewahedo broader-canon-variant status documented via Metzger 1987 §V citation; parallel-bible-eotc laodiceans block extended with bidirectional alternate_source_id / alternate_source_file cross-references; tewahedo_distinctive_inventory gains extraction_status_current + extraction_status_phase_history blocks while preserving Π.1's extraction_status_at_declaration as a historical pin; 69 pin tests across 11 groups; NO data ingest; v1.0 byte-identical reproducibility preserved)
 
 **Phase shipped:** Π.1.B — Letter to Laodiceans alternate-source

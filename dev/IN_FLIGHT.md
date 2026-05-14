@@ -4,6 +4,30 @@
 
 ## Prior task
 
+**AUDIT_2026-05-14-LIGHT-2 (solo-Claude late-session) — second
+lighter audit of 2026-05-14 per memory `feedback_audit_cadence`
+(test-drift threshold ≥150 reached at Π.1.B; +171 since LIGHT-1).
+Triggered by user "continue" after Π.1.B committed as `f139494`.
+**Verdict: CLEAN.** W-W1 RESOLVED (11 LIGHT-1 environ failures
+absent at LIGHT-2; full 7-min sweep `4317 passed + 1 skipped + 0
+failed`); twelve closed-arc / contract invariants verified intact
+(up from nine at LIGHT-1; three new from δ.1.0 + Π.1 + Π.1.B);
+171-test drift matched ship ledger exactly (δ.1.0 +44 + Π.1 +58 +
+Π.1.B +69). W-W2 (build_edition.py 44 ruff errors) unchanged;
+A-I1 worsened (PLAN §2 baseline 3808 vs actual 4317; +509 drift);
+A-I2 unchanged. NEW A-I3 surfaced — historical-pin convention
+introduced at Π.1.B (extraction_status_at_declaration +
+extraction_status_current + extraction_status_phase_history
+triad; project's first regression-guarded historical-record-
+immutability invariant; ONE INSTANCE; codify if second/third
+instance ships per §8.1 precedent). Source corpus 1579 unchanged;
+Cyril plurality 3.15× preserved; linter 11/11 with 251 mentions
+(up from 248). Ruff clean. Ships as standalone audit commit
+(mirrors AUDIT_2026-05-13-EOD precedent).** shipped 2026-05-14.
+Triggered by user "continue" after Π.1.B committed as `f139494`.
+
+## Prior task (previous)
+
 **Π.1.B Letter to Laodiceans alternate-source declaration —
 DECLARATIVE-ONLY ship; fulfills the Π.1 `alternate_source_required:
 true` flag on the laodiceans slot. Triggered by user "continue"

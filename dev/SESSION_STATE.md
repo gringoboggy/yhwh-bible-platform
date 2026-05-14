@@ -1,5 +1,59 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / AUDIT_2026-05-14-LIGHT-2 (solo-Claude
+late-session) ship — second lighter audit of 2026-05-14; mirrors
+AUDIT_2026-05-13-EOD precedent of multiple lighter audits
+clustering in a single high-velocity session. Triggered by user
+"continue" after Π.1.B committed as `f139494`. Per memory
+`feedback_audit_cadence` (test-drift threshold ≥150 reached at
+Π.1.B; +171 since LIGHT-1) + `feedback_continue_not_save`
+(continue advances next-most-logical-path) + project rules §3
+sequencing (safest+foundational first; audit before opening new
+arcs). **AUDIT_2026-05-14-LIGHT-2 verdict: CLEAN across every
+checked dimension.** Three improvements vs LIGHT-1: (1) **W-W1
+RESOLVED** — the 11 Windows-subprocess-handle environ failures
+from LIGHT-1 are absent at LIGHT-2 (full 7-minute sweep landed
+`4317 passed + 1 skipped + 0 failed` with `-x` fail-fast; sandbox
+self-resolved). (2) **TWELVE closed-arc / contract invariants
+verified intact** (up from nine at LIGHT-1; three new from δ.1.0
+divergence_entries=[] + Π.1 jubilees/one_enoch sections + Π.1
+extraction_status_at_declaration historical pin). (3) **171-test
+drift correctly accounted** (δ.1.0 +44 + Π.1 +58 + Π.1.B +69 =
+171 = matched ship ledger delta exactly). **One WARN cleared
+(W-W1), one WARN still flagged (W-W2 build_edition.py 44 ruff
+errors, unchanged from LIGHT-1), two INFO still flagged (A-I1
+PLAN §2 staleness worsened 4147→4317 = +509 vs PLAN baseline;
+A-I2 PLAN lacks parallel-Bible track), one NEW INFO surfaced
+(A-I3 historical-pin convention introduced at Π.1.B —
+extraction_status_at_declaration + extraction_status_current +
+extraction_status_phase_history triad is the project's first
+regression-guarded historical-record-immutability invariant; ONE
+INSTANCE so far, codify in CLAUDE_PROJECT_RULES.md if a second/
+third instance ships per §8.1 arc-close convention precedent).
+Source corpus 1579 entries UNCHANGED LIGHT-1→LIGHT-2 (δ.1.0/Π.1/
+Π.1.B all declarative; no commentary-corpus changes). Cyril
+plurality preserved at 3.15× next-single-father; six-voice
+composition matches design exactly. Linter 11/11 clean (251
+non-legacy phase mentions tracked vs LIGHT-1's 248; +3 reflects
+δ.1.0+Π.1+Π.1.B phase tags now in CHANGELOG). Ruff format clean
+across all newly-introduced files (test_parallel_bible_delta1.py
++ test_parallel_bible_pi1.py + test_parallel_bible_pi1b.py + new
+letter-to-laodiceans/_source.yaml + parallel-bible-eotc edits).
+IN_FLIGHT idle. Cadence after LIGHT-2: Π.1.B was post-LIGHT-1
+phase #3 (test threshold reached); LIGHT-2 resets the test-drift
+counter; phase-count counter stays at LIGHT-1+3 (3 of 10).
+**Recommendation:** session may now close at this audit (no
+strong Claude-side parallel-unblocked next ship identified —
+δ.1.x.A is operator-mediated; τ.6.x.0c is operator-side; obvious
+Claude-side declarative ships from the Π.x cluster are now all
+closed). Audit dev/AUDIT_2026-05-14-LIGHT-2.md is the only
+uncommitted file; ships as standalone commit (mirrors
+AUDIT_2026-05-13-EOD precedent).**
+
+---
+
+## Prior LIGHT-2 audit
+
 **Updated 2026-05-14 / Π.1.B Letter to Laodiceans alternate-source
 declaration ship — DECLARATIVE-ONLY; fulfills the Π.1
 `alternate_source_required:true` flag on the laodiceans slot by
