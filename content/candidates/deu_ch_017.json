@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 17,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 51,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 54,
   "candidates": [
     {
       "id": "deu-17-19-001",
@@ -756,6 +756,51 @@
     },
     {
       "id": "deu-17-18-051",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 17:14-20. NPNF Series 2, vol. 13. PD. Tewahedo dynastic witness: Kǝbrä Nägäśt.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the king&#x27;s Torah — &#x27;when he sitteth upon the throne of his kingdom, he shall write him a copy of this law in a book&#x27; (Deu 17:18-19) — Ephrem reads the king-as-Torah-scribe command as the canonical Old-Testament anchor of the doctrine that the king is FIRST a guardian of the law, only secondarily a ruler of the people. The king does not stand above the Torah; he copies it with his own hand and reads it all the days of his life. Tewahedo Solomonic-dynasty self-understanding, codified in the Kǝbrä Nägäśt (Glory of the Kings), cites Deu 17:18 as the canonical Old-Testament warrant for the Ethiopian-emperor-as-Torah-guardian — the emperor at coronation receives both crown and Tabot, and is sworn to defend both.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-17-18-052",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 17:14-20. NPNF Series 2, vol. 13. PD. Tewahedo dynastic witness: Kǝbrä Nägäśt.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the king&#x27;s Torah — &#x27;when he sitteth upon the throne of his kingdom, he shall write him a copy of this law in a book&#x27; (Deu 17:18-19) — Ephrem reads the king-as-Torah-scribe command as the canonical Old-Testament anchor of the doctrine that the king is FIRST a guardian of the law, only secondarily a ruler of the people. The king does not stand above the Torah; he copies it with his own hand and reads it all the days of his life. Tewahedo Solomonic-dynasty self-understanding, codified in the Kǝbrä Nägäśt (Glory of the Kings), cites Deu 17:18 as the canonical Old-Testament warrant for the Ethiopian-emperor-as-Torah-guardian — the emperor at coronation receives both crown and Tabot, and is sworn to defend both.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-17-18-053",
+      "verse": 18,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 17:14-20. NPNF Series 2, vol. 13. PD. Tewahedo dynastic witness: Kǝbrä Nägäśt.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On the king&#x27;s Torah — &#x27;when he sitteth upon the throne of his kingdom, he shall write him a copy of this law in a book&#x27; (Deu 17:18-19) — Ephrem reads the king-as-Torah-scribe command as the canonical Old-Testament anchor of the doctrine that the king is FIRST a guardian of the law, only secondarily a ruler of the people. The king does not stand above the Torah; he copies it with his own hand and reads it all the days of his life. Tewahedo Solomonic-dynasty self-understanding, codified in the Kǝbrä Nägäśt (Glory of the Kings), cites Deu 17:18 as the canonical Old-Testament warrant for the Ethiopian-emperor-as-Torah-guardian — the emperor at coronation receives both crown and Tabot, and is sworn to defend both.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-17-18-054",
       "verse": 18,
       "kind": "comm-ethiopian",
       "anchor": "",

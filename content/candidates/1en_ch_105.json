@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 105,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 11,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 14,
   "candidates": [
     {
       "id": "1en-105-1-001",
@@ -156,6 +156,51 @@
     },
     {
       "id": "1en-105-1-011",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 105:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;In those days the Lord bade them to summon and testify to the children of earth concerning their wisdom: Show it unto them; for ye are their guides, and a recompense over the whole earth. For I and My son will be united with them for ever in the paths of uprightness in their lives&#x27; — &#x27;I and My son&#x27; (&#x27;Adam wäldǝya in Ge&#x27;ez) — one of the rare and theologically loaded pre-Christian &#x27;son&#x27; references in Second Temple literature. Tewahedo Christology reads this verse Christologically as anticipating the Father-Son union with the redeemed (Jn 14:23, 17:21-23) — pre-canonical witness to the Trinitarian inclusion-pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-105-1-012",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 105:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;In those days the Lord bade them to summon and testify to the children of earth concerning their wisdom: Show it unto them; for ye are their guides, and a recompense over the whole earth. For I and My son will be united with them for ever in the paths of uprightness in their lives&#x27; — &#x27;I and My son&#x27; (&#x27;Adam wäldǝya in Ge&#x27;ez) — one of the rare and theologically loaded pre-Christian &#x27;son&#x27; references in Second Temple literature. Tewahedo Christology reads this verse Christologically as anticipating the Father-Son union with the redeemed (Jn 14:23, 17:21-23) — pre-canonical witness to the Trinitarian inclusion-pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-105-1-013",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 105:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;In those days the Lord bade them to summon and testify to the children of earth concerning their wisdom: Show it unto them; for ye are their guides, and a recompense over the whole earth. For I and My son will be united with them for ever in the paths of uprightness in their lives&#x27; — &#x27;I and My son&#x27; (&#x27;Adam wäldǝya in Ge&#x27;ez) — one of the rare and theologically loaded pre-Christian &#x27;son&#x27; references in Second Temple literature. Tewahedo Christology reads this verse Christologically as anticipating the Father-Son union with the redeemed (Jn 14:23, 17:21-23) — pre-canonical witness to the Trinitarian inclusion-pattern.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-105-1-014",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

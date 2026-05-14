@@ -1,8 +1,8 @@
 {
   "book": "1en",
   "chapter": 101,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 11,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 14,
   "candidates": [
     {
       "id": "1en-101-1-001",
@@ -156,6 +156,51 @@
     },
     {
       "id": "1en-101-1-011",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 101:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;Observe the heaven, ye children of heaven, and every work of the Most High, and fear ye Him and work no evil in His presence. If He closes the windows of heaven, and withholds the rain and the dew from descending on the earth on your account, what will ye do then?&#x27; — cosmological theodicy: God&#x27;s cosmic order is contingent on human moral order. Tewahedo agriculture-and-fasting theology (the seasonal fasts as covenant-rains-restoration) draws on this verse for its scriptural anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-101-1-012",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 101:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;Observe the heaven, ye children of heaven, and every work of the Most High, and fear ye Him and work no evil in His presence. If He closes the windows of heaven, and withholds the rain and the dew from descending on the earth on your account, what will ye do then?&#x27; — cosmological theodicy: God&#x27;s cosmic order is contingent on human moral order. Tewahedo agriculture-and-fasting theology (the seasonal fasts as covenant-rains-restoration) draws on this verse for its scriptural anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-101-1-013",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "1 Enoch (Ethiopian tradition) / Epistle of Enoch (1 Enoch 91-108)",
+      "source_attribution": "1 Enoch 101:1, trans. R.H. Charles (1912). PD.",
+      "draft_title": "Tewahedo — 1 Enoch (Ethiopian tradition)",
+      "draft_label": "1 Enoch (Ethiopian tradition) (-100).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>1 Enoch (Ethiopian tradition)</strong> <em>Epistle of Enoch (1 Enoch 91-108)</em> <small>(c. 100 BC)</small><p>&#x27;Observe the heaven, ye children of heaven, and every work of the Most High, and fear ye Him and work no evil in His presence. If He closes the windows of heaven, and withholds the rain and the dew from descending on the earth on your account, what will ye do then?&#x27; — cosmological theodicy: God&#x27;s cosmic order is contingent on human moral order. Tewahedo agriculture-and-fasting theology (the seasonal fasts as covenant-rains-restoration) draws on this verse for its scriptural anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via 1 Enoch (Ethiopian tradition), Epistle of Enoch (1 Enoch 91-108). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "1en-101-1-014",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

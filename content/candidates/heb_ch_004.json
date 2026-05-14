@@ -1,8 +1,8 @@
 {
   "book": "heb",
   "chapter": 4,
-  "generated_at": "2026-05-14T06:19:07+00:00",
-  "n_candidates": 46,
+  "generated_at": "2026-05-14T14:53:01+00:00",
+  "n_candidates": 49,
   "candidates": [
     {
       "id": "heb-4-2-001",
@@ -681,6 +681,51 @@
     },
     {
       "id": "heb-4-15-046",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Adelphium",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Adelphium (Letter to Adelphius, Bishop and Confessor: Against the Arians), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Adelphium</em> <small>(c. 350 AD)</small><p>&#x27;For we have not an high priest which cannot be touched with the feeling of our infirmities; but was in all points tempted like as we are, yet without sin&#x27; — Athanasius marks pepeirasmenon kata panta kath&#x27; homoiotēta chōris hamartias (tempted in all-things according-to-likeness without sin) as the Hebrews-formal-statement of Christ&#x27;s-sinlessness-with-genuine-human-experience. The kata panta (in all-things) excludes Apollinarian-reduction (no human-aspect-missing); the kath&#x27; homoiotēta (according to likeness) excludes Docetic-non-genuineness; the chōris hamartias (without sin) excludes Adoptionist-or-Pelagian denial of Christ&#x27;s-moral-perfection. Tewahedo Holy-Friday meditation cites Heb 4:15 + Rom 8:3 (homoiōmati-sarkos) as the sinless-but-tempted Pauline-Hebrews-pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Adelphium. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-4-15-047",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Adelphium",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Adelphium (Letter to Adelphius, Bishop and Confessor: Against the Arians), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Adelphium</em> <small>(c. 350 AD)</small><p>&#x27;For we have not an high priest which cannot be touched with the feeling of our infirmities; but was in all points tempted like as we are, yet without sin&#x27; — Athanasius marks pepeirasmenon kata panta kath&#x27; homoiotēta chōris hamartias (tempted in all-things according-to-likeness without sin) as the Hebrews-formal-statement of Christ&#x27;s-sinlessness-with-genuine-human-experience. The kata panta (in all-things) excludes Apollinarian-reduction (no human-aspect-missing); the kath&#x27; homoiotēta (according to likeness) excludes Docetic-non-genuineness; the chōris hamartias (without sin) excludes Adoptionist-or-Pelagian denial of Christ&#x27;s-moral-perfection. Tewahedo Holy-Friday meditation cites Heb 4:15 + Rom 8:3 (homoiōmati-sarkos) as the sinless-but-tempted Pauline-Hebrews-pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Adelphium. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-4-15-048",
+      "verse": 15,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Adelphium",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Adelphium (Letter to Adelphius, Bishop and Confessor: Against the Arians), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Adelphium</em> <small>(c. 350 AD)</small><p>&#x27;For we have not an high priest which cannot be touched with the feeling of our infirmities; but was in all points tempted like as we are, yet without sin&#x27; — Athanasius marks pepeirasmenon kata panta kath&#x27; homoiotēta chōris hamartias (tempted in all-things according-to-likeness without sin) as the Hebrews-formal-statement of Christ&#x27;s-sinlessness-with-genuine-human-experience. The kata panta (in all-things) excludes Apollinarian-reduction (no human-aspect-missing); the kath&#x27; homoiotēta (according to likeness) excludes Docetic-non-genuineness; the chōris hamartias (without sin) excludes Adoptionist-or-Pelagian denial of Christ&#x27;s-moral-perfection. Tewahedo Holy-Friday meditation cites Heb 4:15 + Rom 8:3 (homoiōmati-sarkos) as the sinless-but-tempted Pauline-Hebrews-pair.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Adelphium. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "heb-4-15-049",
       "verse": 15,
       "kind": "comm-ethiopian",
       "anchor": "",

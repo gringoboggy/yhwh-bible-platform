@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 25,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 34,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 37,
   "candidates": [
     {
       "id": "deu-25-1-001",
@@ -501,6 +501,51 @@
     },
     {
       "id": "deu-25-4-034",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 25:1-19. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 9:9, 1 Tim 5:18.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;Thou shalt not muzzle the ox when he treadeth out the corn&#x27; (Deu 25:4), Ephrem reads the agricultural-mercy statute as the canonical Old-Testament anchor of Paul&#x27;s argument for ministerial support: cited at 1 Cor 9:9 and 1 Tim 5:18 with the gloss &#x27;Doth God take care for oxen? or saith he it altogether for our sakes? For our sakes, no doubt, this is written.&#x27; The verse becomes the apostolic warrant for the priest&#x27;s right to be sustained by the eucharistic offerings of the people. Tewahedo canonical-economy cites Deu 25:4 + 1 Cor 9:9 as the canonical doubled-witness for the lay-support of the priest and the monastery — the worker is worthy of his hire.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-25-4-035",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 25:1-19. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 9:9, 1 Tim 5:18.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;Thou shalt not muzzle the ox when he treadeth out the corn&#x27; (Deu 25:4), Ephrem reads the agricultural-mercy statute as the canonical Old-Testament anchor of Paul&#x27;s argument for ministerial support: cited at 1 Cor 9:9 and 1 Tim 5:18 with the gloss &#x27;Doth God take care for oxen? or saith he it altogether for our sakes? For our sakes, no doubt, this is written.&#x27; The verse becomes the apostolic warrant for the priest&#x27;s right to be sustained by the eucharistic offerings of the people. Tewahedo canonical-economy cites Deu 25:4 + 1 Cor 9:9 as the canonical doubled-witness for the lay-support of the priest and the monastery — the worker is worthy of his hire.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-25-4-036",
+      "verse": 4,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 25:1-19. NPNF Series 2, vol. 13. PD. Cf. 1 Cor 9:9, 1 Tim 5:18.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;Thou shalt not muzzle the ox when he treadeth out the corn&#x27; (Deu 25:4), Ephrem reads the agricultural-mercy statute as the canonical Old-Testament anchor of Paul&#x27;s argument for ministerial support: cited at 1 Cor 9:9 and 1 Tim 5:18 with the gloss &#x27;Doth God take care for oxen? or saith he it altogether for our sakes? For our sakes, no doubt, this is written.&#x27; The verse becomes the apostolic warrant for the priest&#x27;s right to be sustained by the eucharistic offerings of the people. Tewahedo canonical-economy cites Deu 25:4 + 1 Cor 9:9 as the canonical doubled-witness for the lay-support of the priest and the monastery — the worker is worthy of his hire.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-25-4-037",
       "verse": 4,
       "kind": "comm-ethiopian",
       "anchor": "",

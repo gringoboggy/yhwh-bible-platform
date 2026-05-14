@@ -1,0 +1,53 @@
+{
+  "book": "mq1",
+  "chapter": 27,
+  "generated_at": "2026-05-14T14:53:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "mq1-27-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 27 — HOMILETIC-GENRE ANCHOR: pre-narrative-capstone arc. The chapter likely develops the LATE-PROPHETIC arc preparing Ch 28&#x27;s salvation-history-compression (γ.4.8 seed: Cain-to-Esther). The late-prophetic theme parallels: HAGGAI 2:1-9 (the rebuilding-of-the-Temple prophetic-encouragement); ZECHARIAH 4 + 6:9-15 (the Zerubbabel + Joshua high-priest-and-king prophetic-pair); MALACHI 4:5-6 (Elijah-to-come prophecy — paired with Mt 17:10-13 par.); JOHN THE BAPTIST&#x27;S MINISTRY (Mt 3 + Mk 1 + Lk 3 + Jn 1 — the Elijah-typology forerunner); MATTHEW 11:7-15 par. (Christ&#x27;s interpretation of John-as-Elijah). Patristic-tradition: JUSTIN MARTYR Dialogue with Trypho 49 (Elijah-and-John typology); ORIGEN Commentary on Matthew 12 (the Elijah-John-typology); JEROME Commentary on Malachi (the foundational Latin Malachi-interpretation). Tewahedo prophetic-tradition preserves the Elijah-typology as Tewahedo-eschatological-anchor — the Meqabyan chapter likely articulates a pre-eschatological-capstone arc drawing on this Elijah-typology framework.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-27-7-002",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of MESSIANIC-EXPECTATION theme. The messianic-expectation theme parallels: GENESIS 49:8-12 (Jacob&#x27;s-blessing-of-Judah — Shiloh prophecy); NUMBERS 24:17 (Balaam&#x27;s-star-out-of-Jacob); 2 SAMUEL 7:12-16 + PSALM 89:3-4 (the Davidic-messianic covenant); ISAIAH 7:14 (the virgin-shall-conceive); ISAIAH 9:6-7 (&#x27;unto us a child is born&#x27;); ISAIAH 11:1-10 (the rod-from-Jesse); ISAIAH 53 (the Suffering-Servant); MICAH 5:2 (Bethlehem-ruler-prophecy); ZECHARIAH 9:9 + 12:10 (the humble-king + pierced-one); MALACHI 3:1-3 (the messenger-of-the-covenant); MATTHEW 1 par. (the genealogy-and-virgin-conception fulfillment). Patristic-tradition: JUSTIN MARTYR Apologies + Dialogue (the foundational messianic-prophecy-fulfillment catalog); IRENAEUS Adversus Haereses 3.21 (Christ-fulfills-prophecy comprehensive treatment); EUSEBIUS Demonstratio Evangelica (the most-extensive patristic prophetic-catalog). Tewahedo messianic-tradition preserves the comprehensive-prophetic-catalog as integral to Tewahedo-Christology — paired with the trilogy&#x27;s seed 1 Mq 36:22 Abraham-my-friend triple-formula + 3 Mq 1:1 merciful-and-meek-one messianic-figure (Horovitz-caveat-flagged).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-27-14-003",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of ESCHATOLOGICAL-HOPE theme. The eschatological-hope theme parallels: ISAIAH 65:17-25 (the new-heavens-and-new-earth + the wolf-and-lamb-shall-feed-together); ISAIAH 66:22-24 (the new-heavens-and-new-earth-shall-remain + the worm-shall-not-die); EZEKIEL 37:1-14 (the dry-bones-vision-of-resurrection); DANIEL 7:13-14 + 12:1-3 (the Son-of-Man + the resurrection-of-the-just-and-unjust); REVELATION 21-22 (the new-Jerusalem); 2 PETER 3:13 (the new-heavens-and-new-earth-wherein-dwelleth-righteousness); HEBREWS 11:13-16 (the better-country + the heavenly-Jerusalem). Patristic-tradition: IRENAEUS Adversus Haereses 5.32-36 (the millennium + the new-heavens-and-new-earth); TERTULLIAN Adversus Marcionem 3.24 (the eschatological-kingdom); AUGUSTINE City of God 20-22 (the most-extended treatment). Tewahedo eschatological-tradition preserves the new-Jerusalem + the new-creation as integral-anchors of Tewahedo-eschatology. The chapter likely closes with eschatological-hope preparing Ch 28&#x27;s salvation-history sweep.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

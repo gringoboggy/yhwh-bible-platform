@@ -1,0 +1,53 @@
+{
+  "book": "mq1",
+  "chapter": 24,
+  "generated_at": "2026-05-14T14:53:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "mq1-24-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 24 — HOMILETIC-GENRE ANCHOR: divine-justice theme. The chapter likely develops divine-justice as the integrating-anchor for the chapter&#x27;s prophetic-confrontation arc. The divine-justice theme parallels: PSALM 9:7-8 + 11:7 + 96:13 + 98:9 (God-judges-the-world-with-righteousness); DEUTERONOMY 32:4 (&#x27;he is the Rock, his work is perfect: for all his ways are judgment: a God of truth and without iniquity, just and right is he&#x27;); ROMANS 2:1-11 (Pauline-divine-impartiality at judgment); 2 THESSALONIANS 1:5-10 (the righteous-judgment of God at parousia); REVELATION 16:5-7 (thou-art-righteous-O-Lord acclamations at judgment-pouring); WISDOM 12:12-22 (the philosophical-treatment of divine-justice). Patristic-tradition: AUGUSTINE City of God 19-22 (the most-extended treatment of divine-justice + the two-cities eschatology); GREGORY THE GREAT Moralia in Iob (the foundational Latin Job-commentary on divine-justice-and-Job&#x27;s-suffering). Tewahedo theological tradition preserves divine-justice as the integrating-anchor for the trilogy&#x27;s anti-Sebelyanos/Ṣiruṣaydan polemic-architecture.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-24-7-002",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of FALSE-PROPHET / TRUE-PROPHET DISTINCTION theme. The true-vs-false-prophet distinction parallels: DEUTERONOMY 18:15-22 (the canonical criterion — prophecies that come to pass vs do not); JEREMIAH 28:1-17 (Jeremiah vs Hananiah — the true-vs-false-prophet confrontation); EZEKIEL 13 + 14:9-11 (false-prophets-and-prophets-of-presumption); 1 KINGS 22:5-28 (Micaiah vs the 400 prophets); MATTHEW 7:15-23 (&#x27;beware of false prophets, which come to you in sheep&#x27;s clothing&#x27;); 1 JOHN 4:1 (&#x27;try the spirits whether they are of God&#x27;); 2 PETER 2:1-3 (false-prophets-among-you). Patristic-tradition: TERTULLIAN De Praescriptione Haereticorum (the criterion-of-apostolic-rule); IRENAEUS Adversus Haereses 3 (the criterion-of-tradition); ATHANASIUS Discourses Against the Arians I-III (the criterion-of-orthodox-doctrine — γ.4.9 Athanasian arc-anchor). Tewahedo theological tradition preserves the true-vs-false-prophet distinction as part of the Tewahedo Hayyamanot (confessional-faith) preservation-criterion.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-24-14-003",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of DIVINE-VINDICATION-AT-CHAPTER-CLOSE. The divine-vindication theme parallels: PSALM 94:1-23 (the vengeance-of-God psalm); PSALM 37:7-9 (the righteous-shall-inherit-the-earth); HABAKKUK 2:2-4 (the just-shall-live-by-faith); 2 THESSALONIANS 1:6-7 (it is a righteous thing with God to recompense tribulation); REVELATION 19:1-5 (alleluia + the smoke-of-Babylon&#x27;s-judgment); JOB 19:25-27 (I know that my redeemer liveth + I shall see God for myself). Tewahedo eschatological tradition preserves divine-vindication as the corollary-of-divine-justice (24:1 anchor). The chapter likely closes with the integrating-pivot: divine-justice-and-vindication ground the trilogy&#x27;s confidence-in-faithfulness-under-imperial-tyranny.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

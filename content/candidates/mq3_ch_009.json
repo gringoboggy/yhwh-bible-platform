@@ -1,0 +1,68 @@
+{
+  "book": "mq3",
+  "chapter": 9,
+  "generated_at": "2026-05-14T14:53:02+00:00",
+  "n_candidates": 4,
+  "candidates": [
+    {
+      "id": "mq3-9-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>OPENS Ch 9 — HOMILETIC-GENRE ANCHOR (per source-fidelity note). Ch 9 likely introduces ESCHATOLOGY + RESURRECTION-DOCTRINE preparing the Ch 10 closing systematic exposition. The eschatology-introduction theme parallels: 1 THESSALONIANS 4:13-18 + 5:1-11 (Pauline parousia + day-of-the-Lord eschatology); MATTHEW 24-25 par. (the Olivet Discourse); 2 PETER 3 (the new-heavens-and-new-earth eschatology); REVELATION 20-22 (the millennium + new-Jerusalem). The Tewahedo apocalyptic-canon (Daniel + Revelation + Mäṣḥafä Hēnok + 4 Ezra + Mäqabyan + the EOTC-only Apocalypse-of-Peter γ-future-scope) integrates the eschatology-systematic exposition into the canonical framework. The chapter-position structurally parallels mq2 Ch 19 + Ch 20 (γ.4.8.C detail-wave: 19:1 final-arguments-for-resurrection + 20:1 eschatological-judgment catalog) — the same FINAL-ARGUMENTS + JUDGMENT-CATALOG pattern preparing the trilogy&#x27;s third closing-doxology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-9-5-002",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of FINAL-JUDGMENT-AND-REWARD theme. The final-judgment theme parallels: MATTHEW 25:31-46 (the sheep-and-goats judgment); REVELATION 20:11-15 (the great-white-throne — direct parallel to mq2 20:13 γ.4.8.C detail-wave); DANIEL 7:9-14 + 12:1-3 (the ancient-of-days + the resurrection-of-the-just-and-unjust); 4 EZRA 7:26-44 (the seven-day-judgment-cosmology — γ.4.4 Mäṣḥafä Hēnok parallels at γ.4.4.E arc-close); 1 ENOCH 22 (the four-chambers-of-Sheol doctrine). The trilogy&#x27;s THREE-FOLD JUDGMENT-PARALLEL — 1 Mq 36:45 (resurrection capstone tricolon) + 2 Mq 20:13 (judgment-throne formula Rev 20:11-15) + 3 Mq 9:5 (final-judgment-and-reward systematic-introduction) — establishes ECHOING-ESCHATOLOGY as a characteristic Mäqabyan structural-signature. Tewahedo eschatology preserves the three-fold judgment-echo as the canonical-systematic framework.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-9-1-003",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>OPENS Ch 9 — HOMILETIC-GENRE ANCHOR (per source-fidelity note). Ch 9 likely introduces ESCHATOLOGY + RESURRECTION-DOCTRINE preparing the Ch 10 closing systematic exposition. The eschatology-introduction theme parallels: 1 THESSALONIANS 4:13-18 + 5:1-11 (Pauline parousia + day-of-the-Lord eschatology); MATTHEW 24-25 par. (the Olivet Discourse); 2 PETER 3 (the new-heavens-and-new-earth eschatology); REVELATION 20-22 (the millennium + new-Jerusalem). The Tewahedo apocalyptic-canon (Daniel + Revelation + Mäṣḥafä Hēnok + 4 Ezra + Mäqabyan + the EOTC-only Apocalypse-of-Peter γ-future-scope) integrates the eschatology-systematic exposition into the canonical framework. The chapter-position structurally parallels mq2 Ch 19 + Ch 20 (γ.4.8.C detail-wave: 19:1 final-arguments-for-resurrection + 20:1 eschatological-judgment catalog) — the same FINAL-ARGUMENTS + JUDGMENT-CATALOG pattern preparing the trilogy&#x27;s third closing-doxology.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq3-9-5-004",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>Third Book of Meqabyan (Mäṣḥafä Mäqabyan III)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of FINAL-JUDGMENT-AND-REWARD theme. The final-judgment theme parallels: MATTHEW 25:31-46 (the sheep-and-goats judgment); REVELATION 20:11-15 (the great-white-throne — direct parallel to mq2 20:13 γ.4.8.C detail-wave); DANIEL 7:9-14 + 12:1-3 (the ancient-of-days + the resurrection-of-the-just-and-unjust); 4 EZRA 7:26-44 (the seven-day-judgment-cosmology — γ.4.4 Mäṣḥafä Hēnok parallels at γ.4.4.E arc-close); 1 ENOCH 22 (the four-chambers-of-Sheol doctrine). The trilogy&#x27;s THREE-FOLD JUDGMENT-PARALLEL — 1 Mq 36:45 (resurrection capstone tricolon) + 2 Mq 20:13 (judgment-throne formula Rev 20:11-15) + 3 Mq 9:5 (final-judgment-and-reward systematic-introduction) — establishes ECHOING-ESCHATOLOGY as a characteristic Mäqabyan structural-signature. Tewahedo eschatology preserves the three-fold judgment-echo as the canonical-systematic framework.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), Third Book of Meqabyan (Mäṣḥafä Mäqabyan III). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

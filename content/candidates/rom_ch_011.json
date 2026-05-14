@@ -1,8 +1,8 @@
 {
   "book": "rom",
   "chapter": 11,
-  "generated_at": "2026-05-14T06:19:10+00:00",
-  "n_candidates": 81,
+  "generated_at": "2026-05-14T14:53:03+00:00",
+  "n_candidates": 84,
   "candidates": [
     {
       "id": "rom-11-1-001",
@@ -1206,6 +1206,51 @@
     },
     {
       "id": "rom-11-36-081",
+      "verse": 36,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.21",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.21</em> <small>(c. 350 AD)</small><p>&#x27;For of him, and through him, and to him, are all things: to whom be glory for ever. Amen&#x27; — Athanasius marks the ex autou / di&#x27; autou / eis auton triadic-causal-structure as a Pauline-doxological-summary of the Trinitarian-economic-life: the Father is the source (ex), the Son the agent (di&#x27; / through), the Spirit the consummation (eis / toward whom). The verse closes Romans&#x27;s Israel-section doxologically at the same height it climbed exegetically — naming the entire salvation-economy in three Trinitarian-roles. The Tewahedo Anaphora-conclusion cites Rom 11:36 + Eph 4:6 + 1 Cor 15:28 as the all-in-all eschatological-trinitarian closure formula.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.21. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-11-36-082",
+      "verse": 36,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.21",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.21</em> <small>(c. 350 AD)</small><p>&#x27;For of him, and through him, and to him, are all things: to whom be glory for ever. Amen&#x27; — Athanasius marks the ex autou / di&#x27; autou / eis auton triadic-causal-structure as a Pauline-doxological-summary of the Trinitarian-economic-life: the Father is the source (ex), the Son the agent (di&#x27; / through), the Spirit the consummation (eis / toward whom). The verse closes Romans&#x27;s Israel-section doxologically at the same height it climbed exegetically — naming the entire salvation-economy in three Trinitarian-roles. The Tewahedo Anaphora-conclusion cites Rom 11:36 + Eph 4:6 + 1 Cor 15:28 as the all-in-all eschatological-trinitarian closure formula.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.21. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-11-36-083",
+      "verse": 36,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos II.21",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos II.21</em> <small>(c. 350 AD)</small><p>&#x27;For of him, and through him, and to him, are all things: to whom be glory for ever. Amen&#x27; — Athanasius marks the ex autou / di&#x27; autou / eis auton triadic-causal-structure as a Pauline-doxological-summary of the Trinitarian-economic-life: the Father is the source (ex), the Son the agent (di&#x27; / through), the Spirit the consummation (eis / toward whom). The verse closes Romans&#x27;s Israel-section doxologically at the same height it climbed exegetically — naming the entire salvation-economy in three Trinitarian-roles. The Tewahedo Anaphora-conclusion cites Rom 11:36 + Eph 4:6 + 1 Cor 15:28 as the all-in-all eschatological-trinitarian closure formula.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos II.21. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-11-36-084",
       "verse": 36,
       "kind": "comm-ethiopian",
       "anchor": "",

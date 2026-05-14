@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 119,
-  "generated_at": "2026-05-14T06:19:09+00:00",
-  "n_candidates": 37,
+  "generated_at": "2026-05-14T14:53:03+00:00",
+  "n_candidates": 40,
   "candidates": [
     {
       "id": "psa-119-1-001",
@@ -546,6 +546,51 @@
     },
     {
       "id": "psa-119-11-037",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §30",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §30</em> <small>(c. 350 AD)</small><p>&#x27;Thy word have I hid in mine heart, that I might not sin against thee&#x27; (LXX 118:11 — en tē kardia mou ekrypsa ta logia sou hopōs an mē hamartō soi) — Athanasius marks Ps 119 (LXX 118) — the longest-Psalm, structured by the Hebrew-alphabet — as the WORD-INTERNALIZATION PARADIGM in the Letter to Marcellinus. The praying-soul does not merely-recite-the-word but HIDES-IT-IN-THE-HEART (ekrypsa en tē kardia) as protective-talisman-against-sin. The logia (oracles/divine-utterances) are Spirit-breathed-Scripture, and their-hiding-in-the-heart is the Spirit&#x27;s-work-of-sanctifying-memory. Athanasius&#x27;s pastoral-instruction: memorize the Psalter completely; the soul that knows-the-Psalter-by-heart has the Spirit&#x27;s-prayer-vocabulary always-at-hand.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §30. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-119-11-038",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §30",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §30</em> <small>(c. 350 AD)</small><p>&#x27;Thy word have I hid in mine heart, that I might not sin against thee&#x27; (LXX 118:11 — en tē kardia mou ekrypsa ta logia sou hopōs an mē hamartō soi) — Athanasius marks Ps 119 (LXX 118) — the longest-Psalm, structured by the Hebrew-alphabet — as the WORD-INTERNALIZATION PARADIGM in the Letter to Marcellinus. The praying-soul does not merely-recite-the-word but HIDES-IT-IN-THE-HEART (ekrypsa en tē kardia) as protective-talisman-against-sin. The logia (oracles/divine-utterances) are Spirit-breathed-Scripture, and their-hiding-in-the-heart is the Spirit&#x27;s-work-of-sanctifying-memory. Athanasius&#x27;s pastoral-instruction: memorize the Psalter completely; the soul that knows-the-Psalter-by-heart has the Spirit&#x27;s-prayer-vocabulary always-at-hand.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §30. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-119-11-039",
+      "verse": 11,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §30",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §30</em> <small>(c. 350 AD)</small><p>&#x27;Thy word have I hid in mine heart, that I might not sin against thee&#x27; (LXX 118:11 — en tē kardia mou ekrypsa ta logia sou hopōs an mē hamartō soi) — Athanasius marks Ps 119 (LXX 118) — the longest-Psalm, structured by the Hebrew-alphabet — as the WORD-INTERNALIZATION PARADIGM in the Letter to Marcellinus. The praying-soul does not merely-recite-the-word but HIDES-IT-IN-THE-HEART (ekrypsa en tē kardia) as protective-talisman-against-sin. The logia (oracles/divine-utterances) are Spirit-breathed-Scripture, and their-hiding-in-the-heart is the Spirit&#x27;s-work-of-sanctifying-memory. Athanasius&#x27;s pastoral-instruction: memorize the Psalter completely; the soul that knows-the-Psalter-by-heart has the Spirit&#x27;s-prayer-vocabulary always-at-hand.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §30. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-119-11-040",
       "verse": 11,
       "kind": "comm-ethiopian",
       "anchor": "",

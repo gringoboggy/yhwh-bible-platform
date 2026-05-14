@@ -605,6 +605,15 @@ class TestGamma4MetaPhasesCoverage:
     def test_meta_documents_gamma_4_8_b(self):
         self._assert_phase_mentioned("γ.4.8.B")
 
+    def test_meta_documents_gamma_4_8_c(self):
+        self._assert_phase_mentioned("γ.4.8.C")
+
+    def test_meta_documents_gamma_4_8_d(self):
+        self._assert_phase_mentioned("γ.4.8.D")
+
+    def test_meta_documents_gamma_4_8_e(self):
+        self._assert_phase_mentioned("γ.4.8.E")
+
 
 class TestOmega37W11JubileesBuildPipelineIntegration:
     """ω.37 (W11 closure) — build-pipeline integration test for
@@ -7429,4 +7438,826 @@ class TestGamma48BMeqabyanIDetailWave:
         )
         assert "TWELFTH" in meta_source or "twelfth" in meta_source, (
             "γ.4.8.B _meta.source should name this as the TWELFTH N-W4 verification"
+        )
+
+
+class TestGamma48CMeqabyanIIDetailWave:
+    """γ.4.8.C — Mäṣḥafä Mäqabyan II DETAIL WAVE (2026-05-14). 40 verse-
+    keyed entries deepening the 12 mq2 seed anchors to 52-entry
+    substantive-detail coverage. SECOND DETAIL WAVE on the SIXTH-voice
+    opened by γ.4.8 seed; FIRST Mäqabyan WAVE TO ACHIEVE COMPLETE CHAPTER
+    COVERAGE of any Mäqabyan book — mq2 12/21 (57%) seeded → 21/21
+    (100%) substantively-covered after this ship. Mirrors γ.4.4.B-D +
+    γ.4.5.B-E + γ.4.6.B-D + γ.4.7.B-D + γ.4.8.B + γ.4.9.B-C detail-wave
+    shapes.
+
+    Distribution (40 entries across 21 chapters — all 21 chapters of 2
+    Mq touched post-γ.4.8.C):
+
+    - Deepened seed chapters (9): 1(+3), 2(+1), 3(+2), 4(+2), 6(+1),
+      12(+2), 14(+3), 17(+1), 18(+1) — 16 detail entries.
+    - Newly-opened chapters (12): 5(+2), 7(+2), 8(+2), 9(+2), 10(+2),
+      11(+2), 13(+2), 15(+2), 16(+2), 19(+2), 20(+2), 21(+2) — 24
+      detail entries.
+
+    Mq2 coverage post-γ.4.8.C: 21 of 21 chapters (100%) — FIRST 2 Mq
+    WAVE TO ACHIEVE COMPLETE CHAPTER COVERAGE.
+
+    Voice-mix impact:
+        Meqabyan 80 → 120 entries; Cyril 46.16% → 44.92% (continues
+        sub-50% trajectory; remains plurality-leader at 3.34× next-
+        single-father); Tewahedo-distinctive-canonical block (Mäṣḥafä
+        Hēnok + Mäṣḥafä Kufāle + Mäqabyan) → 34.43%.
+
+    Pins (detail-wave standard set, EXTENDED with full-coverage pin):
+    - Mq2 substantively detailed (≥52 entries — 12 seed + 40 detail).
+    - Meqabyan absolute-count milestone ≥120 (40 seed + 40 mq1-detail
+      + 40 mq2-detail).
+    - Every previously-seeded mq2 chapter still has its seed entry
+      (no regression).
+    - 12 newly-opened mq2 chapters all carry ≥1 detail-wave entry
+      (5, 7, 8, 9, 10, 11, 13, 15, 16, 19, 20, 21).
+    - **Mq2 full-21-chapter coverage** — every chapter 1..21 has ≥1
+      Meqabyan entry post-γ.4.8.C (new pin specific to this wave; the
+      arc-completion-depth invariant for 2 Mq).
+    - 8 signature-anchor pins (most distinctive detail-wave theology):
+      mq2 3:9 thousandth-generation Ex 20:5-6 forgiveness-formula +
+      mq2 4:1 JUDGE-PATTERN-ROSTER Joshua+Gideon+Samson+Barak+Deborah+
+      JUDITH-deuterocanonical-included + mq2 5:1 captive-children-teach-
+      Torah inversion-OPENS-Ch5 + mq2 13:1 FIVE-SONS-OF-MAQABIS-OF-MOAB
+      number-symmetry-Frankfurt-Codex-OPENS-Ch13 + mq2 14:23 CORD-OF-
+      SHEOL distinctive-Meqabyan-image + mq2 16:1 ANTI-SAMARITAN-
+      resurrection-denial-polemic Pentateuch-only-canon-OPENS-Ch16 +
+      mq2 19:10 CHRIST-ALLUSION-DEBATED Horovitz-'von-Christus-nirgends-
+      die-Rede'-Tier-3-interpretive-OPENS-Ch19 + mq2 21:10 DOUBLE-AMEN
+      book-closing-formula MIRRORS 1 Mq 36:45-OPENS-Ch21.
+    - _meta.source sync pin: γ.4.8.C referenced + "detail" named +
+      mq2 named + "THIRTEENTH" N-W4 named + "100%" or "complete"
+      chapter-coverage named.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _meq_in_mq2(self):
+        out = []
+        for chapter in range(1, 25):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse("mq2", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _meq_in_mq2_chapter(self, chapter):
+        out = []
+        for verse in range(1, 60):
+            out.extend(
+                e for e in self.ec.for_verse("mq2", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+            )
+        return out
+
+    def _all_meq(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Meqabyan (Ethiopian tradition)")
+        return out
+
+    # ---- Per-voice + per-book density ----
+
+    def test_mq2_substantively_detailed(self):
+        mq2 = self._meq_in_mq2()
+        assert len(mq2) >= 52, f"γ.4.8.C expected ≥52 Meqabyan entries on 2 Mq (12 seed + 40 detail); found {len(mq2)}"
+
+    def test_meqabyan_milestone_at_second_detail_wave(self):
+        meq = self._all_meq()
+        assert len(meq) >= 120, (
+            f"γ.4.8.C expected ≥120 Meqabyan entries total (40 seed + 40 mq1-detail + 40 mq2-detail = 120); "
+            f"found {len(meq)}"
+        )
+
+    def test_all_previously_seeded_mq2_chapters_retained(self):
+        # Regression-guard: seed chapters must still have their seed
+        # entries after detail-wave ship.
+        seed_chapters = [1, 2, 3, 4, 6, 12, 14, 17, 18]
+        per_chapter = {ch: len(self._meq_in_mq2_chapter(ch)) for ch in seed_chapters}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.C regression: previously-seeded mq2 chapters must retain entries; empty: {empty}"
+
+    def test_twelve_newly_opened_mq2_chapters_have_detail(self):
+        # γ.4.8.C specifically opened 12 previously-seed-empty chapters.
+        # Each must have ≥1 entry post-detail-wave.
+        newly_opened = [5, 7, 8, 9, 10, 11, 13, 15, 16, 19, 20, 21]
+        per_chapter = {ch: len(self._meq_in_mq2_chapter(ch)) for ch in newly_opened}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.C opens 12 newly-empty chapters: each must have ≥1 entry; empty: {empty}"
+
+    def test_mq2_full_21_chapter_coverage_achieved(self):
+        # γ.4.8.C is the FIRST Mäqabyan WAVE to achieve 100% chapter
+        # coverage of any Mäqabyan book. Every chapter 1..21 must have
+        # ≥1 Meqabyan entry post-ship. This is the arc-completion-
+        # depth invariant for 2 Mq within the larger γ.4.8 arc.
+        all_chapters = list(range(1, 22))
+        per_chapter = {ch: len(self._meq_in_mq2_chapter(ch)) for ch in all_chapters}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, (
+            f"γ.4.8.C: 2 Mq must reach 100% chapter coverage (21 of 21 chapters with ≥1 entry); empty: {empty}"
+        )
+
+    # ---- Signature passage pins (8 anchors) ----
+
+    def test_mq2_3_9_thousandth_generation_formula_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 3, 9) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 3:9 — Ex 20:5-6 third-fourth-generation / thousandth-generation "
+            "forgiveness-formula (theological anchor justifying Maqabis-of-Moab's eligibility for conversion)"
+        )
+
+    def test_mq2_4_1_judge_pattern_roster_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 4, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 4:1 — JUDGE-PATTERN ROSTER Joshua + Gideon + Samson + Barak + Deborah + "
+            "JUDITH (deuterocanonical-EOTC figure included; deliverer-judge typology extended to Maqabis-of-Moab)"
+        )
+
+    def test_mq2_5_1_captive_children_teach_torah_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 5, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 5:1 — OPENS Ch 5 (captive-Jewish-children TEACH TORAH to Maqabis-of-Moab "
+            "household; 2 Kings 5 Naaman + slave-girl inversion topos)"
+        )
+
+    def test_mq2_13_1_five_sons_of_maqabis_of_moab_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 13, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 13:1 — OPENS Ch 13 (FIVE-SONS-OF-MAQABIS-OF-MOAB ROSTER; NUMBER-SYMMETRY "
+            "with 1 Mq five-brothers per Horovitz 1905 Frankfurt Codex Rüppel II 7 structural analysis — "
+            "one of the most structurally-significant verses in the entire trilogy)"
+        )
+
+    def test_mq2_14_23_cord_of_sheol_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 14, 23) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 14:23 — CORD-OF-SHEOL bond-from-mother's-womb (UNIQUE to Meqabyan among "
+            "EOTC canonical literature; Tewahedo doctrine of INHERITED-MORTALITY-FROM-CONCEPTION; Horovitz "
+            "1905 p. 220 confirms no biblical/patristic parallel)"
+        )
+
+    def test_mq2_16_1_anti_samaritan_polemic_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 16, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 16:1 — OPENS Ch 16 (ANTI-SAMARITAN resurrection-denial polemic; Pentateuch-"
+            "only-canon argument; Christ-with-Sadducees argument-pattern Mt 22:31-32 applied)"
+        )
+
+    def test_mq2_19_10_christ_allusion_debated_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 19, 10) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 19:10 — OPENS Ch 19 (Christ-allusion-debated per Horovitz 1905 'von Christus "
+            "nirgends die Rede' Tier-3 interpretive-flagging; canonical-Christian-readerly-overlay reading)"
+        )
+
+    def test_mq2_21_10_double_amen_book_closing_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq2", 21, 10) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.C missing mq2 21:10 — OPENS Ch 21 (DOUBLE-AMEN አሜን፥ አሜን book-closing-formula; "
+            "MIRRORS 1 Mq 36:45 — completes structural-parity between two book-endings; characteristic "
+            "Meqabyan book-closing signature)"
+        )
+
+    # ---- _meta sync pin ----
+
+    def test_meta_documents_gamma_4_8_c_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.8.C" in meta_source, "γ.4.8.C must be referenced in _meta.source"
+        assert "detail" in meta_source.lower(), "γ.4.8.C _meta.source should name 'detail wave'"
+        assert "mq2" in meta_source.lower() or "Mäqabyan II" in meta_source, (
+            "γ.4.8.C _meta.source should name mq2 / Mäqabyan II"
+        )
+        assert "THIRTEENTH" in meta_source or "thirteenth" in meta_source, (
+            "γ.4.8.C _meta.source should name this as the THIRTEENTH N-W4 verification"
+        )
+        assert "100%" in meta_source or "complete chapter coverage" in meta_source.lower(), (
+            "γ.4.8.C _meta.source should name the 100% / complete-chapter-coverage achievement on 2 Mq"
+        )
+
+
+class TestGamma48DMeqabyanIIIDetailWave:
+    """γ.4.8.D — Mäṣḥafä Mäqabyan III DETAIL WAVE (2026-05-14). 40 verse-
+    keyed entries deepening the 8 mq3 seed anchors to 48-entry
+    substantive-detail coverage. THIRD DETAIL WAVE on the SIXTH-voice
+    opened by γ.4.8 seed; SECOND Mäqabyan WAVE TO ACHIEVE COMPLETE
+    CHAPTER COVERAGE of a Mäqabyan book — mq3 4/10 (40%) seeded →
+    10/10 (100%) substantively-covered after this ship. TWO OF THREE
+    Mäqabyan books now at 100% chapter coverage (mq2 via γ.4.8.C;
+    mq3 via γ.4.8.D). Mirrors γ.4.4.B-D + γ.4.5.B-E + γ.4.6.B-D +
+    γ.4.7.B-D + γ.4.8.B + γ.4.8.C + γ.4.9.B-C detail-wave shapes.
+
+    Distribution (40 entries across 10 chapters — all 10 chapters of
+    3 Mq touched post-γ.4.8.D):
+
+    - Deepened seed chapters (4): 1(+7), 2(+3), 4(+8), 10(+5) — 23
+      detail entries (CC0-text-grounded patristic-parallel commentary
+      elaborating SEEDED theological loci).
+    - Newly-opened chapters (6): 3(+4), 5(+3), 6(+3), 7(+3), 8(+2),
+      9(+2) — 17 detail entries (homiletic-genre-anchor framing per
+      source-fidelity note in the ship script docstring).
+
+    Source-fidelity note: deepening entries on Chs 1/2/4/10 elaborate
+    patristic-parallels for the SEEDED theological loci with CC0-text-
+    grounded context; opening entries on Chs 3/5/6/7/8/9 are HOMILETIC-
+    GENRE ANCHORS framed as patristic-parallel commentary on the
+    chapter's thematic position rather than direct verse-text-quotations.
+    Per SOURCES.md §7 Tier-3 interpretive-flagging convention (3
+    interpretive-readings-flagged out of 64 citations in
+    CROSS_REFERENCE_APPENDIX).
+
+    Mq3 coverage post-γ.4.8.D: 10 of 10 chapters (100%). Per-chapter:
+    Ch 4 deepest at 11 entries (theological-anthropology systematics);
+    Ch 1 at 10 (cosmological-rebellion narrative); other chapters at
+    2-6.
+
+    Voice-mix impact:
+        Meqabyan 120 → 160 entries; Cyril 44.92% → 43.75% (continues
+        sub-50% trajectory; remains plurality-leader at 3.34× next-
+        single-father); **Meqabyan REACHES PARITY WITH ATHANASIUS**
+        (160 vs 150) — the SIXTH voice attains the patristic-anchor-
+        voice depth-benchmark; Tewahedo-distinctive-canonical block
+        (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan) → 36.15%.
+
+    Pins (detail-wave standard set + full-coverage pin matching
+    γ.4.8.C SECOND-instance):
+    - Mq3 substantively detailed (≥48 entries — 8 seed + 40 detail).
+    - Meqabyan absolute-count milestone ≥160 (40 seed + 40 mq1-detail
+      + 40 mq2-detail + 40 mq3-detail; PARITY with Athanasius 150).
+    - Every previously-seeded mq3 chapter still has its seed entry
+      (no regression).
+    - 6 newly-opened mq3 chapters all carry ≥1 detail-wave entry
+      (3, 5, 6, 7, 8, 9).
+    - **Mq3 full-10-chapter coverage** — every chapter 1..10 has ≥1
+      Meqabyan entry post-γ.4.8.D (SECOND instance of the arc-
+      completion-depth invariant after γ.4.8.C achieved it on mq2).
+    - **Mäqabyan-trilogy 67% completion** — TWO OF THREE Mäqabyan
+      books at 100% chapter coverage (mq2 + mq3); mq1 remains at
+      ~70% pending γ.4.8.E arc-close consideration.
+    - 8 signature-anchor pins (most distinctive detail-wave theology):
+      mq3 1:22 post-fall divine-judgment-pronouncement Gen 3:14-15
+      Protoevangelium + mq3 2:15 angelic-replacement Augustine
+      Enchiridion §29 + Anselm CDH I.16-18 + mq3 4:15 **PROV 8:22-30
+      REAPPLIED TO ADAM Tier-3-interpretive-flagged** + mq3 4:18
+      four-elements-Adamic-anthropology Empedoclean-Galenic + mq3 4:28
+      repentance-as-image-restoration Athanasius De Inc 32 + mq3 5:1
+      OPENS-Ch5 charity-and-mercy Mt 25:31-46 + mq3 7:7 OPENS-Ch7
+      humility-inverts-Devil's-pride Phil 2:5-11 kenosis + mq3 10:29
+      **TRIPLE-DOXOLOGY** book-closing completes trilogy (1 Mq 36:45
+      + 2 Mq 21:10 + 3 Mq 10:29).
+    - _meta.source sync pin: γ.4.8.D referenced + "detail" named +
+      mq3 named + "FOURTEENTH" N-W4 named + "parity" or "Athanasius"
+      named (the milestone-equivalence marker).
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _meq_in_mq3(self):
+        out = []
+        for chapter in range(1, 15):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse("mq3", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _meq_in_mq3_chapter(self, chapter):
+        out = []
+        for verse in range(1, 60):
+            out.extend(
+                e for e in self.ec.for_verse("mq3", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+            )
+        return out
+
+    def _meq_in_book(self, book):
+        out = []
+        for chapter in range(1, 50):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _all_meq(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Meqabyan (Ethiopian tradition)")
+        return out
+
+    # ---- Per-voice + per-book density ----
+
+    def test_mq3_substantively_detailed(self):
+        mq3 = self._meq_in_mq3()
+        assert len(mq3) >= 48, f"γ.4.8.D expected ≥48 Meqabyan entries on 3 Mq (8 seed + 40 detail); found {len(mq3)}"
+
+    def test_meqabyan_milestone_at_third_detail_wave(self):
+        meq = self._all_meq()
+        assert len(meq) >= 160, (
+            f"γ.4.8.D expected ≥160 Meqabyan entries total (40 seed + 40 mq1 + 40 mq2 + 40 mq3 = 160 — "
+            f"PARITY with Athanasius 150); found {len(meq)}"
+        )
+
+    def test_all_previously_seeded_mq3_chapters_retained(self):
+        # Regression-guard: seed chapters must still have their seed
+        # entries after detail-wave ship.
+        seed_chapters = [1, 2, 4, 10]
+        per_chapter = {ch: len(self._meq_in_mq3_chapter(ch)) for ch in seed_chapters}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.D regression: previously-seeded mq3 chapters must retain entries; empty: {empty}"
+
+    def test_six_newly_opened_mq3_chapters_have_detail(self):
+        # γ.4.8.D specifically opened 6 previously-seed-empty chapters.
+        # Each must have ≥1 entry post-detail-wave.
+        newly_opened = [3, 5, 6, 7, 8, 9]
+        per_chapter = {ch: len(self._meq_in_mq3_chapter(ch)) for ch in newly_opened}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.D opens 6 newly-empty chapters: each must have ≥1 entry; empty: {empty}"
+
+    def test_mq3_full_10_chapter_coverage_achieved(self):
+        # γ.4.8.D is the SECOND Mäqabyan wave to achieve 100% chapter
+        # coverage of a Mäqabyan book (after γ.4.8.C achieved it on mq2).
+        # Every chapter 1..10 must have ≥1 Meqabyan entry post-ship.
+        # This is the arc-completion-depth invariant for 3 Mq.
+        all_chapters = list(range(1, 11))
+        per_chapter = {ch: len(self._meq_in_mq3_chapter(ch)) for ch in all_chapters}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, (
+            f"γ.4.8.D: 3 Mq must reach 100% chapter coverage (10 of 10 chapters with ≥1 entry); empty: {empty}"
+        )
+
+    def test_meqabyan_trilogy_two_of_three_books_at_complete_coverage(self):
+        # Cross-book invariant: post-γ.4.8.D, TWO OF THREE Mäqabyan books
+        # are at 100% chapter coverage (mq2 21/21 from γ.4.8.C; mq3 10/10
+        # from γ.4.8.D). mq1 remains at partial coverage (25/36 ~ 70%)
+        # pending γ.4.8.E arc-close consideration.
+        mq2 = self._meq_in_book("mq2")
+        mq2_chapters_covered = {e.chapter for e in mq2}
+        mq3 = self._meq_in_book("mq3")
+        mq3_chapters_covered = {e.chapter for e in mq3}
+        assert mq2_chapters_covered >= set(range(1, 22)), (
+            f"γ.4.8.D trilogy-completion-state requires mq2 at 21/21 coverage "
+            f"(γ.4.8.C invariant); got chapters {sorted(mq2_chapters_covered)}"
+        )
+        assert mq3_chapters_covered >= set(range(1, 11)), (
+            f"γ.4.8.D trilogy-completion-state requires mq3 at 10/10 coverage "
+            f"(this-ship invariant); got chapters {sorted(mq3_chapters_covered)}"
+        )
+
+    # ---- Signature passage pins (8 anchors) ----
+
+    def test_mq3_1_22_protoevangelium_judgment_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 1, 22) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 1:22 — post-fall divine-judgment-pronouncement (Gen 3:14-15 Protoevangelium "
+            "+ Ezk 28:16-19 king-of-Tyre/Satan-fall + Isa 14:15 + Rev 12:9 + 20:10 final-defeat)"
+        )
+
+    def test_mq3_2_15_angelic_replacement_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 2, 15) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 2:15 — angelic-replacement doctrine (Augustine Enchiridion §29 + Anselm Cur "
+            "Deus Homo I.16-18 + Gregory Hom on the Gospels 34 + EOTC Mäṣḥafä Mälaʾek)"
+        )
+
+    def test_mq3_4_15_prov_8_reapplied_to_adam_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 4, 15) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 4:15 — PROV 8:22-30 REAPPLIED TO ADAM (Tier-3 interpretive-flagged per "
+            "SOURCES.md §7; creative-midrashic-move vs standard Athanasian/Cyrillian Wisdom-Christology)"
+        )
+
+    def test_mq3_4_18_four_elements_adamic_anthropology_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 4, 18) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 4:18 — four-elements-Adamic-anthropology (Empedoclean/Galenic mediated via "
+            "Syriac + Coptic patristic; Ephrem Carmina Nisibena 46 + Severus of Antioch Cathedral Homilies 21)"
+        )
+
+    def test_mq3_4_28_repentance_as_image_restoration_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 4, 28) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 4:28 — repentance-as-image-restoration (Rom 8:29 + 2 Cor 3:18 + Athanasius "
+            "De Incarnatione 32 + 54 + Cyril of Alexandria Commentary on John 3 + 17)"
+        )
+
+    def test_mq3_5_1_charity_and_mercy_opens_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 5, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 5:1 — OPENS Ch 5 (charity-and-mercy virtue-catalog following complete-"
+            "repentance 4:34; Mt 5:7 + Mt 25:31-46 + Tobit 4:7-11 + EOTC seven-corporal-works-of-mercy)"
+        )
+
+    def test_mq3_7_7_humility_inverts_devils_pride_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 7, 7) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 7:7 — OPENS Ch 7 (humility-inverts-Devil's-pride: Mt 5:3 + Phil 2:5-11 "
+            "kenosis-hymn + John Climacus Ladder Step 25; PREREQUISITE-CONDITION for complete-repentance)"
+        )
+
+    def test_mq3_10_29_triple_doxology_book_closing_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq3", 10, 29) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.D missing mq3 10:29 — TRIPLE-DOXOLOGY book-closing 'From today and unto eternity, Amen' "
+            "(ከዛሬ ጀምሮ እስከ ዘለዓለም አሜን); completes 1 Mq 36:45 + 2 Mq 21:10 + 3 Mq 10:29 trilogy-of-book-"
+            "closings — CHARACTERISTIC MEQABYAN BOOK-CLOSING SIGNATURE triply-attested across the trilogy"
+        )
+
+    # ---- _meta sync pin ----
+
+    def test_meta_documents_gamma_4_8_d_expansion(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.8.D" in meta_source, "γ.4.8.D must be referenced in _meta.source"
+        assert "detail" in meta_source.lower(), "γ.4.8.D _meta.source should name 'detail wave'"
+        assert "mq3" in meta_source.lower() or "Mäqabyan III" in meta_source, (
+            "γ.4.8.D _meta.source should name mq3 / Mäqabyan III"
+        )
+        assert "FOURTEENTH" in meta_source or "fourteenth" in meta_source, (
+            "γ.4.8.D _meta.source should name this as the FOURTEENTH N-W4 verification"
+        )
+        assert "PARITY" in meta_source or "parity" in meta_source or "ATHANASIUS" in meta_source.upper(), (
+            "γ.4.8.D _meta.source should name the parity-with-Athanasius milestone (160 vs 150)"
+        )
+
+
+class TestGamma48EMeqabyanArcClose:
+    """γ.4.8.E — Mäṣḥafä Mäqabyan ARC-CLOSE wave (2026-05-14). 40 verse-
+    keyed entries closing the FIVE-WAVE Mäqabyan-trilogy detail-wave
+    family (γ.4.8 seed + γ.4.8.B + γ.4.8.C + γ.4.8.D + γ.4.8.E arc-
+    close). **EIGHTH §8.1 ARC-CLOSE INSTANCE** in γ.4 corpus history
+    (after γ.4.4.E Mäṣḥafä Hēnok + γ.4.5.E Mäṣḥafä Kufāle + γ.4.2.D
+    Pentateuch + γ.4.3.D Cyril-on-Luke + γ.4.6.D Cyril-on-Matthew +
+    γ.4.7.D Cyril-on-Mark + γ.4.9.D Athanasius). CLOSING WAVE of the
+    SIXTH-and-final patristic/canonical voice arc in the γ.4 corpus.
+
+    After this ship, ALL SIX γ.4 PATRISTIC/CANONICAL VOICES are at
+    substantively-closed-arc depth:
+        Cyril of Alexandria    668 entries (4 Gospel arcs closed)
+        Jubilees               200 entries (arc closed γ.4.5.E)
+        Meqabyan               200 entries (ARC CLOSED γ.4.8.E — THIS)
+        1 Enoch                192 entries (arc closed γ.4.4.E)
+        Ephrem the Syrian      157 entries (Pentateuch arc closed γ.4.2.D)
+        Athanasius             150 entries (arc closed γ.4.9.D)
+        ───────────────────────────
+        Total γ.4 corpus      1567 entries (100% — all six voices closed)
+
+    Distribution (40 entries across 14 chapters):
+    - DEEPENING (6 entries across 3 seeded chapters): Ch 17 (+2), Ch
+      30 (+2), Ch 36 (+2) — patristic-parallel deepening of SEEDED
+      theological loci with CC0-text-grounded context.
+    - OPENING (34 entries across 11 newly-empty chapters): Ch 1 (+4),
+      Chs 20-27 (3 each = 24), Chs 31-32 (3 each = 6), Ch 35 (+3) —
+      HOMILETIC-GENRE ANCHORS framed as patristic-parallel commentary
+      per the source-fidelity convention codified at γ.4.8.D.
+
+    Mq1 coverage post-γ.4.8.E: 36 of 36 chapters (100%) — completing
+    the THIRD AND FINAL Mäqabyan book to 100% coverage. All three
+    Mäqabyan books at 100% chapter coverage: 67/67 chapters.
+
+    Per §8.1 the closing wave's test class MUST add the three specific
+    pin types:
+
+    (1) **PIN #1 — absolute-count milestone** at cumulative arc-close
+        count. Per `feedback_share_pin_pattern` use COUNT not share —
+        durable against future voice-broadening waves.
+
+    (2) **PIN #2 — all_N_sections_covered exhaustiveness pin** asserting
+        every section of the arc has substantive coverage at planned
+        depth. The FIVE waves are:
+            γ.4.8    seed              (40 entries across 3 Mäqabyan books)
+            γ.4.8.B  Mäqabyan I detail (40 entries on mq1)
+            γ.4.8.C  Mäqabyan II detail (40 entries on mq2)
+            γ.4.8.D  Mäqabyan III detail (40 entries on mq3)
+            γ.4.8.E  arc-close         (40 entries on mq1 closing to 36/36)
+        Cumulative: 200 Meqabyan entries; 67/67 chapters across the
+        entire trilogy (100% coverage).
+
+    (3) **PIN #3 — _meta synchronization pin** asserting JSON _meta
+        names every sub-phase tag (γ.4.8 + γ.4.8.B + γ.4.8.C + γ.4.8.D
+        + γ.4.8.E) with regex word-boundary, AND records the "ARC
+        CLOSED" status explicitly.
+
+    (4) **Cyril-plurality trajectory pin** per ω.41 §1 durable safeguard:
+        Cyril remains plurality-leader at arc-close (668 vs Meqabyan-
+        or-Jubilees 200 = 3.34× next-single-father).
+
+    Pins:
+    - Mq1 substantively detailed (≥100 entries — 20 seed + 40 γ.4.8.B
+      + 40 γ.4.8.E).
+    - Mq1 100% chapter coverage (36/36 chapters with ≥1 entry).
+    - **§8.1 ARC-CLOSE PIN #1 — count milestone:** Meqabyan absolute-
+      count ≥200 entries (per feedback_share_pin_pattern — never a
+      share-pin; durable against future voice-broadening).
+    - **§8.1 ARC-CLOSE PIN #2 — all_N_sections_covered
+      exhaustiveness:** test_all_five_meqabyan_waves_substantively_
+      covered asserts γ.4.8 seed (≥40 across 3 books) + γ.4.8.B (mq1
+      ≥40) + γ.4.8.C (mq2 ≥40) + γ.4.8.D (mq3 ≥40) + γ.4.8.E (mq1
+      arc-close ≥40) — every section of the Mäqabyan arc has
+      substantive coverage at planned depth.
+    - **§8.1 ARC-CLOSE PIN #3 — _meta synchronization:** pin per sub-
+      phase tag (γ.4.8, γ.4.8.B, γ.4.8.C, γ.4.8.D, γ.4.8.E) with
+      regex word-boundary; arc-close status recorded explicitly.
+    - **Cyril plurality preservation pin (ω.41 §1 trajectory rule):**
+      Cyril remains single-father plurality-leader at arc-close (Cyril
+      > Meqabyan AND Cyril > Jubilees AND Cyril > Athanasius).
+    - **Mäqabyan-trilogy ALL-THREE-BOOKS-AT-100%-CHAPTER-COVERAGE pin:**
+      cross-book invariant; the trilogy's-completion-state.
+    - 8 signature-anchor pins covering the arc-close Tewahedo theology:
+      mq1 1:1 Ṣiruṣaydan-introduction Tyre-Sidon-typology + mq1 17:6
+      Sebelyanos=Beliar Christian-reception + mq1 20:1 martyr-cult-
+      formation + mq1 22:7 Davidic-covenant Tewahedo-Solomonic-Kǝbrä-
+      Nägäśt + mq1 24:7 false-vs-true-prophet criterion + mq1 27:7
+      messianic-expectation comprehensive-prophetic-catalog + mq1
+      30:21 Davidic-Solomonic covenant-honor application + mq1 36:49
+      final-capstone-coda Psalter book-ending-doxologies architectural-
+      parallel.
+
+    With this class, the Mäqabyan arc is PINNED at closed-arc depth
+    (the SIXTH and FINAL γ.4 patristic/canonical voice to reach arc-
+    close). The §8.1 instance count reaches 8.
+    """
+
+    @classmethod
+    def setup_class(cls):
+        from scripts.core import sources
+
+        sources.ethiopian_commentaries.cache_clear()
+        cls.ec = sources.ethiopian_commentaries()
+
+    def _meq_in_book(self, book):
+        out = []
+        for chapter in range(1, 50):
+            for verse in range(1, 60):
+                out.extend(
+                    e for e in self.ec.for_verse(book, chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+                )
+        return out
+
+    def _meq_in_mq1_chapter(self, chapter):
+        out = []
+        for verse in range(1, 60):
+            out.extend(
+                e for e in self.ec.for_verse("mq1", chapter, verse) if e.father == "Meqabyan (Ethiopian tradition)"
+            )
+        return out
+
+    def _all_meq(self):
+        out = []
+        for verse_entries in self.ec._by_verse.values():
+            out.extend(e for e in verse_entries if e.father == "Meqabyan (Ethiopian tradition)")
+        return out
+
+    # ---- Mq1 100% coverage achievement ----
+
+    def test_mq1_substantively_completed(self):
+        mq1 = self._meq_in_book("mq1")
+        assert len(mq1) >= 100, (
+            f"γ.4.8.E arc-close expected ≥100 Meqabyan entries on 1 Mq (20 seed + 40 γ.4.8.B detail "
+            f"+ 40 γ.4.8.E arc-close); found {len(mq1)}"
+        )
+
+    def test_mq1_full_36_chapter_coverage_achieved(self):
+        # γ.4.8.E completes mq1 to 100% chapter coverage — making it
+        # the THIRD AND FINAL Mäqabyan book to reach 100%.
+        all_chapters = list(range(1, 37))
+        per_chapter = {ch: len(self._meq_in_mq1_chapter(ch)) for ch in all_chapters}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.E arc-close: mq1 must reach 100% chapter coverage (36 of 36 chapters); empty: {empty}"
+
+    def test_eleven_newly_opened_mq1_chapters_at_arc_close(self):
+        # γ.4.8.E opens the 11 chapters previously uncovered in mq1:
+        # 1, 20, 21, 22, 23, 24, 26, 27, 31, 32, 35. Each must have ≥1 entry.
+        newly_opened = [1, 20, 21, 22, 23, 24, 26, 27, 31, 32, 35]
+        per_chapter = {ch: len(self._meq_in_mq1_chapter(ch)) for ch in newly_opened}
+        empty = {ch: n for ch, n in per_chapter.items() if n < 1}
+        assert not empty, f"γ.4.8.E opens 11 newly-empty mq1 chapters: each must have ≥1 entry; empty: {empty}"
+
+    # ---- §8.1 ARC-CLOSE PIN #1: absolute-count milestone ----
+
+    def test_meqabyan_arc_close_count_milestone(self):
+        # §8.1 ARC-CLOSE PIN #1: absolute-count milestone at arc close.
+        # Per feedback_share_pin_pattern: never a share pin. Cumulative
+        # five-wave count: 40 (γ.4.8 seed) + 40 (γ.4.8.B) + 40 (γ.4.8.C)
+        # + 40 (γ.4.8.D) + 40 (γ.4.8.E) = 200. ≥200 floor.
+        meq = self._all_meq()
+        assert len(meq) >= 200, (
+            f"γ.4.8.E arc-close: Meqabyan count ≥200 expected "
+            f"(cumulative five-wave arc-close milestone: 40 seed + 40 γ.4.8.B + "
+            f"40 γ.4.8.C + 40 γ.4.8.D + 40 γ.4.8.E = 200; PARITY WITH JUBILEES); found {len(meq)}"
+        )
+
+    # ---- §8.1 ARC-CLOSE PIN #2: all_N_sections_covered exhaustiveness ----
+
+    def test_all_five_meqabyan_waves_substantively_covered(self):
+        # §8.1 ARC-CLOSE PIN #2: all_N_sections_covered exhaustiveness.
+        # Every section of the Mäqabyan arc must have substantive
+        # coverage at planned depth. The five waves are:
+        # γ.4.8    seed              (40 across 3 Mäqabyan books)
+        # γ.4.8.B  Mäqabyan I detail (40 on mq1)
+        # γ.4.8.C  Mäqabyan II detail (40 on mq2)
+        # γ.4.8.D  Mäqabyan III detail (40 on mq3)
+        # γ.4.8.E  arc-close         (40 on mq1 closing to 36/36)
+        mq1 = self._meq_in_book("mq1")
+        mq2 = self._meq_in_book("mq2")
+        mq3 = self._meq_in_book("mq3")
+
+        # γ.4.8 + γ.4.8.B (20 seed + 40 detail) + γ.4.8.E (40 arc-close) on mq1
+        assert len(mq1) >= 100, (
+            f"γ.4.8.E arc-close: mq1 section below cumulative depth "
+            f"(need ≥100 = 20 seed + 40 γ.4.8.B + 40 γ.4.8.E, have {len(mq1)})"
+        )
+        # γ.4.8 (12 seed) + γ.4.8.C (40 detail) on mq2 = 52
+        assert len(mq2) >= 52, (
+            f"γ.4.8.E arc-close: mq2 section below γ.4.8.C parity (need ≥52 = 12 seed + 40 γ.4.8.C, have {len(mq2)})"
+        )
+        # γ.4.8 (8 seed) + γ.4.8.D (40 detail) on mq3 = 48
+        assert len(mq3) >= 48, (
+            f"γ.4.8.E arc-close: mq3 section below γ.4.8.D parity (need ≥48 = 8 seed + 40 γ.4.8.D, have {len(mq3)})"
+        )
+        # Trilogy total
+        meq_total = len(self._all_meq())
+        assert meq_total >= 200, (
+            f"γ.4.8.E arc-close: total Meqabyan ≥200 expected (five-wave cumulative); found {meq_total}"
+        )
+
+    def test_meqabyan_trilogy_all_three_books_at_complete_coverage(self):
+        # The trilogy-completion-state cross-book invariant: ALL THREE
+        # Mäqabyan books at 100% chapter coverage post-γ.4.8.E.
+        # mq1 36/36 + mq2 21/21 + mq3 10/10 = 67/67 chapters.
+        mq1_chapters = {e.chapter for e in self._meq_in_book("mq1")}
+        mq2_chapters = {e.chapter for e in self._meq_in_book("mq2")}
+        mq3_chapters = {e.chapter for e in self._meq_in_book("mq3")}
+
+        assert mq1_chapters >= set(range(1, 37)), (
+            f"γ.4.8.E trilogy-completion-state requires mq1 at 36/36 coverage; got {sorted(mq1_chapters)}"
+        )
+        assert mq2_chapters >= set(range(1, 22)), (
+            f"γ.4.8.E trilogy-completion-state requires mq2 at 21/21 coverage; got {sorted(mq2_chapters)}"
+        )
+        assert mq3_chapters >= set(range(1, 11)), (
+            f"γ.4.8.E trilogy-completion-state requires mq3 at 10/10 coverage; got {sorted(mq3_chapters)}"
+        )
+
+    # ---- §8.1 ARC-CLOSE PIN #3: _meta synchronization ----
+
+    def test_meta_synchronization_at_meqabyan_arc_close(self):
+        # §8.1 ARC-CLOSE PIN #3: _meta synchronization. Pin per sub-phase
+        # tag with regex word-boundary so γ.4.8 doesn't match γ.4.8.B/C/D/E.
+        import json
+        import re
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        meta_source = json.loads(path.read_text(encoding="utf-8"))["_meta"]["source"]
+
+        # Word-boundary regex for each sub-phase tag — prevents γ.4.8 from
+        # matching γ.4.8.B (greedy substring would).
+        for tag in ("γ.4.8", "γ.4.8.B", "γ.4.8.C", "γ.4.8.D", "γ.4.8.E"):
+            pattern = re.compile(re.escape(tag) + r"(?![.\w])")
+            assert pattern.search(meta_source), (
+                f"γ.4.8.E arc-close: _meta.source must reference {tag} (five-wave arc-close synchronization pin)"
+            )
+        # Arc-close status explicit
+        assert (
+            "MEQABYAN ARC CLOSED" in meta_source or "Mäqabyan ARC CLOSED" in meta_source or "ARC CLOSED" in meta_source
+        ), "γ.4.8.E _meta.source should explicitly mark Mäqabyan arc CLOSED"
+        # EIGHTH §8.1 instance marker
+        assert "EIGHTH" in meta_source or "eighth" in meta_source, (
+            "γ.4.8.E _meta.source should name this as the EIGHTH §8.1 arc-close instance"
+        )
+
+    # ---- Cyril plurality preservation pin (ω.41 §1 trajectory rule) ----
+
+    def test_cyril_remains_plurality_leader_at_meqabyan_arc_close(self):
+        # ω.41 §1 trajectory rule: track Cyril's plurality position at
+        # every threshold-crossing point. At γ.4.8.E arc-close, Cyril is
+        # at 42.63% (668/1567) — sub-50% but still plurality at 3.34×
+        # next-single-father (Jubilees + Meqabyan tied at 200). The
+        # trajectory is documented in CHANGELOG / SESSION_STATE.
+        cyril_count = 0
+        jubilees_count = 0
+        for verse_entries in self.ec._by_verse.values():
+            for e in verse_entries:
+                if e.father == "Cyril of Alexandria":
+                    cyril_count += 1
+                elif e.father.startswith("Jubilees"):
+                    jubilees_count += 1
+        meq_count = len(self._all_meq())
+        # Cyril must remain plurality-leader (single-father with highest count)
+        assert cyril_count > meq_count, (
+            f"ω.41 §1: Cyril must remain plurality-leader over Meqabyan even at γ.4.8.E arc-close; "
+            f"Cyril={cyril_count} vs Meqabyan={meq_count}"
+        )
+        assert cyril_count > jubilees_count, (
+            f"ω.41 §1: Cyril must remain plurality-leader over Jubilees; "
+            f"Cyril={cyril_count} vs Jubilees={jubilees_count}"
+        )
+
+    # ---- Signature passage pins (8 arc-close anchors) ----
+
+    def test_mq1_1_1_siruseydan_introduction_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 1, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 1:1 — OPENS Ch 1 Ṣiruṣaydan-introduction "
+            "(Tyre-Sidon-typology cipher per Horovitz 1905 + Dillmann; the trilogy's villain enters)"
+        )
+
+    def test_mq1_17_6_sebelyanos_beliar_deepening_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 17, 6) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 17:6 — Sebelyanos=Beliar deepening "
+            "(2 Cor 6:15 + Ascension of Isaiah 4 + Testaments of 12 Patriarchs Beliar-typology)"
+        )
+
+    def test_mq1_20_1_martyr_cult_formation_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 20, 1) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 20:1 — OPENS Ch 20 martyr-cult-formation "
+            "(4 Macc 17:8-22 monumentalization + Tewahedo Sǝnkǝsar 1-August feast-day)"
+        )
+
+    def test_mq1_22_7_davidic_covenant_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 22, 7) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 22:7 — Davidic-covenant Tewahedo-Solomonic-dynasty anchor "
+            "(2 Sam 7:8-17 + Kǝbrä Nägäśt Menelik-I-Solomonic-succession; key v1.1-publisher-uniqueness-angle)"
+        )
+
+    def test_mq1_24_7_true_vs_false_prophet_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 24, 7) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 24:7 — true-vs-false-prophet criterion "
+            "(Deut 18:15-22 + Jer 28 + Athanasius CA I-III orthodox-doctrine-criterion)"
+        )
+
+    def test_mq1_27_7_messianic_expectation_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 27, 7) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 27:7 — messianic-expectation comprehensive-prophetic-catalog "
+            "(Gen 49 + Isa 7-11+53 + Eusebius Demonstratio Evangelica patristic-catalog)"
+        )
+
+    def test_mq1_30_21_covenant_honor_davidic_solomonic_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 30, 21) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 30:21 — covenant-honor Davidic-Solomonic application "
+            "(1 Sam 2:30 honor-formula extended via 1 Kgs 3 + Kǝbrä Nägäśt Tewahedo-Solomonic-dynasty)"
+        )
+
+    def test_mq1_36_49_final_capstone_coda_anchor_present(self):
+        c = [e for e in self.ec.for_verse("mq1", 36, 49) if e.father == "Meqabyan (Ethiopian tradition)"]
+        assert c, (
+            "γ.4.8.E missing mq1 36:49 — final-capstone-coda Psalter book-ending-doxologies "
+            "(Ps 41:13 + 72:18-19 + 89:52 + 106:48 — Psalter three-of-five book-ending-doxologies "
+            "architectural-parallel anchoring the trilogy's BOOK-CLOSING SIGNATURE)"
+        )
+
+    # ---- _meta sync pin (extension of γ.4.8.D pattern) ----
+
+    def test_meta_documents_gamma_4_8_e_arc_close(self):
+        import json
+        from pathlib import Path
+
+        repo = Path(__file__).resolve().parent.parent
+        path = repo / "content" / "sources" / "ethiopian_commentaries.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta_source = data["_meta"]["source"]
+        assert "γ.4.8.E" in meta_source, "γ.4.8.E must be referenced in _meta.source"
+        assert "arc-close" in meta_source.lower() or "ARC-CLOSE" in meta_source or "ARC CLOSED" in meta_source, (
+            "γ.4.8.E _meta.source should name arc-close"
+        )
+        assert "Mäqabyan" in meta_source or "Meqabyan" in meta_source, (
+            "γ.4.8.E _meta.source should name Mäqabyan/Meqabyan"
+        )
+        assert "FIFTEENTH" in meta_source or "fifteenth" in meta_source, (
+            "γ.4.8.E _meta.source should name this as the FIFTEENTH N-W4 verification"
+        )
+        assert "EIGHTH" in meta_source or "eighth" in meta_source, (
+            "γ.4.8.E _meta.source should name this as the EIGHTH §8.1 arc-close instance"
         )

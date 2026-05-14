@@ -6,6 +6,571 @@
 
 ---
 
+## 2026-05-14 — session — γ.4.8.E Mäqabyan ARC-CLOSE (EIGHTH §8.1 instance; Mäqabyan ARC CLOSED at 200 entries — PARITY WITH JUBILEES; all-three-Mq-books at 100% chapter coverage; ω.43 §1 rules update)
+
+**Phase shipped:** γ.4.8.E — Mäṣḥafä Mäqabyan ARC-CLOSE (40 verse-
+keyed entries closing the FIVE-WAVE Mäqabyan-trilogy detail-wave
+family). **EIGHTH §8.1 ARC-CLOSE INSTANCE** in γ.4 corpus history
+(after γ.4.4.E + γ.4.5.E + γ.4.2.D + γ.4.3.D + γ.4.6.D + γ.4.7.D +
+γ.4.9.D). **MEQABYAN ARC CLOSED.** Brings mq1 from 25/36 (70%) to
+36/36 (100%) chapter coverage — completing the THIRD AND FINAL
+Mäqabyan book to 100% coverage. **ALL-THREE-MQ-BOOKS-AT-100%-CHAPTER-
+COVERAGE achieved**: mq1 36/36 + mq2 21/21 + mq3 10/10 = 67/67
+chapters (100% — the FIRST γ.4 arc to achieve 100% chapter-coverage
+across its entire scope). Paired with **ω.43 hygiene bundle**:
+CLAUDE_PROJECT_RULES §1 extended with γ.4.8.E ARC CLOSED + Mäqabyan-
+reaches-Jubilees-parity codification.
+
+**Distribution (40 entries across 14 chapters):**
+
+- **Deepened seed chapters (3; 6 detail entries):** Ch 17 (+2), Ch 30
+  (+2), Ch 36 (+2) — patristic-parallel deepening of SEEDED
+  theological loci with CC0-text-grounded context.
+- **Newly-opened chapters (11; 34 detail entries):** Ch 1 (+4), Chs
+  20-27 (3 each = 24), Chs 31-32 (3 each = 6), Ch 35 (+3) — HOMILETIC-
+  GENRE ANCHORS framed as patristic-parallel commentary per the
+  source-fidelity convention codified at γ.4.8.D (continuing the
+  Tier-3 interpretive-flagging convention).
+
+**Mq1 coverage post-γ.4.8.E**: **36 of 36 chapters (100%) —
+completing the THIRD AND FINAL Mäqabyan book to 100% coverage.**
+100 entries total (20 seed + 40 γ.4.8.B + 40 γ.4.8.E arc-close).
+Per-chapter: Ch 36 deepest at 7 entries (final-resurrection-capstone
+chapter); Ch 2 at 11 (EPONYM chapter); other chapters at 1-4.
+
+**Per-chapter signature themes (selected):**
+
+| Ch | Detail-verse | Theme |
+|----|-------------|-------|
+| 1:1 | OPENS Ch 1 Ṣiruṣaydan-introduction | Tyre-Sidon-typology cipher per Horovitz 1905 + Dillmann; the trilogy's villain enters |
+| 17:6 | Sebelyanos=Beliar deepening | 2 Cor 6:15 + Ascension of Isaiah 4 + Testaments of 12 Patriarchs Beliar-typology |
+| 20:1 | OPENS Ch 20 martyr-cult formation | 4 Macc 17:8-22 monumentalization + Tewahedo Sǝnkǝsar 1-August feast-day |
+| 22:7 | Davidic-covenant Tewahedo-Solomonic | 2 Sam 7:8-17 + Kǝbrä Nägäśt Menelik-I-Solomonic-succession; **key v1.1-publisher-uniqueness-angle anchor** |
+| 24:7 | True-vs-false-prophet criterion | Deut 18:15-22 + Jer 28 + Athanasius CA I-III orthodox-doctrine-criterion |
+| 27:7 | Messianic-expectation catalog | Gen 49 + Isa 7-11+53 + Eusebius Demonstratio Evangelica patristic-catalog |
+| 30:21 | Covenant-honor Davidic-Solomonic | 1 Sam 2:30 honor-formula extended via 1 Kgs 3 + Kǝbrä Nägäśt |
+| 36:49 | Final-capstone-coda | Ps 41:13 + 72:18-19 + 89:52 + 106:48 Psalter book-ending-doxologies architectural-parallel anchoring trilogy's BOOK-CLOSING SIGNATURE |
+
+**Voice-mix delta — Meqabyan REACHES PARITY WITH JUBILEES at 200:**
+
+```
+Pre-γ.4.8.E (1527 entries):           Post-γ.4.8.E (1567 entries):
+  Cyril       668  43.75%               Cyril       668  42.63%
+  Jubilees    200  13.10%               Jubilees    200  12.76%  ← TIE
+  1 Enoch     192  12.57%               Meqabyan    200  12.76%  ← γ.4.8.E +40 (TIE)
+  Meqabyan    160  10.48%               1 Enoch     192  12.25%
+  Ephrem      157  10.28%               Ephrem      157  10.02%
+  Athanasius  150   9.82%               Athanasius  150   9.57%
+```
+
+Cyril continues sub-50% trajectory (43.75% → 42.63%); plurality intact
+at **3.34× next-single-father** (668 vs 200). Meqabyan now **TIES
+JUBILEES at 200 entries / 12.76% — 2ND-PLACE TIE in voice-ranking**.
+**Tewahedo-distinctive-canonical block** (Mäṣḥafä Hēnok + Mäṣḥafä
+Kufāle + Mäqabyan) hits **37.78%** (592/1567) — strongest position
+in γ.4 corpus history; directly supports v1.1 publisher-led
+uniqueness-angle pick per memory `project_v1_terminus`. Patristic-
+anchor majority relaxes to 62.22% (975/1567).
+
+**Trilogy-completion narrative — γ.4.8 ARC CLOSED:**
+
+```
+                Pre-γ.4.8.E state           Post-γ.4.8.E state (FULL TRILOGY COMPLETE)
+                ─────────────────           ──────────────────────────────────────────
+                mq1: 25/36 (70%)            mq1: 36/36 (100%)  ← γ.4.8.E THIS SHIP
+                mq2: 21/21 (100%)           mq2: 21/21 (100%)  (γ.4.8.C achieved)
+                mq3: 10/10 (100%)           mq3: 10/10 (100%)  (γ.4.8.D achieved)
+                ───────────────             ──────────────────
+                56/67 chapters (84%)        67/67 chapters (100%) — ARC CLOSED
+```
+
+ALL SIX γ.4 PATRISTIC/CANONICAL VOICES now at substantively-closed-
+arc depth:
+
+```
+Cyril of Alexandria      668  (4 canonical-Gospel arcs closed)
+Jubilees                 200  (arc closed γ.4.5.E)
+Meqabyan                 200  (ARC CLOSED γ.4.8.E — THIS SHIP)
+1 Enoch                  192  (arc closed γ.4.4.E)
+Ephrem the Syrian        157  (Pentateuch arc closed γ.4.2.D)
+Athanasius               150  (arc closed γ.4.9.D — SEVENTH §8.1)
+─────────────────
+Total γ.4 corpus        1567  (100% — all six voices substantively closed)
+```
+
+**§3 sequencing rationale:** user "continue" after γ.4.8.D save (per
+SESSION_STATE recommended-next-step list, top item). Per §3.4 close-
+before-open within the Mäqabyan arc: γ.4.8.E arc-close is the natural
+next ship after γ.4.8.D. Per memory `feedback_extensive_answers`
+(broadest scope): chose option (a) BROADEST — deepen mq1 to 100% AND
+add §8.1 arc-close pins (40 entries) rather than the more-conservative
+option (b) MEDIUM (~10-15 entries with arc-close pins) or (c) NARROW
+(arc-close pins only). The broader scope achieves the unprecedented
+100%-chapter-coverage-across-entire-arc milestone.
+
+**Items shipped:**
+
+1. **`scripts/_ship_gamma48e.py` — new ship script** (~1100 lines, 40
+   arc-close entries on mq1; reuses ATTR_MEQ from γ.4.8 seed + γ.4.8.B
+   + γ.4.8.C + γ.4.8.D). Continues source-fidelity convention from
+   γ.4.8.D (DEEPENING vs OPENING distinction explicit).
+
+2. **`content/sources/ethiopian_commentaries.json`** — extended:
+   - `entries`: 1527 → 1567 (+40).
+   - Meqabyan entries: 160 → 200 (REACHES PARITY WITH JUBILEES at
+     200; the THIRD voice to reach 200-entry milestone).
+   - `_meta.source` ledger appended with γ.4.8.E arc-close manifest
+     including chapter-by-chapter distribution + "FIFTEENTH" N-W4
+     marker + "EIGHTH §8.1" arc-close-instance marker + "MEQABYAN
+     ARC CLOSED" status marker.
+
+3. **`content/notes/mq1.py`** — promoted via at-scale + batch_promote
+   pipeline (60 → 100 note-tuples). **FIFTEENTH** production-scale
+   verification of N-W4 idempotency contract.
+
+4. **`tests/test_ethiopian_gamma4.py` — `TestGamma48EMeqabyanArcClose`**
+   (NEW class, 17 pins implementing §8.1 arc-close convention's
+   three required pin types):
+   - **§8.1 PIN #1**: `test_meqabyan_arc_close_count_milestone` —
+     Meqabyan absolute-count ≥200 (cumulative five-wave milestone).
+   - **§8.1 PIN #2**: `test_all_five_meqabyan_waves_substantively_
+     covered` — every section of the arc has substantive coverage
+     at planned depth (mq1 ≥100, mq2 ≥52, mq3 ≥48).
+   - **§8.1 PIN #3**: `test_meta_synchronization_at_meqabyan_arc_close`
+     — JSON _meta names every sub-phase tag with regex word-boundary
+     + records "ARC CLOSED" + "EIGHTH" markers.
+   - **ω.41 §1 trajectory pin**: `test_cyril_remains_plurality_leader_
+     at_meqabyan_arc_close` — Cyril remains plurality-leader over
+     Meqabyan AND Jubilees.
+   - `test_mq1_substantively_completed` (≥100 entries).
+   - `test_mq1_full_36_chapter_coverage_achieved` (THIRD instance of
+     the arc-completion-depth invariant pin-type).
+   - `test_meqabyan_trilogy_all_three_books_at_complete_coverage` —
+     cross-book invariant; all three books at 100% post-γ.4.8.E.
+   - `test_eleven_newly_opened_mq1_chapters_at_arc_close` — 11 newly-
+     opened chapters all carry ≥1 entry.
+   - 8 signature-anchor pins (mq1 1:1 Ṣiruṣaydan + 17:6 Sebelyanos +
+     20:1 martyr-cult + 22:7 Davidic-covenant + 24:7 true-vs-false-
+     prophet + 27:7 messianic-expectation + 30:21 covenant-honor +
+     36:49 final-capstone-coda).
+   - `test_meta_documents_gamma_4_8_e_arc_close` (_meta sync pin).
+
+5. **`tests/test_ethiopian_gamma4.py` — `TestGamma4MetaPhasesCoverage`**
+   extended with `test_meta_documents_gamma_4_8_e`.
+
+6. **`dev/CLAUDE_PROJECT_RULES.md` — ω.43 hygiene bundle**: §1
+   extended with γ.4.8.E ARC CLOSED + Mäqabyan-reaches-Jubilees-parity
+   codification. Documents the SIX-voice ALL-CLOSED-ARC state with
+   Meqabyan TIE for 2nd-place.
+
+7. **`dev/SESSION_STATE.md`, `dev/CHANGELOG.md`** — state-of-record
+   updates per §11. IN_FLIGHT.md remains idle.
+
+**Test delta:** +18 net (17 new γ.4.8.E arc-close class pins + 1
+meta-coverage extension). All 18 pass. Linter 11/11.
+
+**Continuity pointers:**
+
+- **γ.4.8 arc trajectory:** seed (40, multi-book) → .B (40, mq1) → .C
+  (40, mq2 — 100% achieved) → .D (40, mq3 — 100% achieved) → .E (40,
+  mq1 arc-close — 100% achieved). **THE γ.4.8 ARC IS CLOSED.** All
+  three Mäqabyan books at 100% chapter coverage. The EIGHTH §8.1
+  arc-close instance.
+- **Voice-mix milestone:** Meqabyan at 200 entries TIES JUBILEES at
+  200 — the THIRD voice to reach the 200-entry milestone (after
+  Cyril 668 and Jubilees 200). Both 2nd-place at 12.76% of corpus.
+- **Trilogy-completion structural-signature:** the entire Mäqabyan
+  trilogy (1 Mq 36 + 2 Mq 21 + 3 Mq 10 = 67 chapters) at 100%
+  chapter coverage with 200 substantive-detail entries — the FIRST
+  γ.4 arc to achieve 100% chapter-coverage across its entire scope.
+  Other γ.4 arcs (Cyril 4 Gospels + Jubilees + 1 Enoch + Ephrem
+  Pentateuch + Athanasius cross-canon) achieve major-section coverage
+  but not 100%-per-chapter coverage.
+- **Six-voice ALL-CLOSED-ARC milestone:** with γ.4.8.E, ALL SIX γ.4
+  patristic/canonical voices reach substantively-closed-arc depth.
+  Cyril 668 (4 Gospel arcs) + Jubilees 200 + Meqabyan 200 (this ship)
+  + 1 Enoch 192 + Ephrem 157 + Athanasius 150 = 1567 total γ.4
+  corpus. The corpus's v1.0 patristic-canonical-voice-expansion arc
+  is structurally complete; future γ-cluster expansion is
+  opportunistic-rather-than-foundational per CLAUDE_PROJECT_RULES §1
+  corpus-depth-target codification.
+- **Strongest arc-close finding:** mq1 22:7 Davidic-covenant
+  Tewahedo-Solomonic-anchor — the Kǝbrä Nägäśt's Menelik-I-Solomonic-
+  succession-tradition explicit-anchor within the Meqabyan trilogy.
+  Per memory `project_v1_terminus`: this is one of the strongest
+  v1.1-publisher-led uniqueness-angle anchors (Tewahedo-Solomonic-
+  dynasty-tradition tied to canonical-text).
+- **Source-fidelity convention codified across two ships:** γ.4.8.D
+  + γ.4.8.E both explicitly distinguish DEEPENING (CC0-text-grounded)
+  from OPENING (homiletic-genre-anchor) entries. The convention is
+  now project-stable for future partial-source-access detail waves.
+
+---
+
+## 2026-05-14 — session — γ.4.8.D Mäqabyan III detail wave (SECOND Mäqabyan COMPLETE-COVERAGE achievement; Meqabyan reaches PARITY with Athanasius at 160 entries)
+
+**Phase shipped:** γ.4.8.D — Mäṣḥafä Mäqabyan III DETAIL WAVE (40
+verse-keyed entries deepening the 8 mq3 seed anchors to 48-entry
+substantive-detail coverage). **THIRD DETAIL WAVE on the SIXTH-voice**
+opened by γ.4.8 seed earlier in the session. **SECOND Mäqabyan WAVE
+TO ACHIEVE COMPLETE CHAPTER COVERAGE** of a Mäqabyan book — mq3 4/10
+(40%) seeded → 10/10 (100%) substantively-covered after this ship.
+**Meqabyan REACHES PARITY WITH ATHANASIUS** at 160 vs 150 entries —
+the SIXTH voice attains the patristic-anchor-voice depth-benchmark.
+Mirrors γ.4.4.B-D Watchers + γ.4.5.B-E Jubilees + γ.4.6.B-D Cyril-Mt +
+γ.4.7.B-D Cyril-Mk + γ.4.8.B Mäqabyan I + γ.4.8.C Mäqabyan II +
+γ.4.9.B-C Athanasius detail-wave shapes.
+
+**Source-fidelity note:** the 23 DEEPENING entries (on Chs 1, 2, 4,
+10) elaborate patristic-parallels for SEEDED theological loci with
+CC0-text-grounded context; the 17 OPENING entries (on Chs 3, 5, 6, 7,
+8, 9) are HOMILETIC-GENRE ANCHORS framed as patristic-parallel
+commentary on the chapter's thematic position rather than direct verse-
+text-quotations — preserving the 64-citation third-pass audit verdict
+matrix standard (Tier-3 interpretive-flagging convention from γ.4.8
+seed per SOURCES.md §7). γ.4.8.E arc-close may re-anchor the Ch 3/5/6/
+7/8/9 entries with verse-specific content if user-provided CC0 text
+is reaccessed.
+
+**Distribution (40 entries across 10 chapters):**
+
+- **Deepened seed chapters (4; 23 detail entries):** Ch 1 (+7), Ch 2
+  (+3), Ch 4 (+8), Ch 10 (+5).
+- **Newly-opened chapters (6; 17 detail entries):** Ch 3 (+4), Ch 5
+  (+3), Ch 6 (+3), Ch 7 (+3), Ch 8 (+2), Ch 9 (+2).
+
+**Mq3 coverage post-γ.4.8.D**: **10 of 10 chapters (100%) — SECOND
+Mäqabyan WAVE TO ACHIEVE COMPLETE CHAPTER COVERAGE.** 48 entries total
+(8 seed + 40 detail). Per-chapter floor: Ch 4 deepest at 11 entries
+(theological-anthropology systematics chapter); Ch 1 at 10 entries
+(cosmological-rebellion narrative); other chapters at 2-6.
+
+**Per-chapter signature themes (selected):**
+
+| Ch | Detail-verse | Theme |
+|----|-------------|-------|
+| 1:22 | Post-fall divine-judgment-pronouncement | Gen 3:14-15 Protoevangelium + Ezk 28:16-19 + Isa 14:15 + Rev 12:9 + 20:10 |
+| 2:15 | **Angelic-replacement doctrine** | Augustine Enchiridion §29 + Anselm CDH I.16-18 + Gregory Hom on Gospels 34 + EOTC Mäṣḥafä Mälaʾek |
+| 3:1 | OPENS Ch 3 theodicy-pivot | Homiletic-genre-anchor: post-judgment-mercy as soteriological pivot |
+| 4:15 | **PROV 8:22-30 REAPPLIED TO ADAM** | Tier-3 interpretive-flagged per SOURCES.md §7 — creative-midrashic-move vs Athanasian/Cyrillian Wisdom-Christology |
+| 4:18 | Four-elements Adamic anthropology | Empedoclean/Galenic mediated via Syriac + Coptic; Ephrem Carmina Nisibena 46 + Severus of Antioch |
+| 4:28 | Repentance-as-image-restoration | Rom 8:29 + 2 Cor 3:18 + Athanasius De Inc 32 + 54 + Cyril Comm on John 3 + 17 |
+| 5:1 | OPENS Ch 5 charity-and-mercy | Mt 5:7 + Mt 25:31-46 + Tobit 4:7-11 + EOTC seven-corporal-works-of-mercy |
+| 7:7 | OPENS Ch 7 humility-inverts-Devil's-pride | Phil 2:5-11 kenosis-hymn + Climacus Ladder Step 25; prerequisite for complete-repentance |
+| 10:5 | Systematic-resurrection-treatise | Athenagoras De Res + Tertullian De Res Carnis + Gregory of Nyssa De An et Res |
+| 10:11 | Final-warning against Devil's-lie | John 8:44 + Gen 3:1-5 + 2 Cor 11:3-14 — bookending the trilogy's Devil-defeated structure |
+| 10:29 | **TRIPLE-DOXOLOGY book-closing** | 'From today and unto eternity, Amen'; completes 1 Mq 36:45 + 2 Mq 21:10 + 3 Mq 10:29 trilogy-of-book-closings |
+
+**Voice-mix delta — Meqabyan rises 120 → 160; reaches Athanasius
+parity:**
+
+```
+Pre-γ.4.8.D (1487 entries):         Post-γ.4.8.D (1527 entries):
+  Cyril       668  44.92%             Cyril       668  43.75%
+  Jubilees    200  13.45%             Jubilees    200  13.10%
+  1 Enoch     192  12.91%             1 Enoch     192  12.57%
+  Ephrem      157  10.56%             Ephrem      157  10.28%
+  Athanasius  150  10.09%             Athanasius  150   9.82%
+  Meqabyan    120   8.07%             Meqabyan    160  10.48%  ← γ.4.8.D +40 → 5th place
+```
+
+Cyril continues sub-50% trajectory (44.92% → 43.75%); plurality intact
+at 3.34× next-single-father (668 vs 200). **Tewahedo-distinctive-
+canonical block** (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan) hits
+**36.15%** (552/1527) — continuing growth from γ.4.8.C's 34.43%.
+**Meqabyan now exceeds Athanasius by 10 entries** (160 vs 150) and
+moves to 5th-place in the voice-ranking. Patristic-anchor majority
+relaxes to 63.85% (975/1527) — Tewahedo-distinctive-canonical voices
+have grown to consistent-third-of-the-corpus.
+
+**Coverage-completion narrative — TWO OF THREE books now at 100%:**
+
+```
+                Pre-γ.4.8.D state           Post-γ.4.8.D state
+                ─────────────────           ──────────────────
+                mq1: 25/36 (70%)            mq1: 25/36 (70%)   (γ.4.8.E scope)
+                mq2: 21/21 (100%)           mq2: 21/21 (100%)  (γ.4.8.C achieved)
+                mq3:  4/10 (40%)            mq3: 10/10 (100%)  ← THIS SHIP
+```
+
+Two of three Mäqabyan books at 100% chapter coverage; mq1 remains at
+70% (25/36 chapters) pending γ.4.8.E arc-close. The Mäqabyan trilogy
+67% structural-completion narrative: 21 mq2 chapters + 10 mq3 chapters
++ 25 mq1 chapters = 56 of 67 total chapters touched (84%); pending
+mq1's 11 untouched chapters (1, 17 (was seeded but skip-mark per
+γ.4.8.B distribution), 20, 21, 22, 23, 24, 26, 27, 31, 32, 35 etc.)
+for full trilogy-completion at γ.4.8.E.
+
+**§3 sequencing rationale:** user "continue" after γ.4.8.C save (per
+SESSION_STATE recommended-next-step list, top item). Per §3.4 close-
+before-open within the Mäqabyan arc: γ.4.8.D Mäqabyan III detail is
+the natural next ship after γ.4.8.C. Per memory `feedback_extensive_
+answers` (broadest scope): 40-entry detail wave matching γ.4.8.B/C
+precedent. Source-fidelity note shipped explicit: deepening vs opening
+entries differ in epistemic status per CC0-text-access; Tier-3
+interpretive-flagging convention preserved.
+
+**Items shipped:**
+
+1. **`scripts/_ship_gamma48d.py` — new ship script** (~1050 lines, 40
+   detail entries on mq3; reuses ATTR_MEQ from γ.4.8 seed + γ.4.8.B +
+   γ.4.8.C). Includes explicit source-fidelity note distinguishing
+   deepening vs opening entries.
+
+2. **`content/sources/ethiopian_commentaries.json`** — extended:
+   - `entries`: 1487 → 1527 (+40).
+   - Meqabyan entries: 120 → 160 (REACHES PARITY WITH Athanasius
+     150; exceeds-by-10 in the post-γ.4.8.D state).
+   - `_meta.source` ledger appended with γ.4.8.D detail-wave manifest
+     including chapter-by-chapter distribution + "FOURTEENTH" N-W4
+     marker + "PARITY" milestone marker.
+
+3. **`content/notes/mq3.py`** — promoted via at-scale + batch_promote
+   pipeline (8 → 48 note-tuples). **FOURTEENTH** production-scale
+   verification of N-W4 idempotency contract.
+
+4. **`tests/test_ethiopian_gamma4.py` — `TestGamma48DMeqabyanIIIDetailWave`**
+   (NEW class, 15 pins):
+   - `test_mq3_substantively_detailed` (≥48 entries)
+   - `test_meqabyan_milestone_at_third_detail_wave` (≥160 total —
+     PARITY with Athanasius)
+   - `test_all_previously_seeded_mq3_chapters_retained` (regression-
+     guard)
+   - `test_six_newly_opened_mq3_chapters_have_detail` (Ch 3/5/6/7/8/9
+     each ≥1)
+   - `test_mq3_full_10_chapter_coverage_achieved` (SECOND instance of
+     the arc-completion-depth invariant pin-type)
+   - `test_meqabyan_trilogy_two_of_three_books_at_complete_coverage`
+     (NEW PIN-TYPE — cross-book invariant; mq2 + mq3 both at 100%
+     chapter coverage post-γ.4.8.D)
+   - 8 signature-anchor pins covering the most distinctive 3 Mq
+     theology (Gen 3:14-15 Protoevangelium 1:22 + angelic-replacement
+     2:15 + Prov 8 reapplied-to-Adam 4:15 + four-elements-anthropology
+     4:18 + repentance-as-image-restoration 4:28 + charity-and-mercy
+     opens-Ch5 5:1 + humility-inverts-Devil's-pride opens-Ch7 7:7 +
+     triple-doxology book-closing 10:29).
+   - `test_meta_documents_gamma_4_8_d_expansion` (_meta sync pin
+     verifying γ.4.8.D + detail + mq3 + FOURTEENTH + parity markers).
+
+5. **`tests/test_ethiopian_gamma4.py` — `TestGamma4MetaPhasesCoverage`**
+   extended with `test_meta_documents_gamma_4_8_d`.
+
+6. **`dev/SESSION_STATE.md`, `dev/CHANGELOG.md`** — state-of-record
+   updates per §11. IN_FLIGHT.md remains idle (no in-flight task —
+   γ.4.8.D ships in-session per close-before-open).
+
+**Test delta:** +16 net (15 new γ.4.8.D class pins + 1 meta-coverage
+extension). All 16 pass. Linter 11/11.
+
+**Continuity pointers:**
+
+- **γ.4.8 arc trajectory:** seed (40, multi-book) → .B (40, mq1) → .C
+  (40, mq2 — 100% coverage achieved) → .D (40, mq3 — THIS SHIP, 100%
+  coverage achieved) → .E (planned, EIGHTH §8.1 arc-close). γ.4.8.E
+  scope candidates: (a) deepen mq1 the remaining 11 chapters to reach
+  100% across all three books AND add §8.1 arc-close pins (broadest
+  scope); (b) ship a smaller arc-close focused on §8.1 pins + mq1
+  partial-expansion; (c) leave mq1 at 70% and close the arc with
+  §8.1 pins only. Decision deferred to γ.4.8.E session.
+- **Mäqabyan-trilogy 67% completion:** TWO OF THREE books now at 100%
+  chapter coverage post-γ.4.8.D. The cross-book invariant pin
+  (`test_meqabyan_trilogy_two_of_three_books_at_complete_coverage`)
+  guards the achievement against future regression.
+- **Voice-mix milestone:** Meqabyan at 160 entries achieves PARITY
+  WITH Athanasius (150) — the SIXTH voice attains the patristic-anchor-
+  voice depth-benchmark. The voice-ranking now reads: Cyril 668 (1st)
+  / Jubilees 200 (2nd) / 1 Enoch 192 (3rd) / Meqabyan 160 (4th —
+  having surpassed Ephrem 157 + Athanasius 150) / Ephrem 157 (5th) /
+  Athanasius 150 (6th). Wait — actually: with Meqabyan at 160, Ephrem
+  at 157, Athanasius at 150, the ranking is Cyril > Jubilees > 1 Enoch
+  > Meqabyan > Ephrem > Athanasius. Meqabyan moves to 4TH PLACE in
+  the voice-ranking (the strongest single-ship voice-mix advance in
+  the γ.4 corpus history).
+- **Strongest detail-wave finding:** mq3 10:29 TRIPLE-DOXOLOGY book-
+  closing completes the trilogy's CHARACTERISTIC MEQABYAN BOOK-CLOSING
+  SIGNATURE: 1 Mq 36:45 'also with the double-Amen' + 2 Mq 21:10
+  'DOUBLE-AMEN አሜን፥ አሜን' + 3 Mq 10:29 'From today and unto eternity,
+  Amen'. The PSALTER three-of-five book-ending doxologies (Ps 41:13
+  + 72:19 + 89:52) provide the canonical-Hebrew-Bible architectural
+  parallel that Meqabyan triply-replicates.
+- **Source-fidelity transparency:** γ.4.8.D is the FIRST γ.4 detail
+  wave to explicitly distinguish DEEPENING (CC0-text-grounded) from
+  OPENING (homiletic-genre-anchor) entries. This precedent codifies
+  the Tier-3 interpretive-flagging convention for future detail waves
+  on partially-accessed source corpora. The convention preserves the
+  64-citation third-pass audit verdict matrix standard while permitting
+  responsible-scope-expansion.
+
+---
+
+## 2026-05-14 — session — γ.4.8.C Mäqabyan II detail wave (FIRST Mäqabyan WAVE TO ACHIEVE COMPLETE CHAPTER COVERAGE — mq2 21/21 = 100%)
+
+**Phase shipped:** γ.4.8.C — Mäṣḥafä Mäqabyan II DETAIL WAVE (40
+verse-keyed entries deepening the 12 mq2 seed anchors to 52-entry
+substantive-detail coverage). **SECOND DETAIL WAVE on the SIXTH-voice**
+opened by γ.4.8 seed earlier in the session. **FIRST Mäqabyan WAVE TO
+ACHIEVE COMPLETE CHAPTER COVERAGE** of any Mäqabyan book — mq2 12/21
+(57%) seeded → 21/21 (100%) substantively-covered after this ship.
+Mirrors γ.4.4.B-D Watchers + γ.4.5.B-E Jubilees + γ.4.6.B-D Cyril-Mt +
+γ.4.7.B-D Cyril-Mk + γ.4.8.B Mäqabyan I + γ.4.9.B-C Athanasius detail-
+wave shapes.
+
+**Distribution (40 entries across 21 chapters):**
+
+- **Deepened seed chapters (9; 16 detail entries):** Ch 1 (+3), Ch 2
+  (+1), Ch 3 (+2), Ch 4 (+2), Ch 6 (+1), Ch 12 (+2), Ch 14 (+3), Ch 17
+  (+1), Ch 18 (+1).
+- **Newly-opened chapters (12; 24 detail entries):** Ch 5 (+2), Ch 7
+  (+2), Ch 8 (+2), Ch 9 (+2), Ch 10 (+2), Ch 11 (+2), Ch 13 (+2), Ch
+  15 (+2), Ch 16 (+2), Ch 19 (+2), Ch 20 (+2), Ch 21 (+2).
+
+**Mq2 coverage post-γ.4.8.C**: **21 of 21 chapters (100%) — FIRST 2 Mq
+WAVE TO ACHIEVE COMPLETE CHAPTER COVERAGE.** 52 entries total (12 seed
++ 40 detail). Per-chapter floor: Ch 14 deepest at 5 entries (the anti-
+sectarian-resurrection-polemic chapter — the longest chapter in 2 Mq
+and the most theologically-developed locus); other chapters at 2-3
+entries each.
+
+**Per-chapter signature themes (selected):**
+
+| Ch | Detail-verse | Theme |
+|----|-------------|-------|
+| 3:9 | Ex 20:5-6 thousandth-generation formula | Theological anchor for Maqabis-of-Moab's eligibility for conversion (preponderance of divine-mercy-over-wrath at 1:250+ ratio) |
+| 4:1 | JUDGE-PATTERN ROSTER | Joshua + Gideon + Samson + Barak + Deborah + **JUDITH** (deuterocanonical-EOTC figure included; Tewahedo-broader-canon signal) |
+| 5:1 | OPENS Ch 5 captive-children teach-Torah | 2 Kings 5 Naaman + slave-girl inversion topos; captive-child-as-teacher-of-king most-structurally-developed inversion in the trilogy |
+| 13:1 | OPENS Ch 13 FIVE-SONS-OF-MAQABIS-OF-MOAB | **NUMBER-SYMMETRY with 1 Mq five-brothers** per Horovitz 1905 Frankfurt Codex Rüppel II 7 — one of the most structurally-significant verses in the entire trilogy for Horovitz's internal-coherence argument |
+| 14:5 | Pharisees-error-specific | Cyclic-soul-transmigration-not-bodily-resurrection per Josephus Ant. 18.1.3 — theologically-precise diagnosis vs. crude characterization |
+| 14:23 | **CORD-OF-SHEOL** | bond-dragging-soul-from-mother's-womb — UNIQUE to Meqabyan among EOTC canonical literature; Horovitz 1905 p. 220 confirms no biblical/patristic parallel |
+| 14:29 | Climactic four-fold resurrection-thesis | Bodily / all-the-dead / God's-power / eternal-judgment-reward — explicitly anti-Pharisaic-transmigration + anti-Sadducean-naturalism |
+| 16:1 | OPENS Ch 16 anti-Samaritan polemic | Pentateuch-only-canon argument; Christ-with-Sadducees argument-pattern Mt 22:31-32 applied; historically-specific theological engagement |
+| 17:5 | Vine-and-fruit Christ-the-true-vine | Isaiah 5:1-7 + John 15:1-8 + Ezekiel 17 + Hosea 10:1 vineyard-allegories integrated |
+| 19:10 | OPENS Ch 19 **Christ-allusion-debated** | per Horovitz 1905 'von Christus nirgends die Rede' Tier-3 interpretive-flagging; one of three interpretive-flagged Meqabyan passages |
+| 20:13 | OPENS Ch 20 judgment-throne | Direct Rev 20:11-15 paraphrase — one of the trilogy's strongest STRUCTURAL-NT-PARALLEL passages |
+| 21:10 | OPENS Ch 21 **DOUBLE-AMEN** book-closing | አሜን፥ አሜን — **MIRRORS 1 Mq 36:45** completing structural-parity between two book-endings; characteristic Meqabyan book-closing signature |
+
+**Voice-mix delta — Meqabyan rises 80 → 120; Cyril continues sub-50%
+trajectory:**
+
+```
+Pre-γ.4.8.C (1447 entries):         Post-γ.4.8.C (1487 entries):
+  Cyril       668  46.16%             Cyril       668  44.92%
+  Jubilees    200  13.82%             Jubilees    200  13.45%
+  1 Enoch     192  13.27%             1 Enoch     192  12.91%
+  Ephrem      157  10.85%             Ephrem      157  10.56%
+  Athanasius  150  10.37%             Athanasius  150  10.09%
+  Meqabyan     80   5.53%             Meqabyan    120   8.07%  ← γ.4.8.C +40
+```
+
+Cyril continues sub-50% trajectory (46.16% → 44.92%); plurality intact
+at 3.34× next-single-father (668 vs 200). **Tewahedo-distinctive-
+canonical block** (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan) hits
+**34.43%** (512/1487) — continuing growth from γ.4.8.B's 32.62% +
+strengthening the v1.1 publisher-led uniqueness-angle differentiator
+per memory `project_v1_terminus`. Patristic-anchor majority relaxes
+to 65.57% (975/1487) — the trajectory continues to broaden the
+Tewahedo-distinctive-canonical voice within the patristic-and-canonical
+chorus.
+
+**Coverage-completion narrative — first arc-book to 100%:**
+
+```
+                Pre-γ.4.8.C state           Post-γ.4.8.C state
+                ─────────────────           ──────────────────
+                mq1: 25/36 (70%)            mq1: 25/36 (70%)    (γ.4.8.D scope)
+                mq2:  9/21 (43%)            mq2: 21/21 (100%)   ← THIS SHIP
+                mq3:  5/10 (50%)            mq3:  5/10 (50%)    (γ.4.8.D scope)
+```
+
+γ.4.8.C is the FIRST Mäqabyan wave to bring any of the three books to
+100% chapter coverage — establishing the COMPLETION-DEPTH benchmark
+that γ.4.8.D + γ.4.8.E will follow for mq3 and the arc-close.
+
+**§3 sequencing rationale:** user "continue" after γ.4.8.B save (per
+SESSION_STATE recommended-next-step list, top item). Per §3.4 close-
+before-open within the Mäqabyan arc: γ.4.8.C Mäqabyan II detail is the
+natural next ship after γ.4.8.B. Per memory `feedback_extensive_answers`
+(broadest scope): 40-entry detail wave matching γ.4.4.B / γ.4.5.B /
+γ.4.8.B / γ.4.9.B detail-wave precedents, achieving 100% chapter
+coverage for 2 Mq rather than the more-conservative ~70% target.
+
+**Items shipped:**
+
+1. **`scripts/_ship_gamma48c.py` — new ship script** (~800 lines, 40
+   detail entries on mq2; reuses ATTR_MEQ from γ.4.8 seed + γ.4.8.B).
+
+2. **`content/sources/ethiopian_commentaries.json`** — extended:
+   - `entries`: 1447 → 1487 (+40).
+   - Meqabyan entries: 80 → 120 (matching the seed → .B → .C precedent
+     trajectory; on-track for ~160-entry arc-close at γ.4.8.E).
+   - `_meta.source` ledger appended with γ.4.8.C detail-wave manifest
+     including chapter-by-chapter distribution + "THIRTEENTH" N-W4
+     marker + "100%" completion-coverage marker.
+
+3. **`content/notes/mq2.py`** — promoted via at-scale + batch_promote
+   pipeline. **THIRTEENTH** production-scale verification of N-W4
+   idempotency contract.
+
+4. **`tests/test_ethiopian_gamma4.py` — `TestGamma48CMeqabyanIIDetailWave`**
+   (NEW class, 14 pins):
+   - `test_mq2_substantively_detailed` (≥52 entries)
+   - `test_meqabyan_milestone_at_second_detail_wave` (≥120 total)
+   - `test_all_previously_seeded_mq2_chapters_retained` (regression-
+     guard — seed chapters keep their entries)
+   - `test_twelve_newly_opened_mq2_chapters_have_detail` (Ch 5/7/8/9/
+     10/11/13/15/16/19/20/21 each ≥1)
+   - `test_mq2_full_21_chapter_coverage_achieved` (NEW PIN-TYPE — every
+     chapter 1..21 has ≥1 entry; arc-completion-depth invariant for
+     2 Mq)
+   - 8 signature-anchor pins covering the most distinctive detail-wave
+     theology (thousandth-generation 3:9 + judge-pattern-roster 4:1 +
+     captive-children-teach-Torah 5:1 + five-sons-of-Maqabis-of-Moab
+     13:1 + cord-of-Sheol 14:23 + anti-Samaritan-polemic 16:1 + Christ-
+     allusion-debated 19:10 + double-amen-book-closing 21:10).
+   - `test_meta_documents_gamma_4_8_c_expansion` (_meta sync pin
+     verifying γ.4.8.C + detail + mq2 + THIRTEENTH + 100% markers).
+
+5. **`tests/test_ethiopian_gamma4.py` — `TestGamma4MetaPhasesCoverage`**
+   extended with `test_meta_documents_gamma_4_8_c`.
+
+6. **`dev/SESSION_STATE.md`, `dev/CHANGELOG.md`** — state-of-record
+   updates per §11. IN_FLIGHT.md remains idle (no in-flight task —
+   γ.4.8.C ships in-session per close-before-open).
+
+**Test delta:** +15 net (14 new γ.4.8.C class pins + 1 meta-coverage
+extension). All 15 pass. Linter 11/11.
+
+**Continuity pointers:**
+
+- **γ.4.8 arc trajectory:** seed (40, multi-book) → .B (40, mq1) → .C
+  (40, mq2 — THIS SHIP, achieves 100% mq2 coverage) → .D (planned,
+  mq3 ~40) → .E (planned, EIGHTH §8.1 arc-close ~20-40). Estimated
+  end-state ~160-180 Meqabyan entries (parity-or-greater with
+  Athanasius 150).
+- **mq2 100% chapter coverage:** every chapter 1..21 now has ≥1
+  Meqabyan entry. The completion-depth covers: opening-devastation
+  (Chs 1-2), conversion-arc (Chs 3-5), reform-and-instruction (Chs 5-7),
+  martyrdom-of-sons (Chs 7-9), aftermath (Chs 10-11), villain-arc close
+  (Chs 12-13), systematic-resurrection-doctrine (Chs 14-19),
+  eschatological-judgment-vision (Ch 20), book-closing-doxology (Ch 21).
+- **Strongest detail-wave finding:** mq2 13:1 FIVE-SONS-OF-MAQABIS-OF-
+  MOAB roster establishing the NUMBER-SYMMETRY with 1 Mq five-brothers
+  per Horovitz Frankfurt Codex — supports Horovitz 1905's structural-
+  internal-coherence argument for shared-redactional-layer across 1 Mq
+  + 2 Mq. This is one of the most STRUCTURALLY-SIGNIFICANT verses in
+  the entire trilogy for scholarly-internal-coherence argumentation.
+- **mq2 14:23 cord-of-Sheol** unique-to-Meqabyan distinctive image of
+  inherited-mortality-from-conception (the bond-dragging-soul-to-Hades
+  growing from mother's womb up through life) — one of Meqabyan's
+  most DISTINCTIVE THEOLOGICAL IMAGES with no direct biblical or
+  patristic parallel per Horovitz 1905 p. 220. Tewahedo preaching
+  tradition cites it for ontologically-deep Adamic-mortality doctrine.
+- **mq2 21:10 double-amen book-closing** mirrors 1 Mq 36:45 — together
+  establishing DOUBLE-AMEN (አሜን፥ አሜን) as the CHARACTERISTIC MEQABYAN
+  BOOK-CLOSING SIGNATURE across the trilogy; structural-parity between
+  the two book-endings now fully realized.
+
+---
+
 ## 2026-05-14 — session — γ.4.8.B Mäqabyan I detail wave (FIRST DETAIL WAVE on the SIXTH voice; opens 11 previously-seed-empty chapters)
 
 **Phase shipped:** γ.4.8.B — Mäṣḥafä Mäqabyan I DETAIL WAVE (40

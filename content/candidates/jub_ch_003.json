@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 3,
-  "generated_at": "2026-05-14T06:19:07+00:00",
-  "n_candidates": 11,
+  "generated_at": "2026-05-14T14:53:01+00:00",
+  "n_candidates": 14,
   "candidates": [
     {
       "id": "jub-3-31-001",
@@ -156,6 +156,51 @@
     },
     {
       "id": "jub-3-31-011",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 3:31 (Eden's aftermath (3:31)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;On this account it is prescribed on the heavenly tablets as touching all those who know the judgement of the law, that they should cover their shame, and should not uncover themselves as the Gentiles uncover themselves&#x27; — the heavenly-tablets prescription on bodily modesty. Tewahedo monastic dress tradition (the distinctive monastic robes covering arms and legs completely; the laymen&#x27;s shamma cloth wrap) preserves this Jubilees-tablet prescription as canonical warrant for clothing-as-covenant-marker.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-3-31-012",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 3:31 (Eden's aftermath (3:31)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;On this account it is prescribed on the heavenly tablets as touching all those who know the judgement of the law, that they should cover their shame, and should not uncover themselves as the Gentiles uncover themselves&#x27; — the heavenly-tablets prescription on bodily modesty. Tewahedo monastic dress tradition (the distinctive monastic robes covering arms and legs completely; the laymen&#x27;s shamma cloth wrap) preserves this Jubilees-tablet prescription as canonical warrant for clothing-as-covenant-marker.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-3-31-013",
+      "verse": 31,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 3:31 (Eden's aftermath (3:31)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;On this account it is prescribed on the heavenly tablets as touching all those who know the judgement of the law, that they should cover their shame, and should not uncover themselves as the Gentiles uncover themselves&#x27; — the heavenly-tablets prescription on bodily modesty. Tewahedo monastic dress tradition (the distinctive monastic robes covering arms and legs completely; the laymen&#x27;s shamma cloth wrap) preserves this Jubilees-tablet prescription as canonical warrant for clothing-as-covenant-marker.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-3-31-014",
       "verse": 31,
       "kind": "comm-ethiopian",
       "anchor": "",

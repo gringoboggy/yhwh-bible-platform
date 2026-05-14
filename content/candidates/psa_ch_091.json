@@ -1,8 +1,8 @@
 {
   "book": "psa",
   "chapter": 91,
-  "generated_at": "2026-05-14T06:19:09+00:00",
-  "n_candidates": 18,
+  "generated_at": "2026-05-14T14:53:03+00:00",
+  "n_candidates": 21,
   "candidates": [
     {
       "id": "psa-91-1-001",
@@ -261,6 +261,51 @@
     },
     {
       "id": "psa-91-1-018",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §20",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §20</em> <small>(c. 350 AD)</small><p>&#x27;He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty&#x27; (LXX 90:1 — ho katoikōn en boētheia tou Hypsistou en skepē tou theou tou ouranou aulisthēsetai) — Athanasius marks Ps 91 (LXX 90) as the DIVINE-PROTECTION PARADIGM in the Letter to Marcellinus: prescribed for the soul-seeking-refuge-from-physical-and-spiritual-dangers. The shadow-of-the-Most-High (skepē tou Hypsistou) is read Christ-ologically — the Word-incarnate is the divine-shadow-cast-on-earth, the Annunciation-overshadowing (Lk 1:35 episkiasei soi) now-extended to every believer. The Tewahedo travel-blessing tradition cites Ps 91 as the Mäzmurä Dawit (David&#x27;s Psalter) protective-prayer.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §20. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-91-1-019",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §20",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §20</em> <small>(c. 350 AD)</small><p>&#x27;He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty&#x27; (LXX 90:1 — ho katoikōn en boētheia tou Hypsistou en skepē tou theou tou ouranou aulisthēsetai) — Athanasius marks Ps 91 (LXX 90) as the DIVINE-PROTECTION PARADIGM in the Letter to Marcellinus: prescribed for the soul-seeking-refuge-from-physical-and-spiritual-dangers. The shadow-of-the-Most-High (skepē tou Hypsistou) is read Christ-ologically — the Word-incarnate is the divine-shadow-cast-on-earth, the Annunciation-overshadowing (Lk 1:35 episkiasei soi) now-extended to every believer. The Tewahedo travel-blessing tradition cites Ps 91 as the Mäzmurä Dawit (David&#x27;s Psalter) protective-prayer.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §20. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-91-1-020",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistola ad Marcellinum §20",
+      "source_attribution": "Athanasius of Alexandria, Epistola ad Marcellinum de Interpretatione Psalmorum (Letter to Marcellinus on the Interpretation of the Psalms), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 27 (1857). The Letter is Athanasius's principal pastoral-spiritual work — a personal letter to Marcellinus (recovering from illness) explaining how to use each Psalm as prayer for specific spiritual circumstances. Hermeneutic anchor for the Tewahedo Office (Säʿatat) Psalter-recitation tradition.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistola ad Marcellinum §20</em> <small>(c. 350 AD)</small><p>&#x27;He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty&#x27; (LXX 90:1 — ho katoikōn en boētheia tou Hypsistou en skepē tou theou tou ouranou aulisthēsetai) — Athanasius marks Ps 91 (LXX 90) as the DIVINE-PROTECTION PARADIGM in the Letter to Marcellinus: prescribed for the soul-seeking-refuge-from-physical-and-spiritual-dangers. The shadow-of-the-Most-High (skepē tou Hypsistou) is read Christ-ologically — the Word-incarnate is the divine-shadow-cast-on-earth, the Annunciation-overshadowing (Lk 1:35 episkiasei soi) now-extended to every believer. The Tewahedo travel-blessing tradition cites Ps 91 as the Mäzmurä Dawit (David&#x27;s Psalter) protective-prayer.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistola ad Marcellinum §20. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "psa-91-1-021",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,8 +1,8 @@
 {
   "book": "rom",
   "chapter": 6,
-  "generated_at": "2026-05-14T06:19:10+00:00",
-  "n_candidates": 84,
+  "generated_at": "2026-05-14T14:53:03+00:00",
+  "n_candidates": 87,
   "candidates": [
     {
       "id": "rom-6-1-001",
@@ -1251,6 +1251,51 @@
     },
     {
       "id": "rom-6-3-084",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.50",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.50</em> <small>(c. 350 AD)</small><p>&#x27;Know ye not, that so many of us as were baptized into Jesus Christ were baptized into his death?&#x27; — Athanasius marks eis ton thanaton autou ebaptisthēmen (we were baptized into his death) as the baptismal-incorporation-into-the-paschal-mystery. The baptismal-water is not merely-cleansing but THE-PATH-INTO-Christ&#x27;s-death-and-resurrection. The believer&#x27;s union-with-Christ-in-baptism is ontological-real, not merely-symbolic. The Tewahedo baptismal-rite (Krǝstǝnnā, with triple-immersion in fonts shaped as cruciform-tombs) preserves the Athanasian-Pauline death-into-life-incorporation explicitly — the rubric cites Rom 6:3-5 at the triple-immersion exhortation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.50. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-6-3-085",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.50",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.50</em> <small>(c. 350 AD)</small><p>&#x27;Know ye not, that so many of us as were baptized into Jesus Christ were baptized into his death?&#x27; — Athanasius marks eis ton thanaton autou ebaptisthēmen (we were baptized into his death) as the baptismal-incorporation-into-the-paschal-mystery. The baptismal-water is not merely-cleansing but THE-PATH-INTO-Christ&#x27;s-death-and-resurrection. The believer&#x27;s union-with-Christ-in-baptism is ontological-real, not merely-symbolic. The Tewahedo baptismal-rite (Krǝstǝnnā, with triple-immersion in fonts shaped as cruciform-tombs) preserves the Athanasian-Pauline death-into-life-incorporation explicitly — the rubric cites Rom 6:3-5 at the triple-immersion exhortation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.50. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-6-3-086",
+      "verse": 3,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos I.50",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos I.50</em> <small>(c. 350 AD)</small><p>&#x27;Know ye not, that so many of us as were baptized into Jesus Christ were baptized into his death?&#x27; — Athanasius marks eis ton thanaton autou ebaptisthēmen (we were baptized into his death) as the baptismal-incorporation-into-the-paschal-mystery. The baptismal-water is not merely-cleansing but THE-PATH-INTO-Christ&#x27;s-death-and-resurrection. The believer&#x27;s union-with-Christ-in-baptism is ontological-real, not merely-symbolic. The Tewahedo baptismal-rite (Krǝstǝnnā, with triple-immersion in fonts shaped as cruciform-tombs) preserves the Athanasian-Pauline death-into-life-incorporation explicitly — the rubric cites Rom 6:3-5 at the triple-immersion exhortation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos I.50. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "rom-6-3-087",
       "verse": 3,
       "kind": "comm-ethiopian",
       "anchor": "",

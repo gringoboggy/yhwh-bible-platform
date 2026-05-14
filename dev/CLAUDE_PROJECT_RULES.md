@@ -185,11 +185,26 @@ holds at 975/1407 = 69.30%. **Cyril plurality** remains intact at
 Cyril > Athanasius AND Cyril > Jubilees — sufficient under all
 plausible future expansion).
 
-Future γ.4.8.x detail-wave + arc-close ships (γ.4.8.B Mäqabyan-I
-detail, γ.4.8.C Mäqabyan-II detail, γ.4.8.D Mäqabyan-III detail,
-γ.4.8.E arc-close as EIGHTH §8.1 instance) will follow the established
-seed → detail → arc-close pattern; estimated end-state for the Mäqabyan
-voice is ~120-160 entries (parity with Athanasius 150).
+**Update — ω.43 / γ.4.8.E arc-close 2026-05-14:** the γ.4.8 Mäqabyan
+arc is now CLOSED at the EIGHTH §8.1 instance, with the five-wave
+detail-wave family (γ.4.8 seed + γ.4.8.B Mäqabyan-I detail + γ.4.8.C
+Mäqabyan-II detail + γ.4.8.D Mäqabyan-III detail + γ.4.8.E arc-close)
+all shipped. **Mäqabyan reached 200 entries — PARITY WITH JUBILEES at
+200; TIE for 2ND-PLACE in the voice-ranking** (Cyril 668 / Jubilees 200
+/ Meqabyan 200 / 1 Enoch 192 / Ephrem 157 / Athanasius 150). The
+estimated end-state of ~120-160 entries was EXCEEDED by ~40-80 entries
+— the broader scope (per memory `feedback_extensive_answers`) achieved
+PARITY rather than mere benchmark-match. All three Mäqabyan books at
+100% chapter coverage: mq1 36/36 + mq2 21/21 + mq3 10/10 = 67/67
+chapters. The Mäqabyan trilogy is the FIRST γ.4 arc to achieve 100%
+chapter-coverage across its entire scope. **Tewahedo-distinctive-
+canonical block (Mäṣḥafä Hēnok + Mäṣḥafä Kufāle + Mäqabyan) at
+37.78%** (592/1567) — strongest position in γ.4 corpus history;
+directly supports v1.1 publisher-led uniqueness-angle pick per memory
+`project_v1_terminus`. Cyril remains plurality-leader at 42.63% (sub-
+50% trajectory continues; 3.34× next-single-father preserved). With
+γ.4.8.E ALL SIX γ.4 PATRISTIC/CANONICAL VOICES are at substantively-
+closed-arc depth.
 
 ## 2. Universal principles (from SCOPE_2026-05-08.md, carried verbatim from 05-07)
 

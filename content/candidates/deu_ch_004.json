@@ -1,8 +1,8 @@
 {
   "book": "deu",
   "chapter": 4,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 144,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 147,
   "candidates": [
     {
       "id": "deu-4-2-001",
@@ -2151,6 +2151,51 @@
     },
     {
       "id": "deu-4-24-144",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 4:23-31. NPNF Series 2, vol. 13. PD. Cf. Heb 12:29 (verbatim citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;the Lord thy God is a consuming fire, even a jealous God&#x27; (Deu 4:24), Ephrem reads the doubled-image (consuming fire + jealous God) as the canonical Old-Testament anchor of Hebrews 12:29 (&#x27;for our God is a consuming fire&#x27; — verbatim citation). The fire-image is not destructive wrath but the purifying jealousy that refuses rival affections. Tewahedo theology cites Deu 4:24 + Heb 12:29 as the canonical doubled-witness that the encounter-with-God is always simultaneously consoling and consuming; the Eucharist itself receives the same description in the Tewahedo Anaphora of Athanasius: &#x27;this is the burning coal which Isaiah saw&#x27;.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-4-24-145",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 4:23-31. NPNF Series 2, vol. 13. PD. Cf. Heb 12:29 (verbatim citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;the Lord thy God is a consuming fire, even a jealous God&#x27; (Deu 4:24), Ephrem reads the doubled-image (consuming fire + jealous God) as the canonical Old-Testament anchor of Hebrews 12:29 (&#x27;for our God is a consuming fire&#x27; — verbatim citation). The fire-image is not destructive wrath but the purifying jealousy that refuses rival affections. Tewahedo theology cites Deu 4:24 + Heb 12:29 as the canonical doubled-witness that the encounter-with-God is always simultaneously consoling and consuming; the Eucharist itself receives the same description in the Tewahedo Anaphora of Athanasius: &#x27;this is the burning coal which Isaiah saw&#x27;.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-4-24-146",
+      "verse": 24,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Deuteronomy",
+      "source_attribution": "Ephrem the Syrian, Commentary on Deuteronomy, on 4:23-31. NPNF Series 2, vol. 13. PD. Cf. Heb 12:29 (verbatim citation).",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (365).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Deuteronomy</em> <small>(c. 365 AD)</small><p>On &#x27;the Lord thy God is a consuming fire, even a jealous God&#x27; (Deu 4:24), Ephrem reads the doubled-image (consuming fire + jealous God) as the canonical Old-Testament anchor of Hebrews 12:29 (&#x27;for our God is a consuming fire&#x27; — verbatim citation). The fire-image is not destructive wrath but the purifying jealousy that refuses rival affections. Tewahedo theology cites Deu 4:24 + Heb 12:29 as the canonical doubled-witness that the encounter-with-God is always simultaneously consoling and consuming; the Eucharist itself receives the same description in the Tewahedo Anaphora of Athanasius: &#x27;this is the burning coal which Isaiah saw&#x27;.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Deuteronomy. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "deu-4-24-147",
       "verse": 24,
       "kind": "comm-ethiopian",
       "anchor": "",

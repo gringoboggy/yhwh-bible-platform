@@ -1,8 +1,8 @@
 {
   "book": "act",
   "chapter": 9,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 80,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 83,
   "candidates": [
     {
       "id": "act-9-1-001",
@@ -1191,6 +1191,51 @@
     },
     {
       "id": "act-9-5-080",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.21",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.21</em> <small>(c. 350 AD)</small><p>&#x27;And he said, Who art thou, Lord? And the Lord said, I am Jesus whom thou persecutest: it is hard for thee to kick against the pricks&#x27; — Athanasius marks egō eimi Iēsous hon sy diōkeis (I am Jesus whom thou persecutest) as Christ&#x27;s IDENTIFICATION-WITH-THE-CHURCH (mystical-body theology). The crucified-and-risen Christ identifies persecution of his disciples as persecution of himself; the Son&#x27;s-incarnation extends his-Person-and-suffering through the Body. Athanasius pairs Acts 9:5 with Mt 25:40 (insomuch as ye have done it unto one of the least of these my brethren, ye have done it unto me) as the canonical Christ-mystical-Body identification pair. Tewahedo ecclesiology preserves this mystical-Body-of-Christ reading at the catechetical foundation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.21. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-9-5-081",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.21",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.21</em> <small>(c. 350 AD)</small><p>&#x27;And he said, Who art thou, Lord? And the Lord said, I am Jesus whom thou persecutest: it is hard for thee to kick against the pricks&#x27; — Athanasius marks egō eimi Iēsous hon sy diōkeis (I am Jesus whom thou persecutest) as Christ&#x27;s IDENTIFICATION-WITH-THE-CHURCH (mystical-body theology). The crucified-and-risen Christ identifies persecution of his disciples as persecution of himself; the Son&#x27;s-incarnation extends his-Person-and-suffering through the Body. Athanasius pairs Acts 9:5 with Mt 25:40 (insomuch as ye have done it unto one of the least of these my brethren, ye have done it unto me) as the canonical Christ-mystical-Body identification pair. Tewahedo ecclesiology preserves this mystical-Body-of-Christ reading at the catechetical foundation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.21. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-9-5-082",
+      "verse": 5,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.21",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.21</em> <small>(c. 350 AD)</small><p>&#x27;And he said, Who art thou, Lord? And the Lord said, I am Jesus whom thou persecutest: it is hard for thee to kick against the pricks&#x27; — Athanasius marks egō eimi Iēsous hon sy diōkeis (I am Jesus whom thou persecutest) as Christ&#x27;s IDENTIFICATION-WITH-THE-CHURCH (mystical-body theology). The crucified-and-risen Christ identifies persecution of his disciples as persecution of himself; the Son&#x27;s-incarnation extends his-Person-and-suffering through the Body. Athanasius pairs Acts 9:5 with Mt 25:40 (insomuch as ye have done it unto one of the least of these my brethren, ye have done it unto me) as the canonical Christ-mystical-Body identification pair. Tewahedo ecclesiology preserves this mystical-Body-of-Christ reading at the catechetical foundation.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.21. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "act-9-5-083",
       "verse": 5,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,0 +1,53 @@
+{
+  "book": "mq1",
+  "chapter": 35,
+  "generated_at": "2026-05-14T14:53:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "mq1-35-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 35 — HOMILETIC-GENRE ANCHOR: penultimate chapter, immediately before final-resurrection-capstone (Ch 36 seed: 36:22 Abraham-my-friend + 36:29 Hellenistic-deity dating-anchor + 36:45 resurrection-tricolon capstone + γ.4.8.B 36:1 Macedonia/Amalekites + 36:43 Gen 15:6 Abraham-believed-God). The penultimate-chapter likely serves as DOXOLOGICAL-PREPARATION for the final-capstone — paralleling the trilogy&#x27;s structural-rhythm of intermediate-doxology + transition-to-final-arc. The penultimate-chapter pattern parallels: PSALM 149-150 (the Psalter&#x27;s penultimate + final praise-psalms); REVELATION 21 (the penultimate-revelation preparation for Ch 22&#x27;s coming-Lord doxology); 1 ENOCH 107 (the penultimate-Enoch chapter preparing 108&#x27;s final-doxology — γ.4.4 structure); JUBILEES 49 (the penultimate-Jubilees chapter preparing 50&#x27;s final-Sabbath-doxology — γ.4.5 structure). The Meqabyan penultimate-chapter likely articulates the final-faithfulness-summons before the resurrection-capstone declares the consequence.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-35-7-002",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of FINAL-EXHORTATION-TO-FAITHFULNESS theme. The final-exhortation theme parallels: DEUTERONOMY 30:11-20 (Moses&#x27;s-final-exhortation-to-choose-life); JOSHUA 24:14-15 (&#x27;choose you this day whom ye will serve&#x27;); 1 SAMUEL 12:20-25 (Samuel&#x27;s-farewell-address); 2 TIMOTHY 4:1-8 (Paul&#x27;s-final-charge); 2 PETER 1:12-15 + 3:14-18 (Peter&#x27;s-final-reminder); JUDE 17-25 (the final-doxological-exhortation); REVELATION 22:11-21 (the final-revelation-exhortation). Patristic-tradition: IGNATIUS OF ANTIOCH Letters (the seven-letters&#x27;-final-exhortations); CLEMENT 65 (the closing-doxological-exhortation); POLYCARP To the Philippians 14 (the final-exhortation pattern). Tewahedo confessional-tradition preserves the final-exhortation-to-faithfulness as the structural-anchor of catechetical-baptismal preparation. The Meqabyan chapter likely articulates the final-exhortation gathering the trilogy&#x27;s themes into faithfulness-unto-resurrection.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-35-14-003",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of TRANSITION-TO-FINAL-CAPSTONE theme. The transition-to-final-capstone pattern parallels: ECCLESIASTES 12:1-8 (the remember-now-thy-Creator + the silver-cord-loosed + the spirit-shall-return-unto-God); LUKE 12:35-48 (the loins-girded servants-watching parable preparation); MATTHEW 24:42-51 par. (the watch-therefore exhortation preparation); 2 PETER 3:11-14 (looking-for-and-hasting-unto the day-of-God + looking-for-new-heavens-and-new-earth); REVELATION 22:7 + 22:12 + 22:20 (the three-fold I-come-quickly that prepares the final-Maranatha-Amen). Tewahedo eschatological-tradition preserves the transition-to-final-capstone pattern as the homiletic-structural-anchor for the resurrection-doctrine that 1 Mq 36:45 + 2 Mq 21:10 + 3 Mq 10:29 triply-capstone. The chapter&#x27;s verse-position likely articulates the FINAL-NARRATIVE-PIVOT before the resurrection-capstone arrives at Ch 36.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}

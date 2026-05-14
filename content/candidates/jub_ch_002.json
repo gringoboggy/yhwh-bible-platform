@@ -1,8 +1,8 @@
 {
   "book": "jub",
   "chapter": 2,
-  "generated_at": "2026-05-14T06:19:07+00:00",
-  "n_candidates": 11,
+  "generated_at": "2026-05-14T14:53:01+00:00",
+  "n_candidates": 14,
   "candidates": [
     {
       "id": "jub-2-2-001",
@@ -156,6 +156,51 @@
     },
     {
       "id": "jub-2-2-011",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 2:2 (Creation (2:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;For on the first day He created the heavens which are above and the earth and the waters and all the spirits which serve before Him — the angels of the presence, and the angels of sanctification, and the angels of the spirit of fire... and of all the spirits of His creatures which are in the heavens and on the earth&#x27; — the seven primary works of creation day 1 enumerated. Tewahedo angelology preserves the doctrine that the angelic hierarchies were ALL created on day 1, before the material universe — Jubilees is the canonical anchor for this angelic-creation chronology that diverges from later rabbinic and Western theological accounts.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-2-2-012",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 2:2 (Creation (2:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;For on the first day He created the heavens which are above and the earth and the waters and all the spirits which serve before Him — the angels of the presence, and the angels of sanctification, and the angels of the spirit of fire... and of all the spirits of His creatures which are in the heavens and on the earth&#x27; — the seven primary works of creation day 1 enumerated. Tewahedo angelology preserves the doctrine that the angelic hierarchies were ALL created on day 1, before the material universe — Jubilees is the canonical anchor for this angelic-creation chronology that diverges from later rabbinic and Western theological accounts.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-2-2-013",
+      "verse": 2,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Jubilees (Ethiopian tradition) / Book of Jubilees (Mäṣḥafä Kufāle)",
+      "source_attribution": "Jubilees 2:2 (Creation (2:2)), trans. R.H. Charles, The Book of Jubilees (Oxford: Clarendon, 1902). PD.",
+      "draft_title": "Tewahedo — Jubilees (Ethiopian tradition)",
+      "draft_label": "Jubilees (Ethiopian tradition) (-150).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Jubilees (Ethiopian tradition)</strong> <em>Book of Jubilees (Mäṣḥafä Kufāle)</em> <small>(c. 150 BC)</small><p>&#x27;For on the first day He created the heavens which are above and the earth and the waters and all the spirits which serve before Him — the angels of the presence, and the angels of sanctification, and the angels of the spirit of fire... and of all the spirits of His creatures which are in the heavens and on the earth&#x27; — the seven primary works of creation day 1 enumerated. Tewahedo angelology preserves the doctrine that the angelic hierarchies were ALL created on day 1, before the material universe — Jubilees is the canonical anchor for this angelic-creation chronology that diverges from later rabbinic and Western theological accounts.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Jubilees (Ethiopian tradition), Book of Jubilees (Mäṣḥafä Kufāle). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "jub-2-2-014",
       "verse": 2,
       "kind": "comm-ethiopian",
       "anchor": "",

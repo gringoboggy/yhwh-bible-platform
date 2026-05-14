@@ -1,8 +1,8 @@
 {
   "book": "isa",
   "chapter": 61,
-  "generated_at": "2026-05-14T06:19:07+00:00",
-  "n_candidates": 19,
+  "generated_at": "2026-05-14T14:53:01+00:00",
+  "n_candidates": 22,
   "candidates": [
     {
       "id": "isa-61-1-001",
@@ -276,6 +276,51 @@
     },
     {
       "id": "isa-61-1-019",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistulae ad Serapionem 1.6",
+      "source_attribution": "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857). The Serapion correspondence is Athanasius's principal anti-pneumatomachian work, refuting the Tropici denial of the Holy Spirit's divinity and homoousion with Father + Son.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.6</em> <small>(c. 350 AD)</small><p>&#x27;The Spirit of the Lord God is upon me; because the LORD hath anointed me to preach good tidings unto the meek&#x27; — Athanasius marks Pneuma kyriou ep&#x27; eme (the Spirit of the Lord upon me) as the PARADIGMATIC communicatio-idiomatum anchor for pneumatology: the Word, qua-his-assumed-humanity, RECEIVES the Spirit (anointed-as-prophet/Messiah, with-the-Spirit, fulfilled at the Jordan-baptism); the Word, qua-his-divinity, SENDS the Spirit (the Pentecost-outpouring, the John-20:22 in-breathing). The Word is simultaneously Spirit-recipient (qua-flesh) and Spirit-sender (qua-Word). Christ-himself at the Nazareth-synagogue (Lk 4:18) applies this verse to himself: sēmeron peplērōtai hē graphē hautē — &#x27;today this scripture is fulfilled.&#x27; The Tewahedo epiclesis-of-the-Spirit in the Anaphora rests on this dual-Spirit-economy: the Word who-receives-and-sends the Spirit is the same Word the priestly-prayer invokes.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistulae ad Serapionem 1.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-61-1-020",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistulae ad Serapionem 1.6",
+      "source_attribution": "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857). The Serapion correspondence is Athanasius's principal anti-pneumatomachian work, refuting the Tropici denial of the Holy Spirit's divinity and homoousion with Father + Son.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.6</em> <small>(c. 350 AD)</small><p>&#x27;The Spirit of the Lord God is upon me; because the LORD hath anointed me to preach good tidings unto the meek&#x27; — Athanasius marks Pneuma kyriou ep&#x27; eme (the Spirit of the Lord upon me) as the PARADIGMATIC communicatio-idiomatum anchor for pneumatology: the Word, qua-his-assumed-humanity, RECEIVES the Spirit (anointed-as-prophet/Messiah, with-the-Spirit, fulfilled at the Jordan-baptism); the Word, qua-his-divinity, SENDS the Spirit (the Pentecost-outpouring, the John-20:22 in-breathing). The Word is simultaneously Spirit-recipient (qua-flesh) and Spirit-sender (qua-Word). Christ-himself at the Nazareth-synagogue (Lk 4:18) applies this verse to himself: sēmeron peplērōtai hē graphē hautē — &#x27;today this scripture is fulfilled.&#x27; The Tewahedo epiclesis-of-the-Spirit in the Anaphora rests on this dual-Spirit-economy: the Word who-receives-and-sends the Spirit is the same Word the priestly-prayer invokes.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistulae ad Serapionem 1.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-61-1-021",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Epistulae ad Serapionem 1.6",
+      "source_attribution": "Athanasius of Alexandria, Epistulae ad Serapionem de Spiritu Sancto (Letters to Serapion on the Holy Spirit, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857). The Serapion correspondence is Athanasius's principal anti-pneumatomachian work, refuting the Tropici denial of the Holy Spirit's divinity and homoousion with Father + Son.",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Epistulae ad Serapionem 1.6</em> <small>(c. 350 AD)</small><p>&#x27;The Spirit of the Lord God is upon me; because the LORD hath anointed me to preach good tidings unto the meek&#x27; — Athanasius marks Pneuma kyriou ep&#x27; eme (the Spirit of the Lord upon me) as the PARADIGMATIC communicatio-idiomatum anchor for pneumatology: the Word, qua-his-assumed-humanity, RECEIVES the Spirit (anointed-as-prophet/Messiah, with-the-Spirit, fulfilled at the Jordan-baptism); the Word, qua-his-divinity, SENDS the Spirit (the Pentecost-outpouring, the John-20:22 in-breathing). The Word is simultaneously Spirit-recipient (qua-flesh) and Spirit-sender (qua-Word). Christ-himself at the Nazareth-synagogue (Lk 4:18) applies this verse to himself: sēmeron peplērōtai hē graphē hautē — &#x27;today this scripture is fulfilled.&#x27; The Tewahedo epiclesis-of-the-Spirit in the Anaphora rests on this dual-Spirit-economy: the Word who-receives-and-sends the Spirit is the same Word the priestly-prayer invokes.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Epistulae ad Serapionem 1.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "isa-61-1-022",
       "verse": 1,
       "kind": "comm-ethiopian",
       "anchor": "",

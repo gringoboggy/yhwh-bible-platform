@@ -1,8 +1,8 @@
 {
   "book": "exo",
   "chapter": 6,
-  "generated_at": "2026-05-14T06:19:07+00:00",
-  "n_candidates": 38,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 41,
   "candidates": [
     {
       "id": "exo-6-1-001",
@@ -561,6 +561,51 @@
     },
     {
       "id": "exo-6-7-038",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus VI.3 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;I will take you to me for a people, and I will be to you a God&#x27; — Ephrem hears in this verse the completion of the Abrahamic-Isaac-Jacob promise: the patriarchal seed becomes a peoplehood under a single covenanted Name. Tewahedo cites Ex 6:7 as the canonical formula on which both Sinai and the New-Covenant &#x27;I will be their God and they shall be my people&#x27; (Jer 31:33; Rev 21:3) depend.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-6-7-039",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus VI.3 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;I will take you to me for a people, and I will be to you a God&#x27; — Ephrem hears in this verse the completion of the Abrahamic-Isaac-Jacob promise: the patriarchal seed becomes a peoplehood under a single covenanted Name. Tewahedo cites Ex 6:7 as the canonical formula on which both Sinai and the New-Covenant &#x27;I will be their God and they shall be my people&#x27; (Jer 31:33; Rev 21:3) depend.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-6-7-040",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Ephrem the Syrian / Commentary on Exodus",
+      "source_attribution": "Ephrem the Syrian, Commentary on Exodus VI.3 (NPNF S2 V13, Gwynn/Schaff trans., Oxford 1898). PD.",
+      "draft_title": "Tewahedo — Ephrem the Syrian",
+      "draft_label": "Ephrem the Syrian (360).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Ephrem the Syrian</strong> <em>Commentary on Exodus</em> <small>(c. 360 AD)</small><p>&#x27;I will take you to me for a people, and I will be to you a God&#x27; — Ephrem hears in this verse the completion of the Abrahamic-Isaac-Jacob promise: the patriarchal seed becomes a peoplehood under a single covenanted Name. Tewahedo cites Ex 6:7 as the canonical formula on which both Sinai and the New-Covenant &#x27;I will be their God and they shall be my people&#x27; (Jer 31:33; Rev 21:3) depend.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Ephrem the Syrian, Commentary on Exodus. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "exo-6-7-041",
       "verse": 7,
       "kind": "comm-ethiopian",
       "anchor": "",

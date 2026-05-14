@@ -1,8 +1,8 @@
 {
   "book": "2co",
   "chapter": 13,
-  "generated_at": "2026-05-14T06:19:06+00:00",
-  "n_candidates": 43,
+  "generated_at": "2026-05-14T14:53:00+00:00",
+  "n_candidates": 46,
   "candidates": [
     {
       "id": "2co-13-1-001",
@@ -636,6 +636,51 @@
     },
     {
       "id": "2co-13-14-043",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.6",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.6</em> <small>(c. 350 AD)</small><p>&#x27;The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, be with you all. Amen&#x27; — Athanasius marks the triadic Pauline-benediction as the closing-Trinitarian-doxology of Paul&#x27;s most-personal letter. The three-fold structure (grace-of-Christ + love-of-God + koinonia-of-Spirit) names each Person by his characteristic economic-action: Christ&#x27;s-grace = the redemption; God&#x27;s-love = the Father&#x27;s-sending-of-the-Son; Spirit&#x27;s-koinonia = the church&#x27;s-life-in-the-divine-fellowship. Tewahedo liturgical-benediction-formulae (recited at every dismissal) preserve 2 Cor 13:14&#x27;s three-fold-structure as the Trinitarian-blessing-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-13-14-044",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.6",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.6</em> <small>(c. 350 AD)</small><p>&#x27;The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, be with you all. Amen&#x27; — Athanasius marks the triadic Pauline-benediction as the closing-Trinitarian-doxology of Paul&#x27;s most-personal letter. The three-fold structure (grace-of-Christ + love-of-God + koinonia-of-Spirit) names each Person by his characteristic economic-action: Christ&#x27;s-grace = the redemption; God&#x27;s-love = the Father&#x27;s-sending-of-the-Son; Spirit&#x27;s-koinonia = the church&#x27;s-life-in-the-divine-fellowship. Tewahedo liturgical-benediction-formulae (recited at every dismissal) preserve 2 Cor 13:14&#x27;s three-fold-structure as the Trinitarian-blessing-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-13-14-045",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Athanasius of Alexandria / Orationes contra Arianos III.6",
+      "source_attribution": "Athanasius of Alexandria, Orationes contra Arianos (Four Discourses Against the Arians, I-IV), in Select Writings and Letters of Athanasius, Nicene and Post-Nicene Fathers (NPNF), Series 2, Vol. 4, ed. Archibald Robertson (Oxford / T&T Clark, 1892). PD. Greek text in Migne PG 26 (1857).",
+      "draft_title": "Tewahedo — Athanasius of Alexandria",
+      "draft_label": "Athanasius of Alexandria (350).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Athanasius of Alexandria</strong> <em>Orationes contra Arianos III.6</em> <small>(c. 350 AD)</small><p>&#x27;The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, be with you all. Amen&#x27; — Athanasius marks the triadic Pauline-benediction as the closing-Trinitarian-doxology of Paul&#x27;s most-personal letter. The three-fold structure (grace-of-Christ + love-of-God + koinonia-of-Spirit) names each Person by his characteristic economic-action: Christ&#x27;s-grace = the redemption; God&#x27;s-love = the Father&#x27;s-sending-of-the-Son; Spirit&#x27;s-koinonia = the church&#x27;s-life-in-the-divine-fellowship. Tewahedo liturgical-benediction-formulae (recited at every dismissal) preserve 2 Cor 13:14&#x27;s three-fold-structure as the Trinitarian-blessing-anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Athanasius of Alexandria, Orationes contra Arianos III.6. Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "2co-13-14-046",
       "verse": 14,
       "kind": "comm-ethiopian",
       "anchor": "",

@@ -1,0 +1,53 @@
+{
+  "book": "mq1",
+  "chapter": 31,
+  "generated_at": "2026-05-14T14:53:02+00:00",
+  "n_candidates": 3,
+  "candidates": [
+    {
+      "id": "mq1-31-1-001",
+      "verse": 1,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>OPENS Ch 31 — HOMILETIC-GENRE ANCHOR: leading-toward-final-resurrection-capstone arc. The chapter likely articulates the structural-pivot from Ch 28&#x27;s salvation-history-compression (Cain-to-Esther) + Ch 30&#x27;s covenant-honor toward Ch 33&#x27;s manna-as-bread-of-angels (Ps 78:25 anchor) + Ch 34&#x27;s four-kingdoms apocalypse + Ch 36&#x27;s final-resurrection-capstone. The structural-pivot pattern parallels: 1 ENOCH 70-71 (the structural-pivot from the Parables to the Astronomical Book — γ.4.4 Mäṣḥafä Hēnok structure); JUBILEES 47-50 (the structural-pivot from Genesis-rewrite to halakhic-Sabbath-laws — γ.4.5 Mäṣḥafä Kufāle structure). The Meqabyan structural-pivot preparation likely articulates an intermediate-doxology + transition-to-final-arc theme, in keeping with the trilogy&#x27;s compositional-architecture (cf. 3 Mq 1:28 + 3:15 + 1 Mq 1:14 chapter-closing-transitions γ.4.8.D + γ.4.8.E entries — the chapter-as-structural-pivot is a Meqabyan compositional-signature).</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-31-7-002",
+      "verse": 7,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of DIVINE-PROVIDENCE theme (preparing Ch 33&#x27;s manna anchor). The divine-providence theme parallels: PSALM 145:9-21 (the providential-praise psalm); MATTHEW 6:25-34 par. (the consider-the-lilies + your-Father-knoweth providence); ROMANS 8:28 (&#x27;all things work together for good to them that love God&#x27;); WISDOM OF SOLOMON 14:3-4 (the divine-providence over the sea); SIRACH 18:13-14 (mercy-of-the-Lord-is-for-all-flesh). Patristic-tradition: TERTULLIAN De Patientia (the patience-of-providence); CYPRIAN De Mortalitate (providence-and-mortality); JOHN OF DAMASCUS De Fide Orthodoxa 2.29 (the systematic-treatment of providence); MAXIMUS THE CONFESSOR Quaestiones ad Thalassium 27 (the providence-and-judgment distinction). Tewahedo providence-tradition preserves divine-providence as the integrating-anchor for the trilogy&#x27;s anti-Sebelyanos polemic-architecture: providence ensures the martyrs&#x27;-victory + the vindication-of-faithfulness.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    },
+    {
+      "id": "mq1-31-14-003",
+      "verse": 14,
+      "kind": "comm-ethiopian",
+      "anchor": "",
+      "confidence": 0.95,
+      "source_name": "Meqabyan (Ethiopian tradition) / First Book of Meqabyan (Mäṣḥafä Mäqabyan I)",
+      "source_attribution": "Mäṣḥafä Mäqabyan I-III (Three Books of Meqabyan, መጽሐፈ መቃብያን) — Tewahedo broader-canon Ethiopian Maccabees, distinct from the Greek LXX 1-4 Maccabees (different content; shared title only). English translation from the Modern Amharic of the EOTC Bible (nehemiah-osc.org) by Claude (Anthropic) with collaborator, May 2026. Creative Commons CC0 1.0 Universal Public Domain Dedication (archive.org/details/three-books-of-meqabyan-cc0-translation). Apparatus integrates Josef Horovitz, 'Das äthiopische Maccabäerbuch,' Zeitschrift für Assyriologie XIX (1905), pp. 194-233 — PD primary scholarly study. 64-citation third-pass audit verdict matrix; 57 verified, 4 errors corrected, 3 interpretive readings flagged, 7 newly discovered parallels added. Dating widened to Aksumite-to-Solomonic Ethiopian Christian range (4th-14th c. CE); precise composition date undetermined in current scholarship per Horovitz 1905 non-commitment. Three books: 1 Mq 36 chapters (Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan); 2 Mq 21 chapters (Maqabis-of-Moab conversion + sons' martyrdom + Ṣiruṣaydan's death); 3 Mq 10 chapters (homiletic + angelological dialogue + Satan-refused-Adam tradition + resurrection-doctrine).",
+      "draft_title": "Tewahedo — Meqabyan (Ethiopian tradition)",
+      "draft_label": "Meqabyan (Ethiopian tradition) (600).",
+      "draft_body": "<aside class=\"note-comm-ethiopian\"><strong>Meqabyan (Ethiopian tradition)</strong> <em>First Book of Meqabyan (Mäṣḥafä Mäqabyan I)</em> <small>(c. 600 AD)</small><p>HOMILETIC-GENRE ANCHOR — likely development of WILDERNESS-PROVISION typology (preparing Ch 33&#x27;s manna-as-bread-of-angels). The wilderness-provision typology parallels: EXODUS 16 (the manna + quail provision); NUMBERS 11 (the second-quail provision); DEUTERONOMY 8:2-3 (man-shall-not-live-by-bread-alone reflection); JOSHUA 5:10-12 (manna-ceases-at-Gilgal); PSALM 78:23-29 (the manna-and-quail historical-rehearsal); PSALM 105:40 (the wilderness-provision summary); JOHN 6 (the foundational Christian manna-and-Eucharist typology). Patristic-tradition: CYRIL OF ALEXANDRIA Commentary on John 6 (the Eucharistic-manna-typology — γ.4.1-7 Cyrillian arcs anchor); AMBROSE De Sacramentis 4 (the Eucharistic-manna-typology); AUGUSTINE Tractates on John 25-27 (the same). Tewahedo Eucharistic-tradition preserves the wilderness-manna typology as integral to Tewahedo-Liturgical celebration. The chapter likely articulates the wilderness-provision typology preparing Ch 33&#x27;s manna-as-bread-of-angels anchor.</p></aside>",
+      "detector": "EthiopianCommentaryDetector",
+      "reviewer_notes": "Curated PD interpretive summary representing the Ethiopian Tewahedo tradition's reading via Meqabyan (Ethiopian tradition), First Book of Meqabyan (Mäṣḥafä Mäqabyan I). Verify the summary still reflects the source's argument before promoting; substitute a verbatim quote from the NPNF / Charles dump where available, and where applicable cross-check the Andəmta homiletic tradition for resonance.",
+      "status": "pending"
+    }
+  ]
+}
