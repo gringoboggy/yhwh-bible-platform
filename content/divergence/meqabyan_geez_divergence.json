@@ -2,7 +2,7 @@
   "_meta": {
     "source": "Phase-4 Geʽez-revision (project_maccabees_expansion/, δ.1.x cluster, seeded at δ.1.0 2026-05-14)",
     "schema_version": "1.0",
-    "phases_shipped": ["δ.1.0"],
+    "phases_shipped": ["δ.1.0", "δ.1.x.A.0"],
     "phase_4_methodology_doc": "project_maccabees_expansion/02_METHODOLOGY.md",
     "tracker_doc": "dev/PHASE4_MEQABYAN_TRACKER.md",
     "books": ["mq1", "mq2", "mq3"],
@@ -25,7 +25,57 @@
     "regression_guarded_invariants": {
       "gamma48E_arc_close_67_67": "Meqabyan apparatus 67/67 chapter coverage (mq1 36/36 + mq2 21/21 + mq3 10/10) preserved as regression-guarded invariant during δ.1.x.",
       "gamma48F_count_floor": "Meqabyan voice count must remain ≥212 during δ.1.x (the apparatus body is NOT modified by δ.1.x; divergence apparatus is a separate artifact).",
-      "v1_english_immutable": "translation_continuation.md v1 English readings are NEVER modified during δ.1.x; divergence apparatus and revision markdown are separate artifacts. Merge into v3 happens at δ.2 (separate phase, gated on publisher review)."
+      "v1_english_immutable": "translation_continuation.md v1 English readings are NEVER modified during δ.1.x; divergence apparatus and revision markdown are separate artifacts. Merge into v3 happens at δ.2 (separate phase, gated on publisher review).",
+      "delta_1_0_entries_empty_at_seed": "entries=[] at δ.1.0 seed and remains [] at δ.1.x.A.0 prep; entries grows ONLY at δ.1.x.A first batch ship (gated on operator page-image rendering)."
+    },
+    "batch_prep": {
+      "prepared_at_phase": "δ.1.x.A.0",
+      "prepared_date": "2026-05-14",
+      "prepared_for_batch": "δ.1.x.A",
+      "prepared_for_batch_scope": "mq1 chapters 1-9 (the opening third of Mäqabyan I; covers the Antiochus-campaign + Maqabis-of-Benjamin opening narrative through the early martyrology cycle)",
+      "prepared_for_batch_expected_ship_size": "approximately 30-80 verse-keyed entries, depending on operator's divergence-density-per-chapter judgment",
+      "operator_renders_pdf_pages": [1318, 1326],
+      "operator_renders_pdf_pages_source": "Π.1 structural_map.meqabyan.subsections.mq1=[1318,1365]; chapters 1-9 occupy approximately the first 9 / 36 = 25% of mq1's 47-page span = approximately 9-12 pages; precise per-chapter page boundaries determined by operator at render-time",
+      "operator_renders_pdf_pages_estimated_per_chapter": {
+        "comment": "Estimated PDF page for each mq1 chapter 1-9 opening; each chapter spans approximately 1.0-1.5 pages. Operator confirms at render-time.",
+        "1": [1318, 1319],
+        "2": [1319, 1321],
+        "3": [1321, 1323],
+        "4": [1323, 1323],
+        "5": [1323, 1324],
+        "6": [1324, 1325],
+        "7": [1325, 1325],
+        "8": [1325, 1326],
+        "9": [1326, 1326]
+      },
+      "per_chapter_verse_count_floor": {
+        "comment": "LOWER BOUND on verse count per chapter, derived from existing content/notes/mq1.py + content/candidates/mq1_ch_*.json max-verse-with-note at δ.1.x.A.0 ship time. Actual verse counts confirmed by operator at page-image render-time. The Wright 1877 + Cowley 1974b apparatus (γ.4.8.F sources) is the canonical reference.",
+        "1": 14,
+        "2": 28,
+        "3": 38,
+        "4": 5,
+        "5": 14,
+        "6": 23,
+        "7": 1,
+        "8": 22,
+        "9": 3
+      },
+      "operator_workflow": [
+        "1. Render parallel-Bible PDF pages 1318-1326 at 350 dpi (Geʽez column on left, Amharic column on right). Use project_maccabees_expansion/02_METHODOLOGY.md §2 (350 dpi page-image authority rule).",
+        "2. For each verse on each rendered page, transcribe (a) the Geʽez text into entry.geez_text, (b) the Amharic parallel into entry.amharic_text, (c) the Phase-4 revised English translation into entry.geez_revised_english.",
+        "3. Compare the entry.geez_revised_english against the existing v1 English in content/notes/mq1.py — if there is a divergence, classify it (lexical / structural / content / numbering / trivial) and populate entry.divergence_class.",
+        "4. Score operator confidence 0.0-1.0 in entry.confidence (must be ≥ 0.8 unless --allow-low-confidence + --reviewer override applies at build-time).",
+        "5. Set entry.page_image_verified=true after operator certifies the entry derives from a 350 dpi page-image read.",
+        "6. Set entry.operator_session to a stable session ID (used as part of N-W4 idempotency signature; recommended format YYYY-MM-DD-NN).",
+        "7. Optionally add entry.divergence_note for prose commentary on the divergence (operator-side; shows in revision markdown).",
+        "8. Append the entry to meqabyan_geez_divergence.json::entries (move out of pending-skeletons workflow if applicable).",
+        "9. Run `python3 scripts/build_meqabyan_revision.py --check` to validate all entries pass honesty rules.",
+        "10. Update dev/PHASE4_MEQABYAN_TRACKER.md mq1 ch 1-9 status from `todo` to `draft` or `reviewed`."
+      ],
+      "operator_handoff_doc": "dev/PHASE4_MEQABYAN_TRACKER.md + scripts/build_meqabyan_revision.py --check for validation",
+      "promotion_to_apparatus_gated_on": "δ.1.x.A operator ship (separate phase) — content-class divergences with confidence ≥ 0.8 + page_image_verified=true become candidates for compare-divergence-geez apparatus notes via scripts/promote_divergence_to_apparatus.py; the apparatus-mutation step is gated to δ.1.x.A specifically (NOT to δ.1.0 or δ.1.x.A.0).",
+      "no_skeleton_entries_at_pi1ba0": "Pre-built verse-stub skeletons are intentionally NOT populated in `entries`. The δ.1.0 invariant (`entries: []`) is preserved. Operator constructs each entry from page-image observation; pre-populating with placeholder values would corrupt the page-image-authority honesty rule. This block documents the SHAPE the operator's entries should take, but does not pre-populate them.",
+      "v1_english_pre_population_rejected": "The temptation to pre-populate entry.v1_english from existing content/notes/mq1.py is REJECTED because (a) v1_english_immutable rule applies — modifications go to the divergence apparatus, not v1; (b) coupling the divergence JSON to the notes file would create a regression-fragility risk if the notes file shifts; (c) operator can paste v1 English in entry.v1_english at render-time as a quick paste-from-file step (no automation needed)."
     }
   },
   "entries": []

@@ -1,5 +1,75 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / δ.1.x.A.0 divergence-JSON batch-prep for
+mq1 ch 1-9 ship — DECLARATIVE-ONLY operator-handoff preparation
+for the δ.1.x.A first Phase-4 page-image batch. Triggered by user
+"do those" after AUDIT_2026-05-14-LIGHT-2 recommended the small set
+of Claude-side actionable items (δ.1.x.A.0 + Π.2.prep + ω.4x
+hygiene bundle). Per memory `feedback_continue_not_save` +
+`feedback_extensive_answers` (broadest scope) + project rules §3
+sequencing (most-foundational first; δ.1.x.A.0 is the highest-
+leverage Claude-side ship per LIGHT-2 §5). **δ.1.x.A.0 shipped:**
+(1) EXTENDED `content/divergence/meqabyan_geez_divergence.json::
+_meta` with `batch_prep` block: prepared_at_phase δ.1.x.A.0 +
+prepared_for_batch δ.1.x.A + operator_renders_pdf_pages [1318,
+1326] (9-page span within Π.1's mq1.subsections [1318, 1365]) +
+per-chapter PDF page estimates (ch 1 [1318,1319] through ch 9
+[1326,1326]; monotone with overlap allowed) + per-chapter
+verse-count floor (ch 1=14 / 2=28 / 3=38 / 4=5 / 5=14 / 6=23 /
+7=1 / 8=22 / 9=3 from existing content/notes/mq1.py +
+content/candidates/mq1_ch_*.json lower-bounds) + 10-step operator
+workflow (render 350 dpi → transcribe Geʽez/Amharic/revised
+English → classify divergence → score confidence → flag
+page_image_verified → operator_session signature → optional note
+→ append entry → run build_meqabyan_revision --check → update
+PHASE4_MEQABYAN_TRACKER status) + no-skeleton-entries rationale
+(page-image-authority honesty rule) + v1-english-pre-population
+rejection rationale (v1_english_immutable + coupling-fragility +
+manual-paste-is-cheap) + promotion-to-apparatus-gated-on δ.1.x.A.
+(2) EXTENDED `_meta.regression_guarded_invariants` with NEW fourth
+invariant `delta_1_0_entries_empty_at_seed` codifying the
+entries=[] pin as a NAMED-AND-DOCUMENTED invariant. (3) EXTENDED
+`_meta.phases_shipped` from ["δ.1.0"] to ["δ.1.0", "δ.1.x.A.0"]
+preserving historical attribution. (4) UPDATED
+`dev/PHASE4_MEQABYAN_TRACKER.md` cluster-shipping-ledger to insert
+δ.1.x.A.0 row between δ.1.0 and δ.1.x.A. (5) NEW
+`tests/test_parallel_bible_delta1xa0.py` — **39 pin tests across 8
+groups** (BatchPrepBlock 7 + PdfPageRange 5 + VerseCountFloor 4 +
+OperatorWorkflow 7 + HonestyRuleAlignment 3 + NewInvariantCodified
+3 + ClosedArcInvariantPreservation 9 + PhaseCoverage 1). All 39
+pins pass; full δ.1.0/δ.1.x.A.0/Π.1/Π.1.B sweep 210 green
+(entries=[] PRESERVED so δ.1.0 pin continues to pass). Build tool
+`build_meqabyan_revision.py --check` continues to accept the
+extended _meta (reads honesty_rules + entries; ignores batch_prep).
+**NO data ingest** — entries=[] preserved; content/notes/lao.py
+NOT created; canons.yaml NOT modified; editions.yaml NOT modified;
+v1 Meqabyan English NOT touched; v1.0 byte-identical
+reproducibility preserved. **Closed-arc invariants regression-
+guarded:** γ.4.8.E 67/67 + γ.4.8.F ≥212 + Π.0.1 amharic-in-
+POPUP_LANGUAGES + Π.0.4 EMBED_FONT_PATHS=[] + τ.6.x.0a/b
+contracts + δ.1.0 entries=[] + Π.1 jubilees/one_enoch sections +
+Π.1 extraction_status_at_declaration historical pin + Π.1.B
+extraction_status_current laodiceans flip all preserved. Audit
+cadence: δ.1.x.A.0 is post-LIGHT-2 phase #1; +39 test drift;
+threshold (≥10 phases or ≥150 tests) NOT reached.**
+
+**Recommended next steps (from LIGHT-2 + "do those" ledger):**
+
+- **Π.2.prep** (Claude-side, next in the ω.4x triad ordering) —
+  publisher-authorization checklist + canon-membership decision
+  doc for lao/4ba/2en/1cl prior to Π.2 default-language flip.
+- **ω.4x hygiene bundle** (Claude-side, last) — W-W2 build_edition
+  ruff cleanup + A-I1 PLAN §2 refresh + A-I2 PLAN §6 parallel-
+  Bible track insertion.
+- **δ.1.x.A** (operator-mediated) — operator renders mq1 ch 1-9
+  Geʽez pages 1318-1326 at 350 dpi; Claude assembles entries.
+- **τ.6.x.0c** (operator-side) — Tesseract install +
+  amh.traineddata + gez.traineddata verification.
+
+---
+
+## Prior δ.1.x.A.0 session
+
 **Updated 2026-05-14 / AUDIT_2026-05-14-LIGHT-2 (solo-Claude
 late-session) ship — second lighter audit of 2026-05-14; mirrors
 AUDIT_2026-05-13-EOD precedent of multiple lighter audits

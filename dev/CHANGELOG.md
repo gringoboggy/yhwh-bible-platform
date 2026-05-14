@@ -6,6 +6,136 @@
 
 ---
 
+## 2026-05-14 — session — δ.1.x.A.0 DIVERGENCE-JSON BATCH-PREP FOR mq1 ch 1-9 (declarative-only operator-handoff preparation for the δ.1.x.A first Phase-4 page-image batch; extends meqabyan_geez_divergence.json _meta with batch_prep block documenting PDF page estimates [1318-1326] per Π.1 structural_map.meqabyan.subsections.mq1 + per-chapter verse-count floor [14/28/38/5/14/23/1/22/3] derived from existing content/notes/mq1.py + content/candidates/mq1_ch_*.json lower-bounds + 10-step operator workflow + machine-readable rationale for why entries are NOT pre-populated [page-image-authority honesty rule] and why v1 English is NOT pre-populated [v1_english_immutable rule]; adds new closed-arc invariant `delta_1_0_entries_empty_at_seed` to regression_guarded_invariants codifying the entries=[] pin as a NAMED invariant; entries=[] PRESERVED; 39 pin tests across 8 groups)
+
+**Phase shipped:** δ.1.x.A.0 — Pre-build divergence-JSON batch-prep
+block for mq1 ch 1-9. DECLARATIVE-ONLY ship; operator-handoff
+preparation for the δ.1.x.A first Phase-4 page-image batch. No
+data ingest at δ.1.x.A.0: entries=[] preserved (the δ.1.0 invariant
+is intact); content/notes/lao.py NOT created; content/notes/
+mq{1,2,3}.py NOT mutated; v1 English NOT touched; v1.0 byte-
+identical reproducibility preserved.
+
+**Triggered by:** user "do those" after the AUDIT_2026-05-14-LIGHT-2
+ship recommended a small set of Claude-side actionable items. Per
+memory `feedback_continue_not_save` + `feedback_extensive_answers`
+(broadest scope across the actionable set) + project rules §3
+sequencing (most-foundational first; δ.1.x.A.0 is the most leverage-
+positive Claude-side ship per LIGHT-2 §5).
+
+**δ.1.x.A.0 deliverables shipped:**
+
+1. EXTENDED `content/divergence/meqabyan_geez_divergence.json::_meta`
+   with a `batch_prep` block:
+   - `prepared_at_phase: δ.1.x.A.0` + `prepared_date: 2026-05-14`
+     + `prepared_for_batch: δ.1.x.A` + scope text naming mq1 ch 1-9
+     (Antiochus-campaign + Maqabis-of-Benjamin opening narrative).
+   - `operator_renders_pdf_pages: [1318, 1326]` (9-page span) +
+     `operator_renders_pdf_pages_source` referencing Π.1's
+     meqabyan.subsections.mq1=[1318,1365] declaration.
+   - `operator_renders_pdf_pages_estimated_per_chapter` map (ch 1
+     pages 1318-1319, ch 2 pages 1319-1321, ch 3 pages 1321-1323,
+     ch 4 page 1323, ch 5 pages 1323-1324, ch 6 pages 1324-1325,
+     ch 7 page 1325, ch 8 pages 1325-1326, ch 9 page 1326 —
+     monotone with overlap allowed for chapter boundaries).
+   - `per_chapter_verse_count_floor` map (ch 1=14, 2=28, 3=38, 4=5,
+     5=14, 6=23, 7=1, 8=22, 9=3) derived from content/notes/mq1.py
+     + content/candidates/mq1_ch_*.json max-verse-with-note as a
+     LOWER BOUND; operator confirms actual chapter length at
+     render-time.
+   - 10-step operator workflow: (1) render 350 dpi → (2) transcribe
+     Geʽez + Amharic + revised English → (3) classify divergence →
+     (4) score confidence → (5) flag page_image_verified → (6)
+     stable operator_session signature → (7) optional divergence
+     note → (8) append to entries → (9) run build_meqabyan_revision
+     --check → (10) update PHASE4_MEQABYAN_TRACKER.md status.
+   - `no_skeleton_entries_at_pi1ba0` rationale: pre-populated entry
+     placeholders would corrupt the page-image-authority honesty
+     rule (operator must construct each entry from page-image
+     observation; placeholder values would let stale data leak
+     through).
+   - `v1_english_pre_population_rejected` rationale: v1_english_
+     immutable rule applies; coupling-fragility risk if notes file
+     shifts; manual paste-from-file at render-time is cheaper than
+     automation.
+   - `promotion_to_apparatus_gated_on: δ.1.x.A` — content-class
+     divergences with confidence ≥ 0.8 + page_image_verified=true
+     become candidates for compare-divergence-geez apparatus notes
+     via promote_divergence_to_apparatus.py only at δ.1.x.A (NOT
+     at δ.1.0 or δ.1.x.A.0).
+
+2. EXTENDED `_meta.regression_guarded_invariants` with a NEW
+   fourth invariant `delta_1_0_entries_empty_at_seed`: "entries=[]
+   at δ.1.0 seed and remains [] at δ.1.x.A.0 prep; entries grows
+   ONLY at δ.1.x.A first batch ship (gated on operator page-image
+   rendering)." This codifies the entries=[] pin as a NAMED-AND-
+   DOCUMENTED invariant rather than just a test assertion living
+   in test files — auditor coverage now machine-checkable.
+
+3. EXTENDED `_meta.phases_shipped` from ["δ.1.0"] to ["δ.1.0",
+   "δ.1.x.A.0"] preserving historical attribution.
+
+4. UPDATED `dev/PHASE4_MEQABYAN_TRACKER.md` cluster shipping ledger
+   to insert δ.1.x.A.0 row between δ.1.0 and δ.1.x.A; δ.1.x.A row
+   updated with operator-renders-pages note referencing the prep.
+
+5. NEW `tests/test_parallel_bible_delta1xa0.py` — **39 pin tests
+   across 8 test groups:**
+   - `TestDelta1xA0BatchPrepBlock` (7) — block exists + headline
+     fields (prepared_at_phase + prepared_for_batch + scope mentions
+     mq1 1-9 + phases_shipped extended).
+   - `TestDelta1xA0PdfPageRange` (5) — pages 1318-1326 within
+     mq1.subsections range + span 9-14 reasonable + per-chapter
+     estimates present + monotone (with overlap allowed).
+   - `TestDelta1xA0VerseCountFloor` (4) — floor block present +
+     covers ch 1-9 + positive integers + matches hardcoded snapshot
+     from notes/candidates lower-bound.
+   - `TestDelta1xA0OperatorWorkflow` (7) — 10-step list of non-empty
+     strings + mentions 350 dpi + page_image_verified +
+     divergence_class + tracker update + handoff doc references.
+   - `TestDelta1xA0HonestyRuleAlignment` (3) — no-skeleton rationale
+     references page-image-authority + v1_english rejection
+     references v1_english_immutable + promotion-gating names
+     δ.1.x.A.
+   - `TestDelta1xA0NewInvariantCodified` (3) — invariant block
+     present + three prior invariants intact + new
+     delta_1_0_entries_empty_at_seed invariant codified with
+     δ.1.0/δ.1.x.A references.
+   - `TestDelta1xA0ClosedArcInvariantPreservation` (9) — entries=[]
+     still preserved + δ.1.0 books/chapters/threshold/honesty rules
+     /divergence classes unchanged + Π.1 historical pin intact +
+     Π.1.B current-state pin intact.
+   - `TestDelta1xA0PhaseCoverage` (1) — δ.1.x.A.0 mentioned in
+     CHANGELOG (this entry).
+
+   **All 39 pins pass** alongside the prior δ.1.0 (44) + Π.1 (58)
+   + Π.1.B (69) chains (210 total via -q sweep across the 4 test
+   files).
+
+**Closed-arc invariants regression-guarded across δ.1.x.A.0:**
+γ.4.8.E 67/67 + γ.4.8.F ≥212 + Π.0.1 amharic-in-POPUP_LANGUAGES +
+Π.0.4 EMBED_FONT_PATHS=[] + τ.6.x.0a/b contracts + δ.1.0 entries
+=[] + Π.1 jubilees/one_enoch sections + Π.1 extraction_status_at_
+declaration historical pin + Π.1.B extraction_status_current
+laodiceans flip all preserved.
+
+**Build tool compatibility:** `scripts/build_meqabyan_revision.py
+--check` continues to pass with the extended _meta block (the tool
+reads _meta.honesty_rules + entries; the new _meta.batch_prep
+field is ignored). NO changes to build_meqabyan_revision.py or
+promote_divergence_to_apparatus.py at δ.1.x.A.0.
+
+**Recommendations for δ.1.x.A:**
+
+- Operator renders parallel-Bible PDF pages 1318-1326 at 350 dpi.
+- Operator transcribes Geʽez + Amharic columns per the 10-step
+  workflow.
+- Operator appends entries to meqabyan_geez_divergence.json.
+- δ.1.x.A is the FIRST non-empty entries ship and FIRST possible
+  promotion to compare-divergence-geez apparatus notes.
+
+---
+
 ## 2026-05-14 — session — AUDIT_2026-05-14-LIGHT-2 (solo-Claude late-session; second lighter audit of the day per multi-LIGHT-in-one-session pattern from AUDIT_2026-05-13-EOD precedent; test-drift threshold ≥150 reached at Π.1.B with +171 since LIGHT-1; verdict CLEAN across every checked dimension; W-W1 environ failures from LIGHT-1 RESOLVED; twelve closed-arc / contract invariants intact up from nine at LIGHT-1; 171-test drift matched ship ledger exactly; W-W2 unchanged; A-I1 worsened to +509 drift; A-I2 unchanged; NEW A-I3 surfaced — historical-pin convention introduced at Π.1.B as project's first regression-guarded historical-record-immutability invariant; ships as standalone audit commit)
 
 **Phase shipped:** AUDIT_2026-05-14-LIGHT-2 — second lighter

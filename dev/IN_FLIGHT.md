@@ -4,6 +4,36 @@
 
 ## Prior task
 
+**δ.1.x.A.0 divergence-JSON batch-prep for mq1 ch 1-9 —
+DECLARATIVE-ONLY operator-handoff preparation. Triggered by user
+"do those" after LIGHT-2 recommendation set. Shipped: (1)
+EXTENDED meqabyan_geez_divergence.json _meta with batch_prep
+block (prepared_at_phase δ.1.x.A.0 + prepared_for_batch δ.1.x.A
++ operator_renders_pdf_pages [1318, 1326] + per-chapter PDF page
+estimates + per-chapter verse-count floor [14/28/38/5/14/23/1/22/3]
++ 10-step operator workflow + no-skeleton-entries rationale +
+v1-english pre-population rejection + promotion gating to
+δ.1.x.A). (2) EXTENDED _meta.regression_guarded_invariants with
+NEW invariant `delta_1_0_entries_empty_at_seed` codifying
+entries=[] as NAMED invariant. (3) EXTENDED phases_shipped to
+["δ.1.0", "δ.1.x.A.0"]. (4) UPDATED PHASE4_MEQABYAN_TRACKER
+cluster ledger with δ.1.x.A.0 row. (5) NEW
+test_parallel_bible_delta1xa0.py — 39 pins across 8 groups
+(BatchPrepBlock 7 + PdfPageRange 5 + VerseCountFloor 4 +
+OperatorWorkflow 7 + HonestyRuleAlignment 3 + NewInvariantCodified
+3 + ClosedArcInvariantPreservation 9 + PhaseCoverage 1). All
+39 pins pass; full 4-file sweep 210 green; build_meqabyan_revision
+--check still passes. NO data ingest: entries=[] preserved;
+v1 English NOT touched; v1.0 byte-identical reproducibility
+preserved. Closed-arc invariants regression-guarded (γ.4.8.E
+67/67 + γ.4.8.F ≥212 + Π.0.1 + Π.0.4 + τ.6.x.0a/b + δ.1.0
+entries=[] + Π.1 + Π.1.B all preserved). Audit cadence:
+post-LIGHT-2 phase #1; +39 test drift; threshold NOT
+reached.** shipped 2026-05-14. Triggered by user "do those"
+after AUDIT_2026-05-14-LIGHT-2 recommendation set.
+
+## Prior task (previous)
+
 **AUDIT_2026-05-14-LIGHT-2 (solo-Claude late-session) — second
 lighter audit of 2026-05-14 per memory `feedback_audit_cadence`
 (test-drift threshold ≥150 reached at Π.1.B; +171 since LIGHT-1).

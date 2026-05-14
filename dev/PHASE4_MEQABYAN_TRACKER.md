@@ -58,7 +58,8 @@ arc-ready  — chapter has full divergence entries + revision-markdown
 | Phase tag | Description | Chapters delivered | Status |
 |---|---|---|---|
 | δ.1.0 | Seed: infrastructure + tracker + JSON + kinds + tools | 0 | ✓ SHIPPED 2026-05-14 |
-| δ.1.x.A | mq1 1-9 batch (~5 chapters/session × 2) | 0 / 9 | pending |
+| δ.1.x.A.0 | Batch-prep for δ.1.x.A: PDF page estimates + per-chapter verse floors + 10-step operator workflow + new entries-empty invariant codified | 0 (prep-only) | ✓ SHIPPED 2026-05-14 |
+| δ.1.x.A | mq1 1-9 batch (~5 chapters/session × 2; operator renders pages 1318-1326 per δ.1.x.A.0 prep) | 0 / 9 | pending (operator-mediated) |
 | δ.1.x.B | mq1 10-18 batch | 0 / 9 | pending |
 | δ.1.x.C | mq1 19-27 batch | 0 / 9 | pending |
 | δ.1.x.D | mq1 28-36 batch | 0 / 9 | pending |
