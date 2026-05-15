@@ -199,7 +199,12 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             True kwarg to parse_verses_from_text() splitting by ።
             sentence-terminator + filtering cross-references +
             sequential numbering; 63-65% Amharic Genesis verse
-            coverage empirical)"""
+            coverage empirical)
+          - τ.6.x.1.D migrated pending → shipped at τ.6.x.1.D ship-
+            time (2026-05-15; chapter-marker recovery refinement
+            adding CHAPTER_HEADER_RE_LENIENT + _resolve_chapter_marker
+            with max-jump sanity; empirical chapters detected on
+            Genesis pages 0-5 went from {1} to {1, 3, 4})"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -214,6 +219,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.6.x.1.A",
             "τ.6.x.1.B",
             "τ.6.x.1.C",
+            "τ.6.x.1.D",
             "τ.6.x.2.D",
             "τ.7.x.a.0",
         ]:
@@ -241,9 +247,16 @@ class TestOmega4xAI2PlanParallelBibleTrack:
           - τ.6.x.1.D added pending at τ.6.x.1.C ship-time
             (2026-05-15; OPTIONAL chapter-marker recovery refinement
             addressing the known residual where OCR-garbled chapter
-            numerals cause all verses to default to chapter 1)"""
+            numerals cause all verses to default to chapter 1);
+            migrated pending → shipped at τ.6.x.1.D ship-time
+            (2026-05-15)
+          - τ.6.x.1.E added pending at τ.6.x.1.D ship-time
+            (2026-05-15; OPTIONAL truncated-keyword chapter recovery
+            addressing the τ.6.x.1.D residual where chapter markers
+            with multi-char keyword garbling — e.g. `ራፍ` truncation
+            missing both ዕ AND ፅ — still aren't recognized)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "τ.6.x.1.D", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

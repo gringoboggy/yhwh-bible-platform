@@ -1116,3 +1116,123 @@ ocr_strategy:
       expected; empirical 63% coverage = ~966 verses likely under
       current parser quality). Quality residue tracked at
       τ.6.x.3 batched audit per D2-b + D3-c.
+    residual_resolved_at_phase: τ.6.x.1.D  # back-link: chapter-marker recognition residual addressed at τ.6.x.1.D (single-key back-link pattern; 4th instance after tau6x1a→1b, tau6x1b→2D, tau7xa_pre_pilot→1C)
+
+  # τ.6.x.1.D — Chapter-marker recovery for OCR-garbled numerals
+  # shipped 2026-05-15. Resolves the τ.6.x.1.C known residual where
+  # the strict CHAPTER_HEADER_RE failed to match OCR-garbled
+  # chapter markers (e.g. text-layer 'ምዕራፍ B ።' for ch 1; Tesseract
+  # 'ምዕራፍ ል፳።' for ch 1; text-layer 'ምፅራፍ ፫ ።' for ch 3 with
+  # keyword typo ፅ-for-ዕ) — causing all verses to default to
+  # chapter 1. The τ.6.x.1.D extension adds CHAPTER_HEADER_RE_LENIENT
+  # (tolerates ፅ-for-ዕ in the keyword + Latin-letter/garbled-numeral
+  # tokens + `=` for `።` as terminator) and _resolve_chapter_marker()
+  # (Geʽez parsing → Arabic-digit extraction → sequential fallback;
+  # with max-jump sanity check that rejects forward jumps > 5 chapters
+  # as likely OCR garbles).
+  tau6x1d_chapter_recovery:
+    shipped_at_phase: τ.6.x.1.D
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "τ.6.x.1.D" explicit phase invocation after τ.6.x.1.C
+      shipping noted "chapter-marker recognition fails when OCR
+      garbles the Ethiopic numeral" as the next-most-logical
+      refinement before τ.7.x.a (proper).
+    resolves_residual:
+      source: τ.6.x.1.C tau6x1c_parser_extension.known_residual_issues
+      issue: chapter_marker_recognition
+      finding_phase: τ.6.x.1.C
+      reciprocal_back_link: 'tau6x1c_parser_extension.residual_resolved_at_phase: τ.6.x.1.D'
+    helpers_added:
+      CHAPTER_HEADER_RE_LENIENT: |
+        re.Pattern matching `ምዕራፍ` + separators + 1-5-char numeral
+        token (possibly OCR-garbled) + `[።፡፣=]` terminator. Tolerates
+        the empirically-observed garbling patterns: `ምፅራፍ` (ፅ for ዕ
+        keyword typo) + Latin-letter numeral substitution (`B` for
+        `፩`) + compound-Ethiopic numeral garbling (`ል፳` for `፩`) +
+        `=` substitution for `።` at end.
+      _resolve_chapter_marker: |
+        Function (numeral_token, current_chapter, *, max_jump=5)
+        → int. Priority: (1) clean Geʽez numeral via geez_numeral_
+        to_int; (2) Arabic-digit extraction; (3) sequential fallback
+        current_chapter+1. Sanity check: parsed values that jump
+        more than max_jump (default 5) forward of current_chapter
+        are treated as OCR-garbled (Ethiopic numerals visually
+        similar — `፬`=4 vs `፱`=9 confusion plausible) and fall
+        through to sequential. max_jump=None disables the check.
+    parser_api_change:
+      function: _parse_paragraph_mode (internal)
+      change: |
+        Now uses CHAPTER_HEADER_RE_LENIENT.split (instead of strict
+        CHAPTER_HEADER_RE) + _resolve_chapter_marker (instead of
+        inline geez_numeral_to_int + sequential fallback). Pre-marker
+        title-page text is now DISCARDED when markers exist (was
+        previously credited to chapter 1, polluting Gen 1 with
+        publisher-banner OCR garble).
+      backward_compatibility: |
+        parse_verses_from_text() public API unchanged. paragraph_mode
+        callers see updated chapter-labeling; default-mode callers
+        (Tewahedo-distinctive sections) see no change since the
+        strict CHAPTER_HEADER_RE is still used for that path.
+    empirical_validation:
+      page_range_tested: [0, 5]
+      expected_genesis_chapters_pages_0_5: [1, 2, 3, 4, 5]  # Gen 1-5 span these pages
+      text_layer_engine:
+        chapters_detected_before_tau6x1d: [1]  # τ.6.x.1.C baseline
+        chapters_detected_after_tau6x1d: [1, 3, 4]
+        chapter_2_still_missing: |
+          Genesis 2 chapter marker on pages 1-2 is OCR-garbled past
+          the lenient regex (likely missing both ዕ and ፅ in the
+          keyword, e.g. `ምራፍ` truncation). Chapter 2 content falls
+          into chapter 1's bucket. Future τ.6.x.1.E refinement scope.
+        chapter_9_resolved_to_4_via_max_jump: |
+          Page 5 text-layer emits `ምፅራፍ ፱ =` where `፱`=9 is OCR
+          garble of `፬`=4. With current_chapter=3, jump to 9 = 6 >
+          max_jump=5; sequential fallback correctly resolves to 4.
+        verse_count_before_tau6x1d: 87
+        verse_count_after_tau6x1d: 86  # 1 less due to pre-marker discard
+        runtime_pin_floor_chapter_count: 3
+        runtime_pin_floor_verse_count: 75  # preserves τ.6.x.1.C floor
+      regression_pin_tests:
+        - test_text_layer_pages_0_5_detects_at_least_3_chapters
+        - test_text_layer_pages_0_5_still_yields_at_least_75_verses
+    known_residual_issues:
+      chapter_marker_keyword_garbled_past_recognition: |
+        When OCR drops/garbles MULTIPLE characters in the `ምዕራፍ`
+        keyword (e.g. truncation to `ራፍ` alone), the lenient regex
+        still doesn't match — those chapter boundaries are silently
+        missed. Empirical case: Genesis 2 marker on pages 1-2.
+        Scope for future τ.6.x.1.E refinement: extend the keyword
+        pattern to e.g. `[ምሙ]?[ዕፅ]?ራፍ` (allow leading-char drop) +
+        validate via position-and-density heuristics.
+      max_jump_heuristic_imperfect: |
+        Default max_jump=5 catches `፱`-for-`፬` (6-chapter jump) but
+        not e.g. `፮`-for-`፫` (3-chapter jump). For books with
+        denser chapter spacing this needs calibration. Genesis-pages-
+        0-5 empirical baseline suggests 5 is reasonable; longer
+        books may need 3-4.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: true  # no content/translations/* mutation
+      tau6x0b_honesty_contract: true
+      tau6x0c_script_ethiopic_adoption: true
+      tau6x1_engine_wiring: true
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true
+      tau6x1c_parser_extension: true  # paragraph_mode dispatch preserved
+      tau6x2D_decisions: true
+      tau7xa_pre_pilot: true  # PILOT findings still accessible
+    no_ingest_at_this_phase: true
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved across τ.6.x.0a → τ.6.x.0b → τ.6.x.0c → τ.6.x.1 → τ.6.x.1.A → τ.6.x.1.B → τ.6.x.2.D → τ.7.x.a.0 → τ.6.x.1.C → τ.6.x.1.D chain)'
+    next_phase: τ.7.x.a
+    next_phase_description: |
+      τ.7.x.a (proper) — Amharic Genesis full-book ingest at
+      ocr-tier3 under D1-a incremental cadence + D4-c Amharic-first
+      sequencing. Now UNBLOCKED by τ.6.x.1.C (paragraph-mode) +
+      τ.6.x.1.D (chapter recovery). Quality residual: chapter
+      labels may collapse some chapter-marker-garbled-past-recovery
+      boundaries (e.g. Gen 2 marker garbled to `ራፍ` alone — Gen 2
+      content bleeds into Gen 1 bucket). Downstream τ.7.x.a writer
+      may apply post-process renumbering using GENESIS_VERSE_COUNTS
+      as the expected-floor reference. Optional τ.6.x.1.E ship can
+      address the truncated-keyword case before τ.7.x.a if cleaner
+      labeling needed at ingest time.

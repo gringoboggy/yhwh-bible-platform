@@ -357,10 +357,12 @@ class TestTau7XAClosedArcInvariantPreservation:
         assert _pilot_block()["no_ingest_at_this_phase"] is True
 
     def test_changelog_records_tau7xa_0_entry(self):
+        """Refactored from share-pin (first-3000-chars-window) to
+        milestone-pin (τ.7.x.a.0 appears anywhere in CHANGELOG) at
+        τ.6.x.1.D ship-time per `feedback_share_pin_pattern` — the
+        window pin breaks every time a new ship prepends a new entry."""
         txt = CHANGELOG.read_text(encoding="utf-8")
-        # τ.7.x.a.0 entry appears near the top (newest-first).
-        first_3k = txt[:3000]
-        assert "τ.7.x.a.0" in first_3k, "CHANGELOG.md must record a τ.7.x.a.0 entry near the top"
+        assert "τ.7.x.a.0" in txt, "CHANGELOG.md must record a τ.7.x.a.0 entry somewhere"
 
     def test_plan_ledger_records_tau7xa_0_and_tau6x1c(self):
         txt = PLAN.read_text(encoding="utf-8")

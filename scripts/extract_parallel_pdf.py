@@ -282,6 +282,93 @@ VERSE_NUM_RE = re.compile(r"^\s*(\d+)[.:\)\s]")
 CHAPTER_HEADER_RE = re.compile(r"ምዕራፍ[\s፡፣]*([፩-፼]+)")
 
 
+# τ.6.x.1.D — Chapter-marker recovery for OCR-garbled numerals.
+#
+# The τ.6.x.1.C known residual: when OCR garbles the chapter numeral
+# (e.g. text-layer emits `ምዕራፍ B ።` for what should be `ምዕራፍ ፩ ።`;
+# Tesseract emits `ምዕራፍ ል፳።`), the strict CHAPTER_HEADER_RE above
+# doesn't match because the captured group requires `[፩-፼]+`. The
+# chapter marker is silently missed and all verses in subsequent
+# chapters get attributed to the previous chapter — for Genesis
+# paragraph-mode ingest, this collapses all 50 chapters into chapter 1.
+#
+# The fix: a LENIENT regex that matches `ምዕራፍ` + separators + ANY
+# short non-whitespace token + the closing Ethiopic-punct terminator.
+# The captured token is then passed to `_resolve_chapter_marker()`
+# which tries (1) clean Geʽez-numeral parsing, (2) Arabic-digit
+# extraction, then (3) sequential fallback (current_chapter + 1).
+# Sequential fallback assumes chapters are encountered in order —
+# always true for sequential PDF page reading.
+#
+# Why a SEPARATE regex (vs replacing CHAPTER_HEADER_RE):
+# - The strict regex is correct for Tewahedo-distinctive sections
+#   (Meqabyan/Jubilees/1 Enoch) where Tesseract recognizes the
+#   Ethiopic numerals cleanly. Loosening that path would risk
+#   false-positives (e.g. matching cross-references shaped like
+#   `ምዕራፍ <something>`).
+# - The lenient regex is only used in paragraph_mode (τ.6.x.1.C)
+#   for standard-canon books where OCR garbles the numerals.
+
+CHAPTER_HEADER_RE_LENIENT = re.compile(
+    r"ም[ዕፅ]ራፍ"  # keyword with ዕ-or-ፅ tolerance (text-layer engine
+    # occasionally emits ፅ for ዕ — both are Ethiopic
+    # syllabic glyphs with similar shape)
+    r"[\s፡፣]+"  # at least one separator
+    r"(\S{1,5})"  # 1-5 non-whitespace chars (numeral token, possibly garbled)
+    r"\s*"
+    r"[።፡፣=]"  # MUST be followed by Ethiopic punctuation OR `=` (OCR
+    # occasionally substitutes `=` for `።` at the end of
+    # chapter markers — confirmed empirically on page 5
+    # of Genesis 1)
+)
+
+
+def _resolve_chapter_marker(numeral_token: str, current_chapter: int, *, max_jump: int = 5) -> int:
+    """Resolve a chapter-marker numeral token to an integer chapter
+    number, tolerating OCR garbling per τ.6.x.1.D.
+
+    Strategy (in priority order):
+    1. Clean Geʽez numeral — `geez_numeral_to_int()` returns int.
+    2. Arabic-digit extraction — strip non-digits, parse remaining as
+       int (covers OCR mistakes that drop in a digit like '፬' → '4').
+    3. Sequential fallback — return current_chapter + 1, assuming
+       chapters are encountered in order during sequential PDF reading.
+
+    Sanity-check: parsed values that JUMP more than `max_jump` chapters
+    forward of the current chapter are treated as OCR-garbled (Ethiopic
+    numerals are visually similar — `፬` (4) vs `፱` (9) confusion is
+    plausible). Sequential fallback fires for big jumps. The default
+    `max_jump=5` is a heuristic — chapters are encountered in order in
+    sequential PDF reading, so a jump of more than 5 is unlikely
+    legitimate. Set max_jump=None to disable the check (use only when
+    chapter-marker fidelity is verified upstream).
+
+    Returns an int chapter number in [1, 200]. The 200 upper bound is
+    a sanity-check guard against runaway values (Genesis has 50,
+    Psalms has 150 — 200 leaves headroom for any biblical book).
+    """
+    if numeral_token:
+        # Strategy 1: clean Geʽez numeral
+        n = geez_numeral_to_int(numeral_token)
+        if n is not None and 1 <= n <= 200:
+            if max_jump is None or current_chapter == 0 or n <= current_chapter + max_jump:
+                return n
+            # Big jump — likely OCR garble; fall through to sequential.
+        # Strategy 2: Arabic digits embedded in the token
+        digits = "".join(c for c in numeral_token if c.isdigit())
+        if digits:
+            try:
+                n = int(digits)
+                if 1 <= n <= 200:
+                    if max_jump is None or current_chapter == 0 or n <= current_chapter + max_jump:
+                        return n
+                    # Big jump — fall through to sequential.
+            except ValueError:
+                pass
+    # Strategy 3: sequential fallback
+    return current_chapter + 1
+
+
 # τ.6.x.1.B — Ethiopic-numeral verse-marker normalization.
 #
 # The τ.6.x.1.A pilot empirical finding: the parallel-Bible PDF's
@@ -467,12 +554,13 @@ GENESIS_VERSE_COUNTS = {
 
 
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
-    """τ.6.x.1.C paragraph-mode parser.
+    """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
-    Walks chapter markers; within each chapter splits the body text
+    Walks chapter markers (lenient regex tolerates OCR-garbled
+    numerals per τ.6.x.1.D); within each chapter splits the body text
     by `።` sentence-terminator; filters cross-reference fragments;
-    numbers verses sequentially. See module-level τ.6.x.1.C block
-    for the full design rationale.
+    numbers verses sequentially. See module-level τ.6.x.1.C +
+    τ.6.x.1.D blocks for the full design rationale.
     """
     # First pass: filter lines for ASCII page-header garbage. Keep
     # blank lines so paragraph structure (if any) is preserved for
@@ -489,21 +577,34 @@ def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
         filtered_lines.append(line)
     filtered_text = "\n".join(filtered_lines)
 
-    # Walk chapter markers; CHAPTER_HEADER_RE.split gives [pre, ch_num_1,
-    # mid_1, ch_num_2, mid_2, ...].
-    parts = CHAPTER_HEADER_RE.split(filtered_text)
+    # Walk chapter markers using the τ.6.x.1.D lenient regex which
+    # tolerates OCR-garbled keywords (ምፅራፍ for ምዕራፍ), numerals
+    # (e.g. text-layer 'ምዕራፍ B ።', Tesseract 'ምዕራፍ ል፳።'), and
+    # terminators (`=` substituted for `።`). CHAPTER_HEADER_RE_
+    # LENIENT.split gives [pre, ch_num_token_1, mid_1,
+    # ch_num_token_2, mid_2, ...].
+    parts = CHAPTER_HEADER_RE_LENIENT.split(filtered_text)
     chapters: list[tuple[int, str]] = []
-    # parts[0] is text BEFORE the first chapter marker; if non-empty,
-    # belongs to chapter 1 by default.
-    if parts and parts[0].strip():
+    if len(parts) > 1:
+        # We have at least one chapter marker; the text BEFORE the
+        # first marker is typically title-page header noise (publisher
+        # banner + book title) and should NOT be credited to chapter 1.
+        # The first marker itself establishes chapter 1.
+        pre_marker_discarded = True  # noqa: F841 (kept for documentation)
+    elif parts and parts[0].strip():
+        # No markers at all — credit everything to chapter 1 by
+        # default (works for single-chapter sections OR when ALL
+        # markers were garbled past recognition).
         chapters.append((1, parts[0]))
     for i in range(1, len(parts), 2):
-        ch_num_str = parts[i]
-        ch_num = geez_numeral_to_int(ch_num_str)
+        ch_num_token = parts[i]
         ch_text = parts[i + 1] if i + 1 < len(parts) else ""
-        if ch_num is None:
-            # OCR mangled the numeral; fall back to current+1 if any.
-            ch_num = chapters[-1][0] + 1 if chapters else 1
+        # τ.6.x.1.D: resolve the chapter number with OCR-tolerance.
+        # Sequential fallback uses (chapters[-1][0] if any else 0)
+        # so the FIRST marker (when chapters is empty) resolves to 1
+        # via 0+1; subsequent markers advance from the previous chapter.
+        seed = chapters[-1][0] if chapters else 0
+        ch_num = _resolve_chapter_marker(ch_num_token, seed)
         if ch_text.strip():
             chapters.append((ch_num, ch_text))
 

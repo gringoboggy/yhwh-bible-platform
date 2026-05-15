@@ -1,6 +1,143 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.6.x.1.C PARAGRAPH-MODE PARSER EXTENSION
+**Updated 2026-05-15 / τ.6.x.1.D CHAPTER-MARKER RECOVERY ship —
+resolves the τ.6.x.1.C known residual where the strict
+`CHAPTER_HEADER_RE` failed to match OCR-garbled chapter markers
+(e.g. text-layer `ምዕራፍ B ።` for ch 1, where `B` is OCR garble of
+`፩`; Tesseract `ምዕራፍ ል፳።`; text-layer `ምፅራፍ ፫ ።` for ch 3 with
+ፅ-for-ዕ keyword typo). At τ.6.x.1.C the strict regex required
+`[፩-፼]+` for the captured numeral group and missed ALL garbled
+markers — collapsing all verses on Genesis pages 0-5 into a single
+chapter-1 bucket. τ.6.x.1.D adds **CHAPTER_HEADER_RE_LENIENT**
+(tolerates ፅ-for-ዕ in keyword + 1-5-char garbled numeral tokens +
+`=` substitution for `።` terminator) and **_resolve_chapter_marker**
+(Geʽez parsing → Arabic-digit extraction → sequential fallback,
+with `max_jump=5` sanity check rejecting forward jumps > 5 chapters
+as likely OCR garbles — Ethiopic numerals are visually similar so
+`፬`=4 / `፱`=9 confusion is plausible). Triggered by user
+"τ.6.x.1.D" explicit phase invocation after τ.6.x.1.C ship. The
+**fourth instance of the single-key back-link annotation pattern**
+(tau6x1c_parser_extension.residual_resolved_at_phase: τ.6.x.1.D)
+reinforces the A-I3 codification threshold.
+
+**Empirical validation (real-PDF text-layer pages 0-5):**
+
+| Metric | τ.6.x.1.C baseline | τ.6.x.1.D this ship |
+|---|---:|---:|
+| Total verses | 87 | 86 (−1 pre-marker discard) |
+| Chapters detected | {1} | **{1, 3, 4}** |
+| Gen 2 marker | missed (truncated to `ራፍ`) | still missed → τ.6.x.1.E scope |
+| Gen 3 marker (`ምፅራፍ ፫ ።`) | missed (ፅ-typo) | **recognized → ch 3** |
+| Gen 4 marker (`ምፅራፍ ፱ =`) | missed | **recognized → ch 4 via max-jump** |
+
+The chapter-2 marker (heavily truncated to `ራፍ` alone) remains
+unrecognized — future τ.6.x.1.E refinement scope; downstream
+τ.7.x.a writer can apply chapter-renumbering using
+GENESIS_VERSE_COUNTS as expected-floor reference for that residual.
+
+**τ.6.x.1.D deliverables shipped:**
+
+1. **`scripts/extract_parallel_pdf.py` chapter-marker recovery.**
+   NEW module-level symbols: `CHAPTER_HEADER_RE_LENIENT` regex
+   (tolerates keyword/numeral/terminator OCR variants) +
+   `_resolve_chapter_marker(numeral_token, current_chapter, *,
+   max_jump=5)` function (priority: clean Geʽez → Arabic digits →
+   sequential fallback; with optional max-jump sanity check).
+   `_parse_paragraph_mode()` now uses the lenient regex + resolver;
+   pre-marker title-page text is DISCARDED when markers exist
+   (was previously credited to chapter 1, polluting Gen 1 with
+   publisher-banner OCR garble). Default mode (Tewahedo-distinctive
+   sections) unchanged — still uses the strict CHAPTER_HEADER_RE
+   since those sections have clean Tesseract recognition.
+
+2. **`_source.yaml::ocr_strategy.tau6x1d_chapter_recovery` block
+   added.** Records shipped fields + triggered_by + resolves_residual
+   (back-link to τ.6.x.1.C residual + reciprocal back-link
+   annotation `tau6x1c_parser_extension.residual_resolved_at_phase:
+   τ.6.x.1.D`) + helpers_added (2 inventories) + parser_api_change
+   (internal `_parse_paragraph_mode` + public API unchanged) +
+   empirical_validation (per-engine chapter detection + verse-count
+   preservation + 3 specific marker resolutions documented) +
+   known_residual_issues (chapter-marker keyword garbled past
+   recognition + max-jump heuristic imperfect) + closed_arc_
+   contracts_preserved 9-key block + no_ingest + slot state +
+   next_phase=τ.7.x.a.
+
+3. **Reciprocal back-link annotation:** `tau6x1c_parser_extension.
+   residual_resolved_at_phase: τ.6.x.1.D` added to the τ.6.x.1.C
+   block, completing the bidirectional residual-resolution chain.
+   **Fourth instance** of the single-key back-link annotation
+   pattern (tau6x1a→1b, tau6x1b→2D, tau7xa_pre_pilot→1C, tau6x1c→1D)
+   — well past the §8.1 codification threshold.
+
+4. **NEW test classes in `tests/test_parallel_bible_tau6x1.py`:**
+   TestTau6X1DModuleSurface (3 pins) +
+   TestTau6X1DResolveChapterMarker (12 pins, covering clean Geʽez +
+   compound Geʽez + Arabic + Latin-garble + compound-Ethiopic-garble
+   + max-jump-default-blocks + max-jump-default-allows + max-jump-
+   None-disables + empty-string + runaway-large) +
+   TestTau6X1DLenientRegex (7 pins, clean + ፅ-typo + Latin-letter +
+   `=`-terminator + no-keyword + within-text + split-shape) +
+   TestTau6X1DParagraphModeChapterRecovery (4 integration pins on
+   synthetic input — garbled first marker → ch 1, clean second
+   marker → ch 2, big-jump sanity overrides, pre-marker discard) +
+   TestTau6X1DParagraphModeRuntime (2 real-PDF empirical regression
+   pins — ≥3 chapters detected on pages 0-5, ≥75 verses preserved)
+   + TestTau6X1DSourceYamlBlock (9 pins on the yaml block shape).
+   Total **+37 pin tests across 6 classes**.
+
+5. **`dev/SESSION_STATE.md`** — this headline update.
+
+6. **`dev/IN_FLIGHT.md`** — prior-task block for τ.6.x.1.D
+   prepended; τ.6.x.1.C demoted to prior-task-previous.
+
+7. **`dev/CHANGELOG.md`** — 2026-05-15 τ.6.x.1.D entry prepended.
+
+8. **`dev/PLAN_2026-05-09.md` §6 ledger.** τ.6.x.1.D migrated
+   pending → shipped; τ.7.x.a (proper) remains next-up.
+
+9. **`tests/test_omega4x_hygiene.py` share/milestone-pin
+   migration.** τ.6.x.1.D added to shipped-phase list.
+
+**Test count: ~4710 (post-τ.6.x.1.C baseline) → ~4747 (+37 pin
+tests across 6 groups in test_parallel_bible_tau6x1.py
+TestTau6X1D* classes). Linter expected clean.**
+
+**What did NOT change at τ.6.x.1.D:**
+- No `content/translations/*` data — slots remain at Π.0 seed
+  (gen.py + _meta.yaml only); τ.6.x.0a no-ingest contract
+  preserved across 10-ship chain (τ.6.x.0a → 0b → 0c → 1 → 1.A
+  → 1.B → 2.D → 7.x.a.0 → 1.C → 1.D).
+- No `content/{editions,canons,books}.yaml` mutation.
+- No engine code mutation — only parser-helper additions.
+- `parse_verses_from_text()` public API signature unchanged
+  (paragraph_mode kwarg from τ.6.x.1.C preserved; internal logic
+  refactored).
+- Default mode (Tewahedo-distinctive sections) unchanged — still
+  uses strict CHAPTER_HEADER_RE.
+- All 18 closed-arc invariants preserved.
+
+**Phase tag:** τ.6.x.1.D. Chapter-marker recovery refinement.
+**Next phase:** **τ.7.x.a (proper)** — the original D4-c Amharic
+Genesis full-book ingest, now UNBLOCKED with reasonable chapter
+labels (3-of-5 chapters detected on pages 0-5 sample; remaining
+2 will need post-process renumbering or τ.6.x.1.E truncated-keyword
+refinement). Will upgrade `content/translations/amharic-tewahedo/
+gen.py` from Π.0 seed (3 verses) to full-book ingest using the
+τ.6.x.1 engine + τ.6.x.1.B + τ.6.x.1.C + τ.6.x.1.D parsers.
+
+**Audit cadence:** τ.6.x.1.D is post-DEEP phase #3; cumulative
+drift since DEEP baseline +~114 tests (+39 τ.7.x.a.0 + +37
+τ.6.x.1.C + +37 τ.6.x.1.D + ~1 omega4x extension); ≥150 threshold
+approached but NOT crossed. A LIGHT audit at τ.7.x.a ship-time
+would close the cadence-window per `feedback_audit_cadence`.
+
+shipped 2026-05-15. Triggered by user "τ.6.x.1.D" explicit phase
+invocation after τ.6.x.1.C.
+
+## Prior task
+
+**τ.6.x.1.C PARAGRAPH-MODE PARSER EXTENSION
 ship — resolves the τ.7.x.a.0 PILOT empirical finding
 `paragraph_mode_parser_extension_needed`. Adds `paragraph_mode=True`
 keyword to `parse_verses_from_text()` in

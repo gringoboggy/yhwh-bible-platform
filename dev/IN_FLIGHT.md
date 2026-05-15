@@ -4,6 +4,96 @@
 
 ## Prior task
 
+**τ.6.x.1.D CHAPTER-MARKER RECOVERY ship — resolves the τ.6.x.1.C
+known residual where the strict `CHAPTER_HEADER_RE` failed to
+match OCR-garbled chapter markers, collapsing all verses on
+Genesis pages 0-5 into chapter 1. τ.6.x.1.D adds
+**CHAPTER_HEADER_RE_LENIENT** (tolerates ፅ-for-ዕ keyword typo +
+1-5-char garbled numeral tokens like Latin `B` or compound `ል፳`
++ `=` substitution for `።` terminator) and
+**`_resolve_chapter_marker(numeral_token, current_chapter, *,
+max_jump=5)`** (Geʽez parsing → Arabic-digit extraction →
+sequential fallback; with max-jump sanity check rejecting forward
+jumps > 5 chapters as likely OCR garbles). `_parse_paragraph_mode`
+now uses the lenient regex + resolver; pre-marker title-page text
+is DISCARDED when markers exist. Default mode (Tewahedo-distinctive
+sections) unchanged. Triggered by user "τ.6.x.1.D" explicit phase
+invocation. Analogous to τ.6.x.1.A → τ.6.x.1.B → τ.6.x.1.C chain
+of finding-resolution back-links; **4th instance** of the single-
+key annotation pattern.
+
+**Empirical validation (real-PDF text-layer Amharic Genesis pages
+0-5):** chapters detected went from {1} at τ.6.x.1.C baseline to
+**{1, 3, 4}** at τ.6.x.1.D (3 chapters vs 1). Gen 3 marker
+`ምፅራፍ ፫ ።` now recognized (ፅ-typo tolerated). Gen 4 marker
+`ምፅራፍ ፱ =` recognized BUT `፱`=9 parsed value triggers max-jump
+sanity check (jump=6 > 5) → sequential fallback resolves to ch 4
+correctly. Gen 2 marker garbled past recognition (truncated to
+`ራፍ` alone — keyword-prefix missing); future τ.6.x.1.E refinement
+scope OR downstream chapter-renumbering using GENESIS_VERSE_COUNTS.
+Verse count: 87 → 86 (−1 due to pre-marker title-page discard);
+τ.6.x.1.C runtime floor (≥75) preserved.
+
+**τ.6.x.1.D deliverables shipped:**
+
+1. **`scripts/extract_parallel_pdf.py` chapter-marker recovery.**
+   NEW: `CHAPTER_HEADER_RE_LENIENT` regex tolerating ፅ-for-ዕ +
+   Latin/compound-Ethiopic numeral tokens + `=` terminator;
+   `_resolve_chapter_marker()` function with priority chain +
+   `max_jump=5` sanity check. `_parse_paragraph_mode` rewired to
+   use both + discard pre-marker title text.
+
+2. **`_source.yaml::ocr_strategy.tau6x1d_chapter_recovery` block
+   added.** Records shipped fields + resolves_residual (back-link
+   to τ.6.x.1.C residual + reciprocal back-link annotation) +
+   helpers_added (2 inventories) + parser_api_change + empirical_
+   validation (per-engine chapter detection + 3 specific marker
+   resolution cases) + known_residual_issues (truncated-keyword
+   case + max-jump heuristic imperfection) + closed_arc_contracts_
+   preserved 9-key all True + no_ingest + next_phase=τ.7.x.a.
+
+3. **Reciprocal back-link:** `tau6x1c_parser_extension.residual_
+   resolved_at_phase: τ.6.x.1.D` added. Fourth instance of the
+   single-key back-link annotation pattern.
+
+4. **NEW test classes in `tests/test_parallel_bible_tau6x1.py`:**
+   TestTau6X1DModuleSurface (3) + TestTau6X1DResolveChapterMarker
+   (12) + TestTau6X1DLenientRegex (7) +
+   TestTau6X1DParagraphModeChapterRecovery (4) +
+   TestTau6X1DParagraphModeRuntime (2 real-PDF) +
+   TestTau6X1DSourceYamlBlock (9) = **+37 pin tests across 6
+   classes**.
+
+5. **`dev/SESSION_STATE.md`** — this headline update.
+
+6. **`dev/IN_FLIGHT.md`** — this prior-task block prepended;
+   τ.6.x.1.C demoted to prior-task-previous.
+
+7. **`dev/CHANGELOG.md`** — 2026-05-15 τ.6.x.1.D entry prepended.
+
+8. **`dev/PLAN_2026-05-09.md` §6 ledger.** τ.6.x.1.D migrated
+   pending → shipped.
+
+9. **`tests/test_omega4x_hygiene.py` share/milestone-pin migration.**
+   τ.6.x.1.D added to shipped-phase list.
+
+**Test count: ~4710 → ~4747 (+37 pin tests in test_parallel_bible_
+tau6x1.py TestTau6X1D* classes). Linter clean.**
+
+**What did NOT change at τ.6.x.1.D:**
+- No `content/translations/*` data; Π.0 seed preserved across
+  10-ship chain (τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B → 2.D →
+  7.x.a.0 → 1.C → 1.D).
+- No `content/{editions,canons,books}.yaml` mutation.
+- No engine code mutation; only parser-helper additions.
+- parse_verses_from_text() public API signature unchanged.
+- Default mode (Tewahedo-distinctive) unchanged.
+- All 18 closed-arc invariants preserved.
+
+shipped 2026-05-15. Triggered by user "τ.6.x.1.D".
+
+## Prior task (previous)
+
 **τ.6.x.1.C PARAGRAPH-MODE PARSER EXTENSION ship — resolves the
 τ.7.x.a.0 PILOT empirical finding
 `paragraph_mode_parser_extension_needed`. Adds `paragraph_mode=True`

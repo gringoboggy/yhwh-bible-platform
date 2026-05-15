@@ -1572,18 +1572,28 @@ class TestTau6X1CParagraphModeUnit:
         assert result[1][1] == 2
 
     def test_chapter_marker_resets_verse_counter(self):
-        """When a chapter marker is encountered, verse counter resets."""
+        """When a chapter marker is encountered, verse counter resets.
+
+        Note (τ.6.x.1.D): pre-marker text is now DISCARDED when
+        markers exist (it's typically title-page header noise, not
+        chapter 1 content). To test verse-counter-reset behavior with
+        the τ.6.x.1.D semantics, use TWO chapter markers — content
+        between them is ch 1, content after the second marker is ch 2.
+        """
         body = (
+            "ምዕራፍ ፩።\n"  # chapter 1 marker; pre-marker text discarded
             "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።\n"
             "ምድር ግን ባዶዋን ነበረች አትታይም ነበር አልተዘጋ ሄደችም ነበር።\n"
             "ምዕራፍ ፪።\n"  # chapter 2 marker
             "ሰማይና ምድር ተፈጸሙ ሁሉም ሰራዊታቸውም።"
         )
         result = self._parse(body)
-        assert len(result) >= 3
-        # Last verse should be chapter 2, verse 1.
+        assert len(result) >= 3, f"expected ≥3 verses; got {result}"
+        ch1_verses = [v for v in result if v[0] == 1]
         ch2_verses = [v for v in result if v[0] == 2]
-        assert len(ch2_verses) >= 1
+        assert len(ch1_verses) >= 2, f"expected ≥2 ch1 verses; got {ch1_verses}"
+        assert len(ch2_verses) >= 1, f"expected ≥1 ch2 verse; got {ch2_verses}"
+        # Ch2 verse counter resets to 1.
         assert ch2_verses[0][1] == 1
 
     def test_ascii_page_header_filtered(self):
@@ -1781,3 +1791,377 @@ class TestTau6X1CSourceYamlBlock:
         assert pilot.get("finding_resolved_at_phase") == "τ.6.x.1.C", (
             "τ.7.x.a.0 PILOT block must annotate the finding-resolution phase"
         )
+
+
+# ──────────────────────────────────────────────────────────────────
+# τ.6.x.1.D — Chapter-marker recovery for OCR-garbled numerals (2026-05-15)
+# ──────────────────────────────────────────────────────────────────
+#
+# Resolves the τ.6.x.1.C known residual: when OCR garbles the
+# Ethiopic chapter numeral (e.g. text-layer emits `ምዕራፍ B ።` for
+# what should be `ምዕራፍ ፩ ።`), the strict CHAPTER_HEADER_RE fails
+# to match and all subsequent verses default to chapter 1. The
+# τ.6.x.1.D extension adds a lenient regex + chapter-marker
+# resolver that recovers chapter numbers via Geʽez parsing →
+# Arabic-digit extraction → sequential fallback.
+
+
+class TestTau6X1DModuleSurface:
+    """τ.6.x.1.D exposes the lenient chapter-marker regex + the
+    resolver function."""
+
+    def test_chapter_header_re_lenient_importable(self):
+        import re as _re
+
+        from scripts.extract_parallel_pdf import CHAPTER_HEADER_RE_LENIENT
+
+        assert isinstance(CHAPTER_HEADER_RE_LENIENT, _re.Pattern)
+
+    def test_resolve_chapter_marker_callable(self):
+        from scripts.extract_parallel_pdf import _resolve_chapter_marker
+
+        assert callable(_resolve_chapter_marker)
+
+    def test_resolver_signature_accepts_max_jump_kwarg(self):
+        import inspect
+
+        from scripts.extract_parallel_pdf import _resolve_chapter_marker
+
+        sig = inspect.signature(_resolve_chapter_marker)
+        assert "max_jump" in sig.parameters, "_resolve_chapter_marker must accept a max_jump kwarg"
+
+
+class TestTau6X1DResolveChapterMarker:
+    """Unit tests for `_resolve_chapter_marker` — OCR-garble recovery
+    cases."""
+
+    def _fn(self):
+        from scripts.extract_parallel_pdf import _resolve_chapter_marker
+
+        return _resolve_chapter_marker
+
+    def test_clean_geez_numeral_one(self):
+        assert self._fn()("፩", 0) == 1
+
+    def test_clean_geez_numeral_two(self):
+        assert self._fn()("፪", 1) == 2
+
+    def test_compound_geez_numeral(self):
+        # ፫ = 3
+        assert self._fn()("፫", 2) == 3
+
+    def test_arabic_digit_token(self):
+        # OCR sometimes emits Arabic digits (text-layer mode).
+        assert self._fn()("5", 4) == 5
+
+    def test_arabic_multi_digit_token(self):
+        assert self._fn()("12", 11) == 12
+
+    def test_latin_letter_garble_falls_back_to_sequential(self):
+        # Page 0 text-layer reality: 'B' is OCR garble of '፩'.
+        # With seed=0 (no prior chapters), resolver should fall back
+        # to sequential = 0 + 1 = 1.
+        assert self._fn()("B", 0) == 1
+
+    def test_compound_ethiopic_garble_falls_back(self):
+        # Tesseract reality: 'ል፳' is garble of '፩' on page 0.
+        # 'ል' is U+120D (not a numeral); 'ል፳' isn't a clean Geʽez
+        # numeral. With seed=0, sequential fallback returns 1.
+        assert self._fn()("ል፳", 0) == 1
+
+    def test_max_jump_default_blocks_big_forward_jump(self):
+        # Real OCR confusion: '፱' (=9) emitted where '፬' (=4) was
+        # intended. Default max_jump=5; jump from 3 to 9 = 6 > 5.
+        # Should fall back to sequential = 4.
+        assert self._fn()("፱", 3) == 4
+
+    def test_max_jump_default_allows_small_forward_jump(self):
+        # Jump from 4 to 9 = 5 (≤5 default); should accept.
+        assert self._fn()("፱", 4) == 9
+
+    def test_max_jump_none_disables_sanity_check(self):
+        # When max_jump=None, all parsed values pass through.
+        assert self._fn()("፱", 3, max_jump=None) == 9
+
+    def test_empty_string_falls_back_to_sequential(self):
+        assert self._fn()("", 7) == 8
+
+    def test_runaway_large_value_falls_back(self):
+        # Value > 200 sanity bound; resolver falls back to sequential.
+        assert self._fn()("፼", 5) == 6  # ፼=10000, exceeds 200
+
+
+class TestTau6X1DLenientRegex:
+    """Unit tests for `CHAPTER_HEADER_RE_LENIENT` — keyword + terminator
+    variant coverage."""
+
+    def _re(self):
+        from scripts.extract_parallel_pdf import CHAPTER_HEADER_RE_LENIENT
+
+        return CHAPTER_HEADER_RE_LENIENT
+
+    def test_clean_marker_matches(self):
+        # `ምዕራፍ` (correct keyword) + numeral + `።` terminator.
+        m = self._re().search("ምዕራፍ ፪ ።")
+        assert m is not None
+        assert m.group(1) == "፪"
+
+    def test_typo_keyword_matches(self):
+        # Text-layer occasionally emits `ምፅራፍ` (ፅ instead of ዕ).
+        m = self._re().search("ምፅራፍ ፫ ።")
+        assert m is not None
+        assert m.group(1) == "፫"
+
+    def test_latin_letter_numeral_matches(self):
+        # `ምዕራፍ B ።` — Latin letter substitution for the Geʽez numeral.
+        m = self._re().search("ምዕራፍ B ።")
+        assert m is not None
+        assert m.group(1) == "B"
+
+    def test_equals_terminator_matches(self):
+        # OCR occasionally substitutes `=` for `።` at end.
+        m = self._re().search("ምፅራፍ ፱ =")
+        assert m is not None
+        assert m.group(1) == "፱"
+
+    def test_no_match_without_keyword(self):
+        # Random Ethiopic text shouldn't match.
+        m = self._re().search("በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።")
+        assert m is None
+
+    def test_match_within_larger_text(self):
+        body = "verse text 1 ።\nምዕራፍ ፫ ።\nverse text 2"
+        m = self._re().search(body)
+        assert m is not None
+        assert m.group(1) == "፫"
+
+    def test_split_produces_alternating_parts(self):
+        body = "pre-text\nምዕራፍ B ።\nmiddle-text\nምፅራፍ ፫ ።\nend-text"
+        parts = self._re().split(body)
+        # split() with one capture group: [pre, captured_1, mid_1, captured_2, mid_2]
+        assert len(parts) == 5
+        assert parts[1] == "B"
+        assert parts[3] == "፫"
+
+
+class TestTau6X1DParagraphModeChapterRecovery:
+    """Integration tests for paragraph-mode parsing with τ.6.x.1.D
+    chapter-marker recovery on synthetic input."""
+
+    def _parse(self, text):
+        from scripts.extract_parallel_pdf import parse_verses_from_text
+
+        return parse_verses_from_text(text, paragraph_mode=True)
+
+    def test_garbled_first_marker_resolves_to_chapter_1(self):
+        """Pre-marker title text is discarded; first marker (garbled
+        Latin 'B' in this synthetic example) establishes chapter 1."""
+        body = (
+            "publisher header noise text in Ethiopic ።\n"
+            "ምዕራፍ B ።\n"  # garbled chapter 1 marker
+            "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።\n"
+            "ምድር ግን ባዶዋን ነበረች።"
+        )
+        result = self._parse(body)
+        # All verses should be in chapter 1.
+        assert all(v[0] == 1 for v in result), f"Expected all ch 1; got chapters {set(v[0] for v in result)}"
+        assert len(result) >= 2
+
+    def test_clean_second_marker_advances_chapter(self):
+        """A clean second marker (`ምዕራፍ ፪`) advances to chapter 2."""
+        body = (
+            "ምዕራፍ B ።\n"  # ch 1 (garbled, sequential → 1)
+            "verse one body text long enough to pass filter።\n"
+            "ምዕራፍ ፪ ።\n"  # ch 2 (clean)
+            "verse two body text long enough to pass filter።"
+        )
+        result = self._parse(body)
+        chapters_seen = {v[0] for v in result}
+        assert 1 in chapters_seen
+        assert 2 in chapters_seen
+
+    def test_big_jump_sanity_check_overrides_garble(self):
+        """When a marker resolves to a value > current+5 (default),
+        sequential fallback fires to correct the garble."""
+        body = (
+            "ምዕራፍ B ።\n"  # ch 1
+            "verse one body text long enough to pass filter።\n"
+            "ምፅራፍ ፫ ።\n"  # ch 3 (clean)
+            "verse three body text long enough to pass filter።\n"
+            "ምፅራፍ ፱ =\n"  # parses to 9, but jump=6 > max_jump=5 → sequential → 4
+            "verse four body text long enough to pass filter።"
+        )
+        result = self._parse(body)
+        chapters_seen = {v[0] for v in result}
+        assert 1 in chapters_seen
+        assert 3 in chapters_seen
+        # The `፱` marker should resolve to 4 (not 9) via max-jump.
+        assert 4 in chapters_seen, (
+            f"max-jump sanity should resolve ፱ jumping from 3 → 4 (sequential); got chapters {chapters_seen}"
+        )
+
+    def test_pre_marker_text_discarded_when_markers_exist(self):
+        """Title-page header text BEFORE the first marker should NOT
+        be credited to chapter 1 (it's typically publisher banner +
+        book title, not Bible content)."""
+        body = (
+            "Genesis title page banner text long enough to be retained \n"
+            "publisher org noise text in Ethiopic ።\n"
+            "ምዕራፍ B ።\n"  # first marker establishes ch 1
+            "actual gen 1:1 body text።"
+        )
+        result = self._parse(body)
+        # Only one verse should be parsed (the actual Gen 1:1) — the
+        # pre-marker title text was discarded.
+        assert len(result) == 1
+        assert result[0][0] == 1
+        assert "actual gen 1:1" in result[0][2]
+
+
+class TestTau6X1DParagraphModeRuntime:
+    """Real-PDF runtime regression pin for τ.6.x.1.D chapter recovery.
+    Empirical reality: text-layer Genesis pages 0-5 should now detect
+    ≥3 chapters (vs 1 at τ.6.x.1.C baseline) — empirical baseline at
+    ship-time: chapters {1, 3, 4} detected for pages 0-5."""
+
+    @pytest.fixture(scope="class")
+    def _pdf(self):
+        import sys
+
+        sys.path.insert(0, "scripts")
+        try:
+            import fitz
+        except ImportError:
+            pytest.skip("pymupdf (fitz) not installed")
+        from scripts.extract_parallel_pdf import load_source_config, resolve_pdf_path
+
+        cfg = load_source_config()
+        try:
+            pdf_path = resolve_pdf_path(cfg)
+        except SystemExit:
+            pytest.skip("Parallel-Bible PDF not resolvable")
+        if not pdf_path.exists():
+            pytest.skip("Parallel-Bible PDF not present on this machine")
+        doc = fitz.open(str(pdf_path))
+        yield doc
+        doc.close()
+
+    def test_text_layer_pages_0_5_detects_at_least_3_chapters(self, _pdf):
+        """τ.6.x.1.D runtime pin: text-layer engine on Amharic Genesis
+        pages 0-5 must detect ≥3 distinct chapters under paragraph_mode.
+        Without τ.6.x.1.D (τ.6.x.1.C only), only 1 chapter is detected
+        because all chapter markers have OCR-garbled numerals that the
+        strict CHAPTER_HEADER_RE can't match."""
+        import sys
+
+        sys.path.insert(0, "scripts")
+        from scripts.extract_parallel_pdf import extract_text_by_column, parse_verses_from_text
+
+        all_amh = ""
+        for page_num in range(0, 6):
+            page = _pdf[page_num]
+            _, amh = extract_text_by_column(page)
+            all_amh += amh + "\n"
+
+        verses = parse_verses_from_text(all_amh, paragraph_mode=True)
+        chapters_present = {v[0] for v in verses}
+        assert len(chapters_present) >= 3, (
+            f"τ.6.x.1.D runtime pin: text-layer Genesis pages 0-5 must detect "
+            f"≥3 distinct chapters under paragraph_mode; got {len(chapters_present)} "
+            f"chapters: {sorted(chapters_present)}. The τ.6.x.1.C baseline was "
+            f"1 chapter (all verses defaulted to ch 1 due to garbled markers)."
+        )
+
+    def test_text_layer_pages_0_5_still_yields_at_least_75_verses(self, _pdf):
+        """τ.6.x.1.D preserves the τ.6.x.1.C verse-count floor; the
+        chapter-recovery extension doesn't change the total verse count,
+        only the chapter labels."""
+        import sys
+
+        sys.path.insert(0, "scripts")
+        from scripts.extract_parallel_pdf import extract_text_by_column, parse_verses_from_text
+
+        all_amh = ""
+        for page_num in range(0, 6):
+            page = _pdf[page_num]
+            _, amh = extract_text_by_column(page)
+            all_amh += amh + "\n"
+
+        verses = parse_verses_from_text(all_amh, paragraph_mode=True)
+        # The τ.6.x.1.D change MAY shift the verse count slightly
+        # (since pre-marker title text is now discarded). Empirical
+        # baseline at ship-time: 86 verses (vs 87 at τ.6.x.1.C). Floor
+        # set at 75 with healthy margin for OCR variance.
+        assert len(verses) >= 75, (
+            f"τ.6.x.1.D contract: verse count should remain ≥75 after the "
+            f"chapter-recovery change (τ.6.x.1.C baseline was 87; "
+            f"τ.6.x.1.D reduces by 1-2 due to pre-marker discard). "
+            f"Got {len(verses)}."
+        )
+
+
+class TestTau6X1DSourceYamlBlock:
+    """`_source.yaml::ocr_strategy.tau6x1d_chapter_recovery` block
+    codifies the τ.6.x.1.D ship."""
+
+    YAML_PATH = (
+        Path(__file__).resolve().parent.parent
+        / "content"
+        / "translations"
+        / "sources"
+        / "parallel-bible-eotc"
+        / "_source.yaml"
+    )
+
+    def _block(self) -> dict:
+        cfg = yaml.safe_load(self.YAML_PATH.read_text(encoding="utf-8"))
+        return cfg["ocr_strategy"]["tau6x1d_chapter_recovery"]
+
+    def test_block_exists(self):
+        assert isinstance(self._block(), dict)
+
+    def test_shipped_at_phase(self):
+        assert self._block()["shipped_at_phase"] == "τ.6.x.1.D"
+
+    def test_shipped_date(self):
+        import datetime as _dt
+
+        sd = self._block()["shipped_date"]
+        if isinstance(sd, _dt.date):
+            assert sd == _dt.date(2026, 5, 15)
+        else:
+            assert sd == "2026-05-15"
+
+    def test_resolves_residual_back_link(self):
+        """The block must reference the τ.6.x.1.C residual it
+        addresses."""
+        b = self._block()
+        rr = b.get("resolves_residual") or b.get("resolves_finding")
+        assert rr is not None, "τ.6.x.1.D must record the τ.6.x.1.C residual it addresses"
+        assert "chapter" in str(rr).lower() or "τ.6.x.1.C" in str(rr)
+
+    def test_helpers_added_inventory(self):
+        helpers = self._block().get("helpers_added", {})
+        for h in ["CHAPTER_HEADER_RE_LENIENT", "_resolve_chapter_marker"]:
+            assert any(h in str(k) or h in str(v) for k, v in helpers.items()), (
+                f"τ.6.x.1.D helpers_added must inventory {h}"
+            )
+
+    def test_empirical_validation_recorded(self):
+        b = self._block()
+        ev = b.get("empirical_validation", {})
+        assert ev, "τ.6.x.1.D empirical_validation must be non-empty"
+
+    def test_closed_arc_contracts_preserved(self):
+        b = self._block()
+        contracts = b["closed_arc_contracts_preserved"]
+        # 8 prior contracts preserved + tau6x1c parser_extension key.
+        for k in ("tau6x0a_no_ingest", "tau6x1c_parser_extension"):
+            assert contracts.get(k) is True, f"τ.6.x.1.D must preserve {k}"
+
+    def test_no_ingest_at_this_phase(self):
+        assert self._block()["no_ingest_at_this_phase"] is True
+
+    def test_next_phase_is_tau7xa(self):
+        np = self._block()["next_phase"]
+        assert "τ.7.x.a" in str(np)
