@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 """
+LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
+Generates wraparound cover PDFs for print-on-demand uploaders
+(Amazon KDP, IngramSpark, Lulu). Back cover includes an ISBN
+barcode rectangle keyed to the (now-dropped) edition.isbn field.
+With no ISBN and no commercial print sale, this tool has no
+downstream consumer. Retained per §7.4 for git-history value (the
+canvas layout / bleed math is reference-quality).
+
 print_cover.py — Generate print-on-demand wraparound cover PDFs.
 
 Emits a single wraparound PDF per (edition × variant) combination,

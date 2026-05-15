@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
 """
+LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
+This module existed to emit bookseller-facing ONIX 3.0 records that
+package ISBN + product metadata for retailer ingestion (Amazon KDP,
+Apple Books, Kobo, etc.). The project no longer ships for sale, so
+ISBN is dropped and ONIX records have no recipient. Retained in tree
+per CLAUDE_PROJECT_RULES.md §7.4 obsolete-script convention so git
+history and the field-list reference value are preserved. Do not
+wire into new build flows.
+
 build_onix.py — Emit ONIX 3.0 records for retailer / distributor catalogs.
 
 Reads `content/onix.yaml` and produces one ONIX 3.0 XML file per edition

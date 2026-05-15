@@ -4,6 +4,33 @@
 
 ## Prior task
 
+**Ω.0 FREE-PUBLIC PIVOT — north-star change.** The project
+pivots from for-sale Bible publishing platform to free public
+Bible-builder. Triggered by user message asking for ISBN
+removal "completely from the matrix" + a note-tracking display
+system. Shipped: (1) memory + CLAUDE_PROJECT_RULES.md §1
+rewritten (builder demo). (2) ISBN sweep — data layer (9 lines
+editions.yaml + 7 templates + 3 FieldSpecs). (3) ISBN sweep —
+build pipeline (PUBLISHING_DEFAULTS / OPF dc:identifier →
+urn:yhwh:edition:<id> / copyright page Edition ID). (4) ISBN
+sweep — UI surfaces (wizard ISBN fieldset removed → 3 groups,
+customize input dropped, publisher Identifiers reduced, diff
+URN-card, export #ed-urn). (5) ISBN sweep — API + preflight +
+COPYRIGHT.md. (6) Deprecation banners on 6 commercial-only
+modules per §7.4 (build_onix + onix + sales + distribution ×2
++ print_cover). (7) NEW /build-tracker console
+(BUILD_TRACKER_HTML + api_build_tracker + api_build_tracker_book
++ console-list bump 17→18 + lint_rules route map). (8) 27 new
+pin tests across 9 groups in test_omega0_free_public_pivot.py.
+(9) 9 pre-existing ISBN-coupled tests updated. Linter 11/11
+clean post-bump. NO data ingest; v1.0 byte-identical
+reproducibility preserved. Closed-arc invariants regression-
+guarded. Audit cadence: post-LIGHT-2 phase #4; drift +116
+tests (still under ≥150 threshold).** shipped 2026-05-14.
+Triggered by user pivot message.
+
+## Prior task (previous)
+
 **ω.4x hygiene bundle — third of three Claude-side actionable
 ships from AUDIT_2026-05-14-LIGHT-2 (after δ.1.x.A.0 `09fb084` +
 Π.2.prep `5acc5d0`). Closes W-W2 + A-I1 + A-I2 findings.

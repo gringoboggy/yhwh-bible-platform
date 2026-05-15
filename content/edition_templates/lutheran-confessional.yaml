@@ -1,8 +1,8 @@
 # ψ.7-B edition template — Lutheran Confessional (mirror of ψ.7-A built-in).
 #
-# Use case: confessional Lutheran publishers (LCMS, WELS, ELS,
-# ILC) who want to start from a known-good Lutheran configuration
-# and tweak for their imprint.
+# Use case: confessional Lutheran users (LCMS, WELS, ELS, ILC)
+# who want to start from a known-good Lutheran configuration
+# and tweak for their personal build.
 
 template_id: lutheran-confessional
 template_label: "Lutheran Confessional (mirror of built-in)"
@@ -16,7 +16,6 @@ template_description: >
 canon: protestant
 title: "The Lutheran Confessional Study Bible"
 short_title: "Lutheran Confessional"
-isbn: "978-XXX-XXXXX-XX-X"
 target_audience: "Confessional Lutheran readers (LCMS, WELS, ELS, ILC); seminary students"
 enabled_categories:
   - lang

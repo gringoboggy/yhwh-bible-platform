@@ -1,8 +1,8 @@
 # ψ.7-B edition template — Anglican BCP (mirror of ψ.7-A built-in).
 #
-# Use case: Anglican publishers who want to start from a
-# known-good Anglican BCP configuration and tweak (rename ISBN,
-# retitle, adjust kind toggles) for their imprint.
+# Use case: Anglican users who want to start from a known-good
+# Anglican BCP configuration and tweak (retitle, adjust kind
+# toggles) for their personal build.
 
 template_id: anglican-bcp
 template_label: "Anglican BCP (mirror of built-in)"
@@ -16,7 +16,6 @@ template_description: >
 canon: catholic
 title: "The Anglican Study Bible — BCP Edition"
 short_title: "Anglican BCP"
-isbn: "978-XXX-XXXXX-XX-X"
 target_audience: "Anglican / Episcopal readers; BCP-tradition parishes; broad-church audience"
 enabled_categories:
   - lang
@@ -40,7 +39,7 @@ disabled_kinds:
   - liturgy-torah-portion
 max_phase: phase2
 cover_image: ""
-notes: "Foregrounds comm-patristic, comm-modern-critical, comm-reformation, dev-prayer, liturgy-christian-year (tied to BCP lectionary). Cloners typically retitle for their imprint and set a real ISBN."
+notes: "Foregrounds comm-patristic, comm-modern-critical, comm-reformation, dev-prayer, liturgy-christian-year (tied to BCP lectionary). Cloners typically retitle for their build."
 popup_languages_default:
   - "english"
   - "hebrew"

@@ -32,7 +32,6 @@ editions:
     canon: ethiopian
     title: "The Ethiopian Tewahedo Study Bible"
     short_title: "Ethiopian Tewahedo SB"
-    isbn: "978-XXX-XXXXX-XX-X"
     target_audience: "Ethiopian Tewahedo, Coptic, Eritrean Orthodox; scholars of the Ethiopian canon"
     enabled_categories:
       - lang
@@ -138,7 +137,6 @@ editions:
     popup_translation: kjv
     title: The Catholic Study Bible — Ethiopian Edition
     short_title: Catholic SB Ethiopian
-    isbn: 978-XXX-XXXXX-XX-Y
     target_audience: Roman Catholic readers interested in the broader canon
     enabled_categories:
       - lang
@@ -179,7 +177,6 @@ editions:
     canon: protestant
     title: "The Reformed Study Bible — Expanded Canon"
     short_title: "Reformed SB"
-    isbn: "978-XXX-XXXXX-XX-Z"
     target_audience: "Evangelical / Reformed readers"
     enabled_categories:
       - lang
@@ -214,7 +211,6 @@ editions:
     canon: tanakh
     title: "The Jewish Study Tanakh — Expanded"
     short_title: "Jewish Tanakh"
-    isbn: "978-XXX-XXXXX-XX-W"
     target_audience: "Jewish readers, academic scholars of Hebrew Bible"
     enabled_categories:
       - lang
@@ -251,7 +247,6 @@ editions:
     canon: ethiopian
     title: "The Annotated Ethiopian Bible — Scholar's Edition"
     short_title: "Scholar's Edition"
-    isbn: "978-XXX-XXXXX-XX-V"
     target_audience: "Academic scholars, libraries, seminaries"
     enabled_categories:
       - lang
@@ -282,7 +277,6 @@ editions:
     canon: orthodox
     title: "The Eastern Orthodox Study Bible"
     short_title: "Orthodox SB"
-    isbn: "978-XXX-XXXXX-XX-O"
     target_audience: "Eastern Orthodox readers; LXX-leaning scholarship; Byzantine Rite parishes"
     enabled_categories:
       - lang
@@ -321,7 +315,6 @@ editions:
     canon: catholic
     title: "The Anglican Study Bible — BCP Edition"
     short_title: "Anglican BCP"
-    isbn: "978-XXX-XXXXX-XX-A"
     target_audience: "Anglican / Episcopal readers; BCP-tradition parishes; broad-church audience"
     enabled_categories:
       - lang
@@ -363,7 +356,6 @@ editions:
     canon: protestant
     title: "The Lutheran Confessional Study Bible"
     short_title: "Lutheran Confessional"
-    isbn: "978-XXX-XXXXX-XX-L"
     target_audience: "Confessional Lutheran readers (LCMS, WELS, ELS, ILC); seminary students"
     enabled_categories:
       - lang
@@ -407,7 +399,6 @@ editions:
     canon: ethiopian
     title: "The Coptic Orthodox Study Bible"
     short_title: "Coptic SB"
-    isbn: "978-XXX-XXXXX-XX-C"
     target_audience: "Coptic Orthodox readers; Alexandrian theology; ascetic-monastic tradition; diaspora communities"
     enabled_categories:
       - lang

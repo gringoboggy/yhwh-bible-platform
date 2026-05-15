@@ -49,7 +49,7 @@ PUBLISHER_HTML = r"""<!DOCTYPE html>
 <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
   <div>
     <h1 class="text-xl font-bold tracking-tight">Publisher Console</h1>
-    <p class="text-xs text-slate-500">imprint · ISBNs · copyright · authors · BISAC — everything a real publisher needs to ship</p>
+    <p class="text-xs text-slate-500">imprint · copyright · authors · BISAC — everything a builder needs to brand their EPUB</p>
   </div>
   <div class="flex items-center gap-4 text-xs flex-wrap">
     <!-- HEADER_NAV_LINKS -->
@@ -341,15 +341,10 @@ function editionCard(e) {
 
       <fieldset class="md:col-span-2 border-l-4 border-emerald-200 pl-3">
         <legend class="text-sm font-semibold text-emerald-700 mb-2">Identifiers</legend>
+        <!-- Ω.0 pivot (2026-05-14): ISBN inputs removed. EPUB
+             dc:identifier is now auto-generated as
+             urn:yhwh:edition:&lt;id&gt; at build time. -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div>
-            <label class="label-text">ISBN (EPUB)</label>
-            <input class="field-input" data-field="isbn_epub" value="${escAttr(e.isbn_epub)}" maxlength="40" placeholder="978-1-XXXXX-XXX-X">
-          </div>
-          <div>
-            <label class="label-text">ISBN (Print)</label>
-            <input class="field-input" data-field="isbn_print" value="${escAttr(e.isbn_print)}" maxlength="40" placeholder="978-1-XXXXX-XXX-X">
-          </div>
           <div>
             <label class="label-text">Language code</label>
             <input class="field-input" data-field="language_code" value="${escAttr(e.language_code)}" maxlength="12" placeholder="en, am, etc">
@@ -425,7 +420,7 @@ function editionCard(e) {
         <legend class="text-sm font-semibold text-purple-700 mb-2">Snapshots</legend>
         <p class="text-xs text-slate-500 mb-2">Frozen point-in-time records of this edition. Useful for v1.0 retail audit trails — snapshot, then keep editing freely; the snapshot stays reproducible.</p>
         <div class="flex items-center gap-2 flex-wrap mb-2">
-          <input class="field-input snapshot-version-input" type="text" maxlength="41" placeholder="version (e.g. v1.0, before-isbn-fix)" style="max-width:18rem">
+          <input class="field-input snapshot-version-input" type="text" maxlength="41" placeholder="version (e.g. v1.0, pre-pivot)" style="max-width:18rem">
           <input class="field-input snapshot-label-input" type="text" maxlength="200" placeholder="label (optional)" style="max-width:14rem">
           <button type="button" class="snapshot-create-btn text-xs px-3 py-1.5 rounded bg-purple-600 hover:bg-purple-700 text-white">Take snapshot</button>
         </div>

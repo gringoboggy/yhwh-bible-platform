@@ -269,7 +269,9 @@ function render() {
 }
 
 function editionCard(e, tintClass) {
-  const isbn = e.isbn && e.isbn !== '—' ? e.isbn : '<span class="text-slate-400">no ISBN set</span>';
+  // Ω.0 pivot (2026-05-14): ISBN line removed; edition URN
+  // (urn:yhwh:edition:<id>) is now the identifier.
+  const edUrn = e.id ? `urn:yhwh:edition:${esc(e.id)}` : '';
   return `
     <p class="text-xs font-semibold uppercase tracking-wide ${tintClass} mb-1">${esc(e.short_title)}</p>
     <h3 class="text-lg font-bold text-slate-900 leading-tight mb-2">${esc(e.title)}</h3>
@@ -289,7 +291,7 @@ function editionCard(e, tintClass) {
         <div class="text-xs text-slate-500 uppercase tracking-wide">notes</div>
       </div>
     </div>
-    <p class="text-xs text-slate-500 mt-3 mono">${isbn}</p>
+    <p class="text-xs text-slate-500 mt-3 mono">${edUrn}</p>
   `;
 }
 

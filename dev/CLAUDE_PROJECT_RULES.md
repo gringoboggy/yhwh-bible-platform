@@ -46,18 +46,27 @@ proceed to the actual request.
 
 ## 1. The north star
 
-The buyer demo. End-to-end:
+**The builder demo.** (Pivoted 2026-05-14 at Ω.0: project went from
+for-sale publishing platform to free public app. ISBN / ONIX / sales
+infrastructure dropped — see `dev/SCOPE_2026-05-14-omega0-free-
+public-pivot.md`.) End-to-end:
 
 ```
 1. Open /wizard
 2. "Make a Catholic study Bible" (or pick another starting edition)
 3. Step through 7 cards: start-from, branding, theme, content
    (canon + kinds), traditions, review, build
-4. Click BUILD → an EPUB downloads with that publisher's imprint,
-   ISBN, copyright, theme, only their picked notes, and verse
-   popups in the languages they configured
-5. Buyer says "wow, that's it?" — yes, that's it.
+4. Click BUILD → an EPUB downloads with the chosen theme, only the
+   picked notes, and verse popups in the configured languages.
+   EPUB dc:identifier is a generator URN (urn:yhwh:edition:<id>:
+   <build-hash>) — not an ISBN; the build is not for resale.
+5. Builder says "wow, that's mine" — yes, that's it.
 ```
+
+A companion `/build-tracker` console (Ω.0 cluster) shows the
+builder exactly what is enabled in their current edition (per book
+× chapter note counts, per-kind breakdown, canon coverage) so the
+build choices are visible before BUILD is clicked.
 
 ### Corpus depth target
 

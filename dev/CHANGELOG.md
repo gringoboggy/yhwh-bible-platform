@@ -6,6 +6,53 @@
 
 ---
 
+## 2026-05-14 — session — Ω.0 FREE-PUBLIC PIVOT (north-star change: project pivots from for-sale Bible publishing platform to free public Bible-builder; ISBN dropped from editions.yaml + 7 edition_templates + validate_schemas FieldSpecs + build_edition.py OPF identifier + copyright page + wizard branding fieldset + customize metadata input + publisher Identifiers block + diff/export displays + api/editions + api/exports + api/preflight + web.py PUBLISHING_DEFAULTS/PUBLISHING_TEXT_LIMITS; EPUB dc:identifier replaced with urn:yhwh:edition:&lt;id&gt; generator URN; 6 commercial-only modules carry LOAD-BEARING-NO-LONGER §7.4 banners — scripts/build_onix.py, content/onix.py, scripts/core/sales.py, scripts/core/distribution.py, scripts/api/distribution.py, scripts/print_cover.py; NEW /build-tracker console with summary tiles + per-book × per-chapter heat-grid + per-category bars + per-kind ranked table + lazy per-book title drilldown; companion api_build_tracker + api_build_tracker_book in scripts/web.py; CONSOLES bumped 17 → 18; lint_rules.py route_for_constant + SESSION_STATE inventory updated; 27 new pin tests across 9 groups in tests/test_omega0_free_public_pivot.py; 9 pre-existing ISBN-coupled tests updated; project rules §1 north star rewritten from "buyer demo" to "builder demo"; memory entries added — project_free_public_pivot.md + project_overview update + reference_external_tools Bowker-strike + MEMORY.md index). Triggered by user message asking for ISBN removal "completely from the matrix" plus a note-tracking display system. Per memory feedback_extensive_answers (broadest scope: full pivot, not just field removal). Linter 11/11 clean post-bump to 18 consoles. NO data ingest; corpus 52,459 unchanged; v1.0 byte-identical reproducibility preserved.
+
+**Phase shipped:** Ω.0 — Free-public pivot. North-star change.
+Capital Omega signals the level of architectural shift (distinct
+from lowercase ω hygiene phases that decorate or refactor).
+
+**Triggered by:** user message — "I won't sell them. I'm making
+the program available to the public for free so they can just
+build the bible that they want so that feature is no longer
+necessary. I want it completely removed from the matrix. I also
+want a very nice system in place for the user to be able to keep
+track of all the notes they've enabled in each book of the bible
+they are working on and chapter." Per memory `feedback_pivot_
+protocol` (audit IN_FLIGHT idle ✓), `feedback_extensive_answers`
+(pick broadest scope: rip ISBN out everywhere AND build the note
+tracker), `feedback_continue_not_save` (advance work, don't
+auto-save), and project rules §3 sequencing (memory + rules first,
+then data layer, then build pipeline, then UI, then deprecation
+banners, then new feature, then state docs).
+
+**Ω.0 deliverables** — see `dev/SESSION_STATE.md` Ω.0 headline
+for the full 9-point breakdown. Summary: (1) memory + rules; (2)
+9 isbn lines in editions.yaml + 7 in templates + 3 FieldSpec
+removals; (3) build pipeline OPF + copyright-page URN; (4) UI
+surfaces — wizard fieldset 4→3, customize input, publisher
+Identifiers reduced, diff URN-card, export #ed-urn; (5) API +
+preflight + COPYRIGHT.md; (6) 6 deprecation banners (§7.4);
+(7) NEW /build-tracker console with two API endpoints + console-
+list bump 17→18 + lint_rules registration; (8) 27 new Ω.0 pin
+tests + 9 pre-existing updates; (9) SESSION_STATE consoles
+inventory bumped + label terminology shift (buyer-facing →
+builder-facing; sales-tool → edition diff).
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67 +
+γ.4.8.F ≥212 + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b contracts + δ.1.0 entries=[] +
+δ.1.x.A.0 batch_prep + Π.1 jubilees/one_enoch sections + Π.1.B
+laodiceans flip + Π.2.prep checklist + ω.4x hygiene all preserved.
+
+**Audit cadence:** Ω.0 is post-LIGHT-2 phase #4; cumulative drift
++116 tests (δ.1.x.A.0 +39 + Π.2.prep +35 + ω.4x +15 + Ω.0 +27);
+threshold ≥150 NOT yet reached but trending — lighter solo-Claude
+audit recommended at the next session boundary if drift crosses
+150 with the next ship.
+
+---
+
 ## 2026-05-14 — session — ω.4x HYGIENE BUNDLE (W-W2 build_edition.py ruff cleanup 44→0 errors via manual SIM102/SIM108/N806/B023/F841 fixes + per-file-ignore for intrinsic E501 HTML template strings and C901 load-bearing orchestration complexity; A-I1 PLAN_2026-05-09 §2 status snapshot refreshed from stale 2026-05-13 EOD baseline to current-fresh marker with SESSION_STATE cross-reference + six-voice corpus acknowledgement + parallel-Bible roadmap summary; A-I2 PLAN §6 extended with parallel-Bible track sub-section per SCOPE_2026-05-14-parallel-bible.md §11 canonical chain Π.0 → τ.6.x + τ.7.x → Π.1 → δ.1.x → Π.2 + φ.1 → δ.2 + shipped/pending sub-phase ledgers; closes all three AUDIT_2026-05-14-LIGHT-2 actionable findings; 15 pin tests across 5 groups; NO data ingest; v1.0 reproducibility preserved)
 
 **Phase shipped:** ω.4x — Hygiene bundle. Third and final of the

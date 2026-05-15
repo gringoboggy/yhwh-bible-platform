@@ -76,7 +76,7 @@ EXPORT_HTML = r"""<!DOCTYPE html>
     <!-- Header card: title + canon + audience -->
     <section class="bg-white rounded-lg shadow-sm border border-slate-200 p-5 mb-4">
       <h2 id="ed-title" class="text-2xl font-bold tracking-tight"></h2>
-      <div id="ed-isbn" class="text-xs text-slate-500 font-mono mt-0.5"></div>
+      <div id="ed-urn" class="text-xs text-slate-500 font-mono mt-0.5"></div>
       <p id="ed-audience" class="text-sm text-slate-600 mt-2"></p>
       <p id="ed-notes" class="text-xs text-slate-500 italic mt-1"></p>
     </section>
@@ -384,7 +384,7 @@ async function loadPreview(edition_id) {
   }
 
   document.getElementById('ed-title').textContent = data.edition.title;
-  document.getElementById('ed-isbn').textContent = data.edition.isbn;
+  document.getElementById('ed-urn').textContent = 'urn:yhwh:edition:' + (data.edition.id || '');
   document.getElementById('ed-audience').textContent = data.edition.target_audience;
   document.getElementById('ed-notes').textContent = data.edition.notes_field;
   document.getElementById('sum-books').textContent = data.summary.books;

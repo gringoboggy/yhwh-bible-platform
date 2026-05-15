@@ -13,7 +13,6 @@ template_description: >
 canon: protestant
 title: "Children's Bible"
 short_title: "Kids' Bible"
-isbn: "978-XXX-XXXXX-XX-X"
 target_audience: "Family / Sunday school / children's ministry"
 enabled_categories:
   - text

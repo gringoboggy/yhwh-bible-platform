@@ -1,4 +1,10 @@
-"""ε.6 — distribution channel checklist API (2026-05-11).
+"""LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
+API wrapper for scripts/core/distribution.py — both deprecated;
+no commercial channels are in play. The three endpoints (list /
+mark / unmark) remain reachable until ω.4y / Ω.x sweep removes the
+/api/distribution/* routes from web.py. Retained per §7.4.
+
+ε.6 — distribution channel checklist API (2026-05-11).
 
 Three endpoints for the publisher's /exec distribution section:
 - `api_distribution_list()` — GET; rollup payload (per-edition grid +

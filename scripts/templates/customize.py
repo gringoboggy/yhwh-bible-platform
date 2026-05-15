@@ -363,7 +363,6 @@ function renderEditions() {
         <span class="ed-section-label">Metadata</span>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <input class="label-input" data-field="short_title" value="${escapeAttr(e.short_title)}" maxlength="100" placeholder="short title">
-          <input class="label-input" data-field="isbn" value="${escapeAttr(e.isbn)}" maxlength="40" placeholder="ISBN">
           <input class="label-input md:col-span-2" data-field="target_audience" value="${escapeAttr(e.target_audience)}" maxlength="500" placeholder="target audience">
           <input class="label-input md:col-span-2" data-field="notes" value="${escapeAttr(e.notes)}" maxlength="500" placeholder="editorial notes">
         </div>

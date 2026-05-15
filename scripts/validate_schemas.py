@@ -165,7 +165,6 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("canon", type=str, required=False),
         FieldSpec("title", type=str, required=False),
         FieldSpec("short_title", type=str, required=False),
-        FieldSpec("isbn", type=str, required=False),
         FieldSpec("target_audience", type=str, required=False),
         FieldSpec("notes", type=str, required=False),
         FieldSpec(
@@ -189,8 +188,6 @@ EDITIONS_SPEC = RecordSpec(
         FieldSpec("source_text_credit", type=str, required=False),
         FieldSpec("publisher_name", type=str, required=False),
         FieldSpec("publisher_url", type=str, required=False),
-        FieldSpec("isbn_epub", type=str, required=False),
-        FieldSpec("isbn_print", type=str, required=False),
         FieldSpec("authors", required=False, type=list, item_type=str),
         FieldSpec("bisac_codes", required=False, type=list, item_type=str),
         FieldSpec("language_code", type=str, required=False),

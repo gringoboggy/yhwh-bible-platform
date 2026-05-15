@@ -14,11 +14,10 @@ template_description: >
 
 # Below: same shape as an editions.yaml entry. Used as defaults
 # when a new edition is cloned from this template; the user
-# overrides id + title + isbn at clone time.
+# overrides id + title at clone time.
 canon: catholic
 title: "Monastic Daily Office Bible"
 short_title: "MDO Bible"
-isbn: "978-XXX-XXXXX-XX-X"
 target_audience: "Religious orders, oblates, lay practitioners of the canonical hours"
 enabled_categories:
   - text

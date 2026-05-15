@@ -526,7 +526,9 @@ class TestBuildEdition:
             assert f"<dc:language>{lang}</dc:language>" in out
 
     def test_render_copyright_page_substitutes_edition_data(self):
-        edition = {"id": "test", "title_full": "The Sample Edition", "isbn": "978-0-00-000000-2", "description": "desc"}
+        # Ω.0 pivot (2026-05-14): ISBN dropped. The copyright page
+        # now identifies the edition by URN (urn:yhwh:edition:<id>).
+        edition = {"id": "test-sample", "title_full": "The Sample Edition", "description": "desc"}
         defaults = {
             "publisher": "Test Pub",
             "copyright_year": "2026",
@@ -535,12 +537,15 @@ class TestBuildEdition:
         }
         html = self.mod.render_copyright_page(edition, defaults, "v1")
         assert "The Sample Edition" in html
-        assert "978-0-00-000000-2" in html
+        assert "urn:yhwh:edition:test-sample" in html
         assert "Sample Editor" in html
         assert "Test Pub" in html
         # Static legal scaffolding is always present
         assert "World English Bible" in html
         assert "Strong" in html
+        # Ω.0 pivot pin — no ISBN anywhere on the copyright page
+        assert "ISBN" not in html
+        assert "urn:isbn:" not in html
 
 
 # ============================================================
@@ -3045,7 +3050,9 @@ class TestEditionMeta:
 
     def test_preview_returns_changes_for_real_diffs(self):
         """The preview must list each field that would change, with
-        the current and proposed values side by side."""
+        the current and proposed values side by side. Ω.0 pivot
+        (2026-05-14): isbn dropped from EDITABLE — sending it now
+        surfaces as an unknown_fields entry, not a change."""
         from scripts.web import api_preview_edition_changes
 
         r = api_preview_edition_changes(
@@ -3059,12 +3066,14 @@ class TestEditionMeta:
         assert "error" not in r
         assert r["edition_id"] == "catholic-study"
         assert r["no_changes"] is False
-        assert len(r["changes"]) == 3
-        # Each change has the expected shape
+        # Two real changes (title + decoration); isbn rejected as unknown.
+        assert len(r["changes"]) == 2
         fields_seen = {c["field"] for c in r["changes"]}
-        assert fields_seen == {"title", "isbn", "chapter_number_decoration"}
+        assert fields_seen == {"title", "chapter_number_decoration"}
         for c in r["changes"]:
             assert "before" in c and "after" in c
+        # Ω.0 pivot pin — isbn now an unknown field (was a real one).
+        assert "isbn" in r.get("unknown_fields", [])
 
     def test_preview_is_read_only(self, tmp_path):
         """The whole point of preview is that it doesn't write.
@@ -5337,6 +5346,7 @@ class TestPublisherConsole:
         self.web = _import_script("web")
 
     def test_publisher_data_returns_all_fields(self):
+        # Ω.0 pivot (2026-05-14): isbn_epub / isbn_print dropped.
         d = self.web.api_publisher_data()
         assert "editions" in d
         for e in d["editions"]:
@@ -5344,21 +5354,22 @@ class TestPublisherConsole:
                 "id",
                 "title",
                 "publisher_name",
-                "isbn_epub",
-                "isbn_print",
                 "copyright_year",
                 "authors",
                 "bisac_codes",
                 "language_code",
             ):
                 assert f in e, f"missing field: {f}"
+            # Ω.0 pivot pins
+            assert "isbn_epub" not in e
+            assert "isbn_print" not in e
 
     def test_defaults_used_when_unset(self):
+        # Ω.0 pivot (2026-05-14): no isbn_epub field; use publisher_name
+        # absence as the "unset edition" gate.
         d = self.web.api_publisher_data()
         for e in d["editions"]:
-            # Editions without explicit publisher data get defaults
-            if not e.get("isbn_epub"):
-                assert e["publisher_name"] == "Independent"
+            if e["publisher_name"] == "Independent":
                 assert e["language_code"] == "en"
                 assert isinstance(e["authors"], list)
 
@@ -5372,11 +5383,14 @@ class TestPublisherConsole:
             from scripts.core import config
 
             config.load_editions.cache_clear()
+            # Ω.0 pivot (2026-05-14): exercise round-trip via a still-
+            # supported field (copyright_holder) instead of the dropped
+            # isbn_epub.
             r = self.web.api_save_publisher_meta(
                 "catholic-study",
                 {
                     "publisher_name": "Test Press",
-                    "isbn_epub": "978-1-23456-789-0",
+                    "copyright_holder": "Test Press LLC",
                     "language_code": "en",
                 },
             )
@@ -5384,7 +5398,7 @@ class TestPublisherConsole:
             d = self.web.api_publisher_data()
             cath = next(e for e in d["editions"] if e["id"] == "catholic-study")
             assert cath["publisher_name"] == "Test Press"
-            assert cath["isbn_epub"] == "978-1-23456-789-0"
+            assert cath["copyright_holder"] == "Test Press LLC"
         finally:
             shutil.copy(backup, path)
 
@@ -5494,19 +5508,23 @@ class TestPublishingInOPF:
         assert pub["bisac_codes"] == []
 
     def test_resolve_publishing_uses_explicit_values(self):
+        # Ω.0 pivot (2026-05-14): isbn_epub dropped from defaults.
         be = self._build_module()
         ed = {
             "id": "test",
             "publisher_name": "Test Press",
-            "isbn_epub": "978-1-23456-789-0",
+            "copyright_holder": "Test Press LLC",
             "authors": ["Jane Doe (editor)"],
             "bisac_codes": ["REL006150"],
         }
         pub = be._resolve_publishing(ed)
         assert pub["publisher_name"] == "Test Press"
-        assert pub["isbn_epub"] == "978-1-23456-789-0"
+        assert pub["copyright_holder"] == "Test Press LLC"
         assert pub["authors"] == ["Jane Doe (editor)"]
         assert pub["bisac_codes"] == ["REL006150"]
+        # Ω.0 pivot pin — no isbn keys in the resolved publishing block
+        assert "isbn_epub" not in pub
+        assert "isbn_print" not in pub
 
     def test_parse_author_with_role(self):
         be = self._build_module()
@@ -5542,7 +5560,6 @@ class TestPublishingInOPF:
             "id": "test-edition",
             "title": "My Bible",
             "publisher_name": "Test Press",
-            "isbn_epub": "978-1-23456-789-0",
             "copyright_year": "2026",
             "copyright_holder": "Test Press LLC",
             "authors": ["Jane Editor (editor)", "John Forewriter (foreword)"],
@@ -5554,7 +5571,9 @@ class TestPublishingInOPF:
         assert "<dc:title>My Bible</dc:title>" in out
         assert "<dc:publisher>Test Press</dc:publisher>" in out
         assert "<dc:date>2026-05-07</dc:date>" in out
-        assert "urn:isbn:978-1-23456-789-0" in out
+        # Ω.0 pivot (2026-05-14): edition URN replaces the former ISBN.
+        assert "urn:yhwh:edition:test-edition" in out
+        assert "urn:isbn:" not in out
         assert "Copyright © 2026 Test Press LLC" in out
         assert '<dc:creator id="creator">Jane Editor</dc:creator>' in out
         assert ">edt</meta>" in out  # editor role

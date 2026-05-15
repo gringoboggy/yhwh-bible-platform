@@ -1,4 +1,13 @@
 """
+LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
+ONIX records package ISBN + product metadata for bookseller catalogs;
+with no ISBN and no commercial sale, this configuration has no
+downstream consumer. Retained per §7.4 for git-history preservation.
+The publisher-info defaults inside (publisher_name, copyright_year,
+etc.) are still informational reference values for the copyright
+page builder, but are duplicated as PUBLISHING_DEFAULTS in scripts/
+web.py — the web layer is the source of truth post-pivot.
+
 onix.py — ONIX 3.0 metadata config for retailer / distributor catalogs.
 
 Per-edition ONIX records are emitted by ``scripts/build_onix.py``. Each

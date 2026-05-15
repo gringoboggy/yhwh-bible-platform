@@ -1,4 +1,11 @@
-"""ε.6 — distribution channel checklist (2026-05-11).
+"""LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
+Tracks per-edition shipped-to-retailer-channel state (KDP / Apple /
+Google / archive.org / own_site). With no commercial channels in
+play, this checklist has no upcoming entries. The data file
+content/distribution.json is preserved on disk for archival/audit
+purposes. Retained per §7.4.
+
+ε.6 — distribution channel checklist (2026-05-11).
 
 Month 5 #5. Tracks per-edition shipped-to-channel state so the
 publisher can answer "have I uploaded the May Catholic Study Bible to

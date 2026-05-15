@@ -13,7 +13,6 @@ template_description: >
 canon: protestant
 title: "Student Study Bible"
 short_title: "Student SB"
-isbn: "978-XXX-XXXXX-XX-X"
 target_audience: "K-12 schools, students approaching scripture for the first time"
 enabled_categories:
   - text

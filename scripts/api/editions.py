@@ -135,7 +135,7 @@ def _append_cloned_edition(
     scalar_fields = [
         ("title", new_title),
         ("short_title", src.get("short_title", "")),
-        ("isbn", ""),
+        # Ω.0 pivot (2026-05-14): isbn field dropped from editions.yaml.
         ("canon", src.get("canon", "")),
         ("target_audience", src.get("target_audience", "")),
         ("verse_popups", src.get("verse_popups", True)),
@@ -485,7 +485,6 @@ def api_preview_edition_changes(edition_id: str, payload: dict) -> dict:
     EDITABLE = {
         "title",
         "short_title",
-        "isbn",
         "target_audience",
         "notes",
         "verse_marker_glyph",
@@ -555,7 +554,6 @@ def api_save_edition_meta(edition_id: str, payload: dict) -> dict:
     EDITABLE_TEXT = {
         "title",
         "short_title",
-        "isbn",
         "target_audience",
         "notes",
         "verse_marker_glyph",

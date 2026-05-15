@@ -315,14 +315,12 @@ class TestPsi7ANewBuiltInEditions:
                 f"{ed_id}: canon has {len(book_set)} books (expected {expected_count})"
             )
 
-    def test_new_editions_have_isbn_placeholders(self):
-        # Per spec, ISBN values are placeholders the buyer fills in.
-        # Each new edition's ISBN should be the standard
-        # "978-XXX-XXXXX-XX-X" placeholder shape, not blank.
+    def test_new_editions_have_no_isbn_post_pivot(self):
+        # Ω.0 pivot (2026-05-14): ISBN dropped from editions.yaml.
+        # No edition should carry an isbn field anymore.
         for ed_id in self.NEW_EDITIONS:
             ed = self.editions_by_id[ed_id]
-            isbn = ed.get("isbn") or ""
-            assert isbn.startswith("978-"), f"{ed_id}: ISBN {isbn!r} not in placeholder format"
+            assert "isbn" not in ed, f"{ed_id}: still has isbn field post-pivot"
 
     def test_new_editions_appear_in_api_matrix_response(self):
         # End-to-end: api_matrix() should surface all 9 editions.
@@ -790,9 +788,10 @@ class TestNu28CustomizeVisualSections:
 
 
 class TestPsi11WizardBrandingPolish:
-    """ψ.11 — wizard step 2 branding form gets reversibility hint
-    + 4 fieldset groups (Identity, Publisher, ISBN, Copyright &
-    authors) for better field-grouping rhythm."""
+    """ψ.11 — wizard step 2 branding form: reversibility hint + 3
+    fieldset groups (Identity, Publisher, Copyright & authors) for
+    field-grouping rhythm. Ω.0 pivot (2026-05-14) dropped the
+    former ISBN fieldset; group count went 4 → 3."""
 
     @classmethod
     def setup_class(cls):
@@ -812,20 +811,24 @@ class TestPsi11WizardBrandingPolish:
         assert ".psi11-group {" in self.html
         assert ".psi11-legend {" in self.html
 
-    def test_four_fieldset_groups_present(self):
-        # All 4 group legends rendered in step 2 body.
-        for legend in ("Identity", "Publisher / imprint", ">ISBN<", "Copyright &amp; authors"):
+    def test_three_fieldset_groups_present(self):
+        # All 3 group legends rendered in step 2 body post-pivot.
+        for legend in ("Identity", "Publisher / imprint", "Copyright &amp; authors"):
             assert legend in self.html, f"missing legend {legend!r}"
 
+    def test_no_isbn_fieldset_post_pivot(self):
+        # Ω.0 pivot pin — ISBN fieldset + inputs must not appear.
+        assert ">ISBN<" not in self.html
+        assert 'id="w-isbn_epub"' not in self.html
+        assert 'id="w-isbn_print"' not in self.html
+
     def test_branding_fields_still_present_under_fieldsets(self):
-        # The original 8 input ids must still be in the rendered
-        # HTML — fieldset wrap is purely structural.
+        # Post-Ω.0 the surviving input ids (6) must remain in
+        # the rendered HTML — fieldset wrap is purely structural.
         for input_id in (
             "w-title",
             "w-publisher_name",
             "w-publisher_url",
-            "w-isbn_epub",
-            "w-isbn_print",
             "w-copyright_year",
             "w-copyright_holder",
             "w-authors",
@@ -834,13 +837,12 @@ class TestPsi11WizardBrandingPolish:
 
     def test_label_for_attribute_associations(self):
         # ψ.11 added `for=` attributes on every label so screen-
-        # readers correctly bind labels to inputs.
+        # readers correctly bind labels to inputs. Post-Ω.0 the
+        # surviving input set is the 6 non-ISBN ids.
         for input_id in (
             "w-title",
             "w-publisher_name",
             "w-publisher_url",
-            "w-isbn_epub",
-            "w-isbn_print",
             "w-copyright_year",
             "w-copyright_holder",
             "w-authors",

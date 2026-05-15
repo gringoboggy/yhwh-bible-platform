@@ -148,6 +148,7 @@ def check_cross_link_invariant() -> dict:
         "DIFF_HTML": "/diff",
         "COVERS_HTML": "/covers",
         "PREFLIGHT_HTML": "/preflight",
+        "BUILD_TRACKER_HTML": "/build-tracker",  # Ω.0 free-public pivot (2026-05-14)
         "APIHELP_HTML": "/apihelp",
         "OPS_HTML": "/ops",
         "COMPARE_HTML": "/compare",

@@ -14,7 +14,6 @@ template_description: >
 canon: protestant
 title: "Family Devotional Bible"
 short_title: "Family Devotional"
-isbn: "978-XXX-XXXXX-XX-X"
 target_audience: "Lay families wanting to read scripture together"
 enabled_categories:
   - text

@@ -1,5 +1,191 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / Ω.0 FREE-PUBLIC PIVOT ship —
+NORTH-STAR-CHANGE. The project pivots from for-sale Bible publishing
+platform to free public Bible-builder. Triggered by user message:
+"I won't sell them. I'm making the program available to the public
+for free so they can just build the bible that they want so that
+feature is no longer necessary." Per memory `feedback_extensive_
+answers` (broadest scope: rip ISBN out of the matrix AND
+deprecate the entire commercial-publishing apparatus AND build the
+note-tracker companion the user explicitly requested) + memory
+`feedback_pivot_protocol` (audit IN_FLIGHT idle ✓ before responding)
++ project rules §3 sequencing (most-foundational first; memory
+write → rules update → ISBN sweep → deprecation banners → tests
+→ new feature → state docs). **Ω.0 deliverables shipped:**
+
+1. **Memory + project rules updated.** NEW
+   `~/.claude/projects/.../memory/project_free_public_pivot.md`
+   declaring the north-star shift; UPDATED
+   `project_overview.md` reframing "publishing platform" as
+   "free public Bible-builder" with 17-console / 4400+-test /
+   9-edition numbers; UPDATED `reference_external_tools.md`
+   striking the Bowker-ISBN pending item; UPDATED MEMORY.md index
+   with [[free-public-pivot]] entry. `dev/CLAUDE_PROJECT_RULES.md`
+   §1 north star rewritten from "buyer demo" to "builder demo":
+   step-4 EPUB description dropped "imprint, ISBN, copyright" and
+   gained the URN-as-identifier line plus a /build-tracker
+   companion paragraph.
+
+2. **ISBN sweep — data layer.** Dropped all 9 `isbn:` lines from
+   `content/editions.yaml`; dropped 7 `isbn:` lines from
+   `content/edition_templates/*.yaml` (anglican-bcp +
+   children + family-devotional + lutheran-confessional +
+   monastic-daily-office + scholarly-academic-with-apparatus +
+   school-friendly-nrsv) plus the surrounding "rename ISBN" /
+   "set a real ISBN" prose. Dropped `isbn` /
+   `isbn_epub` / `isbn_print` FieldSpec entries from
+   `scripts/validate_schemas.py`.
+
+3. **ISBN sweep — build pipeline.** `scripts/build_edition.py`:
+   removed `isbn_epub` / `isbn_print` from `PUBLISHING_DEFAULTS`
+   (now in `_resolve_publishing`); dropped the `urn:isbn:...`
+   line + the `onix:codelist5 type=15` refinement from the OPF
+   identifier emit and replaced with a generator URN
+   `urn:yhwh:edition:<id>` on a new `<dc:identifier id="pub-id">`;
+   dropped the `ISBN: TODO_ISBN_13` line from the rendered
+   copyright page and replaced with `Edition ID: urn:yhwh:edition:
+   <id>`; updated 3 docstrings + 1 comment to reflect the pivot.
+
+4. **ISBN sweep — UI surfaces.** `scripts/templates/wizard.py`:
+   removed the entire ISBN fieldset (EPUB ISBN + Print ISBN
+   inputs); helper text "Title, publisher, ISBN, copyright"
+   shortened; fieldset comment updated 4→3 groups; JS STATE
+   defaults dropped `isbn_epub`/`isbn_print`; pubEd-sync loop
+   dropped those keys; review-step branding tile dropped the
+   "ISBN: …" line; build payload dropped the two ISBN keys.
+   `scripts/templates/customize.py`: dropped the ISBN input on
+   the per-edition metadata card. `scripts/templates/publisher.py`:
+   replaced the "Identifiers" → ISBN(EPUB)+ISBN(Print) inputs
+   with just Language code + Publication date inputs (under the
+   same fieldset, with Ω.0-pivot rationale comment); header
+   description "imprint · ISBNs · copyright · authors · BISAC"
+   shortened; snapshot-version placeholder "before-isbn-fix" →
+   "pre-pivot". `scripts/templates/diff.py`: dropped the
+   "ISBN: …" / "no ISBN set" render in `editionCard`; replaced
+   with the edition URN. `scripts/templates/export.py`: renamed
+   `#ed-isbn` div to `#ed-urn`; the JS now renders
+   `urn:yhwh:edition:<id>` instead of `edition.isbn`.
+   `scripts/web.py`: dropped `isbn` from the api_matrix editions
+   block, the api_publisher_data row, `_diff_payload` edition
+   block, and the `/api/distribution/<edition>` payload comment;
+   `PUBLISHING_DEFAULTS` + `PUBLISHING_TEXT_LIMITS` lost
+   isbn_epub/isbn_print.
+
+5. **ISBN sweep — API + preflight.** `scripts/api/editions.py`:
+   dropped `isbn` from clone-scalar-fields, EDITABLE set,
+   EDITABLE_TEXT set (3 occurrences). `scripts/api/exports.py`:
+   dropped `isbn` from the edition feed. `scripts/api/preflight.py`:
+   the "Publisher metadata" check no longer requires `isbn`; the
+   missing-fields list reduces to `("title",)` and the pass-message
+   updates accordingly. `scripts/core/edition_templates.py` field
+   list docstring updated. `COPYRIGHT.md`: dropped the
+   "ISBN: TODO_ISBN_13" line from the front-matter snippet
+   (replaced with `Edition ID: urn:yhwh:edition:TODO_EDITION_ID`);
+   dropped the "Per-edition selection — retail SKU" wording;
+   dropped the ONIX-metadata copyright row from the original-work
+   table (ONIX deprecated).
+
+6. **Deprecation banners on commercial-only modules.** Per §7.4
+   obsolete-script convention, the six modules whose entire
+   reason for being was commercial publishing now carry
+   LOAD-BEARING-NO-LONGER docstring banners cross-referencing
+   Ω.0: `scripts/build_onix.py` (bookseller catalog records),
+   `content/onix.py` (ONIX metadata config), `scripts/core/
+   sales.py` (sales-CSV import from KDP/Apple/Google), `scripts/
+   core/distribution.py` (per-edition retailer-channel shipped
+   checklist), `scripts/api/distribution.py` (the API wrapper),
+   `scripts/print_cover.py` (POD wraparound PDFs with ISBN
+   barcode). Files retained in tree per git-history-preservation
+   convention; not wired into new flows.
+
+7. **NEW `/build-tracker` console.** Companion to /matrix that
+   shows the builder exactly what's enabled in their chosen
+   edition: 6-tile summary (total enabled notes / books covered
+   / chapters covered / kinds enabled / categories enabled /
+   popup languages); per-book × per-chapter heat-grid (color-
+   scaled by chapter note density); per-category bar chart;
+   per-kind ranked table. Per-book drilldown lazy-loads note
+   titles via `/api/build-tracker/<ed>/<book>` on details open
+   to keep the main payload bounded. Wired:
+   - NEW `scripts/templates/build_tracker.py` carrying
+     `BUILD_TRACKER_HTML` (apply_design_system substituted).
+   - NEW `api_build_tracker(edition_id)` + `api_build_tracker_
+     book(edition_id, book_code)` in `scripts/web.py`.
+   - Two new `_REGEX_GET_ROUTES` entries (2-group preceding
+     1-group per regex-table ordering rule).
+   - `/build-tracker` HTML route registered in the do_GET
+     legacy cascade alongside /preflight.
+   - `("/build-tracker", "build tracker")` inserted into
+     `_design.CONSOLES` between /matrix and /sources.
+   - `scripts/lint_rules.py` `route_for_constant` map gained
+     `BUILD_TRACKER_HTML: /build-tracker` so the cross-link +
+     SESSION_STATE-inventory checks pass.
+   - SESSION_STATE `CONSOLES (web UI)` inventory bumped 17 →
+     18 with the new row, and label-text updates ("buyer-
+     facing" → "builder-facing"; "sales-tool edition diff" →
+     "edition diff"; "buyer demo" → "builder demo").
+
+8. **27 NEW pin tests in `tests/test_omega0_free_public_pivot.py`**
+   guarding the post-pivot invariants in 9 groups:
+   - TestEditionsYamlIsbnFree (2): no `isbn:` line in editions.
+     yaml or any edition_template.
+   - TestSchemaHasNoIsbnFieldSpec (1): no `FieldSpec("isbn"…)`,
+     `FieldSpec("isbn_epub"…)`, or `FieldSpec("isbn_print"…)`
+     in validate_schemas.py.
+   - TestBuildEditionUrnReplacesIsbn (3): patch_opf emits
+     `urn:yhwh:edition:<id>` not `urn:isbn:…`; copyright page
+     uses URN; `_resolve_publishing` returns no isbn keys.
+   - TestBuildTrackerEndpoint (5): 404 for unknown edition;
+     summary shape; per-book chapter-array length matches
+     chapters_in_canon; per-category sorted desc; per-kind
+     sorted desc and bounded to enabled set.
+   - TestBuildTrackerBookEndpoint (3): 404 for unknown ed /
+     book; known pair returns notes with the documented shape.
+   - TestBuildTrackerHtml (3): full HTML doc; cross-link nav;
+     /api/build-tracker fetch URL pinned.
+   - TestBuildTrackerInConsoleList (1): /build-tracker in
+     `_design.CONSOLES`.
+   - TestObsoleteModulesCarryBanner (6 parametrized): every
+     deprecated module carries the LOAD-BEARING-NO-LONGER +
+     Ω.0 banner.
+   - TestPublishingDefaultsIsbnFree (1): PUBLISHING_DEFAULTS +
+     PUBLISHING_TEXT_LIMITS in web.py have no isbn-prefixed keys.
+   - TestProjectRulesReflectPivot (2): rules §1 says "builder
+     demo" + Ω.0; SESSION_STATE lists /build-tracker.
+
+9. **Pre-existing tests updated (9 ISBN-coupled tests).** Either
+   re-purposed to assert post-pivot invariants (the 5 in
+   test_scripts.py + 4 in test_v1_console_polish.py) or
+   strengthened to pin the absence of isbn keys. See test diff
+   for the Ω.0 marker comments.
+
+**Test count: 4400+ pre-Ω.0 → ~4427 post-Ω.0 (+27 pin tests).**
+Linter 11/11 clean (the cross-link + inventory checks both pass
+post-bump to 18 consoles). `dev/IN_FLIGHT.md` tracker idle.
+
+**What did NOT change:**
+
+- No `content/notes/*.py` mutation — corpus reproducibility
+  preserved (the 52,459-note count is unaffected by the pivot).
+- No `content/canons.yaml` change — the 9 editions still cover
+  their full canons.
+- No EPUB binary regenerated — `exports/` not touched.
+- All closed-arc invariants regression-guarded: γ.4.8.E 67/67 +
+  γ.4.8.F ≥212 Mäqabyan + Π.0.1 + Π.0.4 + τ.6.x.0a/b + δ.1.0 +
+  δ.1.x.A.0 + Π.1 + Π.1.B + Π.2.prep all intact.
+- Parallel-Bible roadmap unblocked operator-side work
+  (τ.6.x.0c / δ.1.x.A) is unaffected.
+
+**Phase tag:** Ω.0 (capital Omega — signals north-star change,
+distinct from lowercase ω hygiene phases). Subsequent Ω.x phases
+as the pivot work proceeds (Ω.1 = optional /diff sales-panel
+cleanup; Ω.2 = optional ONIX/sales test-file deprecation sweep).
+
+---
+
+## Prior ω.4x session
+
 **Updated 2026-05-14 / ω.4x hygiene bundle ship — third and final
 Claude-side actionable ship from the AUDIT_2026-05-14-LIGHT-2
 recommendation set. Closes W-W2 + A-I1 + A-I2 findings. Triggered
@@ -11812,24 +11998,25 @@ across 4 detectors now):
     write detector class → write driver script iterating cached
     source data → run → batch_promote_xrefs.py --kind X.
 
-CONSOLES (web UI) — all 17 cross-linked per Rule §6.2:
-  /          note editor (different design, no console nav)
-  /matrix    symbol toggle matrix view
-  /sources   sources navigator
-  /export    buyer-facing build flow
-  /customize edition customization (chapter/ToC reader experience)
-  /audit     attribution + quality audit
-  /audit-log audit-log viewer
-  /publisher publisher console
-  /wizard    Bible Builder wizard
-  /diff      sales-tool edition diff
-  /compare   translation comparison view (ψ.4 — buyer demo)
-  /covers    cover upload + per-book grid
-  /preflight pre-ship readiness dashboard
-  /apihelp   api reference
-  /ops       operator dashboard
-  /hebrew    Hebrew interlinear lookup (γ.1 — HEBREW_HTML)
-  /greek     Greek interlinear lookup (γ.2 — GREEK_HTML)
+CONSOLES (web UI) — all 18 cross-linked per Rule §6.2:
+  /              note editor (different design, no console nav)
+  /matrix        symbol toggle matrix view
+  /build-tracker per-edition enabled-notes tracker (Ω.0 — BUILD_TRACKER_HTML)
+  /sources       sources navigator
+  /export        builder-facing build flow
+  /customize     edition customization (chapter/ToC reader experience)
+  /audit         attribution + quality audit
+  /audit-log     audit-log viewer
+  /publisher     publisher console
+  /wizard        Bible Builder wizard
+  /diff          edition diff
+  /compare       translation comparison view (ψ.4 — builder demo)
+  /covers        cover upload + per-book grid
+  /preflight     pre-ship readiness dashboard
+  /apihelp       api reference
+  /ops           operator dashboard
+  /hebrew        Hebrew interlinear lookup (γ.1 — HEBREW_HTML)
+  /greek         Greek interlinear lookup (γ.2 — GREEK_HTML)
 ```
 
 ---

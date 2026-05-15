@@ -14,10 +14,11 @@ template-specific fields:
     template_id:           unique slug
     template_label:        wizard-picker display name
     template_description:  multi-line explanation
-    canon, title, short_title, isbn, target_audience,
+    canon, title, short_title, target_audience,
     enabled_categories, enabled_kinds, disabled_kinds,
     max_phase, cover_image, notes, popup_languages_default,
     popup_translation
+    (Ω.0 pivot 2026-05-14: isbn field dropped.)
 
 Public API:
     load_templates() -> list[dict]

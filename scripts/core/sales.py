@@ -1,4 +1,11 @@
-"""ε.3 — sales import + revenue rollups (2026-05-11).
+"""LOAD-BEARING-NO-LONGER as of Ω.0 free-public pivot (2026-05-14).
+This module ingests retailer sales CSVs (KDP, Apple Books, Google
+Play) and rolls them up for the /exec dashboard. The project no
+longer sells books, so there is nothing to import. Retained per
+§7.4 for git-history preservation. /exec dashboard sales panel
+should hide rather than call into this module.
+
+ε.3 — sales import + revenue rollups (2026-05-11).
 
 Month 5 #4. Composes Δ.15's append-only event log to record per-channel
 sales transactions and ε.1's iter_events_since() to roll them up for

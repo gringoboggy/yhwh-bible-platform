@@ -18,11 +18,10 @@ The following are original to this project and protected by copyright:
 | Editorial notes | 1,371 attributed annotations across 14 categories | 2026 | © project |
 | Cross-canon parallels | Selection, framing, theological synthesis | 2026 | © project |
 | Apparatus structure | 63-kind taxonomy, edition-filtering rules | 2026 | © project |
-| Per-edition selection | Which sub-kinds appear in each retail SKU | 2026 | © project |
+| Per-edition selection | Which sub-kinds appear in each edition build | 2026 | © project |
 | Introduction matter | Per-book introductions, canon explanations | 2026 | © project |
 | Navigation & layout | TOC structure, ch-anchor scheme, popover design | 2026 | © project |
-| Code platform | scripts/, content/onix.py, build pipeline | 2026 | © project |
-| ONIX metadata | Per-edition retailer descriptions, BISAC selections | 2026 | © project |
+| Code platform | scripts/, build pipeline | 2026 | © project |
 
 Even where a note paraphrases or distills public-domain commentary,
 the SELECTION, ARRANGEMENT, and EXPRESSION are original editorial work
@@ -116,7 +115,7 @@ Each edition's front matter should display:
 > Editorial apparatus, selection, and arrangement: © 2026 TODO_COPYRIGHT_HOLDER.
 > All rights reserved.
 >
-> ISBN: TODO_ISBN_13
+> Edition ID: urn:yhwh:edition:TODO_EDITION_ID
 > First published: TODO_PUBLICATION_DATE.
 > Published by TODO_PUBLISHER_NAME.
 

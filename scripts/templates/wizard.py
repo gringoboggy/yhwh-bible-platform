@@ -186,7 +186,7 @@ WIZARD_HTML = r"""<!DOCTYPE html>
     <!-- ───────── Step 2: Branding ───────── -->
     <section id="step-2" class="step-pane">
       <h2 class="text-2xl font-bold mb-1">2. Brand your edition</h2>
-      <p class="text-slate-600 mb-3">Title, publisher, ISBN, copyright. These appear on the copyright page and in store listings.</p>
+      <p class="text-slate-600 mb-3">Title, publisher, copyright. These appear on the copyright page of the EPUB you build.</p>
 
       <!-- ψ.11 — reversibility hint. Going back preserves entries
            in JS state until the user explicitly resets / closes
@@ -196,10 +196,12 @@ WIZARD_HTML = r"""<!DOCTYPE html>
         <span>You can move between steps freely — entries on this page (and every page) survive navigation. Nothing is saved until you click <strong>BUILD</strong> on the final step.</span>
       </p>
 
-      <!-- ψ.11 — fields grouped into 4 visual blocks: identity,
-           publisher, ISBN, copyright + authors. Each fieldset gets
-           a small uppercase label so the rhythm reads like a real
-           form rather than a flat field list. -->
+      <!-- ψ.11 — fields grouped into 3 visual blocks: identity,
+           publisher, copyright + authors. Each fieldset gets a
+           small uppercase label so the rhythm reads like a real
+           form rather than a flat field list. Ω.0 pivot dropped
+           the former ISBN block. -->
+
       <fieldset class="psi11-group mb-4">
         <legend class="psi11-legend">Identity</legend>
         <div class="grid grid-cols-1 gap-4">
@@ -220,20 +222,6 @@ WIZARD_HTML = r"""<!DOCTYPE html>
           <div>
             <label class="label-text" for="w-publisher_url">Publisher URL</label>
             <input id="w-publisher_url" class="field-input" maxlength="500" placeholder="https://...">
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="psi11-group mb-4">
-        <legend class="psi11-legend">ISBN</legend>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="label-text" for="w-isbn_epub">EPUB ISBN</label>
-            <input id="w-isbn_epub" class="field-input" maxlength="40" placeholder="978-1-XXXXX-XXX-X">
-          </div>
-          <div>
-            <label class="label-text" for="w-isbn_print">Print ISBN <span class="text-slate-400 normal-case font-normal">(optional)</span></label>
-            <input id="w-isbn_print" class="field-input" maxlength="40">
           </div>
         </div>
       </fieldset>
@@ -374,9 +362,8 @@ WIZARD_HTML = r"""<!DOCTYPE html>
 const STATE = {
   step: 1,
   edition_id: null,           // chosen starting edition
-  // Branding fields (Step 2)
+  // Branding fields (Step 2). Ω.0 pivot: no isbn_epub / isbn_print.
   title: '', publisher_name: '', publisher_url: '',
-  isbn_epub: '', isbn_print: '',
   copyright_year: String(new Date().getFullYear()),
   copyright_holder: '',
   authors: [],                 // list of "Name (role)"
@@ -642,21 +629,21 @@ async function populateBranding() {
   // Apply if state empty (don't clobber user edits)
   STATE.title = STATE.title || ed.title || '';
   STATE.theme = STATE.theme === 'classic' ? (ed.theme || 'classic') : STATE.theme;
-  for (const f of ['publisher_name','publisher_url','isbn_epub','isbn_print',
+  for (const f of ['publisher_name','publisher_url',
                     'copyright_year','copyright_holder']) {
     if (!STATE[f]) STATE[f] = pubEd[f] || '';
   }
   if (!STATE.authors.length) STATE.authors = [...(pubEd.authors || [])];
   // Sync to inputs
   document.getElementById('w-title').value = STATE.title;
-  for (const f of ['publisher_name','publisher_url','isbn_epub','isbn_print',
+  for (const f of ['publisher_name','publisher_url',
                     'copyright_year','copyright_holder']) {
     document.getElementById(`w-${f}`).value = STATE[f];
   }
   document.getElementById('w-authors').value = STATE.authors.join('\n');
   // Wire inputs to STATE
   document.getElementById('w-title').oninput = ev => STATE.title = ev.target.value;
-  for (const f of ['publisher_name','publisher_url','isbn_epub','isbn_print',
+  for (const f of ['publisher_name','publisher_url',
                     'copyright_year','copyright_holder']) {
     document.getElementById(`w-${f}`).oninput = ev => STATE[f] = ev.target.value;
   }
@@ -842,7 +829,6 @@ function renderReview() {
       <div class="bg-slate-50 border border-slate-200 rounded p-4">
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Branding</div>
         <div>${esc(STATE.publisher_name || 'Independent')}</div>
-        <div class="text-xs text-slate-500">ISBN: ${esc(STATE.isbn_epub || '—')}</div>
         <div class="text-xs text-slate-500">© ${esc(STATE.copyright_year)} ${esc(STATE.copyright_holder || '—')}</div>
       </div>
       <div class="bg-slate-50 border border-slate-200 rounded p-4">
@@ -1012,8 +998,6 @@ async function startBuild() {
     const pubMeta = {
       publisher_name: STATE.publisher_name,
       publisher_url: STATE.publisher_url,
-      isbn_epub: STATE.isbn_epub,
-      isbn_print: STATE.isbn_print,
       copyright_year: STATE.copyright_year,
       copyright_holder: STATE.copyright_holder,
       authors: STATE.authors,

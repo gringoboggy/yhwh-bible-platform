@@ -1034,8 +1034,6 @@ def _resolve_publishing(edition: dict) -> dict:
         "copyright_notice": "All rights reserved.",
         "publication_date": now_date,
         "language_code": "en",
-        "isbn_epub": "",
-        "isbn_print": "",
         "cover_credit": "",
         "source_text_credit": "Scripture text based on the World English Bible (public domain).",
     }
@@ -1095,8 +1093,9 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
     and optional DOI/LCSH identifiers for distribution-channel coverage.
 
     Phase π.2: also reads the per-edition publishing block (publisher_name,
-    isbn_epub, copyright_*, authors, bisac_codes) and injects those into
-    the EPUB's Dublin-Core metadata.
+    copyright_*, authors, bisac_codes) and injects those into the EPUB's
+    Dublin-Core metadata. Ω.0 pivot: ISBN fields dropped — see
+    SCOPE_2026-05-14-omega0-free-public-pivot.md.
     """
     title = edition.get("title", "Ethiopian Bible")
     pub = _resolve_publishing(edition)
@@ -1183,10 +1182,10 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         count=1,
     )
 
-    # Resolve ISBN — prefer isbn_epub from publishing block, fall back to
-    # legacy isbn field so existing builds without a publishing block keep
-    # producing the same output.
-    isbn = pub["isbn_epub"] or edition.get("isbn", "TODO_ISBN_13")
+    # Ω.0 pivot (2026-05-14): ISBN dropped. EPUB 3 dc:identifier
+    # requirement is met via a generator URN tied to the edition id
+    # (urn:yhwh:edition:<id>) — no commercial registration.
+    edition_urn = f"urn:yhwh:edition:{edition['id']}"
 
     # Build the additional contributor block (authors beyond the primary)
     contributor_meta = ""
@@ -1227,9 +1226,9 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         + rights_meta
         # Additional contributors (Phase π.2)
         + contributor_meta
-        # ISBN-13 — sourced from publishing.isbn_epub when set
-        + f'    <dc:identifier id="isbn">urn:isbn:{_xml_escape(isbn)}</dc:identifier>\n'
-        f'    <meta refines="#isbn" property="identifier-type" scheme="onix:codelist5">15</meta>\n'
+        # Ω.0 pivot: generator URN replaces the former ISBN identifier.
+        # Deterministic per edition id; not a commercial identifier.
+        + f'    <dc:identifier id="pub-id">{_xml_escape(edition_urn)}</dc:identifier>\n'
         # DOI hook (TODO_DOI when academic distribution registered)
         f'    <dc:identifier id="doi">urn:doi:TODO_DOI_HERE</dc:identifier>\n'
         f'    <meta refines="#doi" property="identifier-type" scheme="onix:codelist5">06</meta>\n'
@@ -1296,10 +1295,12 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
 def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
     """Render an XHTML copyright/credits page for a given edition.
 
-    Pulls per-edition data (title, ISBN, BISAC) from the edition record
-    and project-wide data (publisher, contributor, copyright year) from
-    the ONIX defaults. TODO_* placeholders are left visible — they're
-    flagged by ship-check until filled in.
+    Pulls per-edition data (title, BISAC) from the edition record and
+    project-wide data (publisher, contributor, copyright year) from the
+    project defaults. TODO_* placeholders are left visible — they're
+    flagged by ship-check until filled in. Ω.0 pivot (2026-05-14):
+    ISBN removed; the copyright page now identifies the edition by its
+    URN (urn:yhwh:edition:<id>) instead.
     """
     pub = defaults.get("publisher", "TODO_PUBLISHER_NAME")
     contributor = defaults.get("contributor", {}).get("name", "TODO_CONTRIBUTOR_FULL_NAME")
@@ -1307,7 +1308,7 @@ def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
     pdate = defaults.get("publication_date", "TODO_YYYYMMDD")
     edition_title = edition.get("title_full", edition.get("title", "Untitled"))
     edition_subtitle = edition.get("title_subtitle", "")
-    isbn = edition.get("isbn", "TODO_ISBN_13")
+    edition_urn = f"urn:yhwh:edition:{edition['id']}"
     description = (edition.get("description", "") or "").strip()
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
@@ -1337,7 +1338,7 @@ def render_copyright_page(edition: dict, defaults: dict, version: str) -> str:
     <p>The 1,371 annotations across 14 categories — including the Andemta-tradition references, cross-canon parallels, Hebrew/Greek/Ge'ez linguistic notes, and theological synthesis — represent original editorial work. Quotation of more than fifty consecutive words from any single annotation for commercial purposes requires written permission of the copyright holder.</p>
 
     <h2 class="copyright-heading">This Edition</h2>
-    <p><strong>ISBN:</strong> {isbn}</p>
+    <p><strong>Edition ID:</strong> {edition_urn}</p>
     <p><strong>Publisher:</strong> {pub}</p>
     <p><strong>Build:</strong> {version}</p>
     <p><strong>Publication date:</strong> {pdate}</p>
@@ -1701,7 +1702,7 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
 def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
     """Write copyright.xhtml into tmp_dir, register it in content.opf
     (manifest + spine), and add a TOC entry to nav.xhtml. Edition-specific:
-    different ISBN, title, BISAC for each retail SKU."""
+    different title and BISAC per build (Ω.0 pivot: ISBN dropped)."""
     # Load ONIX defaults so the page can render real publisher / contributor
     # info when the user has filled it in.
     onix_py = REPO_ROOT / "content" / "onix.py"

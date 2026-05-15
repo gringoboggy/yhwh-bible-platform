@@ -2239,6 +2239,7 @@ THEME_TOUR_JS = """<script>
 CONSOLES: list[tuple[str, str]] = [
     ("/", "note editor"),
     ("/matrix", "symbol matrix"),
+    ("/build-tracker", "build tracker"),  # Ω.0 free-public pivot (2026-05-14)
     ("/sources", "sources"),
     ("/export", "export"),
     ("/customize", "customize"),

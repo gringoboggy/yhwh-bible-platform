@@ -646,6 +646,206 @@ def api_matrix_for_edition(edition_id: str) -> dict:
     }
 
 
+def api_build_tracker(edition_id: str) -> dict:
+    """Ω.0 free-public pivot (2026-05-14) — feed for /build-tracker.
+
+    Shows the builder exactly what is enabled in a single edition:
+    summary tile counts, per-book × per-chapter enabled-note density,
+    per-category and per-kind breakdowns. Composes the existing
+    matrix store (per_chapter is canonical post-ψ.35-Final).
+
+    Returns:
+        {
+            "edition": {id, title, short_title, canon},
+            "summary": {total_enabled_notes, books_covered,
+                        books_in_canon, chapters_covered,
+                        chapters_in_canon, kinds_enabled,
+                        categories_enabled, popup_languages},
+            "per_book": [
+                {book_code, book_label, chapters_in_canon,
+                 enabled_notes, enabled_chapters, by_chapter},
+                ...
+            ],
+            "per_category": [{id, label, enabled_notes}, ...],
+            "per_kind": [{code, label, category, enabled_notes}, ...],
+        }
+
+    Returns ``{"error": "unknown edition", "http": 404}`` when the
+    edition isn't in editions.yaml.
+
+    Pinned by ``TestBuildTrackerEndpoint`` in test_scripts.py.
+    """
+    from scripts.core import matrix as matrix_mod
+
+    eds_by_id = config.editions_by_id()
+    if edition_id not in eds_by_id:
+        return {"error": f"unknown edition: {edition_id}", "http": 404}
+
+    edition = eds_by_id[edition_id]
+    m = matrix_mod.compute_matrix()
+    books_idx = {b["code"]: b for b in config.load_books()}
+    kinds_idx = {k["code"]: k for k in config.load_kinds()}
+    cats_idx = {c["id"]: c for c in config.load_categories()}
+
+    canon_books = m.edition_canon_books.get(edition_id, set())
+    enabled_kinds = m.edition_enabled_kinds.get(edition_id, set())
+    per_chapter_ed = m.per_chapter.get(edition_id, {})
+
+    # Per-book: walk canon books in canonical order; sum enabled
+    # kinds' per_chapter counts.
+    book_order = list(books_idx.keys())  # already canonical from books.yaml
+    per_book = []
+    total_notes = 0
+    books_covered = 0
+    chapters_in_canon_total = 0
+    chapters_covered_total = 0
+    for book_code in book_order:
+        if book_code not in canon_books:
+            continue
+        book_def = books_idx[book_code]
+        ch_count = int(book_def.get("ch_count") or 0)
+        chapters_in_canon_total += ch_count
+        # by_chapter is a flat array (1-indexed → array index = ch-1).
+        by_chapter = [0] * ch_count
+        for kind, by_book in per_chapter_ed.items():
+            if kind not in enabled_kinds:
+                continue
+            for ch_num, count in by_book.get(book_code, {}).items():
+                idx = int(ch_num) - 1
+                if 0 <= idx < ch_count:
+                    by_chapter[idx] += int(count)
+        book_total = sum(by_chapter)
+        book_chapters_covered = sum(1 for n in by_chapter if n > 0)
+        total_notes += book_total
+        chapters_covered_total += book_chapters_covered
+        if book_total > 0:
+            books_covered += 1
+        per_book.append(
+            {
+                "book_code": book_code,
+                "book_label": book_def.get("title") or book_def.get("label") or book_code,
+                "chapters_in_canon": ch_count,
+                "enabled_notes": book_total,
+                "enabled_chapters": book_chapters_covered,
+                "by_chapter": by_chapter,
+            }
+        )
+
+    # Per-category + per-kind aggregates (only kinds that are enabled
+    # AND have non-zero notes show up).
+    cat_totals: dict[str, int] = {}
+    kind_rows: list[dict] = []
+    for kind, by_book in per_chapter_ed.items():
+        if kind not in enabled_kinds:
+            continue
+        kind_total = 0
+        for book_code, by_ch in by_book.items():
+            if book_code not in canon_books:
+                continue
+            kind_total += sum(int(v) for v in by_ch.values())
+        if kind_total <= 0:
+            continue
+        kind_def = kinds_idx.get(kind, {})
+        cat_id = kind_def.get("category", "?")
+        cat_totals[cat_id] = cat_totals.get(cat_id, 0) + kind_total
+        kind_rows.append(
+            {
+                "code": kind,
+                "label": kind_def.get("label", kind),
+                "category": cat_id,
+                "enabled_notes": kind_total,
+            }
+        )
+    kind_rows.sort(key=lambda r: (-r["enabled_notes"], r["code"]))
+    per_category = [
+        {
+            "id": cid,
+            "label": cats_idx.get(cid, {}).get("label", cid),
+            "enabled_notes": cat_totals[cid],
+        }
+        for cid in sorted(cat_totals.keys(), key=lambda c: (-cat_totals[c], c))
+    ]
+
+    popup_langs = list(edition.get("popup_languages_default") or [])
+
+    return {
+        "edition": {
+            "id": edition_id,
+            "title": edition.get("title", edition_id),
+            "short_title": edition.get("short_title", edition_id),
+            "canon": edition.get("canon"),
+        },
+        "summary": {
+            "total_enabled_notes": total_notes,
+            "books_covered": books_covered,
+            "books_in_canon": len(canon_books),
+            "chapters_covered": chapters_covered_total,
+            "chapters_in_canon": chapters_in_canon_total,
+            "kinds_enabled": len([r for r in kind_rows if r["enabled_notes"] > 0]),
+            "categories_enabled": len(per_category),
+            "popup_languages": popup_langs,
+        },
+        "per_book": per_book,
+        "per_category": per_category,
+        "per_kind": kind_rows,
+    }
+
+
+def api_build_tracker_book(edition_id: str, book_code: str) -> dict:
+    """Ω.0 free-public pivot — per-book note-title detail for the
+    /build-tracker drilldown. Loaded lazily when the user opens a
+    book's details panel.
+
+    Returns ``{"notes": [{chapter, kind, title, id}, ...]}`` for
+    notes whose kind is enabled in the edition. The list is bounded
+    by canon membership + enabled kind set so it's safe to fetch
+    even on the Ethiopian flagship.
+
+    Pinned by ``TestBuildTrackerBookEndpoint``.
+    """
+    from scripts.core import matrix as matrix_mod
+    from scripts.core import notes_io
+
+    eds_by_id = config.editions_by_id()
+    if edition_id not in eds_by_id:
+        return {"error": f"unknown edition: {edition_id}", "http": 404}
+    m = matrix_mod.compute_matrix()
+    canon_books = m.edition_canon_books.get(edition_id, set())
+    if book_code not in canon_books:
+        return {"error": f"book {book_code} not in {edition_id}'s canon", "http": 404}
+    enabled_kinds = m.edition_enabled_kinds.get(edition_id, set())
+
+    notes_dir = REPO / "content" / "notes"
+    book_file = notes_dir / f"{book_code}.py"
+    raw = notes_io.load_notes(book_file) or []
+    # NOTES are 9-tuples per content/notes/<book>.py docstring:
+    # (chapter, verse, suffix, anchor, kind, title, label, body_html
+    #  [, attribution]). Index by position.
+    out = []
+    for n in raw:
+        if not isinstance(n, tuple) or len(n) < 7:
+            continue
+        chapter = n[0]
+        suffix = n[2] or ""
+        anchor = n[3] or ""
+        kind = n[4] or ""
+        title = n[5] or ""
+        if kind not in enabled_kinds:
+            continue
+        # Synthesize a stable id for sort + DOM keying.
+        note_id = f"{book_code}-{chapter}-{suffix}" if suffix else f"{book_code}-{chapter}"
+        out.append(
+            {
+                "id": note_id,
+                "chapter": int(chapter or 0),
+                "kind": kind,
+                "title": (title or anchor)[:200],
+            }
+        )
+    out.sort(key=lambda r: (r["chapter"], r["kind"], r["id"]))
+    return {"book_code": book_code, "notes": out}
+
+
 def api_reading_plans_list() -> dict:
     """Return a summary of every reading plan in
     ``content/reading_plans/``.
@@ -1285,7 +1485,8 @@ def api_customize_data() -> dict:
                 "id": e["id"],
                 "title": e.get("title", e["id"]),
                 "short_title": e.get("short_title", ""),
-                "isbn": e.get("isbn", ""),
+                # Ω.0 pivot: isbn field dropped. Front-end derives
+                # the URN (urn:yhwh:edition:<id>) from the id.
                 "canon": e.get("canon", ""),
                 "target_audience": e.get("target_audience", ""),
                 "verse_popups": e.get("verse_popups", True),
@@ -1881,6 +2082,7 @@ from scripts.templates.greek import GREEK_HTML
 from scripts.templates.hebrew import HEBREW_HTML
 from scripts.templates.index import INDEX_HTML
 from scripts.templates.matrix import MATRIX_HTML
+from scripts.templates.build_tracker import BUILD_TRACKER_HTML
 from scripts.templates.ops import OPS_HTML
 from scripts.templates.preflight import PREFLIGHT_HTML
 from scripts.templates.publisher import PUBLISHER_HTML
@@ -2924,6 +3126,8 @@ def api_disabled_notes_for_edition(edition_id: str) -> dict:
 # Sensible defaults applied when an edition has no publishing data yet.
 # These match what build_onix.py currently hardcodes, so behavior on the
 # next build is identical until the user explicitly edits.
+# Ω.0 pivot (2026-05-14): isbn_epub / isbn_print removed — project
+# is no longer for sale, so commercial identifiers are unnecessary.
 PUBLISHING_DEFAULTS = {
     "publisher_name": "Independent",
     "publisher_url": "",
@@ -2932,8 +3136,6 @@ PUBLISHING_DEFAULTS = {
     "copyright_notice": "All rights reserved.",
     "publication_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
     "language_code": "en",
-    "isbn_epub": "",
-    "isbn_print": "",
     "cover_credit": "",
     "source_text_credit": ("Scripture text based on the World English Bible (public domain)."),
 }
@@ -2950,8 +3152,6 @@ PUBLISHING_TEXT_LIMITS = {
     "copyright_notice": 500,
     "publication_date": 30,
     "language_code": 12,
-    "isbn_epub": 40,
-    "isbn_print": 40,
     "cover_credit": 200,
     "source_text_credit": 500,
 }
@@ -2978,9 +3178,8 @@ def _compute_publisher_data_uncached() -> dict:
             "id": e["id"],
             "title": e.get("title", e["id"]),
             "short_title": e.get("short_title", ""),
-            # Legacy generic isbn — keep displaying for reference, but the
-            # publisher console writes to isbn_epub / isbn_print instead.
-            "isbn_legacy": e.get("isbn", ""),
+            # Ω.0 pivot (2026-05-14): isbn_legacy / isbn_epub / isbn_print
+            # all dropped. The edition URN is derived from id at render time.
         }
         for field, default in PUBLISHING_DEFAULTS.items():
             row[field] = e.get(field, default)
@@ -3066,7 +3265,7 @@ def _diff_edition_summary(ed: dict, mtx, kinds_idx: dict, books_idx: dict, canon
         "title": ed.get("title", ed_id),
         "short_title": ed.get("short_title", ed_id),
         "audience": ed.get("target_audience", ""),
-        "isbn": ed.get("isbn", ""),
+        # Ω.0 pivot: isbn dropped; URN derived from id.
         "imprint": ed.get("imprint", ""),
         "canon_id": canon_id,
         "canon_label": canon_def.get("label", canon_id),
@@ -3409,6 +3608,12 @@ _REGEX_GET_ROUTES: list[tuple[re.Pattern, "object"]] = [
     (re.compile(r"^/api/snapshots/([a-z0-9._-]+)$"), api_snapshot_list),
     # ψ.36-A: per-edition matrix slice (lazy-load endpoint).
     (re.compile(r"^/api/matrix/edition/([a-z0-9_-]+)$"), api_matrix_for_edition),
+    # Ω.0 (2026-05-14): /build-tracker feed. Two endpoints — counts
+    # only (fast) and per-book note titles (lazy on details open).
+    # Order matters — the more-specific 2-group pattern precedes the
+    # 1-group pattern (regex table is sequential).
+    (re.compile(r"^/api/build-tracker/([a-z0-9_-]+)/([a-z0-9_-]+)$"), api_build_tracker_book),
+    (re.compile(r"^/api/build-tracker/([a-z0-9_-]+)$"), api_build_tracker),
     # γ.1: Strong's Hebrew lookup. Accepts 'H1' / 'h1' / '1' /
     # 'H0001' — the handler normalizes.
     (re.compile(r"^/api/hebrew/([Hh]?\d+)$"), api_hebrew_lookup),
@@ -3508,7 +3713,8 @@ _PUT_ROUTES: list[tuple[re.Pattern, "object"]] = [
         lambda m, payload: api_save_edition_meta(m.group(1), payload),
     ),
     # ε.6 — /api/distribution/<edition> — mark a channel shipped.
-    # Payload: {channel: <id>, url?, isbn?, notes?, shipped_at?}.
+    # Payload: {channel: <id>, url?, notes?, shipped_at?}.
+    # Ω.0 pivot: isbn parameter dropped (commercial dist deprecated).
     (
         re.compile(r"^/api/distribution/([a-z0-9-]+)$"),
         lambda m, payload: api_distribution_mark(m.group(1), payload),
@@ -4528,6 +4734,12 @@ class Handler(BaseHTTPRequestHandler):
         # Pre-flight checklist (Phase ψ.2) — aggregator dashboard
         if path == "/preflight" or path == "/preflight.html":
             return self._send_html(PREFLIGHT_HTML)
+
+        # Ω.0 (2026-05-14) — /build-tracker: per-edition enabled-
+        # notes visualizer. The companion JSON endpoints live in
+        # _REGEX_GET_ROUTES (/api/build-tracker/<ed>[/<book>]).
+        if path == "/build-tracker" or path == "/build-tracker.html":
+            return self._send_html(BUILD_TRACKER_HTML)
         # ω.35-A.3 — /api/preflight migrated to _SIMPLE_GET_ROUTES.
 
         # Corpus progress widget (Phase ψ.3) — read-only feed for
