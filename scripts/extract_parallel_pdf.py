@@ -639,6 +639,105 @@ LEVITICUS_VERSE_COUNTS = {
 # Total Leviticus verses = 859 (Masoretic + LXX + Vulgate agreement).
 
 
+# τ.7.x.d — Canonical Numbers verse counts (36 chapters, 1288 verses).
+# Fourth renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. Masoretic + LXX + Vulgate + Tewahedo
+# enumerations agree on the per-chapter counts (the Vulgate
+# 16:36-50 → 17:1-15 boundary repartitioning is NOT followed in the
+# Tewahedo Amharic edition per parallel-Bible-EOTC source inspection;
+# the floor here is the Hebrew/Masoretic enumeration which yields the
+# canonical 1288 total).
+NUMBERS_VERSE_COUNTS = {
+    1: 54,
+    2: 34,
+    3: 51,
+    4: 49,
+    5: 31,
+    6: 27,
+    7: 89,
+    8: 26,
+    9: 23,
+    10: 36,
+    11: 35,
+    12: 16,
+    13: 33,
+    14: 45,
+    15: 41,
+    16: 50,
+    17: 13,
+    18: 32,
+    19: 22,
+    20: 29,
+    21: 35,
+    22: 41,
+    23: 30,
+    24: 25,
+    25: 18,
+    26: 65,
+    27: 23,
+    28: 31,
+    29: 40,
+    30: 16,
+    31: 54,
+    32: 42,
+    33: 56,
+    34: 29,
+    35: 34,
+    36: 13,
+}
+# Total Numbers verses = 1288 (Masoretic + LXX + Tewahedo agreement).
+
+
+# τ.7.x.e — Canonical Deuteronomy verse counts (34 chapters, 959 verses).
+# Fifth renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. CLOSES the §8.1 Pentateuch arc under
+# Amharic-first sequencing (gen + ex + lev + num + deut = all 5 books
+# of Torah). The 959-verse total reflects the KJV/Vulgate/LXX-aligned
+# enumeration; the Hebrew/Masoretic enumeration redistributes some
+# verses at the 5/6 + 12/13 + 22/23 + 28/29 chapter boundaries but
+# yields the same 959 total. The parallel-Bible-EOTC source uses the
+# Christian/Vulgate enumeration consistent with the Ge'ez liturgical
+# tradition.
+DEUTERONOMY_VERSE_COUNTS = {
+    1: 46,
+    2: 37,
+    3: 29,
+    4: 49,
+    5: 33,
+    6: 25,
+    7: 26,
+    8: 20,
+    9: 29,
+    10: 22,
+    11: 32,
+    12: 32,
+    13: 18,
+    14: 29,
+    15: 23,
+    16: 22,
+    17: 20,
+    18: 22,
+    19: 21,
+    20: 20,
+    21: 23,
+    22: 30,
+    23: 25,
+    24: 22,
+    25: 19,
+    26: 19,
+    27: 26,
+    28: 68,
+    29: 29,
+    30: 20,
+    31: 30,
+    32: 52,
+    33: 29,
+    34: 12,
+}
+# Total Deuteronomy verses = 959 (KJV/LXX/Vulgate-aligned; Hebrew
+# Masoretic redistributes some boundaries but yields the same total).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1519,6 +1618,10 @@ def _build_docstring_extra(
         floor_dict = EXODUS_VERSE_COUNTS
     elif renumber == "leviticus":
         floor_dict = LEVITICUS_VERSE_COUNTS
+    elif renumber == "numbers":
+        floor_dict = NUMBERS_VERSE_COUNTS
+    elif renumber == "deuteronomy":
+        floor_dict = DEUTERONOMY_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -1597,13 +1700,16 @@ def main() -> int:
     p.add_argument(
         "--renumber",
         default=None,
-        choices=["genesis", "exodus", "leviticus"],
+        choices=["genesis", "exodus", "leviticus", "numbers", "deuteronomy"],
         help=(
             "Post-process renumber verses against a canonical chapter "
             "verse-count floor (τ.7.x.a writer-side residual handler). "
             "Supports 'genesis' (GENESIS_VERSE_COUNTS, 50 ch / 1534 v), "
-            "'exodus' (EXODUS_VERSE_COUNTS, 40 ch / 1213 v; τ.7.x.b), and "
-            "'leviticus' (LEVITICUS_VERSE_COUNTS, 27 ch / 859 v; τ.7.x.c). "
+            "'exodus' (EXODUS_VERSE_COUNTS, 40 ch / 1213 v; τ.7.x.b), "
+            "'leviticus' (LEVITICUS_VERSE_COUNTS, 27 ch / 859 v; τ.7.x.c), "
+            "'numbers' (NUMBERS_VERSE_COUNTS, 36 ch / 1288 v; τ.7.x.d), "
+            "and 'deuteronomy' (DEUTERONOMY_VERSE_COUNTS, 34 ch / 959 v; "
+            "τ.7.x.e — CLOSES the §8.1 Pentateuch arc). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -1642,6 +1748,10 @@ def main() -> int:
         renumber_floor = EXODUS_VERSE_COUNTS
     elif args.renumber == "leviticus":
         renumber_floor = LEVITICUS_VERSE_COUNTS
+    elif args.renumber == "numbers":
+        renumber_floor = NUMBERS_VERSE_COUNTS
+    elif args.renumber == "deuteronomy":
+        renumber_floor = DEUTERONOMY_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

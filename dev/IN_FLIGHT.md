@@ -4,6 +4,173 @@
 
 ## Prior task
 
+**τ.7.x.e AMHARIC DEUTERONOMY FULL-BOOK INGEST ship — FIFTH τ.7.x.*
+per-book ingest under D4-c Amharic-first + D1-a per-book cadence.
+**CLOSES the §8.1 Pentateuch arc under Amharic-first sequencing**
+(gen + ex + lev + num + deut = all 5 books of Torah shipped). NINTH
+§8.1 arc-close instance overall; FIRST in τ-cluster — codifies the
+per-book-cadence + Amharic-first Pentateuch-arc-close as a durable
+structural pattern (prior 8 §8.1 instances all γ-cluster).
+
+Adds `content/translations/amharic-tewahedo/deu.py` with 781 verses
+at **81.4% coverage** (sits between Ex 78.1% and Gen 85.3%;
+Deuteronomy's mix of long historical-rehearsal chapters Deut 1-3, 9,
+28 and short blessing/curse chapters yields a recovery band slightly
+below Gen/Num/Lev). Pipeline reused VERBATIM from τ.7.x.d — only
+deltas: `DEUTERONOMY_VERSE_COUNTS` (34-chapter, 959-verse floor;
+KJV/LXX/Vulgate-aligned) + `structural_map.deuteronomy` block
+(pdf_page_range [288, 348] verified via Joshua title `መጽሐፈ ኢያሱ`
+scan + content-boundary inspection: Deut 34 epilogue at p348 +
+Joshua 1:1 at p349). **9th instance of single-key back-link
+annotation pattern** (tau7xd_ingest.pipeline_reused_at_phase: τ.7.x.e
+— fifth pipeline-reuse variant; pattern definitively established
+across 5 consecutive τ.7.x.* ships).
+
+**Empirical results:** chapters 1-27 fully populated at floor;
+chapter 28 partial (62/68 = 91.2%); chapters 29-34 empty (Deut 29
+covenant-renewal + Deut 30 choose-life + Deut 31 succession + Deut
+32 song-of-Moses + Deut 33 blessing-of-tribes + Deut 34 Moses-
+death-epilogue). End-of-Deuteronomy colophon `መሴ. eg ደረሰ ተፈጸመ`
+("Moses ... reached / was completed") preserved at renumbered ch
+28:62 (canonically end-of-Deut 34; placement mirrors τ.7.x.b Exodus
+colophon at ch 33:6 + τ.7.x.d Numbers colophon at ch 31:47).
+Coverage 781/959 = 81.4%. **Pentateuch §8.1 arc-close combined:**
+amharic-tewahedo 5 books / 4945 verses (gen 1308 + ex 947 + lev 802
++ num 1107 + deu 781) / 5853 expected = **84.5% combined coverage**
+across all 5 books of Torah; 274 PDF pages consumed (0-348). τ.7.x.*
+five-ship coverage histogram: **93.4 / 85.9 / 85.3 / 81.4 / 78.1** —
+four of five within 78-93% band confirms canonical τ.7.x.* per-book
+coverage expectation at ocr-tier3.
+
+**§8.1 Pentateuch arc-close significance:** the 9th §8.1 instance
+overall + FIRST in τ-cluster. The 8 prior §8.1 instances were all
+γ-cluster Tewahedo patristic-and-canonical voice arcs (γ.4.1.D
+Cyril-on-John + γ.4.2.D Ephrem-on-Pentateuch + γ.4.3.D Cyril-on-Luke
++ γ.4.4.E 1 Enoch + γ.4.5.E Jubilees + γ.4.6.D Cyril-on-Matthew +
+γ.4.7.E Cyril-on-Mark + γ.4.8.E Mäqabyan). τ.7.x.e codifies a
+DIFFERENT structural pattern: per-book-cadence (D1-a) closure of a
+canonical unit (Pentateuch) — five books each shipped as their own
+per-book ingest with the fifth closing the canonical Pentateuch
+boundary. Both patterns mark canonical-unit completion; §8.1
+generalizes cleanly to both.
+
+**τ.7.x.e deliverables shipped:**
+
+1. **`DEUTERONOMY_VERSE_COUNTS` dict** in extract_parallel_pdf.py
+   (34 chapters / 959 verses; KJV/LXX/Vulgate-aligned).
+2. **CLI `--renumber` extended** to `{genesis, exodus, leviticus,
+   numbers, deuteronomy}` (five-way conditional).
+3. **`structural_map.deuteronomy`** in _source.yaml with §8.1
+   Pentateuch arc-close commentary.
+4. **`content/translations/amharic-tewahedo/deu.py` created** —
+   781 verses; INGEST_PHASE='τ.7.x.e'.
+5. **`amharic-tewahedo/_meta.yaml`** updated: stats.books 4→5
+   (FULL PENTATEUCH); stats.verses 4164→4945; NEW
+   `ingest_record_tau7xe` block with `arc_close: §8.1` marker.
+6. **`_source.yaml::ocr_strategy.tau7xe_ingest`** block added with
+   14-key closed_arc_contracts_preserved (all four prior τ.7.x.*
+   ingests preserved with back-links) + `arc_close: §8.1` + arc-
+   close-narrative documenting the 9th §8.1 instance + 1st in
+   τ-cluster + γ-cluster comparison + Pentateuch combined coverage.
+7. **Reciprocal back-link** `tau7xd_ingest.pipeline_reused_at_
+   phase: τ.7.x.e` — 9th instance of single-key back-link
+   annotation pattern (fifth pipeline-reuse variant).
+8. **NEW test classes** in `tests/test_parallel_bible_tau7xe.py` —
+   9 classes × 57 pin tests total (one more class than prior
+   τ.7.x.* due to dedicated PentateuchArcClose class).
+9-14. SESSION_STATE + IN_FLIGHT + CHANGELOG + PLAN §6 + omega4x
+hygiene + PI2 dashboard all updated.
+
+**Test count: ~4952 → ~5009 (+57 new pins). Linter expected clean.**
+
+**What did NOT change at τ.7.x.e:**
+- No parser code mutation — fifth consecutive τ.7.x.* ship with
+  zero parser API change. Five-ship zero-API-delta is the strongest
+  refactor-stability signal short of a code-frozen contract; the
+  τ.7.x.a template is decisively established across the entire
+  Pentateuch.
+- gen.py + ex.py + lev.py + num.py unchanged (τ.7.x.a/b/c/d preserved).
+- geez-tewahedo/ unchanged (no deu.py created pending τ.6.x.2.e).
+- All Π.0/Π.1/Π.1.B/γ.*/ω.4x/Ω.0 invariants preserved.
+
+shipped 2026-05-15. Triggered by user "continue" — per
+`feedback_continue_not_save` continue advances to next-up phase
+(τ.7.x.e per τ.7.x.d `next_phase=τ.7.x.e`).
+
+## Prior task (previous)
+
+**τ.7.x.d AMHARIC NUMBERS FULL-BOOK INGEST ship — FOURTH τ.7.x.*
+per-book ingest under D4-c Amharic-first + D1-a per-book cadence.
+Adds `content/translations/amharic-tewahedo/num.py` with 1107 verses
+at **85.9% coverage** (sits between Gen 85.3% and Lev 93.4%; well
+above Ex 78.1%; Numbers narrative-dense profile of long census +
+itinerary chapters interleaved with shorter narrative chapters
+yields ~85-86% recovery band, mirroring Genesis). Pipeline reused
+VERBATIM from τ.7.x.c — only deltas: `NUMBERS_VERSE_COUNTS` (36-
+chapter, 1288-verse floor) + `structural_map.numbers` block
+(pdf_page_range [214, 287] verified via Deuteronomy title `ኦሪት
+ዘዳግም` scan at p291 + content-boundary inspection: Num 36 closes at
+p287 + Deut 1:1 opens at p288 + explicit `ኦሪት ዘዳግም` title at p289).
+**8th instance of single-key back-link annotation pattern**
+(tau7xc_ingest.pipeline_reused_at_phase: τ.7.x.d — fourth pipeline-
+reuse variant; pattern decisively established across 4 consecutive
+τ.7.x.* ships). **80% of the Pentateuch closed under Amharic-first
+sequencing** (gen + ex + lev + num shipped; deut next as τ.7.x.e
+closes the §8.1 Pentateuch arc).
+
+**Empirical results:** chapters 1-30 fully populated at floor;
+chapter 31 partial (47/54 = 87%); chapters 32-36 empty (Num 32
+Reubenite-Gadite inheritance + Num 33 wilderness-itinerary + Num
+34 land-boundaries + Num 35 cities-of-refuge + Num 36 daughters-
+of-Zelophehad). End-of-Numbers colophon `ተፈጸመ ዘፈጠረ ኵሎ ዓለመ
+መጽሐፍ ደረ ተፈጻመ` ("Finished by the Creator of all the world; the
+book is completed") preserved at renumbered ch 31:47 (canonically
+end-of-Num 36; placement mirrors τ.7.x.b Exodus colophon at ch 33:6).
+Coverage 1107/1288 = 85.9%. Combined amharic-tewahedo: 4 books,
+4164 verses (gen 1308 + ex 947 + lev 802 + num 1107) = 85.1%
+combined coverage. τ.7.x.* four-ship coverage histogram: 93.4 /
+85.9 / 85.3 / 78.1 — three of four within 85-93% band confirms the
+canonical τ.7.x.* per-book coverage expectation at ocr-tier3.
+
+**τ.7.x.d deliverables shipped:**
+
+1. **`NUMBERS_VERSE_COUNTS` dict** in extract_parallel_pdf.py
+   (36 chapters / 1288 verses; Masoretic + LXX + Tewahedo agreement).
+2. **CLI `--renumber` extended** to `{genesis, exodus, leviticus,
+   numbers}` (four-way conditional).
+3. **`structural_map.numbers`** in _source.yaml.
+4. **`content/translations/amharic-tewahedo/num.py` created** —
+   1107 verses; INGEST_PHASE='τ.7.x.d'.
+5. **`amharic-tewahedo/_meta.yaml`** updated: stats.books 3→4;
+   stats.verses 3057→4164; NEW `ingest_record_tau7xd` block.
+6. **`_source.yaml::ocr_strategy.tau7xd_ingest`** block added with
+   13-key closed_arc_contracts_preserved (tau7xa_ingest +
+   tau7xb_ingest + tau7xc_ingest all True with back-link
+   annotations preserved).
+7. **Reciprocal back-link** `tau7xc_ingest.pipeline_reused_at_
+   phase: τ.7.x.d` — 8th instance of single-key back-link
+   annotation pattern (fourth pipeline-reuse variant).
+8. **NEW test classes** in `tests/test_parallel_bible_tau7xd.py` —
+   8 classes × 51 pin tests total.
+9-14. SESSION_STATE + IN_FLIGHT + CHANGELOG + PLAN §6 + omega4x
+hygiene + PI2 dashboard all updated.
+
+**Test count: ~4900 → ~4951 (+51 new pins). Linter expected clean.**
+
+**What did NOT change at τ.7.x.d:**
+- No parser code mutation — fourth consecutive τ.7.x.* ship with
+  zero parser API change. The τ.7.x.a template is now decisively
+  established as a stable per-book scaffold across all four ships.
+- gen.py + ex.py + lev.py unchanged (τ.7.x.a/b/c preserved).
+- geez-tewahedo/ unchanged (no num.py created pending τ.6.x.2.d).
+- All Π.0/Π.1/Π.1.B/γ.*/ω.4x/Ω.0 invariants preserved.
+
+shipped 2026-05-15. Triggered by user "continue" — per
+`feedback_continue_not_save` continue advances to next-up phase
+(τ.7.x.d per τ.7.x.c `next_phase=τ.7.x.d`).
+
+## Prior task (previous)
+
 **τ.7.x.c AMHARIC LEVITICUS FULL-BOOK INGEST ship — THIRD τ.7.x.*
 per-book ingest under D4-c Amharic-first + D1-a per-book cadence.
 Adds `content/translations/amharic-tewahedo/lev.py` with 802 verses

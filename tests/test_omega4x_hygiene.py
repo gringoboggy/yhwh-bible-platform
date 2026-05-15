@@ -234,7 +234,40 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             τ.7.x.* ship with zero parser API change — firmly
             establishing the τ.7.x.a template as a stable per-book
             scaffold; 7th instance of single-key back-link
-            annotation pattern tau7xb_ingest→τ.7.x.c)"""
+            annotation pattern tau7xb_ingest→τ.7.x.c)
+          - τ.7.x.d migrated pending → shipped at τ.7.x.d ship-time
+            (2026-05-15; the FOURTH τ.7.x.* per-book ship; creates
+            amharic-tewahedo/num.py with 1107 verses at 85.9%
+            coverage (sits between Gen 85.3% and Lev 93.4%); re-uses
+            τ.7.x.c pipeline verbatim with only NUMBERS_VERSE_COUNTS
+            + structural_map.numbers as deltas; FOURTH CONSECUTIVE
+            τ.7.x.* ship with zero parser API change — decisively
+            establishing the τ.7.x.a template as a stable per-book
+            scaffold across all four ships; 80% of the Pentateuch
+            closed under Amharic-first sequencing (gen + ex + lev +
+            num shipped; deut next as τ.7.x.e closes §8.1 Pentateuch
+            arc); 8th instance of single-key back-link annotation
+            pattern tau7xc_ingest→τ.7.x.d)
+          - τ.7.x.e migrated pending → shipped at τ.7.x.e ship-time
+            (2026-05-15; the FIFTH τ.7.x.* per-book ship; **CLOSES
+            the §8.1 Pentateuch arc under Amharic-first sequencing**
+            — gen + ex + lev + num + deut = all 5 books of Torah
+            shipped in amharic-tewahedo; NINTH §8.1 arc-close
+            instance overall + FIRST in τ-cluster — codifies per-
+            book-cadence + Amharic-first Pentateuch-arc-close as
+            durable structural pattern; creates amharic-tewahedo/
+            deu.py with 781 verses at 81.4% coverage (sits between
+            Exodus 78.1% and Genesis 85.3%); re-uses τ.7.x.d pipeline
+            verbatim with only DEUTERONOMY_VERSE_COUNTS +
+            structural_map.deuteronomy as deltas; FIFTH CONSECUTIVE
+            τ.7.x.* ship with zero parser API change — five-ship
+            zero-API-delta is the strongest possible refactor-
+            stability signal; **Pentateuch combined coverage 4945/
+            5853 = 84.5% across all 5 books of Torah**; 9th instance
+            of single-key back-link annotation pattern tau7xd_ingest
+            →τ.7.x.e; τ-cluster §8.1 codifies STRUCTURAL §8.1
+            (per-book-cadence closure of canonical unit) vs γ-cluster
+            NARRATIVE §8.1 (detail-wave buildout within voice/book))"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -255,6 +288,8 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.7.x.a",
             "τ.7.x.b",
             "τ.7.x.c",
+            "τ.7.x.d",
+            "τ.7.x.e",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -303,9 +338,27 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             verses; re-uses τ.7.x.a+b+c pipeline with
             NUMBERS_VERSE_COUNTS floor + structural_map.numbers
             block; Num 1:1 boundary confirmed at page 214 per
-            τ.7.x.c boundary inspection)"""
+            τ.7.x.c boundary inspection); migrated pending →
+            shipped at τ.7.x.d ship-time (2026-05-15)
+          - τ.7.x.e added pending at τ.7.x.d ship-time (2026-05-15;
+            Amharic Deuteronomy full-book ingest CLOSES the §8.1
+            Pentateuch arc under Amharic-first sequencing; 34
+            chapters, 959 verses; re-uses τ.7.x.a+b+c+d pipeline
+            with DEUTERONOMY_VERSE_COUNTS floor +
+            structural_map.deuteronomy block; Deut 1:1 boundary
+            confirmed at page 288 per τ.7.x.d boundary inspection
+            via Deuteronomy title `ኦሪት ዘዳግም` scan); migrated
+            pending → shipped at τ.7.x.e ship-time (2026-05-15)
+          - τ.7.x.f added pending at τ.7.x.e ship-time (2026-05-15;
+            Amharic Joshua full-book ingest OPENS the post-
+            Pentateuch historical-books arc under Amharic-first
+            sequencing; 24 chapters, 658 verses; re-uses τ.7.x.a+b+
+            c+d+e pipeline with JOSHUA_VERSE_COUNTS floor +
+            structural_map.joshua block; Joshua 1:1 boundary
+            confirmed at page 349 per τ.7.x.e boundary inspection
+            via Joshua title `መጽሐፈ ኢያሱ` scan)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.d", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.f", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

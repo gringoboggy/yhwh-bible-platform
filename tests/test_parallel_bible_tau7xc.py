@@ -303,10 +303,14 @@ class TestTau7XCMetaYamlIngestRecord:
         path = AMHARIC_TEWAHEDO / "_meta.yaml"
         return yaml.safe_load(path.read_text(encoding="utf-8"))
 
-    def test_stats_books_three(self):
-        # Genesis + Exodus + Leviticus
+    def test_stats_books_at_least_three(self):
+        """Refactored share-pin→milestone-pin at τ.7.x.d ship-time per
+        `feedback_share_pin_pattern`. Originally asserted ==3 (gen+ex+lev
+        post-τ.7.x.c); τ.7.x.d bumped to 4. Durable invariant: ≥3
+        (Genesis + Exodus + Leviticus all shipped, plus any subsequent
+        τ.7.x.* book)."""
         m = self._meta()
-        assert m["stats"]["books"] == 3
+        assert m["stats"]["books"] >= 3
 
     def test_stats_verses_combined(self):
         # 1308 (gen) + 947 (ex) + 802 (lev) = 3057. Floor 2500.

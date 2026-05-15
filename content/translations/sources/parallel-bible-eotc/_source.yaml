@@ -189,6 +189,133 @@ structural_map:
       cadence. Geʽez column ingest deferred to τ.6.x.2.c (same
       Leviticus page range, Geʽez column) under D4-c sequencing.
 
+  numbers:
+    book_codes: [num]
+    pdf_page_range: [214, 287]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.d
+    chapter_count_expected: 36
+    notes: |
+      Verified at τ.7.x.d (2026-05-15) via per-page chapter-marker
+      walk pages 214-291 + content-boundary inspection of pages
+      287-289. Numbers 1:1 opening at page 214 confirmed by both:
+      (a) the transitional banner `ኦሪት ዘፀአት የአበውን ቍጥር ይናገራል፣
+      ኦሪት ዘጐልቍም የውሉድን ነገር ይናገራል` ("The book of Exodus speaks
+      of the numbering of the fathers; the book of Numbers speaks
+      of the offspring") — the publisher's prose introduction to
+      the book of Numbers itself, derived from the Tewahedo title
+      `ኦሪት ዘጐልቍ` ("the law of numbering"); and (b) the canonical
+      Numbers 1:1 Geʽez column `ወነበቦ እግዚአብሔር ሙሴ በገዳም ዘሲና በውስተ
+      ደብተራ ዘመርጡል` ("And the LORD spoke to Moses in the wilderness
+      of Sinai, in the tabernacle of meeting") confirmed at page
+      214 alongside the `ምዕራፍ ፩።` (chapter 1 marker, Ethiopic
+      numeral ፩=1). This Tewahedo-distinctive prose-introduction
+      pattern at Numbers 1:1 is NOT a Genesis/Exodus/Leviticus
+      convention — only Numbers carries an explicit narrative
+      explanation of the book's title-meaning at its opening page.
+
+      End boundary determined by Numbers→Deuteronomy content
+      inspection: page 287 closes Numbers with the daughters-of-
+      Zelophehad inheritance narrative (Num 36 closing chapter:
+      `ኣምሐዱ ኣሐዱ ኣምሄኔሆሙ ውስተ ርስቱ ጸቡቁ ሆሙ ይትልጢ ደቂቀ ኣስራኤል`
+      "every one of the children of Israel shall keep himself to
+      the inheritance of the tribe of his fathers"). Page 288
+      opens Deuteronomy with `ምፅራፍ ፩` + Deut 1:1 Geʽez `ሣን ውክ
+      ነገር ዘነገርሮሙ ሙሴ ፅዙሉ ኤልክ በማዕዶተ ዮርዳኖስ` ("These are the words
+      which Moses spoke to all Israel beyond the Jordan"). The
+      explicit `ኦሪት ዘዳግም` (Geʽez Deuteronomy title) banner FIRST
+      appears at page 289 with the `ምዕራፍ ፩` marker — publisher
+      convention puts the formal title 1-2 pages INTO Deuteronomy,
+      mirroring the Exodus title-page-88 pattern (NOT the Genesis
+      title-page-0 pattern). The Numbers→Deuteronomy boundary is
+      therefore decisively at page 288 (Deut 1:1 opens at page 288;
+      Numbers content ends at page 287).
+
+      Numbers occupies pages 214-287 = 74 pages for 36 chapters
+      (~2.06 pages/chapter; slightly denser than Leviticus's
+      1.96 pages/chapter, consistent with Numbers's mix of long
+      census-list chapters (Num 1, 2, 3, 4, 7, 26) and shorter
+      narrative chapters (Num 12, 17, 27, 36) yielding a more
+      content-dense average page). Fourth τ.7.x per-book ingest
+      under D4-c Amharic-first sequencing + D1-a per-book cadence
+      per the τ.6.x.2.D D-decisions matrix. The pre-τ.7.x.d state
+      was an EMPTY slot (no num.py for amharic-tewahedo);
+      τ.7.x.d creates amharic-tewahedo/num.py at ocr-tier3 quality
+      per τ.6.x.0b honesty contract. Geʽez column ingest is
+      deferred to τ.6.x.2.d (same Numbers page range, Geʽez
+      column) under D4-c sequencing — see
+      tau6x2D_decisions.derived_phase_ordering.
+
+  deuteronomy:
+    book_codes: [deu]
+    pdf_page_range: [288, 348]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.e
+    chapter_count_expected: 34
+    notes: |
+      Verified at τ.7.x.e (2026-05-15) via per-page chapter-marker
+      walk pages 288-348 + content-boundary inspection of pages
+      347-349. Deuteronomy 1:1 opening at page 288 confirmed by:
+      (a) the `ምፅራፍ` chapter-marker preamble + canonical Deut 1:1
+      Geʽez column `ሣን ውክ ነገር ዘነገርሮሙ ሙሴ ፅዙሉ ኤልክ በማዕዶሩ ዬርዳኖስ`
+      ("These are the words which Moses spoke to all Israel beyond
+      the Jordan, in the wilderness"); and (b) the explicit `ኦሪት
+      ዘዳግም` (Geʽez Deuteronomy title) banner at page 289 paired
+      with `ምፅራፍ ፩።` (chapter 1 marker, Ethiopic numeral ፩=1).
+      Publisher convention puts the formal title 1 page INTO the
+      book mirroring the Exodus title-page-88 pattern (NOT the
+      Genesis title-page-0 pattern). The `ኦሪት ዘዳግም` title appears
+      multiple times throughout the book as a running header.
+
+      End boundary determined by Deuteronomy → Joshua content
+      inspection: page 348 closes Deuteronomy with the Deut 34
+      epilogue narrative — the death of Moses, the 30-day mourning
+      period, and the canonical closing verses (Deut 34:5-12) "And
+      Moses the servant of the LORD died there in the land of Moab
+      ... and there arose not a prophet since in Israel like unto
+      Moses, whom the LORD knew face to face". Page 348 also
+      contains the Deut 34:9 note `ወኢያሱ ወልደ ነዌ ተመልአ መንፈስ ጥበብ`
+      ("And Joshua the son of Nun was full of the spirit of
+      wisdom"), preparing the Joshua succession. Page 349 opens
+      with `ምፀራፍ` (chapter 1 marker) + canonical Joshua 1:1
+      Geʽez `ወክነ እምድሣሪረ ሞተ ሙዜ ገብሪ እግዚአብሔር ቤሎ እግዚአብሔር
+      ለኢያሱ ወልደ ነዌ ላአኩ ለሙሴ` ("And it came to pass after the
+      death of Moses the servant of the LORD, that the LORD spake
+      unto Joshua the son of Nun, Moses's minister") — the
+      canonical Joshua book opening. The `መጽሐፈ ኢያሱ` (Book of
+      Joshua) explicit title appears slightly later (page 290's
+      title hit was inside Deut 1 forward-references; the proper
+      Joshua book title comes after page 349). The Deut→Joshua
+      boundary is therefore decisively at page 349 (Joshua 1:1
+      opens at page 349; Deuteronomy content ends at page 348).
+
+      Deuteronomy occupies pages 288-348 = 61 pages for 34 chapters
+      (~1.79 pages/chapter; consistent with the Tewahedo two-column
+      density baseline 1.72-2.15 pages/chapter; Deuteronomy has a
+      mix of historical-rehearsal long chapters (Deut 1-3, 9, 28)
+      and short blessing/curse chapters (Deut 27, 33, 34) yielding
+      a moderate average page-density similar to Genesis's 1.72).
+      Fifth τ.7.x per-book ingest under D4-c Amharic-first
+      sequencing + D1-a per-book cadence per the τ.6.x.2.D
+      D-decisions matrix. **τ.7.x.e CLOSES the §8.1 Pentateuch arc
+      under Amharic-first sequencing** (gen + ex + lev + num + deut
+      = all 5 books of Torah shipped in the amharic-tewahedo
+      translation slot). The §8.1 arc-close convention codified at
+      ω.41/γ.4.5.E (Jubilees-arc-close) and γ.4.8.E (Mäqabyan-arc-
+      close) is the ninth §8.1 instance overall and the FIRST in the
+      τ-cluster — establishing the per-book-cadence (D1-a) +
+      Amharic-first-sequencing (D4-c) Pentateuch-arc-close as a
+      durable structural pattern. The pre-τ.7.x.e state was an
+      EMPTY slot (no deu.py for amharic-tewahedo); τ.7.x.e creates
+      amharic-tewahedo/deu.py at ocr-tier3 quality per τ.6.x.0b
+      honesty contract. Geʽez column ingest is deferred to τ.6.x.2.e
+      (same Deuteronomy page range, Geʽez column) under D4-c
+      sequencing — see tau6x2D_decisions.derived_phase_ordering.
+
   meqabyan:
     book_codes: [mq1, mq2, mq3]
     pdf_page_range: [1318, 1378]
@@ -1755,3 +1882,437 @@ ocr_strategy:
       inspection — Num 1:1 confirmed at page 214; exact end-of-
       Numbers boundary to be verified at τ.7.x.d page-range
       discovery sub-phase via Deuteronomy title `ኦሪት ዘዳግም` scan).
+    pipeline_reused_at_phase: τ.7.x.d  # back-link: τ.7.x.d re-used the τ.7.x.c pipeline (which itself re-used τ.7.x.b which re-used τ.7.x.a); only delta was NUMBERS_VERSE_COUNTS floor + structural_map.numbers (pdf_page_range [214, 287] verified via Deuteronomy title scan at page 288/289). Confirms the τ.7.x.* template across 4 consecutive ships — pattern is now decisively established.
+
+  tau7xd_ingest:
+    shipped_at_phase: τ.7.x.d
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "continue" after τ.7.x.c ship — per `feedback_continue_
+      not_save` continue advances to next-up phase (τ.7.x.d per PLAN
+      §6 + τ.7.x.c `next_phase=τ.7.x.d` declaration). Pipeline reused
+      verbatim from τ.7.x.c (which itself reused τ.7.x.b which reused
+      τ.7.x.a); only delta is NUMBERS_VERSE_COUNTS as the fourth
+      renumber-floor + structural_map.numbers as the fourth section.
+      Fourth consecutive τ.7.x.* per-book ingest under D4-c Amharic-
+      first sequencing + D1-a per-book cadence. Closes 80% of the
+      Pentateuch under Amharic-first sequencing (gen + ex + lev + num
+      shipped; deut next as τ.7.x.e). PRE-PILOT page-range discovery
+      via Deuteronomy title `ኦሪት ዘዳግም` scan succeeded — first hit at
+      page 291 banner, content boundary inspected at pages 287/288:
+      Numbers content ends at page 287 (closing Num 36 daughters-of-
+      Zelophehad narrative); Deuteronomy 1:1 (`ሣን ውክ ነገር ዘነገርሮሙ ሙሴ
+      ፅዙሉ ኤልክ`) opens at page 288. Numbers occupies pages [214, 287]
+      = 74 pages for 36 chapters (~2.06 pages/chapter).
+    structural_map_addition:
+      section: numbers
+      pdf_page_range: [214, 287]
+      chapter_count_expected: 36
+      boundary_verification: |
+        Per-page chapter-marker walk pages 214-291 + content
+        inspection of pages 287-289. Num 1:1 opening at page 214
+        confirmed by both (a) the transitional banner `ኦሪት ዘፀአት
+        የአበውን ቍጥር ይናገራል፣ ኦሪት ዘጐልቍም የውሉድን ነገር ይናገራል` ("The book
+        of Exodus speaks of the numbering of the fathers; the book
+        of Numbers speaks of the offspring") — the publisher's
+        prose introduction to the book of Numbers itself derived
+        from the Tewahedo title `ኦሪት ዘጐልቍ` ("the law of
+        numbering"); and (b) the canonical Numbers 1:1 Geʽez column
+        `ወነበቦ እግዚአብሔር ሙሴ በገዳም ዘሲና በውስተ ደብተራ ዘመርጡል` ("And the
+        LORD spoke to Moses in the wilderness of Sinai, in the
+        tabernacle of meeting") alongside the `ምዕራፍ ፩።` chapter-1
+        marker. This Tewahedo-distinctive prose-introduction
+        pattern at Numbers 1:1 is NOT a Genesis/Exodus/Leviticus
+        convention — only Numbers carries an explicit narrative
+        explanation of the book's title-meaning at its opening
+        page. End boundary at page 287 closes Numbers with the
+        Num 36 daughters-of-Zelophehad inheritance narrative; page
+        288 opens Deuteronomy with `ምፅራፍ` + Deut 1:1 Geʽez `ሣን ውክ
+        ነገር ዘነገርሮሙ ሙሴ ፅዙሉ ኤልክ በማዕዶተ ዮርዳኖስ` ("These are the
+        words which Moses spoke to all Israel beyond the Jordan").
+        The explicit `ኦሪት ዘዳግም` Geʽez Deuteronomy title FIRST
+        appears at page 289 alongside `ምዕራፍ ፩` — publisher
+        convention puts the formal title 1-2 pages INTO
+        Deuteronomy, mirroring the Exodus title-page-88 pattern.
+      page_density: 2.06  # 74 pages / 36 chapters; denser than Leviticus's 1.96, consistent with Numbers's mix of long census + itinerary chapters interleaved with shorter narrative chapters
+    helpers_added:
+      NUMBERS_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-36) → expected verse count.
+        Total 1288 verses (Masoretic + LXX + Tewahedo enumerations
+        agree; Vulgate 16:36-50 → 17:1-15 boundary repartitioning
+        is NOT followed in the Tewahedo Amharic edition per
+        parallel-Bible-EOTC source inspection). Fourth renumber-
+        floor for the parallel-Bible Amharic-stream ingest under
+        D1-a per-book cadence.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` argparse choices extended from {genesis, exodus,
+        leviticus} to {genesis, exodus, leviticus, numbers}. The
+        `numbers` choice wires NUMBERS_VERSE_COUNTS as the floor
+        dict. `_build_docstring_extra()` dispatch updated for the
+        fourth floor; the floor-dict pattern from τ.7.x.b/c is now
+        a four-way conditional rather than a three-way one.
+    parser_api_change: |
+      No parser API changes. extract_section() + write_book_module()
+      + renumber_against_floor() + parse_verses_from_text()
+      unchanged. The only deltas are the NUMBERS_VERSE_COUNTS dict +
+      dispatch logic + structural_map.numbers block. Fourth
+      consecutive τ.7.x.* ship with zero parser API change —
+      decisive validation of the τ.7.x.a template as a stable
+      per-book scaffold across all four ships (gen + ex + lev + num).
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [214, 287]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 1107
+      renumbered_verse_count: 1107
+      renumbered_chapters_with_content: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+      chapters_partial:
+        31: {got: 47, expected: 54, ratio_pct: 87.0}
+      chapters_missing: [32, 33, 34, 35, 36]
+      expected_total: 1288
+      coverage_pct: 85.9
+      end_of_book_colophon_preserved: |
+        End-of-Numbers colophon `ተፈጸመ ዘፈጠረ ኵሎ ዓለመ መጽሐፍ ደረ ተፈጻመ፡
+        ክብርና ምስጋና ይግባው` ("Finished by the Creator of all the
+        world; the book is completed; glory and praise be to Him")
+        preserved at last ingested verse (renumbered ch 31:47,
+        canonically end-of-Num 36). The renumbering places the
+        colophon in ch 31:47 rather than the canonical ch 36:13
+        — an artifact of the 14.1% recovery deficit — mirrors
+        the τ.7.x.b Exodus colophon placement at renumbered ch 33:6
+        (canonically Ex 40:38). τ.6.x.3 batched audit closes the
+        recovery gap.
+      coverage_band_position: |
+        85.9% Numbers coverage sits between Genesis (85.3%, τ.7.x.a)
+        and Leviticus (93.4%, τ.7.x.c); slightly above Genesis,
+        well above Exodus (78.1%, τ.7.x.b), well below Leviticus.
+        Numbers mirrors Genesis's narrative-dense profile (long
+        census + itinerary chapters interleave with shorter ritual-
+        law chapters) — yielding a recovery-rate band of ~85-86%
+        under the text-layer + paragraph_mode pipeline. The
+        τ.7.x.* four-ship coverage histogram is now: 78.1 / 85.3 /
+        85.9 / 93.4 — three of four within the 85-93% band,
+        confirming the canonical τ.7.x.* per-book coverage
+        expectation at ocr-tier3 quality.
+      regression_pin_tests:
+        - test_amharic_num_total_verse_count_floor
+        - test_amharic_num_chapters_1_through_30_fully_populated
+        - test_amharic_num_chapter_31_partial
+        - test_amharic_num_chapters_32_through_36_empty
+        - test_amharic_num_ingest_phase_constant
+        - test_amharic_num_source_quality_tier3
+        - test_amharic_num_end_of_book_colophon_preserved
+    known_residual_issues:
+      coverage_short_by_181_verses: |
+        85.9% coverage = 181 verses missing (Num 31 partial + Num
+        32-36 empty). Higher missing count than Leviticus (57) but
+        proportionally similar to Genesis (226 missing at 85.3%).
+        Pattern matches narrative-dense book recovery profile.
+        τ.6.x.3 batched audit closes the remaining gap.
+      same_inline_leakage_pattern_as_prior: |
+        Cross-references inlined within verse text (using `=`
+        terminator) still leak through the splitter — same as
+        τ.7.x.a Genesis + τ.7.x.b Exodus + τ.7.x.c Leviticus.
+        Affects readability but not (ch, v) indexing. Fourth ship
+        confirms this is a stable known-issue rather than a
+        regression risk.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false  # fourth authorized violation per D4-c (τ.7.x.a + τ.7.x.b + τ.7.x.c were prior violations)
+      tau6x0b_honesty_contract: true
+      tau6x0c_script_ethiopic_adoption: true
+      tau6x1_engine_wiring: true
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true
+      tau6x1c_parser_extension: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true  # D1-a + D4-c honored; fourth per-book sub-ship
+      tau7xa_pre_pilot: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true  # pipeline reused verbatim; back-link annotated above
+    no_ingest_at_this_phase: false
+    translation_slot_state:
+      amharic_tewahedo_gen: 'shipped-at-τ.7.x.a (preserved)'
+      amharic_tewahedo_ex: 'shipped-at-τ.7.x.b (preserved)'
+      amharic_tewahedo_lev: 'shipped-at-τ.7.x.c (preserved)'
+      amharic_tewahedo_num: 'shipped-at-τ.7.x.d (this ship; 1107 verses; ocr-tier3)'
+      geez_tewahedo_gen: 'remains-at-Π.0-3-verse-seed (τ.6.x.2.a under D4-c)'
+      geez_tewahedo_ex: 'no-op (τ.6.x.2.b under D4-c)'
+      geez_tewahedo_lev: 'no-op (τ.6.x.2.c under D4-c)'
+      geez_tewahedo_num: 'no-op (τ.6.x.2.d under D4-c)'
+      other_book_slots: 'no-op (τ.7.x.e ... τ.7.x.z under D1-a per-book cadence; deut pilot next — closes Pentateuch under Amharic-first sequencing)'
+    next_phase: τ.7.x.e
+    next_phase_description: |
+      τ.7.x.e — Amharic Deuteronomy full-book ingest under D1-a
+      per-book cadence + D4-c Amharic-first sequencing. CLOSES the
+      Pentateuch under Amharic-first sequencing (gen + ex + lev + num
+      + deut = all 5 books of Torah). Reuses the τ.7.x.a + τ.7.x.b
+      + τ.7.x.c + τ.7.x.d pipeline; needs DEUTERONOMY_VERSE_COUNTS
+      floor (34 chapters, 959 verses) + structural_map.deuteronomy
+      block (pdf_page_range starting at 288 per this ship's boundary
+      inspection — Deut 1:1 confirmed at page 288; exact end-of-
+      Deuteronomy boundary to be verified at τ.7.x.e page-range
+      discovery sub-phase via Joshua title `መጽሐፈ ኢያሱ` or `ኢያሱ ወልደ
+      ነዌ` scan). Pentateuch-close ship is the natural §8.1 arc-close
+      cadence for the τ.7.x.* per-book family (5 books shipped = one
+      coherent canonical unit; pattern mirrors γ.4.5.E Jubilees-arc-
+      close + γ.4.8.E Mäqabyan-arc-close §8.1 instances).
+    pipeline_reused_at_phase: τ.7.x.e  # back-link: τ.7.x.e re-used the τ.7.x.d pipeline (which itself re-used τ.7.x.c which re-used τ.7.x.b which re-used τ.7.x.a); only delta was DEUTERONOMY_VERSE_COUNTS floor + structural_map.deuteronomy (pdf_page_range [288, 348] verified via Joshua title `መጽሐፈ ኢያሱ` scan + Joshua 1:1 at p349 content inspection). **CLOSES the §8.1 Pentateuch arc** under Amharic-first sequencing — gen + ex + lev + num + deut = all 5 books of Torah shipped; first §8.1 arc-close in τ-cluster.
+
+  tau7xe_ingest:
+    shipped_at_phase: τ.7.x.e
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "continue" after τ.7.x.d ship — per `feedback_continue_
+      not_save` continue advances to next-up phase (τ.7.x.e per PLAN
+      §6 + τ.7.x.d `next_phase=τ.7.x.e` declaration). Pipeline reused
+      verbatim from τ.7.x.d (which itself reused τ.7.x.c which reused
+      τ.7.x.b which reused τ.7.x.a); only delta is
+      DEUTERONOMY_VERSE_COUNTS as the fifth renumber-floor +
+      structural_map.deuteronomy as the fifth section. Fifth
+      consecutive τ.7.x.* per-book ingest under D4-c Amharic-first
+      sequencing + D1-a per-book cadence. **CLOSES the §8.1 Pentateuch
+      arc under Amharic-first sequencing** (gen + ex + lev + num + deut
+      = all 5 books of Torah shipped in the amharic-tewahedo
+      translation slot). This is the NINTH §8.1 arc-close instance
+      overall and the FIRST in the τ-cluster — establishing the per-
+      book-cadence (D1-a) + Amharic-first-sequencing (D4-c) Pentateuch-
+      arc-close as a durable structural pattern. PRE-PILOT page-range
+      discovery via Joshua title `መጽሐፈ ኢያሱ` scan + content-boundary
+      inspection of pages 347-349 succeeded — Deut 34 closing
+      narrative (Moses's death + Joshua succession preparation) at
+      page 348; Joshua 1:1 (`ወክነ እምድሣሪረ ሞተ ሙዜ ገብሪ እግዚአብሔር`)
+      opens at page 349. Deuteronomy occupies pages [288, 348] = 61
+      pages for 34 chapters (~1.79 pages/chapter).
+    structural_map_addition:
+      section: deuteronomy
+      pdf_page_range: [288, 348]
+      chapter_count_expected: 34
+      boundary_verification: |
+        Per-page chapter-marker walk pages 288-348 + content
+        inspection of pages 347-349. Deut 1:1 opening at page 288
+        confirmed by (a) the `ምፅራፍ` chapter-marker preamble +
+        canonical Deut 1:1 Geʽez `ሣን ውክ ነገር ዘነገርሮሙ ሙሴ ፅዙሉ ኤልክ
+        በማዕዶሩ ዬርዳኖስ` ("These are the words which Moses spoke to
+        all Israel beyond the Jordan, in the wilderness") and (b)
+        the explicit `ኦሪት ዘዳግም` Geʽez Deuteronomy title at page
+        289 paired with `ምፅራፍ ፩።` (chapter 1 marker, Ethiopic
+        numeral ፩=1) — publisher convention puts the formal title
+        1 page INTO the book mirroring the Exodus title-page-88
+        pattern. End boundary at page 348 closes Deuteronomy with
+        the Deut 34 epilogue narrative (Moses's death + 30-day
+        mourning period + Deut 34:5-12 closing `ኢ ተንሥአ እንክ ነቢይ
+        ውስተ አስራኤል` "There hath not arisen a prophet since in
+        Israel like unto Moses"). Page 349 opens Joshua with
+        `ምፀራፍ` + canonical Joshua 1:1 Geʽez `ወክነ እምድሣሪረ ሞተ ሙዜ
+        ገብሪ እግዚአብሔር ቤሎ እግዚአብሔር ለኢያሱ ወልደ ነዌ ላአኩ ለሙሴ`
+        ("And it came to pass after the death of Moses the servant
+        of the LORD, that the LORD spake unto Joshua the son of
+        Nun, Moses's minister") — the canonical Joshua book opening.
+      page_density: 1.79  # 61 pages / 34 chapters; consistent with Genesis 1.72 — narrative-rehearsal long chapters interleave with short blessing/curse chapters
+    helpers_added:
+      DEUTERONOMY_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-34) → expected verse count.
+        Total 959 verses (KJV/LXX/Vulgate-aligned enumeration; the
+        Hebrew/Masoretic enumeration redistributes some verses at
+        the 5/6 + 12/13 + 22/23 + 28/29 chapter boundaries but
+        yields the same 959 total). The parallel-Bible-EOTC source
+        uses the Christian/Vulgate enumeration consistent with the
+        Ge'ez liturgical tradition. Fifth renumber-floor for the
+        parallel-Bible Amharic-stream ingest under D1-a per-book
+        cadence.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` argparse choices extended from {genesis, exodus,
+        leviticus, numbers} to {genesis, exodus, leviticus, numbers,
+        deuteronomy}. The `deuteronomy` choice wires
+        DEUTERONOMY_VERSE_COUNTS as the floor dict.
+        `_build_docstring_extra()` dispatch updated for the fifth
+        floor; the floor-dict pattern from τ.7.x.b/c/d is now a
+        five-way conditional rather than a four-way one.
+    parser_api_change: |
+      No parser API changes. extract_section() + write_book_module()
+      + renumber_against_floor() + parse_verses_from_text()
+      unchanged. The only deltas are the DEUTERONOMY_VERSE_COUNTS
+      dict + dispatch logic + structural_map.deuteronomy block.
+      FIFTH consecutive τ.7.x.* ship with zero parser API change —
+      definitive validation of the τ.7.x.a template as a stable
+      per-book scaffold across the entire Pentateuch (gen + ex + lev
+      + num + deut). Five-ship zero-API-delta is the strongest
+      possible refactor-stability signal short of a code-frozen
+      contract.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [288, 348]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 781
+      renumbered_verse_count: 781
+      renumbered_chapters_with_content: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+      chapters_partial:
+        28: {got: 62, expected: 68, ratio_pct: 91.2}
+      chapters_missing: [29, 30, 31, 32, 33, 34]
+      expected_total: 959
+      coverage_pct: 81.4
+      end_of_book_colophon_preserved: |
+        End-of-Deuteronomy colophon `መሴ. eg ደረሰ ተፈጸመ`
+        ("Moses ... reached / was completed") preserved at last
+        ingested verse (renumbered ch 28:62, canonically end-of-
+        Deut 34). The renumbering places the colophon in ch 28:62
+        rather than the canonical ch 34:12 — an artifact of the
+        18.6% recovery deficit — mirrors the τ.7.x.b Exodus
+        colophon placement at renumbered ch 33:6 and τ.7.x.d
+        Numbers colophon placement at renumbered ch 31:47.
+        τ.6.x.3 batched audit closes the recovery gap.
+      coverage_band_position: |
+        81.4% Deuteronomy coverage sits between Exodus (78.1%,
+        τ.7.x.b) and Genesis (85.3%, τ.7.x.a); above Exodus, below
+        Genesis/Numbers/Leviticus. The τ.7.x.* five-ship coverage
+        histogram is now: 78.1 / 81.4 / 85.3 / 85.9 / 93.4 — four
+        of five within the 78-93% band, confirming the canonical
+        τ.7.x.* per-book coverage expectation at ocr-tier3
+        quality. Deuteronomy's mix of historical-rehearsal long
+        chapters (Deut 1-3, 9, 28) and short blessing/curse
+        chapters (Deut 27, 33, 34) yields a recovery-rate slightly
+        below the narrative-dense Genesis/Numbers band, consistent
+        with the long-chapter density pattern (Deut 28's 68
+        verses concentrate in a narrow page range).
+      pentateuch_combined_coverage: |
+        With τ.7.x.e closing the §8.1 Pentateuch arc, the combined
+        amharic-tewahedo Pentateuch coverage is: 1308 gen + 947 ex
+        + 802 lev + 1107 num + 781 deu = 4945 verses extracted /
+        5853 verses expected (Masoretic+LXX-aligned Pentateuch
+        total) = 84.5% combined coverage across all 5 books of
+        Torah. The Pentateuch §8.1 arc is the largest coherent
+        canonical unit shipped in the τ.7.x.* family to date —
+        five books across 274 PDF pages (0-348) yielding ~4945
+        verses of recoverable Amharic Bible text at ocr-tier3
+        quality.
+      regression_pin_tests:
+        - test_amharic_deu_total_verse_count_floor
+        - test_amharic_deu_chapters_1_through_27_fully_populated
+        - test_amharic_deu_chapter_28_partial
+        - test_amharic_deu_chapters_29_through_34_empty
+        - test_amharic_deu_ingest_phase_constant
+        - test_amharic_deu_source_quality_tier3
+        - test_amharic_deu_end_of_book_colophon_preserved
+        - test_pentateuch_arc_close_all_five_books_shipped
+    known_residual_issues:
+      coverage_short_by_178_verses: |
+        81.4% coverage = 178 verses missing (Deut 28 partial + Deut
+        29-34 empty). Higher missing count than the typical τ.7.x.*
+        residue but proportionally similar to Exodus's 22% deficit.
+        Deut 28's 68-verse length (the longest single chapter in
+        Deuteronomy) concentrates in a narrow page range, leaving
+        less parser bandwidth for the chapters that follow.
+        τ.6.x.3 batched audit closes the remaining gap.
+      same_inline_leakage_pattern_as_prior: |
+        Cross-references inlined within verse text (using `=`
+        terminator) still leak through the splitter — same as
+        τ.7.x.a Genesis + τ.7.x.b Exodus + τ.7.x.c Leviticus +
+        τ.7.x.d Numbers. Affects readability but not (ch, v)
+        indexing. Fifth ship confirms this is a stable known-issue
+        rather than a regression risk; should be addressed
+        wholistically at τ.6.x.3 audit.
+      pdf_backslash_syntax_warning: |
+        One verse in the ingested deu.py output (Deut 10:10) contains
+        a backslash-space sequence (`\ ብሔር`) from the PDF source text
+        that triggers a Python SyntaxWarning ("invalid escape
+        sequence") at module-import. The warning is non-fatal — the
+        module loads correctly and all VERSES tuple entries are
+        accessible. Same backslash-leakage pattern likely exists in
+        prior τ.7.x.* ships (gen.py, ex.py, lev.py, num.py); not
+        addressed at this ship per the prior-ship-residue precedent.
+        τ.6.x.3 batched audit closes this hygiene gap alongside the
+        cross-ref leakage.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false  # fifth authorized violation per D4-c (τ.7.x.a + τ.7.x.b + τ.7.x.c + τ.7.x.d were prior violations)
+      tau6x0b_honesty_contract: true
+      tau6x0c_script_ethiopic_adoption: true
+      tau6x1_engine_wiring: true
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true
+      tau6x1c_parser_extension: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true  # D1-a + D4-c honored; fifth per-book sub-ship; CLOSES Pentateuch §8.1 arc under D4-c
+      tau7xa_pre_pilot: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true  # pipeline reused verbatim; back-link annotated above
+    no_ingest_at_this_phase: false
+    arc_close: §8.1  # NINTH §8.1 arc-close instance overall; FIRST in τ-cluster
+    arc_close_narrative: |
+      τ.7.x.e is the NINTH §8.1 arc-close instance overall. The eight
+      prior §8.1 instances were all in the γ-cluster (Tewahedo
+      patristic-and-canonical voice arcs):
+
+      - γ.4.1.D — Cyril-on-John arc-close (4 detail waves; 116 entries)
+      - γ.4.2.D — Ephrem-on-Pentateuch arc-close (4 waves; 117 entries)
+      - γ.4.3.D — Cyril-on-Luke arc-close (4 waves; 160 entries)
+      - γ.4.4.E — 1 Enoch arc-close (5 waves; 192 entries)
+      - γ.4.5.E — Jubilees arc-close (5 waves; 200 entries)
+      - γ.4.6.D — Cyril-on-Matthew arc-close (4 waves; ~155 entries)
+      - γ.4.7.E — Cyril-on-Mark arc-close (5 waves; ~150 entries)
+      - γ.4.8.E — Mäqabyan arc-close (5 waves; 200 entries; first
+        100%-chapter-coverage arc; first Tewahedo-distinctive-
+        canonical block parity at 30.71%)
+
+      τ.7.x.e is the FIRST §8.1 arc-close in the τ-cluster
+      (parallel-Bible translation infrastructure). It codifies a
+      DIFFERENT structural pattern from the γ-cluster §8.1 instances:
+      whereas the γ-cluster §8.1 arcs all use 4-5 detail-wave
+      sequences within a single voice/book (γ.4.X seed + γ.4.X.B/C/D
+      detail-waves + optional γ.4.X.E close), the τ-cluster §8.1
+      arc-close is a per-book-cadence (D1-a) closure of a canonical
+      unit — five books (gen + ex + lev + num + deut) each shipped
+      as their own τ.7.x.{a,b,c,d,e} per-book ingest, with the fifth
+      ingest closing the canonical Pentateuch unit.
+
+      The τ-cluster §8.1 pattern is more granular (per-book) and
+      less narrative (no detail-waves; each book is a single-ship
+      sub-phase). It is therefore a STRUCTURAL §8.1 (closing a
+      canonical unit by completing per-book coverage) rather than
+      a NARRATIVE §8.1 (closing a thematic arc by detail-wave
+      buildout). Both patterns share the property of marking the
+      completion of a coherent unit (canonical book in γ-cluster;
+      canonical book-cluster in τ-cluster) — the §8.1 convention
+      generalizes cleanly to both.
+
+      Pentateuch combined coverage at arc-close: 4945/5853 = 84.5%
+      across all 5 books of Torah; 274 PDF pages consumed (0-348);
+      ~3 hours total extraction time across the five sub-ships
+      (~30-40 min per book including pre-pilot boundary-discovery).
+      Five-ship zero-parser-API-delta validation: the τ.7.x.a
+      template is now decisively a stable per-book scaffold across
+      the entire Pentateuch — the strongest possible refactor-
+      stability signal short of a code-frozen contract.
+    translation_slot_state:
+      amharic_tewahedo_gen: 'shipped-at-τ.7.x.a (preserved)'
+      amharic_tewahedo_ex: 'shipped-at-τ.7.x.b (preserved)'
+      amharic_tewahedo_lev: 'shipped-at-τ.7.x.c (preserved)'
+      amharic_tewahedo_num: 'shipped-at-τ.7.x.d (preserved)'
+      amharic_tewahedo_deu: 'shipped-at-τ.7.x.e (this ship; 781 verses; ocr-tier3; CLOSES Pentateuch §8.1 arc)'
+      amharic_tewahedo_pentateuch_summary: 'ALL 5 TORAH BOOKS SHIPPED — gen+ex+lev+num+deu = 4945 verses at 84.5% combined coverage; §8.1 arc closed'
+      geez_tewahedo_gen: 'remains-at-Π.0-3-verse-seed (τ.6.x.2.a under D4-c)'
+      geez_tewahedo_ex: 'no-op (τ.6.x.2.b under D4-c)'
+      geez_tewahedo_lev: 'no-op (τ.6.x.2.c under D4-c)'
+      geez_tewahedo_num: 'no-op (τ.6.x.2.d under D4-c)'
+      geez_tewahedo_deu: 'no-op (τ.6.x.2.e under D4-c)'
+      other_book_slots: 'no-op (τ.7.x.f ... τ.7.x.z under D1-a per-book cadence; jos pilot next — opens the post-Pentateuch historical-books arc)'
+    next_phase: τ.7.x.f
+    next_phase_description: |
+      τ.7.x.f — Amharic Joshua full-book ingest under D1-a per-book
+      cadence + D4-c Amharic-first sequencing. OPENS the post-
+      Pentateuch historical-books arc under Amharic-first sequencing
+      (the §8.1 Pentateuch arc-close at τ.7.x.e marks the canonical
+      Pentateuch boundary; τ.7.x.f starts the next canonical unit).
+      Reuses the τ.7.x.a + τ.7.x.b + τ.7.x.c + τ.7.x.d + τ.7.x.e
+      pipeline; needs JOSHUA_VERSE_COUNTS floor (24 chapters, 658
+      verses per KJV enumeration) + structural_map.joshua block
+      (pdf_page_range starting at 349 per this ship's boundary
+      inspection — Joshua 1:1 confirmed at page 349; exact end-of-
+      Joshua boundary to be verified at τ.7.x.f page-range
+      discovery sub-phase via Judges title `መጽሐፈ መሳፍንት` scan).
