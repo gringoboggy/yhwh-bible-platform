@@ -269,12 +269,16 @@ class TestTau6x0aTranslationSlotsClean:
             f"Got files: {files}"
         )
 
-    def test_amharic_tewahedo_remains_at_seed_state(self):
+    def test_amharic_tewahedo_contains_gen_py(self):
+        """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
+        `feedback_share_pin_pattern`. τ.6.x.0a's original invariant
+        (`files == ['gen.py']`) was the Π.0 seed state; τ.7.x.a + τ.7.x.b
+        broke this exact assertion. Durable invariant: gen.py is present."""
         slot = REPO / "content" / "translations" / "amharic-tewahedo"
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
-        assert files == ["gen.py"], (
-            f"τ.6.x.0a contract: amharic-tewahedo must remain at Π.0 seed "
-            f"(gen.py only) until τ.6.x.0b addresses OCR-quality. "
+        assert "gen.py" in files, (
+            f"τ.6.x.0a contract relaxed at τ.7.x.b: amharic-tewahedo "
+            f"must contain gen.py (Π.0 seed or its τ.7.x.a successor). "
             f"Got files: {files}"
         )
 

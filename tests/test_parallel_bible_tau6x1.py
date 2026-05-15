@@ -826,11 +826,15 @@ class TestTau6X1ClosedArcInvariantPreservation:
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
         assert files == ["gen.py"], f"τ.6.x.1 wiring is no-ingest: geez-tewahedo must remain at Π.0 seed; got {files}"
 
-    def test_amharic_tewahedo_still_gen_only(self):
+    def test_amharic_tewahedo_contains_gen_py(self):
+        """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
+        `feedback_share_pin_pattern`. τ.6.x.1's original invariant
+        (`files == ['gen.py']`) was the Π.0 seed state; τ.7.x.a + τ.7.x.b
+        broke this exact assertion. Durable invariant: gen.py is present."""
         slot = REPO / "content" / "translations" / "amharic-tewahedo"
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
-        assert files == ["gen.py"], (
-            f"τ.6.x.1 wiring is no-ingest: amharic-tewahedo must remain at Π.0 seed; got {files}"
+        assert "gen.py" in files, (
+            f"τ.6.x.1 contract relaxed at τ.7.x.b: amharic-tewahedo must contain gen.py; got {files}"
         )
 
     def test_tau6x0b_option_d_authorization_intact(self):

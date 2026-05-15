@@ -1,6 +1,151 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.a AMHARIC GENESIS FULL-BOOK INGEST ship —
+**Updated 2026-05-15 / τ.7.x.b AMHARIC EXODUS FULL-BOOK INGEST ship —
+the SECOND τ.7.x.* per-book ingest under D4-c Amharic-first sequencing
++ D1-a per-book cadence per the τ.6.x.2.D D-decisions matrix. Adds
+`content/translations/amharic-tewahedo/ex.py` with 947 verses at 78.1%
+coverage (vs Genesis 85.3%; lower because Ex 25-40 has dense
+tabernacle-specification chapters with denser cross-reference
+interleaving). Re-uses the τ.7.x.a pipeline verbatim — only deltas
+are `EXODUS_VERSE_COUNTS` floor dict + `structural_map.exodus`
+page-range. **This ship validates the τ.7.x.a pipeline as the
+canonical τ.7.x.* per-book template** for subsequent τ.7.x.c →
+τ.7.x.z books.
+
+**Empirical results (text-layer engine, pymupdf get_text(), 75 pages
+86-160 in ~500ms):**
+
+| Metric | Pre-τ.7.x.b (no ex.py) | τ.7.x.b this ship |
+|---|---:|---:|
+| amharic-tewahedo/ex.py verse count | (file did not exist) | **947** |
+| Exodus chapters fully populated | (n/a) | **{1..32}** (32 of 40) |
+| Chapter 33 | (n/a) | **partial 6/23** |
+| Chapters 34-40 | (n/a) | empty — τ.6.x.3 audit-handoff |
+| Total coverage vs 1213-floor | 0% | **78.1%** |
+| amharic-tewahedo total ingest | 1308 (gen only) | **2255 (gen + ex)** |
+| Books in amharic-tewahedo | 1 | **2** |
+
+End-of-Exodus colophon preserved at last ingested verse (renumbered
+ch 33:6, canonically Ex 40:38): "የአስራኤልን መውጣት የሚናገር መጽሐፍ
+ተፈጸመ ለአግዚአብሔር ክብርና ምስጋና ለዘለንለሙ" ("The book speaking of
+Israel's Exodus is completed — for God's glory and praise forever").
+
+The Geʽez column was extracted (643 verses) but NOT written —
+`--lang amharic` preserves both `geez-tewahedo/gen.py` Π.0 seed (per
+τ.7.x.a precedent) and avoids creating `geez-tewahedo/ex.py` pending
+τ.6.x.2.b under D4-c sequencing.
+
+**τ.7.x.b deliverables shipped:**
+
+1. **`scripts/extract_parallel_pdf.py` EXODUS_VERSE_COUNTS dict
+   added.** 40 chapters / 1213 verses (Masoretic + LXX + Vulgate
+   agreement). Module-level constant alongside GENESIS_VERSE_COUNTS;
+   intentionally NOT a function — pure data + version-controlled.
+
+2. **CLI `--renumber` extended.** `argparse` choices `{genesis}` →
+   `{genesis, exodus}`. `_build_docstring_extra()` dispatch updated
+   to handle both floor dicts (was previously hardcoded to
+   GENESIS_VERSE_COUNTS). No other parser changes — the τ.7.x.a
+   pipeline is reused verbatim.
+
+3. **`content/translations/sources/parallel-bible-eotc/_source.yaml`
+   structural_map.exodus block added.** book_codes=[ex] + pdf_page_
+   range=[86, 160] + chapter_count_expected=40 + boundary
+   verification notes documenting the Ex 40 → Lev 1 content-boundary
+   inspection (page 160 closes Exodus with cloud-of-glory narrative;
+   page 161 opens Leviticus with "God called Moses out of the
+   tabernacle").
+
+4. **`content/translations/amharic-tewahedo/ex.py` created.**
+   947-verse ingest at ocr-tier3 quality. NEW module constants
+   matching the τ.7.x.a precedent: TRANSLATION='amharic-tewahedo',
+   BOOK='ex', SOURCE_QUALITY='ocr-tier3', SOURCE_PROVENANCE='parallel
+   -bible-eotc', EXTRACTION_DATE='2026-05-15', INGEST_PHASE='τ.7.x.b'.
+   Docstring carries per-chapter coverage summary inline.
+
+5. **`content/translations/amharic-tewahedo/_meta.yaml` updated.**
+   stats.books 1 → 2; stats.verses 1308 → 2255 (combined). NEW
+   `ingest_record_tau7xb` block records phase, ingested_date,
+   ingested_book_codes, source_pdf, source_pdf_pages, engine,
+   parser_mode, parser_extensions chain (τ.6.x.1.B + τ.6.x.1.C +
+   τ.6.x.1.D + τ.7.x.a + τ.7.x.b), quality_tier, coverage breakdown,
+   audit_handoff=τ.6.x.3, next_book=lev. The τ.7.x.a `ingest_record`
+   block is preserved unchanged.
+
+6. **`_source.yaml::ocr_strategy.tau7xb_ingest` block added.**
+   Records shipped_at_phase + shipped_date + triggered_by +
+   structural_map_addition (section + pdf_page_range +
+   boundary_verification + page_density) + helpers_added
+   (EXODUS_VERSE_COUNTS) + cli_extensions (renumber_choice_extended)
+   + parser_api_change ("no parser API changes" — the intended
+   τ.7.x.* template) + empirical_validation (coverage + per-chapter
+   breakdown + end-of-Exodus-colophon-preserved) + known_residual_
+   issues (2 inventories) + closed_arc_contracts_preserved 11-key
+   (tau6x0a_no_ingest=false second authorized violation;
+   tau7xa_ingest=true preserved + back-link annotation reciprocal) +
+   next_phase=τ.7.x.c.
+
+7. **Reciprocal back-link annotation:** `tau7xa_ingest.pipeline_
+   reused_at_phase: τ.7.x.b` added to the τ.7.x.a block. This is
+   the **6th instance** of the single-key back-link annotation
+   pattern, this time signaling pipeline-template-reuse rather than
+   residual-resolution.
+
+8. **NEW test classes in `tests/test_parallel_bible_tau7xb.py`:**
+   TestTau7XBExodusVerseCounts (4) + TestTau7XBStructuralMapExodus
+   (8) + TestTau7XBExodusGenPy (8) + TestTau7XBExodusCoverage (5) +
+   TestTau7XBSourceYamlIngestBlock (12) + TestTau7XBMetaYamlIngest
+   Record (7) + TestTau7XBGeezTewahedoPreserved (2) +
+   TestTau7XBStateDocs (4) = **+50 pin tests across 8 classes**.
+
+9. **`dev/SESSION_STATE.md`** — this headline update.
+
+10. **`dev/IN_FLIGHT.md`** — prior-task block for τ.7.x.b prepended;
+    τ.7.x.a demoted to prior-task-previous.
+
+11. **`dev/CHANGELOG.md`** — 2026-05-15 τ.7.x.b entry prepended.
+
+12. **`dev/PLAN_2026-05-09.md` §6 ledger.** τ.7.x.b migrated
+    pending → shipped; τ.7.x.c (Amharic Leviticus) added pending.
+
+13. **`tests/test_omega4x_hygiene.py` share/milestone-pin migration.**
+    τ.7.x.b added to shipped-phase list; τ.7.x.c → pending.
+
+**Test count: ~4795 → ~4845 (+50 new pins). Linter expected clean.**
+
+**What did NOT change at τ.7.x.b:**
+- No parser code mutation — only data (EXODUS_VERSE_COUNTS) +
+  dispatch wiring extension.
+- `parse_verses_from_text()` + `extract_section()` + `write_book_
+  module()` + `renumber_against_floor()` public APIs unchanged.
+- Default mode (Tewahedo-distinctive sections) unchanged.
+- `content/translations/amharic-tewahedo/gen.py` unchanged (τ.7.x.a
+  ingest preserved verbatim).
+- `content/translations/geez-tewahedo/` unchanged (neither gen.py
+  nor ex.py modified; Π.0 seed preserved for gen; no ex.py created
+  pending τ.6.x.2.b under D4-c).
+- `content/{canons,editions,books}.yaml` unchanged.
+- `content/notes/*.py` unchanged.
+- EPUB build outputs (`exports/`) untouched.
+
+**Phase tag:** τ.7.x.b. Amharic Exodus full-book ingest at
+ocr-tier3.
+**Next phase:** **τ.7.x.c** — Amharic Leviticus full-book ingest
+under D1-a per-book cadence + D4-c Amharic-first sequencing.
+Re-uses τ.7.x.a + τ.7.x.b pipeline; needs `LEVITICUS_VERSE_COUNTS`
+floor (27 chapters, 859 verses) + `structural_map.leviticus` block
+(pdf_page_range likely [161, ~210] per τ.7.x.b boundary inspection
+— Lev 1:1 confirmed at page 161; exact end-of-Leviticus boundary
+verified at τ.7.x.c page-range discovery sub-phase).
+
+shipped 2026-05-15. Triggered by user "save and continue" after
+τ.7.x.a — per `feedback_continue_not_save` continue advances to the
+next-up phase (τ.7.x.b per PLAN §6 + τ.7.x.a `next_phase=τ.7.x.b`
+declaration).
+
+## Prior task
+
+**τ.7.x.a AMHARIC GENESIS FULL-BOOK INGEST ship —
 the FIRST τ.7.x.* ship under D4-c Amharic-first sequencing per the
 τ.6.x.2.D D-decisions matrix. Upgrades `content/translations/amharic-
 tewahedo/gen.py` from Π.0 3-verse seed → 1308-verse full-book ingest

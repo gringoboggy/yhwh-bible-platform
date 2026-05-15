@@ -387,7 +387,12 @@ class TestPhi1ClosedArcInvariantPreservation:
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
         assert files == ["gen.py"], f"φ.1: geez-tewahedo must remain at τ.6 seed (gen.py only); got {files}"
 
-    def test_amharic_tewahedo_still_gen_only(self):
+    def test_amharic_tewahedo_contains_gen_py(self):
+        """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
+        `feedback_share_pin_pattern`. φ.1's original invariant
+        (`files == ['gen.py']`) was the Π.0 seed state; τ.7.x.a + τ.7.x.b
+        broke this exact assertion by expanding gen.py + adding ex.py.
+        Durable invariant: gen.py is present in the amharic slot."""
         slot = REPO / "content" / "translations" / "amharic-tewahedo"
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
-        assert files == ["gen.py"], f"φ.1: amharic-tewahedo must remain at Π.0 seed (gen.py only); got {files}"
+        assert "gen.py" in files, f"φ.1: amharic-tewahedo must contain gen.py; got {files}"

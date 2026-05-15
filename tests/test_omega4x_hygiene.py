@@ -214,7 +214,17 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             τ.6.x.1.D `chapter_marker_keyword_garbled_past_
             recognition` residual via the pre-committed writer-side
             renumbering path; 5th instance of single-key back-link
-            annotation pattern tau6x1d→τ.7.x.a)"""
+            annotation pattern tau6x1d→τ.7.x.a)
+          - τ.7.x.b migrated pending → shipped at τ.7.x.b ship-time
+            (2026-05-15; the SECOND τ.7.x.* per-book ship; creates
+            amharic-tewahedo/ex.py with 947 verses at 78.1%
+            coverage; re-uses τ.7.x.a pipeline verbatim with only
+            EXODUS_VERSE_COUNTS + structural_map.exodus as deltas;
+            confirms the τ.7.x.a pipeline as the canonical τ.7.x.*
+            per-book template; 6th instance of single-key back-link
+            annotation pattern tau7xa_ingest→τ.7.x.b — FIRST
+            signaling pipeline-template-reuse rather than residual-
+            resolution)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -233,6 +243,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.6.x.2.D",
             "τ.7.x.a.0",
             "τ.7.x.a",
+            "τ.7.x.b",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -270,9 +281,16 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             handles the writer-side concern)
           - τ.7.x.b added pending at τ.7.x.a ship-time (2026-05-15;
             Amharic Exodus full-book ingest under D1-a + D4-c;
-            re-uses τ.7.x.a pipeline with EXODUS_VERSE_COUNTS floor)"""
+            re-uses τ.7.x.a pipeline with EXODUS_VERSE_COUNTS floor);
+            migrated pending → shipped at τ.7.x.b ship-time (2026-05-15)
+          - τ.7.x.c added pending at τ.7.x.b ship-time (2026-05-15;
+            Amharic Leviticus full-book ingest; 27 chapters, 859
+            verses; re-uses τ.7.x.a + τ.7.x.b pipeline with
+            LEVITICUS_VERSE_COUNTS floor + structural_map.leviticus
+            block; Lev 1:1 boundary confirmed at page 161 per
+            τ.7.x.b boundary inspection)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.b", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.c", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

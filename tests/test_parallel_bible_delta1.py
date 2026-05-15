@@ -455,10 +455,14 @@ class TestDelta10ClosedArcInvariantPreservation:
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
         assert files == ["gen.py"]
 
-    def test_amharic_tewahedo_still_gen_only(self):
+    def test_amharic_tewahedo_contains_gen_py(self):
+        """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
+        `feedback_share_pin_pattern` — originally `files == ['gen.py']`;
+        τ.7.x.a expanded gen.py and τ.7.x.b added ex.py. Durable
+        invariant: gen.py is present (Π.0 seed or its successor)."""
         slot = REPO / "content" / "translations" / "amharic-tewahedo"
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
-        assert files == ["gen.py"]
+        assert "gen.py" in files
 
     def test_no_meqabyan_notes_modified_at_seed(self):
         """δ.1.0 honesty contract: divergence apparatus is a SEPARATE

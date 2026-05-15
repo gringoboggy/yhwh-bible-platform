@@ -392,14 +392,17 @@ class TestTau6X2DClosedArcInvariantPreservation:
             f"τ.6.x.0a contract preservation: geez-tewahedo/*.py must be only ['gen.py'] at τ.6.x.2.D; got {py_files}"
         )
 
-    def test_amharic_tewahedo_only_seed_gen_py(self):
-        """`amharic-tewahedo/` likewise contains only `gen.py` at
-        the Π.0 seed state. D4-c next-phase is τ.7.x.a which will
-        upgrade this from 3-verse seed to full-book ingest — at
-        τ.6.x.2.D it must STILL be the seed."""
+    def test_amharic_tewahedo_contains_gen_py(self):
+        """Refactored from share-pin to milestone-pin at τ.7.x.b
+        ship-time per `feedback_share_pin_pattern` — originally
+        asserted `py_files == ['gen.py']` at the τ.6.x.2.D ship-time
+        Π.0-seed state. The τ.7.x.a ship upgraded gen.py to full
+        ingest; τ.7.x.b added ex.py; τ.7.x.c-z will add more.
+        The durable assertion is now: gen.py is present (Π.0 seed
+        or its successor τ.7.x.a ingest preserved at later ships)."""
         py_files = sorted(p.name for p in AMHARIC_TEWAHEDO.glob("*.py"))
-        assert py_files == ["gen.py"], (
-            f"τ.6.x.0a contract preservation: amharic-tewahedo/*.py must be only ['gen.py'] at τ.6.x.2.D; got {py_files}"
+        assert "gen.py" in py_files, (
+            f"amharic-tewahedo must contain gen.py (Π.0 seed or its τ.7.x.a successor); got {py_files}"
         )
 
     def test_no_ingest_at_this_phase(self):

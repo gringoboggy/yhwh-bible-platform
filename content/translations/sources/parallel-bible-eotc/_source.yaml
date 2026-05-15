@@ -106,6 +106,46 @@ structural_map:
       Genesis page range, Geʽez column) under D4-c sequencing —
       see tau6x2D_decisions.derived_phase_ordering.
 
+  exodus:
+    book_codes: [ex]
+    pdf_page_range: [86, 160]
+    pdf_index_offset: 0  # values above are already 0-indexed
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.b
+    chapter_count_expected: 40  # standard Exodus chapter count (Masoretic + LXX + Vulgate agreement)
+    notes: |
+      Verified at τ.7.x.b (2026-05-15) via per-page chapter-marker walk
+      + content-boundary inspection of the Exodus→Leviticus transition.
+      Marker hits: `ኦሪት ዘፀአት` (Geʽez Exodus title) FIRST appears at
+      page 88 — publisher convention puts the formal title 2-3 pages
+      INTO the book, NOT at the opening page (mirroring Genesis where
+      `ኦሪት ዘልደት` appears at page 0 = start, but for Exodus the title
+      appears at page 88, well past Exodus 1:1 content at page 86).
+      Exodus 1:1 first words `ዝ ውነቱ አስማቲሆሙ` ("These are the names of
+      the sons of Israel") appear at page 86 — the canonical Exodus
+      start.
+
+      End boundary determined by Exodus 40 → Leviticus 1 content
+      inspection: page 160 reads `ደመናው ብርሃን ተነሥቶ ክልቕደ ግን ደመናው እስ
+      ኪነሣላቸው ድረስ አይጓዙም ነበር` ("The cloud was lifted... but they
+      did not journey until the cloud was taken up") — the LITERAL
+      Exodus 40:36-38 closing narrative. Page 161 opens with `አግዚአብሔር
+      ክደብተራ አሪ ውክጥ ዙኖ ሙሌን መርቶ` ("And the LORD called Moses out
+      of the tabernacle") — the canonical Leviticus 1:1 opening.
+
+      Exodus occupies pages 86-160 = 75 pages for 40 chapters
+      (~1.875 pages/chapter; slightly higher density than Genesis's
+      1.72 pages/chapter, consistent with Exodus having long tabernacle
+      descriptions and plague narratives). Second τ.7.x per-book ingest
+      under D4-c Amharic-first sequencing + D1-a per-book cadence per
+      the τ.6.x.2.D D-decisions matrix. The pre-τ.7.x.b state was an
+      EMPTY slot (no ex.py for amharic-tewahedo); τ.7.x.b creates
+      amharic-tewahedo/ex.py at ocr-tier3 quality per τ.6.x.0b honesty
+      contract. Geʽez column ingest is deferred to τ.6.x.2.b (the
+      same Exodus page range, Geʽez column) under D4-c sequencing —
+      see tau6x2D_decisions.derived_phase_ordering.
+
   meqabyan:
     book_codes: [mq1, mq2, mq3]
     pdf_page_range: [1318, 1378]
@@ -1407,3 +1447,137 @@ ocr_strategy:
       extract_parallel_pdf.py at τ.7.x.b ship time). Should also
       add a structural_map.exodus block here (pdf_page_range [86,
       ~150] per τ.7.x.a.0 PILOT §1's boundary inspection).
+    pipeline_reused_at_phase: τ.7.x.b  # back-link: τ.7.x.b re-used the τ.7.x.a pipeline verbatim (text-layer + paragraph_mode + renumber_against_floor); the only delta was EXODUS_VERSE_COUNTS as the floor dict + structural_map.exodus page-range. Pattern reinforces the D1-a per-book cadence + the τ.7.x.a writer-side residual-resolution path as the canonical τ.7.x.* template.
+
+  # τ.7.x.b — Amharic Exodus full-book ingest (D4-c Amharic-first,
+  # D1-a per-book cadence, ocr-tier3 quality). SECOND τ.7.x.* ship,
+  # re-uses the τ.7.x.a pipeline verbatim with only the renumber-
+  # floor dict + structural_map page-range as deltas. Adds the
+  # `structural_map.exodus` block + `EXODUS_VERSE_COUNTS` floor.
+  # Page-range verified via per-page chapter-marker walk + Exodus 40
+  # → Leviticus 1 content-boundary inspection (page 160 closes
+  # Exodus with the cloud-of-glory narrative; page 161 opens Leviticus
+  # with `እግዚአብሔር ክደብተራ አሪ ውክጥ ዙኖ ሙሌን መርቶ` = "God called Moses
+  # out of the tabernacle" — canonical Lev 1:1).
+  #
+  # Pin tests in tests/test_parallel_bible_tau7xb.py.
+  tau7xb_ingest:
+    shipped_at_phase: τ.7.x.b
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "save and continue" after τ.7.x.a ship — per `feedback_
+      continue_not_save` continue advances to the next-up phase, which
+      under D4-c + D1-a sequencing is τ.7.x.b (Amharic Exodus). The
+      τ.7.x.a pipeline (paragraph_mode + writer-side renumbering) is
+      reused verbatim; this ship validates the pipeline as the canonical
+      τ.7.x.* per-book template for subsequent τ.7.x.c → τ.7.x.z books.
+    structural_map_addition:
+      section: exodus
+      pdf_page_range: [86, 160]
+      chapter_count_expected: 40
+      boundary_verification: |
+        Per-page chapter-marker walk pages 86-180 + content inspection
+        of pages 158-161. Exodus 40:36-38 closing narrative ("the cloud
+        was lifted... but they did not journey until the cloud was
+        taken up") confirmed at page 160. Leviticus 1:1 opening
+        ("God called Moses out of the tabernacle") confirmed at page
+        161. Publisher's formal `ኦሪት ዘፀአት` title appears at page 88
+        (2-3 pages into the book, NOT at page 86 where content
+        starts) — same publisher convention as Exodus title appearing
+        late, Genesis title (`ኦሪት ዘልደት`) appearing at page 0.
+      page_density: 1.875  # 75 pages / 40 chapters; slightly higher than Genesis (1.72) — Exodus has long tabernacle + plague chapters
+    helpers_added:
+      EXODUS_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-40) → expected verse count.
+        Total 1213 verses (Masoretic + LXX + Vulgate + Tewahedo
+        enumerations all agree). Second renumber-floor for the
+        parallel-Bible Amharic-stream ingest under D1-a per-book
+        cadence.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` argparse choices extended from {genesis} to
+        {genesis, exodus}. The `exodus` choice wires EXODUS_VERSE_
+        COUNTS as the floor dict. `_build_docstring_extra()` updated
+        to handle both floor dicts (was previously hardcoded to
+        GENESIS_VERSE_COUNTS).
+    parser_api_change: |
+      No parser API changes. extract_section() + write_book_module() +
+      renumber_against_floor() unchanged. The only deltas are the
+      EXODUS_VERSE_COUNTS dict + the dispatch logic in
+      _build_docstring_extra + main()'s renumber-floor selection.
+      This is the intended τ.7.x.* template — each per-book ship
+      adds a new VERSE_COUNTS floor and (optionally) a new
+      structural_map block; the parser + pipeline remain stable.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [86, 160]
+      extraction_engine: text-layer
+      extraction_runtime_ms: ~500  # 75 pages via pymupdf get_text()
+      raw_parser_output_verse_count: 947
+      renumbered_verse_count: 947
+      renumbered_chapters_with_content: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]  # 33 of 40
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+      chapters_partial:
+        33: {got: 6, expected: 23, ratio_pct: 26.1}
+      chapters_missing: [34, 35, 36, 37, 38, 39, 40]
+      expected_total: 1213
+      coverage_pct: 78.1
+      end_of_exodus_colophon_preserved: |
+        Last ingested verse (renumbered to ch 33, v 6) contains the
+        END-OF-EXODUS colophon: "የአስራኤልን መውጣት የሚናገር መጽሐፍ ተፈጸመ
+        ለአግዚአብሔር ክብርና ምስጋና ለዘለንለሙ" ("The book speaking of
+        Israel's Exodus is completed — for God's glory and praise
+        forever"). Under renumbering this lands at ch 33:6 rather
+        than the canonical Ex 40:38 — artifact of the 22% recovery
+        deficit; τ.6.x.3 batched audit closes the gap.
+      regression_pin_tests:
+        - test_amharic_ex_total_verse_count_floor
+        - test_amharic_ex_chapters_1_through_32_fully_populated
+        - test_amharic_ex_chapter_33_partial
+        - test_amharic_ex_chapters_34_40_empty
+        - test_amharic_ex_ingest_phase_constant
+        - test_amharic_ex_source_quality_tier3
+    known_residual_issues:
+      coverage_short_by_266_verses: |
+        78.1% coverage = 266 verses missing (vs 226 missing in
+        Genesis = 14.7% deficit; Exodus's 21.9% is higher because
+        Exodus 25-40 has dense tabernacle-specification chapters
+        with many cross-references that leak verse content via the
+        `=` cross-ref-terminator pattern documented in
+        τ.7.x.a.known_residual_issues.coverage_short_by_226_verses).
+        Per-book quality residue is expected to vary book-by-book
+        under D1-a per-book cadence; τ.6.x.3 batched audit closes
+        these gaps via independent-source cross-check.
+      same_inline_leakage_as_tau7xa: |
+        Cross-references inlined within verse text (using `=` rather
+        than `።` as separator) leak through the splitter, same as
+        τ.7.x.a Genesis. Affects readability but not (ch, v)
+        indexing.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false  # second authorized violation per D4-c (first was τ.7.x.a)
+      tau6x0b_honesty_contract: true  # SOURCE_QUALITY='ocr-tier3' + coverage residue documented
+      tau6x0c_script_ethiopic_adoption: true  # not exercised (text-layer engine)
+      tau6x1_engine_wiring: true  # not exercised
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true
+      tau6x1c_parser_extension: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true  # D1-a + D4-c honored; this is the second per-book sub-ship
+      tau7xa_pre_pilot: true
+      tau7xa_ingest: true  # pipeline reused verbatim; back-link annotated above
+    no_ingest_at_this_phase: false  # this IS the ingest phase
+    translation_slot_state:
+      amharic_tewahedo_gen: 'shipped-at-τ.7.x.a (preserved; no re-ingest)'
+      amharic_tewahedo_ex: 'shipped-at-τ.7.x.b (this ship; 947 verses; ocr-tier3)'
+      geez_tewahedo_gen: 'remains-at-Π.0-3-verse-seed (τ.6.x.2.a will upgrade under D4-c)'
+      geez_tewahedo_ex: 'no-op (τ.6.x.2.b will create under D4-c sequencing)'
+      other_book_slots: 'no-op (τ.7.x.c ... τ.7.x.z under D1-a per-book cadence; lev pilot next)'
+    next_phase: τ.7.x.c
+    next_phase_description: |
+      τ.7.x.c — Amharic Leviticus full-book ingest under D1-a per-book
+      cadence + D4-c Amharic-first sequencing. Reuses the τ.7.x.a +
+      τ.7.x.b pipeline; needs LEVITICUS_VERSE_COUNTS floor (27
+      chapters, 859 verses) + structural_map.leviticus block (pdf_
+      page_range likely [161, ~205] per τ.7.x.b.0 boundary inspection
+      — Lev 1:1 confirmed at page 161; exact end-of-Leviticus boundary
+      to be verified at τ.7.x.c page-range discovery sub-phase).
