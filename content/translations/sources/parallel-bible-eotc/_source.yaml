@@ -998,3 +998,121 @@ ocr_strategy:
       with TestTau6X1CParagraphMode class. After τ.6.x.1.C ships,
       τ.7.x.a (proper) opens for the actual Amharic Genesis full-book
       ingest.
+    finding_resolved_at_phase: τ.6.x.1.C  # back-link annotation per A-I3 single-key pattern (now 3 instances: tau6x1a → tau6x1b, tau6x1b → tau6x2D, tau7xa_pre_pilot → tau6x1c)
+
+  # τ.6.x.1.C — Paragraph-mode parser extension shipped 2026-05-15.
+  # Resolves the τ.7.x.a.0 PILOT empirical finding
+  # `paragraph_mode_parser_extension_needed`. Adds `paragraph_mode=
+  # True` kwarg to parse_verses_from_text() that splits verses by
+  # `።` Ethiopic full-stop sentence-terminator instead of leading
+  # verse markers, filters cross-reference fragments via the new
+  # `is_cross_ref_fragment` heuristic, numbers verses sequentially
+  # within each chapter. Pin tests in tests/test_parallel_bible_
+  # tau6x1.py::TestTau6X1C* classes.
+  tau6x1c_parser_extension:
+    shipped_at_phase: τ.6.x.1.C
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "continue in the most logical way you think fit" after
+      τ.7.x.a.0 PILOT (which surfaced the
+      paragraph_mode_parser_extension_needed finding). Per memory
+      `feedback_continue_not_save` (continue = advance) +
+      `feedback_extensive_answers` (broadest scope).
+    resolves_finding:
+      source: dev/PILOT_TAU7XA_OUTPUT.md
+      section: §4 EMPIRICAL FINDING
+      flag: paragraph_mode_parser_extension_needed
+      finding_phase: τ.7.x.a.0
+      reciprocal_back_link: 'tau7xa_pre_pilot.finding_resolved_at_phase: τ.6.x.1.C'
+    helpers_added:
+      CROSS_REF_FRAGMENT_RE: |
+        re.Pattern matching biblical-citation shape: optional 1-5-char
+        Ethiopic book-abbreviation + period or comma + numeral run
+        (Arabic or Ethiopic) + optional more numeral runs with
+        Ethiopic separators (፡፣፤፥፦፧፨) + optional trailing separator.
+      is_cross_ref_fragment: |
+        Heuristic: returns True if a fragment is ≤30 chars AND
+        matches CROSS_REF_FRAGMENT_RE OR has high numeral-coverage
+        (>25% of non-whitespace characters are Arabic digits or
+        Ethiopic numerals). Used to filter cross-reference fragments
+        from verse output.
+      GENESIS_VERSE_COUNTS: |
+        Dict mapping chapter (1-50) → expected verse count
+        (Masoretic + LXX agreement). Total = 1533 verses for
+        Genesis. Used by callers (NOT the parser itself; the parser
+        is single-responsibility extraction) to validate ingest
+        quality against the expected floor.
+      _parse_paragraph_mode: |
+        Implementation function for paragraph-mode parsing. Walks
+        chapter markers; within each chapter, splits text by `።`
+        and filters cross-references; numbers verses sequentially.
+    parser_api_change:
+      function: parse_verses_from_text
+      change: 'added keyword-only argument paragraph_mode: bool = False'
+      backward_compatibility: |
+        Default value False preserves the τ.6.x.1.B single-line
+        behavior used by Tewahedo-distinctive sections (meqabyan,
+        jubilees, one_enoch). Standard-canon callers pass
+        paragraph_mode=True.
+      docstring_extended: true  # parse_verses_from_text docstring documents both modes
+    empirical_validation:
+      page_range_tested: [0, 5]  # Amharic Genesis pages 0-5
+      expected_verses_gen_1_5: 138  # 31+25+24+26+32 verses for Gen 1-5
+      text_layer_engine:
+        verses_extracted_default_mode: 2
+        verses_extracted_paragraph_mode: 87
+        coverage_percent: 63
+        extraction_time_ms: 80
+        runtime_pin_floor: 75  # 14% safety margin under the 87 actual
+      tesseract_engine:
+        verses_extracted_paragraph_mode: 52  # pages 0-2 only
+        expected_verses_gen_1_3: 80
+        coverage_percent: 65
+        extraction_time_seconds: 19.4
+        runtime_pin_floor_pages_0_2: 40  # 23% safety margin under the 52 actual
+      regression_pin_tests:
+        - test_text_layer_pages_0_5_yields_at_least_75_verses
+        - test_default_mode_unchanged_returns_few_verses
+    known_residual_issues:
+      chapter_marker_recognition: |
+        OCR garbles the Ethiopic chapter numerals (e.g., 'ምዕራፍ ፩።'
+        comes out as 'ምዕራፍ B ።' in text-layer or 'ምዕራፍ ል፳።' in
+        Tesseract). CHAPTER_HEADER_RE doesn't match the garbled
+        forms, so all verses on a multi-chapter page default to
+        chapter 1. Downstream τ.7.x.a (proper) consumers must
+        apply chapter-renumbering as a post-process using
+        GENESIS_VERSE_COUNTS as the expected-floor reference.
+        Future refinement scope: τ.6.x.1.D (chapter-marker recovery).
+      occasional_merged_verses: |
+        Verses without intervening `።` between them get merged
+        into one. Example: Gen 1:1 + 1:2 in text-layer output
+        sometimes lack the `።` after "ምድርን ፈጠረ" so they merge
+        into a single ~150-char "verse 1". Acceptable at ocr-tier3
+        per τ.6.x.0b honesty contract; τ.6.x.3 audit cross-check
+        will catch + reflag these.
+      short_fragment_filter: |
+        The 10-char minimum filter eliminates orphan OCR noise but
+        also eliminates legitimately-short verse fragments (rare in
+        Genesis but more common elsewhere). Threshold may need
+        adjustment at τ.6.x.1.D refinement.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: true  # NO content/translations/* mutation at τ.6.x.1.C
+      tau6x0b_honesty_contract: true  # SOURCE_QUALITY unchanged
+      tau6x0c_script_ethiopic_adoption: true  # recognizer unchanged
+      tau6x1_engine_wiring: true  # engine + helpers unchanged
+      tau6x1a_pilot_validation: true  # pilot pin tests preserved
+      tau6x1b_parser_extension: true  # τ.6.x.1.B normalize_verse_numerals preserved + still applied as preprocessor
+      tau6x2D_decisions: true  # D-decisions matrix preserved; D4-c sequencing honored
+      tau7xa_pre_pilot: true  # τ.7.x.a.0 PILOT findings preserved; back-link annotation added
+    no_ingest_at_this_phase: true  # τ.6.x.1.C is a pure parser-extension ship; no content writes
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved across τ.6.x.0a → τ.6.x.0b → τ.6.x.0c → τ.6.x.1 → τ.6.x.1.A → τ.6.x.1.B → τ.6.x.2.D → τ.7.x.a.0 → τ.6.x.1.C chain)'
+    next_phase: τ.7.x.a  # the proper τ.7.x.a full-book ingest, now unblocked
+    next_phase_description: |
+      τ.7.x.a (proper) — Amharic Genesis full-book ingest at
+      ocr-tier3 under D1-a incremental cadence + D4-c Amharic-first
+      sequencing. Now UNBLOCKED by τ.6.x.1.C parser extension.
+      Upgrades content/translations/amharic-tewahedo/gen.py from
+      Π.0 seed (3 verses) to full-book ingest (~1533 verses
+      expected; empirical 63% coverage = ~966 verses likely under
+      current parser quality). Quality residue tracked at
+      τ.6.x.3 batched audit per D2-b + D3-c.

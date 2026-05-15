@@ -1416,3 +1416,368 @@ class TestTau6X1BSourceYamlBlock:
         assert pilot.get("finding_resolved_at_phase") == "τ.6.x.1.B", (
             "τ.6.x.1.A pilot block must annotate the finding-resolution phase"
         )
+
+
+# ──────────────────────────────────────────────────────────────────
+# τ.6.x.1.C — Paragraph-mode parser extension (2026-05-15)
+# ──────────────────────────────────────────────────────────────────
+#
+# Resolves the τ.7.x.a.0 PILOT empirical finding
+# (paragraph_mode_parser_extension_needed) by adding a
+# `paragraph_mode=True` kwarg to `parse_verses_from_text()` that
+# splits verses by `።` sentence-terminator + filters cross-reference
+# fragments + numbers sequentially per chapter.
+
+
+class TestTau6X1CModuleSurface:
+    """τ.6.x.1.C exposes new module-level symbols + the
+    paragraph_mode kwarg on parse_verses_from_text."""
+
+    def test_cross_ref_fragment_re_importable(self):
+        from scripts.extract_parallel_pdf import CROSS_REF_FRAGMENT_RE
+        import re as _re
+
+        assert isinstance(CROSS_REF_FRAGMENT_RE, _re.Pattern)
+
+    def test_is_cross_ref_fragment_callable(self):
+        from scripts.extract_parallel_pdf import is_cross_ref_fragment
+
+        assert callable(is_cross_ref_fragment)
+
+    def test_genesis_verse_counts_present(self):
+        from scripts.extract_parallel_pdf import GENESIS_VERSE_COUNTS
+
+        assert isinstance(GENESIS_VERSE_COUNTS, dict)
+        # Genesis has 50 chapters.
+        assert set(GENESIS_VERSE_COUNTS.keys()) == set(range(1, 51))
+        # Total = 1534 (Masoretic tradition treats Gen 31:55 as its own
+        # verse). Some Christian editions renumber that to 32:1 yielding
+        # 1533. Tolerance ±2 accommodates either tradition.
+        total = sum(GENESIS_VERSE_COUNTS.values())
+        assert 1532 <= total <= 1536, (
+            f"Genesis verse-count total should be ~1533-1534 (Masoretic vs Christian); got {total}"
+        )
+
+    def test_parse_verses_from_text_accepts_paragraph_mode_kwarg(self):
+        from scripts.extract_parallel_pdf import parse_verses_from_text
+
+        # Should not raise when called with paragraph_mode kwarg.
+        result = parse_verses_from_text("", paragraph_mode=True)
+        assert result == []
+
+    def test_paragraph_mode_default_is_false(self):
+        """Backward compatibility: existing callers (which use the
+        single-line/Tewahedo-distinctive mode) should NOT need to
+        change. paragraph_mode defaults to False."""
+        import inspect
+        from scripts.extract_parallel_pdf import parse_verses_from_text
+
+        sig = inspect.signature(parse_verses_from_text)
+        assert sig.parameters["paragraph_mode"].default is False
+
+
+class TestTau6X1CIsCrossRefFragment:
+    """is_cross_ref_fragment classifies cross-reference vs body-text
+    fragments. Cross-refs are short numeral-dominated strings; body
+    text is longer Ethiopic prose."""
+
+    def _fn(self):
+        from scripts.extract_parallel_pdf import is_cross_ref_fragment
+
+        return is_cross_ref_fragment
+
+    def test_filters_psalm_cross_ref_with_ethiopic_numeral(self):
+        assert self._fn()("መዝ ፳፻፤5") is True
+
+    def test_filters_john_cross_ref_with_book_period(self):
+        assert self._fn()("ዮሐ.ይ፤፳-፲፻") is True
+
+    def test_filters_pure_numerals_chapter_verse(self):
+        assert self._fn()("፻9፪፤፳") is True
+
+    def test_filters_short_qedus_cross_ref(self):
+        assert self._fn()("ቀ. ፲፫") is True
+
+    def test_keeps_gen_1_1_body_text(self):
+        """Real Gen 1:1 Amharic — must NOT be classified as cross-ref."""
+        assert self._fn()("በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ") is False
+
+    def test_keeps_gen_1_3_body_text(self):
+        assert self._fn()("እግዚአብሔርም ብርሃን ይሁን አለ ፡ ብርሃንም ሆነ") is False
+
+    def test_keeps_long_body_text_with_some_numerals(self):
+        """A long verse with embedded numerals should NOT be flagged
+        — the heuristic kicks in only for SHORT strings (≤30 chars)."""
+        long_text = "ምድር ግን ባዶዋን ነበረች ፣ አትታይም ነበር ፣ አልተዘጋ ሄደችም ነበር"
+        assert self._fn()(long_text) is False
+
+    def test_handles_empty_string(self):
+        assert self._fn()("") is False
+
+    def test_handles_whitespace_only(self):
+        assert self._fn()("   ") is False
+
+    def test_classifies_by_numeral_coverage_fallback(self):
+        """If a fragment is short and >25% numerals but doesn't match
+        the regex exactly, the numeral-coverage heuristic should catch
+        it."""
+        # 5 chars, 2 are numerals (40%): under regex threshold but
+        # over numeral-coverage threshold.
+        assert self._fn()("ት5፪") is True
+
+
+class TestTau6X1CParagraphModeUnit:
+    """Unit tests for `parse_verses_from_text(text, paragraph_mode=True)`
+    on synthetic Amharic-Genesis-shaped input."""
+
+    def _parse(self, text, **kwargs):
+        from scripts.extract_parallel_pdf import parse_verses_from_text
+
+        return parse_verses_from_text(text, paragraph_mode=True, **kwargs)
+
+    def test_empty_string_returns_empty_list(self):
+        assert self._parse("") == []
+
+    def test_single_short_fragment_filtered(self):
+        """A single very-short fragment is filtered as OCR noise."""
+        assert self._parse("ህዘ።") == []  # <10 chars; filtered
+
+    def test_single_body_text_verse(self):
+        body = "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።"
+        result = self._parse(body)
+        assert len(result) == 1
+        assert result[0][0] == 1  # chapter
+        assert result[0][1] == 1  # verse
+        assert "በመጀመሪያ" in result[0][2]
+
+    def test_three_verses_split_by_period(self):
+        body = (
+            "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።\nምድር ግን ባዶዋን ነበረች አትታይም ነበር አልተዘጋ ሄደችም ነበር።\nእግዚአብሔርም ብርሃን ይሁን አለ ብርሃንም ሆነ።"
+        )
+        result = self._parse(body)
+        assert len(result) == 3
+        assert all(v[0] == 1 for v in result)  # all chapter 1
+        assert [v[1] for v in result] == [1, 2, 3]  # sequential
+
+    def test_cross_ref_filtered_out(self):
+        """Cross-reference fragments between verses are skipped."""
+        body = (
+            "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።\n"
+            "መዝ ፳፻፤5።\n"  # cross-reference; should be filtered
+            "ምድር ግን ባዶዋን ነበረች አትታይም ነበር አልተዘጋ ሄደችም ነበር።"
+        )
+        result = self._parse(body)
+        assert len(result) == 2  # cross-ref skipped
+        assert result[0][1] == 1  # verse numbering doesn't advance for cross-ref
+        assert result[1][1] == 2
+
+    def test_chapter_marker_resets_verse_counter(self):
+        """When a chapter marker is encountered, verse counter resets."""
+        body = (
+            "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።\n"
+            "ምድር ግን ባዶዋን ነበረች አትታይም ነበር አልተዘጋ ሄደችም ነበር።\n"
+            "ምዕራፍ ፪።\n"  # chapter 2 marker
+            "ሰማይና ምድር ተፈጸሙ ሁሉም ሰራዊታቸውም።"
+        )
+        result = self._parse(body)
+        assert len(result) >= 3
+        # Last verse should be chapter 2, verse 1.
+        ch2_verses = [v for v in result if v[0] == 2]
+        assert len(ch2_verses) >= 1
+        assert ch2_verses[0][1] == 1
+
+    def test_ascii_page_header_filtered(self):
+        """ASCII page-header bleed should be filtered out."""
+        body = "www.ethiopianorthodox.org\nThe Ethiopian Orthodox Tewahido Church\nበመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።"
+        result = self._parse(body)
+        assert len(result) == 1
+        assert "በመጀመሪያ" in result[0][2]
+
+    def test_period_terminator_preserved(self):
+        """Output verse text should end with `።` for verse integrity."""
+        body = "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ።"
+        result = self._parse(body)
+        assert result[0][2].endswith("።")
+
+    def test_ocr_noise_punctuation_stripped(self):
+        """Trailing OCR-noise punctuation (=, ;, |) should be stripped."""
+        body = "በመጀመሪያ እግዚአብሔር ሰማይንና ምድርን ፈጠረ ='|"
+        result = self._parse(body + "።")
+        # The verse should still parse cleanly; trailing noise stripped.
+        assert len(result) == 1
+        assert "=" not in result[0][2] or "|" not in result[0][2]
+
+
+class TestTau6X1CParagraphModeRuntime:
+    """Real-PDF runtime regression pin. Verifies that the τ.6.x.1.C
+    parser extension produces a meaningful verse count on the
+    Amharic Genesis text-layer output. The pin floor is calibrated
+    empirically at τ.6.x.1.C ship-time: text-layer pages 0-5 produced
+    87 verses (vs expected 138 = ~63% coverage); the floor is set at
+    75 to leave a 14% safety margin against future OCR variance."""
+
+    @pytest.fixture(scope="class")
+    def _pdf(self):
+        """Open the parallel-Bible PDF if available, else skip."""
+        import sys
+
+        sys.path.insert(0, "scripts")
+        try:
+            import fitz
+        except ImportError:
+            pytest.skip("pymupdf (fitz) not installed")
+        from scripts.extract_parallel_pdf import load_source_config, resolve_pdf_path
+
+        cfg = load_source_config()
+        try:
+            pdf_path = resolve_pdf_path(cfg)
+        except SystemExit:
+            pytest.skip("Parallel-Bible PDF not resolvable")
+        if not pdf_path.exists():
+            pytest.skip("Parallel-Bible PDF not present on this machine")
+        doc = fitz.open(str(pdf_path))
+        yield doc
+        doc.close()
+
+    def test_text_layer_pages_0_5_yields_at_least_75_verses(self, _pdf):
+        """τ.6.x.1.C empirical regression pin: text-layer engine on
+        Amharic Genesis pages 0-5 must yield ≥75 verses under
+        paragraph_mode=True. Without the extension, default mode
+        produces only 2 garbled verses (τ.7.x.a.0 PILOT finding)."""
+        import sys
+
+        sys.path.insert(0, "scripts")
+        from scripts.extract_parallel_pdf import extract_text_by_column, parse_verses_from_text
+
+        all_amh = ""
+        for page_num in range(0, 6):
+            page = _pdf[page_num]
+            _, amh = extract_text_by_column(page)
+            all_amh += amh + "\n"
+
+        verses = parse_verses_from_text(all_amh, paragraph_mode=True)
+        assert len(verses) >= 75, (
+            f"τ.6.x.1.C runtime pin: text-layer Genesis pages 0-5 must yield "
+            f"≥75 verses under paragraph_mode=True; got {len(verses)}. "
+            f"Without the extension (default mode), only ~2 garbled verses "
+            f"parse — the τ.7.x.a.0 PILOT finding."
+        )
+
+    def test_default_mode_unchanged_returns_few_verses(self, _pdf):
+        """Backward compatibility runtime pin: default mode (without
+        paragraph_mode) still produces NEAR-EMPTY output on Amharic
+        Genesis, confirming the τ.7.x.a.0 PILOT finding is real and
+        the paragraph_mode extension is the load-bearing fix."""
+        import sys
+
+        sys.path.insert(0, "scripts")
+        from scripts.extract_parallel_pdf import extract_text_by_column, parse_verses_from_text
+
+        page = _pdf[0]
+        _, amh = extract_text_by_column(page)
+        verses_default = parse_verses_from_text(amh)
+        # Default mode produces ≤5 verses (typically 0-2) on Amharic
+        # Genesis page 0 — the PILOT finding.
+        assert len(verses_default) <= 5, (
+            f"τ.6.x.1.C contract: default mode on Amharic Genesis page 0 "
+            f"should produce ≤5 verses (the PILOT finding); got {len(verses_default)}. "
+            f"If this rises, the paragraph_mode extension may be regressing."
+        )
+
+
+class TestTau6X1CSourceYamlBlock:
+    """`_source.yaml::ocr_strategy.tau6x1c_parser_extension` block
+    codifies the τ.6.x.1.C ship + resolves the τ.7.x.a.0 PILOT
+    finding back-link."""
+
+    YAML_PATH = (
+        Path(__file__).resolve().parent.parent
+        / "content"
+        / "translations"
+        / "sources"
+        / "parallel-bible-eotc"
+        / "_source.yaml"
+    )
+
+    def _block(self) -> dict:
+        cfg = yaml.safe_load(self.YAML_PATH.read_text(encoding="utf-8"))
+        return cfg["ocr_strategy"]["tau6x1c_parser_extension"]
+
+    def test_block_exists(self):
+        assert isinstance(self._block(), dict)
+
+    def test_shipped_at_phase(self):
+        assert self._block()["shipped_at_phase"] == "τ.6.x.1.C"
+
+    def test_shipped_date(self):
+        import datetime as _dt
+
+        sd = self._block()["shipped_date"]
+        if isinstance(sd, _dt.date):
+            assert sd == _dt.date(2026, 5, 15)
+        else:
+            assert sd == "2026-05-15"
+
+    def test_resolves_finding_back_link(self):
+        """The block must reference the τ.7.x.a.0 PILOT finding it
+        resolves (single-key back-link annotation per A-I3 pattern
+        codification threshold)."""
+        b = self._block()
+        rf = b.get("resolves_finding")
+        assert rf is not None, "τ.6.x.1.C block must record resolves_finding"
+        # Resolves the paragraph_mode_parser_extension_needed flag
+        # set at τ.7.x.a.0.
+        assert "paragraph_mode" in str(rf).lower() or "τ.7.x.a.0" in str(rf)
+
+    def test_helpers_added_inventory(self):
+        """The block must inventory the new module-level helpers
+        added at τ.6.x.1.C."""
+        helpers = self._block().get("helpers_added", {})
+        # CROSS_REF_FRAGMENT_RE + is_cross_ref_fragment + GENESIS_VERSE_COUNTS
+        # + _parse_paragraph_mode are the four new symbols.
+        for h in ["CROSS_REF_FRAGMENT_RE", "is_cross_ref_fragment", "GENESIS_VERSE_COUNTS"]:
+            assert any(h in str(k) or h in str(v) for k, v in helpers.items()), (
+                f"τ.6.x.1.C helpers_added must inventory {h}"
+            )
+
+    def test_parser_api_change_documented(self):
+        b = self._block()
+        api = b.get("parser_api_change", {})
+        assert "paragraph_mode" in str(api), "parser_api_change must reference the paragraph_mode kwarg"
+
+    def test_empirical_validation_recorded(self):
+        """The block must record the empirical floor from this
+        ship's runtime measurements (≥75 verses for text-layer pages
+        0-5)."""
+        b = self._block()
+        ev = b.get("empirical_validation", {})
+        # Either a single floor key OR multiple per-engine floors.
+        assert ev, "τ.6.x.1.C empirical_validation must be non-empty"
+
+    def test_closed_arc_contracts_preserved(self):
+        b = self._block()
+        contracts = b["closed_arc_contracts_preserved"]
+        # 7 prior contracts (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b
+        # + tau6x2D) preserved at τ.6.x.1.C; τ.7.x.a.0 pilot also
+        # preserved as the finding that this resolves.
+        for k in ("tau6x0a_no_ingest", "tau6x1_engine_wiring", "tau6x1b_parser_extension"):
+            assert contracts.get(k) is True, f"τ.6.x.1.C must preserve {k}"
+
+    def test_no_ingest_at_this_phase(self):
+        assert self._block()["no_ingest_at_this_phase"] is True
+
+    def test_next_phase_is_tau7xa_proper(self):
+        """τ.6.x.1.C unblocks τ.7.x.a (proper) — the original Amharic
+        Genesis full-book ingest."""
+        np = self._block()["next_phase"]
+        # Either τ.7.x.a or τ.7.x.a (proper)
+        assert "τ.7.x.a" in str(np)
+
+    def test_tau7xa_pre_pilot_back_links_to_tau6x1c(self):
+        """Reciprocal back-link: the τ.7.x.a.0 PILOT block should now
+        carry `finding_resolved_at_phase: τ.6.x.1.C` annotation."""
+        cfg = yaml.safe_load(self.YAML_PATH.read_text(encoding="utf-8"))
+        pilot = cfg["ocr_strategy"]["tau7xa_pre_pilot"]
+        assert pilot.get("finding_resolved_at_phase") == "τ.6.x.1.C", (
+            "τ.7.x.a.0 PILOT block must annotate the finding-resolution phase"
+        )

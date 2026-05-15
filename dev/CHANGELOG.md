@@ -6,6 +6,60 @@
 
 ---
 
+## 2026-05-15 — session — τ.6.x.1.C PARAGRAPH-MODE PARSER EXTENSION (resolves τ.7.x.a.0 PILOT empirical finding `paragraph_mode_parser_extension_needed` by adding `paragraph_mode=True` kwarg to `parse_verses_from_text()` in `scripts/extract_parallel_pdf.py` that splits verses by `።` Ethiopic full-stop sentence-terminator instead of leading verse markers, filters cross-reference fragments via NEW `is_cross_ref_fragment` heuristic — book-abbrev + numeral biblical-citation shape OR >25% numeral-coverage in short ≤30-char fragments — and numbers verses sequentially within each chapter; default `paragraph_mode=False` preserves Tewahedo-distinctive section behavior backward-compatibly; NEW module-level symbols `CROSS_REF_FRAGMENT_RE` regex + `is_cross_ref_fragment` callable + `GENESIS_VERSE_COUNTS` dict (50-chapter, total 1534 Masoretic / 1533 Christian-renumber) + `_parse_paragraph_mode` implementation; `_source.yaml::ocr_strategy.tau6x1c_parser_extension` NEW block records shipped fields + resolves_finding (back-link to PILOT_TAU7XA_OUTPUT.md §4 + reciprocal back-link annotation `tau7xa_pre_pilot.finding_resolved_at_phase: τ.6.x.1.C`) + helpers_added (4 inventories) + parser_api_change + empirical_validation (text-layer 87 verses for Gen 1-5 pages = 63% coverage; Tesseract 52 verses for Gen 1-3 pages = 65% coverage; default-mode baseline only 2 garbled verses confirming PILOT finding; runtime pin floors text-layer ≥75 + Tesseract ≥40) + known_residual_issues (chapter-marker recognition fails on OCR-garbled numerals → all verses default to chapter 1, downstream consumers must apply chapter-renumbering using GENESIS_VERSE_COUNTS; occasional merged verses lacking intervening `።`; 10-char short-fragment threshold) + closed_arc_contracts_preserved 8-key (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b + tau6x2D + tau7xa_pre_pilot all True) + no_ingest + next_phase=τ.7.x.a; NEW test classes in tests/test_parallel_bible_tau6x1.py: TestTau6X1CModuleSurface 5 + TestTau6X1CIsCrossRefFragment 10 + TestTau6X1CParagraphModeUnit 9 + TestTau6X1CParagraphModeRuntime 2 + TestTau6X1CSourceYamlBlock 11 = +37 pin tests across 5 classes; the third instance of the single-key back-link annotation pattern closes A-I3 codification threshold flagged at AUDIT_2026-05-15-DEEP §3.3; test_omega4x_hygiene.py share-pin → milestone-pin migrations — τ.6.x.1.C added shipped + τ.6.x.1.D added pending for the chapter-marker recovery refinement)
+
+**Phase shipped:** τ.6.x.1.C — Paragraph-mode parser extension.
+Resolves the τ.7.x.a.0 PILOT empirical finding
+`paragraph_mode_parser_extension_needed`.
+
+**Triggered by:** user "continue in the most logical way you think
+fit" after τ.7.x.a.0 PILOT + DEEP audit GREEN-LIT τ.7.x.a forward
+path. Per memory `feedback_continue_not_save` (continue = advance)
++ `feedback_extensive_answers` (broadest scope).
+
+**Empirical validation:** text-layer engine on Amharic Genesis
+pages 0-5 → 87 verses (vs expected 138 = 63% coverage; ~80ms
+extraction time). Tesseract pages 0-2 → 52 verses (vs expected
+80 = 65% coverage; 19.4s). Default mode on same input: only 2
+garbled verses — confirming τ.7.x.a.0 PILOT finding + the
+parser-extension's load-bearing role.
+
+**τ.6.x.1.C deliverables** — see `dev/SESSION_STATE.md` τ.6.x.1.C
+headline + `dev/IN_FLIGHT.md` prior-task block for the full
+9-deliverable breakdown.
+
+**Closed-arc invariants regression-guarded:** all 17 from
+AUDIT_2026-05-15-DEEP §1.8 preserved + the τ.7.x.a.0 PILOT
+finding ANNOTATED as resolved at τ.6.x.1.C (reciprocal back-link).
+
+**What did NOT change:**
+- No `content/translations/*` data — Π.0 seed preserved across
+  9-ship chain (τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B → 2.D →
+  7.x.a.0 → 1.C).
+- No `content/{editions,canons,books}.yaml` mutation.
+- No engine code mutation (τ.6.x.1 engine + τ.6.x.1.B
+  `normalize_verse_numerals` unchanged; both called from within
+  the new `_parse_paragraph_mode` path).
+- v1.0 byte-identical reproducibility preserved.
+
+**Test count:** ~4673 (post-τ.7.x.a.0 baseline) → ~4710 (+37 pin
+tests in test_parallel_bible_tau6x1.py TestTau6X1C* classes).
+
+**Audit cadence:** post-DEEP phase #2; cumulative drift +~77;
+≥150 threshold approached but NOT crossed.
+
+**Next phase pointer:** **τ.7.x.a (proper)** — the original
+D4-c Amharic Genesis full-book ingest, now UNBLOCKED by
+τ.6.x.1.C. Will upgrade `content/translations/amharic-tewahedo/
+gen.py` from Π.0 seed (3 verses) to full-book ingest using the
+τ.6.x.1 engine + τ.6.x.1.B + τ.6.x.1.C parsers. Quality residue
+tracked at τ.6.x.3 batched audit per D2-b + D3-c. Optional
+**τ.6.x.1.D** refinement ship (chapter-marker recovery) can be
+inserted before τ.7.x.a if cleaner chapter labeling is needed at
+ingest time rather than post-process.
+
+---
+
 ## 2026-05-15 — session — τ.7.x.a.0 PILOT (Amharic Genesis page-range discovery [0, 85] + paragraph_mode_parser_extension_needed empirical finding that re-routes τ.7.x.a (proper) through τ.6.x.1.C parser-extension blocker — analogous to τ.6.x.1.A pilot surfacing verse_numeral_parser_extension_needed → τ.6.x.1.B; structural_map.genesis NEW entry with book_codes=[gen] + pdf_page_range=[0,85] + verified=true + verified_at_phase=τ.7.x.a + chapter_count_expected=50 + marker-scan-verified notes; `_source.yaml::ocr_strategy.tau7xa_pre_pilot` NEW block records shipped fields + page_range_discovery + engine_timing (Tesseract ~7.4s/page vs text-layer ~6-8ms/page ≈ 1000× speedup; text-layer also cleaner Ethiopic for standard-canon books) + 5 quality observations including variant Gen 1:1 reading `በመጀመሪያው ቁን` + cross-reference interleaving + parser_extension_needed flag + parser_finding sub-block + resolution_path=τ.6.x.1.C + 3 alternative source paths considered (parallel-Bible PDF default + nehemiah-osc.org modern Amharic + eBible.org amh VPL) with recommendation Option A + derived_phase_ordering 7-phase sequence (τ.7.x.a.0 ✓ → τ.6.x.1.C → τ.7.x.a (proper) → τ.7.x.b...z → τ.6.x.2.a...z → τ.6.x.3 → Π.2) + closed_arc_contracts_preserved 7-key (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b + tau6x2D all True) + no_ingest + next_phase=τ.6.x.1.C; dev/PILOT_TAU7XA_OUTPUT.md NEW 10-section reference artifact (§1 page-range discovery + §2 engine timing + §3 quality observations + §4 empirical finding + §5 resolution path τ.6.x.1.C + §6 alternative sources + §7 closed-arc preservation + §8 pilot probe scripts not committed + §9 next-phase sequence rewire + §10 empirical inputs for τ.6.x.1.C including regex candidates + verse-count floor dict + API extension proposal + validation regression-pin proposal); NEW tests/test_parallel_bible_tau7xa.py file with 6 test classes ~39 pins covering structural_map.genesis + tau7xa_pre_pilot block + PILOT artifact + IN_FLIGHT + SESSION_STATE + closed-arc preservation including amharic-tewahedo/gen.py-still-3-verse-seed strongest no-ingest pin; test_omega4x_hygiene.py share-pin → milestone-pin migrations — τ.7.x.a.0 added shipped + τ.6.x.1.C added pending)
 
 **Phase shipped:** τ.7.x.a.0 — PILOT sub-phase of τ.7.x.a.

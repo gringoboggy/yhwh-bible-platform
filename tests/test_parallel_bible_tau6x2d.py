@@ -294,13 +294,14 @@ class TestTau6X2DInFlight:
         return IN_FLIGHT.read_text(encoding="utf-8")
 
     def test_prior_task_is_tau6x2d(self):
+        """Refactored from share-pin to milestone-pin at τ.6.x.1.C
+        ship-time per `feedback_share_pin_pattern` — the 800-char-window
+        pin breaks every time a new ship prepends a new prior-task; the
+        durable assertion is that τ.6.x.2.D ship narrative appears
+        somewhere in IN_FLIGHT (i.e., the τ.6.x.2.D ship is part of
+        the prior-task chain at all)."""
         text = self._text()
-        prior_idx = text.find("## Prior task")
-        assert prior_idx >= 0
-        # After the "## Prior task" header, the next bolded block
-        # must be τ.6.x.2.D, not τ.6.x.1.B.
-        after = text[prior_idx : prior_idx + 800]
-        assert "τ.6.x.2.D" in after, "IN_FLIGHT prior-task must be the τ.6.x.2.D ship"
+        assert "τ.6.x.2.D" in text, "IN_FLIGHT must record the τ.6.x.2.D ship somewhere in the prior-task chain"
 
     def test_publisher_answer_recorded(self):
         assert "d1a, d2b, d3c, d4c" in self._text()

@@ -192,7 +192,14 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             (2026-05-15; Genesis page-range [0, 85] discovery +
             paragraph_mode_parser_extension_needed empirical finding
             that re-routes τ.7.x.a (proper) through τ.6.x.1.C
-            parser-extension blocker)"""
+            parser-extension blocker)
+          - τ.6.x.1.C migrated pending → shipped at τ.6.x.1.C ship-
+            time (2026-05-15; paragraph-mode parser extension that
+            resolves the τ.7.x.a.0 PILOT finding; adds paragraph_mode=
+            True kwarg to parse_verses_from_text() splitting by ።
+            sentence-terminator + filtering cross-references +
+            sequential numbering; 63-65% Amharic Genesis verse
+            coverage empirical)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -206,6 +213,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.6.x.1",
             "τ.6.x.1.A",
             "τ.6.x.1.B",
+            "τ.6.x.1.C",
             "τ.6.x.2.D",
             "τ.7.x.a.0",
         ]:
@@ -228,9 +236,14 @@ class TestOmega4xAI2PlanParallelBibleTrack:
           - τ.6.x.1.C added pending at τ.7.x.a.0 PILOT ship-time
             (2026-05-15; paragraph-mode parser extension blocking
             τ.7.x.a (proper) + likely also τ.7.x.b-z + τ.6.x.2.a-z
-            under paragraph-flowing conjecture)"""
+            under paragraph-flowing conjecture); migrated pending →
+            shipped at τ.6.x.1.C ship-time (2026-05-15)
+          - τ.6.x.1.D added pending at τ.6.x.1.C ship-time
+            (2026-05-15; OPTIONAL chapter-marker recovery refinement
+            addressing the known residual where OCR-garbled chapter
+            numerals cause all verses to default to chapter 1)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "τ.6.x.1.C", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "τ.6.x.1.D", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

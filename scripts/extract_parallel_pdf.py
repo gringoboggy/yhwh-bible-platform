@@ -317,6 +317,225 @@ ETHIOPIC_PUNCT = "።፣፤፥፦፧፨"
 ETHIOPIC_LINE_START_NUMERAL_RE = re.compile(r"^(\s*)([፩-፼]+)\s*([" + ETHIOPIC_PUNCT + r"])")
 
 
+# τ.6.x.1.C — Paragraph-mode parser extension.
+#
+# The τ.7.x.a.0 PILOT empirical finding: standard-canon books (Genesis,
+# Exodus, etc.) in the parallel-Bible PDF use PARAGRAPH-FLOWING verse
+# layout — verses are NOT prefixed by leading verse numbers (Arabic or
+# Ethiopic). Instead, verses are sentences terminated by `።` (Ethiopic
+# full stop, U+1362). Tesseract OCR output preserves `።` boundaries
+# cleanly; cross-references between verses appear as additional
+# fragments after `።` containing biblical-citation patterns
+# (e.g. `መዝ ፳፻፤5` = "Ps 215", `ዮሐ.ይ፤፳-፲፻` = "John ?:?").
+#
+# Contrast with Tewahedo-distinctive books (Meqabyan, Jubilees, 1 Enoch)
+# where the PDF carries explicit Ethiopic-numeral verse prefixes
+# (`፪፤ ስመ ...` = "verse 2: name ..."). These continue to use the
+# single-line mode (τ.6.x.1 + τ.6.x.1.B).
+#
+# The extension adds a `paragraph_mode=True` kwarg to
+# `parse_verses_from_text()` that:
+#   1. Walks chapter markers same as today.
+#   2. Within each chapter, splits the text by `።` to obtain verse
+#      fragments.
+#   3. Filters out cross-reference fragments via `CROSS_REF_FRAGMENT_RE`
+#      (short strings with mostly numerals + biblical-citation
+#      patterns).
+#   4. Numbers verses sequentially within each chapter starting from 1.
+#
+# Callers in `extract_section()` pass `paragraph_mode=True` for
+# standard-canon sections (genesis, exodus, ...) and `paragraph_mode=
+# False` (the default) for Tewahedo-distinctive sections (meqabyan,
+# jubilees, one_enoch).
+
+# CROSS_REF_FRAGMENT_RE matches a verse-fragment that is a cross-
+# reference, not body text. Cross-refs in this PDF carry biblical-
+# citation shape: optionally a 1-5-character Ethiopic book-abbreviation
+# + `.` or whitespace + chapter:verse numerals (Arabic or Ethiopic) +
+# optional verse range, possibly with `፤` `፡` `፣` separators. They're
+# short (≤30 chars) and CONTAIN A NUMERAL.
+#
+# Examples that should match:
+#   `መዝ ፳፻፤5`          (book abbrev + Ethiopic numerals + Arabic digit)
+#   `ዮሐ.ይ፤፳-፲፻`        (book abbrev + period + numerals + range)
+#   `፻9፪፤፳`            (pure numerals - chapter:verse standalone)
+#   `ቀ. ፲፫`            (book abbrev + period + Ethiopic numeral)
+#
+# Examples that should NOT match (real verse text):
+#   `በመጀመሪያው ቀን እግዚአብሔር ሰማይንና ምድርን ፈጠረ` (Gen 1:1)
+#   `እግዚአብሔርም ብርሃን ይሁን አለ` (Gen 1:3)
+#
+# Heuristic: short Ethiopic strings (≤30 chars) whose digit+numeral
+# coverage exceeds ~25% of the non-whitespace characters are likely
+# cross-references rather than body text.
+
+CROSS_REF_FRAGMENT_RE = re.compile(
+    r"^\s*"
+    r"(?:[ሀ-ፗ]{1,5}[\.,]?\s*)?"  # optional 1-5-char book abbreviation
+    r"[፩-፼\d]+"  # required numeral run
+    r"(?:[፡:፣፤፥፦፧፨\-,\./\s]+[፩-፼\d]+)*"  # optional more numeral runs + separators
+    r"[፡:፣፤፥፦፧፨]?\s*"  # optional trailing separator
+    r"$"
+)
+
+
+def is_cross_ref_fragment(frag: str) -> bool:
+    """Heuristic: is this verse-fragment a biblical cross-reference
+    rather than body text?
+
+    Returns True if the fragment is SHORT (≤30 chars, post-strip) AND
+    matches CROSS_REF_FRAGMENT_RE (book-abbrev + numerals shape) OR
+    has high digit/numeral coverage (>25% of non-whitespace
+    characters are Arabic digits or Ethiopic numerals).
+    """
+    s = frag.strip()
+    if not s:
+        return False
+    if len(s) > 30:
+        return False  # body-text length; not a cross-ref
+    if CROSS_REF_FRAGMENT_RE.match(s):
+        return True
+    # Fallback: numeral-coverage heuristic
+    non_ws = [c for c in s if not c.isspace()]
+    if not non_ws:
+        return False
+    numerals = [c for c in non_ws if c.isdigit() or "፩" <= c <= "፼"]
+    return len(numerals) / len(non_ws) > 0.25
+
+
+# Per-book expected verse-count floor for sanity-checking paragraph-mode
+# output. Source: Masoretic Text + LXX agreement (modern Bible verse-
+# count standard). Used by callers to validate τ.7.x.x ingest output;
+# the parser itself does NOT enforce floors (the parser is single-
+# responsibility — extract whatever's in the text + let callers gate
+# on quality).
+GENESIS_VERSE_COUNTS = {
+    1: 31,
+    2: 25,
+    3: 24,
+    4: 26,
+    5: 32,
+    6: 22,
+    7: 24,
+    8: 22,
+    9: 29,
+    10: 32,
+    11: 32,
+    12: 20,
+    13: 18,
+    14: 24,
+    15: 21,
+    16: 16,
+    17: 27,
+    18: 33,
+    19: 38,
+    20: 18,
+    21: 34,
+    22: 24,
+    23: 20,
+    24: 67,
+    25: 34,
+    26: 35,
+    27: 46,
+    28: 22,
+    29: 35,
+    30: 43,
+    31: 55,
+    32: 33,
+    33: 20,
+    34: 31,
+    35: 29,
+    36: 43,
+    37: 36,
+    38: 30,
+    39: 23,
+    40: 23,
+    41: 57,
+    42: 38,
+    43: 34,
+    44: 34,
+    45: 28,
+    46: 34,
+    47: 31,
+    48: 22,
+    49: 33,
+    50: 26,
+}
+# Total Genesis verses = 1534 (Masoretic-tradition Genesis 31:55
+# treated as its own verse; Christian/Protestant tradition that
+# renumbers 31:55 as 32:1 yields the alternative 1533 total).
+
+
+def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
+    """τ.6.x.1.C paragraph-mode parser.
+
+    Walks chapter markers; within each chapter splits the body text
+    by `።` sentence-terminator; filters cross-reference fragments;
+    numbers verses sequentially. See module-level τ.6.x.1.C block
+    for the full design rationale.
+    """
+    # First pass: filter lines for ASCII page-header garbage. Keep
+    # blank lines so paragraph structure (if any) is preserved for
+    # downstream use; the splitter operates on full joined text.
+    filtered_lines: list[str] = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            filtered_lines.append("")
+            continue
+        has_ethiopic = any(0x1200 <= ord(c) <= 0x137F for c in line)
+        if not has_ethiopic and re.search(r"[a-zA-Z]{4,}", line):
+            continue  # ASCII page header — drop
+        filtered_lines.append(line)
+    filtered_text = "\n".join(filtered_lines)
+
+    # Walk chapter markers; CHAPTER_HEADER_RE.split gives [pre, ch_num_1,
+    # mid_1, ch_num_2, mid_2, ...].
+    parts = CHAPTER_HEADER_RE.split(filtered_text)
+    chapters: list[tuple[int, str]] = []
+    # parts[0] is text BEFORE the first chapter marker; if non-empty,
+    # belongs to chapter 1 by default.
+    if parts and parts[0].strip():
+        chapters.append((1, parts[0]))
+    for i in range(1, len(parts), 2):
+        ch_num_str = parts[i]
+        ch_num = geez_numeral_to_int(ch_num_str)
+        ch_text = parts[i + 1] if i + 1 < len(parts) else ""
+        if ch_num is None:
+            # OCR mangled the numeral; fall back to current+1 if any.
+            ch_num = chapters[-1][0] + 1 if chapters else 1
+        if ch_text.strip():
+            chapters.append((ch_num, ch_text))
+
+    out: list[tuple[int, int, str]] = []
+    for chapter, chapter_text in chapters:
+        # Collapse all whitespace + newlines into single spaces.
+        flat = re.sub(r"\s+", " ", chapter_text).strip()
+        if not flat:
+            continue
+        # Split by `።` Ethiopic full stop.
+        fragments = flat.split("።")
+        verse_num = 0
+        for frag in fragments:
+            frag = frag.strip()
+            # Strip trailing OCR-noise punctuation.
+            frag = frag.rstrip("=;|").rstrip()
+            if not frag:
+                continue
+            # Filter cross-reference fragments.
+            if is_cross_ref_fragment(frag):
+                continue
+            # Filter very-short fragments (likely OCR noise — orphan
+            # punctuation, single characters, etc.). Body-text verses
+            # are typically ≥15 chars even at OCR quality.
+            if len(frag) < 10:
+                continue
+            verse_num += 1
+            # Add back the `።` terminator for verse integrity.
+            out.append((chapter, verse_num, frag + "።"))
+    return out
+
+
 def normalize_verse_numerals(text: str) -> str:
     """Convert Ethiopic-numeral verse markers at line starts into the
     Arabic-digit+colon form ``parse_verses_from_text()`` expects.
@@ -537,10 +756,10 @@ def tesseract_extract_columns(
     return geez, amharic
 
 
-def parse_verses_from_text(text: str) -> list[tuple[int, int, str]]:
+def parse_verses_from_text(text: str, *, paragraph_mode: bool = False) -> list[tuple[int, int, str]]:
     """Parse one column's text into (chapter, verse, text) tuples.
 
-    Strategy:
+    Strategy (single-line mode; ``paragraph_mode=False``, the default):
     - τ.6.x.1.B: pre-normalize Ethiopic-numeral verse markers at line
       starts (e.g. `፪፤ …` → `2: …`) so the Arabic-digit regex below
       keys off either numeral system. No-op for text-layer-engine
@@ -551,8 +770,28 @@ def parse_verses_from_text(text: str) -> list[tuple[int, int, str]]:
       OR "1፣ በመጀመሪያ..."), start a new verse.
     - Accumulate text lines into the current verse until the next
       verse marker.
+
+    Strategy (paragraph mode; ``paragraph_mode=True``, τ.6.x.1.C):
+    - τ.6.x.1.B pre-normalization still applies but is typically a
+      no-op since paragraph-mode is used for standard-canon books
+      that have no leading verse markers at all.
+    - Split chapter content by `።` Ethiopic full-stop; each non-
+      empty fragment is a candidate verse.
+    - Filter out cross-reference fragments via `is_cross_ref_fragment`
+      (short numeral-dominated strings matching biblical-citation
+      patterns).
+    - Number candidate verses sequentially within each chapter.
+
+    Use paragraph_mode for standard-canon books (Genesis, Exodus, ...)
+    per the τ.7.x.a.0 PILOT empirical finding; use the default mode
+    for Tewahedo-distinctive books (Meqabyan, Jubilees, 1 Enoch) where
+    verse-number prefixes are present in the source.
     """
     text = normalize_verse_numerals(text)
+
+    if paragraph_mode:
+        return _parse_paragraph_mode(text)
+
     chapter = 1
     verse = 0
     current_text: list[str] = []

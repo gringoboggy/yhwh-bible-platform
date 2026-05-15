@@ -249,38 +249,52 @@ class TestTau7XAPilotReferenceArtifact:
 
 
 class TestTau7XAInFlight:
-    """IN_FLIGHT.md tracks τ.7.x.a.0 as the prior task."""
+    """IN_FLIGHT.md records τ.7.x.a.0 in the prior-task chain.
+    Refactored from share-pin to milestone-pin at τ.6.x.1.C
+    ship-time per `feedback_share_pin_pattern` — the "first 5000
+    chars" window breaks every time a new ship prepends a new
+    prior-task; the durable assertion is that τ.7.x.a.0 + τ.6.x.2.D
+    both appear somewhere in IN_FLIGHT."""
 
     def test_in_flight_idle_after_pilot(self):
         txt = IN_FLIGHT.read_text(encoding="utf-8")
         assert "TRACKER-STATE: idle" in txt
 
     def test_prior_task_is_tau7xa_0(self):
+        """Milestone-pin: τ.7.x.a.0 appears in IN_FLIGHT prior-task
+        chain at all (not necessarily in the first 5000 chars)."""
         txt = IN_FLIGHT.read_text(encoding="utf-8")
-        assert "τ.7.x.a.0" in txt[:5000], "τ.7.x.a.0 must appear in the prior-task section near the top"
+        assert "τ.7.x.a.0" in txt, "τ.7.x.a.0 must appear in IN_FLIGHT prior-task chain"
 
     def test_tau6x2d_demoted_to_previous(self):
+        """Milestone-pin: τ.7.x.a.0 + τ.6.x.2.D both appear in
+        IN_FLIGHT. Ordering between them is no longer pinned
+        (subsequent ships push both further down without changing
+        their relative order — they remain in chronological
+        prior-task-chain order)."""
         txt = IN_FLIGHT.read_text(encoding="utf-8")
-        # τ.6.x.2.D should now appear in the prior-task-previous chain.
-        tau7_pos = txt.find("τ.7.x.a.0")
-        tau6x2d_pos = txt.find("τ.6.x.2.D")
-        assert tau7_pos != -1
-        assert tau6x2d_pos != -1
-        assert tau7_pos < tau6x2d_pos, "τ.7.x.a.0 must appear before τ.6.x.2.D in IN_FLIGHT"
+        assert "τ.7.x.a.0" in txt
+        assert "τ.6.x.2.D" in txt
 
 
 class TestTau7XASessionState:
-    """SESSION_STATE.md headline updated to τ.7.x.a.0."""
+    """SESSION_STATE.md records τ.7.x.a.0 ship narrative.
+    Refactored from share-pin to milestone-pin at τ.6.x.1.C
+    ship-time per `feedback_share_pin_pattern`."""
 
     def test_headline_is_tau7xa_0(self):
-        # Headline mentions τ.7.x.a.0 within the first 500 chars.
+        """Milestone-pin: τ.7.x.a.0 appears anywhere in SESSION_STATE
+        (not specifically in the headline; subsequent ships prepend
+        new headlines)."""
         txt = SESSION_STATE.read_text(encoding="utf-8")
-        assert "τ.7.x.a.0" in txt[:2000], "τ.7.x.a.0 must appear in SESSION_STATE headline"
+        assert "τ.7.x.a.0" in txt, "τ.7.x.a.0 must appear somewhere in SESSION_STATE"
 
     def test_session_state_next_phase_is_tau6x1c(self):
+        """The PILOT's next_phase=τ.6.x.1.C remains documented in
+        SESSION_STATE (anywhere; could be in current or prior
+        section)."""
         txt = SESSION_STATE.read_text(encoding="utf-8")
-        # Next-phase pointer routes through τ.6.x.1.C.
-        assert "τ.6.x.1.C" in txt[:5000]
+        assert "τ.6.x.1.C" in txt
 
 
 class TestTau7XAClosedArcInvariantPreservation:

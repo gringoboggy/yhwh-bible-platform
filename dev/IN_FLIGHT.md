@@ -4,6 +4,112 @@
 
 ## Prior task
 
+**τ.6.x.1.C PARAGRAPH-MODE PARSER EXTENSION ship — resolves the
+τ.7.x.a.0 PILOT empirical finding
+`paragraph_mode_parser_extension_needed`. Adds `paragraph_mode=True`
+keyword to `parse_verses_from_text()` in
+`scripts/extract_parallel_pdf.py` that splits verses by `።`
+Ethiopic full-stop sentence-terminator instead of leading verse
+markers, filters cross-reference fragments via the new
+`is_cross_ref_fragment` heuristic (book-abbrev + numeral
+biblical-citation shape OR >25% numeral-coverage in short
+fragments ≤30 chars), and numbers verses sequentially within each
+chapter. Default `paragraph_mode=False` preserves Tewahedo-
+distinctive section behavior (Meqabyan, Jubilees, 1 Enoch).
+Triggered by user "continue in the most logical way you think
+fit" after τ.7.x.a.0 PILOT. Analogous to τ.6.x.1.A → τ.6.x.1.B
+finding-resolution precedent; third instance of the single-key
+back-link annotation pattern (closes A-I3 codification threshold).
+
+**Empirical validation:** text-layer engine on Amharic Genesis
+pages 0-5 → 87 verses (vs expected 138 for Gen 1-5; 63% coverage;
+~80ms extraction time). Tesseract pages 0-2 → 52 verses (vs
+expected 80; 65% coverage; 19.4s extraction time). Default mode
+unchanged: 2 garbled verses on the same input — confirming the
+τ.7.x.a.0 PILOT finding and the parser-extension's load-bearing
+role.
+
+**τ.6.x.1.C deliverables shipped:**
+
+1. **`scripts/extract_parallel_pdf.py` parser extension.**
+   NEW symbols: `CROSS_REF_FRAGMENT_RE` regex + `is_cross_ref_
+   fragment` callable + `GENESIS_VERSE_COUNTS` dict (50-ch, total
+   1534 Masoretic / 1533 Christian renumber) + `_parse_paragraph_
+   mode` implementation. `parse_verses_from_text()` gains
+   keyword-only `paragraph_mode: bool = False`; default False
+   preserves backward compatibility.
+
+2. **`_source.yaml::ocr_strategy.tau6x1c_parser_extension`
+   block added.** shipped_at_phase + shipped_date + triggered_by
+   + resolves_finding (back-link to PILOT_TAU7XA_OUTPUT.md §4 +
+   reciprocal back-link to tau7xa_pre_pilot.finding_resolved_at_
+   phase) + helpers_added (4 inventories) + parser_api_change +
+   empirical_validation (per-engine measurements + pin floors) +
+   known_residual_issues (chapter-marker recognition + merged
+   verses + short-fragment threshold) + closed_arc_contracts_
+   preserved 8-key (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b +
+   tau6x2D + tau7xa_pre_pilot all True) + no_ingest + slot state
+   + next_phase=τ.7.x.a + next_phase_description.
+
+3. **Reciprocal back-link annotation:** `tau7xa_pre_pilot.
+   finding_resolved_at_phase: τ.6.x.1.C` added to the τ.7.x.a.0
+   PILOT block, completing the bidirectional finding-resolution
+   chain.
+
+4. **NEW test classes in `tests/test_parallel_bible_tau6x1.py`:**
+   TestTau6X1CModuleSurface (5 pins) + TestTau6X1CIsCrossRefFragment
+   (10 pins) + TestTau6X1CParagraphModeUnit (9 pins) +
+   TestTau6X1CParagraphModeRuntime (2 pins, real-PDF empirical
+   regression) + TestTau6X1CSourceYamlBlock (11 pins) = **+37
+   pin tests across 5 groups**.
+
+5. **`dev/SESSION_STATE.md`** — this headline update.
+
+6. **`dev/IN_FLIGHT.md`** — this prior-task block prepended;
+   τ.7.x.a.0 demoted to prior-task-previous.
+
+7. **`dev/CHANGELOG.md`** — 2026-05-15 τ.6.x.1.C entry prepended.
+
+8. **`dev/PLAN_2026-05-09.md` §6 ledger.** τ.6.x.1.C migrated
+   pending → shipped; τ.7.x.a (proper) now UNBLOCKED; τ.6.x.1.D
+   added pending (chapter-marker recovery refinement).
+
+9. **`tests/test_omega4x_hygiene.py` share/milestone pin
+   migration.** τ.6.x.1.C → shipped; τ.6.x.1.D → pending.
+
+**Test count: ~4673 (post-τ.7.x.a.0 baseline) → ~4710 (+37 pin
+tests). Linter clean.**
+
+**Known residual issues (tracked for τ.6.x.1.D + τ.7.x.a):**
+- **Chapter-marker recognition fails when OCR garbles the
+  Ethiopic numeral** (e.g., `ምዕራፍ ፩።` → `ምዕራፍ B ።` in text-layer
+  or `ምዕራፍ ል፳።` in Tesseract). All verses default to chapter 1;
+  downstream τ.7.x.a (proper) consumers must apply chapter-
+  renumbering as a post-process using `GENESIS_VERSE_COUNTS` as
+  expected-floor reference.
+- **Occasional merged verses** lacking intervening `።` between
+  them (text-layer noisier than Tesseract here). Acceptable at
+  ocr-tier3 per τ.6.x.0b honesty contract; τ.6.x.3 audit
+  cross-check will catch + reflag.
+- **Short-fragment filter threshold** (10 chars min) eliminates
+  orphan OCR noise but also legitimately-short verse fragments;
+  threshold may need adjustment at τ.6.x.1.D refinement.
+
+**What did NOT change at τ.6.x.1.C:**
+- No `content/translations/*` data; Π.0 seed preserved across
+  9-ship chain (τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B → 2.D →
+  7.x.a.0 → 1.C).
+- No `content/{editions,canons,books}.yaml` mutation.
+- No engine code mutation (τ.6.x.1 engine + τ.6.x.1.B
+  normalize_verse_numerals unchanged; both called from within
+  the new paragraph_mode path).
+- All 17 closed-arc invariants preserved.
+
+shipped 2026-05-15. Triggered by user "continue in the most
+logical way you think fit".
+
+## Prior task (previous)
+
 **τ.7.x.a.0 PILOT ship — Amharic Genesis page-range discovery
 + paragraph_mode_parser_extension_needed empirical finding.
 PRE-PILOT sub-phase of τ.7.x.a (the D4-c locked next-phase per
