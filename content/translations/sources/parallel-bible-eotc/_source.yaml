@@ -494,3 +494,224 @@ ocr_strategy:
       -l script/Ethiopic+amh, parse verse-keyed output, bulk-ingest
       standard-canon books at ocr-tier3 with SOURCE_QUALITY provenance
       and per-entry reader-facing caveats per the honesty_contract.
+
+  # τ.6.x.1 WIRING — Tesseract OCR engine wired into the extractor
+  # 2026-05-14. This phase is Claude-side actionable; τ.6.x.0c had
+  # closed the operator-side gate by verifying the Tesseract install
+  # and adopting the `script/Ethiopic` recognizer. τ.6.x.1 wires that
+  # decision into `scripts/extract_parallel_pdf.py` and pre-flight-
+  # checks both required language packs (`amh` + `script/Ethiopic`).
+  # No bulk-ingest at this phase — that unblocks at τ.6.x.2+ with
+  # publisher direction on cadence + per-book audit plan.
+  tau6x1_wiring:
+    wired_at_phase: τ.6.x.1
+    wired_date: 2026-05-14
+    extractor_module: scripts/extract_parallel_pdf.py
+    engine_default: tesseract
+    engines_supported:
+      - tesseract  # default; τ.6.x.0b Option-D-Hybrid authorized
+      - text-layer  # legacy fallback; τ.6.x.0a-original behavior
+    cli_flag: '--engine {tesseract,text-layer}'
+    render:
+      via: pymupdf  # fitz.Matrix(zoom, zoom) + page.get_pixmap(clip=...)
+      dpi: 350
+      column_split_pct: 50  # left half = Geʽez, right half = Amharic
+      psm: 6  # 'assume a single uniform block of text' — matches the
+              # parallel-Bible's per-column vertical-verse layout
+    invocation:
+      geez_column: ['tesseract', '<png>', 'stdout', '-l', 'script/Ethiopic', '--psm', '6']
+      amharic_column: ['tesseract', '<png>', 'stdout', '-l', 'amh', '--psm', '6']
+      subprocess_pattern: stdin=subprocess.DEVNULL  # W-W1 mitigation:
+        # the LIGHT-1 Windows-subprocess-handle failure mode is avoided
+        # by explicitly passing DEVNULL for stdin so the child process
+        # never tries to inherit an invalid stdin handle from a
+        # pytest-from-Powershell parent shell.
+    pre_flight:
+      binary_resolution:
+        via: scripts.core.paths.tesseract_binary
+        helper: _resolve_tesseract_or_exit
+        on_missing: 'SystemExit with install-pointer message (Windows / macOS / Linux)'
+      language_verification:
+        via: _check_tesseract_languages
+        helper: _verify_tesseract_languages_or_exit
+        required: [amh, script/Ethiopic]
+        check_method: 'parse `tesseract --list-langs` output; normalize Windows `script\\X` to POSIX `script/X`'
+        on_missing: 'SystemExit listing the missing pack(s) + tessdata_fast/best download pointers'
+    temp_dir:
+      strategy: 'one tempfile.TemporaryDirectory shared across all pages of a section'
+      rationale: 'avoids per-page mkdir/rmdir cost during multi-page extraction; cleanup is guaranteed via try/finally'
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: true  # geez-tewahedo + amharic-tewahedo slots remain at Π.0 seed
+      tau6x0b_honesty_contract: true  # every tier-3 entry carries SOURCE_QUALITY + caveat
+      tau6x0c_script_ethiopic_adoption: true  # the τ.6.x.0c-authorized recognizer is the one wired
+    no_ingest_at_this_phase: true
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved across τ.6.x.0b→0c→1 wiring chain)'
+    next_phase: τ.6.x.2+
+    next_phase_description: |
+      Bulk-ingest of the 66 standard-canon books at ocr-tier3 with
+      SOURCE_QUALITY provenance + per-entry reader-facing caveats.
+      Publisher direction needed on:
+        - cadence (one-shot full sweep vs incremental per-book ships)
+        - target-tier ramp (when to upgrade ocr-tier3 → ocr-tier2 via
+          operator cross-check)
+        - per-book audit plan (which books to spot-check first)
+        - amharic_parallel ingest sequencing (τ.7.x track joins here)
+
+  # τ.6.x.1.A PILOT VALIDATION — empirical end-to-end validation of
+  # the τ.6.x.1 engine wiring against the real publisher-supplied
+  # parallel-Bible PDF. The wiring rendered + OCR'd page 1318 (mq1
+  # ch1 opening) successfully in 7 seconds; produced recognizable
+  # Geʽez body-text + Amharic body-text at ocr-tier3 quality per the
+  # τ.6.x.0b honesty contract; verified the English-page-header bleed
+  # is correctly filtered by parse_verses_from_text(); preserved the
+  # τ.6.x.0a no-ingest contract (dry-run only; no files written to
+  # geez-tewahedo or amharic-tewahedo). Reference artifact:
+  # dev/PILOT_TAU6X1A_OUTPUT.md.
+  tau6x1a_pilot_validation:
+    validated_at_phase: τ.6.x.1.A
+    validated_date: 2026-05-14
+    reference_artifact: dev/PILOT_TAU6X1A_OUTPUT.md
+    page_tested:
+      pdf_page_index: 1318
+      book: mq1
+      content: 'Mäṣḥafä Mäqabyan I, chapter 1 opening (per structural_map.meqabyan.subsections.mq1=[1318,1365])'
+    timing:
+      pdf_open_seconds: 0.5
+      render_seconds: 1.0
+      tesseract_geez_seconds: 3.0
+      tesseract_amh_seconds: 3.0
+      total_per_page_seconds: 7.0
+    extrapolations:
+      mq1_47_pages_minutes: 5.5
+      meqabyan_67_pages_minutes: 8.0
+      standard_canon_2500_pages_hours: 5.0
+      parallelization_potential: '4× speedup on 4-core via concurrent.futures.ProcessPoolExecutor on the page-loop'
+    quality_observations:
+      title_row_degradation: |
+        Title-row OCR (BIG stylized fidel) is imperfect — the Geʽez
+        column rendered the title as `መጽሐራ ፥ መቃ` (expected `መጽሐፈ ፡
+        መቃብያን`). This is expected for stylized title text and matches
+        the τ.6.x.0b honesty contract. Verse-popups do not typically
+        display title-rows directly.
+      body_text_quality: |
+        Body text is recognizably correct with typical ocr-tier3
+        artifacts (occasional vowel-order swaps, dropped punctuation).
+        Geʽez numerals (Ethiopic digits ፩ ፪ ፫) are correctly
+        recognized as verse markers in both columns.
+      english_bleed_filtered: |
+        English page-headers (e.g. 'Che CctNopnan (JRchodox Cea')
+        bleed into the column rasters at high dpi but are correctly
+        dropped by parse_verses_from_text()'s `has_ethiopic` filter.
+      latin_contamination_residue: |
+        Tesseract occasionally fabricates Latin/Cyrillic chars when
+        encountering figure-marker dots or page-spread guillemets.
+        These rows mix Ethiopic + Latin so `has_ethiopic` lets them
+        through; downstream cleanup at operator cross-check (tier-3 →
+        tier-2) addresses them.
+      verse_numeral_parser_extension_needed: |
+        The parallel-Bible's verse markers appear to be ETHIOPIC
+        numerals (፩ ፪ ፫) but parse_verses_from_text() currently keys
+        off Arabic digits (1, 2, 3). A τ.6.x.2-prep task is needed
+        to extend the parser to accept both digit forms, or pass the
+        OCR through an Ethiopic→Arabic numeral normalization before
+        verse-parsing. Without this, τ.6.x.2 bulk-ingest will produce
+        zero-verse outputs even though the OCR text is valid.
+    pre_flight_validations_empirically_confirmed:
+      tesseract_binary_resolver_finds_windows_install: true
+      check_tesseract_languages_recognizes_amh_and_script_ethiopic: true
+      pymupdf_pixmap_at_350dpi_produces_valid_png: true
+      subprocess_run_w_w1_safe_pattern_works: true
+      tesseract_invocation_returns_ethiopic_text: true
+      tempfile_temporary_directory_shared_and_auto_cleaned: true
+      total_per_page_under_60_seconds: true  # actual ~7s
+    no_ingest_at_this_phase: true
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved; dry-run only, no files written)'
+    next_phase: τ.6.x.1.B (parser extension for Ethiopic numerals) → τ.6.x.2+ (publisher-direction-gated bulk-ingest)
+    next_phase_description: |
+      Two next-step options, picked by publisher direction:
+
+      A. τ.6.x.1.B parser extension — extend parse_verses_from_text()
+         to recognize Ethiopic numerals (፩-፼) as verse markers in
+         addition to Arabic digits. Discovered as a τ.6.x.1.A
+         empirical finding (the parallel-Bible's verse markers are
+         Ethiopic numerals; the existing parser keys off Arabic only).
+         Required before any τ.6.x.2.x produces non-empty output.
+
+      B. τ.6.x.2+ direct (skip τ.6.x.1.B if publisher elects a
+         different numeral-extraction strategy, e.g. pre-process the
+         OCR output with a transliteration pass before parsing).
+
+      Publisher chooses the path. Both preserve τ.6.x.0a contract
+      (no ingest at this phase).
+    finding_resolved_at_phase: τ.6.x.1.B  # 2026-05-15 — Option A (parser extension) shipped
+
+  # τ.6.x.1.B PARSER EXTENSION — Ethiopic-numeral verse-marker
+  # normalization shipped 2026-05-15. Resolves the τ.6.x.1.A empirical
+  # finding (verse_numeral_parser_extension_needed) via Option A
+  # (normalize Ethiopic numerals + Ethiopic punctuation at line starts
+  # to the Arabic-digit+colon form `parse_verses_from_text()` already
+  # expects). The downstream parser is unchanged; the normalization
+  # is a pure-function pre-pass invoked at the top of
+  # `parse_verses_from_text()` so both engines (tesseract → Ethiopic
+  # numerals + text-layer → Arabic digits) feed the same code path.
+  # Paired chapter-header regex extension: `CHAPTER_HEADER_RE` now
+  # tolerates Ethiopic word-space `፡` (U+1361) and Ethiopic comma `፣`
+  # (U+1363) as separators between `ምዕራፍ` and the chapter numeral —
+  # Tesseract emits these where the text-layer engine sees ASCII
+  # whitespace.
+  tau6x1b_parser_extension:
+    shipped_at_phase: τ.6.x.1.B
+    shipped_date: 2026-05-15
+    resolves_finding: tau6x1a_pilot_validation.quality_observations.verse_numeral_parser_extension_needed
+    helpers_added:
+      ETHIOPIC_PUNCT: '"።፣፤፥፦፧፨" — Ethiopic full stop, comma, semicolon, preface colon, colon, question mark, paragraph separator (U+1361-U+1368)'
+      ETHIOPIC_LINE_START_NUMERAL_RE: 're.compile(r"^(\s*)([፩-፼]+)\s*([" + ETHIOPIC_PUNCT + r"])")'
+      normalize_verse_numerals: |
+        Pure-function pre-pass on a column-of-text string. Walks each
+        line; if the line matches `ETHIOPIC_LINE_START_NUMERAL_RE`,
+        substitutes the Ethiopic numeral with its `geez_numeral_to_int`
+        Arabic equivalent and replaces the Ethiopic punctuation with
+        ASCII colon `:`. Otherwise the line passes through unchanged.
+        Returns a new string with the same line count.
+    parser_change:
+      function: parse_verses_from_text
+      change: 'first line of function body now calls `text = normalize_verse_numerals(text)` to pre-normalize'
+      backward_compat: 'text-layer-engine output (Arabic-digit-only) is a no-op for the normalizer; existing behavior unchanged'
+    chapter_header_regex_change:
+      from: 're.compile(r"ምዕራፍ\s*([፩-፼]+)")'
+      to: 're.compile(r"ምዕራፍ[\s፡፣]*([፩-፼]+)")'
+      rationale: |
+        Tesseract OCR emits Ethiopic word-space `፡` (U+1361) and
+        Ethiopic comma `፣` (U+1363) as the separator between `ምዕራፍ`
+        keyword and the chapter numeral on the parallel-Bible PDF.
+        The text-layer engine saw only ASCII whitespace, so the
+        original `\s*` form sufficed. The extended form `[\s፡፣]*`
+        accepts both layouts.
+    empirical_validation:
+      page_tested: 1318  # mq1 ch1 opening
+      pre_tau6x1b_geez_verses_parsed: 0  # Ethiopic-numeral markers didn't match \d+
+      post_tau6x1b_geez_verses_parsed_at_least: 3  # runtime-pin lower bound
+      post_tau6x1b_amharic_verses_parsed_at_least: 2  # runtime-pin lower bound (noisier column)
+      regression_pin_tests:
+        - TestTau6X1BPilotRuntime::test_geez_column_yields_verse_tuples_on_page_1318
+        - TestTau6X1BPilotRuntime::test_amharic_column_yields_verse_tuples_on_page_1318
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: true  # no .py file written to translation slots
+      tau6x0b_honesty_contract: true  # SOURCE_QUALITY=ocr-tier3 unchanged
+      tau6x0c_script_ethiopic_adoption: true  # recognizer unchanged
+      tau6x1_engine_wiring: true  # engine code unchanged; this is a parser-pre-pass extension
+      tau6x1a_pilot_validation: true  # τ.6.x.1.A reference artifact + pin tests preserved
+    no_ingest_at_this_phase: true
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved across τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B chain)'
+    next_phase: τ.6.x.2+
+    next_phase_description: |
+      Bulk-ingest of the 66 standard-canon books at ocr-tier3 with
+      SOURCE_QUALITY provenance + per-entry reader-facing caveats.
+      Now blocked ONLY on publisher direction (cadence + target-tier
+      ramp + per-book audit plan + amharic_parallel sequencing). The
+      Claude-side technical wiring + parser robustness chain is
+      closed: τ.6.x.0c (install) + τ.6.x.1 (engine) + τ.6.x.1.A
+      (pilot) + τ.6.x.1.B (parser extension). Future τ.6.x.1.C-Z
+      hardening ships may address Amharic-column-quality concerns
+      (the τ.6.x.1.B pilot showed Amharic OCR layout is noisier than
+      Geʽez; tier-3→tier-2 escalation happens at operator cross-check).

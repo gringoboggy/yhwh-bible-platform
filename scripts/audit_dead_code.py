@@ -99,6 +99,7 @@ def run_vulture(
     proc = subprocess.run(
         args,
         cwd=str(_REPO),
+        stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
         capture_output=True,
         text=True,
     )

@@ -6,6 +6,136 @@
 
 ---
 
+## 2026-05-15 — session — τ.6.x.1.B PARSER EXTENSION (resolves the τ.6.x.1.A `verse_numeral_parser_extension_needed` empirical finding via Option A — normalize Ethiopic numerals at line starts to the Arabic-digit+colon form `parse_verses_from_text()`'s existing `VERSE_NUM_RE` already matches; the downstream parser is unchanged and the normalization is a pure-function pre-pass invoked at the top of `parse_verses_from_text()` so both engines feed the same code path; backward-compatible — text-layer-engine output is a no-op for the normalizer; NEW `ETHIOPIC_PUNCT = "።፣፤፥፦፧፨"` constant covers the standard Ethiopic punctuation block U+1361-U+1368; NEW `ETHIOPIC_LINE_START_NUMERAL_RE = re.compile(r"^(\s*)([፩-፼]+)\s*([" + ETHIOPIC_PUNCT + r"])")`; NEW `normalize_verse_numerals(text) -> str` walks each line and substitutes Ethiopic-numeral verse markers with `geez_numeral_to_int`-resolved Arabic equivalents + ASCII colon; PAIRED `CHAPTER_HEADER_RE` extension `ምዕራፍ\s*([፩-፼]+)` → `ምዕራፍ[\s፡፣]*([፩-፼]+)` to tolerate Ethiopic word-space (U+1361) and Ethiopic comma (U+1363) as separators where Tesseract emits them; `_source.yaml::ocr_strategy.tau6x1b_parser_extension` block records shipped_at_phase + shipped_date + resolves_finding pointer + helpers_added + parser_change + chapter_header_regex_change diff + empirical_validation (page 1318 pre-τ.6.x.1.B = 0 verses parsed because Ethiopic numerals didn't match `\d+`; post-τ.6.x.1.B Geʽez ≥3 verses + Amharic ≥2 verses) + closed_arc_contracts_preserved (5 True booleans for tau6x0a/b/c + tau6x1 + tau6x1a) + no_ingest + translation_slot_state + next_phase=τ.6.x.2+; τ.6.x.1.A pilot block annotated with `finding_resolved_at_phase: τ.6.x.1.B` back-link; NEW test classes in tests/test_parallel_bible_tau6x1.py: TestTau6X1BModuleSurface 3 + TestTau6X1BNormalizeVerseNumerals 14 + TestTau6X1BParseVersesIntegration 3 + TestTau6X1BPilotRuntime 2 + TestTau6X1BSourceYamlBlock 11 = +33 pin tests; runtime pins ran live against the real PDF + Tesseract proving end-to-end the τ.6.x.1.A finding is resolved (the τ.6.x.1.B normalizer is the technical missing piece that lets τ.6.x.2.x bulk-ingest produce non-empty output))
+
+**Phase shipped:** τ.6.x.1.B — Ethiopic-numeral parser extension.
+Resolves the τ.6.x.1.A empirical finding via the pure-function
+pre-pass approach.
+
+**Triggered by:** user message "continue" — advance per
+`feedback_continue_not_save`. τ.6.x.1.A had flagged the missing
+piece (Ethiopic-numeral verse-marker recognition); τ.6.x.1.B is
+the obvious next foundational ship that unblocks τ.6.x.2.x from
+producing zero-verse outputs.
+
+**τ.6.x.1.B deliverables** — see `dev/SESSION_STATE.md` τ.6.x.1.B
+headline for the full breakdown. Summary: (1) `scripts/extract_
+parallel_pdf.py` — ETHIOPIC_PUNCT + ETHIOPIC_LINE_START_NUMERAL_RE
+constants + `normalize_verse_numerals()` function + `parse_verses_
+from_text()` invocation + CHAPTER_HEADER_RE regex extension; (2)
+`_source.yaml::ocr_strategy.tau6x1b_parser_extension` block + back-
+link from tau6x1a_pilot_validation; (3) +33 pin tests across 5
+new classes in test_parallel_bible_tau6x1.py.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67 +
+γ.4.8.F ≥212 Mäqabyan + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b/c/1/1.A contracts (translation
+slots gen.py-only; Option-D-Hybrid authorized; tesseract default
+engine; script/Ethiopic adopted; engine wired with W-W1-safe
+subprocess pattern; pilot validated empirically) + δ.1.0
+entries=[] + δ.1.x.A.0 batch_prep + Π.1 jubilees/one_enoch
+sections + Π.1.B laodiceans flip + Π.2.prep checklist + Ω.0 free-
+public pivot all preserved.
+
+**What did NOT change:** no engine code mutation (the τ.6.x.1
+wiring is exercised + extended at the parser-pre-pass layer, not
+modified), no `content/notes/*.py` mutation, no `content/canons.
+yaml` change, no `content/translations/*` data mutation (geez-
+tewahedo + amharic-tewahedo slots remain at Π.0 seed state), no
+EPUB binary regenerated, no popup-language add, no console add.
+Pure parser-extension + declarative codification.
+
+---
+
+## 2026-05-15 — session — τ.6.x.1.A PILOT VALIDATION (empirical end-to-end validation of the τ.6.x.1 engine wiring against the real publisher-supplied parallel-Bible PDF; rendered + OCR'd page 1318 (mq1 ch1 opening) in 6.5 seconds total — render <1s + Tesseract Geʽez ~3s + Tesseract Amharic ~3s — producing recognizable body-text in both columns at `ocr-tier3` quality per τ.6.x.0b honesty contract; title-row degrades as expected with stylized fidel but body verses are usable; English-page-header bleed correctly filtered by parse_verses_from_text()'s has_ethiopic guard; extrapolations recorded — mq1=5.5min, meqabyan=8min, standard_canon_66=5h single-threaded with 4× parallelization potential via concurrent.futures.ProcessPoolExecutor on the page-loop; NEW `dev/PILOT_TAU6X1A_OUTPUT.md` reference artifact (environment + timing + quality observations + publisher-direction inputs for the four τ.6.x.2+ D-decisions); `_source.yaml::ocr_strategy.tau6x1a_pilot_validation` block records validated_at_phase + reference_artifact pointer + page_tested + timing + extrapolations + 5 quality_observations (title-row-degradation + body-text-quality + english-bleed-filtered + latin-contamination-residue + **verse-numeral-parser-extension-needed** — a NEW τ.6.x.1.A empirical finding that parse_verses_from_text() keys off Arabic digits but the PDF's verse markers are Ethiopic numerals ፩-፼; flagged as a τ.6.x.1.B / τ.6.x.2-prep task before any τ.6.x.2.x can produce non-empty output) + pre_flight_validations_empirically_confirmed (6 checks all True: tesseract_binary_resolver finds Windows install + check_tesseract_languages recognizes amh + script/Ethiopic + pymupdf pixmap at 350dpi produces valid PNG + subprocess.run W-W1-safe pattern works + tesseract invocation returns Ethiopic text + tempfile.TemporaryDirectory shared + auto-cleaned) + no_ingest_at_this_phase=true + translation_slot_state=remains-at-Π.0-seed + next_phase=τ.6.x.1.B-or-τ.6.x.2-per-publisher-choice; NEW test classes in tests/test_parallel_bible_tau6x1.py — TestTau6X1ASourceYamlPilotBlock 10 pins (block + phase + date + artifact-pointer + page_tested + timing + pre-flight + no-ingest + next-phase + numeral-parser-finding) + TestTau6X1APilotReferenceArtifact 4 pins (exists + environment + timing + publisher-direction inputs) + TestTau6X1APilotRuntime 3 skip-if-unavailable runtime regression-pins (page 1318 render+OCR under 60s + Geʽez column ≥50 Ethiopic chars + Amharic column ≥50 Ethiopic chars — runtime pins replicate the empirical finding so future regressions to the engine surface immediately))
+
+**Phase shipped:** τ.6.x.1.A — pilot validation of τ.6.x.1 engine
+wiring. Pure empirical-validation + codification ship; no engine
+code change.
+
+**Triggered by:** user message "continue" — advance to the next-
+most-logical foundational checkpoint per `feedback_continue_not_
+save`. τ.6.x.2+ bulk-ingest is publisher-direction-gated; τ.6.x.1.A
+pilot validation is the natural intermediate step that empirically
+proves the engine works AND produces the quality-preview the
+publisher needs for the τ.6.x.2+ direction decision.
+
+**τ.6.x.1.A deliverables** — see `dev/SESSION_STATE.md` τ.6.x.1.A
+headline for the full breakdown. Summary: (1) NEW
+`dev/PILOT_TAU6X1A_OUTPUT.md` reference artifact; (2) `_source.yaml::
+ocr_strategy.tau6x1a_pilot_validation` block; (3) +17 pin tests
+across 3 new classes in test_parallel_bible_tau6x1.py.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67 +
+γ.4.8.F ≥212 Mäqabyan + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b/c/1 contracts (translation slots
+gen.py-only; Option-D-Hybrid authorized; tesseract default engine;
+script/Ethiopic adopted; engine wired with W-W1-safe subprocess
+pattern) + δ.1.0 entries=[] + δ.1.x.A.0 batch_prep + Π.1 jubilees/
+one_enoch sections + Π.1.B laodiceans flip + Π.2.prep checklist +
+Ω.0 free-public pivot all preserved.
+
+**What did NOT change:** no engine code mutation, no
+`content/notes/*.py` mutation, no `content/canons.yaml` change, no
+`content/translations/*` data mutation (geez-tewahedo + amharic-
+tewahedo slots remain at Π.0 seed state — 3 verses Genesis only),
+no EPUB binary regenerated, no popup-language add, no console add.
+Pure empirical-validation + declarative codification.
+
+---
+
+## 2026-05-14 — session — τ.6.x.1 TESSERACT ENGINE WIRED (Claude-side wiring of the τ.6.x.0c-authorized strategy into `scripts/extract_parallel_pdf.py`; new `--engine {tesseract,text-layer}` CLI flag with `tesseract` as the default per τ.6.x.0b Option-D-Hybrid authorization; the Tesseract engine renders each PDF column to a PNG at 350 dpi via pymupdf's `page.get_pixmap(matrix=Matrix(zoom, zoom), clip=...)` and invokes Tesseract once per column with the column-specific language pack — `script/Ethiopic --psm 6` for the Geʽez left column, `amh --psm 6` for the Amharic right column; one `tempfile.TemporaryDirectory()` shared across all pages of a section avoids per-page mkdir/rmdir overhead; pre-flight validation resolves the binary via `scripts.core.paths.tesseract_binary()` and verifies both required language packs (`amh` + `script/Ethiopic`, normalized for Windows `script\\Ethiopic` ↔ POSIX `script/Ethiopic`) via `tesseract --list-langs` BEFORE any PDF page is opened, with clean SystemExits + cross-platform install/tessdata pointers on either gap; all subprocess invocations pass `stdin=subprocess.DEVNULL` per the LIGHT-1 W-W1 mitigation (Windows-handle-invalid failure mode when pytest runs from a stdin-less shell); the legacy `text-layer` engine is retained as a fallback for diagnostic comparison and Tesseract-unavailable environments; `extract_section()` signature gains an `engine: str = ENGINE_DEFAULT` kwarg that dispatches the per-page loop accordingly; module surface added: `OCR_DPI=350`, `GEEZ_LANG='script/Ethiopic'`, `AMH_LANG='amh'`, `ENGINE_CHOICES`, `ENGINE_DEFAULT`, plus 7 helper functions (`_required_tesseract_languages`, `_check_tesseract_languages`, `_render_column_to_png`, `_run_tesseract_on_png`, `tesseract_extract_columns`, `_resolve_tesseract_or_exit`, `_verify_tesseract_languages_or_exit`); `_source.yaml::ocr_strategy.tau6x1_wiring` block records the wiring with engine_default/render/invocation/pre_flight/closed_arc_contracts_preserved/no_ingest/translation_slot_state/next_phase=τ.6.x.2+ shape; SCOPE_2026-05-14-parallel-bible.md §7.6 added with engine semantics + render path + pre-flight validation + W-W1 mitigation + τ.6.x.2+ unblock pointer; PI2_PRE_FLIGHT_CHECKLIST.md τ.6.x.1 row added as ✓ SHIPPED + τ.6.x.1+ row replaced by τ.6.x.2+ publisher-direction-gated entry + τ.7.x updated to "blocked on τ.6.x.2+" + §4 verification commands updated for the new module surface; NEW tests/test_parallel_bible_tau6x1.py with ~50 pin tests across 12 groups (ModuleSurface 6 + RequiredLanguages 1 + CheckTesseractLanguages 5 + ResolveTesseractOrExit 3 + VerifyTesseractLanguagesOrExit 3 + RunTesseractOnPng 3 + TesseractExtractColumns 4 + ExtractSectionEngineDispatch 1 + SourceYamlWiringBlock 16 + ScopeWiringSection 7 + PreFlightChecklistFlip 3 + TesseractRuntime 2 (skip-if-unavailable, W-W1-safe) + ClosedArcInvariantPreservation 7 + PhaseCoverage 2); test_omega4x_hygiene.py share-pin → milestone-pin conversion per `feedback_share_pin_pattern` migrating τ.6.x.1 from pending-list assertion to shipped-list assertion AND τ.6.x.1+ → τ.6.x.2+ in the pending list; test_parallel_bible_tau6x0c.py W-W1 mitigation applied to the two runtime probes (`--version` + `--list-langs`); PLAN_2026-05-09 §2 status snapshot + §6 parallel-Bible ledger updated reflecting τ.6.x.1-shipped state)
+
+**Phase shipped:** τ.6.x.1 — Tesseract engine wiring into
+`scripts/extract_parallel_pdf.py`. Claude-side wiring of the
+τ.6.x.0c-authorized strategy; the engine is now invokable end-to-
+end with pre-flight binary + language verification.
+
+**Triggered by:** user message "continue" — advance to the next
+phase per `feedback_continue_not_save` memory. AUDIT_2026-05-14-
+LIGHT-3 §5.2 had identified τ.6.x.1+ as the obvious next ship.
+Per memory `feedback_extensive_answers` (broadest scope: wire the
+engine + add module surface helpers + pre-flight validation +
+write thorough pin tests + update all 4 state docs + extend SCOPE
++ flip PI2 row + fix W-W1 in tau6x0c tests as a paired hygiene fix
++ migrate the share-pin to milestone-pin), `feedback_continue_not_
+save` (advance to next phase, don't auto-save), `feedback_share_
+pin_pattern` (convert τ.6.x.1+ pending-list assertion → τ.6.x.1
+shipped-list assertion at ship time), and project rules §3
+sequencing (engine wiring foundation first → docstring + scope
+codification → checklist flip → tests → state docs).
+
+**τ.6.x.1 deliverables** — see `dev/SESSION_STATE.md` τ.6.x.1
+headline for the full breakdown. Summary: (1) `scripts/extract_
+parallel_pdf.py` engine wiring (constants + 7 helper functions +
+`extract_section()` signature change + CLI `--engine` flag + W-W1-
+safe subprocess pattern + dual-engine dispatch); (2) `_source.yaml::
+ocr_strategy.tau6x1_wiring` block; (3) SCOPE §7.6 wiring section;
+(4) PI2 checklist row flip + new τ.6.x.2+ row + verification command
+updates; (5) NEW `tests/test_parallel_bible_tau6x1.py` ~50 pins;
+(6) PLAN §2 status snapshot + §6 ledger updates; (7) test_omega4x_
+hygiene.py share-pin → milestone-pin conversion; (8) `tests/test_
+parallel_bible_tau6x0c.py` W-W1 mitigation paired-hygiene fix.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67 +
+γ.4.8.F ≥212 Mäqabyan + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b/c contracts (translation slots
+gen.py-only; Option-D-Hybrid authorized; Tesseract default engine;
+script/Ethiopic adopted) + δ.1.0 entries=[] + δ.1.x.A.0 batch_prep
++ Π.1 jubilees/one_enoch sections + Π.1.B laodiceans flip +
+Π.2.prep checklist + Ω.0 free-public pivot all preserved. NO
+content/notes/*.py mutation; corpus reproducibility (52,459 notes)
+unaffected; v1.0 byte-identical reproducibility preserved.
+
+**What did NOT change:** no `content/notes/*.py` mutation, no
+`content/canons.yaml` change, no `content/translations/*` data
+mutation (geez-tewahedo + amharic-tewahedo slots remain at Π.0
+seed state — 3 verses Genesis only per the τ.6.x.0a contract), no
+EPUB binary regenerated (`exports/` untouched), no popup-language
+add, no console add. Pure engine wiring + declarative codification.
+
+---
+
 ## 2026-05-14 — session — τ.6.x.0c TESSERACT-VERIFY + SCRIPT/ETHIOPIC ADOPTION (operator-side Tesseract install verification COMPLETE on Windows v5.5.0.20241111 UB-Mannheim build with user-PATH appended; `amh.traineddata` present + `gez.traineddata` absent as anticipated by τ.6.x.0b AVAILABILITY-UNCERTAIN flag + **`script/Ethiopic` IS present in the standard upstream tessdata install** — Tesseract's upstream-blessed Ethiopic-script-level recognizer adopted as the Geʽez OCR recognizer; NEW third option (Option C) extends the τ.6.x.0b fallback enumeration with a strictly-better path beyond Option A (skip → would emit Amharic-only output) and Option B (phase4-defer → would defer 66 standard-canon books to ~50+ manual-transcription sessions); same Apache-2.0 license posture as `amh.traineddata`, no community-fork license-verification gate, honesty contract preserved (script-level recognition acknowledged imperfect = exactly what `ocr-tier3` means); Tesseract invocation pattern for τ.6.x.1+ is `-l script/Ethiopic+amh`; bonus languages also available in the standard install for downstream arcs — `grc` (Greek, χ.1), `heb` (Hebrew), `syr` (Syriac, γ.4.2 Ephrem), `lat` (Latin, χ.0 Kenyon + Lightfoot 1875 Π.1.B Laodiceans), `tir` (Tigrinya, secondary Ethiopic witness); NEW `scripts.core.paths.tesseract_binary()` resolver landed — PATH → known platform install paths → `TESSERACT_BIN` env-override; `lru_cache`-d with `reset_tesseract_binary()` test hook; both added to `paths.__all__`; project no longer depends on operator having Tesseract on PATH; `_source.yaml::ocr_strategy.tau6x0c_verification` block + `prerequisites.geez_tessdata.fallback_if_missing.option_c` extension landed preserving τ.6.x.0b options A/B as historical record; SCOPE_2026-05-14-parallel-bible.md §7.5 extended with τ.6.x.0c verification + script/Ethiopic adoption + updated Option-D tier-policy table; PI2_PRE_FLIGHT_CHECKLIST.md τ.6.x.0c gate-dashboard row flipped ⬜ → ✓ SHIPPED with script/Ethiopic resolution + resolver location referenced + §4 verification commands updated `^(amh|gez)$` → `^(amh|script/Ethiopic)$` + §2 unblock-status annotated + τ.6.x.1+ row updated to "blocked on Tesseract wiring" + τ.7.x row updated to "blocked on τ.6.x.1+"; NEW tests/test_parallel_bible_tau6x0c.py with 45 pin tests across 8 groups; test_omega4x_hygiene.py share-pin → milestone-pin conversion per `feedback_share_pin_pattern` migrating τ.6.x.0c from pending-list assertion to shipped-list assertion; PLAN_2026-05-09 §2 status snapshot + §6 parallel-Bible ledger updated reflecting τ.6.x.0c shipped state)
 
 **Phase shipped:** τ.6.x.0c — Tesseract install verification +

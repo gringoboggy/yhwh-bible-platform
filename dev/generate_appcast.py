@@ -134,6 +134,7 @@ def _run_git(args: list[str]) -> str:
     proc = subprocess.run(
         ["git", *args],
         cwd=str(REPO_ROOT),
+        stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
         capture_output=True,
         text=True,
         check=False,

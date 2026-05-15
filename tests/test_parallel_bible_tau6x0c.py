@@ -417,6 +417,7 @@ class TestTau6X0cTesseractRuntime:
         binary = self._tesseract_or_skip()
         result = subprocess.run(
             [str(binary), "--version"],
+            stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
             timeout=10,
@@ -435,6 +436,7 @@ class TestTau6X0cTesseractRuntime:
         binary = self._tesseract_or_skip()
         result = subprocess.run(
             [str(binary), "--list-langs"],
+            stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
             timeout=10,
@@ -447,6 +449,7 @@ class TestTau6X0cTesseractRuntime:
         binary = self._tesseract_or_skip()
         result = subprocess.run(
             [str(binary), "--list-langs"],
+            stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
             timeout=10,

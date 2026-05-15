@@ -1104,6 +1104,113 @@ ingest is no longer blocked operator-side.
 
 ---
 
+## §7.6 — τ.6.x.1 wiring (SHIPPED 2026-05-14)
+
+τ.6.x.1 wires the τ.6.x.0c-authorized Tesseract strategy into the
+extractor. This phase is Claude-side actionable — τ.6.x.0c had
+already closed the operator-side gate by verifying the Tesseract
+install and adopting `script/Ethiopic` as the Geʽez recognizer.
+
+**Engine selection.** `scripts/extract_parallel_pdf.py` gains a
+`--engine {tesseract,text-layer}` CLI flag with `tesseract` as the
+default per the τ.6.x.0b Option-D-Hybrid authorization. The legacy
+`text-layer` path (τ.6.x.0a-original) is retained as a fallback
+for diagnostic comparison and for environments where Tesseract is
+unavailable. Both engines feed the same downstream
+`parse_verses_from_text()` / `write_book_module()` pipeline; the
+`SOURCE_QUALITY="ocr-tier3"` honesty-contract tagging is unchanged.
+
+**Render path.** For each PDF page in the extraction range, the
+tool:
+
+1. Clips the page rect to the left (Geʽez) and right (Amharic)
+   columns at the 50% split point — same column geometry as the
+   text-layer engine, preserves verse-row alignment.
+2. Renders each clipped column to a PNG at 350 dpi via pymupdf's
+   `page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), clip=...)`,
+   where `zoom = 350/72`. The 350-dpi cadence matches the Phase-4
+   page-image methodology in
+   `project_maccabees_expansion/02_METHODOLOGY.md §2`.
+3. Invokes Tesseract once per column with the appropriate language
+   pack: `script/Ethiopic --psm 6` for the Geʽez left column,
+   `amh --psm 6` for the Amharic right column. `psm=6` ("assume a
+   single uniform block of text") matches the parallel-Bible's
+   per-column vertical-verse layout.
+4. Captures Tesseract's stdout as the recognized text for that
+   column. The two columns' outputs flow through the existing
+   `parse_verses_from_text()` to produce `(chapter, verse, text)`
+   tuples.
+
+**Per-section TemporaryDirectory.** A single
+`tempfile.TemporaryDirectory()` is opened at the start of an
+extraction section and shared across all of that section's pages.
+This avoids per-page mkdir/rmdir overhead during multi-page
+extraction; cleanup is guaranteed via try/finally on the section's
+PDF context.
+
+**Pre-flight validation.** Before any PDF page is opened, the tool:
+
+- Resolves the Tesseract binary via
+  `scripts.core.paths.tesseract_binary()` and SystemExits with a
+  cross-platform install-pointer message (Windows UB-Mannheim /
+  macOS Homebrew / Linux apt-get) if the resolver returns `None`.
+- Runs `tesseract --list-langs` and verifies that both `amh` and
+  `script/Ethiopic` are present, normalizing the Windows
+  `script\Ethiopic` backslash form to the canonical `script/Ethiopic`
+  forward-slash form. Missing packs cause SystemExit with the
+  tessdata_fast/best download pointers.
+
+Both pre-flight checks use the W-W1-safe subprocess pattern
+(`stdin=subprocess.DEVNULL`) per the LIGHT-1 finding. The Windows-
+handle-invalid failure mode is avoided by explicitly passing
+DEVNULL for stdin so the child process never tries to inherit an
+invalid stdin handle from a pytest-from-Powershell parent shell.
+
+**Module surface added at τ.6.x.1:**
+
+- `OCR_DPI = 350` — module-level constant pinning the render dpi.
+- `GEEZ_LANG = "script/Ethiopic"` — τ.6.x.0c-authorized recognizer.
+- `AMH_LANG = "amh"` — Amharic language pack.
+- `ENGINE_CHOICES = ("tesseract", "text-layer")` — CLI choices.
+- `ENGINE_DEFAULT = "tesseract"` — per τ.6.x.0b authorization.
+- `_required_tesseract_languages()` — returns the tuple of language
+  packs the tesseract engine pre-flight-checks.
+- `_check_tesseract_languages(binary, required)` — runs `--list-langs`
+  and returns the list of required packs not present. Empty list
+  means all present. Normalizes `script\X` ↔ `script/X`.
+- `_render_column_to_png(page, side, dpi, out_path)` — renders one
+  column (`'left'` or `'right'`) of a PDF page to a PNG at the given
+  dpi via pymupdf.
+- `_run_tesseract_on_png(binary, png_path, lang, psm=6)` — invokes
+  Tesseract on a PNG and returns recognized text from stdout.
+- `tesseract_extract_columns(page, binary, *, dpi, geez_lang, amh_lang, tmp_dir)`
+  — high-level: renders both columns + runs Tesseract on each.
+- `_resolve_tesseract_or_exit()` — wraps the binary resolver with the
+  install-pointer SystemExit.
+- `_verify_tesseract_languages_or_exit(binary)` — wraps the language
+  verification with the tessdata-pointer SystemExit.
+
+**`extract_section()` signature change:** a new `engine: str =
+ENGINE_DEFAULT` keyword argument dispatches the per-page loop to
+either `tesseract_extract_columns()` (engine=tesseract) or
+`extract_text_by_column()` (engine=text-layer). The CLI `--engine`
+flag plumbs through to `extract_section()`.
+
+**No bulk-ingest at τ.6.x.1.** The translation slots remain at
+their Π.0 seed state (3 verses Genesis only); the τ.6.x.0a contract
+is preserved as a regression-guarded invariant. The engines are
+wired and pre-flight-validated; the actual bulk-ingest is τ.6.x.2+
+work and requires publisher direction on cadence, target-tier ramp,
+per-book audit plan, and Amharic-slot sequencing (the `τ.7.x` track
+that joins the bulk-ingest path here).
+
+**Next phase unblocks:** τ.6.x.2+ bulk-ingest. The implementation
+gate is publisher direction on the four open questions above.
+There are no remaining Claude-side or operator-side technical
+blockers — the engine wiring + pre-flight validation are in place.
+
+---
+
 ## §8 — Open decisions for the user
 
 These are the publisher-side choices the plan needs but cannot

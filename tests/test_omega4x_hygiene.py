@@ -82,6 +82,7 @@ class TestOmega4xWW2BuildEditionRuffCheck:
         code 0 (zero errors after ω.4x fixes + per-file-ignores)."""
         result = subprocess.run(  # noqa: S603, S607 — local invocation, no untrusted input
             ["py", "-m", "ruff", "check", str(BUILD_EDITION)],
+            stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
             check=False,
@@ -174,19 +175,43 @@ class TestOmega4xAI2PlanParallelBibleTrack:
         )
 
     def test_plan_lists_shipped_subphases(self):
-        """The shipped 2026-05-14 sub-phase ledger should appear.
-        τ.6.x.0c migrated from pending → shipped at τ.6.x.0c ship-time
-        (share-pin → milestone-pin conversion per
-        `feedback_share_pin_pattern` memory)."""
+        """The shipped sub-phase ledger should appear.
+        Share-pin → milestone-pin conversions per the
+        `feedback_share_pin_pattern` memory:
+          - τ.6.x.0c migrated pending → shipped at τ.6.x.0c ship-time
+          - τ.6.x.1 migrated pending → shipped at τ.6.x.1 ship-time
+          - τ.6.x.1.A added shipped at τ.6.x.1.A pilot-validation
+            ship-time (2026-05-15)
+          - τ.6.x.1.B migrated pending → shipped at τ.6.x.1.B
+            parser-extension ship-time (2026-05-15)"""
         text = _plan_text()
-        for phase in ["Π.0", "τ.6.x.0a", "τ.6.x.0b", "φ.1", "δ.1.0", "Π.1", "Π.1.B", "τ.6.x.0c"]:
+        for phase in [
+            "Π.0",
+            "τ.6.x.0a",
+            "τ.6.x.0b",
+            "φ.1",
+            "δ.1.0",
+            "Π.1",
+            "Π.1.B",
+            "τ.6.x.0c",
+            "τ.6.x.1",
+            "τ.6.x.1.A",
+            "τ.6.x.1.B",
+        ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
     def test_plan_lists_pending_subphases(self):
         """The pending sub-phase ledger (still-blocked phases) should
-        appear. τ.6.x.0c removed at τ.6.x.0c ship-time."""
+        appear. Migrations:
+          - τ.6.x.0c removed at τ.6.x.0c ship-time
+          - τ.6.x.1+ → τ.6.x.2+ at τ.6.x.1 ship-time (engine wired;
+            bulk-ingest is now the publisher-gated successor phase)
+          - τ.6.x.1.B added pending at τ.6.x.1.A pilot-validation
+            ship-time (empirical finding: parse_verses_from_text()
+            needs Ethiopic-numeral support); migrated pending →
+            shipped at τ.6.x.1.B ship-time"""
         text = _plan_text()
-        for phase in ["τ.6.x.1+", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 
@@ -212,6 +237,7 @@ class TestOmega4xClosedArcInvariantPreservation:
         build_edition module's import side-effects)."""
         result = subprocess.run(  # noqa: S603, S607
             ["py", "-c", "import ast; ast.parse(open(r'scripts/build_edition.py', encoding='utf-8').read())"],
+            stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
             check=False,

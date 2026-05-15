@@ -734,6 +734,7 @@ class TestOmega33RuffFormat:
         proc = subprocess.run(
             ["python", "-m", "ruff", "format", "--check", "."],
             cwd=str(repo),
+            stdin=subprocess.DEVNULL,  # W-W1 mitigation (τ.6.x.1)
             capture_output=True,
             text=True,
         )

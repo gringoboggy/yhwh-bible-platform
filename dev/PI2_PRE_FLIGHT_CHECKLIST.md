@@ -58,16 +58,22 @@ Pin tests (proposed `TestPi2EthiopianTewahedoPopups`):
 | Π.1 declarative inventory | Π.1 (committed `13501e9`) | ✓ SHIPPED 2026-05-14 | structural_map for jubilees + one_enoch + laodiceans + meqabyan declared; required for popup-emission code to know which Tewahedo-distinctive slots to surface. |
 | Π.1.B laodiceans alternate-source | Π.1.B (committed `f139494`) | ✓ SHIPPED 2026-05-14 | alternate-source for the lao slot declared; required if publisher elects to include lao in ethiopian canon at Π.2 follow-through (see §3 D2). |
 | τ.6.x.0c Tesseract install | τ.6.x.0c | ✓ SHIPPED 2026-05-14 | Tesseract 5.5.0 installed + amh.traineddata present + `script/Ethiopic` adopted as Geʽez recognizer (resolves τ.6.x.0b AVAILABILITY-UNCERTAIN gez.traineddata gap with strictly-better third option). Resolver `scripts.core.paths.tesseract_binary()` decouples ingest from PATH state. |
-| τ.6.x.1+ Geʽez bulk ingest | τ.6.x.1+ | ⬜ blocked on Tesseract wiring in extract_parallel_pdf.py | populates geez-tewahedo translation slot beyond Π.0 seed (3 verses Genesis only); without this, Geʽez popups would be empty. |
-| τ.7.x Amharic full-Bible ingest | τ.7.x | ⬜ blocked on τ.6.x.1+ | populates amharic-tewahedo translation slot beyond Π.0 seed; without this, Amharic popups would be empty. |
+| τ.6.x.1 Tesseract engine wired | τ.6.x.1 | ✓ SHIPPED 2026-05-14 | `scripts/extract_parallel_pdf.py` gains `--engine tesseract` (default) — renders each PDF column at 350 dpi via pymupdf + invokes `tesseract -l script/Ethiopic` (Geʽez) / `tesseract -l amh` (Amharic) per column with W-W1-safe subprocess pattern. Pre-flight resolves the binary via `scripts.core.paths.tesseract_binary()` + verifies both required language packs are present via `tesseract --list-langs` before any PDF page is opened; clean SystemExit with install/tessdata pointers on either gap. |
+| τ.6.x.1.A Pilot validation | τ.6.x.1.A | ✓ SHIPPED 2026-05-15 | Empirical end-to-end pilot: page 1318 (mq1 ch1 opening) rendered + OCR'd in 6.5s producing recognizable Geʽez + Amharic body-text at `ocr-tier3` quality. Reference artifact `dev/PILOT_TAU6X1A_OUTPUT.md` captures timing extrapolations (mq1=5.5min, meqabyan=8min, standard-canon=5h single-threaded) + 5 quality observations + publisher-direction inputs. NEW finding: parse_verses_from_text() keys off Arabic digits but PDF uses Ethiopic numerals → parser extension needed at τ.6.x.1.B. |
+| τ.6.x.1.B Ethiopic numeral parser | τ.6.x.1.B | ✓ SHIPPED 2026-05-15 | NEW `normalize_verse_numerals()` pure-function pre-pass at the top of `parse_verses_from_text()` converts line-start Ethiopic numerals + Ethiopic punctuation to the Arabic-digit+colon form `VERSE_NUM_RE` already matches. Backward-compatible (text-layer Arabic-digit input is a no-op). Paired `CHAPTER_HEADER_RE` extension tolerates Ethiopic word-space `፡` (U+1361) and Ethiopic comma `፣` (U+1363) as separators. Runtime regression-pins confirmed page 1318 now yields ≥3 Geʽez verses + ≥2 Amharic verses (vs 0 pre-fix). Resolves the τ.6.x.1.A empirical finding. |
+| τ.6.x.2+ Geʽez bulk ingest | τ.6.x.2+ | ⬜ blocked ONLY on publisher direction (cadence + target-tier ramp + per-book audit plan) | populates geez-tewahedo translation slot beyond Π.0 seed (3 verses Genesis only); without this, Geʽez popups would be empty. Engine wired at τ.6.x.1 + empirically validated at τ.6.x.1.A + parser extended at τ.6.x.1.B; ALL Claude-side technical gates now closed. Bulk-ingest gate is purely publisher-direction. |
+| τ.7.x Amharic full-Bible ingest | τ.7.x | ⬜ blocked on τ.6.x.2+ | populates amharic-tewahedo translation slot beyond Π.0 seed; without this, Amharic popups would be empty. |
 | δ.1.x Phase-4 Meqabyan apparatus | δ.1.x (multi-session) | ⬜ blocked on operator page-image render | required for ethiopian-tewahedo's Meqabyan-1-3 popups to be more than the v1 English baseline (Phase-4 page-image revisions feed compare-divergence-geez kind). |
 
 **Π.2 is unblocked ONLY when:** Π.1 ✓ AND Π.1.B ✓ AND τ.6.x.0c ✓
-AND τ.6.x.1+ ✓ AND τ.7.x ✓. δ.1.x apparatus is RECOMMENDED but
-NOT strictly blocking — Π.2 can ship with Meqabyan popups showing
-only the v1 English baseline (Phase-4 apparatus is a bonus
-enhancement, not a Π.2 prerequisite). **As of 2026-05-14: Π.1 + Π.1.B
-+ τ.6.x.0c shipped; remaining gates τ.6.x.1+ + τ.7.x.**
+AND τ.6.x.1 ✓ AND τ.6.x.1.A ✓ AND τ.6.x.1.B ✓ AND τ.6.x.2+ ✓ AND
+τ.7.x ✓. δ.1.x apparatus is RECOMMENDED but NOT strictly blocking —
+Π.2 can ship with Meqabyan popups showing only the v1 English
+baseline (Phase-4 apparatus is a bonus enhancement, not a Π.2
+prerequisite). **As of 2026-05-15: Π.1 + Π.1.B + τ.6.x.0c + τ.6.x.1
++ τ.6.x.1.A + τ.6.x.1.B shipped; remaining gates τ.6.x.2+ + τ.7.x
+(both purely publisher-direction-gated; no remaining Claude-side
+technical blockers).**
 
 ---
 
@@ -181,7 +187,13 @@ tesseract --list-langs | grep -E "^(amh|script/Ethiopic)$"
 # PATH, the resolver scripts.core.paths.tesseract_binary() falls back
 # to platform-conventional install paths automatically.
 
-# τ.6.x.1+ ✓ verification
+# τ.6.x.1 ✓ verification (engine wired)
+python3 -c "from scripts.extract_parallel_pdf import ENGINE_DEFAULT, OCR_DPI, GEEZ_LANG, AMH_LANG; print(ENGINE_DEFAULT, OCR_DPI, GEEZ_LANG, AMH_LANG)"
+# Expect: tesseract 350 script/Ethiopic amh
+python3 scripts/extract_parallel_pdf.py --help | grep -- "--engine"
+# Expect: '--engine {tesseract,text-layer}' appears in --help output.
+
+# τ.6.x.2+ ✓ verification (bulk-ingest — pending publisher direction)
 ls content/translations/geez-tewahedo/*.py | wc -l
 ls content/translations/amharic-tewahedo/*.py | wc -l
 # Expect: 87 (all canon books) for each, NOT 1 (gen.py-only seed).
