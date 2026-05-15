@@ -48,7 +48,6 @@ import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -220,10 +219,7 @@ def _resolve_traditions_for_book(edition: dict, book_code: str) -> set[str]:
     "every note survives".
     """
     per_book = decode_per_book_traditions(edition.get("traditions_per_book"))
-    if book_code in per_book:
-        raw = per_book[book_code]
-    else:
-        raw = edition.get("traditions_default") or []
+    raw = per_book[book_code] if book_code in per_book else (edition.get("traditions_default") or [])
     return {t for t in (raw or []) if isinstance(t, str)}
 
 
@@ -492,10 +488,9 @@ def compute_enabled_kinds(edition: dict, all_kinds: list[dict]) -> tuple[set, se
             continue
 
         # Phase gate (legacy bypasses)
-        if kind_phase != "legacy":
-            if PHASE_ORDER.index(kind_phase) > max_idx:
-                disabled.add(code)
-                continue
+        if kind_phase != "legacy" and PHASE_ORDER.index(kind_phase) > max_idx:
+            disabled.add(code)
+            continue
 
         # Explicit enable
         if code in enabled_kinds_explicit:
@@ -1031,7 +1026,7 @@ def _resolve_publishing(edition: dict) -> dict:
     """
     now_year = datetime.now(timezone.utc).year
     now_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    DEFAULTS = {
+    defaults = {
         "publisher_name": "Independent",
         "publisher_url": "",
         "copyright_year": str(now_year),
@@ -1045,7 +1040,7 @@ def _resolve_publishing(edition: dict) -> dict:
         "source_text_credit": "Scripture text based on the World English Bible (public domain).",
     }
     out = {}
-    for k, v in DEFAULTS.items():
+    for k, v in defaults.items():
         out[k] = edition.get(k) or v
     out["authors"] = list(edition.get("authors") or [])
     out["bisac_codes"] = list(edition.get("bisac_codes") or [])
@@ -1246,32 +1241,32 @@ def patch_opf(opf_text: str, edition: dict, version: str) -> str:
         # BISAC subjects from publishing block (Phase π.2)
         + bisac_meta
         # LCSH subject classifications
-        + f"    <dc:subject>Bible -- Commentaries</dc:subject>\n"
-        f"    <dc:subject>Bible. Old Testament -- Commentaries</dc:subject>\n"
-        f"    <dc:subject>Bible. New Testament -- Commentaries</dc:subject>\n"
-        f"    <dc:subject>Ethiopian Orthodox Tewahedo Church -- Doctrines</dc:subject>\n"
+        + "    <dc:subject>Bible -- Commentaries</dc:subject>\n"
+        "    <dc:subject>Bible. Old Testament -- Commentaries</dc:subject>\n"
+        "    <dc:subject>Bible. New Testament -- Commentaries</dc:subject>\n"
+        "    <dc:subject>Ethiopian Orthodox Tewahedo Church -- Doctrines</dc:subject>\n"
         # WCAG 2.1 Level AA conformance declarations
-        f'    <link rel="dcterms:conformsTo" '
-        f'href="http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-aa"/>\n'
-        f'    <meta property="a11y:certifiedBy">TODO_CERTIFIER_NAME</meta>\n'
-        f'    <meta property="schema:accessMode">textual</meta>\n'
-        f'    <meta property="schema:accessMode">visual</meta>\n'
-        f'    <meta property="schema:accessModeSufficient">textual</meta>\n'
-        f'    <meta property="schema:accessibilityFeature">tableOfContents</meta>\n'
-        f'    <meta property="schema:accessibilityFeature">readingOrder</meta>\n'
-        f'    <meta property="schema:accessibilityFeature">structuralNavigation</meta>\n'
-        f'    <meta property="schema:accessibilityFeature">alternativeText</meta>\n'
-        f'    <meta property="schema:accessibilityFeature">unlocked</meta>\n'
-        f'    <meta property="schema:accessibilityHazard">none</meta>\n'
-        f'    <meta property="schema:accessibilityAPI">ARIA</meta>\n'
-        f'    <meta property="schema:accessibilitySummary">'
-        f"This publication conforms to WCAG 2.1 Level AA. It includes a structured "
-        f"table of contents, semantic reading order, structural navigation by book and "
-        f"chapter, alt text on the cover image, and BCP-47 language tags for the "
-        f"cross-script content (Hebrew, Greek, Aramaic, Ge\u2019ez transliterations). "
-        f"There are no known accessibility hazards. The text is unlocked (no DRM)."
-        f"</meta>\n"
-        f'    <meta property="schema:typicalAgeRange">18-</meta>\n'
+        '    <link rel="dcterms:conformsTo" '
+        'href="http://www.idpf.org/epub/a11y/accessibility-20170105.html#wcag-aa"/>\n'
+        '    <meta property="a11y:certifiedBy">TODO_CERTIFIER_NAME</meta>\n'
+        '    <meta property="schema:accessMode">textual</meta>\n'
+        '    <meta property="schema:accessMode">visual</meta>\n'
+        '    <meta property="schema:accessModeSufficient">textual</meta>\n'
+        '    <meta property="schema:accessibilityFeature">tableOfContents</meta>\n'
+        '    <meta property="schema:accessibilityFeature">readingOrder</meta>\n'
+        '    <meta property="schema:accessibilityFeature">structuralNavigation</meta>\n'
+        '    <meta property="schema:accessibilityFeature">alternativeText</meta>\n'
+        '    <meta property="schema:accessibilityFeature">unlocked</meta>\n'
+        '    <meta property="schema:accessibilityHazard">none</meta>\n'
+        '    <meta property="schema:accessibilityAPI">ARIA</meta>\n'
+        '    <meta property="schema:accessibilitySummary">'
+        "This publication conforms to WCAG 2.1 Level AA. It includes a structured "
+        "table of contents, semantic reading order, structural navigation by book and "
+        "chapter, alt text on the cover image, and BCP-47 language tags for the "
+        "cross-script content (Hebrew, Greek, Aramaic, Ge\u2019ez transliterations). "
+        "There are no known accessibility hazards. The text is unlocked (no DRM)."
+        "</meta>\n"
+        '    <meta property="schema:typicalAgeRange">18-</meta>\n'
     )
     new_text = re.sub(
         r"</metadata>",
@@ -1615,9 +1610,8 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
     default_open = bool(edition.get("reader_toc_default_open", False))
     ornament_code = (edition.get("book_toc_ornament") or "").strip()
     ornament_glyph = ""
-    if ornament_code and ornament_code != "none":
-        if ornament_code in BOOK_TOC_ORNAMENTS:
-            ornament_glyph = BOOK_TOC_ORNAMENTS[ornament_code][0]
+    if ornament_code and ornament_code != "none" and ornament_code in BOOK_TOC_ORNAMENTS:
+        ornament_glyph = BOOK_TOC_ORNAMENTS[ornament_code][0]
         # Unknown codes are silently ignored — the API validator
         # already rejects them upstream, and a build-time crash
         # over a stale value in editions.yaml would be worse than
@@ -2143,12 +2137,11 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
 
         for f in tmp.glob("*.html"):
             text = f.read_text(encoding="utf-8")
-            this_file_ids = id_inventory.get(f.name, set())
 
-            def _check_anchor(m: re.Match) -> str:
+            def _check_anchor(m: re.Match, fname: str = f.name) -> str:
                 target_file, anchor, visible = m.group(1), m.group(2), m.group(3)
                 # Resolve target file: empty = same file
-                target = target_file if target_file else f.name
+                target = target_file if target_file else fname
                 if target not in id_inventory:
                     # File was dropped — strip wrapper
                     return visible
@@ -2160,12 +2153,12 @@ def filter_books_for_canon(tmp: Path, canon_books: set[str], all_books: list[dic
             new_text, n1 = link_re.subn(_check_anchor, text)
             stats["cross_refs_stripped"] += n1
 
-            def _check_file_only(m: re.Match) -> str:
+            def _check_file_only(m: re.Match, fname: str = f.name) -> str:
                 target_file, visible = m.group(1), m.group(2)
                 # Skip non-html refs (mailto, http, etc.)
                 if not target_file.endswith(".html") and not target_file.endswith(".xhtml"):
                     return m.group(0)
-                if target_file not in id_inventory and target_file != f.name:
+                if target_file not in id_inventory and target_file != fname:
                     return visible  # strip
                 return m.group(0)
 
@@ -2334,9 +2327,8 @@ def patch_ncx_canon(ncx_text: str, id_inventory: dict[str, set[str]]) -> str:
         anchor = src_m.group(2) or ""
         if target_file and target_file not in id_inventory:
             return ""
-        if anchor and target_file in id_inventory:
-            if anchor not in id_inventory[target_file]:
-                return ""
+        if anchor and target_file in id_inventory and anchor not in id_inventory[target_file]:
+            return ""
         return block
 
     pruned = navpoint_re.sub(_check_navpoint, ncx_text)
@@ -2361,7 +2353,7 @@ def _write_stats_sidecar(
     output_path: Path,
     stats: dict,
     build_seconds: float,
-) -> Optional[Path]:
+) -> Path | None:
     """Write a small JSON sidecar capturing build outcome metadata.
 
     The sidecar is a buyer-facing surface (api_export_build folds it
@@ -2425,9 +2417,9 @@ def build_one(
     disabled_html_ref_ids: set[str] = set()
     if disabled_note_ids:
         books_idx = config.books_by_code()
-        _NOTE_ID_RE = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
+        note_id_re = re.compile(r"^([a-z0-9]+):(\d+):(\d+)([a-z]*):([a-z][a-z0-9-]*)$")
         for nid in disabled_note_ids:
-            m = _NOTE_ID_RE.match(nid)
+            m = note_id_re.match(nid)
             if not m:
                 continue
             book_code = m.group(1)
@@ -2518,7 +2510,7 @@ def build_one(
     # cache module can't compute a key (e.g. the edition record has a
     # non-JSON-serializable field) — in that case the cache is bypassed
     # silently and the existing mtime cache remains the only fast path.
-    cache_key: Optional[str] = None
+    cache_key: str | None = None
     if not dry_run:
         try:
             from scripts.core import build_cache as _bc

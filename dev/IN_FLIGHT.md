@@ -4,6 +4,36 @@
 
 ## Prior task
 
+**ω.4x hygiene bundle — third of three Claude-side actionable
+ships from AUDIT_2026-05-14-LIGHT-2 (after δ.1.x.A.0 `09fb084` +
+Π.2.prep `5acc5d0`). Closes W-W2 + A-I1 + A-I2 findings.
+Triggered by user "do those". Shipped: (1) W-W2 RESOLVED —
+build_edition.py ruff check 44 → 0 via auto-fix 27 + manual 6
+(SIM108/SIM102/N806/B023/F841) + pyproject per-file-ignore of 8
+intrinsic (E501 HTML + C901 orchestration); codification comment
+in pyproject.toml. (2) A-I1 RESOLVED — PLAN §2 refreshed from
+"3808 tests" stale baseline to "4400+ tests" current-fresh marker
+with SESSION_STATE cross-reference + six-voice corpus summary +
+Cyril plurality + Tewahedo-distinctive-block + parallel-Bible
+roadmap. (3) A-I2 RESOLVED — PLAN §6 extended with parallel-
+Bible track sub-section containing SCOPE §11 canonical chain
+literal + shipped/pending sub-phase ledger with commit hashes.
+(4) NEW tests/test_omega4x_hygiene.py — 15 pins across 5 groups
+(WW2BuildEditionRuffCheck 2 + AI1PlanStatusRefresh 4 +
+AI2PlanParallelBibleTrack 5 + ClosedArcInvariantPreservation 3 +
+PhaseCoverage 1); all pass. NO data ingest; v1.0 byte-identical
+reproducibility preserved; build_edition.py edits are behavior-
+preserving. Closed-arc invariants regression-guarded (γ.4.8.E +
+γ.4.8.F + Π.0.1 + Π.0.4 + τ.6.x.0a/b + δ.1.0 + δ.1.x.A.0 + Π.1 +
+Π.1.B + Π.2.prep all preserved). Audit cadence: post-LIGHT-2
+phase #3; cumulative drift +89; threshold NOT reached.
+**AUDIT_2026-05-14-LIGHT-2 recommendation set NOW FULLY CLOSED.**
+Session-close recommended; no further Claude-side parallel-
+unblocked ships identified.** shipped 2026-05-14. Triggered by
+user "do those" after LIGHT-2 recommendation set.
+
+## Prior task (previous)
+
 **Π.2.prep pre-flight checklist for Ethiopian-Tewahedo popup-
 language flip — DECLARATIVE-ONLY operator-facing companion to
 SCOPE §Π.2. Triggered by user "do those" after LIGHT-2; second

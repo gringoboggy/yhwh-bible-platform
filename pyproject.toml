@@ -45,6 +45,19 @@ mccabe.max-complexity = 12
 # phase_c9_expansion.py is a data dump — note bodies are inherently 400+
 # characters and cannot meaningfully be wrapped.
 "source_archive/phase_c9_expansion.py" = ["E402", "E501"]
+# scripts/build_edition.py contains: (1) embedded HTML template strings
+# (copyright page + reading-plans front-matter + credits) whose <p> lines
+# exceed 120 chars by design — splitting them is either a no-op for HTML
+# rendering or an active regression for the published EPUBs;
+# (2) three load-bearing orchestration functions — filter_books_for_canon
+# (config-driven canonical-book filter with tradition + phase + kind +
+# popup-language rule fans) + build_one (the full EPUB-build pipeline
+# from corpus filter through OPF + NCX + epub.zip) + main (CLI entry
+# delegating to build_one) — whose cyclomatic complexity reflects
+# inherent build-pipeline orchestration cohesion and would lose semantic
+# clarity if forcibly split. Codified at ω.4x hygiene bundle
+# (2026-05-14) per AUDIT_2026-05-14-LIGHT-2 W-W2 finding.
+"scripts/build_edition.py" = ["E402", "E501", "C901"]
 # content/notes/*.py are pure data files — every entry is a tuple containing
 # a long HTML body string. E501 (line-too-long) is intrinsic to the format.
 # N999 (invalid module name) fires on books like "1ch.py" / "2ki.py" because

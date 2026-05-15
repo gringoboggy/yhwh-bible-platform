@@ -1,5 +1,69 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / ω.4x hygiene bundle ship — third and final
+Claude-side actionable ship from the AUDIT_2026-05-14-LIGHT-2
+recommendation set. Closes W-W2 + A-I1 + A-I2 findings. Triggered
+by user "do those" after LIGHT-2; third of three (after δ.1.x.A.0
+`09fb084` + Π.2.prep `5acc5d0`). **ω.4x shipped:** (1) **W-W2
+RESOLVED** — `scripts/build_edition.py` ruff `check` errors
+reduced from 44 to **0** via 27/44 auto-fix pass + manual fixes
+for 6 (SIM108 ternary + 3× SIM102 nested-if combine + 2× N806
+rename + 2× B023 closure-binding via explicit default-arg + 1×
+F841 unused-var deletion) + pyproject.toml per-file-ignore of 8
+intrinsic errors (5× E501 HTML template strings in copyright/
+reading-plans/credits + 3× C901 load-bearing orchestration
+complexity for filter_books_for_canon + build_one + main; all
+codified with rationale in pyproject.toml comment). (2) **A-I1
+RESOLVED** — `dev/PLAN_2026-05-09.md` §2 refreshed from stale
+"3808 tests" (2026-05-13 EOD) to "4400+ tests" current-fresh
+marker + SESSION_STATE cross-reference + six-voice corpus
+codification (1579 entries; Cyril 668 / Mäqabyan 212 / Jubilees
+200 / 1 Enoch 192 / Ephrem 157 / Athanasius 150) + Cyril
+plurality 3.15× + Tewahedo-distinctive-block 38.25% + parallel-
+Bible roadmap summary. (3) **A-I2 RESOLVED** — `PLAN_2026-05-09`
+§6 extended with parallel-Bible track sub-section at top
+containing SCOPE §11 canonical chain literal "Π.0 → τ.6.x +
+τ.7.x → Π.1 → δ.1.x → Π.2 + φ.1 → δ.2" + shipped sub-phase
+ledger with commit hashes (Π.0 `6624eba` + τ.6.x.0a `fbc6827` +
+τ.6.x.0b `c0172c4` + φ.1 `2c27745` + δ.1.0 `59bef8b` + Π.1
+`13501e9` + Π.1.B `f139494` + LIGHT-2 `6356f83` + δ.1.x.A.0
+`09fb084` + Π.2.prep `5acc5d0` + ω.4x this ship) + pending sub-
+phase ledger (τ.6.x.0c operator-side / τ.6.x.1+ blocked /
+τ.7.x blocked / δ.1.x.A operator-mediated / δ.1.x.B-G pending /
+δ.1.Z gated / Π.2 gated / δ.2 gated). (4) NEW
+`tests/test_omega4x_hygiene.py` — **15 pin tests across 5 groups**
+(WW2BuildEditionRuffCheck 2 + AI1PlanStatusRefresh 4 +
+AI2PlanParallelBibleTrack 5 + ClosedArcInvariantPreservation 3 +
+PhaseCoverage 1). All 15 pins pass; build_edition.py passes ruff
+check (subprocess assert); pyproject other per-file-ignores
+unchanged. **NO data ingest** — content/* unchanged; v1.0
+byte-identical reproducibility preserved; build_edition.py edits
+are behavior-preserving (rename + style + closure-binding only;
+no semantic changes; ast.parse smoke test passes). **Closed-arc
+invariants regression-guarded:** γ.4.8.E 67/67 + γ.4.8.F ≥212 +
+Π.0.1 + Π.0.4 + τ.6.x.0a/b + δ.1.0 + δ.1.x.A.0 + Π.1 + Π.1.B +
+Π.2.prep all preserved. Audit cadence: ω.4x is post-LIGHT-2
+phase #3; cumulative drift +89 (δ.1.x.A.0 +39 + Π.2.prep +35 +
+ω.4x +15); threshold NOT reached. AUDIT_2026-05-14-LIGHT-2
+recommendation set NOW FULLY CLOSED.**
+
+**"do those" triad CLOSED. Session-close recommendation:**
+
+The session has shipped 6 commits (Π.1.B + LIGHT-2 + δ.1.x.A.0 +
+Π.2.prep + ω.4x; cumulative ~305 tests since AUDIT_2026-05-14-
+LIGHT-2 baseline). All AUDIT_2026-05-14-LIGHT-2 actionable
+findings closed. No further Claude-side parallel-unblocked ships
+identified — δ.1.x.A is operator-mediated (Phase-4 page-image
+rendering for mq1 ch 1-9, with δ.1.x.A.0-prepared handoff
+specifying PDF pages 1318-1326 + per-chapter verse-count floor +
+10-step workflow); τ.6.x.0c is operator-side (Tesseract install
++ tessdata verification); Π.2 is gated on τ.6.x.1+ + τ.7.x. The
+next ship — when it comes — will be operator-initiated.
+
+---
+
+## Prior ω.4x session
+
 **Updated 2026-05-14 / Π.2.prep pre-flight checklist for Ethiopian-
 Tewahedo popup-language flip ship — DECLARATIVE-ONLY operator-
 facing companion to SCOPE §Π.2. Triggered by user "do those" after
