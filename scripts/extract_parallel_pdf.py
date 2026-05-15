@@ -779,6 +779,235 @@ JOSHUA_VERSE_COUNTS = {
 # Total Joshua verses = 658 (KJV/Hebrew Masoretic + LXX agreement).
 
 
+# τ.7.x.g — Canonical Judges verse counts (21 chapters, 618 verses).
+# Seventh renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. CONTINUES the post-Pentateuch historical-
+# books arc opened at τ.7.x.f (Joshua → Judges → Ruth → 1-4 Kingdoms →
+# 1-2 Paralipomena → Ezra/Nehemiah → Esther under the LXX/Tewahedo
+# ordering). The 618-verse total matches KJV/standard Christian
+# enumeration; Hebrew Masoretic + LXX agree (no chapter-boundary
+# repartitioning between traditions).
+JUDGES_VERSE_COUNTS = {
+    1: 36,
+    2: 23,
+    3: 31,
+    4: 24,
+    5: 31,
+    6: 40,
+    7: 25,
+    8: 35,
+    9: 57,
+    10: 18,
+    11: 40,
+    12: 15,
+    13: 25,
+    14: 20,
+    15: 20,
+    16: 31,
+    17: 13,
+    18: 31,
+    19: 30,
+    20: 48,
+    21: 25,
+}
+# Total Judges verses = 618 (KJV/Hebrew Masoretic + LXX agreement).
+
+
+# τ.7.x.h — Canonical Ruth verse counts (4 chapters, 85 verses).
+# Eighth renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. CONTINUES the post-Pentateuch historical-
+# books arc (Joshua → Judges → Ruth → 1-4 Kingdoms → ...). Ruth is the
+# SHORTEST canonical book in the Old Testament (4 chapters, 85 verses)
+# and is the smallest τ.7.x.* per-book ingest to date — only ~6 PDF
+# pages of content. The 85-verse total matches KJV/standard Christian
+# enumeration; Hebrew Masoretic + LXX agree (no chapter-boundary
+# repartitioning between traditions).
+RUTH_VERSE_COUNTS = {
+    1: 22,
+    2: 23,
+    3: 18,
+    4: 22,
+}
+# Total Ruth verses = 85 (KJV/Hebrew Masoretic + LXX agreement).
+
+
+# τ.7.x.i — Canonical Psalter verse counts under LXX/Tewahedo
+# enumeration (151 Psalms, ~2551 total verses). The Tewahedo Psalter
+# inherits the LXX numbering (so LXX Psalm 9 = Hebrew Psalms 9+10
+# merged; LXX Psalm 17 = Hebrew Psalm 18 with title counted as v1;
+# etc.) and adds Psalm 151 — the David-vs-Goliath psalm preserved
+# only in the LXX/Tewahedo/Syriac canon (deuterocanonical from a
+# Protestant perspective; fully canonical in Tewahedo).
+#
+# Ninth renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. **SKIPS the 438-802 dzamaragna gap**
+# (1 Samuel → Job, 10 books in Amharic-only format) and RESUMES the
+# parallel-Bible-EOTC scan at page 803 (second EOTC-parallel block
+# discovered at τ.7.x.h structural inspection).
+#
+# Verse counts below follow the standard LXX/Tewahedo Psalter as
+# documented in Brenton's LXX + the Ethiopian Orthodox liturgical
+# psalter. Counts include title verses where the LXX/Tewahedo
+# tradition treats them as numbered (e.g., LXX Psalm 50:1-2 are the
+# David-after-Bathsheba superscription; the body begins at v3).
+PSALMS_VERSE_COUNTS = {
+    1: 6,
+    2: 12,
+    3: 9,
+    4: 9,
+    5: 13,
+    6: 11,
+    7: 18,
+    8: 10,
+    9: 39,
+    10: 7,
+    11: 9,
+    12: 6,
+    13: 7,
+    14: 5,
+    15: 11,
+    16: 15,
+    17: 51,
+    18: 15,
+    19: 10,
+    20: 14,
+    21: 32,
+    22: 6,
+    23: 10,
+    24: 22,
+    25: 12,
+    26: 14,
+    27: 9,
+    28: 11,
+    29: 13,
+    30: 25,
+    31: 11,
+    32: 22,
+    33: 23,
+    34: 28,
+    35: 13,
+    36: 40,
+    37: 22,
+    38: 14,
+    39: 18,
+    40: 14,
+    41: 12,
+    42: 5,
+    43: 26,
+    44: 18,
+    45: 12,
+    46: 10,
+    47: 15,
+    48: 21,
+    49: 23,
+    50: 21,
+    51: 9,
+    52: 7,
+    53: 9,
+    54: 24,
+    55: 14,
+    56: 12,
+    57: 12,
+    58: 18,
+    59: 14,
+    60: 9,
+    61: 13,
+    62: 12,
+    63: 11,
+    64: 14,
+    65: 20,
+    66: 8,
+    67: 36,
+    68: 36,
+    69: 6,
+    70: 24,
+    71: 19,
+    72: 28,
+    73: 23,
+    74: 10,
+    75: 13,
+    76: 21,
+    77: 72,
+    78: 13,
+    79: 20,
+    80: 17,
+    81: 8,
+    82: 19,
+    83: 13,
+    84: 14,
+    85: 17,
+    86: 7,
+    87: 19,
+    88: 53,
+    89: 17,
+    90: 16,
+    91: 16,
+    92: 5,
+    93: 23,
+    94: 11,
+    95: 13,
+    96: 12,
+    97: 9,
+    98: 9,
+    99: 5,
+    100: 8,
+    101: 29,
+    102: 22,
+    103: 35,
+    104: 45,
+    105: 48,
+    106: 43,
+    107: 14,
+    108: 31,
+    109: 7,
+    110: 10,
+    111: 10,
+    112: 9,
+    113: 26,
+    114: 9,
+    115: 10,
+    116: 2,
+    117: 29,
+    118: 176,
+    119: 7,
+    120: 8,
+    121: 9,
+    122: 4,
+    123: 8,
+    124: 5,
+    125: 6,
+    126: 5,
+    127: 6,
+    128: 8,
+    129: 8,
+    130: 4,
+    131: 18,
+    132: 3,
+    133: 3,
+    134: 21,
+    135: 26,
+    136: 9,
+    137: 8,
+    138: 24,
+    139: 14,
+    140: 13,
+    141: 8,
+    142: 12,
+    143: 15,
+    144: 21,
+    145: 10,
+    146: 11,
+    147: 9,
+    148: 14,
+    149: 9,
+    150: 6,
+    151: 7,
+}
+# Total Psalter verses = 2551 (LXX/Tewahedo enumeration, including
+# Psalm 151 David-vs-Goliath). Hebrew/Protestant Psalter (150 Psalms)
+# yields ~2461 verses with different chapter boundaries.
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1665,6 +1894,12 @@ def _build_docstring_extra(
         floor_dict = DEUTERONOMY_VERSE_COUNTS
     elif renumber == "joshua":
         floor_dict = JOSHUA_VERSE_COUNTS
+    elif renumber == "judges":
+        floor_dict = JUDGES_VERSE_COUNTS
+    elif renumber == "ruth":
+        floor_dict = RUTH_VERSE_COUNTS
+    elif renumber == "psalms":
+        floor_dict = PSALMS_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -1743,7 +1978,7 @@ def main() -> int:
     p.add_argument(
         "--renumber",
         default=None,
-        choices=["genesis", "exodus", "leviticus", "numbers", "deuteronomy", "joshua"],
+        choices=["genesis", "exodus", "leviticus", "numbers", "deuteronomy", "joshua", "judges", "ruth", "psalms"],
         help=(
             "Post-process renumber verses against a canonical chapter "
             "verse-count floor (τ.7.x.a writer-side residual handler). "
@@ -1752,9 +1987,18 @@ def main() -> int:
             "'leviticus' (LEVITICUS_VERSE_COUNTS, 27 ch / 859 v; τ.7.x.c), "
             "'numbers' (NUMBERS_VERSE_COUNTS, 36 ch / 1288 v; τ.7.x.d), "
             "'deuteronomy' (DEUTERONOMY_VERSE_COUNTS, 34 ch / 959 v; "
-            "τ.7.x.e — CLOSED the §8.1 Pentateuch arc), and 'joshua' "
+            "τ.7.x.e — CLOSED the §8.1 Pentateuch arc), 'joshua' "
             "(JOSHUA_VERSE_COUNTS, 24 ch / 658 v; τ.7.x.f — OPENS the "
-            "post-Pentateuch historical-books arc). "
+            "post-Pentateuch historical-books arc), 'judges' "
+            "(JUDGES_VERSE_COUNTS, 21 ch / 618 v; τ.7.x.g — CONTINUES "
+            "the post-Pentateuch historical-books arc), 'ruth' "
+            "(RUTH_VERSE_COUNTS, 4 ch / 85 v; τ.7.x.h — CONTINUES the "
+            "post-Pentateuch historical-books arc; SHORTEST canonical "
+            "OT book), and 'psalms' (PSALMS_VERSE_COUNTS, 151 ch / "
+            "2551 v under LXX/Tewahedo enumeration; τ.7.x.i — SKIPS "
+            "the 438-802 dzamaragna gap and resumes the parallel-"
+            "Bible-EOTC scan at p803; LARGEST canonical OT book + "
+            "biggest τ.7.x.* per-book ingest to date). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -1799,6 +2043,12 @@ def main() -> int:
         renumber_floor = DEUTERONOMY_VERSE_COUNTS
     elif args.renumber == "joshua":
         renumber_floor = JOSHUA_VERSE_COUNTS
+    elif args.renumber == "judges":
+        renumber_floor = JUDGES_VERSE_COUNTS
+    elif args.renumber == "ruth":
+        renumber_floor = RUTH_VERSE_COUNTS
+    elif args.renumber == "psalms":
+        renumber_floor = PSALMS_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

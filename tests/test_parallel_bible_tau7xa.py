@@ -301,13 +301,19 @@ class TestTau7XAClosedArcInvariantPreservation:
     """The PILOT preserves all 17 closed-arc invariants from prior
     ships + the τ.6.x.0a no-ingest contract specifically."""
 
-    def test_geez_tewahedo_only_seed_gen_py(self):
-        """geez-tewahedo/ contains only gen.py (Π.0 seed) — D4-c
-        sequencing puts Geʽez Genesis at τ.6.x.2.a, AFTER all τ.7.x
-        Amharic ingests; the geez-tewahedo slot remains untouched
-        at τ.7.x.a.0."""
+    def test_geez_tewahedo_contains_gen_py(self):
+        """MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        originally asserted geez-tewahedo/ contains ONLY gen.py at
+        Π.0 seed (per D4-c sequencing putting Geʽez Genesis at
+        τ.6.x.2.a after τ.7.x). The τ.6.x.2.a-h batch ship CLOSED the
+        D4-c catchup arc, populating all 8 books (gen+ex+lev+num+
+        deu+jos+jdg+rut). Durable assertion is now: gen.py exists
+        (the τ.7.x.a.0 PILOT precondition is preserved) and
+        geez-tewahedo/ contains a SUPERSET of {gen.py} (the post-
+        τ.6.x.2.a-h batch state); per-file presence is pinned in
+        test_parallel_bible_tau6x2_geez_arc.py."""
         files = sorted(p.name for p in GEEZ_TEWAHEDO.iterdir() if p.is_file() and p.suffix == ".py")
-        assert files == ["gen.py"], f"τ.7.x.a.0: geez-tewahedo must remain at Π.0 seed (gen.py only); got {files}"
+        assert "gen.py" in files, f"τ.7.x.a.0 PILOT precondition: geez-tewahedo/gen.py must exist; got {files}"
 
     def test_amharic_tewahedo_contains_gen_py(self):
         """Refactored from share-pin to milestone-pin at τ.7.x.b
@@ -833,8 +839,15 @@ class TestTau7XAGeezTewahedoPreserved:
     """The Geʽez column should remain at Π.0 seed after τ.7.x.a — full
     Geʽez ingest is τ.6.x.2.a per D4-c sequencing."""
 
-    def test_geez_gen_py_still_seed(self):
-        """geez-tewahedo/gen.py remains at Π.0 3-verse seed."""
+    def test_geez_gen_py_ingested_at_tau6x2a(self):
+        """MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        originally asserted geez-tewahedo/gen.py remains at Π.0 seed
+        (≤10 verses) until τ.6.x.2.a ships. The τ.6.x.2.a batch sub-
+        ship UPGRADED Geʽez Genesis from Π.0 seed (3 verses, Gen
+        1:1-3) to ocr-tier3 full-book ingest (1022 verses, 66.6%
+        coverage). Durable assertion is now: Geʽez Genesis is at
+        ocr-tier3 ingest scale; the τ.6.x.2.a `upgraded_from`
+        provenance is pinned in test_parallel_bible_tau6x2_geez_arc."""
         import ast
 
         gen_py = REPO / "content" / "translations" / "geez-tewahedo" / "gen.py"
@@ -850,12 +863,10 @@ class TestTau7XAGeezTewahedoPreserved:
             if verses is not None:
                 break
         assert verses is not None
-        # Π.0 seed had 3 verses (Gen 1:1-3). τ.6.x.2.a (later under
-        # D4-c) will upgrade. Defensive range — accept 3 or any
-        # small count up to ~10 in case the seed is ever extended
-        # without the full Geʽez ingest having shipped.
-        assert len(verses) <= 10, (
-            f"geez-tewahedo Genesis should remain at Π.0 seed until "
-            f"τ.6.x.2.a ships; got {len(verses)} verses (≥10 indicates "
-            f"premature ingest)"
+        # τ.6.x.2.a empirical at ship: 1022 verses (66.6% coverage).
+        # Floor 950 guards against regression while permitting parser
+        # refinement.
+        assert len(verses) >= 950, (
+            f"geez-tewahedo Genesis must be at ocr-tier3 ingest scale post-τ.6.x.2.a; "
+            f"got {len(verses)} verses (<950 indicates regression from τ.6.x.2.a state)"
         )

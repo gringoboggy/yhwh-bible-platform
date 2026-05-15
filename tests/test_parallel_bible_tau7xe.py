@@ -410,12 +410,43 @@ class TestTau7XEGeezTewahedoPreserved:
     """The Geʽez column should remain unchanged after τ.7.x.e — full
     Geʽez Deuteronomy ingest is τ.6.x.2.e per D4-c sequencing."""
 
-    def test_geez_tewahedo_deu_py_not_created(self):
-        assert not (GEEZ_TEWAHEDO / "deu.py").exists(), (
-            "geez-tewahedo/deu.py must NOT be created at τ.7.x.e; Geʽez Deuteronomy is τ.6.x.2.e under D4-c sequencing"
+    def test_geez_tewahedo_deu_py_ingested_at_tau6x2e(self):
+        """MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        originally asserted geez-tewahedo/deu.py does NOT exist
+        until τ.6.x.2.e ships. The τ.6.x.2.a-h batch ship
+        CREATED this file at ocr-tier3 quality (per D4-c catchup arc).
+        Durable assertion is now: geez-tewahedo/deu.py EXISTS at
+        ocr-tier3 ingest scale; per-file content pinned in
+        test_parallel_bible_tau6x2_geez_arc.py."""
+        import ast
+
+        path = GEEZ_TEWAHEDO / "deu.py"
+        assert path.is_file(), "geez-tewahedo/deu.py must exist post-τ.6.x.2.e (τ.6.x.2.a-h batch ship)"
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        verses = None
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Assign):
+                for t in node.targets:
+                    if isinstance(t, ast.Name) and t.id == "VERSES":
+                        verses = ast.literal_eval(node.value)
+                        break
+            if verses is not None:
+                break
+        assert verses is not None
+        # τ.6.x.2.e empirical at ship: 508 verses; floor 475 guards
+        # against regression while permitting parser refinement.
+        assert len(verses) >= 475, (
+            f"geez-tewahedo/deu.py must be at ocr-tier3 scale post-τ.6.x.2.e; "
+            f"got {len(verses)} verses (<475 indicates regression)"
         )
 
-    def test_geez_tewahedo_gen_py_still_seed(self):
+    def test_geez_tewahedo_gen_py_ingested_at_tau6x2a(self):
+        """MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        originally asserted geez-tewahedo/gen.py remains at Π.0 seed
+        (≤10 verses) until τ.6.x.2.a ships. The τ.6.x.2.a batch sub-
+        ship UPGRADED Geʽez Genesis from Π.0 seed to ocr-tier3 full-
+        book ingest (1022 verses). Durable assertion: Geʽez Genesis
+        is at ocr-tier3 ingest scale."""
         gen_py = GEEZ_TEWAHEDO / "gen.py"
         text = gen_py.read_text(encoding="utf-8")
         tree = ast.parse(text)
@@ -429,7 +460,11 @@ class TestTau7XEGeezTewahedoPreserved:
             if verses is not None:
                 break
         assert verses is not None
-        assert len(verses) <= 10, f"geez-tewahedo/gen.py should remain at Π.0 seed; got {len(verses)}"
+        # τ.6.x.2.a empirical at ship: 1022 verses; floor 950 guards regression.
+        assert len(verses) >= 950, (
+            f"geez-tewahedo/gen.py must be at ocr-tier3 scale post-τ.6.x.2.a; "
+            f"got {len(verses)} verses (<950 indicates regression)"
+        )
 
 
 class TestTau7XEPentateuchArcClose:

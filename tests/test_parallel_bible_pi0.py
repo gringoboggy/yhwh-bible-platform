@@ -260,16 +260,27 @@ class TestPi0AmharicTewahedoSeed:
         )
 
     def test_geez_tewahedo_seed_still_intact(self):
-        """Regression-guard: τ.6 geez-tewahedo seed must not be
-        disturbed by the Π.0 amharic-tewahedo addition."""
+        """Regression-guard: τ.6 geez-tewahedo Genesis must remain
+        loadable + non-trivial.
+
+        MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15): the
+        Π.0 seed had the clean canonical opening ቀዳሚሁ. The τ.6.x.2.a
+        ocr-tier3 ingest replaced the 3-verse curated seed with a
+        1022-verse garbled-but-real OCR ingest — Gen 1:1 now reads
+        `በሩዳሚ ገብረ አግዚአብሔር ሰማየ ወምድረ` (ቀዳሚ→ሩዳሚ OCR garble). Per the
+        τ.6.x.0b honesty contract ocr-tier3 garbling is expected.
+        Durable invariant: Genesis loads, is at ingest scale, and
+        Gen 1:1 carries the ዳሚ beginning-root fragment (survives
+        the OCR garble in both the clean ቀዳሚሁ + garbled በሩዳሚ forms)."""
         from scripts.core import translations
 
         translations.clear_cache()
         verses = translations._load_book("geez-tewahedo", "gen")
-        assert verses and len(verses) >= 3, "τ.6 geez-tewahedo seed must remain ≥3 verses"
+        assert verses and len(verses) >= 950, "τ.6.x.2.a geez-tewahedo Genesis must be at ocr-tier3 scale (≥950 verses)"
         v1_1 = next((t for ch, v, t in verses if (ch, v) == (1, 1)), None)
-        # Ge'ez Gen 1:1 opens with ቀዳሚሁ ('in the beginning' in classical Ge'ez).
-        assert v1_1 is not None and "ቀዳሚሁ" in v1_1, f"τ.6 geez-tewahedo Gen 1:1 must still open with ቀዳሚሁ; got {v1_1!r}"
+        assert v1_1 is not None and "ዳሚ" in v1_1, (
+            f"τ.6.x.2.a geez-tewahedo Gen 1:1 must carry the ዳሚ beginning-root; got {v1_1!r}"
+        )
 
 
 # ──────────────────────────────────────────────────────────────────

@@ -292,7 +292,66 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             FORMAL-TITLE-BANNER pattern (Joshua first τ.7.x.* book
             without explicit `መጽሐፈ X` book-title-banner in PDF
             text-layer); NEW residual class publisher_bridge_
-            narrative_residual)"""
+            narrative_residual)
+          - τ.7.x.g migrated pending → shipped at τ.7.x.g ship-time
+            (2026-05-15; the SEVENTH τ.7.x.* per-book ship;
+            **CONTINUES the post-Pentateuch historical-books arc
+            opened at τ.7.x.f under Amharic-first sequencing** —
+            SECOND sub-phase in the historical-books arc; creates
+            amharic-tewahedo/jdg.py with 511 verses at 82.7%
+            coverage (sits between Deuteronomy 81.4% and Numbers
+            85.9%; comfortably within the canonical τ.7.x.* band);
+            re-uses τ.7.x.f pipeline verbatim with only
+            JUDGES_VERSE_COUNTS + structural_map.judges as deltas;
+            SEVENTH CONSECUTIVE τ.7.x.* ship with zero parser API
+            change — seven-ship zero-API-delta extends template
+            stability across Pentateuch (5) + Joshua + Judges = 7
+            books / 357 PDF pages; **Pentateuch + Joshua + Judges
+            combined coverage 5939/7129 = 83.3% across all 7
+            books**; 11th instance of single-key back-link
+            annotation pattern tau7xf_ingest→τ.7.x.g; **NULL-
+            FORMAL-TITLE-BANNER pattern CONFIRMED** as STABLE
+            structural property of the historical-books arc (second
+            consecutive ship without explicit `መጽሐፈ X` book-
+            title-banner — publisher uses `አሪት ዘ<book>` running-
+            header form consistently); share-pin → milestone-pin
+            conversion applied to τ.7.x.f test_stats_books_six →
+            test_stats_books_at_least_six (sixth instance of the
+            conversion in τ.7.x.* family))
+          - τ.7.x.h migrated pending → shipped at τ.7.x.h ship-time
+            (2026-05-15; the EIGHTH τ.7.x.* per-book ship;
+            **CONTINUES the post-Pentateuch historical-books arc
+            opened at τ.7.x.f under Amharic-first sequencing** —
+            THIRD sub-phase in the historical-books arc; creates
+            amharic-tewahedo/rut.py with 60 verses at 70.6%
+            coverage — NEW band-bottom for τ.7.x.* family (below
+            τ.7.x.f Joshua's prior 73.4% band-bottom; Ruth's
+            exceptional small scale (4 ch / 85 v / 6 PDF pages)
+            + dense Davidic-genealogy compression in ch 4 makes
+            ch 4 hard to recover); re-uses τ.7.x.g pipeline verbatim
+            with only RUTH_VERSE_COUNTS + structural_map.ruth as
+            deltas; EIGHTH CONSECUTIVE τ.7.x.* ship with zero
+            parser API change — eight-ship zero-API-delta is
+            decisive AND uniquely validates that the template
+            scales DOWN to the smallest canonical OT book; covers
+            ENTIRE parallel-Bible-EOTC scan range (pages 0-437);
+            **Pentateuch + Joshua + Judges + Ruth combined coverage
+            5999/7214 = 83.2% across all 8 books**; 12th instance
+            of single-key back-link annotation pattern
+            tau7xg_ingest→τ.7.x.h; **NULL-FORMAL-TITLE-BANNER
+            pattern CONFIRMED 3x** as DECISIVELY STABLE structural
+            property of the historical-books arc (third consecutive
+            ship without explicit `መጽሐፈ X` banner); **CRITICAL
+            STRUCTURAL DISCOVERY**: parallel-Bible-EOTC scan ENDS
+            at page 437 — pages 438+ contain a SEPARATE publication
+            (dzamaragna.net 2002 Amharic Bible appendix) with a
+            completely different format; τ.7.x.i+ will require a
+            NEW publication-format handler — see _source.yaml::
+            ocr_strategy.tau7xh_ingest.structural_map_addition.
+            publication_format_shift_residual for the full
+            description; +60 new pin tests across 9 test classes
+            including new dedicated `publication_format_shift_
+            residual` pin)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -316,6 +375,8 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.7.x.d",
             "τ.7.x.e",
             "τ.7.x.f",
+            "τ.7.x.g",
+            "τ.7.x.h",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -390,9 +451,113 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             sequencing; 21 chapters, 618 verses; re-uses τ.7.x.a+b+
             c+d+e+f pipeline with JUDGES_VERSE_COUNTS floor +
             structural_map.judges block; Judges 1:1 boundary
-            confirmed at page 391 per τ.7.x.f boundary inspection)"""
+            confirmed at page 391 per τ.7.x.f boundary inspection);
+            migrated pending → shipped at τ.7.x.g ship-time
+            (2026-05-15)
+          - τ.7.x.h added pending at τ.7.x.g ship-time (2026-05-15;
+            Amharic Ruth full-book ingest continues the post-
+            Pentateuch historical-books arc; 4 chapters, 85 verses
+            — SHORTEST canonical book in OT, will be smallest
+            τ.7.x.* per-book ingest to date; re-uses τ.7.x.a+b+c+d+
+            e+f+g pipeline with RUTH_VERSE_COUNTS floor +
+            structural_map.ruth block; Ruth 1:1 boundary confirmed
+            at page 432 per τ.7.x.g boundary inspection via Ruth
+            1:1 `ወክነ በመዋዕለ ይሁንኑ መሳፍንት` opening scan); migrated
+            pending → shipped at τ.7.x.h ship-time (2026-05-15)
+          - τ.7.x.i added pending at τ.7.x.h ship-time (2026-05-15;
+            Amharic 1 Samuel/1 Kingdoms full-book ingest CONTINUES
+            the post-Pentateuch historical-books arc; 31 chapters,
+            810 verses per KJV/Hebrew enumeration; **MUST address
+            τ.7.x.h structural discovery**: parallel-Bible-EOTC
+            scan ends at page 437; 1 Samuel content begins at
+            page 438 in a DIFFERENT publication format (dzamaragna.
+            net 2002 Amharic Bible appendix). Options: (a) source
+            from dzamaragna.net appendix with NEW publication-
+            format handler + source_provenance `dzamaragna-net-
+            amharic-2002`; (b) source from external PDF; (c) defer
+            pending source-document inventory review. Recommended
+            (a) with clean separation between two source-provenance
+            streams; will need SAMUEL_1_VERSE_COUNTS floor +
+            structural_map.kingdoms_1 block)
+          - τ.6.x.2.a-h migrated pending → shipped (BATCH) at
+            τ.6.x.2.a-h batch ship-time (2026-05-15; Geʽez catchup
+            of the parallel-Bible-EOTC scan after Amharic-first
+            τ.7.x.a-h shipped; D4-c sequencing inversion + D1-a
+            per-book cadence; 8 Geʽez per-book ingests upgrade
+            geez-tewahedo/ from Π.0 seed (1 book / 3 verses) to
+            ocr-tier3 full-book ingest (8 books / 4337 verses /
+            60.1% combined coverage; Geʽez recovers ~72% of what
+            Amharic does at the canonical-block level, consistent
+            with τ.6.x.0a honesty contract that the Geʽez column
+            text-layer is harder to parse); pipeline reused
+            VERBATIM from τ.7.x.a-h with only `--lang geez` flag
+            flip as the per-ship delta — 16-ship template stability
+            across BOTH columns (8 Amharic τ.7.x.a-h + 8 Geʽez
+            τ.6.x.2.a-h) with zero parser API drift; **CLOSES the
+            parallel-column-catchup arc** — both columns now at
+            PARITY for the entire parallel-Bible-EOTC scan range
+            (pages 0-437); τ.6.x.2.e records §8.1 Pentateuch arc-
+            close in Geʽez stream (TENTH §8.1 instance overall;
+            FIRST in τ-cluster Geʽez stream); τ.6.x.2.h records
+            parallel-column-catchup arc-close; share-pin → milestone-
+            pin pattern: tau7x{a..h}.py `test_geez_tewahedo_<book>_
+            py_not_created` migrated to `test_geez_tewahedo_<book>_
+            py_ingested_at_tau6x2<letter>` (flip assertion from
+            "must NOT exist" to "must EXIST at ocr-tier3 scale");
+            tau7x{a..h}.py `test_geez_tewahedo_gen_py_still_seed`
+            migrated to `test_geez_tewahedo_gen_py_ingested_at_
+            tau6x2a` (flip assertion from "≤10 verses" to "≥950
+            verses"); +N new pin tests in test_parallel_bible_tau6x2_
+            geez_arc.py covering per-book file presence, module
+            constants, verse-count floors, coverage thresholds,
+            arc-close markers, Amharic-stream preservation,
+            parallel-column parity)
+          - τ.7.x.i migrated pending → shipped at τ.7.x.i ship-time
+            (2026-05-15; the NINTH τ.7.x.* per-book ship; **OPENS
+            the Wisdom-and-Poetry arc under Amharic-first sequencing**
+            — first canonical-arc transition after the post-Pentateuch
+            historical-books arc; creates amharic-tewahedo/psa.py with
+            2243 verses at 88.6% coverage — SECOND-HIGHEST τ.7.x.*
+            coverage to date (between Leviticus 93.4% and Numbers
+            85.9%); LARGEST τ.7.x.* per-book ingest to date (151 ch /
+            2531 v under LXX/Tewahedo enumeration including Psalm 151
+            David-vs-Goliath; vs prior largest GENESIS_VERSE_COUNTS
+            50 ch / 1534 v); re-uses τ.7.x.h pipeline VERBATIM with
+            only PSALMS_VERSE_COUNTS + structural_map.psalms as
+            deltas; NINTH CONSECUTIVE τ.7.x.* ship with zero parser
+            API change; **FIRST τ.7.x.* ship to SKIP a section of
+            source PDF** — per user "Skip the gap for now" decision
+            after τ.7.x.h structural-discovery scan revealed the
+            438-802 dzamaragna.net 2002 Amharic-only gap (10 books:
+            1 Sam → Job); τ.7.x.i resumes parallel-Bible-EOTC scan
+            at p803 with Psalms (second EOTC-parallel block); the
+            10 skipped books deferred to a future τ.7.x.J-cluster
+            sub-arc; **Psalm 151 (David-vs-Goliath, Tewahedo-
+            distinctive) preserved** in extracted output (renumbered
+            to ch 126 partial slot due to chapter-exhaustion artifact;
+            τ.6.x.3 audit re-aligns); 13th instance of back-link
+            pattern but with NOVEL `also_reused_at_phase` second-
+            key form on tau7xh_ingest (alongside existing
+            pipeline_reused_at_phase: τ.6.x.2.h Geʽez catchup back-
+            link) — τ.7.x.h is now the highest-reuse pipeline in
+            the τ.7.x.* family with two distinct reuses; combined
+            9-book coverage 8242/9745 = 84.6%; +N new pin tests in
+            test_parallel_bible_tau7xi.py covering Psalter shape +
+            skip-the-gap invariants + Psalm 151 preservation + Wisdom-
+            and-Poetry arc-open + 9-book coverage threshold)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.g", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in [
+            "τ.6.x.2+",
+            "τ.7.x.i",
+            "τ.6.x.2.a",
+            "τ.6.x.2.h",
+            "τ.7.x.j",
+            "τ.6.x.3",
+            "τ.6.x.1.E",
+            "δ.1.x.A",
+            "Π.2",
+            "δ.2",
+        ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

@@ -5103,3 +5103,69 @@ entries:
   - content/scenarios/demo.yaml
   - content/notes/gen.py
   applied_at: '2026-05-15T17:59:51Z'
+- id: refactor-0465
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-15T18:43:46Z'
+- id: refactor-0466
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-15T18:43:46Z'
+- id: refactor-0467
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-15T20:30:38Z'
+- id: refactor-0468
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-15T20:30:40Z'
+- id: refactor-0469
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-15T21:01:21Z'
+- id: refactor-0470
+  action: rename-kind
+  old: comm-test
+  new: comm-new
+  files:
+  - content/kinds.yaml
+  - content/editions.yaml
+  - content/edition_templates/demo.yaml
+  - content/scenarios/demo.yaml
+  - content/notes/gen.py
+  applied_at: '2026-05-15T21:01:22Z'

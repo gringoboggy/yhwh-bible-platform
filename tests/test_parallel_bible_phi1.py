@@ -385,9 +385,15 @@ class TestPhi1ClosedArcInvariantPreservation:
         """τ.6.x.0a + τ.6.x.0b contract: no OCR ingest at φ.1."""
         slot = REPO / "content" / "translations" / "geez-tewahedo"
         files = sorted(p.name for p in slot.iterdir() if p.suffix == ".py")
-        assert files == ["gen.py"], f"φ.1: geez-tewahedo must remain at τ.6 seed (gen.py only); got {files}"
-
-    def test_amharic_tewahedo_contains_gen_py(self):
+        assert "gen.py" in files, (
+            f"τ.6.x.2.a-h batch: geez-tewahedo/ must contain gen.py (Π.0 seed or its ocr-tier3 successor); got {files}"
+        )  # MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        # originally asserted geez-tewahedo/ holds ONLY the Π.0
+        # gen.py seed. The τ.6.x.2.a-h Geʽez catchup batch upgraded
+        # the Geʽez column to 8 ocr-tier3 books (gen+ex+lev+num+deu
+        # +jos+jdg+rut). Same migration the companion
+        # test_amharic_tewahedo_contains_gen_py received at τ.7.x.b.
+        # Durable invariant: gen.py present (Π.0 seed or successor).def test_amharic_tewahedo_contains_gen_py(self):
         """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
         `feedback_share_pin_pattern`. φ.1's original invariant
         (`files == ['gen.py']`) was the Π.0 seed state; τ.7.x.a + τ.7.x.b

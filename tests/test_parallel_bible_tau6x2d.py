@@ -388,9 +388,16 @@ class TestTau6X2DClosedArcInvariantPreservation:
         """`geez-tewahedo/` contains only the Π.0 seed file at this
         ship — `gen.py` (or `_meta.yaml`, which is metadata)."""
         py_files = sorted(p.name for p in GEEZ_TEWAHEDO.glob("*.py"))
-        assert py_files == ["gen.py"], (
-            f"τ.6.x.0a contract preservation: geez-tewahedo/*.py must be only ['gen.py'] at τ.6.x.2.D; got {py_files}"
-        )
+        assert "gen.py" in py_files, (
+            f"τ.6.x.2.a-h batch: geez-tewahedo/ must contain gen.py "
+            f"(Π.0 seed or its ocr-tier3 successor); got {py_files}"
+        )  # MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        # originally asserted geez-tewahedo/ holds ONLY the Π.0
+        # gen.py seed. The τ.6.x.2.a-h Geʽez catchup batch upgraded
+        # the Geʽez column to 8 ocr-tier3 books (gen+ex+lev+num+deu
+        # +jos+jdg+rut). Same migration the companion
+        # test_amharic_tewahedo_contains_gen_py received at τ.7.x.b.
+        # Durable invariant: gen.py present (Π.0 seed or successor).
 
     def test_amharic_tewahedo_contains_gen_py(self):
         """Refactored from share-pin to milestone-pin at τ.7.x.b

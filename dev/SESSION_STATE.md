@@ -1,6 +1,311 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.f AMHARIC JOSHUA FULL-BOOK INGEST ship —
+**Updated 2026-05-15 / τ.7.x.i AMHARIC PSALMS FULL-BOOK INGEST ship —
+NINTH τ.7.x.* per-book ingest under D4-c Amharic-first + D1-a per-
+book cadence. **OPENS the Wisdom-and-Poetry arc under Amharic-first
+sequencing** + **FIRST τ.7.x.* ship to SKIP a section of source PDF**
+(per user "Skip the gap for now" decision).
+
+Adds `content/translations/amharic-tewahedo/psa.py` with **2243 verses
+at 88.6% coverage** — SECOND-HIGHEST τ.7.x.* coverage to date
+(between Leviticus 93.4% and Numbers 85.9%). Psalms is the **LARGEST
+τ.7.x.* per-book ingest** at 151 chapters / 2531 verses under
+LXX/Tewahedo enumeration (includes Psalm 151 David-vs-Goliath, the
+Tewahedo-distinctive deuterocanonical Psalm preserved in LXX/Syriac
+but absent from the Hebrew/Protestant Psalter). The τ.7.x.a template
+scales UP to the largest canonical OT book as cleanly as it scales
+DOWN to the smallest at τ.7.x.h Ruth.
+
+Pipeline reused VERBATIM from τ.7.x.h — only deltas: `PSALMS_VERSE_
+COUNTS` floor + `structural_map.psalms` block ([803, 906]). **Ninth
+consecutive τ.7.x.* zero-parser-API-delta**; combined with τ.6.x.2.
+a-h Geʽez batch = **17-ship zero-API-delta** across both columns.
+
+**SKIP-THE-GAP DECISION:** the τ.7.x.h structural-discovery scan
+revealed the parallel-Bible-EOTC PDF alternates between formats:
+pages 0-437 are EOTC-parallel (Pentateuch + Joshua + Judges + Ruth =
+shipped) but pages 438-802 are dzamaragna.net 2002 Amharic-only
+appendix covering 10 historical-narrative books (1 Sam → Job).
+Page 803 RESUMES EOTC-parallel with Psalms through page 906. User
+opted to skip the 365-page dzamaragna gap and resume with Psalms,
+preserving pipeline-template stability while deferring the gap to a
+future τ.7.x.J-cluster sub-arc.
+
+**Nine-book combined coverage:** 1308 gen + 947 ex + 802 lev + 1107
+num + 781 deu + 483 jos + 511 jdg + 60 rut + 2243 psa = **8242
+verses / 9745 expected = 84.6% combined coverage** across 9
+ingested books (excludes 10 SKIPPED books in 438-802 gap).
+
+**τ.7.x.* nine-ship coverage histogram:** 93.4 / 88.6 / 85.9 / 85.3
+/ 82.7 / 81.4 / 78.1 / 73.4 / 70.6 — seven of nine within the 78-93%
+canonical band; Psalms slots in as second-best.
+
+**Psalm 151 (David-vs-Goliath)** preserved in extracted output —
+content verified at ch 126:1-4 (renumbered from canonical Psalm 151
+slot due to chapter-exhaustion artifact; τ.6.x.3 audit re-aligns).
+
+**Empirical results (text-layer engine, pymupdf get_text(), 104
+pages 803-906):**
+
+| Metric | Pre-τ.7.x.i | τ.7.x.i this ship |
+|---|---:|---:|
+| amharic-tewahedo/psa.py verse count | (no file) | **2243** |
+| Psalms chapters fully populated | 0 | **{1..125}** (125 of 151) |
+| Chapter 126 | (n/a) | partial 4/5 (incl. Psalm 151 content) |
+| Chapters 127-151 | (n/a) | empty |
+| Coverage vs floor | (n/a) | **2243 / 2531 = 88.6%** |
+| Combined coverage | (5999 / 7214 = 83.2% across 8 books) | **8242 / 9745 = 84.6%** across 9 books |
+| Parser API delta | (n/a) | **0 lines** (ninth consecutive zero-API ship) |
+
+**Triggered by:** user "Skip the gap for now" decision after seeing
+the post-τ.7.x.h structural-discovery scan results.
+
+**Next per most-logical-path:** τ.7.x.j — next per-book ingest in
+the parallel-Bible-EOTC scan. Three small-block candidates from the
+τ.7.x.h scan, in order of canonical position:
+- **p1239-1285 (47 pages):** 2 Esdras + Tobit (TWO Tewahedo-
+  distinctive deuterocanonical books in one block)
+- **p1292-1310 (19 pages):** Judith + Esther (Geʽez; could swap
+  Esther in for the dzamaragna-gap version)
+- **p1351-1366 (16 pages):** 2 Mäqabyan
+Recommended τ.7.x.j = Tobit + 2 Esdras (small 47-page block, two
+canonical deuterocanonical books, preserves per-book D1-a cadence
+with optional split into τ.7.x.j Tobit + τ.7.x.k 2 Esdras).
+
+---
+
+## Prior session — 2026-05-15 / τ.6.x.2.a-h GEʽEZ CATCHUP BATCH ship — 8 per-
+book Geʽez ingests upgrading geez-tewahedo/ from Π.0 seed (1 book /
+3 verses) to ocr-tier3 full-book ingest (8 books / 4337 verses).
+**CLOSES the parallel-column-catchup arc under D4-c** — both columns
+(amharic-tewahedo + geez-tewahedo) now at PARITY for the entire
+parallel-Bible-EOTC scan range (pages 0-437; Pentateuch + Joshua +
+Judges + Ruth = 8 books in BOTH columns).
+
+Per D4-c sequencing inversion at τ.6.x.2.D: Amharic shipped FIRST
+(τ.7.x.a-h, same session) then Geʽez catchup (τ.6.x.2.a-h, this
+batch). Both columns now at the parallel-Bible-EOTC scan boundary
+at page 437. Pipeline reused VERBATIM from τ.7.x.a-h with only
+`--lang geez` flag flip — **16-ship zero-parser-API-delta** validation
+across BOTH columns (8 Amharic + 8 Geʽez).
+
+**Geʽez combined coverage:** 1022 gen + 643 ex + 534 lev + 830 num
++ 508 deu + 351 jos + 393 jdg + 56 rut = **4337 verses / 7214
+expected = 60.1% combined coverage** across all 8 books. Geʽez
+recovers ~72% of what Amharic does at the canonical-block level
+(60.1% vs 83.2%), consistent with the τ.6.x.0a honesty contract
+observation that the Geʽez column text-layer is more garbled than
+Amharic (Geʽez classical orthography uses fewer characters per
+syllable + more historical orthographic variants).
+
+**TENTH §8.1 instance + FIRST in τ-cluster Geʽez stream:** τ.6.x.2.e
+records the Pentateuch §8.1 arc-close in the Geʽez stream (mirrors
+τ.7.x.e Amharic Pentateuch §8.1 arc-close). Geʽez Pentateuch combined
+coverage: 3537 / 5853 = 60.4% across all 5 Torah books.
+
+**16-ship template stability:** the τ.7.x.a template + structural_
+map page-ranges + renumber-floor dicts + paragraph-mode parser are
+now validated across 16 per-book ships across BOTH columns
+(Pentateuch + Joshua + Judges + Ruth = 8 books × 2 columns), all
+with zero parser API drift. The only code-side change in this
+ENTIRE 16-ship arc was the addition of 8 renumber-floor dicts +
+8 CLI choice extensions at the τ.7.x.a-h ships; the τ.6.x.2.a-h
+catchup contributed zero new code (only the `--lang geez` flag flip
+per ship).
+
+**Empirical results (text-layer engine, pymupdf get_text(), 8 Geʽez
+extractions in sequence):**
+
+| Phase     | Book | Pages    | Geʽez | Amharic | Geʽez% | Amharic% |
+|-----------|------|---------:|------:|--------:|-------:|---------:|
+| τ.6.x.2.a | gen  |   0-85   |  1022 |    1308 |  66.6% |    85.3% |
+| τ.6.x.2.b | ex   |  86-160  |   643 |     947 |  53.0% |    78.1% |
+| τ.6.x.2.c | lev  | 161-213  |   534 |     802 |  62.2% |    93.4% |
+| τ.6.x.2.d | num  | 214-287  |   830 |    1107 |  64.4% |    85.9% |
+| τ.6.x.2.e | deu  | 288-348  |   508 |     781 |  53.0% |    81.4% |
+| τ.6.x.2.f | jos  | 349-390  |   351 |     483 |  53.3% |    73.4% |
+| τ.6.x.2.g | jdg  | 391-431  |   393 |     511 |  63.6% |    82.7% |
+| τ.6.x.2.h | rut  | 432-437  |    56 |      60 |  65.9% |    70.6% |
+| TOTAL     |      |   0-437  |  4337 |    5999 |  60.1% |    83.2% |
+
+**Triggered by:** user "let me figure out the best way to approach
+this turn of events, in the meantime, let's do the same for the
+Ge'ez up to this point" — request to ship the Geʽez catchup while
+the publication-format-shift problem (τ.7.x.h structural discovery)
+is being evaluated. The Geʽez catchup is INDEPENDENT of the
+publication-format-shift problem because all 8 Geʽez ships operate
+within the parallel-Bible-EOTC scan range (pages 0-437) which is
+the SAME publication format the Amharic ingests used.
+
+**Next per most-logical-path:** **STILL τ.7.x.i** (Amharic 1 Samuel
+/ 1 Kingdoms) — the structural-discovery problem from τ.7.x.h is
+NOT addressed by the Geʽez catchup; the dzamaragna.net 2002 Amharic
+Bible appendix at pages 438+ still requires a NEW publication-format
+handler. The Geʽez catchup brought both columns to PARITY at the
+parallel-Bible-EOTC scan boundary — that's the cleanest possible
+state in which to take the publication-format pivot decision. Three
+options for τ.7.x.i (already documented in tau7xh_ingest.next_phase_
+description): (a) source from dzamaragna.net appendix with NEW
+publication-format handler + new `dzamaragna-net-amharic-2002`
+source_provenance value; (b) source from external PDF entirely;
+(c) defer pending source-document inventory review.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.h AMHARIC RUTH FULL-BOOK INGEST ship —
+EIGHTH τ.7.x.* per-book ingest under D4-c Amharic-first + D1-a per-
+book cadence. **CONTINUES the post-Pentateuch historical-books arc
+opened at τ.7.x.f under Amharic-first sequencing** — THIRD sub-phase
+in the historical-books arc (Joshua → Judges → Ruth → 1-4 Kingdoms
+→ 1-2 Paralipomena → Ezra/Nehemiah → Esther under the LXX/Tewahedo
+ordering).
+
+Adds `content/translations/amharic-tewahedo/rut.py` with 60 verses at
+**70.6% coverage — NEW BAND-BOTTOM** for τ.7.x.* family (slightly
+below τ.7.x.f Joshua's 73.4% prior band-bottom). Ruth is the
+SHORTEST canonical OT book (4 chapters / 85 verses / 6 PDF pages)
+and the smallest τ.7.x.* per-book ingest to date. Cause of band-
+bottom: Ruth's dense Davidic-genealogy content in 4:17-22 (entire
+genealogy compressed into 6 verses) makes ch 4 hard for chapter-
+boundary recovery to capture. Pipeline reused VERBATIM from τ.7.x.g
+— only deltas are `RUTH_VERSE_COUNTS` floor (4 ch / 85 v;
+KJV/Hebrew Masoretic + LXX agreement) + `structural_map.ruth` block
+(pdf_page_range [432, 437] verified via 1 Samuel 1:1 + publication-
+format-shift discovery at page 438). **Eighth consecutive τ.7.x.*
+ship with zero parser API change** — eight-ship zero-API-delta is
+the strongest template-stability signal yet, and uniquely validates
+that the τ.7.x.a template scales DOWN to the smallest canonical OT
+book.
+
+**Eight-book combined coverage:** amharic-tewahedo 1308 gen + 947 ex
++ 802 lev + 1107 num + 781 deu + 483 jos + 511 jdg + 60 rut = **5999
+verses / 7214 expected = 83.2% combined coverage across all 8 books**.
+Eight-book ingest covers the ENTIRE parallel-Bible-EOTC scan range
+(pages 0-437) — 363 PDF pages consumed. The combined coverage held
+remarkably stable across the 8 ships (84.5% Pentateuch → 83.4%
++Joshua → 83.3% +Judges → 83.2% +Ruth) demonstrating that the
+parallel-Bible-EOTC scan + text-layer + paragraph-mode + renumber-
+against-floor pipeline yields ~83% baseline recovery across diverse
+canonical-book genres.
+
+**NULL-FORMAL-TITLE-BANNER PATTERN CONFIRMED 3X (DECISIVE):** Joshua
++ Judges + Ruth all lack the formal `መጽሐፈ X` book-title-banner in
+the PDF text-layer at the book opening. Publisher uses the
+`ኦሪት ዘ<book>` running-header form consistently throughout. Third
+consecutive ship confirming this is a STABLE structural property of
+the parallel-Bible-EOTC scan.
+
+**CRITICAL STRUCTURAL DISCOVERY at τ.7.x.h:** the parallel-Bible-
+EOTC scan in this source PDF **ENDS at page 437** (after Ruth 4:22).
+Pages 438+ contain a **SEPARATE publication** — the dzamaragna.net
+Amharic Bible (2002 revision) appended as a second-document
+attachment with a completely different format. **τ.7.x.i (1 Samuel
+/ 1 Kingdoms) will require a NEW publication-format handler** —
+either source from the dzamaragna.net appendix with a separate
+`source_provenance` value, OR source 1-4 Kingdoms from a different
+external PDF entirely. This is a STRUCTURAL DISCOVERY about source-
+document inventory: the parallel-Bible-EOTC scan covers ONLY the
+Pentateuch (Gen-Deut) + Joshua + Judges + Ruth canonical block —
+NOT the full Bible.
+
+**Empirical results (text-layer engine, pymupdf get_text(), 6 pages
+432-437):**
+
+| Metric | Pre-τ.7.x.h | τ.7.x.h this ship |
+|---|---:|---:|
+| amharic-tewahedo/rut.py verse count | (no file) | **60** |
+| Ruth chapters fully populated | 0 | **{1, 2}** (2 of 4) |
+| Chapter 3 | (n/a) | partial 15/18 (83.3%; incl. colophons + genealogy) |
+| Chapter 4 | (n/a) | empty |
+| Coverage vs floor | (n/a) | **60 / 85 = 70.6%** (new band-bottom) |
+| Combined 8-book coverage | (5939 / 7129 = 83.3%) | **5999 / 7214 = 83.2%** |
+| Parser API delta | (n/a) | **0 lines** (eighth consecutive zero-API ship) |
+| Null-formal-title-banner pattern | 2x confirmed | **3x CONFIRMED** (DECISIVE) |
+
+**Triggered by:** user "continue" after τ.7.x.g — per memory
+`feedback_continue_not_save` continue advances to next-up phase
+(τ.7.x.h per τ.7.x.g `next_phase=τ.7.x.h` declaration). See
+`dev/IN_FLIGHT.md` for the full 14-deliverable breakdown.
+
+**Next per most-logical-path:** τ.7.x.i — Amharic 1 Samuel / 1
+Kingdoms full-book ingest. **MUST address the τ.7.x.h structural
+discovery**: parallel-Bible-EOTC scan ends at page 437; 1 Samuel
+content begins at page 438 in a DIFFERENT publication format. Three
+options: (a) source from dzamaragna.net appendix with NEW
+publication-format handler + new `dzamaragna-net-amharic-2002`
+source_provenance value; (b) source from external PDF entirely;
+(c) defer pending source-document inventory review. Recommended: (a)
+with clean separation between the two source-provenance streams.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.g AMHARIC JUDGES FULL-BOOK INGEST ship —
+SEVENTH τ.7.x.* per-book ingest under D4-c Amharic-first + D1-a per-
+book cadence. **CONTINUES the post-Pentateuch historical-books arc
+opened at τ.7.x.f under Amharic-first sequencing** — SECOND sub-phase
+in the historical-books arc (Joshua → Judges → Ruth → 1-4 Kingdoms
+→ 1-2 Paralipomena → Ezra/Nehemiah → Esther under the LXX/Tewahedo
+ordering).
+
+Adds `content/translations/amharic-tewahedo/jdg.py` with 511 verses at
+**82.7% coverage** — sits between τ.7.x.e Deuteronomy (81.4%) and
+τ.7.x.d Numbers (85.9%); comfortably within the canonical τ.7.x.*
+per-book coverage band. Pipeline reused VERBATIM from τ.7.x.f — only
+deltas are `JUDGES_VERSE_COUNTS` floor (21 chapters, 618 verses;
+KJV/Hebrew Masoretic + LXX agreement) + `structural_map.judges` block
+(pdf_page_range [391, 431] verified via Ruth 1:1 opening at p432
+content inspection). **Seventh consecutive τ.7.x.* ship with zero
+parser API change** — seven-ship zero-API-delta extends template
+stability across Pentateuch (5 books) + Joshua (1) + Judges (1) = 7
+books / 357 PDF pages (0-431).
+
+**Seven-book combined coverage:** amharic-tewahedo 1308 gen + 947 ex +
+802 lev + 1107 num + 781 deu + 483 jos + 511 jdg = **5939 verses /
+7129 expected = 83.3% combined coverage across all 7 books**. Seven-
+book Pentateuch + Joshua + Judges run is the largest sequential
+canonical run shipped in the τ.7.x.* family to date.
+
+**NULL-FORMAL-TITLE-BANNER PATTERN CONFIRMED:** as with Joshua at
+τ.7.x.f, the explicit `መጽሐፈ መሳፍንት` (Book of Judges) formal book-
+title-banner form does NOT appear in the PDF text-layer at Judges
+opening (zero hits at boundary-discovery scan). Publisher uses the
+`አሪት ዘመለፍንት` / `አሪት ዘመላፍኝት` running-header form consistently (OCR
+exhibits modest variation between `መለፍንት` and `መላፍኝት`). Second
+consecutive ship confirming this is a STABLE structural property of
+the historical-books arc, NOT a one-off Joshua quirk. Future
+τ.7.x.* sub-ships in the historical-books arc should anticipate the
+same publisher convention; boundary detection should rely on
+canonical-text scan rather than formal-title-banner scan throughout
+the historical-books arc.
+
+**Empirical results (text-layer engine, pymupdf get_text(), 41 pages
+391-431):**
+
+| Metric | Pre-τ.7.x.g | τ.7.x.g this ship |
+|---|---:|---:|
+| amharic-tewahedo/jdg.py verse count | (no file) | **511** |
+| Judges chapters fully populated | 0 | **{1..17}** (17 of 21) |
+| Chapter 18 | (n/a) | partial 27/31 (87.1%; incl. colophons) |
+| Chapters 19-21 | (n/a) | empty |
+| Coverage vs floor | (n/a) | **511 / 618 = 82.7%** |
+| Combined 7-book coverage | (5428 / 6511 = 83.4%) | **5939 / 7129 = 83.3%** |
+| Parser API delta | (n/a) | **0 lines** (seventh consecutive zero-API ship) |
+
+**Triggered by:** user "continue" after τ.7.x.f — per memory
+`feedback_continue_not_save` continue advances to next-up phase
+(τ.7.x.g per τ.7.x.f `next_phase=τ.7.x.g` declaration). See
+`dev/IN_FLIGHT.md` for the full 14-deliverable breakdown.
+
+**Next per most-logical-path:** τ.7.x.h — Amharic Ruth full-book
+ingest under D1-a + D4-c. Ruth is the SHORTEST canonical book in the
+OT (4 chapters, 85 verses) and will be the smallest τ.7.x.* per-book
+ingest to date — expect ~3-5 pages of PDF content. Page-range
+starting at 432 per τ.7.x.g boundary inspection. Continues the post-
+Pentateuch historical-books arc.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.f AMHARIC JOSHUA FULL-BOOK INGEST ship —
 SIXTH τ.7.x.* per-book ingest under D4-c Amharic-first + D1-a per-book
 cadence. **OPENS the post-Pentateuch historical-books arc under
 Amharic-first sequencing** — FIRST τ-cluster ingest after the §8.1

@@ -67,25 +67,45 @@ class TestTau6Discovery:
 
 class TestTau6Seed:
     def test_three_verses(self):
+        # MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        # originally asserted the Geʽez Genesis Π.0 seed had EXACTLY
+        # 3 curated verses (Gen 1:1-3). The τ.6.x.2.a batch sub-ship
+        # UPGRADED Geʽez Genesis from the 3-verse seed to a 1022-verse
+        # ocr-tier3 full-book ingest. Durable invariant: Geʽez Genesis
+        # is at ocr-tier3 ingest scale (≥950; empirical 1022).
         from scripts.core import translations
 
-        assert translations.book_verse_count("geez-tewahedo", "gen") == 3
+        assert translations.book_verse_count("geez-tewahedo", "gen") >= 950
 
     def test_gen_1_1_starts_with_qedami(self):
-        # ቀዳሚሁ = "in the beginning" — the canonical Ge'ez Bible
-        # opening. Pin presence.
+        # MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        # the Π.0 seed had the clean canonical opening ቀዳሚሁ ("in
+        # the beginning"). The τ.6.x.2.a ocr-tier3 ingest replaced
+        # the curated seed with garbled-but-real OCR text — Gen 1:1
+        # now reads `በሩዳሚ ገብረ አግዚአብሔር ሰማየ ወምድረ` where the opening
+        # word OCR-garbled ቀዳሚ→ሩዳሚ. Per the τ.6.x.0b honesty
+        # contract, ocr-tier3 garbling is expected + acceptable.
+        # Durable invariant: the verse is non-empty and carries the
+        # ዳሚ "beginning"-root fragment (survives the OCR garble in
+        # both the clean ቀዳሚሁ and the garbled በሩዳሚ forms).
         from scripts.core import translations
 
         v = translations.get_verse("geez-tewahedo", "gen", 1, 1)
         assert v is not None
-        assert "ቀዳሚሁ" in v
+        assert "ዳሚ" in v, f"Geʽez Gen 1:1 must carry the ዳሚ beginning-root; got: {v[:120]!r}"
 
     def test_gen_1_1_contains_egziabher(self):
-        # እግዚአብሔር = "God / the Lord" — anchor word for the verse.
+        # MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        # the Π.0 seed used the clean divine-name spelling እግዚአብሔር.
+        # The τ.6.x.2.a ocr-tier3 ingest produced the OCR-variant
+        # አግዚአብሔር (leading አ instead of እ) at Gen 1:1. Both are
+        # recognizably the Tewahedo divine name. Durable invariant:
+        # accept either the clean እግዚአብሔር or the OCR-variant
+        # አግዚአብሔር (shared discriminative stem: ግዚአብሔር).
         from scripts.core import translations
 
         v = translations.get_verse("geez-tewahedo", "gen", 1, 1)
-        assert "እግዚአብሔር" in v
+        assert "ግዚአብሔር" in v, f"Geʽez Gen 1:1 must carry the divine-name stem ግዚአብሔር; got: {v[:120]!r}"
 
     def test_gen_1_3_contains_berhan(self):
         # ብርሃን = "light" — pin its appearance in the "let there be

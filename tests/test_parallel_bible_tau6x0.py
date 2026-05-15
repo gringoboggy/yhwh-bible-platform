@@ -263,11 +263,15 @@ class TestTau6x0aTranslationSlotsClean:
         # in later phases (τ.6.x.0b+, δ.1.x), this assertion will
         # need to be loosened or replaced with a quality-tagging
         # assertion.
-        assert files == ["gen.py"], (
-            f"τ.6.x.0a contract: geez-tewahedo must remain at τ.6 seed "
-            f"(gen.py only) until τ.6.x.0b addresses OCR-quality. "
-            f"Got files: {files}"
-        )
+        assert "gen.py" in files, (
+            f"τ.6.x.2.a-h batch: geez-tewahedo/ must contain gen.py (Π.0 seed or its ocr-tier3 successor); got {files}"
+        )  # MIGRATED at τ.6.x.2.a-h batch ship-time (2026-05-15):
+        # originally asserted geez-tewahedo/ holds ONLY the Π.0
+        # gen.py seed. The τ.6.x.2.a-h Geʽez catchup batch upgraded
+        # the Geʽez column to 8 ocr-tier3 books (gen+ex+lev+num+deu
+        # +jos+jdg+rut). Same migration the companion
+        # test_amharic_tewahedo_contains_gen_py received at τ.7.x.b.
+        # Durable invariant: gen.py present (Π.0 seed or successor).
 
     def test_amharic_tewahedo_contains_gen_py(self):
         """Refactored share-pin→milestone-pin at τ.7.x.b ship-time per
