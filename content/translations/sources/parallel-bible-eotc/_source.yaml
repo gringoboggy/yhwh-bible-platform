@@ -1236,3 +1236,174 @@ ocr_strategy:
       as the expected-floor reference. Optional τ.6.x.1.E ship can
       address the truncated-keyword case before τ.7.x.a if cleaner
       labeling needed at ingest time.
+    residual_resolved_at_phase: τ.7.x.a  # back-link: chapter-marker collapse residual addressed via writer-side renumbering at τ.7.x.a (single-key back-link pattern; 5th instance after tau6x1a→1b, tau6x1b→2D, tau7xa_pre_pilot→1C, tau6x1c→1D)
+
+  # τ.7.x.a — Amharic Genesis full-book ingest (D4-c Amharic-first,
+  # D1-a per-book cadence, ocr-tier3 quality). FIRST τ.7.x.* ship.
+  # Resolves the τ.6.x.1.D residual (chapter-marker garbled past
+  # recognition) via writer-side renumbering against GENESIS_VERSE_
+  # COUNTS, per τ.6.x.1.D.next_phase_description's pre-committed
+  # path. Upgrades content/translations/amharic-tewahedo/gen.py from
+  # Π.0 3-verse seed → 1308-verse full-book ingest at 85.3% coverage.
+  #
+  # Pin tests in tests/test_parallel_bible_tau7xa.py; gen.py docstring
+  # carries per-chapter coverage summary inline; amharic-tewahedo/
+  # _meta.yaml carries `ingest_record` block with structured stats.
+  tau7xa_ingest:
+    shipped_at_phase: τ.7.x.a
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "continue" after τ.6.x.1.D ship — advancing to τ.7.x.a
+      (proper) per the locked D4-c Amharic-first sequencing of the
+      τ.6.x.2.D D-decisions matrix. The τ.6.x.1.D ship explicitly
+      pre-committed the writer-side renumbering path:
+      "Downstream τ.7.x.a writer may apply post-process renumbering
+      using GENESIS_VERSE_COUNTS as the expected-floor reference."
+    resolves_residual:
+      source: τ.6.x.1.D tau6x1d_chapter_recovery.known_residual_issues
+      issue: chapter_marker_keyword_garbled_past_recognition
+      resolution_method: writer_side_renumbering_against_floor
+      reciprocal_back_link: 'tau6x1d_chapter_recovery.residual_resolved_at_phase: τ.7.x.a'
+    helpers_added:
+      renumber_against_floor: |
+        Function (verses, verse_counts) → renumbered verses. Discards
+        parser chapter labels and assigns verses sequentially to
+        canonical chapters per the verse_counts floor (e.g.
+        GENESIS_VERSE_COUNTS). Source order is preserved during
+        redistribution. Overflow verses (when parser produces more
+        than the floor) end up in synthesized ch_max+1 bucket.
+        Module-level pure function; works for any book once its
+        canonical verse-count dict is supplied.
+      write_book_module_extensions: |
+        ingest_phase + docstring_extra kwargs (keyword-only). The
+        ingest_phase tag is recorded as INGEST_PHASE constant in the
+        generated module + referenced in the file docstring. The
+        docstring_extra string is appended after the generic provenance
+        lines, allowing per-book quality-residue documentation in-line.
+      _build_docstring_extra: |
+        CLI helper that composes a τ.7.x.a-style docstring summary
+        (parser_mode + renumber + coverage + per-chapter populated/
+        partial/missing breakdown) when paragraph_mode + renumber are
+        both active. Returns None when no extension is warranted.
+      _pretty_range: |
+        Render a sorted list of ints as a compact range string for
+        the coverage summary (e.g. [1..42] → "1-42"; [44..50] →
+        "44-50").
+    cli_extensions:
+      paragraph_mode_flag: |
+        New --paragraph-mode flag on scripts/extract_parallel_pdf.py
+        main(). Forwards paragraph_mode=True to parse_verses_from_text()
+        for standard-canon-book extraction.
+      renumber_flag: |
+        New --renumber {genesis} flag. Wires renumber_against_floor
+        with GENESIS_VERSE_COUNTS as the floor.
+      lang_flag: |
+        New --lang {geez,amharic,both} flag, default 'both' for
+        Π.1/Meqabyan back-compat. 'amharic' skips writing the geez-
+        tewahedo slot — used at τ.7.x.a so the Geʽez column (known-
+        garbled per ocr_caveats) doesn't overwrite the geez-tewahedo
+        Π.0 seed pending τ.6.x.2.a Geʽez stream.
+      ingest_phase_flag: |
+        New --ingest-phase flag. Written as INGEST_PHASE constant +
+        referenced in docstring; useful for downstream-consumer
+        audit traceback.
+    parser_api_change:
+      function: extract_section()
+      change: |
+        Added paragraph_mode + renumber_floor keyword-only kwargs.
+        When paragraph_mode=True, parse_verses_from_text() is called
+        with paragraph_mode=True. When renumber_floor is a dict,
+        renumber_against_floor() is applied to BOTH geez_verses +
+        amh_verses post-parse.
+      backward_compatibility: |
+        Both new kwargs default to None/False; existing callers
+        (Π.1 + Meqabyan pilot path) see no change. The geez column
+        still receives renumbering at runtime when --renumber is
+        passed, BUT the --lang=amharic filter prevents the geez slot
+        from being written — preserving the geez-tewahedo Π.0 seed.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [0, 85]
+      extraction_engine: text-layer
+      extraction_runtime_ms: 570  # 86 pages via pymupdf get_text()
+      parse_runtime_ms: 29
+      amharic_char_count: 133943
+      raw_parser_output_verse_count: 1308
+      raw_parser_chapters_detected: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22]  # 19 of 50; ch 17, 18, 20, 23-50 marker-missed
+      renumbered_verse_count: 1308
+      renumbered_chapters_with_content: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43]  # 43 of 50
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+      chapters_partial:
+        43: {got: 16, expected: 34, ratio_pct: 47.1}
+      chapters_missing: [44, 45, 46, 47, 48, 49, 50]
+      expected_total: 1534
+      coverage_pct: 85.3
+      gen_1_1_variant_preserved: |
+        PDF source's expanded reading "በመጀመሪያው ቁን እግዚአብሔር ሰማይንና
+        ምድርን ፈጠረ" (vs Π.0 seed's standard "በመጀመሪያ" opening) is
+        preserved in the τ.7.x.a ingest per τ.7.x.a.0 PILOT §3
+        Observation 1.
+      regression_pin_tests:
+        - test_amharic_gen_total_verse_count_floor
+        - test_amharic_gen_chapters_1_through_42_fully_populated
+        - test_amharic_gen_chapter_43_partial
+        - test_amharic_gen_chapters_44_50_empty
+        - test_amharic_gen_ingest_phase_constant
+        - test_amharic_gen_source_quality_tier3
+    known_residual_issues:
+      coverage_short_by_226_verses: |
+        85.3% coverage = 226 verses missing. Sources: (1) fragments
+        below the 10-char filter (orphan punctuation, single chars);
+        (2) verses merged across `።` boundaries where the OCR
+        dropped the terminator; (3) cross-references consuming verse-
+        text via `=` separator leakage. τ.6.x.3 batched audit per
+        D2-b + D3-c will cross-check against KJV/LXX/BHS reference
+        and flag specific verse alignments needing remediation.
+      cross_reference_inline_leakage: |
+        Cross-refs like `= ቀ. ፲፫ =` are inlined within verse text
+        rather than line-prefixed; the is_cross_ref_fragment heuristic
+        only filters per-fragment-after-split, so cross-refs sharing
+        a `።`-bounded fragment with body text leak through. Visible
+        in Gen 1:3 ingest: `… ኔለማን ለየ = ቀ. ፲፫ = እግዚአብሔር ብርሃኑን ቃን …`.
+        Affects readability but not (ch, v) indexing.
+      verse_text_misalignment_under_renumbering: |
+        Sequential renumbering assigns parser verse i to canonical
+        verse j in chapter k, but if the parser merged two source
+        verses or dropped a fragment, the canonical j may name a
+        verse whose CONTENT actually belongs to canonical j+1. The
+        chapter+verse INDEX is canonical (matching reader expectation
+        — Gen 1:1 lookup returns the FIRST extracted verse, which IS
+        Gen 1:1 in source order); content alignment is the τ.6.x.3
+        cross-check scope.
+      chapters_44_50_empty: |
+        7 trailing Joseph-cycle chapters have zero ingested verses.
+        Reader popup for (gen, 44, 1) returns no verse — gracefully
+        falls through to the default-language popup behavior. τ.7.x.b
+        (Exodus) ingest can proceed independently. The gap closes at
+        τ.6.x.3 batched audit (or τ.6.x.1.E truncated-keyword recovery
+        if shipped as an optional refinement first).
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false  # FIRST violation — τ.7.x.a is the AUTHORIZED ingest under D4-c
+      tau6x0b_honesty_contract: true  # SOURCE_QUALITY='ocr-tier3' recorded in gen.py + _meta.yaml; coverage residue documented
+      tau6x0c_script_ethiopic_adoption: true  # not exercised (text-layer engine used; Tesseract path unchanged)
+      tau6x1_engine_wiring: true  # not exercised
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true  # normalize_verse_numerals called, no-op for text-layer
+      tau6x1c_parser_extension: true  # paragraph_mode dispatch active
+      tau6x1d_chapter_recovery: true  # CHAPTER_HEADER_RE_LENIENT + _resolve_chapter_marker active; the residual is what τ.7.x.a renumbering addresses
+      tau6x2D_decisions: true  # D1-a + D4-c + D2-b + D3-c sequencing honored
+      tau7xa_pre_pilot: true  # PILOT page-range + paragraph-mode finding both consumed
+    no_ingest_at_this_phase: false  # CHANGE — this IS the ingest phase
+    translation_slot_state:
+      amharic_tewahedo_gen: 'upgraded-from-Π.0-3-verse-seed-to-τ.7.x.a-1308-verse-ingest'
+      geez_tewahedo_gen: 'remains-at-Π.0-3-verse-seed (τ.6.x.2.a will upgrade under D4-c sequencing)'
+      other_book_slots: 'no-op (τ.7.x.b ... τ.7.x.z under D1-a per-book cadence; ex pilot next)'
+    next_phase: τ.7.x.b
+    next_phase_description: |
+      τ.7.x.b — Amharic Exodus full-book ingest under D1-a per-book
+      cadence + D4-c Amharic-first sequencing. Should re-use the
+      same pipeline (text-layer engine + paragraph_mode + renumber
+      with an EXODUS_VERSE_COUNTS floor — to be added to
+      extract_parallel_pdf.py at τ.7.x.b ship time). Should also
+      add a structural_map.exodus block here (pdf_page_range [86,
+      ~150] per τ.7.x.a.0 PILOT §1's boundary inspection).

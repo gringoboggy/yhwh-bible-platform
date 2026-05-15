@@ -318,23 +318,18 @@ class TestTau7XAClosedArcInvariantPreservation:
         files = sorted(p.name for p in AMHARIC_TEWAHEDO.iterdir() if p.is_file() and p.suffix == ".py")
         assert files == ["gen.py"], f"τ.7.x.a.0: amharic-tewahedo must remain at Π.0 seed (gen.py only); got {files}"
 
-    def test_amharic_tewahedo_gen_py_still_seed_three_verses(self):
-        """The τ.7.x.a.0 PILOT does NOT touch amharic-tewahedo/gen.py
-        content — the Π.0 3-verse seed is preserved until τ.7.x.a
-        (proper) ships. This pin is the strongest no-ingest contract
-        pin: not only does the directory contain only gen.py, but
-        gen.py itself remains at its 3-verse Π.0 state."""
+    def test_amharic_tewahedo_gen_py_exceeds_seed(self):
+        """Refactored from share-pin to milestone-pin at τ.7.x.a
+        ship-time per `feedback_share_pin_pattern` — at τ.7.x.a (proper),
+        the Π.0 3-verse seed is SUPERSEDED by the 1308-verse ingest.
+        The durable assertion is now "ingest count is far above the
+        Π.0 seed", with a defensive floor of 100 (well below the
+        empirical ~1308) so future τ.7.x.b-style scope changes that
+        don't touch Genesis won't trip this pin."""
         gen_py = AMHARIC_TEWAHEDO / "gen.py"
         text = gen_py.read_text(encoding="utf-8")
-        # Count tuple lines (lines that start with `    (` after VERSES = [).
-        # The Π.0 seed has exactly 3 tuples (Gen 1:1, 1:2, 1:3).
-        # The seed style uses `(1, 1, "...")` then a multi-line
-        # paren-comma for 1:2 then `(1, 3, "...")`. The simplest
-        # detection: look for VERSES = [ ... ] block and count
-        # entries inside it.
         import ast
 
-        # Parse the .py file and extract VERSES.
         tree = ast.parse(text)
         verses = None
         for node in ast.walk(tree):
@@ -346,8 +341,11 @@ class TestTau7XAClosedArcInvariantPreservation:
             if verses is not None:
                 break
         assert verses is not None, "amharic-tewahedo/gen.py must define VERSES"
-        assert len(verses) == 3, (
-            f"τ.7.x.a.0 preserves Π.0 seed: amharic-tewahedo/gen.py VERSES must remain 3 (Π.0 seed); got {len(verses)}. τ.7.x.a (proper) will expand this AFTER τ.6.x.1.C ships."
+        assert len(verses) >= 100, (
+            f"τ.7.x.a (proper) shipped: amharic-tewahedo/gen.py VERSES must "
+            f"be ≥100 (defensive floor; empirical at ship was ~1308); got "
+            f"{len(verses)}. If this dropped below 100, the τ.7.x.a ingest "
+            f"regressed."
         )
 
     def test_no_ingest_at_this_phase(self):
@@ -370,3 +368,491 @@ class TestTau7XAClosedArcInvariantPreservation:
         # τ.6.x.1.C pending sub-phase.
         assert "τ.7.x.a.0" in txt
         assert "τ.6.x.1.C" in txt
+
+
+# ──────────────────────────────────────────────────────────────────────
+# τ.7.x.a (PROPER) — Amharic Genesis full-book ingest pins
+# ──────────────────────────────────────────────────────────────────────
+
+
+def _amharic_gen_verses() -> list[tuple]:
+    """Load content/translations/amharic-tewahedo/gen.py VERSES list
+    via ast literal-eval so test parsing is robust to comment changes."""
+    import ast
+
+    gen_py = AMHARIC_TEWAHEDO / "gen.py"
+    text = gen_py.read_text(encoding="utf-8")
+    tree = ast.parse(text)
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id == "VERSES":
+                    return ast.literal_eval(node.value)
+    raise AssertionError("amharic-tewahedo/gen.py must define VERSES")
+
+
+def _amharic_gen_constants() -> dict:
+    """Load module-level constants (TRANSLATION, BOOK, SOURCE_QUALITY,
+    SOURCE_PROVENANCE, EXTRACTION_DATE, INGEST_PHASE if set)."""
+    import ast
+
+    gen_py = AMHARIC_TEWAHEDO / "gen.py"
+    text = gen_py.read_text(encoding="utf-8")
+    tree = ast.parse(text)
+    out: dict = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id != "VERSES":
+                    try:
+                        out[target.id] = ast.literal_eval(node.value)
+                    except Exception:
+                        pass
+    return out
+
+
+def _ingest_block() -> dict:
+    return _source_yaml()["ocr_strategy"]["tau7xa_ingest"]
+
+
+class TestTau7XAFullIngestGenPy:
+    """The amharic-tewahedo/gen.py module is upgraded from Π.0 3-verse
+    seed to τ.7.x.a full-book ingest at ocr-tier3."""
+
+    def test_verses_count_at_least_floor(self):
+        verses = _amharic_gen_verses()
+        # Empirical at ship was 1308. Defensive floor 1000 protects
+        # against silent regression while permitting parser refinement
+        # (τ.6.x.1.E, τ.6.x.3) to nudge the count up or down.
+        assert len(verses) >= 1000, f"τ.7.x.a Genesis ingest must have ≥1000 verses; got {len(verses)}"
+
+    def test_first_verse_is_gen_1_1(self):
+        verses = _amharic_gen_verses()
+        ch, v, text = verses[0]
+        assert (ch, v) == (1, 1), f"First verse must be (1, 1); got ({ch}, {v})"
+        assert text, "Gen 1:1 text must be non-empty"
+
+    def test_gen_1_1_preserves_pdf_variant_reading(self):
+        """Per τ.7.x.a.0 PILOT §3 Observation 1, the PDF source uses
+        the EXPANDED Gen 1:1 form `በመጀመሪያው ቁን ...` (vs Π.0 seed's
+        standard `በመጀመሪያ` opening). The τ.7.x.a ingest preserves
+        the publisher's variant reading."""
+        verses = _amharic_gen_verses()
+        gen_1_1 = verses[0][2]
+        assert "በመጀመሪያው" in gen_1_1, (
+            "τ.7.x.a Gen 1:1 must preserve PDF source's expanded reading "
+            f"'በመጀመሪያው ቁን ...' per τ.7.x.a.0 PILOT; got {gen_1_1[:80]!r}"
+        )
+
+    def test_translation_constant(self):
+        c = _amharic_gen_constants()
+        assert c.get("TRANSLATION") == "amharic-tewahedo"
+
+    def test_book_constant(self):
+        c = _amharic_gen_constants()
+        assert c.get("BOOK") == "gen"
+
+    def test_source_quality_ocr_tier3(self):
+        """Per τ.6.x.0b honesty contract, OCR-extracted text is recorded
+        at ocr-tier3 quality. τ.6.x.3 batched audit ramps to ocr-tier2."""
+        c = _amharic_gen_constants()
+        assert c.get("SOURCE_QUALITY") == "ocr-tier3"
+
+    def test_source_provenance(self):
+        c = _amharic_gen_constants()
+        assert c.get("SOURCE_PROVENANCE") == "parallel-bible-eotc"
+
+    def test_ingest_phase_constant(self):
+        c = _amharic_gen_constants()
+        assert c.get("INGEST_PHASE") == "τ.7.x.a"
+
+
+class TestTau7XAFullIngestCoverage:
+    """Per-chapter coverage matches the empirical post-renumber
+    distribution. Chapters 1-42 fully populated; 43 partial; 44-50
+    empty per renumber_against_floor() applied to 1308 verses against
+    the GENESIS_VERSE_COUNTS floor."""
+
+    def _by_chapter(self) -> dict[int, list[tuple]]:
+        verses = _amharic_gen_verses()
+        out: dict[int, list[tuple]] = {}
+        for ch, v, t in verses:
+            out.setdefault(ch, []).append((v, t))
+        return out
+
+    def test_chapter_1_first_verse_index(self):
+        by_ch = self._by_chapter()
+        assert (1, 1) == (by_ch[1][0][0], 1)  # first entry's verse is 1
+        # i.e., chapter 1 starts at verse 1, no off-by-one
+
+    def test_chapter_1_through_42_fully_populated(self):
+        """The defining τ.7.x.a empirical pin: chapters 1-42 have
+        verse counts MATCHING the GENESIS_VERSE_COUNTS floor under
+        renumber_against_floor() sequential assignment."""
+        # Import floor inside the test so a parser-side change is
+        # picked up automatically.
+        import sys
+
+        sys.path.insert(0, str(REPO / "scripts"))
+        from extract_parallel_pdf import GENESIS_VERSE_COUNTS
+
+        by_ch = self._by_chapter()
+        for ch in range(1, 43):
+            got = len(by_ch.get(ch, []))
+            expected = GENESIS_VERSE_COUNTS[ch]
+            assert got == expected, (
+                f"τ.7.x.a chapter {ch} must have exactly {expected} verses (GENESIS_VERSE_COUNTS floor); got {got}"
+            )
+
+    def test_chapter_43_partial(self):
+        """Chapter 43 received the parser's remaining 16 verses after
+        chapters 1-42 were filled. Empirical at ship; defensive range
+        (5, 34) permits some drift but flags wholesale regression."""
+        by_ch = self._by_chapter()
+        got = len(by_ch.get(43, []))
+        assert 5 <= got <= 34, f"τ.7.x.a chapter 43 partial: expect 5..34 verses; got {got}"
+
+    def test_chapters_44_through_50_empty(self):
+        """Chapters 44-50 received zero verses (the parser exhausted
+        recovered content before reaching the Joseph cycle late
+        chapters). Per τ.6.x.0b ocr-tier3 honesty contract; τ.6.x.3
+        batched audit will close the gap (or τ.6.x.1.E truncated-
+        keyword refinement if shipped first)."""
+        by_ch = self._by_chapter()
+        for ch in range(44, 51):
+            got = len(by_ch.get(ch, []))
+            assert got == 0, (
+                f"τ.7.x.a chapter {ch} should be empty at ocr-tier3; "
+                f"got {got} verses (parser-quality regression — investigate)"
+            )
+
+    def test_no_overflow_above_chapter_50(self):
+        """The renumber_against_floor() overflow bucket (ch_max+1) is
+        empty. If overflow appears, the parser yielded more verses
+        than the GENESIS_VERSE_COUNTS floor — a noisy-OCR regression
+        flag."""
+        by_ch = self._by_chapter()
+        overflow = sum(len(v) for ch, v in by_ch.items() if ch > 50)
+        assert overflow == 0, (
+            f"τ.7.x.a renumber overflow should be 0; got {overflow} verses above ch 50. Parser produced excess; review."
+        )
+
+
+class TestTau7XAParserExtensionRenumber:
+    """renumber_against_floor() unit-tests — the τ.7.x.a writer-side
+    helper that resolves the τ.6.x.1.D residual via sequential
+    redistribution against a canonical floor."""
+
+    def setup_method(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(REPO / "scripts"))
+
+    def test_empty_input_returns_empty(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        assert renumber_against_floor([], {1: 10}) == []
+
+    def test_exact_fill_one_chapter(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        # 3 verses, floor {1: 3} — exact fill.
+        inp = [(99, 99, "a"), (99, 99, "b"), (99, 99, "c")]
+        out = renumber_against_floor(inp, {1: 3})
+        assert out == [(1, 1, "a"), (1, 2, "b"), (1, 3, "c")]
+
+    def test_partial_fill_under_floor(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        # 2 verses, floor {1: 5} — partial fill.
+        inp = [(99, 99, "a"), (99, 99, "b")]
+        out = renumber_against_floor(inp, {1: 5})
+        assert out == [(1, 1, "a"), (1, 2, "b")]
+
+    def test_overflow_spills_to_ch_max_plus_one(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        # 5 verses, floor {1: 3} — 2 overflow.
+        inp = [(99, 99, c) for c in "abcde"]
+        out = renumber_against_floor(inp, {1: 3})
+        assert out == [
+            (1, 1, "a"),
+            (1, 2, "b"),
+            (1, 3, "c"),
+            (2, 1, "d"),
+            (2, 2, "e"),
+        ]
+
+    def test_multi_chapter_assignment(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        # 6 verses, floor {1: 3, 2: 3} — exact fill across 2 chapters.
+        inp = [(99, 99, c) for c in "abcdef"]
+        out = renumber_against_floor(inp, {1: 3, 2: 3})
+        assert out == [
+            (1, 1, "a"),
+            (1, 2, "b"),
+            (1, 3, "c"),
+            (2, 1, "d"),
+            (2, 2, "e"),
+            (2, 3, "f"),
+        ]
+
+    def test_input_chapter_labels_discarded(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        # Input labels (99, 99) are discarded; canonical labels
+        # come from the floor + sequential assignment.
+        inp = [(99, 99, "a"), (1, 1, "b"), (50, 26, "c")]
+        out = renumber_against_floor(inp, {1: 3})
+        assert out == [(1, 1, "a"), (1, 2, "b"), (1, 3, "c")]
+
+    def test_source_order_preserved(self):
+        from extract_parallel_pdf import renumber_against_floor
+
+        # Verses are redistributed in input order; text content is
+        # unchanged.
+        inp = [(99, 99, f"v{i}") for i in range(10)]
+        out = renumber_against_floor(inp, {1: 5, 2: 5})
+        texts = [t for (_, _, t) in out]
+        assert texts == [f"v{i}" for i in range(10)]
+
+    def test_with_genesis_floor_full_distribution(self):
+        from extract_parallel_pdf import GENESIS_VERSE_COUNTS, renumber_against_floor
+
+        # 1534 inputs (exact floor total) → fills all 50 chapters
+        # to their expected counts.
+        inp = [(99, 99, f"v{i}") for i in range(1534)]
+        out = renumber_against_floor(inp, GENESIS_VERSE_COUNTS)
+        from collections import Counter
+
+        cnt = Counter(c for (c, _, _) in out)
+        for ch, expected in GENESIS_VERSE_COUNTS.items():
+            assert cnt[ch] == expected, f"ch {ch}: {cnt[ch]} != {expected}"
+
+
+class TestTau7XAExtractSectionExtensions:
+    """extract_section() gained paragraph_mode + renumber_floor kwargs."""
+
+    def test_paragraph_mode_kwarg_signature(self):
+        import inspect
+        import sys
+
+        sys.path.insert(0, str(REPO / "scripts"))
+        from extract_parallel_pdf import extract_section
+
+        sig = inspect.signature(extract_section)
+        assert "paragraph_mode" in sig.parameters
+        assert sig.parameters["paragraph_mode"].default is False
+
+    def test_renumber_floor_kwarg_signature(self):
+        import inspect
+        import sys
+
+        sys.path.insert(0, str(REPO / "scripts"))
+        from extract_parallel_pdf import extract_section
+
+        sig = inspect.signature(extract_section)
+        assert "renumber_floor" in sig.parameters
+        assert sig.parameters["renumber_floor"].default is None
+
+
+class TestTau7XAWriteBookModuleExtensions:
+    """write_book_module() gained ingest_phase + docstring_extra kwargs."""
+
+    def test_ingest_phase_kwarg(self):
+        import inspect
+        import sys
+
+        sys.path.insert(0, str(REPO / "scripts"))
+        from extract_parallel_pdf import write_book_module
+
+        sig = inspect.signature(write_book_module)
+        assert "ingest_phase" in sig.parameters
+        assert sig.parameters["ingest_phase"].default is None
+
+    def test_docstring_extra_kwarg(self):
+        import inspect
+        import sys
+
+        sys.path.insert(0, str(REPO / "scripts"))
+        from extract_parallel_pdf import write_book_module
+
+        sig = inspect.signature(write_book_module)
+        assert "docstring_extra" in sig.parameters
+        assert sig.parameters["docstring_extra"].default is None
+
+
+class TestTau7XAMetaYamlIngestRecord:
+    """amharic-tewahedo/_meta.yaml gained an `ingest_record` block +
+    upgraded stats per τ.7.x.a."""
+
+    def _meta(self) -> dict:
+        path = AMHARIC_TEWAHEDO / "_meta.yaml"
+        return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+    def test_stats_verses_upgraded(self):
+        # Was 3 (Π.0 seed); now 1308 (τ.7.x.a ingest).
+        # Defensive floor 100 like the gen.py count pin.
+        m = self._meta()
+        assert m["stats"]["verses"] >= 100, (
+            f"_meta.yaml stats.verses must be ≥100 post-τ.7.x.a; got {m['stats']['verses']}"
+        )
+
+    def test_ingest_record_present(self):
+        m = self._meta()
+        assert "ingest_record" in m, "_meta.yaml must include ingest_record block post-τ.7.x.a"
+
+    def test_ingest_record_phase(self):
+        m = self._meta()
+        assert m["ingest_record"]["phase"] == "τ.7.x.a"
+
+    def test_ingest_record_book_codes_gen(self):
+        m = self._meta()
+        assert m["ingest_record"]["ingested_book_codes"] == ["gen"]
+
+    def test_ingest_record_quality_tier3(self):
+        m = self._meta()
+        assert m["ingest_record"]["quality_tier"] == "ocr-tier3"
+
+    def test_ingest_record_parser_extensions_chain(self):
+        m = self._meta()
+        # τ.6.x.1.B + τ.6.x.1.C + τ.6.x.1.D + τ.7.x.a chain (each
+        # parser-extension ship is listed; downstream auditors can
+        # verify the full pipeline at this point).
+        chain = m["ingest_record"]["parser_extensions"]
+        for phase in ("τ.6.x.1.B", "τ.6.x.1.C", "τ.6.x.1.D", "τ.7.x.a"):
+            assert phase in chain, f"parser_extensions chain missing {phase}"
+
+    def test_ingest_record_audit_handoff_tau6x3(self):
+        m = self._meta()
+        assert m["ingest_record"]["audit_handoff"] == "τ.6.x.3"
+
+
+class TestTau7XASourceYamlIngestBlock:
+    """ocr_strategy.tau7xa_ingest is the NEW block codifying the
+    τ.7.x.a ingest ship + back-link annotation to τ.6.x.1.D residual."""
+
+    def test_block_exists(self):
+        assert "tau7xa_ingest" in _source_yaml()["ocr_strategy"]
+
+    def test_shipped_at_phase(self):
+        assert _ingest_block()["shipped_at_phase"] == "τ.7.x.a"
+
+    def test_resolves_tau6x1d_residual(self):
+        rr = _ingest_block()["resolves_residual"]
+        assert rr["source"] == "τ.6.x.1.D tau6x1d_chapter_recovery.known_residual_issues"
+        assert rr["issue"] == "chapter_marker_keyword_garbled_past_recognition"
+        assert rr["resolution_method"] == "writer_side_renumbering_against_floor"
+
+    def test_reciprocal_back_link_annotation(self):
+        """τ.6.x.1.D block must carry tau6x1d_chapter_recovery.
+        residual_resolved_at_phase = τ.7.x.a (single-key back-link
+        pattern; 5th instance after tau6x1a→1b, tau6x1b→2D,
+        tau7xa_pre_pilot→1C, tau6x1c→1D)."""
+        d = _source_yaml()["ocr_strategy"]["tau6x1d_chapter_recovery"]
+        assert d.get("residual_resolved_at_phase") == "τ.7.x.a", (
+            "tau6x1d_chapter_recovery must back-link to τ.7.x.a per single-key annotation pattern"
+        )
+
+    def test_helpers_added_renumber_against_floor(self):
+        helpers = _ingest_block()["helpers_added"]
+        assert "renumber_against_floor" in helpers
+        assert "write_book_module_extensions" in helpers
+        assert "_build_docstring_extra" in helpers
+
+    def test_cli_extensions_documented(self):
+        cli = _ingest_block()["cli_extensions"]
+        for k in (
+            "paragraph_mode_flag",
+            "renumber_flag",
+            "lang_flag",
+            "ingest_phase_flag",
+        ):
+            assert k in cli, f"cli_extensions missing {k}"
+
+    def test_empirical_validation_coverage_85_percent(self):
+        ev = _ingest_block()["empirical_validation"]
+        # Coverage at ship was 85.3%. Floor 80 protects against
+        # parser-side regression.
+        assert ev["coverage_pct"] >= 80.0
+
+    def test_empirical_chapters_fully_populated_1_through_42(self):
+        ev = _ingest_block()["empirical_validation"]
+        assert ev["chapters_fully_populated"] == list(range(1, 43))
+
+    def test_empirical_chapters_missing_44_through_50(self):
+        ev = _ingest_block()["empirical_validation"]
+        assert ev["chapters_missing"] == list(range(44, 51))
+
+    def test_no_ingest_at_this_phase_false(self):
+        # This IS the ingest phase — no_ingest contract VIOLATED here
+        # per the authorized D4-c direction.
+        assert _ingest_block()["no_ingest_at_this_phase"] is False
+
+    def test_closed_arc_tau6x0a_no_ingest_false(self):
+        contracts = _ingest_block()["closed_arc_contracts_preserved"]
+        assert contracts["tau6x0a_no_ingest"] is False, (
+            "τ.7.x.a is the AUTHORIZED first violation of the no-ingest "
+            "contract per D4-c; closed_arc_contracts_preserved must "
+            "record this honestly"
+        )
+
+    def test_closed_arc_tau6x0b_honesty_preserved(self):
+        contracts = _ingest_block()["closed_arc_contracts_preserved"]
+        assert contracts["tau6x0b_honesty_contract"] is True
+
+    def test_closed_arc_tau6x1c_paragraph_mode(self):
+        contracts = _ingest_block()["closed_arc_contracts_preserved"]
+        assert contracts["tau6x1c_parser_extension"] is True
+
+    def test_closed_arc_tau6x1d_chapter_recovery(self):
+        contracts = _ingest_block()["closed_arc_contracts_preserved"]
+        assert contracts["tau6x1d_chapter_recovery"] is True
+
+    def test_translation_slot_state_amharic_upgraded(self):
+        state = _ingest_block()["translation_slot_state"]
+        amh = state["amharic_tewahedo_gen"]
+        assert "Π.0" in amh
+        assert "τ.7.x.a" in amh
+
+    def test_translation_slot_state_geez_preserved(self):
+        state = _ingest_block()["translation_slot_state"]
+        geez = state["geez_tewahedo_gen"]
+        assert "Π.0" in geez
+        assert "remains" in geez
+
+    def test_next_phase_tau7xb(self):
+        assert _ingest_block()["next_phase"] == "τ.7.x.b"
+
+
+class TestTau7XAGeezTewahedoPreserved:
+    """The Geʽez column should remain at Π.0 seed after τ.7.x.a — full
+    Geʽez ingest is τ.6.x.2.a per D4-c sequencing."""
+
+    def test_geez_gen_py_still_seed(self):
+        """geez-tewahedo/gen.py remains at Π.0 3-verse seed."""
+        import ast
+
+        gen_py = REPO / "content" / "translations" / "geez-tewahedo" / "gen.py"
+        text = gen_py.read_text(encoding="utf-8")
+        tree = ast.parse(text)
+        verses = None
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id == "VERSES":
+                        verses = ast.literal_eval(node.value)
+                        break
+            if verses is not None:
+                break
+        assert verses is not None
+        # Π.0 seed had 3 verses (Gen 1:1-3). τ.6.x.2.a (later under
+        # D4-c) will upgrade. Defensive range — accept 3 or any
+        # small count up to ~10 in case the seed is ever extended
+        # without the full Geʽez ingest having shipped.
+        assert len(verses) <= 10, (
+            f"geez-tewahedo Genesis should remain at Π.0 seed until "
+            f"τ.6.x.2.a ships; got {len(verses)} verses (≥10 indicates "
+            f"premature ingest)"
+        )

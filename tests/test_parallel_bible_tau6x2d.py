@@ -254,14 +254,28 @@ class TestTau6X2DPi2PreFlightGateRewiring:
         assert "✓ SHIPPED 2026-05-15" in text
 
     def test_tau7x_row_appears_above_tau6x2_plus_row(self):
-        """D4-c inversion: the τ.7.x gate row MUST appear ABOVE
-        the τ.6.x.2+ Geʽez per-book gate row in §2 dashboard."""
+        """D4-c inversion: the τ.7.x* gate row(s) MUST appear ABOVE the
+        τ.6.x.2+ Geʽez per-book gate row in §2 dashboard.
+
+        Refactored at τ.7.x.a ship-time per `feedback_share_pin_pattern`
+        — the row label was originally "τ.7.x Amharic per-book ingest"
+        (umbrella row); at τ.7.x.a shipping the row was granularized to
+        "τ.7.x.a Amharic Genesis ingest" + "τ.7.x.b-z Amharic remaining
+        books". The DURABLE invariant is the relative ordering — any
+        "τ.7.x" row must precede the "τ.6.x.2+" row."""
         text = self._text()
-        tau7x_idx = text.find("| τ.7.x Amharic per-book ingest")
+        import re
+
+        # Find any row whose first cell starts with "τ.7.x" (umbrella or
+        # granular). Use the earliest such row.
+        tau7x_idx = -1
+        for m in re.finditer(r"\| τ\.7\.x[^|]*\|", text):
+            tau7x_idx = m.start()
+            break
         tau6x2_idx = text.find("| τ.6.x.2+ Geʽez per-book ingest")
-        assert tau7x_idx > 0, "PI2 dashboard must contain τ.7.x per-book ingest row"
+        assert tau7x_idx > 0, "PI2 dashboard must contain at least one τ.7.x* per-book ingest row"
         assert tau6x2_idx > 0, "PI2 dashboard must contain τ.6.x.2+ per-book ingest row"
-        assert tau7x_idx < tau6x2_idx, "D4-c inversion: τ.7.x row must precede τ.6.x.2+ row in PI2 §2 dashboard"
+        assert tau7x_idx < tau6x2_idx, "D4-c inversion: τ.7.x* row must precede τ.6.x.2+ row in PI2 §2 dashboard"
 
     def test_tau6x3_audit_row_present(self):
         text = self._text()

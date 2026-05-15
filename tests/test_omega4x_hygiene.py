@@ -204,7 +204,17 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             time (2026-05-15; chapter-marker recovery refinement
             adding CHAPTER_HEADER_RE_LENIENT + _resolve_chapter_marker
             with max-jump sanity; empirical chapters detected on
-            Genesis pages 0-5 went from {1} to {1, 3, 4})"""
+            Genesis pages 0-5 went from {1} to {1, 3, 4})
+          - τ.7.x.a migrated pending → shipped at τ.7.x.a ship-time
+            (2026-05-15; the FIRST τ.7.x.* full-book ingest;
+            upgrades amharic-tewahedo/gen.py from Π.0 3-verse seed
+            → 1308-verse ingest at 85.3% coverage via text-layer
+            engine + paragraph_mode parser + writer-side renumber_
+            against_floor against GENESIS_VERSE_COUNTS; resolves
+            τ.6.x.1.D `chapter_marker_keyword_garbled_past_
+            recognition` residual via the pre-committed writer-side
+            renumbering path; 5th instance of single-key back-link
+            annotation pattern tau6x1d→τ.7.x.a)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -222,6 +232,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.6.x.1.D",
             "τ.6.x.2.D",
             "τ.7.x.a.0",
+            "τ.7.x.a",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -254,9 +265,14 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             (2026-05-15; OPTIONAL truncated-keyword chapter recovery
             addressing the τ.6.x.1.D residual where chapter markers
             with multi-char keyword garbling — e.g. `ራፍ` truncation
-            missing both ዕ AND ፅ — still aren't recognized)"""
+            missing both ዕ AND ፅ — still aren't recognized; lower
+            priority now that τ.7.x.a renumbering-against-floor
+            handles the writer-side concern)
+          - τ.7.x.b added pending at τ.7.x.a ship-time (2026-05-15;
+            Amharic Exodus full-book ingest under D1-a + D4-c;
+            re-uses τ.7.x.a pipeline with EXODUS_VERSE_COUNTS floor)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.b", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

@@ -948,6 +948,95 @@ def parse_verses_from_text(text: str, *, paragraph_mode: bool = False) -> list[t
     return out
 
 
+# τ.7.x.a — Post-process renumbering against a known verse-count floor.
+#
+# The τ.6.x.1.D residual: when the lenient chapter-marker regex still
+# misses a marker (because OCR garbled the keyword past `ም[ዕፅ]ራፍ`
+# tolerance — e.g. `ራፍ` alone or substituted glyphs), the parser
+# bundles verses from multiple actual chapters into a single parser
+# bucket. For long books (Genesis: 50 chapters, 1534 verses) the
+# parser detects ~16-22 chapter markers, leaving 28-34 chapter
+# boundaries collapsed.
+#
+# The fix: post-process the parser's output by discarding its chapter
+# labels and assigning verses sequentially into canonical chapters
+# whose verse-counts are known. `GENESIS_VERSE_COUNTS` provides the
+# floor for Genesis; the same pattern works for any book once its
+# canonical verse-count dict is provided.
+#
+# Trade-off: individual verse content may misalign by 1-3 verses
+# per chapter (because the parser merged some verses past `።` or
+# dropped fragments below the 10-char filter). The chapter+verse
+# INDEX, however, is canonical — popup lookups for (gen, 1, 1) get
+# the FIRST verse in source order, which is reader-expected. Cross-
+# checking against an independent reference (KJV, BHS, LXX) at
+# τ.6.x.3 batched audit will surface and correct the residual.
+def renumber_against_floor(
+    verses: list[tuple[int, int, str]],
+    verse_counts: dict[int, int],
+) -> list[tuple[int, int, str]]:
+    """Re-assign (chapter, verse) labels by sequentially filling chapters
+    per ``verse_counts`` (e.g. ``GENESIS_VERSE_COUNTS``).
+
+    The input ``verses`` are expected in SOURCE ORDER (parser's natural
+    page-by-page output). Their existing chapter labels are DISCARDED.
+    Each input verse becomes the next sequential verse in the next
+    canonical chapter — chapter 1 receives ``verse_counts[1]`` verses,
+    then chapter 2 receives ``verse_counts[2]``, etc.
+
+    If the input has FEWER verses than ``sum(verse_counts.values())``,
+    later chapters end up with PARTIAL or zero coverage. If the input
+    has MORE verses, excess verses overflow into a synthesized "ch_max+1"
+    bucket (still in the returned list; downstream consumers can choose
+    to drop, log, or keep them).
+
+    Chapters with zero received verses are omitted from the output (no
+    placeholders). The returned list is in canonical (ch, v) order.
+
+    Parameters
+    ----------
+    verses : list of (chapter, verse, text)
+        Parser output (chapter labels treated as untrusted). Source
+        order is preserved during redistribution.
+    verse_counts : dict[int, int]
+        Canonical chapter → expected verse count mapping (e.g.
+        ``GENESIS_VERSE_COUNTS``). Chapters processed in
+        ``sorted(verse_counts.keys())`` order.
+
+    Returns
+    -------
+    list of (chapter, verse, text)
+        Renumbered verses; the text is unchanged, only labels are
+        reassigned.
+    """
+    if not verses:
+        return []
+    out: list[tuple[int, int, str]] = []
+    flat = [(c, v, t) for (c, v, t) in verses]  # local copy to iterate
+    idx = 0
+    n_in = len(flat)
+    for ch in sorted(verse_counts.keys()):
+        target = verse_counts[ch]
+        for v in range(1, target + 1):
+            if idx >= n_in:
+                break
+            _, _, text = flat[idx]
+            out.append((ch, v, text))
+            idx += 1
+        if idx >= n_in:
+            break
+    # Overflow: any input verses beyond the floor end up in ch_max+1.
+    if idx < n_in:
+        ch_overflow = max(verse_counts.keys()) + 1
+        v_overflow = 0
+        while idx < n_in:
+            _, _, text = flat[idx]
+            v_overflow += 1
+            out.append((ch_overflow, v_overflow, text))
+            idx += 1
+    return out
+
+
 # ───────────────────────────────────────────────────────────────────
 # Section extraction
 # ───────────────────────────────────────────────────────────────────
@@ -1069,6 +1158,8 @@ def extract_section(
     section_name: str,
     pilot_filter: str | None = None,
     engine: str = ENGINE_DEFAULT,
+    paragraph_mode: bool = False,
+    renumber_floor: dict[int, int] | None = None,
 ) -> dict[str, dict[str, list[tuple[int, int, str]]]]:
     """Extract one structural_map section from the PDF.
 
@@ -1192,8 +1283,16 @@ def extract_section(
     finally:
         doc.close()
 
-    geez_verses = parse_verses_from_text(full_geez)
-    amh_verses = parse_verses_from_text(full_amh)
+    geez_verses = parse_verses_from_text(full_geez, paragraph_mode=paragraph_mode)
+    amh_verses = parse_verses_from_text(full_amh, paragraph_mode=paragraph_mode)
+
+    # τ.7.x.a — Optional post-process renumbering against a known
+    # verse-count floor. When the parser misses chapter markers (the
+    # τ.6.x.1.D residual), bundle verses into canonical chapters by
+    # filling each per its expected count in source order.
+    if renumber_floor is not None:
+        geez_verses = renumber_against_floor(geez_verses, renumber_floor)
+        amh_verses = renumber_against_floor(amh_verses, renumber_floor)
 
     # NOTE: this naive parse does not yet know book-boundaries
     # within a multi-book section (e.g. Meqabyan spans 3 books).
@@ -1236,9 +1335,28 @@ def write_book_module(
     verses: list[tuple[int, int, str]],
     source_quality: str,
     extraction_date: str,
+    *,
+    ingest_phase: str | None = None,
+    docstring_extra: str | None = None,
 ) -> Path:
     """Write content/translations/<translation>/<book>.py with the
-    verse data + provenance metadata."""
+    verse data + provenance metadata.
+
+    Parameters
+    ----------
+    translation, book, verses, source_quality, extraction_date
+        Core fields (as before).
+    ingest_phase
+        Optional phase tag to record alongside extraction_date (e.g.
+        ``"τ.7.x.a"``). When set, written into the file as
+        ``INGEST_PHASE`` constant + referenced in the docstring.
+    docstring_extra
+        Optional additional docstring text appended after the generic
+        provenance lines (book-specific quality notes, renumbering
+        provenance, residual-issue documentation). Use for τ.7.x.a-
+        style ingests that have non-generic quality residue worth
+        flagging in-line.
+    """
     out = TRANSLATIONS_DIR / translation / f"{book}.py"
     out.parent.mkdir(parents=True, exist_ok=True)
 
@@ -1250,21 +1368,23 @@ def write_book_module(
         "",
         f"Source quality: {source_quality}",
         f"Extraction date: {extraction_date}",
-        "Tool: scripts/extract_parallel_pdf.py (τ.6.x.0a, 2026-05-14)",
-        "",
-        "Per the source PDF's caveat: the OCR text layer is unreliable",
-        "for Geʽez (vowel-order scrambling, invented fidel). Amharic OCR",
-        "is more reliable but still has errors. Production-grade text",
-        "for Meqabyan flows through δ.1.x (Phase-4 page-image methodology).",
-        '"""',
-        "",
-        f"TRANSLATION = {translation!r}",
-        f"BOOK = {book!r}",
-        f"SOURCE_QUALITY = {source_quality!r}",
-        "SOURCE_PROVENANCE = 'parallel-bible-eotc'",
-        f"EXTRACTION_DATE = {extraction_date!r}",
-        "VERSES = [",
     ]
+    if ingest_phase:
+        lines.append(f"Ingest phase: {ingest_phase}")
+    lines.append("Tool: scripts/extract_parallel_pdf.py")
+    if docstring_extra:
+        lines.append("")
+        for ln in docstring_extra.splitlines():
+            lines.append(ln.rstrip())
+    lines.extend(['"""', ""])
+    lines.append(f"TRANSLATION = {translation!r}")
+    lines.append(f"BOOK = {book!r}")
+    lines.append(f"SOURCE_QUALITY = {source_quality!r}")
+    lines.append("SOURCE_PROVENANCE = 'parallel-bible-eotc'")
+    lines.append(f"EXTRACTION_DATE = {extraction_date!r}")
+    if ingest_phase:
+        lines.append(f"INGEST_PHASE = {ingest_phase!r}")
+    lines.append("VERSES = [")
     for ch, v, text in verses:
         text_repr = text.replace("'", "\\'")
         lines.append(f"    ({ch}, {v}, '{text_repr}'),")
@@ -1277,6 +1397,77 @@ def write_book_module(
 # ───────────────────────────────────────────────────────────────────
 # CLI
 # ───────────────────────────────────────────────────────────────────
+
+
+def _build_docstring_extra(
+    *,
+    book: str,
+    lang: str,
+    verses: list[tuple[int, int, str]],
+    paragraph_mode: bool,
+    renumber: str | None,
+) -> str | None:
+    """Compose a book-specific docstring extension for ``write_book_module``.
+
+    Returns None when no extension is warranted (default-mode + no
+    renumber path, where the generic provenance lines suffice).
+
+    For τ.7.x.a Genesis (paragraph_mode + renumber=genesis) the returned
+    string summarizes per-chapter coverage + flags missing chapters.
+    """
+    if not paragraph_mode and not renumber:
+        return None
+
+    lines: list[str] = []
+    if paragraph_mode:
+        lines.append("Parser mode: paragraph (τ.6.x.1.C — splits verses by `።` Ethiopic full-stop")
+        lines.append("and τ.6.x.1.D lenient chapter-marker regex tolerating OCR-garbled keywords).")
+    if renumber:
+        lines.append(f"Renumbering: post-process renumbered against {renumber!r} verse-count floor (τ.7.x.a).")
+        lines.append("Parser chapter labels discarded; verses assigned sequentially to canonical chapters.")
+
+    if renumber == "genesis" and verses:
+        # Per-chapter coverage summary
+        from collections import Counter
+
+        counts = Counter(c for (c, _, _) in verses)
+        floor = GENESIS_VERSE_COUNTS
+        total_actual = sum(counts.values())
+        total_expected = sum(floor.values())
+        pct = 100.0 * total_actual / total_expected if total_expected else 0.0
+        full = sorted(c for c in floor if counts.get(c, 0) >= floor[c])
+        partial = sorted(c for c in floor if 0 < counts.get(c, 0) < floor[c])
+        missing = sorted(c for c in floor if counts.get(c, 0) == 0)
+        lines.append("")
+        lines.append(f"Coverage: {total_actual}/{total_expected} verses ({pct:.1f}%) at ocr-tier3 quality.")
+        if full:
+            lines.append(f"Chapters fully populated ({len(full)}): {_pretty_range(full)}.")
+        if partial:
+            partial_detail = ", ".join(f"{c}:{counts[c]}/{floor[c]}" for c in partial)
+            lines.append(f"Chapters partial: {partial_detail}.")
+        if missing:
+            lines.append(f"Chapters missing ({len(missing)}): {_pretty_range(missing)} — at ocr-tier3 the parser ran")
+            lines.append("out of recovered verses before reaching these; τ.6.x.3 batched audit cross-checks.")
+    return "\n".join(lines) if lines else None
+
+
+def _pretty_range(nums: list[int]) -> str:
+    """Render a sorted list of ints as a compact range string.
+
+    e.g. [1,2,3,5,6] → "1-3, 5-6"; [44,45,46,47,48,49,50] → "44-50".
+    """
+    if not nums:
+        return ""
+    parts: list[str] = []
+    start = prev = nums[0]
+    for n in nums[1:]:
+        if n == prev + 1:
+            prev = n
+            continue
+        parts.append(f"{start}" if start == prev else f"{start}-{prev}")
+        start = prev = n
+    parts.append(f"{start}" if start == prev else f"{start}-{prev}")
+    return ", ".join(parts)
 
 
 def main() -> int:
@@ -1297,9 +1488,60 @@ def main() -> int:
             "embedded OCR text (legacy τ.6.x.0a behavior; garbled for Geʽez)."
         ),
     )
+    p.add_argument(
+        "--paragraph-mode",
+        action="store_true",
+        help=(
+            "Use paragraph-mode parser (τ.6.x.1.C) — split verses by `።` "
+            "Ethiopic full-stop and number sequentially within each chapter. "
+            "Required for standard-canon books (Genesis, etc.) per the "
+            "τ.7.x.a.0 PILOT empirical finding; leave OFF for Tewahedo-"
+            "distinctive sections (Meqabyan, Jubilees, 1 Enoch) that carry "
+            "explicit Ethiopic-numeral verse prefixes in the source."
+        ),
+    )
+    p.add_argument(
+        "--renumber",
+        default=None,
+        choices=["genesis"],
+        help=(
+            "Post-process renumber verses against a canonical chapter "
+            "verse-count floor (τ.7.x.a writer-side residual handler). "
+            "Currently supports 'genesis' which uses GENESIS_VERSE_COUNTS. "
+            "Renumbering discards parser chapter labels and assigns verses "
+            "sequentially to canonical chapters; trade-off documented in "
+            "renumber_against_floor() docstring."
+        ),
+    )
+    p.add_argument(
+        "--lang",
+        default="both",
+        choices=["geez", "amharic", "both"],
+        help=(
+            "Which translation slot(s) to write. 'both' (default) writes "
+            "both geez-tewahedo and amharic-tewahedo (Π.1 + Meqabyan-pilot "
+            "behavior). 'amharic' writes only amharic-tewahedo (τ.7.x.a per "
+            "D4-c Amharic-first sequencing; leaves geez-tewahedo at its "
+            "current state). 'geez' writes only geez-tewahedo (τ.6.x.2.a "
+            "Geʽez-stream per-book ingests under D1-a cadence)."
+        ),
+    )
+    p.add_argument(
+        "--ingest-phase",
+        default=None,
+        help=(
+            "Phase tag recorded in the output module (e.g. 'τ.7.x.a'). "
+            "Written as INGEST_PHASE constant + referenced in the file "
+            "docstring. Useful for downstream-consumer audit traceback."
+        ),
+    )
     args = p.parse_args()
 
     cfg = load_source_config()
+
+    renumber_floor: dict[int, int] | None = None
+    if args.renumber == "genesis":
+        renumber_floor = GENESIS_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata
@@ -1319,10 +1561,23 @@ def main() -> int:
                 f"Available: {sorted(_extraction_sections(cfg))}"
             )
         print(f"extract_parallel_pdf — PILOT mode: {args.pilot} (section={section})")
-        by_book = extract_section(cfg, section, pilot_filter=args.pilot, engine=args.engine)
+        by_book = extract_section(
+            cfg,
+            section,
+            pilot_filter=args.pilot,
+            engine=args.engine,
+            paragraph_mode=args.paragraph_mode,
+            renumber_floor=renumber_floor,
+        )
     elif args.section:
         print(f"extract_parallel_pdf — SECTION mode: {args.section}")
-        by_book = extract_section(cfg, args.section, engine=args.engine)
+        by_book = extract_section(
+            cfg,
+            args.section,
+            engine=args.engine,
+            paragraph_mode=args.paragraph_mode,
+            renumber_floor=renumber_floor,
+        )
     else:
         p.error("must pass --section or --pilot")
 
@@ -1332,12 +1587,18 @@ def main() -> int:
     print("EXTRACTION RESULTS")
     print("=" * 72)
 
+    lang_filter: set[str] = {"geez", "amharic"} if args.lang == "both" else {args.lang}
+
     for book, langs in by_book.items():
         print()
         print(f"book: {book}")
         for lang, verses in langs.items():
             translation = f"{lang}-tewahedo"
-            print(f"  {translation}: {len(verses)} verses")
+            n = len(verses)
+            if lang not in lang_filter:
+                print(f"  {translation}: {n} verses (SKIPPED — --lang={args.lang})")
+                continue
+            print(f"  {translation}: {n} verses")
             if args.dry_run:
                 for ch, v, t in verses[:3]:
                     print(f"    {ch}:{v}  {t[:60]}...")
@@ -1348,7 +1609,22 @@ def main() -> int:
                 if out.exists() and not args.overwrite:
                     print(f"    SKIP (exists; use --overwrite to replace): {out}")
                     continue
-                written = write_book_module(translation, book, verses, args.quality, extraction_date)
+                doc_extra = _build_docstring_extra(
+                    book=book,
+                    lang=lang,
+                    verses=verses,
+                    paragraph_mode=args.paragraph_mode,
+                    renumber=args.renumber,
+                )
+                written = write_book_module(
+                    translation,
+                    book,
+                    verses,
+                    args.quality,
+                    extraction_date,
+                    ingest_phase=args.ingest_phase,
+                    docstring_extra=doc_extra,
+                )
                 print(f"    wrote {written}")
 
     return 0

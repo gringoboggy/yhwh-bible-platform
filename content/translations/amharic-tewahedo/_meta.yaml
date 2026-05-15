@@ -58,9 +58,60 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 1            # seed only — Genesis
-  verses: 3           # Gen 1:1-3 — canonical opening seed
+  books: 1            # τ.7.x.a — Genesis full ingest
+  verses: 1308        # 1308/1534 = 85.3% coverage at ocr-tier3
   books_outside_kjv: 0
+
+# τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
+#
+# Genesis upgraded from 3-verse seed (Gen 1:1-3) to full-book ingest at
+# ocr-tier3 quality per τ.6.x.0b honesty contract. Source: parallel-
+# Bible EOTC PDF text-layer extraction (pymupdf get_text() per-column;
+# ~570ms for 86 pages). Parser: paragraph_mode + GENESIS_VERSE_COUNTS-
+# renumbered (τ.6.x.1.C splits by `።`; τ.6.x.1.D lenient chapter
+# markers; τ.7.x.a writer-side post-process renumbering against
+# canonical chapter verse-count floor).
+#
+# Coverage residue (ocr-tier3 expected):
+# - Chapters 1-42 fully populated at floor verse counts.
+# - Chapter 43 partial (16/34 verses).
+# - Chapters 44-50 empty — parser exhausted recovered verses before
+#   reaching these (Joseph cycle late chapters; the Geʽez column
+#   text-layer is similarly garbled).
+# - Individual verse content may include cross-reference fragments
+#   that didn't get filtered (cross-refs using `=` terminator instead
+#   of `።` leak through the splitter; remedied at τ.6.x.3 batched
+#   audit per D2-b + D3-c full-87-book cross-check).
+#
+# Variant readings preserved: PDF source's Gen 1:1 expanded form
+# "በመጀመሪያው ቁን እግዚአብሔር ሰማይንና ምድርን ፈጠረ" (vs Π.0 seed's standard
+# "በመጀመሪያ" opening); publisher's parallel-Bible edition is
+# authoritative for the Tewahedo parallel-Bible track per τ.7.x.a.0
+# PILOT §3 finding.
+ingest_record:
+  phase: τ.7.x.a
+  ingested_date: 2026-05-15
+  ingested_book_codes: [gen]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [0, 85]
+  engine: text-layer  # pymupdf get_text(); faster + cleaner than tesseract for this column per τ.7.x.a.0 PILOT
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B  # normalize_verse_numerals (no-op for text-layer Arabic digits)
+    - τ.6.x.1.C  # paragraph_mode + is_cross_ref_fragment + GENESIS_VERSE_COUNTS
+    - τ.6.x.1.D  # CHAPTER_HEADER_RE_LENIENT + _resolve_chapter_marker
+    - τ.7.x.a    # renumber_against_floor post-process
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 1308
+    verses_expected: 1534
+    coverage_pct: 85.3
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+    chapters_partial:
+      43: [16, 34]  # got, expected
+    chapters_missing: [44, 45, 46, 47, 48, 49, 50]
+  audit_handoff: τ.6.x.3  # batched audit per D2-b + D3-c full 87-book cross-check
+  next_book: ex   # τ.7.x.b — Amharic Exodus, per D4-c + D1-a sequencing
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.
 

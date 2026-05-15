@@ -206,7 +206,15 @@ class TestPi0AmharicTewahedoSeed:
             "Π.0.3: _meta.yaml source.publisher must reference a Tewahedo/EOTC source "
             "(parallel-Bible PDF, nehemiah-osc.org, or eBible.org amh VPL)"
         )
-        assert meta["stats"]["verses"] == 3, "Π.0 seed is exactly Gen 1:1-3 (3 verses)"
+        # Refactored at τ.7.x.a ship-time per `feedback_share_pin_pattern`
+        # — Π.0 seed was 3 verses; τ.7.x.a upgraded amharic-tewahedo/gen.py
+        # to 1308-verse ingest. Original pin asserted ==3; new pin asserts
+        # >=3 (the seed's 3-verse Gen 1:1-3 floor is preserved as a
+        # minimum; full-ingest count satisfies the "≥ seed" milestone).
+        assert meta["stats"]["verses"] >= 3, (
+            "Π.0 seed floor: stats.verses must be at least 3 (Gen 1:1-3); "
+            "τ.7.x.a upgrade preserves this floor while expanding to full ingest"
+        )
 
     def test_genesis_seed_loads(self):
         from scripts.core import translations
@@ -214,7 +222,13 @@ class TestPi0AmharicTewahedoSeed:
         translations.clear_cache()
         verses = translations._load_book("amharic-tewahedo", "gen")
         assert verses, "Π.0.3: amharic-tewahedo gen.py must load via the translations API"
-        assert len(verses) == 3, f"Π.0 seed is 3 verses (Gen 1:1-3); got {len(verses)}"
+        # Refactored at τ.7.x.a ship-time per `feedback_share_pin_pattern`
+        # — Π.0 seed was 3 verses; τ.7.x.a upgraded to 1308-verse ingest.
+        # Floor preserved at ≥3 (Gen 1:1-3 invariant).
+        assert len(verses) >= 3, (
+            f"Π.0 seed floor: ≥3 verses (Gen 1:1-3); got {len(verses)}. "
+            f"τ.7.x.a expanded this to 1308; ≥3 is the durable floor."
+        )
 
     def test_seed_is_ethiopic_script(self):
         from scripts.core import translations

@@ -1,6 +1,178 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.6.x.1.D CHAPTER-MARKER RECOVERY ship —
+**Updated 2026-05-15 / τ.7.x.a AMHARIC GENESIS FULL-BOOK INGEST ship —
+the FIRST τ.7.x.* ship under D4-c Amharic-first sequencing per the
+τ.6.x.2.D D-decisions matrix. Upgrades `content/translations/amharic-
+tewahedo/gen.py` from Π.0 3-verse seed → 1308-verse full-book ingest
+at 85.3% coverage. Resolves the τ.6.x.1.D `chapter_marker_keyword_
+garbled_past_recognition` residual via writer-side renumbering against
+`GENESIS_VERSE_COUNTS` — the pre-committed path documented in
+τ.6.x.1.D `next_phase_description`. The **fifth instance of the
+single-key back-link annotation pattern** (tau6x1a→1b, tau6x1b→2D,
+tau7xa_pre_pilot→1C, tau6x1c→1D, tau6x1d→τ.7.x.a) — further past the
+A-I3 codification threshold.
+
+**Empirical results (text-layer engine, pymupdf get_text(), 86 pages
+in 570ms):**
+
+| Metric | Π.0 seed (pre-τ.7.x.a) | τ.7.x.a this ship |
+|---|---:|---:|
+| amharic-tewahedo/gen.py verse count | 3 | **1308** |
+| Genesis chapters fully populated | {1} (3 of 31) | **{1..42}** (42 of 50) |
+| Chapter 43 | (missing) | **partial 16/34** |
+| Chapters 44-50 | (missing) | empty — τ.6.x.3 audit-handoff |
+| Total coverage vs 1534-floor | 0.2% | **85.3%** |
+| Gen 1:1 reading | standard `በመጀመሪያ` (Π.0) | **PDF variant `በመጀመሪያው ቁን`** preserved (τ.7.x.a.0 PILOT §3 Obs 1) |
+
+The Geʽez column was extracted (1022 verses) but NOT written —
+`--lang amharic` flag preserves the geez-tewahedo Π.0 seed pending
+τ.6.x.2.a Geʽez stream under D4-c sequencing.
+
+**τ.7.x.a deliverables shipped:**
+
+1. **`scripts/extract_parallel_pdf.py` τ.7.x.a extensions.** NEW
+   module-level symbols: `renumber_against_floor(verses, verse_counts)
+   → list[(ch, v, text)]` (post-process redistribution; discards
+   parser chapter labels and assigns verses sequentially to canonical
+   chapters; overflow spills to ch_max+1) +
+   `_build_docstring_extra(book, lang, verses, paragraph_mode,
+   renumber) → str | None` (CLI helper composing τ.7.x.a-style
+   per-chapter coverage summary; returns None when no extension
+   warranted) + `_pretty_range(nums) → str` (compact range renderer
+   `[1..42]` → `"1-42"`). `extract_section()` gains
+   `paragraph_mode: bool = False` + `renumber_floor: dict | None =
+   None` keyword args (both default to back-compat — Π.1/Meqabyan
+   path unchanged). `write_book_module()` gains keyword-only
+   `ingest_phase: str | None = None` + `docstring_extra: str | None
+   = None` (records `INGEST_PHASE` constant + appends per-book
+   quality-residue documentation to the file docstring).
+
+2. **`scripts/extract_parallel_pdf.py` CLI extensions.** NEW flags:
+   `--paragraph-mode` (forwards to parse_verses_from_text); `--
+   renumber {genesis}` (wires GENESIS_VERSE_COUNTS as the renumber
+   floor); `--lang {geez,amharic,both}` (default `both` for back-
+   compat; `amharic` skips geez-tewahedo write — used at τ.7.x.a so
+   the known-garbled Geʽez column doesn't overwrite the geez-tewahedo
+   Π.0 seed); `--ingest-phase τ.7.x.a` (recorded as INGEST_PHASE +
+   in the file docstring).
+
+3. **`content/translations/amharic-tewahedo/gen.py` upgraded.**
+   From 3-verse Π.0 seed → 1308-verse full ingest at ocr-tier3
+   quality. NEW module constants: `INGEST_PHASE='τ.7.x.a'`,
+   `SOURCE_QUALITY='ocr-tier3'`, `SOURCE_PROVENANCE='parallel-bible-
+   eotc'`, `EXTRACTION_DATE='2026-05-15'`. Docstring carries
+   per-chapter coverage summary inline: chapters fully populated
+   1-42 + chapter 43 partial (16/34) + chapters 44-50 missing
+   (τ.6.x.3 audit-handoff). Gen 1:1 preserves PDF source's expanded
+   reading `በመጀመሪያው ቁን እግዚአብሔር ሰማይንና ምድርን ...` per τ.7.x.a.0
+   PILOT §3 Observation 1.
+
+4. **`content/translations/amharic-tewahedo/_meta.yaml` updated.**
+   `stats.verses` 3 → 1308; `stats.books` 1 → 1 (still Genesis-only).
+   NEW `ingest_record` block records phase, ingested_date,
+   ingested_book_codes, source_pdf, source_pdf_pages, engine,
+   parser_mode, parser_extensions chain (τ.6.x.1.B + τ.6.x.1.C +
+   τ.6.x.1.D + τ.7.x.a), quality_tier, coverage (verses_extracted +
+   verses_expected + coverage_pct + per-chapter fully_populated/
+   partial/missing breakdown), audit_handoff (τ.6.x.3), next_book
+   (ex per D4-c + D1-a).
+
+5. **`_source.yaml::ocr_strategy.tau7xa_ingest` block added.**
+   Records shipped_at_phase + shipped_date + triggered_by +
+   resolves_residual (back-link to τ.6.x.1.D + reciprocal back-link
+   annotation `tau6x1d_chapter_recovery.residual_resolved_at_phase:
+   τ.7.x.a`) + helpers_added (4 inventories) + cli_extensions (4
+   inventories) + parser_api_change + empirical_validation (per-
+   chapter breakdown, runtime + char counts, regression pin names) +
+   known_residual_issues (3 inventories: 226-verse coverage gap +
+   cross-ref leakage + sequential-misalignment + 44-50 empty
+   chapters) + closed_arc_contracts_preserved 10-key (with
+   tau6x0a_no_ingest honestly recorded as False — first authorized
+   violation per D4-c) + no_ingest_at_this_phase=false + translation_
+   slot_state (amharic upgraded, geez preserved) + next_phase=τ.7.x.b.
+
+6. **Reciprocal back-link annotation:** `tau6x1d_chapter_recovery.
+   residual_resolved_at_phase: τ.7.x.a` added to the τ.6.x.1.D
+   block, completing the bidirectional residual-resolution chain.
+   **Fifth instance** of the single-key back-link annotation pattern.
+
+7. **NEW + refactored test classes in `tests/test_parallel_bible_
+   tau7xa.py`:**
+   `TestTau7XAFullIngestGenPy` (8 pins; gen.py constants + Gen 1:1
+   variant) + `TestTau7XAFullIngestCoverage` (4 pins; per-chapter
+   coverage + overflow check; uses GENESIS_VERSE_COUNTS for floor)
+   + `TestTau7XAParserExtensionRenumber` (8 pins on renumber_against_
+   floor with empty/exact/partial/overflow/multi-chapter/label-
+   discard/order-preserve/genesis-full-distribution scenarios) +
+   `TestTau7XAExtractSectionExtensions` (2 pins on kwarg signatures)
+   + `TestTau7XAWriteBookModuleExtensions` (2 pins) +
+   `TestTau7XAMetaYamlIngestRecord` (7 pins) +
+   `TestTau7XASourceYamlIngestBlock` (16 pins on the new tau7xa_
+   ingest yaml block; includes reciprocal back-link verification) +
+   `TestTau7XAGeezTewahedoPreserved` (1 pin; geez-tewahedo/gen.py
+   still at Π.0 seed). Total **+48 NEW pin tests across 8 classes
+   + 1 refactored pin** (test_amharic_tewahedo_gen_py_still_seed_
+   three_verses → test_amharic_tewahedo_gen_py_exceeds_seed; share-
+   pin pattern). File-level: 89 tests passing (16 PILOT + 73 new
+   τ.7.x.a proper).
+
+8. **`dev/SESSION_STATE.md`** — this headline update.
+
+9. **`dev/IN_FLIGHT.md`** — prior-task block for τ.7.x.a prepended;
+   τ.6.x.1.D demoted to prior-task-previous.
+
+10. **`dev/CHANGELOG.md`** — 2026-05-15 τ.7.x.a entry prepended.
+
+11. **`dev/PLAN_2026-05-09.md` §6 ledger.** τ.7.x.a migrated
+    pending → shipped; τ.7.x.b (Amharic Exodus) added pending.
+
+12. **`tests/test_omega4x_hygiene.py` share/milestone-pin migration.**
+    τ.7.x.a added to shipped-phase list.
+
+**Test count: ~4747 (post-τ.6.x.1.D) → ~4795 (+48 new pins minus the
+1 refactored pin still passing = +48 net). Linter expected clean.**
+
+**What did NOT change at τ.7.x.a:**
+- No engine code mutation — only parser-helper additions
+  (renumber_against_floor + _build_docstring_extra + _pretty_range)
+  and signature extensions (extract_section, write_book_module, CLI).
+- `parse_verses_from_text()` public API signature unchanged.
+- Default mode (Tewahedo-distinctive sections) unchanged — still
+  uses strict CHAPTER_HEADER_RE.
+- `content/translations/geez-tewahedo/gen.py` remains at Π.0 3-verse
+  seed pending τ.6.x.2.a Geʽez stream under D4-c sequencing.
+- `content/{canons,editions,books}.yaml` unchanged.
+- `content/notes/*.py` unchanged.
+- EPUB build outputs (`exports/`) untouched.
+- All Π.0/Π.1/Π.1.B/Π.2.prep + γ.* + ω.4x + Ω.0 invariants preserved.
+
+**Phase tag:** τ.7.x.a. Amharic Genesis full-book ingest at
+ocr-tier3.
+**Next phase:** **τ.7.x.b** — Amharic Exodus full-book ingest under
+D1-a per-book cadence + D4-c Amharic-first sequencing. Should re-use
+the same pipeline (text-layer engine + paragraph_mode + renumber
+with an EXODUS_VERSE_COUNTS floor — added to extract_parallel_pdf.py
+at τ.7.x.b ship time). Should also add a `structural_map.exodus`
+block (pdf_page_range likely [86, ~150] per τ.7.x.a.0 PILOT §1
+boundary inspection — exact end-of-Exodus boundary to be verified
+at τ.7.x.b page-range discovery sub-phase, analogous to τ.7.x.a.0).
+
+**Audit cadence:** τ.7.x.a is post-DEEP phase #4. Cumulative drift
+since DEEP baseline +~162 tests (+39 τ.7.x.a.0 + +37 τ.6.x.1.C + +37
+τ.6.x.1.D + +48 τ.7.x.a + ~1 omega4x extensions); the ≥150 LIGHT-
+cadence threshold per `feedback_audit_cadence` is now CROSSED — a
+LIGHT audit at τ.7.x.b ship-time (or before, if the user signals
+checkpoint) closes the cadence window.
+
+shipped 2026-05-15. Triggered by user "continue" after τ.6.x.1.D
+ship — per `feedback_continue_not_save` this advances to the
+next-up phase (τ.7.x.a (proper) per PLAN §6 + τ.6.x.1.D `next_
+phase=τ.7.x.a` declaration). The pre-committed renumbering path is
+honored per τ.6.x.1.D `next_phase_description`.
+
+## Prior task
+
+**τ.6.x.1.D CHAPTER-MARKER RECOVERY ship —
 resolves the τ.6.x.1.C known residual where the strict
 `CHAPTER_HEADER_RE` failed to match OCR-garbled chapter markers
 (e.g. text-layer `ምዕራፍ B ።` for ch 1, where `B` is OCR garble of
