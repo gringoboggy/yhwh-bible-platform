@@ -384,13 +384,20 @@ class TestTau7XISourceYamlIngestBlock:
         assert "τ.7.x.i" in state["amharic_tewahedo_psa"]
 
     def test_translation_slot_state_skipped_books_marked(self):
-        """The 10 books in the 438-802 dzamaragna gap should be
-        marked as SKIPPED in the translation_slot_state."""
+        """The dzamaragna-gap books should be marked SKIPPED in the
+        translation_slot_state. τ.7.x.m CONVERTED the `est` skip-pin
+        (Esther now sourced from the EOTC-parallel block p1308-1317,
+        the preferred-alternative this slot-state flagged at τ.7.x.i)
+        — so `est` is removed here (10→9); the other 9 stay skipped.
+        This is the share-pin→milestone-pin convention per memory
+        feedback_share_pin_pattern."""
         state = _tau7xi_block()["translation_slot_state"]
-        for skipped_book in ("1sa", "2sa", "1ki", "2ki", "1ch", "2ch", "ezr", "neh", "est", "job"):
+        for skipped_book in ("1sa", "2sa", "1ki", "2ki", "1ch", "2ch", "ezr", "neh", "job"):
             key = f"amharic_tewahedo_{skipped_book}"
             assert key in state, f"Skip-the-gap state must list {key}"
             assert "SKIPPED" in state[key] or "skipped" in state[key]
+        # `est` was converted at τ.7.x.m — its slot-state no longer says SKIPPED
+        assert "CONVERTED-at-τ.7.x.m" in state["amharic_tewahedo_est"]
 
     def test_next_phase_tau7xj(self):
         assert _tau7xi_block()["next_phase"] == "τ.7.x.j"
@@ -472,22 +479,28 @@ class TestTau7XISkipTheGapInvariants:
     state. Books in the 438-802 dzamaragna gap (1 Sam → Job) must NOT
     be created in amharic-tewahedo/."""
 
-    SKIPPED_BOOKS = ("1sa", "2sa", "1ki", "2ki", "1ch", "2ch", "ezr", "neh", "est", "job")
+    # τ.7.x.m CONVERTED the `est` skip-pin: Esther is now sourced
+    # from the EOTC-parallel block p1308-1317 (the preferred-
+    # alternative path τ.7.x.i explicitly documented "if/when that
+    # ship happens"). `est` removed from this tuple (10→9); the
+    # other 9 dzamaragna-gap books remain skipped. Share-pin →
+    # milestone-pin convention per memory feedback_share_pin_pattern.
+    SKIPPED_BOOKS = ("1sa", "2sa", "1ki", "2ki", "1ch", "2ch", "ezr", "neh", "job")
 
     def test_skipped_books_not_in_amharic_tewahedo(self):
-        """None of the 10 skipped books has a .py file in amharic-tewahedo/.
-        (Esther also appears in the EOTC-parallel block at p1292-1310
-        per τ.7.x.h scan; if/when that ship happens it'll be a separate
-        decision whether to use parallel-block or dzamaragna source.)"""
+        """None of the 9 still-skipped dzamaragna-gap books has a .py
+        file in amharic-tewahedo/. (`est` was converted at τ.7.x.m —
+        it now ships from the EOTC-parallel block, asserted in
+        test_parallel_bible_tau7xl.py.)"""
         for book in self.SKIPPED_BOOKS:
             path = AMHARIC_TEWAHEDO / f"{book}.py"
             assert not path.exists(), (
-                f"Skip-the-gap invariant: amharic-tewahedo/{book}.py must NOT exist after τ.7.x.i; "
+                f"Skip-the-gap invariant: amharic-tewahedo/{book}.py must NOT exist; "
                 f"that book is in the 438-802 dzamaragna gap and DEFERRED to a future ship"
             )
 
     def test_skipped_books_not_in_geez_tewahedo(self):
-        """None of the 10 skipped books has a .py file in geez-tewahedo/."""
+        """None of the 9 still-skipped books has a .py file in geez-tewahedo/."""
         for book in self.SKIPPED_BOOKS:
             path = GEEZ_TEWAHEDO / f"{book}.py"
             assert not path.exists(), f"Skip-the-gap invariant: geez-tewahedo/{book}.py must NOT exist after τ.7.x.i"

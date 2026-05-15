@@ -1075,6 +1075,66 @@ TOBIT_VERSE_COUNTS = {
 # Total Tobit verses = 246 (NRSV/GII 14-chapter enumeration).
 
 
+# τ.7.x.l — Judith verse counts. The Tewahedo `መጽሐፈ ዮዲት` follows
+# the LXX 16-chapter Judith (content/books.yaml fixes `jdt` at
+# ch_count: 16). Verse counts use the NRSV enumeration. Twelfth
+# renumber-floor under D1-a per-book cadence; third deuterocanonical
+# τ.7.x.* floor (after 2es Ezra Sutuʼel + tob Tobit). The Vulgate
+# Judith differs substantially in verse division from the LXX/NRSV
+# (Jerome worked from an Aramaic text); per the τ.6.x.0b honesty
+# contract the floor is the canonical ceiling and the τ.6.x.3
+# batched audit reconciles the exact Ethiopic recension boundaries.
+JUDITH_VERSE_COUNTS = {
+    1: 16,
+    2: 28,
+    3: 10,
+    4: 15,
+    5: 24,
+    6: 21,
+    7: 32,
+    8: 36,
+    9: 14,
+    10: 23,
+    11: 23,
+    12: 20,
+    13: 20,
+    14: 19,
+    15: 13,
+    16: 25,
+}
+# Total Judith verses = 339 (NRSV/LXX 16-chapter enumeration).
+
+
+# τ.7.x.m — Esther verse counts. content/books.yaml fixes `est` at
+# ch_count: 10 — the Hebrew/Masoretic protocanonical Esther core.
+# The Greek "Additions to Esther" (Additions A-F) are a SEPARATE
+# Tewahedo book code (b25 in books.yaml), NOT part of this floor.
+# Verse counts use the standard KJV/Hebrew Masoretic enumeration.
+# Esther is sourced here from the EOTC-parallel block p1308-1317 —
+# the documented alternative to the τ.7.x.i dzamaragna-gap Esther
+# (τ.7.x.i recorded `est` SKIPPED-via-dzamaragna but flagged this
+# parallel block as the preferred source "if/when that ship
+# happens"; τ.7.x.m IS that ship — see the τ.7.x.i est skip-pin
+# conversion). The EOTC-parallel text likely interleaves the Greek
+# additions; the renumber-against-floor + τ.6.x.3 audit reconcile
+# that (same treatment as 2es's 5/6-Ezra + tob's recension variance).
+# Thirteenth renumber-floor under D1-a per-book cadence.
+ESTHER_VERSE_COUNTS = {
+    1: 22,
+    2: 23,
+    3: 15,
+    4: 17,
+    5: 14,
+    6: 14,
+    7: 10,
+    8: 17,
+    9: 32,
+    10: 3,
+}
+# Total Esther verses = 167 (KJV/Hebrew Masoretic 10-chapter
+# enumeration; the Greek Additions are the separate `b25` book).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1971,6 +2031,10 @@ def _build_docstring_extra(
         floor_dict = EZRA_SUTUEL_VERSE_COUNTS
     elif renumber == "tobit":
         floor_dict = TOBIT_VERSE_COUNTS
+    elif renumber == "judith":
+        floor_dict = JUDITH_VERSE_COUNTS
+    elif renumber == "esther":
+        floor_dict = ESTHER_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2061,6 +2125,8 @@ def main() -> int:
             "psalms",
             "ezra_sutuel",
             "tobit",
+            "judith",
+            "esther",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2085,9 +2151,15 @@ def main() -> int:
             "(EZRA_SUTUEL_VERSE_COUNTS, 16 ch / 945 v; 2 Esdras / "
             "4 Ezra / መጽሐፈ ዕዝራ ሱቱኤል; τ.7.x.j — FIRST deuterocanonical "
             "τ.7.x.* floor; drains the p1239-1293 EOTC-parallel block), "
-            "and 'tobit' (TOBIT_VERSE_COUNTS, 14 ch / 246 v; "
+            "'tobit' (TOBIT_VERSE_COUNTS, 14 ch / 246 v; "
             "መጽሐፈ ጦቢት; τ.7.x.k — second deuterocanonical book in the "
-            "p1239-1293 block). "
+            "p1239-1293 block), 'judith' (JUDITH_VERSE_COUNTS, 16 ch "
+            "/ 339 v; መጽሐፈ ዮዲት; τ.7.x.l — third deuterocanonical "
+            "τ.7.x.* floor; drains the p1294-1317 EOTC-parallel block), "
+            "and 'esther' (ESTHER_VERSE_COUNTS, 10 ch / 167 v; "
+            "መጽሐፈ አስቴር; τ.7.x.m — Hebrew Esther core sourced from the "
+            "EOTC-parallel block p1308-1317, the documented alternative "
+            "to the τ.7.x.i dzamaragna-gap Esther). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2142,6 +2214,10 @@ def main() -> int:
         renumber_floor = EZRA_SUTUEL_VERSE_COUNTS
     elif args.renumber == "tobit":
         renumber_floor = TOBIT_VERSE_COUNTS
+    elif args.renumber == "judith":
+        renumber_floor = JUDITH_VERSE_COUNTS
+    elif args.renumber == "esther":
+        renumber_floor = ESTHER_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

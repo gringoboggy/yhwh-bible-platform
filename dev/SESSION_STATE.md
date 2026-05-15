@@ -1,6 +1,69 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.j + τ.7.x.k AMHARIC 2 ESDRAS + TOBIT
+**Updated 2026-05-15 / τ.7.x.l + τ.7.x.m AMHARIC JUDITH + ESTHER
+FULL-BOOK INGEST ship — TWELFTH + THIRTEENTH τ.7.x.* per-book
+ingests under D4-c Amharic-first + D1-a per-book cadence. Drains
+the FOURTH EOTC-parallel block p1294-1317 to the clean Mäqabyan-I
+p1318 seam.**
+
+Adds `amharic-tewahedo/jdt.py` (Judith, `መጽሐፈ ዮዲት`, p1294-1307,
+120 v, 35.4% — THIRD deuterocanonical τ.7.x.* ingest) +
+`est.py` (Esther, `መጽሐፈ አስቴር`, p1308-1317, 133 v, 79.6% —
+PROTOCANONICAL, first protocanonical τ.7.x.* book since τ.7.x.i
+Psalms). Pipeline reused VERBATIM from τ.7.x.k — only deltas:
+JUDITH_VERSE_COUNTS (16 ch/339 v; NRSV/LXX) + ESTHER_VERSE_COUNTS
+(10 ch/167 v; KJV/Hebrew Masoretic core — the Greek Additions are
+the separate `b25` book) + structural_map.{judith,esther} + CLI
+dispatch. THIRTEENTH consecutive zero-parser-API-delta (21-ship
+across both columns).
+
+**Esther skip-pin conversion (anticipated + documented):** τ.7.x.i
+recorded `est` SKIPPED-via-the-dzamaragna-gap but explicitly
+flagged the EOTC-parallel block p1308-1317 as the preferred source
+"if/when that ship happens". τ.7.x.m IS that ship — Esther sourced
+from the parallel block, so the τ.7.x.i `est` skip-pin is CONVERTED
+(removed from SKIPPED_BOOKS 10→9 in test_parallel_bible_tau7xi.py +
+tau7xj.py + tau7xi_ingest.translation_slot_state; the other 9
+dzamaragna books 1sa/2sa/1ki/2ki/1ch/2ch/ezr/neh/job stay skipped).
+Share-pin→milestone-pin convention per memory
+feedback_share_pin_pattern — flip prior-ship pins a new ship
+legitimately invalidates, AS PART OF the triggering ship.
+
+**PDF reading order (τ.7.x.l scan p1291-1321):** Judith FIRST
+(p1294-1307 → τ.7.x.l), Esther SECOND (p1308-1317 → τ.7.x.m).
+Decisively cross-validated AGAIN: Mäqabyan I @ p1318 == pre-
+existing structural_map.meqabyan [1318,1378].
+
+**Empirical results (text-layer engine, pymupdf get_text()):**
+
+| Metric | τ.7.x.l (jdt) | τ.7.x.m (est) |
+|---|---:|---:|
+| amharic file | **jdt.py: 120 v** | **est.py: 133 v** |
+| PDF pages | 1294-1307 (14 pp) | 1308-1317 (10 pp) |
+| chapters full | 1-6 | 1-8 |
+| chapter partial | 7 (6/32) | 9 (1/32) |
+| chapters empty | 8-16 | 10 |
+| coverage vs floor | 120/339 = 35.4% | 133/167 = 79.6% |
+| renumber overflow | 0 | 0 |
+| canon | deuterocanonical | PROTOCANONICAL (KJV 66) |
+| parser API delta | **0 lines** (12th) | **0 lines** (13th) |
+
+**Thirteen-book combined coverage:** 8682 (11 books) + 120 (jdt) +
+133 (est) = **8935 verses / 11442 expected = 78.1% combined**
+across 13 ingested books. Esther's 79.6% is back in the
+protocanonical band (vs the 34-48% deuterocanon-deep-PDF band of
+2es/tob/jdt) — its compact 10-ch Hebrew floor recovers cleanly.
+
+**Next per most-logical-path:** τ.7.x.n — the p1294-1317 block is
+DRAINED; next EOTC-parallel content is Mäqabyan I at p1318
+(already mapped at structural_map.meqabyan [1318,1378]; covers
+mq1+mq2+mq3). Coordinate the parallel-Bible Mäqabyan with the
+existing γ.4.8 Mäqabyan patristic arc + the δ.1.x Meqabyan-revision
+track before shipping. Geʽez catchup (τ.6.x.2.j-m) follows per D4-c.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.j + τ.7.x.k AMHARIC 2 ESDRAS + TOBIT
 FULL-BOOK INGEST ship — TENTH + ELEVENTH τ.7.x.* per-book ingests
 under D4-c Amharic-first + D1-a per-book cadence. **FIRST TWO
 deuterocanonical (non-protocanonical) τ.7.x.* ingests** (prior nine

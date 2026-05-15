@@ -4,6 +4,51 @@
 
 ## Prior task
 
+**τ.7.x.l + τ.7.x.m AMHARIC JUDITH + ESTHER FULL-BOOK INGEST —
+SHIPPED 2026-05-15. TWELFTH + THIRTEENTH τ.7.x.* per-book ingests
+under D4-c Amharic-first + D1-a per-book cadence. Drained the
+FOURTH EOTC-parallel block p1294-1317 (Judith `መጽሐፈ ዮዲት`
+p1294-1307, deuterocanonical + Esther `መጽሐፈ አስቴር` p1308-1317,
+PROTOCANONICAL) to the clean Mäqabyan-I p1318 seam. Pipeline
+reused VERBATIM from τ.7.x.k — only deltas: JUDITH_VERSE_COUNTS +
+ESTHER_VERSE_COUNTS floors + structural_map.{judith,esther} + CLI
+dispatch. THIRTEENTH consecutive zero-parser-API-delta (21-ship).**
+
+**Esther skip-pin conversion DONE (anticipated + documented):**
+τ.7.x.i flagged this EOTC-parallel block as the preferred Esther
+source "if/when that ship happens". τ.7.x.m IS that ship — the
+τ.7.x.i `est` skip-pin was converted across 4 sites (tau7xi
+slot-state SKIPPED→CONVERTED + SKIPPED_BOOKS 10→9 in
+test_parallel_bible_tau7xi.py + tau7xj.py + the slot-state test);
+the other 9 dzamaragna books stay skipped. Share-pin→milestone-pin
+convention per memory feedback_share_pin_pattern.
+
+**Outcome:**
+- [x] Confirmed boundaries (Judith [1294,1307] / Esther [1308,1317]);
+      books.yaml jdt=16ch / est=10ch; Mäqabyan-I p1318 cross-val
+- [x] JUDITH (16/339) + ESTHER (10/167) floors + CLI dispatch (4
+      sites) — zero parser API delta
+- [x] structural_map blocks + extraction → jdt.py (120 v, 35.4%) +
+      est.py (133 v, 79.6%); both clean renumber (1-N full / N+1
+      partial / rest empty / 0 overflow); honest per τ.6.x.0b
+- [x] _source.yaml tau7xl/m_ingest + structural_map + back-links;
+      _meta stats 11→13 / 8682→8935 / kjv 2→3 (est protocanonical,
+      no kjv increment) + ingest_record_tau7xl/m
+- [x] τ.7.x.i est skip-pin conversion (4 sites; 9 others stay skipped)
+- [x] test_parallel_bible_tau7xl.py (~70 pins, 15 classes, BOTH
+      books + dedicated skip-pin-conversion + prior-pin-preservation)
+- [x] SESSION_STATE / CHANGELOG / PLAN updated
+- [x] ruff 494 clean; lint 10/0; full pytest 5462 passed (sole
+      mid-ship fail = IN_FLIGHT-active, resolved here)
+- [x] IN_FLIGHT → idle; local checkpoint commit (no push, no zip)
+
+**Next per most-logical-path:** τ.7.x.n = parallel-Bible Mäqabyan
+at p1318 (structural_map.meqabyan [1318,1378]) — coordinate with
+the γ.4.8 Mäqabyan patristic arc + δ.1.x Meqabyan-revision track
+first. Geʽez catchup τ.6.x.2.j-m follows per D4-c.
+
+### Earlier — τ.7.x.j/k (superseded by τ.7.x.l/m above)
+
 **τ.7.x.j + τ.7.x.k AMHARIC 2 ESDRAS + TOBIT FULL-BOOK INGEST —
 SHIPPED 2026-05-15. TENTH + ELEVENTH τ.7.x.* per-book ingests under
 D4-c Amharic-first + D1-a per-book cadence; FIRST TWO deuterocanonical

@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 11           # 9 protocanonical (τ.7.x.a-i: gen ex lev num deu jos jdg rut psa) + τ.7.x.j 2 Esdras / Ezra Sutuʼel + τ.7.x.k Tobit (FIRST TWO deuterocanonical τ.7.x.* ingests; drains the p1239-1293 EOTC-parallel block)
-  verses: 8682        # 8242 (9 protocanonical) + 322 (2es, 34.1%) + 118 (tob, 48.0%) = 8682/10936 = 79.4% combined (across 11 ingested books; still excludes 10 SKIPPED books in 438-802 dzamaragna gap)
-  books_outside_kjv: 2   # 2es (2 Esdras / Ezra Sutuʼel) + tob (Tobit) — deuterocanonical, in the Tewahedo + Catholic OT but outside the 66-book Protestant/KJV canon
+  books: 13           # 11 prior (9 protocanonical τ.7.x.a-i + 2es τ.7.x.j + tob τ.7.x.k) + τ.7.x.l Judith + τ.7.x.m Esther (drains the p1294-1317 EOTC-parallel block; Esther sourced from the parallel block per the τ.7.x.i est skip-pin conversion)
+  verses: 8935        # 8682 (11 books) + 120 (jdt, 35.4%) + 133 (est, 79.6%) = 8935/11442 = 78.1% combined (across 13 ingested books; still excludes 9 SKIPPED books in 438-802 dzamaragna gap — est is NO LONGER skipped, now sourced from p1308-1317)
+  books_outside_kjv: 3   # 2es + tob + jdt (Judith) — deuterocanonical, outside the 66-book Protestant/KJV canon. NOTE: est (Esther) is PROTOCANONICAL — in the KJV 66-book canon — so it does NOT increment this count even though it ships at τ.7.x.m
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -865,6 +865,154 @@ ingest_record_tau7xk:
   arc_continues: deuterocanon-eotc-parallel-block   # SECOND deuterocanonical τ.7.x.* ingest; CLOSES the p1239-1293 block (Ezra Sutuʼel + Tobit)
   deuterocanon: true   # tob is in the Tewahedo + Catholic OT, outside the 66-book Protestant canon
   block_drained: p1239-1293   # τ.7.x.j (2es) + τ.7.x.k (tob) together drain the entire third EOTC-parallel block
+  pipeline_reused_at_phase: τ.7.x.l   # back-link: τ.7.x.l (Amharic Judith) reused the τ.7.x.k pipeline VERBATIM; only delta was JUDITH_VERSE_COUNTS + structural_map.judith
+
+# τ.7.x.l ingest record — Amharic Judith added 2026-05-15.
+#
+# Judith (`መጽሐፈ ዮዲት`) added as the TWELFTH book ingest under D1-a
+# per-book cadence + D4-c Amharic-first sequencing. THIRD
+# deuterocanonical τ.7.x.* ingest (after 2es Ezra Sutuʼel + tob
+# Tobit). Opens the FOURTH EOTC-parallel block p1294-1317 (Judith +
+# Esther), immediately after the third block p1239-1293 closed at
+# τ.7.x.k. Source: parallel-Bible EOTC PDF text-layer extraction
+# (pymupdf get_text() per-column; pages 1294-1307 = 14 pages for 16
+# chapters). Pipeline reused VERBATIM from τ.7.x.k — only delta is
+# JUDITH_VERSE_COUNTS as the twelfth renumber-floor +
+# structural_map.judith as the twelfth section. TWELFTH consecutive
+# τ.7.x.* ship with zero parser API change (20-ship zero-API-delta
+# across both columns).
+#
+# Coverage residue (ocr-tier3 expected):
+# - Chapters 1-6 fully populated at floor verse counts.
+# - Chapter 7 partial (6/32) — includes the end-of-Judith Geʽez
+#   colophon `ለእግዚአብሔር ለዘለዓለሙ ክብር ምስጋና ይግበው ... ዮዲት
+#   የተናገረችው ነገር መስ ተፈጸመ` ("...glory + praise forever ... the
+#   words Judith spoke were completed") preserved at the parser's
+#   terminal output, renumbered into ch 7 due to recovery deficit
+#   (same artifact as prior ships).
+# - Chapters 8-16 empty — parser exhausted recovered verses; same
+#   deep-PDF + end-of-book renumbering artifact as 2es/tob.
+#   τ.6.x.3 batched audit closes the gap.
+#
+# Coverage 35.4% — in the deuterocanon-deep-PDF band (comparable to
+# τ.7.x.j 2 Esdras 34.1%); honest per the τ.6.x.0b contract. Judith
+# sits in the same "(ረቂቅ)"/draft parallel region as 2es/tob.
+ingest_record_tau7xl:
+  phase: τ.7.x.l
+  ingested_date: 2026-05-15
+  ingested_book_codes: [jdt]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1294, 1307]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.b
+    - τ.7.x.c
+    - τ.7.x.d
+    - τ.7.x.e
+    - τ.7.x.f
+    - τ.7.x.g
+    - τ.7.x.h
+    - τ.7.x.i
+    - τ.7.x.j
+    - τ.7.x.k
+    - τ.7.x.l   # JUDITH_VERSE_COUNTS added (twelfth renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 120
+    verses_expected: 339
+    coverage_pct: 35.4
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6]
+    chapters_partial:
+      7: [6, 32]   # got, expected (incl. end-of-Judith colophon)
+    chapters_missing: [8, 9, 10, 11, 12, 13, 14, 15, 16]
+  audit_handoff: τ.6.x.3
+  next_book: est   # τ.7.x.m — Amharic Esther, per D4-c + D1-a (second book in the p1294-1317 block; sourced from EOTC-parallel per τ.7.x.i skip-pin conversion)
+  arc_continues: deuterocanon-eotc-parallel-block   # THIRD deuterocanonical τ.7.x.* ingest; opens the p1294-1317 block
+  deuterocanon: true   # jdt (Judith) is in the Tewahedo + Catholic OT, outside the 66-book Protestant canon
+  pipeline_reused_at_phase: τ.7.x.m   # back-link: τ.7.x.m (Amharic Esther) reused the τ.7.x.l pipeline VERBATIM; only delta was ESTHER_VERSE_COUNTS + structural_map.esther
+
+# τ.7.x.m ingest record — Amharic Esther added 2026-05-15.
+#
+# Esther (`መጽሐፈ አስቴር`) added as the THIRTEENTH book ingest under
+# D1-a per-book cadence + D4-c Amharic-first sequencing. SECOND book
+# in the fourth EOTC-parallel block (p1294-1317), draining it before
+# Mäqabyan I opens at p1318 (cross-validated against the pre-existing
+# structural_map.meqabyan [1318,1378]). **Esther is PROTOCANONICAL**
+# (in the KJV 66-book canon) — the FIRST protocanonical τ.7.x.* book
+# since τ.7.x.i Psalms (τ.7.x.j/k/l were deuterocanonical).
+#
+# **Skip-pin conversion:** τ.7.x.i recorded `est` SKIPPED-via the
+# 438-802 dzamaragna gap but explicitly documented this EOTC-
+# parallel block as the preferred Esther source "if/when that ship
+# happens". τ.7.x.m IS that ship — Esther sourced from p1308-1317
+# (NOT dzamaragna). The τ.7.x.i `est` skip-pin is converted (the
+# other 9 dzamaragna books 1sa/2sa/1ki/2ki/1ch/2ch/ezr/neh/job
+# remain skipped). Per memory feedback_share_pin_pattern: flip
+# prior-ship pins a new ship legitimately invalidates, AS PART OF
+# the triggering ship.
+#
+# Source: pages 1308-1317 = 10 pages for 10 chapters. Pipeline
+# reused VERBATIM from τ.7.x.l — only delta is ESTHER_VERSE_COUNTS
+# as the thirteenth renumber-floor + structural_map.esther.
+# THIRTEENTH consecutive τ.7.x.* ship with zero parser API change
+# (21-ship zero-API-delta across both columns).
+#
+# Coverage residue:
+# - Chapters 1-8 fully populated at floor verse counts.
+# - Chapter 9 partial (1/32).
+# - Chapter 10 empty (the short 3-verse Mordecai-epilogue chapter).
+# - Coverage 79.6% — back in the PROTOCANONICAL band (vs the
+#   deuterocanon-deep-PDF 34-48% band of 2es/tob/jdt). Esther's
+#   compact 10-ch / 167-v Hebrew floor + short narrative chapters
+#   recover cleanly. content/books.yaml `est` ch_count: 10 = the
+#   Hebrew Masoretic core; the Greek Additions are the SEPARATE b25
+#   book — the EOTC-parallel text likely interleaves them; τ.6.x.3
+#   audit reconciles (same as 2es 5/6-Ezra + tob recension variance).
+ingest_record_tau7xm:
+  phase: τ.7.x.m
+  ingested_date: 2026-05-15
+  ingested_book_codes: [est]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1308, 1317]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.b
+    - τ.7.x.c
+    - τ.7.x.d
+    - τ.7.x.e
+    - τ.7.x.f
+    - τ.7.x.g
+    - τ.7.x.h
+    - τ.7.x.i
+    - τ.7.x.j
+    - τ.7.x.k
+    - τ.7.x.l
+    - τ.7.x.m   # ESTHER_VERSE_COUNTS added (thirteenth renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 133
+    verses_expected: 167
+    coverage_pct: 79.6
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8]
+    chapters_partial:
+      9: [1, 32]   # got, expected
+    chapters_missing: [10]
+  audit_handoff: τ.6.x.3
+  next_book: meqabyan   # τ.7.x.n candidate — the p1294-1317 block is drained; Mäqabyan I at p1318 (already mapped at structural_map.meqabyan [1318,1378])
+  arc_continues: deuterocanon-eotc-parallel-block   # closes the p1294-1317 block (Judith + Esther)
+  protocanonical: true   # est (Esther) is in the KJV 66-book canon — FIRST protocanonical τ.7.x.* book since τ.7.x.i Psalms
+  esther_skip_pin_converted: true   # τ.7.x.i `est` skip-pin converted: Esther now sourced from EOTC-parallel p1308-1317, NOT the dzamaragna gap; other 9 dzamaragna books remain skipped
+  block_drained: p1294-1317   # τ.7.x.l (jdt) + τ.7.x.m (est) together drain the entire fourth EOTC-parallel block
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.

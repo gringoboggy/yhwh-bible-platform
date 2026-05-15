@@ -516,9 +516,12 @@ class TestTau7XJKDeuterocanonArc:
             assert (GEEZ_TEWAHEDO / f"{book}.py").is_file()
 
     def test_skip_the_gap_books_still_absent(self):
-        """τ.7.x.i skip-the-gap invariant preserved: the 10 dzamaragna-
-        gap books (1 Sam→Job) must still NOT exist in amharic-tewahedo."""
-        for book in ("1sa", "2sa", "1ki", "2ki", "1ch", "2ch", "ezr", "neh", "est", "job"):
+        """τ.7.x.i skip-the-gap invariant preserved: the still-skipped
+        dzamaragna-gap books must NOT exist in amharic-tewahedo. NOTE:
+        `est` was converted at τ.7.x.m (sourced from the EOTC-parallel
+        block p1308-1317) so it is NO LONGER in this list (10→9); the
+        other 9 remain skipped. Share-pin→milestone-pin convention."""
+        for book in ("1sa", "2sa", "1ki", "2ki", "1ch", "2ch", "ezr", "neh", "job"):
             assert not (AMHARIC_TEWAHEDO / f"{book}.py").exists(), (
                 f"skip-the-gap invariant: amharic-tewahedo/{book}.py must NOT exist"
             )
