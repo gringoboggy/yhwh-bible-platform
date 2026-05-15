@@ -6,6 +6,145 @@
 
 ---
 
+## 2026-05-14 — session — Π.2.prep PRE-FLIGHT CHECKLIST FOR ETHIOPIAN-TEWAHEDO POPUP-LANGUAGE FLIP (operator-facing 8-section checklist preparing the Π.2 ship for clean single-session landing once upstream gates open; documents gate-dependency dashboard [Π.1 ✓ / Π.1.B ✓ / τ.6.x.0c ⬜ operator-blocked / τ.6.x.1+ ⬜ blocked / τ.7.x ⬜ blocked / δ.1.x ⬜ blocked-recommended] + 4 publisher decision points [D1 popup-language set / D2 laodiceans canon membership / D3 4ba/2en/1cl notes state / D4 visual-QA scope] + pre-flight verification commands + exact YAML diff Π.2 will apply + post-flip QA across 5 e-readers + rollback plan; 35 pin tests across 13 groups; NO data ingest; v1.0 reproducibility preserved)
+
+**Phase shipped:** Π.2.prep — Pre-flight checklist for the
+Ethiopian-Tewahedo popup-language flip. DECLARATIVE-ONLY ship.
+Π.2.prep makes NO changes to content/editions.yaml /
+content/canons.yaml / content/notes/*.py / scripts/* / production
+EPUB output; v1.0 byte-identical reproducibility preserved.
+
+**Triggered by:** user "do those" after AUDIT_2026-05-14-LIGHT-2
+recommendation set; second of three Claude-side actionable ships
+(after δ.1.x.A.0 committed as `09fb084`; before ω.4x hygiene
+bundle). Per memory `feedback_continue_not_save` +
+`feedback_extensive_answers` (broadest scope across actionable
+set) + project rules §3 sequencing.
+
+**Π.2.prep deliverables shipped:**
+
+1. NEW `dev/PI2_PRE_FLIGHT_CHECKLIST.md` — operator-facing
+   companion to SCOPE §Π.2 (which remains the design-authoritative
+   spec). Eight required sections:
+
+   **§1 Π.2 scope reminder.** Documents the exact YAML edit Π.2
+   will perform (additive flip:
+   `popup_languages_default: [english, hebrew, greek]` →
+   `[english, hebrew, greek, geez, amharic]`) + the proposed pin
+   test class `TestPi2EthiopianTewahedoPopups`.
+
+   **§2 Gate dependency dashboard.** Enumerates every Π.2
+   prerequisite with current state:
+   - Π.1 declarative inventory: ✓ SHIPPED `13501e9`
+   - Π.1.B laodiceans alternate-source: ✓ SHIPPED `f139494`
+   - τ.6.x.0c Tesseract install: ⬜ pending (operator-side)
+   - τ.6.x.1+ Geʽez bulk ingest: ⬜ blocked on τ.6.x.0c
+   - τ.7.x Amharic full-Bible ingest: ⬜ blocked on τ.6.x.0c
+   - δ.1.x Phase-4 Meqabyan apparatus: ⬜ blocked on operator
+     page-image render (RECOMMENDED not strictly blocking;
+     Π.2 can ship with v1 English Meqabyan baseline)
+
+   **§3 Publisher decision matrix.** Four machine-readable
+   decision identifiers:
+   - **D1**: popup-language set for ethiopian-tewahedo.
+     Recommendation `[english, hebrew, greek, geez, amharic]`
+     (5 languages, additive). Alternatives D1.a (3 languages
+     purist-Ethiopian) + D1.b (6 languages adding syriac via
+     Ephrem γ.4.2 corpus).
+   - **D2**: laodiceans (`lao`) canon membership.
+     Recommendation EXCLUDE from ethiopian canon at Π.2 ship
+     time; per Π.1.B `ingest_gate_blockers[2]:
+     tewahedo-flagship-edition-canon-decision (Π.2 prerequisite)`.
+     If publisher elects to include, separate Π.2.B post-flip
+     ship handles canon insertion + τ.x.lao ingest.
+   - **D3**: 4ba/2en/1cl notes-file state. Recommendation
+     SHIP Π.2 with current empty-but-canonical state per
+     AUDIT_2026-05-13-DEEP D-W3 partial-resolution finding;
+     populate later in a γ.4.10+ ship.
+   - **D4**: visual-QA scope. Recommendation 5 e-readers
+     (Apple Books / Calibre / Kindle Previewer / Adobe Digital
+     Editions / Thorium) × 4 dimensions (Geʽez+Amharic CSS
+     classes / popup-language selector / english/hebrew/greek
+     no regression / per-book matrix in /customize console).
+
+   **§4 Pre-flight verification commands.** Runnable command
+   list verifying each gate: pytest Π.1 + Π.1.B + closed-arc
+   selectors; tesseract --list-langs check; translation-slot
+   file counts (87 vs 1 gen.py-only seed); build_meqabyan_
+   revision --check; project linter.
+
+   **§5 Π.2 ship script (exact diff).** Concrete editions.yaml
+   diff with `+ "geez"` + `+ "amharic"` lines + proposed test
+   class outline (~6 pins) + build verification commands
+   (build_edition.py + epubcheck) + state-doc-update checklist.
+
+   **§6 Post-flip QA checklist.** Checkbox-format 12-item
+   verification matrix covering build clean / epubcheck zero
+   errors / Geʽez+Amharic render on 5 e-readers / no regression
+   on english/hebrew/greek / /customize matrix shows new columns
+   / /api/preflight clean / all 12 closed-arc invariants green /
+   linter 11/11.
+
+   **§7 Rollback plan.** Three paths:
+   - Hot-fix: git revert of Π.2 commit if regression
+   - Identified-issue: φ.x follow-up ship if CSS/font/rendering
+     bug rather than Π.2-introduced
+   - Publisher-direction-change: normal edition-edit ship rather
+     than Π.2 rollback
+
+   **§8 Π.2.prep ship contract.** Explicit no-change list +
+   closed-arc invariant preservation enumeration.
+
+2. NEW `tests/test_parallel_bible_pi2prep.py` — **35 pin tests
+   across 13 test groups:**
+   - `TestPi2PrepChecklistExists` (3) — file exists + non-empty
+     + 8 sections
+   - `TestPi2PrepScopeReminder` (3) — popup_languages_default +
+     geez/amharic + english/hebrew/greek preserved
+   - `TestPi2PrepGateDashboard` (4) — Π.1+Π.1.B shipped +
+     τ.6.x.0c operator-side + τ.7.x + δ.1.x documented
+   - `TestPi2PrepDecisionMatrix` (5) — D1+D2+D3+D4 identifiers
+     + D1 5-language recommendation literal
+   - `TestPi2PrepVerificationCommands` (3) — pytest +
+     tesseract + lint_rules commands
+   - `TestPi2PrepShipScript` (3) — exact diff lines + test class
+     name + build+epubcheck
+   - `TestPi2PrepPostFlipQa` (2) — 5 e-readers named + checkbox
+     format
+   - `TestPi2PrepRollbackPlan` (2) — git revert + 3-path
+     distinction
+   - `TestPi2PrepEthiopianTewahedoCurrentState` (3) — editions
+     yaml loads + et exists + popup_languages_default currently
+     `["english","hebrew","greek"]`
+   - `TestPi2PrepLaodiceansCanonState` (1) — lao NOT in
+     ethiopian canon (D2 default-recommendation pin)
+   - `TestPi2PrepScopeCrossReference` (2) — checklist references
+     SCOPE doc + SCOPE §Π.2 section exists
+   - `TestPi2PrepClosedArcInvariantPreservation` (3) — other 8
+     editions unchanged + ethiopian canon 80-90 books +
+     jub/1en/mq1/mq2/mq3 in ethiopian canon
+   - `TestPi2PrepPhaseCoverage` (1) — Π.2.prep mentioned in
+     CHANGELOG (this entry)
+
+   All 35 pins pass.
+
+**Closed-arc invariants regression-guarded across Π.2.prep:**
+γ.4.8.E 67/67 + γ.4.8.F ≥212 + Π.0.1 amharic-in-POPUP_LANGUAGES
++ Π.0.4 EMBED_FONT_PATHS=[] + τ.6.x.0a/b contracts + δ.1.0
+entries=[] + δ.1.x.A.0 batch_prep + Π.1 jubilees/one_enoch
+sections + Π.1 historical pin + Π.1.B current-state laodiceans
+flip all preserved.
+
+**Build tool compatibility:** no changes to any tool at Π.2.prep
+(this is a documentation-and-test ship only). All prior ship-tool
+behaviors preserved.
+
+**Audit cadence:** Π.2.prep is post-LIGHT-2 phase #2 (after
+δ.1.x.A.0); test-count drift +35 (cumulative +74 since LIGHT-2);
+threshold (≥10 phases or ≥150 tests) NOT reached.
+
+---
+
 ## 2026-05-14 — session — δ.1.x.A.0 DIVERGENCE-JSON BATCH-PREP FOR mq1 ch 1-9 (declarative-only operator-handoff preparation for the δ.1.x.A first Phase-4 page-image batch; extends meqabyan_geez_divergence.json _meta with batch_prep block documenting PDF page estimates [1318-1326] per Π.1 structural_map.meqabyan.subsections.mq1 + per-chapter verse-count floor [14/28/38/5/14/23/1/22/3] derived from existing content/notes/mq1.py + content/candidates/mq1_ch_*.json lower-bounds + 10-step operator workflow + machine-readable rationale for why entries are NOT pre-populated [page-image-authority honesty rule] and why v1 English is NOT pre-populated [v1_english_immutable rule]; adds new closed-arc invariant `delta_1_0_entries_empty_at_seed` to regression_guarded_invariants codifying the entries=[] pin as a NAMED invariant; entries=[] PRESERVED; 39 pin tests across 8 groups)
 
 **Phase shipped:** δ.1.x.A.0 — Pre-build divergence-JSON batch-prep

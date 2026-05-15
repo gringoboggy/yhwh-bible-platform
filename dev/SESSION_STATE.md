@@ -1,5 +1,61 @@
 # Session state — current snapshot
 
+**Updated 2026-05-14 / Π.2.prep pre-flight checklist for Ethiopian-
+Tewahedo popup-language flip ship — DECLARATIVE-ONLY operator-
+facing companion to SCOPE §Π.2. Triggered by user "do those" after
+LIGHT-2 recommendation set; second of three Claude-side actionable
+ships (after δ.1.x.A.0 `09fb084`; before ω.4x hygiene bundle).
+**Π.2.prep shipped:** (1) NEW `dev/PI2_PRE_FLIGHT_CHECKLIST.md`
+with 8 sections — §1 scope reminder (additive flip
+`popup_languages_default: [english, hebrew, greek]` →
+`[english, hebrew, greek, geez, amharic]`) + §2 gate-dependency
+dashboard (Π.1 ✓ + Π.1.B ✓ + τ.6.x.0c ⬜ operator-side + τ.6.x.1+
+⬜ blocked + τ.7.x ⬜ blocked + δ.1.x recommended-not-blocking) +
+§3 publisher decision matrix (D1 popup-language set / D2
+laodiceans canon membership / D3 4ba/2en/1cl notes-file state / D4
+visual-QA scope across 5 e-readers) + §4 pre-flight verification
+commands (pytest + tesseract --list-langs + translation-slot
+counts + build_meqabyan_revision --check + linter) + §5 exact
+YAML diff Π.2 will apply + proposed `TestPi2EthiopianTewahedoPopups`
+test class outline + build+epubcheck verification + §6 post-flip
+QA checkbox matrix (12 items × 5 e-readers) + §7 rollback plan
+(3 paths: hot-fix / identified-issue / publisher-direction-change)
++ §8 ship contract enumerating no-change list + closed-arc
+preservation. (2) NEW `tests/test_parallel_bible_pi2prep.py` —
+**35 pin tests across 13 groups** (ChecklistExists 3 + ScopeReminder
+3 + GateDashboard 4 + DecisionMatrix 5 + VerificationCommands 3 +
+ShipScript 3 + PostFlipQa 2 + RollbackPlan 2 +
+EthiopianTewahedoCurrentState 3 + LaodiceansCanonState 1 +
+ScopeCrossReference 2 + ClosedArcInvariantPreservation 3 +
+PhaseCoverage 1). All 35 pins pass. **NO data ingest** — Π.2.prep
+makes NO changes to content/editions.yaml + content/canons.yaml +
+content/notes/*.py + scripts/* + production EPUB output; v1.0
+byte-identical reproducibility preserved. **Closed-arc invariants
+regression-guarded:** γ.4.8.E 67/67 + γ.4.8.F ≥212 + Π.0.1
+amharic-in-POPUP_LANGUAGES + Π.0.4 EMBED_FONT_PATHS=[] + τ.6.x.0a/b
+contracts + δ.1.0 entries=[] + δ.1.x.A.0 batch_prep + Π.1 jubilees/
+one_enoch sections + Π.1 historical pin + Π.1.B current-state
+laodiceans flip all preserved. Audit cadence: Π.2.prep is post-
+LIGHT-2 phase #2; cumulative test-count drift since LIGHT-2 now
++74 (δ.1.x.A.0 +39 + Π.2.prep +35); threshold (≥150) NOT reached.**
+
+**Recommended next steps (one of three actionable ships remains):**
+
+- **ω.4x hygiene bundle** (Claude-side, last in the do-those
+  triad) — W-W2 build_edition.py ruff cleanup (44 errors) + A-I1
+  PLAN_2026-05-09 §2 status snapshot refresh (3808 → current) +
+  A-I2 PLAN §6 parallel-Bible track insertion per SCOPE §11.
+- **δ.1.x.A** (operator-mediated) — first Phase-4 page-image
+  batch for mq1 ch 1-9 using the δ.1.x.A.0-prepared PDF page
+  estimates.
+- **τ.6.x.0c** (operator-side) — Tesseract install +
+  amh.traineddata + gez.traineddata verification (unblocks
+  τ.6.x.1+ + τ.7.x + ultimately Π.2).
+
+---
+
+## Prior Π.2.prep session
+
 **Updated 2026-05-14 / δ.1.x.A.0 divergence-JSON batch-prep for
 mq1 ch 1-9 ship — DECLARATIVE-ONLY operator-handoff preparation
 for the δ.1.x.A first Phase-4 page-image batch. Triggered by user

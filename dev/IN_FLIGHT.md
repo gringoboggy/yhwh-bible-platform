@@ -4,6 +4,37 @@
 
 ## Prior task
 
+**Π.2.prep pre-flight checklist for Ethiopian-Tewahedo popup-
+language flip — DECLARATIVE-ONLY operator-facing companion to
+SCOPE §Π.2. Triggered by user "do those" after LIGHT-2; second
+of three Claude-side actionable ships (after δ.1.x.A.0 `09fb084`;
+before ω.4x hygiene bundle). Shipped: (1) NEW
+dev/PI2_PRE_FLIGHT_CHECKLIST.md with 8 sections (scope reminder
++ gate-dependency dashboard [Π.1 ✓ / Π.1.B ✓ / τ.6.x.0c ⬜
+operator-blocked / τ.6.x.1+ ⬜ blocked / τ.7.x ⬜ blocked / δ.1.x
+recommended-not-blocking] + publisher decision matrix [D1
+popup-language set / D2 laodiceans canon membership / D3 4ba/2en/
+1cl notes-file state / D4 visual-QA scope] + pre-flight
+verification commands + exact YAML diff Π.2 will apply + proposed
+test class outline + post-flip QA checkbox matrix across 5
+e-readers + 3-path rollback plan + ship contract). (2) NEW
+tests/test_parallel_bible_pi2prep.py — 35 pin tests across 13
+groups (ChecklistExists 3 + ScopeReminder 3 + GateDashboard 4 +
+DecisionMatrix 5 + VerificationCommands 3 + ShipScript 3 +
+PostFlipQa 2 + RollbackPlan 2 + EthiopianTewahedoCurrentState 3
++ LaodiceansCanonState 1 + ScopeCrossReference 2 +
+ClosedArcInvariantPreservation 3 + PhaseCoverage 1). All 35 pins
+pass. NO data ingest — content/editions.yaml + content/canons.yaml
++ content/notes/*.py + scripts/* + production EPUB all unchanged;
+v1.0 byte-identical reproducibility preserved. Closed-arc
+invariants regression-guarded (γ.4.8.E + γ.4.8.F + Π.0.1 + Π.0.4
++ τ.6.x.0a/b + δ.1.0 + δ.1.x.A.0 + Π.1 + Π.1.B all preserved).
+Audit cadence: post-LIGHT-2 phase #2; cumulative drift +74;
+threshold NOT reached.** shipped 2026-05-14. Triggered by user
+"do those" after LIGHT-2 recommendation set.
+
+## Prior task (previous)
+
 **δ.1.x.A.0 divergence-JSON batch-prep for mq1 ch 1-9 —
 DECLARATIVE-ONLY operator-handoff preparation. Triggered by user
 "do those" after LIGHT-2 recommendation set. Shipped: (1)
