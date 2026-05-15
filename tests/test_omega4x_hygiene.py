@@ -183,7 +183,11 @@ class TestOmega4xAI2PlanParallelBibleTrack:
           - τ.6.x.1.A added shipped at τ.6.x.1.A pilot-validation
             ship-time (2026-05-15)
           - τ.6.x.1.B migrated pending → shipped at τ.6.x.1.B
-            parser-extension ship-time (2026-05-15)"""
+            parser-extension ship-time (2026-05-15)
+          - τ.6.x.2.D added shipped at τ.6.x.2.D D-decisions
+            codification ship-time (2026-05-15; resolves the four
+            publisher-direction D-decisions D1-a + D2-b + D3-c +
+            D4-c that gated τ.6.x.2+ Geʽez bulk-ingest)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -197,6 +201,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.6.x.1",
             "τ.6.x.1.A",
             "τ.6.x.1.B",
+            "τ.6.x.2.D",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -209,9 +214,13 @@ class TestOmega4xAI2PlanParallelBibleTrack:
           - τ.6.x.1.B added pending at τ.6.x.1.A pilot-validation
             ship-time (empirical finding: parse_verses_from_text()
             needs Ethiopic-numeral support); migrated pending →
-            shipped at τ.6.x.1.B ship-time"""
+            shipped at τ.6.x.1.B ship-time
+          - τ.7.x.a + τ.6.x.3 added pending at τ.6.x.2.D D-decisions
+            ship-time (2026-05-15; D4-c Amharic-first inversion
+            promotes τ.7.x.a as the next-up phase; D2-b + D3-c
+            create the τ.6.x.3 full-87-book audit phase)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

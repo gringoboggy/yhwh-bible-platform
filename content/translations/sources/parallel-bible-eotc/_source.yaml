@@ -715,3 +715,128 @@ ocr_strategy:
       hardening ships may address Amharic-column-quality concerns
       (the τ.6.x.1.B pilot showed Amharic OCR layout is noisier than
       Geʽez; tier-3→tier-2 escalation happens at operator cross-check).
+    publisher_direction_resolved_at_phase: τ.6.x.2.D  # 2026-05-15 — see tau6x2D_decisions block below
+
+  # τ.6.x.2.D D-DECISIONS — publisher-direction codification shipped
+  # 2026-05-15. Resolves the four open D-decisions that gated
+  # τ.6.x.2+ Geʽez bulk-ingest at ocr-tier3 (the next_phase pointer of
+  # tau6x1b_parser_extension above). Each D-decision was presented to
+  # the publisher with options sourced from dev/PILOT_TAU6X1A_OUTPUT.md
+  # §Publisher-direction inputs + dev/SCOPE_2026-05-14-parallel-bible.md
+  # §8; the publisher's one-line answer "d1a, d2b, d3c, d4c" locked
+  # the four picks. DECISION-ONLY ship — no data ingest, τ.6.x.0a
+  # contract preserved; the actual per-book ingest starts at the
+  # NEXT phase under the locked-in decisions.
+  tau6x2D_decisions:
+    shipped_at_phase: τ.6.x.2.D
+    shipped_date: 2026-05-15
+    publisher_answer: 'd1a, d2b, d3c, d4c'
+    resolves_open_decisions:
+      source: dev/PILOT_TAU6X1A_OUTPUT.md
+      section: '§Publisher-direction inputs for τ.6.x.2+'
+      also: dev/SCOPE_2026-05-14-parallel-bible.md §8
+    decisions:
+      D1_cadence:
+        choice: D1-a
+        label: 'Incremental per-book sub-ships (τ.6.x.2.a → τ.6.x.2.z)'
+        rationale: |
+          Matches the project's γ.4.x per-arc ship cadence; surfaces
+          OCR quality variance per book; ship pattern consistent with
+          everything else in v1.x. The publisher's one-line answer
+          'd1a' (the recommended default) locked this choice.
+        alternatives_not_chosen:
+          D1_b: 'One-shot full sweep (~1.25h ProcessPool wall; single τ.6.x.2 atomic block) — rejected: harder to back out one bad book'
+          D1_c: 'Hybrid: bulk OCR + per-book ship — rejected: extra orchestration without per-book validation benefit'
+      D2_tier_ramp:
+        choice: D2-b
+        label: 'Batched τ.6.x.3 audit pass (ocr-tier3 → ocr-tier2 cross-check happens as a discrete subsequent arc)'
+        rationale: |
+          Faster initial ingest because each τ.6.x.2.x sub-ship is
+          purely the ocr-tier3 baseline; cross-check is a discrete
+          τ.6.x.3 arc that can be scoped, paced, and audit-tracked
+          independently. Mirrors the χ-AI-xrefs and γ.4.x audit
+          cadence pattern. The publisher's one-line answer 'd2b' (the
+          recommended default) locked this choice.
+        alternatives_not_chosen:
+          D2_a: 'Per-book cross-check at each τ.6.x.2.x — rejected: slows per-ship velocity; tier flag flips at ingest time'
+          D2_c: 'Tier-3 baseline only, tier-2 reserved for δ.1.x — rejected: contradicts D3-c full-audit pick (cross-check must happen somewhere)'
+      D3_audit_plan:
+        choice: D3-c
+        label: 'Full 87-book audit (every standard-canon + Tewahedo-distinctive book gets ocr-tier3 → ocr-tier2 cross-check at τ.6.x.3)'
+        rationale: |
+          Maximum honesty; every entry that ships at ocr-tier3 gets
+          operator cross-check at τ.6.x.3 before the Π.2 popup-
+          surfacing flip. The publisher's one-line answer 'd3c'
+          (overriding the recommended D3-a "first-cut" default for
+          BROADEST scope per `feedback_extensive_answers` memory)
+          locked this choice. Combined with D2-b, τ.6.x.3 becomes a
+          full 87-book cross-check arc covering both ocr-tier3 streams
+          (Geʽez τ.6.x.2.x ingest + Amharic τ.7.x ingest) under a
+          unified audit phase.
+        alternatives_not_chosen:
+          D3_a: 'First-cut 2-3 books per major canon division (~10 books) — rejected: narrower scope; publisher elected full audit'
+          D3_b: 'Tewahedo-distinctive focus only — rejected: leaves 66 standard-canon books at tier-3 indefinitely'
+          D3_d: 'Operator-driven defer — rejected: no committed cross-check date'
+      D4_amharic_sequencing:
+        choice: D4-c
+        label: 'Amharic-first (τ.7.x ships incrementally BEFORE τ.6.x.2+; Amharic-trained recognizer pipeline validates first)'
+        rationale: |
+          The τ.6.x.1.A pilot showed the Amharic column OCRs cleaner
+          than the Geʽez column (the Amharic-trained recognizer is
+          stronger than the script-level recognizer for body text).
+          Starting with Amharic validates the per-book ingest
+          pipeline against the LOWER-noise stream first; surfaces
+          parser/build/popup-emission integration issues against the
+          cleaner data; then the noisier Geʽez stream runs through a
+          validated pipeline. The publisher's one-line answer 'd4c'
+          (overriding the recommended D4-a "Geʽez-first" default; an
+          INVERTED ordering noted in the offer as "rewires PI2_PRE_
+          FLIGHT gates") locked this choice. Per `feedback_pivot_
+          protocol`, the inversion is explicitly codified in the
+          PI2_PRE_FLIGHT_CHECKLIST gate ordering.
+        alternatives_not_chosen:
+          D4_a: 'Geʽez-first τ.6.x.2+ → Amharic τ.7.x sequential (recommended default) — rejected: publisher elected inversion for pipeline-validation reason'
+          D4_b: 'Interleaved at each sub-ship — rejected: extra verification overhead per ship'
+    derived_phase_ordering:
+      # The 4 picks combine to produce this concrete phase ordering.
+      # Each entry references the D-decision(s) that produced it.
+      sequence:
+        - phase: τ.6.x.2.D
+          status: ✓ shipped
+          shipped_date: 2026-05-15
+          description: 'this block — D-decisions codification (DECISION-ONLY)'
+        - phase: τ.7.x.a → τ.7.x.z
+          status: ⬜ next-phase under locked decisions
+          description: 'Amharic per-book incremental ingest at ocr-tier3 — D1-a cadence + D4-c Amharic-first inversion + D2-b batched cross-check deferred to τ.6.x.3'
+        - phase: τ.6.x.2.a → τ.6.x.2.z
+          status: ⬜ blocked on τ.7.x completion
+          description: 'Geʽez per-book incremental ingest at ocr-tier3 — D1-a cadence + D4-c sequencing (after τ.7.x)'
+        - phase: τ.6.x.3
+          status: ⬜ blocked on both τ.6.x.2+ and τ.7.x completion
+          description: 'Full 87-book ocr-tier3 → ocr-tier2 audit pass covering BOTH Geʽez (τ.6.x.2.x output) AND Amharic (τ.7.x output) — D2-b batched audit + D3-c full scope'
+        - phase: Π.2
+          status: ⬜ blocked on τ.6.x.3
+          description: 'Ethiopian-tewahedo popup-surfacing flip (the parallel-Bible plan terminal phase for v1.1 publisher-uniqueness anchor)'
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: true  # NO .py file written to translation slots at this DECISION-ONLY ship
+      tau6x0b_honesty_contract: true  # SOURCE_QUALITY=ocr-tier3 unchanged; D2-b defers tier ramp to τ.6.x.3 (separate arc)
+      tau6x0c_script_ethiopic_adoption: true  # recognizer unchanged
+      tau6x1_engine_wiring: true  # engine code unchanged
+      tau6x1a_pilot_validation: true  # τ.6.x.1.A reference artifact + pin tests preserved
+      tau6x1b_parser_extension: true  # τ.6.x.1.B normalize_verse_numerals + ETHIOPIC_PUNCT + ETHIOPIC_LINE_START_NUMERAL_RE preserved
+    no_ingest_at_this_phase: true
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved across τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B → 2.D chain)'
+    next_phase: τ.7.x.a  # FIRST per D4-c Amharic-first inversion; NOT τ.6.x.2.a
+    next_phase_description: |
+      First Amharic per-book ingest at ocr-tier3, populating
+      `content/translations/amharic-tewahedo/<book>.py`. Under the
+      D1-a incremental cadence, the first book is genesis (gen.py)
+      — already the Π.0 seed file (3 verses); τ.7.x.a upgrades it
+      from 3-verse seed to full-book ingest via the τ.6.x.1 engine
+      + τ.6.x.1.B parser. Subsequent τ.7.x.b ... τ.7.x.z sub-ships
+      cover the remaining 86 books. After τ.7.x completes, τ.6.x.2.a
+      → τ.6.x.2.z runs the same per-book incremental pattern on the
+      Geʽez column. After both arcs complete, τ.6.x.3 runs the full
+      87-book ocr-tier3 → ocr-tier2 cross-check covering both
+      streams. After τ.6.x.3 completes, Π.2 flips the ethiopian-
+      tewahedo popup-language default.

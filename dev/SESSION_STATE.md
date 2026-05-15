@@ -1,6 +1,122 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.6.x.1.B PARSER EXTENSION ship —
+**Updated 2026-05-15 / τ.6.x.2.D D-DECISIONS CODIFICATION ship —
+DECISION-ONLY ship that resolves the four open publisher-direction
+D-decisions gating τ.6.x.2+ Geʽez bulk-ingest at ocr-tier3.
+Triggered by user message `d1a, d2b, d3c, d4c` locking the four
+picks. The publisher's one-line answer locks: **D1-a** (incremental
+per-book sub-ships τ.6.x.2.a → τ.6.x.2.z; matches γ.4.x per-arc
+cadence; recommended default) + **D2-b** (batched τ.6.x.3 audit
+pass — ocr-tier3 → ocr-tier2 cross-check is a discrete subsequent
+arc; recommended default) + **D3-c** (FULL 87-book audit at
+τ.6.x.3; OVERRIDES recommended D3-a "first-cut" default per memory
+`feedback_extensive_answers` broadest scope) + **D4-c** (Amharic-
+first inversion: τ.7.x.a → τ.7.x.z ships BEFORE τ.6.x.2.a →
+τ.6.x.2.z; the Amharic-trained Tesseract recognizer produces
+cleaner OCR than the script-level recognizer per τ.6.x.1.A pilot,
+so the per-book pipeline validates against the lower-noise stream
+first; OVERRIDES recommended D4-a "Geʽez-first" default and
+INVERTS the PI2_PRE_FLIGHT gate ordering). **τ.6.x.2.D
+deliverables shipped:**
+
+1. **`_source.yaml::ocr_strategy.tau6x2D_decisions` block.**
+   Records shipped_at_phase + shipped_date + publisher_answer +
+   per-D-decision blocks (choice + label + rationale + alternatives_
+   not_chosen) + derived_phase_ordering sequence (τ.6.x.2.D ✓ →
+   τ.7.x.a→τ.7.x.z → τ.6.x.2.a→τ.6.x.2.z → τ.6.x.3 → Π.2) +
+   closed_arc_contracts_preserved (6 keys all True: tau6x0a/b/c +
+   tau6x1 + tau6x1a + tau6x1b) + no_ingest + translation_slot_
+   state remains-at-Π.0-seed + next_phase=τ.7.x.a (NOT τ.6.x.2.a,
+   per D4-c inversion).
+
+2. **`dev/SCOPE_2026-05-14-parallel-bible.md` §7.7 NEW section.**
+   §7.7.1 D-decisions table (4-row) + §7.7.2 derived phase
+   ordering ASCII tree + §7.7.3 D4-c PI2 gate rewiring + §7.7.4
+   closed-arc contracts preserved + §7.7.5 next-phase pointer
+   τ.7.x.a; §8.1 extension codifies D1-D4 as RESOLVED at τ.6.x.2.D.
+
+3. **`dev/PI2_PRE_FLIGHT_CHECKLIST.md` §2 gate dashboard rewired
+   per D4-c.** τ.7.x row HOISTED ABOVE τ.6.x.2+ row + τ.6.x.2.D
+   ✓ row inserted + τ.6.x.3 ⬜ row inserted (full 87-book audit
+   covering BOTH streams per D2-b + D3-c). Gate-unblock clause
+   extended to include all new gates. §4 verification commands
+   extended with τ.6.x.2.D yaml-probe + τ.7.x verification
+   HOISTED ABOVE τ.6.x.2+ verification per D4-c. NEW D4-c gate-
+   ordering note appended to §2.
+
+4. **`tests/test_parallel_bible_tau6x2d.py` NEW pin test file.**
+   6 test classes (~33 pins): TestTau6X2DSourceYamlBlock +
+   TestTau6X2DScopeCodification + TestTau6X2DPi2PreFlightGate
+   Rewiring + TestTau6X2DInFlight + TestTau6X2DSessionState +
+   TestTau6X2DClosedArcInvariantPreservation (Π.0 seed
+   preservation pin: gen.py only, 3 verses; no other .py files
+   in either translation slot).
+
+5. **`dev/SESSION_STATE.md`** — this headline update.
+
+6. **`dev/IN_FLIGHT.md`** — prior-task block for τ.6.x.2.D
+   prepended; τ.6.x.1.B demoted to prior-task-previous.
+
+7. **`dev/CHANGELOG.md`** — 2026-05-15 τ.6.x.2.D entry prepended
+   (standard session-header format).
+
+8. **`dev/PLAN_2026-05-09.md` §6 parallel-Bible ledger.**
+   τ.6.x.2.D added to shipped sub-phases; τ.7.x.a + τ.6.x.3
+   added to pending sub-phases per D2-b + D3-c + D4-c.
+
+9. **`tests/test_omega4x_hygiene.py` share/milestone pins.**
+   τ.6.x.2.D migrated pending → shipped; τ.7.x.a + τ.6.x.3
+   added to pending list; both per `feedback_share_pin_pattern`.
+
+**Test count: ~4595 (τ.6.x.1.B baseline) → ~4628 (+33 pin tests
+across 6 groups in test_parallel_bible_tau6x2d.py). Linter
+expected clean (pure additive content + state-doc updates;
+no console-list bumps; no scripts/* mutations).**
+
+**What did NOT change at τ.6.x.2.D:**
+- No `scripts/extract_parallel_pdf.py` mutation (the τ.6.x.1
+  wiring + τ.6.x.1.B parser extension exercise unchanged).
+- No `content/translations/*` data — geez-tewahedo and
+  amharic-tewahedo slots remain at their Π.0 seed state
+  (gen.py only, 3 verses each) per the τ.6.x.0a contract
+  preserved across the τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B →
+  2.D chain.
+- No `content/editions.yaml` mutation (Π.2 itself flips the
+  popup-language default; τ.6.x.2.D is purely decisions-only).
+- No `content/canons.yaml` mutation (D-decisions are about
+  ingest ordering + tier ramp, not canon membership).
+- v1.0 byte-identical reproducibility preserved (zero scripts/
+  mutations; zero content/ mutations except _source.yaml metadata).
+- Closed-arc invariants ALL preserved (γ.4.8.E 67/67 + γ.4.8.F
+  ≥212 Mäqabyan + Π.0.1 + Π.0.4 + τ.6.x.0a/b/c/1/1.A/1.B +
+  δ.1.0 + δ.1.x.A.0 + Π.1 + Π.1.B + Π.2.prep + Ω.0).
+
+**Phase tag:** τ.6.x.2.D. Pure decision codification + apparatus
+state-doc propagation. **Next phase** is **τ.7.x.a** (Amharic
+Genesis full-book ingest at ocr-tier3) per D4-c inversion —
+upgrades `content/translations/amharic-tewahedo/gen.py` from
+3-verse seed to full-book ingest via the τ.6.x.1 engine + τ.6.x.1.B
+parser. Subsequent τ.7.x.b ... τ.7.x.z cover the remaining 86
+books per D1-a incremental cadence. After τ.7.x completes,
+τ.6.x.2.a → τ.6.x.2.z opens the parallel Geʽez stream against an
+already-validated pipeline (D4-c rationale). After both arcs
+complete, τ.6.x.3 runs the full 87-book ocr-tier3 → ocr-tier2
+operator cross-check per D2-b + D3-c. After τ.6.x.3, Π.2 flips
+the ethiopian-tewahedo popup-language default.
+
+**Audit cadence:** τ.6.x.2.D is post-LIGHT-3 phase #4;
+cumulative drift +~115 (τ.6.x.1 +65 + τ.6.x.1.A +17 + τ.6.x.1.B
++33) + ~33 (τ.6.x.2.D pin tests) ≈ +148; ≥150 threshold
+APPROACHED but NOT crossed at this ship. A light solo-Claude
+audit at the next ship would close the cadence window per memory
+`feedback_audit_cadence`.**
+
+shipped 2026-05-15. Triggered by user `d1a, d2b, d3c, d4c`
+locking the four D-decisions.
+
+## Prior task
+
+**τ.6.x.1.B PARSER EXTENSION ship —
 Ethiopic-numeral verse-marker normalization that resolves the
 τ.6.x.1.A empirical finding (`verse_numeral_parser_extension_
 needed`) via Option A: a pure-function pre-pass at the top of

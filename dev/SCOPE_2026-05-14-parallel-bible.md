@@ -1211,6 +1211,88 @@ blockers — the engine wiring + pre-flight validation are in place.
 
 ---
 
+## §7.7 — τ.6.x.2.D D-decisions (SHIPPED 2026-05-15)
+
+τ.6.x.2.D is a DECISION-ONLY codification ship that resolves the
+four open publisher-direction D-decisions gating τ.6.x.2+ Geʽez
+bulk-ingest. After τ.6.x.1.B closed the last Claude-side
+technical gate, the remaining blocker was the four-decision
+publisher-direction matrix surfaced in `dev/PILOT_TAU6X1A_OUTPUT.md`
+§Publisher-direction inputs and §8 above. The publisher's
+one-line answer **"d1a, d2b, d3c, d4c"** locks the picks below.
+
+### §7.7.1 — D-decisions table
+
+| ID | Choice | Label | Rationale |
+|---|---|---|---|
+| **D1-a** | Cadence | Incremental per-book sub-ships (`τ.6.x.2.a → τ.6.x.2.z`) | Matches γ.4.x per-arc ship cadence; surfaces OCR quality variance per book; ship pattern consistent with everything else in v1.x. (Recommended default.) |
+| **D2-b** | Tier ramp | Batched `τ.6.x.3` audit pass (ocr-tier3 → ocr-tier2 cross-check happens as a discrete subsequent arc) | Faster initial ingest because each sub-ship is purely the ocr-tier3 baseline; cross-check is a discrete arc that can be scoped, paced, and audit-tracked independently. (Recommended default.) |
+| **D3-c** | Per-book audit plan | Full 87-book audit (every standard-canon + Tewahedo-distinctive book gets cross-check at `τ.6.x.3`) | Maximum honesty; every entry that ships at ocr-tier3 gets operator cross-check at `τ.6.x.3` before the Π.2 popup-surfacing flip. (OVERRIDES recommended D3-a "first-cut" default — broadest scope per `feedback_extensive_answers` memory.) |
+| **D4-c** | Amharic-parallel sequencing | Amharic-first (`τ.7.x` ships incrementally BEFORE `τ.6.x.2+`; Amharic-trained recognizer pipeline validates first) | The τ.6.x.1.A pilot showed the Amharic column OCRs cleaner than Geʽez. Starting with Amharic validates the per-book ingest pipeline against the LOWER-noise stream first; the noisier Geʽez stream then runs through a validated pipeline. (OVERRIDES recommended D4-a "Geʽez-first" default — INVERTED ordering that explicitly rewires the PI2_PRE_FLIGHT gate ordering.) |
+
+### §7.7.2 — Derived phase ordering
+
+The four picks combine to produce this concrete phase ordering:
+
+```
+τ.6.x.2.D ✓ shipped 2026-05-15
+  └─ τ.7.x.a → τ.7.x.z  (Amharic per-book incremental ingest at ocr-tier3)
+       └─ τ.6.x.2.a → τ.6.x.2.z  (Geʽez per-book incremental ingest at ocr-tier3)
+             └─ τ.6.x.3  (full 87-book ocr-tier3 → ocr-tier2 audit pass; covers BOTH streams)
+                   └─ Π.2  (ethiopian-tewahedo popup-language default flip)
+```
+
+**First-book-up-next:** `τ.7.x.a` — Amharic Genesis. Already the
+Π.0 seed file (3 verses); τ.7.x.a upgrades it from 3-verse seed
+to full-book ingest via the τ.6.x.1 engine + τ.6.x.1.B parser.
+Subsequent `τ.7.x.b` ... `τ.7.x.z` cover the remaining 86 books
+under the same per-book pattern. After `τ.7.x.z`, `τ.6.x.2.a`
+opens the parallel Geʽez stream against an already-validated
+pipeline. After both arcs complete, `τ.6.x.3` performs the
+full-87-book ocr-tier3 → ocr-tier2 cross-check covering BOTH
+columns. After `τ.6.x.3`, `Π.2` flips the popup default.
+
+### §7.7.3 — D4-c PI2 gate rewiring
+
+D4-c's inversion ("Amharic-first") explicitly rewires the
+PI2_PRE_FLIGHT gate ordering. The PI2 pre-flight checklist
+§2 gate dependency dashboard is updated at τ.6.x.2.D to
+display `τ.7.x` ABOVE `τ.6.x.2+` (was reversed; was "τ.7.x
+blocked on τ.6.x.2+", now "τ.6.x.2+ blocked on τ.7.x"). The
+SCOPE doc's canonical phase chain in §11 remains
+`Π.0 → τ.6.x + τ.7.x → Π.1 → δ.1.x → Π.2 + φ.1 → δ.2`
+because the `τ.6.x + τ.7.x` join is interleavable at the chain
+level; the within-join ordering is D4-c's concern, not §11's.
+
+### §7.7.4 — Closed-arc contracts preserved
+
+τ.6.x.2.D is DECISION-ONLY. No data ingest at this phase:
+- `tau6x0a_no_ingest`: ✓ preserved (no `.py` file written to
+  translation slots).
+- `tau6x0b_honesty_contract`: ✓ preserved (SOURCE_QUALITY=
+  ocr-tier3 unchanged; D2-b defers tier ramp to `τ.6.x.3`).
+- `tau6x0c_script_ethiopic_adoption`: ✓ preserved (recognizer
+  unchanged).
+- `tau6x1_engine_wiring`: ✓ preserved (engine code unchanged).
+- `tau6x1a_pilot_validation`: ✓ preserved (reference artifact
+  unchanged).
+- `tau6x1b_parser_extension`: ✓ preserved (normalize_verse_
+  numerals + ETHIOPIC_PUNCT + ETHIOPIC_LINE_START_NUMERAL_RE
+  + CHAPTER_HEADER_RE all unchanged).
+- v1.0 byte-identical reproducibility: ✓ preserved.
+
+The translation slots remain at their Π.0 seed state
+(`gen.py` only, 3 verses each); both arcs (`τ.7.x.x` Amharic
++ `τ.6.x.2.x` Geʽez) will populate them per the D1-a
+incremental cadence under the locked decisions.
+
+### §7.7.5 — Next phase pointer
+
+**`τ.7.x.a`** — Amharic Genesis full-book ingest at ocr-tier3
+under D1-a cadence + D4-c sequencing.
+
+---
+
 ## §8 — Open decisions for the user
 
 These are the publisher-side choices the plan needs but cannot
@@ -1228,6 +1310,20 @@ make on its own. Each can be answered by a one-line direction.
    (Phase-4-handoff default) / faster-batch / slow-research-quality.
 7. **v3 publication timing:** post-Phase-4-completion (default) /
    incremental-republishing / parked-indefinitely.
+
+### §8.1 — τ.6.x.2+ four-decision matrix (RESOLVED at τ.6.x.2.D 2026-05-15)
+
+The bulk-ingest gate enumerated four further decisions that
+this §8 list did NOT originally contain (they emerged at
+τ.6.x.1.A pilot-validation time). All four are now LOCKED:
+
+- **D1 — Cadence:** ✓ D1-a (incremental per-book sub-ships).
+- **D2 — Tier ramp:** ✓ D2-b (batched τ.6.x.3 audit pass).
+- **D3 — Per-book audit plan:** ✓ D3-c (full 87-book audit).
+- **D4 — Amharic-parallel sequencing:** ✓ D4-c (Amharic-first
+  inversion).
+
+Full codification: §7.7 above.
 
 ---
 

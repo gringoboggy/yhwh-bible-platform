@@ -6,6 +6,67 @@
 
 ---
 
+## 2026-05-15 — session — τ.6.x.2.D D-DECISIONS CODIFICATION (DECISION-ONLY ship that resolves the four open publisher-direction D-decisions gating τ.6.x.2+ Geʽez bulk-ingest at ocr-tier3 — locks **D1-a** incremental per-book sub-ships τ.6.x.2.a → τ.6.x.2.z matching γ.4.x per-arc cadence + **D2-b** batched τ.6.x.3 audit pass deferring tier-3 → tier-2 cross-check to a discrete subsequent arc + **D3-c** FULL 87-book audit at τ.6.x.3 broadest scope OVERRIDING recommended D3-a first-cut default per `feedback_extensive_answers` + **D4-c** Amharic-first inversion where τ.7.x.a → τ.7.x.z ships BEFORE τ.6.x.2.a → τ.6.x.2.z so the Amharic-trained Tesseract recognizer's cleaner OCR per τ.6.x.1.A pilot validates the per-book pipeline first OVERRIDING recommended D4-a Geʽez-first default and INVERTING the PI2_PRE_FLIGHT gate ordering; `_source.yaml::ocr_strategy.tau6x2D_decisions` block records shipped_at_phase + shipped_date + publisher_answer='d1a, d2b, d3c, d4c' + per-decision blocks (choice + label + rationale + alternatives_not_chosen) + derived_phase_ordering sequence τ.6.x.2.D ✓ → τ.7.x.a → τ.7.x.z → τ.6.x.2.a → τ.6.x.2.z → τ.6.x.3 → Π.2 + closed_arc_contracts_preserved 6 keys all True (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b) + no_ingest + translation_slot_state remains-at-Π.0-seed + next_phase=τ.7.x.a NOT τ.6.x.2.a per D4-c inversion; SCOPE_2026-05-14-parallel-bible.md §7.7 NEW section with §7.7.1 D-decisions table + §7.7.2 derived phase ordering ASCII tree + §7.7.3 D4-c PI2 gate rewiring + §7.7.4 closed-arc contracts preserved + §7.7.5 next-phase pointer; §8.1 codifies D1-D4 as RESOLVED; PI2_PRE_FLIGHT_CHECKLIST.md §2 gate dashboard rewired per D4-c with τ.7.x row HOISTED ABOVE τ.6.x.2+ row + τ.6.x.2.D ✓ row inserted + τ.6.x.3 ⬜ row inserted + gate-unblock clause extended + §4 verification commands extended with τ.6.x.2.D yaml-probe + τ.7.x verification hoisted above τ.6.x.2+; NEW tests/test_parallel_bible_tau6x2d.py file with 6 test classes ~33 pins covering source-yaml block + SCOPE codification + PI2 gate rewiring + IN_FLIGHT + SESSION_STATE + Π.0 seed preservation; test_omega4x_hygiene.py share/milestone-pin migrations per `feedback_share_pin_pattern` — τ.6.x.2.D added shipped + τ.7.x.a + τ.6.x.3 added pending)
+
+**Phase shipped:** τ.6.x.2.D — Publisher-direction D-decisions
+codification. Resolves the four open D-decisions surfaced at
+τ.6.x.1.A pilot-validation that gated τ.6.x.2+ Geʽez bulk-ingest.
+
+**Triggered by:** user message `d1a, d2b, d3c, d4c` — direct
+publisher-direction answer to the four-decision matrix Claude
+presented at session start. Per memory `feedback_continue_not_save`
+the response does NOT auto-advance to the actual data-ingest phase;
+this is a decision-codification ship modeled on τ.6.x.0b
+(authorization-only) so the actual per-book ingest opens at the
+NEXT session under the locked-in decisions.
+
+**τ.6.x.2.D deliverables** — see `dev/SESSION_STATE.md` τ.6.x.2.D
+headline for the full breakdown. Summary: (1) `_source.yaml::
+ocr_strategy.tau6x2D_decisions` block + back-link from
+`tau6x1b_parser_extension.publisher_direction_resolved_at_phase`;
+(2) SCOPE §7.7 NEW section codifying D1-D4 picks + derived phase
+ordering + D4-c PI2 gate rewiring note; (3) PI2_PRE_FLIGHT
+checklist §2 gate dashboard rewired with τ.7.x HOISTED ABOVE
+τ.6.x.2+ per D4-c + τ.6.x.2.D + τ.6.x.3 rows inserted; (4) NEW
+test_parallel_bible_tau6x2d.py file with ~33 pin tests across 6
+classes; (5) SESSION_STATE/IN_FLIGHT/PLAN/test_omega4x_hygiene
+propagation per the project pattern.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67 +
+γ.4.8.F ≥212 Mäqabyan + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b/c/1/1.A/1.B contracts
+(translation slots gen.py-only; Option-D-Hybrid authorized;
+tesseract default engine; script/Ethiopic adopted; engine
+wired; pilot validated; Ethiopic-numeral parser extended) +
+δ.1.0 entries=[] + δ.1.x.A.0 batch_prep + Π.1 jubilees/one_enoch
+sections + Π.1.B laodiceans alternate-source-declared + Π.2.prep
+checklist + Ω.0 free-public pivot all preserved.
+
+**What did NOT change:** no `scripts/extract_parallel_pdf.py`
+mutation (the τ.6.x.1 wiring + τ.6.x.1.B parser extension are
+exercised unchanged); no `content/translations/*` data
+(geez-tewahedo + amharic-tewahedo slots remain at Π.0 seed,
+gen.py only, 3 verses each per the τ.6.x.0a contract preserved
+across the τ.6.x.0a → 0b → 0c → 1 → 1.A → 1.B → 2.D chain); no
+`content/editions.yaml` mutation (Π.2 itself performs the popup-
+language flip); no `content/canons.yaml` mutation. v1.0 byte-
+identical reproducibility preserved.
+
+**Test count:** ~4595 (τ.6.x.1.B baseline) → ~4628 (+33 pin
+tests in test_parallel_bible_tau6x2d.py).
+
+**Audit cadence:** post-LIGHT-3 phase #4; cumulative drift
++~148; ≥150 threshold approached but NOT crossed. Light solo-
+Claude audit recommended at next ship per memory
+`feedback_audit_cadence`.
+
+**Next phase pointer:** **τ.7.x.a** — first Amharic per-book
+ingest at ocr-tier3 (Amharic Genesis full-book ingest under
+D1-a incremental cadence + D4-c Amharic-first sequencing).
+NOT τ.6.x.2.a (D4-c inverts the original ordering).
+
+---
+
 ## 2026-05-15 — session — τ.6.x.1.B PARSER EXTENSION (resolves the τ.6.x.1.A `verse_numeral_parser_extension_needed` empirical finding via Option A — normalize Ethiopic numerals at line starts to the Arabic-digit+colon form `parse_verses_from_text()`'s existing `VERSE_NUM_RE` already matches; the downstream parser is unchanged and the normalization is a pure-function pre-pass invoked at the top of `parse_verses_from_text()` so both engines feed the same code path; backward-compatible — text-layer-engine output is a no-op for the normalizer; NEW `ETHIOPIC_PUNCT = "።፣፤፥፦፧፨"` constant covers the standard Ethiopic punctuation block U+1361-U+1368; NEW `ETHIOPIC_LINE_START_NUMERAL_RE = re.compile(r"^(\s*)([፩-፼]+)\s*([" + ETHIOPIC_PUNCT + r"])")`; NEW `normalize_verse_numerals(text) -> str` walks each line and substitutes Ethiopic-numeral verse markers with `geez_numeral_to_int`-resolved Arabic equivalents + ASCII colon; PAIRED `CHAPTER_HEADER_RE` extension `ምዕራፍ\s*([፩-፼]+)` → `ምዕራፍ[\s፡፣]*([፩-፼]+)` to tolerate Ethiopic word-space (U+1361) and Ethiopic comma (U+1363) as separators where Tesseract emits them; `_source.yaml::ocr_strategy.tau6x1b_parser_extension` block records shipped_at_phase + shipped_date + resolves_finding pointer + helpers_added + parser_change + chapter_header_regex_change diff + empirical_validation (page 1318 pre-τ.6.x.1.B = 0 verses parsed because Ethiopic numerals didn't match `\d+`; post-τ.6.x.1.B Geʽez ≥3 verses + Amharic ≥2 verses) + closed_arc_contracts_preserved (5 True booleans for tau6x0a/b/c + tau6x1 + tau6x1a) + no_ingest + translation_slot_state + next_phase=τ.6.x.2+; τ.6.x.1.A pilot block annotated with `finding_resolved_at_phase: τ.6.x.1.B` back-link; NEW test classes in tests/test_parallel_bible_tau6x1.py: TestTau6X1BModuleSurface 3 + TestTau6X1BNormalizeVerseNumerals 14 + TestTau6X1BParseVersesIntegration 3 + TestTau6X1BPilotRuntime 2 + TestTau6X1BSourceYamlBlock 11 = +33 pin tests; runtime pins ran live against the real PDF + Tesseract proving end-to-end the τ.6.x.1.A finding is resolved (the τ.6.x.1.B normalizer is the technical missing piece that lets τ.6.x.2.x bulk-ingest produce non-empty output))
 
 **Phase shipped:** τ.6.x.1.B — Ethiopic-numeral parser extension.

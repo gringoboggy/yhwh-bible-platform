@@ -4,6 +4,130 @@
 
 ## Prior task
 
+**τ.6.x.2.D D-DECISIONS CODIFICATION ship — DECISION-ONLY ship
+that resolves the four open publisher-direction D-decisions
+gating τ.6.x.2+ Geʽez bulk-ingest at ocr-tier3. Triggered by
+user message `d1a, d2b, d3c, d4c` after Claude presented the
+four-decision matrix per memory `feedback_extensive_answers`
+(comprehensive enumeration) + per the τ.6.x.1.A pilot-validation
+artifact's §Publisher-direction-inputs section + the SCOPE §8
+open-decisions list. The publisher's one-line answer locks:
+**D1-a** (incremental per-book sub-ships τ.6.x.2.a → τ.6.x.2.z;
+matches γ.4.x per-arc cadence; recommended default) + **D2-b**
+(batched τ.6.x.3 audit pass — tier-3 → tier-2 cross-check is a
+discrete subsequent arc; recommended default) + **D3-c** (FULL
+87-book audit at τ.6.x.3 — broadest scope; OVERRIDES recommended
+D3-a "first-cut 2-3 books per division" default per
+`feedback_extensive_answers`) + **D4-c** (Amharic-first
+inversion: τ.7.x.a → τ.7.x.z ships BEFORE τ.6.x.2.a → τ.6.x.2.z;
+the Amharic-trained Tesseract recognizer produces cleaner OCR
+than the script-level recognizer per τ.6.x.1.A pilot, so the
+per-book pipeline validates against the lower-noise stream first;
+OVERRIDES recommended D4-a "Geʽez-first" default; INVERTED
+ordering noted in offer as "rewires PI2_PRE_FLIGHT gates").
+**τ.6.x.2.D deliverables shipped:**
+
+1. **`_source.yaml::ocr_strategy.tau6x2D_decisions` block added.**
+   Records shipped_at_phase=τ.6.x.2.D + shipped_date=2026-05-15
+   + publisher_answer='d1a, d2b, d3c, d4c' + resolves_open_
+   decisions (back-reference to PILOT_TAU6X1A_OUTPUT.md §Publisher-
+   direction-inputs + SCOPE §8) + per-decision blocks for D1/D2/D3/
+   D4 with `choice` + `label` + `rationale` + `alternatives_not_
+   chosen` enumeration + derived_phase_ordering sequence
+   (τ.6.x.2.D ✓ → τ.7.x.a→τ.7.x.z → τ.6.x.2.a→τ.6.x.2.z → τ.6.x.3
+   → Π.2) + closed_arc_contracts_preserved (6 keys all True:
+   tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b) + no_ingest +
+   translation_slot_state remains-at-Π.0-seed + next_phase=
+   τ.7.x.a (NOT τ.6.x.2.a, per D4-c inversion) + next_phase_
+   description anchoring τ.7.x.a to upgrade amharic-tewahedo/
+   gen.py from 3-verse seed to full-book ingest.
+
+2. **`dev/SCOPE_2026-05-14-parallel-bible.md` §7.7 NEW section.**
+   Five subsections: §7.7.1 D-decisions table (4-row, choice +
+   label + rationale + recommendation-override notes) + §7.7.2
+   derived phase ordering (ASCII tree) + §7.7.3 D4-c PI2 gate
+   rewiring (explicit note that τ.7.x now displays ABOVE τ.6.x.2+
+   in the §2 gate dashboard) + §7.7.4 closed-arc contracts
+   preserved (6 contracts × ✓) + §7.7.5 next phase pointer τ.7.x.a.
+   §8 extended with new §8.1 codifying the D1-D4 picks as RESOLVED
+   at τ.6.x.2.D (the original §8 list 1-7 questions remain; D1-D4
+   are a separate matrix that emerged at τ.6.x.1.A).
+
+3. **`dev/PI2_PRE_FLIGHT_CHECKLIST.md` §2 gate dashboard rewired
+   per D4-c.** τ.7.x row HOISTED ABOVE τ.6.x.2+ row (was reversed);
+   τ.6.x.2.D row inserted ✓ SHIPPED 2026-05-15; τ.6.x.3 row
+   inserted ⬜ blocked on both arcs (full 87-book ocr-tier3 →
+   ocr-tier2 audit covering BOTH streams per D2-b + D3-c). §1 gate
+   unblock-clause extended `Π.1 ✓ AND Π.1.B ✓ AND τ.6.x.0c ✓ AND
+   τ.6.x.1 ✓ AND τ.6.x.1.A ✓ AND τ.6.x.1.B ✓ AND τ.6.x.2.D ✓ AND
+   τ.7.x ✓ AND τ.6.x.2+ ✓ AND τ.6.x.3 ✓`. As-of-2026-05-15 line
+   updated. §4 verification commands extended with τ.6.x.2.D yaml-
+   probe + τ.6.x.3 audit-pass probe; τ.7.x verification HOISTED
+   ABOVE τ.6.x.2+ verification per D4-c sequencing. NEW D4-c
+   gate-ordering note appended to §2 explaining the inversion.
+
+4. **NEW test file `tests/test_parallel_bible_tau6x2d.py`.** 6 test
+   classes covering: (a) TestTau6X2DSourceYamlBlock — _source.yaml
+   tau6x2D_decisions block shape + 4 D-decision picks + derived
+   phase ordering + closed-arc contracts preserved + no_ingest +
+   next_phase=τ.7.x.a + publisher_answer string; (b) TestTau6X2DScope
+   Codification — SCOPE §7.7 section + 4 D-decision table rows + D4-c
+   gate-rewiring note + §8.1 extension; (c) TestTau6X2DPi2Pre Flight
+   GateRewiring — PI2 gate-dashboard row ordering (τ.7.x ABOVE
+   τ.6.x.2+) + τ.6.x.2.D row ✓ SHIPPED + τ.6.x.3 row present +
+   gate-clause extended + D4-c note present; (d) TestTau6X2DInFlight —
+   IN_FLIGHT prior-task block phase + decisions; (e) TestTau6X2D
+   SessionState — SESSION_STATE headline phase + decisions;
+   (f) TestTau6X2DClosedArcInvariantPreservation — Π.0 seed
+   preservation pin (gen.py 3 verses; no other .py files in
+   amharic-tewahedo or geez-tewahedo translation slots).
+
+5. **`dev/SESSION_STATE.md` headline updated.** Prior τ.6.x.1.B
+   headline demoted to "Prior task (previous)"; new τ.6.x.2.D
+   headline records the 4 D-decision picks + reasoning + closed-
+   arc preservation + next_phase=τ.7.x.a + audit cadence (post-
+   LIGHT-3 phase #4; cumulative drift +~115 + ~33 τ.6.x.2.D pin
+   tests = +~148; ≥150 threshold approached but NOT crossed).
+
+6. **`dev/CHANGELOG.md` τ.6.x.2.D entry prepended.** Standard
+   format: 2026-05-15 session header + phase tag + triggered-by +
+   deliverables summary pointing to SESSION_STATE for full
+   breakdown + closed-arc invariants regression-guarded list +
+   what-did-NOT-change list + test-count delta + next-phase pointer.
+
+7. **`dev/PLAN_2026-05-09.md` §6 ledger updated.** τ.6.x.2.D added
+   to shipped sub-phases; τ.6.x.2+ remains in pending sub-phases
+   (now as per-book τ.6.x.2.a→τ.6.x.2.z under D1-a cadence);
+   τ.7.x.a appears as the NEXT next-phase per D4-c inversion;
+   τ.6.x.3 added as a new pending sub-phase per D2-b + D3-c.
+
+8. **`tests/test_omega4x_hygiene.py` share-pin → milestone-pin
+   conversion per `feedback_share_pin_pattern` memory.** The
+   prior-version pending-list (`τ.6.x.2+` + `δ.1.x.A` + `Π.2` +
+   `δ.2`) is extended: τ.6.x.2.D migrates pending → shipped (new
+   addition to shipped list); τ.7.x.a + τ.6.x.3 added pending
+   (new sub-phases that emerged from the D-decisions). Both
+   pin-set extensions assert phase substrings only (no share %
+   thresholds; pure milestone count).
+
+Closed-arc invariants regression-guarded (γ.4.8.E 67/67 + γ.4.8.F
+≥212 Mäqabyan + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4 EMBED_
+FONT_PATHS=[] + τ.6.x.0a/b/c/1/1.A/1.B contracts + δ.1.0 entries=
+[] + δ.1.x.A.0 batch_prep + Π.1 jubilees/one_enoch sections +
+Π.1.B laodiceans alternate-source-declared + Π.2.prep checklist
++ Ω.0 free-public pivot all preserved). NO data ingest; geez-
+tewahedo + amharic-tewahedo translation slots remain at Π.0
+seed state (gen.py only, 3 verses each); v1.0 byte-identical
+reproducibility preserved. **Audit cadence: τ.6.x.2.D is
+post-LIGHT-3 phase #4; cumulative drift +~115 (τ.6.x.1+1.A+1.B)
++ ~33 (τ.6.x.2.D pin tests) ≈ +148; ≥150 threshold approached
+but NOT crossed; no audit recommended this turn but a light
+audit at the next ship would close the cadence-window.**
+shipped 2026-05-15. Triggered by user `d1a, d2b, d3c, d4c`
+locking the four D-decisions.
+
+## Prior task (previous)
+
 **τ.6.x.1.B PARSER EXTENSION ship — Ethiopic-numeral verse-marker
 normalization that resolves the τ.6.x.1.A empirical finding
 (`verse_numeral_parser_extension_needed`). Triggered by user

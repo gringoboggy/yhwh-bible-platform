@@ -61,19 +61,32 @@ Pin tests (proposed `TestPi2EthiopianTewahedoPopups`):
 | τ.6.x.1 Tesseract engine wired | τ.6.x.1 | ✓ SHIPPED 2026-05-14 | `scripts/extract_parallel_pdf.py` gains `--engine tesseract` (default) — renders each PDF column at 350 dpi via pymupdf + invokes `tesseract -l script/Ethiopic` (Geʽez) / `tesseract -l amh` (Amharic) per column with W-W1-safe subprocess pattern. Pre-flight resolves the binary via `scripts.core.paths.tesseract_binary()` + verifies both required language packs are present via `tesseract --list-langs` before any PDF page is opened; clean SystemExit with install/tessdata pointers on either gap. |
 | τ.6.x.1.A Pilot validation | τ.6.x.1.A | ✓ SHIPPED 2026-05-15 | Empirical end-to-end pilot: page 1318 (mq1 ch1 opening) rendered + OCR'd in 6.5s producing recognizable Geʽez + Amharic body-text at `ocr-tier3` quality. Reference artifact `dev/PILOT_TAU6X1A_OUTPUT.md` captures timing extrapolations (mq1=5.5min, meqabyan=8min, standard-canon=5h single-threaded) + 5 quality observations + publisher-direction inputs. NEW finding: parse_verses_from_text() keys off Arabic digits but PDF uses Ethiopic numerals → parser extension needed at τ.6.x.1.B. |
 | τ.6.x.1.B Ethiopic numeral parser | τ.6.x.1.B | ✓ SHIPPED 2026-05-15 | NEW `normalize_verse_numerals()` pure-function pre-pass at the top of `parse_verses_from_text()` converts line-start Ethiopic numerals + Ethiopic punctuation to the Arabic-digit+colon form `VERSE_NUM_RE` already matches. Backward-compatible (text-layer Arabic-digit input is a no-op). Paired `CHAPTER_HEADER_RE` extension tolerates Ethiopic word-space `፡` (U+1361) and Ethiopic comma `፣` (U+1363) as separators. Runtime regression-pins confirmed page 1318 now yields ≥3 Geʽez verses + ≥2 Amharic verses (vs 0 pre-fix). Resolves the τ.6.x.1.A empirical finding. |
-| τ.6.x.2+ Geʽez bulk ingest | τ.6.x.2+ | ⬜ blocked ONLY on publisher direction (cadence + target-tier ramp + per-book audit plan) | populates geez-tewahedo translation slot beyond Π.0 seed (3 verses Genesis only); without this, Geʽez popups would be empty. Engine wired at τ.6.x.1 + empirically validated at τ.6.x.1.A + parser extended at τ.6.x.1.B; ALL Claude-side technical gates now closed. Bulk-ingest gate is purely publisher-direction. |
-| τ.7.x Amharic full-Bible ingest | τ.7.x | ⬜ blocked on τ.6.x.2+ | populates amharic-tewahedo translation slot beyond Π.0 seed; without this, Amharic popups would be empty. |
+| τ.6.x.2.D D-decisions codification | τ.6.x.2.D | ✓ SHIPPED 2026-05-15 | Publisher-direction matrix RESOLVED: D1-a (incremental per-book cadence) + D2-b (batched τ.6.x.3 audit pass) + D3-c (full 87-book audit) + D4-c (Amharic-first inversion — τ.7.x ships BEFORE τ.6.x.2+). DECISION-ONLY ship; no data ingest; τ.6.x.0a contract preserved. Codified in `_source.yaml::ocr_strategy.tau6x2D_decisions` + SCOPE §7.7. Rewires gate ordering below per D4-c inversion. |
+| τ.7.x Amharic per-book ingest | τ.7.x.a → τ.7.x.z | ⬜ next-phase under locked decisions (D4-c Amharic-first) | populates amharic-tewahedo translation slot per-book at ocr-tier3 under D1-a incremental cadence. First sub-ship τ.7.x.a upgrades amharic-tewahedo/gen.py from 3-verse seed → full-book ingest via the τ.6.x.1 engine + τ.6.x.1.B parser. Subsequent τ.7.x.b ... τ.7.x.z cover the remaining 86 books. tier-3 → tier-2 cross-check deferred to τ.6.x.3 per D2-b. |
+| τ.6.x.2+ Geʽez per-book ingest | τ.6.x.2.a → τ.6.x.2.z | ⬜ blocked on τ.7.x completion (D4-c sequencing) | populates geez-tewahedo translation slot per-book at ocr-tier3 under D1-a incremental cadence. Runs after τ.7.x against an Amharic-validated pipeline (D4-c rationale). tier-3 → tier-2 cross-check deferred to τ.6.x.3 per D2-b. |
+| τ.6.x.3 batched ocr-tier3 → tier-2 audit | τ.6.x.3 | ⬜ blocked on τ.7.x + τ.6.x.2+ completion (D2-b + D3-c) | Full 87-book operator cross-check pass covering BOTH the Amharic (τ.7.x.x) and Geʽez (τ.6.x.2.x) ocr-tier3 outputs; flips SOURCE_QUALITY = ocr-tier3 → ocr-tier2 on cleared entries; honesty-contract caveat lifts on tier-2 entries. |
 | δ.1.x Phase-4 Meqabyan apparatus | δ.1.x (multi-session) | ⬜ blocked on operator page-image render | required for ethiopian-tewahedo's Meqabyan-1-3 popups to be more than the v1 English baseline (Phase-4 page-image revisions feed compare-divergence-geez kind). |
 
 **Π.2 is unblocked ONLY when:** Π.1 ✓ AND Π.1.B ✓ AND τ.6.x.0c ✓
-AND τ.6.x.1 ✓ AND τ.6.x.1.A ✓ AND τ.6.x.1.B ✓ AND τ.6.x.2+ ✓ AND
-τ.7.x ✓. δ.1.x apparatus is RECOMMENDED but NOT strictly blocking —
-Π.2 can ship with Meqabyan popups showing only the v1 English
-baseline (Phase-4 apparatus is a bonus enhancement, not a Π.2
-prerequisite). **As of 2026-05-15: Π.1 + Π.1.B + τ.6.x.0c + τ.6.x.1
-+ τ.6.x.1.A + τ.6.x.1.B shipped; remaining gates τ.6.x.2+ + τ.7.x
-(both purely publisher-direction-gated; no remaining Claude-side
-technical blockers).**
+AND τ.6.x.1 ✓ AND τ.6.x.1.A ✓ AND τ.6.x.1.B ✓ AND τ.6.x.2.D ✓
+AND τ.7.x ✓ AND τ.6.x.2+ ✓ AND τ.6.x.3 ✓. δ.1.x apparatus is
+RECOMMENDED but NOT strictly blocking — Π.2 can ship with
+Meqabyan popups showing only the v1 English baseline (Phase-4
+apparatus is a bonus enhancement, not a Π.2 prerequisite).
+**As of 2026-05-15: Π.1 + Π.1.B + τ.6.x.0c + τ.6.x.1 + τ.6.x.1.A
++ τ.6.x.1.B + τ.6.x.2.D shipped; remaining gates τ.7.x (next-up
+per D4-c Amharic-first) + τ.6.x.2+ (after τ.7.x) + τ.6.x.3
+(after both arcs). All remaining gates are now data-ingest +
+operator cross-check work; no Claude-side technical or publisher-
+direction blockers remain.**
+
+**D4-c gate-ordering note:** τ.7.x is intentionally listed
+ABOVE τ.6.x.2+ in the gate table above. This is the τ.6.x.2.D
+D4-c inversion: the Amharic-trained recognizer produces cleaner
+OCR than the script-level Geʽez recognizer (per τ.6.x.1.A pilot),
+so the Amharic per-book stream runs first to validate the
+per-book ingest pipeline before the noisier Geʽez stream
+follows. Per SCOPE §7.7.3.
 
 ---
 
@@ -193,10 +206,22 @@ python3 -c "from scripts.extract_parallel_pdf import ENGINE_DEFAULT, OCR_DPI, GE
 python3 scripts/extract_parallel_pdf.py --help | grep -- "--engine"
 # Expect: '--engine {tesseract,text-layer}' appears in --help output.
 
-# τ.6.x.2+ ✓ verification (bulk-ingest — pending publisher direction)
-ls content/translations/geez-tewahedo/*.py | wc -l
+# τ.6.x.2.D ✓ verification (D-decisions codified) — shipped 2026-05-15
+python3 -c "import yaml; d = yaml.safe_load(open('content/translations/sources/parallel-bible-eotc/_source.yaml', encoding='utf-8'))['ocr_strategy']['tau6x2D_decisions']; print(d['decisions']['D1_cadence']['choice'], d['decisions']['D2_tier_ramp']['choice'], d['decisions']['D3_audit_plan']['choice'], d['decisions']['D4_amharic_sequencing']['choice'], d['next_phase'])"
+# Expect: D1-a D2-b D3-c D4-c τ.7.x.a
+
+# τ.7.x ✓ verification (Amharic per-book ingest — D4-c sequencing puts this FIRST)
 ls content/translations/amharic-tewahedo/*.py | wc -l
-# Expect: 87 (all canon books) for each, NOT 1 (gen.py-only seed).
+# Expect: 87 (all canon books), NOT 1 (gen.py-only seed).
+
+# τ.6.x.2+ ✓ verification (Geʽez per-book ingest — D4-c sequencing puts this SECOND)
+ls content/translations/geez-tewahedo/*.py | wc -l
+# Expect: 87 (all canon books), NOT 1 (gen.py-only seed).
+
+# τ.6.x.3 ✓ verification (full 87-book ocr-tier3 → ocr-tier2 audit pass)
+# Expect: every Amharic + Geʽez book file has its SOURCE_QUALITY entries
+# audited; tier-3 entries that cleared cross-check are flipped to tier-2;
+# entries still at tier-3 carry the operator-cross-check caveat.
 
 # δ.1.x.A-Z apparatus state (optional)
 python3 scripts/build_meqabyan_revision.py --check
