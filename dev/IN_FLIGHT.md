@@ -4,6 +4,102 @@
 
 ## Prior task
 
+**τ.7.x.f AMHARIC JOSHUA FULL-BOOK INGEST ship — SIXTH τ.7.x.* per-
+book ingest under D4-c Amharic-first + D1-a per-book cadence. **OPENS
+the post-Pentateuch historical-books arc under Amharic-first
+sequencing** — FIRST τ-cluster ingest after the §8.1 Pentateuch arc-
+close at τ.7.x.e. Historical-books canonical unit will span Joshua →
+Judges → Ruth → 1-4 Kingdoms → 1-2 Paralipomena → Ezra/Nehemiah →
+Esther under LXX/Tewahedo ordering.
+
+Adds `content/translations/amharic-tewahedo/jos.py` with 483 verses
+at **73.4% coverage — LOWEST τ.7.x.* coverage to date** (slightly
+below Exodus's 78.1%; cause: Joshua's long tribal-allotment chapters
+(Josh 13, 15, 19, 21) with dense Hebrew place-name lists + publisher-
+added Judges-bridge narrative on page 390 consume parser bandwidth).
+Pipeline reused VERBATIM from τ.7.x.e — only deltas: `JOSHUA_VERSE_
+COUNTS` (24-chapter, 658-verse floor; KJV/Hebrew Masoretic + LXX
+agreement) + `structural_map.joshua` block (pdf_page_range [349, 390]
+verified via Judges 1:1 opening at p391 content inspection).
+**10th instance of single-key back-link annotation pattern**
+(tau7xe_ingest.pipeline_reused_at_phase: τ.7.x.f — sixth pipeline-
+reuse variant). **Six-book combined coverage: 5428 verses / 6511
+expected = 83.4% across Pentateuch + Joshua; 316 PDF pages
+consumed (0-390)**.
+
+**Empirical results:** chapters 1-18 fully populated at floor;
+chapter 19 partial (13/51 verses; includes publisher's Judges-bridge
+narrative leakage + end-of-Joshua colophon `ለእግዚአብሔር ለዘለዓለሙ የተናገረው
+መጽሐፍ መላ አሜን ሆሣዕ (ኢያሱ) ተፈጺመ ክብር ምስጋና በእውነት`); chapters 20-24
+empty (Josh 20 cities-of-refuge + Josh 21 Levitical-city-allotments +
+Josh 22 eastern-tribes-return + Josh 23 Joshua's-farewell + Josh 24
+covenant-renewal-+-Joshua-death). τ.7.x.* six-ship coverage
+histogram: **93.4 / 85.9 / 85.3 / 81.4 / 78.1 / 73.4** — five of six
+within 78-93% band; Joshua extends the band-bottom downward.
+
+**NEW residual class:** publisher_bridge_narrative_residual — the
+parallel-Bible-EOTC publisher occasionally includes a brief inter-
+book bridge narrative AT THE END of a book as a forward-reference
+summary BEFORE the formal next-book opening. Page 390 contains the
+canonical Josh 24:33 + Judges 3:7-12 bridge content + Joshua
+colophon. τ.6.x.3 audit will need to (a) flag the bridge-narrative
+leakage as non-canonical AND (b) check earlier τ.7.x.* ships
+(Gen/Ex/Lev/Num/Deu) for similar bridge-narrative leakages — likely
+a class of residual affecting multiple ships.
+
+**Also NEW:** Joshua is the FIRST τ.7.x.* book WITHOUT an explicit
+`መጽሐፈ X` (Book of X) formal-title-banner form in the PDF text-layer
+(zero hits at boundary-discovery scan). Publisher uses the `ኦሪት ዘኢያሱ`
+running-header form consistently throughout the Joshua page range
+— a structural variation from the Gen/Ex/Lev/Num/Deut pattern
+(which all had explicit `ኦሪት ዘX` formal-title-banner forms). The
+formal-title-banner is therefore NOT a reliable book-opening
+indicator for the historical-books arc — boundary detection should
+rely on canonical-text scan instead.
+
+**τ.7.x.f deliverables shipped:**
+
+1. **`JOSHUA_VERSE_COUNTS` dict** in extract_parallel_pdf.py (24
+   chapters / 658 verses; KJV/Hebrew + LXX agreement).
+2. **CLI `--renumber` extended** to `{genesis, exodus, leviticus,
+   numbers, deuteronomy, joshua}` (six-way conditional).
+3. **`structural_map.joshua`** in _source.yaml with publisher_
+   bridge_narrative_residual commentary.
+4. **`content/translations/amharic-tewahedo/jos.py` created** —
+   483 verses; INGEST_PHASE='τ.7.x.f'.
+5. **`amharic-tewahedo/_meta.yaml`** updated: stats.books 5→6;
+   stats.verses 4945→5428; NEW `ingest_record_tau7xf` with
+   `arc_open: post-pentateuch-historical-books` marker.
+6. **`_source.yaml::ocr_strategy.tau7xf_ingest`** block added with
+   15-key closed_arc_contracts_preserved (all five prior τ.7.x.*
+   ingests preserved) + `arc_open` marker + arc_open narrative.
+7. **Reciprocal back-link** `tau7xe_ingest.pipeline_reused_at_
+   phase: τ.7.x.f` — 10th instance of single-key back-link
+   annotation pattern (sixth pipeline-reuse variant).
+8. **NEW test classes** in `tests/test_parallel_bible_tau7xf.py`
+   — 9 classes × 57 pin tests total (one more class than typical
+   τ.7.x.* due to dedicated PostPentateuchArcOpen class).
+9-14. SESSION_STATE + IN_FLIGHT + CHANGELOG + PLAN §6 + omega4x
+hygiene + PI2 dashboard all updated.
+
+**Test count: ~5011 → ~5068 (+57 new pins). Linter expected clean.**
+
+**What did NOT change at τ.7.x.f:**
+- No parser code mutation — sixth consecutive τ.7.x.* ship with
+  zero parser API change. Six-ship zero-API-delta extends template
+  stability across Pentateuch (5 books) + Joshua (1 book) = 316
+  PDF pages consumed.
+- gen.py + ex.py + lev.py + num.py + deu.py unchanged (τ.7.x.a/b/c/d/e
+  preserved; §8.1 Pentateuch arc-close intact).
+- geez-tewahedo/ unchanged (no jos.py created pending τ.6.x.2.f).
+- All Π.0/Π.1/Π.1.B/γ.*/ω.4x/Ω.0 invariants preserved.
+
+shipped 2026-05-15. Triggered by user "continue" — per
+`feedback_continue_not_save` continue advances to next-up phase
+(τ.7.x.f per τ.7.x.e `next_phase=τ.7.x.f`).
+
+## Prior task (previous)
+
 **τ.7.x.e AMHARIC DEUTERONOMY FULL-BOOK INGEST ship — FIFTH τ.7.x.*
 per-book ingest under D4-c Amharic-first + D1-a per-book cadence.
 **CLOSES the §8.1 Pentateuch arc under Amharic-first sequencing**

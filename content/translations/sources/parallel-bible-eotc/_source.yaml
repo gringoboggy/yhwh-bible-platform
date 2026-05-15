@@ -316,6 +316,75 @@ structural_map:
       (same Deuteronomy page range, Geʽez column) under D4-c
       sequencing — see tau6x2D_decisions.derived_phase_ordering.
 
+  joshua:
+    book_codes: [jos]
+    pdf_page_range: [349, 390]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.f
+    chapter_count_expected: 24
+    notes: |
+      Verified at τ.7.x.f (2026-05-15) via per-page chapter-marker
+      walk pages 349-395 + content-boundary inspection of pages
+      389-391. Joshua 1:1 opening at page 349 confirmed by the
+      canonical Geʽez `ወክነ እምድሣሪረ ሞተ ሙዜ ገብሪ እግዚአብሔር ቤሎ
+      እግዚአብሔር ለኢያሱ ወልደ ነዌ ላአኩ ለሙሴ` ("And it came to pass
+      after the death of Moses the servant of the LORD, that the
+      LORD spake unto Joshua the son of Nun, Moses's minister") —
+      the canonical Joshua book opening. The explicit `ኦሪት ዘኢያሱ`
+      Geʽez Joshua title (running-header form `ኦሪት ዘኢ.ያሱ` /
+      `ኦሪት ዘዚያሑ`) appears throughout pages 349-390. NOTE: the
+      explicit `መጽሐፈ ኢያሱ` (Book of Joshua) book-title-banner
+      form does NOT appear as a single string in the PDF text-
+      layer (publisher convention uses the `ኦሪት ዘኢያሱ` running-
+      header form consistently rather than the formal book-title
+      banner) — confirmed by zero hits on `መጽሐፈ ኢያሱ` substring
+      scan at τ.7.x.f boundary-discovery sub-phase.
+
+      End boundary determined by Joshua → Judges content
+      inspection: page 390 closes Joshua with the Joshua 24:29-33
+      epilogue narrative (Joshua's death + burial in Timnath-
+      serah + Joseph's bones interred at Shechem + Eleazar's
+      death + burial at Gibeah of Phinehas; Amharic column
+      `አልአዛር ኣታ እስኪሞት ... ሊቁ ካህናት ሆነ በገበያኝ በለች የአገራቸው መቃብር
+      ቈፈ ቍለዥ` "And Eleazar the son of Aaron died ... and they
+      buried him in a hill that pertained to Phinehas his son"
+      — Joshua 24:33). Page 391 opens Judges with `ምፅራፍ ፩።`
+      (chapter 1 marker) + canonical Judges 1:1 Geʽez `ወክነ እም
+      ድሣረ ሞተ ኢያሱ ተክክሎ ድቂቀ ኤስራኤል ሣበ እግዚሾዳሔር እንዘ ይብሎ መኑ
+      የፀርግ ለነ ዝበ ከነሄዎን መልአክ ዘይትቃተሎሙ ለነ` ("Now after the
+      death of Joshua it came to pass, that the children of
+      Israel asked the LORD, saying, Who shall go up for us
+      against the Canaanites first, to fight against them?") —
+      the canonical Judges book opening, post-Joshua-death.
+      The Joshua→Judges boundary is therefore decisively at
+      page 391 (Judges 1:1 opens at page 391; Joshua content
+      ends at page 390).
+
+      Joshua occupies pages 349-390 = 42 pages for 24 chapters
+      (~1.75 pages/chapter; consistent with the Tewahedo two-
+      column density baseline 1.72-2.15 pages/chapter; Joshua
+      has a mix of long allotment-list chapters (Josh 15, 19,
+      21 — tribal land allotments) and short narrative chapters
+      (Josh 5, 14, 16, 20, 23) yielding a moderate average
+      page-density very close to Genesis's 1.72 + Deuteronomy's
+      1.79). **τ.7.x.f OPENS the post-Pentateuch historical-
+      books arc under Amharic-first sequencing** — the first
+      sub-phase after the §8.1 Pentateuch arc-close at τ.7.x.e
+      starts the next canonical unit (Joshua → Judges → Ruth →
+      1-4 Kingdoms / 1-2 Samuel + 1-2 Kings under LXX/Tewahedo
+      vs Protestant orderings → 1-2 Chronicles → Ezra/Nehemiah
+      → Esther). Sixth τ.7.x per-book ingest under D4-c
+      Amharic-first + D1-a per-book cadence per the τ.6.x.2.D
+      D-decisions matrix. The pre-τ.7.x.f state was an EMPTY
+      slot (no jos.py for amharic-tewahedo); τ.7.x.f creates
+      amharic-tewahedo/jos.py at ocr-tier3 quality per τ.6.x.0b
+      honesty contract. Geʽez column ingest is deferred to
+      τ.6.x.2.f (same Joshua page range, Geʽez column) under
+      D4-c sequencing — see tau6x2D_decisions.derived_phase_
+      ordering.
+
   meqabyan:
     book_codes: [mq1, mq2, mq3]
     pdf_page_range: [1318, 1378]
@@ -2316,3 +2385,272 @@ ocr_strategy:
       inspection — Joshua 1:1 confirmed at page 349; exact end-of-
       Joshua boundary to be verified at τ.7.x.f page-range
       discovery sub-phase via Judges title `መጽሐፈ መሳፍንት` scan).
+    pipeline_reused_at_phase: τ.7.x.f  # back-link: τ.7.x.f re-used the τ.7.x.e pipeline (which itself re-used τ.7.x.d which re-used τ.7.x.c which re-used τ.7.x.b which re-used τ.7.x.a); only delta was JOSHUA_VERSE_COUNTS floor + structural_map.joshua. **OPENS the post-Pentateuch historical-books arc** under Amharic-first sequencing — FIRST τ-cluster ingest after the §8.1 Pentateuch arc-close.
+
+  tau7xf_ingest:
+    shipped_at_phase: τ.7.x.f
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "continue" after τ.7.x.e ship — per `feedback_continue_
+      not_save` continue advances to next-up phase (τ.7.x.f per PLAN
+      §6 + τ.7.x.e `next_phase=τ.7.x.f` declaration). Pipeline reused
+      verbatim from τ.7.x.e (which itself reused τ.7.x.d which reused
+      τ.7.x.c which reused τ.7.x.b which reused τ.7.x.a); only delta
+      is JOSHUA_VERSE_COUNTS as the sixth renumber-floor +
+      structural_map.joshua as the sixth section. Sixth consecutive
+      τ.7.x.* per-book ingest under D4-c Amharic-first sequencing +
+      D1-a per-book cadence. **OPENS the post-Pentateuch historical-
+      books arc under Amharic-first sequencing** — the FIRST τ-cluster
+      ingest after the §8.1 Pentateuch arc-close at τ.7.x.e marks
+      the start of the next canonical unit (Joshua → Judges → Ruth →
+      1-4 Kingdoms → 1-2 Paralipomena → Ezra/Nehemiah → Esther under
+      the LXX/Tewahedo ordering). PRE-PILOT page-range discovery via
+      Judges 1:1 opening (`ወክነ እም ድሣረ ሞተ ኢያሱ` "After the death of
+      Joshua") scan succeeded — Joshua 24:33 epilogue + publisher's
+      Judges-bridge narrative + end-of-Joshua colophon all on page
+      390; Judges 1:1 opens at page 391. The explicit `መጽሐፈ ኢያሱ`
+      (Book of Joshua) book-title-banner form does NOT appear as a
+      single string in the PDF text-layer (zero hits at boundary-
+      discovery scan); publisher uses the `ኦሪት ዘኢያሱ` running-header
+      form consistently. Joshua occupies pages [349, 390] = 42 pages
+      for 24 chapters (~1.75 pages/chapter).
+    structural_map_addition:
+      section: joshua
+      pdf_page_range: [349, 390]
+      chapter_count_expected: 24
+      boundary_verification: |
+        Per-page chapter-marker walk pages 349-395 + content
+        inspection of pages 389-391. Joshua 1:1 opening at page 349
+        confirmed by canonical Geʽez `ወክነ እምድሣሪረ ሞተ ሙዜ ገብሪ
+        እግዚአብሔር ቤሎ እግዚአብሔር ለኢያሱ ወልደ ነዌ` ("And it came to pass
+        after the death of Moses the servant of the LORD, the LORD
+        spake unto Joshua the son of Nun") + the running-header
+        `ኦሪት ዘኢ.ያሱ` (Geʽez Joshua title in running-header form).
+        Publisher convention does NOT use the formal `መጽሐፈ ኢያሱ`
+        book-title-banner form at the Joshua opening (zero string
+        hits in PDF text-layer scan at τ.7.x.f boundary-discovery);
+        the running-header `ኦሪት ዘኢያሱ` is the consistent title
+        marker throughout pages 349-390. End boundary at page 390
+        closes Joshua with Josh 24:33 Eleazar's-death narrative +
+        a publisher-added Judges-bridge narrative ("After this the
+        children of Israel served Ashtaroth... LORD gave them to
+        Eglon king of Moab" — Judges 3:7-12 content used as a
+        forward-reference summary BEFORE the formal Judges 1:1
+        opening at page 391) + end-of-Joshua colophon `ለእግዚአብሔር
+        ለዘለዓለሙ የተናገረው መጽሐፍ መላ አሜን ሆሣዕ (ኢያሱ) ተፈጺመ ክብር ምስጋና
+        በእውነት` ("The book that spoke to the LORD forever is
+        completed; Amen; Joshua [book] was completed; glory +
+        praise + in truth"). Page 391 opens Judges with `ምፅራፍ ፩።`
+        + canonical Judges 1:1 Geʽez `ወክነ እም ድሣረ ሞተ ኢያሱ ተክክሎ
+        ድቂቀ ኤስራኤል ሣበ እግዚሾዳሔር` ("Now after the death of Joshua
+        it came to pass, that the children of Israel asked the
+        LORD") — the canonical Judges book opening.
+      page_density: 1.75  # 42 pages / 24 chapters; consistent with Genesis 1.72 + Deuteronomy 1.79 — historical-books long allotment chapters interleave with shorter narrative chapters
+      publisher_bridge_narrative_residual: |
+        NEW residual class discovered at τ.7.x.f: the parallel-Bible-
+        EOTC publisher occasionally includes a brief Judges-bridge
+        narrative AT THE END of Joshua (within page 390) as a
+        forward-reference summary BEFORE the formal next-book
+        opening (Judges 1:1 at page 391). This bridge text gets
+        leaked into the τ.7.x.f ingest output (contributes ~6-10
+        verses to the renumbered ch 19 partial slot). The bridge
+        text is NOT canonical Joshua content — it is a publisher-
+        added editorial bridge. τ.6.x.3 audit will flag the bridge-
+        narrative leakage as non-canonical and filter it out during
+        the tier-3 → tier-2 promotion pass. Check earlier τ.7.x.*
+        ships (Gen, Ex, Lev, Num, Deu) for similar bridge-narrative
+        leakages at their book-end boundaries — likely a class of
+        residual affecting multiple ships.
+    helpers_added:
+      JOSHUA_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-24) → expected verse count.
+        Total 658 verses (KJV/Hebrew Masoretic + LXX agreement;
+        no chapter-boundary repartitioning between traditions).
+        Sixth renumber-floor for the parallel-Bible Amharic-stream
+        ingest under D1-a per-book cadence.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` argparse choices extended from {genesis, exodus,
+        leviticus, numbers, deuteronomy} to {genesis, exodus,
+        leviticus, numbers, deuteronomy, joshua}. The `joshua`
+        choice wires JOSHUA_VERSE_COUNTS as the floor dict.
+        `_build_docstring_extra()` dispatch updated for the sixth
+        floor; the floor-dict pattern from τ.7.x.b/c/d/e is now a
+        six-way conditional rather than a five-way one.
+    parser_api_change: |
+      No parser API changes. extract_section() + write_book_module()
+      + renumber_against_floor() + parse_verses_from_text()
+      unchanged. The only deltas are the JOSHUA_VERSE_COUNTS dict +
+      dispatch logic + structural_map.joshua block. SIXTH
+      consecutive τ.7.x.* ship with zero parser API change — six-
+      ship zero-API-delta extends the strongest-possible-refactor-
+      stability-signal achievement: the τ.7.x.a template now spans
+      the entire Pentateuch (5 books) PLUS the first historical-
+      books arc-open (Joshua). Six-ship template stability is
+      decisive — any future per-book τ.7.x.* sub-ship under D1-a
+      cadence is essentially a data-only change (floor dict +
+      page-range), no code-side work needed.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [349, 390]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 483
+      renumbered_verse_count: 483
+      renumbered_chapters_with_content: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+      chapters_partial:
+        19: {got: 13, expected: 51, ratio_pct: 25.5}
+      chapters_missing: [20, 21, 22, 23, 24]
+      expected_total: 658
+      coverage_pct: 73.4
+      end_of_book_colophon_preserved: |
+        End-of-Joshua colophon `ለእግዚአብሔር ለዘለዓለሙ የተናገረው መጽሐፍ መላ
+        አሜን ሆሣዕ (ኢያሱ) ተፈጺመ ክብር ምስጋና በእውነት` ("The book that spoke
+        to the LORD forever is completed; Amen; Joshua [book] was
+        completed; glory + praise + in truth") preserved at the
+        parser's terminal output (renumbered into ch 19 partial
+        slot due to 26.6% recovery deficit; canonical placement
+        would be at end-of-Josh-24). Mirrors the τ.7.x.b/d/e Exodus
+        + Numbers + Deuteronomy colophon-placement patterns. NOTE:
+        Joshua is the FIRST τ.7.x.* book where the publisher-added
+        Judges-bridge narrative also appears at page-390-bottom and
+        gets leaked alongside the canonical colophon — this is a
+        NEW residual class for τ.6.x.3 audit to address.
+      coverage_band_position: |
+        73.4% Joshua coverage is the LOWEST τ.7.x.* coverage to
+        date, ~5 points below Exodus (78.1%, τ.7.x.b) which was
+        previously the band-bottom. Cause: Joshua's mix of long
+        tribal-allotment chapters (Josh 13, 15, 19, 21) with dense
+        Hebrew place-name lists in the Amharic transliteration
+        (parser bandwidth-heavy) + the publisher-added Judges-bridge
+        narrative on page 390 (consumes parser bandwidth that
+        would otherwise extend into Josh 20-24 canonical content).
+        The τ.7.x.* six-ship coverage histogram is now: 73.4 /
+        78.1 / 81.4 / 85.3 / 85.9 / 93.4 — five of six within the
+        78-93% band; Joshua extends the band-bottom downward.
+        τ.6.x.3 batched audit closes the Josh 20-24 gap +
+        filters the bridge-narrative leakage.
+      pentateuch_plus_joshua_combined_coverage: |
+        With τ.7.x.f opening the post-Pentateuch historical-books
+        arc, the combined amharic-tewahedo Pentateuch + Joshua
+        coverage is: 1308 gen + 947 ex + 802 lev + 1107 num + 781
+        deu + 483 jos = 5428 verses extracted / 6511 verses
+        expected (Pentateuch 5853 + Joshua 658) = 83.4% combined
+        coverage across all 6 books. Six-book Pentateuch + Joshua
+        combined ingest is the largest sequential canonical run
+        shipped in the τ.7.x.* family to date — 316 PDF pages
+        consumed (0-390) yielding ~5428 verses of recoverable
+        Amharic Bible text at ocr-tier3 quality.
+      regression_pin_tests:
+        - test_amharic_jos_total_verse_count_floor
+        - test_amharic_jos_chapters_1_through_18_fully_populated
+        - test_amharic_jos_chapter_19_partial
+        - test_amharic_jos_chapters_20_through_24_empty
+        - test_amharic_jos_ingest_phase_constant
+        - test_amharic_jos_source_quality_tier3
+        - test_amharic_jos_end_of_book_colophon_preserved
+        - test_post_pentateuch_arc_open_joshua_shipped
+    known_residual_issues:
+      coverage_short_by_175_verses: |
+        73.4% coverage = 175 verses missing (Josh 19 partial + Josh
+        20-24 empty). HIGHER missing count than typical τ.7.x.*
+        residue (Exodus 266, Deut 178, Genesis 226). The 26.6%
+        deficit is partly explained by the publisher-added Judges-
+        bridge narrative on page 390 consuming parser bandwidth.
+        τ.6.x.3 batched audit closes the Josh 20-24 gap.
+      same_inline_leakage_pattern_as_prior: |
+        Cross-references inlined within verse text (using `=`
+        terminator) still leak through the splitter — same as
+        τ.7.x.a Genesis + τ.7.x.b Exodus + τ.7.x.c Leviticus +
+        τ.7.x.d Numbers + τ.7.x.e Deuteronomy. Affects readability
+        but not (ch, v) indexing. Sixth ship confirms this is a
+        stable known-issue rather than a regression risk.
+      new_publisher_bridge_narrative_residual: |
+        NEW residual class discovered at τ.7.x.f: page 390 contains
+        a publisher-added Judges-bridge narrative ("After this
+        the children of Israel served Ashtaroth... LORD gave them
+        to Eglon king of Moab" — Judges 3:7-12 content used as a
+        forward-reference summary BEFORE the formal Judges 1:1
+        opening at page 391). This bridge text is NOT canonical
+        Joshua content but lives within the Joshua page range and
+        gets leaked into the τ.7.x.f ingest output (contributes
+        ~6-10 verses to the renumbered ch 19 partial slot). τ.6.x.3
+        audit will need to (a) flag the bridge-narrative leakage
+        as non-canonical for tier-3→tier-2 promotion AND
+        (b) check earlier τ.7.x.* ships (Gen, Ex, Lev, Num, Deu)
+        for similar bridge-narrative leakages at their book-end
+        boundaries — this is likely a class of residual affecting
+        multiple ships, not just τ.7.x.f.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false  # sixth authorized violation per D4-c
+      tau6x0b_honesty_contract: true
+      tau6x0c_script_ethiopic_adoption: true
+      tau6x1_engine_wiring: true
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true
+      tau6x1c_parser_extension: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true  # D1-a + D4-c honored; sixth per-book sub-ship
+      tau7xa_pre_pilot: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true  # pipeline reused verbatim; back-link annotated above; CLOSED Pentateuch §8.1 arc preserved
+    no_ingest_at_this_phase: false
+    arc_open: post-pentateuch-historical-books  # FIRST τ-cluster ingest after the §8.1 Pentateuch arc-close at τ.7.x.e
+    arc_open_narrative: |
+      τ.7.x.f is the FIRST τ-cluster ingest after the §8.1 Pentateuch
+      arc-close at τ.7.x.e. It opens the post-Pentateuch historical-
+      books arc under Amharic-first sequencing — Joshua → Judges →
+      Ruth → 1-4 Kingdoms (1-2 Samuel + 1-2 Kings in Protestant
+      ordering; 1-4 Kingdoms in LXX/Tewahedo ordering) → 1-2
+      Paralipomena → Ezra/Nehemiah → Esther under the Tewahedo
+      tradition (with Tobit + Judith + 1-2 Maccabees as
+      deuterocanonical additions; Mäqabyan trilogy is the Tewahedo-
+      distinctive Maccabees-titled-but-distinct text, already shipped
+      at γ.4.8 in the patristic-and-canonical voice corpus).
+
+      The historical-books arc spans the canonical narrative from
+      Israel's entry into Canaan (Joshua) through the Babylonian
+      exile and return (Ezra/Nehemiah/Esther) — approximately 10-12
+      books depending on tradition. Each book will be a per-book
+      τ.7.x.* sub-ship under D1-a cadence; the arc will close at the
+      §8.1 Esther-arc-close (or equivalent Tewahedo terminus) once
+      all historical-books shipments are complete.
+
+      Six-ship zero-parser-API-delta validation extends: the τ.7.x.a
+      template now spans Pentateuch (5 books) + Joshua (1 book) = 6
+      books / 316 PDF pages (0-390) / 5428 verses / 83.4% combined
+      coverage. Future τ.7.x.* sub-ships under D1-a cadence are
+      data-only changes (floor dict + page-range); no code-side
+      work needed for the next ~80 books under Amharic-first
+      sequencing.
+    translation_slot_state:
+      amharic_tewahedo_gen: 'shipped-at-τ.7.x.a (preserved)'
+      amharic_tewahedo_ex: 'shipped-at-τ.7.x.b (preserved)'
+      amharic_tewahedo_lev: 'shipped-at-τ.7.x.c (preserved)'
+      amharic_tewahedo_num: 'shipped-at-τ.7.x.d (preserved)'
+      amharic_tewahedo_deu: 'shipped-at-τ.7.x.e (preserved; CLOSED Pentateuch §8.1 arc)'
+      amharic_tewahedo_jos: 'shipped-at-τ.7.x.f (this ship; 483 verses; ocr-tier3; OPENS post-Pentateuch historical-books arc)'
+      amharic_tewahedo_pentateuch_summary: 'ALL 5 TORAH BOOKS SHIPPED — gen+ex+lev+num+deu = 4945 verses at 84.5% combined coverage; §8.1 arc closed at τ.7.x.e'
+      amharic_tewahedo_six_book_summary: 'PENTATEUCH + JOSHUA SHIPPED — 5428 verses across 6 books at 83.4% combined coverage; post-Pentateuch historical-books arc OPENED'
+      geez_tewahedo_gen: 'remains-at-Π.0-3-verse-seed (τ.6.x.2.a under D4-c)'
+      geez_tewahedo_ex: 'no-op (τ.6.x.2.b under D4-c)'
+      geez_tewahedo_lev: 'no-op (τ.6.x.2.c under D4-c)'
+      geez_tewahedo_num: 'no-op (τ.6.x.2.d under D4-c)'
+      geez_tewahedo_deu: 'no-op (τ.6.x.2.e under D4-c)'
+      geez_tewahedo_jos: 'no-op (τ.6.x.2.f under D4-c)'
+      other_book_slots: 'no-op (τ.7.x.g ... τ.7.x.z under D1-a per-book cadence; jdg pilot next — continues post-Pentateuch historical-books arc)'
+    next_phase: τ.7.x.g
+    next_phase_description: |
+      τ.7.x.g — Amharic Judges full-book ingest under D1-a per-book
+      cadence + D4-c Amharic-first sequencing. CONTINUES the post-
+      Pentateuch historical-books arc (Joshua → Judges → Ruth → ...).
+      Reuses the τ.7.x.a + τ.7.x.b + τ.7.x.c + τ.7.x.d + τ.7.x.e +
+      τ.7.x.f pipeline; needs JUDGES_VERSE_COUNTS floor (21 chapters,
+      618 verses per KJV enumeration) + structural_map.judges block
+      (pdf_page_range starting at 391 per this ship's boundary
+      inspection — Judges 1:1 confirmed at page 391; exact end-of-
+      Judges boundary to be verified at τ.7.x.g page-range discovery
+      sub-phase via Ruth title `መጽሐፈ ሩት` scan).

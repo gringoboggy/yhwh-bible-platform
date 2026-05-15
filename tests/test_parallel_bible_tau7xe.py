@@ -346,10 +346,14 @@ class TestTau7XEMetaYamlIngestRecord:
         path = AMHARIC_TEWAHEDO / "_meta.yaml"
         return yaml.safe_load(path.read_text(encoding="utf-8"))
 
-    def test_stats_books_five(self):
-        # Genesis + Exodus + Leviticus + Numbers + Deuteronomy = full Pentateuch
+    def test_stats_books_at_least_five(self):
+        """Refactored share-pin→milestone-pin at τ.7.x.f ship-time per
+        `feedback_share_pin_pattern`. Originally asserted ==5 (full
+        Pentateuch post-τ.7.x.e); τ.7.x.f bumped to 6 (Pentateuch +
+        Joshua). Durable invariant: ≥5 (full Pentateuch shipped +
+        any subsequent τ.7.x.* book)."""
         m = self._meta()
-        assert m["stats"]["books"] == 5
+        assert m["stats"]["books"] >= 5
 
     def test_stats_verses_combined(self):
         # 1308 (gen) + 947 (ex) + 802 (lev) + 1107 (num) + 781 (deu) = 4945. Floor 4500.

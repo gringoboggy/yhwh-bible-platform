@@ -267,7 +267,32 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             of single-key back-link annotation pattern tau7xd_ingest
             →τ.7.x.e; τ-cluster §8.1 codifies STRUCTURAL §8.1
             (per-book-cadence closure of canonical unit) vs γ-cluster
-            NARRATIVE §8.1 (detail-wave buildout within voice/book))"""
+            NARRATIVE §8.1 (detail-wave buildout within voice/book))
+          - τ.7.x.f migrated pending → shipped at τ.7.x.f ship-time
+            (2026-05-15; the SIXTH τ.7.x.* per-book ship; **OPENS
+            the post-Pentateuch historical-books arc under Amharic-
+            first sequencing** — FIRST τ-cluster ingest after the
+            §8.1 Pentateuch arc-close at τ.7.x.e; historical-books
+            canonical unit will span Joshua → Judges → Ruth → 1-4
+            Kingdoms → 1-2 Paralipomena → Ezra/Nehemiah → Esther
+            under LXX/Tewahedo ordering; creates amharic-tewahedo/
+            jos.py with 483 verses at 73.4% coverage — LOWEST
+            τ.7.x.* coverage to date (slightly below Exodus's
+            78.1%); cause: Joshua's long tribal-allotment chapters
+            + publisher-added Judges-bridge narrative on page 390;
+            re-uses τ.7.x.e pipeline verbatim with only
+            JOSHUA_VERSE_COUNTS + structural_map.joshua as deltas;
+            SIXTH CONSECUTIVE τ.7.x.* ship with zero parser API
+            change — six-ship zero-API-delta extends template
+            stability across Pentateuch (5 books) + Joshua (1 book)
+            = 6 books / 316 PDF pages; **Pentateuch + Joshua
+            combined coverage 5428/6511 = 83.4% across all 6
+            books**; 10th instance of single-key back-link
+            annotation pattern tau7xe_ingest→τ.7.x.f; NEW NULL-
+            FORMAL-TITLE-BANNER pattern (Joshua first τ.7.x.* book
+            without explicit `መጽሐፈ X` book-title-banner in PDF
+            text-layer); NEW residual class publisher_bridge_
+            narrative_residual)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -290,6 +315,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.7.x.c",
             "τ.7.x.d",
             "τ.7.x.e",
+            "τ.7.x.f",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -355,10 +381,18 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             sequencing; 24 chapters, 658 verses; re-uses τ.7.x.a+b+
             c+d+e pipeline with JOSHUA_VERSE_COUNTS floor +
             structural_map.joshua block; Joshua 1:1 boundary
-            confirmed at page 349 per τ.7.x.e boundary inspection
-            via Joshua title `መጽሐፈ ኢያሱ` scan)"""
+            confirmed at page 349 per τ.7.x.e boundary inspection);
+            migrated pending → shipped at τ.7.x.f ship-time
+            (2026-05-15)
+          - τ.7.x.g added pending at τ.7.x.f ship-time (2026-05-15;
+            Amharic Judges full-book ingest continues the post-
+            Pentateuch historical-books arc under Amharic-first
+            sequencing; 21 chapters, 618 verses; re-uses τ.7.x.a+b+
+            c+d+e+f pipeline with JUDGES_VERSE_COUNTS floor +
+            structural_map.judges block; Judges 1:1 boundary
+            confirmed at page 391 per τ.7.x.f boundary inspection)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.f", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.g", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 

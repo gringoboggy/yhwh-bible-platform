@@ -738,6 +738,47 @@ DEUTERONOMY_VERSE_COUNTS = {
 # Masoretic redistributes some boundaries but yields the same total).
 
 
+# τ.7.x.f — Canonical Joshua verse counts (24 chapters, 658 verses).
+# Sixth renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. OPENS the post-Pentateuch historical-
+# books arc under Amharic-first sequencing (the §8.1 Pentateuch arc-
+# close at τ.7.x.e marked the canonical Pentateuch boundary; τ.7.x.f
+# starts the next canonical unit — the historical-books cluster:
+# Joshua → Judges → Ruth → 1-2 Samuel → 1-2 Kings → 1-2 Chronicles
+# → Ezra → Nehemiah → Esther under the Protestant ordering, or
+# Joshua → Judges → Ruth → 1-4 Kingdoms → 1-2 Paralipomena → Ezra/
+# Nehemiah → Esther in the LXX ordering followed by the Tewahedo
+# tradition). The 658-verse total matches KJV/standard Christian
+# enumeration; Hebrew/Masoretic agrees.
+JOSHUA_VERSE_COUNTS = {
+    1: 18,
+    2: 24,
+    3: 17,
+    4: 24,
+    5: 15,
+    6: 27,
+    7: 26,
+    8: 35,
+    9: 27,
+    10: 43,
+    11: 23,
+    12: 24,
+    13: 33,
+    14: 15,
+    15: 63,
+    16: 10,
+    17: 18,
+    18: 28,
+    19: 51,
+    20: 9,
+    21: 45,
+    22: 34,
+    23: 16,
+    24: 33,
+}
+# Total Joshua verses = 658 (KJV/Hebrew Masoretic + LXX agreement).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1622,6 +1663,8 @@ def _build_docstring_extra(
         floor_dict = NUMBERS_VERSE_COUNTS
     elif renumber == "deuteronomy":
         floor_dict = DEUTERONOMY_VERSE_COUNTS
+    elif renumber == "joshua":
+        floor_dict = JOSHUA_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -1700,7 +1743,7 @@ def main() -> int:
     p.add_argument(
         "--renumber",
         default=None,
-        choices=["genesis", "exodus", "leviticus", "numbers", "deuteronomy"],
+        choices=["genesis", "exodus", "leviticus", "numbers", "deuteronomy", "joshua"],
         help=(
             "Post-process renumber verses against a canonical chapter "
             "verse-count floor (τ.7.x.a writer-side residual handler). "
@@ -1708,8 +1751,10 @@ def main() -> int:
             "'exodus' (EXODUS_VERSE_COUNTS, 40 ch / 1213 v; τ.7.x.b), "
             "'leviticus' (LEVITICUS_VERSE_COUNTS, 27 ch / 859 v; τ.7.x.c), "
             "'numbers' (NUMBERS_VERSE_COUNTS, 36 ch / 1288 v; τ.7.x.d), "
-            "and 'deuteronomy' (DEUTERONOMY_VERSE_COUNTS, 34 ch / 959 v; "
-            "τ.7.x.e — CLOSES the §8.1 Pentateuch arc). "
+            "'deuteronomy' (DEUTERONOMY_VERSE_COUNTS, 34 ch / 959 v; "
+            "τ.7.x.e — CLOSED the §8.1 Pentateuch arc), and 'joshua' "
+            "(JOSHUA_VERSE_COUNTS, 24 ch / 658 v; τ.7.x.f — OPENS the "
+            "post-Pentateuch historical-books arc). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -1752,6 +1797,8 @@ def main() -> int:
         renumber_floor = NUMBERS_VERSE_COUNTS
     elif args.renumber == "deuteronomy":
         renumber_floor = DEUTERONOMY_VERSE_COUNTS
+    elif args.renumber == "joshua":
+        renumber_floor = JOSHUA_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata
