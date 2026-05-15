@@ -4,6 +4,61 @@
 
 ## Prior task
 
+**τ.7.x.c AMHARIC LEVITICUS FULL-BOOK INGEST ship — THIRD τ.7.x.*
+per-book ingest under D4-c Amharic-first + D1-a per-book cadence.
+Adds `content/translations/amharic-tewahedo/lev.py` with 802 verses
+at **93.4% coverage — the HIGHEST τ.7.x.* coverage yet** (vs Gen
+85.3%, Ex 78.1%; Leviticus has short verse-dense ritual-law chapters).
+Pipeline reused VERBATIM from τ.7.x.b — only deltas:
+`LEVITICUS_VERSE_COUNTS` (27-chapter, 859-verse floor) +
+`structural_map.leviticus` block (pdf_page_range [161, 213] verified
+via Lev 1:1 @ p161 + Lev 27:34 @ p212 + Num 1:1 @ p214 content
+boundary). **7th instance of single-key back-link annotation
+pattern** (tau7xb_ingest.pipeline_reused_at_phase: τ.7.x.c — third
+pipeline-reuse variant; pattern well-established).
+
+**Empirical results:** chapters 1-25 fully populated at floor;
+chapter 26 partial (23/46 = 50%); chapter 27 empty (final
+dedication/redemption laws chapter); coverage 802/859 = 93.4%.
+Combined amharic-tewahedo: 3 books, 3057 verses (gen 1308 + ex 947
++ lev 802) = 84.8% combined coverage across τ.7.x.a+b+c.
+
+**τ.7.x.c deliverables shipped:**
+
+1. **`LEVITICUS_VERSE_COUNTS` dict** in extract_parallel_pdf.py.
+2. **CLI `--renumber` extended** to `{genesis, exodus, leviticus}`.
+3. **`structural_map.leviticus`** in _source.yaml.
+4. **`content/translations/amharic-tewahedo/lev.py` created** —
+   802 verses; INGEST_PHASE='τ.7.x.c'.
+5. **`amharic-tewahedo/_meta.yaml`** updated: stats.books 2→3;
+   stats.verses 2255→3057; NEW `ingest_record_tau7xc` block.
+6. **`_source.yaml::ocr_strategy.tau7xc_ingest`** block added with
+   12-key closed_arc_contracts_preserved (tau7xa_ingest +
+   tau7xb_ingest both True with back-link annotations preserved).
+7. **Reciprocal back-link** `tau7xb_ingest.pipeline_reused_at_
+   phase: τ.7.x.c` — 7th instance of single-key back-link
+   annotation pattern.
+8. **NEW test classes** in `tests/test_parallel_bible_tau7xc.py` —
+   8 classes × 50 pin tests total.
+9-14. SESSION_STATE + IN_FLIGHT + CHANGELOG + PLAN §6 + omega4x
+hygiene + PI2 dashboard all updated.
+
+**Test count: ~4850 → ~4900 (+50 new pins). Linter expected clean.**
+
+**What did NOT change at τ.7.x.c:**
+- No parser code mutation — third consecutive τ.7.x.* ship with
+  zero parser API change. The τ.7.x.a template is now firmly
+  established as a stable per-book scaffold.
+- gen.py + ex.py unchanged (τ.7.x.a + τ.7.x.b ingests preserved).
+- geez-tewahedo/ unchanged (no lev.py created pending τ.6.x.2.c).
+- All Π.0/Π.1/Π.1.B/γ.*/ω.4x/Ω.0 invariants preserved.
+
+shipped 2026-05-15. Triggered by user "continue" — per
+`feedback_continue_not_save` continue advances to next-up phase
+(τ.7.x.c per τ.7.x.b `next_phase=τ.7.x.c`).
+
+## Prior task (previous)
+
 **τ.7.x.b AMHARIC EXODUS FULL-BOOK INGEST ship — SECOND τ.7.x.*
 per-book ingest under D4-c Amharic-first + D1-a per-book cadence.
 Adds `content/translations/amharic-tewahedo/ex.py` with 947 verses

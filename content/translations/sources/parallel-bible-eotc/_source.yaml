@@ -146,6 +146,49 @@ structural_map:
       same Exodus page range, Geʽez column) under D4-c sequencing —
       see tau6x2D_decisions.derived_phase_ordering.
 
+  leviticus:
+    book_codes: [lev]
+    pdf_page_range: [161, 213]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.c
+    chapter_count_expected: 27
+    notes: |
+      Verified at τ.7.x.c (2026-05-15) via per-page chapter-marker
+      walk pages 161-220 + content-boundary inspection of pages
+      212-214. Leviticus 1:1 opening `አግዚአብሔር ክደብተራ አሪ ውክጥ ዙኖ
+      ሙሌን መርቶ` ("And the LORD called Moses out of the
+      tabernacle") confirmed at page 161 (publisher convention
+      starts content WITHOUT formal `ኦሪት ዘሌዋውያን` title — the title
+      hits much later on page 172 and onwards as a sub-page header
+      banner). Leviticus 27:34 closing `እግዚ አብሔር በሱና በእስራኤል
+      ልጆች መክከል በሲና ተራራ በሙሴ እጅ የሰጠው ቋግ ትእዛዝና ፍርድ ይሀ ው`
+      ("These are the commandments which the LORD commanded Moses
+      for the children of Israel on Mount Sinai") confirmed at
+      page 212.
+
+      End-boundary determined by Numbers transition at page 214:
+      page 214 opens with `መጽሐፍ ይዘ ነው` ("This book is finished")
+      + transitional banner `ኦሪት ዘፀአት የአበውን ቀጥር ይናገር አስት ሠለስቱ
+      ምእአት ለመጻሕፍት ሁሉ አርአስት ሲሰጡ መ ዘሲና በውስተ ደብተራ መርጡል ብሎ
+      ይጀምራል` (introducing the "father-numbering" book that begins
+      "in Sinai in the tabernacle"), followed by `ምፅራፍ B፩።`
+      (Numbers ch 1 marker, garbled) + the canonical Numbers 1:1
+      opening `እስራኤል ከግብጽ አገር በወጡ በሁለተኛው ዓመት በሁለተኛው ወር
+      መበቻ በሷና ምድረ በዳ ልዩ በሆነች ድንኳን አግዚአብሔር ሙሴን ተናገረው`
+      ("In the second year after they came out of Egypt, on the
+      first day of the second month, in the wilderness of Sinai,
+      in the tabernacle the LORD spoke to Moses").
+
+      Leviticus occupies pages 161-213 = 53 pages for 27 chapters
+      (~1.96 pages/chapter; consistent with Tewahedo two-column
+      density baseline 1.72-2.15 pages/chapter; Leviticus has many
+      short laws + sacrifice rite chapters). Third τ.7.x per-book
+      ingest under D4-c Amharic-first sequencing + D1-a per-book
+      cadence. Geʽez column ingest deferred to τ.6.x.2.c (same
+      Leviticus page range, Geʽez column) under D4-c sequencing.
+
   meqabyan:
     book_codes: [mq1, mq2, mq3]
     pdf_page_range: [1318, 1378]
@@ -1581,3 +1624,134 @@ ocr_strategy:
       page_range likely [161, ~205] per τ.7.x.b.0 boundary inspection
       — Lev 1:1 confirmed at page 161; exact end-of-Leviticus boundary
       to be verified at τ.7.x.c page-range discovery sub-phase).
+    pipeline_reused_at_phase: τ.7.x.c  # back-link: τ.7.x.c re-used the τ.7.x.b pipeline (which itself re-used τ.7.x.a); only delta was LEVITICUS_VERSE_COUNTS floor + structural_map.leviticus. Confirms the τ.7.x.* template across 3 consecutive ships.
+
+  # τ.7.x.c — Amharic Leviticus full-book ingest (D4-c Amharic-first,
+  # D1-a per-book cadence, ocr-tier3 quality). THIRD τ.7.x.* ship,
+  # re-uses the τ.7.x.a pipeline (via τ.7.x.b confirmation) with only
+  # LEVITICUS_VERSE_COUNTS floor + structural_map.leviticus block
+  # as deltas. Highest τ.7.x.* coverage yet (93.4% vs 85.3% Gen, 78.1%
+  # Ex) — Leviticus has short verse-dense ritual-law chapters with
+  # minimal cross-ref leakage. Page-range verified via per-page
+  # chapter-marker walk + Lev 27:34 closing → Numbers 1:1 opening
+  # content-boundary inspection (page 212 closes Lev with "These are
+  # the commandments which the LORD commanded Moses for the children
+  # of Israel on Mount Sinai"; page 214 opens with "This book is
+  # finished" transitional banner + canonical Num 1:1).
+  #
+  # Pin tests in tests/test_parallel_bible_tau7xc.py.
+  tau7xc_ingest:
+    shipped_at_phase: τ.7.x.c
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "continue" after τ.7.x.b ship — per `feedback_continue_
+      not_save` continue advances to next-up phase. Pipeline reused
+      verbatim from τ.7.x.b (which itself reused τ.7.x.a); only
+      delta is LEVITICUS_VERSE_COUNTS as the third renumber-floor.
+    structural_map_addition:
+      section: leviticus
+      pdf_page_range: [161, 213]
+      chapter_count_expected: 27
+      boundary_verification: |
+        Per-page chapter-marker walk pages 161-220 + content
+        inspection of pages 212-214. Lev 1:1 opening confirmed at
+        page 161 (already known from τ.7.x.b boundary inspection);
+        Lev 27:34 closing ("These are the commandments which the
+        LORD commanded Moses for the children of Israel on Mount
+        Sinai") confirmed at page 212; Numbers 1:1 opening ("In the
+        second year, second month, in the wilderness of Sinai")
+        confirmed at page 214 + page 214's opening "this book is
+        finished" transitional banner with reference to the
+        Numbers "father-numbering" book content.
+      page_density: 1.96  # 53 pages / 27 chapters; consistent with Tewahedo two-column baseline 1.72-2.15 pp/ch
+    helpers_added:
+      LEVITICUS_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-27) → expected verse count.
+        Total 859 verses (Masoretic + LXX + Vulgate + Tewahedo
+        enumerations all agree). Third renumber-floor for the
+        parallel-Bible Amharic-stream ingest under D1-a per-book
+        cadence.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` argparse choices extended from {genesis, exodus}
+        to {genesis, exodus, leviticus}. The `leviticus` choice
+        wires LEVITICUS_VERSE_COUNTS as the floor dict.
+        `_build_docstring_extra()` dispatch already supports the
+        floor-dict pattern from τ.7.x.b; only the conditional branch
+        for `leviticus` was added.
+    parser_api_change: |
+      No parser API changes. extract_section() + write_book_module() +
+      renumber_against_floor() unchanged. The only deltas are the
+      LEVITICUS_VERSE_COUNTS dict + dispatch logic. Third consecutive
+      τ.7.x.* ship with zero parser API change — strong validation of
+      the τ.7.x.a template as a stable per-book scaffold.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [161, 213]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 802
+      renumbered_verse_count: 802
+      renumbered_chapters_with_content: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+      chapters_partial:
+        26: {got: 23, expected: 46, ratio_pct: 50.0}
+      chapters_missing: [27]
+      expected_total: 859
+      coverage_pct: 93.4
+      coverage_highest_yet: |
+        93.4% Leviticus coverage exceeds both prior τ.7.x.* ships:
+        Genesis 85.3% (τ.7.x.a) + Exodus 78.1% (τ.7.x.b). Cause:
+        Leviticus has short verse-dense ritual-law chapters with
+        sentence boundaries cleanly marked by `።` Ethiopic full-stop;
+        minimal narrative cross-reference interleaving (vs Exodus's
+        tabernacle-spec + plague chapters which had denser `=`-
+        terminated cross-refs that leaked verse content).
+      regression_pin_tests:
+        - test_amharic_lev_total_verse_count_floor
+        - test_amharic_lev_chapters_1_through_25_fully_populated
+        - test_amharic_lev_chapter_26_partial
+        - test_amharic_lev_chapter_27_empty
+        - test_amharic_lev_ingest_phase_constant
+        - test_amharic_lev_source_quality_tier3
+    known_residual_issues:
+      coverage_short_by_57_verses: |
+        93.4% coverage = 57 verses missing (Lev 26 partial + Lev 27
+        empty). Cleanest τ.7.x.* coverage residue so far; τ.6.x.3
+        batched audit closes the remaining gap.
+      same_inline_leakage_pattern_as_prior: |
+        Cross-references inlined within verse text (using `=`
+        terminator) still leak through the splitter — same as
+        τ.7.x.a Genesis + τ.7.x.b Exodus. Affects readability but
+        not (ch, v) indexing.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false  # third authorized violation per D4-c (τ.7.x.a + τ.7.x.b were prior violations)
+      tau6x0b_honesty_contract: true
+      tau6x0c_script_ethiopic_adoption: true
+      tau6x1_engine_wiring: true
+      tau6x1a_pilot_validation: true
+      tau6x1b_parser_extension: true
+      tau6x1c_parser_extension: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true  # D1-a + D4-c honored; third per-book sub-ship
+      tau7xa_pre_pilot: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true  # pipeline reused verbatim; back-link annotated below
+    no_ingest_at_this_phase: false
+    translation_slot_state:
+      amharic_tewahedo_gen: 'shipped-at-τ.7.x.a (preserved)'
+      amharic_tewahedo_ex: 'shipped-at-τ.7.x.b (preserved)'
+      amharic_tewahedo_lev: 'shipped-at-τ.7.x.c (this ship; 802 verses; ocr-tier3)'
+      geez_tewahedo_gen: 'remains-at-Π.0-3-verse-seed (τ.6.x.2.a under D4-c)'
+      geez_tewahedo_ex: 'no-op (τ.6.x.2.b under D4-c)'
+      geez_tewahedo_lev: 'no-op (τ.6.x.2.c under D4-c)'
+      other_book_slots: 'no-op (τ.7.x.d ... τ.7.x.z under D1-a per-book cadence; num pilot next)'
+    next_phase: τ.7.x.d
+    next_phase_description: |
+      τ.7.x.d — Amharic Numbers full-book ingest under D1-a per-book
+      cadence + D4-c Amharic-first sequencing. Reuses the τ.7.x.a
+      + τ.7.x.b + τ.7.x.c pipeline; needs NUMBERS_VERSE_COUNTS floor
+      (36 chapters, 1288 verses) + structural_map.numbers block
+      (pdf_page_range starting at 214 per this ship's boundary
+      inspection — Num 1:1 confirmed at page 214; exact end-of-
+      Numbers boundary to be verified at τ.7.x.d page-range
+      discovery sub-phase via Deuteronomy title `ኦሪት ዘዳግም` scan).

@@ -603,6 +603,42 @@ EXODUS_VERSE_COUNTS = {
 # Total Exodus verses = 1213 (Masoretic + LXX + Vulgate agreement).
 
 
+# τ.7.x.c — Canonical Leviticus verse counts (27 chapters, 859 verses).
+# Third renumber-floor for the parallel-Bible Amharic-stream ingest
+# under D1-a per-book cadence. Masoretic + LXX + Vulgate + Tewahedo
+# enumerations agree on the per-chapter counts.
+LEVITICUS_VERSE_COUNTS = {
+    1: 17,
+    2: 16,
+    3: 17,
+    4: 35,
+    5: 19,
+    6: 30,
+    7: 38,
+    8: 36,
+    9: 24,
+    10: 20,
+    11: 47,
+    12: 8,
+    13: 59,
+    14: 57,
+    15: 33,
+    16: 34,
+    17: 16,
+    18: 30,
+    19: 37,
+    20: 27,
+    21: 24,
+    22: 33,
+    23: 44,
+    24: 23,
+    25: 55,
+    26: 46,
+    27: 34,
+}
+# Total Leviticus verses = 859 (Masoretic + LXX + Vulgate agreement).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1481,6 +1517,8 @@ def _build_docstring_extra(
         floor_dict = GENESIS_VERSE_COUNTS
     elif renumber == "exodus":
         floor_dict = EXODUS_VERSE_COUNTS
+    elif renumber == "leviticus":
+        floor_dict = LEVITICUS_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -1559,12 +1597,13 @@ def main() -> int:
     p.add_argument(
         "--renumber",
         default=None,
-        choices=["genesis", "exodus"],
+        choices=["genesis", "exodus", "leviticus"],
         help=(
             "Post-process renumber verses against a canonical chapter "
             "verse-count floor (τ.7.x.a writer-side residual handler). "
-            "Supports 'genesis' (GENESIS_VERSE_COUNTS, 50 ch / 1534 v) and "
-            "'exodus' (EXODUS_VERSE_COUNTS, 40 ch / 1213 v; τ.7.x.b). "
+            "Supports 'genesis' (GENESIS_VERSE_COUNTS, 50 ch / 1534 v), "
+            "'exodus' (EXODUS_VERSE_COUNTS, 40 ch / 1213 v; τ.7.x.b), and "
+            "'leviticus' (LEVITICUS_VERSE_COUNTS, 27 ch / 859 v; τ.7.x.c). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -1601,6 +1640,8 @@ def main() -> int:
         renumber_floor = GENESIS_VERSE_COUNTS
     elif args.renumber == "exodus":
         renumber_floor = EXODUS_VERSE_COUNTS
+    elif args.renumber == "leviticus":
+        renumber_floor = LEVITICUS_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

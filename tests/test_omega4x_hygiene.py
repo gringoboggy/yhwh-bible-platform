@@ -224,7 +224,17 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             per-book template; 6th instance of single-key back-link
             annotation pattern tau7xa_ingest→τ.7.x.b — FIRST
             signaling pipeline-template-reuse rather than residual-
-            resolution)"""
+            resolution)
+          - τ.7.x.c migrated pending → shipped at τ.7.x.c ship-time
+            (2026-05-15; the THIRD τ.7.x.* per-book ship; creates
+            amharic-tewahedo/lev.py with 802 verses at 93.4%
+            coverage — HIGHEST τ.7.x.* coverage yet; re-uses τ.7.x.b
+            pipeline verbatim with only LEVITICUS_VERSE_COUNTS +
+            structural_map.leviticus as deltas; third consecutive
+            τ.7.x.* ship with zero parser API change — firmly
+            establishing the τ.7.x.a template as a stable per-book
+            scaffold; 7th instance of single-key back-link
+            annotation pattern tau7xb_ingest→τ.7.x.c)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -244,6 +254,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.7.x.a.0",
             "τ.7.x.a",
             "τ.7.x.b",
+            "τ.7.x.c",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -285,12 +296,16 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             migrated pending → shipped at τ.7.x.b ship-time (2026-05-15)
           - τ.7.x.c added pending at τ.7.x.b ship-time (2026-05-15;
             Amharic Leviticus full-book ingest; 27 chapters, 859
-            verses; re-uses τ.7.x.a + τ.7.x.b pipeline with
-            LEVITICUS_VERSE_COUNTS floor + structural_map.leviticus
-            block; Lev 1:1 boundary confirmed at page 161 per
-            τ.7.x.b boundary inspection)"""
+            verses; re-uses τ.7.x.a + τ.7.x.b pipeline); migrated
+            pending → shipped at τ.7.x.c ship-time (2026-05-15)
+          - τ.7.x.d added pending at τ.7.x.c ship-time (2026-05-15;
+            Amharic Numbers full-book ingest; 36 chapters, 1288
+            verses; re-uses τ.7.x.a+b+c pipeline with
+            NUMBERS_VERSE_COUNTS floor + structural_map.numbers
+            block; Num 1:1 boundary confirmed at page 214 per
+            τ.7.x.c boundary inspection)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.c", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.d", "τ.6.x.3", "τ.6.x.1.E", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 
