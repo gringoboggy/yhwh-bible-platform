@@ -618,6 +618,98 @@ structural_map:
       τ.6.x.2.i (same Psalms page range, Geʽez column) under D4-c
       sequencing.
 
+  ezra_sutuel:
+    book_codes: [2es]
+    pdf_page_range: [1239, 1284]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.j
+    chapter_count_expected: 16   # content/books.yaml `2es` ch_count: 16 (2 Esdras / Ezra Sutuʼel; NRSV 16-ch incl. restored 7:36-105)
+    notes: |
+      Verified at τ.7.x.j (2026-05-15) via per-page መጽሐፈ-banner +
+      content-boundary scan of pages 1235-1293. This is the THIRD
+      EOTC-parallel block of the source PDF (after the p0-437 block
+      = Pentateuch→Ruth and the p803-906 block = Psalms); the
+      intervening p438-802 is the SKIPPED dzamaragna gap (per
+      τ.7.x.i skip-the-gap decision) and p907-1238 is dzamaragna-
+      format Proverbs→Job (still skipped). The p1239 block RESUMES
+      EOTC-parallel format.
+
+      Book opening at page 1239 confirmed by the `መጽሐፈ ዕዝራ ቡቱኤል`
+      / `መጽሐፈ ዕዝራ ሱቱኤል` (Book of Ezra Sutuʼel) banner — the
+      Ethiopic name for 2 Esdras / 4 Ezra (the Ezra-apocalypse).
+      The `ዕዝራ ክልዕ` ("Ezra, second [part]") running-header form
+      appears p1268-1283 — this is the SAME book's later section
+      (the 4-Ezra apocalypse is internally bipartite), NOT a
+      separate book; boundary inspection confirms continuous Ezra-
+      Sutuʼel content p1239-1284. pages 1239-1284 = 46 pages for
+      16 chapters (~2.9 pages/chapter — among the lowest τ.7.x.*
+      page-densities; the heavy apocalyptic-vision prose + dense
+      cross-reference apparatus consume page bandwidth).
+
+      End boundary at page 1284 — page 1285 transitions to Tobit
+      (`ጦብያ`/`መጽሐፈ ጦቢት` content; formal banner by p1289-1291;
+      end-of-Tobit `ተፈጸመ` colophon at p1293). The 2 Esdras →
+      Tobit boundary is therefore decisively at page 1284/1285.
+
+      **FIRST deuterocanonical (non-protocanonical) τ.7.x.* ingest.**
+      The Ethiopic Ezra Sutuʼel preserves the "missing fragment"
+      (7:36-105) that the Latin tradition lost — so the Tewahedo
+      ch 7 is the full 140-verse form (EZRA_SUTUEL_VERSE_COUNTS[7]
+      = 140). content/books.yaml fixes `2es` at ch_count: 16. The
+      EOTC printing's exact treatment of the Christian 5-Ezra
+      (chs 1-2) + 6-Ezra (chs 15-16) additions is reconciled at
+      the τ.6.x.3 batched audit per the τ.6.x.0b honesty contract.
+      Geʽez column ingest deferred to τ.6.x.2.j (same page range,
+      Geʽez column) under D4-c sequencing.
+
+  tobit:
+    book_codes: [tob]
+    pdf_page_range: [1285, 1293]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.k
+    chapter_count_expected: 14   # content/books.yaml `tob` ch_count: 14 (LXX 14-ch Tobit; NRSV/GII enumeration)
+    notes: |
+      Verified at τ.7.x.k (2026-05-15) via the same p1235-1293
+      content-boundary scan as ezra_sutuel. Tobit is the SECOND
+      deuterocanonical book in the p1239-1293 EOTC-parallel block
+      (immediately after Ezra Sutuʼel), draining the block before
+      Judith opens at p1294 (`መጽሐፈ ዮዲት` banner first clear at
+      p1296) → Esther p1308-1317 (`መጽሐፈ አስቴር`) → Mäqabyan I at
+      p1318 (which EXACTLY matches the pre-existing
+      structural_map.meqabyan.pdf_page_range [1318, 1378] — a
+      decisive cross-validation that the τ.7.x.j/k scan indexing
+      is correct).
+
+      Tobit opening: the `መጽሐፈ ጦቢት` formal banner is OCR-garbled
+      to `መጽሐፈ፣ቢት።` at first appearance (p1287) and clears to the
+      explicit `መጽሐፈ፡።ጦቢት።` form by p1289-1291; canonical Tobit
+      content (`ጦብያ` Tobias + the angel Raphael + `ራጉኤል` Raguel
+      narrative) is present from p1285. pages 1285-1293 = 9 pages
+      for 14 chapters (~0.64 pages/chapter — HIGH page-density,
+      comparable to Psalms's 0.69; Tobit's short narrative verses
+      pack densely).
+
+      End boundary at page 1293 — closes Tobit with the explicit
+      end-of-book Geʽez colophon `ተፈጸመ ።` ("[the book] was
+      completed") empirically present in the page-1293 text-layer.
+      Page 1294 opens Judith (`ዮዲት` content; `መጽሐፈ ዮዲት` formal
+      banner by p1296). The Tobit → Judith boundary is therefore
+      decisively at page 1293/1294.
+
+      content/books.yaml fixes `tob` at ch_count: 14 (LXX 14-ch
+      Tobit). Verse counts follow the NRSV/GII (Codex Sinaiticus
+      long recension) enumeration; the GI (Vaticanus) short
+      recension + Vulgate differ ±1-2 verses/chapter — reconciled
+      at the τ.6.x.3 batched audit per the τ.6.x.0b honesty
+      contract (same enumeration-variance treatment as the Psalms
+      LXX/Tewahedo-vs-Hebrew variance at τ.7.x.i). Geʽez column
+      ingest deferred to τ.6.x.2.k (same page range, Geʽez column)
+      under D4-c sequencing.
+
   meqabyan:
     book_codes: [mq1, mq2, mq3]
     pdf_page_range: [1318, 1378]
@@ -4174,6 +4266,7 @@ ocr_strategy:
       amharic_tewahedo_nine_book_summary: 'PENTATEUCH + JOSHUA + JUDGES + RUTH + PSALMS shipped — 8242 verses across 9 books at 84.6% combined coverage; 10 books SKIPPED (1 Sam-Job dzamaragna gap)'
       geez_tewahedo_psa: 'no-op (τ.6.x.2.i under D4-c; same Psalms page range, Geʽez column; queued for next Geʽez catchup batch)'
       other_book_slots: 'no-op (post-Psalms parallel-Bible-EOTC blocks at p1239-2538 contain Tobit, Judith, Esther, Sirach, Wisdom, Baruch, Jubilees, 1 Enoch, 1-3 Mäqabyan, 4 Gospels, Acts, all Epistles, Revelation, Didascalia + Tewahedo broader canon — all eligible for future τ.7.x.* sub-ships; the skipped 1 Sam-Job dzamaragna gap is the only canonical block not yet pipelined)'
+    pipeline_reused_at_phase: τ.7.x.j   # back-link: τ.7.x.j (Amharic 2 Esdras / Ezra Sutuʼel, p1239-1284) + τ.7.x.k (Amharic Tobit, p1285-1293) reused the τ.7.x.i pipeline VERBATIM; only deltas were EZRA_SUTUEL_VERSE_COUNTS + TOBIT_VERSE_COUNTS + structural_map.{ezra_sutuel,tobit}. FIRST TWO deuterocanonical τ.7.x.* ingests; τ.7.x.i is the second-highest-reuse pipeline in the τ.7.x.* family (after τ.7.x.h).
     next_phase: τ.7.x.j
     next_phase_description: |
       τ.7.x.j — next per-book ingest in the parallel-Bible-EOTC scan.
@@ -4198,3 +4291,313 @@ ocr_strategy:
       single-book ingest of next-canonical Proverbs from dzamaragna
       gap (would require new format-handler; defers per skip-the-gap
       stance).
+
+  # ═══════════════════════════════════════════════════════════════
+  # τ.7.x.i → τ.7.x.j → τ.7.x.k back-link chain (Amharic Psalms →
+  # 2 Esdras / Ezra Sutuʼel → Tobit; FIRST TWO deuterocanonical
+  # τ.7.x.* ingests; drains the THIRD EOTC-parallel block p1239-1293)
+  # ═══════════════════════════════════════════════════════════════
+
+  tau7xj_ingest:
+    shipped_at_phase: τ.7.x.j
+    shipped_date: 2026-05-15
+    triggered_by: |
+      User "continue" → advance to next phase per PLAN. τ.7.x.i
+      recorded τ.7.x.j as next_phase with the recommended target
+      "Tobit + 2 Esdras (p1239-1285), could split into τ.7.x.j +
+      τ.7.x.k". The τ.7.x.j structural-discovery scan (pages 1235-
+      1293) determined PDF reading order: **2 Esdras / Ezra Sutuʼel
+      FIRST (p1239-1284), Tobit SECOND (p1285-1293)** — so per the
+      §2.3/§6.1 verifiable-canonical-order rule + every prior ship's
+      ascending-PDF-page convention, τ.7.x.j = 2 Esdras (first in
+      PDF) and τ.7.x.k = Tobit (second). The split is the D1-a per-
+      book cadence; the two together drain the entire third EOTC-
+      parallel block before Judith opens at p1294. Pipeline reused
+      VERBATIM from τ.7.x.i — only delta is EZRA_SUTUEL_VERSE_COUNTS
+      as the tenth renumber-floor + structural_map.ezra_sutuel as
+      the tenth section. TENTH consecutive τ.7.x.* per-book ingest
+      under D4-c Amharic-first + D1-a per-book cadence; **FIRST
+      deuterocanonical (non-protocanonical) τ.7.x.* ingest**.
+    structural_map_addition:
+      section: ezra_sutuel
+      pdf_page_range: [1239, 1284]
+      chapter_count_expected: 16   # content/books.yaml `2es` ch_count: 16
+      boundary_verification: |
+        Per-page መጽሐፈ-banner + content-boundary scan of pages
+        1235-1293. p1235-1238 are still dzamaragna-format
+        (`መጽሐፍ ፡ ቅዱስ ፡ (ክለሳ.1.20020507)` revision marker +
+        `(ረቂቅ)` draft tag). p1239 RESUMES EOTC-parallel with the
+        `መጽሐፈ ዕዝራ ቡቱኤል` / `መጽሐፈ ዕዝራ ሱቱኤል` (Book of Ezra
+        Sutuʼel) banner. The `ዕዝራ ክልዕ` ("Ezra, second part")
+        running-header at p1268-1283 is the SAME book's later
+        section (the 4-Ezra apocalypse is internally bipartite),
+        not a separate book. End boundary p1284 — p1285 transitions
+        to Tobit (`ጦብያ` content; `መጽሐፈ ጦቢት` banner by p1289-1291).
+        Cross-validated: Mäqabyan I opens at p1318, EXACTLY matching
+        the pre-existing structural_map.meqabyan.pdf_page_range
+        [1318, 1378] — decisive proof the τ.7.x.j scan indexing is
+        correct.
+      page_density: 2.88   # 46 pages / 16 chapters — among the LOWEST τ.7.x.* densities (apocalyptic-vision prose + dense cross-ref apparatus consume page bandwidth)
+      deuterocanon_context: |
+        FIRST deuterocanonical τ.7.x.* ingest. 2 Esdras / Ezra
+        Sutuʼel (`መጽሐፈ ዕዝራ ሱቱኤል`) is the Ezra-apocalypse — 4 Ezra
+        in the Latin tradition, 2 Esdras in the KJV/NRSV Apocrypha.
+        The Ethiopic/Syriac/Arabic preserve the "missing fragment"
+        7:36-105 the Latin lost, so the Tewahedo ch 7 is the full
+        140-verse form. In the Tewahedo + Catholic OT but outside
+        the 66-book Protestant/KJV canon.
+    helpers_added:
+      EZRA_SUTUEL_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-16) → expected verse count
+        under the NRSV 2-Esdras enumeration WITH the restored
+        7:36-105 Ethiopic fragment (ch 7 = 140 verses). Total 945.
+        Tenth renumber-floor for the parallel-Bible Amharic-stream
+        ingest under D1-a per-book cadence; FIRST deuterocanonical
+        floor. content/books.yaml fixes `2es` ch_count: 16.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` argparse choices extended from {…, psalms} to
+        {…, psalms, ezra_sutuel, tobit}. The `ezra_sutuel` choice
+        wires EZRA_SUTUEL_VERSE_COUNTS as the floor dict.
+        `_build_docstring_extra()` + main() dispatch updated for the
+        tenth + eleventh floors (now an eleven-way conditional).
+    parser_api_change: |
+      No parser API changes. extract_section() + write_book_module()
+      + renumber_against_floor() + parse_verses_from_text()
+      unchanged. The only deltas are the EZRA_SUTUEL_VERSE_COUNTS
+      dict + dispatch logic + structural_map.ezra_sutuel block.
+      TENTH consecutive τ.7.x.* ship with zero parser API change —
+      18-ship zero-API-delta across both columns (incl. the
+      τ.6.x.2.a-h Geʽez batch). The first deuterocanonical ingest
+      required ZERO pipeline change — the τ.7.x.a template
+      generalizes to deuterocanon as cleanly as it did from the
+      smallest (Ruth) to the largest (Psalms) protocanonical book.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1239, 1284]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 322
+      renumbered_verse_count: 322
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6]
+      chapters_partial:
+        7: {got: 31, expected: 140, ratio_pct: 22.1}
+      chapters_missing_count: 9   # 8-16
+      expected_total: 945
+      coverage_pct: 34.1
+      coverage_band_position: |
+        34.1% is a NEW τ.7.x.* band-bottom (prior band-bottom was
+        τ.7.x.h Ruth 70.6%). EXPECTED + honest per the τ.6.x.0b
+        contract: 2 Esdras sits much deeper in the PDF (p1239+, the
+        "(ረቂቅ)"/draft parallel region) where the text-layer is more
+        garbled, chapters are very long (apocalyptic-vision prose),
+        and the cross-reference apparatus is denser. Coverage is a
+        source-quality property, not a pipeline regression — the
+        zero-parser-API-delta invariant is preserved. τ.6.x.3
+        batched audit closes the chapters 8-16 gap + reconciles the
+        EOTC printing's treatment of the Christian 5/6-Ezra additions.
+      eleven_book_combined_coverage: |
+        8242 (9 protocanonical) + 322 (2es) = 8564 verses extracted
+        / (9745 + 945) = 10690 expected = 80.1% across 10 books after
+        τ.7.x.j (79.4% across 11 books after τ.7.x.k Tobit adds
+        118/246). Still excludes the 10 SKIPPED 1 Sam-Job dzamaragna-
+        gap books.
+      regression_pin_tests:
+        - test_amharic_2es_total_verse_count_floor
+        - test_amharic_2es_chapters_1_through_6_fully_populated
+        - test_amharic_2es_chapter_7_partial
+        - test_amharic_2es_chapters_8_through_16_empty
+        - test_amharic_2es_ingest_phase_constant
+        - test_amharic_2es_source_quality_tier3
+        - test_2es_deuterocanon_first_marker
+    known_residual_issues:
+      coverage_short_deuterocanon_deep_pdf: |
+        34.1% coverage = 623 verses missing (ch 7 partial + ch 8-16
+        empty). The deficit reflects (a) the deep-PDF "(ረቂቅ)"/draft
+        region's more-garbled text-layer + (b) the very long
+        apocalyptic chapters (ch 7 alone = 140 verses). Same end-of-
+        book renumbering artifact as the prior nine ships, amplified
+        by source-region quality. τ.6.x.3 batched audit closes it.
+      ethiopic_ezra_sutuel_canon_boundary: |
+        The EOTC printing's exact treatment of the Christian 5-Ezra
+        (chs 1-2) + 6-Ezra (chs 15-16) additions vs the 4-Ezra core
+        (chs 3-14) is reconciled at the τ.6.x.3 batched audit per the
+        τ.6.x.0b honesty contract. The 16-chapter floor (per content/
+        books.yaml `2es` ch_count: 16) is the canonical ceiling.
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true   # CLOSED Amharic Pentateuch §8.1 arc preserved
+      tau7xf_ingest: true   # OPENED post-Pentateuch historical-books arc preserved
+      tau7xg_ingest: true
+      tau7xh_ingest: true   # CRITICAL structural-discovery + first-parallel-block-end preserved
+      tau7xi_ingest: true   # OPENED Wisdom-and-Poetry arc + skip-the-gap preserved
+      tau6x2a_ingest: true
+      tau6x2b_ingest: true
+      tau6x2c_ingest: true
+      tau6x2d_ingest: true
+      tau6x2e_ingest: true   # CLOSED Geʽez Pentateuch §8.1 arc preserved
+      tau6x2f_ingest: true
+      tau6x2g_ingest: true
+      tau6x2h_ingest: true   # CLOSED parallel-column-catchup arc preserved
+    no_ingest_at_this_phase: false
+    arc_continues_deuterocanon: |
+      τ.7.x.j OPENS the deuterocanon coverage of the τ.7.x.* stream
+      — the FIRST non-protocanonical book ingested (prior nine
+      gen→psa are all protocanonical). 2 Esdras / Ezra Sutuʼel is
+      a uniquely-significant Tewahedo book (the Ezra-apocalypse with
+      the Ethiopic-preserved 7:36-105 fragment). Drains the FIRST
+      half of the third EOTC-parallel block p1239-1293; τ.7.x.k
+      Tobit drains the second half + closes the block.
+    translation_slot_state:
+      amharic_tewahedo_2es: 'shipped-at-τ.7.x.j (this ship; 322 verses; ocr-tier3; FIRST deuterocanonical τ.7.x.* ingest; p1239-1284)'
+      amharic_tewahedo_protocanon_9: 'shipped-at-τ.7.x.a-i (preserved; gen ex lev num deu jos jdg rut psa)'
+      geez_tewahedo_2es: 'no-op (τ.6.x.2.j under D4-c; same page range, Geʽez column; queued for next Geʽez catchup batch)'
+    next_phase: τ.7.x.k
+    pipeline_reused_at_phase: τ.7.x.k   # back-link: τ.7.x.k (Amharic Tobit) reused the τ.7.x.j pipeline VERBATIM; only delta was TOBIT_VERSE_COUNTS + structural_map.tobit
+
+  tau7xk_ingest:
+    shipped_at_phase: τ.7.x.k
+    shipped_date: 2026-05-15
+    triggered_by: |
+      Continuation of the τ.7.x.j ship (same "continue" turn) — the
+      D1-a per-book second half of the p1239-1293 EOTC-parallel
+      block. τ.7.x.j ingested 2 Esdras (p1239-1284); τ.7.x.k
+      ingests Tobit (p1285-1293), the second deuterocanonical book
+      in the block, CLOSING it before Judith opens at p1294.
+      Pipeline reused VERBATIM from τ.7.x.j — only delta is
+      TOBIT_VERSE_COUNTS as the eleventh renumber-floor +
+      structural_map.tobit as the eleventh section.
+    structural_map_addition:
+      section: tobit
+      pdf_page_range: [1285, 1293]
+      chapter_count_expected: 14   # content/books.yaml `tob` ch_count: 14
+      boundary_verification: |
+        Same p1235-1293 content-boundary scan as ezra_sutuel. Tobit
+        content (`ጦብያ` Tobias + the angel + `ራጉኤል` Raguel) present
+        from p1285; `መጽሐፈ ጦቢት` banner OCR-garbled to `መጽሐፈ፣ቢት።`
+        at p1287, clears to explicit `መጽሐፈ፡።ጦቢት።` by p1289-1291.
+        End boundary p1293 — closes Tobit with the explicit
+        end-of-book Geʽez colophon `ተፈጸመ ።` ("[the book] was
+        completed") empirically in the p1293 text-layer. p1294
+        opens Judith. The Tobit → Judith boundary is decisively
+        p1293/1294.
+      page_density: 0.64   # 9 pages / 14 chapters — HIGH density, comparable to Psalms's 0.69 (Tobit's short narrative verses pack densely)
+      deuterocanon_context: |
+        SECOND deuterocanonical τ.7.x.* ingest. Tobit
+        (`መጽሐፈ ጦቢት`) follows the LXX 14-chapter form. In the
+        Tewahedo + Catholic OT but outside the 66-book Protestant/
+        KJV canon. Together with τ.7.x.j 2 Esdras it drains the
+        entire third EOTC-parallel block (p1239-1293).
+    helpers_added:
+      TOBIT_VERSE_COUNTS: |
+        Module-level dict mapping ch (1-14) → expected verse count
+        under the NRSV/GII (Codex Sinaiticus long recension)
+        enumeration. Total 246. Eleventh renumber-floor under D1-a
+        per-book cadence. content/books.yaml fixes `tob` ch_count: 14.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` choices include `tobit` (added alongside
+        `ezra_sutuel` at τ.7.x.j). The `tobit` choice wires
+        TOBIT_VERSE_COUNTS as the floor dict.
+    parser_api_change: |
+      No parser API changes. The only deltas are the
+      TOBIT_VERSE_COUNTS dict + dispatch logic + structural_map.tobit
+      block. ELEVENTH consecutive τ.7.x.* ship with zero parser API
+      change — 19-ship zero-API-delta across both columns.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1285, 1293]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 118
+      renumbered_verse_count: 118
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6]
+      chapters_partial:
+        7: {got: 4, expected: 17, ratio_pct: 23.5}
+      chapters_missing_count: 7   # 8-14
+      expected_total: 246
+      coverage_pct: 48.0
+      coverage_band_position: |
+        48.0% — second-lowest τ.7.x.* coverage (above τ.7.x.j
+        2 Esdras 34.1%, below τ.7.x.h Ruth 70.6%). Same honest
+        ocr-tier3 deep-PDF expectation as τ.7.x.j; the p1293
+        running-footer leaks into the last verse (same known inline-
+        leakage residual as prior ships). τ.6.x.3 audit closes the
+        ch 8-14 gap + strips the footer leakage.
+      eleven_book_combined_coverage: |
+        8242 (9 protocanonical) + 322 (2es) + 118 (tob) = 8682
+        verses extracted / (9745 + 945 + 246) = 10936 expected =
+        79.4% across 11 ingested books. Still excludes the 10
+        SKIPPED 1 Sam-Job dzamaragna-gap books.
+      regression_pin_tests:
+        - test_amharic_tob_total_verse_count_floor
+        - test_amharic_tob_chapters_1_through_6_fully_populated
+        - test_amharic_tob_chapter_7_partial
+        - test_amharic_tob_chapters_8_through_14_empty
+        - test_amharic_tob_ingest_phase_constant
+        - test_amharic_tob_source_quality_tier3
+        - test_tob_deuterocanon_marker
+        - test_p1239_1293_block_drained
+    known_residual_issues:
+      coverage_short_deuterocanon_deep_pdf: |
+        48.0% coverage = 128 verses missing (ch 7 partial + ch 8-14
+        empty). Same deep-PDF + end-of-book renumbering artifact as
+        τ.7.x.j. τ.6.x.3 batched audit closes it.
+      page_footer_leakage_in_last_verse: |
+        The page-1293 running-footer `... ቤተ ክርስቲያን ሃይማኖትና ሥርዓት`
+        leaks into the last ingested verse — the same inline-leakage
+        residual class as prior ships (cross-refs / footers using
+        non-`።` terminators slip past the splitter). τ.6.x.3 audit
+        strips it.
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau6x1d_chapter_recovery: true
+      tau6x2D_decisions: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true   # CLOSED Amharic Pentateuch §8.1 arc preserved
+      tau7xf_ingest: true   # OPENED post-Pentateuch historical-books arc preserved
+      tau7xg_ingest: true
+      tau7xh_ingest: true
+      tau7xi_ingest: true   # OPENED Wisdom-and-Poetry arc + skip-the-gap preserved
+      tau7xj_ingest: true   # FIRST deuterocanonical τ.7.x.* ingest preserved
+      tau6x2a_ingest: true
+      tau6x2b_ingest: true
+      tau6x2c_ingest: true
+      tau6x2d_ingest: true
+      tau6x2e_ingest: true   # CLOSED Geʽez Pentateuch §8.1 arc preserved
+      tau6x2f_ingest: true
+      tau6x2g_ingest: true
+      tau6x2h_ingest: true   # CLOSED parallel-column-catchup arc preserved
+    no_ingest_at_this_phase: false
+    arc_continues_deuterocanon: |
+      τ.7.x.k CLOSES the third EOTC-parallel block (p1239-1293):
+      τ.7.x.j 2 Esdras (p1239-1284) + τ.7.x.k Tobit (p1285-1293)
+      together drain it. SECOND deuterocanonical τ.7.x.* ingest.
+      Next EOTC-parallel content is Judith (p1294-1307) → Esther
+      (p1308-1317) → Mäqabyan I (p1318, already in structural_map.
+      meqabyan) per the τ.7.x.j scan.
+    block_drained: p1239-1293   # τ.7.x.j + τ.7.x.k together drain the entire third EOTC-parallel block
+    translation_slot_state:
+      amharic_tewahedo_tob: 'shipped-at-τ.7.x.k (this ship; 118 verses; ocr-tier3; SECOND deuterocanonical τ.7.x.* ingest; p1285-1293; CLOSES the p1239-1293 block)'
+      amharic_tewahedo_2es: 'shipped-at-τ.7.x.j (preserved; FIRST deuterocanonical)'
+      amharic_tewahedo_protocanon_9: 'shipped-at-τ.7.x.a-i (preserved)'
+      geez_tewahedo_tob: 'no-op (τ.6.x.2.k under D4-c; same page range, Geʽez column; queued for next Geʽez catchup batch)'
+    next_phase: τ.7.x.l
+    next_phase_description: |
+      τ.7.x.l — next per-book ingest. The p1239-1293 block is now
+      DRAINED (2 Esdras + Tobit). Next EOTC-parallel books per the
+      τ.7.x.j scan: Judith (`መጽሐፈ ዮዲት`, p1294-1307) → Esther
+      (`መጽሐፈ አስቴር`, p1308-1317) → Mäqabyan I (p1318, already mapped
+      in structural_map.meqabyan [1318, 1378]). Recommended τ.7.x.l
+      = Judith (single-book D1-a cadence; p1294-1307); τ.7.x.m =
+      Esther (the EOTC-parallel Esther, an alternative to the
+      skipped dzamaragna-gap Esther per the τ.7.x.i note). The
+      Geʽez catchup batch (τ.6.x.2.j 2es + τ.6.x.2.k tob) follows
+      the Amharic stream per D4-c.

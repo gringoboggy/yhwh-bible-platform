@@ -4,6 +4,47 @@
 
 ## Prior task
 
+**τ.7.x.j + τ.7.x.k AMHARIC 2 ESDRAS + TOBIT FULL-BOOK INGEST —
+SHIPPED 2026-05-15. TENTH + ELEVENTH τ.7.x.* per-book ingests under
+D4-c Amharic-first + D1-a per-book cadence; FIRST TWO deuterocanonical
+(non-protocanonical) τ.7.x.* ingests. Drained the THIRD EOTC-parallel
+block p1239-1293. Pipeline reused VERBATIM from τ.7.x.i — only deltas:
+EZRA_SUTUEL_VERSE_COUNTS + TOBIT_VERSE_COUNTS floors + structural_
+map.ezra_sutuel [1239,1284] + structural_map.tobit [1285,1293] + CLI
+dispatch. ELEVENTH consecutive zero-parser-API-delta (19-ship across
+both columns).**
+
+**PDF reading order (τ.7.x.j scan p1235-1293):** 2 Esdras / Ezra
+Sutuʼel FIRST (p1239-1284 → τ.7.x.j), Tobit SECOND (p1285-1293 →
+τ.7.x.k), per §2.3/§6.1 ascending-PDF-page. Cross-validated:
+Mäqabyan I @ p1318 == pre-existing structural_map.meqabyan
+[1318,1378].
+
+**Outcome:**
+- [x] Structural-discovery scan p1235-1293 (PDF order + boundaries)
+- [x] EZRA_SUTUEL_VERSE_COUNTS (16 ch/945 v) + TOBIT_VERSE_COUNTS
+      (14 ch/246 v) + CLI dispatch (4 sites) — zero parser API delta
+- [x] structural_map blocks + extraction → 2es.py (322 v, 34.1%) +
+      tob.py (118 v, 48.0%); both ch 1-6 full / 7 partial / rest
+      empty / 0 overflow — honest LOW coverage per τ.6.x.0b (deep-
+      PDF draft region); τ.6.x.3 audit reconciles
+- [x] _source.yaml tau7xj/k_ingest blocks + structural_map +
+      back-links; _meta.yaml stats 9→11 / 8242→8682 / kjv 0→2 +
+      ingest_record_tau7xj/k
+- [x] test_parallel_bible_tau7xj.py (~87 pins, 14 classes, BOTH
+      books); no share→milestone conversion needed (τ.7.x.* family
+      already all `>= N` milestone-pin form)
+- [x] SESSION_STATE / CHANGELOG / PLAN updated
+- [x] lint_rules.py 10/0; full pytest 5383 passed (the 2 mid-ship
+      fails — ruff drift + IN_FLIGHT-active — both resolved)
+- [x] IN_FLIGHT → idle; local checkpoint commit (no push, no zip)
+
+**Next per most-logical-path:** τ.7.x.l = Amharic Judith
+(`መጽሐፈ ዮዲት`, p1294-1307) → τ.7.x.m Esther (p1308-1317). Geʽez
+catchup τ.6.x.2.j 2es + τ.6.x.2.k tob follows per D4-c.
+
+### Earlier — τ.7.x.i (superseded by τ.7.x.j/k above)
+
 **τ.7.x.i AMHARIC PSALMS FULL-BOOK INGEST ship — NINTH τ.7.x.* per-
 book ingest under D4-c Amharic-first + D1-a per-book cadence.
 **OPENS the Wisdom-and-Poetry arc under Amharic-first sequencing**

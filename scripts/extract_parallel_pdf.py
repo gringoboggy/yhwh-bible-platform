@@ -1008,6 +1008,73 @@ PSALMS_VERSE_COUNTS = {
 # yields ~2461 verses with different chapter boundaries.
 
 
+# τ.7.x.j — Ezra Sutuʼel (2 Esdras / 4 Ezra) verse counts. The
+# Ethiopian Tewahedo `መጽሐፈ ዕዝራ ሱቱኤል` is the Ezra-apocalypse — the
+# text the Latin tradition calls 4 Esdras and the KJV/NRSV Apocrypha
+# calls 2 Esdras. Unlike the Latin (which lost the long "missing
+# fragment" 7:36-105), the Ethiopic/Syriac/Arabic witnesses PRESERVE
+# it, so the Tewahedo ch 7 is the full 140-verse form. content/
+# books.yaml fixes `2es` at ch_count: 16 (the full 5-Ezra + 4-Ezra +
+# 6-Ezra Vulgate-appendix span); this floor uses the NRSV 16-chapter
+# enumeration WITH the restored 7:36-105 fragment that survives in
+# the Ethiopic. Tenth renumber-floor for the parallel-Bible Amharic-
+# stream ingest under D1-a per-book cadence; FIRST deuterocanonical
+# (non-protocanonical) τ.7.x.* floor. Exact Ethiopic Ezra-Sutuʼel
+# chapter boundaries (the EOTC printing's treatment of the Christian
+# 5/6-Ezra additions) are reconciled at the τ.6.x.3 batched audit
+# per the τ.6.x.0b honesty contract — same as every prior ship.
+EZRA_SUTUEL_VERSE_COUNTS = {
+    1: 40,
+    2: 48,
+    3: 36,
+    4: 52,
+    5: 56,
+    6: 59,
+    7: 140,
+    8: 63,
+    9: 47,
+    10: 60,
+    11: 46,
+    12: 51,
+    13: 58,
+    14: 48,
+    15: 63,
+    16: 78,
+}
+# Total Ezra Sutuʼel (2 Esdras) verses = 945 (NRSV 16-chapter
+# enumeration including the restored 7:36-105 Ethiopic fragment).
+# KJV Apocrypha (without the fragment) yields ~875.
+
+
+# τ.7.x.k — Tobit verse counts. The Tewahedo `መጽሐፈ ጦቢት` follows the
+# LXX 14-chapter Tobit (content/books.yaml fixes `tob` at ch_count:
+# 14). Verse counts use the NRSV enumeration (GII / Codex Sinaiticus
+# long recension, the form closest to the Ethiopic). The GI
+# (Vaticanus) short recension + the Vulgate differ by ±1-2 verses in
+# several chapters; per the τ.6.x.0b honesty contract the renumber-
+# floor is a canonical ceiling and the τ.6.x.3 batched audit
+# reconciles the exact Ethiopic recension boundaries — identical
+# treatment to the Psalms LXX/Tewahedo-vs-Hebrew enumeration variance
+# at τ.7.x.i. Eleventh renumber-floor under D1-a per-book cadence.
+TOBIT_VERSE_COUNTS = {
+    1: 22,
+    2: 14,
+    3: 17,
+    4: 21,
+    5: 22,
+    6: 18,
+    7: 17,
+    8: 21,
+    9: 6,
+    10: 14,
+    11: 19,
+    12: 22,
+    13: 18,
+    14: 15,
+}
+# Total Tobit verses = 246 (NRSV/GII 14-chapter enumeration).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1900,6 +1967,10 @@ def _build_docstring_extra(
         floor_dict = RUTH_VERSE_COUNTS
     elif renumber == "psalms":
         floor_dict = PSALMS_VERSE_COUNTS
+    elif renumber == "ezra_sutuel":
+        floor_dict = EZRA_SUTUEL_VERSE_COUNTS
+    elif renumber == "tobit":
+        floor_dict = TOBIT_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -1978,7 +2049,19 @@ def main() -> int:
     p.add_argument(
         "--renumber",
         default=None,
-        choices=["genesis", "exodus", "leviticus", "numbers", "deuteronomy", "joshua", "judges", "ruth", "psalms"],
+        choices=[
+            "genesis",
+            "exodus",
+            "leviticus",
+            "numbers",
+            "deuteronomy",
+            "joshua",
+            "judges",
+            "ruth",
+            "psalms",
+            "ezra_sutuel",
+            "tobit",
+        ],
         help=(
             "Post-process renumber verses against a canonical chapter "
             "verse-count floor (τ.7.x.a writer-side residual handler). "
@@ -1998,7 +2081,13 @@ def main() -> int:
             "2551 v under LXX/Tewahedo enumeration; τ.7.x.i — SKIPS "
             "the 438-802 dzamaragna gap and resumes the parallel-"
             "Bible-EOTC scan at p803; LARGEST canonical OT book + "
-            "biggest τ.7.x.* per-book ingest to date). "
+            "biggest τ.7.x.* per-book ingest to date), 'ezra_sutuel' "
+            "(EZRA_SUTUEL_VERSE_COUNTS, 16 ch / 945 v; 2 Esdras / "
+            "4 Ezra / መጽሐፈ ዕዝራ ሱቱኤል; τ.7.x.j — FIRST deuterocanonical "
+            "τ.7.x.* floor; drains the p1239-1293 EOTC-parallel block), "
+            "and 'tobit' (TOBIT_VERSE_COUNTS, 14 ch / 246 v; "
+            "መጽሐፈ ጦቢት; τ.7.x.k — second deuterocanonical book in the "
+            "p1239-1293 block). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2049,6 +2138,10 @@ def main() -> int:
         renumber_floor = RUTH_VERSE_COUNTS
     elif args.renumber == "psalms":
         renumber_floor = PSALMS_VERSE_COUNTS
+    elif args.renumber == "ezra_sutuel":
+        renumber_floor = EZRA_SUTUEL_VERSE_COUNTS
+    elif args.renumber == "tobit":
+        renumber_floor = TOBIT_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

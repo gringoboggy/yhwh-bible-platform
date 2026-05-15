@@ -1,6 +1,72 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.i AMHARIC PSALMS FULL-BOOK INGEST ship —
+**Updated 2026-05-15 / τ.7.x.j + τ.7.x.k AMHARIC 2 ESDRAS + TOBIT
+FULL-BOOK INGEST ship — TENTH + ELEVENTH τ.7.x.* per-book ingests
+under D4-c Amharic-first + D1-a per-book cadence. **FIRST TWO
+deuterocanonical (non-protocanonical) τ.7.x.* ingests** (prior nine
+gen→psa are all protocanonical). Together they DRAIN the THIRD
+EOTC-parallel block of the source PDF (p1239-1293).**
+
+Adds `content/translations/amharic-tewahedo/2es.py` (322 verses,
+34.1% — Ezra Sutuʼel / 2 Esdras / 4 Ezra, `መጽሐፈ ዕዝራ ሱቱኤል`,
+p1239-1284, 16 ch) + `tob.py` (118 verses, 48.0% — Tobit,
+`መጽሐፈ ጦቢት`, p1285-1293, 14 ch). Pipeline reused VERBATIM from
+τ.7.x.i — only deltas: `EZRA_SUTUEL_VERSE_COUNTS` (16 ch / 945 v;
+NRSV incl. the Ethiopic-preserved 7:36-105 fragment so ch 7 = 140 v)
++ `TOBIT_VERSE_COUNTS` (14 ch / 246 v; NRSV/GII) + `structural_
+map.ezra_sutuel` [1239,1284] + `structural_map.tobit` [1285,1293].
+
+**PDF-reading-order phase assignment:** the τ.7.x.j structural-
+discovery scan (pages 1235-1293) determined 2 Esdras comes FIRST
+in the PDF (p1239) and Tobit SECOND (p1285) — so per §2.3/§6.1
+verifiable-canonical-order + every prior ship's ascending-PDF-page
+convention, **τ.7.x.j = 2 Esdras** (first) and **τ.7.x.k = Tobit**
+(second). Decisively cross-validated: Mäqabyan I opens at p1318,
+EXACTLY matching the pre-existing `structural_map.meqabyan`
+[1318,1378] — proof the scan indexing is correct.
+
+**ELEVENTH consecutive zero-parser-API-delta** (19-ship across both
+columns incl. the τ.6.x.2.a-h Geʽez batch). The first deuterocanon
+ingest required ZERO pipeline change — the τ.7.x.a template
+generalizes from protocanon to deuterocanon as cleanly as it scaled
+from the smallest (Ruth, 4 ch) to the largest (Psalms, 151 ch).
+
+**Honest LOW coverage (τ.6.x.0b contract):** 34.1% / 48.0% is a new
+τ.7.x.* band-bottom (prior bottom τ.7.x.h Ruth 70.6%). 2 Esdras +
+Tobit sit deep in the PDF "(ረቂቅ)"/draft parallel region where the
+text-layer is more garbled + the apocalyptic chapters are very long
+(2 Esdras ch 7 alone = 140 v). Both renumber cleanly (ch 1-6 full,
+7 partial, rest empty, zero overflow) — coverage is a source-quality
+property, NOT a pipeline regression. τ.6.x.3 batched audit closes
+the gaps + reconciles the Ethiopic Ezra-Sutuʼel canon boundary.
+
+**Eleven-book combined coverage:** 8242 (9 protocanonical) + 322
+(2es) + 118 (tob) = **8682 verses / 10936 expected = 79.4% combined**
+across 11 ingested books (still excludes the 10 SKIPPED 1 Sam-Job
+dzamaragna-gap books per τ.7.x.i skip-the-gap decision).
+
+**Empirical results (text-layer engine, pymupdf get_text()):**
+
+| Metric | τ.7.x.j (2es) | τ.7.x.k (tob) |
+|---|---:|---:|
+| amharic-tewahedo file | **2es.py: 322 v** | **tob.py: 118 v** |
+| PDF pages | 1239-1284 (46 pp) | 1285-1293 (9 pp) |
+| chapters full | 1-6 | 1-6 |
+| chapter partial | 7 (31/140) | 7 (4/17) |
+| chapters empty | 8-16 | 8-14 |
+| coverage vs floor | 322/945 = 34.1% | 118/246 = 48.0% |
+| renumber overflow | 0 | 0 |
+| parser API delta | **0 lines** (10th) | **0 lines** (11th) |
+
+**Next per most-logical-path:** τ.7.x.l — Amharic Judith
+(`መጽሐፈ ዮዲት`, p1294-1307 per the τ.7.x.j scan), then τ.7.x.m
+Esther (`መጽሐፈ አስቴር`, p1308-1317 — the EOTC-parallel Esther, an
+alternative to the skipped dzamaragna-gap Esther). Geʽez catchup
+(τ.6.x.2.j 2es + τ.6.x.2.k tob) follows the Amharic stream per D4-c.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.i AMHARIC PSALMS FULL-BOOK INGEST ship —
 NINTH τ.7.x.* per-book ingest under D4-c Amharic-first + D1-a per-
 book cadence. **OPENS the Wisdom-and-Poetry arc under Amharic-first
 sequencing** + **FIRST τ.7.x.* ship to SKIP a section of source PDF**

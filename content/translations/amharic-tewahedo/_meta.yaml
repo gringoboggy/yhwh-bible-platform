@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 9            # τ.7.x.a Genesis + τ.7.x.b Exodus + τ.7.x.c Leviticus + τ.7.x.d Numbers + τ.7.x.e Deuteronomy + τ.7.x.f Joshua + τ.7.x.g Judges + τ.7.x.h Ruth + τ.7.x.i Psalms (SKIPS the 438-802 dzamaragna gap; OPENS Wisdom-and-Poetry arc)
-  verses: 8242        # 1308 (gen, 85.3%) + 947 (ex, 78.1%) + 802 (lev, 93.4%) + 1107 (num, 85.9%) + 781 (deu, 81.4%) + 483 (jos, 73.4%) + 511 (jdg, 82.7%) + 60 (rut, 70.6%) + 2243 (psa, 88.6%) = 8242/9745 = 84.6% combined (across 9 ingested books; excludes 10 SKIPPED books in 438-802 gap)
-  books_outside_kjv: 0
+  books: 11           # 9 protocanonical (τ.7.x.a-i: gen ex lev num deu jos jdg rut psa) + τ.7.x.j 2 Esdras / Ezra Sutuʼel + τ.7.x.k Tobit (FIRST TWO deuterocanonical τ.7.x.* ingests; drains the p1239-1293 EOTC-parallel block)
+  verses: 8682        # 8242 (9 protocanonical) + 322 (2es, 34.1%) + 118 (tob, 48.0%) = 8682/10936 = 79.4% combined (across 11 ingested books; still excludes 10 SKIPPED books in 438-802 dzamaragna gap)
+  books_outside_kjv: 2   # 2es (2 Esdras / Ezra Sutuʼel) + tob (Tobit) — deuterocanonical, in the Tewahedo + Catholic OT but outside the 66-book Protestant/KJV canon
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -723,6 +723,148 @@ ingest_record_tau7xi:
     youngest of my brothers... God anointed me king... I struck
     Goliath with the stone... I cut off his head with his own
     sword". τ.6.x.3 audit re-aligns to canonical Psalm 151.
+  pipeline_reused_at_phase: τ.7.x.j   # back-link: τ.7.x.j (Amharic 2 Esdras / Ezra Sutuʼel) reused the τ.7.x.i pipeline VERBATIM; only delta was EZRA_SUTUEL_VERSE_COUNTS + structural_map.ezra_sutuel. FIRST deuterocanonical τ.7.x.* ingest.
+
+# τ.7.x.j ingest record — Amharic 2 Esdras / Ezra Sutuʼel added 2026-05-15.
+#
+# 2 Esdras (`መጽሐፈ ዕዝራ ሱቱኤል` — the Ethiopic name for the Ezra-
+# apocalypse; 4 Ezra in the Latin tradition) added as the TENTH book
+# ingest under D1-a per-book cadence + D4-c Amharic-first sequencing.
+# **FIRST deuterocanonical (non-protocanonical) τ.7.x.* ingest** —
+# the prior nine (gen→psa) are all protocanonical. Drains the FIRST
+# half of the p1239-1293 EOTC-parallel block (the THIRD parallel
+# block of the source PDF, after p0-437 and p803-906).
+#
+# Source: parallel-Bible EOTC PDF text-layer extraction (pymupdf
+# get_text() per-column; pages 1239-1284 = 46 pages for 16 chapters,
+# ~2.9 pages/chapter). Pipeline reused VERBATIM from τ.7.x.i — only
+# delta is EZRA_SUTUEL_VERSE_COUNTS as the tenth renumber-floor +
+# structural_map.ezra_sutuel as the tenth section. TENTH consecutive
+# τ.7.x.* ship with zero parser API change (18-ship zero-API-delta
+# across both columns incl. the τ.6.x.2.a-h Geʽez batch).
+#
+# Coverage residue (ocr-tier3 expected):
+# - Chapters 1-6 fully populated at floor verse counts.
+# - Chapter 7 partial (31/140 — ch 7 is the 140-verse giant that
+#   includes the "missing fragment" 7:36-105 the Ethiopic preserves
+#   but the Latin lost).
+# - Chapters 8-16 empty — parser exhausted recovered verses before
+#   reaching them. Same end-of-book renumbering artifact as the
+#   prior nine ships; τ.6.x.3 batched audit closes the gap.
+#
+# Coverage 34.1% — a NEW τ.7.x.* band-bottom (prior band-bottom was
+# τ.7.x.h Ruth 70.6%). Lower coverage is EXPECTED + honest per the
+# τ.6.x.0b honesty contract: 2 Esdras sits much deeper in the PDF
+# (p1239+, the "(ረቂቅ)"/draft parallel region) where the text-layer
+# is more garbled, the chapters are very long (apocalyptic-vision
+# prose), and the cross-reference apparatus is denser. The zero-
+# parser-API-delta invariant is preserved — coverage is a data/
+# source-quality property, not a pipeline regression.
+ingest_record_tau7xj:
+  phase: τ.7.x.j
+  ingested_date: 2026-05-15
+  ingested_book_codes: [2es]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1239, 1284]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.b
+    - τ.7.x.c
+    - τ.7.x.d
+    - τ.7.x.e
+    - τ.7.x.f
+    - τ.7.x.g
+    - τ.7.x.h
+    - τ.7.x.i
+    - τ.7.x.j   # EZRA_SUTUEL_VERSE_COUNTS added (tenth renumber-floor; FIRST deuterocanonical)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 322
+    verses_expected: 945
+    coverage_pct: 34.1
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6]
+    chapters_partial:
+      7: [31, 140]   # got, expected (ch 7 = the restored 7:36-105 giant)
+    chapters_missing: [8, 9, 10, 11, 12, 13, 14, 15, 16]
+  audit_handoff: τ.6.x.3
+  next_book: tob   # τ.7.x.k — Amharic Tobit, per D4-c + D1-a (second deuterocanonical book in the p1239-1293 EOTC-parallel block)
+  arc_continues: deuterocanon-eotc-parallel-block   # FIRST deuterocanonical τ.7.x.* ingest; drains p1239-1293 with τ.7.x.k
+  deuterocanon_first: true   # FIRST non-protocanonical τ.7.x.* book (2es is in the Tewahedo + Catholic OT, outside the 66-book Protestant canon)
+  pipeline_reused_at_phase: τ.7.x.k   # back-link: τ.7.x.k (Amharic Tobit) reused the τ.7.x.j pipeline VERBATIM; only delta was TOBIT_VERSE_COUNTS + structural_map.tobit
+
+# τ.7.x.k ingest record — Amharic Tobit added 2026-05-15.
+#
+# Tobit (`መጽሐፈ ጦቢት`) added as the ELEVENTH book ingest under D1-a
+# per-book cadence + D4-c Amharic-first sequencing. SECOND
+# deuterocanonical τ.7.x.* ingest; drains the SECOND half of the
+# p1239-1293 EOTC-parallel block (immediately after 2 Esdras /
+# Ezra Sutuʼel), completing the block before Judith opens at p1294.
+#
+# Source: parallel-Bible EOTC PDF text-layer extraction (pymupdf
+# get_text() per-column; pages 1285-1293 = 9 pages for 14 chapters,
+# ~0.64 pages/chapter — HIGH page-density, comparable to Psalms's
+# 0.69; Tobit's short narrative verses pack densely). Pipeline
+# reused VERBATIM from τ.7.x.j — only delta is TOBIT_VERSE_COUNTS as
+# the eleventh renumber-floor + structural_map.tobit as the eleventh
+# section. ELEVENTH consecutive τ.7.x.* ship with zero parser API
+# change (19-ship zero-API-delta across both columns).
+#
+# Coverage residue (ocr-tier3 expected):
+# - Chapters 1-6 fully populated at floor verse counts.
+# - Chapter 7 partial (4/17).
+# - Chapters 8-14 empty — parser exhausted recovered verses; the
+#   page-1293 running-footer `... ቤተ ክርስቲያን ሃይማኖትና ሥርዓት` leaks
+#   into the last verse (same known inline-leakage residual as
+#   prior ships). τ.6.x.3 batched audit closes the gap + strips the
+#   footer leakage.
+#
+# Coverage 48.0% — second-lowest τ.7.x.* coverage (above τ.7.x.j
+# 2 Esdras 34.1%, below τ.7.x.h Ruth 70.6%). Same honest ocr-tier3
+# expectation as τ.7.x.j: deuterocanonical books deep in the
+# "(ረቂቅ)"/draft parallel region recover less than the p0-906
+# protocanonical band; zero-parser-API-delta preserved.
+ingest_record_tau7xk:
+  phase: τ.7.x.k
+  ingested_date: 2026-05-15
+  ingested_book_codes: [tob]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1285, 1293]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.b
+    - τ.7.x.c
+    - τ.7.x.d
+    - τ.7.x.e
+    - τ.7.x.f
+    - τ.7.x.g
+    - τ.7.x.h
+    - τ.7.x.i
+    - τ.7.x.j
+    - τ.7.x.k   # TOBIT_VERSE_COUNTS added (eleventh renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 118
+    verses_expected: 246
+    coverage_pct: 48.0
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6]
+    chapters_partial:
+      7: [4, 17]   # got, expected
+    chapters_missing: [8, 9, 10, 11, 12, 13, 14]
+  audit_handoff: τ.6.x.3
+  next_book: jdt   # τ.7.x.l candidate — Amharic Judith (p1294-1307; next book in the p1239+ EOTC-parallel block)
+  arc_continues: deuterocanon-eotc-parallel-block   # SECOND deuterocanonical τ.7.x.* ingest; CLOSES the p1239-1293 block (Ezra Sutuʼel + Tobit)
+  deuterocanon: true   # tob is in the Tewahedo + Catholic OT, outside the 66-book Protestant canon
+  block_drained: p1239-1293   # τ.7.x.j (2es) + τ.7.x.k (tob) together drain the entire third EOTC-parallel block
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.
