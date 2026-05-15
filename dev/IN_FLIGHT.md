@@ -4,6 +4,61 @@
 
 ## Prior task
 
+**τ.6.x.0c TESSERACT-VERIFY + SCRIPT/ETHIOPIC ADOPTION ship —
+operator-side Tesseract install verification + Claude-side
+codification of the `script/Ethiopic` recognizer adoption that
+closes the τ.6.x.0b AVAILABILITY-UNCERTAIN `gez.traineddata` gap
+with a strictly-better third option (Option C) beyond the
+τ.6.x.0b-anticipated fallbacks (Option A: skip; Option B:
+phase4-defer). Triggered by user "i installed tessaract, what's
+next" → "how do we set the path" → "ship". Shipped: (1) new
+`scripts.core.paths.tesseract_binary()` resolver (PATH → known
+install paths → `TESSERACT_BIN` env-override) + companion
+`reset_tesseract_binary()` test hook; both added to
+`paths.__all__`; (2) `_source.yaml::ocr_strategy` extended with a
+`tau6x0c_verification` block recording the operator-side
+install (v5.5.0.20241111, UB-Mannheim, user-PATH-appended) +
+`amh` present + `gez` absent + `script/Ethiopic` adopted +
+resolver block + bonus-languages inventory + no-ingest contract
++ next_phase=τ.6.x.1+; the `prerequisites.geez_tessdata.
+fallback_if_missing` enumeration extended with `option_c`
+preserving Options A/B as historical record; (3) SCOPE_2026-05-14
+-parallel-bible.md §7.5 extended with the τ.6.x.0c verification
+block including the script/Ethiopic adoption decision +
+strictly-better-than enumeration + updated Option-D tier-policy
+table reflecting `-l script/Ethiopic+amh` invocation pattern +
+resolver pointer + bonus-language inventory + honesty-contract
+preservation; τ.6.x.0b decision block left intact; (4)
+PI2_PRE_FLIGHT_CHECKLIST.md τ.6.x.0c gate-dashboard row flipped
+⬜ → ✓ SHIPPED with script/Ethiopic resolution + resolver
+location referenced; §4 verification-commands grep pattern
+updated `^(amh|gez)$` → `^(amh|script/Ethiopic)$`; §2 unblock-
+status annotated; τ.6.x.1+ row updated to "blocked on Tesseract
+wiring" (now Claude-side actionable); τ.7.x row updated to
+"blocked on τ.6.x.1+"; (5) NEW
+`tests/test_parallel_bible_tau6x0c.py` — pin tests across 8
+groups (ResolverModule 6 + SourceYamlVerificationBlock 11 +
+GeezFallbackExtended 6 + ScopeAdoptionRecorded 7 +
+PreFlightChecklistGateFlip 4 + TesseractRuntime 3 (skip-if-
+unavailable) + ClosedArcInvariantPreservation 6 + PhaseCoverage
+2 = 45 pin tests total); (6) PLAN_2026-05-09 §2 status snapshot
+updated for τ.6.x.0c-shipped state; §6 shipped ledger adds Ω.0 +
+τ.6.x.0c rows; pending ledger drops τ.6.x.0c; (7)
+test_omega4x_hygiene.py share-pin → milestone-pin conversion
+per `feedback_share_pin_pattern` — τ.6.x.0c migrated from
+pending-list assertion to shipped-list assertion. Closed-arc
+invariants regression-guarded (γ.4.8.E 67/67 + γ.4.8.F ≥212 +
+Π.0.1 + Π.0.4 + τ.6.x.0a/b + δ.1.0 + δ.1.x.A.0 + Π.1 + Π.1.B +
+Π.2.prep + Ω.0 all preserved). NO data ingest; geez-tewahedo +
+amharic-tewahedo slots remain at Π.0 seed state (gen.py-only);
+v1.0 byte-identical reproducibility preserved. Audit cadence:
+post-LIGHT-2 phase #5; cumulative drift +160; ≥150 threshold
+NOW CROSSED — lighter solo-Claude audit recommended at next
+session boundary.** shipped 2026-05-14. Triggered by user "ship"
+after the τ.6.x.0c verification probe.
+
+## Prior task (previous)
+
 **Ω.0 FREE-PUBLIC PIVOT — north-star change.** The project
 pivots from for-sale Bible publishing platform to free public
 Bible-builder. Triggered by user message asking for ISBN

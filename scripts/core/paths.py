@@ -77,6 +77,8 @@ __all__ = [
     "epub_working_dir",
     "builds_dir",
     "backups_dir",
+    "tesseract_binary",
+    "reset_tesseract_binary",
 ]
 
 
@@ -272,3 +274,89 @@ def builds_dir() -> Path:
 
 def backups_dir() -> Path:
     return _build_output_root() / "epub_working" / ".backups"
+
+
+# ----------------------------------------------------------------------
+# External-tool resolvers — Tesseract OCR (τ.6.x.0c).
+#
+# Resolution order for tesseract_binary():
+#   1. TESSERACT_BIN env-var override (highest priority)
+#   2. shutil.which("tesseract") — PATH lookup
+#   3. Well-known platform install paths (Windows / macOS / Linux)
+#   4. None — caller decides how to fail (extract_parallel_pdf.py
+#      raises a clear error message pointing at the install docs).
+#
+# The project does NOT require Tesseract to be on PATH; this resolver
+# lets the extractor work whether or not the operator updated their
+# shell PATH after installing Tesseract. On Windows the UB-Mannheim
+# installer (default for τ.6.x.0c) drops Tesseract at
+# ``C:\Program Files\Tesseract-OCR\tesseract.exe``.
+# ----------------------------------------------------------------------
+
+
+_TESSERACT_ENV_VAR = "TESSERACT_BIN"
+
+
+def _known_tesseract_paths() -> list[Path]:
+    """Platform-conventional install paths for Tesseract, ordered by
+    likelihood. Returns Path objects (existence not checked here —
+    the caller filters)."""
+    if sys.platform == "win32":
+        return [
+            Path(r"C:\Program Files\Tesseract-OCR\tesseract.exe"),
+            Path(r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"),
+            Path.home() / "AppData" / "Local" / "Programs" / "Tesseract-OCR" / "tesseract.exe",
+        ]
+    if sys.platform == "darwin":
+        return [
+            Path("/opt/homebrew/bin/tesseract"),  # Apple Silicon Homebrew
+            Path("/usr/local/bin/tesseract"),  # Intel Homebrew + MacPorts default
+        ]
+    # Linux + other POSIX
+    return [
+        Path("/usr/bin/tesseract"),
+        Path("/usr/local/bin/tesseract"),
+    ]
+
+
+def tesseract_binary() -> Path | None:
+    """Resolve the on-disk location of the Tesseract OCR binary, or
+    return ``None`` if it cannot be found. Cached on first call;
+    call ``reset_tesseract_binary()`` after environment changes.
+
+    The resolver does NOT verify the binary works (no version probe);
+    that is the caller's responsibility. This keeps ``paths.py`` a
+    pure path-resolution module; runtime probes belong in the
+    extractor."""
+    return _tesseract_binary_cached()
+
+
+@lru_cache(maxsize=1)
+def _tesseract_binary_cached() -> Path | None:
+    import shutil
+
+    override = os.environ.get(_TESSERACT_ENV_VAR)
+    if override:
+        candidate = Path(override).expanduser()
+        if candidate.is_file():
+            return candidate
+        # If TESSERACT_BIN is set but invalid, fall through to PATH /
+        # known-paths — but the override miss is worth surfacing in
+        # logs at the extractor layer (this resolver stays silent).
+
+    on_path = shutil.which("tesseract")
+    if on_path:
+        return Path(on_path)
+
+    for candidate in _known_tesseract_paths():
+        if candidate.is_file():
+            return candidate
+
+    return None
+
+
+def reset_tesseract_binary() -> None:
+    """Drop the cached tesseract_binary() result. Useful when the
+    environment changes mid-process (env-var edits, PATH updates,
+    or tests that monkeypatch the resolver inputs)."""
+    _tesseract_binary_cached.cache_clear()

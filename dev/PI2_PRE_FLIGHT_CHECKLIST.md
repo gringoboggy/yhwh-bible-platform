@@ -57,16 +57,17 @@ Pin tests (proposed `TestPi2EthiopianTewahedoPopups`):
 |---|---|---|---|
 | Π.1 declarative inventory | Π.1 (committed `13501e9`) | ✓ SHIPPED 2026-05-14 | structural_map for jubilees + one_enoch + laodiceans + meqabyan declared; required for popup-emission code to know which Tewahedo-distinctive slots to surface. |
 | Π.1.B laodiceans alternate-source | Π.1.B (committed `f139494`) | ✓ SHIPPED 2026-05-14 | alternate-source for the lao slot declared; required if publisher elects to include lao in ethiopian canon at Π.2 follow-through (see §3 D2). |
-| τ.6.x.0c Tesseract install | τ.6.x.0c | ⬜ pending (operator-side) | Geʽez + Amharic tessdata install required for τ.6.x.1+. |
-| τ.6.x.1+ Geʽez bulk ingest | τ.6.x.1+ | ⬜ blocked on τ.6.x.0c | populates geez-tewahedo translation slot beyond Π.0 seed (3 verses Genesis only); without this, Geʽez popups would be empty. |
-| τ.7.x Amharic full-Bible ingest | τ.7.x | ⬜ blocked on τ.6.x.0c | populates amharic-tewahedo translation slot beyond Π.0 seed; without this, Amharic popups would be empty. |
+| τ.6.x.0c Tesseract install | τ.6.x.0c | ✓ SHIPPED 2026-05-14 | Tesseract 5.5.0 installed + amh.traineddata present + `script/Ethiopic` adopted as Geʽez recognizer (resolves τ.6.x.0b AVAILABILITY-UNCERTAIN gez.traineddata gap with strictly-better third option). Resolver `scripts.core.paths.tesseract_binary()` decouples ingest from PATH state. |
+| τ.6.x.1+ Geʽez bulk ingest | τ.6.x.1+ | ⬜ blocked on Tesseract wiring in extract_parallel_pdf.py | populates geez-tewahedo translation slot beyond Π.0 seed (3 verses Genesis only); without this, Geʽez popups would be empty. |
+| τ.7.x Amharic full-Bible ingest | τ.7.x | ⬜ blocked on τ.6.x.1+ | populates amharic-tewahedo translation slot beyond Π.0 seed; without this, Amharic popups would be empty. |
 | δ.1.x Phase-4 Meqabyan apparatus | δ.1.x (multi-session) | ⬜ blocked on operator page-image render | required for ethiopian-tewahedo's Meqabyan-1-3 popups to be more than the v1 English baseline (Phase-4 page-image revisions feed compare-divergence-geez kind). |
 
 **Π.2 is unblocked ONLY when:** Π.1 ✓ AND Π.1.B ✓ AND τ.6.x.0c ✓
 AND τ.6.x.1+ ✓ AND τ.7.x ✓. δ.1.x apparatus is RECOMMENDED but
 NOT strictly blocking — Π.2 can ship with Meqabyan popups showing
 only the v1 English baseline (Phase-4 apparatus is a bonus
-enhancement, not a Π.2 prerequisite).
+enhancement, not a Π.2 prerequisite). **As of 2026-05-14: Π.1 + Π.1.B
++ τ.6.x.0c shipped; remaining gates τ.6.x.1+ + τ.7.x.**
 
 ---
 
@@ -170,10 +171,15 @@ pytest tests/test_parallel_bible_pi1.py -q
 pytest tests/test_parallel_bible_pi1b.py -q
 # Expect: 69 passed, 0 failed.
 
-# τ.6.x.0c ✓ verification (operator-side)
+# τ.6.x.0c ✓ verification (operator-side) — shipped 2026-05-14
 tesseract --version
-tesseract --list-langs | grep -E "^(amh|gez)$"
-# Expect: tesseract version + "amh" present + "gez" present-or-flagged.
+tesseract --list-langs | grep -E "^(amh|script/Ethiopic)$"
+# Expect: tesseract 5.x + "amh" present + "script/Ethiopic" present.
+# Note: gez.traineddata is intentionally NOT required; τ.6.x.0c adopted
+# script/Ethiopic as the Geʽez recognizer (Option C, strictly better
+# than the two τ.6.x.0b-anticipated fallbacks). If Tesseract is not on
+# PATH, the resolver scripts.core.paths.tesseract_binary() falls back
+# to platform-conventional install paths automatically.
 
 # τ.6.x.1+ ✓ verification
 ls content/translations/geez-tewahedo/*.py | wc -l

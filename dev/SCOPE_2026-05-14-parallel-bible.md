@@ -1006,6 +1006,104 @@ completion.
 
 ---
 
+### τ.6.x.0c verification + `script/Ethiopic` adoption (2026-05-14)
+
+**Operator-side install + verification SHIPPED at τ.6.x.0c on
+2026-05-14.** All three τ.6.x.0b-flagged load-bearing prerequisites
+verified:
+
+| Prerequisite | Status | Detail |
+|---|---|---|
+| Tesseract install | ✅ INSTALLED | v5.5.0.20241111 at `C:\Program Files\Tesseract-OCR\tesseract.exe` (UB-Mannheim Windows build, Apache-2.0); appended to user PATH |
+| `amh.traineddata` (Amharic) | ✅ PRESENT | bundled in standard install (161 languages total) |
+| `gez.traineddata` (Geʽez) | ❌ ABSENT | as anticipated by τ.6.x.0b — not in upstream tessdata-fast/best |
+
+**Critical finding — `script/Ethiopic` IS present in the standard
+install.** This is Tesseract's upstream-blessed Ethiopic-script-level
+recognizer (same `script/<X>` family as `script/Greek`,
+`script/Hebrew`, `script/Syriac`, etc.). When a language-specific
+model is unavailable, Tesseract's documented practice is to use
+the script-level model — `script/Ethiopic` recognizes Geʽez fidel
+correctly because Geʽez, Amharic, and Tigrinya all share a single
+script.
+
+**DECISION (τ.6.x.0c): ADOPT `script/Ethiopic` as the Geʽez OCR
+recognizer.** This extends the τ.6.x.0b fallback enumeration with a
+new third option strictly better than both originally documented
+fallbacks:
+
+- **Option A (`--geez-fallback skip`)** — would emit Amharic-only
+  output for τ.6.x.1+ bulk-ingest; loses the Geʽez column entirely.
+- **Option B (`--geez-fallback phase4-defer`)** — would defer the
+  66 standard-canon books to multi-session manual transcription
+  (~50+ sessions); prohibitive for the bulk-ingest goal.
+- **Option C (NEW, AUTHORIZED at τ.6.x.0c): `script/Ethiopic`
+  recognizer** — produces proper Geʽez OCR text at `ocr-tier3` for
+  τ.6.x.1+ bulk-ingest; preserves honesty contract (script-level
+  recognition is acknowledged as imperfect, which is exactly what
+  tier-3 means); no community-fork license-verification gate
+  (Apache-2.0 ships upstream identical to `amh.traineddata`).
+
+**Tesseract invocation pattern for τ.6.x.1+:**
+
+```bash
+tesseract <page_image> <out> -l script/Ethiopic+amh
+```
+
+The combined `-l script/Ethiopic+amh` is the recommended pattern
+for the parallel-Bible PDF — `script/Ethiopic` recognizes the Geʽez
+column, `amh` (language-specific) drives the Amharic column.
+Tesseract handles the mix correctly when both columns are rendered
+as a single page.
+
+**Updated Option-D tier-policy (replaces the τ.6.x.0b table for
+standard-canon + other-Tewahedo-distinctive + amharic_parallel rows):**
+
+| Books | Target tier | Path | Phase |
+|---|---|---|---|
+| Mäṣḥafä Mäqabyan (mq1+mq2+mq3) | `page-image-tier1` | Phase-4 (page-image manual) | δ.1.x |
+| 1 Enoch (Mäṣḥafä Hēnok) | `page-image-tier1` | Phase-4 (page-image manual) | δ.1.x |
+| Jubilees (Mäṣḥafä Kufāle) | `page-image-tier1` | Phase-4 (page-image manual) | δ.1.x |
+| All other standard-canon (66) | `ocr-tier3` baseline → `ocr-tier2` after operator cross-check | Tesseract via `extract_parallel_pdf.py` with `-l script/Ethiopic+amh` | τ.6.x.1+ |
+| Other Tewahedo-distinctive | `ocr-tier3` baseline; escalate to Phase-4 case-by-case | Tesseract (`script/Ethiopic+amh`) first, Phase-4 if unworkable | τ.6.x.1+ |
+| Amharic (parallel slot) | `ocr-tier3` baseline | Tesseract via `extract_parallel_pdf.py` with `-l amh` | τ.7.x |
+
+**Resolver landed at `scripts.core.paths.tesseract_binary()`** —
+resolution order: `TESSERACT_BIN` env-override → `shutil.which()`
+PATH lookup → platform-conventional install paths (Windows
+`C:\Program Files\Tesseract-OCR\tesseract.exe`, macOS Homebrew
+`/opt/homebrew/bin/tesseract` + `/usr/local/bin/tesseract`, Linux
+`/usr/bin/tesseract` + `/usr/local/bin/tesseract`). The project no
+longer depends on the operator having Tesseract on PATH; the
+resolver makes τ.6.x.1+ ingest robust to machine-specific PATH
+state (fragile across shell restarts and CI environments).
+
+**Bonus availability for other arcs:** the standard install also
+includes `grc` (Ancient Greek — useful for χ.1 Greek lexicon work),
+`heb` (Hebrew), `syr` (Syriac — useful for the γ.4.2 Ephrem
+corpus), `lat` (Latin — useful for χ.0/Kenyon and Lightfoot 1875
+Laodiceans transcription per Π.1.B), and `tir` (Tigrinya —
+secondary Ethiopic witness). These are NOT load-bearing for
+τ.6.x.1+ but become relevant for future arcs.
+
+**No data ingested at τ.6.x.0c.** This phase is operator-side
+install + Claude-side codification only. The `geez-tewahedo` and
+`amharic-tewahedo` translation slots REMAIN at their Π.0 seed
+state (3 verses Genesis only). The τ.6.x.0a contract is preserved
+as a regression-guarded invariant; the τ.6.x.0b honesty contract
+(every tier-3 entry carries `SOURCE_QUALITY` provenance + per-entry
+reader-facing caveat) is non-negotiable through τ.6.x.1+.
+
+**Next phase unblocks:** τ.6.x.1+ bulk-ingest. The implementation
+work for τ.6.x.1+ is wiring `tesseract_binary()` into
+`scripts/extract_parallel_pdf.py` (render each PDF page at 350 dpi
+via pymupdf → invoke Tesseract with `-l script/Ethiopic+amh` →
+parse verse-keyed output → bulk-ingest standard-canon books at
+`ocr-tier3` with provenance tagging + reader-facing caveats). The
+ingest is no longer blocked operator-side.
+
+---
+
 ## §8 — Open decisions for the user
 
 These are the publisher-side choices the plan needs but cannot

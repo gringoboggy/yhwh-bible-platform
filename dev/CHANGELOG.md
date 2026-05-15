@@ -6,6 +6,70 @@
 
 ---
 
+## 2026-05-14 — session — τ.6.x.0c TESSERACT-VERIFY + SCRIPT/ETHIOPIC ADOPTION (operator-side Tesseract install verification COMPLETE on Windows v5.5.0.20241111 UB-Mannheim build with user-PATH appended; `amh.traineddata` present + `gez.traineddata` absent as anticipated by τ.6.x.0b AVAILABILITY-UNCERTAIN flag + **`script/Ethiopic` IS present in the standard upstream tessdata install** — Tesseract's upstream-blessed Ethiopic-script-level recognizer adopted as the Geʽez OCR recognizer; NEW third option (Option C) extends the τ.6.x.0b fallback enumeration with a strictly-better path beyond Option A (skip → would emit Amharic-only output) and Option B (phase4-defer → would defer 66 standard-canon books to ~50+ manual-transcription sessions); same Apache-2.0 license posture as `amh.traineddata`, no community-fork license-verification gate, honesty contract preserved (script-level recognition acknowledged imperfect = exactly what `ocr-tier3` means); Tesseract invocation pattern for τ.6.x.1+ is `-l script/Ethiopic+amh`; bonus languages also available in the standard install for downstream arcs — `grc` (Greek, χ.1), `heb` (Hebrew), `syr` (Syriac, γ.4.2 Ephrem), `lat` (Latin, χ.0 Kenyon + Lightfoot 1875 Π.1.B Laodiceans), `tir` (Tigrinya, secondary Ethiopic witness); NEW `scripts.core.paths.tesseract_binary()` resolver landed — PATH → known platform install paths → `TESSERACT_BIN` env-override; `lru_cache`-d with `reset_tesseract_binary()` test hook; both added to `paths.__all__`; project no longer depends on operator having Tesseract on PATH; `_source.yaml::ocr_strategy.tau6x0c_verification` block + `prerequisites.geez_tessdata.fallback_if_missing.option_c` extension landed preserving τ.6.x.0b options A/B as historical record; SCOPE_2026-05-14-parallel-bible.md §7.5 extended with τ.6.x.0c verification + script/Ethiopic adoption + updated Option-D tier-policy table; PI2_PRE_FLIGHT_CHECKLIST.md τ.6.x.0c gate-dashboard row flipped ⬜ → ✓ SHIPPED with script/Ethiopic resolution + resolver location referenced + §4 verification commands updated `^(amh|gez)$` → `^(amh|script/Ethiopic)$` + §2 unblock-status annotated + τ.6.x.1+ row updated to "blocked on Tesseract wiring" + τ.7.x row updated to "blocked on τ.6.x.1+"; NEW tests/test_parallel_bible_tau6x0c.py with 45 pin tests across 8 groups; test_omega4x_hygiene.py share-pin → milestone-pin conversion per `feedback_share_pin_pattern` migrating τ.6.x.0c from pending-list assertion to shipped-list assertion; PLAN_2026-05-09 §2 status snapshot + §6 parallel-Bible ledger updated reflecting τ.6.x.0c shipped state)
+
+**Phase shipped:** τ.6.x.0c — Tesseract install verification +
+script/Ethiopic adoption. Pure declarative codification of the
+operator-side verification result + the script/Ethiopic decision
+that closes the τ.6.x.0b AVAILABILITY-UNCERTAIN gez.traineddata
+gap with a strictly-better third option.
+
+**Triggered by:** user message — "i installed tessaract, what's
+next" → verification probe found Tesseract installed but not on
+PATH, `amh` present, `gez` absent, **`script/Ethiopic` present** →
+"how do we set the path" → PATH appended idempotently → verified
+working → "ship" → this codification ship. Per memory
+`feedback_extensive_answers` (broadest scope: codify the script/
+Ethiopic adoption as a new third option in SCOPE + _source.yaml +
+tier-policy + resolver + pin tests + state docs, not just a row
+flip), `feedback_continue_not_save` (advance to next phase, don't
+auto-save), `feedback_share_pin_pattern` (convert τ.6.x.0c
+pending-list assertion → shipped-list assertion at ship time),
+and project rules §3 sequencing (resolver foundation first →
+scope codification → checklist flip → tests → state docs).
+
+**τ.6.x.0c deliverables** — see `dev/SESSION_STATE.md` τ.6.x.0c
+headline for the full 8-point breakdown. Summary: (1) resolver in
+`scripts/core/paths.py` (`tesseract_binary()` + `reset_tesseract_
+binary()`); (2) script/Ethiopic adopted as Option C; (3)
+_source.yaml verification block + fallback Option-C extension;
+(4) SCOPE §7.5 τ.6.x.0c verification block with updated tier-
+policy table; (5) PI2_PRE_FLIGHT_CHECKLIST.md gate-row flip +
+§4 verification commands + §2 unblock status; (6) NEW
+tests/test_parallel_bible_tau6x0c.py 45 pins / 8 groups; (7)
+PLAN §2 status snapshot + §6 ledger updates; (8) omega4x test
+share-pin → milestone-pin conversion.
+
+**Closed-arc invariants regression-guarded:** γ.4.8.E 67/67 +
+γ.4.8.F ≥212 Mäqabyan + Π.0.1 amharic-in-POPUP_LANGUAGES + Π.0.4
+EMBED_FONT_PATHS=[] + τ.6.x.0a/b contracts (translation slots
+gen.py-only; Option-D-Hybrid authorized; Tesseract default engine;
+AVAILABILITY-UNCERTAIN flag intact) + δ.1.0 entries=[] +
+δ.1.x.A.0 batch_prep + Π.1 jubilees/one_enoch sections + Π.1.B
+laodiceans flip + Π.2.prep checklist + Ω.0 free-public pivot all
+preserved.
+
+**Audit cadence:** τ.6.x.0c is post-LIGHT-2 phase #5; cumulative
+drift +160 tests (δ.1.x.A.0 +39 + Π.2.prep +35 + ω.4x +15 +
+Ω.0 +27 + τ.6.x.0c +44/+45); **≥150 threshold NOW CROSSED** —
+lighter solo-Claude audit recommended at the next session
+boundary per memory `feedback_audit_cadence`.
+
+**No data ingest.** geez-tewahedo + amharic-tewahedo translation
+slots REMAIN at Π.0 seed state (3 verses Genesis only); τ.6.x.0a
+contract preserved as regression-guarded invariant. v1.0
+byte-identical reproducibility preserved.
+
+**Next phase:** τ.6.x.1+ — wire `tesseract_binary()` into
+`scripts/extract_parallel_pdf.py` (render at 350 dpi via pymupdf
+→ invoke Tesseract with `-l script/Ethiopic+amh` → parse
+verse-keyed output → bulk-ingest standard-canon books at
+`ocr-tier3` with provenance + reader-facing caveats). Now
+Claude-side actionable; no further operator-side gates on the
+τ.6.x track.
+
+---
+
 ## 2026-05-14 — session — Ω.0 FREE-PUBLIC PIVOT (north-star change: project pivots from for-sale Bible publishing platform to free public Bible-builder; ISBN dropped from editions.yaml + 7 edition_templates + validate_schemas FieldSpecs + build_edition.py OPF identifier + copyright page + wizard branding fieldset + customize metadata input + publisher Identifiers block + diff/export displays + api/editions + api/exports + api/preflight + web.py PUBLISHING_DEFAULTS/PUBLISHING_TEXT_LIMITS; EPUB dc:identifier replaced with urn:yhwh:edition:&lt;id&gt; generator URN; 6 commercial-only modules carry LOAD-BEARING-NO-LONGER §7.4 banners — scripts/build_onix.py, content/onix.py, scripts/core/sales.py, scripts/core/distribution.py, scripts/api/distribution.py, scripts/print_cover.py; NEW /build-tracker console with summary tiles + per-book × per-chapter heat-grid + per-category bars + per-kind ranked table + lazy per-book title drilldown; companion api_build_tracker + api_build_tracker_book in scripts/web.py; CONSOLES bumped 17 → 18; lint_rules.py route_for_constant + SESSION_STATE inventory updated; 27 new pin tests across 9 groups in tests/test_omega0_free_public_pivot.py; 9 pre-existing ISBN-coupled tests updated; project rules §1 north star rewritten from "buyer demo" to "builder demo"; memory entries added — project_free_public_pivot.md + project_overview update + reference_external_tools Bowker-strike + MEMORY.md index). Triggered by user message asking for ISBN removal "completely from the matrix" plus a note-tracking display system. Per memory feedback_extensive_answers (broadest scope: full pivot, not just field removal). Linter 11/11 clean post-bump to 18 consoles. NO data ingest; corpus 52,459 unchanged; v1.0 byte-identical reproducibility preserved.
 
 **Phase shipped:** Ω.0 — Free-public pivot. North-star change.

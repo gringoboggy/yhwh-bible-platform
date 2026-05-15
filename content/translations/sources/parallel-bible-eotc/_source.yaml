@@ -393,7 +393,19 @@ ocr_strategy:
       fallback_if_missing:
         option_a: skip-geez-column-emit-amharic-only-slot
         option_b: defer-book-to-δ.1.x-phase4
-        operator_chooses_via: '--geez-fallback {skip,phase4-defer} flag (added at τ.6.x.0c)'
+        option_c: use-script-Ethiopic-tessdata  # τ.6.x.0c addition
+        operator_chooses_via: '--geez-fallback {skip,phase4-defer,script-ethiopic} flag (extended at τ.6.x.0c)'
+        chosen_at_phase: τ.6.x.0c
+        chosen_option: option_c
+        chosen_rationale: |
+          script/Ethiopic ships in the standard upstream tessdata
+          install (same Apache-2.0 license posture as amh.traineddata,
+          no community-fork license-verification gate) and recognizes
+          Geʽez fidel correctly because Geʽez/Amharic/Tigrinya share a
+          single script. Strictly better than option_a (which would
+          skip the Geʽez column entirely) and option_b (which would
+          defer 66 standard-canon books to multi-session manual
+          transcription).
 
     cloud_ocr_escalation:
       required_for: opt-in only — Option B sub-strategy
@@ -418,3 +430,67 @@ ocr_strategy:
     The verification result feeds into the extract_parallel_pdf.py
     invocation flags. ONLY after τ.6.x.0c completes does τ.6.x.1+
     bulk-ingest begin.
+
+  # τ.6.x.0c VERIFICATION — operator-side Tesseract install + tessdata
+  # availability probe COMPLETE on 2026-05-14. The script/Ethiopic
+  # discovery resolves the τ.6.x.0b "AVAILABILITY-UNCERTAIN" gez
+  # tessdata gap and unblocks τ.6.x.1+ bulk-ingest with a strictly
+  # better path than the two τ.6.x.0b-anticipated fallbacks.
+  tau6x0c_verification:
+    verified_at_phase: τ.6.x.0c
+    verified_date: 2026-05-14
+    tesseract_install:
+      installed: true
+      version: 5.5.0.20241111
+      install_path: 'C:\Program Files\Tesseract-OCR\tesseract.exe'
+      distribution: UB-Mannheim Windows build
+      license: Apache-2.0
+      added_to_user_path: true
+    amharic_tessdata:
+      present: true
+      file: amh.traineddata
+      source: bundled in upstream tessdata (Apache-2.0)
+    geez_tessdata:
+      present: false
+      file: gez.traineddata
+      anticipated_at_phase: τ.6.x.0b  # τ.6.x.0b prerequisites flagged this AVAILABILITY-UNCERTAIN
+    geez_recognizer_adopted:
+      model: script/Ethiopic
+      present: true
+      adopted_at_phase: τ.6.x.0c
+      rationale: |
+        Tesseract's upstream-blessed Ethiopic-script-level recognizer.
+        Geʽez/Amharic/Tigrinya share a single script (fidel); the
+        script-level model recognizes any of them correctly. Same
+        Apache-2.0 license posture as amh.traineddata — no community-
+        fork license-verification gate. Strictly better than the two
+        τ.6.x.0b-anticipated fallbacks (skip / phase4-defer).
+      invocation_pattern: 'tesseract <page_image> <out> -l script/Ethiopic+amh'
+    bonus_languages_available:
+      grc: Ancient Greek — χ.1 Greek lexicon
+      heb: Hebrew — γ.x Hebrew Bible
+      syr: Syriac — γ.4.2 Ephrem
+      lat: Latin — χ.0/Kenyon, Lightfoot 1875 Laodiceans
+      tir: Tigrinya — secondary Ethiopic witness
+    resolver:
+      module: scripts.core.paths
+      function: tesseract_binary
+      added_at_phase: τ.6.x.0c
+      resolution_order:
+        - TESSERACT_BIN env-var override
+        - 'shutil.which("tesseract") — PATH lookup'
+        - platform-conventional install paths
+      rationale: |
+        The project no longer depends on the operator having Tesseract
+        on PATH. PATH edits are fragile across shell restarts and CI
+        environments; the resolver makes τ.6.x.1+ ingest robust to
+        machine-specific PATH state.
+    no_ingest_at_this_phase: true
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved)'
+    next_phase: τ.6.x.1+
+    next_phase_description: |
+      Wire Tesseract into scripts/extract_parallel_pdf.py: render each
+      PDF page at 350 dpi via pymupdf, invoke tesseract_binary() with
+      -l script/Ethiopic+amh, parse verse-keyed output, bulk-ingest
+      standard-canon books at ocr-tier3 with SOURCE_QUALITY provenance
+      and per-entry reader-facing caveats per the honesty_contract.

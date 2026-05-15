@@ -174,15 +174,19 @@ class TestOmega4xAI2PlanParallelBibleTrack:
         )
 
     def test_plan_lists_shipped_subphases(self):
-        """The shipped 2026-05-14 sub-phase ledger should appear."""
+        """The shipped 2026-05-14 sub-phase ledger should appear.
+        τ.6.x.0c migrated from pending → shipped at τ.6.x.0c ship-time
+        (share-pin → milestone-pin conversion per
+        `feedback_share_pin_pattern` memory)."""
         text = _plan_text()
-        for phase in ["Π.0", "τ.6.x.0a", "τ.6.x.0b", "φ.1", "δ.1.0", "Π.1", "Π.1.B"]:
+        for phase in ["Π.0", "τ.6.x.0a", "τ.6.x.0b", "φ.1", "δ.1.0", "Π.1", "Π.1.B", "τ.6.x.0c"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
     def test_plan_lists_pending_subphases(self):
-        """The pending sub-phase ledger (still-blocked phases) should appear."""
+        """The pending sub-phase ledger (still-blocked phases) should
+        appear. τ.6.x.0c removed at τ.6.x.0c ship-time."""
         text = _plan_text()
-        for phase in ["τ.6.x.0c", "τ.6.x.1+", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.1+", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 
