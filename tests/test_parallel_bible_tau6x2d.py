@@ -311,14 +311,21 @@ class TestTau6X2DInFlight:
             assert pick in text, f"IN_FLIGHT prior-task must record {pick}"
 
     def test_tau6x1b_demoted_to_previous(self):
-        """τ.6.x.1.B should now appear under '## Prior task (previous)'."""
+        """τ.6.x.1.B should appear under '## Prior task (previous)' OR
+        in some earlier-prior block. Refactored from share-pin to
+        milestone-pin at τ.7.x.a.0 ship-time per
+        `feedback_share_pin_pattern` — the 800-char-window pin breaks
+        every time a new ship pushes τ.6.x.2.D further down the chain;
+        the durable assertion is simply that τ.6.x.1.B appears in the
+        IN_FLIGHT prior-task chain at all."""
         text = self._text()
         prev_idx = text.find("## Prior task (previous)")
-        assert prev_idx >= 0
-        # The first prior-task-previous block after τ.6.x.2.D
-        # should be τ.6.x.1.B.
-        after = text[prev_idx : prev_idx + 800]
-        assert "τ.6.x.1.B" in after
+        assert prev_idx >= 0, "IN_FLIGHT must have a Prior task (previous) section"
+        # τ.6.x.1.B appears somewhere in the prior-task-chain (the
+        # full text after "## Prior task (previous)"). This is the
+        # milestone-pin variant.
+        after = text[prev_idx:]
+        assert "τ.6.x.1.B" in after, "τ.6.x.1.B must appear somewhere in IN_FLIGHT's prior-task chain after τ.6.x.2.D"
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -334,10 +341,17 @@ class TestTau6X2DSessionState:
         return SESSION_STATE.read_text(encoding="utf-8")
 
     def test_headline_is_tau6x2d(self):
+        """Refactored from share-pin (current-headline assertion) to
+        milestone-pin (τ.6.x.2.D appears anywhere in SESSION_STATE) at
+        τ.7.x.a.0 ship-time per `feedback_share_pin_pattern` — the
+        first-2000-chars-headline pin breaks every time a new ship
+        prepends a new headline; the durable assertion is that
+        τ.6.x.2.D D-DECISIONS CODIFICATION ship narrative appears
+        somewhere in SESSION_STATE."""
         text = self._text()
-        # The first "**Updated YYYY-MM-DD / ..." block must reference τ.6.x.2.D.
-        first_block = text[:2000]
-        assert "τ.6.x.2.D D-DECISIONS CODIFICATION" in first_block
+        assert "τ.6.x.2.D D-DECISIONS CODIFICATION" in text, (
+            "SESSION_STATE must record the τ.6.x.2.D D-DECISIONS CODIFICATION ship narrative"
+        )
 
     def test_session_state_next_phase_is_tau7xa(self):
         text = self._text()

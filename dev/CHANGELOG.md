@@ -6,6 +6,69 @@
 
 ---
 
+## 2026-05-15 — session — τ.7.x.a.0 PILOT (Amharic Genesis page-range discovery [0, 85] + paragraph_mode_parser_extension_needed empirical finding that re-routes τ.7.x.a (proper) through τ.6.x.1.C parser-extension blocker — analogous to τ.6.x.1.A pilot surfacing verse_numeral_parser_extension_needed → τ.6.x.1.B; structural_map.genesis NEW entry with book_codes=[gen] + pdf_page_range=[0,85] + verified=true + verified_at_phase=τ.7.x.a + chapter_count_expected=50 + marker-scan-verified notes; `_source.yaml::ocr_strategy.tau7xa_pre_pilot` NEW block records shipped fields + page_range_discovery + engine_timing (Tesseract ~7.4s/page vs text-layer ~6-8ms/page ≈ 1000× speedup; text-layer also cleaner Ethiopic for standard-canon books) + 5 quality observations including variant Gen 1:1 reading `በመጀመሪያው ቁን` + cross-reference interleaving + parser_extension_needed flag + parser_finding sub-block + resolution_path=τ.6.x.1.C + 3 alternative source paths considered (parallel-Bible PDF default + nehemiah-osc.org modern Amharic + eBible.org amh VPL) with recommendation Option A + derived_phase_ordering 7-phase sequence (τ.7.x.a.0 ✓ → τ.6.x.1.C → τ.7.x.a (proper) → τ.7.x.b...z → τ.6.x.2.a...z → τ.6.x.3 → Π.2) + closed_arc_contracts_preserved 7-key (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b + tau6x2D all True) + no_ingest + next_phase=τ.6.x.1.C; dev/PILOT_TAU7XA_OUTPUT.md NEW 10-section reference artifact (§1 page-range discovery + §2 engine timing + §3 quality observations + §4 empirical finding + §5 resolution path τ.6.x.1.C + §6 alternative sources + §7 closed-arc preservation + §8 pilot probe scripts not committed + §9 next-phase sequence rewire + §10 empirical inputs for τ.6.x.1.C including regex candidates + verse-count floor dict + API extension proposal + validation regression-pin proposal); NEW tests/test_parallel_bible_tau7xa.py file with 6 test classes ~39 pins covering structural_map.genesis + tau7xa_pre_pilot block + PILOT artifact + IN_FLIGHT + SESSION_STATE + closed-arc preservation including amharic-tewahedo/gen.py-still-3-verse-seed strongest no-ingest pin; test_omega4x_hygiene.py share-pin → milestone-pin migrations — τ.7.x.a.0 added shipped + τ.6.x.1.C added pending)
+
+**Phase shipped:** τ.7.x.a.0 — PILOT sub-phase of τ.7.x.a.
+Discovers Genesis page range [0, 85] + surfaces the
+`paragraph_mode_parser_extension_needed` empirical finding.
+
+**Triggered by:** user "save and continue" after τ.6.x.2.D
+D-decisions codification + LIGHT-2 cadence audit + DEEP matrix
+audit. Advance per `feedback_continue_not_save` to the D4-c
+locked next-phase τ.7.x.a; this PILOT sub-phase precedes the
+full ingest per project rules §3 (safest+most-foundational
+first; the parser-extension blocker discovered here unblocks
+the WHOLE τ.7.x + τ.6.x.2.x per-book ingest sequence under the
+paragraph-flowing conjecture).
+
+**τ.7.x.a.0 deliverables** — see `dev/SESSION_STATE.md` τ.7.x.a.0
+headline + `dev/IN_FLIGHT.md` prior-task block for the full
+9-deliverable breakdown.
+
+**Empirical finding (the key τ.7.x.a.0 output):** Genesis Amharic
+body text has NO leading verse numbers. Verses are paragraph-
+flowing, separated by `።` Ethiopic-full-stop terminators, NOT
+prefixed by Arabic digits or Ethiopic numerals. Contrast with
+Meqabyan Geʽez column (τ.6.x.1.A pilot) where verses begin with
+explicit Ethiopic-numeral prefix (`፪፤ ስመ ፡ ጺሩጻይዳን...`).
+Conjecture: publisher PDF uses DIFFERENT verse-marker conventions
+for Tewahedo-distinctive books (explicit numeral prefix) vs
+standard-canon books (paragraph-flowing); validation deferred to
+τ.7.x.b + τ.6.x.2.a.
+
+**Closed-arc invariants regression-guarded:** all 17 from
+AUDIT_2026-05-15-DEEP §1.8 preserved (γ.4.8.E + γ.4.8.F + Π.0.1
++ Π.0.4 + τ.6.x.0a/b/c/1/1.A/1.B/2.D + δ.1.0 + δ.1.x.A.0 + Π.1
++ Π.1 historical pin + Π.1.B + Π.2.prep + Ω.0 + τ.6.x.0c
+script/Ethiopic + τ.6.x.1 engine-wiring).
+
+**What did NOT change:**
+- No `scripts/extract_parallel_pdf.py` mutation (parser-extension
+  is τ.6.x.1.C scope, NOT τ.7.x.a.0 scope).
+- No `content/translations/*` data — slots remain at Π.0 seed
+  (gen.py only, 3 verses each); τ.7.x.a (proper) is BLOCKED on
+  τ.6.x.1.C.
+- No `content/editions.yaml`/`canons.yaml` mutation; v1.0
+  byte-identical reproducibility preserved.
+
+**Test count:** ~4634 → ~4673 (+39 pin tests in test_parallel_
+bible_tau7xa.py + 1 from omega4x extension).
+
+**Audit cadence:** post-DEEP phase #1; cumulative drift +~40;
+≥150 threshold NOT crossed.
+
+**Next phase pointer:** **τ.6.x.1.C** — paragraph-mode parser
+extension. Adds `paragraph_mode=True` to `parse_verses_from_text()`
+that splits verses by paragraph breaks, filters cross-reference
+lines, numbers verses sequentially per chapter, validates against
+known verse counts. ~½-1 session. Pin tests extend
+`test_parallel_bible_tau6x1.py` with `TestTau6X1CParagraphMode`.
+After τ.6.x.1.C ships, τ.7.x.a (proper) opens for the actual
+Amharic Genesis full-book ingest. By paragraph-flowing conjecture
+also unblocks τ.7.x.b...z + τ.6.x.2.a...z.
+
+---
+
 ## 2026-05-15 — session — τ.6.x.2.D D-DECISIONS CODIFICATION (DECISION-ONLY ship that resolves the four open publisher-direction D-decisions gating τ.6.x.2+ Geʽez bulk-ingest at ocr-tier3 — locks **D1-a** incremental per-book sub-ships τ.6.x.2.a → τ.6.x.2.z matching γ.4.x per-arc cadence + **D2-b** batched τ.6.x.3 audit pass deferring tier-3 → tier-2 cross-check to a discrete subsequent arc + **D3-c** FULL 87-book audit at τ.6.x.3 broadest scope OVERRIDING recommended D3-a first-cut default per `feedback_extensive_answers` + **D4-c** Amharic-first inversion where τ.7.x.a → τ.7.x.z ships BEFORE τ.6.x.2.a → τ.6.x.2.z so the Amharic-trained Tesseract recognizer's cleaner OCR per τ.6.x.1.A pilot validates the per-book pipeline first OVERRIDING recommended D4-a Geʽez-first default and INVERTING the PI2_PRE_FLIGHT gate ordering; `_source.yaml::ocr_strategy.tau6x2D_decisions` block records shipped_at_phase + shipped_date + publisher_answer='d1a, d2b, d3c, d4c' + per-decision blocks (choice + label + rationale + alternatives_not_chosen) + derived_phase_ordering sequence τ.6.x.2.D ✓ → τ.7.x.a → τ.7.x.z → τ.6.x.2.a → τ.6.x.2.z → τ.6.x.3 → Π.2 + closed_arc_contracts_preserved 6 keys all True (tau6x0a/b/c + tau6x1 + tau6x1a + tau6x1b) + no_ingest + translation_slot_state remains-at-Π.0-seed + next_phase=τ.7.x.a NOT τ.6.x.2.a per D4-c inversion; SCOPE_2026-05-14-parallel-bible.md §7.7 NEW section with §7.7.1 D-decisions table + §7.7.2 derived phase ordering ASCII tree + §7.7.3 D4-c PI2 gate rewiring + §7.7.4 closed-arc contracts preserved + §7.7.5 next-phase pointer; §8.1 codifies D1-D4 as RESOLVED; PI2_PRE_FLIGHT_CHECKLIST.md §2 gate dashboard rewired per D4-c with τ.7.x row HOISTED ABOVE τ.6.x.2+ row + τ.6.x.2.D ✓ row inserted + τ.6.x.3 ⬜ row inserted + gate-unblock clause extended + §4 verification commands extended with τ.6.x.2.D yaml-probe + τ.7.x verification hoisted above τ.6.x.2+; NEW tests/test_parallel_bible_tau6x2d.py file with 6 test classes ~33 pins covering source-yaml block + SCOPE codification + PI2 gate rewiring + IN_FLIGHT + SESSION_STATE + Π.0 seed preservation; test_omega4x_hygiene.py share/milestone-pin migrations per `feedback_share_pin_pattern` — τ.6.x.2.D added shipped + τ.7.x.a + τ.6.x.3 added pending)
 
 **Phase shipped:** τ.6.x.2.D — Publisher-direction D-decisions

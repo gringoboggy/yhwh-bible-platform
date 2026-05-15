@@ -70,6 +70,42 @@ publisher_url: https://www.ethiopianorthodox.org/
 # the laodiceans block now cross-references that alternate source
 # via `alternate_source_id` + `alternate_source_file` fields.
 structural_map:
+  genesis:
+    book_codes: [gen]
+    pdf_page_range: [0, 85]
+    pdf_index_offset: 0  # the values above are already 0-indexed
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.a
+    chapter_count_expected: 50  # standard Genesis chapter count (Masoretic + LXX agreement)
+    notes: |
+      Verified at τ.7.x.a (2026-05-15) by scanning the FULL Bible
+      PDF for Amharic Genesis markers. 'ኦሪት ዘልደት' (Geʽez Genesis
+      title, U+12A6+U+1228+U+12CD+U+1275 + U+12D8+U+120D+U+12F0+U+1275)
+      appears at page 0; 'በመጀመሪያ' (Amharic Gen 1:1 first word,
+      "In the beginning") appears at page 0; 'ምዕራፍ ፩' (chapter 1
+      marker with Ethiopic numeral ፩=1) appears at page 0.
+
+      Boundary determined by Exodus start detection — 'ኦሪት ዘፀአት'
+      title scan + boundary-page text inspection shows Exodus
+      content begins on page 86 (top of page reads 'ዝ ውነቱ
+      አስማቲሆሙ ለይቋቀ እስራኤል' = Ex 1:1 "These are the names of the
+      sons of Israel"). The explicit 'ኦሪት ዘፀአት' header appears
+      on page 88 (publisher convention puts the formal title later
+      within the book, not at the opening page of Exodus 1 itself).
+
+      Genesis occupies pages 0-85 = 86 pages for 50 chapters
+      (~1.72 pages/chapter; consistent with the meqabyan density
+      pattern of ~1.3-1.7 pages/chapter for two-column liturgical
+      layout). First τ.7.x.a per-book ingest under D4-c Amharic-
+      first sequencing per the τ.6.x.2.D D-decisions matrix. The
+      pre-τ.7.x.a state was Π.0 seed (3 verses, Gen 1:1-3 only);
+      τ.7.x.a upgrades amharic-tewahedo/gen.py to full-book OCR
+      ingest at ocr-tier3 quality per τ.6.x.0b honesty contract.
+      Geʽez column ingest is deferred to τ.6.x.2.a (the same
+      Genesis page range, Geʽez column) under D4-c sequencing —
+      see tau6x2D_decisions.derived_phase_ordering.
+
   meqabyan:
     book_codes: [mq1, mq2, mq3]
     pdf_page_range: [1318, 1378]
@@ -840,3 +876,125 @@ ocr_strategy:
       87-book ocr-tier3 → ocr-tier2 cross-check covering both
       streams. After τ.6.x.3 completes, Π.2 flips the ethiopian-
       tewahedo popup-language default.
+
+  # τ.7.x.a.0 PILOT — pre-pilot empirical finding shipped 2026-05-15.
+  # Discovers Genesis page range [0, 85] + surfaces the
+  # `paragraph_mode_parser_extension_needed` finding that re-routes
+  # τ.7.x.a (proper) through τ.6.x.1.C parser-extension before the
+  # full-book ingest can complete. Analogous to tau6x1a_pilot_validation
+  # which surfaced verse_numeral_parser_extension_needed → τ.6.x.1.B.
+  # Pin tests in tests/test_parallel_bible_tau7xa.py; reference artifact
+  # at dev/PILOT_TAU7XA_OUTPUT.md (§1-10).
+  tau7xa_pre_pilot:
+    shipped_at_phase: τ.7.x.a.0  # PILOT sub-phase of τ.7.x.a
+    shipped_date: 2026-05-15
+    triggered_by: |
+      user "save and continue" after τ.6.x.2.D D-decisions —
+      advances per `feedback_continue_not_save` to the D4-c locked
+      next-phase τ.7.x.a; this PILOT sub-phase precedes the full
+      ingest to discover empirical blockers per project rules §3
+      (safest+most-foundational first).
+    page_range_discovery:
+      section: genesis
+      pdf_page_range: [0, 85]
+      pdf_index_offset: 0
+      total_pages: 86
+      chapter_count_expected: 50
+      pages_per_chapter_avg: 1.72
+      verification_method: |
+        Text-layer marker scan (pymupdf.get_text()) across pages
+        0-150 + boundary inspection at pages 84-88. Markers
+        verified: 'ኦሪት ዘልደት' Geʽez Genesis title at page 0;
+        'ምዕራፍ ፩።' (OCR: 'B ።') chapter 1 marker at page 0;
+        'በመጀመሪያ' Amharic Gen 1:1 first word at page 0; 'ዝ ውነቱ
+        አስማቲሆሙ' (Ex 1:1 = "These are the names...") at page 86;
+        'ኦሪት ዘፀአት' Exodus title at page 88 (publisher convention
+        puts the formal title later within the book).
+    engine_timing:
+      tesseract_per_page_seconds: 7.4  # measured page 0 OCR via _run_tesseract_on_png at 350 dpi
+      tesseract_per_page_seconds_range_observed: [7.4, 7.9]  # pages 0-2 measured
+      text_layer_per_page_ms: 8  # measured pages 1-2 via get_text(); page 0 was ~57ms init cost
+      text_layer_total_86_pages_estimate_seconds: 0.6  # 86 * 7ms after init
+      tesseract_total_86_pages_estimate_minutes: 10.5  # 86 * 7.3s
+      tesseract_total_86_pages_with_4x_parallelism_minutes: 2.7  # ProcessPoolExecutor per τ.6.x.1.A pilot
+    quality_observations:
+      body_text_quality_text_layer: 'GOOD - clean recognizable Gen 1:1-14 content across page 0; fidel characters preserved; sentence boundaries (።) intact'
+      body_text_quality_tesseract: 'DEGRADED - amh recognizer produces more garbled output than text-layer engine (e.g. chapter marker comes out as ምፅራፍ ል፳። instead of ምዕራፍ ፩።)'
+      recommendation: 'Prefer text-layer engine over Tesseract for parallel-Bible PDF Amharic column (faster + cleaner)'
+      variant_gen_1_1_reading: 'PDF uses በመጀመሪያው ቁን (in the first day) vs standard በመጀመሪያ (in the beginning); τ.7.x.a proper should preserve the publisher edition''s variant reading'
+      page_header_bleed: 'has_ethiopic filter in parse_verses_from_text correctly handles publisher banner ASCII (ndo Chueh Fach ahd Cndex / northodox.ord)'
+      cross_reference_lines_interleaved: 'PDF interleaves biblical cross-references between verse paragraphs (e.g. ቀ. ፲፫ = Job 13, አዮ. ቛ፮፡ = Job 26:?). These look like inline footnotes; τ.6.x.1.C parser-extension must filter them.'
+    parser_extension_needed: paragraph_mode_parser_extension_needed
+    parser_finding:
+      issue: 'Amharic Genesis text has NO leading verse numbers - verses paragraph-flow separated by ። sentence-terminator, NOT prefixed by <digit> or <ethiopic-numeral>'
+      evidence: 'parse_verses_from_text on text-layer pages 0-5 produces 2 garbled verses instead of expected ~138 (Gen 1-5 sum)'
+      contrast_with_meqabyan: 'Meqabyan Geʽez column at page 1318 has explicit Ethiopic-numeral prefix ፪፤ ስመ ... (τ.6.x.1.A pilot); Genesis Amharic at page 0 has no such prefix'
+      root_cause_conjecture: 'Publisher PDF uses DIFFERENT verse-marker conventions for Tewahedo-distinctive books (explicit numeral prefix) vs standard-canon books (paragraph-flowing); conjecture untested at this pilot, validation deferred to τ.7.x.b Exodus pilot + τ.6.x.2.a Geʽez Genesis pilot'
+    resolution_path: τ.6.x.1.C
+    resolution_description: |
+      τ.6.x.1.C parser-extension ship would add a `paragraph_mode=True`
+      keyword to parse_verses_from_text() that splits verses by
+      paragraph breaks (consecutive newlines) instead of leading
+      verse markers, filters cross-reference lines via a heuristic
+      regex (book-abbrev + numeral + punctuation), numbers verses
+      sequentially within each chapter, and validates against
+      known verse counts per chapter as a sanity check. Estimated
+      scope ~½-1 session. Pin tests would extend
+      test_parallel_bible_tau6x1.py with TestTau6X1CParagraphMode
+      class. After τ.6.x.1.C ships, τ.7.x.a (proper) becomes
+      unblocked. By the conjecture above, τ.6.x.1.C also unblocks
+      τ.7.x.b...z Amharic per-book + τ.6.x.2.a...z Geʽez per-book
+      under the same parser variant.
+    alternative_source_paths_considered:
+      option_a: 'parallel-Bible PDF (this pilot''s target) - DEFAULT under D4-c; requires τ.6.x.1.C; preserves publisher variant readings'
+      option_b: 'nehemiah-osc.org modern Amharic - UNTESTED at this pilot; may produce different readings'
+      option_c: 'eBible.org amh VPL - UNTESTED; verse-per-line format would bypass parser-extension need entirely; modern UBS revision rather than EOTC liturgical text'
+      recommendation: 'Stick with Option A (parallel-Bible PDF) for source authority + reading consistency with publisher edition; τ.6.x.1.C is the cleanest unblocker'
+    derived_phase_ordering:
+      # The τ.7.x.a.0 pilot finding rewires the τ.6.x.2.D-derived
+      # phase ordering: τ.7.x.a (proper) is now blocked on τ.6.x.1.C,
+      # which is inserted BETWEEN τ.7.x.a.0 (this) and τ.7.x.a (proper).
+      sequence:
+        - phase: τ.7.x.a.0
+          status: ✓ shipped
+          shipped_date: 2026-05-15
+          description: 'this pilot — page-range discovery + parser-extension-needed finding'
+        - phase: τ.6.x.1.C
+          status: ⬜ next-phase
+          description: 'paragraph-mode parser extension; blocks τ.7.x.a (proper) and all subsequent Amharic + Geʽez per-book ingests under the paragraph-flowing conjecture'
+        - phase: τ.7.x.a (proper)
+          status: ⬜ blocked on τ.6.x.1.C
+          description: 'Amharic Genesis full-book ingest at ocr-tier3 - the original τ.7.x.a scope per τ.6.x.2.D D4-c'
+        - phase: τ.7.x.b → τ.7.x.z
+          status: ⬜ blocked on τ.7.x.a (proper)
+          description: 'Amharic per-book incremental ingest for remaining 86 books under D1-a cadence'
+        - phase: τ.6.x.2.a → τ.6.x.2.z
+          status: ⬜ blocked on τ.7.x completion
+          description: 'Geʽez per-book incremental ingest after τ.7.x per D4-c sequencing; may also benefit from τ.6.x.1.C if Geʽez Genesis also paragraph-flowing (untested)'
+        - phase: τ.6.x.3
+          status: ⬜ blocked on both arcs
+          description: 'Full 87-book ocr-tier3 → ocr-tier2 audit pass per D2-b + D3-c'
+        - phase: Π.2
+          status: ⬜ blocked on τ.6.x.3
+          description: 'Ethiopian-tewahedo popup-surfacing flip — parallel-Bible plan terminal phase'
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: true  # NO .py file written to translation slots; only structural_map extended
+      tau6x0b_honesty_contract: true  # SOURCE_QUALITY unchanged
+      tau6x0c_script_ethiopic_adoption: true  # recognizer unchanged
+      tau6x1_engine_wiring: true  # engine exercised but not modified
+      tau6x1a_pilot_validation: true  # pilot pin tests preserved
+      tau6x1b_parser_extension: true  # parser exercised; finding is scope-extension, not regression
+      tau6x2D_decisions: true  # D-decisions matrix preserved; D4-c Amharic-first sequencing honored
+    no_ingest_at_this_phase: true  # τ.7.x.a.0 PILOT writes NO content/translations/* data
+    translation_slot_state: 'remains-at-Π.0-seed-Genesis-only (τ.6.x.0a contract preserved across τ.6.x.0a → τ.6.x.0b → τ.6.x.0c → τ.6.x.1 → τ.6.x.1.A → τ.6.x.1.B → τ.6.x.2.D → τ.7.x.a.0 chain)'
+    next_phase: τ.6.x.1.C  # parser extension blocks τ.7.x.a (proper)
+    next_phase_description: |
+      Paragraph-mode parser extension. Add `paragraph_mode=True`
+      keyword to parse_verses_from_text() in scripts/extract_parallel_
+      pdf.py that splits verses by paragraph breaks instead of
+      leading verse markers, filters cross-reference lines, numbers
+      verses sequentially per chapter, validates against known
+      verse counts. Pin tests extend test_parallel_bible_tau6x1.py
+      with TestTau6X1CParagraphMode class. After τ.6.x.1.C ships,
+      τ.7.x.a (proper) opens for the actual Amharic Genesis full-book
+      ingest.

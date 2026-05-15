@@ -411,13 +411,16 @@ class TestPi1ExtractToolMultiSection:
         mod = self._mod()
         cfg = _load_source_cfg()
         names = mod._extraction_sections(cfg)
-        # 4 real sections (meqabyan, jubilees, one_enoch, laodiceans).
-        # laodiceans is still a real section (has book_codes); the
-        # extract_section function refuses it at run-time via the
-        # present_in_pdf guard.
-        assert sorted(names) == sorted(["meqabyan", "jubilees", "one_enoch", "laodiceans"]), (
-            f"Π.1.7: _extraction_sections returned {names}"
-        )
+        # Π.1 baseline: 4 Tewahedo-distinctive sections (meqabyan,
+        # jubilees, one_enoch, laodiceans). At τ.7.x.a.0 the genesis
+        # entry was added to structural_map (per the pilot's page-range
+        # discovery), so the set is now ≥4 with the 4 baseline entries
+        # always present + standard-canon books accumulated at τ.7.x.a.0
+        # and beyond. laodiceans is still a real section (has book_codes);
+        # extract_section() refuses it at run-time via the present_in_pdf
+        # guard.
+        for required in ["meqabyan", "jubilees", "one_enoch", "laodiceans"]:
+            assert required in names, f"Π.1.7: _extraction_sections must include {required!r}; got {names}"
 
     def test_extraction_sections_excludes_metadata(self):
         mod = self._mod()

@@ -187,7 +187,12 @@ class TestOmega4xAI2PlanParallelBibleTrack:
           - τ.6.x.2.D added shipped at τ.6.x.2.D D-decisions
             codification ship-time (2026-05-15; resolves the four
             publisher-direction D-decisions D1-a + D2-b + D3-c +
-            D4-c that gated τ.6.x.2+ Geʽez bulk-ingest)"""
+            D4-c that gated τ.6.x.2+ Geʽez bulk-ingest)
+          - τ.7.x.a.0 added shipped at τ.7.x.a.0 PILOT ship-time
+            (2026-05-15; Genesis page-range [0, 85] discovery +
+            paragraph_mode_parser_extension_needed empirical finding
+            that re-routes τ.7.x.a (proper) through τ.6.x.1.C
+            parser-extension blocker)"""
         text = _plan_text()
         for phase in [
             "Π.0",
@@ -202,6 +207,7 @@ class TestOmega4xAI2PlanParallelBibleTrack:
             "τ.6.x.1.A",
             "τ.6.x.1.B",
             "τ.6.x.2.D",
+            "τ.7.x.a.0",
         ]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
@@ -218,9 +224,13 @@ class TestOmega4xAI2PlanParallelBibleTrack:
           - τ.7.x.a + τ.6.x.3 added pending at τ.6.x.2.D D-decisions
             ship-time (2026-05-15; D4-c Amharic-first inversion
             promotes τ.7.x.a as the next-up phase; D2-b + D3-c
-            create the τ.6.x.3 full-87-book audit phase)"""
+            create the τ.6.x.3 full-87-book audit phase)
+          - τ.6.x.1.C added pending at τ.7.x.a.0 PILOT ship-time
+            (2026-05-15; paragraph-mode parser extension blocking
+            τ.7.x.a (proper) + likely also τ.7.x.b-z + τ.6.x.2.a-z
+            under paragraph-flowing conjecture)"""
         text = _plan_text()
-        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "δ.1.x.A", "Π.2", "δ.2"]:
+        for phase in ["τ.6.x.2+", "τ.7.x.a", "τ.6.x.3", "τ.6.x.1.C", "δ.1.x.A", "Π.2", "δ.2"]:
             assert phase in text, f"ω.4x: PLAN §6 parallel-Bible ledger must mention {phase!r}"
 
 
