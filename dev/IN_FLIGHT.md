@@ -4,6 +4,55 @@
 
 ## Prior task
 
+**τ.7.x.v — MATTHEW PILOT-DISCOVERY + NT-RENUMBER-OVERFLOW
+BLOCKER — COMPLETE 2026-05-16 (NOT a book ingest; the τ.7.x.a.0-
+PILOT precedent). ⛔ THE AUTONOMOUS AMHARIC RENDER CADENCE IS
+PAUSED — a user decision is required.**
+
+**What happened (overnight autonomous-run reached the NT boundary
+and STOPPED honestly):**
+- [x] Matthew discovery scan: Matthew = structural_map.matthew
+      **[1567,1635]** (NEW section, τ.7.x.q baruch pattern — never
+      Π.1-mapped, no prior-pin conversion); Mark opens p1636
+      (`ወንጌል ቅዱስ ማርቆስ` = Mark 1:1) — decisive end-boundary
+      cross-validation; contiguous after one_enoch [1515,1566].
+- [x] MATTHEW_VERSE_COUNTS (28 ch / 1071 v; standard KJV/UBS-NA;
+      26th floor) + `matthew` --renumber wiring — committed as
+      **PREPARED INFRA**. NT methodology note: NT versification is
+      standardized → floor authoritative DIRECTLY; notes/mat.py is
+      NOT a clean γ-source for the NT (ch6=83 implausible).
+- [x] **SHIP-BLOCKER: NT-renumber-overflow.** Dry-run recovered
+      1178 v vs the 1071-v floor (OVERFLOW); "1:1" = Mt 3:1
+      (genealogy Mt 1-2 unparsed). Root cause: NT structure
+      (dense `ክፍል N` pericope headers + NT inline cross-ref
+      apparatus + list-format Mt-1 genealogy) breaks the OT-tuned
+      `።`/paragraph renumber. **NOT unique to Matthew — every
+      remaining NT book hits it; no clean next book exists.**
+- [x] **Honest stop:** did NOT ship a distorted `mat.py`
+      (τ.6.x.0b); did NOT build the NT-parser extension
+      unauthorized overnight (tooling, beyond the data-only
+      cadence authorized). Committed as a PILOT-discovery+blocker
+      phase: NO mat.py, stats NOT bumped (still 24/12691/14),
+      tau7xv_ingest + ingest_record_tau7xv recorded as
+      PILOT-discovery-and-blocker / no_ingest / next BLOCKED.
+- [x] test_parallel_bible_tau7xv.py 26/26; regression 242
+      passed/0 fail (tau7xu/tau7xt/pi1/pi1b); lint_rules 11·0·0
+      CLEAN; ruff-format clean. CHANGELOG + SESSION_STATE updated
+      (⛔ + ⚑ banners); PLAN ledger updated (count UNCHANGED —
+      no book shipped); local commit only, no push, no zip.
+
+**⛔ DECISION REQUIRED (cadence paused — see the SESSION_STATE ⛔
+banner + `_source.yaml::ocr_strategy.tau7xv_ingest`):**
+(a) authorize building the NT-parser extension (strip `ክፍል`
+pericope headers + NT cross-refs + handle the list-format Mt-1
+genealogy — a τ.6.x.1.C/D-class change), or (b) switch to the
+Geʽez τ.6.x.2 OT-catchup track, or (c) other direction. **Do NOT
+attempt τ.7.x.w (Mark) or any NT book until then — identical
+blocker.** Samuel/Kings GAPS calibration also stays PAUSED
+pending the user's higher-res image re-crop.
+
+### Earlier — τ.7.x.u (superseded by the τ.7.x.v discovery+blocker phase above)
+
 **τ.7.x.u — AMHARIC 1 ENOCH (Mäṣḥafä Hēnok) FULL-BOOK INGEST —
 COMPLETE 2026-05-16. User overnight autonomous-run authorization
 ("you render, test, commit and repeat till I wake up") after the

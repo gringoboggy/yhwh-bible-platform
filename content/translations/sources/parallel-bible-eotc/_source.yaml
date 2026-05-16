@@ -1323,6 +1323,64 @@ structural_map:
       ingestion-verified the section — the tentative flag no longer
       applies; see the upgrade note above.
 
+  # ── τ.7.x.v New Testament block: the 4 Gospels + Acts open here.
+  # NEW section (the τ.7.x.q baruch new-section pattern, NOT a Π.1
+  # upgrade — Matthew was never Π.1-mapped; Π.1 only mapped the 6
+  # Tewahedo-distinctive books). Boundaries from the τ.7.x.v
+  # discovery scan (band p1564-1647, the τ.7.x.s/o content-boundary
+  # method): 1 Enoch ends p1566 (one_enoch [1515,1566], τ.7.x.u-
+  # confirmed); Matthew title page p1567 `የማቴዎስ ወንጌል`; Mt 1
+  # genealogy p1568; runs through p1635; Mark opens p1636
+  # (`ወንጌል ቅዱስ ማርቆስ` / "the holy Gospel … as Mark wrote it" =
+  # Mark 1:1) — decisive end-boundary cross-validation. Mark/Luke/
+  # John follow as τ.7.x.w/x/y.
+  matthew:
+    book_codes: [mat]
+    pdf_page_range: [1567, 1635]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-16
+    verified_at_phase: τ.7.x.v
+    chapter_count_expected: 28   # content/books.yaml `mat` ch_count: 28 (b60, "The Good News According to Matthew")
+    notes: |
+      τ.7.x.v — The Gospel of Matthew (`mat`). FIRST New Testament
+      book; OPENS the 4-Gospels block. NEW structural_map section
+      (the τ.7.x.q baruch new-section pattern — Matthew was never
+      Π.1-mapped, so NOT a Π.1 upgrade and NO prior-pin
+      conversion). The standalone-Amharic-Bible rendering
+      FOUNDATION per dev/SCOPE_2026-05-16-parallel-bible-standalone-
+      bibles.md (NOT a popup-language slot).
+
+      τ.7.x.v discovery scan (band p1564-1647, same content-
+      boundary method as τ.7.x.s/o): 1 Enoch ends p1566
+      (one_enoch [1515,1566], τ.7.x.u-confirmed; GEZ running header
+      `መጽሐፈ ሄኖክ` through p1566). Matthew title page p1567
+      (`የማቴዎስ ወንጌል`); Mt 1 genealogy opens p1568 (`ከአብርሃም
+      አስከ ዳዊት ዐሥራ አራት ትውልድ` = Mt 1:17 — fourteen generations
+      Abraham→David); Sermon on the Mount p1574-1580; the Passion/
+      Resurrection p1629-1635. End p1635 — p1636 opens Mark
+      (`ወንጌል ቅዱስ ማርቆስ` / "The holy Gospel … as Mark wrote it";
+      `የሕያው የአግዚአብሔር ልጅ … ወንጌል መጀመሪያ` = Mark 1:1) — decisive
+      end-boundary cross-validation. 69 pp / 28 ch (the parallel
+      Geʽez+Amharic columns + the dense cross-reference apparatus
+      make the Gospels ~2.5 pp/ch).
+
+      MATTHEW_VERSE_COUNTS (28 ch / 1071 v) = standard KJV / UBS-NA
+      enumeration. METHODOLOGY NOTE: the NT chapter/verse division
+      is HIGHLY STANDARDIZED (KJV/NA/UBS/EOTC concordant on 28-ch
+      Matthew) so the floor is authoritative DIRECTLY — content/
+      notes/mat.py is deliberately NOT used for γ-floor-
+      coordination (its (int,int) maxima ch6=83 / ch20=75 are not
+      plausible KJV verse numbers; the legacy original-Ethiopian-
+      Bible-build NT notes use a different second-int semantic).
+      The τ.7.x.t/u γ-cross-validation method does NOT transfer to
+      the NT sub-arc; Mark/Luke/John (τ.7.x.w/x/y) likewise use the
+      standard NT enumeration directly. Per the τ.6.x.0b honesty
+      contract the floor is the canonical CEILING; τ.6.x.3
+      reconciles the exact Ethiopic recension (identical caveat to
+      every prior book). ocr-tier3. Geʽez column deferred to
+      τ.6.x.2.* under D4-c.
+
   laodiceans:
     book_codes: [lao]
     pdf_page_range: null
@@ -6505,3 +6563,106 @@ ocr_strategy:
       content-boundary method as τ.7.x.s/t). Geʽez catchup
       τ.6.x.2.j+ follows the Amharic stream per D4-c.
     pipeline_reused_at_phase: τ.7.x.u   # back-link: τ.7.x.u reused the τ.7.x.t pipeline; deltas ONE_ENOCH_VERSE_COUNTS (25th floor) + structural_map.one_enoch UPGRADE (not addition) + the 3-site prior-pin conversion. TWENTY-FOURTH τ.7.x.* per-book ingest. CLEAN ship — parser 31-ship zero-delta AND zero-writer-delta (no new tooling change, unlike τ.7.x.t).
+
+  tau7xv_ingest:
+    shipped_at_phase: τ.7.x.v
+    shipped_date: 2026-05-16
+    ship_class: PILOT-discovery-and-blocker   # NOT a book ingest — the τ.7.x.a.0-PILOT precedent (a parser-extension blocker found before the book can ship)
+    triggered_by: |
+      User overnight autonomous-run authorization ("you render,
+      test, commit and repeat till I wake up") — continuing the
+      cadence after τ.7.x.u. Per PLAN the next parallel-PDF content
+      after the Tewahedo-distinctive books is the NT (4 Gospels +
+      Acts, p1550-1832).
+    discovery_scan:
+      method: τ.7.x.s/o content-boundary (running-header + opening-verse + colophon)
+      band: [1564, 1647]
+      findings: |
+        1 Enoch ends p1566 (one_enoch [1515,1566], τ.7.x.u-
+        confirmed; GEZ `መጽሐፈ ሄኖክ` through p1566). Matthew title
+        page p1567 (`የማቴዎስ ወንጌል`); Mt 1 genealogy p1568
+        (`ከአብርሃም አስከ ዳዊት ዐሥራ አራት ትውልድ` = Mt 1:17); Sermon on
+        the Mount p1574-1580; Passion/Resurrection p1629-1635. Mark
+        opens p1636 (`ወንጌል ቅዱስ ማርቆስ` / "the holy Gospel … as
+        Mark wrote it" = Mark 1:1) — decisive end-boundary cross-
+        validation. Matthew = [1567,1635], contiguous after
+        one_enoch [1515,1566].
+    structural_map_addition:
+      section: matthew
+      pdf_page_range: [1567, 1635]
+      chapter_count_expected: 28   # books.yaml `mat` ch_count: 28 (b60)
+      pattern: NEW-section (the τ.7.x.q baruch pattern — Matthew was never Π.1-mapped; NOT a Π.1 upgrade; no prior-pin conversion)
+      status: PREPARED-INFRA (verified discovery; the section + MATTHEW_VERSE_COUNTS floor are committed as prepared infrastructure even though the text ingest is BLOCKED — see below)
+    helpers_added:
+      MATTHEW_VERSE_COUNTS: |
+        28 ch / 1071 v; standard KJV / UBS-NA enumeration.
+        Twenty-sixth renumber-floor. METHODOLOGY: the NT
+        chapter/verse division is highly standardized so the floor
+        is authoritative DIRECTLY — content/notes/mat.py is NOT
+        used for γ-floor-coordination (its (int,int) maxima
+        ch6=83 / ch20=75 are implausible KJV verse numbers; the
+        legacy NT notes use a different second-int semantic). The
+        τ.7.x.t/u γ-cross-validation method does NOT transfer to
+        the NT sub-arc.
+    cli_extensions:
+      renumber_choice_extended: "`--renumber` includes `matthew`."
+    blocker:
+      class: NT-renumber-overflow
+      severity: ship-blocking (would produce distorted scripture — τ.6.x.0b)
+      evidence: |
+        Dry-run --section matthew --renumber matthew --lang amharic:
+        recovered 1178 verses vs the 1071-verse floor → OVERFLOW
+        (1178 > 1071; prior books were always under-floor). The
+        first recovered verse renumbered to "1:1" is Matthew 3:1
+        content (`መጥምቁ ዮሐንስ … እየሰበክ መጣ` = "John the Baptist came
+        preaching"), NOT the Mt 1 genealogy — so Mt 1-2 (the
+        list-format genealogy + Nativity) did NOT parse, while the
+        body over-recovered.
+      root_cause: |
+        The NT Gospel structure differs from the OT books the
+        renumber/parser was tuned on: (1) dense `ክፍል N ስለ …`
+        Amharic pericope/section headers (far more than the OT
+        books) are split as verses by the `።`/paragraph parser;
+        (2) the heavy NT inline cross-reference apparatus
+        (`ማር 8፡፲፪። ሉቃ …። ዮሐ …።`) is not caught by the τ.6.x.1.C
+        cross-ref filter (tuned for OT-style refs) and inflates the
+        count; (3) the list-format genealogy (Mt 1) does not
+        `።`-split into verses cleanly. Net: over-count + mis-start
+        → overflow + wrong verse alignment.
+      not_unique_to_matthew: |
+        ALL remaining parallel-PDF content is NT (Mark/Luke/John/
+        Acts/Epistles/Revelation) and shares this exact structure
+        — the entire rest of the Amharic τ.7.x.* render cadence
+        hits the same blocker. There is NO clean next book in the
+        parallel PDF (the OT books are exhausted; the dzamaragna-
+        gap books stay τ.7.x.J-cluster-BLOCKED).
+      remedy_required: |
+        An NT-parser extension (a τ.6.x.1.C/D-class change): filter
+        the `ክፍል …` pericope-section headers + the NT inline cross-
+        reference apparatus before `።`-splitting, and handle the
+        list-format Mt-1 genealogy. This is TOOLING, not the data-
+        only per-book cadence the user authorized for unattended
+        work — building it blind overnight would violate the
+        project's careful-action / inventory-before-building
+        discipline. DEFERRED pending user authorization + direction
+        (build the NT extension? switch to the Geʽez τ.6.x.2 OT
+        catchup? other?). The autonomous render cadence is PAUSED
+        here.
+    no_ingest_at_this_phase: true   # NO mat.py written; NO verse-count claim; stats NOT bumped (no book shipped) — the honest τ.7.x.a.0-PILOT pattern (deliberate, not a failure)
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true   # the WHOLE point — refused to ship distorted output
+      tau7xt_ingest: true
+      tau7xu_ingest: true
+      two_large_tewahedo_distinctive_complete: true
+      jubilees_section_unchanged_post_tau7xt: true   # jubilees stays τ.7.x.t
+      one_enoch_section_unchanged_post_tau7xu: true   # one_enoch stays τ.7.x.u
+      laodiceans_still_pi1_present_in_pdf_false: true
+    next_phase: τ.7.x.w
+    next_phase_description: |
+      τ.7.x.w (Mark, the next Gospel) is BLOCKED on the same NT-
+      renumber-overflow blocker — do NOT attempt it (or any NT
+      book) until the NT-parser extension is built + the user has
+      authorized the approach. The Matthew page-range + floor are
+      prepared infra ready for that extension. The autonomous
+      Amharic render cadence is PAUSED at the NT boundary.
+    pipeline_reused_at_phase: τ.7.x.v   # back-link: τ.7.x.v is a PILOT-discovery+blocker phase (the τ.7.x.a.0 precedent), NOT a book ingest. It reused the τ.7.x.u pipeline for the discovery scan; established structural_map.matthew [1567,1635] + MATTHEW_VERSE_COUNTS (26th floor) as prepared infra; found + documented the NT-renumber-overflow ship-blocker; deferred the NT ingest pending a parser extension + user authorization. NO book shipped, stats NOT bumped, cadence PAUSED.

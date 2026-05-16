@@ -20,7 +20,81 @@
 > `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`;
 > codified in `CLAUDE_PROJECT_RULES.md` §1.
 
-**Updated 2026-05-16 / τ.7.x.u — AMHARIC 1 ENOCH (Mäṣḥafä Hēnok)
+> **⛔ AUTONOMOUS RENDER CADENCE PAUSED — 2026-05-16, τ.7.x.v
+> (read this second). A DECISION IS NEEDED before the Amharic
+> τ.7.x.* cadence can resume.** The OT books are exhausted; ALL
+> remaining parallel-PDF content is the **New Testament** (4
+> Gospels + Acts + Epistles + Revelation). τ.7.x.v ran the
+> Matthew discovery scan and found a **ship-blocking NT-renumber-
+> overflow**: a dry-run recovered 1178 verses vs the 1071-v floor
+> (OVERFLOW; "1:1" was Mt 3:1 — the Mt 1-2 genealogy didn't
+> parse). Root cause: the NT Gospel structure (dense `ክፍል N`
+> Amharic pericope-section headers + the heavy NT inline cross-
+> reference apparatus + the list-format Mt-1 genealogy) breaks
+> the OT-tuned `።`/paragraph renumber. **This is NOT unique to
+> Matthew — every remaining NT book hits it.** Per the τ.6.x.0b
+> honesty contract I did NOT ship a distorted `mat.py`, and per
+> the careful-action discipline I did NOT build the needed
+> NT-parser extension blindly overnight (that is tooling, beyond
+> the data-only render cadence authorized for unattended work).
+> τ.7.x.v was committed as a PILOT-discovery+blocker phase (the
+> τ.7.x.a.0 precedent): the verified Matthew page-range
+> ([1567,1635], Mark@1636 cross-validated) + MATTHEW_VERSE_COUNTS
+> (28/1071, KJV/UBS standard) are committed as PREPARED INFRA;
+> NO book shipped, stats NOT bumped. **Decision for the user:**
+> (a) authorize building the NT-parser extension (strip `ክፍል`
+> pericope headers + the NT cross-ref apparatus + handle the
+> list-format Mt-1 genealogy — a τ.6.x.1.C/D-class change), or
+> (b) switch to the Geʽez τ.6.x.2 OT-catchup track, or (c) other.
+> Full detail: `_source.yaml::ocr_strategy.tau7xv_ingest` +
+> the CHANGELOG τ.7.x.v entry. Samuel/Kings GAPS calibration
+> also remains PAUSED pending the higher-res re-crop.
+
+**Updated 2026-05-16 / τ.7.x.v — MATTHEW PILOT-DISCOVERY +
+NT-RENUMBER-OVERFLOW BLOCKER (NOT a book ingest; the τ.7.x.a.0-
+PILOT precedent). Overnight autonomous-run reached the NT
+boundary and STOPPED honestly rather than ship distorted
+scripture or build unauthorized tooling. Matthew page-range
+[1567,1635] + the 28/1071 KJV floor committed as prepared infra;
+the NT-parser-extension blocker documented; the cadence is
+PAUSED awaiting a user decision (see the ⛔ banner above).**
+
+Adds (prepared infra only — NO `mat.py`): `structural_map.matthew`
+[1567,1635] (NEW section, the τ.7.x.q baruch pattern — Matthew was
+never Π.1-mapped, so NOT a Π.1 upgrade, no prior-pin conversion;
+contiguous after one_enoch [1515,1566]; Mark opens p1636
+`ወንጌል ቅዱስ ማርቆስ`, decisive end-boundary cross-validation) +
+`MATTHEW_VERSE_COUNTS` (28 ch / 1071 v; standard KJV/UBS-NA — the
+NT versification is standardized so the floor is authoritative
+DIRECTLY; `content/notes/mat.py` is NOT a clean γ-floor-
+coordination source for the NT — its (int,int) maxima e.g. ch6=83
+are not plausible KJV verse numbers, a methodology note for the
+whole NT sub-arc) + the `matthew` --renumber wiring + help. stats
+UNCHANGED (24 books / 12691 v / outside_kjv 14 — NO book shipped).
+`test_parallel_bible_tau7xv.py` pins the floor + the NEW
+structural_map.matthew + the Mark cross-validation + the
+`mat.py`-NOT-created honest-deferral + the blocker documentation +
+prior preservation (jub stays τ.7.x.t, 1en stays τ.7.x.u,
+laodiceans Π.1/present_in_pdf:false). Verification: ruff-format
+clean, lint_rules 11·0·0 CLEAN, regression 242 passed/0 fail
+(tau7xu/tau7xt/pi1/pi1b — all prior + the pin conversions green) +
+tau7xv 26/26 (2 self-test over-strict-substring assertions caught
+by the gate + fixed in-ship, test-only). Local commit only, no
+push, no zip.
+
+**Next per most-logical-path:** **BLOCKED — user decision
+required** (see the ⛔ banner). τ.7.x.w (Mark) and every other
+remaining parallel-PDF book are NT and hit the identical
+NT-renumber-overflow; the autonomous cadence is correctly PAUSED.
+Do NOT attempt any NT book until the NT-parser extension exists
+AND the user has authorized the approach. The standalone-edition +
+EN-back-translation phases remain POST-rendering per the ⚑ scope
+clarification. The Samuel/Kings GAPS manuscript-collation track
+stays PAUSED pending the user's higher-res image re-crop.
+
+---
+
+## Prior session — 2026-05-16 / τ.7.x.u — AMHARIC 1 ENOCH (Mäṣḥafä Hēnok)
 FULL-BOOK INGEST. TWENTY-FOURTH τ.7.x.* per-book ship under D4-c +
 D1-a (user overnight autonomous-run authorization: "you render,
 test, commit and repeat till I wake up"). SECOND of the two LARGE

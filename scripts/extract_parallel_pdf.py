@@ -1682,6 +1682,72 @@ ONE_ENOCH_VERSE_COUNTS = {
 # Hēnok recension).
 
 
+# τ.7.x.v — The Gospel of Matthew (mat). content/books.yaml fixes
+# `mat` at ch_count: 28 (b60, "The Good News According to
+# Matthew"). FIRST New Testament book — OPENS the 4-Gospels block
+# (Matthew → Mark → Luke → John, p1567-1832 region per the PLAN).
+# Verse counts use the standard KJV / UBS-NA Matthew enumeration
+# (28 ch / 1071 v). **METHODOLOGY NOTE — NT differs from the OT
+# pseudepigrapha:** unlike JUBILEES / ONE_ENOCH (whose floors were
+# γ-cross-validated against content/notes/{jub,1en}.py because the
+# OT-pseudepigrapha versification is recension-variable), the NT
+# chapter/verse division is HIGHLY STANDARDIZED (KJV/NA/UBS/EOTC
+# all agree on 28-ch Matthew) so the KJV/UBS floor is authoritative
+# DIRECTLY. content/notes/mat.py is deliberately NOT used for
+# floor-coordination here: its (int,int) per-chapter maxima are
+# implausible as verse numbers (ch6=83, ch20=75 vs KJV 34/34) —
+# the legacy original-Ethiopian-Bible-build NT notes evidently use
+# a different second-int semantic, so the τ.7.x.t/u γ-cross-
+# validation method does NOT transfer to the NT sub-arc (future NT
+# ships — Mark/Luke/John… — likewise use the standard NT
+# enumeration directly, not notes-cross-validation). Per the
+# τ.6.x.0b honesty contract the floor is the canonical CEILING;
+# τ.6.x.3 reconciles the exact Ethiopic recension (identical
+# caveat to every prior book). The pre-existing
+# content/notes/mat.py backslash SyntaxWarning is the same
+# legacy-prior-data backslash residual flagged for τ.6.x.3 at
+# τ.7.x.t — out of render-cadence scope, not τ.7.x.v-introduced.
+# Twenty-sixth renumber-floor; structural_map.matthew is a NEW
+# section [1567,1635] (the τ.7.x.q new-section pattern, NOT a Π.1
+# upgrade — Matthew was never Π.1-mapped; no prior-pin
+# conversion); contiguous after one_enoch [1515,1566], Mark opens
+# p1636 (discovery-scan cross-validated).
+MATTHEW_VERSE_COUNTS = {
+    1: 25,
+    2: 23,
+    3: 17,
+    4: 25,
+    5: 48,
+    6: 34,
+    7: 29,
+    8: 34,
+    9: 38,
+    10: 42,
+    11: 30,
+    12: 50,
+    13: 58,
+    14: 36,
+    15: 39,
+    16: 28,
+    17: 27,
+    18: 35,
+    19: 30,
+    20: 34,
+    21: 46,
+    22: 46,
+    23: 39,
+    24: 51,
+    25: 46,
+    26: 75,
+    27: 66,
+    28: 20,
+}
+# Total Matthew verses = 1071 (28 ch; standard KJV / UBS-NA NT
+# enumeration; canonical CEILING — τ.6.x.3 reconciles the exact
+# Ethiopic recension; NT versification is standardized so no
+# γ-notes cross-validation, unlike the OT pseudepigrapha).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -2619,6 +2685,8 @@ def _build_docstring_extra(
         floor_dict = JUBILEES_VERSE_COUNTS
     elif renumber == "one_enoch":
         floor_dict = ONE_ENOCH_VERSE_COUNTS
+    elif renumber == "matthew":
+        floor_dict = MATTHEW_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2723,6 +2791,7 @@ def main() -> int:
             "bel_and_the_dragon",
             "jubilees",
             "one_enoch",
+            "matthew",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2802,7 +2871,15 @@ def main() -> int:
             "distinctive books, p1515-1566; upgrades structural_map."
             "one_enoch verified:tentative→true Π.1→τ.7.x.u; floor "
             "hard-validated ≥ the γ.4.4 notes/1en.py maxima at all "
-            "108 ch). "
+            "108 ch). Also the NT-opener 'matthew' "
+            "(MATTHEW_VERSE_COUNTS, 28 ch / 1071 v; standard KJV / "
+            "UBS-NA enumeration — NT versification is standardized, "
+            "so NO γ-notes cross-validation, unlike the OT "
+            "pseudepigrapha jub/1en; τ.7.x.v — OPENS the 4-Gospels "
+            "block, structural_map.matthew is a NEW section "
+            "[1567,1635], the τ.7.x.q new-section pattern, NOT a "
+            "Π.1 upgrade; Mark opens p1636, discovery-scan cross-"
+            "validated). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2885,6 +2962,8 @@ def main() -> int:
         renumber_floor = JUBILEES_VERSE_COUNTS
     elif args.renumber == "one_enoch":
         renumber_floor = ONE_ENOCH_VERSE_COUNTS
+    elif args.renumber == "matthew":
+        renumber_floor = MATTHEW_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

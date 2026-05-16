@@ -1601,6 +1601,47 @@ ingest_record_tau7xu:
     Matthew page range (same content-boundary method).
   pipeline_reused_at_phase: τ.7.x.u   # back-link: τ.7.x.u reused the τ.7.x.t pipeline; deltas ONE_ENOCH_VERSE_COUNTS (25th floor) + the structural_map.one_enoch UPGRADE + the 3-site prior-pin conversion. TWENTY-FOURTH τ.7.x.* per-book ingest. CLEAN ship — parser 31-ship zero-delta AND zero-writer-delta (no new tooling change).
 
+ingest_record_tau7xv:
+  phase: τ.7.x.v
+  ship_class: PILOT-discovery-and-blocker   # NOT a book ingest (the τ.7.x.a.0-PILOT precedent)
+  shipped_date: 2026-05-16
+  ingested_book_codes: []   # NONE — no book shipped; stats deliberately NOT bumped
+  no_ingest_at_this_phase: true
+  discovery: |
+    Matthew page range fixed by the τ.7.x.v discovery scan
+    (band p1564-1647): Matthew = [1567,1635] (title p1567, Mt 1
+    genealogy p1568, Passion p1629-1635); Mark opens p1636
+    (`ወንጌል ቅዱስ ማርቆስ` = Mark 1:1) — decisive end-boundary
+    cross-validation; contiguous after one_enoch [1515,1566].
+    structural_map.matthew (NEW section, τ.7.x.q pattern) +
+    MATTHEW_VERSE_COUNTS (28 ch / 1071 v; standard KJV/UBS NT
+    enumeration — NT is standardized so NO γ-notes cross-
+    validation, unlike jub/1en) committed as PREPARED INFRA.
+  blocker: |
+    NT-RENUMBER-OVERFLOW (ship-blocking). Dry-run recovered 1178
+    verses vs the 1071-v floor → OVERFLOW; "1:1" = Mt 3:1 content
+    (genealogy Mt 1-2 unparsed). Root cause: the NT Gospel
+    structure (dense `ክፍል N` pericope-section headers + the heavy
+    NT inline cross-reference apparatus + the list-format Mt-1
+    genealogy) breaks the OT-tuned `።`/paragraph renumber. NOT
+    unique to Matthew — ALL remaining parallel-PDF content is NT
+    and hits this; the OT books are exhausted; the dzamaragna-gap
+    books stay τ.7.x.J-cluster-BLOCKED → there is NO clean next
+    book. mat.py deliberately NOT written (would be distorted
+    scripture — τ.6.x.0b). Refusing to ship distorted output or
+    build an unauthorized parser extension overnight is the
+    honest call.
+  remedy_required: |
+    An NT-parser extension (τ.6.x.1.C/D-class): strip `ክፍል …`
+    pericope headers + the NT inline cross-ref apparatus before
+    `።`-splitting + handle the list-format Mt-1 genealogy. This is
+    TOOLING (not the data-only cadence authorized for unattended
+    work) → DEFERRED pending user authorization + direction. The
+    autonomous Amharic render cadence is PAUSED at the NT boundary.
+  next_book: BLOCKED-NT-parser-extension
+  next_phase: τ.7.x.w   # Mark — BLOCKED on the identical NT-overflow blocker; do NOT attempt until the NT-parser extension exists + the user authorizes the approach
+  pipeline_reused_at_phase: τ.7.x.v   # PILOT-discovery+blocker (τ.7.x.a.0 precedent); reused the τ.7.x.u pipeline for the discovery scan only. NO book shipped, stats NOT bumped, cadence PAUSED.
+
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.
 
