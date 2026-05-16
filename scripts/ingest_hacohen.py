@@ -32,6 +32,15 @@ _VERSENUM_RE = re.compile(
 )
 _TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
+# The chapter-caption anchor <a ...><!--Cap.-->N<!--Cap.end --></a>.
+# Ps 118/151 et al. put it INLINE in the same <p> as verse 1's
+# number span (Ps 1 has it standalone) — it must be stripped, not
+# cause the <p> to be skipped (that dropped verse 1: the τ.7.x
+# calibrate off-by-one, 175/176 with first verse = 2).
+_CAP_RE = re.compile(
+    r"<a\b[^>]*>\s*<!--Cap\.-->.*?<!--Cap\.end\s*-->\s*</a>",
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def _clean_fragment(fragment_html: str) -> str:
@@ -67,8 +76,15 @@ def parse_hacohen_psalter(page_html: str, psalm_number: int) -> list[tuple[int, 
 
     for m in _P_RE.finditer(page_html):
         inner = m.group(1)
-        if "Nr. Vers" in inner or "<!--Cap." in inner:
+        if "Nr. Vers" in inner:
             continue
+        # Strip the inline chapter-caption anchor BEFORE detecting the
+        # verse-number span. Skipping the whole <p> on "<!--Cap."
+        # dropped verse 1 for the psalms that inline the caption with
+        # verse 1 (Ps 118/151 …). After stripping, verse 1's <span>
+        # is leading again; a caption-only <p> cleans to empty and is
+        # dropped by the existing not-text guard.
+        inner = _CAP_RE.sub("", inner)
         vm = _VERSENUM_RE.match(inner.lstrip())
         text = _clean_fragment(inner)
         if not text:

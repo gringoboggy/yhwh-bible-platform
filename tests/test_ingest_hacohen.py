@@ -117,6 +117,31 @@ class TestParseHacohenPsalter:
         assert len(verses) == 2
 
 
+class TestInlineCapVerse1:
+    """Ps 118 / 151 put the ``<a><!--Cap.-->N<!--Cap.end --></a>``
+    chapter caption INLINE in the SAME ``<p>`` as verse 1's
+    ``<span>1</span>``. The real τ.7.x calibrate-first gate caught
+    verse 1 being dropped (off-by-one: 175 of 176, first verse = 2)
+    because the parser skipped any ``<p>`` containing ``<!--Cap.``.
+    Pins the fix: strip the Cap caption, keep verse 1."""
+
+    def _fn(self):
+        from scripts.ingest_hacohen import parse_hacohen_psalter
+
+        return parse_hacohen_psalter
+
+    def test_inline_cap_verse1_not_dropped(self):
+        html_text = (FIX / "psalm_inline_cap.html").read_text(encoding="utf-8")
+        verses = self._fn()(html_text, 118)
+        assert verses, "must parse verses"
+        assert verses[0][1] == 1, f"verse 1 must NOT be dropped; first verse = {verses[0][1]}"
+        assert [(c, v) for c, v, _ in verses] == [(118, 1), (118, 2)]
+        # the Cap chapter-number must not leak into verse text:
+        assert not any("118" in t for _, _, t in verses), [t[:20] for *_, t in verses]
+        # verse 1 carries its Ge'ez body + the merged continuation colon:
+        assert verses[0][2] and "&#" not in verses[0][2] and "<" not in verses[0][2]
+
+
 class TestFetcherCache:
     def _mod(self):
         import scripts.ingest_hacohen as ih
