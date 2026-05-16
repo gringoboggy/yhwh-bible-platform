@@ -1,5 +1,25 @@
 # Session state — current snapshot
 
+> **⚑ SCOPE CLARIFICATION — 2026-05-16 (north-star-level, read
+> this first).** The τ.6.x (`geez-tewahedo`) + τ.7.x
+> (`amharic-tewahedo`) parallel-Bible ingests are NOT popup-
+> language slots — they are the rendering FOUNDATION for **TWO
+> STANDALONE Bibles** (a Ge'ez Bible + an Amharic Bible, each
+> with its own books + chapters), each carrying a faithful
+> English back-translation of its ACTUAL Ge'ez/Amharic wording
+> in **its own** verse popups. The other 9 editions get **NO**
+> Ge'ez/Amharic popups; the existing English `ethiopian-tewahedo`
+> edition only conditionally (full per-verse-count parity gate).
+> Amharic = as-written-in-PDF (cited); Ge'ez gaps ← `GAPS` folder
+> (DEFERRED, note-only). Sequence: finish rendering (the ONLY
+> active phase — keep shipping per-book τ.7.x.*/τ.6.x.*) →
+> constitute the 2 standalone editions → finalize sources →
+> EN back-translation → wire into their own popups (phases 2–5
+> are POST-rendering; do NOT pull forward). This corrects the
+> popup-only framing that misled a prior session. Full spec:
+> `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`;
+> codified in `CLAUDE_PROJECT_RULES.md` §1.
+
 **Updated 2026-05-16 / τ.7.x.s — AMHARIC DANIEL-ADDITIONS CLUSTER
 (paz + bel) FULL-BOOK INGEST + the Susanna structural-discovery
 deferral. TWENTY-FIRST + TWENTY-SECOND τ.7.x.* per-book ships

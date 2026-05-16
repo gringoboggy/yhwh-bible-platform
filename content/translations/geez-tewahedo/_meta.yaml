@@ -328,15 +328,30 @@ notes: |
   popup_translation; the /compare console renders it side-by-
   side with all other registered translations.
 
-  Significance for the flagship:
+  Significance for the flagship (CORRECTED 2026-05-16 — the
+  popup-only framing below was superseded; authoritative
+  end-state is dev/SCOPE_2026-05-16-parallel-bible-standalone-
+  bibles.md + CLAUDE_PROJECT_RULES §1):
 
-  The ethiopian-tewahedo edition does NOT currently declare
-  `geez` in its popup_languages_default (it declares english /
-  hebrew / greek). Adding `geez` to that list is an editorial
-  decision the publisher makes; τ.6's seed makes it possible
-  but doesn't force it. When the publisher chooses to surface
-  Ge'ez in the popup, the runtime composes against this
-  translation automatically.
+  END GOAL: a STANDALONE Ge'ez Bible — its own books and
+  chapters — carrying a faithful English back-translation of its
+  ACTUAL Ge'ez wording in ITS OWN verse popups. This slot is NOT
+  a popup-language slot for the other editions. Policy: the
+  other 9 editions get NO `geez` popups; the existing English
+  `ethiopian-tewahedo` edition only conditionally (permitted
+  ONLY on full per-verse-count parity across all books/chapters
+  — a maybe, not a commitment). Do NOT wire `geez` into any
+  edition's popup_languages_default / popup_translation. The
+  τ.6.x.2.* per-book ingests are the rendering FOUNDATION for the
+  standalone Ge'ez Bible; constituting the standalone edition +
+  the English back-translation are explicit POST-rendering
+  phases (do not pull forward). The parallel-PDF Ge'ez column is
+  ocr-tier3 — its gaps are filled from the GAPS folder (DEFERRED,
+  note-only until the user re-engages after rendering completes).
+
+  [Historical, superseded] τ.6's seed made `geez` registerable
+  as a popup language; earlier framing treated surfacing it as a
+  publisher editorial toggle — that is no longer the goal.
 
   Unicode handling:
 

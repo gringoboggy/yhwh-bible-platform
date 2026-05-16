@@ -215,6 +215,42 @@ directly supports v1.1 publisher-led uniqueness-angle pick per memory
 γ.4.8.E ALL SIX γ.4 PATRISTIC/CANONICAL VOICES are at substantively-
 closed-arc depth.
 
+### Parallel-Bible end-state — two standalone Bibles (codified 2026-05-16)
+
+**This is a first-class north-star goal, not a popup feature.** The
+τ.6.x (`geez-tewahedo`) + τ.7.x (`amharic-tewahedo`) per-book
+parallel-Bible ingests exist to produce **TWO STANDALONE Bibles** —
+a Ge'ez Bible and an Amharic Bible, each a full version with its
+own books and chapters — each carrying, in **its own** verse
+popups, a **faithful English translation of its actual Ge'ez /
+Amharic wording** (a fresh rendering of what the text says — NOT
+the KJV, NOT the English editorial baseline).
+
+The per-book rendering already shipped is the FOUNDATION for this,
+not popup-language data. Earlier in-repo framing (and a prior
+session) treated `geez`/`amharic` as mere verse-popup language
+slots — that is **superseded**. Verse-popup policy:
+
+- **The other 9 editions:** NO Ge'ez/Amharic popups. Do not wire
+  them into any edition's `popup_languages_default` /
+  `popup_translation`.
+- **The existing English `ethiopian-tewahedo` edition:** only
+  *conditionally* — permitted ONLY if every verse count matches
+  across all books and all chapters (full per-verse parity). A
+  maybe, not a commitment.
+- **The two standalone Bibles:** YES — their own verse popups
+  carry the faithful English back-translation. This is the point.
+
+Source policy: Amharic = as-written-in-the-parallel-Bible-PDF
+(cited to that source); Ge'ez gaps filled from the `GAPS` folder
+(DEFERRED — note-only until the user re-engages after rendering).
+Sequence: finish rendering (the only active phase; keep shipping
+per-book τ.7.x.* / τ.6.x.* under D1-a + D4-c) → constitute the two
+standalone editions → finalize sources → English back-translation
+→ wire into their own popups. Phases 2–5 are post-rendering; do
+NOT pull them forward. Full spec:
+`dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`.
+
 ## 2. Universal principles (from SCOPE_2026-05-08.md, carried verbatim from 05-07)
 
 1. **Fully customizable.** Every UI element, symbol, marker, kind

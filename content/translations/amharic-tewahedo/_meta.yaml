@@ -1351,13 +1351,30 @@ notes: |
   parallel-Bible popup-popup-popup stack works end-to-end at
   Genesis 1:1.
 
-  Significance for the flagship:
+  Significance for the flagship (CORRECTED 2026-05-16 — the
+  popup-only framing below was superseded; authoritative end-state
+  is dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md +
+  CLAUDE_PROJECT_RULES §1):
 
-  The ethiopian-tewahedo edition currently declares
-  popup_languages_default = [english, hebrew, greek]. Adding
-  `amharic` to that list is gated until τ.7.x produces full-
-  Bible coverage; Π.0's seed makes the language registerable
-  but does not yet surface it in production EPUBs.
+  END GOAL: a STANDALONE Amharic Bible — its own books and
+  chapters — carrying a faithful English back-translation of its
+  ACTUAL Amharic wording in ITS OWN verse popups. This slot is
+  NOT a popup-language slot for the other editions. Policy: the
+  other 9 editions get NO `amharic` popups; the existing English
+  `ethiopian-tewahedo` edition only conditionally (permitted ONLY
+  on full per-verse-count parity across all books/chapters — a
+  maybe, not a commitment). Do NOT wire `amharic` into any
+  edition's popup_languages_default / popup_translation. The
+  τ.7.x.* per-book ingests are the rendering FOUNDATION for the
+  standalone Amharic Bible; constituting the standalone edition +
+  the English back-translation are explicit POST-rendering phases
+  (do not pull forward). Amharic text is used as-written-in-the-
+  parallel-Bible-PDF, cited to that source.
+
+  [Historical, superseded] Π.0's seed made the language
+  registerable; earlier framing treated `amharic` as a verse-
+  popup language gated on full coverage — that is no longer the
+  goal.
 
   Unicode handling:
 
