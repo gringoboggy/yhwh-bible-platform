@@ -33,14 +33,24 @@ pipeline breaks on **any** structurally-different scripture:
   pointed (`።` after every poetic colon, not just verse-end), so
   paragraph-mode yields ~1.8× the canonical verse count.
 
-`τ.6.x.1.E` Fixes A/B/C are **implemented and verified**
-(2026-05-16): (A) `!`/`|` added to `CHAPTER_HEADER_RE_LENIENT`'s
+`τ.6.x.1.E` Fixes A/B/C are **implemented and shipped** (commit
+`6065394`): (A) `!`/`|` added to `CHAPTER_HEADER_RE_LENIENT`'s
 terminator class; (B) `is_pericope_header()` / `PERICOPE_HEADER_RE`
 filtering `ክፍል N፡` headers; (C) `renumber_against_floor` hard-fails
 gross over-segmentation instead of silently shipping distorted
-scripture. ruff-clean; 9/9 characterization + 1291/0 focused
-regression. This spec covers **Fix D**, the remaining part: making
-the colometrically-over-segmented Ge'ez poetic column shippable.
+scripture. **Honest outcome (AUDIT_2026-05-16-DEEP-5 correction —
+the earlier "verified" line omitted this): A+B *reduce* but do NOT
+resolve NT over-segmentation (live Matthew 1178→1117 vs the 1071
+floor); Fix C makes the residual an HONEST hard-fail, not a
+distorted ship — the NT is honestly blocked, NOT "fixed".**
+Verified at ship: ruff-clean; full regression green (the
+"9/9 + 1291/0 focused" were the pre-ship snapshot; the ship gate
+was 5860+ / 0 fail). This spec — the **RETAINED FALLBACK** per the
+banner above — covers **Fix D**, the colometric merge, for any
+poetic Ge'ez book with NO clean external source. **Ge'ez Psalms
+itself is NOT this path**: it ships from the external HaCohen/
+Ludolf critical edition (τ.6.x.5,
+`2026-05-16-geez-external-source-ingest-design.md`).
 
 ## 2. Problem (settled by real data)
 
@@ -202,7 +212,10 @@ boundaries.
 ## 9. Scope / non-goals (YAGNI)
 
 In scope: the one general `merge_to_floor` function + the opt-in
-flag + wiring + tests; enabling `τ.6.x.2.i` Ge'ez Psalms.
+flag + wiring + tests; available as the FALLBACK for any poetic
+Ge'ez book with no clean external source. **NOT the τ.6.x.2.i
+Ge'ez Psalms path** — Ge'ez Psalms ships from the τ.6.x.5
+external-source ingest (HaCohen/Ludolf).
 
 Explicit non-goals:
 - Not fixing OCR garble or residual title-page contamination
@@ -232,5 +245,8 @@ Explicit non-goals:
 5. Ge'ez Psalms output is documented ocr-tier3 / index-canonical /
    `τ.6.x.3`-audit-flagged in the module docstring and the
    `_source.yaml` ingest record.
-6. This unblocks `τ.6.x.2.i` (Ge'ez Psalms) and, by reuse, the
-   later poetic-book Ge'ez ships.
+6. In its RETAINED-FALLBACK role this unblocks a poetic Ge'ez
+   book ONLY if it has no clean external source. Ge'ez Psalms
+   (`τ.6.x.2.i`) ships from `τ.6.x.5` external-source, NOT this
+   path; the function stays book-agnostic for genuine fallback
+   reuse.

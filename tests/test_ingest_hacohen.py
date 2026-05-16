@@ -36,17 +36,28 @@ class TestWriteBookModuleParametrized:
 
         return write_book_module
 
-    def test_defaults_byte_identical(self, tmp_path, monkeypatch):
-        # Existing callers pass no provenance kwargs → output must be
-        # byte-identical to pre-change (parallel-bible-eotc strings).
+    def test_defaults_preserve_data_and_provenance(self, tmp_path, monkeypatch):
+        # Honest contract (AUDIT_2026-05-16-DEEP-5 correction — the
+        # earlier "byte-identical" framing was an over-claim): default
+        # callers keep the SAME data + provenance — SOURCE_PROVENANCE,
+        # the source-yaml ref, and the Tool line all stay
+        # parallel-bible-eotc. This is DATA-preservation, NOT byte
+        # identity: the generic provenance docstring opening line was
+        # intentionally generalized. Existing committed book modules
+        # are static and unaffected (write_book_module only runs on
+        # (re-)ingest), so no shipped artifact changes.
         import scripts.extract_parallel_pdf as ep
 
         monkeypatch.setattr(ep, "TRANSLATIONS_DIR", tmp_path)
         out = self._fn()("geez-tewahedo", "zzz", [(1, 1, "ብፁዕ")], "ocr-tier3", "2026-05-16")
         txt = out.read_text(encoding="utf-8")
+        # data + provenance preserved for default callers:
         assert "SOURCE_PROVENANCE = 'parallel-bible-eotc'" in txt
         assert "content/translations/sources/parallel-bible-eotc/_source.yaml" in txt
         assert "Tool: scripts/extract_parallel_pdf.py" in txt
+        # the ONE intentional generalization (so this is NOT byte-identical):
+        assert "Extracted/ingested from source (" in txt
+        assert "Extracted from the parallel-Bible EOTC PDF (" not in txt
 
     def test_kwargs_override_three_spots(self, tmp_path, monkeypatch):
         import scripts.extract_parallel_pdf as ep
@@ -85,7 +96,12 @@ class TestParseHacohenPsalter:
         verses = self._fn()(html_text, 1)
         assert [(c, v) for c, v, _ in verses] == [(1, 1), (1, 2)]
 
-    def test_verse1_is_blessed_is_the_man_unicode_geez(self):
+    def test_verse1_structure_and_unicode_decode(self):
+        # Pins STRUCTURE + encoding behavior (verse-1 incipit, colon-
+        # cola merge, NCR→Unicode-Ge'ez decode, tag-strip), NOT content
+        # fidelity — the committed fixture is a tiny hand-trim per
+        # spec §8 (renamed at AUDIT_2026-05-16-DEEP-5; the old name
+        # over-stated content coverage).
         verses = self._fn()((FIX / "psalm1.html").read_text(encoding="utf-8"), 1)
         ch, v, text = verses[0]
         assert text.startswith("ብፁዕ ፡ ብእሲ"), repr(text[:40])

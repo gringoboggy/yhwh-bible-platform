@@ -256,9 +256,19 @@ class TestTau7XAInFlight:
     prior-task; the durable assertion is that τ.7.x.a.0 + τ.6.x.2.D
     both appear somewhere in IN_FLIGHT."""
 
-    def test_in_flight_idle_after_pilot(self):
+    def test_in_flight_has_valid_tracker_state(self):
+        """Milestone-pin — CONVERTED from the brittle ``idle``-only
+        assertion at the τ.6.x.5 audit (AUDIT_2026-05-16-DEEP-5) per
+        ``feedback_share_pin_pattern``. ``TRACKER-STATE: active`` is
+        CORRECT while a task is legitimately in flight
+        (CLAUDE_PROJECT_RULES §4 checkpoint-saves); asserting ``idle``
+        only broke the regression every time work was mid-flight. The
+        durable invariant is the marker's presence + validity, not a
+        transient value."""
         txt = IN_FLIGHT.read_text(encoding="utf-8")
-        assert "TRACKER-STATE: idle" in txt
+        assert ("TRACKER-STATE: idle" in txt) or ("TRACKER-STATE: active" in txt), (
+            "IN_FLIGHT must carry a valid TRACKER-STATE marker (idle or active)"
+        )
 
     def test_prior_task_is_tau7xa_0(self):
         """Milestone-pin: τ.7.x.a.0 appears in IN_FLIGHT prior-task
