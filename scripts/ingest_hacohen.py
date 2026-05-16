@@ -10,9 +10,12 @@ docs/superpowers/specs/2026-05-16-geez-external-source-ingest-design.md).
 
 from __future__ import annotations
 
+import argparse
 import html as _html
 import re
+import sys
 import time
+from datetime import date
 from pathlib import Path
 
 from scripts.core import http
@@ -134,3 +137,70 @@ def calibrate(*, sample: list[int], cache_dir: Path = DEFAULT_CACHE) -> dict:
         if vs[0][1] != 1:
             return {"go": False, "reason": f"Psalm {n} does not start at verse 1", "parsed": parsed}
     return {"go": True, "reason": "calibration sample parsed cleanly", "parsed": parsed}
+
+
+def ingest_psalms(*, cache_dir: Path = DEFAULT_CACHE, phase: str) -> Path:
+    """Parse all 151 cached Psalm pages and write geez-tewahedo/psa.py
+    at digitized-critical-edition quality. Source numbering is
+    authoritative (NOT renumbered against the floor)."""
+    from scripts.extract_parallel_pdf import write_book_module
+
+    all_verses: list[tuple[int, int, str]] = []
+    for n in range(1, 152):
+        path = cache_dir / f"PsalmNrR {n}.html"
+        all_verses.extend(parse_hacohen_psalter(path.read_text(encoding="utf-8"), n))
+    return write_book_module(
+        "geez-tewahedo",
+        "psa",
+        all_verses,
+        "digitized-critical-edition",
+        date.today().isoformat(),
+        ingest_phase=phase,
+        docstring_extra=(
+            "Ingested from Ran HaCohen's digitized Ge'ez Psalter "
+            "(Psalterium Davidis, ed. Hiob Ludolf 1701; Rahlfs/LXX "
+            "verse numbering; PD by age). Source numbering is "
+            "authoritative — NOT renumbered against the floor; "
+            "per-chapter deltas vs PSALMS_VERSE_COUNTS are recorded "
+            "for the τ.6.x.3 audit."
+        ),
+        source_provenance="hacohen-geez",
+        source_yaml_ref="content/translations/sources/hacohen-geez/_source.yaml",
+        tool="scripts/ingest_hacohen.py",
+    )
+
+
+def main(argv: list[str] | None = None) -> int:
+    p = argparse.ArgumentParser(description="HaCohen Ge'ez external-source ingest (τ.6.x.5)")
+    p.add_argument("--book", required=True, choices=["psalms"])
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument("--fetch", action="store_true", help="fetch+cache all 151 Psalm pages")
+    g.add_argument("--calibrate", action="store_true", help="parse the calibration sample, print GO/NO-GO")
+    g.add_argument("--ingest", action="store_true", help="write geez-tewahedo/psa.py from cache (requires GO)")
+    p.add_argument("--phase", default=None, help="ingest phase tag, e.g. τ.6.x.2.i")
+    args = p.parse_args(argv)
+
+    if args.fetch:
+        for n in range(1, 152):
+            dest = fetch_psalm(n)
+            print(f"cached Psalm {n} -> {dest}")
+        return 0
+    if args.calibrate:
+        r = calibrate(sample=[1, 118, 151])
+        print(f"{'GO' if r['go'] else 'NO-GO'}: {r['reason']}")
+        return 0 if r["go"] else 1
+    if args.ingest:
+        if not args.phase:
+            p.error("--ingest requires --phase")
+        r = calibrate(sample=[1, 118, 151])
+        if not r["go"]:
+            print(f"NO-GO: {r['reason']} — refusing to ingest (colometric-merge fallback applies)")
+            return 1
+        out = ingest_psalms(phase=args.phase)
+        print(f"wrote {out}")
+        return 0
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -193,3 +193,40 @@ class TestCalibrate:
         result = self._fn()(sample=[1, 118, 151], cache_dir=tmp_path)
         assert result["go"] is False
         assert "no verses parsed" in result["reason"].lower()
+
+
+class TestIngestPsalmsFromCache:
+    def _fn(self):
+        from scripts.ingest_hacohen import ingest_psalms
+
+        return ingest_psalms
+
+    def test_ingest_from_cache_writes_module(self, tmp_path, monkeypatch):
+        import ast
+
+        import scripts.extract_parallel_pdf as ep
+
+        good = (FIX / "psalm1.html").read_text(encoding="utf-8")
+        cache = tmp_path / "cache"
+        cache.mkdir()
+        for n in range(1, 152):
+            (cache / f"PsalmNrR {n}.html").write_text(good, encoding="utf-8")
+        out_root = tmp_path / "translations"
+        monkeypatch.setattr(ep, "TRANSLATIONS_DIR", out_root)
+
+        path = self._fn()(cache_dir=cache, phase="τ.6.x.2.i")
+        assert path.name == "psa.py"
+        txt = path.read_text(encoding="utf-8")
+        assert "SOURCE_PROVENANCE = 'hacohen-geez'" in txt
+        assert "SOURCE_QUALITY = 'digitized-critical-edition'" in txt
+        assert "INGEST_PHASE = 'τ.6.x.2.i'" in txt
+        tree = ast.parse(txt)
+        verses = next(
+            ast.literal_eval(n.value)
+            for n in ast.walk(tree)
+            if isinstance(n, ast.Assign) and isinstance(n.targets[0], ast.Name) and n.targets[0].id == "VERSES"
+        )
+        # fixture psalm1.html → 2 verses/psalm × 151 psalms = 302
+        assert len(verses) == 302
+        assert verses[0][:2] == (1, 1)
+        assert verses[0][2].startswith("ብፁዕ")
