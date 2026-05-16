@@ -1,10 +1,81 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / ω.48 HYGIENE BUNDLE — actions the
+**Updated 2026-05-16 / τ.7.x.s — AMHARIC DANIEL-ADDITIONS CLUSTER
+(paz + bel) FULL-BOOK INGEST + the Susanna structural-discovery
+deferral. TWENTY-FIRST + TWENTY-SECOND τ.7.x.* per-book ships
+under D4-c Amharic-first + D1-a per-book cadence (user "continue"
+→ advance per PLAN; a multi-small-book ship, the τ.7.x.n Mäqabyan-
+trilogy precedent). Drains the EOTC "ተረፈ ዳንኤል" cluster
+p1449-1453.**
+
+Adds `amharic-tewahedo/paz.py` (The Prayer of Azariah + the Song
+of the Three Holy Children, p1449-1451, 30 v, 44.1%,
+deuterocanonical — OPENS the cluster; combined single-chapter
+unit) + `bel.py` (Bel and the Dragon, p1452-1453, 23 v, 54.8%,
+deuterocanonical — DRAINS the cluster). 22-book combined
+10810 / 14679 = 73.6%. Pipeline reused VERBATIM from τ.7.x.r —
+only deltas: PRAYER_OF_AZARIAH_VERSE_COUNTS (1 ch / 68 v; NRSV)
++ BEL_AND_THE_DRAGON_VERSE_COUNTS (1 ch / 42 v; NRSV) +
+SUSANNA_VERSE_COUNTS (1 ch / 64 v; NRSV/Theodotion — PRE-STAGED,
+infra-ready, content DEFERRED) + 3 structural_map sections + the
+3 `--renumber` CLI choices. TWENTY-FIRST + TWENTY-SECOND
+consecutive zero-parser-API-delta (29-ship across both columns).
+
+**Structural-discovery finding (τ.7.x.n-class; the τ.7.x.q `lje`
++ `laodiceans` precedent).** The τ.7.x.s deep scan (band
+p1440-1455, the τ.7.x.n/o/q running-header + opening-verse +
+colophon method) DEFINITIVELY mapped the cluster. Wisdom ends
+p1448 (τ.7.x.r colophon re-confirmed). paz p1449-1451 (Pr-Azar
+v.15 `በዚህ ወራት አለቃ የለም ነቢይም የለም ንጉሥም የለም … መሥዋዕትም … ዕጣን`
+p1449; GEZ `መዝሙረ ሠለስቱ` Song-of-the-Three p1450 + `አናንያ አዛርያ
+ሚሳኤል` p1451). bel p1452-1453 (GEZ `ተረፈ ዳንኤል ምፅራፍ ፲፫`; Bel
+idol-food / clay-and-bronze / priests + the `ዘንዶ` dragon; the
+p1453 colophon `… ቢዩ ዳንኤል የተናገረው … ተፈጸመ` closes the appendix).
+**SUSANNA (`sus`, b46) is NOT distinctly present** in this PDF's
+ተረፈ-ዳንኤል cluster — ZERO Susanna/elders/garden/Joachim/Hilkiah
+markers in the band. EOTC tradition commonly embeds Susanna in
+the Book of Daniel proper (the not-yet-ingested `dan` block,
+b44). Per the τ.6.x.0b honesty contract (no fabricated page
+range) `sus` is DECLARED present_in_pdf:false / pdf_page_range:
+null (clean SystemExit on `--section susanna`), SUSANNA_VERSE_
+COUNTS pre-staged, extraction DEFERRED to τ.6.x.3 / the future
+`dan` ingest — SECOND parallel-PDF-absent books.yaml book after
+`lje`. **Jubilees opens p1454 (`።ኩፉሌ።`) EXACTLY matching the
+pre-existing Π.1 structural_map.jubilees [1454,1514]** — decisive
+cross-validation re-confirmed (Π.1 jubilees section NOT
+modified).
+
+`test_parallel_bible_tau7xs.py` adds 74 pins (18 classes)
+covering paz + bel floors + the pre-staged sus floor, the 3
+structural_map blocks (incl. the susanna present_in_pdf:false
+clean-SystemExit pin), paz/bel modules, coverage shape, the
+honest-low / anomaly-check documentation, the Susanna-absence
+deferral, the Jubilees-p1454 cross-validation-unchanged
+invariant, the back-link chain tau7xr→s, and prior-pin
+preservation. Verification: ruff-format 4/4 clean (paz/bel
+post-generation-formatted per the generated-book convention),
+lint_rules 11·0·0 CLEAN, focused regression 633 passed / 0 fail
+(all parallel-bible + jubilees + translations + tau6x0b suites),
+τ.7.x.s 74/74. Total **5735** tests collected (+74). Local
+commit only — no push, no zip ("continue" ≠ save per §4 + memory
+[[continue-not-save]] / [[save-is-local-commit]]).
+
+**Next per most-logical-path:** τ.7.x.t — the Π.1-mapped
+**Jubilees** [1454,1514] (`መጽሐፈ ኩፋሌ`, ።ኩፉሌ።; verified:tentative
+at Π.1, full coverage confirmed at ingest; the τ.7.x.s deep scan
+already cross-validated the p1454 opening), then **1 Enoch**
+[1515,1566] (τ.7.x.u). These are the two LARGE Tewahedo-
+distinctive books. Geʽez catchup (τ.6.x.2.j+) follows the
+Amharic stream per D4-c. The deferred `sus` reconciles at
+τ.6.x.3 / the future `dan` ingest.
+
+---
+
+## Prior session — 2026-05-15 / ω.48 HYGIENE BUNDLE + AUDIT-2026-05-16-DEEP-4 — actions the
 AUDIT_2026-05-15-DEEP-3 carry-forward ledger (user "fix anything
 there is to fix"). 3 fixes: F-DEEP3-2 atomic_write LF hardening +
 F-DEEP2-3 customization.yaml Ω.0 banner + F-DEEP2-4 _meta.yaml
-ingest_record-convention documentation.**
+ingest_record-convention documentation.
 
 > **AUDIT_2026-05-16-DEEP-4 ran post-ω.48 + post-PDF-recovery**
 > (user "one more major audit, fix if something pops up and save

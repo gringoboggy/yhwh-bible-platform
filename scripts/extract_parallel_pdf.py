@@ -1398,6 +1398,70 @@ WISDOM_OF_SOLOMON_VERSE_COUNTS = {
 # Ziegler LXX enumeration).
 
 
+# τ.7.x.s — The Prayer of Azariah and the Song of the Three Holy
+# Children (paz). content/books.yaml fixes `paz` at ch_count: 1
+# (b45) — the EOTC "ተረፈ ዳንኤል" (Rest of Daniel) appendix opens with
+# this combined unit (Prayer of Azariah + the Benedicite Song of
+# the Three). Verse counts use the standard NRSV "The Prayer of
+# Azariah and the Song of the Three Jews" enumeration (1 ch / 68 v;
+# continuing the deuterocanon-NRSV pattern of 2es/tob/jdt/sir/bar/
+# wis). Per the τ.6.x.0b honesty contract the floor is the canonical
+# CEILING; the τ.6.x.3 batched audit reconciles the exact Ethiopic
+# ተረፈ-ዳንኤል recension (the Theodotion Dan-3:24-90 insertion vs the
+# standalone-appendix placement). Twenty-first renumber-floor; FIRST
+# book of the Daniel-additions cluster (eighth EOTC-parallel block).
+PRAYER_OF_AZARIAH_VERSE_COUNTS = {
+    1: 68,
+}
+# Total Prayer of Azariah + Song of the Three verses = 68 (1 ch;
+# NRSV enumeration; combined unit per books.yaml `paz` ch_count: 1).
+
+
+# τ.7.x.s — The History of Susanna (sus). content/books.yaml fixes
+# `sus` at ch_count: 1 (b46). Verse counts use the standard NRSV
+# (Theodotion) Susanna enumeration (1 ch / 64 v). NOTE: the τ.7.x.s
+# structural-discovery scan (deep band p1440-1455, the τ.7.x.n/o/q
+# content-boundary method) found Susanna is NOT distinctly present
+# in this parallel-Bible PDF's "ተረፈ ዳንኤል" cluster (p1449-1453 =
+# Prayer of Azariah/Song of the Three p1449-1451 + Bel & the Dragon
+# p1452-1453 ONLY; zero Susanna/elders/garden/Joachim markers in the
+# band). Susanna in the EOTC tradition is commonly embedded inside
+# the Book of Daniel proper (the not-yet-ingested `dan` block, b44)
+# as a Daniel-13-class chapter rather than in the standalone
+# appendix. This floor is therefore PRE-STAGED (infra-ready) but
+# Susanna ingest is DEFERRED to the τ.6.x.3 batched audit / the
+# future `dan` τ.7.x.* ship — exactly the τ.7.x.q `lje`-deferral
+# precedent + the `laodiceans` present_in_pdf:false pattern. Twenty-
+# second renumber-floor (infra-ready, content-deferred at τ.7.x.s).
+SUSANNA_VERSE_COUNTS = {
+    1: 64,
+}
+# Total Susanna verses = 64 (1 ch; NRSV/Theodotion enumeration).
+# DEFERRED at τ.7.x.s — not distinctly present in the parallel-Bible
+# PDF ተረፈ-ዳንኤል cluster (Susanna-as-embedded-Daniel-13 ambiguity;
+# reconciled at τ.6.x.3 / the future `dan` ingest).
+
+
+# τ.7.x.s — Bel and the Dragon (bel). content/books.yaml fixes `bel`
+# at ch_count: 1 (b47). Verse counts use the standard NRSV Bel and
+# the Dragon enumeration (1 ch / 42 v). Empirically the SECOND (and
+# closing) book of the EOTC "ተረፈ ዳንኤል" cluster (PDF p1452-1453;
+# GEZ banner "ተረፈ ዳንኤል ምፅራፍ ፲፫"; Bel idol-food / clay-and-bronze
+# / 70-priests + the ዘንዶ dragon narrative; the p1453 colophon
+# "…ዳንኤል የተናገረው … ተፈጸመ" closes the whole appendix; p1454 opens
+# Jubilees ።ኩፉሌ።, EXACTLY matching the pre-existing Π.1 structural_
+# map.jubilees [1454,1514] — decisive cross-validation that the
+# τ.7.x.s scan indexing is correct). Per the τ.6.x.0b honesty
+# contract the floor is the canonical CEILING; τ.6.x.3 reconciles
+# the exact Ethiopic recension. Twenty-third renumber-floor; DRAINS
+# the Daniel-additions cluster (paz shipped + bel shipped; sus
+# deferred per SUSANNA_VERSE_COUNTS above).
+BEL_AND_THE_DRAGON_VERSE_COUNTS = {
+    1: 42,
+}
+# Total Bel and the Dragon verses = 42 (1 ch; NRSV enumeration).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -2316,6 +2380,12 @@ def _build_docstring_extra(
         floor_dict = BARUCH_VERSE_COUNTS
     elif renumber == "wisdom_of_solomon":
         floor_dict = WISDOM_OF_SOLOMON_VERSE_COUNTS
+    elif renumber == "prayer_of_azariah":
+        floor_dict = PRAYER_OF_AZARIAH_VERSE_COUNTS
+    elif renumber == "susanna":
+        floor_dict = SUSANNA_VERSE_COUNTS
+    elif renumber == "bel_and_the_dragon":
+        floor_dict = BEL_AND_THE_DRAGON_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2415,6 +2485,9 @@ def main() -> int:
             "four_baruch",
             "baruch",
             "wisdom_of_solomon",
+            "prayer_of_azariah",
+            "susanna",
+            "bel_and_the_dragon",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2468,7 +2541,19 @@ def main() -> int:
             "and 'wisdom_of_solomon' (WISDOM_OF_SOLOMON_VERSE_COUNTS, "
             "19 ch / 436 v; NRSV/Göttingen-Ziegler LXX; τ.7.x.r — "
             "drains the bar+wis major-book pair before the Daniel-"
-            "additions cluster paz/sus/bel). "
+            "additions cluster paz/sus/bel). Also the Daniel-additions "
+            "'prayer_of_azariah' (PRAYER_OF_AZARIAH_VERSE_COUNTS, 1 ch "
+            "/ 68 v; NRSV Prayer of Azariah + Song of the Three; "
+            "τ.7.x.s — OPENS the ተረፈ-ዳንኤል cluster p1449-1451), "
+            "'bel_and_the_dragon' (BEL_AND_THE_DRAGON_VERSE_COUNTS, "
+            "1 ch / 42 v; NRSV; τ.7.x.s — DRAINS the cluster p1452-"
+            "1453; p1454 opens Jubilees, Π.1-cross-validated), and "
+            "'susanna' (SUSANNA_VERSE_COUNTS, 1 ch / 64 v; NRSV/"
+            "Theodotion — infra-ready but DEFERRED at τ.7.x.s: the "
+            "structural-discovery scan found Susanna NOT distinctly "
+            "present in this PDF's ተረፈ-ዳንኤል cluster, the τ.7.x.q "
+            "`lje` + `laodiceans` present_in_pdf:false precedent; "
+            "reconciled at τ.6.x.3 / the future `dan` ingest). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2541,6 +2626,12 @@ def main() -> int:
         renumber_floor = BARUCH_VERSE_COUNTS
     elif args.renumber == "wisdom_of_solomon":
         renumber_floor = WISDOM_OF_SOLOMON_VERSE_COUNTS
+    elif args.renumber == "prayer_of_azariah":
+        renumber_floor = PRAYER_OF_AZARIAH_VERSE_COUNTS
+    elif args.renumber == "susanna":
+        renumber_floor = SUSANNA_VERSE_COUNTS
+    elif args.renumber == "bel_and_the_dragon":
+        renumber_floor = BEL_AND_THE_DRAGON_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

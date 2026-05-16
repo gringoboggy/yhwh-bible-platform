@@ -4,6 +4,55 @@
 
 ## Prior task
 
+**τ.7.x.s — AMHARIC DANIEL-ADDITIONS CLUSTER (paz + bel) INGEST +
+the Susanna structural-discovery deferral — COMPLETE 2026-05-16.
+User "continue" → advance to next phase per PLAN (τ.7.x.r recorded
+next_phase=τ.7.x.s). Bootstrapped via the §0 triad; IN_FLIGHT was
+idle (DEEP-4 closed). TWENTY-FIRST + TWENTY-SECOND τ.7.x.* per-book
+ship under D4-c + D1-a — a multi-small-book ship (the τ.7.x.n
+Mäqabyan-trilogy precedent).**
+
+**Outcome — paz + bel shipped; sus DEFERRED (honest, no fabricated
+data):**
+- [x] τ.7.x.s deep structural-discovery scan (band p1440-1455, the
+      τ.7.x.n/o/q running-header + opening-verse + colophon
+      method): the EOTC ተረፈ-ዳንኤል cluster is p1449-1453 ONLY —
+      paz [1449,1451] (Pr-Azar v.15 + Song of the Three) + bel
+      [1452,1453] (Bel idol/priests + the ዘንዶ dragon + the
+      cluster colophon). Wisdom ends p1448 (τ.7.x.r-confirmed).
+- [x] amharic-tewahedo/paz.py 30 v / 44.1% + bel.py 23 v / 54.8%
+      — content-confirmed via dry-run (τ.6.x.0b anomaly-check:
+      honest-low, NOT boundary errors). geez paz/bel/sus NOT
+      created (D4-c).
+- [x] **Susanna NOT distinctly present** in the PDF cluster (zero
+      Susanna/elders/garden/Joachim markers). Declared
+      present_in_pdf:false / pdf_page_range:null (clean SystemExit
+      on `--section susanna` — the `laodiceans` guard);
+      SUSANNA_VERSE_COUNTS pre-staged; DEFERRED to τ.6.x.3 / the
+      future `dan` ingest. SECOND parallel-PDF-absent books.yaml
+      book after `lje` (τ.7.x.q precedent).
+- [x] **Jubilees p1454 [1454,1514] Π.1 cross-validation
+      re-confirmed — section NOT modified.**
+- [x] 3 floors + 3 structural_map blocks + 3 --renumber choices +
+      help (extract_parallel_pdf.py); _meta stats 20→22 / 10757→
+      10810 / outside_kjv 10→12 + ingest_record_tau7xs;
+      tau7xs_ingest in _source.yaml; 29-ship zero-parser-API-delta.
+- [x] test_parallel_bible_tau7xs.py 74 pins / 18 classes — 74/74
+      pass. Focused regression 633 passed / 0 fail (parallel-bible
+      + jubilees pi1/pi1b + translations + tau6x0b). lint_rules
+      11·0·0 CLEAN; ruff-format 4/4 clean. Total 5735 (+74).
+- [x] CHANGELOG + SESSION_STATE updated together; PLAN ledger
+      τ.7.x.s ✓ + τ.7.x.t NEXT-UP; one-off discovery probe removed
+      (no artifact committed). Local commit only — no push, no zip
+      ("continue" ≠ save per §4 + memory).
+
+**Next per most-logical-path:** τ.7.x.t = the Π.1-mapped Jubilees
+[1454,1514] (the τ.7.x.s scan cross-validated the p1454 opening),
+then 1 Enoch [1515,1566] (τ.7.x.u). Deferred `sus` → τ.6.x.3 /
+future `dan` ingest.
+
+### Earlier — AUDIT_2026-05-16-DEEP-4 (superseded by the τ.7.x.s ship above)
+
 **AUDIT_2026-05-16-DEEP-4 — COMPLETE (triggered + run 2026-05-15,
 finalized 2026-05-16). User "one more major audit, fix if
 something pops up and save just for my sanity" (post the

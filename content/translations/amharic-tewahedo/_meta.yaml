@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 20           # 18 prior (… + sir τ.7.x.o + 4ba τ.7.x.p) + bar τ.7.x.q + wis τ.7.x.r (drain the two MAJOR books of the seventh EOTC-parallel block: Baruch + Wisdom of Solomon, p1429-1448)
-  verses: 10757       # 10456 (18 books) + 47 (bar, 33.3%) + 254 (wis, 58.3%) = 10757 / (13992 + 141 + 436) = 10757 / 14569 = 73.8% combined (across 20 ingested books; still excludes 9 SKIPPED books in the 438-802 dzamaragna gap)
-  books_outside_kjv: 10   # prior 8 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba) + bar (Baruch) + wis (Wisdom of Solomon) — both deuterocanonical, outside the 66-book KJV canon. est (Esther) is PROTOCANONICAL so does not count.
+  books: 22           # 20 prior (… + bar τ.7.x.q + wis τ.7.x.r) + paz τ.7.x.s + bel τ.7.x.s (the Daniel-additions cluster `ተረፈ ዳንኤል` p1449-1453; sus DEFERRED — not distinctly present in this PDF, present_in_pdf:false per the τ.7.x.q lje + laodiceans precedent)
+  verses: 10810       # 10757 (20 books) + 30 (paz, 44.1%) + 23 (bel, 54.8%) = 10810 / (14569 + 68 + 42) = 10810 / 14679 = 73.6% combined (across 22 ingested books; sus not counted — deferred; still excludes 9 SKIPPED dzamaragna-gap books)
+  books_outside_kjv: 12   # prior 10 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba/bar/wis) + paz (Prayer of Azariah / Song of the Three) + bel (Bel and the Dragon) — both deuterocanonical Daniel-additions, outside the 66-book KJV canon. sus DEFERRED (not counted).
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -1247,6 +1247,100 @@ ingest_record_tau7xr:
   next_book: paz   # τ.7.x.s — Daniel-additions cluster paz/sus/bel (`ተረፈ ዳንኤል`, p1449-1453)
   arc_continues: deuterocanon-eotc-parallel-block
   block_major_pair_drained: p1429-1448   # τ.7.x.q (bar) + τ.7.x.r (wis) drain the two major books of the seventh block
+
+ingest_record_tau7xs:
+  phase: τ.7.x.s
+  ingested_date: 2026-05-16
+  ingested_book_codes: [paz, bel]   # multi-small-book ship (the Mäqabyan-trilogy τ.7.x.n precedent); sus DEFERRED (see susanna_structural_discovery_finding)
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1449, 1453]   # paz [1449,1451] + bel [1452,1453] — the `ተረፈ ዳንኤል` Daniel-additions cluster
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o
+    - τ.7.x.q
+    - τ.7.x.r
+    - τ.7.x.s   # PRAYER_OF_AZARIAH (21st) + SUSANNA (22nd, infra-ready/deferred) + BEL_AND_THE_DRAGON (23rd) renumber-floors added
+  quality_tier: ocr-tier3
+  coverage:
+    paz:
+      verses_extracted: 30
+      verses_expected: 68
+      coverage_pct: 44.1
+      chapters_fully_populated: []
+      chapters_partial:
+        1: [30, 68]   # got, expected (single combined chapter — Prayer of Azariah + Song of the Three)
+      chapters_missing: []
+    bel:
+      verses_extracted: 23
+      verses_expected: 42
+      coverage_pct: 54.8
+      chapters_fully_populated: []
+      chapters_partial:
+        1: [23, 42]   # got, expected (single chapter)
+      chapters_missing: []
+  deuterocanonical: true   # paz (Prayer of Azariah / Song of the Three) + bel (Bel and the Dragon) — Daniel-additions, outside the KJV 66, in the EOTC/Catholic/Orthodox broader canon
+  daniel_additions_cluster: true
+  multi_small_book_ship: true   # one record, two books (the τ.7.x.n Mäqabyan-trilogy precedent)
+  structural_discovery_finding: |
+    The τ.7.x.s deep structural-discovery scan (band p1440-1455, the
+    τ.7.x.n/o/q running-header + opening-verse + colophon method)
+    DEFINITIVELY MAPPED the EOTC "ተረፈ ዳንኤል" (Rest of Daniel)
+    cluster. Wisdom ends p1448 (τ.7.x.r colophon confirmed). The
+    cluster is p1449-1453 ONLY: Prayer of Azariah `በዚህ ወራት አለቃ
+    የለም ነቢይም የለም ንጉሥም የለም … መሥዋዕትም … ዕጣን` (Pr-Azar v.15) p1449
+    + Song of the Three GEZ banner `መዝሙረ ሠለስቱ` / `አናንያ አዛርያ
+    ሚሳኤል` p1450-1451 (→ paz, combined unit) + Bel & the Dragon GEZ
+    banner `ተረፈ ዳንኤል ምፅራፍ ፲፫` / `ይበላል ይጠጣል` / `ካህናተ ጣዖቱን` /
+    `ዘንዶ` p1452-1453 (→ bel; the p1453 colophon `… ቢዩ ዳንኤል
+    የተናገረው … ተፈጸመ` closes the appendix). p1454 opens Jubilees
+    `።ኩፉሌ።` EXACTLY matching the pre-existing Π.1 structural_map.
+    jubilees [1454,1514] — decisive scan-indexing cross-validation;
+    Π.1 jubilees section NOT modified.
+  susanna_structural_discovery_finding: |
+    SUSANNA (`sus`, books.yaml b46) is NOT distinctly present in
+    this parallel-Bible PDF's "ተረፈ ዳንኤል" cluster. ZERO Susanna
+    markers in the p1440-1455 band — no ሶስና/ሱሳና (Susanna), no
+    ሽማግሌ/ሊቃውንት (the two elders), no ገነት (garden), no ዮአቄም
+    (Joachim), no ኬልቅያስ (Hilkiah). In the EOTC tradition Susanna
+    is commonly embedded inside the Book of Daniel proper (the
+    not-yet-ingested `dan` block, b44) as a Daniel-13-class chapter
+    rather than in the standalone appendix. Per the τ.6.x.0b
+    honesty contract (investigate anomalous absence; do NOT
+    fabricate a page range) + the τ.7.x.q `lje`-deferral + the
+    `laodiceans` present_in_pdf:false precedent: `sus` is DECLARED
+    in structural_map with present_in_pdf:false / pdf_page_range:
+    null (clean SystemExit on `--section susanna`), SUSANNA_VERSE_
+    COUNTS pre-staged (1 ch / 64 v NRSV/Theodotion, infra-ready),
+    extraction DEFERRED to τ.6.x.3 / the future `dan` ingest. This
+    is the SECOND books.yaml-canonical book (after `lje` at τ.7.x.q)
+    found absent from the parallel-Bible PDF; identical honest-
+    deferral, no fabricated data.
+  anomaly_check_applied: |
+    τ.6.x.0b discipline applied to BOTH shipped books. paz 44.1%
+    (deep-PDF deuterocanon band, cf. jdt 35.4% / bar 33.3%) — the
+    dry-run confirmed content IS the Prayer of Azariah (v.15 "no
+    ruler, no prophet, no king" verbatim) + Song of the Three
+    (Hananiah/Azariah/Mishael); honest-low source-recovery loss
+    against the NRSV ceiling, NOT a boundary error. bel 54.8% —
+    dry-run confirmed Bel (idol-food / clay-and-bronze / priests
+    of Bel) + the dragon; NOT a boundary error. No boundary
+    correction needed (contrast τ.7.x.n mq2's 5.9% which WAS).
+  jubilees_crossvalidation: |
+    p1454 opens Jubilees (`።ኩፉሌ።`) EXACTLY matching the pre-
+    existing Π.1 structural_map.jubilees [1454,1514] — re-confirms
+    (after τ.7.x.r) the scan indexing is correct. Π.1 jubilees
+    section NOT modified — cross-validated only.
+  audit_handoff: τ.6.x.3   # batched audit per D2-b + D3-c; also reconciles the deferred sus placement
+  next_book: jubilees   # τ.7.x.t — the Π.1-mapped Jubilees [1454,1514], then 1 Enoch [1515,1566] (τ.7.x.u)
+  arc_continues: deuterocanon-eotc-parallel-block
+  daniel_additions_cluster_drained: p1449-1453   # paz + bel shipped; sus deferred (not distinctly present)
+  pipeline_reused_at_phase: τ.7.x.s   # τ.7.x.s reused the τ.7.x.r pipeline VERBATIM; only deltas PRAYER_OF_AZARIAH/SUSANNA/BEL_AND_THE_DRAGON floors + structural_map.{prayer_of_azariah,susanna,bel_and_the_dragon}. TWENTY-FIRST + TWENTY-SECOND τ.7.x.* per-book ingest (paz + bel; sus deferred). 29-ship zero-parser-API-delta across both columns.
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.
