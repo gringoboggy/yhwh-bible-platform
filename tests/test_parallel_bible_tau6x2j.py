@@ -399,17 +399,19 @@ class TestTau6X2JPriorArcsPreserved:
         assert (GEEZ_TEWAHEDO / "psa.py").is_file()
         assert _constants(GEEZ_TEWAHEDO, "psa").get("INGEST_PHASE") == "τ.6.x.2.i"
 
-    def test_geez_deuterocanon_catchup_progress(self):
-        """Milestone-pin (memory `feedback_share_pin_pattern`): flips
-        per-book as the Geʽez deuterocanon catchup advances. τ.6.x.2.j
-        shipped 2es; τ.6.x.2.k shipped tob (so `tob` was REMOVED from
-        the not-yet list at the τ.6.x.2.k ship). jdt/est/jub/1en
-        remain queued (the next sub-ships τ.6.x.2.l+)."""
+    def test_geez_2es_is_a_durable_deuterocanon_milestone(self):
+        """ABSOLUTE/POSITIVE milestone-pin (memory
+        `feedback_share_pin_pattern`). Originally enumerated the
+        forward not-yet-shipped frontier (jdt/est/jub/1en must NOT
+        exist) — that broke mechanically every subsequent ship
+        (τ.6.x.2.l shipping jdt failed it). Rewritten to the durable
+        MONOTONIC invariant: τ.6.x.2.j shipped Geʽez 2 Esdras (the
+        FIRST Geʽez deuterocanonical book) and the deuterocanon count
+        only grows — never asserts what has NOT yet shipped."""
         assert (GEEZ_TEWAHEDO / "2es.py").is_file(), "τ.6.x.2.j 2es must remain shipped"
-        for book in ("jdt", "est", "jub", "1en"):
-            assert not (GEEZ_TEWAHEDO / f"{book}.py").exists(), (
-                f"geez-tewahedo/{book}.py must NOT exist yet (queued for τ.6.x.2.l+)"
-            )
+        assert _geez_meta()["stats"]["books_outside_kjv"] >= 1, (
+            "τ.6.x.2.j established ≥1 Geʽez deuterocanon book (monotonic; only grows)"
+        )
 
 
 # ───────────────────────────── state docs ──────────────────────────

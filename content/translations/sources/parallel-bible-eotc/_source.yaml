@@ -4770,6 +4770,94 @@ ocr_strategy:
     next_phase: τ.6.x.2.l   # Geʽez Judith, p1294-1307, JUDITH_VERSE_COUNTS + structural_map.judith reused from τ.7.x.l
 
   # ═══════════════════════════════════════════════════════════════
+  # τ.6.x.2.l — Geʽez Judith (CONTINUES the Geʽez deuterocanon
+  # catchup; mirrors Amharic τ.7.x.l — same p1294-1307, Geʽez column)
+  # ═══════════════════════════════════════════════════════════════
+
+  tau6x2l_ingest:
+    shipped_at_phase: τ.6.x.2.l
+    shipped_date: 2026-05-16
+    triggered_by: |
+      User autonomous-loop authorization ("continue without me ...
+      run -> test -> commit -> repeat any task that doesn't need my
+      verification") → advance per memory `feedback_continue_not_
+      save`. THIRD Geʽez deuterocanon ingest (2es → tob → jdt).
+      Pipeline reused VERBATIM from the Amharic τ.7.x.l ship — only
+      delta is the `--lang geez` flag.
+    helpers_reused:
+      - JUDITH_VERSE_COUNTS
+      - structural_map.judith
+    parser_api_change: |
+      No parser API changes. JUDITH_VERSE_COUNTS + structural_map.
+      judith were both added at the Amharic τ.7.x.l ship and are
+      reused VERBATIM for the Geʽez column — zero-parser-API-delta
+      (the τ.6.x.2.j/k cross-column reuse continues).
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1294, 1307]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 186
+      renumbered_verse_count: 186
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8]
+      chapters_partial:
+        9: {got: 4, expected: 14}
+      chapters_missing: [10, 11, 12, 13, 14, 15, 16]
+      expected_total: 339
+      coverage_pct: 54.9
+      coverage_vs_amharic: |
+        Geʽez jdt 186 v / 54.9% vs Amharic τ.7.x.l 120 v / 35.4%.
+        The Geʽez column recovered MORE than Amharic for this book
+        (as with τ.6.x.2.j/k) — region/book-dependent at ocr-tier3;
+        both columns are ocr-tier3 in the deep p1294+ "(ረቂቅ)"
+        draft region. The two columns extract DISTINCT text
+        (verified at ship — NOT a column-misattribution bug). Clean
+        renumber UNDERFLOW (186 < 339): ch 1-8 fill exactly
+        (cumulative floor 182) + ch 9 partial (4/14) + ch 10-16
+        empty + no overflow. Reconciled at the τ.6.x.3 audit.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true
+      tau7xf_ingest: true
+      tau7xg_ingest: true
+      tau7xh_ingest: true
+      tau7xi_ingest: true
+      tau7xj_ingest: true
+      tau7xk_ingest: true
+      tau7xl_ingest: true   # cross-column mirror (Amharic jdt) — geez slot-state updated + back-link added below
+      tau7xm_ingest: true
+      tau6x2a_ingest: true
+      tau6x2b_ingest: true
+      tau6x2c_ingest: true
+      tau6x2d_ingest: true
+      tau6x2e_ingest: true
+      tau6x2f_ingest: true
+      tau6x2g_ingest: true
+      tau6x2h_ingest: true   # CLOSED parallel-column-catchup arc preserved
+      tau6x2i_ingest: true   # τ.6.x.2.i Geʽez Psalms (τ.6.x.5 HaCohen external) preserved
+      tau6x2j_ingest: true   # τ.6.x.2.j Geʽez 2 Esdras preserved
+      tau6x2k_ingest: true   # τ.6.x.2.k Geʽez Tobit preserved (this ship's predecessor)
+    no_ingest_at_this_phase: false
+    arc_continues_geez_deuterocanon_catchup: |
+      τ.6.x.2.l CONTINUES the post-Psalms Geʽez deuterocanon-
+      catchup sub-arc (2es → tob → jdt). Next EOTC-parallel content
+      is Esther (p1308-1317, τ.6.x.2.m) → Mäqabyan (p1318-1378) →
+      Jubilees → 1 Enoch.
+    arc_context: geez-deuterocanon-catchup-continue
+    cross_column_back_link: |
+      Mirrors Amharic τ.7.x.l (p1294-1307, JUDITH_VERSE_COUNTS,
+      structural_map.judith). tau7xl_ingest.translation_slot_state.
+      geez_tewahedo_jdt updated no-op→shipped + a
+      geez_catchup_reused_at_phase: τ.6.x.2.l sibling added (the
+      τ.6.x.2.k → tau7xk convention). Does NOT touch
+      tau7xl_ingest.pipeline_reused_at_phase (= τ.7.x.m).
+    next_phase: τ.6.x.2.m   # Geʽez Esther, p1308-1317, ESTHER_VERSE_COUNTS + structural_map.esther reused from τ.7.x.m
+
+  # ═══════════════════════════════════════════════════════════════
   # τ.7.x.h → τ.7.x.i back-link (post-Amharic-Ruth → Amharic-Psalms;
   # SKIP-THE-GAP between parallel sections of the source PDF)
   # ═══════════════════════════════════════════════════════════════
@@ -5497,9 +5585,10 @@ ocr_strategy:
       τ.7.x.m Esther drains the second half + closes the block.
     translation_slot_state:
       amharic_tewahedo_jdt: 'shipped-at-τ.7.x.l (this ship; 120 verses; ocr-tier3; THIRD deuterocanonical τ.7.x.* ingest; p1294-1307)'
-      geez_tewahedo_jdt: 'no-op (τ.6.x.2.l under D4-c; same page range, Geʽez column; queued for next Geʽez catchup batch)'
+      geez_tewahedo_jdt: 'shipped-at-τ.6.x.2.l (Geʽez column, p1294-1307; 186 v / 54.9% ocr-tier3; reused JUDITH_VERSE_COUNTS + structural_map.judith VERBATIM — zero-parser-API-delta cross-column mirror of this Amharic ship)'
     next_phase: τ.7.x.m
     pipeline_reused_at_phase: τ.7.x.m   # back-link: τ.7.x.m (Amharic Esther) reused the τ.7.x.l pipeline VERBATIM; only delta was ESTHER_VERSE_COUNTS + structural_map.esther
+    geez_catchup_reused_at_phase: τ.6.x.2.l   # cross-column back-link: the Geʽez Judith catchup (τ.6.x.2.l, 2026-05-16) reused this Amharic τ.7.x.l pipeline VERBATIM (only `--lang geez` delta). The τ.6.x.2.k→tau7xk convention; distinct key so the τ.7.x.m pipeline_reused_at_phase pin is untouched.
 
   tau7xm_ingest:
     shipped_at_phase: τ.7.x.m

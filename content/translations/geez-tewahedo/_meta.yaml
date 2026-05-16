@@ -53,9 +53,9 @@ source:
   fetched: 2026-05-12
   source_date: 1830
 stats:
-  books: 11           # τ.6.x.2.a-h batch (gen+ex+lev+num+deu+jos+jdg+rut, parallel-PDF ocr-tier3) + τ.6.x.2.i psa (τ.6.x.5 HaCohen/Ludolf external clean PD critical edition) + τ.6.x.2.j 2es + τ.6.x.2.k tob (deuterocanon, parallel-PDF Geʽez column ocr-tier3)
-  verses: 7603        # 4337 (8-book parallel-PDF ocr-tier3, 60.1%) + 2531 (psa, τ.6.x.2.i — EXACT PSALMS_VERSE_COUNTS floor; digitized-critical-edition) + 601 (2es, τ.6.x.2.j — 63.6% ocr-tier3) + 134 (tob, τ.6.x.2.k — 54.5% ocr-tier3; both clean renumber underflows)
-  books_outside_kjv: 2  # 2es + tob — the FIRST TWO Geʽez deuterocanonical books; gen-rut + psa are all protocanonical (KJV 66)
+  books: 12           # τ.6.x.2.a-h batch (gen+ex+lev+num+deu+jos+jdg+rut, parallel-PDF ocr-tier3) + τ.6.x.2.i psa (τ.6.x.5 HaCohen/Ludolf external clean PD critical edition) + τ.6.x.2.j 2es + τ.6.x.2.k tob + τ.6.x.2.l jdt (deuterocanon, parallel-PDF Geʽez column ocr-tier3)
+  verses: 7789        # 4337 (8-book parallel-PDF ocr-tier3, 60.1%) + 2531 (psa, τ.6.x.2.i — EXACT PSALMS_VERSE_COUNTS floor; digitized-critical-edition) + 601 (2es, τ.6.x.2.j — 63.6%) + 134 (tob, τ.6.x.2.k — 54.5%) + 186 (jdt, τ.6.x.2.l — 54.9%; all clean renumber underflows ocr-tier3)
+  books_outside_kjv: 3  # 2es + tob + jdt — the FIRST THREE Geʽez deuterocanonical books; gen-rut + psa are all protocanonical (KJV 66)
 
 # τ.6.x.2.a-h Geʽez catchup batch ship — 2026-05-15.
 #
@@ -437,6 +437,50 @@ ingest_record_tau6x2k:
     mirroring the Amharic τ.7.x.j + τ.7.x.k pair. Next: τ.6.x.2.l
     = Geʽez Judith (p1294-1307, JUDITH_VERSE_COUNTS +
     structural_map.judith reused from Amharic τ.7.x.l).
+
+# τ.6.x.2.l — Geʽez Judith (2026-05-16).
+#
+# CONTINUES the post-Psalms Geʽez deuterocanon-catchup sub-arc
+# (2es τ.6.x.2.j → tob τ.6.x.2.k → jdt τ.6.x.2.l). THIRD Geʽez
+# deuterocanonical ingest. Pipeline reused VERBATIM from the Amharic
+# τ.7.x.l ship — JUDITH_VERSE_COUNTS + structural_map.judith reused,
+# zero-parser-API-delta, only `--lang geez` flips. Coverage 186/339
+# = 54.9% — in the τ.6.x.2.a-h Geʽez band (53-67%). Clean renumber
+# UNDERFLOW: ch 1-8 full (cumulative floor 182) + ch 9 partial
+# (4/14) + ch 10-16 empty + no overflow. Geʽez recovered MORE than
+# Amharic here (186 vs τ.7.x.l 120); both ocr-tier3 in the deep
+# p1294+ "(ረቂቅ)" draft region; columns proven DISTINCT (not a
+# misattribution bug); quality reconciled at the τ.6.x.3 audit.
+ingest_record_tau6x2l:
+  phase: τ.6.x.2.l
+  ingested_date: 2026-05-16
+  ingested_book_codes: [jdt]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1294, 1307]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.l       # JUDITH_VERSE_COUNTS renumber-floor reused (zero-API-delta)
+    - τ.6.x.2.l     # --lang geez delta
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 186
+    verses_expected: 339
+    coverage_pct: 54.9
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8]
+    chapters_partial:
+      9: [4, 14]
+    chapters_missing: [10, 11, 12, 13, 14, 15, 16]
+  audit_handoff: τ.6.x.3
+  deuterocanon_third_geez: true   # THIRD Geʽez deuterocanonical ingest (mirrors τ.7.x.l Amharic)
+  continues_geez_catchup: |
+    CONTINUES the post-Psalms Geʽez deuterocanon-catchup sub-arc
+    (2es τ.6.x.2.j → tob τ.6.x.2.k → jdt τ.6.x.2.l). Next:
+    τ.6.x.2.m = Geʽez Esther (p1308-1317, ESTHER_VERSE_COUNTS +
+    structural_map.esther reused from Amharic τ.7.x.m).
 
 notes: |
   τ.6 SEED CORPUS — UPGRADED 2026-05-15 via τ.6.x.2.a-h batch ship.

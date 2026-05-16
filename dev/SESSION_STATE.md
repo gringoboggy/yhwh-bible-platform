@@ -62,6 +62,39 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
+**Updated 2026-05-16 / τ.6.x.2.l — GE'EZ JUDITH SHIPPED — CONTINUES
+the Geʽez deuterocanon catchup (2es→tob→jdt). Next phase τ.6.x.2.m
+= Geʽez Esther.**
+
+`content/translations/geez-tewahedo/jdt.py` — 16 chapters,
+**186 verses / 54.9%** at `SOURCE_QUALITY=ocr-tier3`,
+`SOURCE_PROVENANCE=parallel-bible-eotc` (Geʽez left column, PDF
+p1294-1307). Mirrors the Amharic τ.7.x.l ship VERBATIM:
+`JUDITH_VERSE_COUNTS` (16 ch / 339 v) + `structural_map.judith`
+[1294,1307] (verified at τ.7.x.l, NOT re-verified) reused with
+**zero-parser-API-delta** — only `--lang geez` differs. Clean
+renumber **UNDERFLOW** (186 < 339): ch 1-8 full (cumulative floor
+182) + ch 9 partial (4/14) + ch 10-16 empty + no overflow. 54.9%
+in the τ.6.x.2.a-h Geʽez band. Re-verified per memory
+`feedback_reverify_conservative_nogo`: Geʽez recovered MORE than
+Amharic (186 vs τ.7.x.l 120); columns proven DISTINCT (not a
+misattribution bug); both ocr-tier3 per τ.6.x.0b → τ.6.x.3 audit;
+not over-claimed. Autonomous-loop (run→test→commit→repeat) under
+`executing-plans` + `test-driven-development` (RED before
+extraction, GREEN after). TWO share-pin→milestone-pin conversions
+per memory `feedback_share_pin_pattern`: `test_parallel_bible_
+tau7xl.py` (jdt half flipped, est deferred to τ.6.x.2.m) +
+`test_parallel_bible_tau6x2k.py` (jdt dropped from not-yet list).
+Cross-column: `tau7xl_ingest` geez slot no-op→shipped +
+`geez_catchup_reused_at_phase: τ.6.x.2.l` (the τ.7.x.m
+pipeline_reused pin untouched). geez `_meta.yaml` stats 11→12
+books / 7603→7789 verses / 2→3 books_outside_kjv +
+`ingest_record_tau6x2l`; `_source.yaml::ocr_strategy.tau6x2l_
+ingest` block. New `tests/test_parallel_bible_tau6x2l.py` (~40
+pins). Local commit only, no push, no zip. The Amharic NT cadence
+(τ.7.x.w+) + the Samuel/Kings GAPS track stay PAUSED pending user
+decisions (unchanged by this ship).
+
 **Updated 2026-05-16 / τ.6.x.2.k — GE'EZ TOBIT SHIPPED — CONTINUES
 the Geʽez deuterocanon catchup; with τ.6.x.2.j DRAINS the Geʽez
 column of the p1239-1293 EOTC-parallel block. Next phase τ.6.x.2.l
