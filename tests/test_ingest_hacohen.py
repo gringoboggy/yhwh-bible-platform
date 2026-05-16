@@ -28,3 +28,44 @@ class TestProvenanceRecord:
     def test_cache_dir_gitignored(self):
         gi = (HACOHEN / ".gitignore").read_text(encoding="utf-8")
         assert "cache/" in gi
+
+
+class TestWriteBookModuleParametrized:
+    def _fn(self):
+        from scripts.extract_parallel_pdf import write_book_module
+
+        return write_book_module
+
+    def test_defaults_byte_identical(self, tmp_path, monkeypatch):
+        # Existing callers pass no provenance kwargs → output must be
+        # byte-identical to pre-change (parallel-bible-eotc strings).
+        import scripts.extract_parallel_pdf as ep
+
+        monkeypatch.setattr(ep, "TRANSLATIONS_DIR", tmp_path)
+        out = self._fn()("geez-tewahedo", "zzz", [(1, 1, "ብፁዕ")], "ocr-tier3", "2026-05-16")
+        txt = out.read_text(encoding="utf-8")
+        assert "SOURCE_PROVENANCE = 'parallel-bible-eotc'" in txt
+        assert "content/translations/sources/parallel-bible-eotc/_source.yaml" in txt
+        assert "Tool: scripts/extract_parallel_pdf.py" in txt
+
+    def test_kwargs_override_three_spots(self, tmp_path, monkeypatch):
+        import scripts.extract_parallel_pdf as ep
+
+        monkeypatch.setattr(ep, "TRANSLATIONS_DIR", tmp_path)
+        out = self._fn()(
+            "geez-tewahedo",
+            "psa",
+            [(1, 1, "ብፁዕ")],
+            "digitized-critical-edition",
+            "2026-05-16",
+            ingest_phase="τ.6.x.2.i",
+            source_provenance="hacohen-geez",
+            source_yaml_ref="content/translations/sources/hacohen-geez/_source.yaml",
+            tool="scripts/ingest_hacohen.py",
+        )
+        txt = out.read_text(encoding="utf-8")
+        assert "SOURCE_PROVENANCE = 'hacohen-geez'" in txt
+        assert "content/translations/sources/hacohen-geez/_source.yaml" in txt
+        assert "Tool: scripts/ingest_hacohen.py" in txt
+        assert "SOURCE_QUALITY = 'digitized-critical-edition'" in txt
+        assert "parallel-bible-eotc" not in txt

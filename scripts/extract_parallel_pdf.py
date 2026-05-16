@@ -2598,6 +2598,9 @@ def write_book_module(
     *,
     ingest_phase: str | None = None,
     docstring_extra: str | None = None,
+    source_provenance: str = "parallel-bible-eotc",
+    source_yaml_ref: str = "content/translations/sources/parallel-bible-eotc/_source.yaml",
+    tool: str = "scripts/extract_parallel_pdf.py",
 ) -> Path:
     """Write content/translations/<translation>/<book>.py with the
     verse data + provenance metadata.
@@ -2623,15 +2626,15 @@ def write_book_module(
     lines = [
         f'"""Translation: {translation} · Book: {book}',
         "",
-        "Extracted from the parallel-Bible EOTC PDF (",
-        "content/translations/sources/parallel-bible-eotc/_source.yaml).",
+        "Extracted/ingested from source (",
+        f"{source_yaml_ref}).",
         "",
         f"Source quality: {source_quality}",
         f"Extraction date: {extraction_date}",
     ]
     if ingest_phase:
         lines.append(f"Ingest phase: {ingest_phase}")
-    lines.append("Tool: scripts/extract_parallel_pdf.py")
+    lines.append(f"Tool: {tool}")
     if docstring_extra:
         lines.append("")
         for ln in docstring_extra.splitlines():
@@ -2640,7 +2643,7 @@ def write_book_module(
     lines.append(f"TRANSLATION = {translation!r}")
     lines.append(f"BOOK = {book!r}")
     lines.append(f"SOURCE_QUALITY = {source_quality!r}")
-    lines.append("SOURCE_PROVENANCE = 'parallel-bible-eotc'")
+    lines.append(f"SOURCE_PROVENANCE = {source_provenance!r}")
     lines.append(f"EXTRACTION_DATE = {extraction_date!r}")
     if ingest_phase:
         lines.append(f"INGEST_PHASE = {ingest_phase!r}")
