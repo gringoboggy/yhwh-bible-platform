@@ -53,9 +53,9 @@ source:
   fetched: 2026-05-12
   source_date: 1830
 stats:
-  books: 12           # τ.6.x.2.a-h batch (gen+ex+lev+num+deu+jos+jdg+rut, parallel-PDF ocr-tier3) + τ.6.x.2.i psa (τ.6.x.5 HaCohen/Ludolf external clean PD critical edition) + τ.6.x.2.j 2es + τ.6.x.2.k tob + τ.6.x.2.l jdt (deuterocanon, parallel-PDF Geʽez column ocr-tier3)
-  verses: 7789        # 4337 (8-book parallel-PDF ocr-tier3, 60.1%) + 2531 (psa, τ.6.x.2.i — EXACT PSALMS_VERSE_COUNTS floor; digitized-critical-edition) + 601 (2es, τ.6.x.2.j — 63.6%) + 134 (tob, τ.6.x.2.k — 54.5%) + 186 (jdt, τ.6.x.2.l — 54.9%; all clean renumber underflows ocr-tier3)
-  books_outside_kjv: 3  # 2es + tob + jdt — the FIRST THREE Geʽez deuterocanonical books; gen-rut + psa are all protocanonical (KJV 66)
+  books: 13           # τ.6.x.2.a-h batch (gen+ex+lev+num+deu+jos+jdg+rut, parallel-PDF ocr-tier3) + τ.6.x.2.i psa (τ.6.x.5 HaCohen/Ludolf external clean PD critical edition) + τ.6.x.2.j 2es + τ.6.x.2.k tob + τ.6.x.2.l jdt + τ.6.x.2.m est (deuterocanon, parallel-PDF Geʽez column ocr-tier3)
+  verses: 7927        # 4337 (8-book parallel-PDF ocr-tier3, 60.1%) + 2531 (psa, τ.6.x.2.i — EXACT PSALMS_VERSE_COUNTS floor; digitized-critical-edition) + 601 (2es τ.6.x.2.j 63.6%) + 134 (tob τ.6.x.2.k 54.5%) + 186 (jdt τ.6.x.2.l 54.9%) + 138 (est τ.6.x.2.m 82.6%; all clean renumber underflows ocr-tier3)
+  books_outside_kjv: 4  # 2es + tob + jdt + est (Hebrew/Masoretic core, EOTC-parallel-block sourced) — the FIRST FOUR Geʽez deuterocanon-block books; gen-rut + psa are all protocanonical (KJV 66)
 
 # τ.6.x.2.a-h Geʽez catchup batch ship — 2026-05-15.
 #
@@ -481,6 +481,54 @@ ingest_record_tau6x2l:
     (2es τ.6.x.2.j → tob τ.6.x.2.k → jdt τ.6.x.2.l). Next:
     τ.6.x.2.m = Geʽez Esther (p1308-1317, ESTHER_VERSE_COUNTS +
     structural_map.esther reused from Amharic τ.7.x.m).
+
+# τ.6.x.2.m — Geʽez Esther (2026-05-16).
+#
+# CONTINUES the post-Psalms Geʽez deuterocanon-catchup sub-arc
+# (2es → tob → jdt → est). content/books.yaml fixes `est` at
+# ch_count: 10 (Hebrew/Masoretic core; the Greek Additions are the
+# SEPARATE b25 book). Pipeline reused VERBATIM from the Amharic
+# τ.7.x.m ship — ESTHER_VERSE_COUNTS + structural_map.esther reused,
+# zero-parser-API-delta, only `--lang geez` flips. Coverage 138/167
+# = 82.6% — ABOVE the τ.6.x.2.a-h Geʽez band (short book, dense
+# narrative OCR'd well); still a clean renumber UNDERFLOW: ch 1-8
+# full (cumulative floor 132) + ch 9 partial (6/32) + ch 10 empty
+# + no overflow. Geʽez recovered slightly more than Amharic here
+# (138 vs τ.7.x.m 133); both ocr-tier3; columns proven DISTINCT
+# (not a misattribution bug); quality reconciled at the τ.6.x.3
+# audit.
+ingest_record_tau6x2m:
+  phase: τ.6.x.2.m
+  ingested_date: 2026-05-16
+  ingested_book_codes: [est]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1308, 1317]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.m       # ESTHER_VERSE_COUNTS renumber-floor reused (zero-API-delta)
+    - τ.6.x.2.m     # --lang geez delta
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 138
+    verses_expected: 167
+    coverage_pct: 82.6
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8]
+    chapters_partial:
+      9: [6, 32]
+    chapters_missing: [10]
+  audit_handoff: τ.6.x.3
+  deuterocanon_fourth_geez: true   # FOURTH Geʽez deuterocanon-block ingest (mirrors τ.7.x.m Amharic; Hebrew/Masoretic Esther core)
+  continues_geez_catchup: |
+    CONTINUES the post-Psalms Geʽez deuterocanon-catchup sub-arc
+    (2es → tob → jdt → est). Next: τ.6.x.2.n = Geʽez Mäqabyan
+    (mq1/mq2/mq3 trilogy, p1318-1378; MQ1/MQ2/MQ3_VERSE_COUNTS +
+    structural_map.meqabyan_{i,ii,iii} reused from Amharic τ.7.x.n
+    — the FIRST multi-book Geʽez catchup ship, the τ.7.x.n
+    precedent).
 
 notes: |
   τ.6 SEED CORPUS — UPGRADED 2026-05-15 via τ.6.x.2.a-h batch ship.

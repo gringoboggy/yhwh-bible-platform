@@ -508,17 +508,17 @@ class TestTau7XLMDeuterocanonArcAndPriorPins:
         ):
             assert (AMHARIC_TEWAHEDO / f"{book}.py").is_file(), f"prior τ.7.x.* book {book} must persist"
 
-    def test_geez_jdt_ingested_at_tau6x2l_est_still_deferred(self):
-        """MIGRATED at the τ.6.x.2.l ship-time (2026-05-16) per memory
-        `feedback_share_pin_pattern` + the τ.6.x.2.j/k precedent.
-        Originally `test_geez_jdt_est_not_created` (BOTH must NOT
-        exist, D4-c deferral). τ.6.x.2.l shipped Geʽez Judith
-        (p1294-1307) so the jdt half is FLIPPED to "must EXIST"; est
-        remains deferred to τ.6.x.2.m (not yet shipped)."""
+    def test_geez_jdt_est_ingested_durable(self):
+        """MIGRATED TWICE per memory `feedback_share_pin_pattern` +
+        the τ.6.x.2.j/k precedent. Originally `test_geez_jdt_est_not_
+        created` (BOTH must NOT exist, D4-c deferral); at τ.6.x.2.l
+        the jdt half flipped to "must EXIST"; at τ.6.x.2.m the est
+        half flips too. Now a DURABLE positive invariant: the Geʽez
+        Judith (τ.6.x.2.l) + Esther (τ.6.x.2.m) catchup mirrored this
+        Amharic τ.7.x.l/m pair — both present at ocr-tier3; never
+        asserts what has NOT shipped (no anti-monotonic frontier)."""
         assert (GEEZ_TEWAHEDO / "jdt.py").is_file(), "Geʽez jdt.py must EXIST after the τ.6.x.2.l catchup ship"
-        assert not (GEEZ_TEWAHEDO / "est.py").exists(), (
-            "Geʽez est.py is still deferred to τ.6.x.2.m (not shipped at τ.6.x.2.l)"
-        )
+        assert (GEEZ_TEWAHEDO / "est.py").is_file(), "Geʽez est.py must EXIST after the τ.6.x.2.m catchup ship"
 
     def test_cli_renumber_choices_extended(self):
         src = (REPO / "scripts" / "extract_parallel_pdf.py").read_text(encoding="utf-8")

@@ -2,27 +2,73 @@
 
 <!-- TRACKER-STATE: idle -->
 
-## Current task — narrative Geʽez OT catchup AUTONOMOUS LOOP (next: τ.6.x.2.m)
+## Current task — narrative Geʽez OT catchup AUTONOMOUS LOOP (next: τ.6.x.2.n)
 
 **AUTONOMOUS-LOOP MODE.** User authorized "continue without me until
 I come back [~1h] … run → test → commit → repeat any task that
 doesn't need my verification." Loop = the proven τ.6.x.2.* narrative
 Geʽez catchup cadence (VERBATIM Amharic-stream reuse, zero approval
 gates). Shipped this loop so far: τ.6.x.2.j (2es) ✓ τ.6.x.2.k (tob)
-✓ τ.6.x.2.l (jdt) ✓. **Next: τ.6.x.2.m = Geʽez Esther** (p1308-1317,
-ESTHER_VERSE_COUNTS + structural_map.esther reused VERBATIM from the
-Amharic τ.7.x.m ship; same `--lang geez` delta). Then mq (Meqabyan
-mq1/mq2/mq3, multi-book — the τ.7.x.n precedent) → jub → 1en — the
-books the τ.6.x.2.a-h cadence left and the Amharic τ.7.x.m+ stream
-already shipped. Other poetic Geʽez books (Sirach/Wisdom/Proverbs/
-SoS/Lam/Job) reuse the τ.6.x.5 HaCohen external path. **DEFER (true
-approval-gates, NOT in the loop): the Amharic NT cadence τ.7.x.w+
-(BLOCKED pending the NT-parser-extension user decision) + the
-Samuel/Kings GAPS collation (PAUSED pending higher-res images).**
-Each iteration is a clean per-book seam (idle between commits);
-loop pauses when the runway is exhausted or the user returns.**
+✓ τ.6.x.2.l (jdt) ✓ τ.6.x.2.m (est) ✓. **Next: τ.6.x.2.n = Geʽez
+Mäqabyan trilogy** (mq1/mq2/mq3, p1318-1378 — the FIRST multi-book
+Geʽez catchup ship; MQ1/MQ2/MQ3_VERSE_COUNTS + structural_map.
+meqabyan_{i,ii,iii} reused VERBATIM from the Amharic τ.7.x.n ship;
+3 per-book extractions in one phase, the τ.7.x.n precedent). Then
+jub (τ.6.x.2.o) → 1en (τ.6.x.2.p) — the books the τ.6.x.2.a-h
+cadence left and the Amharic τ.7.x.n+ stream already shipped. Other
+poetic Geʽez books (Sirach/Wisdom/Proverbs/SoS/Lam/Job) reuse the
+τ.6.x.5 HaCohen external path. **DEFER (true approval-gates, NOT in
+the loop): the Amharic NT cadence τ.7.x.w+ (BLOCKED pending the
+NT-parser-extension user decision) + the Samuel/Kings GAPS
+collation (PAUSED pending higher-res images).** Each iteration is a
+clean per-book seam (idle between commits); loop pauses when the
+runway is exhausted or the user returns. NOTE: τ.6.x.2.l caught +
+ROOT-CAUSE-FIXED a fragile-share-pin class (forward not-yet-shipped
+enumeration) — memory `feedback_share_pin_pattern` updated; all
+per-phase progress-pins now positive/monotonic.**
 
-## Prior task — τ.6.x.2.l (COMPLETE 2026-05-16)
+## Prior task — τ.6.x.2.m (COMPLETE 2026-05-16)
+
+**τ.6.x.2.m — GEʽEZ ESTHER via the parallel-PDF Geʽez column —
+COMPLETE 2026-05-16. CONTINUES the post-Psalms Geʽez deuterocanon-
+catchup sub-arc (2es → tob → jdt → est). TWELFTH Geʽez per-book
+file; FOURTH Geʽez deuterocanon-block ingest. Autonomous-loop
+iteration.**
+
+**Outcome:**
+- [x] `geez-tewahedo/est.py` 10 ch / **138 v / 82.6%** at
+      ocr-tier3 (`source: parallel-bible-eotc`, Geʽez left
+      column, PDF p1308-1317). Mirrors Amharic τ.7.x.m VERBATIM:
+      ESTHER_VERSE_COUNTS (10 ch/167 v; Hebrew/Masoretic core,
+      Greek Additions = separate b25) + structural_map.esther
+      [1308,1317] (verified τ.7.x.m, NOT re-verified) reused —
+      **zero-parser-API-delta**, only `--lang geez`.
+- [x] Clean renumber **UNDERFLOW** (138 < 167): ch 1-8 full
+      (cumulative floor 132) + ch 9 partial (6/32) + ch 10 empty
+      + no overflow. 82.6% ABOVE the τ.6.x.2.a-h band (short
+      book, not an anomaly; still ocr-tier3 → τ.6.x.3 audit).
+- [x] Honest re-verification (`feedback_reverify_conservative_
+      nogo`): Geʽez recovered slightly more than Amharic (138 vs
+      τ.7.x.m 133); columns proven DISTINCT; not over-claimed.
+- [x] ONE frontier-pin conversion (memory `feedback_share_pin_
+      pattern`): `test_parallel_bible_tau7xl.py::test_geez_jdt_
+      ingested_at_tau6x2l_est_still_deferred` → `…test_geez_jdt_
+      est_ingested_durable` (est half flipped; now durable
+      both-exist). **The τ.6.x.2.j/k/l durable monotonic pins
+      held** (books_outside_kjv 3→4) — the τ.6.x.2.l root-cause
+      fix validated.
+- [x] Cross-column: `tau7xm_ingest.translation_slot_state.geez_
+      tewahedo_est` no-op→shipped + `geez_catchup_reused_at_
+      phase: τ.6.x.2.m` (the `pipeline_reused_at_phase: τ.7.x.n`
+      pin untouched).
+- [x] geez `_meta.yaml` stats 12→13 books / 7789→7927 verses /
+      3→4 books_outside_kjv + `ingest_record_tau6x2m`;
+      `_source.yaml::ocr_strategy.tau6x2m_ingest` block; new
+      `tests/test_parallel_bible_tau6x2m.py` (~40 pins,
+      progress-pin positive/monotonic from start). CHANGELOG +
+      SESSION_STATE + PLAN updated together. Local commit only.
+
+## Earlier — τ.6.x.2.l (COMPLETE 2026-05-16; superseded by the τ.6.x.2.m ship above)
 
 **τ.6.x.2.l — GEʽEZ JUDITH via the parallel-PDF Geʽez column —
 COMPLETE 2026-05-16. CONTINUES the post-Psalms Geʽez deuterocanon-

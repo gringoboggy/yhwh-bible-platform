@@ -62,6 +62,39 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
+**Updated 2026-05-16 / τ.6.x.2.m — GE'EZ ESTHER SHIPPED — CONTINUES
+the Geʽez deuterocanon catchup (2es→tob→jdt→est). Next phase
+τ.6.x.2.n = Geʽez Mäqabyan trilogy (FIRST multi-book Geʽez ship).**
+
+`content/translations/geez-tewahedo/est.py` — 10 chapters,
+**138 verses / 82.6%** at `SOURCE_QUALITY=ocr-tier3`,
+`SOURCE_PROVENANCE=parallel-bible-eotc` (Geʽez left column, PDF
+p1308-1317). Mirrors the Amharic τ.7.x.m ship VERBATIM:
+`ESTHER_VERSE_COUNTS` (10 ch / 167 v; Hebrew/Masoretic core, the
+Greek Additions are the separate `b25` book) + `structural_map.
+esther` [1308,1317] (verified at τ.7.x.m, NOT re-verified) reused
+with **zero-parser-API-delta** — only `--lang geez` differs. Clean
+renumber **UNDERFLOW** (138 < 167): ch 1-8 full (cumulative floor
+132) + ch 9 partial (6/32) + ch 10 empty + no overflow. 82.6% is
+ABOVE the τ.6.x.2.a-h band (53-67%) — short book, dense narrative
+OCR'd well; reflects the small floor, NOT a quality anomaly (still
+ocr-tier3 → τ.6.x.3 audit). Re-verified per memory `feedback_
+reverify_conservative_nogo`: Geʽez recovered slightly more than
+Amharic (138 vs τ.7.x.m 133); columns proven DISTINCT; not
+over-claimed. ONE frontier share-pin converted (`test_parallel_
+bible_tau7xl.py` est-half → durable both-exist `test_geez_jdt_est_
+ingested_durable`). **The τ.6.x.2.j/k/l durable monotonic pins
+held** (books_outside_kjv 3→4) — validating the τ.6.x.2.l
+root-cause fix. New `tests/test_parallel_bible_tau6x2m.py` (~40
+pins; progress-pin POSITIVE/MONOTONIC from the start). Cross-column:
+`tau7xm_ingest` geez slot no-op→shipped + `geez_catchup_reused_at_
+phase: τ.6.x.2.m` (the τ.7.x.n pipeline_reused pin untouched). geez
+`_meta.yaml` stats 12→13 books / 7789→7927 verses / 3→4
+books_outside_kjv + `ingest_record_tau6x2m`; `_source.yaml::ocr_
+strategy.tau6x2m_ingest` block. Local commit only, no push, no zip.
+The Amharic NT cadence (τ.7.x.w+) + the Samuel/Kings GAPS track
+stay PAUSED pending user decisions (unchanged by this ship).
+
 **Updated 2026-05-16 / τ.6.x.2.l — GE'EZ JUDITH SHIPPED — CONTINUES
 the Geʽez deuterocanon catchup (2es→tob→jdt). Next phase τ.6.x.2.m
 = Geʽez Esther.**

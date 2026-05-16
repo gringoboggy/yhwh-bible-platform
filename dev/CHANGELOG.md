@@ -6,6 +6,34 @@
 
 ---
 
+## 2026-05-16 — session — τ.6.x.2.m Geʽez Esther SHIPPED — CONTINUES the Geʽez deuterocanon catchup (TWELFTH Geʽez per-book file; FOURTH Geʽez deuterocanon-block ingest). Autonomous-loop iteration (run → test → commit → repeat); `executing-plans` + `test-driven-development` (test RED before extraction — 28 failed/20 passed, 20 green = ESTHER_VERSE_COUNTS/structural_map.esther reused-unchanged precondition pins — GREEN after). `geez-tewahedo/est.py` — 10 ch / **138 v / 82.6%** at `ocr-tier3` (`source: parallel-bible-eotc`, Geʽez left column, PDF p1308-1317). Mirrors the Amharic τ.7.x.m ship VERBATIM — `ESTHER_VERSE_COUNTS` (10 ch / 167 v; Hebrew/Masoretic core, the Greek Additions are the SEPARATE `b25` book) + `structural_map.esther` [1308,1317] (verified at τ.7.x.m, NOT re-verified) reused with **zero-parser-API-delta**; only the `--lang geez` flip differs. Clean renumber **UNDERFLOW** (138 < 167): ch 1-8 fill exactly (cumulative floor = 132) + ch 9 partial (6/32) + ch 10 empty + no overflow. Coverage 82.6% is ABOVE the τ.6.x.2.a-h Geʽez band (53-67%) — Esther is a short book whose dense narrative OCR'd relatively well; the higher % reflects the small 167-v floor, NOT a quality anomaly (still ocr-tier3, honestly tagged, → τ.6.x.3 audit). Honest-quality (memory `feedback_reverify_conservative_nogo`): Geʽez recovered slightly more than Amharic (138 vs τ.7.x.m's 133); columns proven DISTINCT (not a misattribution bug); not over-claimed. ONE share-pin→milestone-pin conversion (memory `feedback_share_pin_pattern`): `test_parallel_bible_tau7xl.py::test_geez_jdt_ingested_at_tau6x2l_est_still_deferred` → `test_geez_jdt_est_ingested_durable` (est half flipped; now a durable both-jdt+est-exist positive invariant). **The τ.6.x.2.j/k/l `…_durable_deuterocanon_milestone` pins did NOT break** (books_outside_kjv 3→4 ≥ their monotone floors) — validating the τ.6.x.2.l root-cause fix that rewrote them positive/monotonic. Cross-column: `tau7xm_ingest.translation_slot_state.geez_tewahedo_est` no-op→shipped + `geez_catchup_reused_at_phase: τ.6.x.2.m` (the `pipeline_reused_at_phase: τ.7.x.n` pin untouched). New `tests/test_parallel_bible_tau6x2m.py` (~40 pins; the deuterocanon-progress pin written POSITIVE/MONOTONIC from the start per the updated `feedback_share_pin_pattern`). geez-tewahedo/_meta.yaml stats 12→13 books / 7789→7927 verses / 3→4 books_outside_kjv + `ingest_record_tau6x2m`; `_source.yaml::ocr_strategy.tau6x2m_ingest` block (closed_arc tau7xa-m + tau6x2a-l, next_phase=τ.6.x.2.n). Local commit only, no push, no zip ("continue" ≠ save per §4 + memory `feedback_continue_not_save`).
+
+**Phase shipped:** τ.6.x.2.m — Geʽez Esther full-book ingest at
+ocr-tier3 via the parallel-PDF Geʽez column. **CONTINUES the
+post-Psalms Geʽez deuterocanon-catchup sub-arc** (2es → tob → jdt
+→ est).
+
+**Triggered by:** user autonomous-loop authorization — per memory
+`feedback_continue_not_save` each iteration advances one phase; the
+next after τ.6.x.2.l is τ.6.x.2.m (Geʽez Esther, mirroring τ.7.x.m).
+
+**Empirical validation:** text-layer extraction of 10 pages
+(1308-1317) → 138 Geʽez verses; renumber_against_floor with
+ESTHER_VERSE_COUNTS → ch 1-8 full + ch 9 partial (6/32) + ch 10
+empty (no overflow) — 138/167 = 82.6%. New tau6x2m test RED before
+the extraction, GREEN after; one frontier-pin conversion; the
+τ.6.x.2.j/k/l durable pins held (fix validated); full regression +
+lint_rules + ruff verified before the local commit.
+
+**Next per most-logical-path:** τ.6.x.2.n = Geʽez Mäqabyan trilogy
+(mq1/mq2/mq3, p1318-1378 — the FIRST multi-book Geʽez catchup ship,
+MQ1/MQ2/MQ3_VERSE_COUNTS + structural_map.meqabyan_{i,ii,iii} reused
+VERBATIM from the Amharic τ.7.x.n ship). Sub-arc: 2es✓ tob✓ jdt✓
+est✓ → mq → jub → 1en. The Amharic NT cadence + Samuel/Kings GAPS
+stay PAUSED pending user decisions.
+
+---
+
 ## 2026-05-16 — session — τ.6.x.2.l Geʽez Judith SHIPPED — CONTINUES the Geʽez deuterocanon catchup (ELEVENTH Geʽez per-book file; THIRD Geʽez deuterocanonical ingest). Autonomous-loop authorization ("continue without me … run → test → commit → repeat any task that doesn't need my verification") — same `executing-plans` + `test-driven-development` cadence (test RED before extraction — 28 failed/19 passed, 19 green = JUDITH_VERSE_COUNTS/structural_map.judith reused-unchanged precondition pins — GREEN after). `geez-tewahedo/jdt.py` — 16 ch / **186 v / 54.9%** at `ocr-tier3` (`source: parallel-bible-eotc`, Geʽez left column, PDF p1294-1307). Mirrors the Amharic τ.7.x.l ship VERBATIM — `JUDITH_VERSE_COUNTS` (16 ch / 339 v) + `structural_map.judith` [1294,1307] (verified at τ.7.x.l, NOT re-verified) reused with **zero-parser-API-delta**; only the `--lang geez` flip differs. Clean renumber **UNDERFLOW** (186 < 339): ch 1-8 fill exactly (cumulative floor = 182) + ch 9 partial (4/14) + ch 10-16 empty + no overflow. Coverage 54.9% in the τ.6.x.2.a-h Geʽez band (53-67%). Honest-quality (memory `feedback_reverify_conservative_nogo`): Geʽez recovered MORE than Amharic (186 vs τ.7.x.l's 120); both-columns dry-run proved DISTINCT text (not a misattribution bug); both `ocr-tier3` per τ.6.x.0b, → τ.6.x.3 audit; not over-claimed. TWO share-pin→milestone-pin conversions (memory `feedback_share_pin_pattern`): `test_parallel_bible_tau7xl.py::test_geez_jdt_est_not_created` → `test_geez_jdt_ingested_at_tau6x2l_est_still_deferred` (jdt half flipped, est deferred to τ.6.x.2.m); `test_parallel_bible_tau6x2k.py::test_geez_deuterocanon_catchup_not_yet_past_tob` → `test_geez_deuterocanon_catchup_progress` (jdt dropped from not-yet list). Cross-column: `tau7xl_ingest.translation_slot_state.geez_tewahedo_jdt` no-op→shipped + `geez_catchup_reused_at_phase: τ.6.x.2.l` (the `pipeline_reused_at_phase: τ.7.x.m` pin untouched). New `tests/test_parallel_bible_tau6x2l.py` (~40 pins). geez-tewahedo/_meta.yaml stats 11→12 books / 7603→7789 verses / 2→3 books_outside_kjv + `ingest_record_tau6x2l`; `_source.yaml::ocr_strategy.tau6x2l_ingest` block (closed_arc tau7xa-m + tau6x2a-k, next_phase=τ.6.x.2.m). Local commit only, no push, no zip ("continue" ≠ save per §4 + memory `feedback_continue_not_save`).
 
 **Phase shipped:** τ.6.x.2.l — Geʽez Judith full-book ingest at
