@@ -1,8 +1,39 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-## Prior task
+## Current task — executing the τ.6.x.5 plan (inline)
+
+**Executing `docs/superpowers/plans/2026-05-16-geez-external-
+source-ingest.md` inline (user-chosen). 8 bite-sized TDD tasks,
+calibrate-first gated; Task 1 next. Goal: Ge'ez Psalms from
+HaCohen/Ludolf clean PD critical edition at digitized-critical-
+edition quality (replaces the OCR+colometric path for Psalms).
+Spec fe1355e, plan 3f681f0; colometric-merge spec a1a4bea
+retained as the no-clean-source fallback.**
+
+## Prior task — τ.6.x.1.E (COMPLETE 2026-05-16)
+
+**τ.6.x.1.E — STRUCTURE-AWARE PARSER HARDENING + τ.6.x.0b
+HONESTY GATE — COMPLETE 2026-05-16 (parser/tooling phase, NO book
+shipped; the τ.6.x.1.C/D precedent).** Fixes: A (`!`/`|` added to
+`CHAPTER_HEADER_RE_LENIENT` — recovers the OCR'd Mt-1 `ምዕራፍ 8 !`
+marker; the TRUE cause of the τ.7.x.v Mt-1/2 loss), B
+(`is_pericope_header`/`PERICOPE_HEADER_RE` filters `ክፍል N፡` NT
+section headers out of the `።`-split), C (`renumber_against_floor`
+HARD-FAILS gross overflow > max(10, 2% floor) — the τ.6.x.0b
+honesty contract in code). **HONEST outcome (verified, NOT over-
+claimed):** A+B REDUCE but do NOT resolve NT over-seg — live
+Matthew dry-run 1178→1117 vs 1071 floor, STILL over; Fix C makes
+the NT residual an HONEST hard-fail (proven on the real dry-run),
+NOT a distorted ship. **The NT is honestly blocked, NOT "fixed".**
+NT-forward (deeper NT-structure work vs external-source NT)
+flagged, not blocking. Ge'ez Psalms re-routed to τ.6.x.5.
+Verification: 9/9 new characterization pins; ruff clean; full
+regression 5860 passed / 1 skipped / 0 fail; ZERO pin
+conversions. Local commit only, no push, no zip.
+
+## Earlier — τ.7.x.v (COMPLETE 2026-05-16; ⛔ decision now RESOLVED by τ.6.x.1.E + τ.6.x.5)
 
 **τ.7.x.v — MATTHEW PILOT-DISCOVERY + NT-RENUMBER-OVERFLOW
 BLOCKER — COMPLETE 2026-05-16 (NOT a book ingest; the τ.7.x.a.0-

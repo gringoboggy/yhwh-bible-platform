@@ -10,9 +10,14 @@
 > in **its own** verse popups. The other 9 editions get **NO**
 > Ge'ez/Amharic popups; the existing English `ethiopian-tewahedo`
 > edition only conditionally (full per-verse-count parity gate).
-> Amharic = as-written-in-PDF (cited); Ge'ez gaps ← `GAPS` folder
-> (DEFERRED, note-only). Sequence: finish rendering (the ONLY
-> active phase — keep shipping per-book τ.7.x.*/τ.6.x.*) →
+> Amharic = as-written-in-PDF (cited). Ge'ez per-book BEST-SOURCE
+> (Option-C, 2026-05-16): poetic/wisdom books ← clean external PD
+> critical editions (τ.6.x.5 HaCohen/Ludolf et al.) NOT the OCR'd
+> parallel-PDF column; narrative books continue on the parallel-
+> PDF path; the `GAPS` folder is POPULATED (Samuel/Kings dual-
+> manuscript + Patrologia Orientalis PDFs) — no longer "deferred
+> note-only". Sequence: finish rendering (the active phase — keep
+> shipping per-book τ.7.x.*/τ.6.x.*/τ.6.x.5) →
 > constitute the 2 standalone editions → finalize sources →
 > EN back-translation → wire into their own popups (phases 2–5
 > are POST-rendering; do NOT pull forward). This corrects the
@@ -20,37 +25,100 @@
 > `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`;
 > codified in `CLAUDE_PROJECT_RULES.md` §1.
 
-> **⛔ AUTONOMOUS RENDER CADENCE PAUSED — 2026-05-16, τ.7.x.v
-> (read this second). A DECISION IS NEEDED before the Amharic
-> τ.7.x.* cadence can resume.** The OT books are exhausted; ALL
-> remaining parallel-PDF content is the **New Testament** (4
-> Gospels + Acts + Epistles + Revelation). τ.7.x.v ran the
-> Matthew discovery scan and found a **ship-blocking NT-renumber-
-> overflow**: a dry-run recovered 1178 verses vs the 1071-v floor
-> (OVERFLOW; "1:1" was Mt 3:1 — the Mt 1-2 genealogy didn't
-> parse). Root cause: the NT Gospel structure (dense `ክፍል N`
-> Amharic pericope-section headers + the heavy NT inline cross-
-> reference apparatus + the list-format Mt-1 genealogy) breaks
-> the OT-tuned `።`/paragraph renumber. **This is NOT unique to
-> Matthew — every remaining NT book hits it.** Per the τ.6.x.0b
-> honesty contract I did NOT ship a distorted `mat.py`, and per
-> the careful-action discipline I did NOT build the needed
-> NT-parser extension blindly overnight (that is tooling, beyond
-> the data-only render cadence authorized for unattended work).
-> τ.7.x.v was committed as a PILOT-discovery+blocker phase (the
-> τ.7.x.a.0 precedent): the verified Matthew page-range
-> ([1567,1635], Mark@1636 cross-validated) + MATTHEW_VERSE_COUNTS
-> (28/1071, KJV/UBS standard) are committed as PREPARED INFRA;
-> NO book shipped, stats NOT bumped. **Decision for the user:**
-> (a) authorize building the NT-parser extension (strip `ክፍል`
-> pericope headers + the NT cross-ref apparatus + handle the
-> list-format Mt-1 genealogy — a τ.6.x.1.C/D-class change), or
-> (b) switch to the Geʽez τ.6.x.2 OT-catchup track, or (c) other.
-> Full detail: `_source.yaml::ocr_strategy.tau7xv_ingest` +
-> the CHANGELOG τ.7.x.v entry. Samuel/Kings GAPS calibration
-> also remains PAUSED pending the higher-res re-crop.
+> **✅ τ.7.x.v ⛔-DECISION RESOLVED — 2026-05-16 (read this
+> second).** The "(a) NT-parser extension / (b) Geʽez τ.6.x.2
+> OT-catchup / (c) other" decision is resolved — Ge'ez OT catchup
+> chosen, with Ge'ez Psalms re-routed to a clean external PD
+> source. Current status:
+> (1) **τ.6.x.1.E SHIPPED** — structure-aware parser hardening +
+> τ.6.x.0b honesty gate: A (`!`/`|` chapter-marker recovery —
+> the true cause of the τ.7.x.v "1:1=Mt 3:1" symptom; the prior
+> session's genealogy diagnosis was wrong), B (`ክፍል` NT pericope-
+> header filter), C (gross-overflow HARD-FAIL gate). **HONEST
+> outcome: this REDUCES but does NOT resolve NT over-seg**
+> (Matthew 1178→1117 vs 1071 floor); Fix C now makes the NT
+> residual an HONEST hard-fail (verified on the live Matthew
+> dry-run), NOT a distorted ship. **The NT is honestly blocked,
+> NOT "fixed."** The NT-forward choice (deeper NT-structure work
+> vs external-source NT) is flagged, NOT blocking.
+> (2) **τ.6.x.5 IN PROGRESS** — Ge'ez Psalms from HaCohen/Ludolf
+> clean PD critical edition (digitized-critical-edition quality);
+> spec `fe1355e`, plan `3f681f0`, inline execution; colometric-
+> merge `a1a4bea` retained as the documented fallback.
+> (3) Samuel/Kings GAPS calibration **UNBLOCKED** — the prior
+> NO-GO was data-unjustified (GG-00106 ~5MP, well above any cited
+> bar; the user was right). (4) Patrologia Orientalis PDFs
+> (Chronicles/Ezra-Neh/Esther/Job) present in GAPS — scoped
+> future track. The narrative Ge'ez OT catchup (2es/tob/…) on the
+> parallel-PDF path remains independent + available. Full detail:
+> the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
+> 2026-05-16-geez-*`.
 
-**Updated 2026-05-16 / τ.7.x.v — MATTHEW PILOT-DISCOVERY +
+**Updated 2026-05-16 / τ.6.x.1.E — STRUCTURE-AWARE PARSER
+HARDENING + τ.6.x.0b HONESTY GATE (parser/tooling phase — NO book
+shipped; the τ.6.x.1.C/D precedent). HONEST scope — NOT "NT
+unblocked".**
+
+Three minimal parser fixes in `scripts/extract_parallel_pdf.py`,
+root-caused via systematic-debugging + the τ.6.x.0b investigate-
+over-assume contract:
+- **A** — `!`/`|` added to `CHAPTER_HEADER_RE_LENIENT`'s terminator
+  class. The text-layer engine emits `!`/`|` for `።`; the real
+  Matthew-1 marker `ምዕራፍ 8 !` was silently dropped, discarding
+  Mt 1-2 — the TRUE cause of the τ.7.x.v "1:1 = Mt 3:1" symptom
+  (the prior session's "genealogy doesn't `።`-split" diagnosis
+  was wrong).
+- **B** — `is_pericope_header()` + `PERICOPE_HEADER_RE` filter the
+  NT `ክፍል N፡ …` pericope/section headers out of the `።`-split so
+  they no longer parse as spurious verses.
+- **C** — `renumber_against_floor` now HARD-FAILS gross over-
+  segmentation (overflow > max(10, 2% of floor)) with a clear
+  diagnostic instead of silently bucketing into a synthetic
+  `ch_max+1` — the τ.6.x.0b honesty contract enforced IN CODE.
+
+**Honest outcome (verified on real data — explicitly NOT over-
+claimed):** A+B *reduce* NT over-segmentation but do NOT resolve
+it — the live Matthew dry-run went 1178 → **1117** (geez column)
+vs the 1071 floor, STILL over. Fix C correctly converts that
+residual into an HONEST hard-fail (the Matthew dry-run now raises
+a clear `ValueError` instead of shipping ~46 distorted verses).
+**The NT is NOT unblocked — it is now honestly blocked (clear
+error) instead of silently distorted.** This corrects the earlier
+optimistic "small fix / NT unblocked" assessment per the same
+re-verify discipline the rest of this session followed. NT
+resolution needs either deeper NT-structure work (NT cross-ref-
+filter extension + Mt-1 list-genealogy handling) OR an external-
+source NT (the Option-C path, like τ.6.x.5 Psalms) — flagged, not
+blocking.
+
+Ge'ez Psalms is no longer this phase's concern — re-routed to
+**τ.6.x.5** external-source ingest (HaCohen/Ludolf clean PD
+critical edition; spec `fe1355e`, plan `3f681f0`); the colometric-
+merge spec `a1a4bea` is retained as the documented fallback.
+
+`test_parser_structure_aware_prepass.py` adds 9 characterization
+pins (the `!`/`|` marker incl. false-positive guard, the `ክፍል`
+filter + `is_pericope_header`, the gross-overflow gate + trivial-
+residue tolerance + clean-underfill regression guard).
+Verification: ruff-format clean; full regression **5860 passed /
+1 skipped / 0 fail** (no test relied on the old silent-bucket —
+ZERO pin conversions needed); Matthew dry-run confirms Fix C's
+real-data behavior. NO book shipped; stats UNCHANGED. Local
+commit only, no push, no zip.
+
+**Next per most-logical-path:** execute the τ.6.x.5 plan
+(`docs/superpowers/plans/2026-05-16-geez-external-source-ingest.md`)
+inline (user-chosen) — Ge'ez Psalms via HaCohen/Ludolf at
+digitized-critical-edition quality, calibrate-first gated. The
+narrative Ge'ez OT catchup (2es/tob/…) on the parallel-PDF path
+remains independent + available. Samuel/Kings GAPS calibration is
+UNBLOCKED (prior NO-GO data-unjustified). The NT-forward decision
+is flagged for a future call; the τ.7.x.v ⛔ "decision required"
+is RESOLVED by the above.
+
+---
+
+## Prior session — 2026-05-16 / τ.7.x.v — MATTHEW PILOT-DISCOVERY +
 NT-RENUMBER-OVERFLOW BLOCKER (NOT a book ingest; the τ.7.x.a.0-
 PILOT precedent). Overnight autonomous-run reached the NT
 boundary and STOPPED honestly rather than ship distorted

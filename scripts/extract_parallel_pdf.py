@@ -316,10 +316,12 @@ CHAPTER_HEADER_RE_LENIENT = re.compile(
     r"[\s፡፣]+"  # at least one separator
     r"(\S{1,5})"  # 1-5 non-whitespace chars (numeral token, possibly garbled)
     r"\s*"
-    r"[።፡፣=]"  # MUST be followed by Ethiopic punctuation OR `=` (OCR
-    # occasionally substitutes `=` for `።` at the end of
-    # chapter markers — confirmed empirically on page 5
-    # of Genesis 1)
+    r"[።፡፣=!|]"  # MUST be followed by Ethiopic punctuation OR `=`/`!`/`|`
+    # (OCR substitutes `=` for `።` at chapter-marker ends — confirmed
+    # on Genesis 1 p5; the text-layer engine ALSO emits `!` and `|`
+    # for `።` — the real Matthew-1 marker `ምዕራፍ 8 !` was silently
+    # dropped pre-τ.6.x.1.E, which discarded Mt 1-2 as pre-marker
+    # noise and was the true cause of the τ.7.x.v "NT-overflow")
 )
 
 
@@ -488,6 +490,34 @@ def is_cross_ref_fragment(frag: str) -> bool:
         return False
     numerals = [c for c in non_ws if c.isdigit() or "፩" <= c <= "፼"]
     return len(numerals) / len(non_ws) > 0.25
+
+
+# τ.6.x.1.E — NT pericope/section-header rejection.
+#
+# The Amharic NT carries `ክፍል N፡ ስለ …` ("Section N: concerning …")
+# pericope headers between verses. They are long Ethiopic prose with a
+# single leading numeral, so is_cross_ref_fragment() (which keys off
+# numeral-DOMINATED short strings) does NOT catch them — pre-τ.6.x.1.E
+# each one survived the `።`-split as a spurious verse, inflating the
+# count (the true mechanism behind the τ.7.x.v "NT-renumber-overflow"
+# blocker, alongside the dropped `!`-terminated Mt-1 chapter marker).
+# They are highly regular: the literal keyword `ክፍል`, a separator,
+# then a section numeral. Matching that exact shape (NOT a bare
+# leading "ክፍል", which can legitimately open a verse) keeps the
+# false-positive risk ~zero.
+
+PERICOPE_HEADER_RE = re.compile(r"^\s*ክፍል[\s፡፣]+[፩-፼0-9]")
+
+
+def is_pericope_header(frag: str) -> bool:
+    """Is this fragment an NT `ክፍል N፡ …` section header (not scripture)?
+
+    True only for the numbered-section shape `ክፍል <sep> <numeral> …`.
+    A verse that merely *contains* the word ክፍል mid-text, or that
+    starts with ክፍል but is not followed by a section numeral, is NOT
+    a header and is preserved.
+    """
+    return PERICOPE_HEADER_RE.match(frag or "") is not None
 
 
 # Per-book expected verse-count floor for sanity-checking paragraph-mode
@@ -1821,6 +1851,11 @@ def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
             # Filter cross-reference fragments.
             if is_cross_ref_fragment(frag):
                 continue
+            # τ.6.x.1.E: filter NT `ክፍል N፡ …` pericope/section headers
+            # (long Ethiopic prose the numeral-keyed cross-ref filter
+            # misses) so they do not parse as spurious verses.
+            if is_pericope_header(frag):
+                continue
             # Filter very-short fragments (likely OCR noise — orphan
             # punctuation, single characters, etc.). Body-text verses
             # are typically ≥15 chars even at OCR quality.
@@ -2220,8 +2255,34 @@ def renumber_against_floor(
             idx += 1
         if idx >= n_in:
             break
-    # Overflow: any input verses beyond the floor end up in ch_max+1.
+    # Overflow handling. A clean parse is always ≤ the canonical floor
+    # (the floor is the per-chapter MAXIMUM verse count), so a few
+    # residual fragments past the floor are tolerable ocr-tier3 noise
+    # and keep the historical ch_max+1 bucketing. GROSS overflow,
+    # however, means the parse produced structurally-wrong segments
+    # (NT pericope/cross-ref apparatus, or Ge'ez colometric `።`-per-
+    # colon poetry). Silently bucketing that into ch_max+1 ships
+    # distorted scripture behind a false "all chapters full" signal —
+    # the τ.6.x.0b honesty contract requires a HARD failure instead
+    # (τ.6.x.1.E). Threshold: max(10, 2% of the floor total).
     if idx < n_in:
+        overflow = n_in - idx
+        total_expected = sum(verse_counts.values())
+        tolerance = max(10, int(0.02 * total_expected))
+        if overflow > tolerance:
+            raise ValueError(
+                "renumber_against_floor: GROSS over-segmentation — "
+                f"{n_in} parsed verses vs a {total_expected}-verse "
+                f"floor ({overflow} overflow > {tolerance} tolerance). "
+                "This is the τ.7.x.v / τ.6.x.2.i bug class: the OT-"
+                "narrative-tuned `።`/paragraph parser hit structurally-"
+                "different scripture (NT pericope/cross-ref apparatus, "
+                "or the Ge'ez colometric Psalter). Refusing to ship "
+                "distorted scripture behind a false 'all chapters full' "
+                "signal (τ.6.x.0b honesty contract). Apply the "
+                "structure-aware pre-pass / colometric merge before "
+                "renumbering this book."
+            )
         ch_overflow = max(verse_counts.keys()) + 1
         v_overflow = 0
         while idx < n_in:
