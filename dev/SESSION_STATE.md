@@ -62,6 +62,51 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
+**Updated 2026-05-16 / τ.6.x.2.j — GE'EZ 2 ESDRAS / EZRA SUTUʼEL
+SHIPPED — RESUMES the narrative Geʽez catchup on the parallel-PDF
+path (FIRST Geʽez deuterocanonical ingest; NINTH Geʽez per-book
+file). Next phase τ.6.x.2.k = Geʽez Tobit.**
+
+`content/translations/geez-tewahedo/2es.py` — 16 chapters,
+**601 verses / 63.6%** at `SOURCE_QUALITY=ocr-tier3`,
+`SOURCE_PROVENANCE=parallel-bible-eotc` (Geʽez left column, PDF
+p1239-1284). Mirrors the Amharic τ.7.x.j ship VERBATIM:
+`EZRA_SUTUEL_VERSE_COUNTS` (16 ch / 945 v) + `structural_map.
+ezra_sutuel` [1239,1284] (verified at τ.7.x.j, NOT re-verified)
+reused with **zero-parser-API-delta** — only the `--lang geez`
+column flip differs (the τ.6.x.2.a-h cross-column-reuse template
+now extends to the deep p1239+ deuterocanon region). Clean
+renumber **UNDERFLOW**: 601 = sum(ch1..10 floors) EXACTLY → ch
+1-10 full, 11-16 empty, **NO partial / NO overflow** (the
+τ.6.x.2.f Joshua precedent; CONTRAST the τ.7.x.v NT renumber-
+OVERFLOW that honestly BLOCKED — this is a clean fill, no
+τ.6.x.0b distortion). Coverage 63.6% is in the τ.6.x.2.a-h Geʽez
+band (53-67%). Honest-quality note (re-verified per memory
+`feedback_reverify_conservative_nogo`): the Geʽez column
+recovered MORE than Amharic here (601 vs τ.7.x.j's 322) and the
+deep "(ረቂቅ)" draft-region text is Amharic-influenced/OCR-noisy,
+but a both-columns dry-run proved the columns extract DISTINCT
+text (NOT a misattribution bug); both are `ocr-tier3` in this
+region per the τ.6.x.0b honesty contract, reconciled at the
+τ.6.x.3 batched audit. NOT over-claimed as pristine Classical
+Geʽez. Superpowers used: `executing-plans` (the τ.6.x.2.a-h
+cadence as the plan; reviewed critically — zero concerns) +
+`test-driven-development` (test written + verified RED before
+the extraction, GREEN after). Share-pin→milestone-pin conversion
+(`test_parallel_bible_tau7xj.py`: `test_geez_2es_tob_not_created`
+→ `test_geez_2es_ingested_at_tau6x2j_tob_still_deferred`, 2es
+half flipped, tob deferred to τ.6.x.2.k) per memory
+`feedback_share_pin_pattern`. Cross-column coherence:
+`tau7xj_ingest` geez slot-state no-op→shipped +
+`geez_catchup_reused_at_phase: τ.6.x.2.j` (the `pipeline_reused_
+at_phase: τ.7.x.k` pin untouched). geez `_meta.yaml` stats 9→10
+books / 6868→7469 verses / 0→1 books_outside_kjv +
+`ingest_record_tau6x2j`; `_source.yaml::ocr_strategy.tau6x2j_
+ingest` block. New `tests/test_parallel_bible_tau6x2j.py` (~45
+pins). Local commit only, no push, no zip ("continue" ≠ save).
+The Amharic NT cadence (τ.7.x.w+) + the Samuel/Kings GAPS track
+stay PAUSED pending user decisions (unchanged by this ship).
+
 **Updated 2026-05-16 / τ.6.x.2.i — GE'EZ PSALMS SHIPPED via the
 τ.6.x.5 EXTERNAL PD-SOURCE INGEST (HaCohen/Ludolf clean
 digitized-critical-edition — the FIRST τ.6.x.5 ship; NOT the

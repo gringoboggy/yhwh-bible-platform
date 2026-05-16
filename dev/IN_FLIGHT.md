@@ -1,20 +1,84 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-## Current task — narrative Geʽez OT catchup (next, autonomous)
+## Current task — narrative Geʽez OT catchup continues (next: τ.6.x.2.k, autonomous)
 
-**The τ.6.x.5 plan is COMPLETE (Psalms shipped at τ.6.x.2.i). Next
-independent autonomous work: the narrative Geʽez OT catchup on the
-parallel-PDF path — τ.6.x.2.j+ (2es/tob/jdt/est/mq/jub/1en …, the
-books the τ.6.x.2.a-h cadence left; NOT poetic, so the established
-text-layer+paragraph-mode+renumber pipeline applies, not τ.6.x.5).
-Other poetic Geʽez books (Sirach/Wisdom/Proverbs/SoS/Lam/Job) can
-later reuse the τ.6.x.5 HaCohen path (each its own calibrate-
-first). User is away (autonomous authorization); defer only true
-approval-gates, work the next logical thing.**
+**τ.6.x.2.j (Geʽez 2 Esdras) is COMPLETE + committed (clean seam —
+idle). Next independent autonomous work continues the narrative
+Geʽez deuterocanon-catchup sub-arc on the parallel-PDF path:
+τ.6.x.2.k = Geʽez Tobit (p1285-1293, TOBIT_VERSE_COUNTS +
+structural_map.tobit reused VERBATIM from the Amharic τ.7.x.k
+ship; same `--lang geez` delta; the established text-layer+
+paragraph-mode+renumber pipeline). Then jdt (τ.6.x.2.l) → est
+(τ.6.x.2.m) → mq → jub → 1en — the books the τ.6.x.2.a-h cadence
+left and the Amharic τ.7.x.j+ stream already shipped. Other
+poetic Geʽez books (Sirach/Wisdom/Proverbs/SoS/Lam/Job) reuse
+the τ.6.x.5 HaCohen external path (each its own calibrate-first).
+"continue" advanced ONE phase (τ.6.x.2.j) per memory
+`feedback_continue_not_save`; this is a clean per-book seam — the
+user can "continue" again for τ.6.x.2.k, or redirect. The Amharic
+NT cadence (τ.7.x.w+) + the Samuel/Kings GAPS collation track
+stay PAUSED pending user decisions (unchanged).**
 
-## Prior task — τ.6.x.2.i (COMPLETE 2026-05-16)
+## Prior task — τ.6.x.2.j (COMPLETE 2026-05-16)
+
+**τ.6.x.2.j — GEʽEZ 2 ESDRAS / EZRA SUTUʼEL via the parallel-PDF
+Geʽez column — COMPLETE 2026-05-16. RESUMES the narrative Geʽez
+catchup (τ.6.x.2.a-h closed the p0-437 parallel-column-catchup
+arc; τ.6.x.2.i shipped Geʽez Psalms via the τ.6.x.5 external
+path). FIRST Geʽez deuterocanonical ingest; NINTH Geʽez per-book
+file. User "continue, make sure every superpower that can help
+you is on" → §0-triad bootstrap (IN_FLIGHT was `active` with the
+catchup teed up) → advance per memory `feedback_continue_not_save`.**
+
+**Outcome:**
+- [x] `geez-tewahedo/2es.py` 16 ch / **601 v / 63.6%** at
+      ocr-tier3 (`source: parallel-bible-eotc`, Geʽez left
+      column, PDF p1239-1284). Mirrors Amharic τ.7.x.j VERBATIM:
+      EZRA_SUTUEL_VERSE_COUNTS (16 ch/945 v) + structural_map.
+      ezra_sutuel [1239,1284] (verified τ.7.x.j, NOT re-verified)
+      reused — **zero-parser-API-delta**, only `--lang geez`.
+- [x] Clean renumber **UNDERFLOW**: 601 = sum(ch1..10 floors)
+      EXACTLY → ch 1-10 full, 11-16 empty, NO partial, NO
+      overflow (the τ.6.x.2.f Joshua precedent; CONTRAST the
+      τ.7.x.v NT renumber-OVERFLOW that honestly BLOCKED — clean
+      fill, no τ.6.x.0b distortion). 63.6% in the τ.6.x.2.a-h
+      Geʽez band (53-67%).
+- [x] **Honest-quality re-verification** (memory
+      `feedback_reverify_conservative_nogo`): Geʽez recovered
+      MORE than Amharic here (601 vs τ.7.x.j 322) + the deep
+      "(ረቂቅ)" draft-region text is Amharic-influenced/OCR-noisy
+      → a both-columns dry-run PROVED the columns extract
+      DISTINCT text (NOT a column-misattribution bug); both are
+      ocr-tier3 in this region per the τ.6.x.0b honesty
+      contract; reconciled at the τ.6.x.3 batched audit. NOT
+      over-claimed as pristine Classical Geʽez.
+- [x] Superpowers: `executing-plans` (the τ.6.x.2.a-h cadence
+      as the plan; reviewed critically — zero concerns, 16×
+      precedent) + `test-driven-development` (test written +
+      verified RED **before** extraction: 29 failed/20 passed,
+      the 20 green = reused-unchanged precondition pins; GREEN
+      after). Project continuity protocol OVERRODE the generic
+      worktree/finish-branch sub-skills per Instruction Priority.
+- [x] Share-pin→milestone-pin conversion (memory
+      `feedback_share_pin_pattern` + the τ.6.x.2.a-h precedent):
+      `test_parallel_bible_tau7xj.py::test_geez_2es_tob_not_
+      created` → `test_geez_2es_ingested_at_tau6x2j_tob_still_
+      deferred` (2es half flipped to "must EXIST"; tob deferred
+      to τ.6.x.2.k).
+- [x] Cross-column coherence: `tau7xj_ingest.translation_slot_
+      state.geez_tewahedo_2es` no-op→shipped + distinct
+      `geez_catchup_reused_at_phase: τ.6.x.2.j` sibling (the
+      `pipeline_reused_at_phase: τ.7.x.k` pin untouched).
+- [x] geez `_meta.yaml` stats 9→10 books / 6868→7469 verses /
+      0→1 books_outside_kjv + `ingest_record_tau6x2j`;
+      `_source.yaml::ocr_strategy.tau6x2j_ingest` block; new
+      `tests/test_parallel_bible_tau6x2j.py` (~45 pins/9 classes).
+      CHANGELOG + SESSION_STATE + PLAN ledger updated together.
+      Local commit only — no push, no zip ("continue" ≠ save).
+
+## Earlier — τ.6.x.2.i (COMPLETE 2026-05-16; superseded by the τ.6.x.2.j ship above)
 
 **τ.6.x.2.i — GE'EZ PSALMS via the τ.6.x.5 EXTERNAL PD-SOURCE
 INGEST — COMPLETE 2026-05-16 (the FIRST τ.6.x.5 ship).**
