@@ -1,0 +1,32 @@
+# Source provenance — Ran HaCohen digitized Ethiopic (Ge'ez) Bible
+#
+# Clean Unicode-Ge'ez transcriptions of public-domain scholarly
+# critical editions, hosted at Tel Aviv University. Used by τ.6.x.5
+# as the high-fidelity Ge'ez source for the poetic/wisdom books
+# (replacing the OCR'd parallel-PDF Ge'ez column for those books).
+# Fetched HTML is cached locally under cache/ (NOT committed —
+# regenerable; mirrors the parallel-bible-eotc PDF policy).
+
+source_id: hacohen-geez
+site_url: https://www.tau.ac.il/~hacohen/
+digitizer: Ran HaCohen (Tel Aviv University)
+description: |
+  Digitized Classical Ethiopic (Ge'ez) biblical texts transcribed
+  from public-domain printed critical editions. Text is Unicode
+  Ethiopic delivered as HTML numeric character references. Every
+  datum is cited via the project's attribution/bibliography system.
+
+books:
+  psalms:
+    book_code: psa
+    editor: Hiob Ludolf
+    edition_title: Psalterium Davidis
+    edition_year: 1701
+    pd_basis: "Ludolf 1701 — public domain by age (pre-1929 by ~228 years)"
+    verse_numbering: Rahlfs-LXX   # the PsalmNrR view = Rahlfs/Septuagint numbering, the PSALMS_VERSE_COUNTS basis
+    url_pattern: "Psalm/PsalmNrR%20{n}.html"
+    chapter_range: [1, 151]
+    citation: "Ge'ez Psalter (Psalterium Davidis, ed. Hiob Ludolf, 1701); digitized by Ran HaCohen, Tel Aviv University; public domain by age."
+
+# Per-ship ingest records appended here (mirrors parallel-bible-eotc/_source.yaml).
+ingest_records: {}
