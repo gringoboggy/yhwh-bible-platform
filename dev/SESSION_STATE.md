@@ -20,12 +20,85 @@
 > `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`;
 > codified in `CLAUDE_PROJECT_RULES.md` §1.
 
-**Updated 2026-05-16 / τ.7.x.t — AMHARIC JUBILEES (Mäṣḥafä Kufāle)
+**Updated 2026-05-16 / τ.7.x.u — AMHARIC 1 ENOCH (Mäṣḥafä Hēnok)
+FULL-BOOK INGEST. TWENTY-FOURTH τ.7.x.* per-book ship under D4-c +
+D1-a (user overnight autonomous-run authorization: "you render,
+test, commit and repeat till I wake up"). SECOND of the two LARGE
+Π.1-mapped Tewahedo-distinctive books — with this ship BOTH
+(Jubilees τ.7.x.t + 1 Enoch τ.7.x.u) are ingested. The standalone-
+Amharic-Bible rendering FOUNDATION per the ⚑ scope clarification
+above.**
+
+Adds `amharic-tewahedo/1en.py` (The Book of Enoch / "Mäṣḥafä
+Hēnok", p1515-1566, 806 v, **75.8%** — healthy mid-high band, cf.
+jub 82.3% / mq-trilogy 65%, far above the deuterocanon-deep-PDF
+band). Content-confirmed the Book of the Watchers (`የስው ልጆች ክበዙ
+… ደቁቀ ሴት … በደብር` = 1 En 6-7); NOT a boundary error (τ.7.x.s/t
+cross-validated p1515 opens 1 Enoch after jubilees p1514, p1567 →
+Matthew). 24-book combined 12691 / 17049 = 74.4%. Pipeline reused
+from τ.7.x.t — deltas: ONE_ENOCH_VERSE_COUNTS (108 ch / 1064 v;
+R.H. Charles 1912 canonical CEILING) + the structural_map.
+one_enoch UPGRADE + the 3-site prior-pin conversion.
+
+**structural_map.one_enoch UPGRADE (mirror of τ.7.x.t/jubilees).**
+one_enoch pre-existed Π.1-tentative; τ.7.x.u (the phase that
+actually ingests it) upgrades verified tentative→true /
+verified_at_phase Π.1→τ.7.x.u. **pdf_page_range [1515,1566]
+UNCHANGED** (the durable cross-validation anchor, cross-validated
+3× at τ.7.x.s/t). The stale Π.1 "tentative flag" paragraph (which
+contradicted the upgrade) was superseded with a [Historical,
+superseded] note in the same edit (coherence fix). The prior
+Π.1-foundation one_enoch LIVE-state pins in **3 sites** (pi1
+test_one_enoch_section_declared + TestPi1OneEnochSection
+test_verified_tentative/date, pi1b one_enoch_section_unchanged)
+are CONVERTED by this ship → assert the durable [1515,1566]/
+book_codes anchor + verified_at_phase in (Π.1, τ.7.x.u) — the
+documented prior-pin-conversion-as-part-of-the-triggering-ship
+pattern (τ.7.x.m + τ.7.x.t precedent + memory
+[[share-pin-pattern]]). jubilees pins (already τ.7.x.t),
+laodiceans (stays Π.1/present_in_pdf:false), the Π.1 HISTORICAL
+inventory pins, and the τ.7.x.r/s/t ingest-record flags are NOT
+touched.
+
+**CLEAN ship — no tooling delta.** Unlike τ.7.x.t (which changed
+the writer), τ.7.x.u has PARSER API **and** WRITER both UNCHANGED;
+the τ.7.x.t `repr()` writer-fix is already in place and benefits
+this ship (1en OCR backslash artifacts → correctly escaped, parse
+clean) but is not a new delta. Floor cross-validated ≥ the γ.4.4
+Mäṣḥafä Hēnok notes/1en.py maxima at **ALL 108** chapters
+(stronger than τ.7.x.t's 3-sample; exact matches ch14=25/ch90=42).
+
+`test_parallel_bible_tau7xu.py` adds the τ.7.x.u pins (floor +
+all-108 γ.4.4 cross-validation, the one_enoch UPGRADE, 1en.py
+module, coverage shape, the clean-ship/no-tooling-delta checks,
+both ingest records, the 3-site prior-pin conversion, back-link
+tau7xt→u, prior-pin preservation). Verification: ruff-format
+clean (1en.py post-gen-formatted), lint_rules 11·0·0 CLEAN,
+regression 516 passed/0 fail (tau7xt/tau7xq/tau7xs/tau7xo/tau7xn/
+pi0/pi1/pi1b — the pi1/pi1b one_enoch conversion green) + tau7xu
+46/46. Total **5826** tests collected (+46). Local commit only —
+no push, no zip (overnight cadence per the project discipline).
+
+**Next per most-logical-path:** τ.7.x.v — BOTH large Π.1-mapped
+Tewahedo-distinctive books are now done. Next parallel-PDF content
+per the PLAN ledger: the **4 Gospels + Acts** (p1550-1832 region);
+the τ.7.x.u scan confirmed **p1567 opens Matthew** (`ብሥራተ
+ማቴዎስ`) immediately after the 1 Enoch p1566 close. A τ.7.x.v
+discovery scan fixes the precise Matthew page range (same content-
+boundary method). Geʽez catchup (τ.6.x.2.j+) follows per D4-c.
+The standalone-edition + EN-back-translation phases remain
+POST-rendering per the ⚑ clarification (do NOT pull forward); the
+Samuel/Kings GAPS calibration stays PAUSED pending the user's
+higher-res re-crop.
+
+---
+
+## Prior session — 2026-05-16 / τ.7.x.t — AMHARIC JUBILEES (Mäṣḥafä Kufāle)
 FULL-BOOK INGEST. TWENTY-THIRD τ.7.x.* per-book ship under D4-c +
 D1-a (user "back to work … much to render still" → advance per
 PLAN). FIRST of the two LARGE Π.1-mapped Tewahedo-distinctive
 books (1 Enoch τ.7.x.u follows) — the standalone-Amharic-Bible
-rendering FOUNDATION per the ⚑ scope clarification above.**
+rendering FOUNDATION per the ⚑ scope clarification above.
 
 Adds `amharic-tewahedo/jub.py` (The Book of Jubilees / "The
 Little Genesis", p1454-1514, 1075 v, **82.3%** — HIGH band,

@@ -4,6 +4,57 @@
 
 ## Prior task
 
+**τ.7.x.u — AMHARIC 1 ENOCH (Mäṣḥafä Hēnok) FULL-BOOK INGEST —
+COMPLETE 2026-05-16. User overnight autonomous-run authorization
+("you render, test, commit and repeat till I wake up") after the
+Samuel/Kings GAPS calibration correctly NO-GO'd at Task 1 pending
+higher-res images. TWENTY-FOURTH τ.7.x.* per-book ship; SECOND of
+the two LARGE Π.1-mapped Tewahedo-distinctive books — BOTH
+(Jubilees τ.7.x.t + 1 Enoch τ.7.x.u) now ingested.**
+
+**Outcome:**
+- [x] amharic-tewahedo/1en.py 806 v / **75.8%** (healthy mid-high
+      band); content-confirmed Book of the Watchers; NOT a
+      boundary error (τ.7.x.s/t pre-validated p1515/p1567). ch1
+      full / fills ~ch89 / ~90-108 empty / 0 overflow.
+- [x] ONE_ENOCH_VERSE_COUNTS (108 ch / 1064 v; R.H. Charles 1912
+      canonical CEILING) cross-validated ≥ the γ.4.4 notes/1en.py
+      maxima at **ALL 108 ch** (stronger than τ.7.x.t's 3-sample;
+      exact ch14=25/ch90=42). + `one_enoch` --renumber wiring.
+- [x] **structural_map.one_enoch UPGRADE** (mirror of τ.7.x.t):
+      verified tentative→true / Π.1→τ.7.x.u / date→2026-05-16;
+      **pdf_page_range [1515,1566] UNCHANGED**; the stale Π.1
+      tentative-flag paragraph superseded in-ship (coherence fix,
+      read-before-edit; pi1 notes invariants ሄኖክ+Charles kept).
+- [x] **3-site prior-pin conversion** (pi1 test_one_enoch_section_
+      declared + TestPi1OneEnochSection tentative/date, pi1b
+      one_enoch_section_unchanged) → durable [1515,1566]/book_codes
+      anchor + verified_at_phase in (Π.1, τ.7.x.u). jubilees
+      (τ.7.x.t) + laodiceans (Π.1/present_in_pdf:false) + Π.1
+      historical inventory + τ.7.x.r/s/t ingest-flags NOT touched.
+- [x] **CLEAN ship** — parser API AND writer both UNCHANGED (the
+      τ.7.x.t repr() fix already in place benefits 1en; NOT a new
+      delta). Zero-parser-delta 31-ship + zero-writer-delta.
+- [x] _meta stats 23→24 / 11885→12691 / outside_kjv 13→14 +
+      ingest_record_tau7xu; tau7xu_ingest in _source.yaml;
+      24-book combined 12691/17049 = 74.4%.
+- [x] test_parallel_bible_tau7xu.py; ruff-format clean; lint_rules
+      11·0·0 CLEAN; regression 516 passed / 0 fail + tau7xu 46/46
+      (one self-test over-strict-substring bug caught by the gate
+      + fixed in-ship, test-only); 5826 collected (+46). CHANGELOG
+      + SESSION_STATE updated together (⚑ scope banner preserved);
+      PLAN ledger updated; local commit only — no push, no zip.
+
+**Next per most-logical-path:** τ.7.x.v = the 4 Gospels + Acts
+(p1550-1832 region); the τ.7.x.u scan confirmed p1567 opens
+Matthew (`ብሥራተ ማቴዎስ`). A τ.7.x.v discovery scan fixes the
+precise Matthew page range. The standalone-edition +
+EN-back-translation phases stay POST-rendering per the ⚑
+clarification; the Samuel/Kings GAPS calibration stays PAUSED
+pending the user's higher-res re-crop.
+
+### Earlier — τ.7.x.t (superseded by the τ.7.x.u ship above)
+
 **τ.7.x.t — AMHARIC JUBILEES (Mäṣḥafä Kufāle) FULL-BOOK INGEST —
 COMPLETE 2026-05-16. User "back to work sir. much to render
 still" → advance per PLAN (τ.7.x.s recorded next_book=jubilees).

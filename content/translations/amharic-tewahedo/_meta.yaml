@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 23           # 22 prior (… + paz/bel τ.7.x.s) + jub τ.7.x.t (The Book of Jubilees / Mäṣḥafä Kufāle, p1454-1514 — FIRST of the two LARGE Π.1-mapped Tewahedo-distinctive books; the standalone-Amharic-Bible rendering foundation per dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md). sus still DEFERRED (present_in_pdf:false).
-  verses: 11885       # 10810 (22 books) + 1075 (jub, 82.3%) = 11885 / (14679 + 1306) = 11885 / 15985 = 74.4% combined (across 23 ingested books; sus not counted — deferred; still excludes 9 SKIPPED dzamaragna-gap books)
-  books_outside_kjv: 13   # prior 12 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba/bar/wis/paz/bel) + jub (The Book of Jubilees — uniquely-Tewahedo-canonical, outside the 66-book KJV canon, same as mq1/mq2/mq3). sus DEFERRED (not counted).
+  books: 24           # 23 prior (… + jub τ.7.x.t) + 1en τ.7.x.u (The Book of Enoch / Mäṣḥafä Hēnok, p1515-1566 — SECOND of the two LARGE Π.1-mapped Tewahedo-distinctive books; BOTH large Tewahedo-distinctive books now ingested). sus still DEFERRED (present_in_pdf:false).
+  verses: 12691       # 11885 (23 books) + 806 (1en, 75.8%) = 12691 / (15985 + 1064) = 12691 / 17049 = 74.4% combined (across 24 ingested books; sus not counted — deferred; still excludes 9 SKIPPED dzamaragna-gap books)
+  books_outside_kjv: 14   # prior 13 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba/bar/wis/paz/bel/jub) + 1en (The Book of Enoch — uniquely-Tewahedo-canonical, outside the 66-book KJV canon, same as jub/mq1/mq2/mq3). sus DEFERRED (not counted).
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -1445,6 +1445,161 @@ ingest_record_tau7xt:
   next_book: 1en   # τ.7.x.u — the Π.1-mapped 1 Enoch [1515,1566], the SECOND LARGE Tewahedo-distinctive book
   arc_continues: tewahedo-distinctive-large-books
   pipeline_reused_at_phase: τ.7.x.t   # τ.7.x.t reused the τ.7.x.s pipeline; deltas: JUBILEES_VERSE_COUNTS (24th floor) + the structural_map.jubilees upgrade + the write_book_module repr()-serialization root-fix. TWENTY-THIRD τ.7.x.* per-book ingest. Parser API still zero-delta (30-ship for the parser); writer hardened (honestly flagged).
+
+ingest_record_tau7xu:
+  phase: τ.7.x.u
+  ingested_date: 2026-05-16
+  ingested_book_codes: [1en]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1515, 1566]   # the Π.1-discovered range, cross-validated 3× at τ.7.x.s/t, now ingestion-confirmed
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o
+    - τ.7.x.q
+    - τ.7.x.r
+    - τ.7.x.s
+    - τ.7.x.t   # write_book_module repr() serialization (shipped τ.7.x.t; already in place — benefits this ship, no new delta)
+    - τ.7.x.u   # ONE_ENOCH_VERSE_COUNTS added (25th renumber-floor); CLEAN ship — no parser AND no writer change
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 806
+    verses_expected: 1064
+    coverage_pct: 75.8
+    chapters_fully_populated_range: "1-~88"   # exact per-chapter shape pinned in 1en.py docstring + test_parallel_bible_tau7xu.py
+    last_populated_chapter: 89
+    chapters_missing_count: 19   # ~90-108 empty at ocr-tier3 (deep draft-region; 1 Enoch chapters are short)
+  deuterocanonical: true   # The Book of Enoch / Mäṣḥafä Hēnok — uniquely-Tewahedo-canonical, outside the KJV 66 (same class as jub/mq1/mq2/mq3)
+  tewahedo_distinctive: true   # SECOND of the two LARGE Π.1-mapped Tewahedo-distinctive books
+  two_large_tewahedo_distinctive_complete: true   # Jubilees (τ.7.x.t) + 1 Enoch (τ.7.x.u) — BOTH large Π.1-mapped Tewahedo-distinctive books now ingested
+  standalone_bible_foundation: |
+    Per dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md +
+    CLAUDE_PROJECT_RULES §1: the rendering FOUNDATION for the
+    standalone Amharic Bible — NOT a popup-language slot.
+  structural_map_upgrade:
+    section: one_enoch
+    pdf_page_range_unchanged: [1515, 1566]   # the durable cross-validation anchor — NOT moved
+    verified: tentative→true
+    verified_at_phase: Π.1→τ.7.x.u
+    verified_date: 2026-05-14→2026-05-16
+    rationale: |
+      τ.7.x.u is the phase that actually INGESTS 1 Enoch, so the
+      Π.1-tentative section is upgraded to ingestion-verified. The
+      [1515,1566] range is UNCHANGED (cross-validated 3× by the
+      τ.7.x.s/t boundary scans — each confirming p1515 opens 1 Enoch
+      after jubilees p1514, p1567→Matthew). The stale Π.1
+      "tentative flag" paragraph (which contradicted the upgrade)
+      was superseded with an explicit [Historical, superseded]
+      note in the same edit (coherence fix). EXACT MIRROR of the
+      τ.7.x.t jubilees structural_map upgrade.
+  prior_pin_conversion: |
+    The Π.1-foundation one_enoch LIVE-state pins — pi1
+    TestPi1StructuralMapExtension::test_one_enoch_section_declared
+    + TestPi1OneEnochSection::test_verified_tentative/
+    ::test_verified_date (+ class docstring) + pi1b
+    TestPi1bClosedArcInvariantPreservation::test_one_enoch_section_
+    unchanged — asserted the pre-ingestion Π.1-tentative state;
+    τ.7.x.u legitimately upgrades it, so all are CONVERTED by THIS
+    ship (the documented prior-pin-conversion-as-part-of-the-
+    triggering-ship pattern; τ.7.x.m est-skip + τ.7.x.t jubilees
+    precedent + memory feedback_share_pin_pattern). Now assert the
+    DURABLE invariant: book_codes==[1en] + pdf_page_range==
+    [1515,1566] hard; verified_at_phase in (Π.1, τ.7.x.u);
+    verified in (tentative, True); verified_date in (2026-05-14,
+    2026-05-16). NOT touched: laodiceans (stays Π.1 /
+    present_in_pdf:false — never PDF-ingested); the already-
+    converted jubilees pins (stay `in (Π.1, τ.7.x.t)` — still
+    green); the Π.1 HISTORICAL inventory pins
+    (extraction_status_at_declaration, preserved verbatim); the
+    τ.7.x.r/s/t INGEST-RECORD historical flags.
+  helpers_added:
+    ONE_ENOCH_VERSE_COUNTS: |
+      108 ch / 1064 v; R.H. Charles 1912 "The Book of Enoch"
+      canonical CEILING (the project's stated 1 Enoch standard).
+      Twenty-fifth renumber-floor. STRONGER floor-coordination
+      proof than τ.7.x.t: hard-validated ≥ the project's γ.4.4
+      Mäṣḥafä Hēnok per-chapter annotation maxima at ALL 108
+      chapters (content/notes/1en.py; exact matches at the
+      distinctive long chapters 14=25 / 90=42 confirm the shared
+      Charles enumeration). τ.6.x.3 reconciles the exact Ethiopic
+      recension.
+  cli_extensions:
+    renumber_choice_extended: |
+      `--renumber` includes `one_enoch`. Wires ONE_ENOCH_VERSE_
+      COUNTS at both floor-dict resolution sites + help text.
+  parser_api_change: |
+    CLEAN ship — PARSER API **and** WRITER both UNCHANGED at
+    τ.7.x.u. The τ.7.x.t write_book_module repr()-serialization
+    fix is already in place and benefits this ship (1en OCR had
+    backslash artifacts → now correctly escaped; parse clean, zero
+    SyntaxWarning) but is NOT a new τ.7.x.u delta. The only τ.7.x.u
+    deltas are data: ONE_ENOCH_VERSE_COUNTS + dispatch + the
+    structural_map.one_enoch upgrade. The zero-parser-API-delta
+    streak fully resumes (parser 31-ship) AND zero-writer-delta
+    (unlike τ.7.x.t which deliberately changed the writer).
+  empirical_validation:
+    source_pdf: Bible_Amharic_and_Geez.pdf
+    pdf_pages_consumed: [1515, 1566]
+    extraction_engine: text-layer
+    parser_mode: paragraph
+    raw_parser_output_verse_count: 806
+    renumbered_verse_count: 806
+    expected_total: 1064
+    coverage_pct: 75.8
+    coverage_band_position: |
+      75.8% — healthy mid-high band (cf. jub 82.3% / mq-trilogy
+      65%; FAR above the deuterocanon-deep-PDF band of jdt 35% /
+      bar 33%). Content-confirmed via dry-run as 1 Enoch — the
+      Book of the Watchers (`የስው ልጆች ክበዙ … ደቁቀ ሴት … በደብር`,
+      "after the sons of men multiplied … daughters … on the
+      mountain" = 1 En 6-7). NOT a boundary error — the [1515,1566]
+      range was cross-validated 3× at τ.7.x.s/t (p1515 opens 1
+      Enoch after jubilees p1514; p1567→Matthew). τ.6.x.0b
+      discipline: mid-high coverage, content-verified, no
+      correction needed.
+  one_enoch_boundary_crossvalidation: |
+    p1515 opens 1 Enoch (`መጽሐፈ ሄኖክ`, OCR-garbled `መጽ ሓራፈ ቸዓክ`)
+    immediately after the jubilees p1514 close; p1567 transitions
+    to Matthew (`ብሥራተ ማቴዎስ`). Cross-validated at τ.7.x.s/t and
+    now ingestion-confirmed; the Π.1 [1515,1566] anchor is NOT
+    modified — only verified-confidence advanced.
+  known_residual_issues:
+    one_enoch_recension: |
+      ~ch 90-108 empty at ocr-tier3 (deep draft-region recovery
+      loss vs the Charles 1912 ceiling; 1 Enoch chapters are
+      short). τ.6.x.3 reconciles the exact Ethiopic Mäṣḥafä Hēnok
+      recension.
+  closed_arc_contracts_preserved:
+    tau6x0b_honesty_contract: true
+    tau7xa_ingest: true
+    tau7xe_ingest: true
+    tau7xh_ingest: true
+    tau7xn_ingest: true
+    tau7xo_ingest: true
+    tau7xp_ingest: true
+    tau7xq_ingest: true
+    tau7xr_ingest: true
+    tau7xs_ingest: true
+    tau7xt_ingest: true   # jubilees upgrade + repr() writer-fix preserved
+    tau6x2h_ingest: true
+    jubilees_now_ingested: true   # τ.7.x.t — its converted pins stay `in (Π.1, τ.7.x.t)`, untouched here
+    one_enoch_now_ingested: true   # supersedes the pre-ingestion Π.1-tentative LIVE-state pins (converted); [1515,1566] anchor still holds
+  no_ingest_at_this_phase: false
+  arc_continues: post-tewahedo-distinctive
+  next_book: matthew   # τ.7.x.v — the 4 Gospels + Acts (p1550-1832 region); τ.7.x.u confirmed p1567 → Matthew (`ብሥራተ ማቴዎስ`)
+  next_phase_description: |
+    τ.7.x.v — BOTH large Π.1-mapped Tewahedo-distinctive books
+    (Jubilees + 1 Enoch) are now ingested. Next parallel-PDF
+    content per the PLAN ledger: the 4 Gospels + Acts (p1550-1832
+    region); the τ.7.x.u scan confirmed p1567 opens Matthew
+    (`ብሥራተ ማቴዎስ`). Discovery scan at τ.7.x.v fixes the precise
+    Matthew page range (same content-boundary method).
+  pipeline_reused_at_phase: τ.7.x.u   # back-link: τ.7.x.u reused the τ.7.x.t pipeline; deltas ONE_ENOCH_VERSE_COUNTS (25th floor) + the structural_map.one_enoch UPGRADE + the 3-site prior-pin conversion. TWENTY-FOURTH τ.7.x.* per-book ingest. CLEAN ship — parser 31-ship zero-delta AND zero-writer-delta (no new tooling change).
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.

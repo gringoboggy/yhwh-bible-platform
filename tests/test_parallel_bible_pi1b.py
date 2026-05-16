@@ -641,12 +641,18 @@ class TestPi1bClosedArcInvariantPreservation:
         assert jub.get("verified_at_phase") in ("Π.1", "τ.7.x.t")
 
     def test_one_enoch_section_unchanged(self):
-        """Π.1's one_enoch declaration must remain intact."""
+        """Π.1's one_enoch declaration must remain intact. CONVERTED
+        at τ.7.x.u: that phase legitimately INGESTS 1 Enoch and
+        upgrades verified_at_phase Π.1→τ.7.x.u (prior-pin-conversion-
+        as-part-of-the-triggering-ship; τ.7.x.m + τ.7.x.t precedent +
+        memory feedback_share_pin_pattern). The DURABLE Π.1
+        invariant is the [1515,1566] page-range anchor + book_codes
+        (hard-asserted); the confidence metadata advances at ingest."""
         parent = _load_parent_cfg()
         oen = parent["structural_map"]["one_enoch"]
         assert oen.get("book_codes") == ["1en"]
         assert oen.get("pdf_page_range") == [1515, 1566]
-        assert oen.get("verified_at_phase") == "Π.1"
+        assert oen.get("verified_at_phase") in ("Π.1", "τ.7.x.u")
 
     def test_meqabyan_subsections_tau7xn_corrected(self):
         """Was test_meqabyan_subsections_unchanged (pinned the

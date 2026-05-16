@@ -1541,6 +1541,147 @@ JUBILEES_VERSE_COUNTS = {
 # reconciles the exact Ethiopic Mäṣḥafä Kufāle recension).
 
 
+# τ.7.x.u — The Book of Enoch / Mäṣḥafä Hēnok / 1 Enoch (1en).
+# content/books.yaml fixes `1en` at ch_count: 108 (b16). The
+# SECOND of the two LARGE Π.1-mapped Tewahedo-distinctive books
+# (Jubilees τ.7.x.t was the first); uniquely-Tewahedo-canonical.
+# Verse counts use the standard R.H. Charles 1912 "The Book of
+# Enoch" enumeration — the project's stated 1 Enoch standard (cf.
+# structural_map.one_enoch.chapter_count_expected "# R.H. Charles
+# 1912 chapter count" + the γ.4.4 Mäṣḥafä Hēnok arc). Five
+# sections: Watchers (1-36), Parables (37-71), Astronomical
+# (72-82), Dream-Visions (83-90), Epistle (91-108). Per the
+# τ.6.x.0b honesty contract the floor is the canonical CEILING;
+# the τ.6.x.3 batched audit reconciles the exact Ethiopic Mäṣḥafä
+# Hēnok recension (identical caveat to the SIRACH / JUBILEES
+# floors). FLOOR-COORDINATION CROSS-VALIDATION (the τ.7.x.n/t
+# δ.1.x-proof discipline, here STRONGER than τ.7.x.t): every one
+# of the 108 chapters was hard-validated ≥ the project's existing
+# γ.4.4 Mäṣḥafä Hēnok per-chapter annotation maxima in content/
+# notes/1en.py (ALL 108 cross-validated, not a 3-chapter sample);
+# the γ.4.4 maxima never exceed this Charles ceiling, with exact
+# matches at the distinctive long chapters (14=25, 60=25, 90=42)
+# confirming the shared Charles enumeration. Twenty-fifth
+# renumber-floor; the structural_map.one_enoch section
+# (Π.1-discovered [1515,1566], cross-validated at τ.7.x.s/t as the
+# post-Jubilees boundary) is UPGRADED verified:tentative→true /
+# Π.1→τ.7.x.u by this ship.
+ONE_ENOCH_VERSE_COUNTS = {
+    1: 9,
+    2: 3,
+    3: 1,
+    4: 1,
+    5: 9,
+    6: 8,
+    7: 6,
+    8: 4,
+    9: 11,
+    10: 22,
+    11: 2,
+    12: 6,
+    13: 10,
+    14: 25,
+    15: 12,
+    16: 4,
+    17: 8,
+    18: 16,
+    19: 3,
+    20: 8,
+    21: 10,
+    22: 14,
+    23: 4,
+    24: 6,
+    25: 7,
+    26: 6,
+    27: 5,
+    28: 3,
+    29: 2,
+    30: 3,
+    31: 3,
+    32: 6,
+    33: 4,
+    34: 3,
+    35: 1,
+    36: 4,
+    37: 5,
+    38: 6,
+    39: 14,
+    40: 10,
+    41: 9,
+    42: 3,
+    43: 4,
+    44: 1,
+    45: 6,
+    46: 8,
+    47: 4,
+    48: 10,
+    49: 4,
+    50: 5,
+    51: 5,
+    52: 9,
+    53: 7,
+    54: 10,
+    55: 4,
+    56: 8,
+    57: 3,
+    58: 6,
+    59: 3,
+    60: 25,
+    61: 13,
+    62: 16,
+    63: 12,
+    64: 2,
+    65: 12,
+    66: 3,
+    67: 13,
+    68: 5,
+    69: 29,
+    70: 4,
+    71: 17,
+    72: 37,
+    73: 8,
+    74: 17,
+    75: 9,
+    76: 14,
+    77: 9,
+    78: 17,
+    79: 6,
+    80: 8,
+    81: 10,
+    82: 20,
+    83: 11,
+    84: 6,
+    85: 10,
+    86: 6,
+    87: 4,
+    88: 3,
+    89: 77,
+    90: 42,
+    91: 19,
+    92: 5,
+    93: 14,
+    94: 11,
+    95: 7,
+    96: 8,
+    97: 10,
+    98: 16,
+    99: 16,
+    100: 13,
+    101: 9,
+    102: 11,
+    103: 15,
+    104: 13,
+    105: 2,
+    106: 19,
+    107: 3,
+    108: 15,
+}
+# Total 1 Enoch verses = 1064 (108 ch; R.H. Charles 1912
+# enumeration; canonical CEILING ≥ the γ.4.4 notes/1en.py maxima
+# at all 108 ch — τ.6.x.3 reconciles the exact Ethiopic Mäṣḥafä
+# Hēnok recension).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -2476,6 +2617,8 @@ def _build_docstring_extra(
         floor_dict = BEL_AND_THE_DRAGON_VERSE_COUNTS
     elif renumber == "jubilees":
         floor_dict = JUBILEES_VERSE_COUNTS
+    elif renumber == "one_enoch":
+        floor_dict = ONE_ENOCH_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2579,6 +2722,7 @@ def main() -> int:
             "susanna",
             "bel_and_the_dragon",
             "jubilees",
+            "one_enoch",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2651,7 +2795,14 @@ def main() -> int:
             "τ.7.x.t — FIRST of the two LARGE Π.1-mapped Tewahedo-"
             "distinctive books, p1454-1514; upgrades structural_map."
             "jubilees verified:tentative→true Π.1→τ.7.x.t; 1 Enoch "
-            "[1515,1566] follows as τ.7.x.u). "
+            "[1515,1566] follows as τ.7.x.u). Also the Tewahedo-"
+            "distinctive 'one_enoch' (ONE_ENOCH_VERSE_COUNTS, 108 ch "
+            "/ 1064 v; R.H. Charles 1912 — Mäṣḥafä Hēnok / 1 Enoch; "
+            "τ.7.x.u — SECOND of the two LARGE Π.1-mapped Tewahedo-"
+            "distinctive books, p1515-1566; upgrades structural_map."
+            "one_enoch verified:tentative→true Π.1→τ.7.x.u; floor "
+            "hard-validated ≥ the γ.4.4 notes/1en.py maxima at all "
+            "108 ch). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2732,6 +2883,8 @@ def main() -> int:
         renumber_floor = BEL_AND_THE_DRAGON_VERSE_COUNTS
     elif args.renumber == "jubilees":
         renumber_floor = JUBILEES_VERSE_COUNTS
+    elif args.renumber == "one_enoch":
+        renumber_floor = ONE_ENOCH_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

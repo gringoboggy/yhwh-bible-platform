@@ -128,7 +128,14 @@ class TestPi1StructuralMapExtension:
         assert "one_enoch" in sm, "Π.1.1: one_enoch section must be declared"
         oen = sm["one_enoch"]
         assert oen["book_codes"] == ["1en"]
-        assert oen["verified_at_phase"] == "Π.1"
+        # CONVERTED at τ.7.x.u (prior-pin-conversion-as-part-of-the-
+        # triggering-ship; τ.7.x.m est-skip + τ.7.x.t jubilees
+        # precedent + memory feedback_share_pin_pattern): τ.7.x.u
+        # legitimately INGESTS 1 Enoch and upgrades verified_at_phase
+        # Π.1→τ.7.x.u. The durable Π.1-declaration invariant is the
+        # section presence + book_codes (asserted above); the
+        # confidence metadata advances when the book is ingested.
+        assert oen["verified_at_phase"] in ("Π.1", "τ.7.x.u")
 
     def test_laodiceans_section_declared(self):
         cfg = _load_source_cfg()
@@ -217,7 +224,14 @@ class TestPi1OneEnochSection:
     """1 Enoch opens at PDF page 1515 (OCR-garbled `መጽ ሓራፈ ቸዓክ`,
     cleanly `መጽሐፈ ሄኖክ` on pages 1517+) and closes at 1566 (next
     page 1567 transitions to Matthew Gospel). 108 chapters expected
-    (R.H. Charles 1912 edition). verified=tentative."""
+    (R.H. Charles 1912 edition). Π.1 set verified=tentative; τ.7.x.u
+    legitimately INGESTED 1 Enoch and upgraded verified→true /
+    verified_at_phase Π.1→τ.7.x.u — the verified-state pins below
+    are CONVERTED to accept both the Π.1-era and post-τ.7.x.u state
+    (the durable invariants — page-range/offset/ch_count/discovery-
+    notes — stay hard-asserted); prior-pin-conversion-as-part-of-
+    the-triggering-ship (τ.7.x.m + τ.7.x.t precedent + memory
+    feedback_share_pin_pattern)."""
 
     def _sec(self):
         return _load_source_cfg()["structural_map"]["one_enoch"]
@@ -229,10 +243,14 @@ class TestPi1OneEnochSection:
         assert self._sec()["pdf_index_offset"] == 0
 
     def test_verified_tentative(self):
-        assert self._sec()["verified"] == "tentative"
+        # CONVERTED at τ.7.x.u: Π.1 set verified=tentative; τ.7.x.u
+        # legitimately INGESTED 1 Enoch and upgraded it to True.
+        assert self._sec()["verified"] in ("tentative", True)
 
     def test_verified_date(self):
-        assert str(self._sec()["verified_date"]) == "2026-05-14"
+        # CONVERTED at τ.7.x.u (verified_date advances from the Π.1
+        # discovery 2026-05-14 to the τ.7.x.u ingestion 2026-05-16).
+        assert str(self._sec()["verified_date"]) in ("2026-05-14", "2026-05-16")
 
     def test_chapter_count_expected_charles_1912(self):
         # R.H. Charles 1912 = 108 chapters; the SCOPE doc §Π.1
