@@ -318,7 +318,15 @@ class TestOmega25BulkRename:
             "comm-new",
             content_dir=seed["content"],
         )
-        result = apply_kind_rename(plan, dry_run=False)
+        result = apply_kind_rename(
+            plan,
+            dry_run=False,
+            # Isolate the refactor-log write to the tmp tree. Without
+            # this, _append_refactor_log falls back to the live
+            # content/.refactor_log.yaml and pollutes the repo on
+            # every test run (DEEP-2 audit finding).
+            refactor_log_path=seed["content"] / ".refactor_log.yaml",
+        )
         assert result["ok"] is True
         text = seed["gen_py"].read_text(encoding="utf-8")
         # Position-4 reference rewritten:
@@ -343,7 +351,12 @@ class TestOmega25BulkRename:
             "comm-new",
             content_dir=seed["content"],
         )
-        apply_kind_rename(plan, dry_run=False)
+        apply_kind_rename(
+            plan,
+            dry_run=False,
+            # Isolate the refactor-log write (see DEEP-2 audit note above).
+            refactor_log_path=seed["content"] / ".refactor_log.yaml",
+        )
         # ensure_backup writes to .backups/ next to the file.
         backups = list(seed["content"].rglob(".backups"))
         assert backups, "expected at least one .backups/ directory"

@@ -6,6 +6,24 @@ ingests under D4-c Amharic-first + D1-a per-book cadence. Drains
 the FOURTH EOTC-parallel block p1294-1317 to the clean Mäqabyan-I
 p1318 seam.**
 
+> **AUDIT_2026-05-15-DEEP-2 ran post-τ.7.x.m** (user "major audit
+> / fix / save"; DEEP-class parallel-subagent sweep, ~18
+> dimensions). **State CLEAN + READY for τ.7.x.n.** τ.7.x.j-m
+> coherence 6/6, docs/memory/Ω.0-pivot 4/4, dead-code/types/
+> backups clean, post-fix sweep 5463 passed / 1 skip / 0 fail,
+> lint 11·0·0, ruff 494 clean. **F-DEEP2-1 FIXED**: the
+> long-mysterious "unrelated `content/.refactor_log.yaml` change"
+> (flagged across the prior 2 ship commits) was a test-isolation
+> bug in `tests/test_refactor.py` — root-caused, both leaky tests
+> fixed, the live file reverted, leak-fix validated (file stays
+> clean after a test run). **F-DEEP2-2 ACTIONED**: the prior
+> DEEP audit's never-actioned D-C1 — 21 one-shot `_ship_*`/
+> `_fix_*` ledger scripts archived to `dev/archive/ship_scripts/`
+> per §7.4 (`_dedup_ethiopian_notes.py` retained as obsolete-
+> safety). 2 INFO items (F-DEEP2-3 customization.yaml banners,
+> F-DEEP2-4 _meta Genesis-key naming) deferred to the next
+> ω-hygiene bundle. Full report: `dev/AUDIT_2026-05-15-DEEP-2.md`.
+
 Adds `amharic-tewahedo/jdt.py` (Judith, `መጽሐፈ ዮዲት`, p1294-1307,
 120 v, 35.4% — THIRD deuterocanonical τ.7.x.* ingest) +
 `est.py` (Esther, `መጽሐፈ አስቴር`, p1308-1317, 133 v, 79.6% —
