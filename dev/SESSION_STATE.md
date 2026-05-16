@@ -62,6 +62,45 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
+**Updated 2026-05-16 / τ.6.x.2.n — GE'EZ MÄQABYAN TRILOGY
+(mq1/mq2/mq3) SHIPPED — the FIRST MULTI-BOOK Geʽez catchup ship.
+Next phase τ.6.x.2.o = Geʽez Sirach.**
+
+`content/translations/geez-tewahedo/{mq1,mq2,mq3}.py` — 3 books,
+**608 verses total** (mq1 352/502=70.1%, mq2 188/256=73.4%, mq3
+68/188=36.2%) at `SOURCE_QUALITY=ocr-tier3`, `SOURCE_PROVENANCE=
+parallel-bible-eotc` (Geʽez left column, p1318-1350/1351-1368/
+1369-1378). 3 per-book extractions in one phase (the Amharic
+τ.7.x.n precedent). Mirrors τ.7.x.n VERBATIM: `MQ1/MQ2/MQ3_VERSE_
+COUNTS` (36/502, 21/256, 10/188) + `structural_map.meqabyan_
+{i,ii,iii}` (verified τ.7.x.n, NOT re-verified) reused with
+**zero-parser-API-delta** — only `--lang geez` differs (one per
+book). Clean renumber **UNDERFLOWs** (no overflow): mq1 ch1-27
+full + ch28 6partial 27/38; mq2 ch1-14 full + ch15 4/11; mq3
+ch1-3 full + ch4 1/34. **Per the QUALITY POLICY this parallel-PDF
+Geʽez Mäqabyan is ocr-tier3 + explicitly δ.1.x-REPLACEABLE** — the
+page-image-tier1 Phase-4 (δ.1.x) effort is the SEPARATE
+authoritative future Geʽez Mäqabyan track (NOT this loop); the
+`geez_tewahedo_mq123` slot is DISTINCT from the Π.1 page-image
+authoritative slot. ocr-tier3 interim mirrors the τ.7.x.n Amharic
+treatment — no approval gate. Re-verified per memory `feedback_
+reverify_conservative_nogo`: columns proven DISTINCT (not a
+misattribution bug); mq3's 36.2% is honest (ch4 34-v giant
+under-recovered), not over-claimed → τ.6.x.3 audit + δ.1.x
+upgrade. ONE share-pin converted (`test_parallel_bible_tau7xn.
+py::test_geez_mq_not_created` → `…_ingested_at_tau6x2n_ocr_tier3`,
+durable). **The τ.6.x.2.j/k/l/m durable monotonic pins held**
+(books_outside_kjv 4→7) — τ.6.x.2.l root-cause fix continues to
+hold. Cross-column: `tau7xn_ingest` geez_mq123 slot no-op→shipped
++ `geez_catchup_reused_at_phase: τ.6.x.2.n` (τ.7.x.o pipeline_
+reused pin untouched; Π.1 distinction preserved). New
+`tests/test_parallel_bible_tau6x2n.py` (~30 pins). geez `_meta.
+yaml` stats 13→16 books / 7927→8535 verses / 4→7 books_outside_
+kjv + `ingest_record_tau6x2n`; `_source.yaml::ocr_strategy.
+tau6x2n_ingest` block. Local commit only, no push, no zip. The
+Amharic NT cadence (τ.7.x.w+) + the Samuel/Kings GAPS track stay
+PAUSED pending user decisions (unchanged by this ship).
+
 **Updated 2026-05-16 / τ.6.x.2.m — GE'EZ ESTHER SHIPPED — CONTINUES
 the Geʽez deuterocanon catchup (2es→tob→jdt→est). Next phase
 τ.6.x.2.n = Geʽez Mäqabyan trilogy (FIRST multi-book Geʽez ship).**

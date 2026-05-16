@@ -4951,6 +4951,130 @@ ocr_strategy:
     next_phase: τ.6.x.2.n   # Geʽez Mäqabyan trilogy mq1/mq2/mq3, p1318-1378, MQ1/MQ2/MQ3_VERSE_COUNTS + structural_map.meqabyan_{i,ii,iii} reused from τ.7.x.n (FIRST multi-book Geʽez catchup ship)
 
   # ═══════════════════════════════════════════════════════════════
+  # τ.6.x.2.n — Geʽez Mäqabyan trilogy mq1/mq2/mq3 (FIRST multi-book
+  # Geʽez catchup ship; mirrors Amharic τ.7.x.n — p1318-1378, Geʽez
+  # column; ocr-tier3 + δ.1.x-replaceable per the QUALITY POLICY)
+  # ═══════════════════════════════════════════════════════════════
+
+  tau6x2n_ingest:
+    shipped_at_phase: τ.6.x.2.n
+    shipped_date: 2026-05-16
+    multi_book: true
+    ingested_book_codes: [mq1, mq2, mq3]
+    triggered_by: |
+      User autonomous-loop authorization (run → test → commit →
+      repeat) → advance per memory `feedback_continue_not_save`.
+      The FIRST MULTI-BOOK Geʽez catchup ship — 3 per-book
+      extractions (meqabyan_i/_ii/_iii) in one phase, the Amharic
+      τ.7.x.n precedent. Pipeline reused VERBATIM from τ.7.x.n —
+      only delta is the `--lang geez` flag (one per book).
+    helpers_reused:
+      - MQ1_VERSE_COUNTS
+      - MQ2_VERSE_COUNTS
+      - MQ3_VERSE_COUNTS
+      - structural_map.meqabyan_i
+      - structural_map.meqabyan_ii
+      - structural_map.meqabyan_iii
+    parser_api_change: |
+      No parser API changes. The MQ1/MQ2/MQ3_VERSE_COUNTS floors +
+      structural_map.meqabyan_{i,ii,iii} sections were all added at
+      the Amharic τ.7.x.n ship and are reused VERBATIM for the
+      Geʽez column — zero-parser-API-delta.
+    quality_tier: ocr-tier3
+    delta1x_replaceable: true
+    quality_note: |
+      Per the extract_parallel_pdf QUALITY POLICY, the parallel-PDF
+      Geʽez Mäqabyan is ocr-tier3 and EXPLICITLY δ.1.x-replaceable:
+      the page-image-tier1 Phase-4 (δ.1.x) effort is the
+      authoritative future Geʽez Mäqabyan track and is a SEPARATE
+      operator-mediated track (NOT this loop). The
+      geez_tewahedo_mq123 slot is DISTINCT from the Π.1 page-image
+      authoritative Geʽez slot. Shipping the ocr-tier3 interim here
+      mirrors the documented τ.7.x.n Amharic treatment — no
+      approval gate.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      extraction_engine: text-layer
+      mq1:
+        pdf_pages_consumed: [1318, 1350]
+        renumbered_verse_count: 352
+        chapters_fully_populated_through: 27
+        chapters_partial: {28: {got: 27, expected: 38}}
+        chapters_missing: [29, 30, 31, 32, 33, 34, 35, 36]
+        expected_total: 502
+        coverage_pct: 70.1
+      mq2:
+        pdf_pages_consumed: [1351, 1368]
+        renumbered_verse_count: 188
+        chapters_fully_populated_through: 14
+        chapters_partial: {15: {got: 4, expected: 11}}
+        chapters_missing: [16, 17, 18, 19, 20, 21]
+        expected_total: 256
+        coverage_pct: 73.4
+      mq3:
+        pdf_pages_consumed: [1369, 1378]
+        renumbered_verse_count: 68
+        chapters_fully_populated_through: 3
+        chapters_partial: {4: {got: 1, expected: 34}}
+        chapters_missing: [5, 6, 7, 8, 9, 10]
+        expected_total: 188
+        coverage_pct: 36.2
+      columns_distinct: |
+        The Geʽez and Amharic columns extract DISTINCT text for all
+        three books (verified at ship — NOT a column-misattribution
+        bug). All three are clean renumber UNDERFLOWs (no overflow).
+        Reconciled at the τ.6.x.3 audit + the δ.1.x page-image
+        upgrade track per the τ.6.x.0b honesty contract.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true
+      tau7xf_ingest: true
+      tau7xg_ingest: true
+      tau7xh_ingest: true
+      tau7xi_ingest: true
+      tau7xj_ingest: true
+      tau7xk_ingest: true
+      tau7xl_ingest: true
+      tau7xm_ingest: true
+      tau7xn_ingest: true   # cross-column mirror (Amharic mq trilogy) — geez_tewahedo_mq123 slot updated + back-link added below
+      tau6x2a_ingest: true
+      tau6x2b_ingest: true
+      tau6x2c_ingest: true
+      tau6x2d_ingest: true
+      tau6x2e_ingest: true
+      tau6x2f_ingest: true
+      tau6x2g_ingest: true
+      tau6x2h_ingest: true   # CLOSED parallel-column-catchup arc preserved
+      tau6x2i_ingest: true   # τ.6.x.2.i Geʽez Psalms (τ.6.x.5 HaCohen external) preserved
+      tau6x2j_ingest: true
+      tau6x2k_ingest: true
+      tau6x2l_ingest: true
+      tau6x2m_ingest: true   # τ.6.x.2.m Geʽez Esther preserved (this ship's predecessor)
+    no_ingest_at_this_phase: false
+    arc_continues_geez_deuterocanon_catchup: |
+      τ.6.x.2.n CONTINUES the post-Psalms Geʽez deuterocanon-
+      catchup sub-arc (2es → tob → jdt → est → mq1/mq2/mq3). FIRST
+      multi-book Geʽez ship. Next EOTC-parallel content is Sirach
+      (p1379-1418, τ.6.x.2.o) → Paralipomena Jeremiah / 4 Baruch →
+      Baruch → Wisdom → the Daniel-additions → Jubilees → 1 Enoch.
+    arc_context: geez-deuterocanon-catchup-continue
+    cross_column_back_link: |
+      Mirrors Amharic τ.7.x.n (p1318-1378, MQ1/MQ2/MQ3_VERSE_COUNTS,
+      structural_map.meqabyan_{i,ii,iii}). tau7xn_ingest.
+      translation_slot_state.geez_tewahedo_mq123 updated
+      no-op→shipped + a geez_catchup_reused_at_phase: τ.6.x.2.n
+      sibling added (the τ.6.x.2.m → tau7xm convention). Does NOT
+      touch tau7xn_ingest.pipeline_reused_at_phase (= τ.7.x.o). The
+      Π.1 page-image authoritative Geʽez Mäqabyan slot distinction
+      is preserved in the slot note (δ.1.x track is separate).
+    next_phase: τ.6.x.2.o   # Geʽez Sirach, p1379-1418, SIRACH_VERSE_COUNTS + structural_map.sirach reused from τ.7.x.o
+
+  # ═══════════════════════════════════════════════════════════════
   # τ.7.x.h → τ.7.x.i back-link (post-Amharic-Ruth → Amharic-Psalms;
   # SKIP-THE-GAP between parallel sections of the source PDF)
   # ═══════════════════════════════════════════════════════════════
@@ -6038,8 +6162,9 @@ ocr_strategy:
       amharic_tewahedo_mq1: 'shipped-at-τ.7.x.n (339 v; ocr-tier3; δ.1.x-replaceable; FIRST Tewahedo-distinctive τ.7.x.* book)'
       amharic_tewahedo_mq2: 'shipped-at-τ.7.x.n (198 v; ocr-tier3; δ.1.x-replaceable; range structural-discovery-corrected)'
       amharic_tewahedo_mq3: 'shipped-at-τ.7.x.n (79 v; ocr-tier3; δ.1.x-replaceable; trilogy capstone)'
-      geez_tewahedo_mq123: 'no-op (τ.6.x.2.* under D4-c; same ranges, Geʽez column; queued for next Geʽez catchup batch — distinct from the Π.1 page-image authoritative Geʽez slot)'
+      geez_tewahedo_mq123: 'shipped-at-τ.6.x.2.n (Geʽez column, p1318-1378; mq1 352 v/70.1% + mq2 188 v/73.4% + mq3 68 v/36.2% ocr-tier3; reused MQ1/MQ2/MQ3_VERSE_COUNTS + structural_map.meqabyan_{i,ii,iii} VERBATIM — zero-parser-API-delta cross-column mirror of this Amharic ship; DISTINCT from the Π.1 page-image authoritative Geʽez slot — the δ.1.x page-image-tier1 track remains the separate authoritative Geʽez Mäqabyan effort, this ocr-tier3 parallel-PDF ingest is δ.1.x-replaceable)'
     next_phase: τ.7.x.o
+    geez_catchup_reused_at_phase: τ.6.x.2.n   # cross-column back-link: the Geʽez Mäqabyan-trilogy catchup (τ.6.x.2.n, 2026-05-16, FIRST multi-book Geʽez ship) reused this Amharic τ.7.x.n pipeline VERBATIM (only `--lang geez` delta). The τ.6.x.2.m→tau7xm convention; distinct key so the τ.7.x.o pipeline_reused_at_phase pin is untouched.
     next_phase_description: |
       τ.7.x.o — next per-book ingest. The p1318-1378 Mäqabyan block
       is DRAINED. Next EOTC-parallel content per the τ.7.x.h scan:

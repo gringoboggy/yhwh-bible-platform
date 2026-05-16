@@ -518,11 +518,33 @@ class TestTau7XNZeroApiDeltaAndPriorPins:
         ):
             assert (AMHARIC_TEWAHEDO / f"{book}.py").is_file(), f"prior τ.7.x.* book {book} must persist"
 
-    def test_geez_mq_not_created(self):
-        """--lang amharic — the Geʽez slot (and the Π.1 authoritative
-        Geʽez Meqabyan) must NOT be written by τ.7.x.n."""
+    def test_geez_mq_ingested_at_tau6x2n_ocr_tier3(self):
+        """MIGRATED at the τ.6.x.2.n ship-time (2026-05-16) per memory
+        `feedback_share_pin_pattern` + the τ.6.x.2.j-m precedent.
+        Originally asserted the Geʽez Mäqabyan slot must NOT exist
+        (τ.7.x.n was --lang amharic; D4-c deferral). τ.6.x.2.n (the
+        FIRST multi-book Geʽez catchup ship) wrote the ocr-tier3
+        parallel-PDF Geʽez mq1/mq2/mq3, so this is FLIPPED to the
+        durable positive invariant: all three exist at ocr-tier3 with
+        INGEST_PHASE τ.6.x.2.n (NOT τ.7.x.n). The Π.1 page-image
+        authoritative Geʽez Mäqabyan remains a SEPARATE δ.1.x track —
+        this ocr-tier3 parallel-PDF ingest is δ.1.x-replaceable and
+        does NOT claim page-image-tier1 authority."""
         for c in TRILOGY:
-            assert not (GEEZ_TEWAHEDO / f"{c}.py").exists()
+            assert (GEEZ_TEWAHEDO / f"{c}.py").is_file(), f"Geʽez {c}.py must EXIST after the τ.6.x.2.n catchup ship"
+        import ast
+
+        for c in TRILOGY:
+            tree = ast.parse((GEEZ_TEWAHEDO / f"{c}.py").read_text(encoding="utf-8"))
+            consts = {
+                t.id: ast.literal_eval(n.value)
+                for n in ast.walk(tree)
+                if isinstance(n, ast.Assign)
+                for t in n.targets
+                if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE")
+            }
+            assert consts.get("SOURCE_QUALITY") == "ocr-tier3", f"{c} must be ocr-tier3 (δ.1.x-replaceable)"
+            assert consts.get("INGEST_PHASE") == "τ.6.x.2.n", f"{c} INGEST_PHASE must be τ.6.x.2.n (NOT τ.7.x.n)"
 
     def test_tau7xl_tau7xm_pins_preserved(self):
         s = _source_yaml()
