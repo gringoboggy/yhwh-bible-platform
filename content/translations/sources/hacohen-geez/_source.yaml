@@ -29,4 +29,16 @@ books:
     citation: "Ge'ez Psalter (Psalterium Davidis, ed. Hiob Ludolf, 1701); digitized by Ran HaCohen, Tel Aviv University; public domain by age."
 
 # Per-ship ingest records appended here (mirrors parallel-bible-eotc/_source.yaml).
-ingest_records: {}
+ingest_records:
+  tau6x2i:
+    shipped_at_phase: τ.6.x.2.i
+    shipped_date: 2026-05-16
+    book: psa
+    edition: "Psalterium Davidis, ed. Hiob Ludolf 1701 (Rahlfs/LXX numbering)"
+    chapters: [1, 151]
+    verses: 2531                # EXACT match to PSALMS_VERSE_COUNTS (2531)
+    fetched_date: 2026-05-16    # 151 pages cached politely via scripts/core/http.py (allowlist tau.ac.il)
+    calibrate_first: GO         # real Ps 1/118/151 calibrate passed after the inline-Cap verse-1 fix
+    deltas_over_tolerance: 1    # Ps 140 (10 v vs floor 13) — recorded for the τ.6.x.3 audit, source authoritative (NOT reshaped)
+    quality_tier: digitized-critical-edition
+    inline_cap_fix: 9011d56     # the calibrate-first gate caught + drove a real parser off-by-one fix before this ship

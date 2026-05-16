@@ -41,10 +41,18 @@
 > dry-run), NOT a distorted ship. **The NT is honestly blocked,
 > NOT "fixed."** The NT-forward choice (deeper NT-structure work
 > vs external-source NT) is flagged, NOT blocking.
-> (2) **τ.6.x.5 IN PROGRESS** — Ge'ez Psalms from HaCohen/Ludolf
-> clean PD critical edition (digitized-critical-edition quality);
-> spec `fe1355e`, plan `3f681f0`, inline execution; colometric-
-> merge `a1a4bea` retained as the documented fallback.
+> (2) **τ.6.x.5 — Ge'ez Psalms SHIPPED at τ.6.x.2.i** from
+> HaCohen/Ludolf clean PD critical edition (digitized-critical-
+> edition; `geez-tewahedo/psa.py`, 151 ch / **2531 v = the
+> PSALMS_VERSE_COUNTS floor EXACTLY**, vs the ~60% ocr-tier3 the
+> parallel-PDF column gave). The calibrate-first gate caught +
+> drove a real inline-Cap verse-1 off-by-one fix (commit
+> `9011d56`) BEFORE the ship — the gate working as designed. Plan
+> `3f681f0` T1-T8 all complete; colometric-merge `a1a4bea`
+> retained as the documented fallback. Lone Ps 140 source-vs-floor
+> delta recorded for the τ.6.x.3 audit (source authoritative, NOT
+> reshaped — spec §6). AUDIT_2026-05-16-DEEP-5 (9 findings, all
+> fixed) preceded this ship.
 > (3) Samuel/Kings GAPS calibration **UNBLOCKED** — the prior
 > NO-GO was data-unjustified (GG-00106 ~5MP, well above any cited
 > bar; the user was right). (4) Patrologia Orientalis PDFs
@@ -54,7 +62,65 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
-**Updated 2026-05-16 / τ.6.x.1.E — STRUCTURE-AWARE PARSER
+**Updated 2026-05-16 / τ.6.x.2.i — GE'EZ PSALMS SHIPPED via the
+τ.6.x.5 EXTERNAL PD-SOURCE INGEST (HaCohen/Ludolf clean
+digitized-critical-edition — the FIRST τ.6.x.5 ship; NOT the
+OCR'd parallel-PDF column). Plan `3f681f0` T1-T8 COMPLETE.**
+
+`content/translations/geez-tewahedo/psa.py` — 151 chapters,
+**2531 verses = the PSALMS_VERSE_COUNTS floor EXACTLY**
+(`SOURCE_QUALITY=digitized-critical-edition`,
+`SOURCE_PROVENANCE=hacohen-geez`; the source's own Rahlfs/LXX
+numbering is kept — NOT renumber_against_floor, spec §3/§6).
+Source: Ran HaCohen's digitized Geʽez Psalter (Psalterium
+Davidis, ed. Hiob Ludolf 1701; PD by age; user-supplied +
+authorized; cited in
+`content/translations/sources/hacohen-geez/_source.yaml`).
+Dramatically higher fidelity than the ~60% ocr-tier3 the
+parallel-PDF Geʽez column yielded for the τ.6.x.2.a-h narrative
+books.
+
+**The calibrate-first gate worked as designed (NOT bypassed).**
+Real `--fetch` cached 151 pages politely via `scripts/core/http.py`
+(retry+timeout+SSRF allowlist `tau.ac.il`); `--calibrate` NO-GO'd
+"Ps 118 does not start at verse 1". Investigated — NOT
+rubber-stamped (memory `feedback_reverify_conservative_nogo`): a
+real parser off-by-one (Ps 118/151 inline the
+`<a><!--Cap.-->N<!--Cap.end --></a>` chapter caption in verse 1's
+`<p>`, so the `"<!--Cap." in inner: continue` skip dropped verse 1
+— 175 of 176). NOT a source incompatibility → the colometric
+fallback would have been WRONG; fixed the parser (`_CAP_RE`,
+commit `9011d56`) under TDD, re-calibrated → GO. Then the
+delta-vs-floor gate: 1/151 over tolerance (Ps 140, 10 v vs 13) —
+far under the 20% (>30-chapter) systemic-NO-GO bar; recorded for
+the τ.6.x.3 audit, NOT reshaped (spec §6).
+
+Plan commits: T1 `4508370` · T2 `8a0ed7f` · T3 `51f6591` · T4
+`a834884` · T5 `fb7b2a7` · T6 `927106a` · T7 `9011d56` · T8 (this).
+New `test_parallel_bible_tau6x2i.py` 6/6 + `test_ingest_hacohen.py`
+14/14. Prior-pin conversion (share_pin_pattern, the τ.7.x.m
+precedent): tau7xi `test_geez_tewahedo_psa_py_not_created` →
+`test_geez_psa_is_the_tau6x2i_external_source_ship`. geez-tewahedo
+stats 8→9 books / 4337→6868 v. AUDIT_2026-05-16-DEEP-5 (3-subagent
+sweep, 9 findings incl. over-claims this session introduced, ALL
+fixed) preceded this ship. Verification: ruff-format clean; full
+regression 5880 passed / 1 skipped / 0 fail; local commit only, no push, no zip.
+
+**Next per most-logical-path:** the τ.6.x.5 plan is COMPLETE
+(Psalms shipped). Next independent autonomous work: the
+**narrative Geʽez OT catchup** on the parallel-PDF path (τ.6.x.2.j+:
+2es/tob/jdt/est/mq/jub/1en … — the books the τ.6.x.2.a-h cadence
+left; NOT poetic, so the established text-layer+paragraph-mode+
+renumber pipeline applies, NOT τ.6.x.5). Other poetic Geʽez books
+(Sirach/Wisdom/Proverbs/SoS/Lam/Job) later reuse the τ.6.x.5
+HaCohen path (each its own calibrate-first). The NT-forward
+decision (deeper NT-structure work vs external-source NT) remains
+flagged, NOT blocking. Samuel/Kings GAPS calibration is UNBLOCKED
+(prior NO-GO data-unjustified).
+
+---
+
+## Prior session — 2026-05-16 / τ.6.x.1.E — STRUCTURE-AWARE PARSER
 HARDENING + τ.6.x.0b HONESTY GATE (parser/tooling phase — NO book
 shipped; the τ.6.x.1.C/D precedent). HONEST scope — NOT "NT
 unblocked".**

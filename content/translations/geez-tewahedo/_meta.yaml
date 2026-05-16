@@ -53,8 +53,8 @@ source:
   fetched: 2026-05-12
   source_date: 1830
 stats:
-  books: 8            # τ.6.x.2.a-h batch ship: gen + ex + lev + num + deu + jos + jdg + rut (D4-c Geʽez catchup of the parallel-Bible-EOTC scan after Amharic-first τ.7.x.a-h shipped)
-  verses: 4337        # 1022 (gen, 66.6%) + 643 (ex, 53.0%) + 534 (lev, 62.2%) + 830 (num, 64.4%) + 508 (deu, 53.0%) + 351 (jos, 53.3%) + 393 (jdg, 63.6%) + 56 (rut, 65.9%) = 4337/7214 = 60.1% combined — Geʽez column harder to parse than Amharic (per τ.6.x.0a honesty contract finding)
+  books: 9            # τ.6.x.2.a-h batch (gen+ex+lev+num+deu+jos+jdg+rut, parallel-PDF ocr-tier3) + τ.6.x.2.i psa (τ.6.x.5 HaCohen/Ludolf external clean PD critical edition — digitized-critical-edition, NOT the OCR'd column)
+  verses: 6868        # 4337 (8-book parallel-PDF ocr-tier3, 60.1%) + 2531 (psa, τ.6.x.2.i — EXACT match to the 2531-verse PSALMS_VERSE_COUNTS floor; digitized-critical-edition, not coverage-limited)
   books_outside_kjv: 0
 
 # τ.6.x.2.a-h Geʽez catchup batch ship — 2026-05-15.
@@ -301,7 +301,37 @@ ingest_record_tau6x2h:
     8 books in BOTH columns). Per D4-c sequencing inversion + D1-a
     per-book cadence, this is the canonical post-Amharic Geʽez
     catchup closure.
-  next_phase: τ.6.x.2.i  # blocked: needs new publication-format handler per τ.7.x.h structural discovery (parallel-Bible-EOTC scan ends at p437; pages 438+ are dzamaragna.net appendix); OR external PDF for 1-4 Kingdoms
+  next_phase: τ.6.x.2.i  # [SUPERSEDED 2026-05-16] this τ.6.x.2.h-era note expected a parallel-PDF publication-format handler; τ.6.x.2.i instead SHIPPED via τ.6.x.5 external-source (HaCohen/Ludolf clean PD critical edition) — see ingest_record_tau6x2i below
+
+ingest_record_tau6x2i:
+  phase: τ.6.x.2.i
+  ingested_date: 2026-05-16
+  ingested_book_codes: [psa]
+  source: hacohen-geez                 # NOT the parallel-Bible PDF — τ.6.x.5 external clean PD critical edition
+  source_edition: "Psalterium Davidis, ed. Hiob Ludolf 1701 (Rahlfs/LXX numbering); digitized by Ran HaCohen, TAU; PD by age"
+  source_url_pattern: "https://www.tau.ac.il/~hacohen/Psalm/PsalmNrR%20{n}.html"
+  engine: html-parse                   # parse_hacohen_psalter (stdlib re+html); NOT OCR/text-layer
+  quality_tier: digitized-critical-edition   # NOT ocr-tier3 — clean Unicode-Geʽez critical edition
+  source_authoritative: true           # the source's own Rahlfs verse numbering is kept; NOT renumber_against_floor (spec §3/§6)
+  calibrate_first: GO                  # real --calibrate on Ps 1/118/151 passed, after the inline-Cap verse-1 fix (commit 9011d56)
+  coverage:
+    verses_ingested: 2531
+    floor_total: 2531                  # PSALMS_VERSE_COUNTS — EXACT match
+    chapters: 151                      # all Psalms 1..151 present; no synthetic overflow chapter
+    deltas_over_tolerance: 1           # only Ps 140 (10 v vs floor 13); >2-or-5% bar; far under the 20% (>30-chapter) systemic-NO-GO threshold
+    per_chapter_deltas: {140: [10, 13]}   # RECORDED for the τ.6.x.3 audit, NOT reshaped (spec §6: source authoritative)
+  audit_handoff: τ.6.x.3               # the Ps 140 source-vs-floor delta + any other reconciliation vs an independent reference
+  notes: |
+    FIRST τ.6.x.5 external-source ingest — Geʽez Psalms from a clean
+    PD critical edition instead of the OCR'd parallel-PDF column.
+    Total verses EXACTLY match the 2531-verse floor (vs the ~60%
+    ocr-tier3 the parallel-PDF Geʽez column yielded for the τ.6.x.2.a-h
+    narrative books). The calibrate-first gate caught a real parser
+    off-by-one (inline chapter-caption dropped verse 1 for Ps 118/151);
+    root-caused + fixed (commit 9011d56) BEFORE this ship — the gate
+    working as designed, not bypassed. The colometric-merge spec is
+    retained as the documented fallback for poetic Geʽez books with
+    no clean external source.
 
 notes: |
   τ.6 SEED CORPUS — UPGRADED 2026-05-15 via τ.6.x.2.a-h batch ship.

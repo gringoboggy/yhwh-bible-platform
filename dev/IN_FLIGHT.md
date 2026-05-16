@@ -2,17 +2,37 @@
 
 <!-- TRACKER-STATE: active -->
 
-## Current task — executing the τ.6.x.5 plan (inline)
+## Current task — narrative Geʽez OT catchup (next, autonomous)
 
-**Executing `docs/superpowers/plans/2026-05-16-geez-external-
-source-ingest.md` inline (user-chosen). 8 bite-sized TDD tasks,
-calibrate-first gated; Task 1 next. Goal: Ge'ez Psalms from
-HaCohen/Ludolf clean PD critical edition at digitized-critical-
-edition quality (replaces the OCR+colometric path for Psalms).
-Spec fe1355e, plan 3f681f0; colometric-merge spec a1a4bea
-retained as the no-clean-source fallback.**
+**The τ.6.x.5 plan is COMPLETE (Psalms shipped at τ.6.x.2.i). Next
+independent autonomous work: the narrative Geʽez OT catchup on the
+parallel-PDF path — τ.6.x.2.j+ (2es/tob/jdt/est/mq/jub/1en …, the
+books the τ.6.x.2.a-h cadence left; NOT poetic, so the established
+text-layer+paragraph-mode+renumber pipeline applies, not τ.6.x.5).
+Other poetic Geʽez books (Sirach/Wisdom/Proverbs/SoS/Lam/Job) can
+later reuse the τ.6.x.5 HaCohen path (each its own calibrate-
+first). User is away (autonomous authorization); defer only true
+approval-gates, work the next logical thing.**
 
-## Prior task — τ.6.x.1.E (COMPLETE 2026-05-16)
+## Prior task — τ.6.x.2.i (COMPLETE 2026-05-16)
+
+**τ.6.x.2.i — GE'EZ PSALMS via the τ.6.x.5 EXTERNAL PD-SOURCE
+INGEST — COMPLETE 2026-05-16 (the FIRST τ.6.x.5 ship).**
+`geez-tewahedo/psa.py`: 151 ch / **2531 v = the PSALMS_VERSE_COUNTS
+floor EXACTLY** (`digitized-critical-edition`, `source:
+hacohen-geez`; HaCohen's Ludolf 1701 Psalter, Rahlfs/LXX numbering,
+PD by age; source-authoritative — NOT renumbered, spec §3/§6).
+The calibrate-first gate worked as designed: real fetch (151
+pages) + calibrate NO-GO'd "Ps 118 v1"; investigated → real parser
+off-by-one (inline `<!--Cap.-->` dropped verse 1 for Ps 118/151);
+fixed (`_CAP_RE`, commit 9011d56) + re-calibrated GO; then
+delta-vs-floor gate 1/151 over tol (Ps 140, recorded for τ.6.x.3,
+not reshaped). Plan T1-T8 commits 4508370/8a0ed7f/51f6591/a834884/
+fb7b2a7/927106a/9011d56/(this). tau6x2i 6/6 + ingest_hacohen 14/14;
+ruff clean; full regression green; local commit only, no push, no
+zip. AUDIT_2026-05-16-DEEP-5 (9 findings, all fixed) preceded it.
+
+## Earlier — τ.6.x.1.E (COMPLETE 2026-05-16)
 
 **τ.6.x.1.E — STRUCTURE-AWARE PARSER HARDENING + τ.6.x.0b
 HONESTY GATE — COMPLETE 2026-05-16 (parser/tooling phase, NO book

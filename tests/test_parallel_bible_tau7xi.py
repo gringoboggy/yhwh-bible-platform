@@ -44,7 +44,12 @@ Pins validate:
 7. Reciprocal back-link tau7xh_ingest.also_reused_at_phase = τ.7.x.i
    (alongside the existing pipeline_reused_at_phase: τ.6.x.2.h).
 8. CLI --renumber {genesis,exodus,leviticus,numbers,deuteronomy,joshua,judges,ruth,psalms}.
-9. geez-tewahedo/psa.py NOT created (D4-c preserved; queued for τ.6.x.2.i).
+9. [CONVERTED at the τ.6.x.2.i ship, 2026-05-16, per share_pin_pattern]
+   geez-tewahedo/psa.py IS the τ.6.x.5 HaCohen external-source ship
+   (SOURCE_PROVENANCE hacohen-geez / INGEST_PHASE τ.6.x.2.i), NOT a
+   τ.7.x.i Amharic artifact — see test_geez_psa_is_the_tau6x2i_
+   external_source_ship. (Was: "psa.py NOT created, queued for
+   τ.6.x.2.i" — that "not yet" pin's triggering ship has now landed.)
 10. Skip-the-gap context pin: 10 books in 438-802 dzamaragna gap
     are NOT YET INGESTED in amharic-tewahedo/ (1 Sam, 2 Sam, 1 Ki,
     2 Ki, 1 Chr, 2 Chr, Ezr, Neh, Est, Job).
@@ -454,16 +459,34 @@ class TestTau7XIMetaYamlIngestRecord:
 
 
 class TestTau7XIGeezTewahedoPreserved:
-    """Geʽez Psalms ingest is queued for τ.6.x.2.i (next Geʽez catchup
-    batch) per D4-c sequencing — geez-tewahedo/psa.py must NOT exist
-    yet at τ.7.x.i ship-time."""
+    """At τ.7.x.i (Amharic Psalms) ship-time geez-tewahedo/psa.py did
+    NOT exist — Geʽez Psalms was queued for the FUTURE τ.6.x.2.i.
+    CONVERTED at the τ.6.x.2.i ship (2026-05-16) per memory
+    feedback_share_pin_pattern (the same convention this file applied
+    to the `est` skip-pin at τ.7.x.m): τ.6.x.2.i shipped Geʽez Psalms
+    via the τ.6.x.5 external HaCohen/Ludolf clean-PD source, so the
+    durable cross-arc invariant is now that geez-tewahedo/psa.py is
+    that external-source ship (NOT a τ.7.x.i Amharic-side artifact),
+    and the 8 τ.6.x.2.a-h books still persist."""
 
-    def test_geez_tewahedo_psa_py_not_created(self):
-        """Geʽez Psalms (`τ.6.x.2.i`) is the queued next-Geʽez-ingest
-        per D4-c; geez-tewahedo/psa.py must not exist until then."""
-        assert not (GEEZ_TEWAHEDO / "psa.py").exists(), (
-            "geez-tewahedo/psa.py must NOT be created at τ.7.x.i; Geʽez Psalms is τ.6.x.2.i under D4-c sequencing"
+    def test_geez_psa_is_the_tau6x2i_external_source_ship(self):
+        """Milestone-pin (was `test_geez_tewahedo_psa_py_not_created`,
+        converted at the τ.6.x.2.i ship). τ.7.x.i is Amharic and must
+        never have created the Geʽez psa; post-τ.6.x.2.i,
+        geez-tewahedo/psa.py is the τ.6.x.5 external-source ship —
+        SOURCE_PROVENANCE hacohen-geez, INGEST_PHASE τ.6.x.2.i — NOT
+        an Amharic τ.7.x.i side-effect."""
+        psa = GEEZ_TEWAHEDO / "psa.py"
+        assert psa.is_file(), "geez-tewahedo/psa.py must exist post-τ.6.x.2.i (the τ.6.x.5 external-source ship)"
+        txt = psa.read_text(encoding="utf-8")
+        # Quote-agnostic (write_book_module emits repr() single-quotes;
+        # ruff format normalizes the committed file to double-quotes —
+        # the brittle-assertion class AUDIT_2026-05-16-DEEP-5 F-DEEP5-2
+        # flagged; assert robustly, not coupled to quote style).
+        assert 'SOURCE_PROVENANCE = "hacohen-geez"' in txt or "SOURCE_PROVENANCE = 'hacohen-geez'" in txt, (
+            "geez-tewahedo/psa.py must be the τ.6.x.2.i HaCohen external-source ship, NOT a τ.7.x.i Amharic-side artifact"
         )
+        assert 'INGEST_PHASE = "τ.6.x.2.i"' in txt or "INGEST_PHASE = 'τ.6.x.2.i'" in txt
 
     def test_geez_tewahedo_8book_arc_preserved(self):
         """The τ.6.x.2.a-h Geʽez batch ship preserved — all 8 prior
