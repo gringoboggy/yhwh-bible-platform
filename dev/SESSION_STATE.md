@@ -6,6 +6,30 @@ per-book ingests under D4-c Amharic-first + D1-a per-book cadence.
 Drains the two MAJOR books of the SEVENTH EOTC-parallel block
 (Baruch p1429-1431 + Wisdom of Solomon p1432-1448).**
 
+> **AUDIT_2026-05-15-DEEP-3 ran post-τ.7.x.r** (user "major audit
+> of whole matrix"; DEEP-class 3-parallel-subagent sweep + solo
+> battery + a superpowers:systematic-debugging investigation, ~16
+> dimensions). **State CLEAN + READY for τ.7.x.s.** τ.7.x.n-r
+> coherence 6/6, state-docs/memory/Ω.0 3/3, dead-code/types/
+> caches/backups clean, serial sweep 5659 passed/1 skip/1 fail
+> (the fail = IN_FLIGHT-active for the audit → 5660/1/0 at close),
+> lint 11·0·0, lint_plan 4·0·0, ruff 504. **F-DEEP3-1 FIXED +
+> VALIDATED**: the τ.7.x.q/r-close-flagged editions.yaml
+> `book_toc_ornament` content leak was root-caused as the
+> second-order compute_matrix-LRU-cache-pollution class (NOT the
+> DEEP-2 missing-path pattern) — fixed across all 6 defective
+> `finally` blocks in tests/test_scripts.py (added the missing
+> `matrix_mod.compute_matrix.cache_clear()` matching the proven-
+> good sibling) + validated from a clean baseline under the
+> leak-trigger (content diff EMPTY). **F-DEEP3-2 INFO deferred**:
+> the residual editions.yaml git-status flag is a benign Windows-
+> CRLF artifact — git's `* text=auto` normalizes CRLF→LF on `git
+> add` so it NEVER reaches a commit (read `git diff` not `git
+> status` for editions.yaml on Windows). 3 cosmetic-coherence
+> nits actioned (Sirach prose typo 1414→1413, duplicate PLAN
+> line, stale pi1.py docstring). F-DEEP2-3/4 re-checked UNCHANGED.
+> Full report: `dev/AUDIT_2026-05-15-DEEP-3.md`.
+
 Adds `amharic-tewahedo/bar.py` (The Book of Baruch, p1429-1431,
 47 v, 33.3%, deuterocanonical — OPENS the seventh block; highly
 compressed source 3 pp / 5 ch) + `wis.py` (The Wisdom of Solomon,

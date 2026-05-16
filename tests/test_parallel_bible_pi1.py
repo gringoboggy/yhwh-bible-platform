@@ -21,10 +21,14 @@ The strategic roadmap for parallel-Bible work lives at:
    `one_enoch` (1en, pages 1515-1566, verified=tentative),
    `laodiceans` (lao, present_in_pdf=false, alternate_source_required).
 
-2. **meqabyan.subsections** map declares per-book page-ranges
-   (mq1=[1318,1365], mq2=[1366,1372], mq3=[1373,1378]) — hoisted
-   from the heuristic dict in extract_parallel_pdf.py into
-   declarative YAML.
+2. **meqabyan.subsections** map declares per-book page-ranges —
+   hoisted from the heuristic dict in extract_parallel_pdf.py into
+   declarative YAML. (Originally τ.6.x.0a-scanned as mq1=[1318,1365],
+   mq2=[1366,1372], mq3=[1373,1378]; CORRECTED at τ.7.x.n to
+   mq1=[1318,1350], mq2=[1351,1368], mq3=[1369,1378] by content-
+   boundary inspection — see TestPi1MeqabyanSubsections + the
+   τ.7.x.n structural-discovery correction. The assertions below
+   pin the corrected values.)
 
 3. **tewahedo_distinctive_inventory** metadata block names the
    6 declared sections + 6 book codes + per-book extraction status.

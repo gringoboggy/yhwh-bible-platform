@@ -2347,10 +2347,24 @@ class TestEditionMeta:
             cath = next(e for e in config.load_editions() if e["id"] == "catholic-study")
             assert cath.get("cover_image") == "covers/catholic-study/main.png"
         finally:
+            # Byte-exact restore AND dual cache-invalidate. File-restore
+            # alone is NOT enough: api_save_edition_meta populates
+            # config.load_editions's LRU cache with the mutated state, and
+            # under `pytest -n auto` a later same-worker test
+            # (TestOmega16EditionSnapshots) reads that cache, captures the
+            # in-memory mutation in its snapshot, and re-writes it to
+            # content/editions.yaml via _dump_edition_record before the
+            # restore's cache-clear takes effect — the editions.yaml test-
+            # pollution class AUDIT_2026-05-15-DEEP-3 root-caused (it fired
+            # this session as the `book_toc_ornament: cross_latin` leak).
+            # Mirror the proven-good sibling test_save_edition_meta_accepts_
+            # valid_plan_ids: clear BOTH config.load_editions AND
+            # matrix_mod.compute_matrix.
             shutil.copy(backup, ed_yaml)
-            from scripts.core import config
+            from scripts.core import config, matrix as matrix_mod
 
             config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
             if cover_dir.exists():
                 shutil.rmtree(cover_dir, ignore_errors=True)
 
@@ -2378,10 +2392,24 @@ class TestEditionMeta:
             per_book = covers.decode_book_covers(cath.get("book_covers"))
             assert per_book.get("gen") == "covers/catholic-study/books/gen.png"
         finally:
+            # Byte-exact restore AND dual cache-invalidate. File-restore
+            # alone is NOT enough: api_save_edition_meta populates
+            # config.load_editions's LRU cache with the mutated state, and
+            # under `pytest -n auto` a later same-worker test
+            # (TestOmega16EditionSnapshots) reads that cache, captures the
+            # in-memory mutation in its snapshot, and re-writes it to
+            # content/editions.yaml via _dump_edition_record before the
+            # restore's cache-clear takes effect — the editions.yaml test-
+            # pollution class AUDIT_2026-05-15-DEEP-3 root-caused (it fired
+            # this session as the `book_toc_ornament: cross_latin` leak).
+            # Mirror the proven-good sibling test_save_edition_meta_accepts_
+            # valid_plan_ids: clear BOTH config.load_editions AND
+            # matrix_mod.compute_matrix.
             shutil.copy(backup, ed_yaml)
-            from scripts.core import config
+            from scripts.core import config, matrix as matrix_mod
 
             config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
             if cover_dir.exists():
                 shutil.rmtree(cover_dir, ignore_errors=True)
 
@@ -2404,10 +2432,24 @@ class TestEditionMeta:
             # Confirm no file was written
             assert not cover_dir.exists()
         finally:
+            # Byte-exact restore AND dual cache-invalidate. File-restore
+            # alone is NOT enough: api_save_edition_meta populates
+            # config.load_editions's LRU cache with the mutated state, and
+            # under `pytest -n auto` a later same-worker test
+            # (TestOmega16EditionSnapshots) reads that cache, captures the
+            # in-memory mutation in its snapshot, and re-writes it to
+            # content/editions.yaml via _dump_edition_record before the
+            # restore's cache-clear takes effect — the editions.yaml test-
+            # pollution class AUDIT_2026-05-15-DEEP-3 root-caused (it fired
+            # this session as the `book_toc_ornament: cross_latin` leak).
+            # Mirror the proven-good sibling test_save_edition_meta_accepts_
+            # valid_plan_ids: clear BOTH config.load_editions AND
+            # matrix_mod.compute_matrix.
             shutil.copy(backup, ed_yaml)
-            from scripts.core import config
+            from scripts.core import config, matrix as matrix_mod
 
             config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
             if cover_dir.exists():
                 shutil.rmtree(cover_dir, ignore_errors=True)
 
@@ -2469,10 +2511,24 @@ class TestEditionMeta:
             cath = next(e for e in config.load_editions() if e["id"] == "catholic-study")
             assert (cath.get("cover_image") or "") == ""
         finally:
+            # Byte-exact restore AND dual cache-invalidate. File-restore
+            # alone is NOT enough: api_save_edition_meta populates
+            # config.load_editions's LRU cache with the mutated state, and
+            # under `pytest -n auto` a later same-worker test
+            # (TestOmega16EditionSnapshots) reads that cache, captures the
+            # in-memory mutation in its snapshot, and re-writes it to
+            # content/editions.yaml via _dump_edition_record before the
+            # restore's cache-clear takes effect — the editions.yaml test-
+            # pollution class AUDIT_2026-05-15-DEEP-3 root-caused (it fired
+            # this session as the `book_toc_ornament: cross_latin` leak).
+            # Mirror the proven-good sibling test_save_edition_meta_accepts_
+            # valid_plan_ids: clear BOTH config.load_editions AND
+            # matrix_mod.compute_matrix.
             shutil.copy(backup, ed_yaml)
-            from scripts.core import config
+            from scripts.core import config, matrix as matrix_mod
 
             config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
             if cover_dir.exists():
                 shutil.rmtree(cover_dir, ignore_errors=True)
 
@@ -4975,10 +5031,24 @@ class TestEditionMeta:
             assert ed.get("chapter_number_format") == "word_chapter"
             assert ed.get("chapter_number_decoration") == "ornament"
         finally:
+            # Byte-exact restore AND dual cache-invalidate. File-restore
+            # alone is NOT enough: api_save_edition_meta populates
+            # config.load_editions's LRU cache with the mutated state, and
+            # under `pytest -n auto` a later same-worker test
+            # (TestOmega16EditionSnapshots) reads that cache, captures the
+            # in-memory mutation in its snapshot, and re-writes it to
+            # content/editions.yaml via _dump_edition_record before the
+            # restore's cache-clear takes effect — the editions.yaml test-
+            # pollution class AUDIT_2026-05-15-DEEP-3 root-caused (it fired
+            # this session as the `book_toc_ornament: cross_latin` leak).
+            # Mirror the proven-good sibling test_save_edition_meta_accepts_
+            # valid_plan_ids: clear BOTH config.load_editions AND
+            # matrix_mod.compute_matrix.
             shutil.copy(backup, ed_yaml)
-            from scripts.core import config
+            from scripts.core import config, matrix as matrix_mod
 
             config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
 
     def test_save_edition_meta_rejects_unknown_format_or_decoration(self):
         r1 = self.web.api_save_edition_meta(
@@ -5049,10 +5119,24 @@ class TestEditionMeta:
             ed = config.editions_by_id().get("catholic-study")
             assert (ed.get("book_toc_ornament") or "") == ""
         finally:
+            # Byte-exact restore AND dual cache-invalidate. File-restore
+            # alone is NOT enough: api_save_edition_meta populates
+            # config.load_editions's LRU cache with the mutated state, and
+            # under `pytest -n auto` a later same-worker test
+            # (TestOmega16EditionSnapshots) reads that cache, captures the
+            # in-memory mutation in its snapshot, and re-writes it to
+            # content/editions.yaml via _dump_edition_record before the
+            # restore's cache-clear takes effect — the editions.yaml test-
+            # pollution class AUDIT_2026-05-15-DEEP-3 root-caused (it fired
+            # this session as the `book_toc_ornament: cross_latin` leak).
+            # Mirror the proven-good sibling test_save_edition_meta_accepts_
+            # valid_plan_ids: clear BOTH config.load_editions AND
+            # matrix_mod.compute_matrix.
             shutil.copy(backup, ed_yaml)
-            from scripts.core import config
+            from scripts.core import config, matrix as matrix_mod
 
             config.load_editions.cache_clear()
+            matrix_mod.compute_matrix.cache_clear()
 
     def test_save_edition_meta_rejects_unknown_book_toc_ornament(self):
         """Hard error on unknown values — same as the chapter

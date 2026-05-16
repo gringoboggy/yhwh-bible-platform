@@ -4,6 +4,57 @@
 
 ## Prior task
 
+**AUDIT_2026-05-15-DEEP-3 — COMPLETE 2026-05-15. User "major audit
+of whole matrix" after τ.7.x.n + τ.7.x.o/p + τ.7.x.q/r (5 phases /
+7 books since DEEP-2). DEEP-class 3-parallel-subagent sweep + solo
+tool battery + a superpowers:systematic-debugging Phase-1..4
+investigation.**
+
+**Outcome — state CLEAN + READY for τ.7.x.s:**
+- [x] 3 parallel investigation subagents: ship-record coherence
+      6/6 PASS, state-docs+memory+Ω.0 3/3 PASS, hygiene+test-
+      isolation+matrix (root-caused F-DEEP3-1)
+- [x] Solo battery: lint_rules 11·0·0, lint_plan 4·0·0, ruff 504,
+      dead-code/types/caches clean, backups 5/5, closed-arc census
+      (audit_deps skipped — pip-audit not on PATH, non-blocking)
+- [x] Full serial pytest 5659 passed / 1 skip / 1 fail (fail =
+      test_in_flight_idle_after_pilot, IN_FLIGHT-active for the
+      audit → 5660/1/0 with THIS marker→idle flip)
+- [x] **F-DEEP3-1 ROOT-CAUSED + FIXED + VALIDATED** — editions.yaml
+      `book_toc_ornament` content leak = second-order compute_
+      matrix-LRU-cache pollution (NOT the DEEP-2 missing-path
+      class); added `matrix_mod.compute_matrix.cache_clear()` to
+      all 6 defective `finally` blocks in tests/test_scripts.py
+      (matching the proven-good sibling); validated from a clean
+      baseline under the leak-trigger (content diff EMPTY; 206 +
+      960 + 324 tests green)
+- [x] systematic-debugging: an apparent "FIX INSUFFICIENT" was
+      Phase-1-investigated (not re-patched) → it was a premature
+      git-status (vs git-diff) misread; content fix is sound
+- [x] **F-DEEP3-2 INFO deferred** — residual editions.yaml git-
+      status flag is benign Windows-CRLF (git `* text=auto`
+      normalizes CRLF→LF on add; never reaches a commit; zero
+      content impact) → future ω-hygiene (explicit-LF editions
+      writer)
+- [x] 3 cosmetic-coherence nits ACTIONED (Sirach prose typo
+      1414→1413; duplicate τ.7.x.J-cluster PLAN line; stale
+      pre-τ.7.x.n pi1.py docstring ranges)
+- [x] F-DEEP2-3 + F-DEEP2-4 re-checked UNCHANGED (no regression)
+- [x] dev/AUDIT_2026-05-15-DEEP-3.md written; CHANGELOG +
+      SESSION_STATE updated; IN_FLIGHT → idle; local commit (no
+      push, no zip)
+
+**Next per most-logical-path:** τ.7.x.s = the Daniel-additions
+cluster paz/sus/bel (`ተረፈ ዳንኤል` p1449-1453, a multi-small-book
+ship like the Mäqabyan trilogy), then Π.1-mapped Jubilees
+[1454,1514] (τ.7.x.t) + 1 Enoch [1515,1566] (τ.7.x.u). Future
+ships: read `git diff` not `git status` for editions.yaml on
+Windows (F-DEEP3-2).
+
+### Earlier — τ.7.x.q/r (superseded by the DEEP-3 audit above)
+
+**τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-SOLOMON FULL-BOOK
+
 **τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-SOLOMON FULL-BOOK
 INGEST — SHIPPED 2026-05-15. NINETEENTH + TWENTIETH τ.7.x.*
 per-book ingests under D4-c Amharic-first + D1-a per-book cadence.
