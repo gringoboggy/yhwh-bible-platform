@@ -2,12 +2,25 @@
 
 <!-- TRACKER-STATE: idle -->
 
-## Current task — narrative Geʽez OT catchup AUTONOMOUS LOOP (next: τ.6.x.2.o)
+## Current task — Geʽez catchup loop PAUSED (user returned; audit clean; next: τ.6.x.2.o)
 
-**AUTONOMOUS-LOOP MODE.** User authorized "continue without me until
-I come back [~1h] … run → test → commit → repeat any task that
-doesn't need my verification." Loop = the proven τ.6.x.2.* narrative
-Geʽez catchup cadence (VERBATIM Amharic-stream reuse, zero approval
+**USER RETURNED → autonomous-loop authorization ENDED.** The loop
+shipped τ.6.x.2.j/k/l/m/n (7 books: 2es/tob/jdt/est/mq1/mq2/mq3) +
+the τ.6.x.2.l share-pin root-cause fix, then user requested
+"an audit, fix, commit". **AUDIT_2026-05-16-LIGHT** (solo, per
+`feedback_audit_cadence`) ran 6 read-only integrity checks over the
+whole arc → **state CLEAN, NO fixes required** (1 cosmetic pre-loop
+carry-forward F-LIGHT-1 recorded, no action); audit committed
+(docs-only). Loop is now PAUSED awaiting user direction — say
+"continue" to resume the cadence at **τ.6.x.2.o = Geʽez Sirach**
+(prepped: p1379-1418, SIRACH_VERSE_COUNTS 51 ch/1413 v +
+structural_map.sirach reused VERBATIM from Amharic τ.7.x.o; dry-run
+preview 671 v ≈ 47.5% ocr-tier3), or redirect. Resume-cadence
+reference (for whenever the loop continues):
+
+**AUTONOMOUS-LOOP MODE (reference).** Loop = the proven τ.6.x.2.*
+narrative Geʽez catchup cadence (VERBATIM Amharic-stream reuse,
+zero approval
 gates). Shipped this loop so far: τ.6.x.2.j (2es) ✓ .k (tob) ✓ .l
 (jdt) ✓ .m (est) ✓ .n (mq1/mq2/mq3 trilogy — FIRST multi-book) ✓.
 **Next: τ.6.x.2.o = Geʽez Sirach** (p1379-1418; SIRACH_VERSE_COUNTS

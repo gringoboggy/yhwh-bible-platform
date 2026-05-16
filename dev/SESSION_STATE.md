@@ -62,6 +62,39 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
+**Updated 2026-05-16 / AUDIT_2026-05-16-LIGHT — solo audit of the
+τ.6.x.2.j–n autonomous-loop arc: state CLEAN, NO fixes required.
+Next phase τ.6.x.2.o = Geʽez Sirach.**
+
+User "an audit, fix, commit" on return from the ~1h autonomous-loop
+run. Lighter SOLO battery (memory `feedback_audit_cadence`; not the
+parallel-subagent DEEP sweep). Six read-only checks across the five
+loop ships (τ.6.x.2.j 2es / .k tob / .l jdt / .m est / .n
+mq1·mq2·mq3) + the τ.6.x.2.l share-pin root-cause fix: **git** 5
+commits 3b7698b→1fb39bf, tree CLEAN, regression monotonic
+5929→6115; **stats integrity (STRONG)** on-disk 16 files / 8535
+verse-sum == geez `_meta` 16 books / 8535 v / 7 outside-KJV (exact,
+no drift); **share-pin anti-pattern ERADICATED** (zero
+forward-frontier `assert not …exists()` loops; durable pins held
+live through .m+.n; `feedback_share_pin_pattern` updated);
+**cross-column** all 5 `pipeline_reused_at_phase` pins (τ.7.x.k/l/
+m/n/o) intact + distinct `geez_catchup_reused_at_phase` siblings;
+**frontier-pins** all converted-for-shipped or correctly-deferred;
+**lint_rules** 11·0·0 CLEAN. ONE carry-forward F-LIGHT-1 (cosmetic,
+NO action): tau7xb `…ex_py_not_created` stale NAME + correct
+`is_file()` body — a τ.6.x.2.a-h PRE-LOOP working-as-designed
+artifact (renaming = unrequested churn; recorded honestly).
+Regression of record τ.6.x.2.n 6115/1skip/0fail; audit is
+read-only + docs-only (zero code/data change) so 6115/0 stands —
+honest scope, no redundant 14-min re-run for a docs-only audit;
+lint + focused suites re-confirmed. `dev/AUDIT_2026-05-16-LIGHT.md`
+written. CONCLUSION: the τ.6.x.2.j–n arc is CLEAN, NOTHING LOST;
+the one in-arc defect (τ.6.x.2.l fragile-share-pin) was already
+root-caused + fixed forward + memory-updated + validated twice.
+Local commit only, no push, no zip. The Amharic NT cadence
+(τ.7.x.w+) + the Samuel/Kings GAPS track stay PAUSED pending user
+decisions (untouched).
+
 **Updated 2026-05-16 / τ.6.x.2.n — GE'EZ MÄQABYAN TRILOGY
 (mq1/mq2/mq3) SHIPPED — the FIRST MULTI-BOOK Geʽez catchup ship.
 Next phase τ.6.x.2.o = Geʽez Sirach.**
