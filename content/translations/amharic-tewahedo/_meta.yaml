@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 22           # 20 prior (… + bar τ.7.x.q + wis τ.7.x.r) + paz τ.7.x.s + bel τ.7.x.s (the Daniel-additions cluster `ተረፈ ዳንኤል` p1449-1453; sus DEFERRED — not distinctly present in this PDF, present_in_pdf:false per the τ.7.x.q lje + laodiceans precedent)
-  verses: 10810       # 10757 (20 books) + 30 (paz, 44.1%) + 23 (bel, 54.8%) = 10810 / (14569 + 68 + 42) = 10810 / 14679 = 73.6% combined (across 22 ingested books; sus not counted — deferred; still excludes 9 SKIPPED dzamaragna-gap books)
-  books_outside_kjv: 12   # prior 10 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba/bar/wis) + paz (Prayer of Azariah / Song of the Three) + bel (Bel and the Dragon) — both deuterocanonical Daniel-additions, outside the 66-book KJV canon. sus DEFERRED (not counted).
+  books: 23           # 22 prior (… + paz/bel τ.7.x.s) + jub τ.7.x.t (The Book of Jubilees / Mäṣḥafä Kufāle, p1454-1514 — FIRST of the two LARGE Π.1-mapped Tewahedo-distinctive books; the standalone-Amharic-Bible rendering foundation per dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md). sus still DEFERRED (present_in_pdf:false).
+  verses: 11885       # 10810 (22 books) + 1075 (jub, 82.3%) = 11885 / (14679 + 1306) = 11885 / 15985 = 74.4% combined (across 23 ingested books; sus not counted — deferred; still excludes 9 SKIPPED dzamaragna-gap books)
+  books_outside_kjv: 13   # prior 12 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba/bar/wis/paz/bel) + jub (The Book of Jubilees — uniquely-Tewahedo-canonical, outside the 66-book KJV canon, same as mq1/mq2/mq3). sus DEFERRED (not counted).
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -1341,6 +1341,110 @@ ingest_record_tau7xs:
   arc_continues: deuterocanon-eotc-parallel-block
   daniel_additions_cluster_drained: p1449-1453   # paz + bel shipped; sus deferred (not distinctly present)
   pipeline_reused_at_phase: τ.7.x.s   # τ.7.x.s reused the τ.7.x.r pipeline VERBATIM; only deltas PRAYER_OF_AZARIAH/SUSANNA/BEL_AND_THE_DRAGON floors + structural_map.{prayer_of_azariah,susanna,bel_and_the_dragon}. TWENTY-FIRST + TWENTY-SECOND τ.7.x.* per-book ingest (paz + bel; sus deferred). 29-ship zero-parser-API-delta across both columns.
+
+ingest_record_tau7xt:
+  phase: τ.7.x.t
+  ingested_date: 2026-05-16
+  ingested_book_codes: [jub]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1454, 1514]   # the Π.1-discovered range, cross-validated 3× at τ.7.x.q/r/s, now ingestion-confirmed
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o
+    - τ.7.x.q
+    - τ.7.x.r
+    - τ.7.x.s
+    - τ.7.x.t   # JUBILEES_VERSE_COUNTS added (24th renumber-floor) + write_book_module repr()-serialization HARDENING (see writer_serialization_fix)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 1075
+    verses_expected: 1306
+    coverage_pct: 82.3
+    chapters_fully_populated_range: "1-38"
+    chapters_partial:
+      39: [10, 18]   # got, expected
+    chapters_missing_count: 11   # 40-50
+  deuterocanonical: true   # The Book of Jubilees / Mäṣḥafä Kufāle — uniquely-Tewahedo-canonical, outside the KJV 66 (same class as mq1/mq2/mq3)
+  tewahedo_distinctive: true   # FIRST of the two LARGE Π.1-mapped Tewahedo-distinctive books (1 Enoch τ.7.x.u follows)
+  standalone_bible_foundation: |
+    Per dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md +
+    CLAUDE_PROJECT_RULES §1: this ingest is the rendering FOUNDATION
+    for the standalone Amharic Bible — NOT a popup-language slot.
+  structural_map_upgrade:
+    section: jubilees
+    pdf_page_range_unchanged: [1454, 1514]   # the durable cross-validation anchor — NOT moved
+    verified: tentative→true
+    verified_at_phase: Π.1→τ.7.x.t
+    rationale: |
+      τ.7.x.t is the phase that actually INGESTS Jubilees, so the
+      Π.1-tentative section is upgraded to ingestion-verified. The
+      [1454,1514] range itself is UNCHANGED (cross-validated 3× by
+      the τ.7.x.q/r/s boundary scans; only the verification
+      confidence advanced). The prior τ.7.x.q + τ.7.x.s LIVE-state
+      `jubilees_section_unchanged` test pins are CONVERTED by this
+      ship (the documented prior-pin-conversion-as-part-of-the-
+      triggering-ship pattern; τ.7.x.m est-skip precedent + memory
+      feedback_share_pin_pattern) — renamed to
+      test_jubilees_page_range_anchor_unchanged, now asserting the
+      durable [1454,1514] anchor + book_codes + verified_at_phase
+      in (Π.1, τ.7.x.t). The τ.7.x.r/s INGEST-RECORD historical
+      `jubilees_section_unchanged` flags are NOT rewritten (jubilees
+      WAS unchanged at those phases — that history stands).
+  writer_serialization_fix: |
+    scripts/extract_parallel_pdf.py::write_book_module previously
+    serialized verse text as `'...'.replace("'", "\\'")` — only
+    single-quotes escaped. A literal OCR backslash (ocr-tier3
+    garble) produced an INVALID escape sequence: SyntaxWarning for
+    `\ ` (jub recovered one at 28:25) and SILENT DATA CORRUPTION
+    risk for `\n`/`\t`/`\x..`. Fixed at the ROOT to `{text!r}`
+    (repr() — canonical backslash/quote/control escaping). For text
+    without backslashes/quotes/control chars the post-generation
+    ruff-format normalizes repr() output to the identical double-
+    quoted form prior books already carry → forward-correct, zero
+    churn on clean text, fixes the latent bug for ALL future books
+    (1 Enoch τ.7.x.u + the Geʽez stream). jub 28:25 now correctly
+    `"\\ በዚሀ …"` (ast.literal_eval → faithful backslash+space).
+    NOTE: the PARSER API (parse_verses_from_text /
+    _parse_paragraph_mode / renumber_against_floor) is UNCHANGED —
+    the "zero-parser-API-delta" streak continues for the parser;
+    but this IS a deliberate WRITER-serialization change, honestly
+    flagged (not claimed as zero-writer-delta).
+  prior_books_backslash_caveat: |
+    Prior τ.7.x.*/τ.6.x.2.* books were written by the old
+    single-quote-only escaper; any that contained `\n`/`\t`/`\x..`
+    OCR artifacts may carry silent serialization corruption. Not
+    re-audited here (out of scope for the render cadence) —
+    flagged for the τ.6.x.3 batched ocr-tier3 cross-check
+    (re-extraction under the fixed writer is the remedy).
+  anomaly_check: |
+    82.3% (1075/1306) — HIGH band (protocanonical-class, cf.
+    deu 81.4% / gen 85.3%; FAR above the deuterocanon-deep-PDF
+    band of jdt 35%/bar 33%). NOT anomalous-low; content-confirmed
+    via dry-run (Jubilees = "The Little Genesis": creation-
+    retelling `ይህን ሁሉ ፍጥረት ክፈጠረ … ሴትና ወንድን` at the first
+    recovered verse). NO boundary error — τ.7.x.s already cross-
+    validated p1454 `።ኩፉሌ።` opening + p1515→1 Enoch. The τ.6.x.0b
+    discipline applied (high coverage, content-verified, no
+    correction needed).
+  jubilees_crossvalidation: |
+    JUBILEES_VERSE_COUNTS (50 ch / 1306 v; R.H. Charles 1913 /
+    VanderKam 1989 CSCO canonical CEILING) cross-validated against
+    the project's existing γ.4.5 Mäṣḥafä Kufāle annotation maxima
+    in content/notes/jub.py — ch6=38, ch7=39, ch9=15 match EXACTLY
+    (the parallel-Bible OCR layer + the v1 γ.4.5 apparatus align on
+    ONE Jubilees verse structure; the τ.7.x.n δ.1.x-floor-
+    coordination-proof discipline). τ.6.x.3 reconciles the exact
+    Ethiopic recension.
+  audit_handoff: τ.6.x.3   # ocr-tier3 cross-check + the prior-books-backslash re-audit + exact Ethiopic Mäṣḥafä Kufāle recension
+  next_book: 1en   # τ.7.x.u — the Π.1-mapped 1 Enoch [1515,1566], the SECOND LARGE Tewahedo-distinctive book
+  arc_continues: tewahedo-distinctive-large-books
+  pipeline_reused_at_phase: τ.7.x.t   # τ.7.x.t reused the τ.7.x.s pipeline; deltas: JUBILEES_VERSE_COUNTS (24th floor) + the structural_map.jubilees upgrade + the write_book_module repr()-serialization root-fix. TWENTY-THIRD τ.7.x.* per-book ingest. Parser API still zero-delta (30-ship for the parser); writer hardened (honestly flagged).
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.

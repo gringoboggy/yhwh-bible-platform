@@ -4,6 +4,58 @@
 
 ## Prior task
 
+**τ.7.x.t — AMHARIC JUBILEES (Mäṣḥafä Kufāle) FULL-BOOK INGEST —
+COMPLETE 2026-05-16. User "back to work sir. much to render
+still" → advance per PLAN (τ.7.x.s recorded next_book=jubilees).
+TWENTY-THIRD τ.7.x.* per-book ship; FIRST of the two LARGE
+Π.1-mapped Tewahedo-distinctive books — the standalone-Amharic-
+Bible rendering FOUNDATION per the ⚑ SCOPE clarification.**
+
+**Outcome:**
+- [x] amharic-tewahedo/jub.py 1075 v / **82.3%** (HIGH band,
+      protocanonical-class); content-confirmed Jubilees (creation-
+      retelling); NOT a boundary error (τ.7.x.s pre-validated
+      p1454/p1515). ch1-38 full / 39 partial / 40-50 empty.
+- [x] JUBILEES_VERSE_COUNTS (50 ch / 1306 v; Charles 1913 /
+      VanderKam 1989 CSCO ceiling) cross-validated vs the γ.4.5
+      Mäṣḥafä Kufāle maxima (ch6=38/ch7=39/ch9=15 exact). +
+      `jubilees` --renumber wiring + help.
+- [x] **structural_map.jubilees UPGRADE** (not addition):
+      verified tentative→true / Π.1→τ.7.x.t / date→2026-05-16;
+      **pdf_page_range [1454,1514] UNCHANGED** (3×-cross-validated
+      durable anchor; Π.1 provenance preserved in notes).
+- [x] **4-file prior-pin conversion** (the documented pattern;
+      τ.7.x.m est-skip precedent): tau7xq + tau7xs (→
+      test_jubilees_page_range_anchor_unchanged) + pi1
+      (3 pins) + pi1b — assert the durable anchor +
+      verified_at_phase in (Π.1, τ.7.x.t). pi1/pi1b half was
+      caught by the regression gate (tier-3 backstop) and fixed
+      in-ship. τ.7.x.r/s ingest-record historical flags NOT
+      rewritten; one_enoch Π.1-tentative pins untouched (τ.7.x.u).
+- [x] **write_book_module repr()-serialization ROOT-FIX** (latent
+      single-quote-only-escaper bug → invalid escape on OCR
+      backslash; jub 28:25 now faithful `"\\ …"`). PARSER API
+      UNCHANGED (zero-parser-delta 30-ship); WRITER hardened —
+      honestly flagged, NOT zero-writer-delta. Prior-books
+      backslash audit → τ.6.x.3.
+- [x] _meta stats 22→23 / 10810→11885 / outside_kjv 12→13 +
+      ingest_record_tau7xt; tau7xt_ingest in _source.yaml;
+      23-book combined 11885/15985 = 74.4%.
+- [x] test_parallel_bible_tau7xt.py; ruff-format clean; lint_rules
+      11·0·0 CLEAN; focused regression 471 passed / 0 fail;
+      5780 collected (+45). CHANGELOG + SESSION_STATE updated
+      together (⚑ scope banner preserved); PLAN ledger updated;
+      local commit only — no push, no zip.
+
+**Next per most-logical-path:** τ.7.x.u = the Π.1-mapped 1 Enoch
+[1515,1566] (`መጽሐፈ ሄኖክ`, ch_count 108 Charles 1912; SECOND LARGE
+Tewahedo-distinctive book; same structural_map-upgrade + prior-
+pin-conversion pattern; τ.7.x.s/t already cross-validated p1515).
+Then the standalone-edition + EN-back-translation phases per the
+⚑ scope clarification (POST-rendering — do NOT pull forward).
+
+### Earlier — τ.7.x.s (superseded by the τ.7.x.t ship above)
+
 **τ.7.x.s — AMHARIC DANIEL-ADDITIONS CLUSTER (paz + bel) INGEST +
 the Susanna structural-discovery deferral — COMPLETE 2026-05-16.
 User "continue" → advance to next phase per PLAN (τ.7.x.r recorded

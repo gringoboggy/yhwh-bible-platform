@@ -1462,6 +1462,85 @@ BEL_AND_THE_DRAGON_VERSE_COUNTS = {
 # Total Bel and the Dragon verses = 42 (1 ch; NRSV enumeration).
 
 
+# τ.7.x.t — The Book of Jubilees / Mäṣḥafä Kufāle (jub). content/
+# books.yaml fixes `jub` at ch_count: 50 (b15; "The Book of
+# Jubilees, or The Little Genesis" — R.H. Charles's exact title).
+# A uniquely-Tewahedo-canonical OT text; the FIRST of the two
+# LARGE Π.1-mapped Tewahedo-distinctive books (1 Enoch τ.7.x.u
+# follows). Verse counts use the standard R.H. Charles 1913 /
+# VanderKam 1989 (CSCO 510-511) Jubilees enumeration — the
+# universally-cited critical versification (Charles + VanderKam
+# concordant on the 50-ch / ~1306-1307-v division). Per the
+# τ.6.x.0b honesty contract the floor is the canonical CEILING;
+# the τ.6.x.3 batched audit reconciles the exact Ethiopic Mäṣḥafä
+# Kufāle recension (identical caveat to the SIRACH / one_enoch
+# floors). FLOOR-COORDINATION CROSS-VALIDATION (the τ.7.x.n
+# δ.1.x-proof discipline): the project's existing γ.4.5 Mäṣḥafä
+# Kufāle annotation maxima in content/notes/jub.py never EXCEED
+# this ceiling and match it exactly at the distinctive chapters
+# (ch6=38, ch7=39, ch9=15) — the parallel-Bible OCR layer + the
+# v1 γ.4.5 apparatus align on ONE Jubilees verse structure.
+# Twenty-fourth renumber-floor; FIRST of the two LARGE Tewahedo-
+# distinctive books; the structural_map.jubilees section
+# (Π.1-discovered [1454,1514], cross-validated 3× at τ.7.x.q/r/s)
+# is UPGRADED verified:tentative→true / Π.1→τ.7.x.t by this ship.
+JUBILEES_VERSE_COUNTS = {
+    1: 29,
+    2: 33,
+    3: 35,
+    4: 33,
+    5: 32,
+    6: 38,
+    7: 39,
+    8: 30,
+    9: 15,
+    10: 35,
+    11: 24,
+    12: 31,
+    13: 29,
+    14: 24,
+    15: 34,
+    16: 31,
+    17: 18,
+    18: 19,
+    19: 31,
+    20: 13,
+    21: 26,
+    22: 30,
+    23: 32,
+    24: 33,
+    25: 23,
+    26: 35,
+    27: 27,
+    28: 30,
+    29: 20,
+    30: 26,
+    31: 32,
+    32: 34,
+    33: 23,
+    34: 21,
+    35: 27,
+    36: 24,
+    37: 25,
+    38: 24,
+    39: 18,
+    40: 13,
+    41: 28,
+    42: 25,
+    43: 24,
+    44: 34,
+    45: 16,
+    46: 16,
+    47: 12,
+    48: 19,
+    49: 23,
+    50: 13,
+}
+# Total Jubilees verses = 1306 (50 ch; R.H. Charles 1913 /
+# VanderKam 1989 CSCO enumeration; canonical CEILING — τ.6.x.3
+# reconciles the exact Ethiopic Mäṣḥafä Kufāle recension).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -2299,8 +2378,17 @@ def write_book_module(
         lines.append(f"INGEST_PHASE = {ingest_phase!r}")
     lines.append("VERSES = [")
     for ch, v, text in verses:
-        text_repr = text.replace("'", "\\'")
-        lines.append(f"    ({ch}, {v}, '{text_repr}'),")
+        # τ.7.x.t fix: serialize via repr() so backslashes, quotes,
+        # and control chars in ocr-tier3 OCR text are escaped
+        # canonically. The prior manual `'...'.replace("'", "\\'")`
+        # only escaped single-quotes — a literal OCR backslash
+        # produced an invalid escape sequence (SyntaxWarning for
+        # `\ `; silent data corruption for `\n`/`\t`/`\x...`). For
+        # text without backslashes/quotes/control chars the post-
+        # generation ruff-format normalizes repr() output to the
+        # identical double-quoted form prior books already carry, so
+        # this is forward-correct with no churn on clean text.
+        lines.append(f"    ({ch}, {v}, {text!r}),")
     lines.append("]")
 
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -2386,6 +2474,8 @@ def _build_docstring_extra(
         floor_dict = SUSANNA_VERSE_COUNTS
     elif renumber == "bel_and_the_dragon":
         floor_dict = BEL_AND_THE_DRAGON_VERSE_COUNTS
+    elif renumber == "jubilees":
+        floor_dict = JUBILEES_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2488,6 +2578,7 @@ def main() -> int:
             "prayer_of_azariah",
             "susanna",
             "bel_and_the_dragon",
+            "jubilees",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2553,7 +2644,14 @@ def main() -> int:
             "structural-discovery scan found Susanna NOT distinctly "
             "present in this PDF's ተረፈ-ዳንኤል cluster, the τ.7.x.q "
             "`lje` + `laodiceans` present_in_pdf:false precedent; "
-            "reconciled at τ.6.x.3 / the future `dan` ingest). "
+            "reconciled at τ.6.x.3 / the future `dan` ingest). Also "
+            "the Tewahedo-distinctive 'jubilees' (JUBILEES_VERSE_"
+            "COUNTS, 50 ch / 1306 v; R.H. Charles 1913 / VanderKam "
+            "1989 CSCO — Mäṣḥafä Kufāle / The Little Genesis; "
+            "τ.7.x.t — FIRST of the two LARGE Π.1-mapped Tewahedo-"
+            "distinctive books, p1454-1514; upgrades structural_map."
+            "jubilees verified:tentative→true Π.1→τ.7.x.t; 1 Enoch "
+            "[1515,1566] follows as τ.7.x.u). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2632,6 +2730,8 @@ def main() -> int:
         renumber_floor = SUSANNA_VERSE_COUNTS
     elif args.renumber == "bel_and_the_dragon":
         renumber_floor = BEL_AND_THE_DRAGON_VERSE_COUNTS
+    elif args.renumber == "jubilees":
+        renumber_floor = JUBILEES_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

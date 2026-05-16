@@ -209,16 +209,24 @@ class TestTau7XRStructuralMapWisdom:
 
 
 class TestTau7XQRJubileesSectionUnchanged:
-    """The pre-existing Π.1 structural_map.jubilees [1454,1514] is
-    only CROSS-VALIDATED by the τ.7.x.q scan — it must remain
-    untouched (a closed-arc invariant, per the tau7xr_ingest
-    jubilees_section_unchanged flag)."""
+    """The Π.1 structural_map.jubilees [1454,1514] page-range was
+    only CROSS-VALIDATED by the τ.7.x.q scan (NOT modified at
+    τ.7.x.q/r). CONVERTED at τ.7.x.t: that phase legitimately
+    INGESTS Jubilees and upgrades verified:tentative→true /
+    verified_at_phase Π.1→τ.7.x.t — the documented prior-pin-
+    conversion-as-part-of-the-triggering-ship pattern (the
+    τ.7.x.m est-skip-pin precedent + memory feedback_share_pin_
+    pattern). The DURABLE invariant is the [1454,1514] page-range
+    anchor + book_codes — it never moves; only the verification
+    confidence advanced. The tau7xr_ingest historical
+    `jubilees_section_unchanged` flag is NOT rewritten (it WAS
+    unchanged at τ.7.x.q/r)."""
 
-    def test_jubilees_section_unchanged(self):
+    def test_jubilees_page_range_anchor_unchanged(self):
         jub = _source_yaml()["structural_map"]["jubilees"]
         assert jub["book_codes"] == ["jub"]
         assert jub["pdf_page_range"] == [1454, 1514]
-        assert jub["verified_at_phase"] == "Π.1"
+        assert jub["verified_at_phase"] in ("Π.1", "τ.7.x.t")
 
 
 # ──────────────────────────── output modules ───────────────────────

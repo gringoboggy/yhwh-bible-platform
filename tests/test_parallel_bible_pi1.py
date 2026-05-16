@@ -113,7 +113,14 @@ class TestPi1StructuralMapExtension:
         assert "jubilees" in sm, "Π.1.1: jubilees section must be declared"
         jub = sm["jubilees"]
         assert jub["book_codes"] == ["jub"]
-        assert jub["verified_at_phase"] == "Π.1"
+        # CONVERTED at τ.7.x.t (prior-pin-conversion-as-part-of-the-
+        # triggering-ship; τ.7.x.m est-skip precedent + memory
+        # feedback_share_pin_pattern): τ.7.x.t legitimately INGESTS
+        # Jubilees and upgrades verified_at_phase Π.1→τ.7.x.t. The
+        # durable Π.1-declaration invariant is the section presence
+        # + book_codes (asserted above); the confidence metadata
+        # advances when the book is actually ingested.
+        assert jub["verified_at_phase"] in ("Π.1", "τ.7.x.t")
 
     def test_one_enoch_section_declared(self):
         cfg = _load_source_cfg()
@@ -158,8 +165,13 @@ class TestPi1StructuralMapExtension:
 class TestPi1JubileesSection:
     """jubilees opens at PDF page 1454 (`መጽሐፈ ኩፉሌ`) and closes at
     1514 (next page 1515 transitions to 1 Enoch). 50 chapters
-    expected (Charles 1902 edition). verified=tentative — boundary
-    pages confirmed, full chapter coverage TBD."""
+    expected (Charles 1902 edition). Π.1 set verified=tentative
+    (boundary pages confirmed, full chapter coverage TBD); τ.7.x.t
+    legitimately INGESTED Jubilees and upgraded verified→true /
+    verified_at_phase Π.1→τ.7.x.t — the verified-state pins below
+    are CONVERTED to accept both the Π.1-era and post-τ.7.x.t
+    state (the durable invariants — page-range/offset/ch_count/
+    discovery-notes — stay hard-asserted)."""
 
     def _sec(self):
         return _load_source_cfg()["structural_map"]["jubilees"]
@@ -173,12 +185,17 @@ class TestPi1JubileesSection:
         assert self._sec()["pdf_index_offset"] == 0
 
     def test_verified_tentative(self):
-        # Boundary pages confirmed by PDF inspection; full-coverage
-        # verification gated on production extraction.
-        assert self._sec()["verified"] == "tentative"
+        # CONVERTED at τ.7.x.t: Π.1 set verified=tentative (boundary
+        # pages confirmed, full coverage TBD); τ.7.x.t legitimately
+        # INGESTED Jubilees and upgraded it to True (prior-pin-
+        # conversion-as-part-of-the-triggering-ship; τ.7.x.m
+        # est-skip precedent + memory feedback_share_pin_pattern).
+        assert self._sec()["verified"] in ("tentative", True)
 
     def test_verified_date(self):
-        assert str(self._sec()["verified_date"]) == "2026-05-14"
+        # CONVERTED at τ.7.x.t (verified_date advances from the Π.1
+        # discovery 2026-05-14 to the τ.7.x.t ingestion 2026-05-16).
+        assert str(self._sec()["verified_date"]) in ("2026-05-14", "2026-05-16")
 
     def test_chapter_count_expected(self):
         assert self._sec()["chapter_count_expected"] == 50

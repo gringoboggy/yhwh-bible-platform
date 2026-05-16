@@ -627,12 +627,18 @@ class TestPi1bClosedArcInvariantPreservation:
         assert meq.get("verified_at_phase") == "τ.6.x.0a"
 
     def test_jubilees_section_unchanged(self):
-        """Π.1's jubilees declaration must remain intact."""
+        """Π.1's jubilees declaration must remain intact. CONVERTED
+        at τ.7.x.t: that phase legitimately INGESTS Jubilees and
+        upgrades verified_at_phase Π.1→τ.7.x.t (prior-pin-conversion-
+        as-part-of-the-triggering-ship; τ.7.x.m est-skip precedent +
+        memory feedback_share_pin_pattern). The DURABLE Π.1
+        invariant is the [1454,1514] page-range anchor + book_codes
+        (hard-asserted); the confidence metadata advances at ingest."""
         parent = _load_parent_cfg()
         jub = parent["structural_map"]["jubilees"]
         assert jub.get("book_codes") == ["jub"]
         assert jub.get("pdf_page_range") == [1454, 1514]
-        assert jub.get("verified_at_phase") == "Π.1"
+        assert jub.get("verified_at_phase") in ("Π.1", "τ.7.x.t")
 
     def test_one_enoch_section_unchanged(self):
         """Π.1's one_enoch declaration must remain intact."""

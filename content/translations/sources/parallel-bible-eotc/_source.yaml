@@ -1225,9 +1225,9 @@ structural_map:
     book_codes: [jub]
     pdf_page_range: [1454, 1514]
     pdf_index_offset: 0
-    verified: tentative
-    verified_date: 2026-05-14
-    verified_at_phase: Π.1
+    verified: true
+    verified_date: 2026-05-16
+    verified_at_phase: τ.7.x.t
     chapter_count_expected: 50
     notes: |
       Discovered at Π.1 (2026-05-14) by scanning for 'መጽሐፈ ኩፋሌ'
@@ -1237,10 +1237,32 @@ structural_map:
       for 50 chapters (~1.22 pages/chapter; consistent with meqabyan
       density). Page 1515 transitions to 1 Enoch.
 
-      The 'tentative' verification flag indicates the boundary pages
-      were inspected but full chapter-by-chapter coverage has not
-      yet been confirmed; that verification lands when production
-      extraction begins (τ.6.x.1+ or δ.1.x-equivalent for jub).
+      UPGRADED tentative→true / Π.1→τ.7.x.t at τ.7.x.t (2026-05-16)
+      — the phase that actually ingests Amharic Jubilees (THE
+      first of the two LARGE Π.1-mapped Tewahedo-distinctive
+      books; the standalone-Amharic-Bible rendering FOUNDATION per
+      dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md, NOT
+      a popup-language slot). The [1454,1514] page-range was
+      cross-validated THREE times by the τ.7.x.q/r/s boundary
+      scans (each confirming p1454 opens `።ኩፉሌ።` immediately after
+      the Daniel-additions p1453 close) and is now ingestion-
+      confirmed; the range itself is UNCHANGED — the durable
+      cross-validation anchor never moved, only the verification
+      confidence advanced. JUBILEES_VERSE_COUNTS (50 ch / 1306 v;
+      R.H. Charles 1913 / VanderKam 1989 CSCO canonical CEILING)
+      cross-validates against the project's γ.4.5 Mäṣḥafä Kufāle
+      annotation maxima (ch6=38, ch7=39, ch9=15 match exactly).
+      Per the τ.6.x.0b honesty contract the floor is the ceiling;
+      τ.6.x.3 reconciles the exact Ethiopic recension. The prior
+      τ.7.x.q + τ.7.x.s `jubilees_section_unchanged` LIVE-state
+      test pins are converted by THIS ship (the documented
+      prior-pin-conversion-as-part-of-the-triggering-ship pattern,
+      the τ.7.x.m est-skip-pin precedent + memory feedback_share_
+      pin_pattern); the durable invariant they now assert is the
+      [1454,1514] anchor + book_codes:[jub], which still hold. The
+      τ.7.x.r/s INGEST-RECORD historical flags are NOT rewritten
+      (jubilees WAS unchanged at those phases). 1 Enoch
+      [1515,1566] follows as τ.7.x.u.
 
   one_enoch:
     book_codes: [1en]
@@ -6162,3 +6184,147 @@ ocr_strategy:
       already cross-validated the Jubilees p1454 opening. Geʽez
       catchup τ.6.x.2.j+ follows the Amharic stream per D4-c.
     pipeline_reused_at_phase: τ.7.x.s   # back-link: τ.7.x.s (paz p1449-1451 + bel p1452-1453) reused the τ.7.x.r pipeline VERBATIM; only deltas the 3 Daniel-additions floors + structural_map blocks. Multi-small-book ship (τ.7.x.n precedent); sus deferred (τ.7.x.q lje + laodiceans precedent).
+
+  tau7xt_ingest:
+    shipped_at_phase: τ.7.x.t
+    shipped_date: 2026-05-16
+    triggered_by: |
+      User "back to work ... much to render still" → advance to
+      next phase per PLAN (τ.7.x.s recorded next_book=jubilees).
+      TWENTY-THIRD τ.7.x.* per-book ingest under D4-c Amharic-first
+      + D1-a per-book cadence. FIRST of the two LARGE Π.1-mapped
+      Tewahedo-distinctive books (1 Enoch τ.7.x.u follows). The
+      standalone-Amharic-Bible rendering FOUNDATION per dev/SCOPE_
+      2026-05-16-parallel-bible-standalone-bibles.md + RULES §1 —
+      NOT a popup-language slot.
+    structural_map_upgrade:
+      section: jubilees
+      note: |
+        UNLIKE prior τ.7.x.* ships this is a structural_map
+        UPGRADE, not an addition — the jubilees section pre-existed
+        (Π.1-discovered, verified:tentative). τ.7.x.t is the phase
+        that actually ingests it.
+      pdf_page_range: [1454, 1514]   # UNCHANGED — the durable cross-validation anchor; cross-validated 3× at τ.7.x.q/r/s, now ingestion-confirmed
+      verified: tentative→true
+      verified_at_phase: Π.1→τ.7.x.t
+      verified_date: 2026-05-14→2026-05-16
+      chapter_count_expected: 50   # UNCHANGED (books.yaml `jub` ch_count: 50, b15)
+    prior_pin_conversion: |
+      The τ.7.x.q (TestTau7XQRJubileesSectionUnchanged) +
+      τ.7.x.s (TestTau7XSJubileesSectionUnchanged) LIVE-state
+      `test_jubilees_section_unchanged` pins asserted
+      verified_at_phase=="Π.1" — τ.7.x.t legitimately upgrades
+      that, so both are CONVERTED by THIS ship (the documented
+      prior-pin-conversion-as-part-of-the-triggering-ship pattern;
+      τ.7.x.m est-skip-pin precedent + memory feedback_share_pin_
+      pattern). Renamed → test_jubilees_page_range_anchor_unchanged;
+      now assert the DURABLE invariant: book_codes==[jub] +
+      pdf_page_range==[1454,1514] + verified_at_phase in
+      (Π.1, τ.7.x.t). The τ.7.x.r/s INGEST-RECORD historical
+      `jubilees_section_unchanged` flags are NOT rewritten
+      (jubilees WAS unchanged at those phases).
+    helpers_added:
+      JUBILEES_VERSE_COUNTS: |
+        50 ch / 1306 v; R.H. Charles 1913 / VanderKam 1989 (CSCO
+        510-511) canonical CEILING. Twenty-fourth renumber-floor.
+        Cross-validated against the project's γ.4.5 Mäṣḥafä Kufāle
+        annotation maxima (ch6=38, ch7=39, ch9=15 match exactly —
+        the τ.7.x.n δ.1.x-floor-coordination-proof discipline).
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` includes `jubilees`. Wires JUBILEES_VERSE_
+        COUNTS at both floor-dict resolution sites + help text.
+    writer_serialization_fix: |
+      ROOT-CAUSE FIX in scripts/extract_parallel_pdf.py::
+      write_book_module: verse text was serialized as
+      `'...'.replace("'", "\\'")` (only single-quotes escaped) —
+      a literal OCR backslash produced an INVALID escape
+      (SyntaxWarning for `\ `, recovered at jub 28:25; SILENT
+      corruption risk for `\n`/`\t`/`\x..`). Changed to `{text!r}`
+      (repr() — canonical escaping). Forward-correct + zero churn
+      on clean text (post-generation ruff-format normalizes
+      repr() to the identical double-quoted form prior books carry)
+      + fixes the latent bug for ALL future books (1 Enoch τ.7.x.u
+      + the Geʽez stream). jub 28:25 now `"\\ በዚሀ …"` (faithful).
+    parser_api_change: |
+      PARSER API UNCHANGED — parse_verses_from_text /
+      _parse_paragraph_mode / renumber_against_floor untouched
+      (the zero-parser-API-delta streak continues for the PARSER:
+      30-ship). HONESTLY FLAGGED: τ.7.x.t DOES change the WRITER
+      (write_book_module repr()-serialization root-fix above) —
+      this is a deliberate correctness change, NOT claimed as
+      zero-writer-delta. Data deltas: JUBILEES_VERSE_COUNTS +
+      dispatch + the structural_map.jubilees upgrade.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1454, 1514]
+      extraction_engine: text-layer
+      parser_mode: paragraph
+      raw_parser_output_verse_count: 1075
+      renumbered_verse_count: 1075
+      chapters_fully_populated: "1-38"
+      chapters_partial: {39: {got: 10, expected: 18}}
+      chapters_missing_count: 11   # 40-50
+      expected_total: 1306
+      coverage_pct: 82.3
+      coverage_band_position: |
+        82.3% — HIGH band (protocanonical-class, cf. deu 81.4% /
+        gen 85.3%; FAR above the deuterocanon-deep-PDF band of
+        jdt 35% / bar 33%). Content-confirmed via dry-run
+        (Jubilees = "The Little Genesis": creation-retelling
+        `ይህን ሁሉ ፍጥረት ክፈጠረ … ሴትና ወንድን` at the first recovered
+        verse). NOT a boundary error — τ.7.x.s already cross-
+        validated p1454 `።ኩፉሌ።` + p1515→1 Enoch. τ.6.x.0b
+        discipline: high coverage, content-verified, no correction.
+      regression_pin_tests:
+        - test_amharic_jub_total_verse_count_floor
+        - test_amharic_jub_clean_renumber_shape
+        - test_amharic_jub_ingest_phase_constant
+        - test_jubilees_structural_map_upgraded
+        - test_jubilees_page_range_anchor_unchanged   # converted in tau7xq + tau7xs
+        - test_writer_serialization_repr_no_invalid_escape
+        - test_p1454_1514_jubilees_drained
+    known_residual_issues:
+      jubilees_recension: |
+        ch 39 partial + 40-50 empty at ocr-tier3 (deep draft-
+        region recovery loss vs the Charles/VanderKam ceiling).
+        τ.6.x.3 reconciles the exact Ethiopic Mäṣḥafä Kufāle
+        recension.
+      prior_books_backslash_caveat: |
+        Prior books written by the old single-quote-only escaper
+        may carry silent `\n`/`\t`/`\x..` serialization
+        corruption. Flagged for the τ.6.x.3 batched ocr-tier3
+        cross-check (re-extraction under the fixed writer is the
+        remedy); not re-audited here (out of render-cadence scope).
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xe_ingest: true
+      tau7xh_ingest: true
+      tau7xn_ingest: true
+      tau7xo_ingest: true
+      tau7xp_ingest: true
+      tau7xq_ingest: true   # jubilees_section_unchanged HISTORICAL flag preserved (was true at τ.7.x.q/r)
+      tau7xr_ingest: true   # historical jubilees_section_unchanged flag NOT rewritten
+      tau7xs_ingest: true   # paz+bel + sus-deferral preserved; tau7xs historical jubilees flag intact
+      tau6x2h_ingest: true
+      jubilees_now_ingested: true   # supersedes the pre-ingestion "unchanged" LIVE-state pins (converted) — the [1454,1514] anchor still holds
+    no_ingest_at_this_phase: false
+    arc_continues_tewahedo_distinctive: |
+      τ.7.x.t ingests Jubilees (jub, p1454-1514) — FIRST of the
+      two LARGE Π.1-mapped Tewahedo-distinctive books. Next is
+      1 Enoch [1515,1566] (τ.7.x.u — Π.1-mapped, the SECOND LARGE
+      one; τ.7.x.s/t already cross-validated p1515 → 1 Enoch).
+    translation_slot_state:
+      amharic_tewahedo_jub: 'shipped-at-τ.7.x.t (1075 v; ocr-tier3; Tewahedo-distinctive; 82.3% HIGH band; standalone-Amharic-Bible foundation; structural_map.jubilees upgraded tentative→true Π.1→τ.7.x.t)'
+      geez_tewahedo_jub: 'no-op (τ.6.x.2.* under D4-c; same page range, Geʽez column — the standalone Geʽez Bible foundation, later)'
+    next_phase: τ.7.x.u
+    next_phase_description: |
+      τ.7.x.u — the Π.1-mapped 1 Enoch [1515,1566] (`መጽሐፈ ሄኖክ`),
+      the SECOND LARGE Tewahedo-distinctive book; ch_count 108
+      (R.H. Charles 1912). The τ.7.x.s/t scans already cross-
+      validated p1515 opens 1 Enoch after the jubilees p1514
+      close. Same structural_map-upgrade pattern (one_enoch is
+      Π.1-tentative). Geʽez catchup τ.6.x.2.j+ follows the Amharic
+      stream per D4-c.
+    pipeline_reused_at_phase: τ.7.x.t   # back-link: τ.7.x.t reused the τ.7.x.s pipeline; deltas JUBILEES_VERSE_COUNTS (24th floor) + structural_map.jubilees UPGRADE (not addition) + the write_book_module repr()-serialization root-fix. TWENTY-THIRD τ.7.x.* per-book ingest. Parser API zero-delta (30-ship for the parser); writer hardened (honestly flagged, not zero-writer-delta).

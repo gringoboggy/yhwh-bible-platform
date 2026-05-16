@@ -20,13 +20,82 @@
 > `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`;
 > codified in `CLAUDE_PROJECT_RULES.md` §1.
 
-**Updated 2026-05-16 / τ.7.x.s — AMHARIC DANIEL-ADDITIONS CLUSTER
+**Updated 2026-05-16 / τ.7.x.t — AMHARIC JUBILEES (Mäṣḥafä Kufāle)
+FULL-BOOK INGEST. TWENTY-THIRD τ.7.x.* per-book ship under D4-c +
+D1-a (user "back to work … much to render still" → advance per
+PLAN). FIRST of the two LARGE Π.1-mapped Tewahedo-distinctive
+books (1 Enoch τ.7.x.u follows) — the standalone-Amharic-Bible
+rendering FOUNDATION per the ⚑ scope clarification above.**
+
+Adds `amharic-tewahedo/jub.py` (The Book of Jubilees / "The
+Little Genesis", p1454-1514, 1075 v, **82.3%** — HIGH band,
+protocanonical-class cf. deu 81.4%; FAR above the deuterocanon-
+deep-PDF band). Content-confirmed (Jubilees creation-retelling at
+the first recovered verse); NOT a boundary error (τ.7.x.s already
+cross-validated p1454 `።ኩፉሌ።` + p1515→1 Enoch). 23-book combined
+11885 / 15985 = 74.4%. Pipeline reused from τ.7.x.s — deltas:
+JUBILEES_VERSE_COUNTS (50 ch / 1306 v; R.H. Charles 1913 /
+VanderKam 1989 CSCO canonical CEILING, cross-validated vs the
+project's γ.4.5 Mäṣḥafä Kufāle maxima — ch6=38/ch7=39/ch9=15
+match exactly) + the structural_map.jubilees UPGRADE + the
+writer-serialization root-fix.
+
+**structural_map.jubilees UPGRADE (not addition).** jubilees
+pre-existed Π.1-tentative; τ.7.x.t (the phase that actually
+ingests it) upgrades verified tentative→true / verified_at_phase
+Π.1→τ.7.x.t. **pdf_page_range [1454,1514] UNCHANGED** — the
+durable cross-validation anchor (cross-validated 3× at
+τ.7.x.q/r/s), only the confidence advanced. The prior
+`jubilees_section_unchanged` LIVE-state pins in **4 files**
+(tau7xq, tau7xs, pi1, pi1b) are CONVERTED by this ship → assert
+the durable [1454,1514]/book_codes anchor + verified_at_phase in
+(Π.1, τ.7.x.t) — the documented prior-pin-conversion-as-part-of-
+the-triggering-ship pattern (τ.7.x.m est-skip precedent + memory
+[[share-pin-pattern]]). The τ.7.x.r/s INGEST-RECORD historical
+flags are NOT rewritten.
+
+**WRITER root-fix (honestly flagged — NOT zero-writer-delta).**
+`write_book_module` escaped only single-quotes → an OCR backslash
+made an invalid escape (SyntaxWarning for backslash-space, recovered
+at jub 28:25; silent corruption risk for backslash-n/t/x). Fixed
+to `repr()` serialization (canonical escaping) — forward-correct,
+zero churn on clean text (post-gen ruff-format normalizes to the
+identical form prior books carry), fixes the latent bug for ALL
+future books. PARSER API (parse/paragraph/renumber) UNCHANGED —
+the zero-parser-API-delta streak continues for the parser
+(30-ship); the WRITER is hardened. Prior books may carry silent
+backslash-corruption → flagged for the τ.6.x.3 batched audit.
+
+`test_parallel_bible_tau7xt.py` adds the τ.7.x.t pins (floor,
+the jubilees UPGRADE, jub.py module, coverage shape, the writer
+repr()-fix, the ingest records, the 4-file prior-pin conversion,
+back-link tau7xs→t, prior-pin preservation). Verification:
+ruff-format clean (jub.py post-gen-formatted), lint_rules
+11·0·0 CLEAN, focused regression 471 passed / 0 fail (tau7xt +
+tau7xq/s/o/n + pi0/pi1/pi1b — the 4 converted pins + Π.1
+foundation + Mäqabyan all green). Total **5780** tests collected
+(+45). Local commit only — no push, no zip ("back to work" ≠
+save per §4 + memory [[continue-not-save]]).
+
+**Next per most-logical-path:** τ.7.x.u — the Π.1-mapped
+**1 Enoch** [1515,1566] (`መጽሐፈ ሄኖክ`), the SECOND LARGE
+Tewahedo-distinctive book (ch_count 108, R.H. Charles 1912;
+one_enoch is Π.1-tentative → same structural_map-upgrade +
+prior-pin-conversion pattern as jubilees here; τ.7.x.s/t already
+cross-validated p1515 → 1 Enoch). Geʽez catchup (τ.6.x.2.j+)
+follows per D4-c. Then the standalone-edition constitution +
+EN back-translation phases per the ⚑ scope clarification (POST-
+rendering — do NOT pull forward).
+
+---
+
+## Prior session — 2026-05-16 / τ.7.x.s — AMHARIC DANIEL-ADDITIONS CLUSTER
 (paz + bel) FULL-BOOK INGEST + the Susanna structural-discovery
 deferral. TWENTY-FIRST + TWENTY-SECOND τ.7.x.* per-book ships
 under D4-c Amharic-first + D1-a per-book cadence (user "continue"
 → advance per PLAN; a multi-small-book ship, the τ.7.x.n Mäqabyan-
 trilogy precedent). Drains the EOTC "ተረፈ ዳንኤል" cluster
-p1449-1453.**
+p1449-1453.
 
 Adds `amharic-tewahedo/paz.py` (The Prayer of Azariah + the Song
 of the Three Holy Children, p1449-1451, 30 v, 44.1%,
