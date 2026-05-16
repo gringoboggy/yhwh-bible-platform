@@ -65,7 +65,17 @@ def atomic_write(path: Path | str, text: str, *, encoding: str = "utf-8") -> Pat
     path = Path(path)
     tmp = path.with_suffix(path.suffix + ".tmp")
     try:
-        tmp.write_text(text, encoding=encoding)
+        # ω.48 / F-DEEP3-2: newline="" disables the platform newline
+        # translation Path.write_text does by default (newline=None →
+        # `\n`→os.linesep, i.e. CRLF on Windows). The repo is
+        # LF-canonical (.gitattributes `* text=auto`); without this
+        # every atomic_write on Windows produced CRLF, which git
+        # normalizes on add (so commits stay clean) but which shows
+        # files as spuriously modified in mid-test-run `git status`
+        # — the editions.yaml false-alarm AUDIT_2026-05-15-DEEP-3
+        # root-caused (F-DEEP3-2). Writing the string verbatim keeps
+        # on-disk == in-memory == repo (LF) on every platform.
+        tmp.write_text(text, encoding=encoding, newline="")
         os.replace(tmp, path)
     except Exception:
         try:

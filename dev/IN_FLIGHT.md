@@ -4,6 +4,53 @@
 
 ## Prior task
 
+**ω.48 HYGIENE BUNDLE — COMPLETE 2026-05-15. User "fix anything
+there is to fix" → actioned the AUDIT_2026-05-15-DEEP-3 carry-
+forward ledger.**
+
+**Outcome:**
+- [x] F-DEEP3-2 — `scripts/core/notes_io.py::atomic_write` now
+      passes `newline=""` (LF verbatim, not Windows CRLF). Hardens
+      the canonical I/O chokepoint + the PRIMARY editions.yaml
+      writer + every atomic_write caller project-wide. **PARTIAL
+      by design**: a test-only path (snapshots._dump_edition_record
+      via TestOmega16EditionSnapshots) still emits CRLF; per
+      systematic-debugging Phase-4.5 + no-over-engineering the
+      residual is honestly characterized as intrinsic benign
+      git-normalized noise (never commits — DEEP-3-proven) and NOT
+      whack-a-mole-pursued. DEEP-3's "benign, deferred" judgment
+      confirmed correct.
+- [x] F-DEEP2-3 — content/customization.yaml Ω.0 banner comment
+      on the disabled commercial print_covers stanzas (zero-risk).
+- [x] F-DEEP2-4 — _meta.yaml ingest_record-convention documented
+      as INTENTIONAL (bare τ.7.x.a-seed vs suffixed per-book);
+      resolved-by-documentation, NOT the 15-file cosmetic rename
+      (DEEP-2 judged not-worth-the-risk; data correct; no non-test
+      consumer). Uniform rename remains a clean optional follow-up.
+- [x] editions_path= structural refactor stays DEFERRED (DEEP-3
+      higher-risk; not load-bearing — the F-DEEP3-1 cache-clear +
+      atomic_write hardening already fix the actual data bug).
+- [x] Validation: atomic_write is a core chokepoint → full -n auto
+      regression sweep **5659 passed** (== clean DEEP-3 baseline,
+      ZERO regressions) / 1 skip / 1 fail (= IN_FLIGHT-active for
+      ω.48 → 5660/1/0 with THIS marker→idle flip) + 4 known -n-auto
+      flake-errors (all pass serially in isolation, verified);
+      mypy scripts/core/ clean (notes_io.py change type-safe);
+      ruff 504; lint_plan 4·0·0; F-DEEP3-1 content fix re-confirmed
+      holding (git diff --ignore-cr-at-eol empty under leak-trigger)
+- [x] SESSION_STATE / CHANGELOG updated; memory feedback_editions_
+      crlf_gitnoise updated for ω.48; IN_FLIGHT → idle; local
+      commit (no push, no zip); editions.yaml benign CRLF-noise
+      reverted (NOT in the commit)
+
+**Next per most-logical-path:** τ.7.x.s = the Daniel-additions
+cluster paz/sus/bel (`ተረፈ ዳንኤል` p1449-1453), then Π.1-mapped
+Jubilees [1454,1514] (τ.7.x.t) + 1 Enoch [1515,1566] (τ.7.x.u).
+
+### Earlier — AUDIT_2026-05-15-DEEP-3 (superseded by ω.48 above)
+
+**AUDIT_2026-05-15-DEEP-3 — COMPLETE 2026-05-15. User "major audit
+
 **AUDIT_2026-05-15-DEEP-3 — COMPLETE 2026-05-15. User "major audit
 of whole matrix" after τ.7.x.n + τ.7.x.o/p + τ.7.x.q/r (5 phases /
 7 books since DEEP-2). DEEP-class 3-parallel-subagent sweep + solo

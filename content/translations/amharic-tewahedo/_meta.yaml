@@ -88,6 +88,20 @@ stats:
 # "በመጀመሪያ" opening); publisher's parallel-Bible edition is
 # authoritative for the Tewahedo parallel-Bible track per τ.7.x.a.0
 # PILOT §3 finding.
+# INTENTIONAL KEY CONVENTION (resolves AUDIT carry-forward
+# F-DEEP2-4): the FIRST/seed per-book ingest record (τ.7.x.a
+# Genesis — the parallel-Bible-EOTC opener) is the bare key
+# `ingest_record:`; every subsequent per-book record uses the
+# suffixed form `ingest_record_tau7x<letter>:` (b, c, … r) /
+# `ingest_record_tau6x2<letter>:` for the Geʽez stream. This
+# asymmetry is BY DESIGN — `ingest_record` is "the" canonical
+# seed record, the suffixed keys are per-book deltas off it; the
+# tests assert exactly this (`"ingest_record" in m` for τ.7.x.a +
+# `ingest_record_tau7x<letter>` for the rest). It is NOT a naming
+# inconsistency to "fix" — a bare→suffixed rename would churn 15
+# test files for zero functional gain (the data is correct; totals
+# verified). Documented here so future audits read it as a
+# deliberate convention, not a wart.
 ingest_record:
   phase: τ.7.x.a
   ingested_date: 2026-05-15

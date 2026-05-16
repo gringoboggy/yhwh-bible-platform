@@ -1,10 +1,63 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-
+**Updated 2026-05-15 / ω.48 HYGIENE BUNDLE — actions the
+AUDIT_2026-05-15-DEEP-3 carry-forward ledger (user "fix anything
+there is to fix"). 3 fixes: F-DEEP3-2 atomic_write LF hardening +
+F-DEEP2-3 customization.yaml Ω.0 banner + F-DEEP2-4 _meta.yaml
+ingest_record-convention documentation.**
+
+**F-DEEP3-2 (atomic_write LF hardening — PARTIAL by design, the
+disciplined call):** `scripts/core/notes_io.py::atomic_write` now
+passes `newline=""` so the canonical I/O chokepoint writes the
+string verbatim (LF) instead of the Windows platform CRLF. This
+hardens the PRIMARY editions.yaml writer (api_save_edition_meta →
+atomic_write) + every other atomic_write caller project-wide — a
+genuine correctness improvement (the repo is LF-canonical via
+`.gitattributes * text=auto`). **It does NOT fully eliminate the
+editions.yaml mid-test `git status` flicker**: a TEST-ONLY
+secondary path (TestOmega16EditionSnapshots re-persisting via
+`scripts/core/snapshots.py::_dump_edition_record`) also emits CRLF
+on Windows. Per `superpowers:systematic-debugging` Phase-4.5
+(2 fixes, the residual keeps surfacing in a different writer →
+stop symptom-whacking, question the approach) + the no-over-
+engineering principle, chasing every Windows file-writer with
+`newline=""` for a **provably benign** artifact (zero content
+change; git `autocrlf=input` + `text=auto` normalizes CRLF→LF on
+`git add` so it NEVER reaches a commit — proven at DEEP-3) is the
+wrong risk/reward. The DEEP-3 audit's deferral judgment was
+correct: the residual is intrinsic Windows-git-normalization
+noise, not a commit-affecting bug. Operational guidance stands:
+**read `git diff` (content), not `git status` (CRLF-noisy on
+Windows), for editions.yaml** (memory
+`feedback_editions_crlf_gitnoise`).
+
+**F-DEEP2-3:** `content/customization.yaml` print_covers block now
+carries an Ω.0 banner comment documenting the disabled commercial
+stanzas as intentionally Ω.0-neutralized (renderer print_cover.py
+already LOAD-BEARING-NO-LONGER per §7.4) — resolves the ambiguity.
+
+**F-DEEP2-4:** `_meta.yaml` now documents the bare `ingest_record:`
+(τ.7.x.a Genesis seed) vs suffixed `ingest_record_tau7x<letter>:`
+asymmetry as an INTENTIONAL convention. Resolved by documentation,
+NOT a 15-test-file cosmetic rename — the data was always correct,
+no non-test consumer reads the bare key, and DEEP-2 itself judged
+the rename "not worth the risk" (no functional defect; zero gain
+for the churn). [If a uniform rename is specifically wanted later,
+it remains a clean mechanical follow-up.]
+
+The deeper `editions_path=` structural refactor stays DEFERRED
+(DEEP-3-flagged higher-risk; the atomic_write chokepoint hardening
++ the F-DEEP3-1 cache-clear fix already resolve the actual data
+bug, so the refactor is not load-bearing). ω.48 = next free ω
+after ω.47.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-
 SOLOMON FULL-BOOK INGEST ship — NINETEENTH + TWENTIETH τ.7.x.*
 per-book ingests under D4-c Amharic-first + D1-a per-book cadence.
 Drains the two MAJOR books of the SEVENTH EOTC-parallel block
-(Baruch p1429-1431 + Wisdom of Solomon p1432-1448).**
+(Baruch p1429-1431 + Wisdom of Solomon p1432-1448).
 
 > **AUDIT_2026-05-15-DEEP-3 ran post-τ.7.x.r** (user "major audit
 > of whole matrix"; DEEP-class 3-parallel-subagent sweep + solo
