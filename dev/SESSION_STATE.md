@@ -1,10 +1,86 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.l + τ.7.x.m AMHARIC JUDITH + ESTHER
+**Updated 2026-05-15 / τ.7.x.n AMHARIC MÄQABYAN TRILOGY (mq1 + mq2
++ mq3) FULL-BOOK INGEST ship — FOURTEENTH + FIFTEENTH + SIXTEENTH
+τ.7.x.* per-book ingests under D4-c Amharic-first + D1-a per-book
+cadence. FIRST Tewahedo-distinctive book(s) + FIRST multi-book
+EOTC-parallel block in the τ.7.x.* stream. Drains the FIFTH
+EOTC-parallel block p1318-1378 (the Mäqabyan trilogy).**
+
+Adds `amharic-tewahedo/mq1.py` (1 Mäqabyan, `መጽሐፈ መቃብያን ቀዳማዊ`,
+p1318-1350, 339 v, 67.5%) + `mq2.py` (2 Mäqabyan, `ካልዕ`,
+p1351-1368, 198 v, 77.3%) + `mq3.py` (3 Mäqabyan, `ሣልስ`,
+p1369-1378, 79 v, 42.0%). Trilogy combined 616 / 946 = 65.1%;
+16-book combined 9551 / 12388 = 77.1%. Pipeline reused VERBATIM
+from τ.7.x.m — only deltas: MQ1/MQ2/MQ3_VERSE_COUNTS floors +
+3 new single-book structural_map sections `meqabyan_{i,ii,iii}`
+(the original multi-book `meqabyan` section RETAINED for Π.1/
+δ.1.x). FOURTEENTH/FIFTEENTH/SIXTEENTH consecutive zero-parser-
+API-delta (24-ship across both columns).
+
+> **STRUCTURAL-DISCOVERY CORRECTION (τ.7.x.a.0-PILOT-class).**
+> The first τ.7.x.n attempt used the τ.6.x.0a
+> `meqabyan.subsections` ranges and mq2 recovered an ANOMALOUS
+> 15/256 (5.9%). Per the τ.6.x.0b honesty contract (investigate
+> anomalous low coverage, don't accept it) a content-boundary
+> inspection (running-header ordinal ቀዳማዊ→ካልዕ→ሣልስ + explicit
+> per-book end-colophons) found the τ.6.x.0a subsections WRONG
+> (coarse approximate scan in the deep-PDF "(ረቂቅ)" draft region).
+> TRUE splits: mq1=[1318,1350] (p1350 mq1-end colophon page),
+> mq2=[1351,1368] (p1368 'ሁለተኛው መቃብያን ደረሰ ተፈጸመ' colophon),
+> mq3=[1369,1378] (p1378 trilogy capstone; p1379→wisdom/Sirach).
+> OUTER bounds [1318,1378] UNCHANGED (still τ.7.x.l/m-cross-
+> validated). Both the declarative `meqabyan.subsections` + the
+> extract_parallel_pdf.py heuristic safety-net dict corrected —
+> coordination-POSITIVE for δ.1.x (the δ.1.x.A.0 mq1-ch1-9
+> operator page range [1318,1326] stays valid inside corrected
+> mq1 [1318,1350]; future δ.1.x mq2/mq3 batches now have correct
+> ranges). After correction mq2 = 198/256 (77.3%).
+
+**Coordination resolved (PLAN τ.7.x.n NEXT-UP):** τ.7.x.n is the
+INDEPENDENT OCR scripture-text witness, `ocr-tier3` + EXPLICITLY
+δ.1.x-REPLACEABLE per the extract_parallel_pdf.py QUALITY POLICY.
+It touches NEITHER `content/divergence/*` (δ.1.x) NOR
+`geez-tewahedo/mq*` (Π.1 page-image authoritative slot) NOR
+`content/sources/ethiopian_commentaries.json` (γ.4.8 patristic
+apparatus, 212 entries) NOR `content/notes/mq*.py` (v1 English,
+immutable during δ.1.x). **Floor-coordination proof:** the
+MQ{1,2,3}_VERSE_COUNTS floors are derived by the IDENTICAL per-
+chapter-max-verse method the δ.1.x divergence JSON documents; mq1
+ch1-9 floor {1:14,2:28,3:38,4:5,5:14,6:23,7:1,8:22,9:3} EXACTLY
+matches `meqabyan_geez_divergence.json` — all three Mäqabyan
+layers (γ.4.8 apparatus / δ.1.x revision / τ.7.x.n parallel-Bible
+OCR) align on ONE verse structure traceable to the γ.4.8.F
+Wright 1877 + Cowley 1974b apparatus.
+
+**Empirical paragraph-mode finding (τ.7.x.a.0-PILOT-precedent):**
+a-priori CLI guidance said Tewahedo-distinctive sections leave
+`--paragraph-mode` OFF; a --dry-run probe showed default-mode
+recovered only 17/502 (3.4%) for mq1 vs 512 with paragraph-mode.
+The parallel-Bible Mäqabyan text-layer lacks usable Ethiopic-
+numeral prefixes — all τ.7.x.n uses `--paragraph-mode` (empirical
+over assumption, the τ.6.x.0b discipline).
+
+`test_parallel_bible_tau7xn.py` adds 60 pins (14 classes) incl.
+the δ.1.x floor-coordination-proof + γ.4.8-independence + the
+structural-discovery-correction + prior-pin-preservation classes.
+
+**Next per most-logical-path:** τ.7.x.o — the p1318-1378 Mäqabyan
+block is DRAINED; next EOTC-parallel content per the τ.7.x.h scan
+is Sirach + Paralipomena Jeremiah at p1379+ (the τ.7.x.n boundary
+inspection confirmed wisdom/Sirach content onset at p1379 right
+after the mq3 p1378 capstone). Geʽez catchup (τ.6.x.2.j+) follows
+per D4-c. δ.1.x.A (mq1 ch1-9 operator batch) remains the separate
+operator-mediated Mäqabyan-revision track (now with corrected
+page ranges).
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.l + τ.7.x.m AMHARIC JUDITH + ESTHER
 FULL-BOOK INGEST ship — TWELFTH + THIRTEENTH τ.7.x.* per-book
 ingests under D4-c Amharic-first + D1-a per-book cadence. Drains
 the FOURTH EOTC-parallel block p1294-1317 to the clean Mäqabyan-I
-p1318 seam.**
+p1318 seam.
 
 > **AUDIT_2026-05-15-DEEP-2 ran post-τ.7.x.m** (user "major audit
 > / fix / save"; DEEP-class parallel-subagent sweep, ~18

@@ -642,12 +642,24 @@ class TestPi1bClosedArcInvariantPreservation:
         assert oen.get("pdf_page_range") == [1515, 1566]
         assert oen.get("verified_at_phase") == "Π.1"
 
-    def test_meqabyan_subsections_unchanged(self):
+    def test_meqabyan_subsections_tau7xn_corrected(self):
+        """Was test_meqabyan_subsections_unchanged (pinned the
+        τ.6.x.0a values). τ.7.x.n's STRUCTURAL-DISCOVERY CORRECTION
+        legitimately invalidated the τ.6.x.0a subsection ranges (a
+        coarse approximate scan that was WRONG — mq2 recovered an
+        anomalous 5.9%). Per memory feedback_share_pin_pattern this
+        prior-ship pin is FLIPPED to the corrected values AS PART OF
+        the triggering ship (τ.7.x.n). The closed-arc invariant that
+        actually matters — meqabyan OUTER bounds [1318,1378] +
+        verified_at_phase τ.6.x.0a — is still asserted intact by
+        test_meqabyan_section_unchanged above; only the internal
+        split values are corrected (content-boundary-verified at
+        τ.7.x.n via running-header ordinal + end-colophons)."""
         parent = _load_parent_cfg()
         subs = parent["structural_map"]["meqabyan"]["subsections"]
-        assert subs.get("mq1") == [1318, 1365]
-        assert subs.get("mq2") == [1366, 1372]
-        assert subs.get("mq3") == [1373, 1378]
+        assert subs.get("mq1") == [1318, 1350]  # τ.7.x.n-corrected (was [1318,1365])
+        assert subs.get("mq2") == [1351, 1368]  # τ.7.x.n-corrected (was [1366,1372])
+        assert subs.get("mq3") == [1369, 1378]  # τ.7.x.n-corrected (was [1373,1378])
 
     def test_ocr_strategy_authorized_option_unchanged(self):
         """τ.6.x.0b's Option D Hybrid authorization must stand."""

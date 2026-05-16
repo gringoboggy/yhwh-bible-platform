@@ -1135,6 +1135,116 @@ ESTHER_VERSE_COUNTS = {
 # enumeration; the Greek Additions are the separate `b25` book).
 
 
+# τ.7.x.n — Mäqabyan trilogy verse counts (mq1 / mq2 / mq3). The
+# FIRST Tewahedo-distinctive book(s) in the τ.7.x.* stream and the
+# FIRST multi-book EOTC-parallel block (p1318-1378). Mäqabyan has NO
+# Western canonical enumeration — it is uniquely Tewahedo-canonical
+# (distinct from the Greek LXX 1-4 Maccabees: shared title only).
+#
+# COORDINATION (per PLAN τ.7.x.n NEXT-UP note — coordinate with the
+# γ.4.8 patristic arc + the δ.1.x Meqabyan-revision track):
+#   The floors are derived as the per-chapter MAX verse number across
+#   content/candidates/mq{N}_ch_*.json — the IDENTICAL derivation the
+#   δ.1.x divergence JSON documents for its mq1 ch1-9
+#   per_chapter_verse_count_floor ("max-verse-with-note ... Wright
+#   1877 + Cowley 1974b apparatus (γ.4.8.F sources) is the canonical
+#   reference"). mq1 ch1-9 below {1:14,2:28,3:38,4:5,5:14,6:23,7:1,
+#   8:22,9:3} EXACTLY matches content/divergence/
+#   meqabyan_geez_divergence.json::_meta.batch_prep.
+#   per_chapter_verse_count_floor — so the parallel-Bible ingest, the
+#   δ.1.x revision, and the γ.4.8 apparatus all align on ONE verse
+#   structure. ch_counts match content/books.yaml (mq1:36 b26 /
+#   mq2:21 b27 / mq3:10 b28) + build_meqabyan_revision.py BOOKS.
+#
+# Per the extract_parallel_pdf.py QUALITY POLICY, Mäqabyan output is
+# `ocr-tier3` and EXPLICITLY δ.1.x-REPLACEABLE — this is the OCR
+# witness the δ.1.x page-image-tier1 divergence apparatus diverges
+# FROM, NOT the long-term authoritative text. Fourteenth/fifteenth/
+# sixteenth renumber-floors under D1-a per-book cadence.
+MQ1_VERSE_COUNTS = {
+    1: 14,
+    2: 28,
+    3: 38,
+    4: 5,
+    5: 14,
+    6: 23,
+    7: 1,
+    8: 22,
+    9: 3,
+    10: 5,
+    11: 3,
+    12: 1,
+    13: 20,
+    14: 15,
+    15: 8,
+    16: 1,
+    17: 14,
+    18: 2,
+    19: 1,
+    20: 14,
+    21: 14,
+    22: 14,
+    23: 14,
+    24: 14,
+    25: 9,
+    26: 14,
+    27: 14,
+    28: 38,
+    29: 5,
+    30: 21,
+    31: 14,
+    32: 14,
+    33: 8,
+    34: 14,
+    35: 14,
+    36: 49,
+}
+# Total 1 Mäqabyan verses = 502 (36 ch; Maqabis-of-Benjamin
+# martyrology vs Ṣiruṣaydan).
+
+MQ2_VERSE_COUNTS = {
+    1: 14,
+    2: 9,
+    3: 11,
+    4: 17,
+    5: 14,
+    6: 8,
+    7: 9,
+    8: 14,
+    9: 11,
+    10: 14,
+    11: 9,
+    12: 18,
+    13: 7,
+    14: 29,
+    15: 11,
+    16: 8,
+    17: 5,
+    18: 14,
+    19: 10,
+    20: 13,
+    21: 11,
+}
+# Total 2 Mäqabyan verses = 256 (21 ch; Maqabis-of-Moab conversion
+# + sons' martyrdom + Ṣiruṣaydan's death).
+
+MQ3_VERSE_COUNTS = {
+    1: 28,
+    2: 24,
+    3: 15,
+    4: 34,
+    5: 14,
+    6: 14,
+    7: 14,
+    8: 10,
+    9: 5,
+    10: 30,
+}
+# Total 3 Mäqabyan verses = 188 (10 ch; homiletic + angelological
+# dialogue + Satan-refused-Adam tradition + resurrection-doctrine).
+# Trilogy total = 502 + 256 + 188 = 946 verses / 67 chapters.
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -1815,10 +1925,14 @@ def extract_section(
             # though Π.1 hoisted them into the declarative subsections
             # map above; this fires only if subsections is removed or
             # malformed in _source.yaml.
+            # τ.7.x.n-corrected (was mq1[1318,1365]/mq2[1366,1372]/
+            # mq3[1373,1378] — the coarse τ.6.x.0a approximate scan;
+            # corrected by τ.7.x.n content-boundary inspection, see
+            # _source.yaml::structural_map.meqabyan.subsections).
             heuristic = {
-                ("meqabyan", "mq1"): (1318, 1365),
-                ("meqabyan", "mq2"): (1366, 1372),
-                ("meqabyan", "mq3"): (1373, 1378),
+                ("meqabyan", "mq1"): (1318, 1350),
+                ("meqabyan", "mq2"): (1351, 1368),
+                ("meqabyan", "mq3"): (1369, 1378),
             }
             key = (section_name, pilot_book)
             if key in heuristic:
@@ -2035,6 +2149,12 @@ def _build_docstring_extra(
         floor_dict = JUDITH_VERSE_COUNTS
     elif renumber == "esther":
         floor_dict = ESTHER_VERSE_COUNTS
+    elif renumber == "meqabyan_i":
+        floor_dict = MQ1_VERSE_COUNTS
+    elif renumber == "meqabyan_ii":
+        floor_dict = MQ2_VERSE_COUNTS
+    elif renumber == "meqabyan_iii":
+        floor_dict = MQ3_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2127,6 +2247,9 @@ def main() -> int:
             "tobit",
             "judith",
             "esther",
+            "meqabyan_i",
+            "meqabyan_ii",
+            "meqabyan_iii",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2159,7 +2282,15 @@ def main() -> int:
             "and 'esther' (ESTHER_VERSE_COUNTS, 10 ch / 167 v; "
             "መጽሐፈ አስቴር; τ.7.x.m — Hebrew Esther core sourced from the "
             "EOTC-parallel block p1308-1317, the documented alternative "
-            "to the τ.7.x.i dzamaragna-gap Esther). "
+            "to the τ.7.x.i dzamaragna-gap Esther), and the Mäqabyan "
+            "trilogy 'meqabyan_i' (MQ1_VERSE_COUNTS, 36 ch / 502 v), "
+            "'meqabyan_ii' (MQ2_VERSE_COUNTS, 21 ch / 256 v), "
+            "'meqabyan_iii' (MQ3_VERSE_COUNTS, 10 ch / 188 v) — "
+            "τ.7.x.n; FIRST Tewahedo-distinctive + FIRST multi-book "
+            "EOTC-parallel block (p1318-1378); floors derived by the "
+            "δ.1.x per-chapter-max-verse method (γ.4.8.F Wright 1877 + "
+            "Cowley 1974b apparatus); ocr-tier3 + EXPLICITLY δ.1.x-"
+            "replaceable per the QUALITY POLICY. "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2218,6 +2349,12 @@ def main() -> int:
         renumber_floor = JUDITH_VERSE_COUNTS
     elif args.renumber == "esther":
         renumber_floor = ESTHER_VERSE_COUNTS
+    elif args.renumber == "meqabyan_i":
+        renumber_floor = MQ1_VERSE_COUNTS
+    elif args.renumber == "meqabyan_ii":
+        renumber_floor = MQ2_VERSE_COUNTS
+    elif args.renumber == "meqabyan_iii":
+        renumber_floor = MQ3_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

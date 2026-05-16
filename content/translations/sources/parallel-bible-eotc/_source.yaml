@@ -809,29 +809,166 @@ structural_map:
       # the heuristic dict in extract_parallel_pdf.py at Π.1 so the
       # tool can consume them declaratively rather than via a code
       # fallback (the heuristic remains as a safety net).
-      mq1: [1318, 1365]
-      mq2: [1366, 1372]
-      mq3: [1373, 1378]
+      #
+      # ── τ.7.x.n CORRECTION 2026-05-15 ──────────────────────────
+      # The τ.6.x.0a values below were a COARSE "approximately"
+      # title-marker scan in the deep-PDF "(ረቂቅ)" draft region and
+      # were WRONG (old: mq1[1318,1365]/mq2[1366,1372]/mq3[1373,
+      # 1378]). τ.7.x.n content-boundary inspection (running-header
+      # ordinal ቀዳማዊ→ካልዕ→ሣልስ transitions + explicit per-book
+      # end-colophons) establishes the TRUE splits below. The OUTER
+      # bounds [1318,1378] are UNCHANGED (still τ.7.x.l/m-cross-
+      # validated). This correction is coordination-POSITIVE for
+      # δ.1.x: the δ.1.x.A.0 batch-prep operator_renders_pdf_pages
+      # for mq1 ch1-9 [1318,1326] stays valid (inside corrected mq1
+      # [1318,1350]); future δ.1.x mq2/mq3 batches must use the
+      # corrected ranges (the OLD mq2/mq3 ranges pointed at the
+      # wrong book). Π.1 pilot mode + the extract_parallel_pdf.py
+      # heuristic safety-net dict are updated to match.
+      mq1: [1318, 1350]   # τ.7.x.n-corrected (was [1318,1365])
+      mq2: [1351, 1368]   # τ.7.x.n-corrected (was [1366,1372])
+      mq3: [1369, 1378]   # τ.7.x.n-corrected (was [1373,1378])
     notes: |
-      Verified at τ.6.x.0a (2026-05-14) by scanning the FULL Bible
-      PDF for book-title markers. The full PDF is 2,539 pages with
-      Genesis at page 0; Meqabyan occupies pages 1318-1378
-      (approximately; book boundaries within the section confirmed
-      by the 'መጽሐፈ መቃብያን ቀዳማዊ/ካልዕ/ሣልስ' title-marker scan).
+      Outer bounds verified at τ.6.x.0a (2026-05-14) by scanning
+      the FULL Bible PDF for book-title markers; the full PDF is
+      2,539 pages with Genesis at page 0; Meqabyan occupies pages
+      1318-1378 (61 pp; outer bounds τ.7.x.l/m-cross-validated via
+      Esther ending p1317 → Mäqabyan I opening p1318).
 
-      Sub-ranges within meqabyan (publisher convention):
-        1 Mq = pages 1318-1365 (36 chapters) — opens at 1318 with
-               'መጽሐፈ • መቃብያን ፡ ቀዳማዊ'
-        2 Mq = pages 1366-1372 (21 chapters) — opens at 1366 with
-               'መጽሐፈ ፣ መቃብያን ፣ ክልፅ' (Meqabyan II / 'second')
-        3 Mq = pages 1373-1378 (10 chapters) — opens at 1373 with
-               'መጽሐፈ ፣ መቃብያን • ሣልስ' (Meqabyan III / 'third')
+      **Internal subsection splits CORRECTED at τ.7.x.n (2026-05-
+      15)** — the τ.6.x.0a title-marker scan got the outer bounds
+      right but the internal splits wrong (it was an approximate
+      scan in the draft region). τ.7.x.n content-boundary
+      inspection (running-header ordinal + end-colophons):
+        1 Mq = pages 1318-1350 (36 chapters) — opens at 1318 with
+               'መጽሐፈ • መቃብያን ፡ ቀዳማዊ'; p1350 is the short mq1-end
+               colophon page.
+        2 Mq = pages 1351-1368 (21 chapters) — running header
+               'ካልዕ' (Meqabyan II / 'second'); p1368 carries the
+               explicit end-colophon 'ሁለተኛው መቃብያን ደረሰ ተፈጸመ'.
+        3 Mq = pages 1369-1378 (10 chapters) — running header
+               'ሣልስ' (Meqabyan III / 'third'); p1378 is the
+               trilogy capstone colophon; p1379 switches to
+               wisdom/Sirach content.
 
       Note: the 76-page Meqabyan_Geez_Amharic_parallel.pdf extract
       uses a different page numbering (scan pages 832-907 from the
       archive.org metadata). For τ.6.x.0a we use the FULL PDF's
       0-indexed pages because that PDF is the publisher's primary
       submitted file.
+
+  # ── τ.7.x.n per-book extraction sections ────────────────────────
+  # The original `meqabyan` section above is a MULTI-BOOK declaration
+  # (book_codes [mq1,mq2,mq3]) RETAINED untouched for Π.1 page-image
+  # extraction + δ.1.x revision consumers + the pilot/subsections
+  # mechanism. The three single-book sections below are added at
+  # τ.7.x.n so the per-book τ.7.x.* OCR ingest reuses the EXACT
+  # 13-prior-ship single-book pipeline pattern (one structural_map
+  # section → one book_code → one VERSE_COUNTS floor → one extract),
+  # preserving the zero-parser-API-delta property. Page sub-ranges
+  # are the τ.6.x.0a-verified `meqabyan.subsections` ranges (NOT
+  # re-derived — same source, same boundaries).
+  #
+  # COORDINATION: τ.7.x.n writes ONLY content/translations/amharic-
+  # tewahedo/mq{1,2,3}.py at ocr-tier3 and is EXPLICITLY δ.1.x-
+  # replaceable per the extract_parallel_pdf.py QUALITY POLICY — the
+  # independent OCR witness the δ.1.x page-image-tier1 divergence
+  # apparatus diverges FROM. It touches NEITHER geez-tewahedo/mq*
+  # (Π.1 authoritative slot) NOR content/divergence/*.json (δ.1.x)
+  # NOR content/sources/ethiopian_commentaries.json (γ.4.8 patristic
+  # apparatus, 212 entries) NOR content/notes/mq*.py (v1 English,
+  # immutable during δ.1.x).
+  meqabyan_i:
+    book_codes: [mq1]
+    pdf_page_range: [1318, 1350]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.n
+    chapter_count_expected: 36   # content/books.yaml `mq1` ch_count: 36 (b26)
+    notes: |
+      τ.7.x.n per-book extraction section for 1 Mäqabyan (mq1,
+      `መጽሐፈ መቃብያን ቀዳማዊ`). Opens at p1318 with 'መጽሐፈ • መቃብያን ፡
+      ቀዳማዊ' (the EXACT seam the τ.7.x.l/m Esther scan cross-
+      validated against structural_map.meqabyan [1318,1378]).
+
+      **τ.7.x.n STRUCTURAL-DISCOVERY CORRECTION (τ.7.x.a.0-PILOT-
+      class):** the τ.6.x.0a `meqabyan.subsections` ranges
+      (mq1[1318,1365]/mq2[1366,1372]/mq3[1373,1378]) were a coarse
+      "approximately" title-marker scan in the deep-PDF "(ረቂቅ)"
+      draft region and are WRONG. τ.7.x.n content-boundary
+      inspection (running-header ordinal ቀዳማዊ→ካልዕ→ሣልስ + explicit
+      end-colophons) establishes the TRUE internal splits:
+      mq1=[1318,1350] (p1350 = short mq1-end colophon page),
+      mq2=[1351,1368] (p1368 = 'ሁለተኛው መቃብያን ደረሰ ተፈጸመ' mq2-end
+      colophon), mq3=[1369,1378] (p1378 = trilogy capstone
+      colophon; p1379 switches to wisdom/Sirach content). The
+      OUTER bounds [1318,1378] = 61 pp are UNCHANGED (still the
+      τ.7.x.l/m-cross-validated meqabyan section); only the
+      internal subsection splits are corrected. mq1 = 33 pp / 36
+      ch (~0.92 pp/ch). MQ1_VERSE_COUNTS (36 ch / 502 v) derived as
+      per-chapter max-verse from content/candidates/mq1_ch_*.json —
+      the same method content/divergence/meqabyan_geez_divergence.
+      json::_meta.batch_prep.per_chapter_verse_count_floor documents
+      for its mq1 ch1-9 floor; mq1 ch1-9 {1:14,2:28,3:38,4:5,5:14,
+      6:23,7:1,8:22,9:3} EXACTLY matches that δ.1.x JSON — decisive
+      proof all three Mäqabyan layers (γ.4.8 apparatus, δ.1.x
+      revision, τ.7.x.n parallel-Bible OCR) align on one verse
+      structure traceable to the γ.4.8.F Wright 1877 + Cowley 1974b
+      apparatus. ocr-tier3 + δ.1.x-replaceable per the QUALITY
+      POLICY. Geʽez column deferred to τ.6.x.2.* under D4-c.
+
+  meqabyan_ii:
+    book_codes: [mq2]
+    pdf_page_range: [1351, 1368]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.n
+    chapter_count_expected: 21   # content/books.yaml `mq2` ch_count: 21 (b27)
+    notes: |
+      τ.7.x.n per-book extraction section for 2 Mäqabyan (mq2,
+      `መጽሐፈ ፣ መቃብያን ፣ ካልዕ`). Page range CORRECTED by τ.7.x.n
+      content-boundary inspection (see meqabyan_i notes for the
+      full τ.6.x.0a-subsections-were-wrong finding): mq2 = p1351
+      (after the p1350 mq1-end colophon page) through p1368 — p1368
+      carries the explicit mq2-end colophon 'ሁለተኛው መቃብያን ደረሰ
+      ተፈጸመ' ("the Second Mäqabyan is finished"). 18 pp / 21 ch
+      (~0.86 pp/ch). The old τ.6.x.0a `meqabyan.subsections.mq2`
+      [1366,1372] was almost entirely mq3-territory + the mq2-tail,
+      which is why the first τ.7.x.n extraction attempt on that
+      range recovered only 15/256 (5.9%) — an anomaly that
+      TRIGGERED this structural-discovery correction per the
+      τ.6.x.0b honesty contract (investigate anomalous low
+      coverage, do not accept it). MQ2_VERSE_COUNTS (21 ch / 256 v)
+      derived as per-chapter max-verse from content/candidates/
+      mq2_ch_*.json (same δ.1.x-documented method as mq1). ocr-
+      tier3 + δ.1.x-replaceable. Geʽez column deferred to
+      τ.6.x.2.* under D4-c.
+
+  meqabyan_iii:
+    book_codes: [mq3]
+    pdf_page_range: [1369, 1378]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.n
+    chapter_count_expected: 10   # content/books.yaml `mq3` ch_count: 10 (b28)
+    notes: |
+      τ.7.x.n per-book extraction section for 3 Mäqabyan (mq3,
+      `መጽሐፈ ፣ መቃብያን • ሣልስ`). Page range CORRECTED by τ.7.x.n
+      content-boundary inspection: mq3 = p1369 (after the p1368
+      mq2-end colophon) through p1378 — p1378 carries the trilogy
+      capstone colophon (ደረሰ ... ተፈጸመ); p1379 switches to wisdom/
+      Sirach content (running-header + 'ጥበብን' onset), confirming
+      the mq3 end-boundary and closing the FIFTH EOTC-parallel
+      block. 10 pp / 10 ch (~1.0 pp/ch). The old τ.6.x.0a
+      `meqabyan.subsections.mq3` [1373,1378] started 4 pages too
+      late (lost the mq3 opening chapters). MQ3_VERSE_COUNTS (10 ch
+      / 188 v) derived as per-chapter max-verse from content/
+      candidates/mq3_ch_*.json (same δ.1.x-documented method).
+      ocr-tier3 + δ.1.x-replaceable. Geʽez column deferred to
+      τ.6.x.2.* under D4-c.
 
   jubilees:
     book_codes: [jub]
@@ -4949,3 +5086,223 @@ ocr_strategy:
       witness; coordinate with the existing structural_map.meqabyan
       + the δ.1.x Meqabyan-revision track before shipping). The
       Geʽez catchup (τ.6.x.2.j-m) follows the Amharic stream per D4-c.
+    pipeline_reused_at_phase: τ.7.x.n   # back-link: τ.7.x.n (Amharic Mäqabyan trilogy mq1+mq2+mq3, p1318-1378) reused the τ.7.x.m pipeline VERBATIM; only deltas were MQ1/MQ2/MQ3_VERSE_COUNTS + structural_map.meqabyan_{i,ii,iii} (3 new single-book extraction sections). FIRST Tewahedo-distinctive + FIRST multi-book EOTC-parallel block in the τ.7.x.* stream. Carries the τ.6.x.0a meqabyan-subsections STRUCTURAL-DISCOVERY correction.
+
+  tau7xn_ingest:
+    shipped_at_phase: τ.7.x.n
+    shipped_date: 2026-05-15
+    triggered_by: |
+      User "continue" → next phase per PLAN. The p1294-1317 block
+      was drained at τ.7.x.m; next EOTC-parallel content is the
+      Mäqabyan trilogy at p1318-1378. FOURTEENTH/FIFTEENTH/SIXTEENTH
+      τ.7.x.* per-book ingests (mq1+mq2+mq3) under D4-c Amharic-
+      first + D1-a per-book cadence. FIRST Tewahedo-distinctive
+      book(s) + FIRST multi-book EOTC-parallel block in the τ.7.x.*
+      stream. Drains the FIFTH EOTC-parallel block.
+    books_ingested: [mq1, mq2, mq3]
+    structural_map_addition:
+      sections: [meqabyan_i, meqabyan_ii, meqabyan_iii]
+      approach: |
+        3 NEW single-book extraction sections (meqabyan_i [mq1] /
+        meqabyan_ii [mq2] / meqabyan_iii [mq3]) added so the per-
+        book τ.7.x.* OCR ingest reuses the EXACT 13-prior-ship
+        single-book pipeline pattern (one section → one book_code →
+        one VERSE_COUNTS floor → one extract). The original MULTI-
+        book `meqabyan` section (book_codes [mq1,mq2,mq3], [1318,
+        1378]) is RETAINED untouched for Π.1 page-image extraction +
+        the pilot/subsections mechanism. Preserves zero-parser-API-
+        delta (no orchestration/parser change — purely data/config).
+      meqabyan_i:   {pdf_page_range: [1318, 1350], chapter_count_expected: 36}
+      meqabyan_ii:  {pdf_page_range: [1351, 1368], chapter_count_expected: 21}
+      meqabyan_iii: {pdf_page_range: [1369, 1378], chapter_count_expected: 10}
+    structural_discovery_correction: |
+      **τ.7.x.a.0-PILOT-class finding.** The first τ.7.x.n
+      extraction attempt used the τ.6.x.0a `meqabyan.subsections`
+      ranges (mq1[1318,1365]/mq2[1366,1372]/mq3[1373,1378]) and mq2
+      recovered an ANOMALOUS 15/256 (5.9%) — far below any prior
+      τ.7.x.* floor. Per the τ.6.x.0b honesty contract (investigate
+      anomalous low coverage, do NOT accept it) a content-boundary
+      inspection (running-header ordinal ቀዳማዊ→ካልዕ→ሣልስ transitions
+      + explicit per-book end-colophons) established that the
+      τ.6.x.0a subsections were WRONG (a coarse approximate scan in
+      the deep-PDF "(ረቂቅ)" draft region). TRUE internal splits:
+        mq1 = [1318,1350]  (p1350 = short mq1-end colophon page)
+        mq2 = [1351,1368]  (p1368 = 'ሁለተኛው መቃብያን ደረሰ ተፈጸመ' colophon)
+        mq3 = [1369,1378]  (p1378 = trilogy capstone; p1379→wisdom)
+      OUTER bounds [1318,1378] UNCHANGED (still τ.7.x.l/m-cross-
+      validated). The original `meqabyan.subsections` +
+      extract_parallel_pdf.py heuristic safety-net dict are BOTH
+      updated to the corrected ranges — coordination-POSITIVE for
+      δ.1.x (the δ.1.x.A.0 mq1-ch1-9 operator_renders_pdf_pages
+      [1318,1326] stays valid inside corrected mq1 [1318,1350];
+      future δ.1.x mq2/mq3 batches now have correct ranges — the OLD
+      mq2/mq3 ranges pointed at the wrong book).
+    coordination:
+      vs_gamma48_patristic_arc: |
+        γ.4.8 shipped a Mäqabyan patristic-commentary arc (212
+        entries in content/sources/ethiopian_commentaries.json) from
+        a DIFFERENT CC0 source (archive.org three-books-of-meqabyan-
+        cc0-translation). τ.7.x.n is the INDEPENDENT OCR witness of
+        the SCRIPTURE TEXT — a different layer. τ.7.x.n touches
+        NEITHER ethiopian_commentaries.json NOR content/notes/mq*.py
+        (v1 English, immutable during δ.1.x). No collision.
+      vs_delta1x_revision_track: |
+        δ.1.x writes exports/meqabyan_geez_revision/*.md + content/
+        divergence/meqabyan_geez_divergence.json. τ.7.x.n writes
+        content/translations/amharic-tewahedo/mq{1,2,3}.py. No path
+        collision. Per the extract_parallel_pdf.py QUALITY POLICY
+        τ.7.x.n output is ocr-tier3 and EXPLICITLY δ.1.x-REPLACEABLE
+        — the OCR baseline the δ.1.x page-image-tier1 divergence
+        apparatus diverges FROM, NOT the long-term authoritative
+        text (that is the Π.1 page-image → geez-tewahedo/mq* slot,
+        also untouched here since --lang amharic).
+      floor_coordination_proof: |
+        MQ1/MQ2/MQ3_VERSE_COUNTS derived as per-chapter max-verse
+        from content/candidates/mq{N}_ch_*.json — the IDENTICAL
+        method content/divergence/meqabyan_geez_divergence.json::
+        _meta.batch_prep.per_chapter_verse_count_floor documents for
+        its mq1 ch1-9 floor. mq1 ch1-9 {1:14,2:28,3:38,4:5,5:14,
+        6:23,7:1,8:22,9:3} EXACTLY matches that δ.1.x JSON — all
+        three Mäqabyan layers (γ.4.8 apparatus / δ.1.x revision /
+        τ.7.x.n parallel-Bible OCR) align on ONE verse structure
+        traceable to the γ.4.8.F Wright 1877 + Cowley 1974b
+        apparatus.
+    helpers_added:
+      MQ1_VERSE_COUNTS: 36 ch → 502 v (1 Mäqabyan; Maqabis-of-Benjamin martyrology vs Ṣiruṣaydan). 14th renumber-floor.
+      MQ2_VERSE_COUNTS: 21 ch → 256 v (2 Mäqabyan; Maqabis-of-Moab conversion + sons' martyrdom). 15th renumber-floor.
+      MQ3_VERSE_COUNTS: 10 ch → 188 v (3 Mäqabyan; homiletic + angelological + resurrection-doctrine). 16th renumber-floor. Trilogy = 946 v / 67 ch.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` includes `meqabyan_i`, `meqabyan_ii`,
+        `meqabyan_iii` (wires MQ1/MQ2/MQ3_VERSE_COUNTS as floor
+        dicts in both the main() dispatch + _build_docstring_extra).
+      paragraph_mode_finding: |
+        EMPIRICAL finding (τ.7.x.a.0-PILOT-precedent — empirical
+        over a-priori): the CLI help a-priori advised Tewahedo-
+        distinctive sections (Meqabyan) leave --paragraph-mode OFF
+        (assumes explicit Ethiopic-numeral verse prefixes). A
+        --dry-run probe showed default-mode recovered only 17/502
+        (3.4%) for mq1 vs 512 with --paragraph-mode. The parallel-
+        Bible Mäqabyan text-layer does NOT carry usable numeral
+        prefixes — it behaves like the protocanonical books. ALL
+        τ.7.x.n extraction uses --paragraph-mode (the established
+        τ.7.x.* setting), validating the τ.6.x.0b empirical-over-
+        assumption discipline.
+    parser_api_change: |
+      No parser API changes. Only deltas: MQ1/MQ2/MQ3_VERSE_COUNTS
+      dicts + dispatch + structural_map.meqabyan_{i,ii,iii} blocks.
+      FOURTEENTH/FIFTEENTH/SIXTEENTH consecutive τ.7.x.* ships with
+      zero parser API change — 24-ship zero-API-delta across both
+      columns (incl. the τ.6.x.2.a-h Geʽez batch). The τ.7.x.a
+      template extends from protocanon → deuterocanon → Tewahedo-
+      distinctive multi-book section with ZERO pipeline mutation.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      extraction_engine: text-layer
+      parser_mode: paragraph
+      mq1:
+        pdf_pages_consumed: [1318, 1350]
+        raw_parser_output_verse_count: 339
+        renumbered_verse_count: 339
+        chapters_fully_populated: "1-27"
+        chapters_partial: {28: {got: 14, expected: 38}}
+        chapters_missing_count: 8   # 29-36
+        expected_total: 502
+        coverage_pct: 67.5
+      mq2:
+        pdf_pages_consumed: [1351, 1368]
+        raw_parser_output_verse_count: 198
+        renumbered_verse_count: 198
+        chapters_fully_populated: "1-15"
+        chapters_partial: {16: {got: 3, expected: 8}}
+        chapters_missing_count: 5   # 17-21
+        expected_total: 256
+        coverage_pct: 77.3
+        note: |
+          77.3% AFTER the structural-discovery correction (was an
+          anomalous 5.9% on the wrong τ.6.x.0a range — the anomaly
+          that triggered the correction).
+      mq3:
+        pdf_pages_consumed: [1369, 1378]
+        raw_parser_output_verse_count: 79
+        renumbered_verse_count: 79
+        chapters_fully_populated: "1-3"
+        chapters_partial: {4: {got: 12, expected: 34}}
+        chapters_missing_count: 6   # 5-10
+        expected_total: 188
+        coverage_pct: 42.0
+      trilogy_combined_coverage: |
+        616 / 946 = 65.1% across the 3 Mäqabyan books. Within the
+        deep-PDF "(ረቂቅ)" draft-region band (cf. 2es 34.1% / tob
+        48.0% / jdt 35.4%); mq1/mq2 above that band, mq3 within it.
+        All three renumber cleanly (1-N full / N+1 partial / rest
+        empty / 0 overflow). Honest per τ.6.x.0b; τ.6.x.3 audit +
+        the δ.1.x page-image-tier1 revision reconcile/supersede.
+      sixteen_book_combined_coverage: |
+        8935 + 616 = 9551 / (11442 + 946) = 9551 / 12388 = 77.1%
+        across 16 ingested books (still excludes the 9 SKIPPED
+        dzamaragna books).
+      regression_pin_tests:
+        - test_amharic_mq1_total_verse_count_floor
+        - test_amharic_mq2_total_verse_count_floor
+        - test_amharic_mq3_total_verse_count_floor
+        - test_mq_clean_renumber_shape
+        - test_meqabyan_subsections_corrected
+        - test_delta1x_floor_coordination_proof
+        - test_gamma48_independence_no_collision
+        - test_p1318_1378_block_drained
+    known_residual_issues:
+      ocr_tier3_replaceable_by_delta1x: |
+        Per the QUALITY POLICY this Mäqabyan OCR text is ocr-tier3
+        and EXPLICITLY superseded by the δ.1.x page-image-tier1
+        Geʽez-revision when that operator-mediated track ships
+        (δ.1.x.A-G → δ.1.Z). τ.7.x.n is the divergence-FROM baseline,
+        not the authoritative text.
+      partial_chapter_gaps: |
+        mq1 ch28 partial + 29-36 empty; mq2 ch16 partial + 17-21
+        empty; mq3 ch4 partial + 5-10 empty — standard ocr-tier3
+        deep-PDF tail loss; τ.6.x.3 batched audit cross-checks.
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true   # CLOSED Amharic Pentateuch §8.1 arc preserved
+      tau7xf_ingest: true   # OPENED post-Pentateuch historical-books arc preserved
+      tau7xg_ingest: true
+      tau7xh_ingest: true
+      tau7xi_ingest: true   # 9 dzamaragna books still skipped (est converted at τ.7.x.m)
+      tau7xj_ingest: true
+      tau7xk_ingest: true
+      tau7xl_ingest: true
+      tau7xm_ingest: true   # fourth EOTC-parallel block p1294-1317 drained preserved
+      tau6x2h_ingest: true  # CLOSED parallel-column-catchup arc preserved
+      gamma48_meqabyan_apparatus_untouched: true   # 212 patristic entries NOT modified
+      delta1x_divergence_json_untouched: true       # content/divergence/* NOT modified
+      meqabyan_section_retained: true               # original multi-book section intact for Π.1
+    no_ingest_at_this_phase: false
+    arc_continues_tewahedo_distinctive: |
+      τ.7.x.n DRAINS the FIFTH EOTC-parallel block p1318-1378 (the
+      Mäqabyan trilogy). FIRST Tewahedo-distinctive book(s) in the
+      τ.7.x.* stream + FIRST multi-book section ingested. Next EOTC-
+      parallel content per the τ.7.x.h scan: Sirach + Paralipomena
+      Jer at p1379+ (the p1368-1421 block; mq3 ends p1378, Sirach
+      onset p1379 confirmed by the τ.7.x.n boundary inspection).
+    block_drained: p1318-1378   # τ.7.x.n (mq1+mq2+mq3) drains the fifth EOTC-parallel block
+    translation_slot_state:
+      amharic_tewahedo_mq1: 'shipped-at-τ.7.x.n (339 v; ocr-tier3; δ.1.x-replaceable; FIRST Tewahedo-distinctive τ.7.x.* book)'
+      amharic_tewahedo_mq2: 'shipped-at-τ.7.x.n (198 v; ocr-tier3; δ.1.x-replaceable; range structural-discovery-corrected)'
+      amharic_tewahedo_mq3: 'shipped-at-τ.7.x.n (79 v; ocr-tier3; δ.1.x-replaceable; trilogy capstone)'
+      geez_tewahedo_mq123: 'no-op (τ.6.x.2.* under D4-c; same ranges, Geʽez column; queued for next Geʽez catchup batch — distinct from the Π.1 page-image authoritative Geʽez slot)'
+    next_phase: τ.7.x.o
+    next_phase_description: |
+      τ.7.x.o — next per-book ingest. The p1318-1378 Mäqabyan block
+      is DRAINED. Next EOTC-parallel content per the τ.7.x.h scan:
+      Sirach + Paralipomena Jeremiah (p1379+ in the p1368-1421
+      block; the τ.7.x.n boundary inspection confirmed wisdom/Sirach
+      content onset at p1379 right after the mq3 p1378 capstone).
+      Each future τ.7.x.* preserves the τ.7.x.a template (data-only
+      delta: new VERSE_COUNTS floor + structural_map block + per-
+      book extract). The Geʽez catchup (τ.6.x.2.j+) follows the
+      Amharic stream per D4-c.

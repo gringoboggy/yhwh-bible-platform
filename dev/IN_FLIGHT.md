@@ -4,6 +4,90 @@
 
 ## Prior task
 
+**τ.7.x.n AMHARIC MÄQABYAN TRILOGY FULL-BOOK INGEST — SHIPPED
+2026-05-15. FOURTEENTH/FIFTEENTH/SIXTEENTH τ.7.x.* per-book ingests
+(mq1 + mq2 + mq3) under D4-c Amharic-first + D1-a per-book cadence.
+FIRST Tewahedo-distinctive book in the τ.7.x stream + FIRST
+multi-book section drained (the p1318-1378 EOTC-parallel Mäqabyan
+block). Drains the FIFTH EOTC-parallel block.**
+
+**Coordination resolved (per PLAN τ.7.x.n NEXT-UP note):**
+- vs **γ.4.8 Mäqabyan patristic arc** (212 entries in
+  `content/sources/ethiopian_commentaries.json`): DIFFERENT layer
+  (patristic commentary, not scripture text) + DIFFERENT CC0 source.
+  τ.7.x.n is an INDEPENDENT OCR witness of the scripture text. No
+  collision: τ.7.x.n touches NEITHER the apparatus JSON NOR
+  `content/notes/mq*.py` (v1 English, immutable during δ.1.x).
+- vs **δ.1.x Meqabyan-revision track**: δ.1.x writes
+  `exports/meqabyan_geez_revision/*.md` + `content/divergence/
+  meqabyan_geez_divergence.json`. τ.7.x.n writes
+  `content/translations/amharic-tewahedo/mq{1,2,3}.py`. No path
+  collision. Per extract_parallel_pdf.py QUALITY POLICY the τ.7.x.n
+  output is `ocr-tier3` and EXPLICITLY δ.1.x-REPLACEABLE — it is the
+  OCR baseline the δ.1.x divergence apparatus diverges FROM.
+- **Floor coordination proof:** MQ1/MQ2/MQ3_VERSE_COUNTS derived as
+  per-chapter max-verse from `content/candidates/mq{N}_ch_*.json` —
+  the IDENTICAL method the δ.1.x divergence JSON documents for its
+  mq1 ch1-9 `per_chapter_verse_count_floor`. mq1 ch1-9 floor
+  {1:14,2:28,3:38,4:5,5:14,6:23,7:1,8:22,9:3} EXACTLY matches the
+  δ.1.x JSON — all three Mäqabyan layers align on one verse
+  structure traceable to the γ.4.8.F Wright 1877 + Cowley 1974b
+  apparatus. mq1=502 v/36 ch, mq2=256 v/21 ch, mq3=188 v/10 ch
+  (946 v / 67 ch total).
+
+**Approach (pipeline VERBATIM, data-only delta — preserves the
+zero-parser-API-delta streak, now 22→24-ship):** add 3 single-book
+structural_map sections `meqabyan_i/ii/iii` (book_codes [mq1]/[mq2]/
+[mq3]) using the τ.6.x.0a-verified `meqabyan.subsections` page
+ranges [1318,1365]/[1366,1372]/[1373,1378]; the original multi-book
+`meqabyan` section is RETAINED untouched for Π.1/δ.1.x consumers.
+Mirrors the exact 13-prior-ship single-book pattern. Tewahedo-
+distinctive → NO --paragraph-mode per CLI guidance (Mäqabyan
+carries explicit Ethiopic-numeral verse prefixes); --renumber
+against the per-book floor; --lang amharic; engine text-layer
+(established τ.7.x.* pattern).
+
+**Checklist:**
+- [ ] MQ1/MQ2/MQ3_VERSE_COUNTS floors + renumber dispatch (2 sites)
+      + --renumber choices + help text + _build_docstring_extra
+- [ ] structural_map meqabyan_i/ii/iii blocks in _source.yaml
+      (RETAIN original `meqabyan` section)
+- [x] --dry-run probe → paragraph-mode REQUIRED (default 3.4% vs
+      512 for mq1; empirical-over-assumption τ.6.x.0b discipline)
+- [x] extract → amharic-tewahedo/mq1.py (339 v/67.5%) + mq2.py
+      (198 v/77.3%) + mq3.py (79 v/42.0%); ocr-tier3; clean
+      renumber shape; honest per τ.6.x.0b
+- [x] **STRUCTURAL-DISCOVERY CORRECTION**: τ.6.x.0a subsections
+      were WRONG (mq2 anomaly 5.9%); content-boundary inspection
+      corrected mq1[1318,1350]/mq2[1351,1368]/mq3[1369,1378];
+      outer bounds [1318,1378] unchanged; declarative subsections
+      + script heuristic dict both corrected (δ.1.x-positive)
+- [x] _source.yaml tau7xn_ingest + corrected meqabyan_{i,ii,iii} +
+      _meta.yaml stats 13→16 books / 8935→9551 v / outside_kjv
+      3→6 + back-link tau7xm→tau7xn pipeline-reuse
+- [x] test_parallel_bible_tau7xn.py (60 pins / 14 classes incl.
+      δ.1.x floor-coordination-proof + γ.4.8-independence +
+      structural-discovery-correction + prior-pin classes)
+- [x] feedback_share_pin_pattern: flipped Π.1/Π.1.B prior-ship
+      subsection pins (test_parallel_bible_pi1 mq1/2/3_range +
+      pi1b subsections) to corrected ranges AS PART OF this ship
+- [x] SESSION_STATE / CHANGELOG / PLAN updated
+- [x] ruff format 498/498 clean; lint_rules (warn was IN_FLIGHT-
+      active, resolved here); full pytest 5517 passed / 1 skip;
+      the test_perf api_matrix.cold fail is a known -n-auto
+      parallel-contention flake (passes 7.48s serial in isolation,
+      ≪ 7500ms budget; unrelated to Mäqabyan); the tau7xa
+      in-flight-idle fail resolves with THIS marker→idle flip
+- [x] IN_FLIGHT → idle; local checkpoint commit (no push, no zip)
+
+**Next per most-logical-path:** τ.7.x.o = Sirach + Paralipomena
+Jeremiah at p1379+ (the τ.7.x.n boundary inspection confirmed
+wisdom/Sirach onset at p1379 right after the mq3 p1378 capstone).
+Geʽez catchup τ.6.x.2.j+ follows per D4-c. δ.1.x.A operator
+Mäqabyan-revision batch unchanged but now with corrected ranges.
+
+### Earlier — τ.7.x.l/m (superseded by τ.7.x.n above)
+
 **τ.7.x.l + τ.7.x.m AMHARIC JUDITH + ESTHER FULL-BOOK INGEST —
 SHIPPED 2026-05-15. TWELFTH + THIRTEENTH τ.7.x.* per-book ingests
 under D4-c Amharic-first + D1-a per-book cadence. Drained the

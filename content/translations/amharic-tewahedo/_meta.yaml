@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 13           # 11 prior (9 protocanonical τ.7.x.a-i + 2es τ.7.x.j + tob τ.7.x.k) + τ.7.x.l Judith + τ.7.x.m Esther (drains the p1294-1317 EOTC-parallel block; Esther sourced from the parallel block per the τ.7.x.i est skip-pin conversion)
-  verses: 8935        # 8682 (11 books) + 120 (jdt, 35.4%) + 133 (est, 79.6%) = 8935/11442 = 78.1% combined (across 13 ingested books; still excludes 9 SKIPPED books in 438-802 dzamaragna gap — est is NO LONGER skipped, now sourced from p1308-1317)
-  books_outside_kjv: 3   # 2es + tob + jdt (Judith) — deuterocanonical, outside the 66-book Protestant/KJV canon. NOTE: est (Esther) is PROTOCANONICAL — in the KJV 66-book canon — so it does NOT increment this count even though it ships at τ.7.x.m
+  books: 16           # 13 prior (9 protocanonical τ.7.x.a-i + 2es τ.7.x.j + tob τ.7.x.k + jdt τ.7.x.l + est τ.7.x.m) + τ.7.x.n Mäqabyan trilogy mq1+mq2+mq3 (drains the p1318-1378 fifth EOTC-parallel block; FIRST Tewahedo-distinctive + FIRST multi-book section)
+  verses: 9551        # 8935 (13 books) + 339 (mq1, 67.5%) + 198 (mq2, 77.3%) + 79 (mq3, 42.0%) = 9551 / 12388 = 77.1% combined (across 16 ingested books; still excludes 9 SKIPPED books in the 438-802 dzamaragna gap)
+  books_outside_kjv: 6   # 2es + tob + jdt + mq1 + mq2 + mq3 — all outside the 66-book Protestant/KJV canon. 2es/tob/jdt = deuterocanonical; mq1/mq2/mq3 = uniquely-Tewahedo-distinctive broader-canon (distinct from the Greek LXX 1-4 Maccabees: shared title only). est (Esther) is PROTOCANONICAL so does not count.
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -1013,6 +1013,80 @@ ingest_record_tau7xm:
   protocanonical: true   # est (Esther) is in the KJV 66-book canon — FIRST protocanonical τ.7.x.* book since τ.7.x.i Psalms
   esther_skip_pin_converted: true   # τ.7.x.i `est` skip-pin converted: Esther now sourced from EOTC-parallel p1308-1317, NOT the dzamaragna gap; other 9 dzamaragna books remain skipped
   block_drained: p1294-1317   # τ.7.x.l (jdt) + τ.7.x.m (est) together drain the entire fourth EOTC-parallel block
+  pipeline_reused_at_phase: τ.7.x.n   # back-link: τ.7.x.n (Amharic Mäqabyan trilogy mq1+mq2+mq3, p1318-1378) reused the τ.7.x.m pipeline VERBATIM; only deltas were MQ1/MQ2/MQ3_VERSE_COUNTS + structural_map.meqabyan_{i,ii,iii}. FIRST Tewahedo-distinctive + FIRST multi-book section in the τ.7.x.* stream.
+
+ingest_record_tau7xn:
+  phase: τ.7.x.n
+  ingested_date: 2026-05-15
+  ingested_book_codes: [mq1, mq2, mq3]   # FIRST multi-book τ.7.x.* ingest (the Mäqabyan trilogy)
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1318, 1378]   # mq1 [1318,1350] + mq2 [1351,1368] + mq3 [1369,1378] — τ.7.x.n structural-discovery-CORRECTED splits (τ.6.x.0a subsections were wrong; outer bounds unchanged)
+  engine: text-layer
+  parser_mode: paragraph_mode   # EMPIRICAL: default-mode recovered only 3.4% for mq1 (τ.7.x.a.0-PILOT-precedent — empirical over the a-priori "Tewahedo-distinctive → no paragraph-mode" CLI hint)
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.b
+    - τ.7.x.c
+    - τ.7.x.d
+    - τ.7.x.e
+    - τ.7.x.f
+    - τ.7.x.g
+    - τ.7.x.h
+    - τ.7.x.i
+    - τ.7.x.j
+    - τ.7.x.k
+    - τ.7.x.l
+    - τ.7.x.m
+    - τ.7.x.n   # MQ1/MQ2/MQ3_VERSE_COUNTS added (14th/15th/16th renumber-floors)
+  quality_tier: ocr-tier3   # EXPLICITLY δ.1.x-replaceable per the extract_parallel_pdf.py QUALITY POLICY
+  coverage:
+    mq1:
+      verses_extracted: 339
+      verses_expected: 502
+      coverage_pct: 67.5
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+      chapters_partial:
+        28: [14, 38]   # got, expected
+      chapters_missing: [29, 30, 31, 32, 33, 34, 35, 36]
+    mq2:
+      verses_extracted: 198
+      verses_expected: 256
+      coverage_pct: 77.3
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      chapters_partial:
+        16: [3, 8]
+      chapters_missing: [17, 18, 19, 20, 21]
+    mq3:
+      verses_extracted: 79
+      verses_expected: 188
+      coverage_pct: 42.0
+      chapters_fully_populated: [1, 2, 3]
+      chapters_partial:
+        4: [12, 34]
+      chapters_missing: [5, 6, 7, 8, 9, 10]
+    trilogy_combined: 616 / 946 = 65.1%
+  structural_discovery_correction: |
+    The τ.6.x.0a meqabyan.subsections ranges were WRONG (mq2
+    recovered an anomalous 5.9% on the old range). τ.7.x.n content-
+    boundary inspection (running-header ordinal + end-colophons)
+    corrected the internal splits to mq1[1318,1350]/mq2[1351,1368]/
+    mq3[1369,1378]; outer bounds [1318,1378] unchanged. Both the
+    declarative meqabyan.subsections + the extract_parallel_pdf.py
+    heuristic safety-net dict updated. Coordination-POSITIVE for
+    δ.1.x. See _source.yaml::tau7xn_ingest.structural_discovery_
+    correction for the full finding.
+  coordination:
+    delta1x: ocr-tier3 + δ.1.x-replaceable; writes only amharic-tewahedo/mq*.py; does NOT touch content/divergence/* or geez-tewahedo/mq* (Π.1 authoritative slot). Floor derivation matches the δ.1.x JSON method (mq1 ch1-9 floor exact match).
+    gamma48: independent OCR scripture-text witness; does NOT touch content/sources/ethiopian_commentaries.json (212 patristic entries) or content/notes/mq*.py (v1 English).
+  audit_handoff: τ.6.x.3
+  next_book: sirach   # τ.7.x.o — Sirach + Paralipomena Jer at p1379+ (mq3 ends p1378; wisdom/Sirach onset confirmed at p1379 by the τ.7.x.n boundary inspection)
+  arc_continues: tewahedo-distinctive-eotc-parallel-block   # drains the fifth EOTC-parallel block p1318-1378 (the Mäqabyan trilogy)
+  tewahedo_distinctive: true   # mq1/mq2/mq3 are uniquely-Tewahedo-canonical (distinct from Greek LXX 1-4 Maccabees)
+  multi_book_section: true     # FIRST multi-book τ.7.x.* ingest
+  block_drained: p1318-1378    # τ.7.x.n (mq1+mq2+mq3) drains the fifth EOTC-parallel block
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.

@@ -296,17 +296,34 @@ class TestPi1MeqabyanSubsections:
             "(hoisted from extract_parallel_pdf.py's heuristic dict)"
         )
 
+    # τ.7.x.n STRUCTURAL-DISCOVERY CORRECTION (2026-05-15): the
+    # τ.6.x.0a subsection ranges (mq1[1318,1365]/mq2[1366,1372]/
+    # mq3[1373,1378]) were a coarse approximate title-marker scan in
+    # the deep-PDF "(ረቂቅ)" draft region and were WRONG (mq2 recovered
+    # an anomalous 5.9% on the old range). τ.7.x.n content-boundary
+    # inspection (running-header ordinal ቀዳማዊ→ካልዕ→ሣልስ + explicit
+    # per-book end-colophons) corrected them. These pins are flipped
+    # to the corrected values AS PART OF the triggering ship per
+    # memory feedback_share_pin_pattern (legitimate-invalidation —
+    # the invariant "subsections match the verified PDF boundaries"
+    # is PRESERVED; only the wrong scan values are corrected). The
+    # OUTER bounds [1318,1378] are UNCHANGED (test_subsections_cover_
+    # section_range still green).
+
     def test_mq1_range(self):
-        # τ.6.x.0a verified: 1318-1365 = 48 pages for 36 chapters.
-        assert self._meq()["subsections"]["mq1"] == [1318, 1365]
+        # τ.7.x.n-corrected: 1318-1350 = 33 pages for 36 chapters
+        # (p1350 = short mq1-end colophon page). Was [1318,1365].
+        assert self._meq()["subsections"]["mq1"] == [1318, 1350]
 
     def test_mq2_range(self):
-        # τ.6.x.0a verified: 1366-1372 = 7 pages for 21 chapters.
-        assert self._meq()["subsections"]["mq2"] == [1366, 1372]
+        # τ.7.x.n-corrected: 1351-1368 = 18 pages for 21 chapters
+        # (p1368 = 'ሁለተኛው መቃብያን ደረሰ ተፈጸመ' colophon). Was [1366,1372].
+        assert self._meq()["subsections"]["mq2"] == [1351, 1368]
 
     def test_mq3_range(self):
-        # τ.6.x.0a verified: 1373-1378 = 6 pages for 10 chapters.
-        assert self._meq()["subsections"]["mq3"] == [1373, 1378]
+        # τ.7.x.n-corrected: 1369-1378 = 10 pages for 10 chapters
+        # (p1378 = trilogy capstone; p1379→wisdom). Was [1373,1378].
+        assert self._meq()["subsections"]["mq3"] == [1369, 1378]
 
     def test_subsections_cover_section_range(self):
         """The union of subsection page-ranges must lie within (and
