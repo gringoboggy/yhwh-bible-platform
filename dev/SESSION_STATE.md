@@ -62,6 +62,46 @@
 > the τ.6.x.1.E headline below + `docs/superpowers/{specs,plans}/
 > 2026-05-16-geez-*`.
 
+**Updated 2026-05-16 / τ.6.x.2.k — GE'EZ TOBIT SHIPPED — CONTINUES
+the Geʽez deuterocanon catchup; with τ.6.x.2.j DRAINS the Geʽez
+column of the p1239-1293 EOTC-parallel block. Next phase τ.6.x.2.l
+= Geʽez Judith.**
+
+`content/translations/geez-tewahedo/tob.py` — 14 chapters,
+**134 verses / 54.5%** at `SOURCE_QUALITY=ocr-tier3`,
+`SOURCE_PROVENANCE=parallel-bible-eotc` (Geʽez left column, PDF
+p1285-1293). Mirrors the Amharic τ.7.x.k ship VERBATIM:
+`TOBIT_VERSE_COUNTS` (14 ch / 246 v) + `structural_map.tobit`
+[1285,1293] (verified at τ.7.x.k, NOT re-verified) reused with
+**zero-parser-API-delta** — only `--lang geez` differs. Clean
+renumber **UNDERFLOW** (134 < 246): ch 1-7 full (cumulative floor
+131) + ch 8 partial (3/21) + ch 9-14 empty + no overflow. 54.5%
+in the τ.6.x.2.a-h Geʽez band (53-67%). Re-verified per memory
+`feedback_reverify_conservative_nogo`: Geʽez recovered MORE than
+Amharic here (134 vs τ.7.x.k 118); both-columns dry-run proved
+the columns extract DISTINCT text (NOT a misattribution bug);
+both `ocr-tier3` in the deep "(ረቂቅ)" draft region per the
+τ.6.x.0b honesty contract, reconciled at the τ.6.x.3 audit. NOT
+over-claimed. **Geʽez p1239-1293 block now DRAINED** (2es τ.6.x.2.j
++ tob τ.6.x.2.k, mirroring the Amharic τ.7.x.j + τ.7.x.k pair).
+Superpowers: `executing-plans` + `test-driven-development` (RED
+before extraction, GREEN after). TWO share-pin→milestone-pin
+conversions per memory `feedback_share_pin_pattern`:
+`test_parallel_bible_tau7xj.py` (`…_tob_still_deferred` →
+`…_p1239_1293_block_drained`, tob half flipped) +
+`test_parallel_bible_tau6x2j.py` (`…not_yet_past_2es` →
+`…catchup_progress`, tob dropped from the not-yet list).
+Cross-column: `tau7xk_ingest` geez slot no-op→shipped +
+`geez_catchup_reused_at_phase: τ.6.x.2.k` (the
+`pipeline_reused_at_phase: τ.7.x.l` pin untouched). geez
+`_meta.yaml` stats 10→11 books / 7469→7603 verses / 1→2
+books_outside_kjv + `ingest_record_tau6x2k`;
+`_source.yaml::ocr_strategy.tau6x2k_ingest` block. New
+`tests/test_parallel_bible_tau6x2k.py` (~40 pins). Local commit
+only, no push, no zip ("continue" ≠ save). The Amharic NT cadence
+(τ.7.x.w+) + the Samuel/Kings GAPS track stay PAUSED pending user
+decisions (unchanged by this ship).
+
 **Updated 2026-05-16 / τ.6.x.2.j — GE'EZ 2 ESDRAS / EZRA SUTUʼEL
 SHIPPED — RESUMES the narrative Geʽez catchup on the parallel-PDF
 path (FIRST Geʽez deuterocanonical ingest; NINTH Geʽez per-book

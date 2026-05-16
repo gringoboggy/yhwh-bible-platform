@@ -4677,6 +4677,99 @@ ocr_strategy:
     next_phase: τ.6.x.2.k   # Geʽez Tobit, p1285-1293, TOBIT_VERSE_COUNTS + structural_map.tobit reused from τ.7.x.k
 
   # ═══════════════════════════════════════════════════════════════
+  # τ.6.x.2.k — Geʽez Tobit (CONTINUES the Geʽez deuterocanon
+  # catchup; with τ.6.x.2.j drains the Geʽez p1239-1293 block;
+  # mirrors Amharic τ.7.x.k — same p1285-1293, Geʽez column)
+  # ═══════════════════════════════════════════════════════════════
+
+  tau6x2k_ingest:
+    shipped_at_phase: τ.6.x.2.k
+    shipped_date: 2026-05-16
+    triggered_by: |
+      User "continue" → advance one phase per memory
+      `feedback_continue_not_save` (the narrative Geʽez catchup
+      continues; τ.6.x.2.k = Geʽez Tobit). SECOND Geʽez
+      deuterocanon ingest; with τ.6.x.2.j (2 Esdras) drains the
+      Geʽez column of the p1239-1293 EOTC-parallel block. Pipeline
+      reused VERBATIM from the Amharic τ.7.x.k ship — only delta is
+      the `--lang geez` flag.
+    helpers_reused:
+      - TOBIT_VERSE_COUNTS
+      - structural_map.tobit
+    parser_api_change: |
+      No parser API changes. TOBIT_VERSE_COUNTS + structural_map.
+      tobit were both added at the Amharic τ.7.x.k ship and are
+      reused VERBATIM for the Geʽez column — zero-parser-API-delta
+      (the τ.6.x.2.j cross-column reuse continues).
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1285, 1293]
+      extraction_engine: text-layer
+      raw_parser_output_verse_count: 134
+      renumbered_verse_count: 134
+      chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7]
+      chapters_partial:
+        8: {got: 3, expected: 21}
+      chapters_missing: [9, 10, 11, 12, 13, 14]
+      expected_total: 246
+      coverage_pct: 54.5
+      coverage_vs_amharic: |
+        Geʽez tob 134 v / 54.5% vs Amharic τ.7.x.k 118 v / 48.0%.
+        The Geʽez column recovered MORE than Amharic for this book
+        (as with τ.6.x.2.j 2es) — region/book-dependent at
+        ocr-tier3; both columns are ocr-tier3 in the deep p1239+
+        "(ረቂቅ)" draft region. The two columns extract DISTINCT
+        text (verified at ship — NOT a column-misattribution bug).
+        Clean renumber UNDERFLOW (134 < 246): ch 1-7 fill exactly
+        (cumulative floor 131) + ch 8 partial (3/21) + ch 9-14
+        empty + no overflow. Reconciled at the τ.6.x.3 audit.
+    closed_arc_contracts_preserved:
+      tau6x0a_no_ingest: false
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xb_ingest: true
+      tau7xc_ingest: true
+      tau7xd_ingest: true
+      tau7xe_ingest: true
+      tau7xf_ingest: true
+      tau7xg_ingest: true
+      tau7xh_ingest: true
+      tau7xi_ingest: true
+      tau7xj_ingest: true
+      tau7xk_ingest: true   # cross-column mirror (Amharic tob) — geez slot-state updated + back-link added below
+      tau7xl_ingest: true
+      tau7xm_ingest: true
+      tau6x2a_ingest: true
+      tau6x2b_ingest: true
+      tau6x2c_ingest: true
+      tau6x2d_ingest: true
+      tau6x2e_ingest: true
+      tau6x2f_ingest: true
+      tau6x2g_ingest: true
+      tau6x2h_ingest: true   # CLOSED parallel-column-catchup arc preserved
+      tau6x2i_ingest: true   # τ.6.x.2.i Geʽez Psalms (τ.6.x.5 HaCohen external) preserved
+      tau6x2j_ingest: true   # τ.6.x.2.j Geʽez 2 Esdras preserved (this ship's predecessor)
+    no_ingest_at_this_phase: false
+    geez_block_drained: p1239-1293
+    arc_continues_geez_deuterocanon_catchup: |
+      τ.6.x.2.k CONTINUES the post-Psalms Geʽez deuterocanon-
+      catchup sub-arc opened at τ.6.x.2.j. With τ.6.x.2.k the Geʽez
+      column of the p1239-1293 EOTC-parallel block is fully drained
+      (2es + tob), mirroring the Amharic τ.7.x.j + τ.7.x.k pair.
+      Next EOTC-parallel content is Judith (p1294-1307, τ.6.x.2.l)
+      → Esther (p1308-1317, τ.6.x.2.m) → Mäqabyan (p1318-1378) →
+      Jubilees → 1 Enoch.
+    arc_context: geez-deuterocanon-catchup-continue
+    cross_column_back_link: |
+      Mirrors Amharic τ.7.x.k (p1285-1293, TOBIT_VERSE_COUNTS,
+      structural_map.tobit). tau7xk_ingest.translation_slot_state.
+      geez_tewahedo_tob updated no-op→shipped + a
+      geez_catchup_reused_at_phase: τ.6.x.2.k sibling added (the
+      τ.6.x.2.j → tau7xj convention). Does NOT touch
+      tau7xk_ingest.pipeline_reused_at_phase (= τ.7.x.l).
+    next_phase: τ.6.x.2.l   # Geʽez Judith, p1294-1307, JUDITH_VERSE_COUNTS + structural_map.judith reused from τ.7.x.l
+
+  # ═══════════════════════════════════════════════════════════════
   # τ.7.x.h → τ.7.x.i back-link (post-Amharic-Ruth → Amharic-Psalms;
   # SKIP-THE-GAP between parallel sections of the source PDF)
   # ═══════════════════════════════════════════════════════════════
@@ -5279,8 +5372,9 @@ ocr_strategy:
       amharic_tewahedo_tob: 'shipped-at-τ.7.x.k (this ship; 118 verses; ocr-tier3; SECOND deuterocanonical τ.7.x.* ingest; p1285-1293; CLOSES the p1239-1293 block)'
       amharic_tewahedo_2es: 'shipped-at-τ.7.x.j (preserved; FIRST deuterocanonical)'
       amharic_tewahedo_protocanon_9: 'shipped-at-τ.7.x.a-i (preserved)'
-      geez_tewahedo_tob: 'no-op (τ.6.x.2.k under D4-c; same page range, Geʽez column; queued for next Geʽez catchup batch)'
+      geez_tewahedo_tob: 'shipped-at-τ.6.x.2.k (Geʽez column, p1285-1293; 134 v / 54.5% ocr-tier3; reused TOBIT_VERSE_COUNTS + structural_map.tobit VERBATIM — zero-parser-API-delta cross-column mirror of this Amharic ship; with τ.6.x.2.j drains the Geʽez p1239-1293 block)'
     pipeline_reused_at_phase: τ.7.x.l   # back-link: τ.7.x.l (Amharic Judith, p1294-1307) + τ.7.x.m (Amharic Esther, p1308-1317) reused the τ.7.x.k pipeline VERBATIM; only deltas were JUDITH_VERSE_COUNTS + ESTHER_VERSE_COUNTS + structural_map.{judith,esther}. τ.7.x.m carries the τ.7.x.i `est` skip-pin conversion.
+    geez_catchup_reused_at_phase: τ.6.x.2.k   # cross-column back-link: the Geʽez Tobit catchup (τ.6.x.2.k, 2026-05-16) reused this Amharic τ.7.x.k pipeline VERBATIM (only `--lang geez` delta). The τ.6.x.2.j→tau7xj convention; distinct key so the τ.7.x.l pipeline_reused_at_phase pin is untouched.
     next_phase: τ.7.x.l
     next_phase_description: |
       τ.7.x.l — next per-book ingest. The p1239-1293 block is now

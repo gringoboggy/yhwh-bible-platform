@@ -399,14 +399,16 @@ class TestTau6X2JPriorArcsPreserved:
         assert (GEEZ_TEWAHEDO / "psa.py").is_file()
         assert _constants(GEEZ_TEWAHEDO, "psa").get("INGEST_PHASE") == "τ.6.x.2.i"
 
-    def test_geez_deuterocanon_catchup_not_yet_past_2es(self):
-        """τ.6.x.2.j ships ONLY 2es; tob/jdt/est/mq/jub/1en Geʽez
-        remain queued (the next sub-ships). Milestone-pin: this
-        flips per-book as the catchup advances (feedback_share_pin
-        _pattern)."""
-        for book in ("tob", "jdt", "est", "jub", "1en"):
+    def test_geez_deuterocanon_catchup_progress(self):
+        """Milestone-pin (memory `feedback_share_pin_pattern`): flips
+        per-book as the Geʽez deuterocanon catchup advances. τ.6.x.2.j
+        shipped 2es; τ.6.x.2.k shipped tob (so `tob` was REMOVED from
+        the not-yet list at the τ.6.x.2.k ship). jdt/est/jub/1en
+        remain queued (the next sub-ships τ.6.x.2.l+)."""
+        assert (GEEZ_TEWAHEDO / "2es.py").is_file(), "τ.6.x.2.j 2es must remain shipped"
+        for book in ("jdt", "est", "jub", "1en"):
             assert not (GEEZ_TEWAHEDO / f"{book}.py").exists(), (
-                f"τ.6.x.2.j scope is 2es-only; geez-tewahedo/{book}.py must NOT exist yet"
+                f"geez-tewahedo/{book}.py must NOT exist yet (queued for τ.6.x.2.l+)"
             )
 
 

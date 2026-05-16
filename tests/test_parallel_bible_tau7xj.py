@@ -506,19 +506,17 @@ class TestTau7XJKDeuterocanonArc:
         for book in ("gen", "ex", "lev", "num", "deu", "jos", "jdg", "rut", "psa"):
             assert (AMHARIC_TEWAHEDO / f"{book}.py").is_file(), f"prior τ.7.x.* book {book} must persist"
 
-    def test_geez_2es_ingested_at_tau6x2j_tob_still_deferred(self):
-        """MIGRATED at the τ.6.x.2.j ship-time (2026-05-16) per memory
-        `feedback_share_pin_pattern` + the τ.6.x.2.a-h share-pin→
-        milestone-pin precedent. Originally `test_geez_2es_tob_not_
-        created` asserted BOTH Geʽez 2es.py + tob.py must NOT exist
-        (D4-c deferral). τ.6.x.2.j shipped Geʽez 2 Esdras (p1239-1284,
-        Geʽez column) so the 2es half is FLIPPED to "must EXIST at
-        ocr-tier3 ≥floor"; tob remains deferred to τ.6.x.2.k (not yet
-        shipped). The durable invariant: 2es present, tob still queued."""
+    def test_geez_2es_tob_ingested_p1239_1293_block_drained(self):
+        """MIGRATED TWICE per memory `feedback_share_pin_pattern` +
+        the τ.6.x.2.a-h precedent. Originally `test_geez_2es_tob_not_
+        created` (BOTH must NOT exist, D4-c deferral); at τ.6.x.2.j
+        the 2es half flipped to "must EXIST"; at τ.6.x.2.k the tob
+        half flips too. Durable invariant: τ.6.x.2.j (2es) + τ.6.x.2.k
+        (tob) together drained the Geʽez column of the p1239-1293
+        EOTC-parallel block — both files present at ocr-tier3 (mirrors
+        the Amharic τ.7.x.j + τ.7.x.k pair this test file covers)."""
         assert (GEEZ_TEWAHEDO / "2es.py").is_file(), "Geʽez 2es.py must EXIST after the τ.6.x.2.j catchup ship"
-        assert not (GEEZ_TEWAHEDO / "tob.py").exists(), (
-            "Geʽez tob.py is still deferred to τ.6.x.2.k (not shipped at τ.6.x.2.j)"
-        )
+        assert (GEEZ_TEWAHEDO / "tob.py").is_file(), "Geʽez tob.py must EXIST after the τ.6.x.2.k catchup ship"
 
     def test_geez_8book_arc_preserved(self):
         for book in ("gen", "ex", "lev", "num", "deu", "jos", "jdg", "rut"):
