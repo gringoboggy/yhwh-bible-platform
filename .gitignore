@@ -82,3 +82,15 @@ content/print_covers/*.pdf
 # Built EPUB artifacts at project root (regenerable, do not track)
 /Ethiopian_Bible*.epub
 /exports/
+
+# --- Parallel-Bible source PDF + Phase-4 handoff package ---
+# The 193MB source PDF (resolution_paths #5 — the designed in-repo
+# slot) + the project_maccabees_expansion/ handoff docs. Present-
+# but-UNTRACKED: the extractor needs the PDF in place, but a 193MB
+# binary must NOT enter git history (repo bloat / push breakage).
+# The PDF is re-downloadable from archive.org EOTXC_HOLYSCRIPTS_
+# ALL_BOOKS; recovered into the repo 2026-05-15 after an external
+# tidy-up deleted the original sibling dir. (Guards against the
+# `git add -A` footgun — cf. commit 0045f86.)
+content/translations/sources/parallel-bible-eotc/Bible_Amharic_and_Geez.pdf
+/project_maccabees_expansion/
