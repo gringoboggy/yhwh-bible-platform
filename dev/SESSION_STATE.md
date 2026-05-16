@@ -6,6 +6,25 @@ there is to fix"). 3 fixes: F-DEEP3-2 atomic_write LF hardening +
 F-DEEP2-3 customization.yaml Ω.0 banner + F-DEEP2-4 _meta.yaml
 ingest_record-convention documentation.**
 
+> **AUDIT_2026-05-16-DEEP-4 ran post-ω.48 + post-PDF-recovery**
+> (user "one more major audit, fix if something pops up and save
+> just for my sanity"; DEEP-class 3-parallel-subagent sweep + solo
+> battery + serial regression gate; finalized 2026-05-16). **State
+> CLEAN + NOTHING LOST. 0 WARN.** Sanity headline: the recovered
+> in-repo PDF reproduces shipped output **byte-identically** —
+> re-extracted `wis` == committed `wis` (254 v, VERSES list fully
+> equal), proving the PDF is correct + the post-ω.48 pipeline works
+> + rendering is reproducible. ω.48 atomic_write change is
+> regression-free (serial 5659 passed == DEEP-3 baseline; mypy
+> scripts/core/ clean; subagent C: no at-risk byte-exact
+> assertions, the conftest snapshot guard already normalizes
+> CRLF→LF so LF is strictly safer). PDF+handoff git-ignored &
+> untracked; docs/memory/Ω.0 coherent (no overclaim — F-DEEP3-2
+> "PARTIAL BY DESIGN" recorded consistently). Only finding:
+> F-DEEP4-1 (IN_FLIGHT.md duplicate-header cosmetic nit) — FIXED.
+> Carry-forward F-DEEP3-2/2-3/2-4/editions_path= unchanged. Full
+> report: `dev/AUDIT_2026-05-16-DEEP-4.md`.
+
 **F-DEEP3-2 (atomic_write LF hardening — PARTIAL by design, the
 disciplined call):** `scripts/core/notes_io.py::atomic_write` now
 passes `newline=""` so the canonical I/O chokepoint writes the

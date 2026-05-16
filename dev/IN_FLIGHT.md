@@ -4,6 +4,53 @@
 
 ## Prior task
 
+**AUDIT_2026-05-16-DEEP-4 — COMPLETE (triggered + run 2026-05-15,
+finalized 2026-05-16). User "one more major audit, fix if
+something pops up and save just for my sanity" (post the
+PDF-recovery scare). DEEP-class 3-parallel-subagent sweep + solo
+battery + serial regression gate.**
+
+**Outcome — state CLEAN + NOTHING LOST, 0 WARN:**
+- [x] **E2E reproducibility proof (the sanity headline):**
+      re-extracted `wis` from the recovered in-repo PDF → 254 v,
+      VERSES list byte-identical to the committed copy, all
+      scalars equal (only delta = post-ingest black-format style);
+      repo restored pristine. The recovered PDF is correct, the
+      post-ω.48 pipeline works, rendering reproducible, nothing
+      lost.
+- [x] PDF-recovery integrity: resolution_paths #5, 202694977 B,
+      resolver returns the in-repo path, pymupdf 2539 pages,
+      4 handoff docs present at project_maccabees_expansion/.
+- [x] ω.48 correctness: notes_io.py `newline=""` + compiles;
+      customization.yaml/_meta.yaml comment-only + parse + stats
+      20/10757/10 unchanged.
+- [x] atomic_write regression NIL: serial pytest 5659 passed
+      (== DEEP-3 baseline; 1 fail = IN_FLIGHT-active for the audit
+      → 5660/1/0 with THIS marker→idle flip); mypy scripts/core/
+      clean; subagent C — no at-risk byte-exact assertions,
+      conftest snapshot guard normalizes CRLF→LF so ω.48 is
+      strictly safer.
+- [x] docs/memory/Ω.0 coherent (no overclaim — F-DEEP3-2 "PARTIAL
+      BY DESIGN" recorded consistently); DEEP-2/3 isolation fixes
+      intact; lint 11·0·0 / lint_plan 4·0·0 / ruff 504 / dead-code
+      / caches clean; PDF+handoff git-ignored & untracked; backups
+      5/5; closed-arc 14 tau7x*/151 + 6 tau6x*/68.
+- [x] **F-DEEP4-1 (cosmetic) FIXED**: 2 duplicate IN_FLIGHT.md
+      headline+blank pairs (demotion-edit artifacts) collapsed.
+- [x] Carry-forward unchanged (F-DEEP3-2 partial-by-design
+      re-confirmed correct; F-DEEP2-3/4/F-DEEP3-1 resolved-at-ω.48
+      re-verified; editions_path= + τ.6.x.3 deferred). No new
+      deferred items.
+- [x] dev/AUDIT_2026-05-16-DEEP-4.md written; CHANGELOG +
+      SESSION_STATE updated; IN_FLIGHT → idle; saved (local
+      commit, no push, no zip).
+
+**Next per most-logical-path:** τ.7.x.s = the Daniel-additions
+cluster paz/sus/bel (`ተረፈ ዳንኤል` p1449-1453), then Π.1-mapped
+Jubilees [1454,1514] (τ.7.x.t) + 1 Enoch [1515,1566] (τ.7.x.u).
+
+### Earlier — ω.48 hygiene bundle (superseded by the DEEP-4 audit above)
+
 **ω.48 HYGIENE BUNDLE — COMPLETE 2026-05-15. User "fix anything
 there is to fix" → actioned the AUDIT_2026-05-15-DEEP-3 carry-
 forward ledger.**
@@ -48,8 +95,6 @@ cluster paz/sus/bel (`ተረፈ ዳንኤል` p1449-1453), then Π.1-mapped
 Jubilees [1454,1514] (τ.7.x.t) + 1 Enoch [1515,1566] (τ.7.x.u).
 
 ### Earlier — AUDIT_2026-05-15-DEEP-3 (superseded by ω.48 above)
-
-**AUDIT_2026-05-15-DEEP-3 — COMPLETE 2026-05-15. User "major audit
 
 **AUDIT_2026-05-15-DEEP-3 — COMPLETE 2026-05-15. User "major audit
 of whole matrix" after τ.7.x.n + τ.7.x.o/p + τ.7.x.q/r (5 phases /
@@ -99,8 +144,6 @@ ships: read `git diff` not `git status` for editions.yaml on
 Windows (F-DEEP3-2).
 
 ### Earlier — τ.7.x.q/r (superseded by the DEEP-3 audit above)
-
-**τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-SOLOMON FULL-BOOK
 
 **τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-SOLOMON FULL-BOOK
 INGEST — SHIPPED 2026-05-15. NINETEENTH + TWENTIETH τ.7.x.*
