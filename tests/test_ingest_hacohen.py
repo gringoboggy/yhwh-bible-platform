@@ -168,3 +168,28 @@ class TestFetcherCache:
             raised = True
         assert raised
         assert not (tmp_path / "PsalmNrR 9.html").exists()
+
+
+class TestCalibrate:
+    def _fn(self):
+        from scripts.ingest_hacohen import calibrate
+
+        return calibrate
+
+    def test_go_on_well_formed_sample(self, tmp_path):
+        good = (FIX / "psalm1.html").read_text(encoding="utf-8")
+        for n in (1, 118, 151):
+            (tmp_path / f"PsalmNrR {n}.html").write_text(good, encoding="utf-8")
+        result = self._fn()(sample=[1, 118, 151], cache_dir=tmp_path)
+        assert result["go"] is True
+        # parsed[1] is the list of (psalm, verse, text); [0][:2] = (psalm, verse).
+        # (Plan's assertion compared a 3-tuple to (1,1) — corrected in-execution.)
+        assert result["parsed"][1][0][:2] == (1, 1)
+
+    def test_nogo_on_malformed(self, tmp_path):
+        bad = (FIX / "psalm_malformed.html").read_text(encoding="utf-8")
+        for n in (1, 118, 151):
+            (tmp_path / f"PsalmNrR {n}.html").write_text(bad, encoding="utf-8")
+        result = self._fn()(sample=[1, 118, 151], cache_dir=tmp_path)
+        assert result["go"] is False
+        assert "no verses parsed" in result["reason"].lower()

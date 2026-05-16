@@ -113,3 +113,24 @@ def fetch_psalm(n: int, *, cache_dir: Path = DEFAULT_CACHE, delay: float = 1.0) 
     tmp.replace(dest)
     time.sleep(delay)
     return dest
+
+
+def calibrate(*, sample: list[int], cache_dir: Path = DEFAULT_CACHE) -> dict:
+    """Parse the calibration sample from cache and report GO/NO-GO.
+
+    GO requires every sampled Psalm to parse to >=1 verse with the
+    first verse numbered 1. NO-GO returns a human reason; the caller
+    must NOT write any artifacts on NO-GO (τ.6.x.0b honesty contract).
+    """
+    parsed: dict[int, list[tuple[int, int, str]]] = {}
+    for n in sample:
+        path = cache_dir / f"PsalmNrR {n}.html"
+        if not path.exists():
+            return {"go": False, "reason": f"calibration page Psalm {n} not in cache", "parsed": parsed}
+        vs = parse_hacohen_psalter(path.read_text(encoding="utf-8"), n)
+        parsed[n] = vs
+        if not vs:
+            return {"go": False, "reason": f"no verses parsed for Psalm {n}", "parsed": parsed}
+        if vs[0][1] != 1:
+            return {"go": False, "reason": f"Psalm {n} does not start at verse 1", "parsed": parsed}
+    return {"go": True, "reason": "calibration sample parsed cleanly", "parsed": parsed}
