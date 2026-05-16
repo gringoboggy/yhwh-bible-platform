@@ -4,6 +4,68 @@
 
 ## Prior task
 
+**τ.7.x.o + τ.7.x.p AMHARIC SIRACH + PARALIPOMENA-JEREMIAH (4 BARUCH)
+FULL-BOOK INGEST — SHIPPED 2026-05-15. SEVENTEENTH + EIGHTEENTH
+τ.7.x.* per-book ingests under D4-c Amharic-first + D1-a per-book
+cadence. Drains the SIXTH EOTC-parallel block (Sirach + Paralipomena
+Jeremiah) — user "commit and continue" → advance per PLAN.**
+
+**Structural discovery (τ.7.x.o scan p1376-1440):** mq3 ends p1378
+(τ.7.x.n-confirmed); Sirach `sir` opens ~p1379 (Sir 2:1 `ልጄ
+ስእግዚአብሔር ትገዛ ዘንድ` empirically at p1380, Sir 6:18 at p1383),
+closing prayer p1417-1418; Paralipomena Jeremiah / 4 Baruch `4ba`
+~p1419-1428 (Baruch+Jeremiah+angels p1420, Abimelech-66-yr-sleep
+p1421, Jeremiah stoning-martyrdom = 4 Baruch 9 at p1426); next
+block (Wisdom of Solomon — `የዳዊት ልጅ ሰለሞ` + Wis 2:6-7 wine/
+pleasure content at p1432-1433) opens ~p1429-1432, confirming the
+sir+4ba block end-boundary. Provisional ranges sir [1379,1418] /
+4ba [1419,1428] — apply the τ.7.x.n anomaly-check discipline
+(content-inspect + correct if coverage anomalous, don't accept).
+
+**Floors:** no project-internal sir/4ba enumeration (no candidates/
+notes) — SIRACH_VERSE_COUNTS = NRSV Ecclesiasticus 51 ch (the
+deuterocanon-NRSV pattern from 2es/tob/jdt); FOUR_BARUCH_VERSE_
+COUNTS = Kraft-Purintun 1972 / Harris 1889 9 ch. Per the τ.6.x.0b
+honesty contract the floor is the canonical ceiling + τ.6.x.3
+batched audit reconciles exact Ethiopic recension boundaries
+(identical caveat to the jdt floor).
+
+**Approach:** pipeline reused VERBATIM from τ.7.x.n — data-only
+delta: 2 new VERSE_COUNTS floors + 2 single-book structural_map
+sections (sirach/paralipomena_jeremiah) + renumber dispatch + CLI
+choices. Zero parser API change (25th/26th consecutive; 26-ship
+both columns). paragraph-mode (established τ.7.x.* setting; sir/4ba
+are standard deutero text — verify via --dry-run per τ.7.x.n
+empirical-over-assumption discipline).
+
+**Checklist:**
+- [x] SIRACH (51 ch/1413 v NRSV) + FOUR_BARUCH (9 ch/191 v
+      Kraft-Purintun) floors + renumber dispatch (2 sites) +
+      --renumber choices + help + _build_docstring_extra
+- [x] structural_map.sirach [1379,1418] + .paralipomena_jeremiah
+      [1419,1428] (τ.7.x.o content-boundary scan p1376-1440)
+- [x] --dry-run probe: paragraph-mode confirmed; boundaries sane
+- [x] extract → sir.py (τ.7.x.o, 737 v/52.2%) + 4ba.py (τ.7.x.p,
+      168 v/88.0%); anomaly-check APPLIED — Sirach honest-low (Sir
+      1/Prologue lost, content confirmed Sirach via dry-run, NOT a
+      boundary error unlike τ.7.x.n mq2); 4ba clean (no empty ch)
+- [x] _source.yaml tau7xo_ingest + tau7xp_ingest + _meta stats
+      16→18 books / 9551→10456 v / outside_kjv 6→8 + back-links
+      tau7xn→o→p pipeline-reuse
+- [x] test_parallel_bible_tau7xo.py (67 pins / 14 classes, BOTH
+      books + anomaly-check-doc + prior-pin-preservation)
+- [x] SESSION_STATE / CHANGELOG / PLAN updated
+- [x] ruff format + lint_rules + full pytest (PYTHONUTF8=1) — at
+      ship close; IN_FLIGHT → idle; local checkpoint commit (no
+      push, no zip)
+
+**Next per most-logical-path:** τ.7.x.q = Wisdom of Solomon at
+~p1432 (the seventh block; Baruch + Wisdom + Jubilees per the
+τ.7.x.h scan p1432-1548 — precise boundaries verified at the
+τ.7.x.q discovery scan). Geʽez catchup τ.6.x.2.j+ follows per D4-c.
+
+### Earlier — τ.7.x.n (superseded by τ.7.x.o/p above)
+
 **τ.7.x.n AMHARIC MÄQABYAN TRILOGY FULL-BOOK INGEST — SHIPPED
 2026-05-15. FOURTEENTH/FIFTEENTH/SIXTEENTH τ.7.x.* per-book ingests
 (mq1 + mq2 + mq3) under D4-c Amharic-first + D1-a per-book cadence.

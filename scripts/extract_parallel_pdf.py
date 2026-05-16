@@ -1245,6 +1245,103 @@ MQ3_VERSE_COUNTS = {
 # Trilogy total = 502 + 256 + 188 = 946 verses / 67 chapters.
 
 
+# τ.7.x.o — Sirach (sir / Ecclesiasticus / The Wisdom of Jesus the
+# Son of Sirach). content/books.yaml fixes `sir` at ch_count: 51
+# (b36). Verse counts use the standard NRSV Apocrypha / Göttingen-
+# Ziegler LXX Sirach enumeration — continuing the deuterocanon-NRSV
+# pattern of 2es/tob/jdt. Sirach has well-known recension variance
+# (the Greek GI vs the longer GII; the Hebrew Masada/Geniza
+# fragments; the Vulgate chapter-30/36 displacement). Per the
+# τ.6.x.0b honesty contract the floor is the canonical CEILING and
+# the τ.6.x.3 batched audit reconciles the exact Ethiopic recension
+# boundaries (identical caveat to the JUDITH floor). Seventeenth
+# renumber-floor under D1-a per-book cadence; FIRST τ.7.x.* book in
+# the sixth EOTC-parallel block (p1379+).
+SIRACH_VERSE_COUNTS = {
+    1: 30,
+    2: 18,
+    3: 31,
+    4: 31,
+    5: 15,
+    6: 37,
+    7: 36,
+    8: 19,
+    9: 18,
+    10: 31,
+    11: 34,
+    12: 18,
+    13: 26,
+    14: 27,
+    15: 20,
+    16: 30,
+    17: 32,
+    18: 33,
+    19: 30,
+    20: 32,
+    21: 28,
+    22: 27,
+    23: 27,
+    24: 34,
+    25: 26,
+    26: 29,
+    27: 30,
+    28: 26,
+    29: 28,
+    30: 25,
+    31: 31,
+    32: 24,
+    33: 33,
+    34: 31,
+    35: 26,
+    36: 31,
+    37: 31,
+    38: 34,
+    39: 35,
+    40: 30,
+    41: 27,
+    42: 25,
+    43: 33,
+    44: 23,
+    45: 26,
+    46: 20,
+    47: 25,
+    48: 25,
+    49: 16,
+    50: 29,
+    51: 30,
+}
+# Total Sirach verses = 1413 (51 ch; NRSV/Göttingen-Ziegler LXX
+# enumeration; the unnumbered translator's Prologue is excluded —
+# the EOTC-parallel text may interleave it, reconciled at τ.6.x.3).
+
+
+# τ.7.x.p — Paralipomena of Jeremiah / 4 Baruch (4ba). content/
+# books.yaml fixes `4ba` at ch_count: 9 (b42). Verse counts use the
+# Kraft-Purintun 1972 (SBL Texts & Translations 1) critical-edition
+# 9-chapter division, cross-checked against Harris 1889. The
+# Ethiopic recension (Dillmann; the EOTC broader canon) is KNOWN to
+# differ from the Greek — it carries an extended Christian conclusion
+# in ch 9 (the Jeremiah-martyrdom + resurrection-preaching cycle).
+# Per the τ.6.x.0b honesty contract the floor is the canonical
+# CEILING; the τ.6.x.3 audit reconciles the Ethiopic recension
+# (identical caveat to TOBIT's GII recension variance). Eighteenth
+# renumber-floor; SECOND τ.7.x.* book in the sixth EOTC-parallel
+# block; drains it (Wisdom of Solomon opens the seventh block after).
+FOUR_BARUCH_VERSE_COUNTS = {
+    1: 11,
+    2: 10,
+    3: 22,
+    4: 11,
+    5: 34,
+    6: 25,
+    7: 37,
+    8: 9,
+    9: 32,
+}
+# Total 4 Baruch verses = 191 (9 ch; Kraft-Purintun 1972; the
+# Ethiopic ch-9 Christian expansion is reconciled at τ.6.x.3).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -2155,6 +2252,10 @@ def _build_docstring_extra(
         floor_dict = MQ2_VERSE_COUNTS
     elif renumber == "meqabyan_iii":
         floor_dict = MQ3_VERSE_COUNTS
+    elif renumber == "sirach":
+        floor_dict = SIRACH_VERSE_COUNTS
+    elif renumber == "four_baruch":
+        floor_dict = FOUR_BARUCH_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2250,6 +2351,8 @@ def main() -> int:
             "meqabyan_i",
             "meqabyan_ii",
             "meqabyan_iii",
+            "sirach",
+            "four_baruch",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2290,7 +2393,13 @@ def main() -> int:
             "EOTC-parallel block (p1318-1378); floors derived by the "
             "δ.1.x per-chapter-max-verse method (γ.4.8.F Wright 1877 + "
             "Cowley 1974b apparatus); ocr-tier3 + EXPLICITLY δ.1.x-"
-            "replaceable per the QUALITY POLICY. "
+            "replaceable per the QUALITY POLICY. Also 'sirach' "
+            "(SIRACH_VERSE_COUNTS, 51 ch / 1413 v; NRSV/Göttingen-"
+            "Ziegler LXX Ecclesiasticus; τ.7.x.o — FIRST book of the "
+            "sixth EOTC-parallel block p1379+) and 'four_baruch' "
+            "(FOUR_BARUCH_VERSE_COUNTS, 9 ch / 191 v; Kraft-Purintun "
+            "1972 Paralipomena Jeremiou / 4 Baruch; τ.7.x.p — drains "
+            "the sixth block before Wisdom of Solomon). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2355,6 +2464,10 @@ def main() -> int:
         renumber_floor = MQ2_VERSE_COUNTS
     elif args.renumber == "meqabyan_iii":
         renumber_floor = MQ3_VERSE_COUNTS
+    elif args.renumber == "sirach":
+        renumber_floor = SIRACH_VERSE_COUNTS
+    elif args.renumber == "four_baruch":
+        renumber_floor = FOUR_BARUCH_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 16           # 13 prior (9 protocanonical τ.7.x.a-i + 2es τ.7.x.j + tob τ.7.x.k + jdt τ.7.x.l + est τ.7.x.m) + τ.7.x.n Mäqabyan trilogy mq1+mq2+mq3 (drains the p1318-1378 fifth EOTC-parallel block; FIRST Tewahedo-distinctive + FIRST multi-book section)
-  verses: 9551        # 8935 (13 books) + 339 (mq1, 67.5%) + 198 (mq2, 77.3%) + 79 (mq3, 42.0%) = 9551 / 12388 = 77.1% combined (across 16 ingested books; still excludes 9 SKIPPED books in the 438-802 dzamaragna gap)
-  books_outside_kjv: 6   # 2es + tob + jdt + mq1 + mq2 + mq3 — all outside the 66-book Protestant/KJV canon. 2es/tob/jdt = deuterocanonical; mq1/mq2/mq3 = uniquely-Tewahedo-distinctive broader-canon (distinct from the Greek LXX 1-4 Maccabees: shared title only). est (Esther) is PROTOCANONICAL so does not count.
+  books: 18           # 16 prior (9 protocanonical τ.7.x.a-i + 2es τ.7.x.j + tob τ.7.x.k + jdt τ.7.x.l + est τ.7.x.m + mq1/mq2/mq3 τ.7.x.n) + sir τ.7.x.o + 4ba τ.7.x.p (drain the p1379-1428 sixth EOTC-parallel block: Sirach + Paralipomena Jeremiah)
+  verses: 10456       # 9551 (16 books) + 737 (sir, 52.2%) + 168 (4ba, 88.0%) = 10456 / (12388 + 1413 + 191) = 10456 / 13992 = 74.7% combined (across 18 ingested books; still excludes 9 SKIPPED books in the 438-802 dzamaragna gap)
+  books_outside_kjv: 8   # 2es + tob + jdt + mq1 + mq2 + mq3 + sir + 4ba — all outside the 66-book Protestant/KJV canon. 2es/tob/jdt/sir = deuterocanonical; mq1/mq2/mq3 = uniquely-Tewahedo broader-canon; 4ba (Paralipomena Jeremiah / 4 Baruch) = EOTC broader-canon pseudepigraphon. est (Esther) is PROTOCANONICAL so does not count.
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -1087,6 +1087,70 @@ ingest_record_tau7xn:
   tewahedo_distinctive: true   # mq1/mq2/mq3 are uniquely-Tewahedo-canonical (distinct from Greek LXX 1-4 Maccabees)
   multi_book_section: true     # FIRST multi-book τ.7.x.* ingest
   block_drained: p1318-1378    # τ.7.x.n (mq1+mq2+mq3) drains the fifth EOTC-parallel block
+  pipeline_reused_at_phase: τ.7.x.o   # back-link: τ.7.x.o (Sirach) + τ.7.x.p (4 Baruch) reused the τ.7.x.n pipeline VERBATIM; only deltas SIRACH_VERSE_COUNTS + FOUR_BARUCH_VERSE_COUNTS + structural_map.{sirach,paralipomena_jeremiah}.
+
+ingest_record_tau7xo:
+  phase: τ.7.x.o
+  ingested_date: 2026-05-15
+  ingested_book_codes: [sir]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1379, 1418]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o   # SIRACH_VERSE_COUNTS added (17th renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 737
+    verses_expected: 1413
+    coverage_pct: 52.2
+    chapters_fully_populated_range: "1-26"
+    chapters_partial:
+      27: [18, 30]   # got, expected
+    chapters_missing_count: 24   # 28-51
+  deuterocanonical: true   # Sirach / Ecclesiasticus — outside the KJV 66, in the EOTC/Catholic/Orthodox broader canon
+  sixth_block_opener: true
+  audit_handoff: τ.6.x.3
+  next_book: 4ba   # τ.7.x.p — Paralipomena Jeremiah, same "continue" turn
+  arc_continues: deuterocanon-eotc-parallel-block   # opens the sixth EOTC-parallel block p1379-1428
+  block_opened: p1379-1428
+
+ingest_record_tau7xp:
+  phase: τ.7.x.p
+  ingested_date: 2026-05-15
+  ingested_book_codes: [4ba]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1419, 1428]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o
+    - τ.7.x.p   # FOUR_BARUCH_VERSE_COUNTS added (18th renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 168
+    verses_expected: 191
+    coverage_pct: 88.0
+    chapters_fully_populated: [1, 2, 3, 4, 5, 6, 7, 8]
+    chapters_partial:
+      9: [9, 32]   # got, expected — the long Ethiopic Christian-expansion chapter
+    chapters_missing: []   # NO empty chapters — highest τ.7.x.* coverage since τ.7.x.i Psalms
+  broader_canon_pseudepigraphon: true   # 4 Baruch / Paralipomena Jeremiou — EOTC broader canon (Ethiopic `ተረፈ ኤርምያስ`)
+  ethiopic_christian_recension: true   # ch 9 carries the extended Christian conclusion (Jeremiah-resurrection-preaching); empirically visible at 1:3 (`ክርስቶስን ይሸጠቻል`)
+  audit_handoff: τ.6.x.3
+  next_book: wisdom_of_solomon   # τ.7.x.q — Wisdom of Solomon at ~p1432 (seventh block; precise boundaries at the τ.7.x.q scan)
+  arc_continues: deuterocanon-eotc-parallel-block
+  block_drained: p1379-1428   # τ.7.x.o (sir) + τ.7.x.p (4ba) together drain the sixth EOTC-parallel block
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.

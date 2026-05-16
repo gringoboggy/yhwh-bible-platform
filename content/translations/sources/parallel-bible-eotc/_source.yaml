@@ -970,6 +970,71 @@ structural_map:
       ocr-tier3 + δ.1.x-replaceable. Geʽez column deferred to
       τ.6.x.2.* under D4-c.
 
+  # ── τ.7.x.o/p sixth EOTC-parallel block (Sirach + Paralipomena
+  # Jeremiah). Boundaries from the τ.7.x.o content-boundary scan
+  # p1376-1440 (the same running-header + opening-verse + colophon
+  # method that corrected the Mäqabyan subsections at τ.7.x.n). The
+  # τ.7.x.h scan's coarse "p1368-1421" estimate is SUPERSEDED:
+  # mq3 ends p1378 (τ.7.x.n), Sirach opens p1379, Wisdom of Solomon
+  # (the seventh block) opens ~p1432 (Wis 2:6-7 wine/pleasure
+  # content empirically at p1433).
+  sirach:
+    book_codes: [sir]
+    pdf_page_range: [1379, 1418]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.o
+    chapter_count_expected: 51   # content/books.yaml `sir` ch_count: 51 (b36)
+    notes: |
+      τ.7.x.o — Sirach / Ecclesiasticus / The Wisdom of Jesus the
+      Son of Sirach (`sir`). Opens p1379 immediately after the mq3
+      p1378 trilogy capstone (τ.7.x.n-confirmed). Empirically cross-
+      validated: Sir 2:1 `ልጄ ስእግዚአብሔር ትገዛ ዘንድ` ("My son, if you
+      come to serve the Lord") at p1380; Sir 6:18 `በሕፃንነትህ ጥበብን
+      ምረጣት` at p1383; Sirach's autobiographical closing-poem +
+      thanksgiving prayer (Sir 51) at the short pages p1417-1418.
+      End boundary p1418 — p1419 opens the Paralipomena Jeremiah /
+      4 Baruch idol-temple narrative. 40 pp / 51 ch (~0.78 pp/ch;
+      Sirach chapters are short verse-dense wisdom-instruction).
+      SIRACH_VERSE_COUNTS (51 ch / 1414 v) = NRSV/Göttingen-Ziegler
+      LXX enumeration (the deuterocanon-NRSV pattern of 2es/tob/
+      jdt). Per the τ.6.x.0b honesty contract the floor is the
+      canonical CEILING; the τ.6.x.3 audit reconciles the Greek
+      GI/GII + Vulgate ch-30/36-displacement + the unnumbered
+      Prologue (identical caveat to the JUDITH floor). ocr-tier3.
+      Geʽez column deferred to τ.6.x.2.* under D4-c.
+
+  paralipomena_jeremiah:
+    book_codes: [4ba]
+    pdf_page_range: [1419, 1428]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.p
+    chapter_count_expected: 9   # content/books.yaml `4ba` ch_count: 9 (b42)
+    notes: |
+      τ.7.x.p — Paralipomena of Jeremiah / 4 Baruch (`4ba`;
+      Ethiopic `ተረፈ ኤርምያስ`). Opens p1419 (idol-temple-burning +
+      `ካህናቶቻቸው ምስላቸውን` narrative). Empirically cross-validated:
+      Baruch + Jeremiah + descending-angels at p1420; the Abimelech
+      66-year-sleep cycle (4 Baruch 5) at p1421 (`አቤሜሌክም ኢርምያስ`);
+      the stoning-martyrdom of Jeremiah (4 Baruch 9) at p1426
+      (`ኤርምያስን አስመለላለችሁኝ በደንጊያ` — "you stoned Jeremiah with
+      stones"). End boundary p1428 — p1429+ opens the seventh
+      EOTC-parallel block (siege-cannibalism + restoration-of-
+      Israel content; Wisdom of Solomon `የዳዊት ልጅ ሰለሞ` + Wis 2:6-7
+      `ብዙ ወይንን አንጠጣ` wine/pleasure content empirically at
+      p1432-1433). 10 pp / 9 ch (~1.1 pp/ch). FOUR_BARUCH_VERSE_
+      COUNTS (9 ch / 191 v) = Kraft-Purintun 1972 (SBL T&T 1)
+      cross-checked vs Harris 1889. Per the τ.6.x.0b honesty
+      contract the floor is the canonical CEILING; the Ethiopic
+      recension carries an extended Christian conclusion in ch 9
+      (Jeremiah-resurrection-preaching) reconciled at τ.6.x.3
+      (identical caveat to TOBIT's GII recension variance).
+      ocr-tier3. DRAINS the sixth EOTC-parallel block (sir + 4ba).
+      Geʽez column deferred to τ.6.x.2.* under D4-c.
+
   jubilees:
     book_codes: [jub]
     pdf_page_range: [1454, 1514]
@@ -5305,4 +5370,224 @@ ocr_strategy:
       Each future τ.7.x.* preserves the τ.7.x.a template (data-only
       delta: new VERSE_COUNTS floor + structural_map block + per-
       book extract). The Geʽez catchup (τ.6.x.2.j+) follows the
+      Amharic stream per D4-c.
+    pipeline_reused_at_phase: τ.7.x.o   # back-link: τ.7.x.o (Amharic Sirach, p1379-1418) + τ.7.x.p (Amharic Paralipomena Jeremiah / 4 Baruch, p1419-1428) reused the τ.7.x.n pipeline VERBATIM; only deltas were SIRACH_VERSE_COUNTS + FOUR_BARUCH_VERSE_COUNTS + structural_map.{sirach,paralipomena_jeremiah}. Together they drain the sixth EOTC-parallel block.
+
+  tau7xo_ingest:
+    shipped_at_phase: τ.7.x.o
+    shipped_date: 2026-05-15
+    triggered_by: |
+      User "commit and continue" → advance to next phase per PLAN
+      (τ.7.x.n recorded next_phase=τ.7.x.o = Sirach). SEVENTEENTH
+      τ.7.x.* per-book ingest under D4-c Amharic-first + D1-a per-
+      book cadence. FIRST book of the SIXTH EOTC-parallel block.
+    structural_map_addition:
+      section: sirach
+      pdf_page_range: [1379, 1418]
+      chapter_count_expected: 51   # content/books.yaml `sir` ch_count: 51 (b36)
+      boundary_verification: |
+        τ.7.x.o content-boundary scan p1376-1440 (the same running-
+        header + opening-verse + colophon method that corrected the
+        Mäqabyan subsections at τ.7.x.n). mq3 ends p1378 (τ.7.x.n-
+        confirmed: `ሣልስ` header + resurrection-doctrine capstone).
+        Sirach opens p1379; Sir 2:1 `ልጄ ስእግዚአብሔር ትገዛ ዘንድ` ("My
+        son, if you come to serve the Lord") empirically at p1380;
+        Sir 6:18 `በሕፃንነትህ ጥበብን ምረጣት` at p1383; Sir 51
+        autobiographical poem + thanksgiving prayer at the short
+        pages p1417-1418. End p1418 — p1419 opens Paralipomena
+        Jeremiah. 40 pp / 51 ch (~0.78 pp/ch).
+      deuterocanonical_context: |
+        Sirach / Ecclesiasticus is deuterocanonical (outside the
+        66-book KJV/Protestant canon; in the EOTC + Catholic +
+        Orthodox broader canon). SIRACH_VERSE_COUNTS = NRSV/
+        Göttingen-Ziegler LXX 51-ch enumeration (the deuterocanon-
+        NRSV pattern of 2es/tob/jdt). The τ.6.x.0b honesty contract
+        floor-is-canonical-ceiling caveat applies (Greek GI/GII +
+        Vulgate ch-30/36 displacement + the unnumbered Prologue —
+        reconciled at τ.6.x.3, identical to the JUDITH caveat).
+    helpers_added:
+      SIRACH_VERSE_COUNTS: |
+        Module-level dict ch (1-51) → expected verse count under the
+        NRSV/Göttingen-Ziegler LXX Sirach enumeration. Total 1413.
+        Seventeenth renumber-floor. content/books.yaml `sir`
+        ch_count: 51.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` includes `sirach` (added alongside `four_baruch`
+        at τ.7.x.p). Wires SIRACH_VERSE_COUNTS as the floor dict.
+    parser_api_change: |
+      No parser API changes. Only deltas: SIRACH_VERSE_COUNTS dict +
+      dispatch + structural_map.sirach block. SEVENTEENTH consecutive
+      τ.7.x.* ship with zero parser API change — 25-ship zero-API-
+      delta across both columns.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1379, 1418]
+      extraction_engine: text-layer
+      parser_mode: paragraph
+      raw_parser_output_verse_count: 737
+      renumbered_verse_count: 737
+      chapters_fully_populated: "1-26"
+      chapters_partial: {27: {got: 18, expected: 30}}
+      chapters_missing_count: 24   # 28-51
+      expected_total: 1413
+      coverage_pct: 52.2
+      coverage_band_position: |
+        52.2% — within the deep-PDF deuterocanon band (cf. tob
+        48.0% / jdt 35.4% / 2es 34.1%). Sirach's 51 short verse-
+        dense wisdom-instruction chapters in the "(ረቂቅ)" draft
+        region; Sir 1/Prologue partially lost (recovery effectively
+        opens at Sir 2 — the dry-run first-recovered verse was Sir
+        2:1 content), standard ocr-tier3 leading-content loss, NOT a
+        boundary error (the τ.7.x.n anomaly-check discipline was
+        applied — content confirmed Sirach, coverage honest-low per
+        τ.6.x.0b, no boundary correction needed unlike τ.7.x.n mq2).
+      regression_pin_tests:
+        - test_amharic_sir_total_verse_count_floor
+        - test_amharic_sir_clean_renumber_shape
+        - test_amharic_sir_ingest_phase_constant
+        - test_sirach_structural_map_block
+    known_residual_issues:
+      sirach_recension_variance: |
+        The EOTC-parallel Sirach likely interleaves the unnumbered
+        translator's Prologue + follows a Greek GII-influenced
+        recension; the renumber-against-floor + τ.6.x.3 audit
+        reconcile (identical treatment to jdt's Vulgate variance).
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xe_ingest: true   # CLOSED Amharic Pentateuch §8.1 arc preserved
+      tau7xh_ingest: true
+      tau7xi_ingest: true
+      tau7xm_ingest: true
+      tau7xn_ingest: true   # Mäqabyan trilogy + structural-discovery correction preserved
+      tau6x2h_ingest: true  # CLOSED parallel-column-catchup arc preserved
+    no_ingest_at_this_phase: false
+    arc_continues_deuterocanon: |
+      τ.7.x.o OPENS the sixth EOTC-parallel block (Sirach +
+      Paralipomena Jeremiah, p1379-1428). τ.7.x.p (4 Baruch) drains
+      it in the same "continue" turn (the τ.7.x.l/m + τ.7.x.j/k
+      two-books-per-block-per-continue precedent).
+    translation_slot_state:
+      amharic_tewahedo_sir: 'shipped-at-τ.7.x.o (737 v; ocr-tier3; deuterocanonical; opens the sixth EOTC-parallel block)'
+      geez_tewahedo_sir: 'no-op (τ.6.x.2.* under D4-c; same page range, Geʽez column)'
+    next_phase: τ.7.x.p
+    next_phase_description: |
+      τ.7.x.p — Paralipomena Jeremiah / 4 Baruch (p1419-1428),
+      draining the sixth EOTC-parallel block. Same "continue" turn.
+    pipeline_reused_at_phase: τ.7.x.p   # back-link: τ.7.x.p (4 Baruch) reused the τ.7.x.o pipeline VERBATIM; only delta FOUR_BARUCH_VERSE_COUNTS + structural_map.paralipomena_jeremiah.
+
+  tau7xp_ingest:
+    shipped_at_phase: τ.7.x.p
+    shipped_date: 2026-05-15
+    triggered_by: |
+      Continuation of the τ.7.x.o ship (same "commit and continue"
+      turn) — the D1-a per-book second half of the sixth EOTC-
+      parallel block. τ.7.x.o ingested Sirach (p1379-1418); τ.7.x.p
+      ingests Paralipomena Jeremiah / 4 Baruch (p1419-1428),
+      CLOSING the block before Wisdom of Solomon at ~p1432.
+      EIGHTEENTH τ.7.x.* per-book ingest.
+    structural_map_addition:
+      section: paralipomena_jeremiah
+      pdf_page_range: [1419, 1428]
+      chapter_count_expected: 9   # content/books.yaml `4ba` ch_count: 9 (b42)
+      boundary_verification: |
+        Same p1376-1440 scan as sirach. 4 Baruch opens p1419 (idol-
+        temple-burning + `ካህናቶቻቸው ምስላቸውን`); Baruch + Jeremiah +
+        descending-angels at p1420; the Abimelech 66-year-sleep
+        cycle (4 Baruch 5) at p1421 (`አቤሜሌክም ኢርምያስ`); the stoning-
+        martyrdom of Jeremiah (4 Baruch 9) at p1426 (`ኤርምያስን
+        አስመለላለችሁኝ በደንጊያ`). End p1428 — p1429+ opens the seventh
+        block (siege-cannibalism + restoration; Wisdom of Solomon
+        `የዳዊት ልጅ ሰለሞ` + Wis 2:6-7 `ብዙ ወይንን አንጠጣ` at p1432-1433).
+        10 pp / 9 ch (~1.1 pp/ch).
+      recension_context: |
+        4ba is in the EOTC broader canon (Ethiopic `ተረፈ ኤርምያስ`).
+        FOUR_BARUCH_VERSE_COUNTS = Kraft-Purintun 1972 (SBL T&T 1)
+        cross-checked vs Harris 1889. The Ethiopic recension carries
+        an extended Christian conclusion in ch 9 (Jeremiah-
+        resurrection-preaching); the extracted 1:3 empirically shows
+        the Ethiopic Christian passion-prophecy content (`ክርስቶስን
+        ይሸጠቻል`) — confirms the recension caveat. τ.6.x.3 reconciles
+        (identical treatment to TOBIT's GII variance).
+    helpers_added:
+      FOUR_BARUCH_VERSE_COUNTS: |
+        Module-level dict ch (1-9) → expected verse count under the
+        Kraft-Purintun 1972 Paralipomena Jeremiou enumeration. Total
+        191. Eighteenth renumber-floor. content/books.yaml `4ba`
+        ch_count: 9.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` includes `four_baruch` (added alongside `sirach`
+        at τ.7.x.o). Wires FOUR_BARUCH_VERSE_COUNTS as the floor dict.
+    parser_api_change: |
+      No parser API changes. Only deltas: FOUR_BARUCH_VERSE_COUNTS
+      dict + dispatch + structural_map.paralipomena_jeremiah block.
+      EIGHTEENTH consecutive τ.7.x.* ship with zero parser API
+      change — 26-ship zero-API-delta across both columns.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1419, 1428]
+      extraction_engine: text-layer
+      parser_mode: paragraph
+      raw_parser_output_verse_count: 168
+      renumbered_verse_count: 168
+      chapters_fully_populated: "1-8"
+      chapters_partial: {9: {got: 9, expected: 32}}
+      chapters_missing_count: 0   # all 9 chapters at least partially populated
+      expected_total: 191
+      coverage_pct: 88.0
+      coverage_band_position: |
+        88.0% — the HIGHEST τ.7.x.* coverage since τ.7.x.i Psalms
+        (88.6%). 4 Baruch is short narrative (9 ch) recovering
+        cleanly; only ch 9 (the long Ethiopic Christian-expansion
+        chapter) is partial. NO empty chapters. The dry-run
+        confirmed correct content (Jeremiah prophecy + the Ethiopic
+        Christian recension at 1:3) — boundary [1419,1428] sound, no
+        τ.7.x.n-style correction needed.
+      regression_pin_tests:
+        - test_amharic_4ba_total_verse_count_floor
+        - test_amharic_4ba_clean_renumber_shape
+        - test_amharic_4ba_ingest_phase_constant
+        - test_paralipomena_jeremiah_structural_map_block
+        - test_p1379_1428_sixth_block_drained
+    known_residual_issues:
+      ethiopic_christian_expansion_ch9: |
+        The Ethiopic 4 Baruch ch 9 carries an extended Christian
+        conclusion (Jeremiah-resurrection-preaching + passion-
+        prophecy) absent from the Greek Kraft-Purintun text; ch 9 is
+        the sole partial chapter. The renumber-against-floor + the
+        τ.6.x.3 audit reconcile the Ethiopic recension boundary.
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xe_ingest: true
+      tau7xh_ingest: true
+      tau7xi_ingest: true
+      tau7xm_ingest: true
+      tau7xn_ingest: true
+      tau7xo_ingest: true   # Sirach (sixth-block opener) preserved
+      tau6x2h_ingest: true
+    no_ingest_at_this_phase: false
+    arc_continues_deuterocanon: |
+      τ.7.x.p CLOSES the sixth EOTC-parallel block p1379-1428:
+      τ.7.x.o Sirach (p1379-1418) + τ.7.x.p 4 Baruch (p1419-1428)
+      together drain it. Next EOTC-parallel content is the Wisdom
+      of Solomon at ~p1432 (the seventh block; Baruch + Wisdom +
+      Jubilees per the τ.7.x.h scan, p1430+ — to be precisely
+      boundary-verified at the next τ.7.x.* discovery scan).
+    block_drained: p1379-1428   # τ.7.x.o (sir) + τ.7.x.p (4ba) together drain the sixth EOTC-parallel block
+    translation_slot_state:
+      amharic_tewahedo_4ba: 'shipped-at-τ.7.x.p (168 v; ocr-tier3; broader-canon Ethiopic recension; closes the sixth EOTC-parallel block)'
+      amharic_tewahedo_sir: 'shipped-at-τ.7.x.o (preserved; sixth-block opener)'
+      geez_tewahedo_4ba: 'no-op (τ.6.x.2.* under D4-c; same page range, Geʽez column)'
+    next_phase: τ.7.x.q
+    next_phase_description: |
+      τ.7.x.q — next per-book ingest. The sixth EOTC-parallel block
+      p1379-1428 is DRAINED (Sirach + 4 Baruch). Next EOTC-parallel
+      content per the τ.7.x.o scan: Wisdom of Solomon (`የዳዊት ልጅ
+      ሰለሞ` + Wis 2:6-7 content empirically at p1432-1433), the
+      seventh block (Baruch + Wisdom + Jubilees per the τ.7.x.h
+      scan, p1430+ — precise boundaries to be verified at the
+      τ.7.x.q discovery scan). Geʽez catchup τ.6.x.2.j+ follows the
       Amharic stream per D4-c.

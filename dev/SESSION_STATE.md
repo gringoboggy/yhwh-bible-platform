@@ -1,11 +1,75 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.n AMHARIC MÄQABYAN TRILOGY (mq1 + mq2
+**Updated 2026-05-15 / τ.7.x.o + τ.7.x.p AMHARIC SIRACH +
+PARALIPOMENA-JEREMIAH (4 BARUCH) FULL-BOOK INGEST ship —
+SEVENTEENTH + EIGHTEENTH τ.7.x.* per-book ingests under D4-c
+Amharic-first + D1-a per-book cadence. Drains the SIXTH
+EOTC-parallel block p1379-1428 (Sirach + Paralipomena Jeremiah).**
+
+Adds `amharic-tewahedo/sir.py` (Sirach/Ecclesiasticus, p1379-1418,
+737 v, 52.2%, deuterocanonical — OPENS the sixth block) + `4ba.py`
+(Paralipomena Jeremiah / 4 Baruch, p1419-1428, 168 v, 88.0%, EOTC
+broader-canon — DRAINS the sixth block). 18-book combined 10456 /
+13992 = 74.7%. Pipeline reused VERBATIM from τ.7.x.n — only deltas:
+SIRACH_VERSE_COUNTS (51 ch / 1413 v; NRSV/Göttingen-Ziegler LXX) +
+FOUR_BARUCH_VERSE_COUNTS (9 ch / 191 v; Kraft-Purintun 1972) + 2
+single-book structural_map sections (sirach / paralipomena_
+jeremiah). SEVENTEENTH + EIGHTEENTH consecutive zero-parser-API-
+delta (26-ship across both columns).
+
+**Structural discovery (τ.7.x.o scan p1376-1440):** same running-
+header + opening-verse + colophon method that corrected the
+Mäqabyan subsections at τ.7.x.n. mq3 ends p1378 (τ.7.x.n-confirmed);
+Sirach opens p1379 (Sir 2:1 `ልጄ ስእግዚአብሔር ትገዛ ዘንድ` empirically at
+p1380, Sir 6:18 at p1383, Sir 51 thanksgiving prayer at the short
+pages p1417-1418); Paralipomena Jeremiah p1419-1428 (Baruch +
+Jeremiah + angels p1420, Abimelech-66-yr-sleep p1421, Jeremiah
+stoning-martyrdom = 4 Baruch 9 at p1426); the seventh block
+(Wisdom of Solomon — `የዳዊት ልጅ ሰለሞ` + Wis 2:6-7 wine/pleasure
+content at p1432-1433) opens ~p1429-1432, confirming the sixth-
+block end-boundary. The τ.7.x.h coarse "p1368-1421" estimate is
+SUPERSEDED.
+
+**Anomaly-check discipline applied (τ.7.x.n precedent):** Sirach's
+52.2% is honest-low (deep-PDF deuterocanon band, cf. tob 48.0%;
+Sir 1/Prologue partially lost — recovery effectively opens at Sir
+2). The dry-run confirmed the content IS Sirach (Sir 2:1 wisdom-
+instruction) — so this is standard ocr-tier3 leading-content loss
+per τ.6.x.0b, NOT a boundary error (unlike τ.7.x.n mq2's 5.9%
+which WAS a boundary error). No boundary correction needed. 4 Baruch
+88.0% is the highest τ.7.x.* coverage since τ.7.x.i Psalms (88.6%);
+only ch 9 (the long Ethiopic Christian-expansion chapter, visible
+at 1:3 `ክርስቶስን ይሸጠቻል`) is partial — NO empty chapters.
+
+**Floors (τ.6.x.0b honesty contract):** no project-internal sir/4ba
+enumeration — SIRACH from NRSV/Göttingen-Ziegler LXX (the
+deuterocanon-NRSV pattern of 2es/tob/jdt); FOUR_BARUCH from
+Kraft-Purintun 1972 cross-checked vs Harris 1889. Both floors are
+the canonical CEILING; the τ.6.x.3 audit reconciles the Greek
+GI/GII + Vulgate ch-30/36 displacement (Sirach) + the Ethiopic
+ch-9 Christian expansion (4 Baruch) — identical caveat to the jdt
++ tob floors.
+
+`test_parallel_bible_tau7xo.py` adds 67 pins (14 classes) covering
+BOTH τ.7.x.o + τ.7.x.p incl. floors, structural_map, coverage
+shape, the anomaly-check documentation, the tau7xn→o→p back-link
+chain, and prior-pin preservation.
+
+**Next per most-logical-path:** τ.7.x.q — the p1379-1428 block is
+DRAINED; next EOTC-parallel content is the Wisdom of Solomon at
+~p1432 (the seventh block; Baruch + Wisdom + Jubilees per the
+τ.7.x.h scan, p1430+ — precise boundaries to be verified at the
+τ.7.x.q discovery scan, applying the same content-boundary
+method). Geʽez catchup (τ.6.x.2.j+) follows per D4-c.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.n AMHARIC MÄQABYAN TRILOGY (mq1 + mq2
 + mq3) FULL-BOOK INGEST ship — FOURTEENTH + FIFTEENTH + SIXTEENTH
 τ.7.x.* per-book ingests under D4-c Amharic-first + D1-a per-book
 cadence. FIRST Tewahedo-distinctive book(s) + FIRST multi-book
 EOTC-parallel block in the τ.7.x.* stream. Drains the FIFTH
-EOTC-parallel block p1318-1378 (the Mäqabyan trilogy).**
+EOTC-parallel block p1318-1378 (the Mäqabyan trilogy).
 
 Adds `amharic-tewahedo/mq1.py` (1 Mäqabyan, `መጽሐፈ መቃብያን ቀዳማዊ`,
 p1318-1350, 339 v, 67.5%) + `mq2.py` (2 Mäqabyan, `ካልዕ`,
