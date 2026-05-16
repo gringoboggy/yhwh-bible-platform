@@ -69,3 +69,33 @@ class TestWriteBookModuleParametrized:
         assert "Tool: scripts/ingest_hacohen.py" in txt
         assert "SOURCE_QUALITY = 'digitized-critical-edition'" in txt
         assert "parallel-bible-eotc" not in txt
+
+
+FIX = REPO / "tests" / "fixtures" / "hacohen"
+
+
+class TestParseHacohenPsalter:
+    def _fn(self):
+        from scripts.ingest_hacohen import parse_hacohen_psalter
+
+        return parse_hacohen_psalter
+
+    def test_parses_verses_with_correct_numbering(self):
+        html_text = (FIX / "psalm1.html").read_text(encoding="utf-8")
+        verses = self._fn()(html_text, 1)
+        assert [(c, v) for c, v, _ in verses] == [(1, 1), (1, 2)]
+
+    def test_verse1_is_blessed_is_the_man_unicode_geez(self):
+        verses = self._fn()((FIX / "psalm1.html").read_text(encoding="utf-8"), 1)
+        ch, v, text = verses[0]
+        assert text.startswith("ብፁዕ ፡ ብእሲ"), repr(text[:40])
+        assert "መንበረ" in text
+        assert "&#" not in text
+        assert "<" not in text
+
+    def test_title_and_caption_and_toggle_skipped(self):
+        verses = self._fn()((FIX / "psalm1.html").read_text(encoding="utf-8"), 1)
+        joined = " ".join(t for _, _, t in verses)
+        assert "Nr. Vers" not in joined
+        assert "Cap." not in joined
+        assert len(verses) == 2
