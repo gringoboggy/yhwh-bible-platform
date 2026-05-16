@@ -2,9 +2,20 @@
 
 **Date:** 2026-05-16
 **Phase:** `τ.6.x.1.E` Fix D (the final part of the unifying
-structure-aware parser pre-pass). Consumed first by `τ.6.x.2.i`
-(Ge'ez Psalms ingest).
+structure-aware parser pre-pass).
 **Status:** design approved (brainstorming), pre-implementation.
+
+> **⚑ SUPERSEDED AS PRIMARY (2026-05-16, Option-C decision +
+> source validation).** This colometric merge is **no longer the
+> Ge'ez-Psalms path** and is **no longer on the `τ.6.x.2.i`
+> critical path**. Ge'ez Psalms now ingests from a clean PD
+> external critical edition — see
+> `2026-05-16-geez-external-source-ingest-design.md` (`τ.6.x.5`).
+> This spec is **RETAINED as the documented FALLBACK** for any
+> poetic Ge'ez book that has *no* clean external source (e.g. a
+> standalone Prayer of Azariah). The design below is unchanged and
+> still valid for that fallback role; it is first consumed
+> whenever such a no-clean-source poetic book is reached.
 **Related:** `dev/CLAUDE_PROJECT_RULES.md` §1 (two-standalone-Bibles
 north star), the `τ.6.x.0b` honesty contract, the τ.7.x.v
 NT-renumber-overflow blocker.
