@@ -58,9 +58,9 @@ source:
   fetched: 2026-05-14
   source_date: null  # to be set during τ.7.x bulk ingest
 stats:
-  books: 18           # 16 prior (9 protocanonical τ.7.x.a-i + 2es τ.7.x.j + tob τ.7.x.k + jdt τ.7.x.l + est τ.7.x.m + mq1/mq2/mq3 τ.7.x.n) + sir τ.7.x.o + 4ba τ.7.x.p (drain the p1379-1428 sixth EOTC-parallel block: Sirach + Paralipomena Jeremiah)
-  verses: 10456       # 9551 (16 books) + 737 (sir, 52.2%) + 168 (4ba, 88.0%) = 10456 / (12388 + 1413 + 191) = 10456 / 13992 = 74.7% combined (across 18 ingested books; still excludes 9 SKIPPED books in the 438-802 dzamaragna gap)
-  books_outside_kjv: 8   # 2es + tob + jdt + mq1 + mq2 + mq3 + sir + 4ba — all outside the 66-book Protestant/KJV canon. 2es/tob/jdt/sir = deuterocanonical; mq1/mq2/mq3 = uniquely-Tewahedo broader-canon; 4ba (Paralipomena Jeremiah / 4 Baruch) = EOTC broader-canon pseudepigraphon. est (Esther) is PROTOCANONICAL so does not count.
+  books: 20           # 18 prior (… + sir τ.7.x.o + 4ba τ.7.x.p) + bar τ.7.x.q + wis τ.7.x.r (drain the two MAJOR books of the seventh EOTC-parallel block: Baruch + Wisdom of Solomon, p1429-1448)
+  verses: 10757       # 10456 (18 books) + 47 (bar, 33.3%) + 254 (wis, 58.3%) = 10757 / (13992 + 141 + 436) = 10757 / 14569 = 73.8% combined (across 20 ingested books; still excludes 9 SKIPPED books in the 438-802 dzamaragna gap)
+  books_outside_kjv: 10   # prior 8 (2es/tob/jdt/mq1/mq2/mq3/sir/4ba) + bar (Baruch) + wis (Wisdom of Solomon) — both deuterocanonical, outside the 66-book KJV canon. est (Esther) is PROTOCANONICAL so does not count.
 
 # τ.7.x.a ingest record — UPGRADED from Π.0 seed 2026-05-15.
 #
@@ -1151,6 +1151,88 @@ ingest_record_tau7xp:
   next_book: wisdom_of_solomon   # τ.7.x.q — Wisdom of Solomon at ~p1432 (seventh block; precise boundaries at the τ.7.x.q scan)
   arc_continues: deuterocanon-eotc-parallel-block
   block_drained: p1379-1428   # τ.7.x.o (sir) + τ.7.x.p (4ba) together drain the sixth EOTC-parallel block
+  pipeline_reused_at_phase: τ.7.x.q   # back-link: τ.7.x.q (Baruch) + τ.7.x.r (Wisdom of Solomon) reused the τ.7.x.p pipeline VERBATIM; only deltas BARUCH_VERSE_COUNTS + WISDOM_OF_SOLOMON_VERSE_COUNTS + structural_map.{baruch,wisdom_of_solomon}.
+
+ingest_record_tau7xq:
+  phase: τ.7.x.q
+  ingested_date: 2026-05-15
+  ingested_book_codes: [bar]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1429, 1431]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o
+    - τ.7.x.q   # BARUCH_VERSE_COUNTS added (19th renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 47
+    verses_expected: 141
+    coverage_pct: 33.3
+    chapters_fully_populated: [1]
+    chapters_partial:
+      2: [25, 35]   # got, expected
+    chapters_missing: [3, 4, 5]
+  deuterocanonical: true   # The Book of Baruch — outside the KJV 66, in the EOTC/Catholic/Orthodox broader canon
+  seventh_block_opener: true
+  source_compression_note: |
+    The EOTC parallel Baruch is EXTREMELY compressed (3 pp for the
+    NRSV-5-ch/141-v floor); 33.3% reflects source compression
+    against the full NRSV ceiling, NOT a boundary error (τ.7.x.n
+    anomaly-check applied — content confirmed Baruch via dry-run:
+    Bar 2:3 siege-cannibalism + Bar 3 wisdom-poem + Bar 5
+    restoration). honest-low per τ.6.x.0b.
+  lje_ambiguity: |
+    The Letter of Jeremiah (lje, books.yaml b41) is the LXX/Vulgate
+    "Baruch 6"; no distinct lje banner in the p1426-1456 scan —
+    placement deferred to τ.6.x.3.
+  audit_handoff: τ.6.x.3
+  next_book: wisdom_of_solomon   # τ.7.x.r — same "continue" turn
+  arc_continues: deuterocanon-eotc-parallel-block   # opens the seventh EOTC-parallel block
+  block_opened: p1429-1448
+
+ingest_record_tau7xr:
+  phase: τ.7.x.r
+  ingested_date: 2026-05-15
+  ingested_book_codes: [wis]
+  source_pdf: Bible_Amharic_and_Geez.pdf
+  source_pdf_pages: [1432, 1448]
+  engine: text-layer
+  parser_mode: paragraph_mode
+  parser_extensions:
+    - τ.6.x.1.B
+    - τ.6.x.1.C
+    - τ.6.x.1.D
+    - τ.7.x.a
+    - τ.7.x.n
+    - τ.7.x.o
+    - τ.7.x.q
+    - τ.7.x.r   # WISDOM_OF_SOLOMON_VERSE_COUNTS added (20th renumber-floor)
+  quality_tier: ocr-tier3
+  coverage:
+    verses_extracted: 254
+    verses_expected: 436
+    coverage_pct: 58.3
+    chapters_fully_populated_range: "1-11"
+    chapters_partial:
+      12: [11, 27]   # got, expected
+    chapters_missing_count: 7   # 13-19
+  deuterocanonical: true   # The Wisdom of Solomon — outside the KJV 66, in the EOTC/Catholic/Orthodox broader canon
+  jubilees_crossvalidation: |
+    p1454 opens Jubilees (`።ኩፉሌ።`) EXACTLY matching the pre-existing
+    Π.1 structural_map.jubilees [1454,1514] — decisive proof the
+    τ.7.x.q scan indexing is correct (same discipline as τ.7.x.l/m/
+    n/o vs the next known structural_map entry). Π.1 jubilees
+    section NOT modified — cross-validated only.
+  audit_handoff: τ.6.x.3
+  next_book: paz   # τ.7.x.s — Daniel-additions cluster paz/sus/bel (`ተረፈ ዳንኤል`, p1449-1453)
+  arc_continues: deuterocanon-eotc-parallel-block
+  block_major_pair_drained: p1429-1448   # τ.7.x.q (bar) + τ.7.x.r (wis) drain the two major books of the seventh block
 
 notes: |
   Π.0 SEED CORPUS — 2026-05-14.

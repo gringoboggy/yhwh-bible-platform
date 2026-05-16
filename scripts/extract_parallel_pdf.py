@@ -1342,6 +1342,62 @@ FOUR_BARUCH_VERSE_COUNTS = {
 # Ethiopic ch-9 Christian expansion is reconciled at τ.6.x.3).
 
 
+# τ.7.x.q — The Book of Baruch (bar). content/books.yaml fixes `bar`
+# at ch_count: 5 (b40). Verse counts use the standard NRSV/LXX
+# Baruch enumeration (the deuterocanon-NRSV pattern of 2es/tob/jdt/
+# sir). NOTE: the Letter of Jeremiah (lje, books.yaml b41) is the
+# LXX/Vulgate "Baruch ch 6" but content/books.yaml treats it as a
+# SEPARATE book (ch_count: 1); this floor is the 5-chapter Baruch
+# proper. Per the τ.6.x.0b honesty contract the floor is the
+# canonical CEILING and the τ.6.x.3 batched audit reconciles the
+# exact Ethiopic recension + the lje-as-Baruch-6 ambiguity
+# (identical caveat to the JUDITH + SIRACH floors). Nineteenth
+# renumber-floor; FIRST book of the seventh EOTC-parallel block.
+BARUCH_VERSE_COUNTS = {
+    1: 22,
+    2: 35,
+    3: 38,
+    4: 37,
+    5: 9,
+}
+# Total Baruch verses = 141 (5 ch; NRSV/LXX enumeration; the Letter
+# of Jeremiah is the SEPARATE `lje` book, NOT this floor).
+
+
+# τ.7.x.r — The Wisdom of Solomon (wis). content/books.yaml fixes
+# `wis` at ch_count: 19 (b33). Verse counts use the standard NRSV/
+# Göttingen-Ziegler LXX Wisdom-of-Solomon enumeration (continuing
+# the deuterocanon-NRSV pattern). Per the τ.6.x.0b honesty contract
+# the floor is the canonical CEILING; the τ.6.x.3 batched audit
+# reconciles the exact Ethiopic recension boundaries (identical
+# caveat to the SIRACH floor). Twentieth renumber-floor; SECOND
+# (major) book of the seventh EOTC-parallel block; drains the
+# bar+wis major-book pair before the Daniel-additions cluster.
+WISDOM_OF_SOLOMON_VERSE_COUNTS = {
+    1: 16,
+    2: 24,
+    3: 19,
+    4: 20,
+    5: 23,
+    6: 25,
+    7: 30,
+    8: 21,
+    9: 18,
+    10: 21,
+    11: 26,
+    12: 27,
+    13: 19,
+    14: 31,
+    15: 19,
+    16: 29,
+    17: 21,
+    18: 25,
+    19: 22,
+}
+# Total Wisdom of Solomon verses = 436 (19 ch; NRSV/Göttingen-
+# Ziegler LXX enumeration).
+
+
 def _parse_paragraph_mode(text: str) -> list[tuple[int, int, str]]:
     """τ.6.x.1.C paragraph-mode parser + τ.6.x.1.D chapter-marker recovery.
 
@@ -2256,6 +2312,10 @@ def _build_docstring_extra(
         floor_dict = SIRACH_VERSE_COUNTS
     elif renumber == "four_baruch":
         floor_dict = FOUR_BARUCH_VERSE_COUNTS
+    elif renumber == "baruch":
+        floor_dict = BARUCH_VERSE_COUNTS
+    elif renumber == "wisdom_of_solomon":
+        floor_dict = WISDOM_OF_SOLOMON_VERSE_COUNTS
 
     if floor_dict is not None and verses:
         # Per-chapter coverage summary
@@ -2353,6 +2413,8 @@ def main() -> int:
             "meqabyan_iii",
             "sirach",
             "four_baruch",
+            "baruch",
+            "wisdom_of_solomon",
         ],
         help=(
             "Post-process renumber verses against a canonical chapter "
@@ -2399,7 +2461,14 @@ def main() -> int:
             "sixth EOTC-parallel block p1379+) and 'four_baruch' "
             "(FOUR_BARUCH_VERSE_COUNTS, 9 ch / 191 v; Kraft-Purintun "
             "1972 Paralipomena Jeremiou / 4 Baruch; τ.7.x.p — drains "
-            "the sixth block before Wisdom of Solomon). "
+            "the sixth block before Wisdom of Solomon). Also 'baruch' "
+            "(BARUCH_VERSE_COUNTS, 5 ch / 141 v; NRSV/LXX The Book of "
+            "Baruch; τ.7.x.q — FIRST book of the seventh EOTC-parallel "
+            "block; the Letter of Jeremiah is the SEPARATE `lje` book) "
+            "and 'wisdom_of_solomon' (WISDOM_OF_SOLOMON_VERSE_COUNTS, "
+            "19 ch / 436 v; NRSV/Göttingen-Ziegler LXX; τ.7.x.r — "
+            "drains the bar+wis major-book pair before the Daniel-"
+            "additions cluster paz/sus/bel). "
             "Renumbering discards parser chapter labels and assigns verses "
             "sequentially to canonical chapters; trade-off documented in "
             "renumber_against_floor() docstring."
@@ -2468,6 +2537,10 @@ def main() -> int:
         renumber_floor = SIRACH_VERSE_COUNTS
     elif args.renumber == "four_baruch":
         renumber_floor = FOUR_BARUCH_VERSE_COUNTS
+    elif args.renumber == "baruch":
+        renumber_floor = BARUCH_VERSE_COUNTS
+    elif args.renumber == "wisdom_of_solomon":
+        renumber_floor = WISDOM_OF_SOLOMON_VERSE_COUNTS
 
     if args.pilot:
         # Derive section from pilot filter. Π.1 introduced metadata

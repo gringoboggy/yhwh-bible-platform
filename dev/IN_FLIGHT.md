@@ -4,6 +4,84 @@
 
 ## Prior task
 
+**τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-SOLOMON FULL-BOOK
+INGEST — SHIPPED 2026-05-15. NINETEENTH + TWENTIETH τ.7.x.*
+per-book ingests under D4-c Amharic-first + D1-a per-book cadence.
+Drains the two MAJOR books of the SEVENTH EOTC-parallel block —
+user "continue" → advance per PLAN.**
+
+**Structural discovery (τ.7.x.q scan p1426-1456, same content-
+boundary method as τ.7.x.n/o):** 4ba ends p1428 (τ.7.x.p-confirmed);
+**Baruch `bar`** p1429-1431 (Bar 2 siege-cannibalism `ሰው የሴቶች
+ልጆቹን ሥጋ በላ` p1429, Bar 3 wisdom-poem p1430, Bar 5 restoration
+`እስራኤል ጥርጊያውን ጐዳና` short page p1431); **Wisdom of Solomon `wis`**
+p1432-1448 (Wis 1 `የዳዊት ልጅ ሰለሞ... ገዙ መኳንንት` short page p1432,
+Wis 2:6-7 `ብዙ ወይንን አንጠጣ` p1433, Wis 16-19 Egypt-exodus midrash
+`በግብፃውያን ላይ መጣች` p1448); then the Daniel-additions cluster
+(Prayer of Azariah `በዚህ ወራት አለቃ የለም ነቢይም የለም` p1449, Song of
+the Three `አናንያ አዛርያ ሚሳኤል` p1450-1451, Bel & Dragon p1452,
+`ተረፈ ዳንኤል` close p1453) — paz/sus/bel, a SEPARATE later cluster;
+then **Jubilees p1454** (`።ኩፉሌ።`) EXACTLY matching the pre-existing
+Π.1 structural_map.jubilees [1454,1514] — decisive cross-
+validation (same discipline as τ.7.x.l/m/n/o vs the next known
+structural_map entry).
+
+**Scope (per the established 2-major-books-per-continue cadence —
+cf. τ.7.x.o+p, τ.7.x.j+k, τ.7.x.l+m):** τ.7.x.q = Baruch +
+τ.7.x.r = Wisdom of Solomon (the two major contiguous deutero
+books, p1429-1448). The Daniel-additions cluster (paz/sus/bel,
+p1449-1453) is a SEPARATE subsequent ship; Jubilees [1454,1514]
++ 1en [1515,1566] already Π.1-mapped (future τ.7.x.* against the
+existing structural_map). Letter of Jeremiah (lje) — no distinct
+banner in the scan (LXX-appended-to-Baruch ambiguity); deferred to
+τ.6.x.3 (consistent with the project's defer-ambiguous-boundary
+discipline).
+
+**Floors (τ.6.x.0b honesty contract):** no project-internal bar/
+wis enumeration (no candidates/notes, like sir/4ba) — BARUCH = NRSV
+5 ch / 141 v; WISDOM_OF_SOLOMON = NRSV 19 ch / 436 v (the
+deuterocanon-NRSV pattern of 2es/tob/jdt/sir). Canonical CEILING;
+τ.6.x.3 reconciles the LXX recension + the Letter-of-Jeremiah-as-
+Baruch-6 ambiguity (identical caveat to the jdt/sir floors).
+
+**Approach:** pipeline reused VERBATIM from τ.7.x.p — data-only
+delta: 2 new VERSE_COUNTS floors + 2 single-book structural_map
+sections + renumber dispatch + CLI choices. Zero parser API change
+(27th/28th consecutive; 28-ship both columns). paragraph-mode
+(established τ.7.x.* setting; verify via --dry-run + anomaly-check
+per the τ.7.x.n/o discipline).
+
+**Checklist:**
+- [x] BARUCH (5 ch/141 v NRSV/LXX) + WISDOM_OF_SOLOMON (19 ch/436 v
+      NRSV/Göttingen-Ziegler) floors + renumber dispatch (2 sites)
+      + --renumber choices + help + _build_docstring_extra
+- [x] structural_map.baruch [1429,1431] + .wisdom_of_solomon
+      [1432,1448] (τ.7.x.q content-boundary scan p1426-1456)
+- [x] --dry-run probe: paragraph-mode confirmed; bar content =
+      Baruch (Bar 2:3 siege), wis content = Wis 7:1 "I also am
+      mortal"; both honest-low NOT boundary errors (τ.7.x.n/o
+      discipline); Jubilees p1454 cross-validated vs Π.1
+- [x] extract → bar.py (τ.7.x.q, 47 v/33.3% — extreme 3pp/5ch
+      source compression) + wis.py (τ.7.x.r, 254 v/58.3%)
+- [x] _source.yaml tau7xq_ingest + tau7xr_ingest + _meta stats
+      18→20 books / 10456→10757 v / outside_kjv 8→10 + back-links
+      tau7xp→q→r + jubilees_section_unchanged invariant
+- [x] test_parallel_bible_tau7xq.py (70 pins / 15 classes, BOTH
+      books + Jubilees-unchanged + honest-low-doc + prior-pin)
+- [x] SESSION_STATE / CHANGELOG / PLAN updated
+- [x] ruff format + lint_rules + full pytest (PYTHONUTF8=1) — at
+      ship close; IN_FLIGHT → idle; local checkpoint commit (no
+      push, no zip)
+
+**Next per most-logical-path:** τ.7.x.s = the Daniel-additions
+cluster paz (Prayer of Azariah / Song of the Three) + sus
+(Susanna) + bel (Bel and the Dragon) — the `ተረፈ ዳንኤል` region
+p1449-1453 (a multi-small-book ship like the Mäqabyan trilogy).
+Then the Π.1-mapped Jubilees [1454,1514] (τ.7.x.t) + 1 Enoch
+[1515,1566] (τ.7.x.u). Geʽez catchup τ.6.x.2.j+ per D4-c.
+
+### Earlier — τ.7.x.o/p (superseded by τ.7.x.q/r above)
+
 **τ.7.x.o + τ.7.x.p AMHARIC SIRACH + PARALIPOMENA-JEREMIAH (4 BARUCH)
 FULL-BOOK INGEST — SHIPPED 2026-05-15. SEVENTEENTH + EIGHTEENTH
 τ.7.x.* per-book ingests under D4-c Amharic-first + D1-a per-book

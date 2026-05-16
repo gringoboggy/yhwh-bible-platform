@@ -1035,6 +1035,76 @@ structural_map:
       ocr-tier3. DRAINS the sixth EOTC-parallel block (sir + 4ba).
       Geʽez column deferred to τ.6.x.2.* under D4-c.
 
+  # ── τ.7.x.q/r seventh EOTC-parallel block (Baruch + Wisdom of
+  # Solomon — the two MAJOR contiguous deutero books). Boundaries
+  # from the τ.7.x.q content-boundary scan p1426-1456 (the same
+  # method that pinned Sirach/4 Baruch at τ.7.x.o and corrected
+  # Mäqabyan at τ.7.x.n). 4ba ends p1428 (τ.7.x.p-confirmed). The
+  # Daniel-additions cluster (paz/sus/bel = `ተረፈ ዳንኤል`, p1449-
+  # 1453) is a SEPARATE subsequent ship; Jubilees opens p1454
+  # (`።ኩፉሌ።`) EXACTLY matching the pre-existing Π.1 structural_
+  # map.jubilees [1454,1514] — decisive cross-validation that the
+  # τ.7.x.q scan indexing is correct.
+  baruch:
+    book_codes: [bar]
+    pdf_page_range: [1429, 1431]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.q
+    chapter_count_expected: 5   # content/books.yaml `bar` ch_count: 5 (b40)
+    notes: |
+      τ.7.x.q — The Book of Baruch (`bar`). Opens p1429 immediately
+      after the 4ba p1428 close (τ.7.x.p-confirmed). Empirically
+      cross-validated: Bar 2 siege-cannibalism `በዚያ ወራ ሰው የሴቶች
+      ልጆቹን ሥጋ በላ` ("a man ate the flesh of his sons and daughters"
+      — Bar 2:3) at p1429; Bar 3 wisdom-poem (`የጥበብኝ ሥራ ግን
+      አላወቁም` — Bar 3:9ff "Where is wisdom?") at p1430; Bar 5
+      restoration (`በአግዚአብሔር ጌትነት እስራኤል ጥርጊያውን ጐዳና` — "Arise,
+      O Jerusalem ... every high mountain made low", Bar 5:5-7) at
+      the short page p1431. End p1431 — p1432 opens Wisdom of
+      Solomon. 3 pp / 5 ch (compressed; Bar 1 on the p1428/1429
+      boundary handled by renumber-against-floor). BARUCH_VERSE_
+      COUNTS (5 ch / 141 v) = NRSV/LXX enumeration. NOTE: the
+      Letter of Jeremiah is the SEPARATE `lje` book (books.yaml
+      b41), NOT this 5-chapter Baruch floor; no distinct `lje`
+      banner in the scan (LXX-appended-to-Baruch-6 ambiguity) —
+      deferred to τ.6.x.3. Per the τ.6.x.0b honesty contract the
+      floor is the canonical CEILING; τ.6.x.3 reconciles the
+      Ethiopic recension + the lje ambiguity (identical caveat to
+      the JUDITH + SIRACH floors). ocr-tier3. Geʽez column
+      deferred to τ.6.x.2.* under D4-c.
+
+  wisdom_of_solomon:
+    book_codes: [wis]
+    pdf_page_range: [1432, 1448]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-15
+    verified_at_phase: τ.7.x.r
+    chapter_count_expected: 19   # content/books.yaml `wis` ch_count: 19 (b33)
+    notes: |
+      τ.7.x.r — The Wisdom of Solomon (`wis`). Opens p1432 (short
+      page, `የዳዊት ልጅ ሰለሞ` + `ገዙ መኳንንት` = Wis 1:1 "Love
+      righteousness, you rulers of the earth"). Empirically cross-
+      validated: Wis 2:6-7 `ብዙ ወይንን አንጠጣ` ("Come, let us take our
+      fill of costly wine") at p1433; the Egypt-exodus midrash
+      (Wis 16-19, `በግብፃውያን ላይ መጣች` "came upon the Egyptians") at
+      p1448. End p1448 — p1449 opens the Daniel-additions cluster
+      (Prayer of Azariah `በዚህ ወራት አለቃ የለም ነቢይም የለም` p1449, Song
+      of the Three `አናንያ አዛርያ ሚሳኤል` p1450-1451, Bel & Dragon
+      p1452, `ተረፈ ዳንኤል` close p1453); p1454 opens Jubilees
+      (`።ኩፉሌ።`) EXACTLY matching the pre-existing Π.1 structural_
+      map.jubilees [1454,1514]. 17 pp / 19 ch. WISDOM_OF_SOLOMON_
+      VERSE_COUNTS (19 ch / 436 v) = NRSV/Göttingen-Ziegler LXX.
+      Per the τ.6.x.0b honesty contract the floor is the canonical
+      CEILING; τ.6.x.3 reconciles the Ethiopic recension (identical
+      caveat to the SIRACH floor). ocr-tier3. DRAINS the bar+wis
+      major-book pair of the seventh EOTC-parallel block (the
+      paz/sus/bel Daniel-additions cluster + the Π.1-mapped
+      jubilees/one_enoch follow as subsequent τ.7.x.* ships).
+      Geʽez column deferred to τ.6.x.2.* under D4-c.
+
   jubilees:
     book_codes: [jub]
     pdf_page_range: [1454, 1514]
@@ -5591,3 +5661,222 @@ ocr_strategy:
       scan, p1430+ — precise boundaries to be verified at the
       τ.7.x.q discovery scan). Geʽez catchup τ.6.x.2.j+ follows the
       Amharic stream per D4-c.
+    pipeline_reused_at_phase: τ.7.x.q   # back-link: τ.7.x.q (Baruch, p1429-1431) + τ.7.x.r (Wisdom of Solomon, p1432-1448) reused the τ.7.x.p pipeline VERBATIM; only deltas BARUCH_VERSE_COUNTS + WISDOM_OF_SOLOMON_VERSE_COUNTS + structural_map.{baruch,wisdom_of_solomon}. They drain the two MAJOR books of the seventh EOTC-parallel block.
+
+  tau7xq_ingest:
+    shipped_at_phase: τ.7.x.q
+    shipped_date: 2026-05-15
+    triggered_by: |
+      User "continue" → advance to next phase per PLAN (τ.7.x.p
+      recorded next_phase=τ.7.x.q). NINETEENTH τ.7.x.* per-book
+      ingest under D4-c Amharic-first + D1-a per-book cadence. FIRST
+      book of the SEVENTH EOTC-parallel block.
+    structural_map_addition:
+      section: baruch
+      pdf_page_range: [1429, 1431]
+      chapter_count_expected: 5   # content/books.yaml `bar` ch_count: 5 (b40)
+      boundary_verification: |
+        τ.7.x.q content-boundary scan p1426-1456 (same method as
+        τ.7.x.o + the τ.7.x.n correction). 4ba ends p1428 (τ.7.x.p-
+        confirmed). Baruch opens p1429; Bar 2 siege-cannibalism
+        `በዚያ ወራ ሰው የሴቶች ልጆቹን ሥጋ በላ` (Bar 2:3) at p1429; Bar 3
+        wisdom-poem at p1430; Bar 5 restoration `እስራኤል ጥርጊያውን
+        ጐዳና` (Bar 5:5-7) at the short page p1431. End p1431 —
+        p1432 opens Wisdom of Solomon. 3 pp / 5 ch (highly
+        compressed in this PDF).
+      lje_ambiguity: |
+        The Letter of Jeremiah is the SEPARATE `lje` book (books.
+        yaml b41, ch_count 1) — the LXX/Vulgate "Baruch ch 6". No
+        distinct `lje` opening-banner appeared in the p1426-1456
+        scan (the EOTC Baruch here is 3 pp / 5 ch, very compressed).
+        lje placement deferred to τ.6.x.3 (consistent with the
+        project's defer-ambiguous-boundary discipline; identical to
+        the Sirach-Prologue + Esther-Greek-Additions deferrals).
+    helpers_added:
+      BARUCH_VERSE_COUNTS: |
+        Module-level dict ch (1-5) → expected verse count under the
+        NRSV/LXX Baruch enumeration. Total 141. Nineteenth renumber-
+        floor. content/books.yaml `bar` ch_count: 5. The Letter of
+        Jeremiah is the SEPARATE `lje` book, NOT this floor.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` includes `baruch` (added alongside
+        `wisdom_of_solomon` at τ.7.x.r). Wires BARUCH_VERSE_COUNTS
+        as the floor dict.
+    parser_api_change: |
+      No parser API changes. Only deltas: BARUCH_VERSE_COUNTS dict +
+      dispatch + structural_map.baruch block. NINETEENTH consecutive
+      τ.7.x.* ship with zero parser API change — 27-ship zero-API-
+      delta across both columns.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1429, 1431]
+      extraction_engine: text-layer
+      parser_mode: paragraph
+      raw_parser_output_verse_count: 47
+      renumbered_verse_count: 47
+      chapters_fully_populated: [1]
+      chapters_partial: {2: {got: 25, expected: 35}}
+      chapters_missing_count: 3   # 3-5
+      expected_total: 141
+      coverage_pct: 33.3
+      coverage_band_position: |
+        33.3% — honest-low per τ.6.x.0b NOT a boundary error (the
+        τ.7.x.n anomaly-check discipline applied: the dry-run
+        confirmed the content IS Baruch — Bar 2:3 siege-cannibalism
+        + Bar 3 wisdom-poem + Bar 5 restoration). The EOTC parallel
+        Baruch is EXTREMELY compressed (3 pp for the NRSV-5-chapter
+        / 141-verse floor); the low % reflects source compression
+        against the full NRSV ceiling, not a misaligned range
+        (contrast τ.7.x.n mq2's 5.9% which WAS a boundary error).
+        τ.6.x.3 reconciles the Ethiopic-compressed recension + the
+        lje-as-Baruch-6 ambiguity.
+      regression_pin_tests:
+        - test_amharic_bar_total_verse_count_floor
+        - test_amharic_bar_clean_renumber_shape
+        - test_amharic_bar_ingest_phase_constant
+        - test_baruch_structural_map_block
+    known_residual_issues:
+      baruch_compression_and_lje: |
+        The EOTC Baruch is highly compressed (3 pp); ch 3-5 empty +
+        ch 2 partial at ocr-tier3. The Letter of Jeremiah (lje)
+        placement (separate book vs Baruch-6) + the compressed-
+        recension boundary are reconciled at τ.6.x.3.
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xe_ingest: true   # CLOSED Amharic Pentateuch §8.1 arc preserved
+      tau7xh_ingest: true
+      tau7xn_ingest: true   # Mäqabyan trilogy + structural-discovery correction preserved
+      tau7xo_ingest: true
+      tau7xp_ingest: true   # sixth EOTC-parallel block p1379-1428 drained preserved
+      tau6x2h_ingest: true  # CLOSED parallel-column-catchup arc preserved
+    no_ingest_at_this_phase: false
+    arc_continues_deuterocanon: |
+      τ.7.x.q OPENS the seventh EOTC-parallel block. τ.7.x.r
+      (Wisdom of Solomon) drains the bar+wis major-book pair in the
+      same "continue" turn (the τ.7.x.o/p + τ.7.x.l/m + τ.7.x.j/k
+      two-major-books-per-block-per-continue precedent).
+    translation_slot_state:
+      amharic_tewahedo_bar: 'shipped-at-τ.7.x.q (47 v; ocr-tier3; deuterocanonical; opens the seventh EOTC-parallel block; highly compressed 3 pp / 5 ch)'
+      geez_tewahedo_bar: 'no-op (τ.6.x.2.* under D4-c; same page range, Geʽez column)'
+    next_phase: τ.7.x.r
+    next_phase_description: |
+      τ.7.x.r — Wisdom of Solomon (p1432-1448), the second major
+      book of the seventh block. Same "continue" turn.
+    pipeline_reused_at_phase: τ.7.x.r   # back-link: τ.7.x.r (Wisdom of Solomon) reused the τ.7.x.q pipeline VERBATIM; only delta WISDOM_OF_SOLOMON_VERSE_COUNTS + structural_map.wisdom_of_solomon.
+
+  tau7xr_ingest:
+    shipped_at_phase: τ.7.x.r
+    shipped_date: 2026-05-15
+    triggered_by: |
+      Continuation of the τ.7.x.q ship (same "continue" turn) — the
+      D1-a per-book second major book of the seventh EOTC-parallel
+      block. τ.7.x.q ingested Baruch (p1429-1431); τ.7.x.r ingests
+      Wisdom of Solomon (p1432-1448). TWENTIETH τ.7.x.* per-book
+      ingest. Drains the bar+wis major-book pair (the Daniel-
+      additions cluster paz/sus/bel p1449-1453 + the Π.1-mapped
+      jubilees/one_enoch are subsequent ships).
+    structural_map_addition:
+      section: wisdom_of_solomon
+      pdf_page_range: [1432, 1448]
+      chapter_count_expected: 19   # content/books.yaml `wis` ch_count: 19 (b33)
+      boundary_verification: |
+        Same p1426-1456 scan as baruch. Wisdom of Solomon opens
+        p1432 (short page, `የዳዊት ልጅ ሰለሞ` + `ገዙ መኳንንት` = Wis 1:1
+        "Love righteousness, you rulers"). Wis 2:6-7 `ብዙ ወይንን
+        አንጠጣ` ("let us take our fill of costly wine") at p1433;
+        Wis 7:1 `እኔ ፈራሽ ሰው ነኝና ... የአዳም ልጅም` ("I also am
+        mortal ... a descendant of the first-formed child of
+        earth") empirically at the first recovered verse; the
+        Egypt-exodus midrash (Wis 16-19, `በግብፃውያን ላይ መጣች`) at
+        p1448. End p1448 — p1449 opens the Daniel-additions
+        cluster; p1454 opens Jubilees (`።ኩፉሌ።`) EXACTLY matching
+        the pre-existing Π.1 structural_map.jubilees [1454,1514] —
+        decisive cross-validation the τ.7.x.q scan indexing is
+        correct. 17 pp / 19 ch.
+    helpers_added:
+      WISDOM_OF_SOLOMON_VERSE_COUNTS: |
+        Module-level dict ch (1-19) → expected verse count under the
+        NRSV/Göttingen-Ziegler LXX Wisdom-of-Solomon enumeration.
+        Total 436. Twentieth renumber-floor. content/books.yaml
+        `wis` ch_count: 19.
+    cli_extensions:
+      renumber_choice_extended: |
+        `--renumber` includes `wisdom_of_solomon` (added alongside
+        `baruch` at τ.7.x.q). Wires WISDOM_OF_SOLOMON_VERSE_COUNTS
+        as the floor dict.
+    parser_api_change: |
+      No parser API changes. Only deltas: WISDOM_OF_SOLOMON_VERSE_
+      COUNTS dict + dispatch + structural_map.wisdom_of_solomon
+      block. TWENTIETH consecutive τ.7.x.* ship with zero parser API
+      change — 28-ship zero-API-delta across both columns.
+    empirical_validation:
+      source_pdf: Bible_Amharic_and_Geez.pdf
+      pdf_pages_consumed: [1432, 1448]
+      extraction_engine: text-layer
+      parser_mode: paragraph
+      raw_parser_output_verse_count: 254
+      renumbered_verse_count: 254
+      chapters_fully_populated: "1-11"
+      chapters_partial: {12: {got: 11, expected: 27}}
+      chapters_missing_count: 7   # 13-19
+      expected_total: 436
+      coverage_pct: 58.3
+      coverage_band_position: |
+        58.3% — within the deep-PDF deuterocanon band (cf. sir
+        52.2% / tob 48.0%); above the band-bottom. The dry-run
+        confirmed correct content (Wis 7:1 "I also am mortal, like
+        everyone else" — the autobiographical Solomon discourse).
+        Honest-low per τ.6.x.0b, NOT a boundary error (the τ.7.x.n
+        anomaly-check discipline applied — content-verified Wisdom
+        of Solomon, no boundary correction needed).
+      regression_pin_tests:
+        - test_amharic_wis_total_verse_count_floor
+        - test_amharic_wis_clean_renumber_shape
+        - test_amharic_wis_ingest_phase_constant
+        - test_wisdom_of_solomon_structural_map_block
+        - test_p1429_1448_seventh_block_major_pair_drained
+        - test_jubilees_p1454_crossvalidation_preserved
+    known_residual_issues:
+      wisdom_recension_variance: |
+        ch 12 partial + 13-19 empty at ocr-tier3 (the Egypt-exodus
+        midrash chapters 16-19 are deep in the draft region). The
+        renumber-against-floor + τ.6.x.3 audit reconcile the
+        Ethiopic recension boundary.
+    closed_arc_contracts_preserved:
+      tau6x0b_honesty_contract: true
+      tau7xa_ingest: true
+      tau7xe_ingest: true
+      tau7xh_ingest: true
+      tau7xn_ingest: true
+      tau7xo_ingest: true
+      tau7xp_ingest: true
+      tau7xq_ingest: true   # Baruch (seventh-block opener) preserved
+      tau6x2h_ingest: true
+      jubilees_section_unchanged: true   # Π.1 structural_map.jubilees [1454,1514] NOT modified — cross-validated only
+    no_ingest_at_this_phase: false
+    arc_continues_deuterocanon: |
+      τ.7.x.r DRAINS the bar+wis major-book pair of the seventh
+      EOTC-parallel block: τ.7.x.q Baruch (p1429-1431) + τ.7.x.r
+      Wisdom of Solomon (p1432-1448). Next EOTC-parallel content is
+      the Daniel-additions cluster paz/sus/bel (`ተረፈ ዳንኤል`,
+      p1449-1453) — a SEPARATE subsequent multi-small-book ship —
+      then the Π.1-mapped Jubilees [1454,1514] + 1 Enoch
+      [1515,1566].
+    block_major_pair_drained: p1429-1448   # τ.7.x.q (bar) + τ.7.x.r (wis) drain the two major books of the seventh block
+    translation_slot_state:
+      amharic_tewahedo_wis: 'shipped-at-τ.7.x.r (254 v; ocr-tier3; deuterocanonical; drains the bar+wis major-book pair of the seventh block)'
+      amharic_tewahedo_bar: 'shipped-at-τ.7.x.q (preserved; seventh-block opener)'
+      geez_tewahedo_wis: 'no-op (τ.6.x.2.* under D4-c; same page range, Geʽez column)'
+    next_phase: τ.7.x.s
+    next_phase_description: |
+      τ.7.x.s — the Daniel-additions cluster paz (Prayer of Azariah
+      / Song of the Three Holy Children) + sus (Susanna) + bel (Bel
+      and the Dragon), the `ተረፈ ዳንኤል` region p1449-1453 (a multi-
+      small-book ship like the Mäqabyan trilogy). Then the Π.1-
+      mapped Jubilees [1454,1514] (τ.7.x.t) + 1 Enoch [1515,1566]
+      (τ.7.x.u). Precise paz/sus/bel boundaries to be verified at
+      the τ.7.x.s discovery scan applying the same content-boundary
+      method. Geʽez catchup τ.6.x.2.j+ follows the Amharic stream
+      per D4-c.

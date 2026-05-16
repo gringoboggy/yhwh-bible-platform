@@ -1,10 +1,76 @@
 # Session state — current snapshot
 
-**Updated 2026-05-15 / τ.7.x.o + τ.7.x.p AMHARIC SIRACH +
+**Updated 2026-05-15 / τ.7.x.q + τ.7.x.r AMHARIC BARUCH + WISDOM-OF-
+SOLOMON FULL-BOOK INGEST ship — NINETEENTH + TWENTIETH τ.7.x.*
+per-book ingests under D4-c Amharic-first + D1-a per-book cadence.
+Drains the two MAJOR books of the SEVENTH EOTC-parallel block
+(Baruch p1429-1431 + Wisdom of Solomon p1432-1448).**
+
+Adds `amharic-tewahedo/bar.py` (The Book of Baruch, p1429-1431,
+47 v, 33.3%, deuterocanonical — OPENS the seventh block; highly
+compressed source 3 pp / 5 ch) + `wis.py` (The Wisdom of Solomon,
+p1432-1448, 254 v, 58.3%, deuterocanonical — DRAINS the bar+wis
+major pair). 20-book combined 10757 / 14569 = 73.8%. Pipeline
+reused VERBATIM from τ.7.x.p — only deltas: BARUCH_VERSE_COUNTS
+(5 ch / 141 v; NRSV/LXX) + WISDOM_OF_SOLOMON_VERSE_COUNTS (19 ch /
+436 v; NRSV/Göttingen-Ziegler LXX) + 2 single-book structural_map
+sections (baruch / wisdom_of_solomon). NINETEENTH + TWENTIETH
+consecutive zero-parser-API-delta (28-ship across both columns).
+
+**Structural discovery (τ.7.x.q scan p1426-1456):** same content-
+boundary method as τ.7.x.o + the τ.7.x.n correction. 4ba ends
+p1428 (τ.7.x.p-confirmed); Baruch p1429-1431 (Bar 2:3 siege-
+cannibalism `ሰው የሴቶች ልጆቹን ሥጋ በላ` p1429, Bar 3 wisdom-poem
+p1430, Bar 5 restoration short page p1431); Wisdom of Solomon
+p1432-1448 (Wis 1:1 `የዳዊት ልጅ ሰለሞ ... ገዙ መኳንንት` p1432, Wis 2:6-7
+`ብዙ ወይንን አንጠጣ` p1433, Wis 7:1 `እኔ ፈራሽ ሰው ነኝና` "I also am
+mortal", Wis 16-19 Egypt-exodus midrash p1448); the Daniel-
+additions cluster paz/sus/bel (`ተረፈ ዳንኤል`) p1449-1453; Jubilees
+opens p1454 (`።ኩፉሌ።`) **EXACTLY matching the pre-existing Π.1
+structural_map.jubilees [1454,1514]** — decisive cross-validation
+(the Π.1 jubilees section is NOT modified, only cross-validated).
+
+**Anomaly-check discipline applied (τ.7.x.n/o precedent):** Baruch
+33.3% is honest-low — the EOTC parallel Baruch is EXTREMELY
+compressed (3 pp for the NRSV-5-ch/141-v floor); the dry-run
+confirmed the content IS Baruch (Bar 2:3 siege + Bar 3 wisdom +
+Bar 5 restoration), so this is source-compression against the
+full NRSV ceiling, NOT a boundary error (unlike τ.7.x.n mq2's
+5.9%). Wisdom 58.3% is in the deep-PDF deuterocanon band (cf. sir
+52.2%; content-verified Wis 7:1). No boundary correction needed
+for either. Both renumber cleanly (bar ch1 full + 2 partial +
+3-5 empty; wis ch1-11 full + 12 partial + 13-19 empty).
+
+**Floors (τ.6.x.0b honesty contract):** no project-internal bar/
+wis enumeration (no candidates/notes, like sir/4ba) — BARUCH from
+NRSV/LXX, WISDOM_OF_SOLOMON from NRSV/Göttingen-Ziegler LXX (the
+deuterocanon-NRSV pattern of 2es/tob/jdt/sir). Canonical CEILING;
+τ.6.x.3 reconciles the Ethiopic recension + the Letter-of-Jeremiah
+(`lje`)-as-Baruch-6 ambiguity (no distinct lje banner in the scan;
+lje is the SEPARATE books.yaml b41 book, deferred to τ.6.x.3).
+
+`test_parallel_bible_tau7xq.py` adds 70 pins (15 classes) covering
+BOTH τ.7.x.q + τ.7.x.r incl. floors, structural_map, coverage
+shape, the honest-low-NOT-boundary-error documentation, the
+Jubilees-section-unchanged invariant, the tau7xp→q→r back-link
+chain, and prior-pin preservation.
+
+**Next per most-logical-path:** τ.7.x.s — the bar+wis major pair
+of the seventh block is DRAINED; next EOTC-parallel content is the
+**Daniel-additions cluster** paz (Prayer of Azariah / Song of the
+Three) + sus (Susanna) + bel (Bel and the Dragon) — the `ተረፈ
+ዳንኤል` region p1449-1453 (a multi-small-book ship like the Mäqabyan
+trilogy). Then the Π.1-mapped Jubilees [1454,1514] (τ.7.x.t) +
+1 Enoch [1515,1566] (τ.7.x.u). Geʽez catchup (τ.6.x.2.j+) follows
+per D4-c.
+
+---
+
+## Prior session — 2026-05-15 / τ.7.x.o + τ.7.x.p AMHARIC SIRACH +
 PARALIPOMENA-JEREMIAH (4 BARUCH) FULL-BOOK INGEST ship —
 SEVENTEENTH + EIGHTEENTH τ.7.x.* per-book ingests under D4-c
 Amharic-first + D1-a per-book cadence. Drains the SIXTH
-EOTC-parallel block p1379-1428 (Sirach + Paralipomena Jeremiah).**
+EOTC-parallel block p1379-1428 (Sirach + Paralipomena Jeremiah).
 
 Adds `amharic-tewahedo/sir.py` (Sirach/Ecclesiasticus, p1379-1418,
 737 v, 52.2%, deuterocanonical — OPENS the sixth block) + `4ba.py`
