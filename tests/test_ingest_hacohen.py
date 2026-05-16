@@ -115,3 +115,56 @@ class TestParseHacohenPsalter:
         assert "Nr. Vers" not in joined
         assert "Cap." not in joined
         assert len(verses) == 2
+
+
+class TestFetcherCache:
+    def _mod(self):
+        import scripts.ingest_hacohen as ih
+
+        return ih
+
+    def test_cache_hit_skips_network(self, tmp_path, monkeypatch):
+        ih = self._mod()
+        cache = tmp_path / "PsalmNrR 7.html"
+        cache.write_text(
+            "<p><span style='font-size:70%'>1</span> &#4632; &#4962;</p>",
+            encoding="utf-8",
+        )
+
+        def _boom(*a, **k):
+            raise AssertionError("network must not be called on cache hit")
+
+        monkeypatch.setattr(ih, "_http_get", _boom)
+        out = ih.fetch_psalm(7, cache_dir=tmp_path)
+        assert out == cache
+        assert "&#4632;" in cache.read_text(encoding="utf-8")
+
+    def test_fetch_writes_cache_then_reuses(self, tmp_path, monkeypatch):
+        ih = self._mod()
+        calls = []
+
+        def _fake_get(url):
+            calls.append(url)
+            return "<p><span style='font-size:70%'>1</span> &#4632; &#4962;</p>"
+
+        monkeypatch.setattr(ih, "_http_get", _fake_get)
+        p1 = ih.fetch_psalm(3, cache_dir=tmp_path)
+        p2 = ih.fetch_psalm(3, cache_dir=tmp_path)
+        assert p1 == p2 and p1.exists()
+        assert len(calls) == 1  # second call served from cache
+        assert "PsalmNrR%203.html" in calls[0]
+
+    def test_fetch_error_no_partial_write(self, tmp_path, monkeypatch):
+        ih = self._mod()
+
+        def _fail(url):
+            raise OSError("HTTP 500")
+
+        monkeypatch.setattr(ih, "_http_get", _fail)
+        try:
+            ih.fetch_psalm(9, cache_dir=tmp_path)
+            raised = False
+        except OSError:
+            raised = True
+        assert raised
+        assert not (tmp_path / "PsalmNrR 9.html").exists()

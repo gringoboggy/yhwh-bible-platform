@@ -12,6 +12,15 @@ from __future__ import annotations
 
 import html as _html
 import re
+import time
+from pathlib import Path
+
+from scripts.core import http
+
+# Path: re-added at τ.6.x.5 Task 4 (genuinely used by DEFAULT_CACHE;
+# AUDIT-DEEP-5 F-DEEP5-8 had removed it as prematurely-dead at Task 3).
+# urllib.request dropped — the external-HTTP lint rule requires all
+# outbound HTTP go through scripts/core/http.py (retry+timeout+SSRF).
 
 _P_RE = re.compile(r"<p\b[^>]*>(.*?)</p>", re.IGNORECASE | re.DOTALL)
 _VERSENUM_RE = re.compile(
@@ -70,3 +79,37 @@ def parse_hacohen_psalter(page_html: str, psalm_number: int) -> list[tuple[int, 
         # else: pre-verse-1 superscription — skip
     flush()
     return verses
+
+
+_BASE = "https://www.tau.ac.il/~hacohen/"
+_PSALM_URL = _BASE + "Psalm/PsalmNrR%20{n}.html"
+DEFAULT_CACHE = (
+    Path(__file__).resolve().parent.parent / "content" / "translations" / "sources" / "hacohen-geez" / "cache"
+)
+
+
+_HACOHEN_ALLOWLIST = frozenset({"tau.ac.il"})  # www.tau.ac.il (subdomain-aware) — the user-authorized PD source
+
+
+def _http_get(url: str) -> str:
+    """Fetch a URL as text via the project's retry+timeout HTTP
+    wrapper (``scripts/core/http.py`` — required by the external-HTTP
+    lint rule; provides retry/backoff + the SSRF allowlist). HaCohen
+    pages are UTF-8 (ASCII NCR entities). Isolated for test
+    monkeypatching (callers/tests patch this function, not http.get)."""
+    return http.get(url, allowlist=_HACOHEN_ALLOWLIST).decode("utf-8", "replace")
+
+
+def fetch_psalm(n: int, *, cache_dir: Path = DEFAULT_CACHE, delay: float = 1.0) -> Path:
+    """Return the local cached HTML path for Psalm ``n`` (Rahlfs view),
+    fetching politely once if absent. Never partial-writes on error."""
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    dest = cache_dir / f"PsalmNrR {n}.html"
+    if dest.exists() and dest.stat().st_size > 0:
+        return dest
+    text = _http_get(_PSALM_URL.format(n=n))  # raises on failure → no write below
+    tmp = dest.with_suffix(".html.part")
+    tmp.write_text(text, encoding="utf-8")
+    tmp.replace(dest)
+    time.sleep(delay)
+    return dest
