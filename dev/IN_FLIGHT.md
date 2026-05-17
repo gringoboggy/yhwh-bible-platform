@@ -2,7 +2,42 @@
 
 <!-- TRACKER-STATE: idle -->
 
-## Current task — Geʽez catchup loop PAUSED (user returned; audit clean; next: τ.6.x.2.o)
+## Current task — Samuel calibration τ.6.x.4.a COMPLETE; user GO'd diplomatic-parallel + widen-pilot; NEXT = widened-pilot plan
+
+**τ.6.x.4.a Samuel calibration gate CLOSED 2026-05-16** (commits
+`6882063` evidence+report, `5a2c073` decision;
+`dev/CALIBRATION_2026-05-16-samuel-1sa1.md`). 1 Sam 1 transcribed
+BLIND from GG (Gunda Gundē f003r ~5MP) + CAM (Cambridge MS Add.1570
+f106r) — CAM first low-res (resolution-confounded), then re-imaged
+~80MP from the Cambridge CUDL IIIF endpoint (method saved to
+auto-memory `cudl-iiif-access`) and re-transcribed blind; every step
+adversarially spec+honesty reviewed, 2 collation defects caught+fixed.
+**Finding:** narrative-identical (28/28 semantic) but GG vs CAM are
+materially DISTINCT recensions (~73% both-confident, 44.75% skeleton,
+32.55% strict — far below the ≥90% merge bar); the hi-res re-image
+PROVED the divergence is genuine, not imaging; **base=CAM** (0 illegible
+vs GG's 16 col-3 water-stain lacunae; restores the GAPS source-map; the
+low-res GG pick was a resolution artifact). **User decision at the
+gate:** GO for the **diplomatic-parallel** model (CAM base running text
++ GG per-verse apparatus; spec D1=B/D3) — NOT a merged single text
+(stays NO-GO). **Accepted condition:** widen the calibration to 2-3
+more Samuel chapters (GG-undamaged) BEFORE building the Samuel-wide
+Phase-2 collation tool; Kings then reuses the proven Phase-2/3 model.
+**NEXT STEP: execute the SAVED widened-pilot plan**
+`docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md`
+(τ.6.x.4.a-W) — confirmed chapters **1 Sam 3, 1 Sam 17 (spec-named
+David&Goliath recension stress-test), 2 Sam 11** — run the same
+independent-blind-transcription + adversarially-reviewed collation
+procedure per chapter (reuse the 1 Sam 1 template VERBATIM), then the
+plan's bi-directional decision rule sizes Phase-2 or refutes the model.
+Do NOT start Phase-2 until the widening confirms distinct-recension
+generalizes. (Quick solo audit of the τ.6.x.4.a arc = CLEAN, no fixes —
+`dev/AUDIT_2026-05-16-samuel-calibration.md`.) Artifacts: `content/manuscript/samuel/
+calibration/*.json` (3 immutable evidence + low-res & hi-res collation)
++ the report. The Geʽez catchup loop + Amharic NT cadence remain
+separately PAUSED (see Prior task).
+
+## Prior task — Geʽez catchup loop PAUSED (user returned; audit clean; next: τ.6.x.2.o)
 
 **USER RETURNED → autonomous-loop authorization ENDED.** The loop
 shipped τ.6.x.2.j/k/l/m/n (7 books: 2es/tob/jdt/est/mq1/mq2/mq3) +

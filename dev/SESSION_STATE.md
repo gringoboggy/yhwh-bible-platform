@@ -1,5 +1,33 @@
 # Session state — current snapshot
 
+> **➤ τ.6.x.4.a SAMUEL CALIBRATION GATE — CLOSED 2026-05-16, user-decided
+> (read this first for the Samuel/Kings manuscript track).** 1 Sam 1
+> transcribed BLIND from GG (Gunda Gundē GG-00106 f003r ~5MP) + CAM
+> (Cambridge MS Add.1570 f106r); CAM was low-res-confounded then
+> re-imaged ~80MP from the Cambridge CUDL IIIF endpoint (reusable method
+> in auto-memory `cudl-iiif-access`) and re-transcribed blind; every step
+> adversarially reviewed (2 collation defects caught+fixed). FINDING:
+> narrative-identical (semantic 28/28) but GG vs CAM are materially
+> DISTINCT recensions — both-confident 73.05% / skeleton 44.75% / strict
+> 32.55% (far below the ≥90% merge bar); hi-res PROVED the divergence is
+> genuine, not imaging; **base = CAM** (0 illegible vs GG's 16 col-3
+> water-stain lacunae; RESTORES the GAPS source-map — the low-res GG pick
+> was a resolution artifact). **USER DECISION:** GO for the
+> **diplomatic-parallel** model (CAM base running text + GG per-verse
+> apparatus; spec D1=B/D3) — NOT a merged single text. **Condition:**
+> widen the calibration to 3 more chapters BEFORE the Samuel-wide Phase-2
+> tool. **NEXT (queued, NOT started):** execute
+> `docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md`
+> (chapters **1 Sam 3, 1 Sam 17, 2 Sam 11**, same blind dual-witness
+> procedure); do NOT start Phase-2 until it confirms; Kings reuses
+> Phase-2/3 after. Commits `6882063` (evidence+report) + `5a2c073`
+> (decision); report `dev/CALIBRATION_2026-05-16-samuel-1sa1.md`; quick
+> solo audit CLEAN, no fixes (`dev/AUDIT_2026-05-16-samuel-calibration.md`).
+> This is a SEPARATE track from the Geʽez catchup loop (τ.6.x.2.o Sirach)
+> + Amharic NT cadence, which remain independently PAUSED. Full detail:
+> the τ.6.x.4.a banner is the authoritative pointer; the older
+> "next = τ.6.x.2.o" notes below pertain only to the paused Geʽez loop.
+
 > **⚑ SCOPE CLARIFICATION — 2026-05-16 (north-star-level, read
 > this first).** The τ.6.x (`geez-tewahedo`) + τ.7.x
 > (`amharic-tewahedo`) parallel-Bible ingests are NOT popup-
