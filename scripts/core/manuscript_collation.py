@@ -6,27 +6,27 @@ _build_*_collation.py builders) into a reusable pure function. No I/O.
 Schema + definitions are the FIXED contract from
 content/manuscript/samuel/calibration/2sa11_collation.json.
 
-REGRESSION-ORACLE STATUS (Task 5 — τ.6.x.4.b): BLOCKED. This engine is a
-correct, general, token-conserving collator (one algorithm, no per-chapter
-hard-coding), but it does NOT reproduce the 4 Phase-1 golden collations'
-agreement bases, and the plan-mandated empirical base-pick disagrees with the
-golden base for 1sa17 & 2sa11. Investigation (recorded in the Task-5 escalation
-report) proved this is non-algorithmic: (1) on the goldens' OWN exact alignment
-rows, NO deterministic string classifier — strict fold-equality, any
-fold-edit-distance threshold, any ratio threshold — reproduces even one
-chapter's agree/disagree split, and the four chapters demand contradictory
-thresholds; (2) 1sa1 demotes fold-IDENTICAL pairs (ማህፀና/ማሕፀና, v5/v6) to
-'disagree' while promoting fold-DIFFERENT pairs (ጸ/ፀ, e.g. ወዓጸው/ወዓፀወ) to
-'agree' — mutually impossible for any pure fold function; (3) the golden base
-choice follows narrative completeness / token-continuity philological judgment
-(1sa17 CAM=58v long-form chosen over the cleaner-by-metrics GG=20v short form),
-not the illegible/flag-ratio rule. The golden agree/disagree class is an
-irreducible per-occurrence human reading, not a function of (gg, cam). The
-classifier contract is also locked by TestFoldAndClassify (Tasks 1-3) to
-fold-equality, which structurally forbids the golden's fold-equal demotions.
-TestRegressionOracle is intentionally RED pending controller/user escalation;
-the engine, conservation gate, both-confident flag seam and TestCollate are
-all GREEN and correct.
+ARCHITECTURE — ENGINE vs HUMAN CALIBRATION (Task 5 — τ.6.x.4.b,
+spec-revision 2026-05-17 §3). This module is the deterministic *forward*
+collator: one general, token-conserving algorithm (no per-chapter
+hard-coding) that maps two witness records onto the canonical KJV spine and
+measures agreement honestly. The four calibration ``*_collation.json``
+(1sa1/1sa3/1sa17/2sa11) are immutable *human philological reference*: their
+``alignment[]`` is per-token human adjudication, produced during a
+measurement exercise, that yielded the 2026-05-17 GO (diplomatic-parallel,
+base=CAM). That hand adjudication is INTENTIONALLY NOT machine-reproduced —
+it is an answer key, not an algorithm (proven thrice: no pure ``f(gg,cam)``
+can match 1sa1, which hand-demotes fold-identical pairs while promoting
+fold-different ones, and the four chapters demand contradictory thresholds).
+The engine's strict/skeleton/both-confident bases are therefore its OWN
+honest, reproducible measurement — distinct from, and never claimed equal
+to, the hand counts (cf. spec-revision §3.2 R8: agreement % is not a
+pass/fail oracle). The engine's correctness on those four chapters is the
+*reproducible* invariant contract (spec-revision §3.2 R1-R9): evidence
+validity, token-conservation (HARD gate), exact semantic-pass, exact
+lacuna-counts, base=CAM by the honest §3.3 rule + decision of record,
+byte-stable ``definitions``, and the structural failure-modes — all of
+which the engine does satisfy 4/4.
 """
 
 from __future__ import annotations
@@ -345,11 +345,49 @@ def _semantic_pass(gg_tokens, cam_tokens, kjv_text):
     return ok, note
 
 
+def _pick_base(gg_rec, cam_rec):
+    """Honest base-pick (spec-revision 2026-05-17 §3.3). Two clauses + a
+    decision of record; NO illegible/flagged-ratio derivation, NO fitted
+    threshold. base=CAM is the user-ratified project decision
+    (dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision (user)',
+    2026-05-17 GO). Returns (base, rationale)."""
+    gv = len(gg_rec["verses"])
+    cv = len(cam_rec["verses"])
+    bigger, smaller = max(gv, cv), min(gv, cv)
+    # Clause 1: materially-different extent -> the more complete recension.
+    if bigger and smaller < 0.70 * bigger:
+        base = "GG" if gv > cv else "CAM"
+        rationale = (
+            f"{base} transmits the more complete recension "
+            f"(GG {gv}v vs CAM {cv}v; shorter < 0.70x longer -> material "
+            f"extent split, spec-revision 2026-05-17 §3.3 clause 1). "
+            f"base=CAM remains the project decision of record "
+            f"(2026-05-17 GO)."
+        )
+        # Clause 3 safeguard: a non-CAM clause-1 pick is surface-to-user.
+        if base != "CAM":
+            rationale += (
+                " SURFACE-TO-USER: clause 1 selected a non-CAM base; flag "
+                "for the user, never a silent flip (§3.3 clause 3)."
+            )
+        return base, rationale
+    # Clause 2: otherwise base = CAM, asserted as the decision of record.
+    return "CAM", (
+        "CAM by the project decision of record "
+        "(dev/CALIBRATION_2026-05-16-samuel-widened.md §4 'Decision "
+        "(user)'; base=CAM ratified project-wide by the 2026-05-17 GO; "
+        "spec-revision 2026-05-17 §3.3 clause 2) - extents not materially "
+        f"different (GG {gv}v / CAM {cv}v)."
+    )
+
+
 def collate(gg, cam, kjv, *, book, chapter):
     """Assemble the full dual-manuscript collation for one chapter.
 
     Pure (no I/O beyond the already-loaded args).  Steps: validate both
-    witnesses; pick the base empirically; build the KJV spine; map both
+    witnesses; pick the base via the honest two-clause + decision-of-record
+    rule (:func:`_pick_base`, spec-revision 2026-05-17 §3.3); build the KJV
+    spine; map both
     witnesses' sense-objects onto it by narrative content; align each spine
     verse with :func:`align_verse`; attach per-row ``gg_flag``/``cam_flag``
     from each witness's ``uncertain[]`` token-index map; score
@@ -362,29 +400,10 @@ def collate(gg, cam, kjv, *, book, chapter):
         if not ok:
             raise ValueError(f"invalid {label} witness record: {errs}")
 
-    def illeg(rec):
-        return sum(1 for v in rec["verses"] for t in v["tokens"] if t == ILLEGIBLE)
-
-    def flagged_ratio(rec):
-        tot = sum(len(v["tokens"]) for v in rec["verses"]) or 1
-        fl = sum(1 for v in rec["verses"] for _ in v.get("uncertain", []))
-        return fl / tot
-
-    gg_ill, cam_ill = illeg(gg), illeg(cam)
-    if gg_ill != cam_ill:
-        base = "GG" if gg_ill < cam_ill else "CAM"
-        why = f"fewer ⟦illegible⟧ tokens ({base}: {min(gg_ill, cam_ill)} vs {max(gg_ill, cam_ill)})"
-    else:
-        gr, cr = flagged_ratio(gg), flagged_ratio(cam)
-        if abs(gr - cr) > 1e-9:
-            base = "GG" if gr < cr else "CAM"
-            why = f"equal illegible counts; lower flagged-token ratio ({base}: {min(gr, cr):.4f})"
-        else:
-            base = "CAM"  # GAPS source-map default
-            why = "equal illegible counts and equal flagged ratio; CAM is the GAPS source-map default primary Samuel witness"
+    base, rationale = _pick_base(gg, cam)
     base_rec = cam if base == "CAM" else gg
     other_rec = gg if base == "CAM" else cam
-    base_rationale = f"{base} is the recommended base for {book.upper()}{chapter}: chosen empirically — {why}."
+    base_rationale = rationale
 
     spine = _map_objects_to_spine(base_rec, other_rec, kjv)
     gg_flags = _flag_lookup(gg)
@@ -449,7 +468,7 @@ def collate(gg, cam, kjv, *, book, chapter):
     metrics = compute_metrics(verses, gg, cam, base)
     metrics["lacuna_counts_note"] = (
         f"{book.upper()} {chapter}: spine = canonical {len(kjv)}-verse KJV enumeration; "
-        f"base={base} ({why}); witnesses' sense-objects mapped onto the spine by "
+        f"base={base} ({base_rationale}); witnesses' sense-objects mapped onto the spine by "
         f"narrative content (never positional v==v); one-sided cells are class "
         f"'disagree' and counted in the (agree+disagree) denominator; lacuna = "
         f"physical ⟦illegible⟧ only and excluded from every agreement denominator."
@@ -464,4 +483,82 @@ def collate(gg, cam, kjv, *, book, chapter):
         "base_rationale": base_rationale,
         "verses": verses,
         "metrics": metrics,
+    }
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+#  R8 — engine-vs-hand honest divergence (spec-revision 2026-05-17 §3.2 R8).
+#  A PURE no-I/O-to-disk-write helper: it reads the immutable calibration
+#  reference (json.load only, NO writes anywhere, NO script, NO markdown
+#  artifact) and returns the engine's OWN measurement beside the hand
+#  calibration's, with an explicit non-equality statement.  This is the
+#  reference-comparison surface for the Task-8 QA `engine_vs_hand_divergence`
+#  check; it never asserts engine == hand.
+# ──────────────────────────────────────────────────────────────────────────────
+_R8_CASES = (
+    ("1sa1", "_collation_hires", 1, "1sa"),
+    ("1sa3", "_collation", 3, "1sa"),
+    ("1sa17", "_collation", 17, "1sa"),
+    ("2sa11", "_collation", 11, "2sa"),
+)
+
+_R8_CAL_DIR = os.path.join("content", "manuscript", "samuel", "calibration")
+
+_HONEST_DIVERGENCE_STATEMENT = (
+    "The engine's strict/skeleton/both-confident are a reproducible "
+    "deterministic measurement that intentionally differs from the "
+    "per-token human philological adjudication in the immutable "
+    "calibration collations, which already produced the 2026-05-17 GO "
+    "(diplomatic-parallel, base=CAM). The engine reproduces semantic-pass, "
+    "lacuna-counts and base exactly; agreement % is the engine's own "
+    "honest metric, surfaced by the QA tool and read against the design-"
+    "spec §4 reference bar - it is NOT a claim of equality with the hand "
+    "calibration and is never claimed equal."
+)
+
+
+def engine_vs_hand_report():
+    """Engine-vs-hand honest divergence report (spec-revision §3.2 R8).
+
+    For each calibration ref, run the engine (:func:`collate`) and read the
+    immutable hand ``*_collation.json`` ``metrics`` verbatim, returning a
+    dict ``{"chapters": {ref: {"engine": {...}, "hand": {...}}},
+    "honest_divergence_statement": <str>}``.  Pure: ``json.load`` reads of
+    the immutable reference only — NO writes anywhere, NO separate script,
+    NO committed markdown.  REPORTS the delta; never asserts engine == hand.
+    """
+    import json
+
+    chapters = {}
+    for ref, suf, ch, book in _R8_CASES:
+        with open(os.path.join(_R8_CAL_DIR, f"{ref}_witnessGG.json"), encoding="utf-8") as fh:
+            gg = json.load(fh)
+        with open(os.path.join(_R8_CAL_DIR, f"{ref}_witnessCAM_hires.json"), encoding="utf-8") as fh:
+            cam = json.load(fh)
+        with open(os.path.join(_R8_CAL_DIR, f"{ref}{suf}.json"), encoding="utf-8") as fh:
+            hand = json.load(fh)
+        got = collate(gg, cam, load_kjv_skeleton(book, ch), book=book, chapter=ch)
+        em = got["metrics"]
+        hm = hand["metrics"]
+        chapters[ref] = {
+            "engine": {
+                "strict_basis": em["ww_agreement_basis"],
+                "skeleton_basis": em["ww_agreement_skeleton_basis"],
+                "bothconfident_basis": em["ww_agreement_bothconfident_basis"],
+                "semantic_pass_basis": em["semantic_pass_basis"],
+                "lacuna_counts": em["lacuna_counts"],
+                "base": got["base_witness_recommended"],
+            },
+            "hand": {
+                "strict_basis": hm["ww_agreement_basis"],
+                "skeleton_basis": hm["ww_agreement_skeleton_basis"],
+                "bothconfident_basis": hm["ww_agreement_bothconfident_basis"],
+                "semantic_pass_basis": hm["semantic_pass_basis"],
+                "lacuna_counts": hm["lacuna_counts"],
+                "base": hand["base_witness_recommended"],
+            },
+        }
+    return {
+        "chapters": chapters,
+        "honest_divergence_statement": _HONEST_DIVERGENCE_STATEMENT,
     }
