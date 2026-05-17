@@ -85,17 +85,6 @@ TRACKS: dict[str, dict] = {
 # Kept at module level for back-compat with any external importer.
 BOOK_CHAPTERS = TRACKS["samuel"]["chapters"]
 
-# Runtime state: run() sets these before each loop so that the
-# monkeypatched-signature-stable helpers (_collate_chapter,
-# _write_collation) can resolve the correct dirs for the active track
-# without a signature change (the TestScaleDriver monkeypatch test
-# replaces these functions entirely and must not see a different call
-# protocol).
-_RUNTIME: dict[str, Path] = {
-    "cal_dir": CALIBRATION_DIR,
-    "coll_dir": COLLATION_DIR,
-}
-
 # The downstream Phase-1 procedure each pending chapter still needs.
 # Named so the report is self-documenting (and so a reader knows the
 # driver is NOT the thing that runs it).
@@ -120,8 +109,20 @@ def _dirs(track: str) -> tuple[Path, Path]:
     The calibration dir is always under the track's subdirectory and is
     IMMUTABLE — this driver never writes to it. The collation dir is the
     NEW per-chapter output dir (distinct from calibration)."""
+    if track not in TRACKS:
+        raise ValueError(f"Unknown track {track!r}; known: {list(TRACKS)}")
     base = REPO_ROOT / "content" / "manuscript" / TRACKS[track]["dir"]
     return base / "calibration", base / "collation"
+
+
+# Runtime state: run() sets these before each loop so that the
+# monkeypatched-signature-stable helpers (_collate_chapter,
+# _write_collation) can resolve the correct dirs for the active track
+# without a signature change (the TestScaleDriver monkeypatch test
+# replaces these functions entirely and must not see a different call
+# protocol).
+_cal, _coll = _dirs("samuel")
+_RUNTIME: dict[str, Path] = {"cal_dir": _cal, "coll_dir": _coll}
 
 
 def _ref_for(book: str, ch: int) -> str:
