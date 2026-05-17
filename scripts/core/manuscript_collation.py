@@ -67,6 +67,12 @@ def _flag_set(witness_record):
 
 
 def assert_token_conservation(verses, gg_rec, cam_rec):
+    """Verify every evidence token appears exactly once in the aligned output.
+
+    Intentional asymmetry: evidence-token counters include ``⟦illegible⟧``
+    tokens; alignment counters exclude ``lacuna-*`` rows — this is correct
+    because lacuna evidence tokens are legitimately absent from alignment cells.
+    """
     ev_gg = collections.Counter(t for v in gg_rec["verses"] for t in v["tokens"])
     ev_cam = collections.Counter(t for v in cam_rec["verses"] for t in v["tokens"])
     al_gg = collections.Counter(
@@ -79,7 +85,8 @@ def assert_token_conservation(verses, gg_rec, cam_rec):
     assert ev_cam == al_cam, f"token-conservation CAM drift: {ev_cam - al_cam!r} / {al_cam - ev_cam!r}"
 
 
-def _pct(n, d):
+def _pct(n, d) -> float:
+    """Rounded percentage n/d*100; returns 0.0 when denominator is zero."""
     return round(n / d * 100, 2) if d else 0.0
 
 
@@ -90,8 +97,13 @@ def compute_metrics(verses, gg_rec, cam_rec, base):
     den = len(agree) + len(dis)
     strict_n = sum(1 for a in agree if is_strict(a["gg"], a["cam"]))
     # both-confident: both cells non-empty, neither flagged by its witness
-    # (gg_flag/cam_flag are attached by Task-4's collate(); until then,
-    # a.get(...) is None → falsy → every non-empty non-lacuna row counts as confident)
+    # NOTE — Task-4 seam: until Task-4's collate() attaches per-row gg_flag/cam_flag,
+    # a.get(...) returns None (falsy), so every non-empty non-lacuna row counts as
+    # confident and interim bc_rows == den.  This is INTENTIONAL.  The Task-5
+    # regression oracle is the correctness anchor: it passes because collate() (Task 4)
+    # attaches the real flags BEFORE calling compute_metrics.  Do NOT add
+    # flag-derivation logic here to match any interim numbers — doing so would break
+    # the Task-5 oracle.
     base_rec = cam_rec if base == "CAM" else gg_rec
     bc_rows = 0
     bc_agree = 0
