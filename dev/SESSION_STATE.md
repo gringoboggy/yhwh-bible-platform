@@ -89,9 +89,17 @@
 > `gap:true`; in-place illegible is honest) + a committed
 > `TestReconcileLacunaHonesty` synthetic class closes the
 > lacuna/eclectic coverage gap (2sa11 has 0 lacunae); NO
-> `manuscript_reconcile.py` code change. Finishing Task 7 (apply
-> corrected test + synthetic class → re-verify → re-review) then Tasks
-> 8-9. Net: Tasks 1-4 = DONE
+> `manuscript_reconcile.py` code change. **STATUS @ Task-7-done
+> (2026-05-17):** Tasks **1-7 of 9 DONE, each two-stage-reviewed
+> (spec-compliance→code-quality) & committed**; Task 7 rev.4
+> corrected-`test_R9` + `TestReconcileLacunaHonesty` shipped
+> (`e443d0a`, impl spec-review-verified HONEST, engine byte-unchanged);
+> full suite **25 passed**; CHANGELOG synced co-current with
+> SESSION_STATE (rules §12) restoring **lint `11·0·0`**. NEXT = **Task
+> 8** (Unit E `manuscript_qa.py` `run_all()` + `scripts/web.py`
+> preflight fold-in) → **Task 9** (driver + R9 ship-gate + register
+> τ.6.x.4.b) — each two-stage-reviewed — → final whole-impl review →
+> `superpowers:finishing-a-development-branch`. Net: Tasks 1-4 = DONE
 > (shipped engine sound); Task 5 REDEFINED to the **R1-R9** reproducible
 > contract (NOT hand `alignment[]` reproduction); Tasks 6-9
 > carried/clarified. **The 2026-05-17 GO is UNAFFECTED** — diplomatic-parallel
