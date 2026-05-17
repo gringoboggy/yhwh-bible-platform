@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Phase τ.6.x.4.b — Samuel dual-manuscript collation at-scale driver.
+"""Phase τ.6.x.4.b/c — Dual-manuscript collation at-scale driver (Samuel + Kings).
 
 The book-wide harness for the Phase-2 collation TOOL (Units A-E,
-shipped Tasks 1-8). Walks the folio manifest over every chapter of
-1 Samuel (1-31) and 2 Samuel (1-24) and, for each chapter that is
-ALREADY calibrated AND whose two witness records exist on disk,
+shipped Tasks 1-8). Walks the folio manifest over every chapter of a
+given track (default: Samuel 1-31 + 2 Samuel 1-24; Kings via
+``--track kings`` / ``run(track="kings")``) and, for each chapter that
+is ALREADY calibrated AND whose two witness records exist on disk,
 runs the proven engine (validate → collate → reconcile) and persists
 the per-chapter collation + the per-book critical apparatus.
 
@@ -20,21 +21,22 @@ WHAT IS / IS NOT THIS DRIVER'S JOB
 A chapter is **collatable** iff its manifest entry is
 ``status == "calibrated"`` with non-empty GG+CAM folios AND its two
 witness JSONs exist under
-``content/manuscript/samuel/calibration/``. As of τ.6.x.4.b that is
-exactly the four Phase-1 calibration chapters (1sa 1, 1sa 3,
-1sa 17, 2sa 11). Every other chapter (51 of them) is **pending** —
-it still needs the Phase-1 blind dual-witness procedure (isolated
-GG vision-transcribe → adversarial review → CUDL-IIIF CAM hi-res
-via the ``cudl-iiif-access`` method → isolated CAM vision-
+``content/manuscript/<track>/calibration/``. For Samuel (τ.6.x.4.b)
+that is exactly the four Phase-1 calibration chapters (1sa 1, 1sa 3,
+1sa 17, 2sa 11). For Kings (τ.6.x.4.c) all chapters are pending until
+each is collated under the same marathon. Every other chapter is
+**pending** — it still needs the Phase-1 blind dual-witness procedure
+(isolated GG vision-transcribe → adversarial review → CUDL-IIIF CAM
+hi-res via the ``cudl-iiif-access`` method → isolated CAM vision-
 transcribe → adversarial review → collate), one chapter at a time,
-manifest-tracked, via subagent-driven-development exactly as
-Phase-1 did. This driver does **not** itself run that vision
-marathon — it reports precisely which chapters await it
+manifest-tracked, via subagent-driven-development exactly as Phase-1
+did. This driver does **not** itself run that vision marathon — it
+reports precisely which chapters await it
 (``pending_needs_transcription``) and collates the ones already
 calibrated. The marathon is the downstream effort (Phase-2.5/3).
 
 Output (``dry=False`` ONLY):
-    content/manuscript/samuel/collation/<ref>_collation.json
+    content/manuscript/<track>/collation/<ref>_collation.json
         — per-chapter engine collation (the NEW collation dir; the
         Task-1..8 ``calibration/`` dir is IMMUTABLE and is never
         written here).
@@ -44,8 +46,10 @@ Output (``dry=False`` ONLY):
         ``content/apparatus/.gitkeep``).
 
 Usage:
-    python3 scripts/run_manuscript_collation_at_scale.py          # report (dry)
-    python3 scripts/run_manuscript_collation_at_scale.py --write  # collate+persist
+    python3 scripts/run_manuscript_collation_at_scale.py                      # report (dry, samuel)
+    python3 scripts/run_manuscript_collation_at_scale.py --write              # collate+persist (samuel)
+    python3 scripts/run_manuscript_collation_at_scale.py --track kings        # report (dry, kings)
+    python3 scripts/run_manuscript_collation_at_scale.py --track kings --write  # collate+persist (kings)
 """
 
 from __future__ import annotations
@@ -69,18 +73,27 @@ CALIBRATION_DIR = REPO_ROOT / "content" / "manuscript" / "samuel" / "calibration
 # written in place of) the IMMUTABLE Task-1..8 ``calibration/`` dir.
 COLLATION_DIR = REPO_ROOT / "content" / "manuscript" / "samuel" / "collation"
 
+# Track registry: each entry maps a track name to its chapter counts
+# and the subdirectory under content/manuscript/.
+TRACKS: dict[str, dict] = {
+    "samuel": {"chapters": {"1sa": 31, "2sa": 24}, "dir": "samuel"},
+    "kings": {"chapters": {"1ki": 22, "2ki": 25}, "dir": "kings"},
+}
+
 # Books in the Samuel track and their chapter counts (1 Samuel 1-31,
 # 2 Samuel 1-24 — the manifest is seeded for exactly this range).
-BOOK_CHAPTERS = {"1sa": 31, "2sa": 24}
+# Kept at module level for back-compat with any external importer.
+BOOK_CHAPTERS = TRACKS["samuel"]["chapters"]
 
-# The four Phase-1 calibration chapters: (book, ch) → witness-file ref
-# stem. Only these have witness JSONs on disk today; every other
-# chapter is pending the blind dual-witness transcription marathon.
-CALIBRATED_REFS = {
-    ("1sa", 1): "1sa1",
-    ("1sa", 3): "1sa3",
-    ("1sa", 17): "1sa17",
-    ("2sa", 11): "2sa11",
+# Runtime state: run() sets these before each loop so that the
+# monkeypatched-signature-stable helpers (_collate_chapter,
+# _write_collation) can resolve the correct dirs for the active track
+# without a signature change (the TestScaleDriver monkeypatch test
+# replaces these functions entirely and must not see a different call
+# protocol).
+_RUNTIME: dict[str, Path] = {
+    "cal_dir": CALIBRATION_DIR,
+    "coll_dir": COLLATION_DIR,
 }
 
 # The downstream Phase-1 procedure each pending chapter still needs.
@@ -101,40 +114,60 @@ DIM = "\033[2m"
 RESET = "\033[0m"
 
 
-def _ref_for(book: str, ch: int) -> str | None:
-    """The witness-file ref stem for ``(book, ch)``, or ``None`` if this
-    chapter is not one of the four Phase-1 calibration chapters."""
-    return CALIBRATED_REFS.get((book, ch))
+def _dirs(track: str) -> tuple[Path, Path]:
+    """Return ``(cal_dir, coll_dir)`` for *track*.
+
+    The calibration dir is always under the track's subdirectory and is
+    IMMUTABLE — this driver never writes to it. The collation dir is the
+    NEW per-chapter output dir (distinct from calibration)."""
+    base = REPO_ROOT / "content" / "manuscript" / TRACKS[track]["dir"]
+    return base / "calibration", base / "collation"
 
 
-def _witness_paths(ref: str) -> tuple[Path, Path]:
+def _ref_for(book: str, ch: int) -> str:
+    """Generic witness-file ref stem for ``(book, ch)``.
+
+    Produces ``"<book><ch>"`` (e.g. ``"1sa1"``, ``"1sa3"``, ``"1ki1"``,
+    ``"2ki25"``). For Samuel this is behavior-identical to the former
+    CALIBRATED_REFS dict for the four Phase-1 chapters; returns a
+    (non-None) string for every chapter so ``_is_collatable`` gates
+    purely on file existence + manifest status."""
+    return f"{book}{ch}"
+
+
+def _witness_paths(ref: str, cal_dir: Path | None = None) -> tuple[Path, Path]:
     """GG + CAM(hires) witness JSON paths for a calibration ref.
 
     The CAM witness is always the hi-res transcription
     (``<ref>_witnessCAM_hires.json``) — the only CAM file the engine
     and the calibration goldens consume (see the test suite's
-    ``TestCalibrationInvariants``)."""
+    ``TestCalibrationInvariants``).
+
+    ``cal_dir`` defaults to the module-level ``CALIBRATION_DIR`` (Samuel)
+    when not supplied, preserving back-compat for any direct caller."""
+    d = cal_dir if cal_dir is not None else CALIBRATION_DIR
     return (
-        CALIBRATION_DIR / f"{ref}_witnessGG.json",
-        CALIBRATION_DIR / f"{ref}_witnessCAM_hires.json",
+        d / f"{ref}_witnessGG.json",
+        d / f"{ref}_witnessCAM_hires.json",
     )
 
 
-def _is_collatable(entry: dict, ref: str | None) -> bool:
+def _is_collatable(entry: dict, ref: str, cal_dir: Path | None = None) -> bool:
     """A chapter is collatable iff its manifest entry is calibrated with
     non-empty GG+CAM folios AND its two witness JSONs exist on disk.
 
     Pure predicate — no mutation, no engine call (the report path must
-    stay side-effect-free)."""
-    if ref is None:
-        return False
+    stay side-effect-free).
+
+    ``cal_dir`` defaults to the module-level ``CALIBRATION_DIR`` (Samuel)
+    when not supplied."""
     if entry.get("status") != "calibrated":
         return False
     gg_folios = (entry.get("GG") or {}).get("folios") or []
     cam_folios = (entry.get("CAM") or {}).get("folios") or []
     if not gg_folios or not cam_folios:
         return False
-    gg_path, cam_path = _witness_paths(ref)
+    gg_path, cam_path = _witness_paths(ref, cal_dir)
     return gg_path.is_file() and cam_path.is_file()
 
 
@@ -143,8 +176,12 @@ def _collate_chapter(book: str, ch: int, ref: str) -> tuple[dict, list]:
 
     validate both witnesses (HARD gate) → ``collate`` → ``reconcile``.
     Returns ``(collation, apparatus)``. Pure w.r.t. the filesystem —
-    persistence is the caller's job (and only when ``dry=False``)."""
-    gg_path, cam_path = _witness_paths(ref)
+    persistence is the caller's job (and only when ``dry=False``).
+
+    Reads the active calibration dir from ``_RUNTIME["cal_dir"]`` which
+    ``run()`` sets before the chapter loop (preserves the 3-arg
+    signature required by the TestScaleDriver monkeypatch contract)."""
+    gg_path, cam_path = _witness_paths(ref, _RUNTIME["cal_dir"])
     gg = json.loads(gg_path.read_text(encoding="utf-8"))
     cam = json.loads(cam_path.read_text(encoding="utf-8"))
 
@@ -164,16 +201,22 @@ def _write_collation(ref: str, collation: dict) -> Path:
 
     NEVER writes to the immutable ``calibration/`` dir. Goes through
     the project's atomic-write convention (rules §7.1) so a crash
-    mid-write cannot leave a half-written collation."""
-    path = COLLATION_DIR / f"{ref}_collation.json"
+    mid-write cannot leave a half-written collation.
+
+    Reads the active collation dir from ``_RUNTIME["coll_dir"]`` which
+    ``run()`` sets before the chapter loop (preserves the 2-arg
+    signature required by the TestScaleDriver monkeypatch contract)."""
+    path = _RUNTIME["coll_dir"] / f"{ref}_collation.json"
     text = json.dumps(collation, ensure_ascii=False, indent=2)
     return Path(atomic_write(str(path), text))
 
 
-def run(dry: bool = True) -> dict:
+def run(dry: bool = True, track: str = "samuel") -> dict:
     """Book-wide collation driver core (rules §9).
 
-    Walks the folio manifest over 1sa 1-31 + 2sa 1-24. For each
+    Walks the folio manifest over all chapters of *track* (default:
+    ``"samuel"`` = 1sa 1-31 + 2sa 1-24, byte-identical back-compat;
+    ``"kings"`` = 1ki 1-22 + 2ki 1-25 for τ.6.x.4.c). For each
     chapter, classifies it collatable (calibrated + witness JSONs on
     disk) or pending (still needs the blind dual-witness marathon).
 
@@ -183,7 +226,7 @@ def run(dry: bool = True) -> dict:
 
     ``dry=False``: for every collatable chapter it validates both
     witnesses, collates, reconciles, then writes
-    ``content/manuscript/samuel/collation/<ref>_collation.json`` and
+    ``content/manuscript/<track>/collation/<ref>_collation.json`` and
     ``content/apparatus/<book>.json`` (the NEW collation dir + the
     apparatus dir — NEVER the immutable ``calibration/`` dir).
 
@@ -204,13 +247,13 @@ def run(dry: bool = True) -> dict:
 
         {
           "dry": <bool>,
-          "chapters_total": 55,
-          "chapters_collated": <int ≥ 4>,
-          "chapters_pending": <int ≥ 1 (51)>,
+          "chapters_total": <int>,
+          "chapters_collated": <int>,
+          "chapters_pending": <int>,
           "by_book": {
-            "1sa": {"total", "collated", "pending",
-                    "collated_refs": [...], "pending_chapters": [...]},
-            "2sa": {...},
+            "<book>": {"total", "collated", "pending",
+                       "collated_refs": [...], "pending_chapters": [...]},
+            ...
           },
           "collated": [{"book","chapter","ref"}, ...],
           "pending_needs_transcription": [
@@ -223,8 +266,19 @@ def run(dry: bool = True) -> dict:
           "pending_procedure": <PENDING_PROCEDURE>,
         }
     """
+    cal_dir, coll_dir = _dirs(track)
+    book_chapters = TRACKS[track]["chapters"]
+
+    # Set the module-level runtime dirs so that the signature-stable
+    # helpers _collate_chapter(book, ch, ref) and _write_collation(ref,
+    # collation) use the correct track dirs (the monkeypatch test
+    # replaces these functions entirely and must not see a signature
+    # change — hence dir resolution via _RUNTIME rather than extra args).
+    _RUNTIME["cal_dir"] = cal_dir
+    _RUNTIME["coll_dir"] = coll_dir
+
     mm.load_manifest.cache_clear()
-    man = mm.load_manifest()
+    man = mm.load_manifest(track=track)
 
     by_book: dict[str, dict] = {}
     collated: list[dict] = []
@@ -240,7 +294,7 @@ def run(dry: bool = True) -> dict:
     # contract). ALWAYS in the report (empty in dry / when clean).
     failed: list[dict] = []
 
-    for book, n_chapters in BOOK_CHAPTERS.items():
+    for book, n_chapters in book_chapters.items():
         book_stats = {
             "total": n_chapters,
             "collated": 0,
@@ -251,7 +305,7 @@ def run(dry: bool = True) -> dict:
         for ch in range(1, n_chapters + 1):
             entry = mm.chapter_entry(man, book, ch)
             ref = _ref_for(book, ch)
-            if _is_collatable(entry, ref):
+            if _is_collatable(entry, ref, cal_dir):
                 book_stats["collated"] += 1
                 book_stats["collated_refs"].append(ref)
                 collated.append({"book": book, "chapter": ch, "ref": ref})
@@ -294,7 +348,7 @@ def run(dry: bool = True) -> dict:
 
     return {
         "dry": dry,
-        "chapters_total": sum(BOOK_CHAPTERS.values()),
+        "chapters_total": sum(book_chapters.values()),
         "chapters_collated": len(collated),
         "chapters_pending": len(pending_needs),
         "by_book": by_book,
@@ -310,9 +364,19 @@ def run(dry: bool = True) -> dict:
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
         description=(
-            "Samuel dual-manuscript collation at-scale driver. Default is "
-            "a dry report (writes nothing). --write collates every "
+            "Dual-manuscript collation at-scale driver (Samuel + Kings). "
+            "Default is a dry report (writes nothing). --write collates every "
             "calibrated chapter and persists the collation + apparatus."
+        ),
+    )
+    p.add_argument(
+        "--track",
+        choices=list(TRACKS),
+        default="samuel",
+        help=(
+            "which manuscript track to process (default: samuel). "
+            "samuel = 1 Samuel 1-31 + 2 Samuel 1-24; "
+            "kings = 1 Kings 1-22 + 2 Kings 1-25."
         ),
     )
     p.add_argument(
@@ -320,16 +384,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help=(
             "actually collate every calibrated chapter and persist "
-            "content/manuscript/samuel/collation/<ref>_collation.json + "
+            "content/manuscript/<track>/collation/<ref>_collation.json + "
             "content/apparatus/<book>.json (default: dry report only)."
         ),
     )
     args = p.parse_args(argv)
 
-    rep = run(dry=not args.write)
+    rep = run(dry=not args.write, track=args.track)
 
+    track_label = args.track.capitalize()
     mode = "WRITE" if not rep["dry"] else "DRY (report only — nothing written)"
-    print(f"Samuel dual-manuscript collation at-scale — {mode}")
+    print(f"{track_label} dual-manuscript collation at-scale — {mode}")
     print(
         f"  {rep['chapters_total']} chapters total · "
         f"{GREEN}{rep['chapters_collated']} collatable{RESET} · "
@@ -355,7 +420,8 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(f"{DIM}Re-run with --write to collate the calibrated chapters.{RESET}")
     else:
-        print(f"Collations written under: {COLLATION_DIR}")
+        _, coll_dir = _dirs(args.track)
+        print(f"Collations written under: {coll_dir}")
         for w in rep["written"]:
             print(f"  {GREEN}✓{RESET} {w}")
         for a in rep["apparatus_written"]:
