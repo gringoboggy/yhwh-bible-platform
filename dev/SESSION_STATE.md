@@ -1,5 +1,46 @@
 # Session state — current snapshot
 
+> **➤➤➤ τ.6.x.4.c KINGS DUAL-MANUSCRIPT COLLATION + RENDER — ⏳ ACTIVE
+> MARATHON; STAGE 0 (Phase-2 infra reuse) ✅ SHIPPED 2026-05-17 (read
+> this FIRST; supersedes the τ.6.x.4.b ARC-CLOSED banner below — Kings
+> is the explicitly user-directed next step, "the full rendering and
+> transcribing of kings").** Plan
+> `docs/superpowers/plans/2026-05-17-kings-manuscript-collation.md`
+> (3 stages, 12 tracked tasks) executed via
+> `superpowers:subagent-driven-development`. Kings reuses Samuel
+> Phase-2/3 VERBATIM (design spec §3/§6); diplomatic-parallel + base=CAM
+> are the **already-ratified 2026-05-17 GO** for this manuscript family
+> (GG-00106 + Cambridge Add.1570) — **NO fresh user-GO gate**; 1 Kings 1
+> is the bi-directional safety-stop (contradiction → STOP & surface).
+> **STAGE 0 DONE (4/4 tasks, each two-stage spec+quality reviewed):**
+> 0.1 track-parameterized `manuscript_manifest.load_manifest(track=)`
+> (`1e29812`+`ec8c052`); 0.2 seeded `content/manuscript/kings/
+> manifest.yaml` (1ki 1-22 + 2ki 1-25, **47 pending**) (`6fa054e`);
+> 0.3 track-parameterized `run_manuscript_collation_at_scale.py`
+> (`--track`, generic `ref=f"{book}{ch}"`, `_RUNTIME` preserves the
+> shipped `TestScaleDriver` monkeypatch contract) (`c5dce9d`+`3f79042`);
+> 0.4 SKELETON-GATE **PASS** (engine has Kings anchors: 1ki1=53 / 2ki1=18
+> / 1ki22=53 / 2ki25=30) + lint **11·0·0** + manuscript regression **71
+> passed/0 fail** (Samuel byte-identical — additive, samuel=default).
+> **NEXT = Stage 1, task #5 = 1 Kings 1** (the 47-chapter blind
+> dual-witness transcription marathon; per-chapter: isolated GG
+> vision-transcribe → adversarial review → CUDL-IIIF CAM hi-res via
+> `cudl-iiif-access` → isolated CAM transcribe → adversarial review →
+> collate via the shipped Phase-2 tool → adversarial collation review →
+> manifest flip; GG src `GAPS/2_Kings/GG-00106/{1,2}-Kings/`, CAM-hires
+> pulled per-chapter). **Cross-session ledger:**
+> `content/manuscript/kings/manifest.yaml` (pending→calibrated as each
+> ships) + `run_manuscript_collation_at_scale.py --track kings` dry
+> report + the 12-task list + `dev/IN_FLIGHT.md` resume pointer. Then
+> Stage 2 = Phase-3 render `geez-tewahedo/1ki.py`+`2ki.py` + apparatus
+> + `manuscript-collation-tier2`. Local commit only (remote deleted —
+> no push; "continue"/"push" ≠ save — no zip). The Geʽez catchup loop
+> (τ.6.x.2.o Sirach) + Amharic NT cadence remain independently PAUSED
+> (untouched by this arc).
+>
+> **[SUPERSEDED 2026-05-17 by the τ.6.x.4.c Kings arc banner above —
+> the τ.6.x.4.b record below is retained as the Phase-2-tool arc-close
+> history; the Phase-2 tool it shipped is exactly what Kings reuses.]**
 > **➤➤➤ τ.6.x.4.b SAMUEL PHASE-2 DUAL-MANUSCRIPT COLLATION TOOL —
 > ✅ SHIPPED + ARC CLOSED (2026-05-17; read this FIRST; supersedes the
 > τ.6.x.4.b PAUSED banner + the τ.6.x.4.a-W banner below for the Samuel

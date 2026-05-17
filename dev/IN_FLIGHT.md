@@ -21,8 +21,22 @@ template, collate via the shipped Phase-2 tool) → Stage 2 (Phase-3 render `gee
 `calibrated` as each is done) + `run_manuscript_collation_at_scale.py --track kings` dry report
 + the 12-item task list. Local commit only (remote deleted) — no push, no zip.
 
-**RESUME POINTER:** read that plan + the manifest; the lowest open task in the list is the next
-action. Stage 0.1 (track-parameterize `manuscript_manifest`) is the entry point.
+**PROGRESS — STAGE 0 ✅ COMPLETE (4/4, each two-stage spec+quality reviewed; 2026-05-17):**
+0.1 `manuscript_manifest.load_manifest(track=)` (`1e29812`+`ec8c052`) · 0.2 seeded
+`content/manuscript/kings/manifest.yaml` 47 pending (`6fa054e`) · 0.3 `run_manuscript_
+collation_at_scale.py` track-parameterized (`c5dce9d`+`3f79042`) · 0.4 skeleton-gate PASS
+(1ki1=53/2ki1=18/1ki22=53/2ki25=30) + lint 11·0·0 + manuscript regression 71/0 (Samuel
+byte-identical). Phase-2 infra reuse is DONE; the marathon can run mechanically.
+
+**RESUME POINTER:** read the plan + `content/manuscript/kings/manifest.yaml`; the lowest open
+task in the 12-task list is the next action. **NEXT = Stage 1, task #5 = 1 Kings 1** (the
+safety-stop checkpoint: run plan Stage-1 steps C-1…C-10 for `ref=1ki1`; isolated GG
+vision-transcribe via opus subagent → adversarial review → CUDL-IIIF CAM hi-res per
+`cudl-iiif-access` → isolated CAM transcribe → adversarial review → collate via the shipped
+Phase-2 tool → adversarial collation review → flip manifest 1ki:1→calibrated → C-10
+bi-directional pattern check: CONTRADICTS → STOP & surface; MATCHES → continue the queue
+1ki2…1ki22 then 2ki1…2ki25 continuously). All 47 chapters still `pending` (no scripture
+transcribed yet).
 
 ---
 
