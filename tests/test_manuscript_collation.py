@@ -248,6 +248,11 @@ class TestManifest:
         assert e["status"] == "pending"
 
 
+def _base_tokens(col, verse):
+    """The base witness's own token list for a collation verse."""
+    return verse["cam_tokens"] if col["base_witness_recommended"] == "CAM" else verse["gg_tokens"]
+
+
 class TestReconcile:
     def test_diplomatic_parallel_and_R9_honesty_2sa11(self):
         mr = importlib.import_module("scripts.core.manuscript_reconcile")
@@ -256,12 +261,126 @@ class TestReconcile:
         recon, app = mr.reconcile(col)
         assert col["base_witness_recommended"] == "CAM"
         assert len(recon) == len(col["verses"])
-        # R9 apparatus well-formedness: every verse with a recorded
-        # disagreement/lacuna has a structured apparatus entry.
         for v in col["verses"]:
             if any(a["class"] != "agree" for a in v["alignment"]):
                 e = [x for x in app if x["v"] == v["v"]]
                 assert e and {"v", "base_reading", "variants"} <= set(e[0])
-        # R9 lacuna-honesty: a both-illegible span is a marked gap, never
-        # fabricated (design-spec §7).
-        assert all(("⟦illegible⟧" not in " ".join(r["geez"])) or r["gap"] for r in recon)
+        # R9 lacuna-honesty (design-spec §7) — CORRECT predicate: forbid
+        # FABRICATION + other-witness-merge into the running text; the
+        # base's own in-place ⟦illegible⟧ is honest (gap=False), NOT a
+        # violation. Every reconciled token is ⟦illegible⟧ or a base-own
+        # token; a whole-verse base lacuna is marked gap=True.
+        ILL = mc.ILLEGIBLE
+        for r, v in zip(recon, col["verses"]):
+            base_set = set(_base_tokens(col, v))
+            assert set(r["geez"]) - {ILL} <= base_set, (v["v"], "fabricated/foreign token in running text")
+            legible = [t for t in _base_tokens(col, v) if t not in ("", ILL)]
+            if not legible:
+                assert r["gap"] is True, (v["v"], "whole-verse lacuna not gap")
+
+
+class TestReconcileLacunaHonesty:
+    """Synthetic collations exercising the §7 honesty-critical paths the
+    2sa11-only test cannot reach (2sa11 has 0 lacunae)."""
+
+    def _col(self, base, verses):
+        return {
+            "book": "1sa",
+            "chapter": 1,
+            "base_witness_recommended": base,
+            "base_rationale": "test",
+            "verses": verses,
+            "metrics": {},
+        }
+
+    def test_both_witness_lacuna_marked_gap_never_fabricated(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        ILL = mc.ILLEGIBLE
+        col = self._col(
+            "CAM",
+            [
+                {
+                    "v": 1,
+                    "gg_tokens": [ILL],
+                    "cam_tokens": [ILL],
+                    "alignment": [{"gg": ILL, "cam": ILL, "class": "lacuna-both"}],
+                    "semantic_pass": False,
+                    "semantic_note": "both illegible",
+                }
+            ],
+        )
+        recon, app = mr.reconcile(col)
+        assert recon[0]["gap"] is True
+        assert all(t == ILL or t == "" for t in recon[0]["geez"])  # no invented word
+
+    def test_base_side_lacuna_other_witness_not_merged_into_text(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        ILL = mc.ILLEGIBLE
+        # base=CAM is fully illegible; GG is sound — GG must NOT enter the
+        # running text (D3); it is recorded in the apparatus only.
+        col = self._col(
+            "CAM",
+            [
+                {
+                    "v": 1,
+                    "gg_tokens": ["ንጉሥ", "ዳዊት"],
+                    "cam_tokens": [ILL, ILL],
+                    "alignment": [
+                        {"gg": "ንጉሥ", "cam": ILL, "class": "lacuna-cam"},
+                        {"gg": "ዳዊት", "cam": ILL, "class": "lacuna-cam"},
+                    ],
+                    "semantic_pass": False,
+                    "semantic_note": "base illegible",
+                }
+            ],
+        )
+        recon, app = mr.reconcile(col)
+        assert recon[0]["gap"] is True
+        assert "ንጉሥ" not in recon[0]["geez"] and "ዳዊት" not in recon[0]["geez"]
+        e = [x for x in app if x["v"] == 1]
+        assert e, "base-side lacuna must be recorded in apparatus"
+
+    def test_gg_base_uses_gg_text_cam_is_variant(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        col = self._col(
+            "GG",
+            [
+                {
+                    "v": 1,
+                    "gg_tokens": ["ቃለ", "እግዚአብሔር"],
+                    "cam_tokens": ["ነገረ", "እግዚአብሔር"],
+                    "alignment": [
+                        {"gg": "ቃለ", "cam": "ነገረ", "class": "disagree"},
+                        {"gg": "እግዚአብሔር", "cam": "እግዚአብሔር", "class": "agree"},
+                    ],
+                    "semantic_pass": True,
+                    "semantic_note": "ok",
+                }
+            ],
+        )
+        recon, app = mr.reconcile(col)
+        assert recon[0]["geez"] == ["ቃለ", "እግዚአብሔር"]  # GG base verbatim
+        assert recon[0]["gap"] is False
+        e = [x for x in app if x["v"] == 1][0]
+        assert any(var["witness"] == "CAM" and "ነገረ" in var["reading"] for var in e["variants"])
+
+    def test_disagree_base_stands_recorded_in_apparatus(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        col = self._col(
+            "CAM",
+            [
+                {
+                    "v": 1,
+                    "gg_tokens": ["ደቂቅ"],
+                    "cam_tokens": ["ውሉድ"],
+                    "alignment": [{"gg": "ደቂቅ", "cam": "ውሉድ", "class": "disagree"}],
+                    "semantic_pass": True,
+                    "semantic_note": "ok",
+                }
+            ],
+        )
+        recon, app = mr.reconcile(col)
+        assert recon[0]["geez"] == ["ውሉድ"] and recon[0]["gap"] is False
+        e = [x for x in app if x["v"] == 1][0]
+        assert e["resolution"] == "base"
+        assert any(var["witness"] == "GG" and "ደቂቅ" in var["reading"] for var in e["variants"])
