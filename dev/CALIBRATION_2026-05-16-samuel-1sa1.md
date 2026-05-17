@@ -166,4 +166,11 @@ The merge-model NO-GO maps onto spec §4's offramps as follows, with the design 
 
 ---
 
-## Decision (user): _pending_
+## Decision (user): GO — diplomatic-parallel, widen-pilot-first (2026-05-16)
+
+**Decided 2026-05-16 at the calibration gate.**
+
+- **Verdict: GO** for the **diplomatic-parallel model** — CAM as the base running Ge'ez text + GG recorded as a divergent second witness in a per-verse apparatus (spec D1=B / D3). **NOT** a merged/normalized single reconstructed text (that remains NO-GO per §6(i)).
+- **Base witness confirmed: CAM** (Cambridge UL MS Add. 1570, hi-res f106r). This restores the GAPS source-map; the low-res GG pick was a resolution artifact.
+- **Condition before Samuel-wide scaling (accepted):** widen the calibration to **2–3 more Samuel chapters** (preferring GG-undamaged chapters) using the same independent-blind-transcription + collation procedure, to confirm the distinct-recension pattern and the CAM-base choice generalize beyond 1 Sam 1. Only after that is the Phase-2 collation tool built Samuel-wide. **Kings then reuses the proven Phase-2/3 model.**
+- Next step: a widened-pilot plan (chapters + rationale), then Phase-2 sized to the confirmed findings. The Phase-2/3 tool is **not** started until the widening confirms the pattern.
