@@ -246,3 +246,22 @@ class TestManifest:
         mm.load_manifest.cache_clear()
         e = mm.chapter_entry(mm.load_manifest(), "1sa", 2)
         assert e["status"] == "pending"
+
+
+class TestReconcile:
+    def test_diplomatic_parallel_and_R9_honesty_2sa11(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        with open(f"{CAL}/2sa11_collation.json", encoding="utf-8") as fh:
+            col = json.load(fh)
+        recon, app = mr.reconcile(col)
+        assert col["base_witness_recommended"] == "CAM"
+        assert len(recon) == len(col["verses"])
+        # R9 apparatus well-formedness: every verse with a recorded
+        # disagreement/lacuna has a structured apparatus entry.
+        for v in col["verses"]:
+            if any(a["class"] != "agree" for a in v["alignment"]):
+                e = [x for x in app if x["v"] == v["v"]]
+                assert e and {"v", "base_reading", "variants"} <= set(e[0])
+        # R9 lacuna-honesty: a both-illegible span is a marked gap, never
+        # fabricated (design-spec §7).
+        assert all(("⟦illegible⟧" not in " ".join(r["geez"])) or r["gap"] for r in recon)
