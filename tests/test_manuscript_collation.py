@@ -223,3 +223,20 @@ class TestCalibrationInvariants:
         s = out["honest_divergence_statement"]
         assert "intentionally differs" in s and "GO" in s
         assert "not a claim of equality" in s.lower() or "never claimed equal" in s.lower()
+
+
+class TestManifest:
+    def test_manifest_seeded_with_calibration_chapters(self):
+        mm = importlib.import_module("scripts.core.manuscript_manifest")
+        mm.load_manifest.cache_clear()
+        man = mm.load_manifest()
+        for book, ch in [("1sa", 1), ("1sa", 3), ("1sa", 17), ("2sa", 11)]:
+            e = mm.chapter_entry(man, book, ch)
+            assert e["GG"]["folios"] and e["CAM"]["folios"]
+            assert e["status"] == "calibrated"
+
+    def test_uncovered_chapters_marked_pending(self):
+        mm = importlib.import_module("scripts.core.manuscript_manifest")
+        mm.load_manifest.cache_clear()
+        e = mm.chapter_entry(mm.load_manifest(), "1sa", 2)
+        assert e["status"] == "pending"

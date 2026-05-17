@@ -1,0 +1,538 @@
+# content/manuscript/samuel/manifest.yaml
+# Samuel dual-manuscript folio manifest — τ.6.x.4.b (Phase-2).
+#
+# Structure: book → chapter (int key) → {GG, CAM, status}
+#   GG:  {folios: [...], source_images: [...]}
+#   CAM: {folios: [...], views: [...]}       # views = CAM source_images
+#   status: calibrated | pending
+#
+# The four calibration chapters (1sa 1, 3, 17; 2sa 11) are seeded from
+# the immutable witness JSONs (folio_sigla / source_images).  All other
+# chapters are pending (empty folio lists) until each is collated and GO'd.
+
+1sa:
+  1:
+    GG:
+      folios:
+        - f003r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f003r.jpg
+    CAM:
+      folios:
+        - f106r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f106r_1Sam1_hires.jpg
+    status: calibrated
+
+  2:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  3:
+    GG:
+      folios:
+        - f004r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f004r.jpg
+    CAM:
+      folios:
+        - f106v
+        - f107r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f106v_1Sam3_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f107r_1Sam3_hires.jpg
+    status: calibrated
+
+  4:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  5:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  6:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  7:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  8:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  9:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  10:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  11:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  12:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  13:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  14:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  15:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  16:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  17:
+    GG:
+      folios:
+        - f010v
+        - f011r
+        - f011v
+      source_images:
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f010v.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f011r.jpg
+        - GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f011v.jpg
+    CAM:
+      folios:
+        - f111r
+        - f111v
+        - f112r
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f111r_1Sam17_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f111v_1Sam17_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f112r_1Sam17_hires.jpg
+    status: calibrated
+
+  18:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  19:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  20:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  21:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  22:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  23:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  24:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  25:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  26:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  27:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  28:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  29:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  30:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  31:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+2sa:
+  1:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  2:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  3:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  4:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  5:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  6:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  7:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  8:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  9:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  10:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  11:
+    GG:
+      folios:
+        - f021v
+        - f022r
+      source_images:
+        - GAPS/1_Samuel/GG-00106/2-Samuel/2-Samuel_f021v.jpg
+        - GAPS/1_Samuel/GG-00106/2-Samuel/2-Samuel_f022r.jpg
+    CAM:
+      folios:
+        - f120r
+        - f120v
+      views:
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f120r_2Sam11_hires.jpg
+        - GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f120v_2Sam11_hires.jpg
+    status: calibrated
+
+  12:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  13:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  14:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  15:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  16:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  17:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  18:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  19:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  20:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  21:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  22:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  23:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  24:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
