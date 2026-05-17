@@ -2,10 +2,13 @@
 
 <!-- TRACKER-STATE: idle -->
 
-## Current task — NONE. τ.6.x.4.a-W Samuel widened-calibration COMPLETE (2026-05-17); at the USER GATE.
+## Current task — NONE. τ.6.x.4.a-W COMPLETE + GATE PASSED (GO 2026-05-17); Phase-2 plan saved, awaiting post-`/clear` execution.
 
 **TRACKER IDLE.** `docs/superpowers/plans/2026-05-16-samuel-widened-
-calibration.md` is FULLY EXECUTED (all 11 tasks). All 3 widened
+calibration.md` is FULLY EXECUTED (all 11 tasks); the user GAVE GO at
+the gate and the Phase-2 plan
+`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-tool.md`
+is saved for the next session to execute. All 3 widened
 chapters shipped as immutable evidence + collation JSONs in
 `content/manuscript/samuel/calibration/`: **1 Sam 3** (Ch1, base=CAM,
 both-confident 89.35%, semantic 21/21), **1 Sam 17** (Ch2, the
@@ -20,13 +23,23 @@ distinct-recension + base=CAM generalize across all 3 widened chapters
 materially <90% everywhere; base=CAM everywhere incl. GG-undamaged
 folios; NO chapter contradicts — no ~unity, no base flip to GG).
 
-**NEXT = USER GATE (not Claude work):** the user ratifies GO/adjust/
-NO-GO at `## Decision (user): _pending_` in the aggregate report.
-On GO → size **Phase-2** (the Samuel-wide collation tool, spec §5,
-to the 5 observed failure modes in report §4); Kings then reuses
-Phase-2/3. Phase-2/3 are NOT started until ratified. The Geʽez
-catchup loop (τ.6.x.2.o Sirach) + Amharic NT cadence remain
-independently PAUSED (untouched by this arc).
+**USER GATE PASSED — GO 2026-05-17** (recorded in the aggregate
+report `## Decision (user)`): diplomatic-parallel CONFIRMED (CAM base
++ GG per-verse apparatus; spec D1=B/D3), **Phase-2 AUTHORIZED**.
+
+**NEXT (post-`/clear` resume — this is the durable pointer):**
+execute the saved Phase-2 plan
+`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-tool.md`
+(τ.6.x.4.b — the 5-unit Samuel collation tool, sized to the 5
+observed failure modes; the 4 Phase-1 calibration chapters are the
+regression oracle) via `superpowers:subagent-driven-development`,
+exactly as this widened-calibration plan was executed. Phase-3
+(render into `geez-tewahedo/1sa.py`/`2sa.py` + `manuscript-
+collation-tier2` + apparatus integration) and the book-wide blind-
+transcription marathon are the next-gate follow-ons named in that
+plan; Kings reuses Phase-2/3 after Samuel. The Geʽez catchup loop
+(τ.6.x.2.o Sirach) + Amharic NT cadence remain independently PAUSED
+(untouched by this arc).
 
 > The detailed per-chapter execution log + RESUME POINTER blocks
 > BELOW are now HISTORICAL (the arc is closed; they were the live

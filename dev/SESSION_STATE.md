@@ -1,8 +1,9 @@
 # Session state — current snapshot
 
-> **➤➤➤ τ.6.x.4.a-W SAMUEL WIDENED-CALIBRATION — ✅ COMPLETE 2026-05-17,
-> AT THE USER GATE (read this first; supersedes ALL τ.6.x.4.a / .a-W
-> banners below for the Samuel manuscript track).** The full plan
+> **➤➤➤ τ.6.x.4.a-W SAMUEL WIDENED-CALIBRATION — ✅ COMPLETE + GATE
+> PASSED (GO 2026-05-17); PHASE-2 AUTHORIZED & PLANNED (read this
+> first; supersedes ALL τ.6.x.4.a / .a-W banners below for the Samuel
+> manuscript track).** The full plan
 > `docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md`
 > (11 tasks) is EXECUTED via superpowers subagent-driven-development.
 > All 3 widened chapters shipped as immutable evidence + collation
@@ -36,15 +37,25 @@
 > + `__pycache__` were dropped — siblings 1sa1/1sa3/1sa17 carry none;
 > reviewer confirmed `_build_1sa3` never existed). CUDL hi-res CAM
 > f120r/f120v (~80 MP) live GAPS-side per `cudl-iiif-access`; CC BY-NC
-> Cambridge UL. **NEXT = USER GATE (not Claude work):** ratify GO /
-> adjust / NO-GO at `## Decision (user): _pending_` in the aggregate
-> report. On GO → confirm the diplomatic-parallel model (CAM base
-> running text + GG per-verse apparatus; spec D1=B/D3) and size
-> **Phase-2** (Samuel-wide collation tool, spec §5) to the 5 observed
-> failure modes in report §4; Kings then reuses Phase-2/3. Phase-2/3
-> NOT started until ratified. Single local commit only (remote deleted
-> — no push; `continue` ≠ save — no zip). The Geʽez catchup loop
-> (τ.6.x.2.o Sirach) + Amharic NT cadence remain independently PAUSED.
+> Cambridge UL. **USER GATE PASSED — GO 2026-05-17** (recorded in the
+> aggregate report `## Decision (user)`): the **diplomatic-parallel
+> model is CONFIRMED** (CAM base running Ge'ez Samuel + GG per-verse
+> two-witness apparatus; spec D1=B/D3; merged single text stays
+> NO-GO), base=CAM confirmed empirically, **Phase-2 AUTHORIZED**. The
+> Phase-2 implementation plan is SAVED:
+> `docs/superpowers/plans/2026-05-17-samuel-phase2-collation-tool.md`
+> (τ.6.x.4.b — the 5-unit Samuel collation tool sized to the 5
+> observed failure modes; the 4 Phase-1 calibration chapters are its
+> regression oracle). **NEXT (post-`/clear` resume):** execute that
+> plan via `superpowers:subagent-driven-development` (exactly as this
+> widened calibration was executed). Phase-3 (render into
+> `geez-tewahedo/1sa.py`/`2sa.py` + `manuscript-collation-tier2`
+> provenance + apparatus integration) and the book-wide blind-
+> transcription marathon are the next-gate follow-ons named in the
+> Phase-2 plan; Kings reuses Phase-2/3 after Samuel. Single local
+> commit only (remote deleted — no push; `continue` ≠ save — no
+> zip). The Geʽez catchup loop (τ.6.x.2.o Sirach) + Amharic NT
+> cadence remain independently PAUSED.
 
 > **[SUPERSEDED 2026-05-17 by the ✅-COMPLETE banner above — retained as
 > the Ch1+Ch2-checkpoint historical record only.]**

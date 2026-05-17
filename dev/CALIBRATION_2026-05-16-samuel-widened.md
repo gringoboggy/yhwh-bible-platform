@@ -116,14 +116,13 @@ You can sanity-check this calibration without reading Ge'ez. Paths below are rep
 
 ---
 
-## Decision (user): _pending_
+## Decision (user): GO — diplomatic-parallel confirmed, Phase-2 authorized (2026-05-17)
 
-**The bi-directional decision rule resolves to CONFIRM** (Section 3): the distinct-recension pattern and the CAM-base choice generalize across all three widened chapters and the pilot — semantic 100% everywhere, both-confident materially < 90% everywhere (73.05 / 89.35 / 68.97 / 86.39%), base = CAM everywhere including on GG-undamaged folios, and **no chapter contradicts** (no ~unity, no base flip to GG).
+**Decided 2026-05-17 at the widened-calibration gate.**
 
-**Recommended ratification:**
+The bi-directional decision rule (Section 3) resolved to **CONFIRM** and the user ratified **GO**: the distinct-recension pattern and the CAM-base choice generalize across all three widened chapters and the pilot — semantic 100% everywhere, both-confident materially < 90% everywhere (73.05 / 89.35 / 68.97 / 86.39%), base = CAM everywhere including on GG-undamaged folios, and no chapter contradicts (no ~unity, no base flip to GG).
 
-- **CONFIRM** the **diplomatic-parallel model** — CAM base running Ge'ez Samuel text + GG per-verse two-witness apparatus (spec D1=B / D3). Merged/normalized single text remains **NO-GO**.
-- **Authorize Phase-2** (the Samuel-wide collation tool, spec §5) sized to the five observed failure modes in Section 4. **Kings reuses Phase-2/3 verbatim** afterward.
-- Phase-2/3 are **not** started until this ratification.
-
-_Awaiting the user's GO / adjust / NO-GO at this gate._
+- **Verdict: GO.** The **diplomatic-parallel model is CONFIRMED** — CAM (Cambridge UL MS Add. 1570, hi-res) as the base running Ge'ez Samuel text + GG (Gunda Gundē GG-00106) recorded as a divergent second witness in a per-verse two-witness apparatus (spec **D1=B / D3**). A merged/normalized single reconstructed text remains **NO-GO**.
+- **Base witness confirmed: CAM**, empirically, in all four chapters including the GG-undamaged ones (consistent with the GAPS source-map).
+- **Phase-2 AUTHORIZED.** Build the Samuel-wide collation tool (spec §5 — the five units + their contracts) sized to the five observed failure modes in Section 4. Phase-3 (render + apparatus store + `manuscript-collation-tier2` provenance, spec §6) follows at the next gate. **Kings then reuses Phase-2/3 verbatim** (same dual-witness MS family).
+- **Next step:** a saved Phase-2 implementation plan (`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-tool.md`) for execution after the user's `/clear`. The Phase-2/3 tool build proceeds from that plan; this calibration arc is closed.
