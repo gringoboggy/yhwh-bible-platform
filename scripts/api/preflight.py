@@ -514,6 +514,58 @@ def _compute_preflight_uncached() -> dict:  # noqa: C901 — Tier-3 aggregator: 
         }
     )
 
+    # 11. Samuel Phase-2 manuscript QA (τ.6.x.4.b, Unit E) — composes
+    # manuscript_qa.run_all() so the dual-manuscript collation engine's
+    # reproducible calibration contract + the engine's OWN §4-bar
+    # metrics surface alongside the other Tier-3 meta-tools. Same §9
+    # composition pattern as the rules / schema / content-health
+    # checks above. Wrap in try/except so a broken QA tool renders a
+    # warn, never 500s the dashboard. NOTE: a sub-90% W↔W both-
+    # confident agreement is an EXPECTED `warn` for two distinct
+    # recensions under the 2026-05-17 diplomatic-parallel GO — it is
+    # not a ship-blocking fail.
+    try:
+        from scripts.manuscript_qa import run_all as _ms_run_all
+
+        ms = _ms_run_all()
+        ms_summary = ms.get("summary", {})
+        ms_fail = ms_summary.get("fail", 0)
+        ms_warn = ms_summary.get("warn", 0)
+        ms_total = ms_summary.get("total", 0)
+        if ms_fail:
+            ms_status, ms_msg = "fail", (f"{ms_fail} manuscript-QA check(s) failed (of {ms_total})")
+        elif ms_warn:
+            ms_status, ms_msg = (
+                "warn",
+                (f"{ms_warn} manuscript-QA warning(s) — expected for distinct recensions (diplomatic-parallel GO)"),
+            )
+        else:
+            ms_status, ms_msg = "pass", f"all {ms_total} manuscript-QA check(s) pass"
+        ms_details = [
+            {
+                "check_id": c["id"],
+                "name": c["name"],
+                "status": c["status"],
+                "message": c["message"],
+            }
+            for c in ms.get("checks", [])
+            if c["status"] != "pass"
+        ]
+    except Exception as e:  # noqa: BLE001 — meta-tool failure must not break dashboard
+        ms_status = "warn"
+        ms_msg = f"manuscript QA failed to run: {e}"
+        ms_details = []
+    checks.append(
+        {
+            "id": "manuscript_qa",
+            "name": "Samuel Phase-2 manuscript QA (calibration contract + engine §4-bar metrics)",
+            "status": ms_status,
+            "message": ms_msg,
+            "details": ms_details,
+            "jump_to": "/preflight",
+        }
+    )
+
     # Summary
     summary = {
         "total": len(checks),

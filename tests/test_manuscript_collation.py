@@ -384,3 +384,31 @@ class TestReconcileLacunaHonesty:
         e = [x for x in app if x["v"] == 1][0]
         assert e["resolution"] == "base"
         assert any(var["witness"] == "GG" and "ደቂቅ" in var["reading"] for var in e["variants"])
+
+
+class TestQAMetaTool:
+    def test_run_all_shape(self):
+        q = importlib.import_module("scripts.manuscript_qa")
+        r = q.run_all()
+        assert set(r) == {"checks", "summary"}
+        for c in r["checks"]:
+            assert set(c) >= {"id", "name", "status", "message", "violations"}
+            assert c["status"] in ("pass", "warn", "fail")
+        assert set(r["summary"]) >= {"total", "pass", "warn", "fail", "clean"}
+
+    def test_engine_metrics_held_to_bar_and_divergence_reported(self):
+        q = importlib.import_module("scripts.manuscript_qa")
+        checks = {c["id"]: c for c in q.run_all()["checks"]}
+        for ref in ("1sa1", "1sa3", "1sa17", "2sa11"):
+            assert f"engine_metric_{ref}" in checks
+        d = checks.get("engine_vs_hand_divergence")
+        assert d is not None and d["status"] == "pass"
+        assert "intentionally differs" in d["message"]
+
+    def test_preflight_exposes_manuscript_check(self):
+        import importlib as il, scripts.web as web
+
+        il.reload(web)
+        pf = web._compute_preflight_uncached()
+        ids = [c.get("id") for c in (pf.get("checks") or pf.get("items") or [])]
+        assert any("manuscript" in str(i) for i in ids)
