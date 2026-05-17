@@ -24,3 +24,50 @@ class TestFoldAndClassify:
         assert mc.is_strict("ዳዊት", "ዳዊት") is True
         assert mc.is_strict("ሳሙኤል", "ሳመኤል") is False
         assert mc.is_strict("ዳዊት", "") is False
+
+
+class TestMetrics:
+    def _toy(self):
+        # 1 spine verse: 2 agree, 1 disagree, 1 one-sided disagree
+        return [
+            {
+                "v": 1,
+                "gg_tokens": ["ዳዊት", "ሳሙኤል", "ደቂቅ"],
+                "cam_tokens": ["ዳዊት", "ሳመኤል", "ውሉድ", "እግዚእ"],
+                "alignment": [
+                    {"gg": "ዳዊት", "cam": "ዳዊት", "class": "agree"},
+                    {"gg": "ሳሙኤል", "cam": "ሳመኤል", "class": "agree"},
+                    {"gg": "ደቂቅ", "cam": "ውሉድ", "class": "disagree"},
+                    {"gg": "", "cam": "እግዚእ", "class": "disagree"},
+                ],
+                "semantic_pass": True,
+                "semantic_note": "toy",
+            }
+        ]
+
+    def test_metrics_recompute(self):
+        verses = self._toy()
+        gg = {"verses": [{"tokens": ["ዳዊት", "ሳሙኤል", "ደቂቅ"], "uncertain": []}]}
+        cam = {"verses": [{"tokens": ["ዳዊት", "ሳመኤል", "ውሉድ", "እግዚእ"], "uncertain": []}]}
+        m = mc.compute_metrics(verses, gg, cam, base="CAM")
+        assert m["ww_agreement_skeleton_basis"] == "2/4"
+        assert m["ww_agreement_pct"] == 25.0  # strict: only ዳዊት==ዳዊት literal
+        assert m["semantic_pass_basis"] == "1/1"
+        assert m["lacuna_counts"] == {"gg": 0, "cam": 0, "both": 0}
+        assert m["definitions"] == mc.DEFINITIONS
+
+    def test_token_conservation_gate_raises_on_drift(self):
+        verses = self._toy()
+        gg = {
+            "verses": [
+                {
+                    "tokens": ["ዳዊት", "ሳሙኤל", "ደቂቅ", "EXTRA"],
+                    "uncertain": [],
+                }
+            ]
+        }
+        cam = {"verses": [{"tokens": ["ዳዊት", "ሳመኤል", "ውሉድ", "እግዚእ"], "uncertain": []}]}
+        import pytest
+
+        with pytest.raises(AssertionError, match="token-conservation"):
+            mc.assert_token_conservation(verses, gg, cam)
