@@ -283,6 +283,12 @@ Kings still reuses Phase-2/3 verbatim.
 - **Tasks 6, 7, 9** carry over; Task 7 explicitly verifies the R9
   apparatus-well-formedness + lacuna-honesty pins; Task 9 the R9 floor /
   reconciled-shape / `_meta`/`_source` / lint pins.
+- **Phase-3 consumer contract note:** an apparatus entry's
+  `from_witness` key is **OPTIONAL** — it is present ONLY on a recorded
+  disciplined-eclectic resolution (base slip/lacuna + the other witness
+  adopted); a normal base-stands or marked-gap entry omits it. Phase-3
+  (and any apparatus renderer) MUST treat it as `.get("from_witness")`,
+  never assume presence (Task-7 code-quality-review note, 2026-05-17).
 - **Task 8** holds the **engine's own** W↔W/semantic/uncertainty to the
   spec §4 reference bar book-wide and emits the `engine_vs_hand_divergence`
   informational check (R8); it does not assert engine == hand.
