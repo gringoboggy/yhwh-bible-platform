@@ -34,11 +34,15 @@ Checks emitted by ``run_all()``:
                           warn only if a 'calibrated' chapter lacks
                           GG or CAM folios.
   engine_metric_<ref>     one per 1sa1/1sa3/1sa17/2sa11 — the engine's
-                          own metrics held to the §4 bar (fail if
-                          semantic_pass_pct < 95 or uncertainty_pct
-                          > 10; warn if ww_agreement_bothconfident_pct
-                          < 90 — expected for distinct recensions;
-                          else pass).
+                          own metrics held to the §4 bar (fail ONLY if
+                          semantic_pass_pct < 95 — the genuine
+                          fabrication/incoherence floor; warn if
+                          ww_agreement_bothconfident_pct < 90 OR
+                          uncertainty_pct > 10 — both EXPECTED,
+                          GO-ratified signals, each named in the
+                          message as expected-not-a-failure; else
+                          pass). The message ALWAYS states all three
+                          numbers for transparency.
   engine_vs_hand_divergence
                           informational pass; message =
                           engine_vs_hand_report()'s honest divergence
@@ -75,27 +79,39 @@ if str(_REPO) not in sys.path:
 #
 # The authoritative bar is dev/CALIBRATION_2026-05-16-samuel-widened.md
 # §3-4 (the document that produced the 2026-05-17 GO this whole arc
-# cites). It fixes exactly two engine-metric conditions:
-#   * "semantic high (≥95%)"            -> semantic_pass_pct floor
+# cites). spec-revision rev.5 fixes exactly THREE engine-metric
+# conditions, with exactly ONE of them a fail:
+#   * "semantic high (≥95%)"            -> semantic_pass_pct floor;
+#     the GENUINE fabrication/incoherence floor. Calibration is 100%
+#     semantic on all four chapters, so any sub-95% is a real engine
+#     regression. THIS, AND ONLY THIS, is a `fail`.
 #   * "both-confident materially <90%"  -> the CONFIRM / distinct-
-#     recension signal; ≥90% (~unity) is the *refutation* to surface.
+#     recension signal; an EXPECTED, GO-ratified `warn` (≥90% ~unity
+#     would be the *refutation* to surface).
+#   * uncertainty_pct > 10              -> ALSO an EXPECTED,
+#     GO-ratified `warn` (rev.5), parallel to the W↔W warn.
 #
-# IMPORTANT — uncertainty_pct is intentionally NOT a fail/warn gate
-# here. The §4 bar has no uncertainty ceiling; on the contrary §4
-# explicitly ratifies that GG physical damage legitimately "varies
-# 16 → 1 → 0 → 0 illegible across the four chapters", and the engine's
-# uncertainty_pct is byte-identical to the immutable, GO'd hand
-# goldens (1sa1 16.34% / 1sa3 10.09% / 1sa17 9.62% / 2sa11 10.38%).
-# A flat >10% ceiling would permanently red-flag three of the four
-# frozen reference chapters and 500-equivalent the preflight tile on
-# ratified data — the "conservative-NO-GO refuted by real data" anti-
-# pattern. Uncertainty honesty is enforced by the EXACT
+# rev.5 — uncertainty_pct > 10 is now a VISIBLE `warn`, not buried in
+# a pass/other message. The earlier build reported-not-gated it; the
+# controller verified (2026-05-17) that the engine's uncertainty_pct
+# is byte-identical to the immutable, GO'd hand goldens (1sa1 16.34% /
+# 1sa3 10.09% / 1sa17 9.62% / 2sa11 10.38%; 3 of 4 > 10) and that
+# design-spec §4's "uncertainty ≤ 10%" is a ONE-TIME calibration-GO
+# bar (it FIRED its GO 2026-05-17) — NOT a per-build invariant. So
+# uncertainty>10 must not `fail` (that would permanently red-flag
+# three frozen reference chapters and 500-equivalent the preflight
+# tile on ratified data — the "conservative-NO-GO refuted by real
+# data" anti-pattern; see memory `no-reassert-ratified-bar`). But the
+# project values honest visibility of divergence, so it is surfaced
+# as a `warn` with an explanatory message rather than hidden inside a
+# `pass`. Uncertainty honesty itself is enforced by the EXACT
 # ⟦illegible⟧↔marker bijection in `witness_valid` /
-# `calibration_contract` (§4 failure-mode 4), not a percentage. The
-# number is still surfaced in every engine_metric message for the
-# reader; it is reported, not gated.
-_SEMANTIC_PASS_FLOOR = 95.0  # semantic_pass_pct < this -> fail
+# `calibration_contract` (§4 failure-mode 4), not a token-ratio
+# ceiling; the warn just makes the (ratified) magnitude visible. The
+# message always states all three numbers for the reader.
+_SEMANTIC_PASS_FLOOR = 95.0  # semantic_pass_pct < this -> fail (the genuine floor)
 _WW_BOTHCONFIDENT_FLOOR = 90.0  # ww_agreement_bothconfident_pct < this -> warn (expected: distinct recensions)
+_UNCERTAINTY_WARN_CEIL = 10.0  # uncertainty_pct > this -> warn (rev.5; expected: MS-damage, GO-ratified)
 
 # The four calibration chapters: (ref, golden-suffix, chapter, book).
 # 1sa1's hand golden is the hi-res variant; the others are plain.
@@ -347,22 +363,36 @@ def check_coverage() -> dict:
 
 def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
     """One ``engine_metric_<ref>`` check — the engine's OWN metrics
-    held to the design-spec §4 reference bar.
+    held to the design-spec §4 reference bar (semantics: rev.5).
 
-      fail  if semantic_pass_pct < 95 (the §4 "semantic high" floor)
-      warn  if ww_agreement_bothconfident_pct < 90 (EXPECTED for two
-            distinct recensions — the §4 CONFIRM signal; the
-            2026-05-17 GO already chose diplomatic-parallel; this is
-            NOT a failure)
-      pass  otherwise
+      fail  iff semantic_pass_pct < 95 — the GENUINE
+            fabrication/incoherence floor (calibration is 100%
+            semantic on all four chapters, so sub-95% = a real
+            engine regression). NOTHING ELSE FAILS.
+      warn  (when not failing) iff ww_agreement_bothconfident_pct < 90
+            OR uncertainty_pct > 10. BOTH are EXPECTED, GO-ratified
+            signals; each fired condition is named in the message as
+            expected-not-a-failure:
+              · W↔W<90  — distinct recensions; the 2026-05-17 GO
+                chose diplomatic-parallel.
+              · unc>10  — MS-damage varies (§4 failure-mode-4); the
+                2026-05-17 GO ratified these exact values; honesty is
+                enforced by the ⟦illegible⟧↔marker bijection, not a
+                token-ratio ceiling.
+      pass  otherwise.
 
-    uncertainty_pct is reported in the message but is NOT a gate —
-    see the module-level §4-bar comment for why (no §4 ceiling; the
-    engine reproduces the GO'd goldens' uncertainty exactly; honesty
-    is enforced by the bijection, not a percentage).
+    rev.5 (memory ``no-reassert-ratified-bar``): uncertainty>10 USED
+    to be reported-not-gated; it is now a VISIBLE ``warn`` (parallel
+    to the W↔W warn) so the ratified divergence is honestly surfaced
+    rather than buried inside a ``pass``/other message. It is NOT a
+    ``fail`` — §4's "uncertainty ≤ 10%" is a one-time calibration-GO
+    bar that already fired its GO 2026-05-17, not a per-build
+    invariant; failing it would 500-equivalent the preflight tile on
+    immutable GO'd data. See the module-level §4-bar comment.
 
-    The message always states the semantic / uncertainty / W↔W
-    numbers so the reader sees the actual measurement."""
+    The message ALWAYS states all three numbers (semantic_pass,
+    ww_agreement_bothconfident, uncertainty) regardless of status, for
+    transparency."""
     from scripts.core import manuscript_collation as mc
 
     cid = f"engine_metric_{ref}"
@@ -382,7 +412,9 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
             "message": f"engine raised on {ref}: {e}",
             "violations": [{"ref": ref, "error": str(e)[:200]}],
         }
-    nums = f"semantic_pass={sp}% uncertainty={unc}% (reported, not gated) W↔W(both-confident)={ww}%"
+    # All three numbers are ALWAYS in the message (transparency), no
+    # matter the status.
+    nums = f"semantic_pass={sp}% ww_agreement_bothconfident={ww}% uncertainty={unc}%"
     if sp < _SEMANTIC_PASS_FLOOR:
         return {
             "id": cid,
@@ -390,7 +422,10 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
             "status": "fail",
             "message": (
                 f"{ref}: {nums} — design-spec §4 bar violated "
-                f"(semantic_pass {sp}% < {_SEMANTIC_PASS_FLOOR}% 'semantic high' floor)"
+                f"(semantic_pass {sp}% < {_SEMANTIC_PASS_FLOOR}% — the "
+                f"genuine fabrication/incoherence floor; calibration is "
+                f"100% semantic on all four, so this is a real engine "
+                f"regression)"
             ),
             "violations": [
                 {
@@ -400,16 +435,33 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
                 }
             ],
         }
+    # Not failing. Collect every EXPECTED, GO-ratified sub-bar signal
+    # and name each one in the message (rev.5: uncertainty>10 is now a
+    # VISIBLE warn parallel to W↔W<90, not buried in a pass message).
+    reasons: list[str] = []
     if ww < _WW_BOTHCONFIDENT_FLOOR:
+        reasons.append(
+            f"W↔W <{_WW_BOTHCONFIDENT_FLOOR:.0f}% expected for distinct "
+            f"recensions; the 2026-05-17 GO chose diplomatic-parallel — "
+            f"not a failure"
+        )
+    if unc > _UNCERTAINTY_WARN_CEIL:
+        reasons.append(
+            f"self-flagged uncertainty >{_UNCERTAINTY_WARN_CEIL:.0f} is "
+            f"expected (MS-damage varies per calibration-finding §4 "
+            f"failure-mode-4; honesty is enforced by the ⟦illegible⟧↔"
+            f"marker bijection in witness_valid/calibration_contract, "
+            f"not a token-ratio ceiling); the 2026-05-17 GO ratified "
+            f"these values — not a failure"
+        )
+    if reasons:
         return {
             "id": cid,
             "name": name,
             "status": "warn",
             "message": (
-                f"{ref}: {nums} — W↔W <{_WW_BOTHCONFIDENT_FLOOR:.0f}% is "
-                f"expected for distinct recensions; the 2026-05-17 GO "
-                f"already chose diplomatic-parallel — NOT a failure "
-                f"(semantic_pass meets the §4 'semantic high' ≥95% floor)"
+                f"{ref}: {nums} — " + "; ".join(reasons) + " (semantic_pass meets the §4 'semantic high' ≥95% "
+                "genuine floor)"
             ),
             "violations": [],
         }
