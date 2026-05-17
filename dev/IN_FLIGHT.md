@@ -1,8 +1,32 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-## Arc CLOSED — τ.6.x.4.b Phase-2 Samuel dual-manuscript collation TOOL SHIPPED 2026-05-17
+## ➤➤➤ ACTIVE — τ.6.x.4.c KINGS dual-manuscript collation + render MARATHON (started 2026-05-17)
+
+**User-directed** ("the next step is the full rendering and transcribing of kings"). Executing
+`docs/superpowers/plans/2026-05-17-kings-manuscript-collation.md` via
+`superpowers:subagent-driven-development`. Kings reuses Phase-2/3 VERBATIM (design spec §3/§6);
+diplomatic-parallel + base=CAM are the already-ratified 2026-05-17 GO for this manuscript family
+(GG-00106 + Cambridge Add.1570) — **no fresh user-GO gate**; 1 Kings 1 is the bi-directional
+safety-stop (contradiction → STOP & surface to user).
+
+**Scope:** Stage 0 (additive track-parameterize manifest loader + at-scale driver, samuel=default
+byte-identical; seed `content/manuscript/kings/manifest.yaml` 1ki 1-22 + 2ki 1-25) → Stage 1 (the
+47-chapter blind dual-witness marathon, isolated GG+CAM transcription per the Samuel VERBATIM
+template, collate via the shipped Phase-2 tool) → Stage 2 (Phase-3 render `geez-tewahedo/1ki.py`
++ `2ki.py` + apparatus + `manuscript-collation-tier2`).
+
+**Cross-session ledger:** `content/manuscript/kings/manifest.yaml` (chapters flip `pending`→
+`calibrated` as each is done) + `run_manuscript_collation_at_scale.py --track kings` dry report
++ the 12-item task list. Local commit only (remote deleted) — no push, no zip.
+
+**RESUME POINTER:** read that plan + the manifest; the lowest open task in the list is the next
+action. Stage 0.1 (track-parameterize `manuscript_manifest`) is the entry point.
+
+---
+
+## [HISTORICAL] Arc CLOSED — τ.6.x.4.b Phase-2 Samuel dual-manuscript collation TOOL SHIPPED 2026-05-17
 
 **TRACKER IDLE — the τ.6.x.4.b Phase-2 arc is CLOSED. All 9 v2-plan
 tasks are SHIPPED & two-stage-reviewed; the next gate (the book-wide
