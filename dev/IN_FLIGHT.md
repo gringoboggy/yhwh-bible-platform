@@ -1,118 +1,101 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-## Current task — τ.6.x.4.b Phase-2 RESUMED (user "I am satisfied, continue", rev.2 approved). v2 Task 5 executing: impl COMPLETE & correct except a controller-introduced rev.2 test_R6 over-assertion (caught by implementer's honest BLOCKED) → corrected to engine-side R6 in rev.3 → finishing Steps 6-8, then Tasks 6-9.
+## Arc CLOSED — τ.6.x.4.b Phase-2 Samuel dual-manuscript collation TOOL SHIPPED 2026-05-17
 
-**TRACKER IDLE — Phase-2 deliberate pause (this turn's unit of work is
-complete + committed; next action is a USER REVIEW, then a fresh
-resume — the established idle+durable-pointer handoff pattern).**
+**TRACKER IDLE — the τ.6.x.4.b Phase-2 arc is CLOSED. All 9 v2-plan
+tasks are SHIPPED & two-stage-reviewed; the next gate (the book-wide
+blind-transcription marathon, then Phase-3) is a SEPARATE effort, NOT
+this arc.** This is the honest arc-close: the tool is built and
+proven; what remains is downstream data-production + render, plumbed
+but deliberately out of this arc's scope.
 
-Phase-2 (`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-
-tool.md`) executed via `superpowers:subagent-driven-development`:
-**Tasks 1-4 SHIPPED & two-stage-reviewed** (engine sound — commits
-`2f8872f` / `4f30e33`+`c2e9615` / `9408ac5`+`15f0e33` / `97cc1e7`;
-`983cf1c` added a now-resolved BLOCKED docstring note). **v1 Task 5
-("engine byte-reproduces the 4 hand calibration collations") proven
-mathematically impossible + independently controller-verified** (1sa1
-fold-IDENTICAL→`disagree` AND fold-DIFFERENT→`agree`; mutually
-contradictory per-chapter thresholds; philological base-choice; Tasks
-1-3 classifier contract forbids it). Root cause: the calibration
-`alignment[]` is per-token HUMAN adjudication (a measurement that
-already produced the GO), and the v1 *plan* over-specified beyond
-design-spec §5/§8. Escalated to the user per the
-subagent-driven-development "plan-is-wrong → escalate" rule.
+**WHAT SHIPPED (`docs/superpowers/plans/2026-05-17-samuel-phase2-
+collation-tool-v2.md`, executed via
+`superpowers:subagent-driven-development`, fresh subagent + two-stage
+review per task — Tasks 1-9):** the Phase-2 collation TOOL, 5 units —
+Unit A engine `scripts/core/manuscript_collation.py` (fold/classify,
+content alignment, metrics, token-conservation HARD gate, honest
+`_pick_base`, pure `engine_vs_hand_report`); Unit B folio manifest
+`scripts/core/manuscript_manifest.py` (+ `content/manuscript/samuel/
+manifest.yaml`, 1sa 1-31 + 2sa 1-24, 4 calibrated / 51 pending); Unit
+C witness validator `scripts/core/manuscript_records.py` (geez↔tokens
++ illegible bijection); Unit D `scripts/core/manuscript_reconcile.py`
+(D3 diplomatic-parallel + `dump_apparatus` atomic); Unit E QA
+meta-tool `scripts/manuscript_qa.py` + `scripts/api/preflight.py`
+fold-in; the at-scale driver `scripts/run_manuscript_collation_at_
+scale.py` (rules §9, mirrors `run_ethiopian_at_scale.py`;
+`run(dry=True)` = report-only 4 collatable / 51 pending /
+`by_book` 1sa+2sa / `pending_needs_transcription`; `dry=False`
+collates calibrated chapters → `content/manuscript/samuel/collation/
+<ref>_collation.json` + `content/apparatus/<book>.json`, the NEW
+collation dir — the 4 calibration files IMMUTABLE, never written).
 
-**USER DECISION 2026-05-17 = "pause & revise the spec".** Produced,
-**then adversarially re-reviewed (2 independent reviewers) → rev.2**
-(all committed locally, no push, no zip):
-`docs/superpowers/specs/2026-05-17-samuel-phase2-collation-spec-
-revision.md` + `docs/superpowers/plans/2026-05-17-samuel-phase2-
-collation-tool-v2.md`. The review **independently re-confirmed the
-impossibility proof** AND **caught a real defect the controller had
-introduced in rev.1**: the §3.3 base-pick was a reverse-fitted
-threshold (rev.1 `_pick_base` literally yielded GG for 2sa11; a tuned
-`>0.05` constant forced "CAM 4/4") — the motivated-reasoning failure
-mode the project culture forbids (memory
-`feedback_reverify_conservative_nogo`). **rev.2 (both reviewers
-convergent):** base-pick now an HONEST two-clause + decision-of-record
-rule (extent-material → more-complete recension [the principled 1sa17
-GG-20/CAM-58 case]; else base **asserted** = CAM per the ratified GO;
-future non-CAM = surface-to-user) — hand-traced CAM 4/4 with the
-LITERAL code, no fitted constant; design-spec §8 structural pins
-RETAINED as **R9** (Task 7/9; floor+reconciled-shape deferred to
-Phase-3 in writing, not dropped); R8 demoted to a pure no-I/O helper +
-a Task-8 QA line (no committed artifact, no extra script). Task 5
-REDEFINED to the **R1-R9** reproducible contract (NOT hand
-`alignment[]` reproduction). The 2026-05-17 GO (diplomatic-parallel,
-base=CAM) is UNAFFECTED; the 4 calibration files remain immutable
-human reference; no scripture fabricated; no data/golden edits.
+**THE ENGINE IS HONEST (the central arc finding).** The v1 oracle
+("engine byte-reproduces the 4 hand calibration collations") was
+proven **mathematically impossible** (1sa1 fold-IDENTICAL→`disagree`
+AND fold-DIFFERENT→`agree`; mutually contradictory per-chapter
+thresholds; philological base-choice) and independently
+controller-verified → escalated → **USER DECISION 2026-05-17 "pause &
+revise the spec"** → spec-revision **rev.1-5**. Task 5 was REDEFINED
+to the **R1-R9 reproducible-invariant contract** (R2 token
+conservation HARD; R3 semantic-pass-basis exact; R4 lacuna-counts
+exact; R5 base=CAM 4/4 via the honest two-clause `_pick_base` + the
+2026-05-17 GO decision-of-record; R6 byte-stable definitions
+ENGINE-side; R8 engine-vs-hand divergence INFORMATIONAL — never an
+equality claim; R9 apparatus well-formedness + §7 lacuna-honesty) —
+NOT a hand-`alignment[]` reproduction. **FOUR controller
+over-assertions were each caught by the honest two-stage review loop
+working as designed** and corrected in-rev: (1) rev.1 `_pick_base`
+reverse-fitted `>0.05` constant forcing "CAM 4/4" → honest two-clause
++ decision-of-record (hand-traced CAM 4/4 with the LITERAL code, no
+fitted constant); (2) rev.3 `test_R6` asserting the 1sa3 hand golden's
+philological `definitions`==engine → R6 engine-side only; (3) rev.4
+`test_R9` conflating the base's own honest in-place `⟦illegible⟧` with
+fabrication → precise §7 predicate + committed
+`TestReconcileLacunaHonesty` synthetic fixtures; (4) rev.5
+`engine_metric` uncertainty>10 per-build *fail* copied from the §4
+one-time-GO bar (engine uncertainty byte-identical to the GO'd
+goldens, 3/4 >10) → fail reserved for semantic<95; W↔W<90 & unc>10 are
+expected GO-ratified WARNS, message-explained. Memory
+`no-reassert-ratified-bar` written. The 2026-05-17 GO
+(diplomatic-parallel, CAM base + GG per-verse apparatus, base=CAM
+every chapter) is **UNAFFECTED**; the 4 calibration files remain
+immutable human reference; **no scripture fabricated**; no data/golden
+edits anywhere in the arc.
 
-**RESUMED 2026-05-17 (user: "I am satisfied, continue").** Executing
-v2 plan from Task 5 via `superpowers:subagent-driven-development`
-(continuous through Task 9, two-stage review per task). **rev.3:** the
-opus Task-5 implementer completed Steps 1-5 correctly (docstring
-factual; v1 `TestRegressionOracle` deleted; honest `_pick_base`
-literal, hand-traced **CAM 4/4**; pure no-I/O `engine_vs_hand_report`;
-R1-R5,R7,R8 GREEN; lint `11·0·0`; goldens untouched) but hit an
-honest **BLOCKED** on R6: rev.2 `test_R6` (controller-written)
-asserted the immutable `1sa3` hand golden's `definitions`==engine
-`DEFINITIONS`; that golden's `skeleton` carries a chapter-specific
-philological annotation (1sa1/1sa17/2sa11 match). SECOND
-controller-introduced human-ref==engine over-assertion (same class as
-the rev.1 base-pick fudge), independently verified by the controller,
-contradicts the revision's own R8. **rev.3 fix:** R6 → engine-side
-only in spec §3.2 + v2-plan `test_R6` (hand goldens may differ per
-R8); no code/data/golden change. NEXT: re-dispatch the same Task-5
-implementer to apply corrected R6 + ruff-format the test file + Steps
-6-8 (expect 18 green), then Tasks 6→9 each with spec+code-quality
-review, then final review + finishing-a-development-branch.
+**GATE AT ARC-CLOSE:** full suite **29 passed** (28 prior + `TestScale
+Driver` 1); `scripts/lint_rules.py` **11·0·0** (this arc-close — flip
+to idle + CHANGELOG co-current — is what legitimately clears the
+prior `inflight_freshness` warn; honest, not silenced: all 9 tasks
+genuinely done); `ruff format --check` clean. Task-9 commit ships
+ONLY the driver + `TestScaleDriver` + the 4 `dev/` docs — nothing
+under `content/` (no generated collation/apparatus data;
+`content/apparatus/.gitkeep` from Task 7 unchanged; calibration dir
+immutable).
 
-**PROGRESS (rev.4, 2026-05-17 — Phase-2 actively executing, user
-"continue").** Tasks **1-6 DONE & two-stage-reviewed + committed**
-(T5 `317e58a` R1-R9 contract, honest `_pick_base` CAM 4/4, R8 pure
-helper; T6 `7a0b6de`+`5efb030` folio manifest + `_PENDING_DEFAULT`
-shape-fix). **Task 7** (Unit D reconcile, `9d7151f`): implementation
-spec-review-verified **HONEST & correct** (8 synthetic probes + real
-damaged base=GG `1sa1_collation.json`: zero fabricated/foreign tokens,
-other witness never merged into the D3 running text, gap-definition
-`_base_has_no_legible_reading` vindicated, `dump_apparatus` atomic +
-uncalled). Review caught a **THIRD controller-introduced TEST defect**
-(not impl): the rev.3 `test_R9` lacuna-honesty predicate
-(`"⟦illegible⟧" not in " ".join(geez)` or `gap`) conflates the base
-witness's OWN honest in-place `⟦illegible⟧` (a physically-lost word in
-an otherwise-legible verse, correctly `gap:false`) with fabrication —
-controller-independently-verified to false-fail on real 1sa1 vv.21-28
-(8 water-stain verses; fabricated/foreign tokens = 0). Recurring root
-pattern: rev.1 base-pick fudge → rev.3 R6 hand==engine over-assert →
-rev.4 R9 honest-marker-as-violation; all three are the controller
-crudely conflating honest-but-imperfect reality with a violation, each
-caught by the honest review loop working as designed. **rev.4 fix (no
-`manuscript_reconcile.py` code change — impl already honest):** the v2
-plan Task-7 `test_R9` predicate is corrected to the precise §7
-invariant (every reconciled token ∈ the base witness's own verse
-tokens ∪ {`⟦illegible⟧`}; whole-verse base lacuna ⟹ `gap:true`; the
-base's in-place illegible markers are honest, not a violation) AND a
-committed `TestReconcileLacunaHonesty` synthetic-fixture class is added
-(both-witness-lacuna / base-side-lacuna-no-merge / GG-base-variant /
-disagree-base-stands) — closing the honesty-critical lacuna/eclectic
-coverage gap (2sa11 has 0 lacunae so it never exercised them). spec-
-revision → rev.4; SESSION_STATE → rev.4. NEXT: re-dispatch the Task-7
-implementer to apply the corrected `test_R9` + append
-`TestReconcileLacunaHonesty` (NO engine change) → full suite green →
-lightweight re-review → Tasks 8, 9 each two-stage-reviewed → final
-whole-impl review → `superpowers:finishing-a-development-branch`.
+**DEFERRED to Phase-3 (explicitly, NOT silently dropped):**
+design-spec §8 `SAMUEL_VERSE_COUNTS` floor + the reconciled-module
+renumber shape + `_meta`/`_source` ingest pins are Phase-3
+deliverables (render `geez-tewahedo/1sa.py`/`2sa.py`). Phase-2's
+enforceable R9 pins (apparatus well-formedness + lacuna-honesty Task
+7; lint/ruff/regression Task 9) are MET.
 
-**NEXT (durable pointer — do NOT auto-execute; the user PAUSED):**
-1. User reviews `docs/superpowers/specs/2026-05-17-samuel-phase2-
-   collation-spec-revision.md` + `docs/superpowers/plans/2026-05-17-
-   samuel-phase2-collation-tool-v2.md`.
-2. On the user's resume: continue `superpowers:subagent-driven-
-   development` from **v2 Task 5** (Tasks 1-4 are shipped — do not
-   re-implement), fresh subagent per task + two-stage review, exactly
-   as Tasks 1-4 were executed. Then Tasks 6-9.
-The Geʽez catchup loop (τ.6.x.2.o Sirach) + Amharic NT cadence remain
-independently PAUSED (untouched by this arc).
+**NEXT (the durable pointer — the NEXT GATE, NOT this arc; do NOT
+auto-execute):** the **book-wide blind dual-witness transcription
+marathon** — the 51 pending chapters per the driver's
+`pending_needs_transcription`, **one chapter at a time**, manifest-
+tracked, via `superpowers:subagent-driven-development` (isolated GG
+vision-transcribe → adversarial review → CUDL-IIIF CAM hi-res via the
+`cudl-iiif-access` method → isolated CAM vision-transcribe →
+adversarial review → collate), exactly as Phase-1 ran. **Then
+Phase-3** — render `geez-tewahedo/1sa.py`/`2sa.py` + `manuscript-
+collation-tier2` provenance + apparatus integration (the apparatus
+`from_witness` field is OPTIONAL — `.get`-only on the consumer side).
+**Kings reuses Phase-2/3 VERBATIM** after Samuel. The Geʽez catchup
+loop (τ.6.x.2.o Sirach) + the Amharic NT cadence remain independently
+PAUSED (untouched by this arc). Local commit only, no push, no zip.
 
 > **[SUPERSEDED 2026-05-17 by the τ.6.x.4.b Phase-2 pause block above —
 > the τ.6.x.4.a-W record below is retained as historical handoff

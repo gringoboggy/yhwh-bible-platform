@@ -412,3 +412,12 @@ class TestQAMetaTool:
         pf = web._compute_preflight_uncached()
         ids = [c.get("id") for c in (pf.get("checks") or pf.get("items") or [])]
         assert any("manuscript" in str(i) for i in ids)
+
+
+class TestScaleDriver:
+    def test_driver_reports_coverage_and_pending(self):
+        d = importlib.import_module("scripts.run_manuscript_collation_at_scale")
+        rep = d.run(dry=True)
+        assert rep["chapters_collated"] >= 4
+        assert rep["chapters_pending"] >= 1
+        assert "1sa" in rep["by_book"] and "2sa" in rep["by_book"]

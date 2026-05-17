@@ -1,5 +1,57 @@
 # Session state — current snapshot
 
+> **➤➤➤ τ.6.x.4.b SAMUEL PHASE-2 DUAL-MANUSCRIPT COLLATION TOOL —
+> ✅ SHIPPED + ARC CLOSED (2026-05-17; read this FIRST; supersedes the
+> τ.6.x.4.b PAUSED banner + the τ.6.x.4.a-W banner below for the Samuel
+> manuscript track).** The Phase-2 collation TOOL is built and proven:
+> **5 units** — Unit A engine `scripts/core/manuscript_collation.py` /
+> Unit B folio manifest `scripts/core/manuscript_manifest.py`
+> (+`content/manuscript/samuel/manifest.yaml`) / Unit C witness
+> validator `scripts/core/manuscript_records.py` / Unit D
+> `scripts/core/manuscript_reconcile.py` (D3 diplomatic-parallel +
+> atomic `dump_apparatus`) / Unit E QA `scripts/manuscript_qa.py` +
+> `scripts/api/preflight.py` fold-in — proven on the **R1-R9
+> reproducible-invariant contract** (spec-revision **rev.5**: semantic
+> / lacuna / base / conservation EXACT; honest `_pick_base` **CAM
+> 4/4**; agreement is an honest ENGINE metric, NEVER a hand-equality
+> claim; lacuna-honest reconcile per design-spec §7). **Tasks 1-9 each
+> two-stage spec+code-quality reviewed** via
+> `superpowers:subagent-driven-development`. At-scale driver
+> `scripts/run_manuscript_collation_at_scale.py` (rules §9, mirrors
+> `run_ethiopian_at_scale.py`): `run(dry=True)` = report-only (4
+> collatable, 51 pending, `by_book` 1sa+2sa, `pending_needs_
+> transcription`); `dry=False` writes the NEW `content/manuscript/
+> samuel/collation/` + `content/apparatus/<book>.json` — the 4
+> calibration files are IMMUTABLE, never written. **The v1 oracle
+> ("engine byte-reproduces the 4 hand collations") was proven
+> IMPOSSIBLE → user "pause & revise" → spec-revision rev.1-5; FOUR
+> controller over-assertions** (rev.1 reverse-fitted `_pick_base`
+> constant; rev.3 `test_R6` hand-golden==engine; rev.4 `test_R9`
+> honest-marker-as-fabrication; rev.5 `engine_metric` uncertainty>10
+> per-build fail copied from the §4 one-time-GO bar) **were EACH caught
+> by the honest two-stage review loop** and corrected in-rev; memory
+> `no-reassert-ratified-bar` written. The **2026-05-17 GO /
+> diplomatic-parallel / base=CAM every chapter is UNAFFECTED**; the 4
+> calibration files immutable; **no scripture fabricated**; QA holds
+> the engine's OWN metrics to the §4 bar with distinct-recension
+> sub-bar **WARNS** (not fails). Full suite **29 passed**; lint
+> **11·0·0** (this arc-close — IN_FLIGHT→idle + CHANGELOG co-current —
+> legitimately clears the prior `inflight_freshness` warn; honest, not
+> silenced: all 9 tasks genuinely done). **DEFERRED to Phase-3 (NOT
+> dropped):** design-spec §8 `SAMUEL_VERSE_COUNTS` floor +
+> reconciled-module renumber shape + `_meta`/`_source` ingest pins
+> (render `geez-tewahedo/1sa.py`/`2sa.py`). **NEXT (separate gate, NOT
+> this arc) = the book-wide blind dual-witness transcription marathon**
+> (the 51 pending per the driver, one chapter at a time, manifest-
+> tracked, via subagent-driven-development, CUDL-IIIF per
+> `cudl-iiif-access`) **→ then Phase-3** (render +
+> `manuscript-collation-tier2` provenance + apparatus integration;
+> apparatus `from_witness` is OPTIONAL/`.get`-only). **Kings reuses
+> Phase-2/3 VERBATIM.** Local commit only, no push, no zip.
+>
+> **[SUPERSEDED 2026-05-17 by the ✅-SHIPPED arc-close banner above for
+> the Samuel manuscript track — the PAUSED record below is retained as
+> the pause-&-revise → resume handoff history.]**
 > **➤➤➤ τ.6.x.4.b SAMUEL PHASE-2 — ⏸ PAUSED BY USER (pause & revise
 > spec); SPEC REVISED + v2 PLAN WRITTEN — 2026-05-17 (read this FIRST;
 > supersedes the τ.6.x.4.a-W banner below for the Samuel manuscript
