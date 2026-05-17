@@ -89,15 +89,25 @@
 > `gap:true`; in-place illegible is honest) + a committed
 > `TestReconcileLacunaHonesty` synthetic class closes the
 > lacuna/eclectic coverage gap (2sa11 has 0 lacunae); NO
-> `manuscript_reconcile.py` code change. **STATUS @ Task-7-done
-> (2026-05-17):** Tasks **1-7 of 9 DONE, each two-stage-reviewed
-> (spec-compliance→code-quality) & committed**; Task 7 rev.4
-> corrected-`test_R9` + `TestReconcileLacunaHonesty` shipped
-> (`e443d0a`, impl spec-review-verified HONEST, engine byte-unchanged);
-> full suite **25 passed**; CHANGELOG synced co-current with
-> SESSION_STATE (rules §12) restoring **lint `11·0·0`**. NEXT = **Task
-> 8** (Unit E `manuscript_qa.py` `run_all()` + `scripts/web.py`
-> preflight fold-in) → **Task 9** (driver + R9 ship-gate + register
+> `manuscript_reconcile.py` code change. **STATUS @ Task-8-impl
+> (rev.5, 2026-05-17):** Tasks **1-7 of 9 DONE, each two-stage-reviewed
+> & committed**; full suite 25→28 passed. **Task 8** (Unit E QA
+> meta-tool + preflight) impl shipped (`a73593b`, DONE_WITH_CONCERNS):
+> the implementer caught the **4th** controller over-assertion — rev.4
+> plan made `engine_metric` `fail` on `uncertainty_pct>10`,
+> mechanically copying design-spec §4's *one-time calibration GO bar*
+> into a per-build gate; controller-verified the engine's uncertainty
+> is byte-identical to the immutable GO'd hand goldens
+> (16.34/10.09/9.62/10.38, 3 of 4 >10) so it would permanently red-flag
+> ratified data — the anti-pattern now codified in memory
+> `no-reassert-ratified-bar` (sibling of `reverify-conservative-nogo`).
+> **rev.5 fix:** `fail` only on `semantic_pass_pct<95` (the genuine
+> floor); `W↔W<90` AND `uncertainty>10` are expected GO-ratified
+> `warn`s (parallel; bijection enforces honesty, not a token ratio);
+> spec + v2-plan QA rule corrected, NO engine code change. NEXT =
+> finish Task 8 (apply the small refinement: surface uncertainty as a
+> visible `warn` not buried in `pass`) → re-verify → Task-8
+> two-stage review → **Task 9** (driver + R9 ship-gate + register
 > τ.6.x.4.b) — each two-stage-reviewed — → final whole-impl review →
 > `superpowers:finishing-a-development-branch`. Net: Tasks 1-4 = DONE
 > (shipped engine sound); Task 5 REDEFINED to the **R1-R9** reproducible

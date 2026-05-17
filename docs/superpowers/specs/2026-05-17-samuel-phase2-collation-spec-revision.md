@@ -1,6 +1,30 @@
 # Samuel Phase-2 collation tool — SPEC REVISION (Task-5 premise correction)
 
-**Date:** 2026-05-17 (rev. 4 — R9 lacuna-honesty predicate correction)
+**Date:** 2026-05-17 (rev. 5 — engine-metric uncertainty gate correction)
+
+**Rev. 5 (2026-05-17):** Task-8 (Unit E QA meta-tool) implementer caught
+the **fourth** controller-introduced over-assertion (same root pattern;
+now codified in memory `no-reassert-ratified-bar`): the rev.4 plan text
+made `engine_metric_<ref>` `fail` on `uncertainty_pct > 10`, mechanically
+copying design-spec §4's *one-time calibration GO-bar* number into a
+per-build production gate. Controller-verified with real data: the
+engine's `uncertainty_pct` is **byte-identical to the immutable, GO'd
+hand goldens** (16.34/10.09/9.62/10.38 — 3 of 4 exceed 10%), so the gate
+would permanently `fail` ratified reference data on `/preflight` — the
+exact "conservative-NO-GO refuted by real data" anti-pattern, and a
+contradiction of this revision's own R8 thesis (the calibration gate
+already fired GO; sub-bar metrics are honest measurements surfaced as
+`warn`, never re-litigated `fail`s). The implementer re-verified, applied
+the spec's own logic, kept the literal pytest green, and flagged it
+transparently (DONE_WITH_CONCERNS) rather than silently. **Rev. 5 fix:**
+`engine_metric` `fail` is reserved for `semantic_pass_pct < 95` (the
+genuine fabrication/incoherence floor); BOTH `W↔W < 90` AND
+`uncertainty_pct > 10` are expected GO-ratified `warn`s (parallel
+treatment; honesty enforced by the `⟦illegible⟧↔marker` bijection, not a
+token-ratio ceiling). No engine code change; spec + v2-plan QA rule
+corrected; a small refinement (surface uncertainty as a visible `warn`,
+not buried in a `pass` message) is applied to keep the QA tool coherent
+and honestly transparent.
 
 **Rev. 4 (2026-05-17):** Task-7 (Unit D reconcile) spec-review independently
 exercised the honesty-critical lacuna paths (8 synthetic probes + the real
