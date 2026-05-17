@@ -31,17 +31,34 @@
 > units/contracts, never byte-repro of hand `alignment[]`). Commit
 > `983cf1c` added a BLOCKED diagnosis to the engine docstring.
 > **USER DECISION 2026-05-17 at the fork = "PAUSE & REVISE THE SPEC"
-> (the most deliberate option).** Done this turn: authoritative spec
-> revision `docs/superpowers/specs/2026-05-17-samuel-phase2-collation-
-> spec-revision.md` (verified impossibility proof + why the spec was
-> never violated + the revised reproducible contract **R1-R8** +
-> refined extent-aware base-pick rule §3.3 → CAM 4/4) and the
-> superseding plan `docs/superpowers/plans/2026-05-17-samuel-phase2-
-> collation-tool-v2.md` (Tasks 1-4 = DONE; Task 5 REDEFINED to the
-> R1-R8 invariant contract + honest engine-vs-hand transparency
-> artifact, NOT hand-reproduction; Tasks 6-9 carried/clarified — Task 8
-> holds the engine's OWN metrics to the §4 GO bar + reports honest
-> divergence). **The 2026-05-17 GO is UNAFFECTED** — diplomatic-parallel
+> (the most deliberate option).** Produced + **then adversarially
+> re-reviewed (2 independent reviewers) → rev.2**: authoritative
+> `docs/superpowers/specs/2026-05-17-samuel-phase2-collation-spec-
+> revision.md` + superseding `docs/superpowers/plans/2026-05-17-samuel-
+> phase2-collation-tool-v2.md`. **The review CAUGHT a real defect the
+> controller had introduced in rev.1**: the §3.3 base-pick rule was a
+> reverse-fitted threshold (`_pick_base` literally yielded GG for
+> 2sa11; a tuned `>0.05` constant whose only job was to bury 2sa11's
+> 0.0093 gap forced "CAM 4/4") — exactly the motivated-reasoning
+> failure mode the project culture forbids (memory
+> `feedback_reverify_conservative_nogo`). **rev.2 fixes** (both
+> reviewers convergent): base-pick is now an HONEST two-clause +
+> decision-of-record rule (clause 1 = materially-different extent →
+> more-complete recension, the principled 1sa17 GG-20 vs CAM-58 case;
+> clause 2 = base **asserted** = CAM per the user-ratified GO, not a
+> fake metric derivation; clause 3 = any future non-CAM is
+> surface-to-user) — hand-traced CAM 4/4 with the LITERAL code, no
+> fitted constant; the impossibility proof was **independently
+> re-confirmed** by both reviewers; design-spec §8 structural pins
+> (floor / reconciled-shape / apparatus-well-formedness / lacuna-
+> honesty / `_meta`-`_source` / lint 11·0·0) **explicitly RETAINED as
+> R9** (not dropped — Task 7/9; floor+reconciled-shape deferred to
+> Phase-3 in writing); R8 **demoted** from a committed markdown +
+> separate meta-tool script to a pure no-I/O `engine_vs_hand_report()`
+> helper + a Task-8 QA line (no ceremony). Net: Tasks 1-4 = DONE
+> (shipped engine sound); Task 5 REDEFINED to the **R1-R9** reproducible
+> contract (NOT hand `alignment[]` reproduction); Tasks 6-9
+> carried/clarified. **The 2026-05-17 GO is UNAFFECTED** — diplomatic-parallel
 > + base=CAM remain CONFIRMED; the 4 hand collations remain immutable
 > human reference; no scripture fabricated; no golden/data edits.
 > **NEXT (do NOT auto-execute — the user paused):** the user reviews

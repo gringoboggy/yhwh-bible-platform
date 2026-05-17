@@ -23,17 +23,30 @@ already produced the GO), and the v1 *plan* over-specified beyond
 design-spec §5/§8. Escalated to the user per the
 subagent-driven-development "plan-is-wrong → escalate" rule.
 
-**USER DECISION 2026-05-17 = "pause & revise the spec".** Produced
-this turn (committed locally, no push, no zip): authoritative
+**USER DECISION 2026-05-17 = "pause & revise the spec".** Produced,
+**then adversarially re-reviewed (2 independent reviewers) → rev.2**
+(all committed locally, no push, no zip):
 `docs/superpowers/specs/2026-05-17-samuel-phase2-collation-spec-
-revision.md` (proof + the revised reproducible **R1-R8** contract +
-extent-aware base-pick §3.3 → CAM 4/4) and the superseding
-`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-tool-v2.md`
-(Tasks 1-4 DONE; Task 5 REDEFINED to R1-R8 + an honest engine-vs-hand
-transparency artifact, NOT hand-reproduction; Tasks 6-9
-carried/clarified). The 2026-05-17 GO (diplomatic-parallel, base=CAM)
-is UNAFFECTED; the 4 calibration files remain immutable human
-reference; no scripture fabricated; no data/golden edits.
+revision.md` + `docs/superpowers/plans/2026-05-17-samuel-phase2-
+collation-tool-v2.md`. The review **independently re-confirmed the
+impossibility proof** AND **caught a real defect the controller had
+introduced in rev.1**: the §3.3 base-pick was a reverse-fitted
+threshold (rev.1 `_pick_base` literally yielded GG for 2sa11; a tuned
+`>0.05` constant forced "CAM 4/4") — the motivated-reasoning failure
+mode the project culture forbids (memory
+`feedback_reverify_conservative_nogo`). **rev.2 (both reviewers
+convergent):** base-pick now an HONEST two-clause + decision-of-record
+rule (extent-material → more-complete recension [the principled 1sa17
+GG-20/CAM-58 case]; else base **asserted** = CAM per the ratified GO;
+future non-CAM = surface-to-user) — hand-traced CAM 4/4 with the
+LITERAL code, no fitted constant; design-spec §8 structural pins
+RETAINED as **R9** (Task 7/9; floor+reconciled-shape deferred to
+Phase-3 in writing, not dropped); R8 demoted to a pure no-I/O helper +
+a Task-8 QA line (no committed artifact, no extra script). Task 5
+REDEFINED to the **R1-R9** reproducible contract (NOT hand
+`alignment[]` reproduction). The 2026-05-17 GO (diplomatic-parallel,
+base=CAM) is UNAFFECTED; the 4 calibration files remain immutable
+human reference; no scripture fabricated; no data/golden edits.
 
 **NEXT (durable pointer — do NOT auto-execute; the user PAUSED):**
 1. User reviews `docs/superpowers/specs/2026-05-17-samuel-phase2-
