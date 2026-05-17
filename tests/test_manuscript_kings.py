@@ -1,4 +1,3 @@
-import importlib
 from scripts.core import manuscript_manifest as mm
 
 
