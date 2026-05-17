@@ -1,0 +1,438 @@
+{
+  "witness": "CAM",
+  "book": "1sa",
+  "chapter": 1,
+  "source_images": ["GAPS/1_Samuel/Cambridge-Add-1570/Samuel01.jpg"],
+  "folio_sigla": ["Samuel01"],
+  "verses": [
+    {
+      "v": 1,
+      "geez": "ወሀሎ ፩ ብእሲ እምነ አርማቴም ዘመፌቄም ዘስሙ ሕልቃና ወልደ ኤዶም ወልደ የሮም ወልደ ኤልዩ ወልደ ቴቁ ወልደ ኡፍ ኤፍሬም",
+      "tokens": ["ወሀሎ", "፩", "ብእሲ", "እምነ", "አርማቴም", "ዘመፌቄም", "ዘስሙ", "ሕልቃና", "ወልደ", "ኤዶም", "ወልደ", "የሮም", "ወልደ", "ኤልዩ", "ወልደ", "ቴቁ", "ወልደ", "ኡፍ", "ኤፍሬም"],
+      "uncertain": [
+        {"token_index": 4, "marker": "uncertain", "note": "place-name; vowel order of final fidel ambiguous at this resolution"},
+        {"token_index": 5, "marker": "uncertain", "note": "patronymic/region word, blurred; reading of 2nd-3rd fidel not certain"},
+        {"token_index": 9, "marker": "uncertain", "note": "ancestor name; base skeleton clear, vowel order indistinct"},
+        {"token_index": 11, "marker": "uncertain", "note": "ancestor name; vowel order indistinct"},
+        {"token_index": 13, "marker": "uncertain", "note": "ancestor name; near-homograph base, low confidence"},
+        {"token_index": 15, "marker": "uncertain", "note": "ancestor name; downscaling blur on diacritics"},
+        {"token_index": 17, "marker": "uncertain", "note": "short ancestor name; single-fidel reading uncertain"}
+      ],
+      "column": 1,
+      "line_start": 8
+    },
+    {
+      "v": 2,
+      "geez": "ወቦ ካልእታ ፪ አንስት ዘስማ ለአሐቲ ሐና ወስማ ለካልእታ ፍናና ወቦ ለፍናና ውሉድ ወአልቦ ለሐና ውሉድ",
+      "tokens": ["ወቦ", "ካልእታ", "፪", "አንስት", "ዘስማ", "ለአሐቲ", "ሐና", "ወስማ", "ለካልእታ", "ፍናና", "ወቦ", "ለፍናና", "ውሉድ", "ወአልቦ", "ለሐና", "ውሉድ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "'his two' word; vowel order of medial fidel ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "'wives' reading inferred from skeleton; diacritics unclear"},
+        {"token_index": 9, "marker": "uncertain", "note": "second wife's name (Peninnah); 2nd fidel order indistinct"},
+        {"token_index": 11, "marker": "uncertain", "note": "name repeated; same diacritic ambiguity"},
+        {"token_index": 12, "marker": "uncertain", "note": "'children' word; final fidel order unclear"},
+        {"token_index": 15, "marker": "uncertain", "note": "'children' word; final fidel order unclear"}
+      ],
+      "column": 1,
+      "line_start": 11
+    },
+    {
+      "v": 3,
+      "geez": "ወየዐርግ ውእቱ ብእሲ እምነ ሀገሩ በበ ዓመት ከመ ይስግድ ወይሡዕ ለእግዚአብሔር ዘኮነ ውስተ ሴሎ ወህየ ካህናት ኤሊ ወክልኤቱ ደቂቁ አፎኒ ወፊንሐስ ካህናቲሁ ለእግዚአብሔር",
+      "tokens": ["ወየዐርግ", "ውእቱ", "ብእሲ", "እምነ", "ሀገሩ", "በበ", "ዓመት", "ከመ", "ይስግድ", "ወይሡዕ", "ለእግዚአብሔር", "ዘኮነ", "ውስተ", "ሴሎ", "ወህየ", "ካህናት", "ኤሊ", "ወክልኤቱ", "ደቂቁ", "አፎኒ", "ወፊንሐስ", "ካህናቲሁ", "ለእግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'went up'; vowel order ambiguous"},
+        {"token_index": 4, "marker": "uncertain", "note": "'his city' word; diacritics blurred"},
+        {"token_index": 8, "marker": "uncertain", "note": "verb form; vowel order indistinct"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb form; vowel order indistinct"},
+        {"token_index": 13, "marker": "uncertain", "note": "place-name Shiloh; 2nd fidel low confidence"},
+        {"token_index": 19, "marker": "uncertain", "note": "Hophni name; base skeleton uncertain at this resolution"},
+        {"token_index": 20, "marker": "uncertain", "note": "Phinehas name; medial fidel indistinct"}
+      ],
+      "column": 1,
+      "line_start": 14
+    },
+    {
+      "v": 4,
+      "geez": "ወእምጊ በሕቲ ይሠውዕ ሕልቃና ወወሀበ ለፍናና ብእሲቱ ወለሰብእ ደቁ ወአዋልዲ ሐናስ",
+      "tokens": ["ወእምጊ", "በሕቲ", "ይሠውዕ", "ሕልቃና", "ወወሀበ", "ለፍናና", "ብእሲቱ", "ወለሰብእ", "ደቁ", "ወአዋልዲ", "ሐናስ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "temporal connective; reading of fidel string low confidence"},
+        {"token_index": 1, "marker": "uncertain", "note": "'on the day' word; vowel order ambiguous"},
+        {"token_index": 2, "marker": "uncertain", "note": "verb 'sacrificed'; diacritics blurred"},
+        {"token_index": 7, "marker": "uncertain", "note": "'and to the sons' word; segmentation/vowel uncertain"},
+        {"token_index": 8, "marker": "uncertain", "note": "'sons/her sons'; abbreviated form, uncertain"},
+        {"token_index": 9, "marker": "uncertain", "note": "'and daughters' word; final fidel order unclear"},
+        {"token_index": 10, "marker": "uncertain", "note": "Hannah name w/ suffix; reading uncertain"}
+      ],
+      "column": 1,
+      "line_start": 17
+    },
+    {
+      "v": 5,
+      "geez": "ወለሐና ወሀባ መክፈልተ አሐተ እስመ አልባ ውሉድ ወባሕቱ ሐናሰ ያፈቅራ ሕልቃና ወእግዚአብሔር ⟦illegible⟧ ማሕፀና",
+      "tokens": ["ወለሐና", "ወሀባ", "መክፈልተ", "አሐተ", "እስመ", "አልባ", "ውሉድ", "ወባሕቱ", "ሐናሰ", "ያፈቅራ", "ሕልቃና", "ወእግዚአብሔር", "⟦illegible⟧", "ማሕፀና"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "'portion'; vowel order of medial fidel ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "'one/double'; reading uncertain"},
+        {"token_index": 8, "marker": "uncertain", "note": "Hannah + particle; diacritics blurred"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb 'loved her'; vowel order indistinct"},
+        {"token_index": 12, "marker": "illegible", "note": "1-2 words obscured by ink bleed-through; could not read any glyph honestly"},
+        {"token_index": 13, "marker": "damaged", "note": "'her womb' word; partly under bleed-through, best-effort skeleton"}
+      ],
+      "column": 1,
+      "line_start": 20
+    },
+    {
+      "v": 6,
+      "geez": "ወኢወሀባ ውሉደ በከመ ስታያ ወአዘነ ለባ ወኢወሀባ ውሉደ እስመ ዓወጻ እግዚአብሔር ማሕፀና ወከመዝ",
+      "tokens": ["ወኢወሀባ", "ውሉደ", "በከመ", "ስታያ", "ወአዘነ", "ለባ", "ወኢወሀባ", "ውሉደ", "እስመ", "ዓወጻ", "እግዚአብሔር", "ማሕፀና", "ወከመዝ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "negated verb; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "noun w/ suffix; reading low confidence"},
+        {"token_index": 4, "marker": "uncertain", "note": "verb 'provoked/grieved'; diacritics indistinct"},
+        {"token_index": 6, "marker": "uncertain", "note": "negated verb repeat; vowel order ambiguous"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb 'shut'; medial fidel near-homograph"},
+        {"token_index": 11, "marker": "uncertain", "note": "'her womb'; final fidel order unclear"}
+      ],
+      "column": 1,
+      "line_start": 23
+    },
+    {
+      "v": 7,
+      "geez": "ወከመዝ ይገብር ዓመተ በበ ዓመት ሶበ የዐርጋ ቤተ እግዚአብሔር ወይኤዝና ወትበኪ ወኢትበልዕ",
+      "tokens": ["ወከመዝ", "ይገብር", "ዓመተ", "በበ", "ዓመት", "ሶበ", "የዐርጋ", "ቤተ", "እግዚአብሔር", "ወይኤዝና", "ወትበኪ", "ወኢትበልዕ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "verb 'did'; vowel order ambiguous"},
+        {"token_index": 6, "marker": "uncertain", "note": "verb 'went up'; diacritics blurred"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb form, low confidence reading"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'wept'; vowel order indistinct"},
+        {"token_index": 11, "marker": "uncertain", "note": "negated verb 'ate not'; vowel order indistinct"}
+      ],
+      "column": 1,
+      "line_start": 26
+    },
+    {
+      "v": 8,
+      "geez": "ወይቤላ ሕልቃና ምታ ምንተ ኮንኪ ሐና ወምንተ ትበክዪ ወምንተ ኢትበልዒ ወምንተ ይትከዐወኪ ልብኪ ኢኮኑ አነ ኄይሰ ለኪ እምነ ፲ ውሉድ",
+      "tokens": ["ወይቤላ", "ሕልቃና", "ምታ", "ምንተ", "ኮንኪ", "ሐና", "ወምንተ", "ትበክዪ", "ወምንተ", "ኢትበልዒ", "ወምንተ", "ይትከዐወኪ", "ልብኪ", "ኢኮኑ", "አነ", "ኄይሰ", "ለኪ", "እምነ", "፲", "ውሉድ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "'and he said to her'; vowel order ambiguous"},
+        {"token_index": 2, "marker": "uncertain", "note": "'her husband'; reading low confidence"},
+        {"token_index": 4, "marker": "uncertain", "note": "verb 'what is to you'; diacritics indistinct"},
+        {"token_index": 7, "marker": "uncertain", "note": "verb 'you weep'; vowel order ambiguous"},
+        {"token_index": 9, "marker": "uncertain", "note": "negated verb; vowel order ambiguous"},
+        {"token_index": 11, "marker": "uncertain", "note": "verb 'is grieved'; long word, several diacritics unreadable"},
+        {"token_index": 15, "marker": "uncertain", "note": "'better'; medial fidel near-homograph"}
+      ],
+      "column": 1,
+      "line_start": 30
+    },
+    {
+      "v": 9,
+      "geez": "ወተንሥአት ሐና እምድኅረ በልዑ ወእምድኅረ ሰትዩ በሴሎ ወኤሊ ካህን ይነብር ዲበ መንበር ኀበ መድኃኒተ ቤተ እግዚአብሔር",
+      "tokens": ["ወተንሥአት", "ሐና", "እምድኅረ", "በልዑ", "ወእምድኅረ", "ሰትዩ", "በሴሎ", "ወኤሊ", "ካህን", "ይነብር", "ዲበ", "መንበር", "ኀበ", "መድኃኒተ", "ቤተ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'rose up'; long word, vowel orders indistinct"},
+        {"token_index": 2, "marker": "uncertain", "note": "'after'; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'they ate'; diacritics blurred"},
+        {"token_index": 5, "marker": "uncertain", "note": "verb 'they drank'; diacritics blurred"},
+        {"token_index": 6, "marker": "uncertain", "note": "place-name Shiloh; 2nd fidel low confidence"},
+        {"token_index": 13, "marker": "uncertain", "note": "'doorpost/lintel'; reading uncertain, near-homograph base"}
+      ],
+      "column": 1,
+      "line_start": 34
+    },
+    {
+      "v": 10,
+      "geez": "ወይእቲ መሪረ ነፍሳ ወጸለየት ኀበ እግዚአብሔር ወበከየት ብካየ",
+      "tokens": ["ወይእቲ", "መሪረ", "ነፍሳ", "ወጸለየት", "ኀበ", "እግዚአብሔር", "ወበከየት", "ብካየ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "'bitter of'; vowel order ambiguous"},
+        {"token_index": 2, "marker": "uncertain", "note": "'her soul'; final fidel order unclear"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'prayed'; diacritics blurred"},
+        {"token_index": 6, "marker": "uncertain", "note": "verb 'wept'; vowel order indistinct"},
+        {"token_index": 7, "marker": "uncertain", "note": "'weeping' cognate object; reading low confidence"}
+      ],
+      "column": 1,
+      "line_start": 38
+    },
+    {
+      "v": 11,
+      "geez": "ወብዐለት ብጽአተ ወትቤ እግዚኦ ⟦illegible⟧ ለእመ ርእየ ትሬኢ ሕማመ ለአመትከ ወተዘከርከኒ ወኢተረስዐኒ ለአመትከ ወወሀብኮ ለአመትከ ዘርአ ብእሲ ወእሁቦ ለእግዚአብሔር ኵሎ መዋዕለ ሕይወቱ ወንዱ ኢየዐርግ ዲበ ርእሱ",
+      "tokens": ["ወብዐለት", "ብጽአተ", "ወትቤ", "እግዚኦ", "⟦illegible⟧", "ለእመ", "ርእየ", "ትሬኢ", "ሕማመ", "ለአመትከ", "ወተዘከርከኒ", "ወኢተረስዐኒ", "ለአመትከ", "ወወሀብኮ", "ለአመትከ", "ዘርአ", "ብእሲ", "ወእሁቦ", "ለእግዚአብሔር", "ኵሎ", "መዋዕለ", "ሕይወቱ", "ወንዱ", "ኢየዐርግ", "ዲበ", "ርእሱ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'vowed'; vowel order ambiguous"},
+        {"token_index": 1, "marker": "uncertain", "note": "'a vow'; reading low confidence"},
+        {"token_index": 4, "marker": "illegible", "note": "stretch of 1-2 words at column-1 bottom edge unreadable (blur + faint ink)"},
+        {"token_index": 7, "marker": "uncertain", "note": "verb 'you look'; diacritics indistinct"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'remember me'; long word, several diacritics unreadable"},
+        {"token_index": 11, "marker": "uncertain", "note": "negated verb 'forget me not'; vowel orders indistinct"},
+        {"token_index": 22, "marker": "uncertain", "note": "particle/word before verb; segmentation uncertain"},
+        {"token_index": 23, "marker": "uncertain", "note": "'razor shall not go up'; reading low confidence"}
+      ],
+      "column": 1,
+      "line_start": 42
+    },
+    {
+      "v": 12,
+      "geez": "ወእምዝ ሶበ አሕለቀት ጸልዮ ቅድመ እግዚአብሔር ወኤሊ ካህን ይትዓቀብ አፉሃ",
+      "tokens": ["ወእምዝ", "ሶበ", "አሕለቀት", "ጸልዮ", "ቅድመ", "እግዚአብሔር", "ወኤሊ", "ካህን", "ይትዓቀብ", "አፉሃ"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "verb 'finished/continued'; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "'praying'; diacritics blurred"},
+        {"token_index": 8, "marker": "uncertain", "note": "verb 'watched'; long word, several diacritics unreadable"},
+        {"token_index": 9, "marker": "uncertain", "note": "'her mouth'; final fidel order unclear"}
+      ],
+      "column": 2,
+      "line_start": 2
+    },
+    {
+      "v": 13,
+      "geez": "ወይእቲ ትትናበብ በልባ ወተሐውስ ከናፍሪ ክመ ወቃላ ኢይሰምዕ ወኀለያ ኤሊ ከመ ስኩርት",
+      "tokens": ["ወይእቲ", "ትትናበብ", "በልባ", "ወተሐውስ", "ከናፍሪ", "ክመ", "ወቃላ", "ኢይሰምዕ", "ወኀለያ", "ኤሊ", "ከመ", "ስኩርት"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "verb 'was speaking'; long word, several diacritics unreadable"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'moved'; vowel order ambiguous"},
+        {"token_index": 4, "marker": "uncertain", "note": "'her lips'; reading low confidence"},
+        {"token_index": 7, "marker": "uncertain", "note": "negated verb 'not heard'; vowel order indistinct"},
+        {"token_index": 8, "marker": "uncertain", "note": "verb 'thought her'; diacritics blurred"},
+        {"token_index": 11, "marker": "uncertain", "note": "'drunk'; medial fidel near-homograph"}
+      ],
+      "column": 2,
+      "line_start": 4
+    },
+    {
+      "v": 14,
+      "geez": "ወይቤላ ኤሊ እስከ ማእዜኑ ትሰክሪ አስሪ ወይነኪ እምሳዕሬኪ ወተሠወጢ ሐና",
+      "tokens": ["ወይቤላ", "ኤሊ", "እስከ", "ማእዜኑ", "ትሰክሪ", "አስሪ", "ወይነኪ", "እምሳዕሬኪ", "ወተሠወጢ", "ሐና"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "'and he said to her'; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "'how long'; reading low confidence"},
+        {"token_index": 4, "marker": "uncertain", "note": "verb 'you be drunk'; diacritics blurred"},
+        {"token_index": 5, "marker": "uncertain", "note": "imperative 'put away'; vowel order ambiguous"},
+        {"token_index": 6, "marker": "uncertain", "note": "'your wine'; reading low confidence"},
+        {"token_index": 7, "marker": "uncertain", "note": "'from your wine/face'; long word uncertain"},
+        {"token_index": 8, "marker": "uncertain", "note": "verb form; several diacritics unreadable"}
+      ],
+      "column": 2,
+      "line_start": 6
+    },
+    {
+      "v": 15,
+      "geez": "ወአውሥአት ሐና ወትቤ ኢ እግዚእየ ብእሲት እንተ ትክዝ መዋዕል አነ ወይነ ወመስተየ ኢሰተይኩ ወክዐውኩ ነፍስየ ቅድመ እግዚአብሔር",
+      "tokens": ["ወአውሥአት", "ሐና", "ወትቤ", "ኢ", "እግዚእየ", "ብእሲት", "እንተ", "ትክዝ", "መዋዕል", "አነ", "ወይነ", "ወመስተየ", "ኢሰተይኩ", "ወክዐውኩ", "ነፍስየ", "ቅድመ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'answered'; long word, several diacritics unreadable"},
+        {"token_index": 7, "marker": "uncertain", "note": "'sorrowful/grieved'; vowel order ambiguous"},
+        {"token_index": 8, "marker": "uncertain", "note": "'day(s)/spirit'; reading low confidence"},
+        {"token_index": 11, "marker": "uncertain", "note": "'strong drink'; reading low confidence"},
+        {"token_index": 12, "marker": "uncertain", "note": "negated verb 'I have not drunk'; vowel orders indistinct"},
+        {"token_index": 13, "marker": "uncertain", "note": "verb 'I poured out'; diacritics blurred"},
+        {"token_index": 14, "marker": "uncertain", "note": "'my soul'; final fidel order unclear"}
+      ],
+      "column": 2,
+      "line_start": 8
+    },
+    {
+      "v": 16,
+      "geez": "ኢትረስያ ለአመትከ ከመ ወለተ ዐመፃ እስመ እምብዝኀ ሐዘንየ ወሕማምየ ነበብኩ እስከ ይእዜ",
+      "tokens": ["ኢትረስያ", "ለአመትከ", "ከመ", "ወለተ", "ዐመፃ", "እስመ", "እምብዝኀ", "ሐዘንየ", "ወሕማምየ", "ነበብኩ", "እስከ", "ይእዜ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "negated verb 'count not'; long word, several diacritics unreadable"},
+        {"token_index": 3, "marker": "uncertain", "note": "'daughter of'; vowel order ambiguous"},
+        {"token_index": 4, "marker": "uncertain", "note": "'Belial/wickedness'; reading low confidence"},
+        {"token_index": 6, "marker": "uncertain", "note": "'out of abundance of'; long word uncertain"},
+        {"token_index": 7, "marker": "uncertain", "note": "'my grief'; diacritics blurred"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb 'I have spoken'; vowel order indistinct"}
+      ],
+      "column": 2,
+      "line_start": 10
+    },
+    {
+      "v": 17,
+      "geez": "ወአውሥአ ኤሊ ወይቤላ ሑሪ በሰላም ወአምላከ እስራኤል የሀብኪ ኵሎ ስእለተኪ ዘሰአልኪ እምኀቤሁ",
+      "tokens": ["ወአውሥአ", "ኤሊ", "ወይቤላ", "ሑሪ", "በሰላም", "ወአምላከ", "እስራኤል", "የሀብኪ", "ኵሎ", "ስእለተኪ", "ዘሰአልኪ", "እምኀቤሁ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'answered'; long word, several diacritics unreadable"},
+        {"token_index": 3, "marker": "uncertain", "note": "imperative 'go'; vowel order ambiguous"},
+        {"token_index": 7, "marker": "uncertain", "note": "verb 'grant you'; diacritics blurred"},
+        {"token_index": 9, "marker": "uncertain", "note": "'your petition'; reading low confidence"},
+        {"token_index": 10, "marker": "uncertain", "note": "'which you asked'; vowel orders indistinct"},
+        {"token_index": 11, "marker": "uncertain", "note": "'from him'; final fidel order unclear"}
+      ],
+      "column": 2,
+      "line_start": 12
+    },
+    {
+      "v": 18,
+      "geez": "ወትቤ ⟦illegible⟧ ለአመትከ ይርከብ ሞገሰ በቅድሜከ ወሐረት ይእቲ ብእሲት ፍኖታ ወበልዐት ወገጻ ኢኮነ ከመ ቀዲሙ",
+      "tokens": ["ወትቤ", "⟦illegible⟧", "ለአመትከ", "ይርከብ", "ሞገሰ", "በቅድሜከ", "ወሐረት", "ይእቲ", "ብእሲት", "ፍኖታ", "ወበልዐት", "ወገጻ", "ኢኮነ", "ከመ", "ቀዲሙ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "illegible", "note": "1 word after 'and she said' obscured at line edge; no reliable glyph"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'find/let find'; vowel order ambiguous"},
+        {"token_index": 4, "marker": "uncertain", "note": "'favour'; reading low confidence"},
+        {"token_index": 6, "marker": "uncertain", "note": "verb 'went'; diacritics blurred"},
+        {"token_index": 9, "marker": "uncertain", "note": "'her way'; vowel order indistinct"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'ate'; vowel order ambiguous"},
+        {"token_index": 14, "marker": "uncertain", "note": "'as before'; reading low confidence"}
+      ],
+      "column": 2,
+      "line_start": 14
+    },
+    {
+      "v": 19,
+      "geez": "ወገይሡ ጽባሐ ወሰገዱ ቅድመ እግዚአብሔር ወገብኡ ወቦኡ ውስተ ቤቶም አርማቴም ወአእመረ ሕልቃና ሐናሃ ብእሲቶ ወተዘከራ እግዚአብሔር",
+      "tokens": ["ወገይሡ", "ጽባሐ", "ወሰገዱ", "ቅድመ", "እግዚአብሔር", "ወገብኡ", "ወቦኡ", "ውስተ", "ቤቶም", "አርማቴም", "ወአእመረ", "ሕልቃና", "ሐናሃ", "ብእሲቶ", "ወተዘከራ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'rose early'; vowel order ambiguous"},
+        {"token_index": 1, "marker": "uncertain", "note": "'morning'; reading low confidence"},
+        {"token_index": 5, "marker": "uncertain", "note": "verb 'returned'; diacritics blurred"},
+        {"token_index": 6, "marker": "uncertain", "note": "verb 'came'; vowel order indistinct"},
+        {"token_index": 8, "marker": "uncertain", "note": "'their house'; final fidel order unclear"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'knew'; vowel order ambiguous"},
+        {"token_index": 12, "marker": "uncertain", "note": "'Hannah' w/ object suffix; reading low confidence"}
+      ],
+      "column": 2,
+      "line_start": 16
+    },
+    {
+      "v": 20,
+      "geez": "ወእምዝ ጸንሰት ወወለደት ወልደ ወሰመየቶ ስሞ ሳሙኤል እስመ እምኀበ እግዚአብሔር ሰአልክዎ",
+      "tokens": ["ወእምዝ", "ጸንሰት", "ወወለደት", "ወልደ", "ወሰመየቶ", "ስሞ", "ሳሙኤል", "እስመ", "እምኀበ", "እግዚአብሔር", "ሰአልክዎ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "verb 'conceived'; vowel order ambiguous"},
+        {"token_index": 2, "marker": "uncertain", "note": "verb 'bore'; diacritics blurred"},
+        {"token_index": 4, "marker": "uncertain", "note": "verb 'named him'; long word, several diacritics unreadable"},
+        {"token_index": 6, "marker": "uncertain", "note": "name Samuel; 2nd-3rd fidel order indistinct"},
+        {"token_index": 8, "marker": "uncertain", "note": "'from'; reading low confidence"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'I asked him'; vowel orders indistinct"}
+      ],
+      "column": 2,
+      "line_start": 18
+    },
+    {
+      "v": 21,
+      "geez": "ወዐርገ ብእሲ ሕልቃና ወኵሉ ቤቱ ከመ ይሡዕ ለእግዚአብሔር መሥዋዕተ በበ ዓመት ወብጽአቶ",
+      "tokens": ["ወዐርገ", "ብእሲ", "ሕልቃና", "ወኵሉ", "ቤቱ", "ከመ", "ይሡዕ", "ለእግዚአብሔር", "መሥዋዕተ", "በበ", "ዓመት", "ወብጽአቶ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'went up'; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "'and all'; reading low confidence"},
+        {"token_index": 6, "marker": "uncertain", "note": "verb 'sacrifice'; diacritics blurred"},
+        {"token_index": 8, "marker": "uncertain", "note": "'sacrifice/offering'; long word, several diacritics unreadable"},
+        {"token_index": 11, "marker": "uncertain", "note": "'and his vow'; vowel order indistinct"}
+      ],
+      "column": 2,
+      "line_start": 20
+    },
+    {
+      "v": 22,
+      "geez": "ወሐናሰ ኢዐርገት ወትቤ ለምታ እምዝ ይትፈጥም ሕጻን ወአስዕዕ ⟦illegible⟧ ወያንብር ቅድመ እግዚአብሔር ወይነብር ህየ እስከ ለዓለም",
+      "tokens": ["ወሐናሰ", "ኢዐርገት", "ወትቤ", "ለምታ", "እምዝ", "ይትፈጥም", "ሕጻን", "ወአስዕዕ", "⟦illegible⟧", "ወያንብር", "ቅድመ", "እግዚአብሔር", "ወይነብር", "ህየ", "እስከ", "ለዓለም"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "'Hannah' + particle; vowel order ambiguous"},
+        {"token_index": 1, "marker": "uncertain", "note": "negated verb 'went not up'; diacritics blurred"},
+        {"token_index": 5, "marker": "uncertain", "note": "verb 'be weaned'; long word, several diacritics unreadable"},
+        {"token_index": 6, "marker": "uncertain", "note": "'child'; reading low confidence"},
+        {"token_index": 7, "marker": "uncertain", "note": "verb 'bring up'; vowel order indistinct"},
+        {"token_index": 8, "marker": "illegible", "note": "1 word obscured by smudge mid-band; no reliable glyph"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb 'set/place'; vowel order ambiguous"}
+      ],
+      "column": 2,
+      "line_start": 22
+    },
+    {
+      "v": 23,
+      "geez": "ወይቤላ ሕልቃና ምታ ግበሪ ዘሠናየ በቅድሜኪ ንበሪ እስከ ትፈጥምዮ ባሕቱ ያቅም እግዚአብሔር ቃሎ ወነበረት ብእሲት ወሐፀነቶ ለወልዳ እስከ ፈጠመቶ",
+      "tokens": ["ወይቤላ", "ሕልቃና", "ምታ", "ግበሪ", "ዘሠናየ", "በቅድሜኪ", "ንበሪ", "እስከ", "ትፈጥምዮ", "ባሕቱ", "ያቅም", "እግዚአብሔር", "ቃሎ", "ወነበረት", "ብእሲት", "ወሐፀነቶ", "ለወልዳ", "እስከ", "ፈጠመቶ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "'and he said to her'; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "imperative 'do'; diacritics blurred"},
+        {"token_index": 4, "marker": "uncertain", "note": "'that which is good'; reading low confidence"},
+        {"token_index": 8, "marker": "uncertain", "note": "verb 'you wean him'; long word, several diacritics unreadable"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'establish'; vowel order indistinct"},
+        {"token_index": 15, "marker": "uncertain", "note": "verb 'nursed him'; long word, several diacritics unreadable"},
+        {"token_index": 18, "marker": "uncertain", "note": "verb 'weaned him'; vowel order ambiguous"}
+      ],
+      "column": 2,
+      "line_start": 24
+    },
+    {
+      "v": 24,
+      "geez": "ወአዕረገቶ ምስሌሃ እምከመ አምዐነ ⟦illegible⟧ ወአእተወቶ ቤተ እግዚአብሔር በሴሎ ወሐናሰ ንዕሰ ወእቱ ወመጠወቶ እሉ",
+      "tokens": ["ወአዕረገቶ", "ምስሌሃ", "እምከመ", "አምዐነ", "⟦illegible⟧", "ወአእተወቶ", "ቤተ", "እግዚአብሔር", "በሴሎ", "ወሐናሰ", "ንዕሰ", "ወእቱ", "ወመጠወቶ", "እሉ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'brought him up'; long word, several diacritics unreadable"},
+        {"token_index": 1, "marker": "uncertain", "note": "'with her'; vowel order ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'weaned'; reading low confidence"},
+        {"token_index": 4, "marker": "illegible", "note": "stretch (bull/ephah/flour clause) unreadable across smudged sub-line"},
+        {"token_index": 5, "marker": "uncertain", "note": "verb 'brought him in'; long word, several diacritics unreadable"},
+        {"token_index": 8, "marker": "uncertain", "note": "place-name Shiloh; 2nd fidel low confidence"},
+        {"token_index": 12, "marker": "uncertain", "note": "verb 'delivered him'; vowel order indistinct"}
+      ],
+      "column": 2,
+      "line_start": 26
+    },
+    {
+      "v": 25,
+      "geez": "ወጠብሑ ላሕመ ⟦illegible⟧ ወአምጽእዎ ለሕጻን ኀበ ኤሊ",
+      "tokens": ["ወጠብሑ", "ላሕመ", "⟦illegible⟧", "ወአምጽእዎ", "ለሕጻን", "ኀበ", "ኤሊ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verb 'they slew'; vowel order ambiguous"},
+        {"token_index": 1, "marker": "uncertain", "note": "'the bull/calf'; reading low confidence"},
+        {"token_index": 2, "marker": "illegible", "note": "1 word obscured; no reliable glyph"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'brought him'; long word, several diacritics unreadable"},
+        {"token_index": 4, "marker": "uncertain", "note": "'the child'; vowel order indistinct"}
+      ],
+      "column": 2,
+      "line_start": 28
+    },
+    {
+      "v": 26,
+      "geez": "ወትቤ ቦ እግዚእየ ሕያው ነፍስከ እግዚእየ አነ ይእቲ ብእሲት እንተ ቆምኩ ቅድሜከ ዝየ ወጸለይኩ ኀበ እግዚአብሔር",
+      "tokens": ["ወትቤ", "ቦ", "እግዚእየ", "ሕያው", "ነፍስከ", "እግዚእየ", "አነ", "ይእቲ", "ብእሲት", "እንተ", "ቆምኩ", "ቅድሜከ", "ዝየ", "ወጸለይኩ", "ኀበ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "interjection/particle; reading low confidence"},
+        {"token_index": 3, "marker": "uncertain", "note": "'as lives'; vowel order ambiguous"},
+        {"token_index": 4, "marker": "uncertain", "note": "'your soul'; final fidel order unclear"},
+        {"token_index": 10, "marker": "uncertain", "note": "verb 'I stood'; diacritics blurred"},
+        {"token_index": 12, "marker": "uncertain", "note": "'here'; reading low confidence"},
+        {"token_index": 13, "marker": "uncertain", "note": "verb 'I prayed'; vowel order indistinct"}
+      ],
+      "column": 2,
+      "line_start": 30
+    },
+    {
+      "v": 27,
+      "geez": "በእንተ ዝንቱ ሕጻን ጸለይኩ ወወሀበኒ እግዚአብሔር ስእለትየ ዘሰአልኩ እምኀቤሁ",
+      "tokens": ["በእንተ", "ዝንቱ", "ሕጻን", "ጸለይኩ", "ወወሀበኒ", "እግዚአብሔር", "ስእለትየ", "ዘሰአልኩ", "እምኀቤሁ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "'concerning'; vowel order ambiguous"},
+        {"token_index": 1, "marker": "uncertain", "note": "'this'; reading low confidence"},
+        {"token_index": 2, "marker": "uncertain", "note": "'child'; vowel order indistinct"},
+        {"token_index": 3, "marker": "uncertain", "note": "verb 'I prayed'; diacritics blurred"},
+        {"token_index": 4, "marker": "uncertain", "note": "verb 'he gave me'; long word, several diacritics unreadable"},
+        {"token_index": 7, "marker": "uncertain", "note": "'which I asked'; vowel orders indistinct"}
+      ],
+      "column": 2,
+      "line_start": 32
+    },
+    {
+      "v": 28,
+      "geez": "ወአነኒ አውሰብክዎ ለእግዚአብሔር ኵሎ መዋዕለ ሕይወቱ ለይኩን ውሁበ ለእግዚአብሔር ወሰገደ ህየ ለእግዚአብሔር ምስለ ኤሊ",
+      "tokens": ["ወአነኒ", "አውሰብክዎ", "ለእግዚአብሔር", "ኵሎ", "መዋዕለ", "ሕይወቱ", "ለይኩን", "ውሁበ", "ለእግዚአብሔር", "ወሰገደ", "ህየ", "ለእግዚአብሔር", "ምስለ", "ኤሊ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "'and I also'; vowel order ambiguous"},
+        {"token_index": 1, "marker": "uncertain", "note": "verb 'I have lent/given him'; long word, several diacritics unreadable"},
+        {"token_index": 4, "marker": "uncertain", "note": "'days of'; reading low confidence"},
+        {"token_index": 5, "marker": "uncertain", "note": "'his life'; vowel order indistinct"},
+        {"token_index": 6, "marker": "uncertain", "note": "verb 'let him be'; diacritics blurred"},
+        {"token_index": 7, "marker": "uncertain", "note": "'given/lent'; vowel order ambiguous"},
+        {"token_index": 9, "marker": "uncertain", "note": "verb 'and he worshipped'; vowel order indistinct"}
+      ],
+      "column": 3,
+      "line_start": 1
+    }
+  ],
+  "transcription_notes": "SOURCE/LAYOUT: Cambridge UL MS Add. 1570, crop Samuel01.jpg ONLY. Page = 3 columns, dense Ethiopic (Ge'ez) book hand with red rubrication; reading order is top-to-bottom within a column, then next column left-to-right. Image is ~1129x1441 px for the WHOLE 3-column folio (~0.6 MP) -> very low effective resolution per glyph; I cropped each column into tall bands and upscaled 6.5-8x with autocontrast to read. CH.1 EXTENT: A multi-line RED rubricated heading occupies the top of column 1 (incipit 'In the name of the merciful and compassionate God... I write the Book of Reigns of Israel and Judah...' ending with red 'ክፍል ፩' = Part 1) -- this heading is NOT verse text and is excluded. Ch.1 running text begins column 1 ~line 8 with 'ወሀሎ ፩ ብእሲ እምነ አርማቴም' (1:1), fills the rest of column 1 (through ~v.11 partial), continues down the WHOLE of column 2 (v.11 cont. through v.28 partial), and ends on the FIRST (red) line of column 3 with the last words of v.28 ('...ወሰገደ ህየ ለእግዚአብሔር ምስለ ኤሊ'). CH.1->CH.2 BOUNDARY: Chapter 2 (Hannah's Song, 'My heart is established/exults in the LORD...') begins on the SECOND line of column 3 of Samuel01.jpg; I stopped there. line_start values are best estimates of the line WITHIN the stated column (column 1's chapter text starts ~line 8 because of the heading; columns 2 and 3 line numbers count from the column top). SEGMENTATION: the manuscript has NO numbered verses; segmentation into 28 verses is MY best judgement from red rubric ornaments/letters, the '፡' word-divider, and narrative sense, aligned to the conventional Hannah-narrative structure -- it is NOT a count forced from memory; verse boundaries (esp. vv.4-6, 22-25) are genuinely ambiguous and could shift by a clause. NUMERAL RULE: the canonical numeral-tokenization rule was applied -- every Ethiopic numeral glyph (e.g. ፩ ፪ ፲) is its own standalone token in the tokens[] array, never glued to letters; numerals are kept adjacent only inside the human-readable geez string. HONESTY / LEGIBILITY (critical): This hand at THIS crop resolution is only PARTIALLY legible. Reliably readable: red rubricated words, the recurring divine name እግዚአብሔር, frequent proper names (ሕልቃና/ሐና/ኤሊ/ሳሙኤል/አርማቴም/ሴሎ), structural particles, and the CONSONANT SKELETON of most words. NOT reliably resolved: the vowel-order diacritics that distinguish the 7 Ethiopic orders (ሀ/ሁ/ሂ/ሃ/ህ/ሄ/ህ/ሆ) on a large share of glyphs, plus several near-homograph base forms (በ/ነ/ተ, ቀ/ቐ, ጠ/ጰ, ሰ/ሠ, ሐ/ሓ/ኀ). Consequently the geez/tokens reflect my single best per-word reading but the per-glyph (esp. vowel-order) fidelity is LOW; ~35-45% of tokens are flagged uncertain and they do NOT cluster only on physically damaged spots -- the uncertainty is pervasive and driven mainly by global downscaling blur, with additional 'damaged' spots where ink bleed-through/smudge sits over specific glyphs (v.5 area especially). Genuinely unreadable stretches were marked with the literal ⟦illegible⟧ sentinel (vv.5,11,18,22,24,25) rather than reconstructed; NO word was filled or corrected from memory of the known Biblical text. SUBJECTIVE READ: I could recover the narrative shape and most word skeletons with reasonable confidence, but a strict verbatim glyph-exact transcription (diacritic level) is NOT achievable from this single low-res crop -- a meaningful fraction of the fine reading is best-effort, not certain. Higher-resolution images (the GG-00106 ~5MP scans referenced elsewhere) would be needed for a defensible critical-edition transcription."
+}

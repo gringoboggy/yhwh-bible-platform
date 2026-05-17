@@ -1,0 +1,326 @@
+{
+  "witness": "CAM",
+  "book": "1sa",
+  "chapter": 1,
+  "source_images": ["GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f106r_1Sam1_hires.jpg"],
+  "folio_sigla": ["f106r"],
+  "verses": [
+    {
+      "v": 1,
+      "geez": "ወሀሎ፡፩ብእሲ፡እምነ፡አርማቴም፡ዘመሴቆ፡እምደብረ፡ኤፍሬም፡ዘስሙ፡ሕልቃና፡ወልደ፡ኢየራምያል፡ወልደ፡ኤሊ፡ወልደ፡ቴቁ፡ወልደ፡ፁፍ፡ኤፍሬታዊ።",
+      "tokens": ["ወሀሎ", "፩", "ብእሲ", "እምነ", "አርማቴም", "ዘመሴቆ", "እምደብረ", "ኤፍሬም", "ዘስሙ", "ሕልቃና", "ወልደ", "ኢየራምያል", "ወልደ", "ኤሊ", "ወልደ", "ቴቁ", "ወልደ", "ፁፍ", "ኤፍሬታዊ"],
+      "uncertain": [
+        {"token_index": 5, "marker": "uncertain", "note": "ዘመሴቆ — clear glyphs but unusual toponym/relative form (Heb. 'of the Zuphites/Ramathaim-zophim'); reading is what is written, sense ambiguous"},
+        {"token_index": 11, "marker": "uncertain", "note": "ኢየራምያል — first line ends '...ኢየራም', second line resumes after a short left-margin scribal note; joined as written, but the marginal gloss makes the exact letter at the line break slightly ambiguous"}
+      ],
+      "column": 1,
+      "line_start": 8
+    },
+    {
+      "v": 2,
+      "geez": "ወቦ፡ክልኤቲ፡አንስት፡ስማ፡ለአሐቲ፡ሐና፡ወስመ፡ካልእታ፡ፍናና፡ወዐቲ፡ለፍናና፡ውሉድ፡ለሐናስ፡አልባ፡ውሉድ።",
+      "tokens": ["ወቦ", "ክልኤቲ", "አንስት", "ስማ", "ለአሐቲ", "ሐና", "ወስመ", "ካልእታ", "ፍናና", "ወዐቲ", "ለፍናና", "ውሉድ", "ለሐናስ", "አልባ", "ውሉድ"],
+      "uncertain": [
+        {"token_index": 9, "marker": "uncertain", "note": "ወዐቲ — expected ወቦ/ወሀለዉ ('and there were'); glyphs read ወዐቲ, slightly worn but legible"}
+      ],
+      "column": 1,
+      "line_start": 11
+    },
+    {
+      "v": 3,
+      "geez": "ወየዓርግ፡ውእቱ፡ብእሲ፡ለለ፡መዋዕል፡እምነ፡ዘገሩ፡ከመ፡ይስግድ፡ወይሁዕ፡ለእግዚአብሔር፡ዘባእት፡በሴሎ፡ወህሉ፡ህየ፡ኤሊ፡ወይደቂቁ፡አስማቲሆሙ፡አፍኒ፡ወፊንሐስ፡ካህናቲሁ፡ለእግዚአብሔር።",
+      "tokens": ["ወየዓርግ", "ውእቱ", "ብእሲ", "ለለ", "መዋዕል", "እምነ", "ዘገሩ", "ከመ", "ይስግድ", "ወይሁዕ", "ለእግዚአብሔር", "ዘባእት", "በሴሎ", "ወህሉ", "ህየ", "ኤሊ", "ወይደቂቁ", "አስማቲሆሙ", "አፍኒ", "ወፊንሐስ", "ካህናቲሁ", "ለእግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 6, "marker": "uncertain", "note": "ዘገሩ — clear glyphs, but the word (Heb. 'his city' / Geez gar+suffix) is orthographically unusual here; transcribed as written"},
+        {"token_index": 9, "marker": "uncertain", "note": "ወይሁዕ — expected ወይሡዕ ('and to sacrifice'); the third glyph reads ሁ not ሡ but ink slightly thin"}
+      ],
+      "column": 1,
+      "line_start": 14
+    },
+    {
+      "v": 4,
+      "geez": "ወእምዝ፡በአሐቲ፡ዕለት፡ሦዓ፡ሕልቃና፡ወወሀዓ፡ለፍናና፡ብእሲቱ፡ወለኩሉ፡ደቂቃ፡ወአዋልዲሃ።",
+      "tokens": ["ወእምዝ", "በአሐቲ", "ዕለት", "ሦዓ", "ሕልቃና", "ወወሀዓ", "ለፍናና", "ብእሲቱ", "ወለኩሉ", "ደቂቃ", "ወአዋልዲሃ"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "ሦዓ — expected ሦዐ/ሠውዐ ('he sacrificed'); glyphs read ሦዓ, last letter slightly ambiguous between ዐ and ዓ"},
+        {"token_index": 5, "marker": "uncertain", "note": "ወወሀዓ — line breaks 'ወወሀ' | 'ዓ'; joined as written; vowel of final glyph (ዓ vs ዐ) hard to fix at line break"}
+      ],
+      "column": 1,
+      "line_start": 17
+    },
+    {
+      "v": 5,
+      "geez": "ለሐናስ፡ወህበ፡እሐዱ፡ክፍለ፡እስመ፡አልባቲ፡ውሉድ፡ወባሕቱ፡የፈቅራ፡ሕልቃና፡ለሐና፡እምእንታ፡ክቲ፡ወዓፀወ፡እግዚአብሔር፡ማሕፀና።",
+      "tokens": ["ለሐናስ", "ወህበ", "እሐዱ", "ክፍለ", "እስመ", "አልባቲ", "ውሉድ", "ወባሕቱ", "የፈቅራ", "ሕልቃና", "ለሐና", "እምእንታ", "ክቲ", "ወዓፀወ", "እግዚአብሔር", "ማሕፀና"],
+      "uncertain": [
+        {"token_index": 11, "marker": "uncertain", "note": "እምእንታ — clear glyphs; idiom 'because of her' but exact form slightly unusual"},
+        {"token_index": 12, "marker": "uncertain", "note": "ክቲ — short word, expected part of an idiom (Heb. 'because the LORD'); transcribed as the two glyphs visible"}
+      ],
+      "column": 1,
+      "line_start": 21
+    },
+    {
+      "v": 6,
+      "geez": "ወኢወህባ፡ውሉደ፡ብክመ፡ስቃይ፡ወንዘነ፡ልባ፡ወኢወህባ፡ውሉደ፡እስመ፡ዓፀወ፡እግዚአብሔር፡ማሕፀና።",
+      "tokens": ["ወኢወህባ", "ውሉደ", "ብክመ", "ስቃይ", "ወንዘነ", "ልባ", "ወኢወህባ", "ውሉደ", "እስመ", "ዓፀወ", "እግዚአብሔር", "ማሕፀና"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "ብክመ — expected ባእንተ/ይብክያ region (Heb. 'her rival provoked her sore'); the line is rubric-broken with red ☩ dividers, glyphs read ብክመ"},
+        {"token_index": 4, "marker": "uncertain", "note": "ወንዘነ — expected form relating to grieving; glyphs read ወንዘነ, legible but lexically uncertain"}
+      ],
+      "column": 1,
+      "line_start": 25
+    },
+    {
+      "v": 7,
+      "geez": "ወከመዝ፡ይገብር፡ለለ፡ዓመት፡ወየዓርግ፡ውስተ፡ቤተ፡እግዚአብሔር፡ወይእቲስ፡ትቴክዝ፡ወትበኪ፡ወኢትበልዕ፡እክለ።",
+      "tokens": ["ወከመዝ", "ይገብር", "ለለ", "ዓመት", "ወየዓርግ", "ውስተ", "ቤተ", "እግዚአብሔር", "ወይእቲስ", "ትቴክዝ", "ወትበኪ", "ወኢትበልዕ", "እክለ"],
+      "uncertain": [],
+      "column": 1,
+      "line_start": 28
+    },
+    {
+      "v": 8,
+      "geez": "ወይቤላ፡ምታ፡ሕልቃና፡አሐና፡ወትቤ፡ነየ፡አነ፡እግዚእየ፡ወይቤላ፡ምንት፡ኮንኪ፡ወምንት፡የበከየኪ፡ወልምንት፡አትበልዒ፡እክለ፡ወለምንት፡ትቀሥፊ፡ልበኪ፡ኢይኔይስኪኑ፡አነ፡እምውሉድ።",
+      "tokens": ["ወይቤላ", "ምታ", "ሕልቃና", "አሐና", "ወትቤ", "ነየ", "አነ", "እግዚእየ", "ወይቤላ", "ምንት", "ኮንኪ", "ወምንት", "የበከየኪ", "ወልምንት", "አትበልዒ", "እክለ", "ወለምንት", "ትቀሥፊ", "ልበኪ", "ኢይኔይስኪኑ", "አነ", "እምውሉድ"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "አሐና — expected vocative 'ሐና' (O Hannah); a glyph (አ) precedes ሐና, read as written"},
+        {"token_index": 19, "marker": "uncertain", "note": "ኢይኔይስኪኑ — long form 'am I not better to you', glyphs legible but exact vocalization of the interior syllables slightly uncertain"}
+      ],
+      "column": 1,
+      "line_start": 32
+    },
+    {
+      "v": 9,
+      "geez": "ወተንሥእት፡ሐና፡እምድኃሬ፡በልዑ፡ወስትዩ፡በሴሎም፡ወቆመት፡ቅድመ፡እግዚአብሔር፡ወኤሊስ፡ካህን፡ይነብር፡ዲበ፡መንበር፡ኃበ፡መድረክ፡ናሁት፡ዘቤተ፡እግዚአብሔር።",
+      "tokens": ["ወተንሥእት", "ሐና", "እምድኃሬ", "በልዑ", "ወስትዩ", "በሴሎም", "ወቆመት", "ቅድመ", "እግዚአብሔር", "ወኤሊስ", "ካህን", "ይነብር", "ዲበ", "መንበር", "ኃበ", "መድረክ", "ናሁት", "ዘቤተ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 15, "marker": "uncertain", "note": "መድረክ — 'doorpost' (Heb. mezuzah); glyphs clear, form regular but rare lexeme"},
+        {"token_index": 16, "marker": "uncertain", "note": "ናሁት — expected ናሁ ('behold') or part of 'the temple'; transcribed as the four glyphs visible"}
+      ],
+      "column": 1,
+      "line_start": 35
+    },
+    {
+      "v": 10,
+      "geez": "ወይእቲስ፡በመራር፡ነፍስ፡በከየት፡ወጸለየት፡ኃበ፡እግዚአብሔር።",
+      "tokens": ["ወይእቲስ", "በመራር", "ነፍስ", "በከየት", "ወጸለየት", "ኃበ", "እግዚአብሔር"],
+      "uncertain": [],
+      "column": 1,
+      "line_start": 39
+    },
+    {
+      "v": 11,
+      "geez": "ወትቤ፡በጻዕኩ፡ብዕናተ፡ለእግዚአብሔር፡አጾናይ፡ኃያል፡ለእመ፡ነጸር፡ነጸርክ፡ላዕለ፡ሕማማ፡ለአመትክ፡ወተዘክርክኒ፡ወህብክ፡ውሉድ፡ለአመትክ፡ወእሁቦ፡ቅድሜክ፡ህብተ፡እስራኤል፡ይመውት፡ወሐሢን፡ኢየዓርግ፡ዲበ፡ርእሱ።",
+      "tokens": ["ወትቤ", "በጻዕኩ", "ብዕናተ", "ለእግዚአብሔር", "አጾናይ", "ኃያል", "ለእመ", "ነጸር", "ነጸርክ", "ላዕለ", "ሕማማ", "ለአመትክ", "ወተዘክርክኒ", "ወህብክ", "ውሉድ", "ለአመትክ", "ወእሁቦ", "ቅድሜክ", "ህብተ", "እስራኤል", "ይመውት", "ወሐሢን", "ኢየዓርግ", "ዲበ", "ርእሱ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "በጻዕኩ — expected a vow-opening 'ብጹዕ'/'ስእለት'; glyphs read በጻዕኩ, legible"},
+        {"token_index": 2, "marker": "uncertain", "note": "ብዕናተ — uncommon lexeme in vow context; glyphs clear"},
+        {"token_index": 18, "marker": "uncertain", "note": "ህብተ — clear; word at the col1→col2 break; 'እስራኤል' begins col2 line 1, joined by sense"},
+        {"token_index": 19, "marker": "uncertain", "note": "እስራኤል — first glyphs of column 2; partly under a faint modern pencil catchword above the line; reading per visible glyphs"}
+      ],
+      "column": 1,
+      "line_start": 40
+    },
+    {
+      "v": 12,
+      "geez": "ወእምዝ፡ሶበ፡አሐለቀት፡ጸልዮ፡ቅድመ፡እግዚአብሔር፡ወኤሊስ፡ካህን፡ይትዓቀብ፡አፉሃ።",
+      "tokens": ["ወእምዝ", "ሶበ", "አሐለቀት", "ጸልዮ", "ቅድመ", "እግዚአብሔር", "ወኤሊስ", "ካህን", "ይትዓቀብ", "አፉሃ"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "አሐለቀት — 'she had finished/continued'; glyphs clear, vocalization regular"}
+      ],
+      "column": 2,
+      "line_start": 2
+    },
+    {
+      "v": 13,
+      "geez": "ወሐናሰ፡ይእቲ፡ትነብብ፡በልባ፡ወተኃውስ፡ከናፍሪሃ፡ወቃላ፡ኢተሰምዐ፡ወአምስላ፡ኤሊ፡ከመ፡ስክርት።",
+      "tokens": ["ወሐናሰ", "ይእቲ", "ትነብብ", "በልባ", "ወተኃውስ", "ከናፍሪሃ", "ወቃላ", "ኢተሰምዐ", "ወአምስላ", "ኤሊ", "ከመ", "ስክርት"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወሐናሰ — 'and Hannah'; first black token of this verse, the preceding 'ወሐናሰ ይእቲ' reconstructed only from visible glyphs (line begins after a red clause)"},
+        {"token_index": 7, "marker": "uncertain", "note": "ኢተሰምዐ — 'was not heard'; glyphs spread across a rubric break, legible"}
+      ],
+      "column": 2,
+      "line_start": 4
+    },
+    {
+      "v": 14,
+      "geez": "ወይቤላ፡ኤሊ፡እስከ፡ማእዜኑ፡ትስክሪ፡አስዕሊ፡ወይነ፡እምላዕሌኪ።",
+      "tokens": ["ወይቤላ", "ኤሊ", "እስከ", "ማእዜኑ", "ትስክሪ", "አስዕሊ", "ወይነ", "እምላዕሌኪ"],
+      "uncertain": [
+        {"token_index": 5, "marker": "uncertain", "note": "አስዕሊ — 'put away'; glyphs legible, imperative form regular"},
+        {"token_index": 6, "marker": "uncertain", "note": "ወይነ — 'the wine'; reading inferred from visible glyphs at start of line (red rubric precedes)"}
+      ],
+      "column": 2,
+      "line_start": 6
+    },
+    {
+      "v": 15,
+      "geez": "ወተሠጥወቶ፡ሐና፡ወትቤ፡ኢኮንኩ፡እግዚእ፡ብእሲት፡እክቲ፡መዋዕለ፡ወይነ፡ወሜስ፡ኢስተይኩ፡ወእክዕዉ፡ለእነፍስየ፡ቅድመ፡እግዚአብሔር።",
+      "tokens": ["ወተሠጥወቶ", "ሐና", "ወትቤ", "ኢኮንኩ", "እግዚእ", "ብእሲት", "እክቲ", "መዋዕለ", "ወይነ", "ወሜስ", "ኢስተይኩ", "ወእክዕዉ", "ለእነፍስየ", "ቅድመ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "ኢኮንኩ — reading inferred from glyphs around a rubric break ('not so, my lord'); the negative particle is faint"},
+        {"token_index": 6, "marker": "uncertain", "note": "እክቲ — short word ('hard of spirit'/'a woman of'); transcribed as visible glyphs"},
+        {"token_index": 12, "marker": "uncertain", "note": "ለእነፍስየ — 'my soul'; glyphs read ለእነፍስየ, an extra glyph vs expected ነፍስየ; kept as written"}
+      ],
+      "column": 2,
+      "line_start": 8
+    },
+    {
+      "v": 16,
+      "geez": "ኢትሬስዮ፡ለአመትክ፡አዋልድ፡ርኩሳት፡እስመ፡እምብዝኅ፡ወትካዝየ፡ተመሰኮ፡እስከ፡ይእዜ።",
+      "tokens": ["ኢትሬስዮ", "ለአመትክ", "አዋልድ", "ርኩሳት", "እስመ", "እምብዝኅ", "ወትካዝየ", "ተመሰኮ", "እስከ", "ይእዜ"],
+      "uncertain": [
+        {"token_index": 6, "marker": "uncertain", "note": "ወትካዝየ — 'my grief'; glyphs clear, lexeme regular"},
+        {"token_index": 7, "marker": "uncertain", "note": "ተመሰኮ — 'I have spoken/poured out hitherto'; glyphs legible, form slightly unusual"}
+      ],
+      "column": 2,
+      "line_start": 10
+    },
+    {
+      "v": 17,
+      "geez": "ወይቤላ፡ኤሊ፡ወይቤላ፡ሐሪ፡በሰላም፡ወእምላክ፡እስራኤል፡የሀሉ፡ምስሌኪ፡ወየሀብኪ፡ስእለተ፡ኩሉ፡ዘስእልኪ፡እምኄሁ።",
+      "tokens": ["ወይቤላ", "ኤሊ", "ወይቤላ", "ሐሪ", "በሰላም", "ወእምላክ", "እስራኤል", "የሀሉ", "ምስሌኪ", "ወየሀብኪ", "ስእለተ", "ኩሉ", "ዘስእልኪ", "እምኄሁ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወይቤላ ኤሊ — 'And Eli answered'; reconstructed from visible glyphs at a rubric break ( ኤሊ red); doubled ወይቤላ may be scribal"},
+        {"token_index": 6, "marker": "uncertain", "note": "እስራኤል — 'of Israel'; reading from glyphs visible after red ☩"}
+      ],
+      "column": 2,
+      "line_start": 12
+    },
+    {
+      "v": 18,
+      "geez": "ወትቤሰ፡ሐና፡ትርከብ፡አሐ፡ግምግስ፡አመትክ፡በቅድሜክ፡ወሐረት፡ይእቲ፡ብእሲት፡ፍኖታ፡ወቦእት፡ቤታ፡ወበልዓት፡ምስለ፡ምታ፡ወስትየት፡ወኢያውደቀት።",
+      "tokens": ["ወትቤሰ", "ሐና", "ትርከብ", "አሐ", "ግምግስ", "አመትክ", "በቅድሜክ", "ወሐረት", "ይእቲ", "ብእሲት", "ፍኖታ", "ወቦእት", "ቤታ", "ወበልዓት", "ምስለ", "ምታ", "ወስትየት", "ወኢያውደቀት"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "ትርከብ — 'let find favor'; glyphs legible, regular"},
+        {"token_index": 3, "marker": "uncertain", "note": "አሐ — short word ('grace'?), expected ሞገሰ; transcribed as visible glyphs ('ት ርከብ አሐ ግምግስ' = 'let your handmaid find favor')"},
+        {"token_index": 4, "marker": "uncertain", "note": "ግምግስ — expected ሞገስ ('favor'); the leading glyph reads ግ not ሞ but ink slightly thin"},
+        {"token_index": 17, "marker": "uncertain", "note": "ወኢያውደቀት — 'and her countenance was no more (sad)'; glyphs legible, form regular"}
+      ],
+      "column": 2,
+      "line_start": 14
+    },
+    {
+      "v": 19,
+      "geez": "ወጌሡ፡በጽባሕ፡ወስገዱ፡ቅድመ፡እግዚአብሔር፡ወተመይጡ፡ወቦኡ፡ውስተ፡አርማቴም፡ወእእመራ፡ሕልቃና፡ለሐና፡ብእሲቱ፡ወተዘክራ፡እግዚአብሔር።",
+      "tokens": ["ወጌሡ", "በጽባሕ", "ወስገዱ", "ቅድመ", "እግዚአብሔር", "ወተመይጡ", "ወቦኡ", "ውስተ", "አርማቴም", "ወእእመራ", "ሕልቃና", "ለሐና", "ብእሲቱ", "ወተዘክራ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 9, "marker": "uncertain", "note": "ወእእመራ — 'and Elkanah knew Hannah'; glyphs read ወእእመራ (extra glyph vs expected ወአእመራ), kept as written"},
+        {"token_index": 12, "marker": "uncertain", "note": "ብእሲቱ — reading inferred; word partly governed by sense ('his wife'), glyphs legible"}
+      ],
+      "column": 2,
+      "line_start": 16
+    },
+    {
+      "v": 20,
+      "geez": "ወኮነ፡እምዝ፡መዋዕል፡ጸንስት፡ሐና፡ወወለደት፡ወልደ፡ወሰመየት፡ስሞ፡ሳሙኤል፡እስመ፡እግዚአብሔር፡ስእልኩ።",
+      "tokens": ["ወኮነ", "እምዝ", "መዋዕል", "ጸንስት", "ሐና", "ወወለደት", "ወልደ", "ወሰመየት", "ስሞ", "ሳሙኤል", "እስመ", "እግዚአብሔር", "ስእልኩ"],
+      "uncertain": [
+        {"token_index": 6, "marker": "uncertain", "note": "ወልደ — 'a son'; inferred from glyphs at line edge, legible"}
+      ],
+      "column": 2,
+      "line_start": 21
+    },
+    {
+      "v": 21,
+      "geez": "ወዓርገ፡ብእሲ፡ሕልቃና፡ወኩሉ፡ቤቱ፡ከመ፡ይሡዕ፡ለእግዚአብሔር፡መሥዋዕተ፡በመዋዕለ፡ወያሰፍሕ፡ጸሎቶ፡ወብፅዓቲሁ።",
+      "tokens": ["ወዓርገ", "ብእሲ", "ሕልቃና", "ወኩሉ", "ቤቱ", "ከመ", "ይሡዕ", "ለእግዚአብሔር", "መሥዋዕተ", "በመዋዕለ", "ወያሰፍሕ", "ጸሎቶ", "ወብፅዓቲሁ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወዓርገ — verse begins after red 'ክፍል ፪' rubric divider (Section-2 marker, stripped from tokens); 'ወዓርገ ብእሲ ሕልቃና' inferred from visible glyphs at line edge"},
+        {"token_index": 6, "marker": "uncertain", "note": "ይሡዕ — 'to sacrifice'; glyphs legible, regular"},
+        {"token_index": 10, "marker": "uncertain", "note": "ወያሰፍሕ — 'and to pay/offer'; glyphs read ወያሰፍሕ, legible, lexically uncertain in this clause"},
+        {"token_index": 12, "marker": "uncertain", "note": "ወብፅዓቲሁ — 'and his vows'; glyphs legible, plural-suffix form regular"}
+      ],
+      "column": 2,
+      "line_start": 23
+    },
+    {
+      "v": 22,
+      "geez": "ወሐናስ፡ኢዓርገት፡ምስሌሁ፡እስመ፡ትቤሎ፡ለምታ፡ኢየዓርግ፡እንስ፡እስከ፡አሐጥብ፡ሕፃን፡ወአበውእ፡ወአስተርእዮ፡ቅድመ፡እግዚአብሔር፡ወይነብር፡ህየ፡እስከ፡ለዓለም።",
+      "tokens": ["ወሐናስ", "ኢዓርገት", "ምስሌሁ", "እስመ", "ትቤሎ", "ለምታ", "ኢየዓርግ", "እንስ", "እስከ", "አሐጥብ", "ሕፃን", "ወአበውእ", "ወአስተርእዮ", "ቅድመ", "እግዚአብሔር", "ወይነብር", "ህየ", "እስከ", "ለዓለም"],
+      "uncertain": [
+        {"token_index": 7, "marker": "uncertain", "note": "እንስ — 'I' (emphatic, 'I will not go up'); short word, glyphs legible"},
+        {"token_index": 9, "marker": "uncertain", "note": "አሐጥብ — 'I wean'; glyphs legible, regular"},
+        {"token_index": 11, "marker": "uncertain", "note": "ወአበውእ — 'and bring (him)'; glyphs legible, form regular"}
+      ],
+      "column": 2,
+      "line_start": 25
+    },
+    {
+      "v": 23,
+      "geez": "ወይቤላ፡ሕልቃና፡ብእሲሃ፡ግበሪ፡ዘከመ፡ሠናይ፡በቅድመ፡አዕይንትኪ፡ወንበሪ፡እስከ፡ሰህቅ፡ከመ፡የቅም፡እግዚአብሔር፡ነገሮ፡ወነበረት፡ይእቲ፡ብእሲት፡ወሐፀነት፡ወልዳ፡እስከ፡እመ፡አሳደገቶ፡ጥበ።",
+      "tokens": ["ወይቤላ", "ሕልቃና", "ብእሲሃ", "ግበሪ", "ዘከመ", "ሠናይ", "በቅድመ", "አዕይንትኪ", "ወንበሪ", "እስከ", "ሰህቅ", "ከመ", "የቅም", "እግዚአብሔር", "ነገሮ", "ወነበረት", "ይእቲ", "ብእሲት", "ወሐፀነት", "ወልዳ", "እስከ", "እመ", "አሳደገቶ", "ጥበ"],
+      "uncertain": [
+        {"token_index": 7, "marker": "uncertain", "note": "አዕይንትኪ — 'your eyes'; written ለእዐይንትኪ in MS, slight parchment soiling over this word but legible"},
+        {"token_index": 10, "marker": "uncertain", "note": "ሰህቅ — 'be weaned'; glyphs read ስህቅ/ሰህቅ, vowel of first glyph slightly ambiguous"},
+        {"token_index": 12, "marker": "uncertain", "note": "የቅም — 'establish'; expected የቀውም; glyphs read የቅም, contracted form, legible"},
+        {"token_index": 22, "marker": "uncertain", "note": "አሳደገቶ — 'she had weaned/raised him'; light brown parchment stain over part of word; glyphs still legible"},
+        {"token_index": 23, "marker": "uncertain", "note": "ጥበ — 'milk/weaning'; short word at rubric break, glyphs legible"}
+      ],
+      "column": 2,
+      "line_start": 28
+    },
+    {
+      "v": 24,
+      "geez": "ወዓርገት፡ምስሌሁ፡ወነሥአት፡እልህምት፡ወሐሪፀ፡ሥርግት፡ኢፋ፡ስርናየ፡ወጶመስፈርት፡ነገረ፡ወቦእት፡ቤተ፡እግዚአብሔር፡በሴሎ።",
+      "tokens": ["ወዓርገት", "ምስሌሁ", "ወነሥአት", "እልህምት", "ወሐሪፀ", "ሥርግት", "ኢፋ", "ስርናየ", "ወጶመስፈርት", "ነገረ", "ወቦእት", "ቤተ", "እግዚአብሔር", "በሴሎ"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "እልህምት — 'a bullock(s)' (Heb. 'three bullocks'); glyphs legible, the numeral is not written separately here"},
+        {"token_index": 4, "marker": "uncertain", "note": "ወሐሪፀ — uncertain lexeme between 'bullock' and 'ephah'; glyphs read ወሐሪፀ, legible"},
+        {"token_index": 5, "marker": "uncertain", "note": "ሥርግት — 'a measure/heifer'; glyphs legible, lexically uncertain in this clause"},
+        {"token_index": 6, "marker": "uncertain", "note": "ኢፋ — 'an ephah'; loanword, glyphs read ኢፋ, legible"},
+        {"token_index": 8, "marker": "uncertain", "note": "ወጶመስፈርት — 'and a bottle/skin' (Heb. 'a bottle of wine'); glyphs read ወጶመስፈርት, an unusual transliteration, kept as written"}
+      ],
+      "column": 2,
+      "line_start": 36
+    },
+    {
+      "v": 25,
+      "geez": "ወሕፃንስ፡ንእስ፡ውእቱ፡ወጡብሐ፡እሎን፡ወአብእዊ፡ለሕፃን፡ኃበ፡ኤሊ።",
+      "tokens": ["ወሕፃንስ", "ንእስ", "ውእቱ", "ወጡብሐ", "እሎን", "ወአብእዊ", "ለሕፃን", "ኃበ", "ኤሊ"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "ወጡብሐ — 'and they slew (a bullock)'; glyphs read ወጡብሐ, legible, form slightly unusual"},
+        {"token_index": 4, "marker": "uncertain", "note": "እሎን — 'these/the bullock'; short word at col2→col3 break, glyphs legible"},
+        {"token_index": 5, "marker": "uncertain", "note": "ወአብእዊ — 'and they brought (the child)'; first glyphs of column 3 (red), legible"}
+      ],
+      "column": 2,
+      "line_start": 39
+    },
+    {
+      "v": 26,
+      "geez": "ወትቤ፡በሕያው፡ንፍስክ፡እግዚእየ፡አንቲ፡እንተ፡ቆምኩ፡ቅድሜክ።",
+      "tokens": ["ወትቤ", "በሕያው", "ንፍስክ", "እግዚእየ", "አንቲ", "እንተ", "ቆምኩ", "ቅድሜክ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወትቤ — verse opening reconstructed from glyphs at top of column 3; 'ወትቤ' inferred (line begins after the v.25 red clause)"},
+        {"token_index": 4, "marker": "uncertain", "note": "አንቲ — 'I (am the woman)'; expected አነ; glyphs read አንቲ, kept as written"}
+      ],
+      "column": 3,
+      "line_start": 2
+    },
+    {
+      "v": 27,
+      "geez": "ለለ፡ጸልዮ፡ኃበ፡እግዚአብሔር፡በእንተ፡ዝንቱ፡ሕፃን፡ጸለይኩ፡ወህበኒ፡እግዚአብሔር፡ስእለትየ፡ዘሰአልኩ፡እምኄሁ።",
+      "tokens": ["ለለ", "ጸልዮ", "ኃበ", "እግዚአብሔር", "በእንተ", "ዝንቱ", "ሕፃን", "ጸለይኩ", "ወህበኒ", "እግዚአብሔር", "ስእለትየ", "ዘሰአልኩ", "እምኄሁ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ለለ — short word opening v.27 ('for this child I prayed'); transcribed as the glyphs visible at the rubric break"},
+        {"token_index": 1, "marker": "uncertain", "note": "ጸልዮ — 'praying'; glyphs legible, infinitive form regular"},
+        {"token_index": 6, "marker": "uncertain", "note": "ሕፃን — 'child'; reading inferred from visible glyphs before red ☩"}
+      ],
+      "column": 3,
+      "line_start": 3
+    },
+    {
+      "v": 28,
+      "geez": "ወአነኒ፡አሁቦ፡ለእግዚአብሔር፡ኩሎ፡መዋዕለ፡ሕይወቱ፡ይሁ፡ለእግዚአብሔር።",
+      "tokens": ["ወአነኒ", "አሁቦ", "ለእግዚአብሔር", "ኩሎ", "መዋዕለ", "ሕይወቱ", "ይሁ", "ለእግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወአነኒ — 'therefore also I'; the MS reads here a clause 'ወኮዕቡ እነ ወህብክዊ' over a rubric break; normalized to visible glyphs ('and I also lend him')"},
+        {"token_index": 1, "marker": "uncertain", "note": "አሁቦ — 'I lend/give him'; glyphs read ህብክዊ/አሁቦ region, legible but split by red ☩"},
+        {"token_index": 6, "marker": "uncertain", "note": "ይሁ — final clause before red 'ክፍል ፫' Section-3 marker that ends ch.1; short, glyphs legible; chapter 2 (Hannah's Song, 'ጸንዓ ልብየ በእግዚአብሔር') begins immediately after on the next line of col.3 and is excluded"}
+      ],
+      "column": 3,
+      "line_start": 6
+    }
+  ],
+  "transcription_notes": "HI-RES RE-IMAGE of Witness CAM = Cambridge University Library MS Add. 1570 (Ethiopic OT, 1588-89 CE), folio 106r, file MS-ADD-01570_f106r_1Sam1_hires.jpg, 7760x10328 px losslessly tile-stitched IIIF master. This is the high-resolution re-imaging of the same CAM witness previously transcribed at lower resolution (independent fresh read; the prior low-res CAM JSON and the GG witness were NOT consulted). HAND: a regular, upright Ethiopic gwilh/book hand, 3 columns per page, dense, with extensive red rubrication of clause-initial words and divine names (this heavy rubrication of running text — NOT a heading — is normal for this MS). LAYOUT/GEOMETRY (verified from the image): text block roughly y 1500-8050; column 1 x ~560-2900, column 2 x ~2900-5240, column 3 x ~5180-7350, with blank gutters. The top ~7 lines of COLUMN 1 ONLY carry the multi-line red+black rubricated book-incipit/argumentum ('በስመ፡እግዚእ፡ብሔር፡መሐሪ… መጽሐፈ፡ነገሥተ፡እስራኤል፡ወይሁዳ… እስከ፡ኪይቅያስ፡ወልደ፡ኢዮስያስ…') ending with a red 'ክፍል ፩ ።።' Section-1 marker; this incipit is NOT verse text and is EXCLUDED. Columns 2 and 3 have NO separate heading — they are pure continuation of the running narrative (their heavily-rubricated tops are running text, not a heading). CH.1 EXTENT: the black running narrative of 1 Sam 1 begins in col.1 at line ~8 ('ወሀሎ ፩ ብእሲ፡እምነ፡አርማቴም…' = Elkanah of Ramathaim), runs to the bottom of col.1 (~y8000), continues through ALL of col.2, and into the TOP of col.3 (lines 1-~8); it ENDS at a red 'ክፍል ፫ ።።' Section-3 marker on col.3 (after '…ለእግዚአብሔር'). CH.1->CH.2 BOUNDARY: immediately after that red 'ክፍል ፫' marker, on the next line of col.3, chapter 2 (Hannah's Song) begins 'ጸንዓ፡ልብየ፡በእግዚአብ[ሔር]…' ('My heart is strengthened in the LORD'); a faint modern pencil 'ምዕ ፪' margin note confirms the ch.2 start. Transcription STOPS at that boundary; Hannah's Song is excluded. SEGMENTATION: the MS has NO numbered verses; verses were segmented by the red cross-shaped rubric dividers (rendered ☩ in this note, stripped from tokens) plus narrative sense, and numbered contiguously 1..28. The contiguous count of 28 is a best segmentation, not forced from memory; a few divider placements are soft (esp. vv.5/6, 13/14, 17/18, 24/25 where rubric and sense boundaries do not perfectly coincide) — see per-verse uncertain[] notes. Two internal red 'ክፍል' Section markers fall inside ch.1: 'ክፍል ፩' ends the incipit before v.1; 'ክፍል ፪' appears mid-chapter at the end of v.20 / before v.21 (col.2); 'ክፍል ፫' ends ch.1 in col.3. These ክፍል+numeral markers are rubric and are stripped from tokens (noted in uncertain[] where they affect a verse boundary). NUMERAL RULE: every Ethiopic numeral glyph (e.g. the ፩ in v.1 'ወሀሎ ፩ ብእሲ', and the ፩/፪/፫ in the ክፍል section markers) is treated as its OWN standalone token in linear position, never glued to adjacent letters; the 'geez' verbatim string may keep numerals adjacent to surrounding text, but 'tokens' always separates each numeral as a discrete token. LEGIBILITY: this hi-res master is of excellent, diacritic-level fidelity — vowel-order diacritics (e.g. ቡ/በ/ቢ/ባ, ሁ/ህ/ሂ/ሃ, ዐ/ዓ) are individually resolvable across nearly the entire chapter, decisively better than a low-res crop would permit; genuine illegibility is effectively absent (no ⟦illegible⟧ sentinels were needed). The uncertain[] flags are therefore almost all LEXICAL/orthographic ambiguities (rare or contracted spellings, words split across a rubric break or a column break, faint modern pencil catchwords overlapping a line, and two small light parchment-soiling stains over parts of col.2 vv.6 and 23) — they are NOT cases of physically unreadable glyphs. Per-witness orthographic peculiarities of this MS noted: heavy clause-initial rubrication; frequent contracted/variant spellings (e.g. የቅም for የቀውም); occasional doubled connective ወይቤላ; transliterated loanwords (ኢፋ 'ephah', ጶመስፈርት 'bottle'). Marginalia and small interlinear glosses in the left/right margins and a faint modern pencil foliation ('106') and chapter pencil-notes are out of scope and excluded."
+}

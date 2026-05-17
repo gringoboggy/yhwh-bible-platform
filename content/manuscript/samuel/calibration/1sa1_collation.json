@@ -1,0 +1,3707 @@
+{
+  "book": "1sa",
+  "chapter": 1,
+  "base_witness_recommended": "GG",
+  "base_rationale": "GG (Gunda Gundē GG-00106) is recommended as the base witness on the evidence: (1) completeness — GG transcribes all 28 verses with only its col-3 right-edge water stain causing 15 localized lacunae confined to vv.21-28, whereas CAM's low-res crop yields 176 uncertain tokens (~44%) spread across every verse; (2) lower base uncertainty — GG's uncertainty is 21.9% vs CAM's 44.0%, and GG's is clustered (damage + proper names) rather than pervasive; (3) clearer hand at ~5MP vs CAM's ~0.6MP, so cols 1-2 (vv.1-20) are a genuine letter-by-letter read; (4) the skeleton-level agreements more often confirm GG's fuller text. NOTE / CONTRADICTION: the GAPS source-map a-priori designates Cambridge Add. 1570 the \"primary\" witness for Samuel and GG-00106 the \"second witness\"; this empirical calibration INVERTS that for 1 Samuel 1 — at the resolutions actually supplied, GG is materially the stronger base. This contradiction is surfaced, not hidden; the a-priori map ranking should be revisited for Samuel or Cambridge re-shot at higher resolution before it can serve as base.",
+  "verses": [
+    {
+      "v": 1,
+      "gg_tokens": [
+        "ወሀሎ",
+        "፩",
+        "ብእሲ",
+        "ዘእምነ",
+        "አርማቴም",
+        "ዘመንሱፉ",
+        "እምደብረ",
+        "ኤፍሬም",
+        "ወስሙ",
+        "ሕልቃና",
+        "ወልደ",
+        "ኢያሬምያሌ",
+        "ወልደ",
+        "ኤሊ",
+        "ወልደ",
+        "ቴቁ",
+        "ወልደ",
+        "ኑፊብ",
+        "አፍራቱዊ"
+      ],
+      "cam_tokens": [
+        "ወሀሎ",
+        "፩",
+        "ብእሲ",
+        "እምነ",
+        "አርማቴም",
+        "ዘመፌቄም",
+        "ዘስሙ",
+        "ሕልቃና",
+        "ወልደ",
+        "ኤዶም",
+        "ወልደ",
+        "የሮም",
+        "ወልደ",
+        "ኤልዩ",
+        "ወልደ",
+        "ቴቁ",
+        "ወልደ",
+        "ኡፍ",
+        "ኤፍሬም"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሀሎ",
+          "cam": "ወሀሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "፩",
+          "cam": "፩",
+          "class": "agree"
+        },
+        {
+          "gg": "ብእሲ",
+          "cam": "ብእሲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘእምነ",
+          "cam": "እምነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አርማቴም",
+          "cam": "አርማቴም",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘመንሱፉ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እምደብረ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኤፍሬም",
+          "cam": "ዘመፌቄም",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወስሙ",
+          "cam": "ዘስሙ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕልቃና",
+          "cam": "ሕልቃና",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ወልደ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኤዶም",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልደ",
+          "cam": "ወልደ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኢያሬምያሌ",
+          "cam": "የሮም",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልደ",
+          "cam": "ወልደ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤልዩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልደ",
+          "cam": "ወልደ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቴቁ",
+          "cam": "ቴቁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወልደ",
+          "cam": "ወልደ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኑፊብ",
+          "cam": "ኡፍ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አፍራቱዊ",
+          "cam": "ኤፍሬም",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v1 = a man of Ramathaim(-Zophim) of the hill country of Ephraim, named Elkanah son of (genealogy); PASS — GG ወሀለ ፦ብእሲ ... አርማቴም ... ምደብረ ኤፍሬም ... ሕልቁና matches."
+    },
+    {
+      "v": 2,
+      "gg_tokens": [
+        "ወቦ",
+        "ክልኤቲ",
+        "አንስት",
+        "ስሙ",
+        "ለአሐቲ",
+        "ሐና",
+        "ወስሙ",
+        "ለካልእቲ",
+        "ፍናና",
+        "ወባቲ",
+        "ለፍናና",
+        "ደቂቅ",
+        "ወለሐናሰ",
+        "አልባቲ",
+        "ውሉድ"
+      ],
+      "cam_tokens": [
+        "ወቦ",
+        "ካልእታ",
+        "፪",
+        "አንስት",
+        "ዘስማ",
+        "ለአሐቲ",
+        "ሐና",
+        "ወስማ",
+        "ለካልእታ",
+        "ፍናና",
+        "ወቦ",
+        "ለፍናና",
+        "ውሉድ",
+        "ወአልቦ",
+        "ለሐና",
+        "ውሉድ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወቦ",
+          "cam": "ወቦ",
+          "class": "agree"
+        },
+        {
+          "gg": "ክልኤቲ",
+          "cam": "ካልእታ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "፪",
+          "class": "disagree"
+        },
+        {
+          "gg": "አንስት",
+          "cam": "አንስት",
+          "class": "agree"
+        },
+        {
+          "gg": "ስሙ",
+          "cam": "ዘስማ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለአሐቲ",
+          "cam": "ለአሐቲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሐና",
+          "cam": "ሐና",
+          "class": "agree"
+        },
+        {
+          "gg": "ወስሙ",
+          "cam": "ወስማ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለካልእቲ",
+          "cam": "ለካልእታ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ፍናና",
+          "cam": "ፍናና",
+          "class": "agree"
+        },
+        {
+          "gg": "ወባቲ",
+          "cam": "ወቦ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለፍናና",
+          "cam": "ለፍናና",
+          "class": "agree"
+        },
+        {
+          "gg": "ደቂቅ",
+          "cam": "ውሉድ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወለሐናሰ",
+          "cam": "ወአልቦ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አልባቲ",
+          "cam": "ለሐና",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውሉድ",
+          "cam": "ውሉድ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v2 = he had two wives, one Hannah, one Peninnah; Peninnah had children, Hannah none; PASS — GG ከልኤቲ አንስት ... ሐና ... ፍናና ... አልባቲ ውሉድ. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 3,
+      "gg_tokens": [
+        "ወየዓርግ",
+        "ውእቱ",
+        "ብእሲ",
+        "ለሰመዋዕል",
+        "እምነ",
+        "ሀገሩ",
+        "አርማቴም",
+        "ከመ",
+        "ይስግድ",
+        "ወይሡዕ",
+        "ለእግዚአብሔር",
+        "በሲሎም",
+        "ወሀለው",
+        "ህየ",
+        "ኢሊ",
+        "ወ",
+        "፪",
+        "ደቂቁ",
+        "አፍኒን",
+        "ወፊንሐስ",
+        "ካህናቲሁ",
+        "ለእግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወየዐርግ",
+        "ውእቱ",
+        "ብእሲ",
+        "እምነ",
+        "ሀገሩ",
+        "በበ",
+        "ዓመት",
+        "ከመ",
+        "ይስግድ",
+        "ወይሡዕ",
+        "ለእግዚአብሔር",
+        "ዘኮነ",
+        "ውስተ",
+        "ሴሎ",
+        "ወህየ",
+        "ካህናት",
+        "ኤሊ",
+        "ወክልኤቱ",
+        "ደቂቁ",
+        "አፎኒ",
+        "ወፊንሐስ",
+        "ካህናቲሁ",
+        "ለእግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወየዓርግ",
+          "cam": "ወየዐርግ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውእቱ",
+          "cam": "ውእቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "ብእሲ",
+          "cam": "ብእሲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ለሰመዋዕል",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እምነ",
+          "cam": "እምነ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሀገሩ",
+          "cam": "ሀገሩ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "በበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አርማቴም",
+          "cam": "ዓመት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይስግድ",
+          "cam": "ይስግድ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይሡዕ",
+          "cam": "ወይሡዕ",
+          "class": "agree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ዘኮነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ውስተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በሲሎም",
+          "cam": "ሴሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሀለው",
+          "cam": "ወህየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ህየ",
+          "cam": "ካህናት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢሊ",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "፪",
+          "cam": "ወክልኤቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ደቂቁ",
+          "cam": "ደቂቁ",
+          "class": "agree"
+        },
+        {
+          "gg": "አፍኒን",
+          "cam": "አፎኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወፊንሐስ",
+          "cam": "ወፊንሐስ",
+          "class": "agree"
+        },
+        {
+          "gg": "ካህናቲሁ",
+          "cam": "ካህናቲሁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v3 = he went up yearly from his city to worship/sacrifice to the LORD at Shiloh; Eli's two sons Hophni & Phinehas priests; PASS. [orthographic tolerance: 2 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 4,
+      "gg_tokens": [
+        "ወእምዝ",
+        "በእዓቲ",
+        "ዕለት",
+        "ሠዋ",
+        "ሕልቃና",
+        "ወመሀበመ",
+        "ክፍሎመ",
+        "ለፍናና",
+        "ብእሲቱ",
+        "ወለደቂቃ"
+      ],
+      "cam_tokens": [
+        "ወእምጊ",
+        "በሕቲ",
+        "ይሠውዕ",
+        "ሕልቃና",
+        "ወወሀበ",
+        "ለፍናና",
+        "ብእሲቱ",
+        "ወለሰብእ",
+        "ደቁ",
+        "ወአዋልዲ",
+        "ሐናስ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእምዝ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በእዓቲ",
+          "cam": "ወእምጊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዕለት",
+          "cam": "በሕቲ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሠዋ",
+          "cam": "ይሠውዕ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕልቃና",
+          "cam": "ሕልቃና",
+          "class": "agree"
+        },
+        {
+          "gg": "ወመሀበመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ክፍሎመ",
+          "cam": "ወወሀበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለፍናና",
+          "cam": "ለፍናና",
+          "class": "agree"
+        },
+        {
+          "gg": "ብእሲቱ",
+          "cam": "ብእሲቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ወለሰብእ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ደቁ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወአዋልዲ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወለደቂቃ",
+          "cam": "ሐናስ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v4 = on the day Elkanah sacrificed he gave portions to Peninnah his wife and her sons/daughters; PASS (GG compresses, CAM names sons & daughters)."
+    },
+    {
+      "v": 5,
+      "gg_tokens": [
+        "ወልሐናሂ",
+        "ወሀበ",
+        "፩",
+        "ክፍለስ",
+        "እስመ",
+        "አልባቲ",
+        "ውሉድ",
+        "ወባሕቱ",
+        "ለሐናሃ",
+        "ያፈቅር",
+        "ሕልቃና",
+        "አምእንታክቲ",
+        "ወዓጸው",
+        "እግዚአብሔር",
+        "ማህፀና"
+      ],
+      "cam_tokens": [
+        "ወለሐና",
+        "ወሀባ",
+        "መክፈልተ",
+        "አሐተ",
+        "እስመ",
+        "አልባ",
+        "ውሉድ",
+        "ወባሕቱ",
+        "ሐናሰ",
+        "ያፈቅራ",
+        "ሕልቃና",
+        "ወእግዚአብሔር",
+        "⟦illegible⟧",
+        "ማሕፀና"
+      ],
+      "alignment": [
+        {
+          "gg": "ወልሐናሂ",
+          "cam": "ወለሐና",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሀበ",
+          "cam": "ወሀባ",
+          "class": "disagree"
+        },
+        {
+          "gg": "፩",
+          "cam": "መክፈልተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ክፍለስ",
+          "cam": "አሐተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "አልባቲ",
+          "cam": "አልባ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውሉድ",
+          "cam": "ውሉድ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወባሕቱ",
+          "cam": "ወባሕቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "ለሐናሃ",
+          "cam": "ሐናሰ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ያፈቅር",
+          "cam": "ያፈቅራ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕልቃና",
+          "cam": "ሕልቃና",
+          "class": "agree"
+        },
+        {
+          "gg": "አምእንታክቲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወዓጸው",
+          "cam": "ወእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "⟦illegible⟧",
+          "class": "lacuna-cam"
+        },
+        {
+          "gg": "ማህፀና",
+          "cam": "ማሕፀና",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v5 = to Hannah he gave one (a worthy) portion for he loved her though the LORD had shut her womb; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 6,
+      "gg_tokens": [
+        "ወኢወሀበ",
+        "ውሉድ",
+        "በከመ",
+        "ስቃደ",
+        "ወበከመ",
+        "ትካዘ",
+        "ወሐዘና",
+        "ወትዓዝን",
+        "በበይነ",
+        "ዝንቱ",
+        "እስመ",
+        "ዓጸው",
+        "እግዚአብሔር",
+        "ማህፀና"
+      ],
+      "cam_tokens": [
+        "ወኢወሀባ",
+        "ውሉደ",
+        "በከመ",
+        "ስታያ",
+        "ወአዘነ",
+        "ለባ",
+        "ወኢወሀባ",
+        "ውሉደ",
+        "እስመ",
+        "ዓወጻ",
+        "እግዚአብሔር",
+        "ማሕፀና",
+        "ወከመዝ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወኢወሀበ",
+          "cam": "ወኢወሀባ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውሉድ",
+          "cam": "ውሉደ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በከመ",
+          "cam": "በከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ስቃደ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወበከመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ትካዘ",
+          "cam": "ስታያ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሐዘና",
+          "cam": "ወአዘነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትዓዝን",
+          "cam": "ለባ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በበይነ",
+          "cam": "ወኢወሀባ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "ውሉደ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዓጸው",
+          "cam": "ዓወጻ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ማህፀና",
+          "cam": "ማሕፀና",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወከመዝ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v6 = her rival provoked her sore to vex her because the LORD had shut her womb; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 7,
+      "gg_tokens": [
+        "ወኢወሀቦ",
+        "ውሉዶ",
+        "በከመ",
+        "ይንግር",
+        "ሰላዓመት",
+        "የዓርግ",
+        "ውስት",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወይእቲ",
+        "ሱትቲክዝ",
+        "ወትበኪ",
+        "ወኢትበልዕ"
+      ],
+      "cam_tokens": [
+        "ወከመዝ",
+        "ይገብር",
+        "ዓመተ",
+        "በበ",
+        "ዓመት",
+        "ሶበ",
+        "የዐርጋ",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወይኤዝና",
+        "ወትበኪ",
+        "ወኢትበልዕ"
+      ],
+      "alignment": [
+        {
+          "gg": "",
+          "cam": "ወከመዝ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወኢወሀቦ",
+          "cam": "ይገብር",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውሉዶ",
+          "cam": "ዓመተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በከመ",
+          "cam": "በበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይንግር",
+          "cam": "ዓመት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሰላዓመት",
+          "cam": "ሶበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "የዓርግ",
+          "cam": "የዐርጋ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውስት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቤተ",
+          "cam": "ቤተ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይእቲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሱትቲክዝ",
+          "cam": "ወይኤዝና",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትበኪ",
+          "cam": "ወትበኪ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወኢትበልዕ",
+          "cam": "ወኢትበልዕ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v7 = so it was year by year; when she went up to the house of the LORD she wept and would not eat; PASS. [orthographic tolerance: 1 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 8,
+      "gg_tokens": [
+        "ወይቤላ",
+        "ሕልቃና",
+        "ምታ",
+        "ሐና",
+        "ወትቤን",
+        "የኣን",
+        "እግዚእየ",
+        "ወይቤላ",
+        "ምንተ",
+        "ኮነኪ",
+        "ወምንቲ",
+        "የብከየኪ",
+        "ወለምንት",
+        "ኢትበልዒ",
+        "ወለምንት",
+        "ትቀሥፊ",
+        "ልብኪ",
+        "ኢአኄይስክኑ",
+        "እን",
+        "እም",
+        "ዓሠርቱ",
+        "ውሉድ"
+      ],
+      "cam_tokens": [
+        "ወይቤላ",
+        "ሕልቃና",
+        "ምታ",
+        "ምንተ",
+        "ኮንኪ",
+        "ሐና",
+        "ወምንተ",
+        "ትበክዪ",
+        "ወምንተ",
+        "ኢትበልዒ",
+        "ወምንተ",
+        "ይትከዐወኪ",
+        "ልብኪ",
+        "ኢኮኑ",
+        "አነ",
+        "ኄይሰ",
+        "ለኪ",
+        "እምነ",
+        "፲",
+        "ውሉድ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤላ",
+          "cam": "ወይቤላ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሕልቃና",
+          "cam": "ሕልቃና",
+          "class": "agree"
+        },
+        {
+          "gg": "ምታ",
+          "cam": "ምታ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሐና",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትቤን",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "የኣን",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚእየ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወይቤላ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምንተ",
+          "cam": "ምንተ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኮነኪ",
+          "cam": "ኮንኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሐና",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወምንቲ",
+          "cam": "ወምንተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "የብከየኪ",
+          "cam": "ትበክዪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወለምንት",
+          "cam": "ወምንተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢትበልዒ",
+          "cam": "ኢትበልዒ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወለምንት",
+          "cam": "ወምንተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ትቀሥፊ",
+          "cam": "ይትከዐወኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ልብኪ",
+          "cam": "ልብኪ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኢአኄይስክኑ",
+          "cam": "ኢኮኑ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እን",
+          "cam": "አነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኄይሰ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ለኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እም",
+          "cam": "እምነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዓሠርቱ",
+          "cam": "፲",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውሉድ",
+          "cam": "ውሉድ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v8 = Elkanah her husband said: Hannah why weepest thou, why eatest not, am I not better to thee than ten sons; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 9,
+      "gg_tokens": [
+        "ወተዓሠአት",
+        "ሐና",
+        "እምድኅራ",
+        "በልዑ",
+        "በሲሎም",
+        "ወቆመት",
+        "ቅዱመ",
+        "እግዚአብሔር",
+        "ወኢሊ",
+        "ካህን",
+        "ይነብር",
+        "ዲበመጸበር",
+        "ዕበ",
+        "መድረክ",
+        "ናይት",
+        "ዘቤተ",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወተንሥአት",
+        "ሐና",
+        "እምድኅረ",
+        "በልዑ",
+        "ወእምድኅረ",
+        "ሰትዩ",
+        "በሴሎ",
+        "ወኤሊ",
+        "ካህን",
+        "ይነብር",
+        "ዲበ",
+        "መንበር",
+        "ኀበ",
+        "መድኃኒተ",
+        "ቤተ",
+        "እግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወተዓሠአት",
+          "cam": "ወተንሥአት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐና",
+          "cam": "ሐና",
+          "class": "agree"
+        },
+        {
+          "gg": "እምድኅራ",
+          "cam": "እምድኅረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በልዑ",
+          "cam": "በልዑ",
+          "class": "agree"
+        },
+        {
+          "gg": "በሲሎም",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወቆመት",
+          "cam": "ወእምድኅረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቅዱመ",
+          "cam": "ሰትዩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "በሴሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወኢሊ",
+          "cam": "ወኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ካህን",
+          "cam": "ካህን",
+          "class": "agree"
+        },
+        {
+          "gg": "ይነብር",
+          "cam": "ይነብር",
+          "class": "agree"
+        },
+        {
+          "gg": "ዲበመጸበር",
+          "cam": "ዲበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዕበ",
+          "cam": "መንበር",
+          "class": "disagree"
+        },
+        {
+          "gg": "መድረክ",
+          "cam": "ኀበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ናይት",
+          "cam": "መድኃኒተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘቤተ",
+          "cam": "ቤተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v9 = Hannah rose after eating (and drinking) at Shiloh; Eli the priest sat by the post/seat of the temple of the LORD; PASS. [orthographic tolerance: 2 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 10,
+      "gg_tokens": [
+        "ይኄቲሱ",
+        "በኀዘን",
+        "ነፍስ",
+        "በከየት",
+        "ወጸለየትና",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወይእቲ",
+        "መሪረ",
+        "ነፍሳ",
+        "ወጸለየት",
+        "ኀበ",
+        "እግዚአብሔር",
+        "ወበከየት",
+        "ብካየ"
+      ],
+      "alignment": [
+        {
+          "gg": "ይኄቲሱ",
+          "cam": "ወይእቲ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በኀዘን",
+          "cam": "መሪረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ነፍስ",
+          "cam": "ነፍሳ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በከየት",
+          "cam": "ወጸለየት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወጸለየትና",
+          "cam": "ኀበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ወበከየት",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ብካየ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v10 = she was in bitterness of soul and prayed to the LORD and wept sore; PASS. [orthographic tolerance: 1 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 11,
+      "gg_tokens": [
+        "ወትቤ",
+        "በጽእኩ",
+        "ብዕዓተ",
+        "ለእግዚአብሔር",
+        "አዶናይ",
+        "እግዚእ",
+        "ኤሎሄ",
+        "ጸባዖት",
+        "ለእመ",
+        "ነጽርነጸርክ",
+        "ላዕለ",
+        "ሕማም",
+        "ለገአመትክ",
+        "ወተዘክርክ",
+        "ወመሀብክ",
+        "ለገአመትክ",
+        "ዘርአ",
+        "ብእሲ",
+        "እህቦ",
+        "ቅድሜከ",
+        "ህብተ",
+        "እስከ",
+        "አመ",
+        "ይመውት",
+        "ወይኖ",
+        "ወማሕሱ",
+        "ኢይስቲ",
+        "ወሐዊን",
+        "ኢየዓርግ",
+        "ዲበር",
+        "እሱ"
+      ],
+      "cam_tokens": [
+        "ወብዐለት",
+        "ብጽአተ",
+        "ወትቤ",
+        "እግዚኦ",
+        "⟦illegible⟧",
+        "ለእመ",
+        "ርእየ",
+        "ትሬኢ",
+        "ሕማመ",
+        "ለአመትከ",
+        "ወተዘከርከኒ",
+        "ወኢተረስዐኒ",
+        "ለአመትከ",
+        "ወወሀብኮ",
+        "ለአመትከ",
+        "ዘርአ",
+        "ብእሲ",
+        "ወእሁቦ",
+        "ለእግዚአብሔር",
+        "ኵሎ",
+        "መዋዕለ",
+        "ሕይወቱ",
+        "ወንዱ",
+        "ኢየዐርግ",
+        "ዲበ",
+        "ርእሱ"
+      ],
+      "alignment": [
+        {
+          "gg": "",
+          "cam": "ወብዐለት",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ብጽአተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትቤ",
+          "cam": "ወትቤ",
+          "class": "agree"
+        },
+        {
+          "gg": "በጽእኩ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ብዕዓተ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "አዶናይ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚእ",
+          "cam": "እግዚኦ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኤሎሄ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ጸባዖት",
+          "cam": "⟦illegible⟧",
+          "class": "lacuna-cam"
+        },
+        {
+          "gg": "ለእመ",
+          "cam": "ለእመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ነጽርነጸርክ",
+          "cam": "ርእየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ላዕለ",
+          "cam": "ትሬኢ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕማም",
+          "cam": "ሕማመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ለአመትከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወተዘከርከኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለገአመትክ",
+          "cam": "ወኢተረስዐኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወተዘክርክ",
+          "cam": "ለአመትከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወመሀብክ",
+          "cam": "ወወሀብኮ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለገአመትክ",
+          "cam": "ለአመትከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘርአ",
+          "cam": "ዘርአ",
+          "class": "agree"
+        },
+        {
+          "gg": "ብእሲ",
+          "cam": "ብእሲ",
+          "class": "agree"
+        },
+        {
+          "gg": "እህቦ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቅድሜከ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ህብተ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "አመ",
+          "cam": "ወእሁቦ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይመውት",
+          "cam": "ለእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወይኖ",
+          "cam": "ኵሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወማሕሱ",
+          "cam": "መዋዕለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢይስቲ",
+          "cam": "ሕይወቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሐዊን",
+          "cam": "ወንዱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢየዓርግ",
+          "cam": "ኢየዐርግ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዲበር",
+          "cam": "ዲበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እሱ",
+          "cam": "ርእሱ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v11 = she vowed a vow: O LORD of hosts, if thou wilt look on thine handmaid and give a man child I will give him to the LORD all his life, no razor on his head; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 12,
+      "gg_tokens": [
+        "ወእምዝ",
+        "ስበ",
+        "አብዝሐት",
+        "ጸሎየ",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወኢሊሰ",
+        "ካህን",
+        "ይትዓቀብ",
+        "አፉሃ"
+      ],
+      "cam_tokens": [
+        "ወእምዝ",
+        "ሶበ",
+        "አሕለቀት",
+        "ጸልዮ",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወኤሊ",
+        "ካህን",
+        "ይትዓቀብ",
+        "አፉሃ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእምዝ",
+          "cam": "ወእምዝ",
+          "class": "agree"
+        },
+        {
+          "gg": "ስበ",
+          "cam": "ሶበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አብዝሐት",
+          "cam": "አሕለቀት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ጸሎየ",
+          "cam": "ጸልዮ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "ቅድመ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ወኢሊሰ",
+          "cam": "ወኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ካህን",
+          "cam": "ካህን",
+          "class": "agree"
+        },
+        {
+          "gg": "ይትዓቀብ",
+          "cam": "ይትዓቀብ",
+          "class": "agree"
+        },
+        {
+          "gg": "አፉሃ",
+          "cam": "አፉሃ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v12 = as she continued praying before the LORD, Eli marked/watched her mouth; PASS. [orthographic tolerance: 2 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 13,
+      "gg_tokens": [
+        "ወይእቲኖ",
+        "ትነብብ",
+        "በልባ",
+        "ወተሐውስ",
+        "ክናፉሪሃ",
+        "ወኢይስምዓ",
+        "ቃሳ"
+      ],
+      "cam_tokens": [
+        "ወይእቲ",
+        "ትትናበብ",
+        "በልባ",
+        "ወተሐውስ",
+        "ከናፍሪ",
+        "ክመ",
+        "ወቃላ",
+        "ኢይሰምዕ",
+        "ወኀለያ",
+        "ኤሊ",
+        "ከመ",
+        "ስኩርት"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይእቲኖ",
+          "cam": "ወይእቲ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ትነብብ",
+          "cam": "ትትናበብ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በልባ",
+          "cam": "በልባ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወተሐውስ",
+          "cam": "ወተሐውስ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ከናፍሪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ክመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወቃላ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኢይሰምዕ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወኀለያ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ክናፉሪሃ",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወኢይስምዓ",
+          "cam": "ከመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቃሳ",
+          "cam": "ስኩርት",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v13 = Hannah spoke in her heart, only her lips moved, voice not heard; Eli thought her drunk; PASS (GG defers the 'Eli thought her drunken' clause to v14; content present across vv.13-14)."
+    },
+    {
+      "v": 14,
+      "gg_tokens": [
+        "ወአምሰለ",
+        "ኢሊ",
+        "ካህን",
+        "ከመ",
+        "እክርት",
+        "ይእቲ",
+        "ወይቤላ",
+        "ቅልዊሁ",
+        "ለኤሊ",
+        "እስክ",
+        "ማእዜኑ",
+        "ዝንቱ",
+        "ስክርኪ",
+        "አስስሲ",
+        "ወይኖኪ"
+      ],
+      "cam_tokens": [
+        "ወይቤላ",
+        "ኤሊ",
+        "እስከ",
+        "ማእዜኑ",
+        "ትሰክሪ",
+        "አስሪ",
+        "ወይነኪ",
+        "እምሳዕሬኪ",
+        "ወተሠወጢ",
+        "ሐና"
+      ],
+      "alignment": [
+        {
+          "gg": "ወአምሰለ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢሊ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ካህን",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እክርት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወይቤላ",
+          "cam": "ወይቤላ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቅልዊሁ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለኤሊ",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስክ",
+          "cam": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ማእዜኑ",
+          "cam": "ማእዜኑ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስክርኪ",
+          "cam": "ትሰክሪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አስስሲ",
+          "cam": "አስሪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወይኖኪ",
+          "cam": "ወይነኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እምሳዕሬኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወተሠወጢ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሐና",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v14 = Eli said: how long wilt thou be drunken? put away thy wine; PASS. [orthographic tolerance: 2 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 15,
+      "gg_tokens": [
+        "ወእምቅድመ",
+        "እግዚአብሔር",
+        "ዓኢ",
+        "ወተሰጥወት",
+        "ሐና",
+        "ወትቤሎ",
+        "አልቦ",
+        "እግዚእየ",
+        "ብእሲት",
+        "እኪት",
+        "መዋዕል",
+        "አነ",
+        "ወይነሰ",
+        "ወሜስ",
+        "ኢስተይኩ",
+        "ወእክዕዎ",
+        "ለነፍስየ",
+        "ቅድመ",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወአውሥአት",
+        "ሐና",
+        "ወትቤ",
+        "ኢ",
+        "እግዚእየ",
+        "ብእሲት",
+        "እንተ",
+        "ትክዝ",
+        "መዋዕል",
+        "አነ",
+        "ወይነ",
+        "ወመስተየ",
+        "ኢሰተይኩ",
+        "ወክዐውኩ",
+        "ነፍስየ",
+        "ቅድመ",
+        "እግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእምቅድመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዓኢ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወተሰጥወት",
+          "cam": "ወአውሥአት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐና",
+          "cam": "ሐና",
+          "class": "agree"
+        },
+        {
+          "gg": "ወትቤሎ",
+          "cam": "ወትቤ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አልቦ",
+          "cam": "ኢ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚእየ",
+          "cam": "እግዚእየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ብእሲት",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "እንተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እኪት",
+          "cam": "ትክዝ",
+          "class": "disagree"
+        },
+        {
+          "gg": "መዋዕል",
+          "cam": "መዋዕል",
+          "class": "agree"
+        },
+        {
+          "gg": "አነ",
+          "cam": "አነ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይነሰ",
+          "cam": "ወይነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሜስ",
+          "cam": "ወመስተየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢስተይኩ",
+          "cam": "ኢሰተይኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወእክዕዎ",
+          "cam": "ወክዐውኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለነፍስየ",
+          "cam": "ነፍስየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "ቅድመ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v15 = Hannah answered: no, my lord, a woman of a sorrowful spirit; I drank no wine/strong drink but poured out my soul before the LORD; PASS. [orthographic tolerance: 1 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 16,
+      "gg_tokens": [
+        "ወኢትሬስ",
+        "ይስዓመትክ",
+        "ከመ",
+        "አዋልድ",
+        "ርኩሳት",
+        "እስመ",
+        "እምብዝኅ",
+        "ኃዘንየ",
+        "ተመስውኩ",
+        "እስክ",
+        "ይእዜ"
+      ],
+      "cam_tokens": [
+        "ኢትረስያ",
+        "ለአመትከ",
+        "ከመ",
+        "ወለተ",
+        "ዐመፃ",
+        "እስመ",
+        "እምብዝኀ",
+        "ሐዘንየ",
+        "ወሕማምየ",
+        "ነበብኩ",
+        "እስከ",
+        "ይእዜ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወኢትሬስ",
+          "cam": "ኢትረስያ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይስዓመትክ",
+          "cam": "ለአመትከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "አዋልድ",
+          "cam": "ወለተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ርኩሳት",
+          "cam": "ዐመፃ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "እምብዝኅ",
+          "cam": "እምብዝኀ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኃዘንየ",
+          "cam": "ሐዘንየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወሕማምየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ተመስውኩ",
+          "cam": "ነበብኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስክ",
+          "cam": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይእዜ",
+          "cam": "ይእዜ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v16 = count not thine handmaid a daughter of Belial; out of abundance of my grief/complaint I have spoken; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 17,
+      "gg_tokens": [
+        "ወተሰጥዋ",
+        "ኢሊ",
+        "ወይቤዓ",
+        "ሐሪ",
+        "በሰላም",
+        "ወአምላክ",
+        "እስራኤል",
+        "የህቦ",
+        "ምስሌኪ",
+        "ወየህብኪ",
+        "ስእለትልብኪ",
+        "ኦሎ",
+        "ዘሰአልኪ",
+        "ናቢሁ"
+      ],
+      "cam_tokens": [
+        "ወአውሥአ",
+        "ኤሊ",
+        "ወይቤላ",
+        "ሑሪ",
+        "በሰላም",
+        "ወአምላከ",
+        "እስራኤል",
+        "የሀብኪ",
+        "ኵሎ",
+        "ስእለተኪ",
+        "ዘሰአልኪ",
+        "እምኀቤሁ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወተሰጥዋ",
+          "cam": "ወአውሥአ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢሊ",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወይቤዓ",
+          "cam": "ወይቤላ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐሪ",
+          "cam": "ሑሪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በሰላም",
+          "cam": "በሰላም",
+          "class": "agree"
+        },
+        {
+          "gg": "ወአምላክ",
+          "cam": "ወአምላከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስራኤል",
+          "cam": "እስራኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "የህቦ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምስሌኪ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወየህብኪ",
+          "cam": "የሀብኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስእለትልብኪ",
+          "cam": "ኵሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኦሎ",
+          "cam": "ስእለተኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘሰአልኪ",
+          "cam": "ዘሰአልኪ",
+          "class": "agree"
+        },
+        {
+          "gg": "ናቢሁ",
+          "cam": "እምኀቤሁ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v17 = Eli answered: go in peace; the God of Israel grant thy petition that thou hast asked of him; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 18,
+      "gg_tokens": [
+        "ወትቤ",
+        "ሐና",
+        "ረክበት",
+        "ምግሰ",
+        "ዓመትክ",
+        "በቅድሜክ",
+        "እግዚአ",
+        "ወሐረት",
+        "ይእቲ",
+        "ብእሲት",
+        "ፍኖታ",
+        "ወበእት",
+        "ቤታ",
+        "ወበልዓት",
+        "ምስለ",
+        "ምታ",
+        "ወስትየት",
+        "ወኢያውደቀት",
+        "ገጻ",
+        "እንከ"
+      ],
+      "cam_tokens": [
+        "ወትቤ",
+        "⟦illegible⟧",
+        "ለአመትከ",
+        "ይርከብ",
+        "ሞገሰ",
+        "በቅድሜከ",
+        "ወሐረት",
+        "ይእቲ",
+        "ብእሲት",
+        "ፍኖታ",
+        "ወበልዐት",
+        "ወገጻ",
+        "ኢኮነ",
+        "ከመ",
+        "ቀዲሙ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወትቤ",
+          "cam": "ወትቤ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "⟦illegible⟧",
+          "class": "lacuna-cam"
+        },
+        {
+          "gg": "ሐና",
+          "cam": "ለአመትከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ረክበት",
+          "cam": "ይርከብ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምግሰ",
+          "cam": "ሞገሰ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዓመትክ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በቅድሜክ",
+          "cam": "በቅድሜከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሐረት",
+          "cam": "ወሐረት",
+          "class": "agree"
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "ይእቲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ብእሲት",
+          "class": "agree"
+        },
+        {
+          "gg": "ፍኖታ",
+          "cam": "ፍኖታ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወበእት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቤታ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወበልዓት",
+          "cam": "ወበልዐት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምስለ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምታ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወስትየት",
+          "cam": "ወገጻ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወኢያውደቀት",
+          "cam": "ኢኮነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ገጻ",
+          "cam": "ከመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እንከ",
+          "cam": "ቀዲሙ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v18 = she said let thine handmaid find grace; she went her way, ate, and her countenance was no more sad; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 19,
+      "gg_tokens": [
+        "ወተገሥሉኡ",
+        "በጽባሕ",
+        "ወሰገዱ",
+        "ለእግዚአብሔር",
+        "ወሐሩ",
+        "ውስት",
+        "ቤትሙ",
+        "ወበጽሑ",
+        "አርማቴም",
+        "ወአእመራ",
+        "ሕልቃና",
+        "ለሐና",
+        "ብእሲቱ",
+        "ወተዘክራ",
+        "እግዚአብሔር",
+        "ወፀንሰት"
+      ],
+      "cam_tokens": [
+        "ወገይሡ",
+        "ጽባሐ",
+        "ወሰገዱ",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወገብኡ",
+        "ወቦኡ",
+        "ውስተ",
+        "ቤቶም",
+        "አርማቴም",
+        "ወአእመረ",
+        "ሕልቃና",
+        "ሐናሃ",
+        "ብእሲቶ",
+        "ወተዘከራ",
+        "እግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወተገሥሉኡ",
+          "cam": "ወገይሡ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በጽባሕ",
+          "cam": "ጽባሐ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሰገዱ",
+          "cam": "ወሰገዱ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ቅድመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ወገብኡ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሐሩ",
+          "cam": "ወቦኡ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውስት",
+          "cam": "ውስተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቤትሙ",
+          "cam": "ቤቶም",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወበጽሑ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "አርማቴም",
+          "cam": "አርማቴም",
+          "class": "agree"
+        },
+        {
+          "gg": "ወአእመራ",
+          "cam": "ወአእመረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕልቃና",
+          "cam": "ሕልቃና",
+          "class": "agree"
+        },
+        {
+          "gg": "ለሐና",
+          "cam": "ሐናሃ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ብእሲቱ",
+          "cam": "ብእሲቶ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወተዘክራ",
+          "cam": "ወተዘከራ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ወፀንሰት",
+          "cam": "",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v19 = they rose early, worshipped, returned home to Ramathaim; Elkanah knew Hannah and the LORD remembered her; PASS. [orthographic tolerance: 5 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 20,
+      "gg_tokens": [
+        "ወእምዝ",
+        "ሰመ",
+        "በጽሑ",
+        "መዋዕሊሁ",
+        "ሰመሊደት",
+        "ወለደት",
+        "ወልደ",
+        "ወሰመየት",
+        "ስሞ",
+        "ሳመኤል",
+        "እስመ",
+        "እምኀበ",
+        "እግዚአብሔር",
+        "ጸባኦት",
+        "ወትቤ",
+        "እስመ",
+        "ስእልክዎ"
+      ],
+      "cam_tokens": [
+        "ወእምዝ",
+        "ጸንሰት",
+        "ወወለደት",
+        "ወልደ",
+        "ወሰመየቶ",
+        "ስሞ",
+        "ሳሙኤል",
+        "እስመ",
+        "እምኀበ",
+        "እግዚአብሔር",
+        "ሰአልክዎ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእምዝ",
+          "cam": "ወእምዝ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሰመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በጽሑ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "መዋዕሊሁ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሰመሊደት",
+          "cam": "ጸንሰት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወለደት",
+          "cam": "ወወለደት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልደ",
+          "cam": "ወልደ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሰመየት",
+          "cam": "ወሰመየቶ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስሞ",
+          "cam": "ስሞ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳመኤል",
+          "cam": "ሳሙኤል",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "እምኀበ",
+          "cam": "እምኀበ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ጸባኦት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትቤ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስእልክዎ",
+          "cam": "ሰአልክዎ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v20 = in due time Hannah conceived/bore a son and called his name Samuel, for she asked him of the LORD; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 21,
+      "gg_tokens": [
+        "ወዓርገ",
+        "ብእሲ",
+        "ሕልቃና",
+        "ወኩሎ",
+        "ቤቱ",
+        "ከመ",
+        "ይሡዕ",
+        "በሲሎም",
+        "መሥዋዕተ",
+        "መዋዕሉ",
+        "ወብዕዓተሁ",
+        "ወኩሎ",
+        "⟦illegible⟧",
+        "⟦illegible⟧"
+      ],
+      "cam_tokens": [
+        "ወዐርገ",
+        "ብእሲ",
+        "ሕልቃና",
+        "ወኵሉ",
+        "ቤቱ",
+        "ከመ",
+        "ይሡዕ",
+        "ለእግዚአብሔር",
+        "መሥዋዕተ",
+        "በበ",
+        "ዓመት",
+        "ወብጽአቶ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዓርገ",
+          "cam": "ወዐርገ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ብእሲ",
+          "cam": "ብእሲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሕልቃና",
+          "cam": "ሕልቃና",
+          "class": "agree"
+        },
+        {
+          "gg": "ወኩሎ",
+          "cam": "ወኵሉ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቤቱ",
+          "cam": "ቤቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይሡዕ",
+          "cam": "ይሡዕ",
+          "class": "agree"
+        },
+        {
+          "gg": "በሲሎም",
+          "cam": "ለእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "መሥዋዕተ",
+          "cam": "መሥዋዕተ",
+          "class": "agree"
+        },
+        {
+          "gg": "መዋዕሉ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወብዕዓተሁ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወኩሎ",
+          "cam": "በበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ዓመት",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ወብጽአቶ",
+          "class": "lacuna-gg"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v21 = the man Elkanah and all his house went up to sacrifice to the LORD the yearly sacrifice and his vow; PASS (GG line-ends water-lost but head matches). [orthographic tolerance: 1 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 22,
+      "gg_tokens": [
+        "ወሐናሰ",
+        "ኢዓርገት",
+        "ምስሌሁ",
+        "እስመ",
+        "ትቤሎ",
+        "ሰምታ",
+        "እንሰ",
+        "ኢየዓርግ",
+        "እስከ",
+        "እመ",
+        "የዓርግ",
+        "ሕፃን",
+        "⟦illegible⟧",
+        "እስከ",
+        "አመ",
+        "ተዓድዊ",
+        "ዓጥበ",
+        "⟦illegible⟧"
+      ],
+      "cam_tokens": [
+        "ወሐናሰ",
+        "ኢዐርገት",
+        "ወትቤ",
+        "ለምታ",
+        "እምዝ",
+        "ይትፈጥም",
+        "ሕጻን",
+        "ወአስዕዕ",
+        "⟦illegible⟧",
+        "ወያንብር",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወይነብር",
+        "ህየ",
+        "እስከ",
+        "ለዓለም"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሐናሰ",
+          "cam": "ወሐናሰ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኢዓርገት",
+          "cam": "ኢዐርገት",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምስሌሁ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ትቤሎ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሰምታ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እንሰ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢየዓርግ",
+          "cam": "ወትቤ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "ለምታ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እመ",
+          "cam": "እምዝ",
+          "class": "disagree"
+        },
+        {
+          "gg": "የዓርግ",
+          "cam": "ይትፈጥም",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕፃን",
+          "cam": "ሕጻን",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወአስዕዕ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "⟦illegible⟧",
+          "class": "lacuna-cam"
+        },
+        {
+          "gg": "",
+          "cam": "ወያንብር",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ቅድመ",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "አመ",
+          "cam": "ወይነብር",
+          "class": "disagree"
+        },
+        {
+          "gg": "ተዓድዊ",
+          "cam": "ህየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዓጥበ",
+          "cam": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ለዓለም",
+          "class": "lacuna-gg"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v22 = Hannah went not up; she said to her husband: not till the child be weaned, then I will bring him to abide before the LORD for ever; PASS. [orthographic tolerance: 2 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 23,
+      "gg_tokens": [
+        "ወትቤ",
+        "⟦illegible⟧",
+        "ለእግዚአብሔር",
+        "ዘወእምአዳክ",
+        "ወነበረት",
+        "ይእቲ",
+        "ብእሲት",
+        "ወሐፀነት",
+        "ወልዳ",
+        "እስክ",
+        "እመ",
+        "⟦illegible⟧"
+      ],
+      "cam_tokens": [
+        "ወይቤላ",
+        "ሕልቃና",
+        "ምታ",
+        "ግበሪ",
+        "ዘሠናየ",
+        "በቅድሜኪ",
+        "ንበሪ",
+        "እስከ",
+        "ትፈጥምዮ",
+        "ባሕቱ",
+        "ያቅም",
+        "እግዚአብሔር",
+        "ቃሎ",
+        "ወነበረት",
+        "ብእሲት",
+        "ወሐፀነቶ",
+        "ለወልዳ",
+        "እስከ",
+        "ፈጠመቶ"
+      ],
+      "alignment": [
+        {
+          "gg": "",
+          "cam": "ወይቤላ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሕልቃና",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ምታ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ግበሪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ዘሠናየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "በቅድሜኪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ንበሪ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ትፈጥምዮ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትቤ",
+          "cam": "ባሕቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ያቅም",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘወእምአዳክ",
+          "cam": "ቃሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወነበረት",
+          "cam": "ወነበረት",
+          "class": "agree"
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ብእሲት",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሐፀነት",
+          "cam": "ወሐፀነቶ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልዳ",
+          "cam": "ለወልዳ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስክ",
+          "cam": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ፈጠመቶ",
+          "class": "lacuna-gg"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v23 = Elkanah said: do what is good in thy sight, tarry till thou wean him; she stayed and nursed her son till weaned; PASS (GG: surviving left text + lacunae; CAM fuller). [orthographic tolerance: 2 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 24,
+      "gg_tokens": [
+        "ወአዕረገት",
+        "ምስሌሃ",
+        "እስቱ",
+        "ኤሎም",
+        "ወነሥአት",
+        "ሳህመ",
+        "⟦illegible⟧",
+        "ዓመቱ",
+        "ወሳብስት",
+        "ወመሥፈርቲ",
+        "⟦illegible⟧",
+        "እንዳዌ",
+        "ወመሥፈርቲን",
+        "ባል",
+        "⟦illegible⟧",
+        "ይኖ",
+        "ወበእት",
+        "ቤተ",
+        "እግዚአብሔር",
+        "⟦illegible⟧",
+        "ስት",
+        "ሲሎም",
+        "ወወልደመ",
+        "ኑ",
+        "ምስሎመ"
+      ],
+      "cam_tokens": [
+        "ወአዕረገቶ",
+        "ምስሌሃ",
+        "እምከመ",
+        "አምዐነ",
+        "⟦illegible⟧",
+        "ወአእተወቶ",
+        "ቤተ",
+        "እግዚአብሔር",
+        "በሴሎ",
+        "ወሐናሰ",
+        "ንዕሰ",
+        "ወእቱ",
+        "ወመጠወቶ",
+        "እሉ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወአዕረገት",
+          "cam": "ወአዕረገቶ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምስሌሃ",
+          "cam": "ምስሌሃ",
+          "class": "agree"
+        },
+        {
+          "gg": "እስቱ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኤሎም",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወነሥአት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሳህመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ዓመቱ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሳብስት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወመሥፈርቲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "እንዳዌ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወመሥፈርቲን",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ባል",
+          "cam": "እምከመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "አምዐነ",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ይኖ",
+          "cam": "⟦illegible⟧",
+          "class": "lacuna-cam"
+        },
+        {
+          "gg": "ወበእት",
+          "cam": "ወአእተወቶ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቤተ",
+          "cam": "ቤተ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "በሴሎ",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ስት",
+          "cam": "ወሐናሰ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሲሎም",
+          "cam": "ንዕሰ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወወልደመ",
+          "cam": "ወእቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኑ",
+          "cam": "ወመጠወቶ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምስሎመ",
+          "cam": "እሉ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v24 = when weaned she brought him up with a bull / ephah of flour / skin of wine to the house of the LORD in Shiloh; child young; PASS (heavy GG col-3 lacunae but bull/measure/Shiloh/house tokens survive). [orthographic tolerance: 1 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 25,
+      "gg_tokens": [
+        "ወብእ",
+        "⟦illegible⟧",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወጠብሑ",
+        "እቡሁ",
+        "መሰዋዕ",
+        "⟦illegible⟧",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ዘይግብር",
+        "⟦illegible⟧",
+        "ለመዋዕል",
+        "ለእግዚአብሔር",
+        "ወእጽኡ",
+        "ለወልዱ"
+      ],
+      "cam_tokens": [
+        "ወጠብሑ",
+        "ላሕመ",
+        "⟦illegible⟧",
+        "ወአምጽእዎ",
+        "ለሕጻን",
+        "ኀበ",
+        "ኤሊ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወብእ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወጠብሑ",
+          "cam": "ወጠብሑ",
+          "class": "agree"
+        },
+        {
+          "gg": "እቡሁ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "መሰዋዕ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘይግብር",
+          "cam": "ላሕመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "⟦illegible⟧",
+          "class": "lacuna-both"
+        },
+        {
+          "gg": "ለመዋዕል",
+          "cam": "ወአምጽእዎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ለሕጻን",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወእጽኡ",
+          "cam": "ኀበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለወልዱ",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v25 = they slew the bull/sacrifice and brought the child to Eli before the LORD; PASS."
+    },
+    {
+      "v": 26,
+      "gg_tokens": [
+        "ወሥዓ",
+        "ሳይመ",
+        "ወእእቱ",
+        "ሐና",
+        "እመ",
+        "ለወልዳ",
+        "ኀበ",
+        "ኤሊ",
+        "ወትቤሎ",
+        "ስምዓኒ",
+        "እግዚእ",
+        "ሐይወት",
+        "⟦illegible⟧",
+        "ነፍስክ",
+        "ከመ",
+        "አነ",
+        "ይእቲ",
+        "እንታክቲ",
+        "ብእሲት",
+        "እንቲ",
+        "ቆምኩ",
+        "ቅድሜክ"
+      ],
+      "cam_tokens": [
+        "ወትቤ",
+        "ቦ",
+        "እግዚእየ",
+        "ሕያው",
+        "ነፍስከ",
+        "እግዚእየ",
+        "አነ",
+        "ይእቲ",
+        "ብእሲት",
+        "እንተ",
+        "ቆምኩ",
+        "ቅድሜከ",
+        "ዝየ",
+        "ወጸለይኩ",
+        "ኀበ",
+        "እግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሥዓ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሳይመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወእእቱ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐና",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለወልዳ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኀበ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወትቤሎ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስምዓኒ",
+          "cam": "ወትቤ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚእ",
+          "cam": "ቦ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐይወት",
+          "cam": "እግዚእየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ሕያው",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ነፍስክ",
+          "cam": "ነፍስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "እግዚእየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አነ",
+          "cam": "አነ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይእቲ",
+          "cam": "ይእቲ",
+          "class": "agree"
+        },
+        {
+          "gg": "እንታክቲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ብእሲት",
+          "cam": "ብእሲት",
+          "class": "agree"
+        },
+        {
+          "gg": "እንቲ",
+          "cam": "እንተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቆምኩ",
+          "cam": "ቆምኩ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቅድሜክ",
+          "cam": "ቅድሜከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ዝየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወጸለይኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኀበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እግዚአብሔር",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v26 = she said: O my lord, as thy soul liveth, I am the woman that stood by thee here praying to the LORD; PASS. [orthographic tolerance: 3 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 27,
+      "gg_tokens": [
+        "ወበኀ",
+        "በቢኩ",
+        "ለእግዚአብሔር",
+        "በእ",
+        "⟦illegible⟧",
+        "ዝንቱ",
+        "ሕፃን",
+        "ወጸለይኩ"
+      ],
+      "cam_tokens": [
+        "በእንተ",
+        "ዝንቱ",
+        "ሕጻን",
+        "ጸለይኩ",
+        "ወወሀበኒ",
+        "እግዚአብሔር",
+        "ስእለትየ",
+        "ዘሰአልኩ",
+        "እምኀቤሁ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወበኀ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በቢኩ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በእ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "በእንተ",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ዝንቱ",
+          "cam": "ዝንቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሕፃን",
+          "cam": "ሕጻን",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ጸለይኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወወሀበኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ስእለትየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ዘሰአልኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወጸለይኩ",
+          "cam": "እምኀቤሁ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v27 = for this child I prayed and the LORD gave me my petition which I asked of him; PASS. [orthographic tolerance: 1 pair(s) strict-disagree but skeleton-agree this verse — diacritic/near-homograph only]"
+    },
+    {
+      "v": 28,
+      "gg_tokens": [
+        "ወወሀበ",
+        "እግዚአብሔር",
+        "ለስእትየ",
+        "ዘሰአልኩ",
+        "በቢሁ",
+        "ወአነኒ",
+        "ወሀብክም",
+        "ለእግዚአብሔር",
+        "ቡሎ",
+        "መዋዕሰ",
+        "ሕየወ",
+        "⟦illegible⟧",
+        "ይትቀነይ",
+        "ለእግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወአነኒ",
+        "አውሰብክዎ",
+        "ለእግዚአብሔር",
+        "ኵሎ",
+        "መዋዕለ",
+        "ሕይወቱ",
+        "ለይኩን",
+        "ውሁበ",
+        "ለእግዚአብሔር",
+        "ወሰገደ",
+        "ህየ",
+        "ለእግዚአብሔር",
+        "ምስለ",
+        "ኤሊ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወወሀበ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለስእትየ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘሰአልኩ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በቢሁ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወአነኒ",
+          "cam": "ወአነኒ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሀብክም",
+          "cam": "አውሰብክዎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ኵሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "መዋዕለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሕይወቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቡሎ",
+          "cam": "ለይኩን",
+          "class": "disagree"
+        },
+        {
+          "gg": "መዋዕሰ",
+          "cam": "ውሁበ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሕየወ",
+          "cam": "ለእግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "ወሰገደ",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ይትቀነይ",
+          "cam": "ህየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ምስለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "v28 = therefore I have lent/given him to the LORD all his life; and he worshipped the LORD there; PASS."
+    }
+  ],
+  "metrics": {
+    "ww_agreement_pct": 24.79,
+    "ww_agreement_basis": "119/480",
+    "ww_agreement_skeleton_pct": 52.76,
+    "ww_agreement_skeleton_basis": "172/326",
+    "ww_agreement_bothconfident_pct": 62.21,
+    "ww_agreement_bothconfident_basis": "107/172",
+    "semantic_pass_pct": 100.0,
+    "semantic_pass_basis": "28/28",
+    "uncertainty_pct": 21.95,
+    "uncertainty_basis": "97/442 (base=GG)",
+    "lacuna_counts": {
+      "gg": 15,
+      "cam": 5,
+      "both": 1
+    },
+    "asymmetry_note": "Image-resolution asymmetry is severe: GG-00106 ≈ 5 MP full-page scans vs Cambridge Add. 1570 ≈ 0.6 MP crop (~0.5-0.6 MP effective for this chapter). The STRICT number is confounded — it largely measures CAM's vowel-order diacritic illegibility (image quality), not scribal variance. The SKELETON and BOTH-CONFIDENT figures are the honest reads: skeleton isolates true word-choice variance by collapsing the 7 vowel orders + folding near-homographs (ሰ/ሠ, ሐ/ኀ/ሀ, አ/ዐ, ጸ/ፀ, ጠ/ጰ); both-confident further restricts to tokens neither scribe flagged. GG's lacunae are damage-clustered (col-3 stain, vv.21-28); CAM's uncertainty is pervasive and resolution-driven.",
+    "segmentation_notes": [
+      "v2: GG 15 tok vs CAM 16 tok (Δ+1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v3: GG 22 tok vs CAM 23 tok (Δ+1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v4: GG 10 tok vs CAM 11 tok (Δ+1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v5: GG 15 tok vs CAM 14 tok (Δ-1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v6: GG 14 tok vs CAM 13 tok (Δ-1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v7: GG 13 tok vs CAM 12 tok (Δ-1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v8: GG 22 tok vs CAM 20 tok (Δ-2) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v9: GG 17 tok vs CAM 16 tok (Δ-1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v10: GG 6 tok vs CAM 8 tok (Δ+2) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v11: GG 31 tok vs CAM 26 tok (Δ-5) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v13: GG 7 tok vs CAM 12 tok (Δ+5) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v14: GG 15 tok vs CAM 10 tok (Δ-5) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v15: GG 19 tok vs CAM 17 tok (Δ-2) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v16: GG 11 tok vs CAM 12 tok (Δ+1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v17: GG 14 tok vs CAM 12 tok (Δ-2) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v18: GG 20 tok vs CAM 15 tok (Δ-5) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v20: GG 17 tok vs CAM 11 tok (Δ-6) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v21: GG 14 tok vs CAM 12 tok (Δ-2) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v22: GG 18 tok vs CAM 16 tok (Δ-2) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v23: GG 12 tok vs CAM 19 tok (Δ+7) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v24: GG 25 tok vs CAM 14 tok (Δ-11) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v25: GG 16 tok vs CAM 7 tok (Δ-9) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v26: GG 22 tok vs CAM 16 tok (Δ-6) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants.",
+      "v27: GG 8 tok vs CAM 9 tok (Δ+1) — narrative content is the SAME verse; the count gap is orthographic verbosity / enclitic splitting / CAM diacritic loss & damage. Aligned by global Needleman-Wunsch on the consonant skeleton; unmatched surplus tokens are segmentation divergence (charged to strict only), not deep scribal variants."
+    ]
+  }
+}

@@ -1,0 +1,1220 @@
+{
+  "witness": "GG",
+  "book": "1sa",
+  "chapter": 1,
+  "source_images": [
+    "GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f003r.jpg"
+  ],
+  "folio_sigla": [
+    "f003r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": 1,
+      "line_start": 1,
+      "geez": "ወሀሎ ፩ብእሲ ዘእምነ አርማቴም ዘመንሱፉ እምደብረ ኤፍሬም ወስሙ ሕልቃና ወልደ ኢያሬምያሌ ወልደ ኤሊ ወልደ ቴቁ ወልደ ኑፊብ አፍራቱዊ ✣",
+      "tokens": [
+        "ወሀሎ",
+        "፩",
+        "ብእሲ",
+        "ዘእምነ",
+        "አርማቴም",
+        "ዘመንሱፉ",
+        "እምደብረ",
+        "ኤፍሬም",
+        "ወስሙ",
+        "ሕልቃና",
+        "ወልደ",
+        "ኢያሬምያሌ",
+        "ወልደ",
+        "ኤሊ",
+        "ወልደ",
+        "ቴቁ",
+        "ወልደ",
+        "ኑፊብ",
+        "አፍራቱዊ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "ዘመንሱፉ - patronymic/place 'Zophim'; final fidel order ambiguous"
+        },
+        {
+          "token_index": 11,
+          "marker": "uncertain",
+          "note": "ኢያሬምያሌ - name, several vowel marks faint"
+        },
+        {
+          "token_index": 17,
+          "marker": "uncertain",
+          "note": "ኑፊብ - name 'Zuph/Nahbi'; letterforms ambiguous"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": 1,
+      "line_start": 8,
+      "geez": "ወቦ ክልኤቲ አንስት ስሙ ለአሐቲ ሐና ወስሙ ለካልእቲ ፍናና ወባቲ ለፍናና ደቂቅ ወለሐናሰ አልባቲ ውሉድ ✣",
+      "tokens": [
+        "ወቦ",
+        "ክልኤቲ",
+        "አንስት",
+        "ስሙ",
+        "ለአሐቲ",
+        "ሐና",
+        "ወስሙ",
+        "ለካልእቲ",
+        "ፍናና",
+        "ወባቲ",
+        "ለፍናና",
+        "ደቂቅ",
+        "ወለሐናሰ",
+        "አልባቲ",
+        "ውሉድ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 3,
+      "column": 1,
+      "line_start": 11,
+      "geez": "ወየዓርግ ውእቱ ብእሲ ለሰመዋዕል እምነ ሀገሩ አርማቴም ከመ ይስግድ ወይሡዕ ለእግዚአብሔር በሲሎም ✣ ወሀለው ህየ ኢሊ ወ፪ደቂቁ አፍኒን ወፊንሐስ ካህናቲሁ ለእግዚአብሔር ✣",
+      "tokens": [
+        "ወየዓርግ",
+        "ውእቱ",
+        "ብእሲ",
+        "ለሰመዋዕል",
+        "እምነ",
+        "ሀገሩ",
+        "አርማቴም",
+        "ከመ",
+        "ይስግድ",
+        "ወይሡዕ",
+        "ለእግዚአብሔር",
+        "በሲሎም",
+        "ወሀለው",
+        "ህየ",
+        "ኢሊ",
+        "ወ",
+        "፪",
+        "ደቂቁ",
+        "አፍኒን",
+        "ወፊንሐስ",
+        "ካህናቲሁ",
+        "ለእግዚአብሔር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "ለሰመዋዕል - 'yearly/in due season'; spelling uncertain"
+        },
+        {
+          "token_index": 18,
+          "marker": "uncertain",
+          "note": "አፍኒን - 'Hophni'; nasal fidel faint"
+        }
+      ]
+    },
+    {
+      "v": 4,
+      "column": 1,
+      "line_start": 14,
+      "geez": "ወእምዝ በእዓቲ ዕለት ሠዋ ሕልቃና ወመሀበመ ክፍሎመ ለፍናና ብእሲቱ ወለደቂቃ ✣",
+      "tokens": [
+        "ወእምዝ",
+        "በእዓቲ",
+        "ዕለት",
+        "ሠዋ",
+        "ሕልቃና",
+        "ወመሀበመ",
+        "ክፍሎመ",
+        "ለፍናና",
+        "ብእሲቱ",
+        "ወለደቂቃ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "በእዓቲ - 'on the day'; reading of 2nd fidel uncertain"
+        },
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "ወመሀበመ - 'and he gave'; final letter ambiguous"
+        }
+      ]
+    },
+    {
+      "v": 5,
+      "column": 1,
+      "line_start": 16,
+      "geez": "ወልሐናሂ ወሀበ ፩ክፍለስ እስመ አልባቲ ውሉድ ወባሕቱ ለሐናሃ ያፈቅር ሕልቃና አምእንታክቲ ወዓጸው እግዚአብሔር ማህፀና ✣",
+      "tokens": [
+        "ወልሐናሂ",
+        "ወሀበ",
+        "፩",
+        "ክፍለስ",
+        "እስመ",
+        "አልባቲ",
+        "ውሉድ",
+        "ወባሕቱ",
+        "ለሐናሃ",
+        "ያፈቅር",
+        "ሕልቃና",
+        "አምእንታክቲ",
+        "ወዓጸው",
+        "እግዚአብሔር",
+        "ማህፀና"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "ክፍለስ - 'portion' with enclitic -ሰ joined, reading plausible (numeral ፩ 'one' now split off as its own preceding token)"
+        },
+        {
+          "token_index": 11,
+          "marker": "uncertain",
+          "note": "አምእንታክቲ - 'though/because of her'; ligature ambiguous"
+        }
+      ]
+    },
+    {
+      "v": 6,
+      "column": 1,
+      "line_start": 18,
+      "geez": "ወኢወሀበ ውሉድ በከመ ስቃደ ወበከመ ትካዘ ወሐዘና ወትዓዝን በበይነ ዝንቱ እስመ ዓጸው እግዚአብሔር ማህፀና ✣",
+      "tokens": [
+        "ወኢወሀበ",
+        "ውሉድ",
+        "በከመ",
+        "ስቃደ",
+        "ወበከመ",
+        "ትካዘ",
+        "ወሐዘና",
+        "ወትዓዝን",
+        "በበይነ",
+        "ዝንቱ",
+        "እስመ",
+        "ዓጸው",
+        "እግዚአብሔር",
+        "ማህፀና"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "ስቃደ - reading uncertain; 'provoke/vex' sense"
+        },
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "ትካዘ - reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": 1,
+      "line_start": 21,
+      "geez": "ወኢወሀቦ ውሉዶ በከመ ይንግር ሰላዓመት የዓርግ ውስት ቤተ እግዚአብሔር ወይእቲ ሱትቲክዝ ወትበኪ ወኢትበልዕ ✣",
+      "tokens": [
+        "ወኢወሀቦ",
+        "ውሉዶ",
+        "በከመ",
+        "ይንግር",
+        "ሰላዓመት",
+        "የዓርግ",
+        "ውስት",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወይእቲ",
+        "ሱትቲክዝ",
+        "ወትበኪ",
+        "ወኢትበልዕ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "ሰላዓመት - 'year by year'; spelling uncertain"
+        },
+        {
+          "token_index": 10,
+          "marker": "uncertain",
+          "note": "ሱትቲክዝ - col.1, undamaged clean parchment; every fidel is darkly inked and individually legible (read approx ሱ-ት/ጰ-ቲ-ክ-ዝ). The word is fully present but lexically opaque (idiosyncratic spelling not resolving to a clear lexeme, sense ~ 'thus / so it was'); ambiguity is orthographic, NOT physical damage, so 'uncertain' not 'illegible'."
+        }
+      ]
+    },
+    {
+      "v": 8,
+      "column": 1,
+      "line_start": 24,
+      "geez": "ወይቤላ ሕልቃና ምታ ሐና ወትቤን የኣን እግዚእየ ✣ ወይቤላ ምንተ ኮነኪ ወምንቲ የብከየኪ ወለምንት ኢትበልዒ ወለምንት ትቀሥፊ ልብኪ ✣ ኢአኄይስክኑ እን እም ዓሠርቱ ውሉድ",
+      "tokens": [
+        "ወይቤላ",
+        "ሕልቃና",
+        "ምታ",
+        "ሐና",
+        "ወትቤን",
+        "የኣን",
+        "እግዚእየ",
+        "ወይቤላ",
+        "ምንተ",
+        "ኮነኪ",
+        "ወምንቲ",
+        "የብከየኪ",
+        "ወለምንት",
+        "ኢትበልዒ",
+        "ወለምንት",
+        "ትቀሥፊ",
+        "ልብኪ",
+        "ኢአኄይስክኑ",
+        "እን",
+        "እም",
+        "ዓሠርቱ",
+        "ውሉድ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "ወትቤን - 'and she said'; final fidel faint"
+        },
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "የኣን - reading uncertain (interjection?)"
+        },
+        {
+          "token_index": 17,
+          "marker": "uncertain",
+          "note": "ኢአኄይስክኑ - 'am I not better?'; long ligated form, plausible"
+        }
+      ]
+    },
+    {
+      "v": 9,
+      "column": 1,
+      "line_start": 26,
+      "geez": "ወተዓሠአት ሐና እምድኅራ በልዑ በሲሎም ወቆመት ቅዱመ እግዚአብሔር ✣ ወኢሊ ካህን ይነብር ዲበመጸበር ዕበ መድረክ ናይት ዘቤተ እግዚአብሔር ✣",
+      "tokens": [
+        "ወተዓሠአት",
+        "ሐና",
+        "እምድኅራ",
+        "በልዑ",
+        "በሲሎም",
+        "ወቆመት",
+        "ቅዱመ",
+        "እግዚአብሔር",
+        "ወኢሊ",
+        "ካህን",
+        "ይነብር",
+        "ዲበመጸበር",
+        "ዕበ",
+        "መድረክ",
+        "ናይት",
+        "ዘቤተ",
+        "እግዚአብሔር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወተዓሠአት - 'and Hannah rose up'; verb stem uncertain"
+        },
+        {
+          "token_index": 11,
+          "marker": "uncertain",
+          "note": "ዲበመጸበር - 'upon the seat/post'; reading uncertain"
+        },
+        {
+          "token_index": 12,
+          "marker": "uncertain",
+          "note": "ዕበ - small word, faint"
+        },
+        {
+          "token_index": 14,
+          "marker": "uncertain",
+          "note": "ናይት - reading uncertain (doorpost?)"
+        }
+      ]
+    },
+    {
+      "v": 10,
+      "column": 1,
+      "line_start": 37,
+      "geez": "ይኄቲሱ በኀዘን ነፍስ በከየት ወጸለየትና እግዚአብሔር ✣",
+      "tokens": [
+        "ይኄቲሱ",
+        "በኀዘን",
+        "ነፍስ",
+        "በከየት",
+        "ወጸለየትና",
+        "እግዚአብሔር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይኄቲሱ - 'she was in bitterness of soul'; stem uncertain"
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "ወጸለየትና - 'and she prayed and wept'; conflated form"
+        }
+      ]
+    },
+    {
+      "v": 11,
+      "column": 1,
+      "line_start": 39,
+      "geez": "ወትቤ በጽእኩ ብዕዓተ ለእግዚአብሔር አዶናይ እግዚእ ኤሎሄ ጸባዖት ✣ ለእመ ነጽርነጸርክ ላዕለ ሕማም ለገአመትክ ወተዘክርክ ወመሀብክ ለገአመትክ ዘርአ ብእሲ እህቦ ቅድሜከ ህብተ እስከ አመ ይመውት ወይኖ ወማሕሱ ኢይስቲ ወሐዊን ኢየዓርግ ዲበር እሱ ✣",
+      "tokens": [
+        "ወትቤ",
+        "በጽእኩ",
+        "ብዕዓተ",
+        "ለእግዚአብሔር",
+        "አዶናይ",
+        "እግዚእ",
+        "ኤሎሄ",
+        "ጸባዖት",
+        "ለእመ",
+        "ነጽርነጸርክ",
+        "ላዕለ",
+        "ሕማም",
+        "ለገአመትክ",
+        "ወተዘክርክ",
+        "ወመሀብክ",
+        "ለገአመትክ",
+        "ዘርአ",
+        "ብእሲ",
+        "እህቦ",
+        "ቅድሜከ",
+        "ህብተ",
+        "እስከ",
+        "አመ",
+        "ይመውት",
+        "ወይኖ",
+        "ወማሕሱ",
+        "ኢይስቲ",
+        "ወሐዊን",
+        "ኢየዓርግ",
+        "ዲበር",
+        "እሱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "በጽእኩ - 'I have vowed/come'; reading uncertain"
+        },
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "ብዕዓተ - 'a vow'; reading uncertain"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "ነጽርነጸርክ - emphatic 'if you indeed look'; plausible reduplication"
+        },
+        {
+          "token_index": 24,
+          "marker": "uncertain",
+          "note": "ወይኖ - 'and wine'; small word, faint"
+        },
+        {
+          "token_index": 25,
+          "marker": "uncertain",
+          "note": "ወማሕሱ - 'and strong drink'; reading uncertain"
+        },
+        {
+          "token_index": 27,
+          "marker": "uncertain",
+          "note": "ወሐዊን - 'and wine' (variant); reading uncertain"
+        },
+        {
+          "token_index": 30,
+          "marker": "uncertain",
+          "note": "እሱ - small word at gutter, faint"
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": 2,
+      "line_start": 8,
+      "geez": "ወእምዝ ስበ አብዝሐት ጸሎየ ቅድመ እግዚአብሔር ወኢሊሰ ካህን ይትዓቀብ አፉሃ ✣",
+      "tokens": [
+        "ወእምዝ",
+        "ስበ",
+        "አብዝሐት",
+        "ጸሎየ",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወኢሊሰ",
+        "ካህን",
+        "ይትዓቀብ",
+        "አፉሃ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "አብዝሐት - 'she multiplied/prayed long'; reading uncertain"
+        },
+        {
+          "token_index": 8,
+          "marker": "uncertain",
+          "note": "ይትዓቀብ - 'watched/marked'; stem uncertain"
+        }
+      ]
+    },
+    {
+      "v": 13,
+      "column": 2,
+      "line_start": 11,
+      "geez": "ወይእቲኖ ትነብብ በልባ ወተሐውስ ክናፉሪሃ ወኢይስምዓ ቃሳ ✣",
+      "tokens": [
+        "ወይእቲኖ",
+        "ትነብብ",
+        "በልባ",
+        "ወተሐውስ",
+        "ክናፉሪሃ",
+        "ወኢይስምዓ",
+        "ቃሳ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወይእቲኖ - 'and she'; enclitic uncertain"
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "ክናፉሪሃ - 'her lips'; reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 14,
+      "column": 2,
+      "line_start": 14,
+      "geez": "ወአምሰለ ኢሊ ካህን ከመ እክርት ይእቲ ✣ ወይቤላ ቅልዊሁ ለኤሊ እስክ ማእዜኑ ዝንቱ ስክርኪ አስስሲ ወይኖኪ ✣",
+      "tokens": [
+        "ወአምሰለ",
+        "ኢሊ",
+        "ካህን",
+        "ከመ",
+        "እክርት",
+        "ይእቲ",
+        "ወይቤላ",
+        "ቅልዊሁ",
+        "ለኤሊ",
+        "እስክ",
+        "ማእዜኑ",
+        "ዝንቱ",
+        "ስክርኪ",
+        "አስስሲ",
+        "ወይኖኪ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "እክርት - 'drunken'; reading uncertain"
+        },
+        {
+          "token_index": 7,
+          "marker": "uncertain",
+          "note": "ቅልዊሁ - reading uncertain (verb of speaking?)"
+        },
+        {
+          "token_index": 13,
+          "marker": "uncertain",
+          "note": "አስስሲ - 'put away'; reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 15,
+      "column": 2,
+      "line_start": 17,
+      "geez": "ወእምቅድመ እግዚአብሔር ዓኢ ✣ ወተሰጥወት ሐና ወትቤሎ አልቦ እግዚእየ ✣ ብእሲት እኪት መዋዕል አነ ወይነሰ ወሜስ ኢስተይኩ ወእክዕዎ ለነፍስየ ቅድመ እግዚአብሔር ✣",
+      "tokens": [
+        "ወእምቅድመ",
+        "እግዚአብሔር",
+        "ዓኢ",
+        "ወተሰጥወት",
+        "ሐና",
+        "ወትቤሎ",
+        "አልቦ",
+        "እግዚእየ",
+        "ብእሲት",
+        "እኪት",
+        "መዋዕል",
+        "አነ",
+        "ወይነሰ",
+        "ወሜስ",
+        "ኢስተይኩ",
+        "ወእክዕዎ",
+        "ለነፍስየ",
+        "ቅድመ",
+        "እግዚአብሔር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "ዓኢ - col.2, clean undamaged parchment, same black ink as surrounding text (not rubricated); two glyphs (ዓ then ኢ) between word-dividers are sharply inked and clearly legible. Word is fully present but its function is unclear; ambiguity is lexical, NOT physical damage, so 'uncertain' not 'illegible'."
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "እኪት - 'sorrowful/hard'; reading uncertain"
+        },
+        {
+          "token_index": 13,
+          "marker": "uncertain",
+          "note": "ወሜስ - 'and strong drink'; reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 16,
+      "column": 2,
+      "line_start": 21,
+      "geez": "ወኢትሬስ ይስዓመትክ ከመ አዋልድ ርኩሳት ✣ እስመ እምብዝኅ ኃዘንየ ተመስውኩ እስክ ይእዜ ✣",
+      "tokens": [
+        "ወኢትሬስ",
+        "ይስዓመትክ",
+        "ከመ",
+        "አዋልድ",
+        "ርኩሳት",
+        "እስመ",
+        "እምብዝኅ",
+        "ኃዘንየ",
+        "ተመስውኩ",
+        "እስክ",
+        "ይእዜ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወኢትሬስ - 'do not count/regard'; stem uncertain"
+        },
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "ይስዓመትክ - 'your handmaid'; reading uncertain"
+        },
+        {
+          "token_index": 8,
+          "marker": "uncertain",
+          "note": "ተመስውኩ - 'I have spoken/been consumed'; reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 17,
+      "column": 2,
+      "line_start": 24,
+      "geez": "ወተሰጥዋ ኢሊ ✣ ወይቤዓ ሐሪ በሰላም ✣ ወአምላክ እስራኤል የህቦ ምስሌኪ ወየህብኪ ስእለትልብኪ ኦሎ ዘሰአልኪ ናቢሁ ✣",
+      "tokens": [
+        "ወተሰጥዋ",
+        "ኢሊ",
+        "ወይቤዓ",
+        "ሐሪ",
+        "በሰላም",
+        "ወአምላክ",
+        "እስራኤል",
+        "የህቦ",
+        "ምስሌኪ",
+        "ወየህብኪ",
+        "ስእለትልብኪ",
+        "ኦሎ",
+        "ዘሰአልኪ",
+        "ናቢሁ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "ወይቤዓ - 'and he said to her'; final fidel faint"
+        },
+        {
+          "token_index": 7,
+          "marker": "uncertain",
+          "note": "የህቦ - 'grant'; reading uncertain"
+        },
+        {
+          "token_index": 10,
+          "marker": "uncertain",
+          "note": "ስእለትልብኪ - 'the petition of your heart'; words run together"
+        },
+        {
+          "token_index": 11,
+          "marker": "uncertain",
+          "note": "ኦሎ - small word, uncertain"
+        },
+        {
+          "token_index": 13,
+          "marker": "uncertain",
+          "note": "ናቢሁ - reading uncertain (='from him'?)"
+        }
+      ]
+    },
+    {
+      "v": 18,
+      "column": 2,
+      "line_start": 27,
+      "geez": "ወትቤ ሐና ረክበት ምግሰ ዓመትክ በቅድሜክ እግዚአ ✣ ወሐረት ይእቲ ብእሲት ፍኖታ ✣ ወበእት ቤታ ✣ ወበልዓት ምስለ ምታ ✣ ወስትየት ✣ ወኢያውደቀት ገጻ እንከ ✣",
+      "tokens": [
+        "ወትቤ",
+        "ሐና",
+        "ረክበት",
+        "ምግሰ",
+        "ዓመትክ",
+        "በቅድሜክ",
+        "እግዚአ",
+        "ወሐረት",
+        "ይእቲ",
+        "ብእሲት",
+        "ፍኖታ",
+        "ወበእት",
+        "ቤታ",
+        "ወበልዓት",
+        "ምስለ",
+        "ምታ",
+        "ወስትየት",
+        "ወኢያውደቀት",
+        "ገጻ",
+        "እንከ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "ምግሰ - 'favor/grace'; reading uncertain"
+        },
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "እግዚአ - abbreviated/short form, uncertain"
+        },
+        {
+          "token_index": 11,
+          "marker": "uncertain",
+          "note": "ወበእት - 'and she went into'; reading uncertain"
+        },
+        {
+          "token_index": 17,
+          "marker": "uncertain",
+          "note": "ወኢያውደቀት - 'her countenance fell no more'; long form, plausible"
+        }
+      ]
+    },
+    {
+      "v": 19,
+      "column": 2,
+      "line_start": 33,
+      "geez": "ወተገሥሉኡ በጽባሕ ✣ ወሰገዱ ለእግዚአብሔር ✣ ወሐሩ ውስት ቤትሙ ✣ ወበጽሑ አርማቴም ✣ ወአእመራ ሕልቃና ለሐና ብእሲቱ ✣ ወተዘክራ እግዚአብሔር ✣ ወፀንሰት ✣",
+      "tokens": [
+        "ወተገሥሉኡ",
+        "በጽባሕ",
+        "ወሰገዱ",
+        "ለእግዚአብሔር",
+        "ወሐሩ",
+        "ውስት",
+        "ቤትሙ",
+        "ወበጽሑ",
+        "አርማቴም",
+        "ወአእመራ",
+        "ሕልቃና",
+        "ለሐና",
+        "ብእሲቱ",
+        "ወተዘክራ",
+        "እግዚአብሔር",
+        "ወፀንሰት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወተገሥሉኡ - 'and they rose early'; trailing vowel uncertain"
+        }
+      ]
+    },
+    {
+      "v": 20,
+      "column": 2,
+      "line_start": 37,
+      "geez": "ወእምዝ ሰመ በጽሑ መዋዕሊሁ ሰመሊደት ወለደት ወልደ ወሰመየት ስሞ ሳመኤል እስመ እምኀበ እግዚአብሔር ጸባኦት ✣ ወትቤ እስመ ስእልክዎ ✣",
+      "tokens": [
+        "ወእምዝ",
+        "ሰመ",
+        "በጽሑ",
+        "መዋዕሊሁ",
+        "ሰመሊደት",
+        "ወለደት",
+        "ወልደ",
+        "ወሰመየት",
+        "ስሞ",
+        "ሳመኤል",
+        "እስመ",
+        "እምኀበ",
+        "እግዚአብሔር",
+        "ጸባኦት",
+        "ወትቤ",
+        "እስመ",
+        "ስእልክዎ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "ሰመ - 'when'; reading uncertain (=ሶበ)"
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "ሰመሊደት - 'time for her to bear'; reading uncertain"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "ሳመኤል - 'Samuel'; vowel of 1st fidel reads ሳ"
+        }
+      ]
+    },
+    {
+      "v": 21,
+      "column": 3,
+      "line_start": 1,
+      "geez": "ወዓርገ ብእሲ ሕልቃና ወኩሎ ቤቱ ከመ ይሡዕ በሲሎም መሥዋዕተ መዋዕሉ ወብዕዓተሁ ወኩሎ ⟦illegible⟧ ⟦illegible⟧ ✣",
+      "tokens": [
+        "ወዓርገ",
+        "ብእሲ",
+        "ሕልቃና",
+        "ወኩሎ",
+        "ቤቱ",
+        "ከመ",
+        "ይሡዕ",
+        "በሲሎም",
+        "መሥዋዕተ",
+        "መዋዕሉ",
+        "ወብዕዓተሁ",
+        "ወኩሎ",
+        "⟦illegible⟧",
+        "⟦illegible⟧"
+      ],
+      "uncertain": [
+        {
+          "token_index": 10,
+          "marker": "uncertain",
+          "note": "ወብዕዓተሁ - 'and his vow'; reading uncertain"
+        },
+        {
+          "token_index": 12,
+          "marker": "illegible",
+          "note": "col.3 right edge destroyed by water/stain; final 1-2 words of v21 lost (sense ~ 'all his vows / portions')"
+        },
+        {
+          "token_index": 13,
+          "marker": "illegible",
+          "note": "col.3 right edge destroyed by water/stain; word lost"
+        }
+      ]
+    },
+    {
+      "v": 22,
+      "column": 3,
+      "line_start": 2,
+      "geez": "ወሐናሰ ኢዓርገት ምስሌሁ ✣ እስመ ትቤሎ ሰምታ እንሰ ኢየዓርግ እስከ እመ የዓርግ ሕፃን ⟦illegible⟧ እስከ አመ ተዓድዊ ዓጥበ ⟦illegible⟧ ✣",
+      "tokens": [
+        "ወሐናሰ",
+        "ኢዓርገት",
+        "ምስሌሁ",
+        "እስመ",
+        "ትቤሎ",
+        "ሰምታ",
+        "እንሰ",
+        "ኢየዓርግ",
+        "እስከ",
+        "እመ",
+        "የዓርግ",
+        "ሕፃን",
+        "⟦illegible⟧",
+        "እስከ",
+        "አመ",
+        "ተዓድዊ",
+        "ዓጥበ",
+        "⟦illegible⟧"
+      ],
+      "uncertain": [
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "ሰምታ - 'to her husband'; reading uncertain (=ለምታ)"
+        },
+        {
+          "token_index": 12,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        },
+        {
+          "token_index": 15,
+          "marker": "uncertain",
+          "note": "ተዓድዊ - 'you wean'; reading uncertain"
+        },
+        {
+          "token_index": 16,
+          "marker": "uncertain",
+          "note": "ዓጥበ - 'I will wean / nurse'; reading uncertain"
+        },
+        {
+          "token_index": 17,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        }
+      ]
+    },
+    {
+      "v": 23,
+      "column": 3,
+      "line_start": 4,
+      "geez": "ወትቤ ⟦illegible⟧ ለእግዚአብሔር ዘወእምአዳክ ✣ ወነበረት ይእቲ ብእሲት ✣ ወሐፀነት ወልዳ እስክ እመ ⟦illegible⟧ ✣",
+      "tokens": [
+        "ወትቤ",
+        "⟦illegible⟧",
+        "ለእግዚአብሔር",
+        "ዘወእምአዳክ",
+        "ወነበረት",
+        "ይእቲ",
+        "ብእሲት",
+        "ወሐፀነት",
+        "ወልዳ",
+        "እስክ",
+        "እመ",
+        "⟦illegible⟧"
+      ],
+      "uncertain": [
+        {
+          "token_index": 1,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost (verb of Hannah's speech)"
+        },
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "ዘወእምአዳክ - 'as is good in your eyes / what proceeds from your mouth'; reading uncertain"
+        },
+        {
+          "token_index": 11,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word(s) lost ('she weaned him')"
+        }
+      ]
+    },
+    {
+      "v": 24,
+      "column": 3,
+      "line_start": 6,
+      "geez": "ወአዕረገት ምስሌሃ እስቱ ኤሎም ✣ ወነሥአት ሳህመ ⟦illegible⟧ ዓመቱ ወሳብስት ወመሥፈርቲ ⟦illegible⟧ እንዳዌ ወመሥፈርቲን ባል ⟦illegible⟧ ይኖ ✣ ወበእት ቤተ እግዚአብሔር ⟦illegible⟧ ስት ሲሎም ✣ ወወልደመ ኑ ምስሎመ ✣",
+      "tokens": [
+        "ወአዕረገት",
+        "ምስሌሃ",
+        "እስቱ",
+        "ኤሎም",
+        "ወነሥአት",
+        "ሳህመ",
+        "⟦illegible⟧",
+        "ዓመቱ",
+        "ወሳብስት",
+        "ወመሥፈርቲ",
+        "⟦illegible⟧",
+        "እንዳዌ",
+        "ወመሥፈርቲን",
+        "ባል",
+        "⟦illegible⟧",
+        "ይኖ",
+        "ወበእት",
+        "ቤተ",
+        "እግዚአብሔር",
+        "⟦illegible⟧",
+        "ስት",
+        "ሲሎም",
+        "ወወልደመ",
+        "ኑ",
+        "ምስሎመ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "እስቱ - 'into / when'; reading uncertain"
+        },
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "ኤሎም - place 'Shiloh'; reading uncertain (variant of ሲሎም)"
+        },
+        {
+          "token_index": 5,
+          "marker": "uncertain",
+          "note": "ሳህመ - 'a bull/calf'; reading uncertain"
+        },
+        {
+          "token_index": 6,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "ወመሥፈርቲ - 'and a measure (of flour)'; reading uncertain"
+        },
+        {
+          "token_index": 10,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        },
+        {
+          "token_index": 12,
+          "marker": "uncertain",
+          "note": "ወመሥፈርቲን - 'and a measure'; reading uncertain"
+        },
+        {
+          "token_index": 14,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost ('a skin of')"
+        },
+        {
+          "token_index": 19,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        },
+        {
+          "token_index": 23,
+          "marker": "uncertain",
+          "note": "ኑ - small word 'was young'; faint"
+        }
+      ]
+    },
+    {
+      "v": 25,
+      "column": 3,
+      "line_start": 11,
+      "geez": "ወብእ ⟦illegible⟧ ቅድመ እግዚአብሔር ✣ ወጠብሑ እቡሁ መሰዋዕ ⟦illegible⟧ ቅድመ እግዚአብሔር ዘይግብር ⟦illegible⟧ ለመዋዕል ለእግዚአብሔር ✣ ወእጽኡ ለወልዱ ✣",
+      "tokens": [
+        "ወብእ",
+        "⟦illegible⟧",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ወጠብሑ",
+        "እቡሁ",
+        "መሰዋዕ",
+        "⟦illegible⟧",
+        "ቅድመ",
+        "እግዚአብሔር",
+        "ዘይግብር",
+        "⟦illegible⟧",
+        "ለመዋዕል",
+        "ለእግዚአብሔር",
+        "ወእጽኡ",
+        "ለወልዱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወብእ - 'and they brought (him)'; truncated by gutter, reading uncertain"
+        },
+        {
+          "token_index": 1,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "ወጠብሑ - 'and they slew'; reading uncertain"
+        },
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "መሰዋዕ - 'the sacrifice'; reading uncertain"
+        },
+        {
+          "token_index": 7,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        },
+        {
+          "token_index": 11,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost ('yearly')"
+        },
+        {
+          "token_index": 14,
+          "marker": "uncertain",
+          "note": "ወእጽኡ - 'and they brought'; reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 26,
+      "column": 3,
+      "line_start": 14,
+      "geez": "ወሥዓ ሳይመ ✣ ወእእቱ ሐና እመ ለወልዳ ኀበ ኤሊ ✣ ወትቤሎ ስምዓኒ እግዚእ ሐይወት ⟦illegible⟧ ነፍስክ ከመ አነ ይእቲ እንታክቲ ብእሲት እንቲ ቆምኩ ቅድሜክ ✣",
+      "tokens": [
+        "ወሥዓ",
+        "ሳይመ",
+        "ወእእቱ",
+        "ሐና",
+        "እመ",
+        "ለወልዳ",
+        "ኀበ",
+        "ኤሊ",
+        "ወትቤሎ",
+        "ስምዓኒ",
+        "እግዚእ",
+        "ሐይወት",
+        "⟦illegible⟧",
+        "ነፍስክ",
+        "ከመ",
+        "አነ",
+        "ይእቲ",
+        "እንታክቲ",
+        "ብእሲት",
+        "እንቲ",
+        "ቆምኩ",
+        "ቅድሜክ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወሥዓ - 'and they slaughtered'; reading uncertain"
+        },
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "ሳይመ - object 'the bull'; reading uncertain"
+        },
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "ወእእቱ - 'and she/this'; reading uncertain"
+        },
+        {
+          "token_index": 12,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost between ሐይወት and ነፍስክ"
+        },
+        {
+          "token_index": 17,
+          "marker": "uncertain",
+          "note": "እንታክቲ - 'the one/this very'; reading uncertain"
+        }
+      ]
+    },
+    {
+      "v": 27,
+      "column": 3,
+      "line_start": 18,
+      "geez": "ወበኀ በቢኩ ለእግዚአብሔር በእ ⟦illegible⟧ ዝንቱ ሕፃን ወጸለይኩ ✣",
+      "tokens": [
+        "ወበኀ",
+        "በቢኩ",
+        "ለእግዚአብሔር",
+        "በእ",
+        "⟦illegible⟧",
+        "ዝንቱ",
+        "ሕፃን",
+        "ወጸለይኩ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወበኀ - 'and concerning'; reading uncertain"
+        },
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "በቢኩ - 'I prayed/asked'; reading uncertain"
+        },
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "በእ - 'for/concerning'; truncated, uncertain"
+        },
+        {
+          "token_index": 4,
+          "marker": "illegible",
+          "note": "col.3 right-edge water damage; word lost"
+        }
+      ]
+    },
+    {
+      "v": 28,
+      "column": 3,
+      "line_start": 20,
+      "geez": "ወወሀበ እግዚአብሔር ለስእትየ ዘሰአልኩ በቢሁ ✣ ወአነኒ ወሀብክም ለእግዚአብሔር ቡሎ መዋዕሰ ሕየወ ⟦illegible⟧ ይትቀነይ ለእግዚአብሔር ✣✣",
+      "tokens": [
+        "ወወሀበ",
+        "እግዚአብሔር",
+        "ለስእትየ",
+        "ዘሰአልኩ",
+        "በቢሁ",
+        "ወአነኒ",
+        "ወሀብክም",
+        "ለእግዚአብሔር",
+        "ቡሎ",
+        "መዋዕሰ",
+        "ሕየወ",
+        "⟦illegible⟧",
+        "ይትቀነይ",
+        "ለእግዚአብሔር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "ለስእትየ - 'my petition'; reading uncertain"
+        },
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "በቢሁ - 'of/from him'; reading uncertain"
+        },
+        {
+          "token_index": 8,
+          "marker": "uncertain",
+          "note": "ቡሎ - 'all'; reading uncertain (=ኲሎ)"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "መዋዕሰ - 'the days'; reading uncertain"
+        },
+        {
+          "token_index": 11,
+          "marker": "illegible",
+          "note": "col.3 lower right edge water damage; one word lost before ይትቀነይ"
+        }
+      ]
+    }
+  ],
+  "transcription_notes": "Source: Gunda Gunde MS GG-00106, 1 Samuel section, folio f003r ONLY (2087x2453 px full-page photo; dark mount, page margins, marginal foliation '3' and a pasted catalogue sticker 'C3-IV-56' at the foot of col.1 -- none of which is scripture and all ignored). Hand: a careful, fairly regular Ethiopic (Ge'ez) book hand in 3 columns, ~40 lines/col, with red rubrication for incipits, section openings and word/section dividers. LAYOUT/READING ORDER: text runs column 1 -> column 2 -> column 3 (left to right); verified by narrative continuity (the vow of 1:11 runs off the foot of col.1 and continues at the head of col.2; the naming of Samuel ends col.2 and 1:21f continues at the head of col.3). CHAPTER SPAN: 1 Samuel 1 occupies a SINGLE folio -- it begins f003r col.1 line 1 (red incipit 'ወሀሎ ፩ብእሲ ዘእምነ አርማቴም...') and ENDS f003r col.3 at roughly line ~19-20, closed by a double red rubric '✣✣' and a small red chapter marker read as 'ም ፡ ፪' (='ምዕራፍ ፪', Chapter 2). Chapter 2 (Hannah's Song) begins on the very next line of col.3 with the red rubric 'ጸለየት ሐና ወትቤ ጸንዓ ልብየ...' ('Hannah prayed and said: my heart exults/is strengthened...'). NO further folios were opened or needed; only f003r was used. VERSE SEGMENTATION: the manuscript has NO numbered verses; it marks breaks only with red dividers (✣ and a related cross-form rendered here as ✡) and ።-type punctuation, used inconsistently (sometimes between phrases, not only between verses). I segmented into 28 units by narrative sense following the conventional 1 Samuel 1 division; this is an editorial judgement, NOT a manuscript feature -- the rubric dividers do not map 1:1 to these verse boundaries and a reasonable transcriber could segment v.4-7, v.21-24 and v.25-28 somewhat differently. Verse counts/boundaries should be treated as soft. LEGIBILITY / DAMAGE -- IMPORTANT: columns 1 and 2 are in good condition and broadly legible at 4-5x upscale with unsharp masking; most uncertainty there is at the level of single faint fidel vowel-orders, ambiguous proper-name spellings, and the manuscript's non-standard orthography (it freely writes ሰ/ሠ, ኀ/ሐ/ሃ, doubled and reduced forms, enclitics joined to host words), not illegibility. Column 3 has a SERIOUS water/damp stain along its entire right margin: an opaque brown discolouration that has consumed the rightmost ~1-2 words of most lines in the upper two-thirds of col.3 (tapering near the foot, where the chapter actually ends and is readable). Those lost line-ends fall in vv.21-28 and are recorded as ⟦illegible⟧ tokens with marker 'illegible'; I did NOT reconstruct them from a known Bible text. Roughly 20-25% of all tokens carry an 'uncertain' or 'illegible' marker; these are NOT evenly distributed -- they cluster heavily (a) on the col.3 right-edge water damage (vv.21-28) and (b) on proper names and the book's idiosyncratic spelling throughout. SUBJECTIVE READ: columns 1-2 (vv.1-20) are a genuine letter-by-letter read I have reasonable confidence in (modulo orthographic variants and a few faint vowels); columns 3 (vv.21-28) is partial -- the surviving left ~70% of each line is read with moderate confidence but the damaged right ends are simply gone, so those verses are incomplete by design rather than guessed. This is transcription, not reconstruction; gaps are left as gaps. NUMERAL TOKENIZATION RULE (apply identically in every mirrored witness): every Ethiopic numeral glyph (፩ ፪ ፫ ፬ ፭ ፮ ፯ ፰ ፱ ፲ ፳ ፴ ፵ ፶ ፷ ፸ ፹ ፺ ፻ ፼ and any combination) is its own standalone token at its linear reading position and is NEVER glued to surrounding letters; the adjacent letters tokenize as ordinary Ge'ez words in written order (a proclitic such as ወ- that a numeral separates from its host may stand as its own short token). The 'geez' string is left exactly as written (numeral remains visually adjacent to its word there); only the 'tokens' array is the clean separated word/numeral list, and any uncertain[].token_index at or after a split was incremented so it still points at the same glyph. Applied here to v1 (፩ብእሲ -> ፩, ብእሲ), v3 (ወ፪ደቂቁ -> ወ, ፪, ደቂቁ), v5 (፩ክፍለስ -> ፩, ክፍለስ)."
+}
