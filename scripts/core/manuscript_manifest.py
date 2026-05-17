@@ -1,23 +1,27 @@
 # scripts/core/manuscript_manifest.py
-"""Folio manifest loader for the Samuel dual-manuscript track (Phase-2, τ.6.x.4.b).
+"""Folio manifest loader for the dual-manuscript track (Phase-2, τ.6.x.4.b+c).
 
-The manifest lives in ``content/manuscript/samuel/manifest.yaml`` and records,
-for each chapter of 1 Samuel (1-31) and 2 Samuel (1-24):
+Now track-parameterised: ``load_manifest(track="samuel")`` is the default
+(byte-identical back-compat); ``load_manifest(track="kings")`` drives the
+τ.6.x.4.c Kings marathon.
+
+The manifest lives in ``content/manuscript/<track>/manifest.yaml`` and records,
+for each chapter of the book:
 
   - ``GG``  : ``{folios: [...], source_images: [...]}``
   - ``CAM`` : ``{folios: [...], views: [...]}``
   - ``status``: ``"calibrated"`` | ``"pending"``
 
-The four calibration chapters (1sa 1, 3, 17; 2sa 11) are seeded with real
-folio sigla and source-image paths drawn directly from the immutable witness
-JSONs.  All other chapters are ``pending`` (empty lists) until each is
+The four Samuel calibration chapters (1sa 1, 3, 17; 2sa 11) are seeded with
+real folio sigla and source-image paths drawn directly from the immutable
+witness JSONs.  All other chapters are ``pending`` (empty lists) until each is
 collated and GO'd under the Phase-2 protocol.
 
 Public API
 ----------
-load_manifest() -> dict
+load_manifest(track="samuel") -> dict
     Returns the full parsed manifest dict (book → chapter-int-key → entry).
-    Cached for the life of the process via ``@functools.lru_cache(maxsize=1)``.
+    Cached per track via ``@functools.lru_cache(maxsize=4)``.
     Call ``load_manifest.cache_clear()`` in test setUp when needed.
 
 chapter_entry(man, book, ch) -> dict
@@ -34,7 +38,14 @@ from pathlib import Path
 import yaml
 
 REPO = Path(__file__).resolve().parent.parent.parent
-MANIFEST_PATH = REPO / "content" / "manuscript" / "samuel" / "manifest.yaml"
+
+
+def _manifest_path(track: str) -> Path:
+    return REPO / "content" / "manuscript" / track / "manifest.yaml"
+
+
+# Back-compat: external importers that reference MANIFEST_PATH directly keep working.
+MANIFEST_PATH = _manifest_path("samuel")
 
 _PENDING_DEFAULT: dict = {
     "status": "pending",
@@ -43,13 +54,12 @@ _PENDING_DEFAULT: dict = {
 }
 
 
-@functools.lru_cache(maxsize=1)
-def load_manifest() -> dict:
-    """Read ``content/manuscript/samuel/manifest.yaml`` and return the parsed dict.
-
-    Cached for the life of the process.  Call
-    ``load_manifest.cache_clear()`` after editing the YAML in tests."""
-    raw = yaml.safe_load(MANIFEST_PATH.read_text(encoding="utf-8")) or {}
+@functools.lru_cache(maxsize=4)
+def load_manifest(track: str = "samuel") -> dict:
+    """Parsed folio manifest for *track* (``"samuel"`` default -> unchanged
+    back-compat; ``"kings"`` = the tau.6.x.4.c marathon). Cached per track;
+    call ``load_manifest.cache_clear()`` after editing the YAML in tests."""
+    raw = yaml.safe_load(_manifest_path(track).read_text(encoding="utf-8")) or {}
     return raw
 
 
