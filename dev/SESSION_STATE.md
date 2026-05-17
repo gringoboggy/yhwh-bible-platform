@@ -1,5 +1,53 @@
 # Session state — current snapshot
 
+> **➤➤➤ τ.6.x.4.a-W SAMUEL WIDENED-CALIBRATION — ✅ COMPLETE 2026-05-17,
+> AT THE USER GATE (read this first; supersedes ALL τ.6.x.4.a / .a-W
+> banners below for the Samuel manuscript track).** The full plan
+> `docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md`
+> (11 tasks) is EXECUTED via superpowers subagent-driven-development.
+> All 3 widened chapters shipped as immutable evidence + collation
+> JSONs in `content/manuscript/samuel/calibration/` and each passed an
+> independent adversarial spec+honesty review (fix-loops to ✅): **1 Sam
+> 3** base=CAM, both-confident 89.35%, semantic 21/21, GG 1 illeg;
+> **1 Sam 17** (David&Goliath LXX/MT stress-test) GG SHORT 20v vs CAM
+> LONG 58v, both-confident 68.97% on the shared duel core, semantic
+> 58/58, 0/0 illeg, 38 CAM-only verses match the project's Kenyon
+> witness-note; **2 Sam 11** (Bathsheba, the *other* book — BOTH
+> FULL/LONG) base=CAM, both-confident 86.39%, semantic 27/27, 0/0
+> illeg, GG carries a verbatim recensional messenger doublet vv.21-22.
+> One real GG defect caught+fixed by the adversarial method (2 Sam 11
+> `፡`-wordspace tokenization → re-normalized + all 48 markers
+> re-indexed; the reviewer's own remap table was itself wrong and was
+> corrected by note-target re-derivation) + 3 collation token-drops
+> auto-caught by the token-conservation gate. Aggregate
+> `dev/CALIBRATION_2026-05-16-samuel-widened.md` written; solo
+> cross-artifact audit `dev/AUDIT_2026-05-17-samuel-widened.md` = **ALL
+> PASS** (honesty bijection, metric recompute-exact, token-conservation
+> 508/424 multiset-exact, definitions byte-identical to 1sa17,
+> hand-written report table verified == collation files). **BI-
+> DIRECTIONAL DECISION RULE → CONFIRM:** the distinct-recension pattern
+> + base=CAM GENERALIZE across all 3 widened chapters + the 1 Sam 1
+> pilot — semantic 100% every chapter; both-confident materially <90%
+> every chapter (73.05 / 89.35 / 68.97 / 86.39); base=CAM every chapter
+> INCLUDING the GG-undamaged ones (1 Sam 17 & 2 Sam 11 = 0 GG illeg, so
+> the CAM-base choice is NOT a GG-damage artifact); NO chapter
+> contradicts (no ~unity agreement, base never flipped to GG).
+> Calibration deliverables are pure JSON (the collation `_build` script
+> + `__pycache__` were dropped — siblings 1sa1/1sa3/1sa17 carry none;
+> reviewer confirmed `_build_1sa3` never existed). CUDL hi-res CAM
+> f120r/f120v (~80 MP) live GAPS-side per `cudl-iiif-access`; CC BY-NC
+> Cambridge UL. **NEXT = USER GATE (not Claude work):** ratify GO /
+> adjust / NO-GO at `## Decision (user): _pending_` in the aggregate
+> report. On GO → confirm the diplomatic-parallel model (CAM base
+> running text + GG per-verse apparatus; spec D1=B/D3) and size
+> **Phase-2** (Samuel-wide collation tool, spec §5) to the 5 observed
+> failure modes in report §4; Kings then reuses Phase-2/3. Phase-2/3
+> NOT started until ratified. Single local commit only (remote deleted
+> — no push; `continue` ≠ save — no zip). The Geʽez catchup loop
+> (τ.6.x.2.o Sirach) + Amharic NT cadence remain independently PAUSED.
+
+> **[SUPERSEDED 2026-05-17 by the ✅-COMPLETE banner above — retained as
+> the Ch1+Ch2-checkpoint historical record only.]**
 > **➤➤ τ.6.x.4.a-W SAMUEL WIDENED-CALIBRATION — CHECKPOINT 2026-05-17
 > (read this first; supersedes the τ.6.x.4.a banner below for the
 > Samuel manuscript track).** Executing

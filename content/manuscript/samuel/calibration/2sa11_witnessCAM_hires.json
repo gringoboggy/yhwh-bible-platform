@@ -1,0 +1,915 @@
+{
+  "witness": "CAM",
+  "book": "2sa",
+  "chapter": 11,
+  "source_images": [
+    "GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f120r_2Sam11_hires.jpg",
+    "GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f120v_2Sam11_hires.jpg"
+  ],
+  "folio_sigla": [
+    "f120r",
+    "f120v"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": 2,
+      "line_start": 8,
+      "geez": "ወእምዝ ፡ በጻሕ ፡ ዓመተ ፡ መዋዕል ፡ አመ ፡ ይወፅኡ ፡ ነገሥት ፡ ወፈነዎሙ ፡ ዳዊት ፡ ለኢያብ ፡ ወለኩሉ ፡ አግብርቲሁ ፡ ወለእስራኤል ፡ ወተቃተልዎሙ ፡ ለደቂቀ ፡ እሞን ፡ ወነበሩ ፡ ውስተ ፡ ራባ ፡ ወዳዊትሰ ፡ ነበረ ፡ ውስተ ፡ ኢየሩሳሌም ።",
+      "tokens": [
+        "ወእምዝ",
+        "በጻሕ",
+        "ዓመተ",
+        "መዋዕል",
+        "አመ",
+        "ይወፅኡ",
+        "ነገሥት",
+        "ወፈነዎሙ",
+        "ዳዊት",
+        "ለኢያብ",
+        "ወለኩሉ",
+        "አግብርቲሁ",
+        "ወለእስራኤል",
+        "ወተቃተልዎሙ",
+        "ለደቂቀ",
+        "እሞን",
+        "ወነበሩ",
+        "ውስተ",
+        "ራባ",
+        "ወዳዊትሰ",
+        "ነበረ",
+        "ውስተ",
+        "ኢየሩሳሌም"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "sense-unit opens at the red 'kefl 30' rubric + curved scribal seam-bracket mid-col2 immediately after the end of 2 Sam 10; soft chapter boundary flagged"
+        },
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "da0 amate mawa'l 'the year of days' = idiomatic 'return of the year'; defective/idiomatic spelling kept as seen"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "'le-Iyab' = Joab written defective (expected Iyo'ab); name-form kept verbatim"
+        },
+        {
+          "token_index": 18,
+          "marker": "uncertain",
+          "note": "'Raba' = Rabbah, name-form kept as seen; the verse-terminal divider here is a red cross dropped from geez"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": 2,
+      "line_start": 13,
+      "geez": "ወሶበ ፡ ኮነ ፡ ፍና ፡ ሰርክ ፡ ተንሥአ ፡ ዳዊት ፡ እምስካቡ ፡ ወዓርገ ፡ ውስተ ፡ ናሕሰ ፡ ቤተ ፡ ንጉሥ ፡ የንሶሱ ፡ ወርእየ ፡ ብእሲተ ፡ ላዕለ ፡ ናሕስ ፡ እንዘ ፡ ትትሐፀብ ፡ ወሠናይት ፡ ይእቲ ፡ ብእሲት ፡ ራእያ ፡ ፈድፋደ ።",
+      "tokens": [
+        "ወሶበ",
+        "ኮነ",
+        "ፍና",
+        "ሰርክ",
+        "ተንሥአ",
+        "ዳዊት",
+        "እምስካቡ",
+        "ወዓርገ",
+        "ውስተ",
+        "ናሕሰ",
+        "ቤተ",
+        "ንጉሥ",
+        "የንሶሱ",
+        "ወርእየ",
+        "ብእሲተ",
+        "ላዕለ",
+        "ናሕስ",
+        "እንዘ",
+        "ትትሐፀብ",
+        "ወሠናይት",
+        "ይእቲ",
+        "ብእሲት",
+        "ራእያ",
+        "ፈድፋደ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "verse opens at red 'kefl 31' rubric (fine liturgical subdivision, NOT a chapter); soft sense boundary"
+        },
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "fina serk 'toward evening'; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 3,
+      "column": 2,
+      "line_start": 17,
+      "geez": "ወይቤ ፡ ዳዊት ፡ ዘመኑ ፡ ይእቲ ፡ ብእሲት ፡ ወይቤ ፡ አኮኑ ፡ ቤርሳቤሕ ፡ ይእቲ ፡ ወለተ ፡ ኤልያብ ፡ ብእሲተ ፡ ኦርዮ ፡ ዜጥያዊ ።",
+      "tokens": [
+        "ወይቤ",
+        "ዳዊት",
+        "ዘመኑ",
+        "ይእቲ",
+        "ብእሲት",
+        "ወይቤ",
+        "አኮኑ",
+        "ቤርሳቤሕ",
+        "ይእቲ",
+        "ወለተ",
+        "ኤልያብ",
+        "ብእሲተ",
+        "ኦርዮ",
+        "ዜጥያዊ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "opening clause 'waybe Dawit zemennu ye'ti be'sit' written in faded brown ink; legible but faint"
+        },
+        {
+          "token_index": 4,
+          "marker": "damaged",
+          "note": "'be'sit' (the word 'esit, continuation from prev line's 'b-') faded/abraded brown ink, then a long blank line-fill before the black 'waybe' resumes; reading proposed from context and faint traces"
+        },
+        {
+          "token_index": 10,
+          "marker": "uncertain",
+          "note": "'Elyab' = Eliam, name-form kept as seen"
+        },
+        {
+          "token_index": 13,
+          "marker": "uncertain",
+          "note": "'Zetyawi' = the Hittite (gentilic), variant form of Ketyawi used elsewhere in this chapter; kept verbatim"
+        }
+      ]
+    },
+    {
+      "v": 4,
+      "column": 2,
+      "line_start": 20,
+      "geez": "ወለአከ ፡ ዳዊት ፡ ኀቤሃ ፡ ወነሥአ ፡ ወሰከበ ፡ ምስሌሃ ፡ ወይእቲሰ ፡ በከመ ፡ ተሐፀበት ፡ እምነ ፡ ትክቶሃ ፡ ወአተወት ፡ ቤታ ።",
+      "tokens": [
+        "ወለአከ",
+        "ዳዊት",
+        "ኀቤሃ",
+        "ወነሥአ",
+        "ወሰከበ",
+        "ምስሌሃ",
+        "ወይእቲሰ",
+        "በከመ",
+        "ተሐፀበት",
+        "እምነ",
+        "ትክቶሃ",
+        "ወአተወት",
+        "ቤታ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 10,
+          "marker": "uncertain",
+          "note": "'tekto-ha' = her uncleanness/menstrual impurity; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 5,
+      "column": 2,
+      "line_start": 22,
+      "geez": "ወፀንሰት ፡ ይእቲ ፡ ብእሲት ፡ ወለአከት ፡ ወዜነወቶ ፡ ለዳዊት ፡ ወትቤ ፡ ፀንስኩ ፡ አነ ።",
+      "tokens": [
+        "ወፀንሰት",
+        "ይእቲ",
+        "ብእሲት",
+        "ወለአከት",
+        "ወዜነወቶ",
+        "ለዳዊት",
+        "ወትቤ",
+        "ፀንስኩ",
+        "አነ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "sense unit bounded by red crosses on both sides (dropped from geez)"
+        }
+      ]
+    },
+    {
+      "v": 6,
+      "column": 2,
+      "line_start": 24,
+      "geez": "ወለአከ ፡ ዳዊት ፡ ኀበ ፡ ኢዮአብ ፡ እንዘ ፡ ይብል ፡ ፈንም ፡ ለኦርዮ ፡ ኬጥያዊ ፡ ወፈነወ ፡ ኢዮአብ ፡ ለኦርዮ ፡ ኀበ ፡ ዳዊት ።",
+      "tokens": [
+        "ወለአከ",
+        "ዳዊት",
+        "ኀበ",
+        "ኢዮአብ",
+        "እንዘ",
+        "ይብል",
+        "ፈንም",
+        "ለኦርዮ",
+        "ኬጥያዊ",
+        "ወፈነወ",
+        "ኢዮአብ",
+        "ለኦርዮ",
+        "ኀበ",
+        "ዳዊት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "'fenm' = send (imperative w/ object suffix) defective spelling kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": 2,
+      "line_start": 26,
+      "geez": "ወበጻሐ ፡ ኦርዮ ፡ ወቦአ ፡ ኀቤሁ ፡ ወተስእሎ ፡ ዳዊት ፡ በእንተ ፡ ዳዓናሁ ፡ ለኢዮአብ ፡ ወበእንተ ፡ ዳዓና ፡ ሕዝብ ፡ ወበእንተ ፡ ዳዓና ፡ ፀብእ ።",
+      "tokens": [
+        "ወበጻሐ",
+        "ኦርዮ",
+        "ወቦአ",
+        "ኀቤሁ",
+        "ወተስእሎ",
+        "ዳዊት",
+        "በእንተ",
+        "ዳዓናሁ",
+        "ለኢዮአብ",
+        "ወበእንተ",
+        "ዳዓና",
+        "ሕዝብ",
+        "ወበእንተ",
+        "ዳዓና",
+        "ፀብእ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 7,
+          "marker": "uncertain",
+          "note": "'da0ana-hu' = welfare/peace of; orthography kept as seen, repeated 3x in verse"
+        }
+      ]
+    },
+    {
+      "v": 8,
+      "column": 2,
+      "line_start": 29,
+      "geez": "ወይቤሎ ፡ ዳዊት ፡ ለኦርዮ ፡ ሐራ ፡ ረድ ፡ ውስተ ፡ ቤትከ ፡ ወተሐፀብ ፡ እገሪከ ፡ ወወፅአ ፡ ኦርዮ ፡ እምነ ፡ ቤተ ፡ ንጉሥ ፡ ወወዲአ ፡ ተለዎ ፡ ወዓሌ ፡ ንጉሥ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ዳዊት",
+        "ለኦርዮ",
+        "ሐራ",
+        "ረድ",
+        "ውስተ",
+        "ቤትከ",
+        "ወተሐፀብ",
+        "እገሪከ",
+        "ወወፅአ",
+        "ኦርዮ",
+        "እምነ",
+        "ቤተ",
+        "ንጉሥ",
+        "ወወዲአ",
+        "ተለዎ",
+        "ወዓሌ",
+        "ንጉሥ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "'hara' standing before 'red' (go down) - reading as written; possibly for 'hura' (go); kept verbatim"
+        },
+        {
+          "token_index": 16,
+          "marker": "uncertain",
+          "note": "'wa0ale' = portion/mess of food of the king (sent after him); orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 9,
+      "column": 2,
+      "line_start": 31,
+      "geez": "ወስከበ ፡ ኦርዮ ፡ ውስተ ፡ ደዴ ፡ ቤተ ፡ ንጉሥ ፡ ምስለ ፡ ኵሉ ፡ አግብርተ ፡ እግዚእ ፡ ወኢወረደ ፡ ቤቶ ።",
+      "tokens": [
+        "ወስከበ",
+        "ኦርዮ",
+        "ውስተ",
+        "ደዴ",
+        "ቤተ",
+        "ንጉሥ",
+        "ምስለ",
+        "ኵሉ",
+        "አግብርተ",
+        "እግዚእ",
+        "ወኢወረደ",
+        "ቤቶ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 3,
+          "marker": "uncertain",
+          "note": "'dede' = door/threshold; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 10,
+      "column": 2,
+      "line_start": 33,
+      "geez": "ወዜነውዎ ፡ ለዳዊት ፡ እንዘ ፡ ይብሉ ፡ ኢወረደ ፡ ኦርዮ ፡ ውስተ ፡ ቤቱ ፡ ወይቤሎ ፡ ዳዊት ፡ ለኦርዮ ፡ እምነ ፡ ሐቅል ፡ መጻእከ ፡ ለምንት ፡ ኢወረድከ ፡ ውስተ ፡ ቤትከ ።",
+      "tokens": [
+        "ወዜነውዎ",
+        "ለዳዊት",
+        "እንዘ",
+        "ይብሉ",
+        "ኢወረደ",
+        "ኦርዮ",
+        "ውስተ",
+        "ቤቱ",
+        "ወይቤሎ",
+        "ዳዊት",
+        "ለኦርዮ",
+        "እምነ",
+        "ሐቅል",
+        "መጻእከ",
+        "ለምንት",
+        "ኢወረድከ",
+        "ውስተ",
+        "ቤትከ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 11,
+      "column": 2,
+      "line_start": 37,
+      "geez": "ወይቤሎ ፡ ኦርዮ ፡ ለዳዊት ፡ ታቦተ ፡ እግዚእብሔር ፡ እስራኤል ፡ ወይሁዳ ፡ ይነብሩ ፡ ውስተ ፡ ደብተራ ፡ ወኢዮአብ ፡ እግዚእየ ፡ ወአግብርተ ፡ እግዚእየ ፡ ውስተ ፡ ገዳም ፡ ይትአየኑ ፡ ወአንሰ ፡ እበው ፡ እበው ፡ ውስተ ፡ ቤትየ ፡ ከመ ፡ እብላዕ ፡ ወእስተይ ፡ ወከመ ፡ እስክብ ፡ ምስለ ፡ ብእሲትየ ፡ ሕያው ፡ አንተ ፡ ወሕያው ፡ ነፍስከ ፡ ከመ ፡ ኢይገብር ፡ ለዝንቱ ፡ ነገር ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ኦርዮ",
+        "ለዳዊት",
+        "ታቦተ",
+        "እግዚእብሔር",
+        "እስራኤል",
+        "ወይሁዳ",
+        "ይነብሩ",
+        "ውስተ",
+        "ደብተራ",
+        "ወኢዮአብ",
+        "እግዚእየ",
+        "ወአግብርተ",
+        "እግዚእየ",
+        "ውስተ",
+        "ገዳም",
+        "ይትአየኑ",
+        "ወአንሰ",
+        "እበው",
+        "እበው",
+        "ውስተ",
+        "ቤትየ",
+        "ከመ",
+        "እብላዕ",
+        "ወእስተይ",
+        "ወከመ",
+        "እስክብ",
+        "ምስለ",
+        "ብእሲትየ",
+        "ሕያው",
+        "አንተ",
+        "ወሕያው",
+        "ነፍስከ",
+        "ከመ",
+        "ኢይገብር",
+        "ለዝንቱ",
+        "ነገር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "divine name 'Egzi'abher' written with a superscript abbreviation stroke over the final character; expanded"
+        },
+        {
+          "token_index": 18,
+          "marker": "damaged",
+          "note": "first 'ebew' is the column-final token of f120r col2 L40, written defective/abbreviated at the right column edge"
+        },
+        {
+          "token_index": 19,
+          "marker": "uncertain",
+          "note": "DITTOGRAPHY: 'ebew' repeated at the start of f120r col3 L1 (a column-turn dittograph); both occurrences transcribed verbatim, not corrected"
+        },
+        {
+          "token_index": 29,
+          "marker": "uncertain",
+          "note": "'heyaw anta wa-heyaw nefseka' oath begins here; the abbreviated divine-name oath word carries a small interlinear 'Egzi'e' gloss written above the line by the scribe"
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": 3,
+      "line_start": 4,
+      "geez": "ወይቤሎ ፡ ዳዊት ፡ ለኦርዮ ፡ ንበር ፡ ዝየ ፡ ዮም ፡ ወጌሰመ ፡ እፌንወከ ፡ ወነበረ ፡ ኦርዮ ፡ ውስተ ፡ ኢየሩሳሌም ፡ ይእተ ፡ አሚረ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ዳዊት",
+        "ለኦርዮ",
+        "ንበር",
+        "ዝየ",
+        "ዮም",
+        "ወጌሰመ",
+        "እፌንወከ",
+        "ወነበረ",
+        "ኦርዮ",
+        "ውስተ",
+        "ኢየሩሳሌም",
+        "ይእተ",
+        "አሚረ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 13,
+      "column": 3,
+      "line_start": 6,
+      "geez": "ወፀውዓ ፡ ዳዊት ፡ ወበልዓ ፡ ወስትየ ፡ ወአስከሮ ፡ ወወፅአ ፡ ሰርከከ ፡ ከመ ፡ ይስክብ ፡ ውስተ ፡ ዓራቱ ፡ ምስለ ፡ አግብርተ ፡ እግዚእ ፡ ወኢወረደ ፡ ቤቶ ።",
+      "tokens": [
+        "ወፀውዓ",
+        "ዳዊት",
+        "ወበልዓ",
+        "ወስትየ",
+        "ወአስከሮ",
+        "ወወፅአ",
+        "ሰርከከ",
+        "ከመ",
+        "ይስክብ",
+        "ውስተ",
+        "ዓራቱ",
+        "ምስለ",
+        "አግብርተ",
+        "እግዚእ",
+        "ወኢወረደ",
+        "ቤቶ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "verse opens shortly after a red 'kefl 32' marginal subdivision rubric; soft sense boundary"
+        },
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "'serkeke' = at his evening; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 14,
+      "column": 3,
+      "line_start": 10,
+      "geez": "ወሶበ ፡ ፀብሐ ፡ ፀሐፈ ፡ ዳዊት ፡ መጽሐፈ ፡ ኀበ ፡ ኢዮአብ ፡ ወፈነወ ፡ በእዱ ፡ ለኦርዮ ።",
+      "tokens": [
+        "ወሶበ",
+        "ፀብሐ",
+        "ፀሐፈ",
+        "ዳዊት",
+        "መጽሐፈ",
+        "ኀበ",
+        "ኢዮአብ",
+        "ወፈነወ",
+        "በእዱ",
+        "ለኦርዮ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 15,
+      "column": 3,
+      "line_start": 12,
+      "geez": "ወፀሐፈ ፡ ውስተ ፡ ውእቱ ፡ ፀሐፍ ፡ እንዘ ፡ ይብል ፡ አብእዎ ፡ ለኦርዮብ ፡ ውስተ ፡ ፀኑዕ ፡ ቀትል ፡ ፍጽሙ ፡ ወተመየጡ ፡ እምድኅሬሁ ፡ ወኃደግምዎ ፡ ይቅትል ፡ ወይሙት ።",
+      "tokens": [
+        "ወፀሐፈ",
+        "ውስተ",
+        "ውእቱ",
+        "ፀሐፍ",
+        "እንዘ",
+        "ይብል",
+        "አብእዎ",
+        "ለኦርዮብ",
+        "ውስተ",
+        "ፀኑዕ",
+        "ቀትል",
+        "ፍጽሙ",
+        "ወተመየጡ",
+        "እምድኅሬሁ",
+        "ወኃደግምዎ",
+        "ይቅትል",
+        "ወይሙት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 7,
+          "marker": "uncertain",
+          "note": "'le-Oryob' = Uriah with anomalous final -b; name-form kept verbatim"
+        },
+        {
+          "token_index": 14,
+          "marker": "uncertain",
+          "note": "'hadegemwo' = leave/abandon him; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 16,
+      "column": 3,
+      "line_start": 15,
+      "geez": "እምዝ ፡ እንዘ ፡ የዓቅባ ፡ ኢዮአብ ፡ ለሀገር ፡ ወወሰደ ፡ ለኦርዮ ፡ ውስተ ፡ መካን ፡ ኀበ ፡ የአምር ፡ ከመ ፡ ህለው ፡ ዕደው ፡ ፅኑዓን ፡ ህየ ።",
+      "tokens": [
+        "እምዝ",
+        "እንዘ",
+        "የዓቅባ",
+        "ኢዮአብ",
+        "ለሀገር",
+        "ወወሰደ",
+        "ለኦርዮ",
+        "ውስተ",
+        "መካን",
+        "ኀበ",
+        "የአምር",
+        "ከመ",
+        "ህለው",
+        "ዕደው",
+        "ፅኑዓን",
+        "ህየ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": 3,
+      "line_start": 18,
+      "geez": "ወወፅኡ ፡ ሰብእ ፡ ህገር ፡ ከመ ፡ ይቃተሉ ፡ ምስለ ፡ ኢዮአብ ፡ ወወድቁ ፡ እምአግብርተ ፡ ዳዊት ፡ ወሞተ ፡ ኦርዮ ፡ ኬጥያዊ ።",
+      "tokens": [
+        "ወወፅኡ",
+        "ሰብእ",
+        "ህገር",
+        "ከመ",
+        "ይቃተሉ",
+        "ምስለ",
+        "ኢዮአብ",
+        "ወወድቁ",
+        "እምአግብርተ",
+        "ዳዊት",
+        "ወሞተ",
+        "ኦርዮ",
+        "ኬጥያዊ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "'hager' here spelled 'hgar'; defective spelling kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 18,
+      "column": 3,
+      "line_start": 21,
+      "geez": "ወፈነወ ፡ ኢዮአብ ፡ ይዜንዎ ፡ ለንጉሥ ፡ ኵሎ ፡ ግብረ ፡ ፀብእ ።",
+      "tokens": [
+        "ወፈነወ",
+        "ኢዮአብ",
+        "ይዜንዎ",
+        "ለንጉሥ",
+        "ኵሎ",
+        "ግብረ",
+        "ፀብእ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 19,
+      "column": 3,
+      "line_start": 22,
+      "geez": "ይነግርዎ ፡ ለንጉሥ ፡ ወኮነን ፡ ለእመ ፡ ተምዕበ ፡ ንጉሥ ፡ ወይቤ ፡ ለምንት ፡ ቀረብክሙ ፡ ውስተ ፡ ሀገር ፡ ከመ ፡ ትትቃተሉ ፡ ኤተ ፡ አምራኩ ፡ ከመ ፡ ይነድፉ ፡ እምነ ፡ እረፍት ።",
+      "tokens": [
+        "ይነግርዎ",
+        "ለንጉሥ",
+        "ወኮነን",
+        "ለእመ",
+        "ተምዕበ",
+        "ንጉሥ",
+        "ወይቤ",
+        "ለምንት",
+        "ቀረብክሙ",
+        "ውስተ",
+        "ሀገር",
+        "ከመ",
+        "ትትቃተሉ",
+        "ኤተ",
+        "አምራኩ",
+        "ከመ",
+        "ይነድፉ",
+        "እምነ",
+        "እረፍት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "SOFT BOUNDARY: CAM writes no red cross between the equivalents of v19 and v20; this object merges that material as one sense unit, numbered contiguously"
+        },
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "'wakonen' transitional; orthography kept as seen"
+        },
+        {
+          "token_index": 13,
+          "marker": "uncertain",
+          "note": "'eta' (=akko? 'did you not') reading uncertain; transcribed as written"
+        }
+      ]
+    },
+    {
+      "v": 20,
+      "column": 3,
+      "line_start": 25,
+      "geez": "መኑ ፡ ቀተሎ ፡ ለአበሜሌክ ፡ ወልደ ፡ ሮብአም ፡ አኮኑ ፡ ብእሲት ፡ ወገደፈት ፡ ስባሬ ፡ ማሕረፀ ፡ ላዕሌሁ ፡ እምነ ፡ መልዕልተ ፡ እረፍት ፡ ወሞተ ፡ በታምናስ ፡ ለምንት ፡ ቀበርክሙ ፡ እረፍት ፡ ወትቤሎ ፡ ገብርከኒ ፡ እምርዮ ፡ ኬጥያዊ ፡ ሞተ ።",
+      "tokens": [
+        "መኑ",
+        "ቀተሎ",
+        "ለአበሜሌክ",
+        "ወልደ",
+        "ሮብአም",
+        "አኮኑ",
+        "ብእሲት",
+        "ወገደፈት",
+        "ስባሬ",
+        "ማሕረፀ",
+        "ላዕሌሁ",
+        "እምነ",
+        "መልዕልተ",
+        "እረፍት",
+        "ወሞተ",
+        "በታምናስ",
+        "ለምንት",
+        "ቀበርክሙ",
+        "እረፍት",
+        "ወትቤሎ",
+        "ገብርከኒ",
+        "እምርዮ",
+        "ኬጥያዊ",
+        "ሞተ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "'Rob'am' in 'walde Rob'am' (son of Roboam/Rehoboam) where the well-known text has Jerubbesheth; recension variant kept verbatim"
+        },
+        {
+          "token_index": 15,
+          "marker": "uncertain",
+          "note": "'be-Tamnas' = at Thebez, name-form kept as seen"
+        },
+        {
+          "token_index": 21,
+          "marker": "damaged",
+          "note": "'em-ryo' for 'Oryo' (Uriah) - first syllable rubbed/ligatured, reading proposed from context; a small red interlinear numeral '40' sits above this line"
+        }
+      ]
+    },
+    {
+      "v": 21,
+      "column": 3,
+      "line_start": 31,
+      "geez": "ወሐረ ፡ ሳእኩ ፡ ለኢዮአብ ፡ ወዜነዎ ፡ ለንጉሥ ፡ ኵሎ ፡ ዘይቤሎ ፡ ኢዮአብ ።",
+      "tokens": [
+        "ወሐረ",
+        "ሳእኩ",
+        "ለኢዮአብ",
+        "ወዜነዎ",
+        "ለንጉሥ",
+        "ኵሎ",
+        "ዘይቤሎ",
+        "ኢዮአብ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 1,
+          "marker": "uncertain",
+          "note": "'sa'eku' = messenger of (sa'ek + suffix); orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 22,
+      "column": 3,
+      "line_start": 32,
+      "geez": "ወይቤሎ ፡ ሳእክ ፡ ለዳዊት ፡ ሶበ ፡ ኃየሉነ ፡ ወደገኑነ ፡ እሙንቱ ፡ ዕደው ፡ ወአውፅኡነ ፡ ውስተ ፡ ገዳም ፡ ወእምዝ ፡ ተመየጥናሆሙ ፡ ወሰደድናሆሙ ፡ እስከ ፡ ኆኅተ ፡ አንቀጽ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ሳእክ",
+        "ለዳዊት",
+        "ሶበ",
+        "ኃየሉነ",
+        "ወደገኑነ",
+        "እሙንቱ",
+        "ዕደው",
+        "ወአውፅኡነ",
+        "ውስተ",
+        "ገዳም",
+        "ወእምዝ",
+        "ተመየጥናሆሙ",
+        "ወሰደድናሆሙ",
+        "እስከ",
+        "ኆኅተ",
+        "አንቀጽ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 4,
+          "marker": "uncertain",
+          "note": "'hayeluna' = prevailed against us; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 23,
+      "column": 3,
+      "line_start": 37,
+      "geez": "ወነደፉ ፡ ስብእ ፡ ሐዕለ ፡ ዕለ ፡ እግብርቲከ ፡ እመልዕልተ ፡ እረፍት ፡ ወሞቱ ፡ እምአግብርተ ፡ ንጉሥ ፡ ወካዕበ ፡ ግብርከኒ ፡ ኦርዮ ፡ ኬጥያዊ ፡ ሞተ ።",
+      "tokens": [
+        "ወነደፉ",
+        "ስብእ",
+        "ሐዕለ",
+        "ዕለ",
+        "እግብርቲከ",
+        "እመልዕልተ",
+        "እረፍት",
+        "ወሞቱ",
+        "እምአግብርተ",
+        "ንጉሥ",
+        "ወካዕበ",
+        "ግብርከኒ",
+        "ኦርዮ",
+        "ኬጥያዊ",
+        "ሞተ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "'ha0le 0le' = shot upon/against; soft segmentation and defective spelling kept as seen"
+        },
+        {
+          "token_index": 11,
+          "marker": "uncertain",
+          "note": "'gebrkeni' = your servant (also); orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 24,
+      "column": 3,
+      "line_start": 40,
+      "geez": "ወይቤሎ ፡ ዳዊት ፡ ለውእቱ ፡ ኢያዕብስ ፡ ዝንቱ ፡ ነገር ፡ ቅድመ ፡ አዕይንቲከ ፡ እስመ ፡ ከመዝ ፡ ይበልዕ ፡ ኩናት ፡ ወአጽንዕ ፡ ተቃትለከ ፡ ምስለ ፡ ሀገር ፡ አስተጋብእ ።",
+      "tokens": [
+        "ወይቤሎ",
+        "ዳዊት",
+        "ለውእቱ",
+        "ኢያዕብስ",
+        "ዝንቱ",
+        "ነገር",
+        "ቅድመ",
+        "አዕይንቲከ",
+        "እስመ",
+        "ከመዝ",
+        "ይበልዕ",
+        "ኩናት",
+        "ወአጽንዕ",
+        "ተቃትለከ",
+        "ምስለ",
+        "ሀገር",
+        "አስተጋብእ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 2,
+          "marker": "uncertain",
+          "note": "object of 'le-we'etu' (the messenger) not lexicalized in CAM; verse begins f120r col3 L40 and runs across the folio turn to f120v col1 L1 - soft folio-turn boundary"
+        },
+        {
+          "token_index": 3,
+          "marker": "damaged",
+          "note": "'iya0bes' (let it not be evil) written with superscript abbreviation strokes at the column edge; reading proposed from context"
+        },
+        {
+          "token_index": 13,
+          "marker": "uncertain",
+          "note": "'teqatleka' = your battle; an interpretive interlinear gloss ('we'etu be-eme atha0hu wa-bo eme kemez') is written in a smaller hand between f120r col3 L40 and L41; gloss NOT included in geez"
+        }
+      ]
+    },
+    {
+      "v": 25,
+      "column": 1,
+      "line_start": 1,
+      "geez": "ወአጽንዓ ፡ ወሰምዓት ፡ ብእሲቱ ፡ ለኦርዮ ፡ ከመ ፡ ሞተ ፡ ኦርዮ ፡ ወበከየቶ ፡ ለዕለ ፡ ምታ ።",
+      "tokens": [
+        "ወአጽንዓ",
+        "ወሰምዓት",
+        "ብእሲቱ",
+        "ለኦርዮ",
+        "ከመ",
+        "ሞተ",
+        "ኦርዮ",
+        "ወበከየቶ",
+        "ለዕለ",
+        "ምታ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "'wa-asne0a' (and strengthen/encourage him) closes the David-to-messenger speech and stands at the top of f120v col1 L1 after a red cross; folio-turn soft boundary"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "'mota' in 'le-0le mota' = over/for her husband; orthography kept as seen"
+        }
+      ]
+    },
+    {
+      "v": 26,
+      "column": 1,
+      "line_start": 3,
+      "geez": "ወእምዝ ፡ ሶበ ፡ ሐለፈ ፡ መዋዕለ ፡ ሐዘን ፡ ለአከ ፡ ሳቲ ፡ ዳዊት ፡ ወነሥአ ፡ ወእቴዋ ፡ ውስተ ፡ ቤቱ ፡ ወኮነቶ ፡ ብእሲቶ ፡ ወወለደት ፡ ሎቱ ፡ ወልደ ፡ ወኮነ ፡ ዝንቱ ፡ እኩየ ፡ በቅድመ ፡ እግዚእብሔር ፡ ዘገብረ ፡ ዳዊት ።",
+      "tokens": [
+        "ወእምዝ",
+        "ሶበ",
+        "ሐለፈ",
+        "መዋዕለ",
+        "ሐዘን",
+        "ለአከ",
+        "ሳቲ",
+        "ዳዊት",
+        "ወነሥአ",
+        "ወእቴዋ",
+        "ውስተ",
+        "ቤቱ",
+        "ወኮነቶ",
+        "ብእሲቶ",
+        "ወወለደት",
+        "ሎቱ",
+        "ወልደ",
+        "ወኮነ",
+        "ዝንቱ",
+        "እኩየ",
+        "በቅድመ",
+        "እግዚእብሔር",
+        "ዘገብረ",
+        "ዳዊት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 6,
+          "marker": "uncertain",
+          "note": "'sati' (a hapax-looking auxiliary before 'Dawit' = 'sent and'); reading as written, function uncertain"
+        },
+        {
+          "token_index": 9,
+          "marker": "uncertain",
+          "note": "'we'etewa' = and he brought her; orthography kept as seen"
+        },
+        {
+          "token_index": 23,
+          "marker": "uncertain",
+          "note": "FINAL VERSE of 2 Sam 11: ends '...ekuye be-qedme Egzi'abher zegabra Dawit' then a red cross; immediately followed by a red 'kefl 34' rubric + seam-bracket introducing 2 Sam 12 (the LORD sends Nathan; two men, the poor man's one ewe-lamb) which is EXCLUDED"
+        }
+      ]
+    }
+  ],
+  "transcription_notes": "WITNESS: Cambridge University Library MS Add. 1570 (CAM), the second Samuel/Reigns witness, transcribed BLIND from the two ~7760x10328 hi-res stitched masters of f120r and f120v only. HAND & LAYOUT: a dense, regular, upright Ethiopic book hand, three columns per folio side (f120r columns at approx x 800-2350 / 2680-4180 / 4600-6110; f120v shifted right, columns at approx x 1900-3450 / 3800-5350 / 5750-7150; ~40-41 ruled lines per column). Heavy red rubrication: clause-initial words, divine names, the 'kefl' subdivision rubrics, and red cross-shaped clause dividers; the scribe also draws a curved seam-bracket flourish at major paragraph openings and uses superscript abbreviation strokes and small interlinear glosses. SEGMENTATION METHOD: the MS does not number verses; verses were segmented by the manuscript's own red cross sense-dividers plus narrative sense, numbered contiguously 1..26. KEFL CAUTION OBSERVED: the red 'kefl <numeral>' rubrics (kefl 30 at the 2 Sam 11 opening, kefl 31 at v2, kefl 32 near v13, kefl 34 at the 2 Sam 12 opening) are FINE LITURGICAL SUBDIVISIONS whose numerals climb fast within the chapter - they were explicitly NOT used to bound the chapter; the Bathsheba NARRATIVE was used to bound it. CAM also has no red cross between the material answering to the familiar v19 and v20, so those were merged into a single sense unit (object v=19) and the soft boundary flagged; the object numbering is therefore contiguous 1..26 (the familiar narrative's ~27 verses, with v19/20 as one unit). EXACT START LOCUS: 2 Sam 11:1 begins on f120r, column 2, line 8, at the red 'kefl 30' margin rubric with the curved seam-bracket, opening 'we-emz bedaha 0amete mawa'l ame ywede'u negest...' ('and it came to pass at the return of the year, when kings go forth...'). The end of 2 Sam 10 physically precedes it in col2 lines 1-7, concluding '...wa-ferhu Soreya ad0anotomu le-deqiqe Emon' ('and Syria feared to help the children of Ammon' = 2 Sam 10:19 end), preceded by the Aramean-war tally (David smote 600 of Syria, 40 charioteers, Shobach the captain died there, the servants of Hadadezer saw they were defeated before Israel). EXACT END LOCUS: 2 Sam 11 ends on f120v, column 1, line 6 into line 7, the final verse closing '...wakona zentu ekuye be-qedme Egzi'abher zegabra Dawit' ('but this thing that David had done was evil before the LORD') followed by a red cross. IMMEDIATELY after it, still on f120v col1 line 7, a red 'kefl 34' rubric plus curved seam-bracket introduces 2 Sam 12: 'wa-fenewo Egzi'abher le-Natan haba Dawit... helewu 2 0edew weste ahati hager 1 ba0l wa-1 neday... abaɠɠ wa-alhemt wa-le-neday... ahati beɠe0 enestit enta sayeta' (the LORD sends Nathan; two men in one city, one rich one poor, the rich man's many flocks and herds, the poor man's single little ewe-lamb). This 2 Sam 12 / Nathan / ewe-lamb material is the boundary proof and was EXCLUDED from this record. MARɠINAL/МЄ NOTE SITUATION: the upper running header of f120r reads a title plus a 'me0 14' (me'eraf ~14) chapter-style marginal numeral and the folio number '120'; within the text body the only marginalia are the red 'kefl' liturgical subdivision rubrics and small black interlinear scribal glosses/abbreviation-expansions (e.g. an 'Egzi'e' divine-name expansion glossed above f120r col3 L3, and an interpretive interlinear note between f120r col3 L40 and L41). No separate running 'me'eraf 11' in-text chapter heading was found at the v1 seam beyond the kefl rubric. RECENSION ASSESSMENT (honest): CAM presents the FULL / LONG Bathsheba narrative. All of the well-known ~27-verse account is present and in order - war season, David on the roof, Bathsheba daughter of Eliam wife of Uriah, take/lie/return, conception and message, Uriah summoned, the roof-door refusal and the ark/tents speech, the drinking, the death-letter by Uriah's hand, the ambush and Uriah's death, Joab's messenger and the Abimelech-son-of-Roboam/woman/millstone/Thebez coaching, David's 'the sword devours' reply, Bathsheba's mourning, the marriage and the son, and the closing 'evil before the LORD'. No verse-block is omitted; the only structural shortfall vs the familiar 27 is that CAM does not separate v19 from v20 (merged here). CAM is therefore long/full, not a short recension; it is NOT reshaped to any external count. LEXICAL/ORTHOɠRAPHIC ODDITIES kept verbatim and flagged: Joab as 'Iyab' (v1) alongside 'Iyo'ab' elsewhere; Uriah as 'Oryo'/'Oryob' (anomalous final -b in v15) and the gentilic as both 'Zetyawi' (v3) and 'Ketyawi'; Bathsheba 'Bersabeh', Eliam 'Elyab'; Rabbah 'Raba'; Thebez 'Tamnas'; Jerubbesheth replaced by 'walde Rob'am' (son of Roboam, a genuine recension variant); plus several defective spellings (hgar for hager, da0ana, serkeke, tekto-ha, etc.) all transcribed as seen and marked uncertain. A clear COLUMN-TURN DITTOɠRAPHY of 'ebew' occurs at the f120r col2->col3 boundary in v11 (written line-final on col2 L40 and again line-initial on col3 L1); both copies are transcribed and flagged, not corrected. Superscript abbreviation strokes (on Egzi'abher, iya0bes) and interlinear glosses are described here and flagged but the glosses are NOT merged into the geez. NUMERAL HANDLINɠ: no Ethiopic numeral glyph occurs inside the body of 2 Sam 11 itself; the numerals seen are the 2 Sam 10 war tallies (immediately before v1, excluded), the red 'kefl' subdivision numerals and a small red interlinear '40' near v20 (subdivision apparatus, not scripture text, so not tokenised), and the 2 Sam 12 numerals (excluded). No number was padded or converted; none needed standalone numeral tokens within the chapter. GEEZ/TOKEN CONVENTION: per the CAM template the geez strings KEEP the Ethiopic wordspace and the terminal/clausal full stop; the red cross dividers and kefl rubrics are STRIPPED from geez (they are liturgical punctuation, described here) and likewise absent from tokens; tokens are word-only. DAMAɠE/CONDITION: the parchment is clean and the ink generally excellent; no token is fully illegible, so the illegible-token count is 0 and the ⟦illegible⟧<->'illegible' correspondence holds 1:1 trivially (0 of each). Items marked 'damaged' (best reading proposed from context) are the faded brown 'be'sit' in v3, the abbreviated column-edge 'ebew' in v11, the rubbed 'em-ryo' in v20, and the abbreviated column-edge 'iya0bes' in v24; all remaining flags are 'uncertain' (legible-but-noted: orthography kept as seen, soft boundaries, dittography, name-forms, the v19/20 merge)."
+}

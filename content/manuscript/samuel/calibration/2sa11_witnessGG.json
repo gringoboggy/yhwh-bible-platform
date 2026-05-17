@@ -1,0 +1,1029 @@
+{
+ "witness": "GG",
+ "book": "2sa",
+ "chapter": 11,
+ "source_images": [
+  "GAPS/1_Samuel/GG-00106/2-Samuel/2-Samuel_f021v.jpg",
+  "GAPS/1_Samuel/GG-00106/2-Samuel/2-Samuel_f022r.jpg"
+ ],
+ "folio_sigla": [
+  "f021v",
+  "f022r"
+ ],
+ "verses": [
+  {
+   "v": 1,
+   "column": 2,
+   "line_start": 3,
+   "geez": "ወእምዝ በጽሐ ዓመት እመ መዋዕለ ይወፅኡ ነገሥት ወፈነወ ዳዊት ለኢዮአብ ወለደቁ ወክሉ እስራኤል ወተቃተልዎሙ ለደቂቀ እሞን ወነበሩ ውስተ ዓራ ቦቱ ወዳዊትሰ ነበር ውስተ ኢየሩሳሌም",
+   "tokens": [
+    "ወእምዝ",
+    "በጽሐ",
+    "ዓመት",
+    "እመ",
+    "መዋዕለ",
+    "ይወፅኡ",
+    "ነገሥት",
+    "ወፈነወ",
+    "ዳዊት",
+    "ለኢዮአብ",
+    "ወለደቁ",
+    "ወክሉ",
+    "እስራኤል",
+    "ወተቃተልዎሙ",
+    "ለደቂቀ",
+    "እሞን",
+    "ወነበሩ",
+    "ውስተ",
+    "ዓራ",
+    "ቦቱ",
+    "ወዳዊትሰ",
+    "ነበር",
+    "ውስተ",
+    "ኢየሩሳሌም"
+   ],
+   "uncertain": [
+    {
+     "token_index": 18,
+     "marker": "uncertain",
+     "note": "ዓራ : MS reads 'ʿara' (siege/encampment of Rabbah); the place-name Rabbah is not spelled out as a separate proper noun here -- transcribed verbatim."
+    }
+   ]
+  },
+  {
+   "v": 2,
+   "column": 2,
+   "line_start": 9,
+   "geez": "ወአስ ክነ ፍና ሰርክ ተንሣእ ዳዊት እምነ ካቡ ወዓራግ ውስተ ናሕስ ቤት ናጉሥ ያንስሱ ወርእየ ብእሲተ እምሳዕስ ናሕስ እንዘ ትትሐፀብ ወሰናይት ይእቲ ብእሲት",
+   "tokens": [
+    "ወአስ",
+    "ክነ",
+    "ፍና",
+    "ሰርክ",
+    "ተንሣእ",
+    "ዳዊት",
+    "እምነ",
+    "ካቡ",
+    "ወዓራግ",
+    "ውስተ",
+    "ናሕስ",
+    "ቤት",
+    "ናጉሥ",
+    "ያንስሱ",
+    "ወርእየ",
+    "ብእሲተ",
+    "እምሳዕስ",
+    "ናሕስ",
+    "እንዘ",
+    "ትትሐፀብ",
+    "ወሰናይት",
+    "ይእቲ",
+    "ብእሲት"
+   ],
+   "uncertain": [
+    {
+     "token_index": 0,
+     "marker": "uncertain",
+     "note": "ወአስ : opening 'and it came to pass' formula; first word slightly compressed at line-9 start, reading secure from context."
+    },
+    {
+     "token_index": 12,
+     "marker": "uncertain",
+     "note": "ናጉሥ : scribal form for ንጉሥ ('king'); transcribed verbatim (vowel-order variant), not normalised."
+    },
+    {
+     "token_index": 13,
+     "marker": "uncertain",
+     "note": "ያንስሱ : verb 'to walk about/stroll'; reading proposed from context (David walking on the roof)."
+    }
+   ]
+  },
+  {
+   "v": 3,
+   "column": 2,
+   "line_start": 13,
+   "geez": "ወፈነወ ዳዊት ወይቤ ዳዊት ዘመኑ ይእቲ ብእሲት ወይቤልዎ እኮኑ ቤርሳቤሕ ይእቲ ወለተ ኤልያብ ብእሲቱ እርዮ ኬጥያዊ",
+   "tokens": [
+    "ወፈነወ",
+    "ዳዊት",
+    "ወይቤ",
+    "ዳዊት",
+    "ዘመኑ",
+    "ይእቲ",
+    "ብእሲት",
+    "ወይቤልዎ",
+    "እኮኑ",
+    "ቤርሳቤሕ",
+    "ይእቲ",
+    "ወለተ",
+    "ኤልያብ",
+    "ብእሲቱ",
+    "እርዮ",
+    "ኬጥያዊ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 12,
+     "marker": "uncertain",
+     "note": "ኤልያብ : father's name; MS reads 'Eliab' (cf. well-known 'Eliam'); transcribed verbatim, name-variant not corrected."
+    },
+    {
+     "token_index": 14,
+     "marker": "uncertain",
+     "note": "እርዮ : 'Uriah' consistently spelled እርዮ (not ኦርዮ) throughout this MS; verbatim."
+    }
+   ]
+  },
+  {
+   "v": 4,
+   "column": 2,
+   "line_start": 17,
+   "geez": "ወስእከ ዳዊት ኅቤሃ ወነሥኣ ወስከበ ምስሌሃ ወይእቲ በከመ ተሐፅበት እምነ ክዶሃ ወአተወት ቤታ",
+   "tokens": [
+    "ወስእከ",
+    "ዳዊት",
+    "ኅቤሃ",
+    "ወነሥኣ",
+    "ወስከበ",
+    "ምስሌሃ",
+    "ወይእቲ",
+    "በከመ",
+    "ተሐፅበት",
+    "እምነ",
+    "ክዶሃ",
+    "ወአተወት",
+    "ቤታ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 10,
+     "marker": "uncertain",
+     "note": "ክዶሃ : '(from) her uncleanness/menstrual impurity'; reading proposed from context, glyph somewhat compressed."
+    }
+   ]
+  },
+  {
+   "v": 5,
+   "column": 2,
+   "line_start": 19,
+   "geez": "ወፀንስት ይእቲ ብእሲት ወስደከት ጎበ ዳዊት ወትቤ ፀነስኩ እንሰ",
+   "tokens": [
+    "ወፀንስት",
+    "ይእቲ",
+    "ብእሲት",
+    "ወስደከት",
+    "ጎበ",
+    "ዳዊት",
+    "ወትቤ",
+    "ፀነስኩ",
+    "እንሰ"
+   ],
+   "uncertain": []
+  },
+  {
+   "v": 6,
+   "column": 2,
+   "line_start": 21,
+   "geez": "ወለእከ ዳዊት ጎበ ኢዮአብ እንዘ ይብል ፈንዎ ስእርዮ ናቢ የ ወፈነወ ኢዮአብ ለእርዮ ኬጥያዊ ጎበ ዳዊት",
+   "tokens": [
+    "ወለእከ",
+    "ዳዊት",
+    "ጎበ",
+    "ኢዮአብ",
+    "እንዘ",
+    "ይብል",
+    "ፈንዎ",
+    "ስእርዮ",
+    "ናቢ",
+    "የ",
+    "ወፈነወ",
+    "ኢዮአብ",
+    "ለእርዮ",
+    "ኬጥያዊ",
+    "ጎበ",
+    "ዳዊት"
+   ],
+   "uncertain": [
+    {
+     "token_index": 8,
+     "marker": "damaged",
+     "note": "ናቢ ፡ የ : two short tokens at line-22/23 wrap; appears to be 'nabiya' ('the prophet'?) or a scribal expansion -- reading uncertain, proposed from context; transcribed verbatim as two tokens, not emended."
+    }
+   ]
+  },
+  {
+   "v": 7,
+   "column": 2,
+   "line_start": 24,
+   "geez": "ወበጽሐ ወአ ጎበ ዳ ቤሁ ወተስእሎ ዳዊት በእንተ ጸህናሁ ስኢዮአብ ወበእንተ ጸህና ሕዝብ ወበእንተ ጸህና ፀብዕ",
+   "tokens": [
+    "ወበጽሐ",
+    "ወአ",
+    "ጎበ",
+    "ዳ",
+    "ቤሁ",
+    "ወተስእሎ",
+    "ዳዊት",
+    "በእንተ",
+    "ጸህናሁ",
+    "ስኢዮአብ",
+    "ወበእንተ",
+    "ጸህና",
+    "ሕዝብ",
+    "ወበእንተ",
+    "ጸህና",
+    "ፀብዕ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 1,
+     "marker": "damaged",
+     "note": "ወአ : isolated short token before 'ጎበ ዳ ቤሁ'; ink partly faded, likely 'wabaʾa' ('and he came/entered'); reading proposed from context."
+    },
+    {
+     "token_index": 3,
+     "marker": "uncertain",
+     "note": "ዳ ቤሁ : reads like 'da bēhu'; expected sense 'unto him / to his presence'; spacing irregular, transcribed verbatim as two tokens."
+    },
+    {
+     "token_index": 8,
+     "marker": "uncertain",
+     "note": "ጸህናሁ : 'his welfare/peace (of Joab)'; vowel form proposed from context."
+    }
+   ]
+  },
+  {
+   "v": 8,
+   "column": 2,
+   "line_start": 27,
+   "geez": "ወይቤሎ ዳዊት ስእርዮ ሑር ረድ ውስተ ቤትከ ወተኃፀብ እገሪከ ወወፅአ እርዮ እምቤተ ንጉሥ ወወዲእ ተስዕሮ ወዳሊ ዘንጉሥ",
+   "tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ስእርዮ",
+    "ሑር",
+    "ረድ",
+    "ውስተ",
+    "ቤትከ",
+    "ወተኃፀብ",
+    "እገሪከ",
+    "ወወፅአ",
+    "እርዮ",
+    "እምቤተ",
+    "ንጉሥ",
+    "ወወዲእ",
+    "ተስዕሮ",
+    "ወዳሊ",
+    "ዘንጉሥ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 14,
+     "marker": "damaged",
+     "note": "ተስዕሮ : difficult; with following 'ወዳሊ ፡ ዘንጉሥ' (a gift/portion 'of the king' sent after him, cf. MT 'a mess of meat from the king'); reading proposed from context, the cluster is abraded and ambiguous."
+    },
+    {
+     "token_index": 15,
+     "marker": "damaged",
+     "note": "ወዳሊ : uncertain noun ('portion/gift'); proposed from context (royal portion sent after Uriah)."
+    }
+   ]
+  },
+  {
+   "v": 9,
+   "column": 2,
+   "line_start": 31,
+   "geez": "ወቤተ እርዮ ዬዶ ቤተ ንጉሥ ምስለ እግብርተ ንጉሥ ወኢወረደ ቤ",
+   "tokens": [
+    "ወቤተ",
+    "እርዮ",
+    "ዬዶ",
+    "ቤተ",
+    "ንጉሥ",
+    "ምስለ",
+    "እግብርተ",
+    "ንጉሥ",
+    "ወኢወረደ",
+    "ቤ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 2,
+     "marker": "damaged",
+     "note": "ዬዶ : carries a superscript ditto/correction mark in the MS; sense ~ 'slept/lay at (the door of)'; reading proposed from context; the correction stroke noted, token left verbatim."
+    },
+    {
+     "token_index": 9,
+     "marker": "damaged",
+     "note": "ቤ : verse runs over the column foot; final word truncated mid-token at end of col.2 line 32 ('ቤ[ታ]' = 'his house'); transcribed as the partial token actually written."
+    }
+   ]
+  },
+  {
+   "v": 10,
+   "column": 2,
+   "line_start": 33,
+   "geez": "ወዘነውም ስዳዊት እንዘ ይብል ኢወረደ እርዮ ውስተ ቤቱ ወይቤሎ ዳዊት ስእርዮ አኮኑ እምሐቅል መጻእከ ስምንት ኢወረድከ ውስተ ቤትከ",
+   "tokens": [
+    "ወዘነውም",
+    "ስዳዊት",
+    "እንዘ",
+    "ይብል",
+    "ኢወረደ",
+    "እርዮ",
+    "ውስተ",
+    "ቤቱ",
+    "ወይቤሎ",
+    "ዳዊት",
+    "ስእርዮ",
+    "አኮኑ",
+    "እምሐቅል",
+    "መጻእከ",
+    "ስምንት",
+    "ኢወረድከ",
+    "ውስተ",
+    "ቤትከ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 0,
+     "marker": "damaged",
+     "note": "ወዘነውም : opening of v.10 at col.2 line 33; first 1-2 syllables faint/ambiguous (sense 'and it was reported (to David)'); reading proposed from context."
+    }
+   ]
+  },
+  {
+   "v": 11,
+   "column": 2,
+   "line_start": 37,
+   "geez": "ወይቤሎ እርዮ ለዳዊት ታቦተ እግዚእ አብሐር ወእስራኤል ወይሁዳ ይነብሩ ውስተ ደባትር ወእ ዮአብ እግዚእየ ወአግብርተ እግዚእየ ውስተ ገጸ ገዳም ይትአየኑ ወእንሰ እፁ እበውዕ ውስተ ቤትየ ክመ እብላዕ ወእስተይ ወክመ እስክብ ምስለ ብእሲትየ እፅኑ ዝንቱ ሕያው እግዚእ አብሐር ወሕያው ነፍስከ ከመ ኢይገብር ለዝንቱ ግብር",
+   "tokens": [
+    "ወይቤሎ",
+    "እርዮ",
+    "ለዳዊት",
+    "ታቦተ",
+    "እግዚእ",
+    "አብሐር",
+    "ወእስራኤል",
+    "ወይሁዳ",
+    "ይነብሩ",
+    "ውስተ",
+    "ደባትር",
+    "ወእ",
+    "ዮአብ",
+    "እግዚእየ",
+    "ወአግብርተ",
+    "እግዚእየ",
+    "ውስተ",
+    "ገጸ",
+    "ገዳም",
+    "ይትአየኑ",
+    "ወእንሰ",
+    "እፁ",
+    "እበውዕ",
+    "ውስተ",
+    "ቤትየ",
+    "ክመ",
+    "እብላዕ",
+    "ወእስተይ",
+    "ወክመ",
+    "እስክብ",
+    "ምስለ",
+    "ብእሲትየ",
+    "እፅኑ",
+    "ዝንቱ",
+    "ሕያው",
+    "እግዚእ",
+    "አብሐር",
+    "ወሕያው",
+    "ነፍስከ",
+    "ከመ",
+    "ኢይገብር",
+    "ለዝንቱ",
+    "ግብር"
+   ],
+   "uncertain": [
+    {
+     "token_index": 11,
+     "marker": "uncertain",
+     "note": "ወእ ፡ ዮአብ : 'and Joab' split across col.2 line-39/40 wrap as two tokens (ወእ | ዮአብ); transcribed verbatim as written, not merged."
+    },
+    {
+     "token_index": 17,
+     "marker": "uncertain",
+     "note": "ገጸ : superscript correction/strike mark over ገጸ in 'ገጸ ፡ ገዳም' (the open field) at col.3 line 1; word retained, correction noted."
+    },
+    {
+     "token_index": 21,
+     "marker": "uncertain",
+     "note": "እፁ : emphatic/interrogative particle ('shall I then...?'); reading proposed from context, recurs at token ~ later."
+    }
+   ]
+  },
+  {
+   "v": 12,
+   "column": 3,
+   "line_start": 6,
+   "geez": "ወይቤሎ ዳዊት ለእርዮ ንበር ዝየ ዮም ወጌሠመ እፌንወከ ወነበረ እርዮ ውስተ ኢየሩሳሌም ይእተ ዕለተ ወሳኒታ ሁ",
+   "tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለእርዮ",
+    "ንበር",
+    "ዝየ",
+    "ዮም",
+    "ወጌሠመ",
+    "እፌንወከ",
+    "ወነበረ",
+    "እርዮ",
+    "ውስተ",
+    "ኢየሩሳሌም",
+    "ይእተ",
+    "ዕለተ",
+    "ወሳኒታ",
+    "ሁ"
+   ],
+   "uncertain": []
+  },
+  {
+   "v": 13,
+   "column": 3,
+   "line_start": 9,
+   "geez": "ወጸውዕ ዳዊት ወበልዓ ወስትየ በቅድሜሁ ወአስከሮ ወወፅአ ስርክ ከመ ይስከብ ዲበ ዓራቱ ምስለ አግብርተ እግዚእ ሁ ወኢወረደ ቤታ",
+   "tokens": [
+    "ወጸውዕ",
+    "ዳዊት",
+    "ወበልዓ",
+    "ወስትየ",
+    "በቅድሜሁ",
+    "ወአስከሮ",
+    "ወወፅአ",
+    "ስርክ",
+    "ከመ",
+    "ይስከብ",
+    "ዲበ",
+    "ዓራቱ",
+    "ምስለ",
+    "አግብርተ",
+    "እግዚእ",
+    "ሁ",
+    "ወኢወረደ",
+    "ቤታ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 7,
+     "marker": "uncertain",
+     "note": "ስርክ : 'at evening' (cf. ሰርክ elsewhere in this chapter); spelling variant, transcribed verbatim."
+    }
+   ]
+  },
+  {
+   "v": 14,
+   "column": 3,
+   "line_start": 13,
+   "geez": "ወስበ ጸብሐ ጸፈ ዳዊት መጽሐፈ ጎበ ኢዮአብ ወፈነዎ በእደ እርዮ",
+   "tokens": [
+    "ወስበ",
+    "ጸብሐ",
+    "ጸፈ",
+    "ዳዊት",
+    "መጽሐፈ",
+    "ጎበ",
+    "ኢዮአብ",
+    "ወፈነዎ",
+    "በእደ",
+    "እርዮ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 2,
+     "marker": "uncertain",
+     "note": "ጸፈ : for ጸሐፈ ('he wrote'); the medial ሐ is reduced/abbreviated by the scribe; transcribed verbatim."
+    }
+   ]
+  },
+  {
+   "v": 15,
+   "column": 3,
+   "line_start": 15,
+   "geez": "ወጸሐፈ ውስተ ውእቱ መጽሐፍ እንዘ ይብል አብእ እምአ ለእርዮ ጎበ ፅንዕ ቀተል ፍ ድሜ አ ወተመየጡ ጸ ወሳድግዎ እ ይኩ ስልዕ ወይሙት እ",
+   "tokens": [
+    "ወጸሐፈ",
+    "ውስተ",
+    "ውእቱ",
+    "መጽሐፍ",
+    "እንዘ",
+    "ይብል",
+    "አብእ",
+    "እምአ",
+    "ለእርዮ",
+    "ጎበ",
+    "ፅንዕ",
+    "ቀተል",
+    "ፍ",
+    "ድሜ",
+    "አ",
+    "ወተመየጡ",
+    "ጸ",
+    "ወሳድግዎ",
+    "እ",
+    "ይኩ",
+    "ስልዕ",
+    "ወይሙት",
+    "እ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 7,
+     "marker": "damaged",
+     "note": "እምአ : short token; sense 'in front / before him' (cf. MT 'in the forefront'); ink faded, proposed from context."
+    },
+    {
+     "token_index": 12,
+     "marker": "damaged",
+     "note": "ፍ ድሜ ፡ አ : badly abraded cluster, evidently ቅድሜ('before/forefront of') + suffix; the battle is 'ፅንዕ ፡ ቀተል' (the hard/strong fighting); reading proposed from context, transcribed as the broken tokens written."
+    },
+    {
+     "token_index": 16,
+     "marker": "damaged",
+     "note": "ጸ : isolated truncated syllable at line wrap; part of a word lost to the column edge; flagged."
+    },
+    {
+     "token_index": 18,
+     "marker": "damaged",
+     "note": "እ : isolated truncated syllable (purpose particle 'that he...'); fragment, proposed from context."
+    },
+    {
+     "token_index": 20,
+     "marker": "damaged",
+     "note": "ስልዕ : 'be struck down/smitten'; reading proposed from context (so that he be smitten and die)."
+    },
+    {
+     "token_index": 22,
+     "marker": "damaged",
+     "note": "እ : trailing truncated syllable at col.3 line-18 right edge ('and die ...'); fragment written thus."
+    }
+   ]
+  },
+  {
+   "v": 16,
+   "column": 3,
+   "line_start": 19,
+   "geez": "ወእምዝ እንዘ የዓቅባ ኢዮአብ ለሀገር ወወስደም ስእርዮ ውስተ መካን ጎበ የአምር ከመ ሀለዉ ዕደው ጽንዓን ህየ",
+   "tokens": [
+    "ወእምዝ",
+    "እንዘ",
+    "የዓቅባ",
+    "ኢዮአብ",
+    "ለሀገር",
+    "ወወስደም",
+    "ስእርዮ",
+    "ውስተ",
+    "መካን",
+    "ጎበ",
+    "የአምር",
+    "ከመ",
+    "ሀለዉ",
+    "ዕደው",
+    "ጽንዓን",
+    "ህየ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 5,
+     "marker": "uncertain",
+     "note": "ወወስደም : 'and he placed/led him'; final ም appears to be a scribal flourish/suffix, transcribed verbatim."
+    }
+   ]
+  },
+  {
+   "v": 17,
+   "column": 3,
+   "line_start": 22,
+   "geez": "ወወፅኡ ከብእ ሀገር ከመ ይትቃተሉ ምስለ ኢዮአብ ወወደቁ እምስብእ ለዳዊት ወሞተ እርዮኒ ኬጥያዊ",
+   "tokens": [
+    "ወወፅኡ",
+    "ከብእ",
+    "ሀገር",
+    "ከመ",
+    "ይትቃተሉ",
+    "ምስለ",
+    "ኢዮአብ",
+    "ወወደቁ",
+    "እምስብእ",
+    "ለዳዊት",
+    "ወሞተ",
+    "እርዮኒ",
+    "ኬጥያዊ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 1,
+     "marker": "uncertain",
+     "note": "ከብእ : for ሰብእ/ዕደው ('the men of the city'); scribal spelling, transcribed verbatim."
+    }
+   ]
+  },
+  {
+   "v": 18,
+   "column": 3,
+   "line_start": 25,
+   "geez": "ወፈነወ ኢዮአብ ይዜንዉም ስንጉሥ ኩሉ ነገረ ፀብዕ",
+   "tokens": [
+    "ወፈነወ",
+    "ኢዮአብ",
+    "ይዜንዉም",
+    "ስንጉሥ",
+    "ኩሉ",
+    "ነገረ",
+    "ፀብዕ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 2,
+     "marker": "uncertain",
+     "note": "ይዜንዉም : 'to report/tell'; final ም a scribal suffix/flourish; verbatim."
+    }
+   ]
+  },
+  {
+   "v": 19,
+   "column": 3,
+   "line_start": 26,
+   "geez": "ወእዘዘ ስላዕከ እንዘ ይብል ስበ ፈጸምከ ኩሉ ቃላተ ፀብዕ ጎበ ንጉሥ",
+   "tokens": [
+    "ወእዘዘ",
+    "ስላዕከ",
+    "እንዘ",
+    "ይብል",
+    "ስበ",
+    "ፈጸምከ",
+    "ኩሉ",
+    "ቃላተ",
+    "ፀብዕ",
+    "ጎበ",
+    "ንጉሥ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 1,
+     "marker": "uncertain",
+     "note": "ስላዕከ : 'to the messenger/the one sent'; reading proposed from context."
+    }
+   ]
+  },
+  {
+   "v": 20,
+   "column": 3,
+   "line_start": 28,
+   "geez": "ለእመ ተምዓ ንጉሥ ወይቤ ለምንት ቀረብክሙ ጎበ ቅፅር ከመ ትትቃተሉ ኢተአምሩኑ ከመ ይነድፉ እምአረፍት",
+   "tokens": [
+    "ለእመ",
+    "ተምዓ",
+    "ንጉሥ",
+    "ወይቤ",
+    "ለምንት",
+    "ቀረብክሙ",
+    "ጎበ",
+    "ቅፅር",
+    "ከመ",
+    "ትትቃተሉ",
+    "ኢተአምሩኑ",
+    "ከመ",
+    "ይነድፉ",
+    "እምአረፍት"
+   ],
+   "uncertain": []
+  },
+  {
+   "v": 21,
+   "column": 3,
+   "line_start": 32,
+   "geez": "ወመኑ ቀተሎ ስአቤሜሌክ ወልደ ሮብዓም አኮኑ ብእሲት ወገረት ስከረ ማዓረፀ ሳዕሴሁ እምልዕልተ አረፍት ወሞተ በተምናስ ለስምንት ቀረብከሙ ጎበ አረፍት ወትቤሎ ገብርከኒ እርዮ ኬጥያዊ ሞተ",
+   "tokens": [
+    "ወመኑ",
+    "ቀተሎ",
+    "ስአቤሜሌክ",
+    "ወልደ",
+    "ሮብዓም",
+    "አኮኑ",
+    "ብእሲት",
+    "ወገረት",
+    "ስከረ",
+    "ማዓረፀ",
+    "ሳዕሴሁ",
+    "እምልዕልተ",
+    "አረፍት",
+    "ወሞተ",
+    "በተምናስ",
+    "ለስምንት",
+    "ቀረብከሙ",
+    "ጎበ",
+    "አረፍት",
+    "ወትቤሎ",
+    "ገብርከኒ",
+    "እርዮ",
+    "ኬጥያዊ",
+    "ሞተ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 4,
+     "marker": "uncertain",
+     "note": "ሮብዓም : MS reads 'Rōbʿam' for the patronymic (well-known 'Jerubbesheth/Jerubbaal'); transcribed verbatim, name-variant not corrected."
+    },
+    {
+     "token_index": 8,
+     "marker": "uncertain",
+     "note": "ስከረ : 'a millstone / upper millstone' (object the woman cast); reading proposed from context."
+    },
+    {
+     "token_index": 14,
+     "marker": "uncertain",
+     "note": "በተምናስ : place where Abimelech died = 'at Thebez'; MS form 'ba-Tämnas', transcribed verbatim."
+    }
+   ]
+  },
+  {
+   "v": 22,
+   "column": 1,
+   "line_start": 1,
+   "geez": "ወይቤሎ ስውእቱ ሐዋርያ ስምንት በጸሐ ከመ ጎበ አረፍተ ሀገር ትትቃተሉ ኢተአምሩ ከመ ትቄ ስሑ እምአረፍት መኑ ቀተሎ ስአቤሜሌክ ወልደ ሮብዓም አኮኑ ብእሲት ወገረት ሳዕሴሁ ስበረ ማዓረፀ እምሳዕስ አረፍት ወሞተ በተምናስ ለስምንት በጸሐ ከመ ጎበ አረፍት",
+   "tokens": [
+    "ወይቤሎ",
+    "ስውእቱ",
+    "ሐዋርያ",
+    "ስምንት",
+    "በጸሐ",
+    "ከመ",
+    "ጎበ",
+    "አረፍተ",
+    "ሀገር",
+    "ትትቃተሉ",
+    "ኢተአምሩ",
+    "ከመ",
+    "ትቄ",
+    "ስሑ",
+    "እምአረፍት",
+    "መኑ",
+    "ቀተሎ",
+    "ስአቤሜሌክ",
+    "ወልደ",
+    "ሮብዓም",
+    "አኮኑ",
+    "ብእሲት",
+    "ወገረት",
+    "ሳዕሴሁ",
+    "ስበረ",
+    "ማዓረፀ",
+    "እምሳዕስ",
+    "አረፍት",
+    "ወሞተ",
+    "በተምናስ",
+    "ለስምንት",
+    "በጸሐ",
+    "ከመ",
+    "ጎበ",
+    "አረፍት"
+   ],
+   "uncertain": [
+    {
+     "token_index": 12,
+     "marker": "uncertain",
+     "note": "ትቄ ስሑ : 'you would be struck/smitten from the wall'; split as two tokens at the line, transcribed verbatim; the scribe here repeats the Abimelech/Thebez matter as the messenger's own report (GG renders Joab's instruction and the messenger's delivery as near-duplicate, a recensional feature -- NOT silently harmonised)."
+    }
+   ]
+  },
+  {
+   "v": 23,
+   "column": 1,
+   "line_start": 8,
+   "geez": "ወይቤሎ ስውእቱ ሐዋርያ ለዳዊት ስበ ተኃየሱነ ወዲጋኑን እሙንቱ ዕደው እስከ ጋዳም አው ዕ ኡ ነ ወእምዝ ተመየጡ ናሆሙ ወኢሰደደ ናሆሙ እስከ ኖ ሳ ት እንቀ ድ ሉ ወነ የፋ ስብእ ሐ ፀ ሳዕሴ ጸ ቅ ክ እመል ዕ ዕልት አረፍት",
+   "tokens": [
+    "ወይቤሎ",
+    "ስውእቱ",
+    "ሐዋርያ",
+    "ለዳዊት",
+    "ስበ",
+    "ተኃየሱነ",
+    "ወዲጋኑን",
+    "እሙንቱ",
+    "ዕደው",
+    "እስከ",
+    "ጋዳም",
+    "አው",
+    "ዕ",
+    "ኡ",
+    "ነ",
+    "ወእምዝ",
+    "ተመየጡ",
+    "ናሆሙ",
+    "ወኢሰደደ",
+    "ናሆሙ",
+    "እስከ",
+    "ኖ",
+    "ሳ",
+    "ት",
+    "እንቀ",
+    "ድ",
+    "ሉ",
+    "ወነ",
+    "የፋ",
+    "ስብእ",
+    "ሐ",
+    "ፀ",
+    "ሳዕሴ",
+    "ጸ",
+    "ቅ",
+    "ክ",
+    "እመል",
+    "ዕ",
+    "ዕልት",
+    "አረፍት"
+   ],
+   "uncertain": [
+    {
+     "token_index": 5,
+     "marker": "damaged",
+     "note": "ተኃየሱነ : 'they prevailed/were too strong for us'; suffix abraded, proposed from context."
+    },
+    {
+     "token_index": 6,
+     "marker": "damaged",
+     "note": "ወዲጋኑን : obscure; sense ~ 'and they came out / pressed upon us'; ink worn, proposed from context."
+    },
+    {
+     "token_index": 12,
+     "marker": "damaged",
+     "note": "ዕ ኡ : faint abraded cluster at col.1 line ~11 wrap; traces of two syllables still visible so a best-reading is given (not scraped to nothing); proposed from context."
+    },
+    {
+     "token_index": 14,
+     "marker": "damaged",
+     "note": "ነ : truncated syllable, part of word lost to line edge; proposed from context."
+    },
+    {
+     "token_index": 21,
+     "marker": "damaged",
+     "note": "ኖ ሳ : water-faded cluster (a place / 'unto the gate'?) at col.1 line ~12-13; the two syllables ኖ ሳ are still traceable but the governing word is effaced -- best-reading kept verbatim, flagged."
+    },
+    {
+     "token_index": 30,
+     "marker": "damaged",
+     "note": "ሐ ፀ : abraded; with following 'ሳዕሴ ፡ ጸ ቅ ክ' apparently 'shot ... from upon the wall' (cf. archers shooting from the wall); reading proposed from context, broken tokens kept verbatim."
+    },
+    {
+     "token_index": 33,
+     "marker": "damaged",
+     "note": "ጸ ቅ ክ : abraded syllable-cluster within the 'archers shot from off the wall' clause; proposed from context."
+    }
+   ]
+  },
+  {
+   "v": 24,
+   "column": 1,
+   "line_start": 14,
+   "geez": "ወሞቱ እምደቁ ለንጉሥ ወገብር ክነ አርዮ ኬጥያዊ ሞተ",
+   "tokens": [
+    "ወሞቱ",
+    "እምደቁ",
+    "ለንጉሥ",
+    "ወገብር",
+    "ክነ",
+    "አርዮ",
+    "ኬጥያዊ",
+    "ሞተ"
+   ],
+   "uncertain": []
+  },
+  {
+   "v": 25,
+   "column": 1,
+   "line_start": 16,
+   "geez": "ወይቤሎ ዳዊት ስውእቱ ሐዋርያ ከመዝ በሎ ስኢዮአብ ኢይዕፅብ ክነ ዝንቱ ነገር እቅድሜ አዕይንቲ ክነ እስመ ከመዝ ወከመሁ ወቦ እስመ ከመዝ ትበልዕ መጥባሕት ወእጽንዕ እንተ ስ ትቃትሉ አ ምስለ ሀገር ወእስተጋብእ ወአጽንዕ",
+   "tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ስውእቱ",
+    "ሐዋርያ",
+    "ከመዝ",
+    "በሎ",
+    "ስኢዮአብ",
+    "ኢይዕፅብ",
+    "ክነ",
+    "ዝንቱ",
+    "ነገር",
+    "እቅድሜ",
+    "አዕይንቲ",
+    "ክነ",
+    "እስመ",
+    "ከመዝ",
+    "ወከመሁ",
+    "ወቦ",
+    "እስመ",
+    "ከመዝ",
+    "ትበልዕ",
+    "መጥባሕት",
+    "ወእጽንዕ",
+    "እንተ",
+    "ስ",
+    "ትቃትሉ",
+    "አ",
+    "ምስለ",
+    "ሀገር",
+    "ወእስተጋብእ",
+    "ወአጽንዕ"
+   ],
+   "uncertain": [
+    {
+     "token_index": 7,
+     "marker": "damaged",
+     "note": "ኢይዕፅብ : 'let it not be hard/grievous (in your eyes)'; central glyphs abraded, proposed from context; this whole verse is exceptionally heavily rubricated (a red cross-point after almost every word) which obscures letter joins."
+    },
+    {
+     "token_index": 24,
+     "marker": "damaged",
+     "note": "ስ : truncated/abraded syllable inside 'ወእጽንዕ ፡ እንተ ፡ ስ ፡ ትቃትሉ' ('be strong in that you fight'); fragment kept verbatim."
+    },
+    {
+     "token_index": 26,
+     "marker": "damaged",
+     "note": "አ : isolated abraded syllable before 'ምስለ ፡ ሀገር'; part of word effaced by rubrication/wear; proposed from context."
+    }
+   ]
+  },
+  {
+   "v": 26,
+   "column": 1,
+   "line_start": 23,
+   "geez": "ወሰምዓት ብእሲቱ ለእርዮ ከመ ሞተ እርዮ ወበከየቶ ለስምታ",
+   "tokens": [
+    "ወሰምዓት",
+    "ብእሲቱ",
+    "ለእርዮ",
+    "ከመ",
+    "ሞተ",
+    "እርዮ",
+    "ወበከየቶ",
+    "ለስምታ"
+   ],
+   "uncertain": []
+  },
+  {
+   "v": 27,
+   "column": 1,
+   "line_start": 25,
+   "geez": "ወእምዝ ስበ ኃለፈ መዋዕለ ሳሕ ለእከ ጎቤሃ ዳዊት ወነሥኣ ወአተዋ ውስተ ቤቱ ወአው ስባ ወኮነቶ ብእሲተ ወወስደተ ሱቱ ወልደ ወኮነ እኩየ ዝንቱ ነገር ዘገብረ ዳዊት በቅድመ አዕይንቲሁ ስእግዚእ አብሐር",
+   "tokens": [
+    "ወእምዝ",
+    "ስበ",
+    "ኃለፈ",
+    "መዋዕለ",
+    "ሳሕ",
+    "ለእከ",
+    "ጎቤሃ",
+    "ዳዊት",
+    "ወነሥኣ",
+    "ወአተዋ",
+    "ውስተ",
+    "ቤቱ",
+    "ወአው",
+    "ስባ",
+    "ወኮነቶ",
+    "ብእሲተ",
+    "ወወስደተ",
+    "ሱቱ",
+    "ወልደ",
+    "ወኮነ",
+    "እኩየ",
+    "ዝንቱ",
+    "ነገር",
+    "ዘገብረ",
+    "ዳዊት",
+    "በቅድመ",
+    "አዕይንቲሁ",
+    "ስእግዚእ",
+    "አብሐር"
+   ],
+   "uncertain": [
+    {
+     "token_index": 4,
+     "marker": "uncertain",
+     "note": "ሳሕ ፡ ለእከ : 'David sent (and brought her)'; ሳሕ appears to be a reduced/variant of ለአከ-stem; reading proposed from context, transcribed verbatim as two tokens."
+    },
+    {
+     "token_index": 12,
+     "marker": "uncertain",
+     "note": "ወአው ፡ ስባ : 'and he brought Bathsheba (in)'; ስባ is the short form of the name used here; verbatim, not expanded to ቤርሳቤሕ."
+    },
+    {
+     "token_index": 17,
+     "marker": "uncertain",
+     "note": "ሱቱ : 'to/for him' (bore him a son); scribal form, verbatim."
+    }
+   ]
+  }
+ ],
+ "transcription_notes": "HAND & LAYOUT. GG-00106, 2 Samuel, a careful three-column Ethiopic book hand (geez/sawasew script), brown-black ink on parchment, with rubricated (red) elements: small cross-divider points used as sense/verse separators within the text, and short red rubric headers of the form '<cross> KFL : <Ethiopic numeral> <cross>' (kfl = 'section'). 2 Samuel 11 occupies the upper written block of f021v columns 2 and 3 (each column's text ends partway down the leaf, the lower third of cols 2 and 3 on f021v being blank parchment), continuing onto f022r column 1 (full column). Column 3 on f021v begins with a notably deep top margin (its first text line sits ~12-13 lines lower than cols 1-2), and f022r col.1 likewise opens with a deep top margin. Source images are ~2105x2435 px; all reading was done on locally cropped, Lanczos-upscaled column/­band tiles (4x-10x), some with auto-contrast, to resolve the dense hand. No Cambridge/CAM image, no other transcription/witness/collation file, and no project plan/spec were opened -- this is an isolated blind transcription from the GG folio JPEGs only.\n\nSTART LOCUS. 2 Sam 11:1 begins on f021v, column 2, line 3. The end of 2 Sam 10 immediately precedes it in col.2 lines 1-2: '...[እ]ስራኤል ፡ ወተቀንዩ ፡ ሎሙ ፡ ወፈርሁ ፡ ሶርያ ፡ እደ ሳኖዶሙ ፡ ለደቂቀ ፡ እሞን' ('...and they served them, and Syria feared to help the children of Ammon any more' = 2 Sam 10:19 close). A small red rubric '<cross> KFL : 6+4 <cross>' (Ethiopic ፮ወ፬) sits between that ch.10 clause and v.1. 2 Sam 11:1 then opens: '<cross> ወእምዝ ፡ በጽሐ ፡ ዓመት ፡ እመ ፡ መዋዕለ ፡ ይወፅኡ ፡ ነገሥት ፡ ወፈነወ ፡ ዳዊት ፡ ለኢዮአብ...' ('and it came to pass, the year being come, at the time when kings go forth, that David sent Joab...'). A further '<cross> KFL : 6+3 <cross>' (፮ወ፫) rubric falls inside the chapter between v.1 and v.2 ('...ወዳዊትሰ ፡ ነበር ፡ ውስተ ፡ ኢየሩሳሌም <cross>KFL:6+3<cross> ወአስ ፡ ክነ ፡ ፍና ፡ ሰርክ...').\n\nEND LOCUS & BOUNDARY PROOF. 2 Sam 11 ends on f022r, column 1, line 30, with the 'displeased the LORD' verse: '...ወኮነ ፡ እኩየ ፡ ዝንቱ ፡ ነገር ፡ ዘገብረ ፡ ዳዊት ፡ በቅድመ ፡ አዕይንቲሁ ፡ ስእግዚእ ፡ አብሐር' ('and the thing David did was evil in the eyes of the LORD'). Immediately after, f022r col.1 line 31 opens with a red rubric '<cross> KFL : 6+2 <cross>' (Ethiopic ፮ወ፪) followed at once by '...ወፈነወ ፡ እግዚእ ፡ አብሐር ፡ ለናታን ፡ ነቢይ ፡ ጎበ ፡ ዳዊት ፡ ... ወይቤሎ ፡ ሀለዉ ፡ ፪ዕደው ፡ ውስተ ፡ አሐቲ ፡ ሀገር ፡ ፩ባዕል ፡ ወ፩ነዳይ ... ወለ[ስ]ዝከቱ ፡ ነዳይ ፡ ባሕቲቱ ፡ እንበለ ፡ አሐቲ ፡ በግዕት ፡ እንስቲት ፡ እንተ ፡ ተሣየጣ ፡ ወአልሐቃ ፡ ወሐፀና ፡ ወልህቅት ፡ ምስሌሁ' = 2 Sam 12:1-3, the LORD sending Nathan and the parable of the rich man, the poor man, and his one little ewe-lamb. That Nathan/ewe-lamb material (ch.12) is the boundary marker; it is NOT transcribed. The chapter therefore stops exactly at the end of v.27 above.\n\nKFL vs M'RAF. As instructed, the small red 'KFL : N' rubrics were treated as fine liturgical subdivisions and NOT used to find or bound the chapter; their numerals do not run as modern chapters. Within this stretch the observed KFL numerals are 6+4 (፮ወ፬, at the 10/11 seam), 6+3 (፮ወ፫, between v.1 and v.2) and 6+2 (፮ወ፪, exactly at the 11/12 seam). NO coarse 'ምዕራፍ' (m'raf) chapter rubric appears anywhere on f021v or f022r in this passage: in this manuscript the modern-chapter boundary at 2 Sam 11 is carried only by the narrative itself plus these fine KFL points and the red cross sense-dividers. Location was anchored entirely on the Bathsheba narrative content, with the KFL points used merely as corroborating internal punctuation.\n\nVERSE SEGMENTATION. Verses are numbered 1..27 by the manuscript's OWN red cross-divider sense units within the chapter, not by an imposed Hebrew versification. Where GG's segmentation differs from the conventional ~27-verse MT/KJV narrative it was followed as-is: e.g. v.1 here is a single GG unit that fuses the war-season clause and the 'David remained at Jerusalem' clause (the MS does place a cross between them, but the second is the standard v.1 close so it was kept together and the next cross taken as the v.1/2 boundary). The result happens to come out at 27 GG units, closely tracking the well-known narrative, i.e. this is the FULL / LONG recensional form, NOT an abbreviated one. All major beats are physically present: spring war-season + Joab besieging Ammon + David in Jerusalem; David on the roof seeing the bathing woman; the inquiry naming Bathsheba daughter of 'Eliab' (so spelled) wife of 'Uriah' (spelled እርዮ throughout) the Hittite; David taking her, her purification, conception and the 'I am with child' message; the summons of Uriah; David's questions about the war; the 'go down, wash your feet' order and the royal portion sent after him; Uriah sleeping at the door with the servants twice; Uriah's speech (ark, Israel and Judah in booths, Joab my lord in the open field, 'shall I go to my house...'); the made-drunk second night; the death-letter carried by Uriah's own hand; Joab's placement of Uriah; the city sortie and the deaths including Uriah the Hittite; Joab's message and his coaching of the messenger with the Abimelech/millstone/Thebez speech ('Rōbʿam'/'Tämnas' as the MS's name-forms); the messenger's report (GG renders the messenger's delivery as a near-duplicate of Joab's instruction -- a genuine recensional doublet, transcribed verbatim and NOT harmonised away); David's 'the sword devours thus and thus, press the battle' reply; Bathsheba's mourning; the marriage and birth of a son; and the closing 'evil in the eyes of the LORD'. Nothing was padded to reach any verse count; GG's wording is frequently terser than KJV and several MT verse-splits are run together under one cross.\n\nORTHOGRAPHY / VERBATIM NOTES (not corrected, only flagged). Proper names use this MS's own forms and are kept verbatim: Uriah = እርዮ (never ኦርዮ); Bathsheba = ቤርሳቤሕ, abbreviated ስባ at v.27; her father = ኤልያብ ('Eliab', vs the familiar 'Eliam'); Abimelech's father = ሮብዓም ('Rōbʿam', vs 'Jerubbesheth/Jerubbaal'); Thebez = በተምናስ ('ba-Tämnas'). ንጉሥ ('king') is once written ናጉሥ (v.2) and vowel/spelling variants (ስርክ~ሰርክ for 'evening', ከብእ for 'men') occur; these are transcribed as written. Several verb forms carry a trailing -ም flourish (ወወስደም, ይዜንዉም). A superscript ditto/correction stroke sits over ዬዶ (v.9) and over ገጸ (v.11); both retained with the correction noted.\n\nDAMAGE / UNCERTAINTY. There is no large lacuna; the parchment is sound and the hand mostly clear. The principal difficulty is v.25 (David's reply) together with the tail of v.23 and parts of v.15: in those passages the scribe placed a red cross-point after almost every single word, and combined with localized abrasion/wear this obscures letter-joins and produced several broken or single-syllable tokens (kept verbatim, flagged 'damaged', readings proposed from context). Honestly, there is NO span scraped/erased to absolute nothing in this chapter: even the worst spots (the abraded cluster at f022r col.1 line ~11 wrap and the water-faded 'ኖ ሳ' at col.1 lines ~12-13, both in v.23) still carry traceable ink, so a best-reading token is supplied and flagged 'damaged' rather than substituted with an illegible placeholder. Consequently the record contains zero '⟦illegible⟧' tokens and zero 'illegible' markers (the placeholder is honestly unnecessary here); the difficult material is all carried as flagged 'damaged'/'uncertain' readings. No Ethiopic numerals occur inside the transcribed text of ch.11 itself; the only numerals in this region are the Ethiopic numerals embedded in the red KFL rubrics (፮ወ፬ / ፮ወ፫ / ፮ወ፪) and the ፪/፩ in the following (excluded) ch.12 ewe-lamb parable; per the numeral rule any Ethiopic numerals are kept verbatim and never converted to Arabic digits.\n\nTOKENIZATION NOTE. The Ethiopic word-divider '፡' (the two-dot wordspace) physically present on the parchment between words has been normalised to a single regular space: it is ABSENT from every 'geez' string and from 'tokens'. 'geez' is the space-joined sequence of word tokens only, and 'tokens' is exactly geez.split(' '); no '፡' appears as a standalone token and no wordspace is counted in any index. All 'uncertain[].token_index' references were re-derived against, and validated against, this word-only scheme (each index points at the word its note describes). The red cross rubric/sense-divider glyphs were likewise stripped from 'geez'/'tokens', exactly as instructed."
+}

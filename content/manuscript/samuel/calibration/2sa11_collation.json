@@ -1,0 +1,4015 @@
+{
+ "book": "2sa",
+ "chapter": 11,
+ "base_witness_recommended": "CAM",
+ "base_rationale": "CAM is the recommended base for 2Sa11. BOTH witnesses here transmit the FULL/LONG Bathsheba narrative with 0 illegible tokens -- this is NOT a short-vs-long recensional extent split (contrast 1Sa17). The base is chosen on cleanliness / legibility / continuity (decision D3). CAM (Cambridge UL MS Add. 1570, hi-res master) has clean parchment, excellent ink, a smooth unbroken per-verse token flow, and only 4 'damaged' tokens (all minor: a faded brown 'be'sit' v3, a column-edge 'ebew' v11, a rubbed 'em-ryo' v20, an abbreviated 'iya0bes' v24) out of 44 flags / 424 tokens (10.4%). GG, although it segments into the full 27 sense units (508 tokens, 48 flags = 9.4%), collapses across vv.15/23/25 into many abraded SINGLE-SYLLABLE fragment tokens where the scribe set a red cross-point after almost every word over worn parchment, and GG additionally carries a genuine recensional messenger DOUBLET (Joab's Abimelech/millstone/Thebez instruction repeated near-verbatim as the messenger's own delivery, GG vv.21-22) which further fragments its stream. CAM is thus the more continuous and legible witness for this chapter and the GAPS source-map's designated primary Samuel witness. CAM does not separate the equivalents of the familiar v19 and v20 (one merged sense-object, no red cross divider); the spine is nonetheless the canonical 27-verse KJV enumeration and CAM's offset sense-objects are sliced onto the correct KJV spine rows by narrative content (never positional v==v). The materially-sub-90% both-confident agreement alongside ~100% semantic pass is the honest signature of two DISTINCT full recensions of the same narrative, not a defect of either transcription.",
+ "verses": [
+  {
+   "v": 1,
+   "gg_tokens": [
+    "ወእምዝ",
+    "በጽሐ",
+    "ዓመት",
+    "እመ",
+    "መዋዕለ",
+    "ይወፅኡ",
+    "ነገሥት",
+    "ወፈነወ",
+    "ዳዊት",
+    "ለኢዮአብ",
+    "ወለደቁ",
+    "ወክሉ",
+    "እስራኤል",
+    "ወተቃተልዎሙ",
+    "ለደቂቀ",
+    "እሞን",
+    "ወነበሩ",
+    "ውስተ",
+    "ዓራ",
+    "ቦቱ",
+    "ወዳዊትሰ",
+    "ነበር",
+    "ውስተ",
+    "ኢየሩሳሌም"
+   ],
+   "cam_tokens": [
+    "ወእምዝ",
+    "በጻሕ",
+    "ዓመተ",
+    "አመ",
+    "መዋዕል",
+    "ይወፅኡ",
+    "ነገሥት",
+    "ወፈነዎሙ",
+    "ዳዊት",
+    "ለኢያብ",
+    "ወለኩሉ",
+    "አግብርቲሁ",
+    "ወለእስራኤል",
+    "ወተቃተልዎሙ",
+    "ለደቂቀ",
+    "እሞን",
+    "ወነበሩ",
+    "ውስተ",
+    "ራባ",
+    "ወዳዊትሰ",
+    "ነበረ",
+    "ውስተ",
+    "ኢየሩሳሌም"
+   ],
+   "alignment": [
+    {
+     "gg": "ወእምዝ",
+     "cam": "ወእምዝ",
+     "class": "agree"
+    },
+    {
+     "gg": "በጽሐ",
+     "cam": "በጻሕ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዓመት",
+     "cam": "ዓመተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እመ",
+     "cam": "አመ",
+     "class": "agree"
+    },
+    {
+     "gg": "መዋዕለ",
+     "cam": "መዋዕል",
+     "class": "agree"
+    },
+    {
+     "gg": "ይወፅኡ",
+     "cam": "ይወፅኡ",
+     "class": "agree"
+    },
+    {
+     "gg": "ነገሥት",
+     "cam": "ነገሥት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወፈነወ",
+     "cam": "ወፈነዎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ለኢዮአብ",
+     "cam": "ለኢያብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወለደቁ",
+     "cam": "ወለኩሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አግብርቲሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወክሉ",
+     "cam": "ወለእስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተቃተልዎሙ",
+     "cam": "ወተቃተልዎሙ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለደቂቀ",
+     "cam": "ለደቂቀ",
+     "class": "agree"
+    },
+    {
+     "gg": "እሞን",
+     "cam": "እሞን",
+     "class": "agree"
+    },
+    {
+     "gg": "ወነበሩ",
+     "cam": "ወነበሩ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዓራ",
+     "cam": "ራባ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቦቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወዳዊትሰ",
+     "cam": "ወዳዊትሰ",
+     "class": "agree"
+    },
+    {
+     "gg": "ነበር",
+     "cam": "ነበረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢየሩሳሌም",
+     "cam": "ኢየሩሳሌም",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:1 -- after the year expired, when kings go forth, David sent Joab and his servants and all Israel, destroyed Ammon and besieged Rabbah, but David tarried at Jerusalem -- GG and CAM both carry the spring-war-season clause, the sending of Joab, the destruction of Ammon, the siege of Rabbah (GG 'ʿara', CAM 'Raba') and David remaining at Jerusalem."
+  },
+  {
+   "v": 2,
+   "gg_tokens": [
+    "ወአስ",
+    "ክነ",
+    "ፍና",
+    "ሰርክ",
+    "ተንሣእ",
+    "ዳዊት",
+    "እምነ",
+    "ካቡ",
+    "ወዓራግ",
+    "ውስተ",
+    "ናሕስ",
+    "ቤት",
+    "ናጉሥ",
+    "ያንስሱ",
+    "ወርእየ",
+    "ብእሲተ",
+    "እምሳዕስ",
+    "ናሕስ",
+    "እንዘ",
+    "ትትሐፀብ",
+    "ወሰናይት",
+    "ይእቲ",
+    "ብእሲት"
+   ],
+   "cam_tokens": [
+    "ወሶበ",
+    "ኮነ",
+    "ፍና",
+    "ሰርክ",
+    "ተንሥአ",
+    "ዳዊት",
+    "እምስካቡ",
+    "ወዓርገ",
+    "ውስተ",
+    "ናሕሰ",
+    "ቤተ",
+    "ንጉሥ",
+    "የንሶሱ",
+    "ወርእየ",
+    "ብእሲተ",
+    "ላዕለ",
+    "ናሕስ",
+    "እንዘ",
+    "ትትሐፀብ",
+    "ወሠናይት",
+    "ይእቲ",
+    "ብእሲት",
+    "ራእያ",
+    "ፈድፋደ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወአስ",
+     "cam": "ወሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ክነ",
+     "cam": "ኮነ",
+     "class": "agree"
+    },
+    {
+     "gg": "ፍና",
+     "cam": "ፍና",
+     "class": "agree"
+    },
+    {
+     "gg": "ሰርክ",
+     "cam": "ሰርክ",
+     "class": "agree"
+    },
+    {
+     "gg": "ተንሣእ",
+     "cam": "ተንሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "እምነ",
+     "cam": "እምስካቡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ካቡ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወዓራግ",
+     "cam": "ወዓርገ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ናሕስ",
+     "cam": "ናሕሰ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤት",
+     "cam": "ቤተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ናጉሥ",
+     "cam": "ንጉሥ",
+     "class": "agree"
+    },
+    {
+     "gg": "ያንስሱ",
+     "cam": "የንሶሱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወርእየ",
+     "cam": "ወርእየ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲተ",
+     "cam": "ብእሲተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምሳዕስ",
+     "cam": "ላዕለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ናሕስ",
+     "cam": "ናሕስ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "እንዘ",
+     "class": "agree"
+    },
+    {
+     "gg": "ትትሐፀብ",
+     "cam": "ትትሐፀብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሰናይት",
+     "cam": "ወሠናይት",
+     "class": "agree"
+    },
+    {
+     "gg": "ይእቲ",
+     "cam": "ይእቲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲት",
+     "cam": "ብእሲት",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ራእያ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈድፋደ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:2 -- in an eveningtide David arose from his bed, walked on the roof of the king's house and saw a woman washing herself, very beautiful -- both witnesses render the evening, the rising, the roof of the king's house, the seeing of the bathing woman and her beauty (CAM adds 'raʾeya fedfade', exceedingly fair to look upon)."
+  },
+  {
+   "v": 3,
+   "gg_tokens": [
+    "ወፈነወ",
+    "ዳዊት",
+    "ወይቤ",
+    "ዳዊት",
+    "ዘመኑ",
+    "ይእቲ",
+    "ብእሲት",
+    "ወይቤልዎ",
+    "እኮኑ",
+    "ቤርሳቤሕ",
+    "ይእቲ",
+    "ወለተ",
+    "ኤልያብ",
+    "ብእሲቱ",
+    "እርዮ",
+    "ኬጥያዊ"
+   ],
+   "cam_tokens": [
+    "ወይቤ",
+    "ዳዊት",
+    "ዘመኑ",
+    "ይእቲ",
+    "ብእሲት",
+    "ወይቤ",
+    "አኮኑ",
+    "ቤርሳቤሕ",
+    "ይእቲ",
+    "ወለተ",
+    "ኤልያብ",
+    "ብእሲተ",
+    "ኦርዮ",
+    "ዜጥያዊ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወፈነወ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይቤ",
+     "cam": "ወይቤ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘመኑ",
+     "cam": "ዘመኑ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይእቲ",
+     "cam": "ይእቲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲት",
+     "cam": "ብእሲት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይቤልዎ",
+     "cam": "ወይቤ",
+     "class": "agree"
+    },
+    {
+     "gg": "እኮኑ",
+     "cam": "አኮኑ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤርሳቤሕ",
+     "cam": "ቤርሳቤሕ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይእቲ",
+     "cam": "ይእቲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወለተ",
+     "cam": "ወለተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኤልያብ",
+     "cam": "ኤልያብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲቱ",
+     "cam": "ብእሲተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኬጥያዊ",
+     "cam": "ዜጥያዊ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:3 -- David enquired after the woman; one said, Is not this Bath-sheba daughter of Eliam, wife of Uriah the Hittite -- both name Bath-sheba (ቤርሳቤሕ), the father (ኤልያብ) and Uriah the Hittite (GG እርዮ ኬጥያዊ / CAM ኦርዮ ዜጥያዊ); GG additionally has the explicit 'David sent' head clause."
+  },
+  {
+   "v": 4,
+   "gg_tokens": [
+    "ወስእከ",
+    "ዳዊት",
+    "ኅቤሃ",
+    "ወነሥኣ",
+    "ወስከበ",
+    "ምስሌሃ",
+    "ወይእቲ",
+    "በከመ",
+    "ተሐፅበት",
+    "እምነ",
+    "ክዶሃ",
+    "ወአተወት",
+    "ቤታ"
+   ],
+   "cam_tokens": [
+    "ወለአከ",
+    "ዳዊት",
+    "ኀቤሃ",
+    "ወነሥአ",
+    "ወሰከበ",
+    "ምስሌሃ",
+    "ወይእቲሰ",
+    "በከመ",
+    "ተሐፀበት",
+    "እምነ",
+    "ትክቶሃ",
+    "ወአተወት",
+    "ቤታ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወስእከ",
+     "cam": "ወለአከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ኅቤሃ",
+     "cam": "ኀቤሃ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወነሥኣ",
+     "cam": "ወነሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወስከበ",
+     "cam": "ወሰከበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስሌሃ",
+     "cam": "ምስሌሃ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይእቲ",
+     "cam": "ወይእቲሰ",
+     "class": "agree"
+    },
+    {
+     "gg": "በከመ",
+     "cam": "በከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ተሐፅበት",
+     "cam": "ተሐፀበት",
+     "class": "agree"
+    },
+    {
+     "gg": "እምነ",
+     "cam": "እምነ",
+     "class": "agree"
+    },
+    {
+     "gg": "ክዶሃ",
+     "cam": "ትክቶሃ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወአተወት",
+     "cam": "ወአተወት",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤታ",
+     "cam": "ቤታ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:4 -- David sent, took her, lay with her (she being purified from her uncleanness) and she returned to her house -- both carry the sending, the taking, the lying together, the purification clause and her return home."
+  },
+  {
+   "v": 5,
+   "gg_tokens": [
+    "ወፀንስት",
+    "ይእቲ",
+    "ብእሲት",
+    "ወስደከት",
+    "ጎበ",
+    "ዳዊት",
+    "ወትቤ",
+    "ፀነስኩ",
+    "እንሰ"
+   ],
+   "cam_tokens": [
+    "ወፀንሰት",
+    "ይእቲ",
+    "ብእሲት",
+    "ወለአከት",
+    "ወዜነወቶ",
+    "ለዳዊት",
+    "ወትቤ",
+    "ፀንስኩ",
+    "አነ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወፀንስት",
+     "cam": "ወፀንሰት",
+     "class": "agree"
+    },
+    {
+     "gg": "ይእቲ",
+     "cam": "ይእቲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲት",
+     "cam": "ብእሲት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወስደከት",
+     "cam": "ወለአከት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዜነወቶ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወትቤ",
+     "cam": "ወትቤ",
+     "class": "agree"
+    },
+    {
+     "gg": "ፀነስኩ",
+     "cam": "ፀንስኩ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንሰ",
+     "cam": "አነ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:5 -- the woman conceived and sent and told David, saying, I am with child -- both render the conception, the sending word to David and the message 'I am with child' (CAM explicit 'wa-zenewoto')."
+  },
+  {
+   "v": 6,
+   "gg_tokens": [
+    "ወለእከ",
+    "ዳዊት",
+    "ጎበ",
+    "ኢዮአብ",
+    "እንዘ",
+    "ይብል",
+    "ፈንዎ",
+    "ስእርዮ",
+    "ናቢ",
+    "የ",
+    "ወፈነወ",
+    "ኢዮአብ",
+    "ለእርዮ",
+    "ኬጥያዊ",
+    "ጎበ",
+    "ዳዊት"
+   ],
+   "cam_tokens": [
+    "ወለአከ",
+    "ዳዊት",
+    "ኀበ",
+    "ኢዮአብ",
+    "እንዘ",
+    "ይብል",
+    "ፈንም",
+    "ለኦርዮ",
+    "ኬጥያዊ",
+    "ወፈነወ",
+    "ኢዮአብ",
+    "ለኦርዮ",
+    "ኀበ",
+    "ዳዊት"
+   ],
+   "alignment": [
+    {
+     "gg": "ወለእከ",
+     "cam": "ወለአከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ኀበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢዮአብ",
+     "cam": "ኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "እንዘ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይብል",
+     "cam": "ይብል",
+     "class": "agree"
+    },
+    {
+     "gg": "ፈንዎ",
+     "cam": "ፈንም",
+     "class": "agree"
+    },
+    {
+     "gg": "ስእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ኬጥያዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ናቢ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "የ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወፈነወ",
+     "cam": "ወፈነወ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢዮአብ",
+     "cam": "ኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኬጥያዊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ኀበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:6 -- David sent to Joab, Send me Uriah the Hittite; Joab sent Uriah to David -- both carry David's order to Joab and Joab sending Uriah back; GG has a damaged plus ('nabi ye')."
+  },
+  {
+   "v": 7,
+   "gg_tokens": [
+    "ወበጽሐ",
+    "ወአ",
+    "ጎበ",
+    "ዳ",
+    "ቤሁ",
+    "ወተስእሎ",
+    "ዳዊት",
+    "በእንተ",
+    "ጸህናሁ",
+    "ስኢዮአብ",
+    "ወበእንተ",
+    "ጸህና",
+    "ሕዝብ",
+    "ወበእንተ",
+    "ጸህና",
+    "ፀብዕ"
+   ],
+   "cam_tokens": [
+    "ወበጻሐ",
+    "ኦርዮ",
+    "ወቦአ",
+    "ኀቤሁ",
+    "ወተስእሎ",
+    "ዳዊት",
+    "በእንተ",
+    "ዳዓናሁ",
+    "ለኢዮአብ",
+    "ወበእንተ",
+    "ዳዓና",
+    "ሕዝብ",
+    "ወበእንተ",
+    "ዳዓና",
+    "ፀብእ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወበጽሐ",
+     "cam": "ወበጻሐ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአ",
+     "cam": "ኦርዮ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ወቦአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳ",
+     "cam": "ኀቤሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቤሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተስእሎ",
+     "cam": "ወተስእሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "በእንተ",
+     "cam": "በእንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጸህናሁ",
+     "cam": "ዳዓናሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስኢዮአብ",
+     "cam": "ለኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወበእንተ",
+     "cam": "ወበእንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጸህና",
+     "cam": "ዳዓና",
+     "class": "agree"
+    },
+    {
+     "gg": "ሕዝብ",
+     "cam": "ሕዝብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወበእንተ",
+     "cam": "ወበእንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጸህና",
+     "cam": "ዳዓና",
+     "class": "agree"
+    },
+    {
+     "gg": "ፀብዕ",
+     "cam": "ፀብእ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:7 -- when Uriah was come, David demanded how Joab did, how the people did, how the war prospered -- both render Uriah's coming and David's threefold enquiry (welfare of Joab / of the people / of the war)."
+  },
+  {
+   "v": 8,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ስእርዮ",
+    "ሑር",
+    "ረድ",
+    "ውስተ",
+    "ቤትከ",
+    "ወተኃፀብ",
+    "እገሪከ",
+    "ወወፅአ",
+    "እርዮ",
+    "እምቤተ",
+    "ንጉሥ",
+    "ወወዲእ",
+    "ተስዕሮ",
+    "ወዳሊ",
+    "ዘንጉሥ"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለኦርዮ",
+    "ሐራ",
+    "ረድ",
+    "ውስተ",
+    "ቤትከ",
+    "ወተሐፀብ",
+    "እገሪከ",
+    "ወወፅአ",
+    "ኦርዮ",
+    "እምነ",
+    "ቤተ",
+    "ንጉሥ",
+    "ወወዲአ",
+    "ተለዎ",
+    "ወዓሌ",
+    "ንጉሥ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ስእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሑር",
+     "cam": "ሐራ",
+     "class": "agree"
+    },
+    {
+     "gg": "ረድ",
+     "cam": "ረድ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤትከ",
+     "cam": "ቤትከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወተኃፀብ",
+     "cam": "ወተሐፀብ",
+     "class": "agree"
+    },
+    {
+     "gg": "እገሪከ",
+     "cam": "እገሪከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወፅአ",
+     "cam": "ወወፅአ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምቤተ",
+     "cam": "እምነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቤተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ንጉሥ",
+     "cam": "ንጉሥ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወዲእ",
+     "cam": "ወወዲአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ተስዕሮ",
+     "cam": "ተለዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወዳሊ",
+     "cam": "ወዓሌ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘንጉሥ",
+     "cam": "ንጉሥ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:8 -- David said, Go down to thy house and wash thy feet; Uriah departed and a mess of meat from the king followed him -- both carry the 'go down / wash thy feet' order, Uriah leaving the king's house and the royal portion sent after him (GG ተስዕሮ ወዳሊ / CAM ተለዎ ወዓሌ)."
+  },
+  {
+   "v": 9,
+   "gg_tokens": [
+    "ወቤተ",
+    "እርዮ",
+    "ዬዶ",
+    "ቤተ",
+    "ንጉሥ",
+    "ምስለ",
+    "እግብርተ",
+    "ንጉሥ",
+    "ወኢወረደ",
+    "ቤ"
+   ],
+   "cam_tokens": [
+    "ወስከበ",
+    "ኦርዮ",
+    "ውስተ",
+    "ደዴ",
+    "ቤተ",
+    "ንጉሥ",
+    "ምስለ",
+    "ኵሉ",
+    "አግብርተ",
+    "እግዚእ",
+    "ወኢወረደ",
+    "ቤቶ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወቤተ",
+     "cam": "ወስከበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዬዶ",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ደዴ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቤተ",
+     "cam": "ቤተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ንጉሥ",
+     "cam": "ንጉሥ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስለ",
+     "cam": "ምስለ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ኵሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግብርተ",
+     "cam": "አግብርተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ንጉሥ",
+     "cam": "እግዚእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኢወረደ",
+     "cam": "ወኢወረደ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤ",
+     "cam": "ቤቶ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:9 -- Uriah slept at the door of the king's house with the servants of his lord and went not down to his house -- both render Uriah sleeping at the king's-house door with the servants and not going down home (GG terse 'wa-bete Eryo yedo'; CAM 'wa-sekebe ... weste dede')."
+  },
+  {
+   "v": 10,
+   "gg_tokens": [
+    "ወዘነውም",
+    "ስዳዊት",
+    "እንዘ",
+    "ይብል",
+    "ኢወረደ",
+    "እርዮ",
+    "ውስተ",
+    "ቤቱ",
+    "ወይቤሎ",
+    "ዳዊት",
+    "ስእርዮ",
+    "አኮኑ",
+    "እምሐቅል",
+    "መጻእከ",
+    "ስምንት",
+    "ኢወረድከ",
+    "ውስተ",
+    "ቤትከ"
+   ],
+   "cam_tokens": [
+    "ወዜነውዎ",
+    "ለዳዊት",
+    "እንዘ",
+    "ይብሉ",
+    "ኢወረደ",
+    "ኦርዮ",
+    "ውስተ",
+    "ቤቱ",
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለኦርዮ",
+    "እምነ",
+    "ሐቅል",
+    "መጻእከ",
+    "ለምንት",
+    "ኢወረድከ",
+    "ውስተ",
+    "ቤትከ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወዘነውም",
+     "cam": "ወዜነውዎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "እንዘ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይብል",
+     "cam": "ይብሉ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢወረደ",
+     "cam": "ኢወረደ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤቱ",
+     "cam": "ቤቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ስእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "አኮኑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምሐቅል",
+     "cam": "እምነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐቅል",
+     "class": "disagree"
+    },
+    {
+     "gg": "መጻእከ",
+     "cam": "መጻእከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስምንት",
+     "cam": "ለምንት",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢወረድከ",
+     "cam": "ኢወረድከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤትከ",
+     "cam": "ቤትከ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:10 -- they told David Uriah went not down; David asked, Camest thou not from thy journey? why didst thou not go down to thine house -- both carry the report and David's reproach to Uriah."
+  },
+  {
+   "v": 11,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "እርዮ",
+    "ለዳዊት",
+    "ታቦተ",
+    "እግዚእ",
+    "አብሐር",
+    "ወእስራኤል",
+    "ወይሁዳ",
+    "ይነብሩ",
+    "ውስተ",
+    "ደባትር",
+    "ወእ",
+    "ዮአብ",
+    "እግዚእየ",
+    "ወአግብርተ",
+    "እግዚእየ",
+    "ውስተ",
+    "ገጸ",
+    "ገዳም",
+    "ይትአየኑ",
+    "ወእንሰ",
+    "እፁ",
+    "እበውዕ",
+    "ውስተ",
+    "ቤትየ",
+    "ክመ",
+    "እብላዕ",
+    "ወእስተይ",
+    "ወክመ",
+    "እስክብ",
+    "ምስለ",
+    "ብእሲትየ",
+    "እፅኑ",
+    "ዝንቱ",
+    "ሕያው",
+    "እግዚእ",
+    "አብሐር",
+    "ወሕያው",
+    "ነፍስከ",
+    "ከመ",
+    "ኢይገብር",
+    "ለዝንቱ",
+    "ግብር"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ኦርዮ",
+    "ለዳዊት",
+    "ታቦተ",
+    "እግዚእብሔር",
+    "እስራኤል",
+    "ወይሁዳ",
+    "ይነብሩ",
+    "ውስተ",
+    "ደብተራ",
+    "ወኢዮአብ",
+    "እግዚእየ",
+    "ወአግብርተ",
+    "እግዚእየ",
+    "ውስተ",
+    "ገዳም",
+    "ይትአየኑ",
+    "ወአንሰ",
+    "እበው",
+    "እበው",
+    "ውስተ",
+    "ቤትየ",
+    "ከመ",
+    "እብላዕ",
+    "ወእስተይ",
+    "ወከመ",
+    "እስክብ",
+    "ምስለ",
+    "ብእሲትየ",
+    "ሕያው",
+    "አንተ",
+    "ወሕያው",
+    "ነፍስከ",
+    "ከመ",
+    "ኢይገብር",
+    "ለዝንቱ",
+    "ነገር"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ታቦተ",
+     "cam": "ታቦተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እግዚእ",
+     "cam": "እግዚእብሔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "አብሐር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእስራኤል",
+     "cam": "እስራኤል",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይሁዳ",
+     "cam": "ወይሁዳ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይነብሩ",
+     "cam": "ይነብሩ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ደባትር",
+     "cam": "ደብተራ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእ",
+     "cam": "ወኢዮአብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዮአብ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚእየ",
+     "cam": "እግዚእየ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአግብርተ",
+     "cam": "ወአግብርተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እግዚእየ",
+     "cam": "እግዚእየ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ገጸ",
+     "cam": "ገዳም",
+     "class": "disagree"
+    },
+    {
+     "gg": "ገዳም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይትአየኑ",
+     "cam": "ይትአየኑ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእንሰ",
+     "cam": "ወአንሰ",
+     "class": "agree"
+    },
+    {
+     "gg": "እፁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እበውዕ",
+     "cam": "እበው",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "እበው",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤትየ",
+     "cam": "ቤትየ",
+     "class": "agree"
+    },
+    {
+     "gg": "ክመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "እብላዕ",
+     "cam": "እብላዕ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእስተይ",
+     "cam": "ወእስተይ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወክመ",
+     "cam": "ወከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "እስክብ",
+     "cam": "እስክብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስለ",
+     "cam": "ምስለ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲትየ",
+     "cam": "ብእሲትየ",
+     "class": "agree"
+    },
+    {
+     "gg": "እፅኑ",
+     "cam": "ሕያው",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንቱ",
+     "cam": "አንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሕያው",
+     "cam": "ወሕያው",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚእ",
+     "cam": "ነፍስከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አብሐር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሕያው",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነፍስከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢይገብር",
+     "cam": "ኢይገብር",
+     "class": "agree"
+    },
+    {
+     "gg": "ለዝንቱ",
+     "cam": "ለዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ግብር",
+     "cam": "ነገር",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:11 -- Uriah: the ark and Israel and Judah abide in tents, Joab and the servants encamp in the open field; shall I go to my house to eat, drink and lie with my wife? as thou livest I will not do this -- both render the ark/Israel/Judah-in-tents, Joab in the field, the rhetorical refusal and the oath; CAM shows the column-turn 'ebew' dittograph."
+  },
+  {
+   "v": 12,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለእርዮ",
+    "ንበር",
+    "ዝየ",
+    "ዮም",
+    "ወጌሠመ",
+    "እፌንወከ",
+    "ወነበረ",
+    "እርዮ",
+    "ውስተ",
+    "ኢየሩሳሌም",
+    "ይእተ",
+    "ዕለተ",
+    "ወሳኒታ",
+    "ሁ"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለኦርዮ",
+    "ንበር",
+    "ዝየ",
+    "ዮም",
+    "ወጌሰመ",
+    "እፌንወከ",
+    "ወነበረ",
+    "ኦርዮ",
+    "ውስተ",
+    "ኢየሩሳሌም",
+    "ይእተ",
+    "አሚረ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ለእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ንበር",
+     "cam": "ንበር",
+     "class": "agree"
+    },
+    {
+     "gg": "ዝየ",
+     "cam": "ዝየ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዮም",
+     "cam": "ዮም",
+     "class": "agree"
+    },
+    {
+     "gg": "ወጌሠመ",
+     "cam": "ወጌሰመ",
+     "class": "agree"
+    },
+    {
+     "gg": "እፌንወከ",
+     "cam": "እፌንወከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወነበረ",
+     "cam": "ወነበረ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢየሩሳሌም",
+     "cam": "ኢየሩሳሌም",
+     "class": "agree"
+    },
+    {
+     "gg": "ይእተ",
+     "cam": "ይእተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዕለተ",
+     "cam": "አሚረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሳኒታ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሁ",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:12 -- David: Tarry here today also, tomorrow I will let thee depart; Uriah abode in Jerusalem that day and the morrow -- both carry David's 'tarry today' and Uriah remaining; GG adds 'wa-sanita' (and the morrow)."
+  },
+  {
+   "v": 13,
+   "gg_tokens": [
+    "ወጸውዕ",
+    "ዳዊት",
+    "ወበልዓ",
+    "ወስትየ",
+    "በቅድሜሁ",
+    "ወአስከሮ",
+    "ወወፅአ",
+    "ስርክ",
+    "ከመ",
+    "ይስከብ",
+    "ዲበ",
+    "ዓራቱ",
+    "ምስለ",
+    "አግብርተ",
+    "እግዚእ",
+    "ሁ",
+    "ወኢወረደ",
+    "ቤታ"
+   ],
+   "cam_tokens": [
+    "ወፀውዓ",
+    "ዳዊት",
+    "ወበልዓ",
+    "ወስትየ",
+    "ወአስከሮ",
+    "ወወፅአ",
+    "ሰርከከ",
+    "ከመ",
+    "ይስክብ",
+    "ውስተ",
+    "ዓራቱ",
+    "ምስለ",
+    "አግብርተ",
+    "እግዚእ",
+    "ወኢወረደ",
+    "ቤቶ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወጸውዕ",
+     "cam": "ወፀውዓ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወበልዓ",
+     "cam": "ወበልዓ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወስትየ",
+     "cam": "ወስትየ",
+     "class": "agree"
+    },
+    {
+     "gg": "በቅድሜሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወአስከሮ",
+     "cam": "ወአስከሮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወፅአ",
+     "cam": "ወወፅአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስርክ",
+     "cam": "ሰርከከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይስከብ",
+     "cam": "ይስክብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዲበ",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዓራቱ",
+     "cam": "ዓራቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስለ",
+     "cam": "ምስለ",
+     "class": "agree"
+    },
+    {
+     "gg": "አግብርተ",
+     "cam": "አግብርተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እግዚእ",
+     "cam": "እግዚእ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኢወረደ",
+     "cam": "ወኢወረደ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤታ",
+     "cam": "ቤቶ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:13 -- David called him, he ate and drank before him and was made drunk; at even he went out to lie on his bed with the servants, but went not down -- both render the feast, the making-drunk, the evening lying with the servants and not going down home."
+  },
+  {
+   "v": 14,
+   "gg_tokens": [
+    "ወስበ",
+    "ጸብሐ",
+    "ጸፈ",
+    "ዳዊት",
+    "መጽሐፈ",
+    "ጎበ",
+    "ኢዮአብ",
+    "ወፈነዎ",
+    "በእደ",
+    "እርዮ"
+   ],
+   "cam_tokens": [
+    "ወሶበ",
+    "ፀብሐ",
+    "ፀሐፈ",
+    "ዳዊት",
+    "መጽሐፈ",
+    "ኀበ",
+    "ኢዮአብ",
+    "ወፈነወ",
+    "በእዱ",
+    "ለኦርዮ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወስበ",
+     "cam": "ወሶበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጸብሐ",
+     "cam": "ፀብሐ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጸፈ",
+     "cam": "ፀሐፈ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "መጽሐፈ",
+     "cam": "መጽሐፈ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ኀበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢዮአብ",
+     "cam": "ኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወፈነዎ",
+     "cam": "ወፈነወ",
+     "class": "agree"
+    },
+    {
+     "gg": "በእደ",
+     "cam": "በእዱ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:14 -- in the morning David wrote a letter to Joab and sent it by the hand of Uriah -- both carry the morning, the writing of the letter to Joab and its sending by Uriah's own hand."
+  },
+  {
+   "v": 15,
+   "gg_tokens": [
+    "ወጸሐፈ",
+    "ውስተ",
+    "ውእቱ",
+    "መጽሐፍ",
+    "እንዘ",
+    "ይብል",
+    "አብእ",
+    "እምአ",
+    "ለእርዮ",
+    "ጎበ",
+    "ፅንዕ",
+    "ቀተል",
+    "ፍ",
+    "ድሜ",
+    "አ",
+    "ወተመየጡ",
+    "ጸ",
+    "ወሳድግዎ",
+    "እ",
+    "ይኩ",
+    "ስልዕ",
+    "ወይሙት",
+    "እ"
+   ],
+   "cam_tokens": [
+    "ወፀሐፈ",
+    "ውስተ",
+    "ውእቱ",
+    "ፀሐፍ",
+    "እንዘ",
+    "ይብል",
+    "አብእዎ",
+    "ለኦርዮብ",
+    "ውስተ",
+    "ፀኑዕ",
+    "ቀትል",
+    "ፍጽሙ",
+    "ወተመየጡ",
+    "እምድኅሬሁ",
+    "ወኃደግምዎ",
+    "ይቅትል",
+    "ወይሙት"
+   ],
+   "alignment": [
+    {
+     "gg": "ወጸሐፈ",
+     "cam": "ወፀሐፈ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "ውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "መጽሐፍ",
+     "cam": "ፀሐፍ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "እንዘ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይብል",
+     "cam": "ይብል",
+     "class": "agree"
+    },
+    {
+     "gg": "አብእ",
+     "cam": "አብእዎ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምአ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለእርዮ",
+     "cam": "ለኦርዮብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ፅንዕ",
+     "cam": "ፀኑዕ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቀተል",
+     "cam": "ቀትል",
+     "class": "agree"
+    },
+    {
+     "gg": "ፍ",
+     "cam": "ፍጽሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ድሜ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተመየጡ",
+     "cam": "ወተመየጡ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጸ",
+     "cam": "እምድኅሬሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሳድግዎ",
+     "cam": "ወኃደግምዎ",
+     "class": "agree"
+    },
+    {
+     "gg": "እ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይኩ",
+     "cam": "ይቅትል",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስልዕ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይሙት",
+     "cam": "ወይሙት",
+     "class": "agree"
+    },
+    {
+     "gg": "እ",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:15 -- he wrote, Set Uriah in the forefront of the hottest battle and retire from him, that he be smitten and die -- both render the death-letter: Uriah to the front of the strong battle, the others to retire, that he be smitten and die (GG heavily abraded but the clause-beats are all present)."
+  },
+  {
+   "v": 16,
+   "gg_tokens": [
+    "ወእምዝ",
+    "እንዘ",
+    "የዓቅባ",
+    "ኢዮአብ",
+    "ለሀገር",
+    "ወወስደም",
+    "ስእርዮ",
+    "ውስተ",
+    "መካን",
+    "ጎበ",
+    "የአምር",
+    "ከመ",
+    "ሀለዉ",
+    "ዕደው",
+    "ጽንዓን",
+    "ህየ"
+   ],
+   "cam_tokens": [
+    "እምዝ",
+    "እንዘ",
+    "የዓቅባ",
+    "ኢዮአብ",
+    "ለሀገር",
+    "ወወሰደ",
+    "ለኦርዮ",
+    "ውስተ",
+    "መካን",
+    "ኀበ",
+    "የአምር",
+    "ከመ",
+    "ህለው",
+    "ዕደው",
+    "ፅኑዓን",
+    "ህየ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወእምዝ",
+     "cam": "እምዝ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "እንዘ",
+     "class": "agree"
+    },
+    {
+     "gg": "የዓቅባ",
+     "cam": "የዓቅባ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢዮአብ",
+     "cam": "ኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለሀገር",
+     "cam": "ለሀገር",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወስደም",
+     "cam": "ወወሰደ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "መካን",
+     "cam": "መካን",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ኀበ",
+     "class": "agree"
+    },
+    {
+     "gg": "የአምር",
+     "cam": "የአምር",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሀለዉ",
+     "cam": "ህለው",
+     "class": "agree"
+    },
+    {
+     "gg": "ዕደው",
+     "cam": "ዕደው",
+     "class": "agree"
+    },
+    {
+     "gg": "ጽንዓን",
+     "cam": "ፅኑዓን",
+     "class": "agree"
+    },
+    {
+     "gg": "ህየ",
+     "cam": "ህየ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:16 -- when Joab observed the city he assigned Uriah to a place where he knew valiant men were -- both carry Joab watching the city and placing Uriah where the strong men were."
+  },
+  {
+   "v": 17,
+   "gg_tokens": [
+    "ወወፅኡ",
+    "ከብእ",
+    "ሀገር",
+    "ከመ",
+    "ይትቃተሉ",
+    "ምስለ",
+    "ኢዮአብ",
+    "ወወደቁ",
+    "እምስብእ",
+    "ለዳዊት",
+    "ወሞተ",
+    "እርዮኒ",
+    "ኬጥያዊ"
+   ],
+   "cam_tokens": [
+    "ወወፅኡ",
+    "ሰብእ",
+    "ህገር",
+    "ከመ",
+    "ይቃተሉ",
+    "ምስለ",
+    "ኢዮአብ",
+    "ወወድቁ",
+    "እምአግብርተ",
+    "ዳዊት",
+    "ወሞተ",
+    "ኦርዮ",
+    "ኬጥያዊ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወወፅኡ",
+     "cam": "ወወፅኡ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከብእ",
+     "cam": "ሰብእ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሀገር",
+     "cam": "ህገር",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይትቃተሉ",
+     "cam": "ይቃተሉ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስለ",
+     "cam": "ምስለ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢዮአብ",
+     "cam": "ኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወደቁ",
+     "cam": "ወወድቁ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምስብእ",
+     "cam": "እምአግብርተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሞተ",
+     "cam": "ወሞተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮኒ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኬጥያዊ",
+     "cam": "ኬጥያዊ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:17 -- the men of the city went out and fought with Joab; some of David's people fell and Uriah the Hittite died also -- both render the sortie, the fighting with Joab, the fallen and Uriah's death."
+  },
+  {
+   "v": 18,
+   "gg_tokens": [
+    "ወፈነወ",
+    "ኢዮአብ",
+    "ይዜንዉም",
+    "ስንጉሥ",
+    "ኩሉ",
+    "ነገረ",
+    "ፀብዕ"
+   ],
+   "cam_tokens": [
+    "ወፈነወ",
+    "ኢዮአብ",
+    "ይዜንዎ",
+    "ለንጉሥ",
+    "ኵሎ",
+    "ግብረ",
+    "ፀብእ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወፈነወ",
+     "cam": "ወፈነወ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢዮአብ",
+     "cam": "ኢዮአብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይዜንዉም",
+     "cam": "ይዜንዎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስንጉሥ",
+     "cam": "ለንጉሥ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኩሉ",
+     "cam": "ኵሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ነገረ",
+     "cam": "ግብረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ፀብዕ",
+     "cam": "ፀብእ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:18 -- then Joab sent and told David all the things concerning the war -- both carry Joab sending to report the whole matter of the war to the king."
+  },
+  {
+   "v": 19,
+   "gg_tokens": [
+    "ወእዘዘ",
+    "ስላዕከ",
+    "እንዘ",
+    "ይብል",
+    "ስበ",
+    "ፈጸምከ",
+    "ኩሉ",
+    "ቃላተ",
+    "ፀብዕ",
+    "ጎበ",
+    "ንጉሥ"
+   ],
+   "cam_tokens": [
+    "ይነግርዎ",
+    "ለንጉሥ",
+    "ወኮነን",
+    "ለእመ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወእዘዘ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስላዕከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይብል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይነግርዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለንጉሥ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኮነን",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስበ",
+     "cam": "ለእመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፈጸምከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኩሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቃላተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀብዕ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ንጉሥ",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:19 -- and charged the messenger, saying, When thou hast made an end of telling the matters of the war unto the king -- GG carries the explicit charge to the messenger and the 'when thou hast finished telling the king' clause; CAM (v19/20 merged object) gives the 'they tell the king ... if so be' transition into the same speech."
+  },
+  {
+   "v": 20,
+   "gg_tokens": [
+    "ለእመ",
+    "ተምዓ",
+    "ንጉሥ",
+    "ወይቤ",
+    "ለምንት",
+    "ቀረብክሙ",
+    "ጎበ",
+    "ቅፅር",
+    "ከመ",
+    "ትትቃተሉ",
+    "ኢተአምሩኑ",
+    "ከመ",
+    "ይነድፉ",
+    "እምአረፍት"
+   ],
+   "cam_tokens": [
+    "ተምዕበ",
+    "ንጉሥ",
+    "ወይቤ",
+    "ለምንት",
+    "ቀረብክሙ",
+    "ውስተ",
+    "ሀገር",
+    "ከመ",
+    "ትትቃተሉ",
+    "ኤተ",
+    "አምራኩ",
+    "ከመ",
+    "ይነድፉ",
+    "እምነ",
+    "እረፍት"
+   ],
+   "alignment": [
+    {
+     "gg": "ለእመ",
+     "cam": "ተምዕበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ተምዓ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ንጉሥ",
+     "cam": "ንጉሥ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይቤ",
+     "cam": "ወይቤ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለምንት",
+     "cam": "ለምንት",
+     "class": "agree"
+    },
+    {
+     "gg": "ቀረብክሙ",
+     "cam": "ቀረብክሙ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቅፅር",
+     "cam": "ሀገር",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ትትቃተሉ",
+     "cam": "ትትቃተሉ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢተአምሩኑ",
+     "cam": "ኤተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "አምራኩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይነድፉ",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምአረፍት",
+     "cam": "ይነድፉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እረፍት",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:20 -- and if the king's wrath arise and he say, Wherefore approached ye so nigh the city when ye fought? knew ye not they would shoot from the wall? -- both render the king's anger, the 'why came ye so nigh' rebuke and the 'knew ye not they would shoot from the wall' clause (CAM continues its merged v19/20 object here)."
+  },
+  {
+   "v": 21,
+   "gg_tokens": [
+    "ወመኑ",
+    "ቀተሎ",
+    "ስአቤሜሌክ",
+    "ወልደ",
+    "ሮብዓም",
+    "አኮኑ",
+    "ብእሲት",
+    "ወገረት",
+    "ስከረ",
+    "ማዓረፀ",
+    "ሳዕሴሁ",
+    "እምልዕልተ",
+    "አረፍት",
+    "ወሞተ",
+    "በተምናስ",
+    "ለስምንት",
+    "ቀረብከሙ",
+    "ጎበ",
+    "አረፍት",
+    "ወትቤሎ",
+    "ገብርከኒ",
+    "እርዮ",
+    "ኬጥያዊ",
+    "ሞተ"
+   ],
+   "cam_tokens": [
+    "መኑ",
+    "ቀተሎ",
+    "ለአበሜሌክ",
+    "ወልደ",
+    "ሮብአም",
+    "አኮኑ",
+    "ብእሲት",
+    "ወገደፈት",
+    "ስባሬ",
+    "ማሕረፀ",
+    "ላዕሌሁ",
+    "እምነ",
+    "መልዕልተ",
+    "እረፍት",
+    "ወሞተ",
+    "በታምናስ",
+    "ለምንት",
+    "ቀበርክሙ",
+    "እረፍት",
+    "ወትቤሎ",
+    "ገብርከኒ",
+    "እምርዮ",
+    "ኬጥያዊ",
+    "ሞተ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወመኑ",
+     "cam": "መኑ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቀተሎ",
+     "cam": "ቀተሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስአቤሜሌክ",
+     "cam": "ለአበሜሌክ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወልደ",
+     "cam": "ወልደ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሮብዓም",
+     "cam": "ሮብአም",
+     "class": "agree"
+    },
+    {
+     "gg": "አኮኑ",
+     "cam": "አኮኑ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲት",
+     "cam": "ብእሲት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወገረት",
+     "cam": "ወገደፈት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስከረ",
+     "cam": "ስባሬ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ማዓረፀ",
+     "cam": "ማሕረፀ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሳዕሴሁ",
+     "cam": "ላዕሌሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምልዕልተ",
+     "cam": "እምነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መልዕልተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አረፍት",
+     "cam": "እረፍት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሞተ",
+     "cam": "ወሞተ",
+     "class": "agree"
+    },
+    {
+     "gg": "በተምናስ",
+     "cam": "በታምናስ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለስምንት",
+     "cam": "ለምንት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቀረብከሙ",
+     "cam": "ቀበርክሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አረፍት",
+     "cam": "እረፍት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወትቤሎ",
+     "cam": "ወትቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ገብርከኒ",
+     "cam": "ገብርከኒ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "እምርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኬጥያዊ",
+     "cam": "ኬጥያዊ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሞተ",
+     "cam": "ሞተ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:21 -- Who smote Abimelech son of Jerubbesheth? did not a woman cast a millstone on him from the wall, that he died in Thebez? then say, Thy servant Uriah is dead also -- both carry the Abimelech / 'son of Roboam' (recension variant) / woman / millstone / death-at-Thebez exemplum and the 'thy servant Uriah is dead also' tag."
+  },
+  {
+   "v": 22,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ስውእቱ",
+    "ሐዋርያ",
+    "ስምንት",
+    "በጸሐ",
+    "ከመ",
+    "ጎበ",
+    "አረፍተ",
+    "ሀገር",
+    "ትትቃተሉ",
+    "ኢተአምሩ",
+    "ከመ",
+    "ትቄ",
+    "ስሑ",
+    "እምአረፍት",
+    "መኑ",
+    "ቀተሎ",
+    "ስአቤሜሌክ",
+    "ወልደ",
+    "ሮብዓም",
+    "አኮኑ",
+    "ብእሲት",
+    "ወገረት",
+    "ሳዕሴሁ",
+    "ስበረ",
+    "ማዓረፀ",
+    "እምሳዕስ",
+    "አረፍት",
+    "ወሞተ",
+    "በተምናስ",
+    "ለስምንት",
+    "በጸሐ",
+    "ከመ",
+    "ጎበ",
+    "አረፍት"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ሳእክ",
+    "ለዳዊት",
+    "ወሐረ",
+    "ሳእኩ",
+    "ለኢዮአብ",
+    "ወዜነዎ",
+    "ለንጉሥ",
+    "ኵሎ",
+    "ዘይቤሎ",
+    "ኢዮአብ",
+    "ሶበ",
+    "ኃየሉነ",
+    "ወደገኑነ",
+    "እሙንቱ",
+    "ዕደው",
+    "ወአውፅኡነ",
+    "ውስተ",
+    "ገዳም"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስውእቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሐዋርያ",
+     "cam": "ሳእክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሐረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳእኩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለኢዮአብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዜነዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለንጉሥ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኵሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኢዮአብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስምንት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በጸሐ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አረፍተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሀገር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትትቃተሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢተአምሩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትቄ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስሑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምአረፍት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "መኑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቀተሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስአቤሜሌክ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወልደ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሮብዓም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አኮኑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ብእሲት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወገረት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕሴሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስበረ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ማዓረፀ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምሳዕስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አረፍት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሞተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በተምናስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለስምንት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በጸሐ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አረፍት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃየሉነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወደገኑነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሙንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዕደው",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአውፅኡነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ገዳም",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:22 -- so the messenger went and came and shewed David all that Joab had sent him for -- both render the messenger's going and reporting to David; GG repeats Joab's whole Abimelech instruction as a verbatim recensional DOUBLET of the messenger's delivery (transcribed, not harmonised); CAM has the messenger speak the field report directly."
+  },
+  {
+   "v": 23,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ስውእቱ",
+    "ሐዋርያ",
+    "ለዳዊት",
+    "ስበ",
+    "ተኃየሱነ",
+    "ወዲጋኑን",
+    "እሙንቱ",
+    "ዕደው",
+    "እስከ",
+    "ጋዳም",
+    "አው",
+    "ዕ",
+    "ኡ",
+    "ነ",
+    "ወእምዝ",
+    "ተመየጡ",
+    "ናሆሙ",
+    "ወኢሰደደ",
+    "ናሆሙ",
+    "እስከ",
+    "ኖ",
+    "ሳ",
+    "ት",
+    "እንቀ",
+    "ድ",
+    "ሉ",
+    "ወነ",
+    "የፋ",
+    "ስብእ",
+    "ሐ",
+    "ፀ",
+    "ሳዕሴ",
+    "ጸ",
+    "ቅ",
+    "ክ",
+    "እመል",
+    "ዕ",
+    "ዕልት",
+    "አረፍት"
+   ],
+   "cam_tokens": [
+    "ወእምዝ",
+    "ተመየጥናሆሙ",
+    "ወሰደድናሆሙ",
+    "እስከ",
+    "ኆኅተ",
+    "አንቀጽ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስውእቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሐዋርያ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ተኃየሱነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወዲጋኑን",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እሙንቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዕደው",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጋዳም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አው",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዕ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኡ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእምዝ",
+     "cam": "ወእምዝ",
+     "class": "agree"
+    },
+    {
+     "gg": "ተመየጡ",
+     "cam": "ተመየጥናሆሙ",
+     "class": "agree"
+    },
+    {
+     "gg": "ናሆሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኢሰደደ",
+     "cam": "ወሰደድናሆሙ",
+     "class": "agree"
+    },
+    {
+     "gg": "ናሆሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስከ",
+     "cam": "እስከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኖ",
+     "cam": "ኆኅተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳ",
+     "cam": "አንቀጽ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንቀ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ድ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "የፋ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስብእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሐ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕሴ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጸ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቅ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ክ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እመል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዕ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዕልት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አረፍት",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:23 -- the messenger said, Surely the men prevailed against us and came out into the field, and we were upon them unto the entering of the gate -- both render the men prevailing, the sally into the field, the driving back to the gate (GG's tail is heavily abraded into syllable fragments but the clause is present; CAM carries it cleanly)."
+  },
+  {
+   "v": 24,
+   "gg_tokens": [
+    "ወሞቱ",
+    "እምደቁ",
+    "ለንጉሥ",
+    "ወገብር",
+    "ክነ",
+    "አርዮ",
+    "ኬጥያዊ",
+    "ሞተ"
+   ],
+   "cam_tokens": [
+    "ወነደፉ",
+    "ስብእ",
+    "ሐዕለ",
+    "ዕለ",
+    "እግብርቲከ",
+    "እመልዕልተ",
+    "እረፍት",
+    "ወሞቱ",
+    "እምአግብርተ",
+    "ንጉሥ",
+    "ወካዕበ",
+    "ግብርከኒ",
+    "ኦርዮ",
+    "ኬጥያዊ",
+    "ሞተ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወነደፉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐዕለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዕለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እግብርቲከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እመልዕልተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እረፍት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሞቱ",
+     "cam": "ወሞቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምደቁ",
+     "cam": "እምአግብርተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለንጉሥ",
+     "cam": "ንጉሥ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወገብር",
+     "cam": "ወካዕበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ክነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ግብርከኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኬጥያዊ",
+     "cam": "ኬጥያዊ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሞተ",
+     "cam": "ሞተ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:24 -- the shooters shot from off the wall upon thy servants; some of the king's servants are dead, and thy servant Uriah the Hittite is dead also -- both carry the archers shooting from the wall, the dead among the king's servants and Uriah the Hittite dead also (the archery clause is on CAM's v23-object side here)."
+  },
+  {
+   "v": 25,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ስውእቱ",
+    "ሐዋርያ",
+    "ከመዝ",
+    "በሎ",
+    "ስኢዮአብ",
+    "ኢይዕፅብ",
+    "ክነ",
+    "ዝንቱ",
+    "ነገር",
+    "እቅድሜ",
+    "አዕይንቲ",
+    "ክነ",
+    "እስመ",
+    "ከመዝ",
+    "ወከመሁ",
+    "ወቦ",
+    "እስመ",
+    "ከመዝ",
+    "ትበልዕ",
+    "መጥባሕት",
+    "ወእጽንዕ",
+    "እንተ",
+    "ስ",
+    "ትቃትሉ",
+    "አ",
+    "ምስለ",
+    "ሀገር",
+    "ወእስተጋብእ",
+    "ወአጽንዕ"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለውእቱ",
+    "ኢያዕብስ",
+    "ዝንቱ",
+    "ነገር",
+    "ቅድመ",
+    "አዕይንቲከ",
+    "እስመ",
+    "ከመዝ",
+    "ይበልዕ",
+    "ኩናት",
+    "ወአጽንዕ",
+    "ተቃትለከ",
+    "ምስለ",
+    "ሀገር",
+    "አስተጋብእ",
+    "ወአጽንዓ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ስውእቱ",
+     "cam": "ለውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሐዋርያ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመዝ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስኢዮአብ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢይዕፅብ",
+     "cam": "ኢያዕብስ",
+     "class": "agree"
+    },
+    {
+     "gg": "ክነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንቱ",
+     "cam": "ዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ነገር",
+     "cam": "ነገር",
+     "class": "agree"
+    },
+    {
+     "gg": "እቅድሜ",
+     "cam": "ቅድመ",
+     "class": "agree"
+    },
+    {
+     "gg": "አዕይንቲ",
+     "cam": "አዕይንቲከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ክነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "እስመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመዝ",
+     "cam": "ከመዝ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወከመሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወቦ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመዝ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትበልዕ",
+     "cam": "ይበልዕ",
+     "class": "agree"
+    },
+    {
+     "gg": "መጥባሕት",
+     "cam": "ኩናት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእጽንዕ",
+     "cam": "ወአጽንዕ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንተ",
+     "cam": "ተቃትለከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትቃትሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምስለ",
+     "cam": "ምስለ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሀገር",
+     "cam": "ሀገር",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእስተጋብእ",
+     "cam": "አስተጋብእ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአጽንዕ",
+     "cam": "ወአጽንዓ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:25 -- David said, Thus say to Joab, Let not this thing displease thee, the sword devoureth one as well as another; make thy battle stronger against the city and overthrow it; and encourage him -- both render David's reply: 'let it not be grievous', the sword-devours figure, 'press the battle against the city' and 'encourage him' (CAM 'wa-aSneʿa')."
+  },
+  {
+   "v": 26,
+   "gg_tokens": [
+    "ወሰምዓት",
+    "ብእሲቱ",
+    "ለእርዮ",
+    "ከመ",
+    "ሞተ",
+    "እርዮ",
+    "ወበከየቶ",
+    "ለስምታ"
+   ],
+   "cam_tokens": [
+    "ወሰምዓት",
+    "ብእሲቱ",
+    "ለኦርዮ",
+    "ከመ",
+    "ሞተ",
+    "ኦርዮ",
+    "ወበከየቶ",
+    "ለዕለ",
+    "ምታ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወሰምዓት",
+     "cam": "ወሰምዓት",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲቱ",
+     "cam": "ብእሲቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለእርዮ",
+     "cam": "ለኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሞተ",
+     "cam": "ሞተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እርዮ",
+     "cam": "ኦርዮ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወበከየቶ",
+     "cam": "ወበከየቶ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለስምታ",
+     "cam": "ለዕለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምታ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:26 -- when the wife of Uriah heard Uriah her husband was dead she mourned for her husband -- both carry the wife of Uriah hearing of his death and mourning for her husband."
+  },
+  {
+   "v": 27,
+   "gg_tokens": [
+    "ወእምዝ",
+    "ስበ",
+    "ኃለፈ",
+    "መዋዕለ",
+    "ሳሕ",
+    "ለእከ",
+    "ጎቤሃ",
+    "ዳዊት",
+    "ወነሥኣ",
+    "ወአተዋ",
+    "ውስተ",
+    "ቤቱ",
+    "ወአው",
+    "ስባ",
+    "ወኮነቶ",
+    "ብእሲተ",
+    "ወወስደተ",
+    "ሱቱ",
+    "ወልደ",
+    "ወኮነ",
+    "እኩየ",
+    "ዝንቱ",
+    "ነገር",
+    "ዘገብረ",
+    "ዳዊት",
+    "በቅድመ",
+    "አዕይንቲሁ",
+    "ስእግዚእ",
+    "አብሐር"
+   ],
+   "cam_tokens": [
+    "ወእምዝ",
+    "ሶበ",
+    "ሐለፈ",
+    "መዋዕለ",
+    "ሐዘን",
+    "ለአከ",
+    "ሳቲ",
+    "ዳዊት",
+    "ወነሥአ",
+    "ወእቴዋ",
+    "ውስተ",
+    "ቤቱ",
+    "ወኮነቶ",
+    "ብእሲቶ",
+    "ወወለደት",
+    "ሎቱ",
+    "ወልደ",
+    "ወኮነ",
+    "ዝንቱ",
+    "እኩየ",
+    "በቅድመ",
+    "እግዚእብሔር",
+    "ዘገብረ",
+    "ዳዊት"
+   ],
+   "alignment": [
+    {
+     "gg": "ወእምዝ",
+     "cam": "ወእምዝ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስበ",
+     "cam": "ሶበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኃለፈ",
+     "cam": "ሐለፈ",
+     "class": "agree"
+    },
+    {
+     "gg": "መዋዕለ",
+     "cam": "መዋዕለ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐዘን",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳሕ",
+     "cam": "ለአከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለእከ",
+     "cam": "ሳቲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎቤሃ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወነሥኣ",
+     "cam": "ወነሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአተዋ",
+     "cam": "ወእቴዋ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቤቱ",
+     "cam": "ቤቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአው",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስባ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኮነቶ",
+     "cam": "ወኮነቶ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲተ",
+     "cam": "ብእሲቶ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወስደተ",
+     "cam": "ወወለደት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሱቱ",
+     "cam": "ሎቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወልደ",
+     "cam": "ወልደ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወኮነ",
+     "cam": "ወኮነ",
+     "class": "agree"
+    },
+    {
+     "gg": "እኩየ",
+     "cam": "ዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንቱ",
+     "cam": "እኩየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነገር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘገብረ",
+     "cam": "በቅድመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "እግዚእብሔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "በቅድመ",
+     "cam": "ዘገብረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አዕይንቲሁ",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስእግዚእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አብሐር",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "2Sa11:27 -- when the mourning was past David sent and fetched her to his house, she became his wife and bare him a son; but the thing David had done displeased the LORD -- both render the end of mourning, David fetching her, the marriage, the son and the closing 'this thing was evil before the LORD' (GG ስእግዚእ አብሐር / CAM በቅድመ እግዚእብሔር)."
+  }
+ ],
+ "metrics": {
+  "ww_agreement_pct": 33.94,
+  "ww_agreement_basis": "187/551",
+  "ww_agreement_skeleton_pct": 57.53,
+  "ww_agreement_skeleton_basis": "317/551",
+  "ww_agreement_bothconfident_pct": 86.39,
+  "ww_agreement_bothconfident_basis": "254/294",
+  "semantic_pass_pct": 100.0,
+  "semantic_pass_basis": "27/27",
+  "uncertainty_pct": 10.38,
+  "uncertainty_basis": "44/424 (base=CAM)",
+  "lacuna_counts": {
+   "gg": 0,
+   "cam": 0,
+   "both": 0
+  },
+  "lacuna_counts_note": "Both evidence files contain 0 ⟦illegible⟧ tokens (GG 0, CAM 0) -- the ⟦illegible⟧<->'illegible' bijection holds trivially 0<->0 in both witnesses -- so there are 0 lacuna-* rows and lacuna_counts is {gg:0,cam:0,both:0}; every alignment row is class agree or disagree only. ALIGNMENT SCHEME: the spine is the canonical 27-verse KJV 2 Sam 11 enumeration; CAM is the recommended base (cleaner / more legible / more continuous, decision D3) and its sense-objects supply the spine, but CAM writes NO red cross between the equivalents of the familiar v19 and v20 (one merged sense-object, 26 CAM objects for the 27-verse narrative) and its later objects are OFFSET from the KJV versification; CAM's offset objects are therefore SLICED onto the correct KJV spine rows by NARRATIVE CONTENT and GG's 27 sense units are likewise mapped by narrative -- never positional v==v (the CAM v19-obj feeds spine 19+20, CAM v20-obj->21, v21-obj->22, v22-obj->22/23, v23-obj->24, v24-obj->25, v25-obj->25/26, v26-obj->27). EXTENT SITUATION: unlike 1 Sam 17 (a famous short-LXX vs long-MT recensional extent split), BOTH witnesses here are the FULL/LONG Bathsheba narrative with every major beat present and 0 illegible -- so this is a genuine CLEAN-TEXT two-full-recension agreement measurement, not an extent comparison. The divergences are recensional/scribal token swaps, defective spellings, name-form variants (Eryo/Oryo, Ketyawi/Zetyawi, walde-Roboam for Jerubbesheth), CAM's v19/20 merge, a GG recensional messenger DOUBLET (Joab's Abimelech/millstone/Thebez instruction repeated near-verbatim as the messenger's report, GG vv.21-22 = ~35 one-sided GG cells), and CAM small pluses (raʾeya fedfade v2, ʾebew dittograph v11). Every one-sided cell (a token in one witness, absent-but-legible in the other) is class 'disagree' and IS counted in the (agree+disagree) aligned denominator -- recensional/scribal absence is NOT lacuna; lacuna is physical illegibility only, of which there is none. CAM was transcribed directly from the hi-res Cambridge UL MS Add. 1570 masters (no low-resolution pass for this chapter), so no delta_vs_lowres block is reported.",
+  "definitions": {
+   "strict": "exact literal token-string identity / (agree+disagree) aligned pairs",
+   "skeleton": "diacritic/order-folded + near-homograph-folded token equality (class==agree) / (agree+disagree) aligned pairs, full aligned denominator",
+   "both_confident": "skeleton-equal / aligned pairs where neither witness flagged that token uncertain or illegible (gap/insertion cells and lacuna rows also excluded from this denominator)"
+  }
+ }
+}

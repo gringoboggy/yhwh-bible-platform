@@ -1,17 +1,36 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: active -->
+<!-- TRACKER-STATE: idle -->
 
-## Current task — τ.6.x.4.a-W Samuel widened-calibration IN PROGRESS (1 Sam 3 / 1 Sam 17 / 2 Sam 11)
+## Current task — NONE. τ.6.x.4.a-W Samuel widened-calibration COMPLETE (2026-05-17); at the USER GATE.
 
-**STARTED 2026-05-16, in progress 2026-05-17:** executing
-`docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md` via
-superpowers subagent-driven-development. Per-chapter blind dual-witness
-procedure (isolated GG transcriber → adversarial review → CUDL IIIF
-CAM hi-res → isolated CAM transcriber → adversarial review → collate →
-adversarial review), then the bi-directional aggregate decision rule.
-Artifacts land in `content/manuscript/samuel/calibration/{1sa3,1sa17,2sa11}_*`.
-Progress tracked in the session task list (11 tasks).
+**TRACKER IDLE.** `docs/superpowers/plans/2026-05-16-samuel-widened-
+calibration.md` is FULLY EXECUTED (all 11 tasks). All 3 widened
+chapters shipped as immutable evidence + collation JSONs in
+`content/manuscript/samuel/calibration/`: **1 Sam 3** (Ch1, base=CAM,
+both-confident 89.35%, semantic 21/21), **1 Sam 17** (Ch2, the
+David&Goliath stress-test, GG SHORT 20v vs CAM LONG 58v, both-confident
+68.97% on shared core, semantic 58/58), **2 Sam 11** (Ch3, BOTH
+FULL/LONG, base=CAM, both-confident 86.39%, semantic 27/27, GG 0
+illegible). Aggregate `dev/CALIBRATION_2026-05-16-samuel-widened.md`
+written; solo cross-artifact audit `dev/AUDIT_2026-05-17-samuel-
+widened.md` = ALL PASS. **Bi-directional decision rule → CONFIRM**:
+distinct-recension + base=CAM generalize across all 3 widened chapters
++ the 1 Sam 1 pilot (semantic 100% everywhere; both-confident
+materially <90% everywhere; base=CAM everywhere incl. GG-undamaged
+folios; NO chapter contradicts — no ~unity, no base flip to GG).
+
+**NEXT = USER GATE (not Claude work):** the user ratifies GO/adjust/
+NO-GO at `## Decision (user): _pending_` in the aggregate report.
+On GO → size **Phase-2** (the Samuel-wide collation tool, spec §5,
+to the 5 observed failure modes in report §4); Kings then reuses
+Phase-2/3. Phase-2/3 are NOT started until ratified. The Geʽez
+catchup loop (τ.6.x.2.o Sirach) + Amharic NT cadence remain
+independently PAUSED (untouched by this arc).
+
+> The detailed per-chapter execution log + RESUME POINTER blocks
+> BELOW are now HISTORICAL (the arc is closed; they were the live
+> tracker during Tasks 7–9 and are retained as the audit trail).
 
 > **⚑⚑ CRITICAL METHODOLOGICAL FINDING — 2026-05-17 (applies to ALL
 > remaining widened-calibration chapters AND both witnesses; do NOT
