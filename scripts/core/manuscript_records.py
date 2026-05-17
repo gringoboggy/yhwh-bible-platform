@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import re
 
+# Canonical honesty-contract sentinel shared by the collation engine.
+# manuscript_collation imports this constant; never redefine it there.
 ILLEGIBLE = "⟦illegible⟧"
 
 _TOP = {
@@ -71,7 +73,7 @@ def validate_witness(d: dict) -> tuple[bool, list[str]]:
         # geez↔tokens invariant
         computed = _geez_to_tokens(v["geez"])
         if computed != v["tokens"]:
-            e.append(f"v{v['v']}: geez⇔tokens mismatch (computed {len(computed)} tokens, stored {len(v['tokens'])})")
+            e.append(f"v{v['v']}: geez<->tokens mismatch (computed={computed[:10]}, stored={v['tokens'][:10]})")
 
         # honesty bijection: every ⟦illegible⟧ token must have exactly one
         # corresponding uncertain entry with marker=="illegible"

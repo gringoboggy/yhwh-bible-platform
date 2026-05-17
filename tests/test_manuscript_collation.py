@@ -85,7 +85,8 @@ class TestWitnessRecords:
         files = [f for f in glob.glob(os.path.join(CAL, "*_witness*.json"))]
         assert len(files) >= 9
         for f in files:
-            d = json.load(open(f, encoding="utf-8"))
+            with open(f, encoding="utf-8") as fh:
+                d = json.load(fh)
             ok, errs = rec.validate_witness(d)
             assert ok, f"{os.path.basename(f)}: {errs}"
 

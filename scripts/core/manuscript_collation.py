@@ -11,12 +11,13 @@ from __future__ import annotations
 
 import collections
 
+from scripts.core.manuscript_records import ILLEGIBLE
+
 DEFINITIONS = {
     "strict": "exact literal token-string identity / (agree+disagree) aligned pairs",
     "skeleton": "diacritic/order-folded + near-homograph-folded token equality (class==agree) / (agree+disagree) aligned pairs, full aligned denominator",
     "both_confident": "skeleton-equal / aligned pairs where neither witness flagged that token uncertain or illegible (gap/insertion cells and lacuna rows also excluded from this denominator)",
 }
-ILLEGIBLE = "⟦illegible⟧"  # ⟦illegible⟧
 
 
 # Ge'ez fidel → consonant base (orders 1..7 collapse). Built from the
