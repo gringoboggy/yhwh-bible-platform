@@ -2,8 +2,54 @@
 
 <!-- TRACKER-STATE: idle -->
 
-## Current task — NONE. τ.6.x.4.a-W COMPLETE + GATE PASSED (GO 2026-05-17); Phase-2 plan saved, awaiting post-`/clear` execution.
+## Current task — NONE (PAUSED by user). τ.6.x.4.b Phase-2: Tasks 1-4 engine SHIPPED; v1 Task-5 oracle proven impossible (controller-verified); user chose "pause & revise spec"; spec-revision + v2 plan WRITTEN; awaiting user review then resume.
 
+**TRACKER IDLE — Phase-2 deliberate pause (this turn's unit of work is
+complete + committed; next action is a USER REVIEW, then a fresh
+resume — the established idle+durable-pointer handoff pattern).**
+
+Phase-2 (`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-
+tool.md`) executed via `superpowers:subagent-driven-development`:
+**Tasks 1-4 SHIPPED & two-stage-reviewed** (engine sound — commits
+`2f8872f` / `4f30e33`+`c2e9615` / `9408ac5`+`15f0e33` / `97cc1e7`;
+`983cf1c` added a now-resolved BLOCKED docstring note). **v1 Task 5
+("engine byte-reproduces the 4 hand calibration collations") proven
+mathematically impossible + independently controller-verified** (1sa1
+fold-IDENTICAL→`disagree` AND fold-DIFFERENT→`agree`; mutually
+contradictory per-chapter thresholds; philological base-choice; Tasks
+1-3 classifier contract forbids it). Root cause: the calibration
+`alignment[]` is per-token HUMAN adjudication (a measurement that
+already produced the GO), and the v1 *plan* over-specified beyond
+design-spec §5/§8. Escalated to the user per the
+subagent-driven-development "plan-is-wrong → escalate" rule.
+
+**USER DECISION 2026-05-17 = "pause & revise the spec".** Produced
+this turn (committed locally, no push, no zip): authoritative
+`docs/superpowers/specs/2026-05-17-samuel-phase2-collation-spec-
+revision.md` (proof + the revised reproducible **R1-R8** contract +
+extent-aware base-pick §3.3 → CAM 4/4) and the superseding
+`docs/superpowers/plans/2026-05-17-samuel-phase2-collation-tool-v2.md`
+(Tasks 1-4 DONE; Task 5 REDEFINED to R1-R8 + an honest engine-vs-hand
+transparency artifact, NOT hand-reproduction; Tasks 6-9
+carried/clarified). The 2026-05-17 GO (diplomatic-parallel, base=CAM)
+is UNAFFECTED; the 4 calibration files remain immutable human
+reference; no scripture fabricated; no data/golden edits.
+
+**NEXT (durable pointer — do NOT auto-execute; the user PAUSED):**
+1. User reviews `docs/superpowers/specs/2026-05-17-samuel-phase2-
+   collation-spec-revision.md` + `docs/superpowers/plans/2026-05-17-
+   samuel-phase2-collation-tool-v2.md`.
+2. On the user's resume: continue `superpowers:subagent-driven-
+   development` from **v2 Task 5** (Tasks 1-4 are shipped — do not
+   re-implement), fresh subagent per task + two-stage review, exactly
+   as Tasks 1-4 were executed. Then Tasks 6-9.
+The Geʽez catchup loop (τ.6.x.2.o Sirach) + Amharic NT cadence remain
+independently PAUSED (untouched by this arc).
+
+> **[SUPERSEDED 2026-05-17 by the τ.6.x.4.b Phase-2 pause block above —
+> the τ.6.x.4.a-W record below is retained as historical handoff
+> context only.]**
+>
 **TRACKER IDLE.** `docs/superpowers/plans/2026-05-16-samuel-widened-
 calibration.md` is FULLY EXECUTED (all 11 tasks); the user GAVE GO at
 the gate and the Phase-2 plan

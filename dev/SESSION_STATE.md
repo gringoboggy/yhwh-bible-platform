@@ -1,5 +1,60 @@
 # Session state — current snapshot
 
+> **➤➤➤ τ.6.x.4.b SAMUEL PHASE-2 — ⏸ PAUSED BY USER (pause & revise
+> spec); SPEC REVISED + v2 PLAN WRITTEN — 2026-05-17 (read this FIRST;
+> supersedes the τ.6.x.4.a-W banner below for the Samuel manuscript
+> track).** Phase-2 (`docs/superpowers/plans/2026-05-17-samuel-phase2-
+> collation-tool.md`) was executed via `superpowers:subagent-driven-
+> development`, fresh subagent per task + two-stage spec+code-quality
+> review. **Tasks 1-4 SHIPPED & sound** — a general, token-conserving,
+> narrative-anchored dual-witness collation engine: T1 `2f8872f`
+> (`scripts/core/manuscript_collation.py` fold/classify), T2
+> `4f30e33`+`c2e9615` (metrics + HARD token-conservation gate), T3
+> `9408ac5`+`15f0e33` (`scripts/core/manuscript_records.py`
+> witness-validator + honesty bijection; `ILLEGIBLE` consolidated
+> canonical there), T4 `97cc1e7` (`load_kjv_skeleton` + `align_verse`
+> NW + `collate()` w/ per-cell flags + hard conservation gate). **Task
+> 5 (the v1 plan's "engine byte-reproduces the 4 hand calibration
+> collations" regression oracle) was proven MATHEMATICALLY IMPOSSIBLE
+> and independently CONTROLLER-VERIFIED** against the real shipped
+> `fold_skeleton` + the real immutable goldens: `1sa1_collation_hires`
+> has 2 fold-IDENTICAL rows hand-classed `disagree` (`ማህፀና`/`ማሕፀና`
+> v5,v6) AND 4 fold-DIFFERENT rows hand-classed `agree` — no pure
+> `f(gg,cam)` can do both; the 4 chapters demand mutually contradictory
+> thresholds; the hand base-choice (CAM 1sa17/2sa11) is philological not
+> metric; the Tasks 1-3 `classify_pair` contract forbids the goldens'
+> readings. ROOT CAUSE: the calibration `*_collation.json` `alignment[]`
+> is per-token HUMAN philological adjudication from a
+> *measurement* exercise (it already did its job — produced the GO),
+> NOT an algorithm; the **plan over-specified** beyond design-spec
+> §5/§8 (spec only requires the *metrics* extended book-wide + the
+> units/contracts, never byte-repro of hand `alignment[]`). Commit
+> `983cf1c` added a BLOCKED diagnosis to the engine docstring.
+> **USER DECISION 2026-05-17 at the fork = "PAUSE & REVISE THE SPEC"
+> (the most deliberate option).** Done this turn: authoritative spec
+> revision `docs/superpowers/specs/2026-05-17-samuel-phase2-collation-
+> spec-revision.md` (verified impossibility proof + why the spec was
+> never violated + the revised reproducible contract **R1-R8** +
+> refined extent-aware base-pick rule §3.3 → CAM 4/4) and the
+> superseding plan `docs/superpowers/plans/2026-05-17-samuel-phase2-
+> collation-tool-v2.md` (Tasks 1-4 = DONE; Task 5 REDEFINED to the
+> R1-R8 invariant contract + honest engine-vs-hand transparency
+> artifact, NOT hand-reproduction; Tasks 6-9 carried/clarified — Task 8
+> holds the engine's OWN metrics to the §4 GO bar + reports honest
+> divergence). **The 2026-05-17 GO is UNAFFECTED** — diplomatic-parallel
+> + base=CAM remain CONFIRMED; the 4 hand collations remain immutable
+> human reference; no scripture fabricated; no golden/data edits.
+> **NEXT (do NOT auto-execute — the user paused):** the user reviews
+> the spec-revision + v2 plan; then resume `superpowers:subagent-driven-
+> development` from **v2 Task 5** (Tasks 1-4 shipped), exactly as Tasks
+> 1-4 were executed. Local commits only (remote deleted — no push;
+> `continue`/`pause` ≠ save — no zip). The Geʽez catchup loop
+> (τ.6.x.2.o Sirach) + Amharic NT cadence remain independently PAUSED
+> (untouched by this arc).
+
+> **[SUPERSEDED 2026-05-17 by the τ.6.x.4.b Phase-2 pause block above
+> for the Samuel manuscript track — retained as the calibration-gate
+> handoff record.]**
 > **➤➤➤ τ.6.x.4.a-W SAMUEL WIDENED-CALIBRATION — ✅ COMPLETE + GATE
 > PASSED (GO 2026-05-17); PHASE-2 AUTHORIZED & PLANNED (read this
 > first; supersedes ALL τ.6.x.4.a / .a-W banners below for the Samuel
