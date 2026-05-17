@@ -62,6 +62,8 @@ pre-commit gate and composed into ``/preflight`` via
 from __future__ import annotations
 
 import argparse
+import functools
+import glob
 import json
 import os
 import sys
@@ -138,6 +140,45 @@ def _load_case(ref: str, suf: str):
     return gg, cam, golden
 
 
+@functools.lru_cache(maxsize=None)
+def _collate_case(ref: str, suf: str, ch: int, book: str):
+    """Load + collate ONE calibration ref exactly once per process.
+
+    Returns ``(gg, cam, golden, collation)`` for the ref. ``run_all()``
+    fans the same four calibration chapters out across
+    ``check_token_conservation`` (4×), ``check_calibration_contract``
+    (4×) and ``_engine_metric_check`` (4×) — 12 QA-side
+    load+``collate`` rounds over only 4 distinct, immutable inputs.
+    Routing every one of those through this memoizer collapses the
+    QA-side work to 4 collations (one per ref) and 4 JSON-read rounds,
+    and makes every subsequent ``/preflight`` dashboard load reuse the
+    process-lifetime result.
+
+    This is the rules-§7.1 *project-internal published data* cache
+    tier: the four calibration files
+    (``content/manuscript/samuel/calibration/*``) are immutable,
+    never edited by publishers / the customize console at runtime —
+    updates ship via git + a process restart — so a process-lifetime
+    ``@lru_cache`` keyed on ``(ref, suf, ch, book)`` is the §7.1
+    singleton, mirroring ``manuscript_collation.load_kjv_skeleton``.
+
+    CACHE-SAFETY CONTRACT: ``collate()`` returns a *mutable* dict and
+    this cached tuple is now SHARED across all three consuming checks.
+    Every consumer MUST treat ``gg`` / ``cam`` / ``golden`` /
+    ``collation`` as READ-ONLY — read ``["metrics"]`` / ``["verses"]``
+    / ``["alignment"]`` etc. for assertions only; never mutate, never
+    ``.pop`` / in-place ``.sort`` / reassign nested structures. All
+    three current consumers were audited and are read-only (their
+    ``sorted(...)`` / list-comprehension expressions build NEW lists;
+    ``assert_token_conservation`` only builds ``collections.Counter``
+    views), so no defensive copy is required."""
+    from scripts.core import manuscript_collation as mc
+
+    gg, cam, golden = _load_case(ref, suf)
+    collation = mc.collate(gg, cam, mc.load_kjv_skeleton(book, ch), book=book, chapter=ch)
+    return gg, cam, golden, collation
+
+
 # ----------------------------------------------------------------------
 # Individual check implementations
 # ----------------------------------------------------------------------
@@ -145,8 +186,6 @@ def _load_case(ref: str, suf: str):
 
 def check_witness_valid() -> dict:
     """Every calibration witness JSON must pass ``validate_witness``."""
-    import glob
-
     from scripts.core.manuscript_records import validate_witness
 
     violations: list[dict] = []
@@ -186,14 +225,18 @@ def check_witness_valid() -> dict:
 
 def check_token_conservation() -> dict:
     """``assert_token_conservation`` must hold for every calibration
-    collation (the HARD Phase-2 build gate, re-checked here)."""
+    collation (the HARD Phase-2 build gate, re-checked here).
+
+    READ-ONLY consumer of ``_collate_case``: only reads
+    ``got["verses"]`` / ``gg`` / ``cam`` and hands them to
+    ``assert_token_conservation`` (which builds ``Counter`` views
+    only — no mutation)."""
     from scripts.core import manuscript_collation as mc
 
     violations: list[dict] = []
     for ref, suf, ch, book in _CASES:
         try:
-            gg, cam, _ = _load_case(ref, suf)
-            got = mc.collate(gg, cam, mc.load_kjv_skeleton(book, ch), book=book, chapter=ch)
+            gg, cam, _, got = _collate_case(ref, suf, ch, book)
             mc.assert_token_conservation(got["verses"], gg, cam)
         except Exception as e:  # noqa: BLE001 — any raise is a conservation failure
             violations.append({"ref": ref, "error": str(e)[:200]})
@@ -228,14 +271,20 @@ def check_calibration_contract() -> dict:
     R1/R2 are covered by their own dedicated checks
     (``witness_valid`` / ``token_conservation``); this check does NOT
     re-assert the hand-vs-engine agreement counts (that is R8 — the
-    informational ``engine_vs_hand_divergence`` check)."""
+    informational ``engine_vs_hand_divergence`` check).
+
+    READ-ONLY consumer of ``_collate_case``: only reads
+    ``golden["metrics"]`` / ``got["metrics"]`` /
+    ``got["base_witness_recommended"]`` / ``got["base_rationale"]`` /
+    ``got["verses"]`` / ``a["alignment"]`` for assertions. Its
+    ``sorted(spine)`` and the one-sided list-comprehension build NEW
+    lists — they never mutate ``got["verses"]`` in place."""
     from scripts.core import manuscript_collation as mc
 
     violations: list[dict] = []
     for ref, suf, ch, book in _CASES:
         try:
-            gg, cam, golden = _load_case(ref, suf)
-            got = mc.collate(gg, cam, mc.load_kjv_skeleton(book, ch), book=book, chapter=ch)
+            _, _, golden, got = _collate_case(ref, suf, ch, book)
         except Exception as e:  # noqa: BLE001 — collation failure is a contract break
             violations.append({"ref": ref, "broke": f"collate raised: {e}"})
             continue
@@ -392,14 +441,16 @@ def _engine_metric_check(ref: str, suf: str, ch: int, book: str) -> dict:
 
     The message ALWAYS states all three numbers (semantic_pass,
     ww_agreement_bothconfident, uncertainty) regardless of status, for
-    transparency."""
-    from scripts.core import manuscript_collation as mc
+    transparency.
 
+    READ-ONLY consumer of ``_collate_case``: only reads
+    ``got["metrics"]`` sub-keys (``semantic_pass_pct`` /
+    ``uncertainty_pct`` / ``ww_agreement_bothconfident_pct``); never
+    mutates the cached collation."""
     cid = f"engine_metric_{ref}"
     name = f"Engine metrics @ §4 bar — {ref}"
     try:
-        gg, cam, _ = _load_case(ref, suf)
-        got = mc.collate(gg, cam, mc.load_kjv_skeleton(book, ch), book=book, chapter=ch)
+        _, _, _, got = _collate_case(ref, suf, ch, book)
         m = got["metrics"]
         sp = m["semantic_pass_pct"]
         unc = m["uncertainty_pct"]
