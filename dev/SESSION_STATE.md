@@ -1,5 +1,40 @@
 # Session state — current snapshot
 
+> **➤➤ τ.6.x.4.a-W SAMUEL WIDENED-CALIBRATION — CHECKPOINT 2026-05-17
+> (read this first; supersedes the τ.6.x.4.a banner below for the
+> Samuel manuscript track).** Executing
+> `docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md`
+> (the user-accepted pre-Phase-2 condition) via superpowers
+> subagent-driven-development; per-chapter blind dual-witness
+> (isolated GG transcribe → adversarial review → CUDL-IIIF CAM hi-res
+> → isolated CAM transcribe → adversarial review → collate →
+> adversarial review). **CHECKPOINT SAVE mid-arc — IN_FLIGHT stays
+> `active`; work continues (this is NOT arc-close).** Status:
+> **Ch1 1 Sam 3 ✅ + Ch2 1 Sam 17 ✅ COMPLETE; Ch3 2 Sam 11 + Task 10
+> aggregate report + Task 11 final commit/gate PENDING.**
+> Solo cross-artifact audit 2026-05-17 = **ALL CHECKS PASS** (honesty
+> reconcile, metric bases recompute-exact, token-conservation, lacuna
+> reconcile across all 6 Ch1+Ch2 JSONs); 4 scratch .py removed; no
+> artifact defects. **Per-chapter result (base=CAM every chapter,
+> semantic 100% every chapter, all below the ≥90% merge bar):**
+> 1 Sam 1 ref both-confident 73.05% · 1 Sam 3 89.35% (216 shared
+> core; divergence mostly structural plus/minus) · 1 Sam 17 68.97%
+> (the spec-named LXX/MT stress-test: GG SHORT 20 v vs CAM LONG 58 v —
+> strongest distinct-recension result; 38 CAM-only verses match the
+> project's own Kenyon LXX-omission note 17:12-31,41,50,55-58). **No
+> chapter contradicts the diplomatic-parallel/CAM-base model (no
+> ~unity agreement; base never flipped).** Two defects caught+fixed
+> by the adversarial method (Ch1 ክፍл-mislocation; Ch1 collation
+> 3-token drop). **CRITICAL METHOD (carry forward): in this MS family
+> red `ክፍл` rubrics are FINE LITURGICAL subdivisions, NOT chapters;
+> the coarse chapter marker is `ምዕራፍ` — locate every chapter by
+> NARRATIVE + `ምዕራፍ`, treat `ክፍл` as noise.** Authoritative live
+> detail + exact resume steps: the `dev/IN_FLIGHT.md` RESUME POINTER
+> (next = Ch3 2 Sam 11, GG-00106 2-Samuel folios + CUDL-IIIF CAM,
+> then aggregate `dev/CALIBRATION_2026-05-16-samuel-widened.md` +
+> bi-directional decision rule, then final commit). Local commit
+> only, no push (remote deleted), no zip.
+
 > **➤ τ.6.x.4.a SAMUEL CALIBRATION GATE — CLOSED 2026-05-16, user-decided
 > (read this first for the Samuel/Kings manuscript track).** 1 Sam 1
 > transcribed BLIND from GG (Gunda Gundē GG-00106 f003r ~5MP) + CAM

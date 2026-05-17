@@ -1,0 +1,237 @@
+{
+  "witness": "GG",
+  "book": "1sa",
+  "chapter": 3,
+  "source_images": ["GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f004r.jpg"],
+  "folio_sigla": ["f004r"],
+  "verses": [
+    {
+      "v": 1,
+      "column": 1,
+      "line_start": 16,
+      "geez": "ወዝክቱሰ ወልድ ሳሙኤል ህሰወ ይትለአከ ስእግዚአብሔር ቅድመ ኤሊ ካህን ወክቡር ውእቱ ቃሉ እግዚአብሔር በእማንቱ መዋዕል ወአልቦ ራእይ ዘይከውን ✣",
+      "tokens": ["ወዝክቱሰ", "ወልድ", "ሳሙኤል", "ህሰወ", "ይትለአከ", "ስእግዚአብሔር", "ቅድመ", "ኤሊ", "ካህን", "ወክቡር", "ውእቱ", "ቃሉ", "እግዚአብሔር", "በእማንቱ", "መዋዕል", "ወአልቦ", "ራእይ", "ዘይከውን"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "ህሰወ — written entirely in red rubric (this whole verse is the red ክፍል ፯ opening); ሰ/ሠ vowel order faint under the red ink"}
+      ]
+    },
+    {
+      "v": 2,
+      "column": 1,
+      "line_start": 20,
+      "geez": "ወእምዝ በይእቲ ዕስት እንዘ ይነውም ኤሊ ውስት መካኑ ወአዕይንቲሁ ኒ እኃ ይክብዳ ✣",
+      "tokens": ["ወእምዝ", "በይእቲ", "ዕስት", "እንዘ", "ይነውም", "ኤሊ", "ውስት", "መካኑ", "ወአዕይንቲሁ", "ኒ", "እኃ", "ይክብዳ"],
+      "uncertain": [
+        {"token_index": 9, "marker": "uncertain", "note": "ኒ — short particle after አዕይንቲሁ; reading by sense ('his eyes too began to be heavy'); single fidel faint"}
+      ]
+    },
+    {
+      "v": 3,
+      "column": 1,
+      "line_start": 23,
+      "geez": "ወኢይክል ርእየ ወማሣጥቱ እግዚአብሔር ኒ ዓዲ ኢየዐውኒ ስአበ ✣ ወሳሙኤልስ ይነውም ውስት ቤተ መቀደስ ኀበ ታበተ እግዚአብሔር ✣",
+      "tokens": ["ወኢይክል", "ርእየ", "ወማሣጥቱ", "እግዚአብሔር", "ኒ", "ዓዲ", "ኢየዐውኒ", "ስአበ", "ወሳሙኤልስ", "ይነውም", "ውስት", "ቤተ", "መቀደስ", "ኀበ", "ታበተ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "ወማሣጥቱ — the lamp/light noun; medial fidel ሣ smudged"},
+        {"token_index": 7, "marker": "uncertain", "note": "ስአበ — likely 'ere (it went out)'; vowel order faint at line edge"}
+      ]
+    },
+    {
+      "v": 4,
+      "column": 1,
+      "line_start": 27,
+      "geez": "ወጸውዓ እግዚአብሔር ስዓሙኤል ወይቤሎ ሳሙኤል ሳሙኤል ✣",
+      "tokens": ["ወጸውዓ", "እግዚአብሔር", "ስዓሙኤል", "ወይቤሎ", "ሳሙኤል", "ሳሙኤል"],
+      "uncertain": []
+    },
+    {
+      "v": 5,
+      "column": 1,
+      "line_start": 29,
+      "geez": "ወይቤ ነየ አነ ⟦illegible⟧ ወርጸ ኀበ ኤሊ ወይቤሎ ነየ አነ መጸእኮኒ እስመ ጸዋዕከኒ ወይቤሎ ኤሊ ኢጸዋዕክ ግባእ ስክብ ✣",
+      "tokens": ["ወይቤ", "ነየ", "አነ", "⟦illegible⟧", "ወርጸ", "ኀበ", "ኤሊ", "ወይቤሎ", "ነየ", "አነ", "መጸእኮኒ", "እስመ", "ጸዋዕከኒ", "ወይቤሎ", "ኤሊ", "ኢጸዋዕክ", "ግባእ", "ስክብ"],
+      "uncertain": [
+        {"token_index": 3, "marker": "illegible", "note": "deliberate scribal erasure: parchment scraped clean (~4-6 fidels) between 'አነ' and 'ወርጸ'; no ink remains, physically unreadable"},
+        {"token_index": 10, "marker": "uncertain", "note": "መጸእኮኒ — likely 'thou didst call me'; fidel cluster faint"}
+      ]
+    },
+    {
+      "v": 6,
+      "column": 1,
+      "line_start": 32,
+      "geez": "ወሐረ ወስከበ ወደግመ ዓዲ እግዚአብሔር ጸውዓቱ ስሳሙኤል ✣ ወይቤሎ ሳሙኤል ሳሙኤል ወተንሥአ ሳሙኤል ወሐረ ኀበ ኤሊ ዳግመ ወይቤ ሎ መነ መጸውዓኩ እመ ጸዋዕኩ ✣",
+      "tokens": ["ወሐረ", "ወስከበ", "ወደግመ", "ዓዲ", "እግዚአብሔር", "ጸውዓቱ", "ስሳሙኤል", "ወይቤሎ", "ሳሙኤል", "ሳሙኤል", "ወተንሥአ", "ሳሙኤል", "ወሐረ", "ኀበ", "ኤሊ", "ዳግመ", "ወይቤ", "ሎ", "መነ", "መጸውዓኩ", "እመ", "ጸዋዕኩ"],
+      "uncertain": [
+        {"token_index": 17, "marker": "uncertain", "note": "ሎ መነ መጸውዓኩ — written in red as a small inline reading-gloss ('to him: whom did I call?'); red ink over faint fidels"},
+        {"token_index": 18, "marker": "uncertain", "note": "መነ — part of the red inline gloss; reading by sense"}
+      ]
+    },
+    {
+      "v": 7,
+      "column": 1,
+      "line_start": 37,
+      "geez": "ወይቤሎ ኢጸዋዕኩኩ ግባእ ወስክብ ✣ ወሳሙኤልስ ዓዲሁ ዶአመር ስእግዚአብሔር እምቅድ ዝ ወእተከሠቱሎሙ ቃስ እግዚአብሔር ✣",
+      "tokens": ["ወይቤሎ", "ኢጸዋዕኩኩ", "ግባእ", "ወስክብ", "ወሳሙኤልስ", "ዓዲሁ", "ዶአመር", "ስእግዚአብሔር", "እምቅድ", "ዝ", "ወእተከሠቱሎሙ", "ቃስ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 6, "marker": "uncertain", "note": "ዶአመር — likely 'did not yet know'; leading fidel ዶ/ኢ ambiguous, sense 'Samuel did not yet know the LORD'"},
+        {"token_index": 10, "marker": "uncertain", "note": "ወእተከሠቱሎሙ — long cluster spanning col1 foot to col2 head; internal vowel order on ሠቱ uncertain; sense 'neither was the word revealed'"}
+      ]
+    },
+    {
+      "v": 8,
+      "column": 2,
+      "line_start": 1,
+      "geez": "ወጸውዓ ዓዲ እግዚአብሔር በሣልስ ሰዓሙኤል ወተንሥአ ወሐረ ኀበ ኤሊ ወይቤሎ ነየ መጸዋዕከኒ እስመ ጸዋዕከኒ ✣ ወሐሰየ ኤሊ ከመ እግዚአብሔር ጸውዓ ሰውእቱ ወልድ ✣",
+      "tokens": ["ወጸውዓ", "ዓዲ", "እግዚአብሔር", "በሣልስ", "ሰዓሙኤል", "ወተንሥአ", "ወሐረ", "ኀበ", "ኤሊ", "ወይቤሎ", "ነየ", "መጸዋዕከኒ", "እስመ", "ጸዋዕከኒ", "ወሐሰየ", "ኤሊ", "ከመ", "እግዚአብሔር", "ጸውዓ", "ሰውእቱ", "ወልድ"],
+      "uncertain": [
+        {"token_index": 11, "marker": "uncertain", "note": "መጸዋዕከኒ — 'for thou didst call me'; leading fidel faint"},
+        {"token_index": 14, "marker": "uncertain", "note": "ወሐሰየ — likely 'and Eli perceived'; ሰ vowel faint"}
+      ]
+    },
+    {
+      "v": 9,
+      "column": 2,
+      "line_start": 5,
+      "geez": "ወይቤሎ ግባእ ወስክብ ወልድየ ወለእመ ይጸውዓክ በል በል እግዚእዶ እስ ይስምዓክ ገብርክ ✣",
+      "tokens": ["ወይቤሎ", "ግባእ", "ወስክብ", "ወልድየ", "ወለእመ", "ይጸውዓክ", "በል", "በል", "እግዚእዶ", "እስ", "ይስምዓክ", "ገብርክ"],
+      "uncertain": [
+        {"token_index": 8, "marker": "uncertain", "note": "እግዚእዶ — 'Speak, LORD'; vocative ending fidel faint"},
+        {"token_index": 9, "marker": "uncertain", "note": "እስ — short particle ('for'); single faint fidel, sense by context"}
+      ]
+    },
+    {
+      "v": 10,
+      "column": 2,
+      "line_start": 7,
+      "geez": "ወሐረ ሳሙኤል ወስከበ ውስተ መካኑ ✣ ወመጽእ እግዚአብሔር ወቆመ ወጸውዓ ከመ ቀዳሚ ✣ ወይቤሎ ሳሙኤል በል ግዚእዶ እስመ ይስምዓክ ገብርክ ✣",
+      "tokens": ["ወሐረ", "ሳሙኤል", "ወስከበ", "ውስተ", "መካኑ", "ወመጽእ", "እግዚአብሔር", "ወቆመ", "ወጸውዓ", "ከመ", "ቀዳሚ", "ወይቤሎ", "ሳሙኤል", "በል", "ግዚእዶ", "እስመ", "ይስምዓክ", "ገብርክ"],
+      "uncertain": [
+        {"token_index": 14, "marker": "uncertain", "note": "ግዚእዶ — 'Speak, LORD'; head fidel እ rubbed at start of word"}
+      ]
+    },
+    {
+      "v": 11,
+      "column": 2,
+      "line_start": 11,
+      "geez": "ወይቤሎ እግዚአብሔር ለሳሙኤል ናሁ እንእገብር ቃልየ ዘነበብኩ ሳዕስ እስራኤል ከመ ኵሉ ዘሰምዓ የአጸ ክልኤሆ እዘኒሁ ✣",
+      "tokens": ["ወይቤሎ", "እግዚአብሔር", "ለሳሙኤል", "ናሁ", "እንእገብር", "ቃልየ", "ዘነበብኩ", "ሳዕስ", "እስራኤል", "ከመ", "ኵሉ", "ዘሰምዓ", "የአጸ", "ክልኤሆ", "እዘኒሁ"],
+      "uncertain": [
+        {"token_index": 7, "marker": "uncertain", "note": "ሳዕስ — 'concerning/against (Israel)'; fidel ዕ smudged"},
+        {"token_index": 12, "marker": "uncertain", "note": "የአጸ — 'shall tingle'; final fidel order faint"}
+      ]
+    },
+    {
+      "v": 12,
+      "column": 2,
+      "line_start": 14,
+      "geez": "ወበይእቲ ዕስት አቀውም ኵሎ ዘነበብኩ ሳዕስ ኤሊ ወሰስቤቱ እሳግዕ ወእፌጽም ✣",
+      "tokens": ["ወበይእቲ", "ዕስት", "አቀውም", "ኵሎ", "ዘነበብኩ", "ሳዕስ", "ኤሊ", "ወሰስቤቱ", "እሳግዕ", "ወእፌጽም"],
+      "uncertain": [
+        {"token_index": 8, "marker": "uncertain", "note": "እሳግዕ — 'I will begin'; medial fidel faint"}
+      ]
+    },
+    {
+      "v": 13,
+      "column": 2,
+      "line_start": 16,
+      "geez": "ወእይዳዕ ክም ከመ እትቤቆሎ ስቤቱ ስዓስም በዓጢአት ዘየአመር እስመ አሕሰሙ ቃስዕ ስእግዚአብሔር ደቂቊ ወኢገሠ ሙ ✣",
+      "tokens": ["ወእይዳዕ", "ክም", "ከመ", "እትቤቆሎ", "ስቤቱ", "ስዓስም", "በዓጢአት", "ዘየአመር", "እስመ", "አሕሰሙ", "ቃስዕ", "ስእግዚአብሔር", "ደቂቊ", "ወኢገሠ", "ሙ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወእይዳዕ — opening fidel vowel ambiguous; 'and I have told'"},
+        {"token_index": 10, "marker": "damaged", "note": "ቃስዕ — ink flake mid-word; partial token, best reading 'the voice/sin of'"},
+        {"token_index": 14, "marker": "uncertain", "note": "ሙ — verb tail 'ገሠጾሙ' split across line break; reading by stroke remnants"}
+      ]
+    },
+    {
+      "v": 14,
+      "column": 2,
+      "line_start": 21,
+      "geez": "ወበእንተ ዝ ጊ መሐልኩ ስየ ከመዝ ከመ ኢይደመ ሰስስ አቲቤቱ ስኤሊ ኢበዕጣን ወኢመ ሥዋዕት እስከ ሰዓስም ✣",
+      "tokens": ["ወበእንተ", "ዝ", "ጊ", "መሐልኩ", "ስየ", "ከመዝ", "ከመ", "ኢይደመ", "ሰስስ", "አቲቤቱ", "ስኤሊ", "ኢበዕጣን", "ወኢመ", "ሥዋዕት", "እስከ", "ሰዓስም"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "ጊ — short particle/interjection; single faint fidel"},
+        {"token_index": 7, "marker": "uncertain", "note": "ኢይደመ — 'shall not be expiated'; vowel order faint"},
+        {"token_index": 8, "marker": "uncertain", "note": "ሰስስ — 'the iniquity of'; cluster smudged"}
+      ]
+    },
+    {
+      "v": 15,
+      "column": 2,
+      "line_start": 25,
+      "geez": "ወይም ዝ ስክበ ሳዕሙኤል እስከ ጸብሕ ✣ ወነቅሐ በጽባሕ ወአርኃው ዎተ ቤተ እግዚአብሔር ወፈርሀ ሳሙኤል አይድዓቆ ለኤሊ ዘእስተርእዮ እግዚአብሔር ✣",
+      "tokens": ["ወይም", "ዝ", "ስክበ", "ሳዕሙኤል", "እስከ", "ጸብሕ", "ወነቅሐ", "በጽባሕ", "ወአርኃው", "ዎተ", "ቤተ", "እግዚአብሔር", "ወፈርሀ", "ሳሙኤል", "አይድዓቆ", "ለኤሊ", "ዘእስተርእዮ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወይም — likely 'and (Samuel) lay'; ይ vowel faint"},
+        {"token_index": 8, "marker": "uncertain", "note": "ወአርኃው — 'and opened'; final fidel order faint"},
+        {"token_index": 9, "marker": "uncertain", "note": "ዎተ — 'the doors of' split from previous word across line break"}
+      ]
+    },
+    {
+      "v": 16,
+      "column": 2,
+      "line_start": 30,
+      "geez": "ወጸውዓ ኤሊ ሰዓሙኤል ወይቤሎ ወልድየ ሳሙኤል ወይቤሎ ሳሙኤል ነየ አነ ✣",
+      "tokens": ["ወጸውዓ", "ኤሊ", "ሰዓሙኤል", "ወይቤሎ", "ወልድየ", "ሳሙኤል", "ወይቤሎ", "ሳሙኤል", "ነየ", "አነ"],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": 2,
+      "line_start": 32,
+      "geez": "ወቤሎ ምንትኑ ነገሩ ዘነገረክ ኤትዳእ እምኔየ ከመዝ ለይረሲክ እግዚአብሔር ✣ ወከመዝ ስትምጸ እኪ ስስ ✣ ዓብእክ እምኔየ ቃስ እምኵሉ ዘነረክ ✣",
+      "tokens": ["ወቤሎ", "ምንትኑ", "ነገሩ", "ዘነገረክ", "ኤትዳእ", "እምኔየ", "ከመዝ", "ለይረሲክ", "እግዚአብሔር", "ወከመዝ", "ስትምጸ", "እኪ", "ስስ", "ዓብእክ", "እምኔየ", "ቃስ", "እምኵሉ", "ዘነረክ"],
+      "uncertain": [
+        {"token_index": 4, "marker": "uncertain", "note": "ኤትዳእ — 'hide not'; final fidel order faint"},
+        {"token_index": 12, "marker": "uncertain", "note": "ስስ — short particle cluster ('if'); faint, by sense"},
+        {"token_index": 17, "marker": "uncertain", "note": "ዘነረክ — 'that he spake to thee'; medial fidel rubbed"}
+      ]
+    },
+    {
+      "v": 18,
+      "column": 2,
+      "line_start": 36,
+      "geez": "ወዘሰማዕኩክ ወአይድዓ ሳሙኤል ሰኤሊ ቱሎ ዘነገሮ ወአልቦ ዘኃብእ እምኔሁ ✣ ወይቤ ኤሊ ስይግበር እግዚአብሔር ቱሎ ዘእደም ሎ ✣",
+      "tokens": ["ወዘሰማዕኩክ", "ወአይድዓ", "ሳሙኤል", "ሰኤሊ", "ቱሎ", "ዘነገሮ", "ወአልቦ", "ዘኃብእ", "እምኔሁ", "ወይቤ", "ኤሊ", "ስይግበር", "እግዚአብሔር", "ቱሎ", "ዘእደም", "ሎ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወዘሰማዕኩክ — verse opens at col2 foot continuing from v.17; medial fidel faint"},
+        {"token_index": 4, "marker": "uncertain", "note": "ቱሎ — 'every whit / all'; ቱ vowel faint (recurs as token 13)"}
+      ]
+    },
+    {
+      "v": 19,
+      "column": 3,
+      "line_start": 2,
+      "geez": "ወዓብየ ሳሙኤል ወህሎ እግዚአብሔር ምስሌሁ ወአልቦ ዘወድቆ ቃሎ ውስተ ምድር ✣",
+      "tokens": ["ወዓብየ", "ሳሙኤል", "ወህሎ", "እግዚአብሔር", "ምስሌሁ", "ወአልቦ", "ዘወድቆ", "ቃሎ", "ውስተ", "ምድር"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "ወዓብየ — opens after red ክፍል ፲ rubric at col3 head ('And Samuel grew'); ዓ vowel faint under adjacent rubric"}
+      ]
+    },
+    {
+      "v": 20,
+      "column": 3,
+      "line_start": 5,
+      "geez": "ወአቱሎ እስራኤል እምዳን እስከ በርሳቤሕ ከመ መሀይምኝ ሳሙኤይ ስእግዚአብሔር ✣",
+      "tokens": ["ወአቱሎ", "እስራኤል", "እምዳን", "እስከ", "በርሳቤሕ", "ከመ", "መሀይምኝ", "ሳሙኤይ", "ስእግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 4, "marker": "uncertain", "note": "በርሳቤሕ — place-name 'Beersheba' split across line break; medial fidels faint, tail -ሕ on next line"},
+        {"token_index": 6, "marker": "uncertain", "note": "መሀይምኝ — 'was established/accredited as'; vowel order faint"},
+        {"token_index": 7, "marker": "uncertain", "note": "ሳሙኤይ — name with dative/possessive ending faint"}
+      ]
+    },
+    {
+      "v": 21,
+      "column": 3,
+      "line_start": 7,
+      "geez": "ወደገመ እግዚአብሔር አይድዓቆ ወአርአዮ ስተርአዮ እግዚአብሔር ✣ ወተአመነ ሳሙኤል ነቢይ ስእግዚአብሔር በውኩሉ እስራኤል እምአጽናፈ ምድር እስከ እጽናፉ ✣ ወልህቀ ወደዊቁስ ሐዊራ ሐሩት እኪት ቅድመ እግዚአብሔር",
+      "tokens": ["ወደገመ", "እግዚአብሔር", "አይድዓቆ", "ወአርአዮ", "ስተርአዮ", "እግዚአብሔር", "ወተአመነ", "ሳሙኤል", "ነቢይ", "ስእግዚአብሔር", "በውኩሉ", "እስራኤል", "እምአጽናፈ", "ምድር", "እስከ", "እጽናፉ", "ወልህቀ", "ወደዊቁስ", "ሐዊራ", "ሐሩት", "እኪት", "ቅድመ", "እግዚአብሔር"],
+      "uncertain": [
+        {"token_index": 4, "marker": "uncertain", "note": "ስተርአዮ — 'in Shiloh / he appeared'; head fidel rubbed"},
+        {"token_index": 12, "marker": "uncertain", "note": "እምአጽናፈ — 'from the end(s) of'; medial fidel faint"},
+        {"token_index": 19, "marker": "uncertain", "note": "ሐሩት — recension-specific LXX-style closing line ('walking in evil ways'); reading faint near the red ምዕራፍ ፬ ✣ ክፍል ፲፩ boundary rubric that immediately follows"},
+        {"token_index": 22, "marker": "uncertain", "note": "እግዚአብሔር — final name truncated at the chapter boundary; the red rubric 'ምዕራፍ ፬ ✣ ክፍል ፲፩' and ch.4 ('ወእምዝ ክ[ማንት መዋዕል ተጋብእ ኢሎፍሊ]') follow immediately on the same line"}
+      ]
+    }
+  ],
+  "transcription_notes": "Witness GG = Gunda Gunde MS GG-00106. Careful 3-column Ethiopic book hand, ~40-42 lines/column, red rubrication; Ge'ez reads left-to-right, columns col1(left)->col2(middle)->col3(right). CORRECTION OF A PRIOR ERROR: the previous pass located 'chapter 3' as the span between red 'ክፍል ፫' and 'ክፍል ፬' and transcribed it opening 'ወእምዝ በይእቲ ዕለት'. That was WRONG. The red 'ክፍል N ✣' rubrics in this family are FINE LITURGICAL SUBDIVISIONS, not modern chapters: across this single folio the ክፍል numerals climb ክፍል ፮ (at modern 1Sa2:27) -> ክፍል ፯ (at 2:36/3:1) -> ክፍል ፰ (within 3:1->3:2) -> ክፍል ፱ (at 3:10) -> ክፍል ፲ (at 3:19) -> ምዕራፍ ፬ ✣ ክፍል ፲፩ (at 4:1). The COARSER 'ምዕራፍ' marker (here ምዕራፍ ፬) is the one that aligns with a modern chapter. REAL NARRATIVE BOUNDARIES (verified by reading the running story f003r->f004r, independent of the small ክፍል numerals): 1Sa1 (Elkanah/Hannah/Ramathaim, the vow, birth & dedication of Samuel) = all of f003r col1+col2+col3 down to ~f003r col3 lower-middle. 1Sa1->1Sa2 boundary: f003r col3, ~lower-middle, a red ✣ then 'ሐና ወትቤ ጸንዐ ልብየ' (Hannah's Song begins). 1Sa2 (Song of Hannah; wicked sons of Eli Hophni & Phinehas; the man of God's prophecy against Eli's house, ending 'a sign: thy two sons shall die in one day; I will raise a faithful priest') = f003v entire + f004r col1 down to line 15. 1Sa2->1Sa3 boundary: f004r col1, end of line 15 a red '✣ ክፍል ፡ ፯ ✣', then line 16 begins modern 1Sa3 with the RED-rubricated 1Sa3:1 'ወዝክቱሰ ወልድ ሳሙኤል ህሰወ ይትለአከ ስእግዚአብሔር ቅድመ ኤሊ ካህን ወክቡር ውእቱ ቃሉ እግዚአብሔር በእማንቱ መዋዕል ወአልቦ ራእይ ዘይከውን' (= 'Now the child Samuel ministered unto the LORD before Eli the priest; the word of the LORD was precious in those days; there was no open vision' — the unmistakable Call-of-Samuel opening). The prior pass's 'v.1' (ወእምዝ በይእቲ ዕለት…) is in fact 1Sa3:2 (it sits AFTER an internal red 'ክፍል ፰' on line 20); the prior transcription therefore OMITTED the true verse 1 and started one verse late. 1Sa3 (Call of Samuel: child ministering before Eli; word of LORD rare/no vision; Eli's eyes dim; lamp of God not yet gone out; ark in the temple; LORD calls 'Samuel Samuel' thrice, Samuel runs to Eli 'here am I'; Eli perceives & teaches 'Speak LORD for thy servant heareth'; judgment-prophecy against Eli's house 'I will judge his house for ever, the iniquity shall not be purged with sacrifice for ever'; Samuel afraid in the morning, opens the doors, Eli demands the vision, Samuel tells all; Samuel grew, the LORD let none of his words fall; all Israel from Dan to Beersheba knew Samuel was established a prophet; the LORD appeared again) = f004r col1 lines 16-40, all of col2, col3 lines 2-~11. 1Sa3->1Sa4 boundary: f004r col3, ~line 11, end of the Call's closing summary '…ወልህቀ ወደዊቁስ ሐዊራ ሐሩት እኪት ቅድመ እግዚአብ[ሔር]' then a RED '✣ ምዕራፍ ፡ ፬ ✣ ክፍል ፡ ፲፩ ✣' then modern 1Sa4 begins 'ወእምዝ ክ[ማንት] መዋዕል ተጋብእ ኢሎፍሊ ሳዕሰ እስራኤል…' (the Philistines gather, Israel goes out, pitches at Eben-ezer, Philistines at Aphek, Israel smitten, the ark fetched from Shiloh with Hophni & Phinehas — the war/ark-capture chapter). VERDICT: the prior ክፍል-፫-span was NOT the modern Call of Samuel; it was actually a tiny liturgical block whose first sentence is 1Sa3:2. The END boundary the prior pass picked (stopping before the ምዕራፍ ፬ Philistine war) was essentially right in location but it mis-read the rubric as '✣ ዐራፍ ፬ ✣ ክፍል ፬' (it is ምዕራፍ ፬ ✣ ክፍል ፲፩) and it MISSED true 3:1. This file is REWRITTEN: it now begins at the true RED 1Sa3:1 (f004r col1 line 16) and runs to the line just before the ምዕራፍ ፬ rubric. Verse segmentation is by the manuscript's own red ✣ sense-dividers in reading order, numbered contiguously 1-21; this Ge'ez recension fuses some traditional verses and carries an LXX-style 3:21b closing ('Samuel accredited a prophet… from end to end of the land') plus a short recension-specific transitional clause ('and Samuel grew, but Eli's sons walked in evil ways before the LORD') just before the chapter rubric — so 21 is the scribe's division, not forced to any external count. DAMAGE: (1) v.5 — a DELIBERATE SCRIBAL ERASURE: parchment scraped clean (~4-6 fidels, no ink) between 'አነ' and 'ወርጸ' (one ⟦illegible⟧ token, illegible marker). (2) Light brown foxing/water-staining along the lower & fore-edge of f004r, heaviest in col3 BELOW the 1Sa3->4 boundary (i.e. in chapter 4 territory) and in the lower-right corner — it does NOT touch chapter 3 text. Within ch.3 only scattered ink-flaking/smudging on individual fidels, recorded with damaged/uncertain markers (no token swapped over damage). Overall ch.3 legibility is GOOD; no column-destroying loss inside the true chapter 3."
+}

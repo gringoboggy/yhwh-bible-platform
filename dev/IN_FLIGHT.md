@@ -1,8 +1,129 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-## Current task — Samuel calibration τ.6.x.4.a COMPLETE; user GO'd diplomatic-parallel + widen-pilot; NEXT = widened-pilot plan
+## Current task — τ.6.x.4.a-W Samuel widened-calibration IN PROGRESS (1 Sam 3 / 1 Sam 17 / 2 Sam 11)
+
+**STARTED 2026-05-16, in progress 2026-05-17:** executing
+`docs/superpowers/plans/2026-05-16-samuel-widened-calibration.md` via
+superpowers subagent-driven-development. Per-chapter blind dual-witness
+procedure (isolated GG transcriber → adversarial review → CUDL IIIF
+CAM hi-res → isolated CAM transcriber → adversarial review → collate →
+adversarial review), then the bi-directional aggregate decision rule.
+Artifacts land in `content/manuscript/samuel/calibration/{1sa3,1sa17,2sa11}_*`.
+Progress tracked in the session task list (11 tasks).
+
+> **⚑⚑ CRITICAL METHODOLOGICAL FINDING — 2026-05-17 (applies to ALL
+> remaining widened-calibration chapters AND both witnesses; do NOT
+> lose this).** In the Add.1570 / GG-00106 Ethiopic manuscript family
+> the red `✣ ክፍል ፡ N ✣` rubrics are **FINE LITURGICAL SUBDIVISIONS,
+> NOT modern chapters** — their numerals climb ፮ ፯ ፰ ፱ ፲ ፲፩ within a
+> single folio. The **coarse modern chapter marker is `ምዕራፍ`
+> (mə'raf)**. The first GG 1 Sam 3 pass mislocated the chapter by
+> counting `ክፍል` (landed one verse late, inside a `ክፍል ፰` subdivision).
+> **Correct location method (use for 1 Sam 17, 2 Sam 11, and the CAM
+> transcriptions): anchor on the modern-chapter NARRATIVE (the
+> sanctioned semantic skeleton) + the coarse `ምዕራፍ` rubric; treat
+> `ክፍል` numerals as noise for chapter bounds.** The 1 Sam 1 pilot was
+> unaffected (it located by the book incipit + Hannah narrative, not
+> `ክፍል`). Independently corroborated from BOTH witnesses (CAM during
+> hi-res acquisition; GG during re-verify) without cross-contamination.
+
+> **CHAPTER 1 of 3 — 1 SAMUEL 3 — ✅ COMPLETE (Tasks 1–3), 2026-05-17.**
+> GG: f004r, 21 v, `ምዕራፍ`-bounded Call of Samuel, blind + adversarially
+> CLEAN (1 illegible = v5 scribal erasure). CAM: hi-res f106v+f107r
+> (`GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f106v_1Sam3_
+> hires.jpg` + `_f107r_1Sam3_hires.jpg`, ~80MP, CC BY-NC Cambridge UL),
+> 21 v, blind + adversarially CLEAN (0 illegible). Collation
+> `1sa3_collation.json` reviewed; ONE MUST-FIX caught (3 evidence
+> tokens dropped from `alignment[]` → wrong `aligned` denom) — fixed +
+> independently re-confirmed. **FINAL 1 Sam 3 metrics:** strict
+> **36.34%** (133/366), skeleton-headline **60.11%** (220/366),
+> both-confident **89.35%** (193/216), semantic **100%** (21/21),
+> uncertainty **10.09%** (32/317), **base=CAM**, lacuna gg=1/cam=0/
+> both=0 (reconciled 1:1). **Finding nuance (carry to aggregate):**
+> distinct-recension pattern HOLDS (semantic 100, both-confident <90,
+> base=CAM, NOT a contradiction — no ~unity, base did not flip) BUT the
+> profile DIFFERS from 1 Sam 1: clean-text agreement far higher (89%
+> vs 73%); 1 Sam 3 divergence is concentrated in **structural
+> plus/minus** (GG's v21 LXX-style expansion absent in CAM;
+> segmentation), not pervasive clean-text divergence. Both remain
+> consistent with diplomatic-parallel / CAM-base.
+
+> **+ METHOD LEARNING (apply to all remaining collations):** the
+> collation adversarial review MUST run a token-conservation check —
+> every evidence token appears exactly once across `alignment[]` cells
+> (lacuna rows excepted) — this is what caught the 1 Sam 3 3-token drop.
+
+> **CHAPTER 2 of 3 — 1 SAMUEL 17 (David & Goliath, spec-named
+> recension stress-test) — ✅ COMPLETE (Tasks 4–6), 2026-05-17.**
+> GG `1sa17_witnessGG.json` f010v col3→f011r→f011v col1, **SHORT
+> LXX-type, 20 v** (omits MT 17:12–31,41,50,55–58 + 18:1–5), 0
+> illegible/2 damaged/11 uncertain, review CLEAN (short form genuine,
+> not skipped text). CAM `1sa17_witnessCAM_hires.json` from
+> `GAPS/1_Samuel/Cambridge-Add-1570-hires/MS-ADD-01570_f111r_1Sam17_
+> hires.jpg`+`_f111v_`+`_f112r_` (~80MP, CC BY-NC Cambridge UL),
+> f111r col3→f111v→f112r col2, **LONG/FULL, 58 v** (incl.
+> David-intro + Abner block), 0 illegible/0 damaged/85 uncertain,
+> review CLEAN (long form genuine, not padded). Collation
+> `1sa17_collation.json` reviewed ✅ CLEAN on FIRST review (no
+> fix-loop). **FINAL 1 Sam 17:** strict **9.71%** (112/1154),
+> skeleton **16.64%** (192/1154), both-confident **68.97%**
+> (180/261 on the shared duel core), semantic **100%** (58/58),
+> uncertainty **9.62%** (85/884), **base=CAM**, lacuna 0/0/0.
+> CAM-spine align: 20 of 58 CAM verses have a GG counterpart, **38
+> CAM-only = genuine recensional minus matching the project's own
+> Kenyon witness-note** (best LXX MSS omit exactly 17:12–31,41,50,
+> 55–58 — independent external corroboration that GG's short form is
+> a real recension, not an artifact). Token-conservation exact (GG
+> 550=550, CAM 884=884). **HEADLINE: the strongest possible
+> distinct-recension result on THE most famous LXX/MT divergence
+> chapter — dramatically confirms diplomatic-parallel + base=CAM;
+> NOT a contradiction (no ~unity, base did not flip).** 9 liturgical
+> `ክፍл` (78–86) in one chapter re-confirm `ክፍл`≠chapter.
+>
+> **Both-confident on shared core across chapters so far:** 1 Sam 1
+> 73.05% / 1 Sam 3 89.35% / 1 Sam 17 68.97% — all below the 90%
+> merge bar, semantic 100% throughout, base=CAM every chapter.
+>
+> **RESUME POINTER — exact next steps (corrected method):**
+> Chapters 1–2 done. **NEXT = Chapter 3 = 2 Samuel 11 (Bathsheba —
+> a 2-Samuel narrative chapter, tests the pattern in the other half
+> + a different GG quire), Tasks 7–9:** (a) fresh ISOLATED opus
+> subagent locates 2 Sam 11 in GG-00106 **2-Samuel** folios
+> (`GAPS/1_Samuel/GG-00106/2-Samuel/` — files `2-Samuel_f017v.jpg`
+> … `2-Samuel_f028v.jpg`) by the Bathsheba NARRATIVE (David sees
+> Bathsheba bathing from the roof; sends for her; she conceives;
+> Uriah the Hittite recalled, refuses to go home; David has Joab
+> put Uriah at the front to die; Bathsheba mourns then becomes
+> David's wife; "the thing David had done displeased the LORD")
+> + the coarse `ምዕራፍ` rubric if present, treating `ክፍл` as
+> liturgical noise; blind-transcribe GG-only →
+> `content/manuscript/samuel/calibration/2sa11_witnessGG.json`;
+> (b) adversarial GG review (continuity-traced; honesty contract);
+> (c) controller acquires 2 Sam 11 CAM hi-res from CUDL IIIF — it
+> is WELL PAST 1 Sam (past view ~227/f112r); 2 Samuel follows 1
+> Samuel; locate the Bathsheba narrative by vision, region-tile
+> ~80MP + stitch, QC (method auto-memory `cudl-iiif-access`);
+> (d) fresh ISOLATED opus subagent blind-transcribes CAM →
+> `2sa11_witnessCAM_hires.json`; (e) adversarial CAM review;
+> (f) Task 9 collate GG vs CAM-hires + `content/notes/2sa.py`
+> skeleton (NOTE: 2sa.py, not 1sa.py) → `2sa11_collation.json` +
+> adversarial review **with the mandatory token-conservation
+> check**; reuse the verbatim 1sa1/1sa3/1sa17 collation schema +
+> definitions. Then **Task 10** aggregate
+> `dev/CALIBRATION_2026-05-16-samuel-widened.md` (per-chapter table:
+> 1 Sam 1 ref row + 1 Sam 3 + 1 Sam 17 + 2 Sam 11; include the
+> clean-text-vs-structural-plus/minus profile nuance) + the
+> bi-directional decision rule. Then **Task 11** single local commit
+> (no push, no zip — `continue` ≠ save) + present gate to user.
+> Reuse verbatim schema/honesty-contract/numeral-rule/GO-bar from
+> `1sa1_collation_hires.json` + the plan + spec §4/§7. Helper note: a
+> `_build_1sa3_collation.py` sits in the calibration dir (provenance,
+> matches the JSON); decide at Task 11 whether to commit or drop it
+> (the 1 Sam 1 deliverable was pure JSON, no build script).
+
+### Prior gate context — τ.6.x.4.a COMPLETE; user GO'd diplomatic-parallel + widen-pilot
 
 **τ.6.x.4.a Samuel calibration gate CLOSED 2026-05-16** (commits
 `6882063` evidence+report, `5a2c073` decision;

@@ -1,0 +1,2730 @@
+{
+  "book": "1sa",
+  "chapter": 3,
+  "base_witness_recommended": "CAM",
+  "base_rationale": "CAM is the more complete and legible witness in this chapter: it has 0 illegible tokens versus GG's 1 deliberate scribal erasure (GG v.5), and a lower uncertainty rate (32/317 = 10.1%% of CAM tokens flagged vs 40/316 = 12.7%% in GG). CAM's parchment is clean with no staining over the chapter-3 text, whereas GG carries multiple red inline reading-glosses and split/faded clusters. CAM was transcribed directly from the hi-res Cambridge UL MS Add. 1570 images (no low-resolution pass for this chapter), and the project GAPS source-map designates Cambridge the primary Samuel witness; this chapter's own completeness and uncertainty numbers independently confirm that choice.",
+  "verses": [
+    {
+      "v": 1,
+      "gg_tokens": [
+        "ወዝክቱሰ",
+        "ወልድ",
+        "ሳሙኤል",
+        "ህሰወ",
+        "ይትለአከ",
+        "ስእግዚአብሔር",
+        "ቅድመ",
+        "ኤሊ",
+        "ካህን",
+        "ወክቡር",
+        "ውእቱ",
+        "ቃሉ",
+        "እግዚአብሔር",
+        "በእማንቱ",
+        "መዋዕል",
+        "ወአልቦ",
+        "ራእይ",
+        "ዘይከውን"
+      ],
+      "cam_tokens": [
+        "ወዝንቱስ",
+        "ወልዲ",
+        "ሰሙኤል",
+        "ሀለወ",
+        "ይትለአኮ",
+        "ለእግዚአብሔር",
+        "ቅድመ",
+        "ኤሊ",
+        "ካህን",
+        "ወክቡር",
+        "ውእቱ",
+        "ነገረ",
+        "እግዚአብሔር",
+        "በእማንቱ",
+        "መዋዕል",
+        "ወአልቦ",
+        "ራእይ",
+        "ዘይከውን"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዝክቱሰ",
+          "cam": "ወዝንቱስ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልድ",
+          "cam": "ወልዲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ህሰወ",
+          "cam": "ሀለወ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይትለአከ",
+          "cam": "ይትለአኮ",
+          "class": "agree"
+        },
+        {
+          "gg": "ስእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "ቅድመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ካህን",
+          "cam": "ካህን",
+          "class": "agree"
+        },
+        {
+          "gg": "ወክቡር",
+          "cam": "ወክቡር",
+          "class": "agree"
+        },
+        {
+          "gg": "ውእቱ",
+          "cam": "ውእቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቃሉ",
+          "cam": "ነገረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "በእማንቱ",
+          "cam": "በእማንቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "መዋዕል",
+          "cam": "መዋዕል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወአልቦ",
+          "cam": "ወአልቦ",
+          "class": "agree"
+        },
+        {
+          "gg": "ራእይ",
+          "cam": "ራእይ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘይከውን",
+          "cam": "ዘይከውን",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:1 = the child Samuel ministered to the LORD before Eli; word of the LORD rare, no open vision in those days. Both witnesses carry exactly this (GG/CAM differ only ቃሉ/ነገረ for 'word')."
+    },
+    {
+      "v": 2,
+      "gg_tokens": [
+        "ወእምዝ",
+        "በይእቲ",
+        "ዕስት",
+        "እንዘ",
+        "ይነውም",
+        "ኤሊ",
+        "ውስት",
+        "መካኑ",
+        "ወአዕይንቲሁ",
+        "ኒ",
+        "እኃ",
+        "ይክብዳ"
+      ],
+      "cam_tokens": [
+        "ወእምዝ",
+        "በይእቲ",
+        "ዕለት",
+        "እንዘ",
+        "ይነውም",
+        "ኤሊ",
+        "ውስተ",
+        "መካኑ",
+        "ወአዕይንቲሁ",
+        "አኃዛ",
+        "ይክበዳ",
+        "ወአይክል",
+        "ይርአይ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእምዝ",
+          "cam": "ወእምዝ",
+          "class": "agree"
+        },
+        {
+          "gg": "በይእቲ",
+          "cam": "በይእቲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዕስት",
+          "cam": "ዕለት",
+          "class": "agree"
+        },
+        {
+          "gg": "እንዘ",
+          "cam": "እንዘ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይነውም",
+          "cam": "ይነውም",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ውስት",
+          "cam": "ውስተ",
+          "class": "agree"
+        },
+        {
+          "gg": "መካኑ",
+          "cam": "መካኑ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወአዕይንቲሁ",
+          "cam": "ወአዕይንቲሁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኒ",
+          "cam": "አኃዛ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እኃ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይክብዳ",
+          "cam": "ይክበዳ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ወአይክል",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ይርአይ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:2 = Eli lying in his place, eyes beginning to grow dim so he could not see. Matches; CAM keeps 'could not see' here, GG carries it into v3 (segmentation variant, noted)."
+    },
+    {
+      "v": 3,
+      "gg_tokens": [
+        "ወኢይክል",
+        "ርእየ",
+        "ወማሣጥቱ",
+        "እግዚአብሔር",
+        "ኒ",
+        "ዓዲ",
+        "ኢየዐውኒ",
+        "ስአበ",
+        "ወሳሙኤልስ",
+        "ይነውም",
+        "ውስት",
+        "ቤተ",
+        "መቀደስ",
+        "ኀበ",
+        "ታበተ",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "እምቅድመ",
+        "ይጥፋእ",
+        "ማኅቶተ",
+        "እግዚአብሔር",
+        "እምቤተ",
+        "መቅደስ",
+        "ወሰሙኤልስ",
+        "ይነውም",
+        "ውስተ",
+        "ቢተ",
+        "መቅደስ",
+        "ኀበ",
+        "ሀሎ",
+        "ታቦተ",
+        "እግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወኢይክል",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ርእየ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወማሣጥቱ",
+          "cam": "ማኅቶተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ኒ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዓዲ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢየዐውኒ",
+          "cam": "ይጥፋእ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስአበ",
+          "cam": "እምቅድመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እምቤተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "መቅደስ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሳሙኤልስ",
+          "cam": "ወሰሙኤልስ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይነውም",
+          "cam": "ይነውም",
+          "class": "agree"
+        },
+        {
+          "gg": "ውስት",
+          "cam": "ውስተ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቤተ",
+          "cam": "ቢተ",
+          "class": "agree"
+        },
+        {
+          "gg": "መቀደስ",
+          "cam": "መቅደስ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኀበ",
+          "cam": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ሀሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ታበተ",
+          "cam": "ታቦተ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:3 = lamp of God not yet gone out; Samuel sleeping in the temple where the ark of God was. Matches; GG opens with the 'could not see' clause CAM placed in v2 (verse-fusion variant)."
+    },
+    {
+      "v": 4,
+      "gg_tokens": [
+        "ወጸውዓ",
+        "እግዚአብሔር",
+        "ስዓሙኤል",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "ሳሙኤል"
+      ],
+      "cam_tokens": [
+        "ወጸውዓ",
+        "እግዚአብሔር",
+        "ለሰሙኤል",
+        "ወይቤሎ",
+        "ሰሙኤል",
+        "ሰሙኤል",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወጸውዓ",
+          "cam": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ስዓሙኤል",
+          "cam": "ለሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ወይቤሎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ነየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "አነ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:4 = the LORD called Samuel; he answered 'Here am I'. Matches; CAM folds 'and he said, Here am I' into v4, GG carries it at the head of v5 (segmentation variant)."
+    },
+    {
+      "v": 5,
+      "gg_tokens": [
+        "ወይቤ",
+        "ነየ",
+        "አነ",
+        "⟦illegible⟧",
+        "ወርጸ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ",
+        "መጸእኮኒ",
+        "እስመ",
+        "ጸዋዕከኒ",
+        "ወይቤሎ",
+        "ኤሊ",
+        "ኢጸዋዕክ",
+        "ግባእ",
+        "ስክብ"
+      ],
+      "cam_tokens": [
+        "ወሮጸ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ",
+        "መጻእኩ",
+        "እስመ",
+        "ጸዋዕከኒ",
+        "ወይቤሎ",
+        "ኢጸዋዕኩከ",
+        "ግባእ",
+        "ወስክብ",
+        "ወሐረ",
+        "ወስክብ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ነየ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "አነ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "⟦illegible⟧",
+          "cam": "",
+          "class": "lacuna-gg"
+        },
+        {
+          "gg": "ወርጸ",
+          "cam": "ወሮጸ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኀበ",
+          "cam": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ነየ",
+          "cam": "ነየ",
+          "class": "agree"
+        },
+        {
+          "gg": "አነ",
+          "cam": "አነ",
+          "class": "agree"
+        },
+        {
+          "gg": "መጸእኮኒ",
+          "cam": "መጻእኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ጸዋዕከኒ",
+          "cam": "ጸዋዕከኒ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢጸዋዕክ",
+          "cam": "ኢጸዋዕኩከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ግባእ",
+          "cam": "ግባእ",
+          "class": "agree"
+        },
+        {
+          "gg": "ስክብ",
+          "cam": "ወስክብ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ወሐረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወስክብ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:5 = Samuel ran to Eli 'thou calledst me'; Eli 'I called not; lie down again'. Matches; GG has the scribal-erasure lacuna here (one illegible token)."
+    },
+    {
+      "v": 6,
+      "gg_tokens": [
+        "ወሐረ",
+        "ወስከበ",
+        "ወደግመ",
+        "ዓዲ",
+        "እግዚአብሔር",
+        "ጸውዓቱ",
+        "ስሳሙኤል",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "ሳሙኤል",
+        "ወተንሥአ",
+        "ሳሙኤል",
+        "ወሐረ",
+        "ኀበ",
+        "ኤሊ",
+        "ዳግመ",
+        "ወይቤ",
+        "ሎ",
+        "መነ",
+        "መጸውዓኩ",
+        "እመ",
+        "ጸዋዕኩ"
+      ],
+      "cam_tokens": [
+        "ወደገመ",
+        "ዓዲ",
+        "እግዚአብሔር",
+        "ጸውዓዮ",
+        "ለሰሙኤል",
+        "ወይቤሎ",
+        "ሰሙኤል",
+        "ሰሙኤል",
+        "ወተንሥአ",
+        "ሰሙኤል",
+        "ወሐረ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤ",
+        "ነየ",
+        "መጻእኩ",
+        "እስመ",
+        "ጸዋዕኮኒ",
+        "ወይቤ",
+        "ኢጸዋዕኩከ",
+        "ወልድየ",
+        "ግባእ",
+        "ወስክብ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሐረ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወስከበ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወደግመ",
+          "cam": "ወደገመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዓዲ",
+          "cam": "ዓዲ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ጸውዓቱ",
+          "cam": "ጸውዓዮ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስሳሙኤል",
+          "cam": "ለሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወተንሥአ",
+          "cam": "ወተንሥአ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሐረ",
+          "cam": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኀበ",
+          "cam": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዳግመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወይቤ",
+          "cam": "ወይቤ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሎ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "መነ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ነየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "መጻእኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እስመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "መጸውዓኩ",
+          "cam": "ጸዋዕኮኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እመ",
+          "cam": "ወይቤ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ጸዋዕኩ",
+          "cam": "ኢጸዋዕኩከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወልድየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ግባእ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወስክብ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:6 = the LORD called again; Samuel rose, went to Eli; Eli 'I called not, my son; lie down'. Matches (GG carries a red inline reading-gloss 'to him: whom'; CAM adds 'my son')."
+    },
+    {
+      "v": 7,
+      "gg_tokens": [
+        "ወይቤሎ",
+        "ኢጸዋዕኩኩ",
+        "ግባእ",
+        "ወስክብ",
+        "ወሳሙኤልስ",
+        "ዓዲሁ",
+        "ዶአመር",
+        "ስእግዚአብሔር",
+        "እምቅድ",
+        "ዝ",
+        "ወእተከሠቱሎሙ",
+        "ቃስ",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወሰሙኤልስ",
+        "ዓዲሁ",
+        "ኢያእምሮ",
+        "ለእግዚአብሔር",
+        "እምቅድመ",
+        "ዘ",
+        "ወአትከሠተ",
+        "ሎቱ",
+        "ቃለ",
+        "እግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤሎ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ኢጸዋዕኩኩ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ግባእ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወስክብ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወሳሙኤልስ",
+          "cam": "ወሰሙኤልስ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዓዲሁ",
+          "cam": "ዓዲሁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዶአመር",
+          "cam": "ኢያእምሮ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስእግዚአብሔር",
+          "cam": "ለእግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "እምቅድ",
+          "cam": "እምቅድመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዝ",
+          "cam": "ዘ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወእተከሠቱሎሙ",
+          "cam": "ወአትከሠተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሎቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቃስ",
+          "cam": "ቃለ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:7 = Samuel did not yet know the LORD, neither was the word yet revealed to him. Matches (GG prefixes a recension repetition of v6's close)."
+    },
+    {
+      "v": 8,
+      "gg_tokens": [
+        "ወጸውዓ",
+        "ዓዲ",
+        "እግዚአብሔር",
+        "በሣልስ",
+        "ሰዓሙኤል",
+        "ወተንሥአ",
+        "ወሐረ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "መጸዋዕከኒ",
+        "እስመ",
+        "ጸዋዕከኒ",
+        "ወሐሰየ",
+        "ኤሊ",
+        "ከመ",
+        "እግዚአብሔር",
+        "ጸውዓ",
+        "ሰውእቱ",
+        "ወልድ"
+      ],
+      "cam_tokens": [
+        "ወጸውዓ",
+        "ዓዲ",
+        "እግዚአብሔር",
+        "ሳሙኤል",
+        "ሥልስ",
+        "ወተንሥአ",
+        "ወሐረ",
+        "ኀበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "መጻእኩ",
+        "እስመ",
+        "ጸዋዕኮኒ",
+        "ወሀለየ",
+        "ኤሊ",
+        "ከመ",
+        "እግዚአብሔር",
+        "ጸውዓ",
+        "ለውእቱ",
+        "ወልድ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወጸውዓ",
+          "cam": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዓዲ",
+          "cam": "ዓዲ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "በሣልስ",
+          "cam": "ሥልስ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሰዓሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወተንሥአ",
+          "cam": "ወተንሥአ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሐረ",
+          "cam": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኀበ",
+          "cam": "ኀበ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ነየ",
+          "cam": "ነየ",
+          "class": "agree"
+        },
+        {
+          "gg": "መጸዋዕከኒ",
+          "cam": "መጻእኩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ጸዋዕከኒ",
+          "cam": "ጸዋዕኮኒ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሐሰየ",
+          "cam": "ወሀለየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ጸውዓ",
+          "cam": "ጸውዓ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሰውእቱ",
+          "cam": "ለውእቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወልድ",
+          "cam": "ወልድ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:8 = the LORD called Samuel the third time; he went to Eli; Eli perceived the LORD had called the child. Matches closely (near 1:1)."
+    },
+    {
+      "v": 9,
+      "gg_tokens": [
+        "ወይቤሎ",
+        "ግባእ",
+        "ወስክብ",
+        "ወልድየ",
+        "ወለእመ",
+        "ይጸውዓክ",
+        "በል",
+        "በል",
+        "እግዚእዶ",
+        "እስ",
+        "ይስምዓክ",
+        "ገብርክ"
+      ],
+      "cam_tokens": [
+        "ወይቤሎ",
+        "ኤሊ",
+        "ለሳሙኤል",
+        "ግባእ",
+        "ክብ",
+        "ወልድየ",
+        "እምዘ",
+        "ዘ",
+        "ጸውዓከ",
+        "በል",
+        "እግዚእየ",
+        "በል",
+        "ቃልስ",
+        "ወንግርኒ",
+        "እስመ",
+        "ይስምዓክ",
+        "ገብርከ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ለሳሙኤል",
+          "class": "disagree"
+        },
+        {
+          "gg": "ግባእ",
+          "cam": "ግባእ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወስክብ",
+          "cam": "ክብ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልድየ",
+          "cam": "ወልድየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወለእመ",
+          "cam": "እምዘ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ዘ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ይጸውዓክ",
+          "cam": "ጸውዓከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በል",
+          "cam": "በል",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "እግዚእየ",
+          "class": "disagree"
+        },
+        {
+          "gg": "በል",
+          "cam": "በል",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚእዶ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ቃልስ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወንግርኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይስምዓክ",
+          "cam": "ይስምዓክ",
+          "class": "agree"
+        },
+        {
+          "gg": "ገብርክ",
+          "cam": "ገብርከ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:9 = Eli told Samuel: lie down, and if called say 'Speak, LORD, for thy servant heareth'. Matches (CAM expands with 'and tell me')."
+    },
+    {
+      "v": 10,
+      "gg_tokens": [
+        "ወሐረ",
+        "ሳሙኤል",
+        "ወስከበ",
+        "ውስተ",
+        "መካኑ",
+        "ወመጽእ",
+        "እግዚአብሔር",
+        "ወቆመ",
+        "ወጸውዓ",
+        "ከመ",
+        "ቀዳሚ",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "በል",
+        "ግዚእዶ",
+        "እስመ",
+        "ይስምዓክ",
+        "ገብርክ"
+      ],
+      "cam_tokens": [
+        "ወሐረ",
+        "ሳሙኤል",
+        "ወስክብ",
+        "ውስተ",
+        "መካኑ",
+        "ወመጽአ",
+        "እግዚአብሔር",
+        "ወቆመ",
+        "ወጸውዖ",
+        "ከመ",
+        "ቀዲሚ",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "ሳሙኤል",
+        "በል",
+        "እግዚእየ",
+        "እስመ",
+        "ይስምዓክ",
+        "ገብርከ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወሐረ",
+          "cam": "ወሐረ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወስከበ",
+          "cam": "ወስክብ",
+          "class": "agree"
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ውስተ",
+          "class": "agree"
+        },
+        {
+          "gg": "መካኑ",
+          "cam": "መካኑ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወመጽእ",
+          "cam": "ወመጽአ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ወቆመ",
+          "cam": "ወቆመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወጸውዓ",
+          "cam": "ወጸውዖ",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቀዳሚ",
+          "cam": "ቀዲሚ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ሳሙኤል",
+          "class": "disagree"
+        },
+        {
+          "gg": "በል",
+          "cam": "በል",
+          "class": "agree"
+        },
+        {
+          "gg": "ግዚእዶ",
+          "cam": "እግዚእየ",
+          "class": "agree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ይስምዓክ",
+          "cam": "ይስምዓክ",
+          "class": "agree"
+        },
+        {
+          "gg": "ገብርክ",
+          "cam": "ገብርከ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:10 = the LORD came, stood, called as before; Samuel: 'Speak, for thy servant heareth' (the project's anchored v.10 note). Matches closely."
+    },
+    {
+      "v": 11,
+      "gg_tokens": [
+        "ወይቤሎ",
+        "እግዚአብሔር",
+        "ለሳሙኤል",
+        "ናሁ",
+        "እንእገብር",
+        "ቃልየ",
+        "ዘነበብኩ",
+        "ሳዕስ",
+        "እስራኤል",
+        "ከመ",
+        "ኵሉ",
+        "ዘሰምዓ",
+        "የአጸ",
+        "ክልኤሆ",
+        "እዘኒሁ"
+      ],
+      "cam_tokens": [
+        "ወይቤሎ",
+        "እግዚአብሔር",
+        "ለሰሙኤል",
+        "ናሁ",
+        "አነ",
+        "እገብር",
+        "ቃልየ",
+        "ዘነበብኩ",
+        "ሳዕለ",
+        "እስራኤል",
+        "ከመ",
+        "ሾሉ",
+        "ዘሰምዓ",
+        "ይእናዝ",
+        "ክልኤሆን",
+        "እዘኒሁ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ለሳሙኤል",
+          "cam": "ለሰሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ናሁ",
+          "cam": "ናሁ",
+          "class": "agree"
+        },
+        {
+          "gg": "እንእገብር",
+          "cam": "እገብር",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "አነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቃልየ",
+          "cam": "ቃልየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘነበብኩ",
+          "cam": "ዘነበብኩ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳዕስ",
+          "cam": "ሳዕለ",
+          "class": "agree"
+        },
+        {
+          "gg": "እስራኤል",
+          "cam": "እስራኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኵሉ",
+          "cam": "ሾሉ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘሰምዓ",
+          "cam": "ዘሰምዓ",
+          "class": "agree"
+        },
+        {
+          "gg": "የአጸ",
+          "cam": "ይእናዝ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ክልኤሆ",
+          "cam": "ክልኤሆን",
+          "class": "disagree"
+        },
+        {
+          "gg": "እዘኒሁ",
+          "cam": "እዘኒሁ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:11 = the LORD will do a thing in Israel at which both ears of every hearer shall tingle (1sa.py topic CONNIVANCE/WICKED at 3:11). Matches."
+    },
+    {
+      "v": 12,
+      "gg_tokens": [
+        "ወበይእቲ",
+        "ዕስት",
+        "አቀውም",
+        "ኵሎ",
+        "ዘነበብኩ",
+        "ሳዕስ",
+        "ኤሊ",
+        "ወሰስቤቱ",
+        "እሳግዕ",
+        "ወእፌጽም"
+      ],
+      "cam_tokens": [
+        "ወበይእቲ",
+        "ዕለት",
+        "አቀውም",
+        "ሾሉ",
+        "ዘነበብኩ",
+        "ሳዕለ",
+        "ኤሊ",
+        "ወሳዕለ",
+        "ቤቱ",
+        "እእናዝኒ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወበይእቲ",
+          "cam": "ወበይእቲ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዕስት",
+          "cam": "ዕለት",
+          "class": "agree"
+        },
+        {
+          "gg": "አቀውም",
+          "cam": "አቀውም",
+          "class": "agree"
+        },
+        {
+          "gg": "ኵሎ",
+          "cam": "ሾሉ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘነበብኩ",
+          "cam": "ዘነበብኩ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳዕስ",
+          "cam": "ሳዕለ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወሰስቤቱ",
+          "cam": "ወሳዕለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እሳግዕ",
+          "cam": "ቤቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወእፌጽም",
+          "cam": "እእናዝኒ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:12 = in that day I will perform against Eli all I have spoken concerning his house. Matches (second half phrased differently between recensions)."
+    },
+    {
+      "v": 13,
+      "gg_tokens": [
+        "ወእይዳዕ",
+        "ክም",
+        "ከመ",
+        "እትቤቆሎ",
+        "ስቤቱ",
+        "ስዓስም",
+        "በዓጢአት",
+        "ዘየአመር",
+        "እስመ",
+        "አሕሰሙ",
+        "ቃስዕ",
+        "ስእግዚአብሔር",
+        "ደቂቊ",
+        "ወኢገሠ",
+        "ሙ"
+      ],
+      "cam_tokens": [
+        "ወእራጽም",
+        "ወዜነውክዎ",
+        "ክመ",
+        "እትበቀሎ",
+        "አነ",
+        "ለቤቱ",
+        "እስከ",
+        "ለዓለም",
+        "በኃጢአት",
+        "ደቂቁ",
+        "እስመ",
+        "አሐሰሙ",
+        "ቃለ",
+        "ሳዕለ",
+        "እግዚአብሔር",
+        "ደቂቁ",
+        "ወኢገሠጾሙ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወእይዳዕ",
+          "cam": "ወእራጽም",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወዜነውክዎ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ክም",
+          "cam": "ክመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እትቤቆሎ",
+          "cam": "እትበቀሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "አነ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስቤቱ",
+          "cam": "ለቤቱ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "እስከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስዓስም",
+          "cam": "ለዓለም",
+          "class": "agree"
+        },
+        {
+          "gg": "በዓጢአት",
+          "cam": "በኃጢአት",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ደቂቁ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘየአመር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስመ",
+          "cam": "እስመ",
+          "class": "agree"
+        },
+        {
+          "gg": "አሕሰሙ",
+          "cam": "አሐሰሙ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቃስዕ",
+          "cam": "ቃለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሳዕለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስእግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ደቂቊ",
+          "cam": "ደቂቁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወኢገሠ",
+          "cam": "ወኢገሠጾሙ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሙ",
+          "cam": "",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:13 = I will judge his house for ever for the iniquity he knew, his sons made themselves vile and he restrained them not (1sa.py topic CHILDREN at 3:13). Matches."
+    },
+    {
+      "v": 14,
+      "gg_tokens": [
+        "ወበእንተ",
+        "ዝ",
+        "ጊ",
+        "መሐልኩ",
+        "ስየ",
+        "ከመዝ",
+        "ከመ",
+        "ኢይደመ",
+        "ሰስስ",
+        "አቲቤቱ",
+        "ስኤሊ",
+        "ኢበዕጣን",
+        "ወኢመ",
+        "ሥዋዕት",
+        "እስከ",
+        "ሰዓስም"
+      ],
+      "cam_tokens": [
+        "አኮኑ",
+        "ከመ",
+        "ግዘመሐልኩ",
+        "ለቤቱ",
+        "ኤሊ",
+        "ከመ",
+        "ኢይደመስስ",
+        "ኃጢአት",
+        "ወኃጢእት",
+        "ቤቱ",
+        "ኤሊ",
+        "ኢበዕጣን",
+        "ወኢበመሥዋዕት",
+        "እስከ",
+        "ለዓለም"
+      ],
+      "alignment": [
+        {
+          "gg": "ወበእንተ",
+          "cam": "አኮኑ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዝ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ጊ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ከመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "መሐልኩ",
+          "cam": "ግዘመሐልኩ",
+          "class": "agree"
+        },
+        {
+          "gg": "ስየ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ከመዝ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ለቤቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኤሊ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኢይደመ",
+          "cam": "ኢይደመስስ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሰስስ",
+          "cam": "ኃጢአት",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወኃጢእት",
+          "class": "disagree"
+        },
+        {
+          "gg": "አቲቤቱ",
+          "cam": "ቤቱ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኢበዕጣን",
+          "cam": "ኢበዕጣን",
+          "class": "agree"
+        },
+        {
+          "gg": "ወኢመ",
+          "cam": "ወኢበመሥዋዕት",
+          "class": "agree"
+        },
+        {
+          "gg": "ሥዋዕት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "እስከ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሰዓስም",
+          "cam": "ለዓለም",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:14 = therefore I have sworn the iniquity of Eli's house shall not be purged with sacrifice nor offering for ever (1sa.py topic UNPARDONABLE SIN at 3:14). Matches."
+    },
+    {
+      "v": 15,
+      "gg_tokens": [
+        "ወይም",
+        "ዝ",
+        "ስክበ",
+        "ሳዕሙኤል",
+        "እስከ",
+        "ጸብሕ",
+        "ወነቅሐ",
+        "በጽባሕ",
+        "ወአርኃው",
+        "ዎተ",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወፈርሀ",
+        "ሳሙኤል",
+        "አይድዓቆ",
+        "ለኤሊ",
+        "ዘእስተርእዮ",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወእምዝ",
+        "ስብሕ",
+        "ሳሙኤል",
+        "እስከ",
+        "ጸብሐ",
+        "ወአርኆወ",
+        "ኆኃተ",
+        "ቤተ",
+        "እግዚአብሔር",
+        "ወፈርሐ",
+        "ሳሙኤል",
+        "ከመ",
+        "ያይድዓ",
+        "ለኤሊ",
+        "ዘአስተርአየ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወይም",
+          "cam": "ወእምዝ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዝ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስክበ",
+          "cam": "ስብሕ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሳዕሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "እስከ",
+          "class": "agree"
+        },
+        {
+          "gg": "ጸብሕ",
+          "cam": "ጸብሐ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወነቅሐ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በጽባሕ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወአርኃው",
+          "cam": "ወአርኆወ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዎተ",
+          "cam": "ኆኃተ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቤተ",
+          "cam": "ቤተ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ወፈርሀ",
+          "cam": "ወፈርሐ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ከመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "አይድዓቆ",
+          "cam": "ያይድዓ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ለኤሊ",
+          "cam": "ለኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘእስተርእዮ",
+          "cam": "ዘአስተርአየ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:15 = Samuel lay until morning, opened the doors of the house of the LORD, and feared to tell Eli the vision. Matches (GG adds 'and awoke in the morning')."
+    },
+    {
+      "v": 16,
+      "gg_tokens": [
+        "ወጸውዓ",
+        "ኤሊ",
+        "ሰዓሙኤል",
+        "ወይቤሎ",
+        "ወልድየ",
+        "ሳሙኤል",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "ነየ",
+        "አነ"
+      ],
+      "cam_tokens": [
+        "ወጸውዓ",
+        "ኤሊ",
+        "ለሳሙኤል",
+        "ወይቤ",
+        "ወልድየ",
+        "ሳሙኤል",
+        "ወይቤሎ",
+        "ነየ",
+        "አነ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወጸውዓ",
+          "cam": "ወጸውዓ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሰዓሙኤል",
+          "cam": "ለሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልድየ",
+          "cam": "ወልድየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ነየ",
+          "cam": "ነየ",
+          "class": "agree"
+        },
+        {
+          "gg": "አነ",
+          "cam": "አነ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:16 = Eli called Samuel 'my son'; Samuel answered 'Here am I'. Matches (near 1:1)."
+    },
+    {
+      "v": 17,
+      "gg_tokens": [
+        "ወቤሎ",
+        "ምንትኑ",
+        "ነገሩ",
+        "ዘነገረክ",
+        "ኤትዳእ",
+        "እምኔየ",
+        "ከመዝ",
+        "ለይረሲክ",
+        "እግዚአብሔር",
+        "ወከመዝ",
+        "ስትምጸ",
+        "እኪ",
+        "ስስ",
+        "ዓብእክ",
+        "እምኔየ",
+        "ቃስ",
+        "እምኵሉ",
+        "ዘነረክ"
+      ],
+      "cam_tokens": [
+        "ወይቤሎ",
+        "ምንትኑ",
+        "ነገሩ",
+        "ዘነገርከ",
+        "እትሣባእ",
+        "እምኔየ",
+        "ከመዝ",
+        "ለይሬሲ",
+        "ክ",
+        "እግዚአብሔር",
+        "ወከመግዘ",
+        "ለትምጻእክ",
+        "ለስእመ",
+        "ህባእ",
+        "ክ",
+        "እምኔየ",
+        "ቃለ",
+        "እምኒ",
+        "ኵሉ",
+        "ዘነገሩክ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወቤሎ",
+          "cam": "ወይቤሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "ምንትኑ",
+          "cam": "ምንትኑ",
+          "class": "agree"
+        },
+        {
+          "gg": "ነገሩ",
+          "cam": "ነገሩ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘነገረክ",
+          "cam": "ዘነገርከ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤትዳእ",
+          "cam": "እትሣባእ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እምኔየ",
+          "cam": "እምኔየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመዝ",
+          "cam": "ከመዝ",
+          "class": "agree"
+        },
+        {
+          "gg": "ለይረሲክ",
+          "cam": "ለይሬሲ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ክ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ወከመዝ",
+          "cam": "ወከመግዘ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስትምጸ",
+          "cam": "ለትምጻእክ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እኪ",
+          "cam": "ለስእመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስስ",
+          "cam": "ህባእ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዓብእክ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ክ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እምኔየ",
+          "cam": "እምኔየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ቃስ",
+          "cam": "ቃለ",
+          "class": "agree"
+        },
+        {
+          "gg": "እምኵሉ",
+          "cam": "እምኒ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኵሉ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘነረክ",
+          "cam": "ዘነገሩክ",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:17 = Eli: what was said? hide it not; God do so to thee if thou hide anything. Matches (heavy orthographic divergence, same content)."
+    },
+    {
+      "v": 18,
+      "gg_tokens": [
+        "ወዘሰማዕኩክ",
+        "ወአይድዓ",
+        "ሳሙኤል",
+        "ሰኤሊ",
+        "ቱሎ",
+        "ዘነገሮ",
+        "ወአልቦ",
+        "ዘኃብእ",
+        "እምኔሁ",
+        "ወይቤ",
+        "ኤሊ",
+        "ስይግበር",
+        "እግዚአብሔር",
+        "ቱሎ",
+        "ዘእደም",
+        "ሎ"
+      ],
+      "cam_tokens": [
+        "ወስማዕከ",
+        "ወአይድዓ",
+        "ሳሙኤል",
+        "ኵሉ",
+        "ነገረ",
+        "ወአልቦ",
+        "ዘኀብአ",
+        "እምኔሁ",
+        "ወይቤ",
+        "ኤሊ",
+        "ይገብር",
+        "እግዚአብሔር",
+        "ኵሉ",
+        "ዘአዲም",
+        "ሎቱ"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዘሰማዕኩክ",
+          "cam": "ወስማዕከ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወአይድዓ",
+          "cam": "ወአይድዓ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ሰኤሊ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቱሎ",
+          "cam": "ኵሉ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ነገረ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ዘነገሮ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወአልቦ",
+          "cam": "ወአልቦ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘኃብእ",
+          "cam": "ዘኀብአ",
+          "class": "agree"
+        },
+        {
+          "gg": "እምኔሁ",
+          "cam": "እምኔሁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወይቤ",
+          "cam": "ወይቤ",
+          "class": "agree"
+        },
+        {
+          "gg": "ኤሊ",
+          "cam": "ኤሊ",
+          "class": "agree"
+        },
+        {
+          "gg": "ስይግበር",
+          "cam": "ይገብር",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ቱሎ",
+          "cam": "ኵሉ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘእደም",
+          "cam": "ዘአዲም",
+          "class": "agree"
+        },
+        {
+          "gg": "ሎ",
+          "cam": "ሎቱ",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:18 = Samuel told him every whit, hid nothing; Eli said 'It is the LORD; let him do what seemeth good'. Matches."
+    },
+    {
+      "v": 19,
+      "gg_tokens": [
+        "ወዓብየ",
+        "ሳሙኤል",
+        "ወህሎ",
+        "እግዚአብሔር",
+        "ምስሌሁ",
+        "ወአልቦ",
+        "ዘወድቆ",
+        "ቃሎ",
+        "ውስተ",
+        "ምድር"
+      ],
+      "cam_tokens": [
+        "ወዓብየ",
+        "ሳሙኤል",
+        "ወእግዚአብሔር",
+        "ሀሎ",
+        "ምስሌሁ",
+        "ወእልቦ",
+        "ዘወድቀ",
+        "እምኵሉ",
+        "ቃሉ",
+        "ቃሉ",
+        "ወወድቀ",
+        "ውስተ",
+        "ምድር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወዓብየ",
+          "cam": "ወዓብየ",
+          "class": "agree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ወህሎ",
+          "cam": "ሀሎ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "ወእግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "ምስሌሁ",
+          "cam": "ምስሌሁ",
+          "class": "agree"
+        },
+        {
+          "gg": "ወአልቦ",
+          "cam": "ወእልቦ",
+          "class": "agree"
+        },
+        {
+          "gg": "ዘወድቆ",
+          "cam": "ዘወድቀ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "እምኵሉ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቃሎ",
+          "cam": "ቃሉ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ቃሉ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ወወድቀ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ውስተ",
+          "cam": "ውስተ",
+          "class": "agree"
+        },
+        {
+          "gg": "ምድር",
+          "cam": "ምድር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:19 = Samuel grew, the LORD was with him and let none of his words fall to the ground. Matches (CAM has a ቃሉ dittography + word-order shift)."
+    },
+    {
+      "v": 20,
+      "gg_tokens": [
+        "ወአቱሎ",
+        "እስራኤል",
+        "እምዳን",
+        "እስከ",
+        "በርሳቤሕ",
+        "ከመ",
+        "መሀይምኝ",
+        "ሳሙኤይ",
+        "ስእግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወእመሩ",
+        "ኵሉ",
+        "እስራኤል",
+        "እምዳን",
+        "እስከ",
+        "ቤርሳቤሔ",
+        "ከመ",
+        "እመን",
+        "ሳሙኤል",
+        "ነቢ",
+        "ይለእግዚአብሔር"
+      ],
+      "alignment": [
+        {
+          "gg": "ወአቱሎ",
+          "cam": "ወእመሩ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ኵሉ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስራኤል",
+          "cam": "እስራኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "እምዳን",
+          "cam": "እምዳን",
+          "class": "agree"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "እስከ",
+          "class": "agree"
+        },
+        {
+          "gg": "በርሳቤሕ",
+          "cam": "ቤርሳቤሔ",
+          "class": "agree"
+        },
+        {
+          "gg": "ከመ",
+          "cam": "ከመ",
+          "class": "agree"
+        },
+        {
+          "gg": "መሀይምኝ",
+          "cam": "እመን",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሳሙኤይ",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ነቢ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስእግዚአብሔር",
+          "cam": "ይለእግዚአብሔር",
+          "class": "agree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:20 = all Israel from Dan to Beersheba knew Samuel was established a prophet of the LORD. Matches."
+    },
+    {
+      "v": 21,
+      "gg_tokens": [
+        "ወደገመ",
+        "እግዚአብሔር",
+        "አይድዓቆ",
+        "ወአርአዮ",
+        "ስተርአዮ",
+        "እግዚአብሔር",
+        "ወተአመነ",
+        "ሳሙኤል",
+        "ነቢይ",
+        "ስእግዚአብሔር",
+        "በውኩሉ",
+        "እስራኤል",
+        "እምአጽናፈ",
+        "ምድር",
+        "እስከ",
+        "እጽናፉ",
+        "ወልህቀ",
+        "ወደዊቁስ",
+        "ሐዊራ",
+        "ሐሩት",
+        "እኪት",
+        "ቅድመ",
+        "እግዚአብሔር"
+      ],
+      "cam_tokens": [
+        "ወደገመ",
+        "እግዚአብሔር",
+        "አርእዮ",
+        "በሴሎም",
+        "ከመ",
+        "አስተርአየ",
+        "እግዚአብሔር",
+        "ለሳሙኤል",
+        "በቃለ",
+        "እግዚአብሔር",
+        "ወተስምዓ",
+        "ቃለ",
+        "ሳሙኤል",
+        "ውስተ",
+        "ሾሉ",
+        "እስራኤል"
+      ],
+      "alignment": [
+        {
+          "gg": "ወደገመ",
+          "cam": "ወደገመ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "አይድዓቆ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወአርአዮ",
+          "cam": "አርእዮ",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "በሴሎም",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ከመ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስተርአዮ",
+          "cam": "አስተርአየ",
+          "class": "agree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "እግዚአብሔር",
+          "class": "agree"
+        },
+        {
+          "gg": "",
+          "cam": "ለሳሙኤል",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "በቃለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "እግዚአብሔር",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወተአመነ",
+          "cam": "ወተስምዓ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ቃለ",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሳሙኤል",
+          "cam": "ሳሙኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "ነቢይ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ስእግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "በውኩሉ",
+          "cam": "ውስተ",
+          "class": "disagree"
+        },
+        {
+          "gg": "",
+          "cam": "ሾሉ",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስራኤል",
+          "cam": "እስራኤል",
+          "class": "agree"
+        },
+        {
+          "gg": "እምአጽናፈ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ምድር",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እስከ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እጽናፉ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወልህቀ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ወደዊቁስ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐዊራ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ሐሩት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እኪት",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "ቅድመ",
+          "cam": "",
+          "class": "disagree"
+        },
+        {
+          "gg": "እግዚአብሔር",
+          "cam": "",
+          "class": "disagree"
+        }
+      ],
+      "semantic_pass": true,
+      "semantic_note": "3:21 = the LORD appeared again in Shiloh, revealed himself by the word of the LORD; the word of Samuel came to all Israel. Both match this core; GG carries an additional LXX-style expansion ('from end to end of the land... and Samuel grew, but they walked in evil ways before the LORD') -- a recension plus, not a contradiction, so semantic_pass holds."
+    }
+  ],
+  "metrics": {
+    "ww_agreement_pct": 36.34,
+    "ww_agreement_basis": "133/366",
+    "ww_agreement_skeleton_pct": 60.11,
+    "ww_agreement_skeleton_basis": "220/366",
+    "ww_agreement_bothconfident_pct": 89.35,
+    "ww_agreement_bothconfident_basis": "193/216",
+    "semantic_pass_pct": 100.0,
+    "semantic_pass_basis": "21/21",
+    "uncertainty_pct": 10.09,
+    "uncertainty_basis": "32/317 (base=CAM)",
+    "lacuna_counts": {
+      "gg": 1,
+      "cam": 0,
+      "both": 0
+    },
+    "lacuna_counts_note": "lacuna_counts.gg (1) == the count of ⟦illegible⟧ tokens in 1sa3_witnessGG.json (one deliberate scribal erasure, v.5 token_index 3); lacuna_counts.cam (0) == the count of ⟦illegible⟧ tokens in 1sa3_witnessCAM_hires.json (CAM transcription_notes: 'No glyph was wholly illegible (0 illegible tokens)'); lacuna_counts.both (0) = positions illegible in BOTH witnesses. Per-verse lacuna breakdown: v5 gg=1 cam=0 both=0. All 1 lacuna-* row(s) are EXCLUDED from every agreement denominator (strict, skeleton, both-confident). Genuine textual plus/minus (a token present in one witness, absent-but-legible in the other) is represented with an empty string on the absent side and class 'disagree' and IS counted in the aligned denominator -- it is real divergence, not a lacuna. CAM was transcribed directly from hi-res images; there was no low-resolution pass for this chapter, so no delta_vs_lowres block is reported.",
+    "definitions": {
+      "strict": "exact literal token-string identity / (agree+disagree) aligned pairs",
+      "skeleton": "diacritic/order-folded + near-homograph-folded token equality (class==agree) / (agree+disagree) aligned pairs, full aligned denominator. Fold tolerance: Ge'ez vowel-order folded to syllable-block consonant base; near-homograph fidels folded (ሰ/ሠ, ሐ/ኀ/ኃ/ነ, አ/ዐ, ጸ/ፀ) plus this recension's documented s/l swap (ስ↔ለ, e.g. GG ስእግዚአብᙔር for CAM ለእግዚአብᙔር) and CAM's habitual ሾሉ for ኵሉ.",
+      "both_confident": "skeleton-equal / aligned pairs where neither witness flagged that token uncertain or illegible (gap/insertion cells and lacuna rows also excluded from this denominator)"
+    }
+  }
+}

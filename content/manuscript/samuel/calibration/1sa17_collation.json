@@ -1,0 +1,7835 @@
+{
+ "book": "1sa",
+ "chapter": 17,
+ "base_witness_recommended": "CAM",
+ "base_rationale": "CAM is the recommended base for 1Sa17. CAM preserves the LONG/FULL form (58 verses, 884 tokens) including the complete David-introduction (17:12-31) and the post-duel Abner 'whose son is this youth' block (17:55-58); GG transmits only the SHORT LXX-type duel core (20 verses, compressed paraphrase) and omits ~38 verses' worth of narrative. CAM is thus the textually most complete and continuous witness for the chapter, with no illegible tokens and a low 9.62% scribal-uncertainty rate. The very low W-W agreement is the expected, honest signature of two distinct recensions, not a defect of either transcription.",
+ "verses": [
+  {
+   "v": 1,
+   "gg_tokens": [
+    "ይወዕእ",
+    "ጎበ",
+    "ፀብእ",
+    "ወያስተርእዶ",
+    "ጎበ",
+    "ፀብእ",
+    "ወፀባዊተ",
+    "እስራኤል",
+    "ወኢሎፍሊ",
+    "ርሱየን",
+    "ለተቃብሶ",
+    "መስተቃትሰን",
+    "ወሃደግ",
+    "ዳዊት",
+    "ጎዋያተ",
+    "እምስዕሊሁ",
+    "ውስተ",
+    "ዘየዳቅብ",
+    "ጎዋያተ",
+    "ወሮዱ",
+    "ጎበ",
+    "ይትቃተሉ",
+    "ወበጅሕ",
+    "ወተስእሉሙ",
+    "ለአጎዊሁ",
+    "በእንተ",
+    "ስሳም"
+   ],
+   "cam_tokens": [
+    "ወአስተጋብኡ",
+    "ሰብእ",
+    "ፈልስጥኤም",
+    "ተአይኒዎሙ",
+    "ለፀብእ",
+    "ወተጋብእ",
+    "ውስተ",
+    "ሶኮት",
+    "ዘይሁዳ",
+    "ወተዓየኑ",
+    "ማእከለ",
+    "ሶኮት",
+    "ወማእከለ",
+    "ዓዜቃ",
+    "ውስተ",
+    "ስፍድም"
+   ],
+   "alignment": [
+    {
+     "gg": "ይወዕእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀብእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወያስተርእዶ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአስተጋብኡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሰብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተአይኒዎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀብእ",
+     "cam": "ለፀብእ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወፀባዊተ",
+     "cam": "ወተጋብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኢሎፍሊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርሱየን",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለተቃብሶ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "መስተቃትሰን",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሃደግ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎዋያተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምስዕሊሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘየዳቅብ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎዋያተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሮዱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይትቃተሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወበጅሕ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተስእሉሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለአጎዊሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በእንተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስሳም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሶኮት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘይሁዳ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወተዓየኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ማእከለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሶኮት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወማእከለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዓዜቃ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስፍድም",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:1 -- Philistines gather their armies at Socoh of Judah, encamp between Socoh and Azekah at Ephes-dammim -- GG carries this (compressed) as GG v1."
+  },
+  {
+   "v": 2,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወተጋብእ",
+    "ሳአል",
+    "ወስብእ",
+    "እስራኤል",
+    "ውስተ",
+    "ቄላት",
+    "ኤላ",
+    "ከመ",
+    "ይግበሩ",
+    "ፀብእ",
+    "ምስለ",
+    "ፈልስጥኤም"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወተጋብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወስብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቄላት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኤላ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይግበሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፀብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤም",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:2 -- Saul and the men of Israel gather and encamp by the valley of Elah, set the battle in array against the Philistines -- CAM-only plus (GG's short opening compresses this away)."
+  },
+  {
+   "v": 3,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወፈልስጥኤም",
+    "ቆሙ",
+    "እምለፈ",
+    "ውስተ",
+    "ይብር",
+    "ወእስራኤል",
+    "ተዓየኑ",
+    "እምለፈ",
+    "በውስተ",
+    "ይብር",
+    "ወማእከሌሆሙ",
+    "ጋይ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወፈልስጥኤም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቆሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምለፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይብር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተዓየኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምለፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይብር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወማእከሌሆሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጋይ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:3 -- Philistines stood on a mountain on one side, Israel on a mountain on the other, a valley between -- CAM-only plus."
+  },
+  {
+   "v": 4,
+   "gg_tokens": [
+    "ወእንዘ",
+    "ይትናገር",
+    "ምስሊሆሙ",
+    "ወናሁ",
+    "የርብሐዊ",
+    "የቃርግ",
+    "ዘስመ",
+    "ሳልያድ",
+    "ኢሎፍለዊ",
+    "ዘእምጔት",
+    "እምፀባዊተ",
+    "ኢሎፍሊ",
+    "ወተናገረ",
+    "እሎንተ",
+    "ነግራተ",
+    "ወሰመዒ",
+    "ዳዊት",
+    "ወኮሉ",
+    "ስብእ",
+    "እስራኤል",
+    "ሰበ",
+    "ርእይዎ",
+    "ለብእሲ",
+    "ጎደ",
+    "እምቅድመ",
+    "ጎዶ",
+    "ወፈርሁ",
+    "ጥቀ"
+   ],
+   "cam_tokens": [
+    "ወወፅአ",
+    "ብእሲ",
+    "ኃያል",
+    "እምትእይንተ",
+    "ፈልስጥኤም",
+    "ስሙ",
+    "ኃልያድ",
+    "እምኔጌት",
+    "ወኑኁ",
+    "ስድስተ",
+    "እመት",
+    "ወስብኁ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወእንዘ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይትናገር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምስሊሆሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወናሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "የርብሐዊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "የቃርግ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘስመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳልያድ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍለዊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘእምጔት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምፀባዊተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተናገረ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እሎንተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነግራተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሰመዒ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኮሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስብእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሰበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርእይዎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወወፅአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለብእሲ",
+     "cam": "ብእሲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎደ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምቅድመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎዶ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወፈርሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጥቀ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃያል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምትእይንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃልያድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምኔጌት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኑኁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስድስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እመት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወስብኁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:4 -- a champion came out of the Philistine camp, Goliath of Gath, six cubits and a span -- GG carries the champion's defiance as GG v2."
+  },
+  {
+   "v": 5,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወጌራ",
+    "ዘብርት",
+    "ውስተ",
+    "ርእሱ",
+    "ወልብሰ",
+    "ድልወት",
+    "ይለብስ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወጌራ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘብርት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ርእሱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልብሰ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ድልወት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይለብስ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:5 -- he had a helmet of brass and was armed with a coat of mail -- CAM-only plus (GG's short form omits the armour description)."
+  },
+  {
+   "v": 6,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወድርዓን",
+    "ሐዲን",
+    "ዘውስተ",
+    "እገሪሁ",
+    "ወውስተ",
+    "አዕማዱ",
+    "ወይተ",
+    "ብርት",
+    "ማእከለ",
+    "መታክፍቲሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወድርዓን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐዲን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እገሪሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አዕማዱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብርት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ማእከለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መታክፍቲሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:6 -- greaves of brass on his legs and a target of brass between his shoulders -- CAM-only plus."
+  },
+  {
+   "v": 7,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወልሳነ",
+    "ኩናቱ",
+    "ከመ",
+    "እስት",
+    "ይብርቅ",
+    "ወዘይጸውር",
+    "ንዋየ",
+    "ሐትሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወልሳነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኩናቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይብርቅ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዘይጸውር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንዋየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐትሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:7 -- the staff of his spear was like a weaver's beam; one bearing his shield went before him -- CAM-only plus."
+  },
+  {
+   "v": 8,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወቆመ",
+    "ወጸርሐ",
+    "ናብተ",
+    "ይቤሎሙ",
+    "ለምንት",
+    "ወፃእክሙ",
+    "ቃተል",
+    "ምስሌነ",
+    "እኮኑ",
+    "አነ",
+    "ፈልስጥኤማዊ",
+    "ወአንትሙ",
+    "አግብርቲሁ",
+    "ለሳአል",
+    "ኅረዩ",
+    "ብእሲ",
+    "እምውስቴትክሙ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወቆመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወጸርሐ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ናብተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይቤሎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለምንት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወፃእክሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቃተል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስሌነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እኮኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአንትሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አግብርቲሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኅረዩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምውስቴትክሙ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:8 -- he stood and cried to the armies of Israel: why are you come to set battle? choose a man -- CAM-only plus (GG compresses the challenge)."
+  },
+  {
+   "v": 9,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወለእመ",
+    "ክህለ",
+    "ተቃትሎ",
+    "ምስሌየ",
+    "ወቀተለኒ",
+    "ንከውን",
+    "ለክሙ",
+    "አግብርተ",
+    "ወእመ",
+    "አነ",
+    "ክህልክዎ",
+    "ወቀተልክዎ",
+    "ትከውኑ",
+    "ለነ",
+    "አግብርተ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወለእመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ክህለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተቃትሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስሌየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወቀተለኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንከውን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለክሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አግብርተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ክህልክዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወቀተልክዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትከውኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አግብርተ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:9 -- 'if he be able to fight me and kill me we will be your servants; if I prevail you shall serve us' -- CAM-only plus."
+  },
+  {
+   "v": 10,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤሎሙ",
+    "ውእቱ",
+    "ፈልስጥኤማዊ",
+    "አነ",
+    "እትዓየር",
+    "ክዎሙ",
+    "ለትዕይንተ",
+    "እስራኤል",
+    "በዛቲ",
+    "ዕለት",
+    "እንዘ",
+    "እብል",
+    "ሀቡኒ",
+    "ብእሴ",
+    "ወንትቃተል",
+    "ክልኤነ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤሎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውእቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እትዓየር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ክዎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለትዕይንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በዛቲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዕለት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እንዘ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እብል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሀቡኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሴ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወንትቃተል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ክልኤነ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:10 -- 'I defy the armies of Israel this day; give me a man that we may fight together' -- CAM-only plus."
+  },
+  {
+   "v": 11,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወሰምዓ",
+    "ሳአል",
+    "ወኩሉ",
+    "እስራኤል",
+    "ዘንተ",
+    "ነገረ",
+    "ፈልስጥኤማዊ",
+    "ወየንገሮሙ",
+    "ወደንገፁ",
+    "ወፈርሁ",
+    "ጥቀ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወሰምዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኩሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ነገረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወየንገሮሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወደንገፁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወፈርሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጥቀ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:11 -- Saul and all Israel heard the Philistine's words, were dismayed and greatly afraid -- CAM-only plus (GG folds the fear into GG v2)."
+  },
+  {
+   "v": 12,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወዳዊት",
+    "ወልደ",
+    "ብእሲ",
+    "አምጌት",
+    "ልሕ",
+    "አቡሁ",
+    "እሴይ",
+    "ወሎቱ",
+    "፰",
+    "ደቂቅ",
+    "ወውእቱ",
+    "ብእሲ",
+    "እሴይ",
+    "በመዋዕሊሁ",
+    "ለሳአል",
+    "ልህቀ",
+    "ወዐበየ",
+    "ማእከለ",
+    "ዕደው"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልደ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አምጌት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ልሕ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አቡሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሴይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሎቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "፰",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ደቂቅ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወውእቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሴይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በመዋዕሊሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ልህቀ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዐበየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ማእከለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዕደው",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:12 -- David the son of Jesse the Ephrathite of Bethlehem-judah, who had eight sons -- David-introduction block; CAM-only plus, GG omits it."
+  },
+  {
+   "v": 13,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወሖሩ",
+    "ዳዊቀ",
+    "እሴይ",
+    "እለ",
+    "የዓብዩ",
+    "ሐሩ",
+    "ምስለ",
+    "ሳአል",
+    "ለተፃብእ",
+    "ወእስሙ",
+    "እለ",
+    "ሐሩ",
+    "ለፀብእ",
+    "ኤልያብ",
+    "ወአሚናዳብ",
+    "ወሣልሱ",
+    "ሴ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወሖሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊቀ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሴይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "የዓብዩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለተፃብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእስሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለፀብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኤልያብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአሚናዳብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሣልሱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሴ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:13 -- the three eldest sons of Jesse (Eliab, Abinadab, Shammah) went with Saul to the battle -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 14,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ውእቱ",
+    "ወዓቢያን",
+    "እለ",
+    "ሖሩ",
+    "ድኃረ",
+    "ሳአል"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ውእቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዓቢያን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሖሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ድኃረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:14 -- David was the youngest; the three eldest followed Saul -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 15,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወዳዊትስ",
+    "ተመይጠ",
+    "ወሐረ",
+    "እምኀበ",
+    "ሳአል",
+    "ከመ",
+    "ይርዓይ",
+    "አባግዓ",
+    "አቡሁ",
+    "ውስተ",
+    "ቤተልሔም"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወዳዊትስ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተመይጠ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሐረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምኀበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይርዓይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አባግዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አቡሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቤተልሔም",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:15 -- but David went and returned from Saul to feed his father's sheep at Bethlehem -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 16,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይብል",
+    "ይድ",
+    "ፈልስጥኤማዊ",
+    "ወይመጽእ",
+    "ጽባሐ",
+    "ወሰርከ",
+    "ወይቀውም",
+    "ውስተ",
+    "ተዓይኒሆሙ",
+    "ለእስራኤል",
+    "በቃለ",
+    "ትዕይርት"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይብል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይመጽእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጽባሐ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሰርከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቀውም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተዓይኒሆሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለእስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በቃለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትዕይርት",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:16 -- the Philistine drew near morning and evening forty days -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 17,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤ",
+    "እሴይ",
+    "ለዳዊት",
+    "ወልድየ",
+    "ንሣእ",
+    "ለአኃዊከ",
+    "፰",
+    "መስፈርተ",
+    "ቆሊ",
+    "ወዘንተ",
+    "፲",
+    "ኅብስተ",
+    "ወሩጽ",
+    "ናብ",
+    "ኀበ",
+    "አኃዊከ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሴይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልድየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንሣእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለአኃዊከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "፰",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መስፈርተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቆሊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዘንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "፲",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኅብስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሩጽ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ናብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኀበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አኃዊከ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:17 -- Jesse said to David: take this parched corn and ten loaves to your brothers in the camp -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 18,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወዘንተ",
+    "፲",
+    "ሐሊበ",
+    "ናብ",
+    "ለመልአከ",
+    "ኄንንት",
+    "ወለአኃዊከ",
+    "ትሬኢ",
+    "በሰላም",
+    "ወንዋየ",
+    "ሆሎብ",
+    "ትመየጥ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወዘንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "፲",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐሊበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ናብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለመልአከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኄንንት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወለአኃዊከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትሬኢ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በሰላም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወንዋየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሆሎብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትመየጥ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:18 -- carry ten cheeses to the captain of their thousand, see how your brothers fare, take their pledge -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 19,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወሳአል",
+    "ወኩሉ",
+    "እስራኤል",
+    "ተዓየኑ",
+    "ውስተ",
+    "ኤላ",
+    "እንዘ",
+    "ይፃብእ",
+    "ምስለ",
+    "ፈልስጥኤም"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኩሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተዓየኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኤላ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እንዘ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይፃብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤም",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:19 -- Saul and all Israel were in the valley of Elah fighting the Philistines -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 20,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወጌሠ",
+    "ዳዊት",
+    "በጽባሕ",
+    "ወኅደገ",
+    "አባግዒሁ",
+    "ንበ",
+    "ካልእ",
+    "ኖላዊ",
+    "ወነሥአ",
+    "ወሐረ",
+    "በከመ",
+    "አዘዞ",
+    "አቡሁ",
+    "እሴይ",
+    "ወቦአ",
+    "ማእከለ",
+    "ገብኃልያድ",
+    "ወፃእ",
+    "ወየበቡ",
+    "በውስተ",
+    "ዐብእ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወጌሠ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በጽባሕ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኅደገ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አባግዒሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ካልእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኖላዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወነሥአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሐረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አዘዞ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አቡሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሴይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወቦአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ማእከለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ገብኃልያድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወፃእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወየበቡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዐብእ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:20 -- David rose early, left the sheep with a keeper, went as Jesse commanded and came to the trench as the host went to fight -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 21,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወተአየነ",
+    "እስራኤል",
+    "ወፈልስጥኤም",
+    "ምስተ",
+    "ዓየኑ",
+    "ቅድሜ",
+    "ትዕይንተ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወተአየነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወፈልስጥኤም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዓየኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቅድሜ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትዕይንተ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:21 -- Israel and the Philistines put the battle in array, army against army -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 22,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወእንበት",
+    "ንዋየ",
+    "ኀበ",
+    "ዓቃሲ",
+    "ወሮጸ",
+    "ኀበ",
+    "ትዕይንት",
+    "ወተስእለ",
+    "ሰላመ",
+    "አኃዊሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወእንበት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንዋየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኀበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዓቃሲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሮጸ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኀበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትዕይንት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወተስእለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሰላመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አኃዊሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:22 -- David left his carriage with the keeper, ran to the army and greeted his brothers -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 23,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወእንዘ",
+    "ይትናሰሎሙ",
+    "ወናሁ",
+    "ኃልያድ",
+    "ፈልስጥኤማዊ",
+    "ስሙ",
+    "እምትዕይንተ",
+    "ፈልስጥኤም",
+    "ወእንዘ",
+    "ይትታስ",
+    "ትዕይርት",
+    "ላዕለ",
+    "እስራኤል",
+    "ወስምዓ",
+    "ዳዊት"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወእንዘ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይትናሰሎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወናሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃልያድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምትዕይንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእንዘ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይትታስ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትዕይርት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ላዕለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወስምዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:23 -- as he talked, the champion Goliath the Philistine came up and spoke the same defiance, and David heard -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 24,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወኩሉ",
+    "ብእሲ",
+    "እምስብእ",
+    "እስራኤል",
+    "ሶበ",
+    "ርእይዎ",
+    "ለዘንተ",
+    "ብእሴ",
+    "ይጐይዩ",
+    "እምቅድሜ",
+    "ገሩ",
+    "ወፈርሁ",
+    "ጥቀ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወኩሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምስብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ርእይዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዘንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሴ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይጐይዩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምቅድሜ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ገሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወፈርሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጥቀ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:24 -- all the men of Israel, when they saw the man, fled from him and were greatly afraid -- David-introduction; CAM-only plus."
+  },
+  {
+   "v": 25,
+   "gg_tokens": [
+    "ወይቤሉ",
+    "ስብእ",
+    "እስራኤል",
+    "ርእክሙ",
+    "ዘንተ",
+    "ብእሲ",
+    "ዘዐርገ",
+    "እስመ",
+    "ይትዓየር",
+    "ሳዕስ",
+    "እስራኤል",
+    "ዐርገ",
+    "ወይከውን",
+    "ብእሲ",
+    "ይቀትሎ",
+    "የብዕሎ"
+   ],
+   "cam_tokens": [
+    "ወይቤሉ",
+    "ስብእ",
+    "እስራኤል",
+    "ትሬእዩኑ",
+    "ለዘንተ",
+    "ብእሴ",
+    "የዓርግ",
+    "ከመ",
+    "ይዕእሎ",
+    "ለእስራኤል",
+    "ወብእሲ",
+    "ዘቀተሎ",
+    "ለዝንቱ",
+    "ኃዮ",
+    "ንጉሥ",
+    "ብዕለ",
+    "ዓቢየ",
+    "ወዓዲ",
+    "ይሁቦ",
+    "ወለቶ",
+    "ከመ",
+    "ትኩኖ",
+    "ብእሲተ",
+    "ወቤቶ",
+    "ይኩን",
+    "ግዱፈ",
+    "በእስራኤል"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሉ",
+     "cam": "ወይቤሉ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስብእ",
+     "cam": "ስብእ",
+     "class": "agree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "እስራኤል",
+     "class": "agree"
+    },
+    {
+     "gg": "ርእክሙ",
+     "cam": "ትሬእዩኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘንተ",
+     "cam": "ለዘንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲ",
+     "cam": "ብእሴ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘዐርገ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይትዓየር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዐርገ",
+     "cam": "የዓርግ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይከውን",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይዕእሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለእስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "ብእሲ",
+     "cam": "ወብእሲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይቀትሎ",
+     "cam": "ዘቀተሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃዮ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንጉሥ",
+     "class": "disagree"
+    },
+    {
+     "gg": "የብዕሎ",
+     "cam": "ብዕለ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ዓቢየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዓዲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይሁቦ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወለቶ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትኩኖ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ብእሲተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወቤቶ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይኩን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ግዱፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በእስራኤል",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:25 -- men of Israel: have you seen this man? the king will enrich the one who kills him and give his daughter -- GG carries this as GG v3."
+  },
+  {
+   "v": 26,
+   "gg_tokens": [
+    "ጎጉሳሥ",
+    "ብዕስ",
+    "ዳቢየ",
+    "ወወለዶ",
+    "ይሁ",
+    "ሎሙ",
+    "ት",
+    "ወለሰቢተ",
+    "እቡሁ",
+    "ይረስየሙ",
+    "ግሆዘነ",
+    "ውስተ",
+    "እስራኤል",
+    "ወይቤሎሙ",
+    "ዳዊት",
+    "ለዕደው",
+    "እስ",
+    "ይቀውሙ",
+    "ምስሊሁ",
+    "ወይቤ",
+    "ምንት",
+    "ይሬሲ",
+    "ለብእሲ",
+    "ዘይቀትሉ",
+    "ለኢሎፍለዊ",
+    "ወያሴስል",
+    "ዕዕስተ",
+    "እምእስራኤል",
+    "ወምንትነ",
+    "ዝንተ",
+    "ኢሎፍሳቢየ",
+    "ቁሳፍ",
+    "ከመ",
+    "ይትእየር",
+    "ፀባዊተ",
+    "እግዚአብሐር",
+    "ሕያው"
+   ],
+   "cam_tokens": [
+    "ወይቤ",
+    "ዳዊት",
+    "ለዕደው",
+    "እለ",
+    "ይቀውሙ",
+    "ምስሌሁ",
+    "ወይቤሎሙ",
+    "ምንተ",
+    "ይገብር",
+    "ለብእሲ",
+    "ዘቀተሎ",
+    "ለዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ወሴስለ",
+    "ፀእለት",
+    "እምድቂቀ",
+    "እስራኤል",
+    "እስመ",
+    "መኑ",
+    "ውእቱ",
+    "ዝንቱ",
+    "ቄላፍ",
+    "ፈልስጥኤማዊ",
+    "ዘፀረፈ",
+    "ትዕይንተ",
+    "እግዚአብሔር",
+    "ሕያው"
+   ],
+   "alignment": [
+    {
+     "gg": "ጎጉሳሥ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ብዕስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳቢየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወወለዶ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሎሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወለሰቢተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እቡሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይረስየሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ግሆዘነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይቤሎሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ለዕደው",
+     "cam": "ለዕደው",
+     "class": "agree"
+    },
+    {
+     "gg": "እስ",
+     "cam": "እለ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይቀውሙ",
+     "cam": "ይቀውሙ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስሊሁ",
+     "cam": "ምስሌሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይቤ",
+     "cam": "ወይቤሎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምንት",
+     "cam": "ምንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይሬሲ",
+     "cam": "ይገብር",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለብእሲ",
+     "cam": "ለብእሲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘይቀትሉ",
+     "cam": "ዘቀተሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለኢሎፍለዊ",
+     "cam": "ለዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወያሴስል",
+     "cam": "ወሴስለ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዕዕስተ",
+     "cam": "ፀእለት",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምእስራኤል",
+     "cam": "እምድቂቀ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወምንትነ",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውእቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንተ",
+     "cam": "ዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳቢየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቁሳፍ",
+     "cam": "ቄላፍ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይትእየር",
+     "cam": "ዘፀረፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀባዊተ",
+     "cam": "ትዕይንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "ሕያው",
+     "cam": "ሕያው",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:26 -- David asks the men what is done for him who kills this Philistine and takes away the reproach -- 'who is this uncircumcised?' -- GG carries this as GG v4."
+  },
+  {
+   "v": 27,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤሉ",
+    "ከመ",
+    "ዘ",
+    "ቅድመ",
+    "ይገብር",
+    "ሎቱ",
+    "ለብእሲ",
+    "ዘይቀትሎ",
+    "ለዝንቱ",
+    "ፈልስጥኤማዊ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቅድመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይገብር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሎቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለብእሲ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘይቀትሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:27 -- the people answered him after the same manner: so shall it be done to the man who kills him -- CAM-only plus (GG compresses; GG v4 folds 25/26)."
+  },
+  {
+   "v": 28,
+   "gg_tokens": [
+    "ወተናገርዎ",
+    "ሕዝብንተ",
+    "ቃስ",
+    "እንዘ",
+    "ይብሉ",
+    "ከመዝ",
+    "ይግብር",
+    "ለብእሲ",
+    "ዘይቀትሉ",
+    "ወሰምዓ",
+    "ኤልያብ",
+    "እኑሁ",
+    "ዘየዳቢ",
+    "ዘይትናገሮሙ",
+    "ለዕደው",
+    "ወተምዓ",
+    "ሳዕስ",
+    "ዳዊት",
+    "ወይቤ",
+    "ስምንት",
+    "ዘወረድክ",
+    "ወንበ",
+    "መኑ",
+    "ጎደገ",
+    "ጎደጣን",
+    "አጋግዳ",
+    "ወንዮሙ",
+    "ውስተ",
+    "ገዳም",
+    "አነ",
+    "እአምር",
+    "ትዕቢርተክ",
+    "ወእከየ",
+    "ልብክ",
+    "ከመ",
+    "ትርአይ",
+    "ፀብአ",
+    "ዘወረድክ"
+   ],
+   "cam_tokens": [
+    "ወሰምዓ",
+    "ኤልያብ",
+    "እኁሁ",
+    "ዘየዓቢ",
+    "ዘተናገሮሙ",
+    "ለዕደው",
+    "ወመዓ",
+    "ኤልያብ",
+    "ሳዕለ",
+    "ዳዊት",
+    "ወይቤ",
+    "ኤልያብ",
+    "ለምንት",
+    "መጻእክ",
+    "ዝየ",
+    "ወኃደገ",
+    "አባግዓ",
+    "አሐተ",
+    "ገዳም",
+    "ናሁ",
+    "እነ",
+    "አእመርኩ",
+    "ነገርከ",
+    "ወእከየ",
+    "ልብከ",
+    "ወናሁ",
+    "ትፈቅድ",
+    "ከመ",
+    "ትሬድ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወተናገርዎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሕዝብንተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቃስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይብሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመዝ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይግብር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለብእሲ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘይቀትሉ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሰምዓ",
+     "cam": "ወሰምዓ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኤልያብ",
+     "cam": "ኤልያብ",
+     "class": "agree"
+    },
+    {
+     "gg": "እኑሁ",
+     "cam": "እኁሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘየዳቢ",
+     "cam": "ዘየዓቢ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘይትናገሮሙ",
+     "cam": "ዘተናገሮሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለዕደው",
+     "cam": "ለዕደው",
+     "class": "agree"
+    },
+    {
+     "gg": "ወተምዓ",
+     "cam": "ወመዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኤልያብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕስ",
+     "cam": "ሳዕለ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይቤ",
+     "cam": "ወይቤ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ኤልያብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስምንት",
+     "cam": "ለምንት",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘወረድክ",
+     "cam": "መጻእክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወንበ",
+     "cam": "ዝየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "መኑ",
+     "cam": "ወኃደገ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎደገ",
+     "cam": "አባግዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎደጣን",
+     "cam": "አሐተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አጋግዳ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወንዮሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ገዳም",
+     "cam": "ገዳም",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ናሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አነ",
+     "cam": "እነ",
+     "class": "agree"
+    },
+    {
+     "gg": "እአምር",
+     "cam": "አእመርኩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትዕቢርተክ",
+     "cam": "ነገርከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእከየ",
+     "cam": "ወእከየ",
+     "class": "agree"
+    },
+    {
+     "gg": "ልብክ",
+     "cam": "ልብከ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ወናሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትፈቅድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ትርአይ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀብአ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘወረድክ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትሬድ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:28 -- Eliab heard, was angry at David: why came down, with whom left the sheep, I know your pride -- GG carries this as GG v5."
+  },
+  {
+   "v": 29,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወትትቃተል",
+    "ወይቤ",
+    "ዳዊት",
+    "ምንተ",
+    "ዘትመዓዓኒ",
+    "ዘንተ",
+    "ነገር"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወትትቃተል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘትመዓዓኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ነገር",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:29 -- David: 'what have I now done? is it not but a word?' -- GG folds this into GG v6 (anchored at CAM 30)."
+  },
+  {
+   "v": 30,
+   "gg_tokens": [
+    "ወይቤ",
+    "ዳዊት",
+    "ምንት",
+    "ገበርኩ",
+    "ይእዜ",
+    "እኮኑ",
+    "ነገር",
+    "ውእቱ",
+    "ወተመይጠ",
+    "እምጎበሁ",
+    "መንገስ",
+    "ካልእ",
+    "ወይቤ",
+    "ዘንተ",
+    "ነገረ",
+    "ወሚዉ",
+    "ሎቱ",
+    "ሕዝብ",
+    "ከመ",
+    "ቀዳሚ",
+    "ቃል",
+    "ወሰምዑ",
+    "ነገረ",
+    "ዘይቤ",
+    "ዳዊት",
+    "ወነግሩ",
+    "ቅድመ",
+    "ስኦል"
+   ],
+   "cam_tokens": [
+    "ወሐረ",
+    "እምኔሁ",
+    "ውስተ",
+    "ካልእ",
+    "መካን",
+    "ወይቤ",
+    "ዘንተ",
+    "ነገረ",
+    "ወተሥጥውዎ",
+    "ሕዝብ",
+    "ሎቱ",
+    "ነገረ",
+    "ከመ",
+    "ቀዳሚ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምንት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ገበርኩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይእዜ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እኮኑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነገር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተመይጠ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምጎበሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "መንገስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሐረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምኔሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ካልእ",
+     "cam": "ካልእ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "መካን",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይቤ",
+     "cam": "ወይቤ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘንተ",
+     "cam": "ዘንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ነገረ",
+     "cam": "ነገረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሚዉ",
+     "cam": "ወተሥጥውዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሎቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሕዝብ",
+     "cam": "ሕዝብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ሎቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቀዳሚ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቃል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሰምዑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነገረ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘይቤ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወነግሩ",
+     "cam": "ነገረ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቅድመ",
+     "cam": "ቀዳሚ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስኦል",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:30 -- he turned from him to another and spoke as before; the people answered him again -- GG carries this as GG v6."
+  },
+  {
+   "v": 31,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወስምዑ",
+    "ዘንተ",
+    "ነገረ",
+    "በከመ",
+    "ይቤ",
+    "ዳዊት",
+    "ወዜነውዎ",
+    "ለሳአል",
+    "ወወስድዎ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወስምዑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ነገረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዜነውዎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወወስድዎ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:31 -- when David's words were heard they rehearsed them before Saul, and he sent for him -- CAM-only plus (GG v6 ends 'told before Saul')."
+  },
+  {
+   "v": 32,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለሳአል",
+    "ኢይድቅ",
+    "ልቡ",
+    "ለእግዚእየ",
+    "ገብርከ",
+    "የሐውር",
+    "ንበሁ",
+    "ወይትቃተል",
+    "ምስሌሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኢይድቅ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ልቡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለእግዚእየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ገብርከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "የሐውር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንበሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይትቃተል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስሌሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:32 -- David to Saul: let no man's heart fail; your servant will go and fight this Philistine -- GG folds this into GG v7 (anchored at CAM 33)."
+  },
+  {
+   "v": 33,
+   "gg_tokens": [
+    "ወነሥእ",
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለስኦል",
+    "ኢይደትልቦ",
+    "ስብእ",
+    "ግብርከ",
+    "የሐውር",
+    "ሳዕሊሁ",
+    "ወይትቃተል",
+    "ምስሊሁ",
+    "ስዝንተ",
+    "ኢሎፍሳዊ",
+    "ወይቤሎ",
+    "ስኦል",
+    "ለዳዊት",
+    "ኢትክል",
+    "ሐዊረ",
+    "ጎበ",
+    "ዝንተ",
+    "ኢሎፍሳዊ",
+    "ከመ",
+    "ትትቃተል",
+    "ምስሊሁ",
+    "እስመ",
+    "ሕጻን",
+    "አንተ",
+    "ውእቱስ",
+    "ብእሲ",
+    "መስተቃትል",
+    "እምንእሁ"
+   ],
+   "cam_tokens": [
+    "ለዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ወይቤሎ",
+    "ሳአል",
+    "ለዳዊት",
+    "ኢትክል",
+    "ሐዊረ",
+    "ንበ",
+    "ዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ከመ",
+    "ትትቃተል",
+    "ምስሌሁ",
+    "እስመ",
+    "ሕፃን",
+    "አንተ",
+    "ወእቱኒ",
+    "ብእሲ",
+    "መስተቃትል",
+    "እምንእሱ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወነሥእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይቤሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለስኦል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢይደትልቦ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስብእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ግብርከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "የሐውር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕሊሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይትቃተል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምስሊሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስዝንተ",
+     "cam": "ለዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስኦል",
+     "cam": "ሳአል",
+     "class": "agree"
+    },
+    {
+     "gg": "ለዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢትክል",
+     "cam": "ኢትክል",
+     "class": "agree"
+    },
+    {
+     "gg": "ሐዊረ",
+     "cam": "ሐዊረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ንበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንተ",
+     "cam": "ዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ትትቃተል",
+     "cam": "ትትቃተል",
+     "class": "agree"
+    },
+    {
+     "gg": "ምስሊሁ",
+     "cam": "ምስሌሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "እስመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሕጻን",
+     "cam": "ሕፃን",
+     "class": "agree"
+    },
+    {
+     "gg": "አንተ",
+     "cam": "አንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውእቱስ",
+     "cam": "ወእቱኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ብእሲ",
+     "cam": "ብእሲ",
+     "class": "agree"
+    },
+    {
+     "gg": "መስተቃትል",
+     "cam": "መስተቃትል",
+     "class": "agree"
+    },
+    {
+     "gg": "እምንእሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምንእሱ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:33 -- Saul to David: you cannot go against him, you are a youth, he a man of war from his youth -- GG carries this as GG v7."
+  },
+  {
+   "v": 34,
+   "gg_tokens": [
+    "ወይቤ",
+    "ዳዊት",
+    "ለስኦል",
+    "እንዘ",
+    "ይርኢ",
+    "ሀሎ",
+    "ግብርከ",
+    "ለአቡሁ",
+    "ውስተ",
+    "መራዕይሁ",
+    "ስበ",
+    "ይመጽእ",
+    "እንበሳ",
+    "ወእመኒ",
+    "ድብ",
+    "ወይነሥእ",
+    "በግዓ",
+    "እምራዕይ",
+    "እዴግና",
+    "ወእቀትሎ",
+    "ወእነግፎ",
+    "እምአፉሁ",
+    "ወእሰመኒ",
+    "ተጎሥአ",
+    "ሳዕሊየ",
+    "እእሳዝ",
+    "ጉርዒሁ",
+    "ወእሐንቆ",
+    "ወእቀትሎ",
+    "ወእግብር",
+    "እመኒ",
+    "እንበሳ",
+    "ወእመኒ",
+    "ደብ",
+    "አነ",
+    "ግብርከ"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለሳአል",
+    "እንዘ",
+    "ይሬኢ",
+    "ገብርከ",
+    "አባግዓ",
+    "እቡሁ",
+    "ውስተ",
+    "መራዕይ",
+    "ሶበ",
+    "መጽእ",
+    "አንበሳ",
+    "ወእመኒ",
+    "ድብ",
+    "ይነሥእ",
+    "በግዐ",
+    "እምውስተ",
+    "መራዕይ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ለስኦል",
+     "cam": "ለሳአል",
+     "class": "agree"
+    },
+    {
+     "gg": "እንዘ",
+     "cam": "እንዘ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይርኢ",
+     "cam": "ይሬኢ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሀሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ግብርከ",
+     "cam": "ገብርከ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "አባግዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለአቡሁ",
+     "cam": "እቡሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "መራዕይሁ",
+     "cam": "መራዕይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስበ",
+     "cam": "ሶበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይመጽእ",
+     "cam": "መጽእ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንበሳ",
+     "cam": "አንበሳ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእመኒ",
+     "cam": "ወእመኒ",
+     "class": "agree"
+    },
+    {
+     "gg": "ድብ",
+     "cam": "ድብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይነሥእ",
+     "cam": "ይነሥእ",
+     "class": "agree"
+    },
+    {
+     "gg": "በግዓ",
+     "cam": "በግዐ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምራዕይ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እዴግና",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእቀትሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእነግፎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምአፉሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእሰመኒ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ተጎሥአ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕሊየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እእሳዝ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጉርዒሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእሐንቆ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእቀትሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእግብር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እመኒ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንበሳ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእመኒ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ደብ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ግብርከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መራዕይ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:34 -- David: your servant kept his father's sheep; when a lion or bear took a lamb I went after it -- GG carries this as GG v8."
+  },
+  {
+   "v": 35,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "እወፅእ",
+    "ድኃሬሁ",
+    "ወእደግኖ",
+    "ወእቀትሎ",
+    "ወእንግፍ",
+    "እምውስተ",
+    "አፉሁ",
+    "ወእመኒ",
+    "ተንሥአ",
+    "ላዕሌየ",
+    "እአዝ",
+    "ጉርዔሁ",
+    "ወእሐንቆ",
+    "ወእቀትሎ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "እወፅእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ድኃሬሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእደግኖ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእቀትሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእንግፍ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አፉሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእመኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተንሥአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ላዕሌየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እአዝ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጉርዔሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእሐንቆ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእቀትሎ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:35 -- 'I caught it by the throat, smote and slew it' -- GG folds this into GG v8 (anchored at CAM 34)."
+  },
+  {
+   "v": 36,
+   "gg_tokens": [
+    "ወዝንቱኒ",
+    "ኢሎፍሳዊ",
+    "ቁሳፍ",
+    "ከማሁ",
+    "ከመ",
+    "ውእቱኒ",
+    "ከመ",
+    "፩",
+    "እምእሎኩ",
+    "ኢየሐውር",
+    "እንከ",
+    "እቀትሎ",
+    "ወአሰስል",
+    "ዮም",
+    "ትዕይርት",
+    "እምእስራኤል",
+    "ምጎት",
+    "ውእቱ",
+    "ዝንቱ",
+    "ቁሳፍ",
+    "ከመ",
+    "ይትዓየር",
+    "ፀባዊተ",
+    "እግዚአብሐር",
+    "ዘሕያው"
+   ],
+   "cam_tokens": [
+    "ወከማሁ",
+    "እገብር",
+    "እመሂ",
+    "አንበሰ",
+    "ወእመሂ",
+    "ኮነ",
+    "ድብ",
+    "እቀትል",
+    "አነ",
+    "ገብርከ",
+    "ዝንቱኒ",
+    "ፈልስጥኤማዊ",
+    "ቄላፍ",
+    "ከማሁ",
+    "ከመ",
+    "፩",
+    "እምኔሆሙ",
+    "እምእለ",
+    "ኢየሐውርኒ",
+    "እንከ",
+    "ወእቀትሎ",
+    "እስመ",
+    "ፀረፈ",
+    "ተዓይነ",
+    "እግዚአብሔር",
+    "ሕያው"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወከማሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እገብር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እመሂ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አንበሰ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእመሂ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኮነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ድብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እቀትል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ገብርከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወዝንቱኒ",
+     "cam": "ዝንቱኒ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቁሳፍ",
+     "cam": "ቄላፍ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከማሁ",
+     "cam": "ከማሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውእቱኒ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "፩",
+     "cam": "፩",
+     "class": "agree"
+    },
+    {
+     "gg": "እምእሎኩ",
+     "cam": "እምኔሆሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢየሐውር",
+     "cam": "እምእለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኢየሐውርኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንከ",
+     "cam": "እንከ",
+     "class": "agree"
+    },
+    {
+     "gg": "እቀትሎ",
+     "cam": "ወእቀትሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአሰስል",
+     "cam": "እስመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዮም",
+     "cam": "ፀረፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትዕይርት",
+     "cam": "ተዓይነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምእስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምጎት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቁሳፍ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይትዓየር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ፀባዊተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘሕያው",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሕያው",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:36 -- 'this uncircumcised Philistine shall be as one of them, for he has defied the armies of the living God' -- GG carries this as GG v9."
+  },
+  {
+   "v": 37,
+   "gg_tokens": [
+    "ወውእቱ",
+    "እግዚአብሐር",
+    "ዘእድጋነኒ",
+    "እምእዴ",
+    "እንበሰ",
+    "ወእምእዴ",
+    "ድብ",
+    "ውእቱ",
+    "ያድጋነኒ",
+    "እምእዴሁ",
+    "ለዝንቱ",
+    "ኢሎፍሳዊ",
+    "ወይቤሎ",
+    "ስኦል",
+    "ስዳዊት",
+    "ሑር",
+    "ወእግዚአብሐር",
+    "የሃሉ",
+    "ምክሊከ"
+   ],
+   "cam_tokens": [
+    "ወይቤ",
+    "ዳዊት",
+    "ውእቱ",
+    "እግዚአብሔር",
+    "ዘአድኃነኒ",
+    "እምእዴ",
+    "አንበሳ",
+    "ወእምነ",
+    "እዴ",
+    "ድብ",
+    "ውእቱ",
+    "ያድኃነኒ",
+    "እምነ",
+    "እዴሁ",
+    "ለዝንቱ",
+    "ቄላፍ",
+    "ፈልስጥኤማዊ",
+    "ወይቤሎ",
+    "ሳአል",
+    "ለዳዊት",
+    "ሐር",
+    "እግዚአብሔር",
+    "የህሉ",
+    "ምስሌከ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወውእቱ",
+     "cam": "ውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘእድጋነኒ",
+     "cam": "ዘአድኃነኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምእዴ",
+     "cam": "እምእዴ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንበሰ",
+     "cam": "አንበሳ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእምእዴ",
+     "cam": "ወእምነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ድብ",
+     "cam": "ድብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "ውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ያድጋነኒ",
+     "cam": "ያድኃነኒ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምእዴሁ",
+     "cam": "እምነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለዝንቱ",
+     "cam": "ለዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ቄላፍ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስኦል",
+     "cam": "ሳአል",
+     "class": "agree"
+    },
+    {
+     "gg": "ስዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ሑር",
+     "cam": "ሐር",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "የሃሉ",
+     "cam": "የህሉ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምክሊከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስሌከ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:37 -- David: Yahweh who saved me from lion and bear will save me from this Philistine; Saul: go, Yahweh be with you -- GG carries this as GG v10."
+  },
+  {
+   "v": 38,
+   "gg_tokens": [
+    "ወአልበሰ",
+    "ስኦል",
+    "ለዳዊት",
+    "ልብስ",
+    "ሐዊን",
+    "ወዌራዘ",
+    "ብርት",
+    "ሳዕስ",
+    "ርእኩ",
+    "ወየየ",
+    "ሎቱ",
+    "ወአቅነቆ",
+    "መልዕልተ",
+    "ልብኩ",
+    "ሰይፈ",
+    "ወሶበ",
+    "ሰገረ",
+    "ዳዊት",
+    "ምዕሬ",
+    "ወካዕበሂ",
+    "ዴከመ"
+   ],
+   "cam_tokens": [
+    "ወአልበሶ",
+    "ሳአል",
+    "ለዳዊት",
+    "ልብሶ",
+    "ሐዲን",
+    "ወጌራ",
+    "ዘብርት",
+    "ወደየ",
+    "ውስተ",
+    "ርእሱ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወአልበሰ",
+     "cam": "ወአልበሶ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስኦል",
+     "cam": "ሳአል",
+     "class": "agree"
+    },
+    {
+     "gg": "ለዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ልብስ",
+     "cam": "ልብሶ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሐዊን",
+     "cam": "ሐዲን",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወዌራዘ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ብርት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሳዕስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርእኩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወየየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሎቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወአቅነቆ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "መልዕልተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ልብኩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሰይፈ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሶበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሰገረ",
+     "cam": "ወጌራ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምዕሬ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወካዕበሂ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዴከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘብርት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወደየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ርእሱ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:38 -- Saul armed David with his armour, a brass helmet, a coat of mail -- GG carries this as GG v11."
+  },
+  {
+   "v": 39,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወአቅነቶ",
+    "መልዕልተ",
+    "ልብሱ",
+    "ሰይፈ",
+    "ወሶበ",
+    "ስገረ",
+    "ዳዊት",
+    "ምዕረ",
+    "ወኮብለለ",
+    "ከመ",
+    "ወይቤሎ",
+    "ዳዊት",
+    "ኃብ",
+    "ለሳአል",
+    "ኢይክል",
+    "ሐዊረ",
+    "በዝንቱ",
+    "እስመ",
+    "ኢኮኩ",
+    "ልሙድ",
+    "ወአሰሰሎ",
+    "እምላዕሌሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወአቅነቶ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መልዕልተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ልብሱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሰይፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስገረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምዕረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኮብለለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኢይክል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐዊረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኢኮኩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ልሙድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአሰሰሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምላዕሌሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:39 -- David girded the sword, assayed to go, could not (not proved it) and put it off -- GG folds this into GG v11/v12 (anchored at CAM 38/40)."
+  },
+  {
+   "v": 40,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለስኦል",
+    "ኢይክል",
+    "ሐዊሬ",
+    "በዝንቱ",
+    "እስመ",
+    "ኢክንኩ",
+    "ልሙድ",
+    "ወአስሰዑ",
+    "እምሳዕሊሁ",
+    "ወነሥአ",
+    "በቀስታመ",
+    "ውስተ",
+    "እዴሁ",
+    "ወጋረየ",
+    "ሎቱ",
+    "፭",
+    "አእጋን",
+    "እምውስተ",
+    "ፈለግ",
+    "ወወደየሙ",
+    "ውስተ",
+    "መምጠቲሁ",
+    "ከመ",
+    "እንተ",
+    "ስበ",
+    "ይሬኢ",
+    "አባግዓ",
+    "ወሞጸፈ",
+    "በእዴሁ",
+    "ወሐረ",
+    "ጎበ",
+    "ውእቱ",
+    "ብእሲ",
+    "ኢሎፍሳዊ"
+   ],
+   "cam_tokens": [
+    "ወነሥአ",
+    "ዳዊት",
+    "ቀስታመ",
+    "በእዴሁ",
+    "ወሐረየ",
+    "ሎቱ",
+    "አኃነ",
+    "እምውስተ",
+    "ፈላግ",
+    "ወወደየ",
+    "ውስተ",
+    "መምጠቱ",
+    "ከመ",
+    "እንተ",
+    "ሶበ",
+    "ይሬኢ",
+    "አባግዓ",
+    "ወሞጸፈ",
+    "ስተ",
+    "እዴሁ",
+    "ወሐረ",
+    "ንበ",
+    "ውእቱ",
+    "ብእሲ",
+    "ፈልስጥኤማዊ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለስኦል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢይክል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሐዊሬ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በዝንቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢክንኩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ልሙድ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወአስሰዑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምሳዕሊሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወነሥአ",
+     "cam": "ወነሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "በቀስታመ",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ቀስታመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እዴሁ",
+     "cam": "በእዴሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወጋረየ",
+     "cam": "ወሐረየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሎቱ",
+     "cam": "ሎቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "፭",
+     "cam": "አኃነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አእጋን",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምውስተ",
+     "cam": "እምውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ፈለግ",
+     "cam": "ፈላግ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወደየሙ",
+     "cam": "ወወደየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "መምጠቲሁ",
+     "cam": "መምጠቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንተ",
+     "cam": "እንተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስበ",
+     "cam": "ሶበ",
+     "class": "agree"
+    },
+    {
+     "gg": "ይሬኢ",
+     "cam": "ይሬኢ",
+     "class": "agree"
+    },
+    {
+     "gg": "አባግዓ",
+     "cam": "አባግዓ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሞጸፈ",
+     "cam": "ወሞጸፈ",
+     "class": "agree"
+    },
+    {
+     "gg": "በእዴሁ",
+     "cam": "ስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሐረ",
+     "cam": "ወሐረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ንበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "ውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ብእሲ",
+     "cam": "ብእሲ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:40 -- David took his staff, chose smooth stones from the brook into his scrip, sling in hand, drew near the Philistine -- GG carries this as GG v12."
+  },
+  {
+   "v": 41,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወሐረ",
+    "ኃልያድ",
+    "ፈልስጥኤማዊ",
+    "ወቀርበ",
+    "ዳዊት",
+    "ወዘይጸውር",
+    "ንዋየ",
+    "ሐቅሉ",
+    "ቅድሜሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወሐረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃልያድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወቀርበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወዘይጸውር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንዋየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሐቅሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቅድሜሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:41 -- the Philistine came on and drew near David, his shield-bearer before him -- CAM-only plus (GG compresses the approach)."
+  },
+  {
+   "v": 42,
+   "gg_tokens": [
+    "ወሶበ",
+    "ርእዮ",
+    "ጎልያድ",
+    "ስዳዊት",
+    "አስተሐቀር",
+    "እስመ",
+    "ሕጻን",
+    "ውእቱ",
+    "ወቀይሕ",
+    "ግጹ",
+    "ወሥናየት",
+    "አዕይንቲሁ",
+    "ወይቤሎ",
+    "ዝክቱ",
+    "ኢሎፍሳዊ",
+    "ስዳዊት",
+    "ከልብኑ",
+    "አነ",
+    "ከመ",
+    "ትምጽእ",
+    "ጎበየ",
+    "በበትር",
+    "ወበእብን"
+   ],
+   "cam_tokens": [
+    "ወበርእየ",
+    "ኃልያድ",
+    "ፈልስጥኤማዊ",
+    "ለዳዊት",
+    "አስሐቀሮ",
+    "እስመ",
+    "ሕፃን",
+    "ውእቱ",
+    "ወቀይሕ",
+    "ገጹ",
+    "ወሠናይ",
+    "አዕይንቲሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወሶበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርእዮ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወበርእየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎልያድ",
+     "cam": "ኃልያድ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "አስተሐቀር",
+     "cam": "አስሐቀሮ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "እስመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሕጻን",
+     "cam": "ሕፃን",
+     "class": "agree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "ውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወቀይሕ",
+     "cam": "ወቀይሕ",
+     "class": "agree"
+    },
+    {
+     "gg": "ግጹ",
+     "cam": "ገጹ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሥናየት",
+     "cam": "ወሠናይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አዕይንቲሁ",
+     "cam": "አዕይንቲሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወይቤሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝክቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከልብኑ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትምጽእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎበየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በበትር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወበእብን",
+     "cam": "",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:42 -- the Philistine looked about, saw David and disdained him, a ruddy fair youth -- GG carries this as GG v13."
+  },
+  {
+   "v": 43,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ለዳዊት",
+    "ከመ",
+    "ከልብኑ",
+    "አነ",
+    "ዘትመጽእ",
+    "ላዕሌየ",
+    "በበትር",
+    "ወረገሞ",
+    "ዝንቱ",
+    "ፈልስጥኤማዊ",
+    "በአምልክቲሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከልብኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘትመጽእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ላዕሌየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በበትር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወረገሞ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በአምልክቲሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:43 -- the Philistine: 'am I a dog that you come with staves?' and cursed David by his gods -- GG folds this into GG v13/v14 (anchored CAM 42/44)."
+  },
+  {
+   "v": 44,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "አልቦ",
+    "አሳ",
+    "ትእኪ",
+    "እምክልብ",
+    "ወረገም",
+    "ዝንቱ",
+    "ኢሎፍሳዊ",
+    "ስዳዊት",
+    "በአማልክቲሁ",
+    "ነዓ",
+    "ጎቢየ",
+    "ወእሁብ",
+    "ሥጋከ",
+    "ለአዕዋፈ",
+    "ሰማይ",
+    "ወአራዊተ",
+    "ገዳም"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ለዳዊት",
+    "ነዓ",
+    "ኃቤየ",
+    "ወእሁብ",
+    "ሥጋከ",
+    "ለአዕዋፈ",
+    "ሰማይ",
+    "ወለአራዊተ",
+    "ምድር"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አልቦ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አሳ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትእኪ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምክልብ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወረገም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝንቱ",
+     "cam": "ዝንቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስዳዊት",
+     "cam": "ለዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "በአማልክቲሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ነዓ",
+     "cam": "ነዓ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎቢየ",
+     "cam": "ኃቤየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእሁብ",
+     "cam": "ወእሁብ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሥጋከ",
+     "cam": "ሥጋከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለአዕዋፈ",
+     "cam": "ለአዕዋፈ",
+     "class": "agree"
+    },
+    {
+     "gg": "ሰማይ",
+     "cam": "ሰማይ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአራዊተ",
+     "cam": "ወለአራዊተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ገዳም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምድር",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:44 -- the Philistine: 'come to me and I will give your flesh to the birds and beasts' -- GG carries this as GG v14."
+  },
+  {
+   "v": 45,
+   "gg_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለውእቱ",
+    "ኢሎፍሳዊ",
+    "እንተ",
+    "ትመጽእ",
+    "ጎበየ",
+    "በስይፍ",
+    "ወበኲናት",
+    "ወአነሂ",
+    "እመጽእ",
+    "ጎበከ",
+    "በስመ",
+    "ለእግዚእ",
+    "እግዚአብሐር",
+    "ፀባአት",
+    "ፀባዒት",
+    "እስራኤል",
+    "ዘተዓየርክ",
+    "ዮም",
+    "ወየዓዕብከ",
+    "እግዚአብሐር",
+    "ዮም",
+    "በእዴየ",
+    "ወእቀትለከ",
+    "ወእመትረከ",
+    "ርእስከ",
+    "እምኔከ"
+   ],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ዳዊት",
+    "ለፈልስጥኤማዊ",
+    "አንተሰ",
+    "ትመጽእ",
+    "ኃቤየ",
+    "በሰይፍ",
+    "ወበርምሕ",
+    "ወበኩናት",
+    "ወአንሰ",
+    "እመጽእ",
+    "ኃቤከ",
+    "በስመ",
+    "ለእግዚእ",
+    "እግዚአብሔር",
+    "ፀባእት",
+    "ዘተዓየርክ",
+    "እምላክ",
+    "ትዕይንተ",
+    "እስራኤል"
+   ],
+   "alignment": [
+    {
+     "gg": "ወይቤሎ",
+     "cam": "ወይቤሎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ለውእቱ",
+     "cam": "ለፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "አንተሰ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትመጽእ",
+     "cam": "ትመጽእ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበየ",
+     "cam": "ኃቤየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "በስይፍ",
+     "cam": "በሰይፍ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ወበርምሕ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወበኲናት",
+     "cam": "ወበኩናት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወአነሂ",
+     "cam": "ወአንሰ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እመጽእ",
+     "cam": "እመጽእ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበከ",
+     "cam": "ኃቤከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "በስመ",
+     "cam": "በስመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለእግዚእ",
+     "cam": "ለእግዚእ",
+     "class": "agree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "ፀባአት",
+     "cam": "ፀባእት",
+     "class": "agree"
+    },
+    {
+     "gg": "ፀባዒት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዘተዓየርክ",
+     "cam": "ዘተዓየርክ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዮም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወየዓዕብከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዮም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በእዴየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእቀትለከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእመትረከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርእስከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እምኔከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምላክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትዕይንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:45 -- David: you come with sword and spear, I come in the name of Yahweh of hosts whom you have defied -- GG carries this as GG v15."
+  },
+  {
+   "v": 46,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ውእቱ",
+    "ዮም",
+    "የዕጾከ",
+    "እግዚአብሔር",
+    "ውስተ",
+    "እዴየ",
+    "ወእቀትለክ",
+    "ወእመትር",
+    "ርእስከ",
+    "እምኔክ",
+    "ወእሁብ",
+    "በዪክ",
+    "ወበድነ",
+    "ትዕይንቶሙ",
+    "ለፈልስጥኤማዊያን",
+    "ዮም",
+    "ለአዕዋፈ",
+    "ሰማይ",
+    "ወለአራዊተ",
+    "ምድር",
+    "ወየእምሩ",
+    "እንክ",
+    "ዘሉ",
+    "አሕዛበ",
+    "ምድር",
+    "ከመ",
+    "ሀሎ",
+    "እግዚአብሔር",
+    "ምስለ",
+    "እስራኤል"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ውእቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዮም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "የዕጾከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እግዚአብሔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴየ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእቀትለክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእመትር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ርእስከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምኔክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእሁብ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በዪክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወበድነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ትዕይንቶሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለፈልስጥኤማዊያን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዮም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለአዕዋፈ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሰማይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወለአራዊተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምድር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወየእምሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እንክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዘሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አሕዛበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምድር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሀሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እግዚአብሔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ምስለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:46 -- 'today Yahweh will deliver you into my hand, I will smite you and take your head and give the carcases to the birds and beasts' -- GG folds this into GG v15/v16 (anchored at CAM 45/47)."
+  },
+  {
+   "v": 47,
+   "gg_tokens": [
+    "ወእሁብ",
+    "በዶንከ",
+    "ወበዶነ",
+    "ትዕይንቶሙ",
+    "ለኢሎፍሊ",
+    "ዮም",
+    "ስአዕዋፈ",
+    "ሰማይ",
+    "ወለአራዊተ",
+    "ገዳም",
+    "ወየአምር",
+    "ኩሉ",
+    "ምድር",
+    "ከመ",
+    "ሀሎ",
+    "እግዚአብሐር",
+    "ምስለ",
+    "እስራኤል",
+    "ወየአምሩ",
+    "ኩኩ",
+    "ኩሉ",
+    "ተዓይን",
+    "ከመ",
+    "አኮ",
+    "በስይፍ",
+    "ወበኩናት",
+    "ዘያድሳን",
+    "እግዚአብሐር",
+    "እስመ",
+    "ስእግዚአብሐር",
+    "ውእቱ",
+    "ቀትል",
+    "ወየገብአክሙ",
+    "እግዚአብሐር",
+    "ውስተ",
+    "እዴነ"
+   ],
+   "cam_tokens": [
+    "ወየእምሩ",
+    "ዝንቱ",
+    "ዘሉ",
+    "ተዓይን",
+    "ከመ",
+    "አኮ",
+    "በሰይፍ",
+    "ወበኩናት",
+    "ዘያድኅን",
+    "እግዚአብሔር",
+    "እስመ",
+    "ለእግዚአብሔር",
+    "ውእቱ",
+    "ቀትል",
+    "ወያገብእክ",
+    "እግዚአብሔር",
+    "ውስተ",
+    "እዴነ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወእሁብ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "በዶንከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወበዶነ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ትዕይንቶሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ለኢሎፍሊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዮም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስአዕዋፈ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሰማይ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወለአራዊተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ገዳም",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወየአምር",
+     "cam": "ወየእምሩ",
+     "class": "agree"
+    },
+    {
+     "gg": "ኩሉ",
+     "cam": "ዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምድር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሀሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ምስለ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወየአምሩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኩኩ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኩሉ",
+     "cam": "ዘሉ",
+     "class": "agree"
+    },
+    {
+     "gg": "ተዓይን",
+     "cam": "ተዓይን",
+     "class": "agree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "ከመ",
+     "class": "agree"
+    },
+    {
+     "gg": "አኮ",
+     "cam": "አኮ",
+     "class": "agree"
+    },
+    {
+     "gg": "በስይፍ",
+     "cam": "በሰይፍ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወበኩናት",
+     "cam": "ወበኩናት",
+     "class": "agree"
+    },
+    {
+     "gg": "ዘያድሳን",
+     "cam": "ዘያድኅን",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "እስመ",
+     "cam": "እስመ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስእግዚአብሐር",
+     "cam": "ለእግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "ውእቱ",
+     "cam": "ውእቱ",
+     "class": "agree"
+    },
+    {
+     "gg": "ቀትል",
+     "cam": "ቀትል",
+     "class": "agree"
+    },
+    {
+     "gg": "ወየገብአክሙ",
+     "cam": "ወያገብእክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እግዚአብሐር",
+     "cam": "እግዚአብሔር",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እዴነ",
+     "cam": "እዴነ",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:47 -- 'and all this assembly shall know Yahweh saves not with sword and spear; the battle is Yahweh's, he will give you into our hand' -- GG carries this as GG v16."
+  },
+  {
+   "v": 48,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወተንሥአ",
+    "ዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ወሐረ",
+    "ወቀርበ",
+    "ቅድመ",
+    "ዳዊት",
+    "ወሮጸ",
+    "ዳዊት",
+    "ወአፍጠነ",
+    "ከመ",
+    "ይትቀበሎ",
+    "ለፈልስጥኤማዊ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወተንሥአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሐረ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወቀርበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቅድመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሮጸ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአፍጠነ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይትቀበሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለፈልስጥኤማዊ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:48 -- the Philistine arose and drew near; David hasted and ran toward the army to meet him -- GG folds this into GG v17 (anchored at CAM 49)."
+  },
+  {
+   "v": 49,
+   "gg_tokens": [
+    "ወተንሥአ",
+    "ዝክቱ",
+    "ኢሎፍሳዊ",
+    "ወሐረ",
+    "ወተቀበሎ",
+    "ስዳዊት",
+    "ወወደየ",
+    "እዴሁ",
+    "ዳዊት",
+    "ውስተ",
+    "ዝክቱ",
+    "መምጠዊቱ",
+    "ወነሥአ",
+    "እምሀየ",
+    "አሐተ",
+    "እብን",
+    "ወወጸፈ",
+    "ወሐጸ",
+    "ለዝክቱ",
+    "ኢሎፍሳዊ",
+    "ውስተ",
+    "ርእስሙ",
+    "ወበአት",
+    "ይእቲ",
+    "እብን",
+    "እንተ",
+    "ርእስሙ",
+    "ውስተ",
+    "ናሕ",
+    "ወወድቀ",
+    "በገጹ",
+    "ውስተ",
+    "ምድር"
+   ],
+   "cam_tokens": [
+    "ወደየ",
+    "ዳዊት",
+    "እዴሁ",
+    "ውስተ",
+    "ኬሊ",
+    "ወነሥአ",
+    "እምህየ",
+    "አሐተ",
+    "እብነ",
+    "ወወፀር",
+    "ወሄጸ",
+    "ለዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ውስተ",
+    "ፈጾሙ",
+    "ወውስተ",
+    "ናላሁ",
+    "ወወድቀ",
+    "በገጹ",
+    "ውስተ",
+    "ምድር"
+   ],
+   "alignment": [
+    {
+     "gg": "ወተንሥአ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝክቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሐረ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተቀበሎ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስዳዊት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወወደየ",
+     "cam": "ወደየ",
+     "class": "agree"
+    },
+    {
+     "gg": "እዴሁ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዝክቱ",
+     "cam": "ኬሊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "መምጠዊቱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወነሥአ",
+     "cam": "ወነሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "እምሀየ",
+     "cam": "እምህየ",
+     "class": "agree"
+    },
+    {
+     "gg": "አሐተ",
+     "cam": "አሐተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እብን",
+     "cam": "እብነ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወወጸፈ",
+     "cam": "ወወፀር",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወሐጸ",
+     "cam": "ወሄጸ",
+     "class": "agree"
+    },
+    {
+     "gg": "ለዝክቱ",
+     "cam": "ለዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ርእስሙ",
+     "cam": "ፈጾሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወበአት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ይእቲ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እብን",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እንተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርእስሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ወውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ናሕ",
+     "cam": "ናላሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወወድቀ",
+     "cam": "ወወድቀ",
+     "class": "agree"
+    },
+    {
+     "gg": "በገጹ",
+     "cam": "በገጹ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ምድር",
+     "cam": "ምድር",
+     "class": "agree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:49 -- David put his hand in his bag, took a stone, slung it, smote the Philistine in the forehead; he fell on his face -- GG carries this as GG v17."
+  },
+  {
+   "v": 50,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወጸንዓ",
+    "ዳዊት",
+    "በሞጸፍ",
+    "ወበእብን",
+    "ወስይፍ",
+    "አልቦ",
+    "ውስተ",
+    "እዴሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወጸንዓ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "በሞጸፍ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወበእብን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወስይፍ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አልቦ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:50 -- so David prevailed with a sling and a stone; there was no sword in David's hand -- GG folds this into GG v18 (anchored at CAM 51)."
+  },
+  {
+   "v": 51,
+   "gg_tokens": [
+    "ወጸንዓ",
+    "ዳዊት",
+    "በሞጸፍ",
+    "ወበእብን",
+    "ወለሰድቀ",
+    "አልቦ",
+    "ውስተ",
+    "እዴሁ",
+    "ወሮጸ",
+    "ዳዊት",
+    "ወበጽሐ",
+    "ጎበ",
+    "ዝክቱ",
+    "ኢሎፍሳዊ",
+    "ወነሥአ",
+    "ስይፎ",
+    "ወቀተሎ",
+    "ቦቱ",
+    "ወመተረ",
+    "ርእስ"
+   ],
+   "cam_tokens": [
+    "ወርጸ",
+    "ዳዊት",
+    "ወወድቀ",
+    "ላዕለ",
+    "ውስተ",
+    "እዴሁ",
+    "ወርጸ",
+    "ዳዊት",
+    "ወበጽሐ",
+    "ናበ",
+    "ዝንቱ",
+    "ፈልስጥኤማዊ",
+    "ወነሥአ",
+    "ስይፎ",
+    "እምውስተ",
+    "ገቦሁ",
+    "ወመተረ",
+    "ርእሶ",
+    "ወሶበ",
+    "ርእዩ",
+    "ፈልስጥኤማዊያን",
+    "ከመ",
+    "ወድቀ",
+    "ጽንዓሙ",
+    "ጐዩ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወጸንዓ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወርጸ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "በሞጸፍ",
+     "cam": "ወወድቀ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወበእብን",
+     "cam": "ላዕለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወለሰድቀ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አልቦ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "እዴሁ",
+     "cam": "እዴሁ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወሮጸ",
+     "cam": "ወርጸ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወበጽሐ",
+     "cam": "ወበጽሐ",
+     "class": "agree"
+    },
+    {
+     "gg": "ጎበ",
+     "cam": "ናበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዝክቱ",
+     "cam": "ዝንቱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወነሥአ",
+     "cam": "ወነሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስይፎ",
+     "cam": "ስይፎ",
+     "class": "agree"
+    },
+    {
+     "gg": "ወቀተሎ",
+     "cam": "እምውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ቦቱ",
+     "cam": "ገቦሁ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወመተረ",
+     "cam": "ወመተረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ርእስ",
+     "cam": "ርእሶ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ወሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ርእዩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊያን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወድቀ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጽንዓሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ጐዩ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:51 -- David ran, stood over the Philistine, took his sword and slew him and cut off his head; the Philistines saw their champion dead and fled -- GG carries this as GG v18 (with the dittographic ወርጸ ዳዊት head)."
+  },
+  {
+   "v": 52,
+   "gg_tokens": [
+    "ወሰበ",
+    "ርእዶ",
+    "ኢሎፍሊ",
+    "ከመ",
+    "ሞተ",
+    "ጎንያመሙ",
+    "ጎደ",
+    "ሥእ",
+    "ስብእ",
+    "እስራኤል",
+    "ወየዱ",
+    "ወውዑ",
+    "ወደገንዮሙ",
+    "ወውዮሙ",
+    "እስከ",
+    "ጌት",
+    "ወእስከ",
+    "ትለ",
+    "አስቀሎና",
+    "ወውድቁ",
+    "አብንቲሆሙ",
+    "ስኢሎፍሊ",
+    "ውስተ",
+    "ናተ",
+    "ጌት",
+    "ወእስከ",
+    "አናቶጸ",
+    "አስና",
+    "ወእስከ",
+    "አቃሮን",
+    "ወተመየ",
+    "እስራኤል",
+    "እስ",
+    "ዴገንዮሙ",
+    "ኢሎፍሊ",
+    "ወኪዱ",
+    "ተዓይኒሆሙ"
+   ],
+   "cam_tokens": [
+    "ወተንሥኡ",
+    "ሰብእ",
+    "እስራኤል",
+    "ወይሁዳ",
+    "ወየበቡ",
+    "ወደነዎሙ",
+    "ወተለውዎሙ",
+    "ድኃሬሆሙ",
+    "እስከ",
+    "ፍናተ",
+    "ጌት",
+    "ወእስከ",
+    "አንቀጸ",
+    "አቃሮን",
+    "ወወድቀ",
+    "አብድንቲሆሙ",
+    "ለፈልስጥኤማዊያን",
+    "እስከ",
+    "ፍናት"
+   ],
+   "alignment": [
+    {
+     "gg": "ወሰበ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ርእዶ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ከመ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሞተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎንያመሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጎደ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ሥእ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወተንሥኡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስብእ",
+     "cam": "ሰብእ",
+     "class": "agree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "እስራኤል",
+     "class": "agree"
+    },
+    {
+     "gg": "ወየዱ",
+     "cam": "ወይሁዳ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወውዑ",
+     "cam": "ወየበቡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወደገንዮሙ",
+     "cam": "ወደነዎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወውዮሙ",
+     "cam": "ወተለውዎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ድኃሬሆሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስከ",
+     "cam": "እስከ",
+     "class": "agree"
+    },
+    {
+     "gg": "",
+     "cam": "ፍናተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጌት",
+     "cam": "ጌት",
+     "class": "agree"
+    },
+    {
+     "gg": "ወእስከ",
+     "cam": "ወእስከ",
+     "class": "agree"
+    },
+    {
+     "gg": "ትለ",
+     "cam": "አንቀጸ",
+     "class": "disagree"
+    },
+    {
+     "gg": "አስቀሎና",
+     "cam": "አቃሮን",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወውድቁ",
+     "cam": "ወወድቀ",
+     "class": "agree"
+    },
+    {
+     "gg": "አብንቲሆሙ",
+     "cam": "አብድንቲሆሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ስኢሎፍሊ",
+     "cam": "ለፈልስጥኤማዊያን",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ናተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ጌት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእስከ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አናቶጸ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "አስና",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወእስከ",
+     "cam": "እስከ",
+     "class": "agree"
+    },
+    {
+     "gg": "አቃሮን",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወተመየ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስራኤል",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እስ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ዴገንዮሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሊ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወኪዱ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ተዓይኒሆሙ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፍናት",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:52 -- the men of Israel and Judah arose, shouted, pursued the Philistines to Gath and Ekron; the slain fell by the way -- GG carries this as GG v19."
+  },
+  {
+   "v": 53,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ጌት",
+    "ወእስከ",
+    "አንቀጸ",
+    "አቃሮን",
+    "ወተመይጡ",
+    "ስብእ",
+    "እስራኤል",
+    "እለ",
+    "ዴገንዎሙ",
+    "ለፈልስጥኤም",
+    "ወኄዱ",
+    "ተዓይኒሆሙ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ጌት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወእስከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አንቀጸ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አቃሮን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወተመይጡ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እስራኤል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እለ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዴገንዎሙ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለፈልስጥኤም",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወኄዱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተዓይኒሆሙ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:53 -- the children of Israel returned from chasing the Philistines and spoiled their tents -- GG folds this into GG v19 (anchored at CAM 52)."
+  },
+  {
+   "v": 54,
+   "gg_tokens": [
+    "ወነሥአ",
+    "ዳዊት",
+    "ርእሶ",
+    "ስውእቱ",
+    "ኢሎፍሳዊ",
+    "ወወሰዶ",
+    "ውስተ",
+    "እየሩሳሌም",
+    "ወንዋዮስ",
+    "እንበረ",
+    "ውስተ",
+    "ትዕይንት"
+   ],
+   "cam_tokens": [
+    "ወነሥአ",
+    "ዳዊት",
+    "ርእሶ",
+    "ለፈልስጥኤማዊ",
+    "ወመስደ",
+    "ኢየሩሳሌም",
+    "ወንዋይስ",
+    "እንበረ",
+    "ውስተ",
+    "ደብተራሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "ወነሥአ",
+     "cam": "ወነሥአ",
+     "class": "agree"
+    },
+    {
+     "gg": "ዳዊት",
+     "cam": "ዳዊት",
+     "class": "agree"
+    },
+    {
+     "gg": "ርእሶ",
+     "cam": "ርእሶ",
+     "class": "agree"
+    },
+    {
+     "gg": "ስውእቱ",
+     "cam": "ለፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ኢሎፍሳዊ",
+     "cam": "ወመስደ",
+     "class": "disagree"
+    },
+    {
+     "gg": "ወወሰዶ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "እየሩሳሌም",
+     "cam": "ኢየሩሳሌም",
+     "class": "agree"
+    },
+    {
+     "gg": "ወንዋዮስ",
+     "cam": "ወንዋይስ",
+     "class": "agree"
+    },
+    {
+     "gg": "እንበረ",
+     "cam": "እንበረ",
+     "class": "agree"
+    },
+    {
+     "gg": "ውስተ",
+     "cam": "ውስተ",
+     "class": "agree"
+    },
+    {
+     "gg": "ትዕይንት",
+     "cam": "",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ደብተራሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:54 -- David took the head of the Philistine to Jerusalem and put his armour in his tent -- GG carries this as GG v20 (= 1Sa 17:54, GG's last verse)."
+  },
+  {
+   "v": 55,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወሶበ",
+    "ርእዮ",
+    "ሳአል",
+    "ለዳዊት",
+    "እንዘ",
+    "ይወፅእ",
+    "ከመ",
+    "ይትቃጾሎ",
+    "ለኃልያድ",
+    "ፈልስጥኤማዊ",
+    "ይቤሎ",
+    "ለአበኔር",
+    "መልእክ",
+    "ኃይሉ",
+    "ወልደ",
+    "መኑ",
+    "ዝሕፃን",
+    "ወይቤ",
+    "አበኔር",
+    "ሕየወተ",
+    "ነፍስክ",
+    "ኢያእመርኩ",
+    "አንሰ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ርእዮ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እንዘ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይወፅእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይትቃጾሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለኃልያድ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለአበኔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መልእክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኃይሉ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልደ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዝሕፃን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አበኔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሕየወተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ነፍስክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ኢያእመርኩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አንሰ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:55 -- Saul, seeing David go out, said to Abner: whose son is this youth? Abner: as your soul lives I cannot tell -- Abner block; CAM-only plus, GG omits 55-58 (the LXX-short recension)."
+  },
+  {
+   "v": 56,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ንጉሥ",
+    "ተስእል",
+    "ስብእ",
+    "ከመ",
+    "ይንግሩ",
+    "ክ",
+    "ወልደ",
+    "መኑ",
+    "ውእቱ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ንጉሥ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተስእል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ስብእ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ከመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ይንግሩ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ክ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልደ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውእቱ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:56 -- the king: enquire whose son the stripling is -- Abner block; CAM-only plus, absent in GG."
+  },
+  {
+   "v": 57,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወሶበ",
+    "ተመይጠ",
+    "ዳዊት",
+    "እምድኃሬ",
+    "ቀተሎ",
+    "ለፈልስጥኤማዊ",
+    "ወነሥአ",
+    "አበኔር",
+    "ለዳዊት",
+    "ወአብኦ",
+    "ቅድመ",
+    "ሳአል",
+    "ወርእሱ",
+    "ለፈልስጥኤማዊ",
+    "ውስተ",
+    "እዴሁ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወሶበ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ተመይጠ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እምድኃሬ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቀተሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወነሥአ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አበኔር",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወአብኦ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቅድመ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወርእሱ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለፈልስጥኤማዊ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ውስተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እዴሁ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:57 -- when David returned from killing the Philistine, Abner took him before Saul with the head in his hand -- Abner block; CAM-only plus."
+  },
+  {
+   "v": 58,
+   "gg_tokens": [],
+   "cam_tokens": [
+    "ወይቤሎ",
+    "ሳአል",
+    "ለዳዊት",
+    "ወልደ",
+    "መኑ",
+    "አንተ",
+    "ሕፃን",
+    "ወይቤ",
+    "ዳዊት",
+    "ወልደ",
+    "ገብርከ",
+    "እሴይ",
+    "ቤተልሔማዊ"
+   ],
+   "alignment": [
+    {
+     "gg": "",
+     "cam": "ወይቤሎ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሳአል",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ለዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልደ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "መኑ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "አንተ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ሕፃን",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወይቤ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ዳዊት",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ወልደ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ገብርከ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "እሴይ",
+     "class": "disagree"
+    },
+    {
+     "gg": "",
+     "cam": "ቤተልሔማዊ",
+     "class": "disagree"
+    }
+   ],
+   "semantic_pass": true,
+   "semantic_note": "1Sa17:58 -- Saul: whose son are you, young man? David: I am the son of your servant Jesse the Bethlehemite -- Abner block; CAM-only plus; CAM ch.17 ends here, ch.18 (Jonathan's soul knit to David's) follows."
+  }
+ ],
+ "metrics": {
+  "ww_agreement_pct": 9.71,
+  "ww_agreement_basis": "112/1154",
+  "ww_agreement_skeleton_pct": 16.64,
+  "ww_agreement_skeleton_basis": "192/1154",
+  "ww_agreement_bothconfident_pct": 68.97,
+  "ww_agreement_bothconfident_basis": "180/261",
+  "semantic_pass_pct": 100.0,
+  "semantic_pass_basis": "58/58",
+  "uncertainty_pct": 9.62,
+  "uncertainty_basis": "85/884 (base=CAM)",
+  "lacuna_counts": {
+   "gg": 0,
+   "cam": 0,
+   "both": 0
+  },
+  "lacuna_counts_note": "Both evidence files contain 0 ⟦illegible⟧ tokens (GG 0, CAM 0), so there are 0 lacuna-* rows and lacuna_counts is {gg:0,cam:0,both:0}. ALIGNMENT SCHEME: CAM is the verse spine (one contiguous row per CAM verse v=1..58, CAM being the fuller witness and recommended base); GG's 20 verses are mapped onto CAM verses by NARRATIVE CONTENT (never positional v==v) using the 1sa.py skeleton + the David-&-Goliath narrative. EXTENT DIVERGENCE: this is the single most famous LXX-vs-MT recensional split in Samuel -- GG is the SHORT LXX-type form (20 vv, duel core only) and CAM is the LONG/FULL form (58 vv); the Kenyon witness-note at skeleton 1Sa17:12 independently states the best LXX MSS omit exactly 17:12-31,41,50,55-58, matching GG. The ~38 CAM verses with no GG counterpart (David-introduction 12-24, parts of 27/29/31/32/35/39/41/43/46/48/50/53, and the Abner block 55-58) are genuine recensional textual MINUS: every such row is a one-sided {gg:'',cam:<tok>,class:disagree} and IS counted in the aligned denominator. Recensional absence is NOT lacuna -- lacuna is physical illegibility only, of which there is none.",
+  "definitions": {
+   "strict": "exact literal token-string identity / (agree+disagree) aligned pairs",
+   "skeleton": "diacritic/order-folded + near-homograph-folded token equality (class==agree) / (agree+disagree) aligned pairs, full aligned denominator",
+   "both_confident": "skeleton-equal / aligned pairs where neither witness flagged that token uncertain or illegible (gap/insertion cells and lacuna rows also excluded from this denominator)"
+  }
+ }
+}
