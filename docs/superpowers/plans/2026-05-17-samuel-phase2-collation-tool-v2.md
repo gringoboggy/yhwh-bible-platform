@@ -268,6 +268,13 @@ class TestManifest:
 - [ ] **Step 1: Failing test** (append) — includes the R9 apparatus-well-formedness + lacuna-honesty pins (design-spec §7/§8, named in spec-revision R9):
 
 ```python
+def _base_tokens(col, verse):
+    """The base witness's own token list for a collation verse."""
+    return (verse["cam_tokens"]
+            if col["base_witness_recommended"] == "CAM"
+            else verse["gg_tokens"])
+
+
 class TestReconcile:
     def test_diplomatic_parallel_and_R9_honesty_2sa11(self):
         mr = importlib.import_module("scripts.core.manuscript_reconcile")
@@ -281,12 +288,95 @@ class TestReconcile:
         for v in col["verses"]:
             if any(a["class"] != "agree" for a in v["alignment"]):
                 e = [x for x in app if x["v"] == v["v"]]
-                assert e and {"v","base_reading","variants"} <= set(e[0])
-        # R9 lacuna-honesty: a both-illegible span is a marked gap, never
-        # fabricated (design-spec §7).
-        assert all(("⟦illegible⟧" not in " ".join(r["geez"])) or r["gap"]
-                   for r in recon)
+                assert e and {"v", "base_reading", "variants"} <= set(e[0])
+        # R9 lacuna-honesty (design-spec §7) — CORRECT predicate. The pin
+        # forbids FABRICATION and merging the other witness into the
+        # running text; it does NOT forbid the base witness's own honest
+        # in-place ⟦illegible⟧ marking of a physically-lost word in an
+        # otherwise-legible verse (that is honest diplomatic
+        # transcription, gap=False — the crude rev.3 predicate
+        # false-failed on the real damaged base=GG 1sa1 vv.21-28). So:
+        # every reconciled token is ⟦illegible⟧ OR a token the base
+        # witness itself wrote for that verse (no invented word, no
+        # foreign/other-witness word ever in the running text); AND a
+        # whole-verse base lacuna is marked gap=True.
+        ILL = mc.ILLEGIBLE
+        for r, v in zip(recon, col["verses"]):
+            base_set = set(_base_tokens(col, v))
+            assert set(r["geez"]) - {ILL} <= base_set, (
+                v["v"], "fabricated/foreign token in running text")
+            legible = [t for t in _base_tokens(col, v) if t not in ("", ILL)]
+            if not legible:
+                assert r["gap"] is True, (v["v"], "whole-verse lacuna not gap")
 ```
+
+- [ ] **Step 1b: Also append `TestReconcileLacunaHonesty`** — the honesty-critical lacuna/eclectic paths are NOT exercised by 2sa11 (0 lacunae); this committed synthetic-fixture regression class closes that gap BEFORE Task 8/9/Phase-3 feed `reconcile` a real damaged chapter:
+
+```python
+class TestReconcileLacunaHonesty:
+    """Synthetic collations exercising the §7 honesty-critical paths the
+    2sa11-only test cannot reach (2sa11 has 0 lacunae)."""
+
+    def _col(self, base, verses):
+        return {"book": "1sa", "chapter": 1,
+                "base_witness_recommended": base, "base_rationale": "test",
+                "verses": verses, "metrics": {}}
+
+    def test_both_witness_lacuna_marked_gap_never_fabricated(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        ILL = mc.ILLEGIBLE
+        col = self._col("CAM", [{"v": 1,
+            "gg_tokens": [ILL], "cam_tokens": [ILL],
+            "alignment": [{"gg": ILL, "cam": ILL, "class": "lacuna-both"}],
+            "semantic_pass": False, "semantic_note": "both illegible"}])
+        recon, app = mr.reconcile(col)
+        assert recon[0]["gap"] is True
+        assert all(t == ILL or t == "" for t in recon[0]["geez"])  # no invented word
+
+    def test_base_side_lacuna_other_witness_not_merged_into_text(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        ILL = mc.ILLEGIBLE
+        # base=CAM is fully illegible; GG is sound — GG must NOT enter the
+        # running text (D3); it is recorded in the apparatus only.
+        col = self._col("CAM", [{"v": 1,
+            "gg_tokens": ["ንጉሥ", "ዳዊት"], "cam_tokens": [ILL, ILL],
+            "alignment": [{"gg": "ንጉሥ", "cam": ILL, "class": "lacuna-cam"},
+                          {"gg": "ዳዊት", "cam": ILL, "class": "lacuna-cam"}],
+            "semantic_pass": False, "semantic_note": "base illegible"}])
+        recon, app = mr.reconcile(col)
+        assert recon[0]["gap"] is True
+        assert "ንጉሥ" not in recon[0]["geez"] and "ዳዊት" not in recon[0]["geez"]
+        e = [x for x in app if x["v"] == 1]
+        assert e, "base-side lacuna must be recorded in apparatus"
+
+    def test_gg_base_uses_gg_text_cam_is_variant(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        col = self._col("GG", [{"v": 1,
+            "gg_tokens": ["ቃለ", "እግዚአብሔር"], "cam_tokens": ["ነገረ", "እግዚአብሔር"],
+            "alignment": [{"gg": "ቃለ", "cam": "ነገረ", "class": "disagree"},
+                          {"gg": "እግዚአብሔር", "cam": "እግዚአብሔር", "class": "agree"}],
+            "semantic_pass": True, "semantic_note": "ok"}])
+        recon, app = mr.reconcile(col)
+        assert recon[0]["geez"] == ["ቃለ", "እግዚአብሔር"]  # GG base verbatim
+        assert recon[0]["gap"] is False
+        e = [x for x in app if x["v"] == 1][0]
+        assert any(var["witness"] == "CAM" and "ነገረ" in var["reading"]
+                   for var in e["variants"])
+
+    def test_disagree_base_stands_recorded_in_apparatus(self):
+        mr = importlib.import_module("scripts.core.manuscript_reconcile")
+        col = self._col("CAM", [{"v": 1,
+            "gg_tokens": ["ደቂቅ"], "cam_tokens": ["ውሉድ"],
+            "alignment": [{"gg": "ደቂቅ", "cam": "ውሉድ", "class": "disagree"}],
+            "semantic_pass": True, "semantic_note": "ok"}])
+        recon, app = mr.reconcile(col)
+        assert recon[0]["geez"] == ["ውሉድ"] and recon[0]["gap"] is False
+        e = [x for x in app if x["v"] == 1][0]
+        assert e["resolution"] == "base"
+        assert any(var["witness"] == "GG" and "ደቂቅ" in var["reading"]
+                   for var in e["variants"])
+```
+(The implementer may adapt the synthetic `alignment`/token shapes minimally if `reconcile`'s real contract needs it — but the four honesty invariants asserted here are fixed: both-witness-lacuna→gap+no-fabrication; base-side-lacuna→other-witness-NOT-in-running-text+apparatus-recorded; GG-base→GG-verbatim+CAM-variant; disagree→base-stands+recorded. These must pass against the AS-SHIPPED `reconcile` with NO change to `manuscript_reconcile.py` — the implementation was already verified honest on these paths; this only adds the committed regression pin. If a fixture needs the engine changed to pass, that is a real bug → report it.)
 
 - [ ] **Step 2: Run, verify fail.**
 - [ ] **Step 3: Implement** `reconcile(collation) -> (reconciled_verses, apparatus)`: reconciled = base-witness running text per spine verse (D3); base scribal slip/lacuna + other witness sound → disciplined eclectic fallback **recorded** in the apparatus (`resolution`,`reason`,`from_witness`); both-witness lacuna → a `gap:true` verse, **never fabricated** (design-spec §7); apparatus entry per verse with a recorded disagreement/lacuna = `{v, base_reading, variants:[{witness,reading}], lacunae, resolution, reason}`. `dump_apparatus(book, app)` writes `content/apparatus/<book>.json` (directory established by `content/apparatus/.gitkeep`; written for real by Phase-3).

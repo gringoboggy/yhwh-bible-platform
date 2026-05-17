@@ -68,6 +68,41 @@ implementer to apply corrected R6 + ruff-format the test file + Steps
 6-8 (expect 18 green), then Tasks 6→9 each with spec+code-quality
 review, then final review + finishing-a-development-branch.
 
+**PROGRESS (rev.4, 2026-05-17 — Phase-2 actively executing, user
+"continue").** Tasks **1-6 DONE & two-stage-reviewed + committed**
+(T5 `317e58a` R1-R9 contract, honest `_pick_base` CAM 4/4, R8 pure
+helper; T6 `7a0b6de`+`5efb030` folio manifest + `_PENDING_DEFAULT`
+shape-fix). **Task 7** (Unit D reconcile, `9d7151f`): implementation
+spec-review-verified **HONEST & correct** (8 synthetic probes + real
+damaged base=GG `1sa1_collation.json`: zero fabricated/foreign tokens,
+other witness never merged into the D3 running text, gap-definition
+`_base_has_no_legible_reading` vindicated, `dump_apparatus` atomic +
+uncalled). Review caught a **THIRD controller-introduced TEST defect**
+(not impl): the rev.3 `test_R9` lacuna-honesty predicate
+(`"⟦illegible⟧" not in " ".join(geez)` or `gap`) conflates the base
+witness's OWN honest in-place `⟦illegible⟧` (a physically-lost word in
+an otherwise-legible verse, correctly `gap:false`) with fabrication —
+controller-independently-verified to false-fail on real 1sa1 vv.21-28
+(8 water-stain verses; fabricated/foreign tokens = 0). Recurring root
+pattern: rev.1 base-pick fudge → rev.3 R6 hand==engine over-assert →
+rev.4 R9 honest-marker-as-violation; all three are the controller
+crudely conflating honest-but-imperfect reality with a violation, each
+caught by the honest review loop working as designed. **rev.4 fix (no
+`manuscript_reconcile.py` code change — impl already honest):** the v2
+plan Task-7 `test_R9` predicate is corrected to the precise §7
+invariant (every reconciled token ∈ the base witness's own verse
+tokens ∪ {`⟦illegible⟧`}; whole-verse base lacuna ⟹ `gap:true`; the
+base's in-place illegible markers are honest, not a violation) AND a
+committed `TestReconcileLacunaHonesty` synthetic-fixture class is added
+(both-witness-lacuna / base-side-lacuna-no-merge / GG-base-variant /
+disagree-base-stands) — closing the honesty-critical lacuna/eclectic
+coverage gap (2sa11 has 0 lacunae so it never exercised them). spec-
+revision → rev.4; SESSION_STATE → rev.4. NEXT: re-dispatch the Task-7
+implementer to apply the corrected `test_R9` + append
+`TestReconcileLacunaHonesty` (NO engine change) → full suite green →
+lightweight re-review → Tasks 8, 9 each two-stage-reviewed → final
+whole-impl review → `superpowers:finishing-a-development-branch`.
+
 **NEXT (durable pointer — do NOT auto-execute; the user PAUSED):**
 1. User reviews `docs/superpowers/specs/2026-05-17-samuel-phase2-
    collation-spec-revision.md` + `docs/superpowers/plans/2026-05-17-

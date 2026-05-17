@@ -70,7 +70,28 @@
 > correct (R1-R5,R7,R8 green; honest `_pick_base` CAM 4/4 with literal
 > code; R8 pure helper; lint `11·0·0`; goldens untouched) — being
 > finished now (apply corrected R6 → ruff-format test → 18 green →
-> commit). Net: Tasks 1-4 = DONE
+> commit). **STATUS NOW (rev.4):** Tasks **1-6 DONE & two-stage-
+> reviewed** (T5 R1-R9 contract incl. honest `_pick_base` CAM 4/4; T6
+> folio manifest, `_PENDING_DEFAULT` shape-fixed). **Task 7 (Unit D
+> reconcile) impl shipped & spec-review-verified HONEST** (8 synthetic
+> probes + real damaged base=GG 1sa1: zero fabricated/foreign tokens,
+> other witness never merged into running text, D3 honored, atomic
+> `dump_apparatus` uncalled) — but the review caught a **THIRD
+> controller-introduced test defect**: rev.3 `test_R9` lacuna-honesty
+> predicate conflated the base's OWN honest in-place `⟦illegible⟧`
+> (physically-lost word in an otherwise-legible verse, `gap:false`) with
+> fabrication → controller-verified false-fail on real 1sa1 vv.21-28
+> (fabricated=0). Same recurring root as the rev.1 base-pick fudge +
+> rev.3 R6 (controller crudely conflating honest-but-imperfect reality
+> with a violation; each caught by the honest review process). **rev.4
+> fix:** R9 predicate corrected to the precise §7 invariant (token ∈
+> base-witness-own ∪ {⟦illegible⟧}; whole-verse base lacuna ⟹
+> `gap:true`; in-place illegible is honest) + a committed
+> `TestReconcileLacunaHonesty` synthetic class closes the
+> lacuna/eclectic coverage gap (2sa11 has 0 lacunae); NO
+> `manuscript_reconcile.py` code change. Finishing Task 7 (apply
+> corrected test + synthetic class → re-verify → re-review) then Tasks
+> 8-9. Net: Tasks 1-4 = DONE
 > (shipped engine sound); Task 5 REDEFINED to the **R1-R9** reproducible
 > contract (NOT hand `alignment[]` reproduction); Tasks 6-9
 > carried/clarified. **The 2026-05-17 GO is UNAFFECTED** — diplomatic-parallel

@@ -1,6 +1,29 @@
 # Samuel Phase-2 collation tool — SPEC REVISION (Task-5 premise correction)
 
-**Date:** 2026-05-17 (rev. 3 — R6 engine-side correction)
+**Date:** 2026-05-17 (rev. 4 — R9 lacuna-honesty predicate correction)
+
+**Rev. 4 (2026-05-17):** Task-7 (Unit D reconcile) spec-review independently
+exercised the honesty-critical lacuna paths (8 synthetic probes + the real
+damaged base=GG `1sa1_collation.json`) and found the **implementation
+honest and correct** (zero fabricated/foreign tokens; other witness never
+merged into the running text; D3 honored) BUT a **third controller-
+introduced test defect**: the rev.3 `test_R9 lacuna-honesty` predicate
+(`"⟦illegible⟧" not in " ".join(geez)` or `gap`) conflates the base
+witness's *own honest in-place ⟦illegible⟧ marking of a physically-lost
+word in an otherwise-legible verse* with fabrication — controller-verified
+to false-fail on real `1sa1` vv.21-28 (8 water-stain verses; fabricated
+tokens = 0). Same recurring root pattern as the rev.1 base-pick fudge and
+the rev.3 R6 over-assertion (the controller crudely conflating
+honest-but-imperfect reality with a violation), again caught by the honest
+review process. **Rev. 4 fix:** R9's lacuna-honesty pin is corrected to the
+precise §7 invariant (below) — *forbid fabricated/foreign words and
+other-witness-merge into the running text; require whole-verse base
+lacunae be `gap:true`; the base's own in-place `⟦illegible⟧` markers are
+honest, NOT a violation* — and a committed `TestReconcileLacunaHonesty`
+synthetic-fixture class is added (the honesty-critical lacuna/eclectic
+paths had NO committed regression pin since 2sa11 has 0 lacunae). No
+`manuscript_reconcile.py` code change (the implementation was already
+verified honest); spec + v2-plan test corrected; coverage gap closed.
 
 **Rev. 3 (2026-05-17):** during Task-5 execution the implementer hit an
 honest BLOCKED — `test_R6` (controller-written in rev.2) asserted the
@@ -169,8 +192,16 @@ the hand counts.* Made testable as R1-R7 (+ R8 honesty + R9 retained pins):
   reconciled-module renumber shape (Phase-3 / Task 9 ship-gate scope —
   pinned there, named here so they are not lost); **apparatus
   well-formedness** (every verse with a recorded disagreement/lacuna has a
-  structured apparatus entry — Task 7); the **lacuna-honesty pin** (no
-  fabricated text where both witnesses fail — Task 7, spec §7);
+  structured apparatus entry — Task 7); the **lacuna-honesty pin** (Task
+  7, spec §7) — its CORRECT predicate (rev. 4): every reconciled token is
+  `⟦illegible⟧` OR a token the **base witness itself wrote** for that
+  verse (NO invented/fabricated word, and the other witness is NEVER
+  merged into the running text — D3), AND a whole-verse base lacuna is
+  marked `gap:true`. The base witness's own honest in-place `⟦illegible⟧`
+  marking of a physically-lost word in an otherwise-legible verse is
+  honest diplomatic transcription (`gap:false`) and is NOT a violation
+  (the crude rev.3 predicate wrongly flagged it; corrected + a committed
+  `TestReconcileLacunaHonesty` synthetic-fixture regression class added);
   `_meta`/`_source` ingest-record + back-link pins and
   `lint_rules.py 11·0·0` + `ruff format` clean (Task 9 ship gate). R9 makes
   explicit that R1-R8 narrowing the *calibration* contract does NOT relax
