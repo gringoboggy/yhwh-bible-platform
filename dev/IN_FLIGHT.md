@@ -1,8 +1,8 @@
 # In-flight work — current task tracker
 
-<!-- TRACKER-STATE: idle -->
+<!-- TRACKER-STATE: active -->
 
-## Current task — NONE (PAUSED by user). τ.6.x.4.b Phase-2: Tasks 1-4 engine SHIPPED; v1 Task-5 oracle proven impossible (controller-verified); user chose "pause & revise spec"; spec-revision + v2 plan WRITTEN; awaiting user review then resume.
+## Current task — τ.6.x.4.b Phase-2 RESUMED (user "I am satisfied, continue", rev.2 approved). v2 Task 5 executing: impl COMPLETE & correct except a controller-introduced rev.2 test_R6 over-assertion (caught by implementer's honest BLOCKED) → corrected to engine-side R6 in rev.3 → finishing Steps 6-8, then Tasks 6-9.
 
 **TRACKER IDLE — Phase-2 deliberate pause (this turn's unit of work is
 complete + committed; next action is a USER REVIEW, then a fresh
@@ -47,6 +47,26 @@ REDEFINED to the **R1-R9** reproducible contract (NOT hand
 `alignment[]` reproduction). The 2026-05-17 GO (diplomatic-parallel,
 base=CAM) is UNAFFECTED; the 4 calibration files remain immutable
 human reference; no scripture fabricated; no data/golden edits.
+
+**RESUMED 2026-05-17 (user: "I am satisfied, continue").** Executing
+v2 plan from Task 5 via `superpowers:subagent-driven-development`
+(continuous through Task 9, two-stage review per task). **rev.3:** the
+opus Task-5 implementer completed Steps 1-5 correctly (docstring
+factual; v1 `TestRegressionOracle` deleted; honest `_pick_base`
+literal, hand-traced **CAM 4/4**; pure no-I/O `engine_vs_hand_report`;
+R1-R5,R7,R8 GREEN; lint `11·0·0`; goldens untouched) but hit an
+honest **BLOCKED** on R6: rev.2 `test_R6` (controller-written)
+asserted the immutable `1sa3` hand golden's `definitions`==engine
+`DEFINITIONS`; that golden's `skeleton` carries a chapter-specific
+philological annotation (1sa1/1sa17/2sa11 match). SECOND
+controller-introduced human-ref==engine over-assertion (same class as
+the rev.1 base-pick fudge), independently verified by the controller,
+contradicts the revision's own R8. **rev.3 fix:** R6 → engine-side
+only in spec §3.2 + v2-plan `test_R6` (hand goldens may differ per
+R8); no code/data/golden change. NEXT: re-dispatch the same Task-5
+implementer to apply corrected R6 + ruff-format the test file + Steps
+6-8 (expect 18 green), then Tasks 6→9 each with spec+code-quality
+review, then final review + finishing-a-development-branch.
 
 **NEXT (durable pointer — do NOT auto-execute; the user PAUSED):**
 1. User reviews `docs/superpowers/specs/2026-05-17-samuel-phase2-

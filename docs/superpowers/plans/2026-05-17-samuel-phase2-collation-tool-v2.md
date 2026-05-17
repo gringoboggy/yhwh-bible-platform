@@ -107,10 +107,15 @@ class TestCalibrationInvariants:
             assert "GO" in got["base_rationale"], f"{ref} rationale must cite GO"
 
     def test_R6_definitions_byte_stable(self):
+        # ENGINE-SIDE ONLY (spec-revision §3.2 R6 / R8): the engine emits
+        # ONE byte-stable definitions set every chapter. The immutable hand
+        # goldens MAY carry chapter-specific philological annotations the
+        # generic engine constant does not (1sa3's golden skeleton does) —
+        # that is the R8 "hand reference intentionally differs" thesis, so
+        # the goldens are deliberately NOT asserted == DEFINITIONS here.
         for ref, suf, ch, book in self.CASES:
-            _, _, golden, got = self._run(ref, suf, ch, book)
+            _, _, _golden, got = self._run(ref, suf, ch, book)
             assert got["metrics"]["definitions"] == mc.DEFINITIONS, ref
-            assert golden["metrics"]["definitions"] == mc.DEFINITIONS, ref
 
     def test_R7_failure_modes_structural(self):
         for ref, suf, ch, book in self.CASES:

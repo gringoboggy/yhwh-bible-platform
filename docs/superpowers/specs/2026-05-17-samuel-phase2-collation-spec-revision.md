@@ -1,6 +1,18 @@
 # Samuel Phase-2 collation tool — SPEC REVISION (Task-5 premise correction)
 
-**Date:** 2026-05-17 (rev. 2 — after adversarial review)
+**Date:** 2026-05-17 (rev. 3 — R6 engine-side correction)
+
+**Rev. 3 (2026-05-17):** during Task-5 execution the implementer hit an
+honest BLOCKED — `test_R6` (controller-written in rev.2) asserted the
+*immutable hand golden's* `definitions == DEFINITIONS`, which fails for
+`1sa3` (its golden `skeleton` carries a chapter-specific philological
+annotation; the other 3 match). This was the **same class of defect as
+the rev.1 base-pick fudge** — the controller again over-asserting the
+human reference == the engine, contradicting this revision's own R8
+thesis. Caught because the implementer refused to tune/edit-goldens and
+reported BLOCKED. **Fix (rev. 3):** R6 is corrected to **engine-side
+only** (below); the hand goldens may legitimately differ per R8. No
+code/data/golden change; spec + plan test corrected.
 **Status:** REVISION — supersedes the Phase-2 *plan's* Task-5 contract; amends
 `docs/superpowers/specs/2026-05-16-samuel-kings-dual-manuscript-collation-design.md`
 §5 (unit 3 contract clarification), §8 (success-criteria clarification — the
@@ -119,8 +131,20 @@ the hand counts.* Made testable as R1-R7 (+ R8 honesty + R9 retained pins):
   `⟦illegible⟧` bijection exactly: GG 16/1/0/0, CAM 0/0/0/0; `lacuna-*`
   excluded from agreement denominators. *(Engine passes 4/4.)*
 - **R5 — Base = CAM (4/4) under the honest rule (§3.3).**
-- **R6 — One byte-stable `definitions` set.** `metrics.definitions ==
-  manuscript_collation.DEFINITIONS` on all four.
+- **R6 — One byte-stable `definitions` set (ENGINE-side).** The
+  *engine's* output `metrics.definitions == manuscript_collation.
+  DEFINITIONS` on all four chapters (the engine emits the single folding
+  contract identically every chapter). The **immutable hand goldens MAY
+  carry chapter-specific philological annotations** the generic engine
+  constant does not — `1sa3_collation.json`'s golden `skeleton`
+  definition is annotated with that recension's documented ስ↔ለ
+  s/l-swap + ሾሉ/ኵሉ fold tolerance; `1sa1`/`1sa17`/`2sa11` match — and
+  are therefore **NOT** asserted equal to `DEFINITIONS` (asserting the
+  human reference == the engine constant would contradict R8's "the
+  hand reference intentionally differs from the engine's own
+  measurement" thesis; this was a rev.2 plan-test over-assertion,
+  controller-introduced, caught by the Task-5 implementer's honest
+  BLOCKED, corrected in rev.3).
 - **R7 — The five failure modes handled structurally** (calibration §4):
   spine == canonical KJV enumeration, never positional `v==v`; the `1sa17`
   GG-short vs CAM-long recensional minus is classed `disagree` and counted

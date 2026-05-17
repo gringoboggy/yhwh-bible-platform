@@ -55,7 +55,22 @@
 > R9** (not dropped — Task 7/9; floor+reconciled-shape deferred to
 > Phase-3 in writing); R8 **demoted** from a committed markdown +
 > separate meta-tool script to a pure no-I/O `engine_vs_hand_report()`
-> helper + a Task-8 QA line (no ceremony). Net: Tasks 1-4 = DONE
+> helper + a Task-8 QA line (no ceremony). **rev.3 (2026-05-17):**
+> resumed Task-5 execution surfaced a SECOND controller-introduced
+> over-assertion — rev.2 `test_R6` asserted the IMMUTABLE `1sa3` hand
+> golden's `definitions`==engine `DEFINITIONS`, but that golden's
+> `skeleton` carries a chapter-specific philological annotation
+> (1sa1/1sa17/2sa11 match) — same class as the rev.1 base-pick fudge
+> (controller over-asserting human-reference==engine, contradicting the
+> revision's own R8 thesis). Caught by the Task-5 implementer's honest
+> BLOCKED (refused to tune / edit goldens / commit). **rev.3 fix:** R6
+> corrected to ENGINE-side only (the engine emits one byte-stable
+> definitions set; hand goldens MAY differ per R8) in spec + v2-plan
+> test; no code/data/golden change. Task-5 impl otherwise COMPLETE &
+> correct (R1-R5,R7,R8 green; honest `_pick_base` CAM 4/4 with literal
+> code; R8 pure helper; lint `11·0·0`; goldens untouched) — being
+> finished now (apply corrected R6 → ruff-format test → 18 green →
+> commit). Net: Tasks 1-4 = DONE
 > (shipped engine sound); Task 5 REDEFINED to the **R1-R9** reproducible
 > contract (NOT hand `alignment[]` reproduction); Tasks 6-9
 > carried/clarified. **The 2026-05-17 GO is UNAFFECTED** — diplomatic-parallel
