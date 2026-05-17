@@ -230,10 +230,16 @@ class TestManifest:
         mm = importlib.import_module("scripts.core.manuscript_manifest")
         mm.load_manifest.cache_clear()
         man = mm.load_manifest()
-        for book, ch in [("1sa", 1), ("1sa", 3), ("1sa", 17), ("2sa", 11)]:
+        for book, ch, gg_sig in [
+            ("1sa", 1, "f003r"),
+            ("1sa", 3, "f004r"),
+            ("1sa", 17, "f010v"),
+            ("2sa", 11, "f021v"),
+        ]:
             e = mm.chapter_entry(man, book, ch)
             assert e["GG"]["folios"] and e["CAM"]["folios"]
             assert e["status"] == "calibrated"
+            assert gg_sig in e["GG"]["folios"]
 
     def test_uncovered_chapters_marked_pending(self):
         mm = importlib.import_module("scripts.core.manuscript_manifest")

@@ -36,7 +36,11 @@ import yaml
 REPO = Path(__file__).resolve().parent.parent.parent
 MANIFEST_PATH = REPO / "content" / "manuscript" / "samuel" / "manifest.yaml"
 
-_PENDING_DEFAULT: dict = {"status": "pending", "GG": {"folios": []}, "CAM": {"folios": []}}
+_PENDING_DEFAULT: dict = {
+    "status": "pending",
+    "GG": {"folios": [], "source_images": []},
+    "CAM": {"folios": [], "views": []},
+}
 
 
 @functools.lru_cache(maxsize=1)
