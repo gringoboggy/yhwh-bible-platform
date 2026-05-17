@@ -5,6 +5,28 @@ Generalizes the proven Phase-1 calibration logic (the dropped
 _build_*_collation.py builders) into a reusable pure function. No I/O.
 Schema + definitions are the FIXED contract from
 content/manuscript/samuel/calibration/2sa11_collation.json.
+
+REGRESSION-ORACLE STATUS (Task 5 — τ.6.x.4.b): BLOCKED. This engine is a
+correct, general, token-conserving collator (one algorithm, no per-chapter
+hard-coding), but it does NOT reproduce the 4 Phase-1 golden collations'
+agreement bases, and the plan-mandated empirical base-pick disagrees with the
+golden base for 1sa17 & 2sa11. Investigation (recorded in the Task-5 escalation
+report) proved this is non-algorithmic: (1) on the goldens' OWN exact alignment
+rows, NO deterministic string classifier — strict fold-equality, any
+fold-edit-distance threshold, any ratio threshold — reproduces even one
+chapter's agree/disagree split, and the four chapters demand contradictory
+thresholds; (2) 1sa1 demotes fold-IDENTICAL pairs (ማህፀና/ማሕፀና, v5/v6) to
+'disagree' while promoting fold-DIFFERENT pairs (ጸ/ፀ, e.g. ወዓጸው/ወዓፀወ) to
+'agree' — mutually impossible for any pure fold function; (3) the golden base
+choice follows narrative completeness / token-continuity philological judgment
+(1sa17 CAM=58v long-form chosen over the cleaner-by-metrics GG=20v short form),
+not the illegible/flag-ratio rule. The golden agree/disagree class is an
+irreducible per-occurrence human reading, not a function of (gg, cam). The
+classifier contract is also locked by TestFoldAndClassify (Tasks 1-3) to
+fold-equality, which structurally forbids the golden's fold-equal demotions.
+TestRegressionOracle is intentionally RED pending controller/user escalation;
+the engine, conservation gate, both-confident flag seam and TestCollate are
+all GREEN and correct.
 """
 
 from __future__ import annotations
