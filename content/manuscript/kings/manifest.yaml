@@ -1,0 +1,429 @@
+# content/manuscript/kings/manifest.yaml
+# Kings dual-manuscript folio manifest - tau.6.x.4.c.
+# Structure mirrors samuel/manifest.yaml: book -> chapter(int) -> {GG,CAM,status}.
+# All 47 chapters pending until each is blind-transcribed + collated under the marathon.
+1ki:
+  1:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  2:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  3:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  4:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  5:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  6:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  7:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  8:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  9:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  10:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  11:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  12:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  13:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  14:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  15:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  16:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  17:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  18:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  19:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  20:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  21:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  22:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+2ki:
+  1:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  2:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  3:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  4:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  5:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  6:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  7:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  8:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  9:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  10:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  11:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  12:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  13:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  14:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  15:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  16:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  17:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  18:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  19:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  20:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  21:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  22:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  23:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  24:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
+  25:
+    GG:
+      folios: []
+      source_images: []
+    CAM:
+      folios: []
+      views: []
+    status: pending
+
