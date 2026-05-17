@@ -1,5 +1,8 @@
 # tests/test_manuscript_collation.py
 import importlib
+import json
+import glob
+import os
 
 mc = importlib.import_module("scripts.core.manuscript_collation")
 
@@ -61,7 +64,7 @@ class TestMetrics:
         gg = {
             "verses": [
                 {
-                    "tokens": ["ዳዊት", "ሳሙኤל", "ደቂቅ", "EXTRA"],
+                    "tokens": ["ዳዊት", "ሳሙኤል", "ደቂቅ", "EXTRA"],
                     "uncertain": [],
                 }
             ]
@@ -71,3 +74,40 @@ class TestMetrics:
 
         with pytest.raises(AssertionError, match="token-conservation"):
             mc.assert_token_conservation(verses, gg, cam)
+
+
+CAL = "content/manuscript/samuel/calibration"
+
+
+class TestWitnessRecords:
+    def test_all_calibration_witnesses_valid(self):
+        rec = importlib.import_module("scripts.core.manuscript_records")
+        files = [f for f in glob.glob(os.path.join(CAL, "*_witness*.json"))]
+        assert len(files) >= 9
+        for f in files:
+            d = json.load(open(f, encoding="utf-8"))
+            ok, errs = rec.validate_witness(d)
+            assert ok, f"{os.path.basename(f)}: {errs}"
+
+    def test_bijection_violation_detected(self):
+        rec = importlib.import_module("scripts.core.manuscript_records")
+        bad = {
+            "witness": "GG",
+            "book": "1sa",
+            "chapter": 1,
+            "source_images": ["x"],
+            "folio_sigla": ["f"],
+            "transcription_notes": "n",
+            "verses": [
+                {
+                    "v": 1,
+                    "column": 1,
+                    "line_start": 1,
+                    "geez": "⟦illegible⟧",
+                    "tokens": ["⟦illegible⟧"],
+                    "uncertain": [],
+                }
+            ],
+        }  # token w/o marker
+        ok, errs = rec.validate_witness(bad)
+        assert not ok and any("bijection" in e for e in errs)
