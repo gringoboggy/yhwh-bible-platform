@@ -124,13 +124,15 @@ def compute_metrics(verses, gg_rec, cam_rec, base):
     den = len(agree) + len(dis)
     strict_n = sum(1 for a in agree if is_strict(a["gg"], a["cam"]))
     # both-confident: both cells non-empty, neither flagged by its witness
-    # NOTE — Task-4 seam: until Task-4's collate() attaches per-row gg_flag/cam_flag,
-    # a.get(...) returns None (falsy), so every non-empty non-lacuna row counts as
-    # confident and interim bc_rows == den.  This is INTENTIONAL.  The Task-5
-    # regression oracle is the correctness anchor: it passes because collate() (Task 4)
-    # attaches the real flags BEFORE calling compute_metrics.  Do NOT add
-    # flag-derivation logic here to match any interim numbers — doing so would break
-    # the Task-5 oracle.
+    # NOTE — collate() seam: compute_metrics is pure over the rows it is
+    # given. collate() attaches the real per-row gg_flag/cam_flag (from each
+    # witness's uncertain[] map) BEFORE calling this; if a caller passes rows
+    # without those flags, a.get(...) is None (falsy) so every non-empty
+    # non-lacuna row counts as confident (interim bc_rows == den). That is
+    # INTENTIONAL. The correctness anchor is the R1-R9 calibration-invariant
+    # contract (TestCalibrationInvariants), which exercises the real flags via
+    # collate(). Do NOT add flag-derivation logic here to match any interim
+    # numbers — flagging is collate()'s responsibility, not compute_metrics'.
     base_rec = cam_rec if base == "CAM" else gg_rec
     bc_rows = 0
     bc_agree = 0
