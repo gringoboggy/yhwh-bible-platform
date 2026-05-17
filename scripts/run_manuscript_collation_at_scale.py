@@ -62,6 +62,7 @@ from scripts.core import manuscript_manifest as mm  # noqa: E402
 from scripts.core import manuscript_collation as mc  # noqa: E402
 from scripts.core import manuscript_reconcile as mr  # noqa: E402
 from scripts.core.manuscript_records import validate_witness  # noqa: E402
+from scripts.core.notes_io import atomic_write  # noqa: E402
 
 CALIBRATION_DIR = REPO_ROOT / "content" / "manuscript" / "samuel" / "calibration"
 # The NEW per-chapter collation output dir — distinct from (and never
@@ -95,6 +96,7 @@ PENDING_PROCEDURE = (
 )
 
 GREEN = "\033[92m"
+RED = "\033[91m"
 DIM = "\033[2m"
 RESET = "\033[0m"
 
@@ -163,8 +165,6 @@ def _write_collation(ref: str, collation: dict) -> Path:
     NEVER writes to the immutable ``calibration/`` dir. Goes through
     the project's atomic-write convention (rules §7.1) so a crash
     mid-write cannot leave a half-written collation."""
-    from scripts.core.notes_io import atomic_write
-
     path = COLLATION_DIR / f"{ref}_collation.json"
     text = json.dumps(collation, ensure_ascii=False, indent=2)
     return Path(atomic_write(str(path), text))
@@ -187,6 +187,19 @@ def run(dry: bool = True) -> dict:
     ``content/apparatus/<book>.json`` (the NEW collation dir + the
     apparatus dir — NEVER the immutable ``calibration/`` dir).
 
+    **Fail-soft (the 50+-chapter unattended marathon contract):** the
+    per-chapter collatable body (validate → collate → reconcile →
+    write) is isolated in ``try/except``. A single corrupt / missing /
+    schema-invalid witness records ``{book, chapter, ref, error}`` into
+    the ``failed`` report list and the driver **continues** to the next
+    chapter — it never aborts the batch and never loses the apparatus
+    already accumulated for chapters that DID succeed (the per-book
+    apparatus flush still happens for those). ``failed`` is ALWAYS
+    present in the report (an empty list in ``dry=True`` and whenever
+    nothing failed); ``main()`` prints it prominently when non-empty
+    and still exits 0 (failures are loud in the report, per the
+    sibling at-scale convention — not signalled via exit code).
+
     Returns a stats dict::
 
         {
@@ -204,6 +217,9 @@ def run(dry: bool = True) -> dict:
             {"book","chapter","needs": <PENDING_PROCEDURE>}, ...],
           "written": [<path>, ...],          # [] when dry
           "apparatus_written": [<path>, ...],  # [] when dry
+          "failed": [                          # ALWAYS present; [] when
+            {"book","chapter","ref","error"},  # dry or nothing failed
+            ...],
           "pending_procedure": <PENDING_PROCEDURE>,
         }
     """
@@ -218,6 +234,11 @@ def run(dry: bool = True) -> dict:
     apparatus_by_book: dict[str, list] = {}
     written: list[str] = []
     apparatus_written: list[str] = []
+    # Fail-soft: a chapter whose collate/write raised (corrupt /
+    # missing / schema-invalid witness). Recorded here and SKIPPED —
+    # the marathon batch is never aborted (rules §9 unattended-run
+    # contract). ALWAYS in the report (empty in dry / when clean).
+    failed: list[dict] = []
 
     for book, n_chapters in BOOK_CHAPTERS.items():
         book_stats = {
@@ -235,9 +256,29 @@ def run(dry: bool = True) -> dict:
                 book_stats["collated_refs"].append(ref)
                 collated.append({"book": book, "chapter": ch, "ref": ref})
                 if not dry:
-                    collation, apparatus = _collate_chapter(book, ch, ref)
-                    written.append(str(_write_collation(ref, collation)))
-                    apparatus_by_book.setdefault(book, []).extend(apparatus)
+                    # Fail-soft per-chapter isolation (rules §9
+                    # unattended-marathon contract): validate /
+                    # json.loads / collate / reconcile / write may any
+                    # raise on a corrupt / missing / schema-invalid
+                    # witness. Isolate so one bad chapter is RECORDED
+                    # and SKIPPED — the 50+-chapter batch is never
+                    # aborted and the apparatus already accumulated for
+                    # the chapters that DID succeed is preserved (the
+                    # per-book flush below still runs for them).
+                    try:
+                        collation, apparatus = _collate_chapter(book, ch, ref)
+                        written.append(str(_write_collation(ref, collation)))
+                        apparatus_by_book.setdefault(book, []).extend(apparatus)
+                    except Exception as e:
+                        failed.append(
+                            {
+                                "book": book,
+                                "chapter": ch,
+                                "ref": ref,
+                                "error": repr(e),
+                            }
+                        )
+                        continue
             else:
                 book_stats["pending"] += 1
                 book_stats["pending_chapters"].append(ch)
@@ -261,6 +302,7 @@ def run(dry: bool = True) -> dict:
         "pending_needs_transcription": pending_needs,
         "written": written,
         "apparatus_written": apparatus_written,
+        "failed": failed,
         "pending_procedure": PENDING_PROCEDURE,
     }
 
@@ -318,6 +360,20 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {GREEN}✓{RESET} {w}")
         for a in rep["apparatus_written"]:
             print(f"  {GREEN}✓{RESET} apparatus → {a}")
+
+    # Fail-soft surfacing: a non-empty ``failed`` list is printed
+    # PROMINENTLY (the marathon ran unattended — a skipped chapter
+    # must not be silent) but the process still exits 0 per the
+    # sibling at-scale convention; failures are loud in the report,
+    # not signalled via exit code.
+    if rep["failed"]:
+        print()
+        print(
+            f"{RED}⚠ {len(rep['failed'])} chapter(s) FAILED and were skipped "
+            f"(batch NOT aborted; succeeded chapters' apparatus preserved):{RESET}"
+        )
+        for f in rep["failed"]:
+            print(f"  {RED}✗{RESET} {f['book']} {f['chapter']} ({f['ref']}): {f['error']}")
     return 0
 
 

@@ -421,3 +421,80 @@ class TestScaleDriver:
         assert rep["chapters_collated"] >= 4
         assert rep["chapters_pending"] >= 1
         assert "1sa" in rep["by_book"] and "2sa" in rep["by_book"]
+
+    def test_dry_run_always_has_empty_failed_list(self):
+        # `failed` is ALWAYS in the report; empty on a dry run (nothing
+        # is collated, so nothing can fail).
+        d = importlib.import_module("scripts.run_manuscript_collation_at_scale")
+        rep = d.run(dry=True)
+        assert rep["failed"] == []
+
+    def test_one_bad_chapter_is_isolated_and_batch_continues(self, monkeypatch):
+        """Fix-1 fail-soft regression (rules §9 unattended-marathon).
+
+        One calibrated chapter's collate raises; the driver must NOT
+        propagate, must record it in ``report["failed"]`` with
+        ``book/chapter/ref/error``, must still process the other (good)
+        calibrated chapters, and must write NOTHING real — neither the
+        immutable ``content/manuscript/samuel/calibration/`` dir nor any
+        actual ``content/`` artifact (``_collate_chapter`` /
+        ``_write_collation`` / ``dump_apparatus`` are monkeypatched to
+        in-memory stand-ins; no filesystem touch, nothing left behind).
+        """
+        import pathlib
+
+        d = importlib.import_module("scripts.run_manuscript_collation_at_scale")
+
+        BAD = ("1sa", 17)  # one of the four real calibration chapters
+        calls = {"collate": [], "write": [], "apparatus": []}
+
+        def fake_collate_chapter(book, ch, ref):
+            calls["collate"].append((book, ch, ref))
+            if (book, ch) == BAD:
+                raise ValueError(f"synthetic corrupt witness for {ref}")
+            # Trivial in-memory stand-ins (no real engine / no real
+            # data) — the apparatus is a tiny marker list per ref.
+            return ({"book": book, "chapter": ch, "ref": ref}, [{"ref": ref}])
+
+        def fake_write_collation(ref, collation):
+            calls["write"].append(ref)
+            return f"<memory>/{ref}_collation.json"  # never hits disk
+
+        def fake_dump_apparatus(book, app):
+            calls["apparatus"].append((book, len(app)))
+            return f"<memory>/{book}.json"  # never hits disk
+
+        monkeypatch.setattr(d, "_collate_chapter", fake_collate_chapter)
+        monkeypatch.setattr(d, "_write_collation", fake_write_collation)
+        monkeypatch.setattr(d.mr, "dump_apparatus", fake_dump_apparatus)
+
+        # Guard: the immutable calibration dir must be untouched. Snapshot
+        # its file list before and after; assert byte-for-byte identical.
+        cal_dir = pathlib.Path(CAL)
+        before = sorted(p.name for p in cal_dir.iterdir())
+
+        rep = d.run(dry=False)  # must NOT raise
+
+        # The bad chapter is isolated into report["failed"] with the
+        # required keys; the exception did not propagate.
+        assert len(rep["failed"]) == 1
+        bad = rep["failed"][0]
+        assert (bad["book"], bad["chapter"], bad["ref"]) == ("1sa", 17, "1sa17")
+        assert set(bad) == {"book", "chapter", "ref", "error"}
+        assert "synthetic corrupt witness" in bad["error"]
+
+        # The other three good calibration chapters were still
+        # collated + written (the batch continued past the failure).
+        good_refs = {"1sa1", "1sa3", "2sa11"}
+        assert set(calls["write"]) == good_refs
+        assert "1sa17" not in calls["write"]  # never written (it failed)
+        # Per-book apparatus flush still happened for the chapters that
+        # DID succeed (succeeded apparatus is preserved, not lost).
+        flushed_books = {b for b, _ in calls["apparatus"]}
+        assert flushed_books == {"1sa", "2sa"}
+        assert rep["apparatus_written"]  # non-empty: flush ran
+
+        # Nothing real was written; the immutable calibration dir is
+        # byte-identical (nothing created, nothing left behind).
+        after = sorted(p.name for p in cal_dir.iterdir())
+        assert after == before

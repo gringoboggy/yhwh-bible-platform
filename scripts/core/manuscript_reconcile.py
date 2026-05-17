@@ -43,8 +43,18 @@ not by 2sa11 — see the module-level note + the Task-7 reviewer concern).
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 from scripts.core.manuscript_records import ILLEGIBLE
+
+# Repo-anchored output root — same primitive every sibling
+# ``scripts/core/*`` uses (e.g. ``manuscript_manifest.REPO``):
+# ``Path(__file__).resolve().parent.parent.parent`` (this file lives
+# in ``scripts/core/``). ``dump_apparatus`` MUST anchor here, not on a
+# CWD-relative path, so the book-wide driver (its first real caller,
+# τ.6.x.4.b) writes the apparatus to the correct place regardless of
+# the process CWD.
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 __all__ = ["reconcile", "dump_apparatus"]
 
@@ -271,12 +281,15 @@ def dump_apparatus(book: str, app: list) -> str:
     NOT called by :func:`reconcile` and NOT called during Task 7 — this
     only defines the directory/schema/atomicity contract. Phase-3's
     book-wide driver invokes it when it actually persists the apparatus
-    (one ``<book>.json`` per book). Returns the written path as a str.
+    (one ``<book>.json`` per book). The output path is anchored on the
+    repo root (``_REPO_ROOT`` — the same ``Path(__file__).resolve()``
+    primitive every sibling ``scripts/core/*`` uses), NOT a CWD-relative
+    path, so the book-wide driver (the first real caller) writes to the
+    correct ``content/apparatus/<book>.json`` regardless of process CWD.
+    Returns the written path as a str.
     """
-    import os
-
     from scripts.core.notes_io import atomic_write
 
-    path = os.path.join("content", "apparatus", f"{book}.json")
+    path = _REPO_ROOT / "content" / "apparatus" / f"{book}.json"
     text = json.dumps(app, ensure_ascii=False, indent=2)
     return str(atomic_write(path, text))
