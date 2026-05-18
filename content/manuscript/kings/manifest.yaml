@@ -5,12 +5,20 @@
 1ki:
   1:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f028v
+        - f029r
+      source_images:
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f028v.jpg
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f029r.jpg
     CAM:
-      folios: []
-      views: []
-    status: pending
+      folios:
+        - f126r
+        - f126v
+      views:
+        - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f126r_1ki1_hires.jpg
+        - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f126v_1ki1_hires.jpg
+    status: calibrated
 
   2:
     GG:
