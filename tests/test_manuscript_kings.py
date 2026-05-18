@@ -8,32 +8,67 @@ def test_samuel_default_back_compat():
     assert man["1sa"][1]["status"] == "calibrated"
 
 
-def test_kings_track_loads_47_pending():
+def test_kings_track_loads_47_chapters():
     mm.load_manifest.cache_clear()
     man = mm.load_manifest(track="kings")
+    # Durable structural contract (track parameterization, book set, chapter counts).
     assert set(man) == {"1ki", "2ki"}
     assert len(man["1ki"]) == 22 and len(man["2ki"]) == 25
-    assert all(man["1ki"][c]["status"] == "pending" for c in range(1, 23))
-    assert all(man["2ki"][c]["status"] == "pending" for c in range(1, 26))
+    # State-aware: every chapter is in a valid state; pending+calibrated == 47 total
+    # (no chapter stuck in a bad state), regardless of marathon progress.
+    statuses = [man["1ki"][c]["status"] for c in range(1, 23)] + [man["2ki"][c]["status"] for c in range(1, 26)]
+    assert all(s in {"pending", "calibrated"} for s in statuses)
+    assert statuses.count("pending") + statuses.count("calibrated") == 47
+    # Positive regression pin: the marathon's first calibrated chapter.
+    assert man["1ki"][1]["status"] == "calibrated"
+    # Not-everything-flipped sanity pin.
+    assert man["2ki"][25]["status"] == "pending"
 
 
 def test_chapter_entry_track_aware():
     mm.load_manifest.cache_clear()
     man = mm.load_manifest(track="kings")
     e = mm.chapter_entry(man, "1ki", 1)
-    assert e["status"] == "pending"
-    assert e["GG"] == {"folios": [], "source_images": []}
-    assert e["CAM"] == {"folios": [], "views": []}
+    # chapter_entry contract: exactly these keys, status is a valid state.
+    assert set(e) == {"GG", "CAM", "status"}
+    assert e["status"] in {"pending", "calibrated"}
+    # Generic per-status invariant across the whole 47-chapter marathon
+    # (§8: branch on the marker, assert the contract for each branch).
+    for book, n in (("1ki", 22), ("2ki", 25)):
+        for c in range(1, n + 1):
+            ce = mm.chapter_entry(man, book, c)
+            assert set(ce) == {"GG", "CAM", "status"}
+            if ce["status"] == "pending":
+                assert ce["GG"] == {"folios": [], "source_images": []}
+                assert ce["CAM"] == {"folios": [], "views": []}
+            else:
+                assert ce["status"] == "calibrated"
+                assert ce["GG"]["folios"] and ce["GG"]["source_images"]
+                assert ce["CAM"]["folios"] and ce["CAM"]["views"]
+    # Positive pin: 1ki:1 calibrated with populated folios.
+    pin = mm.chapter_entry(man, "1ki", 1)
+    assert pin["status"] == "calibrated"
+    assert pin["GG"]["folios"] and pin["CAM"]["folios"]
+    # Guaranteed-still-pending chapter is pending + empty.
+    tail = mm.chapter_entry(man, "2ki", 25)
+    assert tail["status"] == "pending"
+    assert tail["GG"] == {"folios": [], "source_images": []}
+    assert tail["CAM"] == {"folios": [], "views": []}
 
 
-def test_driver_kings_track_reports_47_pending():
+def test_driver_kings_track_accounting():
     import scripts.run_manuscript_collation_at_scale as drv
 
     rep = drv.run(dry=True, track="kings")
+    # Durable: track param honored -> 47 Kings chapters total.
     assert rep["chapters_total"] == 47
-    assert rep["chapters_pending"] == 47
-    assert rep["chapters_collated"] == 0
-    assert {x["book"] for x in rep["pending_needs_transcription"]} == {"1ki", "2ki"}
+    # Accounting invariants that hold throughout the marathon.
+    assert rep["chapters_pending"] + rep["chapters_collated"] == 47
+    assert rep["chapters_collated"] >= 0
+    # Positive pin: 1ki:1 is calibrated+collatable now, so at least one collated.
+    assert rep["chapters_collated"] >= 1
+    # Subset, not equality: a book drops out once all its chapters finish.
+    assert {x["book"] for x in rep["pending_needs_transcription"]} <= {"1ki", "2ki"}
 
 
 def test_driver_samuel_default_unchanged():
