@@ -56,14 +56,33 @@
 > ratified Samuel-1 on CLEANER folios = *stronger* confirmation of the
 > same ratified distinct-recension model, not a new contradiction
 > (`feedback_reverify_conservative_nogo` re-check survived). Verdict
-> logic + evidence: `dev/CALIBRATION_2026-05-17-kings-1ki1.md`. **NEXT =
-> Task #14 (validator-hardening): fold the corrected non-Ethiopic
-> contamination screen (whitelists the sanctioned `⟦illegible⟧`) into
-> `manuscript_records.validate_witness` — TDD; MUST keep the 4 immutable
-> Samuel goldens + 71-test manuscript regression byte-identical/green.
-> #14 BLOCKS Task #6 (the 1ki2-22 → 2ki1-25 bulk).** After #14: run the
-> bulk continuously, one chapter at a time (C-1…C-9; NO C-10 — 1ki1
-> only), manifest-tracked. **Cross-session ledger (read IN_FLIGHT for
+> logic + evidence: `dev/CALIBRATION_2026-05-17-kings-1ki1.md`.
+> **Task #14 (validator-hardening) ✅ SHIPPED + 2-stage reviewed**
+> (`f25fc98`+`79ba184`): corrected non-Ethiopic contamination screen
+> folded into `manuscript_records.validate_witness` (`_screen_non_
+> ethiopic`; ALLOWED = Ethiopic U+1200–137F + space + rubric-cross `✣`
+> U+2723 + whole `⟦illegible⟧` sentinel; catches Latin/mojibake). Key
+> finding: `✣` occurs **94×** in the immutable Samuel goldens' geez —
+> the METHOD-NOTE U+1200–137F-only set was provably too strict; ALLOWED
+> includes `✣` so all 9 Samuel goldens + both 1ki1 witnesses still
+> validate `ok=True` (independently verified). 10 TDD tests
+> (`TestValidatorNonEthiopicScreen`, incl. 94-cross non-vacuity guard);
+> pure additions (7 existing checks byte-identical). Spec **COMPLIANT** +
+> quality **APPROVED**. **Gate cleared → the bulk (plan Task #6) is
+> UNBLOCKED.** **3 Stage-0 tests C-9 broke (all-pending default-assumed)
+> FIXED state-aware per rules §8 + 2-stage reviewed** (`ca82fd0`+
+> `1d2c517`; the ψ.3-precedent anti-pattern): per-status-branch +
+> accounting invariants, non-vacuous, Samuel pins byte-unchanged.
+> **Manuscript regression now 81 passed / 0 failed** (was 78/3); lint
+> 0-fail; ruff clean. **NEXT = plan Task #6 — the BULK: `1ki` ch 2→22
+> then `2ki` ch 1→25 (46 ch), one chapter at a time, the full C-1…C-9
+> per-chapter procedure VERBATIM (NO C-10 — 1ki1 only); both witnesses
+> isolated-opus blind-transcribed + ~3-round adversarially converged
+> (the TWO METHOD NOTES — anti-harmonization + column/folio-boundary
+> make-or-break — apply every C-2/3/5/6), CAM hi-res via CUDL-IIIF, Phase-
+> 2 collate, manifest `{ref}`→calibrated + commit per chapter. START at
+> `1ki` ch 2 (`ref=1ki2`).** This is the explicitly **multi-session**
+> marathon body; resume the queue from the first `pending` chapter. **Cross-session ledger (read IN_FLIGHT for
 > the precise live resume point):** `content/manuscript/kings/
 > manifest.yaml` (now: total 47 / **collated 1** / pending 46; 1ki:1
 > `calibrated`) + `run_manuscript_collation_at_scale.py --track kings`
