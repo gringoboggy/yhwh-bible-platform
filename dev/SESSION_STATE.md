@@ -22,16 +22,37 @@
 > 0.4 SKELETON-GATE **PASS** (engine has Kings anchors: 1ki1=53 / 2ki1=18
 > / 1ki22=53 / 2ki25=30) + lint **11·0·0** + manuscript regression **71
 > passed/0 fail** (Samuel byte-identical — additive, samuel=default).
-> **NEXT = Stage 1, task #5 = 1 Kings 1** (the 47-chapter blind
-> dual-witness transcription marathon; per-chapter: isolated GG
-> vision-transcribe → adversarial review → CUDL-IIIF CAM hi-res via
-> `cudl-iiif-access` → isolated CAM transcribe → adversarial review →
-> collate via the shipped Phase-2 tool → adversarial collation review →
-> manifest flip; GG src `GAPS/2_Kings/GG-00106/{1,2}-Kings/`, CAM-hires
-> pulled per-chapter). **Cross-session ledger:**
-> `content/manuscript/kings/manifest.yaml` (pending→calibrated as each
-> ships) + `run_manuscript_collation_at_scale.py --track kings` dry
-> report + the 12-task list + `dev/IN_FLIGHT.md` resume pointer. Then
+> **STAGE 1 / task #5 = 1 Kings 1 (the safety-stop) — BOTH WITNESSES
+> ✅ DONE & committed (2026-05-18):** GG **53 v** (`eaf2063`) + CAM
+> **52 v** (`75ba7b2`), each independently blind-transcribed (isolated
+> opus) and adversarially converged over **3 fix-rounds**. The
+> safety-stop did its job — it caught & codified into the plan's
+> per-chapter METHOD NOTE **3 systemic failure classes** before the
+> bulk: (1) harmonization-to-printed-text (CARDINAL RULE + termination
+> bar); (2) **column/folio-boundary dropped-scripture mis-labelled a
+> "recensional minus"** — the worst class; caught on CAM, restored from
+> the parchment, 50→52 v (boundary-continuity make-or-break check now
+> mandatory); (3) the contamination-screen bug (false-flagged the
+> mandated `⟦illegible⟧`) + the `save.cmd` `git add -A` scratch footgun
+> (`580d7fe` hygiene: removed 43 stray crops, `.gitignore` backstop,
+> OS-temp-scratch mandate). **NEXT = C-7 (controller) collate** the two
+> approved witnesses via the shipped Phase-2 tool (`mc.load_kjv_
+> skeleton('1ki',1)` → `mc.collate(gg,cam,kjv,book='1ki',chapter=1)` →
+> `mr.reconcile` → `content/manuscript/kings/collation/1ki1_collation.
+> json`) → **C-8** adversarial collation review → **C-9** flip manifest
+> `1ki:1→calibrated` + final commit (witnesses+collation+manifest) →
+> **C-10 the bi-directional safety-stop VERDICT** (semantic ≥95% +
+> base=CAM + distinct-recension/both-confident materially <90% + no
+> contradiction → MATCHES → run the queue 1ki2-22 [Task #14
+> validator-hardening gates it] then 2ki1-25; ≈unity OR base flips to
+> GG OR semantic<95% → STOP & surface to user). The GG-53/CAM-52
+> divergence + CAM's genuine recensional distinctives *look* consistent
+> with the ratified pattern, but the verdict is **C-10's, not
+> pre-judged**. **Cross-session ledger (read IN_FLIGHT for the precise
+> live resume point):** `content/manuscript/kings/manifest.yaml`
+> (pending→calibrated as each chapter ships; 1ki:1 still `pending` —
+> flips at C-9) + `run_manuscript_collation_at_scale.py --track kings`
+> dry report + the 12-task list + `dev/IN_FLIGHT.md` (authoritative). Then
 > Stage 2 = Phase-3 render `geez-tewahedo/1ki.py`+`2ki.py` + apparatus
 > + `manuscript-collation-tier2`. Local commit only (remote deleted —
 > no push; "continue"/"push" ≠ save — no zip). The Geʽez catchup loop
