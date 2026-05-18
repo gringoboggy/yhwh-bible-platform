@@ -81,34 +81,51 @@
 > NOTES — anti-harmonization CARDINAL RULE + column/folio-boundary
 > make-or-break — apply every C-2/3/5/6; CAM hi-res via CUDL-IIIF; Phase-2
 > collate; manifest `{ref}`→calibrated + commit per chapter).
-> **▶ IN PROGRESS `1ki` ch 2 (`ref=1ki2`):** C-1 locate ✓ (1Ki2 = f029r-
-> mid after the 1Ki1 tail → f029v → f030r-L; folios clean; GG src
-> f029r/f029v/f030r). C-2 blind GG transcribe ✓ (`1ki2_witnessGG.json`,
-> **46 v**, validator `OK`; 1Ki1 tail + 1Ki3 + the red `እትርጓቚ` gloss-
-> layer correctly excluded). C-3 adversarial GG review **ROUNDS 1 & 2
-> done + fixed (still NOT approved):** boundaries + the genuine-red-
-> gloss-exclusion CONFIRMED; round-1 caught+fixed a **CRITICAL v28
-> dropped-black-scripture** (METHOD NOTE 2 class); round-2 independently
-> **re-verified v28 faithful/complete** (worst class CLOSED) + confirmed
-> v5 `እሜሳዶ`=parchment `እ` (CARDINAL RULE upheld), but caught a
-> **PARALLEL v8 red-gloss leak** (same class, reverse) + bounded glyph
-> defects; fix-round-2 removed the v8 leak, ran a final all-46 `ለ`/`ስ`
-> sweep (only 2 more: v34,v4), corrected 10 v (3,4,7,8,15,34,35,44,45,
-> 46), fixed flag pointers, made disciplined verified NON-changes,
-> validator `OK`, v28 byte-identical. **WIP checkpoint-committed
-> `e24f2c9` — NOT approved/immutable; manifest `1ki:2` still `pending`;
-> witness MUTABLE until C-3 approves.** Convergence strong (r1 1crit+
-> systematic → r2 1crit+bounded → only 2 extra in full sweep; 1 honest
-> sub-glyph residual flagged v35 `ሣራዊት` `ዊ`/`ዌ`).
-> **NEXT = `1ki2` C-3 ROUND 3** (fresh adversarial reviewer of current
-> GG JSON HEAD `e24f2c9` — re-verify the v8 gloss-leak removal + v28
-> still faithful + the 10 round-2 fixes on the parchment + the v35
-> residual; spot-check unchanged verses; if clean → APPROVE → commit GG
-> witness **immutable** → C-4 CAM hi-res (CUDL-IIIF) → C-5 blind CAM →
-> C-6 review → C-7 collate → C-8 review → C-9 manifest `1ki:2`→
-> calibrated + commit → next chapter `1ki3`; else ≤1–2 more fix/review
-> rounds).** This is the explicitly **multi-session**
-> marathon body; resume the queue from the first `pending` chapter. **Cross-session ledger (read IN_FLIGHT for
+> **✅ `1ki` ch 2 (`ref=1ki2`) GG witness — C-2+C-3 DONE; CONVERGED &
+> APPROVED at C-3 Round 4; GG witness IMMUTABLE (content final
+> `c3db778`); ▶ now at C-4.** C-1 locate ✓ (1Ki2 = f029r-mid after the
+> 1Ki1 tail → f029v → f030r-L; folios clean; GG src f029r/f029v/f030r).
+> C-2 blind GG transcribe ✓ (`1ki2_witnessGG.json`, **46 v**; 1Ki1 tail
+> + 1Ki3 + the red `እትርጓቚ` gloss-layer correctly excluded). C-3
+> adversarial GG review converged over **4 rounds**: R1 caught+fixed a
+> CRITICAL v28 dropped-black-scripture (METHOD NOTE 2 class); R2
+> re-verified v28 faithful + caught+fixed a parallel v8 red-gloss leak
+> + bounded glyph defects; **R3 caught 9 (2 CRITICAL — v14 dropped word
+> `ገጸሙ`, v42 fabricated clause — + 7 MAJOR exposing a `ሳዕስ`→`ሳዕለ`
+> harmonization the R2 `ለ`/`ስ` sweep had introduced/left in
+> v27/v32/v33/v37/v44 + `ለ`→`ስ` misreads v34/v39)**; fix-round-3
+> applied 8 exactly + adjudicated v33 final word = parchment `ለዓዓም`
+> (REFUTED the reviewer's tentative `ሳዓዓም` — CARDINAL RULE), tokens
+> recomputed, scope = the 9 flagged verses only; **R4 (fresh
+> independent reviewer) = ✅ APPROVED** — both CRITICALs faithful by
+> glyph-by-glyph boundary trace, the 7 `ስ`/`ለ` fixes correctly
+> directioned with NO over-correction (v5/v23 still genuine `ሳዕለ`),
+> v33 = `ለዓዓም`, scope integrity + boundaries + red-gloss-exclusion
+> intact, validator `OK`, screen `CLEAN` (the `✣` U+2723 bare-allowlist
+> flag is the known non-defect artifact, whitelisted by the shipped
+> validator), 46 contiguous verses, bijection intact; one honest
+> TERMINATION-BAR-accepted note (v35 line-final "upon" fidel
+> resolution-limited on an unchanged verse, not normalized). GG witness
+> content final `c3db778`; **GG witness APPROVED & IMMUTABLE**.
+> Convergence: R1 (1 crit + systematic) → R2 (1 crit + bounded) → R3
+> (9, exposing an R2 over-correction) → **R4 clean**.
+> **NEXT = `1ki2` C-4 (controller, acquire CAM hi-res):** locate the
+> CAM Add.1570 1Ki2 folio(s) **by VISION** from the approved GG
+> narrative + the low-res band `GAPS/2_Kings/Cambridge-Add-1570/
+> Kings_f126r…f146v.jpg` (IIIF ToC mislabels Reigns — never trust the
+> label; 1ki1 CAM was the f126 band so 1ki2 follows — confirm by
+> vision); CUDL-IIIF region-tile the ~80 MP master, stitch with
+> Pillow, QC, save `GAPS/2_Kings/Cambridge-Add-1570-hires/
+> MS-ADD-01570_f{NNN}_1ki2_hires.jpg` (CC BY-NC; scratch → OS temp
+> OUTSIDE the repo; `git status` gate before any checkpoint) → **C-5**
+> isolated-opus blind CAM transcribe (CAM hi-res ONLY; both METHOD
+> NOTES) → **C-6** adversarial CAM review + fix-loop → CAM immutable →
+> **C-7** collate (shipped Phase-2 tool) → **C-8** collation review →
+> **C-9** manifest `1ki:2`→calibrated + commit. **NO C-10** (1ki1-only
+> safety-stop; model ratified — marathon continues continuously, no
+> user check-in). Then next chapter `1ki3`, … This is the explicitly
+> **multi-session** marathon body; resume the queue from the first
+> `pending` chapter. **Cross-session ledger (read IN_FLIGHT for
 > the precise live resume point):** `content/manuscript/kings/
 > manifest.yaml` (now: total 47 / **collated 1** / pending 46; 1ki:1
 > `calibrated`) + `run_manuscript_collation_at_scale.py --track kings`
