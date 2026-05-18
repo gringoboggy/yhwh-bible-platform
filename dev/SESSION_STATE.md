@@ -74,14 +74,35 @@
 > `1d2c517`; the ψ.3-precedent anti-pattern): per-status-branch +
 > accounting invariants, non-vacuous, Samuel pins byte-unchanged.
 > **Manuscript regression now 81 passed / 0 failed** (was 78/3); lint
-> 0-fail; ruff clean. **NEXT = plan Task #6 — the BULK: `1ki` ch 2→22
-> then `2ki` ch 1→25 (46 ch), one chapter at a time, the full C-1…C-9
-> per-chapter procedure VERBATIM (NO C-10 — 1ki1 only); both witnesses
-> isolated-opus blind-transcribed + ~3-round adversarially converged
-> (the TWO METHOD NOTES — anti-harmonization + column/folio-boundary
-> make-or-break — apply every C-2/3/5/6), CAM hi-res via CUDL-IIIF, Phase-
-> 2 collate, manifest `{ref}`→calibrated + commit per chapter. START at
-> `1ki` ch 2 (`ref=1ki2`).** This is the explicitly **multi-session**
+> 0-fail; ruff clean. **plan Task #6 — the BULK — is STARTED** (`1ki`
+> ch 2→22 then `2ki` ch 1→25 = 46 ch, one at a time, full C-1…C-9
+> VERBATIM, NO C-10 — 1ki1 only; both witnesses isolated-opus blind-
+> transcribed + ~2–3-round adversarially converged; the TWO METHOD
+> NOTES — anti-harmonization CARDINAL RULE + column/folio-boundary
+> make-or-break — apply every C-2/3/5/6; CAM hi-res via CUDL-IIIF; Phase-2
+> collate; manifest `{ref}`→calibrated + commit per chapter).
+> **▶ IN PROGRESS `1ki` ch 2 (`ref=1ki2`):** C-1 locate ✓ (1Ki2 = f029r-
+> mid after the 1Ki1 tail → f029v → f030r-L; folios clean; GG src
+> f029r/f029v/f030r). C-2 blind GG transcribe ✓ (`1ki2_witnessGG.json`,
+> **46 v**, validator `OK`; 1Ki1 tail + 1Ki3 + the red `እትርጓቚ` gloss-
+> layer correctly excluded). C-3 adversarial GG review **ROUND-1 done +
+> fixed (NOT yet approved):** reviewer CONFIRMED both boundaries + that
+> the gloss-exclusion is a *genuine* separate red editorial register,
+> but caught a **CRITICAL v28 dropped-black-scripture-at-the-gloss-
+> boundary** (METHOD NOTE 2 class) + systematic `ለ`/`ስ`-class misreads;
+> fix-round-1 RESTORED v28, ran the systematic pass, corrected 13 v
+> (2,4,5,6,8,23,27,28,32,33,35,44,46), validator `OK`, upheld the
+> CARDINAL RULE (parchment `እሜሳዶ` kept over expected, honest-flagged).
+> **WIP checkpoint-committed `d4a5368` — NOT approved/immutable;
+> manifest `1ki:2` still `pending`; witness MUTABLE until C-3 approves.**
+> **NEXT = `1ki2` C-3 ROUND 2** (fresh adversarial reviewer of the
+> current GG JSON — re-verify the v28 restoration, adjudicate the
+> honest-flagged still-uncertain calls strictly on the parchment [v5
+> `እሜሳዶ` አ/እ, v4 `ፍኖትየ`, v8 `ኤጣዕዱ`, v28 `ሄብ`/`የዓናት`, v45], converge
+> ~1–2 more rounds → on APPROVE commit GG witness immutable → C-4 CAM
+> hi-res (CUDL-IIIF) → C-5 blind CAM → C-6 review → C-7 collate → C-8
+> review → C-9 manifest `1ki:2`→calibrated + commit → next chapter
+> `1ki3`).** This is the explicitly **multi-session**
 > marathon body; resume the queue from the first `pending` chapter. **Cross-session ledger (read IN_FLIGHT for
 > the precise live resume point):** `content/manuscript/kings/
 > manifest.yaml` (now: total 47 / **collated 1** / pending 46; 1ki:1
