@@ -26,6 +26,49 @@ _VK = {"v", "column", "line_start", "geez", "tokens", "uncertain"}
 # both witnesses.
 _NUMERAL_RE = re.compile(r"([፩-፼])")
 
+# ── non-Ethiopic contamination screen (tau.6.x.4.c Task#14) ──────────────────
+# A literal Latin 'f' (U+0066) once slipped into a transcription; this screen
+# is the corrected adversarial check folded inline (formerly run by hand each
+# chapter) so it is enforced for every witness.
+#
+# ALLOWED in a geez field = Ethiopic block U+1200–U+137F ('ሀ'..'፿') ∪ ASCII
+# space U+0020 ∪ the sanctioned rubric-cross ✣ U+2723. ✣ is a LEGITIMATE
+# inline section divider that _geez_to_tokens already strips; it occurs 94×
+# in the immutable Samuel calibration goldens' geez, so it MUST be whitelisted
+# here or the screen would wrongly reject the ground-truth evidence.
+#
+# The ⟦illegible⟧ honesty sentinel is required by the bijection check, so the
+# whole substring is removed from geez before the per-char test, and a token
+# equal to the whole sentinel is exempt from the per-char token test.
+_GEEZ_EXTRA_ALLOWED = {" ", "✣"}  # U+0020, U+2723
+
+
+def _is_ethiopic(c: str) -> bool:
+    """True iff c is in the Ethiopic block U+1200–U+137F."""
+    return "ሀ" <= c <= "፿"
+
+
+def _screen_non_ethiopic(v: dict) -> list[str]:
+    """Flag Latin-letter / mojibake contamination in one verse.
+
+    geez:  with every whole ⟦illegible⟧ sentinel removed, every remaining
+           character must be Ethiopic, ASCII space, or rubric-cross ✣.
+    tokens: every token that is not exactly the ⟦illegible⟧ sentinel must
+           consist entirely of Ethiopic-block characters (tokens never
+           legitimately carry space or ✣ — _geez_to_tokens strips them).
+    """
+    out: list[str] = []
+    vid = v.get("v")
+    for c in v.get("geez", "").replace(ILLEGIBLE, ""):
+        if not (_is_ethiopic(c) or c in _GEEZ_EXTRA_ALLOWED):
+            out.append(f"v{vid}: non-Ethiopic char {hex(ord(c))} {c!r} in geez")
+    for t in v.get("tokens", []):
+        if t == ILLEGIBLE:
+            continue
+        if not all(_is_ethiopic(c) for c in t):
+            out.append(f"v{vid}: non-Ethiopic token {t!r}")
+    return out
+
 
 def _geez_to_tokens(geez: str) -> list[str]:
     """Normalise a geez string to a token list matching the tokens field.
@@ -89,6 +132,10 @@ def validate_witness(d: dict) -> tuple[bool, list[str]]:
                 e.append(f"v{v['v']}: token_index OOB ({ti})")
             if u.get("marker") not in ("uncertain", "damaged", "illegible"):
                 e.append(f"v{v['v']}: bad marker {u.get('marker')!r}")
+
+        # non-Ethiopic contamination screen (Latin letters / mojibake);
+        # ✣ U+2723 and the ⟦illegible⟧ sentinel are sanctioned exceptions
+        e.extend(_screen_non_ethiopic(v))
 
     # ── verse contiguity 1..N ─────────────────────────────────────────────────
     vs = [v["v"] for v in d.get("verses", []) if isinstance(v, dict) and "v" in v]

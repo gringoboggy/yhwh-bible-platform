@@ -114,6 +114,150 @@ class TestWitnessRecords:
         assert not ok and any("bijection" in e for e in errs)
 
 
+class TestValidatorNonEthiopicScreen:
+    """tau.6.x.4.c Task#14 — the corrected non-Ethiopic contamination screen
+    is folded into validate_witness so every chapter's adversarial review is
+    enforced, not run inline by hand. A literal Latin ``f`` (U+0066) once
+    slipped into a transcription; ALLOWED = Ethiopic block U+1200–U+137F ∪
+    ASCII space ∪ rubric-cross ✣ U+2723, with the whole ⟦illegible⟧ sentinel
+    whitelisted. CRITICAL: ✣ is a SANCTIONED divider _geez_to_tokens already
+    legitimizes and appears 94× in the immutable Samuel goldens' geez — it
+    MUST NOT be flagged."""
+
+    REC = importlib.import_module("scripts.core.manuscript_records")
+
+    def _verse(self, geez, *, v=1):
+        # tokens computed via the REAL _geez_to_tokens so the existing
+        # geez<->tokens invariant is satisfied — the point is the new
+        # screen, not the pre-existing invariant.
+        return {
+            "v": v,
+            "column": 1,
+            "line_start": 1,
+            "geez": geez,
+            "tokens": self.REC._geez_to_tokens(geez),
+            "uncertain": [],
+        }
+
+    def _wit(self, verses):
+        return {
+            "witness": "GG",
+            "book": "1sa",
+            "chapter": 1,
+            "source_images": ["x"],
+            "folio_sigla": ["f003r"],
+            "transcription_notes": "n",
+            "verses": verses,
+        }
+
+    def test_latin_f_in_geez_is_flagged(self):
+        # Latin 'f' U+0066 injected; tokens recomputed so geez<->tokens holds.
+        w = self._wit([self._verse("ወሀሎ ብእሲf ዘእምነ")])
+        ok, errs = self.REC.validate_witness(w)
+        assert not ok
+        assert any("non-Ethiopic" in e and ("0x66" in e or "0X66" in e) for e in errs), errs
+
+    def test_mojibake_char_in_geez_is_flagged(self):
+        # A classic UTF-8/cp1252 mojibake byte (Â U+00C2) must be caught.
+        w = self._wit([self._verse("ወሀሎ Â ብእሲ")])
+        ok, errs = self.REC.validate_witness(w)
+        assert not ok
+        assert any("non-Ethiopic" in e and hex(0xC2) in e for e in errs), errs
+
+    def test_replacement_char_in_geez_is_flagged(self):
+        w = self._wit([self._verse("ወሀሎ � ብእሲ")])
+        ok, errs = self.REC.validate_witness(w)
+        assert not ok
+        assert any("non-Ethiopic" in e and hex(0xFFFD) in e for e in errs), errs
+
+    def test_latin_letter_inside_token_is_flagged(self):
+        # Latin 's' U+0073 fused into a word (no separator) so _geez_to_tokens
+        # carries it INTO a token verbatim — geez<->tokens invariant stays
+        # satisfied and the per-token screen must independently flag it.
+        w = self._wit([self._verse("ወሀሎ ብእsሲ ዘእምነ")])
+        # fixture guard: the contaminated token really did survive tokenising
+        assert "ብእsሲ" in w["verses"][0]["tokens"]
+        ok, errs = self.REC.validate_witness(w)
+        assert not ok
+        assert any("non-Ethiopic token" in e and "ብእsሲ" in e for e in errs), errs
+
+    def test_clean_ethiopic_witness_passes(self):
+        w = self._wit([self._verse("ወሀሎ ብእሲ ዘእምነ አርማቴም")])
+        ok, errs = self.REC.validate_witness(w)
+        assert ok, errs
+
+    def test_rubric_cross_U2723_not_flagged(self):
+        # ✣ U+2723 is a SANCTIONED inline section divider — _geez_to_tokens
+        # strips it (so it is NOT a token) but it stays in geez and MUST be
+        # in ALLOWED. This pins the whole correctness point of the task.
+        w = self._wit([self._verse("ወሀሎ ብእሲ ዘእምነ ✣")])
+        ok, errs = self.REC.validate_witness(w)
+        assert ok, errs
+        # And the divider is genuinely present in geez (guard the fixture).
+        assert "✣" in w["verses"][0]["geez"]
+        assert "✣" not in w["verses"][0]["tokens"]
+
+    def test_illegible_sentinel_whitelisted_geez_and_token(self):
+        # A legit ⟦illegible⟧ token+geez with the matching uncertain
+        # marker:"illegible" → still ok (sentinel whitelisted in BOTH the
+        # geez screen and the token screen; bijection satisfied).
+        ILL = self.REC.ILLEGIBLE
+        w = self._wit(
+            [
+                {
+                    "v": 1,
+                    "column": 1,
+                    "line_start": 1,
+                    "geez": f"ወሀሎ {ILL} ብእሲ",
+                    "tokens": ["ወሀሎ", ILL, "ብእሲ"],
+                    "uncertain": [{"token_index": 1, "marker": "illegible"}],
+                }
+            ]
+        )
+        ok, errs = self.REC.validate_witness(w)
+        assert ok, errs
+
+    # ── immutable-golden regression pins ──────────────────────────────────
+    SAMUEL_GOLDENS = [
+        "1sa1_witnessGG",
+        "1sa1_witnessCAM",
+        "1sa1_witnessCAM_hires",
+        "1sa3_witnessGG",
+        "1sa3_witnessCAM_hires",
+        "1sa17_witnessGG",
+        "1sa17_witnessCAM_hires",
+        "2sa11_witnessGG",
+        "2sa11_witnessCAM_hires",
+    ]
+    KINGS_GOLDENS = ["1ki1_witnessGG", "1ki1_witnessCAM_hires"]
+
+    def test_nine_immutable_samuel_goldens_still_valid(self):
+        for name in self.SAMUEL_GOLDENS:
+            with open(f"{CAL}/{name}.json", encoding="utf-8") as fh:
+                d = json.load(fh)
+            ok, errs = self.REC.validate_witness(d)
+            assert ok, f"{name}: {errs}"
+
+    def test_kings_1ki1_goldens_still_valid(self):
+        kcal = "content/manuscript/kings/calibration"
+        for name in self.KINGS_GOLDENS:
+            with open(f"{kcal}/{name}.json", encoding="utf-8") as fh:
+                d = json.load(fh)
+            ok, errs = self.REC.validate_witness(d)
+            assert ok, f"{name}: {errs}"
+
+    def test_samuel_goldens_actually_exercise_the_cross_allowance(self):
+        # Defends the correctness constraint itself: if some refactor ever
+        # dropped ✣ from ALLOWED, the goldens would (correctly) fail — so
+        # confirm the goldens really do carry ✣ in geez (94 occurrences).
+        total = 0
+        for name in self.SAMUEL_GOLDENS:
+            with open(f"{CAL}/{name}.json", encoding="utf-8") as fh:
+                d = json.load(fh)
+            total += sum(vv["geez"].count("✣") for vv in d["verses"])
+        assert total == 94, total
+
+
 class TestCollate:
     def test_collate_shape_and_conservation(self):
         gg = json.load(open(f"{CAL}/2sa11_witnessGG.json", encoding="utf-8"))
