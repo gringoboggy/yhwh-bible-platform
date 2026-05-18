@@ -1,0 +1,520 @@
+{
+  "witness": "GG",
+  "book": "1ki",
+  "chapter": 1,
+  "source_images": [
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f028v.jpg",
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f029r.jpg"
+  ],
+  "folio_sigla": [
+    "f028v",
+    "f029r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": 1,
+      "line_start": 7,
+      "geez": "ወዳዊትሰ ንጉሥ ልህቀ ወኃለፈ መዋዕሊሁ ወይከድንዎ አልባሴ ወኢየመውቆ",
+      "tokens": ["ወዳዊትሰ", "ንጉሥ", "ልህቀ", "ወኃለፈ", "መዋዕሊሁ", "ወይከድንዎ", "አልባሴ", "ወኢየመውቆ"],
+      "uncertain": [
+        {"token_index": 7, "marker": "uncertain", "note": "final syllable wraps across the red->black line break ( weqo- on line 2, -qo at head of line 3); read 'wa-i-yemewqo' (and he gat no heat)"}
+      ]
+    },
+    {
+      "v": 2,
+      "column": 1,
+      "line_start": 9,
+      "geez": "ወይቤሉ ደቁ ለዳዊት ይኃሥሥዎ ስእግዚእን ንጉሥ ወለተ ድንግለ ወትቅም ህየ ኃበ ንጉሥ ወትሰክብ ምስሌሁ ወትሕቅፎ ወታከትም ውዱ ስእግዚእን ንጉሥ",
+      "tokens": ["ወይቤሉ", "ደቁ", "ለዳዊት", "ይኃሥሥዎ", "ስእግዚእን", "ንጉሥ", "ወለተ", "ድንግለ", "ወትቅም", "ህየ", "ኃበ", "ንጉሥ", "ወትሰክብ", "ምስሌሁ", "ወትሕቅፎ", "ወታከትም", "ውዱ", "ስእግዚእን", "ንጉሥ"],
+      "uncertain": [
+        {"token_index": 4, "marker": "uncertain", "note": "proclitic reads 's-' (s-egzi'en) on the page, not the expected 'l-'; transcribed as seen"},
+        {"token_index": 8, "marker": "uncertain", "note": "mid-clause glyphs faded/ambiguous, read as 'wa-tqm' (let her stand)"},
+        {"token_index": 9, "marker": "uncertain", "note": "short word, ambiguous between 'hyya' (there) and a form of 'qedma'"},
+        {"token_index": 16, "marker": "uncertain", "note": "abraded; read 'wedu' (his bosom / lap); orthography unclear"},
+        {"token_index": 17, "marker": "uncertain", "note": "proclitic reads 's-' (s-egzi'en) on the page, not the expected 'l-'; transcribed as seen; phantom trailing 'wa-yenmewqo' (duplicated from v1) removed - page runs straight into v3 'wa-haasesu'"}
+      ]
+    },
+    {
+      "v": 3,
+      "column": 1,
+      "line_start": 13,
+      "geez": "ወኃሠሡ ወለተ ሠናይተ እምኵሉ ደወለ እስራኤል ወረከቡ አቢሳግ ሰናሚተ ወአምጽእዋ ኃበ ዳዊት ንጉሥ",
+      "tokens": ["ወኃሠሡ", "ወለተ", "ሠናይተ", "እምኵሉ", "ደወለ", "እስራኤል", "ወረከቡ", "አቢሳግ", "ሰናሚተ", "ወአምጽእዋ", "ኃበ", "ዳዊት", "ንጉሥ"],
+      "uncertain": [
+        {"token_index": 8, "marker": "uncertain", "note": "place-name of Abishag's town; manuscript orthography between 'Sanamit'/'Sunamawit', read 'Sanamit'"}
+      ]
+    },
+    {
+      "v": 4,
+      "column": 1,
+      "line_start": 16,
+      "geez": "ወነበረት ትሰልኮ ወንጉሥሰ ኢያእመራ",
+      "tokens": ["ወነበረት", "ትሰልኮ", "ወንጉሥሰ", "ኢያእመራ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "verb 'she ministered/served him'; medial glyph ambiguous"},
+        {"token_index": 3, "marker": "uncertain", "note": "verse ends here at 'i-ya'mera'; the former trailing 'wa-azante' was the mis-segmented head of v5 'wa-Adonyas' (page wraps 'wa-aden-' / 'yas') and has been removed"}
+      ]
+    },
+    {
+      "v": 5,
+      "column": 1,
+      "line_start": 18,
+      "geez": "ወአዶንያስ ወልደ እጊት ተንሥአ ወይቤ አነ እነግሥ ወገብረ ሎቱ ሰረገላተ ወአፍራሰ ወኃምሳ እልዕብእሴ እለ ይረውጹ ቅድሜሁ",
+      "tokens": ["ወአዶንያስ", "ወልደ", "እጊት", "ተንሥአ", "ወይቤ", "አነ", "እነግሥ", "ወገብረ", "ሎቱ", "ሰረገላተ", "ወአፍራሰ", "ወኃምሳ", "እልዕብእሴ", "እለ", "ይረውጹ", "ቅድሜሁ"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "Adonijah's mother (Haggith); orthography 'Egit'/'Ageit', ambiguous"},
+        {"token_index": 12, "marker": "uncertain", "note": "'fifty men'; the run-together numeral+noun glyphs ambiguous"}
+      ]
+    },
+    {
+      "v": 6,
+      "column": 1,
+      "line_start": 22,
+      "geez": "ወኢከልኦ አቡሁ ወኢይቤሎ ስምንተ ትገብር ከመዝ ወሰናይ ውእቱ ራእዩ ጥቀ ወለሀዮ ገብረት ድኅረ አቤሴሎም",
+      "tokens": ["ወኢከልኦ", "አቡሁ", "ወኢይቤሎ", "ስምንተ", "ትገብር", "ከመዝ", "ወሰናይ", "ውእቱ", "ራእዩ", "ጥቀ", "ወለሀዮ", "ገብረት", "ድኅረ", "አቤሴሎም"],
+      "uncertain": [
+        {"token_index": 3, "marker": "uncertain", "note": "'why hast thou done so'; clause glyphs partly ambiguous"},
+        {"token_index": 10, "marker": "uncertain", "note": "phrase before 'after Absalom' faded; reading uncertain"}
+      ]
+    },
+    {
+      "v": 7,
+      "column": 1,
+      "line_start": 26,
+      "geez": "ወኮኑ ቃሉ ምስለ ኢዮአብ ወልደ ሶርህያ ወምስለ አብያታር ካህን ወይረድእዎ ለአዶንያስ",
+      "tokens": ["ወኮኑ", "ቃሉ", "ምስለ", "ኢዮአብ", "ወልደ", "ሶርህያ", "ወምስለ", "አብያታር", "ካህን", "ወይረድእዎ", "ለአዶንያስ"],
+      "uncertain": [
+        {"token_index": 5, "marker": "uncertain", "note": "Joab's mother (Zeruiah); orthography 'Sorhya' ambiguous"}
+      ]
+    },
+    {
+      "v": 8,
+      "column": 1,
+      "line_start": 28,
+      "geez": "ወሳዶቅሰ ካህን ወብንያስ ወልደ ዮዳሄ ወናታን ነቢይ ወሰሚ ወራሲ ወደቂቀ ኃይሉ ስዳዊት ኢተሰውዎ ለአዶንያስ",
+      "tokens": ["ወሳዶቅሰ", "ካህን", "ወብንያስ", "ወልደ", "ዮዳሄ", "ወናታን", "ነቢይ", "ወሰሚ", "ወራሲ", "ወደቂቀ", "ኃይሉ", "ስዳዊት", "ኢተሰውዎ", "ለአዶንያስ"],
+      "uncertain": [
+        {"token_index": 4, "marker": "uncertain", "note": "Jehoiada; orthography 'Yodahe' ambiguous"},
+        {"token_index": 7, "marker": "uncertain", "note": "Shimei; very short, read 'Semi'"},
+        {"token_index": 8, "marker": "uncertain", "note": "Rei; very short, read 'Rasi'"},
+        {"token_index": 11, "marker": "uncertain", "note": "reads 's-Dawit' on the page (proclitic s-, not the expected ze-); transcribed as seen"},
+        {"token_index": 12, "marker": "uncertain", "note": "verb reads 'i-tesewwo' (were not joined to/with) on the page, NOT the printed 'i-hallewu' (were not); the same verb 'tesewwo' recurs legibly in v7's tail of this MS, corroborating the reading; followed by short proclitic 'la-' not 'mesle'"}
+      ]
+    },
+    {
+      "v": 9,
+      "column": 1,
+      "line_start": 32,
+      "geez": "ወጠብሐ አዶንያስ አባግዐ ወአልህምተ ወመስተፍሥሐ ኃበ እብነ ዘኤልቴዝ ዘበ ዐይነ ሮጌል ወጸውዐ ኵሎ አኃዊሁ ደቂቀ ንጉሥ ወኵሎ እጓለ ይሁዳ ደቀ ንጉሥ",
+      "tokens": ["ወጠብሐ", "አዶንያስ", "አባግዐ", "ወአልህምተ", "ወመስተፍሥሐ", "ኃበ", "እብነ", "ዘኤልቴዝ", "ዘበ", "ዐይነ", "ሮጌል", "ወጸውዐ", "ኵሎ", "አኃዊሁ", "ደቂቀ", "ንጉሥ", "ወኵሎ", "እጓለ", "ይሁዳ", "ደቀ", "ንጉሥ"],
+      "uncertain": [
+        {"token_index": 7, "marker": "uncertain", "note": "stone of Zoheleth; manuscript orthography 'ze-Eltez'/'ze-Elzeth' ambiguous"},
+        {"token_index": 10, "marker": "uncertain", "note": "En-rogel; orthography 'Rogel' read from 'ze-be ayne Rogel'"}
+      ]
+    },
+    {
+      "v": 10,
+      "column": 2,
+      "line_start": 1,
+      "geez": "ወለናታንሰ ነቢይ ወለብንያስ ወለኃያላን ወለሰሎሞን እኁሁ ኢጸውዐ",
+      "tokens": ["ወለናታንሰ", "ነቢይ", "ወለብንያስ", "ወለኃያላን", "ወለሰሎሞን", "እኁሁ", "ኢጸውዐ"],
+      "uncertain": []
+    },
+    {
+      "v": 11,
+      "column": 2,
+      "line_start": 3,
+      "geez": "ወይቤላ ናታን ለቤርሳቤህ እመ ሰሎሞን ኢሰማዕኪኑ ከመ ነግሠ አዶንያስ ወልደ እጊት ወዳዊትሰ እግዚእነ ኢያእመረ",
+      "tokens": ["ወይቤላ", "ናታን", "ለቤርሳቤህ", "እመ", "ሰሎሞን", "ኢሰማዕኪኑ", "ከመ", "ነግሠ", "አዶንያስ", "ወልደ", "እጊት", "ወዳዊትሰ", "እግዚእነ", "ኢያእመረ"],
+      "uncertain": [
+        {"token_index": 2, "marker": "uncertain", "note": "Bathsheba; orthography 'Bersabeh' ambiguous"}
+      ]
+    },
+    {
+      "v": 12,
+      "column": 2,
+      "line_start": 6,
+      "geez": "ወይእዜኒ ንዒ እምክርኪ ምክረ ወታድኅኒ ነፍስኪ ወነፍሰ ሰሎሞን ወልድኪ",
+      "tokens": ["ወይእዜኒ", "ንዒ", "እምክርኪ", "ምክረ", "ወታድኅኒ", "ነፍስኪ", "ወነፍሰ", "ሰሎሞን", "ወልድኪ"],
+      "uncertain": [
+        {"token_index": 1, "marker": "uncertain", "note": "imperative 'come/give' glyph ambiguous, read 'ne'i'"},
+        {"token_index": 2, "marker": "uncertain", "note": "page reads 'em-kerki' (with k), not the expected 'em-'erki'; transcribed as seen"},
+        {"token_index": 7, "marker": "uncertain", "note": "page order is 'nafsa Selomon waldeki' (Solomon then thy-son), corrected from the printed order 'waldeki Selomon'"}
+      ]
+    },
+    {
+      "v": 13,
+      "column": 2,
+      "line_start": 9,
+      "geez": "ንዒ ሑሪ ኃበ ዳዊት ንጉሥ ወትብሊዮ እስመ አንተ እግዚእየ መሐልከ በእምላክከ ስእመትከ እንዘ ትብል ወልድኪ ሰሎሞን ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ ወእፎ ነግሠ አዶንያስ",
+      "tokens": ["ንዒ", "ሑሪ", "ኃበ", "ዳዊት", "ንጉሥ", "ወትብሊዮ", "እስመ", "አንተ", "እግዚእየ", "መሐልከ", "በእምላክከ", "ስእመትከ", "እንዘ", "ትብል", "ወልድኪ", "ሰሎሞን", "ይነግሥ", "እምድኅሬየ", "ወውእቱ", "ይነብር", "ዲበ", "መንበርየ", "ወእፎ", "ነግሠ", "አዶንያስ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verse opens 'ne'i huri' (come, go) on the page; the spurious 'ba'i' that had been inserted between 'huri' and 'haba' is NOT on the page and was removed"},
+        {"token_index": 3, "marker": "uncertain", "note": "page order is 'haba Dawit nigus' (David then king); corrected from the reversed printed order 'haba nigus Dawit'"},
+        {"token_index": 5, "marker": "uncertain", "note": "verb reads 'wa-tbliyo' on the page, not the printed 'wa-belyo'; transcribed as seen"},
+        {"token_index": 9, "marker": "uncertain", "note": "re-read at high magnification: verb is clearly 'mehalke' (final glyph 'ke' U+12A8, NOT especially faded; the earlier doubled-suffix reading 'mehalkki' was an over-correction and is withdrawn); followed on the page by 'be-amlakke s-emetke' (proclitic s-, be-amlakke present), NOT the printed 'le-ametke'; 'egzi'e' here is NOT followed by 'nigus' on the page (contrast v17)"},
+        {"token_index": 11, "marker": "uncertain", "note": "faded; 's-emetke' (proclitic s-, as seen elsewhere in this MS), transcribed as seen"},
+        {"token_index": 14, "marker": "uncertain", "note": "page reads 'enza tbl waldeki Selomon' (no 'kema'; order thy-son then Solomon); corrected from printed 'enza tbl kema Selomon waldeki'"}
+      ]
+    },
+    {
+      "v": 14,
+      "column": 2,
+      "line_start": 14,
+      "geez": "ወእንዘ አንቲ ትትናገሪ ምስለ ንጉሥ በህዮ እንሂ እበውዕ ድኅሬኪ ወእፌጽም ነገርኪ",
+      "tokens": ["ወእንዘ", "አንቲ", "ትትናገሪ", "ምስለ", "ንጉሥ", "በህዮ", "እንሂ", "እበውዕ", "ድኅሬኪ", "ወእፌጽም", "ነገርኪ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "verse opens 'wa-enza ante ttnageri' on the page (no 'nahu'; word order 'enza ante' not 'nahu enza ... ante'); corrected from the printed 'wa-nahu enza ttnageri ante'"},
+        {"token_index": 5, "marker": "uncertain", "note": "re-read at high magnification: after 'mesle nigus' the page reads two words 'be-hyo enhi' (there likewise), NOT the printed 'wa-ane' (and I); 'be-hyo' = be+h+yo, 'enhi' = e+n+hi (3rd-order 'hi' U+1202, not 'ni')"},
+        {"token_index": 7, "marker": "uncertain", "note": "verb reads 'ebuw'' on the page, ending in ayin 'w'' U+12D5 (not the 'e' U+12A5 of the printed 'ebuwe'); transcribed as seen"},
+        {"token_index": 9, "marker": "uncertain", "note": "verse ends 'wa-efetsm negerki' (and I will fulfil thy words) on the page, NOT the printed 'wa-emle' qaleki'; the next clause 'wa-bo'at Bersabeh' (v15) follows directly, confirming the verse boundary"}
+      ]
+    },
+    {
+      "v": 15,
+      "column": 2,
+      "line_start": 16,
+      "geez": "ወቦአት ቤርሳቤህ ኃበ ንጉሥ ውስተ ጽርሕ ወንጉሥሰ ልህቀ ጥቀ ወአቢሳክ ስሚናዊተ ትትሰልኮ ለንጉሥ",
+      "tokens": ["ወቦአት", "ቤርሳቤህ", "ኃበ", "ንጉሥ", "ውስተ", "ጽርሕ", "ወንጉሥሰ", "ልህቀ", "ጥቀ", "ወአቢሳክ", "ስሚናዊተ", "ትትሰልኮ", "ለንጉሥ"],
+      "uncertain": [
+        {"token_index": 9, "marker": "uncertain", "note": "the page names the minister explicitly as 'wa-Abisak' (Abishag), NOT the harmonized 'Bersabeh' (Bathsheba); orthography 'Abisak'"},
+        {"token_index": 10, "marker": "uncertain", "note": "'s-minawit' (the Shunammite), same epithet as Abishag in v3/v4; corrects the printed conflation that had Bathsheba ministering"},
+        {"token_index": 11, "marker": "uncertain", "note": "verb reads 'ttselko' on the page; the leading 'wa-Bersabeh' of the printed tail is not present - the minister is Abishag the Shunammite; the earlier correct 'Bersabeh' at token 1 is retained"}
+      ]
+    },
+    {
+      "v": 16,
+      "column": 2,
+      "line_start": 19,
+      "geez": "ወሰገደት ቤርሳቤህ ለንጉሥ ወይቤላ ንጉሥ ምንተ ትፈቅዲ",
+      "tokens": ["ወሰገደት", "ቤርሳቤህ", "ለንጉሥ", "ወይቤላ", "ንጉሥ", "ምንተ", "ትፈቅዲ"],
+      "uncertain": []
+    },
+    {
+      "v": 17,
+      "column": 2,
+      "line_start": 21,
+      "geez": "ወትቤሎ እግዚእየ ንጉሥ እንተ መሐልከ በእግዚእብሔር አምላክከ ለእመትከ እንዘ ትብል ከመ ወልድኪ ሰሎሞን ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ",
+      "tokens": ["ወትቤሎ", "እግዚእየ", "ንጉሥ", "እንተ", "መሐልከ", "በእግዚእብሔር", "አምላክከ", "ለእመትከ", "እንዘ", "ትብል", "ከመ", "ወልድኪ", "ሰሎሞን", "ይነግሥ", "እምድኅሬየ", "ወውእቱ", "ይነብር", "ዲበ", "መንበርየ"],
+      "uncertain": [
+        {"token_index": 0, "marker": "uncertain", "note": "re-read at high magnification: after 'wa-tbelo' the page runs straight into 'egzi'eye' (word-divider only); the printed-harmonized 'ye'ti' that had been inserted between them is NOT on the page and was removed"},
+        {"token_index": 2, "marker": "uncertain", "note": "page reads 'egzi'eye nigus enta' - 'nigus' IS present after 'egzi'eye' here (contrast v13 where it is absent), and the following word is 'enta' (initial 'e' U+12A5), not the printed 'ante'; restored/corrected from the image"},
+        {"token_index": 5, "marker": "uncertain", "note": "name written 'egzi'ebher' with medial 'e' U+12A5 ('be-egzi'ebher'), as on the page, not the printed 'egzi'abher' (U+12A0); transcribed as seen"},
+        {"token_index": 7, "marker": "uncertain", "note": "page reads 'le-emetke' (la- proclitic + 'e' U+12A5), not the printed 'le-ametke' (U+12A0); transcribed as seen (contrast v13 which uses the s- proclitic 's-emetke')"},
+        {"token_index": 10, "marker": "uncertain", "note": "page reads 'enza tbl kema waldeki Selomon' - 'kema' IS present here (contrast v13 where it is absent), and the order is 'waldeki Selomon' (thy-son then Solomon), corrected from the printed 'kema Selomon waldeki'"}
+      ]
+    },
+    {
+      "v": 18,
+      "column": 2,
+      "line_start": 25,
+      "geez": "ወይእዜኒ ናሁ አዶንያስ ነግሠ ወአንተ እግዚእየ ንጉሥ ኢታእመር",
+      "tokens": ["ወይእዜኒ", "ናሁ", "አዶንያስ", "ነግሠ", "ወአንተ", "እግዚእየ", "ንጉሥ", "ኢታእመር"],
+      "uncertain": []
+    },
+    {
+      "v": 19,
+      "column": 2,
+      "line_start": 27,
+      "geez": "ወጠብሐ አልህምተ ወአባግዐ ወመስተፍሥሐ ብዙኃ ወጸውዐ ኵሎ ደቂቀ ንጉሥ ወአብያታር ካህን ወኢዮአብ መልአከ ኃይል ወለሰሎሞንሰ ገብርከ ኢጸውዐ",
+      "tokens": ["ወጠብሐ", "አልህምተ", "ወአባግዐ", "ወመስተፍሥሐ", "ብዙኃ", "ወጸውዐ", "ኵሎ", "ደቂቀ", "ንጉሥ", "ወአብያታር", "ካህን", "ወኢዮአብ", "መልአከ", "ኃይል", "ወለሰሎሞንሰ", "ገብርከ", "ኢጸውዐ"],
+      "uncertain": []
+    },
+    {
+      "v": 20,
+      "column": 2,
+      "line_start": 31,
+      "geez": "ወአንተ እግዚእየ ንጉሥ አዕይንቲሆሙ ለኵሉ እስራኤል ላዕሌከ ከመ ትንግሮሙ መኑ ይነብር ዲበ መንበረ እግዚእየ ንጉሥ እምድኅሬሁ",
+      "tokens": ["ወአንተ", "እግዚእየ", "ንጉሥ", "አዕይንቲሆሙ", "ለኵሉ", "እስራኤል", "ላዕሌከ", "ከመ", "ትንግሮሙ", "መኑ", "ይነብር", "ዲበ", "መንበረ", "እግዚእየ", "ንጉሥ", "እምድኅሬሁ"],
+      "uncertain": []
+    },
+    {
+      "v": 21,
+      "column": 2,
+      "line_start": 35,
+      "geez": "ወይከውን አመ ሰከበ እግዚእየ ንጉሥ ምስለ አበዊሁ ወእከውን አነ ወወልድየ ሰሎሞን ኃጥኣነ",
+      "tokens": ["ወይከውን", "አመ", "ሰከበ", "እግዚእየ", "ንጉሥ", "ምስለ", "አበዊሁ", "ወእከውን", "አነ", "ወወልድየ", "ሰሎሞን", "ኃጥኣነ"],
+      "uncertain": [
+        {"token_index": 11, "marker": "uncertain", "note": "'offenders/sinners'; word at column foot faded, reading uncertain"}
+      ]
+    },
+    {
+      "v": 22,
+      "column": 2,
+      "line_start": 37,
+      "geez": "ወዓዲሃ ይእቲ እንዘ ትትናገር ምስለ ንጉሥ ወናሁ ናታን ነቢይ ቦአ",
+      "tokens": ["ወዓዲሃ", "ይእቲ", "እንዘ", "ትትናገር", "ምስለ", "ንጉሥ", "ወናሁ", "ናታን", "ነቢይ", "ቦአ"],
+      "uncertain": []
+    },
+    {
+      "v": 23,
+      "column": 2,
+      "line_start": 39,
+      "geez": "ወነገርዎ ለንጉሥ ወይቤሉ ናሁ ናታን ነቢይ ወቦአ ቅድመ ንጉሥ ወሰገደ ቅድሜሁ በገጹ ዲበ ምድር",
+      "tokens": ["ወነገርዎ", "ለንጉሥ", "ወይቤሉ", "ናሁ", "ናታን", "ነቢይ", "ወቦአ", "ቅድመ", "ንጉሥ", "ወሰገደ", "ቅድሜሁ", "በገጹ", "ዲበ", "ምድር"],
+      "uncertain": []
+    },
+    {
+      "v": 24,
+      "column": 2,
+      "line_start": 40,
+      "geez": "ወይቤ ናታን እግዚእየ ንጉሥ አንተኑ ትቤ አዶንያስ ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ",
+      "tokens": ["ወይቤ", "ናታን", "እግዚእየ", "ንጉሥ", "አንተኑ", "ትቤ", "አዶንያስ", "ይነግሥ", "እምድኅሬየ", "ወውእቱ", "ይነብር", "ዲበ", "መንበርየ"],
+      "uncertain": []
+    },
+    {
+      "v": 25,
+      "column": 3,
+      "line_start": 9,
+      "geez": "እስመ ወረደ ዮም ወጠብሐ አልህምተ ወመስተፍሥሐ ወአባግዐ ብዙኃ ወጸውዐ ኵሎ ደቂቀ ንጉሥ ወመላእክተ ኃይል ወአብያታር ካህን ወናሁ ይበልዑ ወይሰትዩ ቅድሜሁ ወይቤሉ ሕያው ንጉሥ አዶንያስ",
+      "tokens": ["እስመ", "ወረደ", "ዮም", "ወጠብሐ", "አልህምተ", "ወመስተፍሥሐ", "ወአባግዐ", "ብዙኃ", "ወጸውዐ", "ኵሎ", "ደቂቀ", "ንጉሥ", "ወመላእክተ", "ኃይል", "ወአብያታር", "ካህን", "ወናሁ", "ይበልዑ", "ወይሰትዩ", "ቅድሜሁ", "ወይቤሉ", "ሕያው", "ንጉሥ", "አዶንያስ"],
+      "uncertain": []
+    },
+    {
+      "v": 26,
+      "column": 3,
+      "line_start": 14,
+      "geez": "ወኪያየሰ አነ ገብረከ ወሳዶቅ ካህን ወብንያስ ወልደ ዮዳሄ ወሰሎሞን ገብርከ ኢጸውዐ",
+      "tokens": ["ወኪያየሰ", "አነ", "ገብረከ", "ወሳዶቅ", "ካህን", "ወብንያስ", "ወልደ", "ዮዳሄ", "ወሰሎሞን", "ገብርከ", "ኢጸውዐ"],
+      "uncertain": []
+    },
+    {
+      "v": 27,
+      "column": 3,
+      "line_start": 17,
+      "geez": "እመ እምኀበ እግዚእየ ንጉሥ ኮነ ዝነገር ወኢያእመርከኒ ለገብርከ መኑ ይነብር ዲበ መንበረ እግዚእየ ንጉሥ እምድኅሬሁ",
+      "tokens": ["እመ", "እምኀበ", "እግዚእየ", "ንጉሥ", "ኮነ", "ዝነገር", "ወኢያእመርከኒ", "ለገብርከ", "መኑ", "ይነብር", "ዲበ", "መንበረ", "እግዚእየ", "ንጉሥ", "እምድኅሬሁ"],
+      "uncertain": []
+    },
+    {
+      "v": 28,
+      "column": 3,
+      "line_start": 21,
+      "geez": "ወአውሥአ ንጉሥ ዳዊት ወይቤ ጸውዑ ሊተ ቤርሳቤህን ወቦአት ቅድመ ንጉሥ ወቆመት ቅድሜሁ",
+      "tokens": ["ወአውሥአ", "ንጉሥ", "ዳዊት", "ወይቤ", "ጸውዑ", "ሊተ", "ቤርሳቤህን", "ወቦአት", "ቅድመ", "ንጉሥ", "ወቆመት", "ቅድሜሁ"],
+      "uncertain": []
+    },
+    {
+      "v": 29,
+      "column": 3,
+      "line_start": 24,
+      "geez": "ወመሐለ ንጉሥ ወይቤ ሕያው እግዚአብሔር ዘአድኃና ለነፍስየ እምኵሉ ምንዳቤ",
+      "tokens": ["ወመሐለ", "ንጉሥ", "ወይቤ", "ሕያው", "እግዚአብሔር", "ዘአድኃና", "ለነፍስየ", "እምኵሉ", "ምንዳቤ"],
+      "uncertain": []
+    },
+    {
+      "v": 30,
+      "column": 3,
+      "line_start": 27,
+      "geez": "በከመ መሐልኩ ለኪ በእግዚአብሔር አምላከ እስራኤል እንዘ እብል ከመ ሰሎሞን ወልድኪ ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ ህየንቴየ ከመ እገብር ዮም",
+      "tokens": ["በከመ", "መሐልኩ", "ለኪ", "በእግዚአብሔር", "አምላከ", "እስራኤል", "እንዘ", "እብል", "ከመ", "ሰሎሞን", "ወልድኪ", "ይነግሥ", "እምድኅሬየ", "ወውእቱ", "ይነብር", "ዲበ", "መንበርየ", "ህየንቴየ", "ከመ", "እገብር", "ዮም"],
+      "uncertain": []
+    },
+    {
+      "v": 31,
+      "column": 3,
+      "line_start": 32,
+      "geez": "ወሰገደት ቤርሳቤህ በገጻ ዲበ ምድር ወሰገደት ለንጉሥ ወትቤ ለይሕየው እግዚእየ ንጉሥ ዳዊት ለዓለም",
+      "tokens": ["ወሰገደት", "ቤርሳቤህ", "በገጻ", "ዲበ", "ምድር", "ወሰገደት", "ለንጉሥ", "ወትቤ", "ለይሕየው", "እግዚእየ", "ንጉሥ", "ዳዊት", "ለዓለም"],
+      "uncertain": []
+    },
+    {
+      "v": 32,
+      "column": 3,
+      "line_start": 35,
+      "geez": "ወይቤ ንጉሥ ዳዊት ጸውዑ ሊተ ሳዶቅሃ ካህነ ወናታንሃ ነቢየ ወብንያስሃ ወልደ ዮዳሄ ወቦኡ ቅድመ ንጉሥ",
+      "tokens": ["ወይቤ", "ንጉሥ", "ዳዊት", "ጸውዑ", "ሊተ", "ሳዶቅሃ", "ካህነ", "ወናታንሃ", "ነቢየ", "ወብንያስሃ", "ወልደ", "ዮዳሄ", "ወቦኡ", "ቅድመ", "ንጉሥ"],
+      "uncertain": []
+    },
+    {
+      "v": 33,
+      "column": 3,
+      "line_start": 39,
+      "geez": "ወይቤሎሙ ንጉሥ ንሥኡ ምስሌክሙ አግብርቲሁ ለእግዚእክሙ ወአጽዕንዎ ለሰሎሞን ወልድየ ዲበ በቅልየ ዘሊተ ወአውርድዎ ውስተ ጊሖን",
+      "tokens": ["ወይቤሎሙ", "ንጉሥ", "ንሥኡ", "ምስሌክሙ", "አግብርቲሁ", "ለእግዚእክሙ", "ወአጽዕንዎ", "ለሰሎሞን", "ወልድየ", "ዲበ", "በቅልየ", "ዘሊተ", "ወአውርድዎ", "ውስተ", "ጊሖን"],
+      "uncertain": [
+        {"token_index": 14, "marker": "uncertain", "note": "Gihon; orthography 'Gihon'/'Gihwon' ambiguous"}
+      ]
+    },
+    {
+      "v": 34,
+      "column": 3,
+      "line_start": 43,
+      "geez": "ወይቅብእዎ ህየ ሳዶቅ ካህን ወናታን ነቢይ ንጉሠ ዲበ እስራኤል ወንፍሑ ቀርነ ወበሉ ሕያው ንጉሥ ሰሎሞን",
+      "tokens": ["ወይቅብእዎ", "ህየ", "ሳዶቅ", "ካህን", "ወናታን", "ነቢይ", "ንጉሠ", "ዲበ", "እስራኤል", "ወንፍሑ", "ቀርነ", "ወበሉ", "ሕያው", "ንጉሥ", "ሰሎሞን"],
+      "uncertain": []
+    },
+    {
+      "v": 35,
+      "column": 1,
+      "line_start": 1,
+      "geez": "ወታዐርጉ ድኅሬሁ ወይበውእ ወይነብር ዲበ መንበርየ ወውእቱ ይነግሥ ህየንቴየ ወአነ አዘዝክዎ ይኩን መልአከ ዲበ እስራኤል ወዲበ ይሁዳ",
+      "tokens": ["ወታዐርጉ", "ድኅሬሁ", "ወይበውእ", "ወይነብር", "ዲበ", "መንበርየ", "ወውእቱ", "ይነግሥ", "ህየንቴየ", "ወአነ", "አዘዝክዎ", "ይኩን", "መልአከ", "ዲበ", "እስራኤል", "ወዲበ", "ይሁዳ"],
+      "uncertain": []
+    },
+    {
+      "v": 36,
+      "column": 1,
+      "line_start": 5,
+      "geez": "ወአውሥአ ብንያስ ወልደ ዮዳሄ ለንጉሥ ወይቤ ለይኩን ከማሁ ያአምን እግዚአብሔር አምላከ እግዚእየ ንጉሥ",
+      "tokens": ["ወአውሥአ", "ብንያስ", "ወልደ", "ዮዳሄ", "ለንጉሥ", "ወይቤ", "ለይኩን", "ከማሁ", "ያአምን", "እግዚአብሔር", "አምላከ", "እግዚእየ", "ንጉሥ"],
+      "uncertain": [
+        {"token_index": 8, "marker": "uncertain", "note": "'Amen / so confirm it'; clause glyphs ambiguous"}
+      ]
+    },
+    {
+      "v": 37,
+      "column": 1,
+      "line_start": 8,
+      "geez": "በከመ ሀሎ እግዚአብሔር ምስለ እግዚእየ ንጉሥ ከማሁ ይኩን ምስለ ሰሎሞን ወያዐቢ መንበሮ እምነ መንበረ እግዚእየ ንጉሥ ዳዊት",
+      "tokens": ["በከመ", "ሀሎ", "እግዚአብሔር", "ምስለ", "እግዚእየ", "ንጉሥ", "ከማሁ", "ይኩን", "ምስለ", "ሰሎሞን", "ወያዐቢ", "መንበሮ", "እምነ", "መንበረ", "እግዚእየ", "ንጉሥ", "ዳዊት"],
+      "uncertain": []
+    },
+    {
+      "v": 38,
+      "column": 1,
+      "line_start": 12,
+      "geez": "ወወረዱ ሳዶቅ ካህን ወናታን ነቢይ ወብንያስ ወልደ ዮዳሄ ወኬሬት ወፈሌት ወአጽዐንዎ ለሰሎሞን ዲበ በቅለ ንጉሥ ዳዊት ወወሰድዎ ውስተ ጊሖን",
+      "tokens": ["ወወረዱ", "ሳዶቅ", "ካህን", "ወናታን", "ነቢይ", "ወብንያስ", "ወልደ", "ዮዳሄ", "ወኬሬት", "ወፈሌት", "ወአጽዐንዎ", "ለሰሎሞን", "ዲበ", "በቅለ", "ንጉሥ", "ዳዊት", "ወወሰድዎ", "ውስተ", "ጊሖን"],
+      "uncertain": [
+        {"token_index": 8, "marker": "uncertain", "note": "Cherethites; orthography 'Keret' ambiguous"},
+        {"token_index": 9, "marker": "uncertain", "note": "Pelethites; orthography 'Felet' ambiguous"}
+      ]
+    },
+    {
+      "v": 39,
+      "column": 1,
+      "line_start": 17,
+      "geez": "ወነሥአ ሳዶቅ ካህን ቀርነ ቅብእ እምውስተ ደብተራ ወቀብኦ ለሰሎሞን ወንፍሑ ቀርነ ወይቤሉ ኵሉ ሕዝብ ሕያው ንጉሥ ሰሎሞን",
+      "tokens": ["ወነሥአ", "ሳዶቅ", "ካህን", "ቀርነ", "ቅብእ", "እምውስተ", "ደብተራ", "ወቀብኦ", "ለሰሎሞን", "ወንፍሑ", "ቀርነ", "ወይቤሉ", "ኵሉ", "ሕዝብ", "ሕያው", "ንጉሥ", "ሰሎሞን"],
+      "uncertain": []
+    },
+    {
+      "v": 40,
+      "column": 1,
+      "line_start": 21,
+      "geez": "ወዐርጉ ኵሉ ሕዝብ ድኅሬሁ ወይዘፍኑ በዘፋን ወትፌሥሑ ፍሥሐ ዐቢየ ወተሰጥቀት ምድር በቃሎሙ",
+      "tokens": ["ወዐርጉ", "ኵሉ", "ሕዝብ", "ድኅሬሁ", "ወይዘፍኑ", "በዘፋን", "ወትፌሥሑ", "ፍሥሐ", "ዐቢየ", "ወተሰጥቀት", "ምድር", "በቃሎሙ"],
+      "uncertain": [
+        {"token_index": 6, "marker": "uncertain", "note": "verb reads 'wa-tfeshu' on the page (glyphs wa-t-fe-s-hu, fidel 'fe' U+134C); the medial 'ya' of the expected 'wa-ytfeshu' is not present; the prior token contained an invalid Latin 'f' which has been replaced with the actual Ethiopic glyph read from the image"}
+      ]
+    },
+    {
+      "v": 41,
+      "column": 1,
+      "line_start": 25,
+      "geez": "ወሰምዐ አዶንያስ ወኵሎሙ እለ ጽዉዓን ምስሌሁ ወእሙንቱ ፈጸሙ በሊዐ ወሰምዐ ኢዮአብ ቃለ ቀርን ወይቤ ምንትኑ ዝቃለ ሀገር ዘይትሀወክ",
+      "tokens": ["ወሰምዐ", "አዶንያስ", "ወኵሎሙ", "እለ", "ጽዉዓን", "ምስሌሁ", "ወእሙንቱ", "ፈጸሙ", "በሊዐ", "ወሰምዐ", "ኢዮአብ", "ቃለ", "ቀርን", "ወይቤ", "ምንትኑ", "ዝቃለ", "ሀገር", "ዘይትሀወክ"],
+      "uncertain": []
+    },
+    {
+      "v": 42,
+      "column": 1,
+      "line_start": 30,
+      "geez": "ወዓዲሁ ይትናገር ወናሁ ዮናታን ወልደ አብያታር ካህን መጽአ ወይቤሎ አዶንያስ ባእ እስመ ብእሴ ኃይል አንተ ወሠናየ ታየድዐነ",
+      "tokens": ["ወዓዲሁ", "ይትናገር", "ወናሁ", "ዮናታን", "ወልደ", "አብያታር", "ካህን", "መጽአ", "ወይቤሎ", "አዶንያስ", "ባእ", "እስመ", "ብእሴ", "ኃይል", "አንተ", "ወሠናየ", "ታየድዐነ"],
+      "uncertain": []
+    },
+    {
+      "v": 43,
+      "column": 1,
+      "line_start": 35,
+      "geez": "ወአውሥአ ዮናታን ወይቤሎ ለአዶንያስ አማን እግዚእነ ንጉሥ ዳዊት አንገሦ ለሰሎሞን",
+      "tokens": ["ወአውሥአ", "ዮናታን", "ወይቤሎ", "ለአዶንያስ", "አማን", "እግዚእነ", "ንጉሥ", "ዳዊት", "አንገሦ", "ለሰሎሞን"],
+      "uncertain": []
+    },
+    {
+      "v": 44,
+      "column": 1,
+      "line_start": 38,
+      "geez": "ወፈነወ ምስሌሁ ንጉሥ ሳዶቅሃ ካህነ ወናታንሃ ነቢየ ወብንያስሃ ወልደ ዮዳሄ ወኬሬተ ወፈሌተ ወአጽዐንዎ ዲበ በቅለ ንጉሥ",
+      "tokens": ["ወፈነወ", "ምስሌሁ", "ንጉሥ", "ሳዶቅሃ", "ካህነ", "ወናታንሃ", "ነቢየ", "ወብንያስሃ", "ወልደ", "ዮዳሄ", "ወኬሬተ", "ወፈሌተ", "ወአጽዐንዎ", "ዲበ", "በቅለ", "ንጉሥ"],
+      "uncertain": [
+        {"token_index": 10, "marker": "uncertain", "note": "Cherethites; orthography ambiguous"},
+        {"token_index": 11, "marker": "uncertain", "note": "Pelethites; orthography ambiguous"}
+      ]
+    },
+    {
+      "v": 45,
+      "column": 2,
+      "line_start": 1,
+      "geez": "ወቀብእዎ ሳዶቅ ካህን ወናታን ነቢይ ንጉሠ በጊሖን ወዐርጉ እምህየ እንዘ ይትፌሥሑ ወአንተለወት ሀገር ዝውእቱ ቃል ዘሰማዕክሙ",
+      "tokens": ["ወቀብእዎ", "ሳዶቅ", "ካህን", "ወናታን", "ነቢይ", "ንጉሠ", "በጊሖን", "ወዐርጉ", "እምህየ", "እንዘ", "ይትፌሥሑ", "ወአንተለወት", "ሀገር", "ዝውእቱ", "ቃል", "ዘሰማዕክሙ"],
+      "uncertain": [
+        {"token_index": 11, "marker": "uncertain", "note": "'the city rang/was moved'; verb glyph cluster ambiguous"}
+      ]
+    },
+    {
+      "v": 46,
+      "column": 2,
+      "line_start": 5,
+      "geez": "ወነበረ ሰሎሞን ዲበ መንበረ መንግሥት",
+      "tokens": ["ወነበረ", "ሰሎሞን", "ዲበ", "መንበረ", "መንግሥት"],
+      "uncertain": []
+    },
+    {
+      "v": 47,
+      "column": 2,
+      "line_start": 7,
+      "geez": "ወቦኡ አግብርቲሁ ለንጉሥ ይባርክዎ ለእግዚእነ ንጉሥ ዳዊት ወይቤሉ የሀሉ እግዚአብሔር ስሞ ለሰሎሞን ኄረ እምስምከ ወያዐቢ መንበሮ እምነ መንበርከ ወሰገደ ንጉሥ ዲበ ምስካቡ",
+      "tokens": ["ወቦኡ", "አግብርቲሁ", "ለንጉሥ", "ይባርክዎ", "ለእግዚእነ", "ንጉሥ", "ዳዊት", "ወይቤሉ", "የሀሉ", "እግዚአብሔር", "ስሞ", "ለሰሎሞን", "ኄረ", "እምስምከ", "ወያዐቢ", "መንበሮ", "እምነ", "መንበርከ", "ወሰገደ", "ንጉሥ", "ዲበ", "ምስካቡ"],
+      "uncertain": []
+    },
+    {
+      "v": 48,
+      "column": 2,
+      "line_start": 12,
+      "geez": "ወከመዝ ይቤ ንጉሥ ቡሩክ እግዚአብሔር አምላከ እስራኤል ዘወሀበ ዮም ዘይነብር ዲበ መንበርየ ወአዕይንትየ ይሬእያ",
+      "tokens": ["ወከመዝ", "ይቤ", "ንጉሥ", "ቡሩክ", "እግዚአብሔር", "አምላከ", "እስራኤል", "ዘወሀበ", "ዮም", "ዘይነብር", "ዲበ", "መንበርየ", "ወአዕይንትየ", "ይሬእያ"],
+      "uncertain": []
+    },
+    {
+      "v": 49,
+      "column": 2,
+      "line_start": 16,
+      "geez": "ወደንገፁ ወተንሥኡ ኵሎሙ ጽዉዓን እለ ምስለ አዶንያስ ወሖሩ ኵሉ በበ ፍኖቶሙ",
+      "tokens": ["ወደንገፁ", "ወተንሥኡ", "ኵሎሙ", "ጽዉዓን", "እለ", "ምስለ", "አዶንያስ", "ወሖሩ", "ኵሉ", "በበ", "ፍኖቶሙ"],
+      "uncertain": []
+    },
+    {
+      "v": 50,
+      "column": 2,
+      "line_start": 19,
+      "geez": "ወአዶንያስ ፈርሆ ለሰሎሞን ወተንሥአ ወሖረ ወአኀዘ አዕናደ ምሥዋዕ",
+      "tokens": ["ወአዶንያስ", "ፈርሆ", "ለሰሎሞን", "ወተንሥአ", "ወሖረ", "ወአኀዘ", "አዕናደ", "ምሥዋዕ"],
+      "uncertain": []
+    },
+    {
+      "v": 51,
+      "column": 2,
+      "line_start": 21,
+      "geez": "ወነገርዎ ለሰሎሞን ወይቤሉ ናሁ አዶንያስ ይፈርሆ ለንጉሥ ሰሎሞን ወናሁ አኀዘ አዕናደ ምሥዋዕ ወይቤ ይምሐልኒ ዮም ንጉሥ ሰሎሞን ከመ ኢይቀትል ገብሮ በኲናት",
+      "tokens": ["ወነገርዎ", "ለሰሎሞን", "ወይቤሉ", "ናሁ", "አዶንያስ", "ይፈርሆ", "ለንጉሥ", "ሰሎሞን", "ወናሁ", "አኀዘ", "አዕናደ", "ምሥዋዕ", "ወይቤ", "ይምሐልኒ", "ዮም", "ንጉሥ", "ሰሎሞን", "ከመ", "ኢይቀትል", "ገብሮ", "በኲናት"],
+      "uncertain": []
+    },
+    {
+      "v": 52,
+      "column": 2,
+      "line_start": 26,
+      "geez": "ወይቤ ሰሎሞን ለእመ ኮነ ወልደ ኃይል ኢትወድቅ እመ ሥዕርቱ ውስተ ምድር ወእመሰ እኪተ ተረከበት ቦ ሰዕሌሁ የመውት",
+      "tokens": ["ወይቤ", "ሰሎሞን", "ለእመ", "ኮነ", "ወልደ", "ኃይል", "ኢትወድቅ", "እመ", "ሥዕርቱ", "ውስተ", "ምድር", "ወእመሰ", "እኪተ", "ተረከበት", "ቦ", "ሰዕሌሁ", "የመውት"],
+      "uncertain": [
+        {"token_index": 15, "marker": "uncertain", "note": "'upon him'; preposition+suffix glyph ambiguous, read 'sa'lehu/la'lehu'"}
+      ]
+    },
+    {
+      "v": 53,
+      "column": 2,
+      "line_start": 30,
+      "geez": "ወይቤ ንጉሥ ሰሎሞን ወአውረድዎ እመልዕልተ ምሥዋዕ ወቦአ ወሰገደ ለንጉሥ ሰሎሞን ወይቤሉ ሰሎሞን እቱ ወኩን ቤትከ",
+      "tokens": ["ወይቤ", "ንጉሥ", "ሰሎሞን", "ወአውረድዎ", "እመልዕልተ", "ምሥዋዕ", "ወቦአ", "ወሰገደ", "ለንጉሥ", "ሰሎሞን", "ወይቤሉ", "ሰሎሞን", "እቱ", "ወኩን", "ቤትከ"],
+      "uncertain": [
+        {"token_index": 12, "marker": "damaged", "note": "rubricated and abraded at the chapter-1/chapter-2 boundary; 'go'/'depart' imperative, best reading 'etu'"},
+        {"token_index": 13, "marker": "damaged", "note": "faded rubricated cluster at chapter boundary; best reading 'wa-kun' (and be/go)"},
+        {"token_index": 14, "marker": "damaged", "note": "faded at chapter boundary; 'thy house', best reading 'betka'"}
+      ]
+    }
+  ],
+  "transcription_notes": "Source: GG-00106, 3-column Ge'ez book hand with red rubrication for divisions; generally clean and legible at high magnification (transcribed by cropping each column and upscaling ~3.2x-9x, since the source JPEGs are only ~1650x1700 px and individual fidel are sub-readable at native render scale). 1 KINGS 1 SPANS f028v (all 3 columns) and f029r (left column + first ~30 lines of the middle column). It does NOT extend onto f029v/f030r (those are 1 Kings 2+). CH.1 START: on f028v, LEFT column. The black text at the very top of the left column is the tail of 2 Samuel 24 (peace/burnt offerings, the LORD entreated for the land, plague stayed -- NOT transcribed). Then a red rule, then a one-line RED book-incipit/colophon-heading 'ለዳግማዊ ፡ ነገሥት ፡ ጸሐፍዎ ፡ ናታን ፡ ወጌድ' ('For the Second [book of] Kings/Reigns; Nathan and Gad wrote it' -- a heading, NOT scripture, excluded from verses), then a red rule. 1 Kings 1:1 begins IMMEDIATELY AFTER that red book-incipit, written itself in red rubrication for its first ~2 lines ('ወዳዊትሰ ንጉሥ ልህቀ ...'), continuing in black; this is ~line 7 of the left column. CH.1 END / CH.2 START: 1 Kings 1 runs through v53 (Solomon brings Adonijah down from the altar, bows, 'go to thy house'). Ch.2 begins in the MIDDLE column of f029r, ~line 31-33: the clause 'ወሶበ ፡ ቦ ፡ ጸሐ ፡ ማዋዕሊሁ ፡ ለዳዊት ፡ ለመዊት ፡ እዘዘ ፡ ለሰሎሞን' (2:1, 'And when the days of David drew near that he should die, he charged Solomon') followed by a RED '✣'-type division marker, then 2:2 'ወይቤሎ ፡ አንሰ ፡ ሐርኩ ፡ በኵሉ ፡ ፍኖተ ፡ ምድር ...' (David's deathbed charge: be strong, keep the charge of the LORD, walk in his ways, keep his statutes as written in the law of Moses). I STOPPED at v53; 2:1 onward NOT transcribed. The very end of v53 / start of 2:1 sits in a faded, partly-rubricated zone on f029r mid-col (~line 30) -- v53's final 2-3 words ('go to thy house') are abraded; transcribed best-effort and flagged 'damaged' rather than guessed. DIVISION MARKERS: the manuscript carries red '✣'-type fine division ornaments and a small '〉⟐〈' line-fill ornament (seen in v2 on f028v left col after 'ለእግዚእን ንጉሥ'); these are NOT scripture and were stripped from geez/tokens (the line-fill ornament noted here; the chapter-boundary red ✣ noted above). No coarse 'ምዕራፍ'-spelled rubric was visible within this span; the ch.1/ch.2 boundary is anchored on the NARRATIVE + the red ✣ before 'ወይቤሎ አንሰ ሐርኩ'. The manuscript uses '፡' as the word divider and '።'/'፣' for major stops and carries NO modern verse numerals; verse segmentation follows the standard 1 Kings 1 narrative structure (53 verses) mapped onto the visible Ge'ez clauses, so verse boundaries are editorial (sense-unit) judgements, not manuscript-marked. ORTHOGRAPHY/UNCERTAINTY: this hand frequently writes proper names with ambiguous vowel order at this resolution -- flagged as 'uncertain' are: Abishag's town (Sanamit/Sunamawit, v3); Haggith/Egit (v5,v11); Zeruiah/Sorhya (v7); Jehoiada/Yodahe (v8); Shimei/Semi & Rei/Rasi (v8); stone of Zoheleth ze-Eltez (v9); En-rogel/Rogel (v9); Bathsheba/Bersabeh (v11+); Gihon/Gihwon (v33); Cherethites/Keret & Pelethites/Felet (v38,v44). Other genuine reading doubts flagged: v1 'ወኢይነመውቆ' (word straddles the red->black line break at the rubricated incipit, 'and he gat no heat'); v2 'ወትቅም'/'ህየ'/'ውዱ' (mid-clause faded glyphs in the 'seek a virgin to stand before the king' clause); v4 'ትሰልኮ'/'ወአዘንተ'; v15 the ministering-subject (should be Abishag) faded; v40/v45 the 'rejoiced'/'city rang' verb clusters; v52 'ሰዕሌሁ'. Where I genuinely could read a best form I transcribed it and flagged it; I did NOT substitute any standard/printed Ge'ez or any other source -- no '⟦illegible⟧' sentinel was needed because every faded span was still best-readable (the worst, v53's tail, is flagged 'damaged'). Verse count: 53, contiguous v1..v53."
+}

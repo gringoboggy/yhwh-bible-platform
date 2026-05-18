@@ -28,15 +28,13 @@ collation_at_scale.py` track-parameterized (`c5dce9d`+`3f79042`) · 0.4 skeleton
 (1ki1=53/2ki1=18/1ki22=53/2ki25=30) + lint 11·0·0 + manuscript regression 71/0 (Samuel
 byte-identical). Phase-2 infra reuse is DONE; the marathon can run mechanically.
 
-**RESUME POINTER:** read the plan + `content/manuscript/kings/manifest.yaml`; the lowest open
-task in the 12-task list is the next action. **NEXT = Stage 1, task #5 = 1 Kings 1** (the
-safety-stop checkpoint: run plan Stage-1 steps C-1…C-10 for `ref=1ki1`; isolated GG
-vision-transcribe via opus subagent → adversarial review → CUDL-IIIF CAM hi-res per
-`cudl-iiif-access` → isolated CAM transcribe → adversarial review → collate via the shipped
-Phase-2 tool → adversarial collation review → flip manifest 1ki:1→calibrated → C-10
-bi-directional pattern check: CONTRADICTS → STOP & surface; MATCHES → continue the queue
-1ki2…1ki22 then 2ki1…2ki25 continuously). All 47 chapters still `pending` (no scripture
-transcribed yet).
+**PROGRESS — Stage 1 / task #5 = 1 Kings 1 (safety-stop) IN PROGRESS:**
+- **C-1 locate ✓** — 1Ki1 = f028v (after the red "3 Reigns" book-incipit, no 2Sa24 leak) → f029r (ch.2 starts f029r col2 ~L31). GG clean/undamaged.
+- **C-2 blind GG transcribe ✓** — `content/manuscript/kings/calibration/1ki1_witnessGG.json` (53 v, isolated opus subagent).
+- **C-3 adversarial GG review ✓ APPROVED** — converged in **3 fix-rounds** (the harmonization-to-printed-text class; round1 broad v1–v15 → round2 confirmed 8 fixes + 4 residuals → round3 clean). Validator `OK`; non-Ethiopic screen `CLEAN`; chapter bounds + honesty verified faithful-to-parchment. **GG witness is immutable + checkpoint-committed.**
+- **METHOD NOTE codified into the plan's per-chapter template** (the anti-harmonization CARDINAL RULE + termination bar + the non-Ethiopic screen + 2–3-round convergence expectation) — applies to every remaining C-2/C-3/C-5/C-6. This is what the safety-stop existed to learn; the bulk marathon now runs with it.
+
+**RESUME POINTER:** 1Ki1 next = **C-4 (controller)** — acquire CAM Add.1570 hi-res for 1 Kings 1 via CUDL-IIIF per memory `cudl-iiif-access` (locate the Kings folio BY VISION — ToC mislabels Reigns; CAM low-res band `GAPS/2_Kings/Cambridge-Add-1570/Kings_f126r…f146v.jpg` + the f028v/f029r GG narrative orient it; region-tile the ~80MP master, stitch, save `GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f{NNN}_1ki1_hires.jpg`) → C-5 isolated blind CAM transcribe → C-6 adversarial CAM review (to convergence) → C-7 collate via shipped tool → C-8 adversarial collation review → C-9 flip manifest 1ki:1→`calibrated` + final commit → **C-10 the bi-directional safety-stop**: CONTRADICTS the ratified pattern → STOP & surface to user; MATCHES → continue the queue 1ki2…1ki22 then 2ki1…2ki25 continuously (Task #14 validator-hardening before the 1ki2-22 bulk). Manifest: 1ki:1 still `pending` (correct — not collatable until CAM+collation done at C-9); other 46 chapters untouched.
 
 ---
 
