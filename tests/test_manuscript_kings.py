@@ -19,9 +19,9 @@ def test_kings_track_loads_47_chapters():
     statuses = [man["1ki"][c]["status"] for c in range(1, 23)] + [man["2ki"][c]["status"] for c in range(1, 26)]
     assert all(s in {"pending", "calibrated"} for s in statuses)
     assert statuses.count("pending") + statuses.count("calibrated") == 47
-    # Positive regression pin: the marathon's first calibrated chapter.
+    # 1ki:1 is the first chapter calibrated by the marathon; once done it stays calibrated — a positive regression pin.
     assert man["1ki"][1]["status"] == "calibrated"
-    # Not-everything-flipped sanity pin.
+    # 2ki:25 is the last chapter the marathon reaches, so pending for essentially its whole run — a regression tripwire, not a transient to be "fixed".
     assert man["2ki"][25]["status"] == "pending"
 
 
@@ -33,7 +33,7 @@ def test_chapter_entry_track_aware():
     assert set(e) == {"GG", "CAM", "status"}
     assert e["status"] in {"pending", "calibrated"}
     # Generic per-status invariant across the whole 47-chapter marathon
-    # (§8: branch on the marker, assert the contract for each branch).
+    # State-aware: branch on each chapter's status marker and assert that branch's contract.
     for book, n in (("1ki", 22), ("2ki", 25)):
         for c in range(1, n + 1):
             ce = mm.chapter_entry(man, book, c)
@@ -45,11 +45,11 @@ def test_chapter_entry_track_aware():
                 assert ce["status"] == "calibrated"
                 assert ce["GG"]["folios"] and ce["GG"]["source_images"]
                 assert ce["CAM"]["folios"] and ce["CAM"]["views"]
-    # Positive pin: 1ki:1 calibrated with populated folios.
+    # 1ki:1 is the first chapter calibrated by the marathon; once done it stays calibrated — a positive regression pin.
     pin = mm.chapter_entry(man, "1ki", 1)
     assert pin["status"] == "calibrated"
     assert pin["GG"]["folios"] and pin["CAM"]["folios"]
-    # Guaranteed-still-pending chapter is pending + empty.
+    # 2ki:25 is the last chapter the marathon reaches, so pending for essentially its whole run — a regression tripwire, not a transient to be "fixed".
     tail = mm.chapter_entry(man, "2ki", 25)
     assert tail["status"] == "pending"
     assert tail["GG"] == {"folios": [], "source_images": []}
