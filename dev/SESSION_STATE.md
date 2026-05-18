@@ -85,24 +85,29 @@
 > mid after the 1Ki1 tail → f029v → f030r-L; folios clean; GG src
 > f029r/f029v/f030r). C-2 blind GG transcribe ✓ (`1ki2_witnessGG.json`,
 > **46 v**, validator `OK`; 1Ki1 tail + 1Ki3 + the red `እትርጓቚ` gloss-
-> layer correctly excluded). C-3 adversarial GG review **ROUND-1 done +
-> fixed (NOT yet approved):** reviewer CONFIRMED both boundaries + that
-> the gloss-exclusion is a *genuine* separate red editorial register,
-> but caught a **CRITICAL v28 dropped-black-scripture-at-the-gloss-
-> boundary** (METHOD NOTE 2 class) + systematic `ለ`/`ስ`-class misreads;
-> fix-round-1 RESTORED v28, ran the systematic pass, corrected 13 v
-> (2,4,5,6,8,23,27,28,32,33,35,44,46), validator `OK`, upheld the
-> CARDINAL RULE (parchment `እሜሳዶ` kept over expected, honest-flagged).
-> **WIP checkpoint-committed `d4a5368` — NOT approved/immutable;
-> manifest `1ki:2` still `pending`; witness MUTABLE until C-3 approves.**
-> **NEXT = `1ki2` C-3 ROUND 2** (fresh adversarial reviewer of the
-> current GG JSON — re-verify the v28 restoration, adjudicate the
-> honest-flagged still-uncertain calls strictly on the parchment [v5
-> `እሜሳዶ` አ/እ, v4 `ፍኖትየ`, v8 `ኤጣዕዱ`, v28 `ሄብ`/`የዓናት`, v45], converge
-> ~1–2 more rounds → on APPROVE commit GG witness immutable → C-4 CAM
-> hi-res (CUDL-IIIF) → C-5 blind CAM → C-6 review → C-7 collate → C-8
-> review → C-9 manifest `1ki:2`→calibrated + commit → next chapter
-> `1ki3`).** This is the explicitly **multi-session**
+> layer correctly excluded). C-3 adversarial GG review **ROUNDS 1 & 2
+> done + fixed (still NOT approved):** boundaries + the genuine-red-
+> gloss-exclusion CONFIRMED; round-1 caught+fixed a **CRITICAL v28
+> dropped-black-scripture** (METHOD NOTE 2 class); round-2 independently
+> **re-verified v28 faithful/complete** (worst class CLOSED) + confirmed
+> v5 `እሜሳዶ`=parchment `እ` (CARDINAL RULE upheld), but caught a
+> **PARALLEL v8 red-gloss leak** (same class, reverse) + bounded glyph
+> defects; fix-round-2 removed the v8 leak, ran a final all-46 `ለ`/`ስ`
+> sweep (only 2 more: v34,v4), corrected 10 v (3,4,7,8,15,34,35,44,45,
+> 46), fixed flag pointers, made disciplined verified NON-changes,
+> validator `OK`, v28 byte-identical. **WIP checkpoint-committed
+> `e24f2c9` — NOT approved/immutable; manifest `1ki:2` still `pending`;
+> witness MUTABLE until C-3 approves.** Convergence strong (r1 1crit+
+> systematic → r2 1crit+bounded → only 2 extra in full sweep; 1 honest
+> sub-glyph residual flagged v35 `ሣራዊት` `ዊ`/`ዌ`).
+> **NEXT = `1ki2` C-3 ROUND 3** (fresh adversarial reviewer of current
+> GG JSON HEAD `e24f2c9` — re-verify the v8 gloss-leak removal + v28
+> still faithful + the 10 round-2 fixes on the parchment + the v35
+> residual; spot-check unchanged verses; if clean → APPROVE → commit GG
+> witness **immutable** → C-4 CAM hi-res (CUDL-IIIF) → C-5 blind CAM →
+> C-6 review → C-7 collate → C-8 review → C-9 manifest `1ki:2`→
+> calibrated + commit → next chapter `1ki3`; else ≤1–2 more fix/review
+> rounds).** This is the explicitly **multi-session**
 > marathon body; resume the queue from the first `pending` chapter. **Cross-session ledger (read IN_FLIGHT for
 > the precise live resume point):** `content/manuscript/kings/
 > manifest.yaml` (now: total 47 / **collated 1** / pending 46; 1ki:1
