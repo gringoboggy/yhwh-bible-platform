@@ -26,7 +26,7 @@ _VK = {"v", "column", "line_start", "geez", "tokens", "uncertain"}
 # both witnesses.
 _NUMERAL_RE = re.compile(r"([፩-፼])")
 
-# ── non-Ethiopic contamination screen (tau.6.x.4.c Task#14) ──────────────────
+# ── non-Ethiopic contamination screen ────────────────────────────────────────
 # A literal Latin 'f' (U+0066) once slipped into a transcription; this screen
 # is the corrected adversarial check folded inline (formerly run by hand each
 # chapter) so it is enforced for every witness.
@@ -58,11 +58,11 @@ def _screen_non_ethiopic(v: dict) -> list[str]:
            legitimately carry space or ✣ — _geez_to_tokens strips them).
     """
     out: list[str] = []
-    vid = v.get("v")
-    for c in v.get("geez", "").replace(ILLEGIBLE, ""):
+    vid = v["v"]
+    for c in v["geez"].replace(ILLEGIBLE, ""):
         if not (_is_ethiopic(c) or c in _GEEZ_EXTRA_ALLOWED):
             out.append(f"v{vid}: non-Ethiopic char {hex(ord(c))} {c!r} in geez")
-    for t in v.get("tokens", []):
+    for t in v["tokens"]:
         if t == ILLEGIBLE:
             continue
         if not all(_is_ethiopic(c) for c in t):

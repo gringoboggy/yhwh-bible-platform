@@ -115,7 +115,7 @@ class TestWitnessRecords:
 
 
 class TestValidatorNonEthiopicScreen:
-    """tau.6.x.4.c Task#14 — the corrected non-Ethiopic contamination screen
+    """The corrected non-Ethiopic contamination screen
     is folded into validate_witness so every chapter's adversarial review is
     enforced, not run inline by hand. A literal Latin ``f`` (U+0066) once
     slipped into a transcription; ALLOWED = Ethiopic block U+1200–U+137F ∪
