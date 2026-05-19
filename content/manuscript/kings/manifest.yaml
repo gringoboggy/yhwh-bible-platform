@@ -22,12 +22,22 @@
 
   2:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f029r
+        - f029v
+        - f030r
+      source_images:
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f029r.jpg
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f029v.jpg
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f030r.jpg
     CAM:
-      folios: []
-      views: []
-    status: pending
+      folios:
+        - f126v
+        - f127r
+      views:
+        - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f126v_1ki2_hires.jpg
+        - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f127r_1ki2_hires.jpg
+    status: calibrated
 
   3:
     GG:
