@@ -73,6 +73,36 @@ User said "all" to the remaining audit candidates → shipped the full slate wit
 
 **Audit-U-belt complete this session** — all 10 originally-proposed levers shipped (U1, U2, U4, U5, U6, U7 [tool ready; bulk-pull deferred to user kickoff], U8, U9, U10, U11) + Stage-2.1 prep + self-check helper + reviews reorganization + Samuel kickoff scaffolding + hybrid cadence (U12). 4/47 Kings chapters done; the remaining 43 + 51 Samuel chapters run on a substantially upgraded matrix.
 
+### Fourth ship 2026-05-20 — WHOLE-PROJECT audit (cross-track scaffolding for all 5 parallel tracks)
+
+User asked: "step back and look at the WHOLE project scope and everything needed to fully complete the whole project. see if there are, again, any ways to upgrade the system and make as many things run at the same time as possible." → identified FIVE independent parallel tracks (manuscript / Patrologia / parallel-PDF Ge'ez catchup / Amharic NT / NT Ge'ez), surfaced their cross-track scaffolding needs, and shipped the universal pieces so each track is "ready for incoming information" when started/resumed:
+
+- **`scripts/render_coverage.py`** — Whole-project inventory tool. Scans `content/translations/*/*.py` and reports rendered + marathon-pending + patrologia-pending + missing per edition, classified by source track. Baseline 2026-05-20: geez-tewahedo 16/82 (20%), amharic-tewahedo 24/82 (29%), 4 manuscript-track books in flight, 5 patrologia-track books with PDFs ready. `--pretty` for human summary, JSON for composer consumption. +5 tests.
+
+- **`scripts/core/canonical_verse_counts.py`** — Single source of truth for canonical (KJV/Masoretic) per-book verse counts across the WHOLE canonical set. Derives from KJV skeleton via `load_kjv_skeleton`; cached. `canonical_count(book, ch)`, `canonical_total(book)`, `canonical_chapters(book)`, `canonical_book_shape(book)`. Replaces hand-typed-per-book dicts for Phase-3 render scaffolding (`extract_parallel_pdf.py`'s hand-typed dicts remain for OCR floors which may be tradition-specific). `CANONICAL_BOOKS` = 81 KJV-anchored books; `TEWAHEDO_DISTINCTIVE_NO_KJV` = 6 (mq1-3, 1en, jub, 4ba) tracked separately. +10 tests including NT-27-resolve pin and known KJV totals.
+
+- **`scripts/core/provenance_tiers.py`** — Formal tier registry for SOURCE_QUALITY fields. Five tiers: `manuscript-collation-tier2` (τ.6.x.4.b/c output), `patrologia-printed-tier1` (Patrologia Orientalis PD critical editions, NEW), `ocr-tier3` (parallel-PDF EOTC), `kjv-skeleton` (semantic anchor only), `digitized-critical-edition` (psa.py's existing tier). `is_known_tier(code)` for lint gate. Audit-driven addition surfaced an existing in-repo tier (`digitized-critical-edition` on Psalms) that wasn't documented anywhere — now formalized.
+
+- **Two new lint checks** — `render_coverage_no_regression` pins that every book rendered today (40 books across geez+amharic) stays rendered tomorrow; `provenance_tier_known` pins that every `<edition>/<book>.py`'s `SOURCE_QUALITY` is in the registry. Lint suite **14·0·0** (was 12). The provenance check caught Psalms's previously-undocumented tier immediately.
+
+- **`docs/superpowers/specs/2026-05-20-patrologia-ingest-design.md`** — Design spec for Track B (Patrologia Orientalis ingest). Four PDFs on disk (`GAPS/3_Chronicles/`, `4_Ezra-Nehemiah/`, `5_Esther/`, `6_Job/`); printed bilingual Ge'ez+French critical editions. Reuses extract_parallel_pdf.py's pymupdf+Tesseract pipeline + canonical_verse_counts for floors. **Patrologia is EASIER than parallel-PDF EOTC**: fewer pages, cleaner print, editor's apparatus pre-done. Phases τ.6.x.5.a (Job smoke) → .b (Esther re-render) → .c (Ezra+Neh) → .d (1+2 Chronicles, heaviest) → .e (arc-close). Independent of manuscript marathon — can run in parallel.
+
+**Whole-project audit findings — 5 parallel tracks identified, each independent:**
+
+| Track | Books | Current status | Audit-U-belt readiness | Source |
+|---|---|---|---|---|
+| A. Manuscript collation | 1sa, 2sa, 1ki, 2ki (4) | Kings in flight 4/47; Samuel kickoff-ready 51 pending | ✅ FULL (U1-U12) | GG-00106 + Cambridge Add. 1570 |
+| B. Patrologia ingest | 1ch, 2ch, ezr, neh, job (5) | PDFs on disk; design spec shipped today | ✅ scaffolding + provenance tier + spec | PO 2/9/13/23 |
+| C. Parallel-PDF Ge'ez catchup | sir, pro, isa, jer, etc. (~25) | Paused at τ.6.x.2.o Sirach | ✅ canonical_verse_counts + existing extract_parallel_pdf | parallel-Bible-EOTC PDF |
+| D. Amharic NT cadence | mat-rev (27) | Paused; never started for NT | ✅ canonical_verse_counts (27/27 resolve) + chapter classifier extensible | parallel-Bible-EOTC PDF (NT) |
+| E. NT Ge'ez | mat-rev (27) | Not started; source TBD | ⏳ same scaffolding as D once source identified | TBD |
+
+**Each track NOW has** (the "ready for incoming information" property): canonical verse-count floor via `canonical_verse_counts.canonical_count`; provenance tier registered (or addable in one line); chapter classifier framework (extensible per-book; currently covers Samuel/Kings/known LIST/REGNAL); render-coverage tool reports per-track status; lint suite catches regressions.
+
+**Fourth-ship test deltas:** +5 TestCoverageReportShape/GeezTewahedoCoverage/RunAllExitContract for render_coverage + 10 TestCanonicalCoverage/KnownBookCounts/CachingBehavior for canonical_verse_counts = **+15 new tests**. Combined session total = **+67 new tests** (12+19+21+15). Lint **14·0·0**. Manuscript regression still 546/0; render_coverage + canonical_verse_counts 15/15. Ruff clean. 1 audit-discovery: Psalms's `digitized-critical-edition` tier was undeclared in any registry — now formalized.
+
+**The whole project's "complete the project" path is now mapped + scaffolded.** Five tracks can run in parallel; each has a canonical verse-count floor ready; each has a provenance tier; the render-coverage tool surfaces real-time progress. Next sessions can pick any track (or run multiple) without prep-work overhead.
+
 ---
 
 ## 2026-05-19 — session — τ.6.x.4.c Kings marathon — 1 Kings 2 ✅ calibrated + 1 Kings 3 ✅ CALIBRATED (full C-1…C-9 done; VERDICT MATCHES; both witnesses immutable; manifest flipped 1ki:3→calibrated; 47 total / 3 calibrated / 44 pending) — small-batch cadence (user-revised mid-session: stop & commit when 1 Kings 3 done)

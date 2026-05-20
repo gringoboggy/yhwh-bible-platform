@@ -920,6 +920,170 @@ def check_atomic_writes() -> dict:
     }
 
 
+def check_render_coverage_no_regression() -> dict:
+    """Audit 2026-05-20 — render-coverage regression detector.
+
+    Pins that books rendered today in ``content/translations/geez-
+    tewahedo/`` and ``amharic-tewahedo/`` stay rendered tomorrow. A book
+    file disappearing is a fail; new books appearing is silent (the
+    expected direction of change).
+
+    Baseline = 2026-05-20 audit-U-belt snapshot. When a new book is
+    rendered, ADD its code to the relevant set; never SHRINK the
+    expected sets.
+    """
+    expected_geez = {
+        "2es",
+        "deu",
+        "est",
+        "ex",
+        "gen",
+        "jdg",
+        "jdt",
+        "jos",
+        "lev",
+        "mq1",
+        "mq2",
+        "mq3",
+        "num",
+        "psa",
+        "rut",
+        "tob",
+    }
+    expected_amharic = {
+        "1en",
+        "2es",
+        "4ba",
+        "bar",
+        "bel",
+        "deu",
+        "est",
+        "ex",
+        "gen",
+        "jdg",
+        "jdt",
+        "jos",
+        "jub",
+        "lev",
+        "mq1",
+        "mq2",
+        "mq3",
+        "num",
+        "paz",
+        "psa",
+        "rut",
+        "sir",
+        "tob",
+        "wis",
+    }
+    base = REPO / "content" / "translations"
+    violations: list[dict] = []
+    for edition, expected in (
+        ("geez-tewahedo", expected_geez),
+        ("amharic-tewahedo", expected_amharic),
+    ):
+        ed_dir = base / edition
+        if not ed_dir.is_dir():
+            violations.append(
+                {
+                    "edition": edition,
+                    "missing": sorted(expected),
+                    "note": "edition directory missing entirely",
+                }
+            )
+            continue
+        actual = {p.stem for p in ed_dir.glob("*.py") if not p.stem.startswith("_")}
+        missing = expected - actual
+        if missing:
+            violations.append(
+                {
+                    "edition": edition,
+                    "missing": sorted(missing),
+                    "note": "books regressed (file no longer present)",
+                }
+            )
+
+    if not violations:
+        return {
+            "id": "render_coverage",
+            "name": "Render-coverage no-regression",
+            "status": "pass",
+            "message": (
+                f"geez-tewahedo {len(expected_geez)} + amharic-tewahedo "
+                f"{len(expected_amharic)} expected books all present"
+            ),
+            "violations": [],
+        }
+    return {
+        "id": "render_coverage",
+        "name": "Render-coverage no-regression",
+        "status": "fail",
+        "message": "rendered book(s) regressed — restore from git history before committing",
+        "violations": violations,
+    }
+
+
+def check_provenance_tier_known() -> dict:
+    """Audit 2026-05-20 — every committed rendered book's SOURCE_QUALITY
+    must be a known provenance tier per
+    ``scripts.core.provenance_tiers.TIERS``.
+
+    Catches: typos in SOURCE_QUALITY strings; new tier names that
+    weren't registered; render scripts that forgot to set the field.
+    """
+    from scripts.core.provenance_tiers import is_known_tier
+
+    base = REPO / "content" / "translations"
+    violations: list[dict] = []
+    files_checked = 0
+    pattern = re.compile(r'SOURCE_QUALITY\s*=\s*["\']([^"\']+)["\']')
+    for edition in ("geez-tewahedo", "amharic-tewahedo"):
+        ed_dir = base / edition
+        if not ed_dir.is_dir():
+            continue
+        for py in sorted(ed_dir.glob("*.py")):
+            if py.stem.startswith("_"):
+                continue
+            files_checked += 1
+            try:
+                text = py.read_text(encoding="utf-8")
+            except Exception:
+                continue
+            m = pattern.search(text)
+            if not m:
+                violations.append(
+                    {
+                        "file": str(py.relative_to(REPO)).replace("\\", "/"),
+                        "error": "no SOURCE_QUALITY declaration found",
+                    }
+                )
+                continue
+            tier = m.group(1)
+            if not is_known_tier(tier):
+                violations.append(
+                    {
+                        "file": str(py.relative_to(REPO)).replace("\\", "/"),
+                        "error": f"unknown tier {tier!r} (register in scripts.core.provenance_tiers.TIERS)",
+                    }
+                )
+
+    if not violations:
+        return {
+            "id": "provenance_tier",
+            "name": "Provenance-tier known",
+            "status": "pass",
+            "message": f"all {files_checked} rendered books declare known tiers",
+            "violations": [],
+        }
+    return {
+        "id": "provenance_tier",
+        "name": "Provenance-tier known",
+        "status": "fail",
+        "message": (f"{len(violations)}/{files_checked} rendered book(s) have unknown or missing SOURCE_QUALITY"),
+        "violations": violations,
+    }
+
+
 def check_manuscript_witnesses_valid() -> dict:
     """Audit U-belt — every committed witness JSON under
     ``content/manuscript/*/calibration/`` must pass ``validate_witness``.
@@ -1067,6 +1231,9 @@ ALL_CHECKS = {
     "plan_coherence": check_plan_coherence,
     # Audit-U belt — canonical-schema invariant for manuscript witnesses
     "manuscript_witnesses": check_manuscript_witnesses_valid,
+    # Whole-project audit 2026-05-20 — render coverage + provenance tiers
+    "render_coverage": check_render_coverage_no_regression,
+    "provenance_tier": check_provenance_tier_known,
 }
 
 
