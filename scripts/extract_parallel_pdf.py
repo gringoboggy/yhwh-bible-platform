@@ -520,6 +520,67 @@ def is_pericope_header(frag: str) -> bool:
     return PERICOPE_HEADER_RE.match(frag or "") is not None
 
 
+# τ.6.x.NT.c — leak category (C) — low-Ethiopic-ratio noise filter.
+#
+# Latin-mixed running headers leaked into the τ.6.x.NT.b Matthew output
+# as spurious "verses" — example: `ገር3፲1ክ ... ክርስቲያን ሃይማኖትና ሥርዓት
+# 10 ...`. Most chars are digits or Latin glyphs; only a token of
+# legitimate Ethiopic content. Real body verses are >80% Ethiopic at
+# OCR quality; a 40% floor leaves ample headroom for OCR-noise punct
+# while still catching the running-header garbage.
+
+
+def is_low_ethiopic_ratio(frag: str, threshold: float = 0.40) -> bool:
+    """Does this fragment have a low Ethiopic-char ratio?
+
+    True if fewer than ``threshold`` (default 40%) of the non-whitespace
+    characters in ``frag`` are in the Ethiopic Unicode block
+    (U+1200..U+137F). Use to filter NT-running-header garbage where
+    Latin/digit characters dominate.
+
+    Returns False for empty fragments and for pure-Ethiopic content.
+    """
+    if not frag:
+        return False
+    non_ws = [c for c in frag if not c.isspace()]
+    if not non_ws:
+        return False
+    ethiopic_count = sum(1 for c in non_ws if 0x1200 <= ord(c) <= 0x137F)
+    return (ethiopic_count / len(non_ws)) < threshold
+
+
+# τ.6.x.NT.c — leak category (D) — OCR-stub micro-verse filter.
+#
+# Some `።`-bounded fragments contain ≤5 useful Ethiopic-letter chars
+# after stripping numerals/punct/whitespace. Examples: `ጳ፡፳፥ጳ።` (5
+# chars, 0 Ethiopic letters); `፳፥፬።` (3 chars, 0 letters). These are
+# OCR garbage, NOT real short verses (genuine short verses like
+# `ኢየሱስም አለቀሰ።` "Jesus wept" have ~10 Ethiopic letters and pass
+# this filter cleanly).
+
+
+def is_ocr_stub_micro(frag: str, threshold: int = 5) -> bool:
+    """Is this fragment an OCR-stub micro-verse (≤5 letter chars after
+    stripping numerals/punct/whitespace)?
+
+    True if the count of Ethiopic-letter chars (Unicode block letter
+    section U+1200..U+135A, excluding the Ethiopic-numerals subrange
+    U+1369..U+137C and the Ethiopic-punctuation subrange U+1361..U+1368)
+    in ``frag`` is ≤ ``threshold``. Default ``threshold=5`` leaves
+    real Ethiopic short-verses like `ኢየሱስም አለቀሰ` (8 letter chars) safe.
+    """
+    if not frag:
+        return True  # empty fragment is a stub
+    letter_count = sum(
+        1
+        for c in frag
+        if 0x1200 <= ord(c) <= 0x137F
+        and not (0x1361 <= ord(c) <= 0x1368)  # not punctuation
+        and not (0x1369 <= ord(c) <= 0x137C)  # not numeral
+    )
+    return letter_count <= threshold
+
+
 # τ.6.x.NT.a — NT-book section recognition + NT-specific pre-pass.
 #
 # The τ.7.x.v Matthew dry-run hit `renumber_against_floor` GROSS-overflow
@@ -605,7 +666,37 @@ def is_nt_book(section_name: str | None) -> bool:
 # window is sufficient; we cap at 30 to avoid eating real body
 # verses on either side. The regex stops at any Ethiopic full-stop
 # (`።`) or paragraph-separator (`፨`) — these always end a header.
-INLINE_PERICOPE_RE = re.compile(r"\s*ክፍል[\s፡፣]+[፩-፼0-9]{1,4}[\s፡፣።]?[^።፨]{0,30}")
+#
+# τ.6.x.NT.c WIDENED — Tesseract OCR'd many section-numerals as
+# Ethiopic LETTERS (`ኒ`, `ቨች`, `ሣ5`, `ማ፳2`, `ማጓ`) rather than the
+# strict `[፩-፼0-9]` Ethiopic-numeral / digit class. Pattern now has
+# TWO alternatives:
+#  (a) `ክፍል` + sep + token containing ≥1 Ethiopic-numeral/digit +
+#      Ethiopic punct + body window (≤30 chars before `።`/`፨`).
+#      This catches `ክፍል ፪፡ …`, `ክፍል ሣ5፥ …`, `ክፍል ማ፳2፤ …`.
+#  (b) `ክፍል` + optional sep + 1-5-letter token + REQUIRED Ethiopic
+#      punctuation separator + REQUIRED body-cue `ስለ` within ~10
+#      chars + body window. This catches the all-letter OCR forms
+#      `ክፍል ኒ፣ ስለ ...`, `ክፍል ቨች፡ ስለ ...`, `ክፍልማጓ፡ ስለ ...`.
+# The `ስለ` body cue ("about/concerning") is the universal opener for
+# EOTC NT pericope-header bodies; legitimate body sentences mention-
+# ing the word `ክፍል` ("part") + a noun without `ስለ` are preserved.
+INLINE_PERICOPE_RE = re.compile(
+    r"(?:"
+    r"\s*ክፍል[\s፡፣]*"
+    r"(?:[ሀ-ፗ]*[፩-፼0-9][ሀ-ፗ፩-፼0-9]{0,4})"  # token MUST have a numeral/digit
+    r"[\s፡፣፤፥፦።]?"
+    r"[^።፨]{0,30}"
+    r")"
+    r"|"
+    r"(?:"
+    r"\s*ክፍል[\s፡፣]*"
+    r"[ሀ-ፗ]{1,5}"  # all-letter OCR token
+    r"[፡፣፤፥፦።]"  # required Ethiopic punct (not whitespace)
+    r"\s*ስለ\b"  # required body-cue `ስለ` ("about/concerning")
+    r"[^።፨]{0,30}"
+    r")"
+)
 
 # Inline NT chapter marker — matches `ምዕራፍ <sep> <numeral>` anywhere
 # (the existing CHAPTER_HEADER_RE_LENIENT uses an Ethiopic-punct
@@ -620,6 +711,32 @@ INLINE_CHAPTER_MARKER_RE = re.compile(r"\s*ምዕራፍ[\s፡፣]+[፩-፼0-9]{1
 # letters + optional `.` + numerals + separators + closing bracket.
 INLINE_CROSS_REF_RE = re.compile(r"[\(\[〔]\s*[ሀ-ፗ]{1,5}\s*[\.,]?\s*[፩-፼\d]+(?:[፡፣፤፥፦፧፨\-\.,/\s]+[፩-፼\d]+)*\s*[\)\]〕]")
 
+# τ.6.x.NT.c — unbracketed inline cross-reference apparatus. Many NT
+# cross-refs render WITHOUT the `(...)` / `[...]` brackets after OCR.
+# Examples from the τ.6.x.NT.b Matthew run that leaked into the
+# `።`-split output (parsing as spurious verses):
+#   `ማር፳ጳ፡ጳ-፳።`        (Mark + Ethiopic-numeral + range)
+#   `ሉቃጅ፡ፅስ-1ፅል።`     (Luke + Ethiopic-letter-OCR + digit)
+#   `ግብ ሐዋ ፲፡ወቿ-8።`   (Acts two-word abbrev + Ethiopic-numeral)
+#
+# Shape: 2-4 Ethiopic-letter book abbreviation (optionally with a
+# whitespace-separated continuation word), separator (`፡`), then a
+# chapter token + REQUIRED `-`/`–` range indicator + token continuation.
+# The `-` range char is the key tell — ordinary Ethiopic prose does
+# NOT embed `-` runs between Ethiopic glyphs the way cross-refs do.
+UNBRACKETED_INLINE_CROSS_REF_RE = re.compile(
+    r"(?<![ሀ-ፗ])"  # not mid-word
+    r"[ሀ-ፗ]{1,4}"  # 1-4-letter book abbrev
+    r"(?:\s+[ሀ-ፗ]{1,4})?"  # optional 2nd-word abbrev
+    r"[\s፡]+"  # required separator
+    r"[ሀ-ፗ፩-፼0-9]+"  # chapter token (letters + OCR numerals + digits)
+    r"(?:[፡፣፤፥፦፧፨][ሀ-ፗ፩-፼0-9]+)*"  # optional :verse continuation
+    r"[\-–]"  # REQUIRE range dash (the key cross-ref tell)
+    r"[ሀ-ፗ፩-፼0-9]+"  # range target
+    r"(?:[፡፣፤፥፦፧፨\-–][ሀ-ፗ፩-፼0-9]+)*"  # additional continuation (rare)
+    r"(?=[።፨\s]|$)"  # end at Ethiopic stop / space / end
+)
+
 
 def _nt_prepass(text: str) -> str:
     """τ.6.x.NT.a — NT structure-aware pre-pass.
@@ -631,7 +748,9 @@ def _nt_prepass(text: str) -> str:
        header itself + up to ~80 chars of header-body text (e.g.
        "Section 2: Concerning Faith") is replaced with a single space.
        The surrounding scriptural text on either side is preserved
-       intact.
+       intact. τ.6.x.NT.c WIDENED — accepts OCR-mangled section
+       numerals that came through as Ethiopic LETTERS (`ክፍል ኒ፣`,
+       `ክፍል ቨች፡`, `ክፍል ሣ5፥`, `ክፍል ማ፳2፤`, `ክፍልማጓ፡`).
 
     2. Inline `ምዕራፍ N` chapter markers that appear MID-PARAGRAPH (not
        on their own line) are replaced with a single space so they do
@@ -639,10 +758,12 @@ def _nt_prepass(text: str) -> str:
        are still caught by the chapter-header walker upstream of this
        pre-pass.)
 
-    3. Inline cross-reference apparatus `(መዝ ፴፫፤፬)`, `[ዕብ ፪]`, etc. is
-       excised — the OT path's `is_cross_ref_fragment` filter only
-       catches these when they STAND ALONE between `።`s; NT pages
-       glue them inside body sentences, so we strip them inline.
+    3. Inline cross-reference apparatus is excised — `(መዝ ፴፫፤፬)`,
+       `[ዕብ ፪]`, etc. (bracketed) PLUS τ.6.x.NT.c unbracketed forms
+       (`ማር፳ጳ፡ጳ-፳።`, `ሉቃጅ፡ፅስ-1ፅል።`, `ግብ ሐዋ ፲፡ወቿ-8።`). The OT
+       path's `is_cross_ref_fragment` filter only catches these when
+       they STAND ALONE between `።`s; NT pages glue them inside body
+       sentences, so we strip them inline.
 
     4. Colometric layout — POETIC LINE BREAKS (a verse-internal line
        break that should NOT be a verse boundary; the Beatitudes /
@@ -667,6 +788,10 @@ def _nt_prepass(text: str) -> str:
     out = INLINE_PERICOPE_RE.sub(" ", text)
     out = INLINE_CHAPTER_MARKER_RE.sub(" ", out)
     out = INLINE_CROSS_REF_RE.sub(" ", out)
+    # τ.6.x.NT.c — unbracketed cross-ref strip (must run AFTER bracketed
+    # so nested forms don't fragment; order vs pericope is irrelevant
+    # because their key tokens are disjoint).
+    out = UNBRACKETED_INLINE_CROSS_REF_RE.sub(" ", out)
 
     # Step 4: colometric merge. Walk line-by-line; if line[i] ends in a
     # NON-`።` Ethiopic punctuation mark (continuation cue) AND line[i+1]
@@ -2107,6 +2232,77 @@ MATTHEW_VERSE_COUNTS = {
 # γ-notes cross-validation, unlike the OT pseudepigrapha).
 
 
+# τ.6.x.NT.c — The Gospel of Mark (`mrk`). content/books.yaml fixes
+# `mrk` at ch_count: 16 (b61, "The Good News According to Mark").
+# SECOND New Testament book — second of 4 Gospels (Matthew → Mark →
+# Luke → John). Verse counts use the standard KJV / UBS-NA Mark
+# enumeration (16 ch / 678 v; the canonical short ending without
+# the longer ending Mk 16:9-20 is the textual-critical default, but
+# the EOTC/KJV/UBS published-Bible includes the longer ending so the
+# floor reflects 16:20). Per the τ.7.x.v methodology note, NT
+# versification is highly standardized — no γ-notes cross-validation.
+# Twenty-seventh renumber-floor; structural_map.mark is a NEW section
+# [1636, 1677] (Track E header scan; `ወንጌል ዘማርቆስ` opens p1636;
+# τ.7.x.v cross-validation: p1636 confirmed by Matthew end-boundary).
+MARK_VERSE_COUNTS = {
+    1: 45,
+    2: 28,
+    3: 35,
+    4: 41,
+    5: 43,
+    6: 56,
+    7: 37,
+    8: 38,
+    9: 50,
+    10: 52,
+    11: 33,
+    12: 44,
+    13: 37,
+    14: 72,
+    15: 47,
+    16: 20,
+}
+# Total Mark verses = 678 (16 ch; KJV/UBS-NA enumeration; includes
+# the longer ending Mk 16:9-20 per the EOTC published-Bible
+# convention).
+
+
+# τ.6.x.NT.c — The Gospel of Luke (`luk`). content/books.yaml fixes
+# `luk` at ch_count: 24 (b62, "The Good News According to Luke").
+# THIRD New Testament book — third of 4 Gospels. Verse counts use the
+# standard KJV / UBS-NA Luke enumeration (24 ch / 1151 v). NT
+# versification is highly standardized — no γ-notes cross-validation.
+# Twenty-eighth renumber-floor; structural_map.luke is a NEW section
+# [1678, 1753] (Track E header scan; `ወንጌል ዘሉቃስ` opens p1678).
+LUKE_VERSE_COUNTS = {
+    1: 80,
+    2: 52,
+    3: 38,
+    4: 44,
+    5: 39,
+    6: 49,
+    7: 50,
+    8: 56,
+    9: 62,
+    10: 42,
+    11: 54,
+    12: 59,
+    13: 35,
+    14: 35,
+    15: 32,
+    16: 31,
+    17: 37,
+    18: 43,
+    19: 48,
+    20: 47,
+    21: 38,
+    22: 71,
+    23: 56,
+    24: 53,
+}
+# Total Luke verses = 1151 (24 ch; KJV/UBS-NA enumeration).
+
+
 # τ.6.x.NT.a — Philemon (`phm`). Single-chapter Pauline letter
 # (25 verses; KJV/UBS-NA). SMALLEST single-block NT book reachable
 # from the parallel-Bible-EOTC PDF (p2023-2024, 2 pages). FIRST
@@ -2243,6 +2439,18 @@ def _parse_paragraph_mode(text: str, *, is_nt: bool = False) -> list[tuple[int, 
             # misses) so they do not parse as spurious verses.
             if is_pericope_header(frag):
                 continue
+            # τ.6.x.NT.c (C+D): NT-only post-split fragment filters.
+            # OT path preserves byte-identity by skipping these.
+            if is_nt:
+                # (C) Low-Ethiopic-ratio noise — Latin/digit-dominated
+                # running headers leak into NT output. <40% Ethiopic =
+                # garbage.
+                if is_low_ethiopic_ratio(frag):
+                    continue
+                # (D) OCR-stub micro-verses — ≤5 Ethiopic-letter chars
+                # after stripping numerals/punct. Catches `ጳ፡፳፥ጳ` etc.
+                if is_ocr_stub_micro(frag):
+                    continue
             # Filter very-short fragments (likely OCR noise — orphan
             # punctuation, single characters, etc.). Body-text verses
             # are typically ≥15 chars even at OCR quality.
@@ -3145,6 +3353,10 @@ def _build_docstring_extra(
         floor_dict = ONE_ENOCH_VERSE_COUNTS
     elif renumber == "matthew":
         floor_dict = MATTHEW_VERSE_COUNTS
+    elif renumber == "mark":
+        floor_dict = MARK_VERSE_COUNTS
+    elif renumber == "luke":
+        floor_dict = LUKE_VERSE_COUNTS
     elif renumber == "philemon":
         floor_dict = PHILEMON_VERSE_COUNTS
     elif renumber == "second_john":
@@ -3258,6 +3470,8 @@ def main() -> int:
             "jubilees",
             "one_enoch",
             "matthew",
+            "mark",
+            "luke",
             "philemon",
             "second_john",
             "third_john",
@@ -3446,6 +3660,10 @@ def main() -> int:
         renumber_floor = ONE_ENOCH_VERSE_COUNTS
     elif args.renumber == "matthew":
         renumber_floor = MATTHEW_VERSE_COUNTS
+    elif args.renumber == "mark":
+        renumber_floor = MARK_VERSE_COUNTS
+    elif args.renumber == "luke":
+        renumber_floor = LUKE_VERSE_COUNTS
     elif args.renumber == "philemon":
         renumber_floor = PHILEMON_VERSE_COUNTS
     elif args.renumber == "second_john":

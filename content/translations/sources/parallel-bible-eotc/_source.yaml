@@ -1381,6 +1381,61 @@ structural_map:
       every prior book). ocr-tier3. Geʽez column deferred to
       τ.6.x.2.* under D4-c.
 
+  # ── τ.6.x.NT.c Mark block — SECOND Gospel. NEW section (the
+  # τ.7.x.q baruch new-section pattern — Mark was never Π.1-mapped).
+  # Header: `ወንጌል ዘማርቆስ` (PDF p1636 — cross-validated as the
+  # decisive Matthew end-boundary at τ.7.x.v; "the holy Gospel … as
+  # Mark wrote it" = Mark 1:1).
+  mark:
+    book_codes: [mrk]
+    pdf_page_range: [1636, 1677]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-20
+    verified_at_phase: τ.6.x.NT.c
+    chapter_count_expected: 16   # content/books.yaml `mrk` ch_count: 16 (b61)
+    notes: |
+      τ.6.x.NT.c — The Gospel of Mark (`mrk`). SECOND NT book +
+      second of the 4 Gospels. Wired alongside Matthew re-ship at
+      τ.6.x.NT.c after the 4-fix pre-pass refinement
+      (Pericope-strip widening for OCR-mangled section numerals;
+      unbracketed-cross-ref stripping; low-Ethiopic-ratio noise
+      filter; OCR-stub micro-verse filter).
+
+      Header: `ወንጌል ዘማርቆስ` (PDF p1636 — Track E discovery scan;
+      cross-validated at τ.7.x.v as the decisive Matthew end-
+      boundary). End: p1677 — p1678 opens Luke (`ወንጌል ዘሉቃስ`).
+      42 pp / 16 ch.
+
+      MARK_VERSE_COUNTS (16 ch / 678 v) = standard KJV / UBS-NA
+      enumeration including the longer ending Mk 16:9-20 per the
+      EOTC published-Bible convention. NT versification is highly
+      standardized; no γ-notes cross-validation. ocr-tier3 per the
+      τ.6.x.0b honesty contract.
+
+  # ── τ.6.x.NT.c Luke block — THIRD Gospel. NEW section. Header:
+  # `ወንጌል ዘሉቃስ` (PDF p1678 — Track E header scan).
+  luke:
+    book_codes: [luk]
+    pdf_page_range: [1678, 1753]
+    pdf_index_offset: 0
+    verified: true
+    verified_date: 2026-05-20
+    verified_at_phase: τ.6.x.NT.c
+    chapter_count_expected: 24   # content/books.yaml `luk` ch_count: 24 (b62)
+    notes: |
+      τ.6.x.NT.c — The Gospel of Luke (`luk`). THIRD NT book +
+      third of the 4 Gospels. Ships alongside Mark + Matthew re-
+      ship at τ.6.x.NT.c. Header: `ወንጌል ዘሉቃስ` (PDF p1678 — Track
+      E discovery scan). End: p1753 — p1754 opens John
+      (`ወንጌል ዘዮሐንስ`). 76 pp / 24 ch — LARGEST single-block NT
+      book by page count.
+
+      LUKE_VERSE_COUNTS (24 ch / 1151 v) = standard KJV / UBS-NA
+      enumeration. NT versification is highly standardized; no
+      γ-notes cross-validation. ocr-tier3 per the τ.6.x.0b
+      honesty contract.
+
   # ── τ.6.x.NT.a Philemon block — SMALLEST single-block NT book.
   # NEW section (the τ.7.x.q baruch new-section pattern — Philemon
   # was never Π.1-mapped). FIRST book to ship with the

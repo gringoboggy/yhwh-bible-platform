@@ -453,3 +453,213 @@ class TestPriorPreservation:
         assert "text" in sig.parameters
         # `paragraph_mode` is keyword-only and defaults to False.
         assert sig.parameters["paragraph_mode"].default is False
+
+
+# ────────────────────── τ.6.x.NT.c — leak fixes ───────────────────
+#
+# The τ.6.x.NT.b BLOCKER reported Matthew Amharic pre-pass reduced
+# overflow 67% (107→35) but still exceeded the 21v tolerance. Four
+# leak categories were diagnosed (see τ.6.x.NT.c task brief):
+#
+#   (A) Pericope-strip leak — Tesseract OCR'd section-numerals as
+#       Ethiopic LETTERS (not numerals) — `ክፍል ኒ፣`, `ክፍል ቨች፡`,
+#       `ክፍል ሣ5፥`, `ክፍል ማ፳2፤`, `ክፍልማጓ፡`. The pre-τ.6.x.NT.c
+#       INLINE_PERICOPE_RE required `[፩-፼0-9]` after the keyword;
+#       widen to accept Ethiopic letters mixed with digits/numerals.
+#
+#   (B) Cross-ref-strip leak — Many cross-refs render WITHOUT
+#       brackets after OCR: `ማር፳ጳ፡ጳ-፳።`, `ሉቃጅ፡ፅስ-1ፅል።`,
+#       `ግብ ሐዋ ፲፡ወቿ-8።`. The pre-τ.6.x.NT.c INLINE_CROSS_REF_RE
+#       required bracketed shape — add an unbracketed pattern.
+#
+#   (C) Low-Ethiopic-ratio noise — Latin-mixed running headers
+#       (`ገር3፲1ክ ... ክርስቲያን ሃይማኖትና ሥርዓት 10 ...`). Add a
+#       fragment-level filter dropping verses with <40% Ethiopic.
+#
+#   (D) OCR-stub micro-verses — Fragments with ≤5 useful chars
+#       after stripping numerals/punct. Subsumed by (B) but worth
+#       a dedicated filter.
+
+
+class TestTau6XNTcPericopeOCRMangled:
+    """(A) Pericope-strip leak. The widened INLINE_PERICOPE_RE must
+    catch headers whose section-numerals were OCR'd as Ethiopic
+    LETTERS rather than the strict `[፩-፼0-9]` numeral class."""
+
+    def test_pericope_strip_handles_ocr_mangled_section_numerals_letters_only(self):
+        """Section-numeral OCR'd as pure Ethiopic letters
+        (`ክፍል ኒ፣`)."""
+        text = "የመጀመሪያ ቃል። ክፍል ኒ፣ ስለ እምነት። የቀጣይ ቃል።"
+        out = _ext()._nt_prepass(text)
+        # Header stripped (the keyword + section numeral run + body cue).
+        assert "ክፍል ኒ" not in out
+        # Surrounding body preserved.
+        assert "የመጀመሪያ ቃል" in out
+        assert "የቀጣይ ቃል" in out
+
+    def test_pericope_strip_handles_two_letter_section_numeral(self):
+        """`ክፍል ቨች፡` — two Ethiopic letters as the section numeral."""
+        text = "የመጀመሪያ ቃል። ክፍል ቨች፡ ስለ ምስጢር። ቀጣዩ።"
+        out = _ext()._nt_prepass(text)
+        assert "ክፍል ቨች" not in out
+        assert "የመጀመሪያ ቃል" in out
+
+    def test_pericope_strip_handles_letter_plus_digit_numeral(self):
+        """`ክፍል ሣ5፥` — Ethiopic letter + Arabic digit mix."""
+        text = "የመጀመሪያ ቃል። ክፍል ሣ5፥ ስለ ጥሩ ምግባር። ቀጣዩ።"
+        out = _ext()._nt_prepass(text)
+        assert "ክፍል ሣ5" not in out
+        assert "የመጀመሪያ ቃል" in out
+
+    def test_pericope_strip_handles_letter_numeral_digit_mix(self):
+        """`ክፍል ማ፳2፤` — Ethiopic letter + Ethiopic-numeral + digit."""
+        text = "የመጀመሪያ ቃል። ክፍል ማ፳2፤ ስለ ሕይወት። ቀጣዩ።"
+        out = _ext()._nt_prepass(text)
+        assert "ክፍል ማ፳2" not in out
+        assert "የመጀመሪያ ቃል" in out
+
+    def test_pericope_strip_handles_glued_keyword_numeral(self):
+        """`ክፍልማጓ፡` — keyword glued to numeral with no separator."""
+        text = "የመጀመሪያ ቃል። ክፍልማጓ፡ ስለ ሰላም። ቀጣዩ።"
+        out = _ext()._nt_prepass(text)
+        assert "ክፍልማጓ" not in out
+        assert "የመጀመሪያ ቃል" in out
+
+
+class TestTau6XNTcUnbracketedCrossRef:
+    """(B) Cross-ref-strip leak. The new unbracketed cross-ref pattern
+    must catch citations that render WITHOUT brackets after OCR."""
+
+    def test_cross_ref_strip_handles_unbracketed_form_mar(self):
+        """`ማር፳ጳ፡ጳ-፳።` — book abbreviation 'ማር' (Mark) glued to
+        numerals + range, NO brackets."""
+        # An unbracketed cross-ref standing alone between two body
+        # sentences after the `።`-splitter would survive the bracketed
+        # cross-ref strip but be filtered as a verse-fragment. Test
+        # via end-to-end paragraph-mode parse.
+        ext = _ext()
+        text = "ምዕራፍ ፩።\nየመጀመሪያው ቃል ይህ ነው ስለዚህ።\nማር፳ጳ፡ጳ-፳።\nየቀጣዩ ቃል ይህ ነው ስለዚህ።\n"
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        # The cross-ref `ማር፳ጳ፡ጳ-፳።` must NOT appear as a verse.
+        verse_texts = [t for (_, _, t) in verses]
+        for v in verse_texts:
+            assert "ማር፳ጳ" not in v, f"cross-ref leaked: {v!r}"
+
+    def test_cross_ref_strip_handles_unbracketed_form_luq(self):
+        """`ሉቃጅ፡ፅስ-1ፅል።` — Luke abbrev + Ethiopic-letter-OCR numerals
+        + range + arabic digit."""
+        ext = _ext()
+        text = "ምዕራፍ ፩።\nየመጀመሪያው ቃል ይህ ነው ስለዚህ።\nሉቃጅ፡ፅስ-1ፅል።\nየቀጣዩ ቃል ይህ ነው ስለዚህ።\n"
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        verse_texts = [t for (_, _, t) in verses]
+        for v in verse_texts:
+            assert "ሉቃጅ" not in v, f"cross-ref leaked: {v!r}"
+
+    def test_cross_ref_strip_handles_acts_two_word_form(self):
+        """`ግብ ሐዋ ፲፡ወቿ-8።` — two-word book abbreviation (Acts =
+        `ግብረ ሐዋርያት`, shortened to `ግብ ሐዋ`)."""
+        ext = _ext()
+        text = "ምዕራፍ ፩።\nየመጀመሪያው ቃል ይህ ነው ስለዚህ።\nግብ ሐዋ ፲፡ወቿ-8።\nየቀጣዩ ቃል ይህ ነው ስለዚህ።\n"
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        verse_texts = [t for (_, _, t) in verses]
+        for v in verse_texts:
+            assert "ግብ ሐዋ" not in v, f"cross-ref leaked: {v!r}"
+
+
+class TestTau6XNTcLowEthiopicRatio:
+    """(C) Page-header / running-title noise. Verses whose Ethiopic-
+    character ratio is below 40% (Latin/digit-dominant lines) must
+    be filtered out."""
+
+    def test_low_ethiopic_ratio_lines_filtered(self):
+        """Latin-mixed running header — most chars are digits/Latin/
+        punctuation, only a token of Ethiopic content."""
+        ext = _ext()
+        text = "ምዕራፍ ፩።\nየመጀመሪያው ቃል ይህ ነው ስለዚህ።\nገር3፲1ክ ABC 12345 XYZ 99 1010 ABCDEF።\nየቀጣዩ ቃል ይህ ነው ስለዚህ።\n"
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        verse_texts = [t for (_, _, t) in verses]
+        # The garbage running-header line must NOT appear as a verse.
+        for v in verse_texts:
+            assert "ABCDEF" not in v, f"low-ratio garbage leaked: {v!r}"
+            assert "XYZ" not in v, f"low-ratio garbage leaked: {v!r}"
+
+    def test_high_ethiopic_ratio_lines_preserved(self):
+        """Pure-Ethiopic verse text must be preserved — the filter
+        targets LOW ratio only."""
+        ext = _ext()
+        text = "ምዕራፍ ፩።\nየመጀመሪያው ቃል ይህ ነው ስለዚህ።\nሁለተኛው ቃል ይህ ነው ስለዚህ።\n"
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        # Both body verses preserved.
+        assert len(verses) == 2
+
+    def test_ot_path_unaffected_by_ratio_filter(self):
+        """OT path (is_nt=False) MUST NOT apply the low-ratio filter
+        — byte-identity contract with τ.7.x.a-o."""
+        ext = _ext()
+        text = "ምዕራፍ ፩።\nብርሃንም ሰማይና ምድር በውስጧ ነበሩ ስለዚህ።\n"
+        # is_nt=False — produces the same output as previously.
+        ot_out = ext._parse_paragraph_mode(text, is_nt=False)
+        # OT path: one body verse preserved.
+        assert len(ot_out) == 1
+
+
+class TestTau6XNTcOCRStubMicroVerse:
+    """(D) OCR-stub micro-verses. Fragments with ≤5 useful chars
+    (after stripping numerals/punct/whitespace) are OCR garbage
+    and must be filtered out."""
+
+    def test_ocr_stub_micro_verses_filtered(self):
+        """A `።`-bounded fragment with ≤5 Ethiopic-letter chars after
+        stripping numerals + punct is OCR noise, not body text."""
+        ext = _ext()
+        text = (
+            "ምዕራፍ ፩።\n"
+            "የመጀመሪያው ቃል ይህ ነው ስለዚህ።\n"
+            "ጳ፡፳፥ጳ።\n"  # OCR stub — almost entirely numerals/punct
+            "የቀጣዩ ቃል ይህ ነው ስለዚህ።\n"
+        )
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        verse_texts = [t for (_, _, t) in verses]
+        for v in verse_texts:
+            # The stub must not survive as a verse.
+            assert "ጳ፡፳፥ጳ" not in v, f"OCR stub leaked: {v!r}"
+
+    def test_real_short_verse_preserved(self):
+        """Genuine short verses (e.g. Jn 11:35 "Jesus wept" = `ኢየሱስም
+        አለቀሰ።`) must be preserved — they have enough Ethiopic content
+        to pass the stub filter."""
+        ext = _ext()
+        text = (
+            "ምዕራፍ ፩።\n"
+            "ኢየሱስም አለቀሰ።\n"  # ~10 Ethiopic chars — well above stub threshold
+        )
+        verses = ext._parse_paragraph_mode(text, is_nt=True)
+        # Verse preserved.
+        assert len(verses) == 1
+
+
+class TestTau6XNTcNTSectionRegistryExtended:
+    """τ.6.x.NT.c may extend the structural_map with mark/luke. Verify
+    those sections become reachable AFTER the ship (if Step 4 done)."""
+
+    def test_mark_section_optionally_present(self):
+        """If mark was added at τ.6.x.NT.c Step 4, it must wire to
+        the right page range. If not added, this test is skipped."""
+        sm = _source_yaml()["structural_map"]
+        if "mark" not in sm:
+            import pytest
+
+            pytest.skip("mark section not yet shipped (τ.6.x.NT.c Step 4 deferred)")
+        assert sm["mark"]["book_codes"] == ["mrk"]
+        assert sm["mark"]["pdf_page_range"] == [1636, 1677]
+
+    def test_luke_section_optionally_present(self):
+        """If luke was added at τ.6.x.NT.c Step 4, it must wire to
+        the right page range. If not added, this test is skipped."""
+        sm = _source_yaml()["structural_map"]
+        if "luke" not in sm:
+            import pytest
+
+            pytest.skip("luke section not yet shipped (τ.6.x.NT.c Step 4 deferred)")
+        assert sm["luke"]["book_codes"] == ["luk"]
+        assert sm["luke"]["pdf_page_range"] == [1678, 1753]
