@@ -2,6 +2,47 @@
 
 <!-- TRACKER-STATE: active -->
 
+> **➤➤➤ 2026-05-20 ~22:30 EST — 2ND CRASH (parallel-agent OOM) + CAP TIGHTENED + RE-DISPATCH (read FIRST; supersedes the 22:00 RECOVERY banner below for state, but 22:00's 6 recovery commits remain valid).**
+>
+> The 22:00 RECOVERY banner had re-dispatched 2 BG agents (1ki5 R1 fix, 1sa2 fresh C-2). Controller then broadened to 5 more (1ki6, 1sa4, Num/Deu/Jos Track F BT) per user "dispatch all that can be" authorization. At 7 concurrent, Claude Code parent harness panicked with `memory allocation of 64281600 bytes failed` — Rust OOM from ~390 k tokens of in-flight agent output buffered in the parent on top of long-session context. All 7 agents died with zero disk delta (`git status` confirms only `IN_FLIGHT.md` modified; recovery commits c445d20 / 8657e67 / b9ffc1e / 40b7213 / e609f99 / 727fd96 all intact).
+>
+> **NEW HARD CAP: 3 concurrent agents** (margin under the stable-4 line from today's 18:39 / 19:14 waves). Codified to memory as `feedback_concurrent_agent_cap`. Pacing-feedback `feedback_marathon_pacing` re-asserted on TOP of the cap — burst-dispatches to 5/7 superseded by deliberate-batch cadence with user check-ins between batches. Per-session restart recommended between major batches to release accumulated parent context.
+>
+> **Re-dispatched (priority 3 under new cap; all BG general-purpose):**
+> - **τ.6.x.4.c 1ki5 R1 fix-round** — REVIEW `dev/marathon_reviews/1ki5/REVIEW_2026-05-20-1ki5-GG-R1.md` (5 CRITICAL + 4 MAJOR + 6 MINOR-optional); witness `content/manuscript/kings/calibration/1ki5_witnessGG.json` (overwrite in place).
+> - **τ.6.x.4.c 1sa2 fresh C-2 re-pass** — NOT a fix-round; corrected methodology (≥6x LANCZOS, post-rubric ❈ preserved, multi-illegible honesty, NEW ይ/ግ/ን + ሰ/ል + ደ/ድ families, v29 specific watchout); witness `content/manuscript/samuel/calibration/1sa2_witnessGG.json` (overwrite).
+> - **τ.6.x.4.c 1ki6 C-1 + C-2 blind GG** — next Kings chapter advance; agent locates own folios starting at 1Ki6:1 boundary marker `ወእምዝ ፡ አመ ፡ ኮነ ፡ ፬ ፻` on f031r (verified per 1ki5 R1 boundary check); NEW witness file at `content/manuscript/kings/calibration/1ki6_witnessGG.json`; update `content/manuscript/kings/manifest.yaml`.
+>
+> Resume: 3 agents land → commit each → controller checks in with user per pacing feedback before next batch. Held-back queue (NOT in this batch by cap): 1sa4 C-1+C-2, Num/Deu/Jos Track F BT.
+>
+> **[SUPERSEDED 2026-05-20 22:30 EST by 2ND-CRASH banner above — 22:00 RECOVERY banner retained for context; its 6 recovery commits and 4 RESOLVED + bonus discoveries remain valid]:**
+> **➤➤➤ 2026-05-20 ~22:00 EST — SESSION-CRASH RECOVERY + RE-DISPATCH (read FIRST; supersedes the 16:45 EOD-hygiene banner below).** Session crashed sometime after the 17:20 `d623fae tau.F.lev1.a` commit; on resume the working tree had 12 modified + 10 untracked files representing ~10K lines of finished agent work that hadn't been committed, plus 4 unresolved agents from the 6 in flight at the EOD-hygiene snapshot. Recovery actions completed:
+>
+> **(1) Six atomic recovery commits landed** (all lint-clean, pre-commit `ruff format --check` + `scripts/lint_rules.py` passing 14·0·0):
+>   - `c445d20` **τ.G.constitution.a** — Standalone Bibles constituted (`standalone-geez` + `standalone-amharic` at full 87-book Tewahedo canon; `base_translation` + `popup_translation` slots wired to `*-tewahedo` body + `*-tewahedo-en` Track F popups per CLAUDE_PROJECT_RULES §1; schema spec gains optional `standalone` + `base_translation` fields; preflight excludes standalone IDs from main-cover check (covers ship later τ.G.*); editions count 9→11 across matrix/customize/validator pins)
+>   - `8657e67` **τ.6.x.5.d** — Track B Patrologia Chronicles ship (1ch + 2ch from PO 23 fasc 4 Grébaut 1932; 1ch pp 542-647 LIVRE PREMIER ch I-XXIX; 2ch pp 648-776 LIVRE SECOND ch I-XXXVI; PO 23 banner_top_fraction 0.10; `parse_banner_chapter` handles the new PO 23 banner shape — no book name + French ordinal-word chapters CHAPITRE PREMIER…TRENTE-SIXIÈME + OCR mangles PRENIER/CHAPITKE/CHAP1TRE/CHÄPITRE; +1 test class)
+>   - `b9ffc1e` **τ.6.x.NT.c** — Track D Matthew + Mark refinement re-attempt (4 leak fixes in `extract_parallel_pdf.py` per τ.6.x.NT.b diagnosis: broadened pericope-strip char-class; unbracketed-cross-ref stripping; `is_low_ethiopic_ratio` 40 % floor; OCR-stub micro-verse handling; mat.py × 2 langs + mrk.py amharic-side; _source.yaml Mark structural_map; +210 prepass tests)
+>   - `40b7213` **ν.8 Bilingual ToC infrastructure** — `apply_bilingual_toc` pass in `build_edition.py` re-labels every ToC entry (in-book `<li class=toc-book>` + nav.xhtml) with native-script names alongside English when edition opts in via new `toc_bilingual` field (enum none|geez-english|amharic-english|both; default `none` = byte-identical builds; idempotent via canonical-anchor identification); `scripts/core/book_native_names.py` houses 87-book Ge'ez+Amharic names + Ethiopic-numeral converter 1-200 sourced from Haile Selassie I Amharic 1962 / BFBS 1853 Ge'ez OT / Pell-Platt 1830 Ge'ez NT / Bible-with-Andemta; infrastructure-only ship, no edition opted in yet
+>   - `e609f99` **τ.6.x.4.c 1ki5 WIP C-2 + C-3 R1 NEEDS-FIX** (witness + review committed as MUTABLE crash-recovery checkpoint; 5 CRITICAL + 4 MAJOR + 6 MINOR; CRITICALs: v6 line-break-split mis-merge `ጠቢላሰ→ጠቢበ ላዕለ` topology §4; v7-v8 systematic `✣` body-cross mis-parsed as fidel `እ`; v7 `ዕወወለ/ዕወወ` scribal-variant question; v10 `ስኪራም→ለኪራም ×2` topology §2 `ለ/ስ`; v12 `ወረነወ→ወፈነወ` NEW `ፈ/ረ` family for topology absorption)
+>   - `727fd96` **τ.6.x.4.c 1sa2 WIP C-2 + C-3 R1 BLOCKER** (witness + review committed as MUTABLE crash-recovery checkpoint; v29 content APPEARS FABRICATED — invented `አያን ውስተ አባቤዘ` + 7-cross run at f004r-M L13-17 where parchment actually shows narrative `ናሁ እነ እንግብር ቃልየ ዘንበብኩ ሳዕለ እስራኤል` KJV 1Sa 3:11-12 equivalent; ≥30 hard defects in ~10 verses; v2 `ወቂዩ→ወደቂቅ` topology §4+§2 `ይ/ደ` family at column boundary; v5 `ለእስ→ለእለ` `ለ/ስ` + `ይንብር→ይግብር` NEW `ይ/ግ/ን` family; v6 `ወሰደ→ወልድ` glyph confusion changes word; v3 semantic-bender `በስሙ→ሥጋ`)
+>
+> **(2) Two manuscript agents re-dispatched** to recover from the EOD-snapshot's "agent claimed running but produced no disk delta" failure mode:
+>   - **τ.6.x.4.c Track A Kings 1ki5 — R1 fix-round** running BG. Scope: apply REVIEW_2026-05-20-1ki5-GG-R1.md's 5 CRITICAL + 4 MAJOR exactly (MINORs optional), AMBIGUOUS-PARCHMENT loci per METHOD NOTE 4 four-path rule, CARDINAL RULE cuts both ways (refute reviewer if parchment refutes — 1Ki4 R6 `ለዓዓም` precedent), `write_witness()` U1-mandated, screens NARRATIVE-class CLEAN. Output → overwrite the WIP witness in place; report ≤600 words.
+>   - **τ.6.x.4.c Track A Samuel 1sa2 — fresh C-2 re-pass** running BG. NOT a fix-round; complete blind re-transcription from parchment with corrected methodology: ≥6x LANCZOS upscale (vs prior 3x), preserve post-rubric `❈`, multi-illegible honesty, NEW `ይ/ግ/ን` + `ሰ/ል` + `ደ/ድ` families applied, v29 specific watchout. Output → overwrite the BLOCKED witness in place; report ≤700 words.
+>
+> Both agents dispatched isolated (no CAM, no KJV, no parallel-PDF, no other Bible witnesses, no IN_FLIGHT/SESSION_STATE/plan files). Per the `feedback_marathon_pacing` cadence the controller checked in with the user before re-dispatch; user authorized.
+>
+> **(3) The other 4 originally-in-flight agents at the 16:45 EOD-hygiene snapshot are RESOLVED:**
+>   - Track B τ.6.x.5.c Ezra+Neh — landed pre-crash as `0dc5089`
+>   - τ.6.x.NT.c Matthew — landed on disk pre-crash, committed in this recovery as `b9ffc1e`
+>   - τ.G.constitution.a standalone-Bibles — landed on disk pre-crash, committed in this recovery as `c445d20`
+>   - τ.F.gen.b Gen 2-5 BT — landed pre-crash as `909d61f`
+>
+> **Bonus discoveries** (not in the 16:45 banner — dispatched silently or after-the-fact): **ν.8 Bilingual ToC** (committed `40b7213`), **τ.6.x.5.d Chronicles overflow** 1ch+2ch (committed `8657e67`), **τ.F.exo1.a Exodus 1 BT** (landed pre-crash as `8338478`), **τ.F.lev1.a Leviticus 1 BT** (landed pre-crash as `d623fae`).
+>
+> **Resume pointer (next session):** the 2 BG manuscript agents will complete and surface results; controller integrates by either advancing 1ki5 to R2 review + 1sa2 to fresh C-3 R1, or surfacing for user check-in per `feedback_marathon_pacing`. Total ships this 2026-05-20 session: **14+** (5 audit-U-belt + 6 parallel-track-sweep landed pre-crash + 4 Track F BT smoke + 6 recovery commits + 2 re-dispatched).
+>
+> **[SUPERSEDED 2026-05-20 22:00 EST by CRASH-RECOVERY banner above — 16:45 EOD-hygiene snapshot retained for context]:**
 > Marker stays `active`: τ.6.x.4.c Kings marathon is the parent in-flight task. **2026-05-20 EOD: SIX ship batches landed inside this marathon today** — morning audit-U-belt (5 ships) + afternoon/evening parallel-track sweep (6th meta-ship spanning 9 phase tags / 5 commits f09081b + 2733483 + 7f2a2ac + bafb466 + febe024).
 >
 > **Parallel-track sweep status (2026-05-20 EOD; 6 BG agents still in flight at hygiene-commit time):**
