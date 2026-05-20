@@ -479,9 +479,101 @@ class TestTau7XQRZeroApiDeltaAndPriorPins:
         ):
             assert (AMHARIC_TEWAHEDO / f"{book}.py").is_file(), f"prior τ.7.x.* book {book} must persist"
 
-    def test_geez_bar_wis_not_created(self):
-        assert not (GEEZ_TEWAHEDO / "bar.py").exists()
-        assert not (GEEZ_TEWAHEDO / "wis.py").exists()
+    def test_geez_bar_wis_paz_bel_jub_ingested_one_enoch_still_deferred(self):
+        """MIGRATED at the τ.6.x.2.t ship-time (2026-05-20) per memory
+        `feedback_share_pin_pattern` + the τ.6.x.2.j-s precedent.
+        Originally asserted the Geʽez `bar.py` AND `wis.py` must NOT
+        exist (τ.7.x.q was --lang amharic; D4-c deferral). τ.6.x.2.q
+        flipped the `bar` half; τ.6.x.2.r flipped the `wis` half;
+        τ.6.x.2.s flipped the Daniel-additions cluster paz+bel of
+        the eighth EOTC-parallel block; τ.6.x.2.t (the SIXTH ship of
+        the deuterocanon Geʽez catchup — opens the ninth EOTC-
+        parallel block with the Tewahedo-distinctive Jubilees /
+        Mäṣḥafä Kufāle) wrote the ocr-tier3 parallel-PDF Geʽez
+        jub.py. The `jub` half is now flipped to a durable positive
+        invariant (jub.py exists at ocr-tier3 with INGEST_PHASE
+        τ.6.x.2.t NOT τ.7.x.t). The `one_enoch` (1en — FINAL book in
+        the catchup queue) is the NEW deferred pin — to be flipped
+        at the next τ.6.x.2.* ship when the Geʽez 1 Enoch ship
+        drains the tenth (and final) EOTC-parallel block (per the
+        catchup queue: sir → 4ba → bar → wisdom → daniel-additions
+        → jubilees → 1 enoch). Susanna (sus) DEFERRED to τ.6.x.3
+        (not present in this PDF)."""
+        import ast
+
+        assert (GEEZ_TEWAHEDO / "bar.py").is_file(), "Geʽez bar.py must EXIST after the τ.6.x.2.q catchup ship"
+        tree = ast.parse((GEEZ_TEWAHEDO / "bar.py").read_text(encoding="utf-8"))
+        consts = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(tree)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert consts.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert consts.get("INGEST_PHASE") == "τ.6.x.2.q"
+        assert consts.get("BOOK") == "bar"
+        assert consts.get("TRANSLATION") == "geez-tewahedo"
+        # wis half FLIPPED at τ.6.x.2.r — same durable positive invariant
+        assert (GEEZ_TEWAHEDO / "wis.py").is_file(), "Geʽez wis.py must EXIST after the τ.6.x.2.r catchup ship"
+        treewis = ast.parse((GEEZ_TEWAHEDO / "wis.py").read_text(encoding="utf-8"))
+        constswis = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(treewis)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert constswis.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert constswis.get("INGEST_PHASE") == "τ.6.x.2.r"
+        assert constswis.get("BOOK") == "wis"
+        assert constswis.get("TRANSLATION") == "geez-tewahedo"
+        # paz half FLIPPED at τ.6.x.2.s — same durable positive invariant
+        assert (GEEZ_TEWAHEDO / "paz.py").is_file(), "Geʽez paz.py must EXIST after the τ.6.x.2.s catchup ship"
+        treepaz = ast.parse((GEEZ_TEWAHEDO / "paz.py").read_text(encoding="utf-8"))
+        constspaz = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(treepaz)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert constspaz.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert constspaz.get("INGEST_PHASE") == "τ.6.x.2.s"
+        assert constspaz.get("BOOK") == "paz"
+        assert constspaz.get("TRANSLATION") == "geez-tewahedo"
+        # bel half ALSO FLIPPED at τ.6.x.2.s — combined ship drains Daniel-additions cluster
+        assert (GEEZ_TEWAHEDO / "bel.py").is_file(), "Geʽez bel.py must EXIST after the τ.6.x.2.s catchup ship"
+        treebel = ast.parse((GEEZ_TEWAHEDO / "bel.py").read_text(encoding="utf-8"))
+        constsbel = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(treebel)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert constsbel.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert constsbel.get("INGEST_PHASE") == "τ.6.x.2.s"
+        assert constsbel.get("BOOK") == "bel"
+        assert constsbel.get("TRANSLATION") == "geez-tewahedo"
+        # jub half FLIPPED at τ.6.x.2.t — same durable positive invariant
+        assert (GEEZ_TEWAHEDO / "jub.py").is_file(), "Geʽez jub.py must EXIST after the τ.6.x.2.t catchup ship"
+        treejub = ast.parse((GEEZ_TEWAHEDO / "jub.py").read_text(encoding="utf-8"))
+        constsjub = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(treejub)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert constsjub.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert constsjub.get("INGEST_PHASE") == "τ.6.x.2.t"
+        assert constsjub.get("BOOK") == "jub"
+        assert constsjub.get("TRANSLATION") == "geez-tewahedo"
+        # `one_enoch` (1en — FINAL book in the catchup queue) is the new deferred pin
+        assert not (GEEZ_TEWAHEDO / "1en.py").exists(), (
+            "Geʽez 1en.py must NOT exist yet — deferred to next τ.6.x.2.* ship"
+        )
 
     def test_tau7xo_tau7xp_pins_preserved(self):
         s = _source_yaml()

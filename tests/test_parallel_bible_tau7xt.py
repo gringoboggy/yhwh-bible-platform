@@ -186,10 +186,29 @@ class TestTau7XTJubPy:
         assert (ch, v) == (1, 1)
         assert text
 
-    def test_geez_jub_not_created(self):
-        # D4-c — the Geʽez stream (the standalone Geʽez Bible
-        # foundation) follows the Amharic stream at τ.6.x.2.j+.
-        assert not (GEEZ_TEWAHEDO / "jub.py").exists()
+    def test_geez_jub_created_at_tau6x2t(self):
+        # FLIPPED at τ.6.x.2.t (2026-05-20) per memory
+        # `feedback_share_pin_pattern`: the original D4-c "Geʽez
+        # follows Amharic at τ.6.x.2.j+" deferral pin was converted
+        # to a durable positive invariant when the Geʽez Jubilees
+        # ship landed jub.py at ocr-tier3 with INGEST_PHASE
+        # τ.6.x.2.t (the SIXTH ship of the deuterocanon Geʽez
+        # catchup; opens the ninth EOTC-parallel block).
+        import ast
+
+        assert (GEEZ_TEWAHEDO / "jub.py").is_file(), "Geʽez jub.py must EXIST after the τ.6.x.2.t catchup ship"
+        tree = ast.parse((GEEZ_TEWAHEDO / "jub.py").read_text(encoding="utf-8"))
+        consts = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(tree)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert consts.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert consts.get("INGEST_PHASE") == "τ.6.x.2.t"
+        assert consts.get("BOOK") == "jub"
+        assert consts.get("TRANSLATION") == "geez-tewahedo"
 
 
 # ─────────────────────────── coverage shape ────────────────────────
