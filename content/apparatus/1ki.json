@@ -1,6 +1,1632 @@
 [
   {
     "v": 1,
+    "base_reading": "ወዳዊትሰ ንጉሥ ልህቀ ወሐለፈ መዋዕሊሁ ወይካድንዎም እልባስ ወኢይመውቅ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዳዊትሰ ንጉሥ ልህቀ ወኃለፈ መዋዕሊሁ ወይከድንዎ አልባሴ ወኢየመውቆ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 2,
+    "base_reading": "ወይቤልዎ አግብርቲሁ ለዳዊት ይኅሥሥዎ ለእግዚእየ ንጉሥ ወስተ ድንግለ ወያምጽእዋ ኀበ ንጉሥ ወትስክብ ምስሌሁ ወትሣቅሮ ወትስተማውቆ ለእግዚእ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤሉ ደቁ ለዳዊት ይኃሥሥዎ ስእግዚእን ንጉሥ ወለተ ድንግለ ወትቅም ህየ ኃበ ንጉሥ ወትሰክብ ምስሌሁ ወትሕቅፎ ወታከትም ውዱ ስእግዚእን ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 3,
+    "base_reading": "ወኀሠሡ ወለተ ወናይተ እምኩሉ ደወለ እስራኤል ወረከቡ ብእሲተ አቢሳሁ አሜናዊተ ወወሰድዋ ኀበ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወኃሠሡ ወለተ ሠናይተ እምኵሉ ደወለ እስራኤል ወረከቡ አቢሳግ ሰናሚተ ወአምጽእዋ ኃበ ዳዊት ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 4,
+    "base_reading": "ወለትሰ ወናይት ሥነ ላሕይ ወነበረት እንዘ ተሐቅር ለንጉሥ ወንጉሥሰ ኢያእመራ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወነበረት ትሰልኮ ወንጉሥሰ ኢያእመራ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 5,
+    "base_reading": "ወአዶንያስ ወልዲ አጊት ተንሥአ እንዘ ይብል አነ እንግሥ ወገብረ ሎቱ ሠረገላተ ወአፍራስ ፶ ብእሲ እለ ይረውዑ ቅድሜሁ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአዶንያስ ወልደ እጊት ተንሥአ ወይቤ አነ እነግሥ ወገብረ ሎቱ ሰረገላተ ወአፍራሰ ወኃምሳ እልዕብእሴ እለ ይረውጹ ቅድሜሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 6,
+    "base_reading": "ወኢክልኦ አቡሁ በመዋዕሊሁ ወኢይቤሎ ለምንት ትገብር ከመዝ ወናይ ወእቱ ሳሕየ ገጹ ፈድፋዱ ወውእቱ ተወልዱ እምድኅሬ አበሴሎም",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወኢከልኦ አቡሁ ወኢይቤሎ ስምንተ ትገብር ከመዝ ወሰናይ ውእቱ ራእዩ ጥቀ ወለሀዮ ገብረት ድኅረ አቤሴሎም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 7,
+    "base_reading": "ወኩሉ ምክሩ ምስለ ኢዮአብ ወልዲ ሁርሕየ ወምስለ አብያታር ካህን ወይሬድእም ለአዶንያስ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወኮኑ ቃሉ ምስለ ኢዮአብ ወልደ ሶርህያ ወምስለ አብያታር ካህን ወይረድእዎ ለአዶንያስ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 8,
+    "base_reading": "ወሳዶቅ ካህን ወብንያስ ወልደ ዮዳሄ ወናታን ነቢይ ወሰሚ ወሬዓሚ ደቂቀ ኃይሉ ለዳዊት ኢተለውዎ ለአዶንያስ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሳዶቅሰ ካህን ወብንያስ ወልደ ዮዳሄ ወናታን ነቢይ ወሰሚ ወራሲ ወደቂቀ ኃይሉ ስዳዊት ኢተሰውዎ ለአዶንያስ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 9,
+    "base_reading": "ወጠብሐ አዶንያስ አባግዐ ወእጣሌ ወአልህምተ በኀበ እብን ዝሕልት ዘማእሰል ዓይነ እግር ወጸውዓ ኩሎ እኅዊሁ ደቂቀ ንጉሥ ወኩሎ እደወ ይሁዳ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወጠብሐ አዶንያስ አባግዐ ወአልህምተ ወመስተፍሥሐ ኃበ እብነ ዘኤልቴዝ ዘበ ዐይነ ሮጌል ወጸውዐ ኵሎ አኃዊሁ ደቂቀ ንጉሥ ወኵሎ እጓለ ይሁዳ ደቀ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 10,
+    "base_reading": "ወለናታን ነቢይ ወለብንያስ ወጸኑዳኒሆሙ ወለስሎሞን እኁሁ ኢጸውዓሙ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወለናታንሰ ነቢይ ወለብንያስ ወለኃያላን ወለሰሎሞን እኁሁ ኢጸውዐ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 11,
+    "base_reading": "ወይቤለ ናታን ለቤርሳቤሕ እመ ስሎሞን እንዘ ይብል ኢሰማዕኪኑ ከመ ነግሠ አዶንያስ ወልደ አጊት ወእግዚእነሰ ዳዊት ንጉሥ ኢያእመረ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤላ ናታን ለቤርሳቤህ እመ ሰሎሞን ኢሰማዕኪኑ ከመ ነግሠ አዶንያስ ወልደ እጊት ወዳዊትሰ እግዚእነ ኢያእመረ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 13,
+    "base_reading": "ሐዊረ ወእንበአ ንጉሥ ወትብልዮ ሎቱ እስመ አንተ እግዚእየ ንጉሥ መሐልከ ለአመትኪ እንዘ ትብል እስመ ወልድኪ ስሎሞን ይነግሥ እምድኅሬየ ወውእቱ ይነብር ውስተ መንበርየ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ንዒ ሑሪ ኃበ ዳዊት ንጉሥ ወትብሊዮ እስመ አንተ እግዚእየ መሐልከ በእምላክከ ስእመትከ እንዘ ትብል ወልድኪ ሰሎሞን ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ ወእፎ ነግሠ አዶንያስ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 14,
+    "base_reading": "ወእንበልዕ አዶንያስ ወእንዘ ትትናገሪ አንቲ ምስለ ንጉሥ ሀየ ወአነ እበውእ ድኃሬኪ ወእፌጽም ነገረኪ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወእንዘ አንቲ ትትናገሪ ምስለ ንጉሥ በህዮ እንሂ እበውዕ ድኅሬኪ ወእፌጽም ነገርኪ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 15,
+    "base_reading": "ወቦአት ቤርሳቤሕ ኀበ ንጉሥ ውስተ ጽርሕ ወንጉሥሰ ልህቀ ጥቀ ወአቢሳ ስሜናዊት ትትለእኮ ለንጉሥ ወደናንት ቤርሳቤሕ ወስገደት ለንጉሥ ወይቤላ ንጉሥ ምንተ ከንኪ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወቦአት ቤርሳቤህ ኃበ ንጉሥ ውስተ ጽርሕ ወንጉሥሰ ልህቀ ጥቀ ወአቢሳክ ስሚናዊተ ትትሰልኮ ለንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 16,
+    "base_reading": "ወትቤሎ እግዚእየ ንጉሥ አንተ መሐልክ በእግዚአ ብሔር አምላክከ ለአመትከ እንዘ ትብል ከመ ሰሎሞን ወልድኪ ይነግሥ እምድኅሬየ ወውእቱ ይነብር በዲበ መንበርየ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሰገደት ቤርሳቤህ ለንጉሥ ወይቤላ ንጉሥ ምንተ ትፈቅዲ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 17,
+    "base_reading": "ወዓሁ ይእዜ ናሁ አዶንያስ ወአንተ እግዚእየ ንጉሥ ኢያእመር ከ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወትቤሎ እግዚእየ ንጉሥ እንተ መሐልከ በእግዚእብሔር አምላክከ ለእመትከ እንዘ ትብል ከመ ወልድኪ ሰሎሞን ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 18,
+    "base_reading": "ወጠብሐ አልህምተ አባግዓ ወእጣሌ ብዙኀ ወጸውዓ ኩሎ ደቂቀ ንጉሥ ወለአብያታር ካህን ወለኢዮአብ መልአከ ኃይሉ ወለሰሎሞንሰ ገብርከ ኢጸውዓ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይእዜኒ ናሁ አዶንያስ ነግሠ ወአንተ እግዚእየ ንጉሥ ኢታእመር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 19,
+    "base_reading": "ወአንተ እግዚእየ ንጉሥ አዕይንተ ኩሉ እስራኤል ይሴፈዉ ከ ከመ ታይድዖሙ መኑ ይነብር ውስተ መንበረ እግዚእየ ንጉሥ እምድኅረ ከ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወጠብሐ አልህምተ ወአባግዐ ወመስተፍሥሐ ብዙኃ ወጸውዐ ኵሎ ደቂቀ ንጉሥ ወአብያታር ካህን ወኢዮአብ መልአከ ኃይል ወለሰሎሞንሰ ገብርከ ኢጸውዐ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 20,
+    "base_reading": "እሞ ስክበ እግዚእየ ንጉሥ ምስለ አበዊሁ ወንከውን አነ ወሰሎሞን ወልድየ ኃጥአ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአንተ እግዚእየ ንጉሥ አዕይንቲሆሙ ለኵሉ እስራኤል ላዕሌከ ከመ ትንግሮሙ መኑ ይነብር ዲበ መንበረ እግዚእየ ንጉሥ እምድኅሬሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 21,
+    "base_reading": "ወእንዘ ዓዲ ትትናገር ምስለ ንጉሥ ወዮኣ ናታን ነቢይ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይከውን አመ ሰከበ እግዚእየ ንጉሥ ምስለ አበዊሁ ወእከውን አነ ወወልድየ ሰሎሞን ኃጥኣነ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 22,
+    "base_reading": "ወነገርዎ ለንጉሥ እንዘ ይብሉ ናሁ ናታን ነቢይ መጽአ ወቦአ ቅድመ ንጉሥ ወሰገደ ለንጉሥ በገጹ ውስተ ምድር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዓዲሃ ይእቲ እንዘ ትትናገር ምስለ ንጉሥ ወናሁ ናታን ነቢይ ቦአ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 23,
+    "base_reading": "ወይቤ ሎ ናታን ነቢይ እግዚእየ ንጉሥ አንተኑ ትቤ አዶንያስ ይነግሥ እምድኅሬየ ወውእቱ ይነብር ውስተ መንበርየ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወነገርዎ ለንጉሥ ወይቤሉ ናሁ ናታን ነቢይ ወቦአ ቅድመ ንጉሥ ወሰገደ ቅድሜሁ በገጹ ዲበ ምድር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 24,
+    "base_reading": "እስመ ወረዱ የዓም ወጠብሐ አልህምተ አባግዓ ወእጣሌ ብዙኀ ወጸውዓሙ ለኩሎሙ ደቂቀ ንጉሥ ወመላእክተ ኃይል ወለአብያታር ካህን ወሀለዉ ይበልዑ ወይሰትዩ ቅድሜሁ ወይቤልዎ ሕየው ንጉሥ አዶንያስ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤ ናታን እግዚእየ ንጉሥ አንተኑ ትቤ አዶንያስ ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 25,
+    "base_reading": "ወኢ ያየዕሰ ገብርከ ወለሳዶቅ ካህን ወለብንያስ ወልደ ዮዳሄ ወለሰሎሞን ገብርከ ኢጸውዓ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "እስመ ወረደ ዮም ወጠብሐ አልህምተ ወመስተፍሥሐ ወአባግዐ ብዙኃ ወጸውዐ ኵሎ ደቂቀ ንጉሥ ወመላእክተ ኃይል ወአብያታር ካህን ወናሁ ይበልዑ ወይሰትዩ ቅድሜሁ ወይቤሉ ሕያው ንጉሥ አዶንያስ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 26,
+    "base_reading": "ለእመ ኮነ እምኀበ እግዚእየ ንጉሥ ዝንቱ ንገር ወኢነገርከ ለገብርከ መኑ ይነብር ውስተ መንበረ እግዚእየ ንጉሥ እምድኅሬሁ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወኪያየሰ አነ ገብረከ ወሳዶቅ ካህን ወብንያስ ወልደ ዮዳሄ ወሰሎሞን ገብርከ ኢጸውዐ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 27,
+    "base_reading": "ወአውሥአ ዳዊት ንጉሥ ወይቤ ጸውዑ ለቤርሳቤሕ ወቦአት ወቆመት ቅድመ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "እመ እምኀበ እግዚእየ ንጉሥ ኮነ ዝነገር ወኢያእመርከኒ ለገብርከ መኑ ይነብር ዲበ መንበረ እግዚእየ ንጉሥ እምድኅሬሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 28,
+    "base_reading": "ወመሐለ ንጉሥ ወይቤ ሕያው እግዚአብሔር ዘቤዘዋ ለነፍስየ እምኩሉ ምንዳቤየ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአውሥአ ንጉሥ ዳዊት ወይቤ ጸውዑ ሊተ ቤርሳቤህን ወቦአት ቅድመ ንጉሥ ወቆመት ቅድሜሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 29,
+    "base_reading": "በከመ መሐልኩ ለኪ በእግዚአ እብሔር እምስከ እስ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወመሐለ ንጉሥ ወይቤ ሕያው እግዚአብሔር ዘአድኃና ለነፍስየ እምኵሉ ምንዳቤ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 30,
+    "base_reading": "ዚእየ ንጉሥ ⟦illegible⟧ ዳዊት ለዓለም",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "በከመ መሐልኩ ለኪ በእግዚአብሔር አምላከ እስራኤል እንዘ እብል ከመ ሰሎሞን ወልድኪ ይነግሥ እምድኅሬየ ወውእቱ ይነብር ዲበ መንበርየ ህየንቴየ ከመ እገብር ዮም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 31,
+    "base_reading": "ወይቤ ዳዊት ንጉሥ ጸውዑ ለሳዶቅሃ ካህን ወብንያስ ወልደ ዮዳዜ ለናታን ነቢይ ወቦኡ ቅድመ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሰገደት ቤርሳቤህ በገጻ ዲበ ምድር ወሰገደት ለንጉሥ ወትቤ ለይሕየው እግዚእየ ንጉሥ ዳዊት ለዓለም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 32,
+    "base_reading": "ወቤሎሙ ንጉሥ ንሥኡ እግብርተ እግዚእክሙ ምስሌክሙ ወአዕዕኑ ዎ ለሰሎሞን ወልድየ ዲበ በቅልየ ወአውርድዎ ውስተ ግዮን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤ ንጉሥ ዳዊት ጸውዑ ሊተ ሳዶቅሃ ካህነ ወናታንሃ ነቢየ ወብንያስሃ ወልደ ዮዳሄ ወቦኡ ቅድመ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 33,
+    "base_reading": "ወቅብእዎ በህየ ሳዶቅ ካህን ወናታን ነቢይ እሙ ይንግሥ ላዕለ እስራኤል ወንፍኁ ቀርነ ወበሉ ይሕየዉ ንጉሥ ስሎሞን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤሎሙ ንጉሥ ንሥኡ ምስሌክሙ አግብርቲሁ ለእግዚእክሙ ወአጽዕንዎ ለሰሎሞን ወልድየ ዲበ በቅልየ ዘሊተ ወአውርድዎ ውስተ ጊሖን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 34,
+    "base_reading": "ወዕርጉ ወትልዉዎ ድኅሬሁ ይባእ ወይነብር ናሁ መንበርየ ውእቱ ይንግሥ ህየንቴየ ወአነ እዘዝኩ ከመ ይን ንጉሥ ላዕለ እስራኤል",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቅብእዎ ህየ ሳዶቅ ካህን ወናታን ነቢይ ንጉሠ ዲበ እስራኤል ወንፍሑ ቀርነ ወበሉ ሕያው ንጉሥ ሰሎሞን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 35,
+    "base_reading": "ወሳዕለ ይሁ ወእውሥእ ብንያስ ወልደ ዮዳዜ ወይ ሎ ለንጉሥ ወይኩን ከማሁ ምእመኑ ይሬሲ እግዚአ ብሔር አምላከ እግዚእ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወታዐርጉ ድኅሬሁ ወይበውእ ወይነብር ዲበ መንበርየ ወውእቱ ይነግሥ ህየንቴየ ወአነ አዘዝክዎ ይኩን መልአከ ዲበ እስራኤል ወዲበ ይሁዳ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 36,
+    "base_reading": "በከመ ሀለወ እግዚአ ብሔር ምስለ እግዚእየ ንጉሥ ከማሁ የሀሉ ምስለ ሰሎሞን ወይዕብዮ መንበሩ እምነ መንበረ እግዚእየ ንጉሥ ዳዊት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአውሥአ ብንያስ ወልደ ዮዳሄ ለንጉሥ ወይቤ ለይኩን ከማሁ ያአምን እግዚአብሔር አምላከ እግዚእየ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 37,
+    "base_reading": "ወወረዱ ሳዶቅ ካህን ወናታን ነቢይ ወብንያስ ወልደ ዮዳዜ ኪሊቲ ወፈልቲ ወአጽዓኑ ዎ ለሰሎ ሳዕለ በቅለ ንጉሥ ዳዊት ወስድዎ ውስተ ግዮን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "በከመ ሀሎ እግዚአብሔር ምስለ እግዚእየ ንጉሥ ከማሁ ይኩን ምስለ ሰሎሞን ወያዐቢ መንበሮ እምነ መንበረ እግዚእየ ንጉሥ ዳዊት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 38,
+    "base_reading": "ወነሥአ ሳዶቅ ካህን ቀርነ ቅብእ እምነ ደብተራ ወቀብእ ለሰሎሞን ወነፍሁ በቀርን ወይቤሉ ኩሉ ሕዝብ ይሕየዉ ንጉሥ ስሎሞን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወወረዱ ሳዶቅ ካህን ወናታን ነቢይ ወብንያስ ወልደ ዮዳሄ ወኬሬት ወፈሌት ወአጽዐንዎ ለሰሎሞን ዲበ በቅለ ንጉሥ ዳዊት ወወሰድዎ ውስተ ጊሖን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 39,
+    "base_reading": "ወዓርጉ ኩሉ ሕዝብ ወተለውዎ ድኅሬሁ ወዘበጡ ከበሮ ወመስቆ ወተፈሥሑ ዓቢየ ፍሥሐ ወደንገፀት ምድር በቃሎሙ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወነሥአ ሳዶቅ ካህን ቀርነ ቅብእ እምውስተ ደብተራ ወቀብኦ ለሰሎሞን ወንፍሑ ቀርነ ወይቤሉ ኵሉ ሕዝብ ሕያው ንጉሥ ሰሎሞን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 40,
+    "base_reading": "ወሰምዓ አዶንያስ ወኩሉ ጼዉዓን ምስሌሁ ዘህለዉ ወእሙንቱሰ አኅለቁ መሲሐ ወሰምዓ ኢዮአብ ቃለ ቀርን ወይቤ ምንት ውእቱ ዝንቱ ድምፀ ሀገር",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዐርጉ ኵሉ ሕዝብ ድኅሬሁ ወይዘፍኑ በዘፋን ወትፌሥሑ ፍሥሐ ዐቢየ ወተሰጥቀት ምድር በቃሎሙ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 41,
+    "base_reading": "ወእንዘ ዓዲ ይትናገር ውእቱ ወሬሁ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሰምዐ አዶንያስ ወኵሎሙ እለ ጽዉዓን ምስሌሁ ወእሙንቱ ፈጸሙ በሊዐ ወሰምዐ ኢዮአብ ቃለ ቀርን ወይቤ ምንትኑ ዝቃለ ሀገር ዘይትሀወክ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 42,
+    "base_reading": "ናታን ወልዱ አብያታር ካህን ቦአ ወይቤ አዶንያስ ባእ እስመ ብእሴ ኃየል አንተ ወሥናየ ትዜኑ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዓዲሁ ይትናገር ወናሁ ዮናታን ወልደ አብያታር ካህን መጽአ ወይቤሎ አዶንያስ ባእ እስመ ብእሴ ኃይል አንተ ወሠናየ ታየድዐነ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 43,
+    "base_reading": "ወአውሥእ ናታን ወይቤ ለአዶንያስ እግዚእነ ንጉሥ ዳዊት አንገሠ ለሰሎሞን ወፈነወ ንጉሥ ምስሌሁ ለሳደቅሁ ካህን ወናታሁ ነቢይ ወብንያስ ወልደ ዮዳሐ ኬሊቲ ወፈሊቲ ወአጽዓንዎ ሳዕለ በቅለ ንጉሥ ወቀብእዎ ሳዶቅ ካህን ወናታን ነቢይ ወእንገሥዎ በግዮን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአውሥአ ዮናታን ወይቤሎ ለአዶንያስ አማን እግዚእነ ንጉሥ ዳዊት አንገሦ ለሰሎሞን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 44,
+    "base_reading": "ወዓርጉ እምህየ እንዘ ይትፌሥሑ ወደምፀት ሀገር ዝንቱ ውእቱ ቃል ዘሰማዕክሙ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወፈነወ ምስሌሁ ንጉሥ ሳዶቅሃ ካህነ ወናታንሃ ነቢየ ወብንያስሃ ወልደ ዮዳሄ ወኬሬተ ወፈሌተ ወአጽዐንዎ ዲበ በቅለ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 45,
+    "base_reading": "ወነበረ ሰሎሞን ውስተ ንበረ መንግሥት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወቀብእዎ ሳዶቅ ካህን ወናታን ነቢይ ንጉሠ በጊሖን ወዐርጉ እምህየ እንዘ ይትፌሥሑ ወአንተለወት ሀገር ዝውእቱ ቃል ዘሰማዕክሙ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 46,
+    "base_reading": "ወቦኡ እግብርተ ንጉሥ ይባርክዎ ለእግዚእነ ዳዊት ንጉሥ እንዘ ይብሉ የሠኒ እግዚአ ብሔር ስመ እምነ ስምከ ወያዕቢ መንበሮ እምነ መንበርከ ወሰገደ ንጉሥ በውስተ ምስካቡ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወነበረ ሰሎሞን ዲበ መንበረ መንግሥት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 47,
+    "base_reading": "ወካዕበኒ ከመዝ ይቤ ንጉሥ ይትባረክ እግዚአ ብሔር አምላከ እስራኤል ዘወሀበ የም እምነ ዘርእየ ዘይነብር ዲበ መንበርየ እንዘ ይሬእዐ አዕይንትየ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወቦኡ አግብርቲሁ ለንጉሥ ይባርክዎ ለእግዚእነ ንጉሥ ዳዊት ወይቤሉ የሀሉ እግዚአብሔር ስሞ ለሰሎሞን ኄረ እምስምከ ወያዐቢ መንበሮ እምነ መንበርከ ወሰገደ ንጉሥ ዲበ ምስካቡ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 48,
+    "base_reading": "ወሬርሁ ወተንሥኡ ኩሎሙ ዕዉዓን ለአዶንያስ ወሐሩ ብእስ ብእሲ ፍኖቶ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወከመዝ ይቤ ንጉሥ ቡሩክ እግዚአብሔር አምላከ እስራኤል ዘወሀበ ዮም ዘይነብር ዲበ መንበርየ ወአዕይንትየ ይሬእያ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 49,
+    "base_reading": "ወአዶንያስኒ ፈርሀ እምቅድመ ገጹ ለሰሎሞን ወተንሥአ ወሐረ ወአኀዘ በቀርንተ ምሥዋዕ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወደንገፁ ወተንሥኡ ኵሎሙ ጽዉዓን እለ ምስለ አዶንያስ ወሖሩ ኵሉ በበ ፍኖቶሙ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 50,
+    "base_reading": "ወይድዕም ለሰሎሞን እንዘ ይብሉ ናሁ አዶንያስ ፈርሀ እምነ ገጹ ንጉሥ ሰሎሞን ወናሁ አኀዘ አቅርንተ ምሥዋዕ ወይቤ ይምሐል ሊተ የም ስሎሞን ንጉሥ ከመ ኢይቀትለኒ ለገብሩ በሰይፍ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአዶንያስ ፈርሆ ለሰሎሞን ወተንሥአ ወሖረ ወአኀዘ አዕናደ ምሥዋዕ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 51,
+    "base_reading": "ወይቤ ስሎሞን ለእመ ኮነ ወልደ ኃያል እትወድቅ እምነ ሥዕርቱ ውስተ ምድር ወእመሰ እኪት ተረክበ ቦቱ ይሙት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወነገርዎ ለሰሎሞን ወይቤሉ ናሁ አዶንያስ ይፈርሆ ለንጉሥ ሰሎሞን ወናሁ አኀዘ አዕናደ ምሥዋዕ ወይቤ ይምሐልኒ ዮም ንጉሥ ሰሎሞን ከመ ኢይቀትል ገብሮ በኲናት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 52,
+    "base_reading": "ወለእኪ ንጉሥ ስሎሞን ወአውረዶ እመልዕልተ ምሥዋዕ ወቦአ ወስገደ ለንጉሥ ስሎሞን ወይቤሎ ስሎሞን ሑት ቤተከ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤ ሰሎሞን ለእመ ኮነ ወልደ ኃይል ኢትወድቅ እመ ሥዕርቱ ውስተ ምድር ወእመሰ እኪተ ተረከበት ቦ ሰዕሌሁ የመውት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 53,
+    "base_reading": "",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤ ንጉሥ ሰሎሞን ወአውረድዎ እመልዕልተ ምሥዋዕ ወቦአ ወሰገደ ለንጉሥ ሰሎሞን ወይቤሉ ሰሎሞን እቱ ወኩን ቤትከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "marked-gap",
+    "reason": "D3/§7: base (CAM) illegible for this verse — running text is a MARKED gap (⟦illegible⟧), never fabricated. GG is legible here; the disciplined-eclectic reading is RECORDED (see variants/from_witness) for editorial adoption, never silently merged.",
+    "from_witness": "GG"
+  },
+  {
+    "v": 1,
+    "base_reading": "ወሶበ በጽሐ መዋዕሊሁ ለዳዊት ለመዊት እዘዘ ለሰሉሞን",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወቀርቦ መዋዕሊሁ ለዳዊት ለመዊት ወእዘዘ ለስሎሞን ወልዱ እንዘ ይብል እንስ ሐርኩ በኵሉ ፍናተ ምድር ወእንተስ ባሕቱ ጻናዕ ወኩን ብእሴ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 2,
+    "base_reading": "ወይቤሎ አነስ ሐርኩ በከሕ ፍኖተ ምድር ወእንተ ባሕቱ ጸናዕ ወኩን ብእሴ ጠቢበ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወዕቀብ ትእዛዘ እግዚእብሔር እምላክከ ከመ ትሐር በፍናቱ ወዕቀብ ሕገ ወትእዛዘ ወኵነኔሁ ወፍትሐ በከመ ጻሕፉ ውስተ ሕገ ሙሴ ከመ ታእምር ወትግበር ኵሎ ዘከመ እዘዘክ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 3,
+    "base_reading": "ወዕቀብ ትእዛዘ ለእግዚአብሔር አምላክከ ከመ ትሑር በፍኖቱ ወዕቀብ ትእዛዘ ወኩነኔሁ ወፍትሐ ዘጽሑፍ ውስተ ሕገ ሙሴ ከመ ታእምር ዘከመ ትግብር",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 4,
+    "base_reading": "ኩሎ ዘከመ አዘዝክ ከመ ያቀየ እግዚአብሔር ቃሎ ዘነበበ ወይቤለ እመ ዓቀቡ ደቂቅከ ፍኖትየ ወሐሩ በጽድቅ ቅድሜየ በኩሉ ልቦሙ ይቤ ኢይሄሬዉ ሰከ ብእሲ እመልዕልት መንበረ እስራኤል",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ከመ ያቅም ቃሎ እግዚእብሔር ዘከመ ነበበ ኀቤየ እንዘ ይብል ለእመ ዓቀቡ ደቂቅከ ፍናቶሙ ወ ሐሩ ቅድሜየ በጽድቅ በኵሉ ልቦሙ ወበኵሉ ነፍሶሙ ይቤ ኢ ይኄረው ለከ ብእሲ እመልዕልተ መንበረ እስራኤል ወስሊክ ተአምር ኵሎ ዘከመ ረሰየኒ እዮእብ ወልደ ሱርሕያ ወእቱ ገብረ ላዕሌየ ወላዕለ ፪ መላእክት ኃየላን እስራኤል ላዕለ አበኔር ወልደ ኔር ወላዕለ አሜሳይ ወልደ ያቴር ወቀተሎሙ ወእግብእ ደሙ ዐር ላዕለ ሕየወቱ ውስተ ሕቄሁ ወበእሣእኑ ዘውስተ እግሩ ወትግብር በከመ ጥበብከ ወአንተ ታወርድ ሲበቶ በደም ውስተ መቃብር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 5,
+    "base_reading": "ወለሊከ ተአምር ዘከመ ረስየኒ ኢዮአብ ወልደ ሰርህያ ወኩሎ ዘገብራ ሳዕለ ፪ መሳእክት ኃዶሎሙ ለእስራኤል ሳዕለ አበኔር ወልደ ኔር ወሳዕለ እሜሳዶ ወልደ ያቴር ወቀትሎሙ ወእግብዕ ደም ፀር ሳዕለ ሕይዎቱ ወውስተ ሕቄሁ ወእሜዖኒ ዘውስተ እገሪሁ ወትግብር በከመ ጠበብከ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 6,
+    "base_reading": "ወአንተታ ወርድ ሲ በቱ በደየም ውስተ መቃብር ወሰደቴቅ ቤርዘሊ ገለዓዳዊ ግበር ምሕረተ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወለደዊቀ ቤርዜሊ ገልአዓዊ ትገብር ምሕረተ ወይኩኑ ምስለ እለ ይበልሙ ማእደከ እስመ ውእቱ ቀረበኒ አሜ እትኃጥእ እምገጸ አበሴሎም እኁከ ወናሁ ኀቤከ ሳሜ ወልደ ጌራ ወልደ ብንያም እምነ ወራዙት ወውእቱ ረገመኒ መርገመ እኩየ አሜ መዋዕለ አሐውር ምናሔም ውእቱ ወረደ ውስተ ዮርዳኖስ ወተቀበለኒ ወመሐልኩ ሉቱ በእግዚእብሔር እንዘ እብል ከመ ኢይቀተልከ በሐቀን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 7,
+    "base_reading": "ወይኩኑ ምስለ እለ ይበልዑ ውስተ ማዕድከ እስመ ውእቱ ተቀበስኒ እመ ጐየዮኩ እምነገጸ አቤሴሎም እኁከ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወይእዜኒ ኢታንጸሐ እስመ ጠቢብ አንተ አእምር ዘከመ ትሬስየ አንተ ወታወርድ ሲበቶ ደም ውስተ መቃብር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 8,
+    "base_reading": "ወናሁ ጊቤከ ሰሜ ወልደ ጌራ እየማኒ ዘእምባቴሪየም ወውእቱ ረገመኒ እኩየ መርገመ እመ መዋዕለ ሐሐውር ውእቱ ምናሐይም በትዕዶንት ወእመዘ ወረደ ውስተ ዮርዳኖስ ወተቀበሰኒ ወመሐልኩ ሉቱ በእግዚአብሔር እንዘ እብል ኢይቀትስከ በሐዊን",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 9,
+    "base_reading": "እስመ ብእሲ ጠቢብ አንተ ወአእምር ዘከመ ትሬእየ ወታወርድ ሲበቲሁ በደየም ውስተ መቃብር",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወስከበ ዳዊት ምስለ አበዊሁ ወተቀብረ ውስተ ሀገረ ዳዊት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 10,
+    "base_reading": "ወእከበ ዳዊት ምስለ አበዊሁ ወተቀብረ ውስተ ሀገሩ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 11,
+    "base_reading": "ወመዋዕሊሁ ዘነግሣ ለዕለ እስራኤል ፵ ዓመት በኬብርን ፯ ዓመተ ነግሣ ወበኢየሩሳሌም ፴ ወ ፫ ዓመተ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወመዋዕሊሁ ዘነግሠ ዳዊት ላዕለ እስራኤል ፵ ዓመት በኬብሮን ነግሠ ፯ ዓመት በኢየሩሳ ሌም ፴ ወሣለስተ ዓመተ ወስሎሞን ነበረ ውስተ መንበረ ዳዊት አቡሁ ወጸንዓት መንግሥቱ ፈድፋደ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 12,
+    "base_reading": "ወነበረ ሰሉሞን ውስት መንበረ አቡሁ ዳዊት ወጸንዓ መንግሣሁቱ ፈድፋደሱ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወቦአ እደንያስ ወልደ አጊት ኀበ ቤርሳቤሕ እመ ስሎሞን ወትቤሎ ሰላም ለምጸእትከ ወይቤ ሰላም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 13,
+    "base_reading": "ወበእ አዶንያስ ኃበ ቤርሳቤሕ እሙ ለሰሉሞን ወሰገደ ሣቲ ወትቤሎ ስሰምኑ ምድኣትከ ወይቤላ ሰሳየም ወይቤ ነገር ብየ ኃቤኪ ወትቤሎ ንግሬኒ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 14,
+    "base_reading": "ወይቤሳ ለሲኪ ተአምሪ ክመ ሲቲ ኮነት መንግሥት ወአንቤየ ግብእ ገጸሙ ስኵሉ እስራኤል ከመ ያንግሥኒ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወይቤ ብየ ትካዝ ኀቤከ ወትቤሎ ንግረኒ ወይቤላ አንተ ተአምሪ ከመ ሊተ ኮነተ መንግሥት ወኀቤየ ገብእ ገጾሙ ለኵሎሙ እስራኤል ከመ ያንግሡኒ ወትመየጠት መንግሥት ወኮነት ለእኁየ እስመ እምኀበ እግዚእብሔር ኮነት ሎቱ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 15,
+    "base_reading": "ወተመይጠት መንግሥት ወኮነት ለእኁየ እስመ እምኀብ እግዚአብሔር ኮነት ሎቱ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 16,
+    "base_reading": "ወይእዜኒ እሐቱ ስእለተ እስእል እን እምኀኪ ወኢትሚጢ ገጸኪ እምኔየ ወትቤሎ ብርሳቤሕ በል",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወይእዜኒ አሐተ ስእለተ አነ እስእል እምኀቤኪ ወኢትሚጢ ገጸኪ ወትቤሎ ተናገር ወይቤላ በልዮ ለስሎሞን ንጉሥ ከመ ኢይመይጥ ገጸ እምኔከ ወየሀበኒ እቢሳጊ ሰሜናዊተ ከመ ትኩነኒ ብእሲተ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 17,
+    "base_reading": "ወይቤሳ በሲየ ሰሉሞን ንጉሥ እስመ ኢይመይጥ ገጸ እምኔኪ የሀበኒ እብሳሕ ሰሜናዊተ ትኩነኒ ብእሲተ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 18,
+    "base_reading": "ወትቤሎ ቤርሳቤሕ ሠናይ ወእን እነግሮ ለንጉሥ በእንቲአከ ወበእት ቤርሳቤሕ ኃበ ንጉሥ ሰሉሞን ክመ ትንግር በእንተ አዶንያስ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወትቤ በርሳቤሕ ሠናይ ወአነ እንግር ለንጉሥ በእንቲአከ ወቦእት በርሳቤሕ ኀበ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 19,
+    "base_reading": "ወተንሥአ ንጉሥ ቅድሜሃ ወተአምኃ ወነበረ ዲበ መንበሩ ወእንበረ መንበረ ለእሙ ንጉሥ ወነበረት በየማኑ ለንጉሥ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ስሎሞን ከመ ትንግር በእንተ አደንያስ ወተንሥአ ንጉሥ ወተቀበላ ወትምኃ ወነበረ ውስተ መንበሩ ወአንበሩ መንበረ ለእሙ ወነበረት በየማኑ ለንጉሥ ወትቤሎ አሐተ ስእለተ አነ እስእል እምኀቤከ ወኢትሚጥ ገጸከ እምኔየ ወይቤላ ንጉሥ ስአሊ እምኔየ ወኢይመይጥ ገጸየ እምኔኪ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 20,
+    "base_reading": "ወትቤሎ እሐቱ ስእስተ አነ እስእል እምኀቤከ ወኢትሚጥ ገጸከ እይምኔየ ወይቤሳ ንጉሥ ሰዓልኒ እምኔየ ወኢይመይጥ ገጸየ እምኔኪ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 21,
+    "base_reading": "ወትቤሎ የሀብዎ እቢሳሕ ሰሚናዊተ ለእዶንያስ እኁከ ትኩኖ ብእሲተ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወትቤሎ የሀብዎ እቢሳጊ ሰሜናዊተ ለእደንያስ እኁከ ከመ ትኩኖ ብእሲተ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 22,
+    "base_reading": "ወተሣጥዋ ሰሉሞን ንጉሥ ወይቤሳ ለእሙ ለምንት ትስእሲ ሉቱ እቢሳሕ ለእዶንያስ ወስእሲ ሎቱ መንግሥተ እስመ ውእቱ እኁየ ዘይልሕቀኒ ወምስሌሁ እብያታር ካህን ወኢዮአብ ወልደ ሰርህያ መልአከ ኃይል",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 23,
+    "base_reading": "ወመሐለ ሰሉሞን ንጉሥ በእግዚአብሔር እንዘ ይብል ከመዝ ለይረስየኒ እግዚአብሔር ወከመዝ ለይቅትለኒ ከመ ሳዕለ ነፍሱ ነበበ እዶንያስ ዘንተ ነገረፉ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወአውሥአ ስሎሞን ንጉሥ ወይቤላ ለእሙ ለምንት ትስእሊ ሎቱ እቢሳጊ ለእደንያስ ወስእሊ ሎቱ መንግሥተ እስመ ውእቱ ዘየልሕቀኒ ወምስሌሁ እብያታር ካህን ወኢዮአብ ወልደ ሱርሕያ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 24,
+    "base_reading": "ወይእዜኒ ሕያው እግዚአብሔር ዘሤመኒ ወአንበረኒ ዲበ መንበረ ዳዊት እቡየ ወውእቱ ዘገብረ ሲተ ቤት መንግሥት በከመ ይቤ ከመ ዮም ይመውት እዶንያስ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወመሐለ ንጉሥ ስሎሞን በእግዚእብሔር እንዘ ይብል ከመዝ ለይረስየኒ እግዚእብሔር ወከመዝ ለይቅትለኒ ከመ ለዕለ ነፍሱ ነበበ አደንያስ ዘንተ ነገረ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 25,
+    "base_reading": "ወስእከ ሰሉሞን ንጉሥ በእዶ ብንያስ ወልደ ዮዳሔ ወቀተሎ ወሞተ እዶንያስ ይእተ እሜራ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 26,
+    "base_reading": "ወለአብያታር ካህን ይቤሎ ሰሉሞን ንጉሥ እቱ እንተኒ ውስተ እናጾት ውስተ ሐቅልክ እስመ ብእሲ ሞት አንተ ዮም ወኢይቀትልክ እስመ አንሣእከ ታቦተ ሐጉ ለእግዚአብሔር ቅድሜሁ ለእቡየ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወይእዜኒ ሕያው እግዚእብሔር ዘሄሜኒ ወአንበረኒ ውስተ መንበረ ዳዊት አቡየ ወገብረ ሊተ ቤተ በከመ ነበበ እስመ ዮም ይመውት አደንያስ ወለእኬ ስሎሞን ንጉሥ በእደ ብንያስ ወልደ ዮዳሔ ወረገዞ ወሞተ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 27,
+    "base_reading": "ወሐመምከ በኵሉ ሕማሙ ወሠዓረ ሰሉሞን ለአብያታር ከመ ኢይኩጊ ካህነ ለእግዚአብሔር ከመ ይብጽሕ ቃስ እግዚአብሔር ዘነበበ ሳዕስ ቤት ኤሊ በሴሎም",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 28,
+    "base_reading": "ወሰምዓ ኢዮአብ ወልደ ሰርህያ እስመ ኢዮአብ ኃብረ ምስለ አዶንያስ ወተስዕም ምስለ ስሉሞዓ ኢኃብረ ወኢተስዕም ወጐየ ኢዮአብ ውስተ ቤት እግዚአብሔር ሥዋዕ ወስእኩ ስሉሞን ሄብ ፈ ዮአብ እንዘ ይብል የዓናት እ ኮንከ እ ዘተመሣዓዐንከ በ የምሥዋዕ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወለእብያታር ካህን ይቤሎ ስሎሞን ንጉሥ እምድኀሬ ኩን አንተኒ ግባእ ውስተ አናቶት ኀበ ገራህትከ እስመ ብእሴ ሞት አንተ በዛቲ ዕለት ኢይቀትለከ እስመ ነሣእከ ታበተ እግዚእብሔር ቅድሜሁ ለዳዊት አቡየ እስመ ሐመምክ በኩሉ ሕማም አቡየ ወብዓር ሰሎሞን ለእብያታር ከመ ኢይኩን ካህነ ለእግዚእብሔር ከመ ይብጻሕ ቃለ እግዚእብሔር ዘ ነበበ ላዕለ ቤተ ኤሊ በሴሎም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 29,
+    "base_reading": "ወይቤ ኢዮአብ እስመ ፈራህኩ እተመሣሳጾንኩ በእግዚአብሔር ወፈነወ ሰሉሞን ለብንያስ ወልደ ዮዳሔ ወይቤሎ ሑር ወቅትሎ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወበጽሓ ኢያእብ ወልደ ሱርሕያ እስመ ኢያእብ ኀብረ ምስለ አደንያስ ወምስለ አበሴሎም ኢኀብረ ወእተለም ወጕየ ኢያእብ ውስተ ቤተ እግዚእብሔር ወተማኀጸነ በእቅርንተ ምሥዋዕ ወእይድዕዎ ለስሎሞን ንጉሥ እስመ ጐየ ኢያእብ ወቦአ ውስተ ቤተ እግዚእብሔር ከመ ተማኀጸ ብእቅርንተ ምሥዋዕ ወለአከ ስሎሞን ኀበ ኢያእብ እንዘ ይብል ምንተ ኮንከ ዘተማኀጸንከ በእቅርንተ ምሥዋዕ ወይቤሉ ኢያእብ እስመ ፈራህኩ ተማኀጸንኩ በእግዚእብሔር ወለእኬ ስሎሞን ለብንያስ ወልደ ዮዳሔ ኀበ ኢያእብ እንዘ ይብል ሐር ወቅትሎ ወቦአ ብንያስ ኀበ ቤተ እግዚእብሔር ወይቤሉ ከመዝ ይቤ ንጉሥ ጻእ ወይቤሉ ኢያእብ እኢወፅእ አላ እመውት በዝየ ወገብእ ብንያስ ኀበ ንጉሥ ከመዝ ይቤለኒ ኢያእብ ወይቤሉ ንጉሥ ሐር ወግበር በከመ ነበበ ወቅትሎ ወቅብር ወተሴስል ዮም እምኀቤየ ዘበከንቱ ከዓወ ኢያእብ እምቤተ አቡየ ወአግብአ እግዚእብሔር ደሞ ወመዓሁ ላዕለ ርእሱ በከመ ገብረ ላዕለ ክልኤ እደው ጻድቃን ወኄራን እለ ይሔሱ እምነዘ ወቀተሎሙ በሐዲን ወአቡየስ ዳዊት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 30,
+    "base_reading": "ወቅብር ወቦአ ብንያስ ወልደ ዮዳሔ ኃበ ቤት እግዚአብሔር ወይቤሎ ከመዝ ይቤ ንጉሥ ዓእ ወይቤሎ ኢዮአብ ኢይወፅእ እሳ በዝየ እመውት",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 31,
+    "base_reading": "ወግብእ ብንያስ ወልደ ዮዳሔ ወይቤሎስ ንጉሥ ክመዝ ይቤ ኢዮአብ ወክመዝ ወይቤሎ ንጉሥ ሑር ወግብር በከመ ይቤ ወቅትሎ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ኢያእመሬ ደሞሙ አበኔር ወልደ ኔር መልአክ ኀይሎሙ ለእስራኤል ወአሚሳሕ ወልደ ኢያቴር መልአክ ኀይሎሙ ለይሁዳ ወይገብእ ደሞሙ ላዕለ ርእሱ ኢያእብ ወላዕለ ዘርኡ እስከ ለዓለም ወለዳዊትሕ ወለዘርኡ ወለቤቱ ወለመንበሩ ይኩውን ሰላም እምኀበ እግዚእብሔር እስከ ለዓለም ወዓርገ ብንያስ ወልደ ዮዳሔ ወረገዞ ወቀተሎ ወቀበር ውስተ ቤቱ ወረሰዮ ንጉሥ ለብንያስ ወልደ ዮዳሔ ህየንቴሁ ለኢያእብ መልአክ ኀይል ወለሳዶቅ ካህን ሤሞ ሊቀ ካህናት ንጉሥ ህየንተ አብያታር"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 32,
+    "base_reading": "ወቅብር ወታሴስል እምሳዕሲየ ዮም ደም ዘበከንቱ ከወ ኢዮአብ ወእምቤት እቡየ ወአግብእ እግዚአብሔር ደም ዓመፃሁ ሳዕስ ርእሱ በከመ ገብረ ሳዕስ ፪ ዕደው ጻድቃን ወኄራን እለ ይኄዩሁ እምኔሁ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 33,
+    "base_reading": "ወቀተሎሙ በሰይፍ ወአቡየስ ዳዊት ኢያእመረ አበኔርሃ ወልደ ኔር መልአከ ኃይሎሙ ለእስራኤል ወአሜሳይሃ ወልደ ያቴር መልአከ ኃይሎሙ ስይሁዳ ወግብእ ደሞሙ ሳዕስ ርእሱ ወሳዕስ ርእሱ ዘርኡ እስከ ለዓዓም",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወለአከ ንጉሥ ወጸውዓ ለሳሚ ወይቤሎ እንድቅ ለከ ቤተ በውስተ ኢያሩሳሌም ወንበር ህየ ወኢትፃእ እምህየ ለፀሪ ወለፀሪ ወእመ ዕለተ ትወፅእ ወተዓዱ ፈለገ ቄድሮን አእምር ከመ ሞተ ትመውት ወደምከ ይኩውን ላዕለ ርእስከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 34,
+    "base_reading": "ወለዳዊትስ ወለዕዘርኡ ወለቤቱ ወለመንበሩ ይኩን ሰላም እምኀብ እግዚአብሔር እስከ ለዓለም ወዕርገ ብንያስ ወልደ ዮዳሔ ወአኀዘ ወቀተሎ ወቀበሮ ውስተ ቤቱ ዘውስተ ሐቅል",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 35,
+    "base_reading": "ወሤሞ ንጉሥ ለብንያስ ወልደ ዮዳሔ ህየንቴሁ ሳዕለ ኢዮአብ መልአከ ሣራዊት ወለሳዶ ካህን ሲሞን ሲቀ ክህናት ህየንተ አብያታር",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወአምሐለ ንጉሥ ይእተ እሚረ ወይቤሉ ሳሚ ለንጉሥ ሠናይ ነበብከ ቃለ እግዚእየ ንጉሥ ወከማሁ ይገብር ገብርከ ወነበረ ሳሚ ውስተ ኢያሩሳሌም ብዙኀ መዋዕለ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 36,
+    "base_reading": "ወፈነወ ንጉሥ ወጸውዖ ለሰሜ ወይቤሎ ንድቅ ስከ ቤተ በኢየሩሳሌም ወንበር ህየ ወኢትፃእ እምህየ ለፌና ወለፌና",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወእምዝ እምድኀረ ፫ ዓመት ተኀጥአ ክልኤቱ አግብርቲሁ ለሳሚ ኀበ እንኩስ ወልደ ሚካ ንጉሥ ጌት ወአይድዕዎ ለሳሚ ወይቤልዎ ናሁ ህለዉ አግብርቲከ ውስተ ጌት ወተንሥአ ሳሚ ወጸዓነ አድገ ወሐረ ውስተ ጌት ኀበ እንኪስ ከመ የኀሥሥ አግብርሁ እምነ ጌት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 37,
+    "base_reading": "ወእመ ዕለተ ትወፅእ ወተዓዱ ፈለግ ቄድርክ እእምር ከመ ሞት ትመውት ወይዳምኩ ይግብእ ሳዕስ ርእስከ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 38,
+    "base_reading": "ወእምሐሉ ኒጉሥ ይእተ አሜራ ወይቤሎ ሰሜ ለንጉሥ ሠናየ ቃስ ነበብክ እግዚእየ ንጉሥ ወክማሁ ይግብር ገብርክ ወነበረ ሰሜ በኢየሩሳሌም ፫ ዓመት",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወአይድዕዎ ለስሎሞን ወይቤልዎ ሐረ ሳሚ እምኢያሩሳሌም ውስተ ጌት ወእተሞ ለእግብርቲሁ ወለእከ ንጉሥ ወጸውዕዎ ለሳሚ ወይቤሎ አኮኑ አምሐልኩኩ በእግዚእብሔር ወአስማዕኩ ለከ እንዘ እብል አሜ ትወፅእ እምኢያሩሳሌም ወተሐውር አው ለየማን አው ለፀጋም አእምር ከመ ሞተ ትመውት ወትቤለኒ ሠናይ ውእቱ ዝንቱ ነገር እስምዕ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 39,
+    "base_reading": "ወእምድኅረ ፫ ዓመት ተጓጥእም ፪ አግብርቲሁ ለሰሜ ወሐሩ ኃበ እንኩስ ወልደ ሞኬክ ንጉሥ ጌት ወአይድዕዎ ለሰሜ ወይቤልዎ ህለዉ እግብርቲክ በጌት",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 40,
+    "base_reading": "ወተንሥአ ሰሜ ወረአነ ዓድጋ ወሐረ ውስተ ጌት ኃበ እንኩስ የዓሥሥ አግብርቲሁ ወረከበሙ በህየ ወአዕተዎሙ ለእግብርቲሁ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወእፎ ኢአቀብከ ማሕላሁ ለእግዚእብሔር ወትእዛዝየ ዘአዘዝኩከ ለከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 41,
+    "base_reading": "ወአይድዕዎ ስስሉሞን ወይቤልዎ ሐረ ሰሜ እምኢየሩሳሌም ውስተ ጌት ወእዕተዎሙ ለእግብርቲሁ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወይቤሎ ንጉሥ ለሳሚ ለሊከ ተአምር ኵሎ እከየከ ወየአምር ልብከ ዘገበርከ ላዕለ ዳዊት አቡየ ወእግብእ እግዚእብሔር እከየከ ላዕለ ርእስከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 42,
+    "base_reading": "ወለአከ ንጉሥ ወጸውዖ እስአሚ ወይቤሎ እኮኑ አምሐልኩከ በእግዚአብሔር ወአስማዕኩ ብከ እንዘ እብል እመ ትወፅእ እምኢየሩሳሌም ወተሐውር እው ሰዓጋም አው ስየማን እእምር አእምር ከመ ሞቅት ትመውት",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 43,
+    "base_reading": "ወስምንግት ኢዳቀብክ መሐስ እግዚአብሔር ወትእዛዘ ዘአዘዝኩክ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወስሎሞንስ ቡሩክ ንጉሥ ወመንበረ ዳዊትኒ ይኩውን ድልወ ቅድመ እግዚእብሔር እስከ ለዓለም"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 44,
+    "base_reading": "ወይቤሎ ንጉሥ ለሰሜ ስዲክ ተእምር ኩሉ እከየክ ወይተቀልየክ ለልብክ ዘገብርክ ሳዕስ ዳዊት አቡየ ወእግዚአብሔር አግብአ ለእከይከ ሳዕስ ርእስከ",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 45,
+    "base_reading": "ወስሉሞንሰ ንጉሥ ቡሩክ ወመንበረ ዳዊትኒ ድልው ውእቱ ሰዓለም ቅድመ እግዚአብሔር",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": "ወአዘዘ ስሎሞን ንጉሥ ለብንያስ ወልደ ዮዳሔ ይቅትሎ ለሳሚ ወወዕአ ወቀተሎ ወጸንዓት መንግሥቱ ለስሎሞን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 46,
+    "base_reading": "ወአዘዘ ስሉሞን ሰብንያስ ወልደ ዮዳሔ ከመ ይቅትሎ ስዓሜ ወወፅአ ወቀተሎ ወጸንዓት መንግሥቱ ስለሉሞን በኢየሩሳሌም",
+    "variants": [
+      {
+        "witness": "CAM",
+        "reading": ""
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: GG base running text; CAM divergence recorded as variant"
+  },
+  {
+    "v": 1,
+    "base_reading": "ወፈሃራ ሰሎምን ለወለተ ፈርዖን ንጉሥ ግብጽ ወንሥእ ለወለተ ፈርዖን ወአተዋ ውስተ ሀገረ ዳዊት እስከ ይፌጽም ነዲቀ ቤቶ ወቤተ እግዚአብሔር ወአረፍተ ኢየሩሳሌም ቅጾራ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወተሐመዐ ሰሎሞን ሰፈርዖን ንጉሥ ግብጽ ወነሥአ ሰወለተ ፈርዖን ወእብተዋ ውስተ ሀገረ ዳዊት እስከ ይፌጽም ሕነፀ ቤቶ ወቤተ እግዚአብሔር ወአረፍተ ኢየሩሳሌም ዘቅጹራ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 2,
+    "base_reading": "እስም ሕዝብ የዓጥኑ ውስተ አድባር ወአተሐንጾ ቤተ ለስም እግዚአብሔር እስከ ዛቲ ዕለት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወባሕቱ ሕዝብ ይሰውዑ ወየዓጥኑ ውስተ አድባር እስመ ኢተሐንጸ ቤተ እግዚአብሔር እስከ ይእቲ ዕስቱ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 3,
+    "base_reading": "ወአፍቀር ሰሎሞን ለእግዚአብሔር ከመ የሐር በትእአዘ ዳዊት አቡሁ ወባሕተ ውስተ አድባር ይውዕ ወያዓጥን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአፍቀሮ ሰሎሞን ለእግዚአብሔር ከመ ይሐር በትእዛዘ ዳዊት አቡሁ ወባሕቱ ውስተ አውግር ይሰውዑ ወየዓጥኑ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 4,
+    "base_reading": "ወተንሥአ ወሐሬ ንጉሥ ውከት ገባአን ከመ ይውዕ በህየ እስም ይእቲ ትውን ወተዓቢ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወተንሥአ ወሐረ ውስተ ገባእን ከመ ይሰውዕ በህየ እስመ ይእቲ ትነውህ ወመሰዋዕተ ገብረ ሰሎሞን በገባእን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 5,
+    "base_reading": "መሥዋዕተ ሥዓ ሰሎምን ውስተ ዛቲ ምሥዋዕ ወአስተርአየ እግዚአብሔር ለሰሎምን በገባአን በሬእየ ሌሊት ወይቤሎ እግዚአብሔር ለሰሎምን ሰአል ለከ ብእቢት ዘሃለየ ልብከ ከመ አሀብከ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወአስተርአዮ እግዚአብሔር ለሰሎሞን ሌሊተ በህልም ወይቤሉ እግዚአብሔር ለሰሎሞን ስአል ለከ ስእሰተ ዘታሰየ ልብክ ከመ እሁብከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 6,
+    "base_reading": "ወይቤሎ ሰሎምን አንተ ገብርከ ለገብርከ ዳዊት አቡየ ምሕረተ ዓቢየ በከመ ሐረከ ቅድሜክ በጽድቅ ወርትዕ ወበየዋህተ ልብ ምስሌክ ወአቀብክ ሎቱ ዛተ ምሕረተ ዓቢየ ወወሀብክ ወልደ ዘይነብር ዲበ መንበሩ በዛቲ ዕለት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤሎ ሰሎሞን አንተ ገበርከ ለገብርከ ዳዊት አቡየ ምሕረተ ዓቢየ በከመ ሐረ ቅድሜከ በ ጽድቅ ወበርትዕ ወበንጹሕ ልብ ምስሌከ ወዓቅብከ ሎቱ ዘንተ ምሕረተ ዓቢየ ከመ ታህብር ሰወልዱ ሳዕለ መንበሩ በዘቲ ዕስት"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 7,
+    "base_reading": "ወይእዜኒ እግዚአ አምላኪየ አንተ አንገሥከ ለገብርከ ህየንተ ዳዊት አቡየ ወአነ ሕፃን ንኡስ ወኢያአምር ሙዓእየ ወሙባእየ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይእዜኒ እግዚአ አምላኪየ አንገሥከ ለገብርከ ህየንተ ዳዊት አቡየ ወአንስ ሕፃን ንኡስ ወኢየአምር ሙዓዕየ ወሙባዕየ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 8,
+    "base_reading": "ወገብርከሰ ሀሎ በማእከለ ሕዝብክ ዘኀረይክ ሕዝበ ብዙኅ ዘኢይትዐለቆ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወገብርከ ህሎ ማእከስ ሕዝብ ዘኃረይከ ሕዝበ ብዙኃ ዘኢይትሌስቀ ሀቡ ለገብርከ ልበ ⟦illegible⟧ ዘይስምዕ ወያአግብእ ፍትሐ በ ጽድቅ ለሕዝብክ ወከመ ያአምር ሠናየ እምእኩዱ ወይፍልጥ እስመ እልቡ ዘይክል ኮናዶ ለዝንቱ ሕዝብክ ከቡድ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 9,
+    "base_reading": "ሀብ ለገብርከ ልብ በዘይስምዕ ወየገብእ ፍትሐ ለሕዝብክ ወከመ ያእምር ወይፍልጥ ማእከለ ሠናይ ወእኩይ እስም አልቦ ዘይክል ኩንኖት ለዝንቱ ሕዝብ ክቡድ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዓደም ዝንቱ ንገር ቅድሜሁ ለእግዚአብሔር እስመ ስአሉ ስሎሞን ዘንተ ነገረ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 10,
+    "base_reading": "ወአደም ዝንቱ ነገር ቅድሜሁ ለእግዚአብሔር እስም ሰአለ ሰሎምን ዘንተ ነገረ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወኢሰአልከ ለከ ብዙኃ መዋዕለ ወኢሰአልከ ለከ ብዕለ ወኢሰአልከ ለከ ነፍሰ ፀርከ አላ ስእልከ ከመ ታእምር ዕሚዳ ፍትሕ ናሁ ገብርኩ ስኬ በከመ ትቤ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 11,
+    "base_reading": "ወይቤሎ እግዚአብሔር እስም ሰአልከ ለከ እምኔየ ዘንተ ቃለ ወኢሰአልከ ለከ ብዙኅ መዋዕለ ወኢሰአልከ ለከ ብዕለ ወኢሰአልከ ለከ ነፍሰ ፀርከ አላ ሰአልከ ለከ ከመ ታእምር ስሚዓ ፍትሐ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሀብኩከ ልበ ጠቢበ ወለዓዊ ከመ አልቦ ዘከነ እምቅድሜከ ወእምድኃሬከኒ ኢዶትነሥአ ዘከማከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 12,
+    "base_reading": "ናሁ ገበርኩ ለከ በከመ ትቤ ናሁ ወሀብኩክ ልብ ጠቢበ ወለባዊ ወአልቦ ዘኮነ እምቅድሜክ እምድኅሬክኒ ኢይትነሣእ ዘከማክ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዘሂ ኢሰአልከኒ እኁበከ ብዕሰ ወክብረ ከመ ኢኮነ ከማከ ሰብእ በመንግሥቱ በኵሉ መዋዕሊከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 13,
+    "base_reading": "ወዘሂ ኢሰአልክኒ እሁብክ ክብረ ወብለ ከመ ኢኮነ ሰብእ ከማክ በመንግሥት በኩሉ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወእመ ሐርከ በፍኖትየ ወዐቀብከ ትእዛዝየ ወሥርዓትየ በከመ ሐረ ዳዊት አቡከ አብዝኀ መዋዕሊከ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 14,
+    "base_reading": "መዋዕልክ ለእመ ሐርክ በፍኖትየ ወዓቀብክ ትእዛዝየ ወሥርዓትየ ከመ ሐረ ዳዊት አቡከ አበዝኆ መዋዕልክ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወንቅሐ ሰሎሞን ወአእመረ ከመ ሕልም ውእቱ ወተንሥአ ወሐረ ኢየሩሳሌም ወቆመ ቅድመ ምሥዋዕ ዘቅድመ ታበተ ሕጉ ለእግዚአብሔር በ ጽዮን ወአብአ መሥዋዕተ ሰላም ወገብረ ምስሐ ዓቢየ ሎቱ ወለስብኡ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 15,
+    "base_reading": "ወነቅሕ ሰሎምን ወአእመረ ከመ ውእቱ ሕልም ወተንሥአ ወሐረ ኢየሩሳሌም ወቆመ ቅድመ ታቦተ ሕጉ ለእግዚአብሔር ወአብአ መሥዋዕተ ሰላም ወገብረ ምስሐ ዓቢየ ለኩሉ አግብርቲሁ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይእተ አሚረ መድአ ዪ እንስት ዘመት ዓብ ንጉሥ ወቆማ ቅድሜሁ ወትቤ አሐቲ ብእሲት ክምዓኒ እግዚእየ እን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 16,
+    "base_reading": "ወይእቲ አሚረ መጻአ ክልኤቱ አንስት ዘማት ኀበ ንጉሥ ወቆማ ቅድሜሁ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወዛቲ ብእሲት ንዓድር ውስተ ፩ ቤት ወወለድነ በ ፪ መ ከነ ወእም ሣልስት ዕስት እምዘ ወለድነ እን ወለደት ዛቲኒ ብእሲት ወንነብር ኅቡረ ወአልቦ ምስሌነ ወኢመኑሂ ዘእንበለ ፪ እን"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 17,
+    "base_reading": "ወትቤ አሐቲ ብእሲት ስምዓኒ እግዚእየ አነ ወዛቲ ብእሲት ንነብር ውስተ አሐዱ ቤት ወወለድኩ ቦ መካን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወከተ ውእቱ ቤት ወሞተ ወልዱ ለዛቲ ብእሲት በሌሊት እስመ ሰከበት ሳዕሌሁ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 18,
+    "base_reading": "ወአመ ሣልስት ዕለት ዘወለድኩ አነ ዛቲኒ ብእሲት ወለደት ወንነብር ሕቡረ ወአልቦ ካልእ ምስሌነ ወእምነሂ እንበለ ክልኤነ ውስተ ዝንቱ ቤት",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወተንሥአት መንፈቀ ሌሊት ወነሥአት ወልድየ እምሕፅንየ እንዘ እነው ም ወአስከበ ዱ ውስተ ሕፅና ወለወልዳ ዘሞተ አስከበቶ ውስተ ሕፅንየ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 19,
+    "base_reading": "ወሞት ወልዳ ለዛቲ ብእሲት በሌሊት እስም ስከበት ሳዕሌሁ ወተንሥት መንፈቀ ሌሊት ወንሥእት ወልድየ እምነ ሕፅንየ ወእንዘ ትነውም አመትከ ወአስከበቶ ውስተ ሕፅና",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወሰበ ንቃሕኩ በጽባሕ ከመ አጥቡ ሕፃንየ ረከብኩ ዝኩ ሞውተ ወስበ ጸብሐ ወርኢክዎ ወናሁ ኢኮነ ወልድየ ዘወለድኩ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 20,
+    "base_reading": "ወወልድ ዚአሃ ዘሞተ አስከበቶ ውስተ ሕፅንየ ወኮንኩ አህኩ በጻሕ ከመ አጥቡ ወልድየ ረከብኩ ዘክሙ ምወት ወሶበ ጸብሐ ርኢክም ወናሁ ኢከነ ወልድየ ዘወለድኩ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወትቤ እንታ ከቲ ብእሲት ኪአልቦ ወልድየ ዝንቱ ሕያው ወልድኪስ ዘከቱ ምውት ተበሀላ ከመዝ በቅድመ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 21,
+    "base_reading": "ወትቤ እንታክቲ ብእሲት ክልኤት አልቦ ዝንቱ ወልድ ሕያው ወልድየ ሊተ ወወልድኪ ዘክቲ ምወት ወትብሃላ ከመ ቅድመ ንጉሥ ወይቤሎ ንጉሥ አንቲኒ ትብሊ ዝንቱ ሕያው ወልድየ ወወልድ ዚአሃ ዘሞተ ወእንቲኒ ትብሊ አልቦ ወልድ ዚአየ ሕያው ወእቱ ወልድ ዚአሃ ዘሞተ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤሎን ንጉሥ እንቲኒ ትብሊ ዝንቱ ሕያው ወልድየ ወወልዳ ዚአሃ ዘሞተ ወእንቲኒ ትብሊ አልቦ ወልደ ዚአየ ዝንቱ ሕያው ወወልደ ዚአሃ ዘሞተ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 22,
+    "base_reading": "ወይቤ ንጉሥ አምጽኡ ሊተ መጥባሕተ ወአምጽኡ መጥባሕተ ቅድመ ንጉሥ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤ ንጉሥ አምጽኡ መጥባሕተ ወአምጽኡ መጥባሕተ ቅድመ ንጉሥ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 23,
+    "base_reading": "ወይቤ ንጉሥ ምትሮ ለዝንቱ ሕፃን ዘሕያው ለክልኤሆሙ መንፈቆ ለዛቲ ወመንፈቆ ለእንታክቲ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወይቤ ንጉሥ ምትርዎ ለዝንቱ ሕፃን ዘሕያው ሰየ ወሀቡ መንፈቆ ሰዛቲ ወመንፈቆ ሰእንታ ክቲ ብእሲት ዘሕያው ሐዕና"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 24,
+    "base_reading": "ወአውሥአት እንታክቲ ብእሲት ዘሕያው ሕፃን ለንጉሥ እስም ተሃውክ ከርሣ በእንተ ወልዳ ወትቤ እግዚእየ ሀባ ዘንተ ወልድ ሕያው ወቅቲለሰ ኢትቅትልዎ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወትቤሎ ሰንጉሥ እስመ ተሀውከ ማላዕና በእንተ ወልዳ ወትቤ አልቦ እግዚእየ ሀብ ሕፃን ሕያው ወቀቲለሰ ኢትቅትልዎ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 25,
+    "base_reading": "ወትቤ እንታክቲ ኢይኩን ሊተ ወኢላቲ አይከፍልኒ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ወትቤ እንታ ክቲ ኢ ይኩን ሲተ ወኢሳቲ ክፍሉነ ወእውሥአ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 26,
+    "base_reading": "ወአውሥአ ንጉሥ ወይቤ ሀብዋ ዘንተ ወልደ ሕያው ለዛቲ ብእሲት ወቅቲለሰ ኢቲቅትል ያእስም ይእቲ እሙ",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "ንጉሥ ወይቤ ሀብዋ ዘንተ ሕፃን ሕያው ለዘቲ ብእሲት እንተ ትቤ ሀብዋ ኪያሁ ወቀቲልስስ ኢ ትቅልዎ ይእቲ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 27,
+    "base_reading": "ወስምዑ ኩሉ እስራኤል ዘንተ ፍትሐ ዘፈትሐ ንጉሥ ወፈርሁ ኩሉ እስራኤል እምቅድመ ገጹ ለንጉሥ እስም ርእዩ ከመ ጥበበ እግዚአብሔር ሀሉ ሳዕሌሁ ከመ ይግበርኔ ወፍትሐ ወእምዝ ከነ ንጉሥ ሰሎምን",
+    "variants": [
+      {
+        "witness": "GG",
+        "reading": "እሙ ወስምዐ ኲሎሙ እስራኤል ዘንተ ፍትሐ ዘፈትሐ ንጉሥ ወፈርሁ እምቅድሞ ገጸ ሰንጉሥ እስመ ርእዩ ከመ ጥበቡ ስእግዚአብሔር ሀሎ ስዕሌሁ ከመ ይግበር ኩነኔ ርትዕ"
+      }
+    ],
+    "lacunae": [],
+    "resolution": "base",
+    "reason": "D3: CAM base running text; GG divergence recorded as variant"
+  },
+  {
+    "v": 1,
     "base_reading": "ይነግሥ ላዕለ ኩሉ እስራኤል",
     "variants": [
       {

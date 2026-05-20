@@ -22,11 +22,14 @@
         "ነግሠ",
         "ሳዕለ",
         "ኹሉ",
-        "እስራኤል",
-        "✣"
+        "እስራኤል"
       ],
       "uncertain": [
-        "FIX-ROUND-6: removed phantom ✣ between ኹሉ and እስራኤል — parchment at 16x-100x with both autocontrast and color-preserving variants shows a black ፡ two-dot separator (same as other inter-word separators on this line), NOT a red rubric-cross; the second ✣ at end of v1 remains (genuine red rubric, confirmed by same-line color comparison). Token count v1: 8 → 7 (R6 cross-count audit, controller-verified)."
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "FIX-ROUND-6: removed phantom ✣ between ኹሉ and እስራኤል — parchment at 16x-100x with both autocontrast and color-preserving variants shows a black ፡ two-dot separator (same as other inter-word separators on this line), NOT a red rubric-cross; the second ✣ at end of v1 remains (genuine red rubric, confirmed by same-line color comparison). Token count v1: 8 → 7 (R6 cross-count audit, controller-verified)."
+        }
       ]
     },
     {
@@ -39,15 +42,17 @@
         "ምንቱ",
         "መለእክቲ",
         "ሁ",
-        "✣",
         "አዘርያስ",
         "ወልደ",
         "ሳዶቅ",
-        "ካህን",
-        "✣"
+        "ካህን"
       ],
       "uncertain": [
-        "ምንቱ (could be ምንቱ or እምንቱ)"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ምንቱ (could be ምንቱ or እምንቱ)"
+        }
       ]
     },
     {
@@ -61,16 +66,22 @@
         "ደቂቀ",
         "ሁ",
         "ጻሐፍት",
-        "✣",
         "ወኢዮሳፍጥ",
         "ወልደ",
         "አኪያድ",
-        "መዝክር",
-        "✣"
+        "መዝክር"
       ],
       "uncertain": [
-        "ጻሐፍት vs ጸሐፍት (sahaft, 'scribes')",
-        "ወአኪያ — verified as 'ያ' (4th-order ya), not 'ደ' (də) per fix-round-1 re-zoom"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጻሐፍት vs ጸሐፍት (sahaft, 'scribes')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወአኪያ — verified as 'ያ' (4th-order ya), not 'ደ' (də) per fix-round-1 re-zoom"
+        }
       ]
     },
     {
@@ -83,19 +94,22 @@
         "ወልደ",
         "ዮዳሐ",
         "ሳዕለ",
-        "✣",
         "ሰራዊት",
-        "✣",
         "ሳዶቅ",
-        "✣",
         "ወአብያታር",
-        "✣",
-        "ካህናት",
-        "✣"
+        "ካህናት"
       ],
       "uncertain": [
-        "ዮዳሐ — re-zoom confirms 'ሐ' ending (not 'ዕ' as R1 speculated); kept as inked",
-        "ሳዶቅ verified — same spelling as v2; R1 confirmed implementer's 'ስደቅ' was fabricated"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዮዳሐ — re-zoom confirms 'ሐ' ending (not 'ዕ' as R1 speculated); kept as inked"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳዶቅ verified — same spelling as v2; R1 confirmed implementer's 'ስደቅ' was fabricated"
+        }
       ]
     },
     {
@@ -109,22 +123,31 @@
         "ናታን",
         "ሳዕለ",
         "እለይቀውሙ",
-        "✣",
         "ናቤ",
         "ሁ",
-        "✣",
         "ወዘባጥ",
         "ወልደ",
         "ናታን",
         "ካህን",
         "ዘእምታሕተ",
-        "ንጉሥ",
-        "✣"
+        "ንጉሥ"
       ],
       "uncertain": [
-        "ወአርንያ — re-zoom confirms 'ር' (rə) + 'ን' + 'ያ' (4th-order ya); not 'ራንደ'",
-        "ናቤ + ሁ — visible space on parchment; kept as two tokens (R1 allowed compound but space is present)",
-        "ወዘባጥ vs ወዛቡድ (Zabud)"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወአርንያ — re-zoom confirms 'ር' (rə) + 'ን' + 'ያ' (4th-order ya); not 'ራንደ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ናቤ + ሁ — visible space on parchment; kept as two tokens (R1 allowed compound but space is present)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወዘባጥ vs ወዛቡድ (Zabud)"
+        }
       ]
     },
     {
@@ -134,28 +157,40 @@
       "geez": "ወአኪያል✣መጋቤ፡ቤት✣ወኤልያብ፡ወልደ፡ካፋን፡ሳዕለ፡በሐውርት✣ወአደኒራም፡ወልደ፡ኤድራ፡ሳዕለ፡ዐራ✣",
       "tokens": [
         "ወአኪያል",
-        "✣",
         "መጋቤ",
         "ቤት",
-        "✣",
         "ወኤልያብ",
         "ወልደ",
         "ካፋን",
         "ሳዕለ",
         "በሐውርት",
-        "✣",
         "ወአደኒራም",
         "ወልደ",
         "ኤድራ",
         "ሳዕለ",
-        "ዐራ",
-        "✣"
+        "ዐራ"
       ],
       "uncertain": [
-        "ወአኪያል — re-zoom confirms 'ያ' (4th-order ya); R1 fix verified",
-        "ሳዕለ — line-break split 'ሳዕ | ለ' joined per R1; verified as 'ሳዕለ' (= 'over'), not 'ሳቦሉ'",
-        "ካፋን — FIX-ROUND-2 (R2 NEW DEFECT): leading 'ካ' (1st-order with right-turning top-stroke) per parchment, NOT 'ኒ' (which would have tail down-right). Neither R1 nor fix-round-1 caught this. Eliab's patronymic is 'ካፋን'",
-        "ኤድራ vs አብዳ — toponym kept as inked"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወአኪያል — re-zoom confirms 'ያ' (4th-order ya); R1 fix verified"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳዕለ — line-break split 'ሳዕ | ለ' joined per R1; verified as 'ሳዕለ' (= 'over'), not 'ሳቦሉ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ካፋን — FIX-ROUND-2 (R2 NEW DEFECT): leading 'ካ' (1st-order with right-turning top-stroke) per parchment, NOT 'ኒ' (which would have tail down-right). Neither R1 nor fix-round-1 caught this. Eliab's patronymic is 'ካፋን'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤድራ vs አብዳ — toponym kept as inked"
+        }
       ]
     },
     {
@@ -176,19 +211,37 @@
         "ይትመጻውሙ",
         "ግብርሙ",
         "ለንጉሥ",
-        "✣",
         "ወልቤቱ",
         "፬",
         "ዐውር",
-        "ዐ",
-        "✣"
+        "ዐ"
       ],
       "uncertain": [
-        "ወሲመ — re-zoom shows 'ወሲመ' with final 'መ', not 'ወሲም'",
-        "ስሎምን — re-zoom shows 'ስ' (6th-order) at this position, not 'ሰ' (1st-order); same fidel as v10/v13/v23/v24/v26 elsewhere",
-        "ዐደው — R1 confirmed final 'ው', not 'መ'",
-        "ይትመጻውሙ — FIX-ROUND-3 (R3 OVERRULE-OF-R2): R3 at 8x on f030r_R_v7.png line 2 unambiguously shows 'እለ ይትመጻ' at line-end (with 'ጻ' 4th-order ts glyph clearly inked between 'ይትመ' and the line break), then line 3 begins 'ው ሙ ግብሮሙ'. Combined word IS 'ይትመጻውሙ' (6 fidels). R2's drop of 'ጻ' was itself a fabrication-by-omission; the 'ጻ' IS on the parchment. Original implementer was right, fix-round-1's disciplined non-change was right, R2's overrule was wrong; fix-round-3 restores the 'ጻ'",
-        "፬ ዐውር ዐ — R1 fix verified: '፬' + 'ዐውር' + 'ዐ' (line break splits as '፬ ዐው | ር ዐ ሰለሳ መት')"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወሲመ — re-zoom shows 'ወሲመ' with final 'መ', not 'ወሲም'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስሎምን — re-zoom shows 'ስ' (6th-order) at this position, not 'ሰ' (1st-order); same fidel as v10/v13/v23/v24/v26 elsewhere"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዐደው — R1 confirmed final 'ው', not 'መ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይትመጻውሙ — FIX-ROUND-3 (R3 OVERRULE-OF-R2): R3 at 8x on f030r_R_v7.png line 2 unambiguously shows 'እለ ይትመጻ' at line-end (with 'ጻ' 4th-order ts glyph clearly inked between 'ይትመ' and the line break), then line 3 begins 'ው ሙ ግብሮሙ'. Combined word IS 'ይትመጻውሙ' (6 fidels). R2's drop of 'ጻ' was itself a fabrication-by-omission; the 'ጻ' IS on the parchment. Original implementer was right, fix-round-1's disciplined non-change was right, R2's overrule was wrong; fix-round-3 restores the 'ጻ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "፬ ዐውር ዐ — R1 fix verified: '፬' + 'ዐውር' + 'ዐ' (line break splits as '፬ ዐው | ር ዐ ሰለሳ መት')"
+        }
       ]
     },
     {
@@ -200,27 +253,48 @@
         "ሰለሳ",
         "መት",
         "ያዊ",
-        "፬ደ",
+        "፬",
+        "ደ",
         "ምዕራ",
-        "✣",
         "ወዝንቱ",
         "ውእቱ",
         "እክማቲ",
         "ሆሙ",
-        "✣",
         "ቤእራ",
         "በደብራ",
-        "✣",
-        "ኤፍራም",
-        "✣"
+        "ኤፍራም"
       ],
       "uncertain": [
-        "ሰለሳ መት vs ሰለስቱ መት (three years); 'መት' could be a numeric form",
-        "ያዊ ፬ደ — this sequence is unclear; 'ያዊ' followed by '፬ደ'",
-        "✣ — R1-normalized: implementer's '❈' (large) here was the same small inline '✣' as elsewhere",
-        "እክማቲ ሆሙ — R1 fix: 'ቴ→ቲ', 'ህ→ሆ', 'ሞ→ሙ'",
-        "ቤእራ vs ቤንሁር (Ben-Hur)",
-        "ኤፍራም — Mount Ephraim"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሰለሳ መት vs ሰለስቱ መት (three years); 'መት' could be a numeric form"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ያዊ ፬ደ — this sequence is unclear; 'ያዊ' followed by '፬ደ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "✣ — R1-normalized: implementer's '❈' (large) here was the same small inline '✣' as elsewhere"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እክማቲ ሆሙ — R1 fix: 'ቴ→ቲ', 'ህ→ሆ', 'ሞ→ሙ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቤእራ vs ቤንሁር (Ben-Hur)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤፍራም — Mount Ephraim"
+        }
       ]
     },
     {
@@ -231,43 +305,74 @@
       "tokens": [
         "ወልደ",
         "ሔኪብ",
-        "✣",
         "በማኪማስ",
-        "✣",
         "ወቤተ",
         "ሳኜ",
         "ወወቤተ",
         "ሳሚስ",
-        "✣",
         "ወኤሎ",
         "በቤተ",
         "ሄናን",
-        "✣",
         "ወልደ",
         "ኤሳት",
-        "✣",
         "በቤርኒማስ",
-        "✣",
         "ወበስምን",
         "ኾቄረስ",
-        "✣",
         "ወብታ",
         "ረኪ",
-        "✣",
-        "ሕንዳን",
-        "፡"
+        "ሕንዳን"
       ],
       "uncertain": [
-        "ሔኪብ vs ሔሴድ (Hesed)",
-        "ማኪማስ vs Makkaz",
-        "ሳኜ vs Beth-shemesh-like",
-        "ሳሚስ — R1 fix: 'ከ' belonged to next clause as 'ወኤሎ' start",
-        "ወኤሎ በቤተ ሄናን — R1 fix: 3 words (was 2 with 'በቤተ' dropped)",
-        "ኤሳት — R1 fix: 'ሳ' (sa) not 'ፋ' (fa)",
-        "ቤርኒማስ vs Beth-shemesh",
-        "ኾቄረስ vs Hazor",
-        "ሕንዳን — R1 fix: 'ን' (not 'ነ')",
-        "Terminator '፡' — R1 fix: standard two-dot separator (not '፥')"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሔኪብ vs ሔሴድ (Hesed)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ማኪማስ vs Makkaz"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳኜ vs Beth-shemesh-like"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳሚስ — R1 fix: 'ከ' belonged to next clause as 'ወኤሎ' start"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወኤሎ በቤተ ሄናን — R1 fix: 3 words (was 2 with 'በቤተ' dropped)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤሳት — R1 fix: 'ሳ' (sa) not 'ፋ' (fa)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቤርኒማስ vs Beth-shemesh"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኾቄረስ vs Hazor"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሕንዳን — R1 fix: 'ን' (not 'ነ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Terminator '፡' — R1 fix: standard two-dot separator (not '፥')"
+        }
       ]
     },
     {
@@ -278,36 +383,54 @@
       "tokens": [
         "ወልደ",
         "አሚናዳብ",
-        "✣",
         "በሐናጥፍን",
         "ጤ",
-        "✣",
         "ብሊትች",
         "ወልታ",
         "ስሎምን",
         "ብእሲቱ",
         "በቀከ",
-        "✣",
         "ወልደ",
         "አኪማ",
         "ከ",
-        "✣",
         "ሳጻሕወመቅደ",
         "ወብኹሉ",
         "ቤተ",
         "ሳሆን",
-        "፡",
         "ዘመንገለ",
-        "ኤታን",
-        "✣"
+        "ኤታን"
       ],
       "uncertain": [
-        "ብሊትች — R1 fix: leading 'ጻ' was fabricated, dropped per re-zoom",
-        "ስሎምን — R1 fix: short 'ስ' (not 'ሰ')",
-        "ሳሆን — R1 fix: 'ሳ' (not 'ሰ')",
-        "ሳጻሕወመቅደ — R1 fix: leading 'በ፬' was fabricated, dropped per re-zoom (just 'ሳ' is start of toponym)",
-        "ኤታን — R1 fix: 'ስ' was fabricated, dropped (not 'ኤስታን')",
-        "Terminator '፡' — standard two-dot separator (was '፥' in implementer)"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ብሊትች — R1 fix: leading 'ጻ' was fabricated, dropped per re-zoom"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስሎምን — R1 fix: short 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳሆን — R1 fix: 'ሳ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሳጻሕወመቅደ — R1 fix: leading 'በ፬' was fabricated, dropped per re-zoom (just 'ሳ' is start of toponym)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤታን — R1 fix: 'ስ' was fabricated, dropped (not 'ኤስታን')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Terminator '፡' — standard two-dot separator (was '፥' in implementer)"
+        }
       ]
     },
     {
@@ -324,15 +447,34 @@
         "መሐሳ",
         "እስከ",
         "ማዕቤር",
-        "ዘሉቃሚስ",
-        "✣"
+        "ዘሉቃሚስ"
       ],
       "uncertain": [
-        "ኤስድርኤ vs እዝራኤል (Jezreel)",
-        "ቤስፋዱ vs Beth-shean",
-        "ወኤቤል — R1 fix: 'ኤ' (not 'አ')",
-        "መሐሳ vs Meholah",
-        "ሉቃሚስ vs Jokneam"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤስድርኤ vs እዝራኤል (Jezreel)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቤስፋዱ vs Beth-shean"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወኤቤል — R1 fix: 'ኤ' (not 'አ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መሐሳ vs Meholah"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሉቃሚስ vs Jokneam"
+        }
       ]
     },
     {
@@ -346,7 +488,6 @@
         "ዘር",
         "ማት",
         "ዘጋላዓድ",
-        "✣",
         "አህጥር",
         "ኤያዕር",
         "ዘምና",
@@ -365,16 +506,39 @@
         "መዓፁት",
         "ወመናስግቱ",
         "ህነ",
-        "ዘብርት",
-        "✣"
+        "ዘብርት"
       ],
       "uncertain": [
-        "ጋቤሐ — R1 fix: 'ቤ' (not 'በ'), 'ሐ' (not 'ሃ')",
-        "ጋላዓድ (= Gilead) — R1 fix: 'ጋ-ላ' (not 'ገ-ሳ'); the canonical 'ለ'/'ስ' systematic-misread class",
-        "አህጥር (twice) — R1 fix: 'አ' (not 'እ')",
-        "ኤርጳብ — R1 fix: 'ኤ' (not 'አ')",
-        "ዘባሳን — R1 fix: dropped 'ባ' syllable restored",
-        "ቅጽርወ | መዓፁት — R1 fix: segmented at the line-break"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጋቤሐ — R1 fix: 'ቤ' (not 'በ'), 'ሐ' (not 'ሃ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጋላዓድ (= Gilead) — R1 fix: 'ጋ-ላ' (not 'ገ-ሳ'); the canonical 'ለ'/'ስ' systematic-misread class"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "አህጥር (twice) — R1 fix: 'አ' (not 'እ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤርጳብ — R1 fix: 'ኤ' (not 'አ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘባሳን — R1 fix: dropped 'ባ' syllable restored"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቅጽርወ | መዓፁት — R1 fix: segmented at the line-break"
+        }
       ]
     },
     {
@@ -404,23 +568,74 @@
         "እስከ",
         "አሐል",
         "በምድራ",
-        "ማሕሳዶስ",
-        "✣"
+        "ማሕሳዶስ"
       ],
       "uncertain": [
-        "ወአኪናሐም vs Ahimaaz",
-        "አኪልማሐን vs Ahinoam",
-        "ኒኤእኒክ vs Naphtali",
-        "ዘንፍታሌም — R1 fix: one word (was 'ዘንፍታ ሴም'); 'ሌ' (not 'ሴ')",
-        "አውሰየ — R1 fix: one word (was 'አው ሰዐ'); 'የ' (not 'ዐ')",
-        "ስማሴማት vs Basmath",
-        "ወለተ — R1 fix: 'ተ' ending (not 'ት'); shows 'daughter-of'",
-        "ስሎምን — R1 fix: short 'ስ' (not 'ሰ')",
-        "በሐሚ — R1 fix: 'በ' (not 'ባ')",
-        "ዋልደ — unusual 'ዋ' for 'ወ' (preserved as inked)",
-        "ኩሺ vs Hushai",
-        "ራግበሐል — toponym, kept as inked",
-        "ማሕሳዶስ — toponym, kept as inked"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወአኪናሐም vs Ahimaaz"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "አኪልማሐን vs Ahinoam"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኒኤእኒክ vs Naphtali"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘንፍታሌም — R1 fix: one word (was 'ዘንፍታ ሴም'); 'ሌ' (not 'ሴ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "አውሰየ — R1 fix: one word (was 'አው ሰዐ'); 'የ' (not 'ዐ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስማሴማት vs Basmath"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወለተ — R1 fix: 'ተ' ending (not 'ት'); shows 'daughter-of'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስሎምን — R1 fix: short 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በሐሚ — R1 fix: 'በ' (not 'ባ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዋልደ — unusual 'ዋ' for 'ወ' (preserved as inked)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኩሺ vs Hushai"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ራግበሐል — toponym, kept as inked"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ማሕሳዶስ — toponym, kept as inked"
+        }
       ]
     },
     {
@@ -433,7 +648,6 @@
         "ወልደ",
         "ኤሳ",
         "በብንያም",
-        "✣",
         "ጊቤር",
         "ወልደ",
         "አደ",
@@ -452,21 +666,64 @@
         "ወዮሳፍጥ",
         "ወልደ",
         "ፈሐሉል",
-        "በይሰክር",
-        "✣"
+        "በይሰክር"
       ],
       "uncertain": [
-        "ወሳሚ vs Shimei",
-        "ኤሳ vs Ela",
-        "በምድረ (×3) — R1 fix: 'ረ' final vowel (not 'ራ')",
-        "ሔሞን vs Sihon",
-        "ሐሴቦን vs Heshbon",
-        "ወአግ vs Og",
-        "ናሴፍ — possibly 'one prefect/governor' formula",
-        "በምድረ ይሁዳ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 16x on f030v_L_v14_yhuda_max.png confirms the first char of '?ሁዳ' is Y-triangle topology (stem-to-foot-at-right-base) MATCHING the v22 R2-confirmed-'ይ' reference. R2's revert to 'ደሁዳ' was over-correction; the parchment inks 'ይ' here just as it does in v22 'ይሁዳ'. R1 was right; fix-round-3 re-reverts to 'ይሁዳ'",
-        "ፈሐሉል vs Paruah",
-        "በይሰክር — re-zoom CONFIRMS 'ይ' (not 'ደ' as R1 suggested for this token); the parchment inks 'ይሰክር', R1 was inconsistent on direction. DISCIPLINED NON-CHANGE — the GG scribe is genuinely inconsistent, per-instance handling required",
-        "Terminator '✣' — R1 fix: normalized from '❈' (large) to '✣' (small) per body-cross rule"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወሳሚ vs Shimei"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤሳ vs Ela"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በምድረ (×3) — R1 fix: 'ረ' final vowel (not 'ራ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሔሞን vs Sihon"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሐሴቦን vs Heshbon"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወአግ vs Og"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ናሴፍ — possibly 'one prefect/governor' formula"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በምድረ ይሁዳ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 16x on f030v_L_v14_yhuda_max.png confirms the first char of '?ሁዳ' is Y-triangle topology (stem-to-foot-at-right-base) MATCHING the v22 R2-confirmed-'ይ' reference. R2's revert to 'ደሁዳ' was over-correction; the parchment inks 'ይ' here just as it does in v22 'ይሁዳ'. R1 was right; fix-round-3 re-reverts to 'ይሁዳ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ፈሐሉል vs Paruah"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በይሰክር — re-zoom CONFIRMS 'ይ' (not 'ደ' as R1 suggested for this token); the parchment inks 'ይሰክር', R1 was inconsistent on direction. DISCIPLINED NON-CHANGE — the GG scribe is genuinely inconsistent, per-instance handling required"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Terminator '✣' — R1 fix: normalized from '❈' (large) to '✣' (small) per body-cross rule"
+        }
       ]
     },
     {
@@ -493,16 +750,39 @@
         "ወእቆዕው",
         "ወኢ",
         "መንተኒ",
-        "ስምሁ",
-        "፡"
+        "ስምሁ"
       ],
       "uncertain": [
-        "ስሎምን — re-zoom confirms 'ስ' (not 'ሰ' per implementer)",
-        "ዘአዘዝሙ — re-zoom shows the 'አ' IS present on parchment; DISCIPLINED NON-CHANGE vs R1's suggestion to drop 'አ'",
-        "ወይሰርዑ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v15.png line 3 confirms contested char is the SAME Y-triangle 'ይ' topology as the R2-confirmed v22 'ይሁዳ' reference. R2's revert to 'ደ' was over-correction. Parchment inks 'ይ' here; R1 was right; fix-round-3 re-reverts to 'ወይሰርዑ'",
-        "፮ ፮ — HONEST resolution-limited: re-zoom shows two small red numeral marks that look similar; impl's '፮ ፮' reading not refuted, kept",
-        "በበወርኁ — R1 fix: 'ኁ' (not 'ኆ')",
-        "ስምሁ — R1 fix: joined (was 'ስ ምሁ' with space)"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስሎምን — re-zoom confirms 'ስ' (not 'ሰ' per implementer)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘአዘዝሙ — re-zoom shows the 'አ' IS present on parchment; DISCIPLINED NON-CHANGE vs R1's suggestion to drop 'አ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወይሰርዑ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v15.png line 3 confirms contested char is the SAME Y-triangle 'ይ' topology as the R2-confirmed v22 'ይሁዳ' reference. R2's revert to 'ደ' was over-correction. Parchment inks 'ይ' here; R1 was right; fix-round-3 re-reverts to 'ወይሰርዑ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "፮ ፮ — HONEST resolution-limited: re-zoom shows two small red numeral marks that look similar; impl's '፮ ፮' reading not refuted, kept"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በበወርኁ — R1 fix: 'ኁ' (not 'ኆ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስምሁ — R1 fix: joined (was 'ስ ምሁ' with space)"
+        }
       ]
     },
     {
@@ -521,16 +801,39 @@
         "ባባ",
         "ሀስው",
         "ወእኹሰሙ",
-        "በበሰርዓታሙ",
-        "✣"
+        "በበሰርዓታሙ"
       ],
       "uncertain": [
-        "ወሐሰሪ vs ወስርናይ (barley)",
-        "ለአፍራኪ — implementer reading kept; final 'ኪ' visible",
-        "ወሰረገላተ ሁ — R1 fix: restored dropped 'ሰ-' prefix; was 'ወረገላቹሁ' in implementer",
-        "ባባ — R1 fix: 'ባባ' (not 'ባበ')",
-        "ሀስው — re-zoom CONFIRMS 'ሀስው' (not 'ኩሉ' per R1); DISCIPLINED NON-CHANGE — the parchment fidels are 'ሀ-ስ-ው'",
-        "ወእኹሰሙ — 'and-each-of-them'"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወሐሰሪ vs ወስርናይ (barley)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለአፍራኪ — implementer reading kept; final 'ኪ' visible"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወሰረገላተ ሁ — R1 fix: restored dropped 'ሰ-' prefix; was 'ወረገላቹሁ' in implementer"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ባባ — R1 fix: 'ባባ' (not 'ባበ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሀስው — re-zoom CONFIRMS 'ሀስው' (not 'ኩሉ' per R1); DISCIPLINED NON-CHANGE — the parchment fidels are 'ሀ-ስ-ው'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወእኹሰሙ — 'and-each-of-them'"
+        }
       ]
     },
     {
@@ -550,17 +853,44 @@
         "ብዝናሙ",
         "ይበልዑ",
         "ወይስትዩ",
-        "ወይትፊሥሑ",
-        "✣"
+        "ወይትፊሥሑ"
       ],
       "uncertain": [
-        "ይሁዳ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v16_v17.png line 3 confirms Y-triangle 'ይ' topology matching v22 'ይሁዳ' reference. R2's revert to 'ደ' was over-correction. R1 was right; fix-round-3 re-reverts to 'ይሁዳ'",
-        "ፈድፋደ — R1 fix: standard Ge'ez 'very-much'",
-        "ሮዓ ባሕር — FIX-ROUND-2 (R2 REVERT): parchment (line 33 f030v-L) inks 'ሮ-ዓ' clearly — 'ሮ' open-circle + 'ዓ' 4th-order. R1's 'ኆጻ' was a smoothing-fabrication toward standard Ge'ez 'sand' word. The original 'ሮዓ' was correct",
-        "ባሕር — R1 fix: 'ሕ' (not 'ሐ')",
-        "ብዝናሙ — FIX-ROUND-2 (R2 REVERT): parchment (line 33 f030v-L) inks 'ና' (4th-order n). R1's 'ኆ'-fix was wrong",
-        "ይበልዑ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v16_v17.png line 5 confirms Y-triangle 'ይ' starting the verb (continuing across line break as '...ዑ'). R2's revert to 'ደ' was over-correction. R1 was right; fix-round-3 re-reverts to 'ይበልዑ'",
-        "ወይስትዩ — R1 fix: 'ዩ' final (not 'ይ')"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይሁዳ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v16_v17.png line 3 confirms Y-triangle 'ይ' topology matching v22 'ይሁዳ' reference. R2's revert to 'ደ' was over-correction. R1 was right; fix-round-3 re-reverts to 'ይሁዳ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ፈድፋደ — R1 fix: standard Ge'ez 'very-much'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሮዓ ባሕር — FIX-ROUND-2 (R2 REVERT): parchment (line 33 f030v-L) inks 'ሮ-ዓ' clearly — 'ሮ' open-circle + 'ዓ' 4th-order. R1's 'ኆጻ' was a smoothing-fabrication toward standard Ge'ez 'sand' word. The original 'ሮዓ' was correct"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ባሕር — R1 fix: 'ሕ' (not 'ሐ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ብዝናሙ — FIX-ROUND-2 (R2 REVERT): parchment (line 33 f030v-L) inks 'ና' (4th-order n). R1's 'ኆ'-fix was wrong"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይበልዑ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v16_v17.png line 5 confirms Y-triangle 'ይ' starting the verb (continuing across line break as '...ዑ'). R2's revert to 'ደ' was over-correction. R1 was right; fix-round-3 re-reverts to 'ይበልዑ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወይስትዩ — R1 fix: 'ዩ' final (not 'ይ')"
+        }
       ]
     },
     {
@@ -576,11 +906,9 @@
         "እምፈስግ",
         "ምድረ",
         "ኤሱፍሊ",
-        "✣",
         "እክከ",
         "ደወስ",
         "ግብጽ",
-        "✣",
         "ወየመጽኡ",
         "ለስሎምን",
         "እምኃ",
@@ -588,19 +916,54 @@
         "ሉቱ",
         "በኩሉ",
         "መዋዕለ",
-        "ሕደወቱ",
-        "✣"
+        "ሕደወቱ"
       ],
       "uncertain": [
-        "ወስሎምን — re-zoom shows 'ስ' (not 'ሰ' in impl)",
-        "ኮነ — R1 fix: 'ኮ' (not 'ኩ')",
-        "ኹሉ — R1 fix: restored from impl's 'ሥሉ' fabrication",
-        "መማግሥታት — re-zoom shows doubled 'ማ' IS inked on parchment; DISCIPLINED NON-CHANGE vs R1's 'መንግሥታት' (standard-Ge'ez form). AMBIGUOUS-PARCHMENT (R2 confirmed honest flag; middle glyph could be 'ማ' or 'ን'). Parchment-as-inked wins per cardinal rule",
-        "እምፈስግ — FIX-ROUND-2 (R2 REVERT): parchment (line 36 f030v-L) inks 'ስ' (6th-order s). R1's 'ለ'/'ስ' fix was a wrong-direction harmonization toward standard Ge'ez 'ፈለግ' (river). GG scribe's reading is 'ፈስግ'",
-        "እክከ ደወስ — FIX-ROUND-2 (R2 RESTORE): parchment (line 36 f030v-L) clearly inks 'ኤሱፍሊ ❈ እክከ ደወስ' before 'ግብጽ'. fix-round-1 dropped these tokens when it harmonized toward R1's 'ሰብአ ግብጽ'. CARDINAL-RULE violation reverted. Tokens restored per inked form (resolution-limited on exact glyphs but the two-word interlude IS inked between 'ኤሱፍሊ' and 'ግብጽ')",
-        "ለስሎምን — verified 'ስ' (not 'ሰ')",
-        "ወተቀንደ — FIX-ROUND-2 (R2 REVERT): parchment (line 38 f030v-L) inks 'ወተቀንደ ሉቱ'. R1's 'ወይትቀንዩ' fix was wrong-direction harmonization",
-        "ሕደወቱ — FIX-ROUND-3 (R3 MINOR-FIRST-CHAR CORRECTION): R3 reads the word as straddling the f030v-L line 4→5 break: line 4 ends 'ሕ' (6th-order ሕ with two-bar topology), line 5 begins 'ደወቱ'. Combined parchment reading is 'ሕደወቱ' (with 6th-order 'ሕ', not 1st-order 'ህ'). R2 caught the second-char 'ደ' correction but missed the first-char 'ሕ' correction. fix-round-3 fix: 'ህ' → 'ሕ'. Note this is RECENSIONAL (not standard Ge'ez 'ሕይወቱ') — the 2nd char 'ደ' (not 'ይ') stands"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወስሎምን — re-zoom shows 'ስ' (not 'ሰ' in impl)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኮነ — R1 fix: 'ኮ' (not 'ኩ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኹሉ — R1 fix: restored from impl's 'ሥሉ' fabrication"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መማግሥታት — re-zoom shows doubled 'ማ' IS inked on parchment; DISCIPLINED NON-CHANGE vs R1's 'መንግሥታት' (standard-Ge'ez form). AMBIGUOUS-PARCHMENT (R2 confirmed honest flag; middle glyph could be 'ማ' or 'ን'). Parchment-as-inked wins per cardinal rule"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እምፈስግ — FIX-ROUND-2 (R2 REVERT): parchment (line 36 f030v-L) inks 'ስ' (6th-order s). R1's 'ለ'/'ስ' fix was a wrong-direction harmonization toward standard Ge'ez 'ፈለግ' (river). GG scribe's reading is 'ፈስግ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እክከ ደወስ — FIX-ROUND-2 (R2 RESTORE): parchment (line 36 f030v-L) clearly inks 'ኤሱፍሊ ❈ እክከ ደወስ' before 'ግብጽ'. fix-round-1 dropped these tokens when it harmonized toward R1's 'ሰብአ ግብጽ'. CARDINAL-RULE violation reverted. Tokens restored per inked form (resolution-limited on exact glyphs but the two-word interlude IS inked between 'ኤሱፍሊ' and 'ግብጽ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለስሎምን — verified 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወተቀንደ — FIX-ROUND-2 (R2 REVERT): parchment (line 38 f030v-L) inks 'ወተቀንደ ሉቱ'. R1's 'ወይትቀንዩ' fix was wrong-direction harmonization"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሕደወቱ — FIX-ROUND-3 (R3 MINOR-FIRST-CHAR CORRECTION): R3 reads the word as straddling the f030v-L line 4→5 break: line 4 ends 'ሕ' (6th-order ሕ with two-bar topology), line 5 begins 'ደወቱ'. Combined parchment reading is 'ሕደወቱ' (with 6th-order 'ሕ', not 1st-order 'ህ'). R2 caught the second-char 'ደ' correction but missed the first-char 'ሕ' correction. fix-round-3 fix: 'ህ' → 'ሕ'. Note this is RECENSIONAL (not standard Ge'ez 'ሕይወቱ') — the 2nd char 'ደ' (not 'ይ') stands"
+        }
       ]
     },
     {
@@ -622,7 +985,8 @@
         "ት",
         "ቆረስ",
         "ኩንዳለ",
-        "ወ፷",
+        "ወ",
+        "፷",
         "በመስፈ",
         "ር",
         "ት",
@@ -633,12 +997,36 @@
         "መግዘት"
       ],
       "uncertain": [
-        "Verse begins after the intra-chapter RED rubric 'ክፍል፡፴ ❈' on f030v-L L38 (rubric excluded from body). FIX-ROUND-1 CORRECTION to _meta: the rubric numeral is '፴' (=30), not '፰' (=8) per re-zoom",
-        "ለስሎምን — verified 'ስ' (not 'ሰ')",
-        "ዘደትገበር — FIX-ROUND-2 (R2 REVERT): parchment (line 2 f030v-L bottom) inks 'ዘደትገበር ለለዕለቱ' with 'ደ'. R1's 'ይት'-fix was wrong-direction harmonization. GG scribe genuinely uses 'ደት' prefix here",
-        "ኩንዳለ — R1 fix: vowel marks 'ኩ-ን-ዳ' (was 'ከንደለ')",
-        "ወአልሕምት — R1 fix: 'ሕ' (not 'ህ')",
-        "መግዘት — R1 fix: 'ግ' (not 'ጋ'), 'ዘ' (not 'ዜ'); column transition f030v-L → f030v-M; 'አልሕምት ✣ መግዘት' straddle the column break"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Verse begins after the intra-chapter RED rubric 'ክፍል፡፴ ❈' on f030v-L L38 (rubric excluded from body). FIX-ROUND-1 CORRECTION to _meta: the rubric numeral is '፴' (=30), not '፰' (=8) per re-zoom"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለስሎምን — verified 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘደትገበር — FIX-ROUND-2 (R2 REVERT): parchment (line 2 f030v-L bottom) inks 'ዘደትገበር ለለዕለቱ' with 'ደ'. R1's 'ይት'-fix was wrong-direction harmonization. GG scribe genuinely uses 'ደት' prefix here"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኩንዳለ — R1 fix: vowel marks 'ኩ-ን-ዳ' (was 'ከንደለ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወአልሕምት — R1 fix: 'ሕ' (not 'ህ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መግዘት — R1 fix: 'ግ' (not 'ጋ'), 'ዘ' (not 'ዜ'); column transition f030v-L → f030v-M; 'አልሕምት ✣ መግዘት' straddle the column break"
+        }
       ]
     },
     {
@@ -647,22 +1035,43 @@
       "line_start": 1,
       "geez": "ወ፪ አስዋር፡ወ፪ እባግዕ፡ዘእንበለ፡ኤያል፡ወይከንል፡ጻዋርሁ✣",
       "tokens": [
-        "ወ፪",
+        "ወ",
+        "፪",
         "አስዋር",
-        "ወ፪",
+        "ወ",
+        "፪",
         "እባግዕ",
         "ዘእንበለ",
         "ኤያል",
         "ወይከንል",
-        "ጻዋርሁ",
-        "✣"
+        "ጻዋርሁ"
       ],
       "uncertain": [
-        "v20 HONEST-MAJOR per R1: re-zoom of f030v-M lines 1-2 shows roughly: 'ወ፪ አስዋር ወ፪ እባግዕ ዘእንበለ ኤያል ወይከንል ጻዋርሁ' — multiple tokens unclear",
-        "ኤያል — R1 fix: 'ኤ' (not 'አ')",
-        "ወይከንል — re-zoom shows 'ወይከንል' (was 'ወ፪ጥል' in implementer)",
-        "ጻዋርሁ — re-zoom shows '(ጻ?ጾ?)-ዋ-ር-ሁ' (was 'ዴወር ህ' in implementer — significantly different)",
-        "Tokens reduced from implementer's 12 to 9 per R1 best-effort decode"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "v20 HONEST-MAJOR per R1: re-zoom of f030v-M lines 1-2 shows roughly: 'ወ፪ አስዋር ወ፪ እባግዕ ዘእንበለ ኤያል ወይከንል ጻዋርሁ' — multiple tokens unclear"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤያል — R1 fix: 'ኤ' (not 'አ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወይከንል — re-zoom shows 'ወይከንል' (was 'ወ፪ጥል' in implementer)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጻዋርሁ — re-zoom shows '(ጻ?ጾ?)-ዋ-ር-ሁ' (was 'ዴወር ህ' in implementer — significantly different)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Tokens reduced from implementer's 12 to 9 per R1 best-effort decode"
+        }
       ]
     },
     {
@@ -688,17 +1097,44 @@
         "ምክሌሁ",
         "ኹሎሙ",
         "እስ",
-        "ይጻወልዎ",
-        "✣"
+        "ይጻወልዎ"
       ],
       "uncertain": [
-        "መከውን — R1 fix: 'ን' (not 'ኝ')",
-        "መዓደዊ ፈስግ — FIX-ROUND-2 (R2 REVERT): parchment (lines 4-6 f030v-M) inks 'ማዕደት ፈስግ' both occurrences with 'ስ'. R1's 'ለ'-fix was wrong-direction harmonization toward standard Ge'ez 'ፈለግ' (river). GG scribe's recensional reading is 'ፈስግ'",
-        "እምራፉ — re-zoom shows 'ፉ' on parchment, not 'ፋ' as R1 said; DISCIPLINED NON-CHANGE",
-        "ጋዘ — FIX-ROUND-2 (R2 REVERT): parchment (line 5 f030v-M) inks 'እስከ ጋዘ' with 'ዘ' (6th-order). R1's 'ጋዛ' was a smoothing toward standard 'Gaza'",
-        "ዘመዓደዊ ፈስግ — FIX-ROUND-2 (R2 REVERT): same 'ለ'/'ስ' revert as the first occurrence",
-        "ኹሎሙ — R1 fix: 'ሎ' (not 'ሉ')",
-        "እስ ይጻወልዎ — FIX-ROUND-2 (R2 REVERT): parchment (line 7 f030v-M) inks 'እስ ይጻወልዎ' with 'ስ' and original-form verb. R1's 'ለ'-fix and 'ይትዐውዎ' verb-rewrite were both harmonizing. Original form correct"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መከውን — R1 fix: 'ን' (not 'ኝ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መዓደዊ ፈስግ — FIX-ROUND-2 (R2 REVERT): parchment (lines 4-6 f030v-M) inks 'ማዕደት ፈስግ' both occurrences with 'ስ'. R1's 'ለ'-fix was wrong-direction harmonization toward standard Ge'ez 'ፈለግ' (river). GG scribe's recensional reading is 'ፈስግ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እምራፉ — re-zoom shows 'ፉ' on parchment, not 'ፋ' as R1 said; DISCIPLINED NON-CHANGE"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጋዘ — FIX-ROUND-2 (R2 REVERT): parchment (line 5 f030v-M) inks 'እስከ ጋዘ' with 'ዘ' (6th-order). R1's 'ጋዛ' was a smoothing toward standard 'Gaza'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘመዓደዊ ፈስግ — FIX-ROUND-2 (R2 REVERT): same 'ለ'/'ስ' revert as the first occurrence"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኹሎሙ — R1 fix: 'ሎ' (not 'ሉ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እስ ይጻወልዎ — FIX-ROUND-2 (R2 REVERT): parchment (line 7 f030v-M) inks 'እስ ይጻወልዎ' with 'ስ' and original-form verb. R1's 'ለ'-fix and 'ይትዐውዎ' verb-rewrite were both harmonizing. Original form correct"
+        }
       ]
     },
     {
@@ -712,7 +1148,6 @@
         "ወእንብሩ",
         "ይሁዳ",
         "ወእስራኤል",
-        "✣",
         "ኹሎሙ",
         "ተአምነዊ",
         "ታሕተ",
@@ -725,19 +1160,54 @@
         "ቤርሳቤሕ",
         "በኩሉ",
         "መዋዕለ",
-        "ስሎምን",
-        "✣"
+        "ስሎምን"
       ],
       "uncertain": [
-        "ወእስ — FIX-ROUND-2 (R2 REVERT): parchment (line 7 f030v-M) inks 'ወእስ ባውዱ' with 'ስ'. R1's 'ለ'-fix was wrong-direction harmonization (same 'እስ'/'እለ' class as elsewhere in chapter)",
-        "ይሁዳ — DISCIPLINED NON-CHANGE: R2 confirms 'ይ' (not 'ደ') in this token; GG scribe is genuinely inconsistent per-instance — see v14 contrast",
-        "ኹሎሙ ተአምነዊ — FIX-ROUND-2 (R2 RE-READ): parchment (lines 8-9 f030v-M) inks '❈ ኹሎሙ ተ | አምነዊ ታሕተ...'. fix-round-1's 'እሙንቱ እምነዊ' was a MAJOR regression — R1 wrong, fix-round-1 inherited the wrong tokenization. Restored to parchment-faithful 'ኹሎሙ ተአምነዊ'. R3 accepts the segmentation as AMBIGUOUS-PARCHMENT (could also be 'ኹሎሙ ተ' line-end + 'እምነዊ' line-start); accepts R2's reading as defensible",
-        "ወደኖሙ — FIX-ROUND-3 (R3 NEW DEFECT): R3 at 12x on f030v_M_v22_wedono.png unambiguously inks 'ወ-ደ-ኖ-ሙ' as a SINGLE word with asymmetric-D 'ደ' + 6th-order labialised 'ኖ' + m-with-u-mark 'ሙ'. Both R1 and R2 missed this. The fix-round-2 JSON read it as two tokens 'ወዶዕ' + 'ሙ' with 'ዶዕ' middle — wrong on both segmentation and character identity. fix-round-3 fix: 'ወዶዕ ሙ' (2 tokens) → 'ወደኖሙ' (1 token)",
-        "ይበልዑ — kept (parchment inks 'ይ' here per R2)",
-        "ወይስትዩ — R1 fix: joined ('ይስት ይ' → 'ይስትዩ') with 'ዩ' final",
-        "እምዳን — FIX-ROUND-5 (R5 NEW DEFECT, missed by R1-R4): R5 at 40x on v22_emdan_FINAL_40x.png unambiguously inks 4 fidels 'እ-ም-ዳ-ን' (NOT 3-fidel 'እምነ' as the R1-R4 chain harmonized). The 3rd char has the broad upper loop + foot of 4th-order 'ዳ' (not the narrow vertical+crossbar of 4th-order 'ነ'); the 4th char is 1st-order 'ን' with hook descender. Cross-checked against v25 'ወእምነ' at 40x which is genuinely 3-fidel 'እ-ም-ነ' — topologically distinct. The token is the toponym 'ዳን' (Dan) in the canonical 'from Dan to Beersheba' biblical idiom of 1 Ki 4:25 (Solomon's reign extent). Implementer + R1-R4 reviewers all read it as the simpler 3-fidel particle 'እምነ', missing the toponym. Fix-round-5 verified independently at 8x-10x on v22_token_wide_8x.png (token between 'ወይስትዩ:' and ':እስከ:' is clearly 4 fidels with 3rd char broad-loop ዳ). Single-token in-place glyph swap; token count unchanged (3-fidel → 4-fidel within same token slot)",
-        "ቤርሳቤሕ — R1 fix: 'ሳ' (not 'ሰ')",
-        "ስሎምን — verified 'ስ' (not 'ሰ')"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወእስ — FIX-ROUND-2 (R2 REVERT): parchment (line 7 f030v-M) inks 'ወእስ ባውዱ' with 'ስ'. R1's 'ለ'-fix was wrong-direction harmonization (same 'እስ'/'እለ' class as elsewhere in chapter)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይሁዳ — DISCIPLINED NON-CHANGE: R2 confirms 'ይ' (not 'ደ') in this token; GG scribe is genuinely inconsistent per-instance — see v14 contrast"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኹሎሙ ተአምነዊ — FIX-ROUND-2 (R2 RE-READ): parchment (lines 8-9 f030v-M) inks '❈ ኹሎሙ ተ | አምነዊ ታሕተ...'. fix-round-1's 'እሙንቱ እምነዊ' was a MAJOR regression — R1 wrong, fix-round-1 inherited the wrong tokenization. Restored to parchment-faithful 'ኹሎሙ ተአምነዊ'. R3 accepts the segmentation as AMBIGUOUS-PARCHMENT (could also be 'ኹሎሙ ተ' line-end + 'እምነዊ' line-start); accepts R2's reading as defensible"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወደኖሙ — FIX-ROUND-3 (R3 NEW DEFECT): R3 at 12x on f030v_M_v22_wedono.png unambiguously inks 'ወ-ደ-ኖ-ሙ' as a SINGLE word with asymmetric-D 'ደ' + 6th-order labialised 'ኖ' + m-with-u-mark 'ሙ'. Both R1 and R2 missed this. The fix-round-2 JSON read it as two tokens 'ወዶዕ' + 'ሙ' with 'ዶዕ' middle — wrong on both segmentation and character identity. fix-round-3 fix: 'ወዶዕ ሙ' (2 tokens) → 'ወደኖሙ' (1 token)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይበልዑ — kept (parchment inks 'ይ' here per R2)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወይስትዩ — R1 fix: joined ('ይስት ይ' → 'ይስትዩ') with 'ዩ' final"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እምዳን — FIX-ROUND-5 (R5 NEW DEFECT, missed by R1-R4): R5 at 40x on v22_emdan_FINAL_40x.png unambiguously inks 4 fidels 'እ-ም-ዳ-ን' (NOT 3-fidel 'እምነ' as the R1-R4 chain harmonized). The 3rd char has the broad upper loop + foot of 4th-order 'ዳ' (not the narrow vertical+crossbar of 4th-order 'ነ'); the 4th char is 1st-order 'ን' with hook descender. Cross-checked against v25 'ወእምነ' at 40x which is genuinely 3-fidel 'እ-ም-ነ' — topologically distinct. The token is the toponym 'ዳን' (Dan) in the canonical 'from Dan to Beersheba' biblical idiom of 1 Ki 4:25 (Solomon's reign extent). Implementer + R1-R4 reviewers all read it as the simpler 3-fidel particle 'እምነ', missing the toponym. Fix-round-5 verified independently at 8x-10x on v22_token_wide_8x.png (token between 'ወይስትዩ:' and ':እስከ:' is clearly 4 fidels with 3rd char broad-loop ዳ). Single-token in-place glyph swap; token count unchanged (3-fidel → 4-fidel within same token slot)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቤርሳቤሕ — R1 fix: 'ሳ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስሎምን — verified 'ስ' (not 'ሰ')"
+        }
       ]
     },
     {
@@ -755,21 +1225,57 @@
         "ይስሕቡ",
         "ሰረገሰት",
         "ቯ",
-        "ዐ፪",
+        "ዐ",
+        "፪",
         "ኤፍራስ",
-        "መርዶ",
-        "✣"
+        "መርዶ"
       ],
       "uncertain": [
-        "Verse begins immediately after intra-chapter RED rubric 'ክፍል፡፴ወ፪ ❈' on f030v-M L12 (excluded)",
-        "ወቡ ስስሎምን — preserved as 'ስስሎምን' (the 'ስ' prefix + 'ስሎምን')",
-        "ቯ ቯ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): the red glyph (line 13 f030v-M) has vertical stem with leftward-curl top and 2-3 horizontal crossings — most consistent with Ethiopic fidel 'ቯ' (qwā), NOT numeric 'ሺ'. R1's '፬ ሺ' was a harmonization to canonical '1Ki 4:26 horse/chariot numbers'. Reverted to inked 'ቯ'-form per cardinal rule",
-        "ኤፍራስ — confirmed 'ኤፍራስ' (horses)",
-        "እለ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 18x on f030v_M_v23_es.png confirms 2nd char is curve-top descending to single stroke ('ለ' topology), NOT a two-vertical 'ስ'-pair. R2's revert to 'እስ' was over-correction. R1 was right; fix-round-3 re-reverts to 'እለ'",
-        "ሰረገሰት vs ሰረገላተ (chariots)",
-        "ቯ ዐ፪ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): same as first numeral — inked red glyph is 'ቯ'-form, R1's '፲ ወ ፪ ሺ' was harmonization toward canonical 12000",
-        "መርዶ vs መዕዶ (cavalry)",
-        "Terminator '✣' — R1 fix: normalized from '❈' (large) to '✣' (small) per body-cross rule"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Verse begins immediately after intra-chapter RED rubric 'ክፍል፡፴ወ፪ ❈' on f030v-M L12 (excluded)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወቡ ስስሎምን — preserved as 'ስስሎምን' (the 'ስ' prefix + 'ስሎምን')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቯ ቯ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): the red glyph (line 13 f030v-M) has vertical stem with leftward-curl top and 2-3 horizontal crossings — most consistent with Ethiopic fidel 'ቯ' (qwā), NOT numeric 'ሺ'. R1's '፬ ሺ' was a harmonization to canonical '1Ki 4:26 horse/chariot numbers'. Reverted to inked 'ቯ'-form per cardinal rule"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤፍራስ — confirmed 'ኤፍራስ' (horses)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እለ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 18x on f030v_M_v23_es.png confirms 2nd char is curve-top descending to single stroke ('ለ' topology), NOT a two-vertical 'ስ'-pair. R2's revert to 'እስ' was over-correction. R1 was right; fix-round-3 re-reverts to 'እለ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሰረገሰት vs ሰረገላተ (chariots)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቯ ዐ፪ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): same as first numeral — inked red glyph is 'ቯ'-form, R1's '፲ ወ ፪ ሺ' was harmonization toward canonical 12000"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መርዶ vs መዕዶ (cavalry)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Terminator '✣' — R1 fix: normalized from '❈' (large) to '✣' (small) per body-cross rule"
+        }
       ]
     },
     {
@@ -803,24 +1309,79 @@
         "ግብጽ",
         "ወጠበ",
         "እምኹሉ",
-        "ሰብእ",
-        "✣"
+        "ሰብእ"
       ],
       "uncertain": [
-        "Verse begins after intra-chapter RED rubric 'ክፍል፡፴ወ፫ ❈' (excluded)",
-        "ወወሀቦ — R1 fix: singular 'ቦ' (not plural 'ቡ')",
-        "ለስሎምን (×2) — verified 'ስ' (not 'ሰ')",
-        "ጥበበ — R1 fix: 'በ' (not 'ቤ')",
-        "ወእምር — R1 fix: 'ር' (not 'ሮ')",
-        "ብዙኅ — R1 fix: 'ኅ' (not 'ሐ')",
-        "ኆጻ — R1 fix: RESTORED dropped 'sand' noun; impl had dropped it entirely",
-        "ባሕር — R1 fix: 'ባሕር' (sea), was 'ሐርም' (wrong) in impl",
-        "ጥበ ለስሎምን — R1 fix: segmented from impl's 'ጥበለስሎምን' compound",
-        "እምጥበቦሙ — R1 fix: 'ቦ' inserted (was dropped in impl 'እምጥበሙ')",
-        "ለኹሎሙ — R1 fix: 'ሎ' (not 'ሉ')",
-        "ደቂቀ ቀደምት — R1 fix: 'ቅ' (not 'ት') and 'ት' (not 'ሐ')",
-        "ወእሙንቱ — R1 flagged as possibly fabricated; re-zoom inconclusive, kept as inked",
-        "ወጠበ — R1 fix: added missing 'በ' syllable"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Verse begins after intra-chapter RED rubric 'ክፍል፡፴ወ፫ ❈' (excluded)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወወሀቦ — R1 fix: singular 'ቦ' (not plural 'ቡ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለስሎምን (×2) — verified 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጥበበ — R1 fix: 'በ' (not 'ቤ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወእምር — R1 fix: 'ር' (not 'ሮ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ብዙኅ — R1 fix: 'ኅ' (not 'ሐ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኆጻ — R1 fix: RESTORED dropped 'sand' noun; impl had dropped it entirely"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ባሕር — R1 fix: 'ባሕር' (sea), was 'ሐርም' (wrong) in impl"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጥበ ለስሎምን — R1 fix: segmented from impl's 'ጥበለስሎምን' compound"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እምጥበቦሙ — R1 fix: 'ቦ' inserted (was dropped in impl 'እምጥበሙ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለኹሎሙ — R1 fix: 'ሎ' (not 'ሉ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ደቂቀ ቀደምት — R1 fix: 'ቅ' (not 'ት') and 'ት' (not 'ሐ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወእሙንቱ — R1 flagged as possibly fabricated; re-zoom inconclusive, kept as inked"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወጠበ — R1 fix: added missing 'በ' syllable"
+        }
       ]
     },
     {
@@ -843,16 +1404,39 @@
         "ኹሉ",
         "አሕዛብ",
         "እስ",
-        "ዋዉደ",
-        "✣"
+        "ዋዉደ"
       ],
       "uncertain": [
-        "ወእምነ — R1 fix: 'ነ' (not 'ን')",
-        "እውናን — RE-ZOOM AT 10× SHOWS 'እ-ው-ና-ን' clearly inked; R1's 'ሄማን' (= Heman) would require '5th-order' ሄ on first char which is NOT what the parchment shows. DISCIPLINED NON-CHANGE — impl's 'እውናን' kept as inked. May be a heavily corrupted recensional form of Heman, but parchment ink wins per cardinal rule",
-        "ወእምክልተድ — Chalcol; kept as inked",
-        "ወደራል / ደቂተ ሰግድ — Darda son-of-Mahol; R1 said 'ወዳርዓ ደቂቀ'; re-zoom is ambiguous between 'ራል' and 'ርዓ', and 'ተ' vs 'ቀ'; DISCIPLINED NON-CHANGE on the surface — impl's reading kept as inked",
-        "ወበሕ ስም — FIX-ROUND-2 (R2 REVERT): parchment (line 22 f030v-M) inks 'ወበሕ ስም' (verb form 'ወ-በ-ሕ' — possibly regional GG recensional reading). R1's 'ወወጽአ ስሙ' was wrong-direction harmonization toward biblical Ge'ez 'went-out'. Original was correct",
-        "እስ ዋዉደ — FIX-ROUND-4 (R4 RE-RE-REVERT): R4 at 14x on f030v_M_v25_line_14x.png confirms the conjunction 2nd char has TWO clear vertical strokes joined at top + foot at right base — the 'ስ' topology matching the v22 known-'ስ' reference (`ወእስ ባውዱ`), NOT the curve-stroke 'ለ' topology of v23. R3's re-revert to 'እለ' over-generalized from the v23 'ለ' calibration to this locus; R4 found the GG scribe is per-instance inconsistent on the 'እለ'/'እስ' axis (v22 'ወእስ' = ስ, v23 'እለ' = ለ, v25 'እስ' = ስ, v28 'እስ' = ስ). R2's reading was right here; fix-round-4 re-reverts to 'እስ ዋዉደ' (verb form 'ዋዉደ' unchanged — only the 'ለ'/'ስ' axis swung back)"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወእምነ — R1 fix: 'ነ' (not 'ን')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እውናን — RE-ZOOM AT 10× SHOWS 'እ-ው-ና-ን' clearly inked; R1's 'ሄማን' (= Heman) would require '5th-order' ሄ on first char which is NOT what the parchment shows. DISCIPLINED NON-CHANGE — impl's 'እውናን' kept as inked. May be a heavily corrupted recensional form of Heman, but parchment ink wins per cardinal rule"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወእምክልተድ — Chalcol; kept as inked"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወደራል / ደቂተ ሰግድ — Darda son-of-Mahol; R1 said 'ወዳርዓ ደቂቀ'; re-zoom is ambiguous between 'ራል' and 'ርዓ', and 'ተ' vs 'ቀ'; DISCIPLINED NON-CHANGE on the surface — impl's reading kept as inked"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወበሕ ስም — FIX-ROUND-2 (R2 REVERT): parchment (line 22 f030v-M) inks 'ወበሕ ስም' (verb form 'ወ-በ-ሕ' — possibly regional GG recensional reading). R1's 'ወወጽአ ስሙ' was wrong-direction harmonization toward biblical Ge'ez 'went-out'. Original was correct"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እስ ዋዉደ — FIX-ROUND-4 (R4 RE-RE-REVERT): R4 at 14x on f030v_M_v25_line_14x.png confirms the conjunction 2nd char has TWO clear vertical strokes joined at top + foot at right base — the 'ስ' topology matching the v22 known-'ስ' reference (`ወእስ ባውዱ`), NOT the curve-stroke 'ለ' topology of v23. R3's re-revert to 'እለ' over-generalized from the v23 'ለ' calibration to this locus; R4 found the GG scribe is per-instance inconsistent on the 'እለ'/'እስ' axis (v22 'ወእስ' = ስ, v23 'እለ' = ለ, v25 'እስ' = ስ, v28 'እስ' = ስ). R2's reading was right here; fix-round-4 re-reverts to 'እስ ዋዉደ' (verb form 'ዋዉደ' unchanged — only the 'ለ'/'ስ' axis swung back)"
+        }
       ]
     },
     {
@@ -869,7 +1453,8 @@
         "ወ",
         "ቯ",
         "፪",
-        "ወ፮",
+        "ወ",
+        "፮",
         "መጾል",
         "ያ",
         "ወንበበ",
@@ -883,17 +1468,44 @@
         "ሕምሳ",
         "ሕስጴ",
         "ዘይወዕእ",
-        "በአረፍት",
-        "✣"
+        "በአረፍት"
       ],
       "uncertain": [
-        "ስሎምን — verified 'ስ' (not 'ሰ')",
-        "ቯ ፫ / ቯ ፪ ወ፮ መጾል ያ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): line 23 f030v-M inks 'ቯ ፫ ኤምሳለ ወ ቯ' — the red glyph identity is the same 'ቯ'-like fidel as v23. R1's '፫ ሺ' / '፩ ሺ መጻልየ' were harmonizations toward canonical 1Ki 4:32 numbers (3000 parables, 1000 songs). Reverted to original 'ቯ'-form readings per cardinal rule",
-        "ኤምሳለ — kept (plural of proverbs)",
-        "እምዕፀ — R1 fix: 'ፀ' (not 'የ')",
-        "አርዝ — FIX-ROUND-2 (R2 OVERRULE): parchment (line 24 f030v-M) clearly inks 'እምዕፀ አርዝ ዘውስት ሊባኖስ'. Character before 'ርዝ' is 'አ' (1st-order alef with rectangular form), NOT 'ኤ' (5th-order ē with forward-leaning mark). R1 was right; fix-round-1's disciplined non-change keeping 'ኤርዝ' was wrong",
-        "ሕስጴ — R1 fix: 'ሕ' (not 'ሐ'), no space (was 'ሐስ ጴ')",
-        "በአረፍት — verified 'አረፍት' (in-the-wall)"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስሎምን — verified 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቯ ፫ / ቯ ፪ ወ፮ መጾል ያ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): line 23 f030v-M inks 'ቯ ፫ ኤምሳለ ወ ቯ' — the red glyph identity is the same 'ቯ'-like fidel as v23. R1's '፫ ሺ' / '፩ ሺ መጻልየ' were harmonizations toward canonical 1Ki 4:32 numbers (3000 parables, 1000 songs). Reverted to original 'ቯ'-form readings per cardinal rule"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤምሳለ — kept (plural of proverbs)"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እምዕፀ — R1 fix: 'ፀ' (not 'የ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "አርዝ — FIX-ROUND-2 (R2 OVERRULE): parchment (line 24 f030v-M) clearly inks 'እምዕፀ አርዝ ዘውስት ሊባኖስ'. Character before 'ርዝ' is 'አ' (1st-order alef with rectangular form), NOT 'ኤ' (5th-order ē with forward-leaning mark). R1 was right; fix-round-1's disciplined non-change keeping 'ኤርዝ' was wrong"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሕስጴ — R1 fix: 'ሕ' (not 'ሐ'), no space (was 'ሐስ ጴ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በአረፍት — verified 'አረፍት' (in-the-wall)"
+        }
       ]
     },
     {
@@ -912,12 +1524,19 @@
         "ውስተ",
         "ምድር",
         "ወበእንተ",
-        "አሣት",
-        "✣"
+        "አሣት"
       ],
       "uncertain": [
-        "እንስስሐ — R1 fix: middle 'ስ' (not 'ሰ')",
-        "አሣት — R1 fix: 'ሣ' (not 'ማ'); 'fish' canonical word"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እንስስሐ — R1 fix: middle 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "አሣት — R1 fix: 'ሣ' (not 'ማ'); 'fish' canonical word"
+        }
       ]
     },
     {
@@ -939,16 +1558,39 @@
         "ምድር",
         "እስ",
         "ሰምዑ",
-        "ጥበቢሁ",
-        "✣"
+        "ጥበቢሁ"
       ],
       "uncertain": [
-        "ይከምዑ — FIX-ROUND-2 (R2 REVERT): parchment (line 23 f030v-M) clearly inks 'ይከምዑ ጥበቢሁ' with 'ከ' (1st-order k). R1's 'ይስምዑ' was wrong-direction harmonization toward canonical 'they hear' word",
-        "ለስሎምን — verified 'ስ' (not 'ሰ')",
-        "ወይነሥኤ — FIX-ROUND-2 (R2 REVERT TO ORIGINAL): parchment (line 24 f030v-M) inks final 'ኤ' (5th-order ē with right-side forward-leaning mark). Both R1's 'እ' and the fix-round-1 'ኡ' flag were wrong. Original implementer was right",
-        "እስ ሰምዑ — FIX-ROUND-4 (R4 RE-RE-REVERT): R4 at 8-14x on f030v_M_v28_es_14x.png and f030v_M_v28_search_8x.png both clearly show the conjunction 2nd char before 'ሰምዑ' unambiguously has TWO vertical strokes + foot — 'ስ' topology, matching v22 known-'ስ' reference. R3's re-revert to 'እለ' over-generalized from the v23 'ለ' calibration; the GG scribe is per-instance inconsistent on the 'እለ'/'እስ' axis (v22 'ወእስ' = ስ, v23 'እለ' = ለ, v25 'እስ' = ስ, v28 'እስ' = ስ — no axis-level rule). R2's reading was right; fix-round-4 re-reverts to 'እስ ሰምዑ'",
-        "Terminator '✣' — R1 fix: small clause-end cross (not '።' as impl had). NOTE: R1 said '❈' in prompt but its own rule normalizes body crosses to '✣'; using '✣' to be consistent with all other body-text cross instances",
-        "Chapter ends here at '✣' immediately before next chapter divider rubric 'ክፍል፡፴ወ፩ ❈' on f030v-M L25"
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይከምዑ — FIX-ROUND-2 (R2 REVERT): parchment (line 23 f030v-M) clearly inks 'ይከምዑ ጥበቢሁ' with 'ከ' (1st-order k). R1's 'ይስምዑ' was wrong-direction harmonization toward canonical 'they hear' word"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ለስሎምን — verified 'ስ' (not 'ሰ')"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወይነሥኤ — FIX-ROUND-2 (R2 REVERT TO ORIGINAL): parchment (line 24 f030v-M) inks final 'ኤ' (5th-order ē with right-side forward-leaning mark). Both R1's 'እ' and the fix-round-1 'ኡ' flag were wrong. Original implementer was right"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እስ ሰምዑ — FIX-ROUND-4 (R4 RE-RE-REVERT): R4 at 8-14x on f030v_M_v28_es_14x.png and f030v_M_v28_search_8x.png both clearly show the conjunction 2nd char before 'ሰምዑ' unambiguously has TWO vertical strokes + foot — 'ስ' topology, matching v22 known-'ስ' reference. R3's re-revert to 'እለ' over-generalized from the v23 'ለ' calibration; the GG scribe is per-instance inconsistent on the 'እለ'/'እስ' axis (v22 'ወእስ' = ስ, v23 'እለ' = ለ, v25 'እስ' = ስ, v28 'እስ' = ስ — no axis-level rule). R2's reading was right; fix-round-4 re-reverts to 'እስ ሰምዑ'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Terminator '✣' — R1 fix: small clause-end cross (not '።' as impl had). NOTE: R1 said '❈' in prompt but its own rule normalizes body crosses to '✣'; using '✣' to be consistent with all other body-text cross instances"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "Chapter ends here at '✣' immediately before next chapter divider rubric 'ክፍል፡፴ወ፩ ❈' on f030v-M L25"
+        }
       ]
     }
   ],

@@ -642,3 +642,145 @@ class TestScaleDriver:
         # byte-identical (nothing created, nothing left behind).
         after = sorted(p.name for p in cal_dir.iterdir())
         assert after == before
+
+
+class TestWriteWitness:
+    """The canonical witness writer derives tokens from geez via
+    _geez_to_tokens, normalizes uncertain[] markers, validates the result
+    BEFORE writing, and never leaves a partial file on disk if the record
+    fails validation. Direct response to the 1ki4 schema-drift incident:
+    transcribers using this writer cannot produce a non-canonical record.
+    """
+
+    def test_round_trip_validates_and_derives_tokens(self, tmp_path):
+        from scripts.core.manuscript_records import (
+            ILLEGIBLE,
+            validate_witness,
+            write_witness,
+        )
+
+        out = tmp_path / "1ki99_witnessGG.json"
+        written = write_witness(
+            witness="GG",
+            book="1ki",
+            chapter=99,
+            source_images=["test.jpg"],
+            folio_sigla=["f999r"],
+            verses=[
+                {
+                    "v": 1,
+                    "column": "L",
+                    "line_start": 1,
+                    "geez": "ወሰሎምን፡ንጉሥ✣",
+                    "uncertain": [],
+                },
+                {
+                    "v": 2,
+                    "column": "L",
+                    "line_start": 3,
+                    "geez": f"{ILLEGIBLE}፡ብእሲ",
+                    "uncertain": [{"marker": "illegible", "note": "ink damage"}],
+                },
+            ],
+            transcription_notes="test fixture",
+            output_path=str(out),
+        )
+
+        # tokens auto-derived (✣ stripped; ⟦illegible⟧ preserved as token)
+        assert written["verses"][0]["tokens"] == ["ወሰሎምን", "ንጉሥ"]
+        assert written["verses"][1]["tokens"] == [ILLEGIBLE, "ብእሲ"]
+        # illegible token_index auto-assigned to the ⟦illegible⟧ position
+        u = written["verses"][1]["uncertain"][0]
+        assert u["marker"] == "illegible"
+        assert u["token_index"] == 0
+        # disk write validates round-trip
+        data = json.loads(out.read_text(encoding="utf-8"))
+        ok, errs = validate_witness(data)
+        assert ok, errs
+
+    def test_top_level_keys_are_canonical_only(self, tmp_path):
+        from scripts.core.manuscript_records import write_witness
+
+        out = tmp_path / "ok.json"
+        written = write_witness(
+            witness="GG",
+            book="1ki",
+            chapter=99,
+            source_images=["t.jpg"],
+            folio_sigla=["f0"],
+            verses=[
+                {
+                    "v": 1,
+                    "column": "L",
+                    "line_start": 1,
+                    "geez": "ወ",
+                    "uncertain": [],
+                }
+            ],
+            transcription_notes="",
+            output_path=str(out),
+        )
+        assert set(written) == {
+            "witness",
+            "book",
+            "chapter",
+            "source_images",
+            "folio_sigla",
+            "verses",
+            "transcription_notes",
+        }
+
+    def test_rejects_invalid_uncertain_marker(self, tmp_path):
+        import pytest
+
+        from scripts.core.manuscript_records import write_witness
+
+        out = tmp_path / "bad.json"
+        with pytest.raises(ValueError, match="bad marker"):
+            write_witness(
+                witness="GG",
+                book="1ki",
+                chapter=99,
+                source_images=["t.jpg"],
+                folio_sigla=["f0"],
+                verses=[
+                    {
+                        "v": 1,
+                        "column": "L",
+                        "line_start": 1,
+                        "geez": "ወ",
+                        "uncertain": [{"marker": "name_form", "note": "x"}],
+                    }
+                ],
+                transcription_notes="",
+                output_path=str(out),
+            )
+        assert not out.exists()
+
+    def test_no_file_on_validation_failure(self, tmp_path):
+        """Transactional: bad geez (Latin contamination) raises and writes nothing."""
+        import pytest
+
+        from scripts.core.manuscript_records import write_witness
+
+        out = tmp_path / "bad.json"
+        with pytest.raises(ValueError):
+            write_witness(
+                witness="GG",
+                book="1ki",
+                chapter=99,
+                source_images=["t.jpg"],
+                folio_sigla=["f0"],
+                verses=[
+                    {
+                        "v": 1,
+                        "column": "L",
+                        "line_start": 1,
+                        "geez": "f",  # Latin f -> non-Ethiopic screen rejects
+                        "uncertain": [],
+                    }
+                ],
+                transcription_notes="",
+                output_path=str(out),
+            )
+        assert not out.exists()

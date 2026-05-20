@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 
 # Canonical honesty-contract sentinel shared by the collation engine.
@@ -143,3 +144,86 @@ def validate_witness(d: dict) -> tuple[bool, list[str]]:
         e.append("verses not contiguous 1..N")
 
     return (not e), e
+
+
+def write_witness(
+    *,
+    witness: str,
+    book: str,
+    chapter: int,
+    source_images: list,
+    folio_sigla: list,
+    verses: list,
+    transcription_notes: str,
+    output_path,
+) -> dict:
+    """Build a canonical witness record, validate it, and atomic-write to disk.
+
+    Each ``verses`` entry needs ``{v, column, line_start, geez, uncertain}``.
+    ``tokens`` is derived from ``geez`` via ``_geez_to_tokens`` (so no caller
+    can drift the geez↔tokens bijection). Each ``uncertain`` entry is a dict
+    with at least ``{marker, note}`` and optionally ``token_index``. When
+    ``marker == "illegible"`` and no ``token_index`` is supplied, the writer
+    auto-assigns the next un-claimed ⟦illegible⟧ position in tokens. Plain
+    string entries are treated as verse-level notes with ``token_index = 0``
+    and ``marker = "uncertain"``.
+
+    Raises ``ValueError`` (carrying the validator's error list) if the
+    resulting record fails ``validate_witness``. **No file is written when
+    validation fails** — transactional, mirroring §9 "Add an uploadable binary
+    asset".
+    """
+    out_verses: list[dict] = []
+    for raw in verses:
+        geez = raw["geez"]
+        tokens = _geez_to_tokens(geez)
+        uncertain_out: list[dict] = []
+        ill_used: set[int] = set()
+        for u in raw.get("uncertain", []):
+            if not isinstance(u, dict):
+                uncertain_out.append({"token_index": 0, "marker": "uncertain", "note": str(u)})
+                continue
+            marker = u.get("marker", "uncertain")
+            note = u.get("note", "")
+            ti = u.get("token_index")
+            if marker == "illegible" and ti is None:
+                for i, t in enumerate(tokens):
+                    if t == ILLEGIBLE and i not in ill_used:
+                        ti = i
+                        ill_used.add(i)
+                        break
+            if ti is None:
+                ti = 0
+            uncertain_out.append({"token_index": ti, "marker": marker, "note": note})
+        out_verses.append(
+            {
+                "v": raw["v"],
+                "column": raw["column"],
+                "line_start": raw["line_start"],
+                "geez": geez,
+                "tokens": tokens,
+                "uncertain": uncertain_out,
+            }
+        )
+
+    record = {
+        "witness": witness,
+        "book": book,
+        "chapter": chapter,
+        "source_images": list(source_images),
+        "folio_sigla": list(folio_sigla),
+        "verses": out_verses,
+        "transcription_notes": transcription_notes,
+    }
+
+    ok, errs = validate_witness(record)
+    if not ok:
+        raise ValueError(f"witness validation failed: {errs}")
+
+    from .notes_io import atomic_write
+
+    atomic_write(
+        str(output_path),
+        json.dumps(record, ensure_ascii=False, indent=2),
+    )
+    return record
