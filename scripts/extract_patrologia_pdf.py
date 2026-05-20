@@ -270,7 +270,26 @@ PO_SOURCES: dict[str, POSource] = {
         editor="Grebaut",
         year=1932,
         archive_url="https://archive.org/details/patrologiaorient23pariuoft",
-        default_page_range=(0, 0),  # refined at τ.6.x.5.d
+        # Calibrated by OCR-probe 2026-05-20 (τ.6.x.5.d): the PO 23 fasc
+        # 4 volume contains a SINGLE Ethiopian "Paralipomènes I-II"
+        # composite work split into LIVRE PREMIER (1 Chronicles) and
+        # LIVRE SECOND (2 Chronicles) per Grébaut's bilingual edition.
+        #   1ch ← PDF pages 542-647 (LIVRE PREMIER, ch I-XXIX = 29 ch)
+        #   2ch ← PDF pages 648-776 (LIVRE SECOND, ch I-XXXVI = 36 ch)
+        # Pages 0-541 are 4 OTHER PO 23 works (Severus Homilies in
+        # Syriac, Heresies Compendium, Yahya-ibn-Sa'id History in Arabic
+        # — none of them Ge'ez or canonical OT) + a 15-page Chronicles
+        # INTRODUCTION (pp 522-541). Pages 777+ are the volume APPENDICE
+        # (manuscript-margin titles) + the volume Table of Contents.
+        # The 1ch→2ch transition is at p647→p648: p647 ends LIVRE
+        # PREMIER ch XXIX (banner "VINGT-NEUVIEME"); p648 starts LIVRE
+        # SECOND ch I (banner OCR'd as garbled "D"/"EE" — likely the
+        # ornate chapter-heading hides a clean banner — but the body
+        # OCR begins with "ጺንዐ ፡ ሰለሞን ፡ ወልደ ፡ ዳዊት" / "Strong was
+        # Solomon son of David", the unambiguous 2 Chr 1:1 incipit).
+        default_page_range=(542, 647),
+        # PO 23 lays its banner ~10% down (vs PO 2/9's 6%); same as PO 13.
+        banner_top_fraction=0.10,
     ),
     "2ch": POSource(
         book="2ch",
@@ -279,7 +298,14 @@ PO_SOURCES: dict[str, POSource] = {
         editor="Grebaut",
         year=1932,
         archive_url="https://archive.org/details/patrologiaorient23pariuoft",
-        default_page_range=(0, 0),  # refined at τ.6.x.5.d
+        # Calibrated by OCR-probe 2026-05-20 (τ.6.x.5.d): pages 648-776
+        # are the canonical 2-Chronicles half of the PO 23 fasc 4 volume
+        # (LIVRE SECOND, ch I-XXXVI = 36 ch). Last body page is p776
+        # (CHAPITRE TRENTE-SIXIEME); p777 begins the APPENDICE
+        # (manuscript-margin titles, not scripture). See the 1ch entry
+        # above for the full volume layout + boundary rationale.
+        default_page_range=(648, 776),
+        banner_top_fraction=0.10,
     ),
 }
 
@@ -429,6 +455,32 @@ BANNER_RE = re.compile(
     re.IGNORECASE | re.UNICODE,
 )
 
+# τ.6.x.5.d extension: PO 23 fasc 4 (Grébaut 1932, Chronicles) uses a
+# DIFFERENT banner shape — no book name, and BOTH the volume-book
+# ordinal AND the chapter ordinal are spelled out as French ordinal
+# words (no Roman numerals):
+#
+#     LIVRE PREMIER, CHAPITRE PREMIER.
+#     LIVRE PREMIER, CHAPITRE DEUXIÈME.
+#     LIVRE PREMIER, CHAPITRE VINGT-NEUVIÈME.
+#     LIVRE SECOND, CHAPITRE PREMIER.
+#     LIVRE SECOND, CHAPITRE TRENTE-SIXIÈME.
+#
+# This pattern picks the word(s) AFTER "CHAPITRE" and feeds them to
+# ``french_ordinal_to_int`` which knows the 1-36 ordinals. The "LIVRE
+# PREMIER/SECOND" prefix only tells us which canonical book the page
+# belongs to — and we already split the PDF page-range by book before
+# this regex runs, so we don't need to capture that.
+PO23_BANNER_RE = re.compile(
+    # CHAPITRE — OCR mangles include CHÄPITRE / CHAPITKE / CHAP1TRE / CIIAPITRE.
+    # Accept any leading C, optional H/I, ‘A’-‘Ä’, P, optional I/L/1, T, R/K,
+    # optional E. The ordinal word allows digit-1 in place of letter-I so the
+    # mangled "CINQU1EME" / "QUATR1EME" / "DEUX1EME" still match (we normalize
+    # 1↔I in ``french_ordinal_to_int`` before dictionary lookup).
+    r"C[HI]+[ÄA]P[IiLl1]?T[RKr][Ee]?\s+([A-ZÉÈÊÀÔÛŒ\-0-9]+(?:\s+ET\s+[A-ZÉÈÊÀÔÛŒ\-0-9]+)?(?:\s*[\-]\s*[A-ZÉÈÊÀÔÛŒ0-9]+)?)",
+    re.IGNORECASE | re.UNICODE,
+)
+
 # Roman numeral table (Roman → int) for the PO banners.
 ROMAN_NUMERALS = {
     "I": 1,
@@ -439,6 +491,85 @@ ROMAN_NUMERALS = {
     "D": 500,
     "M": 1000,
 }
+
+# τ.6.x.5.d — French ordinal words (1-36) for the PO 23 Chronicles
+# banner. Accents tolerant (DEUXIÈME / DEUXIEME) — the matcher first
+# strips accents + uppercases before lookup.
+FRENCH_ORDINALS: dict[str, int] = {
+    "PREMIER": 1,
+    "PREMIERE": 1,  # feminine form, just in case
+    "DEUXIEME": 2,
+    "TROISIEME": 3,
+    "QUATRIEME": 4,
+    "CINQUIEME": 5,
+    "SIXIEME": 6,
+    "SEPTIEME": 7,
+    "HUITIEME": 8,
+    "NEUVIEME": 9,
+    "DIXIEME": 10,
+    "ONZIEME": 11,
+    "DOUZIEME": 12,
+    "TREIZIEME": 13,
+    "QUATORZIEME": 14,
+    "QUINZIEME": 15,
+    "SEIZIEME": 16,
+    "DIX-SEPTIEME": 17,
+    "DIX-HUITIEME": 18,
+    "DIX-NEUVIEME": 19,
+    "VINGTIEME": 20,
+    "VINGT-ET-UNIEME": 21,
+    "VINGT-DEUXIEME": 22,
+    "VINGT-TROISIEME": 23,
+    "VINGT-QUATRIEME": 24,
+    "VINGT-CINQUIEME": 25,
+    "VINGT-SIXIEME": 26,
+    "VINGT-SEPTIEME": 27,
+    "VINGT-HUITIEME": 28,
+    "VINGT-NEUVIEME": 29,
+    "TRENTIEME": 30,
+    "TRENTE-ET-UNIEME": 31,
+    "TRENTE-DEUXIEME": 32,
+    "TRENTE-TROISIEME": 33,
+    "TRENTE-QUATRIEME": 34,
+    "TRENTE-CINQUIEME": 35,
+    "TRENTE-SIXIEME": 36,
+}
+
+
+def _strip_accents_upper(s: str) -> str:
+    """Normalize a French word: strip accents + uppercase. Used for
+    FRENCH_ORDINALS lookup (tolerates DEUXIÈME / DEUXIEME / deuxième)."""
+    import unicodedata
+
+    nfkd = unicodedata.normalize("NFKD", s)
+    no_accents = "".join(c for c in nfkd if not unicodedata.combining(c))
+    return no_accents.upper().strip()
+
+
+def french_ordinal_to_int(word: str) -> int | None:
+    """Convert a French ordinal word to int, e.g.:
+        "PREMIER"        → 1
+        "deuxième"       → 2
+        "VINGT-NEUVIÈME" → 29
+        "TRENTE-SIXIÈME" → 36
+    Returns None on miss.
+
+    Handles common OCR mangles:
+        - missing trailing E (DEUXIEM, CINQUIEM)
+        - digit-1 substituted for letter-I (CINQU1EME, QUATR1EME)
+    """
+    if not word:
+        return None
+    key = _strip_accents_upper(word)
+    # OCR mangle: digit '1' sometimes substituted for letter 'I' mid-word
+    # (CINQU1EME, QUATR1EME, DEUX1EME). Normalize before lookup.
+    key_iletter = key.replace("1", "I")
+    if key_iletter in FRENCH_ORDINALS:
+        return FRENCH_ORDINALS[key_iletter]
+    # OCR mangle: missing trailing E.
+    if (key_iletter + "E") in FRENCH_ORDINALS:
+        return FRENCH_ORDINALS[key_iletter + "E"]
+    return None
 
 
 def roman_to_int(s: str) -> int | None:
@@ -471,6 +602,11 @@ def parse_banner_chapter(banner_text: str) -> int | None:
         "576 LE LIVRE DE JOB, I, 6-12." → 1
         "[15] LE LIVRE DE JOB, XLII, 1" → 42
         no banner / garbled OCR         → None
+
+    τ.6.x.5.d — also handles the PO 23 ordinal-word format:
+        "LIVRE PREMIER, CHAPITRE PREMIER."         → 1
+        "LIVRE PREMIER, CHAPITRE VINGT-NEUVIÈME."  → 29
+        "LIVRE SECOND, CHAPITRE TRENTE-SIXIÈME."   → 36
     """
     if not banner_text:
         return None
@@ -490,6 +626,14 @@ def parse_banner_chapter(banner_text: str) -> int | None:
             re.IGNORECASE | re.UNICODE,
         )
         if m is None:
+            # τ.6.x.5.d — try the PO 23 ordinal-word banner shape
+            # ``LIVRE PREMIER, CHAPITRE <ORDINAL_WORD>.``
+            m23 = PO23_BANNER_RE.search(banner_text)
+            if m23 is not None:
+                word = m23.group(1).strip()
+                got = french_ordinal_to_int(word)
+                if got is not None:
+                    return got
             return None
     roman = m.group(1)
     return roman_to_int(roman)

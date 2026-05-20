@@ -405,6 +405,40 @@ class TestParseBannerChapter:
         # OCR mangle: "TROISIEME" without accent.
         assert parse_banner_chapter("| 688 TROISIEME (LIVRE) DE 'EZRA, XI, 10-11 -— XII, 1-5.") == 11
 
+    def test_po23_chronicles_ordinal_word_banner(self):
+        """τ.6.x.5.d: the PO 23 fasc 4 Chronicles volume uses a
+        completely different banner shape — NO book name, and chapter
+        is spelled out as a French ordinal word rather than a Roman
+        numeral. The original regex required Roman numerals; the
+        τ.6.x.5.d fix adds ``PO23_BANNER_RE`` + ``FRENCH_ORDINALS``
+        lookup for ordinal-words 1-36 covering both 1ch (29ch) and 2ch
+        (36ch).
+
+        The "LIVRE PREMIER" / "LIVRE SECOND" prefix only tells us which
+        canonical book the page belongs to; since we split the PDF
+        page-range by book BEFORE the regex runs, we don't need to
+        capture it — we just need the chapter ordinal."""
+        from scripts.extract_patrologia_pdf import parse_banner_chapter
+
+        # 1 Chronicles (LIVRE PREMIER) chapters I-XXIX.
+        assert parse_banner_chapter("LIVRE PREMIER, CHAPITRE PREMIER.") == 1
+        assert parse_banner_chapter("LIVRE PREMIER, CHAPITRE DEUXIÈME.") == 2
+        assert parse_banner_chapter("[15] LIVRE PREMIER. CHAPITRE DEUXIEME. 535") == 2
+        assert parse_banner_chapter("LIVRE PREMIER, CHAPITRE VINGT-NEUVIÈME.") == 29
+        # 2 Chronicles (LIVRE SECOND) chapters I-XXXVI.
+        assert parse_banner_chapter("LIVRE SECOND, CHAPITRE PREMIER.") == 1
+        assert parse_banner_chapter("[123] LIVRE SECOND, CHAPITRE DEUXIEME. 643") == 2
+        assert parse_banner_chapter("LIVRE SECOND, CHAPITRE VINGT-ET-UNIÈME.") == 21
+        assert parse_banner_chapter("LIVRE SECOND, CHAPITRE TRENTE-SIXIÈME.") == 36
+        # OCR mangles seen in the actual Chronicles ingest:
+        #  - PRENIER (n↔m), SKCO.ND (E↔K + spurious period)
+        #  - CHAPITKE (R↔K), CHAP1TRE (I↔1), CHÄPITRE (A↔Ä)
+        #  - CINQU1EME / VINGT-SIX1EME (digit-1 mid-word)
+        assert parse_banner_chapter("Ca LIVRE PRENIER. CHAPITRE PREMIER. 533") == 1
+        assert parse_banner_chapter("[197] LIVRE SECOND, CHAPITKE VINGT-SIXIEME. 717") == 26
+        assert parse_banner_chapter("[239] LIVRE SECOND, CHAP1TRE TRENTE-CINQU1EME. 759") == 35
+        assert parse_banner_chapter("[64] CHÄPITRE TRENTE-CINQUIEME.") == 35
+
 
 # ──────────────────────────────────────────────────────────────────
 # τ.6.x.5.a — split_geez_body_into_fragments
