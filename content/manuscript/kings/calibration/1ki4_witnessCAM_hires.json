@@ -16,9 +16,9 @@
       "v": 1,
       "column": "f127v-L",
       "line_start": 7,
-      "geez": "ነግሥ፣ላዕለ፣ኩሉ፣እስራኤል",
+      "geez": "ይነግሥ፣ላዕለ፣ኩሉ፣እስራኤል",
       "tokens": [
-        "ነግሥ",
+        "ይነግሥ",
         "ላዕለ",
         "ኩሉ",
         "እስራኤል"
@@ -27,7 +27,7 @@
         {
           "token_index": 0,
           "marker": "context",
-          "note": "v1 head 'ነግሥ' continues L6 final word 'ሰሎምን' (the clause 'ወእምዝህኮነ ንጉሥ ሰሎምን'); 1Ki3 transcription ends at 'ሰሎምን' on L6, so 1Ki4 begins mid-clause at 'ነግሥ' on L7. Immediately after this verse comes the red rubric '✣ ክፍል ፰ ✣' mid-L7 (EXCLUDED from geez per spec §2)."
+          "note": "v1 head 'ይነግሥ' continues L6 final clause 'ወእምዝህኮነ ንጉሥ ሰሎምን' (1Ki3 transcription ends at 'ሰሎምን' on L6). Original REDO had 'ነግሥ' missing the 'ይ' prefix recoverable from L6 right edge — C-6 R2 catch (D1, MEDIUM); applied 2026-05-20. Immediately after this verse comes the red rubric '✣ ክፍል ፰ ✣' mid-L7 (EXCLUDED from geez per spec §2)."
         }
       ]
     },
@@ -214,7 +214,7 @@
       "v": 6,
       "column": "f127v-L",
       "line_start": 15,
-      "geez": "ወአክያል፣መገቤ፣ቤት፣ወአዶኒራም፣ወልደ፣አብዶድ፣ላዕለ፣ዓርዕ ✣",
+      "geez": "ወአክያል፣መገቤ፣ቤት፣ወአዶኒራም፣ወልደ፣አብዶድ፣ላዕለ፣ዓር ✣",
       "tokens": [
         "ወአክያል",
         "መገቤ",
@@ -223,7 +223,7 @@
         "ወልደ",
         "አብዶድ",
         "ላዕለ",
-        "ዓርዕ",
+        "ዓር",
         "✣"
       ],
       "uncertain": [
@@ -724,7 +724,7 @@
       "v": 19,
       "column": "f127v-L",
       "line_start": 40,
-      "geez": "ወጋቤር፣ወልደ፣ዑራ፣በምድረ፣ገለአድ፣ምድረ፣ሲዎን፣ንቱው፣አሞርዎን፣ወዐግ፣ንቱው፣ባሳን፣ወናዊብ ✣ ፬ ✣",
+      "geez": "ወጋቤር፣ወልደ፣ዑራ፣በምድረ፣ገለአድ፣ምድረ፣ሲዎን፣ንቱው፣አሞርዎን፣ወዐግ፣ንቱው፣ባሳን፣ወናዊብ ፬",
       "tokens": [
         "ወጋቤር",
         "ወልደ",
@@ -739,9 +739,7 @@
         "ንቱው",
         "ባሳን",
         "ወናዊብ",
-        "✣",
-        "፬",
-        "✣"
+        "፬"
       ],
       "uncertain": [
         {
@@ -771,18 +769,8 @@
         },
         {
           "token_index": 13,
-          "marker": "in_body_cross",
-          "note": "Red '✣' inked at end of 'ወናዊብ' on M2 mid-line — preserved as token, immediately preceding a red numeral."
-        },
-        {
-          "token_index": 14,
           "marker": "numeral_inline",
-          "note": "Inked Ge'ez numeral ፬ (U+1374, =4) in red square brackets on M2 mid-line — NOT a 'ክፍል' rubric (no 'ክፍል' word inked). Possibly a verse/section marker. Preserved as inline token."
-        },
-        {
-          "token_index": 15,
-          "marker": "in_body_cross",
-          "note": "Red '✣' inked after the ፬ numeral on M2 mid-line — preserved as token."
+          "note": "Inked Ge'ez numeral ፬ (U+1374, =4) in red square brackets on M2 mid-line — NOT a 'ክፍል' rubric (no 'ክፍል' word inked). Possibly a verse/section marker. C-6 R2 D3 fix (LOW, 2026-05-20): original REDO had 2 spurious '✣' tokens flanking this numeral (mistook the red brackets for crosses); reverted to plain numeral per R2 parchment re-read."
         }
       ]
     },
