@@ -113,6 +113,17 @@ TIERS: dict[str, ProvenanceTier] = {
         ),
         examples=("psa",),
     ),
+    "ai-back-translation-tier4": ProvenanceTier(
+        code="ai-back-translation-tier4",
+        quality_rank=4,
+        description=(
+            "LLM-generated English back-translation of an OCR-derived "
+            "Ge'ez or Amharic source. Useful for reading-aid popups in "
+            "the standalone Ge'ez/Amharic Bibles; not a substitute for "
+            "scholarly translation. Inherits source-noise from ocr-tier3."
+        ),
+        examples=("gen",),
+    ),
 }
 
 # Convenience: tier codes ordered best-quality first.
