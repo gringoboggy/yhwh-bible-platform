@@ -1,0 +1,486 @@
+{
+  "witness": "GG",
+  "book": "1ki",
+  "chapter": 5,
+  "source_images": [
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f030v.jpg",
+    "GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f031r.jpg"
+  ],
+  "folio_sigla": [
+    "f030v",
+    "f031r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f030v-M-L23",
+      "line_start": 23,
+      "geez": "ወፈነወሙ ፡ ኪራም ፡ ንጉሠ ፡ ጢሮስ ፡ ለደቁ ፡ ነበ ፡ ሰሎምን ፡ አበ ፡ ሰምዓ ፡ ከመ ፡ ቀብዕም ፡ ይነግሥ ፡ ህየንተ ፡ ዳዊት ፡ አቡሁ ፡ እስመ ፡ ያፈቅሮ ፡ ኪራም ፡ ለዳዊት ፡ በኩሉ ፡ መዋዕሊሁ",
+      "tokens": [
+        "ወፈነወሙ",
+        "ኪራም",
+        "ንጉሠ",
+        "ጢሮስ",
+        "ለደቁ",
+        "ነበ",
+        "ሰሎምን",
+        "አበ",
+        "ሰምዓ",
+        "ከመ",
+        "ቀብዕም",
+        "ይነግሥ",
+        "ህየንተ",
+        "ዳዊት",
+        "አቡሁ",
+        "እስመ",
+        "ያፈቅሮ",
+        "ኪራም",
+        "ለዳዊት",
+        "በኩሉ",
+        "መዋዕሊሁ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "rubric kefl 24 (ክፍል ፡ ፳ ወ፬) immediately precedes verse 1 — first verse after the rubric"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f030v-M-L29",
+      "line_start": 29,
+      "geez": "ወስአከ ፡ ሰሎምን ፡ ጎባ ፡ ኪራም ፡ እንዘ ፡ ይብል ፡ ተአምር ፡ ዕሊከ ፡ ለዳዊት ፡ አቡየ ፡ ከመ ፡ ተከእና ፡ ነዲቅ ፡ ቤተ ፡ ለስመ ፡ እግዚአብሐር ፡ እምስኩ ፡ በእንተ ፡ አዕባዕ ፡ ዘአውዳ ፡ እስከ ፡ አመ ፡ አግብአሙ ፡ እግዚአብሐር ፡ ታሕተ ፡ እደሁ",
+      "tokens": [
+        "ወስአከ",
+        "ሰሎምን",
+        "ጎባ",
+        "ኪራም",
+        "እንዘ",
+        "ይብል",
+        "ተአምር",
+        "ዕሊከ",
+        "ለዳዊት",
+        "አቡየ",
+        "ከመ",
+        "ተከእና",
+        "ነዲቅ",
+        "ቤተ",
+        "ለስመ",
+        "እግዚአብሐር",
+        "እምስኩ",
+        "በእንተ",
+        "አዕባዕ",
+        "ዘአውዳ",
+        "እስከ",
+        "አመ",
+        "አግብአሙ",
+        "እግዚአብሐር",
+        "ታሕተ",
+        "እደሁ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "first column-break: word spans f030v-M end → f030v-R start, 'ዕሊከ | ለዳዊት' (column boundary verified; final ከ of ዕሊከ at column-bottom, ለ-prefix starts f030v-R top)"
+        }
+      ]
+    },
+    {
+      "v": 3,
+      "column": "f030v-R-L5",
+      "line_start": 5,
+      "geez": "ወይእዜሰ ፡ አዕረፈኒ ፡ እግዚአብሐር ፡ ሲተ ፡ እምእስላ ፡ ውድየ ፡ ወአልቦ ፡ ዘይስላጥ ፡ ወአልቦ ፡ ዘያምፅ ፡ ሰእኪት",
+      "tokens": [
+        "ወይእዜሰ",
+        "አዕረፈኒ",
+        "እግዚአብሐር",
+        "ሲተ",
+        "እምእስላ",
+        "ውድየ",
+        "ወአልቦ",
+        "ዘይስላጥ",
+        "ወአልቦ",
+        "ዘያምፅ",
+        "ሰእኪት"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 4,
+      "column": "f030v-R-L8",
+      "line_start": 8,
+      "geez": "ወናሁ ፡ አነ ፡ እብል ፡ ከመ ፡ እሕነዕ ፡ ቤተ ፡ ለስመ ፡ እግዚአብሐር ፡ እምላእኪየ ፡ በከመ ፡ ይቤሉ ፡ እግዚአብሐር ፡ ለዳዊት ፡ አቡየ ፡ ወልድከ ፡ ዘእህበክ ፡ ዘይከርሰዕል ፡ መንበርከ ፡ ህየንቴክ ፡ ውእቱ ፡ የሐንፅ ፡ ቤተ ፡ ለስምየ",
+      "tokens": [
+        "ወናሁ",
+        "አነ",
+        "እብል",
+        "ከመ",
+        "እሕነዕ",
+        "ቤተ",
+        "ለስመ",
+        "እግዚአብሐር",
+        "እምላእኪየ",
+        "በከመ",
+        "ይቤሉ",
+        "እግዚአብሐር",
+        "ለዳዊት",
+        "አቡየ",
+        "ወልድከ",
+        "ዘእህበክ",
+        "ዘይከርሰዕል",
+        "መንበርከ",
+        "ህየንቴክ",
+        "ውእቱ",
+        "የሐንፅ",
+        "ቤተ",
+        "ለስምየ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 5,
+      "column": "f030v-R-L14",
+      "line_start": 14,
+      "geez": "ወይእዜኒ ፡ አዝዝ ፡ ይግዝሙ ፡ ሊተ ፡ እዕወዕ ፡ እምሊባናስ ፡ ወናሁ ፡ አግብርትየኒ ፡ ይኩኑ ፡ ምስለ ፡ አግብርቲከ ፡ ወዐስብ ፡ አግብርቲከ ፡ እሁበክ ፡ በከመ ፡ ትቤእ ፡ እከመ ፡ ሰሊክ ፡ ተእምር ፡ ከመ ፡ አልብነ ፡ ዘየአምር ፡ ግዝመ ፡ ዕፅ ፡ ከመ ፡ ሰብእ ፡ ሲደና",
+      "tokens": [
+        "ወይእዜኒ",
+        "አዝዝ",
+        "ይግዝሙ",
+        "ሊተ",
+        "እዕወዕ",
+        "እምሊባናስ",
+        "ወናሁ",
+        "አግብርትየኒ",
+        "ይኩኑ",
+        "ምስለ",
+        "አግብርቲከ",
+        "ወዐስብ",
+        "አግብርቲከ",
+        "እሁበክ",
+        "በከመ",
+        "ትቤእ",
+        "እከመ",
+        "ሰሊክ",
+        "ተእምር",
+        "ከመ",
+        "አልብነ",
+        "ዘየአምር",
+        "ግዝመ",
+        "ዕፅ",
+        "ከመ",
+        "ሰብእ",
+        "ሲደና"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሲደና (Sidonians) — final ና could be alternate vowel-order"
+        }
+      ]
+    },
+    {
+      "v": 6,
+      "column": "f030v-R-L23",
+      "line_start": 23,
+      "geez": "ወከበ ፡ ሰምዓ ፡ ኪራም ፡ ቃለ ፡ ሰሎምን ፡ ተፈሥሐ ፡ ፈድፋደ ፡ ወይቤ ፡ ይትባረክ ፡ እግዚአብሐር ፡ ዮም ፡ ዘውሁቦ ፡ ለዳዊት ፡ ወልደ ፡ ጠቢላሰ ፡ ዝንቱ ፡ ሕዝብ ፡ ብዙኅ",
+      "tokens": [
+        "ወከበ",
+        "ሰምዓ",
+        "ኪራም",
+        "ቃለ",
+        "ሰሎምን",
+        "ተፈሥሐ",
+        "ፈድፋደ",
+        "ወይቤ",
+        "ይትባረክ",
+        "እግዚአብሐር",
+        "ዮም",
+        "ዘውሁቦ",
+        "ለዳዊት",
+        "ወልደ",
+        "ጠቢላሰ",
+        "ዝንቱ",
+        "ሕዝብ",
+        "ብዙኅ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "rubric kefl 26 (ክፍል ፡ ፳ ወ፮) precedes verse — kicks off Hiram's reply section"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ጠቢላሰ may be ጠቢበ (wise) with vowel variant"
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": "f030v-R-L29",
+      "line_start": 29,
+      "geez": "ወለእኪሁ ፡ ኪራም ፡ ነበ ፡ ሰሎምን ፡ እንዘ ፡ ይብል ፡ ሰማዕኩ ፡ ኩሎ ፡ ዘበእ ፡ ከእ ፡ ዓቢየ ፡ አነ ፡ እንብር ፡ ኩሎ ፡ መፍቅደ ፡ ከእ ፡ ዕወወለ ፡ ዘድሮን ፡ ዘፀውቄና ፡ ደቅየ ፡ ያውርዱ ፡ እምሊባኖስከእ ፡ እስከ ፡ ባሕር",
+      "tokens": [
+        "ወለእኪሁ",
+        "ኪራም",
+        "ነበ",
+        "ሰሎምን",
+        "እንዘ",
+        "ይብል",
+        "ሰማዕኩ",
+        "ኩሎ",
+        "ዘበእ",
+        "ከእ",
+        "ዓቢየ",
+        "አነ",
+        "እንብር",
+        "ኩሎ",
+        "መፍቅደ",
+        "ከእ",
+        "ዕወወለ",
+        "ዘድሮን",
+        "ዘፀውቄና",
+        "ደቅየ",
+        "ያውርዱ",
+        "እምሊባኖስከእ",
+        "እስከ",
+        "ባሕር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዕወወለ ዘድሮን = cedars + cypress (?) — token spellings differ from standard"
+        }
+      ]
+    },
+    {
+      "v": 8,
+      "column": "f030v-R-L34",
+      "line_start": 34,
+      "geez": "ወአነ ፡ እግብር ፡ አሕማሬ ፡ ውስተ ፡ ባሕር ፡ እስከ ፡ መካንከ ፡ ነበ ፡ ትትሜጠወኒ ፡ ወእነብር ፡ እለ ፡ ህየ ፡ ወእንሣዕለ ፡ እንተ ፡ መዓብር ፡ ፈቀደከእ ፡ ወትህብሊ ፡ ሲሳየ ፡ ለስብእ ፡ ቤትየ",
+      "tokens": [
+        "ወአነ",
+        "እግብር",
+        "አሕማሬ",
+        "ውስተ",
+        "ባሕር",
+        "እስከ",
+        "መካንከ",
+        "ነበ",
+        "ትትሜጠወኒ",
+        "ወእነብር",
+        "እለ",
+        "ህየ",
+        "ወእንሣዕለ",
+        "እንተ",
+        "መዓብር",
+        "ፈቀደከእ",
+        "ወትህብሊ",
+        "ሲሳየ",
+        "ለስብእ",
+        "ቤትየ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 9,
+      "column": "f030v-R-L41",
+      "line_start": 41,
+      "geez": "ወወሁቦ ፡ ኪራም ፡ ለሰሎምን ፡ ዕወዕ ፡ ቀድሮና ፡ ወጸውቄና ፡ ወኩሎ ፡ ዘፈቀደ",
+      "tokens": [
+        "ወወሁቦ",
+        "ኪራም",
+        "ለሰሎምን",
+        "ዕወዕ",
+        "ቀድሮና",
+        "ወጸውቄና",
+        "ወኩሎ",
+        "ዘፈቀደ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 10,
+      "column": "f030v-R-L43",
+      "line_start": 43,
+      "geez": "ወሰሎምን ፡ ወሁ ፡ ስኪራም ፡ ፳ ሺ ፡ በመስፈርት ፡ ቆርሰ ፡ ሰርናየ ፡ ሲሳየ ፡ ወመዓኛ ፡ ከመ ፡ ለቤቱ ፡ ፳ ፡ በመስፈርት ፡ ቤት ፡ ቅብዓ ፡ ቅዱሰ ፡ ወ ፪ ፡ ወደነፀ ፡ ወከመዝ ፡ ወሁቦ ፡ ሰሎምን ፡ ስኪራም ፡ በበ ፡ ዓመት",
+      "tokens": [
+        "ወሰሎምን",
+        "ወሁ",
+        "ስኪራም",
+        "፳",
+        "ሺ",
+        "በመስፈርት",
+        "ቆርሰ",
+        "ሰርናየ",
+        "ሲሳየ",
+        "ወመዓኛ",
+        "ከመ",
+        "ለቤቱ",
+        "፳",
+        "በመስፈርት",
+        "ቤት",
+        "ቅብዓ",
+        "ቅዱሰ",
+        "ወ",
+        "፪",
+        "ወደነፀ",
+        "ወከመዝ",
+        "ወሁቦ",
+        "ሰሎምን",
+        "ስኪራም",
+        "በበ",
+        "ዓመት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "rubric kefl 30 (ክፍል ፡ ፴) precedes — first 30-series rubric"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "oil-measures '፳ ... ወ፪ ወደነፀ' — 20 of pure oil + 2 of beaten oil? Or '፳ ወ፪' compound (22)? digit reading at resolution limit"
+        }
+      ]
+    },
+    {
+      "v": 11,
+      "column": "f031r-L-L2",
+      "line_start": 2,
+      "geez": "ወወሁቦ ፡ እግዚአብሐር ፡ ለሰሎምን ፡ ጥበባ ፡ በከመ ፡ ይቤሉ ፡ ወኮነ ፡ ሰላም ፡ በማእክሊ ፡ ሰሎምን ፡ ወበማእክለ ፡ ኪራም ፡ ወተመሐሉ ፡ ወገብሩ ፡ ኪዳነ ፡ ማእክሎሙ",
+      "tokens": [
+        "ወወሁቦ",
+        "እግዚአብሐር",
+        "ለሰሎምን",
+        "ጥበባ",
+        "በከመ",
+        "ይቤሉ",
+        "ወኮነ",
+        "ሰላም",
+        "በማእክሊ",
+        "ሰሎምን",
+        "ወበማእክለ",
+        "ኪራም",
+        "ወተመሐሉ",
+        "ወገብሩ",
+        "ኪዳነ",
+        "ማእክሎሙ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 12,
+      "column": "f031r-L-L8",
+      "line_start": 8,
+      "geez": "ወረነወ ፡ ሰሎምን ፡ ንጉሥ ፡ ዐወርት ፡ እምኩሉ ፡ እስራኤል ፡ ወከነ ፡ ዐወርት ፡ ፴ ሺ ፡ ዐደው ፡ ወይፈኑ ፡ እምኒሆሙ ፡ ፲ ሺ ፡ ውስተ ፡ ሊባናስ ፡ ፩ ፡ ወርሐ ፡ ወያስተባርዮም ፡ ከመዝ ፡ ፩ ፡ ወርሕን ፡ ይሐልዉ ፡ ውስተ ፡ ሊባናስ ፡ ወ ፪ ፡ ወርሕን ፡ ውስተ ፡ አብያቲሆሙ ፡ ወአዶኒራም ፡ መልአከ ፡ ጸወርያን",
+      "tokens": [
+        "ወረነወ",
+        "ሰሎምን",
+        "ንጉሥ",
+        "ዐወርት",
+        "እምኩሉ",
+        "እስራኤል",
+        "ወከነ",
+        "ዐወርት",
+        "፴",
+        "ሺ",
+        "ዐደው",
+        "ወይፈኑ",
+        "እምኒሆሙ",
+        "፲",
+        "ሺ",
+        "ውስተ",
+        "ሊባናስ",
+        "፩",
+        "ወርሐ",
+        "ወያስተባርዮም",
+        "ከመዝ",
+        "፩",
+        "ወርሕን",
+        "ይሐልዉ",
+        "ውስተ",
+        "ሊባናስ",
+        "ወ",
+        "፪",
+        "ወርሕን",
+        "ውስተ",
+        "አብያቲሆሙ",
+        "ወአዶኒራም",
+        "መልአከ",
+        "ጸወርያን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "rubric kefl 30 (ክፍል ፡ ፴) precedes — second 30-series rubric, conscription section"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ወረነወ may be ወፈነወ (and he sent) with ፈ→ረ variant"
+        }
+      ]
+    },
+    {
+      "v": 13,
+      "column": "f031r-L-L16",
+      "line_start": 16,
+      "geez": "ወቦ ፡ ለሰሎምን ፡ ፸ ሺ ፡ ጸወረ ፡ እርሰን ፡ ወ ፹ ሺ ፡ ወቀርት ፡ እለ ፡ ውስተ ፡ ደብር ፡ ዘእንበለ ፡ ከያማን ፡ መስእክት ፡ ላዕለ ፡ ግብረ ፡ ሰሎምን ፡ ማእየወኪያሲቃን ፡ ገባር ፡ ወእስተደስው ፡ ዕፀወ ፡ ወእባነ ፡ ፫ ፡ ዓመተ",
+      "tokens": [
+        "ወቦ",
+        "ለሰሎምን",
+        "፸",
+        "ሺ",
+        "ጸወረ",
+        "እርሰን",
+        "ወ",
+        "፹",
+        "ሺ",
+        "ወቀርት",
+        "እለ",
+        "ውስተ",
+        "ደብር",
+        "ዘእንበለ",
+        "ከያማን",
+        "መስእክት",
+        "ላዕለ",
+        "ግብረ",
+        "ሰሎምን",
+        "ማእየወኪያሲቃን",
+        "ገባር",
+        "ወእስተደስው",
+        "ዕፀወ",
+        "ወእባነ",
+        "፫",
+        "ዓመተ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "rubric kefl 30 (ክፍል ፡ ፴) precedes — third 30-series rubric, bearers/hewers section"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ማእየወኪያሲቃን — looks Greek-derived (cf. ἀρχιτεκτονικός 'master-builders') — orthography at resolution limit"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "chapter-end marker: next rubric ክፍ ፡ ? begins 1Ki6:1 (ወእምዝ አመ ኮነ ፬፻ ወ?…)"
+        }
+      ]
+    }
+  ],
+  "transcription_notes": "Hand: GG-00106 careful 3-column book hand. Damage: clean (no significant ink loss). Boundary: 1Ki4 ends f030v-M just before rubric ክፍል ፡ ፳ ወ፬ (last words of ch.4: '...እምኩሉ ፡ ነገሥት ፡ ምድር ፡ እለ ፡ ሰምዑ ፡ ጥበቢሁ'). 1Ki5 begins f030v-M at red rubric ክፍል ፡ ፳ ወ፬ ❈ followed by 'ወፈነወሙ ኪራም ንጉሠ ጢሮስ...' 1Ki5 ends f031r-L mid-bottom at '...ወእባነ ፡ ፫ ዓመተ' just before the next rubric (ክፍ ፡ ?) which introduces 'ወእምዝ አመ ኮነ ፬…' (1Ki6:1). No ምዕራፍ rubric appears on these folios — this MS segments by ክፍል only. The chapter 5 boundary is reconstructed from the natural narrative-unit break (Hiram-Solomon correspondence + temple-preparation levy). Intra-chapter rubrics observed: ክፍል ፡ ፳ ወ፬ (v1), ፳ ወ፭ (v2), ፳ ወ፮ (v6), ፴ (v10), ፴ (v12), ፴ (v13). Topology says the multi-፴ pattern is unusual; the third '፴' may actually be ፴ ወ፩/፪ at the resolution limit. Numeral discriminations resolved via stylistic cap-curl: ፴ (30) clearly distinct from ፫ (3) — verified at lines L9 (30,000 levy), L16 (70k/80k bearers/hewers); both 70k+80k match KJV/MT recension. Stylistic note: small red marks appear between every word position in this MS — read as ፡ (wordspace) per topology, not as ✣ body crosses. Larger ❈ knot crosses appear after each ክፍል rubric per topology §1. Possible scribal-variants observed (per topology §2 confused-fidel families): ይብል→ደብል (1× in v2 column-feed); ፈ→ረ in ወፈነወ→ወረነወ (v12). Not corrected — transcribed as written."
+}
