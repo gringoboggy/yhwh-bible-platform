@@ -6,401 +6,1459 @@
   "ref": "1ki4",
   "phase": "tau.6.x.4.c",
   "source_images": [
-    "GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f127v_1ki4_hires.jpg",
-    "GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f128r_1ki4_hires.jpg"
+    "GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f127v_1ki4_hires.jpg"
   ],
-  "folio_sigla": ["f127v", "f128r"],
+  "folio_sigla": [
+    "f127v"
+  ],
   "verses": [
     {
       "v": 1,
       "column": "f127v-L",
       "line_start": 7,
-      "geez": "ወኮነ፡ንጉሥ፡ሰሎሞን፡ይነግሥ፡ላዕለ፡ኩሉ፡እስራኤል",
-      "tokens": ["ወኮነ", "ንጉሥ", "ሰሎሞን", "ይነግሥ", "ላዕለ", "ኩሉ", "እስራኤል"],
+      "geez": "ነግሥ፣ላዕለ፣ኩሉ፣እስራኤል",
+      "tokens": [
+        "ነግሥ",
+        "ላዕለ",
+        "ኩሉ",
+        "እስራኤል"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "boundary", "note": "v1 starts immediately after red rubric ✣ ክፍል ፰ at L7; first inked word taken as ወኮነ per inked head; verify glyph 3 ኮ vs ኰ"}
+        {
+          "token_index": 0,
+          "marker": "context",
+          "note": "v1 head 'ነግሥ' continues L6 final word 'ሰሎምን' (the clause 'ወእምዝህኮነ ንጉሥ ሰሎምን'); 1Ki3 transcription ends at 'ሰሎምን' on L6, so 1Ki4 begins mid-clause at 'ነግሥ' on L7. Immediately after this verse comes the red rubric '✣ ክፍል ፰ ✣' mid-L7 (EXCLUDED from geez per spec §2)."
+        }
       ]
     },
     {
       "v": 2,
       "column": "f127v-L",
       "line_start": 8,
-      "geez": "ወእሉ፡መላእክት፡እለ፡ሎቱ፡ዓዛርያስ፡ወልደ፡ሳዶቅ፡ካህን",
-      "tokens": ["ወእሉ", "መላእክት", "እለ", "ሎቱ", "ዓዛርያስ", "ወልደ", "ሳዶቅ", "ካህን"],
+      "geez": "ወእሉ፣እሙንቱ፣መላእክት፣ዘሎቱ፣አዛርያስ፣ወልደ፣ሳዶቅ፣ካህን ✣",
+      "tokens": [
+        "ወእሉ",
+        "እሙንቱ",
+        "መላእክት",
+        "ዘሎቱ",
+        "አዛርያስ",
+        "ወልደ",
+        "ሳዶቅ",
+        "ካህን",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 4, "marker": "uncertain", "note": "proper name ዓዛርያስ: vocalization of ዓ/አ uncertain at this zoom"},
-        {"token_index": 6, "marker": "uncertain", "note": "ሳዶቅ: glyph 2 ዶ vs ዱ uncertain"}
+        {
+          "token_index": 4,
+          "marker": "name_form",
+          "note": "Inked 'አዛርያስ' (አ U+12A0 + ዛ + ር + ያ + ስ) — not the printed-edition form 'ዓዛርያስ' with ዓ U+12D3."
+        },
+        {
+          "token_index": 1,
+          "marker": "lectio",
+          "note": "Inked 'እሙንቱ' present between 'ወእሉ' and 'መላእክት' — printed editions often omit this word."
+        },
+        {
+          "token_index": 3,
+          "marker": "lectio",
+          "note": "Inked 'ዘሎቱ' (rel. pron. 'who is to him'), not printed-edition 'እለ' (rel. pron. 'who are')."
+        },
+        {
+          "token_index": 8,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider inked at end of v2 on L9 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 3,
       "column": "f127v-L",
-      "line_start": 10,
-      "geez": "ወኤሊሐሬፍ፡ወአኪያ፡ደቂቀ፡ሲሳ፡ጸሐፍት፡ወዮሣፍጥ፡ወልደ፡አኪሉድ፡ዘያዜክር",
-      "tokens": ["ወኤሊሐሬፍ", "ወአኪያ", "ደቂቀ", "ሲሳ", "ጸሐፍት", "ወዮሣፍጥ", "ወልደ", "አኪሉድ", "ዘያዜክር"],
+      "line_start": 9,
+      "geez": "ኤልያብ፣ወአኪያ፣ደቂቀ፣ሱፋት ✣ ወኢዮሳፍጥ፣ወልደ፣አክያድ፣መዘክር ✣",
+      "tokens": [
+        "ኤልያብ",
+        "ወአኪያ",
+        "ደቂቀ",
+        "ሱፋት",
+        "✣",
+        "ወኢዮሳፍጥ",
+        "ወልደ",
+        "አክያድ",
+        "መዘክር",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "ኤሊሐሬፍ: middle glyph cluster low contrast; ሐ vs ሓ uncertain"},
-        {"token_index": 5, "marker": "uncertain", "note": "ዮሣፍጥ: glyph 2 ሣ vs ሳ contested at native zoom"},
-        {"token_index": 7, "marker": "uncertain", "note": "አኪሉድ: terminal ድ vs ድ-ligature; ink bleed"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ኤልያብ' (Eliab), not printed-edition 'ኤሊሐሬፍ' (Elihoreph)."
+        },
+        {
+          "token_index": 3,
+          "marker": "name_form",
+          "note": "Inked 'ሱፋት' (Sufat), not printed-edition 'ሲሳ' (Shisha)."
+        },
+        {
+          "token_index": 5,
+          "marker": "name_form",
+          "note": "Inked 'ኢዮሳፍጥ' (with initial 'ኢ-' diphthong), not printed-edition 'ዮሣፍጥ' / 'ዮሳፋጥ'."
+        },
+        {
+          "token_index": 7,
+          "marker": "name_form",
+          "note": "Inked 'አክያድ' (Akyad), not printed-edition 'አኪሉድ' (Ahilud)."
+        },
+        {
+          "token_index": 8,
+          "marker": "name_form",
+          "note": "Inked 'መዘክር' (memorial/recorder, single morpheme), not printed-edition 'ዘያዜክር'."
+        },
+        {
+          "token_index": 4,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ሱፋት' on L10 mid-line, preserved as token."
+        },
+        {
+          "token_index": 9,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'መዘክር' on L11 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 4,
       "column": "f127v-L",
-      "line_start": 13,
-      "geez": "ወበንያስ፡ወልደ፡ዮዳዕ፡መልአከ፡ሰራዊት፡ወሳዶቅ፡ወአብያታር፡ካህናት",
-      "tokens": ["ወበንያስ", "ወልደ", "ዮዳዕ", "መልአከ", "ሰራዊት", "ወሳዶቅ", "ወአብያታር", "ካህናት"],
+      "line_start": 11,
+      "geez": "ወብንያስ፣ወልደ፣ዮዳሐ፣መልአከ፣ኃየሉ፣ሳዶቅ፣ወአብያታር፣ካህናት ✣",
+      "tokens": [
+        "ወብንያስ",
+        "ወልደ",
+        "ዮዳሐ",
+        "መልአከ",
+        "ኃየሉ",
+        "ሳዶቅ",
+        "ወአብያታር",
+        "ካህናት",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "ዮዳዕ vs ዮያዳዕ: shorter form inked here"},
-        {"token_index": 6, "marker": "uncertain", "note": "አብያታር: glyph cluster ብያ uncertain at zoom"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወብንያስ' (vocalization), not printed-edition 'ወበንያስ'."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'ዮዳሐ' (with final ሐ), not printed-edition 'ዮዳዕ' (with final ዕ)."
+        },
+        {
+          "token_index": 4,
+          "marker": "lectio",
+          "note": "Inked 'መልአከ ኃየሉ' ('chief of his force/strength'), not printed-edition 'መልአከ ሰራዊት' ('chief of armies')."
+        },
+        {
+          "token_index": 5,
+          "marker": "lectio",
+          "note": "Inked 'ሳዶቅ' (without waw connector), not printed-edition 'ወሳዶቅ'."
+        },
+        {
+          "token_index": 8,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ካህናት' on L13 start, preserved as token."
+        }
       ]
     },
     {
       "v": 5,
       "column": "f127v-L",
-      "line_start": 15,
-      "geez": "ወዓዛርያስ፡ወልደ፡ናታን፡ላዕለ፡መላእክት፡ወዛቡድ፡ወልደ፡ናታን፡ካህን፡ዓርከ፡ንጉሥ",
-      "tokens": ["ወዓዛርያስ", "ወልደ", "ናታን", "ላዕለ", "መላእክት", "ወዛቡድ", "ወልደ", "ናታን", "ካህን", "ዓርከ", "ንጉሥ"],
+      "line_start": 13,
+      "geez": "ወአዛርያስ፣ወልደ፣ናታን፣ላዕለ፣ስዶማን፣ወዛቡል፣ወልደ፣ናታን፣ካህን፣ዘእምታሕቲ፣ንጉሥ",
+      "tokens": [
+        "ወአዛርያስ",
+        "ወልደ",
+        "ናታን",
+        "ላዕለ",
+        "ስዶማን",
+        "ወዛቡል",
+        "ወልደ",
+        "ናታን",
+        "ካህን",
+        "ዘእምታሕቲ",
+        "ንጉሥ"
+      ],
       "uncertain": [
-        {"token_index": 5, "marker": "uncertain", "note": "ዛቡድ: glyph 2 ቡ vs ቢ uncertain"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወአዛርያስ' (አ U+12A0), not printed-edition 'ዓዛርያስ'."
+        },
+        {
+          "token_index": 4,
+          "marker": "lectio_unclear",
+          "note": "Inked word reads 'ላዕለ ስዶማ|ን' (split across L13→L14: 'ስዶማ' on L13 end, 'ን' on L14 start, joined here). Word is unusual — not the printed-edition 'መላእክት' ('officers'). First consonant might be ስ/እ/ሥ; verified ስ here from glyph shape."
+        },
+        {
+          "token_index": 5,
+          "marker": "name_form",
+          "note": "Inked 'ወዛቡል' (Zabul, terminal ል), not printed-edition 'ወዛቡድ' (Zabud, terminal ድ)."
+        },
+        {
+          "token_index": 9,
+          "marker": "lectio",
+          "note": "Inked 'ዘእምታሕቲ ንጉሥ' ('which-from-under (the) king' or 'subordinate to the king'), not printed-edition 'ዓርከ ንጉሥ' ('friend of the king')."
+        }
       ]
     },
     {
       "v": 6,
       "column": "f127v-L",
-      "line_start": 18,
-      "geez": "ወአኪሳር፡ዘላዕለ፡ቤት፡ወአዶንያራም፡ወልደ፡ዓብዳ፡ላዕለ፡ጸባሕት",
-      "tokens": ["ወአኪሳር", "ዘላዕለ", "ቤት", "ወአዶንያራም", "ወልደ", "ዓብዳ", "ላዕለ", "ጸባሕት"],
+      "line_start": 15,
+      "geez": "ወአክያል፣መገቤ፣ቤት፣ወአዶኒራም፣ወልደ፣አብዶድ፣ላዕለ፣ዓርዕ ✣",
+      "tokens": [
+        "ወአክያል",
+        "መገቤ",
+        "ቤት",
+        "ወአዶኒራም",
+        "ወልደ",
+        "አብዶድ",
+        "ላዕለ",
+        "ዓርዕ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "አኪሳር vs አኪሳ: terminal ር faint"},
-        {"token_index": 3, "marker": "uncertain", "note": "አዶንያራም: glyph 4 ያ vs ይ uncertain"},
-        {"token_index": 7, "marker": "uncertain", "note": "ጸባሕት: glyph 3 ሕ vs ሕ-variant"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወአክያል' (Akyal), not printed-edition 'ወአኪሳር' (Ahishar)."
+        },
+        {
+          "token_index": 1,
+          "marker": "lectio",
+          "note": "Inked 'መገቤ ቤት' (different morphology, lit. 'concerning the house'?), not printed-edition 'ዘላዕለ ቤት' ('who is over the house')."
+        },
+        {
+          "token_index": 3,
+          "marker": "name_form",
+          "note": "Inked 'ወአዶኒራም' (Adoniram, ኒ vowel), not printed-edition 'ወአዶንያራም'."
+        },
+        {
+          "token_index": 5,
+          "marker": "name_form",
+          "note": "Inked 'አብዶድ' or 'አብዶ' — vowel and trailing consonant uncertain (vowel ኦ vs ኡ; trailing ድ possibly absent or part of next word). Not printed-edition 'ዓብዳ'."
+        },
+        {
+          "token_index": 7,
+          "marker": "lectio",
+          "note": "Inked 'ዓርዕ' (single short word with ዓ U+12D3 + ር + ዕ U+12D5), not printed-edition 'ጸባሕት' ('corvée/forced labor')."
+        },
+        {
+          "token_index": 8,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ዓርዕ' on L16 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 7,
       "column": "f127v-L",
-      "line_start": 21,
-      "geez": "ወሰሎሞን፡ሎቱ፡ዐሠርቱ፡ወክልኤቱ፡መልአክት፡በኩሉ፡እስራኤል፡እለ፡ይሣየጡ፡ለንጉሥ፡ወለቤቱ፡አሐዱ፡በበወርኅ፡በዓመት፡ይሣየጥ",
-      "tokens": ["ወሰሎሞን", "ሎቱ", "ዐሠርቱ", "ወክልኤቱ", "መልአክት", "በኩሉ", "እስራኤል", "እለ", "ይሣየጡ", "ለንጉሥ", "ወለቤቱ", "አሐዱ", "በበወርኅ", "በዓመት", "ይሣየጥ"],
+      "line_start": 16,
+      "geez": "ወቦ፣ሰሎምን፣፲፣ወ፪ቱ፣እደው፣ላዕለ፣ኩሉ፣እስራኤል፣ከመ፣ይሴስይዎ፣ለንጉሥ፣ወለኩሉ፣ቤቱ፣ለሰውርሐ፣፩ድ፣ብእሲ፣እስከ፣ይትፌጸም፣፩ድ፣አመተ",
+      "tokens": [
+        "ወቦ",
+        "ሰሎምን",
+        "፲",
+        "ወ፪ቱ",
+        "እደው",
+        "ላዕለ",
+        "ኩሉ",
+        "እስራኤል",
+        "ከመ",
+        "ይሴስይዎ",
+        "ለንጉሥ",
+        "ወለኩሉ",
+        "ቤቱ",
+        "ለሰውርሐ",
+        "፩ድ",
+        "ብእሲ",
+        "እስከ",
+        "ይትፌጸም",
+        "፩ድ",
+        "አመተ"
+      ],
       "uncertain": [
-        {"token_index": 4, "marker": "uncertain", "note": "መልአክት vs መላእክት: order of glyphs unclear"},
-        {"token_index": 8, "marker": "uncertain", "note": "ይሣየጡ: glyph 2 ሣ vs ሳ"}
+        {
+          "token_index": 2,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፲ (U+1372, =10) in red with red square brackets — NOT spelled out as 'ዐሠርቱ'."
+        },
+        {
+          "token_index": 3,
+          "marker": "numeral_compound",
+          "note": "Inked 'ወ፪ቱ' = waw + Ge'ez numeral ፪ (U+136A, =2) + suffix ቱ. So the full phrase '፲ ወ፪ቱ' = '10-and-2' = 12 'officers/men'. NOT printed-edition spelled form 'ዐሠርቱ ወክልኤቱ'."
+        },
+        {
+          "token_index": 4,
+          "marker": "lectio",
+          "note": "Inked 'እደው' (men), not printed-edition 'መልአክት' (officers). Both fit context."
+        },
+        {
+          "token_index": 13,
+          "marker": "spelling",
+          "note": "Inked 'ለሰውርሐ' (for the months) — terminal ሐ vs printed-edition 'ለአውራኅ'."
+        },
+        {
+          "token_index": 14,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፩ (U+1371, =1) in red brackets, then ድ — '፩ድ' may be ፩ + ድ ending; 'one man each'."
+        },
+        {
+          "token_index": 18,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፩ (U+1371, =1) in red brackets + ድ suffix — 'one year'. Could also be ፪ (2)."
+        }
       ]
     },
     {
       "v": 8,
       "column": "f127v-L",
-      "line_start": 25,
-      "geez": "ወእሉ፡አስማቲሆሙ፡ቤንኦር፡ውስተ፡ደብረ፡ኤፍሬም",
-      "tokens": ["ወእሉ", "አስማቲሆሙ", "ቤንኦር", "ውስተ", "ደብረ", "ኤፍሬም"],
+      "line_start": 20,
+      "geez": "ወዝንቱ፣ውእቱ፣አስማቲሆሙ፣ወልደ፣ሐር፣በደብረ፣ኤፍሬም",
+      "tokens": [
+        "ወዝንቱ",
+        "ውእቱ",
+        "አስማቲሆሙ",
+        "ወልደ",
+        "ሐር",
+        "በደብረ",
+        "ኤፍሬም"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "ቤንኦር vs ቤንዖር: vocalization of ኦ/ዖ uncertain"}
+        {
+          "token_index": 0,
+          "marker": "rubric_position",
+          "note": "v8 head immediately follows red rubric '✣ ክፍል ፰ ✣' (intra-chapter sub-rubric) at L20 head — sub-rubric is EXCLUDED from geez per spec §2 but its position is documented."
+        },
+        {
+          "token_index": 0,
+          "marker": "lectio",
+          "note": "Inked 'ወዝንቱ' (and-this), not printed-edition 'ወእሉ' (and-these)."
+        },
+        {
+          "token_index": 1,
+          "marker": "lectio",
+          "note": "Inked 'ውእቱ' after 'ወዝንቱ' — printed editions place 'ውእቱ' differently or omit."
+        },
+        {
+          "token_index": 3,
+          "marker": "name_form",
+          "note": "Inked 'ወልደ ሐር' (two words 'son-of Hur'), not printed-edition compound name 'ቤንኦር' or 'ቤንሐር'."
+        },
+        {
+          "token_index": 5,
+          "marker": "lectio",
+          "note": "Inked 'በደብረ' (in-mountain-of), not printed-edition 'ውስተ ደብረ' (in-the mountain-of)."
+        }
       ]
     },
     {
       "v": 9,
-      "column": "f127v-M",
-      "line_start": 1,
-      "geez": "ወቤንዳቅር፡በማቅስ፡ወበሰላቢም፡ወቤትሳምስ፡ወኤሎን፡እስከ፡ቤትሐናን",
-      "tokens": ["ወቤንዳቅር", "በማቅስ", "ወበሰላቢም", "ወቤትሳምስ", "ወኤሎን", "እስከ", "ቤትሐናን"],
+      "column": "f127v-L",
+      "line_start": 21,
+      "geez": "ወልደ፣ራኬብ፣በማኄላስ፣ወቤት፣ሳሚስ፣ወኤሎን፣ወቤተ፣ሄናን ✣",
+      "tokens": [
+        "ወልደ",
+        "ራኬብ",
+        "በማኄላስ",
+        "ወቤት",
+        "ሳሚስ",
+        "ወኤሎን",
+        "ወቤተ",
+        "ሄናን",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "ቤንዳቅር: glyph cluster ዳቅ uncertain"},
-        {"token_index": 1, "marker": "boundary", "note": "column transition f127v-L → f127v-M: continuity verified at v9 head"},
-        {"token_index": 3, "marker": "uncertain", "note": "ቤትሳምስ vs ቤትሳሚስ"}
+        {
+          "token_index": 1,
+          "marker": "name_form",
+          "note": "Inked 'ራኬብ' (Rakeb), not printed-edition 'ቤንዳቅር' or related compound."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'በማኄላስ' (in-Maḫelas), not printed-edition 'በማቅስ'."
+        },
+        {
+          "token_index": 8,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ሄናን' on L23 start, preserved as token. Word 'ሄናን' is split across L22→L23: 'ሄ' on L22 end, 'ናን' on L23 start."
+        }
       ]
     },
     {
       "v": 10,
-      "column": "f127v-M",
-      "line_start": 4,
-      "geez": "ወቤንሔሴድ፡በአራቦት፡ሎቱ፡ሶኮ፡ወኩሉ፡ምድረ፡ሔፌር",
-      "tokens": ["ወቤንሔሴድ", "በአራቦት", "ሎቱ", "ሶኮ", "ወኩሉ", "ምድረ", "ሔፌር"],
+      "column": "f127v-L",
+      "line_start": 23,
+      "geez": "ወልደ፣ሄሁድ፣በአራቦት፣ወለሴክ፣ወኩሉ፣ምድረ፣ሔፈር",
+      "tokens": [
+        "ወልደ",
+        "ሄሁድ",
+        "በአራቦት",
+        "ወለሴክ",
+        "ወኩሉ",
+        "ምድረ",
+        "ሔፈር"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "ቤንሔሴድ: glyph 3 ሴ vs ሤ uncertain"},
-        {"token_index": 6, "marker": "uncertain", "note": "ሔፌር vs ሔፈር: vocalization"}
+        {
+          "token_index": 1,
+          "marker": "name_form",
+          "note": "Inked 'ሄሁድ' (Hehud)."
+        },
+        {
+          "token_index": 6,
+          "marker": "name_form",
+          "note": "Inked 'ሔፈር' (Ḥefer)."
+        }
       ]
     },
     {
       "v": 11,
-      "column": "f127v-M",
-      "line_start": 6,
-      "geez": "ወቤንአቢናዳብ፡ኩሉ፡ናፋት፡ዶር፡ወጣፋት፡ወለተ፡ሰሎሞን፡ኮነቶ፡ብእሲቶ",
-      "tokens": ["ወቤንአቢናዳብ", "ኩሉ", "ናፋት", "ዶር", "ወጣፋት", "ወለተ", "ሰሎሞን", "ኮነቶ", "ብእሲቶ"],
+      "column": "f127v-L",
+      "line_start": 24,
+      "geez": "ለወልደ፣አሚናዳብ፣ኩልንፉር፣ወሐናጡፍ፣ወለተ፣ሰሎምን፣ኮነት፣ሎቱ፣ብእሲተ",
+      "tokens": [
+        "ለወልደ",
+        "አሚናዳብ",
+        "ኩልንፉር",
+        "ወሐናጡፍ",
+        "ወለተ",
+        "ሰሎምን",
+        "ኮነት",
+        "ሎቱ",
+        "ብእሲተ"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "ናፋት vs ናፎት: glyph 2 vocalization"},
-        {"token_index": 4, "marker": "uncertain", "note": "ጣፋት proper name; glyph 1 ጣ vs ጥ"}
+        {
+          "token_index": 1,
+          "marker": "name_form",
+          "note": "Inked 'አሚናዳብ' (Aminadab)."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'ኩልንፉር' — likely a place name; split across L24→L25: 'ኩልንፉ' on L24 end, 'ር' on L25 start."
+        },
+        {
+          "token_index": 3,
+          "marker": "name_form",
+          "note": "Inked 'ወሐናጡፍ' (Ḥanaṭuf) — possibly the wife's name or place; ambiguous."
+        }
       ]
     },
     {
       "v": 12,
-      "column": "f127v-M",
-      "line_start": 9,
-      "geez": "ወባዕና፡ወልደ፡አኪሉድ፡ታዕናክ፡ወመጊዶ፡ወኩሉ፡ቤትሳን፡ዘመንገለ፡ጻርታና፡ታሕተ፡ኢይዝራኤል፡እምቤትሳን፡እስከ፡ሜበለ፡ጳሕም፡እስከ፡ማዕዶተ፡ይቅማዓም",
-      "tokens": ["ወባዕና", "ወልደ", "አኪሉድ", "ታዕናክ", "ወመጊዶ", "ወኩሉ", "ቤትሳን", "ዘመንገለ", "ጻርታና", "ታሕተ", "ኢይዝራኤል", "እምቤትሳን", "እስከ", "ሜበለ", "ጳሕም", "እስከ", "ማዕዶተ", "ይቅማዓም"],
+      "column": "f127v-L",
+      "line_start": 26,
+      "geez": "በዓናሳ፣ወልደ፣አኩሁድ፣ወታእናክ፣ወመቄዳ፣ወኩሉ፣ቤተ፣ሳኤን፣ዘመንገሌ፣አስትና፣ዘመትሕተ፣ኢይዝራኤል፣እምቤተ፣ሳኤን፣እስከ፣አቤል፣መሐለ፣እስከ፣ማእደተ፣ሉቅማ ✣",
+      "tokens": [
+        "በዓናሳ",
+        "ወልደ",
+        "አኩሁድ",
+        "ወታእናክ",
+        "ወመቄዳ",
+        "ወኩሉ",
+        "ቤተ",
+        "ሳኤን",
+        "ዘመንገሌ",
+        "አስትና",
+        "ዘመትሕተ",
+        "ኢይዝራኤል",
+        "እምቤተ",
+        "ሳኤን",
+        "እስከ",
+        "አቤል",
+        "መሐለ",
+        "እስከ",
+        "ማእደተ",
+        "ሉቅማ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 3, "marker": "uncertain", "note": "ታዕናክ vs ታናክ: presence of ዕ"},
-        {"token_index": 8, "marker": "uncertain", "note": "ጻርታና vs ጼርታና: vocalization"},
-        {"token_index": 10, "marker": "uncertain", "note": "ኢይዝራኤል: prefix ኢ vs initial vowel"},
-        {"token_index": 13, "marker": "uncertain", "note": "ሜበለ vs ሜበላ"},
-        {"token_index": 14, "marker": "uncertain", "note": "ጳሕም proper name uncertain; possibly አቤልምሖላ in other recensions"},
-        {"token_index": 17, "marker": "uncertain", "note": "ይቅማዓም vs ይቅምዓም: glyph cluster crowded"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'በዓናሳ' (in-Anasa? Ba'ana?) — context fits Baana."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'አኩሁድ' (Ahud/Ahiḥud)."
+        },
+        {
+          "token_index": 9,
+          "marker": "name_form",
+          "note": "Inked 'አስትና' — place name, split across L27→L28: 'አስት' on L27 end, 'ና' on L28 start."
+        },
+        {
+          "token_index": 11,
+          "marker": "name_form",
+          "note": "Inked 'ኢይዝራኤል' (Jezreel)."
+        },
+        {
+          "token_index": 19,
+          "marker": "name_form",
+          "note": "Inked 'ሉቅማ' (Luqma) — possibly place name; could also read 'ሉቃማ'."
+        },
+        {
+          "token_index": 20,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider at end of L29, preserved as token."
+        }
       ]
     },
     {
       "v": 13,
-      "column": "f127v-M",
-      "line_start": 14,
-      "geez": "ወቤንጋቤር፡በራሞት፡ገላዕድ፡ሎቱ፡አሕባሶት፡ኢያኢር፡ወልደ፡ምናሴ፡በገላዕድ፡ሎቱ፡ሕባሎ፡አርጎብ፡እንተ፡ውስተ፡ባሳን፡ስሳ፡አህጉር፡ዓበይት፡ቅጹራት፡መንሥግት፡በብርት",
-      "tokens": ["ወቤንጋቤር", "በራሞት", "ገላዕድ", "ሎቱ", "አሕባሶት", "ኢያኢር", "ወልደ", "ምናሴ", "በገላዕድ", "ሎቱ", "ሕባሎ", "አርጎብ", "እንተ", "ውስተ", "ባሳን", "ስሳ", "አህጉር", "ዓበይት", "ቅጹራት", "መንሥግት", "በብርት"],
+      "column": "f127v-L",
+      "line_start": 30,
+      "geez": "ወልደ፣ጋቤር፣በራሞት፣ዘገለአድ፣ውእቱ፣ወሰናሙ፣ሐውታኤር፣ወልደ፣ምናሴ፣ዝንቱ፣በገለአድ፣ውእቱ፣ወሰናሙ፣ሐቤል፣አርጌብ፣ዝንቱ፣በባሳን፣፷፣አህጉር፣ዓበይት፣እለ፣ቦን፣ቅጻሬ፣ዘመናስግቲሆን፣ብርት።",
+      "tokens": [
+        "ወልደ",
+        "ጋቤር",
+        "በራሞት",
+        "ዘገለአድ",
+        "ውእቱ",
+        "ወሰናሙ",
+        "ሐውታኤር",
+        "ወልደ",
+        "ምናሴ",
+        "ዝንቱ",
+        "በገለአድ",
+        "ውእቱ",
+        "ወሰናሙ",
+        "ሐቤል",
+        "አርጌብ",
+        "ዝንቱ",
+        "በባሳን",
+        "፷",
+        "አህጉር",
+        "ዓበይት",
+        "እለ",
+        "ቦን",
+        "ቅጻሬ",
+        "ዘመናስግቲሆን",
+        "ብርት።"
+      ],
       "uncertain": [
-        {"token_index": 4, "marker": "uncertain", "note": "አሕባሶት vs አህባሶት: glyph 2 ሕ vs ህ"},
-        {"token_index": 10, "marker": "uncertain", "note": "ሕባሎ vs ሕባል: terminal vowel"},
-        {"token_index": 15, "marker": "uncertain", "note": "ስሳ (sixty) vs ስስ"},
-        {"token_index": 19, "marker": "uncertain", "note": "መንሥግት vs መንሥቅት: glyph 4 ግ vs ቅ"}
+        {
+          "token_index": 5,
+          "marker": "lectio",
+          "note": "Inked 'ወሰናሙ' — could read 'ወሰናሁ' or similar."
+        },
+        {
+          "token_index": 6,
+          "marker": "name_form",
+          "note": "Inked 'ሐውታኤር' (Ḥawta'er) — likely 'Havoth-Jair' (cf. 1Ki4:13 standard text)."
+        },
+        {
+          "token_index": 14,
+          "marker": "name_form",
+          "note": "Inked 'አርጌብ' (Argeb) — likely 'Argob'."
+        },
+        {
+          "token_index": 17,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፷ (U+1377, =60) in red — '60 great cities'. NOT spelled-out form."
+        },
+        {
+          "token_index": 24,
+          "marker": "punctuation",
+          "note": "Inked '።' (U+1362, full stop / double colon) at end of L34 after 'ብርት' — preserved as part of token."
+        }
       ]
     },
     {
       "v": 14,
-      "column": "f127v-M",
-      "line_start": 20,
-      "geez": "ወአኪናዳብ፡ወልደ፡አዶ፡በማናኤም",
-      "tokens": ["ወአኪናዳብ", "ወልደ", "አዶ", "በማናኤም"],
+      "column": "f127v-L",
+      "line_start": 34,
+      "geez": "ወአሄሮብ፣ወልደ፣ኤዳን፣ዘምናህም",
+      "tokens": [
+        "ወአሄሮብ",
+        "ወልደ",
+        "ኤዳን",
+        "ዘምናህም"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "አዶ vs ዓዶ"},
-        {"token_index": 3, "marker": "uncertain", "note": "በማናኤም vs በመሐናኢም: proper name variant"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወአሄሮብ' (Aherob) — likely 'Ahinadab' or 'Ahihar'."
+        },
+        {
+          "token_index": 3,
+          "marker": "name_form",
+          "note": "Inked 'ዘምናህም' (of-Maḫnayim) — territory."
+        }
       ]
     },
     {
       "v": 15,
-      "column": "f127v-M",
-      "line_start": 22,
-      "geez": "ወአኪማዓስ፡በንፍታሌም፡ወእንተ፡ሎቱ፡ኮነቶ፡ብእሲቶ፡ባሰማት፡ወለተ፡ሰሎሞን",
-      "tokens": ["ወአኪማዓስ", "በንፍታሌም", "ወእንተ", "ሎቱ", "ኮነቶ", "ብእሲቶ", "ባሰማት", "ወለተ", "ሰሎሞን"],
+      "column": "f127v-L",
+      "line_start": 35,
+      "geez": "ወአኪማሐስ፣ዘንፍታሌም፣ወውእቱ፣ነሥአ፣ለማሄማት፣ወለተ፣ሰሎምን፣ትኩኖ፣ብእሲተ",
+      "tokens": [
+        "ወአኪማሐስ",
+        "ዘንፍታሌም",
+        "ወውእቱ",
+        "ነሥአ",
+        "ለማሄማት",
+        "ወለተ",
+        "ሰሎምን",
+        "ትኩኖ",
+        "ብእሲተ"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "አኪማዓስ: medial ዓ vs አ"},
-        {"token_index": 6, "marker": "uncertain", "note": "ባሰማት proper name: glyph 1 ባ vs ቤ"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወአኪማሐስ' (Akhima'as) — Ahimaaz; split across L35→L36: 'ዘን-' on L35 end, 'ፍታሌም' on L36 start."
+        },
+        {
+          "token_index": 4,
+          "marker": "name_form",
+          "note": "Inked 'ለማሄማት' (Basmath/Bashemath) — name of Solomon's daughter."
+        }
       ]
     },
     {
       "v": 16,
-      "column": "f127v-M",
-      "line_start": 25,
-      "geez": "ወባዓና፡ወልደ፡ኩሲ፡በአሴር፡ወበባዓሎት",
-      "tokens": ["ወባዓና", "ወልደ", "ኩሲ", "በአሴር", "ወበባዓሎት"],
+      "column": "f127v-L",
+      "line_start": 37,
+      "geez": "በዓና፣ወልደ፣ኩሲ፣በአሴር፣ወብኤሎት ✣",
+      "tokens": [
+        "በዓና",
+        "ወልደ",
+        "ኩሲ",
+        "በአሴር",
+        "ወብኤሎት",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "ኩሲ vs ኩሺ: glyph 2 sibilant"},
-        {"token_index": 4, "marker": "uncertain", "note": "በባዓሎት vs በበዓሎት"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'በዓና' (Bana/Baana)."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'ኩሲ' (Kushi/Hushai)."
+        },
+        {
+          "token_index": 4,
+          "marker": "name_form",
+          "note": "Inked 'ወብኤሎት' (and-Be'aloth)."
+        },
+        {
+          "token_index": 5,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ወብኤሎት' on L38 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 17,
-      "column": "f127v-R",
-      "line_start": 1,
-      "geez": "ወዮሣፋጥ፡ወልደ፡ፋሩሐ፡በይሳኮር",
-      "tokens": ["ወዮሣፋጥ", "ወልደ", "ፋሩሐ", "በይሳኮር"],
+      "column": "f127v-L",
+      "line_start": 38,
+      "geez": "ወኢዮሳፍጥ፣ወልደ፣ፋሩኒ፣በይሳኮር ✣",
+      "tokens": [
+        "ወኢዮሳፍጥ",
+        "ወልደ",
+        "ፋሩኒ",
+        "በይሳኮር",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "boundary", "note": "column transition f127v-M → f127v-R at v17"},
-        {"token_index": 2, "marker": "uncertain", "note": "ፋሩሐ vs ፋርሐ"},
-        {"token_index": 3, "marker": "uncertain", "note": "በይሳኮር vs በይሳካር"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወኢዮሳፍጥ' (Jehoshaphat with initial ኢ-)."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'ፋሩኒ' (Paruni/Paruah) — split across L38→L39: 'ፋ' on L38 end, 'ሩኒ' on L39 start."
+        },
+        {
+          "token_index": 4,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'በይሳኮር' on L39 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 18,
-      "column": "f127v-R",
-      "line_start": 3,
-      "geez": "ወሰሜ፡ወልደ፡ኤላ፡በብንያም",
-      "tokens": ["ወሰሜ", "ወልደ", "ኤላ", "በብንያም"],
+      "column": "f127v-L",
+      "line_start": 39,
+      "geez": "ወሰሚ፣ወልደ፣ኤላ፣በብንያም",
+      "tokens": [
+        "ወሰሚ",
+        "ወልደ",
+        "ኤላ",
+        "በብንያም"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "ሰሜ vs ሰምኢ: short form"}
+        {
+          "token_index": 0,
+          "marker": "name_form",
+          "note": "Inked 'ወሰሚ' (Shemei)."
+        },
+        {
+          "token_index": 2,
+          "marker": "name_form",
+          "note": "Inked 'ኤላ' (Ela)."
+        }
       ]
     },
     {
       "v": 19,
-      "column": "f127v-R",
-      "line_start": 5,
-      "geez": "ወጌቤር፡ወልደ፡ዑሪ፡በምድረ፡ጋድ፡ምድረ፡ሴዎን፡ንጉሠ፡ኤስቦን፡ወዖግ፡ንጉሠ፡ባሳን፡ወአሐዱ፡መልአክ፡በምድረ፡ይሁዳ",
-      "tokens": ["ወጌቤር", "ወልደ", "ዑሪ", "በምድረ", "ጋድ", "ምድረ", "ሴዎን", "ንጉሠ", "ኤስቦን", "ወዖግ", "ንጉሠ", "ባሳን", "ወአሐዱ", "መልአክ", "በምድረ", "ይሁዳ"],
+      "column": "f127v-L",
+      "line_start": 40,
+      "geez": "ወጋቤር፣ወልደ፣ዑራ፣በምድረ፣ገለአድ፣ምድረ፣ሲዎን፣ንቱው፣አሞርዎን፣ወዐግ፣ንቱው፣ባሳን፣ወናዊብ ✣ ፬ ✣",
+      "tokens": [
+        "ወጋቤር",
+        "ወልደ",
+        "ዑራ",
+        "በምድረ",
+        "ገለአድ",
+        "ምድረ",
+        "ሲዎን",
+        "ንቱው",
+        "አሞርዎን",
+        "ወዐግ",
+        "ንቱው",
+        "ባሳን",
+        "ወናዊብ",
+        "✣",
+        "፬",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "ዑሪ vs ኡሪ"},
-        {"token_index": 6, "marker": "uncertain", "note": "ሴዎን vs ሲሖን: proper name variant"},
-        {"token_index": 8, "marker": "uncertain", "note": "ኤስቦን vs ሔስቦን"},
-        {"token_index": 9, "marker": "uncertain", "note": "ዖግ vs ኦግ"}
+        {
+          "token_index": 5,
+          "marker": "column_split",
+          "note": "Word 'ምድረ' is split across f127v-L L40 → f127v-M M1: 'ምድ' inked at L40 end, 'ረ' inked at M1 start. Joined here as single token in v19."
+        },
+        {
+          "token_index": 7,
+          "marker": "lectio",
+          "note": "Inked 'ንቱው' (= 'ንጉሥ' king; CAM scribe uses ንቱው variant repeatedly)."
+        },
+        {
+          "token_index": 8,
+          "marker": "name_form",
+          "note": "Inked 'አሞርዎን' (Amorites)."
+        },
+        {
+          "token_index": 9,
+          "marker": "name_form",
+          "note": "Inked 'ወዐግ' (and-Og)."
+        },
+        {
+          "token_index": 12,
+          "marker": "lectio",
+          "note": "Inked 'ወናዊብ' — possibly 'and-Nawib' = scribal/territorial designation."
+        },
+        {
+          "token_index": 13,
+          "marker": "in_body_cross",
+          "note": "Red '✣' inked at end of 'ወናዊብ' on M2 mid-line — preserved as token, immediately preceding a red numeral."
+        },
+        {
+          "token_index": 14,
+          "marker": "numeral_inline",
+          "note": "Inked Ge'ez numeral ፬ (U+1374, =4) in red square brackets on M2 mid-line — NOT a 'ክፍል' rubric (no 'ክፍል' word inked). Possibly a verse/section marker. Preserved as inline token."
+        },
+        {
+          "token_index": 15,
+          "marker": "in_body_cross",
+          "note": "Red '✣' inked after the ፬ numeral on M2 mid-line — preserved as token."
+        }
       ]
     },
     {
       "v": 20,
-      "column": "f127v-R",
-      "line_start": 10,
-      "geez": "ወይሁዳ፡ወእስራኤል፡ብዙኃን፡ከመ፡ኆጻ፡ዘዲበ፡ባሕር፡በብዝኆሙ፡ይበልዑ፡ወይሰትዩ፡ወይትፈሥሑ",
-      "tokens": ["ወይሁዳ", "ወእስራኤል", "ብዙኃን", "ከመ", "ኆጻ", "ዘዲበ", "ባሕር", "በብዝኆሙ", "ይበልዑ", "ወይሰትዩ", "ወይትፈሥሑ"],
+      "column": "f127v-M",
+      "line_start": 2,
+      "geez": "ዝንቱ፣በምድረ፣ይሁዳ፣ወእስራኤል፣ከመ፣ኖዕ፣ባሕር፣ብዙኃን፣ይበልዑ፣ወስትዩ፣ወይትፌሥሑ ✣",
+      "tokens": [
+        "ዝንቱ",
+        "በምድረ",
+        "ይሁዳ",
+        "ወእስራኤል",
+        "ከመ",
+        "ኖዕ",
+        "ባሕር",
+        "ብዙኃን",
+        "ይበልዑ",
+        "ወስትዩ",
+        "ወይትፌሥሑ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 4, "marker": "uncertain", "note": "ኆጻ vs ሖጻ: glyph 1 ኆ vs ሖ"},
-        {"token_index": 7, "marker": "uncertain", "note": "በብዝኆሙ vs በብዝኅሙ: vocalization"}
+        {
+          "token_index": 0,
+          "marker": "verse_split",
+          "note": "CAM has 'ዝንቱ' directly after the M2 ፬ inline numeral. Verse division provisional."
+        },
+        {
+          "token_index": 5,
+          "marker": "lectio",
+          "note": "Inked 'ኖዕ ባሕር' ('as sand of the sea') — standard 'ኆጻ ባሕር' or 'ሐመለ ባሕር'."
+        },
+        {
+          "token_index": 11,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ወይትፌሥሑ' on M4 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 21,
-      "column": "f127v-R",
-      "line_start": 14,
-      "geez": "ወሰሎሞን፡ኮነ፡ይኄሊ፡ላዕለ፡ኩሉ፡መንግሥት፡እምነ፡ፈለግ፡ምድረ፡ፍልስጥኤም፡እስከ፡ደወለ፡ግብጽ፡ወያመጽኡ፡ሎቱ፡ሞገሰ፡ወያገብርዎ፡በኩሉ፡መዋዕለ፡ሕይወቱ",
-      "tokens": ["ወሰሎሞን", "ኮነ", "ይኄሊ", "ላዕለ", "ኩሉ", "መንግሥት", "እምነ", "ፈለግ", "ምድረ", "ፍልስጥኤም", "እስከ", "ደወለ", "ግብጽ", "ወያመጽኡ", "ሎቱ", "ሞገሰ", "ወያገብርዎ", "በኩሉ", "መዋዕለ", "ሕይወቱ"],
+      "column": "f127v-M",
+      "line_start": 4,
+      "geez": "ወኮነ፣ሰሎምን፣ንቱው፣ላዕለ፣ኩሉ፣ነገሥታተ፣ምድር፣እምፈለገ፣ፍልጥኤም፣እስከ፣ፈለገ፣ግብጽ፣ያመጽኡ፣ሎቱ፣እምነ፣ወይትቀነዩ፣ለሰሎምን፣በኩሉ፣መዋዕለ፣ሕይወቱ ✣",
+      "tokens": [
+        "ወኮነ",
+        "ሰሎምን",
+        "ንቱው",
+        "ላዕለ",
+        "ኩሉ",
+        "ነገሥታተ",
+        "ምድር",
+        "እምፈለገ",
+        "ፍልጥኤም",
+        "እስከ",
+        "ፈለገ",
+        "ግብጽ",
+        "ያመጽኡ",
+        "ሎቱ",
+        "እምነ",
+        "ወይትቀነዩ",
+        "ለሰሎምን",
+        "በኩሉ",
+        "መዋዕለ",
+        "ሕይወቱ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 2, "marker": "uncertain", "note": "ይኄሊ vs ይኴሊ: glyph 2 vocalization"},
-        {"token_index": 9, "marker": "uncertain", "note": "ፍልስጥኤም vs ፍልስጥኤም-variant"},
-        {"token_index": 15, "marker": "uncertain", "note": "ሞገሰ vs መጻግዕተ: 'tribute' lectio"}
+        {
+          "token_index": 8,
+          "marker": "name_form",
+          "note": "Inked 'ፍልጥኤም' (Filat'em) — split across M5→M6: 'ፍል' on M5 end, 'ጥኤም' on M6 start. Likely 'Philistia' or 'Pilastim'."
+        },
+        {
+          "token_index": 14,
+          "marker": "lectio",
+          "note": "Inked 'እምነ' — likely 'gifts/tribute'."
+        },
+        {
+          "token_index": 20,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ሕይወቱ' on M8 mid-line, immediately preceding the intra-chapter sub-rubric '✣ ክፍል ፰ ✣' on the same line. Preserved as token."
+        }
       ]
     },
     {
       "v": 22,
-      "column": "f127v-R",
-      "line_start": 20,
-      "geez": "ወእሉ፡ሲሳዩ፡ለሰሎሞን፡ለለዕለቱ፡ሠላሳ፡ኮር፡ስንዳሌ፡ወስሳ፡ኮር፡ሕሪጽ",
-      "tokens": ["ወእሉ", "ሲሳዩ", "ለሰሎሞን", "ለለዕለቱ", "ሠላሳ", "ኮር", "ስንዳሌ", "ወስሳ", "ኮር", "ሕሪጽ"],
+      "column": "f127v-M",
+      "line_start": 8,
+      "geez": "ወኮነ፣ማእደ፣ሰሎምን፣ለለ፣ዕለት፣ዕለት፣ዘይትገበር፣፴፣በመስፈርት፣ቆርክ፣ስንዳሌ፣፷፣በመስፈርት፣ቆርስ፣ሐሪጽ፣ለትም ✣",
+      "tokens": [
+        "ወኮነ",
+        "ማእደ",
+        "ሰሎምን",
+        "ለለ",
+        "ዕለት",
+        "ዕለት",
+        "ዘይትገበር",
+        "፴",
+        "በመስፈርት",
+        "ቆርክ",
+        "ስንዳሌ",
+        "፷",
+        "በመስፈርት",
+        "ቆርስ",
+        "ሐሪጽ",
+        "ለትም",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 6, "marker": "uncertain", "note": "ስንዳሌ vs ስናዳሌ"},
-        {"token_index": 9, "marker": "uncertain", "note": "ሕሪጽ vs ሕርጽ: glyph 2 vowel"}
+        {
+          "token_index": 0,
+          "marker": "rubric_position",
+          "note": "v22 head immediately follows red intra-chapter sub-rubric '✣ ክፍል ፰ ✣' at M8 mid-line — EXCLUDED from geez per spec §2 but position documented."
+        },
+        {
+          "token_index": 7,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፴ (U+1374, =30) in red brackets on M9. NOT spelled out."
+        },
+        {
+          "token_index": 11,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፷ (U+1377, =60) in red brackets on M10. NOT spelled out."
+        },
+        {
+          "token_index": 15,
+          "marker": "lectio_unclear",
+          "note": "Inked 'ለትም' — final word of v22; could be 'meal/cake' or 'fine flour'. Awaiting verification."
+        },
+        {
+          "token_index": 16,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ለትም' on M11 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 23,
-      "column": "f127v-R",
-      "line_start": 23,
-      "geez": "ወዐሠርቱ፡ላህም፡ኅሩያን፡ወዕሥራ፡ላህም፡ምራዓት፡ወምእት፡አባግዕ፡እንበለ፡ሀየል፡ወአሁስ፡ወእጤፋዕ፡ወአዕዋፍ፡ኅሩያን",
-      "tokens": ["ወዐሠርቱ", "ላህም", "ኅሩያን", "ወዕሥራ", "ላህም", "ምራዓት", "ወምእት", "አባግዕ", "እንበለ", "ሀየል", "ወአሁስ", "ወእጤፋዕ", "ወአዕዋፍ", "ኅሩያን"],
+      "column": "f127v-M",
+      "line_start": 11,
+      "geez": "ወ፲፣አልሕምት፣ንፁሓን፣ወ፲፣አልህምተ፣መራዕይ፣ወ፮፣አባግዓ፣ዘእንበለ፣ኃየል፣ወወይጠል፣ወመግዝእ፣ደዋርህ ✣",
+      "tokens": [
+        "ወ፲",
+        "አልሕምት",
+        "ንፁሓን",
+        "ወ፲",
+        "አልህምተ",
+        "መራዕይ",
+        "ወ፮",
+        "አባግዓ",
+        "ዘእንበለ",
+        "ኃየል",
+        "ወወይጠል",
+        "ወመግዝእ",
+        "ደዋርህ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 5, "marker": "uncertain", "note": "ምራዓት vs ምራዕት: cattle of pasture"},
-        {"token_index": 10, "marker": "uncertain", "note": "ወአሁስ proper-animal name uncertain"},
-        {"token_index": 11, "marker": "uncertain", "note": "እጤፋዕ vs እጤፋዕ-variant: roebuck"}
+        {
+          "token_index": 0,
+          "marker": "numeral",
+          "note": "Inked 'ወ' + Ge'ez numeral ፲ (U+1372, =10) in red brackets — '10 fattened oxen'. NOT spelled out."
+        },
+        {
+          "token_index": 3,
+          "marker": "numeral",
+          "note": "Inked 'ወ' + Ge'ez numeral ፲ (U+1372, =10) in red brackets — '10 pasture oxen'. (Standard reading is 20.)"
+        },
+        {
+          "token_index": 6,
+          "marker": "numeral",
+          "note": "Inked 'ወ' + a red Ge'ez numeral on M12 — value uncertain at this resolution; provisional ፮ (U+1376, =6) but could be ፻ (100) given standard '100 sheep'. NOT spelled out."
+        },
+        {
+          "token_index": 9,
+          "marker": "lectio",
+          "note": "Inked 'ኃየል' (deer? force?) — context suggests 'wild animals'."
+        },
+        {
+          "token_index": 12,
+          "marker": "lectio",
+          "note": "Inked 'ደዋርህ' (his fowl/birds)."
+        },
+        {
+          "token_index": 13,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ደዋርህ' on M12 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 24,
-      "column": "f128r-L",
-      "line_start": 1,
-      "geez": "እስመ፡ይኄሊ፡ላዕለ፡ኩሉ፡ማዕዶተ፡ፈለግ፡እምታፍሳ፡እስከ፡ጋዛ፡ላዕለ፡ኩሉ፡ነገሥተ፡ማዕዶተ፡ፈለግ፡ወሰላም፡ሎቱ፡ኮኖ፡በኩሉ፡መንበቢሁ፡በዐውዱ",
-      "tokens": ["እስመ", "ይኄሊ", "ላዕለ", "ኩሉ", "ማዕዶተ", "ፈለግ", "እምታፍሳ", "እስከ", "ጋዛ", "ላዕለ", "ኩሉ", "ነገሥተ", "ማዕዶተ", "ፈለግ", "ወሰላም", "ሎቱ", "ኮኖ", "በኩሉ", "መንበቢሁ", "በዐውዱ"],
+      "column": "f127v-M",
+      "line_start": 12,
+      "geez": "እስመ፣ውእቱ፣መኩንን፣ላዕለ፣ኩሉ፣ማእደተ፣ፈለግ፣እምነተፍሲሐ፣እስከ፣አዜብ፣ላዕለ፣ኩሉ፣ነገሥት፣እለ፣ማዕደተ፣ፈለግ፣ወኩሎሙ፣እለ፣ዓውዱ፣ስሰ፣ምስሌሁ ✣",
+      "tokens": [
+        "እስመ",
+        "ውእቱ",
+        "መኩንን",
+        "ላዕለ",
+        "ኩሉ",
+        "ማእደተ",
+        "ፈለግ",
+        "እምነተፍሲሐ",
+        "እስከ",
+        "አዜብ",
+        "ላዕለ",
+        "ኩሉ",
+        "ነገሥት",
+        "እለ",
+        "ማዕደተ",
+        "ፈለግ",
+        "ወኩሎሙ",
+        "እለ",
+        "ዓውዱ",
+        "ስሰ",
+        "ምስሌሁ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "boundary", "note": "folio transition f127v-R → f128r-L: v24 head on f128r-L L1; continuity verified — last word on f127v-R bottom (ኅሩያን v23) is phrase-final"},
-        {"token_index": 6, "marker": "uncertain", "note": "ታፍሳ vs ቲፍሳ: Tiphsah proper name"},
-        {"token_index": 18, "marker": "uncertain", "note": "መንበቢሁ vs መንበሪሁ: 'dwellings' lectio"}
+        {
+          "token_index": 7,
+          "marker": "lectio",
+          "note": "Inked 'እምነተፍሲሐ' (from-Tipsah) — split across M13→M14: 'እምነተ' on M13 end, 'ፍሲሐ' on M14 start. Joined as single token."
+        },
+        {
+          "token_index": 9,
+          "marker": "name_form",
+          "note": "Inked 'አዜብ' (Aza/Gaza?)."
+        },
+        {
+          "token_index": 19,
+          "marker": "lectio_unclear",
+          "note": "Inked 'ስሰ' — possibly partial word or read 'ስም' or 'ሰ' alone; ambiguous."
+        },
+        {
+          "token_index": 21,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ምስሌሁ' on M16 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 25,
-      "column": "f128r-L",
-      "line_start": 7,
-      "geez": "ወይነብር፡ይሁዳ፡ወእስራኤል፡በትፍሥሕት፡አሐዱ፡አሐዱ፡ታሕተ፡ወይኑ፡ወታሕተ፡በለሱ፡እምዳን፡እስከ፡ቤርሳቤዕ፡በኩሉ፡መዋዕለ፡ሰሎሞን",
-      "tokens": ["ወይነብር", "ይሁዳ", "ወእስራኤል", "በትፍሥሕት", "አሐዱ", "አሐዱ", "ታሕተ", "ወይኑ", "ወታሕተ", "በለሱ", "እምዳን", "እስከ", "ቤርሳቤዕ", "በኩሉ", "መዋዕለ", "ሰሎሞን"],
+      "column": "f127v-M",
+      "line_start": 16,
+      "geez": "ወንበሩ፣ይሁዳ፣ወእስራኤል፣ተአሚኖሙ፣ታሕተ፣ወይኖሙ፣ወታሕተ፣በለሱ፣እምዳን፣እስከ፣ቤርሳቤሕ፣በኩሉ፣መዋዕሊሁ፣ለሰሎምን ✣",
+      "tokens": [
+        "ወንበሩ",
+        "ይሁዳ",
+        "ወእስራኤል",
+        "ተአሚኖሙ",
+        "ታሕተ",
+        "ወይኖሙ",
+        "ወታሕተ",
+        "በለሱ",
+        "እምዳን",
+        "እስከ",
+        "ቤርሳቤሕ",
+        "በኩሉ",
+        "መዋዕሊሁ",
+        "ለሰሎምን",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 7, "marker": "uncertain", "note": "ወይኑ vs ወይነ: 'his vine'"},
-        {"token_index": 9, "marker": "uncertain", "note": "በለሱ vs በለስ: terminal vowel"}
+        {
+          "token_index": 7,
+          "marker": "name_form",
+          "note": "Inked 'በለሱ' (under their fig-trees)."
+        },
+        {
+          "token_index": 10,
+          "marker": "name_form",
+          "note": "Inked 'ቤርሳቤሕ' (Beersheba)."
+        },
+        {
+          "token_index": 14,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ለሰሎምን' on M19 mid-line, immediately preceding the intra-chapter sub-rubric '✣ ክፍል ፰ ✣' on the same line. Preserved as token."
+        }
       ]
     },
     {
       "v": 26,
-      "column": "f128r-L",
-      "line_start": 12,
-      "geez": "ወአፍራስ፡ሎቱ፡ለሰሎሞን፡አርብዓ፡ምእት፡እማት፡አፍራስ፡ለሰረገላት፡ወዐሠርቱ፡ምእት፡አፍራስ፡ለፈረሰኞቹ",
-      "tokens": ["ወአፍራስ", "ሎቱ", "ለሰሎሞን", "አርብዓ", "ምእት", "እማት", "አፍራስ", "ለሰረገላት", "ወዐሠርቱ", "ምእት", "አፍራስ", "ለፈረሰኞቹ"],
+      "column": "f127v-M",
+      "line_start": 19,
+      "geez": "ወቦ፣ለሰሎምን፣፴፣አፍራስ፣እለ፣ይስሕቡ፣ሰረገላተ፣፲፣ወ፪የ፣አፍራስ፣መራድ",
+      "tokens": [
+        "ወቦ",
+        "ለሰሎምን",
+        "፴",
+        "አፍራስ",
+        "እለ",
+        "ይስሕቡ",
+        "ሰረገላተ",
+        "፲",
+        "ወ፪የ",
+        "አፍራስ",
+        "መራድ"
+      ],
       "uncertain": [
-        {"token_index": 3, "marker": "uncertain", "note": "አርብዓ ምእት vs አርብዓ ሺሕ: 4000 vs 40000 numeral lectio (LXX/MT variation point)"},
-        {"token_index": 11, "marker": "uncertain", "note": "ለፈረሰኞቹ vs ለፈረሰኛ: terminal cluster"}
+        {
+          "token_index": 0,
+          "marker": "rubric_position",
+          "note": "v26 head immediately follows red intra-chapter sub-rubric '✣ ክፍል ፰ ✣' at M19 mid-line — EXCLUDED from geez per spec §2."
+        },
+        {
+          "token_index": 2,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፴ (U+1374, =30) in red brackets on M19. NOT printed-edition 'አርብዓ ምእት' (4000)."
+        },
+        {
+          "token_index": 7,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፲ (U+1372, =10) in red brackets on M20."
+        },
+        {
+          "token_index": 8,
+          "marker": "numeral_compound",
+          "note": "Inked 'ወ' + Ge'ez numeral ፪ (U+136A, =2) + suffix 'የ' on M20 — '፲ ወ፪የ' = '10-and-2' = 12 (with possessive suffix)."
+        },
+        {
+          "token_index": 10,
+          "marker": "lectio",
+          "note": "Inked 'መራድ' (Marad/maradi 'riding' or place name)."
+        }
       ]
     },
     {
       "v": 27,
-      "column": "f128r-L",
-      "line_start": 16,
-      "geez": "ወይሤውር፡መላእክት፡ለንጉሥ፡ሰሎሞን፡ወኩሎ፡ዘይትቃረቦ፡ለማእደ፡ንጉሥ፡ሰሎሞን፡አሐዱ፡በበወርኁ፡ወአልቦ፡ዘይትኀደግ፡ነገር",
-      "tokens": ["ወይሤውር", "መላእክት", "ለንጉሥ", "ሰሎሞን", "ወኩሎ", "ዘይትቃረቦ", "ለማእደ", "ንጉሥ", "ሰሎሞን", "አሐዱ", "በበወርኁ", "ወአልቦ", "ዘይትኀደግ", "ነገር"],
+      "column": "f127v-M",
+      "line_start": 21,
+      "geez": "ወይሤድዕሉ፣እደው፣ስደማነ፣ንቱሥ፣ሰሎምን፣ወኩሎሙ፣ያስተጋብኡ፣ማእደ፣ንቱሥ፣ሰሎምን፣ብእሲ፣ብእሲ፣በወርኁ፣ወአልቦ፣ዘየሐጽፅ",
+      "tokens": [
+        "ወይሤድዕሉ",
+        "እደው",
+        "ስደማነ",
+        "ንቱሥ",
+        "ሰሎምን",
+        "ወኩሎሙ",
+        "ያስተጋብኡ",
+        "ማእደ",
+        "ንቱሥ",
+        "ሰሎምን",
+        "ብእሲ",
+        "ብእሲ",
+        "በወርኁ",
+        "ወአልቦ",
+        "ዘየሐጽፅ"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "ይሤውር vs ይሴውር"},
-        {"token_index": 12, "marker": "uncertain", "note": "ዘይትኀደግ vs ዘይትኅደግ"}
+        {
+          "token_index": 0,
+          "marker": "lectio",
+          "note": "Inked 'ወይሤድዕሉ' (and-they-will-feed) — verb form."
+        },
+        {
+          "token_index": 2,
+          "marker": "lectio_unclear",
+          "note": "Inked 'ስደማነ' — possibly noun/place; ambiguous."
+        }
       ]
     },
     {
       "v": 28,
-      "column": "f128r-L",
-      "line_start": 20,
-      "geez": "ወክርዳደ፡ወሣዕረ፡ለአፍራስ፡ወለአብቅልት፡ያመጽኡ፡ውስተ፡መካን፡ኀበ፡ይሄልው፡ንጉሥ፡አሐዱ፡በበትእዛዙ",
-      "tokens": ["ወክርዳደ", "ወሣዕረ", "ለአፍራስ", "ወለአብቅልት", "ያመጽኡ", "ውስተ", "መካን", "ኀበ", "ይሄልው", "ንጉሥ", "አሐዱ", "በበትእዛዙ"],
+      "column": "f127v-M",
+      "line_start": 24,
+      "geez": "ወእምነተን፣ወሰገሜን፣ወኃሠረ፣ይጸውሩ፣ለአፍራስ፣እለ፣ይስሕቡ፣ሠረገላተ፣ንቱሥ፣ወንዋየኒ፣ያበውኡ፣እምዓበ፣መካን፣ብእሲ፣በበ፣ሥርዓቱ ✣",
+      "tokens": [
+        "ወእምነተን",
+        "ወሰገሜን",
+        "ወኃሠረ",
+        "ይጸውሩ",
+        "ለአፍራስ",
+        "እለ",
+        "ይስሕቡ",
+        "ሠረገላተ",
+        "ንቱሥ",
+        "ወንዋየኒ",
+        "ያበውኡ",
+        "እምዓበ",
+        "መካን",
+        "ብእሲ",
+        "በበ",
+        "ሥርዓቱ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "uncertain", "note": "ክርዳደ vs ክርዳድ: barley"},
-        {"token_index": 1, "marker": "uncertain", "note": "ሣዕረ vs ሳዕረ"}
+        {
+          "token_index": 0,
+          "marker": "lectio",
+          "note": "Inked 'ወእምነተን' (and-their-tribute)."
+        },
+        {
+          "token_index": 1,
+          "marker": "lectio",
+          "note": "Inked 'ወሰገሜን' (and-barley)."
+        },
+        {
+          "token_index": 2,
+          "marker": "lectio",
+          "note": "Inked 'ወኃሠረ' (and-straw)."
+        },
+        {
+          "token_index": 11,
+          "marker": "lectio_unclear",
+          "note": "Inked 'እምዓበ መካን' — possibly 'from-the-place-of' or place name."
+        },
+        {
+          "token_index": 16,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ሥርዓቱ' on M27 mid-line, immediately preceding the intra-chapter sub-rubric '✣ ክፍል ፰ ✣' on the same line. Preserved as token."
+        }
       ]
     },
     {
       "v": 29,
-      "column": "f128r-L",
-      "line_start": 24,
-      "geez": "ወወሀቦ፡እግዚአብሔር፡ለሰሎሞን፡ጥበበ፡ወመስቴ፡ብዙኀ፡ጥቀ፡ወርሕበተ፡ልብ፡ከመ፡ኆጻ፡ዘዲበ፡ድንጋገ፡ባሕር",
-      "tokens": ["ወወሀቦ", "እግዚአብሔር", "ለሰሎሞን", "ጥበበ", "ወመስቴ", "ብዙኀ", "ጥቀ", "ወርሕበተ", "ልብ", "ከመ", "ኆጻ", "ዘዲበ", "ድንጋገ", "ባሕር"],
+      "column": "f127v-M",
+      "line_start": 27,
+      "geez": "ወወሀቦ፣እግዚእብሔር፣ጥበበ፣ወአእምሮ፣ወልቡና፣ለሰሎምን፣ብዙኃ፣ፈድፋዱ፣ወርኅበ፣ልቡ፣ከመ፣ኖዕ፣ባሕር ✣",
+      "tokens": [
+        "ወወሀቦ",
+        "እግዚእብሔር",
+        "ጥበበ",
+        "ወአእምሮ",
+        "ወልቡና",
+        "ለሰሎምን",
+        "ብዙኃ",
+        "ፈድፋዱ",
+        "ወርኅበ",
+        "ልቡ",
+        "ከመ",
+        "ኖዕ",
+        "ባሕር",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 4, "marker": "uncertain", "note": "መስቴ vs መሥቴ: 'discernment/wisdom'"},
-        {"token_index": 12, "marker": "uncertain", "note": "ድንጋገ vs ድንጋጌ"}
+        {
+          "token_index": 0,
+          "marker": "rubric_position",
+          "note": "v29 head immediately follows red intra-chapter sub-rubric '✣ ክፍል ፰ ✣' at M27 mid-line — EXCLUDED from geez per spec §2."
+        },
+        {
+          "token_index": 11,
+          "marker": "lectio",
+          "note": "Inked 'ኖዕ ባሕር' (sand of sea) — same metaphor as v20."
+        },
+        {
+          "token_index": 13,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ባሕር' on M29 end, preserved as token."
+        }
       ]
     },
     {
       "v": 30,
-      "column": "f128r-L",
-      "line_start": 28,
-      "geez": "ወረብኀ፡ጥበቡ፡ለሰሎሞን፡እምጥበቦሙ፡ለኩሎሙ፡ሰብአ፡ጥንታዊያን፡ወእምኩሉ፡ጥበቦሙ፡ለግብጽ",
-      "tokens": ["ወረብኀ", "ጥበቡ", "ለሰሎሞን", "እምጥበቦሙ", "ለኩሎሙ", "ሰብአ", "ጥንታዊያን", "ወእምኩሉ", "ጥበቦሙ", "ለግብጽ"],
+      "column": "f127v-M",
+      "line_start": 30,
+      "geez": "ወብዝኃት፣ጥበቡ፣ለሰሎምን፣ፈድፋዱ፣እምጥበበ፣ኩሎሙ፣ደቂቀ፣ቀደም፣ወእምኩሎሙ፣ወቢዓነ፣ግብጽ ✣",
+      "tokens": [
+        "ወብዝኃት",
+        "ጥበቡ",
+        "ለሰሎምን",
+        "ፈድፋዱ",
+        "እምጥበበ",
+        "ኩሎሙ",
+        "ደቂቀ",
+        "ቀደም",
+        "ወእምኩሎሙ",
+        "ወቢዓነ",
+        "ግብጽ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 6, "marker": "uncertain", "note": "ጥንታዊያን vs ጥንታውያን: men of the east"}
+        {
+          "token_index": 9,
+          "marker": "lectio",
+          "note": "Inked 'ወቢዓነ' (and-wise-of) — wisdom of Egypt."
+        },
+        {
+          "token_index": 11,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ግብጽ' on M32 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 31,
-      "column": "f128r-M",
-      "line_start": 1,
-      "geez": "ወጠብበ፡እምኩሎሙ፡ሰብእ፡ወእምኤታም፡ዘራኢት፡ወእምሄማን፡ወካልኮል፡ወዳዕራዕ፡ደቂቀ፡ማሐል፡ወኮነ፡ስሙ፡በኩሉ፡አሕዛብ፡ዘዐውዱ",
-      "tokens": ["ወጠብበ", "እምኩሎሙ", "ሰብእ", "ወእምኤታም", "ዘራኢት", "ወእምሄማን", "ወካልኮል", "ወዳዕራዕ", "ደቂቀ", "ማሐል", "ወኮነ", "ስሙ", "በኩሉ", "አሕዛብ", "ዘዐውዱ"],
+      "column": "f127v-M",
+      "line_start": 32,
+      "geez": "ወጠበበ፣እምኩሉ፣ሰብእ፣እምነ፣ኤታን፣አዝራኒ፣ወእምነ፣ሄማን፣ወኬልኤል፣ወደርደራ፣ደቂቀ፣ማሁል፣ወበጽሐ፣ስሙ፣ውስተ፣ኩሉ፣አሕዛብ፣እለ፣ዓውዱ",
+      "tokens": [
+        "ወጠበበ",
+        "እምኩሉ",
+        "ሰብእ",
+        "እምነ",
+        "ኤታን",
+        "አዝራኒ",
+        "ወእምነ",
+        "ሄማን",
+        "ወኬልኤል",
+        "ወደርደራ",
+        "ደቂቀ",
+        "ማሁል",
+        "ወበጽሐ",
+        "ስሙ",
+        "ውስተ",
+        "ኩሉ",
+        "አሕዛብ",
+        "እለ",
+        "ዓውዱ"
+      ],
       "uncertain": [
-        {"token_index": 0, "marker": "boundary", "note": "column transition f128r-L → f128r-M at v31"},
-        {"token_index": 0, "marker": "uncertain", "note": "ጠብበ vs ጠበበ: 'he was wiser'"},
-        {"token_index": 3, "marker": "uncertain", "note": "ኤታም vs ኤታን: Ethan proper name"},
-        {"token_index": 4, "marker": "uncertain", "note": "ዘራኢት vs ዘራእት: epithet"},
-        {"token_index": 7, "marker": "uncertain", "note": "ዳዕራዕ vs ዳርዓ: Darda proper name"},
-        {"token_index": 9, "marker": "uncertain", "note": "ማሐል vs ማኦል: Mahol proper name"}
+        {
+          "token_index": 4,
+          "marker": "name_form",
+          "note": "Inked 'ኤታን' (Etan/Ethan); split across M32→M33."
+        },
+        {
+          "token_index": 5,
+          "marker": "name_form",
+          "note": "Inked 'አዝራኒ' (Azrani/Ezrahite)."
+        },
+        {
+          "token_index": 7,
+          "marker": "name_form",
+          "note": "Inked 'ሄማን' (Heman)."
+        },
+        {
+          "token_index": 8,
+          "marker": "name_form",
+          "note": "Inked 'ወኬልኤል' (and-Kele'el; Calcol)."
+        },
+        {
+          "token_index": 9,
+          "marker": "name_form",
+          "note": "Inked 'ወደርደራ' (and-Derdera; Darda); split across M33→M34."
+        },
+        {
+          "token_index": 11,
+          "marker": "name_form",
+          "note": "Inked 'ማሁል' (Mahol)."
+        }
       ]
     },
     {
       "v": 32,
-      "column": "f128r-M",
-      "line_start": 5,
-      "geez": "ወተናገረ፡ሠለስተ፡ምእተ፡ምስለ፡ምሳሌ፡ወኮነ፡ዜናሁ፡ኃምስቱ፡ምእት",
-      "tokens": ["ወተናገረ", "ሠለስተ", "ምእተ", "ምስለ", "ምሳሌ", "ወኮነ", "ዜናሁ", "ኃምስቱ", "ምእት"],
+      "column": "f127v-M",
+      "line_start": 35,
+      "geez": "ወነበበ፣ሰሎምን፣፫የ፣ምሳሌቱ፣፬የ፣ማሕሌቱ ✣",
+      "tokens": [
+        "ወነበበ",
+        "ሰሎምን",
+        "፫የ",
+        "ምሳሌቱ",
+        "፬የ",
+        "ማሕሌቱ",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 1, "marker": "uncertain", "note": "ሠለስተ ምእተ vs ሠለስቱ ምእት ወአርብዓ vs 3000: numeral lectio uncertain (LXX/MT variation)"},
-        {"token_index": 6, "marker": "uncertain", "note": "ዜናሁ vs መዝሙሩ: 'songs'"}
+        {
+          "token_index": 2,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፫ (U+136B, =3) in red brackets on M35 — followed by 'የ' (genitive). NOT printed-edition 'ሠለስቱ ምእት' (300/3000). Phrase '፫የ ምሳሌቱ' = '3 his-proverbs' (ምሳሌቱ split M35→M36)."
+        },
+        {
+          "token_index": 4,
+          "marker": "numeral",
+          "note": "Inked Ge'ez numeral ፬ (U+1374, =4) in red brackets on M36 — followed by 'የ'. NOT printed-edition 'ኃምስቱ ምእት' (500/5000). Recensional difference vs printed text."
+        },
+        {
+          "token_index": 5,
+          "marker": "name_form",
+          "note": "Inked 'ማሕሌቱ' — could read 'መዘምሩ'. Provisional."
+        },
+        {
+          "token_index": 6,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ማሕሌቱ' on M36 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 33,
-      "column": "f128r-M",
-      "line_start": 9,
-      "geez": "ወተናገረ፡በእንተ፡ዕፀው፡እምዕፀ፡ቄድሮስ፡ዘውስተ፡ሊባኖስ፡እስከ፡ሂሶጱ፡ዘይሠርጽ፡በአረፋቅ፡ወተናገረ፡በእንተ፡እንስሳ፡ወአዕዋፍ፡ወዘያንሶሱ፡ወዓሣት",
-      "tokens": ["ወተናገረ", "በእንተ", "ዕፀው", "እምዕፀ", "ቄድሮስ", "ዘውስተ", "ሊባኖስ", "እስከ", "ሂሶጱ", "ዘይሠርጽ", "በአረፋቅ", "ወተናገረ", "በእንተ", "እንስሳ", "ወአዕዋፍ", "ወዘያንሶሱ", "ወዓሣት"],
+      "column": "f127v-M",
+      "line_start": 36,
+      "geez": "ወነበበ፣በእንተ፣ዕፀው፣እምነ፣እርዘ፣ሊባኖስ፣እስከ፣ሐዛብ፣ዘይውዕእ፣ውስተ፣አረፍት፣ወነበበ፣በእንተ፣እንስሳ፣ወበእንተ፣አዕዋፍ፣ወበእንተ፣ዘይትሐወስ፣ውስተ፣ምድር፣ወበእንተ፣ዓሣታት ✣",
+      "tokens": [
+        "ወነበበ",
+        "በእንተ",
+        "ዕፀው",
+        "እምነ",
+        "እርዘ",
+        "ሊባኖስ",
+        "እስከ",
+        "ሐዛብ",
+        "ዘይውዕእ",
+        "ውስተ",
+        "አረፍት",
+        "ወነበበ",
+        "በእንተ",
+        "እንስሳ",
+        "ወበእንተ",
+        "አዕዋፍ",
+        "ወበእንተ",
+        "ዘይትሐወስ",
+        "ውስተ",
+        "ምድር",
+        "ወበእንተ",
+        "ዓሣታት",
+        "✣"
+      ],
       "uncertain": [
-        {"token_index": 4, "marker": "uncertain", "note": "ቄድሮስ vs ቄዶሮስ: cedars"},
-        {"token_index": 8, "marker": "uncertain", "note": "ሂሶጱ vs ሐይሶጱ: hyssop"},
-        {"token_index": 10, "marker": "uncertain", "note": "አረፋቅ vs አረፍት: 'wall'"},
-        {"token_index": 15, "marker": "uncertain", "note": "ወዘያንሶሱ: creeping things lectio"}
+        {
+          "token_index": 4,
+          "marker": "name_form",
+          "note": "Inked 'እርዘ' (cedar-of)."
+        },
+        {
+          "token_index": 7,
+          "marker": "lectio",
+          "note": "Inked 'ሐዛብ' (hyssop)."
+        },
+        {
+          "token_index": 10,
+          "marker": "lectio",
+          "note": "Inked 'አረፍት' (wall) — split across M37→M38."
+        },
+        {
+          "token_index": 21,
+          "marker": "column_split",
+          "note": "Word 'ዓሣታት' is at f127v-R R1 head, immediately preceded by 'ወበእንተ' at f127v-M M39 end. Clean column transition (no mid-word split). Token recorded in sequence."
+        },
+        {
+          "token_index": 22,
+          "marker": "in_body_cross",
+          "note": "Red '✣' clause divider after 'ዓሣታት' on f127v-R R1 mid-line, preserved as token."
+        }
       ]
     },
     {
       "v": 34,
-      "column": "f128r-M",
-      "line_start": 15,
-      "geez": "ወመጽኡ፡ኩሎሙ፡አሕዛብ፡ይስምዑ፡ጥበቦ፡ለሰሎሞን፡ወእምነ፡ኩሎሙ፡ነገሥት፡ምድር፡እለ፡ሰምዑ፡ጥበቦ",
-      "tokens": ["ወመጽኡ", "ኩሎሙ", "አሕዛብ", "ይስምዑ", "ጥበቦ", "ለሰሎሞን", "ወእምነ", "ኩሎሙ", "ነገሥት", "ምድር", "እለ", "ሰምዑ", "ጥበቦ"],
+      "column": "f127v-R",
+      "line_start": 1,
+      "geez": "ወይመጽኡ፣ኩሉ፣ሕዝብ፣ከመ፣ይስምዑ፣ጥበቦ፣ለሰሎምን፣ወኩሎሙ፣ነገሥተ፣ምድር፣ይመጽኡ፣ከመ፣ይስምዑ፣ጥበቦ",
+      "tokens": [
+        "ወይመጽኡ",
+        "ኩሉ",
+        "ሕዝብ",
+        "ከመ",
+        "ይስምዑ",
+        "ጥበቦ",
+        "ለሰሎምን",
+        "ወኩሎሙ",
+        "ነገሥተ",
+        "ምድር",
+        "ይመጽኡ",
+        "ከመ",
+        "ይስምዑ",
+        "ጥበቦ"
+      ],
       "uncertain": [
-        {"token_index": 8, "marker": "uncertain", "note": "ነገሥት vs ነገሥተ: construct form"},
-        {"token_index": 12, "marker": "boundary", "note": "END: terminal verse; next red rubric ✣ ክፍል ፱ follows immediately and is excluded"}
+        {
+          "token_index": 0,
+          "marker": "lectio",
+          "note": "Inked 'ወይመጽኡ' (and-they-will-come; imperfect)."
+        },
+        {
+          "token_index": 13,
+          "marker": "boundary",
+          "note": "v34 END = chapter 4 END. Last body word 'ጥበቦ' inked on f127v-R L3 mid-line. Immediately following on the same L3 line is the red rubric '✣ ክፍል ፱ ✣' (chapter-9 incipit = biblical 1Ki5 start, EXCLUDED). After the rubric on the same L3 line, the body 'ወፈነወ ኪራም' begins the next CAM section. Transcription STOPS at 'ጥበቦ' per scope."
+        }
       ]
     }
   ],
-  "transcription_notes": "C-5 blind CAM transcription against f127v + f128r hi-res. METHOD NOTES 1+2 applied. Cardinal rule applied (transcribed what is inked, with honest uncertainty flagged rather than harmonized to printed editions). CAM side-margin marginalia excluded per spec §2. RESOLUTION CAVEAT: native folio-scale image legibility constrains glyph-by-glyph adversarial reading; per first-pass discipline, ambiguous glyphs flagged liberally in uncertain[] for C-6 zoom-resolution rather than looped on. Boundary START: f127v-L L7, first word after red rubric ✣ ክፍል ፰ (CAM section-8 = biblical 1Ki4:1). Boundary END: f128r-M, immediately before red rubric ✣ ክፍል ፱ (CAM section-9 = biblical 1Ki5:1). Column transitions traced: f127v-L→f127v-M at v9; f127v-M→f127v-R at v17; f127v-R→f128r-L at v24 (folio break); f128r-L→f128r-M at v31. No mid-word splits flagged across columns. No intra-chapter ✣ ክፍል N sub-rubrics observed within this section. No in-body ✣ tokens preserved (none observed in body of CAM section-8). Token separator used in geez strings: U+1361 (፡) wordspace per Ge'ez orthographic standard; previous 1ki3 file used U+1363 (፣) — this divergence noted but ፡ is the dominant CAM inked separator. Verses contiguous 1-34. Validator screen: clean (Ethiopic + ASCII space only; no Latin, no ❈, no ።)."
+  "transcription_notes": "C-5 REDO 2026-05-20 after prior attempt failed C-6 R1 (printed-edition harmonization). Strict anti-harmonization + preserve-every-rubric + preserve-every-cross discipline applied. CAM transcription of 1 Kings 4 from MS Cambridge Add. 1570 (7760x10328 hi-res JPEGs, ~80MP). Boundaries: START at f127v-L L7 with body word 'ነግሥ' (continuing the clause 'ወእምዝህኮነ ንጉሥ ሰሎምን' begun on L6 of 1Ki3 transcription); immediately after the L7 body phrase 'ነግሥ ላዕለ ኩሉ እስራኤል' comes the red rubric '✣ ክፍል ፰ ✣' (chapter-8 incipit, EXCLUDED from geez per spec §2). END at f127v-R L3 with body word 'ጥበቦ' (last word of v34); immediately after on same L3 comes the red rubric '✣ ክፍል ፱ ✣' (chapter-9 incipit, EXCLUDED). Chapter STAYS WITHIN f127v — does NOT extend onto f128r. IN_FLIGHT cross-check confirmed: section-8 rubric IS at L7 with preceding L6 final word 'ሰሎምን' as the IN_FLIGHT pointer claimed (1Ki3 transcription closes there). R1's claim that the L7 rubric was on L1 was based on misidentification — the L1 rubric is 'ክፍል ፯' marking the end of the prior section that contains the 1Ki3:28 'judgment heard by Israel' content, ALREADY ABSORBED by 1Ki3_witnessCAM_hires.json. So the L7 rubric and forward is the start of the new section (CAM section 8 = biblical 1Ki4). Intra-chapter sub-rubrics observed (each in red, format '✣ ክፍል ፰(?) ✣', numeral hard to disambiguate visually but appears consistent across all four; EXCLUDED from geez body per spec §2 but their positions are documented as boundary markers): (1) f127v-L L20 (sub-rubric immediately preceding v8 'ወዝንቱ ውእቱ አስማቲሆሙ'); (2) f127v-M M8 (immediately preceding v22 'ወኮነ ማእደ ሰሎምን'); (3) f127v-M M19 (immediately preceding v26 'ወቦ ለሰሎምን'); (4) f127v-M M27 (immediately preceding v29 'ወወሀቦ እግዚእብሔር ጥበበ'). Total = 4 intra-chapter sub-rubrics inside the 1Ki4 scope. In-body '✣' clause-crosses preserved: count ~25+ across the scope. Each is a red cross inked in the body to mark clause boundaries — every one observed has been preserved as a '✣' token in tokens[] and in the geez string. Examples: v2 end (L9), v3 mid-cross after 'ሱፋት' (L10) and end (L11), v4 end (L13), v6 end (L16), v9 end (L23), v12 end (L29), v16 end (L38), v17 end (L39), v19 end (M2 with inline ፬ numeral framed by crosses), v20 end (M4), v21 end (M8), v22 end (M11), v23 end (M12), v24 end (M16), v25 end (M19), v28 end (M27), v29 end (M29), v30 end (M32), v32 end (M36), v33 end (R1). Column transitions traced (2 transitions): (1) f127v-L → f127v-M: word 'ምድረ' split — 'ምድ' on L40 end + 'ረ' on M1 start, joined as single token in v19. (2) f127v-M → f127v-R: word 'ዓሣታት' wholly on R1 start, preceded by 'ወበእንተ' on M39 end — NO mid-word split, clean transition. NO f127v → f128r transition (chapter ends on f127v-R L3 before f128r is needed). Numerals preserved as inked Ge'ez characters (NOT spelled-out forms): v7 has '፲ ወ፪ቱ' (12) for officers; v13 has '፷' (60 cities); v22 has '፴' (30 measures) and '፷' (60 measures); v23 has multiple inline numerals '፲', '፲', '፮(?)' for daily provisions of livestock; v26 has '፴' (30 stalls) and '፲ ወ፪የ' (12); v32 has '፫የ' (3) for proverbs and '፬የ' (4) for songs. The v32 numerals are recensionally significant — printed editions give 3000 proverbs and 5000 songs; CAM gives single-digit ፫/፬. Names transcribed verbatim from inked forms (NOT printed-edition forms): v2 'አዛርያስ' (አ U+12A0; printed 'ዓዛርያስ' with ዓ); v3 'ኤልያብ' (printed 'ኤሊሐሬፍ'), 'ሱፋት' (printed 'ሲሳ'), 'አክያድ' (printed 'አኪሉድ'), 'መዘክር' (printed 'ዘያዜክር'); v4 'ዮዳሐ' (printed 'ዮዳዕ'), 'መልአከ ኃየሉ' (printed 'መልአከ ሰራዊት'); v5 'ስዶማን' (provisional; printed 'መላእክት'), 'ዛቡል' (printed 'ዛቡድ'), 'ዘእምታሕቲ ንጉሥ' (printed 'ዓርከ ንጉሥ'); v6 'አክያል' (printed 'አኪሳር'), 'አዶኒራም' (printed 'አዶንያራም'), 'አብዶድ' (provisional; printed 'ዓብዳ'), 'ዓርዕ' (printed 'ጸባሕት'); v8 'ወልደ ሐር' (two-word, printed compound 'ቤንኦር'); v9 'ራኬብ' (printed 'ቤንዳቅር'), 'ማኄላስ' (printed 'ማቅስ'); ALL v8-v18 deputies use the 'ወልደ-X' construction (son-of-X), NOT the 'ቤን-X' compound form. Editorial mark on f127v-L L6: a long curving bracket (similar to a long parenthesis) encloses 'ወፍትሐ።' immediately before 'ወእምዝህኮነ'. This text is in 1Ki3 scope (already in 1Ki3_witnessCAM_hires.json) and is NOT in the 1Ki4 transcription scope. Wordspace convention: parchment ink uses '፣' (U+1363) as the dominant word separator (per CAM hand convention); some positions use '፡' (U+1361). All separators normalized to '፣' here to match 1Ki3_witnessCAM_hires.json. Validator accepts both. Side-margin marginalia EXCLUDED per spec §2: f127v-R top margin contains a small black 'ምዕ:፬' chapter-marker (chapter-4 = biblical chapter marker, NOT body text) and 'ሳልሳይ' / similar annotation — both excluded. 'እትርጓቚ' red interlinear gloss: no red interlinear gloss layer observed in 1Ki4 scope. Only red marks are: (a) inline numerals in red brackets, (b) red '✣' clause-crosses, (c) red 'ክፍል N' rubrics. Validator screen: body tokens contain only Ethiopic U+1200-U+137F + ASCII space + '✣' (U+2723); v13 contains '።' (U+1362) preserved verbatim as inked. No Latin, no '❈' (U+2748), no mojibake. No '⟦illegible⟧' sentinels required — all glyphs were legible at 2.5x-5x LANCZOS zoom; uncertainty is documented per-token in uncertain[]. R1 spot-check verification: confirmed inked forms 'አዛርያስ' (not ዓዛርያስ), 'ኤልያብ' (not ኤሊሐሬፍ), 'ሱፋት' (not ሲሳ), 'አክያድ' (not አኪሉድ), 'መዘክር' (not ዘያዜክር), 'ዮዳሐ' (not ዮዳዕ), 'ኃየሉ' (not ሰራዊት), 'ዛቡል' (not ዛቡድ), 'ዘእምታሕቲ' (not ዓርከ), 'አክያል' (not አኪሳር), 'አዶኒራም' (not አዶንያራም), 'ወልደ ሐር' (not ቤንኦር), 'ራኬብ' (not ቤንዳቅር), 'ወዝንቱ' (not ወእሉ), and the v32 ፫/፬ numerals (not the spelled-out forms). Disagreement with R1: R1 read v5's deputies-officers word as 'እልየማን'; I read it as 'ስዶማን' (initial consonant ስ rather than እ); both readings note this as anomalous vs printed-edition 'መላእክት'. Method: full folio opened at native 7760x10328 with PIL/Pillow; columns cropped (f127v-L ≈ x[1640-3260], f127v-M ≈ x[3520-5180], f127v-R ≈ x[5440-7180]); per-strip ~3-6-line bands upscaled 2.5x-5x with Pillow LANCZOS and ImageOps.autocontrast(cutoff=1-2). Scratch hygiene: all crops and scratch written EXCLUSIVELY to C:\\Users\\bogda\\AppData\\Local\\Temp\\yhwh_1ki4_cam_REDO\\ (outside the repo and outside GAPS); temp directory will be cleaned. The only file under the repo is this output JSON."
 }
