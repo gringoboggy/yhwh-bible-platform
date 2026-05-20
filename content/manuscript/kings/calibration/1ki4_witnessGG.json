@@ -161,7 +161,7 @@
       "v": 7,
       "column": "f030r-R",
       "line_start": 31,
-      "geez": "ወሲመ፡ስሎምን፡፲ ወ ፪ ዐደው፡ሳዕለ፡እስራኤል፡እለ፡ይትመውሙ፡ግብርሙ፡ለንጉሥ✣ወልቤቱ፡፬ ዐውር ዐ✣",
+      "geez": "ወሲመ፡ስሎምን፡፲ ወ ፪ ዐደው፡ሳዕለ፡እስራኤል፡እለ፡ይትመጻውሙ፡ግብርሙ፡ለንጉሥ✣ወልቤቱ፡፬ ዐውር ዐ✣",
       "tokens": [
         "ወሲመ",
         "ስሎምን",
@@ -172,7 +172,7 @@
         "ሳዕለ",
         "እስራኤል",
         "እለ",
-        "ይትመውሙ",
+        "ይትመጻውሙ",
         "ግብርሙ",
         "ለንጉሥ",
         "✣",
@@ -186,7 +186,7 @@
         "ወሲመ — re-zoom shows 'ወሲመ' with final 'መ', not 'ወሲም'",
         "ስሎምን — re-zoom shows 'ስ' (6th-order) at this position, not 'ሰ' (1st-order); same fidel as v10/v13/v23/v24/v26 elsewhere",
         "ዐደው — R1 confirmed final 'ው', not 'መ'",
-        "ይትመውሙ — FIX-ROUND-2 (R2 OVERRULE): the 'ጻ' is a fabrication NOT on parchment. R2 re-zoom of line 31-32 f030r-R confirms word is 5 fidels 'ይ-ት-መ-ው-ሙ', not 6 fidels with 'ጻ' inserted. fix-round-1's disciplined non-change keeping 'ጻ' was wrong. R1 was right; 'ጻ' dropped",
+        "ይትመጻውሙ — FIX-ROUND-3 (R3 OVERRULE-OF-R2): R3 at 8x on f030r_R_v7.png line 2 unambiguously shows 'እለ ይትመጻ' at line-end (with 'ጻ' 4th-order ts glyph clearly inked between 'ይትመ' and the line break), then line 3 begins 'ው ሙ ግብሮሙ'. Combined word IS 'ይትመጻውሙ' (6 fidels). R2's drop of 'ጻ' was itself a fabrication-by-omission; the 'ጻ' IS on the parchment. Original implementer was right, fix-round-1's disciplined non-change was right, R2's overrule was wrong; fix-round-3 restores the 'ጻ'",
         "፬ ዐውር ዐ — R1 fix verified: '፬' + 'ዐውር' + 'ዐ' (line break splits as '፬ ዐው | ር ዐ ሰለሳ መት')"
       ]
     },
@@ -426,7 +426,7 @@
       "v": 14,
       "column": "f030v-L",
       "line_start": 17,
-      "geez": "ወሳሚ፡ወልደ፡ኤሳ፡በብንያም✣ጊቤር፡ወልደ፡አደ፡በምድረ፡ጋድ፡ወበምድረ፡ሔሞን፡ንጉሥ ሐሴቦን፡ወአግ፡ንጉሥ፡ባሳን፡ወናሴፍ፡በምድረ፡ደሁዳ፡ወዮሳፍጥ፡ወልደ፡ፈሐሉል፡በይሰክር✣",
+      "geez": "ወሳሚ፡ወልደ፡ኤሳ፡በብንያም✣ጊቤር፡ወልደ፡አደ፡በምድረ፡ጋድ፡ወበምድረ፡ሔሞን፡ንጉሥ ሐሴቦን፡ወአግ፡ንጉሥ፡ባሳን፡ወናሴፍ፡በምድረ፡ይሁዳ፡ወዮሳፍጥ፡ወልደ፡ፈሐሉል፡በይሰክር✣",
       "tokens": [
         "ወሳሚ",
         "ወልደ",
@@ -447,7 +447,7 @@
         "ባሳን",
         "ወናሴፍ",
         "በምድረ",
-        "ደሁዳ",
+        "ይሁዳ",
         "ወዮሳፍጥ",
         "ወልደ",
         "ፈሐሉል",
@@ -462,7 +462,7 @@
         "ሐሴቦን vs Heshbon",
         "ወአግ vs Og",
         "ናሴፍ — possibly 'one prefect/governor' formula",
-        "በምድረ ደሁዳ — FIX-ROUND-2 (R2 REVERT): parchment inks 'ደ' (6th-order də) NOT 'ይ'. R1's 'ይ'-fix was a wrong-direction harmonization toward standard Ge'ez. The GG scribe's recensional reading is 'ደሁዳ'. CARDINAL RULE: parchment wins",
+        "በምድረ ይሁዳ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 16x on f030v_L_v14_yhuda_max.png confirms the first char of '?ሁዳ' is Y-triangle topology (stem-to-foot-at-right-base) MATCHING the v22 R2-confirmed-'ይ' reference. R2's revert to 'ደሁዳ' was over-correction; the parchment inks 'ይ' here just as it does in v22 'ይሁዳ'. R1 was right; fix-round-3 re-reverts to 'ይሁዳ'",
         "ፈሐሉል vs Paruah",
         "በይሰክር — re-zoom CONFIRMS 'ይ' (not 'ደ' as R1 suggested for this token); the parchment inks 'ይሰክር', R1 was inconsistent on direction. DISCIPLINED NON-CHANGE — the GG scribe is genuinely inconsistent, per-instance handling required",
         "Terminator '✣' — R1 fix: normalized from '❈' (large) to '✣' (small) per body-cross rule"
@@ -472,7 +472,7 @@
       "v": 15,
       "column": "f030v-L",
       "line_start": 22,
-      "geez": "ወእሉ፡ያገብኤ፡ለንጉሥ፡ስሎምን፡ግብሮሙ፡በአምታ፡ኩሉ፡ዘአዘዝሙ፡ወደሰርዑ፡ውስተ፡ማዕደ፡ንጉሥ፡፮ ፮ በበወርኁ፡ወእቆዕው፡ወኢ፡መንተኒ፡ስምሁ፡",
+      "geez": "ወእሉ፡ያገብኤ፡ለንጉሥ፡ስሎምን፡ግብሮሙ፡በአምታ፡ኩሉ፡ዘአዘዝሙ፡ወይሰርዑ፡ውስተ፡ማዕደ፡ንጉሥ፡፮ ፮ በበወርኁ፡ወእቆዕው፡ወኢ፡መንተኒ፡ስምሁ፡",
       "tokens": [
         "ወእሉ",
         "ያገብኤ",
@@ -482,7 +482,7 @@
         "በአምታ",
         "ኩሉ",
         "ዘአዘዝሙ",
-        "ወደሰርዑ",
+        "ወይሰርዑ",
         "ውስተ",
         "ማዕደ",
         "ንጉሥ",
@@ -498,7 +498,7 @@
       "uncertain": [
         "ስሎምን — re-zoom confirms 'ስ' (not 'ሰ' per implementer)",
         "ዘአዘዝሙ — re-zoom shows the 'አ' IS present on parchment; DISCIPLINED NON-CHANGE vs R1's suggestion to drop 'አ'",
-        "ወደሰርዑ — FIX-ROUND-2 (R2 REVERT): parchment inks 'ደ' (line 24 f030v-L 'ዘአዘዝሙ ወደሰርዑ ውስተ'). R1's 'ይ'-fix was a wrong-direction harmonization; GG scribe genuinely uses 'ደ' here",
+        "ወይሰርዑ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v15.png line 3 confirms contested char is the SAME Y-triangle 'ይ' topology as the R2-confirmed v22 'ይሁዳ' reference. R2's revert to 'ደ' was over-correction. Parchment inks 'ይ' here; R1 was right; fix-round-3 re-reverts to 'ወይሰርዑ'",
         "፮ ፮ — HONEST resolution-limited: re-zoom shows two small red numeral marks that look similar; impl's '፮ ፮' reading not refuted, kept",
         "በበወርኁ — R1 fix: 'ኁ' (not 'ኆ')",
         "ስምሁ — R1 fix: joined (was 'ስ ምሁ' with space)"
@@ -536,9 +536,9 @@
       "v": 17,
       "column": "f030v-L",
       "line_start": 30,
-      "geez": "ደሁዳ፡ወእስራኤል፡ብዙኃን፡እሙንቱ፡ፈድፋደ፡ከመ፡ሮዓ፡ባሕር፡ብዝናሙ፡ደበልዑ፡ወይስትዩ፡ወይትፊሥሑ✣",
+      "geez": "ይሁዳ፡ወእስራኤል፡ብዙኃን፡እሙንቱ፡ፈድፋደ፡ከመ፡ሮዓ፡ባሕር፡ብዝናሙ፡ይበልዑ፡ወይስትዩ፡ወይትፊሥሑ✣",
       "tokens": [
-        "ደሁዳ",
+        "ይሁዳ",
         "ወእስራኤል",
         "ብዙኃን",
         "እሙንቱ",
@@ -547,18 +547,18 @@
         "ሮዓ",
         "ባሕር",
         "ብዝናሙ",
-        "ደበልዑ",
+        "ይበልዑ",
         "ወይስትዩ",
         "ወይትፊሥሑ",
         "✣"
       ],
       "uncertain": [
-        "ደሁዳ — FIX-ROUND-2 (R2 REVERT): parchment inks 'ደ' (line 30 f030v-L '❈ ደሁዳ ወእስራኤል ❈' after v16 cross). R1's 'ይ'-fix was wrong-direction harmonization",
+        "ይሁዳ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v16_v17.png line 3 confirms Y-triangle 'ይ' topology matching v22 'ይሁዳ' reference. R2's revert to 'ደ' was over-correction. R1 was right; fix-round-3 re-reverts to 'ይሁዳ'",
         "ፈድፋደ — R1 fix: standard Ge'ez 'very-much'",
         "ሮዓ ባሕር — FIX-ROUND-2 (R2 REVERT): parchment (line 33 f030v-L) inks 'ሮ-ዓ' clearly — 'ሮ' open-circle + 'ዓ' 4th-order. R1's 'ኆጻ' was a smoothing-fabrication toward standard Ge'ez 'sand' word. The original 'ሮዓ' was correct",
         "ባሕር — R1 fix: 'ሕ' (not 'ሐ')",
         "ብዝናሙ — FIX-ROUND-2 (R2 REVERT): parchment (line 33 f030v-L) inks 'ና' (4th-order n). R1's 'ኆ'-fix was wrong",
-        "ደበልዑ — FIX-ROUND-2 (R2 REVERT): parchment (line 33-34 f030v-L) inks 'ደ-በል | ዑ' with 'ደ'. R1's 'ይ'-fix was wrong-direction harmonization",
+        "ይበልዑ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 6x on f030v_L_v16_v17.png line 5 confirms Y-triangle 'ይ' starting the verb (continuing across line break as '...ዑ'). R2's revert to 'ደ' was over-correction. R1 was right; fix-round-3 re-reverts to 'ይበልዑ'",
         "ወይስትዩ — R1 fix: 'ዩ' final (not 'ይ')"
       ]
     },
@@ -566,7 +566,7 @@
       "v": 18,
       "column": "f030v-L",
       "line_start": 33,
-      "geez": "ወስሎምን፡ኮነ፡ኹሉ፡መማግሥታት፡እምፈስግ፡ምድረ፡ኤሱፍሊ✣እክከ፡ደወስ፡ግብጽ✣ወየመጽኡ፡ለስሎምን፡እምኃ፡ወተቀንደ፡ሉቱ፡በኩሉ፡መዋዕለ ህደወቱ✣",
+      "geez": "ወስሎምን፡ኮነ፡ኹሉ፡መማግሥታት፡እምፈስግ፡ምድረ፡ኤሱፍሊ✣እክከ፡ደወስ፡ግብጽ✣ወየመጽኡ፡ለስሎምን፡እምኃ፡ወተቀንደ፡ሉቱ፡በኩሉ፡መዋዕለ ሕደወቱ✣",
       "tokens": [
         "ወስሎምን",
         "ኮነ",
@@ -587,7 +587,7 @@
         "ሉቱ",
         "በኩሉ",
         "መዋዕለ",
-        "ህደወቱ",
+        "ሕደወቱ",
         "✣"
       ],
       "uncertain": [
@@ -599,7 +599,7 @@
         "እክከ ደወስ — FIX-ROUND-2 (R2 RESTORE): parchment (line 36 f030v-L) clearly inks 'ኤሱፍሊ ❈ እክከ ደወስ' before 'ግብጽ'. fix-round-1 dropped these tokens when it harmonized toward R1's 'ሰብአ ግብጽ'. CARDINAL-RULE violation reverted. Tokens restored per inked form (resolution-limited on exact glyphs but the two-word interlude IS inked between 'ኤሱፍሊ' and 'ግብጽ')",
         "ለስሎምን — verified 'ስ' (not 'ሰ')",
         "ወተቀንደ — FIX-ROUND-2 (R2 REVERT): parchment (line 38 f030v-L) inks 'ወተቀንደ ሉቱ'. R1's 'ወይትቀንዩ' fix was wrong-direction harmonization",
-        "ህደወቱ — FIX-ROUND-2 (R2 REVERT): parchment (line 41 f030v-L) inks 'ህ-ደ-ወ-ቱ' NOT 'ሕ-ይ-ወ-ቱ'. R1's 'ሕይወቱ' fix was wrong-direction harmonization toward standard Ge'ez 'life'"
+        "ሕደወቱ — FIX-ROUND-3 (R3 MINOR-FIRST-CHAR CORRECTION): R3 reads the word as straddling the f030v-L line 4→5 break: line 4 ends 'ሕ' (6th-order ሕ with two-bar topology), line 5 begins 'ደወቱ'. Combined parchment reading is 'ሕደወቱ' (with 6th-order 'ሕ', not 1st-order 'ህ'). R2 caught the second-char 'ደ' correction but missed the first-char 'ሕ' correction. fix-round-3 fix: 'ህ' → 'ሕ'. Note this is RECENSIONAL (not standard Ge'ez 'ሕይወቱ') — the 2nd char 'ደ' (not 'ይ') stands"
       ]
     },
     {
@@ -704,7 +704,7 @@
       "v": 22,
       "column": "f030v-M",
       "line_start": 7,
-      "geez": "ወእስ፡ባውዱ፡ወእንብሩ፡ይሁዳ፡ወእስራኤል✣ኹሎሙ፡ተአምነዊ፡ታሕተ፡ወዶዕ ሙ፡ወበስሙ፡ይበልዑ፡ወይስትዩ፡እምነ፡እስከ፡ቤርሳቤሕ፡በኩሉ፡መዋዕለ፡ስሎምን✣",
+      "geez": "ወእስ፡ባውዱ፡ወእንብሩ፡ይሁዳ፡ወእስራኤል✣ኹሎሙ፡ተአምነዊ፡ታሕተ፡ወደኖሙ፡ወበስሙ፡ይበልዑ፡ወይስትዩ፡እምነ፡እስከ፡ቤርሳቤሕ፡በኩሉ፡መዋዕለ፡ስሎምን✣",
       "tokens": [
         "ወእስ",
         "ባውዱ",
@@ -715,8 +715,7 @@
         "ኹሎሙ",
         "ተአምነዊ",
         "ታሕተ",
-        "ወዶዕ",
-        "ሙ",
+        "ወደኖሙ",
         "ወበስሙ",
         "ይበልዑ",
         "ወይስትዩ",
@@ -731,7 +730,8 @@
       "uncertain": [
         "ወእስ — FIX-ROUND-2 (R2 REVERT): parchment (line 7 f030v-M) inks 'ወእስ ባውዱ' with 'ስ'. R1's 'ለ'-fix was wrong-direction harmonization (same 'እስ'/'እለ' class as elsewhere in chapter)",
         "ይሁዳ — DISCIPLINED NON-CHANGE: R2 confirms 'ይ' (not 'ደ') in this token; GG scribe is genuinely inconsistent per-instance — see v14 contrast",
-        "ኹሎሙ ተአምነዊ — FIX-ROUND-2 (R2 RE-READ): parchment (lines 8-9 f030v-M) inks '❈ ኹሎሙ ተ | አምነዊ ታሕተ ወዶዕ ሙ'. fix-round-1's 'እሙንቱ እምነዊ' was a MAJOR regression — R1 wrong, fix-round-1 inherited the wrong tokenization. Restored to parchment-faithful 'ኹሎሙ ተአምነዊ'",
+        "ኹሎሙ ተአምነዊ — FIX-ROUND-2 (R2 RE-READ): parchment (lines 8-9 f030v-M) inks '❈ ኹሎሙ ተ | አምነዊ ታሕተ...'. fix-round-1's 'እሙንቱ እምነዊ' was a MAJOR regression — R1 wrong, fix-round-1 inherited the wrong tokenization. Restored to parchment-faithful 'ኹሎሙ ተአምነዊ'. R3 accepts the segmentation as AMBIGUOUS-PARCHMENT (could also be 'ኹሎሙ ተ' line-end + 'እምነዊ' line-start); accepts R2's reading as defensible",
+        "ወደኖሙ — FIX-ROUND-3 (R3 NEW DEFECT): R3 at 12x on f030v_M_v22_wedono.png unambiguously inks 'ወ-ደ-ኖ-ሙ' as a SINGLE word with asymmetric-D 'ደ' + 6th-order labialised 'ኖ' + m-with-u-mark 'ሙ'. Both R1 and R2 missed this. The fix-round-2 JSON read it as two tokens 'ወዶዕ' + 'ሙ' with 'ዶዕ' middle — wrong on both segmentation and character identity. fix-round-3 fix: 'ወዶዕ ሙ' (2 tokens) → 'ወደኖሙ' (1 token)",
         "ይበልዑ — kept (parchment inks 'ይ' here per R2)",
         "ወይስትዩ — R1 fix: joined ('ይስት ይ' → 'ይስትዩ') with 'ዩ' final",
         "ቤርሳቤሕ — R1 fix: 'ሳ' (not 'ሰ')",
@@ -742,14 +742,14 @@
       "v": 23,
       "column": "f030v-M",
       "line_start": 12,
-      "geez": "ወቡ፡ስስሎምን፡ቯ ቯ ኤፍራስ፡እስ፡ይስሕቡ፡ሰረገሰት፡ቯ ዐ፪ ኤፍራስ፡መርዶ✣",
+      "geez": "ወቡ፡ስስሎምን፡ቯ ቯ ኤፍራስ፡እለ፡ይስሕቡ፡ሰረገሰት፡ቯ ዐ፪ ኤፍራስ፡መርዶ✣",
       "tokens": [
         "ወቡ",
         "ስስሎምን",
         "ቯ",
         "ቯ",
         "ኤፍራስ",
-        "እስ",
+        "እለ",
         "ይስሕቡ",
         "ሰረገሰት",
         "ቯ",
@@ -763,7 +763,7 @@
         "ወቡ ስስሎምን — preserved as 'ስስሎምን' (the 'ስ' prefix + 'ስሎምን')",
         "ቯ ቯ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): the red glyph (line 13 f030v-M) has vertical stem with leftward-curl top and 2-3 horizontal crossings — most consistent with Ethiopic fidel 'ቯ' (qwā), NOT numeric 'ሺ'. R1's '፬ ሺ' was a harmonization to canonical '1Ki 4:26 horse/chariot numbers'. Reverted to inked 'ቯ'-form per cardinal rule",
         "ኤፍራስ — confirmed 'ኤፍራስ' (horses)",
-        "እስ — FIX-ROUND-2 (R2 REVERT): GG scribe uses 'እስ' here. R1's 'እለ' was wrong-direction harmonization",
+        "እለ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 18x on f030v_M_v23_es.png confirms 2nd char is curve-top descending to single stroke ('ለ' topology), NOT a two-vertical 'ስ'-pair. R2's revert to 'እስ' was over-correction. R1 was right; fix-round-3 re-reverts to 'እለ'",
         "ሰረገሰት vs ሰረገላተ (chariots)",
         "ቯ ዐ፪ — FIX-ROUND-2 (R2 REVERT, AMBIGUOUS-PARCHMENT leaning ORIGINAL): same as first numeral — inked red glyph is 'ቯ'-form, R1's '፲ ወ ፪ ሺ' was harmonization toward canonical 12000",
         "መርዶ vs መዕዶ (cavalry)",
@@ -825,7 +825,7 @@
       "v": 25,
       "column": "f030v-M",
       "line_start": 20,
-      "geez": "እምታን፡ዘርያዊ፡ወእምነ፡እውናን፡ወእምክልተድ፡ወደራል፡ደቂተ፡ሰግድ፡ወበሕ፡ስም፡ውስተ፡ኹሉ፡አሕዛብ፡እስ፡ዋዉደ✣",
+      "geez": "እምታን፡ዘርያዊ፡ወእምነ፡እውናን፡ወእምክልተድ፡ወደራል፡ደቂተ፡ሰግድ፡ወበሕ፡ስም፡ውስተ፡ኹሉ፡አሕዛብ፡እለ፡ዋዉደ✣",
       "tokens": [
         "እምታን",
         "ዘርያዊ",
@@ -840,7 +840,7 @@
         "ውስተ",
         "ኹሉ",
         "አሕዛብ",
-        "እስ",
+        "እለ",
         "ዋዉደ",
         "✣"
       ],
@@ -850,7 +850,7 @@
         "ወእምክልተድ — Chalcol; kept as inked",
         "ወደራል / ደቂተ ሰግድ — Darda son-of-Mahol; R1 said 'ወዳርዓ ደቂቀ'; re-zoom is ambiguous between 'ራል' and 'ርዓ', and 'ተ' vs 'ቀ'; DISCIPLINED NON-CHANGE on the surface — impl's reading kept as inked",
         "ወበሕ ስም — FIX-ROUND-2 (R2 REVERT): parchment (line 22 f030v-M) inks 'ወበሕ ስም' (verb form 'ወ-በ-ሕ' — possibly regional GG recensional reading). R1's 'ወወጽአ ስሙ' was wrong-direction harmonization toward biblical Ge'ez 'went-out'. Original was correct",
-        "እስ ዋዉደ — FIX-ROUND-2 (R2 REVERT): parchment (lines 19-20 f030v-M) inks 'እስ ዋዉ | ደ ❈'. R1's 'እለ ዐውደ' was wrong-direction harmonization on both 'ለ'/'ስ' and the verb root"
+        "እለ ዋዉደ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 18x on f030v_M_v25_es_max.png confirms 2nd char of the conjunction is curve-stroke 'ለ' topology. R2's revert to 'እስ' was over-correction. R1's 'ለ' was right on this position (though the verb form 'ዋዉደ' stays — only the 'ለ'/'ስ' axis is re-reverted); fix-round-3 re-reverts to 'እለ ዋዉደ'"
       ]
     },
     {
@@ -922,7 +922,7 @@
       "v": 28,
       "column": "f030v-M",
       "line_start": 21,
-      "geez": "ወይመጽኡ፡እምኹሉ፡አሕዛብ፡ይከምዑ፡ጥበቢሁ፡ለስሎምን፡ወይነሥኤ፡እምነ፡እምኹሉ፡ነገሥት፡ምድር፡እስ፡ሰምዑ፡ጥበቢሁ✣",
+      "geez": "ወይመጽኡ፡እምኹሉ፡አሕዛብ፡ይከምዑ፡ጥበቢሁ፡ለስሎምን፡ወይነሥኤ፡እምነ፡እምኹሉ፡ነገሥት፡ምድር፡እለ፡ሰምዑ፡ጥበቢሁ✣",
       "tokens": [
         "ወይመጽኡ",
         "እምኹሉ",
@@ -935,7 +935,7 @@
         "እምኹሉ",
         "ነገሥት",
         "ምድር",
-        "እስ",
+        "እለ",
         "ሰምዑ",
         "ጥበቢሁ",
         "✣"
@@ -944,11 +944,11 @@
         "ይከምዑ — FIX-ROUND-2 (R2 REVERT): parchment (line 23 f030v-M) clearly inks 'ይከምዑ ጥበቢሁ' with 'ከ' (1st-order k). R1's 'ይስምዑ' was wrong-direction harmonization toward canonical 'they hear' word",
         "ለስሎምን — verified 'ስ' (not 'ሰ')",
         "ወይነሥኤ — FIX-ROUND-2 (R2 REVERT TO ORIGINAL): parchment (line 24 f030v-M) inks final 'ኤ' (5th-order ē with right-side forward-leaning mark). Both R1's 'እ' and the fix-round-1 'ኡ' flag were wrong. Original implementer was right",
-        "እስ — FIX-ROUND-2 (R2 REVERT): parchment (line 25 f030v-M) inks 'እስ ሰምዑ ጥበቢሁ' with 'ስ'. R1's 'እለ' was wrong-direction harmonization",
+        "እለ — FIX-ROUND-3 (R3 RE-REVERT): R3 at 8x on f030v_M_v28.png line 2 confirms 'እለ' (curve-stroke 'ለ' topology) before 'ሰምዑ'. R2's revert to 'እስ' was over-correction. R1 was right; fix-round-3 re-reverts to 'እለ'",
         "Terminator '✣' — R1 fix: small clause-end cross (not '።' as impl had). NOTE: R1 said '❈' in prompt but its own rule normalizes body crosses to '✣'; using '✣' to be consistent with all other body-text cross instances",
         "Chapter ends here at '✣' immediately before next chapter divider rubric 'ክፍል፡፴ወ፩ ❈' on f030v-M L25"
       ]
     }
   ],
-  "transcription_notes": "BLIND vision transcription of 1 Kings 4 from GG-00106 (Gunda Gunde MS, Ge'ez Garima 2 family), folios f030r-R and f030v-L,M; FIX-ROUND-2 (2026-05-20) APPLIES R2 ADVERSARIAL REVIEW which identified that fix-round-1 systematically applied R1's wrong-direction 'ለ'/'ስ' and 'ይ'/'ደ' family fixes — harmonizing AWAY from parchment ink toward standard Ge'ez. CARDINAL RULE was violated at scale by R1, inherited by fix-round-1, REVERTED by fix-round-2. 3-column page; running black scripture traced physically continuously f030r-R lines 17-bottom -> f030v-L 1-41 -> f030v-M 1-32, segmented into canonical verse-sized units at narrative sense breaks (the scribe's own black ✣ clause-dividers are kept verbatim inside each verse). START: ch.4 v1 begins f030r-R line 17 at 'ወሰሎምን፡ንጉሥ፡' immediately after the RED rubric 'ክፍል፡፴ ❈' on the same line; rubric excluded from body. END: ch.4 v28 ends f030v-M line 32 at '...ጥበቢሁ✣'; immediately after, f030v-M line 33 begins with the RED chapter divider 'ክፍል፡፴ወ፩ ❈' (= klfl 31 = chapter 5 start), excluded. INTRA-CHAPTER RED RUBRICS (3 instances; excluded from verse geez per scribal-register rule, all body text resumes immediately after each): (1) f030v-L L38 'ክፍል፡፴ ❈'; (2) f030v-M L12 'ክፍል፡፴ወ፪ ❈'; (3) f030v-M L14 'ክፍል፡፴ወ፫ ❈'. ✣ vs RED RUBRIC distinction: small inline crosses '✣' throughout the running text are TRANSCRIBED VERBATIM; only the FOUR named 'ክፍል <numeral> ❈' rubrics are the RED editorial register, EXCLUDED. Body contains ZERO '❈' instances. COLUMN BOUNDARIES (3 boundaries traced): (a) f030r-R bottom 'ሕንዳን ፡' -> f030v-L top 'ወልደ አሚናዳብ' — clean phrase boundary; (b) f030v-L bottom 'ወአ' -> f030v-M top 'ልሕምት' — MID-WORD boundary kept intact per fix-round-1; (c) f030v-M ends at chapter end. ILLEGIBLES: 0 ⟦illegible⟧ tokens. FIX-ROUND-2 REVERTS APPLIED (the GG scribe's idiolectal inkings are RECENSIONAL INFORMATION; reverting harmonizations): (a) 'ለ'/'ስ' family REVERTS — v18 'ፈለግ' -> 'ፈስግ', v21 'ፈለግ' (×2) -> 'ፈስግ', v21 'እለ ይትዐውዎ' -> 'እስ ይጻወልዎ', v22 'ወእለ' -> 'ወእስ', v23 'እለ ይስሕቡ' -> 'እስ ይስሕቡ', v25 'እለ ዐውደ' -> 'እስ ዋዉደ', v28 'እለ ሰምዑ' -> 'እስ ሰምዑ' (7 family reverts); (b) 'ይ'/'ደ' family REVERTS (per-instance — scribe is genuinely inconsistent; v14 'በይሰክር' and v22 'ይሁዳ'/'ይበልዑ' KEEP 'ይ' as the parchment actually inks 'ይ' there): v14 'ይሁዳ' -> 'ደሁዳ', v15 'ወይሰርዑ' -> 'ወደሰርዑ', v17 'ይሁዳ' -> 'ደሁዳ', v17 'ይበልዑ' -> 'ደበልዑ', v18 'ወይትቀንዩ' -> 'ወተቀንደ', v18 'ሕይወቱ' -> 'ህደወቱ', v19 'ዘይትገበር' -> 'ዘደትገበር' (7 family reverts); (c) other smoothing REVERTS — v17 'ኆጻ ባሕር' -> 'ሮዓ ባሕር' (R1's 'ኆጻ' was smoothing-fabrication; parchment inks 'ሮ-ዓ'), v17 'ብዝኆሙ' -> 'ብዝናሙ' (parchment 'ና'), v21 'ጋዛ' -> 'ጋዘ' (parchment 'ዘ' 6th-order), v25 'ወወጽአ ስሙ' -> 'ወበሕ ስም' (parchment 'ወበሕ'), v28 'ይስምዑ' -> 'ይከምዑ' (parchment 'ከ' 1st-order), v28 'ወይነሥእ' -> 'ወይነሥኤ' (parchment final 'ኤ' 5th-order; original was right) (6 reverts); (d) numeral re-decode REVERTS (AMBIGUOUS-PARCHMENT leaning ORIGINAL) — v23 '፬ ሺ' / '፲ ወ ፪ ሺ' -> 'ቯ ቯ' / 'ቯ ዐ፪' (R1's harmonizations to canonical 1Ki 4:26 numbers reverted), v26 '፫ ሺ' / '፩ ሺ መጻልየ' -> 'ቯ ፫' / 'ቯ ፪ ወ፮ መጾል ያ' (R1's harmonizations to canonical 1Ki 4:32 numbers reverted) (4 numeral reverts). FIX-ROUND-2 NEW APPLIES (R1-was-right items that fix-round-1 missed + new R2 defect): v26 'ኤርዝ' -> 'አርዝ' (parchment 'አ' 1st-order with rectangular form, NOT 'ኤ'); v7 drop fabricated 'ጻ' in 'ይትመጻውሙ' -> 'ይትመውሙ' (the 'ጻ' is NOT inked between 'ይትመ' and 'ውሙ'); v6 'ኒፋን' -> 'ካፋን' (Eliab's patronymic — parchment inks 'ካ' 1st-order with right-turning top-stroke; NEW DEFECT R2 caught). FIX-ROUND-2 RESTORATIONS: v18 between 'ኤሱፍሊ ✣' and 'ግብጽ': restored the inked tokens 'እክከ ደወስ' which fix-round-1 had DROPPED when it harmonized toward 'ሰብአ ግብጽ' — CARDINAL-RULE violation reverted. FIX-ROUND-2 RE-READ: v22 lines 8-9 f030v-M re-read shows '❈ ኹሎሙ ተ | አምነዊ ታሕተ ወዶዕ ሙ' — REPLACES fix-round-1's harmonized 'እሙንቱ እምነዊ ታሕተ ወዶዕ ሙ'. Per R2's high-zoom calibration. KEEPS FROM FIX-ROUND-1 (verified-correct by R2): v1 'ወሰሎምን'; v19 'ወአልሕምት' cross-column join with 'ሕ' not 'ህ'; v28 end terminator '✣' (not '።'); body '❈' -> '✣' normalization in v8/v14/v23; all vowel-mark fixes outside the revert list. DISCIPLINED NON-CHANGES from fix-round-1 confirmed by R2 (7 of 10): v14 'በይሰክር' (parchment shows 'ይ'), v15 'ዘአዘዝሙ' ('አ' is present), v16 'ሀስው' (3 fidels 'ሀ-ስ-ው'), v18 'መማግሥታት' (AMBIGUOUS-PARCHMENT; kept as inked), v21 'እምራፉ' ('ፉ' not 'ፋ'), v25 'እውናን' (4 fidels 'እ-ው-ና-ን'), v25 'ወደራል'/'ደቂተ ሰግድ'. HONEST RESOLUTION-LIMITED FLAGS (R2): 'ሰ'/'ስ' distinction throughout this scribe at limit of image resolution; 'ኆ'/'ኖ' 6th-order labialised consonant ambiguous in v24; 'ቯ'/'ሺ'/'፼' identity in v23/v26 red glyphs (leaning 'ቯ' fidel); v18 'መማግሥታት' doubled-'ማ' vs 'መንግሥታት'. VALIDATOR CHARACTER-CLASS SCREEN: only Ethiopic U+1200-U+137F, Ethiopic punctuation U+1361-U+1368, ASCII space U+0020, and the small inline cross '✣' U+2723. NO '❈' U+2748 in body geez. NO Latin letters, NO mojibake, NO ⟦illegible⟧ sentinels used."
+  "transcription_notes": "BLIND vision transcription of 1 Kings 4 from GG-00106 (Gunda Gunde MS, Ge'ez Garima 2 family), folios f030r-R and f030v-L,M; FIX-ROUND-3 (2026-05-20) APPLIES R3 ADVERSARIAL REVIEW which identified that fix-round-2's revert sweep OVER-CORRECTED in the opposite direction on specific 'ይ'/'ደ' and 'እለ'/'እስ' loci (R2 reverted 'ይ'→'ደ' and 'እለ'→'እስ' too aggressively in places the parchment actually inks 'ይ'/'እለ'), DROPPED the 'ጻ' in v7 incorrectly (the 'ጻ' IS on the parchment), and missed the v22 'ወደኖሙ' (single-token) reading + v18 'ሕ'/'ህ' first-char correction. R3 worked at 8x-18x zoom with same-scribe calibration (v22 'ይሁዳ' as known-'ይ' reference; v18 'ደወስ' as known-'ደ' reference; v23 'ስስሎምን' as known-'ስ' doubled-pair reference; v23 'ሰረገስተ' as known-'ሰ' bare-vertical reference). Fix-round-3 applies the focused re-revert list per R3's spec. Prior arc: fix-round-2 APPLIED R2 ADVERSARIAL REVIEW which identified that fix-round-1 systematically applied R1's wrong-direction 'ለ'/'ስ' and 'ይ'/'ደ' family fixes — harmonizing AWAY from parchment ink toward standard Ge'ez. CARDINAL RULE was violated at scale by R1, inherited by fix-round-1, REVERTED by fix-round-2, then OVER-CORRECTED in opposite direction by R2 on specific loci, RE-CORRECTED by fix-round-3. 3-column page; running black scripture traced physically continuously f030r-R lines 17-bottom -> f030v-L 1-41 -> f030v-M 1-32, segmented into canonical verse-sized units at narrative sense breaks (the scribe's own black ✣ clause-dividers are kept verbatim inside each verse). START: ch.4 v1 begins f030r-R line 17 at 'ወሰሎምን፡ንጉሥ፡' immediately after the RED rubric 'ክፍል፡፴ ❈' on the same line; rubric excluded from body. END: ch.4 v28 ends f030v-M line 32 at '...ጥበቢሁ✣'; immediately after, f030v-M line 33 begins with the RED chapter divider 'ክፍል፡፴ወ፩ ❈' (= klfl 31 = chapter 5 start), excluded. INTRA-CHAPTER RED RUBRICS (3 instances; excluded from verse geez per scribal-register rule, all body text resumes immediately after each): (1) f030v-L L38 'ክፍል፡፴ ❈'; (2) f030v-M L12 'ክፍል፡፴ወ፪ ❈'; (3) f030v-M L14 'ክፍል፡፴ወ፫ ❈'. ✣ vs RED RUBRIC distinction: small inline crosses '✣' throughout the running text are TRANSCRIBED VERBATIM; only the FOUR named 'ክፍል <numeral> ❈' rubrics are the RED editorial register, EXCLUDED. Body contains ZERO '❈' instances. COLUMN BOUNDARIES (3 boundaries traced): (a) f030r-R bottom 'ሕንዳን ፡' -> f030v-L top 'ወልደ አሚናዳብ' — clean phrase boundary; (b) f030v-L bottom 'ወአ' -> f030v-M top 'ልሕምት' — MID-WORD boundary kept intact per fix-round-1; (c) f030v-M ends at chapter end. ILLEGIBLES: 0 ⟦illegible⟧ tokens. FIX-ROUND-2 REVERTS APPLIED (the GG scribe's idiolectal inkings are RECENSIONAL INFORMATION; reverting harmonizations): (a) 'ለ'/'ስ' family REVERTS — v18 'ፈለግ' -> 'ፈስግ', v21 'ፈለግ' (×2) -> 'ፈስግ', v21 'እለ ይትዐውዎ' -> 'እስ ይጻወልዎ', v22 'ወእለ' -> 'ወእስ', v23 'እለ ይስሕቡ' -> 'እስ ይስሕቡ', v25 'እለ ዐውደ' -> 'እስ ዋዉደ', v28 'እለ ሰምዑ' -> 'እስ ሰምዑ' (7 family reverts); (b) 'ይ'/'ደ' family REVERTS (per-instance — scribe is genuinely inconsistent; v14 'በይሰክር' and v22 'ይሁዳ'/'ይበልዑ' KEEP 'ይ' as the parchment actually inks 'ይ' there): v14 'ይሁዳ' -> 'ደሁዳ', v15 'ወይሰርዑ' -> 'ወደሰርዑ', v17 'ይሁዳ' -> 'ደሁዳ', v17 'ይበልዑ' -> 'ደበልዑ', v18 'ወይትቀንዩ' -> 'ወተቀንደ', v18 'ሕይወቱ' -> 'ህደወቱ', v19 'ዘይትገበር' -> 'ዘደትገበር' (7 family reverts); (c) other smoothing REVERTS — v17 'ኆጻ ባሕር' -> 'ሮዓ ባሕር' (R1's 'ኆጻ' was smoothing-fabrication; parchment inks 'ሮ-ዓ'), v17 'ብዝኆሙ' -> 'ብዝናሙ' (parchment 'ና'), v21 'ጋዛ' -> 'ጋዘ' (parchment 'ዘ' 6th-order), v25 'ወወጽአ ስሙ' -> 'ወበሕ ስም' (parchment 'ወበሕ'), v28 'ይስምዑ' -> 'ይከምዑ' (parchment 'ከ' 1st-order), v28 'ወይነሥእ' -> 'ወይነሥኤ' (parchment final 'ኤ' 5th-order; original was right) (6 reverts); (d) numeral re-decode REVERTS (AMBIGUOUS-PARCHMENT leaning ORIGINAL) — v23 '፬ ሺ' / '፲ ወ ፪ ሺ' -> 'ቯ ቯ' / 'ቯ ዐ፪' (R1's harmonizations to canonical 1Ki 4:26 numbers reverted), v26 '፫ ሺ' / '፩ ሺ መጻልየ' -> 'ቯ ፫' / 'ቯ ፪ ወ፮ መጾል ያ' (R1's harmonizations to canonical 1Ki 4:32 numbers reverted) (4 numeral reverts). FIX-ROUND-2 NEW APPLIES (R1-was-right items that fix-round-1 missed + new R2 defect): v26 'ኤርዝ' -> 'አርዝ' (parchment 'አ' 1st-order with rectangular form, NOT 'ኤ'); v7 drop fabricated 'ጻ' in 'ይትመጻውሙ' -> 'ይትመውሙ' (the 'ጻ' is NOT inked between 'ይትመ' and 'ውሙ'); v6 'ኒፋን' -> 'ካፋን' (Eliab's patronymic — parchment inks 'ካ' 1st-order with right-turning top-stroke; NEW DEFECT R2 caught). FIX-ROUND-2 RESTORATIONS: v18 between 'ኤሱፍሊ ✣' and 'ግብጽ': restored the inked tokens 'እክከ ደወስ' which fix-round-1 had DROPPED when it harmonized toward 'ሰብአ ግብጽ' — CARDINAL-RULE violation reverted. FIX-ROUND-2 RE-READ: v22 lines 8-9 f030v-M re-read shows '❈ ኹሎሙ ተ | አምነዊ ታሕተ ወዶዕ ሙ' — REPLACES fix-round-1's harmonized 'እሙንቱ እምነዊ ታሕተ ወዶዕ ሙ'. Per R2's high-zoom calibration. KEEPS FROM FIX-ROUND-1 (verified-correct by R2): v1 'ወሰሎምን'; v19 'ወአልሕምት' cross-column join with 'ሕ' not 'ህ'; v28 end terminator '✣' (not '።'); body '❈' -> '✣' normalization in v8/v14/v23; all vowel-mark fixes outside the revert list. DISCIPLINED NON-CHANGES from fix-round-1 confirmed by R2 (7 of 10): v14 'በይሰክር' (parchment shows 'ይ'), v15 'ዘአዘዝሙ' ('አ' is present), v16 'ሀስው' (3 fidels 'ሀ-ስ-ው'), v18 'መማግሥታት' (AMBIGUOUS-PARCHMENT; kept as inked), v21 'እምራፉ' ('ፉ' not 'ፋ'), v25 'እውናን' (4 fidels 'እ-ው-ና-ን'), v25 'ወደራል'/'ደቂተ ሰግድ'. HONEST RESOLUTION-LIMITED FLAGS (R2): 'ሰ'/'ስ' distinction throughout this scribe at limit of image resolution; 'ኆ'/'ኖ' 6th-order labialised consonant ambiguous in v24; 'ቯ'/'ሺ'/'፼' identity in v23/v26 red glyphs (leaning 'ቯ' fidel); v18 'መማግሥታት' doubled-'ማ' vs 'መንግሥታት'. FIX-ROUND-3 RE-REVERTS APPLIED (per R3 spec, swinging pendulum back from R2's opposite-direction over-correction): (a) 'ይ'/'ደ' RE-REVERTS (R2 had over-reverted these to 'ደ'; parchment ACTUALLY inks 'ይ' per R3's same-scribe Y-triangle calibration against v22 'ይሁዳ' reference) — v14 'ደሁዳ' -> 'ይሁዳ', v15 'ወደሰርዑ' -> 'ወይሰርዑ', v17 'ደሁዳ' -> 'ይሁዳ', v17 'ደበልዑ' -> 'ይበልዑ' (4 re-reverts); (b) 'እለ'/'እስ' RE-REVERTS (R2 had over-reverted these to 'እስ'; parchment ACTUALLY inks 'እለ' per R3's 18x curve-stroke 'ለ' topology calibration) — v23 'እስ ይስሕቡ' -> 'እለ ይስሕቡ', v25 'እስ ዋዉደ' -> 'እለ ዋዉደ', v28 'እስ ሰምዑ' -> 'እለ ሰምዑ' (3 re-reverts); (c) 'ጻ' RESTORATION (R2 had wrongly dropped the 'ጻ' as a 'fabrication'; the 'ጻ' IS on the parchment per R3 at 8x f030r-R line 2) — v7 'ይትመውሙ' -> 'ይትመጻውሙ' (1 restoration); (d) NEW DEFECT R3 caught (segmentation + character) — v22 'ወዶዕ ሙ' (2 tokens) -> 'ወደኖሙ' (1 token; asymmetric-D 'ደ' + labialised 'ኖ') (1 fix); (e) MINOR first-char correction R3 caught — v18 'ህደወቱ' -> 'ሕደወቱ' (6th-order 'ሕ' two-bar form, not 1st-order 'ህ'; per R3 reading of the line 4→5 break 'ሕ | ደወቱ') (1 fix). FIX-ROUND-3 RETAINS FROM FIX-ROUND-2 (R3-confirmed at high zoom): v1 'ወሰሎምን' (bare 'ሰ' confirmed against v23 'ስስሎምን' doubled-'ስ' reference); v6 'ካፋን'; v18 'ፈስግ' (s); v21 'ፈስግ' ×2 (s); v22 'ወእስ' (s — R3 KEPT, distinct from the over-corrected 'እለ' loci); v18 'ወተቀንደ' (də); v17 'ሮዓ ባሕር'; v17 'ብዝናሙ'; v28 'ወይነሥኤ' (5th-order ē); v18 'እክከ ደወስ' restoration; v26 'አርዝ' (1st-order 'አ'). FIX-ROUND-3 KEEPS-AS-AMBIGUOUS (R3 honest flag, accept R2's reading as defensible without same-scribe reference): 4 red-glyph numerals v23/v26 (R3 leans 'ሺ'-shape but cannot rule out 'ቯ'); v21 'ጋዘ'; v25 'ወበሕ ስም'; v28 'ይከምዑ'; v19 'ዘደትገበር'; v22 segmentation 'ኹሎሙ ተአምነዊ' vs 'ኹሎሙ + እምነዊ' (line-break ambiguity); v18 'መማግሥታት' doubled-'ማ'; v24 'ኆ'/'ኖ'; chapter-wide 'ሰ'/'ስ' Solomon-name instances. VALIDATOR CHARACTER-CLASS SCREEN: only Ethiopic U+1200-U+137F, Ethiopic punctuation U+1361-U+1368, ASCII space U+0020, and the small inline cross '✣' U+2723. NO '❈' U+2748 in body geez. NO Latin letters, NO mojibake, NO ⟦illegible⟧ sentinels used."
 }
