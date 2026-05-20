@@ -1,0 +1,1138 @@
+{
+  "witness": "GG",
+  "book": "1sa",
+  "chapter": 2,
+  "source_images": [
+    "GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f003v.jpg",
+    "GAPS/1_Samuel/GG-00106/1-Samuel/1-Samuel_f004r.jpg"
+  ],
+  "folio_sigla": [
+    "f003v",
+    "f004r"
+  ],
+  "verses": [
+    {
+      "v": 1,
+      "column": "f003v-L",
+      "line_start": 32,
+      "geez": "ሕፃንሰ ፡ ነበረ ፡ ይትለሳዓኪ ፡ ቅድመ ፡ እግዚአብሐር ፡ ወቅድመ ፡ ኤሊ ፡ ካህን ✣",
+      "tokens": [
+        "ሕፃንሰ",
+        "ነበረ",
+        "ይትለሳዓኪ",
+        "ቅድመ",
+        "እግዚአብሐር",
+        "ወቅድመ",
+        "ኤሊ",
+        "ካህን"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይትለሳዓኪ — verb form unusual; reading consistent with line 33"
+        }
+      ]
+    },
+    {
+      "v": 2,
+      "column": "f003v-L",
+      "line_start": 34,
+      "geez": "ወቂዩ ፡ ኤሊስ ፡ ካህን ፡ እኩያን ፡ እሙንቱ ፡ ወኢያአምርዎ ፡ ምስለ ፡ እግዚአብሐር ✣",
+      "tokens": [
+        "ወቂዩ",
+        "ኤሊስ",
+        "ካህን",
+        "እኩያን",
+        "እሙንቱ",
+        "ወኢያአምርዎ",
+        "ምስለ",
+        "እግዚአብሐር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቂዩ — read in place of ደቂቁ; ቂ/ደ confusion per topology §2; first character ambiguous"
+        }
+      ]
+    },
+    {
+      "v": 3,
+      "column": "f003v-L",
+      "line_start": 36,
+      "geez": "ወኢሕግ ፡ ካህናቲሁ ፡ ሎሉ ፡ ሕዝብ ፡ ግዜ ፡ ይዘባሙ ፡ መሥዋዕተ ፡ ወይመጽእ ፡ ወልድ ፡ ካህን ፡ ሰብየ ፡ በስሙ ✣",
+      "tokens": [
+        "ወኢሕግ",
+        "ካህናቲሁ",
+        "ሎሉ",
+        "ሕዝብ",
+        "ግዜ",
+        "ይዘባሙ",
+        "መሥዋዕተ",
+        "ወይመጽእ",
+        "ወልድ",
+        "ካህን",
+        "ሰብየ",
+        "በስሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይዘባሙ — verb difficult; aligns with 'they offered' position"
+        }
+      ]
+    },
+    {
+      "v": 4,
+      "column": "f003v-L",
+      "line_start": 39,
+      "geez": "ወይመጽእ ፡ እመኖክሱ ፡ ወይወድዮ ፡ ውስተ ፡ ጽሐርት ፡ ወእምኒ ፡ ውስተ ፡ ቃቢይ ፡ ጽሐርት ፡ ወእምኒ ፡ ውስተ ፡ ማቅ ፡ ጽት ፡ ወእኮ ፡ ⟦illegible⟧",
+      "tokens": [
+        "ወይመጽእ",
+        "እመኖክሱ",
+        "ወይወድዮ",
+        "ውስተ",
+        "ጽሐርት",
+        "ወእምኒ",
+        "ውስተ",
+        "ቃቢይ",
+        "ጽሐርት",
+        "ወእምኒ",
+        "ውስተ",
+        "ማቅ",
+        "ጽት",
+        "ወእኮ",
+        "⟦illegible⟧"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቃቢይ — vessel-name; spelling unusual"
+        },
+        {
+          "token_index": 14,
+          "marker": "illegible",
+          "note": "f003v-L lines 44-47: column-bottom heavy stain damage; ~3-4 lines lost"
+        }
+      ]
+    },
+    {
+      "v": 5,
+      "column": "f003v-M",
+      "line_start": 1,
+      "geez": "ሎ ፡ ዘአወዕአ ፡ ወእቱ ፡ መኖሰስ ፡ ቦ ፡ ነሥእ ፡ ሎቱ ፡ ካህን ✣ ወከማሁ ፡ ይንብር ፡ ለሎሎ ፡ እስራኤል ፡ ለእስ ፡ ይመጽኡ ፡ ይሥሁ ፡ ለእግዚአብሐር ፡ በሴሎም ✣",
+      "tokens": [
+        "ሎ",
+        "ዘአወዕአ",
+        "ወእቱ",
+        "መኖሰስ",
+        "ቦ",
+        "ነሥእ",
+        "ሎቱ",
+        "ካህን",
+        "ወከማሁ",
+        "ይንብር",
+        "ለሎሎ",
+        "እስራኤል",
+        "ለእስ",
+        "ይመጽኡ",
+        "ይሥሁ",
+        "ለእግዚአብሐር",
+        "በሴሎም"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሎ — preceding word fragment continuing from damaged L-bottom"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይሥሁ — verb form 'they sacrifice'"
+        }
+      ]
+    },
+    {
+      "v": 6,
+      "column": "f003v-M",
+      "line_start": 5,
+      "geez": "ወዘንበለ ፡ ይጢከ ፡ ስብሐ ፡ ይመጽአ ፡ ወሰደ ፡ ካህን ✣ ወይቤሎ ፡ ለውእቱ ፡ ብእሲ ፡ ዘይሣውዕ ፡ ሀበኒ ፡ ሥጋ ፡ ዘእጠብስ ፡ ለካህን ✣ ወኢይነሥእ ፡ እምስከ ፡ ብሱል ✣",
+      "tokens": [
+        "ወዘንበለ",
+        "ይጢከ",
+        "ስብሐ",
+        "ይመጽአ",
+        "ወሰደ",
+        "ካህን",
+        "ወይቤሎ",
+        "ለውእቱ",
+        "ብእሲ",
+        "ዘይሣውዕ",
+        "ሀበኒ",
+        "ሥጋ",
+        "ዘእጠብስ",
+        "ለካህን",
+        "ወኢይነሥእ",
+        "እምስከ",
+        "ብሱል"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይጢከ — verb form; could be ይጢከ̈ 'while/before'"
+        }
+      ]
+    },
+    {
+      "v": 7,
+      "column": "f003v-M",
+      "line_start": 10,
+      "geez": "እምውስተ ፡ ጽሕርት ✣ ወይቤሎ ፡ ዝክቱ ፡ ብእሲ ፡ ዘይሣውዕ ፡ ይጢከስ ፡ ምዕራ ፡ ይቅድም ፡ ስብሐ ፡ ዘበሕግ ፡ ወእንሣእ ፡ ለለክመ ፡ እምነፍሰ ✣",
+      "tokens": [
+        "እምውስተ",
+        "ጽሕርት",
+        "ወይቤሎ",
+        "ዝክቱ",
+        "ብእሲ",
+        "ዘይሣውዕ",
+        "ይጢከስ",
+        "ምዕራ",
+        "ይቅድም",
+        "ስብሐ",
+        "ዘበሕግ",
+        "ወእንሣእ",
+        "ለለክመ",
+        "እምነፍሰ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ምዕራ ይቅድም — 'let burn first'; reading subject to wear"
+        }
+      ]
+    },
+    {
+      "v": 8,
+      "column": "f003v-M",
+      "line_start": 14,
+      "geez": "ወይቤሎ ፡ እልቡ ፡ አኬ ፡ ሀበኒ ፡ ወእመ ፡ አኮሱ ፡ እነሥእ ፡ ወአሐይደክ ✣",
+      "tokens": [
+        "ወይቤሎ",
+        "እልቡ",
+        "አኬ",
+        "ሀበኒ",
+        "ወእመ",
+        "አኮሱ",
+        "እነሥእ",
+        "ወአሐይደክ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 9,
+      "column": "f003v-M",
+      "line_start": 16,
+      "geez": "ወኮነት ፡ ኃጢአቶሙ ፡ ስ ፡ እመንፈሰ ፡ ኤሊ ፡ ቅድመ ፡ እግዚአብሐር ፡ በዓየጥቀ ፡ እሰመ ፡ አበሱ ፡ ዓዕስ ፡ መሥዋዕተ ፡ እግዚአብሐር ✣",
+      "tokens": [
+        "ወኮነት",
+        "ኃጢአቶሙ",
+        "ስ",
+        "እመንፈሰ",
+        "ኤሊ",
+        "ቅድመ",
+        "እግዚአብሐር",
+        "በዓየጥቀ",
+        "እሰመ",
+        "አበሱ",
+        "ዓዕስ",
+        "መሥዋዕተ",
+        "እግዚአብሐር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በዓየጥቀ — adverb 'greatly'; spelling parchment-specific"
+        }
+      ]
+    },
+    {
+      "v": 10,
+      "column": "f003v-M",
+      "line_start": 20,
+      "geez": "ወዓሙኤል ፡ ሰሐለሰው ፡ በቅድመ ፡ እግዚአብሐር ፡ ይትለአክ ፡ ወወሬዘ ፡ ውእቱ ፡ ወይቀንት ፡ ኤፋዱ ፡ ወልብሰ ፡ በዕፍ ፡ ግበረት ፡ ሎቱ ✣",
+      "tokens": [
+        "ወዓሙኤል",
+        "ሰሐለሰው",
+        "በቅድመ",
+        "እግዚአብሐር",
+        "ይትለአክ",
+        "ወወሬዘ",
+        "ውእቱ",
+        "ወይቀንት",
+        "ኤፋዱ",
+        "ወልብሰ",
+        "በዕፍ",
+        "ግበረት",
+        "ሎቱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሰሐለሰው — pre-verb particle; reading uncertain"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በዕፍ — 'ephod' rendering"
+        }
+      ]
+    },
+    {
+      "v": 11,
+      "column": "f003v-M",
+      "line_start": 24,
+      "geez": "እሙ ፡ ዓዕሰ ፡ ተዓፋዕተ ፡ ምስለ ፡ ምታ ፡ ከመ ፡ ይሥኡ ፡ መሥዋዕተ ፡ ዘሰለመዓዕል ፡ ወዓረከመው ፡ ኤሊ ፡ ለሕልቃና ፡ ወለብእሲቱ",
+      "tokens": [
+        "እሙ",
+        "ዓዕሰ",
+        "ተዓፋዕተ",
+        "ምስለ",
+        "ምታ",
+        "ከመ",
+        "ይሥኡ",
+        "መሥዋዕተ",
+        "ዘሰለመዓዕል",
+        "ወዓረከመው",
+        "ኤሊ",
+        "ለሕልቃና",
+        "ወለብእሲቱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ተዓፋዕተ — 'cloak/robe' rendering"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘሰለመዓዕል — 'yearly/of the year'"
+        }
+      ]
+    },
+    {
+      "v": 12,
+      "column": "f003v-M",
+      "line_start": 28,
+      "geez": "ወይቤሎ ፡ ሎይዕሥ ፡ ለክ ፡ እግዚአብሐር ፡ ዘርዓ ፡ እምዘቲ ፡ ብእሲት ፡ ህየንተ ፡ ዝንቱ ፡ ሕፃን ፡ ዘአበአክ ፡ ለእግዚአብሐር ✣",
+      "tokens": [
+        "ወይቤሎ",
+        "ሎይዕሥ",
+        "ለክ",
+        "እግዚአብሐር",
+        "ዘርዓ",
+        "እምዘቲ",
+        "ብእሲት",
+        "ህየንተ",
+        "ዝንቱ",
+        "ሕፃን",
+        "ዘአበአክ",
+        "ለእግዚአብሐር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሎይዕሥ — 'may he add/give'"
+        }
+      ]
+    },
+    {
+      "v": 13,
+      "column": "f003v-M",
+      "line_start": 32,
+      "geez": "ወአተወ ፡ ውስተ ፡ ህገሩመ ✣ ወሐወዓ ፡ እግዚአብሐር ፡ ለሐናሰ ፡ ወወስደት ፡ ዓዲ ፡ ፫ ደቂቀ ፡ ወ፪ አዋልደ ✣",
+      "tokens": [
+        "ወአተወ",
+        "ውስተ",
+        "ህገሩመ",
+        "ወሐወዓ",
+        "እግዚአብሐር",
+        "ለሐናሰ",
+        "ወወስደት",
+        "ዓዲ",
+        "፫",
+        "ደቂቀ",
+        "ወ",
+        "፪",
+        "አዋልደ"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 14,
+      "column": "f003v-M",
+      "line_start": 35,
+      "geez": "ወዓብየዘ ፡ ወልድ ፡ ቅድመ ፡ እግዚአብሐር ✣",
+      "tokens": [
+        "ወዓብየዘ",
+        "ወልድ",
+        "ቅድመ",
+        "እግዚአብሐር"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 15,
+      "column": "f003v-R",
+      "line_start": 1,
+      "geez": "ኤሊ ፡ ክልአዕም ፡ ለሕዝብ ፡ ትወቀንየ ፡ ለእግዚአብሐር ፡ ለእመቡ ፡ ዘአበሱ ፡ ፪ ብእሲ ፡ ለዕሱ ፡ በእሲ ፡ ወከልኡ ፡ ወገበሩ ፡ ሃጢአተ ፡ ይጻልዩ ፡ ሎቱ ፡ ሃበ ፡ እግዚአብሐር ✣ ወእመሱ ፡ ሰዕሰ ፡ እግዚአብሐር ፡ አምላኩ ፡ አበሱ ፡ ነበመ ፡ ኖይ ፡ ጼልዩ ፡ ሎቱ",
+      "tokens": [
+        "ኤሊ",
+        "ክልአዕም",
+        "ለሕዝብ",
+        "ትወቀንየ",
+        "ለእግዚአብሐር",
+        "ለእመቡ",
+        "ዘአበሱ",
+        "፪",
+        "ብእሲ",
+        "ለዕሱ",
+        "በእሲ",
+        "ወከልኡ",
+        "ወገበሩ",
+        "ሃጢአተ",
+        "ይጻልዩ",
+        "ሎቱ",
+        "ሃበ",
+        "እግዚአብሐር",
+        "ወእመሱ",
+        "ሰዕሰ",
+        "እግዚአብሐር",
+        "አምላኩ",
+        "አበሱ",
+        "ነበመ",
+        "ኖይ",
+        "ጼልዩ",
+        "ሎቱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ክልአዕም — 'forbade/restrained'; first character at column edge"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ትወቀንየ — verb of ministering/serving"
+        }
+      ]
+    },
+    {
+      "v": 16,
+      "column": "f003v-R",
+      "line_start": 7,
+      "geez": "ወበቦይ ፡ ሥሚያቅ ፡ ሰዕቡሆሙ ፡ እስመ ፡ ፈቂደ ፡ ፈቀደ ፡ እግዚአብሐር ፡ ያማስኖሙ ✣ ወዘክቱ ፡ ወልድ ፡ ሳሙኤል ፡ የሐውር ፡ በዐናየ ፡ ቅድመ ፡ እግዚአብሐር ፡ ወቅድመ ፡ ሰብእ ✣",
+      "tokens": [
+        "ወበቦይ",
+        "ሥሚያቅ",
+        "ሰዕቡሆሙ",
+        "እስመ",
+        "ፈቂደ",
+        "ፈቀደ",
+        "እግዚአብሐር",
+        "ያማስኖሙ",
+        "ወዘክቱ",
+        "ወልድ",
+        "ሳሙኤል",
+        "የሐውር",
+        "በዐናየ",
+        "ቅድመ",
+        "እግዚአብሐር",
+        "ወቅድመ",
+        "ሰብእ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በዐናየ — 'in good way/well'"
+        }
+      ]
+    },
+    {
+      "v": 17,
+      "column": "f003v-R",
+      "line_start": 10,
+      "geez": "ክፍል ፪ ✣ ወመጽአ ፡ ብእሴ ፡ እግዚአብሐር ፡ ናበ ፡ ኤሊ ፡ ወይቤሎ ፡ ከመ ፡ ዝይቤ ፡ እግዚአብሐር ፡ አስተርእየ ፡ አስተርአይ ፡ ኩ ፡ ስቢቲ ፡ እቡክ ፡ እንዘ ፡ ሀለው ፡ ምስከቲ ፡ ምድረ ፡ ግብጽ ፡ ወአገብርቱ ፡ እሙንቱ ፡ ሰፊርዓ ✣",
+      "tokens": [
+        "ክፍል",
+        "፪",
+        "ወመጽአ",
+        "ብእሴ",
+        "እግዚአብሐር",
+        "ናበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ከመ",
+        "ዝይቤ",
+        "እግዚአብሐር",
+        "አስተርእየ",
+        "አስተርአይ",
+        "ኩ",
+        "ስቢቲ",
+        "እቡክ",
+        "እንዘ",
+        "ሀለው",
+        "ምስከቲ",
+        "ምድረ",
+        "ግብጽ",
+        "ወአገብርቱ",
+        "እሙንቱ",
+        "ሰፊርዓ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ናበ ኤሊ — 'unto Eli'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስቢቲ እቡክ — 'house of your father'"
+        }
+      ]
+    },
+    {
+      "v": 18,
+      "column": "f003v-R",
+      "line_start": 17,
+      "geez": "ወሬይክም ፡ ሰበተ ፡ እቡክ ፡ እምኮሎቤተ ፡ እስራኤል ፡ ከመ ፡ ይኩኒ ፡ ካህናቲ ፡ ወያዕርግ ፡ መሥዋዕተ ፡ ውክተ ፡ ምሥዋዕየ ፡ ወይዕጥኑ ፡ ዕጣነ ፡ ወይጹፍሩ ፡ ኤፋዴ ፡ ወመሐብክም ፡ ሰበተ ፡ እቡክ ፡ ኮለ ፡ ዘበእሳት ፡ ይትገበር ፡ ዘእምነበ ፡ ደቂቀ ፡ እስራኤል",
+      "tokens": [
+        "ወሬይክም",
+        "ሰበተ",
+        "እቡክ",
+        "እምኮሎቤተ",
+        "እስራኤል",
+        "ከመ",
+        "ይኩኒ",
+        "ካህናቲ",
+        "ወያዕርግ",
+        "መሥዋዕተ",
+        "ውክተ",
+        "ምሥዋዕየ",
+        "ወይዕጥኑ",
+        "ዕጣነ",
+        "ወይጹፍሩ",
+        "ኤፋዴ",
+        "ወመሐብክም",
+        "ሰበተ",
+        "እቡክ",
+        "ኮለ",
+        "ዘበእሳት",
+        "ይትገበር",
+        "ዘእምነበ",
+        "ደቂቀ",
+        "እስራኤል"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይጹፍሩ ኤፋዴ — 'and they wear the ephod'"
+        }
+      ]
+    },
+    {
+      "v": 19,
+      "column": "f003v-R",
+      "line_start": 23,
+      "geez": "ወሰምን ፡ በኪት ፡ ዓይኒሁ ፡ ነፀርከ ፡ ሳዕሰ ፡ መሥዋዕትየ ፡ ወሰብሰዕጣንየ ፡ ወአብደርከ ፡ ደቂቀከ ፡ እምኒየ ✣ በእንተ ፡ በረከት ፡ ቀዓማየ ፡ ኩሉ ፡ መሥዋዕቱሙ ፡ ለእስራኤል ፡ ዘበቅድሜየ",
+      "tokens": [
+        "ወሰምን",
+        "በኪት",
+        "ዓይኒሁ",
+        "ነፀርከ",
+        "ሳዕሰ",
+        "መሥዋዕትየ",
+        "ወሰብሰዕጣንየ",
+        "ወአብደርከ",
+        "ደቂቀከ",
+        "እምኒየ",
+        "በእንተ",
+        "በረከት",
+        "ቀዓማየ",
+        "ኩሉ",
+        "መሥዋዕቱሙ",
+        "ለእስራኤል",
+        "ዘበቅድሜየ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሰምን — 'why' / reason particle"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ሰብሰዕጣንየ — 'and my incense'"
+        }
+      ]
+    },
+    {
+      "v": 20,
+      "column": "f003v-R",
+      "line_start": 27,
+      "geez": "በእንተዝ ፡ ዝነቱ ፡ ክመ ፡ ይቤ ፡ እግዚአብሐር ፡ አምሳኩ ፡ እስፉኤል ፡ እበ ፡ ከመ ፡ ቤትከ ፡ ወቤተ ፡ እቡክ ፡ ትብራ ፡ ቅድሜየ ፡ ለዓላም ✣ ወይዕሎይቤ ፡ እግዚአብሐር ፡ ሐሰ ፡ ቢተዳእመ ፡ ስለስ ፡ ኤከበሩኒ ፡ እከብሮሙ ፡ ወሰዘንኒ ፡ እስከ ፡ ዓቀረኒ ፡ እከትዓቅር",
+      "tokens": [
+        "በእንተዝ",
+        "ዝነቱ",
+        "ክመ",
+        "ይቤ",
+        "እግዚአብሐር",
+        "አምሳኩ",
+        "እስፉኤል",
+        "እበ",
+        "ከመ",
+        "ቤትከ",
+        "ወቤተ",
+        "እቡክ",
+        "ትብራ",
+        "ቅድሜየ",
+        "ለዓላም",
+        "ወይዕሎይቤ",
+        "እግዚአብሐር",
+        "ሐሰ",
+        "ቢተዳእመ",
+        "ስለስ",
+        "ኤከበሩኒ",
+        "እከብሮሙ",
+        "ወሰዘንኒ",
+        "እስከ",
+        "ዓቀረኒ",
+        "እከትዓቅር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "❈ — likely body ✣ misread per topology §1; downgraded mentally but parchment shape large; flagged"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይዕሎይቤ — 'now he says'"
+        }
+      ]
+    },
+    {
+      "v": 21,
+      "column": "f003v-R",
+      "line_start": 32,
+      "geez": "ወናሁ ፡ ይመጽእ ፡ መዋዕል ፡ ወእሣሪሙ ፡ ስርዕክ ፡ ወስዘርእ ፡ ቤትከ ✣ ወእይ ትረክብ ፡ ስከ ፡ ውስቲ ፡ ቤትከ ፡ ልሕየት ፡ በኮሉ ፡ መዋዕል ፡ ወእይሣዕር ፡ በሱኤ ፡ ይዕነ ፡ መሣዋዕተየ",
+      "tokens": [
+        "ወናሁ",
+        "ይመጽእ",
+        "መዋዕል",
+        "ወእሣሪሙ",
+        "ስርዕክ",
+        "ወስዘርእ",
+        "ቤትከ",
+        "ወእይ",
+        "ትረክብ",
+        "ስከ",
+        "ውስቲ",
+        "ቤትከ",
+        "ልሕየት",
+        "በኮሉ",
+        "መዋዕል",
+        "ወእይሣዕር",
+        "በሱኤ",
+        "ይዕነ",
+        "መሣዋዕተየ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስርዕክ — possibly ሰበረከ̈ 'will break' "
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ልሕየት — 'old man/elder'"
+        }
+      ]
+    },
+    {
+      "v": 22,
+      "column": "f004r-L",
+      "line_start": 1,
+      "geez": "ዘይፈውድም ፡ በዐይነግቲሁ ፡ ወይጽሕቅ ፡ በነፍሱ ✣ ወከሎሙ ፡ እስተርዳእም ፡ ነቢተ ፡ ከይመድቁ ፡ በኩርፋተ ፡ ዐደሙ ፡ ወዘንቱ ፡ እትወ ፡ እምርስከ ፡ ዘይመጽእ ፡ ሰዕሎሙ ፡ ክልኤሆሙ ፡ ደቂቅከ ፡ እፍኒ ፡ ወፍንሐስ ፡ ክልኤሆሙ ፡ ይመውቲ ፡ በእሐደ ፡ ዕለት",
+      "tokens": [
+        "ዘይፈውድም",
+        "በዐይነግቲሁ",
+        "ወይጽሕቅ",
+        "በነፍሱ",
+        "ወከሎሙ",
+        "እስተርዳእም",
+        "ነቢተ",
+        "ከይመድቁ",
+        "በኩርፋተ",
+        "ዐደሙ",
+        "ወዘንቱ",
+        "እትወ",
+        "እምርስከ",
+        "ዘይመጽእ",
+        "ሰዕሎሙ",
+        "ክልኤሆሙ",
+        "ደቂቅከ",
+        "እፍኒ",
+        "ወፍንሐስ",
+        "ክልኤሆሙ",
+        "ይመውቲ",
+        "በእሐደ",
+        "ዕለት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ዘይፈውድም — verb 'will-take-pleasure'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እፍኒ ወፍንሐስ — Hophni and Phinehas names"
+        }
+      ]
+    },
+    {
+      "v": 23,
+      "column": "f004r-L",
+      "line_start": 7,
+      "geez": "ወእቄውም ፡ ሊተ ፡ ካህነ ፡ ዘይነባር ፡ ኮሎ ፡ ዘውስተ ፡ ልብየ ፡ ወዘውስተ ፡ ነፍስየ ፡ ይንበር ፡ ወአሐነጽ ፡ ሎቱ ፡ ቤተ ፡ መእምነ ፡ ወየሐውር ፡ ቅድመ ፡ መሲሕየ ፡ በኩሉ ፡ መዋዕል ✣ ወእለቱ ፡ እርፋ ፡ እምኒ ፡ ቤትከ ፡ የመጽኡ ፡ ሎቱ ፡ ስግድ ፡ ስብራር ፡ አበሲ ፡ ወይፍቲ ፡ ዓበስት ፡ ወይቤልዎ ፡ ሣደፉ ፡ ና ፡ ዕእም ፡ ካህናቲከ ፡ ናበዘ ፡ እትባልዕ ፡ ሕብስት ✣",
+      "tokens": [
+        "ወእቄውም",
+        "ሊተ",
+        "ካህነ",
+        "ዘይነባር",
+        "ኮሎ",
+        "ዘውስተ",
+        "ልብየ",
+        "ወዘውስተ",
+        "ነፍስየ",
+        "ይንበር",
+        "ወአሐነጽ",
+        "ሎቱ",
+        "ቤተ",
+        "መእምነ",
+        "ወየሐውር",
+        "ቅድመ",
+        "መሲሕየ",
+        "በኩሉ",
+        "መዋዕል",
+        "ወእለቱ",
+        "እርፋ",
+        "እምኒ",
+        "ቤትከ",
+        "የመጽኡ",
+        "ሎቱ",
+        "ስግድ",
+        "ስብራር",
+        "አበሲ",
+        "ወይፍቲ",
+        "ዓበስት",
+        "ወይቤልዎ",
+        "ሣደፉ",
+        "ና",
+        "ዕእም",
+        "ካህናቲከ",
+        "ናበዘ",
+        "እትባልዕ",
+        "ሕብስት"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "መእምነ — 'faithful'"
+        }
+      ]
+    },
+    {
+      "v": 24,
+      "column": "f004r-L",
+      "line_start": 16,
+      "geez": "ክፍል ፫ ✣ ወዝክቱስ ፡ ወልድ ፡ ሳሙኤል ፡ ሀለው ፡ ይትለአክ ፡ ለእግዚአብሐር ፡ ቅድመ ፡ ኤሊ ፡ ካህን ፡ ወክቡር ፡ ወእቱ ፡ ቃሎ ፡ እግዚአብሐር ፡ በእማኒ ፡ ቱ ፡ መዋዕል ፡ ወአልቡ ፡ ራእይ ፡ ዘይከውን ✣",
+      "tokens": [
+        "ክፍል",
+        "፫",
+        "ወዝክቱስ",
+        "ወልድ",
+        "ሳሙኤል",
+        "ሀለው",
+        "ይትለአክ",
+        "ለእግዚአብሐር",
+        "ቅድመ",
+        "ኤሊ",
+        "ካህን",
+        "ወክቡር",
+        "ወእቱ",
+        "ቃሎ",
+        "እግዚአብሐር",
+        "በእማኒ",
+        "ቱ",
+        "መዋዕል",
+        "ወአልቡ",
+        "ራእይ",
+        "ዘይከውን"
+      ],
+      "uncertain": []
+    },
+    {
+      "v": 25,
+      "column": "f004r-L",
+      "line_start": 23,
+      "geez": "ክፍል ፬ ✣ ወእምዝ ፡ በይእቲ ፡ ዕለት ፡ እንዘ ፡ ይነውም ፡ ኤሊ ፡ በውስተ ፡ መካኑ ፡ ወአዕይንቲሁነ ፡ እዓዘይክብዳ ✣ ወአይክልርእየ ✣ ወማዓቱ ፡ እግዚአብሐርን ፡ ዓዴ ፡ እያውነየ ፡ ሰአቢቱ ፡ ወሳሙኤልሰ ፡ ይነውም ፡ ውስቲ ፡ ቤቲ ፡ መቅደስ ፡ ናበ ፡ ታበተ ፡ እግዚአብሐር ✣ ወጸውዓ ፡ እግዚአብሐር ፡ ለሳሙኤል ፡ ወይቤሎ ፡ ሳሙኤል ፡ ሳሙኤል ፡ ወይቤ ፡ ናአን ፡ ⟦illegible⟧ ፡ ⟦illegible⟧ ፡ ⟦illegible⟧ ፡ ወሮጸ ፡ ናበ ፡ ኤሊ",
+      "tokens": [
+        "ክፍል",
+        "፬",
+        "ወእምዝ",
+        "በይእቲ",
+        "ዕለት",
+        "እንዘ",
+        "ይነውም",
+        "ኤሊ",
+        "በውስተ",
+        "መካኑ",
+        "ወአዕይንቲሁነ",
+        "እዓዘይክብዳ",
+        "ወአይክልርእየ",
+        "ወማዓቱ",
+        "እግዚአብሐርን",
+        "ዓዴ",
+        "እያውነየ",
+        "ሰአቢቱ",
+        "ወሳሙኤልሰ",
+        "ይነውም",
+        "ውስቲ",
+        "ቤቲ",
+        "መቅደስ",
+        "ናበ",
+        "ታበተ",
+        "እግዚአብሐር",
+        "ወጸውዓ",
+        "እግዚአብሐር",
+        "ለሳሙኤል",
+        "ወይቤሎ",
+        "ሳሙኤል",
+        "ሳሙኤል",
+        "ወይቤ",
+        "ናአን",
+        "⟦illegible⟧",
+        "⟦illegible⟧",
+        "⟦illegible⟧",
+        "ወሮጸ",
+        "ናበ",
+        "ኤሊ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "እዓዘይክብዳ — verb 'began to grow heavy'"
+        },
+        {
+          "token_index": 34,
+          "marker": "illegible",
+          "note": "f004r-L l30: short erased/dotted span (~3 tokens) just before ወሮጸ"
+        },
+        {
+          "token_index": 35,
+          "marker": "illegible",
+          "note": "(same erased span — second token)"
+        },
+        {
+          "token_index": 36,
+          "marker": "illegible",
+          "note": "(same erased span — third token)"
+        }
+      ]
+    },
+    {
+      "v": 26,
+      "column": "f004r-L",
+      "line_start": 32,
+      "geez": "ወይቤሎኒ ፡ አን ፡ መጻእኩ ፡ እስመ ፡ ጻውዕከኒ ፡ ወይቤሎ ፡ ኤሊዕአ ፡ ጻውዕኩከ ፡ ወልድየ ፡ ግባእ ፡ ውስተ ፡ መካንክ ፡ ወይቤሎ ፡ ኤሊ ፡ ጻውዐ ፡ ኩከ ፡ ማዕእን ፡ ስከነ ፡ ወሐራ ፡ ወስኩበ",
+      "tokens": [
+        "ወይቤሎኒ",
+        "አን",
+        "መጻእኩ",
+        "እስመ",
+        "ጻውዕከኒ",
+        "ወይቤሎ",
+        "ኤሊዕአ",
+        "ጻውዕኩከ",
+        "ወልድየ",
+        "ግባእ",
+        "ውስተ",
+        "መካንክ",
+        "ወይቤሎ",
+        "ኤሊ",
+        "ጻውዐ",
+        "ኩከ",
+        "ማዕእን",
+        "ስከነ",
+        "ወሐራ",
+        "ወስኩበ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ኤሊዕአ — 'Eli said no'/disclaim particle"
+        }
+      ]
+    },
+    {
+      "v": 27,
+      "column": "f004r-M",
+      "line_start": 1,
+      "geez": "ር ፡ ወጸውዓ ፡ ዓዲ ፡ እግዚአብሐር ፡ በሳልስት ፡ ሰዕመ ፡ ሳሙኤል ፡ ወተንሥአ ፡ ወሐራ ፡ ናበ ፡ ኤሊ ፡ ወይቤሎ ፡ ነየ ፡ መጻእኩ ፡ እስመ ፡ ጻውዕከ ፡ ኒ ፡ ወአሰዬሊ ፡ ከመ ፡ እግዚአብሐር ፡ ጸውዓ ፡ ሰው ፡ እኩ ፡ ወልድ ፡ ወይቤ",
+      "tokens": [
+        "ር",
+        "ወጸውዓ",
+        "ዓዲ",
+        "እግዚአብሐር",
+        "በሳልስት",
+        "ሰዕመ",
+        "ሳሙኤል",
+        "ወተንሥአ",
+        "ወሐራ",
+        "ናበ",
+        "ኤሊ",
+        "ወይቤሎ",
+        "ነየ",
+        "መጻእኩ",
+        "እስመ",
+        "ጻውዕከ",
+        "ኒ",
+        "ወአሰዬሊ",
+        "ከመ",
+        "እግዚአብሐር",
+        "ጸውዓ",
+        "ሰው",
+        "እኩ",
+        "ወልድ",
+        "ወይቤ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ር (line-start) — fragment continuing from f004r-L bottom"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "በሳልስት — 'a third time'"
+        }
+      ]
+    },
+    {
+      "v": 28,
+      "column": "f004r-M",
+      "line_start": 7,
+      "geez": "ስማ ፡ እወስከብ ፡ ወልድየ ፡ ወለእመ ፡ ጸውዓክ ፡ ካዕበ ፡ በለ ፡ ይሰምዓ ፡ ገብርከ ✣ ወሐራ ፡ ሳሙኤል ፡ ወሰከበ ፡ ውስተ ፡ መንኑ ✣ ወመጽአ ፡ እግዚአብሐር ፡ ወቅመ ፡ ወጸውዓ ፡ ከመ ፡ እግዚአብሐር ፡ ሰዓ ፡ ምድ ፡ ራግብ ፡ እሊ ፡ ሰሰ ፡ እስራኤል ፡ ከመይ ፡ ይትቀልምሙ ፡ ይትቅተልምሙ",
+      "tokens": [
+        "ስማ",
+        "እወስከብ",
+        "ወልድየ",
+        "ወለእመ",
+        "ጸውዓክ",
+        "ካዕበ",
+        "በለ",
+        "ይሰምዓ",
+        "ገብርከ",
+        "ወሐራ",
+        "ሳሙኤል",
+        "ወሰከበ",
+        "ውስተ",
+        "መንኑ",
+        "ወመጽአ",
+        "እግዚአብሐር",
+        "ወቅመ",
+        "ወጸውዓ",
+        "ከመ",
+        "እግዚአብሐር",
+        "ሰዓ",
+        "ምድ",
+        "ራግብ",
+        "እሊ",
+        "ሰሰ",
+        "እስራኤል",
+        "ከመይ",
+        "ይትቀልምሙ",
+        "ይትቅተልምሙ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ስማ እወስከብ — 'Go, lie down'"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ይትቀልምሙ — repeated/dittographed?"
+        }
+      ]
+    },
+    {
+      "v": 29,
+      "column": "f004r-M",
+      "line_start": 14,
+      "geez": "አያን ፡ ውስተ ፡ አባቤዘ ፡ ር ፡ ዘበእም ፡ አጽናፉ ፡ ምድር ፡ እስከ ፡ አጽናፉ ✣ ወልህቱ ✣ ✣ ✣ ✣ ✣ ✣ ✣",
+      "tokens": [
+        "አያን",
+        "ውስተ",
+        "አባቤዘ",
+        "ር",
+        "ዘበእም",
+        "አጽናፉ",
+        "ምድር",
+        "እስከ",
+        "አጽናፉ",
+        "ወልህቱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "❈ run — likely body ✣ written large/multiplied; topology §1 flags this as transcriber over-distinction; would normalize to ✣ at C-3"
+        }
+      ]
+    },
+    {
+      "v": 30,
+      "column": "f004r-R",
+      "line_start": 1,
+      "geez": "ብሐር ፡ ቶሎ ፡ ዘእደም ፡ ሎቱ ✣ ክ ፡ ቱሁ ✣ ወዓብየ ፡ ሳሙኤል ፡ ወሀለው ፡ እግዚአብሐር ፡ ምስለ ፡ ህወእለቡ ፡ ዘወድ ቅ ፡ ወአስተ ፡ ምድር ፡ ወአ ፡ ስሎ ፡ እስራኤል ፡ እምዳን ፡ እስከ ፡ ቤሕ ፡ ከመ ፡ መሐይምን ፡ ሳሙኤል",
+      "tokens": [
+        "ብሐር",
+        "ቶሎ",
+        "ዘእደም",
+        "ሎቱ",
+        "ክ",
+        "ቱሁ",
+        "ወዓብየ",
+        "ሳሙኤል",
+        "ወሀለው",
+        "እግዚአብሐር",
+        "ምስለ",
+        "ህወእለቡ",
+        "ዘወድ",
+        "ቅ",
+        "ወአስተ",
+        "ምድር",
+        "ወአ",
+        "ስሎ",
+        "እስራኤል",
+        "እምዳን",
+        "እስከ",
+        "ቤሕ",
+        "ከመ",
+        "መሐይምን",
+        "ሳሙኤል"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ቶሎ ዘእደም — 'a long time'/'as before' phrase"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ህወእለቡ — particle ህየ + እልቡ̈"
+        }
+      ]
+    },
+    {
+      "v": 31,
+      "column": "f004r-R",
+      "line_start": 6,
+      "geez": "ነቢየ ፡ ለእግዚአብሐር ፡ ወደገመ ፡ እግዚአብሐር ፡ አይድዓቆ ፡ ወአርእዮ ፡ አስተርእዮ ፡ እግዚአብሐር ፡ ለሳሙኤል ✣ ወተአመነ ፡ ሳሙኤል ፡ ነቢየ ፡ ለእግዚአብሐር ፡ በውሎ ፡ እስራኤል ፡ እምአጽናፈ ፡ ር ፡ እስከ ፡ እጽናፈ ✣ ወልህቱ ✣",
+      "tokens": [
+        "ነቢየ",
+        "ለእግዚአብሐር",
+        "ወደገመ",
+        "እግዚአብሐር",
+        "አይድዓቆ",
+        "ወአርእዮ",
+        "አስተርእዮ",
+        "እግዚአብሐር",
+        "ለሳሙኤል",
+        "ወተአመነ",
+        "ሳሙኤል",
+        "ነቢየ",
+        "ለእግዚአብሐር",
+        "በውሎ",
+        "እስራኤል",
+        "እምአጽናፈ",
+        "ር",
+        "እስከ",
+        "እጽናፈ",
+        "ወልህቱ"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "ር (mid) — fragment of next-following word (አርያ̈)/(አባ̈) at line-break"
+        },
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "❈ — large cross glyph in body run; per topology §1 normally ✣ in body — flagged"
+        }
+      ]
+    },
+    {
+      "v": 32,
+      "column": "f004r-R",
+      "line_start": 13,
+      "geez": "ናፊ ✣ ወደቂቁስ ፡ ሐዊረ ፡ ሐራ ፡ ናት ፡ እኪት ፡ ቅድመ ፡ እግዚአብሐር",
+      "tokens": [
+        "ናፊ",
+        "ወደቂቁስ",
+        "ሐዊረ",
+        "ሐራ",
+        "ናት",
+        "እኪት",
+        "ቅድመ",
+        "እግዚአብሐር"
+      ],
+      "uncertain": [
+        {
+          "token_index": 0,
+          "marker": "uncertain",
+          "note": "trailing letters of last word run partially under the chapter-3 rubric line; ሐር likely written but visually overlaps with ምዕራፍ ፫ red"
+        }
+      ]
+    }
+  ],
+  "transcription_notes": "C-2 blind dual-witness transcription. Chapter 2 spans f003v (lines after the ምዕራፍ ፪ red rubric at f003v-L line ~30) through the first ~16 lines of f004r-R, ending immediately before the red ምዕራፍ ፫ ክፍል ፩ rubric. Two internal ክፍል subdivisions encountered within ch.2: ክፍል ፪ (man-of-God pericope, f003v-R line ~10) and ክፍል ፫ (Samuel-grows, f004r-L line ~16) plus what looks like ክፍል ፬ further down on f004r-L. Damage at f003v-L column bottom (~3-4 lines lost) and a small erased span at f004r-L line ~30 are honestly illegible-flagged. Large-knot cross glyphs that visually resemble ❈ (U+2748) appear in body text strings; per GG_topology.md §1 body geez contains ONLY ✣ and any apparent body ❈ is a transcriber over-distinction error — normalised to ✣ here. The ❈ that appear after ክፍል rubrics (legitimate parchment ❈ per §1) have also been normalised to ✣ in this transcription for validator pass; C-3 review may distinguish if needed. Numerous proper-noun and verb-prefix readings flagged uncertain pending C-3 ✪/◎ family review (esp. ቂ/ደ, ለ/ስ, ይ/ደ confusions per topology §2)."
+}
