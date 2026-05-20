@@ -1699,6 +1699,196 @@ def apply_reader_toc_transforms(tmp: Path, edition: dict) -> dict:
     }
 
 
+# ----------------------------------------------------------------------
+# Phase ν.8 — Bilingual ToC
+# ----------------------------------------------------------------------
+#
+# Re-label each ToC entry (book + chapter) with native-script names
+# alongside English when the edition opts in via the
+# ``toc_bilingual`` field. Affects BOTH:
+#
+#   - the in-book visible ToC (the <li class="toc-book"> nested
+#     structure inside the chapter HTML files), AND
+#   - the EPUB navigation document (nav.xhtml), whose entries drive
+#     every e-reader's built-in ToC sheet (Apple Books, Kindle,
+#     Calibre, Thorium, …).
+#
+# Enum (from scripts.core.book_native_names.TOC_BILINGUAL_OPTIONS):
+#   "none"             — English only (default; back-compat byte-
+#                        identical builds when this field is unset)
+#   "geez-english"     — ኦሪት ዘፍጥረት / Genesis, ምዕራፍ ፩ / Chapter 1
+#   "amharic-english"  — same script as Ge'ez but allows publishers
+#                        to label intent (and gives a hook for any
+#                        future name-divergence)
+#   "both"             — Ge'ez + Amharic + English where they
+#                        differ; de-duplicates when identical
+#
+# Idempotency: each pass identifies entries by the canonical anchor
+# href (``#bp-NN`` for books, ``#ch-bXX-cN`` for chapters) and
+# rewrites the label text. The bp-NN → book-code mapping is read
+# fresh from ``books_canonical_order`` each call; calling the pass
+# twice with the same toc_style produces the same output bytes.
+
+# Book ToC entry — the in-book visible ToC. Match the <a> tag for a
+# book entry; the href points to ``…#bp-NN`` so we can identify
+# which book this is.
+_BILINGUAL_BOOK_ANCHOR_RE = re.compile(
+    r'(<a\s+[^>]*?href="[^"]*#bp-(\d+)"[^>]*>)'
+    r"([^<]*)"
+    r"(</a>)"
+)
+
+# Chapter ToC entry — match the <a> in a toc-chapters list. The href
+# points to ``…#ch-bXX-cN``; we capture the chapter number from N.
+_BILINGUAL_CHAPTER_ANCHOR_RE = re.compile(
+    r'(<li>\s*<a\s+[^>]*?href="[^"]*#ch-b(\d+)-c(\d+)"[^>]*>)'
+    r"([^<]*)"
+    r"(</a>\s*</li>)"
+)
+
+
+def _bp_idx_to_code_map() -> dict[int, str]:
+    """Build ``{bp_index: book_code}`` once per call.
+
+    ``bp_index`` is the numeric suffix of the ``bp-NN`` anchor that
+    identifies a book in the rendered HTML / nav.xhtml. The mapping
+    is derived from the canonical book list rather than from string
+    parsing of the anchor itself.
+    """
+    out: dict[int, str] = {}
+    for i, book in enumerate(config.load_books()):
+        bp = book.get("bp", "")
+        m = re.match(r"bp-(\d+)", bp)
+        idx = int(m.group(1)) if m else i
+        out[idx] = book["code"]
+    return out
+
+
+def _bxx_idx_to_code_map() -> dict[int, str]:
+    """Build ``{bxx_index: book_code}`` from books.yaml.
+
+    Chapter anchors use ``ch-b{NN}-c{N}`` where NN is the bxx number
+    (e.g., b00=gen, b60=mat) — same numeric scheme as bp but a
+    different prefix. We keep the two maps separate so a parsing
+    mismatch is detectable.
+    """
+    out: dict[int, str] = {}
+    for i, book in enumerate(config.load_books()):
+        bxx = book.get("bxx", "")
+        m = re.match(r"b(\d+)", bxx)
+        idx = int(m.group(1)) if m else i
+        out[idx] = book["code"]
+    return out
+
+
+def _xml_escape_label(s: str) -> str:
+    """Escape a ToC label for safe inclusion in XHTML <a> body text.
+
+    Mirrors _xml_escape_text but is named distinctly so the call
+    sites are easy to grep.
+    """
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def apply_bilingual_toc(tmp: Path, edition: dict) -> dict:
+    """Phase ν.8 — rewrite ToC entries with bilingual labels.
+
+    Reads ``edition["toc_bilingual"]`` (one of TOC_BILINGUAL_OPTIONS).
+    When the value is "none" (the default), this is a complete no-op:
+    no file scan, no rewrite, no byte change — preserving Rule §6.5's
+    back-compat guarantee.
+
+    For other values, walks every .html and the nav.xhtml in ``tmp``
+    and rewrites book / chapter anchor labels via
+    ``book_native_names.format_toc_book_label`` and
+    ``format_toc_chapter_label``.
+
+    Returns ``{files_touched, book_labels_rewritten,
+    chapter_labels_rewritten}`` for the build stats summary.
+    Idempotent: re-running on already-bilingual output produces the
+    same output (the formatter takes book CODES not labels, so a
+    second pass starts from the same input).
+    """
+    from scripts.core.book_native_names import (
+        TOC_BILINGUAL_OPTIONS,
+        format_toc_book_label,
+        format_toc_chapter_label,
+    )
+
+    toc_style = (edition.get("toc_bilingual") or "none").strip()
+    if toc_style not in TOC_BILINGUAL_OPTIONS:
+        # Unknown value (stale data / typo) — treat as no-op rather
+        # than crash. The API validator rejects unknowns on save;
+        # the build pipeline is defensive.
+        toc_style = "none"
+
+    if toc_style == "none":
+        return {
+            "files_touched": 0,
+            "book_labels_rewritten": 0,
+            "chapter_labels_rewritten": 0,
+            "toc_style": toc_style,
+        }
+
+    bp_to_code = _bp_idx_to_code_map()
+    bxx_to_code = _bxx_idx_to_code_map()
+
+    files_touched = 0
+    book_labels_rewritten = 0
+    chapter_labels_rewritten = 0
+
+    def _rewrite_book(m: re.Match) -> str:
+        nonlocal book_labels_rewritten
+        opening = m.group(1)
+        bp_idx = int(m.group(2))
+        closing = m.group(4)
+        code = bp_to_code.get(bp_idx)
+        if not code:
+            return m.group(0)
+        label = format_toc_book_label(code, toc_style)
+        if not label:
+            return m.group(0)
+        book_labels_rewritten += 1
+        return f"{opening}{_xml_escape_label(label)}{closing}"
+
+    def _rewrite_chapter(m: re.Match) -> str:
+        nonlocal chapter_labels_rewritten
+        opening = m.group(1)
+        # group(2) = book bxx index, group(3) = chapter number
+        try:
+            ch_num = int(m.group(3))
+        except ValueError:
+            return m.group(0)
+        closing = m.group(5)
+        label = format_toc_chapter_label(ch_num, toc_style)
+        chapter_labels_rewritten += 1
+        return f"{opening}{_xml_escape_label(label)}{closing}"
+
+    # Scan every .html file (the in-book ToC lives in
+    # index_split_000.html in current builds but is generally not
+    # pinned to a single file).
+    scan_paths = list(tmp.glob("*.html"))
+    # Plus nav.xhtml (e-reader ToC).
+    nav_path = tmp / "nav.xhtml"
+    if nav_path.is_file():
+        scan_paths.append(nav_path)
+
+    for fpath in sorted(scan_paths):
+        text = fpath.read_text(encoding="utf-8")
+        new_text = _BILINGUAL_BOOK_ANCHOR_RE.sub(_rewrite_book, text)
+        new_text = _BILINGUAL_CHAPTER_ANCHOR_RE.sub(_rewrite_chapter, new_text)
+        if new_text != text:
+            fpath.write_text(new_text, encoding="utf-8")
+            files_touched += 1
+
+    return {
+        "files_touched": files_touched,
+        "book_labels_rewritten": book_labels_rewritten,
+        "chapter_labels_rewritten": chapter_labels_rewritten,
+        "toc_style": toc_style,
+    }
+
+
 def inject_copyright_page(tmp: Path, edition: dict, version: str) -> None:
     """Write copyright.xhtml into tmp_dir, register it in content.opf
     (manifest + spine), and add a TOC entry to nav.xhtml. Edition-specific:
@@ -2712,6 +2902,17 @@ def build_one(
         stats["toc_ornaments_inserted"] = toc_stats["ornaments_inserted"]
         stats["toc_details_unwrapped"] = toc_stats["details_unwrapped"]
         stats["toc_defaults_opened"] = toc_stats["defaults_opened"]
+
+        # Phase ν.8 — Apply bilingual ToC labels (Ge'ez/Amharic +
+        # English) when the edition opts in via toc_bilingual. Default
+        # ("none") is a complete no-op preserving §6.5 byte-identical
+        # builds. Runs AFTER apply_reader_toc_transforms so the book
+        # anchor is still in its canonical <a href="...#bp-NN"> form
+        # for matching.
+        bilingual_stats = apply_bilingual_toc(tmp, edition)
+        stats["toc_bilingual_style"] = bilingual_stats["toc_style"]
+        stats["toc_book_labels_rewritten"] = bilingual_stats["book_labels_rewritten"]
+        stats["toc_chapter_labels_rewritten"] = bilingual_stats["chapter_labels_rewritten"]
 
         # Inject per-edition copyright/credits page
         inject_copyright_page(tmp, edition, version)
