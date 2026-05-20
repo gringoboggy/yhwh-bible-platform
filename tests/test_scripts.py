@@ -434,15 +434,31 @@ class TestBuildEdition:
     def test_resolve_for_real_editions_yaml(self):
         """The populated test data on each shipping edition must
         round-trip cleanly through the resolver. This catches typos
-        in the YAML or schema-vs-resolver drift."""
+        in the YAML or schema-vs-resolver drift.
+
+        τ.G.constitution.a (2026-05-20): standalone Bibles
+        (standalone-geez / standalone-amharic) carry empty
+        ``popup_languages_default`` by design — per
+        CLAUDE_PROJECT_RULES §1 their popups deliver an English
+        back-translation of the actual Ge'ez / Amharic wording via
+        ``popup_translation`` (geez-tewahedo-en / amharic-tewahedo-
+        en), not via parallel-language popups. So the non-empty
+        invariant only applies to non-standalone editions.
+        """
         from scripts.core import config
 
         config.load_editions.cache_clear()
         for ed in config.load_editions():
+            if ed.get("standalone"):
+                # Standalone Bibles deliver popups via popup_translation
+                # (the EN back-translation); popup_languages_default
+                # is intentionally [].
+                continue
             langs = self.mod._resolve_popup_languages(ed, "gen")
-            # Every shipping edition must resolve to a non-empty set
-            # (we deliberately populated each one). If they made it
-            # empty by accident, they'd ship blank popups.
+            # Every shipping multi-tradition edition must resolve to
+            # a non-empty set (we deliberately populated each one).
+            # If they made it empty by accident, they'd ship blank
+            # popups.
             assert langs, f"edition {ed['id']!r} resolves to no languages"
             # And every member must be a known language id.
             assert langs.issubset(set(self.mod.ALL_POPUP_LANGUAGES))
@@ -1137,7 +1153,9 @@ class TestMatrix:
         m = self.mod.compute_matrix()
         # Must include the 5 original editions plus the 4 ψ.7-A
         # additions (eastern-orthodox, anglican-bcp,
-        # lutheran-confessional, coptic-orthodox).
+        # lutheran-confessional, coptic-orthodox) plus the 2
+        # τ.G.constitution.a standalone Bibles (standalone-geez,
+        # standalone-amharic, 2026-05-20).
         expected = {
             "ethiopian-tewahedo",
             "catholic-study",
@@ -1148,6 +1166,8 @@ class TestMatrix:
             "anglican-bcp",
             "lutheran-confessional",
             "coptic-orthodox",
+            "standalone-geez",
+            "standalone-amharic",
         }
         assert set(m.enabled.keys()) == expected
         assert set(m.potential.keys()) == set(m.enabled.keys())
@@ -1650,8 +1670,10 @@ class TestEditionMeta:
     def test_customize_data_includes_editions(self):
         d = self.web.api_customize_data()
         assert "editions" in d
-        # 5 original + 4 ψ.7-A additions = 9
-        assert len(d["editions"]) == 9
+        # 5 original + 4 ψ.7-A additions = 9.
+        # τ.G.constitution.a (2026-05-20) added 2 standalone Bibles
+        # (standalone-geez + standalone-amharic) → 11.
+        assert len(d["editions"]) == 11
         for e in d["editions"]:
             for f in ("id", "title", "verse_popups", "verse_marker_glyph"):
                 assert f in e

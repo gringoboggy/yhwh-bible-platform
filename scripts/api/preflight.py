@@ -98,9 +98,20 @@ def _compute_preflight_uncached() -> dict:  # noqa: C901 — Tier-3 aggregator: 
 
     # 2. Main covers — every edition has its main cover image set
     #    AND that file exists on disk
+    #
+    # τ.G.constitution.a (2026-05-20): standalone Bibles
+    # (standalone-geez / standalone-amharic) are EXCLUDED from this
+    # check. Per CLAUDE_PROJECT_RULES §1 "Parallel-Bible end-state",
+    # standalone-Bible covers ship in a later τ.G.* phase (separate
+    # from the multi-tradition edition cover generator that closed
+    # at ω.38 C6). Carrying empty cover_image is the intended
+    # transitional state, not a preflight defect.
+    standalone_ids = {e["id"] for e in editions if e.get("standalone")}
     covers = api_covers()
     no_main, broken_main = [], []
     for ed_rec in covers["editions"]:
+        if ed_rec["edition_id"] in standalone_ids:
+            continue
         path = ed_rec["main_cover"]["path"]
         meta = ed_rec["main_cover"]["meta"]
         if not path:

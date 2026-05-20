@@ -185,7 +185,10 @@ class TestOmega19SchemaValidator:
 
         result = validate_editions()
         assert result["status"] == "ok", f"editions.yaml unexpected violations: {result['errors']}"
-        assert result["record_count"] == 9
+        # 9 multi-tradition editions + 2 standalone Bibles
+        # (standalone-geez + standalone-amharic, τ.G.constitution.a
+        # 2026-05-20) = 11.
+        assert result["record_count"] == 11
 
     def test_validate_kinds_passes_on_real_file(self):
         from scripts.validate_schemas import validate_kinds

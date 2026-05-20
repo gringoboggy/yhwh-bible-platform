@@ -215,8 +215,10 @@ class TestPsi7ANewBuiltInEditions:
         cls.matrix = matrix_mod.compute_matrix()
 
     def test_total_edition_count_is_nine(self):
-        # 5 existing + 4 new = 9
-        assert len(self.editions) == 9, f"expected 9 editions, found {len(self.editions)}"
+        # 5 original + 4 ψ.7-A additions = 9.
+        # τ.G.constitution.a (2026-05-20) added 2 standalone Bibles
+        # (standalone-geez, standalone-amharic) → 11.
+        assert len(self.editions) == 11, f"expected 11 editions, found {len(self.editions)}"
 
     def test_existing_editions_still_present(self):
         for ed_id in self.EXISTING_EDITIONS:
@@ -323,7 +325,9 @@ class TestPsi7ANewBuiltInEditions:
             assert "isbn" not in ed, f"{ed_id}: still has isbn field post-pivot"
 
     def test_new_editions_appear_in_api_matrix_response(self):
-        # End-to-end: api_matrix() should surface all 9 editions.
+        # End-to-end: api_matrix() should surface all 11 editions
+        # (9 multi-tradition + 2 standalone Bibles, per
+        # τ.G.constitution.a 2026-05-20).
         from scripts.core import matrix as matrix_mod
         from scripts.core import config
 
@@ -337,7 +341,7 @@ class TestPsi7ANewBuiltInEditions:
         ed_ids = {e["id"] for e in api["editions"]}
         for ed_id in self.NEW_EDITIONS:
             assert ed_id in ed_ids, f"{ed_id} missing from api_matrix() response"
-        assert len(api["editions"]) == 9
+        assert len(api["editions"]) == 11
 
 
 class TestPsi7BEditionTemplates:
