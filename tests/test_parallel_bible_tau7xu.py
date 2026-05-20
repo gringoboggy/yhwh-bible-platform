@@ -222,9 +222,31 @@ class TestTau7XU1enPy:
         assert (ch, v) == (1, 1)
         assert text
 
-    def test_geez_1en_not_created(self):
-        # D4-c — the Geʽez stream follows the Amharic stream.
-        assert not (GEEZ_TEWAHEDO / "1en.py").exists()
+    def test_geez_1en_created_at_tau6x2u(self):
+        # FLIPPED at τ.6.x.2.u (2026-05-20) per memory
+        # `feedback_share_pin_pattern`: the original D4-c "Geʽez
+        # follows Amharic at τ.6.x.2.j+" deferral pin was converted
+        # to a durable positive invariant when the Geʽez 1 Enoch
+        # ship landed 1en.py at ocr-tier3 with INGEST_PHASE
+        # τ.6.x.2.u — the FINAL book in the τ.6.x.2.* OT catchup
+        # queue (sir → 4ba → bar → wis → paz+bel → jubilees → 1en);
+        # drains the tenth (and final) EOTC-parallel block and
+        # CLOSES the parallel-column-catchup arc.
+        import ast
+
+        assert (GEEZ_TEWAHEDO / "1en.py").is_file(), "Geʽez 1en.py must EXIST after the τ.6.x.2.u catchup ship"
+        tree = ast.parse((GEEZ_TEWAHEDO / "1en.py").read_text(encoding="utf-8"))
+        consts = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(tree)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert consts.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert consts.get("INGEST_PHASE") == "τ.6.x.2.u"
+        assert consts.get("BOOK") == "1en"
+        assert consts.get("TRANSLATION") == "geez-tewahedo"
 
 
 # ─────────────────────────── coverage shape ────────────────────────

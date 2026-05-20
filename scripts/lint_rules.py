@@ -933,7 +933,11 @@ def check_render_coverage_no_regression() -> dict:
     expected sets.
     """
     expected_geez = {
+        "1en",  # τ.6.x.2.u — FINAL book of OT catchup queue (2026-05-20)
         "2es",
+        "4ba",  # τ.6.x.2.p
+        "bar",  # τ.6.x.2.q
+        "bel",  # τ.6.x.2.s
         "deu",
         "est",
         "ex",
@@ -941,16 +945,20 @@ def check_render_coverage_no_regression() -> dict:
         "jdg",
         "jdt",
         "jos",
+        "jub",  # τ.6.x.2.t
         "jud",  # τ.6.x.NT.a
         "lev",
         "mq1",
         "mq2",
         "mq3",
         "num",
+        "paz",  # τ.6.x.2.s
         "phm",  # τ.6.x.NT.a
         "psa",
         "rut",
+        "sir",  # τ.6.x.2.o
         "tob",
+        "wis",  # τ.6.x.2.r
     }
     expected_amharic = {
         "1en",

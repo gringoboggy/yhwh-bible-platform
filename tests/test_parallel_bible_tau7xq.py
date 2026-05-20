@@ -479,26 +479,24 @@ class TestTau7XQRZeroApiDeltaAndPriorPins:
         ):
             assert (AMHARIC_TEWAHEDO / f"{book}.py").is_file(), f"prior τ.7.x.* book {book} must persist"
 
-    def test_geez_bar_wis_paz_bel_jub_ingested_one_enoch_still_deferred(self):
-        """MIGRATED at the τ.6.x.2.t ship-time (2026-05-20) per memory
-        `feedback_share_pin_pattern` + the τ.6.x.2.j-s precedent.
+    def test_geez_bar_wis_paz_bel_jub_1en_ingested_catchup_complete(self):
+        """MIGRATED at the τ.6.x.2.u ship-time (2026-05-20) per memory
+        `feedback_share_pin_pattern` + the τ.6.x.2.j-t precedent.
         Originally asserted the Geʽez `bar.py` AND `wis.py` must NOT
         exist (τ.7.x.q was --lang amharic; D4-c deferral). τ.6.x.2.q
         flipped the `bar` half; τ.6.x.2.r flipped the `wis` half;
         τ.6.x.2.s flipped the Daniel-additions cluster paz+bel of
-        the eighth EOTC-parallel block; τ.6.x.2.t (the SIXTH ship of
-        the deuterocanon Geʽez catchup — opens the ninth EOTC-
-        parallel block with the Tewahedo-distinctive Jubilees /
-        Mäṣḥafä Kufāle) wrote the ocr-tier3 parallel-PDF Geʽez
-        jub.py. The `jub` half is now flipped to a durable positive
-        invariant (jub.py exists at ocr-tier3 with INGEST_PHASE
-        τ.6.x.2.t NOT τ.7.x.t). The `one_enoch` (1en — FINAL book in
-        the catchup queue) is the NEW deferred pin — to be flipped
-        at the next τ.6.x.2.* ship when the Geʽez 1 Enoch ship
-        drains the tenth (and final) EOTC-parallel block (per the
-        catchup queue: sir → 4ba → bar → wisdom → daniel-additions
-        → jubilees → 1 enoch). Susanna (sus) DEFERRED to τ.6.x.3
-        (not present in this PDF)."""
+        the eighth EOTC-parallel block; τ.6.x.2.t flipped the `jub`
+        half (Jubilees / Mäṣḥafä Kufāle — opens the ninth EOTC-
+        parallel block); τ.6.x.2.u (the SEVENTH and FINAL ship of
+        the deuterocanon Geʽez catchup) wrote the ocr-tier3 parallel-
+        PDF Geʽez 1en.py, draining the tenth (and final) EOTC-
+        parallel block and CLOSING the τ.6.x.2.* OT catchup queue
+        (sir → 4ba → bar → wisdom → daniel-additions → jubilees →
+        1 enoch). All FIVE halves now durable positive invariants:
+        bar at τ.6.x.2.q, wis at τ.6.x.2.r, paz/bel at τ.6.x.2.s,
+        jub at τ.6.x.2.t, 1en at τ.6.x.2.u (all ocr-tier3). Susanna
+        (sus) DEFERRED to τ.6.x.3 (not present in this PDF)."""
         import ast
 
         assert (GEEZ_TEWAHEDO / "bar.py").is_file(), "Geʽez bar.py must EXIST after the τ.6.x.2.q catchup ship"
@@ -570,10 +568,21 @@ class TestTau7XQRZeroApiDeltaAndPriorPins:
         assert constsjub.get("INGEST_PHASE") == "τ.6.x.2.t"
         assert constsjub.get("BOOK") == "jub"
         assert constsjub.get("TRANSLATION") == "geez-tewahedo"
-        # `one_enoch` (1en — FINAL book in the catchup queue) is the new deferred pin
-        assert not (GEEZ_TEWAHEDO / "1en.py").exists(), (
-            "Geʽez 1en.py must NOT exist yet — deferred to next τ.6.x.2.* ship"
-        )
+        # 1en half FLIPPED at τ.6.x.2.u — same durable positive invariant
+        # (FINAL book in the catchup queue — τ.6.x.2.* OT catchup arc CLOSED)
+        assert (GEEZ_TEWAHEDO / "1en.py").is_file(), "Geʽez 1en.py must EXIST after the τ.6.x.2.u catchup ship"
+        tree1en = ast.parse((GEEZ_TEWAHEDO / "1en.py").read_text(encoding="utf-8"))
+        consts1en = {
+            t.id: ast.literal_eval(n.value)
+            for n in ast.walk(tree1en)
+            if isinstance(n, ast.Assign)
+            for t in n.targets
+            if isinstance(t, ast.Name) and t.id in ("SOURCE_QUALITY", "INGEST_PHASE", "BOOK", "TRANSLATION")
+        }
+        assert consts1en.get("SOURCE_QUALITY") == "ocr-tier3"
+        assert consts1en.get("INGEST_PHASE") == "τ.6.x.2.u"
+        assert consts1en.get("BOOK") == "1en"
+        assert consts1en.get("TRANSLATION") == "geez-tewahedo"
 
     def test_tau7xo_tau7xp_pins_preserved(self):
         s = _source_yaml()
