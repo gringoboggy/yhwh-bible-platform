@@ -56,12 +56,18 @@
 
   4:
     GG:
-      folios: []
-      source_images: []
+      folios:
+        - f030r
+        - f030v
+      source_images:
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f030r.jpg
+        - GAPS/2_Kings/GG-00106/1-Kings/1-Kings_f030v.jpg
     CAM:
-      folios: []
-      views: []
-    status: pending
+      folios:
+        - f127v
+      views:
+        - GAPS/2_Kings/Cambridge-Add-1570-hires/MS-ADD-01570_f127v_1ki4_hires.jpg
+    status: calibrated
 
   5:
     GG:
