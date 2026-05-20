@@ -15,18 +15,19 @@
       "v": 1,
       "column": "f030r-R",
       "line_start": 17,
-      "geez": "ወሰሎምን፡ንጉሥ፡ነግሠ፡ሳዕለ፡ኹሉ✣እስራኤል✣",
+      "geez": "ወሰሎምን፡ንጉሥ፡ነግሠ፡ሳዕለ፡ኹሉ፡እስራኤል✣",
       "tokens": [
         "ወሰሎምን",
         "ንጉሥ",
         "ነግሠ",
         "ሳዕለ",
         "ኹሉ",
-        "✣",
         "እስራኤል",
         "✣"
       ],
-      "uncertain": []
+      "uncertain": [
+        "FIX-ROUND-6: removed phantom ✣ between ኹሉ and እስራኤል — parchment at 16x-100x with both autocontrast and color-preserving variants shows a black ፡ two-dot separator (same as other inter-word separators on this line), NOT a red rubric-cross; the second ✣ at end of v1 remains (genuine red rubric, confirmed by same-line color comparison). Token count v1: 8 → 7 (R6 cross-count audit, controller-verified)."
+      ]
     },
     {
       "v": 2,
