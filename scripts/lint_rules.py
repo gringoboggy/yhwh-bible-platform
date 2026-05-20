@@ -920,6 +920,71 @@ def check_atomic_writes() -> dict:
     }
 
 
+def check_manuscript_witnesses_valid() -> dict:
+    """Audit U-belt — every committed witness JSON under
+    ``content/manuscript/*/calibration/`` must pass ``validate_witness``.
+
+    Belt-and-suspenders beyond the canonical writer (``write_witness``):
+    a direct edit to a witness JSON that drifts from the canonical
+    schema (custom uncertain markers, ``✣`` in tokens, extra top-level
+    keys, illegible-bijection violations) is silent until the at-scale
+    driver or a downstream consumer hits it. This check makes that
+    drift a pre-commit failure.
+
+    The 1Ki4 schema-rot incident (08 review markers + ✣ tokens that
+    needed a one-shot driver to collate) was exactly this drift class.
+    After write_witness shipped + 1Ki4 was migrated, this check pins
+    the canonical-schema invariant for the future.
+    """
+    import json as _json
+    from scripts.core.manuscript_records import validate_witness
+
+    cal_glob = REPO / "content" / "manuscript"
+    violations: list[dict] = []
+    files_checked = 0
+    for witness_path in sorted(cal_glob.glob("*/calibration/*_witness*.json")):
+        files_checked += 1
+        try:
+            d = _json.loads(witness_path.read_text(encoding="utf-8"))
+        except Exception as e:
+            violations.append(
+                {
+                    "file": str(witness_path.relative_to(REPO)).replace("\\", "/"),
+                    "error": f"unreadable: {e}",
+                }
+            )
+            continue
+        ok, errs = validate_witness(d)
+        if not ok:
+            violations.append(
+                {
+                    "file": str(witness_path.relative_to(REPO)).replace("\\", "/"),
+                    "error": "; ".join(errs[:5]) + ("; …" if len(errs) > 5 else ""),
+                }
+            )
+
+    if not violations:
+        return {
+            "id": "manuscript_witnesses",
+            "name": "Manuscript witnesses canonical-schema",
+            "status": "pass",
+            "message": f"all {files_checked} committed witness JSON(s) validate ok=True",
+            "violations": [],
+        }
+    return {
+        "id": "manuscript_witnesses",
+        "name": "Manuscript witnesses canonical-schema",
+        "status": "fail",
+        "message": (
+            f"{len(violations)}/{files_checked} witness JSON(s) fail "
+            "validate_witness — use scripts.core.manuscript_records."
+            "write_witness() to write witnesses (it derives canonical "
+            "tokens + validates before writing)"
+        ),
+        "violations": violations,
+    }
+
+
 # ----------------------------------------------------------------------
 # Runner
 # ----------------------------------------------------------------------
@@ -1000,6 +1065,8 @@ ALL_CHECKS = {
     "external_http": check_external_http,
     # ω.15 plan-coherence tier
     "plan_coherence": check_plan_coherence,
+    # Audit-U belt — canonical-schema invariant for manuscript witnesses
+    "manuscript_witnesses": check_manuscript_witnesses_valid,
 }
 
 

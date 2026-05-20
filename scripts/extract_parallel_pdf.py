@@ -861,6 +861,151 @@ RUTH_VERSE_COUNTS = {
 # Total Ruth verses = 85 (KJV/Hebrew Masoretic + LXX agreement).
 
 
+# τ.6.x.4 — Samuel + Kings verse-count floors for the manuscript-collation
+# track (NOT for OCR renumber; the manuscript marathon produces verses
+# already spine-aligned via mc.load_kjv_skeleton). These floors exist as
+# Phase-3 render scaffolding: the test harness pins
+#  ``BOOK_VERSE_COUNTS[ch] == len(load_kjv_skeleton(book, ch))`` so
+# accidental drift between the floor data and the KJV skeleton is caught
+# at commit time.
+#
+# Counts = KJV / Masoretic enumeration (the canonical ceiling). The
+# Ethiopic "Books of Reigns" recension MAY occasionally produce shorter
+# chapters (per design spec §6 line 207-212); the floor here is the
+# ceiling, not a per-build pass/fail floor — manuscript chapters with
+# fewer verses than the floor are documented as recensional minuses
+# in the apparatus (lacuna-honesty contract), not failed against this
+# count.
+#
+# Added at audit U-belt 2026-05-20 as Stage-2.1 scaffolding so that
+# when the Kings marathon completes (47 chapters calibrated) and the
+# Samuel marathon resumes + completes (55 chapters calibrated), the
+# Phase-3 render path (`geez-tewahedo/{1ki,2ki,1sa,2sa}.py`) is one
+# generator-script run away rather than a stop-to-collect-floor-data
+# wait.
+FIRST_SAMUEL_VERSE_COUNTS = {
+    1: 28,
+    2: 36,
+    3: 21,
+    4: 22,
+    5: 12,
+    6: 21,
+    7: 17,
+    8: 22,
+    9: 27,
+    10: 27,
+    11: 15,
+    12: 25,
+    13: 23,
+    14: 52,
+    15: 35,
+    16: 23,
+    17: 58,
+    18: 30,
+    19: 24,
+    20: 42,
+    21: 15,
+    22: 23,
+    23: 29,
+    24: 22,
+    25: 44,
+    26: 25,
+    27: 12,
+    28: 25,
+    29: 11,
+    30: 31,
+    31: 13,
+}
+# Total 1 Samuel verses = 810 (31 chapters; KJV/Masoretic enumeration).
+
+SECOND_SAMUEL_VERSE_COUNTS = {
+    1: 27,
+    2: 32,
+    3: 39,
+    4: 12,
+    5: 25,
+    6: 23,
+    7: 29,
+    8: 18,
+    9: 13,
+    10: 19,
+    11: 27,
+    12: 31,
+    13: 39,
+    14: 33,
+    15: 37,
+    16: 23,
+    17: 29,
+    18: 33,
+    19: 43,
+    20: 26,
+    21: 22,
+    22: 51,
+    23: 39,
+    24: 25,
+}
+# Total 2 Samuel verses = 695 (24 chapters; KJV/Masoretic enumeration).
+
+FIRST_KINGS_VERSE_COUNTS = {
+    1: 53,
+    2: 46,
+    3: 28,
+    4: 34,
+    5: 18,
+    6: 38,
+    7: 51,
+    8: 66,
+    9: 28,
+    10: 29,
+    11: 43,
+    12: 33,
+    13: 34,
+    14: 31,
+    15: 34,
+    16: 34,
+    17: 24,
+    18: 46,
+    19: 21,
+    20: 43,
+    21: 29,
+    22: 53,
+}
+# Total 1 Kings verses = 816 (22 chapters; KJV/Masoretic enumeration).
+
+SECOND_KINGS_VERSE_COUNTS = {
+    1: 18,
+    2: 25,
+    3: 27,
+    4: 44,
+    5: 27,
+    6: 33,
+    7: 20,
+    8: 29,
+    9: 37,
+    10: 36,
+    11: 21,
+    12: 21,
+    13: 25,
+    14: 29,
+    15: 38,
+    16: 20,
+    17: 41,
+    18: 37,
+    19: 37,
+    20: 21,
+    21: 26,
+    22: 20,
+    23: 37,
+    24: 20,
+    25: 30,
+}
+# Total 2 Kings verses = 719 (25 chapters; KJV/Masoretic enumeration).
+
+# Combined Samuel + Kings = 3040 verses across 102 chapters — the
+# canonical ceiling for the τ.6.x.4 manuscript-collation track's
+# Phase-3 render scope.
+
+
 # τ.7.x.i — Canonical Psalter verse counts under LXX/Tewahedo
 # enumeration (151 Psalms, ~2551 total verses). The Tewahedo Psalter
 # inherits the LXX numbering (so LXX Psalm 9 = Hebrew Psalms 9+10

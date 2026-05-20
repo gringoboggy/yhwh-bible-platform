@@ -2,7 +2,7 @@
 
 <!-- TRACKER-STATE: active -->
 
-> Marker stays `active`: τ.6.x.4.c Kings marathon is the parent in-flight task (43 chapters pending). The audit + matrix upgrades (U1+U2+U4) shipped 2026-05-20 inside this marathon — see the 2026-05-20 RESUME POINT block below + the CHANGELOG entry — but the marathon itself continues.
+> Marker stays `active`: τ.6.x.4.c Kings marathon is the parent in-flight task (43 chapters pending). Two audit-driven ship batches landed inside this marathon on 2026-05-20 — see the RESUME POINT block + CHANGELOG. First batch: U1 canonical writer + U2 1Ki4 schema migration + U4 chapter classifier. Follow-on batch: U5 topology files + U9 AMBIGUOUS rule + U10 witness-validation lint + U11 MARATHON_LEDGER + Stage-2.1 verse-count floors + Samuel classifier coverage. Marathon continues; next pending chapter = `1ki:5`.
 
 ## ➤➤➤ ACTIVE — τ.6.x.4.c KINGS dual-manuscript collation + render MARATHON (started 2026-05-17)
 

@@ -31,15 +31,27 @@ known-hard chapters), not gating.
 
 from __future__ import annotations
 
-# Known list / regnal-frame chapters in Kings. Everything not in these sets
-# defaults to NARRATIVE.
+# Known list / regnal-frame chapters in Kings + Samuel. Everything not in
+# these sets defaults to NARRATIVE. Samuel coverage added at audit U-belt
+# 2026-05-20; same scribal hands (GG-00106 + Cambridge Add. 1570) so the
+# class-specific screens carry over directly when the Samuel marathon runs.
 _LIST_CHAPTERS: dict[str, set[int]] = {
     "1ki": {4},  # officer registry + comparative wisdom names
+    "2sa": {
+        8,  # David's victories + officers list vv.16-18
+        20,  # narrative tail + officers list vv.23-26
+        23,  # mighty men list vv.8-39 (heaviest name-fidel density in Samuel)
+    },
 }
 
 _REGNAL_FRAME_CHAPTERS: dict[str, set[int]] = {
     "1ki": {15, 16},  # Rehoboam/Abijam → Jeroboam/Nadab/Baasha/Elah/Zimri/Omri/Ahab
     "2ki": {13, 14, 15, 16, 17},  # divided-kingdom synchronistic frames + Samaria's fall
+    "1sa": {
+        13,  # Saul's first regnal frame + war with Philistines
+        14,  # Jonathan's exploit + Saul's family list (14:49-52)
+        15,  # Saul + Amalek war regnal frame
+    },
 }
 
 _NARRATIVE_SCREENS = [
