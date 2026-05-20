@@ -251,6 +251,61 @@ standalone editions → finalize sources → English back-translation
 NOT pull them forward. Full spec:
 `dev/SCOPE_2026-05-16-parallel-bible-standalone-bibles.md`.
 
+### Self-upgrading matrix rule (codified at audit U-belt 2026-05-20)
+
+**When a step unlocks the next step, the next step is responsible for
+upgrading its own plan/tools BEFORE executing.** The matrix is
+self-evolving — it doesn't wait for the next session to add the lesson.
+
+Concrete triggers + responses (the canonical examples; the rule
+generalizes to ANY future unlock):
+
+- **Found a new failure class** during C-3/C-6 review? → at C-9 close,
+  the closing reviewer APPENDS the class to the relevant section of
+  `content/manuscript/_reviewer_context/{GG,CAM}_topology.md` AND
+  (if pattern-detectable) adds the detector to
+  `scripts/core/manuscript_self_check.py`'s screen list — so the
+  NEXT chapter inherits the lesson without re-discovery (METHOD
+  NOTE 3 last bullet).
+- **Found a new chapter complexity class** beyond NARRATIVE/LIST/
+  REGNAL_FRAME (e.g., POETRY, APOCALYPSE, EPISTLE)? → extend
+  `scripts/core/manuscript_chapter_class.py` BEFORE running the
+  first chapter of the new class; add the class to
+  `_LIST_CHAPTERS` / equivalent or create a new class block;
+  pin via test.
+- **Found a new provenance tier** (a new source quality you want to
+  ship)? → register it in `scripts/core/provenance_tiers.TIERS`
+  BEFORE shipping a book that uses it; the
+  `provenance_tier_known` lint check will fail otherwise.
+- **Found a new outside-repo dependency**? → either move it INSIDE
+  the repo (and add to `.gitignore` if large) OR document its
+  external location in `dev/CLAUDE_PROJECT_RULES.md`. As of
+  2026-05-20 audit, GAPS/ is the canonical example: moved INSIDE
+  (1 GB; gitignored) for backup self-containment.
+- **Found a new track** for production rendering (a new source of
+  Bible-text material)? → extend `scripts/render_coverage.py`
+  with the track's coverage class; extend
+  `scripts/core/canonical_verse_counts.CANONICAL_BOOKS` if the
+  track produces books with KJV skeletons; ship a design spec
+  under `docs/superpowers/specs/`.
+- **Found a stale METHOD NOTE or rule**? → fix it IN THE PLAN at
+  the same commit, with the reason in the CHANGELOG (don't leave
+  the contradiction for the next session — the bootstrap triad
+  is read fresh every session and contradictions cost orientation
+  time).
+- **Found that a test/lint check would have caught the defect
+  earlier**? → add the test/lint check at the same commit; the
+  "defect found ≠ defect prevented" pattern is the systematic-
+  debugging "fix the root cause" rule applied at the meta level.
+
+**The rule's general form:** every step that unlocks the next step
+ALSO upgrades the matrix so the next step starts BETTER than this
+one did. Documentation, helpers, lint pins, tier registry, plan
+METHOD NOTES — all are extensible at C-9 (or at the equivalent
+ship-close moment in non-marathon tracks). The next session's first
+action should be reading the upgraded matrix, not re-discovering
+yesterday's lesson.
+
 ## 2. Universal principles (from SCOPE_2026-05-08.md, carried verbatim from 05-07)
 
 1. **Fully customizable.** Every UI element, symbol, marker, kind

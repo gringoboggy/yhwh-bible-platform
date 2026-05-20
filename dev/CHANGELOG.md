@@ -92,7 +92,7 @@ User asked: "step back and look at the WHOLE project scope and everything needed
 | Track | Books | Current status | Audit-U-belt readiness | Source |
 |---|---|---|---|---|
 | A. Manuscript collation | 1sa, 2sa, 1ki, 2ki (4) | Kings in flight 4/47; Samuel kickoff-ready 51 pending | ✅ FULL (U1-U12) | GG-00106 + Cambridge Add. 1570 |
-| B. Patrologia ingest | 1ch, 2ch, ezr, neh, job (5) | PDFs on disk; design spec shipped today | ✅ scaffolding + provenance tier + spec | PO 2/9/13/23 |
+| B. Patrologia ingest | 1ch, 2ch, ezr, neh, job (5 books in 4 PDFs) | PDFs on disk; design spec shipped today | ✅ scaffolding + provenance tier + spec | PO 2/9/13/23 |
 | C. Parallel-PDF Ge'ez catchup | sir, pro, isa, jer, etc. (~25) | Paused at τ.6.x.2.o Sirach | ✅ canonical_verse_counts + existing extract_parallel_pdf | parallel-Bible-EOTC PDF |
 | D. Amharic NT cadence | mat-rev (27) | Paused; never started for NT | ✅ canonical_verse_counts (27/27 resolve) + chapter classifier extensible | parallel-Bible-EOTC PDF (NT) |
 | E. NT Ge'ez | mat-rev (27) | Not started; source TBD | ⏳ same scaffolding as D once source identified | TBD |
@@ -102,6 +102,32 @@ User asked: "step back and look at the WHOLE project scope and everything needed
 **Fourth-ship test deltas:** +5 TestCoverageReportShape/GeezTewahedoCoverage/RunAllExitContract for render_coverage + 10 TestCanonicalCoverage/KnownBookCounts/CachingBehavior for canonical_verse_counts = **+15 new tests**. Combined session total = **+67 new tests** (12+19+21+15). Lint **14·0·0**. Manuscript regression still 546/0; render_coverage + canonical_verse_counts 15/15. Ruff clean. 1 audit-discovery: Psalms's `digitized-critical-edition` tier was undeclared in any registry — now formalized.
 
 **The whole project's "complete the project" path is now mapped + scaffolded.** Five tracks can run in parallel; each has a canonical verse-count floor ready; each has a provenance tier; the render-coverage tool surfaces real-time progress. Next sessions can pick any track (or run multiple) without prep-work overhead.
+
+### Fifth ship 2026-05-20 — Final audit + GAPS-into-repo + self-upgrade rule + multi-track runbook
+
+User asked: "full audit of our new matrix. thorough. make sure nothing is out of order. make sure no garbage is leftover... commit with everything ready to run all 5 tracks at the same time on my next run" + "any folder / file being used for the project [should be] somewhere in the repository" + "make sure that any step that unlocks a new step... that next step be as ready for the incoming information as possible." → final audit + structural cleanup + self-evolution rule:
+
+- **METHOD NOTES reordered to natural numerical order (3, 4, 5).** They had landed in reverse-insertion order (5, 4, 3) in the plan template. Reordered so the plan reads 3 (chapter classes) → 4 (AMBIGUOUS-PARCHMENT convergence) → 5 (hybrid cadence). METHOD NOTE 3 now also cross-references METHOD NOTE 4's escalation enforcement; METHOD NOTE 4's path-3 references `acquire_cudl_master.py` directly.
+
+- **GAPS/ source-images folder moved INSIDE the repo.** Was at `C:\Users\bogda\Documents\YHWH-v2.4-full\GAPS\` (sibling to project root, 1 GB across 5 sub-folders for Samuel/Kings/Chronicles/Ezra-Neh/Esther/Job). Moved to `<repo>/GAPS/` and added to `.gitignore` (the 1 GB of binary images stays out of git history but inside the working tree for backup-self-containment). Reference paths in plan + design specs updated; immutable witness JSONs left at their historical GAPS/* relative paths (they now actually resolve when cwd=repo root, where previously they were descriptive-only). Audit confirmed: only `GAPS/` was externally-located-and-used; `_review_crops/`, `yhwh-book-covers-batch1/`, `psalmslinks.pdf` are external but unused.
+
+- **`dev/MULTI_TRACK_RUNBOOK_2026-05-20.md` shipped.** Single-page kickoff guide for every track (A. Manuscript / B. Patrologia / C. Parallel-PDF Ge'ez / D. Amharic NT / E. NT Ge'ez source-TBD). Per-track: status + books + design-spec link + kickoff command + parallel-safety note + watch-for items. Includes cross-track conventions (commit/lint/env), quick-status commands, baseline metrics. The bootstrap-triad addendum: any agent resuming the project reads this file + the existing triad and immediately knows which track to start.
+
+- **Self-upgrading-matrix rule codified in `dev/CLAUDE_PROJECT_RULES.md` §1.5** (new section before §2). When a step unlocks the next step, the next step is responsible for upgrading its own plan/tools BEFORE executing. Concrete triggers: new failure class → topology file + self_check; new chapter complexity class → manuscript_chapter_class; new provenance tier → provenance_tiers.TIERS; new outside-repo dependency → move inside + gitignore OR document; new track → render_coverage + canonical_verse_counts + design spec; stale METHOD NOTE → fix at the same commit; defect that should have been caught earlier → add the test/lint pin at the same commit. The matrix is self-evolving — the next session reads the upgraded matrix, not re-discovers yesterday's lesson.
+
+- **Final audit verifications:** git clean (no stray temp/scratch); lint 14·0·0; 113 manuscript+canonical+render tests green; all 13 universal helpers import cleanly; 5 tracks runbook-ready (Track A 8/102 chapters calibrated, Track B 4 PDFs ready, Track C resume-ready paused at Sirach, Track D 27/27 NT canonical floors resolve, Track E source-TBD scaffolding ready).
+
+**Session total ship counts:**
+- 5 audit-driven ships in this session
+- 4 commits before this one (092afd3, 4646560, a782f56 + the manuscript-progress commits before audit started)
+- **+67 new tests** (12 + 19 + 21 + 15 across the four prior ships)
+- **+2 lint checks** (manuscript_witnesses + render_coverage + provenance_tier on top of pre-existing 11)
+- **Lint suite went from 11·0·0 → 14·0·0**
+- 13 new helper modules + tools (manuscript_records.write_witness, manuscript_chapter_class, manuscript_self_check, manuscript_rounds, canonical_verse_counts, provenance_tiers, acquire_cudl_master, render_coverage, MARATHON_LEDGER.md, MULTI_TRACK_RUNBOOK.md, GG_topology.md, CAM_topology.md, patrologia-ingest design spec)
+- GAPS/ moved inside the repo (1 GB; gitignored)
+- Self-upgrading-matrix rule codified
+
+**Audit verdict: CLEAN.** Everything ready to run all 5 tracks in parallel on the next session.
 
 ---
 
